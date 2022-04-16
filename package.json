@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -58,7 +58,7 @@
     "update": "yarn add @juki-team/commons",
     "rollup:build": "rollup -c",
     "rollup:watch": "rollup -cw",
-    "git:push": "node -p \"require('./package.json').version\" | git commit -F - && git push origin main",
+    "git:push": "git add . && node -p \"require('./package.json').version\" | git commit -F - && git push origin main",
     "publish:git": "rm -rf docs && yarn storybook:build && rm -rf dist && yarn rollup:build && yarn publish --patch && yarn git:push"
   },
   "eslintConfig": {
