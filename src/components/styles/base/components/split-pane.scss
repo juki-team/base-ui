@@ -1,0 +1,107 @@
+.jk-split-pane {
+  display: flex;
+  width: 100%;
+  
+  .jk-split-first-pane, .jk-split-second-pane {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .jk-split-pane-divider {
+    border: none;
+    //border-radius: 2px;
+    //margin: 2px;
+    
+    &:hover {
+      box-shadow: var(--t-box-shadow-lg);
+    }
+    
+    // Preventing an image from being draggable or selectable without using JS
+    // https://stackoverflow.com/questions/12906789/preventing-an-image-from-being-draggable-or-selectable-without-using-js
+    user-drag: none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+  }
+  
+  &.column {
+    .closable-tab {
+      position: absolute;
+      bottom: 0;
+      background-color: var(--t-color-primary-light);
+      color: var(--t-color-white);
+      padding: 0 6px 0 2px;
+      border-radius: var(--border-radius-inline) var(--border-radius-inline) 0 0;
+      cursor: pointer;
+      
+      &:hover {
+        background-color: var(--t-color-primary-dark);
+      }
+      
+      .jk-icon {
+        //margin-right: var(--pad-xt);
+      }
+      
+      &.right {
+        right: var(--pad-m);
+      }
+    }
+  }
+  
+  &.dragging {
+    .jk-split-first-pane, .jk-split-second-pane {
+      pointer-events: none;
+    }
+  }
+  
+  &.column {
+    flex-direction: column;
+    
+    > .jk-split-pane-divider {
+      height: 8px;
+      background: var(--t-color-gray-6);
+      position: relative;
+      
+      &:before {
+        content: " ";
+        position: absolute;
+        top: 0;
+        left: calc(50% - 32px);
+        width: 64px;
+        height: 8px;
+        background: linear-gradient(to bottom, var(--t-color-gray-4) 25%, var(--t-color-gray-6) 25% 37.5%, var(--t-color-gray-4) 37.5% 62.5%, var(--t-color-gray-6) 62.5% 75%, var(--t-color-gray-4) 75%);
+        border-radius: var(--border-radius-md);
+      }
+    }
+    
+    &.dragging, > .jk-split-pane-divider {
+      cursor: row-resize;
+    }
+  }
+  
+  &.row {
+    > .jk-split-pane-divider {
+      width: 8px;
+      background: var(--t-color-gray-6);
+      position: relative;
+      
+      &:before {
+        content: " ";
+        position: absolute;
+        top: calc(50% - 32px);
+        left: 0px;
+        width: 8px;
+        height: 64px;
+        background: linear-gradient(to right, var(--t-color-gray-4) 25%, var(--t-color-gray-6) 25% 37.5%, var(--t-color-gray-4) 37.5% 62.5%, var(--t-color-gray-6) 62.5% 75%, var(--t-color-gray-4) 75%);
+        border-radius: var(--border-radius-md);
+      }
+    }
+    
+    &.dragging, > .jk-split-pane-divider {
+      cursor: col-resize;
+    }
+  }
+}
