@@ -1,0 +1,67 @@
+@import "../../abstracts/index";
+
+// TODO fix ant styles
+.ant-popover.ant-popover-placement-top {
+  .ant-popover-content {
+    .ant-popover-inner {
+      .ant-popover-inner-content {
+        flex-direction: column;
+        padding: var(--pad-xs) 0;
+        
+        .sketch-picker {
+          flex-direction: column;
+          width: min-content !important;
+          padding: 0 !important;
+          box-shadow: none !important;
+          border: none !important;
+          
+          > div:first-child {
+            width: 200px !important;
+            height: 200px !important;
+            padding: 0 !important;
+          }
+          
+          .flexbox-fix {
+            width: calc((var(--pad-xs) + var(--pad-xt)) * 14 + var(--pad-xt));
+            padding: var(--pad-xt) 0 0 var(--pad-xt) !important;
+            
+            &:nth-child(3), &:nth-child(2) {
+              > div {
+                margin-bottom: 0 !important;
+              }
+            }
+            
+            > div {
+              margin: 0 var(--pad-xt) var(--pad-xt) 0 !important;
+              
+              > div {
+                > input {
+                  border-radius: var(--border-radius-md);
+                  width: 100% !important;
+                  border: 1px solid;
+                  border-color: var(--t-color-shadow-light) !important;
+                  font-size: var(--pad-t) !important;
+                  
+                  &:focus {
+                    border: 1px solid !important;
+                    border-color: var(--t-color-shadow-dark) !important;
+                    outline: none;
+                  }
+                }
+                
+                > span {
+                  padding: 0 !important;
+                  font-size: var(--pad-t) !important;
+                }
+              }
+            }
+          }
+        }
+        
+        button.ant-btn:hover {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,66 @@
+// default font-weight: 400;
+// default font-family: "Inter", sans-serif;
+
+html, body {
+  font-family: "Inter", sans-serif;
+  font-weight: var(--weight-regular);
+  font-size: var(--text-m-size);
+  line-height: var(--text-m-height);
+  color: var(--t-color-black-2);
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// overwriting styles
+h1, h2, h3, h4, h5, h6 {
+  &:first-letter {
+    text-transform: capitalize;
+  }
+  
+  color: var(--t-color-primary);
+  font-weight: var(--weight-bold);
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+
+h6 {
+  font-size: 26px;
+  line-height: 42px;
+}
+
+h5 {
+  font-size: var(--pad-l);
+  line-height: 42px;
+}
+
+h4 {
+  font-size: 30px;
+  line-height: 48px;
+}
+
+h3 {
+  font-size: var(--pad-xl);
+  line-height: 48px;
+}
+
+h2 {
+  font-size: 34px;
+  line-height: 54px;
+}
+
+h1 {
+  font-size: var(--pad-h);
+  line-height: 54px;
+}
+
+p {
+  @extend .text-m;
+  margin: unset;
+}
+
+ul {
+  margin: unset;
+}

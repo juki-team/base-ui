@@ -8,7 +8,7 @@ import {
   JukiBaseUiProvider,
   ProgrammingLanguage,
   SubmissionRunStatus,
-} from '../../packages/base-ui';
+} from '../index';
 
 export default {
   title: 'Components/CodeRunnerEditor',

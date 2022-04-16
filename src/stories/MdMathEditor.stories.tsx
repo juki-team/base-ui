@@ -2,7 +2,7 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
 
-import { Button, JukiBaseUiProvider, MdMathEditor, MdMathEditorProps } from '../../packages/base-ui';
+import { Button, JukiBaseUiProvider, MdMathEditor, MdMathEditorProps } from '../index';
 
 export default {
   title: 'Components/Md Math Editor',

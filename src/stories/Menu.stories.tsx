@@ -17,8 +17,8 @@ import {
   SettingIcon,
   T,
   VerticalMenu,
-} from '../../packages/base-ui';
-import { SAMPLE_MD_CONTENT } from '../../packages/base-ui/src/components/MdMath/MdMathEditor/InformationButton/contants';
+} from '../index';
+import { SAMPLE_MD_CONTENT } from '../components/MdMath/MdMathEditor/InformationButton/contants';
 
 export default {
   title: 'Components/Menus',

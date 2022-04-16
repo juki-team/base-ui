@@ -1,0 +1,104 @@
+@import "../../abstracts/index";
+
+.jk-popover-overlay {
+  z-index: calc(var(--z-index-popover) - 1);
+}
+
+.jk-drawer-overlay {
+  z-index: calc(var(--z-index-drawer) - 1);
+}
+
+.jk-drawer-overlay, .jk-popover-overlay {
+  position: fixed;
+  height: var(--100VH);
+  width: 100vw;
+  top: 0;
+  left: 0;
+  
+  &:not(.transparent) {
+    background-color: var(--t-color-shadow-lightest);
+  }
+}
+
+.jk-drawer-layout {
+  position: fixed;
+  z-index: var(--z-index-drawer);
+  overflow: auto;
+  box-shadow: var(--t-box-shadow-lg);
+  background-color: var(--t-color-white);
+  
+  &.right, &.left {
+    top: 0;
+    height: var(--100VH);
+    max-width: 100vw;
+    
+    .jk-drawer-body {
+      height: 100%;
+    }
+  }
+  
+  &.right {
+    //right: -100%;
+    right: calc(-1 * var(--width-jk-drawer-layout));
+  }
+  
+  &.left {
+    //left: -100%;
+    left: calc(-1 * var(--width-jk-drawer-layout));
+  }
+  
+  &.top, &.bottom {
+    left: 0;
+    width: 100vw;
+    max-height: var(--100VH);
+    
+    .jk-drawer-body {
+      width: 100%;
+    }
+  }
+  
+  &.top {
+    //top: -100%;
+    top: calc(-1 * var(--height-jk-drawer-layout));
+  }
+  
+  &.bottom {
+    //bottom: -100%;
+    bottom: calc(-1 * var(--height-jk-drawer-layout));
+  }
+  
+  &.open {
+    &.right {
+      right: 0;
+    }
+    
+    &.top {
+      top: 0;
+    }
+    
+    &.left {
+      left: 0;
+    }
+    
+    &.bottom {
+      bottom: 0;
+    }
+    
+    @include sm {
+      //top: 0;
+      //left: 0;
+      //height: var(--100VH);
+      //width: 100vw;
+    }
+  }
+  
+  .jk-drawer-close-button {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: var(--pad-xt);
+    line-height: inherit;
+    color: var(--t-color-gray-3);
+  }
+}

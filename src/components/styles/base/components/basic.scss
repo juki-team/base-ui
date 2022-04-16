@@ -1,0 +1,10 @@
+@import "../../abstracts/index";
+
+.jk-transition {
+  opacity: 0 !important;
+  @include transition(opacity);
+  
+  &.jk-transition-open {
+    opacity: 1 !important;
+  }
+}

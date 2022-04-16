@@ -38,15 +38,16 @@ import {
   MailIcon,
   MailOpenedIcon,
   MenuIcon,
+  NotificationProvider,
   NotificationsActiveIcon,
   NotificationsIcon,
   NotificationsPausedIcon,
   PasteIcon,
-  NotificationProvider,
   PeopleIcon,
   PersonIcon,
   PhoneIcon,
   PlaceIcon,
+  PlayIcon,
   QuestionAnswerIcon,
   ReloadIcon,
   SaveIcon,
@@ -58,8 +59,8 @@ import {
   ThumbUpIcon,
   TodayIcon,
   UnorderedListIcon,
-  ViewModuleIcon, PlayIcon,
-} from '../../packages/base-ui';
+  ViewModuleIcon,
+} from '../index';
 
 export default {
   title: 'Components/General/Icons',

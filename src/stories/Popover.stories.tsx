@@ -1,7 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { JukiBaseUiProvider, Popover, PopoverProps } from '../../packages/base-ui';
+import { JukiBaseUiProvider, Popover, PopoverProps } from '../index';
 
 export default {
   title: 'Components/Popover',

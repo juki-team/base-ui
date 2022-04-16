@@ -1,0 +1,215 @@
+@import "../../abstracts/index";
+
+.jk-date-picker-layout {
+  .jk-select-layout {
+    .jk-select {
+      color: var(--t-color-primary);
+      font-weight: var(--weight-semi-bold);
+      text-align: center;
+      border-color: transparent;
+      
+      .jk-icon {
+        @include transition(opacity);
+        opacity: 0;
+      }
+    }
+    
+    &:hover {
+      .jk-icon {
+        opacity: 1;
+      }
+    }
+  }
+  
+  .jk-day-picker-header {
+    width: 300px;
+    flex-wrap: nowrap;
+    
+    .years-label {
+      width: 100px;
+      
+      > div {
+        width: 42px;
+        text-align: center;
+      }
+    }
+  }
+  
+  .jk-date-picker-grid-dates, .jk-date-picker-grid-months, .jk-date-picker-grid-years {
+    > div.jk-row {
+      flex-wrap: nowrap;
+      margin: 4px 0;
+    }
+    
+    .date, .month, .year {
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      
+      > div {
+        z-index: 1;
+      }
+      
+      &.selected {
+        > div {
+          background-color: var(--t-color-primary);
+          border-radius: var(--pad-t);
+          color: var(--t-color-white);
+          font-weight: var(--weight-semi-bold);
+        }
+      }
+      
+      &:not(.disabled) {
+        outline: none;
+        
+        > div:hover {
+          background-color: var(--t-color-primary-light);
+          border-radius: var(--pad-t);
+          color: var(--t-color-white);
+        }
+      }
+      
+      &:not(.disabled):focus-visible {
+        outline: none;
+        
+        > div {
+          background-color: var(--t-color-primary-light);
+          border-radius: var(--pad-xt);
+          color: var(--t-color-white);
+        }
+      }
+      
+      &.selected + .selected {
+        &:before {
+          content: "";
+          //left: -24px;
+          top: 0;
+          position: absolute;
+          //width: 45px;
+          height: 24px;
+          background-color: var(--t-color-primary);
+        }
+      }
+      
+      &.disabled {
+        > div {
+          color: var(--t-color-gray-4);
+          cursor: not-allowed;
+          background-color: var(--t-color-gray-6);
+          border-radius: var(--pad-t);
+        }
+      }
+      
+      &.disabled + .disabled {
+        &:before {
+          content: "";
+          //left: -24px;
+          top: 0;
+          position: absolute;
+          //width: 45px;
+          height: 24px;
+          background-color: var(--t-color-gray-6);
+        }
+      }
+    }
+  }
+  
+  .jk-date-picker-grid-dates, .jk-date-picker-days {
+    width: 300px;
+    
+    .date {
+      &.is-next-month, &.is-previous-month {
+        color: var(--t-color-gray-4);
+        font-weight: var(--weight-regular);
+        
+        &.disabled {
+          color: var(--t-color-gray-5);
+        }
+      }
+      
+      > div {
+        width: 24px;
+      }
+      
+      &::before {
+        left: -28px;
+        width: 40px;
+      }
+    }
+  }
+  
+  .jk-date-picker-grid-months, .jk-month-picker-header, .jk-date-picker-grid-years, .jk-year-picker-header {
+    width: 320px;
+    
+    .month, .year {
+      > div {
+        width: 100px;
+      }
+      
+      &::before {
+        left: -18px;
+        width: 32px;
+      }
+    }
+  }
+  
+  .jk-date-picker-time {
+    width: 300px;
+    flex-wrap: nowrap;
+    
+    &.only-time {
+      width: 230px;
+    }
+    
+    .jk-date-picker-grid-time {
+      
+      > div {
+        flex-wrap: nowrap;
+      }
+      
+      .jk-select-layout {
+        width: initial !important;
+        
+        .jk-select {
+          width: 42px;
+          padding: 0;
+          text-align: center;
+          margin: 0 4px;
+          @include transition(padding);
+          
+          .jk-icon {
+            top: 7px;
+            right: 2px;
+            width: var(--pad-xs);
+            height: var(--pad-xs);
+          }
+        }
+        
+        &:hover {
+          .jk-select {
+            padding: 0 14px 0 0;
+          }
+        }
+      }
+      
+      .jk-select-layout:last-child {
+        .jk-select {
+          width: 52px;
+        }
+      }
+      
+      .labels {
+        line-height: 18px;
+        
+        span {
+          text-align: center;
+          width: 50px;
+        }
+        
+        span:last-child {
+          width: 60px;
+        }
+      }
+    }
+  }
+}

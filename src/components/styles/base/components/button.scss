@@ -1,0 +1,184 @@
+@import "../../abstracts/index";
+
+button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-button-"], input[class^="jk-button-"] {
+  height: auto;
+  text-transform: uppercase;
+  position: relative;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  outline: none;
+  
+  .button-label {
+    flex: 1;
+  }
+  
+  &.small {
+    min-height: var(--pad-xl);
+    font-weight: var(--weight-semi-bold);
+    font-size: var(--text-s-size);
+    padding: 0 var(--pad-t);
+    gap: var(--pad-t);
+    
+    &.only-icon {
+      width: var(--pad-xl);
+    }
+    
+    .jk-icon {
+      line-height: var(--pad-s);
+      width: var(--pad-s);
+      height: var(--pad-s);
+    }
+  }
+  
+  &.regular {
+    min-height: var(--pad-h);
+    font-weight: var(--weight-semi-bold);
+    font-size: var(--text-m-size);
+    padding: 0 var(--pad-xs);
+    gap: var(--pad-xs);
+    
+    &.only-icon {
+      width: var(--pad-h);
+    }
+  }
+  
+  &.large {
+    min-height: var(--pad-xH);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-m-size);
+    padding: 0 var(--pad-s);
+    gap: var(--pad-s);
+    
+    &.only-icon {
+      width: var(--pad-xH);
+    }
+  }
+  
+  &.huge {
+    min-height: 64px;
+    font-weight: var(--weight-bold);
+    font-size: var(--text-xl-size);
+    padding: 0 var(--pad-m);
+    gap: var(--pad-m);
+    
+    &.only-icon {
+      width: 64px;
+    }
+  }
+  
+  &.only-icon {
+    padding: 0;
+    border-radius: 50%;
+    
+    .jk-icon {
+      margin: auto;
+    }
+  }
+  
+  &.loading {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  
+  &.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
+  &.block {
+    width: 100%;
+  }
+  
+  + button[class*="jk-button-"]:not(.block), + button[class^="jk-button-"]:not(.block) {
+    //margin-left: var(--pad-xt);
+  }
+  
+  + button[class*="jk-button-"].block, + button[class^="jk-button-"].block {
+    //margin-top: var(--pad-xt);
+  }
+  
+  &.error {
+    background-color: var(--t-color-error) !important;
+    border-color: transparent !important;
+    pointer-events: none;
+  }
+  
+  &.success {
+    background-color: var(--t-color-success) !important;
+    border-color: transparent !important;
+    pointer-events: none;
+  }
+  
+  &:not(.disabled):hover {
+    box-shadow: var(--t-box-shadow-sm);
+  }
+}
+
+.jk-button-primary, .jk-button-primary {
+  background-color: var(--t-color-primary);
+  border: 2px solid var(--t-color-primary);
+  color: var(--t-color-white);
+  
+  &:not(.disabled):hover {
+    background-color: var(--t-color-primary-dark);
+    border-color: var(--t-color-primary-dark);
+  }
+  
+  &:not(.disabled):active, &:not(.disabled):focus {
+    background-color: var(--t-color-primary-light);
+    border-color: var(--t-color-primary-light);
+  }
+}
+
+.jk-button-secondary, .jk-button-secondary {
+  background-color: var(--t-color-secondary);
+  border: 2px solid var(--t-color-secondary);
+  color: var(--t-color-white);
+  
+  &:not(.disabled):hover {
+    background-color: var(--t-color-secondary-dark);
+    border-color: var(--t-color-secondary-dark);
+  }
+  
+  &:not(.disabled):active, &:not(.disabled):focus {
+    background-color: var(--t-color-secondary-light);
+    border-color: var(--t-color-secondary-light);
+  }
+}
+
+.jk-button-text {
+  background-color: transparent;
+  border: 2px solid transparent;
+  color: inherit;
+  
+  &:not(.disabled):hover, &:not(.disabled):focus {
+    background-color: transparent;
+    border-color: transparent;
+    
+    span {
+      text-decoration: underline;
+    }
+  }
+  
+  * {
+    color: inherit;
+  }
+  
+  &:hover {
+    box-shadow: none !important;
+  }
+}
+
+.jk-button-outline, .jk-button-outline {
+  background-color: transparent;
+  border: 2px solid var(--t-color-primary);
+  color: inherit;
+  
+  &:not(.disabled):hover, &:not(.disabled):focus {
+    background-color: var(--t-color-primary-light);
+    border: 2px solid var(--t-color-primary-light);
+    color: var(--t-color-white);
+  }
+}

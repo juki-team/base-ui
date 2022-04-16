@@ -1,7 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { JukiBaseUiProvider, Tabs, TabsProps } from '../../packages/base-ui';
+import { JukiBaseUiProvider, Tabs, TabsProps } from '../index';
 
 export default {
   title: 'Components/Tabs',

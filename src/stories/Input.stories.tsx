@@ -10,7 +10,7 @@ import {
   MultiSelect as MultiSelectComponent,
   Select as SelectComponent,
   TextArea,
-} from '../../packages/base-ui';
+} from '../index';
 
 export default {
   title: 'Components/Input',

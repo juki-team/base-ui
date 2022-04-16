@@ -1,0 +1,66 @@
+.jk-icon {
+  display: inline-block;
+  
+  &.jk-icon-huge {
+    line-height: var(--pad-xL);
+    width: var(--pad-xL);
+    height: var(--pad-xL);
+  }
+  
+  &.jk-icon-large {
+    line-height: var(--pad-h);
+    width: var(--pad-h);
+    height: var(--pad-h);
+  }
+  
+  &.jk-icon-regular {
+    line-height: var(--pad-m);
+    width: var(--pad-m);
+    height: var(--pad-m);
+  }
+  
+  &.jk-icon-small {
+    line-height: 18px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  &.jk-icon-tiny {
+    line-height: var(--pad-t);
+    width: var(--pad-t);
+    height: var(--pad-t);
+  }
+  
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.jk-svg-image {
+  //display: block;
+  width: 100%;
+  height: 100%;
+  
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.jk-bg-image {
+  width: 100%;
+  height: 100%;
+  
+  &.flag-en {
+    background-image: url("flag-en.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+  
+  &.flag-es {
+    background-image: url("flag-es.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+}

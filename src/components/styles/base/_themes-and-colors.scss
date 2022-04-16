@@ -1,0 +1,83 @@
+@import "../abstracts/index";
+
+/* ********************************             COLORS             ******************************** */
+.jk-theme-light {
+  @include defineColor(--t-color-primary-dark, #081826);
+  @include defineColor(--t-color-primary, #164066);
+  @include defineColor(--t-color-primary-light, #2468A6);
+  
+  --t-color-secondary-dark: #C79A3A;
+  --t-color-secondary: #EDB745;
+  --t-color-secondary-light: #FED171;
+  
+  --t-color-accent-dark: #F0E04A; // TODO review accents colors
+  --t-color-accent: #F0E04A;
+  --t-color-accent-light: #F0E04A;
+  
+  @include defineColor(--t-color-info, #2F86EB);
+  @include defineColor(--t-color-success, #43D787);
+  @include defineColor(--t-color-warning, #F2C94C);
+  @include defineColor(--t-color-error, #EB5757);
+  
+  --t-color-black: #000000;
+  --t-color-black-2: #1E1E1E;
+  @include defineColor(--t-color-gray-1, #333333);
+  @include defineColor(--t-color-gray-2, #555555);
+  @include defineColor(--t-color-gray-3, #777777);
+  @include defineColor(--t-color-gray-4, #999999);
+  @include defineColor(--t-color-gray-5, #BBBBBB);
+  @include defineColor(--t-color-gray-6, #DDDDDD);
+  @include defineColor(--t-color-white-2, #F2F2F2);
+  @include defineColor(--t-color-white, #FFFFFF);
+  //--t-color-gray-1: #333333; // gray20 (Safe Hex3)
+  //--t-color-gray-2: #515151;
+  //--t-color-gray-3: #6F6F6F;
+  //--t-color-gray-4: #909090;
+  //--t-color-gray-5: #AEAEAE;
+  //--t-color-gray-6: #CCCCCC;
+  //--t-color-white-2: #E1E1E1;
+  
+  --t-color-shadow-lightest: rgba(0, 0, 0, 0.05);
+  --t-color-shadow-light: rgba(0, 0, 0, 0.15);
+  --t-color-shadow: rgba(0, 0, 0, 0.25);
+  --t-color-shadow-dark: rgba(0, 0, 0, 0.35);
+  --t-color-shadow-darkest: rgba(0, 0, 0, 0.45);
+  
+  --t-box-shadow-hg: 0 0 24px -8px rgba(0, 0, 0, 0.45);
+  --t-box-shadow-lg: 0 0 20px -6px rgba(0, 0, 0, 0.40);
+  --t-box-shadow-md: 0 0 16px -4px rgba(0, 0, 0, 0.35);
+  --t-box-shadow-sm: 0 0 12px -2px rgba(0, 0, 0, 0.30);
+  --t-box-shadow-tn: 0 0 8px -2px rgba(0, 0, 0, 0.25);
+  
+  @include hg { --t-box-shadow: var(--t-box-shadow-hg); }
+  @include lg { --t-box-shadow: var(--t-box-shadow-lg); }
+  @include md { --t-box-shadow: var(--t-box-shadow-md); }
+  @include sm { --t-box-shadow: var(--t-box-shadow-sm); }
+}
+
+.jk-theme-dark {
+  --t-color-primary-dark: #081826;
+  --t-color-primary: #2C7FC9;
+  --t-color-primary-light: #2C7FC9;
+  --t-color-accent: #F0E04A; // TODO: review this color wht design
+  --t-color-secondary-dark: #828282; // gray74
+  --t-color-secondary: #CCCCCC; // gray80color-secondary: #C79A3A;
+  --t-color-secondary-light: #FED171;
+  --t-color-white: #262626; // gray15
+  --t-color-gray-1: #F5F5F5; // whitesmoke (SVG)
+  --t-color-gray-2: #F2F2F2; // gray95
+  --t-color-gray-3: #E0E0E0; // gray88
+  --t-color-gray-4: #828282;
+  --t-color-gray-5: #4F4F4F;
+  --t-color-gray-6: #333333;
+  --t-color-shadow-lightest: rgba(255, 255, 255, 0.15);
+  --t-color-shadow-light: rgba(255, 255, 255, 0.90);
+  --t-color-shadow: rgba(255, 255, 255, 0.15);
+  --t-color-shadow-dark: rgba(255, 255, 255, 0.60);
+  --t-box-shadow-lg: 0 0 20 -6px rgba(255, 255, 255, 0.15);
+  --t-box-shadow-md: 0 0 16 -4px rgba(255, 255, 255, 0.15);
+  --t-box-shadow-sm: 0 0 12 -2px rgba(255, 255, 255, 0.15);
+  --t-box-shadow-xs: 0 0 8 0px rgba(255, 255, 255, 0.15);
+  --t-box-shadow-tn: 0 0 4 0px rgba(255, 255, 255, 0.15);
+  --t-color-footer-app: #F5F5F5;
+}

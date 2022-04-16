@@ -59,7 +59,7 @@
     "publish": "",
     "rollup:build": "rollup -c",
     "rollup:watch": "rollup -cw",
-    "publish:git": "yarn rollup:build && yarn publish --patch"
+    "publish:git": "rm -rf dist && yarn rollup:build && yarn publish --patch"
   },
   "eslintConfig": {
     "extends": [

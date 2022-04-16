@@ -1,0 +1,37 @@
+.jk-float-toolbar-layout {
+  position: sticky;
+  top: calc(var(--pad-t) + var(--pad-t));
+  right: 0;
+  z-index: 1;
+  width: 100%;
+  
+  .jk-float-toolbar-container {
+    position: absolute;
+    right: 0;
+  }
+  
+  .button-action {
+    position: relative;
+    margin: 0 0 var(--pad-xt) 0;
+    
+    .buttons-content {
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      flex-direction: column;
+      
+      button {
+        margin: 0 0 var(--pad-xt) 0 !important;
+        white-space: nowrap;
+      }
+    }
+    
+    &:hover {
+      .buttons-content {
+        display: flex;
+        z-index: 1;
+      }
+    }
+  }
+}

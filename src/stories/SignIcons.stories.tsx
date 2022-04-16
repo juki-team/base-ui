@@ -2,7 +2,17 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 
-import { ArrowIcon, CheckIcon, CloseIcon, DoubleUpIcon, ExclamationIcon, MinusIcon, PlusIcon, SignIconProps, UpIcon } from '../../packages/base-ui';
+import {
+  ArrowIcon,
+  CheckIcon,
+  CloseIcon,
+  DoubleUpIcon,
+  ExclamationIcon,
+  MinusIcon,
+  PlusIcon,
+  SignIconProps,
+  UpIcon,
+} from '../index';
 
 export default {
   title: 'Components/General/Icons',

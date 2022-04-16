@@ -1,0 +1,177 @@
+import React, { useEffect, useState } from 'react';
+import { v4 } from 'uuid';
+import { PROGRAMMING_LANGUAGE, SUBMISSION_RUN_STATUS } from '../../../config/constants';
+import { classNames, mex } from '../../../helpers';
+import { ReactNodeOrFunctionType, SubmissionRunStatus } from '../../../types';
+import { Button } from '../../Button';
+import { DeleteIcon, LoadingIcon, PlusIcon } from '../../graphics';
+import { TextArea } from '../../Input';
+import { NotificationType, useNotification } from '../../Notifications';
+import { Popover } from '../../Popover';
+import { SplitPane } from '../../SplitPane';
+import { TabHeadersType, Tabs } from '../../Tabs';
+import { T } from '../../Translate';
+import { TestCasesProps } from '../types';
+import { getErrors } from '../utils';
+import { LogInfo } from './LogInfo';
+
+export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimit, errorData }: TestCasesProps) => {
+  const testCasesValues = Object.values(testCases).sort((a, b) => (a.sample !== b.sample) ? +b.sample - +a.sample : a.index - b.index);
+  const [testCaseKey, setTestCaseKey] = useState(testCasesValues[0]?.key || '');
+  const tabs: TabHeadersType = testCasesValues.map(testCaseValue => ({
+    children: testCaseValue.sample
+      ? <>{testCaseValue.key === testCaseKey
+        ? <div className="text-case"><T className="text-sentence-case">sample</T> {testCaseValue.index + 1}</div>
+        : <div className="text-case"><T className="text-sentence-case">s.</T>{testCaseValue.index + 1}</div>} </>
+      : <>{testCaseValue.key === testCaseKey
+        ? <div className="text-case"><T className="text-sentence-case">custom</T> {testCaseValue.index + 1} {
+          <Button
+            size="small"
+            type="text"
+            icon={<DeleteIcon />}
+            onClick={() => {
+              const newTestCases = { ...testCases };
+              delete newTestCases[testCaseValue.key];
+              onChange?.({ testCases: newTestCases });
+              const newTabs = Object.values(newTestCases);
+              if (newTabs.length) {
+                setTestCaseKey(newTabs[0].key);
+              }
+            }} />
+        }</div>
+        : <div className="text-case"><T className="text-sentence-case">c.</T>{testCaseValue.index + 1}</div>}</>,
+  }));
+  
+  const actionsSection = (
+    <Popover content={<T className="text-nowrap">add sample test case</T>} showPopperArrow>
+      <Button
+        icon={<PlusIcon circle />}
+        type="text"
+        size="small"
+        onClick={() => {
+          const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
+          if (customCases.length < 10) {
+            const key = v4();
+            const index = mex(customCases.map(testCaseValue => testCaseValue.index));
+            onChange?.({
+              testCases: {
+                ...testCases,
+                [key]: { key, index, in: '', out: '', err: '', log: '', sample: false, status: SubmissionRunStatus.NONE },
+              },
+            });
+          } else {
+            addNotification({ type: NotificationType.QUIET, message: <T>maximum test cases achieved</T> });
+          }
+        }}
+      />
+    </Popover>
+  );
+  
+  const [output, setOutput] = useState(0);
+  const { addNotification } = useNotification();
+  const status = testCases[testCaseKey]?.status;
+  useEffect(() => {
+    if (status === SubmissionRunStatus.FAILED || status === SubmissionRunStatus.COMPILATION_ERROR) {
+      setOutput(1);
+    } else {
+      setOutput(0);
+    }
+  }, [status]);
+  
+  const outErrTabs: { children: ReactNodeOrFunctionType }[] = [];
+  
+  if (errorData?.err) {
+    outErrTabs.push({
+      children: (
+        <T className={classNames('text-sentence-case text-s color-error')}>
+          {PROGRAMMING_LANGUAGE[language].hasBuildFile && errorData?.status === SubmissionRunStatus.COMPILATION_ERROR ? 'compilation log' : 'error'}
+        </T>
+      ),
+    });
+  }
+  
+  return (
+    <div className="jk-code-mirror-editor-test-cases">
+      <SplitPane>
+        <div className="test-cases-inputs">
+          <Tabs
+            tabHeaders={tabs}
+            selectedTabIndex={testCasesValues.findIndex(testCaseValue => testCaseValue.key === testCaseKey)}
+            onChange={(tabIndex => setTestCaseKey(testCasesValues[tabIndex]?.key))}
+            actionsSection={actionsSection}
+          >
+            {testCasesValues.map(testCaseValue => (
+              <TextArea
+                key={testCaseValue.key}
+                value={testCaseValue.in}
+                onChange={value => onChange?.({
+                  testCases: {
+                    ...testCases,
+                    [testCaseValue.key]: { ...testCaseValue, in: value },
+                  },
+                })}
+              />
+            ))}
+          </Tabs>
+        </div>
+        <div className="test-cases-output-stderr">
+          {testCases[testCaseKey]?.status === SubmissionRunStatus.RECEIVED && (
+            <div className="jk-overlay ">
+              <div className="jk-row-gap">
+                {SUBMISSION_RUN_STATUS[SubmissionRunStatus.RECEIVED].print}... <LoadingIcon />
+              </div>
+            </div>
+          )}
+          {testCases[testCaseKey]?.status === SubmissionRunStatus.COMPILING && (
+            <div className="jk-overlay ">
+              <div className="jk-row-gap">
+                {SUBMISSION_RUN_STATUS[SubmissionRunStatus.COMPILING].print}... <LoadingIcon />
+              </div>
+            </div>
+          )}
+          {testCases[testCaseKey]?.status === SubmissionRunStatus.RUNNING_TEST_CASE && (
+            <div className="jk-overlay ">
+              <div className="jk-row-gap">
+                {SUBMISSION_RUN_STATUS[SubmissionRunStatus.RUNNING_TEST_CASE].print}... <LoadingIcon />
+              </div>
+            </div>
+          )}
+          <Tabs
+            tabHeaders={[
+              {
+                children: (
+                  <T
+                    className={classNames('text-sentence-case text-s', { 'color-error': getErrors(testCases[testCaseKey], timeLimit, memoryLimit).failed })}
+                  >
+                    output
+                  </T>
+                ),
+              },
+              ...outErrTabs,
+            ]}
+            selectedTabIndex={output}
+            onChange={value => setOutput(value)}
+          >
+            <div>
+              {testCases[testCaseKey]?.log && testCases[testCaseKey]?.status !== SubmissionRunStatus.FAILED && (
+                <LogInfo testCase={testCases[testCaseKey]} timeLimit={timeLimit} memoryLimit={memoryLimit} />
+              )}
+              <div className="content-log">
+                <span className="text-stdout">{testCases[testCaseKey]?.out}</span>
+              </div>
+            </div>
+            {errorData?.err && (
+              <div>
+                {/*{errorData?.log && (*/}
+                <LogInfo testCase={errorData} timeLimit={timeLimit} memoryLimit={memoryLimit} />
+                {/*)}*/}
+                <span className="text-stdout">{errorData?.out}</span>
+                {/*<span className="color-white text-stderr">{errorData?.err}</span>*/}
+              </div>
+            )}
+          </Tabs>
+        </div>
+      </SplitPane>
+    </div>
+  );
+};

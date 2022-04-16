@@ -1,0 +1,187 @@
+@import "../abstracts/index";
+
+/*
+ FLEX
+ */
+
+div[class*=" jk-row"], div[class^="jk-row"],
+section[class*=" jk-row"], section[class^="jk-row"],
+span[class*=" jk-row"], span[class^="jk-row"],
+a[class*=" jk-row"], a[class^="jk-row"],
+fieldset[class*=" jk-row"], fieldset[class^="jk-row"],
+div[class*=" jk-col"], div[class^="jk-col"],
+section[class*=" jk-col"], section[class^="jk-col"],
+span[class*=" jk-col"], span[class^="jk-col"],
+a[class*=" jk-col"], a[class^="jk-col"],
+fieldset[class*=" jk-col"], fieldset[class^="jk-col"] {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  
+  &.nowrap { flex-wrap: nowrap; }
+  
+  &.gap {
+    @include hg { gap: var(--pad-s); }
+    @include lg { gap: var(--pad-xs); }
+    @include md { gap: var(--pad-t); }
+    @include sm { gap: var(--pad-xt); }
+  }
+  
+  &.block {
+    > * {
+      flex: 1;
+    }
+  }
+  
+  &.start { justify-content: flex-start; }
+  
+  &.center { justify-content: center; }
+  
+  &.end { justify-content: flex-end; }
+  
+  &.space-between { justify-content: space-between; }
+}
+
+span[class*=" jk-row"], span[class^="jk-row"], span[class*=" jk-col"], span[class^="jk-col"] {
+  display: inline-flex;
+}
+
+div[class*=" jk-row"], div[class^="jk-row"], section[class*=" jk-row"], section[class^="jk-row"], span[class*=" jk-row"], span[class^="jk-row"] {
+  &.filled {
+    height: 100%;
+    align-items: stretch;
+    position: relative;
+  }
+}
+
+div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[class^="jk-col"], span[class*=" jk-col"], span[class^="jk-col"] {
+  flex-direction: column;
+  
+  &.filled {
+    width: 100%;
+    align-items: stretch;
+    position: relative;
+  }
+}
+
+/*
+ IMAGE PROFILE
+ */
+.jk-user-profile-img {
+  border: 2px solid var(--t-color-white);
+  border-radius: 50%;
+  // regular
+  width: var(--pad-m);
+  height: var(--pad-m);
+  
+  &.small {
+    width: var(--pad-t);
+    height: var(--pad-t);
+  }
+  
+  &.large {
+    width: var(--pad-h);
+    height: var(--pad-h);
+  }
+  
+  &.huge {
+    width: var(--pad-xL);
+    height: var(--pad-xL);
+  }
+}
+
+/*
+ BORDER RADIUS
+ */
+.jk-border-radius {
+  border-radius: var(--border-radius); // responsive variable
+}
+
+.jk-border-radius-inline {
+  border-radius: var(--border-radius-inline); // responsive variable
+}
+
+/*
+ PADDING
+ */
+.jk-pad {
+  box-sizing: border-box;
+  padding: var(--pad); // responsive variable
+}
+
+/*
+ SCROLL
+ */
+.jk-with-scroll {
+  overflow: auto;
+  
+  &-outside {
+    width: calc(100% + var(--pad-xt));
+    padding-right: var(--pad-xt);
+    overflow: auto;
+  }
+}
+
+/*
+ SHADOW
+ */
+.jk-shadow {
+  box-shadow: var(--t-box-shadow); // responsive variable
+  
+  &.huge { box-shadow: var(--t-box-shadow-hg); }
+  
+  &.large { box-shadow: var(--t-box-shadow-lg); }
+  
+  &.small { box-shadow: var(--t-box-shadow-sm); }
+  
+  &.tiny { box-shadow: var(--t-box-shadow-tn); }
+}
+
+.jk-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFFAA;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.jk-tag {
+  height: 24px;
+  background-color: var(--t-color-primary-light);
+  color: var(--t-color-white);
+  padding: 0 var(--pad-t);
+  border-radius: var(--pad-t);
+  display: inline-block;
+  
+  &.success { background-color: var(--t-color-success); }
+  
+  &.info { background-color: var(--t-color-info); }
+  
+  &.error { background-color: var(--t-color-error); }
+  
+  &.primary-light { background-color: var(--t-color-primary-light); }
+  
+  &.primary-dark { background-color: var(--t-color-primary-dark); }
+  
+  &.secondary-light { background-color: var(--t-color-secondary-light); }
+  
+  &.secondary { background-color: var(--t-color-secondary); }
+  
+  &.secondary-dark { background-color: var(--t-color-secondary-dark); }
+  
+  &.gray-1 { background-color: var(--t-color-gray-1); }
+  
+  &.gray-2 { background-color: var(--t-color-gray-2); }
+  
+  &.gray-3 { background-color: var(--t-color-gray-3); }
+  
+  &.gray-4 { background-color: var(--t-color-gray-4); }
+  
+  &.gray-5 { background-color: var(--t-color-gray-5); color: var(--t-color-gray-1); }
+  
+  &.gray-6 { background-color: var(--t-color-gray-6); color: var(--t-color-gray-1); }
+}

@@ -10,7 +10,7 @@ import {
   SignUpInputType,
   SignUpModal,
   SignUpModalProps,
-} from '../../packages/base-ui';
+} from '../index';
 
 export default {
   title: 'Components/Feedback/Modals',

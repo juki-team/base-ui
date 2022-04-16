@@ -1,0 +1,123 @@
+@import "katex";
+@import "vs-code-theme";
+@import "prism-line-numbers";
+
+.jk-md-math-viewer-layout {
+  padding: 0;
+  
+  p {
+    margin: var(--pad-t) 0;
+    font-family: inherit;
+    font-size: 16px;
+    word-break: break-word;
+    text-align: justify;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    margin: var(--pad-t) 0;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  h1, h2 {
+    line-height: var(--text-xl-size) 28px;
+  }
+  
+  h3, h4 {
+    line-height: 24px;
+  }
+  
+  h3, h4 {
+    line-height: 24px;
+  }
+  
+  h1 {
+    font-size: 26px;
+    line-height: 32px;
+  }
+  
+  h2 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+  
+  h3 {
+    font-size: 22px;
+    line-height: 28px;
+  }
+  
+  h4 {
+    font-size: 20px;
+    line-height: 28px;
+  }
+  
+  h5 {
+    font-size: 18px;
+    line-height: 24px;
+  }
+  
+  h6 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  table {
+    margin: auto;
+    border-collapse: collapse;
+    
+    tr:hover {
+      background-color: rgba(0, 0, 0, 0.14) !important;
+    }
+    
+    thead tr {
+      background-color: rgba(0, 0, 0, 0.21);
+    }
+    
+    tr td, tr th {
+      padding: 4px 8px;
+    }
+    
+    tr:nth-child(even) {
+      background-color: rgba(0, 0, 0, 0.07);
+    }
+  }
+  
+  blockquote {
+    padding-left: var(--pad-s);
+    border-left: 4px solid var(--t-color-primary-light);
+    margin: var(--pad-t) 0;
+    font-weight: lighter;
+    text-align: justify;
+  }
+  
+  ul, ol {
+    li::marker {
+      color: var(--t-color-primary-light);
+    }
+    
+    margin: var(--pad-t) 0;
+  }
+  
+  a {
+    color: var(--t-color-primary-light);
+    margin-right: var(--text-m-size);
+    text-decoration: none;
+    
+    .jk-icon {
+      position: absolute;
+      width: var(--text-m-size);
+    }
+    
+    &:hover {
+      color: var(--t-color-primary);
+      text-decoration: underline;
+    }
+  }
+  
+  code.inline-code {
+    background-color: var(--t-color-gray-5);
+    padding: 0 4px;
+    border-radius: 4px;
+    color: var(--t-color-primary-light);
+  }
+}

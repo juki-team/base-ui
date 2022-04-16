@@ -1,0 +1,88 @@
+/* ********************************          BREAK POINTS          ******************************** */
+// sync with variables
+$screen-sm-min: 320px; /* Phones      [320,  768  )  0px |  320px ( 7c 32|16) |  0px */
+/* +320 */
+$screen-md-min: 640px; /* Tablets     [640,  1280 ) 40px |  560px (12c 32|16) | 40px */
+/* +640 */
+$screen-lg-min: 1280px; /* PCs        [1280, 1920O) 80px | 1120px (12c 64|32) | 80px */
+/* +640 */
+$screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 80px */
+
+// We can't use css variables in a media query
+
+@mixin sm { // Small devices [0, 640px)
+  @media (max-width: calc(#{$screen-md-min} - 1px)) {
+    @content;
+  }
+}
+
+@mixin md { // Medium devices [640px, 1280px)
+  @media (min-width: $screen-md-min) and (max-width: calc(#{$screen-lg-min} - 1px)) {
+    @content;
+  }
+}
+
+@mixin lg { // Large devices [1280px, 1920px)
+  @media (min-width: $screen-lg-min) and (max-width: calc(#{$screen-hg-min} - 1px)) {
+    @content;
+  }
+}
+
+@mixin hg { // Very large devices [1920px, INF]
+  @media (min-width: $screen-hg-min) {
+    @content;
+  }
+}
+
+@mixin lg-hg { // [1280, INF]
+  @media (min-width: $screen-lg-min) {
+    @content;
+  }
+}
+
+@mixin md-hg { // [640px, INF]
+  @media (min-width: $screen-md-min) {
+    @content;
+  }
+}
+
+@mixin sm-md { // [0, 1280px)
+  @media (max-width: calc(#{$screen-lg-min} - 1px)) {
+    @content;
+  }
+}
+
+@mixin sm-lg { // [0, 1920px)
+  @media (max-width: calc(#{$screen-hg-min} - 1px)) {
+    @content;
+  }
+}
+
+@mixin transition($prop1: false, $prop2: false, $prop3: false) {
+  $time: 300ms;
+  @if $prop1 {
+    @if $prop2 {
+      @if $prop3 {
+        transition: $prop1 $time, $prop2 $time, $prop3 $time;
+      } @else {
+        transition: $prop1 $time, $prop2 $time;
+      }
+    } @else {
+      transition: $prop1 $time;
+    }
+  } @else {
+    transition: $time;
+  }
+}
+
+// https://stackoverflow.com/questions/40010597/how-do-i-apply-opacity-to-a-css-color-variable
+@mixin defineColor($color-name, $value) {
+  $red: red($value);
+  $green: green($value);
+  $blue: blue($value);
+  #{$color-name}: unquote("rgb(#{$red}, #{$green}, #{$blue})");
+  #{$color-name}-rgb: $red, $green, $blue;
+  //#{$color-name}-r: $red;
+  //#{$color-name}-g: $green;
+  //#{$color-name}-b: $blue;
+}

@@ -1,7 +1,7 @@
 import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Button, NotificationProvider, useNotification } from '../../packages/base-ui';
+import { Button, NotificationProvider, useNotification } from '../index';
 
 export default {
   title: 'Components/General/Notifications',

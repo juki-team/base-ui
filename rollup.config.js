@@ -24,7 +24,7 @@ export default {
     copy({
       targets: [
         // { src: './src/components/styles', dest: './dist' },
-        { src: './src/components', dest: './dist'}
+        { src: './src/components/styles', dest: './dist' },
       ],
     }),
   ],

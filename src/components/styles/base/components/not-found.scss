@@ -1,0 +1,10 @@
+.not-found {
+  height: 320px;
+  flex-direction: column;
+  padding: var(--pad-xH) 0;
+  
+  .anticon-bug {
+    font-size: 64px;
+    line-height: 64px;
+  }
+}

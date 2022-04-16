@@ -1,9 +1,8 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Button, Drawer as DrawerComponent, DrawerProps } from '../../packages/base-ui';
-import { MdMathViewer } from '../../packages/base-ui/src/components/MdMath';
-import { SAMPLE_MD_CONTENT } from '../../packages/base-ui/src/components/MdMath/MdMathEditor/InformationButton/contants';
+import { Button, Drawer as DrawerComponent, DrawerProps, MdMathViewer } from '../index';
+import { SAMPLE_MD_CONTENT } from '../components/MdMath/MdMathEditor/InformationButton/contants';
 
 export default {
   title: 'Components/Feedback/Drawer',
