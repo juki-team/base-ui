@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -57,10 +57,9 @@
     "build-storybook": "build-storybook -s public",
     "update": "yarn add @juki-team/commons",
     "publish": "",
-    "prepack": "yarn rollup:build",
     "rollup:build": "rollup -c",
     "rollup:watch": "rollup -cw",
-    "publish:git": "yarn publish --patch"
+    "publish:git": "yarn rollup:build && yarn publish --patch"
   },
   "eslintConfig": {
     "extends": [
