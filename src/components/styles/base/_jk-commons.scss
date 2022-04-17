@@ -37,6 +37,8 @@ fieldset[class*=" jk-col"], fieldset[class^="jk-col"] {
   &.space-between { justify-content: space-between; }
   
   &.center { justify-content: center; }
+  
+  &.stretch { align-items: stretch; }
 }
 
 span[class*=" jk-row"], span[class^="jk-row"], span[class*=" jk-col"], span[class^="jk-col"] {
@@ -44,11 +46,7 @@ span[class*=" jk-row"], span[class^="jk-row"], span[class*=" jk-col"], span[clas
 }
 
 div[class*=" jk-row"], div[class^="jk-row"], section[class*=" jk-row"], section[class^="jk-row"], span[class*=" jk-row"], span[class^="jk-row"] {
-  &.filled {
-    height: 100%;
-    align-items: stretch;
-    position: relative;
-  }
+  &.extend { width: 100%; }
   
   &.left { justify-content: flex-start; }
   
@@ -62,11 +60,7 @@ div[class*=" jk-row"], div[class^="jk-row"], section[class*=" jk-row"], section[
 div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[class^="jk-col"], span[class*=" jk-col"], span[class^="jk-col"] {
   flex-direction: column;
   
-  &.filled {
-    width: 100%;
-    align-items: stretch;
-    position: relative;
-  }
+  &.extend { height: 100%; }
   
   &.top { justify-content: flex-start; }
   

@@ -60,7 +60,7 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
       }
       graphic={<JukiLaptopImage />}
     >
-      <div className="jk-col filled">
+      <div className="jk-col stretch">
         {signUpWithGoogle && reactAppGoogleClientId && (
           <>
             <GoogleLogin
@@ -75,7 +75,7 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
           </>
         )}
         <form onSubmit={handleSubmit((data: SignUpInputType) => onSubmit(data, setLoaderRef.current!))}>
-          <div className="jk-col gap filled">
+          <div className="jk-col gap stretch">
             <div className="jk-row gap block">
               <div className="jk-form-item">
                 <label>
@@ -138,7 +138,7 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
               />
               <p><T>{(!isValid && errors?.checkbox?.message) || ''}</T></p>
             </div>
-            <div className="jk-row gap end">
+            <div className="jk-row gap right">
               <ButtonLoader type="text" onClick={onCancel}>
                 <T>cancel</T>
               </ButtonLoader>

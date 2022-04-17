@@ -4,7 +4,7 @@ import { CheckboxListProps } from './types';
 
 export const CheckboxList = <T, >({ selectedOptions, options, onSelectOptions }: CheckboxListProps<T>) => {
   return (
-    <div className="jk-checkbox-list jk-col filled gap">
+    <div className="jk-checkbox-list jk-col stretch gap">
       {options.map(({ value, label }) => (
         <InputCheckbox
           key={JSON.stringify(value)}

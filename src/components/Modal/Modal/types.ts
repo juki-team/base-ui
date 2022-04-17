@@ -3,4 +3,5 @@ export type ModalProps = {
   onClose: () => void,
   className?: string,
   closeIcon?: boolean,
+  expand?: boolean,
 }

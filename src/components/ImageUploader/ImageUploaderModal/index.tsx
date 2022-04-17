@@ -32,8 +32,9 @@ export const ImageUploaderModal = ({ isOpen, onClose, withPublicImagesTab = true
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      className="modal-upload-image jk-expanded-modal"
+      className="modal-upload-image"
       closeIcon
+      expand
     >
       <div>
         <Tabs

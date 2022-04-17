@@ -55,7 +55,7 @@ export const LoginModal = ({
         }
         graphic={<JukiLaptopImage />}
       >
-        <div className="jk-col filled">
+        <div className="jk-col stretch">
           {loginWithGoogle && reactAppGoogleClientId && (
             <>
               <GoogleLogin
@@ -70,7 +70,7 @@ export const LoginModal = ({
             </>
           )}
           <form onSubmit={handleSubmit((data: LoginInputType) => onSubmit(data, setLoaderRef.current!))}>
-            <div className="jk-col gap filled">
+            <div className="jk-col gap stretch">
               <div className="jk-form-item">
                 <label>
                   <T>nickname</T>
@@ -96,7 +96,7 @@ export const LoginModal = ({
                   <span className="link" onClick={onSignUpButton}><T>sign up now</T></span>
                 </p>
               </div>
-              <div className="jk-row gap end">
+              <div className="jk-row gap right">
                 <ButtonLoader type="text" onClick={onCancel}>
                   <T>cancel</T>
                 </ButtonLoader>

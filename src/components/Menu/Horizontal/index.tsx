@@ -43,7 +43,7 @@ export const HorizontalMenu = ({
           <div className="jk-menu-items jk-row left gap nowrap">
             {menus}
           </div>
-          <div className={classNames('jk-menu-right-section jk-row end nowrap')}>
+          <div className={classNames('jk-menu-right-section jk-row right nowrap')}>
             {renderReactNodeOrFunction(right)}
           </div>
         </section>
@@ -76,7 +76,7 @@ export const HorizontalMenu = ({
             )}
           </div>
           
-          <div className={classNames('jk-horizontal-menu-mobile-right jk-row end')}>
+          <div className={classNames('jk-horizontal-menu-mobile-right jk-row right')}>
             {rightMobile && (
               <Drawer
                 content={props => renderReactNodeOrFunctionP1(rightMobile.content, props)}

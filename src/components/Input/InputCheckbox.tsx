@@ -10,7 +10,7 @@ export const InputCheckbox = ({ className = '', checked, disabled, onChange, lab
     <label className={classNames('jk-input-checkbox-wrapper', className, { disabled: isDisabled })}>
       <input
         type="checkbox"
-        className="jk-input-checkbox jk-border-radius-inline"
+        className="jk-input-checkbox"
         onChange={({ target: { checked } }) => onChange?.(checked)}
         checked={checked}
         {...props}

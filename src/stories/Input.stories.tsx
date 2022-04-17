@@ -1,6 +1,5 @@
 import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
-
 import {
   Input,
   InputCheckbox as CheckboxComponent,
@@ -73,13 +72,19 @@ export const Checkbox = () => {
   
   return (
     <div className="jk-row left">
-      <div className="jk-col gap filled">
+      <div className="jk-col gap stretch">
         <CheckboxComponent checked={true} name="test" onChange={_ => null} label="checked" />
         <CheckboxComponent checked={false} name="test" onChange={_ => null} label="no checked" />
         <CheckboxComponent checked={checked} name="test" onChange={(value) => setChecked(value)} label="label of checkbox" />
         <CheckboxComponent checked={checked} name="test" onChange={(value) => setChecked(value)} />
         <CheckboxComponent checked={checked} name="test" label="disabled checkbox" />
       </div>
+      
+      {/*<CheckboxList*/}
+      {/*  options={[{ value: 1, label: 'uno' }]}*/}
+      {/*  selectedOptions={[{ value: 1 }]}*/}
+      {/*  onSelectOptions={options => setValues(prevState => ({ ...prevState, [columnIndex]: options }))}*/}
+      {/*/>*/}
     </div>
   );
 };

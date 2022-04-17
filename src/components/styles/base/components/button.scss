@@ -14,6 +14,24 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
     flex: 1;
   }
   
+  &.tiny {
+    min-height: var(--pad-l);
+    font-weight: var(--weight-semi-bold);
+    font-size: var(--text-xs-size);
+    padding: 0 var(--pad-xt);
+    gap: var(--pad-xt);
+    
+    &.only-icon {
+      width: var(--pad-l);
+    }
+    
+    .jk-icon {
+      line-height: var(--pad-xs);
+      width: var(--pad-xs);
+      height: var(--pad-xs);
+    }
+  }
+  
   &.small {
     min-height: var(--pad-xl);
     font-weight: var(--weight-semi-bold);

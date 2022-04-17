@@ -2,9 +2,10 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
 import { CodeViewer, CodeViewerProps, JukiBaseUiProvider, ProgrammingLanguage } from '../index';
+import { COMPONENTS_WRITING_TOOLS } from './constants';
 
 export default {
-  title: 'Components/CodeViewer',
+  title: COMPONENTS_WRITING_TOOLS,
   component: CodeViewer,
   argTypes: {},
 };

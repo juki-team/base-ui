@@ -56,15 +56,15 @@ export const TableHeadFilterDateRange = ({
           />
         </div>
       </div>
-      <div className="jk-row space-between buttons">
+      <div className="jk-row gap right buttons">
         <Button
-          size="small" type="text" onClick={onReset}
+          size="tiny" type="text" onClick={onReset}
           disabled={!(initialStartSelectedDate && initialEndSelectedDate && initialStartSelectedDate?.isValidDate() && initialEndSelectedDate?.isValidDate())}
         >
           <T>reset</T>
         </Button>
         <Button
-          size="small"
+          size="tiny"
           onClick={() => start && end && start?.isValidDate() && end?.isValidDate() && onFilter({
             columnIndex,
             startSelectedDate: start,

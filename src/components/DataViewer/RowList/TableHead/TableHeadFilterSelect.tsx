@@ -22,13 +22,13 @@ export const TableHeadFilterSelect = ({
   }, [initialSelectedOptions, visible]);
   
   return (
-    <div className="jk-col gap filled jk-table-head-cell-filter-select">
+    <div className="jk-col gap stretch jk-table-head-cell-filter-select">
       <div className="checkbox-list">
         <CheckboxList options={options} selectedOptions={selectedOptions} onSelectOptions={setSelectedOptions} />
       </div>
-      <div className="jk-row space-between">
+      <div className="jk-row right gap">
         <Button
-          size="small"
+          size="tiny"
           type="text"
           onClick={onReset}
           disabled={!initialSelectedOptions.length}
@@ -36,7 +36,7 @@ export const TableHeadFilterSelect = ({
           <T>reset</T>
         </Button>
         <Button
-          size="small"
+          size="tiny"
           onClick={() => onFilter({ columnIndex, selectedOptions })}
           disabled={JSON.stringify(initialSelectedOptions.map(({ value }) => value)) === JSON.stringify(selectedOptions.map(({ value }) => value))}
           ref={buttonRef}

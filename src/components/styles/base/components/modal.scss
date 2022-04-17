@@ -5,7 +5,24 @@
     background-color: var(--t-color-shadow-light) !important;
     display: grid;
     z-index: var(--z-index-overlay-modal);
-    overflow: hidden;
+  }
+  
+  &:not(.expand) {
+    .ReactModal__Overlay {
+      padding: var(--pad-m);
+      overflow: auto;
+    }
+  }
+  
+  &.expand .jk-modal {
+    width: 100vw;
+    height: var(--100VH);
+    border-radius: 0;
+    overflow: auto;
+    
+    .jk-modal-body {
+      max-height: var(--100VH);
+    }
   }
 }
 
@@ -16,16 +33,6 @@
   background-color: var(--t-color-white);
   outline: none;
   width: var(--modal-width);
-  
-  &.jk-expanded-modal {
-    width: 100vw;
-    height: var(--100VH);
-    border-radius: 0;
-    
-    .jk-modal-body {
-      max-height: var(--100VH);
-    }
-  }
   
   .jk-modal-close-button {
     z-index: 1;
@@ -61,8 +68,8 @@
     position: relative;
     width: 100%;
     padding: 0;
-    overflow: auto;
-    max-height: calc(var(--100VH) - var(--pad-m) * 2);
+    overflow: visible;
+    //max-height: calc(var(--100VH) - var(--pad-m) * 2);
     box-sizing: border-box;
   }
 }

@@ -42,12 +42,12 @@ export const TableHeadFilterDate = ({
         })}
         baseDate={baseDate}
       />
-      <div className="jk-row space-between buttons">
-        <Button size="small" type="text" onClick={onReset} disabled={!initialSelectedDate?.isValidDate()}>
+      <div className="jk-row right gap buttons">
+        <Button size="tiny" type="text" onClick={onReset} disabled={!initialSelectedDate?.isValidDate()}>
           <T>reset</T>
         </Button>
         <Button
-          size="small"
+          size="tiny"
           onClick={() => value && onFilter({ columnIndex, selectedDate: value })}
           disabled={!value?.isValidDate()}
           ref={buttonRef}

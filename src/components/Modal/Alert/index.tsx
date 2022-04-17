@@ -14,7 +14,7 @@ export const AlertModal = ({ decline, accept, title, content, onCancel }: AlertM
     <div className="modal-alert-content">
       {content}
     </div>
-    <div className="modal-alert-actions jk-row gap end">
+    <div className="modal-alert-actions jk-row gap right">
       <ButtonLoader onClick={decline.onClick} type="text">
         {decline.label || <T>cancel</T>}
       </ButtonLoader>

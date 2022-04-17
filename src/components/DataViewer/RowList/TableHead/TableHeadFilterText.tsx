@@ -15,7 +15,7 @@ export const TableHeadFilterText = ({ onFilter, onReset, columnIndex, initialTex
   
   return (
     <div
-      className="jk-col gap filled jk-table-head-cell-filter-text"
+      className="jk-col gap stretch jk-table-head-cell-filter-text"
       onKeyDown={event => {
         if (event.code === 'Enter') {
           event.preventDefault();
@@ -24,16 +24,16 @@ export const TableHeadFilterText = ({ onFilter, onReset, columnIndex, initialTex
       }}
     >
       <Input onChange={newValue => setValue(newValue)} value={value} block autoFocus ref={inputRef} />
-      <div className="jk-row space-between">
+      <div className="jk-row right gap">
         <Button
-          size="small"
+          size="tiny"
           type="text"
           onClick={onReset}
           disabled={initialText === ''}
         >
           <T>reset</T>
         </Button>
-        <Button size="small" onClick={() => onFilter({ columnIndex, text: value })} disabled={initialText === value}>
+        <Button size="tiny" onClick={() => onFilter({ columnIndex, text: value })} disabled={initialText === value}>
           <T>filter</T>
         </Button>
       </div>

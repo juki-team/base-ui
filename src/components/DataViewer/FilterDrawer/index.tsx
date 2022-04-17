@@ -74,12 +74,12 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
           <T>order and filters</T>
         </div>
         <div className="jk-divider" />
-        <div className="jk-col filled space-between filters-buttons">
+        <div className="jk-col stretch space-between filters-buttons">
           <div className="filters">
             {headers.map(({ index: columnIndex, head, filter, sort: { onSort, order = 0 } = {} }) => {
               if (isFilterText(filter)) {
                 return (
-                  <div className="jk-col filled" key={columnIndex}>
+                  <div className="jk-col stretch" key={columnIndex}>
                     {renderFilterTitle({ head, columnIndex, onSort, order })}
                     <Input
                       onChange={newValue => setValues(prevState => ({ ...prevState, [columnIndex]: newValue }))}
@@ -91,7 +91,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                 );
               } else if (isFilterSelect(filter)) {
                 return (
-                  <div className="jk-col filled" key={columnIndex}>
+                  <div className="jk-col stretch" key={columnIndex}>
                     {renderFilterTitle({ head, columnIndex, onSort, order })}
                     <CheckboxList
                       options={filter.options}
@@ -102,7 +102,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                 );
               } else if (isFilterDate(filter)) {
                 return (
-                  <div className="jk-col filled" key={columnIndex}>
+                  <div className="jk-col stretch" key={columnIndex}>
                     {renderFilterTitle({ head, columnIndex, onSort, order })}
                     <InputDate
                       type={filter.pickerType}
@@ -118,7 +118,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
               } else if (isFilterDateRange(filter)) {
                 const [start, end] = Array.isArray(values?.[columnIndex]) ? values?.[columnIndex] as [Date, Date] : [null, null];
                 return (
-                  <div className="jk-col filled" key={columnIndex}>
+                  <div className="jk-col stretch" key={columnIndex}>
                     {renderFilterTitle({ head, columnIndex, onSort, order })}
                     <div>
                       <div className="jk-row left text-semi-bold"><T className="text-sentence-case">from</T>&nbsp;:</div>
@@ -162,7 +162,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
               return null;
             })}
           </div>
-          <div className="jk-row space-between end buttons">
+          <div className="jk-row space-between right buttons">
             <Button type="text" size="small" onClick={onResetFilters} disabled={!isFiltered}>
               <T>reset all filters</T>
             </Button>
