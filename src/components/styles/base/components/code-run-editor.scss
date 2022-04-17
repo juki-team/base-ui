@@ -2,28 +2,8 @@
   max-width: var(--modal-width-md-min);
   
   .jk-modal-body {
-    overflow: visible !important;
-    
     h6 {
-      margin-top: var(--pad-m);
       text-align: center;
-    }
-    
-    .editor-settings-body {
-      padding: 0 50px 50px 50px;
-      
-      > div {
-        width: 100%;
-        margin-top: var(--pad-m);
-        
-        *:first-letter {
-          text-transform: uppercase;
-        }
-        
-        .jk-select-layout {
-          width: 100%;
-        }
-      }
     }
   }
 }
