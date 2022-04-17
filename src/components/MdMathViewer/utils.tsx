@@ -1,5 +1,5 @@
 import React, { CSSProperties, ReactNode } from 'react';
-import { Theme } from '../../../types';
+import { Theme } from '../../types';
 import { CommandsFunctionsType, CommandsObjectType } from './types';
 
 const keys: CommandsFunctionsType = {

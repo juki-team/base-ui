@@ -5,9 +5,9 @@ import {
   ERROR,
   ErrorCode,
   ErrorResponseType,
+  HTTPMethod,
   isStringJson,
 } from '@juki-team/commons';
-import { DELETE, GET, POST, PUT } from '../config/constants';
 
 export const cleanRequest = <T extends ContentResponseType<any> | ContentsResponseType<any>>(responseText: string): (ErrorResponseType | T) => {
   if (!isStringJson(responseText)) {
@@ -82,10 +82,8 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
   }
 };
 
-export type MethodType = typeof POST | typeof PUT | typeof DELETE | typeof GET;
-
 export interface AuthorizedRequestType extends RequestInit {
-  method?: MethodType,
+  method?: HTTPMethod,
   body?: string | BodyInit,
   signal?: AbortSignal
 }
@@ -96,7 +94,7 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
   requestHeaders.set('Accept', 'application/json');
   requestHeaders.set('Content-Type', 'application/json');
   return await fetch(url, {
-    method: method ? method : GET,
+    method: method ? method : HTTPMethod.GET,
     headers: requestHeaders,
     credentials: 'include',
     ...(body ? { body } : {}),

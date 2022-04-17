@@ -1,9 +1,9 @@
 import React, { SyntheticEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { LoaderLayer, TableHeadersType } from '../index';
-import { SCROLL_WIDTH } from '../../config/constants';
+import { SCROLL_WIDTH } from '../../constants';
 import { classNames } from '../../helpers';
 import { useInterval, usePrevious } from '../../hooks';
+import { LoaderLayer, TableHeadersType } from '../index';
 import { CardRowVirtualizerFixed } from './CardList';
 import { DataViewerToolbar } from './DataViewerToolbar';
 import {

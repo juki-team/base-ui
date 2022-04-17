@@ -8,7 +8,7 @@
 
 .ReactCrop__child-wrapper > img, .ReactCrop__child-wrapper > video {display: block;max-width: 100%;max-height: inherit;touch-action: none}
 
-.ReactCrop__crop-selection {position: absolute;top: 0;left: 0;transform: translate3d(0, 0, 0);cursor: move;box-shadow: 0 0 0 9999em rgba(0, 0, 0, .5);touch-action: none;border: 1px dashed #FFFFFF}
+.ReactCrop__crop-selection {position: absolute;top: 0;left: 0;transform: translate3d(0, 0, 0);cursor: move;box-shadow: 0 0 0 9999em rgba(0, 0, 0, .5);touch-action: none;border: 2px dashed var(--t-color-white)}
 
 .ReactCrop--disabled .ReactCrop__crop-selection {cursor: inherit}
 
@@ -34,41 +34,41 @@
 
 .ReactCrop__drag-handle {position: absolute}
 
-.ReactCrop__drag-handle::after {position: absolute;content: "";display: block;width: 10px;height: 10px;background-color: rgba(0, 0, 0, .2);border: 1px solid rgba(255, 255, 255, .7);outline: 1px solid transparent}
+.ReactCrop__drag-handle::after {position: absolute;content: "";display: block;width: var(--pad-t);height: var(--pad-t);background-color: var(--t-color-shadow-dark);border: 2px solid var(--t-color-white);outline: 1px solid transparent}
 
 .ReactCrop__drag-handle:focus::after {border-color: blue;background: #2DBFFF}
 
-.ReactCrop .ord-nw {top: 0;left: 0;margin-top: -5px;margin-left: -5px;cursor: nw-resize}
+.ReactCrop .ord-nw {top: 0;left: 0;margin-top: calc(-1 * var(--pad-t) / 2);margin-left: calc(-1 * var(--pad-t) / 2);cursor: nw-resize}
 
-.ReactCrop .ord-nw::after {top: 0;left: 0}
+.ReactCrop .ord-nw::after { top: -1px; left: -1px }
 
-.ReactCrop .ord-n {top: 0;left: 50%;margin-top: -5px;margin-left: -5px;cursor: n-resize}
+.ReactCrop .ord-n {top: 0;left: 50%;margin-top: calc(-1 * var(--pad-t) / 2);margin-left: calc(-1 * var(--pad-t) / 2);cursor: n-resize}
 
-.ReactCrop .ord-n::after {top: 0}
+.ReactCrop .ord-n::after {top: -1px}
 
-.ReactCrop .ord-ne {top: 0;right: 0;margin-top: -5px;margin-right: -5px;cursor: ne-resize}
+.ReactCrop .ord-ne {top: 0;right: 0;margin-top: calc(-1 * var(--pad-t) / 2);margin-right: calc(-1 * var(--pad-t) / 2);cursor: ne-resize}
 
-.ReactCrop .ord-ne::after {top: 0;right: 0}
+.ReactCrop .ord-ne::after { top: -1px; right: -1px }
 
-.ReactCrop .ord-e {top: 50%;right: 0;margin-top: -5px;margin-right: -5px;cursor: e-resize}
+.ReactCrop .ord-e {top: 50%;right: 0;margin-top: calc(-1 * var(--pad-t) / 2);margin-right: calc(-1 * var(--pad-t) / 2);cursor: e-resize}
 
-.ReactCrop .ord-e::after {right: 0}
+.ReactCrop .ord-e::after {right: -1px}
 
-.ReactCrop .ord-se {bottom: 0;right: 0;margin-bottom: -5px;margin-right: -5px;cursor: se-resize}
+.ReactCrop .ord-se {bottom: 0;right: 0;margin-bottom: calc(-1 * var(--pad-t) / 2);margin-right: calc(-1 * var(--pad-t) / 2);cursor: se-resize}
 
-.ReactCrop .ord-se::after {bottom: 0;right: 0}
+.ReactCrop .ord-se::after { bottom: -1px; right: -1px }
 
-.ReactCrop .ord-s {bottom: 0;left: 50%;margin-bottom: -5px;margin-left: -5px;cursor: s-resize}
+.ReactCrop .ord-s {bottom: 0;left: 50%;margin-bottom: calc(-1 * var(--pad-t) / 2);margin-left: calc(-1 * var(--pad-t) / 2);cursor: s-resize}
 
-.ReactCrop .ord-s::after {bottom: 0}
+.ReactCrop .ord-s::after {bottom: -1px}
 
-.ReactCrop .ord-sw {bottom: 0;left: 0;margin-bottom: -5px;margin-left: -5px;cursor: sw-resize}
+.ReactCrop .ord-sw {bottom: 0;left: 0;margin-bottom: calc(-1 * var(--pad-t) / 2);margin-left: calc(-1 * var(--pad-t) / 2);cursor: sw-resize}
 
-.ReactCrop .ord-sw::after {bottom: 0;left: 0}
+.ReactCrop .ord-sw::after {bottom: -1px;left: -1px}
 
-.ReactCrop .ord-w {top: 50%;left: 0;margin-top: -5px;margin-left: -5px;cursor: w-resize}
+.ReactCrop .ord-w {top: 50%;left: 0;margin-top: calc(-1 * var(--pad-t) / 2);margin-left: calc(-1 * var(--pad-t) / 2);cursor: w-resize}
 
-.ReactCrop .ord-w::after {left: 0}
+.ReactCrop .ord-w::after {left: -1px}
 
 .ReactCrop__disabled .ReactCrop__drag-handle {cursor: inherit}
 

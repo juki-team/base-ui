@@ -2,29 +2,36 @@ import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../helpers';
 import { InputProps } from './types';
 
-const InputComponent = <T extends string | number, >({
+const InputComponent = <T extends string | number | FileList, >({
   className,
   onChange,
+  onBlur,
   type = 'text',
   block,
   value,
   register,
+  disabled,
+  size,
   ...props
 }: InputProps<T>, ref: Ref<HTMLInputElement>) => {
   
-  const { onChange: registerOnChange, ref: registerRef, ...restRegister } = register || {};
+  const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
+  const length = Math.max(('' + (value || '')).length, 3);
   
   return (
     <input
       ref={registerRef || ref}
       type={type}
-      value={value}
-      size={Math.max(('' + (value || '')).length, 3)}
-      className={classNames(className || '', `jk-input-${type} jk-border-radius-inline`, { block: !!block })}
-      onChange={registerOnChange ? registerOnChange : ({ target: { value } }) => {
+      value={type === 'file' ? undefined : value as string | number}
+      size={size === 'auto' ? length : size}
+      disabled={disabled}
+      className={classNames(className || '', `jk-input-${type} jk-border-radius-inline`, { block: !!block, disabled: !!disabled })}
+      onChange={registerOnChange ? registerOnChange : type === 'file' ? ({ target: { files } }) => onChange?.(files as T) : ({ target: { value } }) => {
         const newValue = (type === 'number' ? +value : value) as T;
         onChange?.(newValue);
       }}
+      onBlur={registerOnBlur ? registerOnBlur : onBlur}
+      style={size === 'auto' && type === 'number' ? { width: `${length + 1}em` } : {}}
       {...props}
       {...restRegister}
     />

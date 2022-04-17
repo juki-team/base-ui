@@ -1,11 +1,10 @@
+import { consoleWarn, PROGRAMMING_LANGUAGE } from '@juki-team/commons';
 import React from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { Button, ButtonLoader, ButtonLoaderOnClickType, PlayIcon, Select, SettingIcon, T, useNotification } from '../../index';
 import { settings } from '../../../config';
-import { PROGRAMMING_LANGUAGE } from '../../../config/constants';
-import { consoleWarn } from '../../../helpers';
 import { authorizedRequest, cleanRequest } from '../../../services';
 import { ContentResponseType, Status, SubmissionRunStatus } from '../../../types';
+import { Button, ButtonLoader, ButtonLoaderOnClickType, PlayIcon, Select, SettingIcon, T, useNotification } from '../../index';
 import { CodeEditorTestCasesType, HeaderProps } from '../types';
 
 export const Header = ({
@@ -65,7 +64,7 @@ export const Header = ({
         <Select
           className="languages-selector"
           options={languages.map(language => ({ value: language, label: language }))}
-          optionSelected={{ label: PROGRAMMING_LANGUAGE[language].name, value: PROGRAMMING_LANGUAGE[language].value }}
+          optionSelected={{ label: PROGRAMMING_LANGUAGE[language].label, value: PROGRAMMING_LANGUAGE[language].value }}
           onChange={({ value }) => onChange?.({ language: value })}
         />
         {!!Object.keys(testCases).length && (

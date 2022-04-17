@@ -1,10 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { consoleWarn } from '@juki-team/commons';
 import React, { useRef, useState } from 'react';
 import GoogleLogin from 'react-google-login';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { ButtonLoader, Input, InputPassword, JukiLaptopImage, SetLoaderStatusOnClickType, T, useT } from '../../index';
-import { consoleWarn } from '../../../helpers';
 import { ForgotPasswordModal } from '../ForgotPassword';
 import { SplitModal } from '../SplitModal';
 import { LoginInputType, LoginModalProps } from './types';

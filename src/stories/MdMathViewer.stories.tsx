@@ -1,19 +1,13 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
-import React, { useState } from 'react';
-
-import { Button, JukiBaseUiProvider, MdMathEditor, MdMathEditorProps } from '../index';
+import React from 'react';
+import { SAMPLE_MD_CONTENT } from '../constants';
+import { JukiBaseUiProvider, MdMathViewer, MdMathViewerProps } from '../index';
 import { COMPONENTS_WRITING_TOOLS } from './constants';
 
 export default {
   title: COMPONENTS_WRITING_TOOLS,
-  component: MdMathEditor,
-  argTypes: {
-    uploadImageButton: { control: { type: 'boolean' } },
-    informationButton: { control: { type: 'boolean' } },
-    sharedButton: { control: { type: 'boolean' } },
-    downloadButton: { control: { type: 'boolean' } },
-  },
+  component: MdMathViewer,
 };
 
 configureActions({
@@ -22,32 +16,20 @@ configureActions({
   limit: 20,
 });
 
-export const MdMathEditorClassic: Story<MdMathEditorProps> = ({
-  uploadImageButton,
-  informationButton,
-  sharedButton,
-  downloadButton,
-}) => {
-  const example = '# Titulo ```\n#include <bits/stdc++.h>\n\nusing namespace std;';
-  const [text, setText] = useState(example);
+const MdMathViewerComponent: Story<MdMathViewerProps> = (props) => {
   return (
     <JukiBaseUiProvider
       utilsServiceUrl="https://utils-back-v1.juki.app"
       apiVersion="api/v1"
-      utilsUiUrl="http://localhost:3001"
+      utilsUiUrl="https://utils.juki.app"
     >
       <div>
-        <MdMathEditor
-          source={text}
-          onChange={(value) => setText(value)}
-          uploadImageButton={uploadImageButton}
-          informationButton={informationButton}
-          sharedButton={sharedButton}
-          downloadButton={downloadButton}
-        />
-        <p>{text}</p>
-        <Button onClick={() => setText(example)}>clear</Button>
+        <MdMathViewer {...props} source={SAMPLE_MD_CONTENT} />
       </div>
     </JukiBaseUiProvider>
   );
 };
+
+export const MdMathViewerClassic = MdMathViewerComponent.bind({});
+
+MdMathViewerClassic.args = { sharedButton: true, downloadButton: true };

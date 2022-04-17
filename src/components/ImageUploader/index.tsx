@@ -1,2 +1,2 @@
-export * from './ImageLoaderAndCropper';
+export * from '../ImageLoaderCropper';
 export * from './ImageUploaderModal';

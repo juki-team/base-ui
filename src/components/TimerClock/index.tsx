@@ -1,5 +1,5 @@
+import { splitTime } from '@juki-team/commons';
 import React, { Fragment, useEffect, useState } from 'react';
-import { splitTime } from '../../helpers';
 import { useInterval } from '../../hooks';
 import { T } from '../Translate';
 import { Period, TimerClockProps } from './types';
@@ -12,7 +12,7 @@ const DEFAULT_LABELS: { [key in Period]: string } = {
 };
 
 export const TimerClock = React.memo(({ startDate, endDate, currentDate, onFinish, labels, laps = 3 }: TimerClockProps) => {
-  
+    
     const [time, setTime] = useState<{ counting: number, remaining: number, period: Period }>({
       counting: 0,
       remaining: 0,

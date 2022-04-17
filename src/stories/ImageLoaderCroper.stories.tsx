@@ -1,18 +1,12 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
-
-import { Button, JukiBaseUiProvider, MdMathEditor, MdMathEditorProps } from '../index';
+import { Button, CropImageType, downloadBlobAsFile, ImageLoaderCropper, ImageLoaderCropperProps, toBlob } from '../index';
+import { COMPONENTS_WRITING_TOOLS } from './constants';
 
 export default {
-  title: 'Components/Md Math Editor',
-  component: MdMathEditor,
-  argTypes: {
-    uploadImageButton: { control: { type: 'boolean' } },
-    informationButton: { control: { type: 'boolean' } },
-    sharedButton: { control: { type: 'boolean' } },
-    downloadButton: { control: { type: 'boolean' } },
-  },
+  title: COMPONENTS_WRITING_TOOLS,
+  component: ImageLoaderCropper,
 };
 
 configureActions({
@@ -21,32 +15,45 @@ configureActions({
   limit: 20,
 });
 
-export const MdMathEditorClassic: Story<MdMathEditorProps> = ({
-  uploadImageButton,
-  informationButton,
-  sharedButton,
-  downloadButton,
-}) => {
-  const example = '# Titulo ```\n#include <bits/stdc++.h>\n\nusing namespace std;';
-  const [text, setText] = useState(example);
+const ImageLoaderCropperComponent: Story<ImageLoaderCropperProps> = ({ onCropChange, ...props }) => {
+  
+  const [cropImage, setCropImage] = useState<CropImageType>();
+  
   return (
-    <JukiBaseUiProvider
-      utilsServiceUrl="https://utils-back-v1.juki.app"
-      apiVersion="api/v1"
-      utilsUiUrl="http://localhost:3001"
-    >
+    <div className="jk-col gap">
+      <Button
+        onClick={async () => {
+          if (cropImage?.previewCanvasRef.current) {
+            const blob = await toBlob(cropImage.previewCanvasRef.current);
+            if (blob) {
+              await downloadBlobAsFile(blob, 'image');
+            }
+          }
+        }}
+      >
+        download
+      </Button>
+      <ImageLoaderCropper
+        onCropChange={setCropImage}
+        {...props}
+      />
       <div>
-        <MdMathEditor
-          source={text}
-          onChange={(value) => setText(value)}
-          uploadImageButton={uploadImageButton}
-          informationButton={informationButton}
-          sharedButton={sharedButton}
-          downloadButton={downloadButton}
-        />
-        <p>{text}</p>
-        <Button onClick={() => setText(example)}>clear</Button>
+        {!!cropImage?.pixelCrop && (
+          <canvas
+            ref={cropImage.previewCanvasRef}
+            style={{
+              border: '1px solid black',
+              objectFit: 'contain',
+              width: cropImage.pixelCrop.width,
+              height: cropImage.pixelCrop.height,
+            }}
+          />
+        )}
       </div>
-    </JukiBaseUiProvider>
+    </div>
   );
 };
+
+export const ImageLoaderCropperClassic = ImageLoaderCropperComponent.bind({});
+
+ImageLoaderCropperClassic.args = { withAspect: true, withRotate: true, withScale: true, rotate: 0, scale: 1, aspect: 1 };

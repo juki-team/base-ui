@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { classNames } from '../../helpers';
 import { EyeIcon, EyeInvisibleIcon } from '../graphics';
-import { InputProps } from './types';
+import { Input } from './Input';
+import { InputPasswordProps } from './types';
 
-export const InputPassword = ({ className = '', onChange, register, ...props }: InputProps<string>) => {
-  const { onBlur: registerOnBlur, onChange: registerOnChange, ...restRegister } = register || {};
-  const [type, setType] = useState('password');
+export const InputPassword = ({ className = '', onChange, register, ...props }: InputPasswordProps<string>) => {
+  
+  const [type, setType] = useState<'password' | 'text'>('password');
   const [focused, setFocused] = useState(false);
   const onFocus = () => setFocused(true);
-  const onBlur = registerOnBlur ? registerOnBlur : () => setFocused(false);
+  const onBlur = () => setFocused(false);
   
   return (
     <span className={classNames('jk-input-password-wrapper', { focused })}>
-      <input
+      <Input
         type={type}
         className={classNames(className, 'jk-input-password jk-border-radius-inline')}
         onFocus={onFocus}
         onBlur={onBlur}
-        onChange={registerOnChange ? registerOnChange : ({ target: { value } }) => onChange?.(value)}
+        onChange={value => onChange?.(value)}
+        register={register}
         {...props}
-        {...restRegister}
       />
       {type === 'password'
         ? <EyeInvisibleIcon onClick={() => setType('text')} className="input-icon" />

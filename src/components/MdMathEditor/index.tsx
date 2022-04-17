@@ -1,26 +1,11 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { classNames, downloadBlobAsFile } from '../../../helpers';
-import { useOutsideAlerter } from '../../../hooks';
-import {
-  AlertModal,
-  Button,
-  CloseIcon,
-  DownloadIcon,
-  EditIcon,
-  ExternalIcon,
-  EyeIcon,
-  FloatToolbar,
-  LayoutIcon,
-  Popover,
-  SaveIcon,
-  SplitPane,
-  T,
-  TextArea,
-} from '../../index';
+import { classNames } from '../../helpers';
+import { useOutsideAlerter } from '../../hooks';
+import { AlertModal, Button, CloseIcon, EditIcon, EyeIcon, LayoutIcon, Popover, SaveIcon, SplitPane, T, TextArea } from '../index';
 import { MdMathViewer } from '../MdMathViewer';
-import { handleShareMdPdf } from '../../../helpers/utils';
 import { InformationButton } from './InformationButton';
+import { MdFloatToolbar } from './MdFloatToolbar';
 import { MdMathEditorProps } from './types';
 import { UploadImageButton } from './UploadImageButton';
 
@@ -37,7 +22,6 @@ export const MdMathEditor = ({
   const [editValue, setEditValue] = useState(source || '');
   const [textareaValue, setTextareaValue] = useState(source);
   const [editing, setEditing] = useState(false);
-  const [sourceUrl, setSourceUrl] = useState('');
   const continueWithoutSavingRef = useRef(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const [modal, setModal] = useState<ReactNode>(null);
@@ -48,9 +32,6 @@ export const MdMathEditor = ({
     setEditValue(source);
     setTextareaValue(source);
   }, [source]);
-  useEffect(() => {
-    setSourceUrl('');
-  }, [editValue]);
   const triggerUnsavedAlert = (accept?: () => void) => {
     const handleAccept = () => {
       onChange?.(editValue);
@@ -178,49 +159,11 @@ export const MdMathEditor = ({
         </>
       ) : (
         <div className="content-preview">
-          <FloatToolbar
-            actionButtons={[
-              ...(onChange ? [
-                {
-                  icon: <EditIcon />,
-                  buttons: [{ icon: <EditIcon />, label: <T>edit</T>, onClick: () => setEditing(true) }],
-                },
-              ] : []),
-              ...(sharedButton ? [
-                {
-                  icon: <ExternalIcon />,
-                  buttons: [
-                    {
-                      icon: <ExternalIcon />,
-                      label: <T>save a copy</T>,
-                      onClick: handleShareMdPdf('md', editValue, sourceUrl, setSourceUrl),
-                    },
-                    {
-                      icon: <ExternalIcon />,
-                      label: <T>share a copy</T>,
-                      onClick: handleShareMdPdf('md-fullscreen', editValue, sourceUrl, setSourceUrl),
-                    },
-                  ],
-                },
-              ] : []),
-              ...(downloadButton ? [
-                {
-                  icon: <DownloadIcon />,
-                  buttons: [
-                    {
-                      icon: <DownloadIcon />,
-                      label: <T>pdf</T>,
-                      onClick: handleShareMdPdf('pdf', editValue, sourceUrl, setSourceUrl),
-                    },
-                    {
-                      icon: <ExternalIcon />,
-                      label: <T>md</T>,
-                      onClick: async () => await downloadBlobAsFile(new Blob([editValue], { type: 'text/plain' }), 'file.md'),
-                    },
-                  ],
-                },
-              ] : []),
-            ]}
+          <MdFloatToolbar
+            source={editValue?.trim()}
+            edit onEdit={() => setEditing(true)}
+            download={downloadButton}
+            share={sharedButton}
           />
           <div className="preview">
             <MdMathViewer source={editValue.trim()} />

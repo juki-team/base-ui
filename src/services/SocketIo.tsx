@@ -1,7 +1,6 @@
-import { ContentResponseType } from '@juki-team/commons';
+import { consoleWarn, ContentResponseType } from '@juki-team/commons';
 import io, { Socket } from 'socket.io-client';
 import { settings } from '../config';
-import { consoleWarn } from '../helpers';
 import { authorizedRequest, cleanRequest } from './fetch';
 
 export class SocketIo {

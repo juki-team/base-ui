@@ -1,149 +1,199 @@
 import React, { useEffect, useRef, useState } from 'react';
-import ReactCrop, { Crop } from 'react-image-crop';
-import { Button } from '../../Button';
-import { MinusIcon, PlusIcon } from '../../graphics';
-import { Input } from '../../Input';
-import { CroppedImageType, ImageLoaderAndCropperProps } from './types';
+import ReactCrop, { centerCrop, convertToPercentCrop, convertToPixelCrop, Crop, makeAspectCrop, PixelCrop } from 'react-image-crop';
+import { useDebounceEffect } from '../../hooks';
+// import { Button } from '../Button';
+import { Input } from '../Input';
+import { T } from '../Translate';
+import { canvasPreview } from './canvasPreview';
+import { ImageLoaderCropperProps } from './types';
 
-export const ImageLoaderAndCropper = ({ defaultCrop, action }: ImageLoaderAndCropperProps) => {
-  const initialCrop = defaultCrop || {
-    unit: '%',
-    width: 100,
-    height: 100,
-    x: 0,
-    y: 0,
-  };
-  const [crop, setCrop] = useState<Crop>(initialCrop);
-  const [completedCrop, setCompletedCrop] = useState<Crop | null>(null);
-  const [src, setSrc] = useState<string | ArrayBuffer | null>(null);
-  const [croppedImage, setCroppedImage] = useState<CroppedImageType>({ url: '', blob: null });
-  const [scale, _setScale] = useState(1);
-  const [rotate, setRotate] = useState(0);
-  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-  const imageRef = useRef<HTMLImageElement | null>(null);
-  const setScale = (value: number) => _setScale(Math.max(Math.round(value * 10) / 10, 0.1));
-  useEffect(() => {
-    if (!completedCrop || !previewCanvasRef.current || !imageRef.current) {
-      return;
-    }
-    
-    const image = imageRef.current;
-    const canvas = previewCanvasRef.current;
-    const crop = completedCrop;
-    
-    const scaleX = image.naturalWidth / image.width * (1 / scale);
-    const scaleY = image.naturalHeight / image.height * (1 / scale);
-    const ctx = canvas.getContext('2d');
-    const pixelRatio = window?.devicePixelRatio;
-    
-    canvas.width = crop.width * pixelRatio * scaleX;
-    canvas.height = crop.height * pixelRatio * scaleY;
-    
-    ctx?.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-    ctx && (ctx.imageSmoothingQuality = 'high');
-    const ox = (image.width - (image.width * scale)) / 2;
-    const oy = (image.height - (image.height * scale)) / 2;
-    const sx = crop.x * scaleX - ox * scaleX;
-    const sy = crop.y * scaleY - oy * scaleY;
-    
-    ctx?.drawImage(
-      image,
-      sx,
-      sy,
-      crop.width * scaleX,
-      crop.height * scaleY,
-      0,
-      0,
-      crop.width * scaleX,
-      crop.height * scaleY,
-    );
-    canvas.toBlob(
-      (blob) => {
-        if (!blob) {
-          //reject(new Error('Canvas is empty'));
-          console.error('Canvas is empty');
-          return;
-        }
-        const fileUrl = window?.URL.createObjectURL(blob);
-        setCroppedImage({ url: fileUrl, blob });
+// This is to demonstate how to make and center a % aspect crop
+// which is a bit trickier so we use some helper functions.
+function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: number) {
+  return centerCrop(
+    makeAspectCrop(
+      {
+        unit: '%',
+        width: 90,
       },
-      'image/png',
-      1,
-    );
-  }, [completedCrop, scale, rotate]);
+      aspect,
+      mediaWidth,
+      mediaHeight,
+    ),
+    mediaWidth,
+    mediaHeight,
+  );
+}
+
+export const ImageLoaderCropper = ({
+  defaultCrop,
+  onCropChange,
+  aspect: initialAspect,
+  scale: initialScale,
+  rotate: initialRotate,
+  circularCrop,
+  withAspect,
+  withRotate,
+  withScale,
+}: ImageLoaderCropperProps) => {
+  const [imgSrc, setImgSrc] = useState('');
+  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [crop, setCrop] = useState<Crop | undefined>(defaultCrop);
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
+  const [scale, setScale] = useState(initialScale || 1);
+  const [rotate, setRotate] = useState(initialRotate || 0);
+  const [aspect, setAspect] = useState<number | undefined>(initialAspect || undefined);
+  const [aspectText, setAspectText] = useState<string>((aspect || '') + '');
   
-  // const onImageLoaded = useCallback((img: any) => imageRef.current = img, []);
-  
-  const onSelectFile = ({ target }: { target: HTMLInputElement }) => {
-    if (target.files && target.files.length > 0) {
-      setRotate(0);
-      setScale(1);
-      setCrop(initialCrop);
-      const reader = new FileReader();
-      reader.addEventListener('load', () => setSrc(reader.result));
-      reader.readAsDataURL(target.files[0]);
+  useEffect(() => {
+    if (initialScale !== undefined) {
+      setScale(initialScale);
+    }
+  }, [initialScale]);
+  useEffect(() => {
+    if (initialRotate !== undefined) {
+      setRotate(initialRotate);
+    }
+  }, [initialRotate]);
+  const updateAspect = (aspect: number | undefined) => {
+    if (!aspect) {
+      setAspect(undefined);
+    } else if (imgRef.current) {
+      const { width, height } = imgRef.current;
+      setAspect(aspect);
+      const crop = centerAspectCrop(width, height, aspect);
+      setCrop(crop);
+      setCompletedCrop(convertToPixelCrop(crop, width, height));
     }
   };
+  useEffect(() => {
+    updateAspect(initialAspect);
+    setAspectText((initialAspect || '') + '');
+  }, [initialAspect]);
+  useEffect(() => updateAspect(aspect), [aspect]);
+  
+  function onSelectFile(files: FileList) {
+    if (files?.length > 0) {
+      setCrop(undefined); // Makes crop preview update between images.
+      const reader = new FileReader();
+      reader.addEventListener('load', () =>
+        setImgSrc(reader.result?.toString() || ''),
+      );
+      reader.readAsDataURL(files[0]);
+    }
+  }
+  
+  function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
+    const { width, height } = e.currentTarget;
+    if (aspect) {
+      setCrop(centerAspectCrop(width, height, aspect));
+    } else {
+      setCrop({ width: 100, height: 100, y: 0, x: 0, unit: '%' });
+    }
+  }
+  
+  useDebounceEffect(async () => {
+    if (
+      completedCrop?.width &&
+      completedCrop?.height &&
+      imgRef.current &&
+      previewCanvasRef.current
+    ) {
+      // We use canvasPreview as it's much faster than imgPreview.
+      canvasPreview(
+        imgRef.current,
+        previewCanvasRef.current,
+        completedCrop,
+        scale,
+        rotate,
+      );
+    }
+  }, 100, [completedCrop, scale, rotate]);
+  
+  useEffect(() => {
+    if (previewCanvasRef.current && completedCrop && imgRef.current) {
+      const { width, height } = imgRef.current;
+      onCropChange?.({
+        percentCrop: convertToPercentCrop(completedCrop, width, height),
+        pixelCrop: completedCrop,
+        previewCanvasRef: previewCanvasRef,
+        scale,
+        rotate,
+        circularCrop: !!circularCrop,
+        aspect,
+      });
+    }
+  }, [completedCrop, scale, rotate, onCropChange, circularCrop, aspect]);
   
   return (
-    <div className="load-crop-image">
-      <div className="actions-container jk-row space-between gap">
-        <input type="file" accept="image/*" onChange={onSelectFile} />
-        <div className="actions-box">
-          {action(croppedImage)}
-        </div>
-      </div>
-      {src && (
-        <div className="jk-row start gap image-utils">
-          <div className="jk-row">
-            scale:
-            <Button
-              size="small"
-              type="text"
-              icon={<PlusIcon circle />}
-              onClick={() => setScale(scale + 0.1)} />
-            <Input onChange={value => setScale(value)} value={scale} type="number" />
-            <Button
-              size="small"
-              type="text"
-              icon={<MinusIcon circle />}
-              onClick={() => setScale(scale - 0.1)}
+    <div className="image-loader-cropper-layout jk-col gap">
+      <div className="jk-row space-between gap nowrap">
+        <Input type="file" accept="image/*" onChange={onSelectFile} />
+        {withScale && (
+          <label>
+            <T className="text-sentence-case">scale</T>:
+            <Input
+              type="number"
+              step={0.1}
+              value={scale}
+              disabled={!imgSrc}
+              size="auto"
+              onChange={value => setScale(value)}
             />
-          </div>
-          <div className="jk-row">
-            rotate: <Button size="small" type="text" icon={<PlusIcon circle />}
-                            onClick={() => setRotate(prevState => prevState + 1)} />
-            <Input onChange={(value) => setRotate(value)} value={rotate} type="number" />
-            <Button size="small" type="text" icon={<MinusIcon circle />} onClick={() => setRotate(prevState => prevState - 1)} />
-          </div>
-        </div>
+          </label>
+        )}
+        {withRotate && (
+          <label>
+            <T className="text-sentence-case">rotate</T>:
+            <Input
+              type="number"
+              value={rotate}
+              disabled={!imgSrc}
+              size="auto"
+              onChange={value => setRotate(Math.min(180, Math.max(-180, value)))}
+            />
+          </label>
+        )}
+        {withAspect && (
+          <label>
+            <T className="text-sentence-case">aspect</T>:
+            <Input
+              type="text"
+              value={aspectText}
+              disabled={!imgSrc}
+              size="auto"
+              onChange={value => {
+                setAspectText(value);
+                const values = value?.split('/');
+                const aspect = +values[0] / +(values[1] || 1);
+                if (!Number.isNaN(aspect)) {
+                  setAspect(aspect);
+                }
+              }}
+            />
+          </label>
+        )}
+      </div>
+      {Boolean(imgSrc) && (
+        <ReactCrop
+          crop={crop}
+          onChange={(_, percentCrop) => setCrop(percentCrop)}
+          onComplete={(c) => setCompletedCrop(c)}
+          aspect={aspect}
+          circularCrop={circularCrop}
+        >
+          <img
+            ref={imgRef}
+            alt="Crop me"
+            src={imgSrc}
+            style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
+            onLoad={onImageLoad}
+          />
+        </ReactCrop>
       )}
-      <div className="crop-preview-box">
-        <div className="crop-box">
-          <div>
-            <ReactCrop
-              // src={src as string}
-              crop={crop}
-              // onImageLoaded={onImageLoaded}
-              onComplete={crop => setCompletedCrop(crop)}
-              onChange={crop => setCrop(crop)}
-              // scale={scale}
-              // rotate={rotate}
-              ruleOfThirds
-            >
-              <img
-                src={src as string}
-                crossOrigin="anonymous"
-                alt="cropping"
-                style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
-              />
-            </ReactCrop>
-          </div>
-        </div>
-        <div className="preview-box">
-          <canvas ref={previewCanvasRef} />
-          {/*// <img alt="Crop" style={{ maxWidth: '100%' }} src={croppedImage.url} />*/}
-        </div>
+      <div style={{ display: 'none' }}>
+        {!!completedCrop && (<canvas ref={previewCanvasRef} />)}
       </div>
     </div>
   );

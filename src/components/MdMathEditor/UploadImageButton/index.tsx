@@ -1,5 +1,5 @@
 import React, { MutableRefObject, useState } from 'react';
-import { Button, CloudUploadIcon, ImageUploaderModal, Popover, T } from '../../../index';
+import { Button, CloudUploadIcon, ImageUploaderModal, Popover, T } from '../../index';
 
 export const UploadImageButton = ({ isOpenRef, withLabel }: { isOpenRef: MutableRefObject<boolean>, withLabel: boolean }) => {
   

@@ -1,6 +1,10 @@
+@import "../../abstracts";
+
 .jk-code-viewer {
+  position: relative;
+  
   > pre {
-    border-color: var(--t-color-gray-5) !important;
+    border-color: transparent;
     margin: 0 !important;
   }
 }

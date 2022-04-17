@@ -1,6 +1,6 @@
 // import CodeMirror from '@uiw/react-codemirror';
+import { PROGRAMMING_LANGUAGE } from '@juki-team/commons';
 import React from 'react';
-import { PROGRAMMING_LANGUAGE } from '../../config/constants';
 import ReactCodeMirror from './CodeMirror';
 import { CodeEditorKeyMap, CodeEditorProps, CodeEditorTheme } from './types';
 

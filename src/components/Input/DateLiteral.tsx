@@ -1,5 +1,5 @@
+import { DAY_NAMES, MONTH_NAMES } from '@juki-team/commons';
 import React from 'react';
-import { DAY_NAMES, MONTH_NAMES } from '../../config/constants';
 import { classNames } from '../../helpers';
 import { showOfDatePickerType } from '../DatePicker';
 import { T } from '../Translate';
@@ -10,7 +10,10 @@ export const DateLiteral = ({ date, className, show = 'year-month-day-hours-minu
   const { showYears, showMonths, showDays, showHours, showMinutes, showSeconds, showMilliseconds } = showOfDatePickerType(show);
   
   return (
-    <div className={classNames('date-literal jk-border-radius-inline', { 'jk-row gap': !twoLines, 'jk-col nowrap': !!twoLines }, className)}>
+    <div className={classNames('date-literal jk-border-radius-inline', {
+      'jk-row gap': !twoLines,
+      'jk-col nowrap': !!twoLines,
+    }, className)}>
       <div>
         {showDays && <><T>{DAY_NAMES[date.getDay()]}</T>,&nbsp;</>}
         {showDays && <>{date.getDate()}&nbsp;</>}

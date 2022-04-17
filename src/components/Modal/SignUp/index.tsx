@@ -1,10 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { consoleWarn } from '@juki-team/commons';
 import React, { useRef } from 'react';
 import GoogleLogin from 'react-google-login';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { ButtonLoader, Input, InputCheckbox, InputPassword, JukiLaptopImage, SetLoaderStatusOnClickType, T, useT } from '../../index';
-import { consoleWarn } from '../../../helpers';
 import { SplitModal } from '../SplitModal';
 import { SignUpInputType, SignUpModalProps } from './types';
 
@@ -87,7 +87,7 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
               <div className="jk-form-item">
                 <label>
                   <T>last name</T>
-                  <Input {...register('familyName')} />
+                  <Input register={register('familyName')} />
                 </label>
                 <p><T>{errors.familyName?.message || ''}</T></p>
               </div>
@@ -95,14 +95,14 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
             <div className="jk-form-item">
               <label>
                 <T>nickname</T>
-                <Input {...register('nickname')} />
+                <Input register={register('nickname')} />
               </label>
               <p><T>{(!isValid && errors?.nickname?.message) || ''}</T></p>
             </div>
             <div className="jk-form-item">
               <label>
                 <T>e-mail address</T>
-                <Input {...register('email')} />
+                <Input register={register('email')} />
               </label>
               <p><T>{(!isValid && errors?.email?.message) || ''}</T></p>
             </div>

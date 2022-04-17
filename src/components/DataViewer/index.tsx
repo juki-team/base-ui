@@ -1,7 +1,8 @@
+import { consoleWarn } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { OptionType, SearchParamsObjectType, showOfDatePickerType, ViewModeType } from '../index';
-import { classNames, consoleWarn } from '../../helpers';
+import { classNames } from '../../helpers';
 import { Status } from '../../types';
+import { OptionType, SearchParamsObjectType, showOfDatePickerType, ViewModeType } from '../index';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,
@@ -507,7 +508,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       initialSortSearch[sortKey] = [searchSorts];
     }
     const newSearchFilter = searchFilter.length ? [...searchFilter] : new Array(headers.length).fill('');
-    headers.forEach(({  filter, index: columnIndex }, index) => {
+    headers.forEach(({ filter, index: columnIndex }, index) => {
       if (filter?.type === FILTER_TEXT || filter?.type === FILTER_TEXT_AUTO) {
         newSearchFilter[index] = values[columnIndex] || '';
       } else if (filter?.type === FILTER_SELECT || filter?.type === FILTER_SELECT_AUTO) {

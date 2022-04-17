@@ -148,3 +148,9 @@
     padding: var(--pad-l);
   }
 }
+
+.modal-login, .modal-sign-up {
+  .split-modal > .jk-side-main > div {
+    padding: var(--pad-t) 0;
+  }
+}

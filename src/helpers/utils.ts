@@ -1,8 +1,8 @@
-import { ContentResponseType } from '@juki-team/commons';
+import { consoleWarn, ContentResponseType } from '@juki-team/commons';
 import { Dispatch, SetStateAction } from 'react';
-import { settings } from '../../config';
-import { consoleWarn } from '../../helpers';
-import { authorizedRequest, cleanRequest } from '../../services';
+import { settings } from '../config';
+import { authorizedRequest, cleanRequest } from '../services';
+import { openNewTab } from './commons';
 
 export const publishNote = async (source: string) => {
   const request = cleanRequest<ContentResponseType<{ sourceUrl: string }>>(await authorizedRequest(...settings.UTILS_API.POST_PUBLIC_NOTE(JSON.stringify({ source: source.trim() }))));
@@ -11,13 +11,6 @@ export const publishNote = async (source: string) => {
   }
   consoleWarn({ message: 'error on publish note', request });
   return '';
-};
-
-export const openNewTab = (url: string) => {
-  const newWindow = window?.open(url, '_blank', 'noopener,noreferrer');
-  if (newWindow) {
-    newWindow.opener = null;
-  }
 };
 
 export const handleShareMdPdf = (type: string, source: string, sourceUrl: string, setSourceUrl: Dispatch<SetStateAction<string>>) => async () => {

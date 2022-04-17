@@ -2,11 +2,14 @@ import { PropsWithChildren, ReactNode } from 'react';
 import { ChangeHandler } from 'react-hook-form';
 import { ButtonType, placementType } from '../index';
 
-export interface InputProps<T> {
+export interface InputCommonsProps<T> {
+  id?: string,
   onChange?: (newValue: T) => void,
+  onFocus?: () => void,
+  onBlur?: () => void,
   value?: T,
   name?: string,
-  type?: 'text' | 'number' | 'email',
+  disabled?: boolean,
   // offline?: boolean
   className?: string,
   block?: boolean,
@@ -14,7 +17,44 @@ export interface InputProps<T> {
   autoFocus?: boolean,
   placeholder?: string,
   register?: { name: string, onBlur: ChangeHandler, onChange: ChangeHandler, ref: any },
+  // types
+  type?: 'text' | 'number' | 'password' | 'email' | 'file',
+  accept?: string,
+  size?: number | 'auto',
+  step?:  number | 'auto',
 }
+
+// export interface InputFileProps<T> extends InputCommonsProps<T> {
+//   type?: 'file',
+//   accept?: string,
+//   size?: never,
+//   step?: never,
+// }
+//
+// export interface InputEmailProps<T> extends InputCommonsProps<T> {
+//   type?: 'email',
+//   accept?: never,
+//   size?: never,
+//   step?: never,
+// }
+//
+// export interface InputNumberProps<T> extends InputCommonsProps<T> {
+//   type?: 'number',
+//   accept?: never,
+//   size?: number | 'auto',
+//   step?: number,
+// }
+//
+// export interface InputTextProps<T> extends InputCommonsProps<T> {
+//   type?: 'text' | 'password',
+//   accept?: never,
+//   size?: number | 'auto',
+//   step?: never,
+// }
+
+export type InputProps<T> = InputCommonsProps<T>;
+
+export type InputPasswordProps<T> = Omit<InputProps<T>, 'type'>
 
 export interface InputSubmitProps {
   name?: string,

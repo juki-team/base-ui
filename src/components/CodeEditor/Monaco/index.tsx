@@ -1,5 +1,5 @@
+import { PROGRAMMING_LANGUAGE } from '@juki-team/commons';
 import React, { lazy, Suspense } from 'react';
-import { PROGRAMMING_LANGUAGE } from '../../../config/constants';
 import { ProgrammingLanguage } from '../../../types';
 import { LoadingIcon } from '../../graphics';
 

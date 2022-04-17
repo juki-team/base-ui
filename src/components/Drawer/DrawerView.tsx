@@ -1,10 +1,10 @@
 import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { Button, CloseIcon, DrawerViewProps } from '../index';
-import { SCROLL_WIDTH } from '../../config/constants';
+import { SCROLL_WIDTH } from '../../constants';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useKeyPress } from '../../hooks';
 import { Portal } from '../Basic';
+import { Button, CloseIcon, DrawerViewProps } from '../index';
 
 export const DrawerView = ({
   children,

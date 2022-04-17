@@ -59,7 +59,7 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
 }
 
 @mixin transition($prop1: false, $prop2: false, $prop3: false) {
-  $time: 300ms;
+  $time: 400ms;
   @if $prop1 {
     @if $prop2 {
       @if $prop3 {

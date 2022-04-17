@@ -1,8 +1,7 @@
-import { ContentsResponseType } from '@juki-team/commons';
+import { consoleWarn, ContentsResponseType } from '@juki-team/commons';
 import copy from 'copy-to-clipboard';
 import React, { memo, useEffect, useState } from 'react';
 import { settings } from '../../../../config';
-import { consoleWarn } from '../../../../helpers';
 import { authorizedRequest, cleanRequest } from '../../../../services';
 import { FloatToolbar } from '../../../FloatToolbar';
 import { CopyIcon } from '../../../graphics';

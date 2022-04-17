@@ -18,7 +18,7 @@ import {
   T,
   VerticalMenu,
 } from '../index';
-import { SAMPLE_MD_CONTENT } from '../components/MdMath/MdMathEditor/InformationButton/contants';
+import { SAMPLE_MD_CONTENT } from '../constants/md';
 
 export default {
   title: 'Components/Menus',

@@ -1,6 +1,6 @@
+import { HTTPMethod } from '@juki-team/commons';
 import { ManagerOptions, SocketOptions } from 'socket.io-client';
 import { AuthorizedRequestType } from '../services';
-import { POST } from './constants';
 
 export class Settings {
   private _UTILS_SERVICE_URL = '';
@@ -12,12 +12,12 @@ export class Settings {
       GET_ALL_PUBLIC_IMAGES: (): [string] => [this._UTILS_SERVICE_API_URL + '/images'],
       POST_PUBLIC_IMAGE: (body: FormData): [string, AuthorizedRequestType] => [
         this._UTILS_SERVICE_API_URL + '/image',
-        { method: POST, body },
+        { method: HTTPMethod.POST, body },
       ],
       POST_PUBLIC_NOTE: (body: string): [string, AuthorizedRequestType] => [
         this._UTILS_SERVICE_API_URL + '/note/publish',
         {
-          method: POST,
+          method: HTTPMethod.POST,
           headers: { 'Content-Type': 'application/json' },
           body,
         },
@@ -33,7 +33,7 @@ export class Settings {
       ],
       POST_CODE_RUN: (body: string): [string, AuthorizedRequestType] => [
         this._UTILS_SERVICE_API_URL + '/code/run', {
-          method: POST,
+          method: HTTPMethod.POST,
           body,
         },
       ],
@@ -41,7 +41,7 @@ export class Settings {
         this._UTILS_SERVICE_URL, { withCredentials: true, transports: ['websocket'], autoConnect: false, reconnection: true },
       ],
       POST_LOGIN: (): [string, AuthorizedRequestType] => [
-        this._UTILS_SERVICE_API_URL + '/auth/login', { method: POST },
+        this._UTILS_SERVICE_API_URL + '/auth/login', { method: HTTPMethod.POST },
       ],
     };
   }

@@ -118,6 +118,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-input-number,
 .jk-input-password,
 .jk-input-textarea,
+.jk-input-file,
 .jk-select-layout .jk-select,
 .jk-multi-select-layout .jk-select,
 .jk-input-date-layout .date-literal-label {
@@ -136,6 +137,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   &:focus, &:active {
     box-shadow: var(--t-box-shadow-tn);
+  }
+  
+  &::-webkit-file-upload-button {
+    //visibility: hidden;
+  }
+  
+  &.disabled {
+    color: var(--t-color-gray-4);
+    border-color: var(--t-color-gray-4);
+    background-color: var(--t-color-gray-6);
   }
 }
 
@@ -158,9 +169,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 // input
+.jk-input-text, .jk-input-password {
+  padding: 4px var(--pad-xt);
+}
+
+.jk-input-number {
+  padding: 4px 4px 4px var(--pad-xt);
+}
+
 .jk-input-text, .jk-input-number, .jk-input-password {
   height: var(--pad-xl);
-  padding: 4px var(--pad-t);
   
   &::placeholder {
     color: var(--t-color-gray-4);

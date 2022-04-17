@@ -110,11 +110,9 @@ export const MdMath = memo(({ source }: { source: string }) => {
     children: source,
   };
   return (
-    <div className="jk-md-math-viewer-layout">
+    <div className="jk-md-math">
       <Suspense fallback={<LoadingIcon />}>
-        <ReactMarkdown
-          {...props}
-        >
+        <ReactMarkdown {...props}>
           {source}
         </ReactMarkdown>
       </Suspense>

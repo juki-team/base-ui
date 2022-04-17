@@ -1,7 +1,7 @@
+import { mex, PROGRAMMING_LANGUAGE, SUBMISSION_RUN_STATUS } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
-import { PROGRAMMING_LANGUAGE, SUBMISSION_RUN_STATUS } from '../../../config/constants';
-import { classNames, mex } from '../../../helpers';
+import { classNames } from '../../../helpers';
 import { ReactNodeOrFunctionType, SubmissionRunStatus } from '../../../types';
 import { Button } from '../../Button';
 import { DeleteIcon, LoadingIcon, PlusIcon } from '../../graphics';
@@ -118,21 +118,21 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
           {testCases[testCaseKey]?.status === SubmissionRunStatus.RECEIVED && (
             <div className="jk-overlay ">
               <div className="jk-row-gap">
-                {SUBMISSION_RUN_STATUS[SubmissionRunStatus.RECEIVED].print}... <LoadingIcon />
+                <T>{SUBMISSION_RUN_STATUS[SubmissionRunStatus.RECEIVED].label}</T>... <LoadingIcon />
               </div>
             </div>
           )}
           {testCases[testCaseKey]?.status === SubmissionRunStatus.COMPILING && (
             <div className="jk-overlay ">
               <div className="jk-row-gap">
-                {SUBMISSION_RUN_STATUS[SubmissionRunStatus.COMPILING].print}... <LoadingIcon />
+                <T>{SUBMISSION_RUN_STATUS[SubmissionRunStatus.COMPILING].label}</T>... <LoadingIcon />
               </div>
             </div>
           )}
           {testCases[testCaseKey]?.status === SubmissionRunStatus.RUNNING_TEST_CASE && (
             <div className="jk-overlay ">
               <div className="jk-row-gap">
-                {SUBMISSION_RUN_STATUS[SubmissionRunStatus.RUNNING_TEST_CASE].print}... <LoadingIcon />
+                <T>{SUBMISSION_RUN_STATUS[SubmissionRunStatus.RUNNING_TEST_CASE].label}</T>... <LoadingIcon />
               </div>
             </div>
           )}
@@ -162,11 +162,8 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
             </div>
             {errorData?.err && (
               <div>
-                {/*{errorData?.log && (*/}
                 <LogInfo testCase={errorData} timeLimit={timeLimit} memoryLimit={memoryLimit} />
-                {/*)}*/}
                 <span className="text-stdout">{errorData?.out}</span>
-                {/*<span className="color-white text-stderr">{errorData?.err}</span>*/}
               </div>
             )}
           </Tabs>

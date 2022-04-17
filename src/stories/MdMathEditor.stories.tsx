@@ -3,9 +3,10 @@ import { Story } from '@storybook/react';
 import React, { useState } from 'react';
 
 import { Button, JukiBaseUiProvider, MdMathEditor, MdMathEditorProps } from '../index';
+import { COMPONENTS_WRITING_TOOLS } from './constants';
 
 export default {
-  title: 'Components/Md Math Editor',
+  title: COMPONENTS_WRITING_TOOLS,
   component: MdMathEditor,
   argTypes: {
     uploadImageButton: { control: { type: 'boolean' } },

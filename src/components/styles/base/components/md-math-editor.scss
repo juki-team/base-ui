@@ -103,6 +103,7 @@
     }
     
     .no-saved-label {
+      z-index: 1;
       position: absolute;
       width: calc(100% + 2px);
       background-color: var(--t-color-primary-light);
@@ -225,11 +226,7 @@
   }
   
   .upload-new-image-tab {
-    height: calc(var(--100VH) - 104px);
-    
-    .load-crop-image {
-      height: calc(100% - 60px);
-    }
+    padding: var(--pad-t) 0;
     
     .copyable {
       cursor: pointer;
