@@ -237,7 +237,7 @@ export const MultiSelect = <T, U extends ReactNode, >({
                   }
                 }}
               >
-                <div className="jk-row start">
+                <div className="jk-row left">
                   <InputCheckbox checked={selected} onChange={() => null} disabled={disabled} />
                   {option.label}
                 </div>

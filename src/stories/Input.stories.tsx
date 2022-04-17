@@ -72,7 +72,7 @@ export const Checkbox = () => {
   const [checked, setChecked] = useState(false);
   
   return (
-    <div className="jk-row start">
+    <div className="jk-row left">
       <div className="jk-col gap filled">
         <CheckboxComponent checked={true} name="test" onChange={_ => null} label="checked" />
         <CheckboxComponent checked={false} name="test" onChange={_ => null} label="no checked" />
@@ -87,7 +87,7 @@ export const Checkbox = () => {
 export const Toggle = () => {
   const [checked, setChecked] = useState(false);
   return (
-    <div className="jk-row start">
+    <div className="jk-row left">
       <div className="jk-col gap">
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" />

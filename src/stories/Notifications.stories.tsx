@@ -24,18 +24,18 @@ const Comp = () => {
   } = useNotification();
   const largeMessage = (
     <div>
-      holiiiiiiiiiii
+      LoremIpsumLoremIpsum
       <ul>
-        <li>testaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 1</li>
-        <li>test 2</li>
-        <li>test 3</li>
+        <li>LoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsumLoremIpsum 1</li>
+        <li>LoremIpsum 2</li>
+        <li>LoremIpsum 3</li>
       </ul>
     </div>
   );
   const textMessage = 'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum';
-  const shortMessage = <div> holiiiiiiiiiii </div>;
+  const shortMessage = <div> LoremIpsumLoremIpsum </div>;
   return (
-    <div className="jk-row start">
+    <div className="jk-row left">
       <div className="jk-col">
         <Button
           onClick={() => {

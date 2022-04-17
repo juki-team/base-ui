@@ -29,10 +29,10 @@ export const UploadNewImageTab = memo(() => {
     }
   };
   return (
-    <div className="upload-new-image-tab jk-col start gap">
+    <div className="upload-new-image-tab jk-col top gap">
       {imagePublicUrl && (
         <div className="result-box">
-          <div className="jk-row gap start text-semi-bold">
+          <div className="jk-row gap left text-semi-bold">
             <T>public url</T>:
             <CopyToClipboard text={imagePublicUrl}>
               <div className="copyable jk-row">
@@ -41,7 +41,7 @@ export const UploadNewImageTab = memo(() => {
               </div>
             </CopyToClipboard>
           </div>
-          <div className="jk-row gap start text-semi-bold">
+          <div className="jk-row gap left text-semi-bold">
             <T>markdown use</T>:
             <CopyToClipboard text={`![image alt](${imagePublicUrl})`}>
               <div className="copyable jk-row">

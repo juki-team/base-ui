@@ -122,12 +122,12 @@
             box-sizing: border-box;
             height: 100%;
             position: relative;
-            padding: var(--pad-t);
+            padding: 0 var(--pad-t);
             @include md {
-              padding: var(--pad-xt);
+              padding: 0 var(--pad-xt);
             }
             @include sm {
-              padding: 4px;
+              padding: 0 4px;
             }
             
             &.with-sort:not(.with-filter), &.with-filter:not(.with-sort) {
@@ -178,7 +178,7 @@
             
             .text-head-field {
               height: 100%;
-              font-weight: var(--weight-semi-bold);
+              word-break: break-all;
             }
           }
         }

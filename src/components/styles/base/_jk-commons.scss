@@ -34,13 +34,9 @@ fieldset[class*=" jk-col"], fieldset[class^="jk-col"] {
     }
   }
   
-  &.start { justify-content: flex-start; }
+  &.space-between { justify-content: space-between; }
   
   &.center { justify-content: center; }
-  
-  &.end { justify-content: flex-end; }
-  
-  &.space-between { justify-content: space-between; }
 }
 
 span[class*=" jk-row"], span[class^="jk-row"], span[class*=" jk-col"], span[class^="jk-col"] {
@@ -53,6 +49,14 @@ div[class*=" jk-row"], div[class^="jk-row"], section[class*=" jk-row"], section[
     align-items: stretch;
     position: relative;
   }
+  
+  &.left { justify-content: flex-start; }
+  
+  &.right { justify-content: flex-end; }
+  
+  &.top { align-content: start; }
+  
+  &.bottom { align-content: end; }
 }
 
 div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[class^="jk-col"], span[class*=" jk-col"], span[class^="jk-col"] {
@@ -63,6 +67,14 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
     align-items: stretch;
     position: relative;
   }
+  
+  &.top { justify-content: flex-start; }
+  
+  &.bottom { justify-content: flex-end; }
+  
+  &.left { align-content: start; }
+  
+  &.right { align-content: end; }
 }
 
 /*

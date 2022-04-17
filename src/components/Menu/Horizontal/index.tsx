@@ -37,10 +37,10 @@ export const HorizontalMenu = ({
     <div className={classNames('jk-horizontal-menu-layout-container', className)}>
       <header className={classNames('jk-menu jk-top-horizontal-menu')}>
         <section className="jk-row nowrap jk-menu-content screen md lg hg">
-          <div className={classNames('jk-menu-left-section jk-row start nowrap')}>
+          <div className={classNames('jk-menu-left-section jk-row left nowrap')}>
             {renderReactNodeOrFunction(left)}
           </div>
-          <div className="jk-menu-items jk-row start gap nowrap">
+          <div className="jk-menu-items jk-row left gap nowrap">
             {menus}
           </div>
           <div className={classNames('jk-menu-right-section jk-row end nowrap')}>
@@ -48,7 +48,7 @@ export const HorizontalMenu = ({
           </div>
         </section>
         <section className="jk-row nowrap block jk-menu-content space-between screen sm">
-          <div className={classNames('jk-horizontal-menu-mobile-right jk-row start')}>
+          <div className={classNames('jk-horizontal-menu-mobile-right jk-row left')}>
             {leftMobile && (
               <Drawer
                 content={props => renderReactNodeOrFunctionP1(leftMobile.content, props)}
@@ -96,7 +96,7 @@ export const HorizontalMenu = ({
       </section>
       <header className={classNames('jk-menu jk-mobile-bottom-horizontal-menu')}>
         <section className="jk-row jk-menu-content">
-          <div className="jk-menu-items jk-row start gap">
+          <div className="jk-menu-items jk-row left gap">
             {menus}
           </div>
         </section>

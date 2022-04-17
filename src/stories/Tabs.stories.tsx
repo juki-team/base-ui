@@ -35,97 +35,71 @@ const Template: Story<TabsProps> = () => {
     >
       <div style={{ height: '500px' }}>
         <Tabs tabHeaders={tabs}>
-          <div>
-            <div style={{ width: '500px', height: '500px', background: 'gray' }}>
-              jk-row
-              <div className="jk-row" style={{ height: '40px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
+          <div className="jk-row gap">
+            {[
+              'jk-row',
+              'jk-row left',
+              'jk-row center',
+              'jk-row right',
+              'jk-row space-between',
+              'jk-row block',
+              'jk-row filled',
+              'jk-row block filled',
+              'jk-row left top',
+              'jk-row left bottom',
+              'jk-row center top',
+              'jk-row center bottom',
+              'jk-row right top',
+              'jk-row right bottom',
+            ].map(col => (
+              <div className="jk-row gap jk-shadow jk-pad jk-border-radius-inline text-bold color-white" style={{ width: '420px' }}>
+                <pre className="color-gray-1">{col}</pre>
+                <div className={col} style={{ width: '240px', height: '50px', background: 'var(--t-color-gray-6)' }}>
+                  <div style={{ border: '2px solid red' }}>
+                    <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
+                  </div>
+                  <div style={{ border: '2px solid blue' }}>
+                    <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
+                  </div>
+                  <div style={{ border: '2px solid green' }}>
+                    <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
+                  </div>
+                </div>
               </div>
-              jk-row start
-              <div className="jk-row start" style={{ height: '40px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-              jk-row center
-              <div className="jk-row center" style={{ height: '40px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-              jk-row end
-              <div className="jk-row end" style={{ height: '40px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-              jk-row block
-              <div className="jk-row block" style={{ height: '40px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-              jk-row space-between
-              <div className="jk-row space-between" style={{ height: '40px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-              jk-row filled
-              <div className="jk-row filled" style={{ height: '40px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-            </div>
+            ))}
           </div>
-          <div>
-            <div className="jk-row" style={{ width: '1200px', height: '400px', background: 'gray' }}>
-              jk-col
-              <div className="jk-col" style={{ width: '60px', height: '100px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
+          <div className="jk-row gap">
+            {[
+              'jk-col',
+              'jk-col top',
+              'jk-col center',
+              'jk-col bottom',
+              'jk-col space-between',
+              'jk-col block',
+              'jk-col filled',
+              'jk-col block filled',
+              'jk-col top left',
+              'jk-col top right',
+              'jk-col center left',
+              'jk-col center right',
+              'jk-col bottom left',
+              'jk-col bottom right',
+            ].map(col => (
+              <div className="jk-row gap jk-shadow jk-pad jk-border-radius-inline text-bold color-white" style={{ width: '320px' }}>
+                <pre className="color-gray-1">{col}</pre>
+                <div className={col} style={{ width: '80px', height: '150px', background: 'var(--t-color-gray-6)' }}>
+                  <div style={{ border: '2px solid red' }}>
+                    <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
+                  </div>
+                  <div style={{ border: '2px solid blue' }}>
+                    <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
+                  </div>
+                  <div style={{ border: '2px solid green' }}>
+                    <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
+                  </div>
+                </div>
               </div>
-              jk-col start
-              <div className="jk-col start" style={{ width: '60px', height: '100px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-              jk-col center
-              <div className="jk-col center" style={{ width: '60px', height: '100px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-              jk-col end
-              <div className="jk-col end" style={{ width: '60px', height: '100px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-              jk-col block
-              <div className="jk-col block" style={{ width: '60px', height: '100px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-              jk-col space-between
-              <div className="jk-col space-between" style={{ width: '60px', height: '100px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-              jk-col filled
-              <div className="jk-col filled" style={{ width: '60px', height: '100px', background: 'dimgray' }}>
-                <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-              </div>
-            </div>
+            ))}
           </div>
           <div> CONTENT 3</div>
         </Tabs>
