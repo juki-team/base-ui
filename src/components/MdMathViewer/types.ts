@@ -26,9 +26,14 @@ export type CommandsFunctionsType = {
   lang: (value: string) => string,
 }
 
+// export interface MdMathViewerProps {
+//   source: string,
+//   dark?: boolean,
+//   sharedButton?: boolean,
+//   downloadButton?: boolean,
+// }
+
 export interface MdMathViewerProps {
   source: string,
   dark?: boolean,
-  sharedButton?: boolean,
-  downloadButton?: boolean,
 }

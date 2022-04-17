@@ -2,12 +2,13 @@
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 import React, { CSSProperties, lazy, memo, ReactNode, Suspense, useEffect, useState } from 'react';
 import { ReactMarkdownOptions } from 'react-markdown/lib/react-markdown';
+import { ProgrammingLanguage } from '../../../types';
 // import ReactMarkdown from 'react-markdown';
 // import rehypeKatex from 'rehype-katex';
 // import gfm from 'remark-gfm';
 // import RemarkMathPlugin from 'remark-math';
 import { CodeViewer, ExternalIcon, LoadingIcon } from '../../index';
-import { ProgrammingLanguage } from '../../../types';
+import { MdMathViewerProps } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
 const ReactMarkdown = lazy(() => import('react-markdown'));
@@ -25,7 +26,7 @@ const hx = ({ children, level }: { children: ReactNode & ReactNode[], level: num
   return hxRender(level, children, {});
 };
 
-export const MdMathViewer = memo(({ source }: { source: string, dark?: boolean }) => {
+export const MdMathViewer = memo(({ source }: MdMathViewerProps) => {
   
   const [rehypePlugins, setRehypePlugins] = useState<any[]>([]);
   const [remarkPlugins, setRemarkPlugins] = useState<any[]>([]);
@@ -121,3 +122,5 @@ export const MdMathViewer = memo(({ source }: { source: string, dark?: boolean }
     </div>
   );
 });
+
+export * from './types';

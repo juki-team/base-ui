@@ -17,7 +17,6 @@ export const UploadImageButton = ({ isOpenRef, withLabel }: { isOpenRef: Mutable
           <Button icon={<CloudUploadIcon />} type="text" onClick={() => setOpen(true)}>
             {withLabel && <T>upload image</T>}
           </Button>
-        
         </div>
       </Popover>
       <ImageUploaderModal isOpen={open} onClose={() => setOpen(false)} />

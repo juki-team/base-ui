@@ -19,7 +19,7 @@ import {
   TextArea,
 } from '../../index';
 import { MdMathViewer } from '../MdMathViewer';
-import { handleShareMdPdf } from '../utils';
+import { handleShareMdPdf } from '../../../helpers/utils';
 import { InformationButton } from './InformationButton';
 import { MdMathEditorProps } from './types';
 import { UploadImageButton } from './UploadImageButton';

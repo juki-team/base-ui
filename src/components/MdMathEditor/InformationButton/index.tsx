@@ -1,7 +1,7 @@
 import React, { MutableRefObject, useState } from 'react';
 import { Button, ExclamationIcon, Modal, Popover, T } from '../../../index';
 import { MdMathEditor } from '../index';
-import { SAMPLE_MD_CONTENT } from './contants';
+import { SAMPLE_MD_CONTENT } from '../../../../constants/md';
 
 export const InformationButton = ({ isOpenRef, withLabel }: { isOpenRef: MutableRefObject<boolean>, withLabel: boolean }) => {
   
