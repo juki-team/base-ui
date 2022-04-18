@@ -5,4 +5,6 @@ export interface CodeViewerProps {
   language: ProgrammingLanguage,
   lineNumbers?: boolean,
   height?: string,
+  withCopyButton?: boolean,
+  withLanguageLabel?: boolean,
 }

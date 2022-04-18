@@ -7,7 +7,14 @@ import { CopyToClipboard } from '../CopyToClipboard';
 import { CopyIcon } from '../graphics';
 import { CodeViewerProps } from './types';
 
-export const CodeViewer = ({ code, language, lineNumbers, height }: CodeViewerProps) => {
+export const CodeViewer = ({
+  code,
+  language,
+  lineNumbers,
+  height,
+  withCopyButton = false,
+  withLanguageLabel = false,
+}: CodeViewerProps) => {
   
   useEffect(() => {
     require('prismjs/components/prism-c');
@@ -23,8 +30,10 @@ export const CodeViewer = ({ code, language, lineNumbers, height }: CodeViewerPr
       data-plugin-header="show-language"
     >
       <div className="float-top-right pad-xt jk-row gap display-on-hover-6">
-        {PROGRAMMING_LANGUAGE[language]?.label && <div className="text-xs jk-tag">{PROGRAMMING_LANGUAGE[language]?.label}</div>}
-        <CopyToClipboard text={code}><CopyIcon size="small" className="link" /></CopyToClipboard>
+        {withLanguageLabel && !!PROGRAMMING_LANGUAGE[language]?.label && (
+          <div className="text-xs jk-tag">{PROGRAMMING_LANGUAGE[language]?.label}</div>
+        )}
+        {withCopyButton && <CopyToClipboard text={code}><CopyIcon size="small" className="link" /></CopyToClipboard>}
       </div>
       <pre style={height ? { height: height } : undefined} className="jk-border-radius-inline">
         <code

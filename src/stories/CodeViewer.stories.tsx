@@ -1,6 +1,6 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
-import React, { useState } from 'react';
+import React from 'react';
 import { CodeViewer, CodeViewerProps, JukiBaseUiProvider, ProgrammingLanguage } from '../index';
 import { COMPONENTS_WRITING_TOOLS } from './constants';
 
@@ -16,13 +16,7 @@ configureActions({
   limit: 20,
 });
 
-const Template: Story<CodeViewerProps> = (args) => {
-  const [props] = useState<CodeViewerProps>({
-    code: 'console.log("Juki!")',
-    language: ProgrammingLanguage.JAVASCRIPT,
-    lineNumbers: true,
-    // height
-  });
+const Template: Story<CodeViewerProps> = ({ language, ...args }) => {
   return (
     <JukiBaseUiProvider
       utilsServiceUrl="https://prod-v1-utils-back.juki.app"
@@ -31,8 +25,8 @@ const Template: Story<CodeViewerProps> = (args) => {
     >
       <div style={{ height: '500px' }}>
         <CodeViewer
+          language={ProgrammingLanguage.JAVASCRIPT}
           {...args}
-          {...props}
         />
       </div>
     </JukiBaseUiProvider>
@@ -42,8 +36,8 @@ const Template: Story<CodeViewerProps> = (args) => {
 export const CodeViewerNormal = Template.bind({});
 
 CodeViewerNormal.args = {
-  // readOnly: false, // op
-  // languages?: ProgrammingLanguage[],
-  // className?: string,
-  // middleButtons?: (props: Omit<CodeViewerProps, 'onChange' | 'className' | 'middleButtons'>) => ReactNode,
+  code: 'console.log("Juki!")',
+  withLanguageLabel: true,
+  withCopyButton: true,
+  lineNumbers: true,
 };
