@@ -54,6 +54,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     searchParamsObject: propSearchParamsObject,
     setSearchParamsObject: propSetSearchParamsObject,
     setLoaderStatusRef,
+    refreshRef,
     pagination,
   } = props;
   
@@ -147,6 +148,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
     });
   }, [setLoaderStatusRef]);
+  useEffect(() => refreshRef?.(() => setRefreshCount(prevRefreshCount => prevRefreshCount + 1)), [refreshRef]);
   
   useEffect(() => {
     const sort: RequestSortType = {};

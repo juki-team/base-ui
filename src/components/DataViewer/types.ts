@@ -1,6 +1,6 @@
 import { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
-import { DatePickerDateFunType, DatePickerType, OptionType } from '../index';
 import { ReactNodeOrFunctionType, Status } from '../../types';
+import { DatePickerDateFunType, DatePickerType, OptionType } from '../index';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,
@@ -215,12 +215,14 @@ export interface DataViewerProps<T> {
   rowsView?: boolean,
   searchParamsObject?: SearchParamsObjectType,
   setSearchParamsObject?: SetSearchParamsObjectType,
-  setLoaderStatusRef?: (setLoader: SetLoaderStatusType) => void,
+  setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
+  refreshRef?: (refresh: RefreshType) => void,
   pagination?: { total: number, pageSizeOptions?: number[] },
 }
 
 export type LoaderStatusType = Status;
 export type SetLoaderStatusType = (status: (Status | ((props: LoaderStatusType) => LoaderStatusType))) => void;
+export type RefreshType = () => void;
 
 export type HeaderWidthsType = { [key: string]: { width: number, minWidth: number, accumulatedWidth: number } };
 
