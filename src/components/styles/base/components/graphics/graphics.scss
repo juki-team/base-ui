@@ -1,6 +1,12 @@
 .jk-icon {
   display: inline-block;
   
+  &.jk-icon-very-huge {
+    line-height: 60px;
+    width: 60px;
+    height: 60px;
+  }
+  
   &.jk-icon-huge {
     line-height: var(--pad-xL);
     width: var(--pad-xL);

@@ -7,7 +7,7 @@ export interface RootIconProps {
 
 export interface IconProps {
   onClick?: MouseEventHandler<HTMLSpanElement>,
-  size?: 'tiny' | 'small' | 'regular' | 'large' | 'huge';
+  size?: 'tiny' | 'small' | 'regular' | 'large' | 'huge' | 'very-huge';
   style?: CSSProperties,
   className?: string,
 }
