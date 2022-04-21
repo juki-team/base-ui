@@ -27,6 +27,7 @@ export * from './Home';
 export * from './Leaderboard';
 export * from './Lightbulb';
 export * from './LinkedIn';
+export * from './Lock';
 export * from './Mail';
 export * from './MailOpened';
 export * from './Menu';

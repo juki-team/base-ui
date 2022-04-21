@@ -1,5 +1,5 @@
 import { BasicIconProps } from '../../types';
 import { renderBasicIcon } from '../../utils';
-import Bug from './Bug';
+import Lock from './Lock';
 
-export const BugIcon = (props: BasicIconProps) => renderBasicIcon(props, Bug);
+export const LockIcon = (props: BasicIconProps) => renderBasicIcon(props, Lock);

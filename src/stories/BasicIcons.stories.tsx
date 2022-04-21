@@ -35,6 +35,7 @@ import {
   LightbulbIcon,
   LinkedInIcon,
   LoadingIcon,
+  LockIcon,
   MailIcon,
   MailOpenedIcon,
   MenuIcon,
@@ -151,6 +152,7 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
     CopyFileIcon,
     PasteIcon,
     CutIcon,
+    LockIcon,
   };
   return (
     <NotificationProvider>
