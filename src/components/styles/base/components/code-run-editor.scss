@@ -63,23 +63,6 @@
       .text-stdout, .text-stderr {
         width: calc(100% - var(--pad-xs));
         height: calc(100% - var(--pad-xs));
-        overflow: auto;
-        white-space: pre;
-        font-family: monospace;
-      }
-      
-      .text-stdout {
-        //background-color: var(--t-color-shadow-light);
-        background-color: rgba(var(--t-color-gray-2-rgb), 0.1);
-        padding: 3px 0;
-      }
-      
-      .text-stderr {
-        background-color: rgba(var(--t-color-error-rgb), 0.1);
-        color: var(--t-color-error);
-        font-size: var(--text-xs-size);
-        line-height: var(--text-xs-size);
-        padding: 5px 0;
       }
     }
     
