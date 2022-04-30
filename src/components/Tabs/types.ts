@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ReactNodeOrFunctionType } from '../../types';
+import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
 
 export type TabHeadersType = { children: ReactNodeOrFunctionType, disabled?: boolean, clickable?: boolean }[];
 
@@ -9,5 +9,5 @@ export interface TabsProps {
   className?: string,
   selectedTabIndex?: number,
   onChange?: (tabIndex: number) => void,
-  actionsSection?: ReactNodeOrFunctionType,
+  actionsSection?: ReactNodeOrFunctionP1Type<{ selectedTabIndex: number }>,
 }

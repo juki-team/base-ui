@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { classNames, renderReactNodeOrFunction } from '../../helpers';
+import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
 import { TabsProps } from './types';
 
@@ -46,7 +46,7 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
         {actionsSection && (
           <div className="jk-row nowrap gap">
             <div className="jk-divider horizontal" />
-            <>{actionsSection}</>
+            <>{renderReactNodeOrFunctionP1(actionsSection, { selectedTabIndex: tabIndex })}</>
           </div>
         )}
       </div>
