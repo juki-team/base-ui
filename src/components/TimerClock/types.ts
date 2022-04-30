@@ -1,15 +1,22 @@
 export enum Period {
-  FUTURE = 'future',
-  LIVE = 'live',
-  PAST = 'past',
-  CALC = 'calc',
+  FUTURE = 'FUTURE',
+  LIVE_START = 'LIVE_START',
+  LIVE_END = 'LIVE_END',
+  PAST = 'PAST',
+  CALC = 'CALC',
+  TIME_OUT = 'TIME_OUT'
 }
 
-export interface TimerClockProps {
+export interface TimerLabeledProps {
   startDate: Date,
   endDate: Date,
   currentDate?: Date,
-  onFinish?: () => void,
   labels?: { [key in Period]: string },
   laps?: number,
+}
+
+export interface TimerProps {
+  currentTimestamp: number,
+  laps?: number,
+  interval?: number,
 }

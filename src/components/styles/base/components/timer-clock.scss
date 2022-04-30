@@ -1,55 +1,49 @@
 @import "../../abstracts/index";
 
+.jk-timer-layout {
+  width: min-content;
+  height: 40px;
+  margin: 0 auto;
+  
+  .content-stamp {
+    padding: 0 8px;
+    @include sm {
+      width: min-content;
+      padding: 2px;
+    }
+    
+    .content-label {
+      color: var(--t-color-gray-4);
+      line-height: var(--pad-t);
+      @include sm {
+        width: 8px;
+        margin: 0 auto;
+        visibility: hidden;
+      }
+    }
+    
+    .content-label:first-letter {
+      @include sm {
+        visibility: visible;
+      }
+    }
+  }
+  
+  .content-dots {
+    padding: 0 0 var(--pad-t) 0;
+    @include sm {
+      top: 0;
+      line-height: var(--pad-t);
+    }
+  }
+}
+
 .layout-timer-clock {
   width: 100%;
   text-align: center;
-
+  
   .label-period {
-    padding: 2px 0;
     color: var(--t-color-gray-4);
     text-transform: uppercase;
-  }
-  
-  .content-time {
-    width: min-content;
-    height: 40px;
-    margin: 0 auto;
-
-    .content-stamp {
-      padding: 0 8px;
-      @include sm {
-        width: min-content;
-        padding: 2px;
-      }
-
-      .content-number {
-        color: var(--t-color-primary);
-      }
-
-      .content-label {
-        color: var(--t-color-gray-4);
-        text-transform: uppercase;
-        @include sm {
-          width: 8px;
-          margin: 0 auto;
-          visibility: hidden;
-        }
-      }
-
-      .content-label:first-letter {
-        @include sm {
-          visibility: visible;
-        }
-      }
-    }
-
-    .content-dots {
-      height: 40px;
-      padding: 0 0 20px 0;
-      @include sm {
-        top: 0;
-        line-height: var(--pad-t);
-      }
-    }
   }
 }
