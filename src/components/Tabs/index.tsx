@@ -58,7 +58,7 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
           ))}
         </div>
         {actionsSection && (
-          <div className="jk-row nowrap">
+          <div className="jk-row nowrap gap">
             <div className="jk-divider horizontal" />
             <>{actionsSection}</>
           </div>
