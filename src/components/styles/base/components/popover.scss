@@ -35,7 +35,7 @@
     &.bottom, &.bottomLeft, &.bottomRight {
       &::before, &::after {
         top: -7px;
-        border-radius: 4px 0 14px 0;
+        border-radius: 6px 0 14px 0;
       }
     }
     
@@ -54,7 +54,7 @@
     &.top, &.topLeft, &.topRight {
       &:before, &:after {
         bottom: -7px;
-        border-radius: 14px 0 4px 0;
+        border-radius: 14px 0 6px 0;
       }
     }
     
@@ -80,7 +80,7 @@
     &.left, &.leftTop, &.leftBottom {
       &:before, &:after {
         right: -7px;
-        border-radius: 0 4px 0 14px;
+        border-radius: 0 6px 0 14px;
       }
     }
   }
