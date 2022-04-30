@@ -34,7 +34,7 @@ configureActions({
 const Template: Story<CodeRunnerEditorProps> = (args) => {
   const [props, setProps] = useState<CodeRunnerEditorPropertiesType & { language: string, sourceCode: string }>({
     language: ProgrammingLanguage.JAVASCRIPT,
-    sourceCode: 'console.log("Juki!")',
+    sourceCode: 'console.info("Juki!")',
   });
   return (
     <JukiBaseUiProvider
@@ -50,6 +50,12 @@ const Template: Story<CodeRunnerEditorProps> = (args) => {
           {...props}
           onChange={(props) => {
             setProps(prevState => ({ ...prevState, ...props }));
+          }}
+          expandPosition={{
+            width: '800px',
+            height: '800px',
+            top: '50px',
+            left: '50px',
           }}
         />
       </div>

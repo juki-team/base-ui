@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ReactCrop, { centerCrop, convertToPercentCrop, convertToPixelCrop, Crop, makeAspectCrop, PixelCrop } from 'react-image-crop';
-import { useDebounceEffect } from '../../hooks';
+import { useDebounceEffect, useHandleState } from '../../hooks';
 // import { Button } from '../Button';
 import { Input } from '../Input';
 import { T } from '../Translate';
@@ -41,21 +41,11 @@ export const ImageLoaderCropper = ({
   const imgRef = useRef<HTMLImageElement>(null);
   const [crop, setCrop] = useState<Crop | undefined>(defaultCrop);
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
-  const [scale, setScale] = useState(initialScale || 1);
-  const [rotate, setRotate] = useState(initialRotate || 0);
+  const [scale, setScale] = useHandleState(1, initialScale);
+  const [rotate, setRotate] = useHandleState(0, initialRotate);
   const [aspect, setAspect] = useState<number | undefined>(initialAspect || undefined);
   const [aspectText, setAspectText] = useState<string>((aspect || '') + '');
   
-  useEffect(() => {
-    if (initialScale !== undefined) {
-      setScale(initialScale);
-    }
-  }, [initialScale]);
-  useEffect(() => {
-    if (initialRotate !== undefined) {
-      setRotate(initialRotate);
-    }
-  }, [initialRotate]);
   const updateAspect = (aspect: number | undefined) => {
     if (!aspect) {
       setAspect(undefined);

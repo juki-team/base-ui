@@ -4,8 +4,22 @@ import { useResizeDetector } from 'react-resize-detector';
 import { settings } from '../../../config';
 import { authorizedRequest, cleanRequest } from '../../../services';
 import { ContentResponseType, Status, SubmissionRunStatus } from '../../../types';
-import { Button, ButtonLoader, ButtonLoaderOnClickType, PlayIcon, Select, SettingIcon, T, useNotification } from '../../index';
+import {
+  Button,
+  ButtonLoader,
+  ButtonLoaderOnClickType,
+  EnterFullScreenIcon,
+  ExitFullScreenIcon,
+  PlayIcon,
+  Select,
+  SettingIcon,
+  T,
+  useNotification,
+} from '../../index';
 import { CodeEditorTestCasesType, HeaderProps } from '../types';
+
+
+const MIN_WIDTH = 700;
 
 export const Header = ({
   languages,
@@ -19,6 +33,8 @@ export const Header = ({
   timeLimit,
   memoryLimit,
   setErrorData,
+  expanded,
+  setExpanded,
 }: HeaderProps) => {
   
   const { addErrorNotification } = useNotification();
@@ -69,15 +85,25 @@ export const Header = ({
         />
         {!!Object.keys(testCases).length && (
           <ButtonLoader size="small" type="text" icon={<PlayIcon />} onClick={handleRunCode}>
-            {width > 640 && <T>run code</T>}
+            {width > MIN_WIDTH && <T>run code</T>}
           </ButtonLoader>
         )}
       </div>
       <div className="center-options">{centerOptions()}</div>
       <div className="right-options color-primary">
         <Button size="small" type="text" onClick={() => setShowSettings(true)} icon={<SettingIcon />}>
-          {width > 640 && <T>settings</T>}
+          {width > MIN_WIDTH && <T>settings</T>}
         </Button>
+        {expanded !== null && (
+          <Button
+            size="small"
+            type="text"
+            onClick={() => setExpanded(prevState => !prevState)}
+            icon={expanded ? <ExitFullScreenIcon /> : <EnterFullScreenIcon />}
+          >
+            {width > MIN_WIDTH && <T>{expanded ? 'back' : 'expand'}</T>}
+          </Button>
+        )}
       </div>
     </div>
   );

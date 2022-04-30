@@ -178,7 +178,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
     } as UserTable
   ));
   const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
-    console.log('request', { sort, filter, pagination });
+    console.info('request', { sort, filter, pagination });
     setLoaderStatus(Status.LOADING);
     await (new Promise((resolve) => setTimeout(() => resolve(true), 3000)));
     setLoaderStatus(Status.SUCCESS);
@@ -196,7 +196,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
         cardsView={cardsView}
         rowsView={rowsView}
         extraButtons={() => (
-          <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.log('CLICK')}>
+          <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
             <T>download</T>
           </ButtonLoader>
         )}

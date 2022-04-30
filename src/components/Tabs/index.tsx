@@ -1,35 +1,21 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
-import { useOutsideAlerter } from '../../hooks';
+import { useHandleState, useOutsideAlerter } from '../../hooks';
 import { TabsProps } from './types';
 
 export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, className = '', actionsSection }: TabsProps) => {
   
-  const [tabIndex, setTabIndex] = useState(selectedTabIndex || 0);
-  
-  useEffect(() => {
-    if (selectedTabIndex !== undefined) {
-      setTabIndex(selectedTabIndex);
-    }
-  }, [selectedTabIndex]);
-  
-  const onTabChange = useCallback((index: number) => {
-    if (selectedTabIndex === undefined) {
-      setTabIndex(index);
-    } else {
-      onChange?.(index);
-    }
-  }, [onChange, selectedTabIndex]);
+  const [tabIndex, setTabIndex] = useHandleState(0, selectedTabIndex, onChange);
   
   useEffect(() => {
     const handleEsc = ({ keyCode }: { keyCode: number }) => {
       if (tabsHeaderFocus.current) {
         if (keyCode === 39) { // ArrowRight
           
-          onTabChange((tabIndex + 1) % tabHeaders.length);
+          setTabIndex((tabIndex + 1) % tabHeaders.length);
         }
         if (keyCode === 37) { // ArrowLeft
-          onTabChange((tabIndex - 1 + tabHeaders.length) % tabHeaders.length);
+          setTabIndex((tabIndex - 1 + tabHeaders.length) % tabHeaders.length);
         }
       }
     };
@@ -38,7 +24,7 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
     return () => {
       window?.removeEventListener('keydown', handleEsc);
     };
-  }, [tabIndex, tabHeaders.length, onTabChange]);
+  }, [tabIndex, tabHeaders.length, setTabIndex]);
   const tabsHeaderRef = useRef<HTMLDivElement>(null);
   const tabsHeaderFocus = useRef(false);
   useOutsideAlerter(() => tabsHeaderFocus.current = false, tabsHeaderRef);
@@ -51,7 +37,7 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
             <div
               key={'' + index}
               className={classNames('jk-tab', { selected: tabIndex === index })}
-              onClick={() => clickable && onTabChange(index)}
+              onClick={() => clickable && setTabIndex(index)}
             >
               {renderReactNodeOrFunction(children)}
             </div>

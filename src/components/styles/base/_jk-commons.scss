@@ -111,9 +111,19 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
 /*
  PADDING
  */
-.jk-pad {
+.jk-pad-lg {
   box-sizing: border-box;
-  padding: var(--pad); // responsive variable
+  padding: var(--pad-lg); // responsive variable
+}
+
+.jk-pad, .jk-pad-md {
+  box-sizing: border-box;
+  padding: var(--pad-md); // responsive variable
+}
+
+.jk-pad-sm {
+  box-sizing: border-box;
+  padding: var(--pad-sm); // responsive variable
 }
 
 /*

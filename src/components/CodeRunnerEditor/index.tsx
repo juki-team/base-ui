@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { classNames } from '../../helpers';
 import { useJkSocket } from '../../hooks/useJkSocket';
 import { SubmissionRunStatus } from '../../types';
+import { Portal } from '../Basic';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, CodeEditorKeyMap, CodeEditorTheme } from '../CodeEditor';
 import { SplitPane } from '../SplitPane';
 import { Header } from './Header';
@@ -21,6 +23,7 @@ export const CodeRunnerEditor = ({
   tabSize = 4,
   timeLimit = 1000,
   memoryLimit = 512000,
+  expandPosition,
 }: CodeRunnerEditorProps) => {
   const [runId, setRunId] = useState('');
   const { pop } = useJkSocket('message');
@@ -103,9 +106,11 @@ export const CodeRunnerEditor = ({
     }
   }, [onChange, pop, runId, testCases]);
   const [showSettings, setShowSettings] = useState(false);
+  const [direction, setDirection] = useState<'row' | 'column'>('row');
+  const [expanded, setExpanded] = useState(false);
   
-  return (
-    <div className="jk-code-mirror-editor-layout">
+  const body = (
+    <div className={classNames('jk-code-mirror-editor-layout jk-border-radius-inline', { 'jk-shadow': expanded })}>
       <SettingsModal
         isOpen={showSettings}
         onClose={() => setShowSettings(false)}
@@ -126,13 +131,17 @@ export const CodeRunnerEditor = ({
         timeLimit={timeLimit}
         memoryLimit={memoryLimit}
         setErrorData={setErrorData}
+        expanded={expandPosition ? expanded : null}
+        setExpanded={setExpanded}
       />
       <div className="editor-stdio-content">
         <SplitPane
-          direction="column"
+          direction={direction}
           minSize={80}
           onlyFirstPane={!testCases}
           closablePane={testCases ? { align: 'right', pane: 'second' } : undefined}
+          toggleOption
+          onChangeDirection={setDirection}
         >
           <div className="editor-layout">
             <CodeEditor
@@ -152,11 +161,23 @@ export const CodeRunnerEditor = ({
             timeLimit={timeLimit}
             memoryLimit={memoryLimit}
             errorData={errorData}
+            direction={direction}
           />
         </SplitPane>
       </div>
     </div>
   );
+  
+  if (expanded) {
+    return (
+      <Portal>
+        <div style={{ position: 'absolute', ...expandPosition }} className="">
+          {body}
+        </div>
+      </Portal>
+    );
+  }
+  return body;
 };
 
 export * from './types';

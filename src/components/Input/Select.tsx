@@ -1,8 +1,8 @@
-import React, { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ReactNode, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { CloseIcon, InputCheckbox, MultiSelectProps, Popover, SelectOptionType, UpIcon } from '../index';
 import { classNames, getTextContent } from '../../helpers';
-import { useOutsideAlerter } from '../../hooks';
+import { useHandleState, useOutsideAlerter } from '../../hooks';
+import { CloseIcon, InputCheckbox, MultiSelectProps, Popover, SelectOptionType, UpIcon } from '../index';
 import { SelectProps } from './types';
 
 export const SelectInline = <T, U extends ReactNode, >({  // TODO: Fix the styles or remove component
@@ -14,24 +14,9 @@ export const SelectInline = <T, U extends ReactNode, >({  // TODO: Fix the style
   onChangeShowOptions: _onChangeShowOptions,
 }: SelectProps<T, U>) => {
   
-  const [showOptions, setShowOptions] = useState(!!_showOptions);
-  
-  useEffect(() => {
-    if (_showOptions !== undefined) {
-      setShowOptions(_showOptions);
-    }
-  }, [_showOptions]);
-  
-  const onShowOptionsChange = useCallback((value: boolean) => {
-    if (_showOptions === undefined) {
-      setShowOptions(value);
-    } else {
-      _onChangeShowOptions?.(value);
-    }
-  }, [_onChangeShowOptions, _showOptions]);
-  
+  const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
   const selectLayoutRef = useRef(null);
-  useOutsideAlerter(() => onShowOptionsChange(false), selectLayoutRef);
+  useOutsideAlerter(() => setShowOptions(false), selectLayoutRef);
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => selectedOptionRef.current?.scrollIntoView(), [showOptions]);
   
@@ -43,7 +28,7 @@ export const SelectInline = <T, U extends ReactNode, >({  // TODO: Fix the style
       ref={selectLayoutRef}
       style={{ width: `${width * 12 + 35}px` }}
     >
-      <div className="jk-select jk-inline-border-radius" onClick={() => onShowOptionsChange(!showOptions)}>
+      <div className="jk-select jk-inline-border-radius" onClick={() => setShowOptions(!showOptions)}>
         {optionSelected.label}
         <UpIcon rotate={180} className="input-icon" />
       </div>
@@ -56,7 +41,7 @@ export const SelectInline = <T, U extends ReactNode, >({  // TODO: Fix the style
             })}
             onClick={!option.disabled ? () => {
               onChange?.(option);
-              onShowOptionsChange(false);
+              setShowOptions(false);
             } : undefined}
             key={JSON.stringify(option.value)}
             ref={(e) => {
@@ -85,12 +70,7 @@ export const Select = <T, U extends ReactNode, >({
 }: SelectProps<T, U>) => {
   
   const selectLayoutRef = useRef(null);
-  const [showOptions, setShowOptions] = useState(false);
-  useEffect(() => {
-    if (_showOptions !== undefined) {
-      setShowOptions(_showOptions);
-    }
-  }, [_showOptions]);
+  const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
   
@@ -176,12 +156,7 @@ export const MultiSelect = <T, U extends ReactNode, >({
 }: MultiSelectProps<T, U>) => {
   
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
-  const [showOptions, setShowOptions] = useState(false);
-  useEffect(() => {
-    if (_showOptions !== undefined) {
-      setShowOptions(_showOptions);
-    }
-  }, [_showOptions]);
+  const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
   

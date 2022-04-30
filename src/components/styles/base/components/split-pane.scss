@@ -1,4 +1,6 @@
+
 .jk-split-pane {
+  --size: 8px;
   display: flex;
   width: 100%;
   
@@ -10,8 +12,6 @@
   
   .jk-split-pane-divider {
     border: none;
-    //border-radius: 2px;
-    //margin: 2px;
     
     &:hover {
       box-shadow: var(--t-box-shadow-lg);
@@ -27,28 +27,27 @@
     -ms-user-select: none;
   }
   
-  &.column {
-    .closable-tab {
-      position: absolute;
-      bottom: 0;
-      background-color: var(--t-color-primary-light);
-      color: var(--t-color-white);
-      padding: 0 6px 0 2px;
-      border-radius: var(--border-radius-inline) var(--border-radius-inline) 0 0;
-      cursor: pointer;
-      
-      &:hover {
-        background-color: var(--t-color-primary-dark);
-      }
-      
-      .jk-icon {
-        //margin-right: var(--pad-xt);
-      }
-      
-      &.right {
-        right: var(--pad-m);
-      }
+  .notch {
+    background-color: var(--t-color-primary-light);
+    color: var(--t-color-white);
+    cursor: pointer;
+    
+    &:hover {
+      background-color: var(--t-color-primary-dark);
     }
+    
+    .label {
+      line-height: var(--pad-xs);
+    }
+  }
+  
+  .toggle-button {
+    //opacity: 0;
+    //@include transition(opacity);
+    //
+    //&:hover {
+    //  opacity: 1;
+    //}
   }
   
   &.dragging {
@@ -60,8 +59,31 @@
   &.column {
     flex-direction: column;
     
+    .notch {
+      padding: 0 4px 0 0;
+      border-radius: 4px 4px 0 0;
+      
+      .jk-icon {
+        margin: 0 2px;
+      }
+    }
+    
+    .closable-tab {
+      position: absolute;
+      bottom: 0;
+      
+      &.right {
+        right: var(--pad-m);
+      }
+    }
+    
+    .toggle-button {
+      position: absolute;
+      bottom: var(--size);
+    }
+    
     > .jk-split-pane-divider {
-      height: 8px;
+      height: var(--size);
       background: var(--t-color-gray-6);
       position: relative;
       
@@ -83,8 +105,42 @@
   }
   
   &.row {
+    .notch {
+      transform: rotate(180deg);
+      padding: 0 0 4px 0;
+      border-radius: 0 4px 4px 0;
+      
+      .jk-icon {
+        margin: 2px 0;
+      }
+    }
+    
+    .toggle-button {
+      position: absolute;
+      right: var(--size);
+      
+      .label {
+        writing-mode: vertical-lr;
+        text-orientation: sideways;
+      }
+    }
+    
+    .closable-tab {
+      position: absolute;
+      right: 0;
+      
+      &.right {
+        bottom: var(--pad-m);
+      }
+      
+      .label {
+        writing-mode: vertical-lr;
+        text-orientation: sideways;
+      }
+    }
+    
     > .jk-split-pane-divider {
-      width: 8px;
+      width: var(--size);
       background: var(--t-color-gray-6);
       position: relative;
       

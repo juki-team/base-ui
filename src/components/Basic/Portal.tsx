@@ -2,7 +2,11 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
-export const Portal = ({ children, className, el = 'div' }: PropsWithChildren<{ className?: string, el?: string }>) => {
+export const Portal = ({
+  children,
+  className,
+  el = 'div',
+}: PropsWithChildren<{ className?: string, el?: string }>) => {
   
   const [container, setContainer] = useState<HTMLElement | null>(() => {
     // This will be executed only on the initial render

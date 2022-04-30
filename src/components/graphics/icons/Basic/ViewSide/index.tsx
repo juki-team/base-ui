@@ -1,7 +1,7 @@
 import { BasicIconProps } from '../../types';
 import { renderBasicIcon } from '../../utils';
-import ViewModule from './ViewModule';
+import ViewSide from './ViewSide';
 
-export const ViewModuleIcon = (props: BasicIconProps) => {
-  return renderBasicIcon(props, ViewModule);
+export const ViewSideIcon = (props: BasicIconProps) => {
+  return renderBasicIcon(props, ViewSide);
 };

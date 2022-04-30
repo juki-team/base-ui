@@ -20,7 +20,9 @@ import {
   DeleteIcon,
   DownloadIcon,
   EditIcon,
+  EnterFullScreenIcon,
   ErlenmeyerFlaskIcon,
+  ExitFullScreenIcon,
   ExtensionIcon,
   ExternalIcon,
   EyeIcon,
@@ -61,6 +63,7 @@ import {
   TodayIcon,
   UnorderedListIcon,
   ViewModuleIcon,
+  ViewSideIcon,
 } from '../index';
 
 export default {
@@ -153,6 +156,9 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
     PasteIcon,
     CutIcon,
     LockIcon,
+    ViewSideIcon,
+    EnterFullScreenIcon,
+    ExitFullScreenIcon,
   };
   return (
     <NotificationProvider>

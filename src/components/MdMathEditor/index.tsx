@@ -63,7 +63,7 @@ export const MdMathEditor = ({
   const { width = 0 } = useResizeDetector({ targetRef: layoutEditorRef });
   
   return (
-    <div ref={layoutEditorRef} className={classNames('jk-md-math-editor-layout', { editing })}>
+    <div ref={layoutEditorRef} className={classNames('jk-md-math-editor-layout', { editing, 'jk-border-radius-inline': editing })}>
       {modal}
       {editing ? (
         <>
@@ -73,7 +73,7 @@ export const MdMathEditor = ({
               {uploadImageButton && <UploadImageButton isOpenRef={isOpenUploadImageModalRef} withLabel={width > 864} />}
               {view === 0 && (
                 <Popover
-                  content={<T className="text-nowrap">editor ⮜ | ⮞ preview</T>}
+                  content={<T className="text-nowrap jk-pad-sm">editor ⮜ | ⮞ preview</T>}
                   triggerOn="hover"
                   placement="bottom"
                 >
@@ -84,8 +84,7 @@ export const MdMathEditor = ({
               )}
               {view === 1 && (
                 <Popover
-                  content={<div className="text-nowrap"><T>preview</T></div>}
-                  showPopperArrow
+                  content={<T className="text-nowrap jk-pad-sm">preview</T>}
                   triggerOn="hover"
                   placement="bottom"
                 >
@@ -96,8 +95,7 @@ export const MdMathEditor = ({
               )}
               {view === 3 && (
                 <Popover
-                  content={<div className="text-nowrap"><T>editor</T></div>}
-                  showPopperArrow
+                  content={<T className="text-nowrap jk-pad-sm">editor</T>}
                   triggerOn="hover"
                   placement="bottom"
                 >
@@ -109,7 +107,7 @@ export const MdMathEditor = ({
             </div>
             <div className="right">
               {onChange && (
-                <Popover content={<T>Save</T>}>
+                <Popover content={<T className="jk-pad-sm">save</T>}>
                   <Button icon={<SaveIcon />} type="text" onClick={() => onChange(editValue)} disabled={source === editValue}>
                     <T>Save</T>
                   </Button>

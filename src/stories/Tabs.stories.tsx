@@ -38,6 +38,7 @@ const Template: Story<TabsProps> = () => {
           <div className="jk-row gap">
             {[
               'jk-row',
+              'jk-row extend',
               'jk-row left',
               'jk-row center',
               'jk-row right',
@@ -71,6 +72,7 @@ const Template: Story<TabsProps> = () => {
           <div className="jk-row gap">
             {[
               'jk-col',
+              'jk-col extend',
               'jk-col top',
               'jk-col center',
               'jk-col bottom',

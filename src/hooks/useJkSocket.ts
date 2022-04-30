@@ -21,7 +21,6 @@ export const useJkSocket = (message: string) => {
       }
     };
     
-    // console.log('useEffect', { message, listener, on: socket.on(message, listener) });
     socket.off(message, listener);
     // if (!socket.on(message, listener)) {
     on();

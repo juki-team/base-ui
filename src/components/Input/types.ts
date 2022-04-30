@@ -21,7 +21,7 @@ export interface InputCommonsProps<T> {
   type?: 'text' | 'number' | 'password' | 'email' | 'file',
   accept?: string,
   size?: number | 'auto',
-  step?:  number | 'auto',
+  step?: number | 'auto',
 }
 
 // export interface InputFileProps<T> extends InputCommonsProps<T> {

@@ -36,6 +36,12 @@ export interface CodeRunnerEditorProps {
   tabSize?: number,
   timeLimit?: number,
   memoryLimit?: number,
+  expandPosition?: {
+    top: string | number,
+    left: string | number,
+    width: string | number,
+    height: string | number,
+  },
 }
 
 export interface SettingsModalProps {
@@ -54,6 +60,7 @@ export interface TestCasesProps {
   timeLimit: number,
   memoryLimit: number,
   errorData: SubmissionTestCaseType,
+  direction: 'row' | 'column',
 }
 
 export interface HeaderProps {
@@ -68,6 +75,8 @@ export interface HeaderProps {
   timeLimit: number,
   memoryLimit: number,
   setErrorData: Dispatch<SetStateAction<SubmissionTestCaseType>>,
+  expanded: boolean | null,
+  setExpanded: Dispatch<SetStateAction<boolean>>,
 }
 
 export interface LogInfoProps {

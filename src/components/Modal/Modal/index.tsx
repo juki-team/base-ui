@@ -15,7 +15,7 @@ export const Modal = ({ onClose, isOpen, className, children, closeIcon = false,
       portalClassName={classNames('jk-modal-container', { expand: !!expand })}
       ariaHideApp={false}
     >
-      {closeIcon && <div className="jk-modal-close-button jk-row" onClick={onClose}><CloseIcon /></div>}
+      {closeIcon && <div className="jk-modal-close-button jk-row jk-pad-sm" onClick={onClose}><CloseIcon /></div>}
       <div className="jk-modal-body">
         {children}
       </div>

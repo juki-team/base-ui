@@ -36,7 +36,7 @@ const Template: Story<CodeViewerProps> = ({ language, ...args }) => {
 export const CodeViewerNormal = Template.bind({});
 
 CodeViewerNormal.args = {
-  code: 'console.log("Juki!")',
+  code: 'console.info("Juki!")',
   withLanguageLabel: true,
   withCopyButton: true,
   lineNumbers: true,

@@ -15,7 +15,7 @@ import { TestCasesProps } from '../types';
 import { getErrors } from '../utils';
 import { LogInfo } from './LogInfo';
 
-export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimit, errorData }: TestCasesProps) => {
+export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimit, errorData, direction }: TestCasesProps) => {
   const testCasesValues = Object.values(testCases).sort((a, b) => (a.sample !== b.sample) ? +b.sample - +a.sample : a.index - b.index);
   const [testCaseKey, setTestCaseKey] = useState(testCasesValues[0]?.key || '');
   const tabs: TabHeadersType = testCasesValues.map(testCaseValue => ({
@@ -43,7 +43,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
   }));
   
   const actionsSection = (
-    <Popover content={<T className="text-nowrap">add sample test case</T>} showPopperArrow>
+    <Popover content={<T className="text-nowrap jk-pad-sm">add sample test case</T>}>
       <Button
         icon={<PlusIcon circle />}
         type="text"
@@ -92,12 +92,12 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
   
   return (
     <div className="jk-code-mirror-editor-test-cases">
-      <SplitPane>
+      <SplitPane direction={direction === 'row' ? 'column' : 'row'}>
         <div className="test-cases-inputs">
           <Tabs
             tabHeaders={tabs}
             selectedTabIndex={testCasesValues.findIndex(testCaseValue => testCaseValue.key === testCaseKey)}
-            onChange={(tabIndex => setTestCaseKey(testCasesValues[tabIndex]?.key))}
+            onChange={((tabIndex: number) => setTestCaseKey(testCasesValues[tabIndex]?.key))}
             actionsSection={actionsSection}
           >
             {testCasesValues.map(testCaseValue => (

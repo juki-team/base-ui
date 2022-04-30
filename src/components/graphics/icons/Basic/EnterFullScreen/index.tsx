@@ -1,5 +1,5 @@
 import { BasicIconProps } from '../../types';
 import { renderBasicIcon } from '../../utils';
-import Copy from './Copy';
+import EnterFullScreen from './EnterFullScreen';
 
-export const CopyIcon = (props: BasicIconProps) => renderBasicIcon(props, Copy);
+export const EnterFullScreenIcon = (props: BasicIconProps) => renderBasicIcon(props, EnterFullScreen);

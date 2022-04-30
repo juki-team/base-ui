@@ -8,6 +8,7 @@ import {
   InputToggle,
   MultiSelect as MultiSelectComponent,
   Select as SelectComponent,
+  ColorPicker as ColorPickerComponent,
   TextArea,
 } from '../index';
 
@@ -161,3 +162,11 @@ export const MultiSelect = () => {
     </div>
   );
 };
+
+export const ColorPicker = () => {
+  return (
+    <div>
+      <ColorPickerComponent />
+    </div>
+  )
+}

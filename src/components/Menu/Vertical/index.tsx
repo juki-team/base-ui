@@ -1,7 +1,8 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react';
-import { VerticalMenuProps } from '../index';
-import { DoubleArrowIcon, HorizontalMenu, T } from '../../index';
+import React, { PropsWithChildren } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { useHandleState } from '../../../hooks';
+import { DoubleArrowIcon, HorizontalMenu, T } from '../../index';
+import { VerticalMenuProps } from '../index';
 
 export const VerticalMenu = ({
   isOpen,
@@ -15,12 +16,7 @@ export const VerticalMenu = ({
   leftMobile,
 }: PropsWithChildren<VerticalMenuProps>) => {
   
-  const [open, setOpen] = useState<boolean>(isOpen || false);
-  useEffect(() => {
-    if (isOpen !== undefined) {
-      setOpen(isOpen);
-    }
-  }, [isOpen]);
+  const [open, setOpen] = useHandleState(false, isOpen);
   
   const menus = [];
   for (let i = 0; i < menu.length; i++) {

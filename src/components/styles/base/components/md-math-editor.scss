@@ -1,13 +1,11 @@
 @import "../../abstracts/index";
 
 .jk-md-math-editor-layout {
-  //min-height: 128px;
   display: flex;
   flex-direction: column;
   
   &.editing {
     border: 1px solid var(--t-color-gray-3);
-    border-radius: var(--border-radius-md);
   }
   
   .content-preview {
