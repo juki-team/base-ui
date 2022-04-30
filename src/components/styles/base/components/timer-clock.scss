@@ -15,14 +15,17 @@
     .content-label {
       color: var(--t-color-gray-4);
       line-height: var(--pad-t);
-      @include sm {
-        width: 8px;
-        margin: 0 auto;
-        visibility: hidden;
+      
+      span {
+        @include sm {
+          width: 8px;
+          margin: 0 auto;
+          visibility: hidden;
+        }
       }
     }
     
-    .content-label:first-letter {
+    .content-label span:first-letter {
       @include sm {
         visibility: visible;
       }
