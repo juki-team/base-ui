@@ -1,23 +1,44 @@
+@import "../../../styles/abstracts/index";
+
 .jk-tabs-layout {
   --tabs-header-height: 48px;
   position: relative;
   
-  &:before {
-    position: absolute;
-    content: " ";
-    top: var(--tabs-header-height);
-    height: 1px;
-    width: 100%;
-    border-top: 1px solid var(--t-color-gray-4);
+  > div:first-child {
+    @include sm { flex-direction: column-reverse; }
+    @include md { flex-direction: column-reverse; }
   }
   
   .jk-tabs-header {
+    position: relative;
+    
+    &:before {
+      position: absolute;
+      content: " ";
+      //top: var(--tabs-header-height);
+      bottom: -1px;
+      height: 1px;
+      width: 100%;
+      //border-top: 1px solid var(--t-color-gray-4);
+      //border-top: 1px solid red;
+      border-top: 5px solid var(--t-color-gray-6);
+    }
+  }
+  
+  .jk-tabs-actions {
+    @include sm { width: 100%; }
+    @include md { width: 100%; }
+  }
+  
+  .jk-tabs-tabs {
     display: flex;
     position: relative;
     height: var(--tabs-header-height);
     overflow-x: auto;
     overflow-y: hidden;
     transform: rotateX(180deg);
+    @include sm { width: 100%; }
+    @include md { width: 100%; }
     
     .jk-tab {
       transform: rotateX(180deg);

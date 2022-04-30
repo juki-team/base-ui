@@ -1,7 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { JukiBaseUiProvider, Tabs, TabsProps } from '../index';
+import { JukiBaseUiProvider, Tabs, TabsProps, Button } from '../index';
 
 export default {
   title: 'Components/Tabs',
@@ -34,7 +34,12 @@ const Template: Story<TabsProps> = () => {
       utilsUiUrl="http://localhost:3001"
     >
       <div style={{ height: '500px' }}>
-        <Tabs tabHeaders={tabs}>
+        <Tabs tabHeaders={tabs} actionsSection={
+          <div>
+            <Button>button 1</Button>
+            <Button>button 2</Button>
+          </div>
+        }>
           <div className="jk-row gap">
             {[
               'jk-row',

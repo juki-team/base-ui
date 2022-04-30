@@ -31,8 +31,8 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
   
   return (
     <div className={classNames('jk-tabs-layout', className, { 'first-tab-selected': tabIndex === 0 })}>
-      <div className="jk-row space-between nowrap">
-        <div className="jk-tabs-header" ref={tabsHeaderRef} onClick={() => tabsHeaderFocus.current = true}>
+      <div className="jk-tabs-header jk-row space-between nowrap">
+        <div className="jk-tabs-tabs" ref={tabsHeaderRef} onClick={() => tabsHeaderFocus.current = true}>
           {tabHeaders.map(({ children, clickable = true }, index) => (
             <div
               key={'' + index}
@@ -44,8 +44,8 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
           ))}
         </div>
         {actionsSection && (
-          <div className="jk-row nowrap gap">
-            <div className="jk-divider horizontal" />
+          <div className="jk-tabs-actions jk-row right nowrap gap">
+            <div className="jk-divider horizontal screen lg hg" />
             <>{renderReactNodeOrFunctionP1(actionsSection, { selectedTabIndex: tabIndex })}</>
           </div>
         )}
