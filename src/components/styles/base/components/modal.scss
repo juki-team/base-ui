@@ -42,7 +42,6 @@
     cursor: pointer;
     line-height: inherit;
     color: var(--t-color-gray-3);
-    margin: calc(var(--pad) / 2);
     
     .jk-icon {
       @include sm {

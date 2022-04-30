@@ -35,7 +35,7 @@
     &.bottom, &.bottomLeft, &.bottomRight {
       &::before, &::after {
         top: -7px;
-        border-radius: var(--border-radius-md) 0 14px 0;
+        border-radius: 4px 0 14px 0;
       }
     }
     
@@ -54,14 +54,14 @@
     &.top, &.topLeft, &.topRight {
       &:before, &:after {
         bottom: -7px;
-        border-radius: 14px 0 var(--border-radius-md) 0;
+        border-radius: 14px 0 4px 0;
       }
     }
     
     &.right, &.rightTop, &.rightBottom {
       &:before, &:after {
         left: -7px;
-        border-radius: 0 14px 0 var(--border-radius-md);
+        border-radius: 0 14px 0 4px;
       }
     }
     
@@ -80,7 +80,7 @@
     &.left, &.leftTop, &.leftBottom {
       &:before, &:after {
         right: -7px;
-        border-radius: 0 var(--border-radius-md) 0 14px;
+        border-radius: 0 4px 0 14px;
       }
     }
   }
@@ -89,7 +89,7 @@
     background-color: var(--t-color-white);
     box-shadow: var(--t-box-shadow-lg), var(--t-box-shadow-tn);
     border-radius: var(--border-radius-inline);
-    padding: calc(var(--pad) / 2);
+    padding: calc(var(--pad-md) / 2);
   }
   
   &.bottomRight, &.bottom, &.bottomLeft {
