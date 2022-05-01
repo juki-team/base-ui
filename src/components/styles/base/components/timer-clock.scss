@@ -6,8 +6,9 @@
   margin: 0 auto;
   
   &.literal {
+    height: auto;
+    
     span + span {
-      //background-color: red;
       margin-left: 4px;
     }
   }
