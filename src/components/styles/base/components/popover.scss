@@ -86,10 +86,7 @@
   }
   
   .jk-popover-content {
-    background-color: var(--t-color-white);
     box-shadow: var(--t-box-shadow-lg), var(--t-box-shadow-tn);
-    border-radius: var(--border-radius-inline);
-    padding: calc(var(--pad-md) / 2);
   }
   
   &.bottomRight, &.bottom, &.bottomLeft {
