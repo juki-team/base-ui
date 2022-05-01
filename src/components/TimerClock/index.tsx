@@ -14,6 +14,16 @@ const DEFAULT_LABELS: { [key in Period]: string } = {
   [Period.CALC]: '...',
 };
 
+const MAX_LAPS = 6;
+
+const cutTimeSplit = (remaining: number, laps: number) => {
+  let timeSplit = splitTime(Math.max(remaining, 0));
+  while (timeSplit[0].remaining <= 0 && timeSplit.length > laps) {
+    timeSplit.shift();
+  }
+  return timeSplit.splice(0, laps);
+};
+
 export const Timer = React.memo(({ currentTimestamp, laps = 3, interval = 1, literal }: TimerProps) => {
   
   const [counter, setCounter] = useState({ remaining: currentTimestamp, startTimestamp: 0 });
@@ -39,11 +49,7 @@ export const Timer = React.memo(({ currentTimestamp, laps = 3, interval = 1, lit
     }));
   }, Math.abs(interval));
   
-  let timeSplit = splitTime(Math.max(counter.remaining, 0));
-  while (timeSplit[0].remaining <= 0 && timeSplit.length > laps) {
-    timeSplit.shift();
-  }
-  timeSplit = timeSplit.splice(0, laps);
+  const timeSplit = cutTimeSplit(counter.remaining, laps);
   
   return (
     <div className={classNames('jk-timer-layout jk-row nowrap', { literal: !!literal })}>
@@ -107,9 +113,9 @@ export const TimerLabeled = ({ startDate, endDate, currentDate, labels, laps: _l
     };
   }, [currentDate, endDate, startDate]);
   
-  const laps = Math.min(Math.max(0, _laps), 7);
+  const laps = Math.min(Math.max(0, _laps), MAX_LAPS);
   const myLabels = { ...DEFAULT_LABELS, ...labels };
-  const timeSplit = splitTime(Math.max(time.remaining, 0)).slice(0, laps);
+  const timeSplit = cutTimeSplit(Math.max(time.remaining, 0), laps);
   const timeInterval = Math.max(timeSplit[timeSplit.length - 1].milliseconds, 1);
   
   return (
