@@ -49,8 +49,8 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
                     className={classNames('jk-tab jk-border-radius sm', { selected: tabIndex === index })}
                     onClick={() => {
                       if (clickable) {
-                        setTabIndex(index);
                         onClose(0);
+                        setTimeout(() => setTabIndex(index), 100);
                       }
                     }}
                   >

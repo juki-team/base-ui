@@ -28,6 +28,8 @@
       
       &.sm {
         background-color: var(--t-color-secondary);
+        color: var(--t-color-white);
+        padding: var(--pad-sm);
         
         &:before {
           content: none;
@@ -63,6 +65,7 @@
       border-top: 4px solid var(--t-color-gray-6);
     }
   }
+  
   .jk-tabs-content {
     width: 100%;
     height: calc(100% - var(--tabs-header-height));
