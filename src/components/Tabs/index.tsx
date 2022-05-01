@@ -34,7 +34,7 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
   return (
     <div
       className={classNames('jk-tabs-layout', className, { 'first-tab-selected': tabIndex === 0 })}
-      style={{ '--tabs-header-height': height } as CSSProperties}
+      style={{ '--tabs-header-height': `${Math.max(height, 48)}px` } as CSSProperties}
     >
       <div className="jk-tabs-header jk-row space-between nowrap" ref={ref}>
         <div className="jk-tabs-tabs" ref={tabsHeaderRef} onClick={() => tabsHeaderFocus.current = true}>
