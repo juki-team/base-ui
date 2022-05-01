@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from 'react';
+import React, { CSSProperties, useEffect, useRef } from 'react';
+import { useResizeDetector } from 'react-resize-detector';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
 import { TabsProps } from './types';
@@ -6,6 +7,7 @@ import { TabsProps } from './types';
 export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, className = '', actionsSection }: TabsProps) => {
   
   const [tabIndex, setTabIndex] = useHandleState(0, selectedTabIndex, onChange);
+  const { height = 0, ref } = useResizeDetector();
   
   useEffect(() => {
     const handleEsc = ({ keyCode }: { keyCode: number }) => {
@@ -30,8 +32,11 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
   useOutsideAlerter(() => tabsHeaderFocus.current = false, tabsHeaderRef);
   
   return (
-    <div className={classNames('jk-tabs-layout', className, { 'first-tab-selected': tabIndex === 0 })}>
-      <div className="jk-tabs-header jk-row space-between nowrap">
+    <div
+      className={classNames('jk-tabs-layout', className, { 'first-tab-selected': tabIndex === 0 })}
+      style={{ '--tabs-header-height': height } as CSSProperties}
+    >
+      <div className="jk-tabs-header jk-row space-between nowrap" ref={ref}>
         <div className="jk-tabs-tabs" ref={tabsHeaderRef} onClick={() => tabsHeaderFocus.current = true}>
           {tabHeaders.map(({ children, clickable = true }, index) => (
             <div

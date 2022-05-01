@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../constants';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
@@ -47,7 +47,7 @@ export const DrawerView = ({
           transition: firstRender ? 'right 0.4s, left 0.4s, top 0.4s, bottom 0.4s' : '',
           '--height-jk-drawer-layout': (height + SCROLL_WIDTH * 2) + 'px',
           '--width-jk-drawer-layout': (width + SCROLL_WIDTH * 2) + 'px',
-        } as React.CSSProperties}
+        } as CSSProperties}
       >
         {closeIcon === undefined ? (
           <div className="jk-drawer-close-button" onClick={close}><Button icon={<CloseIcon />} type="text" /></div>
