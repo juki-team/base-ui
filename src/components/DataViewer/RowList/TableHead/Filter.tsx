@@ -16,7 +16,7 @@ export const Filter = ({ filter, columnIndex }: { filter?: TableHeaderFilterType
     <Popover
       visible={visible}
       onVisibleChange={(visible) => setVisible(visible)}
-      content={(visible) => {
+      content={({ isOpen }) => {
         const onReset = () => {
           filter?.onReset();
           setVisible(false);
@@ -31,13 +31,13 @@ export const Filter = ({ filter, columnIndex }: { filter?: TableHeaderFilterType
                 setVisible(false);
               }}
               onReset={onReset}
-              visible={visible}
+              visible={isOpen}
             />
           );
         } else if (isFilterSelect(filter)) {
           return (
             <TableHeadFilterSelect
-              visible={visible}
+              visible={isOpen}
               columnIndex={columnIndex}
               options={filter.options}
               initialSelectedOptions={filter.selectedOptions}
@@ -51,7 +51,7 @@ export const Filter = ({ filter, columnIndex }: { filter?: TableHeaderFilterType
         } else if (isFilterDate(filter)) {
           return (
             <TableHeadFilterDate
-              visible={visible}
+              visible={isOpen}
               pickerType={filter.pickerType}
               columnIndex={columnIndex}
               isDisabled={filter.isDisabled}
@@ -67,7 +67,7 @@ export const Filter = ({ filter, columnIndex }: { filter?: TableHeaderFilterType
         } else if (isFilterDateRange(filter)) {
           return (
             <TableHeadFilterDateRange
-              visible={visible}
+              visible={isOpen}
               pickerType={filter.pickerType}
               columnIndex={columnIndex}
               isDisabled={filter.isDisabled}

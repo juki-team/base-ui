@@ -26,6 +26,12 @@ const Template: Story<TabsProps> = () => {
     {
       children: <div>3</div>,
     },
+    {
+      children: <div>tab 4</div>,
+    },
+    {
+      children: <div>tabtabtabtab</div>,
+    },
   ];
   return (
     <JukiBaseUiProvider

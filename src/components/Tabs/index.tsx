@@ -2,6 +2,8 @@ import React, { CSSProperties, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
+import { UpIcon } from '../graphics';
+import { Popover } from '../Popover';
 import { TabsProps } from './types';
 
 export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, className = '', actionsSection }: TabsProps) => {
@@ -37,7 +39,43 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
       style={{ '--tabs-header-height': `${height}px` } as CSSProperties}
     >
       <div className="jk-tabs-header jk-row space-between nowrap" ref={ref}>
-        <div className="jk-tabs-tabs" ref={tabsHeaderRef} onClick={() => tabsHeaderFocus.current = true}>
+        <Popover
+          content={
+            ({ onClose }) => (
+              <div className="jk-tabs-tabs">
+                {tabHeaders.map(({ children, clickable = true }, index) => (
+                  <div
+                    key={'' + index}
+                    className={classNames('jk-tab jk-border-radius sm', { selected: tabIndex === index })}
+                    onClick={() => {
+                      if (clickable) {
+                        setTabIndex(index);
+                        onClose(0);
+                      }
+                    }}
+                  >
+                    {renderReactNodeOrFunction(children)}
+                  </div>
+                ))}
+              </div>
+            )
+          }
+          triggerOn="click"
+          placement="bottom"
+        >
+          <div className="jk-tabs-tabs jk-row left screen sm">
+            {tabHeaders.filter((_, index) => tabIndex === index).map(({ children, clickable = true }, index) => (
+              <div
+                key={'' + index}
+                className={classNames('jk-tab', { selected: true })}
+              >
+                {renderReactNodeOrFunction(children)}
+                <UpIcon rotate={180} />
+              </div>
+            ))}
+          </div>
+        </Popover>
+        <div className="jk-tabs-tabs jk-row left screen md lg hg" ref={tabsHeaderRef} onClick={() => tabsHeaderFocus.current = true}>
           {tabHeaders.map(({ children, clickable = true }, index) => (
             <div
               key={'' + index}

@@ -22,6 +22,7 @@ export const useTriggerWrapper = ({
   const outsideAlerterRef4 = useRef<any>(null);
   const [isOpen, _setIsOpen] = useState(false);
   const [onMouseEnterCounter, setOnMouseEnterCounter] = useState(0);
+  
   const openRef = useRef(isOpen);
   useEffect(() => {
     if (visible !== undefined) {
@@ -79,7 +80,6 @@ export const useTriggerWrapper = ({
   const [childBoundingClientRect, _setChildBoundingClientRect] = useState<BoundingClientRectType>({
     bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0, x: 0, y: 0,
   });
-  
   useEffect(() => {
     if (isTrigger(triggerOff, 'hover') && onMouseEnterCounter <= 0) {
       setOffVisible(hoverOffDelayInMs);

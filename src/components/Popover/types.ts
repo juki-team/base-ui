@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { TriggerOffActionsType, TriggerOnActionsType } from '../../types';
+import { ReactNodeOrFunctionP1Type, TriggerOffActionsType, TriggerOnActionsType } from '../../types';
 
 export type placementType =
   'topLeft'
@@ -18,7 +18,7 @@ export type placementType =
   | 'centerScreen';
 
 export interface PopoverProps {
-  content: ReactNode | ((visible: boolean) => ReactNode),
+  content: ReactNode | ((prop: { isOpen: boolean, onClose: (timeout: number) => void }) => ReactNode),
   placement?: placementType,
   visible?: boolean,
   onVisibleChange?: (visible: boolean) => void,
@@ -29,6 +29,7 @@ export interface PopoverProps {
   popoverClassName?: string,
   showPopperArrow?: boolean,
   keepMounted?: boolean,
+  children: ReactNodeOrFunctionP1Type<any>,
 }
 
 export type UseTriggerWrapperProps = {

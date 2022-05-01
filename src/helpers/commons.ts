@@ -62,6 +62,7 @@ export async function downloadBlobAsFile(data: Blob, fileName: string = 'file') 
 
 export const renderChildrenWithProps = (children: any, props: any) => {
   if (typeof children === 'function') {
+    // return renderChildrenWithProps(renderReactNodeOrFunctionP1(children, props), props);
     return (children(props));
   }
   return Children.map(children, (child) => {

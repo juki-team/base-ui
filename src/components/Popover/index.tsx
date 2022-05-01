@@ -1,10 +1,10 @@
 // https://github.com/ethanselzer/react-hover-observer/blob/master/src/ReactHoverObserver.js
-import React, { PropsWithChildren, useEffect, useState } from 'react';
-import { Div } from '../index';
-import { classNames, isTrigger, renderChildrenWithProps } from '../../helpers';
+import React, { PropsWithChildren, useState } from 'react';
+import { classNames, isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useTriggerWrapper, useWindowSize } from '../../hooks';
 import { BoundingClientRectType } from '../../types';
 import { Portal } from '../Basic';
+import { Div } from '../index';
 
 import { PopoverProps } from './types';
 
@@ -21,7 +21,7 @@ export const Popover = ({
   popoverClassName = '',
   showPopperArrow = false,
   keepMounted = false,
-}: PropsWithChildren<PopoverProps>) => {
+}: PopoverProps) => {
   
   const {
     isOpen,
@@ -33,9 +33,6 @@ export const Popover = ({
     onMouseEnter,
     onMouseLeave,
     setOffVisible,
-    setOnVisible,
-    onMouseEnterCounter,
-    setOnMouseEnterCounter,
   } = useTriggerWrapper({
     visible,
     onVisibleChange,
@@ -46,23 +43,23 @@ export const Popover = ({
     withOutsideAlerter: !isTrigger(triggerOn, 'click'),
   });
   
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (isOpen) {
-        if (!isTrigger(triggerOn, 'hover')) {
-          setOnMouseEnterCounter(1);
-        }
-        setOffVisible(0);
-        if (!isTrigger(triggerOn, 'hover')) {
-          setOnMouseEnterCounter(0);
-        } else {
-          setOnMouseEnterCounter(onMouseEnterCounter);
-        }
-        setOnVisible(0);
-      }
-    }, 200);
-    return () => clearTimeout(timeout);
-  }, [isOpen, setOffVisible, setOnVisible, onMouseEnterCounter, setOnMouseEnterCounter, triggerOn]);
+  // useEffect(() => { // Why? bad performance with this:
+  //   const timeout = setTimeout(() => {
+  //     if (isOpen) {
+  //       if (!isTrigger(triggerOn, 'hover')) {
+  //         setOnMouseEnterCounter(1);
+  //       }
+  //       setOffVisible(0);
+  //       if (!isTrigger(triggerOn, 'hover')) {
+  //         setOnMouseEnterCounter(0);
+  //       } else {
+  //         setOnMouseEnterCounter(onMouseEnterCounter);
+  //       }
+  //       setOnVisible(0);
+  //     }
+  //   }, 200);
+  //   return () => clearTimeout(timeout);
+  // }, [isOpen, setOffVisible, setOnVisible, onMouseEnterCounter, setOnMouseEnterCounter, triggerOn]);
   
   const [boundingClientRectContent, _setBoundingClientRectContent] = useState<BoundingClientRectType>({
     bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0, x: 0, y: 0,
@@ -184,6 +181,10 @@ export const Popover = ({
   
   return (
     <>
+      {/*{renderChildrenWithProps(typeof children === 'function' ? children({*/}
+      {/*  isOpen: display,*/}
+      {/*  onClose: setOffVisible,*/}
+      {/*}) : children, childProps(children))}*/}
       {renderChildrenWithProps(children, childProps(children))}
       {(keepMounted || display) && (
         <Portal className="jk-popover-portal">
@@ -208,7 +209,7 @@ export const Popover = ({
           >
             <div ref={e => setBoundingClientRectContent(e?.getBoundingClientRect()?.toJSON())} className={popoverClassName}>
               <div className="jk-popover-content">
-                {typeof content === 'function' ? content(display) : content}
+                {renderReactNodeOrFunctionP1(content, { isOpen, onClose: setOffVisible })}
               </div>
             </div>
           </Div>
@@ -250,6 +251,7 @@ export const PopoverOld = ({
     childProps,
     onMouseEnter,
     onMouseLeave,
+    setOffVisible,
   } = useTriggerWrapper({
     visible,
     onVisibleChange,
@@ -400,7 +402,7 @@ export const PopoverOld = ({
           >
             <div ref={e => setBoundingClientRectContent(e?.getBoundingClientRect()?.toJSON())} className={popoverClassName}>
               <div className="jk-popover-content">
-                {typeof content === 'function' ? content(display) : content}
+                {typeof content === 'function' ? content({ isOpen: display, onClose: setOffVisible }) : content}
               </div>
             </div>
           </Div>
