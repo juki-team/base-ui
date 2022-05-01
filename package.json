@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "0.0.55",
+  "version": "0.0.56",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -12,7 +12,7 @@
   ],
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
-    "@juki-team/commons": "^0.0.60",
+    "@juki-team/commons": "^0.0.62",
     "@monaco-editor/react": "^4.4.2",
     "codemirror": "^5.65.2",
     "prismjs": "^1.27.0",
