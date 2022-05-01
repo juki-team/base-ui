@@ -9,7 +9,6 @@
     width: 100%;
     justify-content: center !important;
   }
-  @include md { width: 100%; }
   
   .jk-tab {
     transform: rotateX(180deg);
@@ -52,11 +51,6 @@
   --tabs-header-height: 48px;
   position: relative;
   
-  > div:first-child {
-    @include sm { flex-direction: column-reverse; }
-    @include md { flex-direction: column-reverse; }
-  }
-  
   .jk-tabs-header {
     position: relative;
     
@@ -69,12 +63,6 @@
       border-top: 4px solid var(--t-color-gray-6);
     }
   }
-  
-  .jk-tabs-actions {
-    @include sm { width: 100%; }
-    @include md { width: 100%; }
-  }
-  
   .jk-tabs-content {
     width: 100%;
     height: calc(100% - var(--tabs-header-height));

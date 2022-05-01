@@ -2,7 +2,7 @@ import React, { CSSProperties, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
-import { UpIcon } from '../graphics';
+import { HeadlineIcon, UpIcon } from '../graphics';
 import { Popover } from '../Popover';
 import { TabsProps } from './types';
 
@@ -87,10 +87,21 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
           ))}
         </div>
         {actionsSection && (
-          <div className="jk-tabs-actions jk-row right nowrap gap">
-            <div className="jk-divider horizontal screen lg hg" />
+          <div className="jk-tabs-actions jk-row right nowrap gap screen lg hg">
+            <div className="jk-divider horizontal" />
             <>{renderReactNodeOrFunctionP1(actionsSection, { selectedTabIndex: tabIndex })}</>
           </div>
+        )}
+        {actionsSection && (
+          <Popover
+            content={renderReactNodeOrFunctionP1(actionsSection, { selectedTabIndex: tabIndex })}
+            triggerOn="click"
+            placement="bottomRight"
+          >
+            <div className="jk-row nowrap left screen sm md float-top-right">
+              <HeadlineIcon />
+            </div>
+          </Popover>
         )}
       </div>
       <div className="jk-tabs-content">
