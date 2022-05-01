@@ -18,9 +18,10 @@ export const Popover = ({
   triggerOff = triggerOn,
   triggerOnDelayInMs = { hover: 0, click: 0, none: 0 },
   triggerOffDelayInMs = { hover: 0, click: 0, escape: 0, none: 0 },
-  popoverClassName = '',
+  popoverClassName,
   showPopperArrow = false,
   keepMounted = false,
+  popoverContentClassName,
 }: PopoverProps) => {
   
   const {
@@ -208,7 +209,7 @@ export const Popover = ({
             onMouseLeave={onMouseLeave}
           >
             <div ref={e => setBoundingClientRectContent(e?.getBoundingClientRect()?.toJSON())} className={popoverClassName}>
-              <div className="jk-popover-content">
+              <div className={classNames('jk-popover-content', popoverContentClassName)}>
                 {renderReactNodeOrFunctionP1(content, { isOpen, onClose: setOffVisible })}
               </div>
             </div>

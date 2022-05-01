@@ -27,6 +27,7 @@ export interface PopoverProps {
   triggerOnDelayInMs?: { [key in TriggerOnActionsType]: number },
   triggerOffDelayInMs?: { [key in TriggerOffActionsType]: number },
   popoverClassName?: string,
+  popoverContentClassName?: string,
   showPopperArrow?: boolean,
   keepMounted?: boolean,
   children: ReactNodeOrFunctionP1Type<any>,
