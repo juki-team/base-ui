@@ -9,24 +9,24 @@ import { ImageUploaderModalProps } from './types';
 import { UploadNewImageTab } from './UploadNewImageTab';
 
 export const ImageUploaderModal = ({ isOpen, onClose, withPublicImagesTab = true }: ImageUploaderModalProps) => {
+  
   const [count, setCount] = useState(0);
-  const [tab, setTab] = useState(0);
   const tabHeaders = [];
   if (withPublicImagesTab) {
     tabHeaders.push({
-      children: <>
+      key: 'public-images',
+      header: <>
         <T className="text-sentence-case">public images</T>
         <Button icon={<ReloadIcon />} size="small" type="text" onClick={() => setCount(count + 1)} />
       </>,
+      body: <PublicImagesTab trigger={count} key="public-images-tab" />,
     });
   }
-  tabHeaders.push({ children: <T className="text-sentence-case">upload new image</T> });
-  
-  const tabs = [];
-  if (withPublicImagesTab) {
-    tabs.push(<PublicImagesTab trigger={count} key="public-images-tab" />);
-  }
-  tabs.push(<UploadNewImageTab key="upload-new-image-tab" />);
+  tabHeaders.push({
+    key: 'upload-new-image',
+    header: <T className="text-sentence-case">upload new image</T>,
+    body: <UploadNewImageTab key="upload-new-image-tab" />,
+  });
   
   return (
     <Modal
@@ -37,13 +37,7 @@ export const ImageUploaderModal = ({ isOpen, onClose, withPublicImagesTab = true
       expand
     >
       <div>
-        <Tabs
-          tabHeaders={tabHeaders}
-          selectedTabIndex={tab}
-          onChange={tab => setTab(tab)}
-        >
-          {tabs}
-        </Tabs>
+        <Tabs tabs={tabHeaders} />
       </div>
     </Modal>
   );

@@ -1,25 +1,33 @@
-import React, { CSSProperties, useEffect, useRef } from 'react';
+import React, { CSSProperties, useEffect, useMemo, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
 import { HeadlineIcon, UpIcon } from '../graphics';
 import { Popover } from '../Popover';
 import { TabsProps } from './types';
 
-export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, className = '', actionsSection }: TabsProps) => {
+export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSection }: TabsProps) => {
   
-  const [tabIndex, setTabIndex] = useHandleState(0, selectedTabIndex, onChange);
+  const [tabKey, setTabKey] = useHandleState(tabs[0]?.key || '', selectedTabKey, onChange);
   const { height = 0, ref } = useResizeDetector();
+  
+  const indexes = useMemo(() => {
+    const indexes = {};
+    tabs.forEach(({ key }, index) => {
+      indexes[key] = index;
+    });
+    return indexes;
+  }, [tabs]);
   
   useEffect(() => {
     const handleEsc = ({ keyCode }: { keyCode: number }) => {
       if (tabsHeaderFocus.current) {
         if (keyCode === 39) { // ArrowRight
-          
-          setTabIndex((tabIndex + 1) % tabHeaders.length);
+          console.log(keyCode);
+          setTabKey(tabs[(indexes[tabKey] + 1) % tabs.length].key);
         }
         if (keyCode === 37) { // ArrowLeft
-          setTabIndex((tabIndex - 1 + tabHeaders.length) % tabHeaders.length);
+          setTabKey(tabs[(indexes[tabKey] - 1 + tabs.length) % tabs.length].key);
         }
       }
     };
@@ -28,14 +36,14 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
     return () => {
       window?.removeEventListener('keydown', handleEsc);
     };
-  }, [tabIndex, tabHeaders.length, setTabIndex]);
+  }, [tabKey, setTabKey, indexes, tabs]);
   const tabsHeaderRef = useRef<HTMLDivElement>(null);
   const tabsHeaderFocus = useRef(false);
   useOutsideAlerter(() => tabsHeaderFocus.current = false, tabsHeaderRef);
   
   return (
     <div
-      className={classNames('jk-tabs-layout', className, { 'first-tab-selected': tabIndex === 0 })}
+      className={classNames('jk-tabs-layout', className, { 'first-tab-selected': indexes[tabKey] === 0 })}
       style={{ '--tabs-header-height': `${height}px` } as CSSProperties}
     >
       <div className="jk-tabs-header jk-row space-between nowrap" ref={ref}>
@@ -43,18 +51,18 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
           content={
             ({ onClose }) => (
               <div className="jk-tabs-tabs">
-                {tabHeaders.map(({ children, clickable = true }, index) => (
+                {tabs.map(({ header, clickable = true, key }) => (
                   <div
-                    key={'' + index}
-                    className={classNames('jk-tab jk-border-radius sm', { selected: tabIndex === index })}
+                    key={key}
+                    className={classNames('jk-tab jk-border-radius sm', { selected: tabKey === key })}
                     onClick={() => {
                       if (clickable) {
                         onClose(0);
-                        setTimeout(() => setTabIndex(index), 100);
+                        setTimeout(() => setTabKey(key), 100);
                       }
                     }}
                   >
-                    {renderReactNodeOrFunction(children)}
+                    {renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey })}
                   </div>
                 ))}
               </div>
@@ -64,49 +72,48 @@ export const Tabs = ({ tabHeaders, selectedTabIndex, onChange, children, classNa
           placement="bottom"
         >
           <div className="jk-tabs-tabs jk-row left screen sm">
-            {tabHeaders.filter((_, index) => tabIndex === index).map(({ children, clickable = true }, index) => (
-              <div
-                key={'' + index}
-                className={classNames('jk-tab', { selected: true })}
-              >
-                {renderReactNodeOrFunction(children)}
+            {tabs.filter(({ key }) => tabKey === key).map(({ header, clickable = true, key }) => (
+              <div key={key} className={classNames('jk-tab', { selected: true })}>
+                {renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey })}
                 <UpIcon rotate={180} />
               </div>
             ))}
           </div>
         </Popover>
         <div className="jk-tabs-tabs jk-row left screen md lg hg" ref={tabsHeaderRef} onClick={() => tabsHeaderFocus.current = true}>
-          {tabHeaders.map(({ children, clickable = true }, index) => (
+          {tabs.map(({ header, clickable = true, key }) => (
             <div
-              key={'' + index}
-              className={classNames('jk-tab', { selected: tabIndex === index })}
-              onClick={() => clickable && setTabIndex(index)}
+              key={key}
+              className={classNames('jk-tab', { selected: tabKey === key })}
+              onClick={() => clickable && setTabKey(key)}
             >
-              {renderReactNodeOrFunction(children)}
+              {renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey })}
             </div>
           ))}
         </div>
         {actionsSection && (
           <div className="jk-tabs-actions jk-row right nowrap gap screen lg hg">
             <div className="jk-divider horizontal" />
-            <>{renderReactNodeOrFunctionP1(actionsSection, { selectedTabIndex: tabIndex })}</>
+            {renderReactNodeOrFunctionP1(actionsSection, { selectedTabKey: tabKey })}
           </div>
         )}
         {actionsSection && (
           <Popover
-            content={renderReactNodeOrFunctionP1(actionsSection, { selectedTabIndex: tabIndex })}
+            content={renderReactNodeOrFunctionP1(actionsSection, { selectedTabKey: tabKey })}
             triggerOn="click"
             placement="bottomRight"
           >
-            <div className="jk-row nowrap left screen sm md float-top-right">
+            <div className="jk-row nowrap left screen sm md float-top-right link">
               <HeadlineIcon />
             </div>
           </Popover>
         )}
       </div>
       <div className="jk-tabs-content">
-        {children.map((child, index) => (
-          <div className={classNames({ 'selected': tabIndex === index })} key={index}>{child}</div>
+        {tabs.map(({ body, key }) => (
+          <div className={classNames({ 'selected': tabKey === key })} key={key}>
+            {renderReactNodeOrFunctionP1(body, { selectedTabKey: tabKey })}
+          </div>
         ))}
       </div>
     </div>
