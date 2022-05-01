@@ -19,4 +19,5 @@ export interface TimerProps {
   currentTimestamp: number,
   laps?: number,
   interval?: number,
+  literal?: boolean,
 }

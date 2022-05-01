@@ -38,6 +38,8 @@ const Template: Story<TimerLabeledProps> = (args) => {
       <Timer interval={-1} currentTimestamp={300 * 365 * 24 * 60 * 60 * 1000} laps={7} />
       <Timer interval={1} currentTimestamp={300 * 365 * 24 * 60 * 60 * 1000} laps={7} />
       <Timer interval={1} currentTimestamp={10 * 60 * 1000} laps={7} />
+      
+      <Timer interval={-1} currentTimestamp={10 * 60 * 1000} literal laps={2} />
     </div>
   );
 };

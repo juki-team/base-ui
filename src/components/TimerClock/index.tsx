@@ -1,5 +1,6 @@
 import { splitTime } from '@juki-team/commons';
 import React, { Fragment, useEffect, useState } from 'react';
+import { classNames } from '../../helpers';
 import { useInterval } from '../../hooks';
 import { T } from '../Translate';
 import { Period, TimerLabeledProps, TimerProps } from './types';
@@ -13,7 +14,7 @@ const DEFAULT_LABELS: { [key in Period]: string } = {
   [Period.CALC]: '...',
 };
 
-export const Timer = React.memo(({ currentTimestamp, laps = 3, interval = 1 }: TimerProps) => {
+export const Timer = React.memo(({ currentTimestamp, laps = 3, interval = 1, literal }: TimerProps) => {
   
   const [counter, setCounter] = useState({ remaining: currentTimestamp, startTimestamp: 0 });
   
@@ -45,8 +46,14 @@ export const Timer = React.memo(({ currentTimestamp, laps = 3, interval = 1 }: T
   timeSplit = timeSplit.splice(0, laps);
   
   return (
-    <div className="jk-timer-layout jk-row nowrap">
-      {timeSplit.map((remaining, index) => (
+    <div className={classNames('jk-timer-layout jk-row nowrap', { literal: !!literal })}>
+      {literal ? timeSplit.map((remaining, index) => (
+        <Fragment key={remaining.label}>
+          {(index > 0) && <T>and</T>}
+          <span>{remaining.remaining}</span>
+          <T>{remaining.label}</T>
+        </Fragment>
+      )) : timeSplit.map((remaining, index) => (
         <Fragment key={remaining.label}>
           <div className="content-stamp">
             <div className="content-number text-s text-semi-bold jk-row">{remaining.remaining}</div>

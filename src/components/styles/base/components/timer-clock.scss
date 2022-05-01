@@ -5,6 +5,13 @@
   height: 40px;
   margin: 0 auto;
   
+  &.literal {
+    span + span {
+      //background-color: red;
+      margin-left: 4px;
+    }
+  }
+  
   .content-stamp {
     padding: 0 8px;
     @include sm {
