@@ -135,6 +135,8 @@
 .float-top-right {
   z-index: 1;
   position: absolute !important;
+  top: 0;
+  right: 0;
   
   &.pad-t {
     top: var(--pad-t);

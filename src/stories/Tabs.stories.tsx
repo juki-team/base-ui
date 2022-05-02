@@ -99,12 +99,12 @@ const Template: Story<TabsProps> = () => {
     },
     {
       key: '3',
-      header: <div>3</div>,
-      body: <div> CONTENT 3</div>,
+      header: <div>content 3 content 3 content 3 content 3</div>,
+      body: <div> CONTENT 3 CONTENT 3</div>,
     },
     {
       key: '4',
-      header: <div>tab 4</div>,
+      header: <div>tab 4 4 4 4 4 </div>,
     },
     {
       key: '5',

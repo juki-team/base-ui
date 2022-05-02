@@ -9,7 +9,7 @@ import { TabsProps } from './types';
 export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSection }: TabsProps) => {
   
   const [tabKey, setTabKey] = useHandleState(tabs[0]?.key || '', selectedTabKey, onChange);
-  const { height = 0, ref } = useResizeDetector();
+  const { height: heightTabsHeader = 0, width: widthTabsHeader = 0, ref } = useResizeDetector();
   
   const indexes = useMemo(() => {
     const indexes = {};
@@ -44,7 +44,7 @@ export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSe
   return (
     <div
       className={classNames('jk-tabs-layout', className, { 'first-tab-selected': indexes[tabKey] === 0 })}
-      style={{ '--tabs-header-height': `${height}px` } as CSSProperties}
+      style={{ '--tabs-header-height': `${heightTabsHeader}px` } as CSSProperties}
     >
       <div className="jk-tabs-header jk-row space-between nowrap" ref={ref}>
         <Popover
@@ -71,7 +71,7 @@ export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSe
           triggerOn="click"
           placement="bottom"
         >
-          <div className="jk-tabs-tabs jk-row left screen sm">
+          <div className={classNames('jk-tabs-tabs jk-row nowrap extend center screen', { 'sm md lg hg': widthTabsHeader <= 640 })}>
             {tabs.filter(({ key }) => tabKey === key).map(({ header, clickable = true, key }) => (
               <div key={key} className={classNames('jk-tab', { selected: true })}>
                 {renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey })}
@@ -80,7 +80,9 @@ export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSe
             ))}
           </div>
         </Popover>
-        <div className="jk-tabs-tabs jk-row left screen md lg hg" ref={tabsHeaderRef} onClick={() => tabsHeaderFocus.current = true}>
+        <div className={classNames('jk-tabs-tabs jk-row nowrap left screen', { 'sm md lg hg': widthTabsHeader > 640 })}
+             ref={tabsHeaderRef}
+             onClick={() => tabsHeaderFocus.current = true}>
           {tabs.map(({ header, clickable = true, key }) => (
             <div
               key={key}
@@ -103,8 +105,8 @@ export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSe
             triggerOn="click"
             placement="bottomRight"
           >
-            <div className="jk-row nowrap left screen sm md float-top-right link" style={{ height }}>
-              <HeadlineIcon />
+            <div className="jk-row nowrap left screen sm md float-top-righta link jk-pad-sm" style={{ height: heightTabsHeader }}>
+              <HeadlineIcon className="" />
             </div>
           </Popover>
         )}

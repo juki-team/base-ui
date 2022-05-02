@@ -5,10 +5,10 @@
   overflow-x: auto;
   overflow-y: hidden;
   transform: rotateX(180deg);
-  @include sm {
-    width: 100%;
-    justify-content: center !important;
-  }
+  //@include sm {
+  //  width: 100%;
+  //  justify-content: center !important;
+  //}
   
   .jk-tab {
     transform: rotateX(180deg);
