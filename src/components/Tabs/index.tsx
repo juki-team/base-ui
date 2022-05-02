@@ -103,7 +103,7 @@ export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSe
             triggerOn="click"
             placement="bottomRight"
           >
-            <div className="jk-row nowrap left screen sm md float-top-right link">
+            <div className="jk-row nowrap left screen sm md float-top-right link" style={{ height }}>
               <HeadlineIcon />
             </div>
           </Popover>
