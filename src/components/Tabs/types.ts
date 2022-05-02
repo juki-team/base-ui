@@ -13,6 +13,6 @@ export interface TabsProps {
   className?: string,
   selectedTabKey?: string,
   onChange?: (tabKey: string) => void,
-  actionsSection?: ReactNodeOrFunctionP1Type<{ selectedTabKey: string }>,
+  actionsSection?: ReactNodeOrFunctionP1Type<{ selectedTabKey: string }>[],
   extend?: boolean,
 }

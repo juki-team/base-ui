@@ -18,6 +18,14 @@ import { LogInfo } from './LogInfo';
 export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimit, errorData, direction }: TestCasesProps) => {
   const testCasesValues = Object.values(testCases).sort((a, b) => (a.sample !== b.sample) ? +b.sample - +a.sample : a.index - b.index);
   const [testCaseKey, setTestCaseKey] = useState(testCasesValues[0]?.key || '');
+  useEffect(() => {
+    const testCasesValues = Object.values(testCases);
+    if (testCasesValues.length) {
+      if (!testCasesValues.some(testCase => testCase.key === testCaseKey)) {
+        setTestCaseKey(testCasesValues[0].key);
+      }
+    }
+  }, [testCaseKey, testCases]);
   const tabs: TabType[] = testCasesValues.map(testCaseValue => ({
     key: testCaseValue.key,
     header: testCaseValue.sample
@@ -36,10 +44,6 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
               const newTestCases = { ...testCases };
               delete newTestCases[testCaseValue.key];
               onChange?.({ testCases: newTestCases });
-              const newTabs = Object.values(newTestCases);
-              if (newTabs.length) {
-                setTestCaseKey(newTabs[0].key);
-              }
             }}
           />
         </div>
@@ -58,7 +62,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
     ),
   }));
   
-  const actionsSection = (
+  const actionSection = (
     <Popover content={<T className="text-nowrap jk-pad-sm">add sample test case</T>} placement="topRight">
       <Button
         icon={<PlusIcon circle />}
@@ -138,7 +142,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
             tabs={tabs}
             selectedTabKey={testCaseKey}
             onChange={tabKey => setTestCaseKey(tabKey)}
-            actionsSection={actionsSection}
+            actionsSection={[actionSection]}
           />
         </div>
         <div className="test-cases-output-stderr">

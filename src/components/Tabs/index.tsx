@@ -23,7 +23,6 @@ export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSe
     const handleEsc = ({ keyCode }: { keyCode: number }) => {
       if (tabsHeaderFocus.current) {
         if (keyCode === 39) { // ArrowRight
-          console.log(keyCode);
           setTabKey(tabs[(indexes[tabKey] + 1) % tabs.length].key);
         }
         if (keyCode === 37) { // ArrowLeft
@@ -81,9 +80,11 @@ export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSe
             ))}
           </div>
         </Popover>
-        <div className={classNames('jk-tabs-tabs jk-row nowrap left screen', { 'sm md lg hg': isExtend })}
-             ref={tabsHeaderRef}
-             onClick={() => tabsHeaderFocus.current = true}>
+        <div
+          className={classNames('jk-tabs-tabs jk-row nowrap left screen', { 'sm md lg hg': isExtend })}
+          ref={tabsHeaderRef}
+          onClick={() => tabsHeaderFocus.current = true}
+        >
           {tabs.map(({ header, clickable = true, key }) => (
             <div
               key={key}
@@ -94,19 +95,33 @@ export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSe
             </div>
           ))}
         </div>
-        {actionsSection && (
-          <div className={classNames('jk-tabs-actions jk-row right nowrap gap screen', { 'sm md lg hg': isExtend })}>
+        {actionsSection?.length && (
+          <div
+            className={classNames('jk-tabs-actions jk-row right nowrap gap screen', { 'sm md lg hg': (isExtend || actionsSection.length === 1) })}
+          >
             <div className="jk-divider horizontal" />
-            {renderReactNodeOrFunctionP1(actionsSection, { selectedTabKey: tabKey })}
+            <div className="jk-row gap nowrap">
+              {actionsSection.map(action => (
+                renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
+              ))}
+            </div>
           </div>
         )}
-        {actionsSection && (
+        {actionsSection?.length && (
           <Popover
-            content={renderReactNodeOrFunctionP1(actionsSection, { selectedTabKey: tabKey })}
+            content={
+              <div className="jk-col gap">
+                {actionsSection.map(action => (
+                  renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
+                ))}
+              </div>
+            }
             triggerOn="click"
             placement="bottomRight"
           >
-            <div className={classNames('jk-row nowrap left link screen', { 'sm md lg hg': !isExtend })}>
+            <div
+              className={classNames('jk-row nowrap left link screen', { 'sm md lg hg': !(isExtend || actionsSection.length === 1) })}
+            >
               <HeadlineIcon className="" />
             </div>
           </Popover>

@@ -120,12 +120,7 @@ const Template: Story<TabsProps> = () => {
       <div style={{ height: '500px' }}>
         <Tabs
           tabs={tabs}
-          actionsSection={
-            <div>
-              <Button>button 1</Button>
-              <Button>button 2</Button>
-            </div>
-          }
+          actionsSection={[<Button>button 1</Button>, <Button>button 2</Button>]}
         />
       </div>
     </JukiBaseUiProvider>
