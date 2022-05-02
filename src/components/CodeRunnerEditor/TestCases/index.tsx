@@ -167,6 +167,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
             tabs={outputTabs}
             selectedTabKey={outputTab}
             onChange={value => setOutputTab(value)}
+            extend={false}
           />
         </div>
       </SplitPane>
