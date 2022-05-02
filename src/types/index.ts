@@ -18,3 +18,5 @@ export type TriggerOnActionsType = typeof HOVER | typeof CLICK | typeof NONE;
 export type TriggerOffActionsType = typeof HOVER | typeof CLICK | typeof ESCAPE | typeof NONE;
 
 export type BoundingClientRectType = { bottom: number, height: number, left: number, right: number, top: number, width: number, x: number, y: number };
+
+export type NotUndefined<T> = T extends undefined ? never : T;

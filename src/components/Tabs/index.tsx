@@ -2,17 +2,18 @@ import React, { CSSProperties, useEffect, useMemo, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
+import { NotUndefined } from '../../types';
 import { HeadlineIcon, UpIcon } from '../graphics';
 import { Popover } from '../Popover';
 import { TabsProps } from './types';
 
-export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSection, extend }: TabsProps) => {
+export const Tabs = <T extends string, >({ tabs, selectedTabKey, onChange, className = '', actionsSection, extend }: TabsProps<T>) => {
   
-  const [tabKey, setTabKey] = useHandleState(tabs[0]?.key || '', selectedTabKey, onChange);
+  const [tabKey, setTabKey] = useHandleState<T>((tabs[0]?.key || '') as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined, onChange);
   const { height: heightTabsHeader = 0, width: widthTabsHeader = 0, ref } = useResizeDetector();
   
   const indexes = useMemo(() => {
-    const indexes = {};
+    const indexes: { [key: string]: number } = {};
     tabs.forEach(({ key }, index) => {
       indexes[key] = index;
     });
@@ -23,10 +24,10 @@ export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSe
     const handleEsc = ({ keyCode }: { keyCode: number }) => {
       if (tabsHeaderFocus.current) {
         if (keyCode === 39) { // ArrowRight
-          setTabKey(tabs[(indexes[tabKey] + 1) % tabs.length].key);
+          setTabKey(tabs[(indexes[tabKey] + 1) % tabs.length].key as NotUndefined<T>);
         }
         if (keyCode === 37) { // ArrowLeft
-          setTabKey(tabs[(indexes[tabKey] - 1 + tabs.length) % tabs.length].key);
+          setTabKey(tabs[(indexes[tabKey] - 1 + tabs.length) % tabs.length].key as NotUndefined<T>);
         }
       }
     };
@@ -58,7 +59,7 @@ export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSe
                     onClick={() => {
                       if (clickable) {
                         onClose(0);
-                        setTimeout(() => setTabKey(key), 100);
+                        setTimeout(() => setTabKey(key as NotUndefined<T>), 100);
                       }
                     }}
                   >
@@ -89,7 +90,7 @@ export const Tabs = ({ tabs, selectedTabKey, onChange, className = '', actionsSe
             <div
               key={key}
               className={classNames('jk-tab', { selected: tabKey === key })}
-              onClick={() => clickable && setTabKey(key)}
+              onClick={() => clickable && setTabKey(key as NotUndefined<T>)}
             >
               {renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey })}
             </div>

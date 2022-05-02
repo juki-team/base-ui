@@ -15,7 +15,7 @@ configureActions({
   limit: 20,
 });
 
-const Template: Story<TabsProps> = () => {
+const Template: Story<TabsProps<string>> = () => {
   const tabs = [
     {
       key: '1',

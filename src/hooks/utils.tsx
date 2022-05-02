@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { UseTriggerWrapperProps } from '../components';
 import { isTrigger } from '../helpers';
-import { BoundingClientRectType } from '../types';
+import { BoundingClientRectType, NotUndefined } from '../types';
 import { useKeyPress, useOutsideAlerterAnd } from './custom';
 
 export const useTriggerWrapper = ({
@@ -156,8 +156,6 @@ export const useTriggerWrapper = ({
     setOnVisible,
   };
 };
-
-type NotUndefined<T> = T extends undefined ? never : T;
 
 type F<T> = ((prevState: NotUndefined<T>) => NotUndefined<T>);
 

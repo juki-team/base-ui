@@ -1,18 +1,18 @@
 import { ReactNodeOrFunctionP1Type } from '../../types';
 
-export type TabType = {
-  header: ReactNodeOrFunctionP1Type<{ selectedTabKey: string }>,
+export type TabType<T> = {
+  header: ReactNodeOrFunctionP1Type<{ selectedTabKey: T }>,
   disabled?: boolean,
   clickable?: boolean,
-  body?: ReactNodeOrFunctionP1Type<{ selectedTabKey: string }>,
-  key: string,
+  body?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T }>,
+  key: T,
 };
 
-export interface TabsProps {
-  tabs: TabType[],
+export interface TabsProps<T> {
+  tabs: TabType<T>[],
   className?: string,
-  selectedTabKey?: string,
-  onChange?: (tabKey: string) => void,
+  selectedTabKey?: T,
+  onChange?: (tabKey: T) => void,
   actionsSection?: ReactNodeOrFunctionP1Type<{ selectedTabKey: string }>[],
   extend?: boolean,
 }

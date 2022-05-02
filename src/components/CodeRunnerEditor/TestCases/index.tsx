@@ -26,7 +26,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
       }
     }
   }, [testCaseKey, testCases]);
-  const tabs: TabType[] = testCasesValues.map(testCaseValue => ({
+  const tabs: TabType<string>[] = testCasesValues.map(testCaseValue => ({
     key: testCaseValue.key,
     header: testCaseValue.sample
       ? testCaseValue.key === testCaseKey
@@ -94,7 +94,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
     setOutputTab(status === SubmissionRunStatus.FAILED || status === SubmissionRunStatus.COMPILATION_ERROR ? 'error' : 'output');
   }, [status]);
   
-  const outputTabs: TabType[] = [
+  const outputTabs: TabType<string>[] = [
     {
       key: 'output',
       header: (
