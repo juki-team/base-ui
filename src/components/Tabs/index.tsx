@@ -96,7 +96,7 @@ export const Tabs = <T extends string, >({ tabs, selectedTabKey, onChange, class
             </div>
           ))}
         </div>
-        {actionsSection?.length && (
+        {!!actionsSection?.length && (
           <div
             className={classNames('jk-tabs-actions jk-row right nowrap gap screen', { 'sm md lg hg': (isExtend || actionsSection.length === 1) })}
           >
@@ -108,7 +108,7 @@ export const Tabs = <T extends string, >({ tabs, selectedTabKey, onChange, class
             </div>
           </div>
         )}
-        {actionsSection?.length && (
+        {!!actionsSection?.length && (
           <Popover
             content={
               <div className="jk-col gap">
