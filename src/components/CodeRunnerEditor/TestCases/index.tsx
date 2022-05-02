@@ -59,7 +59,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
   }));
   
   const actionsSection = (
-    <Popover content={<T className="text-nowrap jk-pad-sm">add sample test case</T>}>
+    <Popover content={<T className="text-nowrap jk-pad-sm">add sample test case</T>} placement="topRight">
       <Button
         icon={<PlusIcon circle />}
         type="text"
