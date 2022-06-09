@@ -51,6 +51,7 @@ const Template: Story<CodeRunnerEditorProps> = (args) => {
           onChange={(props) => {
             setProps(prevState => ({ ...prevState, ...props }));
           }}
+          middleButtons={({ widthContainer }) => <div>width:{widthContainer}</div>}
           expandPosition={{
             width: '800px',
             height: '800px',

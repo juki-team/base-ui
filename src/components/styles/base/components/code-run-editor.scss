@@ -115,10 +115,6 @@
       align-items: center;
     }
     
-    .left-options, .right-options {
-      flex: 1;
-    }
-    
     .left-options {
       justify-content: flex-start;
       
@@ -133,7 +129,7 @@
     }
     
     .center-options {
-      flex: 2;
+      flex: 1;
     }
     
     .right-options {

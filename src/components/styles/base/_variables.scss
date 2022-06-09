@@ -79,8 +79,8 @@
   
   --border-radius-inline-hg: 8px;
   --border-radius-inline-lg: 9px;
-  --border-radius-inline-md: 11px;
-  --border-radius-inline-sm: 12px;
+  --border-radius-inline-md: 9px;
+  --border-radius-inline-sm: 10px;
   
   @include hg { --border-radius-inline: var(--border-radius-inline-hg); }
   @include lg { --border-radius-inline: var(--border-radius-inline-lg); }

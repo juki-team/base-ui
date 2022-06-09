@@ -124,7 +124,16 @@ export const CodeRunnerEditor = ({
         languages={languages}
         sourceCode={sourceCode}
         testCases={testCases || {}}
-        centerOptions={() => middleButtons?.({ readOnly, sourceCode, languages, language, keyMap, theme, testCases })}
+        centerOptions={({ widthContainer }) => middleButtons?.({
+          readOnly,
+          sourceCode,
+          languages,
+          language,
+          keyMap,
+          theme,
+          testCases,
+          widthContainer,
+        })}
         setShowSettings={setShowSettings}
         setRunId={setRunId}
         onChange={onChange}

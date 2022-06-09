@@ -15,11 +15,11 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
   }
   
   &.tiny {
-    min-height: var(--pad-l);
+    min-height: 26px;
     font-weight: var(--weight-semi-bold);
     font-size: var(--text-xs-size);
     padding: 0 var(--pad-xt);
-    gap: var(--pad-xt);
+    gap: 4px;
     
     &.only-icon {
       width: var(--pad-l);
@@ -37,7 +37,7 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
     font-weight: var(--weight-semi-bold);
     font-size: var(--text-s-size);
     padding: 0 var(--pad-t);
-    gap: var(--pad-t);
+    gap: var(--pad-xt);
     
     &.only-icon {
       width: var(--pad-xl);
@@ -55,7 +55,7 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
     font-weight: var(--weight-semi-bold);
     font-size: var(--text-m-size);
     padding: 0 var(--pad-xs);
-    gap: var(--pad-xs);
+    gap: var(--pad-t);
     
     &.only-icon {
       width: var(--pad-h);
@@ -67,7 +67,7 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
     font-weight: var(--weight-bold);
     font-size: var(--text-m-size);
     padding: 0 var(--pad-s);
-    gap: var(--pad-s);
+    gap: var(--pad-xs);
     
     &.only-icon {
       width: var(--pad-xH);
@@ -79,7 +79,7 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
     font-weight: var(--weight-bold);
     font-size: var(--text-xl-size);
     padding: 0 var(--pad-m);
-    gap: var(--pad-m);
+    gap: var(--pad-s);
     
     &.only-icon {
       width: 64px;

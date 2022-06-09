@@ -18,9 +18,6 @@ import {
 } from '../../index';
 import { CodeEditorTestCasesType, HeaderProps } from '../types';
 
-
-const MIN_WIDTH = 700;
-
 export const Header = ({
   languages,
   sourceCode,
@@ -39,6 +36,9 @@ export const Header = ({
   
   const { addErrorNotification } = useNotification();
   const { width = 0, ref } = useResizeDetector();
+  const { width: widthCenterOptions = 0, ref: refCenterOptions } = useResizeDetector();
+  const withRunCodeButton = !!Object.keys(testCases).length;
+  const MIN_WIDTH = withRunCodeButton ? 900 : 700;
   
   const handleRunCode: ButtonLoaderOnClickType = async (setStatus) => {
     setStatus(Status.LOADING);
@@ -83,20 +83,20 @@ export const Header = ({
           optionSelected={{ label: PROGRAMMING_LANGUAGE[language].label, value: PROGRAMMING_LANGUAGE[language].value }}
           onChange={({ value }) => onChange?.({ language: value })}
         />
-        {!!Object.keys(testCases).length && (
-          <ButtonLoader size="small" type="text" icon={<PlayIcon />} onClick={handleRunCode}>
-            {width > MIN_WIDTH && <T>run code</T>}
+        {withRunCodeButton && (
+          <ButtonLoader size="tiny" type="primary" icon={<PlayIcon />} onClick={handleRunCode}>
+            <T>run</T>
           </ButtonLoader>
         )}
       </div>
-      <div className="center-options">{centerOptions()}</div>
+      <div className="center-options" ref={refCenterOptions}>{centerOptions({ widthContainer: widthCenterOptions })}</div>
       <div className="right-options color-primary">
-        <Button size="small" type="text" onClick={() => setShowSettings(true)} icon={<SettingIcon />}>
+        <Button size="tiny" type="text" onClick={() => setShowSettings(true)} icon={<SettingIcon />}>
           {width > MIN_WIDTH && <T>settings</T>}
         </Button>
         {expanded !== null && (
           <Button
-            size="small"
+            size="tiny"
             type="text"
             onClick={() => setExpanded(prevState => !prevState)}
             icon={expanded ? <ExitFullScreenIcon /> : <EnterFullScreenIcon />}
