@@ -14,7 +14,7 @@ export const SettingsModal = ({ onClose, isOpen, onChange, theme, keyMap, tabSiz
           <label className="text-semi-bold text-sentence-case"><T>choose editor style</T>: </label>
           <Select
             options={CODE_EDITOR_THEMES.map(theme => ({ value: theme, label: theme }))}
-            optionSelected={{ label: theme, value: theme }}
+            selectedOption={{ label: theme, value: theme }}
             onChange={({ value }) => onChange?.({ theme: value })}
           />
         </div>
@@ -22,7 +22,7 @@ export const SettingsModal = ({ onClose, isOpen, onChange, theme, keyMap, tabSiz
           <label className="text-semi-bold text-sentence-case"><T>choose your editor key mapping</T>: </label>
           <Select
             options={CODE_EDITOR_KEY_MAPS.map(keyMap => ({ value: keyMap, label: keyMap }))}
-            optionSelected={{ label: keyMap, value: keyMap }}
+            selectedOption={{ label: keyMap, value: keyMap }}
             onChange={({ value }) => onChange?.({ keyMap: value })}
           />
         </div>
@@ -30,7 +30,7 @@ export const SettingsModal = ({ onClose, isOpen, onChange, theme, keyMap, tabSiz
           <label className="text-semi-bold text-sentence-case"><T>choose your tab size</T>: </label>
           <Select
             options={CODE_EDIT0R_TAB_SIZES.map(keyMap => ({ value: keyMap, label: keyMap + '' }))}
-            optionSelected={{ label: tabSize + '', value: tabSize }}
+            selectedOption={{ label: tabSize + '', value: tabSize }}
             onChange={({ value }) => onChange?.({ tabSize: value })}
           />
         </div>

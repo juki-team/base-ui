@@ -21,7 +21,7 @@ export const TimePicker = ({
             label: hour.padStart(2),
             disabled: !!isDisabled?.(baseDate.changeHours(hour)).hours,
           }))}
-          optionSelected={{ value: baseDate.getHours(), label: baseDate.getHours().padStart(2) }}
+          selectedOption={{ value: baseDate.getHours(), label: baseDate.getHours().padStart(2) }}
           onChange={({ value }) => onChange(baseDate.changeHours(value))}
         />
         {showMinutes && (
@@ -33,7 +33,7 @@ export const TimePicker = ({
                 label: minute.padStart(2),
                 disabled: !!isDisabled?.(baseDate.changeMinutes(minute)).minutes,
               }))}
-              optionSelected={{ value: baseDate.getMinutes(), label: baseDate.getMinutes().padStart(2) }}
+              selectedOption={{ value: baseDate.getMinutes(), label: baseDate.getMinutes().padStart(2) }}
               onChange={({ value }) => onChange(baseDate.changeMinutes(value))}
             />
             {showSeconds && (
@@ -45,7 +45,7 @@ export const TimePicker = ({
                     label: second.padStart(2),
                     disabled: !!isDisabled?.(baseDate.changeSeconds(second)).seconds,
                   }))}
-                  optionSelected={{ value: baseDate.getSeconds(), label: baseDate.getSeconds().padStart(2) }}
+                  selectedOption={{ value: baseDate.getSeconds(), label: baseDate.getSeconds().padStart(2) }}
                   onChange={({ value }) => onChange(baseDate.changeSeconds(value))}
                 />
                 {showMilliseconds && (
@@ -57,7 +57,7 @@ export const TimePicker = ({
                         label: millisecond.padStart(3),
                         disabled: !!isDisabled?.(baseDate.changeMilliseconds(millisecond)).milliseconds,
                       }))}
-                      optionSelected={{ value: baseDate.getMilliseconds(), label: baseDate.getMilliseconds().padStart(3) }}
+                      selectedOption={{ value: baseDate.getMilliseconds(), label: baseDate.getMilliseconds().padStart(3) }}
                       onChange={({ value }) => onChange(baseDate.changeMilliseconds(value))}
                     />
                   </>

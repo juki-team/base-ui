@@ -358,24 +358,26 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.jk-select-options {
-  //position: absolute;
-  //z-index: var(--z-index-select-options);
+.jk-select-options-virtual {
+
+}
+
+.jk-select-options, .jk-select-options-virtual {
+  position: relative;
   background-color: var(--t-color-white);
   width: 100%;
-  //top: 32px;
-  //box-shadow: var(--t-box-shadow-md);
   max-height: 256px;
   overflow: auto;
-  //border: 1px solid var(--t-color-primary);
-  //outline: none;
   box-sizing: border-box;
-  //border-radius: var(--border-radius-md);
   display: block;
   
   .jk-select-option {
     padding: 0 var(--pad-xt);
     cursor: pointer;
+    
+    .jk-input-checkbox-wrapper {
+      margin-right: 4px;
+    }
     
     &:first-child {
       border-radius: var(--border-radius-inline) var(--border-radius-inline) 0 0;

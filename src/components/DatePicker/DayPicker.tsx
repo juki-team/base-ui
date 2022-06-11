@@ -24,7 +24,7 @@ export const DayPicker = ({ baseDate, onChange, isDisabled, isSelected }: DayPic
       <div className="jk-row jk-day-picker-header">
         <Select
           options={YEARS.map(year => ({ value: year, label: year, disabled: !!(isDisabled?.(new Date().changeYear(year)).year) }))}
-          optionSelected={{ value: viewDate.getFullYear(), label: viewDate.getFullYear() }}
+          selectedOption={{ value: viewDate.getFullYear(), label: viewDate.getFullYear() }}
           onChange={({ value }) => setViewDate(viewDate.changeYear(value))}
         />
         <PreviousButton onClick={() => setViewDate(viewDate.decreaseMonth())} />
@@ -34,7 +34,7 @@ export const DayPicker = ({ baseDate, onChange, isDisabled, isSelected }: DayPic
             label: <T>{month}</T>,
             disabled: !!(isDisabled?.(viewDate.changeMonth(index)).month),
           }))}
-          optionSelected={{ value: viewDate.getMonth(), label: <T>{MONTH_NAMES[viewDate.getMonth()]}</T> }}
+          selectedOption={{ value: viewDate.getMonth(), label: <T>{MONTH_NAMES[viewDate.getMonth()]}</T> }}
           onChange={({ value }) => setViewDate(viewDate.changeMonth(value))}
         />
         <NextButton onClick={() => setViewDate(viewDate.increaseMonth())} />

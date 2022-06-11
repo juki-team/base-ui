@@ -1,5 +1,6 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import { ChangeHandler } from 'react-hook-form';
+import { ReactNodeOrFunctionType } from '../../types';
 import { ButtonType, placementType } from '../index';
 
 export interface InputCommonsProps<T> {
@@ -81,30 +82,35 @@ export type FieldEditableProps<T> = PropsWithChildren<{
   type?: 'text' | 'email',
 }>
 
-export type SelectOptionType<T, U extends ReactNode> = { value: T, label: U, disabled?: boolean };
-export type SelectOption2Type<T, U extends ReactNode> = { value: T, label?: U, disabled?: boolean };
+export type SelectOptionType<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> = { value: T, label: U, inputLabel?: V, disabled?: boolean };
+export type SelectOption2Type<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> = { value: T, label?: U, inputLabel?: V, disabled?: boolean };
 
-export interface SelectProps<T, U extends ReactNode> {
+export interface SelectProps<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> {
   className?: string,
-  options: SelectOptionType<T, U>[],
-  optionSelected: SelectOption2Type<T, U>,
-  onChange?: (option: SelectOptionType<T, U>) => void,
+  options: SelectOptionType<T, U, V>[],
+  selectedOption: SelectOption2Type<T, U, V>,
+  onChange?: (option: SelectOptionType<T, U, V>) => void,
   showOptions?: boolean,
   onChangeShowOptions?: (value: boolean) => void,
   disabled?: boolean,
   optionsPlacement?: placementType,
 }
 
-export interface MultiSelectProps<T, U extends ReactNode> {
+export interface MultiSelectProps<T, U extends ReactNode, V extends ReactNode> {
   className?: string,
-  options: SelectOptionType<T, U>[],
-  optionsSelected: SelectOption2Type<T, U>[],
-  onChange?: (options: SelectOptionType<T, U>[]) => void,
+  options: SelectOptionType<T, U, V>[],
+  selectedOptions: SelectOption2Type<T, U, V>[],
+  onChange?: (options: SelectOptionType<T, U, V>[]) => void,
   showOptions?: boolean,
   onChangeShowOptions?: (value: boolean) => void,
   disabled?: boolean,
   optionsPlacement?: placementType,
   block?: boolean,
+}
+
+export interface SelectSearchableProps<T, U extends ReactNode, V extends ReactNode> extends MultiSelectProps<T, U, V> {
+  rowHeightOption?: number,
+  onFilter?: (props: { search: string, option: SelectOptionType<T, U, V>, options: SelectOptionType<T, U, V>[], selectedOptions: SelectOption2Type<T, U, V>[] }) => boolean
 }
 
 export interface InputToggleProps {

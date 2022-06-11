@@ -92,7 +92,7 @@ export const Pagination = ({ total, page, pageSize, loading, pageSizeOptions, ju
       </div>
       <Select
         options={pageSizeOptions.map(option => ({ value: option, label: option + ' / ' + t('page') }))}
-        optionSelected={{ value: pageSize }}
+        selectedOption={{ value: pageSize }}
         onChange={({ value }) => onPageSizeChange(value)}
         optionsPlacement="top"
       />

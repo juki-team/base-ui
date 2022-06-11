@@ -4,6 +4,7 @@ import React from 'react';
 
 import {
   AssignmentIcon,
+  SearchIcon,
   AtSignIcon,
   BasicIconProps,
   BugIcon,
@@ -101,6 +102,7 @@ configureActions({
 
 export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...props }) => {
   const icons = {
+    SearchIcon,
     BugIcon,
     BuildIcon,
     CityIcon,

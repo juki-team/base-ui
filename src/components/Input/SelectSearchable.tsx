@@ -1,14 +1,23 @@
-import React, { ReactNode, useCallback, useEffect, useRef } from 'react';
+import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { useVirtual } from 'react-virtual';
-import { classNames, getTextContent } from '../../helpers';
+import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
 import { useHandleState } from '../../hooks';
-import { CloseIcon, InputCheckbox, MultiSelectProps, Popover, SelectOptionType, UpIcon } from '../index';
+import {
+  CloseIcon,
+  Input,
+  InputCheckbox,
+  Popover,
+  SearchIcon,
+  SelectOptionType,
+  SelectSearchableProps,
+  UpIcon,
+  VirtualizedRowsFixed,
+} from '../index';
 
-export const MultiSelect = <T, U extends ReactNode, >({
+export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNode>({
   className,
   options,
-  optionsSelected: initialOptionsSelected,
+  selectedOptions: initialSelectedOptions,
   onChange,
   showOptions: _showOptions,
   onChangeShowOptions: _onChangeShowOptions,
@@ -16,67 +25,59 @@ export const MultiSelect = <T, U extends ReactNode, >({
   optionsPlacement = 'bottom',
   block,
   rowHeightOption = 32,
-  searchable = false,
-}: MultiSelectProps<T, U>) => {
+  onFilter,
+}: SelectSearchableProps<T, U, V>) => {
   
+  const searchable = !!onFilter;
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
   const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
+  const [search, setSearch] = useState('');
+  const [filteredOptions, setFilteredOptions] = useState(options);
+  const selectedOptions: SelectOptionType<T, U, V>[] = useMemo(() => initialSelectedOptions.map(initialOptionSelected => {
+    const option = options.find(option => option.value === initialOptionSelected.value);
+    return {
+      value: initialOptionSelected.value,
+      label: initialOptionSelected.label || option?.label || '' as unknown as U,
+      inputLabel: initialOptionSelected.inputLabel || option?.inputLabel || '' as unknown as V,
+    };
+  }), [initialSelectedOptions, options]);
   
+  useEffect(() => {
+    if (search && onFilter) {
+      setFilteredOptions(options.filter(option => onFilter({ search, option, options, selectedOptions })));
+    } else {
+      setFilteredOptions(options);
+    }
+  }, [onFilter, options, search, selectedOptions]);
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
   
-  // useEffect(() => {
-  //   const timeout = setTimeout(() => {
-  //     if (showOptions && (optionRef.current?.scrollHeight || 0) > (optionRef.current?.clientHeight || 0)) {
-  //       selectedOptionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  //     }
-  //   }, 100);
-  //   return () => {
-  //     clearTimeout(timeout);
-  //   };
-  // }, [showOptions]);
-  
-  const optionRef = useRef<HTMLDivElement | null>(null);
-  
-  const optionsSelected: SelectOptionType<T, U>[] = initialOptionsSelected.map(initialOptionSelected => ({
-    value: initialOptionSelected.value,
-    label: initialOptionSelected.label || options.find(option => option.value === initialOptionSelected.value)?.label || '' as unknown as U,
-  }));
-  
-  const widthLabels = Math.max(...[...options, ...optionsSelected].map(({ label }) => getTextContent(label).length));
+  const widthLabels = Math.max(...[...options, ...selectedOptions].map(({ label }) => getTextContent(label).length));
   
   const isDisabled = disabled || !onChange;
   const containerWidth = widthLabels * (12 + 5) + 35;
   
-  const parentRef = useRef<HTMLDivElement>(null);
-  const { virtualItems, totalSize } = useVirtual({
-    size: options.length,
-    parentRef,
-    estimateSize: useCallback(() => rowHeightOption, [rowHeightOption]),
-    overscan: 5,
-  });
-  
-  const renderOption = (option: SelectOptionType<T, U>) => {
-    const selected = optionsSelected.some(optionSelected => JSON.stringify(option.value) === JSON.stringify(optionSelected.value));
+  const renderOption = (option: SelectOptionType<T, U, V>) => {
+    const selected = selectedOptions.some(optionSelected => JSON.stringify(option.value) === JSON.stringify(optionSelected.value));
     const disabled = !!option.disabled;
     return (
       <div
         className={classNames('jk-select-option', { selected, disabled })}
         onClick={!option.disabled ? () => {
-          onChange?.(selected ? optionsSelected.filter(optionSelected => JSON.stringify(option.value) !== JSON.stringify(optionSelected.value)) : [
-            ...optionsSelected,
+          onChange?.(selected ? selectedOptions.filter(optionSelected => JSON.stringify(option.value) !== JSON.stringify(optionSelected.value)) : [
+            ...selectedOptions,
             option,
           ]);
         } : undefined}
         key={JSON.stringify(option.value)}
         ref={(e) => {
-          if (optionsSelected.some(optionSelected => JSON.stringify(option.value) === JSON.stringify(optionSelected.value))) {
+          if (selected) {
             selectedOptionRef.current = e;
           }
         }}
       >
-        <div className="jk-row gap left">
+        <div className="jk-row left nowrap">
           <InputCheckbox checked={selected} onChange={() => null} disabled={disabled} />
-          {option.label}
+          {renderReactNodeOrFunction(option.label)}
         </div>
       </div>
     );
@@ -90,28 +91,22 @@ export const MultiSelect = <T, U extends ReactNode, >({
       visible={showOptions}
       onVisibleChange={value => setShowOptions(value)}
       content={
-        <div ref={optionRef} className={classNames('jk-select-options jk-border-radius-inline')}
-             style={{ width: block ? (widthContainer || 0) + 32 : containerWidth }}
+        <div
+          className={classNames('jk-select-options-virtual jk-border-radius-inline')}
+          style={{ width: block ? (widthContainer || 0) + 32 : containerWidth }}
         >
-          <div ref={parentRef} className="">
-            <div className="" style={{ height: `${totalSize}px` }}>
-              {virtualItems.map(virtualRow => (
-                <div
-                  key={virtualRow.key}
-                  style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: `${virtualRow.size}px`,
-                    transform: `translateY(${virtualRow.start}px)`,
-                  }}
-                  // className="jk-table-row"
-                >
-                  {renderOption(options[virtualRow.index])}
-                </div>
-              ))}
+          {searchable && (
+            <div className="jk-row nowrap gap jk-pad jk-shadow">
+              <SearchIcon />
+              <Input value={search} onChange={setSearch} block />
             </div>
+          )}
+          <div style={{ width: '100%', height: rowHeightOption * 5, maxHeight: '256px' }}>
+            <VirtualizedRowsFixed
+              size={filteredOptions.length}
+              rowHeight={rowHeightOption}
+              renderRow={(virtualItem) => renderOption(filteredOptions[virtualItem.index])}
+            />
           </div>
         </div>
       }
@@ -121,16 +116,16 @@ export const MultiSelect = <T, U extends ReactNode, >({
         style={{ width: block ? '100%' : `${containerWidth}px` }}
       >
         <div className="jk-select jk-border-radius-inline" ref={selectLayoutRef}>
-          <div className="jk-row jk-multi-select-selected-options">
-            {optionsSelected.map(optionSelected => (
-              <div className="jk-tag gray-6 jk-row" key={JSON.stringify(optionSelected.value)}>
-                {optionSelected.label}
+          <div className="jk-row left jk-multi-select-selected-options">
+            {selectedOptions.map(optionSelected => (
+              <div className="jk-tag gray-6 jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
+                {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected?.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
                 {onChange && (
                   <CloseIcon
                     size="small"
                     filledCircle
                     onClick={event => {
-                      onChange(optionsSelected.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(option.value)));
+                      onChange(selectedOptions.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(option.value)));
                       event.stopPropagation();
                     }}
                     className="color-gray-3"

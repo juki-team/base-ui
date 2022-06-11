@@ -80,7 +80,7 @@ export const Header = ({
         <Select
           className="languages-selector"
           options={languages.map(language => ({ value: language, label: language }))}
-          optionSelected={{ label: PROGRAMMING_LANGUAGE[language].label, value: PROGRAMMING_LANGUAGE[language].value }}
+          selectedOption={{ label: PROGRAMMING_LANGUAGE[language].label, value: PROGRAMMING_LANGUAGE[language].value }}
           onChange={({ value }) => onChange?.({ language: value })}
         />
         {withRunCodeButton && (

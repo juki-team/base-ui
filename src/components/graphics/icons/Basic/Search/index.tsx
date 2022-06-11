@@ -1,5 +1,5 @@
 import { BasicIconProps } from '../../types';
 import { renderBasicIcon } from '../../utils';
-import Group from './Group';
+import Search from './Search';
 
-export const GroupIcon = (props: BasicIconProps) => renderBasicIcon(props, Group);
+export const SearchIcon = (props: BasicIconProps) => renderBasicIcon(props, Search);

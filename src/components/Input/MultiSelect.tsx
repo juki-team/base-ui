@@ -1,20 +1,20 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { classNames, getTextContent } from '../../helpers';
+import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
 import { useHandleState } from '../../hooks';
 import { CloseIcon, InputCheckbox, MultiSelectProps, Popover, SelectOptionType, UpIcon } from '../index';
 
-export const MultiSelect = <T, U extends ReactNode, >({
+export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
   className,
   options,
-  optionsSelected: initialOptionsSelected,
+  selectedOptions: initialOptionsSelected,
   onChange,
   showOptions: _showOptions,
   onChangeShowOptions: _onChangeShowOptions,
   disabled,
   optionsPlacement = 'bottom',
   block,
-}: MultiSelectProps<T, U>) => {
+}: MultiSelectProps<T, U, V>) => {
   
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
   const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
@@ -34,10 +34,14 @@ export const MultiSelect = <T, U extends ReactNode, >({
   
   const optionRef = useRef<HTMLDivElement | null>(null);
   
-  const optionsSelected: SelectOptionType<T, U>[] = initialOptionsSelected.map(initialOptionSelected => ({
-    value: initialOptionSelected.value,
-    label: initialOptionSelected.label || options.find(option => option.value === initialOptionSelected.value)?.label || '' as unknown as U,
-  }));
+  const optionsSelected: SelectOptionType<T, U, V>[] = initialOptionsSelected.map(initialOptionSelected => {
+    const option = options.find(option => JSON.stringify(option.value) === JSON.stringify(initialOptionSelected.value));
+    return {
+      value: initialOptionSelected.value,
+      label: initialOptionSelected.label || option?.label || '' as unknown as U,
+      inputLabel: initialOptionSelected.inputLabel || option?.inputLabel || '' as unknown as V,
+    };
+  });
   
   const widthLabels = Math.max(...[...options, ...optionsSelected].map(({ label }) => getTextContent(label).length));
   
@@ -68,14 +72,14 @@ export const MultiSelect = <T, U extends ReactNode, >({
                 } : undefined}
                 key={JSON.stringify(option.value)}
                 ref={(e) => {
-                  if (optionsSelected.some(optionSelected => JSON.stringify(option.value) === JSON.stringify(optionSelected.value))) {
+                  if (selected) {
                     selectedOptionRef.current = e;
                   }
                 }}
               >
-                <div className="jk-row left">
+                <div className="jk-row left nowrap">
                   <InputCheckbox checked={selected} onChange={() => null} disabled={disabled} />
-                  {option.label}
+                  {renderReactNodeOrFunction(option.label)}
                 </div>
               </div>
             );
@@ -88,10 +92,10 @@ export const MultiSelect = <T, U extends ReactNode, >({
         style={{ width: block ? '100%' : `${containerWidth}px` }}
       >
         <div className="jk-select jk-border-radius-inline" ref={selectLayoutRef}>
-          <div className="jk-row jk-multi-select-selected-options">
+          <div className="jk-row left jk-multi-select-selected-options">
             {optionsSelected.map(optionSelected => (
-              <div className="jk-tag gray-6 jk-row" key={JSON.stringify(optionSelected.value)}>
-                {optionSelected.label}
+              <div className="jk-tag gray-6 jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
+                {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
                 {onChange && (
                   <CloseIcon
                     size="small"

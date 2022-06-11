@@ -46,6 +46,7 @@ export * from './QuestionAnswer';
 export * from './Reload';
 export * from './Save';
 export * from './School';
+export * from './Search';
 export * from './Setting';
 export * from './Share';
 export * from './Spin';

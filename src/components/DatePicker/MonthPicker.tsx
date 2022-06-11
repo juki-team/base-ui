@@ -25,7 +25,7 @@ export const MonthPicker = ({ baseDate, onChange, isDisabled, isSelected }: Mont
         <PreviousButton onClick={() => setViewDate(viewDate.decreaseYear())} />
         <Select
           options={YEARS.map(year => ({ value: year, label: year, disabled: !!(isDisabled?.(new Date().changeYear(year)).year) }))}
-          optionSelected={{ value: viewDate.getFullYear(), label: viewDate.getFullYear() }}
+          selectedOption={{ value: viewDate.getFullYear(), label: viewDate.getFullYear() }}
           onChange={({ value }) => setViewDate(viewDate.changeYear(value))}
         />
         <NextButton onClick={() => setViewDate(viewDate.increaseYear())} />

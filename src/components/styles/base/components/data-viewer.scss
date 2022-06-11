@@ -280,15 +280,9 @@
       }
       
       .jk-table-rows-container {
-        height: 100%;
-        width: 100%;
-        overflow: auto;
         box-sizing: border-box;
         
         .jk-table-rows-box {
-          width: 100%;
-          position: relative;
-          
           .jk-table-row {
             border-top: 1px solid var(--t-color-white-2);
             width: 100%;

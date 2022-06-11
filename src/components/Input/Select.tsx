@@ -1,17 +1,18 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
-import { classNames, getTextContent } from '../../helpers';
+import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
+import { ReactNodeOrFunctionType } from '../../types';
 import { Popover, UpIcon } from '../index';
 import { SelectProps } from './types';
 
-export const SelectInline = <T, U extends ReactNode, >({  // TODO: Fix the styles or remove component
+export const SelectInline = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>({  // TODO: Fix the styles or remove component
   className,
   options,
-  optionSelected,
+  selectedOption,
   onChange,
   showOptions: _showOptions,
   onChangeShowOptions: _onChangeShowOptions,
-}: SelectProps<T, U>) => {
+}: SelectProps<T, U, V>) => {
   
   const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
   const selectLayoutRef = useRef(null);
@@ -19,7 +20,7 @@ export const SelectInline = <T, U extends ReactNode, >({  // TODO: Fix the style
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => selectedOptionRef.current?.scrollIntoView(), [showOptions]);
   
-  const width = Math.max(...options.map(({ label }) => getTextContent(label).length), getTextContent(optionSelected.label).length);
+  const width = Math.max(...options.map(({ label }) => getTextContent(label).length), getTextContent(selectedOption.label).length);
   
   return (
     <div
@@ -28,14 +29,14 @@ export const SelectInline = <T, U extends ReactNode, >({  // TODO: Fix the style
       style={{ width: `${width * 12 + 35}px` }}
     >
       <div className="jk-select jk-inline-border-radius" onClick={() => setShowOptions(!showOptions)}>
-        {optionSelected.label}
+        {selectedOption.label}
         <UpIcon rotate={180} className="input-icon" />
       </div>
       <div className={classNames('jk-select-options jk-inline-border-radius')}>
         {options.map((option) => (
           <div
             className={classNames('jk-select-option', {
-              selected: JSON.stringify(option.value) === JSON.stringify(optionSelected.value),
+              selected: JSON.stringify(option.value) === JSON.stringify(selectedOption.value),
               disabled: !!option.disabled,
             })}
             onClick={!option.disabled ? () => {
@@ -44,7 +45,7 @@ export const SelectInline = <T, U extends ReactNode, >({  // TODO: Fix the style
             } : undefined}
             key={JSON.stringify(option.value)}
             ref={(e) => {
-              if (JSON.stringify(option.value) === JSON.stringify(optionSelected.value)) {
+              if (JSON.stringify(option.value) === JSON.stringify(selectedOption.value)) {
                 selectedOptionRef.current = e;
               }
             }}
@@ -57,16 +58,16 @@ export const SelectInline = <T, U extends ReactNode, >({  // TODO: Fix the style
   );
 };
 
-export const Select = <T, U extends ReactNode, >({
+export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>({
   className,
   options,
-  optionSelected: initialOptionSelected,
+  selectedOption: initialOptionSelected,
   onChange,
   showOptions: _showOptions,
   onChangeShowOptions: _onChangeShowOptions,
   disabled,
   optionsPlacement = 'bottom',
-}: SelectProps<T, U>) => {
+}: SelectProps<T, U, V>) => {
   
   const selectLayoutRef = useRef(null);
   const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
@@ -86,9 +87,11 @@ export const Select = <T, U extends ReactNode, >({
   
   const optionRef = useRef<HTMLDivElement | null>(null);
   
+  const option = options.find(option => option.value === initialOptionSelected.value);
   const optionSelected = {
     value: initialOptionSelected.value,
-    label: initialOptionSelected.label || options.find(option => option.value === initialOptionSelected.value)?.label,
+    label: initialOptionSelected.label || option?.label,
+    inputLabel: initialOptionSelected.inputLabel || option?.inputLabel,
   };
   
   const width = Math.max(...options.map(({ label }) => getTextContent(label).length), getTextContent(optionSelected.label).length);
@@ -122,7 +125,7 @@ export const Select = <T, U extends ReactNode, >({
                 }
               }}
             >
-              {option.label}
+              {renderReactNodeOrFunction(option.label)}
             </div>
           ))}
         </div>
@@ -134,7 +137,7 @@ export const Select = <T, U extends ReactNode, >({
         style={{ width: `${containerWidth}px` }}
       >
         <div className="jk-select jk-border-radius-inline">
-          {optionSelected.label}
+          {optionSelected.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
           <UpIcon rotate={180} className="input-icon" />
         </div>
       </div>

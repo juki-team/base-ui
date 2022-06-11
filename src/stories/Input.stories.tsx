@@ -9,10 +9,12 @@ import {
   InputSubmit,
   InputToggle,
   MultiSelect as MultiSelectComponent,
+  MultiSelectSearchable,
   Select as SelectComponent,
   TextArea,
   TimePicker,
 } from '../index';
+import { mockupUsers } from './mockupUsers';
 
 export default {
   title: 'Components/Input',
@@ -109,22 +111,22 @@ export const Select = () => {
   
   const [value, setValue] = useState<{ label: string, value: number }>({ label: 'test 20', value: 20 });
   
-  let options = new Array(40).fill(0);
-  options = options.map((_, index) => index);
+  let numbers = new Array(40).fill(0);
+  const options: { label: string, value: number, disabled: boolean }[] = numbers.map((_, option) => ({
+    label: 'label ' + option,
+    inputLabel: 'LABEL' + option,
+    value: option,
+    disabled: (Math.round(Math.random() * 10)) > 7,
+  }));
   
   return (
     <div style={{ width: '90%' }}>
       Text 1
       <SelectComponent
         className=""
-        options={options.map(option => ({
-          label: 'label ' + option,
-          value: option,
-          disabled: (Math.round(Math.random() * 10)) > 7,
-          // disabled: true,
-        }))}
-        optionSelected={value}
-        onChange={({ value, label }) => setValue({ value, label })}
+        options={options}
+        selectedOption={value}
+        onChange={({ value, label }: { value: number, label: string }) => setValue({ value, label })}
       />
       Text 2
     </div>
@@ -144,22 +146,62 @@ export const MultiSelect = () => {
       <MultiSelectComponent
         options={options.map(option => ({
           label: 'label ' + option,
+          inputLabel: 'label sel ' + option,
           value: option,
           disabled: (Math.round(Math.random() * 10)) > 7,
         }))}
-        optionsSelected={values}
+        selectedOptions={values}
         onChange={options => setValues(options)}
       />
       Text 2
       <MultiSelectComponent
         options={options.map(option => ({
           label: 'label ' + option,
+          inputLabel: 'label sel ' + option,
           value: option,
           disabled: (Math.round(Math.random() * 10)) > 7,
         }))}
-        optionsSelected={values}
+        selectedOptions={values}
         onChange={options => setValues(options)}
         block
+      />
+    </div>
+  );
+};
+
+export const SelectSearchable = () => {
+  
+  const [values, setValues] = useState<{ label: any, value: { nickname: string } }[]>([]);
+  
+  return (
+    <div>
+      Text 2
+      <MultiSelectSearchable
+        options={mockupUsers.map(option => ({
+          label: <div className="jk-col">{option.email}
+            <div>{option.nickname}</div>
+          </div>,
+          value: option,
+          disabled: (Math.round(Math.random() * 10)) > 7,
+        }))}
+        selectedOptions={values}
+        onChange={options => setValues(options)}
+        block
+      />
+      Searchable
+      <MultiSelectSearchable
+        options={mockupUsers.map(option => ({
+          label: <div className="jk-col">{option.email}
+            <div>{option.nickname}</div>
+          </div>,
+          inputLabel: <div>{option.nickname}</div>,
+          value: option,
+          disabled: (Math.round(Math.random() * 10)) > 7,
+        }))}
+        selectedOptions={values}
+        onChange={options => setValues(options)}
+        block
+        onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
       />
     </div>
   );

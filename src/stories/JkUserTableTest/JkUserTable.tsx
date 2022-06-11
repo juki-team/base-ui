@@ -93,8 +93,8 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
             label: 'label ' + option,
             value: 'value ' + option,
             disabled: (Math.round(Math.random() * 10)) > 7,
-          } as SelectOptionType<string, string>))}
-          optionSelected={{ value: 'value 3' }}
+          } as SelectOptionType<string, string, string>))}
+          selectedOption={{ value: 'value 3' }}
           onChange={() => null}
         />
       </Field>,
