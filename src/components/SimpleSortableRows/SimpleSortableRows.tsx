@@ -3,8 +3,9 @@
 import type { Identifier, XYCoord } from 'dnd-core';
 import update from 'immutability-helper';
 import React, { Dispatch, lazy, SetStateAction, useCallback, useRef } from 'react';
-import { useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { useDrag } from 'react-dnd/dist/hooks/useDrag';
+import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 import { DropTargetMonitor } from 'react-dnd/dist/types/monitors.js';
 import { renderReactNodeOrFunction } from '../../helpers';
 import { ReactNodeOrFunctionType } from '../../types';
@@ -12,6 +13,7 @@ import { DragIcon } from '../graphics';
 import { DragItem, RowItem } from './types';
 
 const DndProvider = lazy(() => import('react-dnd').then(module => ({ default: module.DndProvider })));
+// const HTML5Backend = lazy(() => import('react-dnd-html5-backend').then(module => ({ default: module.HTML5Backend })));
 // const useDrag = lazy(() => import('react-dnd').then(module => ({ default: module.useDrag })));
 // const useDrop = lazy(() => import('react-dnd').then(module => ({ default: module.useDrop })));
 
