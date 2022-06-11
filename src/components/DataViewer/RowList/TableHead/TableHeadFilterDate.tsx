@@ -41,6 +41,7 @@ export const TableHeadFilterDate = ({
           milliseconds: !!value && date.isSameMillisecond(value),
         })}
         baseDate={baseDate}
+        twoLines={pickerType === 'year-month-day-hours-minutes-seconds-milliseconds' || pickerType === 'year-month-day-hours-minutes-seconds' || pickerType === 'year-month-day-hours-minutes' || pickerType === 'year-month-day-hours'}
       />
       <div className="jk-row right gap buttons">
         <Button size="tiny" type="text" onClick={onReset} disabled={!initialSelectedDate?.isValidDate()}>

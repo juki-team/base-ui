@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, DatePicker, InputDateProps, PlusIcon, Popover, T } from '../index';
 import { classNames } from '../../helpers';
+import { Button, DatePicker, InputDateProps, PlusIcon, Popover, T } from '../index';
 import { DateLiteral } from './DateLiteral';
 
 export const InputDate = ({
@@ -12,10 +12,10 @@ export const InputDate = ({
   isDisabled,
   isSelected,
   baseDate,
+  twoLines = false,
 }: InputDateProps) => {
   
   const input = () => {
-    const twoLines = type === 'year-month-day-hours-minutes-seconds-milliseconds' || type === 'year-month-day-hours-minutes-seconds' || type === 'year-month-day-hours-minutes' || type === 'year-month-day-hours';
     return date?.isValidDate() ? (
       <>
         <DateLiteral

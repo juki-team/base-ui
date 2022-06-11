@@ -156,6 +156,7 @@ export interface InputDateProps {
   isDisabled?: DatePickerDateFunType,
   isSelected?: DatePickerDateFunType,
   baseDate?: Date,
+  twoLines?: boolean,
 }
 
 export interface DateLiteralProps {

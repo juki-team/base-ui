@@ -40,6 +40,7 @@ export const TableHeadFilterDateRange = ({
             isDisabled={orDatePickerDateFun(isDisabled, isDisabledStart(end))}
             isSelected={orDatePickerDateFun(isSelected(start), isRangeSelected(start, end))}
             baseDate={baseStartDate}
+            twoLines={pickerType === 'year-month-day-hours-minutes-seconds-milliseconds' || pickerType === 'year-month-day-hours-minutes-seconds' || pickerType === 'year-month-day-hours-minutes' || pickerType === 'year-month-day-hours'}
           />
         </div>
         <div>
@@ -53,6 +54,7 @@ export const TableHeadFilterDateRange = ({
             isDisabled={orDatePickerDateFun(isDisabled, isDisabledEnd(start))}
             isSelected={orDatePickerDateFun(isSelected(end), isRangeSelected(start, end))}
             baseDate={baseEndDate}
+            twoLines={pickerType === 'year-month-day-hours-minutes-seconds-milliseconds' || pickerType === 'year-month-day-hours-minutes-seconds' || pickerType === 'year-month-day-hours-minutes' || pickerType === 'year-month-day-hours'}
           />
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { classNames } from '../../../helpers';
 import {
   ArrowIcon,
   Button,
@@ -12,7 +13,6 @@ import {
   T,
   useT,
 } from '../../index';
-import { classNames } from '../../../helpers';
 import { FilterDrawerProps, TableHeadType, TableSortOnSortType, TableSortOrderType } from '../types';
 import {
   isDisabledEnd,
@@ -112,6 +112,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                       isDisabled={filter.isDisabled}
                       isSelected={isSelected(filter.selectedDate)}
                       baseDate={filter.baseDate}
+                      twoLines={filter.pickerType === 'year-month-day-hours-minutes-seconds-milliseconds' || filter.pickerType === 'year-month-day-hours-minutes-seconds' || filter.pickerType === 'year-month-day-hours-minutes' || filter.pickerType === 'year-month-day-hours'}
                     />
                   </div>
                 );
@@ -136,6 +137,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                         isDisabled={orDatePickerDateFun(filter.isDisabled, isDisabledStart(end))}
                         isSelected={orDatePickerDateFun(isSelected(start), isRangeSelected(start, end))}
                         baseDate={filter.baseStartDate}
+                        twoLines={filter.pickerType === 'year-month-day-hours-minutes-seconds-milliseconds' || filter.pickerType === 'year-month-day-hours-minutes-seconds' || filter.pickerType === 'year-month-day-hours-minutes' || filter.pickerType === 'year-month-day-hours'}
                       />
                     </div>
                     <div>
@@ -154,6 +156,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                         isDisabled={orDatePickerDateFun(filter.isDisabled, isDisabledEnd(start))}
                         isSelected={orDatePickerDateFun(isSelected(end), isRangeSelected(start, end))}
                         baseDate={filter.baseEndDate}
+                        twoLines={filter.pickerType === 'year-month-day-hours-minutes-seconds-milliseconds' || filter.pickerType === 'year-month-day-hours-minutes-seconds' || filter.pickerType === 'year-month-day-hours-minutes' || filter.pickerType === 'year-month-day-hours'}
                       />
                     </div>
                   </div>

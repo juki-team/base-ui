@@ -197,6 +197,7 @@ export const DatePicker = () => {
         isSelected={(() => ({}))}
         baseDate={date}
         onDatePick={(date) => setDate(date)}
+        twoLines
       />
     </div>
   );
