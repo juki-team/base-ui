@@ -1,15 +1,17 @@
 import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 import {
+  ColorPicker as ColorPickerComponent,
   Input,
   InputCheckbox as CheckboxComponent,
+  InputDate,
   InputPassword,
   InputSubmit,
   InputToggle,
   MultiSelect as MultiSelectComponent,
   Select as SelectComponent,
-  ColorPicker as ColorPickerComponent,
   TextArea,
+  TimePicker,
 } from '../index';
 
 export default {
@@ -168,5 +170,34 @@ export const ColorPicker = () => {
     <div>
       <ColorPickerComponent />
     </div>
-  )
-}
+  );
+};
+
+export const DatePicker = () => {
+  
+  const [date, setDate] = useState(new Date());
+  
+  return (
+    <div>
+      <TimePicker
+        baseDate={new Date()}
+        onChange={(...props) => console.log(props)}
+        showMinutes={true}
+        showSeconds={true}
+        showMilliseconds={true}
+        // isSelected={isSelected}
+        // isDisabled={isDisabled}
+      />
+      
+      <InputDate
+        type="year-month-day-hours-minutes-seconds-milliseconds"
+        date={date}
+        // onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
+        isDisabled={() => ({})}
+        isSelected={(() => ({}))}
+        baseDate={date}
+        onDatePick={(date) => setDate(date)}
+      />
+    </div>
+  );
+};
