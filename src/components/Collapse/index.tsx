@@ -1,21 +1,12 @@
-import { classNames, renderReactNodeOrFunctionP1 } from 'helpers';
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { ReactNodeOrFunctionP1Type } from 'types';
-
-interface CollapseProps {
-  header: ReactNodeOrFunctionP1Type<{ isOpen: boolean, close: () => void, open: () => void, toggle: () => void }>,
-  className?: string
-}
+import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { CollapseProps } from './types';
 
 export const Collapse = ({ children, header, className }: PropsWithChildren<CollapseProps>) => {
   
   const [isOpen, setIsOpen] = useState(false);
   const { height = 0, ref } = useResizeDetector();
-  
-  useEffect(() => {
-  
-  }, []);
   
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
@@ -32,3 +23,5 @@ export const Collapse = ({ children, header, className }: PropsWithChildren<Coll
     </div>
   );
 };
+
+export * from './types';

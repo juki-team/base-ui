@@ -12,6 +12,7 @@ export * from './Cup';
 export * from './Cut';
 export * from './Delete';
 export * from './Download';
+export * from './Drag';
 export * from './Edit';
 export * from './EnterFullScreen';
 export * from './ErlenmeyerFlask';

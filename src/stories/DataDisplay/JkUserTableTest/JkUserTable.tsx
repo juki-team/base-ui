@@ -21,8 +21,8 @@ import {
   T,
   TextField,
   TextHeadCell,
-} from '../../index';
-import { Status } from '../../index';
+} from '../../../index';
+import { Status } from '../../../index';
 import users from './data.json';
 
 export interface JkUserTableProps {

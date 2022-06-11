@@ -13,11 +13,11 @@ import {
   Select as SelectComponent,
   TextArea,
   TimePicker,
-} from '../index';
-import { mockupUsers } from './mockupUsers';
+} from '../../index';
+import { mockupUsers } from '../mockupUsers';
 
 export default {
-  title: 'Components/Input',
+  title: 'Components/Data Entry',
   component: Input,
 };
 

@@ -1,10 +1,11 @@
 import { configureActions } from '@storybook/addon-actions';
-import React from 'react';
-import { Collapse as CollapseComponent, UpIcon } from '../../index';
+import React, { useState } from 'react';
+import { RowItem } from '../../components/SimpleSortableRows/types';
+import { SimpleSortableRows as SimpleSortableRowsComponent } from '../../index';
 
 export default {
   title: 'Components/Data Display',
-  component: CollapseComponent,
+  component: SimpleSortableRowsComponent,
   argTypes: {},
 };
 
@@ -14,24 +15,20 @@ configureActions({
   limit: 20,
 });
 
-export const Collapse = () => {
+export const SimpleSortableRows = () => {
+  const [rows, setRows] = useState<RowItem[]>([
+    { id: 1, content: 'Write a cool JS library' },
+    { id: 2, content: 'Make it generic enough' },
+    { id: 3, content: 'Write README' },
+    { id: 4, content: 'Create some examples' },
+    { id: 5, content: 'Spam in Twitter and IRC to promote it (note that this element is taller than the others)' },
+    { id: 6, content: '???' },
+    { id: 7, content: 'PROFIT' },
+  ]);
   return (
     <div style={{ height: '500px' }}>
-      <CollapseComponent
-        header={({ isOpen, toggle }) => (
-          <div className="jk-row center gap bg-color-success">
-            Collapse Header
-            <div onClick={toggle} className="bg-color-error jk-row">
-              Click me
-              <UpIcon rotate={isOpen ? 0 : 180} className="link" />
-            </div>
-          </div>
-        )}
-      >
-        <div>
-          Texto Collapsable
-        </div>
-      </CollapseComponent>
+      <SimpleSortableRowsComponent rows={rows} setRows={setRows} />
     </div>
   );
 };
+

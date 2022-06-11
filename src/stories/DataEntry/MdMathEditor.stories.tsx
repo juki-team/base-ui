@@ -2,12 +2,11 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
 
-import { Button, JukiBaseUiProvider, MdMathEditor, MdMathEditorProps } from '../index';
-import { COMPONENTS_WRITING_TOOLS } from './constants';
+import { Button, JukiBaseUiProvider, MdMathEditor as MdMathEditorComponent, MdMathEditorProps } from '../../index';
 
 export default {
-  title: COMPONENTS_WRITING_TOOLS,
-  component: MdMathEditor,
+  title: 'Components/Data Entry',
+  component: MdMathEditorComponent,
   argTypes: {
     uploadImageButton: { control: { type: 'boolean' } },
     informationButton: { control: { type: 'boolean' } },
@@ -22,7 +21,7 @@ configureActions({
   limit: 20,
 });
 
-export const MdMathEditorClassic: Story<MdMathEditorProps> = ({
+export const MdMathEditor: Story<MdMathEditorProps> = ({
   uploadImageButton,
   informationButton,
   sharedButton,
@@ -37,7 +36,7 @@ export const MdMathEditorClassic: Story<MdMathEditorProps> = ({
       utilsUiUrl="http://localhost:3001"
     >
       <div>
-        <MdMathEditor
+        <MdMathEditorComponent
           source={text}
           onChange={(value) => setText(value)}
           uploadImageButton={uploadImageButton}

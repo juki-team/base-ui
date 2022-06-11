@@ -1,10 +1,10 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { JukiBaseUiProvider, Popover, PopoverProps } from '../index';
+import { JukiBaseUiProvider, Popover, PopoverProps } from '../../index';
 
 export default {
-  title: 'Components/Popover',
+  title: 'Components/Data Display',
   component: Popover,
   argTypes: {
     visible: {

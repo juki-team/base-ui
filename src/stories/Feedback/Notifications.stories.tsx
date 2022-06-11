@@ -1,10 +1,10 @@
 import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Button, NotificationProvider, useNotification } from '../index';
+import { Button, NotificationProvider, useNotification } from '../../index';
 
 export default {
-  title: 'Components/General',
+  title: 'Components/Feedback',
   component: Button,
 };
 
@@ -109,12 +109,4 @@ export const Notifications = Template.bind({});
 Notifications.args = {
   onClick: action('onClick'),
   children: 'text',
-};
-
-export const ClassNames = () => {
-  return (
-    <div>
-    
-    </div>
-  );
 };

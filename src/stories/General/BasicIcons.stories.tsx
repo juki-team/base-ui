@@ -3,6 +3,7 @@ import { Story } from '@storybook/react';
 import React from 'react';
 
 import {
+  DragIcon,
   AssignmentIcon,
   SearchIcon,
   AtSignIcon,
@@ -65,7 +66,7 @@ import {
   UnorderedListIcon,
   ViewModuleIcon,
   ViewSideIcon,
-} from '../index';
+} from '../../index';
 
 export default {
   title: 'Components/General/Icons',
@@ -113,6 +114,7 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
     DeleteIcon,
     DownloadIcon,
     EditIcon,
+    DragIcon,
     ErlenmeyerFlaskIcon,
     PlayIcon,
     ExtensionIcon,

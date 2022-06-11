@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { JkUserTable, JkUserTableProps } from './JkUserTableTest/JkUserTable';
 
 export default {
-  title: 'Components/General',
+  title: 'Components/Data Display',
   // component: FlagEnImage,
   argTypes: {},
 };

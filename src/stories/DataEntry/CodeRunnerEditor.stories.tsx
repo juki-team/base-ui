@@ -8,10 +8,10 @@ import {
   JukiBaseUiProvider,
   ProgrammingLanguage,
   SubmissionRunStatus,
-} from '../index';
+} from '../../index';
 
 export default {
-  title: 'Components/CodeRunnerEditor',
+  title: 'Components/Data Entry',
   component: CodeRunnerEditor,
   argTypes: {
     type: {

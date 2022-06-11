@@ -1,25 +1,30 @@
+// https://react-dnd.github.io/react-dnd/examples/sortable/simple
+// https://react-dnd.github.io/react-dnd/examples/customize/handles-and-previews
 import type { Identifier, XYCoord } from 'dnd-core';
 import update from 'immutability-helper';
-import { useCallback, useRef, useState } from 'react';
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import React, { Dispatch, SetStateAction, useCallback, useRef } from 'react';
+import { DndProvider, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { renderReactNodeOrFunction } from '../../helpers';
+import { ReactNodeOrFunctionType } from '../../types';
+import { DragIcon } from '../graphics';
+import { DragItem, RowItem } from './types';
 
-interface DragItem {
-  index: number;
-  id: string;
-  type: string;
-}
-
-export const Card = ({ id, text, index, moveCard }) => {
+export const Row = ({
+  id,
+  content,
+  index,
+  moveRow,
+}: { id: number, content: ReactNodeOrFunctionType, index: number, moveRow: (i: number, j: number) => void }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
     accept: 'row',
-    collect(monitor) {
+    collect(monitor: DropTargetMonitor<DragItem, void>) {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
-    hover(item: DragItem, monitor) {
+    hover(item: DragItem, monitor: DropTargetMonitor<DragItem, void>) {
       if (!ref.current) {
         return;
       }
@@ -59,7 +64,7 @@ export const Card = ({ id, text, index, moveCard }) => {
       }
       
       // Time to actually perform the action
-      moveCard(dragIndex, hoverIndex);
+      moveRow(dragIndex, hoverIndex);
       
       // Note: we're mutating the monitor item here!
       // Generally it's better to avoid mutations,
@@ -79,63 +84,46 @@ export const Card = ({ id, text, index, moveCard }) => {
     }),
   });
   
-  const opacity = isDragging ? 0.6 : 1;
+  const opacity = isDragging ? 0.4 : 1;
   drag(drop(ref));
+  
   return (
-    <div ref={preview} className="jk-row left" style={{  opacity }} data-handler-id={handlerId}>
-      <div ref={ref} style={{ cursor: 'move' }}>icono</div>
-      <div>{text}</div>
+    <div ref={preview} className="jk-sortable-row-container jk-row left" style={{ opacity }} data-handler-id={handlerId}>
+      <div ref={ref} style={{ cursor: 'move' }} className="jk-sortable-row-drag-icon jk-row"><DragIcon /></div>
+      <div className="jk-sortable-row-content">{renderReactNodeOrFunction(content)}</div>
     </div>
   );
 };
 
-interface Item {
-  id: number;
-  text: string;
-}
-
-export const SimpleSortableRows = () => {
-  const [cards, setCards] = useState([
-    { id: 1, text: 'Write a cool JS library' },
-    { id: 2, text: 'Make it generic enough' },
-    { id: 3, text: 'Write README' },
-    { id: 4, text: 'Create some examples' },
-    { id: 5, text: 'Spam in Twitter and IRC to promote it (note that this element is taller than the others)' },
-    { id: 6, text: '???' },
-    { id: 7, text: 'PROFIT' },
-  ]);
+export const SimpleSortableRows = ({ rows, setRows }: { rows: RowItem[], setRows: Dispatch<SetStateAction<RowItem[]>> }) => {
   
-  const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
-    setCards((prevCards: Item[]) =>
+  const moveRow = useCallback((dragIndex: number, hoverIndex: number) => {
+    setRows((prevCards: RowItem[]) =>
       update(prevCards, {
         $splice: [
           [dragIndex, 1],
-          [hoverIndex, 0, prevCards[dragIndex] as Item],
+          [hoverIndex, 0, prevCards[dragIndex] as RowItem],
         ],
       }),
     );
-  }, []);
-  const renderCard = useCallback(
-    (card: { id: number; text: string }, index: number) => {
+  }, [setRows]);
+  
+  const renderRow = useCallback(
+    (row: { id: number; content: ReactNodeOrFunctionType }, index: number) => {
       return (
-        <Card
-          key={card.id}
+        <Row
+          key={row.id}
           index={index}
-          id={card.id}
-          text={card.text}
-          moveCard={moveCard}
+          id={row.id}
+          content={row.content}
+          moveRow={moveRow}
         />
       );
-    },
-    [],
-  );
+    }, [moveRow]);
+  
   return (
-    <div>
-      <DndProvider backend={HTML5Backend}>
-        <div>
-          {cards.map((card, i) => renderCard(card, i))}
-        </div>
-      </DndProvider>
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      {rows.map((row, i) => renderRow(row, i))}
+    </DndProvider>
   );
 };

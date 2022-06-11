@@ -1,5 +1,5 @@
 import { BasicIconProps } from '../../types';
 import { renderBasicIcon } from '../../utils';
-import City from './City';
+import Drag from './Drag';
 
-export const CityIcon = (props: BasicIconProps) => renderBasicIcon(props, City);
+export const DragIcon = (props: BasicIconProps) => renderBasicIcon(props, Drag);

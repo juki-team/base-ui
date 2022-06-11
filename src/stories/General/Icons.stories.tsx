@@ -27,7 +27,7 @@ import {
   WarningIcon,
   ZoomInIcon,
   ZoomOutIcon,
-} from '../index';
+} from '../../index';
 
 export default {
   title: 'Components/General/Icons',

@@ -16,7 +16,7 @@ import {
   JukiLaptopImage,
   JukiSurprisedImage,
   JukiUtilsLogoHorImage,
-} from '../index';
+} from '../../index';
 
 export default {
   title: 'Components/General',

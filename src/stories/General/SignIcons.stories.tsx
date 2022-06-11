@@ -12,7 +12,7 @@ import {
   PlusIcon,
   SignIconProps,
   UpIcon,
-} from '../index';
+} from '../../index';
 
 export default {
   title: 'Components/General/Icons',

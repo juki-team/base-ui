@@ -1,8 +1,8 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { DrawerView as DrawerViewComponent, DrawerViewProps, MdMathViewer } from '../index';
-import { SAMPLE_MD_CONTENT } from '../constants/md';
+import { DrawerView as DrawerViewComponent, DrawerViewProps, MdMathViewer } from '../../index';
+import { SAMPLE_MD_CONTENT } from '../../constants/md';
 
 export default {
   title: 'Components/Feedback/Drawer',

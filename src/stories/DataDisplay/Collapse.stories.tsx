@@ -1,11 +1,10 @@
 import { configureActions } from '@storybook/addon-actions';
-import { Story } from '@storybook/react';
 import React from 'react';
-import { CodeViewer as CodeViewerComponent, CodeViewerProps, ProgrammingLanguage } from '../../index';
+import { Collapse as CollapseComponent, UpIcon } from '../../index';
 
 export default {
   title: 'Components/Data Display',
-  component: CodeViewerComponent,
+  component: CollapseComponent,
   argTypes: {},
 };
 
@@ -15,22 +14,24 @@ configureActions({
   limit: 20,
 });
 
-const Template: Story<CodeViewerProps> = ({ language, ...args }) => {
+export const Collapse = () => {
   return (
     <div style={{ height: '500px' }}>
-      <CodeViewerComponent
-        language={ProgrammingLanguage.JAVASCRIPT}
-        {...args}
-      />
+      <CollapseComponent
+        header={({ isOpen, toggle }) => (
+          <div className="jk-row center gap bg-color-success">
+            Collapse Header
+            <div onClick={toggle} className="bg-color-error jk-row">
+              Click me
+              <UpIcon rotate={isOpen ? 0 : 180} className="link" />
+            </div>
+          </div>
+        )}
+      >
+        <div>
+          Texto Collapsable
+        </div>
+      </CollapseComponent>
     </div>
   );
-};
-
-export const CodeViewer = Template.bind({});
-
-CodeViewer.args = {
-  code: 'console.info("Juki!")',
-  withLanguageLabel: true,
-  withCopyButton: true,
-  lineNumbers: true,
 };

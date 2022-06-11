@@ -1,12 +1,11 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { SAMPLE_MD_CONTENT } from '../constants';
-import { JukiBaseUiProvider, MdMathViewer, MdMathViewerProps } from '../index';
-import { COMPONENTS_WRITING_TOOLS } from './constants';
+import { SAMPLE_MD_CONTENT } from '../../constants';
+import { JukiBaseUiProvider, MdMathViewer, MdMathViewerProps } from '../../index';
 
 export default {
-  title: COMPONENTS_WRITING_TOOLS,
+  title: 'Components/Data Display',
   component: MdMathViewer,
 };
 

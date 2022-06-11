@@ -1,0 +1,8 @@
+@import "../../abstracts/index";
+
+.jk-collapse-container {
+  .jk-collapse-collapsible {
+    overflow: hidden;
+    @include transition(height);
+  }
+}

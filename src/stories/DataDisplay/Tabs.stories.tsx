@@ -1,11 +1,11 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Button, JukiBaseUiProvider, Tabs, TabsProps } from '../index';
+import { Button, JukiBaseUiProvider, Tabs as TabsComponent, TabsProps } from '../../index';
 
 export default {
-  title: 'Components/Display',
-  component: Tabs,
+  title: 'Components/Data Display',
+  component: TabsComponent,
   argTypes: {},
 };
 
@@ -15,7 +15,7 @@ configureActions({
   limit: 20,
 });
 
-const Template: Story<TabsProps<string>> = () => {
+export const Tabs: Story<TabsProps<string>> = () => {
   const tabs = [
     {
       key: '1',
@@ -118,20 +118,11 @@ const Template: Story<TabsProps<string>> = () => {
       utilsUiUrl="http://localhost:3001"
     >
       <div style={{ height: '500px' }}>
-        <Tabs
+        <TabsComponent
           tabs={tabs}
           actionsSection={[<Button>button 1</Button>, <Button>button 2</Button>]}
         />
       </div>
     </JukiBaseUiProvider>
   );
-};
-
-export const TabsNormal = Template.bind({});
-
-TabsNormal.args = {
-  // readOnly: false, // op
-  // languages?: ProgrammingLanguage[],
-  // className?: string,
-  // middleButtons?: (props: Omit<TabsProps, 'onChange' | 'className' | 'middleButtons'>) => ReactNode,
 };
