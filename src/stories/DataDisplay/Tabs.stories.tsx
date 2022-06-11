@@ -4,7 +4,7 @@ import React from 'react';
 import { Button, JukiBaseUiProvider, Tabs, TabsProps } from '../index';
 
 export default {
-  title: 'Components/Tabs',
+  title: 'Components/Display',
   component: Tabs,
   argTypes: {},
 };

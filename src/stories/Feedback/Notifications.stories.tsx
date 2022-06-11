@@ -4,7 +4,7 @@ import React from 'react';
 import { Button, NotificationProvider, useNotification } from '../index';
 
 export default {
-  title: 'Components/General/Notifications',
+  title: 'Components/General',
   component: Button,
 };
 
@@ -109,4 +109,12 @@ export const Notifications = Template.bind({});
 Notifications.args = {
   onClick: action('onClick'),
   children: 'text',
+};
+
+export const ClassNames = () => {
+  return (
+    <div>
+    
+    </div>
+  );
 };
