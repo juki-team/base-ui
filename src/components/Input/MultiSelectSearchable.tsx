@@ -26,6 +26,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   block,
   rowHeightOption = 32,
   onFilter,
+  multiselect = true,
 }: SelectSearchableProps<T, U, V>) => {
   
   const searchable = !!onFilter;
@@ -66,7 +67,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         className={classNames('jk-select-option', { selected, disabled })}
         onClick={!option.disabled ? () => {
           onChange?.(selected ? selectedOptions.filter(optionSelected => JSON.stringify(option.value) !== JSON.stringify(optionSelected.value)) : [
-            ...selectedOptions,
+            ...(multiselect ? selectedOptions : []),
             option,
           ]);
         } : undefined}
@@ -78,7 +79,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         }}
       >
         <div className="jk-row left nowrap">
-          <InputCheckbox checked={selected} onChange={() => null} disabled={disabled} />
+          {multiselect && <InputCheckbox checked={selected} onChange={() => null} disabled={disabled} />}
           {renderReactNodeOrFunction(option.label)}
         </div>
       </div>
@@ -120,9 +121,9 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         <div className="jk-select jk-border-radius-inline jk-row space-between nowrap" ref={selectLayoutRef}>
           <div className="jk-row left jk-multi-select-selected-options">
             {selectedOptions.map(optionSelected => (
-              <div className="jk-tag gray-6 jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
+              <div className={classNames('jk-row nowrap', { 'jk-tag gray-6': multiselect })} key={JSON.stringify(optionSelected.value)}>
                 {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected?.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
-                {onChange && (
+                {onChange && multiselect && (
                   <CloseIcon
                     size="small"
                     filledCircle

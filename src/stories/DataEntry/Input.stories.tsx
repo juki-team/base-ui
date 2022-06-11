@@ -203,6 +203,21 @@ export const SelectSearchable = () => {
         block
         onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
       />
+      <MultiSelectSearchable
+        options={mockupUsers.map(option => ({
+          label: <div className="jk-col">{option.email}
+            <div>{option.nickname}</div>
+          </div>,
+          inputLabel: <div>{option.nickname}</div>,
+          value: option,
+          disabled: (Math.round(Math.random() * 10)) > 7,
+        }))}
+        selectedOptions={values}
+        onChange={options => setValues(options)}
+        block
+        onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
+        multiselect={false}
+      />
     </div>
   );
 };
