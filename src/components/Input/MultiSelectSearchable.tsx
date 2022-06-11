@@ -34,7 +34,8 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   const [search, setSearch] = useState('');
   const [filteredOptions, setFilteredOptions] = useState(options);
   const selectedOptions: SelectOptionType<T, U, V>[] = useMemo(() => initialSelectedOptions.map(initialOptionSelected => {
-    const option = options.find(option => option.value === initialOptionSelected.value);
+    const value = JSON.stringify(initialOptionSelected.value);
+    const option = options.find(option => JSON.stringify(option.value) === value);
     return {
       value: initialOptionSelected.value,
       label: initialOptionSelected.label || option?.label || '' as unknown as U,
@@ -57,7 +58,8 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   const containerWidth = widthLabels * (12 + 5) + 35;
   
   const renderOption = (option: SelectOptionType<T, U, V>) => {
-    const selected = selectedOptions.some(optionSelected => JSON.stringify(option.value) === JSON.stringify(optionSelected.value));
+    const value = JSON.stringify(option.value);
+    const selected = selectedOptions.some(optionSelected => value === JSON.stringify(optionSelected.value));
     const disabled = !!option.disabled;
     return (
       <div
