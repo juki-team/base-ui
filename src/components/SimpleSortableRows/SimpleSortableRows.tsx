@@ -2,22 +2,14 @@
 // https://react-dnd.github.io/react-dnd/examples/customize/handles-and-previews
 import type { Identifier, XYCoord } from 'dnd-core';
 import update from 'immutability-helper';
-import React, { Dispatch, lazy, SetStateAction, useCallback, useRef } from 'react';
-// import { DndProvider, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
+import React, { Dispatch, SetStateAction, useCallback, useRef } from 'react';
+import { DndProvider, DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { renderReactNodeOrFunction } from '../../helpers';
 import { ReactNodeOrFunctionType } from '../../types';
 import { DragIcon } from '../graphics';
 import { DragItem, RowItem } from './types';
 
-const Test = lazy(() => import('./ReactDndTest'));
-
-console.log({ Test });
-
-(async () => {
-  // Dynamically imported module (runtime)
-  const { export1, export2 } = await import('react-dnd');
-})();
 export const Row = ({
   id,
   content,
@@ -103,7 +95,7 @@ export const Row = ({
   );
 };
 
-export const SimpleSortableRows = ({ rows, setRows }: { rows: RowItem[], setRows: Dispatch<SetStateAction<RowItem[]>> }) => {
+const SimpleSortableRows = ({ rows, setRows }: { rows: RowItem[], setRows: Dispatch<SetStateAction<RowItem[]>> }) => {
   
   const moveRow = useCallback((dragIndex: number, hoverIndex: number) => {
     setRows((prevCards: RowItem[]) =>
@@ -135,3 +127,5 @@ export const SimpleSortableRows = ({ rows, setRows }: { rows: RowItem[], setRows
     </DndProvider>
   );
 };
+
+export default SimpleSortableRows;
