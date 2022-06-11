@@ -358,15 +358,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.jk-select-options-virtual {
-
-}
-
 .jk-select-options, .jk-select-options-virtual {
   position: relative;
   background-color: var(--t-color-white);
   width: 100%;
-  max-height: 256px;
   overflow: auto;
   box-sizing: border-box;
   display: block;
@@ -417,6 +412,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       }
     }
   }
+}
+
+.jk-select-options {
+  max-height: 256px;
 }
 
 .jk-select-layout, .jk-multi-select-layout {
