@@ -117,7 +117,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         className={classNames('jk-multi-select-layout', className, { open: showOptions, disabled: isDisabled })}
         style={{ width: block ? '100%' : `${containerWidth}px` }}
       >
-        <div className="jk-select jk-border-radius-inline" ref={selectLayoutRef}>
+        <div className="jk-select jk-border-radius-inline jk-row space-between nowrap" ref={selectLayoutRef}>
           <div className="jk-row left jk-multi-select-selected-options">
             {selectedOptions.map(optionSelected => (
               <div className="jk-tag gray-6 jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
@@ -136,7 +136,18 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
               </div>
             ))}
           </div>
-          <UpIcon rotate={180} className="input-icon" />
+          <div className="jk-row nowrap">
+            {!!onChange && (
+              <CloseIcon
+                className="input-icon"
+                onClick={event => {
+                  onChange([]);
+                  event.stopPropagation();
+                }}
+              />
+            )}
+            <UpIcon rotate={180} className="input-icon" />
+          </div>
         </div>
       </div>
     </Popover>

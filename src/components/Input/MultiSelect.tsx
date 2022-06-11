@@ -91,12 +91,12 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
         className={classNames('jk-multi-select-layout', className, { open: showOptions, disabled: isDisabled })}
         style={{ width: block ? '100%' : `${containerWidth}px` }}
       >
-        <div className="jk-select jk-border-radius-inline" ref={selectLayoutRef}>
+        <div className="jk-select jk-border-radius-inline jk-row space-between nowrap" ref={selectLayoutRef}>
           <div className="jk-row left jk-multi-select-selected-options">
             {optionsSelected.map(optionSelected => (
               <div className="jk-tag gray-6 jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
                 {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
-                {onChange && (
+                {!!onChange && (
                   <CloseIcon
                     size="small"
                     filledCircle
@@ -110,7 +110,18 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
               </div>
             ))}
           </div>
-          <UpIcon rotate={180} className="input-icon" />
+          <div className="jk-row nowrap">
+            {!!onChange && (
+              <CloseIcon
+                className="input-icon"
+                onClick={event => {
+                  onChange([]);
+                  event.stopPropagation();
+                }}
+              />
+            )}
+            <UpIcon rotate={180} className="input-icon" />
+          </div>
         </div>
       </div>
     </Popover>

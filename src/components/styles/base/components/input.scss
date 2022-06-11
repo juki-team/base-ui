@@ -426,7 +426,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
   
   .jk-select {
-    padding: 0 var(--pad-m) 0 var(--pad-xt);
+    padding: 0 4px 0 var(--pad-xt);
     position: relative;
     
     > .jk-icon {
