@@ -1,10 +1,10 @@
 // https://react-dnd.github.io/react-dnd/examples/sortable/simple
 // https://react-dnd.github.io/react-dnd/examples/customize/handles-and-previews
-import type { Identifier, XYCoord } from 'dnd-core';
+import type { XYCoord } from 'dnd-core';
 import update from 'immutability-helper';
 import React, { Dispatch, lazy, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
-import { useDrag } from 'react-dnd/dist/hooks/useDrag';
-import { useDrop } from 'react-dnd/dist/hooks/useDrop';
+// import { useDrag } from 'react-dnd/dist/hooks/useDrag';
+// import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 import { DropTargetMonitor } from 'react-dnd/dist/types/monitors.js';
 import { renderReactNodeOrFunction } from '../../helpers';
 import { ReactNodeOrFunctionType } from '../../types';
@@ -16,14 +16,16 @@ const DndProvider = lazy(() => import('react-dnd').then(module => ({ default: mo
 // const useDrag = lazy(() => import('react-dnd').then(module => ({ default: module.useDrag })));
 // const useDrop = lazy(() => import('react-dnd').then(module => ({ default: module.useDrop })));
 
-export const Row = ({
+export const Test = ({
   id,
   content,
   index,
   moveRow,
-}: { id: number, content: ReactNodeOrFunctionType, index: number, moveRow: (i: number, j: number) => void }) => {
+  useDrop,
+  useDrag,
+}: { id: number, content: ReactNodeOrFunctionType, index: number, moveRow: (i: number, j: number) => void, useDrop: any, useDrag: any }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
+  const [{ handlerId }, drop] = useDrop({
     accept: 'row',
     collect(monitor: DropTargetMonitor<DragItem, void>) {
       return {
@@ -100,6 +102,24 @@ export const Row = ({
     </div>
   );
 };
+export const Row = ({
+  id,
+  content,
+  index,
+  moveRow,
+}: { id: number, content: ReactNodeOrFunctionType, index: number, moveRow: (i: number, j: number) => void }) => {
+  
+  const useDragRef = useRef<any>();
+  const useDropRef = useRef();
+  const [render, setRender] = useState(0);
+  useEffect(() => {
+    useDragRef.current = require('react-dnd').useDrag;
+    useDropRef.current = require('react-dnd').useDrop;
+    setRender(1);
+  }, []);
+  return !!render ? <Test id={id} content={content} index={index} moveRow={moveRow} useDrop={useDropRef.current}
+                          useDrag={useDragRef.current} /> : null;
+};
 
 const SimpleSortableRows = ({ rows, setRows }: { rows: RowItem[], setRows: Dispatch<SetStateAction<RowItem[]>> }) => {
   
@@ -134,7 +154,7 @@ const SimpleSortableRows = ({ rows, setRows }: { rows: RowItem[], setRows: Dispa
   
   console.log({ HTML5BackendRef });
   return (
-    render && HTML5BackendRef.current && <DndProvider backend={HTML5BackendRef.current}>
+    !!render && HTML5BackendRef.current && <DndProvider backend={HTML5BackendRef.current}>
       {rows.map((row, i) => renderRow(row, i))}
     </DndProvider>
   );
