@@ -8,6 +8,6 @@ export * from './InputSubmit';
 export * from './InputToggle';
 export * from './MultiSelect';
 export * from './Select';
-export * from './SelectSearchable';
+export * from './MultiSelectSearchable';
 export * from './TextArea';
 export * from './types';
