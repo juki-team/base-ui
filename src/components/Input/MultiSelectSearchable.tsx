@@ -103,7 +103,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
               <Input value={search} onChange={setSearch} block />
             </div>
           )}
-          <div style={{ width: '100%', height: rowHeightOption * 5 > 400 ? rowHeightOption * 3 : rowHeightOption * 5 }}>
+          <div style={{ width: '100%', height: Math.ceil(256 / rowHeightOption) * rowHeightOption }}>
             <VirtualizedRowsFixed
               size={filteredOptions.length}
               rowHeight={rowHeightOption}
