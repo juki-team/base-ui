@@ -2,8 +2,7 @@
 // https://react-dnd.github.io/react-dnd/examples/customize/handles-and-previews
 import type { Identifier, XYCoord } from 'dnd-core';
 import update from 'immutability-helper';
-import React, { Dispatch, lazy, SetStateAction, useCallback, useRef } from 'react';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import React, { Dispatch, lazy, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { useDrag } from 'react-dnd/dist/hooks/useDrag';
 import { useDrop } from 'react-dnd/dist/hooks/useDrop';
 import { DropTargetMonitor } from 'react-dnd/dist/types/monitors.js';
@@ -115,21 +114,27 @@ const SimpleSortableRows = ({ rows, setRows }: { rows: RowItem[], setRows: Dispa
     );
   }, [setRows]);
   
-  const renderRow = useCallback(
-    (row: { id: number; content: ReactNodeOrFunctionType }, index: number) => {
-      return (
-        <Row
-          key={row.id}
-          index={index}
-          id={row.id}
-          content={row.content}
-          moveRow={moveRow}
-        />
-      );
-    }, [moveRow]);
+  const renderRow = useCallback((row: { id: number; content: ReactNodeOrFunctionType }, index: number) => {
+    return (
+      <Row
+        key={row.id}
+        index={index}
+        id={row.id}
+        content={row.content}
+        moveRow={moveRow}
+      />
+    );
+  }, [moveRow]);
+  const HTML5BackendRef = useRef<any>();
+  const [render, setRender] = useState(0);
+  useEffect(() => {
+    HTML5BackendRef.current = require('react-dnd-html5-backend').HTML5Backend;
+    setRender(1);
+  }, []);
   
+  console.log({ HTML5BackendRef });
   return (
-    <DndProvider backend={HTML5Backend}>
+    render && HTML5BackendRef.current && <DndProvider backend={HTML5BackendRef.current}>
       {rows.map((row, i) => renderRow(row, i))}
     </DndProvider>
   );
