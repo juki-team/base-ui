@@ -1,3 +1,6 @@
 import { PropsWithChildren } from 'react';
+import { ColorResult } from 'react-color';
 
-export type ColorPickerProps = PropsWithChildren<{ color?: string, onChange?: (newColor: string) => void }>;
+export type Color = ColorResult;
+
+export type ColorPickerProps = PropsWithChildren<{ color?: Color, onChange?: (newColor: Color) => void }>;

@@ -1,6 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 import {
+  Color,
   ColorPicker as ColorPickerComponent,
   Input,
   InputCheckbox as CheckboxComponent,
@@ -223,9 +224,14 @@ export const SelectSearchable = () => {
 };
 
 export const ColorPicker = () => {
+  const [color, setColor] = useState<Color>();
+  
   return (
     <div>
-      <ColorPickerComponent />
+      <ColorPickerComponent color={color} onChange={color => {
+        console.info(color);
+        setColor(color);
+      }} />
     </div>
   );
 };
