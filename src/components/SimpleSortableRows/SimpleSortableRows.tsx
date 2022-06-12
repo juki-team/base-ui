@@ -152,7 +152,6 @@ const SimpleSortableRows = ({ rows, setRows }: { rows: RowItem[], setRows: Dispa
     setRender(1);
   }, []);
   
-  console.log({ HTML5BackendRef });
   return (
     !!render && HTML5BackendRef.current && <DndProvider backend={HTML5BackendRef.current}>
       {rows.map((row, i) => renderRow(row, i))}
