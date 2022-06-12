@@ -110,8 +110,16 @@ export const Icons: Story<IconProps> = ({ ...props }) => {
           <td><AppstoreIcon {...props} /></td>
         </tr>
         <tr>
-          <td>BalloonIcon</td>
-          <td><BalloonIcon {...props} /></td>
+          <td>BalloonIcon 20%</td>
+          <td><BalloonIcon {...props} percent={20} /></td>
+        </tr>
+        <tr>
+          <td>BalloonIcon 60%</td>
+          <td><BalloonIcon {...props} percent={60} /></td>
+        </tr>
+        <tr>
+          <td>BalloonIcon 90%</td>
+          <td><BalloonIcon {...props} percent={90} /></td>
         </tr>
         <tr>
           <td>CaretLeftIcon</td>

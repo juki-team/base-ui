@@ -3,7 +3,6 @@ import { classNames } from '../../../helpers';
 
 import Apps from './Apps'; // not antd
 import Appstore from './Appstore';
-import Balloon from './Balloon'; // not antd
 import CaretLeft from './CaretLeft';
 import Code from './Code';
 import DoubleArrow from './DoubleArrow';
@@ -36,12 +35,6 @@ export const AppsIcon = ({ size = 'regular', className = '', ...props }: IconPro
 export const AppstoreIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
     <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Appstore /></span>
-  );
-};
-
-export const BalloonIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
-  return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Balloon /></span>
   );
 };
 
@@ -173,6 +166,7 @@ export const ZoomOutIcon = ({ size = 'regular', className = '', ...props }: Icon
 
 export * from './Signs';
 export * from './Basic';
+export * from './Specials';
 
 export * from './Link';
 export * from './types';
