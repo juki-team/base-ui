@@ -374,14 +374,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       margin-right: 4px;
     }
     
-    &:first-child {
-      border-radius: var(--border-radius-inline) var(--border-radius-inline) 0 0;
-    }
-    
-    &:last-child {
-      border-radius: 0 0 var(--border-radius-inline) var(--border-radius-inline);
-    }
-    
     &.disabled {
       color: var(--t-color-gray-4);
       cursor: not-allowed;
