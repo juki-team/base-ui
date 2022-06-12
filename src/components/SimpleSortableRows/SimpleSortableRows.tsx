@@ -11,9 +11,6 @@ import { DragIcon } from '../graphics';
 import { DragItem, RowSortableItem, RowSortableItemContentType } from './types';
 
 const DndProvider = lazy(() => import('react-dnd').then(module => ({ default: module.DndProvider })));
-// const HTML5Backend = lazy(() => import('react-dnd-html5-backend').then(module => ({ default: module.HTML5Backend })));
-// const useDrag = lazy(() => import('react-dnd').then(module => ({ default: module.useDrag })));
-// const useDrop = lazy(() => import('react-dnd').then(module => ({ default: module.useDrop })));
 
 export const Test = ({
   id,

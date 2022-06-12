@@ -13,7 +13,11 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
   if (!isStringJson(responseText)) {
     // this occurs when the endpoint don't exits or server is down
     consoleWarn({ responseText });
-    return { success: false, message: ERROR[ErrorCode.ERR9999].message, errors: [{ code: ErrorCode.ERR9999, detail: '' }] };
+    return {
+      success: false,
+      message: ERROR[ErrorCode.ERR9999].message,
+      errors: [{ code: ErrorCode.ERR9999, detail: '', message: ERROR[ErrorCode.ERR9999].message }],
+    };
   }
   const responseJson = JSON.parse(responseText);
   if (typeof responseJson.success === 'boolean') {
@@ -40,7 +44,13 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
       return {
         success: false,
         message: responseJson.message,
-        errors: [{ code: ERROR[responseJson.errorCode as ErrorCode]?.value || ErrorCode.ERR500, detail: responseJson.message }],
+        errors: [
+          {
+            code: ERROR[responseJson.errorCode as ErrorCode]?.value || ErrorCode.ERR500,
+            detail: responseJson.message,
+            message: responseJson.message,
+          },
+        ],
       };
     } else if (Object.keys(responseJson).length === 3 && typeof responseJson.total === 'number' && Array.isArray(responseJson.list)) { // V0
       return {
@@ -72,13 +82,25 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
       return { success: true, message: '', content: null } as T;
     }
     consoleWarn({ responseText });
-    return { success: false, message: ERROR[ErrorCode.ERR9998].message, errors: [{ code: ErrorCode.ERR9998, detail: '' }] };
+    return {
+      success: false,
+      message: ERROR[ErrorCode.ERR9998].message,
+      errors: [{ code: ErrorCode.ERR9998, detail: '', message: ERROR[ErrorCode.ERR9998].message }],
+    };
   } else {
     consoleWarn({ responseText });
     if (Object.keys(responseJson).length === 3 && typeof responseJson.message === 'string' && typeof responseJson.errorCode === 'string') {
-      return { success: false, message: responseJson.message, errors: [{ code: responseJson.errorCode, detail: '' }] };
+      return {
+        success: false,
+        message: responseJson.message,
+        errors: [{ code: responseJson.errorCode, detail: '', message: responseJson.message }],
+      };
     }
-    return { success: false, message: ERROR[ErrorCode.ERR9998].message, errors: [{ code: ErrorCode.ERR9998, detail: '' }] };
+    return {
+      success: false,
+      message: ERROR[ErrorCode.ERR9998].message,
+      errors: [{ code: ErrorCode.ERR9998, detail: '', message: ERROR[ErrorCode.ERR9998].message }],
+    };
   }
 };
 
