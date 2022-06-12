@@ -9,9 +9,10 @@ export type RowSortableItemContentType = ReactNodeOrFunctionP1Type<{
   isDragging: boolean,
 }>;
 
-export interface RowSortableItem {
+export interface RowSortableItem<T> {
   id: number;
   content: RowSortableItemContentType,
+  value?: T,
 }
 
 export interface DragItem {

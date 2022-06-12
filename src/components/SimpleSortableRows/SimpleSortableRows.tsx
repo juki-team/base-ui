@@ -125,18 +125,18 @@ export const Row = ({
                           useDrag={useDragRef.current} /> : null;
 };
 
-const SimpleSortableRows = ({
+export const SimpleSortableRows = <T, >({
   rows,
   setRows,
   className,
-}: { rows: RowSortableItem[], setRows: Dispatch<SetStateAction<RowSortableItem[]>>, className?: string }) => {
+}: { rows: RowSortableItem<T>[], setRows: Dispatch<SetStateAction<RowSortableItem<T>[]>>, className?: string }) => {
   
   const moveRow = useCallback((dragIndex: number, hoverIndex: number) => {
-    setRows((prevCards: RowSortableItem[]) =>
+    setRows((prevCards: RowSortableItem<T>[]) =>
       update(prevCards, {
         $splice: [
           [dragIndex, 1],
-          [hoverIndex, 0, prevCards[dragIndex] as RowSortableItem],
+          [hoverIndex, 0, prevCards[dragIndex] as RowSortableItem<T>],
         ],
       }),
     );
@@ -168,5 +168,3 @@ const SimpleSortableRows = ({
     </DndProvider>
   );
 };
-
-export default SimpleSortableRows;
