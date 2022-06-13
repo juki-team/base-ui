@@ -20,7 +20,12 @@ export const renderSignIcon = ({
         {filledSquare && <SquareFilledFrame />}
         {circle && <CircleFrame />}
         {square && <SquareFrame />}
-        <Component color={(filledCircle || filledSquare) ? 'var(--t-color-white)' : 'currentColor'} width={2.5} />
+        <Component
+          color={(filledCircle || filledSquare)
+            ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)'))
+            : 'currentColor'}
+          width={2.5}
+        />
       </svg>
     </span>
   );

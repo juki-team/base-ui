@@ -13,9 +13,9 @@ export const NOTIFICATION_TIME = {
 };
 
 export const NOTIFICATION_ICON = {
-  [NotificationType.ERROR]: <CloseIcon circle />,
-  [NotificationType.SUCCESS]: <CheckIcon circle />,
-  [NotificationType.WARNING]: <ExclamationIcon circle />,
-  [NotificationType.INFO]: <ExclamationIcon circle rotate={180} />,
+  [NotificationType.ERROR]: <CloseIcon filledCircle="#EB5757" />,
+  [NotificationType.SUCCESS]: <CheckIcon filledCircle="#43D787" />,
+  [NotificationType.WARNING]: <ExclamationIcon filledCircle="#F2C94C" />,
+  [NotificationType.INFO]: <ExclamationIcon filledCircle="#2F86EB" rotate={180} />,
   [NotificationType.QUIET]: <CheckIcon circle />,
 };

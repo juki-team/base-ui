@@ -56,7 +56,7 @@
   
   &:not(.quiet) {
     .notification-item .message-content {
-      padding: var(--pad-xt);
+      padding: var(--pad-xt) 0;
       
       &.text-message {
         min-height: 42px;

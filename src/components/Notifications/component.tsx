@@ -67,10 +67,12 @@ export const Notification = ({ id, type, message }: NotificationProps) => {
     >
       <div className={classNames('notification-item')}>
         {NOTIFICATION_ICON[type]}
-        <div className={classNames('message-content', { 'text-message': typeof message === 'string' })}>
-          {typeof message === 'string' ? <span className="text-sentence-case">{message}</span> : message}
+        <div className="jk-row stretch space-between nowrap">
+          <div className={classNames('message-content jk-row', { 'text-message': typeof message === 'string' })}>
+            {typeof message === 'string' ? <span className="text-sentence-case">{message}</span> : message}
+          </div>
+          <div><CloseIcon onClick={() => setExit(true)} className="cursor-pointer" /></div>
         </div>
-        <CloseIcon onClick={() => setExit(true)} />
         <div className="bar" style={{ width: `${width}%` }} />
       </div>
     </div>
