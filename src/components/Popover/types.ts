@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import { ReactNodeOrFunctionP1Type, TriggerOffActionsType, TriggerOnActionsType } from '../../types';
 
-export type placementType =
+export type PlacementType =
   'topLeft'
   | 'top'
   | 'topRight'
@@ -19,7 +19,7 @@ export type placementType =
 
 export interface PopoverProps {
   content: ReactNode | ((prop: { isOpen: boolean, onClose: (timeout: number) => void }) => ReactNode),
-  placement?: placementType,
+  placement?: PlacementType,
   visible?: boolean,
   onVisibleChange?: (visible: boolean) => void,
   triggerOn?: TriggerOnActionsType | TriggerOnActionsType[],

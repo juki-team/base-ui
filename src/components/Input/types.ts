@@ -1,7 +1,7 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import { ChangeHandler } from 'react-hook-form';
 import { ReactNodeOrFunctionType } from '../../types';
-import { ButtonType, placementType } from '../index';
+import { ButtonType, PlacementType } from '../index';
 
 export interface InputCommonsProps<T> {
   id?: string,
@@ -93,7 +93,7 @@ export interface SelectProps<T, U extends ReactNodeOrFunctionType, V extends Rea
   showOptions?: boolean,
   onChangeShowOptions?: (value: boolean) => void,
   disabled?: boolean,
-  optionsPlacement?: placementType,
+  optionsPlacement?: PlacementType,
 }
 
 export interface MultiSelectProps<T, U extends ReactNode, V extends ReactNode> {
@@ -104,7 +104,7 @@ export interface MultiSelectProps<T, U extends ReactNode, V extends ReactNode> {
   showOptions?: boolean,
   onChangeShowOptions?: (value: boolean) => void,
   disabled?: boolean,
-  optionsPlacement?: placementType,
+  optionsPlacement?: PlacementType,
   block?: boolean,
 }
 
