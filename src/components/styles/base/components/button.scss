@@ -16,7 +16,7 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
   
   &.tiny {
     min-height: 26px;
-    font-weight: var(--weight-semi-bold);
+    font-weight: var(--weight-bold);
     font-size: var(--text-xs-size);
     padding: 0 var(--pad-xt);
     gap: 4px;
@@ -34,7 +34,7 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
   
   &.small {
     min-height: var(--pad-xl);
-    font-weight: var(--weight-semi-bold);
+    font-weight: var(--weight-bold);
     font-size: var(--text-s-size);
     padding: 0 var(--pad-t);
     gap: var(--pad-xt);
@@ -52,7 +52,7 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
   
   &.regular {
     min-height: var(--pad-h);
-    font-weight: var(--weight-semi-bold);
+    font-weight: var(--weight-bold);
     font-size: var(--text-m-size);
     padding: 0 var(--pad-xs);
     gap: var(--pad-t);
