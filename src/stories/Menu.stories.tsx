@@ -53,7 +53,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
       visible={open}
       content={
         <div className="jk-col gap more-apps-popover color-gray-1">
-          <div className="text-semi-bold text-sentence-case"><T>more apps coming soon</T></div>
+          <div className="tx-wd-bold text-sentence-case"><T>more apps coming soon</T></div>
           <div className="jk-col gap color-primary">
             <div className="jk-row">
               <JukiCouchLogoHorImage /> <ConstructionIcon /> <T className="text-sentence-case">developing</T>...
@@ -79,7 +79,7 @@ const rightMobile = {
   children: <div className="color-white"><HeadlineIcon /></div>,
   content: ({ close }: DrawerActionsType) => (
     <div className="jk-col gap more-apps-popover">
-      <div className="text-semi-bold text-sentence-case"><T>more apps coming soon</T></div>
+      <div className="tx-wd-bold text-sentence-case"><T>more apps coming soon</T></div>
       <div className="jk-col gap color-primary" style={{ width: '100px' }}>
         <div className="jk-row">
           <JukiCouchLogoHorImage /> <ConstructionIcon /> <T className="text-sentence-case">developing</T>...

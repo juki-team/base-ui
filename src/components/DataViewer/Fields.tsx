@@ -4,7 +4,7 @@ import { classNames } from '../../helpers';
 import { DateLiteral } from '../Input';
 
 export const TextHeadCell = ({ text }: { text: string | ReactNode }) => {
-  return <div className="text-head-field jk-row text-semi-bold"><span>{text}</span></div>;
+  return <div className="text-head-field jk-row tx-wd-bold"><span>{text}</span></div>;
 };
 
 export const Field = ({ onClick, className = '', children }: FieldProps) => {

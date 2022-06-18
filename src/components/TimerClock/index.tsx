@@ -62,10 +62,10 @@ export const Timer = React.memo(({ currentTimestamp, laps = 3, interval = 1, lit
       )) : timeSplit.map((remaining, index) => (
         <Fragment key={remaining.label}>
           <div className="content-stamp">
-            <div className="content-number text-s text-semi-bold jk-row">{remaining.remaining}</div>
-            <div className="content-label text-t text-semi-bold text-uppercase jk-row"><T>{remaining.label}</T></div>
+            <div className="content-number text-s tx-wd-bold jk-row">{remaining.remaining}</div>
+            <div className="content-label text-t tx-wd-bold text-uppercase jk-row"><T>{remaining.label}</T></div>
           </div>
-          {(index !== timeSplit.length - 1) && <span className="content-dots text-l text-semi-bold">:</span>}
+          {(index !== timeSplit.length - 1) && <span className="content-dots text-l tx-wd-bold">:</span>}
         </Fragment>
       ))}
     </div>
@@ -120,7 +120,7 @@ export const TimerLabeled = ({ startDate, endDate, currentDate, labels, laps: _l
   
   return (
     <div className="layout-timer-clock">
-      <div className="label-period text-s text-semi-bold">
+      <div className="label-period text-s tx-wd-bold">
         <T>{myLabels[time.period]}</T>
       </div>
       <Timer laps={laps} currentTimestamp={time.remaining} interval={time.interval * timeInterval} />

@@ -39,7 +39,7 @@ export const Tabs: Story<TabsProps<string>> = () => {
             'jk-row right top',
             'jk-row right bottom',
           ].map(col => (
-            <div className="jk-row gap jk-shadow jk-pad jk-border-radius-inline text-bold color-white" style={{ width: '420px' }}>
+            <div className="jk-row gap jk-shadow jk-pad jk-border-radius-inline tx-wd-bolder color-white" style={{ width: '420px' }}>
               <pre className="color-gray-1">{col}</pre>
               <div className={col} style={{ width: '240px', height: '50px', background: 'var(--t-color-gray-6)' }}>
                 <div style={{ border: '2px solid red' }}>
@@ -79,7 +79,7 @@ export const Tabs: Story<TabsProps<string>> = () => {
             'jk-col bottom left',
             'jk-col bottom right',
           ].map(col => (
-            <div className="jk-row gap jk-shadow jk-pad jk-border-radius-inline text-bold color-white" style={{ width: '320px' }}>
+            <div className="jk-row gap jk-shadow jk-pad jk-border-radius-inline tx-wd-bolder color-white" style={{ width: '320px' }}>
               <pre className="color-gray-1">{col}</pre>
               <div className={col} style={{ width: '80px', height: '150px', background: 'var(--t-color-gray-6)' }}>
                 <div style={{ border: '2px solid red' }}>

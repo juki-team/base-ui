@@ -1,72 +1,71 @@
 /* ********************************             FONT               ******************************** */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700;900&display=swap");
 
-.text-regular {
-  font-weight: var(--weight-regular);
-}
-
-.text-semi-bold {
-  font-weight: var(--weight-semi-bold);
-}
-
-.text-bold {
-  font-weight: var(--weight-bold);
-}
-
-.text-nowrap {
-  white-space: nowrap;
-  
-  > *:not(.text-nowrap) {
-    white-space: normal;
-  }
-}
-
-.text-xh { // extra huge
+// font size
+.text-xh, .tx-xh { // extra huge
   font-size: var(--text-xh-size);
   line-height: var(--text-xh-height);
 }
 
-.text-h { // huge
+.text-h, .tx-h { // huge
   font-size: var(--text-h-size);
   line-height: var(--text-h-height);
 }
 
-.text-xl {
+.text-xl, .tx-xl {
   font-size: var(--text-xl-size);
   line-height: var(--text-xl-height);
 }
 
-.text-l {
+.text-l, .tx-l {
   font-size: var(--text-l-size);
   line-height: var(--text-l-height);
 }
 
-.text-m {
+.text-m, .tx-m {
   font-size: var(--text-m-size);
   line-height: var(--text-m-height);
 }
 
-.text-s {
+.text-s, .tx-s {
   font-size: var(--text-s-size);
   line-height: var(--text-s-height);
 }
 
-.text-xs {
+.text-xs, .tx-xs {
   font-size: var(--text-xs-size);
   line-height: var(--text-xs-height);
 }
 
-.text-t {
+.text-t, .tx-t {
   font-size: var(--text-t-size);
   line-height: var(--text-t-height);
 }
 
-.text-xt {
+.text-xt, .tx-xt {
   font-size: var(--text-xt-size);
   line-height: var(--text-xt-height);
 }
 
-.text-sentence-case {
+// width
+.tx-wd-lighter {
+  font-weight: var(--weight-lighter);
+}
+
+.tx-wd-normal {
+  font-weight: var(--weight-normal);
+}
+
+.tx-wd-bold {
+  font-weight: var(--weight-bold);
+}
+
+.tx-wd-bolder {
+  font-weight: var(--weight-bolder);
+}
+
+// text transforms
+.text-sentence-case, .tx-cs-sentence {
   display: inline-block;
   
   &::first-letter {
@@ -74,10 +73,19 @@
   }
 }
 
-.text-capitalize {
+.text-capitalize, .tx-cs-capitalize {
   text-transform: capitalize;
 }
 
-.text-uppercase {
+.text-uppercase, .tx-cs-uppercase {
   text-transform: uppercase;
+}
+
+// arrange
+.text-nowrap, .tx-ws-nowrap {
+  white-space: nowrap;
+  
+  > *:not(.text-nowrap) {
+    white-space: normal;
+  }
 }

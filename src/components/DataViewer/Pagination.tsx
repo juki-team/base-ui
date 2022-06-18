@@ -61,7 +61,7 @@ export const Pagination = ({ total, page, pageSize, loading, pageSizeOptions, ju
           {pages.map(index => (
             <div
               key={index}
-              className={classNames('page-item jk-row jk-border-radius', { selected: index === page, 'text-bold': index === page })}
+              className={classNames('page-item jk-row jk-border-radius', { selected: index === page, 'tx-wd-bolder': index === page })}
               onClick={() => jumpToPage(index)}
             >
               {loading && index === page ? <LoadingIcon /> : index}

@@ -122,7 +122,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                   <div className="jk-col stretch" key={columnIndex}>
                     {renderFilterTitle({ head, columnIndex, onSort, order })}
                     <div>
-                      <div className="jk-row left text-semi-bold"><T className="text-sentence-case">from</T>&nbsp;:</div>
+                      <div className="jk-row left tx-wd-bold"><T className="text-sentence-case">from</T>&nbsp;:</div>
                       <InputDate
                         type={filter.pickerType}
                         date={start}
@@ -141,7 +141,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                       />
                     </div>
                     <div>
-                      <div className="jk-row left text-semi-bold"><T className="text-sentence-case">to</T>&nbsp;:</div>
+                      <div className="jk-row left tx-wd-bold"><T className="text-sentence-case">to</T>&nbsp;:</div>
                       <InputDate
                         type={filter.pickerType}
                         date={end}

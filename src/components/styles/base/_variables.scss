@@ -87,9 +87,10 @@
   @include md { --border-radius-inline: var(--border-radius-inline-md); }
   @include sm { --border-radius-inline: var(--border-radius-inline-sm); }
   
-  --weight-regular: 400;
-  --weight-semi-bold: 600;
-  --weight-bold: 800;
+  --weight-lighter: 200;
+  --weight-normal: 400;
+  --weight-bold: 700;
+  --weight-bolder: 900;
   
   --text-xh-size: var(--pad-m);
   --text-xh-height: var(--pad-xh);

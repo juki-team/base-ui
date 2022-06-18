@@ -54,7 +54,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
           }
           showPopperArrow
         >
-          <div className="no-records text-xs text-semi-bold jk-tag gray-6">
+          <div className="no-records text-xs tx-wd-bold jk-tag gray-6">
             {dataLength}
           </div>
         </Popover>
