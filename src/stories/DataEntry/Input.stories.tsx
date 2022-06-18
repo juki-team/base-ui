@@ -241,7 +241,7 @@ export const DatePicker = () => {
   const [date, setDate] = useState(new Date());
   
   return (
-    <div>
+    <div className="jk-col gap">
       <TimePicker
         baseDate={new Date()}
         onChange={(...props) => console.log(props)}
@@ -261,6 +261,18 @@ export const DatePicker = () => {
         baseDate={date}
         onDatePick={(date) => setDate(date)}
         twoLines
+        extend
+      />
+      <InputDate
+        type="year-month-day-hours-minutes-seconds-milliseconds"
+        date={date}
+        // onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
+        isDisabled={() => ({})}
+        isSelected={(() => ({}))}
+        baseDate={date}
+        onDatePick={(date) => setDate(date)}
+        twoLines
+        inline
       />
     </div>
   );

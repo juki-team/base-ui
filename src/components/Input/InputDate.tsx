@@ -13,6 +13,7 @@ export const InputDate = ({
   isSelected,
   baseDate,
   twoLines = false,
+  extend = false,
 }: InputDateProps) => {
   
   const input = () => {
@@ -63,7 +64,7 @@ export const InputDate = ({
   }
   
   return (
-    <div className="jk-input-date-layout">
+    <div className="jk-input-date-layout" style={extend ? { width: '100%' } : {}}>
       <Popover
         content={() => (
           <DatePicker
@@ -78,9 +79,7 @@ export const InputDate = ({
         placement="bottom"
         showPopperArrow
       >
-        <div>
-          {input()}
-        </div>
+        <div>{input()}</div>
       </Popover>
     </div>
   );
