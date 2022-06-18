@@ -13,13 +13,13 @@ import { DragItem, RowSortableItem, RowSortableItemContentType } from './types';
 const DndProvider = lazy(() => import('react-dnd').then(module => ({ default: module.DndProvider })));
 
 export const Test = ({
-  id,
+  key,
   content,
   index,
   moveRow,
   useDrop,
   useDrag,
-}: { id: number, content: RowSortableItemContentType, index: number, moveRow: (i: number, j: number) => void, useDrop: any, useDrag: any }) => {
+}: { key: string, content: RowSortableItemContentType, index: number, moveRow: (i: number, j: number) => void, useDrop: any, useDrag: any }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop({
     accept: 'row',
@@ -81,7 +81,7 @@ export const Test = ({
   const [{ isDragging }, drag, preview] = useDrag({
     type: 'row',
     item: () => {
-      return { id, index };
+      return { key, index };
     },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
@@ -98,17 +98,19 @@ export const Test = ({
         previewRef: preview,
         dataHandlerId: handlerId,
         isDragging,
+        index,
+        key,
       })}
     </>
   );
 };
 
 export const Row = ({
-  id,
+  id: key,
   content,
   index,
   moveRow,
-}: { id: number, content: RowSortableItemContentType, index: number, moveRow: (i: number, j: number) => void }) => {
+}: { id: string, content: RowSortableItemContentType, index: number, moveRow: (i: number, j: number) => void }) => {
   
   const useDragRef = useRef<any>();
   const useDropRef = useRef();
@@ -118,8 +120,10 @@ export const Row = ({
     useDropRef.current = require('react-dnd').useDrop;
     setRender(1);
   }, []);
-  return !!render ? <Test id={id} content={content} index={index} moveRow={moveRow} useDrop={useDropRef.current}
-                          useDrag={useDragRef.current} /> : null;
+  if (!render) {
+    return null;
+  }
+  return <Test key={key} content={content} index={index} moveRow={moveRow} useDrop={useDropRef.current} useDrag={useDragRef.current} />;
 };
 
 export const SimpleSortableRows = <T, >({
@@ -139,12 +143,12 @@ export const SimpleSortableRows = <T, >({
     );
   }, [setRows]);
   
-  const renderRow = useCallback((row: { id: number; content: RowSortableItemContentType }, index: number) => {
+  const renderRow = useCallback((row: { key: string; content: RowSortableItemContentType }, index: number) => {
     return (
       <Row
-        key={row.id}
+        key={row.key}
         index={index}
-        id={row.id}
+        id={row.key}
         content={row.content}
         moveRow={moveRow}
       />

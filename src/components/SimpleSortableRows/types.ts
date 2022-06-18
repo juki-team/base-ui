@@ -7,16 +7,18 @@ export type RowSortableItemContentType = ReactNodeOrFunctionP1Type<{
   previewRef: RefObject<HTMLDivElement>,
   dataHandlerId: any,
   isDragging: boolean,
+  index: number,
+  key: string,
 }>;
 
 export interface RowSortableItem<T> {
-  id: number;
+  key: string;
   content: RowSortableItemContentType,
   value?: T,
 }
 
 export interface DragItem {
   index: number,
-  id: number,
+  key: string,
   type: string,
 }
