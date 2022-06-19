@@ -6,7 +6,7 @@ import { ModalProps } from './types';
 
 // ReactModal.setAppElement('#root'); // no works with nextjs
 
-export const Modal = ({ onClose, isOpen, className, children, closeIcon = false, expand }: PropsWithChildren<ModalProps>) => {
+export const Modal = ({ onClose, isOpen, className, children, closeIcon = false, expand, shouldCloseOnOverlayClick = false }: PropsWithChildren<ModalProps>) => {
   return (
     <ReactModal
       isOpen={isOpen}
@@ -14,6 +14,7 @@ export const Modal = ({ onClose, isOpen, className, children, closeIcon = false,
       onRequestClose={onClose}
       portalClassName={classNames('jk-modal-container', { expand: !!expand })}
       ariaHideApp={false}
+      shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
     >
       {closeIcon && <div className="jk-modal-close-button jk-row jk-pad-sm" onClick={onClose}><CloseIcon /></div>}
       <div className="jk-modal-body">

@@ -4,4 +4,5 @@ export type ModalProps = {
   className?: string,
   closeIcon?: boolean,
   expand?: boolean,
+  shouldCloseOnOverlayClick?: boolean,
 }
