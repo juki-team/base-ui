@@ -94,6 +94,7 @@ export interface SelectProps<T, U extends ReactNodeOrFunctionType, V extends Rea
   onChangeShowOptions?: (value: boolean) => void,
   disabled?: boolean,
   optionsPlacement?: PlacementType,
+  extend?: boolean,
 }
 
 export interface MultiSelectProps<T, U extends ReactNode, V extends ReactNode> {

@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
+import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
 import { ReactNodeOrFunctionType } from '../../types';
@@ -67,9 +68,11 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   onChangeShowOptions: _onChangeShowOptions,
   disabled,
   optionsPlacement = 'bottom',
+  extend = false,
 }: SelectProps<T, U, V>) => {
   
-  const selectLayoutRef = useRef(null);
+  const { width: selectLayoutWidth = 0, ref: selectLayoutRef } = useResizeDetector();
+  console.log({ selectLayoutWidth });
   const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
@@ -106,8 +109,13 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
       popoverClassName="jk-select-options-content"
       visible={showOptions}
       onVisibleChange={value => setShowOptions(value)}
+      marginOfChildren={4}
       content={
-        <div ref={optionRef} className={classNames('jk-select-options jk-border-radius-inline')} style={{ width: containerWidth }}>
+        <div
+          ref={optionRef}
+          className={classNames('jk-select-options jk-border-radius-inline')}
+          style={{ width: extend ? (selectLayoutWidth + 8 + 4 /*padding*/) : containerWidth }}
+        >
           {options.map((option) => (
             <div
               className={classNames('jk-select-option', {
@@ -133,10 +141,9 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     >
       <div
         className={classNames('jk-select-layout', className, { open: showOptions, disabled: isDisabled })}
-        ref={selectLayoutRef}
-        style={{ width: `${containerWidth}px` }}
+        style={{ width: extend ? '100%' : `${containerWidth}px` }}
       >
-        <div className="jk-select jk-border-radius-inline">
+        <div className="jk-select jk-border-radius-inline" ref={selectLayoutRef}>
           {optionSelected.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
           <UpIcon rotate={180} className="input-icon" />
         </div>

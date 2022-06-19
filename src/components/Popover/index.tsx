@@ -22,6 +22,7 @@ export const Popover = ({
   showPopperArrow = false,
   keepMounted = false,
   popoverContentClassName,
+  marginOfChildren = 12, // --pad-t: 12px;
 }: PopoverProps) => {
   
   const {
@@ -87,30 +88,30 @@ export const Popover = ({
     left: 0,
     top: 0,
   };
-  const marginContent = 12; // --pad-t: 12px;
+  
   if (placement === 'topLeft' || placement === 'top' || placement === 'topRight') {
-    style.top = childBoundingClientRect.top - childBoundingClientRect.height - marginContent;
+    style.top = childBoundingClientRect.top - childBoundingClientRect.height - marginOfChildren;
     style.left = childBoundingClientRect.left;
-    stylePointer.top = childBoundingClientRect.top - 4 - marginContent; // 4: height of div
+    stylePointer.top = childBoundingClientRect.top - 4 - marginOfChildren; // 4: height of div
     stylePointer.left = childBoundingClientRect.left;
     stylePointer.height = 4;
   } else if (placement === 'rightTop' || placement === 'right' || placement === 'rightBottom') {
     style.top = childBoundingClientRect.top;
-    style.left = childBoundingClientRect.left + childBoundingClientRect.width + marginContent;
+    style.left = childBoundingClientRect.left + childBoundingClientRect.width + marginOfChildren;
     stylePointer.top = childBoundingClientRect.top;
-    stylePointer.left = childBoundingClientRect.left + childBoundingClientRect.width + marginContent;
+    stylePointer.left = childBoundingClientRect.left + childBoundingClientRect.width + marginOfChildren;
     stylePointer.width = 4;
   } else if (placement === 'bottomRight' || placement === 'bottom' || placement === 'bottomLeft') {
-    style.top = childBoundingClientRect.top + childBoundingClientRect.height + marginContent;
+    style.top = childBoundingClientRect.top + childBoundingClientRect.height + marginOfChildren;
     style.left = childBoundingClientRect.left;
-    stylePointer.top = childBoundingClientRect.top + childBoundingClientRect.height + marginContent;
+    stylePointer.top = childBoundingClientRect.top + childBoundingClientRect.height + marginOfChildren;
     stylePointer.left = childBoundingClientRect.left;
     stylePointer.height = 4;
   } else if (placement === 'leftTop' || placement === 'left' || placement === 'leftBottom') {
     style.top = childBoundingClientRect.top;
-    style.left = childBoundingClientRect.left - childBoundingClientRect.width - marginContent; // 4: width of div
+    style.left = childBoundingClientRect.left - childBoundingClientRect.width - marginOfChildren; // 4: width of div
     stylePointer.top = childBoundingClientRect.top;
-    stylePointer.left = childBoundingClientRect.left - 4 - marginContent;
+    stylePointer.left = childBoundingClientRect.left - 4 - marginOfChildren;
     stylePointer.width = 4;
   } else if (placement === 'center') {
     style.top = childBoundingClientRect.top;

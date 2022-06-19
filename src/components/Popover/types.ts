@@ -31,6 +31,7 @@ export interface PopoverProps {
   showPopperArrow?: boolean,
   keepMounted?: boolean,
   children: ReactNodeOrFunctionP1Type<any>,
+  marginOfChildren?: number,
 }
 
 export type UseTriggerWrapperProps = {

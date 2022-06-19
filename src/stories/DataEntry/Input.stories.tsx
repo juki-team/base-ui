@@ -83,6 +83,7 @@ export const Form = () => {
           ]}
           selectedOption={{ value: 'text', label: 'text selected' }}
           onChange={() => null}
+          extend
         />
       </label>
       <p>error label</p>
