@@ -33,7 +33,12 @@ export const Text = () => {
   return <div style={{ width: '90%' }}>
     <div className="jk-divider">simple input</div>
     <Input value={text} onChange={(value) => setText(value)} />
-    <div className="jk-divider">jk-form-item</div>
+  </div>;
+};
+
+export const Form = () => {
+  const [text, setText] = useState('');
+  return <div style={{ width: '90%' }}>
     <div className="jk-form-item">
       <label>
         label input
@@ -60,8 +65,27 @@ export const Text = () => {
       </label>
       <p>error label</p>
     </div>
-    <div>
-      <TextArea value={text} onChange={value => setText(value)} />
+    <div className="jk-form-item">
+      <label>
+        Text area input
+        <TextArea value={text} onChange={value => setText(value)} />
+      </label>
+      <p>error label</p>
+    </div>
+    <div className="jk-form-item">
+      <label>
+        Text area input
+        <SelectComponent
+          options={[
+            { value: 'select1', label: 'select 1' },
+            { value: 'select2', label: 'select 2' },
+            { value: 'select3', label: 'select 3' },
+          ]}
+          selectedOption={{ value: 'text', label: 'text selected' }}
+          onChange={() => null}
+        />
+      </label>
+      <p>error label</p>
     </div>
   </div>;
 };
