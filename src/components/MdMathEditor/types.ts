@@ -5,4 +5,5 @@ export type MdMathEditorProps = {
   uploadImageButton?: boolean,
   downloadButton?: boolean,
   sharedButton?: boolean,
+  initEditMode?: boolean,
 }

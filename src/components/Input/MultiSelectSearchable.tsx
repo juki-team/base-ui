@@ -92,7 +92,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
       placement={optionsPlacement}
       popoverClassName="jk-select-options-content"
       visible={showOptions}
-      onVisibleChange={value => setShowOptions(value)}
+      onVisibleChange={setShowOptions}
       content={
         <div
           className={classNames('jk-select-options-virtual jk-border-radius-inline')}

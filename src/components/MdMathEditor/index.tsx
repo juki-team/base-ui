@@ -16,12 +16,13 @@ export const MdMathEditor = ({
   uploadImageButton = false,
   downloadButton = false,
   sharedButton = false,
+  initEditMode = false,
 }: MdMathEditorProps) => {
   // 0 editor-expanded, 1 editor-right-view-left, 2 editor-top-view-bottom, 3 view-expanded
   const [view, setView] = useState(1);
   const [editValue, setEditValue] = useState(source || '');
   const [textareaValue, setTextareaValue] = useState(source);
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(initEditMode);
   const continueWithoutSavingRef = useRef(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
   const [modal, setModal] = useState<ReactNode>(null);
@@ -151,7 +152,7 @@ export const MdMathEditor = ({
                   }}
                 />
               </div>
-              <div className="preview"><MdMathViewer source={editValue.trim()} /></div>
+              <div className="preview"><MdMathViewer source={editValue?.trim()} /></div>
             </SplitPane>
           </div>
         </>
@@ -164,7 +165,7 @@ export const MdMathEditor = ({
             share={sharedButton}
           />
           <div className="preview">
-            <MdMathViewer source={editValue.trim()} />
+            <MdMathViewer source={editValue?.trim()} />
           </div>
         </div>
       )}
