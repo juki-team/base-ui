@@ -11,7 +11,8 @@ export const SplitPane = ({
   minSize = 64,
   onlyFirstPane = false,
   onlySecondPane = false,
-  closablePane,
+  closableFirstPane,
+  closableSecondPane,
   toggleOption = false,
 }: SplitPaneProps) => {
   const clientSizeRef = useRef(0);
@@ -22,6 +23,7 @@ export const SplitPane = ({
   const firstChildSizeRef = useRef<string>('');
   const paneRef = useRef<HTMLDivElement>(null);
   const [displaySecondPane, setDisplaySecondPane] = useState(true);
+  const [displayFirstPane, setDisplayFirstPane] = useState(true);
   const [direction, setDirection] = useHandleState('row', initialDirection, onChangeDirection);
   const onMouseHoldDown = (event: React.MouseEvent<HTMLDivElement>) => {
     setDragging(true);
@@ -62,6 +64,9 @@ export const SplitPane = ({
       if (!displaySecondPane || onlyFirstPane) {
         firstChildRef.current.style[direction === 'row' ? 'minWidth' : 'minHeight'] = '100%';
         firstChildRef.current.style[direction === 'row' ? 'maxWidth' : 'maxHeight'] = '100%';
+      } else if (!displayFirstPane || onlySecondPane) {
+        firstChildRef.current.style[direction === 'row' ? 'minWidth' : 'minHeight'] = '0%';
+        firstChildRef.current.style[direction === 'row' ? 'maxWidth' : 'maxHeight'] = '0%';
       } else {
         firstChildRef.current.style[direction === 'row' ? 'minWidth' : 'minHeight'] = firstChildSizeRef.current;
         firstChildRef.current.style[direction === 'row' ? 'maxWidth' : 'maxHeight'] = firstChildSizeRef.current;
@@ -69,7 +74,7 @@ export const SplitPane = ({
         firstChildRef.current.style[direction !== 'row' ? 'maxWidth' : 'maxHeight'] = '100%';
       }
     }
-  }, [direction, displaySecondPane, onlyFirstPane]);
+  }, [direction, displaySecondPane, displayFirstPane, onlyFirstPane, onlySecondPane]);
   
   return (
     <div
@@ -85,24 +90,35 @@ export const SplitPane = ({
         ref={firstChildRef}
       >
         {children?.[0]}
-        {closablePane?.pane === 'second' && (
+        {!!closableSecondPane && (
           <div
-            className={classNames('notch closable-tab ', closablePane.align, {
+            className={classNames('closable-tab', {
               'jk-row': direction === 'column',
               'jk-col': direction === 'row',
+              'top': direction === 'row' && closableSecondPane.align === 'right',
+              'bottom': direction === 'row' && closableSecondPane.align === 'left',
+              'right': direction === 'column' && closableSecondPane.align === 'right',
+              'left': direction === 'column' && closableSecondPane.align === 'left',
             })}
-            onClick={() => setDisplaySecondPane(prevState => !prevState)}
           >
-            <UpIcon rotate={displaySecondPane ? (direction === 'row' ? -90 : 180) : (direction === 'row' ? 90 : 0)} size="small" />
-            {displaySecondPane
-              ? (closablePane.hideLabel || <T className="label text-xs">hide</T>)
-              : (closablePane.expandLabel || <T className="label text-xs">expand</T>)}
+            <div
+              className={classNames('notch', {
+                'jk-row': direction === 'column',
+                'jk-col': direction === 'row',
+              })}
+              onClick={() => setDisplaySecondPane(prevState => !prevState)}
+            >
+              <UpIcon rotate={displaySecondPane ? (direction === 'row' ? -90 : 180) : (direction === 'row' ? 90 : 0)} size="small" />
+              {displaySecondPane
+                ? (closableSecondPane.hideLabel ?? <T className="label text-xs">hide</T>)
+                : (closableSecondPane.expandLabel ?? <T className="label text-xs">expand</T>)}
+            </div>
           </div>
         )}
       </div>
       <div
         className="jk-split-pane-divider"
-        style={onlyFirstPane || onlySecondPane || !displaySecondPane ? { display: 'none' } : undefined}
+        style={onlyFirstPane || onlySecondPane || !displaySecondPane || !displayFirstPane ? { display: 'none' } : undefined}
         onMouseDown={onMouseHoldDown}
         ref={dividerRef}
       >
@@ -118,8 +134,39 @@ export const SplitPane = ({
           </div>
         )}
       </div>
-      <div className="jk-split-second-pane"
-           style={onlyFirstPane || !displaySecondPane ? { display: 'none' } : undefined}>{children?.[1]}</div>
+      <div
+        className="jk-split-second-pane"
+        style={onlyFirstPane || !displaySecondPane ? { display: 'none' } : undefined}
+      >
+        {children?.[1]}
+        {!!closableFirstPane && (
+          <div
+            className={classNames('closable-tab', {
+              'jk-row': direction === 'column',
+              'jk-col': direction === 'row',
+              'top': direction === 'row' && closableFirstPane.align === 'right',
+              'bottom': direction === 'row' && closableFirstPane.align === 'left',
+              'right': direction === 'column' && closableFirstPane.align === 'right',
+              'left': direction === 'column' && closableFirstPane.align === 'left',
+            })}
+          >
+            <div
+              className={classNames('notch', {
+                'jk-row': direction === 'column',
+                'jk-col': direction === 'row',
+              })}
+              onClick={() => setDisplayFirstPane(prevState => !prevState)}
+            >
+              <UpIcon
+                rotate={displayFirstPane ? (direction === 'row' ? -90 : 0) : (direction === 'row' ? 90 : 180)}
+                size="small" />
+              {displayFirstPane
+                ? (closableFirstPane.hideLabel ?? <T className="label text-xs">hide</T>)
+                : (closableFirstPane.expandLabel ?? <T className="label text-xs">expand</T>)}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

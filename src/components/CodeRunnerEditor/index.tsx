@@ -148,7 +148,7 @@ export const CodeRunnerEditor = ({
           direction={direction}
           minSize={80}
           onlyFirstPane={!testCases}
-          closablePane={testCases ? { align: 'right', pane: 'second' } : undefined}
+          closableSecondPane={testCases ? { align: 'right' } : undefined}
           toggleOption
           onChangeDirection={setDirection}
         >

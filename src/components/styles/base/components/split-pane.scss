@@ -3,6 +3,7 @@
   --size: 8px;
   display: flex;
   width: 100%;
+  height: 100%;
   
   .jk-split-first-pane, .jk-split-second-pane {
     flex: 1;
@@ -41,15 +42,6 @@
     }
   }
   
-  .toggle-button {
-    //opacity: 0;
-    //@include transition(opacity);
-    //
-    //&:hover {
-    //  opacity: 1;
-    //}
-  }
-  
   &.dragging {
     .jk-split-first-pane, .jk-split-second-pane {
       pointer-events: none;
@@ -59,27 +51,55 @@
   &.column {
     flex-direction: column;
     
-    .notch {
-      padding: 0 4px 0 0;
-      border-radius: 4px 4px 0 0;
+    > .jk-split-first-pane > .closable-tab, > .jk-split-second-pane > .closable-tab {
+      position: absolute;
+      width: 100%;
+      left: 0;
       
-      .jk-icon {
-        margin: 0 2px;
+      &.left, &.right {
+        left: var(--pad-m);
+        width: calc(100% - var(--pad-m) - var(--pad-m));
+      }
+      
+      .label {
+        text-orientation: sideways;
+      }
+      
+      > .notch {
+        .jk-icon {
+          margin: 2px 0;
+        }
+        
+        > .label {
+          padding-right: 4px;
+        }
       }
     }
     
     > .jk-split-first-pane > .closable-tab {
-      position: absolute;
       bottom: 0;
       
-      &.right {
-        right: var(--pad-m);
+      > .notch {
+        border-radius: 4px 4px 0 0;
       }
     }
     
-    .toggle-button {
+    > .jk-split-second-pane > .closable-tab {
+      top: 0;
+      
+      > .notch {
+        border-radius: 0 0 4px 4px;
+      }
+    }
+    
+    > .jk-split-pane-divider .toggle-button {
       position: absolute;
       bottom: var(--size);
+      border-radius: 4px 4px 0 0;
+      
+      > .label {
+        padding-right: 4px;
+      }
     }
     
     > .jk-split-pane-divider {
@@ -105,37 +125,59 @@
   }
   
   &.row {
-    .notch {
+    > .jk-split-pane-divider .toggle-button {
+      position: absolute;
+      right: var(--size);
       transform: rotate(180deg);
-      padding: 0 0 4px 0;
       border-radius: 0 4px 4px 0;
       
-      .jk-icon {
-        margin: 2px 0;
+      > .label {
+        writing-mode: vertical-lr;
+        text-orientation: sideways;
+        padding-bottom: 4px;
       }
     }
     
-    .toggle-button {
+    > .jk-split-first-pane > .closable-tab, > .jk-split-second-pane > .closable-tab {
       position: absolute;
-      right: var(--size);
+      height: 100%;
+      top: 0;
+      
+      &.top, &.bottom {
+        top: var(--pad-m);
+        height: calc(100% - var(--pad-m) - var(--pad-m));
+      }
       
       .label {
         writing-mode: vertical-lr;
         text-orientation: sideways;
+      }
+      
+      > .notch {
+        .jk-icon {
+          margin: 2px 0;
+        }
+        
+        > .label {
+          padding-bottom: 4px;
+        }
       }
     }
     
     > .jk-split-first-pane > .closable-tab {
-      position: absolute;
       right: 0;
       
-      &.right {
-        bottom: var(--pad-m);
+      > .notch {
+        transform: rotate(180deg);
+        border-radius: 0 4px 4px 0;
       }
+    }
+    
+    > .jk-split-second-pane > .closable-tab {
+      left: 0;
       
-      .label {
-        writing-mode: vertical-lr;
-        text-orientation: sideways;
+      > .notch {
+        border-radius: 0 4px 4px 0;
       }
     }
     

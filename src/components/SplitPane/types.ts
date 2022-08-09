@@ -9,8 +9,12 @@ export interface SplitPaneProps {
   onlyFirstPane?: boolean,
   onlySecondPane?: boolean,
   toggleOption?: boolean,
-  closablePane?: {
-    pane: 'first' | 'second',
+  closableFirstPane?: {
+    align: 'right' | 'center' | 'left',
+    hideLabel?: ReactNode,
+    expandLabel?: ReactNode
+  },
+  closableSecondPane?: {
     align: 'right' | 'center' | 'left',
     hideLabel?: ReactNode,
     expandLabel?: ReactNode

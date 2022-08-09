@@ -1,26 +1,12 @@
-import { action, configureActions } from '@storybook/addon-actions';
+import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 
-import {
-  FlagEnImage,
-  FlagEsImage,
-  ImageProps,
-  JukiCompleteLaptopImage,
-  JukiCouchLogoHorImage,
-  JukiCouchLogoVerImage,
-  JukiCourtImage,
-  JukiHeadImage,
-  JukiJudgeLogoHorImage,
-  JukiJudgeLogoVerImage,
-  JukiLaptopImage,
-  JukiSurprisedImage,
-  JukiUtilsLogoHorImage,
-} from '../../index';
+import { SplitPane as SplitPaneComponent, SplitPaneProps } from '../../index';
 
 export default {
   title: 'Components/General',
-  component: FlagEnImage,
+  component: SplitPaneComponent,
   argTypes: {},
 };
 
@@ -30,35 +16,69 @@ configureActions({
   limit: 20,
 });
 
-const ImagesTemplate: Story<ImageProps> = (props) => {
-  const images = {
-    FlagEnImage,
-    FlagEsImage,
-    JukiCouchLogoHorImage,
-    JukiCouchLogoVerImage,
-    JukiCompleteLaptopImage,
-    JukiHeadImage,
-    JukiCourtImage,
-    JukiJudgeLogoHorImage,
-    JukiJudgeLogoVerImage,
-    JukiLaptopImage,
-    JukiUtilsLogoHorImage,
-    JukiSurprisedImage,
-  };
+const ImagesTemplate: Story<SplitPaneProps> = (props) => {
   return (
-    <div style={{ color: '#164066', backgroundColor: '#F0F2F5' }} className="jk-row nowrap">
-      {Object.entries(images).sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2)).map(([iconName, Component]) => (
-        <div className="jk-row nowrap center">
-          <div style={{ width: '200px', height: '200px' }}><Component {...props} /></div>
-          <div className="text-xs color-gray-1" style={{ width: 140 }}>{iconName}</div>
+    <div style={{ border: '1px solid red', width: 800, height: 1000 }}>
+      <SplitPaneComponent toggleOption>
+        <div style={{ background: '' }}>
+          {`<SplitPaneComponent minSize={1} direction="row" closableFirstPane={{ pane: 'both', align: 'right', hideLabel: '' }} closableSecondPane={{ align: 'right', hideLabel: '' }}>`}
+          <div style={{ height: 200 }}>
+            <SplitPaneComponent minSize={1} direction="row" closableFirstPane={{ align: 'right', hideLabel: '' }}
+                                closableSecondPane={{ align: 'right', hideLabel: '' }}>
+              <div style={{ background: 'yellow' }}>A<br />A</div>
+              <div style={{ background: 'blueviolet' }}>B</div>
+            </SplitPaneComponent>
+          </div>
+          {`<SplitPaneComponent minSize={1} direction="row" closableFirstPane={{ align: 'center' }} closableSecondPane={{align: 'center'}}>`}
+          <div style={{ height: 200 }}>
+            <SplitPaneComponent minSize={1} direction="row" closableFirstPane={{ align: 'center' }}
+                                closableSecondPane={{ align: 'center' }}>
+              <div style={{ background: 'yellow' }}>A<br />A</div>
+              <div style={{ background: 'blueviolet' }}>B</div>
+            </SplitPaneComponent>
+          </div>
+          {`<SplitPaneComponent minSize={1} direction="row" closableFirstPane={{ align: 'left' }} closableSecondPane={{align: 'left'}}>`}
+          <div style={{ height: 200 }}>
+            <SplitPaneComponent minSize={1} direction="row" closableFirstPane={{ align: 'left' }}
+                                closableSecondPane={{ align: 'left' }}>
+              <div style={{ background: 'yellow' }}>A<br />A</div>
+              <div style={{ background: 'blueviolet' }}>B</div>
+            </SplitPaneComponent>
+          </div>
         </div>
-      ))}
+        <div style={{ background: '' }}>
+          {`<SplitPaneComponent minSize={1} direction="column" closableFirstPane={{ align: 'right', hideLabel: '' }} closableSecondPane={{ align: 'right' }}>`}
+          <div style={{ height: 200 }}>
+            <SplitPaneComponent minSize={1} direction="column" closableFirstPane={{ align: 'right', hideLabel: '' }}
+                                closableSecondPane={{ align: 'right' }}>
+              <div style={{ background: 'yellow' }}>A<br />A</div>
+              <div style={{ background: 'blueviolet' }}>B</div>
+            </SplitPaneComponent>
+          </div>
+          {`<SplitPaneComponent minSize={1} direction="column" closableFirstPane={{ align: 'center' }} closableSecondPane={{ align: 'center' }}>`}
+          <div style={{ height: 200 }}>
+            <SplitPaneComponent minSize={1} direction="column" closableFirstPane={{ align: 'center' }}
+                                closableSecondPane={{ align: 'center' }}>
+              <div style={{ background: 'yellow' }}>A<br />A</div>
+              <div style={{ background: 'blueviolet' }}>B</div>
+            </SplitPaneComponent>
+          </div>
+          {`<SplitPaneComponent minSize={1} direction="column" closableFirstPane={{ align: 'left' }} closableSecondPane={{ align: 'left' }}>`}
+          <div style={{ height: 200 }}>
+            <SplitPaneComponent minSize={1} direction="column" closableFirstPane={{ align: 'left' }}
+                                closableSecondPane={{ align: 'left' }}>
+              <div style={{ background: 'yellow' }}>A<br />A</div>
+              <div style={{ background: 'blueviolet' }}>B</div>
+            </SplitPaneComponent>
+          </div>
+        </div>
+      </SplitPaneComponent>
     </div>
   );
 };
 
-export const Images = ImagesTemplate.bind({});
+export const SplitPane = ImagesTemplate.bind({});
 
-Images.args = {
-  onClick: action('onClick'),
+SplitPane.args = {
+  // onClick: action('onClick'),
 };
