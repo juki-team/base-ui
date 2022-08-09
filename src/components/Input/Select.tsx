@@ -72,7 +72,6 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
 }: SelectProps<T, U, V>) => {
   
   const { width: selectLayoutWidth = 0, ref: selectLayoutRef } = useResizeDetector();
-  console.log({ selectLayoutWidth });
   const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);

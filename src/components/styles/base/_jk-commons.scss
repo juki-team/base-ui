@@ -178,6 +178,8 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
   
   &.error { background-color: var(--t-color-error); }
   
+  &.warning { background-color: var(--t-color-warning); }
+  
   &.primary-light { background-color: var(--t-color-primary-light); }
   
   &.primary-dark { background-color: var(--t-color-primary-dark); }
