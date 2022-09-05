@@ -21,4 +21,5 @@ export interface TimerProps {
   interval?: number,
   literal?: boolean,
   ignoreLeadingZeros?: boolean,
+  ignoreTrailingZeros?: boolean,
 }

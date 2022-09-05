@@ -16,18 +16,28 @@ const DEFAULT_LABELS: { [key in Period]: string } = {
 
 const MAX_LAPS = 6;
 
-const cutTimeSplit = (remaining: number, laps: number, ignoreLeadingZeros: boolean = false) => {
+const cutTimeSplit = (remaining: number, laps: number, ignoreLeadingZeros: boolean, ignoreTrailingZeros: boolean) => {
   let timeSplit = splitTime(Math.max(remaining, 0));
   while (timeSplit[0].remaining <= 0 && timeSplit.length > laps) {
     timeSplit.shift();
   }
-  while (ignoreLeadingZeros && timeSplit.length && timeSplit[timeSplit.length - 1].remaining === 0) {
+  while (ignoreLeadingZeros && timeSplit.length && timeSplit[0].remaining === 0) {
+    timeSplit.shift();
+  }
+  while (ignoreTrailingZeros && timeSplit.length && timeSplit[timeSplit.length - 1].remaining === 0) {
     timeSplit.pop();
   }
   return timeSplit.splice(0, laps);
 };
 
-export const Timer = React.memo(({ currentTimestamp, laps = 3, interval = 1, literal, ignoreLeadingZeros }: TimerProps) => {
+export const Timer = React.memo(({
+  currentTimestamp,
+  laps = 3,
+  interval = 1,
+  literal,
+  ignoreLeadingZeros = false,
+  ignoreTrailingZeros = false,
+}: TimerProps) => {
   
   const [counter, setCounter] = useState({ remaining: currentTimestamp, startTimestamp: 0 });
   
@@ -52,7 +62,7 @@ export const Timer = React.memo(({ currentTimestamp, laps = 3, interval = 1, lit
     }));
   }, Math.abs(interval));
   
-  const timeSplit = cutTimeSplit(counter.remaining, laps, ignoreLeadingZeros);
+  const timeSplit = cutTimeSplit(counter.remaining, laps, ignoreLeadingZeros, ignoreTrailingZeros);
   
   return (
     <div className={classNames('jk-timer-layout jk-row nowrap', { literal: !!literal })}>
@@ -118,7 +128,7 @@ export const TimerLabeled = ({ startDate, endDate, currentDate, labels, laps: _l
   
   const laps = Math.min(Math.max(0, _laps), MAX_LAPS);
   const myLabels = { ...DEFAULT_LABELS, ...labels };
-  const timeSplit = cutTimeSplit(Math.max(time.remaining, 0), laps, false);
+  const timeSplit = cutTimeSplit(Math.max(time.remaining, 0), laps, false, false);
   const timeInterval = Math.max(timeSplit[timeSplit.length - 1].milliseconds, 1);
   
   return (
