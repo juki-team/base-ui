@@ -112,7 +112,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
       content={
         <div
           ref={optionRef}
-          className={classNames('jk-select-options jk-border-radius-inline')}
+          className={classNames('jk-select-options jk-border-radius-inline', { disabled: isDisabled })}
           style={{ width: extend ? (selectLayoutWidth + 8 + 4 /*padding*/) : containerWidth }}
         >
           {options.map((option) => (
@@ -121,7 +121,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
                 selected: JSON.stringify(option.value) === JSON.stringify(optionSelected.value),
                 disabled: !!option.disabled,
               })}
-              onClick={!option.disabled ? () => {
+              onClick={(!isDisabled && !option.disabled) ? () => {
                 onChange?.(option);
                 setShowOptions(false);
               } : undefined}

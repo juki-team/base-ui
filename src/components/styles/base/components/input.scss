@@ -120,6 +120,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
+.disabled-input {
+  color: var(--t-color-gray-4);
+  border-color: var(--t-color-gray-4);
+  background-color: var(--t-color-white-2);
+}
+
 // input textarea
 .jk-input-text,
 .jk-input-number,
@@ -150,11 +156,17 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     //visibility: hidden;
   }
   
-  &.disabled {
-    color: var(--t-color-gray-4);
-    border-color: var(--t-color-gray-4);
-    background-color: var(--t-color-gray-6);
+  .disabled {
+    @extend .disabled-input;
   }
+}
+
+.jk-select-layout.disabled .jk-select {
+  @extend .disabled-input;
+}
+
+.jk-select-options.disabled {
+  @extend .disabled-input;
 }
 
 .jk-input-password-wrapper, .jk-select-layout, .jk-multi-select-layout {

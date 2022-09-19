@@ -82,7 +82,22 @@ export const MdMath = memo(({ source }: { source: string }) => {
         return <p>{children}</p>;
       },
       a({ children, href }) {
-        if (typeof children[0] === 'string') {
+        if (typeof children?.[0] === 'string') {
+          const [commands, newText] = getCommands(children?.[0]);
+          const style = { outline: '2px solid var(--t-color-gray-6)', border: 'none', height: '100%' };
+          if (commands.height) {
+            style.height = Number.isNaN(+commands.height) ? commands.height : (commands.height + 'px');
+          }
+          if (commands.preview === 'pdf') {
+            return (
+              <object data={href} type="application/pdf" width="100%" height="100%" style={style}>
+                <a href={href} target="_blank" rel="noreferrer">{newText}<ExternalIcon /></a>
+              </object>
+            );
+          }
+          if (commands.preview === 'html') {
+            return <iframe src={href} style={{ width: '100%', ...style }} title="preview-html-document" />;
+          }
           return <a href={href} target="_blank" rel="noreferrer">{children}<ExternalIcon /></a>;
         }
         return <a href={href} target="_blank" rel="noreferrer">{children}</a>;

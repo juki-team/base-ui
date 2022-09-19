@@ -12,6 +12,7 @@ const keys: CommandsFunctionsType = {
   height: (value = '') => value,
   theme: (value = '') => value === Theme.DARK ? Theme.DARK : Theme.LIGHT,
   lang: (value = '') => value,
+  preview: (value = '') => value,
 };
 
 export const getCommands = (text: string): [CommandsObjectType, string] => {
@@ -38,6 +39,8 @@ export const getCommands = (text: string): [CommandsObjectType, string] => {
         commandsObject[key] = keys[key](value);
       } else if (key === 'lineNumbers') {
         commandsObject[key] = true;
+      } else if(key === 'preview') {
+        commandsObject[key] = keys[key](value);
       } else {
         commandsObject.rest = (commandsObject.rest || '') + key + '=' + value;
       }

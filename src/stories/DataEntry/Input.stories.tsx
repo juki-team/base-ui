@@ -154,7 +154,14 @@ export const Select = () => {
         selectedOption={value}
         onChange={({ value, label }: { value: number, label: string }) => setValue({ value, label })}
       />
-      Text 2
+      Text 2 Disabled
+      <SelectComponent
+        className=""
+        disabled={true}
+        options={options}
+        selectedOption={value}
+        onChange={({ value, label }: { value: number, label: string }) => setValue({ value, label })}
+      />
     </div>
   );
 };

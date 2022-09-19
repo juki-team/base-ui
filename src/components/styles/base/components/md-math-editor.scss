@@ -91,13 +91,17 @@
   }
   
   .content-editor-preview {
-    --min-height: 200px;
+    --min-height: 120px;
     min-height: var(--min-height);
     position: relative;
     display: flex;
     width: 100%;
     @include sm {
       border-radius: var(--border-radius-sm);
+    }
+    
+    > div.jk-split-pane {
+      min-height: var(--min-height);
     }
     
     .no-saved-label {

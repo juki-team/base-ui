@@ -12,6 +12,7 @@ export type CommandsObjectType = {
   lang?: string,
   lineNumbers?: boolean,
   rest?: string,
+  preview?: string,
 }
 
 export type CommandsFunctionsType = {
@@ -24,6 +25,7 @@ export type CommandsFunctionsType = {
   height: (value: string) => string,
   theme: (value: string) => Theme,
   lang: (value: string) => string,
+  preview: (value: string) => string,
 }
 
 export interface MdMathViewerProps {

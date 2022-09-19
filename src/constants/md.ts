@@ -504,4 +504,27 @@ E(X)=\\mu_X=\\sum (x_i-P(x_i))
 \\\\
 \\frac{1}{\\sqrt{2\\sigma^2\\pi}}\\,e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}
 $$
+
+
+---
+
+# 9. Embedded files
+
+## 9.1. Pdf documents
+
+\`\`\`
+[\\preview=pdf\\height=300](https://prod-v1-utils-back.juki.app/api/v1/note/pdf?sourceUrl=https://files.juki.pub/shared/d9f7c5691647c7b9c35bd3704040f0edf95d33d972d47e89ce09320752e5c45b.md)
+\`\`\`
+
+Result:
+[\\preview=pdf\\height=300](https://prod-v1-utils-back.juki.app/api/v1/note/pdf?sourceUrl=https://files.juki.pub/shared/d9f7c5691647c7b9c35bd3704040f0edf95d33d972d47e89ce09320752e5c45b.md)
+
+## 9.2. Html documents
+
+\`\`\`
+[\\preview=html\\height=500](https://judge.juki.app/problems)
+\`\`\`
+
+Result:
+[\\preview=html\\height=500](https://judge.juki.app/problems)
 `;
