@@ -1,5 +1,6 @@
 import { action, configureActions } from '@storybook/addon-actions';
-import React from 'react';
+import React, { ReactNode } from 'react';
+import { SAMPLE_MD_CONTENT } from '../constants/md';
 import {
   AppsIcon,
   Button,
@@ -18,7 +19,6 @@ import {
   T,
   VerticalMenu,
 } from '../index';
-import { SAMPLE_MD_CONTENT } from '../constants/md';
 
 export default {
   title: 'Components/Menus',
@@ -125,7 +125,12 @@ export const MenuVerticalClassic = () => {
 };
 
 const menuHorizontal = [
-  { label: 'contests', selected: false, onClick: () => action('/contests') },
+  {
+    label: 'contests',
+    selected: false,
+    onClick: () => action('/contests'),
+    menuItemWrapper: (children: ReactNode) => <div className="test-children">{children}</div>,
+  },
   { label: 'problems', selected: true, onClick: () => action('/problems') },
   { label: 'admin', icon: <FilterIcon />, selected: true, onClick: () => action('/admin') },
 ];
@@ -135,8 +140,8 @@ export const HorizontalMenuClassic = () => {
     <div style={{ height: '400px' }}>
       <HorizontalMenu
         menu={menuHorizontal}
-        left={<div className="jk-row color-white" style={{ width: '240px' }}><JukiJudgeLogoHorImage /></div>}
-        right={<div className="color-white">{rightSection({})}</div>}
+        leftSection={<div className="jk-row color-white" style={{ width: '240px' }}><JukiJudgeLogoHorImage /></div>}
+        rightSection={<div className="color-white">{rightSection({})}</div>}
         rightMobile={rightMobile}
         centerMobile={centerMobile}
         leftMobile={leftMobile}

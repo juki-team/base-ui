@@ -20,20 +20,25 @@ export const VerticalMenu = ({
   
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
-    menus.push(
+    const menuItem = (
       <div
         className={classNames('jk-menu-item', {
           'selected-up': menu[i - 1]?.selected,
           'selected-down': menu[i + 1]?.selected,
           selected: menu[i].selected,
         })}
-        onClick={() => menu[i].onClick(open)}
+        onClick={() => menu[i].onClick?.(open)}
         key={i}
       >
         <div className="jk-menu-item-icon">{renderReactNodeOrFunction(menu[i].icon)}</div>
         <div className="jk-menu-item-label">{renderReactNodeOrFunction(menu[i].label)}</div>
-      </div>,
+      </div>
     );
+    if (menu[i].menuItemWrapper) {
+      menus.push(renderReactNodeOrFunctionP1(menu[i].menuItemWrapper, menuItem));
+    } else {
+      menus.push(menuItem);
+    }
   }
   
   const handleCollapse = () => {
@@ -72,8 +77,8 @@ export const VerticalMenu = ({
       <HorizontalMenu
         className="screen sm"
         menu={menu}
-        left={() => renderReactNodeOrFunctionP1(topSection, { isOpen: open })}
-        right={() => renderReactNodeOrFunctionP1(bottomSection, { isOpen: open })}
+        leftSection={() => renderReactNodeOrFunctionP1(topSection, { isOpen: open })}
+        rightSection={() => renderReactNodeOrFunctionP1(bottomSection, { isOpen: open })}
         rightMobile={rightMobile}
         centerMobile={centerMobile}
         leftMobile={leftMobile}

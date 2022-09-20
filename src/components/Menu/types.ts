@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
 import { DrawerActionsType } from '../Drawer';
 
@@ -10,12 +11,12 @@ export interface HorizontalMenuProps {
   className?: string,
   // left?: ReactNodeOrFunctionP1Type<{ isOpen: boolean }>,
   // right?: ReactNodeOrFunctionP1Type<{ isOpen: boolean }>,
-  left?: ReactNodeOrFunctionType,
-  right?: ReactNodeOrFunctionType,
+  leftSection?: ReactNodeOrFunctionType,
+  rightSection?: ReactNodeOrFunctionType,
+  menu: { icon?: ReactNodeOrFunctionType, label: ReactNodeOrFunctionType, selected: boolean, onClick?: (isOpen?: boolean) => void, menuItemWrapper?: ReactNodeOrFunctionP1Type<ReactNode> }[],
   rightMobile?: MenuMobileSectionType,
   leftMobile?: MenuMobileSectionType,
   centerMobile?: MenuMobileSectionType,
-  menu: { icon?: ReactNodeOrFunctionType, label: ReactNodeOrFunctionType, selected: boolean, onClick: (isOpen?: boolean) => void }[],
 }
 
 export interface VerticalMenuProps {
@@ -23,7 +24,7 @@ export interface VerticalMenuProps {
   onToggle?: (isOpen: boolean) => void,
   bottomSection?: ReactNodeOrFunctionP1Type<{ isOpen: boolean }>,
   topSection?: ReactNodeOrFunctionP1Type<{ isOpen: boolean }>,
-  menu: { icon: ReactNodeOrFunctionType, label: ReactNodeOrFunctionType, selected: boolean, onClick: (isOpen?: boolean) => void }[],
+  menu: { icon: ReactNodeOrFunctionType, label: ReactNodeOrFunctionType, selected: boolean, onClick?: (isOpen?: boolean) => void, menuItemWrapper?: ReactNodeOrFunctionP1Type<ReactNode> }[],
   rightMobile?: MenuMobileSectionType,
   leftMobile?: MenuMobileSectionType,
   centerMobile?: MenuMobileSectionType,
