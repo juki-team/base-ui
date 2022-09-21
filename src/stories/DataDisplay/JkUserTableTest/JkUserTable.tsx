@@ -146,7 +146,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       field: ({ record: { dateTestRange } }) => <DateField date={dateTestRange} label="fecha" />,
       filter: {
         type: FILTER_DATE_RANGE_AUTO,
-        pickerType: 'year-month-day-hours-minutes-seconds-milliseconds',
+        pickerType: 'year-month-day-hours-minutes-seconds',
         isDisabled: () => ({ year: false }),
       } as FilterDateRangeAutoOfflineType<UserTable>,
     },

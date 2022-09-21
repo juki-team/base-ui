@@ -26,7 +26,6 @@ export const TableHeadFilterDateRange = ({
     }
   }, [visible]);
   
-  console.log({ start, end });
   return (
     <div className="jk-col gap jk-table-head-cell-filter-date-range">
       <div className="jk-row gap date-range">
