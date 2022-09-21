@@ -114,7 +114,10 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
   const { method, body, signal } = options || {};
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Accept', 'application/json');
-  requestHeaders.set('Content-Type', 'application/json');
+  if (!(body instanceof FormData)) {
+    requestHeaders.set('Content-Type', 'application/json');
+  }
+  
   return await fetch(url, {
     method: method ? method : HTTPMethod.GET,
     headers: requestHeaders,
