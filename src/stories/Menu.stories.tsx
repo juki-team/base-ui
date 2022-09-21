@@ -129,7 +129,7 @@ const menuHorizontal = [
     label: 'contests',
     selected: false,
     onClick: () => action('/contests'),
-    menuItemWrapper: (children: ReactNode) => <div className="test-children">{children}</div>,
+    menuItemWrapper: (children: ReactNode) => <div className="test-children" key="test-contest">{children}</div>,
   },
   { label: 'problems', selected: true, onClick: () => action('/problems') },
   { label: 'admin', icon: <FilterIcon />, selected: true, onClick: () => action('/admin') },

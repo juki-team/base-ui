@@ -1,5 +1,5 @@
 import { BasicIconProps } from '../../types';
 import { renderBasicIcon } from '../../utils';
-import Lightbulb from './Lightbulb';
+import LightBulb from './LightBulb';
 
-export const LightbulbIcon = (props: BasicIconProps) => renderBasicIcon(props, Lightbulb);
+export const LightBulbIcon = (props: BasicIconProps) => renderBasicIcon(props, LightBulb);

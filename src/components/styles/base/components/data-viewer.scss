@@ -122,31 +122,25 @@
             box-sizing: border-box;
             height: 100%;
             position: relative;
-            padding: 0 var(--pad-t);
-            @include md {
-              padding: 0 var(--pad-xt);
-            }
-            @include sm {
-              padding: 0 4px;
-            }
+            padding: 0 4px;
             
             &.with-sort:not(.with-filter), &.with-filter:not(.with-sort) {
-              padding-right: calc(var(--pad-t) + var(--pad-xs));
+              padding-right: calc(30px); // 26px + 4px // icon, padding
               @include md {
-                padding-right: calc(var(--pad-xt) + var(--pad-xs));
+                padding-right: calc(22px); // 18px + 4px // icon, padding
               }
               @include sm {
-                padding-right: calc(4px + var(--pad-xs));
+                padding-right: calc(22px); // 18px + 4px // icon, padding
               }
             }
             
             &.with-sort.with-filter {
-              padding-right: calc(var(--pad-t) + 48px);
+              padding-right: calc(56px); // 26px + 26px + 4px // icon, icon, padding
               @include md {
-                padding-right: calc(var(--pad-xt) + 46px);
+                padding-right: calc(40px); // 18px + 18px + 4px // icon, icon, padding
               }
               @include sm {
-                padding-right: calc(4px + 42px);
+                padding-right: calc(40px); // 18px + 18px + 4px // icon, icon, padding
               }
             }
             
@@ -390,6 +384,7 @@
 .jk-table-head, .jk-drawer-filters {
   .text-head-field {
     text-transform: capitalize;
+    text-align: center;
     //font-weight: var(--weight-bold);
   }
   

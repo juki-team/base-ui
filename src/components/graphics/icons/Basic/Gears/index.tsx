@@ -1,7 +1,7 @@
 import { BasicIconProps } from '../../types';
 import { renderBasicIcon } from '../../utils';
-import ThumbUp from './ThumbUp';
+import Gears from './Gears';
 
-export const ThumbUpIcon = (props: BasicIconProps) => {
-  return renderBasicIcon(props, ThumbUp);
+export const GearsIcon = (props: BasicIconProps) => {
+  return renderBasicIcon(props, Gears);
 };

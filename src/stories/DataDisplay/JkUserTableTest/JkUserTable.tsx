@@ -68,13 +68,13 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
         <div>test<br />test
         </div>
       ),
-      minWidth: 220,
+      minWidth: 50,
       // filter: { type: 'select', options: [{ value: 'A', label: 'letra A' }, { value: 'B', label: 'letra B' }] },
-      sort: {
-        compareFn: () => () => (
-          Math.random()
-        ),
-      },
+      // sort: {
+      //   compareFn: () => () => (
+      //     Math.random()
+      //   ),
+      // },
       filter: {
         type: FILTER_DATE_RANGE_AUTO,
         pickerType: 'year-month-day-hours-minutes-seconds-milliseconds',
