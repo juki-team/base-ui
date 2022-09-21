@@ -30,17 +30,33 @@ export interface JkUserTableProps {
   rowsView?: boolean
 }
 
+type UserTable = {
+  key: string,
+  givenName: string,
+  familyName: string,
+  email: string,
+  nickname: string,
+  status: string,
+  imageUrl: string,
+  dateTest: Date,
+  dateTestRange: Date,
+}
+
+const data: UserTable[] = users.list.map(user => (
+  {
+    key: `nickname-(${user.nickname + ')-' + user.status}`,
+    givenName: user.givenName,
+    familyName: user.familyName,
+    email: user.email,
+    nickname: user.nickname,
+    status: user.status,
+    imageUrl: user.imageUrl,
+    dateTest: new Date(new Date().getFullYear(), new Date().getMonth() + Math.round(Math.random() * 3), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 50 + 1), Math.round(Math.random() * 50 + 1)),
+    dateTestRange: new Date(new Date().getFullYear(), new Date().getMonth() + Math.round(Math.random() * 3), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 50 + 1), Math.round(Math.random() * 50 + 1)),
+  } as UserTable
+));
+
 export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTableProps) => {
-  type UserTable = {
-    key: string,
-    givenName: string,
-    familyName: string,
-    email: string,
-    nickname: string,
-    status: string,
-    imageUrl: string,
-    dateTest: Date,
-  }
   const columns: DataViewerHeadersType<UserTable>[] = useMemo(() => [
     {
       head: <TextHeadCell text="Name / Nickname" />,
@@ -127,7 +143,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
     },
     {
       index: 'dateTestRange',
-      field: ({ record: { dateTest } }) => <DateField date={dateTest} label="fecha" />,
+      field: ({ record: { dateTestRange } }) => <DateField date={dateTestRange} label="fecha" />,
       filter: {
         type: FILTER_DATE_RANGE_AUTO,
         pickerType: 'year-month-day-hours-minutes-seconds-milliseconds',
@@ -173,20 +189,6 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       cardPosition: 'topRight',
     },
   ], []);
-  
-  const data: UserTable[] = users.list.map(user => (
-    {
-      key: `nickname-(${user.nickname + ')-' + user.status}`,
-      givenName: user.givenName,
-      familyName: user.familyName,
-      email: user.email,
-      nickname: user.nickname,
-      status: user.status,
-      imageUrl: user.imageUrl,
-      dateTest: new Date(new Date().getFullYear(), new Date().getMonth() + Math.round(Math.random() * 3), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 50 + 1), Math.round(Math.random() * 50 + 1)),
-      dateTestRange: new Date(new Date().getFullYear(), new Date().getMonth() + Math.round(Math.random() * 3), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 50 + 1), Math.round(Math.random() * 50 + 1)),
-    } as UserTable
-  ));
   const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
     console.info('request', { sort, filter, pagination });
     setLoaderStatus(Status.LOADING);

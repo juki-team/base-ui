@@ -311,6 +311,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
               showSeconds,
               showMilliseconds,
             } = showOfDatePickerType(head.filter.pickerType || DEFAULT_PICKER_TYPE);
+            console.log('isFilterDateRangeAutoOffline', { start, end, startSelectedDate, endSelectedDate, newData, l: newData.length });
             newData = newData.filter(datum => {
               if (isFilterDateRangeAutoOffline(head?.filter)) {
                 const date = head.filter.getValue ? head.filter.getValue({ record: datum }) : datum[head.index];
@@ -340,6 +341,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
                   if (showMilliseconds) {
                     isWithin = date.isWithinInterval({ start: startSelectedDate, end: endSelectedDate });
                   }
+                  console.log({ date, isWithin });
                   return isWithin;
                 } else {
                   consoleWarn({ _message: 'datum no filtered', datum, startSelectedDate, endSelectedDate, index: head.index, head });
@@ -353,6 +355,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         }
       }
     }
+    console.log('isFilterDateRangeAutoOffline END', { newData, l: newData.length });
     // Offline sort
     for (const searchSort of searchSorts.split(',')) {
       const head = headers.find(({ index }) => index === searchSort || '-' + index === searchSort);
@@ -372,7 +375,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     // }
     setDataTable(newData);
   }, [data, headers, searchFilter, searchSorts]);
-  
+  console.log({ dataTable });
   useEffect(() => {
     if (searchSorts !== prevSearchSorts.current) {
       prevSearchSorts.current = searchSorts;
