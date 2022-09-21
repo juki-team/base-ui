@@ -275,8 +275,8 @@ export const DatePicker = () => {
   return (
     <div className="jk-col gap">
       <TimePicker
-        baseDate={new Date()}
-        onChange={(...props) => console.log(props)}
+        date={new Date()}
+        onChange={(...props) => console.info(props)}
         showMinutes={true}
         showSeconds={true}
         showMilliseconds={true}

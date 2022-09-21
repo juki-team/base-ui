@@ -5,13 +5,14 @@ import { T } from '../Translate';
 import { TimePickerProps } from './types';
 
 export const TimePicker = ({
-  baseDate,
+  date,
   showMinutes,
   showSeconds,
   showMilliseconds,
   onChange,
   isDisabled,
 }: TimePickerProps) => {
+  
   return (
     <div className="jk-col jk-date-picker-grid-time center">
       <div className="jk-row">
@@ -19,10 +20,10 @@ export const TimePicker = ({
           options={HOURS.map(hour => ({
             value: hour,
             label: hour.padStart(2),
-            disabled: !!isDisabled?.(baseDate.changeHours(hour)).hours,
+            disabled: !!isDisabled?.(date.changeHours(hour)).hours,
           }))}
-          selectedOption={{ value: baseDate.getHours(), label: baseDate.getHours().padStart(2) }}
-          onChange={({ value }) => onChange(baseDate.changeHours(value))}
+          selectedOption={{ value: date.getHours(), label: date.getHours().padStart(2) }}
+          onChange={({ value }) => onChange(date.changeHours(value))}
         />
         {showMinutes && (
           <>
@@ -31,10 +32,10 @@ export const TimePicker = ({
               options={MINUTES.map(minute => ({
                 value: minute,
                 label: minute.padStart(2),
-                disabled: !!isDisabled?.(baseDate.changeMinutes(minute)).minutes,
+                disabled: !!isDisabled?.(date.changeMinutes(minute)).minutes,
               }))}
-              selectedOption={{ value: baseDate.getMinutes(), label: baseDate.getMinutes().padStart(2) }}
-              onChange={({ value }) => onChange(baseDate.changeMinutes(value))}
+              selectedOption={{ value: date.getMinutes(), label: date.getMinutes().padStart(2) }}
+              onChange={({ value }) => onChange(date.changeMinutes(value))}
             />
             {showSeconds && (
               <>
@@ -43,10 +44,10 @@ export const TimePicker = ({
                   options={SECONDS.map(second => ({
                     value: second,
                     label: second.padStart(2),
-                    disabled: !!isDisabled?.(baseDate.changeSeconds(second)).seconds,
+                    disabled: !!isDisabled?.(date.changeSeconds(second)).seconds,
                   }))}
-                  selectedOption={{ value: baseDate.getSeconds(), label: baseDate.getSeconds().padStart(2) }}
-                  onChange={({ value }) => onChange(baseDate.changeSeconds(value))}
+                  selectedOption={{ value: date.getSeconds(), label: date.getSeconds().padStart(2) }}
+                  onChange={({ value }) => onChange(date.changeSeconds(value))}
                 />
                 {showMilliseconds && (
                   <>
@@ -55,10 +56,10 @@ export const TimePicker = ({
                       options={MILLISECONDS.map(millisecond => ({
                         value: millisecond,
                         label: millisecond.padStart(3),
-                        disabled: !!isDisabled?.(baseDate.changeMilliseconds(millisecond)).milliseconds,
+                        disabled: !!isDisabled?.(date.changeMilliseconds(millisecond)).milliseconds,
                       }))}
-                      selectedOption={{ value: baseDate.getMilliseconds(), label: baseDate.getMilliseconds().padStart(3) }}
-                      onChange={({ value }) => onChange(baseDate.changeMilliseconds(value))}
+                      selectedOption={{ value: date.getMilliseconds(), label: date.getMilliseconds().padStart(3) }}
+                      onChange={({ value }) => onChange(date.changeMilliseconds(value))}
                     />
                   </>
                 )}

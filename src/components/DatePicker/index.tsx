@@ -9,7 +9,7 @@ import { showOfDatePickerType } from './utils';
 import { YearPicker } from './YearPicker';
 
 export const DatePicker = ({
-  baseDate = new Date(),
+  date = new Date(),
   isDisabled,
   isSelected,
   type = 'year-month-day-hours-minutes-seconds',
@@ -21,13 +21,13 @@ export const DatePicker = ({
   return (
     <div className="jk-date-picker-layout jk-col">
       {showYears && !showMonths && !showDays && (
-        <YearPicker baseDate={baseDate} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
+        <YearPicker date={date} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
       )}
       {showYears && showMonths && !showDays && (
-        <MonthPicker baseDate={baseDate} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
+        <MonthPicker date={date} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
       )}
       {showYears && showMonths && showDays && (
-        <DayPicker baseDate={baseDate} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
+        <DayPicker date={date} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
       )}
       {showHours && (
         <>
@@ -35,7 +35,7 @@ export const DatePicker = ({
           <div className={classNames('jk-row jk-date-picker-time', { 'only-time': !showYears })}>
             {showYears && <div className="label-time tx-wd-bold text-sentence-case"><T>time</T>:</div>}
             <TimePicker
-              baseDate={baseDate}
+              date={date}
               onChange={onChange}
               showMinutes={showMinutes}
               showSeconds={showSeconds}

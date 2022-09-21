@@ -18,11 +18,11 @@ import {
   ReloadIcon,
   Select as SelectComponent,
   SelectOptionType,
+  Status,
   T,
   TextField,
   TextHeadCell,
 } from '../../../index';
-import { Status } from '../../../index';
 import users from './data.json';
 
 export interface JkUserTableProps {
@@ -126,6 +126,15 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       } as FilterDateAutoOfflineType<UserTable>,
     },
     {
+      index: 'dateTestRange',
+      field: ({ record: { dateTest } }) => <DateField date={dateTest} label="fecha" />,
+      filter: {
+        type: FILTER_DATE_RANGE_AUTO,
+        pickerType: 'year-month-day-hours-minutes-seconds-milliseconds',
+        isDisabled: () => ({ year: false }),
+      } as FilterDateRangeAutoOfflineType<UserTable>,
+    },
+    {
       index: 'status',
       field: ({ record: { status } }) => (
         <Field>
@@ -175,6 +184,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       status: user.status,
       imageUrl: user.imageUrl,
       dateTest: new Date(new Date().getFullYear(), new Date().getMonth() + Math.round(Math.random() * 3), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 50 + 1), Math.round(Math.random() * 50 + 1)),
+      dateTestRange: new Date(new Date().getFullYear(), new Date().getMonth() + Math.round(Math.random() * 3), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 50 + 1), Math.round(Math.random() * 50 + 1)),
     } as UserTable
   ));
   const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {

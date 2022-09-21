@@ -148,7 +148,7 @@ export type DatePickerType =
 export type DatePickerDateFunType = (date: Date) => ({ year?: boolean, month?: boolean, day?: boolean, hours?: boolean, minutes?: boolean, seconds?: boolean, milliseconds?: boolean });
 
 export interface DatePickerProps {
-  baseDate?: Date,
+  date?: Date,
   onChange: (date: Date) => void,
   type?: DatePickerType,
   isDisabled?: DatePickerDateFunType,

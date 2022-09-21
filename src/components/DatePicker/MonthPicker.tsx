@@ -5,9 +5,9 @@ import { classNames } from '../../helpers';
 import { NextButton, PreviousButton } from './commons';
 import { MonthPickerProps } from './types';
 
-export const MonthPicker = ({ baseDate, onChange, isDisabled, isSelected }: MonthPickerProps) => {
+export const MonthPicker = ({ date, onChange, isDisabled, isSelected }: MonthPickerProps) => {
   
-  const [viewDate, setViewDate] = useState(baseDate);
+  const [viewDate, setViewDate] = useState(date);
   
   const gridMonths: (Date[])[] = [];
   let dateCursor = new Date(viewDate.startOfYear());
@@ -40,7 +40,7 @@ export const MonthPicker = ({ baseDate, onChange, isDisabled, isSelected }: Mont
                 <Div
                   className={classNames('month jk-row', { disabled, selected })}
                   key={date.getTime()}
-                  onClick={() => !disabled && onChange(baseDate.changeYear(date.getFullYear()).changeMonth(date.getMonth()))}
+                  onClick={() => !disabled && onChange(date.changeYear(date.getFullYear()).changeMonth(date.getMonth()))}
                   onKeyDownClick
                 >
                   <div><T>{MONTH_NAMES[date.getMonth()]}</T></div>

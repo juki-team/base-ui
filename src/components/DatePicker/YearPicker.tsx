@@ -4,9 +4,9 @@ import { classNames } from '../../helpers';
 import { NextButton, PreviousButton } from './commons';
 import { YearPickerProps } from './types';
 
-export const YearPicker = ({ baseDate, onChange, isDisabled, isSelected }: YearPickerProps) => {
+export const YearPicker = ({ date, onChange, isDisabled, isSelected }: YearPickerProps) => {
   
-  const [viewDate, setViewDate] = useState(baseDate);
+  const [viewDate, setViewDate] = useState(date);
   
   const gridYears: (Date[])[] = [];
   let dateCursor = new Date(viewDate);
@@ -42,7 +42,7 @@ export const YearPicker = ({ baseDate, onChange, isDisabled, isSelected }: YearP
                 <Div
                   className={classNames('year', { disabled, selected })}
                   key={date.getTime()}
-                  onClick={() => !disabled && onChange(baseDate.changeYear(date.getFullYear()))}
+                  onClick={() => !disabled && onChange(date.changeYear(date.getFullYear()))}
                   onKeyDownClick
                 >
                   <div>{date.getFullYear()}</div>

@@ -53,7 +53,7 @@ export const InputDate = ({
       <div className="jk-input-date-layout">
         {input()}
         <DatePicker
-          baseDate={baseDate}
+          date={date || baseDate}
           onChange={date => onDatePick(date)}
           type={type}
           isDisabled={isDisabled}
@@ -68,7 +68,7 @@ export const InputDate = ({
       <Popover
         content={() => (
           <DatePicker
-            baseDate={baseDate}
+            date={date || baseDate}
             onChange={date => onDatePick(date)}
             type={type}
             isDisabled={isDisabled}

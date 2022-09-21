@@ -6,9 +6,9 @@ import { Div, Select, T } from '../index';
 import { NextButton, PreviousButton } from './commons';
 import { DayPickerProps } from './types';
 
-export const DayPicker = ({ baseDate, onChange, isDisabled, isSelected }: DayPickerProps) => {
+export const DayPicker = ({ date, onChange, isDisabled, isSelected }: DayPickerProps) => {
   
-  const [viewDate, setViewDate] = useState(baseDate);
+  const [viewDate, setViewDate] = useState(date);
   const gridDays: (Date[])[] = [];
   let dateCursor = new Date(viewDate.startOfMonth().startOfWeek());
   for (let i = 0; i < 6; i++) {
@@ -62,7 +62,7 @@ export const DayPicker = ({ baseDate, onChange, isDisabled, isSelected }: DayPic
                   })}
                   key={date.getTime()}
                   onClick={() => !disabled &&
-                    onChange(baseDate.changeYear(date.getFullYear())
+                    onChange(date.changeYear(date.getFullYear())
                       .changeMonth(date.getMonth())
                       .changeDay(date.getDate()))
                   }
