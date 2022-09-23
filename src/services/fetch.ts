@@ -119,6 +119,7 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
     requestHeaders.set('Content-Type', 'application/json');
   }
   const token = localStorage.getItem(settings.JUKI_TOKEN_NAME);
+  console.log('authorizedRequest', { url, options, token, settings });
   if (token) {
     requestHeaders.set('Authorization', `Bearer ${token}`);
   }
