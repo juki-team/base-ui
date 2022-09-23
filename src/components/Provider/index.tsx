@@ -16,7 +16,7 @@ export const JukiBaseUiProvider = ({
   utilsUiUrl,
 }: PropsWithChildren<JukiBaseUiProviderProps>) => {
   useEffect(() => {
-    settings.setSetting(utilsServiceUrl, apiVersion, utilsUiUrl);
+    settings.setSetting(utilsServiceUrl, apiVersion, utilsUiUrl, 'juki-token');
     socket.start().then(() => null);
     socket.joinSession().then(() => null);
   }, [apiVersion, utilsServiceUrl, utilsUiUrl]);

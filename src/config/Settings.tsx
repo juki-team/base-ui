@@ -6,6 +6,11 @@ export class Settings {
   private _UTILS_SERVICE_URL = '';
   private _UTILS_SERVICE_API_URL = '';
   private _UTILS_UI_URL = '';
+  private _JUKI_TOKEN_NAME = '';
+  
+  get JUKI_TOKEN_NAME(): string {
+    return this._JUKI_TOKEN_NAME;
+  }
   
   public get UTILS_API() {
     return {
@@ -46,9 +51,10 @@ export class Settings {
     };
   }
   
-  setSetting(utilsServiceUrl: string, apiVersion: string, utilsUiUrl: string) {
+  setSetting(utilsServiceUrl: string, apiVersion: string, utilsUiUrl: string, jukiTokenName: string) {
     this._UTILS_SERVICE_URL = utilsServiceUrl;
     this._UTILS_SERVICE_API_URL = utilsServiceUrl + '/' + apiVersion;
     this._UTILS_UI_URL = utilsUiUrl;
+    this._JUKI_TOKEN_NAME = jukiTokenName;
   }
 }

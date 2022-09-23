@@ -8,6 +8,7 @@ import {
   HTTPMethod,
   isStringJson,
 } from '@juki-team/commons';
+import { settings } from '../config';
 
 export const cleanRequest = <T extends ContentResponseType<any> | ContentsResponseType<any>>(responseText: string): (ErrorResponseType | T) => {
   if (!isStringJson(responseText)) {
@@ -116,6 +117,10 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
   requestHeaders.set('Accept', 'application/json');
   if (!(body instanceof FormData)) {
     requestHeaders.set('Content-Type', 'application/json');
+  }
+  const token = localStorage.getItem(settings.JUKI_TOKEN_NAME);
+  if (token) {
+    requestHeaders.set('Authorization', `Bearer ${token}`);
   }
   
   return await fetch(url, {
