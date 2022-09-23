@@ -21,6 +21,7 @@ const MdMathViewerComponent: Story<MdMathViewerProps> = (props) => {
       utilsServiceUrl="https://utils-back-v1.juki.app"
       apiVersion="api/v1"
       utilsUiUrl="https://utils.juki.app"
+      tokenName="juki-token"
     >
       <div>
         <MdMathViewer {...props} source={SAMPLE_MD_CONTENT} />

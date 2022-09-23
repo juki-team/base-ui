@@ -116,6 +116,7 @@ export const Tabs: Story<TabsProps<string>> = () => {
       utilsServiceUrl="https://prod-v1-utils-back.juki.app"
       apiVersion="api/v1"
       utilsUiUrl="http://localhost:3001"
+      tokenName="juki-token"
     >
       <div style={{ height: '500px' }}>
         <TabsComponent

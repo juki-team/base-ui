@@ -43,6 +43,7 @@ const Template: Story<CodeRunnerEditorProps> = (args) => {
       // utilsServiceUrl="http://localhost:3003"
       apiVersion="api/v1"
       utilsUiUrl="http://localhost:3001"
+      tokenName="juki-token"
     >
       <div style={{ height: '500px' }}>
         <CodeRunnerEditor

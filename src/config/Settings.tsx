@@ -8,6 +8,18 @@ export class Settings {
   private _UTILS_UI_URL = '';
   private _JUKI_TOKEN_NAME = '';
   
+  get UTILS_SERVICE_URL(): string {
+    return this._UTILS_SERVICE_URL;
+  }
+  
+  get UTILS_SERVICE_API_URL(): string {
+    return this._UTILS_SERVICE_API_URL;
+  }
+  
+  get UTILS_UI_URL(): string {
+    return this._UTILS_UI_URL;
+  }
+  
   get JUKI_TOKEN_NAME(): string {
     return this._JUKI_TOKEN_NAME;
   }

@@ -34,6 +34,7 @@ export const MdMathEditor: Story<MdMathEditorProps> = ({
       utilsServiceUrl="https://utils-back-v1.juki.app"
       apiVersion="api/v1"
       utilsUiUrl="http://localhost:3001"
+      tokenName="juki-token"
     >
       <div>
         <MdMathEditorComponent

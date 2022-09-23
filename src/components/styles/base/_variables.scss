@@ -6,8 +6,8 @@
   
   --screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 80px */
   --screen-lg-min: 1280px; /* PCs        [1280, 1920O) 80px | 1120px (12c 64|32) | 80px */
-  --screen-md-min: 640px; /* Tablets     [640,  1280 ) 40px |  560px (12c 32|16) | 40px */
-  --screen-sm-min: 320px; /* Phones      [320,  768  )  0px |  320px ( 7c 32|16) |  0px */
+  --screen-md-min: 640px; /* Tablets     [640,   1280) 40px |  560px (12c 32|16) | 40px */
+  --screen-sm-min: 320px; /* Phones      [320,    640)  0px |  320px ( 7c 32|16) |  0px */
   
   @include hg { --screen-content-width: 1760px; }
   @include lg { --screen-content-width: calc(100vw - 160px); }

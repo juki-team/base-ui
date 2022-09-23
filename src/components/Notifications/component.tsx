@@ -1,7 +1,7 @@
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames, getTextContent } from '../../helpers';
 import { CloseIcon } from '../graphics';
-import { useBase } from '../Provider';
+import { useJukiBase } from '../Provider';
 import { NOTIFICATION_ICON } from './constants';
 import { useNotification } from './context';
 import { NotificationProps, NotificationType } from './types';
@@ -36,7 +36,7 @@ export const Notification = ({ id, type, message }: NotificationProps) => {
       clearInterval(intervalIDRef.current);
     }
   };
-  const { isPageVisible } = useBase();
+  const { isPageVisible } = useJukiBase();
   
   useEffect(() => {
     if (isPageVisible) {
