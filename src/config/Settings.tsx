@@ -21,7 +21,6 @@ export class Settings {
   }
   
   get JUKI_TOKEN_NAME(): string {
-    console.log('get JUKI_TOKEN_NAME', this, this._JUKI_TOKEN_NAME);
     return this._JUKI_TOKEN_NAME;
   }
   
