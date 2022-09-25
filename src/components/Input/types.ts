@@ -117,13 +117,14 @@ export interface SelectSearchableProps<T, U extends ReactNode, V extends ReactNo
 }
 
 export interface InputToggleProps {
-  onChange: (newValue: boolean) => void,
+  onChange?: (newValue: boolean) => void,
   checked: boolean,
   type?: 'rounded' | 'square',
   className?: string,
   leftLabel?: ReactNode,
   rightLabel?: ReactNode,
   size?: 'tiny' | 'small' | 'regular' | 'large',
+  disabled?: boolean,
 }
 
 export type OptionType<T> = { value: T, label: ReactNode };

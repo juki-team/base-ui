@@ -125,24 +125,24 @@ export const Toggle = () => {
   return (
     <div className="jk-row left">
       <div className="jk-col gap">
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="tiny" />
+        <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="tiny" disabled />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" size="tiny" />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
                      size="tiny" />
       </div>
       <div className="jk-col gap">
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="small" />
+        <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="small" disabled />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" size="small" />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
                      size="small" />
       </div>
       <div className="jk-col gap">
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} />
+        <InputToggle checked={checked} onChange={(value) => setChecked(value)} disabled />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label" />
       </div>
       <div className="jk-col gap">
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="large" />
+        <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="large" disabled />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" size="large" />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
                      size="large" />
