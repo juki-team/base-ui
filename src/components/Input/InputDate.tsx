@@ -4,6 +4,7 @@ import { Button, DatePicker, InputDateProps, PlusIcon, Popover, T } from '../ind
 import { DateLiteral } from './DateLiteral';
 
 export const InputDate = ({
+  todayButton = false,
   date,
   onDatePick,
   onDateClean,
@@ -53,6 +54,7 @@ export const InputDate = ({
       <div className="jk-input-date-layout">
         {input()}
         <DatePicker
+          todayButton={todayButton}
           date={date || baseDate}
           onChange={date => onDatePick(date)}
           type={type}
@@ -68,6 +70,7 @@ export const InputDate = ({
       <Popover
         content={() => (
           <DatePicker
+            todayButton={todayButton}
             date={date || baseDate}
             onChange={date => onDatePick(date)}
             type={type}

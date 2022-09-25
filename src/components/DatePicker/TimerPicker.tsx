@@ -1,10 +1,12 @@
 import React from 'react';
 import { HOURS, MILLISECONDS, MINUTES, SECONDS } from '../../config/constants';
+import { Button } from '../Button';
 import { Select } from '../Input';
 import { T } from '../Translate';
 import { TimePickerProps } from './types';
 
 export const TimePicker = ({
+  todayButton = false,
   date,
   showMinutes,
   showSeconds,
@@ -89,6 +91,12 @@ export const TimePicker = ({
           </>
         )}
       </div>
+      {todayButton && (
+        <>
+          <div className="jk-divider tiny" />
+          <Button size="tiny" onClick={() => onChange(new Date())} style={{ height: 12 }}>today</Button>
+        </>
+      )}
     </div>
   );
 };

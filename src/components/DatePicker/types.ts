@@ -20,6 +20,7 @@ export interface DayPickerProps {
 }
 
 export interface TimePickerProps {
+  todayButton?: boolean,
   date: Date,
   showMinutes: boolean,
   showSeconds: boolean,

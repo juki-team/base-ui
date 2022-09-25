@@ -150,6 +150,7 @@ export type DatePickerType =
 export type DatePickerDateFunType = (date: Date) => ({ year?: boolean, month?: boolean, day?: boolean, hours?: boolean, minutes?: boolean, seconds?: boolean, milliseconds?: boolean });
 
 export interface DatePickerProps {
+  todayButton?: boolean,
   date?: Date,
   onChange: (date: Date) => void,
   type?: DatePickerType,
@@ -158,6 +159,7 @@ export interface DatePickerProps {
 }
 
 export interface InputDateProps {
+  todayButton?: boolean,
   date: Date | null,
   onDatePick: (date: Date) => void,
   onDateClean?: () => void

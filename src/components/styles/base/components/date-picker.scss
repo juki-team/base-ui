@@ -1,24 +1,29 @@
 @import "../../abstracts/index";
 
-.jk-date-picker-layout {
-  .jk-select-layout {
-    .jk-select {
-      color: var(--t-color-primary);
-      font-weight: var(--weight-bold);
-      text-align: center;
-      border-color: transparent;
-      
-      .jk-icon {
-        @include transition(opacity);
-        opacity: 0;
-      }
-    }
+.jk-select-layout-for-datepicker {
+  .jk-select {
+    color: var(--t-color-primary);
+    font-weight: var(--weight-bold);
+    text-align: center;
+    border-color: transparent;
     
-    &:hover {
-      .jk-icon {
-        opacity: 1;
-      }
+    .jk-icon {
+      @include transition(opacity);
+      opacity: 0;
     }
+  }
+  
+  &:hover {
+    .jk-icon {
+      opacity: 1;
+    }
+  }
+}
+
+.jk-date-picker-layout {
+  
+  .jk-select-layout {
+    @extend .jk-select-layout-for-datepicker;
   }
   
   .jk-day-picker-header {
@@ -152,64 +157,65 @@
       }
     }
   }
+}
+
+.jk-date-picker-time {
+  width: 300px;
+  flex-wrap: nowrap;
   
-  .jk-date-picker-time {
-    width: 300px;
+  &.only-time {
+    width: 230px;
+  }
+}
+
+.jk-date-picker-grid-time {
+  
+  > div {
     flex-wrap: nowrap;
+  }
+  
+  .jk-select-layout {
+    @extend .jk-select-layout-for-datepicker;
+    width: initial !important;
     
-    &.only-time {
-      width: 230px;
+    .jk-select {
+      width: 42px;
+      padding: 0;
+      text-align: center;
+      margin: 0 4px;
+      @include transition(padding);
+      
+      .jk-icon {
+        top: 7px;
+        right: 2px;
+        width: var(--pad-xs);
+        height: var(--pad-xs);
+      }
     }
     
-    .jk-date-picker-grid-time {
-      
-      > div {
-        flex-wrap: nowrap;
+    &:hover {
+      .jk-select {
+        padding: 0 14px 0 0;
       }
-      
-      .jk-select-layout {
-        width: initial !important;
-        
-        .jk-select {
-          width: 42px;
-          padding: 0;
-          text-align: center;
-          margin: 0 4px;
-          @include transition(padding);
-          
-          .jk-icon {
-            top: 7px;
-            right: 2px;
-            width: var(--pad-xs);
-            height: var(--pad-xs);
-          }
-        }
-        
-        &:hover {
-          .jk-select {
-            padding: 0 14px 0 0;
-          }
-        }
-      }
-      
-      .jk-select-layout:last-child {
-        .jk-select {
-          width: 52px;
-        }
-      }
-      
-      .labels {
-        line-height: 18px;
-        
-        span {
-          text-align: center;
-          width: 50px;
-        }
-        
-        span:last-child {
-          width: 60px;
-        }
-      }
+    }
+  }
+  
+  .jk-select-layout:last-child {
+    .jk-select {
+      width: 52px;
+    }
+  }
+  
+  .labels {
+    line-height: 18px;
+    
+    span {
+      text-align: center;
+      width: 50px;
+    }
+    
+    span:last-child {
+      width: 60px;
     }
   }
 }

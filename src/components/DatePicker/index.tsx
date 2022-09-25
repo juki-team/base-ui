@@ -1,6 +1,6 @@
 import React from 'react';
 import { classNames } from '../../helpers';
-import { T } from '../index';
+import { Button, T } from '../index';
 import { DatePickerProps } from '../Input';
 import { DayPicker } from './DayPicker';
 import { MonthPicker } from './MonthPicker';
@@ -9,6 +9,7 @@ import { showOfDatePickerType } from './utils';
 import { YearPicker } from './YearPicker';
 
 export const DatePicker = ({
+  todayButton = false,
   date = new Date(),
   isDisabled,
   isSelected,
@@ -44,6 +45,12 @@ export const DatePicker = ({
               isDisabled={isDisabled}
             />
           </div>
+        </>
+      )}
+      {todayButton && (
+        <>
+          <div className="jk-divider tiny" />
+          <Button size="tiny" onClick={() => onChange(new Date())}>today</Button>
         </>
       )}
     </div>
