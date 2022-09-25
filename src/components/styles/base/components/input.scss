@@ -476,8 +476,9 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-input-toggle-wrapper {
+  --input-toggle-height: var(--pad-m);
   position: relative;
-  height: var(--pad-m);
+  height: var(--input-toggle-height);
   display: flex;
   
   > p {
@@ -503,11 +504,23 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
   }
   
+  &.tiny {
+    --input-toggle-height: var(--pad-xs);
+  }
+  
+  &.small {
+    --input-toggle-height: var(--pad-s);
+  }
+  
+  &.large {
+    --input-toggle-height: var(--pad-l);
+  }
+  
   .jk-input-toggle-slider {
     margin: 0 var(--pad-xt);
-    height: 24px;
+    height: var(--input-toggle-height);
     position: relative;
-    width: 44px;
+    width: calc(var(--input-toggle-height) + 20px);
     display: inline-block;
     cursor: pointer;
     background-color: var(--t-color-white);
@@ -518,8 +531,8 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     &:before {
       position: absolute;
       content: "";
-      height: var(--pad-xs);
-      width: var(--pad-xs);
+      height: calc(var(--input-toggle-height) - 8px);
+      width: calc(var(--input-toggle-height) - 8px);
       left: 0;
       bottom: 0;
       background-color: var(--t-color-primary);

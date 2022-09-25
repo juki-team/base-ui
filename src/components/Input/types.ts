@@ -122,6 +122,7 @@ export interface InputToggleProps {
   className?: string,
   leftLabel?: ReactNode,
   rightLabel?: ReactNode,
+  size?: 'tiny' | 'small' | 'regular' | 'large',
 }
 
 export type OptionType<T> = { value: T, label: ReactNode };
