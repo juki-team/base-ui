@@ -39,7 +39,7 @@ export const DayPicker = ({ date, onChange, isDisabled, isSelected }: DayPickerP
         />
         <NextButton onClick={() => setViewDate(viewDate.increaseMonth())} />
       </div>
-      <div className="jk-row jk-date-picker-days tx-wd-bold">
+      <div className="jk-row jk-date-picker-days fw-bd">
         {DAYS_2.map(day => (
           <div className="day" key={day}>
             <div><T>{day}</T></div>

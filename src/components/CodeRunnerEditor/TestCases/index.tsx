@@ -30,11 +30,11 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
     key: testCaseValue.key,
     header: testCaseValue.sample
       ? testCaseValue.key === testCaseKey
-        ? <div className="text-case"><T className="text-sentence-case">sample</T> {testCaseValue.index + 1}</div>
-        : <div className="text-case"><T className="text-sentence-case">s.</T>{testCaseValue.index + 1}</div>
+        ? <div className="text-case"><T className="tt-se">sample</T> {testCaseValue.index + 1}</div>
+        : <div className="text-case"><T className="tt-se">s.</T>{testCaseValue.index + 1}</div>
       : testCaseValue.key === testCaseKey
         ? <div className="text-case">
-          <T className="text-sentence-case">custom</T>
+          <T className="tt-se">custom</T>
           {testCaseValue.index + 1}
           <Button
             size="small"
@@ -47,7 +47,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
             }}
           />
         </div>
-        : <div className="text-case"><T className="text-sentence-case">c.</T>{testCaseValue.index + 1}</div>,
+        : <div className="text-case"><T className="tt-se">c.</T>{testCaseValue.index + 1}</div>,
     body: (
       <TextArea
         key={testCaseValue.key}
@@ -63,7 +63,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
   }));
   
   const actionSection = (
-    <Popover content={<T className="text-nowrap jk-pad-sm">add sample test case</T>} placement="topRight">
+    <Popover content={<T className="ws-np jk-pad-sm">add sample test case</T>} placement="topRight">
       <Button
         icon={<PlusIcon circle />}
         type="text"
@@ -99,7 +99,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
       key: 'output',
       header: (
         <T
-          className={classNames('text-sentence-case text-s', { 'color-error': getErrors(testCases[testCaseKey], timeLimit, memoryLimit).failed })}
+          className={classNames('tt-se tx-s', { 'cr-er': getErrors(testCases[testCaseKey], timeLimit, memoryLimit).failed })}
         >
           output
         </T>
@@ -121,7 +121,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
     outputTabs.push({
       key: 'error',
       header: (
-        <T className={classNames('text-sentence-case text-s color-error')}>
+        <T className={classNames('tt-se tx-s cr-er')}>
           {PROGRAMMING_LANGUAGE[language].hasBuildFile && errorData?.status === SubmissionRunStatus.COMPILATION_ERROR ? 'compilation log' : 'error'}
         </T>
       ),

@@ -9,7 +9,7 @@ export const UploadImageButton = ({ isOpenRef, withLabel }: { isOpenRef: Mutable
   return (
     <>
       <Popover
-        content={<T className="text-nowrap">upload image</T>}
+        content={<T className="ws-np">upload image</T>}
         triggerOn="hover"
         placement="bottom"
       >

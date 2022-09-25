@@ -1,17 +1,28 @@
-import React, { CSSProperties, useEffect, useMemo, useRef } from 'react';
+import React, { CSSProperties, ReactNode, useEffect, useMemo, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
 import { NotUndefined } from '../../types';
-import { HeadlineIcon, UpIcon } from '../graphics';
+import { HeadlineIcon } from '../graphics';
+import { Select } from '../Input';
 import { Popover } from '../Popover';
 import { TabsProps } from './types';
 
-export const Tabs = <T extends string, >({ tabs, selectedTabKey, onChange, className = '', actionsSection, extend }: TabsProps<T>) => {
+export const Tabs = <T extends string, >({
+  tabs,
+  selectedTabKey,
+  onChange,
+  className = '',
+  actionsSection: _actionsSection,
+  extend,
+}: TabsProps<T>) => {
   
   const [tabKey, setTabKey] = useHandleState<T>((tabs[0]?.key || '') as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined, onChange);
-  const { height: heightTabsHeader = 0, width: widthTabsHeader = 0, ref } = useResizeDetector();
-  
+  const tabsHeaderRef = useRef<HTMLDivElement>(null);
+  const { width: widthTabs = 0, ref: refTabs } = useResizeDetector();
+  const { width: widthActions = 0, ref: refActions } = useResizeDetector();
+  const { width: widthContainer = 0, ref: refContainer } = useResizeDetector();
+  const { height: heightTabsContainer = 0, ref: refTabsContainer } = useResizeDetector();
   const indexes = useMemo(() => {
     const indexes: { [key: string]: number } = {};
     tabs.forEach(({ key }, index) => {
@@ -37,78 +48,60 @@ export const Tabs = <T extends string, >({ tabs, selectedTabKey, onChange, class
       window?.removeEventListener('keydown', handleEsc);
     };
   }, [tabKey, setTabKey, indexes, tabs]);
-  const tabsHeaderRef = useRef<HTMLDivElement>(null);
   const tabsHeaderFocus = useRef(false);
   useOutsideAlerter(() => tabsHeaderFocus.current = false, tabsHeaderRef);
-  const isExtend = typeof extend === 'boolean' ? extend : widthTabsHeader > 800;
+  
+  const tabHeaders: { [key: string]: ReactNode } = {};
+  tabs.forEach(({ key, header }) => {
+    tabHeaders[key] = renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey });
+  });
+  const isExtend = typeof extend === 'boolean' ? extend : widthContainer > (widthTabs + widthActions + 64);
+  const actionsSection = (_actionsSection || []).filter(action => !!action);
   
   return (
     <div
-      className={classNames('jk-tabs-layout', className, { 'first-tab-selected': indexes[tabKey] === 0 })}
-      style={{ '--tabs-header-height': `${heightTabsHeader}px` } as CSSProperties}
+      className={classNames('jk-tabs-layout', className, { 'first-tab-selected': indexes[tabKey] === 0, 'select-mode': !isExtend })}
+      style={{ '--tabs-header-height': `${heightTabsContainer}px` } as CSSProperties}
+      ref={refContainer}
     >
-      <div className="jk-tabs-header jk-row space-between nowrap" ref={ref}>
-        <Popover
-          content={
-            ({ onClose }) => (
-              <div className="jk-tabs-tabs">
-                {tabs.map(({ header, clickable = true, key }) => (
-                  <div
-                    key={key}
-                    className={classNames('jk-tab jk-border-radius sm', { selected: tabKey === key })}
-                    onClick={() => {
-                      if (clickable) {
-                        onClose(0);
-                        setTimeout(() => setTabKey(key as NotUndefined<T>), 100);
-                      }
-                    }}
-                  >
-                    {renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey })}
-                  </div>
-                ))}
-              </div>
-            )
-          }
-          triggerOn="click"
-          placement="bottom"
+      <div className="jk-tabs-header jk-row space-between nowrap" ref={refTabsContainer}>
+        <div
+          className={classNames('jk-tabs-tabs jk-row left')}
+          onClick={() => tabsHeaderFocus.current = true}
+          ref={tabsHeaderRef}
+          style={isExtend ? {} : { opacity: 0, width: 0, height: 0 }}
         >
-          <div className={classNames('jk-tabs-tabs jk-row nowrap extend center screen', { 'sm md lg hg': !isExtend })}>
-            {tabs.filter(({ key }) => tabKey === key).map(({ header, clickable = true, key }) => (
-              <div key={key} className={classNames('jk-tab', { selected: true })}>
-                {renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey })}
-                <UpIcon rotate={180} />
+          <div className="jk-row nowrap" ref={refTabs}>
+            {tabs.map(({ header, clickable = true, key }) => (
+              <div
+                key={key}
+                className={classNames('jk-tab', { selected: tabKey === key })}
+                onClick={() => clickable && setTabKey(key as NotUndefined<T>)}
+              >
+                {tabHeaders[key]}
               </div>
             ))}
           </div>
-        </Popover>
-        <div
-          className={classNames('jk-tabs-tabs jk-row nowrap left screen', { 'sm md lg hg': isExtend })}
-          ref={tabsHeaderRef}
-          onClick={() => tabsHeaderFocus.current = true}
-        >
-          {tabs.map(({ header, clickable = true, key }) => (
-            <div
-              key={key}
-              className={classNames('jk-tab', { selected: tabKey === key })}
-              onClick={() => clickable && setTabKey(key as NotUndefined<T>)}
-            >
-              {renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey })}
-            </div>
-          ))}
         </div>
-        {!!actionsSection?.length && (
-          <div
-            className={classNames('jk-tabs-actions jk-row right nowrap gap screen', { 'sm md lg hg': (isExtend || actionsSection.length === 1) })}
-          >
+        {!isExtend && (
+          <Select
+            options={tabs.map(({ key, header }) => ({ value: key, label: tabHeaders[key] }))}
+            selectedOption={{ value: tabKey }}
+            onChange={({ value }) => setTabKey(value as NotUndefined<T>)}
+            extend
+          />
+        )}
+        {(!!actionsSection.length && isExtend) && (
+          <div className={classNames('jk-tabs-actions jk-row right nowrap gap')}>
             <div className="jk-divider horizontal" />
-            <div className="jk-row gap nowrap">
+            <div className="jk-row gap nowrap" ref={refActions}>
               {actionsSection.map(action => (
                 renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
               ))}
             </div>
           </div>
         )}
-        {!!actionsSection?.length && (
+        {(!!actionsSection.length && !isExtend) && (
           <Popover
             content={
               <div className="jk-col gap">
@@ -120,10 +113,8 @@ export const Tabs = <T extends string, >({ tabs, selectedTabKey, onChange, class
             triggerOn="click"
             placement="bottomRight"
           >
-            <div
-              className={classNames('jk-row nowrap left link screen', { 'sm md lg hg': !(isExtend || actionsSection.length === 1) })}
-            >
-              <HeadlineIcon className="" />
+            <div className={classNames('jk-row nowrap left link')}>
+              <HeadlineIcon />
             </div>
           </Popover>
         )}

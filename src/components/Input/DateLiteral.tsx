@@ -21,7 +21,7 @@ export const DateLiteral = ({ date, className, show = 'year-month-day-hours-minu
         {showYears && date.getFullYear()}
       </div>
       {showHours && (
-        <div className="color-gray-3">
+        <div className="cr-g3">
           {date.getHours().padStart(2)}
           {showMinutes && <>&nbsp;:&nbsp;{date.getMinutes().padStart(2)}</>}
           {showSeconds && <>&nbsp;:&nbsp;{date.getSeconds().padStart(2)}</>}

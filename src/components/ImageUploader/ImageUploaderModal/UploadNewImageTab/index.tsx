@@ -32,7 +32,7 @@ export const UploadNewImageTab = memo(() => {
     <div className="upload-new-image-tab jk-col top gap">
       {imagePublicUrl && (
         <div className="result-box">
-          <div className="jk-row gap left tx-wd-bold">
+          <div className="jk-row gap left fw-bd">
             <T>public url</T>:
             <CopyToClipboard text={imagePublicUrl}>
               <div className="copyable jk-row">
@@ -41,11 +41,11 @@ export const UploadNewImageTab = memo(() => {
               </div>
             </CopyToClipboard>
           </div>
-          <div className="jk-row gap left tx-wd-bold">
+          <div className="jk-row gap left fw-bd">
             <T>markdown use</T>:
             <CopyToClipboard text={`![image alt](${imagePublicUrl})`}>
               <div className="copyable jk-row">
-                <span className="text-xs tx-wd-bold">![image alt]({imagePublicUrl})</span>
+                <span className="tx-xs fw-bd">![image alt]({imagePublicUrl})</span>
                 <CopyIcon size="small" />
               </div>
             </CopyToClipboard>

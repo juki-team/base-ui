@@ -122,7 +122,7 @@ export const ImageLoaderCropper = ({
         <Input type="file" accept="image/*" onChange={onSelectFile} />
         {withScale && (
           <label>
-            <T className="text-sentence-case">scale</T>:
+            <T className="tt-se">scale</T>:
             <Input
               type="number"
               step={0.1}
@@ -135,7 +135,7 @@ export const ImageLoaderCropper = ({
         )}
         {withRotate && (
           <label>
-            <T className="text-sentence-case">rotate</T>:
+            <T className="tt-se">rotate</T>:
             <Input
               type="number"
               value={rotate}
@@ -147,7 +147,7 @@ export const ImageLoaderCropper = ({
         )}
         {withAspect && (
           <label>
-            <T className="text-sentence-case">aspect</T>:
+            <T className="tt-se">aspect</T>:
             <Input
               type="text"
               value={aspectText}

@@ -46,7 +46,7 @@ span[class*=" jk-row"], span[class^="jk-row"], span[class*=" jk-col"], span[clas
 }
 
 div[class*=" jk-row"], div[class^="jk-row"], section[class*=" jk-row"], section[class^="jk-row"], span[class*=" jk-row"], span[class^="jk-row"] {
-  &.extend { width: 100%; }
+  &.extend { width: 100% !important; }
   
   &.left { justify-content: flex-start; }
   
@@ -60,7 +60,7 @@ div[class*=" jk-row"], div[class^="jk-row"], section[class*=" jk-row"], section[
 div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[class^="jk-col"], span[class*=" jk-col"], span[class^="jk-col"] {
   flex-direction: column;
   
-  &.extend { height: 100%; }
+  &.extend { height: 100% !important; }
   
   &.top { justify-content: flex-start; }
   

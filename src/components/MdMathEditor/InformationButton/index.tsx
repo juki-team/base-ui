@@ -13,7 +13,7 @@ export const InformationButton = ({ isOpenRef, withLabel }: { isOpenRef: Mutable
   return (
     <>
       <Popover
-        content={<T className="text-nowrap">information</T>}
+        content={<T className="ws-np">information</T>}
         triggerOn="hover"
         placement="bottom"
       >

@@ -38,7 +38,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
         {renderReactNodeOrFunction(extraButtons)}
       </div>
       <div className="jk-row gap jk-table-view-tools">
-        <Popover content={<T className="text-nowrap">open filters</T>} showPopperArrow>
+        <Popover content={<T className="ws-np">open filters</T>} showPopperArrow>
           <div
             className={classNames({ active: filtered }, 'jk-row')}
             onClick={() => setFilterDrawer(true)}
@@ -49,18 +49,18 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
         <div className="jk-divider horizontal" />
         <Popover
           content={
-            dataLength ? <div className="text-sentence-case text-nowrap">{dataLength} <T>{dataLength > 1 ? 'records' : 'record'}</T></div> :
-              <T className="text-sentence-case text-nowrap">no data</T>
+            dataLength ? <div className="tt-se ws-np">{dataLength} <T>{dataLength > 1 ? 'records' : 'record'}</T></div> :
+              <T className="tt-se ws-np">no data</T>
           }
           showPopperArrow
         >
-          <div className="no-records text-xs tx-wd-bold jk-tag gray-6">
+          <div className="no-records tx-xs fw-bd jk-tag gray-6">
             {dataLength}
           </div>
         </Popover>
         {onReload && (
           <Popover
-            content={<T className="text-sentence-case text-nowrap">{loading ? 'reloading data' : 'reload data'}</T>}
+            content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
             showPopperArrow
           >
             <div className={classNames({ active: loading, loading }, 'jk-row')} onClick={!loading ? onReload : undefined}>
@@ -70,14 +70,14 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
         )}
         <div className="jk-divider horizontal" />
         {rowsView && (
-          <Popover content={<T className="text-sentence-case text-nowrap">list view</T>} showPopperArrow>
+          <Popover content={<T className="tt-se ws-np">list view</T>} showPopperArrow>
             <div className={classNames({ active: viewMode === 'rows' }, 'jk-row')} onClick={() => setViewMode('rows')}>
               <UnorderedListIcon />
             </div>
           </Popover>
         )}
         {cardsView && (
-          <Popover content={<T className="text-sentence-case text-nowrap">cards view</T>} showPopperArrow>
+          <Popover content={<T className="tt-se ws-np">cards view</T>} showPopperArrow>
             <div className={classNames({ active: viewMode === 'cards' }, 'jk-row')} onClick={() => setViewMode('cards')}>
               <ViewModuleIcon />
             </div>

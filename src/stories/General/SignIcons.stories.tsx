@@ -66,7 +66,7 @@ export const Signs: Story<SignIconProps & { color: string }> = ({ color, ...prop
       {Object.entries(icons).sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2)).map(([iconName, Component]) => (
         <div className="jk-row  nowrap center">
           <Component {...props} />
-          <div className="text-xs color-gray-1" style={{ width: 140 }}>{iconName}</div>
+          <div className="tx-xs cr-g1" style={{ width: 140 }}>{iconName}</div>
         </div>
       ))}
     </div>

@@ -104,7 +104,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
                       onChange(optionsSelected.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(option.value)));
                       event.stopPropagation();
                     }}
-                    className="color-gray-3"
+                    className="cr-g3"
                   />
                 )}
               </div>

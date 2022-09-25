@@ -40,7 +40,7 @@ const menu = [
 const rightSection = ({ open = undefined }: { open?: boolean }) => (
   <div className="jk-row gap" style={{ width: '240px' }}>
     <Popover
-      content={<div className="color-gray-1"> Settings </div>}
+      content={<div className="cr-g1"> Settings </div>}
       triggerOn="click"
       placement="bottom"
       visible={open}
@@ -52,14 +52,14 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
     <Popover
       visible={open}
       content={
-        <div className="jk-col gap more-apps-popover color-gray-1">
-          <div className="tx-wd-bold text-sentence-case"><T>more apps coming soon</T></div>
-          <div className="jk-col gap color-primary">
+        <div className="jk-col gap more-apps-popover cr-g1">
+          <div className="fw-bd tt-se"><T>more apps coming soon</T></div>
+          <div className="jk-col gap cr-py">
             <div className="jk-row">
-              <JukiCouchLogoHorImage /> <ConstructionIcon /> <T className="text-sentence-case">developing</T>...
+              <JukiCouchLogoHorImage /> <ConstructionIcon /> <T className="tt-se">developing</T>...
             </div>
             <div className="jk-row">
-              <JukiUtilsLogoHorImage /> <ConstructionIcon /> <T className="text-sentence-case">developing</T>...
+              <JukiUtilsLogoHorImage /> <ConstructionIcon /> <T className="tt-se">developing</T>...
             </div>
           </div>
         </div>
@@ -71,21 +71,21 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
         <Button icon={<AppsIcon />} type="text" />
       </div>
     </Popover>
-    <div className="color-white">User</div>
+    <div className="cr-we">User</div>
   </div>
 );
 
 const rightMobile = {
-  children: <div className="color-white"><HeadlineIcon /></div>,
+  children: <div className="cr-we"><HeadlineIcon /></div>,
   content: ({ close }: DrawerActionsType) => (
     <div className="jk-col gap more-apps-popover">
-      <div className="tx-wd-bold text-sentence-case"><T>more apps coming soon</T></div>
-      <div className="jk-col gap color-primary" style={{ width: '100px' }}>
+      <div className="fw-bd tt-se"><T>more apps coming soon</T></div>
+      <div className="jk-col gap cr-py" style={{ width: '100px' }}>
         <div className="jk-row">
-          <JukiCouchLogoHorImage /> <ConstructionIcon /> <T className="text-sentence-case">developing</T>...
+          <JukiCouchLogoHorImage /> <ConstructionIcon /> <T className="tt-se">developing</T>...
         </div>
         <div className="jk-row">
-          <JukiUtilsLogoHorImage /> <ConstructionIcon /> <T className="text-sentence-case">developing</T>...
+          <JukiUtilsLogoHorImage /> <ConstructionIcon /> <T className="tt-se">developing</T>...
         </div>
         <div onClick={close}>close right!</div>
       </div>
@@ -94,12 +94,12 @@ const rightMobile = {
 };
 
 const centerMobile = {
-  children: <div className="color-white"><JukiJudgeLogoHorImage /></div>,
+  children: <div className="cr-we"><JukiJudgeLogoHorImage /></div>,
   content: ({ close }: DrawerActionsType) => <div>TOP MENU <div onClick={close}>close top!</div></div>,
 };
 
 const leftMobile = {
-  children: ({ toggle }: DrawerActionsType) => <div className="color-white">LEFT
+  children: ({ toggle }: DrawerActionsType) => <div className="cr-we">LEFT
     <div onClick={toggle}>toggle</div>
   </div>,
   content: ({ close }: DrawerActionsType) => <div>LEFT MENU <div onClick={close}>close left!</div></div>,
@@ -110,8 +110,8 @@ export const MenuVerticalClassic = () => {
     <div style={{ height: '400px' }}>
       <VerticalMenu
         menu={menu}
-        topSection={<div className="jk-row color-white" style={{ width: '60px' }}><JukiJudgeLogoHorImage /></div>}
-        bottomSection={<div className="color-white">{rightSection({})}</div>}
+        topSection={<div className="jk-row cr-we" style={{ width: '60px' }}><JukiJudgeLogoHorImage /></div>}
+        bottomSection={<div className="cr-we">{rightSection({})}</div>}
         rightMobile={rightMobile}
         centerMobile={centerMobile}
         leftMobile={leftMobile}
@@ -140,8 +140,8 @@ export const HorizontalMenuClassic = () => {
     <div style={{ height: '400px' }}>
       <HorizontalMenu
         menu={menuHorizontal}
-        leftSection={<div className="jk-row color-white" style={{ width: '240px' }}><JukiJudgeLogoHorImage /></div>}
-        rightSection={<div className="color-white">{rightSection({})}</div>}
+        leftSection={<div className="jk-row cr-we" style={{ width: '240px' }}><JukiJudgeLogoHorImage /></div>}
+        rightSection={<div className="cr-we">{rightSection({})}</div>}
         rightMobile={rightMobile}
         centerMobile={centerMobile}
         leftMobile={leftMobile}

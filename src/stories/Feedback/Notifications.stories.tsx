@@ -44,7 +44,7 @@ const Comp = () => {
             addInfoNotification(textMessage);
           }}
           type="text"
-          className="color-info"
+          className="cr-io"
         >
           info
         </Button>
@@ -55,7 +55,7 @@ const Comp = () => {
             addSuccessNotification(textMessage);
           }}
           type="text"
-          className="color-success"
+          className="cr-ss"
         >
           success
         </Button>
@@ -66,7 +66,7 @@ const Comp = () => {
             addWarningNotification(textMessage);
           }}
           type="text"
-          className="color-warning"
+          className="cr-wg"
         >
           warning
         </Button>
@@ -77,7 +77,7 @@ const Comp = () => {
             addErrorNotification(textMessage);
           }}
           type="text"
-          className="color-error"
+          className="cr-er"
         >
           error
         </Button>
@@ -88,7 +88,7 @@ const Comp = () => {
             addQuietNotification(textMessage);
           }}
           type="text"
-          className="color-primary-light"
+          className="cr-pl"
         >
           quiet
         </Button>

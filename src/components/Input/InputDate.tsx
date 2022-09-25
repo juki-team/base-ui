@@ -22,7 +22,7 @@ export const InputDate = ({
       <>
         <DateLiteral
           date={date}
-          className={classNames('date-literal-label color-primary-dark')}
+          className={classNames('date-literal-label cr-pd')}
           show={type}
           twoLines={twoLines}
         />
@@ -42,7 +42,7 @@ export const InputDate = ({
       </>
     ) : (
       <div
-        className={classNames('jk-row date-literal-label jk-border-radius-inline color-primary-dark placeholder', { 'two-lines': twoLines })}
+        className={classNames('jk-row date-literal-label jk-border-radius-inline cr-pd placeholder', { 'two-lines': twoLines })}
       >
         <T>no date selected</T>
       </div>

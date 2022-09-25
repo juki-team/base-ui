@@ -70,20 +70,20 @@ export const TimePicker = ({
           </>
         )}
       </div>
-      <div className="jk-row labels text-s">
-        <T className="color-gray-3">HH</T>
+      <div className="jk-row labels tx-s">
+        <T className="cr-g3">HH</T>
         {showMinutes && (
           <>
             :
-            <T className="color-gray-3">MM</T>
+            <T className="cr-g3">MM</T>
             {showSeconds && (
               <>
                 :
-                <T className="color-gray-3">SS</T>
+                <T className="cr-g3">SS</T>
                 {showMilliseconds && (
                   <>
                     .
-                    <T className="color-gray-3">MS</T>
+                    <T className="cr-g3">MS</T>
                   </>
                 )}
               </>

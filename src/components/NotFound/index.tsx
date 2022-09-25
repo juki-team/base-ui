@@ -13,7 +13,7 @@ export const NotFound = ({ redirectAction }: { redirectAction?: Function }) => {
     <div className="not-found jk-col center">
       <BugIcon />
       <h3>NOT FOUND</h3>
-      <div className="text-xh tx-wd-bolder">Redirecting...</div>
+      <div className="tx-xh fw-br">Redirecting...</div>
       <LoadingIcon />
     </div>
   );

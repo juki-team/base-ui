@@ -49,8 +49,8 @@ export const LoginModal = ({
         className="modal-login"
         title={
           <>
-            <p className="text-xh tx-wd-bolder"><T className="text-sentence-case">login</T></p>
-            <p className="text-h"><T className="text-sentence-case">Nice see you again!</T></p>
+            <p className="tx-xh fw-br"><T className="tt-se">login</T></p>
+            <p className="tx-h"><T className="tt-se">Nice see you again!</T></p>
           </>
         }
         graphic={<JukiLaptopImage />}

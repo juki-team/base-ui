@@ -30,7 +30,7 @@ export const TableHeadFilterDateRange = ({
     <div className="jk-col gap jk-table-head-cell-filter-date-range">
       <div className="jk-row gap date-range">
         <div>
-          <div className="jk-row center tx-wd-bold"><T className="text-sentence-case">from</T>&nbsp;:</div>
+          <div className="jk-row center fw-bd"><T className="tt-se">from</T>&nbsp;:</div>
           <InputDate
             type={pickerType}
             date={start}
@@ -44,7 +44,7 @@ export const TableHeadFilterDateRange = ({
           />
         </div>
         <div>
-          <div className="jk-row center tx-wd-bold"><T className="text-sentence-case">to</T>&nbsp;:</div>
+          <div className="jk-row center fw-bd"><T className="tt-se">to</T>&nbsp;:</div>
           <InputDate
             type={pickerType}
             date={end}

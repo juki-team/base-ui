@@ -50,7 +50,7 @@ const ImagesTemplate: Story<ImageProps> = (props) => {
       {Object.entries(images).sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2)).map(([iconName, Component]) => (
         <div className="jk-row nowrap center">
           <div style={{ width: '200px', height: '200px' }}><Component {...props} /></div>
-          <div className="text-xs color-gray-1" style={{ width: 140 }}>{iconName}</div>
+          <div className="tx-xs cr-g1" style={{ width: 140 }}>{iconName}</div>
         </div>
       ))}
     </div>

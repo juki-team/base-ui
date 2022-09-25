@@ -76,7 +76,7 @@ export const Header = ({
   
   return (
     <div className="options-header-content" ref={ref}>
-      <div className="left-options color-primary">
+      <div className="left-options cr-py">
         <Select
           className="languages-selector"
           options={languages.map(language => ({ value: language, label: language }))}
@@ -90,7 +90,7 @@ export const Header = ({
         )}
       </div>
       <div className="center-options" ref={refCenterOptions}>{centerOptions({ widthContainer: widthCenterOptions })}</div>
-      <div className="right-options color-primary">
+      <div className="right-options cr-py">
         <Button size="tiny" type="text" onClick={() => setShowSettings(true)} icon={<SettingIcon />}>
           {width > MIN_WIDTH && <T>settings</T>}
         </Button>

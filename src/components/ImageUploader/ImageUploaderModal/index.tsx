@@ -16,7 +16,7 @@ export const ImageUploaderModal = ({ isOpen, onClose, withPublicImagesTab = true
     tabHeaders.push({
       key: 'public-images',
       header: <>
-        <T className="text-sentence-case">public images</T>
+        <T className="tt-se">public images</T>
         <Button icon={<ReloadIcon />} size="small" type="text" onClick={() => setCount(count + 1)} />
       </>,
       body: <PublicImagesTab trigger={count} key="public-images-tab" />,
@@ -24,7 +24,7 @@ export const ImageUploaderModal = ({ isOpen, onClose, withPublicImagesTab = true
   }
   tabHeaders.push({
     key: 'upload-new-image',
-    header: <T className="text-sentence-case">upload new image</T>,
+    header: <T className="tt-se">upload new image</T>,
     body: <UploadNewImageTab key="upload-new-image-tab" />,
   });
   

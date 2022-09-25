@@ -19,81 +19,19 @@ export const Tabs: Story<TabsProps<string>> = () => {
   const tabs = [
     {
       key: '1',
-      header: <div>JK-ROW</div>,
+      header: <div>1</div>,
       body: (
         <div className="jk-row gap">
-          {[
-            'jk-row',
-            'jk-row extend',
-            'jk-row left',
-            'jk-row center',
-            'jk-row right',
-            'jk-row space-between',
-            'jk-row block',
-            'jk-row stretch',
-            'jk-row block stretch',
-            'jk-row left top',
-            'jk-row left bottom',
-            'jk-row center top',
-            'jk-row center bottom',
-            'jk-row right top',
-            'jk-row right bottom',
-          ].map(col => (
-            <div className="jk-row gap jk-shadow jk-pad jk-border-radius-inline tx-wd-bolder color-white" style={{ width: '420px' }}>
-              <pre className="color-gray-1">{col}</pre>
-              <div className={col} style={{ width: '240px', height: '50px', background: 'var(--t-color-gray-6)' }}>
-                <div style={{ border: '2px solid red' }}>
-                  <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                </div>
-                <div style={{ border: '2px solid blue' }}>
-                  <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                </div>
-                <div style={{ border: '2px solid green' }}>
-                  <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-                </div>
-              </div>
-            </div>
-          ))}
+          1
         </div>
       ),
     },
     {
       key: '2',
-      header: <div>JK-COL</div>,
+      header: <div>2</div>,
       body: (
         <div className="jk-row gap">
-          {[
-            'jk-col',
-            'jk-col extend',
-            'jk-col top',
-            'jk-col center',
-            'jk-col bottom',
-            'jk-col space-between',
-            'jk-col block',
-            'jk-col stretch',
-            'jk-col block stretch',
-            'jk-col top left',
-            'jk-col top right',
-            'jk-col center left',
-            'jk-col center right',
-            'jk-col bottom left',
-            'jk-col bottom right',
-          ].map(col => (
-            <div className="jk-row gap jk-shadow jk-pad jk-border-radius-inline tx-wd-bolder color-white" style={{ width: '320px' }}>
-              <pre className="color-gray-1">{col}</pre>
-              <div className={col} style={{ width: '80px', height: '150px', background: 'var(--t-color-gray-6)' }}>
-                <div style={{ border: '2px solid red' }}>
-                  <div style={{ width: '50px', height: '20px', background: 'red' }}>1</div>
-                </div>
-                <div style={{ border: '2px solid blue' }}>
-                  <div style={{ width: '50px', height: '20px', background: 'blue' }}>2</div>
-                </div>
-                <div style={{ border: '2px solid green' }}>
-                  <div style={{ width: '50px', height: '20px', background: 'green' }}>2</div>
-                </div>
-              </div>
-            </div>
-          ))}
+          2
         </div>
       ),
     },
@@ -102,14 +40,8 @@ export const Tabs: Story<TabsProps<string>> = () => {
       header: <div>content 3 content 3 content 3 content 3</div>,
       body: <div> CONTENT 3 CONTENT 3</div>,
     },
-    {
-      key: '4',
-      header: <div>tab 4 4 4 4 4 </div>,
-    },
-    {
-      key: '5',
-      header: <div>tabtabtabtab</div>,
-    },
+    { key: '4', header: <div>tab 4 4 4 4 4 </div> },
+    { key: '5', header: <div>tabtabtabtab</div> },
   ];
   return (
     <JukiBaseUiProvider
@@ -118,9 +50,24 @@ export const Tabs: Story<TabsProps<string>> = () => {
       utilsUiUrl="http://localhost:3001"
       tokenName="juki-token"
     >
-      <div style={{ height: '500px' }}>
+      <div style={{ height: '200px' }}>
         <TabsComponent
           tabs={tabs}
+          actionsSection={[<Button>button 1</Button>, <Button>button 2</Button>]}
+        />
+      </div>
+      <div style={{ height: '200px' }}>
+        <TabsComponent
+          tabs={tabs}
+          actionsSection={[<Button>button 1</Button>]}
+        />
+      </div>
+      <div style={{ height: '200px' }}>
+        <TabsComponent
+          tabs={[
+            { key: '1', header: <div>tab 1 </div>, body: <div>1</div> },
+            { key: '2', header: <div>tab 2</div> },
+          ]}
           actionsSection={[<Button>button 1</Button>, <Button>button 2</Button>]}
         />
       </div>

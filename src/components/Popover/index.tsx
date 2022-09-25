@@ -210,7 +210,7 @@ export const Popover = ({
             onMouseLeave={onMouseLeave}
           >
             <div ref={e => setBoundingClientRectContent(e?.getBoundingClientRect()?.toJSON())} className={popoverClassName}>
-              <div className={classNames('jk-popover-content bg-color-white jk-border-radius-inline jk-pad-sm', popoverContentClassName)}>
+              <div className={classNames('jk-popover-content bc-we jk-border-radius-inline jk-pad-sm', popoverContentClassName)}>
                 {renderReactNodeOrFunctionP1(content, { isOpen, onClose: setOffVisible })}
               </div>
             </div>

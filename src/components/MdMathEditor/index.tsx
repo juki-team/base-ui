@@ -74,7 +74,7 @@ export const MdMathEditor = ({
               {uploadImageButton && <UploadImageButton isOpenRef={isOpenUploadImageModalRef} withLabel={width > 864} />}
               {view === 0 && (
                 <Popover
-                  content={<T className="text-nowrap jk-pad-sm">editor ⮜ | ⮞ preview</T>}
+                  content={<T className="ws-np jk-pad-sm">editor ⮜ | ⮞ preview</T>}
                   triggerOn="hover"
                   placement="bottom"
                 >
@@ -85,7 +85,7 @@ export const MdMathEditor = ({
               )}
               {view === 1 && (
                 <Popover
-                  content={<T className="text-nowrap jk-pad-sm">preview</T>}
+                  content={<T className="ws-np jk-pad-sm">preview</T>}
                   triggerOn="hover"
                   placement="bottom"
                 >
@@ -96,7 +96,7 @@ export const MdMathEditor = ({
               )}
               {view === 3 && (
                 <Popover
-                  content={<T className="text-nowrap jk-pad-sm">editor</T>}
+                  content={<T className="ws-np jk-pad-sm">editor</T>}
                   triggerOn="hover"
                   placement="bottom"
                 >

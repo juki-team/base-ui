@@ -5,7 +5,7 @@ import { AlertModalProps } from './types';
 
 export const AlertModal = ({ decline, accept, title, content, onCancel }: AlertModalProps) => (
   <Modal isOpen={true} className="modal-alert" onClose={onCancel} closeIcon>
-    <div className="modal-alert-title color-primary">
+    <div className="modal-alert-title cr-py">
       <ExclamationIcon filledCircle />
       <div>
         {title}

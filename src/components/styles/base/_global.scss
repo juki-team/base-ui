@@ -57,10 +57,14 @@ h1 {
 }
 
 p {
-  @extend .text-m;
+  @extend .tx-m;
   margin: unset;
 }
 
 ul {
+  margin: unset;
+}
+
+pre {
   margin: unset;
 }

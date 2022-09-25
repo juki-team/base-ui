@@ -34,7 +34,7 @@ export const DatePicker = ({
         <>
           {showYears && <div className="jk-divider tiny" />}
           <div className={classNames('jk-row jk-date-picker-time', { 'only-time': !showYears })}>
-            {showYears && <div className="label-time tx-wd-bold text-sentence-case"><T>time</T>:</div>}
+            {showYears && <div className="label-time fw-bd tt-se"><T>time</T>:</div>}
             <TimePicker
               date={date}
               onChange={onChange}

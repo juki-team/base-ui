@@ -19,9 +19,9 @@ export const Collapse = () => {
     <div style={{ height: '500px' }}>
       <CollapseComponent
         header={({ isOpen, toggle }) => (
-          <div className="jk-row center gap bg-color-success">
+          <div className="jk-row center gap bc-ss">
             Collapse Header
-            <div onClick={toggle} className="bg-color-error jk-row">
+            <div onClick={toggle} className="bc-er jk-row">
               Click me
               <UpIcon rotate={isOpen ? 0 : 180} className="link" />
             </div>

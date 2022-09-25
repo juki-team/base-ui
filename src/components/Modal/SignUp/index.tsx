@@ -54,8 +54,8 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
       className="modal-sign-up"
       title={
         <>
-          <p className="text-xh tx-wd-bolder"><T className="text-sentence-case">sign up</T></p>
-          <p className="text-h"><T className="text-sentence-case">happy you join us</T></p>
+          <p className="tx-xh fw-br"><T className="tt-se">sign up</T></p>
+          <p className="tx-h"><T className="tt-se">happy you join us</T></p>
         </>
       }
       graphic={<JukiLaptopImage />}
