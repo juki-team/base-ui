@@ -61,6 +61,7 @@ export const SelectInline = <T, U extends ReactNode, V extends ReactNodeOrFuncti
 
 export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>({
   className,
+  popoverClassName,
   options,
   selectedOption: initialOptionSelected,
   onChange,
@@ -105,7 +106,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     <Popover
       triggerOn="click"
       placement={optionsPlacement}
-      popoverClassName="jk-select-options-content"
+      popoverClassName={classNames('jk-select-options-content', popoverClassName)}
       visible={showOptions}
       onVisibleChange={value => setShowOptions(value)}
       marginOfChildren={4}

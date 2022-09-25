@@ -87,6 +87,7 @@ export type SelectOption2Type<T, U extends ReactNodeOrFunctionType, V extends Re
 
 export interface SelectProps<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> {
   className?: string,
+  popoverClassName?: string,
   options: SelectOptionType<T, U, V>[],
   selectedOption: SelectOption2Type<T, U, V>,
   onChange?: (option: SelectOptionType<T, U, V>) => void,
