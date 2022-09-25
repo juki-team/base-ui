@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode, useEffect, useMemo, useRef } from 'react';
+import React, { CSSProperties, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
@@ -7,6 +7,15 @@ import { HeadlineIcon } from '../graphics';
 import { Select } from '../Input';
 import { Popover } from '../Popover';
 import { TabsProps } from './types';
+
+const hiddenStyle: CSSProperties = {
+  height: 0,
+  width: 0,
+  opacity: 0,
+  overflow: 'hidden',
+  zIndex: -1000000,
+  pointerEvents: 'none',
+};
 
 export const Tabs = <T extends string, >({
   tabs,
@@ -55,7 +64,14 @@ export const Tabs = <T extends string, >({
   tabs.forEach(({ key, header }) => {
     tabHeaders[key] = renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey });
   });
-  const isExtend = typeof extend === 'boolean' ? extend : widthContainer > (widthTabs + widthActions + 128);
+  const [maxWidthUsed, setMaxWidthUsed] = useState(widthTabs + widthActions + 32);
+  useEffect(() => {
+    const newWidth = widthTabs + widthActions + 32;
+    if (newWidth > maxWidthUsed) {
+      setMaxWidthUsed(newWidth);
+    }
+  }, [maxWidthUsed, widthActions, widthTabs]);
+  const isExtend = typeof extend === 'boolean' ? extend : widthContainer > maxWidthUsed;
   const actionsSection = (_actionsSection || []).filter(action => !!action);
   
   return (
@@ -69,7 +85,7 @@ export const Tabs = <T extends string, >({
           className={classNames('jk-tabs-tabs jk-row left')}
           onClick={() => tabsHeaderFocus.current = true}
           ref={tabsHeaderRef}
-          style={isExtend ? {} : { opacity: 0, width: 0, height: 0 }}
+          style={isExtend ? {} : hiddenStyle}
         >
           <div className="jk-row nowrap" ref={refTabs}>
             {tabs.map(({ header, clickable = true, key }) => (
@@ -91,16 +107,17 @@ export const Tabs = <T extends string, >({
             extend
           />
         )}
-        {(!!actionsSection.length && isExtend) && (
-          <div className={classNames('jk-tabs-actions jk-row right nowrap gap')}>
-            <div className="jk-divider horizontal" />
-            <div className="jk-row gap nowrap" ref={refActions}>
-              {actionsSection.map(action => (
-                renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
-              ))}
-            </div>
+        <div
+          className={classNames('jk-tabs-actions jk-row right nowrap gap')}
+          style={!(!!actionsSection.length && isExtend) ? hiddenStyle : {}}
+        >
+          <div className="jk-divider horizontal" />
+          <div className="jk-row gap nowrap" ref={refActions}>
+            {actionsSection.map(action => (
+              renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
+            ))}
           </div>
-        )}
+        </div>
         {(!!actionsSection.length && !isExtend) && (
           <Popover
             content={
