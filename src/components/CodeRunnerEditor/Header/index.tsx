@@ -1,7 +1,8 @@
 import { consoleWarn, PROGRAMMING_LANGUAGE } from '@juki-team/commons';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { settings } from '../../../config';
+import { classNames } from '../../../helpers';
 import { authorizedRequest, cleanRequest } from '../../../services';
 import { ContentResponseType, Status, SubmissionRunStatus } from '../../../types';
 import {
@@ -35,10 +36,11 @@ export const Header = ({
 }: HeaderProps) => {
   
   const { addErrorNotification } = useNotification();
-  const { width = 0, ref } = useResizeDetector();
-  const { width: widthCenterOptions = 0, ref: refCenterOptions } = useResizeDetector();
+  const { width: widthContainer = 0, ref } = useResizeDetector();
+  const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector();
+  const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector();
   const withRunCodeButton = !!Object.keys(testCases).length;
-  const MIN_WIDTH = withRunCodeButton ? 900 : 700;
+  const minWidth = withRunCodeButton ? 600 : 550;
   
   const handleRunCode: ButtonLoaderOnClickType = async (setStatus) => {
     setStatus(Status.LOADING);
@@ -73,10 +75,17 @@ export const Header = ({
       setStatus(Status.ERROR);
     }
   };
+  const withLabels = widthContainer > minWidth;
+  const twoRows = widthContainer < 400;
+  const widthCenterContainer = widthContainer - widthLeftSection - widthRightSection;
   
   return (
-    <div className="options-header-content" ref={ref}>
-      <div className="left-options cr-py">
+    <div
+      className={classNames('options-header-content jk-row', { 'two-rows': twoRows })}
+      style={twoRows ? { '--options-header-height': '80px' } as CSSProperties : {}}
+      ref={ref}
+    >
+      <div className={classNames('left-options cr-py jk-row gap', { 'jk-col left gap': twoRows })} ref={refLeftSection}>
         <Select
           className="languages-selector"
           options={languages.map(language => ({ value: language, label: language }))}
@@ -84,15 +93,23 @@ export const Header = ({
           onChange={({ value }) => onChange?.({ language: value })}
         />
         {withRunCodeButton && (
-          <ButtonLoader size="tiny" type="primary" icon={<PlayIcon />} onClick={handleRunCode}>
-            <T>run</T>
+          <ButtonLoader
+            size="tiny"
+            type={(withLabels || twoRows) ? 'primary' : 'text'}
+            block={twoRows}
+            icon={<PlayIcon />}
+            onClick={handleRunCode}
+          >
+            {(withLabels || twoRows) && <T>run</T>}
           </ButtonLoader>
         )}
       </div>
-      <div className="center-options" ref={refCenterOptions}>{centerOptions({ widthContainer: widthCenterOptions })}</div>
-      <div className="right-options cr-py">
+      <div className="center-options" style={{ width: widthCenterContainer }}>
+        {centerOptions({ widthContainer: widthCenterContainer })}
+      </div>
+      <div className={classNames('right-options cr-py', { 'jk-col gap': twoRows })} ref={refRightSection}>
         <Button size="tiny" type="text" onClick={() => setShowSettings(true)} icon={<SettingIcon />}>
-          {width > MIN_WIDTH && <T>settings</T>}
+          {withLabels && <T>settings</T>}
         </Button>
         {expanded !== null && (
           <Button
@@ -101,7 +118,7 @@ export const Header = ({
             onClick={() => setExpanded(prevState => !prevState)}
             icon={expanded ? <ExitFullScreenIcon /> : <EnterFullScreenIcon />}
           >
-            {width > MIN_WIDTH && <T>{expanded ? 'back' : 'expand'}</T>}
+            {withLabels && <T>{expanded ? 'back' : 'expand'}</T>}
           </Button>
         )}
       </div>

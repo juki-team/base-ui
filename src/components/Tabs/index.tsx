@@ -55,7 +55,7 @@ export const Tabs = <T extends string, >({
   tabs.forEach(({ key, header }) => {
     tabHeaders[key] = renderReactNodeOrFunctionP1(header, { selectedTabKey: tabKey });
   });
-  const isExtend = typeof extend === 'boolean' ? extend : widthContainer > (widthTabs + widthActions + 64);
+  const isExtend = typeof extend === 'boolean' ? extend : widthContainer > (widthTabs + widthActions + 128);
   const actionsSection = (_actionsSection || []).filter(action => !!action);
   
   return (
