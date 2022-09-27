@@ -77,10 +77,14 @@
   @include md { --border-radius: var(--border-radius-md); }
   @include sm { --border-radius: var(--border-radius-sm); }
   
-  --border-radius-inline-hg: 8px;
-  --border-radius-inline-lg: 9px;
-  --border-radius-inline-md: 9px;
-  --border-radius-inline-sm: 10px;
+  //--border-radius-inline-hg: 8px;
+  //--border-radius-inline-lg: 9px;
+  //--border-radius-inline-md: 9px;
+  //--border-radius-inline-sm: 10px;
+  --border-radius-inline-hg: 4px;
+  --border-radius-inline-lg: 5px;
+  --border-radius-inline-md: 5px;
+  --border-radius-inline-sm: 6px;
   
   @include hg { --border-radius-inline: var(--border-radius-inline-hg); }
   @include lg { --border-radius-inline: var(--border-radius-inline-lg); }
