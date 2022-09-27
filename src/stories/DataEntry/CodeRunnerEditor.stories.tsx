@@ -50,6 +50,7 @@ const Template: Story<CodeRunnerEditorProps> = (args) => {
           {...args}
           {...props}
           onChange={(props) => {
+            console.log({ props });
             setProps(prevState => ({ ...prevState, ...props }));
           }}
           middleButtons={({ widthContainer }) => <div>width:{widthContainer}</div>}

@@ -27,7 +27,7 @@ export const MdMathEditor: Story<MdMathEditorProps> = ({
   sharedButton,
   downloadButton,
 }) => {
-  const example = '# Titulo ```\n#include <bits/stdc++.h>\n\nusing namespace std;';
+  const example = '# Titulo ```\n#include <bits/stdc++.h>\n\nusing namespace std; \n\n|A | B| C|\n|--|--|--|\n|1|2|3|\n|4|5|6|';
   const [text, setText] = useState(example);
   return (
     <JukiBaseUiProvider

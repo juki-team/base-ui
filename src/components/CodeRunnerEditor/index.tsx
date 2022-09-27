@@ -21,6 +21,7 @@ export const CodeRunnerEditor = ({
   middleButtons,
   testCases,
   tabSize = 4,
+  fontSize = 14,
   timeLimit = 1000,
   memoryLimit = 512000,
   expandPosition,
@@ -118,6 +119,7 @@ export const CodeRunnerEditor = ({
         theme={theme}
         onChange={onChange}
         tabSize={tabSize}
+        fontSize={fontSize}
       />
       <Header
         language={language}
@@ -161,6 +163,7 @@ export const CodeRunnerEditor = ({
               readOnly={false}
               sourceCode={sourceCode}
               tabSize={tabSize}
+              fontSize={fontSize}
             />
           </div>
           <TestCases

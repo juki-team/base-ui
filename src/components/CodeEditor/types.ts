@@ -80,16 +80,14 @@ export type CodeEditorPropertiesType = {
   theme?: CodeEditorTheme,
   keyMap?: CodeEditorKeyMap,
   tabSize?: number,
+  fontSize?: number,
 };
 
 export type CodeEditorOnChangeType = (props: CodeEditorPropertiesType) => void;
 
 export interface CodeEditorProps extends CodeEditorPropertiesType {
-  sourceCode: string,
   language: ProgrammingLanguage,
-  theme?: CodeEditorTheme,
-  keyMap?: CodeEditorKeyMap,
+  sourceCode: string,
   readOnly?: boolean,
   onChange?: CodeEditorOnChangeType,
-  tabSize?: number,
 }

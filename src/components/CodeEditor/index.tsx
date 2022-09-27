@@ -1,6 +1,6 @@
 // import CodeMirror from '@uiw/react-codemirror';
 import { PROGRAMMING_LANGUAGE } from '@juki-team/commons';
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import ReactCodeMirror from './CodeMirror';
 import { CodeEditorKeyMap, CodeEditorProps, CodeEditorTheme } from './types';
 
@@ -12,23 +12,26 @@ export const CodeEditor = ({
   readOnly = false,
   onChange,
   tabSize = 4,
+  fontSize = 14,
 }: CodeEditorProps) => {
   return (
-    <ReactCodeMirror
-      value={sourceCode}
-      options={{
-        theme,
-        keyMap,
-        mode: PROGRAMMING_LANGUAGE[language].monacoKey,
-        smartIndent: true,
-        readOnly: readOnly || !onChange,
-        viewportMargin: Infinity,
-        tabSize,
-        indentUnit: tabSize,
-        indentWithTabs: false,
-      }}
-      onChange={((instance: { getValue: () => string }) => onChange?.({ sourceCode: instance.getValue() }))}
-    />
+    <div style={{ '--code-mirror-font-size': `${fontSize}px`, width: '100%', height: '100%' } as CSSProperties}>
+      <ReactCodeMirror
+        value={sourceCode}
+        options={{
+          theme,
+          keyMap,
+          mode: PROGRAMMING_LANGUAGE[language]?.monacoKey,
+          smartIndent: true,
+          readOnly: readOnly || !onChange,
+          viewportMargin: Infinity,
+          tabSize,
+          indentUnit: tabSize,
+          indentWithTabs: false,
+        }}
+        onChange={((instance: { getValue: () => string }) => onChange?.({ sourceCode: instance.getValue() }))}
+      />
+    </div>
   );
 };
 

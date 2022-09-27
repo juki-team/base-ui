@@ -22,18 +22,15 @@ export type CodeRunnerEditorPropertiesType = CodeEditorPropertiesType & { testCa
 
 export type CodeRunnerEditorOnChangeType = (props: CodeRunnerEditorPropertiesType) => void;
 
-export interface CodeRunnerEditorProps {
+export interface CodeRunnerEditorProps extends CodeEditorPropertiesType {
   sourceCode: string,
   language: ProgrammingLanguage,
   readOnly?: boolean,
   onChange?: CodeRunnerEditorOnChangeType,
-  theme?: CodeEditorTheme,
-  keyMap?: CodeEditorKeyMap,
   languages?: ProgrammingLanguage[],
   className?: string,
   middleButtons?: (props: Omit<CodeRunnerEditorProps, 'onChange' | 'className' | 'middleButtons'> & { widthContainer: number }) => ReactNode,
   testCases?: CodeEditorTestCasesType,
-  tabSize?: number,
   timeLimit?: number,
   memoryLimit?: number,
   expandPosition?: {
@@ -51,6 +48,7 @@ export interface SettingsModalProps {
   keyMap: CodeEditorKeyMap,
   theme: CodeEditorTheme,
   tabSize: number,
+  fontSize: number,
 }
 
 export interface TestCasesProps {
