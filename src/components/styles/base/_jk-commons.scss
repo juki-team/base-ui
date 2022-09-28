@@ -22,10 +22,10 @@ fieldset[class*=" jk-col"], fieldset[class^="jk-col"] {
   &.nowrap { flex-wrap: nowrap; }
   
   &.gap {
-    @include hg { gap: var(--pad-s); }
-    @include lg { gap: var(--pad-xs); }
-    @include md { gap: var(--pad-t); }
-    @include sm { gap: var(--pad-xt); }
+    @include hg { gap: 12px; }
+    @include lg { gap: 10px; }
+    @include md { gap: 8px; }
+    @include sm { gap: 6px; }
   }
   
   &.block {
@@ -116,7 +116,7 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
   padding: var(--pad-lg); // responsive variable
 }
 
-.jk-pad, .jk-pad-md {
+.jk-pad-md {
   box-sizing: border-box;
   padding: var(--pad-md); // responsive variable
 }

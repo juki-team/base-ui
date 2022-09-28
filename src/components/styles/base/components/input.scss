@@ -91,18 +91,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     padding: 0;
     text-transform: capitalize;
     line-height: var(--pad-xs);
-    font-size: var(--text-s-size);
   }
   
   > label > .jk-select-layout {
     line-height: var(--text-m-height);
-    font-size: var(--text-m-size);
     font-weight: var(--weight-normal);
   }
   
   > p:last-child {
     color: var(--t-color-error);
-    font-size: var(--text-xs-size);
+    font-size: var(--text-s-size);
     height: calc(var(--pad-xs));
     line-height: var(--pad-xs);
     
@@ -213,7 +211,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   input.jk-input-checkbox {
     border: 2px solid var(--t-color-primary);
-    border-radius: 6px;
     left: 0;
     -webkit-appearance: none;
     position: relative;
