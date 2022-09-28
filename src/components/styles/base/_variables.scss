@@ -86,10 +86,10 @@
   //--border-radius-inline-lg: 9px;
   //--border-radius-inline-md: 9px;
   //--border-radius-inline-sm: 10px;
-  --border-radius-inline-hg: 6px;
-  --border-radius-inline-lg: 5px;
-  --border-radius-inline-md: 4px;
-  --border-radius-inline-sm: 3px;
+  --border-radius-inline-hg: 8px;
+  --border-radius-inline-lg: 7px;
+  --border-radius-inline-md: 6px;
+  --border-radius-inline-sm: 5px;
   
   @include hg { --border-radius-inline: var(--border-radius-inline-hg); }
   @include lg { --border-radius-inline: var(--border-radius-inline-lg); }
