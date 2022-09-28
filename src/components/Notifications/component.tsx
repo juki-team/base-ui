@@ -36,10 +36,9 @@ export const Notification = ({ id, type, message }: NotificationProps) => {
       clearInterval(intervalIDRef.current);
     }
   };
-  const { isPageVisible } = useJukiBase();
-  
+  const { isPageVisible, isPageFocus } = useJukiBase();
   useEffect(() => {
-    if (isPageVisible) {
+    if (isPageVisible && isPageFocus) {
       handleStartTimer();
     } else {
       handleStopTimer();
@@ -50,7 +49,7 @@ export const Notification = ({ id, type, message }: NotificationProps) => {
         clearInterval(intervalIDRef.current);
       }
     };
-  }, [handleStartTimer, isPageVisible]);
+  }, [handleStartTimer, isPageVisible, isPageFocus]);
   
   useEffect(() => {
     if (exit) {

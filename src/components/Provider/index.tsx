@@ -1,12 +1,13 @@
 import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
 import { settings } from '../../config';
-import { useInterval, usePageVisibility } from '../../hooks';
+import { useInterval, usePageFocus, usePageVisibility } from '../../hooks';
 import { socket } from '../../services';
 import { NotificationProvider } from '../Notifications';
 import { JukiBaseUiProviderProps } from './types';
 
-const BaseContext = createContext<{ isPageVisible: boolean, viewPortSize: string }>({
+const BaseContext = createContext<{ isPageVisible: boolean, isPageFocus: boolean, viewPortSize: string }>({
   isPageVisible: true,
+  isPageFocus: true,
   viewPortSize: '',
 });
 
@@ -23,6 +24,7 @@ export const JukiBaseUiProvider = ({
     socket.joinSession().then(() => null);
   }, [apiVersion, tokenName, utilsServiceUrl, utilsUiUrl]);
   const isPageVisible = usePageVisibility();
+  const isPageFocus = usePageFocus();
   const [viewPortSize, setViewPortSize] = useState('');
   useEffect(() => {
     if (isPageVisible) {
@@ -58,7 +60,7 @@ export const JukiBaseUiProvider = ({
   }, []);
   
   return (
-    <BaseContext.Provider value={{ isPageVisible, viewPortSize }}>
+    <BaseContext.Provider value={{ isPageVisible, isPageFocus, viewPortSize }}>
       <NotificationProvider>
         {children}
       </NotificationProvider>
@@ -68,10 +70,11 @@ export const JukiBaseUiProvider = ({
 
 export const useJukiBase = () => {
   
-  const { isPageVisible, viewPortSize } = useContext(BaseContext);
+  const { isPageVisible, isPageFocus, viewPortSize } = useContext(BaseContext);
   
   return {
     isPageVisible,
+    isPageFocus,
     viewPortSize,
   };
 };

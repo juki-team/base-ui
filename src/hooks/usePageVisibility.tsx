@@ -30,3 +30,23 @@ export const usePageVisibility = () => {
   
   return isVisible;
 };
+
+export const usePageFocus = () => {
+  
+  const [isFocus, setIsFocus] = useState(true);
+  
+  useEffect(() => {
+    const handlerOnFocus = () => setIsFocus(true);
+    const handlerOnBlur = () => setIsFocus(false);
+    
+    document.addEventListener('focus', handlerOnFocus);
+    document.addEventListener('blur', handlerOnBlur);
+    
+    return () => {
+      document.removeEventListener('focus', handlerOnFocus);
+      document.removeEventListener('blur', handlerOnBlur);
+    };
+  }, []);
+  
+  return isFocus;
+};
