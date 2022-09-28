@@ -26,7 +26,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   const { filtered } = isSomethingFiltered(headers);
   
   return (
-    <div className={classNames('jk-data-viewer-toolbar jk-border-radius jk-row space-between', { 'jk-shadow': viewMode === 'cards' }, viewMode)}>
+    <div className={classNames('jk-data-viewer-toolbar jk-border-radius-inline jk-row space-between', { 'jk-shadow': viewMode === 'cards' }, viewMode)}>
       <FilterDrawer
         isOpen={filterDrawer}
         headers={headers}

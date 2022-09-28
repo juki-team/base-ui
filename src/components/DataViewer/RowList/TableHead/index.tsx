@@ -102,6 +102,7 @@ export const TableHead = <T, >({ headers, headerWidths, setHeaderWidths, rowWidt
           {headers.filter(({ sticky }) => sticky).map(renderHeader)}
         </div>
         {headers.filter(({ sticky }) => !sticky).map(renderHeader)}
+        <div className="jk-table-head-scroll"></div>
       </div>
     </div>
   );

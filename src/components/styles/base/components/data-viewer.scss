@@ -118,6 +118,13 @@
             height: 100%;
           }
           
+          .jk-table-head-scroll {
+            position: absolute;
+            width: var(--scrollbar-size);
+            height: 100%;
+            background-color: var(--t-color-white);
+          }
+          
           .jk-table-head-cell {
             box-sizing: border-box;
             height: 100%;
