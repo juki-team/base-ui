@@ -8,27 +8,15 @@
   p {
     margin: var(--pad-t) 0;
     font-family: inherit;
-    font-size: 16px;
+    font-size: var(--text-m-size);
     word-break: break-word;
     text-align: justify;
   }
   
   h1, h2, h3, h4, h5, h6 {
     margin: var(--pad-t) 0;
-    font-weight: bold;
+    font-weight: var(--weight-bold);
     text-align: left;
-  }
-  
-  h1, h2 {
-    line-height: var(--text-xl-size) 28px;
-  }
-  
-  h3, h4 {
-    line-height: 24px;
-  }
-  
-  h3, h4 {
-    line-height: 24px;
   }
   
   h1 {
@@ -165,7 +153,7 @@
     //box-sizing: border-box;
     //border: 1px solid var(--t-color-shadow-light);
     padding: 0 4px;
-    border-radius: 6px;
+    border-radius: var(--border-radius-inline);
     color: var(--t-color-primary-light);
   }
 }

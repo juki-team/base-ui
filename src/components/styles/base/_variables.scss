@@ -67,10 +67,15 @@
   //--border-radius-md: var(--pad-m);
   //--border-radius-sm: var(--pad-xs);
   
-  --border-radius-hg: var(--pad-l);
-  --border-radius-lg: var(--pad-m);
-  --border-radius-md: var(--pad-s);
-  --border-radius-sm: var(--pad-xs);
+  //--border-radius-hg: var(--pad-l);
+  //--border-radius-lg: var(--pad-m);
+  //--border-radius-md: var(--pad-s);
+  //--border-radius-sm: var(--pad-xs);
+  
+  --border-radius-hg: var(--pad-m);
+  --border-radius-lg: var(--pad-s);
+  --border-radius-md: var(--pad-xs);
+  --border-radius-sm: var(--pad-t);
   
   @include hg { --border-radius: var(--border-radius-hg); }
   @include lg { --border-radius: var(--border-radius-lg); }
@@ -81,10 +86,10 @@
   //--border-radius-inline-lg: 9px;
   //--border-radius-inline-md: 9px;
   //--border-radius-inline-sm: 10px;
-  --border-radius-inline-hg: 4px;
+  --border-radius-inline-hg: 6px;
   --border-radius-inline-lg: 5px;
-  --border-radius-inline-md: 5px;
-  --border-radius-inline-sm: 6px;
+  --border-radius-inline-md: 4px;
+  --border-radius-inline-sm: 3px;
   
   @include hg { --border-radius-inline: var(--border-radius-inline-hg); }
   @include lg { --border-radius-inline: var(--border-radius-inline-lg); }
@@ -95,25 +100,44 @@
   --weight-normal: 400;
   --weight-bold: 700;
   --weight-bolder: 900;
+  //
+  //--text-xh-size: var(--pad-m); // 24
+  //--text-xh-height: var(--pad-xh);
+  //--text-h-size: 22px;
+  //--text-h-height: var(--pad-xh);
+  //--text-xl-size: var(--pad-s); // 20
+  //--text-xl-height: var(--pad-m);
+  //--text-l-size: 18px;
+  //--text-l-height: var(--pad-m);
+  //--text-m-size: var(--pad-xs); // 16
+  //--text-m-height: var(--pad-m);
+  //--text-s-size: 14px;
+  //--text-s-height: var(--pad-m);
+  //--text-xs-size: var(--pad-t); // 12
+  //--text-xs-height: var(--pad-m);
+  //--text-t-size: 10px;
+  //--text-t-height: var(--pad-m);
+  //--text-xt-size: var(--pad-xt); // 8
+  //--text-xt-height: var(--pad-m);
   
-  --text-xh-size: var(--pad-m);
-  --text-xh-height: var(--pad-xh);
-  --text-h-size: 22px;
-  --text-h-height: var(--pad-xh);
-  --text-xl-size: var(--pad-s);
+  --text-xh-size: 22px;
+  --text-xh-height: var(--pad-l);
+  --text-h-size: 20px;
+  --text-h-height: var(--pad-l);
+  --text-xl-size: 18px;
   --text-xl-height: var(--pad-m);
-  --text-l-size: 18px;
+  --text-l-size: 16px;
   --text-l-height: var(--pad-m);
-  --text-m-size: var(--pad-xs);
+  --text-m-size: 14px;
   --text-m-height: var(--pad-m);
-  --text-s-size: 14px;
+  --text-s-size: 12px;
   --text-s-height: var(--pad-m);
-  --text-xs-size: var(--pad-t);
+  --text-xs-size: 10px;
   --text-xs-height: var(--pad-m);
-  --text-t-size: 10px;
-  --text-t-height: var(--pad-m);
-  --text-xt-size: var(--pad-xt);
-  --text-xt-height: var(--pad-m);
+  --text-t-size: 8px;
+  --text-t-height: var(--pad-s);
+  --text-xt-size: 6px;
+  --text-xt-height: var(--pad-s);
   
   --z-index-menu: 50;
   --z-index-select-options: 60;
