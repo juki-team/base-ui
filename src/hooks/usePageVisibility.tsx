@@ -39,12 +39,12 @@ export const usePageFocus = () => {
     const handlerOnFocus = () => setIsFocus(true);
     const handlerOnBlur = () => setIsFocus(false);
     
-    document.addEventListener('focus', handlerOnFocus);
-    document.addEventListener('blur', handlerOnBlur);
+    window?.addEventListener('focus', handlerOnFocus);
+    window?.addEventListener('blur', handlerOnBlur);
     
     return () => {
-      document.removeEventListener('focus', handlerOnFocus);
-      document.removeEventListener('blur', handlerOnBlur);
+      window?.removeEventListener('focus', handlerOnFocus);
+      window?.removeEventListener('blur', handlerOnBlur);
     };
   }, []);
   
