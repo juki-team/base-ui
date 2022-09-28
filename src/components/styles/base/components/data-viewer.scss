@@ -122,6 +122,7 @@
             position: absolute;
             width: var(--scrollbar-size);
             height: 100%;
+            right: calc(var(--scrollbar-size) * -1);
             background-color: var(--t-color-white);
           }
           
