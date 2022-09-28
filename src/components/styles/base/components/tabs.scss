@@ -10,7 +10,7 @@
     transform: rotateX(180deg);
     font-weight: var(--weight-bold);
     color: var(--t-color-gray-4);
-    padding: var(--pad-t);
+    padding: var(--pad-xt) var(--pad-t);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,9 +36,10 @@
         background-color: var(--t-color-secondary);
         content: " ";
         width: 100%;
-        height: 5px;
+        height: 6px;
         position: absolute;
-        bottom: -1px;
+        border-radius: 3px 3px 0 0;
+        bottom: 0;
         left: 0;
       }
     }
@@ -81,9 +82,9 @@
       position: absolute;
       content: " ";
       bottom: -1px;
-      height: 1px;
+      height: 3px;
       width: 100%;
-      border-top: 4px solid var(--t-color-gray-6);
+      background-color: var(--t-color-gray-6);
     }
   }
   

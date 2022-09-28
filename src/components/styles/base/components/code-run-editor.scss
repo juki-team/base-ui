@@ -27,11 +27,11 @@
         width: min-content;
         text-align: center;
         align-items: center;
-        font-size: var(--text-s-size);
-        line-height: var(--text-m-size);
+        @extend .tx-s;
+        height: 24px;
         
         .tt-se {
-          margin: 0 var(--pad-xt);
+          //margin: 0 var(--pad-xt);
           white-space: break-spaces;
         }
       }

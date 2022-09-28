@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { classNames } from '../../../helpers';
 import { SubmissionRunStatus } from '../../../types';
-import { Button } from '../../Button';
 import { DeleteIcon, LoadingIcon, PlusIcon } from '../../graphics';
 import { TextArea } from '../../Input';
 import { NotificationType, useNotification } from '../../Notifications';
@@ -35,17 +34,12 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
       : testCaseValue.key === testCaseKey
         ? <div className="text-case">
           <T className="tt-se">custom</T>
-          {testCaseValue.index + 1}
-          <Button
-            size="small"
-            type="text"
-            icon={<DeleteIcon />}
-            onClick={() => {
-              const newTestCases = { ...testCases };
-              delete newTestCases[testCaseValue.key];
-              onChange?.({ testCases: newTestCases });
-            }}
-          />
+          &nbsp;{testCaseValue.index + 1}&nbsp;
+          <DeleteIcon size="small" onClick={() => {
+            const newTestCases = { ...testCases };
+            delete newTestCases[testCaseValue.key];
+            onChange?.({ testCases: newTestCases });
+          }} />
         </div>
         : <div className="text-case"><T className="tt-se">c.</T>{testCaseValue.index + 1}</div>,
     body: (
@@ -64,10 +58,9 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
   
   const actionSection = (
     <Popover content={<T className="ws-np jk-pad-sm">add sample test case</T>} placement="topRight">
-      <Button
-        icon={<PlusIcon circle />}
-        type="text"
+      <PlusIcon
         size="small"
+        circle
         onClick={() => {
           const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
           if (customCases.length < 10) {

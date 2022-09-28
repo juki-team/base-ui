@@ -168,8 +168,8 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
 .jk-tag {
   background-color: var(--t-color-primary-light);
   color: var(--t-color-white);
-  padding: 0 var(--pad-t);
-  border-radius: var(--pad-t);
+  padding: 0 var(--pad-xt);
+  border-radius: var(--border-radius-inline);
   display: inline-block;
   
   &.success { background-color: var(--t-color-success); }

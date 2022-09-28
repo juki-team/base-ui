@@ -14,7 +14,11 @@ export const renderSignIcon = ({
   ...props
 }: SignIconProps, Component: ComponentType<RootIconProps>) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)} style={{ transform: `rotate(${rotate}deg)` }}>
+    <span
+      {...props}
+      className={classNames(className, 'jk-icon', 'jk-icon-' + size, { 'cursor-pointer': !!props.onClick })}
+      style={{ transform: `rotate(${rotate}deg)` }}
+    >
       <svg viewBox="0 0 24 24" fill="currentColor">
         {filledCircle && <CircleFilledFrame />}
         {filledSquare && <SquareFilledFrame />}
