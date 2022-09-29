@@ -57,11 +57,6 @@
   @include md { --pad-sm: var(--pad-t); }
   @include sm { --pad-sm: var(--pad-xt); }
   
-  @include hg { --pad-tn: 10px; }
-  @include lg { --pad-tn: 8px; }
-  @include md { --pad-tn: 6px; }
-  @include sm { --pad-tn: 4px; }
-  
   //--border-radius-hg: 32px;
   //--border-radius-lg: 16px;
   //--border-radius-md: 8px;

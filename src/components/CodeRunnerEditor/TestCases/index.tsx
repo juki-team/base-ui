@@ -59,7 +59,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
   }));
   
   const actionSection = (
-    <Popover content={<T className="ws-np tt-se tx-s">add sample test case</T>} placement="topRight" popoverClassName="popover-padding-tn" triggerOn="click">
+    <Popover content={<T className="ws-np tt-se tx-s">add sample test case</T>} placement="bottomRight">
       <div>
         <PlusIcon
           size="small"
