@@ -21,11 +21,10 @@
   .notification-item-container.quiet {
     .notification-item {
       margin: 0 0 var(--pad-xt) 0;
-      height: 24px;
+      //height: 24px;
       box-shadow: var(--t-box-shadow-md);
       border-radius: var(--border-radius-sm);
       font-weight: var(--weight-regular);
-      //background-color: var(--t-color-gray-3);
       background-color: var(--t-color-primary-light);
       right: calc(var(--width-notification) - var(--width-notification-wrapper));
       
@@ -33,6 +32,10 @@
         font-size: var(--text-xs-size);
         line-height: var(--text-xs-height);
         text-align: center;
+        
+        &.jk-row {
+          justify-content: space-evenly !important;
+        }
       }
       
       .bar {

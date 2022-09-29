@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import ReactCopyToClipboard from 'react-copy-to-clipboard';
 import { useNotification } from '../Notifications';
+import { T } from '../Translate';
 import { CopyToClipboardProps } from './types';
 
 export const CopyToClipboard = ({ children, text }: PropsWithChildren<CopyToClipboardProps>) => {
@@ -9,7 +10,7 @@ export const CopyToClipboard = ({ children, text }: PropsWithChildren<CopyToClip
   
   return (
     <ReactCopyToClipboard
-      onCopy={() => addQuietNotification('Copied!')}
+      onCopy={() => addQuietNotification(<T className="tt-se">copied</T>)}
       text={text}
     >
       {children}
