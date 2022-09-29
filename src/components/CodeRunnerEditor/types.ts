@@ -22,9 +22,9 @@ export type CodeRunnerEditorPropertiesType = CodeEditorPropertiesType & { testCa
 
 export type CodeRunnerEditorOnChangeType = (props: CodeRunnerEditorPropertiesType) => void;
 
-export type MiddleButtonsType = (props: Omit<CodeRunnerEditorProps, 'onChange' | 'className' | 'middleButtons'> & { widthContainer: number }) => ReactNode;
+export type CodeEditorMiddleButtonsType = (props: Omit<CodeRunnerEditorProps, 'onChange' | 'className' | 'middleButtons'> & { widthContainer: number }) => ReactNode;
 
-export type ExpandPositionType = {
+export type CodeEditorExpandPositionType = {
   top: string | number,
   left: string | number,
   width: string | number,
@@ -38,11 +38,11 @@ export interface CodeRunnerEditorProps extends CodeEditorPropertiesType {
   onChange?: CodeRunnerEditorOnChangeType,
   languages?: ProgrammingLanguage[],
   className?: string,
-  middleButtons?: MiddleButtonsType,
+  middleButtons?: CodeEditorMiddleButtonsType,
   testCases?: CodeEditorTestCasesType,
   timeLimit?: number,
   memoryLimit?: number,
-  expandPosition?: ExpandPositionType,
+  expandPosition?: CodeEditorExpandPositionType,
 }
 
 export interface SettingsModalProps {
