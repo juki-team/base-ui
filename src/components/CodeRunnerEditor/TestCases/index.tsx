@@ -60,7 +60,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
   
   const actionSection = (
     <Popover content={<T className="ws-np tt-se tx-s">add sample test case</T>} placement="bottomRight">
-      <div>
+      <div style={{ marginRight: 'var(--gap)' }} className="jk-row">
         <PlusIcon
           size="small"
           circle

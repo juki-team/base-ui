@@ -72,6 +72,11 @@
   //--border-radius-md: var(--pad-s);
   //--border-radius-sm: var(--pad-xs);
   
+  @include hg { --gap: 12px; }
+  @include lg { --gap: 10px; }
+  @include md { --gap: 8px; }
+  @include sm { --gap: 6px; }
+  
   --border-radius-hg: var(--pad-m);
   --border-radius-lg: var(--pad-s);
   --border-radius-md: var(--pad-xs);

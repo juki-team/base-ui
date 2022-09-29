@@ -22,10 +22,7 @@ fieldset[class*=" jk-col"], fieldset[class^="jk-col"] {
   &.nowrap { flex-wrap: nowrap; }
   
   &.gap {
-    @include hg { gap: 12px; }
-    @include lg { gap: 10px; }
-    @include md { gap: 8px; }
-    @include sm { gap: 6px; }
+    gap: var(--gap);
   }
   
   &.block {
