@@ -12,13 +12,9 @@ export const InformationButton = ({ isOpenRef, withLabel }: { isOpenRef: Mutable
   
   return (
     <>
-      <Popover
-        content={<T className="ws-np">information</T>}
-        triggerOn="hover"
-        placement="bottom"
-      >
+      <Popover content={<T className="ws-np tt-se">information</T>} placement="bottom" showPopperArrow popoverClassName="">
         <div>
-          <Button icon={<ExclamationIcon circle rotate={180} />} type="text" onClick={() => setOpen(true)}>
+          <Button icon={<ExclamationIcon circle rotate={180} />} type="text" size="small" onClick={() => setOpen(true)}>
             {withLabel && <T>information</T>}
           </Button>
         </div>
@@ -28,6 +24,7 @@ export const InformationButton = ({ isOpenRef, withLabel }: { isOpenRef: Mutable
         onClose={() => setOpen(false)}
         className="modal-info-markdown"
         closeIcon
+        shouldCloseOnOverlayClick
       >
         <MdMathEditor source={source} onChange={setSource} />
       </Modal>

@@ -3,9 +3,10 @@
 .jk-md-math-editor-layout {
   display: flex;
   flex-direction: column;
+  border: 1px solid var(--t-color-gray-5);
   
   &.editing {
-    border: 1px solid var(--t-color-gray-3);
+    border: 1px solid var(--t-color-gray-4);
   }
   
   .content-preview {
@@ -15,53 +16,8 @@
   
   .content-bar-options {
     display: flex;
-    border-bottom: 1px solid var(--t-color-gray-3);
+    border-bottom: 1px solid var(--t-color-gray-4);
     justify-content: space-between;
-    
-    .left, .right {
-      padding: 4px var(--pad-t);
-      
-      button {
-        @include lg {
-          //box-shadow: none;
-        }
-        @include md {
-          //padding: 4px;
-          &:not(.preserve-label) {
-            //border-radius: 50%;
-            
-            //.button-label {
-            //  display: none;
-            //}
-          }
-          //&.preserve-label {
-          //  box-shadow: none;
-          //  grid-gap: var(--pad-xt);
-          //  gap: var(--pad-xt);
-          //}
-        }
-        @include sm {
-          //padding: 4px;
-          //border-radius: 50%;
-          //.button-label {
-          //  display: none;
-          //}
-          &.preserve-label {
-            //grid-gap: 0;
-            //gap: 0;
-            
-            //.jk-icon {
-            //  opacity: 0;
-            //  width: 1px;
-            //}
-            
-            //.button-label {
-            //  display: unset;
-            //}
-          }
-        }
-      }
-    }
     
     > div {
       text-transform: capitalize;

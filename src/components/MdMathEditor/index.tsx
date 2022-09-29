@@ -62,54 +62,56 @@ export const MdMathEditor = ({
   }, layoutEditorRef);
   
   const { width = 0 } = useResizeDetector({ targetRef: layoutEditorRef });
+  const withLabels = width > 520;
   
   return (
-    <div ref={layoutEditorRef} className={classNames('jk-md-math-editor-layout', { editing, 'jk-border-radius-inline': editing })}>
+    <div ref={layoutEditorRef} className={classNames('jk-md-math-editor-layout jk-border-radius-inline', { editing })}>
       {modal}
       {editing ? (
         <>
           <div className="content-bar-options">
-            <div className="jk-row gap left">
-              {informationButton && <InformationButton isOpenRef={isOpenInformationModalRef} withLabel={width > 864} />}
-              {uploadImageButton && <UploadImageButton isOpenRef={isOpenUploadImageModalRef} withLabel={width > 864} />}
+            <div className={classNames('jk-row left', { gap: !withLabels })}>
+              {informationButton && <InformationButton isOpenRef={isOpenInformationModalRef} withLabel={withLabels} />}
+              {uploadImageButton && <UploadImageButton isOpenRef={isOpenUploadImageModalRef} withLabel={withLabels} />}
               {view === 0 && (
                 <Popover
-                  content={<T className="ws-np jk-pad-sm">editor ⮜ | ⮞ preview</T>}
-                  triggerOn="hover"
+                  content={<><T className="ws-np tt-se">editor</T> ⮜ | ⮞ <T>preview</T></>}
                   placement="bottom"
+                  showPopperArrow
                 >
-                  <Button type="text" icon={<LayoutIcon />} onClick={() => setView(1)}>
-                    {width > 864 && <T>editor ⮜ | ⮞ preview</T>}
+                  <Button type="text" size="small" icon={<LayoutIcon />} onClick={() => setView(1)}>
+                    {withLabels && <><T>editor</T>&nbsp;⮜ | ⮞&nbsp;<T>preview</T></>}
                   </Button>
                 </Popover>
               )}
               {view === 1 && (
                 <Popover
                   content={<T className="ws-np jk-pad-sm">preview</T>}
-                  triggerOn="hover"
                   placement="bottom"
+                  showPopperArrow
                 >
-                  <Button type="text" icon={<EyeIcon />} onClick={() => setView(3)}>
-                    {width > 864 && <T>preview</T>}
+                  <Button type="text" size="small" icon={<EyeIcon />} onClick={() => setView(3)}>
+                    {withLabels && <T>preview</T>}
                   </Button>
                 </Popover>
               )}
               {view === 3 && (
                 <Popover
                   content={<T className="ws-np jk-pad-sm">editor</T>}
-                  triggerOn="hover"
                   placement="bottom"
+                  showPopperArrow
                 >
-                  <Button type="text" icon={<EditIcon />} onClick={() => setView(0)}>
-                    {width > 864 && <T>editor</T>}
+                  <Button type="text" size="small" icon={<EditIcon />} onClick={() => setView(0)}>
+                    {withLabels && <T>editor</T>}
                   </Button>
                 </Popover>
               )}
             </div>
             <div className="right">
               {onChange && (
-                <Popover content={<T className="jk-pad-sm">save</T>}>
-                  <Button icon={<SaveIcon />} type="text" onClick={() => onChange(editValue)} disabled={source === editValue}>
+                <Popover placement="bottom" content={<T className="jk-pad-sm">save</T>} showPopperArrow>
+                  <Button icon={<SaveIcon />} type="text" size="small" onClick={() => onChange(editValue)}
+                          disabled={source === editValue}>
                     <T>Save</T>
                   </Button>
                 </Popover>
@@ -117,6 +119,7 @@ export const MdMathEditor = ({
               <Button
                 icon={<CloseIcon />}
                 type="text"
+                size="small"
                 onClick={() => {
                   if (editValue !== source) {
                     triggerUnsavedAlert(() => {
