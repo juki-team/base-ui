@@ -35,11 +35,13 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
         ? <div className="text-case">
           <T className="tt-se">custom</T>
           &nbsp;{testCaseValue.index + 1}&nbsp;
-          <DeleteIcon size="small" onClick={() => {
-            const newTestCases = { ...testCases };
-            delete newTestCases[testCaseValue.key];
-            onChange?.({ testCases: newTestCases });
-          }} />
+          {Object.keys(testCases).length > 1 && (
+            <DeleteIcon size="small" onClick={() => {
+              const newTestCases = { ...testCases };
+              delete newTestCases[testCaseValue.key];
+              onChange?.({ testCases: newTestCases });
+            }} />
+          )}
         </div>
         : <div className="text-case"><T className="tt-se">c.</T>{testCaseValue.index + 1}</div>,
     body: (
@@ -57,26 +59,28 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
   }));
   
   const actionSection = (
-    <Popover content={<T className="ws-np jk-pad-sm">add sample test case</T>} placement="topRight">
-      <PlusIcon
-        size="small"
-        circle
-        onClick={() => {
-          const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
-          if (customCases.length < 10) {
-            const key = v4();
-            const index = mex(customCases.map(testCaseValue => testCaseValue.index));
-            onChange?.({
-              testCases: {
-                ...testCases,
-                [key]: { key, index, in: '', out: '', err: '', log: '', sample: false, status: SubmissionRunStatus.NONE },
-              },
-            });
-          } else {
-            addNotification({ type: NotificationType.QUIET, message: <T>maximum test cases achieved</T> });
-          }
-        }}
-      />
+    <Popover content={<T className="ws-np tt-se tx-s">add sample test case</T>} placement="topRight" popoverClassName="popover-padding-tn" triggerOn="click">
+      <div>
+        <PlusIcon
+          size="small"
+          circle
+          onClick={() => {
+            const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
+            if (customCases.length < 10) {
+              const key = v4();
+              const index = mex(customCases.map(testCaseValue => testCaseValue.index));
+              onChange?.({
+                testCases: {
+                  ...testCases,
+                  [key]: { key, index, in: '', out: '', err: '', log: '', sample: false, status: SubmissionRunStatus.NONE },
+                },
+              });
+            } else {
+              addNotification({ type: NotificationType.QUIET, message: <T>maximum test cases achieved</T> });
+            }
+          }}
+        />
+      </div>
     </Popover>
   );
   
