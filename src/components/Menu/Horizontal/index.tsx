@@ -28,7 +28,7 @@ export const HorizontalMenu = ({
         key={i}
       >
         {menu[i].icon && <div className="jk-menu-item-icon">{renderReactNodeOrFunction(menu[i].icon)}</div>}
-        <div className="jk-menu-item-label">{renderReactNodeOrFunction(menu[i].label)}</div>
+        <div className="jk-menu-item-label tx-s">{renderReactNodeOrFunction(menu[i].label)}</div>
       </div>
     );
     if (menu[i].menuItemWrapper) {
@@ -40,20 +40,20 @@ export const HorizontalMenu = ({
   
   return (
     <div className={classNames('jk-horizontal-menu-layout-container', className)}>
-      <header className={classNames('jk-menu jk-top-horizontal-menu')}>
+      <header className="jk-menu jk-top-horizontal-menu">
         <section className="jk-row nowrap jk-menu-content screen md lg hg">
-          <div className={classNames('jk-menu-left-section jk-row left nowrap')}>
+          <div className="jk-menu-left-section jk-row left nowrap">
             {renderReactNodeOrFunction(leftSection)}
           </div>
           <div className="jk-menu-items jk-row left gap nowrap">
             {menus}
           </div>
-          <div className={classNames('jk-menu-right-section jk-row right nowrap')}>
+          <div className="jk-menu-right-section jk-row right nowrap">
             {renderReactNodeOrFunction(rightSection)}
           </div>
         </section>
         <section className="jk-row nowrap block jk-menu-content space-between screen sm">
-          <div className={classNames('jk-horizontal-menu-mobile-right jk-row left')}>
+          <div className="jk-horizontal-menu-mobile-right jk-row left">
             {leftMobile && (
               <Drawer
                 content={props => renderReactNodeOrFunctionP1(leftMobile.content, props)}
@@ -66,7 +66,7 @@ export const HorizontalMenu = ({
               </Drawer>
             )}
           </div>
-          <div className={classNames('jk-horizontal-menu-mobile-right jk-row')}>
+          <div className="jk-horizontal-menu-mobile-right jk-row">
             {centerMobile && (
               <Drawer
                 content={props => renderReactNodeOrFunctionP1(centerMobile.content, props)}
@@ -79,7 +79,7 @@ export const HorizontalMenu = ({
               </Drawer>
             )}
           </div>
-          <div className={classNames('jk-horizontal-menu-mobile-right jk-row right')}>
+          <div className="jk-horizontal-menu-mobile-right jk-row right">
             {rightMobile && (
               <Drawer
                 content={props => renderReactNodeOrFunctionP1(rightMobile.content, props)}
@@ -97,9 +97,9 @@ export const HorizontalMenu = ({
       <section className="jk-menu-main-layout">
         {children}
       </section>
-      <header className={classNames('jk-menu jk-mobile-bottom-horizontal-menu')}>
+      <header className="jk-menu jk-mobile-bottom-horizontal-menu">
         <section className="jk-row jk-menu-content">
-          <div className="jk-menu-items jk-row left gap">
+          <div className="jk-menu-items jk-row block">
             {menus}
           </div>
         </section>

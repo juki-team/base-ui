@@ -144,8 +144,8 @@
   --mobile-bottom-horizontal-menu-height: 0px;
   --top-horizontal-menu-height: 64px;
   @include sm {
-    --mobile-bottom-horizontal-menu-height: 48px;
-    --top-horizontal-menu-height: 48px;
+    --mobile-bottom-horizontal-menu-height: 40px;
+    --top-horizontal-menu-height: 40px;
   }
 }
 
@@ -221,10 +221,10 @@
             margin: 0;
             
             @include sm {
-              height: var(--pad-xs);
+              height: var(--pad-s);
               .jk-icon {
-                height: var(--pad-xs);
-                width: var(--pad-xs);
+                height: var(--pad-s);
+                width: var(--pad-s);
               }
             }
           }
@@ -265,13 +265,13 @@
         }
         
         .jk-menu-item {
-          //width: 60px;
-          padding: 0 var(--pad-t);
-          font-size: var(--text-xs-size);
+          //padding: 0 var(--pad-xt);
+          padding: 0;
           gap: 0;
           justify-content: center;
+          
           .jk-menu-item-label {
-            //display: none;
+            line-height: var(--text-l-size);
           }
           
           &.selected {

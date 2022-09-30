@@ -17,6 +17,8 @@
     position: relative;
     cursor: pointer;
     white-space: nowrap;
+    min-height: var(--tabs-header-height);
+    box-sizing: border-box;
     
     &.selected {
       color: var(--t-color-gray-1);
