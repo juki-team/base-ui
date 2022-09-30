@@ -474,10 +474,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-input-toggle-wrapper {
   --input-toggle-height: var(--pad-m);
+  --input-toggle-color: var(--t-color-primary);
   position: relative;
   height: var(--input-toggle-height);
   display: flex;
-  --input-toggle-color: var(--t-color-primary);
+  align-items: center;
   
   &.disabled {
     --input-toggle-color: var(--t-color-gray-6);
