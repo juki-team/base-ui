@@ -310,7 +310,7 @@
             
             .field {
               padding: 0 var(--pad-xt);
-              overflow: scroll;
+              overflow: auto;
               box-sizing: border-box;
               
               .text-field-label {
