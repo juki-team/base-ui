@@ -9,6 +9,7 @@ export * from './Construction';
 export * from './Copy';
 export * from './CopyFile';
 export * from './Cup';
+export * from './CurvedArrow';
 export * from './Cut';
 export * from './Delete';
 export * from './Download';

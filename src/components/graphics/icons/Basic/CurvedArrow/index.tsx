@@ -1,5 +1,5 @@
 import { BasicIconProps } from '../../types';
 import { renderBasicIcon } from '../../utils';
-import Bug from './Bug';
+import CurvedArrow from './CurvedArrow';
 
-export const BugIcon = (props: BasicIconProps) => renderBasicIcon(props, Bug);
+export const CurvedArrowIcon = (props: BasicIconProps) => renderBasicIcon(props, CurvedArrow);
