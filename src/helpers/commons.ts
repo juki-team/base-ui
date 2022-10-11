@@ -125,3 +125,5 @@ export const openNewTab = (url: string) => {
     newWindow.opener = null;
   }
 };
+
+export { consoleWarn } from '@juki-team/commons';

@@ -1,8 +1,7 @@
-import { consoleWarn } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { classNames } from '../../helpers';
+import { classNames, consoleWarn } from '../../helpers';
 import { Status } from '../../types';
-import { OptionType, SearchParamsObjectType, showOfDatePickerType, ViewModeType } from '../index';
+import { OptionType, SearchParamsObjectType, showOfDatePickerType, useJukiBase, ViewModeType } from '../index';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,
@@ -37,8 +36,11 @@ import {
 
 const DEFAULT_PICKER_TYPE = 'year-month-day-hours-minutes-seconds';
 
+const CARDS = 'cards';
+const ROWS = 'rows';
+
 export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => {
-  
+  console.log('render DataViewer');
   const {
     cards,
     cardsView = true,
@@ -98,6 +100,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const pageKey = getPageKey(name);
   const pageSizeKey = getPageSizeKey(name);
   const [pageSizeOptions, setPageSizeOptions] = useState(pagination?.pageSizeOptions || [32, 64, 128, 256, 512, 1024]);
+  const { viewPortSize } = useJukiBase();
   useEffect(() => {
     if (pagination?.pageSizeOptions && JSON.stringify(pagination.pageSizeOptions) !== JSON.stringify(pageSizeOptions)) {
       setPageSizeOptions(pagination?.pageSizeOptions);
@@ -551,16 +554,29 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     setSearchParamsObject(initialSortSearch);
   }, [filterKey, headers, searchFilter, searchParamsObject, searchSorts, setSearchParamsObject, sortKey]);
   
-  const viewMode: ViewModeType = (searchParamsObject?.[viewModeKey]?.[0] === 'cards' ? 'cards' : 'rows') || initialViewMode;
-  const setViewMode = (viewMode: ViewModeType) => {
+  const viewMode: ViewModeType = (searchParamsObject?.[viewModeKey]?.[0] === CARDS ? CARDS : ROWS) || initialViewMode;
+  const setViewMode = useCallback((viewMode: ViewModeType) => {
     setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [viewMode] });
-  };
+  }, [searchParamsObject, setSearchParamsObject, viewModeKey]);
+  
+  useEffect(() => {
+    if (viewMode === CARDS && !cardsView && rowsView) {
+      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [ROWS] });
+    } else if (viewMode === ROWS && !rowsView && cardsView) {
+      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [CARDS] });
+    }
+  }, [viewPortSize, viewMode, cardsView, rowsView, setSearchParamsObject, searchParamsObject, viewModeKey]);
+  useEffect(() => {
+    console.log('useEffect', { viewMode, cardsView, viewPortSize });
+    if (viewMode === ROWS && cardsView && viewPortSize === 'sm') {
+      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [CARDS] });
+    }
+  }, [viewPortSize, viewMode, cardsView, rowsView, setSearchParamsObject, searchParamsObject, viewModeKey]);
   
   return (
     <div className={classNames(className, 'jk-data-viewer-layout', { 'with-pagination': withPagination })}>
       <DisplayDataViewer<T>
         cards={cards}
-        cardsView={cardsView}
         data={dataTable}
         extraButtons={extraButtons}
         headers={tableHeaders}
@@ -569,6 +585,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         onReload={() => setRefreshCount(prevState => prevState + 1)}
         rows={rows}
         rowsView={rowsView}
+        cardsView={cardsView}
         setViewMode={setViewMode}
         viewMode={viewMode}
         getRowKey={getRowKey}
