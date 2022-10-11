@@ -40,7 +40,7 @@ const CARDS = 'cards';
 const ROWS = 'rows';
 
 export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => {
-  console.log('render DataViewer');
+  
   const {
     cards,
     cardsView = true,
@@ -567,7 +567,6 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
   }, [viewPortSize, viewMode, cardsView, rowsView, setSearchParamsObject, searchParamsObject, viewModeKey]);
   useEffect(() => {
-    console.log('useEffect', { viewMode, cardsView, viewPortSize });
     if (viewMode === ROWS && cardsView && viewPortSize === 'sm') {
       setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [CARDS] });
     }
