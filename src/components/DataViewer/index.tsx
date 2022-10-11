@@ -59,6 +59,11 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     refreshRef,
     pagination,
     getRowKey,
+    getPageQueryParam = getPageKey,
+    getPageSizeQueryParam = getPageSizeKey,
+    getSortQueryParam = (name) => name ? name + '.sort' : 'sort',
+    getFilterQueryParam = (name) => name ? name + '.filter' : 'filter',
+    getViewModeQueryParam = (name) => name ? name + '.viewMode' : 'viewMode',
   } = props;
   
   const withPagination = !!pagination;
@@ -82,10 +87,11 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       _setSearchParamsObject(prop);
     }
   }, [propSetSearchParamsObject]);
-  
-  const sortKey = name ? name + '.sort' : 'sort';
-  const filterKey = name ? name + '.filter' : 'filter';
-  const viewModeKey = name ? name + '.viewMode' : 'viewMode';
+  const pageKey = getPageQueryParam(name);
+  const pageSizeKey = getPageSizeQueryParam(name);
+  const sortKey = getSortQueryParam(name);
+  const filterKey = getFilterQueryParam(name);
+  const viewModeKey = getViewModeQueryParam(name);
   const [refreshCount, setRefreshCount] = useState(0);
   const [loaderStatus, setLoaderStatus] = useState<Status>(Status.NONE);
   const searchSorts = searchParamsObject[sortKey]?.[0] || '';
@@ -97,8 +103,6 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const prevPage = useRef<number>();
   const prevPageSize = useRef<number>();
   const firstRender = useRef(true);
-  const pageKey = getPageKey(name);
-  const pageSizeKey = getPageSizeKey(name);
   const [pageSizeOptions, setPageSizeOptions] = useState(pagination?.pageSizeOptions || [32, 64, 128, 256, 512, 1024]);
   const { viewPortSize } = useJukiBase();
   useEffect(() => {

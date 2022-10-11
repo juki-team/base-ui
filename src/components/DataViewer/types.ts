@@ -223,6 +223,11 @@ export interface DataViewerProps<T> {
   refreshRef?: (refresh: RefreshType) => void,
   pagination?: { total: number, pageSizeOptions?: number[] },
   getRowKey?: GetRowKeyType<T>,
+  getPageQueryParam?: (name: string) => string,
+  getPageSizeQueryParam?: (name: string) => string,
+  getSortQueryParam?: (name: string) => string,
+  getFilterQueryParam?: (name: string) => string,
+  getViewModeQueryParam?: (name: string) => string,
 }
 
 export type LoaderStatusType = Status;
