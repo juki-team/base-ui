@@ -41,68 +41,14 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
         message: responseJson.message,
         errors: responseJson.errors,
       };
-    } else if (responseJson.success === false && typeof responseJson.message === 'string' && typeof responseJson.errorCode === 'string') {
-      return {
-        success: false,
-        message: responseJson.message,
-        errors: [
-          {
-            code: ERROR[responseJson.errorCode as ErrorCode]?.value || ErrorCode.ERR500,
-            detail: responseJson.message,
-            message: responseJson.message,
-          },
-        ],
-      };
-    } else if (Object.keys(responseJson).length === 3 && typeof responseJson.total === 'number' && Array.isArray(responseJson.list)) { // V0
-      return {
-        success: true,
-        message: '',
-        meta: { page: 1, size: 1, totalElements: responseJson.total, sort: [] },
-        contents: responseJson.list,
-      } as ContentsResponseType<any> as T;
-    } else if (Object.keys(responseJson).length === 2 && typeof responseJson.object === 'object') { // V0
-      if (Array.isArray(responseJson.object.content) && typeof responseJson.object.size === 'number' && typeof responseJson.object.totalElements === 'number' && typeof responseJson.object.number === 'number') { // V0
-        return {
-          success: true,
-          message: '',
-          meta: {
-            page: responseJson.object.number,
-            size: responseJson.object.size,
-            totalElements: responseJson.object.totalElements,
-            sort: [],
-          },
-          contents: responseJson.object.content,
-        } as ContentsResponseType<any> as T;
-      }
-      return {
-        success: true,
-        message: '',
-        content: responseJson.object,
-      } as T;
-    } else if (Object.keys(responseJson).length === 1 && responseJson.success === true) {
-      return { success: true, message: '', content: null } as T;
     }
-    consoleWarn({ responseText });
-    return {
-      success: false,
-      message: ERROR[ErrorCode.ERR9998].message,
-      errors: [{ code: ErrorCode.ERR9998, detail: '', message: ERROR[ErrorCode.ERR9998].message }],
-    };
-  } else {
-    consoleWarn({ responseText });
-    if (Object.keys(responseJson).length === 3 && typeof responseJson.message === 'string' && typeof responseJson.errorCode === 'string') {
-      return {
-        success: false,
-        message: responseJson.message,
-        errors: [{ code: responseJson.errorCode, detail: '', message: responseJson.message }],
-      };
-    }
-    return {
-      success: false,
-      message: ERROR[ErrorCode.ERR9998].message,
-      errors: [{ code: ErrorCode.ERR9998, detail: '', message: ERROR[ErrorCode.ERR9998].message }],
-    };
   }
+  consoleWarn({ responseText });
+  return {
+    success: false,
+    message: ERROR[ErrorCode.ERR9998].message,
+    errors: [{ code: ErrorCode.ERR9998, detail: '', message: ERROR[ErrorCode.ERR9998].message }],
+  };
 };
 
 export interface AuthorizedRequestType extends RequestInit {
