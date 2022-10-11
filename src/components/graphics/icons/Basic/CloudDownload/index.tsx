@@ -1,7 +1,7 @@
 import { BasicIconProps } from '../../types';
 import { renderBasicIcon } from '../../utils';
-import CloudUpload from './CloudUpload';
+import CloudDownload from './CloudDownload';
 
-export const CloudUploadIcon = (props: BasicIconProps) => {
-  return renderBasicIcon(props, CloudUpload);
+export const CloudDownloadIcon = (props: BasicIconProps) => {
+  return renderBasicIcon(props, CloudDownload);
 };

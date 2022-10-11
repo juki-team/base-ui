@@ -12,11 +12,14 @@ import {
   FILTER_TEXT_AUTO,
 } from './constants';
 
+export type GetRowKeyType<T> = (data: T[], index: number) => string;
+
 export interface RowVirtualizerFixedProps<T> {
   data: T[],
   headers: TableHeadersWithWidthType<T>[],
   rowHeight: number,
   scrollLeft: number,
+  getRowKey?: GetRowKeyType<T>,
 }
 
 export type FilterTextOnlineType = { type: typeof FILTER_TEXT };
@@ -171,6 +174,7 @@ export interface DisplayDataViewerProps<T> {
   rowsView: boolean,
   setViewMode: (viewMode: ViewModeType) => void,
   viewMode: ViewModeType,
+  getRowKey?: GetRowKeyType<T>,
 }
 
 export type DataViewerHeaderSortOnlineType = true;
@@ -218,6 +222,7 @@ export interface DataViewerProps<T> {
   setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
   refreshRef?: (refresh: RefreshType) => void,
   pagination?: { total: number, pageSizeOptions?: number[] },
+  getRowKey?: GetRowKeyType<T>,
 }
 
 export type LoaderStatusType = Status;

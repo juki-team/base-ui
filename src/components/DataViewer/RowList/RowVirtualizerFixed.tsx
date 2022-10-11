@@ -5,9 +5,9 @@ import { VirtualizedRowsFixed } from '../../Basic';
 import { RowVirtualizerFixedProps, TableHeadersWithWidthType } from '../types';
 import { renderField } from '../utils';
 
-export const RowVirtualizerFixed = <T, >({ data, headers, rowHeight, scrollLeft }: RowVirtualizerFixedProps<T>) => {
+export const RowVirtualizerFixed = <T, >({ data, headers, rowHeight, scrollLeft, getRowKey }: RowVirtualizerFixedProps<T>) => {
   
-  const renderHeader = (virtualRow: VirtualItem) => ({ field, index: columnIndex, width }: TableHeadersWithWidthType<T>) => (
+  const renderRowField = (virtualRow: VirtualItem) => ({ field, index: columnIndex, width }: TableHeadersWithWidthType<T>) => (
     <div
       key={virtualRow.key + ',' + columnIndex}
       style={{ width: width + 'px' }}>
@@ -22,12 +22,13 @@ export const RowVirtualizerFixed = <T, >({ data, headers, rowHeight, scrollLeft 
       classNameContainer="jk-table-rows-container"
       classNameRows="jk-table-rows-box"
       classNameRow="jk-table-row"
+      getRowKey={(virtualItem) => getRowKey?.(data, virtualItem.index) ?? virtualItem.index.toString()}
       renderRow={(virtualRow) => (
         <>
           <div className={classNames('jk-table-row-sticky', { shadow: !!scrollLeft })} style={{ left: scrollLeft }}>
-            {headers.filter(({ sticky }) => sticky).map(renderHeader(virtualRow))}
+            {headers.filter(({ sticky }) => sticky).map(renderRowField(virtualRow))}
           </div>
-          {headers.filter(({ sticky }) => !sticky).map(renderHeader(virtualRow))}
+          {headers.filter(({ sticky }) => !sticky).map(renderRowField(virtualRow))}
         </>
       )}
     />

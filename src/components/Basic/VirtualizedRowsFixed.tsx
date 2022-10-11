@@ -1,6 +1,16 @@
 import React, { ReactNode, useCallback, useRef } from 'react';
 import { useVirtual, VirtualItem } from 'react-virtual';
 
+interface VirtualizedRowsFixedProps {
+  rowHeight: number,
+  size: number,
+  renderRow: (virtualItem: VirtualItem) => ReactNode,
+  classNameContainer?: string,
+  classNameRows?: string
+  classNameRow?: string,
+  getRowKey?: (virtualItem: VirtualItem) => string,
+}
+
 export const VirtualizedRowsFixed = ({
   rowHeight,
   size,
@@ -8,11 +18,8 @@ export const VirtualizedRowsFixed = ({
   classNameContainer,
   classNameRows,
   classNameRow,
-}: {
-  rowHeight: number, size: number, renderRow: (virtualItem: VirtualItem) => ReactNode, classNameContainer?: string,
-  classNameRows?: string
-  classNameRow?: string,
-}) => {
+  getRowKey = (virtualItem) => virtualItem.index.toString(),
+}: VirtualizedRowsFixedProps) => {
   
   const parentRef = useRef<HTMLDivElement>(null);
   
@@ -28,7 +35,7 @@ export const VirtualizedRowsFixed = ({
       <div className={classNameRows} style={{ height: `${totalSize}px`, width: '100%', position: 'relative' }}>
         {virtualItems.map(virtualRow => (
           <div
-            key={virtualRow.key}
+            key={getRowKey(virtualRow)}
             style={{
               position: 'absolute',
               top: 0,

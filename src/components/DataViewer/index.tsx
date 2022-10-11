@@ -56,6 +56,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     setLoaderStatusRef,
     refreshRef,
     pagination,
+    getRowKey,
   } = props;
   
   const withPagination = !!pagination;
@@ -570,6 +571,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         rowsView={rowsView}
         setViewMode={setViewMode}
         viewMode={viewMode}
+        getRowKey={getRowKey}
       />
       {withPagination && (
         <Pagination

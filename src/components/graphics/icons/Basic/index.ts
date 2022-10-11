@@ -4,6 +4,7 @@ export * from './Bug';
 export * from './Build';
 export * from './City';
 export * from './Clock';
+export * from './CloudDownload';
 export * from './CloudUpload';
 export * from './Construction';
 export * from './Copy';

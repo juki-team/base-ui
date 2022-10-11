@@ -47,6 +47,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     rowsView,
     viewMode,
     setViewMode,
+    getRowKey,
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
@@ -122,7 +123,13 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         {viewMode === 'rows' ? (
           <div className={classNames('jk-data-viewer-body', viewMode)} style={{ width: rowWidth + SCROLL_WIDTH }}>
             <LoaderLayer loading={data.length === 0 && loading}>
-              <RowVirtualizerFixed data={data} headers={tableHeaders} rowHeight={rowHeight} scrollLeft={scrollLeft} />
+              <RowVirtualizerFixed
+                data={data}
+                headers={tableHeaders}
+                rowHeight={rowHeight}
+                scrollLeft={scrollLeft}
+                getRowKey={getRowKey}
+              />
             </LoaderLayer>
           </div>
         ) : (
