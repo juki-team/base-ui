@@ -21,8 +21,8 @@ const InputComponent = <T extends string | number | FileList, >({
   return (
     <input
       ref={registerRef || ref}
-      type={type}
-      value={type === 'file' ? undefined : value as string | number}
+      type={type === 'files' ? 'file' : type}
+      value={(type === 'file' || type === 'files') ? undefined : value as string | number}
       size={size === 'auto' ? length : size}
       disabled={disabled}
       className={classNames(className || '', `jk-input-${type} jk-border-radius-inline`, { block: !!block, disabled: !!disabled })}
@@ -32,6 +32,7 @@ const InputComponent = <T extends string | number | FileList, >({
       }}
       onBlur={registerOnBlur ? registerOnBlur : onBlur}
       style={size === 'auto' && type === 'number' ? { width: `${length + 1}em` } : {}}
+      multiple={type === 'files'}
       {...props}
       {...restRegister}
     />

@@ -19,7 +19,7 @@ export interface InputCommonsProps<T> {
   placeholder?: string,
   register?: { name: string, onBlur: ChangeHandler, onChange: ChangeHandler, ref: any },
   // types
-  type?: 'text' | 'number' | 'password' | 'email' | 'file',
+  type?: 'text' | 'number' | 'password' | 'email' | 'file' | 'files',
   accept?: string,
   size?: number | 'auto',
   step?: number | 'auto',
