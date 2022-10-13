@@ -26,7 +26,7 @@ const InputComponent = <T extends string | number | FileList, >({
       size={size === 'auto' ? length : size}
       disabled={disabled}
       className={classNames(className || '', `jk-input-${type} jk-border-radius-inline`, { block: !!block, disabled: !!disabled })}
-      onChange={registerOnChange ? registerOnChange : type === 'file' ? ({ target: { files } }) => onChange?.(files as T) : ({ target: { value } }) => {
+      onChange={registerOnChange ? registerOnChange : (type === 'file' || type === 'files') ? ({ target: { files } }) => onChange?.(files as T) : ({ target: { value } }) => {
         const newValue = (type === 'number' ? +value : value) as T;
         onChange?.(newValue);
       }}
