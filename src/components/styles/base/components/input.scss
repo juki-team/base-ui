@@ -129,7 +129,8 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-input-number,
 .jk-input-password,
 .jk-input-textarea,
-.jk-input-file, .jk-input-files,
+.jk-input-file,
+.jk-input-files,
 .jk-select-layout .jk-select,
 .jk-multi-select-layout .jk-select,
 .jk-input-date-layout .date-literal-label {
@@ -154,13 +155,19 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     //visibility: hidden;
   }
   
-  .disabled {
+  &.disabled {
     @extend .disabled-input;
   }
 }
 
-.jk-select-layout.disabled .jk-select {
-  @extend .disabled-input;
+.jk-multi-select-layout.disabled, .jk-select-layout.disabled {
+  .jk-select {
+    @extend .disabled-input;
+    
+    .input-icon {
+      color: var(--t-color-gray-4);
+    }
+  }
 }
 
 .jk-select-options.disabled {
@@ -383,15 +390,21 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   .jk-select-option {
     padding: 0 var(--pad-xt);
-    cursor: pointer;
     
     .jk-input-checkbox-wrapper {
       margin-right: 4px;
     }
     
+    &:not(.disabled) {
+      cursor: pointer;
+    }
+    
     &.disabled {
       color: var(--t-color-gray-4);
-      cursor: not-allowed;
+      
+      input, label {
+        cursor: auto;
+      }
     }
     
     &:hover:not(.disabled) {
@@ -402,7 +415,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       background-color: var(--t-color-primary);
       color: var(--t-color-white);
       
-      &:hover {
+      &:hover:not(.disabled) {
         background-color: var(--t-color-primary-light);
         
         .jk-input-checkbox {

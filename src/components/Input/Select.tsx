@@ -120,7 +120,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
             <div
               className={classNames('jk-select-option', {
                 selected: JSON.stringify(option.value) === JSON.stringify(optionSelected.value),
-                disabled: !!option.disabled,
+                disabled: !!option.disabled || isDisabled,
               })}
               onClick={(!isDisabled && !option.disabled) ? () => {
                 onChange?.(option);

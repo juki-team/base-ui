@@ -55,7 +55,7 @@ export const Form = () => {
     <div className="jk-form-item">
       <label>
         label input with placeholder
-        <Input name="nickname" placeholder="this is a placeholder" onChange={(value) => setText(value)} value={text} />
+        <Input name="nickname" placeholder="this is a placeholder" onChange={(value) => setText(value)} value={text} disabled />
       </label>
     </div>
     <div className="jk-form-item">
@@ -206,6 +206,19 @@ export const MultiSelect = () => {
       />
       Text 2
       <MultiSelectComponent
+        options={options.map(option => ({
+          label: 'label ' + option,
+          inputLabel: 'label sel ' + option,
+          value: option,
+          disabled: (Math.round(Math.random() * 10)) > 7,
+        }))}
+        selectedOptions={values}
+        onChange={options => setValues(options)}
+        block
+      />
+      Text 3 disabled
+      <MultiSelectComponent
+        disabled
         options={options.map(option => ({
           label: 'label ' + option,
           inputLabel: 'label sel ' + option,

@@ -56,15 +56,15 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
       visible={showOptions}
       onVisibleChange={value => setShowOptions(value)}
       content={
-        <div ref={optionRef} className={classNames('jk-select-options jk-border-radius-inline')}
+        <div ref={optionRef} className={classNames('jk-select-options jk-border-radius-inline', { disabled: isDisabled })}
              style={{ width: block ? (widthContainer || 0) + 32 : containerWidth }}>
           {options.map((option) => {
             const selected = optionsSelected.some(optionSelected => JSON.stringify(option.value) === JSON.stringify(optionSelected.value));
             const disabled = !!option.disabled;
             return (
               <div
-                className={classNames('jk-select-option', { selected, disabled })}
-                onClick={!option.disabled ? () => {
+                className={classNames('jk-select-option', { selected, disabled: isDisabled || disabled })}
+                onClick={(!isDisabled && !option.disabled) ? () => {
                   onChange?.(selected ? optionsSelected.filter(optionSelected => JSON.stringify(option.value) !== JSON.stringify(optionSelected.value)) : [
                     ...optionsSelected,
                     option,
@@ -78,7 +78,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
                 }}
               >
                 <div className="jk-row left nowrap">
-                  <InputCheckbox checked={selected} onChange={() => null} disabled={disabled} />
+                  <InputCheckbox checked={selected} onChange={() => null} disabled={isDisabled || disabled} />
                   {renderReactNodeOrFunction(option.label)}
                 </div>
               </div>
@@ -96,7 +96,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
             {optionsSelected.map(optionSelected => (
               <div className="jk-tag gray-6 jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
                 {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
-                {!!onChange && (
+                {!isDisabled && (
                   <CloseIcon
                     size="small"
                     filledCircle
@@ -111,7 +111,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
             ))}
           </div>
           <div className="jk-row nowrap">
-            {!!onChange && (
+            {!isDisabled && (
               <CloseIcon
                 className="input-icon"
                 onClick={event => {
