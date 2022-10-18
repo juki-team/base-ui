@@ -57,7 +57,7 @@ export interface AuthorizedRequestType extends RequestInit {
   signal?: AbortSignal
 }
 
-export const authorizedRequest = async (url: string, options?: AuthorizedRequestType) => {
+export const authorizedRequest = async (url: string, options?: AuthorizedRequestType, responseType?: 'text' | 'blob') => {
   const { method, body, signal } = options || {};
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Accept', 'application/json');
@@ -77,6 +77,9 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
     ...(signal ? { signal } : {}),
   })
     .then((response: any) => {
+      if (responseType === 'blob') {
+        return response.blob();
+      }
       return response.text();
     })
     .catch((error) => {
