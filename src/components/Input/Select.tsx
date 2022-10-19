@@ -90,7 +90,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   
   const optionRef = useRef<HTMLDivElement | null>(null);
   
-  const option = options.find(option => option.value === initialOptionSelected.value);
+  const option = options.find(option => JSON.stringify(option.value) === JSON.stringify(initialOptionSelected.value));
   const optionSelected = {
     value: initialOptionSelected.value,
     label: initialOptionSelected.label || option?.label,
