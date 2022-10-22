@@ -17,14 +17,22 @@ export const ColorPicker = ({ color, children, onChange }: ColorPickerProps) => 
   
   return (
     <Popover
-      content={(
+      content={({ onClose }) => (
         <div className="color-picker-layout">
           <SketchPicker
             color={newColor?.hex}
             onChangeComplete={(colorResult) => setNewColor(colorResult)}
             presetColors={[...PALLETE.CLAROS, ...PALLETE.VIVOS, ...PALLETE.AGRISADOS, ...PALLETE.OSCUROS]}
           />
-          <Button onClick={handlePick} style={{ backgroundColor: newColor?.hex, borderColor: newColor?.hex }} block size="small">
+          <Button
+            onClick={() => {
+              handlePick();
+              onClose(0);
+            }}
+            style={{ backgroundColor: newColor?.hex, borderColor: newColor?.hex }}
+            block
+            size="small"
+          >
             <T>pick</T>
           </Button>
         </div>
