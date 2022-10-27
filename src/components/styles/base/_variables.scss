@@ -150,9 +150,4 @@
   --z-index-drawer: 200;
   --z-index-overlay-modal: 300;
   --z-index-notification: 400;
-  
-  @include hg { --t-box-shadow: var(--t-box-shadow-hg); }
-  @include lg { --t-box-shadow: var(--t-box-shadow-lg); }
-  @include md { --t-box-shadow: var(--t-box-shadow-md); }
-  @include sm { --t-box-shadow: var(--t-box-shadow-sm); }
 }

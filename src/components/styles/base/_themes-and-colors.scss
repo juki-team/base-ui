@@ -38,11 +38,16 @@
   --t-box-shadow-md: 0 0 10px 0px rgba(0, 0, 0, 0.25);
   --t-box-shadow-sm: 0 0 7px 0px rgba(0, 0, 0, 0.25);
   --t-box-shadow-tn: 0 0 4px 0px rgba(0, 0, 0, 0.25);
+  
+  @include hg { --t-box-shadow: var(--t-box-shadow-hg); }
+  @include lg { --t-box-shadow: var(--t-box-shadow-lg); }
+  @include md { --t-box-shadow: var(--t-box-shadow-md); }
+  @include sm { --t-box-shadow: var(--t-box-shadow-sm); }
 }
 
 .jk-theme-dark {
-  @include defineColor(--t-color-primary-dark, #398ad4);
-  @include defineColor(--t-color-primary, #1f598e);
+  @include defineColor(--t-color-primary-dark, #398AD4);
+  @include defineColor(--t-color-primary, #1F598E);
   @include defineColor(--t-color-primary-light, #133859);
   
   @include defineColor(--t-color-primary-text, #FFFFFF);
@@ -77,4 +82,9 @@
   --t-box-shadow-md: 0 0 10px 0px rgba(255, 255, 255, 0.25);
   --t-box-shadow-sm: 0 0 7px 0px rgba(255, 255, 255, 0.25);
   --t-box-shadow-tn: 0 0 4px 0px rgba(255, 255, 255, 0.25);
+  
+  @include hg { --t-box-shadow: var(--t-box-shadow-hg); }
+  @include lg { --t-box-shadow: var(--t-box-shadow-lg); }
+  @include md { --t-box-shadow: var(--t-box-shadow-md); }
+  @include sm { --t-box-shadow: var(--t-box-shadow-sm); }
 }
