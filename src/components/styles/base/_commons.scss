@@ -3,6 +3,7 @@
 :root {
   --scrollbar-size: 8px;
 }
+
 *::-webkit-scrollbar {
   //width: var(--pad-xt);
   //height: var(--pad-xt);
@@ -106,7 +107,7 @@
 }
 
 .link {
-  color: var(--t-color-primary-light) !important;
+  color: var(--t-color-primary-dark) !important;
   cursor: pointer !important;
   
   &:hover {

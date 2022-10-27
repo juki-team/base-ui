@@ -2,10 +2,8 @@
 
 /* ********************************             COLORS             ******************************** */
 .jk-theme-light {
-  //@include defineColor(--t-color-primary-dark, #081826);
   @include defineColor(--t-color-primary-dark, #11304D);
   @include defineColor(--t-color-primary, #164066);
-  //@include defineColor(--t-color-primary-light, #2468A6);
   @include defineColor(--t-color-primary-light, #2772B5);
   
   @include defineColor(--t-color-primary-text, #FFFFFF);
@@ -43,30 +41,11 @@
 }
 
 .jk-theme-dark {
-  
-  //@include defineColor(--t-color-primary-dark, #2772B5);
-  //@include defineColor(--t-color-primary, #164066);
-  ////@include defineColor(--t-color-primary-light, #2468A6);
-  //@include defineColor(--t-color-primary-light, #11304D);
-  //
-  @include defineColor(--t-color-primary-text, #FFFFFF);
-  
-  
   @include defineColor(--t-color-primary-dark, #398ad4);
   @include defineColor(--t-color-primary, #1f598e);
   @include defineColor(--t-color-primary-light, #133859);
   
-  //@include defineColor(--t-color-primary-dark, #79B0E2);
-  //@include defineColor(--t-color-primary, #4C96D8);
-  //@include defineColor(--t-color-primary-light, #2772B4);
-  //
-  //@include defineColor(--t-color-primary-dark, #4C96D8);
-  //@include defineColor(--t-color-primary, #2772B4);
-  //@include defineColor(--t-color-primary-light, #1D5587);
-
-  //@include defineColor(--t-color-primary-dark, #9BC4E9);
-  //@include defineColor(--t-color-primary, #79B0E2);
-  //@include defineColor(--t-color-primary-light, #3286D3);
+  @include defineColor(--t-color-primary-text, #FFFFFF);
   
   @include defineColor(--t-color-secondary, #CBCECE);
   @include defineColor(--t-color-accent, #3B3B3B);
