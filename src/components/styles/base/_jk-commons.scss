@@ -139,12 +139,6 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
 /*
  SHADOW
  */
-:root {
-  @include hg { --t-box-shadow: var(--t-box-shadow-hg); }
-  @include lg { --t-box-shadow: var(--t-box-shadow-lg); }
-  @include md { --t-box-shadow: var(--t-box-shadow-md); }
-  @include sm { --t-box-shadow: var(--t-box-shadow-sm); }
-}
 
 .jk-shadow {
   box-shadow: var(--t-box-shadow); // responsive variable
