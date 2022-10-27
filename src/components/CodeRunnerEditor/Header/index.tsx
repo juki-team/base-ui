@@ -85,7 +85,7 @@ export const Header = ({
       style={twoRows ? { '--options-header-height': '80px' } as CSSProperties : {}}
       ref={ref}
     >
-      <div className={classNames('left-options cr-py jk-row gap', { 'jk-col left gap': twoRows })} ref={refLeftSection}>
+      <div className={classNames('left-options cr-pl jk-row gap', { 'jk-col left gap': twoRows })} ref={refLeftSection}>
         <Select
           className="languages-selector"
           options={languages.map(language => ({ value: language, label: language }))}
@@ -107,7 +107,7 @@ export const Header = ({
       <div className="center-options" style={{ width: widthCenterContainer }}>
         {centerOptions({ widthContainer: widthCenterContainer })}
       </div>
-      <div className={classNames('right-options cr-py', { 'jk-col gap': twoRows })} ref={refRightSection}>
+      <div className={classNames('right-options cr-pl', { 'jk-col gap': twoRows })} ref={refRightSection}>
         <Button size="tiny" type="text" onClick={() => setShowSettings(true)} icon={<SettingIcon />}>
           {withLabels && <T>settings</T>}
         </Button>

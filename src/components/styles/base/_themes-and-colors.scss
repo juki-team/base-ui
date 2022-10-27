@@ -46,11 +46,11 @@
 }
 
 .jk-theme-dark {
-  @include defineColor(--t-color-primary-dark, #398AD4);
+  @include defineColor(--t-color-primary-dark, #133859);
   @include defineColor(--t-color-primary, #1F598E);
-  @include defineColor(--t-color-primary-light, #133859);
+  @include defineColor(--t-color-primary-light, #398AD4);
   
-  @include defineColor(--t-color-primary-text, #FFFFFF);
+  @include defineColor(--t-color-primary-text, #e6e6e6);
   
   @include defineColor(--t-color-secondary, #CBCECE);
   @include defineColor(--t-color-accent, #3B3B3B);
@@ -60,16 +60,16 @@
   @include defineColor(--t-color-warning, #F5D679);
   @include defineColor(--t-color-error, #F08181);
   
-  @include defineColor(--t-color-black, #FFFFFF);
-  @include defineColor(--t-color-black-2, #F2F2F2);
+  @include defineColor(--t-color-black, #F2F2F2);
+  @include defineColor(--t-color-black-2, #FFFFFF);
   @include defineColor(--t-color-gray-1, #DDDDDD);
   @include defineColor(--t-color-gray-2, #BBBBBB);
   @include defineColor(--t-color-gray-3, #999999);
   @include defineColor(--t-color-gray-4, #777777);
   @include defineColor(--t-color-gray-5, #555555);
   @include defineColor(--t-color-gray-6, #333333);
-  @include defineColor(--t-color-white-2, #1E1E1E);
-  @include defineColor(--t-color-white, #000000);
+  @include defineColor(--t-color-white-2, #1A1A1A);
+  @include defineColor(--t-color-white, #333333);
   
   --t-color-shadow-lightest: rgba(255, 255, 255, 0.05);
   --t-color-shadow-light: rgba(255, 255, 255, 0.15);

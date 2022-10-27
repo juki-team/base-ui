@@ -58,7 +58,7 @@
     
     thead tr {
       background-color: var(--t-color-primary);
-      color: var(--t-color-white);
+      color: var(--t-color-primary-text);
       
       th:first-child {
         border-radius: var(--border-radius-inline) 0 0 0;
@@ -153,6 +153,6 @@
     background-color: var(--t-color-shadow-light);
     padding: 0 4px;
     border-radius: var(--border-radius-inline);
-    color: var(--t-color-primary-dark);
+    color: var(--t-color-primary-light);
   }
 }

@@ -72,7 +72,7 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
  IMAGE PROFILE
  */
 .jk-user-profile-img {
-  border: 2px solid var(--t-color-white);
+  border: 2px solid var(--t-color-white) !important;
   border-radius: 50%;
   // regular
   width: var(--pad-m);

@@ -14,12 +14,23 @@ html, body {
 }
 
 // overwriting styles
+.jk-theme-light {
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--t-color-primary);
+  }
+}
+
+.jk-theme-dark {
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--t-color-primary-light);
+  }
+}
+
 h1, h2, h3, h4, h5, h6 {
   &:first-letter {
     text-transform: capitalize;
   }
   
-  color: var(--t-color-primary-dark);
   font-weight: var(--weight-bold);
   margin-block-start: 0;
   margin-block-end: 0;
