@@ -43,11 +43,7 @@
 
 .cr-pd { color: var(--t-color-primary-dark); }
 
-.cr-sl { color: var(--t-color-secondary-light); }
-
 .cr-sy { color: var(--t-color-secondary); }
-
-.cr-sd { color: var(--t-color-secondary-dark); }
 
 .cr-al { color: var(--t-color-accent-light); }
 
@@ -83,11 +79,7 @@
 
 .bc-pd { background-color: var(--t-color-primary-dark); }
 
-.bc-sl { background-color: var(--t-color-secondary-light); }
-
 .bc-sy { background-color: var(--t-color-secondary); }
-
-.bc-sd { background-color: var(--t-color-secondary-dark); }
 
 .bc-al { background-color: var(--t-color-accent-light); }
 
@@ -95,6 +87,10 @@
 
 .bc-ad { background-color: var(--t-color-accent-dark); }
 
+.bc-sl {
+  background-color: var(--t-color-shadow-lightest);
+  //--t-color-shadow-light: rgba(0, 0, 0, 0.15);
+}
 .cursor-pointer { cursor: pointer; }
 
 .screen:not(.hg) {

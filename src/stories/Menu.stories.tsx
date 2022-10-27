@@ -116,7 +116,7 @@ export const MenuVerticalClassic = () => {
         centerMobile={centerMobile}
         leftMobile={leftMobile}
       >
-        <div style={{ background: 'bisque' }}>
+        <div>
           <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
         </div>
       </VerticalMenu>
@@ -146,7 +146,7 @@ export const HorizontalMenuClassic = () => {
         centerMobile={centerMobile}
         leftMobile={leftMobile}
       >
-        <div style={{ background: 'bisque' }}>
+        <div>
           <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
         </div>
       </HorizontalMenu>

@@ -139,12 +139,21 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
 /*
  SHADOW
  */
+:root {
+  @include hg { --t-box-shadow: var(--t-box-shadow-hg); }
+  @include lg { --t-box-shadow: var(--t-box-shadow-lg); }
+  @include md { --t-box-shadow: var(--t-box-shadow-md); }
+  @include sm { --t-box-shadow: var(--t-box-shadow-sm); }
+}
+
 .jk-shadow {
   box-shadow: var(--t-box-shadow); // responsive variable
   
   &.huge { box-shadow: var(--t-box-shadow-hg); }
   
   &.large { box-shadow: var(--t-box-shadow-lg); }
+  
+  &.regular { box-shadow: var(--t-box-shadow-md); }
   
   &.small { box-shadow: var(--t-box-shadow-sm); }
   
@@ -181,11 +190,7 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
   
   &.primary-dark { background-color: var(--t-color-primary-dark); }
   
-  &.secondary-light { background-color: var(--t-color-secondary-light); }
-  
   &.secondary { background-color: var(--t-color-secondary); }
-  
-  &.secondary-dark { background-color: var(--t-color-secondary-dark); }
   
   &.gray-1 { background-color: var(--t-color-gray-1); }
   
@@ -195,7 +200,12 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
   
   &.gray-4 { background-color: var(--t-color-gray-4); }
   
-  &.gray-5 { background-color: var(--t-color-gray-5); color: var(--t-color-gray-1); }
+  &.gray-5 { background-color: var(--t-color-gray-5); color: var(--t-color-black-2); }
   
-  &.gray-6 { background-color: var(--t-color-gray-6); color: var(--t-color-gray-1); }
+  &.gray-6 { background-color: var(--t-color-gray-6); color: var(--t-color-black-2); }
+  
+  &.bc-sl {
+    background-color: var(--t-color-shadow-lightest) !important;
+    color: var(--t-color-black-2);
+  }
 }

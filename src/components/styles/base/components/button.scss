@@ -130,39 +130,36 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
   }
   
   &:not(.disabled):hover {
-    box-shadow: var(--t-box-shadow-sm);
+    box-shadow: var(--t-box-shadow-lg);
   }
 }
 
 .jk-button-primary, .jk-button-primary {
   background-color: var(--t-color-primary);
-  border: 2px solid var(--t-color-primary);
+  border: 2px solid transparent;
   color: var(--t-color-white);
   
   &:not(.disabled):hover {
-    background-color: var(--t-color-primary-dark);
-    border-color: var(--t-color-primary-dark);
+    background-color: rgba(var(--t-color-primary-rgb), 0.90);
   }
   
   &:not(.disabled):active, &:not(.disabled):focus {
-    background-color: var(--t-color-primary-light);
-    border-color: var(--t-color-primary-light);
+    background-color: rgba(var(--t-color-primary-rgb), 0.80);
+    box-shadow: none;
   }
 }
 
-.jk-button-secondary, .jk-button-secondary {
+.jk-button-secondary {
   background-color: var(--t-color-secondary);
-  border: 2px solid var(--t-color-secondary);
+  border: 2px solid transparent;
   color: var(--t-color-white);
   
   &:not(.disabled):hover {
-    background-color: var(--t-color-secondary-dark);
-    border-color: var(--t-color-secondary-dark);
+    background-color: rgba(var(--t-color-secondary-rgb), 0.90);
   }
   
   &:not(.disabled):active, &:not(.disabled):focus {
-    background-color: var(--t-color-secondary-light);
-    border-color: var(--t-color-secondary-light);
+    background-color: rgba(var(--t-color-secondary-rgb), 0.80);
   }
 }
 

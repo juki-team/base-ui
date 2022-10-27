@@ -131,9 +131,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'cr-pl',
               'cr-py',
               'cr-pd',
-              'cr-sl',
               'cr-sy',
-              'cr-sd',
               'cr-al',
               'cr-at',
               'cr-ad',
@@ -169,9 +167,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'bc-pl',
               'bc-py',
               'bc-pd',
-              'bc-sl',
               'bc-sy',
-              'bc-sd',
               'bc-al',
               'bc-at',
               'bc-ad',
@@ -269,6 +265,29 @@ export const Classes: Story<TabsProps<string>> = () => {
               'ta-ed',
             ].map(tt => (
               <div className="jk-row gap nowrap jk-shadow jk-pad-md jk-border-radius-inline" style={{ width: 420 }}>
+                <pre>"{tt}"</pre>
+                <div className={'ws-np ' + tt} style={{ width: 400 }}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+    {
+      key: '9',
+      header: <div>box-shadow</div>,
+      body: (
+        <div className="jk-col gap">
+          <h1>text-align</h1>
+          <div className="jk-col gap">
+            {[
+              'jk-shadow huge',
+              'jk-shadow large',
+              'jk-shadow regular',
+              'jk-shadow small',
+              'jk-shadow tiny',
+            ].map(tt => (
+              <div className="jk-row gap nowrap jk-shadowa jk-pad-md jk-border-radius-inline" style={{ width: 420 }}>
                 <pre>"{tt}"</pre>
                 <div className={'ws-np ' + tt} style={{ width: 400 }}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
               </div>

@@ -1,8 +1,8 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Button, Drawer as DrawerComponent, DrawerProps, MdMathViewer } from '../../index';
 import { SAMPLE_MD_CONTENT } from '../../constants/md';
+import { Button, Drawer as DrawerComponent, DrawerProps, MdMathViewer } from '../../index';
 
 export default {
   title: 'Components/Feedback/Drawer',
@@ -18,7 +18,7 @@ configureActions({
 
 const Template: Story<DrawerProps> = (args) => {
   return (
-    <div style={{ height: '500px', background: 'bisque' }}>
+    <div style={{ height: '500px' }}>
       <DrawerComponent
         {...args}
         content={<div style={{ width: 250 }}><MdMathViewer source={SAMPLE_MD_CONTENT} /></div>}

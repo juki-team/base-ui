@@ -121,7 +121,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .disabled-input {
   color: var(--t-color-gray-4);
   border-color: var(--t-color-gray-4);
-  background-color: var(--t-color-white-2);
+  background-color: var(--t-color-shadow-light);
 }
 
 // input textarea
@@ -158,6 +158,8 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   &.disabled {
     @extend .disabled-input;
   }
+  
+  background-color: var(--t-color-shadow-lightest);
 }
 
 .jk-multi-select-layout.disabled, .jk-select-layout.disabled {
@@ -462,6 +464,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       
       .jk-tag {
         gap: 4px;
+        background-color: var(--t-color-shadow-light);
         
         .jk-icon:hover {
           color: var(--t-color-gray-2);
