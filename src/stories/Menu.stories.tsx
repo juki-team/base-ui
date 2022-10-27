@@ -110,8 +110,8 @@ export const MenuVerticalClassic = () => {
     <div style={{ height: '400px' }}>
       <VerticalMenu
         menu={menu}
-        topSection={<div className="jk-row cr-we" style={{ width: '60px' }}><JukiJudgeLogoHorImage /></div>}
-        bottomSection={<div className="cr-we">{rightSection({})}</div>}
+        topSection={<div className="jk-row" style={{ width: '60px' }}><JukiJudgeLogoHorImage /></div>}
+        bottomSection={<div className="">{rightSection({})}</div>}
         rightMobile={rightMobile}
         centerMobile={centerMobile}
         leftMobile={leftMobile}
@@ -140,8 +140,8 @@ export const HorizontalMenuClassic = () => {
     <div style={{ height: '400px' }}>
       <HorizontalMenu
         menu={menuHorizontal}
-        leftSection={<div className="jk-row cr-we" style={{ width: '240px' }}><JukiJudgeLogoHorImage /></div>}
-        rightSection={<div className="cr-we">{rightSection({})}</div>}
+        leftSection={<div className="jk-row" style={{ width: '240px' }}><JukiJudgeLogoHorImage /></div>}
+        rightSection={<div className="">{rightSection({})}</div>}
         rightMobile={rightMobile}
         centerMobile={centerMobile}
         leftMobile={leftMobile}

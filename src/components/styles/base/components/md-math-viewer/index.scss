@@ -1,5 +1,8 @@
 @import "katex";
-@import "vs-code-theme";
+//@import "vs-code-theme";
+@import "prism-default";
+//@import "prism-dark";
+@import "prism-okaidia";
 @import "prism-line-numbers";
 
 .jk-md-math {
@@ -147,13 +150,9 @@
   }
   
   code.inline-code {
-    //background-color: var(--t-color-white-2);
-    //background-color: var(--t-color-gray-6);
-    background-color: var(--t-color-shadow-lightest);
-    //box-sizing: border-box;
-    //border: 1px solid var(--t-color-shadow-light);
+    background-color: var(--t-color-shadow-light);
     padding: 0 4px;
     border-radius: var(--border-radius-inline);
-    color: var(--t-color-primary-light);
+    color: var(--t-color-primary-dark);
   }
 }

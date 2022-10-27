@@ -37,7 +37,7 @@
       
       .jk-menu-top-section, .jk-menu-item, .jk-menu-bottom-section, .jk-menu-collapse {
         background-color: var(--t-color-primary);
-        color: var(--t-color-white);
+        color: var(--t-color-primary-text);
       }
       
       .jk-menu-items {
@@ -168,6 +168,7 @@
       
       .jk-menu-left-section, .jk-menu-items, .jk-menu-right-section, .jk-horizontal-menu-mobile-right {
         height: inherit;
+        color: var(--t-color-primary-text);
         
         .jk-image {
           height: calc(var(--top-horizontal-menu-height) - 16px);
@@ -179,7 +180,7 @@
       
       .jk-menu-items {
         flex: 1;
-        color: var(--t-color-white);
+        color: var(--t-color-primary-text);
         
         .jk-menu-item {
           position: relative;

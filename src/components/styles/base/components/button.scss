@@ -134,10 +134,10 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
   }
 }
 
-.jk-button-primary, .jk-button-primary {
+.jk-button-primary {
   background-color: var(--t-color-primary);
   border: 2px solid transparent;
-  color: var(--t-color-white);
+  color: var(--t-color-primary-text);
   
   &:not(.disabled):hover {
     background-color: rgba(var(--t-color-primary-rgb), 0.90);
@@ -145,7 +145,6 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
   
   &:not(.disabled):active, &:not(.disabled):focus {
     background-color: rgba(var(--t-color-primary-rgb), 0.80);
-    box-shadow: none;
   }
 }
 

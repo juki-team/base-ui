@@ -203,9 +203,4 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
   &.gray-5 { background-color: var(--t-color-gray-5); color: var(--t-color-black-2); }
   
   &.gray-6 { background-color: var(--t-color-gray-6); color: var(--t-color-black-2); }
-  
-  &.bc-sl {
-    background-color: var(--t-color-shadow-lightest) !important;
-    color: var(--t-color-black-2);
-  }
 }
