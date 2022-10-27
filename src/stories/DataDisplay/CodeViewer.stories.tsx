@@ -29,7 +29,18 @@ const Template: Story<CodeViewerProps> = ({ language, ...args }) => {
 export const CodeViewer = Template.bind({});
 
 CodeViewer.args = {
-  code: 'console.info("Juki!")',
+  code: `#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+
+    int l,r;
+    cin >> l >> r;
+
+    cout << (l == 1 ? 1 : 0) << "\\n";
+    return 0;
+}`,
   withLanguageLabel: true,
   withCopyButton: true,
   lineNumbers: true,

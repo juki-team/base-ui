@@ -29,7 +29,7 @@ export const CodeViewer = ({
       className={classNames('jk-code-viewer jk-shadow jk-border-radius-inline', { 'line-numbers': !!lineNumbers })}
       data-plugin-header="show-language"
     >
-      <div className="float-top-right pad-xt jk-row gap display-on-hover-6">
+      <div className="float-top-right pad-xt jk-row gap">
         {withLanguageLabel && !!PROGRAMMING_LANGUAGE[language]?.label && (
           <div className="tx-xs jk-tag">{PROGRAMMING_LANGUAGE[language]?.label}</div>
         )}
