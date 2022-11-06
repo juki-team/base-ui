@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../helpers';
 import { useJkSocket } from '../../hooks/useJkSocket';
-import { SubmissionRunStatus } from '../../types';
+import { SocketEvent, SubmissionRunStatus } from '../../types';
 import { Portal } from '../Basic';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, CodeEditorKeyMap, CodeEditorTheme } from '../CodeEditor';
 import { SplitPane } from '../SplitPane';
@@ -27,7 +27,7 @@ export const CodeRunnerEditor = ({
   expandPosition,
 }: CodeRunnerEditorProps) => {
   const [runId, setRunId] = useState('');
-  const { pop } = useJkSocket('message');
+  const { pop } = useJkSocket(SocketEvent.RUN_ASYNC);
   const [errorData, setErrorData] = useState<SubmissionTestCaseType>({
     log: '',
     err: '',
@@ -35,7 +35,6 @@ export const CodeRunnerEditor = ({
     status: SubmissionRunStatus.NONE,
   });
   useEffect(() => {
-    
     const cleanTestCases = (newTestCases: CodeEditorTestCasesType, status: SubmissionRunStatus) => {
       for (const testKey in newTestCases) {
         newTestCases[testKey] = {

@@ -1,7 +1,8 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { JukiBaseUiProvider, Popover, PopoverProps } from '../../index';
+import { Popover, PopoverProps } from '../../index';
+import { JukiProvider } from '../JukiProvider';
 
 export default {
   title: 'Components/Data Display',
@@ -57,12 +58,7 @@ const Template: Story<PopoverProps> = (args) => {
   );
   
   return (
-    <JukiBaseUiProvider
-      utilsServiceUrl="https://prod-v1-utils-back.juki.app"
-      apiVersion="api/v1"
-      utilsUiUrl="http://localhost:3001"
-      tokenName="juki-token"
-    >
+    <JukiProvider>
       <div style={{ height: '500px', padding: '400px', width: '1000px' }}>
         <Popover
           {...args}
@@ -212,7 +208,7 @@ const Template: Story<PopoverProps> = (args) => {
           <div style={{ background: 'gray', width: '200px' }}>centerScreen</div>
         </Popover>
       </div>
-    </JukiBaseUiProvider>
+    </JukiProvider>
   );
 };
 

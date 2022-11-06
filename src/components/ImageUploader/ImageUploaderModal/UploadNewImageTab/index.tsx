@@ -18,7 +18,7 @@ export const UploadNewImageTab = memo(() => {
     const formData = new FormData();
     formData.append('image', image);
     try {
-      const data = await (await fetch(...settings.UTILS_API.POST_PUBLIC_IMAGE(formData))).json();
+      const data = await (await fetch(...settings.JUKI_API.POST_PUBLIC_IMAGE(formData))).json();
       if (data.success) {
         return { status: Status.SUCCESS, message: data.message, content: data.content };
       } else {

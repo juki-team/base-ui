@@ -1,6 +1,7 @@
 export interface JukiBaseUiProviderProps {
   utilsServiceUrl: string,
-  apiVersion: string,
+  utilsServiceApiVersion: string,
+  utilsSocketServiceUrl: string,
   utilsUiUrl: string,
   tokenName: string,
 }

@@ -54,7 +54,7 @@ export const Header = ({
     setErrorData({ status: SubmissionRunStatus.NONE, out: '', err: '', log: '' });
     onChange?.({ testCases: newTestCases });
     try {
-      const request = cleanRequest<ContentResponseType<{ runId: string }>>(await authorizedRequest(...settings.UTILS_API.POST_CODE_RUN(JSON.stringify({
+      const request = cleanRequest<ContentResponseType<{ runId: string }>>(await authorizedRequest(...settings.JUKI_API.POST_CODE_RUN(JSON.stringify({
         language,
         source: sourceCode,
         inputs: Object.values(testCases).map(testCase => ({ key: testCase.key, source: testCase.in })),

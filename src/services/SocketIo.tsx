@@ -1,41 +1,71 @@
-import { consoleWarn, ContentResponseType } from '@juki-team/commons';
+import { consoleWarn, SocketEvent } from '@juki-team/commons';
 import io, { Socket } from 'socket.io-client';
 import { settings } from '../config';
-import { authorizedRequest, cleanRequest } from './fetch';
 
 export class SocketIo {
   private _socket: null | Socket = null;
-  // private _onListeners: { message: string, listener: (result: any) => void }[] = [];
-  private _cookieSession = '';
+  private _sessionId = '';
   
-  async start() {
+  start() {
     if (this._socket) {
       this._socket.disconnect();
     }
-    this._socket = io(...settings.UTILS_API.CONNECT_WEBSOCKET());
+    this._socket = io(...settings.JUKI_API.CONNECT_WEBSOCKET());
     
     this._socket.connect();
-    this._socket.on('connect', () => {
+    
+    this._socket.on('connect', async () => {
       console.info('socket connected');
-      this.joinSession();
+      await this.joinSession();
     });
+    
     this._socket.on('disconnect', () => {
       console.info('socket disconnect');
     });
+    
     this._socket.on('connect_error', (err) => {
       consoleWarn(`connect_error due to ${err.message}`);
     });
   }
   
-  async joinSession() {
-    const request = cleanRequest<ContentResponseType<string>>(await authorizedRequest(...settings.UTILS_API.POST_LOGIN()));
-    this._cookieSession = (request?.success && request?.content) || '';
-    if (this._cookieSession) {
-      this._socket?.emit('join-session', this._cookieSession);
-      console.info('join-session', this._cookieSession);
-    } else {
-      consoleWarn({ request, message: 'join session failed, invalid cookie session' });
+  stop() {
+    if (this._socket) {
+      this._socket.disconnect();
     }
+    this._socket = null;
+  }
+  
+  emitAsync(event: string, payload: any) {
+    return new Promise((resolve, reject) => {
+      if (!this._socket) {
+        consoleWarn('the socket isn\'t ready, the event will be lost');
+      }
+      return this._socket?.emit(event, payload, function (...args: any) {
+        console.info('weird, it doesn\'t get here', { args }); // weird, it doesn't get here
+        if (args[0]) return reject(new Error(args[0]));
+        return resolve.apply(null, args);
+      });
+    });
+  }
+  
+  async joinSession() {
+    this._sessionId = localStorage.getItem(settings.TOKEN_NAME) || '';
+    if (this._sessionId) {
+      await this.emitAsync(SocketEvent.SIGN_IN, this._sessionId);
+      console.info(SocketEvent.SIGN_IN, this._sessionId);
+    } else {
+      consoleWarn({ message: 'join session failed, invalid cookie session' });
+    }
+  }
+  
+  async leaveSession() {
+    if (this._sessionId) {
+      await this.emitAsync(SocketEvent.SIGN_OUT, this._sessionId);
+      console.info(SocketEvent.SIGN_OUT, this._sessionId);
+    } else {
+      consoleWarn({ message: 'leave session failed, invalid cookie session' });
+    }
+    this._sessionId = '';
   }
   
   on(message: string, listener: (result: any) => void) {
@@ -48,19 +78,11 @@ export class SocketIo {
   }
   
   off(message: string, listener: (result: any) => void) {
-    // this._onListeners.push({ message, listener });
     if (this._socket) {
       this._socket.off(message, listener);
       return true;
     }
     consoleWarn('the socket isn\'t ready, the listener will be added when socket is ready');
     return false;
-  }
-  
-  emit(event: string, data: string) {
-    if (!this._socket) {
-      consoleWarn('the socket isn\'t ready, the event will be lost');
-    }
-    this._socket?.emit(event, data);
   }
 }

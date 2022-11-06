@@ -6,7 +6,8 @@ export class Settings {
   private _UTILS_SERVICE_URL = '';
   private _UTILS_SERVICE_API_URL = '';
   private _UTILS_UI_URL = '';
-  private _JUKI_TOKEN_NAME = '';
+  private _TOKEN_NAME = '';
+  private _UTILS_SERVICE_SOCKET_URL = '';
   
   get UTILS_SERVICE_URL(): string {
     return this._UTILS_SERVICE_URL;
@@ -20,12 +21,19 @@ export class Settings {
     return this._UTILS_UI_URL;
   }
   
-  get JUKI_TOKEN_NAME(): string {
-    return this._JUKI_TOKEN_NAME;
+  get TOKEN_NAME(): string {
+    return this._TOKEN_NAME;
   }
   
-  public get UTILS_API() {
+  get UTILS_SERVICE_SOCKET_URL(): string {
+    return this._UTILS_SERVICE_SOCKET_URL;
+  }
+  
+  public get JUKI_API() {
     return {
+      PING: () => {
+        return [`${this._UTILS_SERVICE_API_URL}/auth/ping`];
+      },
       GET_ALL_PUBLIC_IMAGES: (): [string] => [this._UTILS_SERVICE_API_URL + '/images'],
       POST_PUBLIC_IMAGE: (body: FormData): [string, AuthorizedRequestType] => [
         this._UTILS_SERVICE_API_URL + '/image',
@@ -49,24 +57,23 @@ export class Settings {
         `${this._UTILS_SERVICE_API_URL}/note/pdf?sourceUrl=${sourceUrl}`,
       ],
       POST_CODE_RUN: (body: string): [string, AuthorizedRequestType] => [
-        this._UTILS_SERVICE_API_URL + '/code/run', {
-          method: HTTPMethod.POST,
-          body,
-        },
+        // this._UTILS_SERVICE_API_URL + '/code/run', {
+        //   method: HTTPMethod.POST,
+        //   body,
+        // },
+        this._UTILS_SERVICE_API_URL + '/code/run-async',
+        { method: HTTPMethod.POST, body },
       ],
       CONNECT_WEBSOCKET: (): [string, Partial<ManagerOptions & SocketOptions>] => [
-        this._UTILS_SERVICE_URL, { withCredentials: true, transports: ['websocket'], autoConnect: false, reconnection: true },
-      ],
-      POST_LOGIN: (): [string, AuthorizedRequestType] => [
-        this._UTILS_SERVICE_API_URL + '/auth/login', { method: HTTPMethod.POST },
+        this._UTILS_SERVICE_SOCKET_URL, { withCredentials: true, transports: ['websocket'], autoConnect: false, reconnection: true },
       ],
     };
   }
   
-  setSetting(utilsServiceUrl: string, apiVersion: string, utilsUiUrl: string, jukiTokenName: string) {
-    this._UTILS_SERVICE_URL = utilsServiceUrl;
-    this._UTILS_SERVICE_API_URL = utilsServiceUrl + '/' + apiVersion;
+  setSetting(utilsServiceUrl: string, utilsServiceApiVersion: string, utilsSocketServiceUrl: string, utilsUiUrl: string, tokenName: string) {
+    this._UTILS_SERVICE_API_URL = utilsServiceUrl + '/' + utilsServiceApiVersion;
+    this._UTILS_SERVICE_SOCKET_URL = utilsSocketServiceUrl;
     this._UTILS_UI_URL = utilsUiUrl;
-    this._JUKI_TOKEN_NAME = jukiTokenName;
+    this._TOKEN_NAME = tokenName;
   }
 }

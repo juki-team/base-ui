@@ -2,7 +2,8 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
 
-import { Button, JukiBaseUiProvider, MdMathEditor as MdMathEditorComponent, MdMathEditorProps } from '../../index';
+import { Button, MdMathEditor as MdMathEditorComponent, MdMathEditorProps } from '../../index';
+import { JukiProvider } from '../JukiProvider';
 
 export default {
   title: 'Components/Data Entry',
@@ -30,12 +31,7 @@ export const MdMathEditor: Story<MdMathEditorProps> = ({
   const example = '# Titulo ```\n#include <bits/stdc++.h>\n\nusing namespace std; \n\n|A | B| C|\n|--|--|--|\n|1|2|3|\n|4|5|6|';
   const [text, setText] = useState(example);
   return (
-    <JukiBaseUiProvider
-      utilsServiceUrl="https://utils-back-v1.juki.app"
-      apiVersion="api/v1"
-      utilsUiUrl="http://localhost:3001"
-      tokenName="juki-token"
-    >
+    <JukiProvider>
       <div>
         <MdMathEditorComponent
           source={text}
@@ -48,6 +44,6 @@ export const MdMathEditor: Story<MdMathEditorProps> = ({
         <p>{text}</p>
         <Button onClick={() => setText(example)}>clear</Button>
       </div>
-    </JukiBaseUiProvider>
+    </JukiProvider>
   );
 };

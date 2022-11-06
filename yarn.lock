@@ -1754,10 +1754,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@juki-team/commons@^0.0.175":
-  version "0.0.175"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.175/42b2bfc07173e644f02e9f5efef7faec4d4a9630#42b2bfc07173e644f02e9f5efef7faec4d4a9630"
-  integrity sha512-fMo0NQnCpKPVdhEcntVcXddVM3BHV3gwjX+QhlVDLp8ipNIm4Cy/MNETgGoGtznP+bI9NyZu5EeD2xYwJEmggw==
+"@juki-team/commons@^0.0.179":
+  version "0.0.179"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.179/39981ecdc1a1950d65b4db04dfbf0240e4288d0a#39981ecdc1a1950d65b4db04dfbf0240e4288d0a"
+  integrity sha512-TYXr42FByVW7jiYwc8V1i1eNO/CeSIDpW8CqLln7nekHgl0vCbdzBQjMVIVbBsyr6IKSBZZt8U5CIQMhr+9ncQ==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
@@ -14270,6 +14270,11 @@ svgo@^2.7.0:
     csso "^4.2.0"
     picocolors "^1.0.0"
     stable "^0.1.8"
+
+swr@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-1.3.0.tgz#c6531866a35b4db37b38b72c45a63171faf9f4e8"
+  integrity sha512-dkghQrOl2ORX9HYrMDtPa7LTVHJjCTeZoB1dqTbnnEDlSvN8JEKpYIYurDfvbQFUUS8Cg8PceFVZNkW0KNNYPw==
 
 symbol-tree@^3.2.4:
   version "3.2.4"

@@ -5,7 +5,7 @@ import { authorizedRequest, cleanRequest } from '../services';
 import { openNewTab } from './commons';
 
 export const publishNote = async (source: string) => {
-  const request = cleanRequest<ContentResponseType<{ sourceUrl: string }>>(await authorizedRequest(...settings.UTILS_API.POST_PUBLIC_NOTE(JSON.stringify({ source: source.trim() }))));
+  const request = cleanRequest<ContentResponseType<{ sourceUrl: string }>>(await authorizedRequest(...settings.JUKI_API.POST_PUBLIC_NOTE(JSON.stringify({ source: source.trim() }))));
   if (request?.success && request?.content.sourceUrl) {
     return request.content.sourceUrl;
   }
@@ -22,10 +22,10 @@ export const handleShareMdPdf = (type: string, source: string, sourceUrl: string
   if (url) {
     openNewTab(...(
       type === 'md-fullscreen'
-        ? settings.UTILS_API.GET_PUBLIC_NOTE_MARKDOWN_FULLSCREEN(url)
+        ? settings.JUKI_API.GET_PUBLIC_NOTE_MARKDOWN_FULLSCREEN(url)
         : type === 'md'
-          ? settings.UTILS_API.GET_PUBLIC_NOTE_MARKDOWN(url)
-          : settings.UTILS_API.GET_PUBLIC_NOTE_PDF(url)
+          ? settings.JUKI_API.GET_PUBLIC_NOTE_MARKDOWN(url)
+          : settings.JUKI_API.GET_PUBLIC_NOTE_PDF(url)
     ));
   } else {
     throw new Error('no url generated');

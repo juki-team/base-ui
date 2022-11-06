@@ -2,7 +2,7 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { JukiBaseUiProvider } from '../../components';
+import { JukiProvider } from '../JukiProvider';
 import { JkUserTable, JkUserTableProps } from './JkUserTableTest/JkUserTable';
 
 export default {
@@ -19,14 +19,9 @@ configureActions({
 
 const DataViewerTemplate: Story<JkUserTableProps> = (props) => (
   <BrowserRouter>
-    <JukiBaseUiProvider
-      utilsServiceUrl="https://utils-back-v1.juki.app"
-      apiVersion="api/v1"
-      utilsUiUrl="https://utils.juki.app"
-      tokenName="juki-token"
-    >
+    <JukiProvider>
       <JkUserTable {...props} />
-    </JukiBaseUiProvider>
+    </JukiProvider>
   </BrowserRouter>
 );
 

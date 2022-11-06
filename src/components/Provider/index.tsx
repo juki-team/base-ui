@@ -1,39 +1,91 @@
-import React, { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
+import React, { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from 'react';
 import { settings } from '../../config';
-import { useInterval, usePageFocus, usePageVisibility } from '../../hooks';
+import { USER_GUEST } from '../../constants';
+import { usePageFocus, usePageVisibility } from '../../hooks';
+import { useFetcher } from '../../hooks/useFetcher';
 import { socket } from '../../services';
+import { ContentResponseType, Language, Theme, UserPingResponseDTO, UserState } from '../../types';
 import { NotificationProvider } from '../Notifications';
 import { JukiBaseUiProviderProps } from './types';
 
-const BaseContext = createContext<{ isPageVisible: boolean, isPageFocus: boolean, viewPortSize: string }>({
+const BaseContext = createContext<{ isPageVisible: boolean, isPageFocus: boolean, viewPortSize: string, user: UserState, setUser: Dispatch<SetStateAction<UserState>>, userIsLoading: boolean }>({
   isPageVisible: true,
   isPageFocus: true,
   viewPortSize: '',
+  user: USER_GUEST,
+  setUser: () => null,
+  userIsLoading: true,
 });
+
+const useUser = () => {
+  const {
+    data,
+    isLoading,
+  } = useFetcher<ContentResponseType<UserPingResponseDTO>>(...(settings.UTILS_SERVICE_API_URL ? settings.JUKI_API.PING() : []));
+  const [user, setUser] = useState<UserState>(USER_GUEST);
+  const [userIsLoading, setUserIsLoading] = useState(true);
+  
+  useEffect(() => {
+    if (!isLoading) {
+      setUserIsLoading(false);
+    }
+  }, [isLoading]);
+  
+  useEffect(() => {
+    let preferredLanguage: Language = localStorage.getItem('preferredLanguage') as Language;
+    if (preferredLanguage !== Language.EN && preferredLanguage !== Language.ES) {
+      preferredLanguage = Language.EN;
+    }
+    let preferredTheme: Theme = localStorage.getItem('preferredTheme') as Theme;
+    if (preferredTheme !== Theme.DARK && preferredTheme !== Theme.LIGHT) {
+      preferredTheme = Theme.LIGHT;
+    }
+    if (data?.success) {
+      const isLogged = !!data?.content.nickname;
+      if (isLogged) {
+        setUser({ ...data?.content, isLogged });
+      } else {
+        setUser({ ...data?.content, isLogged, settings: { preferredTheme, preferredLanguage } });
+        localStorage.setItem(settings.TOKEN_NAME, data?.content.sessionId);
+      }
+    } else {
+      setUser({ ...USER_GUEST, settings: { preferredTheme, preferredLanguage } });
+    }
+  }, [data]);
+  
+  return {
+    user,
+    setUser,
+    userIsLoading,
+  };
+};
 
 export const JukiBaseUiProvider = ({
   children,
   utilsServiceUrl,
-  apiVersion,
+  utilsServiceApiVersion,
+  utilsSocketServiceUrl,
   utilsUiUrl,
   tokenName,
 }: PropsWithChildren<JukiBaseUiProviderProps>) => {
-  useEffect(() => {
-    settings.setSetting(utilsServiceUrl, apiVersion, utilsUiUrl, tokenName);
-    socket.start().then(() => null);
-    socket.joinSession().then(() => null);
-  }, [apiVersion, tokenName, utilsServiceUrl, utilsUiUrl]);
+  
   const isPageVisible = usePageVisibility();
   const isPageFocus = usePageFocus();
   const [viewPortSize, setViewPortSize] = useState('');
+  
+  useEffect(() => {
+    settings.setSetting(utilsServiceUrl, utilsServiceApiVersion, utilsSocketServiceUrl, utilsUiUrl, tokenName);
+    socket.stop();
+    socket.start();
+  }, [tokenName, utilsServiceApiVersion, utilsServiceUrl, utilsSocketServiceUrl, utilsUiUrl]);
+  
+  const { user, setUser, userIsLoading } = useUser();
+  
   useEffect(() => {
     if (isPageVisible) {
       socket.joinSession().then(() => null);
     }
   }, [isPageVisible]);
-  useInterval(() => {
-    socket.joinSession().then(() => null);
-  }, isPageVisible ? 2 * 60 * 1000 : 0);
   
   useEffect(() => {
     const listener = () => {
@@ -60,7 +112,7 @@ export const JukiBaseUiProvider = ({
   }, []);
   
   return (
-    <BaseContext.Provider value={{ isPageVisible, isPageFocus, viewPortSize }}>
+    <BaseContext.Provider value={{ isPageVisible, isPageFocus, viewPortSize, user, setUser, userIsLoading }}>
       <NotificationProvider>
         {children}
       </NotificationProvider>
@@ -70,11 +122,14 @@ export const JukiBaseUiProvider = ({
 
 export const useJukiBase = () => {
   
-  const { isPageVisible, isPageFocus, viewPortSize } = useContext(BaseContext);
+  const { isPageVisible, isPageFocus, viewPortSize, user, setUser, userIsLoading } = useContext(BaseContext);
   
   return {
     isPageVisible,
     isPageFocus,
     viewPortSize,
+    user,
+    setUser,
+    userIsLoading,
   };
 };

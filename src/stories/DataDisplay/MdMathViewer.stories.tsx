@@ -2,7 +2,8 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 import { SAMPLE_MD_CONTENT } from '../../constants';
-import { JukiBaseUiProvider, MdMathViewer, MdMathViewerProps } from '../../index';
+import { MdMathViewer, MdMathViewerProps } from '../../index';
+import { JukiProvider } from '../JukiProvider';
 
 export default {
   title: 'Components/Data Display',
@@ -17,16 +18,11 @@ configureActions({
 
 const MdMathViewerComponent: Story<MdMathViewerProps> = (props) => {
   return (
-    <JukiBaseUiProvider
-      utilsServiceUrl="https://utils-back-v1.juki.app"
-      apiVersion="api/v1"
-      utilsUiUrl="https://utils.juki.app"
-      tokenName="juki-token"
-    >
+    <JukiProvider>
       <div>
         <MdMathViewer {...props} source={SAMPLE_MD_CONTENT} />
       </div>
-    </JukiBaseUiProvider>
+    </JukiProvider>
   );
 };
 

@@ -17,7 +17,7 @@ export const PublicImagesTab = memo(({ trigger }: { trigger: number }) => {
     const handler = async () => {
       try {
         setLoading(true);
-        const request = cleanRequest<ContentsResponseType<{ imageThumbnailUrl: string, imageUrl: string }>>(await authorizedRequest(...settings.UTILS_API.GET_ALL_PUBLIC_IMAGES()));
+        const request = cleanRequest<ContentsResponseType<{ imageThumbnailUrl: string, imageUrl: string }>>(await authorizedRequest(...settings.JUKI_API.GET_ALL_PUBLIC_IMAGES()));
         if (request?.success) {
           setPublicImages(request.contents);
         }

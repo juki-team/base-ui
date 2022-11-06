@@ -1,8 +1,8 @@
-import { consoleWarn } from '@juki-team/commons';
+import { consoleWarn, SocketEvent } from '@juki-team/commons';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { socket } from '../services';
 
-export const useJkSocket = (message: string) => {
+export const useJkSocket = (message: SocketEvent) => {
   const [messages, setMessages] = useState<any[]>([]);
   const triesRef = useRef(1);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
@@ -35,6 +35,10 @@ export const useJkSocket = (message: string) => {
   
   return {
     messages,
+    reloadSession: useCallback(async () => {
+      await socket.leaveSession();
+      await socket.joinSession();
+    }, []),
     pop: useCallback(() => {
       if (messages.length) {
         const message = messages[0];

@@ -1,0 +1,31 @@
+import { Language, Theme, UserState, UserStatus } from '../types';
+
+export const USER_GUEST: UserState = {
+  givenName: 'Guest',
+  familyName: 'Guest',
+  email: 'GUEST',
+  nickname: '',
+  status: UserStatus.ACTIVE,
+  aboutMe: '',
+  imageUrl: 'https://i.ibb.co/gvC4twc/juki.png',
+  city: '',
+  country: '',
+  institution: '',
+  // telegramUsername: '',
+  settings: {
+    preferredLanguage: Language.ES,
+    preferredTheme: Theme.LIGHT,
+  },
+  handles: {},
+  canCreateUser: false,
+  canCreateProblem: false,
+  canCreateContest: false,
+  canViewSubmissionsManagement: false,
+  canViewUsersManagement: false,
+  canViewFilesManagement: false,
+  canViewECSManagement: false,
+  canViewSQSManagement: false,
+  canViewEmailManagement: false,
+  isLogged: false,
+  sessionId: '',
+};

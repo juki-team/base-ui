@@ -1,7 +1,8 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Button, JukiBaseUiProvider, Tabs as TabsComponent, TabsProps } from '../../index';
+import { Button, Tabs as TabsComponent, TabsProps } from '../../index';
+import { JukiProvider } from '../JukiProvider';
 
 export default {
   title: 'Components/Data Display',
@@ -44,12 +45,7 @@ export const Tabs: Story<TabsProps<string>> = () => {
     { key: '5', header: <div>tabtabtabtab</div> },
   ];
   return (
-    <JukiBaseUiProvider
-      utilsServiceUrl="https://prod-v1-utils-back.juki.app"
-      apiVersion="api/v1"
-      utilsUiUrl="http://localhost:3001"
-      tokenName="juki-token"
-    >
+    <JukiProvider>
       <div style={{ height: '200px' }}>
         <TabsComponent
           tabs={tabs}
@@ -71,6 +67,6 @@ export const Tabs: Story<TabsProps<string>> = () => {
           actionsSection={[<Button>button 1</Button>, <Button>button 2</Button>]}
         />
       </div>
-    </JukiBaseUiProvider>
+    </JukiProvider>
   );
 };

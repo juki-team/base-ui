@@ -5,10 +5,10 @@ import {
   CodeRunnerEditor,
   CodeRunnerEditorPropertiesType,
   CodeRunnerEditorProps,
-  JukiBaseUiProvider,
   ProgrammingLanguage,
   SubmissionRunStatus,
 } from '../../index';
+import { JukiProvider } from '../JukiProvider';
 
 export default {
   title: 'Components/Data Entry',
@@ -37,14 +37,7 @@ const Template: Story<CodeRunnerEditorProps> = (args) => {
     sourceCode: 'console.info("Juki!")',
   });
   return (
-    <JukiBaseUiProvider
-      utilsServiceUrl="https://utils-back-v1.juki.app"
-      // utilsServiceUrl="http://prodv1utilsbackjukiappapp-env.eba-v2iz3isa.us-east-1.elasticbeanstalk.com"
-      // utilsServiceUrl="http://localhost:3003"
-      apiVersion="api/v1"
-      utilsUiUrl="http://localhost:3001"
-      tokenName="juki-token"
-    >
+    <JukiProvider>
       <div style={{ height: '500px' }}>
         <CodeRunnerEditor
           {...args}
@@ -61,7 +54,7 @@ const Template: Story<CodeRunnerEditorProps> = (args) => {
           }}
         />
       </div>
-    </JukiBaseUiProvider>
+    </JukiProvider>
   );
 };
 
