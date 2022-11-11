@@ -24,7 +24,7 @@ export const useFetcher = <T extends (ContentResponseType<any> | ContentsRespons
     refreshInterval,
   } = options || {};
   const token = localStorage.getItem(settings.TOKEN_NAME);
-  const { data, error, mutate, isValidating } = useSWR([url, { token }], fetcherWithToken, {
+  const { data, error, mutate, isValidating } = useSWR(url ? [url, { token }] : null, fetcherWithToken, {
     revalidateIfStale,
     revalidateOnFocus,
     revalidateOnReconnect,
