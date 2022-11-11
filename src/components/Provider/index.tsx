@@ -21,7 +21,7 @@ const useUser = () => {
   const {
     data,
     isLoading,
-  } = useFetcher<ContentResponseType<UserPingResponseDTO>>(...(settings.UTILS_SERVICE_API_URL ? settings.JUKI_API.PING() : []));
+  } = useFetcher<ContentResponseType<UserPingResponseDTO>>(...settings.JUKI_API.PING());
   const [user, setUser] = useState<UserState>(USER_GUEST);
   const [userIsLoading, setUserIsLoading] = useState(true);
   

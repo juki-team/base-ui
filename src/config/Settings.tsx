@@ -1,5 +1,6 @@
 import { HTTPMethod } from '@juki-team/commons';
 import { ManagerOptions, SocketOptions } from 'socket.io-client';
+import { UseFetcherOptionsType } from '../hooks';
 import { AuthorizedRequestType } from '../services';
 
 export class Settings {
@@ -31,8 +32,11 @@ export class Settings {
   
   public get JUKI_API() {
     return {
-      PING: () => {
-        return [`${this._UTILS_SERVICE_API_URL}/auth/ping`];
+      PING: (): [string?, UseFetcherOptionsType?] => {
+        if (this._UTILS_SERVICE_API_URL) {
+          return [`${this._UTILS_SERVICE_API_URL}/auth/ping`, { refreshInterval: 1000 * 60 * 5 }];
+        }
+        return [];
       },
       GET_ALL_PUBLIC_IMAGES: (): [string] => [this._UTILS_SERVICE_API_URL + '/image/list'],
       POST_PUBLIC_IMAGE: (body: FormData): [string, AuthorizedRequestType] => [
