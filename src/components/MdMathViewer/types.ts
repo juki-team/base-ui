@@ -1,4 +1,4 @@
-import { Theme } from '../../types';
+import { Theme } from '@juki-team/commons';
 
 export type CommandsObjectType = {
   textAlign?: string,

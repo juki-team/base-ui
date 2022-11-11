@@ -1,6 +1,6 @@
+import { Status } from '@juki-team/commons';
 import React, { forwardRef, ReactElement, Ref, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../helpers';
-import { Status } from '../../types';
 import { CheckIcon, ExclamationIcon, LoadingIcon } from '../graphics';
 import { ButtonLoaderProps, ButtonProps } from './types';
 

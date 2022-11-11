@@ -1,4 +1,4 @@
-import { ProgrammingLanguage } from '../../types';
+import { ProgrammingLanguage } from '@juki-team/commons';
 
 export enum CodeEditorTheme {
   DAY_3024 = '3024-day',

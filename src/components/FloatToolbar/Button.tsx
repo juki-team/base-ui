@@ -1,5 +1,5 @@
+import { Status } from '@juki-team/commons';
 import React, { useRef } from 'react';
-import { Status } from '../../types';
 import { ButtonLoader, SetLoaderStatusOnClickType } from '../Button';
 import { ButtonActionProps } from './types';
 

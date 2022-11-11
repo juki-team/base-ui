@@ -34,7 +34,7 @@ export class Settings {
       PING: () => {
         return [`${this._UTILS_SERVICE_API_URL}/auth/ping`];
       },
-      GET_ALL_PUBLIC_IMAGES: (): [string] => [this._UTILS_SERVICE_API_URL + '/images'],
+      GET_ALL_PUBLIC_IMAGES: (): [string] => [this._UTILS_SERVICE_API_URL + '/image/list'],
       POST_PUBLIC_IMAGE: (body: FormData): [string, AuthorizedRequestType] => [
         this._UTILS_SERVICE_API_URL + '/image',
         { method: HTTPMethod.POST, body },
@@ -61,7 +61,7 @@ export class Settings {
         //   method: HTTPMethod.POST,
         //   body,
         // },
-        this._UTILS_SERVICE_API_URL + '/code/run-async',
+        this._UTILS_SERVICE_API_URL + '/code/run',
         { method: HTTPMethod.POST, body },
       ],
       CONNECT_WEBSOCKET: (): [string, Partial<ManagerOptions & SocketOptions>] => [

@@ -1,6 +1,5 @@
-import { PROGRAMMING_LANGUAGE } from '@juki-team/commons';
+import { PROGRAMMING_LANGUAGE, ProgrammingLanguage } from '@juki-team/commons';
 import React, { lazy, Suspense } from 'react';
-import { ProgrammingLanguage } from '../../../types';
 import { LoadingIcon } from '../../graphics';
 
 const MonacoCodeEditor = lazy(() => import('@monaco-editor/react'));

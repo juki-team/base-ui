@@ -1,4 +1,4 @@
-import { ProgrammingLanguage } from '../../types';
+import { ProgrammingLanguage } from '@juki-team/commons';
 
 export interface CodeViewerProps {
   code: string,

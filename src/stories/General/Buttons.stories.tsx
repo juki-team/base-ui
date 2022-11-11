@@ -1,7 +1,8 @@
+import { Status } from '@juki-team/commons';
 import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Button, ButtonLoader, ButtonProps, EyeInvisibleIcon, NotificationProvider, Status } from '../../index';
+import { Button, ButtonLoader, ButtonProps, EyeInvisibleIcon, NotificationProvider } from '../../index';
 
 export default {
   title: 'Components/General/Buttons',

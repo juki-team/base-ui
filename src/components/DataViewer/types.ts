@@ -1,5 +1,6 @@
+import { Status } from '@juki-team/commons';
 import { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
-import { ReactNodeOrFunctionType, Status } from '../../types';
+import { ReactNodeOrFunctionType } from '../../types';
 import { DatePickerDateFunType, DatePickerType, OptionType } from '../index';
 import {
   FILTER_DATE,

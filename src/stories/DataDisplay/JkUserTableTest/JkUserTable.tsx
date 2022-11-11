@@ -1,3 +1,4 @@
+import { Status } from '@juki-team/commons';
 import React, { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
@@ -18,7 +19,6 @@ import {
   ReloadIcon,
   Select as SelectComponent,
   SelectOptionType,
-  Status,
   T,
   TextField,
   TextHeadCell,

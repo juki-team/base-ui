@@ -1,5 +1,5 @@
+import { Theme } from '@juki-team/commons';
 import React, { CSSProperties, ReactNode } from 'react';
-import { Theme } from '../../types';
 import { CommandsFunctionsType, CommandsObjectType } from './types';
 
 const keys: CommandsFunctionsType = {
@@ -39,7 +39,7 @@ export const getCommands = (text: string): [CommandsObjectType, string] => {
         commandsObject[key] = keys[key](value);
       } else if (key === 'lineNumbers') {
         commandsObject[key] = true;
-      } else if(key === 'preview') {
+      } else if (key === 'preview') {
         commandsObject[key] = keys[key](value);
       } else {
         commandsObject.rest = (commandsObject.rest || '') + key + '=' + value;

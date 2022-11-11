@@ -1,13 +1,8 @@
+import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
-import {
-  CodeRunnerEditor,
-  CodeRunnerEditorPropertiesType,
-  CodeRunnerEditorProps,
-  ProgrammingLanguage,
-  SubmissionRunStatus,
-} from '../../index';
+import { CodeRunnerEditor, CodeRunnerEditorPropertiesType, CodeRunnerEditorProps } from '../../index';
 import { JukiProvider } from '../JukiProvider';
 
 export default {

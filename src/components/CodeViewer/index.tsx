@@ -1,8 +1,7 @@
-import { PROGRAMMING_LANGUAGE } from '@juki-team/commons';
+import { PROGRAMMING_LANGUAGE, ProgrammingLanguage } from '@juki-team/commons';
 import Prism from 'prismjs';
 import React, { useEffect } from 'react';
 import { classNames } from '../../helpers';
-import { ProgrammingLanguage } from '../../types';
 import { CopyToClipboard } from '../CopyToClipboard';
 import { CopyIcon } from '../graphics';
 import { CodeViewerProps } from './types';

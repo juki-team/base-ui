@@ -1,10 +1,9 @@
+import { ContentResponseType, Language, Theme, USER_GUEST, UserPingResponseDTO, UserState } from '@juki-team/commons';
 import React, { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from 'react';
 import { settings } from '../../config';
-import { USER_GUEST } from '../../constants';
 import { usePageFocus, usePageVisibility } from '../../hooks';
 import { useFetcher } from '../../hooks/useFetcher';
 import { socket } from '../../services';
-import { ContentResponseType, Language, Theme, UserPingResponseDTO, UserState } from '../../types';
 import { NotificationProvider } from '../Notifications';
 import { JukiBaseUiProviderProps } from './types';
 

@@ -1,8 +1,7 @@
-import { mex, PROGRAMMING_LANGUAGE, SUBMISSION_RUN_STATUS } from '@juki-team/commons';
+import { mex, PROGRAMMING_LANGUAGE, SUBMISSION_RUN_STATUS, SubmissionRunStatus } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { classNames } from '../../../helpers';
-import { SubmissionRunStatus } from '../../../types';
 import { DeleteIcon, LoadingIcon, PlusIcon } from '../../graphics';
 import { TextArea } from '../../Input';
 import { NotificationType, useNotification } from '../../Notifications';

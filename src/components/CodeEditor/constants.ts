@@ -1,4 +1,4 @@
-import { ProgrammingLanguage } from '../../types';
+import { ProgrammingLanguage } from '@juki-team/commons';
 import { CodeEditorKeyMap, CodeEditorTheme } from './types';
 
 export const CODE_EDITOR_THEMES = Object.values(CodeEditorTheme);

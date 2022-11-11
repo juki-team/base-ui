@@ -1,6 +1,6 @@
+import { Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, consoleWarn } from '../../helpers';
-import { Status } from '../../types';
 import { OptionType, SearchParamsObjectType, showOfDatePickerType, useJukiBase, ViewModeType } from '../index';
 import {
   FILTER_DATE,

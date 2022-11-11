@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import React from 'react';
 import { SAMPLE_MD_CONTENT } from '../../constants';
 import { MdMathViewer, MdMathViewerProps } from '../../index';
-import { JukiProvider } from '../JukiProvider';
+// import { JukiProvider } from '../JukiProvider';
 
 export default {
   title: 'Components/Data Display',
@@ -18,11 +18,11 @@ configureActions({
 
 const MdMathViewerComponent: Story<MdMathViewerProps> = (props) => {
   return (
-    <JukiProvider>
+    // <JukiProvider>
       <div>
         <MdMathViewer {...props} source={SAMPLE_MD_CONTENT} />
       </div>
-    </JukiProvider>
+    // </JukiProvider>
   );
 };
 

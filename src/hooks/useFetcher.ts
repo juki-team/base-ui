@@ -1,7 +1,7 @@
+import { ContentResponseType, ContentsResponseType, HTTPMethod } from '@juki-team/commons';
 import { useMemo } from 'react';
 import useSWR from 'swr';
 import { authorizedRequest, cleanRequest } from '../services';
-import { ContentResponseType, ContentsResponseType, HTTPMethod } from '../types';
 
 export type UseFetcherOptionsType = {
   revalidateIfStale?: boolean,

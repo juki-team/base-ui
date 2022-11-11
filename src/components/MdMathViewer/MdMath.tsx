@@ -1,8 +1,8 @@
 // https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119
+import { ProgrammingLanguage } from '@juki-team/commons';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 import React, { CSSProperties, lazy, memo, ReactNode, Suspense, useEffect, useState } from 'react';
 import { ReactMarkdownOptions } from 'react-markdown/lib/react-markdown';
-import { ProgrammingLanguage } from '../../types';
 // import ReactMarkdown from 'react-markdown';
 // import rehypeKatex from 'rehype-katex';
 // import gfm from 'remark-gfm';

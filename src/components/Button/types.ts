@@ -1,5 +1,5 @@
+import { Status } from '@juki-team/commons';
 import { CSSProperties, KeyboardEvent, MouseEvent, ReactNode } from 'react';
-import { Status } from '../../types';
 
 export type ButtonType = 'primary' | 'secondary' | 'outline' | 'text';
 export type ButtonSizeType = 'tiny' | 'small' | 'regular' | 'large' | 'huge';

@@ -1,10 +1,9 @@
-import { consoleWarn, PROGRAMMING_LANGUAGE } from '@juki-team/commons';
+import { consoleWarn, ContentResponseType, PROGRAMMING_LANGUAGE, Status, SubmissionRunStatus } from '@juki-team/commons';
 import React, { CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { settings } from '../../../config';
 import { classNames } from '../../../helpers';
 import { authorizedRequest, cleanRequest } from '../../../services';
-import { ContentResponseType, Status, SubmissionRunStatus } from '../../../types';
 import {
   Button,
   ButtonLoader,

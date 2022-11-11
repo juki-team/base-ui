@@ -1,7 +1,7 @@
+import { Status } from '@juki-team/commons';
 import React, { memo, useState } from 'react';
 import { settings } from '../../../../config';
 import { toBlob } from '../../../../helpers';
-import { Status } from '../../../../types';
 import { ButtonLoader } from '../../../Button';
 import { CopyToClipboard } from '../../../CopyToClipboard';
 import { CopyIcon } from '../../../graphics';

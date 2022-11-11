@@ -1,7 +1,7 @@
+import { SocketEvent, SubmissionRunStatus } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../helpers';
 import { useJkSocket } from '../../hooks/useJkSocket';
-import { SocketEvent, SubmissionRunStatus } from '../../types';
 import { Portal } from '../Basic';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, CodeEditorKeyMap, CodeEditorTheme } from '../CodeEditor';
 import { SplitPane } from '../SplitPane';
@@ -27,7 +27,7 @@ export const CodeRunnerEditor = ({
   expandPosition,
 }: CodeRunnerEditorProps) => {
   const [runId, setRunId] = useState('');
-  const { pop } = useJkSocket(SocketEvent.RUN_ASYNC);
+  const { pop } = useJkSocket(SocketEvent.RUN);
   const [errorData, setErrorData] = useState<SubmissionTestCaseType>({
     log: '',
     err: '',

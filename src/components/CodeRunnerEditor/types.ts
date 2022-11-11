@@ -1,5 +1,5 @@
+import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { ProgrammingLanguage, SubmissionRunStatus } from '../../types';
 import { CodeEditorKeyMap, CodeEditorPropertiesType, CodeEditorTheme } from '../CodeEditor';
 
 export type SubmissionTestCaseType = {

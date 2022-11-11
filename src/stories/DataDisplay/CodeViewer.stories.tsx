@@ -1,7 +1,8 @@
+import { ProgrammingLanguage } from '@juki-team/commons';
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { CodeViewer as CodeViewerComponent, CodeViewerProps, ProgrammingLanguage } from '../../index';
+import { CodeViewer as CodeViewerComponent, CodeViewerProps } from '../../index';
 
 export default {
   title: 'Components/Data Display',
