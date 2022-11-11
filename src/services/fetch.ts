@@ -54,17 +54,19 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
 export interface AuthorizedRequestType extends RequestInit {
   method?: HTTPMethod,
   body?: string | BodyInit,
-  signal?: AbortSignal
+  signal?: AbortSignal,
+  responseType?: 'text' | 'blob',
+  token?: string,
 }
 
-export const authorizedRequest = async (url: string, options?: AuthorizedRequestType, responseType?: 'text' | 'blob') => {
-  const { method, body, signal } = options || {};
+export const authorizedRequest = async (url: string, options?: AuthorizedRequestType) => {
+  const { method, body, signal, responseType } = options || {};
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Accept', 'application/json');
   if (!(body instanceof FormData)) {
     requestHeaders.set('Content-Type', 'application/json');
   }
-  const token = localStorage.getItem(settings.TOKEN_NAME);
+  const token = options?.token || localStorage.getItem(settings.TOKEN_NAME);
   if (token) {
     requestHeaders.set('Authorization', `Bearer ${token}`);
   }

@@ -17,6 +17,7 @@ const BaseContext = createContext<{ isPageVisible: boolean, isPageFocus: boolean
 });
 
 const useUser = () => {
+  
   const {
     data,
     isLoading,

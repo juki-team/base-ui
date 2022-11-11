@@ -1,7 +1,8 @@
-import { ContentResponseType, ContentsResponseType, HTTPMethod } from '@juki-team/commons';
+import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
 import { useMemo } from 'react';
 import useSWR from 'swr';
-import { authorizedRequest, cleanRequest } from '../services';
+import { settings } from '../config';
+import { authorizedRequest, AuthorizedRequestType, cleanRequest } from '../services';
 
 export type UseFetcherOptionsType = {
   revalidateIfStale?: boolean,
@@ -10,11 +11,11 @@ export type UseFetcherOptionsType = {
   refreshInterval?: number,
 }
 
-const fetcher = (url: string, method?: HTTPMethod, body?: string, signal?: AbortSignal) => {
-  return authorizedRequest(url, { method, body, signal });
+const fetcherWithToken = (url: string, props: AuthorizedRequestType) => {
+  return authorizedRequest(url, props);
 };
 
-export const useFetcher = <T extends (ContentResponseType<any> | ContentsResponseType<any>)>(url?: string, options?: UseFetcherOptionsType, debug?: boolean) => {
+export const useFetcher = <T extends (ContentResponseType<any> | ContentsResponseType<any>)>(url?: string, options?: UseFetcherOptionsType) => {
   
   const {
     revalidateIfStale = true,
@@ -22,8 +23,8 @@ export const useFetcher = <T extends (ContentResponseType<any> | ContentsRespons
     revalidateOnReconnect = true,
     refreshInterval,
   } = options || {};
-  
-  const { data, error, mutate, isValidating } = useSWR(url, fetcher, {
+  const token = localStorage.getItem(settings.TOKEN_NAME);
+  const { data, error, mutate, isValidating } = useSWR([url, { token }], fetcherWithToken, {
     revalidateIfStale,
     revalidateOnFocus,
     revalidateOnReconnect,
