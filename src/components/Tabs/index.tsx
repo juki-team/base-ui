@@ -105,6 +105,7 @@ export const Tabs = <T extends string, >({
             selectedOption={{ value: tabKey }}
             onChange={({ value }) => setTabKey(value as NotUndefined<T>)}
             extend
+            popoverClassName="jk-tabs-select"
           />
         )}
         <div

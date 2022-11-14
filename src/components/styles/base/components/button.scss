@@ -151,7 +151,7 @@ button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-but
 .jk-button-secondary {
   background-color: var(--t-color-secondary);
   border: 2px solid transparent;
-  color: var(--t-color-white);
+  color: var(--t-color-secondary-text);
   
   &:not(.disabled):hover {
     background-color: rgba(var(--t-color-secondary-rgb), 0.90);

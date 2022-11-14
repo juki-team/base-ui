@@ -70,10 +70,25 @@
         min-height: 48px;;
         height: var(--tabs-header-height);
         border-color: transparent;
+        background: none;
+        color: var(--t-color-gray-1);
+        font-weight: var(--weight-bold);
+        border-radius: 0;
         
         .input-icon {
           position: relative;
           margin: 0 var(--pad-xt);
+        }
+        
+        &:after {
+          background-color: var(--t-color-secondary);
+          height: 6px;
+          width: 100%;
+          content: "";
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          border-radius: 3px 3px 0 0;
         }
       }
     }
@@ -101,6 +116,24 @@
         display: block;
         width: 100%;
         height: 100%;
+      }
+    }
+  }
+}
+
+.jk-tabs-select {
+  margin-top: -4px;
+  
+  .jk-select-options {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    
+    .jk-select-option.selected {
+      background-color: var(--t-color-secondary);
+      color: var(--t-color-secondary-text);
+      
+      &:hover {
+        background-color: rgba(var(--t-color-secondary-rgb), 0.8);
       }
     }
   }
