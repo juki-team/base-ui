@@ -165,7 +165,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       sort[headSort.index] = headSort.index === searchSorts ? 1 : -1;
     }
     const filter: RequestFilterType = {};
-    for (let i = 0; i < searchFilter.length; i++) {
+    for (let i = 0; i < Math.min(searchFilter.length, headers.length); i++) {
       if (searchFilter[i]) {
         filter[headers[i].index] = searchFilter[i];
       }
@@ -184,7 +184,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       if (!fixedSearchFilter.length) {
         fixedSearchFilter = new Array(headers.length).fill('');
       }
-      for (let i = 0; i < fixedSearchFilter.length; i++) {
+      for (let i = 0; i < Math.min(fixedSearchFilter.length, headers.length); i++) {
         if (
           (fixedSearchFilter[i] || prevSearchFilter.current?.[i]) &&
           fixedSearchFilter[i] !== prevSearchFilter.current?.[i] &&
