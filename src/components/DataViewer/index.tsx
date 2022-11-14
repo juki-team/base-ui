@@ -110,6 +110,13 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       setPageSizeOptions(pagination?.pageSizeOptions);
     }
   }, [pageSizeOptions, pagination?.pageSizeOptions]);
+  useEffect(() => { // Fixing filters
+    if (searchFilter.length && searchFilter.length !== headers.length) {
+      const newFilterSearch: SearchParamsObjectType = { ...searchParamsObject };
+      delete newFilterSearch[filterKey];
+      setSearchParamsObject(newFilterSearch);
+    }
+  }, [filterKey, headers.length, searchFilter.length, searchParamsObject, setSearchParamsObject]);
   const page = useMemo(() => +searchParamsObject[pageKey]?.[0] || 1, [pageKey, searchParamsObject]);
   const pageSize = useMemo(() => +searchParamsObject[pageSizeKey]?.[0] || pageSizeOptions[0], [
     pageSizeKey,
@@ -157,7 +164,6 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     });
   }, [setLoaderStatusRef]);
   useEffect(() => refreshRef?.(() => setRefreshCount(prevRefreshCount => prevRefreshCount + 1)), [refreshRef]);
-  
   useEffect(() => {
     const sort: RequestSortType = {};
     const headSort = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
