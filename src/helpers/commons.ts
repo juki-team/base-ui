@@ -65,7 +65,7 @@ export async function downloadBlobAsFile(data: Blob, fileName: string = 'file') 
   downloadLink(blobURL, fileName);
 }
 
-export const downloadCsvAsFile = (data: string[][], fileName: string = 'file.csv') => {
+export const downloadCsvAsFile = (data: (string | number)[][], fileName: string = 'file.csv') => {
   const csvContent = 'data:text/csv;charset=utf-8,' + data.map(e => e.join(',')).join('\n');
   const encodedUri = encodeURI(csvContent);
   downloadLink(encodedUri, fileName);
