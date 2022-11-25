@@ -24,10 +24,7 @@ export const getTextContent = (elem: ReactNode): string => {
   return '';
 };
 
-export async function downloadBlobAsFile(data: Blob, fileName: string = 'file') {
-  // It is necessary to create a new blob object with mime-type explicitly set
-  // otherwise only Chrome works like it should
-  const blob = new Blob([data], { type: data.type || 'application/octet-stream' });
+export const downloadLink = (href: string, fileName: string) => {
   /*if (typeof window.navigator.msSaveBlob !== 'undefined') {
    // IE doesn't allow using a blob object directly as link href.
    // Workaround for "HTML7007: One or more blob URLs were
@@ -39,10 +36,9 @@ export async function downloadBlobAsFile(data: Blob, fileName: string = 'file') 
    }*/
   // Other browsers
   // Create a link pointing to the ObjectURL containing the blob
-  const blobURL = window?.URL.createObjectURL(blob);
   const tempLink = document.createElement('a');
   tempLink.style.display = 'none';
-  tempLink.href = blobURL;
+  tempLink.setAttribute('href', href);
   tempLink.setAttribute('download', fileName);
   // Safari thinks _blank anchor are pop ups. We only want to set _blank
   // target if the browser does not support the HTML5 download attribute.
@@ -56,9 +52,24 @@ export async function downloadBlobAsFile(data: Blob, fileName: string = 'file') 
   document.body.removeChild(tempLink);
   setTimeout(() => {
     // For Firefox it is necessary to delay revoking the ObjectURL
-    window?.URL.revokeObjectURL(blobURL);
+    window?.URL.revokeObjectURL(href);
   }, 100);
+};
+
+export async function downloadBlobAsFile(data: Blob, fileName: string = 'file') {
+  // It is necessary to create a new blob object with mime-type explicitly set
+  // otherwise only Chrome works like it should
+  const blob = new Blob([data], { type: data.type || 'application/octet-stream' });
+  
+  const blobURL = window?.URL.createObjectURL(blob);
+  downloadLink(blobURL, fileName);
 }
+
+export const downloadCsvAsFile = (data: string[][], fileName: string = 'file.csv') => {
+  const csvContent = 'data:text/csv;charset=utf-8,' + data.map(e => e.join(',')).join('\n');
+  const encodedUri = encodeURI(csvContent);
+  downloadLink(encodedUri, fileName);
+};
 
 export const renderChildrenWithProps = (children: any, props: any) => {
   if (typeof children === 'function') {
