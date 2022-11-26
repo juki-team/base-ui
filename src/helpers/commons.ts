@@ -60,15 +60,14 @@ export async function downloadBlobAsFile(data: Blob, fileName: string = 'file') 
   // It is necessary to create a new blob object with mime-type explicitly set
   // otherwise only Chrome works like it should
   const blob = new Blob([data], { type: data.type || 'application/octet-stream' });
-  
   const blobURL = window?.URL.createObjectURL(blob);
   downloadLink(blobURL, fileName);
 }
 
 export const downloadCsvAsFile = (data: (string | number)[][], fileName: string = 'file.csv') => {
-  const csvContent = 'data:text/csv;charset=utf-8,' + data.map(e => e.join(',')).join('\n');
-  const encodedUri = encodeURI(csvContent);
-  downloadLink(encodedUri, fileName);
+  const blob = new Blob([data.map(e => e.join(',')).join('\n')], { type: 'text/csv' });
+  const blobURL = window?.URL.createObjectURL(blob);
+  downloadLink(blobURL, fileName);
 };
 
 export const renderChildrenWithProps = (children: any, props: any) => {
