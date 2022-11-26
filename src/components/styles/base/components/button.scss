@@ -1,6 +1,8 @@
 @import "../../abstracts/index";
 
-button[class*=" jk-button-"], button[class^="jk-button-"], input[class*=" jk-button-"], input[class^="jk-button-"] {
+button[class*=" jk-button-"], button[class^="jk-button-"],
+input[class*=" jk-button-"], input[class^="jk-button-"],
+div[class*=" jk-button-"], div[class^="jk-button-"] {
   height: auto;
   text-transform: uppercase;
   position: relative;
