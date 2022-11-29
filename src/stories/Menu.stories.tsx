@@ -142,10 +142,9 @@ export const ButtonN = () => {
   return (
     <Button
       onClick={() => {
-        console.log('addInfoNotification');
         addInfoNotification('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
         addInfoNotification('Lorem ipsum');
-        // addQuietNotification('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
+        addQuietNotification('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
         addQuietNotification('Lorem ipsum ');
       }}
     >
