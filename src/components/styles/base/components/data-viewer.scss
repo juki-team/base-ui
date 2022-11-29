@@ -397,7 +397,7 @@
   }
   
   .tool {
-    color: var(--t-color-gray-6);
+    color: var(--t-color-gray-5);
     box-sizing: border-box;
     height: var(--jk-table-height);
     padding: var(--pad-xt) 4px;
@@ -412,7 +412,17 @@
     
     &.active {
       color: var(--t-color-primary-light);
+      
+      &.disabled {
+        color: rgba(var(--t-color-primary-light-rgb), 0.7);
+      }
     }
+  }
+  
+  .tool.disabled {
+    color: var(--t-color-gray-6);
+    cursor: inherit;
+    pointer-events: none;
   }
 }
 

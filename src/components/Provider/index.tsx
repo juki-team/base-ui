@@ -7,10 +7,10 @@ import { socket } from '../../services';
 import { NotificationProvider } from '../Notifications';
 import { JukiBaseUiProviderProps } from './types';
 
-const BaseContext = createContext<{ isPageVisible: boolean, isPageFocus: boolean, viewPortSize: string, user: UserState, setUser: Dispatch<SetStateAction<UserState>>, userIsLoading: boolean }>({
+const BaseContext = createContext<{ isPageVisible: boolean, isPageFocus: boolean, viewPortSize: 'hg' | 'lg' | 'md' | 'sm', user: UserState, setUser: Dispatch<SetStateAction<UserState>>, userIsLoading: boolean }>({
   isPageVisible: true,
   isPageFocus: true,
-  viewPortSize: '',
+  viewPortSize: 'sm',
   user: USER_GUEST,
   setUser: () => null,
   userIsLoading: true,
@@ -71,7 +71,7 @@ export const JukiBaseUiProvider = ({
   
   const isPageVisible = usePageVisibility();
   const isPageFocus = usePageFocus();
-  const [viewPortSize, setViewPortSize] = useState('');
+  const [viewPortSize, setViewPortSize] = useState<'hg' | 'lg' | 'md' | 'sm'>('sm');
   
   useEffect(() => {
     settings.setSetting(utilsServiceUrl, utilsServiceApiVersion, utilsSocketServiceUrl, utilsUiUrl, tokenName);

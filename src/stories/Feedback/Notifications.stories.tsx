@@ -1,7 +1,7 @@
 import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Button, NotificationProvider, useNotification } from '../../index';
+import { Button, useNotification } from '../../index';
 import { JukiProvider } from '../JukiProvider';
 
 export default {
@@ -100,9 +100,7 @@ const Comp = () => {
 const Template: Story<{}> = (args) => {
   return (
     <JukiProvider>
-      <NotificationProvider>
-        <Comp {...args} />
-      </NotificationProvider>
+      <Comp {...args} />
     </JukiProvider>
   );
 };

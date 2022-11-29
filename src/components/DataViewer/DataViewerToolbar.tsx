@@ -20,13 +20,16 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
     loading,
     onReload,
     onAllFilters,
+    pagination,
   } = props;
   
   const [filterDrawer, setFilterDrawer] = useState(false);
   const { filtered } = isSomethingFiltered(headers);
   
   return (
-    <div className={classNames('jk-data-viewer-toolbar jk-border-radius-inline jk-row space-between', { 'jk-shadow': viewMode === 'cards' }, viewMode)}>
+    <div
+      className={classNames('jk-data-viewer-toolbar jk-border-radius-inline jk-row space-between', { 'jk-shadow': viewMode === 'cards' }, viewMode)}
+    >
       <FilterDrawer
         isOpen={filterDrawer}
         headers={headers}
@@ -55,7 +58,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
           showPopperArrow
         >
           <div className="no-records tx-xs fw-bd jk-tag gray-6">
-            {dataLength}
+            {dataLength}{pagination?.total ? '/' + pagination.total : ''}
           </div>
         </Popover>
         {onReload && (

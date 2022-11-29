@@ -17,8 +17,10 @@ import {
   Popover,
   SettingIcon,
   T,
+  useNotification,
   VerticalMenu,
 } from '../index';
+import { JukiProvider } from './JukiProvider';
 
 export default {
   title: 'Components/Menus',
@@ -135,21 +137,41 @@ const menuHorizontal = [
   { label: 'admin', icon: <FilterIcon />, selected: true, onClick: () => action('/admin') },
 ];
 
-export const HorizontalMenuClassic = () => {
+export const ButtonN = () => {
+  const { addInfoNotification, addQuietNotification } = useNotification();
   return (
-    <div style={{ height: '400px' }}>
-      <HorizontalMenu
-        menu={menuHorizontal}
-        leftSection={<div className="jk-row" style={{ width: '240px' }}><JukiJudgeLogoHorImage /></div>}
-        rightSection={<div className="">{rightSection({})}</div>}
-        rightMobile={rightMobile}
-        centerMobile={centerMobile}
-        leftMobile={leftMobile}
-      >
-        <div>
-          <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
-        </div>
-      </HorizontalMenu>
-    </div>
+    <Button
+      onClick={() => {
+        console.log('addInfoNotification');
+        addInfoNotification('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
+        addInfoNotification('Lorem ipsum');
+        // addQuietNotification('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
+        addQuietNotification('Lorem ipsum ');
+      }}
+    >
+      notification
+    </Button>
+  );
+};
+export const HorizontalMenuClassic = () => {
+  
+  return (
+    <JukiProvider>
+      <div style={{ height: '400px' }}>
+        <HorizontalMenu
+          menu={menuHorizontal}
+          leftSection={<div className="jk-row" style={{ width: '240px' }}><JukiJudgeLogoHorImage /></div>}
+          rightSection={<div className="">{rightSection({})}</div>}
+          rightMobile={rightMobile}
+          centerMobile={centerMobile}
+          leftMobile={leftMobile}
+        >
+          <div>
+            <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
+            <ButtonN />
+          </div>
+        </HorizontalMenu>
+      </div>
+    </JukiProvider>
   );
 };

@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactElement, Ref } from 'react';
+import React, { forwardRef, ReactElement, Ref, useEffect } from 'react';
 import { classNames } from '../../helpers';
 import { InputProps } from './types';
 
@@ -12,11 +12,18 @@ const InputComponent = <T extends string | number | FileList, >({
   register,
   disabled,
   size,
+  autoFocus,
   ...props
 }: InputProps<T>, ref: Ref<HTMLInputElement>) => {
   
   const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
   const length = Math.max(('' + (value || '')).length, 3);
+  useEffect(() => {
+    if (autoFocus) {
+      // @ts-ignore
+      setTimeout(() => ref?.current?.focus(), 10);
+    }
+  }, [autoFocus, registerRef, ref]);
   
   return (
     <input

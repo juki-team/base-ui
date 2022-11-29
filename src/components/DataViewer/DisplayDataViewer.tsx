@@ -48,6 +48,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     viewMode,
     setViewMode,
     getRowKey,
+    pagination,
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
@@ -96,6 +97,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         loading={loading}
         onReload={onReload}
         onAllFilters={onAllFilters}
+        pagination={pagination}
       />
       <div
         className={classNames('jk-view-container jk-border-radius-inline', { 'jk-shadow': viewMode === 'rows' }, viewMode)}
@@ -117,6 +119,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
             }}
             rowWidth={rowWidth}
             scrollLeft={scrollLeft}
+            loading={loading}
           />
         )}
         {data.length > 0 && loading && <LineLoader />}

@@ -176,6 +176,7 @@ export interface DisplayDataViewerProps<T> {
   setViewMode: (viewMode: ViewModeType) => void,
   viewMode: ViewModeType,
   getRowKey?: GetRowKeyType<T>,
+  pagination?: DataViewerPaginationType,
 }
 
 export type DataViewerHeaderSortOnlineType = true;
@@ -206,6 +207,8 @@ export type ViewModeType = 'rows' | 'cards';
 
 export type LoaderStatusActionType = Dispatch<SetStateAction<Status>>;
 
+export type DataViewerPaginationType = { total: number, pageSizeOptions?: number[] };
+
 export interface DataViewerProps<T> {
   cards?: CardsType,
   cardsView?: boolean,
@@ -222,7 +225,7 @@ export interface DataViewerProps<T> {
   setSearchParamsObject?: SetSearchParamsObjectType,
   setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
   refreshRef?: (refresh: RefreshType) => void,
-  pagination?: { total: number, pageSizeOptions?: number[] },
+  pagination?: DataViewerPaginationType,
   getRowKey?: GetRowKeyType<T>,
   getPageQueryParam?: (name: string) => string,
   getPageSizeQueryParam?: (name: string) => string,
@@ -243,6 +246,7 @@ export interface TableHeadProps<T> {
   rowWidth: number,
   setHeaderWidths: Dispatch<HeaderWidthsType>,
   scrollLeft: number,
+  loading: boolean,
 }
 
 export interface FilterDrawerProps<T> {
@@ -284,6 +288,7 @@ export interface DataViewerToolbarProps<T> {
   rowsView: boolean,
   setViewMode: (viewMode: ViewModeType) => void,
   viewMode: ViewModeType,
+  pagination?: DataViewerPaginationType,
 }
 
 export interface PaginationProps {

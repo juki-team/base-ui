@@ -8,7 +8,7 @@ import { TableHeadFilterDateRange } from './TableHeadFilterDateRange';
 import { TableHeadFilterSelect } from './TableHeadFilterSelect';
 import { TableHeadFilterText } from './TableHeadFilterText';
 
-export const Filter = ({ filter, columnIndex }: { filter?: TableHeaderFilterType, columnIndex: string }) => {
+export const Filter = ({ filter, columnIndex, disabled }: { filter?: TableHeaderFilterType, columnIndex: string, disabled: boolean }) => {
   
   const [visible, setVisible] = useState(false);
   
@@ -99,6 +99,7 @@ export const Filter = ({ filter, columnIndex }: { filter?: TableHeaderFilterType
                 : isFilterDateRange(filter) ? !!filter.startSelectedDate?.isValidDate() && !!filter.endSelectedDate?.isValidDate()
                   : false,
           visible,
+          disabled,
         })}>
         <FilterIcon size="small" />
       </div>

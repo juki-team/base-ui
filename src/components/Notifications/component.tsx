@@ -12,6 +12,7 @@ export const Notification = ({ id, type, message }: NotificationProps) => {
   const [width, setWidth] = useState(0);
   const intervalIDRef = useRef<ReturnType<typeof setTimeout>>();
   const { removeNotification } = useNotification();
+  const { viewPortSize } = useJukiBase();
   
   const messageString = getTextContent(message);
   const handleStartTimer = useCallback(() => {
@@ -62,7 +63,7 @@ export const Notification = ({ id, type, message }: NotificationProps) => {
       onMouseEnter={type !== NotificationType.QUIET ? handleStopTimer : undefined}
       onMouseLeave={type !== NotificationType.QUIET ? handleStartTimer : undefined}
       className={classNames('notification-item-container', type, { exit })}
-      style={type === NotificationType.QUIET ? { '--width-notification': `${getTextContent(message).length * 8}px` } as CSSProperties : {}}
+      style={type === NotificationType.QUIET && viewPortSize !== 'sm' ? { '--width-notification': `${getTextContent(message).length * 8}px` } as CSSProperties : {}}
     >
       <div className={classNames('notification-item')}>
         {NOTIFICATION_ICON[type]}

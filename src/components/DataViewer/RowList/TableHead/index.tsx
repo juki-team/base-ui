@@ -7,7 +7,7 @@ import { Filter } from './Filter';
 
 const fillWidth = true;
 
-export const TableHead = <T, >({ headers, headerWidths, setHeaderWidths, rowWidth, scrollLeft }: TableHeadProps<T>) => {
+export const TableHead = <T, >({ headers, headerWidths, setHeaderWidths, rowWidth, scrollLeft, loading }: TableHeadProps<T>) => {
   
   const [dragging, setDragging] = useState({ columnIndex: '', nextColumnIndex: '' });
   const dividerPositionRef = useRef(0);
@@ -74,11 +74,11 @@ export const TableHead = <T, >({ headers, headerWidths, setHeaderWidths, rowWidt
         <div className="jk-table-head-field">{renderHead({ head, columnIndex })}</div>
         <div className="jk-row jk-table-head-tools">
           {onSort && (
-            <div className={classNames('jk-row tool', { active: !!order })} onClick={() => onSort({ columnIndex })}>
+            <div className={classNames('jk-row tool', { active: !!order, disabled: loading })} onClick={() => onSort({ columnIndex })}>
               <ArrowIcon size="small" rotate={order < 0 ? 180 : 0} />
             </div>
           )}
-          {filter?.onFilter && <Filter columnIndex={columnIndex} filter={filter} />}
+          {filter?.onFilter && <Filter columnIndex={columnIndex} filter={filter} disabled={loading} />}
         </div>
         {(!fillWidth || index < headers.length - 1) && (
           <div

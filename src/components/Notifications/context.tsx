@@ -55,24 +55,24 @@ export const useNotification = () => {
   return {
     addNotification,
     addInfoNotification: useCallback((message: ReactNode) => addNotification({
-      type:
-      NotificationType.INFO, message,
+      type: NotificationType.INFO,
+      message,
     }), [addNotification]),
     addSuccessNotification: useCallback((message: ReactNode) => addNotification({
-      type:
-      NotificationType.SUCCESS, message,
+      type: NotificationType.SUCCESS,
+      message,
     }), [addNotification]),
     addWarningNotification: useCallback((message: ReactNode) => addNotification({
-      type:
-      NotificationType.WARNING, message,
+      type: NotificationType.WARNING,
+      message,
     }), [addNotification]),
     addErrorNotification: useCallback((message: ReactNode) => addNotification({
-      type:
-      NotificationType.ERROR, message,
+      type: NotificationType.ERROR,
+      message,
     }), [addNotification]),
     addQuietNotification: useCallback((message: ReactNode) => addNotification({
-      type:
-      NotificationType.QUIET, message,
+      type: NotificationType.QUIET,
+      message,
     }), [addNotification]),
     removeNotification: useCallback((notificationId: string) => dispatch({
       type: NotificationAction.REMOVE_NOTIFICATION,
