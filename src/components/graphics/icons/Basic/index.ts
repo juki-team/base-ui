@@ -29,6 +29,7 @@ export * from './Gavel';
 export * from './Gears';
 export * from './Group';
 export * from './Headline';
+export * from './HeadsetMic';
 export * from './Home';
 export * from './Leaderboard';
 export * from './LightBulb';

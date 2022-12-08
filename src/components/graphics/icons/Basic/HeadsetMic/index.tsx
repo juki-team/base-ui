@@ -1,5 +1,5 @@
 import { BasicIconProps } from '../../types';
 import { renderBasicIcon } from '../../utils';
-import Bug from './Bug';
+import HeadsetMic from './HeadsetMic';
 
-export const BugIcon = (props: BasicIconProps) => renderBasicIcon(props, Bug);
+export const HeadsetMicIcon = (props: BasicIconProps) => renderBasicIcon(props, HeadsetMic);
