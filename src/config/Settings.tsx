@@ -1,4 +1,4 @@
-import { HTTPMethod } from '@juki-team/commons';
+import { consoleWarn, HTTPMethod } from '@juki-team/commons';
 import { ManagerOptions, SocketOptions } from 'socket.io-client';
 import { UseFetcherOptionsType } from '../hooks';
 import { AuthorizedRequestType } from '../services';
@@ -9,6 +9,7 @@ export class Settings {
   private _UTILS_UI_URL = '';
   private _TOKEN_NAME = '';
   private _UTILS_SERVICE_SOCKET_URL = '';
+  private _ON_ERROR = (error: any) => consoleWarn(error);
   
   get UTILS_SERVICE_URL(): string {
     return this._UTILS_SERVICE_URL;
@@ -28,6 +29,10 @@ export class Settings {
   
   get UTILS_SERVICE_SOCKET_URL(): string {
     return this._UTILS_SERVICE_SOCKET_URL;
+  }
+  
+  get reportError(): (error: any) => void {
+    return this._ON_ERROR;
   }
   
   public get JUKI_API() {
@@ -79,5 +84,9 @@ export class Settings {
     this._UTILS_SERVICE_SOCKET_URL = utilsSocketServiceUrl;
     this._UTILS_UI_URL = utilsUiUrl;
     this._TOKEN_NAME = tokenName;
+  }
+  
+  setOnError(onError: (error: any) => void) {
+    this._ON_ERROR = onError;
   }
 }
