@@ -225,3 +225,11 @@
   line-height: var(--text-xs-size);
   padding: 5px 0;
 }
+
+.wb-bw { word-break: break-word; }
+
+.wb-ba { word-break: break-all; }
+
+.wb-ka { word-break: keep-all; }
+
+.wb-nl { word-break: normal; }

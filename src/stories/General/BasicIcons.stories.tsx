@@ -46,6 +46,7 @@ import {
   MailOpenedIcon,
   MenuIcon,
   NotificationProvider,
+  GmailIcon,
   NotificationsActiveIcon,
   NotificationsIcon,
   NotificationsPausedIcon,
@@ -69,6 +70,7 @@ import {
   TodayIcon,
   UnorderedListIcon,
   ViewModuleIcon,
+  TelegramIcon,
   ViewSideIcon,
 } from '../../index';
 
@@ -171,6 +173,8 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
     UnorderedListIcon,
     ViewModuleIcon,
     ViewSideIcon,
+    TelegramIcon,
+    GmailIcon,
   };
   return (
     <NotificationProvider>
