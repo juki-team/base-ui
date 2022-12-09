@@ -1,24 +1,16 @@
-import {
-  consoleWarn,
-  ContentResponseType,
-  ContentsResponseType,
-  ERROR,
-  ErrorCode,
-  ErrorResponseType,
-  HTTPMethod,
-  isStringJson,
-} from '@juki-team/commons';
+import { consoleWarn, ContentResponseType, ContentsResponseType, ERROR, ErrorCode, ErrorResponseType, HTTPMethod, isStringJson } from '@juki-team/commons';
 import { settings } from '../config';
 
 export const cleanRequest = <T extends ContentResponseType<any> | ContentsResponseType<any>>(responseText: string): (ErrorResponseType | T) => {
   if (!isStringJson(responseText)) {
     // this occurs when the endpoint don't exits or server is down
-    consoleWarn({ responseText });
-    return {
+    const response: ErrorResponseType = {
       success: false,
       message: ERROR[ErrorCode.ERR9999].message,
       errors: [{ code: ErrorCode.ERR9999, detail: '', message: ERROR[ErrorCode.ERR9999].message }],
     };
+    settings.reportError({ message: 'success false on cleaning request', responseText, response });
+    return response;
   }
   const responseJson = JSON.parse(responseText);
   if (typeof responseJson.success === 'boolean') {
@@ -36,19 +28,22 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
         meta: responseJson.meta,
       } as T;
     } else if (responseJson.success === false && typeof responseJson.message === 'string' && Array.isArray(responseJson.errors)) { // V1
-      return {
+      const response: ErrorResponseType = {
         success: false,
         message: responseJson.message,
         errors: responseJson.errors,
       };
+      settings.reportError({ message: 'success false on cleaning request', responseText, response });
+      return response;
     }
   }
-  consoleWarn({ responseText });
-  return {
+  const response: ErrorResponseType = {
     success: false,
     message: ERROR[ErrorCode.ERR9998].message,
     errors: [{ code: ErrorCode.ERR9998, detail: '', message: ERROR[ErrorCode.ERR9998].message }],
   };
+  settings.reportError({ message: 'success false on cleaning request', responseText, response });
+  return response;
 };
 
 export interface AuthorizedRequestType extends RequestInit {
@@ -85,7 +80,7 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
       return response.text();
     })
     .catch((error) => {
-      consoleWarn(error);
+      consoleWarn({ message: `error on fetch url: ${url}`, error });
       if (signal?.aborted) {
         return JSON.stringify({
           success: false,

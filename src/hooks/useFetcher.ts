@@ -1,5 +1,5 @@
 import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import useSWR from 'swr';
 import { settings } from '../config';
 import { authorizedRequest, AuthorizedRequestType, cleanRequest } from '../services';
@@ -34,12 +34,6 @@ export const useFetcher = <T extends (ContentResponseType<any> | ContentsRespons
     revalidateOnReconnect,
     refreshInterval,
   });
-  
-  useEffect(() => {
-    if (error) {
-      settings.reportError({ url, token });
-    }
-  }, [error, url, token]);
   
   return useMemo(() => ({
     data: data ? cleanRequest<T>(data) : undefined,
