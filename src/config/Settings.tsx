@@ -9,7 +9,7 @@ export class Settings {
   private _UTILS_UI_URL = '';
   private _TOKEN_NAME = '';
   private _UTILS_SERVICE_SOCKET_URL = '';
-  private _ON_ERROR = (error: any) => consoleWarn(error);
+  private _ON_ERROR = (error: any) => consoleWarn({ message: 'a error happened', error });
   
   get UTILS_SERVICE_URL(): string {
     return this._UTILS_SERVICE_URL;
