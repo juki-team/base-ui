@@ -1,10 +1,10 @@
 import React, { ReactNode } from 'react';
-import { DateFieldProps, FieldProps, TextFieldProps } from '../index';
 import { classNames } from '../../helpers';
+import { DateFieldProps, FieldProps, TextFieldProps } from '../index';
 import { DateLiteral } from '../Input';
 
-export const TextHeadCell = ({ text }: { text: string | ReactNode }) => {
-  return <div className="text-head-field jk-row fw-bd"><span>{text}</span></div>;
+export const TextHeadCell = ({ text, className }: { text: string | ReactNode, className?: string }) => {
+  return <div className={classNames('text-head-field jk-row fw-bd', className)}><span>{text}</span></div>;
 };
 
 export const Field = ({ onClick, className = '', children }: FieldProps) => {

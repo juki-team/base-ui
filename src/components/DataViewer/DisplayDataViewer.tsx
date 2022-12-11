@@ -48,7 +48,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     viewMode,
     setViewMode,
     getRowKey,
-    pagination,
+    paginationData,
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
@@ -95,7 +95,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         loading={loading}
         onReload={onReload}
         onAllFilters={onAllFilters}
-        pagination={pagination}
+        paginationData={paginationData}
       />
       <div
         className={classNames('jk-view-container', viewMode)}

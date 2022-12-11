@@ -70,6 +70,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   disabled,
   optionsPlacement = 'bottom',
   extend = false,
+  containerWidth: _containerWidth,
 }: SelectProps<T, U, V>) => {
   
   const { width: selectLayoutWidth = 0, ref: selectLayoutRef } = useResizeDetector();
@@ -100,7 +101,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   const width = Math.max(...options.map(({ label }) => getTextContent(label).length), getTextContent(optionSelected.label).length);
   
   const isDisabled = disabled || !onChange;
-  const containerWidth = width * 12 + 35;
+  const containerWidth = _containerWidth ?? width * 12 + 35;
   
   return (
     <Popover

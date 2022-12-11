@@ -80,6 +80,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
     },
     {
       index: 'permissions',
+      head: <TextHeadCell text={<>prueba permisos</>} />,
       field: () => (
         <div>test<br />test
         </div>

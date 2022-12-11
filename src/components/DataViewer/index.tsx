@@ -13,7 +13,6 @@ import {
   FILTER_TEXT_AUTO,
 } from './constants';
 import { DisplayDataViewer } from './DisplayDataViewer';
-import { Pagination } from './Pagination';
 import { DataViewerProps, FilterValuesType, RequestFilterType, RequestSortType, TableHeadersType } from './types';
 import {
   getPageKey,
@@ -623,19 +622,26 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         setViewMode={setViewMode}
         viewMode={viewMode}
         getRowKey={getRowKey}
-        pagination={pagination}
+        paginationData={{
+          pagination,
+          pageSizeOptions,
+          page,
+          pageSize,
+          jumpToPage,
+          onPageSizeChange,
+        }}
       />
-      {withPagination && (
-        <Pagination
-          loading={loaderStatus === Status.LOADING}
-          pageSizeOptions={pageSizeOptions}
-          total={pagination.total}
-          page={page}
-          pageSize={pageSize}
-          jumpToPage={jumpToPage}
-          onPageSizeChange={onPageSizeChange}
-        />
-      )}
+      {/*{withPagination && (*/}
+      {/*  <Pagination*/}
+      {/*    loading={loaderStatus === Status.LOADING}*/}
+      {/*    pageSizeOptions={pageSizeOptions}*/}
+      {/*    total={pagination.total}*/}
+      {/*    page={page}*/}
+      {/*    pageSize={pageSize}*/}
+      {/*    jumpToPage={jumpToPage}*/}
+      {/*    onPageSizeChange={onPageSizeChange}*/}
+      {/*  />*/}
+      {/*)}*/}
     </div>
   );
 };

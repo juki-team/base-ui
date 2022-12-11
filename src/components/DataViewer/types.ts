@@ -168,6 +168,15 @@ export type TableHeadersWithWidthType<T> = TableHeadersType<T> & { width: number
 type RowsType = { height?: number };
 type CardsType = { height?: number, width?: number };
 
+type PaginationDataType = {
+  pagination?: DataViewerPaginationType,
+  page: number,
+  pageSize: number,
+  pageSizeOptions: number[],
+  jumpToPage: (page: number) => void,
+  onPageSizeChange: (pageSize: number) => void,
+}
+
 export interface DisplayDataViewerProps<T> {
   cards?: CardsType,
   cardsView: boolean,
@@ -182,7 +191,7 @@ export interface DisplayDataViewerProps<T> {
   setViewMode: (viewMode: ViewModeType) => void,
   viewMode: ViewModeType,
   getRowKey?: GetRowKeyType<T>,
-  pagination?: DataViewerPaginationType,
+  paginationData: PaginationDataType,
 }
 
 export type DataViewerHeaderSortOnlineType = true;
@@ -293,7 +302,7 @@ export interface DataViewerToolbarProps<T> {
   rowsView: boolean,
   setViewMode: (viewMode: ViewModeType) => void,
   viewMode: ViewModeType,
-  pagination?: DataViewerPaginationType,
+  paginationData: PaginationDataType,
 }
 
 export interface PaginationProps {
@@ -304,4 +313,5 @@ export interface PaginationProps {
   pageSizeOptions: number[],
   jumpToPage: (page: number) => void,
   onPageSizeChange: (pageSize: number) => void,
+  isOnToolbar?: boolean,
 }

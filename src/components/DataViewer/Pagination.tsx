@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { classNames } from '../../helpers';
-import { DoubleUpIcon, LoadingIcon, PaginationProps, Select, UpIcon, useT } from '../index';
+import { DoubleUpIcon, LoadingIcon, PaginationProps, Popover, Select, T, UpIcon, useT } from '../index';
 
 const SIZE_PAGES = 3;
 
@@ -12,6 +12,7 @@ export const Pagination = ({
   pageSizeOptions,
   jumpToPage,
   onPageSizeChange,
+  isOnToolbar,
 }: PaginationProps) => {
   
   const startPage = 1;
@@ -42,70 +43,119 @@ export const Pagination = ({
       pages.push(page + 1 + i);
     }
   }
+  const prev = page > startPage ? () => jumpToPage(page - 1) : undefined;
+  const next = page < endPage ? () => jumpToPage(page + 1) : undefined;
   
   return (
-    <div className={classNames('jk-data-viewer-pagination jk-row center', { loading })}>
+    <div className={classNames('jk-data-viewer-pagination jk-row gap center', { loading })}>
       <div className="jk-row center nowrap">
-        <div
-          className={classNames('page-item jk-row jk-border-radius screen md lg hg', { disabled: page === startPage })}
-          onClick={page > startPage ? () => jumpToPage(page - 1) : undefined}
-        >
-          <UpIcon rotate={-90} />
-        </div>
-        <div className="jk-row jk-border-radius center page-items">
-          {startPage < pages[0] && (
-            <>
+        {isOnToolbar ? (
+          <div className="jk-row">
+            <div className="jk-row nowrap">
               <div
-                className={classNames('page-item jk-row jk-border-radius cr-g3', { selected: startPage === page })}
-                onClick={() => jumpToPage(startPage)}
+                className={classNames('page-item jk-row jk-border-radius', { disabled: page === startPage })}
+                onClick={prev}
               >
-                {loading && startPage === page ? <LoadingIcon /> : startPage}
+                <UpIcon rotate={-90} />
               </div>
-              {startPage + 1 < pages[0] && (
-                <div className="jk-row" onClick={() => jumpToPage(Math.max(page - 5, startPage))}>
-                  <DoubleUpIcon rotate={-90} />
-                </div>
-              )}
-            </>
-          )}
-          {pages.map(index => (
-            <div
-              key={index}
-              className={classNames('page-item jk-row jk-border-radius fw-bd', { selected: index === page, 'fw-br': index === page })}
-              onClick={() => jumpToPage(index)}
-            >
-              {loading && index === page ? <LoadingIcon /> : index}
+              <Popover
+                content={<div className="jk-row nowrap">{page}&nbsp;<T>page</T>&nbsp;
+                  <T>of</T>&nbsp;{endPage}&nbsp;<T>pages</T>
+                </div>}
+                showPopperArrow
+              >
+                <div className="jk-row nowrap">{page}&nbsp;<T>of</T>&nbsp;{endPage}</div>
+              </Popover>
+              <div
+                className={classNames('page-item jk-row jk-border-radius', { disabled: page === endPage })}
+                onClick={next}
+              >
+                <UpIcon rotate={90} />
+              </div>
             </div>
-          ))}
-          {pages[pages.length - 1] < endPage && (
-            <>
-              {endPage - 1 > pages[pages.length - 1] && (
-                <div className="jk-row" onClick={() => jumpToPage(Math.min(page + 5, endPage))}>
-                  <DoubleUpIcon rotate={90} />
-                </div>
-              )}
-              <div
-                className={classNames('page-item jk-row jk-border-radius cr-g3', { selected: endPage === page })}
-                onClick={() => jumpToPage(endPage)}
-              >
-                {loading && endPage === page ? <LoadingIcon /> : endPage}
+            <Popover
+              content={<T className="tt-se ws-np">records per page</T>}
+              showPopperArrow
+            >
+              <div>
+                <Select
+                  options={pageSizeOptions.map(option => ({ value: option, label: option }))}
+                  selectedOption={{ value: pageSize }}
+                  onChange={({ value }) => onPageSizeChange(value)}
+                  optionsPlacement="bottom"
+                />
               </div>
-            </>
-          )}
-        </div>
-        <div
-          className={classNames('page-item jk-row jk-border-radius screen md lg hg', { disabled: page === endPage })}
-          onClick={page < endPage ? () => jumpToPage(page + 1) : undefined}
-        >
-          <UpIcon rotate={90} />
-        </div>
+            </Popover>
+          </div>
+        ) : (
+          <>
+            <div
+              className={classNames('page-item jk-row jk-border-radius screen md lg hg', { disabled: page === startPage })}
+              onClick={prev}
+            >
+              <UpIcon rotate={-90} />
+            </div>
+            <div className="jk-row jk-border-radius center page-items">
+              {startPage < pages[0] && (
+                <>
+                  <div
+                    className={classNames('page-item jk-row jk-border-radius cr-g3', { selected: startPage === page })}
+                    onClick={() => jumpToPage(startPage)}
+                  >
+                    {loading && startPage === page ? <LoadingIcon /> : startPage}
+                  </div>
+                  {startPage + 1 < pages[0] && (
+                    <div className="jk-row" onClick={() => jumpToPage(Math.max(page - SIZE_PAGES, startPage))}>
+                      <DoubleUpIcon rotate={-90} />
+                    </div>
+                  )}
+                </>
+              )}
+              {pages.map(index => (
+                <div
+                  key={index}
+                  className={classNames('page-item jk-row jk-border-radius fw-bd', {
+                    selected: index === page,
+                    'fw-br': index === page,
+                  })}
+                  onClick={() => jumpToPage(index)}
+                >
+                  {loading && index === page ? <LoadingIcon /> : index}
+                </div>
+              ))}
+              {pages[pages.length - 1] < endPage && (
+                <>
+                  {endPage - 1 > pages[pages.length - 1] && (
+                    <div className="jk-row" onClick={() => jumpToPage(Math.min(page + SIZE_PAGES, endPage))}>
+                      <DoubleUpIcon rotate={90} />
+                    </div>
+                  )}
+                  <div
+                    className={classNames('page-item jk-row jk-border-radius cr-g3', { selected: endPage === page })}
+                    onClick={() => jumpToPage(endPage)}
+                  >
+                    {loading && endPage === page ? <LoadingIcon /> : endPage}
+                  </div>
+                </>
+              )}
+            </div>
+            <div
+              className={classNames('page-item jk-row jk-border-radius screen md lg hg', { disabled: page === endPage })}
+              onClick={next}
+            >
+              <UpIcon rotate={90} />
+            </div>
+          </>
+        )}
       </div>
-      <Select
-        options={pageSizeOptions.map(option => ({ value: option, label: option + ' / ' + t('page') }))}
-        selectedOption={{ value: pageSize }}
-        onChange={({ value }) => onPageSizeChange(value)}
-        optionsPlacement="top"
-      />
+      {!isOnToolbar && (
+        <Select
+          options={pageSizeOptions.map(option => ({ value: option, label: option + ' / ' + t('page') }))}
+          selectedOption={{ value: pageSize }}
+          onChange={({ value }) => onPageSizeChange(value)}
+          optionsPlacement="top"
+        />
+      )}
     </div>
   );
 };

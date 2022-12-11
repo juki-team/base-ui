@@ -96,6 +96,7 @@ export interface SelectProps<T, U extends ReactNodeOrFunctionType, V extends Rea
   disabled?: boolean,
   optionsPlacement?: PlacementType,
   extend?: boolean,
+  containerWidth?: number,
 }
 
 export interface MultiSelectProps<T, U extends ReactNode, V extends ReactNode> {

@@ -44,7 +44,7 @@
   
   &.with-pagination {
     .jk-data-viewer-content {
-      height: calc(100% - var(--pagination-height));
+      //height: calc(100% - var(--pagination-height));
     }
   }
   
@@ -66,7 +66,7 @@
         margin-right: var(--pad-t);
         
         .jk-icon {
-          color: var(--t-color-gray-6);
+          color: var(--t-color-gray-3);
           cursor: pointer;
           @include sm { margin: 0 4px; }
         }
@@ -77,6 +77,20 @@
         
         .active .jk-icon {
           color: var(--t-color-primary-light);
+        }
+        
+        .jk-data-viewer-pagination {
+          height: auto;
+          
+          .page-item {
+            background: none;
+            color: var(--t-color-gray-1);
+          }
+          
+          .page-items {
+            background: none;
+            margin: 0;
+          }
         }
       }
     }
@@ -128,23 +142,23 @@
             padding: 0 4px;
             
             &.with-sort:not(.with-filter), &.with-filter:not(.with-sort) {
-              padding-right: calc(30px); // 26px + 4px // icon, padding
-              @include md {
-                padding-right: calc(22px); // 18px + 4px // icon, padding
-              }
-              @include sm {
-                padding-right: calc(22px); // 18px + 4px // icon, padding
-              }
+              //padding-right: calc(30px); // 26px + 4px // icon, padding
+              //@include md {
+              //  padding-right: calc(22px); // 18px + 4px // icon, padding
+              //}
+              //@include sm {
+              //  padding-right: calc(22px); // 18px + 4px // icon, padding
+              //}
             }
             
             &.with-sort.with-filter {
-              padding-right: calc(56px); // 26px + 26px + 4px // icon, icon, padding
-              @include md {
-                padding-right: calc(40px); // 18px + 18px + 4px // icon, icon, padding
-              }
-              @include sm {
-                padding-right: calc(40px); // 18px + 18px + 4px // icon, icon, padding
-              }
+              //padding-right: calc(56px); // 26px + 26px + 4px // icon, icon, padding
+              //@include md {
+              //  padding-right: calc(40px); // 18px + 18px + 4px // icon, icon, padding
+              //}
+              //@include sm {
+              //  padding-right: calc(40px); // 18px + 18px + 4px // icon, icon, padding
+              //}
             }
             
             .jk-table-head-tools {
@@ -176,6 +190,7 @@
             .text-head-field {
               height: 100%;
               word-break: break-all;
+              line-height: 1.1;
             }
           }
         }
@@ -338,10 +353,6 @@
     }
     
     > div:first-child {
-      //height: calc(var(--pagination-height) - 36px);
-      //align-items: flex-end;
-      padding: 0 var(--pad-t);
-      
       .page-items {
         padding: 2px;
         background-color: var(--t-color-white);
