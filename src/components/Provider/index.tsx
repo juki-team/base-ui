@@ -1,5 +1,6 @@
 import { ContentResponseType, Language, Theme, USER_GUEST, UserPingResponseDTO, UserState } from '@juki-team/commons';
 import React, { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from 'react';
+import { KeyedMutator } from 'swr';
 import { settings } from '../../config';
 import { usePageFocus, usePageVisibility } from '../../hooks';
 import { useFetcher } from '../../hooks/useFetcher';
@@ -7,13 +8,22 @@ import { socket } from '../../services';
 import { NotificationProvider } from '../Notifications';
 import { JukiBaseUiProviderProps } from './types';
 
-const BaseContext = createContext<{ isPageVisible: boolean, isPageFocus: boolean, viewPortSize: 'hg' | 'lg' | 'md' | 'sm', user: UserState, setUser: Dispatch<SetStateAction<UserState>>, userIsLoading: boolean }>({
+const BaseContext = createContext<{
+  isPageVisible: boolean,
+  isPageFocus: boolean,
+  viewPortSize: 'hg' | 'lg' | 'md' | 'sm',
+  user: UserState,
+  setUser: Dispatch<SetStateAction<UserState>>,
+  userIsLoading: boolean,
+  mutate: KeyedMutator<any>,
+}>({
   isPageVisible: true,
   isPageFocus: true,
   viewPortSize: 'sm',
   user: USER_GUEST,
   setUser: () => null,
   userIsLoading: true,
+  mutate: null as unknown as KeyedMutator<any>,
 });
 
 const useUser = () => {
@@ -21,6 +31,7 @@ const useUser = () => {
   const {
     data,
     isLoading,
+    mutate,
   } = useFetcher<ContentResponseType<UserPingResponseDTO>>(...settings.JUKI_API.PING());
   const [user, setUser] = useState<UserState>(USER_GUEST);
   const [userIsLoading, setUserIsLoading] = useState(true);
@@ -57,6 +68,7 @@ const useUser = () => {
     user,
     setUser,
     userIsLoading,
+    mutate,
   };
 };
 
@@ -79,7 +91,7 @@ export const JukiBaseUiProvider = ({
     socket.start();
   }, [tokenName, utilsServiceApiVersion, utilsServiceUrl, utilsSocketServiceUrl, utilsUiUrl]);
   
-  const { user, setUser, userIsLoading } = useUser();
+  const { user, setUser, userIsLoading, mutate } = useUser();
   
   useEffect(() => {
     if (isPageVisible) {
@@ -112,7 +124,7 @@ export const JukiBaseUiProvider = ({
   }, []);
   
   return (
-    <BaseContext.Provider value={{ isPageVisible, isPageFocus, viewPortSize, user, setUser, userIsLoading }}>
+    <BaseContext.Provider value={{ isPageVisible, isPageFocus, viewPortSize, user, setUser, userIsLoading, mutate }}>
       <NotificationProvider>
         {children}
       </NotificationProvider>
@@ -122,7 +134,7 @@ export const JukiBaseUiProvider = ({
 
 export const useJukiBase = () => {
   
-  const { isPageVisible, isPageFocus, viewPortSize, user, setUser, userIsLoading } = useContext(BaseContext);
+  const { isPageVisible, isPageFocus, viewPortSize, user, setUser, userIsLoading, mutate } = useContext(BaseContext);
   
   return {
     isPageVisible,
@@ -131,5 +143,6 @@ export const useJukiBase = () => {
     user,
     setUser,
     userIsLoading,
+    mutatePing: mutate,
   };
 };
