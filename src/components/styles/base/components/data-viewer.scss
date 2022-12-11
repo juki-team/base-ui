@@ -64,6 +64,7 @@
       
       .jk-table-view-tools {
         margin: 0 var(--pad-t);
+        @include sm { flex: 1; }
         
         .jk-icon {
           color: var(--t-color-gray-3);

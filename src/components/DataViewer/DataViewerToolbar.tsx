@@ -41,7 +41,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
       <div className="screen md lg hg">
         {renderReactNodeOrFunction(extraButtons)}
       </div>
-      <div className="jk-row gap nowrap jk-table-view-tools flex-1">
+      <div className="jk-row gap nowrap jk-table-view-tools">
         <div className="screen sm">
           <Popover
             content={renderReactNodeOrFunction(extraButtons)}
