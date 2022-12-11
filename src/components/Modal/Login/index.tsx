@@ -49,7 +49,7 @@ export const LoginModal = ({
         className="modal-login"
         title={
           <>
-            <p className="tx-xh fw-br"><T className="tt-se">login</T></p>
+            <h3><T className="tt-se cr-g1">login</T></h3>
             <p className="tx-h"><T className="tt-se">Nice see you again!</T></p>
           </>
         }

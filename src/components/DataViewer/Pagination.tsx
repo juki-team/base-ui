@@ -1,8 +1,18 @@
 import React, { useEffect } from 'react';
-import { DoubleUpIcon, LoadingIcon, PaginationProps, Select, UpIcon, useT } from '../index';
 import { classNames } from '../../helpers';
+import { DoubleUpIcon, LoadingIcon, PaginationProps, Select, UpIcon, useT } from '../index';
 
-export const Pagination = ({ total, page, pageSize, loading, pageSizeOptions, jumpToPage, onPageSizeChange }: PaginationProps) => {
+const SIZE_PAGES = 3;
+
+export const Pagination = ({
+  total,
+  page,
+  pageSize,
+  loading,
+  pageSizeOptions,
+  jumpToPage,
+  onPageSizeChange,
+}: PaginationProps) => {
   
   const startPage = 1;
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
@@ -18,26 +28,26 @@ export const Pagination = ({ total, page, pageSize, loading, pageSizeOptions, ju
   if (page > 1) {
     pages.splice(0, 0, page - 1);
   }
-  if (page > 2) {
+  if (page > 2 && SIZE_PAGES >= 5) {
     pages.splice(0, 0, page - 2);
   }
-  if (page > 3 && right < 2) {
+  if (page > 3 && right < 2 && SIZE_PAGES >= 5) {
     pages.splice(0, 0, page - 3);
   }
-  if (page > 4 && right < 1) {
+  if (page > 4 && right < 1 && SIZE_PAGES >= 5) {
     pages.splice(0, 0, page - 4);
   }
   for (let i = 0; i < 4; i++) {
-    if (pages.length < 5 && page < endPage - i) {
+    if (pages.length < SIZE_PAGES && page < endPage - i) {
       pages.push(page + 1 + i);
     }
   }
   
   return (
     <div className={classNames('jk-data-viewer-pagination jk-row center', { loading })}>
-      <div className="jk-row center">
+      <div className="jk-row center nowrap">
         <div
-          className={classNames('page-item jk-row jk-border-radius', { disabled: page === startPage })}
+          className={classNames('page-item jk-row jk-border-radius screen md lg hg', { disabled: page === startPage })}
           onClick={page > startPage ? () => jumpToPage(page - 1) : undefined}
         >
           <UpIcon rotate={-90} />
@@ -46,7 +56,7 @@ export const Pagination = ({ total, page, pageSize, loading, pageSizeOptions, ju
           {startPage < pages[0] && (
             <>
               <div
-                className={classNames('page-item jk-row jk-border-radius', { selected: startPage === page })}
+                className={classNames('page-item jk-row jk-border-radius cr-g3', { selected: startPage === page })}
                 onClick={() => jumpToPage(startPage)}
               >
                 {loading && startPage === page ? <LoadingIcon /> : startPage}
@@ -61,7 +71,7 @@ export const Pagination = ({ total, page, pageSize, loading, pageSizeOptions, ju
           {pages.map(index => (
             <div
               key={index}
-              className={classNames('page-item jk-row jk-border-radius', { selected: index === page, 'fw-br': index === page })}
+              className={classNames('page-item jk-row jk-border-radius fw-bd', { selected: index === page, 'fw-br': index === page })}
               onClick={() => jumpToPage(index)}
             >
               {loading && index === page ? <LoadingIcon /> : index}
@@ -75,7 +85,7 @@ export const Pagination = ({ total, page, pageSize, loading, pageSizeOptions, ju
                 </div>
               )}
               <div
-                className={classNames('page-item jk-row jk-border-radius', { selected: endPage === page })}
+                className={classNames('page-item jk-row jk-border-radius cr-g3', { selected: endPage === page })}
                 onClick={() => jumpToPage(endPage)}
               >
                 {loading && endPage === page ? <LoadingIcon /> : endPage}
@@ -84,7 +94,7 @@ export const Pagination = ({ total, page, pageSize, loading, pageSizeOptions, ju
           )}
         </div>
         <div
-          className={classNames('page-item jk-row jk-border-radius', { disabled: page === endPage })}
+          className={classNames('page-item jk-row jk-border-radius screen md lg hg', { disabled: page === endPage })}
           onClick={page < endPage ? () => jumpToPage(page + 1) : undefined}
         >
           <UpIcon rotate={90} />

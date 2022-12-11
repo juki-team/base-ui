@@ -4,7 +4,16 @@ import React, { useRef } from 'react';
 import GoogleLogin from 'react-google-login';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { ButtonLoader, Input, InputCheckbox, InputPassword, JukiLaptopImage, SetLoaderStatusOnClickType, T, useT } from '../../index';
+import {
+  ButtonLoader,
+  Input,
+  InputCheckbox,
+  InputPassword,
+  JukiLaptopImage,
+  SetLoaderStatusOnClickType,
+  T,
+  useT,
+} from '../../index';
 import { SplitModal } from '../SplitModal';
 import { SignUpInputType, SignUpModalProps } from './types';
 
@@ -54,7 +63,7 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
       className="modal-sign-up"
       title={
         <>
-          <p className="tx-xh fw-br"><T className="tt-se">sign up</T></p>
+          <h3><T className="tt-se cr-g1">sign up</T></h3>
           <p className="tx-h"><T className="tt-se">happy you join us</T></p>
         </>
       }

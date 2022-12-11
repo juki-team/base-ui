@@ -189,7 +189,6 @@ export const Classes: Story<TabsProps<string>> = () => {
           <h1>font size</h1>
           <div className="jk-row gap">
             {[
-              'tx-xh',
               'tx-h',
               'tx-xl',
               'tx-l',
@@ -197,7 +196,6 @@ export const Classes: Story<TabsProps<string>> = () => {
               'tx-s',
               'tx-xs',
               'tx-t',
-              'tx-xt',
             ].map(size => (
               <div className="jk-row gap nowrap jk-shadow jk-pad-md jk-border-radius-inline" style={{ width: '140px' }}>
                 <pre>"{size}"</pre>

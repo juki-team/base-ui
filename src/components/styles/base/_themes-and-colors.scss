@@ -36,11 +36,11 @@
   --t-color-shadow-dark: rgba(0, 0, 0, 0.35);
   --t-color-shadow-darkest: rgba(0, 0, 0, 0.45);
   
-  --t-box-shadow-hg: 0 0 15px 0px rgba(0, 0, 0, 0.25);
-  --t-box-shadow-lg: 0 0 13px 0px rgba(0, 0, 0, 0.25);
-  --t-box-shadow-md: 0 0 10px 0px rgba(0, 0, 0, 0.25);
-  --t-box-shadow-sm: 0 0 7px 0px rgba(0, 0, 0, 0.25);
-  --t-box-shadow-tn: 0 0 4px 0px rgba(0, 0, 0, 0.25);
+  --t-box-shadow-hg: 0 0 15px 0px var(--t-color-shadow);
+  --t-box-shadow-lg: 0 0 13px 0px var(--t-color-shadow);
+  --t-box-shadow-md: 0 0 10px 0px var(--t-color-shadow);
+  --t-box-shadow-sm: 0 0 7px 0px var(--t-color-shadow);
+  --t-box-shadow-tn: 0 0 4px 0px var(--t-color-shadow);
   
   @include hg { --t-box-shadow: var(--t-box-shadow-hg); }
   @include lg { --t-box-shadow: var(--t-box-shadow-lg); }
@@ -83,11 +83,11 @@
   --t-color-shadow-dark: rgba(255, 255, 255, 0.35);
   --t-color-shadow-darkest: rgba(255, 255, 255, 0.45);
   
-  --t-box-shadow-hg: 0 0 15px 0px rgba(255, 255, 255, 0.25);
-  --t-box-shadow-lg: 0 0 13px 0px rgba(255, 255, 255, 0.25);
-  --t-box-shadow-md: 0 0 10px 0px rgba(255, 255, 255, 0.25);
-  --t-box-shadow-sm: 0 0 7px 0px rgba(255, 255, 255, 0.25);
-  --t-box-shadow-tn: 0 0 4px 0px rgba(255, 255, 255, 0.25);
+  --t-box-shadow-hg: 0 0 15px 0px var(--t-color-shadow);
+  --t-box-shadow-lg: 0 0 13px 0px var(--t-color-shadow);
+  --t-box-shadow-md: 0 0 10px 0px var(--t-color-shadow);
+  --t-box-shadow-sm: 0 0 7px 0px var(--t-color-shadow);
+  --t-box-shadow-tn: 0 0 4px 0px var(--t-color-shadow);
   
   @include hg { --t-box-shadow: var(--t-box-shadow-hg); }
   @include lg { --t-box-shadow: var(--t-box-shadow-lg); }

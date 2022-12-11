@@ -21,6 +21,7 @@ export interface RowVirtualizerFixedProps<T> {
   rowHeight: number,
   scrollLeft: number,
   getRowKey?: GetRowKeyType<T>,
+  setScrollLeft: Dispatch<SetStateAction<number>>,
 }
 
 export type FilterTextOnlineType = { type: typeof FILTER_TEXT };
@@ -84,6 +85,7 @@ export type TableHeaderFilterTextType = {
   onReset: () => void,
   text: string,
   type: typeof FILTER_TEXT,
+  online: boolean,
 };
 
 export type TableHeaderFilterSelectType = {
@@ -92,6 +94,7 @@ export type TableHeaderFilterSelectType = {
   options: OptionType<string>[],
   selectedOptions: OptionType<string>[],
   type: typeof FILTER_SELECT,
+  online: boolean,
 }
 
 export type TableHeaderFilterDateType = {
@@ -102,6 +105,7 @@ export type TableHeaderFilterDateType = {
   pickerType: DatePickerType,
   selectedDate: Date | null,
   type: typeof FILTER_DATE,
+  online: boolean,
 };
 
 export type TableHeaderFilterDateRangeType = {
@@ -114,6 +118,7 @@ export type TableHeaderFilterDateRangeType = {
   pickerType: DatePickerType,
   startSelectedDate: Date | null,
   type: typeof FILTER_DATE_RANGE,
+  online: boolean,
 };
 
 export type TableHeaderFilterType =
@@ -141,6 +146,7 @@ export type TableSortOnSortType = (props: { columnIndex: string }) => void;
 export type TableSortType = {
   onSort?: TableSortOnSortType,
   order: TableSortOrderType,
+  online: boolean,
 }
 
 export type TableHeadFieldType<T> =
@@ -243,7 +249,6 @@ export type HeaderWidthsType = { [key: string]: { width: number, minWidth: numbe
 export interface TableHeadProps<T> {
   headerWidths: HeaderWidthsType,
   headers: TableHeadersWithWidthType<T>[],
-  rowWidth: number,
   setHeaderWidths: Dispatch<HeaderWidthsType>,
   scrollLeft: number,
   loading: boolean,

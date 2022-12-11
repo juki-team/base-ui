@@ -310,7 +310,11 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
               endSelectedDate: new Date(+end),
             }));
           } else {
-            consoleWarn({ _message: 'data no filtered, filter not a valid range times date', search: searchFilter[i], searchFilter });
+            consoleWarn({
+              _message: 'data no filtered, filter not a valid range times date',
+              search: searchFilter[i],
+              searchFilter,
+            });
           }
         } else if (isFilterDateRangeAutoOffline(head?.filter)) {
           const [start, end] = searchFilter[i]?.split(',');
@@ -366,13 +370,24 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
                   }
                   return isWithin;
                 } else {
-                  consoleWarn({ _message: 'datum no filtered', datum, startSelectedDate, endSelectedDate, index: head.index, head });
+                  consoleWarn({
+                    _message: 'datum no filtered',
+                    datum,
+                    startSelectedDate,
+                    endSelectedDate,
+                    index: head.index,
+                    head,
+                  });
                 }
               }
               return true;
             });
           } else {
-            consoleWarn({ _message: 'data no filtered, filter not a valid range times date', search: searchFilter[i], searchFilter });
+            consoleWarn({
+              _message: 'data no filtered, filter not a valid range times date',
+              search: searchFilter[i],
+              searchFilter,
+            });
           }
         }
       }
@@ -456,6 +471,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             }
             setSearchParamsObject(initialFilterSearch);
           },
+          online: isSortOnline(sort),
         };
       }
       const initialSortSearch: SearchParamsObjectType = { ...searchParamsObject };
@@ -481,6 +497,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           onFilter: ({ text }) => onFilter(text),
           onReset: onReset(index, initialSortSearch),
           text: searchFilter[index] || '',
+          online: isFilterTextOnline(filter),
         };
       } else if (filter?.type === FILTER_SELECT || filter?.type === FILTER_SELECT_AUTO) {
         newHead.filter = {
@@ -495,6 +512,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           onReset: onReset(index, initialSortSearch),
           options: filter.options,
           selectedOptions: searchFilter[index] ? searchFilter[index].split(',').map(value => ({ value, label: '' })) : [],
+          online: isFilterSelectOnline(filter),
         };
       } else if (filter?.type === FILTER_DATE || filter?.type === FILTER_DATE_AUTO) {
         const selectedDate = searchFilter[index] && new Date(+searchFilter[index]).isValidDate() ? new Date(+searchFilter[index]) : null;
@@ -506,6 +524,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           onReset: onReset(index, initialSortSearch),
           selectedDate,
           baseDate: selectedDate || filter.baseDate || new Date(),
+          online: isFilterDateOnline(filter),
         };
       } else if (filter?.type === FILTER_DATE_RANGE || filter?.type === FILTER_DATE_RANGE_AUTO) {
         const [start, end] = searchFilter[index] ? searchFilter[index]?.split(',') : [];
@@ -514,13 +533,17 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         newHead.filter = {
           type: FILTER_DATE_RANGE,
           pickerType: filter.pickerType || DEFAULT_PICKER_TYPE,
-          onFilter: ({ startSelectedDate, endSelectedDate }) => onFilter(startSelectedDate.getTime() + ',' + endSelectedDate.getTime()),
+          onFilter: ({
+            startSelectedDate,
+            endSelectedDate,
+          }) => onFilter(startSelectedDate.getTime() + ',' + endSelectedDate.getTime()),
           onReset: onReset(index, initialSortSearch),
           isDisabled: filter.isDisabled || (() => ({})),
           startSelectedDate,
           endSelectedDate,
           baseStartDate: startSelectedDate || filter.baseStartDate || new Date(),
           baseEndDate: endSelectedDate || filter.baseEndDate || new Date(),
+          online: isFilterDateRangeOnline(filter),
         };
       }
       return newHead;
@@ -576,10 +599,12 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [CARDS] });
     }
   }, [viewPortSize, viewMode, cardsView, rowsView, setSearchParamsObject, searchParamsObject, viewModeKey]);
+  const oldViewPortSizeRef = useRef('');
   useEffect(() => {
-    if (viewMode === ROWS && cardsView && viewPortSize === 'sm') {
+    if (oldViewPortSizeRef.current !== viewPortSize && viewMode === ROWS && cardsView && viewPortSize === 'sm') {
       setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [CARDS] });
     }
+    oldViewPortSizeRef.current = viewPortSize;
   }, [viewPortSize, viewMode, cardsView, rowsView, setSearchParamsObject, searchParamsObject, viewModeKey]);
   
   return (

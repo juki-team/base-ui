@@ -17,7 +17,6 @@ export * from './MdMathEditor';
 export * from './MdMathViewer';
 export * from './Menu';
 export * from './Modal';
-export * from './NotFound';
 export * from './Notifications';
 export * from './Popover';
 export * from './Provider';

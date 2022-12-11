@@ -2,10 +2,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;800&display=swap");
 
 // font size
-.tx-xh { // extra huge
-  font-size: var(--text-xh-size);
-  line-height: var(--text-xh-height);
-}
 
 .tx-h { // huge
   font-size: var(--text-h-size);
@@ -40,11 +36,6 @@
 .tx-t {
   font-size: var(--text-t-size);
   line-height: var(--text-t-height);
-}
-
-.tx-xt {
-  font-size: var(--text-xt-size);
-  line-height: var(--text-xt-height);
 }
 
 // width

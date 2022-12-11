@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../constants';
 import { classNames } from '../../helpers';
@@ -82,8 +82,6 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     headerWidths,
   ]);
   
-  const rowWidth = Object.values(headerWidths).reduce((total, { width }) => total + width, 0);
-  
   return (
     <div className="jk-data-viewer-content">
       <DataViewerToolbar
@@ -100,9 +98,8 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         pagination={pagination}
       />
       <div
-        className={classNames('jk-view-container jk-border-radius-inline', { 'jk-shadow': viewMode === 'rows' }, viewMode)}
+        className={classNames('jk-view-container', viewMode)}
         ref={viewContainerRef}
-        onScroll={({ currentTarget }: SyntheticEvent<HTMLDivElement>) => setScrollLeft(currentTarget.scrollLeft || 0)}
       >
         {viewMode === 'rows' && (
           <TableHead
@@ -117,20 +114,20 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
               });
               setHeaderWidths(newHeaderWidths);
             }}
-            rowWidth={rowWidth}
             scrollLeft={scrollLeft}
             loading={loading}
           />
         )}
         {data.length > 0 && loading && <LineLoader />}
         {viewMode === 'rows' ? (
-          <div className={classNames('jk-data-viewer-body', viewMode)} style={{ width: rowWidth + SCROLL_WIDTH }}>
+          <div className={classNames('jk-data-viewer-body', viewMode)}>
             <LoaderLayer loading={data.length === 0 && loading}>
               <RowVirtualizerFixed
                 data={data}
                 headers={tableHeaders}
                 rowHeight={rowHeight}
                 scrollLeft={scrollLeft}
+                setScrollLeft={setScrollLeft}
                 getRowKey={getRowKey}
               />
             </LoaderLayer>

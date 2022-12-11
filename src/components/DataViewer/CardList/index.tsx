@@ -1,5 +1,5 @@
+import { useVirtualizer } from '@tanstack/react-virtual';
 import React, { useCallback, useRef } from 'react';
-import { useVirtual } from 'react-virtual';
 import { DataViewerCard } from './DataViewerCard';
 import { CardRowVirtualizerFixedProps } from './types';
 
@@ -14,17 +14,17 @@ export const CardRowVirtualizerFixed = <T, >({
   const parentRef = useRef<HTMLDivElement>(null);
   const cardsByRow = Math.floor(rowWidth / (cardWidth + 20));
   
-  const rowVirtualizer = useVirtual({
-    size: data.length / cardsByRow,
-    parentRef,
+  const rowVirtualizer = useVirtualizer({
+    count: data.length / cardsByRow,
+    getScrollElement: () => parentRef.current,
     estimateSize: useCallback(() => cardHeight + 40, [cardHeight]),
     overscan: 5,
   });
   
   return (
     <div ref={parentRef} className="jk-list-card-rows-container">
-      <div className="jk-list-card-rows-box" style={{ height: `${rowVirtualizer.totalSize}px` }}>
-        {rowVirtualizer.virtualItems.map(virtualRow => (
+      <div className="jk-list-card-rows-box" style={{ height: `${rowVirtualizer.getTotalSize()}px` }}>
+        {rowVirtualizer.getVirtualItems().map(virtualRow => (
           <div
             key={virtualRow.index}
             style={{
