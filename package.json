@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "0.0.202",
+  "version": "0.0.203",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^2.8.8",
     "@juki-team/commons": "^0.0.206",
     "@monaco-editor/react": "^4.4.2",
+    "@tanstack/react-virtual": "^3.0.0-beta.30",
     "codemirror": "^5.65.2",
     "immutability-helper": "^3.1.1",
     "prismjs": "^1.29.0",
@@ -28,7 +29,6 @@
     "react-markdown": "^8.0.3",
     "react-modal": "^3.15.1",
     "react-resize-detector": "^7.1.2",
-    "react-virtual": "^2.10.4",
     "rehype-katex": "^6.0.2",
     "remark-gfm": "^3.0.1",
     "remark-math": "^5.1.1",
