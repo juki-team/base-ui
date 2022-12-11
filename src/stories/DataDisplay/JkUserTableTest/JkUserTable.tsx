@@ -208,11 +208,11 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
         name="users"
         cardsView={cardsView}
         rowsView={rowsView}
-        extraButtons={() => (
+        extraButtons={[
           <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
             <T>download</T>
-          </ButtonLoader>
-        )}
+          </ButtonLoader>,
+        ]}
         searchParamsObject={getSearchParamsObject(searchParams)}
         setSearchParamsObject={setSearchParams}
         pagination={{ pageSizeOptions: [5, 10, 15, 20], total: data.length }}

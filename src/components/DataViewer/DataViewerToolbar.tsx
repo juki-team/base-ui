@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
-import { FilterIcon, LoadingIcon, ReloadIcon, UnorderedListIcon, ViewModuleIcon } from '../graphics';
+import { FilterIcon, LoadingIcon, MenuIcon, ReloadIcon, UnorderedListIcon, ViewModuleIcon } from '../graphics';
 import { Popover } from '../Popover';
 import { T } from '../Translate';
 import { FilterDrawer } from './FilterDrawer';
@@ -38,10 +38,19 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
         onFilter={values => onAllFilters(values)}
         onResetFilters={() => onAllFilters({})}
       />
-      <div>
+      <div className="screen md lg hg">
         {renderReactNodeOrFunction(extraButtons)}
       </div>
-      <div className="jk-row gap nowrap jk-table-view-tools">
+      <div className="jk-row gap nowrap jk-table-view-tools flex-1">
+        <div className="screen sm">
+          <Popover
+            content={renderReactNodeOrFunction(extraButtons)}
+            triggerOn="click"
+            placement="bottomLeft"
+          >
+            <div className="jk-row"><MenuIcon /></div>
+          </Popover>
+        </div>
         {onReload && (
           <Popover
             content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}

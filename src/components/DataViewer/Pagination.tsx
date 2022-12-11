@@ -52,12 +52,14 @@ export const Pagination = ({
         {isOnToolbar ? (
           <div className="jk-row">
             <div className="jk-row nowrap">
-              <div
-                className={classNames('page-item jk-row jk-border-radius', { disabled: page === startPage })}
-                onClick={prev}
-              >
-                <UpIcon rotate={-90} />
-              </div>
+              <Popover content={<T>previous</T>} showPopperArrow>
+                <div
+                  className={classNames('page-item jk-row jk-border-radius', { disabled: page === startPage })}
+                  onClick={prev}
+                >
+                  <UpIcon rotate={-90} />
+                </div>
+              </Popover>
               <Popover
                 content={<div className="jk-row nowrap">{page}&nbsp;<T>page</T>&nbsp;
                   <T>of</T>&nbsp;{endPage}&nbsp;<T>pages</T>
@@ -66,12 +68,14 @@ export const Pagination = ({
               >
                 <div className="jk-row nowrap">{page}&nbsp;<T>of</T>&nbsp;{endPage}</div>
               </Popover>
-              <div
-                className={classNames('page-item jk-row jk-border-radius', { disabled: page === endPage })}
-                onClick={next}
-              >
-                <UpIcon rotate={90} />
-              </div>
+              <Popover content={<T>next</T>} showPopperArrow>
+                <div
+                  className={classNames('page-item jk-row jk-border-radius', { disabled: page === endPage })}
+                  onClick={next}
+                >
+                  <UpIcon rotate={90} />
+                </div>
+              </Popover>
             </div>
             <Popover
               content={<T className="tt-se ws-np">records per page</T>}
