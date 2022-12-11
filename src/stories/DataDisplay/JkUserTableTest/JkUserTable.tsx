@@ -190,6 +190,31 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       cardPosition: 'topRight',
     },
   ], []);
+  const columns2: DataViewerHeadersType<UserTable>[] = useMemo(() => [
+    {
+      head: <TextHeadCell text="Name / Nickname" />,
+      index: 'name',
+      field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
+        <TextField text={nickname} label={<T>name</T>} />
+      ),
+      sort: true,
+      filter: { type: 'text' },
+      cardPosition: 'topLeft',
+      sticky: true,
+    },
+    {
+      head: <TextHeadCell text="Name / Nickname" />,
+      index: 'name',
+      field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
+        <TextField text={givenName} label="test" />
+      ),
+      sort: true,
+      filter: { type: 'text' },
+      cardPosition: 'topLeft',
+      sticky: true,
+    },
+  ], []);
+  console.info({ columns2, columns });
   const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
     console.info('request', { sort, filter, pagination });
     setLoaderStatus(Status.LOADING);
@@ -201,7 +226,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '64px', background: 'lightgray' }}>
       <DataViewer<UserTable>
-        headers={columns}
+        headers={columns2}
         data={data}
         rows={{ height: 150 }}
         request={request}

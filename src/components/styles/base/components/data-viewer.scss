@@ -191,7 +191,7 @@
             .text-head-field {
               height: 100%;
               word-break: break-all;
-              line-height: 1.1;
+              line-height: 1;
             }
           }
         }
@@ -285,10 +285,18 @@
               > .top-left, > .top-left, > .bottom-left {
                 align-items: flex-start;
               }
+              
+              &.no-middle {
+                > .top-right, > .center-right, > .bottom-right, > .top-left, > .top-left, > .bottom-left {
+                  flex: 1;
+                  align-items: center;
+                }
+              }
             }
             
             .text-field {
               text-align: center;
+              line-height: 1;
             }
             
             box-shadow: var(--t-box-shadow-lg);

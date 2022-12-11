@@ -1,5 +1,6 @@
 import React from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { classNames } from '../../../helpers';
 import { TableHeadersWithWidthType } from '../types';
 import { renderField } from '../utils';
 import { DataViewerCardProps } from './types';
@@ -32,7 +33,10 @@ export const DataViewerCard = <T, >({ cardWidth, index, data, headers, fake }: D
   
   return (
     <div className="jk-list-card jk-border-radius" style={{ width: cardWidth }}>
-      <div className="top-container" style={{ height: topContainerHeight }}>
+      <div
+        className={classNames('top-container', { 'no-middle': !positionsList.top?.length })}
+        style={{ height: topContainerHeight }}
+      >
         <div className="top-left jk-col" ref={topLeftRef}>
           {positionsList.topLeft?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
@@ -43,7 +47,10 @@ export const DataViewerCard = <T, >({ cardWidth, index, data, headers, fake }: D
           {positionsList.topRight?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
       </div>
-      <div className="center-container" style={{ height: centerContainerHeight }}>
+      <div
+        className={classNames('center-container', { 'no-middle': !positionsList.center?.length })}
+        style={{ height: centerContainerHeight }}
+      >
         <div className="center-left jk-col" ref={centerLeftRef}>
           {positionsList.centerLeft?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
@@ -54,7 +61,10 @@ export const DataViewerCard = <T, >({ cardWidth, index, data, headers, fake }: D
           {positionsList.centerRight?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
       </div>
-      <div className="bottom-container" style={{ height: bottomContainerHeight }}>
+      <div
+        className={classNames('bottom-container', { 'no-middle': !positionsList.bottom?.length })}
+        style={{ height: bottomContainerHeight }}
+      >
         <div className="bottom-left jk-col" ref={bottomLeftRef}>
           {positionsList.bottomLeft?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
