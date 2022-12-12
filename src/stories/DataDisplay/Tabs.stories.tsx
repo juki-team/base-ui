@@ -49,13 +49,13 @@ export const Tabs: Story<TabsProps<string>> = () => {
       <div style={{ height: '200px' }}>
         <TabsComponent
           tabs={tabs}
-          actionsSection={[<Button>button 1</Button>, <Button>button 2</Button>]}
+          extraButtons={[<Button>button 1</Button>, <Button>button 2</Button>]}
         />
       </div>
       <div style={{ height: '200px' }}>
         <TabsComponent
           tabs={tabs}
-          actionsSection={[<Button>button 1</Button>]}
+          extraButtons={[<Button>button 1</Button>]}
         />
       </div>
       <div style={{ height: '200px' }}>
@@ -64,7 +64,7 @@ export const Tabs: Story<TabsProps<string>> = () => {
             { key: '1', header: <div>tab 1 </div>, body: <div>1</div> },
             { key: '2', header: <div>tab 2</div> },
           ]}
-          actionsSection={[<Button>button 1</Button>, <Button>button 2</Button>]}
+          extraButtons={[<Button>button 1</Button>, <Button>button 2</Button>]}
         />
       </div>
     </JukiProvider>
