@@ -58,7 +58,7 @@ export const CodeEditor = ({
         height={height + 'px'}
         extensions={extensions}
         onChange={(value) => onChange?.({ sourceCode: value })}
-        theme={theme === Theme.LIGHT ? 'light' : 'dark'}
+        theme={theme === Theme.DARK ? 'dark' : 'light'}
         basicSetup={{ tabSize }}
       />
     </div>
