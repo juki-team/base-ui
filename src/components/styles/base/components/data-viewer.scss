@@ -51,10 +51,10 @@
   .jk-data-viewer-content {
     height: 100%;
     
-    --jk-table-height: 50px; // 48 + 2 (border)
+    --jk-table-toolbar-height: 50px; // 48 + 2 (border)
     
     .jk-data-viewer-toolbar {
-      height: var(--jk-table-height);
+      height: var(--jk-table-toolbar-height);
       position: relative;
       
       &.cards {
@@ -64,7 +64,10 @@
       
       .jk-table-view-tools {
         margin: 0 var(--pad-t);
-        @include sm { flex: 1; }
+        @include sm {
+          flex: 1;
+          margin: 0;
+        }
         
         .jk-icon {
           color: var(--t-color-gray-3);
@@ -98,7 +101,7 @@
     
     .jk-view-container {
       position: relative;
-      height: calc(100% - var(--jk-table-height));
+      height: calc(100% - var(--jk-table-toolbar-height));
       width: 100%;
       overflow: hidden;
       
@@ -116,7 +119,7 @@
         .jk-table-head {
           z-index: 3;
           position: relative;
-          height: var(--jk-table-height);
+          height: var(--jk-table-toolbar-height);
           display: flex;
           box-sizing: border-box;
           width: 100%;
@@ -200,7 +203,7 @@
       .jk-data-viewer-body {
         
         &.rows {
-          height: calc(100% - var(--jk-table-height));
+          height: calc(100% - var(--jk-table-toolbar-height));
         }
         
         &.cards {
@@ -414,7 +417,7 @@
   .tool {
     color: var(--t-color-gray-5);
     box-sizing: border-box;
-    height: var(--jk-table-height);
+    height: var(--jk-table-toolbar-height);
     padding: var(--pad-xt) 4px;
     cursor: pointer;
     

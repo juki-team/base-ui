@@ -1,4 +1,4 @@
-import { ProgrammingLanguage } from '@juki-team/commons';
+import { ProgrammingLanguage, Theme } from '@juki-team/commons';
 
 export enum CodeEditorTheme {
   DAY_3024 = '3024-day',
@@ -77,8 +77,8 @@ export enum CodeEditorKeyMap {
 export type CodeEditorPropertiesType = {
   sourceCode?: string,
   language?: ProgrammingLanguage,
-  theme?: CodeEditorTheme,
-  keyMap?: CodeEditorKeyMap,
+  theme?: Theme,
+  // keyMap?: CodeEditorKeyMap,
   tabSize?: number,
   fontSize?: number,
 };

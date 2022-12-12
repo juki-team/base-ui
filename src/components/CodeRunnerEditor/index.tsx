@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { classNames } from '../../helpers';
 import { useJkSocket } from '../../hooks/useJkSocket';
 import { Portal } from '../Basic';
-import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, CodeEditorKeyMap, CodeEditorTheme } from '../CodeEditor';
+import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor } from '../CodeEditor';
+import { useJukiBase } from '../Provider';
 import { SplitPane } from '../SplitPane';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
@@ -15,9 +16,7 @@ export const CodeRunnerEditor = ({
   sourceCode,
   languages = CODE_EDITOR_PROGRAMMING_LANGUAGES,
   language,
-  keyMap = CodeEditorKeyMap.SUBLIME,
   onChange,
-  theme = CodeEditorTheme.IDEA,
   middleButtons,
   testCases,
   tabSize = 4,
@@ -27,6 +26,7 @@ export const CodeRunnerEditor = ({
   expandPosition,
 }: CodeRunnerEditorProps) => {
   const [runId, setRunId] = useState('');
+  const { user: { settings: { preferredTheme } } } = useJukiBase();
   const { pop } = useJkSocket(SocketEvent.RUN);
   const [errorData, setErrorData] = useState<SubmissionTestCaseType>({
     log: '',
@@ -114,8 +114,6 @@ export const CodeRunnerEditor = ({
       <SettingsModal
         isOpen={showSettings}
         onClose={() => setShowSettings(false)}
-        keyMap={keyMap}
-        theme={theme}
         onChange={onChange}
         tabSize={tabSize}
         fontSize={fontSize}
@@ -130,8 +128,6 @@ export const CodeRunnerEditor = ({
           sourceCode,
           languages,
           language,
-          keyMap,
-          theme,
           testCases,
           widthContainer,
         })}
@@ -155,8 +151,7 @@ export const CodeRunnerEditor = ({
         >
           <div className="editor-layout">
             <CodeEditor
-              keyMap={keyMap}
-              theme={theme}
+              theme={preferredTheme}
               onChange={(props) => onChange?.(props)}
               language={language}
               readOnly={false}

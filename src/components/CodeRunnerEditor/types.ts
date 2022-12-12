@@ -1,6 +1,6 @@
 import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { CodeEditorKeyMap, CodeEditorPropertiesType, CodeEditorTheme } from '../CodeEditor';
+import { CodeEditorPropertiesType } from '../CodeEditor';
 
 export type SubmissionTestCaseType = {
   out: string,
@@ -49,8 +49,6 @@ export interface SettingsModalProps {
   isOpen: boolean
   onClose: () => void,
   onChange?: CodeRunnerEditorOnChangeType,
-  keyMap: CodeEditorKeyMap,
-  theme: CodeEditorTheme,
   tabSize: number,
   fontSize: number,
 }

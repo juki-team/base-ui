@@ -86,7 +86,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     <div className="jk-data-viewer-content">
       <DataViewerToolbar
         setViewMode={setViewMode}
-        extraButtons={extraButtons}
+        extraButtons={extraButtons || []}
         headers={headers}
         dataLength={data.length}
         viewMode={viewMode}

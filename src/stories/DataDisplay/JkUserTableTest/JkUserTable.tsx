@@ -237,6 +237,12 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
           <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
             <T>download</T>
           </ButtonLoader>,
+          <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
+            <T>download</T>
+          </ButtonLoader>,
+          <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
+            <T>download</T>
+          </ButtonLoader>,
         ]}
         searchParamsObject={getSearchParamsObject(searchParams)}
         setSearchParamsObject={setSearchParams}
