@@ -62,6 +62,10 @@
         z-index: 1;
       }
       
+      .jk-table-view-extra-nodes {
+        margin-left: var(--pad-t);
+      }
+      
       .jk-table-view-tools {
         margin: 0 var(--pad-t);
         @include sm {

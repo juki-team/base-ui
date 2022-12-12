@@ -43,7 +43,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
         onFilter={values => onAllFilters(values)}
         onResetFilters={() => onAllFilters({})}
       />
-      <div className="screen md lg hg">
+      <div className="jk-table-view-extra-nodes jk-row left gap screen md lg hg">
         {extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton))}
       </div>
       <div className={classNames('jk-table-view-tools', { 'jk-row': onColumn, 'jk-col stretch': !onColumn })} ref={ref}>
