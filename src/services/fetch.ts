@@ -1,4 +1,13 @@
-import { consoleWarn, ContentResponseType, ContentsResponseType, ERROR, ErrorCode, ErrorResponseType, HTTPMethod, isStringJson } from '@juki-team/commons';
+import {
+  consoleWarn,
+  ContentResponseType,
+  ContentsResponseType,
+  ERROR,
+  ErrorCode,
+  ErrorResponseType,
+  HTTPMethod,
+  isStringJson,
+} from '@juki-team/commons';
 import { settings } from '../config';
 
 export const cleanRequest = <T extends ContentResponseType<any> | ContentsResponseType<any>>(responseText: string): (ErrorResponseType | T) => {

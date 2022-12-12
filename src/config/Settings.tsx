@@ -1,6 +1,6 @@
 import { consoleWarn, HTTPMethod } from '@juki-team/commons';
 import { ManagerOptions, SocketOptions } from 'socket.io-client';
-import { UseFetcherOptionsType } from '../hooks';
+import { SWRConfiguration } from 'swr';
 import { AuthorizedRequestType } from '../services';
 
 export class Settings {
@@ -37,7 +37,7 @@ export class Settings {
   
   public get JUKI_API() {
     return {
-      PING: (): [string?, UseFetcherOptionsType?] => {
+      PING: (): [string?, SWRConfiguration?] => {
         if (this._UTILS_SERVICE_API_URL) {
           return [`${this._UTILS_SERVICE_API_URL}/auth/ping`, { refreshInterval: 1000 * 60 * 5 }];
         }
@@ -74,7 +74,8 @@ export class Settings {
         { method: HTTPMethod.POST, body },
       ],
       CONNECT_WEBSOCKET: (): [string, Partial<ManagerOptions & SocketOptions>] => [
-        this._UTILS_SERVICE_SOCKET_URL, { withCredentials: true, transports: ['websocket'], autoConnect: false, reconnection: true },
+        this._UTILS_SERVICE_SOCKET_URL,
+        { withCredentials: true, transports: ['websocket'], autoConnect: false, reconnection: true },
       ],
     };
   }
