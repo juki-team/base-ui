@@ -38,7 +38,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     cards: { height: cardHeight = 56, width: cardWidth = 256 } = { height: 300, width: 256 },
     cardsView,
     data,
-    extraButtons,
+    extraNodes,
     headers,
     loading = false,
     onAllFilters,
@@ -86,7 +86,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     <div className="jk-data-viewer-content">
       <DataViewerToolbar
         setViewMode={setViewMode}
-        extraButtons={extraButtons || []}
+        extraNodes={extraNodes || []}
         headers={headers}
         dataLength={data.length}
         viewMode={viewMode}

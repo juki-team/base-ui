@@ -233,7 +233,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
         name="users"
         cardsView={cardsView}
         rowsView={rowsView}
-        extraButtons={[
+        extraNodes={[
           <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
             <T>download</T>
           </ButtonLoader>,

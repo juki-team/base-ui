@@ -22,7 +22,7 @@ export const Tabs = <T extends string, >({
   selectedTabKey,
   onChange,
   className = '',
-  extraButtons: _extraButtons,
+  extraNodes: _extraNodes,
   extend,
 }: TabsProps<T>) => {
   
@@ -72,7 +72,7 @@ export const Tabs = <T extends string, >({
     }
   }, [maxWidthUsed, widthActions, widthTabs]);
   const isExtend = typeof extend === 'boolean' ? extend : widthContainer > maxWidthUsed;
-  const extraButtons = (_extraButtons || []).filter(action => !!action);
+  const extraNodes = (_extraNodes || []).filter(action => !!action);
   
   return (
     <div
@@ -110,20 +110,20 @@ export const Tabs = <T extends string, >({
         )}
         <div
           className={classNames('jk-tabs-actions jk-row right nowrap gap')}
-          style={!(!!extraButtons.length && isExtend) ? hiddenStyle : {}}
+          style={!(!!extraNodes.length && isExtend) ? hiddenStyle : {}}
         >
           <div className="jk-divider horizontal" />
           <div className="jk-row gap nowrap" ref={refActions}>
-            {extraButtons.map(action => (
+            {extraNodes.map(action => (
               renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
             ))}
           </div>
         </div>
-        {(!!extraButtons.length && !isExtend) && (
+        {(!!extraNodes.length && !isExtend) && (
           <Popover
             content={
               <div className="jk-col gap">
-                {extraButtons.map(action => (
+                {extraNodes.map(action => (
                   renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
                 ))}
               </div>

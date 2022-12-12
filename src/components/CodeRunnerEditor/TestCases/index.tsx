@@ -138,7 +138,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
             tabs={tabs}
             selectedTabKey={testCaseKey}
             onChange={tabKey => setTestCaseKey(tabKey)}
-            extraButtons={[actionSection]}
+            extraNodes={[actionSection]}
           />
         </div>
         <div className="test-cases-output-stderr">

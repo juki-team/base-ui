@@ -45,7 +45,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     cardsView = true,
     className = '',
     data,
-    extraButtons,
+    extraNodes,
     headers,
     initialViewMode = 'rows',
     name = '',
@@ -611,7 +611,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       <DisplayDataViewer<T>
         cards={cards}
         data={dataTable}
-        extraButtons={extraButtons}
+        extraNodes={extraNodes}
         headers={tableHeaders}
         loading={loaderStatus === Status.LOADING}
         onAllFilters={onAllFilters}

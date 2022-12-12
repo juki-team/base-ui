@@ -12,7 +12,7 @@ import { isSomethingFiltered } from './utils';
 export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const {
-    extraButtons: _extraButtons,
+    extraNodes: _extraNodes,
     setViewMode,
     headers,
     viewMode,
@@ -25,7 +25,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
     paginationData,
   } = props;
   
-  const extraButtons = (_extraButtons || []).filter(action => !!action);
+  const extraNodes = (_extraNodes || []).filter(action => !!action);
   
   const [filterDrawer, setFilterDrawer] = useState(false);
   const { filtered } = isSomethingFiltered(headers);
@@ -44,7 +44,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
         onResetFilters={() => onAllFilters({})}
       />
       <div className="screen md lg hg">
-        {extraButtons.map(extraButton => renderReactNodeOrFunction(extraButton))}
+        {extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton))}
       </div>
       <div className={classNames('jk-table-view-tools', { 'jk-row': onColumn, 'jk-col stretch': !onColumn })} ref={ref}>
         <div className={classNames('jk-row nowrap', { gap: onColumn })}>
@@ -114,12 +114,12 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               </div>
             </Popover>
           )}
-          {!!extraButtons.length && (
+          {!!extraNodes.length && (
             <>
               <div className="jk-divider horizontal screen sm" />
               <div className="screen sm">
                 <Popover
-                  content={extraButtons.map(extraButton => renderReactNodeOrFunction(extraButton))}
+                  content={extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton))}
                   triggerOn="click"
                   placement="bottomLeft"
                 >
