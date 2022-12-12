@@ -1,8 +1,8 @@
 import React, { CSSProperties, useState } from 'react';
-import { useResizeDetector } from 'react-resize-detector';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
 import { FilterIcon, LoadingIcon, MenuIcon, ReloadIcon, UnorderedListIcon, ViewModuleIcon } from '../graphics';
 import { Popover } from '../Popover';
+import { useJukiBase } from '../Provider';
 import { T } from '../Translate';
 import { FilterDrawer } from './FilterDrawer';
 import { Pagination } from './Pagination';
@@ -29,12 +29,13 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const [filterDrawer, setFilterDrawer] = useState(false);
   const { filtered } = isSomethingFiltered(headers);
-  const { height = 0, ref } = useResizeDetector();
-  const onColumn = height <= 50;
+  const { viewPortSize } = useJukiBase();
+  const onColumn = viewPortSize !== 'sm';
+  
   return (
     <div
       className={classNames('jk-data-viewer-toolbar jk-border-radius-inline jk-row space-between nowrap', { 'jk-shadow': viewMode === 'cards' }, viewMode)}
-      style={{ '--jk-table-toolbar-height': height + 2 + 'px' } as CSSProperties}
+      style={{ '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px' } as CSSProperties}
     >
       <FilterDrawer
         isOpen={filterDrawer}
@@ -46,7 +47,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
       <div className="jk-table-view-extra-nodes jk-row left gap screen md lg hg">
         {extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton))}
       </div>
-      <div className={classNames('jk-table-view-tools', { 'jk-row': onColumn, 'jk-col stretch': !onColumn })} ref={ref}>
+      <div className={classNames('jk-table-view-tools', { 'jk-row nowrap gap': onColumn, 'jk-col stretch': !onColumn })}>
         <div className={classNames('jk-row nowrap', { gap: onColumn })}>
           {onReload && (
             <Popover
@@ -121,7 +122,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                 <Popover
                   content={extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton))}
                   triggerOn="click"
-                  placement="bottomLeft"
+                  placement="bottomRight"
                 >
                   <div className="jk-row"><MenuIcon /></div>
                 </Popover>
