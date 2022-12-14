@@ -2,7 +2,7 @@ import { mex, PROGRAMMING_LANGUAGE, SUBMISSION_RUN_STATUS, SubmissionRunStatus }
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { classNames } from '../../../helpers';
-import { DeleteIcon, LoadingIcon, PlusIcon } from '../../graphics';
+import { AddIcon, DeleteIcon, LoadingIcon } from '../../graphics';
 import { TextArea } from '../../Input';
 import { NotificationType, useNotification } from '../../Notifications';
 import { Popover } from '../../Popover';
@@ -14,7 +14,8 @@ import { getErrors } from '../utils';
 import { LogInfo } from './LogInfo';
 
 export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimit, errorData, direction }: TestCasesProps) => {
-  const testCasesValues = Object.values(testCases).sort((a, b) => (a.sample !== b.sample) ? +b.sample - +a.sample : a.index - b.index);
+  const testCasesValues = Object.values(testCases)
+    .sort((a, b) => (a.sample !== b.sample) ? +b.sample - +a.sample : a.index - b.index);
   const [testCaseKey, setTestCaseKey] = useState(testCasesValues[0]?.key || '');
   useEffect(() => {
     const testCasesValues = Object.values(testCases);
@@ -60,9 +61,8 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
   const actionSection = (
     <Popover content={<T className="ws-np tt-se tx-s">add sample test case</T>} placement="bottomRight">
       <div style={{ marginRight: 'var(--gap)' }} className="jk-row">
-        <PlusIcon
+        <AddIcon
           size="small"
-          circle
           onClick={() => {
             const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
             if (customCases.length < 10) {

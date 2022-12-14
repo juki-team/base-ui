@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckIcon, CloseIcon, ExclamationIcon } from '../graphics';
+import { CheckIcon, ErrorIcon, InfoIcon, WarningIcon } from '../graphics';
 import { NotificationType } from './types';
 
 export const LAPS = 200;
@@ -13,9 +13,9 @@ export const NOTIFICATION_TIME = {
 };
 
 export const NOTIFICATION_ICON = {
-  [NotificationType.ERROR]: <CloseIcon filledCircle="#EB5757" />,
-  [NotificationType.SUCCESS]: <CheckIcon filledCircle="#43D787" />,
-  [NotificationType.WARNING]: <ExclamationIcon filledCircle="#F2C94C" />,
-  [NotificationType.INFO]: <ExclamationIcon filledCircle="#2F86EB" rotate={180} />,
+  [NotificationType.ERROR]: <ErrorIcon />,
+  [NotificationType.SUCCESS]: <CheckIcon circle />,
+  [NotificationType.WARNING]: <WarningIcon />,
+  [NotificationType.INFO]: <InfoIcon />,
   [NotificationType.QUIET]: <CheckIcon circle />,
 };

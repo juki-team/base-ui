@@ -1,6 +1,16 @@
 import React, { useEffect } from 'react';
 import { classNames } from '../../helpers';
-import { DoubleUpIcon, LoadingIcon, PaginationProps, Popover, Select, T, UpIcon, useT } from '../index';
+import {
+  DoubleUpIcon,
+  LoadingIcon,
+  NavigateBeforeIcon,
+  NavigateNextIcon,
+  PaginationProps,
+  Popover,
+  Select,
+  T,
+  useT,
+} from '../index';
 
 const SIZE_PAGES = 3;
 
@@ -57,7 +67,7 @@ export const Pagination = ({
                   className={classNames('page-item jk-row jk-border-radius', { disabled: page === startPage })}
                   onClick={prev}
                 >
-                  <UpIcon rotate={-90} />
+                  <NavigateBeforeIcon />
                 </div>
               </Popover>
               <Popover
@@ -73,7 +83,7 @@ export const Pagination = ({
                   className={classNames('page-item jk-row jk-border-radius', { disabled: page === endPage })}
                   onClick={next}
                 >
-                  <UpIcon rotate={90} />
+                  <NavigateNextIcon />
                 </div>
               </Popover>
             </div>
@@ -97,7 +107,7 @@ export const Pagination = ({
               className={classNames('page-item jk-row jk-border-radius screen md lg hg', { disabled: page === startPage })}
               onClick={prev}
             >
-              <UpIcon rotate={-90} />
+              <NavigateBeforeIcon />
             </div>
             <div className="jk-row jk-border-radius center page-items">
               {startPage < pages[0] && (
@@ -147,7 +157,7 @@ export const Pagination = ({
               className={classNames('page-item jk-row jk-border-radius screen md lg hg', { disabled: page === endPage })}
               onClick={next}
             >
-              <UpIcon rotate={90} />
+              <NavigateNextIcon />
             </div>
           </>
         )}

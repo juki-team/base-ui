@@ -3,7 +3,7 @@ import Prism from 'prismjs';
 import React, { useEffect } from 'react';
 import { classNames } from '../../helpers';
 import { CopyToClipboard } from '../CopyToClipboard';
-import { CopyIcon } from '../graphics';
+import { ContentCopyIcon } from '../graphics';
 import { CodeViewerProps } from './types';
 
 export const CodeViewer = ({
@@ -32,7 +32,7 @@ export const CodeViewer = ({
         {withLanguageLabel && !!PROGRAMMING_LANGUAGE[language]?.label && (
           <div className="tx-xs jk-tag">{PROGRAMMING_LANGUAGE[language]?.label}</div>
         )}
-        {withCopyButton && <CopyToClipboard text={code}><CopyIcon size="small" className="link" /></CopyToClipboard>}
+        {withCopyButton && <CopyToClipboard text={code}><ContentCopyIcon size="small" className="link" /></CopyToClipboard>}
       </div>
       <pre style={height ? { height: height } : undefined} className="jk-border-radius-inline">
         <code

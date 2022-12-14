@@ -7,7 +7,7 @@ import { ReactMarkdownOptions } from 'react-markdown/lib/react-markdown';
 // import rehypeKatex from 'rehype-katex';
 // import gfm from 'remark-gfm';
 // import RemarkMathPlugin from 'remark-math';
-import { CodeViewer, ExternalIcon, LoadingIcon } from '../index';
+import { CodeViewer, OpenInNewIcon, LoadingIcon } from '../index';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
 const ReactMarkdown = lazy(() => import('react-markdown'));
@@ -91,14 +91,14 @@ export const MdMath = memo(({ source }: { source: string }) => {
           if (commands.preview === 'pdf') {
             return (
               <object data={href} type="application/pdf" width="100%" height="100%" style={style}>
-                <a href={href} target="_blank" rel="noreferrer">{newText}<ExternalIcon /></a>
+                <a href={href} target="_blank" rel="noreferrer">{newText}<OpenInNewIcon /></a>
               </object>
             );
           }
           if (commands.preview === 'html') {
             return <iframe src={href} style={{ width: '100%', ...style }} title="preview-html-document" />;
           }
-          return <a href={href} target="_blank" rel="noreferrer">{children}<ExternalIcon /></a>;
+          return <a href={href} target="_blank" rel="noreferrer">{children}<OpenInNewIcon /></a>;
         }
         return <a href={href} target="_blank" rel="noreferrer">{children}</a>;
       },

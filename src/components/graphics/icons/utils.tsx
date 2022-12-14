@@ -25,9 +25,10 @@ export const renderSignIcon = ({
         {circle && <CircleFrame />}
         {square && <SquareFrame />}
         <Component
-          color={(filledCircle || filledSquare)
-            ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)'))
-            : 'currentColor'}
+          color={
+            (filledCircle || filledSquare)
+              ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)'))
+              : 'currentColor'}
           width={2.5}
         />
       </svg>
@@ -40,25 +41,33 @@ export const renderBasicIcon = ({
   className = '',
   filledCircle,
   filledSquare,
+  circle = false,
+  square = false,
   rotate = 0,
   strikethrough = false,
   ...props
 }: BasicIconProps, Component: ComponentType<RootIconProps>) => {
   
   const isFilled = filledCircle || filledSquare;
-  const scale = isFilled ? 0.6 : 1;
+  const scale = isFilled || circle || square ? 0.7 : 1;
   
   const A1 = new Vector(21.5, 19.5);
   const A2 = new Vector(19.5, 21.5);
   const width = A1.sub(A2).mod();
   
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)} style={{ transform: `rotate(${rotate}deg)` }}>
+    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}
+          style={{ transform: `rotate(${rotate}deg)` }}>
       <svg viewBox="0 0 24 24" fill="currentColor">
         {filledCircle && <CircleFilledFrame />}
         {filledSquare && <SquareFilledFrame />}
+        {circle && <CircleFrame />}
+        {square && <SquareFrame />}
         <g transform={`translate(${(1 - scale) * 12}, ${(1 - scale) * 12}) scale(${scale})`}>
-          <Component color={isFilled ? 'var(--t-color-white)' : 'currentColor'} width={2.5} />
+          <Component
+            color={isFilled ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)')) : 'currentColor'}
+            width={2.5}
+          />
           {strikethrough && (
             <>
               <Segment

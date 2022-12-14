@@ -4,7 +4,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { settings } from '../../../../config';
 import { authorizedRequest, cleanRequest } from '../../../../services';
 import { FloatToolbar } from '../../../FloatToolbar';
-import { CopyIcon } from '../../../graphics';
+import { ContentCopyIcon } from '../../../graphics';
 import { LoaderLayer } from '../../../Loader';
 import { NotificationType, useNotification } from '../../../Notifications';
 import { T } from '../../../Translate';
@@ -40,16 +40,16 @@ export const PublicImagesTab = memo(({ trigger }: { trigger: number }) => {
             <FloatToolbar
               actionButtons={[
                 {
-                  icon: <CopyIcon />,
+                  icon: <ContentCopyIcon />,
                   buttons: [
                     {
-                      icon: <CopyIcon size="small" />, label: <T>URL</T>, onClick: () => {
+                      icon: <ContentCopyIcon size="small" />, label: <T>URL</T>, onClick: () => {
                         copy(publicImage.imageUrl);
                         addNotification({ type: NotificationType.QUIET, message: <T>copied</T> });
                       },
                     },
                     {
-                      icon: <CopyIcon />, label: <T>MD</T>, onClick: () => {
+                      icon: <ContentCopyIcon />, label: <T>MD</T>, onClick: () => {
                         copy(`![image alt](${publicImage.imageUrl})`);
                         addNotification({ type: NotificationType.QUIET, message: <T>copied</T> });
                       },

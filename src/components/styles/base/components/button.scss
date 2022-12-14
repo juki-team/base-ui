@@ -23,6 +23,8 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     padding: 0 var(--pad-xt);
     gap: 4px;
     
+    &.pad-icon { padding: 0 calc(var(--pad-xt) + 10px); }
+    
     &.only-icon {
       width: var(--pad-l);
     }
@@ -38,8 +40,10 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     min-height: var(--pad-xl);
     font-weight: var(--weight-bold);
     font-size: var(--text-s-size);
-    padding: 0 var(--pad-t);
     gap: var(--pad-xt);
+    padding: 0 var(--pad-t);
+    
+    &.pad-icon { padding: 0 calc(var(--pad-t) + 14px); }
     
     &.only-icon {
       width: var(--pad-xl);
@@ -56,8 +60,10 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     min-height: var(--pad-h);
     font-weight: var(--weight-bold);
     font-size: var(--text-m-size);
-    padding: 0 var(--pad-xs);
     gap: var(--pad-t);
+    padding: 0 var(--pad-xs);
+    
+    &.pad-icon { padding: 0 calc(var(--pad-xs) + 18px); }
     
     &.only-icon {
       width: var(--pad-h);
@@ -67,9 +73,11 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   &.large {
     min-height: var(--pad-xH);
     font-weight: var(--weight-bold);
-    font-size: var(--text-m-size);
-    padding: 0 var(--pad-s);
+    font-size: var(--text-l-size);
     gap: var(--pad-xs);
+    padding: 0 var(--pad-s);
+    
+    &.pad-icon { padding: 0 calc(var(--pad-s) + 20px); }
     
     &.only-icon {
       width: var(--pad-xH);
@@ -80,8 +88,10 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     min-height: 64px;
     font-weight: var(--weight-bold);
     font-size: var(--text-xl-size);
-    padding: 0 var(--pad-m);
     gap: var(--pad-s);
+    padding: 0 var(--pad-m);
+    
+    &.pad-icon { padding: 0 calc(var(--pad-m) + 22px); }
     
     &.only-icon {
       width: 64px;

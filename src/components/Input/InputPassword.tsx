@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { classNames } from '../../helpers';
-import { EyeIcon, EyeInvisibleIcon } from '../graphics';
+import { VisibilityIcon, VisibilityOffIcon } from '../graphics';
 import { Input } from './Input';
 import { InputPasswordProps } from './types';
 
@@ -23,8 +23,8 @@ export const InputPassword = ({ className = '', onChange, register, ...props }: 
         {...props}
       />
       {type === 'password'
-        ? <EyeInvisibleIcon onClick={() => setType('text')} className="input-icon" />
-        : <EyeIcon onClick={() => setType('password')} className="input-icon" />}
+        ? <VisibilityOffIcon onClick={() => setType('text')} className="input-icon" />
+        : <VisibilityIcon onClick={() => setType('password')} className="input-icon" />}
     </span>
   );
 };

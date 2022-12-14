@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button } from '../Button';
-import { UpIcon } from '../graphics';
+import { NavigateBeforeIcon, NavigateNextIcon } from '../graphics';
 
 export const PreviousButton = ({ onClick }: { onClick: (() => void) }) => (
   <Button
-    icon={<UpIcon rotate={-90} />}
+    icon={<NavigateBeforeIcon />}
     type="text"
     onClick={onClick}
   />
@@ -12,7 +12,7 @@ export const PreviousButton = ({ onClick }: { onClick: (() => void) }) => (
 
 export const NextButton = ({ onClick }: { onClick: () => void }) => (
   <Button
-    icon={<UpIcon rotate={90} />}
+    icon={<NavigateNextIcon />}
     type="text"
     onClick={onClick}
   />

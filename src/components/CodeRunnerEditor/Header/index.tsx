@@ -10,9 +10,9 @@ import {
   ButtonLoaderOnClickType,
   EnterFullScreenIcon,
   ExitFullScreenIcon,
-  PlayIcon,
+  PlayArrowIcon,
   Select,
-  SettingIcon,
+  SettingsIcon,
   T,
   useNotification,
 } from '../../index';
@@ -96,7 +96,7 @@ export const Header = ({
             size="tiny"
             type={(withLabels || twoRows) ? 'primary' : 'text'}
             block={twoRows}
-            icon={<PlayIcon />}
+            icon={<PlayArrowIcon />}
             onClick={handleRunCode}
           >
             {(withLabels || twoRows) && <T>run</T>}
@@ -107,7 +107,7 @@ export const Header = ({
         {centerOptions({ widthContainer: widthCenterContainer })}
       </div>
       <div className={classNames('right-options cr-pl', { 'jk-col gap': twoRows })} ref={refRightSection}>
-        <Button size="tiny" type="text" onClick={() => setShowSettings(true)} icon={<SettingIcon />}>
+        <Button size="tiny" type="text" onClick={() => setShowSettings(true)} icon={<SettingsIcon />}>
           {withLabels && <T>settings</T>}
         </Button>
         {expanded !== null && (

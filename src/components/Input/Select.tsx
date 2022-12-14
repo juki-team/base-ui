@@ -3,7 +3,7 @@ import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
 import { ReactNodeOrFunctionType } from '../../types';
-import { Popover, UpIcon } from '../index';
+import { ExpandMoreIcon, Popover } from '../index';
 import { SelectProps } from './types';
 
 export const SelectInline = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>({  // TODO: Fix the styles or remove component
@@ -31,7 +31,7 @@ export const SelectInline = <T, U extends ReactNode, V extends ReactNodeOrFuncti
     >
       <div className="jk-select jk-inline-border-radius" onClick={() => setShowOptions(!showOptions)}>
         {selectedOption.label}
-        <UpIcon rotate={180} className="input-icon" />
+        <ExpandMoreIcon className="input-icon" />
       </div>
       <div className={classNames('jk-select-options jk-inline-border-radius')}>
         {options.map((option) => (
@@ -146,7 +146,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
       >
         <div className="jk-select jk-border-radius-inline" ref={selectLayoutRef}>
           {optionSelected.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
-          <UpIcon rotate={180} className="input-icon" />
+          <ExpandMoreIcon className="input-icon" />
         </div>
       </div>
     </Popover>

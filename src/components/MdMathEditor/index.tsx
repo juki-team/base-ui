@@ -2,7 +2,19 @@ import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../helpers';
 import { useOutsideAlerter } from '../../hooks';
-import { AlertModal, Button, CloseIcon, EditIcon, EyeIcon, LayoutIcon, Popover, SaveIcon, SplitPane, T, TextArea } from '../index';
+import {
+  AlertModal,
+  Button,
+  CloseIcon,
+  EditIcon,
+  Popover,
+  PreviewIcon,
+  SaveIcon,
+  SplitPane,
+  T,
+  TextArea,
+  VerticalSplitIcon,
+} from '../index';
 import { MdMathViewer } from '../MdMathViewer';
 import { InformationButton } from './InformationButton';
 import { MdFloatToolbar } from './MdFloatToolbar';
@@ -79,7 +91,7 @@ export const MdMathEditor = ({
                   placement="bottom"
                   showPopperArrow
                 >
-                  <Button type="text" size="small" icon={<LayoutIcon />} onClick={() => setView(1)}>
+                  <Button type="text" size="small" icon={<VerticalSplitIcon />} onClick={() => setView(1)}>
                     {withLabels && <><T>editor</T>&nbsp;⮜ | ⮞&nbsp;<T>preview</T></>}
                   </Button>
                 </Popover>
@@ -90,7 +102,7 @@ export const MdMathEditor = ({
                   placement="bottom"
                   showPopperArrow
                 >
-                  <Button type="text" size="small" icon={<EyeIcon />} onClick={() => setView(3)}>
+                  <Button type="text" size="small" icon={<PreviewIcon />} onClick={() => setView(3)}>
                     {withLabels && <T>preview</T>}
                   </Button>
                 </Popover>

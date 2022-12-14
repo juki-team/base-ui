@@ -5,7 +5,7 @@ import {
   Button,
   CheckboxList,
   DrawerView,
-  FilterIcon,
+  FilterListIcon,
   FilterValuesType,
   Input,
   InputDate,
@@ -70,7 +70,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
     <DrawerView isOpen={isOpen} onClose={onClose} closeOnEscape closeOnOutside>
       <div className="jk-drawer-filters">
         <div className="jk-row left gap title cr-py">
-          <div className={classNames({ active: true }, 'jk-row')}><FilterIcon /></div>
+          <div className={classNames({ active: true }, 'jk-row')}><FilterListIcon /></div>
           <T>order and filters</T>
         </div>
         <div className="jk-divider" />
@@ -117,7 +117,10 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                   </div>
                 );
               } else if (isFilterDateRange(filter)) {
-                const [start, end] = Array.isArray(values?.[columnIndex]) ? values?.[columnIndex] as [Date, Date] : [null, null];
+                const [start, end] = Array.isArray(values?.[columnIndex]) ? values?.[columnIndex] as [Date, Date] : [
+                  null,
+                  null,
+                ];
                 return (
                   <div className="jk-col stretch" key={columnIndex}>
                     {renderFilterTitle({ head, columnIndex, onSort, order })}

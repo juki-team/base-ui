@@ -6,8 +6,8 @@ import {
   Button,
   ConstructionIcon,
   DrawerActionsType,
-  FilterIcon,
-  HeadlineIcon,
+  FilterIcon_,
+  HeadlineIcon_,
   HorizontalMenu,
   JukiCouchLogoHorImage,
   JukiJudgeLogoHorImage,
@@ -15,7 +15,7 @@ import {
   MdMathEditor,
   PlusIcon,
   Popover,
-  SettingIcon,
+  SettingIcon_,
   T,
   useNotification,
   VerticalMenu,
@@ -34,9 +34,9 @@ configureActions({
 });
 
 const menu = [
-  { label: 'contests', icon: <HeadlineIcon />, selected: false, onClick: () => action('/contests') },
+  { label: 'contests', icon: <HeadlineIcon_ />, selected: false, onClick: () => action('/contests') },
   { label: 'problems', icon: <PlusIcon />, selected: true, onClick: () => action('/problems') },
-  { label: 'admin', icon: <FilterIcon />, selected: false, onClick: () => action('/admin') },
+  { label: 'admin', icon: <FilterIcon_ />, selected: false, onClick: () => action('/admin') },
 ];
 
 const rightSection = ({ open = undefined }: { open?: boolean }) => (
@@ -48,7 +48,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
       visible={open}
     >
       <div>
-        <Button icon={<SettingIcon />} type="text" />
+        <Button icon={<SettingIcon_ />} type="text" />
       </div>
     </Popover>
     <Popover
@@ -78,7 +78,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
 );
 
 const rightMobile = {
-  children: <div className="cr-we"><HeadlineIcon /></div>,
+  children: <div className="cr-we"><HeadlineIcon_ /></div>,
   content: ({ close }: DrawerActionsType) => (
     <div className="jk-col gap more-apps-popover">
       <div className="fw-bd tt-se"><T>more apps coming soon</T></div>
@@ -134,7 +134,7 @@ const menuHorizontal = [
     menuItemWrapper: (children: ReactNode) => <div className="test-children" key="test-contest">{children}</div>,
   },
   { label: 'problems', selected: true, onClick: () => action('/problems') },
-  { label: 'admin', icon: <FilterIcon />, selected: true, onClick: () => action('/admin') },
+  { label: 'admin', icon: <FilterIcon_ />, selected: true, onClick: () => action('/admin') },
 ];
 
 export const ButtonN = () => {

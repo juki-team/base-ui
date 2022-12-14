@@ -72,7 +72,7 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
  IMAGE PROFILE
  */
 .jk-user-profile-img {
-  border: 2px solid var(--t-color-white) !important;
+  border: 1px solid var(--t-color-white) !important;
   border-radius: 50%;
   // regular
   width: var(--pad-m);
@@ -81,16 +81,19 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
   &.small {
     width: var(--pad-t);
     height: var(--pad-t);
+    border: 1px solid var(--t-color-white) !important;
   }
   
   &.large {
     width: var(--pad-h);
     height: var(--pad-h);
+    border: 2px solid var(--t-color-white) !important;
   }
   
   &.huge {
     width: var(--pad-xL);
     height: var(--pad-xL);
+    border: 2px solid var(--t-color-white) !important;
   }
 }
 

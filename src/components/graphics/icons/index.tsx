@@ -146,7 +146,7 @@ export const UserIcon = ({ size = 'regular', className = '', ...props }: IconPro
   );
 };
 
-export const WarningIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
+export const WarningIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
     <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Warning /></span>
   );
@@ -164,6 +164,7 @@ export const ZoomOutIcon = ({ size = 'regular', className = '', ...props }: Icon
   );
 };
 
+export * from './google';
 export * from './Signs';
 export * from './Basic';
 export * from './Specials';

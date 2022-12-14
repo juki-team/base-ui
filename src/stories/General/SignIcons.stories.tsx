@@ -4,14 +4,14 @@ import React from 'react';
 
 import {
   ArrowIcon,
-  CheckIcon,
-  CloseIcon,
+  CheckIcon_,
+  CloseIcon_,
   DoubleUpIcon,
   ExclamationIcon,
   MinusIcon,
   PlusIcon,
   SignIconProps,
-  UpIcon,
+  UpIcon_,
 } from '../../index';
 
 export default {
@@ -52,23 +52,25 @@ export const Signs: Story<SignIconProps & { color: string }> = ({ color, ...prop
   
   const icons = {
     ArrowIcon,
-    CheckIcon,
     ExclamationIcon,
     MinusIcon,
     PlusIcon,
-    UpIcon,
-    CloseIcon,
+    UpIcon: UpIcon_,
+    CloseIcon_,
     DoubleUpIcon,
+    CheckIcon_,
   };
   
   return (
     <div className="jk-row block gap" style={{ color }}>
-      {Object.entries(icons).sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2)).map(([iconName, Component]) => (
-        <div className="jk-row  nowrap center">
-          <Component {...props} />
-          <div className="tx-xs cr-g1" style={{ width: 140 }}>{iconName}</div>
-        </div>
-      ))}
+      {Object.entries(icons)
+        .sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2))
+        .map(([iconName, Component]) => (
+          <div className="jk-row  nowrap center">
+            <Component {...props} />
+            <div className="tx-xs cr-g1" style={{ width: 140 }}>{iconName}</div>
+          </div>
+        ))}
     </div>
   );
 };

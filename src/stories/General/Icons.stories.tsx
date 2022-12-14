@@ -8,7 +8,6 @@ import {
   BalloonIcon,
   CaretLeftIcon,
   CodeIcon,
-  CopyIcon,
   DoubleArrowIcon,
   DragIndicatorIcon,
   FacebookIcon,
@@ -24,7 +23,7 @@ import {
   ReadIcon,
   TaskIcon,
   UploadIcon,
-  WarningIcon,
+  WarningIcon_,
   ZoomInIcon,
   ZoomOutIcon,
 } from '../../index';
@@ -95,112 +94,108 @@ export const Icons: Story<IconProps> = ({ ...props }) => {
     <>
       <table style={{ color: 'green' }}>
         <thead>
-        <tr>
-          <th>Name</th>
-          <th>Icon</th>
-        </tr>
+          <tr>
+            <th>Name</th>
+            <th>Icon</th>
+          </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>AppsIcon</td>
-          <td><AppsIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>AppstoreIcon</td>
-          <td><AppstoreIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>BalloonIcon 20%</td>
-          <td><BalloonIcon {...props} percent={20} /></td>
-        </tr>
-        <tr>
-          <td>BalloonIcon 60%</td>
-          <td><BalloonIcon {...props} percent={60} /></td>
-        </tr>
-        <tr>
-          <td>BalloonIcon 90%</td>
-          <td><BalloonIcon {...props} percent={90} /></td>
-        </tr>
-        <tr>
-          <td>CaretLeftIcon</td>
-          <td><CaretLeftIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>CodeIcon</td>
-          <td><CodeIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>CopyIcon</td>
-          <td><CopyIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>DoubleArrowIcon</td>
-          <td><DoubleArrowIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>DragIndicatorIcon</td>
-          <td><DragIndicatorIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>FacebookIcon</td>
-          <td><FacebookIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>FileDoneIcon</td>
-          <td><FileDoneIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>LayoutIcon</td>
-          <td><LayoutIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>LinkIcon</td>
-          <td><LinkIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>MessagePlusIcon</td>
-          <td><MessagePlusIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>MessageQuestionIcon</td>
-          <td><MessageQuestionIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>NoteIcon</td>
-          <td><NoteIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>NoteCodeIcon</td>
-          <td><NoteCodeIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>PlayCircleIcon</td>
-          <td><PlayCircleIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>ReadIcon</td>
-          <td><ReadIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>TaskIcon</td>
-          <td><TaskIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>UploadIcon</td>
-          <td><UploadIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>WarningIcon</td>
-          <td><WarningIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>ZoomInIcon</td>
-          <td><ZoomInIcon {...props} /></td>
-        </tr>
-        <tr>
-          <td>ZoomOutIcon</td>
-          <td><ZoomOutIcon {...props} /></td>
-        </tr>
+          <tr>
+            <td>AppsIcon</td>
+            <td><AppsIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>AppstoreIcon</td>
+            <td><AppstoreIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>BalloonIcon 20%</td>
+            <td><BalloonIcon {...props} percent={20} /></td>
+          </tr>
+          <tr>
+            <td>BalloonIcon 60%</td>
+            <td><BalloonIcon {...props} percent={60} /></td>
+          </tr>
+          <tr>
+            <td>BalloonIcon 90%</td>
+            <td><BalloonIcon {...props} percent={90} /></td>
+          </tr>
+          <tr>
+            <td>CaretLeftIcon</td>
+            <td><CaretLeftIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>CodeIcon</td>
+            <td><CodeIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>DoubleArrowIcon</td>
+            <td><DoubleArrowIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>DragIndicatorIcon</td>
+            <td><DragIndicatorIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>FacebookIcon</td>
+            <td><FacebookIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>FileDoneIcon</td>
+            <td><FileDoneIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>LayoutIcon</td>
+            <td><LayoutIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>LinkIcon</td>
+            <td><LinkIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>MessagePlusIcon</td>
+            <td><MessagePlusIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>MessageQuestionIcon</td>
+            <td><MessageQuestionIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>NoteIcon</td>
+            <td><NoteIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>NoteCodeIcon</td>
+            <td><NoteCodeIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>PlayCircleIcon</td>
+            <td><PlayCircleIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>ReadIcon</td>
+            <td><ReadIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>TaskIcon</td>
+            <td><TaskIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>UploadIcon</td>
+            <td><UploadIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>ZoomInIcon</td>
+            <td><ZoomInIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>ZoomOutIcon</td>
+            <td><ZoomOutIcon {...props} /></td>
+          </tr>
+          <tr>
+            <td>WarningIcon_</td>
+            <WarningIcon_ {...props} />
+          </tr>
         </tbody>
       </table>
     </>

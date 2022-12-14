@@ -49,7 +49,7 @@ export const Tabs: Story<TabsProps<string>> = () => {
       <div style={{ height: '200px' }}>
         <TabsComponent
           tabs={tabs}
-          extraNodes={[<Button>button 1</Button>, <Button>button 2</Button>]}
+          extraNodes={[<Button>button 1</Button>, <Button>button button 2</Button>]}
         />
       </div>
       <div style={{ height: '200px' }}>

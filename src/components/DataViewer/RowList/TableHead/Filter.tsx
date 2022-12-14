@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { FilterIcon, Popover } from '../../../index';
 import { classNames } from '../../../../helpers';
+import { FilterListIcon, Popover } from '../../../index';
 import { TableHeaderFilterType } from '../../types';
 import { isFilterDate, isFilterDateRange, isFilterSelect, isFilterText } from '../../utils';
 import { TableHeadFilterDate } from './TableHeadFilterDate';
@@ -8,7 +8,11 @@ import { TableHeadFilterDateRange } from './TableHeadFilterDateRange';
 import { TableHeadFilterSelect } from './TableHeadFilterSelect';
 import { TableHeadFilterText } from './TableHeadFilterText';
 
-export const Filter = ({ filter, columnIndex, disabled }: { filter?: TableHeaderFilterType, columnIndex: string, disabled: boolean }) => {
+export const Filter = ({
+  filter,
+  columnIndex,
+  disabled,
+}: { filter?: TableHeaderFilterType, columnIndex: string, disabled: boolean }) => {
   
   const [visible, setVisible] = useState(false);
   
@@ -101,7 +105,7 @@ export const Filter = ({ filter, columnIndex, disabled }: { filter?: TableHeader
           visible,
           disabled,
         })}>
-        <FilterIcon size="small" />
+        <FilterListIcon size="small" />
       </div>
     </Popover>
   );

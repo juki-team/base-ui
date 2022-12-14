@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { downloadBlobAsFile, handleShareMdPdf } from '../../helpers';
 import { FloatToolbar } from '../FloatToolbar';
 import { ButtonActionProps } from '../FloatToolbar/types';
-import { DownloadIcon, EditIcon, ExternalIcon } from '../graphics';
+import { DownloadIcon, EditIcon, OpenInNewIcon } from '../graphics';
 import { T } from '../Translate';
 
 export interface MdFloatToolbarProps {
@@ -27,15 +27,15 @@ export const MdFloatToolbar = ({ source, edit, onEdit, share, download }: MdFloa
   }
   if (share) {
     actionButtons.push({
-      icon: <ExternalIcon />,
+      icon: <OpenInNewIcon />,
       buttons: [
         {
-          icon: <ExternalIcon />,
+          icon: <OpenInNewIcon />,
           label: <T>save a copy</T>,
           onClick: handleShareMdPdf('md', source, sourceUrl, setSourceUrl),
         },
         {
-          icon: <ExternalIcon />,
+          icon: <OpenInNewIcon />,
           label: <T>share a copy</T>,
           onClick: handleShareMdPdf('md-fullscreen', source, sourceUrl, setSourceUrl),
         },
@@ -52,7 +52,7 @@ export const MdFloatToolbar = ({ source, edit, onEdit, share, download }: MdFloa
           onClick: handleShareMdPdf('pdf', source, sourceUrl, setSourceUrl),
         },
         {
-          icon: <ExternalIcon />,
+          icon: <OpenInNewIcon />,
           label: <T>md</T>,
           onClick: async () => await downloadBlobAsFile(new Blob([source], { type: 'text/plain' }), 'file.md'),
         },

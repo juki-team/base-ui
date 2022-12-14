@@ -3,7 +3,7 @@ import { useResizeDetector } from 'react-resize-detector';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
 import { NotUndefined } from '../../types';
-import { HeadlineIcon } from '../graphics';
+import { ViewHeadlineIcon } from '../graphics';
 import { Select } from '../Input';
 import { Popover } from '../Popover';
 import { TabsProps } from './types';
@@ -122,7 +122,7 @@ export const Tabs = <T extends string, >({
         {(!!extraNodes.length && !isExtend) && (
           <Popover
             content={
-              <div className="jk-col gap">
+              <div className="jk-col gap stretch jk-tab-extra-nodes">
                 {extraNodes.map(action => (
                   renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
                 ))}
@@ -132,7 +132,7 @@ export const Tabs = <T extends string, >({
             placement="bottomRight"
           >
             <div className={classNames('jk-row nowrap left link')}>
-              <HeadlineIcon />
+              <ViewHeadlineIcon />
             </div>
           </Popover>
         )}

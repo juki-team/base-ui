@@ -4,13 +4,13 @@ import { classNames, getTextContent, renderReactNodeOrFunction } from '../../hel
 import { useHandleState } from '../../hooks';
 import {
   CloseIcon,
+  ExpandMoreIcon,
   Input,
   InputCheckbox,
   Popover,
   SearchIcon,
   SelectOptionType,
   SelectSearchableProps,
-  UpIcon,
   VirtualizedRowsFixed,
 } from '../index';
 
@@ -121,7 +121,8 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         <div className="jk-select jk-border-radius-inline jk-row space-between nowrap" ref={selectLayoutRef}>
           <div className="jk-row left jk-multi-select-selected-options">
             {selectedOptions.map(optionSelected => (
-              <div className={classNames('jk-row nowrap', { 'jk-tag gray-6': multiselect })} key={JSON.stringify(optionSelected.value)}>
+              <div className={classNames('jk-row nowrap', { 'jk-tag gray-6': multiselect })}
+                   key={JSON.stringify(optionSelected.value)}>
                 {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected?.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
                 {onChange && multiselect && (
                   <CloseIcon
@@ -147,7 +148,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
                 }}
               />
             )}
-            <UpIcon rotate={180} className="input-icon" />
+            <ExpandMoreIcon className="input-icon" />
           </div>
         </div>
       </div>

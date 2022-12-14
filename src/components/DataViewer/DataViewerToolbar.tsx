@@ -1,6 +1,6 @@
 import React, { CSSProperties, useState } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
-import { FilterIcon, LoadingIcon, MenuIcon, ReloadIcon, UnorderedListIcon, ViewModuleIcon } from '../graphics';
+import { FilterListIcon, LoadingIcon, MenuIcon, ReloadIcon, UnorderedListIcon, ViewModuleIcon } from '../graphics';
 import { Popover } from '../Popover';
 import { useJukiBase } from '../Provider';
 import { T } from '../Translate';
@@ -97,7 +97,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               className={classNames({ active: filtered }, 'jk-row')}
               onClick={() => setFilterDrawer(true)}
             >
-              <FilterIcon />
+              <FilterListIcon />
             </div>
           </Popover>
           <div className="jk-divider horizontal" />

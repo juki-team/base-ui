@@ -36,10 +36,13 @@ export type SignIconProps = (IconProps & { rotate?: number }) & ({
   filledSquare?: true | string,
 });
 
-export type BasicIconProps = (IconProps & { rotate?: number, strikethrough?: boolean }) & ({
-  filledCircle?: true,
-  filledSquare?: locked,
-} | {
-  filledCircle?: locked,
-  filledSquare?: true
-});
+export type BasicIconProps = (SignIconProps & { strikethrough?: boolean });
+
+// export type BasicGoogleIconProps = (SignIconProps & { strikethrough?: boolean });
+// export type BasicIconProps = (IconProps & { rotate?: number, strikethrough?: boolean }) & ({
+//   filledCircle?: true,
+//   filledSquare?: locked,
+// } | {
+//   filledCircle?: locked,
+//   filledSquare?: true,
+// });

@@ -1,6 +1,6 @@
 import { configureActions } from '@storybook/addon-actions';
 import React from 'react';
-import { Collapse as CollapseComponent, UpIcon } from '../../index';
+import { Collapse as CollapseComponent, UpIcon_ } from '../../index';
 
 export default {
   title: 'Components/Data Display',
@@ -23,7 +23,7 @@ export const Collapse = () => {
             Collapse Header
             <div onClick={toggle} className="bc-er jk-row">
               Click me
-              <UpIcon rotate={isOpen ? 0 : 180} className="link" />
+              <UpIcon_ rotate={isOpen ? 0 : 180} className="link" />
             </div>
           </div>
         )}

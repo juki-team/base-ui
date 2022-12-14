@@ -2,7 +2,7 @@ import React, { ReactNode, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
 import { useHandleState } from '../../hooks';
-import { CloseIcon, InputCheckbox, MultiSelectProps, Popover, SelectOptionType, UpIcon } from '../index';
+import { CloseIcon, ExpandMoreIcon, InputCheckbox, MultiSelectProps, Popover, SelectOptionType } from '../index';
 
 export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
   className,
@@ -120,7 +120,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
                 }}
               />
             )}
-            <UpIcon rotate={180} className="input-icon" />
+            <ExpandMoreIcon className="input-icon" />
           </div>
         </div>
       </div>

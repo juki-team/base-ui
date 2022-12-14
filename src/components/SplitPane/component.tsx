@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { classNames } from '../../helpers';
-import { T, UpIcon, useHandleState, ViewSideIcon } from '../../index';
+import { T, UpIcon_, useHandleState, ViewSideIcon } from '../../index';
 import { SplitPaneProps } from './types';
 
 export const SplitPane = ({
@@ -108,7 +108,7 @@ export const SplitPane = ({
               })}
               onClick={() => setDisplaySecondPane(prevState => !prevState)}
             >
-              <UpIcon rotate={displaySecondPane ? (direction === 'row' ? -90 : 180) : (direction === 'row' ? 90 : 0)} size="small" />
+              <UpIcon_ rotate={displaySecondPane ? (direction === 'row' ? -90 : 180) : (direction === 'row' ? 90 : 0)} size="small" />
               {displaySecondPane
                 ? (closableSecondPane.hideLabel ?? <T className="label tx-xs">hide</T>)
                 : (closableSecondPane.expandLabel ?? <T className="label tx-xs">expand</T>)}
@@ -157,7 +157,7 @@ export const SplitPane = ({
               })}
               onClick={() => setDisplayFirstPane(prevState => !prevState)}
             >
-              <UpIcon
+              <UpIcon_
                 rotate={displayFirstPane ? (direction === 'row' ? -90 : 0) : (direction === 'row' ? 90 : 180)}
                 size="small" />
               {displayFirstPane

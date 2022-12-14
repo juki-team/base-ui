@@ -4,7 +4,7 @@ import { settings } from '../../../../config';
 import { toBlob } from '../../../../helpers';
 import { ButtonLoader } from '../../../Button';
 import { CopyToClipboard } from '../../../CopyToClipboard';
-import { CopyIcon } from '../../../graphics';
+import { ContentCopyIcon } from '../../../graphics';
 import { CropImageType, ImageLoaderCropper } from '../../../ImageLoaderCropper';
 import { NotificationType, useNotification } from '../../../Notifications';
 import { T } from '../../../Translate';
@@ -37,7 +37,7 @@ export const UploadNewImageTab = memo(() => {
             <CopyToClipboard text={imagePublicUrl}>
               <div className="copyable jk-row">
                 <a href={imagePublicUrl} className="link" target="_blank" rel="noreferrer">{imagePublicUrl}</a>
-                <CopyIcon size="small" />
+                <ContentCopyIcon size="small" />
               </div>
             </CopyToClipboard>
           </div>
@@ -46,7 +46,7 @@ export const UploadNewImageTab = memo(() => {
             <CopyToClipboard text={`![image alt](${imagePublicUrl})`}>
               <div className="copyable jk-row">
                 <span className="tx-xs fw-bd">![image alt]({imagePublicUrl})</span>
-                <CopyIcon size="small" />
+                <ContentCopyIcon size="small" />
               </div>
             </CopyToClipboard>
           </div>
