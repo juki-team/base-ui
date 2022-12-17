@@ -139,8 +139,8 @@
       right: calc(var(--width-notification) - var(--width-notification-wrapper));
       
       > div {
-        font-size: var(--text-xs-size);
-        line-height: var(--text-xs-height);
+        font-size: var(--text-t-size);
+        line-height: var(--text-t-height);
         text-align: center;
         
         &.jk-row {

@@ -2,8 +2,10 @@ import React from 'react';
 import { BasicIconProps, RootIconProps } from '../types';
 import { renderBasicIcon } from '../utils';
 
-const Icon = ({ color }: RootIconProps) => <path d="M11 19v-6H5v-2h6V5h2v6h6v2h-6v6Z" fill={color} />;
+const Icon = ({ color }: RootIconProps) => (
+  <path d="M3 20V4l19 8Zm2-3 11.85-5L5 7v3.5l6 1.5-6 1.5Zm0 0V7v6.5Z" fill={color} />
+);
 
-export const AddIcon = (props: BasicIconProps) => {
+export const SendIcon = (props: BasicIconProps) => {
   return renderBasicIcon(props, Icon);
 };

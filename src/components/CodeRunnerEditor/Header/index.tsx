@@ -8,8 +8,8 @@ import {
   Button,
   ButtonLoader,
   ButtonLoaderOnClickType,
-  EnterFullScreenIcon,
-  ExitFullScreenIcon,
+  FullscreenExitIcon,
+  FullscreenIcon,
   PlayArrowIcon,
   Select,
   SettingsIcon,
@@ -115,7 +115,7 @@ export const Header = ({
             size="tiny"
             type="text"
             onClick={() => setExpanded(prevState => !prevState)}
-            icon={expanded ? <ExitFullScreenIcon /> : <EnterFullScreenIcon />}
+            icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
           >
             {withLabels && <T>{expanded ? 'back' : 'expand'}</T>}
           </Button>

@@ -40,7 +40,6 @@ import {
   HeadlineIcon_,
   HeadsetMicIcon,
   HomeIcon,
-  LeaderboardIcon,
   LeaderboardIcon_,
   LightBulbIcon,
   LinkedInIcon,
@@ -132,17 +131,16 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
     ErlenmeyerFlaskIcon,
     ExitFullScreenIcon,
     ExtensionIcon,
-    ExternalIcon: ExternalIcon_,
-    EyeIcon: EyeIcon_,
+    ExternalIcon_,
+    EyeIcon_,
     EyeInvisibleIcon,
     FileIcon,
     FilterIcon_,
     GavelIcon,
     GearsIcon,
     GroupIcon,
-    HeadlineIcon: HeadlineIcon_,
+    HeadlineIcon_,
     HomeIcon,
-    LeaderboardIcon,
     LightBulbIcon,
     LinkedInIcon,
     MailOpenedIcon,
@@ -155,11 +153,11 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
     PersonIcon,
     PhoneIcon,
     PlaceIcon,
-    PlayIcon: PlayIcon_,
+    PlayIcon_,
     QuestionAnswerIcon,
     ReloadIcon,
     SearchIcon,
-    SettingIcon: SettingIcon_,
+    SettingIcon_,
     ShareIcon,
     SnowflakeIcon,
     SpinIcon,
@@ -190,7 +188,7 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
           .map(([iconName, Component]) => (
             <div className="jk-row nowrap center">
               <Component {...props} />
-              <div className="tx-xs cr-g1" style={{ width: 140 }}>{iconName}</div>
+              <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
             </div>
           ))}
         <CopyToClipboard text={'texto copiado'}><CopyIcon_ /></CopyToClipboard>

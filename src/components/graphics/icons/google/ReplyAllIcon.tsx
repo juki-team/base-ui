@@ -4,11 +4,11 @@ import { renderBasicIcon } from '../utils';
 
 const Icon = ({ color }: RootIconProps) => (
   <path
-    d="M19 19v-4q0-1.25-.875-2.125T16 12H6.8l3.6 3.6L9 17l-6-6 6-6 1.4 1.4L6.8 10H16q2.075 0 3.538 1.462Q21 12.925 21 15v4Z"
+    d="m8 17-6-6 6-6 1.425 1.4-4.6 4.6 4.6 4.6Zm12 2v-4q0-1.25-.875-2.125T17 12h-6.175l3.6 3.6L13 17l-6-6 6-6 1.425 1.4-3.6 3.6H17q2.075 0 3.538 1.462Q22 12.925 22 15v4Z"
     fill={color}
   />
 );
 
-export const ReplyIcon = (props: BasicIconProps) => {
+export const ReplyAllIcon = (props: BasicIconProps) => {
   return renderBasicIcon(props, Icon);
 };

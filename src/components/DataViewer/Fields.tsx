@@ -21,7 +21,7 @@ export const TextField = ({ text, label, onClick, className }: TextFieldProps) =
       <div className={classNames('text-field jk-row', className)}>
         {text}
       </div>
-      <div className="jk-row text-field-label cr-g3 tx-xs">
+      <div className="jk-row text-field-label cr-g3 tx-t">
         {label}
       </div>
     </Field>
@@ -34,7 +34,7 @@ export const DateField = ({ date, label, show, twoLines, className, onClick }: D
       <div className={classNames('date-field jk-row', className)}>
         <DateLiteral date={date} twoLines={twoLines} show={show} />
       </div>
-      <div className="jk-row date-field-label cr-g3 tx-xs">
+      <div className="jk-row date-field-label cr-g3 tx-t">
         {label}
       </div>
     </Field>

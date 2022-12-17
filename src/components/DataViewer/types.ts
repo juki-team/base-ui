@@ -233,7 +233,7 @@ export interface DataViewerProps<T> {
   headers: DataViewerHeadersType<T>[],
   initialViewMode?: ViewModeType,
   name?: string,
-  request: (props: { sort: RequestSortType, filter: RequestFilterType, pagination?: { page: number, pageSize: number }, setLoaderStatus: LoaderStatusActionType }) => void,
+  request?: (props: { sort: RequestSortType, filter: RequestFilterType, pagination?: { page: number, pageSize: number }, setLoaderStatus: LoaderStatusActionType }) => void,
   rows?: RowsType,
   rowsView?: boolean,
   searchParamsObject?: SearchParamsObjectType,

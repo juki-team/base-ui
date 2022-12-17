@@ -176,13 +176,13 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
     }
     if (firstRender.current) { // First render
-      request({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+      request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
       firstRender.current = false;
     } else if (prevSearchSorts.current !== searchSorts) { // Search change
       const head = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
       const prevHead = headers.find(({ index }) => index === prevSearchSorts.current || '-' + index === prevSearchSorts.current);
       if (isSortOnline(head?.sort) || isSortOnline(prevHead?.sort)) {
-        request({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+        request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
       }
     } else if (JSON.stringify(prevSearchFilter.current) !== JSON.stringify(searchFilter)) { // Filter change
       let fixedSearchFilter = [...searchFilter];
@@ -199,15 +199,15 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             isFilterDateRangeOnline(headers[i].filter)
           )
         ) {
-          request({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+          request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
         }
       }
     } else if (withPagination && prevPage.current !== page) {
-      request({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+      request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
     } else if (withPagination && prevPageSize.current !== pageSize) {
-      request({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+      request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
     } else if (prevRefreshCount.current !== refreshCount) {
-      request({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+      request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
     }
   }, [request, searchSorts, headers, refreshCount, searchFilter, withPagination, page, pageSize]);
   
@@ -615,7 +615,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         headers={tableHeaders}
         loading={loaderStatus === Status.LOADING}
         onAllFilters={onAllFilters}
-        onReload={() => setRefreshCount(prevState => prevState + 1)}
+        onReload={request ? () => setRefreshCount(prevState => prevState + 1) : undefined}
         rows={rows}
         rowsView={rowsView}
         cardsView={cardsView}

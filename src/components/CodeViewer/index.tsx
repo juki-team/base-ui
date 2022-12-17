@@ -30,7 +30,7 @@ export const CodeViewer = ({
     >
       <div className="float-top-right pad-xt jk-row gap">
         {withLanguageLabel && !!PROGRAMMING_LANGUAGE[language]?.label && (
-          <div className="tx-xs jk-tag">{PROGRAMMING_LANGUAGE[language]?.label}</div>
+          <div className="tx-t jk-tag">{PROGRAMMING_LANGUAGE[language]?.label}</div>
         )}
         {withCopyButton && <CopyToClipboard text={code}><ContentCopyIcon size="small" className="link" /></CopyToClipboard>}
       </div>

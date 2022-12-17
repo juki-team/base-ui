@@ -307,6 +307,10 @@
             }
             
             box-shadow: var(--t-box-shadow-lg);
+            
+            .text-field-label {
+              line-height: 1;
+            }
           }
         }
       }

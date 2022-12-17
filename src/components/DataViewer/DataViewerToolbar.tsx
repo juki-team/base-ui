@@ -69,7 +69,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
             }
             showPopperArrow
           >
-            <div className="no-records tx-xs fw-bd jk-tag gray-6">
+            <div className="no-records tx-t fw-bd jk-tag gray-6">
               {dataLength}{paginationData.pagination?.total ? '/' + paginationData.pagination.total : ''}
             </div>
           </Popover>

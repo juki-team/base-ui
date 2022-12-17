@@ -22,6 +22,10 @@ import {
   ErrorIcon,
   ExpandMoreIcon,
   FilterListIcon,
+  FolderOpenIcon,
+  ForwardIcon,
+  FullscreenExitIcon,
+  FullscreenIcon,
   InfoIcon,
   LeaderboardIcon,
   LinkIcon,
@@ -36,13 +40,20 @@ import {
   OpenInNewIcon,
   PlayArrowIcon,
   PreviewIcon,
+  RedoIcon,
   RefreshIcon,
+  ReplyAllIcon,
+  ReplyIcon,
   SaveIcon,
   SchoolIcon,
+  SendIcon,
   SettingsIcon,
   SupportAgentIcon,
   SyncIcon,
-  VerticalSplitIcon, ViewHeadlineIcon,
+  UndoIcon,
+  VerticalSplitIcon,
+  ViewCozyIcon,
+  ViewHeadlineIcon,
   VisibilityIcon,
   VisibilityOffIcon,
   WarningIcon,
@@ -125,6 +136,16 @@ export const Google: Story<BasicIconProps & { color: string }> = ({ color, ...pr
     PreviewIcon,
     VerticalSplitIcon,
     ViewHeadlineIcon,
+    FolderOpenIcon,
+    ViewCozyIcon,
+    FullscreenIcon,
+    FullscreenExitIcon,
+    RedoIcon,
+    ForwardIcon,
+    ReplyIcon,
+    ReplyAllIcon,
+    UndoIcon,
+    SendIcon,
   };
   
   return (
@@ -135,7 +156,7 @@ export const Google: Story<BasicIconProps & { color: string }> = ({ color, ...pr
           .map(([iconName, Component]) => (
             <div className="jk-row gap nowrap center">
               <Component {...props} />
-              <div className="tx-xs cr-g1" style={{ width: 140 }}>{iconName}</div>
+              <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
             </div>
           ))}
         {/*<CopyToClipboard text={'texto copiado'}><CopyIcon /></CopyToClipboard>*/}

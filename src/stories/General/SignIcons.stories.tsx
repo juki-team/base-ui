@@ -68,7 +68,7 @@ export const Signs: Story<SignIconProps & { color: string }> = ({ color, ...prop
         .map(([iconName, Component]) => (
           <div className="jk-row  nowrap center">
             <Component {...props} />
-            <div className="tx-xs cr-g1" style={{ width: 140 }}>{iconName}</div>
+            <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
           </div>
         ))}
     </div>

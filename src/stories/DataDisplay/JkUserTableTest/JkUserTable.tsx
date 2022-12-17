@@ -1,5 +1,5 @@
-import { Status } from '@juki-team/commons';
-import React, { useCallback, useMemo } from 'react';
+// import { Status } from '@juki-team/commons';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   ButtonLoader,
@@ -42,21 +42,25 @@ type UserTable = {
   dateTestRange: Date,
 }
 
-const data: UserTable[] = users.list.map(user => (
-  {
-    key: `nickname-(${user.nickname + ')-' + user.status}`,
-    givenName: user.givenName,
-    familyName: user.familyName,
-    email: user.email,
-    nickname: user.nickname,
-    status: user.status,
-    imageUrl: user.imageUrl,
-    dateTest: new Date(new Date().getFullYear(), new Date().getMonth() + Math.round(Math.random() * 3), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 50 + 1), Math.round(Math.random() * 50 + 1)),
-    dateTestRange: new Date(new Date().getFullYear(), new Date().getMonth() + Math.round(Math.random() * 3), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 50 + 1), Math.round(Math.random() * 50 + 1)),
-  } as UserTable
-));
-
 export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTableProps) => {
+  const [data, setData] = useState<UserTable[]>([]);
+  useEffect(() => {
+    setTimeout(() => {
+      setData(users.list.map(user => (
+        {
+          key: `nickname-(${user.nickname + ')-' + user.status}`,
+          givenName: user.givenName,
+          familyName: user.familyName,
+          email: user.email,
+          nickname: user.nickname,
+          status: user.status,
+          imageUrl: user.imageUrl,
+          dateTest: new Date(new Date().getFullYear(), new Date().getMonth() + Math.round(Math.random() * 3), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 50 + 1), Math.round(Math.random() * 50 + 1)),
+          dateTestRange: new Date(new Date().getFullYear(), new Date().getMonth() + Math.round(Math.random() * 3), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 50 + 1), Math.round(Math.random() * 50 + 1)),
+        } as UserTable
+      )));
+    }, 2000);
+  }, []);
   const columns: DataViewerHeadersType<UserTable>[] = useMemo(() => [
     {
       head: <TextHeadCell text="Name / Nickname" />,
@@ -215,12 +219,12 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
     },
   ], []);
   console.info({ columns2, columns });
-  const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
-    console.info('request', { sort, filter, pagination });
-    setLoaderStatus(Status.LOADING);
-    await (new Promise((resolve) => setTimeout(() => resolve(true), 3000)));
-    setLoaderStatus(Status.SUCCESS);
-  }, []);
+  // const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
+  //   console.info('request', { sort, filter, pagination });
+  //   setLoaderStatus(Status.LOADING);
+  //   await (new Promise((resolve) => setTimeout(() => resolve(true), 3000)));
+  //   setLoaderStatus(Status.SUCCESS);
+  // }, []);
   const [searchParams, setSearchParams] = useSearchParams();
   
   return (
@@ -228,8 +232,8 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       <DataViewer<UserTable>
         headers={columns2}
         data={data}
-        rows={{ height: 150 }}
-        request={request}
+        // rows={{ height: 150 }}
+        // request={request}
         name="users"
         cardsView={cardsView}
         rowsView={rowsView}

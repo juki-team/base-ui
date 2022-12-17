@@ -110,8 +110,8 @@ export const SplitPane = ({
             >
               <UpIcon_ rotate={displaySecondPane ? (direction === 'row' ? -90 : 180) : (direction === 'row' ? 90 : 0)} size="small" />
               {displaySecondPane
-                ? (closableSecondPane.hideLabel ?? <T className="label tx-xs">hide</T>)
-                : (closableSecondPane.expandLabel ?? <T className="label tx-xs">expand</T>)}
+                ? (closableSecondPane.hideLabel ?? <T className="label tx-t">hide</T>)
+                : (closableSecondPane.expandLabel ?? <T className="label tx-t">expand</T>)}
             </div>
           </div>
         )}
@@ -129,7 +129,7 @@ export const SplitPane = ({
               onClick={() => {
                 setDirection(prevState => prevState === 'row' ? 'column' : 'row');
               }}>
-              <ViewSideIcon size="tiny" rotate={direction === 'column' ? 90 : 0} /> <T className="label tx-xs">rotate</T>
+              <ViewSideIcon size="tiny" rotate={direction === 'column' ? 90 : 0} /> <T className="label tx-t">rotate</T>
             </div>
           </div>
         )}
@@ -161,8 +161,8 @@ export const SplitPane = ({
                 rotate={displayFirstPane ? (direction === 'row' ? -90 : 0) : (direction === 'row' ? 90 : 180)}
                 size="small" />
               {displayFirstPane
-                ? (closableFirstPane.hideLabel ?? <T className="label tx-xs">hide</T>)
-                : (closableFirstPane.expandLabel ?? <T className="label tx-xs">expand</T>)}
+                ? (closableFirstPane.hideLabel ?? <T className="label tx-t">hide</T>)
+                : (closableFirstPane.expandLabel ?? <T className="label tx-t">expand</T>)}
             </div>
           </div>
         )}

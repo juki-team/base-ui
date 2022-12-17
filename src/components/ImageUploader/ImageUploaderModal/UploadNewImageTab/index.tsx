@@ -45,7 +45,7 @@ export const UploadNewImageTab = memo(() => {
             <T>markdown use</T>:
             <CopyToClipboard text={`![image alt](${imagePublicUrl})`}>
               <div className="copyable jk-row">
-                <span className="tx-xs fw-bd">![image alt]({imagePublicUrl})</span>
+                <span className="tx-t fw-bd">![image alt]({imagePublicUrl})</span>
                 <ContentCopyIcon size="small" />
               </div>
             </CopyToClipboard>

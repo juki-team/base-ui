@@ -190,11 +190,9 @@ export const Classes: Story<TabsProps<string>> = () => {
           <div className="jk-row gap">
             {[
               'tx-h',
-              'tx-xl',
               'tx-l',
               'tx-m',
               'tx-s',
-              'tx-xs',
               'tx-t',
             ].map(size => (
               <div className="jk-row gap nowrap jk-shadow jk-pad-md jk-border-radius-inline" style={{ width: '140px' }}>
