@@ -60,14 +60,14 @@ export const Pagination = ({
     <div className={classNames('jk-data-viewer-pagination jk-row gap center', { loading })}>
       <div className="jk-row center nowrap">
         {isOnToolbar ? (
-          <div className="jk-row">
+          <div className="jk-row nowrap">
             <div className="jk-row nowrap">
               <Popover content={<T>previous</T>} showPopperArrow>
                 <div
                   className={classNames('page-item jk-row jk-border-radius', { disabled: page === startPage })}
                   onClick={prev}
                 >
-                  <NavigateBeforeIcon />
+                  <NavigateBeforeIcon className="jk-br-ie clickable" />
                 </div>
               </Popover>
               <Popover
@@ -83,7 +83,7 @@ export const Pagination = ({
                   className={classNames('page-item jk-row jk-border-radius', { disabled: page === endPage })}
                   onClick={next}
                 >
-                  <NavigateNextIcon />
+                  <NavigateNextIcon className="jk-br-ie clickable" />
                 </div>
               </Popover>
             </div>

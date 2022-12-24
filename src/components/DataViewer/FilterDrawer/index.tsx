@@ -173,6 +173,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
               <T>reset all filters</T>
             </Button>
             <Button
+              size="small"
               onClick={() => {
                 onFilter(values);
                 onClose();

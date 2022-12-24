@@ -1,6 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 import {
+  Button,
   Color,
   ColorPicker as ColorPickerComponent,
   Input,
@@ -139,7 +140,8 @@ export const Toggle = () => {
       <div className="jk-col gap">
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} disabled />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" />
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label" />
+        <InputToggle checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label"
+                     rightLabel="right label" />
       </div>
       <div className="jk-col gap">
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="large" disabled />
@@ -180,6 +182,20 @@ export const Select = () => {
         selectedOption={value}
         onChange={({ value, label }: { value: number, label: string }) => setValue({ value, label })}
       />
+      <SelectComponent
+        className=""
+        options={options}
+        selectedOption={value}
+        onChange={({ value, label }: { value: number, label: string }) => setValue({ value, label })}
+      >
+        {({ options, expandIcon }) => {
+          return (
+            <Button>
+              <div className="jk-row nowrap">button cmp {options.length}{expandIcon}</div>
+            </Button>
+          );
+        }}
+      </SelectComponent>
     </div>
   );
 };

@@ -104,7 +104,15 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
   border-radius: var(--border-radius); // responsive variable
 }
 
+.jk-br {
+  border-radius: var(--border-radius-inline); // responsive variable
+}
+
 .jk-border-radius-inline {
+  border-radius: var(--border-radius-inline); // responsive variable
+}
+
+.jk-br-ie {
   border-radius: var(--border-radius-inline); // responsive variable
 }
 

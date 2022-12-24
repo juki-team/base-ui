@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
-import { FilterListIcon, LoadingIcon, MenuIcon, ReloadIcon, UnorderedListIcon, ViewModuleIcon } from '../graphics';
+import { FilterListIcon, LoadingIcon, MenuIcon, ReloadIcon, ViewHeadlineIcon, ViewModuleIcon } from '../graphics';
 import { Popover } from '../Popover';
 import { useJukiBase } from '../Provider';
 import { T } from '../Translate';
@@ -54,10 +54,11 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               showPopperArrow
             >
               <div className={classNames({ active: loading, loading }, 'jk-row')} onClick={!loading ? onReload : undefined}>
-                {loading ? <LoadingIcon /> : <ReloadIcon />}
+                {loading ? <LoadingIcon /> : <ReloadIcon className="jk-br-ie clickable" />}
               </div>
             </Popover>
           )}
+          <div className="jk-divider horizontal" />
           <Popover
             content={
               dataLength
@@ -74,7 +75,6 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
           </Popover>
           {paginationData.pagination && (
             <>
-              <div className="jk-divider horizontal" />
               <Pagination
                 loading={loading}
                 pageSizeOptions={paginationData.pageSizeOptions}
@@ -96,24 +96,26 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               className={classNames({ active: filtered }, 'jk-row')}
               onClick={() => setFilterDrawer(true)}
             >
-              <FilterListIcon />
+              <FilterListIcon className="jk-br-ie clickable" />
             </div>
           </Popover>
           <div className="jk-divider horizontal" />
-          {rowsView && (
-            <Popover content={<T className="tt-se ws-np">list view</T>} showPopperArrow>
-              <div className={classNames({ active: viewMode === 'rows' }, 'jk-row')} onClick={() => setViewMode('rows')}>
-                <UnorderedListIcon />
-              </div>
-            </Popover>
-          )}
-          {cardsView && (
-            <Popover content={<T className="tt-se ws-np">cards view</T>} showPopperArrow>
-              <div className={classNames({ active: viewMode === 'cards' }, 'jk-row')} onClick={() => setViewMode('cards')}>
-                <ViewModuleIcon />
-              </div>
-            </Popover>
-          )}
+          <div className={classNames('jk-row nowrap jk-table-view-tools-view-mode', { rowsView, cardsView })}>
+            {rowsView && (
+              <Popover content={<T className="tt-se ws-np">list view</T>} showPopperArrow>
+                <div className={classNames({ active: viewMode === 'rows' }, 'jk-row')} onClick={() => setViewMode('rows')}>
+                  <ViewHeadlineIcon className={classNames('jk-br-ie', { clickable: viewMode === 'cards' })} />
+                </div>
+              </Popover>
+            )}
+            {cardsView && (
+              <Popover content={<T className="tt-se ws-np">cards view</T>} showPopperArrow>
+                <div className={classNames({ active: viewMode === 'cards' }, 'jk-row')} onClick={() => setViewMode('cards')}>
+                  <ViewModuleIcon className={classNames('jk-br-ie', { clickable: viewMode === 'rows' })} />
+                </div>
+              </Popover>
+            )}
+          </div>
           {!!extraNodes.length && (
             <>
               <div className="jk-divider horizontal screen sm" />

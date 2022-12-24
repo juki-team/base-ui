@@ -110,7 +110,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
               </div>
             ))}
           </div>
-          <div className="jk-row nowrap">
+          <div className="jk-row nowrap jk-multi-select-selected-icons">
             {!isDisabled && (
               <CloseIcon
                 className="input-icon"

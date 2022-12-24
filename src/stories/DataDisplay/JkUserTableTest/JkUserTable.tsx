@@ -1,5 +1,5 @@
-// import { Status } from '@juki-team/commons';
-import React, { useEffect, useMemo, useState } from 'react';
+import { Status } from '@juki-team/commons';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   ButtonLoader,
@@ -218,22 +218,23 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       sticky: false,
     },
   ], []);
-  console.info({ columns2, columns });
-  // const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
-  //   console.info('request', { sort, filter, pagination });
-  //   setLoaderStatus(Status.LOADING);
-  //   await (new Promise((resolve) => setTimeout(() => resolve(true), 3000)));
-  //   setLoaderStatus(Status.SUCCESS);
-  // }, []);
+  
+  const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
+    console.info('request', { sort, filter, pagination });
+    setLoaderStatus(Status.LOADING);
+    await (new Promise((resolve) => setTimeout(() => resolve(true), 3000)));
+    setLoaderStatus(Status.SUCCESS);
+  }, []);
+  console.info({ columns2, columns, request });
   const [searchParams, setSearchParams] = useSearchParams();
   
   return (
-    <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '64px', background: 'lightgray' }}>
+    <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px', background: 'lightgray' }}>
       <DataViewer<UserTable>
         headers={columns2}
         data={data.slice(-4)}
         // rows={{ height: 150 }}
-        // request={request}
+        request={request}
         name="users"
         cardsView={cardsView}
         rowsView={rowsView}

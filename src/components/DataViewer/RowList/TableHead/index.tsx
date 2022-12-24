@@ -84,9 +84,11 @@ export const TableHead = <T, >({
         <div className="jk-table-head-field">{renderHead({ head, columnIndex })}</div>
         <div className="jk-row jk-table-head-tools">
           {onSort && (
-            <div className={classNames('jk-row tool', { active: !!order, disabled: loading && online })}
-                 onClick={() => onSort({ columnIndex })}>
-              <ArrowIcon size="small" rotate={order < 0 ? 180 : 0} />
+            <div
+              className={classNames('jk-row tool', { active: !!order, disabled: loading && online })}
+              onClick={() => onSort({ columnIndex })}
+            >
+              <ArrowIcon size="small" rotate={order < 0 ? 180 : 0} className="clickable jk-br-ie" />
             </div>
           )}
           {filter?.onFilter && <Filter columnIndex={columnIndex} filter={filter} disabled={loading && filter.online} />}

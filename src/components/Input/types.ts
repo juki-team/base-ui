@@ -1,6 +1,6 @@
 import { PropsWithChildren, ReactNode } from 'react';
 import { ChangeHandler } from 'react-hook-form';
-import { ReactNodeOrFunctionType } from '../../types';
+import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
 import { ButtonType, PlacementType } from '../index';
 
 export interface InputCommonsProps<T> {
@@ -97,6 +97,7 @@ export interface SelectProps<T, U extends ReactNodeOrFunctionType, V extends Rea
   optionsPlacement?: PlacementType,
   extend?: boolean,
   containerWidth?: number,
+  children?: ReactNodeOrFunctionP1Type<{ options: SelectOptionType<T, U, V>[], showOptions: boolean, disabled: boolean, optionSelected: SelectOptionType<T, U, V>, expandIcon: ReactNode }>
 }
 
 export interface MultiSelectProps<T, U extends ReactNode, V extends ReactNode> {

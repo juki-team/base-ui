@@ -68,15 +68,19 @@
       
       .jk-table-view-tools {
         margin: 0 var(--pad-t);
+        
+        .jk-divider {
+          margin: 0 4px;
+        }
+        
         @include sm {
           flex: 1;
           margin: 0;
         }
         
-        .jk-icon {
+        > div > div > .jk-icon, > div > div > div > .jk-icon {
           color: var(--t-color-gray-3);
-          cursor: pointer;
-          @include sm { margin: 0 4px; }
+          padding: 4px;
         }
         
         .loading, .loading .jk-icon {
@@ -85,6 +89,25 @@
         
         .active .jk-icon {
           color: var(--t-color-primary-light);
+        }
+        
+        .jk-table-view-tools-view-mode {
+          &.rowsView.cardsView {
+            > div:first-child .jk-icon {
+              border-top-right-radius: 0;
+              border-bottom-right-radius: 0;
+            }
+            
+            > div:last-child .jk-icon {
+              border-top-left-radius: 0;
+              border-bottom-left-radius: 0;
+            }
+          }
+          
+          .active .jk-icon {
+            background-color: var(--t-color-primary);
+            color: var(--t-color-primary-text);
+          }
         }
         
         .jk-data-viewer-pagination {
@@ -423,7 +446,6 @@
   .text-head-field {
     text-transform: capitalize;
     text-align: center;
-    //font-weight: var(--weight-bold);
   }
   
   .tool {
@@ -446,6 +468,10 @@
       &.disabled {
         color: rgba(var(--t-color-primary-light-rgb), 0.7);
       }
+    }
+    
+    .jk-icon {
+      padding: 2px;
     }
   }
   

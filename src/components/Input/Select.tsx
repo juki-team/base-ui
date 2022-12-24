@@ -1,9 +1,9 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
+import { classNames, getTextContent, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
 import { ReactNodeOrFunctionType } from '../../types';
-import { ExpandMoreIcon, Popover } from '../index';
+import { ExpandMoreIcon, Popover, SelectOptionType } from '../index';
 import { SelectProps } from './types';
 
 export const SelectInline = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>({  // TODO: Fix the styles or remove component
@@ -71,6 +71,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   optionsPlacement = 'bottom',
   extend = false,
   containerWidth: _containerWidth,
+  children,
 }: SelectProps<T, U, V>) => {
   
   const { width: selectLayoutWidth = 0, ref: selectLayoutRef } = useResizeDetector();
@@ -92,9 +93,9 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   const optionRef = useRef<HTMLDivElement | null>(null);
   
   const option = options.find(option => JSON.stringify(option.value) === JSON.stringify(initialOptionSelected.value));
-  const optionSelected = {
+  const optionSelected: SelectOptionType<T, U, V> = {
     value: initialOptionSelected.value,
-    label: initialOptionSelected.label || option?.label,
+    label: initialOptionSelected.label || option?.label as U,
     inputLabel: initialOptionSelected.inputLabel || option?.inputLabel,
   };
   
@@ -102,6 +103,8 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   
   const isDisabled = disabled || !onChange;
   const containerWidth = _containerWidth ?? width * 12 + 35;
+  
+  const expandIcon = <ExpandMoreIcon className="input-icon" />;
   
   return (
     <Popover
@@ -144,10 +147,15 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
         className={classNames('jk-select-layout', className, { open: showOptions, disabled: isDisabled })}
         style={{ width: extend ? '100%' : `${containerWidth}px` }}
       >
-        <div className="jk-select jk-border-radius-inline" ref={selectLayoutRef}>
-          {optionSelected.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
-          <ExpandMoreIcon className="input-icon" />
-        </div>
+        {children
+          ? renderReactNodeOrFunctionP1(children, { options, showOptions, disabled: isDisabled, optionSelected, expandIcon })
+          : (
+            <div className="jk-select jk-border-radius-inline" ref={selectLayoutRef}>
+              {optionSelected.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
+              {expandIcon}
+            </div>
+          )
+        }
       </div>
     </Popover>
   );

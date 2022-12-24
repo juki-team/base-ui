@@ -162,12 +162,28 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   background-color: var(--t-color-shadow-lightest);
 }
 
-.jk-multi-select-layout.disabled, .jk-select-layout.disabled {
-  .jk-select {
-    @extend .disabled-input;
-    
-    .input-icon {
-      color: var(--t-color-gray-4);
+.jk-select-layout, .jk-multi-select-layout {
+  > .jk-select {
+    > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
+      color: var(--t-color-gray-5);
+    }
+  }
+  
+  &:hover, &:focus, &:active, &.focused {
+    > .jk-select {
+      > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
+        color: var(--t-color-gray-4);
+      }
+    }
+  }
+  
+  &.disabled {
+    > .jk-select {
+      @extend .disabled-input;
+      
+      > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
+        color: var(--t-color-gray-4);
+      }
     }
   }
 }
@@ -176,7 +192,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   @extend .disabled-input;
 }
 
-.jk-input-password-wrapper, .jk-select-layout, .jk-multi-select-layout {
+.jk-input-password-wrapper {
   .input-icon {
     color: var(--t-color-gray-5);
   }

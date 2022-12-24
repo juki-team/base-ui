@@ -105,7 +105,7 @@ export const Filter = ({
           visible,
           disabled,
         })}>
-        <FilterListIcon size="small" />
+        <FilterListIcon size="small" className="clickable jk-br-ie" />
       </div>
     </Popover>
   );
