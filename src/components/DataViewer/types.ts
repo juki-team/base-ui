@@ -13,7 +13,7 @@ import {
   FILTER_TEXT_AUTO,
 } from './constants';
 
-export type GetRowKeyType<T> = (props: { data: T[], index: number }) => string;
+export type GetRecordKeyType<T> = (props: { data: T[], index: number }) => string;
 export type GetRecordStyleType<T> = (props: { data: T[], index: number, isCard: boolean, isStickySection: boolean }) => CSSProperties;
 export type GetRecordClassNameType<T> = (props: { data: T[], index: number, isCard: boolean, isStickySection: boolean }) => string;
 export type OnRecordClickType<T> = (props: { data: T[], index: number, isCard: boolean }) => void;
@@ -26,7 +26,7 @@ export interface RowVirtualizerFixedProps<T> {
   headers: TableHeadersWithWidthType<T>[],
   rowHeight: number,
   scrollLeft: number,
-  getRecordKey?: GetRowKeyType<T>,
+  getRecordKey?: GetRecordKeyType<T>,
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
   setScrollLeft: Dispatch<SetStateAction<number>>,
@@ -201,7 +201,7 @@ export interface DisplayDataViewerProps<T> {
   rowsView: boolean,
   setViewMode: (viewMode: ViewModeType) => void,
   viewMode: ViewModeType,
-  getRecordKey?: GetRowKeyType<T>,
+  getRecordKey?: GetRecordKeyType<T>,
   paginationData: PaginationDataType,
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
@@ -255,7 +255,7 @@ export interface DataViewerProps<T> {
   setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
   refreshRef?: (refresh: RefreshType) => void,
   pagination?: DataViewerPaginationType,
-  getRecordKey?: GetRowKeyType<T>,
+  getRecordKey?: GetRecordKeyType<T>,
   getPageQueryParam?: (name: string) => string,
   getPageSizeQueryParam?: (name: string) => string,
   getSortQueryParam?: (name: string) => string,
