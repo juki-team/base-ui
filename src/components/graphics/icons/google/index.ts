@@ -49,3 +49,4 @@ export * from './ReplyIcon';
 export * from './ReplyAllIcon';
 export * from './UndoIcon';
 export * from './SendIcon';
+export * from './AssignmentIcon';

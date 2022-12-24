@@ -7,6 +7,7 @@ import {
   AppsIcon,
   ArrowDownwardIcon,
   ArrowUpwardIcon,
+  AssignmentIcon,
   AttachFileIcon,
   AttachmentIcon,
   AutorenewIcon,
@@ -146,6 +147,7 @@ export const Google: Story<BasicIconProps & { color: string }> = ({ color, ...pr
     ReplyAllIcon,
     UndoIcon,
     SendIcon,
+    AssignmentIcon,
   };
   
   return (

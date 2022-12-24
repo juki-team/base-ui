@@ -3,7 +3,7 @@ import { Story } from '@storybook/react';
 import React from 'react';
 
 import {
-  AssignmentIcon,
+  AssignmentIcon_,
   AtSignIcon,
   BasicIconProps,
   BugIcon,
@@ -111,7 +111,7 @@ configureActions({
 
 export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...props }) => {
   const icons = {
-    AssignmentIcon,
+    AssignmentIcon_,
     AtSignIcon,
     BugIcon,
     BuildIcon,

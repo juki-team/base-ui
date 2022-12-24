@@ -231,7 +231,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '64px', background: 'lightgray' }}>
       <DataViewer<UserTable>
         headers={columns2}
-        data={data}
+        data={data.slice(-4)}
         // rows={{ height: 150 }}
         // request={request}
         name="users"
