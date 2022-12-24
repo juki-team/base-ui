@@ -15,7 +15,7 @@ import {
   CheckIcon,
   CloseIcon,
   ContentCopyIcon,
-  DeleteIcon,
+  DeleteIcon, DemographyIcon,
   DownloadIcon,
   DraftIcon,
   DragIndicatorIcon,
@@ -26,7 +26,7 @@ import {
   FolderOpenIcon,
   ForwardIcon,
   FullscreenExitIcon,
-  FullscreenIcon,
+  FullscreenIcon, GroupAddIcon, GroupIcon,
   InfoIcon,
   LeaderboardIcon,
   LinkIcon,
@@ -148,6 +148,9 @@ export const Google: Story<BasicIconProps & { color: string }> = ({ color, ...pr
     UndoIcon,
     SendIcon,
     AssignmentIcon,
+    DemographyIcon,
+    GroupAddIcon,
+    GroupIcon,
   };
   
   return (

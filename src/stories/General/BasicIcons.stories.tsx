@@ -36,7 +36,7 @@ import {
   GavelIcon,
   GearsIcon,
   GmailIcon,
-  GroupIcon,
+  GroupIcon_,
   HeadlineIcon_,
   HeadsetMicIcon,
   HomeIcon,
@@ -138,7 +138,6 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
     FilterIcon_,
     GavelIcon,
     GearsIcon,
-    GroupIcon,
     HeadlineIcon_,
     HomeIcon,
     LightBulbIcon,
@@ -179,6 +178,7 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
     SaveIcon_,
     EditIcon_,
     LoadingIcon_,
+    GroupIcon_,
   };
   return (
     <NotificationProvider>

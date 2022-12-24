@@ -50,3 +50,6 @@ export * from './ReplyAllIcon';
 export * from './UndoIcon';
 export * from './SendIcon';
 export * from './AssignmentIcon';
+export * from './DemographyIcon';
+export * from './GroupAddIcon';
+export * from './GroupIcon';
