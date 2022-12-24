@@ -208,14 +208,14 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
     },
     {
       head: <TextHeadCell text="Name / Nickname" />,
-      index: 'name',
+      index: 'name-2',
       field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
         <TextField text={givenName} label="test" />
       ),
       sort: true,
       filter: { type: 'text' },
       cardPosition: 'topLeft',
-      sticky: true,
+      sticky: false,
     },
   ], []);
   console.info({ columns2, columns });
@@ -251,6 +251,9 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
         searchParamsObject={getSearchParamsObject(searchParams)}
         setSearchParamsObject={setSearchParams}
         pagination={{ pageSizeOptions: [5, 10, 15, 20], total: data.length }}
+        getRecordClassName={({ index }) => index + ''}
+        getRecordStyle={({ index }) => ({ zIndex: index })}
+        onRecordClick={(props) => console.info('click', props)}
         // pagination={{ total: data.length }}
       />
     </div>

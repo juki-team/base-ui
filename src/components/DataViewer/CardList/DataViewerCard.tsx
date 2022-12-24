@@ -5,7 +5,18 @@ import { TableHeadersWithWidthType } from '../types';
 import { renderField } from '../utils';
 import { DataViewerCardProps } from './types';
 
-export const DataViewerCard = <T, >({ cardWidth, index, data, headers, fake }: DataViewerCardProps<T>) => {
+export const DataViewerCard = <T, >({
+  cardWidth,
+  index,
+  data,
+  headers,
+  fake,
+  recordHoveredIndex,
+  setRecordHoveredIndex,
+  cardStyle,
+  cardClassName,
+  onCardClick,
+}: DataViewerCardProps<T>) => {
   
   const { height: topLeftHeight, ref: topLeftRef } = useResizeDetector();
   const { height: topHeight, ref: topRef } = useResizeDetector();
@@ -32,7 +43,13 @@ export const DataViewerCard = <T, >({ cardWidth, index, data, headers, fake }: D
   }
   
   return (
-    <div className="jk-list-card jk-border-radius" style={{ width: cardWidth }}>
+    <div
+      className={classNames('jk-list-card jk-border-radius', cardClassName, { hovered: recordHoveredIndex === index })}
+      style={{ ...cardStyle, width: cardWidth }}
+      onMouseEnter={() => setRecordHoveredIndex(index)}
+      onMouseLeave={() => setRecordHoveredIndex(null)}
+      onClick={onCardClick}
+    >
       <div
         className={classNames('top-container', { 'no-middle': !positionsList.top?.length })}
         style={{ height: topContainerHeight }}

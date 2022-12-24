@@ -57,12 +57,15 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     setLoaderStatusRef,
     refreshRef,
     pagination,
-    getRowKey,
+    getRecordKey,
     getPageQueryParam = getPageKey,
     getPageSizeQueryParam = getPageSizeKey,
     getSortQueryParam = (name) => name ? name + '.sort' : 'sort',
     getFilterQueryParam = (name) => name ? name + '.filter' : 'filter',
     getViewModeQueryParam = (name) => name ? name + '.viewMode' : 'viewMode',
+    getRecordStyle,
+    getRecordClassName,
+    onRecordClick,
   } = props;
   
   const withPagination = !!pagination;
@@ -621,7 +624,10 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         cardsView={cardsView}
         setViewMode={setViewMode}
         viewMode={viewMode}
-        getRowKey={getRowKey}
+        getRecordKey={getRecordKey}
+        getRecordStyle={getRecordStyle}
+        getRecordClassName={getRecordClassName}
+        onRecordClick={onRecordClick}
         paginationData={{
           pagination,
           pageSizeOptions,

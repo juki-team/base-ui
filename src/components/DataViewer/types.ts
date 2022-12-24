@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
+import { CSSProperties, Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { ReactNodeOrFunctionType } from '../../types';
 import { DatePickerDateFunType, DatePickerType, OptionType } from '../index';
 import {
@@ -13,15 +13,26 @@ import {
   FILTER_TEXT_AUTO,
 } from './constants';
 
-export type GetRowKeyType<T> = (data: T[], index: number) => string;
+export type GetRowKeyType<T> = (props: { data: T[], index: number }) => string;
+export type GetRecordStyleType<T> = (props: { data: T[], index: number, isCard: boolean, isStickySection: boolean }) => CSSProperties;
+export type GetRecordClassNameType<T> = (props: { data: T[], index: number, isCard: boolean, isStickySection: boolean }) => string;
+export type OnRecordClickType<T> = (props: { data: T[], index: number, isCard: boolean }) => void;
+
+export type RecordHoveredIndexType = number | null;
+export type SetRecordHoveredIndexType = Dispatch<SetStateAction<RecordHoveredIndexType>>;
 
 export interface RowVirtualizerFixedProps<T> {
   data: T[],
   headers: TableHeadersWithWidthType<T>[],
   rowHeight: number,
   scrollLeft: number,
-  getRowKey?: GetRowKeyType<T>,
+  getRecordKey?: GetRowKeyType<T>,
+  getRecordStyle?: GetRecordStyleType<T>,
+  getRecordClassName?: GetRecordClassNameType<T>,
   setScrollLeft: Dispatch<SetStateAction<number>>,
+  onRecordClick?: OnRecordClickType<T>,
+  setRecordHoveredIndex: SetRecordHoveredIndexType,
+  recordHoveredIndex: RecordHoveredIndexType,
 }
 
 export type FilterTextOnlineType = { type: typeof FILTER_TEXT };
@@ -190,8 +201,11 @@ export interface DisplayDataViewerProps<T> {
   rowsView: boolean,
   setViewMode: (viewMode: ViewModeType) => void,
   viewMode: ViewModeType,
-  getRowKey?: GetRowKeyType<T>,
+  getRecordKey?: GetRowKeyType<T>,
   paginationData: PaginationDataType,
+  getRecordStyle?: GetRecordStyleType<T>,
+  getRecordClassName?: GetRecordClassNameType<T>,
+  onRecordClick?: OnRecordClickType<T>,
 }
 
 export type DataViewerHeaderSortOnlineType = true;
@@ -241,12 +255,15 @@ export interface DataViewerProps<T> {
   setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
   refreshRef?: (refresh: RefreshType) => void,
   pagination?: DataViewerPaginationType,
-  getRowKey?: GetRowKeyType<T>,
+  getRecordKey?: GetRowKeyType<T>,
   getPageQueryParam?: (name: string) => string,
   getPageSizeQueryParam?: (name: string) => string,
   getSortQueryParam?: (name: string) => string,
   getFilterQueryParam?: (name: string) => string,
   getViewModeQueryParam?: (name: string) => string,
+  getRecordStyle?: GetRecordStyleType<T>,
+  getRecordClassName?: GetRecordClassNameType<T>,
+  onRecordClick?: OnRecordClickType<T>,
 }
 
 export type LoaderStatusType = Status;

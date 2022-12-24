@@ -47,8 +47,11 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     rowsView,
     viewMode,
     setViewMode,
-    getRowKey,
+    getRecordKey,
     paginationData,
+    getRecordStyle,
+    getRecordClassName,
+    onRecordClick,
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
@@ -81,7 +84,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     headers,
     headerWidths,
   ]);
-  
+  const [recordHoveredIndex, setRecordHoveredIndex] = useState<number | null>(null);
   return (
     <div className="jk-data-viewer-content">
       <DataViewerToolbar
@@ -128,7 +131,12 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
                 rowHeight={rowHeight}
                 scrollLeft={scrollLeft}
                 setScrollLeft={setScrollLeft}
-                getRowKey={getRowKey}
+                getRecordKey={getRecordKey}
+                recordHoveredIndex={recordHoveredIndex}
+                setRecordHoveredIndex={setRecordHoveredIndex}
+                getRecordClassName={getRecordClassName}
+                getRecordStyle={getRecordStyle}
+                onRecordClick={onRecordClick}
               />
             </LoaderLayer>
           </div>
@@ -141,6 +149,11 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
                 cardHeight={cardHeight}
                 cardWidth={cardWidth}
                 rowWidth={(viewContainerWidth || 0) - SCROLL_WIDTH}
+                recordHoveredIndex={recordHoveredIndex}
+                setRecordHoveredIndex={setRecordHoveredIndex}
+                getRecordClassName={getRecordClassName}
+                getRecordStyle={getRecordStyle}
+                onRecordClick={onRecordClick}
               />
             </LoaderLayer>
           </div>

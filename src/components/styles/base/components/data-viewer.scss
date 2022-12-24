@@ -272,6 +272,11 @@
             flex-direction: column;
             justify-content: space-evenly;
             background-color: var(--t-color-white);
+            box-shadow: var(--t-box-shadow-tn);
+            
+            &.hovered {
+              box-shadow: var(--t-box-shadow-lg);
+            }
             
             .top-container, .center-container, .bottom-container {
               display: flex;
@@ -306,8 +311,6 @@
               line-height: 1;
             }
             
-            box-shadow: var(--t-box-shadow-lg);
-            
             .text-field-label {
               line-height: 1;
             }
@@ -337,8 +340,9 @@
             width: 100%;
             display: flex;
             
-            &:hover {
-              box-shadow: var(--t-box-shadow-tn);
+            &.hovered {
+              box-shadow: -4px 0px 4px 0px var(--t-color-shadow);
+              z-index: 1;
             }
             
             .field {

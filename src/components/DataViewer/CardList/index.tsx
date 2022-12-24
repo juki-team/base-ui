@@ -9,6 +9,7 @@ export const CardRowVirtualizerFixed = <T, >({
   cardHeight,
   cardWidth,
   rowWidth,
+  getRecordStyle, recordHoveredIndex, setRecordHoveredIndex, onRecordClick, getRecordClassName,
 }: CardRowVirtualizerFixedProps<T>) => {
   
   const parentRef = useRef<HTMLDivElement>(null);
@@ -34,16 +35,34 @@ export const CardRowVirtualizerFixed = <T, >({
             }}
             className="jk-row jk-list-card-row"
           >
-            {new Array(cardsByRow).fill('').map((_, index) => (
-              <DataViewerCard
-                key={virtualRow.index * cardsByRow + index}
-                fake={virtualRow.index * cardsByRow + index >= data.length}
-                cardWidth={cardWidth}
-                headers={headers}
-                data={data}
-                index={virtualRow.index * cardsByRow + index}
-              />
-            ))}
+            {new Array(cardsByRow).fill('').map((_, index) => {
+              const cardIndex = virtualRow.index * cardsByRow + index;
+              return (
+                <DataViewerCard
+                  key={virtualRow.index * cardsByRow + index}
+                  fake={virtualRow.index * cardsByRow + index >= data.length}
+                  cardWidth={cardWidth}
+                  headers={headers}
+                  data={data}
+                  index={cardIndex}
+                  cardClassName={getRecordClassName?.({
+                    data,
+                    index: cardIndex,
+                    isCard: true,
+                    isStickySection: false,
+                  }) || ''}
+                  cardStyle={getRecordStyle?.({
+                    data,
+                    index: cardIndex,
+                    isCard: true,
+                    isStickySection: false,
+                  }) || {}}
+                  recordHoveredIndex={recordHoveredIndex}
+                  setRecordHoveredIndex={setRecordHoveredIndex}
+                  onCardClick={() => onRecordClick?.({ data, index: cardIndex, isCard: true })}
+                />
+              );
+            })}
           </div>
         ))}
       </div>
