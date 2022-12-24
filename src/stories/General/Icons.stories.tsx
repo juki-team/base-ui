@@ -19,7 +19,7 @@ import {
   MessageQuestionIcon,
   NoteCodeIcon,
   NoteIcon,
-  PlayCircleIcon,
+  PlayCircleIcon_,
   ReadIcon,
   TaskIcon,
   UploadIcon,
@@ -169,8 +169,8 @@ export const Icons: Story<IconProps> = ({ ...props }) => {
             <td><NoteCodeIcon {...props} /></td>
           </tr>
           <tr>
-            <td>PlayCircleIcon</td>
-            <td><PlayCircleIcon {...props} /></td>
+            <td>PlayCircleIcon_</td>
+            <td><PlayCircleIcon_ {...props} /></td>
           </tr>
           <tr>
             <td>ReadIcon</td>

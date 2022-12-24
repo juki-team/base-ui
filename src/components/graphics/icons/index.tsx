@@ -116,7 +116,7 @@ export const NoteCodeIcon = ({ size = 'regular', className = '', ...props }: Ico
   );
 };
 
-export const PlayCircleIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
+export const PlayCircleIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
     <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><PlayCircle /></span>
   );

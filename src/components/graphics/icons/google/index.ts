@@ -53,3 +53,7 @@ export * from './AssignmentIcon';
 export * from './DemographyIcon';
 export * from './GroupAddIcon';
 export * from './GroupIcon';
+export * from './PlayCircleIcon';
+export * from './StopCircleIcon';
+export * from './SettingsAlertIcon';
+export * from './SettingsSuggestIcon';
