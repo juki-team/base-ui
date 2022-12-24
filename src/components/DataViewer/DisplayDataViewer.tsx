@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../constants';
 import { classNames } from '../../helpers';
 import { useInterval, usePrevious } from '../../hooks';
-import { LoaderLayer, TableHeadersType } from '../index';
+import { LoaderLayer, TableHeadersType, useJukiBase } from '../index';
 import { CardRowVirtualizerFixed } from './CardList';
 import { DataViewerToolbar } from './DataViewerToolbar';
 import {
@@ -85,8 +85,14 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     headerWidths,
   ]);
   const [recordHoveredIndex, setRecordHoveredIndex] = useState<number | null>(null);
+  const { viewPortSize } = useJukiBase();
+  const onColumn = viewPortSize !== 'sm';
+  
   return (
-    <div className="jk-data-viewer-content">
+    <div
+      className="jk-data-viewer-content"
+      style={{ '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px' } as CSSProperties}
+    >
       <DataViewerToolbar
         setViewMode={setViewMode}
         extraNodes={extraNodes || []}

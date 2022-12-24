@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { useState } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
 import { FilterListIcon, LoadingIcon, MenuIcon, ReloadIcon, UnorderedListIcon, ViewModuleIcon } from '../graphics';
 import { Popover } from '../Popover';
@@ -35,7 +35,6 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   return (
     <div
       className={classNames('jk-data-viewer-toolbar jk-border-radius-inline jk-row space-between nowrap', { 'jk-shadow': viewMode === 'cards' }, viewMode)}
-      style={{ '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px' } as CSSProperties}
     >
       <FilterDrawer
         isOpen={filterDrawer}
