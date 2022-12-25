@@ -1,4 +1,5 @@
 import { cpp } from '@codemirror/lang-cpp';
+import { html } from '@codemirror/lang-html';
 import { java } from '@codemirror/lang-java';
 import { javascript } from '@codemirror/lang-javascript';
 import { json } from '@codemirror/lang-json';
@@ -44,6 +45,9 @@ export const CodeEditor = ({
     case ProgrammingLanguage.PYTHON:
     case ProgrammingLanguage.PYTHON3:
       extensions.push(python());
+      break;
+    case ProgrammingLanguage.HTML:
+      extensions.push(html({ autoCloseTags: true, matchClosingTags: true }));
       break;
     case ProgrammingLanguage.TEXT:
     default:
