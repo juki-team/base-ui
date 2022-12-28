@@ -1,10 +1,8 @@
-import { NotificationType } from '@juki-team/base-ui';
-import { T } from 'components';
-import React from 'react';
-import { ContentsResponseType, ErrorResponseType } from 'types';
-import { ContentResponseType } from '../types';
+import { ContentResponseType, ContentsResponseType, ErrorResponseType } from '@juki-team/commons';
+import React, { ReactNode } from 'react';
+import { NewNotificationType, NotificationType, T } from '../components';
 
-export const notifyError = (response: ErrorResponseType, addErrorNotification) => {
+export const notifyError = (response: ErrorResponseType, addErrorNotification: (message: ReactNode) => void) => {
   addErrorNotification(
     <div className="jk-col stretch" style={{ width: '100%' }}>
       <span className="tt-se"><T>{response.message}</T></span>
@@ -17,7 +15,7 @@ export const notifyError = (response: ErrorResponseType, addErrorNotification) =
   );
 };
 
-export const notifySuccess = (response: ContentResponseType<any> | ContentsResponseType<any>, addSuccessNotification) => {
+export const notifySuccess = (response: ContentResponseType<any> | ContentsResponseType<any>, addSuccessNotification: (message: ReactNode) => void) => {
   addSuccessNotification(
     <div className="jk-col stretch" style={{ width: '100%' }}>
       <span className="tt-se"><T>{response.message}</T></span>
@@ -25,7 +23,7 @@ export const notifySuccess = (response: ContentResponseType<any> | ContentsRespo
   );
 };
 
-export const notifyResponse = (response: ErrorResponseType | ContentResponseType<any> | ContentsResponseType<any>, addNotification): response is ContentResponseType<any> => {
+export const notifyResponse = (response: ErrorResponseType | ContentResponseType<any> | ContentsResponseType<any>, addNotification: (props: NewNotificationType) => void): response is ContentResponseType<any> => {
   if (response.success === false) {
     notifyError(response, (message) => addNotification({ type: NotificationType.ERROR, message }));
   }
