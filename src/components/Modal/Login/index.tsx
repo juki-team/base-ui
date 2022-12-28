@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 import GoogleLogin from 'react-google-login';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { classNames } from '../../../helpers';
 import { ButtonLoader, Input, InputPassword, JukiLaptopImage, SetLoaderStatusOnClickType, T, useT } from '../../index';
 import { ForgotPasswordModal } from '../ForgotPassword';
 import { SplitModal } from '../SplitModal';
@@ -23,6 +24,7 @@ export const LoginModal = ({
   loginWithGoogle,
   onForgotPassword,
   reactAppGoogleClientId,
+  highlightForgotPassword,
 }: LoginModalProps) => {
   
   const { handleSubmit, formState: { isValid, errors }, register } = useForm<LoginInputType>({
@@ -44,7 +46,7 @@ export const LoginModal = ({
         />
       )}
       <SplitModal
-        isOpen={true}
+        isOpen={!(!!onForgotPassword && openForgotPasswordModal)}
         onClose={onCancel}
         className="modal-login"
         title={
@@ -81,7 +83,7 @@ export const LoginModal = ({
               <div className="jk-form-item">
                 {onForgotPassword && (
                   <p className="link" onClick={() => setOpenForgotPasswordModal(true)}>
-                    <T>Forgot password?</T>
+                    <T className={classNames('forgot-password-label', { 'fw-br': !!highlightForgotPassword })}>forgot password?</T>
                   </p>
                 )}
                 <label>
@@ -92,7 +94,7 @@ export const LoginModal = ({
               </div>
               <div>
                 <p className="label">
-                  <T>Not a member?</T>,&nbsp;
+                  <T className="tt-se">not a member?</T>,&nbsp;
                   <span className="link" onClick={onSignUpButton}><T>sign up now</T></span>
                 </p>
               </div>

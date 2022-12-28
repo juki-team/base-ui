@@ -99,16 +99,6 @@
   }
 }
 
-.modal-forgot-password {
-  p:first-letter {
-    text-transform: uppercase;
-  }
-  
-  .jk-side-main {
-    align-items: flex-start;
-  }
-}
-
 .modal-alert {
   .jk-modal-body {
     display: flex;
@@ -158,5 +148,9 @@
 .modal-login, .modal-sign-up {
   .split-modal > .jk-side-main > div {
     padding: var(--pad-t) 0;
+  }
+  
+  .forgot-password-label {
+    @include transition(font-weight);
   }
 }

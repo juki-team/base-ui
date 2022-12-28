@@ -12,4 +12,5 @@ export interface LoginModalProps extends BasicModalProps {
   onSubmit: (data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => void,
   loginWithGoogle?: (setStatus?: SetLoaderStatusOnClickType) => (response: any) => void,
   reactAppGoogleClientId?: string,
+  highlightForgotPassword?: boolean,
 }

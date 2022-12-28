@@ -14,7 +14,11 @@ import {
 
 export default {
   title: 'Components/Feedback/Modals',
-  component: SignUpModal,
+  // component: SignUpModal,
+  component: LoginModal,
+  argTypes: {
+    highlightForgotPassword: { control: { type: 'boolean' } },
+  }
 };
 
 configureActions({
@@ -82,8 +86,9 @@ const LoginWithGoogleComponent: Story<LoginModalProps> = () => (
 export const LoginWithGoogle = LoginWithGoogleComponent.bind({});
 LoginWithGoogle.args = {};
 
-export const LoginWithoutGoogle = () => (
+export const LoginWithoutGoogle = ({...props}) => (
   <WrapLogin
+    {...props}
     onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setStatus })}
     onCancel={() => action('onCancel')}
     onSignUpButton={() => action('onSignUpButton')}
