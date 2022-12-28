@@ -1,6 +1,6 @@
-import { ContentResponseType, ContentsResponseType, ErrorResponseType } from '@juki-team/commons';
+import { ContentResponseType, ContentsResponseType, ErrorResponseType, Status } from '@juki-team/commons';
 import React, { ReactNode } from 'react';
-import { NewNotificationType, NotificationType, T } from '../components';
+import { NewNotificationType, NotificationType, SetLoaderStatusOnClickType, T } from '../components';
 
 export const notifyError = (response: ErrorResponseType, addErrorNotification: (message: ReactNode) => void) => {
   addErrorNotification(
@@ -23,12 +23,18 @@ export const notifySuccess = (response: ContentResponseType<any> | ContentsRespo
   );
 };
 
-export const notifyResponse = (response: ErrorResponseType | ContentResponseType<any> | ContentsResponseType<any>, addNotification: (props: NewNotificationType) => void): response is ContentResponseType<any> => {
+export const notifyResponse = <T, >(
+  response: ErrorResponseType | ContentResponseType<T> | ContentsResponseType<T>,
+  addNotification: (props: NewNotificationType) => void,
+  setLoaderStatus?: SetLoaderStatusOnClickType,
+): response is ContentResponseType<T> | ContentsResponseType<T> => {
   if (response.success === false) {
     notifyError(response, (message) => addNotification({ type: NotificationType.ERROR, message }));
+    setLoaderStatus?.(Status.ERROR);
   }
   if (response.success) {
     notifySuccess(response, (message) => addNotification({ type: NotificationType.SUCCESS, message }));
+    setLoaderStatus?.(Status.SUCCESS);
   }
   return !!response.success;
 };
