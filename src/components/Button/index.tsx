@@ -8,7 +8,7 @@ const ButtonComponent = ({
   submit = false,
   type = 'primary',
   className = '',
-  block = false,
+  extend = false,
   icon,
   children,
   loading = false,
@@ -22,7 +22,7 @@ const ButtonComponent = ({
       ref={ref}
       type={submit ? 'submit' : 'button'}
       className={classNames(className, `jk-button-${type} jk-border-radius-inline`, size, {
-        block,
+        extend,
         'only-icon': !children,
         disabled,
         icon: !!(icon || loading),

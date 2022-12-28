@@ -7,7 +7,7 @@ const InputComponent = <T extends string | number | FileList, >({
   onChange,
   onBlur,
   type = 'text',
-  block,
+  extend,
   value,
   register,
   disabled,
@@ -32,7 +32,7 @@ const InputComponent = <T extends string | number | FileList, >({
       value={(type === 'file' || type === 'files') ? undefined : value as string | number}
       size={size === 'auto' ? length : size}
       disabled={disabled}
-      className={classNames(className || '', `jk-input-${type} jk-border-radius-inline`, { block: !!block, disabled: !!disabled })}
+      className={classNames(className || '', `jk-input-${type} jk-border-radius-inline`, { extend: !!extend, disabled: !!disabled })}
       onChange={registerOnChange ? registerOnChange : (type === 'file' || type === 'files') ? ({ target: { files } }) => onChange?.(files as T) : ({ target: { value } }) => {
         const newValue = (type === 'number' ? +value : value) as T;
         onChange?.(newValue);

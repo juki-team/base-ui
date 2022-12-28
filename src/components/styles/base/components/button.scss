@@ -117,16 +117,8 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     cursor: not-allowed;
   }
   
-  &.block {
+  &.extend {
     width: 100%;
-  }
-  
-  + button[class*="jk-button-"]:not(.block), + button[class^="jk-button-"]:not(.block) {
-    //margin-left: var(--pad-xt);
-  }
-  
-  + button[class*="jk-button-"].block, + button[class^="jk-button-"].block {
-    //margin-top: var(--pad-xt);
   }
   
   &.error {

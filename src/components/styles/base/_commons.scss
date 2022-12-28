@@ -16,6 +16,8 @@
   background: var(--t-color-shadow);
 }
 
+// color
+
 .cr-g1 { color: var(--t-color-gray-1); }
 
 .cr-g2 { color: var(--t-color-gray-2); }
@@ -52,6 +54,8 @@
 
 .cr-ad { color: var(--t-color-accent-dark); }
 
+// background-color
+
 .bc-g1 { background-color: var(--t-color-gray-1); }
 
 .bc-g2 { background-color: var(--t-color-gray-2); }
@@ -87,6 +91,44 @@
 .bc-at { background-color: var(--t-color-accent); }
 
 .bc-ad { background-color: var(--t-color-accent-dark); }
+
+// border
+
+.br-g1 { border: 1px solid var(--t-color-gray-1); }
+
+.br-g2 { border: 1px solid var(--t-color-gray-2); }
+
+.br-g3 { border: 1px solid var(--t-color-gray-3); }
+
+.br-g4 { border: 1px solid var(--t-color-gray-4); }
+
+.br-g5 { border: 1px solid var(--t-color-gray-5); }
+
+.br-g6 { border: 1px solid var(--t-color-gray-6); }
+
+.br-we { border: 1px solid var(--t-color-white); }
+
+.br-io { border: 1px solid var(--t-color-info); }
+
+.br-ss { border: 1px solid var(--t-color-success); }
+
+.br-wg { border: 1px solid var(--t-color-warning); }
+
+.br-er { border: 1px solid var(--t-color-error); }
+
+.br-pl { border: 1px solid var(--t-color-primary-light); }
+
+.br-py { border: 1px solid var(--t-color-primary); }
+
+.br-pd { border: 1px solid var(--t-color-primary-dark); }
+
+.br-sy { border: 1px solid var(--t-color-secondary); }
+
+.br-al { border: 1px solid var(--t-color-accent-light); }
+
+.br-at { border: 1px solid var(--t-color-accent); }
+
+.br-ad { border: 1px solid var(--t-color-accent-dark); }
 
 .cursor-pointer { cursor: pointer; }
 
@@ -205,25 +247,6 @@
   }
   
   @include transition(opacity);
-}
-
-.text-stdout, .text-stderr {
-  overflow: auto;
-  white-space: pre;
-  font-family: monospace;
-}
-
-.text-stdout {
-  background-color: rgba(var(--t-color-gray-2-rgb), 0.1);
-  padding: 3px 0;
-}
-
-.text-stderr {
-  background-color: rgba(var(--t-color-error-rgb), 0.1);
-  color: var(--t-color-error);
-  font-size: var(--text-t-size);
-  line-height: var(--text-t-size);
-  padding: 5px 0;
 }
 
 .wb-bw { word-break: break-word; }

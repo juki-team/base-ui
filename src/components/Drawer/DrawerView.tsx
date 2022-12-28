@@ -11,18 +11,18 @@ export const DrawerView = ({
   position = 'right',
   isOpen,
   onClose,
-  closeOnEscape,
-  closeOnOutside,
+  closeWhenKeyEscape,
+  closeWhenClickOutside,
   closeIcon,
 }: PropsWithChildren<DrawerViewProps>) => {
   
   const drawerLayoutRef = useRef(null);
   const { height = 0, width = 0 } = useResizeDetector({ targetRef: drawerLayoutRef });
-  const [firstRender, setFirstRender] = useState(isOpen);
+  const [render, setRender] = useState(0);
   useEffect(() => {
-    const timeout = setTimeout(() => setFirstRender(true), 400);
-    return () => clearTimeout(timeout);
-  }, [firstRender]);
+    setTimeout(() => setRender(1), 400); // to load html components
+    setTimeout(() => setRender(2), 800);
+  }, []);
   
   const close = () => {
     if (isOpen) {
@@ -31,20 +31,21 @@ export const DrawerView = ({
   };
   
   useKeyPress((event: KeyboardEvent) => {
-    if (closeOnEscape && isOpen && event.code === 'Escape') {
+    if (closeWhenKeyEscape && isOpen && event.code === 'Escape') {
       close();
     }
   });
   
   return (
     <Portal>
-      {isOpen && <div className="jk-drawer-overlay" onClick={closeOnOutside ? close : undefined} />}
+      {isOpen && <div className="jk-drawer-overlay" onClick={closeWhenClickOutside ? close : undefined} />}
       <div
         ref={drawerLayoutRef}
         className={classNames('jk-drawer-layout', position, { open: isOpen })}
         style={{
-          opacity: firstRender ? '1' : '0',
-          transition: firstRender ? 'right 0.4s, left 0.4s, top 0.4s, bottom 0.4s' : '',
+          zIndex: (render < 2 && !isOpen) ? -1 : undefined,
+          opacity: (render < 2 && !isOpen) ? 0 : undefined,
+          transition: 'right 400ms, left 400ms, top 400ms, bottom 400ms',
           '--height-jk-drawer-layout': (height + SCROLL_WIDTH * 2) + 'px',
           '--width-jk-drawer-layout': (width + SCROLL_WIDTH * 2) + 'px',
         } as CSSProperties}

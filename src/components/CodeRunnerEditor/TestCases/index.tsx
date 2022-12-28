@@ -106,7 +106,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
             <LogInfo testCase={testCases[testCaseKey]} timeLimit={timeLimit} memoryLimit={memoryLimit} />
           )}
           <div className="content-log">
-            <span className="text-stdout">{testCases[testCaseKey]?.out}</span>
+            <span className="jk-text-stdout">{testCases[testCaseKey]?.out}</span>
           </div>
         </div>
       ),
@@ -124,7 +124,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
       body: (
         <div>
           <LogInfo testCase={errorData} timeLimit={timeLimit} memoryLimit={memoryLimit} />
-          <span className="text-stdout">{errorData?.out}</span>
+          <span className="jk-text-stdout">{errorData?.out}</span>
         </div>
       ),
     });

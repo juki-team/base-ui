@@ -13,7 +13,7 @@ export interface InputCommonsProps<T> {
   disabled?: boolean,
   // offline?: boolean
   className?: string,
-  block?: boolean,
+  extend?: boolean,
   onClick?: () => void,
   autoFocus?: boolean,
   placeholder?: string,
@@ -60,7 +60,7 @@ export type InputPasswordProps<T> = Omit<InputProps<T>, 'type'>
 export interface InputSubmitProps {
   name?: string,
   className?: string,
-  block?: boolean,
+  extend?: boolean,
   type?: ButtonType,
   disabled?: boolean,
   value?: string,
@@ -109,7 +109,7 @@ export interface MultiSelectProps<T, U extends ReactNode, V extends ReactNode> {
   onChangeShowOptions?: (value: boolean) => void,
   disabled?: boolean,
   optionsPlacement?: PlacementType,
-  block?: boolean,
+  extend?: boolean,
 }
 
 export interface SelectSearchableProps<T, U extends ReactNode, V extends ReactNode> extends MultiSelectProps<T, U, V> {

@@ -4,8 +4,8 @@ export interface DrawerViewProps {
   position?: 'top' | 'right' | 'bottom' | 'left',
   isOpen: boolean,
   onClose?: (isOpen: boolean) => void,
-  closeOnEscape?: boolean,
-  closeOnOutside?: boolean,
+  closeWhenKeyEscape?: boolean,
+  closeWhenClickOutside?: boolean,
   // closeIcon?: false | ReactNodeOrFunctionType, // no working because true is a ReactNode
   closeIcon?: ReactNodeOrFunctionP1Type<{ isOpen: boolean, close: () => void }>,
 }

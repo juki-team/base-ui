@@ -67,7 +67,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
   const { t } = useT();
   
   return (
-    <DrawerView isOpen={isOpen} onClose={onClose} closeOnEscape closeOnOutside>
+    <DrawerView isOpen={isOpen} onClose={onClose} closeWhenKeyEscape closeWhenClickOutside>
       <div className="jk-drawer-filters">
         <div className="jk-row left gap title cr-py">
           <div className={classNames({ active: true }, 'jk-row')}><FilterListIcon /></div>
@@ -84,7 +84,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                     <Input
                       onChange={newValue => setValues(prevState => ({ ...prevState, [columnIndex]: newValue }))}
                       value={(values[columnIndex] || '') as string}
-                      block
+                      extend
                       placeholder={t('empty field')}
                     />
                   </div>

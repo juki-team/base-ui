@@ -230,7 +230,7 @@ export const MultiSelect = () => {
         }))}
         selectedOptions={values}
         onChange={options => setValues(options)}
-        block
+        extend
       />
       Text 3 disabled
       <MultiSelectComponent
@@ -243,7 +243,7 @@ export const MultiSelect = () => {
         }))}
         selectedOptions={values}
         onChange={options => setValues(options)}
-        block
+        extend
       />
     </div>
   );
@@ -266,7 +266,7 @@ export const SelectSearchable = () => {
         }))}
         selectedOptions={values}
         onChange={options => setValues(options)}
-        block
+        extend
       />
       Searchable
       <MultiSelectSearchable
@@ -280,7 +280,7 @@ export const SelectSearchable = () => {
         }))}
         selectedOptions={values}
         onChange={options => setValues(options)}
-        block
+        extend
         onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
       />
       <MultiSelectSearchable
@@ -294,7 +294,7 @@ export const SelectSearchable = () => {
         }))}
         selectedOptions={values}
         onChange={options => setValues(options)}
-        block
+        extend
         onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
         multiselect={false}
       />

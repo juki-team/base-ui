@@ -60,7 +60,7 @@
         }
       }
       
-      .text-stdout, .text-stderr {
+      .jk-text-stdout, .jk-text-stderr {
         width: calc(100% - var(--pad-xs));
         height: calc(100% - var(--pad-xs));
       }

@@ -23,7 +23,7 @@ export const TableHeadFilterText = ({ onFilter, onReset, columnIndex, initialTex
         }
       }}
     >
-      <Input onChange={newValue => setValue(newValue)} value={value} block autoFocus ref={inputRef} />
+      <Input onChange={newValue => setValue(newValue)} value={value} extend autoFocus ref={inputRef} />
       <div className="jk-row right gap">
         <Button
           size="tiny"

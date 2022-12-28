@@ -205,7 +205,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-input-text, .jk-input-number, .jk-input-password, .jk-input-textarea {
-  &.block {
+  &.extend {
     width: 100%;
   }
 }
@@ -459,7 +459,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-select-layout, .jk-multi-select-layout {
   position: relative;
   
-  &.block {
+  &.extend {
     width: 100%;
   }
   

@@ -17,7 +17,7 @@ export const ForgotPasswordModal = ({ onCancel, onForgotPassword }: ForgotPasswo
             password</T>
         </p>
         <form>
-          <Input name="email" value={email} onChange={(value) => setEmail(value)} type="email" block />
+          <Input name="email" value={email} onChange={(value) => setEmail(value)} type="email" extend />
           <div className="actions">
             <ButtonLoader
               type="primary"

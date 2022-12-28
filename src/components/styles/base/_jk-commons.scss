@@ -4,16 +4,22 @@
  FLEX
  */
 
+span[class*=" jk-row"], span[class^="jk-row"], span[class*=" jk-col"], span[class^="jk-col"] {
+  display: inline-flex;
+}
+
 div[class*=" jk-row"], div[class^="jk-row"],
 section[class*=" jk-row"], section[class^="jk-row"],
 span[class*=" jk-row"], span[class^="jk-row"],
 a[class*=" jk-row"], a[class^="jk-row"],
 fieldset[class*=" jk-row"], fieldset[class^="jk-row"],
+form[class*=" jk-row"], form[class^="jk-row"],
 div[class*=" jk-col"], div[class^="jk-col"],
 section[class*=" jk-col"], section[class^="jk-col"],
 span[class*=" jk-col"], span[class^="jk-col"],
 a[class*=" jk-col"], a[class^="jk-col"],
-fieldset[class*=" jk-col"], fieldset[class^="jk-col"] {
+fieldset[class*=" jk-col"], fieldset[class^="jk-col"],
+form[class*=" jk-col"], form[class^="jk-col"] {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -38,11 +44,12 @@ fieldset[class*=" jk-col"], fieldset[class^="jk-col"] {
   &.stretch { align-items: stretch; }
 }
 
-span[class*=" jk-row"], span[class^="jk-row"], span[class*=" jk-col"], span[class^="jk-col"] {
-  display: inline-flex;
-}
-
-div[class*=" jk-row"], div[class^="jk-row"], section[class*=" jk-row"], section[class^="jk-row"], span[class*=" jk-row"], span[class^="jk-row"] {
+div[class*=" jk-row"], div[class^="jk-row"],
+section[class*=" jk-row"], section[class^="jk-row"],
+span[class*=" jk-row"], span[class^="jk-row"],
+a[class*=" jk-row"], a[class^="jk-row"],
+fieldset[class*=" jk-row"], fieldset[class^="jk-row"],
+form[class*=" jk-row"], form[class^="jk-row"] {
   &.extend { width: 100% !important; }
   
   &.left { justify-content: flex-start; }
@@ -54,7 +61,12 @@ div[class*=" jk-row"], div[class^="jk-row"], section[class*=" jk-row"], section[
   &.bottom { align-content: end; }
 }
 
-div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[class^="jk-col"], span[class*=" jk-col"], span[class^="jk-col"] {
+div[class*=" jk-col"], div[class^="jk-col"],
+section[class*=" jk-col"], section[class^="jk-col"],
+span[class*=" jk-col"], span[class^="jk-col"],
+a[class*=" jk-col"], a[class^="jk-col"],
+fieldset[class*=" jk-col"], fieldset[class^="jk-col"],
+form[class*=" jk-col"], form[class^="jk-col"] {
   flex-direction: column;
   
   &.extend { height: 100% !important; }
@@ -208,4 +220,53 @@ div[class*=" jk-col"], div[class^="jk-col"], section[class*=" jk-col"], section[
   &.gray-5 { background-color: var(--t-color-gray-5); color: var(--t-color-black-2); }
   
   &.gray-6 { background-color: var(--t-color-gray-6); color: var(--t-color-black-2); }
+}
+
+.jk-text-stdout, .jk-text-stderr {
+  overflow: auto;
+  white-space: pre;
+  font-family: monospace;
+}
+
+.jk-text-stdout {
+  background-color: rgba(var(--t-color-gray-2-rgb), 0.1);
+  padding: 3px 0;
+}
+
+.jk-text-stderr {
+  background-color: rgba(var(--t-color-error-rgb), 0.1);
+  color: var(--t-color-error);
+  font-size: var(--text-t-size);
+  line-height: var(--text-t-size);
+  padding: 5px 0;
+}
+
+.jk-table-inline-header, .jk-table-inline-row {
+  > div {
+    padding: 0 var(--pad-xt);
+  }
+}
+
+.jk-table-inline-header {
+  box-sizing: border-box;
+  border: 1px solid var(--t-color-gray-5);
+  border-radius: var(--border-radius-inline) var(--border-radius-inline) 0 0;
+  color: var(--t-color-primary);
+  font-weight: var(--weight-bold);
+  text-transform: uppercase;
+}
+
+.jk-table-inline-row {
+  padding: var(--pad-xt) 0;
+  box-sizing: border-box;
+  
+  &:not(button) {
+    border-bottom: 1px solid var(--t-color-gray-5);
+    border-left: 1px solid var(--t-color-gray-5);
+    border-right: 1px solid var(--t-color-gray-5);
+  }
+  
+  // for buttons
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

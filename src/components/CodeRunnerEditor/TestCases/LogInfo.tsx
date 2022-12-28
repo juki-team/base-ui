@@ -33,7 +33,7 @@ export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
       </div>
       {testCase?.err && (
         <div className="content-log">
-          <span className="cr-we text-stderr">{testCase?.err}</span>
+          <span className="cr-we jk-text-stderr">{testCase?.err}</span>
         </div>
       )}
     </>

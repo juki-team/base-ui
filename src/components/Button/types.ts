@@ -11,7 +11,7 @@ type ButtonBasicProps = {
   // Icon?: Icons,
   icon?: ReactNode,
   disabled?: boolean,
-  block?: boolean,
+  extend?: boolean,
   submit?: boolean,
   size?: ButtonSizeType,
   style?: CSSProperties,

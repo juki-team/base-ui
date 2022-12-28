@@ -30,7 +30,7 @@ export const ColorPicker = ({ color, children, onChange }: ColorPickerProps) => 
               onClose(0);
             }}
             style={{ backgroundColor: newColor?.hex, borderColor: newColor?.hex }}
-            block
+            extend
             size="small"
           >
             <T>pick</T>

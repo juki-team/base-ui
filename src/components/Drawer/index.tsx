@@ -35,8 +35,8 @@ export const Drawer = ({
       <DrawerView
         isOpen={isOpen}
         position={position}
-        closeOnEscape={closeOnEscape}
-        closeOnOutside={closeOnOutside}
+        closeWhenKeyEscape={closeOnEscape}
+        closeWhenClickOutside={closeOnOutside}
         onClose={onClose}
         closeIcon={closeIcon}
       >

@@ -95,7 +95,7 @@ export const Header = ({
           <ButtonLoader
             size="tiny"
             type={(withLabels || twoRows) ? 'primary' : 'text'}
-            block={twoRows}
+            extend={twoRows}
             icon={<PlayArrowIcon />}
             onClick={handleRunCode}
           >

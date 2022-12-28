@@ -7,7 +7,7 @@ import { SettingsModalProps } from '../types';
 
 export const SettingsModal = ({ onClose, isOpen, onChange, tabSize, fontSize }: SettingsModalProps) => {
   return (
-    <Modal className="editor-settings-modal jk-pad-lg" isOpen={isOpen} onClose={onClose} closeIcon shouldCloseOnOverlayClick>
+    <Modal className="editor-settings-modal jk-pad-lg" isOpen={isOpen} onClose={onClose} closeIcon closeWhenClickOutside>
       <div className="jk-pad-md jk-col stretch gap">
         <h6><T>code editor settings</T></h6>
         <div className="jk-row left gap">
