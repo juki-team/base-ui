@@ -146,13 +146,14 @@ export const JukiBaseUiProvider = ({
 
 export const useJukiBase = () => {
   
-  const { isPageVisible, isPageFocus, viewPortSize, user, setUser, userIsLoading, mutate } = useContext(BaseContext);
+  const { isPageVisible, isPageFocus, viewPortSize, user, setUser, userIsLoading, mutate, company } = useContext(BaseContext);
   
   return {
     isPageVisible,
     isPageFocus,
     viewPortSize,
     user,
+    company,
     setUser,
     userIsLoading,
     mutatePing: mutate,
