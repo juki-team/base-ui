@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import GoogleLogin from 'react-google-login';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX, LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX } from '../../../constants';
 import {
   ButtonLoader,
   Input,
@@ -32,14 +33,13 @@ const signUpSchema = yup.object().shape({
     .oneOf([true], 'you must accept the terms of service'),
   nickname: yup.string()
     .required('cannot be empty')
-    .matches(/^[a-zA-Z0-9\-_]+$/, 'only alphanumeric characters is valid')
+    .matches(ALPHANUMERIC_DASH_UNDERSCORE_REGEX, 'only alphanumeric characters is valid')
     .min(3, 'must be at least 3 characters'),
   password: yup.string()
     .required('cannot be empty')
     .min(8, 'must be at least 8 characters')
-    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?"()-_]{8,}$/,
+    .matches(LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX,
       'must have at least one uppercase, one lowercase letter and one number'),
-  // .oneOf([yup.ref('passwordConfirmation'), ''], 'both passwords must match'),
   passwordConfirmation: yup.string()
     .required('cannot be empty')
     .oneOf([yup.ref('password'), ''], 'both passwords must match'),
