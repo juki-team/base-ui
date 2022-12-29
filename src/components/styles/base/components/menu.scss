@@ -192,6 +192,10 @@
           @include hg { padding: 0 var(--pad-xl); }
           @include sm { flex-direction: column; }
           
+          &:not(.selected):hover {
+            background: var(--t-color-shadow-darkest) !important;
+          }
+          
           &.selected {
             font-weight: var(--weight-bold);
             @include sm {
