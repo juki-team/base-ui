@@ -8,7 +8,10 @@
   
   @include defineColor(--t-color-primary-text, #FFFFFF);
   
+  @include defineColor(--t-color-secondary-dark, #CFA03C);
   @include defineColor(--t-color-secondary, #EDB745);
+  @include defineColor(--t-color-secondary-light, #EFC05C);
+  
   
   @include defineColor(--t-color-secondary-text, #FFFFFF);
   
@@ -55,7 +58,9 @@
   
   @include defineColor(--t-color-primary-text, #E6E6E6);
   
+  @include defineColor(--t-color-secondary-dark, #B2B4B4);
   @include defineColor(--t-color-secondary, #CBCECE);
+  @include defineColor(--t-color-secondary-light, #D2D4D4);
   
   @include defineColor(--t-color-secondary-text, #1A1A1A);
   

@@ -144,11 +144,13 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   color: var(--t-color-primary-text);
   
   &:not(.disabled):hover {
-    background-color: rgba(var(--t-color-primary-rgb), 0.90);
+    //background-color: rgba(var(--t-color-primary-rgb), 0.90);
+    background-color: var(--t-color-primary-light);
   }
   
   &:not(.disabled):active, &:not(.disabled):focus {
-    background-color: rgba(var(--t-color-primary-rgb), 0.80);
+    //background-color: rgba(var(--t-color-primary-rgb), 0.80);
+    background-color: var(--t-color-primary-light);
   }
 }
 
@@ -158,11 +160,13 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   color: var(--t-color-secondary-text);
   
   &:not(.disabled):hover {
-    background-color: rgba(var(--t-color-secondary-rgb), 0.90);
+    //background-color: rgba(var(--t-color-secondary-rgb), 0.90);
+    background-color: var(--t-color-secondary-light);
   }
   
   &:not(.disabled):active, &:not(.disabled):focus {
-    background-color: rgba(var(--t-color-secondary-rgb), 0.80);
+    //background-color: rgba(var(--t-color-secondary-rgb), 0.80);
+    background-color: var(--t-color-secondary-light);
   }
 }
 
