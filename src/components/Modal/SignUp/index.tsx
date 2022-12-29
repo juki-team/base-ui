@@ -33,7 +33,7 @@ const signUpSchema = yup.object().shape({
     .oneOf([true], 'you must accept the terms of service'),
   nickname: yup.string()
     .required('cannot be empty')
-    .matches(ALPHANUMERIC_DASH_UNDERSCORE_REGEX, 'only alphanumeric characters is valid')
+    .matches(ALPHANUMERIC_DASH_UNDERSCORE_REGEX, 'only alphanumeric characters or dash or underscore is valid')
     .min(3, 'must be at least 3 characters'),
   password: yup.string()
     .required('cannot be empty')
@@ -85,7 +85,7 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
         )}
         <form onSubmit={handleSubmit((data: SignUpInputType) => onSubmit(data, setLoaderRef.current!))}>
           <div className="jk-col gap stretch">
-            <div className="jk-row gap block">
+            <div className="jk-row block">
               <div className="jk-form-item">
                 <label>
                   <T>first name</T>

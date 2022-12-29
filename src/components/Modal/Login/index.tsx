@@ -72,7 +72,7 @@ export const LoginModal = ({
             </>
           )}
           <form onSubmit={handleSubmit((data: LoginInputType) => onSubmit(data, setLoaderRef.current!))}>
-            <div className="jk-col gap stretch">
+            <div className="jk-col stretch">
               <div className="jk-form-item">
                 <label>
                   <T>nickname</T>
@@ -83,7 +83,8 @@ export const LoginModal = ({
               <div className="jk-form-item">
                 {onForgotPassword && (
                   <p className="link" onClick={() => setOpenForgotPasswordModal(true)}>
-                    <T className={classNames('forgot-password-label', { 'fw-br': !!highlightForgotPassword })}>forgot password?</T>
+                    <T className={classNames('forgot-password-label', { 'fw-br': !!highlightForgotPassword })}>forgot
+                      password?</T>
                   </p>
                 )}
                 <label>
@@ -92,24 +93,26 @@ export const LoginModal = ({
                 </label>
                 <p><T>{errors?.password?.message || ''}</T></p>
               </div>
-              <div>
-                <p className="label">
-                  <T className="tt-se">not a member?</T>,&nbsp;
-                  <span className="link" onClick={onSignUpButton}><T>sign up now</T></span>
-                </p>
-              </div>
-              <div className="jk-row gap right">
-                <ButtonLoader type="text" onClick={onCancel}>
-                  <T>cancel</T>
-                </ButtonLoader>
-                <ButtonLoader
-                  type="primary"
-                  disabled={!isValid}
-                  setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-                  submit
-                >
-                  <T>login</T>
-                </ButtonLoader>
+              <div className="jk-col gap stretch">
+                <div>
+                  <p className="label">
+                    <T className="tt-se">not a member?</T>,&nbsp;
+                    <span className="link" onClick={onSignUpButton}><T>sign up now</T></span>
+                  </p>
+                </div>
+                <div className="jk-row gap right">
+                  <ButtonLoader type="text" onClick={onCancel}>
+                    <T>cancel</T>
+                  </ButtonLoader>
+                  <ButtonLoader
+                    type="primary"
+                    disabled={!isValid}
+                    setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
+                    submit
+                  >
+                    <T>login</T>
+                  </ButtonLoader>
+                </div>
               </div>
             </div>
           </form>

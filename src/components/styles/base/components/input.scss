@@ -101,7 +101,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   > p:last-child {
     color: var(--t-color-error);
     font-size: var(--text-s-size);
-    height: calc(var(--pad-xs));
+    height: calc(var(--pad-xs) + var(--pad-xs));
     line-height: var(--pad-xs);
     
     &::first-letter {
