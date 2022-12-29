@@ -1,5 +1,8 @@
 import { Children, cloneElement, ReactNode } from 'react';
 import { SearchParamsObjectType } from '../components';
+import { settings } from '../config';
+import { publishNote } from '../helpers/utils';
+import { authorizedRequest } from '../services';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerActionsType } from '../types';
 
 export const getTextContent = (elem: ReactNode): string => {
@@ -64,10 +67,20 @@ export async function downloadBlobAsFile(data: Blob, fileName: string = 'file') 
   downloadLink(blobURL, fileName);
 }
 
-export const downloadCsvAsFile = (data: (string | number)[][], fileName: string = 'file.csv') => {
+export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName: string = 'file.csv') => {
   const blob = new Blob([data.map(e => e.join(',')).join('\n')], { type: 'text/csv' });
   const blobURL = window?.URL.createObjectURL(blob);
   downloadLink(blobURL, fileName);
+};
+
+export const downloadJukiMarkdownAdPdf = async (type: string, source: string, fileName: string) => {
+  const url = await publishNote(source);
+  if (url) {
+    const result = await authorizedRequest(settings.JUKI_API.GET_PUBLIC_NOTE_PDF(url)[0], { responseType: 'blob' });
+    await downloadBlobAsFile(result, fileName);
+  } else {
+    throw new Error('no url generated');
+  }
 };
 
 export const renderChildrenWithProps = (children: any, props: any) => {
