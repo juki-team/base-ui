@@ -193,7 +193,7 @@
           @include sm { flex-direction: column; }
           
           &:not(.selected):hover {
-            background: var(--t-color-shadow-darkest) !important;
+            background: var(--t-color-shadow-light) !important;
           }
           
           &.selected {
