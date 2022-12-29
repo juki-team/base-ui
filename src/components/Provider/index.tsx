@@ -1,4 +1,12 @@
-import { ContentResponseType, Language, Theme, USER_GUEST, UserPingResponseDTO, UserState } from '@juki-team/commons';
+import {
+  CompanyPingType,
+  ContentResponseType,
+  Language,
+  PingResponseDTO,
+  Theme,
+  USER_GUEST,
+  UserPingType,
+} from '@juki-team/commons';
 import React, { createContext, Dispatch, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from 'react';
 import { KeyedMutator } from 'swr';
 import { settings } from '../../config';
@@ -12,8 +20,9 @@ const BaseContext = createContext<{
   isPageVisible: boolean,
   isPageFocus: boolean,
   viewPortSize: 'hg' | 'lg' | 'md' | 'sm',
-  user: UserState,
-  setUser: Dispatch<SetStateAction<UserState>>,
+  user: UserPingType & { isLogged: boolean },
+  company: CompanyPingType,
+  setUser: Dispatch<SetStateAction<UserPingType & { isLogged: boolean }>>,
   userIsLoading: boolean,
   mutate: KeyedMutator<any>,
 }>({
@@ -21,6 +30,7 @@ const BaseContext = createContext<{
   isPageFocus: true,
   viewPortSize: 'sm',
   user: USER_GUEST,
+  company: { name: '', imageUrl: '', emailContact: '' },
   setUser: () => null,
   userIsLoading: true,
   mutate: null as unknown as KeyedMutator<any>,
@@ -32,8 +42,9 @@ const useUser = () => {
     data,
     isLoading,
     mutate,
-  } = useFetcher<ContentResponseType<UserPingResponseDTO>>(...settings.JUKI_API.PING());
-  const [user, setUser] = useState<UserState>(USER_GUEST);
+  } = useFetcher<ContentResponseType<PingResponseDTO>>(...settings.JUKI_API.PING());
+  const [user, setUser] = useState<UserPingType & { isLogged: boolean }>(USER_GUEST);
+  const [company, setCompany] = useState<CompanyPingType>({ emailContact: '', imageUrl: '', name: '' });
   const [userIsLoading, setUserIsLoading] = useState(true);
   
   useEffect(() => {
@@ -52,13 +63,14 @@ const useUser = () => {
       preferredTheme = Theme.LIGHT;
     }
     if (data?.success) {
-      const isLogged = !!data?.content.nickname;
+      setCompany(data.content.company);
+      const isLogged = !!data?.content.user.nickname;
       if (isLogged) {
-        setUser({ ...data?.content, isLogged });
+        setUser({ ...data?.content.user, isLogged });
       } else {
-        setUser({ ...data?.content, isLogged, settings: { preferredTheme, preferredLanguage } });
-        localStorage.setItem(settings.TOKEN_NAME, data?.content.sessionId);
+        setUser({ ...data?.content.user, isLogged, settings: { preferredTheme, preferredLanguage } });
       }
+      localStorage.setItem(settings.TOKEN_NAME, data?.content.user.sessionId);
     } else {
       setUser({ ...USER_GUEST, settings: { preferredTheme, preferredLanguage } });
     }
@@ -66,6 +78,7 @@ const useUser = () => {
   
   return {
     user,
+    company,
     setUser,
     userIsLoading,
     mutate,
@@ -91,7 +104,7 @@ export const JukiBaseUiProvider = ({
     socket.start();
   }, [tokenName, utilsServiceApiVersion, utilsServiceUrl, utilsSocketServiceUrl, utilsUiUrl]);
   
-  const { user, setUser, userIsLoading, mutate } = useUser();
+  const { user, company, setUser, userIsLoading, mutate } = useUser();
   
   useEffect(() => {
     if (isPageVisible) {
@@ -124,7 +137,7 @@ export const JukiBaseUiProvider = ({
   }, []);
   
   return (
-    <BaseContext.Provider value={{ isPageVisible, isPageFocus, viewPortSize, user, setUser, userIsLoading, mutate }}>
+    <BaseContext.Provider value={{ isPageVisible, isPageFocus, viewPortSize, user, company, setUser, userIsLoading, mutate }}>
       <NotificationProvider>
         {children}
       </NotificationProvider>
