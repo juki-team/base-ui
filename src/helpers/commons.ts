@@ -73,7 +73,7 @@ export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName
   downloadLink(blobURL, fileName);
 };
 
-export const downloadJukiMarkdownAdPdf = async (type: string, source: string, fileName: string) => {
+export const downloadJukiMarkdownAdPdf = async (source: string, fileName: string) => {
   const url = await publishNote(source);
   if (url) {
     const result = await authorizedRequest(settings.JUKI_API.GET_PUBLIC_NOTE_PDF(url)[0], { responseType: 'blob' });
