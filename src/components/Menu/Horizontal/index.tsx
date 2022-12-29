@@ -42,13 +42,13 @@ export const HorizontalMenu = ({
     <div className={classNames('jk-horizontal-menu-layout-container', className)}>
       <header className="jk-menu jk-top-horizontal-menu">
         <section className="jk-row nowrap jk-menu-content screen md lg hg">
-          <div className="jk-menu-left-section jk-row left nowrap">
+          <div className="jk-menu-left-section jk-row stretch left nowrap">
             {renderReactNodeOrFunction(leftSection)}
           </div>
           <div className="jk-menu-items jk-row left gap nowrap">
             {React.Children.toArray(menus)}
           </div>
-          <div className="jk-menu-right-section jk-row right nowrap">
+          <div className="jk-menu-right-section jk-row stretch right nowrap">
             {renderReactNodeOrFunction(rightSection)}
           </div>
         </section>
