@@ -20,9 +20,9 @@ const BaseContext = createContext<{
   isPageVisible: boolean,
   isPageFocus: boolean,
   viewPortSize: 'hg' | 'lg' | 'md' | 'sm',
-  user: UserPingType & { isLogged: boolean },
+  user: UserPingType,
   company: CompanyPingType,
-  setUser: Dispatch<SetStateAction<UserPingType & { isLogged: boolean }>>,
+  setUser: Dispatch<SetStateAction<UserPingType>>,
   userIsLoading: boolean,
   mutate: KeyedMutator<any>,
 }>({
@@ -43,7 +43,7 @@ const useUser = () => {
     isLoading,
     mutate,
   } = useFetcher<ContentResponseType<PingResponseDTO>>(...settings.JUKI_API.PING());
-  const [user, setUser] = useState<UserPingType & { isLogged: boolean }>(USER_GUEST);
+  const [user, setUser] = useState<UserPingType>(USER_GUEST);
   const [company, setCompany] = useState<CompanyPingType>({ emailContact: '', imageUrl: '', name: '' });
   const [userIsLoading, setUserIsLoading] = useState(true);
   
@@ -64,11 +64,10 @@ const useUser = () => {
     }
     if (data?.success) {
       setCompany(data.content.company);
-      const isLogged = !!data?.content.user.nickname;
-      if (isLogged) {
-        setUser({ ...data?.content.user, isLogged });
+      if (data.content.user.isLogged) {
+        setUser(data?.content.user);
       } else {
-        setUser({ ...data?.content.user, isLogged, settings: { preferredTheme, preferredLanguage } });
+        setUser({ ...data?.content.user, settings: { preferredTheme, preferredLanguage } });
       }
       localStorage.setItem(settings.TOKEN_NAME, data?.content.user.sessionId);
     } else {
