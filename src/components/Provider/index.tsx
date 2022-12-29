@@ -23,7 +23,7 @@ const BaseContext = createContext<{
   user: UserPingType,
   company: CompanyPingType,
   setUser: Dispatch<SetStateAction<UserPingType>>,
-  userIsLoading: boolean,
+  isLoading: boolean,
   mutate: KeyedMutator<any>,
 }>({
   isPageVisible: true,
@@ -32,7 +32,7 @@ const BaseContext = createContext<{
   user: USER_GUEST,
   company: { name: '', imageUrl: '', emailContact: '' },
   setUser: () => null,
-  userIsLoading: true,
+  isLoading: true,
   mutate: null as unknown as KeyedMutator<any>,
 });
 
@@ -45,13 +45,6 @@ const useUser = () => {
   } = useFetcher<ContentResponseType<PingResponseDTO>>(...settings.JUKI_API.PING());
   const [user, setUser] = useState<UserPingType>(USER_GUEST);
   const [company, setCompany] = useState<CompanyPingType>({ emailContact: '', imageUrl: '', name: '' });
-  const [userIsLoading, setUserIsLoading] = useState(true);
-  
-  useEffect(() => {
-    if (!isLoading) {
-      setUserIsLoading(false);
-    }
-  }, [isLoading]);
   
   useEffect(() => {
     let preferredLanguage: Language = localStorage.getItem('preferredLanguage') as Language;
@@ -79,7 +72,7 @@ const useUser = () => {
     user,
     company,
     setUser,
-    userIsLoading,
+    isLoading,
     mutate,
   };
 };
@@ -103,7 +96,7 @@ export const JukiBaseUiProvider = ({
     socket.start();
   }, [tokenName, utilsServiceApiVersion, utilsServiceUrl, utilsSocketServiceUrl, utilsUiUrl]);
   
-  const { user, company, setUser, userIsLoading, mutate } = useUser();
+  const { user, company, setUser, isLoading, mutate } = useUser();
   
   useEffect(() => {
     if (isPageVisible) {
@@ -136,7 +129,7 @@ export const JukiBaseUiProvider = ({
   }, []);
   
   return (
-    <BaseContext.Provider value={{ isPageVisible, isPageFocus, viewPortSize, user, company, setUser, userIsLoading, mutate }}>
+    <BaseContext.Provider value={{ isPageVisible, isPageFocus, viewPortSize, user, company, setUser, isLoading, mutate }}>
       <NotificationProvider>
         {children}
       </NotificationProvider>
@@ -146,7 +139,7 @@ export const JukiBaseUiProvider = ({
 
 export const useJukiBase = () => {
   
-  const { isPageVisible, isPageFocus, viewPortSize, user, setUser, userIsLoading, mutate, company } = useContext(BaseContext);
+  const { isPageVisible, isPageFocus, viewPortSize, user, setUser, isLoading, mutate, company } = useContext(BaseContext);
   
   return {
     isPageVisible,
@@ -155,7 +148,7 @@ export const useJukiBase = () => {
     user,
     company,
     setUser,
-    userIsLoading,
+    isLoading,
     mutatePing: mutate,
   };
 };
