@@ -18,7 +18,7 @@
 
 .jk-vertical-menu-layout-container {
   --height-jk-menu-item: 56px;
-  --top-horizontal-menu-height: 0;
+  --top-horizontal-menu-height: 0px;
   --left-vertical-menu-width: calc(64px * 4);
   @include md {
     --left-vertical-menu-width: calc(64px * 3);
