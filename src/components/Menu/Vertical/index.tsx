@@ -51,8 +51,8 @@ export const VerticalMenu = ({
   
   return (
     <>
-      <div className="screen md lg hg jk-vertical-menu-layout-container">
-        <header className={classNames('jk-menu', { collapsed: !open })}>
+      <div className={classNames('screen md lg hg jk-vertical-menu-layout-container', { collapsed: !open })}>
+        <header className={classNames('jk-menu')}>
           <section className="jk-menu-content">
             <div className="jk-row jk-menu-collapse jk-shadow" onClick={handleCollapse}>
               {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}

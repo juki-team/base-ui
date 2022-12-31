@@ -18,16 +18,30 @@
 
 .jk-vertical-menu-layout-container {
   --height-jk-menu-item: 56px;
+  --top-horizontal-menu-height: 0;
+  --left-vertical-menu-width: calc(64px * 4);
+  @include md {
+    --left-vertical-menu-width: calc(64px * 3);
+  }
+  @include sm {
+    --left-vertical-menu-width: calc(64px * 2);
+  }
+  
+  &.collapsed {
+    --left-vertical-menu-width: 64px;
+    
+    > .jk-menu {
+      .jk-menu-items {
+        .jk-menu-item-label {
+          display: none;
+        }
+      }
+    }
+  }
   
   > .jk-menu {
     height: 100%;
-    width: calc(64px * 4);
-    @include md {
-      width: calc(64px * 3);
-    }
-    @include sm {
-      width: calc(64px * 2);
-    }
+    width: var(--left-vertical-menu-width);
     
     .jk-menu-content {
       width: inherit;
@@ -108,16 +122,10 @@
         top: var(--pad-md);
       }
     }
-    
-    &.collapsed {
-      width: 64px;
-      
-      .jk-menu-items {
-        .jk-menu-item-label {
-          display: none;
-        }
-      }
-    }
+  }
+  
+  > .jk-menu-main-layout {
+    width: calc(100vw - var(--left-vertical-menu-width));
   }
 }
 
