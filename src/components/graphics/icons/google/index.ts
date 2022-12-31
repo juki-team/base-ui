@@ -57,3 +57,8 @@ export * from './PlayCircleIcon';
 export * from './StopCircleIcon';
 export * from './SettingsAlertIcon';
 export * from './SettingsSuggestIcon';
+export * from './LightModeIcon';
+export * from './DarkModeIcon';
+export * from './LanguageIcon';
+export * from './LogoutIcon';
+export * from './LoginIcon';
