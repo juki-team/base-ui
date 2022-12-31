@@ -75,16 +75,16 @@
   @include defineColor(--t-color-warning, #F5D679);
   @include defineColor(--t-color-error, #F08181);
   
-  @include defineColor(--t-color-black, #FFFFFF);
-  @include defineColor(--t-color-black-2, #F2F2F2);
+  @include defineColor(--t-color-black, #F2F2F2);
+  @include defineColor(--t-color-black-2, #FFFFFF);
   @include defineColor(--t-color-gray-1, #DBDBDB);
   @include defineColor(--t-color-gray-2, #BFBFBF);
   @include defineColor(--t-color-gray-3, #A3A3A3);
   @include defineColor(--t-color-gray-4, #878787);
   @include defineColor(--t-color-gray-5, #6B6B6B);
   @include defineColor(--t-color-gray-6, #4F4F4F);
-  @include defineColor(--t-color-white-2, #333333);
-  @include defineColor(--t-color-white, #1E1E1E);
+  @include defineColor(--t-color-white-2, #1E1E1E);
+  @include defineColor(--t-color-white, #333333);
   
   --t-color-shadow-lightest: rgba(255, 255, 255, 0.05);
   --t-color-shadow-light: rgba(255, 255, 255, 0.15);
