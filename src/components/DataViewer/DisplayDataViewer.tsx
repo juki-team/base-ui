@@ -80,10 +80,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   const tableHeaders: TableHeadersWithWidthType<T>[] = useMemo(() => headers.map(head => ({
     ...head,
     width: headerWidths[head.index]?.width || 0,
-  })), [
-    headers,
-    headerWidths,
-  ]);
+  })).filter(head => head.width), [headers, headerWidths]);
   const [recordHoveredIndex, setRecordHoveredIndex] = useState<number | null>(null);
   const { viewPortSize } = useJukiBase();
   const onColumn = viewPortSize !== 'sm';
