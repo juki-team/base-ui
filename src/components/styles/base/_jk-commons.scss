@@ -197,11 +197,19 @@ form[class*=" jk-col"], form[class^="jk-col"] {
   
   &.success { background-color: var(--t-color-success); }
   
+  &.success-light { background-color: var(--t-color-success-light); }
+  
   &.info { background-color: var(--t-color-info); }
+  
+  &.info-light { background-color: var(--t-color-info-light); }
   
   &.error { background-color: var(--t-color-error); }
   
+  &.error-light { background-color: var(--t-color-error-light); }
+  
   &.warning { background-color: var(--t-color-warning); }
+  
+  &.warning-light { background-color: var(--t-color-warning-light); }
   
   &.primary-light { background-color: var(--t-color-primary-light); }
   
