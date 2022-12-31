@@ -177,7 +177,7 @@ export const CodeRunnerEditor = ({
   if (expanded) {
     return (
       <Portal>
-        <div style={{ position: 'absolute', ...expandPosition }} className="">
+        <div style={{ position: 'absolute', ...expandPosition }} className="jk-code-mirror-editor-expanded-layout">
           {body}
         </div>
       </Portal>
