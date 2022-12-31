@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState } from '../../../hooks';
-import { DoubleArrowIcon, HorizontalMenu, T } from '../../index';
+import { HorizontalMenu, NavigateBeforeIcon, NavigateNextIcon } from '../../index';
 import { VerticalMenuProps } from '../index';
 
 export const VerticalMenu = ({
@@ -54,6 +54,9 @@ export const VerticalMenu = ({
       <div className="screen md lg hg jk-vertical-menu-layout-container">
         <header className={classNames('jk-menu', { collapsed: !open })}>
           <section className="jk-menu-content">
+            <div className="jk-row jk-menu-collapse jk-shadow" onClick={handleCollapse}>
+              {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
+            </div>
             <div className={classNames('jk-menu-top-section')}>
               {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
             </div>
@@ -64,9 +67,6 @@ export const VerticalMenu = ({
             </div>
             <div className={classNames('jk-menu-bottom-section')}>
               {typeof bottomSection === 'function' ? bottomSection({ isOpen: open }) : bottomSection}
-            </div>
-            <div className="jk-menu-collapse" onClick={handleCollapse}>
-              <DoubleArrowIcon /><label><T>collapse sidebar</T></label>
             </div>
           </section>
         </header>

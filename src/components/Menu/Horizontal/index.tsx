@@ -28,7 +28,7 @@ export const HorizontalMenu = ({
         key={i}
       >
         {menu[i].icon && <div className="jk-menu-item-icon">{renderReactNodeOrFunction(menu[i].icon)}</div>}
-        <div className="jk-menu-item-label tx-s">{renderReactNodeOrFunction(menu[i].label)}</div>
+        <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(menu[i].label)}</div>
       </div>
     );
     if (menu[i].menuItemWrapper) {
@@ -53,7 +53,7 @@ export const HorizontalMenu = ({
           </div>
         </section>
         <section className="jk-row nowrap block jk-menu-content space-between screen sm">
-          <div className="jk-horizontal-menu-mobile-right jk-row left">
+          <div className="jk-horizontal-menu-mobile-left jk-row stretch left">
             {leftMobile && (
               <Drawer
                 content={props => renderReactNodeOrFunctionP1(leftMobile.content, props)}
@@ -66,7 +66,7 @@ export const HorizontalMenu = ({
               </Drawer>
             )}
           </div>
-          <div className="jk-horizontal-menu-mobile-right jk-row">
+          <div className="jk-horizontal-menu-mobile-center jk-row stretch">
             {centerMobile && (
               <Drawer
                 content={props => renderReactNodeOrFunctionP1(centerMobile.content, props)}
@@ -79,7 +79,7 @@ export const HorizontalMenu = ({
               </Drawer>
             )}
           </div>
-          <div className="jk-horizontal-menu-mobile-right jk-row right">
+          <div className="jk-horizontal-menu-mobile-right jk-row stretch right">
             {rightMobile && (
               <Drawer
                 content={props => renderReactNodeOrFunctionP1(rightMobile.content, props)}

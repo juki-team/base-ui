@@ -18,9 +18,13 @@
   @include defineColor(--t-color-accent, #F0E04A);
   
   @include defineColor(--t-color-info, #2F86EB);
+  @include defineColor(--t-color-info-light, #D5E7FB);
   @include defineColor(--t-color-success, #43D787);
+  @include defineColor(--t-color-success-light, #BDF3D6);
   @include defineColor(--t-color-warning, #F2C94C);
+  @include defineColor(--t-color-warning-light, #F3FF6C);
   @include defineColor(--t-color-error, #EB5757);
+  @include defineColor(--t-color-error-light, #FFBBBB);
   
   @include defineColor(--t-color-black, #000000);
   @include defineColor(--t-color-black-2, #1E1E1E);
@@ -30,7 +34,7 @@
   @include defineColor(--t-color-gray-4, #999999);
   @include defineColor(--t-color-gray-5, #BBBBBB);
   @include defineColor(--t-color-gray-6, #DDDDDD);
-  @include defineColor(--t-color-white-2, #F2F2F2);
+  @include defineColor(--t-color-white-2, #FAFAFA);
   @include defineColor(--t-color-white, #FFFFFF);
   
   --t-color-shadow-lightest: rgba(0, 0, 0, 0.05);

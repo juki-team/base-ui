@@ -34,8 +34,9 @@
       height: 100%;
       display: flex;
       flex-direction: column;
+      position: relative;
       
-      .jk-menu-top-section, .jk-menu-item, .jk-menu-bottom-section, .jk-menu-collapse {
+      .jk-menu-top-section, .jk-menu-item, .jk-menu-bottom-section {
         background-color: var(--t-color-primary);
         color: var(--t-color-primary-text);
       }
@@ -98,23 +99,13 @@
       }
       
       .jk-menu-collapse {
-        display: flex;
-        align-items: center;
-        border-top: 1px solid var(--t-color-gray-5);
         cursor: pointer;
-        
-        &:hover {
-          background: var(--t-color-primary-light);
-        }
-        
-        .jk-icon {
-          margin: var(--pad-t) var(--pad-xs);
-          transform: rotate(180deg);
-        }
-        
-        label {
-          cursor: pointer;
-        }
+        position: absolute;
+        right: -12px;
+        background: var(--t-color-white);
+        z-index: 1;
+        border-radius: 50%;
+        top: var(--pad-md);
       }
     }
     
@@ -126,16 +117,6 @@
           display: none;
         }
       }
-      
-      .jk-menu-collapse {
-        .jk-icon {
-          transform: none;
-        }
-        
-        label {
-          display: none;
-        }
-      }
     }
   }
 }
@@ -144,8 +125,8 @@
   --mobile-bottom-horizontal-menu-height: 0px;
   --top-horizontal-menu-height: 64px;
   @include sm {
-    --mobile-bottom-horizontal-menu-height: 40px;
-    --top-horizontal-menu-height: 40px;
+    --mobile-bottom-horizontal-menu-height: 56px;
+    --top-horizontal-menu-height: 56px;
   }
 }
 
@@ -166,7 +147,8 @@
       background-color: var(--t-color-primary);
       position: relative;
       
-      .jk-menu-left-section, .jk-menu-items, .jk-menu-right-section, .jk-horizontal-menu-mobile-right {
+      .jk-menu-left-section, .jk-menu-items, .jk-menu-right-section,
+      .jk-horizontal-menu-mobile-left, .jk-horizontal-menu-mobile-center, .jk-horizontal-menu-mobile-right {
         height: inherit;
         color: var(--t-color-primary-text);
         
@@ -222,12 +204,14 @@
           }
           
           .jk-menu-item-icon {
-            height: var(--pad-m);
             margin: 0;
             
             @include sm {
               height: var(--pad-s);
+              width: var(--pad-s);
               .jk-icon {
+                min-height: var(--pad-s);
+                min-width: var(--pad-s);
                 height: var(--pad-s);
                 width: var(--pad-s);
               }
