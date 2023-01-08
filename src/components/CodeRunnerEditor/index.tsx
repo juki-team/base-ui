@@ -24,6 +24,7 @@ export const CodeRunnerEditor = ({
   timeLimit = 1000,
   memoryLimit = 512000,
   expandPosition,
+  className,
 }: CodeRunnerEditorProps) => {
   const [runId, setRunId] = useState('');
   const { user: { settings: { preferredTheme } } } = useJukiBase();
@@ -110,7 +111,7 @@ export const CodeRunnerEditor = ({
   const [expanded, setExpanded] = useState(false);
   
   const body = (
-    <div className={classNames('jk-code-mirror-editor-layout jk-border-radius-inline', { 'elevation-3': expanded })}>
+    <div className={classNames('jk-code-mirror-editor-layout jk-border-radius-inline', { 'elevation-3': expanded }, className)}>
       <SettingsModal
         isOpen={showSettings}
         onClose={() => setShowSettings(false)}
