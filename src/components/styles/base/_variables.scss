@@ -1,6 +1,6 @@
 @import "../abstracts/index";
 
-:root, ::after, ::before, ::-webkit-scrollbar, ::-webkit-scrollbar-thumb {
+html body {
   --100VH: calc(var(--vh, 1vh) * 100);
   /* ********************************          GLOBAL SIZES          ******************************** */
   
@@ -90,7 +90,7 @@
   --weight-normal: 400;
   --weight-bold: 600;
   --weight-bolder: 800;
-
+  
   --text-h-size: 20px;
   --text-h-height: var(--pad-m);
   --text-l-size: 18px;

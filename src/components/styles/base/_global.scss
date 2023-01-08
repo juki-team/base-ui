@@ -18,7 +18,7 @@ html, body {
   }
   
   *::-webkit-scrollbar-thumb {
-    border-radius: var(--border-radius-inline);
+    border-radius: 3px;
     background: var(--t-color-shadow);
   }
 }
