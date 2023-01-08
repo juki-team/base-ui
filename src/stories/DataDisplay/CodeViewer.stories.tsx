@@ -3,6 +3,7 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 import { CodeViewer as CodeViewerComponent, CodeViewerProps } from '../../index';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Data Display',
@@ -23,6 +24,7 @@ const Template: Story<CodeViewerProps> = ({ language, ...args }) => {
         language={ProgrammingLanguage.JAVASCRIPT}
         {...args}
       />
+      <ToggleThemeButton />
     </div>
   );
 };

@@ -11,6 +11,8 @@ import {
   SignUpModal,
   SignUpModalProps,
 } from '../../index';
+import { JukiProvider } from '../JukiProvider';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Feedback/Modals',
@@ -18,7 +20,7 @@ export default {
   component: LoginModal,
   argTypes: {
     highlightForgotPassword: { control: { type: 'boolean' } },
-  }
+  },
 };
 
 configureActions({
@@ -31,10 +33,13 @@ const WrapSignUp = (props: SignUpModalProps) => {
   const [open, setOpen] = useState(false);
   
   return (
-    <div>
-      <Button onClick={() => setOpen(!open)}>Click</Button>
-      {open && <SignUpModal {...props} onCancel={() => setOpen(false)} />}
-    </div>
+    <JukiProvider>
+      <div>
+        <Button onClick={() => setOpen(!open)}>Click</Button>
+        {open && <SignUpModal {...props} onCancel={() => setOpen(false)} />}
+        <ToggleThemeButton />
+      </div>
+    </JukiProvider>
   );
 };
 
@@ -61,10 +66,13 @@ export const SignUPWithoutGoogle = () => (
 const WrapLogin = (props: LoginModalProps) => {
   const [open, setOpen] = useState(false);
   return (
-    <div>
-      <Button onClick={() => setOpen(!open)}>Click</Button>
-      {open && <LoginModal {...props} onCancel={() => setOpen(false)} />}
-    </div>
+    <JukiProvider>
+      <div>
+        <Button onClick={() => setOpen(!open)}>Click</Button>
+        {open && <LoginModal {...props} onCancel={() => setOpen(false)} />}
+        <ToggleThemeButton />
+      </div>
+    </JukiProvider>
   );
 };
 
@@ -86,7 +94,7 @@ const LoginWithGoogleComponent: Story<LoginModalProps> = () => (
 export const LoginWithGoogle = LoginWithGoogleComponent.bind({});
 LoginWithGoogle.args = {};
 
-export const LoginWithoutGoogle = ({...props}) => (
+export const LoginWithoutGoogle = ({ ...props }) => (
   <WrapLogin
     {...props}
     onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setStatus })}

@@ -268,3 +268,32 @@
 .flex-5 { flex: 5; }
 
 .flex-6 { flex: 6; }
+
+.sides-mobile-padding {
+  padding-left: var(--pad-xs);
+  padding-right: var(--pad-xs);
+}
+
+.elevation-1 {
+  box-shadow: 0 0 2px rgba(var(--t-color-black-rgb), 0.3), 0 1px 3px 1px rgba(var(--t-color-black-rgb), 0.15);
+}
+
+.elevation-2 {
+  box-shadow: 0 2px 4px rgba(var(--t-color-black-rgb), 0.3), 0 1.25px 4px 1px rgba(var(--t-color-black-rgb), 0.2);
+}
+
+.elevation-3 {
+  box-shadow: 0 4px 8px 2px rgba(var(--t-color-black-rgb), 0.15), 0 1.5px 5px 1px rgba(var(--t-color-black-rgb), 0.25);
+}
+
+.elevation-4 {
+  box-shadow: 0 6px 10px 4px rgba(var(--t-color-black-rgb), 0.15), 0 1.75px 6px 1px rgba(var(--t-color-black-rgb), 0.3);
+}
+
+.elevation-5 {
+  box-shadow: 0 8px 12px 6px rgba(var(--t-color-black-rgb), 0.15), 0 2px 7px 1px rgba(var(--t-color-black-rgb), 0.35);
+}
+
+.elevation-6 {
+  box-shadow: 0 8px 12px 6px rgba(var(--t-color-black-rgb), 0.15), 0 2.25px 8px 1px rgba(var(--t-color-black-rgb), 0.4);
+}

@@ -15,7 +15,7 @@
     border: none;
     
     &:hover {
-      box-shadow: var(--t-box-shadow-lg);
+      box-shadow: 0 0 13px 0 rgba(var(--t-color-black-rgb), 0.25);
     }
     
     // Preventing an image from being draggable or selectable without using JS

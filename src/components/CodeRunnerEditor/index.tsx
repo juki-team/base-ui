@@ -110,7 +110,7 @@ export const CodeRunnerEditor = ({
   const [expanded, setExpanded] = useState(false);
   
   const body = (
-    <div className={classNames('jk-code-mirror-editor-layout jk-border-radius-inline', { 'jk-shadow': expanded })}>
+    <div className={classNames('jk-code-mirror-editor-layout jk-border-radius-inline', { 'elevation-3': expanded })}>
       <SettingsModal
         isOpen={showSettings}
         onClose={() => setShowSettings(false)}

@@ -21,6 +21,7 @@ import {
   VerticalMenu,
 } from '../index';
 import { JukiProvider } from './JukiProvider';
+import { ToggleThemeButton } from './ToggleThemeButton';
 
 export default {
   title: 'Components/Menus',
@@ -100,12 +101,7 @@ const centerMobile = {
   content: ({ close }: DrawerActionsType) => <div>TOP MENU <div onClick={close}>close top!</div></div>,
 };
 
-const leftMobile = {
-  children: ({ toggle }: DrawerActionsType) => <div className="cr-we">LEFT
-    <div onClick={toggle}>toggle</div>
-  </div>,
-  content: ({ close }: DrawerActionsType) => <div>LEFT MENU <div onClick={close}>close left!</div></div>,
-};
+const drawerMenuMobile = <div>Rest of Menu</div>;
 
 export const MenuVerticalClassic = () => {
   return (
@@ -116,12 +112,13 @@ export const MenuVerticalClassic = () => {
         bottomSection={<div className="">{rightSection({})}</div>}
         rightMobile={rightMobile}
         centerMobile={centerMobile}
-        leftMobile={leftMobile}
+        drawerMenuMobile={drawerMenuMobile}
       >
         <div>
           <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
         </div>
       </VerticalMenu>
+      <ToggleThemeButton />
     </div>
   );
 };
@@ -163,13 +160,14 @@ export const HorizontalMenuClassic = () => {
           rightSection={<div className="">{rightSection({})}</div>}
           rightMobile={rightMobile}
           centerMobile={centerMobile}
-          leftMobile={leftMobile}
+          drawerMenuMobile={drawerMenuMobile}
         >
           <div>
             <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
             <ButtonN />
           </div>
         </HorizontalMenu>
+        <ToggleThemeButton />
       </div>
     </JukiProvider>
   );

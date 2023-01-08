@@ -13,6 +13,7 @@ import {
   SignIconProps,
   UpIcon_,
 } from '../../index';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/General/Icons',
@@ -71,6 +72,7 @@ export const Signs: Story<SignIconProps & { color: string }> = ({ color, ...prop
             <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
           </div>
         ))}
+      <ToggleThemeButton />
     </div>
   );
 };

@@ -33,4 +33,5 @@ export interface MdMathViewerProps {
   dark?: boolean,
   sharedButton?: boolean,
   downloadButton?: boolean,
+  className?: string,
 }

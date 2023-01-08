@@ -18,7 +18,6 @@
   
   .notification-item-container {
     .notification-item {
-      box-shadow: var(--t-box-shadow-lg);
       border-radius: var(--border-radius-inline);
       @include sm { border-radius: 0 0 var(--border-radius-inline) var(--border-radius-inline); }
       overflow: hidden;
@@ -93,19 +92,23 @@
       margin-top: var(--pad-xt);
     }
     
-    .notification-item .message-content {
-      padding: var(--pad-xt) 0;
-      justify-content: center;
+    .notification-item {
+      @extend .elevation-2;
       
-      &.text-message {
-        min-height: 42px;
-        display: flex;
-        justify-content: left;
-        align-items: center;
-        @include sm {
-          text-align: center;
-          width: 100%;
-          justify-content: center;
+      .message-content {
+        padding: var(--pad-xt) 0;
+        justify-content: center;
+        
+        &.text-message {
+          min-height: 42px;
+          display: flex;
+          justify-content: left;
+          align-items: center;
+          @include sm {
+            text-align: center;
+            width: 100%;
+            justify-content: center;
+          }
         }
       }
     }
@@ -131,7 +134,7 @@
     }
     
     .notification-item {
-      box-shadow: var(--t-box-shadow-md);
+      @extend .elevation-1;
       border-radius: var(--border-radius-sm);
       @include sm { border-radius: 0; }
       font-weight: var(--weight-regular);

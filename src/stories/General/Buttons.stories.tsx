@@ -3,6 +3,7 @@ import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 import { Button, ButtonLoader, ButtonProps, EyeInvisibleIcon, NotificationProvider } from '../../index';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/General/Buttons',
@@ -64,6 +65,7 @@ const Comp = (args: ButtonProps) => {
           icon={<EyeInvisibleIcon />}
         />
       </div>
+      <ToggleThemeButton />
     </div>
   );
 };

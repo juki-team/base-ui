@@ -1,6 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 import { RowSortableItem, SimpleSortableRows as SimpleSortableRowsComponent } from '../../components/SimpleSortableRows';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Data Display',
@@ -17,7 +18,11 @@ configureActions({
 export const SimpleSortableRows = () => {
   const [rows, setRows] = useState<RowSortableItem<string>[]>([
     { key: '1', content: 'Write a cool JS library', value: '111' },
-    { key: '2', content: ({ dragComponent }) => <div className="jk-row">{dragComponent}Make it generic enough</div>, value: '222' },
+    {
+      key: '2',
+      content: ({ dragComponent }) => <div className="jk-row">{dragComponent}Make it generic enough</div>,
+      value: '222',
+    },
     {
       key: '3',
       content: ({ dragComponentRef, previewRef }) => (
@@ -31,7 +36,8 @@ export const SimpleSortableRows = () => {
     { key: '4', content: 'Create some examples', value: '4444' },
     {
       key: '5',
-      content: ({ dragComponent }) => <div className="jk-row">{dragComponent}Spam in Twitter and IRC to promote it (note that this
+      content: ({ dragComponent }) => <div className="jk-row">{dragComponent}Spam in Twitter and IRC to promote it (note that
+        this
         element is taller than the others)</div>,
       value: '555',
     },
@@ -41,7 +47,7 @@ export const SimpleSortableRows = () => {
   return (
     <div style={{ height: '500px' }}>
       <SimpleSortableRowsComponent<string> rows={rows} setRows={setRows} />
+      <ToggleThemeButton />
     </div>
   );
 };
-

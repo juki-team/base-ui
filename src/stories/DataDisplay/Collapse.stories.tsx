@@ -1,6 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import React from 'react';
 import { Collapse as CollapseComponent, UpIcon_ } from '../../index';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Data Display',
@@ -32,6 +33,7 @@ export const Collapse = () => {
           Texto Collapsable
         </div>
       </CollapseComponent>
+      <ToggleThemeButton />
     </div>
   );
 };

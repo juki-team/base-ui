@@ -17,6 +17,7 @@ import {
   TimePicker,
 } from '../../index';
 import { mockupUsers } from '../mockupUsers';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Data Entry',
@@ -31,71 +32,81 @@ configureActions({
 
 export const Text = () => {
   const [text, setText] = useState('');
-  return <div style={{ width: '90%' }}>
-    <div className="jk-divider">simple input</div>
-    <Input value={text} onChange={(value) => setText(value)} />
-  </div>;
+  return (
+    <div style={{ width: '90%' }}>
+      <div className="jk-divider">simple input</div>
+      <Input value={text} onChange={(value) => setText(value)} />
+      <ToggleThemeButton />
+    </div>
+  );
 };
 
 export const Form = () => {
   const [text, setText] = useState('');
-  return <div style={{ width: '90%' }}>
-    <div className="jk-form-item">
-      <label>
-        label input
-        <Input name="nickname" onChange={(value) => setText(value)} value={text} />
-      </label>
+  return (
+    <div style={{ width: '90%' }}>
+      <div className="jk-form-item">
+        <label>
+          label input
+          <Input name="nickname" onChange={(value) => setText(value)} value={text} />
+        </label>
+      </div>
+      <div className="jk-form-item">
+        <label>
+          label input with error label
+          <Input name="nickname" onChange={(value) => setText(value)} value={text} />
+        </label>
+        <p>error label</p>
+      </div>
+      <div className="jk-form-item">
+        <label>
+          label input with placeholder
+          <Input name="nickname" placeholder="this is a placeholder" onChange={(value) => setText(value)} value={text}
+                 disabled />
+        </label>
+      </div>
+      <div className="jk-form-item">
+        <label>
+          Password
+          <InputPassword name="password" onChange={(value) => setText(value)} value={text} />
+        </label>
+        <p>error label</p>
+      </div>
+      <div className="jk-form-item">
+        <label>
+          Text area input
+          <TextArea value={text} onChange={value => setText(value)} />
+        </label>
+        <p>error label</p>
+      </div>
+      <div className="jk-form-item">
+        <label>
+          Text area input
+          <SelectComponent
+            options={[
+              { value: 'select1', label: 'select 1' },
+              { value: 'select2', label: 'select 2' },
+              { value: 'select3', label: 'select 3' },
+            ]}
+            selectedOption={{ value: 'text', label: 'text selected' }}
+            onChange={() => null}
+            extend
+          />
+        </label>
+        <p>error label</p>
+      </div>
+      <ToggleThemeButton />
     </div>
-    <div className="jk-form-item">
-      <label>
-        label input with error label
-        <Input name="nickname" onChange={(value) => setText(value)} value={text} />
-      </label>
-      <p>error label</p>
-    </div>
-    <div className="jk-form-item">
-      <label>
-        label input with placeholder
-        <Input name="nickname" placeholder="this is a placeholder" onChange={(value) => setText(value)} value={text} disabled />
-      </label>
-    </div>
-    <div className="jk-form-item">
-      <label>
-        Password
-        <InputPassword name="password" onChange={(value) => setText(value)} value={text} />
-      </label>
-      <p>error label</p>
-    </div>
-    <div className="jk-form-item">
-      <label>
-        Text area input
-        <TextArea value={text} onChange={value => setText(value)} />
-      </label>
-      <p>error label</p>
-    </div>
-    <div className="jk-form-item">
-      <label>
-        Text area input
-        <SelectComponent
-          options={[
-            { value: 'select1', label: 'select 1' },
-            { value: 'select2', label: 'select 2' },
-            { value: 'select3', label: 'select 3' },
-          ]}
-          selectedOption={{ value: 'text', label: 'text selected' }}
-          onChange={() => null}
-          extend
-        />
-      </label>
-      <p>error label</p>
-    </div>
-  </div>;
+  );
 };
 
 export const Submit = () => {
-  return <div style={{ width: '90%' }}>
-    <InputSubmit />
-  </div>;
+  return (
+    <div style={{ width: '90%' }}>
+      <InputSubmit />
+      <ToggleThemeButton />
+    </div>
+  );
 };
 
 export const Checkbox = () => {
@@ -117,6 +128,7 @@ export const Checkbox = () => {
       {/*  selectedOptions={[{ value: 1 }]}*/}
       {/*  onSelectOptions={options => setValues(prevState => ({ ...prevState, [columnIndex]: options }))}*/}
       {/*/>*/}
+      <ToggleThemeButton />
     </div>
   );
 };
@@ -149,6 +161,7 @@ export const Toggle = () => {
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
                      size="large" />
       </div>
+      <ToggleThemeButton />
     </div>
   );
 };
@@ -196,6 +209,7 @@ export const Select = () => {
           );
         }}
       </SelectComponent>
+      <ToggleThemeButton />
     </div>
   );
 };
@@ -245,6 +259,7 @@ export const MultiSelect = () => {
         onChange={options => setValues(options)}
         extend
       />
+      <ToggleThemeButton />
     </div>
   );
 };
@@ -298,6 +313,7 @@ export const SelectSearchable = () => {
         onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
         multiselect={false}
       />
+      <ToggleThemeButton />
     </div>
   );
 };
@@ -311,6 +327,7 @@ export const ColorPicker = () => {
         console.info(color);
         setColor(color);
       }} />
+      <ToggleThemeButton />
     </div>
   );
 };
@@ -353,6 +370,7 @@ export const DatePicker = () => {
         twoLines
         inline
       />
+      <ToggleThemeButton />
     </div>
   );
 };

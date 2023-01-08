@@ -86,7 +86,7 @@
   }
   
   .jk-popover-content {
-    box-shadow: var(--t-box-shadow-lg), var(--t-box-shadow-tn);
+    @extend .elevation-1;
   }
   
   &.bottomRight, &.bottom, &.bottomLeft {

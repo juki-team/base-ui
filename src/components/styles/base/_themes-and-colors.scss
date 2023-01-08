@@ -12,7 +12,6 @@
   @include defineColor(--t-color-secondary, #EDB745);
   @include defineColor(--t-color-secondary-light, #EFC05C);
   
-  
   @include defineColor(--t-color-secondary-text, #FFFFFF);
   
   @include defineColor(--t-color-accent, #F0E04A);
@@ -29,53 +28,37 @@
   @include defineColor(--t-color-black, #000000);
   @include defineColor(--t-color-black-2, #1E1E1E);
   @include defineColor(--t-color-gray-1, #333333);
-  @include defineColor(--t-color-gray-2, #555555);
-  @include defineColor(--t-color-gray-3, #777777);
-  @include defineColor(--t-color-gray-4, #999999);
-  @include defineColor(--t-color-gray-5, #BBBBBB);
-  @include defineColor(--t-color-gray-6, #DDDDDD);
-  @include defineColor(--t-color-white-2, #FAFAFA);
+  @include defineColor(--t-color-gray-2, #595959);
+  @include defineColor(--t-color-gray-3, #7F7F7F);
+  @include defineColor(--t-color-gray-4, #A5A5A5);
+  @include defineColor(--t-color-gray-5, #CBCBCB);
+  @include defineColor(--t-color-gray-6, #F1F1F1);
+  @include defineColor(--t-color-white-2, #F5F5F5);
   @include defineColor(--t-color-white, #FFFFFF);
-  
-  --t-color-shadow-lightest: rgba(0, 0, 0, 0.05);
-  --t-color-shadow-light: rgba(0, 0, 0, 0.15);
-  --t-color-shadow: rgba(0, 0, 0, 0.25);
-  --t-color-shadow-dark: rgba(0, 0, 0, 0.35);
-  --t-color-shadow-darkest: rgba(0, 0, 0, 0.45);
-  
-  --t-box-shadow-hg: 0 0 15px 0px var(--t-color-shadow);
-  --t-box-shadow-lg: 0 0 13px 0px var(--t-color-shadow);
-  --t-box-shadow-md: 0 0 10px 0px var(--t-color-shadow);
-  --t-box-shadow-sm: 0 0 7px 0px var(--t-color-shadow);
-  --t-box-shadow-tn: 0 0 4px 0px var(--t-color-shadow);
-  
-  @include hg { --t-box-shadow: var(--t-box-shadow-hg); }
-  @include lg { --t-box-shadow: var(--t-box-shadow-lg); }
-  @include md { --t-box-shadow: var(--t-box-shadow-md); }
-  @include sm { --t-box-shadow: var(--t-box-shadow-sm); }
 }
 
 .jk-theme-dark {
-  @include defineColor(--t-color-primary-dark, #133859);
-  @include defineColor(--t-color-primary, #1F598E);
-  @include defineColor(--t-color-primary-light, #398AD4);
+  // https://maketintsandshades.com
+  @include defineColor(--t-color-primary-dark, #387FC0);
+  @include defineColor(--t-color-primary, #3E8DD5);
+  @include defineColor(--t-color-primary-light, #5198D9);
   
-  @include defineColor(--t-color-primary-text, #E6E6E6);
+  @include defineColor(--t-color-primary-text, #F1F1F1);
   
-  @include defineColor(--t-color-secondary-dark, #B2B4B4);
-  @include defineColor(--t-color-secondary, #CBCECE);
-  @include defineColor(--t-color-secondary-light, #D2D4D4);
+  @include defineColor(--t-color-secondary-dark, #959595);
+  @include defineColor(--t-color-secondary, #A5A5A5);
+  @include defineColor(--t-color-secondary-light, #AEAEAE);
   
-  @include defineColor(--t-color-secondary-text, #1A1A1A);
+  @include defineColor(--t-color-secondary-text, #FFFFFF);
   
-  @include defineColor(--t-color-accent, #3B3B3B);
+  @include defineColor(--t-color-accent, #132A40);
   
   @include defineColor(--t-color-info, #63A4F0);
   @include defineColor(--t-color-success, #72E1A5);
   @include defineColor(--t-color-warning, #F5D679);
   @include defineColor(--t-color-error, #F08181);
   
-  @include defineColor(--t-color-black, #F2F2F2);
+  @include defineColor(--t-color-black, #F1F1F1);
   @include defineColor(--t-color-black-2, #FFFFFF);
   @include defineColor(--t-color-gray-1, #DBDBDB);
   @include defineColor(--t-color-gray-2, #BFBFBF);
@@ -83,23 +66,14 @@
   @include defineColor(--t-color-gray-4, #878787);
   @include defineColor(--t-color-gray-5, #6B6B6B);
   @include defineColor(--t-color-gray-6, #4F4F4F);
-  @include defineColor(--t-color-white-2, #1E1E1E);
-  @include defineColor(--t-color-white, #333333);
-  
-  --t-color-shadow-lightest: rgba(255, 255, 255, 0.05);
-  --t-color-shadow-light: rgba(255, 255, 255, 0.15);
-  --t-color-shadow: rgba(255, 255, 255, 0.25);
-  --t-color-shadow-dark: rgba(255, 255, 255, 0.35);
-  --t-color-shadow-darkest: rgba(255, 255, 255, 0.45);
-  
-  --t-box-shadow-hg: 0 0 15px 0px var(--t-color-shadow);
-  --t-box-shadow-lg: 0 0 13px 0px var(--t-color-shadow);
-  --t-box-shadow-md: 0 0 10px 0px var(--t-color-shadow);
-  --t-box-shadow-sm: 0 0 7px 0px var(--t-color-shadow);
-  --t-box-shadow-tn: 0 0 4px 0px var(--t-color-shadow);
-  
-  @include hg { --t-box-shadow: var(--t-box-shadow-hg); }
-  @include lg { --t-box-shadow: var(--t-box-shadow-lg); }
-  @include md { --t-box-shadow: var(--t-box-shadow-md); }
-  @include sm { --t-box-shadow: var(--t-box-shadow-sm); }
+  @include defineColor(--t-color-white-2, #1C2023);
+  @include defineColor(--t-color-white, #34373F);
+}
+
+:root {
+  --t-color-shadow-lightest: rgba(var(--t-color-black-rgb), 0.05);
+  --t-color-shadow-light: rgba(var(--t-color-black-rgb), 0.15);
+  --t-color-shadow: rgba(var(--t-color-black-rgb), 0.25);
+  --t-color-shadow-dark: rgba(var(--t-color-black-rgb), 0.35);
+  --t-color-shadow-darkest: rgba(var(--t-color-black-rgb), 0.45);
 }

@@ -2,6 +2,7 @@ import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 import { CodeRunnerEditor, CodeRunnerEditorPropertiesType, CodeRunnerEditorProps } from '../../index';
 import { JukiProvider } from '../JukiProvider';
 
@@ -48,6 +49,7 @@ const Template: Story<CodeRunnerEditorProps> = (args) => {
             left: '50px',
           }}
         />
+        <ToggleThemeButton />
       </div>
     </JukiProvider>
   );

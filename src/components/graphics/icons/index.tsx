@@ -44,7 +44,7 @@ export const CaretLeftIcon = ({ size = 'regular', className = '', ...props }: Ic
   );
 };
 
-export const CodeIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
+export const CodeIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
     <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Code /></span>
   );

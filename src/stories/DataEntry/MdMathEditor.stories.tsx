@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 
 import { Button, MdMathEditor as MdMathEditorComponent, MdMathEditorProps } from '../../index';
 import { JukiProvider } from '../JukiProvider';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Data Entry',
@@ -43,6 +44,7 @@ export const MdMathEditor: Story<MdMathEditorProps> = ({
         />
         <p>{text}</p>
         <Button onClick={() => setText(example)}>clear</Button>
+        <ToggleThemeButton />
       </div>
     </JukiProvider>
   );

@@ -3,6 +3,7 @@ import { Story } from '@storybook/react';
 import React from 'react';
 import { Popover, PopoverProps } from '../../index';
 import { JukiProvider } from '../JukiProvider';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Data Display',
@@ -51,7 +52,8 @@ const Template: Story<PopoverProps> = (args) => {
   const content = (
     <>
       <h3>title</h3>
-      <div>Lorem ipsum dolor sit amet, LoremLoremLoremLoremLoremLorem, consectetur adipiscing elit, LoremLoremLoremLoremLoremLorem,
+      <div>Lorem ipsum dolor sit amet, LoremLoremLoremLoremLoremLorem, consectetur adipiscing elit,
+        LoremLoremLoremLoremLoremLorem,
         LoremLoremLoremLoremLoremLorem, LoremLoremLoremLoremLoremLorem
       </div>
     </>
@@ -207,6 +209,7 @@ const Template: Story<PopoverProps> = (args) => {
         >
           <div style={{ background: 'gray', width: '200px' }}>centerScreen</div>
         </Popover>
+        <ToggleThemeButton />
       </div>
     </JukiProvider>
   );

@@ -1,6 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 import { Tabs as TabsComponent, TabsProps } from '../../index';
 
 export default {
@@ -42,7 +43,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'jk-row right top',
               'jk-row right bottom',
             ].map(col => (
-              <div className="jk-col jk-shadow jk-pad-md jk-border-radius-inline cr-we" style={{ width: '420px' }}>
+              <div className="jk-col elevation-1 jk-pad-md jk-border-radius-inline cr-we" style={{ width: '420px' }}>
                 <pre className="cr-g1">"{col}"</pre>
                 <div style={{ width: 250, height: 60 }} className="bc-g6 fw-br">
                   <div className={col} style={{ outline: '2px solid red', width: 220, height: 50 }}>
@@ -88,7 +89,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'jk-col bottom left',
               'jk-col bottom right',
             ].map(col => (
-              <div className="jk-row gap jk-shadow jk-pad-md jk-border-radius-inline cr-we" style={{ width: '320px' }}>
+              <div className="jk-row gap elevation-1 jk-pad-md jk-border-radius-inline cr-we" style={{ width: '320px' }}>
                 <pre className="cr-g1">"{col}"</pre>
                 <div style={{ width: 80, height: 150 }} className="bc-g6 fw-br">
                   <div className={col} style={{ outline: '2px solid red', width: 70, height: 120 }}>
@@ -136,7 +137,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'cr-at',
               'cr-ad',
             ].map(color => (
-              <div className="jk-row gap nowrap jk-shadow jk-pad-md jk-border-radius-inline" style={{ width: '140px' }}>
+              <div className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline" style={{ width: '140px' }}>
                 <pre>"{color}"</pre>
                 <div className={'fw-br ' + color}>text</div>
               </div>
@@ -172,7 +173,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'bc-at',
               'bc-ad',
             ].map(color => (
-              <div className="jk-row gap nowrap jk-shadow jk-pad-md jk-border-radius-inline" style={{ width: '140px' }}>
+              <div className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline" style={{ width: '140px' }}>
                 <pre>"{color}"</pre>
                 <div className={color}>&nbsp;text&nbsp;</div>
               </div>
@@ -195,7 +196,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'tx-s',
               'tx-t',
             ].map(size => (
-              <div className="jk-row gap nowrap jk-shadow jk-pad-md jk-border-radius-inline" style={{ width: '140px' }}>
+              <div className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline" style={{ width: '140px' }}>
                 <pre>"{size}"</pre>
                 <div className={size}>&nbsp;text&nbsp;</div>
               </div>
@@ -217,7 +218,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'fw-bd',
               'fw-br',
             ].map(width => (
-              <div className="jk-row gap nowrap jk-shadow jk-pad-md jk-border-radius-inline" style={{ width: '140px' }}>
+              <div className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline" style={{ width: '140px' }}>
                 <pre>"{width}"</pre>
                 <div className={width}>&nbsp;text&nbsp;</div>
               </div>
@@ -239,7 +240,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'tt-ue',
               'tt-le',
             ].map(tt => (
-              <div className="jk-row gap nowrap jk-shadow jk-pad-md jk-border-radius-inline" style={{ width: 350 }}>
+              <div className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline" style={{ width: 350 }}>
                 <pre>"{tt}"</pre>
                 <div className={'ws-np ' + tt}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
               </div>
@@ -260,7 +261,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'ta-st',
               'ta-ed',
             ].map(tt => (
-              <div className="jk-row gap nowrap jk-shadow jk-pad-md jk-border-radius-inline" style={{ width: 420 }}>
+              <div className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline" style={{ width: 420 }}>
                 <pre>"{tt}"</pre>
                 <div className={'ws-np ' + tt} style={{ width: 400 }}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
               </div>
@@ -283,7 +284,31 @@ export const Classes: Story<TabsProps<string>> = () => {
               'jk-shadow small',
               'jk-shadow tiny',
             ].map(tt => (
-              <div className="jk-row gap nowrap jk-shadowa jk-pad-md jk-border-radius-inline" style={{ width: 420 }}>
+              <div className="jk-row gap nowrap jk-pad-md jk-border-radius-inline" style={{ width: 420 }}>
+                <pre>"{tt}"</pre>
+                <div className={'ws-np ' + tt} style={{ width: 400 }}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+    {
+      key: '10',
+      header: <div>elevation</div>,
+      body: (
+        <div className="jk-col gap">
+          <h1>text-align</h1>
+          <div className="jk-col gap">
+            {[
+              'elevation-1',
+              'elevation-2',
+              'elevation-3',
+              'elevation-4',
+              'elevation-5',
+              'elevation-6'
+            ].map(tt => (
+              <div className="jk-row gap nowrap jk-pad-md jk-border-radius-inline" style={{ width: 420 }}>
                 <pre>"{tt}"</pre>
                 <div className={'ws-np ' + tt} style={{ width: 400 }}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
               </div>
@@ -296,6 +321,7 @@ export const Classes: Story<TabsProps<string>> = () => {
   return (
     <div style={{ height: '500px' }}>
       <TabsComponent tabs={tabs} />
+      <ToggleThemeButton />
     </div>
   );
 };

@@ -159,24 +159,6 @@ form[class*=" jk-col"], form[class^="jk-col"] {
   }
 }
 
-/*
- SHADOW
- */
-
-.jk-shadow {
-  box-shadow: var(--t-box-shadow); // responsive variable
-  
-  &.huge { box-shadow: var(--t-box-shadow-hg); }
-  
-  &.large { box-shadow: var(--t-box-shadow-lg); }
-  
-  &.regular { box-shadow: var(--t-box-shadow-md); }
-  
-  &.small { box-shadow: var(--t-box-shadow-sm); }
-  
-  &.tiny { box-shadow: var(--t-box-shadow-tn); }
-}
-
 .jk-overlay {
   position: absolute;
   width: 100%;

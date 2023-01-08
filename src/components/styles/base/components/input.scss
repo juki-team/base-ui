@@ -148,7 +148,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
   
   &:focus, &:active {
-    box-shadow: var(--t-box-shadow-tn);
+    @extend .elevation-1;
   }
   
   &::-webkit-file-upload-button {
@@ -267,7 +267,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     &:focus-visible:not(:checked) {
       outline: none;
       background-color: rgba(var(--t-color-primary-rgb), 0.6);
-      box-shadow: var(--t-box-shadow-tn);
+      @extend .elevation-1;
       
       &:after {
         content: " ";

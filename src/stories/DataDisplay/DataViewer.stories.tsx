@@ -3,6 +3,7 @@ import { Story } from '@storybook/react';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { JukiProvider } from '../JukiProvider';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 import { JkUserTable, JkUserTableProps } from './JkUserTableTest/JkUserTable';
 
 export default {
@@ -22,6 +23,7 @@ const DataViewerTemplate: Story<JkUserTableProps> = (props) => (
     <JukiProvider>
       <JkUserTable {...props} />
     </JukiProvider>
+    <ToggleThemeButton />
   </BrowserRouter>
 );
 

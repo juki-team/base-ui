@@ -15,7 +15,7 @@ export interface HorizontalMenuProps {
   rightSection?: ReactNodeOrFunctionType,
   menu: { icon?: ReactNodeOrFunctionType, label: ReactNodeOrFunctionType, selected: boolean, onClick?: (isOpen?: boolean) => void, menuItemWrapper?: ReactNodeOrFunctionP1Type<ReactNode> }[],
   rightMobile?: MenuMobileSectionType,
-  leftMobile?: MenuMobileSectionType,
+  drawerMenuMobile?: ReactNodeOrFunctionType,
   centerMobile?: MenuMobileSectionType,
 }
 
@@ -26,6 +26,6 @@ export interface VerticalMenuProps {
   topSection?: ReactNodeOrFunctionP1Type<{ isOpen: boolean }>,
   menu: { icon: ReactNodeOrFunctionType, label: ReactNodeOrFunctionType, selected: boolean, onClick?: (isOpen?: boolean) => void, menuItemWrapper?: ReactNodeOrFunctionP1Type<ReactNode> }[],
   rightMobile?: MenuMobileSectionType,
-  leftMobile?: MenuMobileSectionType,
+  drawerMenuMobile?: ReactNodeOrFunctionType,
   centerMobile?: MenuMobileSectionType,
 }

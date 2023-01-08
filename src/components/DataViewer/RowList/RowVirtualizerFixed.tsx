@@ -118,7 +118,7 @@ export const RowVirtualizerFixed = <T, >({
       <VirtualizedRowsFixed
         size={data.length}
         rowHeight={rowHeight}
-        classNameRows={classNames('jk-table-rows-box sticky', { 'jk-shadow': !!scrollLeft })}
+        classNameRows={classNames('jk-table-rows-box sticky', { 'elevation-1': !!scrollLeft })}
         rowClassName="jk-table-row"
         parentRef={parentRef}
         getRecordKey={(virtualItem) => getRecordKey?.({ data, index: virtualItem.index }) ?? virtualItem.index.toString()}

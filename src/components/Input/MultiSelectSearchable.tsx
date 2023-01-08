@@ -99,7 +99,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
           style={{ width: extend ? (widthContainer || 0) + 32 : containerWidth }}
         >
           {searchable && (
-            <div className="jk-row nowrap gap jk-pad-md jk-shadow">
+            <div className="jk-row nowrap gap jk-pad-md elevation-1">
               <SearchIcon />
               <Input value={search} onChange={setSearch} extend />
             </div>

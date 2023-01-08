@@ -3,6 +3,7 @@ import { Story } from '@storybook/react';
 import React from 'react';
 import { Button, useNotification } from '../../index';
 import { JukiProvider } from '../JukiProvider';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Feedback',
@@ -94,6 +95,7 @@ const Comp = () => {
           quiet
         </Button>
       </div>
+      <ToggleThemeButton />
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 import {
   AssignmentIcon_,
@@ -192,6 +193,7 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
             </div>
           ))}
         <CopyToClipboard text={'texto copiado'}><CopyIcon_ /></CopyToClipboard>
+        <ToggleThemeButton />
       </div>
     </NotificationProvider>
   );

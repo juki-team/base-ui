@@ -7,7 +7,7 @@ import {
   AppstoreIcon,
   BalloonIcon,
   CaretLeftIcon,
-  CodeIcon,
+  CodeIcon_,
   DoubleArrowIcon,
   DragIndicatorIcon,
   FacebookIcon,
@@ -27,6 +27,7 @@ import {
   ZoomInIcon,
   ZoomOutIcon,
 } from '../../index';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/General/Icons',
@@ -125,8 +126,8 @@ export const Icons: Story<IconProps> = ({ ...props }) => {
             <td><CaretLeftIcon {...props} /></td>
           </tr>
           <tr>
-            <td>CodeIcon</td>
-            <td><CodeIcon {...props} /></td>
+            <td>CodeIcon_</td>
+            <td><CodeIcon_ {...props} /></td>
           </tr>
           <tr>
             <td>DoubleArrowIcon</td>
@@ -198,6 +199,7 @@ export const Icons: Story<IconProps> = ({ ...props }) => {
           </tr>
         </tbody>
       </table>
+      <ToggleThemeButton />
     </>
   );
 };

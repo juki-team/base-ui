@@ -3,6 +3,7 @@ import { Story } from '@storybook/react';
 import React from 'react';
 import { SAMPLE_MD_CONTENT } from '../../constants/md';
 import { Button, Drawer as DrawerComponent, DrawerProps, MdMathViewer } from '../../index';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Feedback/Drawer',
@@ -24,6 +25,7 @@ const Template: Story<DrawerProps> = (args) => {
         content={<div style={{ width: 250 }}><MdMathViewer source={SAMPLE_MD_CONTENT} /></div>}
       >
         <Button>click me</Button>
+        <ToggleThemeButton />
       </DrawerComponent>
     </div>
   );

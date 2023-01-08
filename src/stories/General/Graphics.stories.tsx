@@ -17,6 +17,7 @@ import {
   JukiSurprisedImage,
   JukiUtilsLogoHorImage,
 } from '../../index';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/General',
@@ -47,12 +48,15 @@ const ImagesTemplate: Story<ImageProps> = (props) => {
   };
   return (
     <div style={{ color: '#164066', backgroundColor: '#F0F2F5' }} className="jk-row nowrap">
-      {Object.entries(images).sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2)).map(([iconName, Component]) => (
-        <div className="jk-row nowrap center">
-          <div style={{ width: '200px', height: '200px' }}><Component {...props} /></div>
-          <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
-        </div>
-      ))}
+      {Object.entries(images)
+        .sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2))
+        .map(([iconName, Component]) => (
+          <div className="jk-row nowrap center">
+            <div style={{ width: '200px', height: '200px' }}><Component {...props} /></div>
+            <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
+          </div>
+        ))}
+      <ToggleThemeButton />
     </div>
   );
 };

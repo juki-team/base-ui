@@ -3,6 +3,7 @@ import { Story } from '@storybook/react';
 import React, { useState } from 'react';
 import { Button, CropImageType, downloadBlobAsFile, ImageLoaderCropper, ImageLoaderCropperProps, toBlob } from '../index';
 import { COMPONENTS_WRITING_TOOLS } from './constants';
+import { ToggleThemeButton } from './ToggleThemeButton';
 
 export default {
   title: COMPONENTS_WRITING_TOOLS,
@@ -50,6 +51,7 @@ const ImageLoaderCropperComponent: Story<ImageLoaderCropperProps> = ({ onCropCha
           />
         )}
       </div>
+      <ToggleThemeButton />
     </div>
   );
 };

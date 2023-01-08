@@ -13,6 +13,7 @@ import {
   JukiLaptopImage,
   SetLoaderStatusOnClickType,
   T,
+  useJukiBase,
   useT,
 } from '../../index';
 import { SplitModal } from '../SplitModal';
@@ -55,6 +56,7 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
   const refSetLoading = useRef<SetLoaderStatusOnClickType>();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   const { t } = useT();
+  const { viewPortSize } = useJukiBase();
   
   return (
     <SplitModal
@@ -148,7 +150,7 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
               <p><T>{(!isValid && errors?.checkbox?.message) || ''}</T></p>
             </div>
             <div className="jk-row gap right">
-              <ButtonLoader type="text" onClick={onCancel}>
+              <ButtonLoader type="text" onClick={onCancel} extend={viewPortSize === 'sm' || viewPortSize === 'md'}>
                 <T>cancel</T>
               </ButtonLoader>
               <ButtonLoader
@@ -156,6 +158,7 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
                 setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
                 disabled={!isValid}
                 submit
+                extend={viewPortSize === 'sm' || viewPortSize === 'md'}
               >
                 <T>sign up</T>
               </ButtonLoader>

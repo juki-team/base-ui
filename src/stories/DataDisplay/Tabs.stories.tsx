@@ -3,6 +3,7 @@ import { Story } from '@storybook/react';
 import React from 'react';
 import { Button, Tabs as TabsComponent, TabsProps } from '../../index';
 import { JukiProvider } from '../JukiProvider';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Data Display',
@@ -66,6 +67,7 @@ export const Tabs: Story<TabsProps<string>> = () => {
           ]}
           extraNodes={[<Button>button 1</Button>, <Button>button 2</Button>]}
         />
+        <ToggleThemeButton />
       </div>
     </JukiProvider>
   );

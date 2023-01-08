@@ -134,7 +134,7 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   }
   
   &:not(.disabled):hover {
-    box-shadow: var(--t-box-shadow-lg);
+    @extend .elevation-2;
   }
 }
 

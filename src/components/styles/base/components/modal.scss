@@ -29,7 +29,7 @@
 .jk-modal {
   position: relative;
   margin: auto;
-  box-shadow: var(--t-box-shadow-lg);
+  @extend .elevation-3;
   background-color: var(--t-color-white);
   outline: none;
   width: var(--modal-width);

@@ -295,10 +295,10 @@
             flex-direction: column;
             justify-content: space-evenly;
             background-color: var(--t-color-white);
-            box-shadow: var(--t-box-shadow-tn);
+            @extend .elevation-1;
             
             &.hovered {
-              box-shadow: var(--t-box-shadow-lg);
+              @extend .elevation-2;
             }
             
             .top-container, .center-container, .bottom-container {

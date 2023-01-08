@@ -5,7 +5,16 @@ import GoogleLogin from 'react-google-login';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { classNames } from '../../../helpers';
-import { ButtonLoader, Input, InputPassword, JukiLaptopImage, SetLoaderStatusOnClickType, T, useT } from '../../index';
+import {
+  ButtonLoader,
+  Input,
+  InputPassword,
+  JukiLaptopImage,
+  SetLoaderStatusOnClickType,
+  T,
+  useJukiBase,
+  useT,
+} from '../../index';
 import { ForgotPasswordModal } from '../ForgotPassword';
 import { SplitModal } from '../SplitModal';
 import { LoginInputType, LoginModalProps } from './types';
@@ -36,6 +45,7 @@ export const LoginModal = ({
   const { t } = useT();
   const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState(false);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
+  const { viewPortSize } = useJukiBase();
   
   return (
     <>
@@ -100,8 +110,8 @@ export const LoginModal = ({
                     <span className="link" onClick={onSignUpButton}><T>sign up now</T></span>
                   </p>
                 </div>
-                <div className="jk-row gap right">
-                  <ButtonLoader type="text" onClick={onCancel}>
+                <div className="jk-row gap right stretch">
+                  <ButtonLoader type="text" onClick={onCancel} extend={viewPortSize === 'sm' || viewPortSize === 'md'}>
                     <T>cancel</T>
                   </ButtonLoader>
                   <ButtonLoader
@@ -109,6 +119,7 @@ export const LoginModal = ({
                     disabled={!isValid}
                     setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
                     submit
+                    extend={viewPortSize === 'sm' || viewPortSize === 'md'}
                   >
                     <T>login</T>
                   </ButtonLoader>

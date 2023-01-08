@@ -13,7 +13,7 @@ export const VerticalMenu = ({
   menu,
   rightMobile,
   centerMobile,
-  leftMobile,
+  drawerMenuMobile,
 }: PropsWithChildren<VerticalMenuProps>) => {
   
   const [open, setOpen] = useHandleState(false, isOpen);
@@ -54,7 +54,7 @@ export const VerticalMenu = ({
       <div className={classNames('screen md lg hg jk-vertical-menu-layout-container', { collapsed: !open })}>
         <header className={classNames('jk-menu')}>
           <section className="jk-menu-content">
-            <div className="jk-row jk-menu-collapse jk-shadow" onClick={handleCollapse}>
+            <div className="jk-row jk-menu-collapse elevation-2" onClick={handleCollapse}>
               {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
             </div>
             <div className={classNames('jk-menu-top-section')}>
@@ -81,7 +81,7 @@ export const VerticalMenu = ({
         rightSection={() => renderReactNodeOrFunctionP1(bottomSection, { isOpen: open })}
         rightMobile={rightMobile}
         centerMobile={centerMobile}
-        leftMobile={leftMobile}
+        drawerMenuMobile={drawerMenuMobile}
       >
         {children}
       </HorizontalMenu>

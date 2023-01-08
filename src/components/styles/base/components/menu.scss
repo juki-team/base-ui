@@ -12,7 +12,7 @@
   }
   
   > .jk-menu-main-layout {
-    height: calc(100% - var(--top-horizontal-menu-height) - var(--mobile-bottom-horizontal-menu-height));
+    height: calc(100% - var(--top-horizontal-menu-height));
   }
 }
 
@@ -130,10 +130,8 @@
 }
 
 :root {
-  --mobile-bottom-horizontal-menu-height: 0px;
   --top-horizontal-menu-height: 64px;
   @include sm {
-    --mobile-bottom-horizontal-menu-height: 56px;
     --top-horizontal-menu-height: 56px;
   }
 }
@@ -153,6 +151,7 @@
       width: 100%;
       height: inherit;
       background-color: var(--t-color-primary);
+      @include sm { background-color: var(--t-color-white); }
       position: relative;
       
       .jk-menu-left-section, .jk-menu-items, .jk-menu-right-section,
@@ -242,44 +241,28 @@
     position: sticky;
     top: 0;
   }
+}
+
+.jk-mobile-menu-drawer {
+  position: absolute;
+  top: var(--top-horizontal-menu-height);
+  width: 100%;
+  height: calc(var(--100VH) - var(--top-horizontal-menu-height));
+  left: 0;
+  background-color: var(--t-color-white);
   
-  > .jk-mobile-bottom-horizontal-menu {
-    height: var(--mobile-bottom-horizontal-menu-height);
-    --height-jk-menu-item: var(--mobile-bottom-horizontal-menu-height);
-    box-shadow: var(--t-box-shadow-lg);
-    position: fixed;
-    bottom: 0;
-    display: none;
-    @include sm {
-      display: initial;
+  .jk-menu-items {
+    .jk-menu-item {
+      justify-content: flex-start;
+      padding: var(--pad-t) var(--pad-s);
+      
+      .jk-menu-item-icon {
+        height: var(--pad-m);
+      }
     }
     
-    .jk-menu-content {
-      .jk-menu-items {
-        justify-content: center;
-        @include sm {
-          display: flex;
-        }
-        
-        .jk-menu-item {
-          //padding: 0 var(--pad-xt);
-          padding: 0;
-          gap: 0;
-          justify-content: center;
-          
-          .jk-menu-item-label {
-            line-height: var(--text-l-size);
-          }
-          
-          &.selected {
-            &:after {
-              top: 0;
-              height: var(--pad-xt);
-              border-radius: 0 0 4px 4px;
-            }
-          }
-        }
-      }
+    .jk-menu-item + .jk-menu-item {
+      border-top: 1px solid var(--t-color-gray-5);
     }
   }
 }

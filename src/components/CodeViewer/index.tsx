@@ -25,7 +25,7 @@ export const CodeViewer = ({
   
   return (
     <div
-      className={classNames('jk-code-viewer jk-shadow jk-border-radius-inline', { 'line-numbers': !!lineNumbers })}
+      className={classNames('jk-code-viewer jk-border-radius-inline br-g6', { 'line-numbers': !!lineNumbers })}
       data-plugin-header="show-language"
     >
       <div className="float-top-right pad-xt jk-row gap">

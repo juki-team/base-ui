@@ -12,8 +12,11 @@ import {
   AttachmentIcon,
   AutorenewIcon,
   BasicIconProps,
+  CalendarMonthIcon,
+  CalendarTodayIcon,
   CheckIcon,
   CloseIcon,
+  CodeIcon,
   ContentCopyIcon,
   DarkModeIcon,
   DeleteIcon,
@@ -23,6 +26,8 @@ import {
   DragIndicatorIcon,
   EditIcon,
   ErrorIcon,
+  EventIcon,
+  ExpandLessIcon,
   ExpandMoreIcon,
   FilterListIcon,
   FolderOpenIcon,
@@ -31,7 +36,9 @@ import {
   FullscreenIcon,
   GroupAddIcon,
   GroupIcon,
+  HelpIcon,
   InfoIcon,
+  InvertColorsIcon,
   LanguageIcon,
   LeaderboardIcon,
   LightModeIcon,
@@ -40,12 +47,16 @@ import {
   LoadingIcon,
   LocationOnIcon,
   LockIcon,
-  LoginIcon, LogoutIcon,
+  LoginIcon,
+  LogoutIcon,
   MailIcon,
   NavigateBeforeIcon,
   NavigateNextIcon,
+  NewReleasesIcon,
   NotificationProvider,
   OpenInNewIcon,
+  PaletteIcon,
+  PictureAsPdfIcon,
   PlayArrowIcon,
   PlayCircleIcon,
   PreviewIcon,
@@ -70,6 +81,7 @@ import {
   VisibilityOffIcon,
   WarningIcon,
 } from '../../index';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/General/Icons',
@@ -171,6 +183,16 @@ export const Google: Story<BasicIconProps & { color: string }> = ({ color, ...pr
     LanguageIcon,
     LogoutIcon,
     LoginIcon,
+    ExpandLessIcon,
+    InvertColorsIcon,
+    PaletteIcon,
+    PictureAsPdfIcon,
+    NewReleasesIcon,
+    HelpIcon,
+    CalendarMonthIcon,
+    CalendarTodayIcon,
+    EventIcon,
+    CodeIcon,
   };
   
   return (
@@ -185,6 +207,7 @@ export const Google: Story<BasicIconProps & { color: string }> = ({ color, ...pr
             </div>
           ))}
         {/*<CopyToClipboard text={'texto copiado'}><CopyIcon /></CopyToClipboard>*/}
+        <ToggleThemeButton />
       </div>
     </NotificationProvider>
   );
