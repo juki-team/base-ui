@@ -130,7 +130,6 @@
       position: relative;
       height: calc(100% - var(--jk-table-toolbar-height));
       width: 100%;
-      overflow: hidden;
       
       &.rows {
         background: var(--t-color-white);
