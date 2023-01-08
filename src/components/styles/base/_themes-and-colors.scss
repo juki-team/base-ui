@@ -69,11 +69,3 @@
   @include defineColor(--t-color-white-2, #1C2023);
   @include defineColor(--t-color-white, #34373F);
 }
-
-:root {
-  --t-color-shadow-lightest: rgba(var(--t-color-black-rgb), 0.05);
-  --t-color-shadow-light: rgba(var(--t-color-black-rgb), 0.15);
-  --t-color-shadow: rgba(var(--t-color-black-rgb), 0.25);
-  --t-color-shadow-dark: rgba(var(--t-color-black-rgb), 0.35);
-  --t-color-shadow-darkest: rgba(var(--t-color-black-rgb), 0.45);
-}

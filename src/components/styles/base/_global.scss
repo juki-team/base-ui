@@ -11,6 +11,18 @@ html, body {
   margin: 0;
   width: 100%;
   height: 100%;
+  
+  *::-webkit-scrollbar {
+    //width: var(--pad-xt);
+    //height: var(--pad-xt);
+    width: var(--scrollbar-size);
+    height: var(--scrollbar-size);
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    border-radius: var(--border-radius-inline);
+    background: var(--t-color-shadow);
+  }
 }
 
 // overwriting styles
