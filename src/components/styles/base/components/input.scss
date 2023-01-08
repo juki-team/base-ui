@@ -224,7 +224,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   &::placeholder {
     color: var(--t-color-gray-4);
-    font-weight: var(--weight-regular);
+    font-weight: var(--weight-normal);
     font-size: var(--text-s-size);
     line-height: var(--text-s-height);
   }
@@ -596,7 +596,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     &.placeholder {
       color: var(--t-color-gray-4);
-      font-weight: var(--weight-regular);
+      font-weight: var(--weight-normal);
       font-size: var(--text-s-size);
       line-height: var(--text-s-height);
     }

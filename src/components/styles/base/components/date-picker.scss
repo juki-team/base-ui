@@ -125,7 +125,7 @@
     .date {
       &.is-next-month, &.is-previous-month {
         color: var(--t-color-gray-4);
-        font-weight: var(--weight-regular);
+        font-weight: var(--weight-normal);
         
         &.disabled {
           color: var(--t-color-gray-5);

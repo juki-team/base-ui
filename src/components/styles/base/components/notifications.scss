@@ -137,7 +137,7 @@
       @extend .elevation-1;
       border-radius: var(--border-radius-sm);
       @include sm { border-radius: 0; }
-      font-weight: var(--weight-regular);
+      font-weight: var(--weight-normal);
       background-color: var(--t-color-primary-light);
       right: calc(var(--width-notification) - var(--width-notification-wrapper));
       
