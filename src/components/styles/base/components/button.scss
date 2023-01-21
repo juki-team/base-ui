@@ -25,15 +25,9 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     
     &.pad-icon { padding: 0 calc(var(--pad-xt) + 10px); }
     
-    &.only-icon {
-      width: var(--pad-l);
-    }
+    &.only-icon { width: var(--pad-l); }
     
-    .jk-icon {
-      line-height: var(--pad-xs);
-      width: var(--pad-xs);
-      height: var(--pad-xs);
-    }
+    .jk-icon { @extend .jk-icon-tiny; }
   }
   
   &.small {
@@ -45,15 +39,9 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     
     &.pad-icon { padding: 0 calc(var(--pad-t) + 14px); }
     
-    &.only-icon {
-      width: var(--pad-xl);
-    }
+    &.only-icon { width: var(--pad-xl); }
     
-    .jk-icon {
-      line-height: var(--pad-s);
-      width: var(--pad-s);
-      height: var(--pad-s);
-    }
+    .jk-icon { @extend .jk-icon-small; }
   }
   
   &.regular {
@@ -79,9 +67,9 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     
     &.pad-icon { padding: 0 calc(var(--pad-s) + 20px); }
     
-    &.only-icon {
-      width: var(--pad-xH);
-    }
+    &.only-icon { width: var(--pad-xH); }
+    
+    .jk-icon { @extend .jk-icon-large; }
   }
   
   &.huge {
@@ -93,9 +81,9 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     
     &.pad-icon { padding: 0 calc(var(--pad-m) + 22px); }
     
-    &.only-icon {
-      width: 64px;
-    }
+    &.only-icon { width: 64px; }
+    
+    .jk-icon { @extend .jk-icon-huge; }
   }
   
   &.only-icon {
