@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, ReactNode, useState } from 'react';
+import React, { PropsWithChildren, ReactNode } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { NONE } from '../../../types';
 import { Button, Drawer, DrawerActionsType, ExpandLessIcon, ExpandMoreIcon, T } from '../../index';
@@ -38,8 +38,6 @@ export const HorizontalMenu = ({
       }
     }
     
-    const [open, setOpen] = useState(false);
-    
     return (
       <div className={classNames('jk-horizontal-menu-layout-container', className)}>
         <header className="jk-menu jk-top-horizontal-menu">
@@ -54,26 +52,32 @@ export const HorizontalMenu = ({
               {renderReactNodeOrFunction(rightSection)}
             </div>
           </section>
-          {open && (
-            <div className="jk-mobile-menu-drawer jk-col stretch">
-              <div className="jk-menu-items jk-col stretch nowrap">
-                {React.Children.toArray(menus)}
-              </div>
-              <div className="flex-1">
-                {renderReactNodeOrFunction(drawerMenuMobile)}
-              </div>
-            </div>
-          )}
           <section className="jk-row nowrap block jk-menu-content space-between screen sm elevation-1">
             <div className="jk-horizontal-menu-mobile-left jk-row stretch left">
-              <div className="jk-row sides-mobile-padding">
-                <Button size="small" onClick={() => setOpen(prevState => !prevState)}>
-                  <div className="jk-row nowrap"><T>menu</T>{open ? <ExpandLessIcon /> : <ExpandMoreIcon />}</div>
-                </Button>
-              </div>
+              {!!drawerMenuMobile && (
+                <div className="jk-row sides-mobile-padding">
+                  <Drawer
+                    content={props => renderReactNodeOrFunctionP1(drawerMenuMobile, { ...props, menu })}
+                    position="left"
+                    closeIcon={false}
+                    triggerOn={NONE}
+                    closeOnOutside
+                  >
+                    {({ isOpen, open }) => {
+                      return (
+                        <div>
+                          <Button size="small" onClick={open}>
+                            <div className="jk-row nowrap"><T>menu</T>{isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}</div>
+                          </Button>
+                        </div>
+                      );
+                    }}
+                  </Drawer>
+                </div>
+              )}
             </div>
             <div className="jk-horizontal-menu-mobile-center jk-row stretch">
-              {centerMobile && (
+              {!!centerMobile && (
                 <Drawer
                   content={props => renderReactNodeOrFunctionP1(centerMobile.content, props)}
                   position="top"
@@ -86,7 +90,7 @@ export const HorizontalMenu = ({
               )}
             </div>
             <div className="jk-horizontal-menu-mobile-right jk-row stretch right">
-              {rightMobile && (
+              {!!rightMobile && (
                 <Drawer
                   content={props => renderReactNodeOrFunctionP1(rightMobile.content, props)}
                   position="right"

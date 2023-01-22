@@ -2,6 +2,7 @@ import { Status } from '@juki-team/commons';
 import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
+import { JukiProvider } from '../JukiProvider';
 import { Button, ButtonLoader, ButtonProps, EyeInvisibleIcon, NotificationProvider } from '../../index';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
@@ -17,56 +18,71 @@ configureActions({
 });
 
 const Comp = (args: ButtonProps) => {
+  const { size, ...restArgs } = args;
   
   return (
-    <div className="jk-col">
+    <JukiProvider>
       <div className="jk-col">
-        <div>32px small</div>
-        <div>36px regular</div>
-        <div>56px large</div>
-        <div>64px huge</div>
+        <div className="jk-col">
+          <div>32px small</div>
+          <div>36px regular</div>
+          <div>56px large</div>
+          <div>64px huge</div>
+        </div>
+        <div className="jk-row">
+          <Button {...args} loading={true} />
+          <Button {...args} icon={<EyeInvisibleIcon />} />
+          <ButtonLoader
+            {...args}
+            onClick={(setLoader, loader) => {
+              action('onClick')({ setLoader, loader });
+              setLoader(Status.LOADING);
+              setTimeout(() => setLoader(Status.SUCCESS), 1000);
+            }}
+          />
+          <ButtonLoader
+            {...args}
+            onClick={(setLoader, loader) => {
+              action('onClick')({ setLoader, loader });
+              setLoader(Status.LOADING);
+              setTimeout(() => setLoader(Status.NONE), 1000);
+            }}
+            icon={<EyeInvisibleIcon />}
+          />
+          <ButtonLoader
+            {...args}
+            onClick={(setLoader, loader) => {
+              action('onClick')({ setLoader, loader });
+              setLoader(Status.LOADING);
+              setTimeout(() => setLoader(Status.SUCCESS), 1000);
+            }}
+            icon={<EyeInvisibleIcon />}
+          />
+          <ButtonLoader
+            {...args}
+            onClick={(setLoader, loader) => {
+              action('onClick')({ setLoader, loader });
+              setLoader(Status.LOADING);
+              setTimeout(() => setLoader(Status.ERROR), 1000);
+            }}
+            icon={<EyeInvisibleIcon />}
+          />
+          <ButtonLoader
+            {...restArgs}
+            onClick={(setLoader, loader) => {
+              action('onClick')({ setLoader, loader });
+              setLoader(Status.LOADING);
+              setTimeout(() => setLoader(Status.ERROR), 1000);
+            }}
+            icon={<EyeInvisibleIcon />}
+            responsive
+          >
+            responsive
+          </ButtonLoader>
+        </div>
+        <ToggleThemeButton />
       </div>
-      <div className="jk-row">
-        <Button {...args} loading={true} />
-        <Button {...args} icon={<EyeInvisibleIcon />} />
-        <ButtonLoader
-          {...args}
-          onClick={(setLoader, loader) => {
-            action('onClick')({ setLoader, loader });
-            setLoader(Status.LOADING);
-            setTimeout(() => setLoader(Status.SUCCESS), 1000);
-          }}
-        />
-        <ButtonLoader
-          {...args}
-          onClick={(setLoader, loader) => {
-            action('onClick')({ setLoader, loader });
-            setLoader(Status.LOADING);
-            setTimeout(() => setLoader(Status.NONE), 1000);
-          }}
-          icon={<EyeInvisibleIcon />}
-        />
-        <ButtonLoader
-          {...args}
-          onClick={(setLoader, loader) => {
-            action('onClick')({ setLoader, loader });
-            setLoader(Status.LOADING);
-            setTimeout(() => setLoader(Status.SUCCESS), 1000);
-          }}
-          icon={<EyeInvisibleIcon />}
-        />
-        <ButtonLoader
-          {...args}
-          onClick={(setLoader, loader) => {
-            action('onClick')({ setLoader, loader });
-            setLoader(Status.LOADING);
-            setTimeout(() => setLoader(Status.ERROR), 1000);
-          }}
-          icon={<EyeInvisibleIcon />}
-        />
-      </div>
-      <ToggleThemeButton />
-    </div>
+    </JukiProvider>
   );
 };
 const Template: Story<ButtonProps> = (args) => {

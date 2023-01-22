@@ -1,8 +1,20 @@
 import { Status } from '@juki-team/commons';
 import React, { forwardRef, ReactElement, Ref, useEffect, useRef, useState } from 'react';
+import { useJukiBase } from '../../';
 import { classNames } from '../../helpers';
 import { CheckIcon, LoadingIcon, WarningIcon } from '../graphics';
 import { ButtonLoaderProps, ButtonProps } from './types';
+
+const sizeViewPorts = {
+  // sm: 'small',
+  // md: 'regular',
+  // lg: 'large',
+  // hg: 'huge',
+  sm: 'tiny',
+  md: 'small',
+  lg: 'regular',
+  hg: 'regular',
+};
 
 const ButtonComponent = ({
   submit = false,
@@ -12,11 +24,16 @@ const ButtonComponent = ({
   icon,
   children,
   loading = false,
-  size = 'regular',
+  size: _size,
   onClick,
   disabled = false,
+  responsive = false,
   ...restProps
 }: ButtonProps, ref: Ref<HTMLButtonElement>) => {
+  const { viewPortSize } = useJukiBase();
+  
+  const size = _size || (responsive ? sizeViewPorts[viewPortSize] : 'regular');
+  
   return (
     <button
       ref={ref}

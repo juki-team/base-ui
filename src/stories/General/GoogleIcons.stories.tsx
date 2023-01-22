@@ -3,7 +3,9 @@ import { Story } from '@storybook/react';
 import React from 'react';
 
 import {
+  AccountCircleIcon,
   AddIcon,
+  AdminPanelSettingsIcon,
   AppsIcon,
   ArrowDownwardIcon,
   ArrowUpwardIcon,
@@ -11,12 +13,14 @@ import {
   AttachFileIcon,
   AttachmentIcon,
   AutorenewIcon,
+  BadgeIcon,
   BasicIconProps,
   CalendarMonthIcon,
   CalendarTodayIcon,
   CheckIcon,
   CloseIcon,
   CodeIcon,
+  ContactsIcon,
   ContentCopyIcon,
   DarkModeIcon,
   DeleteIcon,
@@ -50,12 +54,14 @@ import {
   LoginIcon,
   LogoutIcon,
   MailIcon,
+  ManageAccountsIcon,
   NavigateBeforeIcon,
   NavigateNextIcon,
   NewReleasesIcon,
   NotificationProvider,
   OpenInNewIcon,
   PaletteIcon,
+  PersonIcon,
   PictureAsPdfIcon,
   PlayArrowIcon,
   PlayCircleIcon,
@@ -193,6 +199,12 @@ export const Google: Story<BasicIconProps & { color: string }> = ({ color, ...pr
     CalendarTodayIcon,
     EventIcon,
     CodeIcon,
+    AccountCircleIcon,
+    PersonIcon,
+    BadgeIcon,
+    ManageAccountsIcon,
+    AdminPanelSettingsIcon,
+    ContactsIcon,
   };
   
   return (

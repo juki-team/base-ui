@@ -32,7 +32,7 @@ const Template: Story<TimerLabeledProps> = (args) => {
         startDate={new Date(Date.now() + 15 * 1000)}
         laps={7}
       />
-      <h4>laps 4</h4>
+      <h3>laps 4</h3>
       {[15 * 1000, 0, -30 * 1000].map((startTimestamp) => (
         <TimerLabeled
           startDate={new Date(Date.now() + startTimestamp)}

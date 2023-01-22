@@ -1,8 +1,8 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { ToggleThemeButton } from '../ToggleThemeButton';
 import { Tabs as TabsComponent, TabsProps } from '../../index';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/General/Classes',
@@ -187,18 +187,30 @@ export const Classes: Story<TabsProps<string>> = () => {
       header: <div>font size</div>,
       body: (
         <div className="jk-col gap">
+          <h1>Heading</h1>
+          <div className="jk-col gap">
+            <h1>Heading 1</h1>
+            <h2>Heading 2</h2>
+            <h3>Heading 3</h3>
+          </div>
+          <div className="jk-divider" />
           <h1>font size</h1>
-          <div className="jk-row gap">
+          <div className="jk-row gap nowrap block stretch">
             {[
-              'tx-h',
-              'tx-l',
-              'tx-m',
-              'tx-s',
-              'tx-t',
-            ].map(size => (
-              <div className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline" style={{ width: '140px' }}>
-                <pre>"{size}"</pre>
-                <div className={size}>&nbsp;text&nbsp;</div>
+              ['tx-h', 20],
+              ['tx-l', 18],
+              ['tx-m', 16],
+              ['tx-s', 14],
+              ['tx-t', 12],
+            ].map(([className, size]) => (
+              <div className="jk-col gap nowrap elevation-1 jk-pad-md jk-border-radius-inline">
+                <pre>
+                  {`.${className} {\n  font-size: ${size}px;\n  line-height: 24px;\n}`}
+                </pre>
+                <div className={className as string}>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div>
               </div>
             ))}
           </div>
@@ -210,7 +222,7 @@ export const Classes: Story<TabsProps<string>> = () => {
       header: <div>font width</div>,
       body: (
         <div className="jk-col gap">
-          <h1>font size</h1>
+          <h1>font width</h1>
           <div className="jk-col gap">
             {[
               'fw-lr',
@@ -271,29 +283,6 @@ export const Classes: Story<TabsProps<string>> = () => {
       ),
     },
     {
-      key: '9',
-      header: <div>box-shadow</div>,
-      body: (
-        <div className="jk-col gap">
-          <h1>text-align</h1>
-          <div className="jk-col gap">
-            {[
-              'jk-shadow huge',
-              'jk-shadow large',
-              'jk-shadow regular',
-              'jk-shadow small',
-              'jk-shadow tiny',
-            ].map(tt => (
-              <div className="jk-row gap nowrap jk-pad-md jk-border-radius-inline" style={{ width: 420 }}>
-                <pre>"{tt}"</pre>
-                <div className={'ws-np ' + tt} style={{ width: 400 }}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ),
-    },
-    {
       key: '10',
       header: <div>elevation</div>,
       body: (
@@ -306,7 +295,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'elevation-3',
               'elevation-4',
               'elevation-5',
-              'elevation-6'
+              'elevation-6',
             ].map(tt => (
               <div className="jk-row gap nowrap jk-pad-md jk-border-radius-inline" style={{ width: 420 }}>
                 <pre>"{tt}"</pre>

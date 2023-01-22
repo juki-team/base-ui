@@ -7,15 +7,17 @@ export type MenuMobileSectionType = {
   content?: ReactNodeOrFunctionP1Type<DrawerActionsType>,
 }
 
+type MenuType = { icon?: ReactNodeOrFunctionType, label: ReactNodeOrFunctionType, selected: boolean, onClick?: (isOpen?: boolean) => void, menuItemWrapper?: ReactNodeOrFunctionP1Type<ReactNode> };
+
 export interface HorizontalMenuProps {
   className?: string,
   // left?: ReactNodeOrFunctionP1Type<{ isOpen: boolean }>,
   // right?: ReactNodeOrFunctionP1Type<{ isOpen: boolean }>,
   leftSection?: ReactNodeOrFunctionType,
   rightSection?: ReactNodeOrFunctionType,
-  menu: { icon?: ReactNodeOrFunctionType, label: ReactNodeOrFunctionType, selected: boolean, onClick?: (isOpen?: boolean) => void, menuItemWrapper?: ReactNodeOrFunctionP1Type<ReactNode> }[],
+  menu: MenuType[],
   rightMobile?: MenuMobileSectionType,
-  drawerMenuMobile?: ReactNodeOrFunctionType,
+  drawerMenuMobile?: ReactNodeOrFunctionP1Type<{ close: () => void, menu: MenuType[] }>,
   centerMobile?: MenuMobileSectionType,
 }
 
