@@ -38,7 +38,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     cards: { height: cardHeight = 56, width: cardWidth = 256 } = { height: 300, width: 256 },
     cardsView,
     data,
-    extraNodes,
+    extraNodes: _extraNodes,
     headers,
     loading = false,
     onAllFilters,
@@ -85,8 +85,9 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   const [recordHoveredIndex, setRecordHoveredIndex] = useState<number | null>(null);
   const { viewPortSize } = useJukiBase();
   const isMobileViewPort = viewPortSize === 'sm';
+  const extraNodes = (_extraNodes || []).filter(extraNode => !!extraNode);
   const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
-  const onColumn = !isMobileViewPort || (isMobileViewPort && !!extraNodesFloating && !viewViews);
+  const onColumn = !isMobileViewPort || (isMobileViewPort && (extraNodes.length === 0 ? true : !!extraNodesFloating) && !viewViews);
   
   return (
     <div
@@ -95,7 +96,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     >
       <DataViewerToolbar
         setViewMode={setViewMode}
-        extraNodes={extraNodes || []}
+        extraNodes={extraNodes}
         headers={headers}
         dataLength={data.length}
         viewMode={viewMode}
@@ -114,7 +115,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
           className="jk-col gap nowrap"
           style={{ position: 'absolute', bottom: 'var(--pad-t)', right: 'var(--pad-t)', zIndex: 1 }}
         >
-          {(extraNodes || []).filter(extraNode => !!extraNode).map(extraButton => renderReactNodeOrFunction(extraButton))}
+          {React.Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
         </div>
       )}
       <div

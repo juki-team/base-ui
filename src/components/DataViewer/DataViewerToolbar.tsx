@@ -12,7 +12,7 @@ import { isSomethingFiltered } from './utils';
 export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const {
-    extraNodes: _extraNodes,
+    extraNodes,
     setViewMode,
     headers,
     viewMode,
@@ -27,8 +27,6 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
     onColumn,
     viewViews,
   } = props;
-  
-  const extraNodes = (_extraNodes || []).filter(extraNode => !!extraNode);
   
   const [filterDrawer, setFilterDrawer] = useState(false);
   const { filtered } = isSomethingFiltered(headers);
@@ -47,7 +45,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
         onResetFilters={() => onAllFilters({})}
       />
       <div className="jk-table-view-extra-nodes jk-row left gap screen md lg hg">
-        {extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton))}
+        {React.Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
       </div>
       <div
         className={classNames('jk-table-view-tools', {

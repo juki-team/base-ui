@@ -237,8 +237,8 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
         // request={request}
         name="users"
         cardsView={cardsView}
-        // rowsView={rowsView}
-        rowsView={false}
+        rowsView={rowsView}
+        // rowsView={false}
         extraNodesFloating
         extraNodes={[
           <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')} responsiveMobile>
