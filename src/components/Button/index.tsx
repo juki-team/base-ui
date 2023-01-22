@@ -28,11 +28,12 @@ const ButtonComponent = ({
   onClick,
   disabled = false,
   responsive = false,
+  responsiveMobile = false,
   ...restProps
 }: ButtonProps, ref: Ref<HTMLButtonElement>) => {
   const { viewPortSize } = useJukiBase();
   
-  const size = _size || (responsive ? sizeViewPorts[viewPortSize] : 'regular');
+  const size = (responsiveMobile && viewPortSize === 'sm') ? 'large' : (_size || (responsive ? sizeViewPorts[viewPortSize] : 'regular'));
   
   return (
     <button
@@ -56,7 +57,7 @@ const ButtonComponent = ({
       {...restProps}
     >
       {loading ? <LoadingIcon /> : icon}
-      {!!children && <span className="button-label">{children}</span>}
+      {!!children && (responsiveMobile ? viewPortSize !== 'sm' : true) && <span className="button-label">{children}</span>}
     </button>
   );
 };

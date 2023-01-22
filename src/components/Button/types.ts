@@ -16,6 +16,7 @@ type ButtonBasicProps = {
   size?: ButtonSizeType,
   style?: CSSProperties,
   responsive?: boolean,
+  responsiveMobile?: boolean,
 }
 
 export type OnClickButtonEventType = { onClickEvent?: MouseEvent<HTMLButtonElement>, onKeyDownEvent?: KeyboardEvent<HTMLButtonElement> };

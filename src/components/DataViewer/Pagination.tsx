@@ -87,19 +87,21 @@ export const Pagination = ({
                 </div>
               </Popover>
             </div>
-            <Popover
-              content={<T className="tt-se ws-np">records per page</T>}
-              showPopperArrow
-            >
-              <div>
-                <Select
-                  options={pageSizeOptions.map(option => ({ value: option, label: option }))}
-                  selectedOption={{ value: pageSize }}
-                  onChange={({ value }) => onPageSizeChange(value)}
-                  optionsPlacement="bottom"
-                />
-              </div>
-            </Popover>
+            {pageSizeOptions.length > 1 && (
+              <Popover
+                content={<T className="tt-se ws-np">records per page</T>}
+                showPopperArrow
+              >
+                <div>
+                  <Select
+                    options={pageSizeOptions.map(option => ({ value: option, label: option }))}
+                    selectedOption={{ value: pageSize }}
+                    onChange={({ value }) => onPageSizeChange(value)}
+                    optionsPlacement="bottom"
+                  />
+                </div>
+              </Popover>
+            )}
           </div>
         ) : (
           <>

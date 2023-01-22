@@ -193,6 +193,7 @@ export interface DisplayDataViewerProps<T> {
   cardsView: boolean,
   data: T[],
   extraNodes?: ReactNodeOrFunctionType[],
+  extraNodesFloating?: boolean,
   headers: TableHeadersType<T>[],
   loading?: boolean,
   onAllFilters: (values: FilterValuesType) => void,
@@ -244,6 +245,7 @@ export interface DataViewerProps<T> {
   className?: string,
   data: T[],
   extraNodes?: ReactNodeOrFunctionType[],
+  extraNodesFloating?: boolean,
   headers: DataViewerHeadersType<T>[],
   initialViewMode?: ViewModeType,
   name?: string,
@@ -312,6 +314,7 @@ export interface DataViewerToolbarProps<T> {
   cardsView: boolean,
   dataLength: number,
   extraNodes: ReactNodeOrFunctionType[],
+  extraNodesFloating: boolean,
   headers: TableHeadersType<T>[],
   loading: boolean,
   onAllFilters: (values: FilterValuesType) => void,
@@ -320,6 +323,8 @@ export interface DataViewerToolbarProps<T> {
   setViewMode: (viewMode: ViewModeType) => void,
   viewMode: ViewModeType,
   paginationData: PaginationDataType,
+  onColumn: boolean,
+  viewViews: boolean,
 }
 
 export interface PaginationProps {

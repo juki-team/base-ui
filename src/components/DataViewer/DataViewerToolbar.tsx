@@ -23,14 +23,17 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
     onReload,
     onAllFilters,
     paginationData,
+    extraNodesFloating,
+    onColumn,
+    viewViews,
   } = props;
   
-  const extraNodes = (_extraNodes || []).filter(action => !!action);
+  const extraNodes = (_extraNodes || []).filter(extraNode => !!extraNode);
   
   const [filterDrawer, setFilterDrawer] = useState(false);
   const { filtered } = isSomethingFiltered(headers);
   const { viewPortSize } = useJukiBase();
-  const onColumn = viewPortSize !== 'sm';
+  const isMobileViewPort = viewPortSize === 'sm';
   
   return (
     <div
@@ -46,8 +49,15 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
       <div className="jk-table-view-extra-nodes jk-row left gap screen md lg hg">
         {extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton))}
       </div>
-      <div className={classNames('jk-table-view-tools', { 'jk-row nowrap gap': onColumn, 'jk-col stretch': !onColumn })}>
-        <div className={classNames('jk-row nowrap', { gap: onColumn })}>
+      <div
+        className={classNames('jk-table-view-tools', {
+          'jk-row nowrap': onColumn,
+          'jk-col stretch': !onColumn,
+          gap: onColumn && !isMobileViewPort,
+          'center': !(onColumn && !isMobileViewPort),
+        })}
+      >
+        <div className={classNames('jk-row nowrap', { gap: onColumn && !isMobileViewPort })}>
           {onReload && (
             <Popover
               content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
@@ -69,7 +79,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
             }
             showPopperArrow
           >
-            <div className="no-records tx-t fw-bd jk-tag gray-6">
+            <div className="no-records tx-t fw-bd jk-tag gray-6" style={{ marginLeft: '4px' }}>
               {dataLength}{paginationData.pagination?.total ? '/' + paginationData.pagination.total : ''}
             </div>
           </Popover>
@@ -77,7 +87,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
             <>
               <Pagination
                 loading={loading}
-                pageSizeOptions={paginationData.pageSizeOptions}
+                pageSizeOptions={isMobileViewPort ? [16] : paginationData.pageSizeOptions}
                 total={paginationData.pagination.total}
                 page={paginationData.page}
                 pageSize={paginationData.pageSize}
@@ -85,7 +95,6 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                 onPageSizeChange={paginationData.onPageSizeChange}
                 isOnToolbar
               />
-            
             </>
           )}
         </div>
@@ -99,27 +108,32 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               <FilterListIcon className="jk-br-ie clickable" />
             </div>
           </Popover>
-          <div className="jk-divider horizontal" />
-          <div className={classNames('jk-row nowrap jk-table-view-tools-view-mode', { rowsView, cardsView })}>
-            {rowsView && (
-              <Popover content={<T className="tt-se ws-np">list view</T>} showPopperArrow>
-                <div className={classNames({ active: viewMode === 'rows' }, 'jk-row')} onClick={() => setViewMode('rows')}>
-                  <ViewHeadlineIcon className={classNames('jk-br-ie', { clickable: viewMode === 'cards' })} />
-                </div>
-              </Popover>
-            )}
-            {cardsView && (
-              <Popover content={<T className="tt-se ws-np">cards view</T>} showPopperArrow>
-                <div className={classNames({ active: viewMode === 'cards' }, 'jk-row')} onClick={() => setViewMode('cards')}>
-                  <ViewModuleIcon className={classNames('jk-br-ie', { clickable: viewMode === 'rows' })} />
-                </div>
-              </Popover>
-            )}
-          </div>
-          {!!extraNodes.length && (
+          {viewViews && (
             <>
-              <div className="jk-divider horizontal screen sm" />
-              <div className="screen sm">
+              <div className="jk-divider horizontal" />
+              <div className={classNames('jk-row nowrap jk-table-view-tools-view-mode', { rowsView, cardsView })}>
+                {rowsView && (
+                  <Popover content={<T className="tt-se ws-np">list view</T>} showPopperArrow>
+                    <div className={classNames({ active: viewMode === 'rows' }, 'jk-row')} onClick={() => setViewMode('rows')}>
+                      <ViewHeadlineIcon className={classNames('jk-br-ie', { clickable: viewMode === 'cards' })} />
+                    </div>
+                  </Popover>
+                )}
+                {cardsView && (
+                  <Popover content={<T className="tt-se ws-np">cards view</T>} showPopperArrow>
+                    <div className={classNames({ active: viewMode === 'cards' }, 'jk-row')}
+                         onClick={() => setViewMode('cards')}>
+                      <ViewModuleIcon className={classNames('jk-br-ie', { clickable: viewMode === 'rows' })} />
+                    </div>
+                  </Popover>
+                )}
+              </div>
+            </>
+          )}
+          {!!extraNodes.length && isMobileViewPort && !extraNodesFloating && (
+            <>
+              <div className="jk-divider horizontal" />
+              <div>
                 <Popover
                   content={extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton))}
                   triggerOn="click"

@@ -66,6 +66,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     getRecordStyle,
     getRecordClassName,
     onRecordClick,
+    extraNodesFloating,
   } = props;
   
   const withPagination = !!pagination;
@@ -615,6 +616,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         cards={cards}
         data={dataTable}
         extraNodes={extraNodes}
+        extraNodesFloating={extraNodesFloating}
         headers={tableHeaders}
         loading={loaderStatus === Status.LOADING}
         onAllFilters={onAllFilters}

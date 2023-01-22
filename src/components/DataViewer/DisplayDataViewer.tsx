@@ -1,7 +1,7 @@
 import React, { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../constants';
-import { classNames } from '../../helpers';
+import { classNames, renderReactNodeOrFunction } from '../../helpers';
 import { useInterval, usePrevious } from '../../hooks';
 import { LoaderLayer, TableHeadersType, useJukiBase } from '../index';
 import { CardRowVirtualizerFixed } from './CardList';
@@ -52,6 +52,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     getRecordStyle,
     getRecordClassName,
     onRecordClick,
+    extraNodesFloating,
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
@@ -83,12 +84,14 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   })).filter(head => head.width), [headers, headerWidths]);
   const [recordHoveredIndex, setRecordHoveredIndex] = useState<number | null>(null);
   const { viewPortSize } = useJukiBase();
-  const onColumn = viewPortSize !== 'sm';
+  const isMobileViewPort = viewPortSize === 'sm';
+  const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
+  const onColumn = !isMobileViewPort || (isMobileViewPort && !!extraNodesFloating && !viewViews);
   
   return (
     <div
       className="jk-data-viewer-content"
-      style={{ '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px' } as CSSProperties}
+      style={{ '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px', position: 'relative' } as CSSProperties}
     >
       <DataViewerToolbar
         setViewMode={setViewMode}
@@ -102,7 +105,18 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         onReload={onReload}
         onAllFilters={onAllFilters}
         paginationData={paginationData}
+        extraNodesFloating={extraNodesFloating || false}
+        onColumn={onColumn}
+        viewViews={viewViews}
       />
+      {extraNodesFloating && isMobileViewPort && (
+        <div
+          className="jk-col gap nowrap"
+          style={{ position: 'absolute', bottom: 'var(--pad-t)', right: 'var(--pad-t)', zIndex: 1 }}
+        >
+          {(extraNodes || []).filter(extraNode => !!extraNode).map(extraButton => renderReactNodeOrFunction(extraButton))}
+        </div>
+      )}
       <div
         className={classNames('jk-view-container', viewMode)}
         ref={viewContainerRef}

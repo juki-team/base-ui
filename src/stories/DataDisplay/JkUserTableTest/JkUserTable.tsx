@@ -231,18 +231,20 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px', background: 'lightgray' }}>
       <DataViewer<UserTable>
-        headers={columns}
+        headers={columns2}
         data={data}
         // rows={{ height: 150 }}
         request={request}
         name="users"
         cardsView={cardsView}
-        rowsView={rowsView}
+        // rowsView={rowsView}
+        rowsView={false}
+        extraNodesFloating
         extraNodes={[
-          <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
+          <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')} responsiveMobile>
             <T>download</T>
           </ButtonLoader>,
-          <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
+          <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')} responsiveMobile>
             <T>download</T>
           </ButtonLoader>,
           <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
