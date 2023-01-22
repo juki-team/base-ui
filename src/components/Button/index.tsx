@@ -34,6 +34,7 @@ const ButtonComponent = ({
   const { viewPortSize } = useJukiBase();
   
   const size = (responsiveMobile && viewPortSize === 'sm') ? 'large' : (_size || (responsive ? sizeViewPorts[viewPortSize] : 'regular'));
+  const hasChildren = !!children && (responsiveMobile ? viewPortSize !== 'sm' : true);
   
   return (
     <button
@@ -41,7 +42,7 @@ const ButtonComponent = ({
       type={submit ? 'submit' : 'button'}
       className={classNames(className, `jk-button-${type} jk-border-radius-inline`, size, {
         extend,
-        'only-icon': !children,
+        'only-icon': !hasChildren,
         disabled,
         icon: !!(icon || loading),
         loading,
@@ -57,7 +58,7 @@ const ButtonComponent = ({
       {...restProps}
     >
       {loading ? <LoadingIcon /> : icon}
-      {!!children && (responsiveMobile ? viewPortSize !== 'sm' : true) && <span className="button-label">{children}</span>}
+      {hasChildren && <span className="button-label">{children}</span>}
     </button>
   );
 };
