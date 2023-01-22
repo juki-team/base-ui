@@ -59,16 +59,18 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
       >
         <div className={classNames('jk-row nowrap', { gap: onColumn && !isMobileViewPort })}>
           {onReload && (
-            <Popover
-              content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
-              showPopperArrow
-            >
-              <div className={classNames({ active: loading, loading }, 'jk-row')} onClick={!loading ? onReload : undefined}>
-                {loading ? <LoadingIcon /> : <ReloadIcon className="jk-br-ie clickable" />}
-              </div>
-            </Popover>
+            <>
+              <Popover
+                content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
+                showPopperArrow
+              >
+                <div className={classNames({ active: loading, loading }, 'jk-row')} onClick={!loading ? onReload : undefined}>
+                  {loading ? <LoadingIcon /> : <ReloadIcon className="jk-br-ie clickable" />}
+                </div>
+              </Popover>
+              <div className="jk-divider horizontal" />
+            </>
           )}
-          <div className="jk-divider horizontal" />
           <Popover
             content={
               dataLength
