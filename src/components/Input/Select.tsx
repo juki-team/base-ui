@@ -3,7 +3,16 @@ import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
 import { ReactNodeOrFunctionType } from '../../types';
-import { ExpandMoreIcon, Popover, SelectOptionType } from '../index';
+import {
+  ArrowDropDownIcon,
+  ArrowDropUpIcon,
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  ExpandMoreIcon,
+  PlacementType,
+  Popover,
+  SelectOptionType,
+} from '../index';
 import { SelectProps } from './types';
 
 export const SelectInline = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>({  // TODO: Fix the styles or remove component
@@ -104,7 +113,24 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   const isDisabled = disabled || !onChange;
   const containerWidth = _containerWidth ?? width * 12 + 35;
   
-  const expandIcon = <ExpandMoreIcon className="input-icon" />;
+  const expandIcons: { [key in PlacementType]: ReactNode } = {
+    topLeft: <ArrowDropUpIcon className="input-icon" />,
+    top: <ArrowDropUpIcon className="input-icon" />,
+    topRight: <ArrowDropUpIcon className="input-icon" />,
+    rightTop: <ArrowRightIcon className="input-icon" />,
+    right: <ArrowRightIcon className="input-icon" />,
+    rightBottom: <ArrowRightIcon className="input-icon" />,
+    bottomRight: <ArrowDropDownIcon className="input-icon" />,
+    bottom: <ArrowDropDownIcon className="input-icon" />,
+    bottomLeft: <ArrowDropDownIcon className="input-icon" />,
+    leftBottom: <ArrowLeftIcon className="input-icon" />,
+    left: <ArrowLeftIcon className="input-icon" />,
+    leftTop: <ArrowLeftIcon className="input-icon" />,
+    center: <ArrowDropUpIcon className="input-icon" />,
+    centerScreen: <ArrowDropUpIcon className="input-icon" />,
+  };
+  
+  const expandIcon = expandIcons[optionsPlacement];
   
   return (
     <Popover
