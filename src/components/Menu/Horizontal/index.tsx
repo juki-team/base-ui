@@ -82,7 +82,7 @@ export const HorizontalMenu = ({
                   content={props => renderReactNodeOrFunctionP1(centerMobile.content, props)}
                   position="top"
                   closeIcon={false}
-                  triggerOn={typeof centerMobile.children === 'function' ? NONE : undefined}
+                  triggerOn={!!centerMobile.content ? NONE : undefined}
                   closeOnOutside
                 >
                   {(props: DrawerActionsType): ReactNode => renderReactNodeOrFunctionP1(centerMobile.children, props)}
@@ -95,7 +95,7 @@ export const HorizontalMenu = ({
                   content={props => renderReactNodeOrFunctionP1(rightMobile.content, props)}
                   position="right"
                   closeIcon={false}
-                  triggerOn={typeof rightMobile.children === 'function' ? NONE : undefined}
+                  triggerOn={!!rightMobile.content ? NONE : undefined}
                   closeOnOutside
                 >
                   {(props: DrawerActionsType): ReactNode => renderReactNodeOrFunctionP1(rightMobile.children, props)}

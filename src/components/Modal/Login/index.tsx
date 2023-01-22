@@ -93,8 +93,9 @@ export const LoginModal = ({
               <div className="jk-form-item">
                 {onForgotPassword && (
                   <p className="link" onClick={() => setOpenForgotPasswordModal(true)}>
-                    <T className={classNames('forgot-password-label', { 'fw-br': !!highlightForgotPassword })}>forgot
-                      password?</T>
+                    <T className={classNames('forgot-password-label', { 'fw-br': !!highlightForgotPassword })}>
+                      forgot password?
+                    </T>
                   </p>
                 )}
                 <label>
