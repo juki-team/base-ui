@@ -70,7 +70,7 @@ export const VerticalMenu = ({
             </div>
           </section>
         </header>
-        <section className="jk-menu-main-layout jk-with-scroll">
+        <section className="jk-menu-main-layout">
           {children}
         </section>
       </div>

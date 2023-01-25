@@ -126,6 +126,7 @@
   
   > .jk-menu-main-layout {
     width: calc(100vw - var(--left-vertical-menu-width));
+    overflow: hidden auto;
   }
 }
 
