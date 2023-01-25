@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { Children, PropsWithChildren } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState } from '../../../hooks';
 import { HorizontalMenu, NavigateBeforeIcon, NavigateNextIcon } from '../../index';
@@ -62,7 +62,7 @@ export const VerticalMenu = ({
             </div>
             <div className="jk-menu-items">
               <div className={classNames('jk-menu-item extra', { 'selected-down': menu[0]?.selected })} />
-              {menus}
+              {Children.toArray(menus)}
               <div className={classNames('jk-menu-item extra', { 'selected-up': menu[menu.length - 1]?.selected })} />
             </div>
             <div className={classNames('jk-menu-bottom-section')}>
