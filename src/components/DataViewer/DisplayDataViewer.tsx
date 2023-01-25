@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Children, CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
@@ -115,7 +115,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
           className="jk-col gap nowrap"
           style={{ position: 'absolute', bottom: 'var(--pad-t)', right: 'var(--pad-t)', zIndex: 1 }}
         >
-          {React.Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
+          {Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
         </div>
       )}
       <div

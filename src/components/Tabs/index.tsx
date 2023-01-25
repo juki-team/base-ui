@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Children, CSSProperties, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
@@ -76,7 +76,10 @@ export const Tabs = <T extends string, >({
   
   return (
     <div
-      className={classNames('jk-tabs-layout', className, { 'first-tab-selected': indexes[tabKey] === 0, 'select-mode': !isExtend })}
+      className={classNames('jk-tabs-layout', className, {
+        'first-tab-selected': indexes[tabKey] === 0,
+        'select-mode': !isExtend,
+      })}
       style={{ '--tabs-header-height': `${heightTabsContainer}px` } as CSSProperties}
       ref={refContainer}
     >
@@ -114,18 +117,18 @@ export const Tabs = <T extends string, >({
         >
           <div className="jk-divider horizontal" />
           <div className="jk-row gap nowrap" ref={refActions}>
-            {extraNodes.map(action => (
+            {Children.toArray(extraNodes.map(action => (
               renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
-            ))}
+            )))}
           </div>
         </div>
         {(!!extraNodes.length && !isExtend) && (
           <Popover
             content={
               <div className="jk-col gap stretch jk-tab-extra-nodes">
-                {extraNodes.map(action => (
+                {Children.toArray(extraNodes.map(action => (
                   renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
-                ))}
+                )))}
               </div>
             }
             triggerOn="click"

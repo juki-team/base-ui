@@ -1,5 +1,5 @@
 import { ContentResponseType, ContentsResponseType, ErrorResponseType, Status } from '@juki-team/commons';
-import React, { ReactNode } from 'react';
+import React, { Children, ReactNode } from 'react';
 import { NewNotificationType, NotificationType, SetLoaderStatusOnClickType, T } from '../components';
 
 export const notifyError = (response: ErrorResponseType, addErrorNotification: (message: ReactNode) => void) => {
@@ -8,7 +8,7 @@ export const notifyError = (response: ErrorResponseType, addErrorNotification: (
       <span className="tt-se"><T>{response.message}</T></span>
       {(response.errors[0]?.message !== response.message || response.errors.length > 1) && (
         <ul>
-          {response.errors.map(error => <li><T className="tt-se">{error.message}</T></li>)}
+          {Children.toArray(response.errors.map(error => <li><T className="tt-se">{error.message}</T></li>))}
         </ul>
       )}
     </div>,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Children, useState } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
 import { FilterListIcon, LoadingIcon, MenuIcon, ReloadIcon, ViewHeadlineIcon, ViewModuleIcon } from '../graphics';
 import { Popover } from '../Popover';
@@ -45,7 +45,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
         onResetFilters={() => onAllFilters({})}
       />
       <div className="jk-table-view-extra-nodes jk-row left gap screen md lg hg">
-        {React.Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
+        {Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
       </div>
       <div
         className={classNames('jk-table-view-tools', {
@@ -135,7 +135,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               <div className="jk-divider horizontal" />
               <div>
                 <Popover
-                  content={extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton))}
+                  content={Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
                   triggerOn="click"
                   placement="bottomRight"
                 >
