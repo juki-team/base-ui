@@ -35,7 +35,7 @@ export const LineLoader = () => {
 export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   
   const {
-    cards: { height: cardHeight = 56, width: cardWidth = 256 } = { height: 300, width: 256 },
+    cards: { height: cardHeight = 300, width: cardWidth = 256 } = { height: 300, width: 256 },
     cardsView,
     data,
     extraNodes: _extraNodes,
