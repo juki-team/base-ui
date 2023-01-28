@@ -4,6 +4,7 @@ import {
   Button,
   Color,
   ColorPicker as ColorPickerComponent,
+  DateLiteral,
   Input,
   InputCheckbox as CheckboxComponent,
   InputDate,
@@ -372,6 +373,7 @@ export const DatePicker = () => {
         inline
       />
       <ToggleThemeButton />
+      <DateLiteral date={date} twoLines={false} show="year-month-day-hours-minutes-seconds-milliseconds" withDayName={true} />
     </div>
   );
 };

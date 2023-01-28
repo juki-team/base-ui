@@ -28,11 +28,11 @@ export const TextField = ({ text, label, onClick, className }: TextFieldProps) =
   );
 };
 
-export const DateField = ({ date, label, show, twoLines, className, onClick }: DateFieldProps) => {
+export const DateField = ({ date, label, show, twoLines, withDayName, className, onClick }: DateFieldProps) => {
   return (
     <Field className="jk-col nowrap" onClick={onClick}>
       <div className={classNames('date-field jk-row', className)}>
-        <DateLiteral date={date} twoLines={twoLines} show={show} />
+        <DateLiteral date={date} twoLines={twoLines} show={show} withDayName={withDayName} />
       </div>
       <div className="jk-row date-field-label cr-g3 tx-t">
         {label}

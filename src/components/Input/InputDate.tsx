@@ -14,6 +14,7 @@ export const InputDate = ({
   isSelected,
   baseDate,
   twoLines = false,
+  withDayName = false,
   extend = false,
 }: InputDateProps) => {
   
@@ -25,6 +26,7 @@ export const InputDate = ({
           className={classNames('date-literal-label cr-pd')}
           show={type}
           twoLines={twoLines}
+          withDayName={withDayName}
         />
         {onDateClean && (
           <Button

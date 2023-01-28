@@ -173,6 +173,7 @@ export interface InputDateProps {
   baseDate?: Date,
   twoLines?: boolean,
   extend?: boolean,
+  withDayName?: boolean,
 }
 
 export interface DateLiteralProps {
@@ -180,4 +181,5 @@ export interface DateLiteralProps {
   className?: string,
   show?: DatePickerType,
   twoLines?: boolean,
+  withDayName?: boolean,
 }

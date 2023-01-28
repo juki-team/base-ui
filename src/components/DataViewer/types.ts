@@ -308,6 +308,7 @@ export interface DateFieldProps {
   onClick?: () => void,
   show?: DatePickerType,
   twoLines?: boolean,
+  withDayName?: boolean,
 }
 
 export interface DataViewerToolbarProps<T> {

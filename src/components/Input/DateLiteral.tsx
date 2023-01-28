@@ -5,7 +5,13 @@ import { showOfDatePickerType } from '../DatePicker';
 import { T } from '../Translate';
 import { DateLiteralProps } from './types';
 
-export const DateLiteral = ({ date, className, show = 'year-month-day-hours-minutes-seconds', twoLines }: DateLiteralProps) => {
+export const DateLiteral = ({
+  date,
+  className,
+  show = 'year-month-day-hours-minutes-seconds',
+  twoLines,
+  withDayName,
+}: DateLiteralProps) => {
   
   const { showYears, showMonths, showDays, showHours, showMinutes, showSeconds, showMilliseconds } = showOfDatePickerType(show);
   
@@ -15,7 +21,7 @@ export const DateLiteral = ({ date, className, show = 'year-month-day-hours-minu
       'jk-col nowrap': !!twoLines,
     }, className)}>
       <div>
-        {showDays && <><T>{DAY_NAMES[date.getDay()]}</T>,&nbsp;</>}
+        {withDayName && <><T>{DAY_NAMES[date.getDay()]}</T>,&nbsp;</>}
         {showDays && <>{date.getDate()}&nbsp;</>}
         {showMonths && <><T>{MONTH_NAMES[date.getMonth()]}</T>&nbsp;</>}
         {showYears && date.getFullYear()}
