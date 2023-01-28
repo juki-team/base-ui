@@ -60,18 +60,30 @@ export const Notification = ({ id, type, message }: NotificationProps) => {
   
   return (
     <div
-      onMouseEnter={type !== NotificationType.QUIET ? handleStopTimer : undefined}
-      onMouseLeave={type !== NotificationType.QUIET ? handleStartTimer : undefined}
-      className={classNames('notification-item-container', type, { exit })}
-      style={type === NotificationType.QUIET && viewPortSize !== 'sm' ? { '--width-notification': `${getTextContent(message).length * 8}px` } as CSSProperties : {}}
+      // onMouseEnter={type !== NotificationType.QUIET ? handleStopTimer : undefined}
+      // onMouseLeave={type !== NotificationType.QUIET ? handleStartTimer : undefined}
+      onMouseEnter={handleStopTimer}
+      onMouseLeave={handleStartTimer}
+      className={classNames('jk-notification-item-container', type, { exit })}
+      style={type === NotificationType.QUIET && viewPortSize !== 'sm' ? { '--width-notification': `${getTextContent(message).length * 8 + 26}px` } as CSSProperties : {}}
     >
-      <div className={classNames('notification-item')}>
+      <div className={classNames('jk-notification-item')}>
         {NOTIFICATION_ICON[type]}
-        <div className="jk-row stretch space-between nowrap">
-          <div className={classNames('message-content jk-row', { 'text-message': typeof message === 'string' })}>
+        <div className="jk-row stretch space-between nowrap flex-1">
+          <div
+            className={classNames('jk-notification-message-content jk-row flex-1', {
+              'text-message': typeof message === 'string',
+              'wb-bw': true,
+            })}
+          >
             {typeof message === 'string' ? <span className="tt-se">{message}</span> : message}
           </div>
-          <div><CloseIcon onClick={() => setExit(true)} className="cursor-pointer" /></div>
+          <div className="jk-notification-close-icon jk-row">
+            <CloseIcon
+              onClick={() => setExit(true)} className="clickable jk-border-radius"
+              size={type === NotificationType.QUIET ? 'small' : undefined}
+            />
+          </div>
         </div>
         <div className="bar" style={{ width: `${width}%` }} />
       </div>

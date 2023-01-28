@@ -75,3 +75,12 @@ ul {
 pre {
   margin: unset;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:active {
+  color: var(--t-color-primary-light);
+}

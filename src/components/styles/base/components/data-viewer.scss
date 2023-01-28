@@ -105,8 +105,7 @@
           }
           
           .active .jk-icon {
-            background-color: var(--t-color-primary);
-            color: var(--t-color-primary-text);
+            @extend .appearance-primary;
           }
         }
         

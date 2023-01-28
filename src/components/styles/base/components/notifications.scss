@@ -7,19 +7,23 @@
 
 .notification-wrapper, .notification-wrapper-quiet {
   position: fixed;
-  right: calc(var(--width-notification-wrapper) + var(--pad-t));
+  right: calc(var(--width-notification-wrapper) + var(--pad-border));
+  @include md-hg { top: var(--pad-border); }
   @include sm {
     --width-notification-wrapper: 100vw;
-    --width-notification: 100vw;
-    right: var(--width-notification-wrapper);
+    --width-notification: calc(100vw - var(--pad-border) - var(--pad-border));
+    right: calc(var(--width-notification-wrapper) - var(--pad-border));
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
   }
   width: 0;
   z-index: var(--z-index-notification);
   
-  .notification-item-container {
-    .notification-item {
+  .jk-notification-item-container {
+    .jk-notification-item {
       border-radius: var(--border-radius-inline);
-      @include sm { border-radius: 0 0 var(--border-radius-inline) var(--border-radius-inline); }
       overflow: hidden;
       width: var(--width-notification);
       z-index: var(--z-index-notification);
@@ -27,21 +31,19 @@
       justify-content: space-between;
       align-items: center;
       position: relative;
-      color: var(--t-color-white);
       font-weight: var(--weight-bold);
+      box-sizing: border-box;
       
-      > div {
-        flex: 1;
-        word-break: break-word;
+      > .jk-icon {
+        padding: var(--pad-xt);
+        @include sm { display: none; }
       }
       
-      .jk-icon {
-        
-        padding: var(--pad-t);
-        @include sm { padding: var(--pad-xt); }
-        
-        &:not(:first-child) {
-          cursor: pointer;
+      .jk-notification-close-icon {
+        .jk-icon {
+          border-radius: 50%;
+          padding: var(--pad-xt);
+          @include sm { padding: 4px; }
         }
       }
       
@@ -52,52 +54,35 @@
         background-color: var(--t-color-shadow);
       }
     }
-    
-    &.success {
-      .notification-item {
-        background-color: var(--t-color-success);
-      }
-    }
-    
-    &.error {
-      .notification-item {
-        background-color: var(--t-color-error);
-      }
-    }
-    
-    &.info {
-      .notification-item {
-        background-color: var(--t-color-info);
-      }
-    }
-    
-    &.warning {
-      .notification-item {
-        background-color: var(--t-color-warning);
-      }
-    }
   }
 }
 
 .notification-wrapper {
-  .notification-item-container {
-    margin-top: var(--pad-xt);
-    animation: SlideLeft 0.3s forwards;
+  .jk-notification-item-container + .jk-notification-item-container {
+    margin-top: var(--pad-t);
     @include sm {
-      animation: SlideBottom 0.3s forwards;
+      margin-top: unset;
     }
+  }
+  
+  .jk-notification-item-container {
+    animation: SlideLeft 400ms forwards;
+    @include sm { animation: SlideBottom 400ms forwards; }
     
     &.exit {
-      animation: SlideRight 0.2s forwards;
-      margin-top: var(--pad-xt);
+      animation: SlideRight 400ms forwards;
+      margin-bottom: var(--pad-xt);
+      @include sm { animation: Dispel 400ms forwards; }
     }
     
-    .notification-item {
+    .jk-notification-item {
       @extend .elevation-2;
+      padding: var(--pad-xt);
+      @include sm { padding: 2px 4px; }
       
-      .message-content {
-        padding: var(--pad-xt) 0;
+      .jk-notification-message-content {
         justify-content: center;
+        padding: var(--pad-xt) 0 var(--pad-xt) var(--pad-xt);
         
         &.text-message {
           min-height: 42px;
@@ -112,6 +97,22 @@
         }
       }
     }
+    
+    &.success {
+      .jk-notification-item { @extend .appearance-success; }
+    }
+    
+    &.error {
+      .jk-notification-item { @extend .appearance-error; }
+    }
+    
+    &.info {
+      .jk-notification-item { @extend .appearance-info; }
+    }
+    
+    &.warning {
+      .jk-notification-item { @extend .appearance-warning; }
+    }
   }
 }
 
@@ -121,44 +122,49 @@
   flex-direction: column-reverse;
   height: var(--100VH);
   
-  .notification-item-container {
+  .jk-notification-item-container {
     margin-bottom: var(--pad-xt);
-    animation: SlideLeft 0.3s forwards;
+    animation: SlideLeft 400ms forwards;
     @include sm {
-      animation: SlideTop 0.3s forwards;
+      animation: FadeIn 400ms forwards;
+      margin-bottom: unset;
+      margin-top: var(--pad-xt);
     }
     
     &.exit {
-      animation: SlideRight 0.2s forwards;
-      margin-bottom: 0;
+      animation: FadeOut 400ms forwards;
+      @include sm {
+        animation: FadeOut 400ms forwards;
+      }
     }
     
-    .notification-item {
+    .jk-notification-item {
       @extend .elevation-1;
-      border-radius: var(--border-radius-sm);
+      @extend .jk-border-radius-inline;
+      @extend .appearance-primary-light;
       @include sm { border-radius: 0; }
       font-weight: var(--weight-normal);
-      background-color: var(--t-color-primary-light);
+      padding: 0 4px;
       right: calc(var(--width-notification) - var(--width-notification-wrapper));
+      @include sm { right: 0; }
       
-      > div {
+      .jk-notification-message-content {
         font-size: var(--text-t-size);
         line-height: var(--text-t-height);
         text-align: center;
-        
-        &.jk-row {
-          justify-content: space-evenly !important;
-          @include sm { justify-content: center !important; }
-        }
       }
       
       .bar {
-        display: none;
         height: 2px;
       }
       
-      .jk-icon {
-        display: none;
+      .jk-notification-close-icon {
+        @include sm { padding: 4px; }
+        
+        .jk-icon {
+          padding: 2px;
+          @include sm { padding: 2px; }
+        }
       }
     }
   }
@@ -186,21 +192,30 @@
 
 @keyframes SlideBottom {
   0% {
-    margin-top: calc(var(--100VH) * -1);
-  }
-  
-  100% {
-    //margin-top: 0;
-    margin-top: var(--pad-xt);
-  }
-}
-
-@keyframes SlideTop {
-  0% {
     margin-bottom: calc(var(--100VH) * -1);
   }
   
   100% {
-    margin-bottom: 0;
+    margin-bottom: var(--pad-xt);
+  }
+}
+
+@keyframes FadeOut {
+  0% {
+    opacity: 1;
+  }
+  
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+  
+  100% {
+    opacity: 1;
   }
 }

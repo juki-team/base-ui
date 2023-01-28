@@ -29,8 +29,7 @@
   }
   
   .notch {
-    background-color: var(--t-color-primary-light);
-    color: var(--t-color-white);
+    @extend .appearance-primary-light;
     cursor: pointer;
     
     &:hover {

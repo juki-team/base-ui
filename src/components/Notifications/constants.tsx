@@ -17,5 +17,5 @@ export const NOTIFICATION_ICON = {
   [NotificationType.SUCCESS]: <CheckIcon circle />,
   [NotificationType.WARNING]: <WarningIcon />,
   [NotificationType.INFO]: <InfoIcon />,
-  [NotificationType.QUIET]: <CheckIcon circle />,
+  [NotificationType.QUIET]: null,
 };

@@ -1,7 +1,23 @@
-import React, { createContext, Dispatch, PropsWithChildren, ReactNode, Reducer, useCallback, useContext, useReducer } from 'react';
+import React, {
+  createContext,
+  Dispatch,
+  PropsWithChildren,
+  ReactNode,
+  Reducer,
+  useCallback,
+  useContext,
+  useReducer,
+} from 'react';
 import { v4 } from 'uuid';
+import { useJukiBase } from '../Provider';
 import { Notification } from './component';
-import { NewNotificationType, NotificationAction, NotificationActionsTypes, NotificationProps, NotificationType } from './types';
+import {
+  NewNotificationType,
+  NotificationAction,
+  NotificationActionsTypes,
+  NotificationProps,
+  NotificationType,
+} from './types';
 
 const NotificationContext = createContext<{ dispatch: Dispatch<NotificationActionsTypes> }>({
   dispatch: () => {
@@ -20,15 +36,15 @@ export const NotificationProvider = ({ children }: PropsWithChildren<{}>) => {
         return state;
     }
   }, []);
+  const { viewPortSize } = useJukiBase();
+  
+  const notificationsFiltered = state.filter(note => note.type !== NotificationType.QUIET);
+  const notifications = viewPortSize === 'sm' ? [...notificationsFiltered].reverse() : notificationsFiltered;
   
   return (
     <NotificationContext.Provider value={{ dispatch }}>
       <div className="notification-wrapper">
-        {state
-          .filter(note => note.type !== NotificationType.QUIET)
-          .map((note) => (
-            <Notification key={note.id} {...note} />
-          ))}
+        {notifications.map((note) => (<Notification key={note.id} {...note} />))}
       </div>
       <div className="notification-wrapper-quiet">
         {state

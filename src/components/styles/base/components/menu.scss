@@ -51,8 +51,7 @@
       position: relative;
       
       .jk-menu-top-section, .jk-menu-item, .jk-menu-bottom-section {
-        background-color: var(--t-color-primary);
-        color: var(--t-color-primary-text);
+        @extend .appearance-primary;
       }
       
       .jk-menu-items {

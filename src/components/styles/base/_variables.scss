@@ -57,6 +57,11 @@ html body {
   @include md { --pad-sm: var(--pad-t); }
   @include sm { --pad-sm: var(--pad-xt); }
   
+  @include hg { --pad-border: var(--pad-h); }
+  @include lg { --pad-border: var(--pad-xl); }
+  @include md { --pad-border: var(--pad-l); }
+  @include sm { --pad-border: var(--pad-m); }
+  
   @include hg { --gap: 12px; }
   @include lg { --gap: 10px; }
   @include md { --gap: 8px; }

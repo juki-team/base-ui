@@ -8,7 +8,12 @@ export const UploadImageButton = ({ isOpenRef, withLabel }: { isOpenRef: Mutable
   
   return (
     <>
-      <Popover content={<T className="ws-np tt-se">upload image</T>} placement="bottom" showPopperArrow>
+      <Popover
+        content={<T className="ws-np tt-se">upload image</T>}
+        placement="bottom"
+        visible={withLabel ? false : undefined}
+        showPopperArrow
+      >
         <div>
           <Button icon={<CloudUploadIcon />} type="text" size="small" onClick={() => setOpen(true)}>
             {withLabel && <T>upload image</T>}

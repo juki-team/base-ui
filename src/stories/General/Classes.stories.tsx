@@ -322,6 +322,42 @@ export const Classes: Story<TabsProps<string>> = () => {
         </div>
       ),
     },
+    {
+      key: '11',
+      header: <div>jk-tag</div>,
+      body: (
+        <div className="jk-col gap">
+          <h1>text-align</h1>
+          <div className="jk-col gap">
+            {[
+              'success',
+              'success-light',
+              'info',
+              'info-light',
+              'warning',
+              'warning-light',
+              'error',
+              'error-light',
+              'primary-dark',
+              '',
+              'primary-light',
+              'secondary',
+              'gray-1',
+              'gray-2',
+              'gray-3',
+              'gray-4',
+              'gray-5',
+              'gray-6',
+            ].map(tt => (
+              <div className="jk-row gap nowrap jk-pad-md jk-border-radius-inline" style={{ width: 420 }} key={tt}>
+                <pre>"jk-tag {tt}"</pre>
+                <div className={'jk-tag ' + tt}>Lorem ipsum dolor sit amet</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ),
+    },
   ];
   return (
     <div style={{ height: '500px' }}>

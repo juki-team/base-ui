@@ -12,7 +12,12 @@ export const InformationButton = ({ isOpenRef, withLabel }: { isOpenRef: Mutable
   
   return (
     <>
-      <Popover content={<T className="ws-np tt-se">information</T>} placement="bottom" showPopperArrow popoverClassName="">
+      <Popover
+        content={<T className="ws-np tt-se">information</T>}
+        placement="bottom"
+        visible={withLabel ? false : undefined}
+        showPopperArrow
+      >
         <div>
           <Button icon={<ExclamationIcon circle rotate={180} />} type="text" size="small" onClick={() => setOpen(true)}>
             {withLabel && <T>information</T>}

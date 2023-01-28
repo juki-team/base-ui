@@ -430,8 +430,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
     
     &.selected {
-      background-color: var(--t-color-primary);
-      color: var(--t-color-white);
+      @extend .appearance-primary;
       
       &:hover:not(.disabled) {
         background-color: var(--t-color-primary-light);

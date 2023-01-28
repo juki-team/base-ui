@@ -74,7 +74,7 @@ export const MdMathEditor = ({
   }, layoutEditorRef);
   
   const { width = 0 } = useResizeDetector({ targetRef: layoutEditorRef });
-  const withLabels = width > 520;
+  const withLabels = width > 600;
   
   return (
     <div ref={layoutEditorRef} className={classNames('jk-md-math-editor-layout jk-border-radius-inline', { editing })}>
@@ -87,9 +87,11 @@ export const MdMathEditor = ({
               {uploadImageButton && <UploadImageButton isOpenRef={isOpenUploadImageModalRef} withLabel={withLabels} />}
               {view === 0 && (
                 <Popover
-                  content={<><T className="ws-np tt-se">editor</T> ⮜ | ⮞ <T>preview</T></>}
+                  content={<div className="jk-row nowrap ws-np"><T className="ws-np tt-se">editor</T> ⮜ | ⮞ <T>preview</T>
+                  </div>}
                   placement="bottom"
                   showPopperArrow
+                  visible={withLabels ? false : undefined}
                 >
                   <Button type="text" size="small" icon={<VerticalSplitIcon />} onClick={() => setView(1)}>
                     {withLabels && <><T>editor</T>&nbsp;⮜ | ⮞&nbsp;<T>preview</T></>}
@@ -101,6 +103,7 @@ export const MdMathEditor = ({
                   content={<T className="ws-np jk-pad-sm">preview</T>}
                   placement="bottom"
                   showPopperArrow
+                  visible={withLabels ? false : undefined}
                 >
                   <Button type="text" size="small" icon={<PreviewIcon />} onClick={() => setView(3)}>
                     {withLabels && <T>preview</T>}
@@ -112,6 +115,7 @@ export const MdMathEditor = ({
                   content={<T className="ws-np jk-pad-sm">editor</T>}
                   placement="bottom"
                   showPopperArrow
+                  visible={withLabels ? false : undefined}
                 >
                   <Button type="text" size="small" icon={<EditIcon />} onClick={() => setView(0)}>
                     {withLabels && <T>editor</T>}
@@ -122,8 +126,13 @@ export const MdMathEditor = ({
             <div className="right">
               {onChange && (
                 <Popover placement="bottom" content={<T className="jk-pad-sm">save</T>} showPopperArrow>
-                  <Button icon={<SaveIcon />} type="text" size="small" onClick={() => onChange(editValue)}
-                          disabled={source === editValue}>
+                  <Button
+                    icon={<SaveIcon />}
+                    type="text"
+                    size="small"
+                    onClick={() => onChange(editValue)}
+                    disabled={source === editValue}
+                  >
                     <T>Save</T>
                   </Button>
                 </Popover>

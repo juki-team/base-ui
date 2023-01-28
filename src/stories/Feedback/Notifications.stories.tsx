@@ -36,14 +36,17 @@ const Comp = () => {
   );
   const textMessage = 'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum';
   const shortMessage = <div> LoremIpsumLoremIpsum </div>;
+  const veryShortMessage = 'Lorem';
+  // const veryShortMessage = <div> Lorem </div>;
+  
   return (
     <div className="jk-row left">
       <div className="jk-col">
         <Button
           onClick={() => {
-            addInfoNotification(largeMessage);
+            // addInfoNotification(largeMessage);
             addInfoNotification(shortMessage);
-            addInfoNotification(textMessage);
+            // addInfoNotification(textMessage);
           }}
           type="text"
           className="cr-io"
@@ -87,6 +90,7 @@ const Comp = () => {
           onClick={() => {
             addQuietNotification(largeMessage);
             addQuietNotification(shortMessage);
+            addQuietNotification(veryShortMessage);
             addQuietNotification(textMessage);
           }}
           type="text"

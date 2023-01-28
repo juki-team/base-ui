@@ -170,46 +170,81 @@ form[class*=" jk-col"], form[class^="jk-col"] {
   align-items: center;
 }
 
+.appearance-success { background-color: var(--t-color-success); color: var(--t-color-white);}
+
+.appearance-success-light { background-color: var(--t-color-success-light); color: var(--t-color-black-2); }
+
+.appearance-info { background-color: var(--t-color-info); color: var(--t-color-white);}
+
+.appearance-info-light { background-color: var(--t-color-info-light); color: var(--t-color-black-2); }
+
+.appearance-warning { background-color: var(--t-color-warning); color: var(--t-color-white); }
+
+.appearance-warning-light { background-color: var(--t-color-warning-light); color: var(--t-color-black-2); }
+
+.appearance-error { background-color: var(--t-color-error); color: var(--t-color-white); }
+
+.appearance-error-light { background-color: var(--t-color-error-light); color: var(--t-color-black-2); }
+
+.appearance-primary-dark { background-color: var(--t-color-primary-dark); color: var(--t-color-primary-text); }
+
+.appearance-primary { background-color: var(--t-color-primary); color: var(--t-color-primary-text); }
+
+.appearance-primary-light { background-color: var(--t-color-primary-light); color: var(--t-color-primary-text); }
+
+.appearance-secondary { background-color: var(--t-color-secondary); color: var(--t-color-secondary-text); }
+
+.appearance-gray-1 { background-color: var(--t-color-gray-1); color: var(--t-color-white-2); }
+
+.appearance-gray-2 { background-color: var(--t-color-gray-2); color: var(--t-color-white-2); }
+
+.appearance-gray-3 { background-color: var(--t-color-gray-3); color: var(--t-color-white-2); }
+
+.appearance-gray-4 { background-color: var(--t-color-gray-4); color: var(--t-color-black-2); }
+
+.appearance-gray-5 { background-color: var(--t-color-gray-5); color: var(--t-color-black-2); }
+
+.appearance-gray-6 { background-color: var(--t-color-gray-6); color: var(--t-color-black-2); }
+
 .jk-tag {
-  background-color: var(--t-color-primary-light);
-  color: var(--t-color-primary-text);
+  @extend .appearance-primary;
   padding: 0 var(--pad-xt);
   border-radius: var(--border-radius-inline);
   display: inline-block;
   
-  &.success { background-color: var(--t-color-success); }
+  &.success { @extend .appearance-success; }
   
-  &.success-light { background-color: var(--t-color-success-light); }
+  &.success-light { @extend .appearance-success-light; }
   
-  &.info { background-color: var(--t-color-info); }
+  &.info { @extend .appearance-info; }
   
-  &.info-light { background-color: var(--t-color-info-light); }
+  &.info-light { @extend .appearance-info-light; }
   
-  &.error { background-color: var(--t-color-error); }
+  &.warning { @extend .appearance-warning; }
   
-  &.error-light { background-color: var(--t-color-error-light); }
+  &.warning-light { @extend .appearance-warning-light; }
   
-  &.warning { background-color: var(--t-color-warning); }
+  &.error { @extend .appearance-error; }
   
-  &.warning-light { background-color: var(--t-color-warning-light); }
+  &.error-light { @extend .appearance-error-light; }
   
-  &.primary-light { background-color: var(--t-color-primary-light); }
+  &.primary-light { @extend .appearance-primary-light; }
   
-  &.primary-dark { background-color: var(--t-color-primary-dark); }
+  &.primary-dark { @extend .appearance-primary-dark; }
   
-  &.secondary { background-color: var(--t-color-secondary); }
+  &.secondary { @extend .appearance-secondary; }
   
-  &.gray-1 { background-color: var(--t-color-gray-1); }
+  &.gray-1 { @extend .appearance-gray-1; }
   
-  &.gray-2 { background-color: var(--t-color-gray-2); }
+  &.gray-2 { @extend .appearance-gray-2; }
   
-  &.gray-3 { background-color: var(--t-color-gray-3); }
+  &.gray-3 { @extend .appearance-gray-3; }
   
-  &.gray-4 { background-color: var(--t-color-gray-4); }
+  &.gray-4 { @extend .appearance-gray-4; }
   
-  &.gray-5 { background-color: var(--t-color-gray-5); color: var(--t-color-black-2); }
+  &.gray-5 { @extend .appearance-gray-5; }
   
-  &.gray-6 { background-color: var(--t-color-gray-6); color: var(--t-color-black-2); }
+  &.gray-6 { @extend .appearance-gray-6; }
 }
 
 .jk-text-stdout, .jk-text-stderr {
