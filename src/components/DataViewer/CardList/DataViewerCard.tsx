@@ -54,13 +54,13 @@ export const DataViewerCard = <T, >({
         className={classNames('top-container', { 'no-middle': !positionsList.top?.length })}
         style={{ height: topContainerHeight }}
       >
-        <div className="top-left jk-col" ref={topLeftRef}>
+        <div className="top-left jk-col stretch" ref={topLeftRef}>
           {positionsList.topLeft?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
-        <div className="top jk-col" ref={topRef}>
+        <div className="top jk-col stretch" ref={topRef}>
           {positionsList.top?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
-        <div className="top-right jk-col" ref={topRightRef}>
+        <div className="top-right jk-col stretch" ref={topRightRef}>
           {positionsList.topRight?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
       </div>
@@ -68,13 +68,13 @@ export const DataViewerCard = <T, >({
         className={classNames('center-container', { 'no-middle': !positionsList.center?.length })}
         style={{ height: centerContainerHeight }}
       >
-        <div className="center-left jk-col" ref={centerLeftRef}>
+        <div className="center-left jk-col stretch" ref={centerLeftRef}>
           {positionsList.centerLeft?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
-        <div className="center jk-col" ref={centerRef}>
+        <div className="center jk-col stretch" ref={centerRef}>
           {positionsList.center?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
-        <div className="center-right jk-col" ref={centerRightRef}>
+        <div className="center-right jk-col stretch" ref={centerRightRef}>
           {positionsList.centerRight?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
       </div>
@@ -82,13 +82,13 @@ export const DataViewerCard = <T, >({
         className={classNames('bottom-container', { 'no-middle': !positionsList.bottom?.length })}
         style={{ height: bottomContainerHeight }}
       >
-        <div className="bottom-left jk-col" ref={bottomLeftRef}>
+        <div className="bottom-left jk-col stretch" ref={bottomLeftRef}>
           {positionsList.bottomLeft?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
-        <div className="bottom jk-col" ref={bottomRef}>
+        <div className="bottom jk-col stretch" ref={bottomRef}>
           {positionsList.bottom?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
-        <div className="bottom-right jk-col" ref={bottomRightRef}>
+        <div className="bottom-right jk-col stretch" ref={bottomRightRef}>
           {positionsList.bottomRight?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
         </div>
       </div>
