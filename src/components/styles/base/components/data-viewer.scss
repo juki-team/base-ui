@@ -250,16 +250,6 @@
           word-break: break-word;
           flex-wrap: nowrap;
         }
-        
-        .date-field {
-          .date-literal {
-            gap: normal;
-            
-            > div {
-              margin: 0 var(--pad-t);
-            }
-          }
-        }
       }
       
       .jk-table-rows-container {
@@ -330,7 +320,6 @@
             
             .text-field {
               text-align: center;
-              line-height: 1;
             }
             
             .text-field-label {

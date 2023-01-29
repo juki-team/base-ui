@@ -17,7 +17,7 @@ export const DateLiteral = ({
   
   return (
     <div className={classNames('date-literal jk-border-radius-inline', {
-      'jk-row gap': !twoLines,
+      'jk-row gap nowrap center': !twoLines,
       'jk-col nowrap': !!twoLines,
     }, className)}>
       <div>
