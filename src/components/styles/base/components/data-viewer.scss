@@ -322,7 +322,7 @@
               text-align: center;
             }
             
-            .text-field-label {
+            .text-field-label, .date-field-label {
               line-height: 1;
             }
           }
@@ -361,11 +361,7 @@
               overflow: auto;
               box-sizing: border-box;
               
-              .text-field-label {
-                display: none;
-              }
-              
-              .date-field-label {
+              .text-field-label, .date-field-label {
                 display: none;
               }
             }
