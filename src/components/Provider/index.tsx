@@ -70,6 +70,7 @@ const useUser = () => {
             [ProfileSetting.LANGUAGE]: preferredLanguage,
             [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.ROWS,
             [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
+            [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
           },
         });
       }
@@ -82,6 +83,7 @@ const useUser = () => {
           [ProfileSetting.LANGUAGE]: preferredLanguage,
           [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.ROWS,
           [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
+          [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
         },
       });
     }
