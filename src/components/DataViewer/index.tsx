@@ -589,9 +589,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     setSearchParamsObject(initialSortSearch);
   }, [filterKey, headers, searchFilter, searchParamsObject, searchSorts, setSearchParamsObject, sortKey]);
   
-  const viewMode: DataViewMode = searchParamsObject?.[viewModeKey]?.[0] ? (searchParamsObject?.[viewModeKey]?.[0] === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS) : initialViewMode;
+  const viewMode: DataViewMode = searchParamsObject?.[viewModeKey]?.[0] ? (searchParamsObject?.[viewModeKey]?.[0]?.toUpperCase() === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS) : initialViewMode;
   const setViewMode = useCallback((viewMode: DataViewMode) => {
-    setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [viewMode] });
+    setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [viewMode.toLowerCase()] });
   }, [searchParamsObject, setSearchParamsObject, viewModeKey]);
   
   useEffect(() => {
