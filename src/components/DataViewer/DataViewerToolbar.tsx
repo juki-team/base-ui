@@ -1,3 +1,4 @@
+import { DataViewMode } from '@juki-team/commons';
 import React, { Children, useState } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
 import { FilterListIcon, LoadingIcon, MenuIcon, ReloadIcon, ViewHeadlineIcon, ViewModuleIcon } from '../graphics';
@@ -35,7 +36,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   
   return (
     <div
-      className={classNames('jk-data-viewer-toolbar jk-row space-between nowrap', { 'elevation-1': viewMode === 'cards' }, viewMode)}
+      className={classNames('jk-data-viewer-toolbar jk-row space-between nowrap', { 'elevation-1': viewMode === DataViewMode.CARDS }, viewMode)}
     >
       <FilterDrawer
         isOpen={filterDrawer}
@@ -114,16 +115,21 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               <div className={classNames('jk-row nowrap jk-table-view-tools-view-mode', { rowsView, cardsView })}>
                 {rowsView && (
                   <Popover content={<T className="tt-se ws-np">list view</T>} showPopperArrow>
-                    <div className={classNames({ active: viewMode === 'rows' }, 'jk-row')} onClick={() => setViewMode('rows')}>
-                      <ViewHeadlineIcon className={classNames('jk-br-ie', { clickable: viewMode === 'cards' })} />
+                    <div
+                      className={classNames({ active: viewMode === DataViewMode.ROWS }, 'jk-row')}
+                      onClick={() => setViewMode(DataViewMode.ROWS)}
+                    >
+                      <ViewHeadlineIcon className={classNames('jk-br-ie', { clickable: viewMode === DataViewMode.CARDS })} />
                     </div>
                   </Popover>
                 )}
                 {cardsView && (
                   <Popover content={<T className="tt-se ws-np">cards view</T>} showPopperArrow>
-                    <div className={classNames({ active: viewMode === 'cards' }, 'jk-row')}
-                         onClick={() => setViewMode('cards')}>
-                      <ViewModuleIcon className={classNames('jk-br-ie', { clickable: viewMode === 'rows' })} />
+                    <div
+                      className={classNames({ active: viewMode === DataViewMode.CARDS }, 'jk-row')}
+                      onClick={() => setViewMode(DataViewMode.CARDS)}
+                    >
+                      <ViewModuleIcon className={classNames('jk-br-ie', { clickable: viewMode === DataViewMode.ROWS })} />
                     </div>
                   </Popover>
                 )}

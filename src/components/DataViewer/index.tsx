@@ -1,7 +1,7 @@
-import { ProfileSetting, Status } from '@juki-team/commons';
+import { DataViewMode, ProfileSetting, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, consoleWarn } from '../../helpers';
-import { OptionType, SearchParamsObjectType, showOfDatePickerType, useJukiBase, ViewModeType } from '../index';
+import { OptionType, SearchParamsObjectType, showOfDatePickerType, useJukiBase } from '../index';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,
@@ -34,9 +34,6 @@ import {
 } from './utils';
 
 const DEFAULT_PICKER_TYPE = 'year-month-day-hours-minutes-seconds';
-
-const CARDS = 'cards';
-const ROWS = 'rows';
 
 export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => {
   
@@ -108,7 +105,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const firstRender = useRef(true);
   const [pageSizeOptions, setPageSizeOptions] = useState(pagination?.pageSizeOptions || [32, 64, 128, 256, 512, 1024]);
   const { viewPortSize, user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiBase();
-  const initialViewMode = _initialViewMode || preferredDataViewMode;
+  const initialViewMode = _initialViewMode || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
   
   useEffect(() => {
     if (pagination?.pageSizeOptions && JSON.stringify(pagination.pageSizeOptions) !== JSON.stringify(pageSizeOptions)) {
@@ -592,22 +589,22 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     setSearchParamsObject(initialSortSearch);
   }, [filterKey, headers, searchFilter, searchParamsObject, searchSorts, setSearchParamsObject, sortKey]);
   
-  const viewMode: ViewModeType = (searchParamsObject?.[viewModeKey]?.[0] === CARDS ? CARDS : ROWS) || initialViewMode;
-  const setViewMode = useCallback((viewMode: ViewModeType) => {
+  const viewMode: DataViewMode = (searchParamsObject?.[viewModeKey]?.[0] === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS) || initialViewMode;
+  const setViewMode = useCallback((viewMode: DataViewMode) => {
     setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [viewMode] });
   }, [searchParamsObject, setSearchParamsObject, viewModeKey]);
   
   useEffect(() => {
-    if (viewMode === CARDS && !cardsView && rowsView) {
-      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [ROWS] });
-    } else if (viewMode === ROWS && !rowsView && cardsView) {
-      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [CARDS] });
+    if (viewMode === DataViewMode.CARDS && !cardsView && rowsView) {
+      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [DataViewMode.ROWS] });
+    } else if (viewMode === DataViewMode.ROWS && !rowsView && cardsView) {
+      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [DataViewMode.CARDS] });
     }
   }, [viewPortSize, viewMode, cardsView, rowsView, setSearchParamsObject, searchParamsObject, viewModeKey]);
   const oldViewPortSizeRef = useRef('');
   useEffect(() => {
-    if (oldViewPortSizeRef.current !== viewPortSize && viewMode === ROWS && cardsView && viewPortSize === 'sm') {
-      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [CARDS] });
+    if (oldViewPortSizeRef.current !== viewPortSize && viewMode === DataViewMode.ROWS && cardsView && viewPortSize === 'sm') {
+      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [DataViewMode.CARDS] });
     }
     oldViewPortSizeRef.current = viewPortSize;
   }, [viewPortSize, viewMode, cardsView, rowsView, setSearchParamsObject, searchParamsObject, viewModeKey]);

@@ -1,4 +1,4 @@
-import { Status } from '@juki-team/commons';
+import { DataViewMode, Status } from '@juki-team/commons';
 import { CSSProperties, Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { ReactNodeOrFunctionType } from '../../types';
 import { DatePickerDateFunType, DatePickerType, OptionType } from '../index';
@@ -200,8 +200,8 @@ export interface DisplayDataViewerProps<T> {
   onReload?: () => void,
   rows?: RowsType,
   rowsView: boolean,
-  setViewMode: (viewMode: ViewModeType) => void,
-  viewMode: ViewModeType,
+  setViewMode: (viewMode: DataViewMode) => void,
+  viewMode: DataViewMode,
   getRecordKey?: GetRecordKeyType<T>,
   paginationData: PaginationDataType,
   getRecordStyle?: GetRecordStyleType<T>,
@@ -233,8 +233,6 @@ export type RequestFilterType = { [key: string]: string | string[] };
 export type SearchParamsObjectType = { [key: string]: string[] };
 export type SetSearchParamsObjectType = (params: SearchParamsObjectType) => void;
 
-export type ViewModeType = 'rows' | 'cards';
-
 export type LoaderStatusActionType = Dispatch<SetStateAction<Status>>;
 
 export type DataViewerPaginationType = { total: number, pageSizeOptions?: number[] };
@@ -247,7 +245,7 @@ export interface DataViewerProps<T> {
   extraNodes?: ReactNodeOrFunctionType[],
   extraNodesFloating?: boolean,
   headers: DataViewerHeadersType<T>[],
-  initialViewMode?: ViewModeType,
+  initialViewMode?: DataViewMode,
   name?: string,
   request?: (props: { sort: RequestSortType, filter: RequestFilterType, pagination?: { page: number, pageSize: number }, setLoaderStatus: LoaderStatusActionType }) => void,
   rows?: RowsType,
@@ -321,8 +319,8 @@ export interface DataViewerToolbarProps<T> {
   onAllFilters: (values: FilterValuesType) => void,
   onReload?: () => void,
   rowsView: boolean,
-  setViewMode: (viewMode: ViewModeType) => void,
-  viewMode: ViewModeType,
+  setViewMode: (viewMode: DataViewMode) => void,
+  viewMode: DataViewMode,
   paginationData: PaginationDataType,
   onColumn: boolean,
   viewViews: boolean,

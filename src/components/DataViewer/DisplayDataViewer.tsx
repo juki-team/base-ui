@@ -1,3 +1,4 @@
+import { DataViewMode } from '@juki-team/commons';
 import React, { Children, CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../constants';
@@ -122,7 +123,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         className={classNames('jk-view-container', viewMode)}
         ref={viewContainerRef}
       >
-        {viewMode === 'rows' && (
+        {viewMode === DataViewMode.ROWS && (
           <TableHead
             headers={tableHeaders}
             headerWidths={headerWidths}
@@ -140,7 +141,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
           />
         )}
         {data.length > 0 && loading && <LineLoader />}
-        {viewMode === 'rows' ? (
+        {viewMode === DataViewMode.ROWS ? (
           <div className={classNames('jk-data-viewer-body', viewMode)}>
             <LoaderLayer loading={data.length === 0 && loading}>
               <RowVirtualizerFixed

@@ -68,7 +68,7 @@ const useUser = () => {
           settings: {
             [ProfileSetting.THEME]: preferredTheme,
             [ProfileSetting.LANGUAGE]: preferredLanguage,
-            [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.LIST,
+            [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.ROWS,
             [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
           },
         });
@@ -80,7 +80,7 @@ const useUser = () => {
         settings: {
           [ProfileSetting.THEME]: preferredTheme,
           [ProfileSetting.LANGUAGE]: preferredLanguage,
-          [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.LIST,
+          [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.ROWS,
           [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
         },
       });
