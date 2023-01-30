@@ -5,6 +5,7 @@ import {
   Language,
   MenuViewMode,
   PingResponseDTO,
+  ProfileSetting,
   Theme,
   USER_GUEST,
   UserPingType,
@@ -65,10 +66,10 @@ const useUser = () => {
         setUser({
           ...data?.content.user,
           settings: {
-            preferredTheme,
-            preferredLanguage,
-            preferredMenuView: MenuViewMode.VERTICAL,
-            preferredDataView: DataViewMode.LIST,
+            [ProfileSetting.THEME]: preferredTheme,
+            [ProfileSetting.LANGUAGE]: preferredLanguage,
+            [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.LIST,
+            [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
           },
         });
       }
@@ -77,10 +78,10 @@ const useUser = () => {
       setUser({
         ...USER_GUEST,
         settings: {
-          preferredTheme,
-          preferredLanguage,
-          preferredMenuView: MenuViewMode.VERTICAL,
-          preferredDataView: DataViewMode.LIST,
+          [ProfileSetting.THEME]: preferredTheme,
+          [ProfileSetting.LANGUAGE]: preferredLanguage,
+          [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.LIST,
+          [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
         },
       });
     }
