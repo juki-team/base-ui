@@ -47,11 +47,11 @@ const ImagesTemplate: Story<ImageProps> = (props) => {
     JukiSurprisedImage,
   };
   return (
-    <div style={{ color: '#164066', backgroundColor: '#F0F2F5' }} className="jk-row nowrap">
+    <div style={{ color: '#164066', backgroundColor: '#F0F2F5' }} className="jk-col">
       {Object.entries(images)
         .sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2))
         .map(([iconName, Component]) => (
-          <div className="jk-row nowrap center">
+          <div className="jk-row nowrap center block">
             <div style={{ width: '200px', height: '200px' }}><Component {...props} /></div>
             <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
           </div>
