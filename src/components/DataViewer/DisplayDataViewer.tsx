@@ -1,10 +1,10 @@
 import { DataViewMode } from '@juki-team/commons';
 import React, { Children, CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { LineLoader, LoaderLayer, TableHeadersType, useJukiBase } from '../';
 import { SCROLL_WIDTH } from '../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
-import { useInterval, usePrevious } from '../../hooks';
-import { LoaderLayer, TableHeadersType, useJukiBase } from '../index';
+import { usePrevious } from '../../hooks';
 import { CardRowVirtualizerFixed } from './CardList';
 import { DataViewerToolbar } from './DataViewerToolbar';
 import {
@@ -19,18 +19,6 @@ const minCellWidth = 100;
 
 const headersMinWidth = <T, >(headers: TableHeadersType<T>[]) => {
   return headers.map(head => head.minWidth || minCellWidth);
-};
-
-export const LineLoader = () => {
-  
-  const [pos, setPos] = useState(true);
-  useInterval(() => setPos(prevState => !prevState), 3000);
-  
-  return (
-    <div className="layout-line-spinner">
-      <div className={pos ? ' loader-point-left-to-right' : ' loader-point-right-to-left'} />
-    </div>
-  );
 };
 
 export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
@@ -160,7 +148,8 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
             </LoaderLayer>
           </div>
         ) : (
-          <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())} style={{ width: (viewContainerWidth || 0) }}>
+          <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}
+               style={{ width: (viewContainerWidth || 0) }}>
             <LoaderLayer loading={data.length === 0 && loading}>
               <CardRowVirtualizerFixed
                 headers={tableHeaders}

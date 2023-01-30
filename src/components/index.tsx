@@ -12,6 +12,7 @@ export * from './Drawer';
 export * from './FloatToolbar';
 export * from './ImageUploader';
 export * from './Input';
+export * from './LineLoader';
 export * from './Loader';
 export * from './MdMathEditor';
 export * from './MdMathViewer';
