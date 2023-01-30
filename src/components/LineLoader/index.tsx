@@ -7,7 +7,7 @@ export const LineLoader = () => {
   useInterval(() => setPos(prevState => !prevState), 3000);
   
   return (
-    <div className="layout-line-spinner">
+    <div className="layout-line-loader">
       <div className={pos ? ' loader-point-left-to-right' : ' loader-point-right-to-left'} />
     </div>
   );

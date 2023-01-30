@@ -234,7 +234,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
         headers={columns2}
         data={data}
         // rows={{ height: 150 }}
-        // request={request}
+        request={request}
         name="users"
         cardsView={cardsView}
         rowsView={rowsView}

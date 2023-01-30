@@ -1,7 +1,7 @@
 import { DataViewMode } from '@juki-team/commons';
 import React, { Children, CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { LineLoader, LoaderLayer, TableHeadersType, useJukiBase } from '../';
+import { LineLoader, LoaderLayer, TableHeadersType, useJukiBase } from '../index';
 import { SCROLL_WIDTH } from '../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
 import { usePrevious } from '../../hooks';

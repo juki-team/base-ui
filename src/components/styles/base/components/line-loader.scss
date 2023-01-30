@@ -1,0 +1,49 @@
+.layout-line-loader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  width: 100%;
+  
+  .loader-point-left-to-right, .loader-point-right-to-left {
+    position: absolute;
+    top: 0;
+    height: 4px;
+    background-color: var(--t-color-primary-light);
+    border-radius: 3px;
+  }
+  
+  .loader-point-left-to-right {
+    animation-duration: 4s;
+    animation-name: slide-left-to-right;
+  }
+  
+  @keyframes slide-left-to-right {
+    from {
+      width: 8%;
+      margin-left: 0;
+    }
+    
+    to {
+      width: 8%;
+      margin-left: 96%;
+    }
+  }
+  
+  .loader-point-right-to-left {
+    animation-duration: 4s;
+    animation-name: slide-right-to-left;
+  }
+  
+  @keyframes slide-right-to-left {
+    from {
+      width: 8%;
+      margin-left: 92%;
+    }
+    
+    to {
+      width: 8%;
+      margin-left: -4%;
+    }
+  }
+}
