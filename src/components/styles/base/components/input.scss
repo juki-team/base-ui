@@ -84,7 +84,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
   }
   
-  > label:not(.jk-input-checkbox-wrapper) {
+  > label:not(.jk-input-checkbox-wrapper), > label:not(.jk-input-radio-wrapper) {
     display: block;
     width: 100%;
     font-weight: var(--weight-bold);
@@ -230,11 +230,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.jk-input-checkbox-wrapper {
+.jk-input-checkbox-wrapper, .jk-input-radio-wrapper {
   display: inline-flex;
   cursor: pointer;
   
-  input.jk-input-checkbox {
+  input.jk-input-checkbox, input.jk-input-radio {
     border: 2px solid var(--t-color-primary);
     left: 0;
     -webkit-appearance: none;
@@ -243,17 +243,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     background-color: transparent;
     @include transition(background-color);
     
-    &:checked {
-      background-color: var(--t-color-primary);
-    }
-    
     &:after {
       position: absolute;
       opacity: 1;
       top: 0;
       color: var(--t-color-primary-text);
-      border: solid var(--t-color-primary-text);
-      border-width: 0 3px 3px 0;
       transform: rotate(45deg);
       box-sizing: content-box;
     }
@@ -279,18 +273,43 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     width: var(--pad-s) !important;
     min-height: var(--pad-s) !important;
     min-width: var(--pad-s) !important;
+  }
+  
+  input.jk-input-checkbox {
+    &:checked {
+      background-color: var(--t-color-primary);
+    }
     
     &:after {
+      border: solid var(--t-color-primary-text);
+      border-width: 0 3px 3px 0;
       left: 5px;
       width: 4px;
       height: 10px;
     }
   }
   
+  input.jk-input-radio {
+    border-radius: 50%;
+    
+    &:after {
+      position: absolute;
+      opacity: 1;
+      color: var(--t-color-primary-text);
+      box-sizing: content-box;
+      top: 3px;
+      left: 3px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--t-color-primary);
+    }
+  }
+  
   &.disabled {
     color: var(--t-color-gray-4);
     
-    input.jk-input-checkbox {
+    input.jk-input-checkbox, input.jk-input-radio {
       border-color: var(--t-color-gray-4);
       
       &:checked {

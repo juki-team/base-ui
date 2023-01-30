@@ -7,6 +7,7 @@ import {
   DateLiteral,
   Input,
   InputCheckbox as CheckboxComponent,
+  InputRadio as RadioComponent,
   InputDate,
   InputPassword,
   InputSubmit,
@@ -123,6 +124,30 @@ export const Checkbox = () => {
         <CheckboxComponent checked={checked} name="test" onChange={(value) => setChecked(value)} label="label of checkbox" />
         <CheckboxComponent checked={checked} name="test" onChange={(value) => setChecked(value)} />
         <CheckboxComponent checked={checked} name="test" label="disabled checkbox" />
+      </div>
+      
+      {/*<CheckboxList*/}
+      {/*  options={[{ value: 1, label: 'uno' }]}*/}
+      {/*  selectedOptions={[{ value: 1 }]}*/}
+      {/*  onSelectOptions={options => setValues(prevState => ({ ...prevState, [columnIndex]: options }))}*/}
+      {/*/>*/}
+      <ToggleThemeButton />
+    </div>
+  );
+};
+
+export const Radio = () => {
+  
+  const [checked, setChecked] = useState(false);
+  
+  return (
+    <div className="jk-row left">
+      <div className="jk-col gap stretch">
+        <RadioComponent checked={true} name="test" onChange={_ => null} label="checked" />
+        <RadioComponent checked={false} name="test" onChange={_ => null} label="no checked" />
+        <RadioComponent checked={checked} name="test" onChange={(value) => setChecked(value)} label="label of checkbox" />
+        <RadioComponent checked={checked} name="test" onChange={(value) => setChecked(value)} />
+        <RadioComponent checked={checked} name="test" label="disabled checkbox" />
       </div>
       
       {/*<CheckboxList*/}
