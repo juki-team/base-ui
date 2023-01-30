@@ -1,7 +1,9 @@
 import {
   CompanyPingType,
   ContentResponseType,
+  DataViewMode,
   Language,
+  MenuViewMode,
   PingResponseDTO,
   Theme,
   USER_GUEST,
@@ -60,11 +62,27 @@ const useUser = () => {
       if (data.content.user.isLogged) {
         setUser(data?.content.user);
       } else {
-        setUser({ ...data?.content.user, settings: { preferredTheme, preferredLanguage } });
+        setUser({
+          ...data?.content.user,
+          settings: {
+            preferredTheme,
+            preferredLanguage,
+            preferredMenuView: MenuViewMode.VERTICAL,
+            preferredDataView: DataViewMode.LIST,
+          },
+        });
       }
       localStorage.setItem(settings.TOKEN_NAME, data?.content.user.sessionId);
     } else {
-      setUser({ ...USER_GUEST, settings: { preferredTheme, preferredLanguage } });
+      setUser({
+        ...USER_GUEST,
+        settings: {
+          preferredTheme,
+          preferredLanguage,
+          preferredMenuView: MenuViewMode.VERTICAL,
+          preferredDataView: DataViewMode.LIST,
+        },
+      });
     }
   }, [data]);
   
