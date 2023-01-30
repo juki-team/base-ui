@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "0.0.301",
+  "version": "0.0.302",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "@codemirror/lang-markdown": "^6.0.5",
     "@codemirror/lang-python": "^6.1.0",
     "@hookform/resolvers": "^2.8.8",
-    "@juki-team/commons": "^0.0.224",
+    "@juki-team/commons": "^0.0.225",
     "@monaco-editor/react": "^4.4.2",
     "@tanstack/react-virtual": "^3.0.0-beta.30",
     "@uiw/react-codemirror": "^4.19.3",
