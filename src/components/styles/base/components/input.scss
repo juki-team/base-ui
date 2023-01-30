@@ -311,8 +311,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     input.jk-input-checkbox, input.jk-input-radio {
       border-color: var(--t-color-gray-4);
-      
+    }
+    
+    input.jk-input-checkbox {
       &:checked {
+        background-color: var(--t-color-gray-4);
+      }
+    }
+    
+    input.jk-input-radio {
+      &:after {
         background-color: var(--t-color-gray-4);
       }
     }
@@ -386,6 +394,32 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
   }
    */
+}
+
+.jk-theme-dark {
+  .jk-input-checkbox-wrapper, .jk-input-radio-wrapper {
+    &:not(.disabled) {
+      input.jk-input-checkbox, input.jk-input-radio {
+        border-color: var(--t-color-primary-light);
+        
+        &:focus-visible:not(:checked) {
+          background-color: rgba(var(--t-color-primary-light-rgb), 0.6);
+        }
+      }
+      
+      input.jk-input-checkbox {
+        &:checked {
+          background-color: var(--t-color-primary-light);
+        }
+      }
+      
+      input.jk-input-radio {
+        &:after {
+          background-color: var(--t-color-primary-light);
+        }
+      }
+    }
+  }
 }
 
 .jk-input-password-wrapper {
