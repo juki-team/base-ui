@@ -89,7 +89,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     width: 100%;
     font-weight: var(--weight-bold);
     padding: 0;
-    text-transform: capitalize;
+    @extend .tt-se;
     line-height: var(--pad-xs);
   }
   
