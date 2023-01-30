@@ -120,7 +120,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         </div>
       )}
       <div
-        className={classNames('jk-view-container', viewMode)}
+        className={classNames('jk-view-container', viewMode.toLowerCase())}
         ref={viewContainerRef}
       >
         {viewMode === DataViewMode.ROWS && (
@@ -142,7 +142,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         )}
         {data.length > 0 && loading && <LineLoader />}
         {viewMode === DataViewMode.ROWS ? (
-          <div className={classNames('jk-data-viewer-body', viewMode)}>
+          <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}>
             <LoaderLayer loading={data.length === 0 && loading}>
               <RowVirtualizerFixed
                 data={data}
