@@ -158,13 +158,6 @@
       .jk-horizontal-menu-mobile-left, .jk-horizontal-menu-mobile-center, .jk-horizontal-menu-mobile-right {
         height: inherit;
         color: var(--t-color-primary-text);
-        
-        .jk-image {
-          height: calc(var(--top-horizontal-menu-height) - 16px);
-          @include sm {
-            height: calc(var(--top-horizontal-menu-height) - 12px);
-          }
-        }
       }
       
       .jk-menu-items {
