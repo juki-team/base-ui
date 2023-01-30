@@ -50,11 +50,11 @@ const useUser = () => {
   const [company, setCompany] = useState<CompanyPingType>({ emailContact: '', imageUrl: '', name: '' });
   
   useEffect(() => {
-    let preferredLanguage: Language = localStorage.getItem('preferredLanguage') as Language;
+    let preferredLanguage: Language = localStorage.getItem(ProfileSetting.LANGUAGE) as Language;
     if (preferredLanguage !== Language.EN && preferredLanguage !== Language.ES) {
       preferredLanguage = Language.EN;
     }
-    let preferredTheme: Theme = localStorage.getItem('preferredTheme') as Theme;
+    let preferredTheme: Theme = localStorage.getItem(ProfileSetting.THEME) as Theme;
     if (preferredTheme !== Theme.DARK && preferredTheme !== Theme.LIGHT) {
       preferredTheme = Theme.LIGHT;
     }

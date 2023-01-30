@@ -1,4 +1,4 @@
-import { Status } from '@juki-team/commons';
+import { ProfileSetting, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, consoleWarn } from '../../helpers';
 import { OptionType, SearchParamsObjectType, showOfDatePickerType, useJukiBase, ViewModeType } from '../index';
@@ -47,7 +47,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     data,
     extraNodes,
     headers,
-    initialViewMode = 'rows',
+    initialViewMode: _initialViewMode,
     name = '',
     request,
     rows,
@@ -107,7 +107,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const prevPageSize = useRef<number>();
   const firstRender = useRef(true);
   const [pageSizeOptions, setPageSizeOptions] = useState(pagination?.pageSizeOptions || [32, 64, 128, 256, 512, 1024]);
-  const { viewPortSize } = useJukiBase();
+  const { viewPortSize, user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiBase();
+  const initialViewMode = _initialViewMode || preferredDataViewMode;
+  
   useEffect(() => {
     if (pagination?.pageSizeOptions && JSON.stringify(pagination.pageSizeOptions) !== JSON.stringify(pageSizeOptions)) {
       setPageSizeOptions(pagination?.pageSizeOptions);

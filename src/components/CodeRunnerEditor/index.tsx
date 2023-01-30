@@ -1,4 +1,4 @@
-import { SocketEvent, SubmissionRunStatus } from '@juki-team/commons';
+import { ProfileSetting, SocketEvent, SubmissionRunStatus } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../helpers';
 import { useJkSocket } from '../../hooks/useJkSocket';
@@ -27,7 +27,7 @@ export const CodeRunnerEditor = ({
   className,
 }: CodeRunnerEditorProps) => {
   const [runId, setRunId] = useState('');
-  const { user: { settings: { preferredTheme } } } = useJukiBase();
+  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiBase();
   const { pop } = useJkSocket(SocketEvent.RUN);
   const [errorData, setErrorData] = useState<SubmissionTestCaseType>({
     log: '',
