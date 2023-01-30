@@ -176,9 +176,9 @@
           height: var(--height-jk-menu-item);
           align-items: center;
           cursor: pointer;
-          @include md { padding: 0 var(--pad-t); }
-          @include lg { padding: 0 var(--pad-l); }
-          @include hg { padding: 0 var(--pad-xl); }
+          @include md { padding: 0 var(--pad-xt); }
+          @include lg { padding: 0 var(--pad-xs); }
+          @include hg { padding: 0 var(--pad-m); }
           @include sm { flex-direction: column; }
           
           &:not(.selected):hover {
