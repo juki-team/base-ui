@@ -160,7 +160,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
             </LoaderLayer>
           </div>
         ) : (
-          <div className={classNames('jk-data-viewer-body', viewMode)} style={{ width: (viewContainerWidth || 0) }}>
+          <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())} style={{ width: (viewContainerWidth || 0) }}>
             <LoaderLayer loading={data.length === 0 && loading}>
               <CardRowVirtualizerFixed
                 headers={tableHeaders}
