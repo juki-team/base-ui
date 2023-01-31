@@ -23,6 +23,18 @@ body {
 }
 
 // overwriting styles
+.jk-theme-light {
+  h1, h2, h3 {
+    color: var(--t-color-primary-dark);
+  }
+}
+
+.jk-theme-dark {
+  h1, h2, h3 {
+    color: var(--t-color-primary);
+  }
+}
+
 h1, h2, h3 {
   &:first-letter {
     text-transform: capitalize;
@@ -34,7 +46,6 @@ h1, h2, h3 {
   margin-inline-start: 0;
   margin-inline-end: 0;
   line-height: 1.6;
-  color: var(--t-color-primary-dark);
 }
 
 h3 {
