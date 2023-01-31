@@ -36,7 +36,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   
   return (
     <div
-      className={classNames('jk-data-viewer-toolbar jk-row space-between nowrap', { 'elevation-1': viewMode === DataViewMode.CARDS }, viewMode.toLowerCase())}
+      className={classNames('jk-data-viewer-toolbar jk-row space-between nowrap', { 'br-g5': viewMode === DataViewMode.CARDS }, viewMode.toLowerCase())}
     >
       <FilterDrawer
         isOpen={filterDrawer}

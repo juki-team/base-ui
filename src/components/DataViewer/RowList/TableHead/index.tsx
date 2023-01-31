@@ -113,7 +113,7 @@ export const TableHead = <T, >({
   
   return (
     <div className="jk-table-head-container">
-      <div className="jk-table-head elevation-1" onMouseLeave={onMouseHoldUp}>
+      <div className="jk-table-head br-g5" onMouseLeave={onMouseHoldUp}>
         <div className={classNames('jk-table-head-sticky', { '': !!scrollLeft })}>
           {headersSticky.map(renderHeader)}
         </div>
