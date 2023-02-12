@@ -140,7 +140,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
               </div>
             ))}
           </div>
-          <div className="jk-row nowrap">
+          <div className="jk-row nowrap jk-multi-select-selected-searchable-icons">
             {!!onChange && (
               <CloseIcon
                 className="input-icon"

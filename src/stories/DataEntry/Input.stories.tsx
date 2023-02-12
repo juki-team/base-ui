@@ -325,6 +325,7 @@ export const SelectSearchable = () => {
         extend
         onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
       />
+      Searchable multiselect=false
       <MultiSelectSearchable
         options={mockupUsers.map(option => ({
           label: <div className="jk-col">{option.email}
@@ -340,6 +341,7 @@ export const SelectSearchable = () => {
         onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
         multiselect={false}
       />
+      end
       <ToggleThemeButton />
     </div>
   );

@@ -124,6 +124,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   background-color: var(--t-color-shadow-light);
 }
 
+.activated {
+  border: 2px solid var(--t-color-gray-4);
+  margin: 0;
+}
+
 // input textarea
 .jk-input-text,
 .jk-input-number,
@@ -136,7 +141,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-input-date-layout .date-literal-label {
   border: 1px solid var(--t-color-gray-5);
   color: inherit;
-  //border-radius: var(--border-radius-hg);
   outline: none;
   box-sizing: border-box;
   font-size: inherit;
@@ -147,8 +151,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     border-color: var(--t-color-gray-4);
   }
   
-  &:focus, &:active {
-    @extend .elevation-1;
+  margin: 1px;
+  
+  &:not(.disabled) {
+    &:focus, &:active {
+      @extend .activated;
+    }
   }
   
   &::-webkit-file-upload-button {
@@ -163,6 +171,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-select-layout, .jk-multi-select-layout {
+  &.open {
+    > .jk-select {
+      @extend .activated;
+    }
+  }
+  
   > .jk-select {
     > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
       color: var(--t-color-gray-5);
@@ -183,6 +197,27 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       
       > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
         color: var(--t-color-gray-4);
+      }
+    }
+  }
+  
+  > .jk-select {
+    > .jk-multi-select-selected-searchable-icons > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
+      color: var(--t-color-gray-4);
+      padding: 2px;
+      margin: 2px 0;
+      border-radius: 50%;
+    }
+  }
+  
+  &:not(.disabled) {
+    > .jk-select {
+      > .jk-multi-select-selected-searchable-icons > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
+        @extend .clickable;
+        
+        &:hover {
+          color: var(--t-color-gray-3);
+        }
       }
     }
   }
@@ -220,8 +255,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-input-text, .jk-input-number, .jk-input-password {
-  height: var(--pad-xl);
-  
   &::placeholder {
     color: var(--t-color-gray-4);
     font-weight: var(--weight-normal);
@@ -528,7 +561,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     .jk-multi-select-selected-options {
       gap: 4px;
-      padding: 4px;
+      padding: 0 4px;
       
       .jk-tag {
         gap: 4px;
@@ -554,7 +587,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-multi-select-layout .jk-select {
-  min-height: 34px;
+  //min-height: 34px;
 }
 
 .jk-input-toggle-wrapper {
