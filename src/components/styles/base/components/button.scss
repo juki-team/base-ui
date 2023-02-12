@@ -185,10 +185,4 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   border: 2px solid var(--t-color-primary);
   color: var(--t-color-primary);
   font-weight: var(--weight-bolder) !important;
-  
-  &:not(.disabled):hover, &:not(.disabled):focus {
-    background-color: var(--t-color-primary);
-    border: 2px solid var(--t-color-primary);
-    color: var(--t-color-white);
-  }
 }

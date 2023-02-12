@@ -24,7 +24,11 @@ export const Modal = ({
       ariaHideApp={false}
       shouldCloseOnOverlayClick={closeWhenClickOutside}
     >
-      {closeIcon && <div className="jk-modal-close-button jk-row jk-pad-sm" onClick={onClose}><CloseIcon /></div>}
+      {closeIcon && (
+        <div className="jk-modal-close-button jk-row jk-pad-sm" onClick={onClose}>
+          <CloseIcon className="clickable" />
+        </div>
+      )}
       <div className="jk-modal-body">
         {children}
       </div>

@@ -62,7 +62,7 @@ export const MdMathEditor = ({
           label: <T>continue without saving</T>,
         }}
         accept={{ onClick: handleAccept, label: <T>save and continue</T> }}
-        title={<h2><T>attention</T></h2>}
+        title={<T>attention</T>}
         content={<T>Has unsaved changes</T>}
       />,
     );

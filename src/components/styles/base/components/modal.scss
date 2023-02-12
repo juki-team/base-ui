@@ -44,6 +44,9 @@
     color: var(--t-color-gray-3);
     
     .jk-icon {
+      border-radius: 50%;
+      padding: 2px;
+      
       @include sm {
         height: var(--pad-s);
         width: var(--pad-s);

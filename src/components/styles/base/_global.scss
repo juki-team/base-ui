@@ -25,13 +25,17 @@ body {
 // overwriting styles
 .jk-theme-light {
   h1, h2, h3 {
-    color: var(--t-color-primary-dark);
+    &:not([class*=" cr-"]):not([class^="cr-"]) {
+      color: var(--t-color-primary-dark);
+    }
   }
 }
 
 .jk-theme-dark {
   h1, h2, h3 {
-    color: var(--t-color-primary);
+    &:not([class*=" cr-"]):not([class^="cr-"]) {
+      color: var(--t-color-primary);
+    }
   }
 }
 
