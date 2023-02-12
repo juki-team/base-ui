@@ -29,6 +29,7 @@ export const MdMathEditor = ({
   downloadButton = false,
   sharedButton = false,
   initEditMode = false,
+  onPickImageUrl,
 }: MdMathEditorProps) => {
   // 0 editor-expanded, 1 editor-right-view-left, 2 editor-top-view-bottom, 3 view-expanded
   const [view, setView] = useState(1);
@@ -84,7 +85,14 @@ export const MdMathEditor = ({
           <div className="content-bar-options">
             <div className={classNames('jk-row left', { gap: !withLabels })}>
               {informationButton && <InformationButton isOpenRef={isOpenInformationModalRef} withLabel={withLabels} />}
-              {uploadImageButton && <UploadImageButton isOpenRef={isOpenUploadImageModalRef} withLabel={withLabels} />}
+              {uploadImageButton && (
+                <UploadImageButton
+                  isOpenRef={isOpenUploadImageModalRef}
+                  withLabel={withLabels}
+                  onPickImageUrl={onPickImageUrl}
+                  copyButtons
+                />
+              )}
               {view === 0 && (
                 <Popover
                   content={<div className="jk-row nowrap ws-np"><T className="ws-np tt-se">editor</T> ⮜ | ⮞ <T>preview</T>

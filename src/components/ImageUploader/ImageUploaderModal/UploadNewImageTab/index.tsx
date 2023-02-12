@@ -2,16 +2,20 @@ import { Status } from '@juki-team/commons';
 import React, { memo, useState } from 'react';
 import { settings } from '../../../../config';
 import { toBlob } from '../../../../helpers';
-import { ButtonLoader } from '../../../Button';
+import { Button, ButtonLoader } from '../../../Button';
 import { CopyToClipboard } from '../../../CopyToClipboard';
 import { ContentCopyIcon } from '../../../graphics';
 import { CropImageType, ImageLoaderCropper } from '../../../ImageLoaderCropper';
 import { NotificationType, useNotification } from '../../../Notifications';
 import { T } from '../../../Translate';
+import { onPickImageUrlType } from '../types';
 
-export const UploadNewImageTab = memo(() => {
+export const UploadNewImageTab = memo(({
+  copyButtons,
+  onPickImageUrl,
+}: { copyButtons?: boolean, onPickImageUrl?: onPickImageUrlType }) => {
   
-  const [imagePublicUrl, setImagePublicUrl] = useState<string>('');
+  const [imagePublicUrl, setImagePublicUrl] = useState<string>('a');
   const [cropImage, setCropImage] = useState<CropImageType>();
   const { addNotification } = useNotification();
   const handleUpload = async (image: Blob) => {
@@ -31,25 +35,41 @@ export const UploadNewImageTab = memo(() => {
   return (
     <div className="upload-new-image-tab jk-col top gap">
       {imagePublicUrl && (
-        <div className="result-box">
-          <div className="jk-row gap left fw-bd">
-            <T>public url</T>:
-            <CopyToClipboard text={imagePublicUrl}>
-              <div className="copyable jk-row">
-                <a href={imagePublicUrl} className="link" target="_blank" rel="noreferrer">{imagePublicUrl}</a>
-                <ContentCopyIcon size="small" />
+        <div className="jk-col left">
+          {copyButtons && (
+            <>
+              <div className="jk-row gap left fw-bd">
+                <T>public url</T>:
+                <CopyToClipboard text={imagePublicUrl}>
+                  <div className="copyable jk-row">
+                    <a href={imagePublicUrl} className="link" target="_blank" rel="noreferrer">{imagePublicUrl}</a>
+                    <ContentCopyIcon size="small" />
+                  </div>
+                </CopyToClipboard>
               </div>
-            </CopyToClipboard>
-          </div>
-          <div className="jk-row gap left fw-bd">
-            <T>markdown use</T>:
-            <CopyToClipboard text={`![image alt](${imagePublicUrl})`}>
-              <div className="copyable jk-row">
-                <span className="tx-t fw-bd">![image alt]({imagePublicUrl})</span>
-                <ContentCopyIcon size="small" />
+              <div className="jk-row gap left fw-bd">
+                <T>markdown use</T>:
+                <CopyToClipboard text={`![image alt](${imagePublicUrl})`}>
+                  <div className="copyable jk-row">
+                    <span className="tx-t fw-bd">![image alt]({imagePublicUrl})</span>
+                    <ContentCopyIcon size="small" />
+                  </div>
+                </CopyToClipboard>
               </div>
-            </CopyToClipboard>
-          </div>
+            </>
+          )}
+          {onPickImageUrl && (
+            <Button
+              onClick={() => onPickImageUrl({
+                imageUrl: imagePublicUrl,
+                imageThumbnailUrl: imagePublicUrl.replace('https://images.juki.pub/o/', 'https://images.juki.pub/t/'),
+              })}
+              size="small"
+              extend
+            >
+              <T>pick</T>
+            </Button>
+          )}
         </div>
       )}
       <ButtonLoader

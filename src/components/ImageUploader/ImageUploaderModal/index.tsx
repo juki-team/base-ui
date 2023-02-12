@@ -8,7 +8,13 @@ import { PublicImagesTab } from './PublicImagesTab';
 import { ImageUploaderModalProps } from './types';
 import { UploadNewImageTab } from './UploadNewImageTab';
 
-export const ImageUploaderModal = ({ isOpen, onClose, withPublicImagesTab = true }: ImageUploaderModalProps) => {
+export const ImageUploaderModal = ({
+  isOpen,
+  onClose,
+  withPublicImagesTab = true,
+  copyButtons,
+  onPickImageUrl,
+}: ImageUploaderModalProps) => {
   
   const [count, setCount] = useState(0);
   const tabHeaders = [];
@@ -19,13 +25,15 @@ export const ImageUploaderModal = ({ isOpen, onClose, withPublicImagesTab = true
         <T className="tt-se">public images</T>
         <Button icon={<ReloadIcon />} size="small" type="text" onClick={() => setCount(count + 1)} />
       </>,
-      body: <PublicImagesTab trigger={count} key="public-images-tab" />,
+      body: (
+        <PublicImagesTab trigger={count} key="public-images-tab" copyButtons={copyButtons} onPickImageUrl={onPickImageUrl} />
+      ),
     });
   }
   tabHeaders.push({
     key: 'upload-new-image',
     header: <T className="tt-se">upload new image</T>,
-    body: <UploadNewImageTab key="upload-new-image-tab" />,
+    body: <UploadNewImageTab key="upload-new-image-tab" copyButtons={copyButtons} onPickImageUrl={onPickImageUrl} />,
   });
   
   return (
@@ -34,7 +42,6 @@ export const ImageUploaderModal = ({ isOpen, onClose, withPublicImagesTab = true
       onClose={onClose}
       className="modal-upload-image"
       closeIcon
-      expand
     >
       <div>
         <Tabs tabs={tabHeaders} />

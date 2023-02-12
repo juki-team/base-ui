@@ -1,3 +1,5 @@
+import { onPickImageUrlType } from '../ImageUploader/ImageUploaderModal/types';
+
 export type MdMathEditorProps = {
   source: string,
   onChange?: (value: string) => void,
@@ -6,4 +8,5 @@ export type MdMathEditorProps = {
   downloadButton?: boolean,
   sharedButton?: boolean,
   initEditMode?: boolean,
+  onPickImageUrl?: onPickImageUrlType,
 }

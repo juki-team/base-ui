@@ -1,7 +1,12 @@
 import React, { MutableRefObject, useState } from 'react';
-import { Button, CloudUploadIcon, ImageUploaderModal, Popover, T } from '../../index';
+import { Button, CloudUploadIcon, ImageUploaderModal, onPickImageUrlType, Popover, T } from '../../index';
 
-export const UploadImageButton = ({ isOpenRef, withLabel }: { isOpenRef: MutableRefObject<boolean>, withLabel: boolean }) => {
+export const UploadImageButton = ({
+  isOpenRef,
+  withLabel,
+  copyButtons,
+  onPickImageUrl,
+}: { isOpenRef: MutableRefObject<boolean>, withLabel: boolean, copyButtons?: boolean, onPickImageUrl?: onPickImageUrlType }) => {
   
   const [open, setOpen] = useState(false);
   isOpenRef.current = open;
@@ -20,7 +25,12 @@ export const UploadImageButton = ({ isOpenRef, withLabel }: { isOpenRef: Mutable
           </Button>
         </div>
       </Popover>
-      <ImageUploaderModal isOpen={open} onClose={() => setOpen(false)} />
+      <ImageUploaderModal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        copyButtons={copyButtons}
+        onPickImageUrl={onPickImageUrl}
+      />
     </>
   );
 };
