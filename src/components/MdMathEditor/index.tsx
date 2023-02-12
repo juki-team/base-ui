@@ -19,7 +19,7 @@ import { MdMathViewer } from '../MdMathViewer';
 import { InformationButton } from './InformationButton';
 import { MdFloatToolbar } from './MdFloatToolbar';
 import { MdMathEditorProps } from './types';
-import { UploadImageButton } from './UploadImageButton';
+import { UploadImageButton } from '../ImageUploader/UploadImageButton';
 
 export const MdMathEditor = ({
   source,

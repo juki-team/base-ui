@@ -10,6 +10,7 @@ export * from './DataViewer';
 export * from './DatePicker';
 export * from './Drawer';
 export * from './FloatToolbar';
+export * from './ImageLoaderCropper';
 export * from './ImageUploader';
 export * from './Input';
 export * from './LineLoader';

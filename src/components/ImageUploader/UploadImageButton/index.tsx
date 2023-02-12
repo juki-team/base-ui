@@ -1,23 +1,26 @@
-import React, { Dispatch, MutableRefObject, useState } from 'react';
+import React, { Dispatch, MutableRefObject, ReactNode, useState } from 'react';
 import { Button, CloudUploadIcon, ImageUploaderModal, onPickImageUrlType, Popover, T } from '../../index';
+
+type ChildrenProps = { open: boolean, setOpen: Dispatch<boolean>, withLabel: boolean };
 
 export const UploadImageButton = ({
   isOpenRef,
   withLabel,
   copyButtons,
   onPickImageUrl,
-}: { isOpenRef: MutableRefObject<boolean>, withLabel: boolean, copyButtons?: boolean, onPickImageUrl?: onPickImageUrlType }) => {
+  children: _children,
+}: { isOpenRef: MutableRefObject<boolean>, withLabel: boolean, copyButtons?: boolean, onPickImageUrl?: onPickImageUrlType, children?: (props: ChildrenProps) => ReactNode }) => {
   
   const [open, setOpen] = useState(false);
   isOpenRef.current = open;
   
-  const children = ({ open, setOpen, withLabel }: { open: boolean, setOpen: Dispatch<boolean>, withLabel: boolean }) => {
+  const children = _children || (({ setOpen, withLabel }: ChildrenProps) => {
     return (
       <Button icon={<CloudUploadIcon />} type="text" size="small" onClick={() => setOpen(true)}>
         {withLabel && <T>pick/upload image</T>}
       </Button>
     );
-  };
+  });
   
   return (
     <>

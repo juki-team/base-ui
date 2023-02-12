@@ -15,7 +15,7 @@ export const UploadNewImageTab = memo(({
   onPickImageUrl,
 }: { copyButtons?: boolean, onPickImageUrl?: onPickImageUrlType }) => {
   
-  const [imagePublicUrl, setImagePublicUrl] = useState<string>('a');
+  const [imagePublicUrl, setImagePublicUrl] = useState<string>('');
   const [cropImage, setCropImage] = useState<CropImageType>();
   const { addNotification } = useNotification();
   const handleUpload = async (image: Blob) => {
