@@ -5,14 +5,16 @@ type ChildrenProps = { open: boolean, setOpen: Dispatch<boolean>, withLabel: boo
 
 export const UploadImageButton = ({
   isOpenRef,
-  withLabel,
+  withLabel = false,
   copyButtons,
   onPickImageUrl,
   children: _children,
-}: { isOpenRef: MutableRefObject<boolean>, withLabel: boolean, copyButtons?: boolean, onPickImageUrl?: onPickImageUrlType, children?: (props: ChildrenProps) => ReactNode }) => {
+}: { isOpenRef?: MutableRefObject<boolean>, withLabel?: boolean, copyButtons?: boolean, onPickImageUrl?: onPickImageUrlType, children?: (props: ChildrenProps) => ReactNode }) => {
   
   const [open, setOpen] = useState(false);
-  isOpenRef.current = open;
+  if (isOpenRef) {
+    isOpenRef.current = open;
+  }
   
   const children = _children || (({ setOpen, withLabel }: ChildrenProps) => {
     return (
