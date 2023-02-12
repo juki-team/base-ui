@@ -84,7 +84,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
   }
   
-  > label:not(.jk-input-checkbox-wrapper), > label:not(.jk-input-radio-wrapper) {
+  > label:not(.jk-input-checkbox-wrapper):not(.jk-input-radio-wrapper) {
     display: block;
     width: 100%;
     font-weight: var(--weight-bold);

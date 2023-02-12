@@ -5,6 +5,7 @@ import GoogleLogin from 'react-google-login';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX, LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX } from '../../../constants';
+import { classNames } from '../../../helpers';
 import {
   ButtonLoader,
   Input,
@@ -149,8 +150,8 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
               />
               <p><T>{(!isValid && errors?.checkbox?.message) || ''}</T></p>
             </div>
-            <div className="jk-row gap right">
-              <ButtonLoader type="text" onClick={onCancel} extend={viewPortSize === 'sm' || viewPortSize === 'md'}>
+            <div className={classNames('jk-row gap right', { nowrap: viewPortSize !== 'sm' })}>
+              <ButtonLoader type="outline" onClick={onCancel} extend={viewPortSize === 'sm'}>
                 <T>cancel</T>
               </ButtonLoader>
               <ButtonLoader
@@ -158,9 +159,9 @@ export const SignUpModal = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoog
                 setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
                 disabled={!isValid}
                 submit
-                extend={viewPortSize === 'sm' || viewPortSize === 'md'}
+                extend={viewPortSize === 'sm'}
               >
-                <T>sign up</T>
+                <T className="ws-np">sign up</T>
               </ButtonLoader>
             </div>
           </div>

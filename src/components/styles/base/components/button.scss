@@ -101,7 +101,7 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   }
   
   &.disabled {
-    opacity: 0.4;
+    opacity: 0.6;
     cursor: not-allowed;
   }
   
@@ -180,14 +180,15 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   }
 }
 
-.jk-button-outline, .jk-button-outline {
+.jk-button-outline {
   background-color: transparent;
   border: 2px solid var(--t-color-primary);
-  color: inherit;
+  color: var(--t-color-primary);
+  font-weight: var(--weight-bolder) !important;
   
   &:not(.disabled):hover, &:not(.disabled):focus {
-    background-color: var(--t-color-primary-light);
-    border: 2px solid var(--t-color-primary-light);
+    background-color: var(--t-color-primary);
+    border: 2px solid var(--t-color-primary);
     color: var(--t-color-white);
   }
 }

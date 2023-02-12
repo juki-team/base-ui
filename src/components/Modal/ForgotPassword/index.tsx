@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Button, ButtonLoader, Input, JukiLaptopImage, T } from '../../index';
+import { classNames } from '../../../helpers';
+import { Button, ButtonLoader, Input, JukiLaptopImage, T, useJukiBase } from '../../index';
 import { SplitModal } from '../SplitModal';
 import { ForgotPasswordModalProps } from './types';
 
 export const ForgotPasswordModal = ({ onCancel, onForgotPassword }: ForgotPasswordModalProps) => {
   
   const [email, setEmail] = useState('');
-  
+  const { viewPortSize } = useJukiBase();
   return (
     <SplitModal
       isOpen={true}
@@ -26,15 +27,16 @@ export const ForgotPasswordModal = ({ onCancel, onForgotPassword }: ForgotPasswo
           </T>
         </div>
         <Input name="email" value={email} onChange={(value) => setEmail(value)} type="email" extend />
-        <div className="jk-row gap right">
-          <Button type="text" onClick={onCancel}><T>cancel</T></Button>
+        <div className={classNames('jk-row gap right', { nowrap: viewPortSize !== 'sm' })}>
+          <Button type="outline" onClick={onCancel} extend={viewPortSize === 'sm'}><T>cancel</T></Button>
           <ButtonLoader
             type="primary"
             onClick={(setLoading) => onForgotPassword(email, setLoading!)}
             disabled={!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email)}
             submit
+            extend={viewPortSize === 'sm'}
           >
-            <T>send me</T>
+            <T className="ws-np">send me</T>
           </ButtonLoader>
         </div>
       </div>
