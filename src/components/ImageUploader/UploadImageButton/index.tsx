@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useState } from 'react';
+import React, { Dispatch, MutableRefObject, useState } from 'react';
 import { Button, CloudUploadIcon, ImageUploaderModal, onPickImageUrlType, Popover, T } from '../../index';
 
 export const UploadImageButton = ({
@@ -11,6 +11,14 @@ export const UploadImageButton = ({
   const [open, setOpen] = useState(false);
   isOpenRef.current = open;
   
+  const children = ({ open, setOpen, withLabel }: { open: boolean, setOpen: Dispatch<boolean>, withLabel: boolean }) => {
+    return (
+      <Button icon={<CloudUploadIcon />} type="text" size="small" onClick={() => setOpen(true)}>
+        {withLabel && <T>pick/upload image</T>}
+      </Button>
+    );
+  };
+  
   return (
     <>
       <Popover
@@ -20,9 +28,7 @@ export const UploadImageButton = ({
         showPopperArrow
       >
         <div>
-          <Button icon={<CloudUploadIcon />} type="text" size="small" onClick={() => setOpen(true)}>
-            {withLabel && <T>upload image</T>}
-          </Button>
+          {children({ open, setOpen, withLabel })}
         </div>
       </Popover>
       <ImageUploaderModal
