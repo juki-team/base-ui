@@ -25,8 +25,8 @@ export const Modal = ({
       shouldCloseOnOverlayClick={closeWhenClickOutside}
     >
       {closeIcon && (
-        <div className="jk-modal-close-button jk-row jk-pad-sm" onClick={onClose}>
-          <CloseIcon className="clickable" />
+        <div className="jk-modal-close-button jk-row jk-pad-sm">
+          <CloseIcon className="clickable" onClick={onClose} />
         </div>
       )}
       <div className="jk-modal-body">

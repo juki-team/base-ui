@@ -32,21 +32,25 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
       key: testCaseValue.key,
       header: testCaseValue.sample
         ? testCaseValue.key === testCaseKey
-          ? <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">sample</T> {testCaseValue.index + 1}</div>
-          : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">s.</T>{testCaseValue.index + 1}</div>
+          ? <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">sample</T>&nbsp;{testCaseValue.index + 1}</div>
+          : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">s.</T>&nbsp;{testCaseValue.index + 1}</div>
         : testCaseValue.key === testCaseKey
           ? <div className="jk-row ws-np nowrap tx-s">
             <T className="tt-se">custom</T>
             &nbsp;{testCaseValue.index + 1}&nbsp;
             {Object.keys(testCases).length > 1 && (
-              <DeleteIcon size="small" className="clickable br-50-pc" onClick={() => {
-                const newTestCases = { ...testCases };
-                delete newTestCases[testCaseValue.key];
-                onChange?.({ testCases: newTestCases });
-              }} />
+              <DeleteIcon
+                size="small"
+                className="clickable br-50-pc"
+                onClick={() => {
+                  const newTestCases = { ...testCases };
+                  delete newTestCases[testCaseValue.key];
+                  onChange?.({ testCases: newTestCases });
+                }}
+              />
             )}
           </div>
-          : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">c.</T>{testCaseValue.index + 1}</div>,
+          : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">c.</T>&nbsp;{testCaseValue.index + 1}</div>,
       body: (
         <TextArea
           style={{ height: '100%', boxShadow: 'none', borderRadius: 0 }}
@@ -153,7 +157,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
               {actionSection}
             </div>
           </div>
-          <div className="test-cases-inputsa flex-1">
+          <div className="flex-1">
             {renderReactNodeOrFunctionP1(tabs[testCaseKey]?.body, { selectedTabKey: testCaseKey })}
           </div>
         </div>
