@@ -10,5 +10,5 @@ const Icon = ({ color }: RootIconProps) => (
 );
 
 export const VisibilityIcon = (props: BasicIconProps) => {
-  return renderBasicIcon(props, Icon);
+  return renderBasicIcon(props, Icon, 'visibility');
 };

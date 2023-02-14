@@ -10,5 +10,5 @@ const Icon = ({ color }: RootIconProps) => (
 );
 
 export const AttachmentIcon = (props: BasicIconProps) => {
-  return renderBasicIcon(props, Icon);
+  return renderBasicIcon(props, Icon, 'attachment');
 };

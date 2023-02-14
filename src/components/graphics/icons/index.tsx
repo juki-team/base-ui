@@ -128,7 +128,7 @@ export const ReadIcon = ({ size = 'regular', className = '', ...props }: IconPro
   );
 };
 
-export const TaskIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
+export const TaskIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
     <span {...props} className={classNames(className, 'jk-icon', size)}><Task /></span>
   );

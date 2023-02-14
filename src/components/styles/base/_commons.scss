@@ -150,7 +150,7 @@
   @include sm { display: none; }
 }
 
-.link {
+.link:not(.jk-icon) {
   color: var(--t-color-primary) !important;
   cursor: pointer !important;
   

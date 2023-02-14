@@ -11,7 +11,7 @@ const Icon = ({ color }: RootIconProps) => (
 );
 
 export const AutorenewIcon = (props: BasicIconProps) => {
-  return renderBasicIcon(props, Icon);
+  return renderBasicIcon(props, Icon, 'autorenew');
 };
 
 export const LoadingIcon = ({ className, ...props }: BasicIconProps) => {

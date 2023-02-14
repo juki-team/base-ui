@@ -7,5 +7,5 @@ const Icon = ({ color }: RootIconProps) => (
 );
 
 export const FullscreenExitIcon = (props: BasicIconProps) => {
-  return renderBasicIcon(props, Icon);
+  return renderBasicIcon(props, Icon, 'fullscreen-exit');
 };
