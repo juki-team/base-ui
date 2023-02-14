@@ -1,4 +1,11 @@
-import { consoleWarn, ContentResponseType, PROGRAMMING_LANGUAGE, Status, SubmissionRunStatus } from '@juki-team/commons';
+import {
+  CodeEditorTestCasesType,
+  consoleWarn,
+  ContentResponseType,
+  PROGRAMMING_LANGUAGE,
+  Status,
+  SubmissionRunStatus,
+} from '@juki-team/commons';
 import React, { CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { settings } from '../../../config';
@@ -16,7 +23,7 @@ import {
   T,
   useNotification,
 } from '../../index';
-import { CodeEditorTestCasesType, HeaderProps } from '../types';
+import { HeaderProps } from '../types';
 
 export const Header = ({
   languages,

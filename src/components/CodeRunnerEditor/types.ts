@@ -1,22 +1,6 @@
-import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
+import { CodeEditorTestCasesType, ProgrammingLanguage, SubmissionTestCaseType } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { CodeEditorPropertiesType } from '../CodeEditor';
-
-export type SubmissionTestCaseType = {
-  out: string,
-  err: string,
-  log: string,
-  status: SubmissionRunStatus,
-}
-
-export interface CodeEditorTestCaseType extends SubmissionTestCaseType {
-  key: string,
-  in: string,
-  sample: boolean,
-  index: number,
-}
-
-export type CodeEditorTestCasesType = { [key: string]: CodeEditorTestCaseType };
 
 export type CodeRunnerEditorPropertiesType = CodeEditorPropertiesType & { testCases?: CodeEditorTestCasesType };
 

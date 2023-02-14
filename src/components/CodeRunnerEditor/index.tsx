@@ -1,4 +1,10 @@
-import { ProfileSetting, SocketEvent, SubmissionRunStatus } from '@juki-team/commons';
+import {
+  CodeEditorTestCasesType,
+  ProfileSetting,
+  SocketEvent,
+  SubmissionRunStatus,
+  SubmissionTestCaseType,
+} from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../helpers';
 import { useJkSocket } from '../../hooks/useJkSocket';
@@ -9,7 +15,7 @@ import { SplitPane } from '../SplitPane';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
 import { TestCases } from './TestCases';
-import { CodeEditorTestCasesType, CodeRunnerEditorProps, SubmissionTestCaseType } from './types';
+import { CodeRunnerEditorProps } from './types';
 
 export const CodeRunnerEditor = ({
   readOnly,

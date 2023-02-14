@@ -1,4 +1,4 @@
-import { SubmissionTestCaseType } from './types';
+import { SubmissionTestCaseType } from '@juki-team/commons';
 
 export const getErrors = (testCase: SubmissionTestCaseType, timeLimit: number, memoryLimit: number) => {
   const dataLogs = testCase?.log?.split('\n');
