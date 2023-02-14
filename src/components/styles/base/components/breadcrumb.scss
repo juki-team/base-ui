@@ -1,0 +1,25 @@
+.jk-breadcrumb {
+  padding-top: var(--pad-xt);
+  padding-bottom: var(--pad-xt);
+  border-bottom: 1px solid var(--t-color-gray-5);
+  box-sizing: border-box;
+  
+  .separator {
+    padding: 0 4px;
+    color: var(--t-color-gray-5);
+    
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+  
+  .link:hover {
+    > span {
+      text-decoration: underline;
+    }
+  }
+  
+  > div:last-child {
+    font-weight: var(--weight-bold);
+  }
+}

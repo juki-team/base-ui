@@ -12,11 +12,12 @@ export const renderSignIcon = ({
   filledCircle = false,
   filledSquare = false,
   ...props
-}: SignIconProps, Component: ComponentType<RootIconProps>) => {
+}: SignIconProps, Component: ComponentType<RootIconProps>, name?: string) => {
+  
   return (
     <span
       {...props}
-      className={classNames(className, 'jk-icon', 'jk-icon-' + size, { 'cursor-pointer': !!props.onClick })}
+      className={classNames(className, 'jk-icon', size, name, { 'cursor-pointer': !!props.onClick })}
       style={{ transform: `rotate(${rotate}deg)` }}
     >
       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -47,7 +48,7 @@ export const renderBasicIcon = ({
   strikethrough = false,
   style,
   ...props
-}: BasicIconProps, Component: ComponentType<RootIconProps>) => {
+}: BasicIconProps, Component: ComponentType<RootIconProps>, name?: string) => {
   
   const isFilled = filledCircle || filledSquare;
   const scale = isFilled || circle || square ? 0.7 : 1;
@@ -57,7 +58,7 @@ export const renderBasicIcon = ({
   const width = A1.sub(A2).mod();
   
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}
+    <span {...props} className={classNames(className, 'jk-icon', size, name, { 'cursor-pointer': !!props.onClick })}
           style={{ transform: `rotate(${rotate}deg)`, ...style }}>
       <svg viewBox="0 0 24 24" fill="currentColor">
         {filledCircle && <CircleFilledFrame />}

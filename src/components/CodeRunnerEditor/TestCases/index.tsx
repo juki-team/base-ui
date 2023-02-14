@@ -1,13 +1,13 @@
 import { mex, PROGRAMMING_LANGUAGE, SUBMISSION_RUN_STATUS, SubmissionRunStatus } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
-import { classNames } from '../../../helpers';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { AddIcon, DeleteIcon, LoadingIcon } from '../../graphics';
 import { TextArea } from '../../Input';
 import { NotificationType, useNotification } from '../../Notifications';
 import { Popover } from '../../Popover';
 import { SplitPane } from '../../SplitPane';
-import { Tabs, TabType } from '../../Tabs';
+import { Tabs, TabsInline, TabType } from '../../Tabs';
 import { T } from '../../Translate';
 import { TestCasesProps } from '../types';
 import { getErrors } from '../utils';
@@ -25,44 +25,51 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
       }
     }
   }, [testCaseKey, testCases]);
-  const tabs: TabType<string>[] = testCasesValues.map(testCaseValue => ({
-    key: testCaseValue.key,
-    header: testCaseValue.sample
-      ? testCaseValue.key === testCaseKey
-        ? <div className="text-case"><T className="tt-se">sample</T> {testCaseValue.index + 1}</div>
-        : <div className="text-case"><T className="tt-se">s.</T>{testCaseValue.index + 1}</div>
-      : testCaseValue.key === testCaseKey
-        ? <div className="text-case">
-          <T className="tt-se">custom</T>
-          &nbsp;{testCaseValue.index + 1}&nbsp;
-          {Object.keys(testCases).length > 1 && (
-            <DeleteIcon size="small" onClick={() => {
-              const newTestCases = { ...testCases };
-              delete newTestCases[testCaseValue.key];
-              onChange?.({ testCases: newTestCases });
-            }} />
-          )}
-        </div>
-        : <div className="text-case"><T className="tt-se">c.</T>{testCaseValue.index + 1}</div>,
-    body: (
-      <TextArea
-        key={testCaseValue.key}
-        value={testCaseValue.in}
-        onChange={value => onChange?.({
-          testCases: {
-            ...testCases,
-            [testCaseValue.key]: { ...testCaseValue, in: value },
-          },
-        })}
-      />
-    ),
-  }));
+  
+  const tabs: { [key: string]: TabType<string> } = {};
+  testCasesValues.forEach(testCaseValue => {
+    tabs[testCaseValue.key] = {
+      key: testCaseValue.key,
+      header: testCaseValue.sample
+        ? testCaseValue.key === testCaseKey
+          ? <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">sample</T> {testCaseValue.index + 1}</div>
+          : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">s.</T>{testCaseValue.index + 1}</div>
+        : testCaseValue.key === testCaseKey
+          ? <div className="jk-row ws-np nowrap tx-s">
+            <T className="tt-se">custom</T>
+            &nbsp;{testCaseValue.index + 1}&nbsp;
+            {Object.keys(testCases).length > 1 && (
+              <DeleteIcon size="small" className="clickable br-50-pc" onClick={() => {
+                const newTestCases = { ...testCases };
+                delete newTestCases[testCaseValue.key];
+                onChange?.({ testCases: newTestCases });
+              }} />
+            )}
+          </div>
+          : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">c.</T>{testCaseValue.index + 1}</div>,
+      body: (
+        <TextArea
+          style={{ height: '100%', boxShadow: 'none', borderRadius: 0 }}
+          className="tx-s"
+          key={testCaseValue.key}
+          value={testCaseValue.in}
+          onChange={value => onChange?.({
+            testCases: {
+              ...testCases,
+              [testCaseValue.key]: { ...testCaseValue, in: value },
+            },
+          })}
+        />
+      ),
+    };
+  });
   
   const actionSection = (
     <Popover content={<T className="ws-np tt-se tx-s">add sample test case</T>} placement="bottomRight">
-      <div style={{ marginRight: 'var(--gap)' }} className="jk-row">
+      <div className="jk-row">
         <AddIcon
           size="small"
+          className="clickable br-50-pc"
           onClick={() => {
             const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
             if (customCases.length < 10) {
@@ -133,13 +140,22 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
   return (
     <div className="jk-code-mirror-editor-test-cases">
       <SplitPane direction={direction === 'row' ? 'column' : 'row'}>
-        <div className="test-cases-inputs">
-          <Tabs
-            tabs={tabs}
-            selectedTabKey={testCaseKey}
-            onChange={tabKey => setTestCaseKey(tabKey)}
-            extraNodes={[actionSection]}
-          />
+        <div className="jk-col extend stretch nowrap">
+          <div className="jk-row nowrap" style={{ margin: '0 var(--gap)' }}>
+            <div className="flex-1">
+              <TabsInline
+                tabs={tabs}
+                selectedTabKey={testCaseKey}
+                onChange={tabKey => setTestCaseKey(tabKey)}
+              />
+            </div>
+            <div>
+              {actionSection}
+            </div>
+          </div>
+          <div className="test-cases-inputsa flex-1">
+            {renderReactNodeOrFunctionP1(tabs[testCaseKey]?.body, { selectedTabKey: testCaseKey })}
+          </div>
         </div>
         <div className="test-cases-output-stderr">
           {testCases[testCaseKey]?.status === SubmissionRunStatus.RECEIVED && (

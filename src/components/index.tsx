@@ -1,4 +1,5 @@
 export * from './Basic';
+export * from './Breadcrumbs';
 export * from './Button';
 export * from './CodeEditor';
 export * from './CodeRunnerEditor';

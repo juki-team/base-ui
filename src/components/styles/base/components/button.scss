@@ -27,7 +27,7 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     
     &.only-icon { width: var(--pad-l); }
     
-    .jk-icon { @extend .jk-icon-tiny; }
+    .jk-icon { @extend .tiny; }
   }
   
   &.small {
@@ -41,7 +41,7 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     
     &.only-icon { width: var(--pad-xl); }
     
-    .jk-icon { @extend .jk-icon-small; }
+    .jk-icon { @extend .small; }
   }
   
   &.regular {
@@ -69,7 +69,7 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     
     &.only-icon { width: var(--pad-xH); }
     
-    .jk-icon { @extend .jk-icon-large; }
+    .jk-icon { @extend .large; }
   }
   
   &.huge {
@@ -83,7 +83,7 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     
     &.only-icon { width: 64px; }
     
-    .jk-icon { @extend .jk-icon-huge; }
+    .jk-icon { @extend .huge; }
   }
   
   &.only-icon {

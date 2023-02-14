@@ -4,11 +4,12 @@
 @import "md-math-viewer";
 
 @import "basic";
+@import "breadcrumb";
 @import "button";
-@import "color-picker";
 @import "code-run-editor";
 @import "code-viewer";
 @import "collapse";
+@import "color-picker";
 @import "data-viewer";
 @import "date-picker";
 @import "drawer";
@@ -24,4 +25,5 @@
 @import "popover";
 @import "split-pane";
 @import "tabs";
+@import "tabs-inline";
 @import "timer-clock";

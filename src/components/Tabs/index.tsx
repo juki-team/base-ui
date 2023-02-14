@@ -151,4 +151,5 @@ export const Tabs = <T extends string, >({
   );
 };
 
+export * from './TabsInline';
 export * from './types';

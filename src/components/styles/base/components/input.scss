@@ -119,14 +119,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .disabled-input {
-  color: var(--t-color-gray-4);
-  border-color: var(--t-color-gray-4);
-  background-color: var(--t-color-shadow-light);
+  box-shadow: inset 0 0 0 1px var(--t-color-gray-4);
+  @extend .appearance-gray-5;
 }
 
 .activated {
-  border: 2px solid var(--t-color-gray-4);
-  margin: 0;
+  box-shadow: inset 0 0 0 2px var(--t-color-gray-4);
 }
 
 // input textarea
@@ -139,19 +137,19 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-select-layout .jk-select,
 .jk-multi-select-layout .jk-select,
 .jk-input-date-layout .date-literal-label {
-  border: 1px solid var(--t-color-gray-5);
   color: inherit;
+  border: none;
   outline: none;
   box-sizing: border-box;
   font-size: inherit;
   line-height: inherit;
-  @include transition(border-color);
+  box-shadow: inset 0 0 0 1px var(--t-color-gray-5);
+  background-color: var(--t-color-shadow-lightest);
+  @include transition(border-color, box-shadow);
   
   &:hover, &:focus, &:active {
-    border-color: var(--t-color-gray-4);
+    box-shadow: inset 0 0 0 1px var(--t-color-gray-4);
   }
-  
-  margin: 1px;
   
   &:not(.disabled) {
     &:focus, &:active {
@@ -166,8 +164,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   &.disabled {
     @extend .disabled-input;
   }
-  
-  background-color: var(--t-color-shadow-lightest);
 }
 
 .jk-select-layout, .jk-multi-select-layout {
