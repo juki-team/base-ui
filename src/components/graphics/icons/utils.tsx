@@ -58,8 +58,11 @@ export const renderBasicIcon = ({
   const width = A1.sub(A2).mod();
   
   return (
-    <span {...props} className={classNames(className, 'jk-icon', size, name, { 'cursor-pointer': !!props.onClick })}
-          style={{ transform: `rotate(${rotate}deg)`, ...style }}>
+    <span
+      {...props}
+      className={classNames(className, 'jk-icon', size, name, { 'cursor-pointer': !!props.onClick })}
+      style={{ transform: `rotate(${rotate}deg)`, ...style }}
+    >
       <svg viewBox="0 0 24 24" fill="currentColor">
         {filledCircle && <CircleFilledFrame />}
         {filledSquare && <SquareFilledFrame />}
