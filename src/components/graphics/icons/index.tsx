@@ -28,139 +28,139 @@ import ZoomOut from './ZoomOut';
 
 export const AppsIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Apps /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><Apps /></span>
   );
 };
 
 export const AppstoreIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Appstore /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><Appstore /></span>
   );
 };
 
 export const CaretLeftIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><CaretLeft /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><CaretLeft /></span>
   );
 };
 
 export const CodeIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Code /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><Code /></span>
   );
 };
 
 export const DoubleArrowIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><DoubleArrow /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><DoubleArrow /></span>
   );
 };
 
 export const DragIndicatorIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><DragIndicator /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><DragIndicator /></span>
   );
 };
 
 export const FacebookIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size, 'facebook')}><Facebook /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size, 'facebook')}><Facebook /></span>
   );
 };
 
 export const FileDoneIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><FileDone /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><FileDone /></span>
   );
 };
 
 export const InfoCircleIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><InfoCircle /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><InfoCircle /></span>
   );
 };
 
 export const LayoutIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Layout /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><Layout /></span>
   );
 };
 
 export const LinkIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Link /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><Link /></span>
   );
 };
 
 export const MessagePlusIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><MessagePlus /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><MessagePlus /></span>
   );
 };
 
 export const MessageQuestionIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><MessageQuestion /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><MessageQuestion /></span>
   );
 };
 
 export const NoteIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Note /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><Note /></span>
   );
 };
 
 export const NoteCodeIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><NoteCode /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><NoteCode /></span>
   );
 };
 
 export const PlayCircleIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><PlayCircle /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><PlayCircle /></span>
   );
 };
 
 export const ReadIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Read /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><Read /></span>
   );
 };
 
 export const TaskIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Task /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><Task /></span>
   );
 };
 
 export const UploadIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Upload /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><Upload /></span>
   );
 };
 
 export const UserIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><User /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><User /></span>
   );
 };
 
 export const WarningIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><Warning /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><Warning /></span>
   );
 };
 
 export const ZoomInIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><ZoomIn /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><ZoomIn /></span>
   );
 };
 
 export const ZoomOutIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
-    <span {...props} className={classNames(className, 'jk-icon', 'jk-icon-' + size)}><ZoomOut /></span>
+    <span {...props} className={classNames(className, 'jk-icon', size)}><ZoomOut /></span>
   );
 };
 
