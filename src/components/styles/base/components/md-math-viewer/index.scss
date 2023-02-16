@@ -12,7 +12,7 @@
   padding: 0;
   
   p {
-    margin: var(--pad-t) 0;
+    margin: var(--pad-xt) 0;
     font-family: inherit;
     font-size: var(--text-m-size);
     word-break: break-word;
@@ -20,7 +20,7 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    margin: var(--pad-t) 0;
+    margin: var(--pad-xt) 0;
     font-weight: var(--weight-bold);
     text-align: left;
     line-height: 1.5;
@@ -100,7 +100,7 @@
   blockquote {
     padding-left: var(--pad-s);
     border-left: 4px solid var(--t-color-primary-light);
-    margin: var(--pad-t) 0;
+    margin: var(--pad-xt) 0;
     font-weight: lighter;
     text-align: justify;
   }
@@ -110,7 +110,7 @@
       color: var(--t-color-primary-light);
     }
     
-    margin: var(--pad-t) 0;
+    margin: var(--pad-xt) 0;
   }
   
   a {
