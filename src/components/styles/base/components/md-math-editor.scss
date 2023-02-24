@@ -82,7 +82,8 @@
     }
     
     .editor {
-      padding-top: var(--pad-xt);
+      box-sizing: border-box;
+      padding-top: 16px;
       background-color: var(--t-color-shadow-lightest);
       height: 100%;
       
@@ -91,6 +92,7 @@
         border: none;
         font-family: monospace;
         background-color: transparent;
+        height: 100%;
       }
     }
     
