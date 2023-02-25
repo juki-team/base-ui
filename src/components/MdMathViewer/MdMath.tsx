@@ -7,7 +7,7 @@ import { ReactMarkdownOptions } from 'react-markdown/lib/react-markdown';
 // import rehypeKatex from 'rehype-katex';
 // import gfm from 'remark-gfm';
 // import RemarkMathPlugin from 'remark-math';
-import { CodeViewer, OpenInNewIcon, LoadingIcon } from '../index';
+import { CodeViewer, LoadingIcon, OpenInNewIcon } from '../index';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
 const ReactMarkdown = lazy(() => import('react-markdown'));
@@ -119,6 +119,15 @@ export const MdMath = memo(({ source }: { source: string }) => {
             lineNumbers={commands.lineNumbers}
             height={Number.isNaN(+(commands.height || '_')) ? commands.height : commands.height + 'px'}
           />
+        );
+      },
+      table: ({ children, className = '', ...props }) => {
+        return (
+          <div style={{ overflowX: 'auto' }}>
+            <table>
+              {children}
+            </table>
+          </div>
         );
       },
     },
