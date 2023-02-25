@@ -47,6 +47,7 @@ export const renderBasicIcon = ({
   rotate = 0,
   strikethrough = false,
   style,
+  viewBox = '0 0 24 24',
   ...props
 }: BasicIconProps, Component: ComponentType<RootIconProps>, name?: string) => {
   
@@ -63,7 +64,7 @@ export const renderBasicIcon = ({
       className={classNames(className, 'jk-icon', size, name, { 'cursor-pointer': !!props.onClick })}
       style={{ transform: `rotate(${rotate}deg)`, ...style }}
     >
-      <svg viewBox="0 0 24 24" fill="currentColor">
+      <svg viewBox={viewBox} fill="currentColor">
         {filledCircle && <CircleFilledFrame />}
         {filledSquare && <SquareFilledFrame />}
         {circle && <CircleFrame />}

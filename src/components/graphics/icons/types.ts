@@ -10,6 +10,7 @@ export interface IconProps {
   size?: 'tiny' | 'small' | 'regular' | 'large' | 'huge' | 'very-huge';
   style?: CSSProperties,
   className?: string,
+  viewBox?: string,
 }
 
 type locked = never | false | undefined;

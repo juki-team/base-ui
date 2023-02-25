@@ -4,11 +4,11 @@ import { renderBasicIcon } from '../utils';
 
 const Icon = ({ color }: RootIconProps) => (
   <path
-    d="M160 776h640V536H160v240Zm520-60q25 0 42.5-17.5T740 656q0-25-17.5-42.5T680 596q-25 0-42.5 17.5T620 656q0 25 17.5 42.5T680 716Zm200-260H767l-80-80H273l-80 80H80l137-137q11-11 25.5-17t30.5-6h414q16 0 30.5 6t25.5 17l137 137ZM160 856q-33 0-56.5-23.5T80 776V456h800v320q0 33-23.5 56.5T800 856H160Z"
+    d="M784 936 532 684q-30 24-69 38t-83 14q-109 0-184.5-75.5T120 476q0-109 75.5-184.5T380 216q109 0 184.5 75.5T640 476q0 44-14 83t-38 69l252 252-56 56ZM380 656q75 0 127.5-52.5T560 476q0-75-52.5-127.5T380 296q-75 0-127.5 52.5T200 476q0 75 52.5 127.5T380 656Z"
     fill={color}
   />
 );
 
-export const HardDriveIcon = (props: BasicIconProps) => {
-  return renderBasicIcon({ ...props, viewBox: '0 96 960 960' }, Icon, 'hard-drive');
+export const SearchIcon = (props: BasicIconProps) => {
+  return renderBasicIcon({ ...props, viewBox: '0 96 960 960' }, Icon, 'search');
 };
