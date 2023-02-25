@@ -1,6 +1,4 @@
-@import "@juki-team/base-ui/dist/styles/abstracts/index";
-
-
+@import "../../styles/abstracts/index";
 
 .two-content-section {
   width: 100%;
@@ -31,11 +29,11 @@
     overflow: auto;
     height: calc(var(--100VH) - var(--first-content-section-height) - var(--top-horizontal-menu-height));
     width: 100%;
-  
+    
     > div {
       height: 100%;
       box-sizing: border-box;
-    
+      
       div.jk-data-viewer-layout {
         height: 100%;
         width: 100%;
@@ -46,14 +44,14 @@
             border-right: 1px solid var(--t-color-gray-6);
             border-bottom: 1px solid var(--t-color-gray-6);
           }
-  
+          
           .jk-view-container.rows {
             //background-color: transparent;
-    
+            
             .jk-table-head {
               @extend .jk-border-radius-inline;
             }
-    
+            
             .jk-data-viewer-body.rows {
               box-shadow: 0 -20px 20px -24px var(--t-color-shadow) inset, 0 -20px 20px -24px var(--t-color-shadow) inset;
             }

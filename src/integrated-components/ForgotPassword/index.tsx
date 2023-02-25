@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { classNames } from '../../../helpers';
-import { Button, ButtonLoader, Input, JukiLaptopImage, T, useJukiBase } from '../../index';
-import { SplitModal } from '../SplitModal';
+import { Button, ButtonLoader, Input, JukiLaptopImage, SplitModal, T, useJukiBase } from '../../components';
+import { classNames } from '../../helpers';
 import { ForgotPasswordModalProps } from './types';
 
 export const ForgotPasswordModal = ({ onCancel, onForgotPassword }: ForgotPasswordModalProps) => {

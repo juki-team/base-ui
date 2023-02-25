@@ -1,7 +1,7 @@
-@import "code-mirror";
-@import "graphics";
-@import "image-loader-cropper";
-@import "md-math-viewer";
+@import "code-mirror/index";
+@import "graphics/index";
+@import "image-loader-cropper/index";
+@import "md-math-viewer/index";
 
 @import "basic";
 @import "breadcrumb";

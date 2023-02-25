@@ -4,8 +4,6 @@ import React, { useRef } from 'react';
 import GoogleLogin from 'react-google-login';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX, LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX } from '../../../constants';
-import { classNames } from '../../../helpers';
 import {
   ButtonLoader,
   Input,
@@ -13,11 +11,13 @@ import {
   InputPassword,
   JukiLaptopImage,
   SetLoaderStatusOnClickType,
+  SplitModal,
   T,
   useJukiBase,
   useT,
-} from '../../index';
-import { SplitModal } from '../SplitModal';
+} from '../../components';
+import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX, LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX } from '../../constants';
+import { classNames } from '../../helpers';
 import { SignUpInputType, SignUpModalProps } from './types';
 
 const signUpSchema = yup.object().shape({

@@ -1,4 +1,4 @@
-import { SetLoaderStatusOnClickType } from '../../index';
+import { SetLoaderStatusOnClickType } from '../../components';
 
 export interface ForgotPasswordModalProps {
   onCancel: () => void,

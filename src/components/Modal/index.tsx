@@ -1,4 +1,5 @@
 export * from './Alert';
-export * from './Login';
-export * from './SignUp';
 export * from './Modal';
+export * from './SplitModal';
+
+export * from './types';

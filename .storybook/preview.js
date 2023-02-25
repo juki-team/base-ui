@@ -1,4 +1,4 @@
-import '../src/components/styles/base/_index.scss';
+import '../src/styles/base/_index.scss';
 
 const customViewports = {
   small: {

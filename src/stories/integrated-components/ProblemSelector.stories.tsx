@@ -1,3 +1,4 @@
+import { action } from '@storybook/addon-actions';
 import React from 'react';
 import { ProblemSelector as ProblemSelectorComponent } from '../../integrated-components';
 import { JukiProvider } from '../JukiProvider';
@@ -15,8 +16,8 @@ export default {
 export const ProblemSelector = () => {
   return (
     <JukiProvider>
-      <div>
-        holi
+      <div className="jk-pad-lg">
+        <ProblemSelectorComponent onSelect={action('onSelect')} />
         <ToggleThemeButton />
       </div>
     </JukiProvider>

@@ -1,5 +1,4 @@
-import { SetLoaderStatusOnClickType } from '../../index';
-import { BasicModalProps } from '../types';
+import { BasicModalProps, SetLoaderStatusOnClickType } from '../../components';
 
 export type LoginInputType = {
   nickname: string,

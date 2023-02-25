@@ -17,7 +17,7 @@ import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
-  title: 'Components/Feedback/Modals',
+  title: 'Components/Integrated Components',
   // component: SignUpModal,
   component: LoginModal,
   argTypes: {

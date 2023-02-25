@@ -1,9 +1,10 @@
-import { LoadingIcon } from 'components';
-import { notifyResponse, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from 'helpers';
-import { useFetcher, useNotification } from 'hooks';
-import { useEffect } from 'react';
+import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
+import React, { useEffect } from 'react';
 import { KeyedMutator, SWRConfiguration } from 'swr';
-import { ContentResponseType, ContentsResponseType, ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from 'types';
+import { LoadingIcon, useNotification } from '../../components';
+import { notifyResponse, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { useFetcher } from '../../hooks';
+import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
 
 interface FetcherLayerProps<T extends (ContentResponseType<any> | ContentsResponseType<any>)> {
   url: string,
@@ -28,11 +29,12 @@ export const FetcherLayer = <T extends (ContentResponseType<any> | ContentsRespo
   const { addNotification } = useNotification();
   
   useEffect(() => {
-    if (data?.success === false || error) {
+    if (data && (data?.success === false || error)) {
       notifyResponse(data, addNotification);
       onError?.(error);
     }
-  }, [data?.success, error]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [addNotification, data, error/*, onError*/]);
   
   if (isLoading) {
     return (

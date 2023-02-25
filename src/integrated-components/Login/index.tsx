@@ -4,20 +4,20 @@ import React, { useRef, useState } from 'react';
 import GoogleLogin from 'react-google-login';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { classNames } from '../../../helpers';
 import {
   ButtonLoader,
   Input,
   InputPassword,
   JukiLaptopImage,
   SetLoaderStatusOnClickType,
+  SplitModal,
   T,
   useJukiBase,
   useT,
-} from '../../index';
+} from '../../components';
+import { classNames } from '../../helpers';
 import { ForgotPasswordModal } from '../ForgotPassword';
-import { SplitModal } from '../SplitModal';
-import { LoginInputType, LoginModalProps } from './types';
+import { LoginInputType, LoginModalProps } from '../Login';
 
 const loginSchema = yup.object().shape({
   nickname: yup.string()

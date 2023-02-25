@@ -45,7 +45,7 @@ const useUser = () => {
     data,
     isLoading,
     mutate,
-  } = useFetcher<ContentResponseType<PingResponseDTO>>(...settings.JUKI_API.PING());
+  } = useFetcher<ContentResponseType<PingResponseDTO>>(...settings.JUKI_API.AUTH.PING());
   const [user, setUser] = useState<UserPingType>(USER_GUEST);
   const [company, setCompany] = useState<CompanyPingType>({ emailContact: '', imageUrl: '', name: '' });
   

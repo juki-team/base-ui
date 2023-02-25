@@ -37,12 +37,24 @@ export class Settings {
   
   public get JUKI_API() {
     return {
-      PING: (): [string?, SWRConfiguration?] => {
-        if (this._UTILS_SERVICE_API_URL) {
-          return [`${this._UTILS_SERVICE_API_URL}/auth/ping`, { refreshInterval: 1000 * 60 * 5 }];
-        }
-        return [];
+      AUTH: {
+        PING: (): [string?, SWRConfiguration?] => {
+          if (this._UTILS_SERVICE_API_URL) {
+            return [`${this._UTILS_SERVICE_API_URL}/auth/ping`, { refreshInterval: 1000 * 60 * 5 }];
+          }
+          return [];
+        },
       },
+      PROBLEM: {
+        SUMMARY_LIST: (page: number, size: number, filterUrl: string, sortUrl: string): [string?, SWRConfiguration?] => {
+          if (this._UTILS_SERVICE_API_URL) {
+            return [`${this._UTILS_SERVICE_API_URL}/problem/list?page=${page}&size=${size}${filterUrl ? '&' + filterUrl : ''}${sortUrl ? '&' + sortUrl : ''}`];
+          }
+          return [];
+        },
+      },
+      IMAGES: {},
+      FILES: {},
       GET_ALL_PUBLIC_IMAGES: (): [string] => [this._UTILS_SERVICE_API_URL + '/image/list'],
       POST_PUBLIC_IMAGE: (body: FormData): [string, AuthorizedRequestType] => [
         this._UTILS_SERVICE_API_URL + '/image',
@@ -66,10 +78,6 @@ export class Settings {
         `${this._UTILS_SERVICE_API_URL}/note/pdf?sourceUrl=${sourceUrl}`,
       ],
       POST_CODE_RUN: (body: string): [string, AuthorizedRequestType] => [
-        // this._UTILS_SERVICE_API_URL + '/code/run', {
-        //   method: HTTPMethod.POST,
-        //   body,
-        // },
         this._UTILS_SERVICE_API_URL + '/code/run',
         { method: HTTPMethod.POST, body },
       ],
