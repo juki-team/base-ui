@@ -131,10 +131,10 @@
   }
   
   code.inline-code {
-    background-color: var(--t-color-shadow-light);
+    background-color: var(--t-color-shadow-lightest);
     padding: 0 4px;
     border-radius: var(--border-radius-inline);
-    color: var(--t-color-primary-light);
+    color: var(--t-color-primary);
   }
 }
 
