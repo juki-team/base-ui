@@ -295,3 +295,19 @@ form[class*=" jk-col"], form[class^="jk-col"] {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.pad-left-right, .pad-top, .pad-bottom, .pad-top-bottom { box-sizing: border-box; }
+
+.pad-left-right {
+  padding-left: var(--pad-border);
+  padding-right: var(--pad-border);
+}
+
+.pad-top { padding-top: var(--pad-border); }
+
+.pad-bottom { padding-bottom: var(--pad-border); }
+
+.pad-top-bottom {
+  padding-top: var(--pad-border);
+  padding-bottom: var(--pad-border);
+}
