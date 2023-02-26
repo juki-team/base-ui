@@ -27,6 +27,8 @@ const InputComponent = <T extends string | number | FileList, >({
   
   return (
     <input
+      {...props}
+      {...restRegister}
       ref={registerRef || ref}
       type={type === 'files' ? 'file' : type}
       value={(type === 'file' || type === 'files') ? undefined : value as string | number}
@@ -40,8 +42,6 @@ const InputComponent = <T extends string | number | FileList, >({
       onBlur={registerOnBlur ? registerOnBlur : onBlur}
       style={size === 'auto' && type === 'number' ? { width: `${length + 1}em` } : {}}
       multiple={type === 'files'}
-      {...props}
-      {...restRegister}
     />
   );
 };
