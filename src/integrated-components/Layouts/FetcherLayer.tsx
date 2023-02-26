@@ -22,7 +22,7 @@ const isContentsResponseType = <T, >(data: any): data is ContentsResponseType<T>
   return !!(data?.success && data?.contents);
 };
 
-export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U extends any>({
+export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>({
   url,
   options,
   errorView = null,
