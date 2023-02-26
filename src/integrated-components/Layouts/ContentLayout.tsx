@@ -1,7 +1,7 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 
-export function TwoContentSection({ children }: { children: [ReactNode, ReactNode] }) {
+export function TwoContentSection({ children }: { children: [ReactNode | undefined, ReactNode | undefined] }) {
   const { height, ref } = useResizeDetector();
   
   return (
