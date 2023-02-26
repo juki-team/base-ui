@@ -16,5 +16,4 @@ export interface LoginModalComponentProps extends BasicModalProps {
 
 export interface LoginModalProps extends BasicModalProps {
   onSignUpButton: () => void,
-  highlightForgotPassword?: boolean,
 }
