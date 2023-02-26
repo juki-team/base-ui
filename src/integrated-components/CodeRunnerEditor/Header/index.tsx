@@ -60,13 +60,17 @@ export const Header = ({
     setErrorData({ status: SubmissionRunStatus.NONE, out: '', err: '', log: '' });
     onChange?.({ testCases: newTestCases });
     try {
-      const request = cleanRequest<ContentResponseType<{ runId: string }>>(await authorizedRequest(...settings.JUKI_API.POST_CODE_RUN(JSON.stringify({
-        language,
-        source: sourceCode,
-        inputs: Object.values(testCases).map(testCase => ({ key: testCase.key, source: testCase.in })),
-        timeLimit,
-        memoryLimit,
-      }))));
+      const request = cleanRequest<ContentResponseType<{ runId: string }>>(
+        await authorizedRequest(settings.getAPI().code.run({
+          body: JSON.stringify({
+            language,
+            source: sourceCode,
+            inputs: Object.values(testCases).map(testCase => ({ key: testCase.key, source: testCase.in })),
+            timeLimit,
+            memoryLimit,
+          }),
+        }).url),
+      );
       if (request?.success && request?.content?.runId) {
         setRunId(request.content.runId);
         setStatus(Status.SUCCESS);

@@ -7,10 +7,10 @@ import {
 } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../helpers';
+import { useJukiUI } from '../../hooks';
 import { useJkSocket } from '../../hooks/useJkSocket';
 import { Portal } from '../Basic';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor } from '../CodeEditor';
-import { useJukiBase } from '../Provider';
 import { SplitPane } from '../SplitPane';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
@@ -33,7 +33,8 @@ export const CodeRunnerEditor = ({
   className,
 }: CodeRunnerEditorProps) => {
   const [runId, setRunId] = useState('');
-  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiBase();
+  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUI();
+  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUI();
   const { pop } = useJkSocket(SocketEvent.RUN);
   const [errorData, setErrorData] = useState<SubmissionTestCaseType>({
     log: '',
