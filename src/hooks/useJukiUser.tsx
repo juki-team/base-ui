@@ -153,7 +153,7 @@ export const useJukiUser = () => {
     user,
     setUser,
     isLoading,
-    mutate,
+    mutatePing: mutate,
     refreshAllRequest,
     signIn,
     signUp,

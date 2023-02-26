@@ -33,6 +33,6 @@ export const useSWR = () => {
     token = localStorage.getItem(settings.TOKEN_NAME) || '';
   }
   return {
-    mutate: useCallback((url: string) => mutate([url, token]), []),
+    mutate: useCallback((url: string) => mutate([url, token]), [mutate, token]),
   };
 };
