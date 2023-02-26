@@ -10,7 +10,7 @@ interface FetcherLayerProps<T extends (ContentResponseType<U> | ContentsResponse
   url: string,
   options?: SWRConfiguration,
   errorView?: ReactNodeOrFunctionType,
-  children: ReactNodeOrFunctionP1Type<{ data: T, isLoading: boolean, error: any, mutate: KeyedMutator<any> }>,
+  children: ReactNodeOrFunctionP1Type<{ data?: T, isLoading?: boolean, error?: any, mutate?: KeyedMutator<any> }>,
   onError?: (error?: any) => void,
 }
 
