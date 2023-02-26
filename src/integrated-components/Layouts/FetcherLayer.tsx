@@ -6,7 +6,7 @@ import { notifyResponse, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 
 import { useFetcher } from '../../hooks';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
 
-interface FetcherLayerProps<T extends (ContentResponseType<any> | ContentsResponseType<any>)> {
+interface FetcherLayerProps<T extends (ContentResponseType<U> | ContentsResponseType<U>), U extends any> {
   url: string,
   options?: SWRConfiguration,
   errorView?: ReactNodeOrFunctionType,
@@ -14,13 +14,21 @@ interface FetcherLayerProps<T extends (ContentResponseType<any> | ContentsRespon
   onError?: (error?: any) => void,
 }
 
-export const FetcherLayer = <T extends (ContentResponseType<any> | ContentsResponseType<any>), >({
+const isContentResponseType = <T, >(data: any): data is ContentResponseType<T> => {
+  return !!(data?.success && data?.content);
+};
+
+const isContentsResponseType = <T, >(data: any): data is ContentsResponseType<T> => {
+  return !!(data?.success && data?.contents);
+};
+
+export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U extends any>({
   url,
   options,
   errorView = null,
   children,
   onError,
-}: FetcherLayerProps<T>) => {
+}: FetcherLayerProps<T, U>) => {
   const { isLoading, data, error, mutate } = useFetcher<T>(url, {
     revalidateOnFocus: true,
     revalidateIfStale: true,
@@ -43,7 +51,11 @@ export const FetcherLayer = <T extends (ContentResponseType<any> | ContentsRespo
       </div>
     );
   }
-  if (data?.success) {
+  if (isContentResponseType<U>(data)) {
+    return <>{renderReactNodeOrFunctionP1(children, { data, isLoading, error, mutate })}</>;
+  }
+  
+  if (isContentsResponseType<U>(data)) {
     return <>{renderReactNodeOrFunctionP1(children, { data, isLoading, error, mutate })}</>;
   }
   
