@@ -1,10 +1,11 @@
 import { DataViewMode } from '@juki-team/commons';
 import React, { Children, CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { LineLoader, LoaderLayer, TableHeadersType, useJukiBase } from '../index';
+
 import { SCROLL_WIDTH } from '../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
 import { usePrevious } from '../../hooks';
+import { LineLoader, LoaderLayer, TableHeadersType } from '../index';
 import { CardRowVirtualizerFixed } from './CardList';
 import { DataViewerToolbar } from './DataViewerToolbar';
 import {
@@ -24,6 +25,7 @@ const headersMinWidth = <T, >(headers: TableHeadersType<T>[]) => {
 export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   
   const {
+    viewPortSize,
     cards: { height: cardHeight = 300, width: cardWidth = 256 } = { height: 300, width: 256 },
     cardsView,
     data,
@@ -72,7 +74,6 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     width: headerWidths[head.index]?.width || 0,
   })).filter(head => head.width), [headers, headerWidths]);
   const [recordHoveredIndex, setRecordHoveredIndex] = useState<number | null>(null);
-  const { viewPortSize } = useJukiBase();
   const isMobileViewPort = viewPortSize === 'sm';
   const extraNodes = (_extraNodes || []).filter(extraNode => !!extraNode);
   const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));

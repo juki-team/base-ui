@@ -1,7 +1,7 @@
 import { DataViewMode, Status } from '@juki-team/commons';
 import { CSSProperties, Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { ReactNodeOrFunctionType } from '../../types';
-import { DatePickerDateFunType, DatePickerType, OptionType } from '../index';
+import { DatePickerDateFunType, DatePickerType, OptionType, ViewPortSizeType } from '../index';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,
@@ -189,6 +189,7 @@ type PaginationDataType = {
 }
 
 export interface DisplayDataViewerProps<T> {
+  viewPortSize?: ViewPortSizeType,
   cards?: CardsType,
   cardsView: boolean,
   data: T[],

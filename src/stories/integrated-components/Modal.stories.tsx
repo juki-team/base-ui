@@ -1,18 +1,8 @@
 import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
-import {
-  Button,
-  SetLoaderStatusOnClickType,
-} from '../../index';
-import {
-  LoginInputType,
-  LoginModal,
-  LoginModalProps,
-  SignUpInputType,
-  SignUpModal,
-  SignUpModalProps,
-} from '../../integrated-components';
+import { Button, LoginModalProps, SignUpModalProps } from '../../index';
+import { LoginModal, LoginModalComponentProps, SignUpModal } from '../../integrated-components';
 import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
@@ -48,11 +38,11 @@ const WrapSignUp = (props: SignUpModalProps) => {
 export const SignUpWithGoogle = () => (
   <WrapSignUp
     // imageSource="https://judge.juki.app/images/juki-sign-person.svg"
-    onSubmit={(data: SignUpInputType, setLoading: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setLoading })}
-    signUpWithGoogle={() => () => {
-      action('signUpWithGoogle')();
-    }}
-    reactAppGoogleClientId="test"
+    // onSubmit={(data: SignUpFormType, setLoading: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setLoading })}
+    // signUpWithGoogle={() => () => {
+    //   action('signUpWithGoogle')();
+    // }}
+    // reactAppGoogleClientId="test"
     onCancel={() => action('onCancel')}
   />
 );
@@ -60,7 +50,7 @@ export const SignUpWithGoogle = () => (
 export const SignUPWithoutGoogle = () => (
   <WrapSignUp
     // imageSource="https://judge.juki.app/images/juki-sign-person.svg"
-    onSubmit={(data: SignUpInputType, setLoading: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setLoading })}
+    // onSubmit={(data: SignUpFormType, setLoading: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setLoading })}
     onCancel={() => action('onCancel')}
   />
 );
@@ -78,18 +68,18 @@ const WrapLogin = (props: LoginModalProps) => {
   );
 };
 
-const LoginWithGoogleComponent: Story<LoginModalProps> = () => (
+const LoginWithGoogleComponent: Story<LoginModalComponentProps> = () => (
   <WrapLogin
-    onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => {
-      action('onSubmit')({ data, setStatus });
-    }}
-    loginWithGoogle={() => () => {
-      action('loginWithGoogle')();
-    }}
-    reactAppGoogleClientId="test"
+    // onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => {
+    //   action('onSubmit')({ data, setStatus });
+    // }}
+    // loginWithGoogle={() => () => {
+    //   action('loginWithGoogle')();
+    // }}
+    // reactAppGoogleClientId="test"
     onCancel={() => action('onCancel')}
     onSignUpButton={() => action('onSignUpButton')}
-    onForgotPassword={() => action('onForgotPasswordButton')}
+    // onForgotPassword={() => action('onForgotPasswordButton')}
   />
 );
 
@@ -99,9 +89,9 @@ LoginWithGoogle.args = {};
 export const LoginWithoutGoogle = ({ ...props }) => (
   <WrapLogin
     {...props}
-    onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setStatus })}
+    // onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setStatus })}
     onCancel={() => action('onCancel')}
     onSignUpButton={() => action('onSignUpButton')}
-    onForgotPassword={() => action('onForgotPasswordButton')}
+    // onForgotPassword={() => action('onForgotPasswordButton')}
   />
 );

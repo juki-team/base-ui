@@ -1,14 +1,13 @@
 import { Status } from '@juki-team/commons';
 import React, { useRef, useState } from 'react';
-import { useJukiBase } from '../../components/Provider';
 import { classNames } from '../../helpers';
-import { useOutsideAlerter } from '../../hooks';
+import { useJukiUI, useOutsideAlerter } from '../../hooks';
 import { ButtonLoader, SetLoaderStatusOnClickType } from '../Button';
 import { ButtonActionProps } from './types';
 
 export const ButtonAction = ({ icon, buttons }: ButtonActionProps) => {
   
-  const { viewPortSize } = useJukiBase();
+  const { viewPortSize } = useJukiUI();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   const [open, setOpen] = useState(false);
   const ref = useRef(null);

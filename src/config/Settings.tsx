@@ -1,6 +1,5 @@
 import { consoleWarn, HTTPMethod } from '@juki-team/commons';
-import { ManagerOptions, SocketOptions } from 'socket.io-client';
-import { SWRConfiguration } from 'swr';
+import { LoginFormType, SignUpFormType } from '../integrated-components';
 import { AuthorizedRequestType } from '../services';
 
 export class Settings {
@@ -35,56 +34,109 @@ export class Settings {
     return this._ON_ERROR;
   }
   
-  public get JUKI_API() {
+  public getAPI() {
+    type ResponseAPI = ({ url: string } & AuthorizedRequestType);
+    
+    const valid = <T, >(callback: (props: T) => ResponseAPI) => {
+      if (this._UTILS_SERVICE_API_URL) {
+        return callback;
+      }
+      return () => ({ url: '' });
+    };
+    
+    const injectPage = (path: string, page: number, size: number) => {
+      return path + `page=${page}&size=${size}`;
+    };
+    
+    const injectSort = (path: string, sortUrl: string | undefined) => {
+      return path + (sortUrl ? '&' + sortUrl : '');
+    };
+    
+    const injectFilter = (path: string, filterUrl: string | undefined) => {
+      return path + (filterUrl ? '&' + filterUrl : '');
+    };
+    
+    const injectBaseUrl = (prefix: string, path: string) => {
+      return `${this._UTILS_SERVICE_API_URL}/${prefix}${path}`;
+    };
+    
     return {
-      AUTH: {
-        PING: (): [string?, SWRConfiguration?] => {
-          if (this._UTILS_SERVICE_API_URL) {
-            return [`${this._UTILS_SERVICE_API_URL}/auth/ping`, { refreshInterval: 1000 * 60 * 5 }];
-          }
-          return [];
-        },
+      auth: {
+        ping: valid<void>(() => ({
+          url: injectBaseUrl('auth', '/ping'),
+          method: HTTPMethod.GET,
+        })),
+        signIn: valid<LoginFormType>((data) => ({
+          url: injectBaseUrl('auth', '/sign-in'),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(data),
+        })),
+        signUp: valid<SignUpFormType>(({ nickname, password, familyName, email, givenName }) => ({
+          url: injectBaseUrl('auth', '/sign-up'),
+          method: HTTPMethod.POST,
+          body: JSON.stringify({
+            givenName,
+            familyName,
+            nickname,
+            email,
+            password,
+          }),
+        })),
+        initiateResetPassword: valid<{ email: string }>(({ email }) => ({
+          url: injectBaseUrl('auth', '/initiate-reset-password'),
+          method: HTTPMethod.POST,
+          body: JSON.stringify({ email }),
+        })),
       },
-      PROBLEM: {
-        SUMMARY_LIST: (page: number, size: number, filterUrl: string, sortUrl: string): [string?, SWRConfiguration?] => {
-          if (this._UTILS_SERVICE_API_URL) {
-            return [`${this._UTILS_SERVICE_API_URL}/problem/list?page=${page}&size=${size}${filterUrl ? '&' + filterUrl : ''}${sortUrl ? '&' + sortUrl : ''}`];
-          }
-          return [];
-        },
+      problem: {
+        list: valid<{ page: number, size: number, filterUrl?: string, sortUrl?: string }>(({
+          page,
+          size,
+          filterUrl,
+          sortUrl,
+        }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/list?'), page, size), filterUrl), sortUrl),
+        })),
       },
-      IMAGES: {},
-      FILES: {},
-      GET_ALL_PUBLIC_IMAGES: (): [string] => [this._UTILS_SERVICE_API_URL + '/image/list'],
-      POST_PUBLIC_IMAGE: (body: FormData): [string, AuthorizedRequestType] => [
-        this._UTILS_SERVICE_API_URL + '/image',
-        { method: HTTPMethod.POST, body },
-      ],
-      POST_PUBLIC_NOTE: (body: string): [string, AuthorizedRequestType] => [
-        this._UTILS_SERVICE_API_URL + '/note/publish',
-        {
+      image: {
+        list: valid<void>(() => ({
+          url: injectBaseUrl('image', '/list'),
+        })),
+        create: valid<{ body: FormData }>(({ body }) => ({
+          url: injectBaseUrl('image', ''),
+          method: HTTPMethod.POST,
+          body,
+        })),
+      },
+      note: {
+        publish: valid<{ body: string }>(({ body }) => ({
+          url: injectBaseUrl('note', '/publish'),
           method: HTTPMethod.POST,
           headers: { 'Content-Type': 'application/json' },
           body,
-        },
-      ],
-      GET_PUBLIC_NOTE_MARKDOWN: (sourceUrl: string): [string] => [
-        `${this._UTILS_UI_URL}/note/v?sourceUrl=${sourceUrl}`,
-      ],
-      GET_PUBLIC_NOTE_MARKDOWN_FULLSCREEN: (sourceUrl: string): [string] => [
-        `${this._UTILS_UI_URL}/note/v?sourceUrl=${sourceUrl}&view=fullscreen`,
-      ],
-      GET_PUBLIC_NOTE_PDF: (sourceUrl: string): [string] => [
-        `${this._UTILS_SERVICE_API_URL}/note/pdf?sourceUrl=${sourceUrl}`,
-      ],
-      POST_CODE_RUN: (body: string): [string, AuthorizedRequestType] => [
-        this._UTILS_SERVICE_API_URL + '/code/run',
-        { method: HTTPMethod.POST, body },
-      ],
-      CONNECT_WEBSOCKET: (): [string, Partial<ManagerOptions & SocketOptions>] => [
-        this._UTILS_SERVICE_SOCKET_URL,
-        { withCredentials: true, transports: ['websocket'], autoConnect: false, reconnection: true },
-      ],
+        })),
+        view: valid<{ sourceUrl: string }>(({ sourceUrl }) => ({
+          url: injectBaseUrl('note', `/v?sourceUrl=${sourceUrl}`),
+        })),
+        viewFullscreen: valid<{ sourceUrl: string }>(({ sourceUrl }) => ({
+          url: injectBaseUrl('note', `/v?sourceUrl=${sourceUrl}&view=fullscreen`),
+        })),
+        pdf: valid<{ sourceUrl: string }>(({ sourceUrl }) => ({
+          url: injectBaseUrl('note', `/pdf?sourceUrl=${sourceUrl}`),
+        })),
+      },
+      code: {
+        run: valid<{ body: string }>(({ body }) => ({
+          url: injectBaseUrl('code', '/run'),
+          method: HTTPMethod.POST,
+          body,
+        })),
+      },
+      websocket: {
+        connect: () => ({
+          url: this._UTILS_SERVICE_SOCKET_URL,
+        }),
+      },
     };
   }
   

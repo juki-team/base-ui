@@ -1,4 +1,4 @@
-import { consoleWarn, ContentsResponseType } from '@juki-team/commons';
+import { consoleWarn, ContentsResponseType, ImageSummaryResponseDTO } from '@juki-team/commons';
 import copy from 'copy-to-clipboard';
 import React, { memo, useEffect, useState } from 'react';
 import { settings } from '../../../../config';
@@ -22,7 +22,9 @@ export const PublicImagesTab = memo(({
     const handler = async () => {
       try {
         setLoading(true);
-        const request = cleanRequest<ContentsResponseType<{ imageThumbnailUrl: string, imageUrl: string }>>(await authorizedRequest(...settings.JUKI_API.GET_ALL_PUBLIC_IMAGES()));
+        const request = cleanRequest<ContentsResponseType<ImageSummaryResponseDTO>>(
+          await authorizedRequest(settings.getAPI().image.list().url),
+        );
         if (request?.success) {
           setPublicImages(request.contents);
         }

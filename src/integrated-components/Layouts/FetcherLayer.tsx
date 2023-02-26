@@ -2,7 +2,7 @@ import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
 import React, { useEffect } from 'react';
 import { KeyedMutator, SWRConfiguration } from 'swr';
 import { LoadingIcon, useNotification } from '../../components';
-import { notifyResponse, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useFetcher } from '../../hooks';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
 
@@ -34,15 +34,15 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
     revalidateIfStale: true,
     ...options,
   });
-  const { addNotification } = useNotification();
+  const { notifyResponse } = useNotification();
   
   useEffect(() => {
     if (data && (data?.success === false || error)) {
-      notifyResponse(data, addNotification);
+      notifyResponse(data);
       onError?.(error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [addNotification, data, error/*, onError*/]);
+  }, [notifyResponse, data, error/*, onError*/]);
   
   if (isLoading) {
     return (

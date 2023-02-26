@@ -1,7 +1,7 @@
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames, getTextContent } from '../../helpers';
+import { useJukiUI } from '../../hooks';
 import { CloseIcon } from '../graphics';
-import { useJukiBase } from '../Provider';
 import { NOTIFICATION_ICON } from './constants';
 import { useNotification } from './context';
 import { NotificationProps, NotificationType } from './types';
@@ -12,7 +12,7 @@ export const Notification = ({ id, type, message }: NotificationProps) => {
   const [width, setWidth] = useState(0);
   const intervalIDRef = useRef<ReturnType<typeof setTimeout>>();
   const { removeNotification } = useNotification();
-  const { viewPortSize } = useJukiBase();
+  const { viewPortSize } = useJukiUI();
   
   const messageString = getTextContent(message);
   const handleStartTimer = useCallback(() => {
@@ -37,7 +37,7 @@ export const Notification = ({ id, type, message }: NotificationProps) => {
       clearInterval(intervalIDRef.current);
     }
   };
-  const { isPageVisible, isPageFocus } = useJukiBase();
+  const { isPageVisible, isPageFocus } = useJukiUI();
   useEffect(() => {
     if (isPageVisible && isPageFocus) {
       handleStartTimer();

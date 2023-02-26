@@ -1,8 +1,5 @@
 import React from 'react';
-import { CODE_EDIT0R_FONT_SIZES, CODE_EDIT0R_TAB_SIZES } from '../../CodeEditor';
-import { Select } from '../../Input';
-import { Modal } from '../../Modal';
-import { T } from '../../Translate';
+import { CODE_EDIT0R_FONT_SIZES, CODE_EDIT0R_TAB_SIZES, Modal, Select, T } from '../../../components';
 import { SettingsModalProps } from '../types';
 
 export const SettingsModal = ({ onClose, isOpen, onChange, tabSize, fontSize }: SettingsModalProps) => {

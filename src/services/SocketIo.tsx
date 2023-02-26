@@ -10,7 +10,12 @@ export class SocketIo {
     if (this._socket) {
       this._socket.disconnect();
     }
-    this._socket = io(...settings.JUKI_API.CONNECT_WEBSOCKET());
+    this._socket = io(settings.getAPI().websocket.connect().url, {
+      withCredentials: true,
+      transports: ['websocket'],
+      autoConnect: false,
+      reconnection: true,
+    });
     
     this._socket.connect();
     

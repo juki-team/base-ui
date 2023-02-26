@@ -1,12 +1,13 @@
 import React from 'react';
 import { classNames } from '../../../helpers';
-import { ButtonLoader, ExclamationIcon, T, useJukiBase } from '../../index';
+import { useJukiUI } from '../../../hooks';
+import { ButtonLoader, ExclamationIcon, T } from '../../index';
 import { Modal } from '../index';
 import { AlertModalProps } from './types';
 
 export const AlertModal = ({ decline, accept, title, content, onCancel }: AlertModalProps) => {
   
-  const { viewPortSize } = useJukiBase();
+  const { viewPortSize } = useJukiUI();
   
   return (
     <Modal isOpen={true} className="modal-alert" onClose={onCancel} closeIcon>

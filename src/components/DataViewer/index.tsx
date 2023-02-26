@@ -1,7 +1,8 @@
 import { DataViewMode, ProfileSetting, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, consoleWarn } from '../../helpers';
-import { OptionType, SearchParamsObjectType, showOfDatePickerType, useJukiBase } from '../index';
+import { useJukiUI, useJukiUser } from '../../hooks';
+import { OptionType, SearchParamsObjectType, showOfDatePickerType } from '../index';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,
@@ -104,7 +105,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const prevPageSize = useRef<number>();
   const firstRender = useRef(true);
   const [pageSizeOptions, setPageSizeOptions] = useState(pagination?.pageSizeOptions || [32, 64, 128, 256, 512, 1024]);
-  const { viewPortSize, user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiBase();
+  const { viewPortSize } = useJukiUI();
+  const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
   const initialViewMode = _initialViewMode || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
   
   useEffect(() => {
@@ -612,6 +614,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   return (
     <div className={classNames(className, 'jk-data-viewer-layout', { 'with-pagination': withPagination })}>
       <DisplayDataViewer<T>
+        viewPortSize={viewPortSize}
         cards={cards}
         data={dataTable}
         extraNodes={extraNodes}

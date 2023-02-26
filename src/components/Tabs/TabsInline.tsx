@@ -1,11 +1,11 @@
 import React, { Children, MutableRefObject, useCallback, useEffect, useState } from 'react';
 import { NavigateBeforeIcon, NavigateNextIcon, TabsInlineProps, WidthResizer } from '../';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
-import { useJukiBase } from '../Provider';
+import { useJukiUI } from '../../hooks';
 
 export const TabsInline = <T, >({ tabs, selectedTabKey, onChange, extraNodes }: TabsInlineProps<T>) => {
   
-  const { viewPortSize } = useJukiBase();
+  const { viewPortSize } = useJukiUI();
   const tabsLength = Object.keys(tabs).length;
   const [tabsSize, setTabsSize] = useState(tabsLength);
   const [tabStartIndex, setTabStartIndex] = useState(0);

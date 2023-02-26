@@ -1,6 +1,7 @@
+import { ContentResponseType, PingResponseDTO } from '@juki-team/commons';
 import { BasicModalProps, SetLoaderStatusOnClickType } from '../../components';
 
-export type SignUpInputType = {
+export type SignUpFormType = {
   givenName: string,
   familyName: string,
   nickname: string,
@@ -10,8 +11,12 @@ export type SignUpInputType = {
   checkbox: boolean,
 }
 
-export interface SignUpModalProps extends BasicModalProps {
-  onSubmit: (data: SignUpInputType, setStatus: SetLoaderStatusOnClickType) => void,
+export interface SignUpModalComponentProps extends BasicModalProps {
+  onSubmit: (data: SignUpFormType, setStatus: SetLoaderStatusOnClickType) => void,
   signUpWithGoogle?: (setStatus?: SetLoaderStatusOnClickType) => (response: any) => void,
   reactAppGoogleClientId?: string,
+}
+
+export interface SignUpModalProps extends BasicModalProps {
+  onSuccess?: (response?: ContentResponseType<PingResponseDTO>) => void,
 }

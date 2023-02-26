@@ -6,10 +6,10 @@ import { useFetcher } from '../../hooks';
 
 export const ProblemSelector = ({ onSelect }: { onSelect: (selectedUsers: Omit<Omit<ProblemSummaryListResponseDTO, 'status'>, 'judge'>) => void }) => {
   // TODO: change limit of problems
-  const {
-    isLoading,
-    data,
-  } = useFetcher<ContentsResponseType<ProblemSummaryListResponseDTO>>(...settings.JUKI_API.PROBLEM.SUMMARY_LIST(1, 100000, '', ''));
+  const { isLoading, data } = useFetcher<ContentsResponseType<ProblemSummaryListResponseDTO>>(
+    settings.getAPI().problem.list({ page: 1, size: 100000 }).url,
+  );
+  
   if (isLoading) {
     return <div><LoadingIcon /></div>;
   }

@@ -8,9 +8,6 @@ import {
 } from '@juki-team/commons';
 import React, { CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { settings } from '../../../config';
-import { classNames } from '../../../helpers';
-import { authorizedRequest, cleanRequest } from '../../../services';
 import {
   Button,
   ButtonLoader,
@@ -22,7 +19,10 @@ import {
   SettingsIcon,
   T,
   useNotification,
-} from '../../index';
+} from '../../../components';
+import { settings } from '../../../config';
+import { classNames } from '../../../helpers';
+import { authorizedRequest, cleanRequest } from '../../../services';
 import { HeaderProps } from '../types';
 
 export const Header = ({

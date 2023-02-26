@@ -1,6 +1,6 @@
 import { CodeEditorTestCasesType, ProgrammingLanguage, SubmissionTestCaseType } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { CodeEditorPropertiesType } from '../CodeEditor';
+import { CodeEditorPropertiesType } from '../../components';
 
 export type CodeRunnerEditorPropertiesType = CodeEditorPropertiesType & { testCases?: CodeEditorTestCasesType };
 

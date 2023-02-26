@@ -1,6 +1,6 @@
 import { Status } from '@juki-team/commons';
 import React, { forwardRef, ReactElement, Ref, useEffect, useRef, useState } from 'react';
-import { useJukiBase } from '../../';
+import { useJukiUI } from '../../';
 import { classNames } from '../../helpers';
 import { CheckIcon, LoadingIcon, WarningIcon } from '../graphics';
 import { ButtonLoaderProps, ButtonProps } from './types';
@@ -31,7 +31,7 @@ const ButtonComponent = ({
   responsiveMobile = false,
   ...restProps
 }: ButtonProps, ref: Ref<HTMLButtonElement>) => {
-  const { viewPortSize } = useJukiBase();
+  const { viewPortSize } = useJukiUI();
   
   const size = (responsiveMobile && viewPortSize === 'sm') ? 'large' : (_size || (responsive ? sizeViewPorts[viewPortSize] : 'regular'));
   const hasChildren = !!children && (responsiveMobile ? viewPortSize !== 'sm' : true);

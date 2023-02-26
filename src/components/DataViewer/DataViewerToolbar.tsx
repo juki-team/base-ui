@@ -1,9 +1,9 @@
 import { DataViewMode } from '@juki-team/commons';
 import React, { Children, useState } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
+import { useJukiUI } from '../../hooks';
 import { FilterListIcon, LoadingIcon, MenuIcon, ReloadIcon, ViewHeadlineIcon, ViewModuleIcon } from '../graphics';
 import { Popover } from '../Popover';
-import { useJukiBase } from '../Provider';
 import { T } from '../Translate';
 import { FilterDrawer } from './FilterDrawer';
 import { Pagination } from './Pagination';
@@ -31,7 +31,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const [filterDrawer, setFilterDrawer] = useState(false);
   const { filtered } = isSomethingFiltered(headers);
-  const { viewPortSize } = useJukiBase();
+  const { viewPortSize } = useJukiUI();
   const isMobileViewPort = viewPortSize === 'sm';
   
   return (
@@ -75,7 +75,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               dataLength
                 ? <div className="jk-row nowrap tt-se ws-np">{dataLength}&nbsp;
                   <T>{dataLength > 1 ? 'records' : 'record'}</T>{paginationData.pagination?.total && <>&nbsp;
-                    <T>of</T>&nbsp;{paginationData.pagination.total}&nbsp;<T>records</T></>}</div>
+                          <T>of</T>&nbsp;{paginationData.pagination.total}&nbsp;<T>records</T></>}</div>
                 : <T className="tt-se ws-np">no data</T>
             }
             showPopperArrow

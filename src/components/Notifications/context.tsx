@@ -1,3 +1,4 @@
+import { ContentResponseType, ContentsResponseType, ErrorResponseType, Status } from '@juki-team/commons';
 import React, {
   createContext,
   Dispatch,
@@ -9,7 +10,9 @@ import React, {
   useReducer,
 } from 'react';
 import { v4 } from 'uuid';
-import { useJukiBase } from '../Provider';
+import { notifyError, notifySuccess } from '../../helpers';
+import { useJukiUI } from '../../hooks';
+import { SetLoaderStatusOnClickType } from '../Button';
 import { Notification } from './component';
 import {
   NewNotificationType,
@@ -36,7 +39,7 @@ export const NotificationProvider = ({ children }: PropsWithChildren<{}>) => {
         return state;
     }
   }, []);
-  const { viewPortSize } = useJukiBase();
+  const { viewPortSize } = useJukiUI();
   
   const notificationsFiltered = state.filter(note => note.type !== NotificationType.QUIET);
   const notifications = viewPortSize === 'sm' ? [...notificationsFiltered].reverse() : notificationsFiltered;
@@ -68,6 +71,22 @@ export const useNotification = () => {
       ...props,
     },
   }), [dispatch]);
+  
+  const notifyResponse = useCallback(<T, >(
+    response: ErrorResponseType | ContentResponseType<T> | ContentsResponseType<T>,
+    setLoaderStatus?: SetLoaderStatusOnClickType,
+  ): response is ContentResponseType<T> | ContentsResponseType<T> => {
+    if (response.success === false) {
+      notifyError(response, (message) => addNotification({ type: NotificationType.ERROR, message }));
+      setLoaderStatus?.(Status.ERROR);
+    }
+    if (response.success) {
+      notifySuccess(response, (message) => addNotification({ type: NotificationType.SUCCESS, message }));
+      setLoaderStatus?.(Status.SUCCESS);
+    }
+    return !!response.success;
+  }, [addNotification]);
+  
   return {
     addNotification,
     addInfoNotification: useCallback((message: ReactNode) => addNotification({
@@ -94,6 +113,7 @@ export const useNotification = () => {
       type: NotificationAction.REMOVE_NOTIFICATION,
       notificationId,
     }), [dispatch]),
+    notifyResponse,
   };
 };
 

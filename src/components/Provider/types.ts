@@ -1,4 +1,4 @@
-export interface JukiBaseUiProviderProps {
+export interface JukiUserProviderProps {
   utilsServiceUrl: string,
   utilsServiceApiVersion: string,
   utilsSocketServiceUrl: string,

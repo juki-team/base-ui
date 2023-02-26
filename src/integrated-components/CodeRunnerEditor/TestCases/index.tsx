@@ -1,14 +1,21 @@
 import { mex, PROGRAMMING_LANGUAGE, SUBMISSION_RUN_STATUS, SubmissionRunStatus } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
+import {
+  AddIcon,
+  DeleteIcon,
+  LoadingIcon,
+  NotificationType,
+  Popover,
+  SplitPane,
+  T,
+  Tabs,
+  TabsInline,
+  TabType,
+  TextArea,
+  useNotification,
+} from '../../../components';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { AddIcon, DeleteIcon, LoadingIcon } from '../../graphics';
-import { TextArea } from '../../Input';
-import { NotificationType, useNotification } from '../../Notifications';
-import { Popover } from '../../Popover';
-import { SplitPane } from '../../SplitPane';
-import { Tabs, TabsInline, TabType } from '../../Tabs';
-import { T } from '../../Translate';
 import { TestCasesProps } from '../types';
 import { getErrors } from '../utils';
 import { LogInfo } from './LogInfo';

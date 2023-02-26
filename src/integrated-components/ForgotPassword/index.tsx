@@ -1,45 +1,26 @@
-import React, { useState } from 'react';
-import { Button, ButtonLoader, Input, JukiLaptopImage, SplitModal, T, useJukiBase } from '../../components';
-import { classNames } from '../../helpers';
-import { ForgotPasswordModalProps } from './types';
+import { ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
+import React from 'react';
+import { useNotification } from '../../components';
+import { settings } from '../../config';
+import { authorizedRequest, cleanRequest } from '../../services';
+import { ForgotPasswordModalComponent } from './ForgoPasswordModal';
+import { OnForgotPasswordType } from './types';
 
-export const ForgotPasswordModal = ({ onCancel, onForgotPassword }: ForgotPasswordModalProps) => {
+export const ForgotPasswordModal = ({ onCancel }: { onCancel: () => void }) => {
+  const { notifyResponse } = useNotification();
+  const onForgotPassword: OnForgotPasswordType = async (email, setStatus) => {
+    setStatus?.(Status.LOADING);
+    const response = cleanRequest<ContentResponseType<any>>(await authorizedRequest(settings.getAPI()
+      .auth
+      .initiateResetPassword({ email }).url, {
+      method: HTTPMethod.POST,
+      body: JSON.stringify({ email }),
+    }));
+    notifyResponse(response, setStatus);
+  };
   
-  const [email, setEmail] = useState('');
-  const { viewPortSize } = useJukiBase();
   return (
-    <SplitModal
-      isOpen={true}
-      onClose={onCancel}
-      className="modal-login"
-      title={
-        <>
-          <h3><T className="cr-g1">recover your account</T></h3>
-        </>
-      }
-      graphic={<JukiLaptopImage />}
-    >
-      <div className="jk-col gap stretch extend">
-        <div className="jk-row left">
-          <T className="tt-se">
-            enter your email, if the user exists, you will shortly receive an email with reset instructions
-          </T>
-        </div>
-        <Input name="email" value={email} onChange={(value) => setEmail(value)} type="email" extend />
-        <div className={classNames('jk-row gap right', { nowrap: viewPortSize !== 'sm' })}>
-          <Button type="outline" onClick={onCancel} extend={viewPortSize === 'sm'}><T>cancel</T></Button>
-          <ButtonLoader
-            type="primary"
-            onClick={(setLoading) => onForgotPassword(email, setLoading!)}
-            disabled={!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email)}
-            submit
-            extend={viewPortSize === 'sm'}
-          >
-            <T className="ws-np">send me</T>
-          </ButtonLoader>
-        </div>
-      </div>
-    </SplitModal>
+    <ForgotPasswordModalComponent onForgotPassword={onForgotPassword} onCancel={onCancel} />
   );
 };
 
