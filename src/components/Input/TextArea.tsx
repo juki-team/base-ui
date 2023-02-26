@@ -9,6 +9,7 @@ export interface TextAreaProps {
   className?: string,
   register?: UseFormRegisterReturn,
   onBlur?: () => void,
+  disabled?: boolean,
 }
 
 export const TextArea = ({
@@ -18,17 +19,18 @@ export const TextArea = ({
   className,
   register,
   onBlur,
+  disabled,
 }: TextAreaProps, ref: Ref<HTMLTextAreaElement>) => {
   const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
   return (
     <textarea
       {...restRegister}
       ref={registerRef || ref}
-      className={classNames('jk-input-textarea jk-border-radius-inline', className)}
+      className={classNames('jk-input-textarea jk-border-radius-inline', className, { disabled: !!disabled })}
       value={value}
       onChange={registerOnChange ? registerOnChange : ({ target }) => onChange?.(target.value)}
       onBlur={registerOnBlur ? registerOnBlur : onBlur}
-      disabled={!onChange}
+      disabled={disabled}
       rows={Math.max((value || '').split('\n').length, 2)}
       style={style}
     />
