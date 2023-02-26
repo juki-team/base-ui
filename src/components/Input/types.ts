@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react';
-import { ChangeHandler } from 'react-hook-form';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
 import { ButtonType, PlacementType } from '../index';
 
@@ -17,7 +17,7 @@ export interface InputCommonsProps<T> {
   onClick?: () => void,
   autoFocus?: boolean,
   placeholder?: string,
-  register?: { name: string, onBlur: ChangeHandler, onChange: ChangeHandler, ref: any },
+  register?: UseFormRegisterReturn, //{ name: string, onBlur: ChangeHandler, onChange: ChangeHandler, ref: any },
   // types
   type?: 'text' | 'number' | 'password' | 'email' | 'file' | 'files',
   accept?: string,
