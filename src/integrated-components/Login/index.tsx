@@ -11,7 +11,7 @@ export const LoginModal = ({ onCancel, onSignUpButton }: LoginModalProps) => {
   
   const onError = () => setHighlightForgotPassword(true);
   
-  const onSubmit = (data: LoginFormType, setLoader: SetLoaderStatusOnClickType) => signIn(data, setLoader, { onError });
+  const onSubmit = (data: LoginFormType, setLoader: SetLoaderStatusOnClickType) => signIn({ body: data, setLoader, onError });
   
   return (
     <LoginModalComponent

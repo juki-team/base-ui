@@ -8,7 +8,11 @@ export const SignUpModal = ({ onCancel, onSuccess }: SignUpModalProps) => {
   
   const { signUp } = useJukiUser();
   
-  const onSubmit = (data: SignUpFormType, setLoader: SetLoaderStatusOnClickType) => signUp(data, setLoader, { onSuccess });
+  const onSubmit = (data: SignUpFormType, setLoader: SetLoaderStatusOnClickType) => signUp({
+    body: data,
+    setLoader,
+    onSuccess,
+  });
   
   return (
     <SignUpModalComponent onCancel={onCancel} onSubmit={onSubmit} />

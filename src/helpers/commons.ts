@@ -76,7 +76,9 @@ export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName
 export const downloadJukiMarkdownAdPdf = async (source: string, fileName: string) => {
   const url = await publishNote(source);
   if (url) {
-    const result = await authorizedRequest(settings.getAPI().note.pdf({ sourceUrl: url }).url, { responseType: 'blob' });
+    const result = await authorizedRequest(
+      settings.getAPI().note.pdf({ params: { sourceUrl: url } }).url, { responseType: 'blob' },
+    );
     await downloadBlobAsFile(result, fileName);
   } else {
     throw new Error('no url generated');

@@ -5,7 +5,7 @@ import { authorizedRequest, cleanRequest } from '../services';
 import { openNewTab } from './commons';
 
 export const publishNote = async (source: string) => {
-  const { url, ...options } = settings.getAPI().note.publish({ body: JSON.stringify({ source: source.trim() }) });
+  const { url, ...options } = settings.getAPI().note.publish({ body: { source: source.trim() } });
   const request = cleanRequest<ContentResponseType<{ sourceUrl: string }>>(
     await authorizedRequest(url, options),
   );
@@ -25,10 +25,10 @@ export const handleShareMdPdf = (type: string, source: string, sourceUrl: string
   if (url) {
     openNewTab((
       type === 'md-fullscreen'
-        ? settings.getAPI().note.viewFullscreen({ sourceUrl: url }).url
+        ? settings.getAPI().note.viewFullscreen({ params: { sourceUrl: url } }).url
         : type === 'md'
-          ? settings.getAPI().note.view({ sourceUrl: url }).url
-          : settings.getAPI().note.pdf({ sourceUrl: url }).url
+          ? settings.getAPI().note.view({ params: { sourceUrl: url } }).url
+          : settings.getAPI().note.pdf({ params: { sourceUrl: url } }).url
     ));
   } else {
     throw new Error('no url generated');

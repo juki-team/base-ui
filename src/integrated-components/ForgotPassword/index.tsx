@@ -1,4 +1,4 @@
-import { ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
+import { ContentResponseType, Status } from '@juki-team/commons';
 import React from 'react';
 import { useNotification } from '../../components';
 import { settings } from '../../config';
@@ -10,12 +10,8 @@ export const ForgotPasswordModal = ({ onCancel }: { onCancel: () => void }) => {
   const { notifyResponse } = useNotification();
   const onForgotPassword: OnForgotPasswordType = async (email, setStatus) => {
     setStatus?.(Status.LOADING);
-    const response = cleanRequest<ContentResponseType<any>>(await authorizedRequest(settings.getAPI()
-      .auth
-      .initiateResetPassword({ email }).url, {
-      method: HTTPMethod.POST,
-      body: JSON.stringify({ email }),
-    }));
+    const { url, ...options } = settings.getAPI().auth.initiateResetPassword({ body: { email } });
+    const response = cleanRequest<ContentResponseType<any>>(await authorizedRequest(url, options));
     notifyResponse(response, setStatus);
   };
   
