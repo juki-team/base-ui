@@ -10,9 +10,9 @@ import React, { useCallback, useContext } from 'react';
 import { SetLoaderStatusOnClickType, T, useNotification, UserContext } from '../components';
 import { settings } from '../config';
 import { useMatchMutate } from '../hooks';
-import { LoginFormType, SignUpFormType } from '../integrated-components';
+import { LoginFormType } from '../integrated-components';
 import { authorizedRequest, AuthorizedRequestType, cleanRequest } from '../services';
-import { UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';
+import { SignUpPayloadDTO, UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';
 
 type ApiType<T> = {
   setLoader?: SetLoaderStatusOnClickType,
@@ -73,7 +73,7 @@ export const useJukiUser = () => {
     await doRequest<PingResponseDTO>({ url, options, onSuccess: onSuccessWrap, ...props });
   }, [doRequest, refreshAllRequest, setUser]);
   
-  const signUp = useCallback(async ({ body, onSuccess, ...props }: ApiBodyType<SignUpFormType, PingResponseDTO>) => {
+  const signUp = useCallback(async ({ body, onSuccess, ...props }: ApiBodyType<SignUpPayloadDTO, PingResponseDTO>) => {
     const { url, ...options } = settings.getAPI().auth.signUp({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
       localStorage.setItem(settings.TOKEN_NAME, response.content.user.sessionId);
@@ -83,6 +83,11 @@ export const useJukiUser = () => {
     };
     await doRequest<PingResponseDTO>({ url, options, onSuccess: onSuccessWrap, ...props });
   }, [doRequest, refreshAllRequest, setUser]);
+  
+  const createUser = useCallback(async ({ body, ...props }: ApiBodyType<SignUpPayloadDTO, PingResponseDTO>) => {
+    const { url, ...options } = settings.getAPI().auth.signUp({ body });
+    await doRequest<PingResponseDTO>({ url, options, ...props });
+  }, [doRequest]);
   
   const updateUserProfileData = useCallback(async ({
     params,
@@ -160,6 +165,7 @@ export const useJukiUser = () => {
     logout,
     updatePassword,
     // users
+    createUser,
     updateUserProfileData,
     updateUserProfileImage,
     resetUserPassword,
