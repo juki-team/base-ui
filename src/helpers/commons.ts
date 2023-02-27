@@ -1,4 +1,6 @@
+import { stringToArrayBuffer } from '@juki-team/commons';
 import { Children, cloneElement, ReactNode } from 'react';
+import { utils, write } from 'xlsx';
 import { SearchParamsObjectType } from '../components';
 import { settings } from '../config';
 import { publishNote } from '../helpers/utils';
@@ -71,6 +73,21 @@ export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName
   const blob = new Blob([data.map(e => e.join(',')).join('\n')], { type: 'text/csv' });
   const blobURL = window?.URL.createObjectURL(blob);
   downloadLink(blobURL, fileName);
+};
+
+export const downloadXlsxAsFile = async (data: (string | number)[][], fileName: string, sheetName: string) => {
+  const workBook = utils.book_new();
+  workBook.Props = {
+    Title: fileName,
+    Subject: fileName,
+    Author: 'Juki Judge',
+    CreatedDate: new Date(),
+  };
+  workBook.SheetNames.push(sheetName);
+  workBook.Sheets[sheetName] = utils.aoa_to_sheet(data);
+  const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
+  const blob = new Blob([stringToArrayBuffer(workBookOut)], { type: 'application/octet-stream' });
+  await downloadBlobAsFile(blob, fileName);
 };
 
 export const downloadJukiMarkdownAdPdf = async (source: string, fileName: string) => {
