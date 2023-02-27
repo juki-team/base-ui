@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "0.0.351",
+  "version": "0.0.352",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -43,6 +43,7 @@
     "socket.io-client": "^4.5.2",
     "swr": "^2.0.0",
     "uuid": "^9.0.0",
+    "xlsx": "^0.18.5",
     "yup": "^0.32.11"
   },
   "scripts": {
