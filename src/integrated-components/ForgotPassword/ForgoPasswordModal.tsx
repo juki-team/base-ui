@@ -26,15 +26,16 @@ export const ForgotPasswordModalComponent = ({ onCancel, onForgotPassword }: For
             enter your email, if the user exists, you will shortly receive an email with reset instructions
           </T>
         </div>
-        <Input name="email" value={email} onChange={(value) => setEmail(value)} type="email" extend />
-        <div className={classNames('jk-row gap right', { nowrap: viewPortSize !== 'sm' })}>
-          <Button type="outline" onClick={onCancel} extend={viewPortSize === 'sm'}><T>cancel</T></Button>
+        <label>
+          <Input name="email" value={email} onChange={(value) => setEmail(value)} type="email" extend />
+        </label>
+        <div className={classNames('jk-row gap right block', { nowrap: viewPortSize !== 'sm' })}>
+          <Button type="light" onClick={onCancel}><T>cancel</T></Button>
           <ButtonLoader
             type="primary"
             onClick={(setLoading) => onForgotPassword(email, setLoading!)}
             disabled={!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email)}
             submit
-            extend={viewPortSize === 'sm'}
           >
             <T className="ws-np">send me</T>
           </ButtonLoader>

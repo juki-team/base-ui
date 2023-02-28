@@ -92,7 +92,7 @@ export const SignUpModalComponent = ({
           </>
         )}
         <form onSubmit={handleSubmit((data: SignUpFormType) => onSubmit(data, setLoaderRef.current!))}>
-          <div className="jk-col gap stretch">
+          <div className="jk-col stretch">
             <div className="jk-row gap block">
               <div className="jk-form-item">
                 <label>

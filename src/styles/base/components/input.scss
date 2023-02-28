@@ -90,7 +90,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     font-weight: var(--weight-bold);
     padding: 0;
     @extend .tt-se;
-    line-height: var(--pad-xs);
   }
   
   > label > .jk-select-layout {
@@ -129,6 +128,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 // input textarea
 .jk-input-text,
+.jk-input-email,
 .jk-input-number,
 .jk-input-password,
 .jk-input-textarea,
@@ -143,6 +143,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   box-sizing: border-box;
   font-size: inherit;
   line-height: inherit;
+  //line-height: var(--pad-xs);
   box-shadow: inset 0 0 0 1px var(--t-color-gray-5);
   background-color: var(--t-color-shadow-lightest);
   @include transition-fast(border-color, box-shadow);
@@ -235,14 +236,14 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.jk-input-text, .jk-input-number, .jk-input-password, .jk-input-textarea {
+.jk-input-text, .jk-input-email, .jk-input-number, .jk-input-password, .jk-input-textarea {
   &.extend {
     width: 100%;
   }
 }
 
 // input
-.jk-input-text, .jk-input-password {
+.jk-input-text, .jk-input-password, .jk-input-email {
   padding: 4px var(--pad-xt);
 }
 
@@ -250,7 +251,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   padding: 4px 4px 4px var(--pad-xt);
 }
 
-.jk-input-text, .jk-input-number, .jk-input-password {
+.jk-input-text, .jk-input-number, .jk-input-password, .jk-input-email {
   &::placeholder {
     color: var(--t-color-gray-4);
     font-weight: var(--weight-normal);
