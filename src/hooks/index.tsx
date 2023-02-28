@@ -5,5 +5,7 @@ export * from './useFetcher';
 export * from './useJkSocket';
 export * from './useJukiUI';
 export * from './useJukiUser';
+export * from './useOnline';
 export * from './usePageVisibility';
+export * from './useViewPortSize';
 export * from './utils';

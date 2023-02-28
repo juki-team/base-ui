@@ -115,7 +115,7 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
       position: absolute;
       width: 0%;
       height: 100%;
-      animation: roundGoing 800ms linear infinite;
+      animation: roundGoing 400ms linear infinite;
       background-color: var(--t-color-shadow-light);
     }
   }
