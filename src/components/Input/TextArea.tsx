@@ -1,4 +1,4 @@
-import React, { CSSProperties, Ref } from 'react';
+import React, { CSSProperties } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 import { classNames } from '../../helpers';
 
@@ -20,12 +20,12 @@ export const TextArea = ({
   register,
   onBlur,
   disabled,
-}: TextAreaProps, ref: Ref<HTMLTextAreaElement>) => {
+}: TextAreaProps) => {
   const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
   return (
     <textarea
       {...restRegister}
-      ref={registerRef || ref}
+      ref={registerRef}
       className={classNames('jk-input-textarea jk-border-radius-inline', className, { disabled: !!disabled })}
       value={value}
       onChange={registerOnChange ? registerOnChange : ({ target }) => onChange?.(target.value)}
