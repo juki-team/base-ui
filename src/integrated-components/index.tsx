@@ -1,4 +1,4 @@
-export * from './ChangePasswordModal';
+export * from './UserChangePasswordModal';
 export * from './CodeRunnerEditor';
 export * from './ForgotPassword';
 export * from './HelpSection';

@@ -3,7 +3,8 @@ import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { ButtonLoader, InputPassword, Modal, SetLoaderStatusOnClickType, T } from '../../components';
-import { useJukiUser } from '../../hooks';
+import { classNames } from '../../helpers';
+import { useJukiUI, useJukiUser } from '../../hooks';
 
 export type ProfileChangePasswordInput = {
   oldPassword: string,
@@ -24,7 +25,7 @@ const profileSettingsChangePasswordSchema = yup.object().shape({
     .oneOf([yup.ref('newPassword'), ''], 'both passwords must match'),
 });
 
-export const ChangePasswordModal = ({ onClose }: { onClose: () => void, }) => {
+export const UserChangePasswordModal = ({ onClose }: { onClose: () => void, }) => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm<ProfileChangePasswordInput>({
     resolver: yupResolver(profileSettingsChangePasswordSchema),
     mode: 'onChange',
@@ -32,13 +33,13 @@ export const ChangePasswordModal = ({ onClose }: { onClose: () => void, }) => {
   });
   
   const { updatePassword } = useJukiUser();
-  
+  const { viewPortSize } = useJukiUI();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   
   return (
     <Modal
       isOpen={true}
-      className="modal-change-password"
+      className="wh-ao"
       onClose={onClose}
     >
       <div className="jk-pad-md jk-col gap stretch">
@@ -54,6 +55,13 @@ export const ChangePasswordModal = ({ onClose }: { onClose: () => void, }) => {
           }))}>
           <div className="jk-form-item">
             <label>
+              <T>password</T>
+              <InputPassword register={register('oldPassword')} />
+            </label>
+            <p><T>{errors.oldPassword?.message || ''}</T></p>
+          </div>
+          <div className="jk-form-item">
+            <label>
               <T>new password</T>
               <InputPassword register={register('newPassword')} />
             </label>
@@ -66,15 +74,11 @@ export const ChangePasswordModal = ({ onClose }: { onClose: () => void, }) => {
             </label>
             <p><T>{errors.newPasswordConfirmation?.message || ''}</T></p>
           </div>
-          <div className="jk-form-item">
-            <label>
-              <T>password</T>
-              <InputPassword register={register('oldPassword')} />
-            </label>
-            <p><T>{errors.oldPassword?.message || ''}</T></p>
-          </div>
-          <div className="jk-row gap right">
-            <ButtonLoader type="text" onClick={onClose}>
+          <div className={classNames('gap block', {
+            'jk-row': viewPortSize !== 'sm',
+            'jk-col': viewPortSize === 'sm',
+          })}>
+            <ButtonLoader type="light" onClick={onClose} extend>
               <T>cancel</T>
             </ButtonLoader>
             <ButtonLoader
@@ -82,8 +86,9 @@ export const ChangePasswordModal = ({ onClose }: { onClose: () => void, }) => {
               setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
               disabled={!isValid}
               submit
+              extend
             >
-              <T>update password</T>
+              <T className="ws-np">update password</T>
             </ButtonLoader>
           </div>
         </form>

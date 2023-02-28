@@ -5,6 +5,7 @@ import { Button } from '../../components';
 import {
   ImageCmpProps,
   ProblemSelector as ProblemSelectorComponent,
+  UserChangePasswordModal as UserChangePasswordModalCmp,
   UserPreviewModal as UserPreviewModalCmp,
   UserProfileSettings as UserProfileSettingsCmp,
 } from '../../integrated-components';
@@ -34,7 +35,9 @@ const Image = ({ src, className, alt, style, width, height }: ImageCmpProps) => 
 };
 
 export const UserPreviewModal = () => {
+  
   const [open, setOpen] = useState(false);
+  
   return (
     <JukiProvider>
       <div className="jk-pad-lg">
@@ -62,6 +65,19 @@ export const UserProfileSettings = () => {
         }}
         onClickUpdatePassword={() => console.log('click onClickUpdatePassword')}
       />
+      <ToggleThemeButton />
+    </JukiProvider>
+  );
+};
+
+export const UserChangePasswordModal = () => {
+  
+  const [open, setOpen] = useState(false);
+  
+  return (
+    <JukiProvider>
+      {open && <UserChangePasswordModalCmp onClose={() => setOpen(false)} />}
+      <Button onClick={() => setOpen(true)}>open</Button>
       <ToggleThemeButton />
     </JukiProvider>
   );
