@@ -1,5 +1,5 @@
 import { ContentResponseType, Status, UserBasicResponseDTO } from '@juki-team/commons';
-import React from 'react';
+import React, { FC } from 'react';
 import {
   BasicModalProps,
   Button,
@@ -19,7 +19,7 @@ import { ImageCmpProps } from '../types';
 
 export interface UserPreviewModalProps extends BasicModalProps {
   nickname: string,
-  ImageCmp: React.FC<ImageCmpProps>,
+  ImageCmp: FC<ImageCmpProps>,
   userHref: string,
 }
 

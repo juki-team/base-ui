@@ -1,9 +1,10 @@
 import { USER_GUEST } from '@juki-team/commons';
 import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
-import { Button } from '../../components';
+import { Button, CalendarMonthIcon, EventIcon } from '../../components';
 import {
   ChangePasswordModal as UserChangePasswordModalCmp,
+  DrawerViewMenuMobile as DrawerViewMenuMobileCmp,
   ForgotPasswordModal as UserForgotPasswordModalCmp,
   ImageCmpProps,
   ProblemSelector as ProblemSelectorComponent,
@@ -106,6 +107,39 @@ export const WelcomeModal = () => {
     <JukiProvider>
       {open && (
         <WelcomeModalCmp onClose={() => setOpen(false)} nickname="OscarGauss" onSeeMyProfile={action('onSeeMyProfile')} />
+      )}
+      <Button onClick={() => setOpen(true)}>open</Button>
+      <ToggleThemeButton />
+    </JukiProvider>
+  );
+};
+
+export const DrawerViewMenuMobile = () => {
+  
+  const [open, setOpen] = useState(false);
+  
+  return (
+    <JukiProvider>
+      {open && (
+        <DrawerViewMenuMobileCmp
+          ImageCmp={Image}
+          menu={[
+            {
+              icon: <CalendarMonthIcon />,
+              label: 'calendar menu',
+              selected: true,
+              menuItemWrapper: (children) => <>{children}</>,
+            },
+            {
+              icon: <EventIcon />,
+              label: 'calendar menu',
+              selected: false,
+              menuItemWrapper: (children) => <a href="#" target="_blank">{children}</a>,
+            },
+          ]}
+          onClose={() => setOpen(false)}
+          logoImageUrl="https://images.juki.pub/c/juki-judge-horizontal-color-logo.svg"
+        />
       )}
       <Button onClick={() => setOpen(true)}>open</Button>
       <ToggleThemeButton />

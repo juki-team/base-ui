@@ -7,7 +7,7 @@ export type MenuMobileSectionType = {
   content?: ReactNodeOrFunctionP1Type<DrawerActionsType>,
 }
 
-type MenuType = { icon?: ReactNodeOrFunctionType, label: ReactNodeOrFunctionType, selected: boolean, onClick?: (isOpen?: boolean) => void, menuItemWrapper?: ReactNodeOrFunctionP1Type<ReactNode> };
+export type MenuType = { icon?: ReactNodeOrFunctionType, label: ReactNodeOrFunctionType, selected: boolean, onClick?: (isOpen?: boolean) => void, menuItemWrapper?: ReactNodeOrFunctionP1Type<ReactNode> };
 
 export interface MenuMobileProps {
   rightMobile?: MenuMobileSectionType,

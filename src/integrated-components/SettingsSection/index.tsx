@@ -1,11 +1,11 @@
+import { Language, ProfileSetting, Theme } from '@juki-team/commons';
+import React, { Dispatch, FC } from 'react';
 import {
   AppsIcon,
   DarkModeIcon,
   FlagEnImage,
   FlagEsImage,
   HelpIcon,
-  HelpSection,
-  Image,
   JukiCouchLogoHorImage,
   JukiUtilsLogoHorImage,
   LightModeIcon,
@@ -13,13 +13,13 @@ import {
   Modal,
   Popover,
   T,
-} from 'components';
-import { classNames } from 'helpers';
-import { useJukiUI, useJukiUser, useJukiUserToggleSetting } from 'hooks';
-import React, { Dispatch } from 'react';
-import { Language, ProfileSetting, Theme } from 'types';
+} from '../../components';
+import { classNames } from '../../helpers';
+import { useJukiUI, useJukiUser, useJukiUserToggleSetting } from '../../hooks';
+import { HelpSection } from '../HelpSection';
+import { ImageCmpProps } from '../types';
 
-export const LanguageSetting = ({ isOpen, popoverPlacement, small }) => {
+export const LanguageSetting = ({ isOpen, small }: { isOpen: boolean, small: boolean }) => {
   
   const { loading, toggleSetting, [ProfileSetting.LANGUAGE]: preferredLanguage } = useJukiUserToggleSetting();
   
@@ -58,7 +58,7 @@ export const LanguageSetting = ({ isOpen, popoverPlacement, small }) => {
   );
 };
 
-export const ThemeSetting = ({ isOpen, small }) => {
+export const ThemeSetting = ({ isOpen, small }: { isOpen: boolean, small: boolean }) => {
   
   const { loading, toggleSetting, [ProfileSetting.THEME]: preferredTheme } = useJukiUserToggleSetting();
   
@@ -93,13 +93,23 @@ export const ThemeSetting = ({ isOpen, small }) => {
   );
 };
 
+export interface SettingsSectionProps {
+  ImageCmp: FC<ImageCmpProps>,
+  isMobile: boolean,
+  isOpen: boolean,
+  helpOpen: boolean,
+  setHelpOpen: Dispatch<boolean>,
+  popoverPlacement: 'top' | 'bottom' | 'right',
+}
+
 export const SettingsSection = ({
+  ImageCmp,
   isMobile,
   isOpen,
   helpOpen,
   setHelpOpen,
   popoverPlacement,
-}: { isMobile: boolean, isOpen: boolean, helpOpen: boolean, setHelpOpen: Dispatch<boolean>, popoverPlacement: 'top' | 'bottom' | 'right' }) => {
+}: SettingsSectionProps) => {
   
   const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
   const { viewPortSize } = useJukiUI();
@@ -112,7 +122,6 @@ export const SettingsSection = ({
     <>
       <LanguageSetting
         isOpen={isOpen}
-        popoverPlacement={popoverPlacement}
         small={margin}
       />
       <ThemeSetting
@@ -130,7 +139,7 @@ export const SettingsSection = ({
           <div className="jk-row">
             <HelpSection />
             <div className="jk-row ">
-              <Image
+              <ImageCmp
                 src="https://images.juki.pub/c/juki-help-2-image.svg"
                 alt="help"
                 height={220}

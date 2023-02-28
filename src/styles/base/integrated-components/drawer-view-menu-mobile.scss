@@ -1,0 +1,32 @@
+.jk-drawer-menu-mobile {
+  width: 100vw;
+  height: var(--100VH);
+  
+  .jk-menu-items > *, .jk-menu-items > {
+    width: 100%;
+    
+    .jk-menu-item {
+      padding: var(--pad-xt);
+      box-sizing: border-box;
+      
+      &.selected {
+        @extend .appearance-primary-light;
+        
+        .jk-menu-item-label {
+          font-weight: var(--weight-bold);
+        }
+      }
+    }
+  }
+}
+
+.jk-drawer-menu-mobile .jk-menu-items, .jk-menu .jk-menu-items {
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+    
+    &:hover {
+      text-decoration: none !important;
+    }
+  }
+}

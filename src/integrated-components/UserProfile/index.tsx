@@ -1,12 +1,12 @@
 import { JUDGE, UserProfileResponseDTO } from '@juki-team/commons';
-import React from 'react';
+import React, { FC } from 'react';
 import { LocationOnIcon, MailIcon, SchoolIcon } from '../../components';
 import { classNames } from '../../helpers';
 import { ImageCmpProps } from '../types';
 
 export interface UserProfileProps {
   user: UserProfileResponseDTO,
-  ImageCmp: React.FC<ImageCmpProps>
+  ImageCmp: FC<ImageCmpProps>
 }
 
 export function UserProfile({ user, ImageCmp }: UserProfileProps) {
