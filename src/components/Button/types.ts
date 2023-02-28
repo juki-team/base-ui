@@ -19,7 +19,12 @@ type ButtonBasicProps = {
   responsiveMobile?: boolean,
 }
 
-export type OnClickButtonEventType = { onClickEvent?: MouseEvent<HTMLButtonElement>, onKeyDownEvent?: KeyboardEvent<HTMLButtonElement> };
+export type OnClickButtonEventType = {
+  onClickEvent?: MouseEvent<HTMLButtonElement>,
+  onKeyDownEvent?: KeyboardEvent<HTMLButtonElement>,
+  onRequestCloseModalEvent?: MouseEvent | KeyboardEvent,
+  fetcherLayerErrorEvent?: any,
+};
 
 export interface ButtonProps extends ButtonBasicProps {
   withIconTransition?: boolean,

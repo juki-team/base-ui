@@ -1,6 +1,8 @@
+import { ButtonLoaderOnClickType } from '../../Button';
+
 export type ModalProps = {
   isOpen: boolean,
-  onClose: () => void,
+  onClose: ButtonLoaderOnClickType,
   className?: string,
   closeIcon?: boolean,
   expand?: boolean,

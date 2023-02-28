@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, ButtonLoader, Input, JukiLaptopImage, SplitModal, T } from '../../components';
+import { ButtonLoader, Input, JukiLaptopImage, SplitModal, T } from '../../components';
 import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks';
 import { ForgotPasswordModalProps } from './types';
@@ -34,7 +34,7 @@ export const ForgotPasswordModalComponent = ({ onClose, onForgotPassword }: Forg
           </label>
         </div>
         <div className={classNames('jk-row gap right block', { nowrap: viewPortSize !== 'sm' })}>
-          <Button type="light" onClick={onClose}><T>cancel</T></Button>
+          <ButtonLoader type="light" onClick={onClose}><T>cancel</T></ButtonLoader>
           <ButtonLoader
             type="primary"
             onClick={(setLoading) => onForgotPassword(email, setLoading!)}

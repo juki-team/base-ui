@@ -1,15 +1,25 @@
-import { ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
+import { ContentResponseType, Status, UserBasicResponseDTO } from '@juki-team/commons';
 import React from 'react';
-import { Button, FetcherLayer, LocationOnIcon, MailIcon, Modal, OpenInNewIcon, SchoolIcon, T } from '../../components';
+import {
+  BasicModalProps,
+  Button,
+  ButtonLoader,
+  FetcherLayer,
+  LocationOnIcon,
+  MailIcon,
+  Modal,
+  OpenInNewIcon,
+  SchoolIcon,
+  T,
+} from '../../components';
 import { settings } from '../../config';
 import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks';
 import { ImageCmpProps } from '../types';
 
-interface UserPreviewModalProps {
+export interface UserPreviewModalProps extends BasicModalProps {
   nickname: string,
   ImageCmp: React.FC<ImageCmpProps>,
-  onClose: () => void,
   userHref: string,
 }
 
@@ -26,7 +36,7 @@ export const UserPreviewModal = ({ nickname, ImageCmp, onClose, userHref }: User
     >
       <FetcherLayer<ContentResponseType<UserBasicResponseDTO>>
         url={settings.getAPI().user.summary({ params: { nickname } }).url}
-        onError={onClose}
+        onError={(error) => onClose(() => () => Status.ERROR, [Status.ERROR, 0], { fetcherLayerErrorEvent: error })}
       >
         {({ data }) => (
           <div className="jk-pad-md jk-col stretch gap">
@@ -55,7 +65,7 @@ export const UserPreviewModal = ({ nickname, ImageCmp, onClose, userHref }: User
             </div>
             <div
               className={classNames('gap block stretch', { 'jk-col': viewPortSize === 'sm', 'jk-row': viewPortSize !== 'sm' })}>
-              <Button size="small" type="light" onClick={onClose}><T>close</T></Button>
+              <ButtonLoader size="small" type="light" onClick={onClose}><T>close</T></ButtonLoader>
               <a href={userHref} target="_blank" rel="noreferrer">
                 <Button size="small" extend>
                   <div className="jk-row nowrap"><T className="ws-np">see profile</T><OpenInNewIcon /></div>

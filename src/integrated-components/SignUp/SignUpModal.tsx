@@ -48,7 +48,7 @@ const signUpSchema = yup.object().shape({
 });
 
 export const SignUpModalComponent = ({
-  onCancel,
+  onClose,
   onSubmit,
   signUpWithGoogle,
   reactAppGoogleClientId,
@@ -67,7 +67,7 @@ export const SignUpModalComponent = ({
   return (
     <SplitModal
       isOpen={true}
-      onClose={onCancel}
+      onClose={onClose}
       className="modal-sign-up"
       title={
         <>
@@ -156,7 +156,7 @@ export const SignUpModalComponent = ({
               <p><T>{(!isValid && errors?.checkbox?.message) || ''}</T></p>
             </div>
             <div className={classNames('jk-row gap block', { nowrap: viewPortSize !== 'sm' })}>
-              <ButtonLoader type="light" onClick={onCancel}>
+              <ButtonLoader type="light" onClick={onClose}>
                 <T>cancel</T>
               </ButtonLoader>
               <ButtonLoader

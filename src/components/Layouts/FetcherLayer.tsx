@@ -32,6 +32,7 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
   const { isLoading, data, error, mutate } = useFetcher<T>(url, {
     revalidateOnFocus: true,
     revalidateIfStale: true,
+    shouldRetryOnError: true,
     ...options,
   });
   const { notifyResponse } = useNotification();
@@ -42,7 +43,7 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
       onError?.(error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [notifyResponse, data, error/*, onError*/]);
+  }, [notifyResponse, JSON.stringify(data), error/*, onError*/]);
   
   if (isLoading) {
     return (

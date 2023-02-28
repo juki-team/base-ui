@@ -3,11 +3,13 @@ import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 import { Button } from '../../components';
 import {
+  ChangePasswordModal as UserChangePasswordModalCmp,
+  ForgotPasswordModal as UserForgotPasswordModalCmp,
   ImageCmpProps,
   ProblemSelector as ProblemSelectorComponent,
-  UserChangePasswordModal as UserChangePasswordModalCmp,
   UserPreviewModal as UserPreviewModalCmp,
   UserProfileSettings as UserProfileSettingsCmp,
+  WelcomeModal as WelcomeModalCmp,
 } from '../../integrated-components';
 import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
@@ -77,6 +79,34 @@ export const UserChangePasswordModal = () => {
   return (
     <JukiProvider>
       {open && <UserChangePasswordModalCmp onClose={() => setOpen(false)} />}
+      <Button onClick={() => setOpen(true)}>open</Button>
+      <ToggleThemeButton />
+    </JukiProvider>
+  );
+};
+
+export const UserForgotPasswordModal = () => {
+  
+  const [open, setOpen] = useState(false);
+  
+  return (
+    <JukiProvider>
+      {open && <UserForgotPasswordModalCmp onClose={() => setOpen(false)} />}
+      <Button onClick={() => setOpen(true)}>open</Button>
+      <ToggleThemeButton />
+    </JukiProvider>
+  );
+};
+
+export const WelcomeModal = () => {
+  
+  const [open, setOpen] = useState(false);
+  
+  return (
+    <JukiProvider>
+      {open && (
+        <WelcomeModalCmp onClose={() => setOpen(false)} nickname="OscarGauss" onSeeMyProfile={action('onSeeMyProfile')} />
+      )}
       <Button onClick={() => setOpen(true)}>open</Button>
       <ToggleThemeButton />
     </JukiProvider>

@@ -8,18 +8,7 @@ span[class*=" jk-row"], span[class^="jk-row"], span[class*=" jk-col"], span[clas
   display: inline-flex;
 }
 
-div[class*=" jk-row"], div[class^="jk-row"],
-section[class*=" jk-row"], section[class^="jk-row"],
-span[class*=" jk-row"], span[class^="jk-row"],
-a[class*=" jk-row"], a[class^="jk-row"],
-fieldset[class*=" jk-row"], fieldset[class^="jk-row"],
-form[class*=" jk-row"], form[class^="jk-row"],
-div[class*=" jk-col"], div[class^="jk-col"],
-section[class*=" jk-col"], section[class^="jk-col"],
-span[class*=" jk-col"], span[class^="jk-col"],
-a[class*=" jk-col"], a[class^="jk-col"],
-fieldset[class*=" jk-col"], fieldset[class^="jk-col"],
-form[class*=" jk-col"], form[class^="jk-col"] {
+@mixin jk-row-col {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -44,12 +33,26 @@ form[class*=" jk-col"], form[class^="jk-col"] {
   &.stretch { align-items: stretch; }
 }
 
+%jk-row-col {
+  @include jk-row-col;
+}
+
 div[class*=" jk-row"], div[class^="jk-row"],
 section[class*=" jk-row"], section[class^="jk-row"],
 span[class*=" jk-row"], span[class^="jk-row"],
 a[class*=" jk-row"], a[class^="jk-row"],
 fieldset[class*=" jk-row"], fieldset[class^="jk-row"],
-form[class*=" jk-row"], form[class^="jk-row"] {
+form[class*=" jk-row"], form[class^="jk-row"],
+div[class*=" jk-col"], div[class^="jk-col"],
+section[class*=" jk-col"], section[class^="jk-col"],
+span[class*=" jk-col"], span[class^="jk-col"],
+a[class*=" jk-col"], a[class^="jk-col"],
+fieldset[class*=" jk-col"], fieldset[class^="jk-col"],
+form[class*=" jk-col"], form[class^="jk-col"] {
+  @extend %jk-row-col;
+}
+
+@mixin jk-row {
   &.extend { width: 100% !important; }
   
   &.left { justify-content: flex-start; }
@@ -61,12 +64,20 @@ form[class*=" jk-row"], form[class^="jk-row"] {
   &.bottom { align-content: end; }
 }
 
-div[class*=" jk-col"], div[class^="jk-col"],
-section[class*=" jk-col"], section[class^="jk-col"],
-span[class*=" jk-col"], span[class^="jk-col"],
-a[class*=" jk-col"], a[class^="jk-col"],
-fieldset[class*=" jk-col"], fieldset[class^="jk-col"],
-form[class*=" jk-col"], form[class^="jk-col"] {
+%jk-row {
+  @include jk-row;
+}
+
+div[class*=" jk-row"], div[class^="jk-row"],
+section[class*=" jk-row"], section[class^="jk-row"],
+span[class*=" jk-row"], span[class^="jk-row"],
+a[class*=" jk-row"], a[class^="jk-row"],
+fieldset[class*=" jk-row"], fieldset[class^="jk-row"],
+form[class*=" jk-row"], form[class^="jk-row"] {
+  @extend %jk-row;
+}
+
+@mixin jk-col {
   flex-direction: column;
   
   &.extend { height: 100% !important; }
@@ -78,6 +89,19 @@ form[class*=" jk-col"], form[class^="jk-col"] {
   &.left { align-content: start; }
   
   &.right { align-content: end; }
+}
+
+%jk-col {
+  @include jk-col;
+}
+
+div[class*=" jk-col"], div[class^="jk-col"],
+section[class*=" jk-col"], section[class^="jk-col"],
+span[class*=" jk-col"], span[class^="jk-col"],
+a[class*=" jk-col"], a[class^="jk-col"],
+fieldset[class*=" jk-col"], fieldset[class^="jk-col"],
+form[class*=" jk-col"], form[class^="jk-col"] {
+  @extend %jk-col;
 }
 
 /*
@@ -310,4 +334,19 @@ form[class*=" jk-col"], form[class^="jk-col"] {
 .pad-top-bottom {
   padding-top: var(--pad-border);
   padding-bottom: var(--pad-border);
+}
+
+.jk-rc-res {
+  @extend %jk-row-col;
+  
+  @include sm {
+    @include jk-col;
+    > * {
+      width: 100%;
+    }
+  }
+  
+  @include md-hg {
+    @include jk-row;
+  }
 }

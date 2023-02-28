@@ -6,7 +6,7 @@ import { authorizedRequest, cleanRequest } from '../../services';
 import { ForgotPasswordModalComponent } from './ForgoPasswordModal';
 import { OnForgotPasswordType } from './types';
 
-export const UserForgotPasswordModal = ({ onClose }: BasicModalProps) => {
+export const ForgotPasswordModal = ({ onClose }: BasicModalProps) => {
   const { notifyResponse } = useNotification();
   const onForgotPassword: OnForgotPasswordType = async (email, setStatus) => {
     setStatus?.(Status.LOADING);

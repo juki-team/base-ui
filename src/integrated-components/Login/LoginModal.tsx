@@ -16,8 +16,8 @@ import {
 } from '../../components';
 import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks';
-import { ForgotPasswordModal } from '../ForgotPassword';
 import { LoginFormType, LoginModalComponentProps } from '../Login';
+import { ForgotPasswordModal } from '../ForgotPassword';
 
 const loginSchema = yup.object().shape({
   nickname: yup.string()
@@ -27,7 +27,7 @@ const loginSchema = yup.object().shape({
 });
 
 export const LoginModalComponent = ({
-  onCancel,
+  onClose,
   onSignUpButton,
   onSubmit,
   loginWithGoogle,
@@ -50,12 +50,12 @@ export const LoginModalComponent = ({
     <>
       {openForgotPasswordModal && (
         <ForgotPasswordModal
-          onCancel={() => setOpenForgotPasswordModal(false)}
+          onClose={() => setOpenForgotPasswordModal(false)}
         />
       )}
       <SplitModal
         isOpen={!openForgotPasswordModal}
-        onClose={onCancel}
+        onClose={onClose}
         className="modal-login"
         title={
           <>
@@ -108,7 +108,7 @@ export const LoginModalComponent = ({
                   </p>
                 </div>
                 <div className={classNames('jk-row gap block', { nowrap: viewPortSize !== 'sm' })}>
-                  <ButtonLoader type="light" onClick={onCancel}>
+                  <ButtonLoader type="light" onClick={onClose}>
                     <T>cancel</T>
                   </ButtonLoader>
                   <ButtonLoader

@@ -1,3 +1,5 @@
+import { ButtonLoaderOnClickType } from '../../components';
+
 export interface BasicModalProps {
-  onCancel: () => void,
+  onClose: ButtonLoaderOnClickType,
 }

@@ -4,7 +4,7 @@ import { useJukiUser } from '../../hooks';
 import { SignUpModalComponent } from './SignUpModal';
 import { SignUpFormType, SignUpModalProps } from './types';
 
-export const SignUpModal = ({ onCancel, onSuccess }: SignUpModalProps) => {
+export const SignUpModal = ({ onClose, onSuccess }: SignUpModalProps) => {
   
   const { signUp } = useJukiUser();
   
@@ -15,7 +15,7 @@ export const SignUpModal = ({ onCancel, onSuccess }: SignUpModalProps) => {
   });
   
   return (
-    <SignUpModalComponent onCancel={onCancel} onSubmit={onSubmit} />
+    <SignUpModalComponent onClose={onClose} onSubmit={onSubmit} />
   );
 };
 

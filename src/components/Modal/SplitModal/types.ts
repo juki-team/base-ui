@@ -1,8 +1,8 @@
 import { ReactNodeOrFunctionType } from '../../../types';
+import { BasicModalProps } from '../../Modal/types';
 
-export interface SplitModalProps {
+export interface SplitModalProps extends BasicModalProps {
   isOpen: boolean,
-  onClose: () => void,
   className?: string,
   title: ReactNodeOrFunctionType,
   graphic: ReactNodeOrFunctionType,

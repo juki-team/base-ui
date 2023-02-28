@@ -4,7 +4,7 @@ import { useJukiUser } from '../../hooks';
 import { LoginFormType, LoginModalProps } from '../Login';
 import { LoginModalComponent } from './LoginModal';
 
-export const LoginModal = ({ onCancel, onSignUpButton }: LoginModalProps) => {
+export const LoginModal = ({ onClose, onSignUpButton }: LoginModalProps) => {
   
   const { signIn } = useJukiUser();
   const [highlightForgotPassword, setHighlightForgotPassword] = useState(false);
@@ -15,7 +15,7 @@ export const LoginModal = ({ onCancel, onSignUpButton }: LoginModalProps) => {
   
   return (
     <LoginModalComponent
-      onCancel={onCancel}
+      onClose={onClose}
       onSignUpButton={onSignUpButton}
       onSubmit={onSubmit}
       highlightForgotPassword={highlightForgotPassword}

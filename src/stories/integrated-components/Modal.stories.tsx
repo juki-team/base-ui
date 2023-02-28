@@ -1,3 +1,4 @@
+import { Status } from '@juki-team/commons';
 import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
@@ -28,7 +29,12 @@ const WrapSignUp = (props: SignUpModalProps) => {
     <JukiProvider>
       <div>
         <Button onClick={() => setOpen(!open)}>Click</Button>
-        {open && <SignUpModal {...props} onCancel={() => setOpen(false)} />}
+        {open && <SignUpModal {...props} onClose={async (setLoaderStatus) => {
+          setLoaderStatus(Status.LOADING);
+          await new Promise(r => setTimeout(r, 2000));
+          setLoaderStatus(Status.SUCCESS);
+          setOpen(false);
+        }} />}
         <ToggleThemeButton />
       </div>
     </JukiProvider>
@@ -43,7 +49,7 @@ export const SignUpWithGoogle = () => (
     //   action('signUpWithGoogle')();
     // }}
     // reactAppGoogleClientId="test"
-    onCancel={() => action('onCancel')}
+    onClose={() => action('onClose')}
   />
 );
 
@@ -51,7 +57,7 @@ export const SignUPWithoutGoogle = () => (
   <WrapSignUp
     // imageSource="https://judge.juki.app/images/juki-sign-person.svg"
     // onSubmit={(data: SignUpFormType, setLoading: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setLoading })}
-    onCancel={() => action('onCancel')}
+    onClose={() => action('onClose')}
   />
 );
 
@@ -61,7 +67,7 @@ const WrapLogin = (props: LoginModalProps) => {
     <JukiProvider>
       <div>
         <Button onClick={() => setOpen(!open)}>Click</Button>
-        {open && <LoginModal {...props} onCancel={() => setOpen(false)} />}
+        {open && <LoginModal {...props} onClose={() => setOpen(false)} />}
         <ToggleThemeButton />
       </div>
     </JukiProvider>
@@ -77,7 +83,7 @@ const LoginWithGoogleComponent: Story<LoginModalComponentProps> = () => (
     //   action('loginWithGoogle')();
     // }}
     // reactAppGoogleClientId="test"
-    onCancel={() => action('onCancel')}
+    onClose={() => action('onClose')}
     onSignUpButton={() => action('onSignUpButton')}
     // onForgotPassword={() => action('onForgotPasswordButton')}
   />
@@ -90,7 +96,7 @@ export const LoginWithoutGoogle = ({ ...props }) => (
   <WrapLogin
     {...props}
     // onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setStatus })}
-    onCancel={() => action('onCancel')}
+    onClose={() => action('onClose')}
     onSignUpButton={() => action('onSignUpButton')}
     // onForgotPassword={() => action('onForgotPasswordButton')}
   />
