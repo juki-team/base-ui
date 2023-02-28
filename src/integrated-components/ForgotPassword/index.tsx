@@ -1,12 +1,12 @@
 import { ContentResponseType, Status } from '@juki-team/commons';
 import React from 'react';
-import { useNotification } from '../../components';
+import { BasicModalProps, useNotification } from '../../components';
 import { settings } from '../../config';
 import { authorizedRequest, cleanRequest } from '../../services';
 import { ForgotPasswordModalComponent } from './ForgoPasswordModal';
 import { OnForgotPasswordType } from './types';
 
-export const ForgotPasswordModal = ({ onCancel }: { onCancel: () => void }) => {
+export const UserForgotPasswordModal = ({ onClose }: BasicModalProps) => {
   const { notifyResponse } = useNotification();
   const onForgotPassword: OnForgotPasswordType = async (email, setStatus) => {
     setStatus?.(Status.LOADING);
@@ -16,7 +16,7 @@ export const ForgotPasswordModal = ({ onCancel }: { onCancel: () => void }) => {
   };
   
   return (
-    <ForgotPasswordModalComponent onForgotPassword={onForgotPassword} onCancel={onCancel} />
+    <ForgotPasswordModalComponent onForgotPassword={onForgotPassword} onClose={onClose} />
   );
 };
 

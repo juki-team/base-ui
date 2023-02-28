@@ -4,14 +4,15 @@ import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks';
 import { ForgotPasswordModalProps } from './types';
 
-export const ForgotPasswordModalComponent = ({ onCancel, onForgotPassword }: ForgotPasswordModalProps) => {
+export const ForgotPasswordModalComponent = ({ onClose, onForgotPassword }: ForgotPasswordModalProps) => {
   
   const [email, setEmail] = useState('');
   const { viewPortSize } = useJukiUI();
+  
   return (
     <SplitModal
       isOpen={true}
-      onClose={onCancel}
+      onClose={onClose}
       className="modal-login"
       title={
         <>
@@ -26,11 +27,14 @@ export const ForgotPasswordModalComponent = ({ onCancel, onForgotPassword }: For
             enter your email, if the user exists, you will shortly receive an email with reset instructions
           </T>
         </div>
-        <label>
-          <Input name="email" value={email} onChange={(value) => setEmail(value)} type="email" extend />
-        </label>
+        <div className="jk-form-item">
+          <label>
+            <T>email</T>
+            <Input name="email" value={email} onChange={(value) => setEmail(value)} type="email" extend />
+          </label>
+        </div>
         <div className={classNames('jk-row gap right block', { nowrap: viewPortSize !== 'sm' })}>
-          <Button type="light" onClick={onCancel}><T>cancel</T></Button>
+          <Button type="light" onClick={onClose}><T>cancel</T></Button>
           <ButtonLoader
             type="primary"
             onClick={(setLoading) => onForgotPassword(email, setLoading!)}

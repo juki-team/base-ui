@@ -1,8 +1,7 @@
-import { SetLoaderStatusOnClickType } from '../../components';
+import { BasicModalProps, SetLoaderStatusOnClickType } from '../../components';
 
 export type OnForgotPasswordType = (email: string, setStatus: SetLoaderStatusOnClickType) => void;
 
-export interface ForgotPasswordModalProps {
-  onCancel: () => void,
+export interface ForgotPasswordModalProps extends BasicModalProps {
   onForgotPassword: OnForgotPasswordType,
 }

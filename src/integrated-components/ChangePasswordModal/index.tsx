@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { ButtonLoader, InputPassword, Modal, SetLoaderStatusOnClickType, T } from '../../components';
+import { BasicModalProps, ButtonLoader, InputPassword, Modal, SetLoaderStatusOnClickType, T } from '../../components';
 import { classNames } from '../../helpers';
 import { useJukiUI, useJukiUser } from '../../hooks';
 
@@ -25,7 +25,7 @@ const profileSettingsChangePasswordSchema = yup.object().shape({
     .oneOf([yup.ref('newPassword'), ''], 'both passwords must match'),
 });
 
-export const UserChangePasswordModal = ({ onClose }: { onClose: () => void, }) => {
+export const UserChangePasswordModal = ({ onClose }: BasicModalProps) => {
   const { register, handleSubmit, formState: { errors, isValid } } = useForm<ProfileChangePasswordInput>({
     resolver: yupResolver(profileSettingsChangePasswordSchema),
     mode: 'onChange',
