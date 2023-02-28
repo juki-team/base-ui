@@ -14,6 +14,7 @@ import {
 import React, { useCallback, useContext, useState } from 'react';
 import { T, useNotification, UserContext } from '../components';
 import { settings } from '../config';
+import { localStorageCrossDomains } from '../helpers';
 import { useMatchMutate } from '../hooks';
 import { LoginFormType } from '../integrated-components';
 import { authorizedRequest, AuthorizedRequestType, cleanRequest } from '../services';
@@ -70,7 +71,7 @@ export const useJukiUser = () => {
   const signIn = useCallback(async ({ body, onSuccess, ...props }: ApiBodyType<LoginFormType, PingResponseDTO>) => {
     const { url, ...options } = settings.getAPI().auth.signIn({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
-      localStorage.setItem(settings.TOKEN_NAME, response.content.user.sessionId);
+      localStorageCrossDomains.setItem(settings.TOKEN_NAME, response.content.user.sessionId);
       setUser({ ...response.content.user, isLogged: true });
       await refreshAllRequest();
       await onSuccess?.(response);
@@ -81,7 +82,7 @@ export const useJukiUser = () => {
   const signUp = useCallback(async ({ body, onSuccess, ...props }: ApiBodyType<SignUpPayloadDTO, PingResponseDTO>) => {
     const { url, ...options } = settings.getAPI().auth.signUp({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
-      localStorage.setItem(settings.TOKEN_NAME, response.content.user.sessionId);
+      localStorageCrossDomains.setItem(settings.TOKEN_NAME, response.content.user.sessionId);
       setUser({ ...response.content.user, isLogged: true });
       await refreshAllRequest();
       await onSuccess?.(response);
@@ -130,7 +131,7 @@ export const useJukiUser = () => {
     const { url, ...options } = settings.getAPI().auth.signOut();
     
     const onFinallyWrap = async (response: ErrorResponseType | ContentResponseType<string>) => {
-      localStorage.removeItem(settings.TOKEN_NAME);
+      localStorageCrossDomains.removeItem(settings.TOKEN_NAME);
       setUser(USER_GUEST);
       await refreshAllRequest();
       await onFinally?.(response);
@@ -216,7 +217,7 @@ export const useJukiUserToggleSetting = () => {
       });
     } else {
       for (const { key, value } of settingsToUpdate) {
-        localStorage.setItem(key, value + '');
+        localStorageCrossDomains.setItem(key, value + '');
       }
       setUser(prevState => ({ ...prevState, settings: newSettings }));
     }

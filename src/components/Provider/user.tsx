@@ -11,6 +11,7 @@ import {
   UserPingType,
 } from '@juki-team/commons';
 import React, { createContext, Dispatch, PropsWithChildren, SetStateAction, useEffect, useState } from 'react';
+import { localStorageCrossDomains } from '../../helpers';
 import { KeyedMutator } from 'swr';
 import { settings } from '../../config';
 import { useJukiUI } from '../../hooks';
@@ -68,7 +69,7 @@ const useUser = () => {
           },
         });
       }
-      localStorage.setItem(settings.TOKEN_NAME, data?.content.user.sessionId);
+      localStorageCrossDomains.setItem(settings.TOKEN_NAME, data?.content.user.sessionId);
     } else {
       setUser({
         ...USER_GUEST,
