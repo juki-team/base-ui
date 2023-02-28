@@ -1,8 +1,8 @@
 import { Status } from '@juki-team/commons';
 import React, { forwardRef, ReactElement, Ref, useEffect, useRef, useState } from 'react';
-import { useJukiUI } from '../../';
+import { LoadingIcon, useJukiUI } from '../../';
 import { classNames } from '../../helpers';
-import { CheckIcon, LoadingIcon, WarningIcon } from '../graphics';
+import { CheckIcon, WarningIcon } from '../graphics';
 import { ButtonLoaderProps, ButtonProps } from './types';
 
 const sizeViewPorts = {
@@ -29,6 +29,7 @@ const ButtonComponent = ({
   disabled = false,
   responsive = false,
   responsiveMobile = false,
+  withIconTransition = false,
   ...restProps
 }: ButtonProps, ref: Ref<HTMLButtonElement>) => {
   const { viewPortSize } = useJukiUI();
@@ -47,7 +48,7 @@ const ButtonComponent = ({
         icon: !!(icon || loading),
         loading,
       })}
-      onClick={!disabled ? (event => onClick?.({ onClickEvent: event })) : undefined}
+      onClick={(!disabled && !loading) ? (event => onClick?.({ onClickEvent: event })) : undefined}
       onKeyDown={event => {
         if (event.code === 'Enter' && onClick && !disabled) {
           event.preventDefault();
@@ -57,7 +58,7 @@ const ButtonComponent = ({
       }}
       {...restProps}
     >
-      {loading ? <LoadingIcon /> : icon}
+      {withIconTransition ? (loading ? <LoadingIcon /> : icon) : icon}
       {hasChildren && <span className="button-label">{children}</span>}
     </button>
   );
@@ -73,6 +74,7 @@ export const ButtonLoader = ({
   children,
   icon,
   setLoaderStatusRef,
+  withIconTransition = false,
   ...restProps
 }: ButtonLoaderProps) => {
   
@@ -100,14 +102,16 @@ export const ButtonLoader = ({
     };
   }, [loader]);
   
-  const renderIcon = loader[0] === Status.ERROR ? <WarningIcon /> : loader[0] === Status.SUCCESS ? <CheckIcon /> : icon;
+  const renderIcon = withIconTransition
+    ? (loader[0] === Status.ERROR ? <WarningIcon /> : loader[0] === Status.SUCCESS ? <CheckIcon /> : icon)
+    : icon;
   
   return (
     <Button
       className={classNames(className, {
         success: loader[0] === Status.SUCCESS,
         error: loader[0] === Status.ERROR,
-        'pad-icon': !renderIcon && loader[0] !== Status.LOADING,
+        'pad-icon': withIconTransition ? (!renderIcon && loader[0] !== Status.LOADING) : false,
       })}
       onClick={event => onClick?.((status, timestamp) => {
         if (typeof status === 'function') {
@@ -118,6 +122,7 @@ export const ButtonLoader = ({
       }, loader, event)}
       loading={loader[0] === Status.LOADING}
       icon={renderIcon}
+      withIconTransition={withIconTransition}
       {...restProps}
     >
       {children}

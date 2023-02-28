@@ -1,7 +1,7 @@
 import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
 import React, { useEffect } from 'react';
 import { KeyedMutator, SWRConfiguration } from 'swr';
-import { LoadingIcon, useNotification } from '../../components';
+import { LoadingIcon, useNotification } from '../';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useFetcher } from '../../hooks';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';

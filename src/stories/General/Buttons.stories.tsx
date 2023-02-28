@@ -2,8 +2,8 @@ import { Status } from '@juki-team/commons';
 import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { JukiProvider } from '../JukiProvider';
 import { Button, ButtonLoader, ButtonProps, EyeInvisibleIcon, NotificationProvider } from '../../index';
+import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
@@ -85,6 +85,7 @@ const Comp = (args: ButtonProps) => {
     </JukiProvider>
   );
 };
+
 const Template: Story<ButtonProps> = (args) => {
   return (
     <NotificationProvider>

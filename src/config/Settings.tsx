@@ -97,6 +97,10 @@ export class Settings {
         })),
       },
       user: {
+        summary: valid<{ params: { nickname: string } }>(({ params: { nickname } }) => ({
+          url: injectBaseUrl('user', `/nickname/${nickname}/summary`),
+          method: HTTPMethod.GET,
+        })),
         updateProfileData: valid<{ params: { nickname: string }, body: UpdateUserProfileDataPayloadDTO }>(({
           params: { nickname },
           body,

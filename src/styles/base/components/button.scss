@@ -1,8 +1,17 @@
 @import "../../abstracts/index";
 
+%full-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
 button[class*=" jk-button-"], button[class^="jk-button-"],
 input[class*=" jk-button-"], input[class^="jk-button-"],
 div[class*=" jk-button-"], div[class^="jk-button-"] {
+  --button-border-width: 0px;
   height: auto;
   text-transform: uppercase;
   position: relative;
@@ -11,8 +20,10 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   align-items: center;
   justify-content: space-between;
   outline: none;
+  border: var(--button-border-width) solid transparent;
   
   .button-label {
+    z-index: 1;
     flex: 1;
   }
   
@@ -96,13 +107,23 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   }
   
   &.loading {
-    cursor: not-allowed;
-    pointer-events: none;
+    cursor: initial;
+    
+    &:after {
+      top: 0;
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 100%;
+      animation: roundGoing 800ms linear infinite;
+      background-color: var(--t-color-shadow-light);
+    }
   }
   
   &.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+    opacity: 0.8;
+    cursor: initial;
+    //cursor: not-allowed;
   }
   
   &.extend {
@@ -121,14 +142,88 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     pointer-events: none;
   }
   
+  overflow: hidden;
+  
+  &:not(.loading), &.jk-button-outline {
+    &:before {
+      @extend .jk-border-radius-inline;
+      top: 0;
+      left: 0;
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 100%;
+      background-color: var(--t-color-shadow-light);
+    }
+  }
+  
+  @keyframes going {
+    0% {
+      left: 0;
+      width: 0%;
+    }
+    20% {
+      left: 0;
+      width: 20%;
+    }
+    80% {
+      left: 80%;
+      width: 20%;
+    }
+    100% {
+      left: 100%;
+      width: 0%;
+    }
+  }
+  
+  @keyframes roundGoing {
+    0% {
+      left: 0;
+      width: 0%;
+    }
+    50% {
+      left: 0;
+      width: 100%;
+    }
+    100% {
+      left: 100%;
+      width: 0%;
+    }
+  }
+  
+  @keyframes roundTrip {
+    0% {
+      left: 0;
+      width: 0%;
+    }
+    25% {
+      left: 0;
+      width: 100%;
+    }
+    50% {
+      left: 100%;
+      width: 0%;
+    }
+    75% {
+      left: 0;
+      width: 100%;
+    }
+    100% {
+      left: 0;
+      width: 0%;
+    }
+  }
+  
   &:not(.disabled):hover {
-    @extend .elevation-2;
+    &:before {
+      width: 100%;
+      @include transition-fast(width);
+    }
   }
 }
 
 .jk-button-primary {
   @extend .appearance-primary;
-  border: 2px solid transparent;
   
   &:not(.disabled):hover {
     //background-color: rgba(var(--t-color-primary-rgb), 0.90);
@@ -143,7 +238,6 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
 
 .jk-button-secondary {
   background-color: var(--t-color-secondary);
-  border: 2px solid transparent;
   color: var(--t-color-secondary-text);
   
   &:not(.disabled):hover {
@@ -159,7 +253,6 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
 
 .jk-button-text {
   background-color: transparent;
-  border: 2px solid transparent;
   color: inherit;
   
   &:not(.disabled):hover, &:not(.disabled):focus {
@@ -176,13 +269,25 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   }
   
   &:hover {
-    box-shadow: none !important;
+    //box-shadow: none !important;
   }
 }
 
 .jk-button-outline {
   background-color: transparent;
-  border: 1px solid var(--t-color-primary);
+  outline: 1px solid var(--t-color-primary) !important;
   color: var(--t-color-primary);
   font-weight: var(--weight-bolder) !important;
+  
+  &:not(.disabled):hover {
+    color: var(--t-color-primary-text);
+    
+    &:before {
+      background-color: var(--t-color-primary) !important;
+    }
+  }
+}
+
+.jk-button-light {
+  background-color: var(--t-color-shadow-lightest);
 }

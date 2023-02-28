@@ -13,6 +13,7 @@ export * from './FloatToolbar';
 export * from './ImageLoaderCropper';
 export * from './ImageUploader';
 export * from './Input';
+export * from './Layouts';
 export * from './LineLoader';
 export * from './Loader';
 export * from './MdMathEditor';

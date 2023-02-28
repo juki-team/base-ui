@@ -1,21 +1,26 @@
 import {
   ContentResponseType,
+  DataViewMode,
   ErrorResponseType,
+  Language,
+  MenuViewMode,
   PingResponseDTO,
+  ProfileSetting,
   Status,
+  Theme,
   USER_GUEST,
   UserSettingsType,
 } from '@juki-team/commons';
-import React, { useCallback, useContext } from 'react';
-import { SetLoaderStatusOnClickType, T, useNotification, UserContext } from '../components';
+import React, { useCallback, useContext, useState } from 'react';
+import { T, useNotification, UserContext } from '../components';
 import { settings } from '../config';
 import { useMatchMutate } from '../hooks';
 import { LoginFormType } from '../integrated-components';
 import { authorizedRequest, AuthorizedRequestType, cleanRequest } from '../services';
-import { SignUpPayloadDTO, UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';
+import { SetStatusType, SignUpPayloadDTO, UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';
 
 type ApiType<T> = {
-  setLoader?: SetLoaderStatusOnClickType,
+  setLoader?: SetStatusType,
   onSuccess?: (response: ContentResponseType<T>) => void,
   onError?: (response: ErrorResponseType) => void
   onFinally?: (response: ContentResponseType<T> | ErrorResponseType) => void
@@ -171,5 +176,56 @@ export const useJukiUser = () => {
     resetUserPassword,
     deleteUserSession,
     updateUserPreferences,
+  };
+};
+
+export const useJukiUserToggleSetting = () => {
+  
+  const { updateUserPreferences, setUser, user: { isLogged, settings, nickname }, mutatePing } = useJukiUser();
+  const [loader, setLoader] = useState<Status>(Status.NONE);
+  const toggleSetting = async (settingsToUpdate: { key: ProfileSetting, value: string | boolean }[]) => {
+    const newSettings: UserSettingsType = { ...settings };
+    for (const { key, value } of settingsToUpdate) {
+      if (key === ProfileSetting.LANGUAGE) {
+        newSettings[ProfileSetting.LANGUAGE] = value as Language;
+      }
+      if (key === ProfileSetting.THEME) {
+        newSettings[ProfileSetting.THEME] = value as Theme;
+      }
+      if (key === ProfileSetting.DATA_VIEW_MODE) {
+        newSettings[ProfileSetting.DATA_VIEW_MODE] = value as DataViewMode;
+      }
+      if (key === ProfileSetting.MENU_VIEW_MODE) {
+        newSettings[ProfileSetting.MENU_VIEW_MODE] = value as MenuViewMode;
+      }
+      if (key === ProfileSetting.NEWSLETTER_SUBSCRIPTION) {
+        newSettings[ProfileSetting.NEWSLETTER_SUBSCRIPTION] = value as boolean;
+      }
+    }
+    
+    if (isLogged) {
+      await updateUserPreferences({
+        params: { nickname },
+        body: { ...newSettings },
+        setLoader,
+        onSuccess: async () => {
+          setLoader?.(Status.LOADING);
+          await mutatePing();
+          setLoader?.(Status.SUCCESS);
+        },
+      });
+    } else {
+      for (const { key, value } of settingsToUpdate) {
+        localStorage.setItem(key, value + '');
+      }
+      setUser(prevState => ({ ...prevState, settings: newSettings }));
+    }
+  };
+  const loading = loader === Status.LOADING;
+  
+  return {
+    ...settings,
+    loading,
+    toggleSetting,
   };
 };

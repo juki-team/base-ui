@@ -18,12 +18,12 @@ import {
 import { classNames } from '../../helpers';
 import { useJukiUserToggleSetting } from '../../hooks';
 
-interface ProfileSettingsProps {
+interface UserProfileSettingsProps {
   user: UserProfileResponseDTO,
   onClickUpdatePassword: () => void,
 }
 
-export function ProfileSettings({ user, onClickUpdatePassword }: ProfileSettingsProps) {
+export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfileSettingsProps) {
   
   const {
     loading,

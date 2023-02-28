@@ -107,8 +107,8 @@ export const LoginModalComponent = ({
                     <span className="link" onClick={onSignUpButton}><T>sign up now</T></span>
                   </p>
                 </div>
-                <div className={classNames('jk-row gap right stretch', { nowrap: viewPortSize !== 'sm' })}>
-                  <ButtonLoader type="outline" onClick={onCancel} extend={viewPortSize === 'sm'}>
+                <div className={classNames('jk-row gap block', { nowrap: viewPortSize !== 'sm' })}>
+                  <ButtonLoader type="light" onClick={onCancel}>
                     <T>cancel</T>
                   </ButtonLoader>
                   <ButtonLoader
@@ -116,7 +116,6 @@ export const LoginModalComponent = ({
                     disabled={!isValid}
                     setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
                     submit
-                    extend={viewPortSize === 'sm'}
                   >
                     <T>login</T>
                   </ButtonLoader>

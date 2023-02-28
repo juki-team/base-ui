@@ -145,7 +145,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   line-height: inherit;
   box-shadow: inset 0 0 0 1px var(--t-color-gray-5);
   background-color: var(--t-color-shadow-lightest);
-  @include transition(border-color, box-shadow);
+  @include transition-fast(border-color, box-shadow);
   
   &:hover, &:focus, &:active {
     box-shadow: inset 0 0 0 1px var(--t-color-gray-4);
@@ -461,7 +461,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   .jk-icon {
     position: absolute;
-    top: 4px;
+    top: 1px;
     right: var(--pad-xt);
     cursor: pointer;
   }
@@ -705,4 +705,21 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .date-literal.jk-col.nowrap {
   height: 58px;
+}
+
+.jk-select-layout {
+  &.jk-button-primary, &.jk-button-secondary {
+    > .jk-select {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      box-shadow: none;
+      background-color: transparent;
+      
+      > .input-icon {
+        position: relative;
+      }
+    }
+  }
 }

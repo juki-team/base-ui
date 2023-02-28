@@ -4,7 +4,12 @@ import { LocationOnIcon, MailIcon, SchoolIcon } from '../../components';
 import { classNames } from '../../helpers';
 import { ImageCmpProps } from '../types';
 
-export function UserProfileView({ user, ImageCmp }: { user: UserProfileResponseDTO, ImageCmp: React.FC<ImageCmpProps> }) {
+export interface UserProfileProps {
+  user: UserProfileResponseDTO,
+  ImageCmp: React.FC<ImageCmpProps>
+}
+
+export function UserProfile({ user, ImageCmp }: UserProfileProps) {
   
   return (
     <div className="jk-col gap">

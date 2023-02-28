@@ -47,7 +47,12 @@ const signUpSchema = yup.object().shape({
     .oneOf([yup.ref('password'), ''], 'both passwords must match'),
 });
 
-export const SignUpModalComponent = ({ onCancel, onSubmit, signUpWithGoogle, reactAppGoogleClientId }: SignUpModalComponentProps) => {
+export const SignUpModalComponent = ({
+  onCancel,
+  onSubmit,
+  signUpWithGoogle,
+  reactAppGoogleClientId,
+}: SignUpModalComponentProps) => {
   
   const { register, handleSubmit, formState: { errors, isValid }, control } = useForm<SignUpFormType>({
     resolver: yupResolver(signUpSchema),
@@ -88,7 +93,7 @@ export const SignUpModalComponent = ({ onCancel, onSubmit, signUpWithGoogle, rea
         )}
         <form onSubmit={handleSubmit((data: SignUpFormType) => onSubmit(data, setLoaderRef.current!))}>
           <div className="jk-col gap stretch">
-            <div className="jk-row block">
+            <div className="jk-row gap block">
               <div className="jk-form-item">
                 <label>
                   <T>first name</T>
@@ -150,8 +155,8 @@ export const SignUpModalComponent = ({ onCancel, onSubmit, signUpWithGoogle, rea
               />
               <p><T>{(!isValid && errors?.checkbox?.message) || ''}</T></p>
             </div>
-            <div className={classNames('jk-row gap right', { nowrap: viewPortSize !== 'sm' })}>
-              <ButtonLoader type="outline" onClick={onCancel} extend={viewPortSize === 'sm'}>
+            <div className={classNames('jk-row gap block', { nowrap: viewPortSize !== 'sm' })}>
+              <ButtonLoader type="light" onClick={onCancel}>
                 <T>cancel</T>
               </ButtonLoader>
               <ButtonLoader
@@ -159,7 +164,6 @@ export const SignUpModalComponent = ({ onCancel, onSubmit, signUpWithGoogle, rea
                 setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
                 disabled={!isValid}
                 submit
-                extend={viewPortSize === 'sm'}
               >
                 <T className="ws-np">sign up</T>
               </ButtonLoader>
