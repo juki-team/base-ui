@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { consoleWarn } from '@juki-team/commons';
+// import { consoleWarn } from '@juki-team/commons';
 import React, { useRef } from 'react';
-import GoogleLogin from 'react-google-login';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import {
@@ -13,7 +12,7 @@ import {
   SetLoaderStatusOnClickType,
   SplitModal,
   T,
-  useT,
+  // useT,
 } from '../../components';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX, LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX } from '../../constants';
 import { classNames } from '../../helpers';
@@ -59,9 +58,9 @@ export const SignUpModalComponent = ({
     mode: 'all',
     reValidateMode: 'onBlur',
   });
-  const refSetLoading = useRef<SetLoaderStatusOnClickType>();
+  // const refSetLoading = useRef<SetLoaderStatusOnClickType>();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
-  const { t } = useT();
+  // const { t } = useT();
   const { viewPortSize } = useJukiUI();
   
   return (
@@ -80,14 +79,14 @@ export const SignUpModalComponent = ({
       <div className="jk-col stretch">
         {signUpWithGoogle && reactAppGoogleClientId && (
           <>
-            <GoogleLogin
-              clientId={reactAppGoogleClientId}
-              onSuccess={signUpWithGoogle(refSetLoading.current)}
-              onFailure={(err) => consoleWarn({ message: 'FAILURE GOOGLE LOGIN', err })}
-              cookiePolicy="single_host_origin"
-              buttonText={t('sign up with Google')}
-              className="google-button"
-            />
+            {/*<GoogleLogin*/}
+            {/*  clientId={reactAppGoogleClientId}*/}
+            {/*  onSuccess={signUpWithGoogle(refSetLoading.current)}*/}
+            {/*  onFailure={(err) => consoleWarn({ message: 'FAILURE GOOGLE LOGIN', err })}*/}
+            {/*  cookiePolicy="single_host_origin"*/}
+            {/*  buttonText={t('sign up with Google')}*/}
+            {/*  className="google-button"*/}
+            {/*/>*/}
             <div className="jk-divider"><T>or</T></div>
           </>
         )}

@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { consoleWarn } from '@juki-team/commons';
+// import { consoleWarn } from '@juki-team/commons';
 import React, { useRef, useState } from 'react';
-import GoogleLogin from 'react-google-login';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import {
@@ -12,7 +11,7 @@ import {
   SetLoaderStatusOnClickType,
   SplitModal,
   T,
-  useT,
+  // useT,
 } from '../../components';
 import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks';
@@ -41,7 +40,7 @@ export const LoginModalComponent = ({
     reValidateMode: 'onBlur',
   });
   
-  const { t } = useT();
+  // const { t } = useT();
   const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState(false);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   const { viewPortSize } = useJukiUI();
@@ -68,14 +67,14 @@ export const LoginModalComponent = ({
         <div className="jk-col stretch">
           {loginWithGoogle && reactAppGoogleClientId && (
             <>
-              <GoogleLogin
-                clientId={reactAppGoogleClientId}
-                onSuccess={loginWithGoogle(setLoaderRef.current)}
-                onFailure={(err) => consoleWarn({ message: 'FAILURE GOOGLE LOGIN', err })}
-                cookiePolicy="single_host_origin"
-                buttonText={t('login with Google')}
-                className="google-button"
-              />
+              {/*<GoogleLogin*/}
+              {/*  clientId={reactAppGoogleClientId}*/}
+              {/*  onSuccess={loginWithGoogle(setLoaderRef.current)}*/}
+              {/*  onFailure={(err) => consoleWarn({ message: 'FAILURE GOOGLE LOGIN', err })}*/}
+              {/*  cookiePolicy="single_host_origin"*/}
+              {/*  buttonText={t('login with Google')}*/}
+              {/*  className="google-button"*/}
+              {/*/>*/}
               <div className="jk-divider"><T>or</T></div>
             </>
           )}
