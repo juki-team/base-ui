@@ -66,12 +66,7 @@ export const DrawerViewMenuMobile = ({ ImageCmp, onClose, menu, logoImageUrl }: 
                 </div>
               );
               return renderReactNodeOrFunctionP1(menuItemWrapper, {
-                children: menuItem,
-                selected,
-                icon,
-                label,
-                index,
-                onCloseDrawerMenuMobile: onClose,
+                children: menuItem, selected, icon, label, index,
               });
             }))}
           </div>
