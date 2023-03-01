@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "0.0.364",
+  "version": "0.0.366",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -29,7 +29,6 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
-    "react-google-login": "^5.2.2",
     "react-hook-form": "^7.43.2",
     "react-i18next": "^12.1.1",
     "react-image-crop": "^10.0.7",
