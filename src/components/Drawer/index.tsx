@@ -40,10 +40,15 @@ export const Drawer = ({
         onClose={onClose}
         closeIcon={closeIcon}
       >
-        {renderReactNodeOrFunctionP1(content, { isOpen, open, close, toggle })}
+        {renderReactNodeOrFunctionP1(content, { isOpen, onOpen: open, onClose: close, toggle })}
       </DrawerView>
       {typeof children === 'function' ?
-        renderChildrenWithProps(children({ isOpen, open, close, toggle }), childProps(children({ isOpen, open, close, toggle }))) :
+        renderChildrenWithProps(children({ isOpen, onOpen: open, onClose: close, toggle }), childProps(children({
+          isOpen,
+          onOpen: open,
+          onClose: close,
+          toggle,
+        }))) :
         renderChildrenWithProps(children, childProps(children))}
     </>
   );

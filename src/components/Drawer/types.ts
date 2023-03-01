@@ -10,7 +10,7 @@ export interface DrawerViewProps {
   closeIcon?: ReactNodeOrFunctionP1Type<{ isOpen: boolean, close: () => void }>,
 }
 
-export type DrawerActionsType = { isOpen: boolean, open: () => void, close: () => void, toggle: () => void };
+export type DrawerActionsType = { isOpen: boolean, onOpen: () => void, onClose: () => void, toggle: () => void };
 
 export interface DrawerProps {
   content: ReactNodeOrFunctionP1Type<DrawerActionsType>,

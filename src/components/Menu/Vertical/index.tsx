@@ -20,22 +20,30 @@ export const VerticalMenu = ({
   
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
+    const { selected, icon, label, onClick, menuItemWrapper } = menu[i];
     const menuItem = (
       <div
         className={classNames('jk-menu-item', {
           'selected-up': menu[i - 1]?.selected,
           'selected-down': menu[i + 1]?.selected,
-          selected: menu[i].selected,
+          selected: selected,
         })}
-        onClick={() => menu[i].onClick?.(open)}
+        onClick={() => onClick?.(open)}
         key={i}
       >
-        <div className="jk-menu-item-icon">{renderReactNodeOrFunction(menu[i].icon)}</div>
-        <div className="jk-menu-item-label">{renderReactNodeOrFunction(menu[i].label)}</div>
+        <div className="jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>
+        <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
       </div>
     );
-    if (menu[i].menuItemWrapper) {
-      menus.push(renderReactNodeOrFunctionP1(menu[i].menuItemWrapper, menuItem));
+    if (menuItemWrapper) {
+      menus.push(renderReactNodeOrFunctionP1(menuItemWrapper, {
+        selected,
+        icon,
+        label,
+        onClick,
+        children: menuItem,
+        index: i,
+      }));
     } else {
       menus.push(menuItem);
     }

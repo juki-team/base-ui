@@ -52,20 +52,27 @@ export const DrawerViewMenuMobile = ({ ImageCmp, onClose, menu, logoImageUrl }: 
       ) : (
         <>
           <div className="jk-menu-items jk-col gap stretch top pad-left-right pad-top-bottom flex-1">
-            {Children.toArray(menu.map((menu, index) => {
+            {Children.toArray(menu.map(({ selected, icon, label, menuItemWrapper }, index) => {
               const menuItem = (
                 <div
                   className={classNames('jk-menu-item jk-row extend gap nowrap left jk-border-radius-inline', {
-                    selected: menu.selected,
+                    selected: selected,
                   })}
                   key={index}
                   onClick={onClose}
                 >
-                  {menu.icon && <div className="">{renderReactNodeOrFunction(menu.icon)}</div>}
-                  <div className="jk-menu-item-label">{renderReactNodeOrFunction(menu.label)}</div>
+                  {icon && <div>{renderReactNodeOrFunction(icon)}</div>}
+                  <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
                 </div>
               );
-              return renderReactNodeOrFunctionP1(menu.menuItemWrapper, menuItem);
+              return renderReactNodeOrFunctionP1(menuItemWrapper, {
+                children: menuItem,
+                selected,
+                icon,
+                label,
+                index,
+                onCloseDrawerMenuMobile: onClose,
+              });
             }))}
           </div>
           <div className="jk-divider pad-left-right" style={{ boxSizing: 'border-box' }} />

@@ -17,22 +17,30 @@ export const HorizontalMenu = ({
     
     const menus = [];
     for (let i = 0; i < menu.length; i++) {
+      const { selected, icon, label, onClick, menuItemWrapper } = menu[i];
       const menuItem = (
         <div
           className={classNames('jk-menu-item jk-row gap nowrap', {
             'selected-up': menu[i - 1]?.selected,
             'selected-down': menu[i + 1]?.selected,
-            selected: menu[i].selected,
+            selected: selected,
           })}
-          onClick={() => menu[i].onClick?.()}
+          onClick={() => onClick?.()}
           key={i}
         >
-          {menu[i].icon && <div className="jk-menu-item-icon">{renderReactNodeOrFunction(menu[i].icon)}</div>}
-          <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(menu[i].label)}</div>
+          {icon && <div className="jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>}
+          <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(label)}</div>
         </div>
       );
-      if (menu[i].menuItemWrapper) {
-        menus.push(renderReactNodeOrFunctionP1(menu[i].menuItemWrapper, menuItem));
+      if (menuItemWrapper) {
+        menus.push(renderReactNodeOrFunctionP1(menuItemWrapper, {
+          selected,
+          icon,
+          label,
+          onClick,
+          children: menuItem,
+          index: i,
+        }));
       } else {
         menus.push(menuItem);
       }
@@ -63,10 +71,10 @@ export const HorizontalMenu = ({
                     triggerOn={NONE}
                     closeOnOutside
                   >
-                    {({ isOpen, open }) => {
+                    {({ isOpen, onOpen }) => {
                       return (
                         <div>
-                          <Button size="small" onClick={open}>
+                          <Button size="small" onClick={onOpen}>
                             <div className="jk-row nowrap"><T>menu</T>{isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}</div>
                           </Button>
                         </div>

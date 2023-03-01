@@ -80,7 +80,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
 
 const rightMobile = {
   children: <div className="cr-we"><HeadlineIcon_ /></div>,
-  content: ({ close }: DrawerActionsType) => (
+  content: ({ onClose }: DrawerActionsType) => (
     <div className="jk-col gap more-apps-popover">
       <div className="fw-bd tt-se"><T>more apps coming soon</T></div>
       <div className="jk-col gap cr-py" style={{ width: '100px' }}>
@@ -90,7 +90,7 @@ const rightMobile = {
         <div className="jk-row">
           <JukiUtilsLogoHorImage /> <ConstructionIcon /> <T className="tt-se">developing</T>...
         </div>
-        <div onClick={close}>close right!</div>
+        <div onClick={onClose}>close right!</div>
       </div>
     </div>
   ),
@@ -98,7 +98,7 @@ const rightMobile = {
 
 const centerMobile = {
   children: <div className="cr-we"><JukiJudgeLogoHorImage /></div>,
-  content: ({ close }: DrawerActionsType) => <div>TOP MENU <div onClick={close}>close top!</div></div>,
+  content: ({ onClose }: DrawerActionsType) => <div>TOP MENU <div onClick={onClose}>close top!</div></div>,
 };
 
 const drawerMenuMobile = <div>Rest of Menu</div>;
@@ -128,7 +128,9 @@ const menuHorizontal = [
     label: 'contests',
     selected: false,
     onClick: () => action('/contests'),
-    menuItemWrapper: (children: ReactNode) => <div className="test-children" key="test-contest">{children}</div>,
+    menuItemWrapper: ({ children }: { children: ReactNode }) => (
+      <div className="test-children" key="test-contest">{children}</div>
+    ),
   },
   { label: 'problems', selected: true, onClick: () => action('/problems') },
   { label: 'admin', icon: <FilterIcon_ />, selected: true, onClick: () => action('/admin') },
