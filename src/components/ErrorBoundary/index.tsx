@@ -1,9 +1,11 @@
-import { Button, HelpSection } from 'components';
-import { settings } from 'config';
-import { JUDGE_API_V1 } from 'config/constants';
-import { authorizedRequest, cleanRequest, consoleWarn } from 'helpers';
+import { ContentsResponseType } from '@juki-team/commons';
 import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { ContentsResponseType, HTTPMethod } from 'types';
+import { Button } from '../';
+import { settings } from '../../config';
+
+import { consoleWarn } from '../../helpers';
+import { HelpSection } from '../../integrated-components';
+import { authorizedRequest, cleanRequest } from '../../services';
 
 export class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
   constructor(props: { children: ReactNode }) {
@@ -22,12 +24,11 @@ export class ErrorBoundary extends Component<{ children: ReactNode }, { hasError
   async componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // You can use your own error logging service here
     const token = localStorage.getItem(settings.TOKEN_NAME) || '';
+    const location = window?.location;
     try {
+      const { url, ...options } = settings.getAPI().log({ body: { error, errorInfo, location, token } });
       const response = cleanRequest<ContentsResponseType<{}>>(
-        await authorizedRequest(JUDGE_API_V1.LOG.ERROR(), {
-          method: HTTPMethod.POST,
-          body: JSON.stringify({ error, errorInfo, location, token }),
-        }));
+        await authorizedRequest(url, options));
       if (response.success) {
         consoleWarn('Error reported');
       } else {

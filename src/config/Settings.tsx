@@ -1,4 +1,5 @@
 import { consoleWarn, HTTPMethod, ProgrammingLanguage, UserSettingsType } from '@juki-team/commons';
+import { ErrorInfo } from 'react';
 import { LoginFormType } from '../integrated-components';
 import { AuthorizedRequestType } from '../services';
 import { SignUpPayloadDTO, UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';
@@ -96,6 +97,11 @@ export class Settings {
           method: HTTPMethod.POST,
         })),
       },
+      log: valid<{ body: { error: Error, errorInfo: ErrorInfo, location: Location, token: string } }>(({ body }) => ({
+        url: injectBaseUrl('log', `/error`),
+        method: HTTPMethod.POST,
+        body: JSON.stringify(body),
+      })),
       user: {
         summary: valid<{ params: { nickname: string } }>(({ params: { nickname } }) => ({
           url: injectBaseUrl('user', `/nickname/${nickname}/summary`),

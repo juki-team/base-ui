@@ -9,6 +9,7 @@ export * from './CopyToClipboard';
 export * from './DataViewer';
 export * from './DatePicker';
 export * from './Drawer';
+export * from './ErrorBoundary';
 export * from './FloatToolbar';
 export * from './ImageLoaderCropper';
 export * from './ImageUploader';
