@@ -18,7 +18,7 @@
     "@codemirror/lang-markdown": "^6.0.5",
     "@codemirror/lang-python": "^6.1.0",
     "@hookform/resolvers": "^2.8.8",
-    "@juki-team/commons": "^0.0.252",
+    "@juki-team/commons": "^0.0.268",
     "@monaco-editor/react": "^4.4.2",
     "@tanstack/react-virtual": "^3.0.0-beta.30",
     "@uiw/react-codemirror": "^4.19.3",
@@ -51,7 +51,8 @@
     "rollup:build": "rollup -c",
     "pull": "yarn add @juki-team/commons",
     "build": "rm -rf docs && yarn storybook:build && rm -rf dist && yarn rollup:build",
-    "push": "yarn build && yarn publish --patch && git add . && node -p \"require('./package.json').version\" | git commit -F - ; git push origin main && node -p \"require('./package.json').version\" && git push origin --tags"
+    "git-push": "f() { message=${1}; echo $message; git add .; echo $message | git commit -F -; yarn publish --patch --no-git-tag-version; version=\"v$(node -p \"require('./package.json').version\")\"; git add .; echo $version | git commit -F -; git push origin main; echo $version | git tag -a $(echo $version) -F -; git push origin --tags; }; f",
+    "push": "f() { yarn build; yarn git-push \"${1}\"; }; f"
   },
   "eslintConfig": {
     "extends": [
