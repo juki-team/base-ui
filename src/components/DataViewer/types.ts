@@ -177,7 +177,7 @@ export type TableHeadersType<T> = {
 
 export type TableHeadersWithWidthType<T> = TableHeadersType<T> & { width: number };
 type RowsType = { height?: number };
-type CardsType = { height?: number, width?: number };
+type CardsType = { height?: number, width?: number, expanded?: boolean };
 
 type PaginationDataType = {
   pagination?: DataViewerPaginationType,

@@ -3,6 +3,8 @@ import React, { useCallback, useRef } from 'react';
 import { DataViewerCard } from './DataViewerCard';
 import { CardRowVirtualizerFixedProps } from './types';
 
+const gap = 16;
+
 export const CardRowVirtualizerFixed = <T, >({
   headers,
   data,
@@ -10,10 +12,11 @@ export const CardRowVirtualizerFixed = <T, >({
   cardWidth,
   rowWidth,
   getRecordStyle, recordHoveredIndex, setRecordHoveredIndex, onRecordClick, getRecordClassName,
+  expandedCards,
 }: CardRowVirtualizerFixedProps<T>) => {
   
   const parentRef = useRef<HTMLDivElement>(null);
-  const cardsByRow = Math.floor(rowWidth / (cardWidth + 20));
+  const cardsByRow = Math.max(Math.floor((rowWidth - gap) / (cardWidth + gap)), 1);
   
   const rowVirtualizer = useVirtualizer({
     count: Math.ceil(data.length / cardsByRow),
@@ -21,6 +24,11 @@ export const CardRowVirtualizerFixed = <T, >({
     estimateSize: useCallback(() => cardHeight + 40, [cardHeight]),
     overscan: 5,
   });
+  
+  let finalWidth = Math.min(cardWidth, rowWidth - gap - gap);
+  if (expandedCards) {
+    finalWidth = (rowWidth - ((cardsByRow + 1) * gap)) / cardsByRow;
+  }
   
   return (
     <div ref={parentRef} className="jk-list-card-rows-container">
@@ -41,7 +49,7 @@ export const CardRowVirtualizerFixed = <T, >({
                 <DataViewerCard
                   key={virtualRow.index * cardsByRow + index}
                   fake={virtualRow.index * cardsByRow + index >= data.length}
-                  cardWidth={cardWidth}
+                  cardWidth={finalWidth}
                   headers={headers}
                   data={data}
                   index={cardIndex}

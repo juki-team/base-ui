@@ -32,4 +32,5 @@ export interface CardRowVirtualizerFixedProps<T> {
   onRecordClick?: OnRecordClickType<T>,
   setRecordHoveredIndex: SetRecordHoveredIndexType,
   recordHoveredIndex: RecordHoveredIndexType,
+  expandedCards: boolean,
 }

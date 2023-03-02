@@ -26,7 +26,11 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   
   const {
     viewPortSize,
-    cards: { height: cardHeight = 300, width: cardWidth = 256 } = { height: 300, width: 256 },
+    cards: { height: cardHeight = 300, width: cardWidth = 256, expanded: cardExpanded = false } = {
+      height: 300,
+      width: 256,
+      expanded: false,
+    },
     cardsView,
     data,
     extraNodes: _extraNodes,
@@ -163,6 +167,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
                 getRecordClassName={getRecordClassName}
                 getRecordStyle={getRecordStyle}
                 onRecordClick={onRecordClick}
+                expandedCards={cardExpanded}
               />
             </LoaderLayer>
           </div>
