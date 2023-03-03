@@ -1,7 +1,6 @@
 import { stringToArrayBuffer } from '@juki-team/commons';
 import { Children, cloneElement, ReactNode } from 'react';
 import { utils, write } from 'xlsx';
-import { SearchParamsObjectType } from '../components';
 import { settings } from '../config';
 import { publishNote } from '../helpers/utils';
 import { authorizedRequest } from '../services';
@@ -118,17 +117,6 @@ export const renderReactNodeOrFunction = (content: ReactNodeOrFunctionType) => {
 
 export const renderReactNodeOrFunctionP1 = <T, >(content: ReactNodeOrFunctionP1Type<T>, prop1: T) => {
   return typeof content === 'function' ? content(prop1) : content;
-};
-
-export const getSearchParamsObject = (searchParams: URLSearchParams) => {
-  const searchParamsObject: SearchParamsObjectType = {};
-  searchParams.forEach((value, key) => {
-    if (!searchParamsObject[key]) {
-      searchParamsObject[key] = [];
-    }
-    searchParamsObject[key].push(value);
-  });
-  return searchParamsObject;
 };
 
 type classType = string | { [key: string]: boolean };

@@ -1,18 +1,19 @@
-import React, { Children, FC, useState } from 'react';
-import { HelpSection, ImageCmpProps } from '../';
+import React, { Children, useState } from 'react';
+import { HelpSection } from '../';
 import { ArrowBackIcon, CloseIcon, MenuType, T } from '../../components';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
-import { useJukiUser } from '../../hooks';
+import { useJukiUI, useJukiUser } from '../../hooks';
 import { SettingsSection } from '../SettingsSection';
 
 export interface DrawerViewMenuMobileProps {
-  ImageCmp: FC<ImageCmpProps>,
   onClose: () => void,
   menu: MenuType[],
   logoImageUrl: string,
 }
 
-export const DrawerViewMenuMobile = ({ ImageCmp, onClose, menu, logoImageUrl }: DrawerViewMenuMobileProps) => {
+export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl }: DrawerViewMenuMobileProps) => {
+  
+  const { components: { Image } } = useJukiUI();
   
   const { company: { name } } = useJukiUser();
   const [helpOpen, setHelpOpen] = useState(false);
@@ -36,7 +37,7 @@ export const DrawerViewMenuMobile = ({ ImageCmp, onClose, menu, logoImageUrl }: 
           {helpOpen ? (
             <div className="jk-row extend left"><T className="tt-se">help</T></div>
           ) : (
-            <ImageCmp
+            <Image
               src={logoImageUrl}
               alt={name}
               height={45}
@@ -74,7 +75,6 @@ export const DrawerViewMenuMobile = ({ ImageCmp, onClose, menu, logoImageUrl }: 
           <div className="jk-row extend block">
             <div className="jk-col gap pad-left-right pad-top-bottom">
               <SettingsSection
-                ImageCmp={ImageCmp}
                 isOpen
                 isMobile={true}
                 helpOpen={helpOpen}

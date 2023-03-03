@@ -1,6 +1,5 @@
 import { Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import {
   ButtonLoader,
   DataViewer,
@@ -14,7 +13,6 @@ import {
   FilterDateAutoOfflineType,
   FilterDateRangeAutoOfflineType,
   FilterSelectAutoOfflineType,
-  getSearchParamsObject,
   Popover,
   ReloadIcon,
   Select as SelectComponent,
@@ -226,13 +224,12 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
     setLoaderStatus(Status.SUCCESS);
   }, []);
   console.info({ columns2, columns, request });
-  const [searchParams, setSearchParams] = useSearchParams();
   
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px', background: 'lightgray' }}>
       <DataViewer<UserTable>
         cards={{ expanded: true }}
-        headers={columns2}
+        headers={columns}
         data={data}
         // rows={{ height: 150 }}
         request={request}
@@ -252,8 +249,6 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
             <T>download</T>
           </ButtonLoader>,
         ]}
-        searchParamsObject={getSearchParamsObject(searchParams)}
-        setSearchParamsObject={setSearchParams}
         pagination={{ pageSizeOptions: [5, 10, 15, 20], total: data.length }}
         getRecordClassName={({ index }) => index + ''}
         getRecordStyle={({ index }) => ({ zIndex: index })}

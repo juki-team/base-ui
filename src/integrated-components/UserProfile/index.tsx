@@ -1,21 +1,21 @@
 import { JUDGE, UserProfileResponseDTO } from '@juki-team/commons';
-import React, { FC } from 'react';
+import React from 'react';
 import { LocationOnIcon, MailIcon, SchoolIcon } from '../../components';
 import { classNames } from '../../helpers';
-import { ImageCmpProps } from '../types';
+import { useJukiUI } from '../../hooks';
 
 export interface UserProfileProps {
   user: UserProfileResponseDTO,
-  ImageCmp: FC<ImageCmpProps>
 }
 
-export function UserProfile({ user, ImageCmp }: UserProfileProps) {
+export function UserProfile({ user }: UserProfileProps) {
+  const { components: { Image } } = useJukiUI();
   
   return (
     <div className="jk-col gap">
       <div className="user-profile jk-row stretch center gap pn-re">
         <div className="jk-col top jk-pad-md">
-          <ImageCmp
+          <Image
             src={user?.imageUrl}
             className="jk-user-profile-img elevation-1 bc-we"
             alt={user?.nickname as string}
@@ -48,7 +48,7 @@ export function UserProfile({ user, ImageCmp }: UserProfileProps) {
                 <div key={judge}>
                   <div className="jk-col left gap block stretch">
                     <div className="jk-row gap">
-                      <ImageCmp
+                      <Image
                         src={JUDGE[judge]?.logo}
                         alt={judge}
                         height={(64 / JUDGE[judge]?.logoSize[0]) * JUDGE[judge]?.logoSize[1]}

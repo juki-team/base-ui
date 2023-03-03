@@ -6,7 +6,6 @@ import {
   ChangePasswordModal as UserChangePasswordModalCmp,
   DrawerViewMenuMobile as DrawerViewMenuMobileCmp,
   ForgotPasswordModal as UserForgotPasswordModalCmp,
-  ImageCmpProps,
   ProblemSelector as ProblemSelectorComponent,
   UserPreviewModal as UserPreviewModalCmp,
   UserProfileSettings as UserProfileSettingsCmp,
@@ -33,10 +32,6 @@ export const ProblemSelector = () => {
   );
 };
 
-const Image = ({ src, className, alt, style, width, height }: ImageCmpProps) => {
-  return <img src={src} className={className} alt={alt} width={width} height={height} style={{ ...style, width, height }} />;
-};
-
 export const UserPreviewModal = () => {
   
   const [open, setOpen] = useState(false);
@@ -45,7 +40,7 @@ export const UserPreviewModal = () => {
     <JukiProvider>
       <div className="jk-pad-lg">
         {open && (
-          <UserPreviewModalCmp ImageCmp={Image} userHref={'#'} onClose={() => setOpen(false)} nickname="OscarGauss" />
+          <UserPreviewModalCmp userHref={'#'} onClose={() => setOpen(false)} nickname="OscarGauss" />
         )}
         <Button onClick={() => setOpen(true)}>open</Button>
         <ToggleThemeButton />
@@ -122,7 +117,6 @@ export const DrawerViewMenuMobile = () => {
     <JukiProvider>
       {open && (
         <DrawerViewMenuMobileCmp
-          ImageCmp={Image}
           menu={[
             {
               icon: <CalendarMonthIcon />,

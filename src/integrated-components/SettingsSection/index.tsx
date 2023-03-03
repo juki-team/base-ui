@@ -1,5 +1,5 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
-import React, { Dispatch, FC } from 'react';
+import React, { Dispatch } from 'react';
 import {
   AppsIcon,
   DarkModeIcon,
@@ -17,7 +17,6 @@ import {
 import { classNames } from '../../helpers';
 import { useJukiUI, useJukiUser, useJukiUserToggleSetting } from '../../hooks';
 import { HelpSection } from '../HelpSection';
-import { ImageCmpProps } from '../types';
 
 export const LanguageSetting = ({ isOpen, small }: { isOpen: boolean, small: boolean }) => {
   
@@ -94,7 +93,6 @@ export const ThemeSetting = ({ isOpen, small }: { isOpen: boolean, small: boolea
 };
 
 export interface SettingsSectionProps {
-  ImageCmp: FC<ImageCmpProps>,
   isMobile: boolean,
   isOpen: boolean,
   helpOpen: boolean,
@@ -103,7 +101,6 @@ export interface SettingsSectionProps {
 }
 
 export const SettingsSection = ({
-  ImageCmp,
   isMobile,
   isOpen,
   helpOpen,
@@ -112,7 +109,7 @@ export const SettingsSection = ({
 }: SettingsSectionProps) => {
   
   const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
-  const { viewPortSize } = useJukiUI();
+  const { viewPortSize, components: { Image } } = useJukiUI();
   
   const isDark = preferredTheme === Theme.DARK;
   
@@ -139,7 +136,7 @@ export const SettingsSection = ({
           <div className="jk-row">
             <HelpSection />
             <div className="jk-row ">
-              <ImageCmp
+              <Image
                 src="https://images.juki.pub/c/juki-help-2-image.svg"
                 alt="help"
                 height={220}

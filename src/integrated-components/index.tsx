@@ -12,4 +12,3 @@ export * from './UserPreviewModal';
 export * from './UserProfile';
 export * from './UserProfileSettings';
 export * from './WelcomeModal';
-export * from './types';

@@ -231,8 +231,7 @@ export type RequestFilterType = { [key: string]: string | string[] };
 // export type URLSearchParamsInitType = string | [string, string][] | Record<string, string | string[]> | URLSearchParams;
 // export type SetSearchParamsType = ((nextInit: URLSearchParamsInitType, navigateOptions?: ({ replace?: boolean | undefined, state?: any } | undefined)) => void);
 
-export type SearchParamsObjectType = { [key: string]: string[] };
-export type SetSearchParamsObjectType = (params: SearchParamsObjectType) => void;
+export type setURLSearchParams = (params: URLSearchParams) => void;
 
 export type LoaderStatusActionType = Dispatch<SetStateAction<Status>>;
 
@@ -251,8 +250,6 @@ export interface DataViewerProps<T> {
   request?: (props: { sort: RequestSortType, filter: RequestFilterType, pagination?: { page: number, pageSize: number }, setLoaderStatus: LoaderStatusActionType }) => void,
   rows?: RowsType,
   rowsView?: boolean,
-  searchParamsObject?: SearchParamsObjectType,
-  setSearchParamsObject?: SetSearchParamsObjectType,
   setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
   refreshRef?: (refresh: RefreshType) => void,
   pagination?: DataViewerPaginationType,

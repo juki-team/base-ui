@@ -1,5 +1,5 @@
 import { ContentResponseType, Status, UserBasicResponseDTO } from '@juki-team/commons';
-import React, { FC } from 'react';
+import React from 'react';
 import {
   BasicModalProps,
   Button,
@@ -15,17 +15,15 @@ import {
 import { settings } from '../../config';
 import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks';
-import { ImageCmpProps } from '../types';
 
 export interface UserPreviewModalProps extends BasicModalProps {
   nickname: string,
-  ImageCmp: FC<ImageCmpProps>,
   userHref: string,
 }
 
-export const UserPreviewModal = ({ nickname, ImageCmp, onClose, userHref }: UserPreviewModalProps) => {
+export const UserPreviewModal = ({ nickname, onClose, userHref }: UserPreviewModalProps) => {
   
-  const { viewPortSize } = useJukiUI();
+  const { viewPortSize, components: { Image } } = useJukiUI();
   
   return (
     <Modal
@@ -41,7 +39,7 @@ export const UserPreviewModal = ({ nickname, ImageCmp, onClose, userHref }: User
         {({ data }) => (
           <div className="jk-pad-md jk-col stretch gap">
             <div className="jk-row center gap">
-              <ImageCmp
+              <Image
                 src={data?.content?.imageUrl}
                 className="jk-user-profile-img elevation-1"
                 alt={nickname}

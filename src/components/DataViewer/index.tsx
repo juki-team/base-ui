@@ -2,7 +2,7 @@ import { DataViewMode, ProfileSetting, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, consoleWarn } from '../../helpers';
 import { useJukiUI, useJukiUser } from '../../hooks';
-import { OptionType, SearchParamsObjectType, showOfDatePickerType } from '../index';
+import { OptionType, showOfDatePickerType } from '../index';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,
@@ -50,8 +50,6 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     request,
     rows,
     rowsView = true,
-    searchParamsObject: propSearchParamsObject,
-    setSearchParamsObject: propSetSearchParamsObject,
     setLoaderStatusRef,
     refreshRef,
     pagination,
@@ -66,28 +64,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     onRecordClick,
     extraNodesFloating,
   } = props;
-  
+  const { viewPortSize, router: { searchParams, appendSearchParam, deleteSearchParam, setSearchParam } } = useJukiUI();
   const withPagination = !!pagination;
   
-  const [searchParamsObject, _setSearchParamsObject] = useState(propSearchParamsObject || {});
-  if (propSetSearchParamsObject && !propSearchParamsObject) {
-    console.error('Please define propSearchParamsObject on the DataViewer component');
-  }
-  if (!propSetSearchParamsObject && propSearchParamsObject) {
-    console.error('Please define propSetSearchParamsObject on the DataViewer component');
-  }
-  useEffect(() => {
-    if (propSearchParamsObject && JSON.stringify(searchParamsObject) !== JSON.stringify(propSearchParamsObject)) {
-      _setSearchParamsObject(propSearchParamsObject);
-    }
-  }, [propSearchParamsObject, searchParamsObject]);
-  const setSearchParamsObject = useCallback((prop: SearchParamsObjectType) => {
-    if (propSetSearchParamsObject) {
-      propSetSearchParamsObject(prop);
-    } else {
-      _setSearchParamsObject(prop);
-    }
-  }, [propSetSearchParamsObject]);
   const pageKey = getPageQueryParam(name);
   const pageSizeKey = getPageSizeQueryParam(name);
   const sortKey = getSortQueryParam(name);
@@ -95,8 +74,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const viewModeKey = getViewModeQueryParam(name);
   const [refreshCount, setRefreshCount] = useState(0);
   const [loaderStatus, setLoaderStatus] = useState<Status>(Status.NONE);
-  const searchSorts = searchParamsObject[sortKey]?.[0] || '';
-  const searchFilter = useMemo(() => searchParamsObject[filterKey] || [], [filterKey, searchParamsObject]);
+  const searchSorts = searchParams.get(sortKey) || '';
+  const searchFilter = useMemo(() => searchParams.getAll(filterKey), [filterKey, searchParams]);
+  console.log({ searchFilter, searchSorts });
   const [dataTable, setDataTable] = useState(data);
   const prevSearchSorts = useRef<string>();
   const prevSearchFilter = useRef<string[]>();
@@ -105,7 +85,6 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const prevPageSize = useRef<number>();
   const firstRender = useRef(true);
   const [pageSizeOptions, setPageSizeOptions] = useState(pagination?.pageSizeOptions || [32, 64, 128, 256, 512, 1024]);
-  const { viewPortSize } = useJukiUI();
   const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
   const initialViewMode = _initialViewMode || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
   
@@ -116,45 +95,33 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   }, [pageSizeOptions, pagination?.pageSizeOptions]);
   useEffect(() => { // Fixing filters
     if (searchFilter.length && searchFilter.length !== headers.length) {
-      const newFilterSearch: SearchParamsObjectType = { ...searchParamsObject };
-      delete newFilterSearch[filterKey];
-      setSearchParamsObject(newFilterSearch);
+      deleteSearchParam({ name: filterKey });
     }
-  }, [filterKey, headers.length, searchFilter.length, searchParamsObject, setSearchParamsObject]);
-  const page = useMemo(() => +searchParamsObject[pageKey]?.[0] || 1, [pageKey, searchParamsObject]);
-  const pageSize = useMemo(() => +searchParamsObject[pageSizeKey]?.[0] || pageSizeOptions[0], [
+  }, [deleteSearchParam, filterKey, headers.length, searchFilter.length]);
+  const page = useMemo(() => +(searchParams.get(pageKey) || 1), [pageKey, searchParams]);
+  const pageSize = useMemo(() => +(searchParams.get(pageSizeKey) || 0) || pageSizeOptions[0], [
     pageSizeKey,
     pageSizeOptions,
-    searchParamsObject,
+    searchParams,
   ]);
   const jumpToPage = useCallback((page: number) => {
-    const newSearchParamsObject = { ...searchParamsObject };
-    newSearchParamsObject[pageKey] = [page + ''];
-    setSearchParamsObject(newSearchParamsObject);
-  }, [pageKey, searchParamsObject, setSearchParamsObject]);
+    setSearchParam({ name: pageKey, value: page + '' });
+  }, [pageKey, setSearchParam]);
   
   const onPageSizeChange = useCallback((pageSize: number) => {
-    const newSearchParamsObject = { ...searchParamsObject };
-    newSearchParamsObject[pageSizeKey] = [pageSize + ''];
-    setSearchParamsObject(newSearchParamsObject);
-  }, [pageSizeKey, searchParamsObject, setSearchParamsObject]);
+    setSearchParam({ name: pageSizeKey, value: pageSize + '' });
+  }, [pageSizeKey, setSearchParam]);
+  
   useEffect(() => {
     if (withPagination) {
-      const newSearchParamsObject = { ...searchParamsObject };
-      let update = false;
-      if (!searchParamsObject[pageKey]?.[0]) {
-        newSearchParamsObject[pageKey] = [1 + ''];
-        update = true;
+      if (!searchParams.get(pageKey)) {
+        appendSearchParam({ name: pageKey, value: '1' });
       }
-      if (!searchParamsObject[pageSizeKey]?.[0]) {
-        newSearchParamsObject[pageSizeKey] = [pageSizeOptions[0] + ''];
-        update = true;
-      }
-      if (update) {
-        setSearchParamsObject(newSearchParamsObject);
+      if (!searchParams.get(pageSizeKey)) {
+        appendSearchParam({ name: pageSizeKey, value: pageSizeOptions[0] + '' });
       }
     }
-  }, [pageKey, pageSizeKey, pageSizeOptions, searchParamsObject, setSearchParamsObject, withPagination]);
+  }, [appendSearchParam, pageKey, pageSizeKey, pageSizeOptions, searchParams, withPagination]);
   
   const _refLoader = useRef(loaderStatus);
   _refLoader.current = loaderStatus;
@@ -446,23 +413,31 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const isSomethingFiltered = (newSearchFilter: string[]) => !!newSearchFilter.filter(search => !!search && (Array.isArray(search) ? search.length : true)).length;
   
   const tableHeaders = useMemo(() => {
-    const onReset = (index: number, initialSortSearch: SearchParamsObjectType) => () => {
+    
+    const onResetFilter = (index: number) => () => {
       const newSearchFilter = [...searchFilter];
       newSearchFilter[index] = '';
       if (isSomethingFiltered(newSearchFilter)) {
-        initialSortSearch[filterKey] = newSearchFilter;
+        setSearchParam({ name: filterKey, value: newSearchFilter });
+      } else {
+        deleteSearchParam({ name: filterKey });
       }
-      setSearchParamsObject(initialSortSearch);
     };
+    
+    const onFilter = (index: number, newFilter: string | string[]) => {
+      const newSearchFilter = searchFilter.length ? [...searchFilter] : new Array(headers.length).fill('');
+      if (JSON.stringify(newSearchFilter[index]) !== JSON.stringify(newFilter)) {
+        newSearchFilter[index] = newFilter;
+        if (isSomethingFiltered(newSearchFilter)) {
+          setSearchParam({ name: filterKey, value: newSearchFilter });
+        } else {
+          deleteSearchParam({ name: filterKey });
+        }
+      }
+    };
+    
     return headers.map(({ sort, filter, ...props }, index) => {
       const newHead: TableHeadersType<T> = { ...props };
-      
-      const initialFilterSearch: SearchParamsObjectType = { ...searchParamsObject };
-      delete initialFilterSearch[filterKey];
-      delete initialFilterSearch[sortKey];
-      if (searchFilter.filter(search => !!search).length) {
-        initialFilterSearch[filterKey] = searchFilter;
-      }
       if (sort) { // online or offline
         const up = props.index;
         const down = '-' + props.index;
@@ -471,35 +446,20 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           onSort: () => {
             const newSort = newHead.sort?.order === 1 ? down : newHead.sort?.order === -1 ? '' : up;
             if (newSort) {
-              initialFilterSearch[sortKey] = [newSort];
+              setSearchParam({ name: sortKey, value: newSort });
+            } else {
+              deleteSearchParam({ name: sortKey });
             }
-            setSearchParamsObject(initialFilterSearch);
           },
           online: isSortOnline(sort),
         };
       }
-      const initialSortSearch: SearchParamsObjectType = { ...searchParamsObject };
-      delete initialSortSearch[filterKey];
-      delete initialSortSearch[sortKey];
-      if (searchSorts) {
-        initialSortSearch[sortKey] = [searchSorts];
-      }
-      const newSearchFilter = searchFilter.length ? [...searchFilter] : new Array(headers.length).fill('');
-      const onFilter = (newFilter: string | string[]) => {
-        if (JSON.stringify(newSearchFilter[index]) !== JSON.stringify(newFilter)) {
-          newSearchFilter[index] = newFilter;
-          if (isSomethingFiltered(newSearchFilter)) {
-            initialSortSearch[filterKey] = newSearchFilter;
-          }
-          setSearchParamsObject(initialSortSearch);
-        }
-      };
       
       if (filter?.type === FILTER_TEXT || filter?.type === FILTER_TEXT_AUTO) {
         newHead.filter = {
           type: FILTER_TEXT,
-          onFilter: ({ text }) => onFilter(text),
-          onReset: onReset(index, initialSortSearch),
+          onFilter: ({ text }) => onFilter(index, text),
+          onReset: onResetFilter(index),
           text: searchFilter[index] || '',
           online: isFilterTextOnline(filter),
         };
@@ -508,12 +468,13 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           type: FILTER_SELECT,
           onFilter: ({ selectedOptions }) => {
             onFilter(
+              index,
               selectedOptions
                 .filter(({ value }) => !!filter.options.find(option => option.value === value))
                 .map(({ value }) => value),
             );
           },
-          onReset: onReset(index, initialSortSearch),
+          onReset: onResetFilter(index),
           options: filter.options,
           selectedOptions: searchFilter[index] ? searchFilter[index].split(',').map(value => ({ value, label: '' })) : [],
           online: isFilterSelectOnline(filter),
@@ -523,9 +484,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         newHead.filter = {
           type: FILTER_DATE,
           pickerType: filter.pickerType || DEFAULT_PICKER_TYPE,
-          onFilter: ({ selectedDate }) => onFilter(selectedDate.getTime() + ''),
+          onFilter: ({ selectedDate }) => onFilter(index, selectedDate.getTime() + ''),
           isDisabled: filter.isDisabled || (() => ({})),
-          onReset: onReset(index, initialSortSearch),
+          onReset: onResetFilter(index),
           selectedDate,
           baseDate: selectedDate || filter.baseDate || new Date(),
           online: isFilterDateOnline(filter),
@@ -540,8 +501,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           onFilter: ({
             startSelectedDate,
             endSelectedDate,
-          }) => onFilter(startSelectedDate.getTime() + ',' + endSelectedDate.getTime()),
-          onReset: onReset(index, initialSortSearch),
+          }) => onFilter(index, startSelectedDate.getTime() + ',' + endSelectedDate.getTime()),
+          onReset: onResetFilter(index),
           isDisabled: filter.isDisabled || (() => ({})),
           startSelectedDate,
           endSelectedDate,
@@ -552,15 +513,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
       return newHead;
     });
-  }, [filterKey, headers, searchFilter, searchParamsObject, searchSorts, setSearchParamsObject, sortKey]);
+  }, [deleteSearchParam, filterKey, headers, searchFilter, searchSorts, setSearchParam, sortKey]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
-    const initialSortSearch: SearchParamsObjectType = { ...searchParamsObject };
-    delete initialSortSearch[filterKey];
-    delete initialSortSearch[sortKey];
-    if (searchSorts) {
-      initialSortSearch[sortKey] = [searchSorts];
-    }
     const newSearchFilter = searchFilter.length ? [...searchFilter] : new Array(headers.length).fill('');
     headers.forEach(({ filter, index: columnIndex }, index) => {
       if (filter?.type === FILTER_TEXT || filter?.type === FILTER_TEXT_AUTO) {
@@ -584,32 +539,33 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
     });
     if (isSomethingFiltered(newSearchFilter)) {
-      initialSortSearch[filterKey] = newSearchFilter;
+      setSearchParam({ name: filterKey, value: newSearchFilter });
     } else {
-      delete initialSortSearch[filterKey];
+      deleteSearchParam({ name: filterKey });
     }
-    setSearchParamsObject(initialSortSearch);
-  }, [filterKey, headers, searchFilter, searchParamsObject, searchSorts, setSearchParamsObject, sortKey]);
+  }, [deleteSearchParam, filterKey, headers, searchFilter, setSearchParam]);
   
-  const viewMode: DataViewMode = searchParamsObject?.[viewModeKey]?.[0] ? (searchParamsObject?.[viewModeKey]?.[0]?.toUpperCase() === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS) : initialViewMode;
+  const viewMode: DataViewMode = searchParams.get(viewModeKey) ? (searchParams.get(viewModeKey)
+    ?.toUpperCase() === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS) : initialViewMode;
   const setViewMode = useCallback((viewMode: DataViewMode) => {
-    setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [viewMode.toLowerCase()] });
-  }, [searchParamsObject, setSearchParamsObject, viewModeKey]);
+    setSearchParam({ name: viewModeKey, value: viewMode.toLowerCase() });
+  }, [setSearchParam, viewModeKey]);
   
   useEffect(() => {
     if (viewMode === DataViewMode.CARDS && !cardsView && rowsView) {
-      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [DataViewMode.ROWS] });
+      setViewMode(DataViewMode.ROWS);
     } else if (viewMode === DataViewMode.ROWS && !rowsView && cardsView) {
-      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [DataViewMode.CARDS] });
+      setViewMode(DataViewMode.CARDS);
     }
-  }, [viewPortSize, viewMode, cardsView, rowsView, setSearchParamsObject, searchParamsObject, viewModeKey]);
+  }, [viewPortSize, viewMode, cardsView, rowsView, viewModeKey, setViewMode]);
+  
   const oldViewPortSizeRef = useRef('');
   useEffect(() => {
     if (oldViewPortSizeRef.current !== viewPortSize && viewMode === DataViewMode.ROWS && cardsView && viewPortSize === 'sm') {
-      setSearchParamsObject({ ...searchParamsObject, [viewModeKey]: [DataViewMode.CARDS] });
+      setViewMode(DataViewMode.CARDS);
     }
     oldViewPortSizeRef.current = viewPortSize;
-  }, [viewPortSize, viewMode, cardsView, rowsView, setSearchParamsObject, searchParamsObject, viewModeKey]);
+  }, [viewPortSize, viewMode, cardsView, rowsView, viewModeKey, setViewMode]);
   
   return (
     <div className={classNames(className, 'jk-data-viewer-layout', { 'with-pagination': withPagination })}>
