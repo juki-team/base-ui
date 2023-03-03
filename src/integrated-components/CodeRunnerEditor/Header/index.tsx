@@ -60,16 +60,17 @@ export const Header = ({
     setErrorData({ status: SubmissionRunStatus.NONE, out: '', err: '', log: '' });
     onChange?.({ testCases: newTestCases });
     try {
+      const { url, ...options } = settings.getAPI().code.run({
+        body: {
+          language,
+          source: sourceCode,
+          inputs: Object.values(testCases).map(testCase => ({ key: testCase.key, source: testCase.in })),
+          timeLimit,
+          memoryLimit,
+        },
+      });
       const request = cleanRequest<ContentResponseType<{ runId: string }>>(
-        await authorizedRequest(settings.getAPI().code.run({
-          body: {
-            language,
-            source: sourceCode,
-            inputs: Object.values(testCases).map(testCase => ({ key: testCase.key, source: testCase.in })),
-            timeLimit,
-            memoryLimit,
-          },
-        }).url),
+        await authorizedRequest(url, options),
       );
       if (request?.success && request?.content?.runId) {
         setRunId(request.content.runId);
