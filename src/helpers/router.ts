@@ -1,26 +1,28 @@
-export const addParamQuery = (query: { [key: string]: string | string[] | undefined }, queryParamKey: string, value: string) => {
-  const { [queryParamKey]: queryParam, ...restQuery } = query;
-  if (Array.isArray(queryParam)) {
-    const newQueryParam = queryParam.filter(v => v !== value);
-    return { ...restQuery, [queryParamKey]: [...newQueryParam, value] };
-  } else if (queryParam && queryParam !== value) {
-    return { ...restQuery, [queryParamKey]: [queryParam, value] };
-  }
-  return { ...restQuery, [queryParamKey]: value };
+import { RequestFilterType, RequestSortType } from '../components';
+
+export const toFilterUrl = (filter: RequestFilterType) => {
+  let filterUrl = '';
+  Object.entries(filter).forEach(([key, value]) => {
+    if (filterUrl) {
+      filterUrl += '&';
+    }
+    filterUrl += `${key}=${encodeURIComponent(value.toString())}`;
+  });
+  return filterUrl;
 };
 
-export const removeParamQuery = (query: { [key: string]: string | string[] | undefined }, queryParamKey: string, value: string | null) => {
-  const { [queryParamKey]: queryParam, ...restQuery } = query;
-  if (value === null) {
-    return restQuery;
-  }
-  if (Array.isArray(queryParam)) {
-    const newQueryParam = queryParam.filter(v => v !== value);
-    if (newQueryParam.length) {
-      return { ...restQuery, [queryParamKey]: newQueryParam };
+export const toSortUrl = (sort: RequestSortType) => {
+  let filterUrl = '';
+  Object.entries(sort).forEach(([key, value]) => {
+    if (filterUrl && (value === -1 || value === 1)) {
+      filterUrl += ',';
     }
-  } else if (queryParam && queryParam !== value) {
-    return { ...restQuery, [queryParamKey]: queryParam };
-  }
-  return restQuery;
+    if (value === -1) {
+      filterUrl += encodeURIComponent(`-${key}`);
+    }
+    if (value === 1) {
+      filterUrl += encodeURIComponent(`+${key}`);
+    }
+  });
+  return filterUrl ? 'sort=' + filterUrl : '';
 };

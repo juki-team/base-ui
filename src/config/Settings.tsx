@@ -107,6 +107,10 @@ export class Settings {
           url: injectBaseUrl('user', `/nickname/${nickname}/summary`),
           method: HTTPMethod.GET,
         })),
+        summaryList: valid<void>(() => ({
+          url: injectBaseUrl('user', '/summary-list'),
+          method: HTTPMethod.GET,
+        })),
         updateProfileData: valid<{ params: { nickname: string }, body: UpdateUserProfileDataPayloadDTO }>(({
           params: { nickname },
           body,

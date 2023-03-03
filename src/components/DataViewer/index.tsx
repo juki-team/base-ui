@@ -1,7 +1,7 @@
-import { DataViewMode, ProfileSetting, Status } from '@juki-team/commons';
+import { DataViewMode, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, consoleWarn } from '../../helpers';
-import { useJukiUI, useJukiUser } from '../../hooks';
+import { useJukiUI } from '../../hooks';
 import { OptionType, showOfDatePickerType } from '../index';
 import {
   FILTER_DATE,
@@ -63,6 +63,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     getRecordClassName,
     onRecordClick,
     extraNodesFloating,
+    preferredDataViewMode,
   } = props;
   const { viewPortSize, router: { searchParams, appendSearchParam, deleteSearchParam, setSearchParam } } = useJukiUI();
   const withPagination = !!pagination;
@@ -76,7 +77,6 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const [loaderStatus, setLoaderStatus] = useState<Status>(Status.NONE);
   const searchSorts = searchParams.get(sortKey) || '';
   const searchFilter = useMemo(() => searchParams.getAll(filterKey), [filterKey, searchParams]);
-  console.log({ searchFilter, searchSorts });
   const [dataTable, setDataTable] = useState(data);
   const prevSearchSorts = useRef<string>();
   const prevSearchFilter = useRef<string[]>();
@@ -85,7 +85,6 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const prevPageSize = useRef<number>();
   const firstRender = useRef(true);
   const [pageSizeOptions, setPageSizeOptions] = useState(pagination?.pageSizeOptions || [32, 64, 128, 256, 512, 1024]);
-  const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
   const initialViewMode = _initialViewMode || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
   
   useEffect(() => {

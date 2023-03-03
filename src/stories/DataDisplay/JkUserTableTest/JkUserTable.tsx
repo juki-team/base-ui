@@ -1,4 +1,4 @@
-import { Status } from '@juki-team/commons';
+import { ProfileSetting, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
@@ -19,7 +19,7 @@ import {
   SelectOptionType,
   T,
   TextField,
-  TextHeadCell,
+  TextHeadCell, useJukiUser,
 } from '../../../index';
 import users from './data.json';
 
@@ -224,10 +224,12 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
     setLoaderStatus(Status.SUCCESS);
   }, []);
   console.info({ columns2, columns, request });
+  const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
   
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px', background: 'lightgray' }}>
       <DataViewer<UserTable>
+        preferredDataViewMode={preferredDataViewMode}
         cards={{ expanded: true }}
         headers={columns}
         data={data}
