@@ -20,14 +20,13 @@ export const UserChip = ({ imageUrl, email, familyName, nickname, givenName }: U
   );
 };
 
-export enum QueryParam {
-  DIALOG = 'dialog',
-  USER_PREVIEW = 'user_preview'
+export enum SearchParamKey {
+  USER_PREVIEW = 'user_preview',
 }
 
 export const UserNicknameLink = ({ children, nickname }: { nickname: string, children: ReactElement }) => {
   const { router: { setSearchParam } } = useJukiUI();
-  return cloneElement(children, { onClick: () => setSearchParam({ name: QueryParam.USER_PREVIEW, value: nickname }) });
+  return cloneElement(children, { onClick: () => setSearchParam({ name: SearchParamKey.USER_PREVIEW, value: nickname }) });
 };
 
 export * from './types';

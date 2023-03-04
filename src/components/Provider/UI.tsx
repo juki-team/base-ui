@@ -81,13 +81,13 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
   
   const { Image: ImageCmp = Image } = components || { Image };
   
-  const appendSearchParamFun = useCallback(({ name, value }: { name: string, value: string }) => {
+  const appendSearchParam = useCallback(({ name, value }: { name: string, value: string }) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
     newSearchParams.append(name, value);
     setSearchParams(newSearchParams);
   }, [_searchParams, setSearchParams]);
   
-  const deleteSearchParamFun = useCallback(({ name, value }: { name: string, value?: string }) => {
+  const deleteSearchParam = useCallback(({ name, value }: { name: string, value?: string }) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
     const values = newSearchParams.getAll(name);
     newSearchParams.delete(name);
@@ -101,7 +101,7 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
     setSearchParams(newSearchParams);
   }, [_searchParams, setSearchParams]);
   
-  const setSearchParamFun = useCallback(({ name, value }: { name: string, value: string | string[] }) => {
+  const setSearchParam = useCallback(({ name, value }: { name: string, value: string | string[] }) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
     newSearchParams.delete(name);
     let values = [];
@@ -126,9 +126,9 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
         components: { Image: ImageCmp },
         router: router || {
           searchParams: _searchParams,
-          appendSearchParam: appendSearchParamFun,
-          deleteSearchParam: deleteSearchParamFun,
-          setSearchParam: setSearchParamFun,
+          appendSearchParam,
+          deleteSearchParam,
+          setSearchParam,
         },
       }}>
       < NotificationProvider>
