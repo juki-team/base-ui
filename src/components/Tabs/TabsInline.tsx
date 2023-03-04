@@ -1,7 +1,6 @@
 import React, { Children, useCallback, useEffect, useRef, useState } from 'react';
 import { NavigateBeforeIcon, NavigateNextIcon, TabsInlineProps, WidthResizer } from '../';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
-import { useJukiUI } from '../../hooks';
 
 export const TabsInline = <T, >({
   tabs,
@@ -11,7 +10,6 @@ export const TabsInline = <T, >({
   extraNodesPlacement = 'right',
 }: TabsInlineProps<T>) => {
   
-  const { viewPortSize } = useJukiUI();
   const tabsLength = Object.keys(tabs).length;
   const [tabsSize, setTabsSize] = useState(tabsLength);
   const [tabStartIndex, setTabStartIndex] = useState(0);
@@ -79,7 +77,7 @@ export const TabsInline = <T, >({
           <div
             className={classNames('jk-row left stretch jk-tabs-headers-inline nowrap', {
               'block flex-1': withArrows,
-              'block extend': viewPortSize === 'sm',
+              // 'block extend': extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter',
             })}
             ref={refA}
           >

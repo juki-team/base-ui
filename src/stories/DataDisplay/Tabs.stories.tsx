@@ -69,7 +69,7 @@ export const Tabs: Story<TabsProps<string>> = () => {
           extraNodes={[<Button className="ws-np"><T>button 1</T></Button>, <Button className="ws-np">button button 2</Button>]}
           onChange={() => null}
           selectedTabKey={'2'}
-          extraNodesPlacement="left"
+          extraNodesPlacement="bottomLeft"
         />
       </div>
       <div style={{ height: '200px' }}>
