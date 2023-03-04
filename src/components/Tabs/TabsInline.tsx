@@ -19,7 +19,8 @@ export const TabsInline = <T, >({ tabs, selectedTabKey, onChange, extraNodes }: 
   
   const Component = ({ reference }: { reference: MutableRefObject<any> }) => (
     <div className="jk-row gap space-between nowrap jk-tabs-inline extend">
-      <div className="jk-row left gap flex-1">
+      {/*TODO: check this render*/}
+      <div className="jk-row left gap extend">
         {withArrows && (
           <NavigateBeforeIcon
             className={classNames('br-50-pc', {
@@ -55,7 +56,7 @@ export const TabsInline = <T, >({ tabs, selectedTabKey, onChange, extraNodes }: 
           />
         )}
       </div>
-      {viewPortSize === 'sm' ? (
+      {(viewPortSize === 'sm' || withArrows) ? (
         <div className="jk-col gap nowrap" style={{ position: 'absolute', bottom: 'var(--pad-t)', right: 'var(--pad-t)' }}>
           {Children.toArray(extraNodes?.map(action => (
             renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey })

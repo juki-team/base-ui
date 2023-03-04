@@ -21,7 +21,7 @@ export const WidthResizer = ({
       }
     }
   }, [width, onOverflow, unOverflow, trigger, ref]);
-  
+  console.log({ width, scrollWidth: ref.current?.scrollWidth, offsetWidth: ref.current?.offsetWidth });
   return (
     <Component reference={ref} />
   );
