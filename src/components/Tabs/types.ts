@@ -17,9 +17,12 @@ export interface TabsProps<T> {
   extend?: boolean,
 }
 
+export type TabsType<T> = { [key: string]: TabType<T> };
+
 export interface TabsInlineProps<T = string> {
-  tabs: { [key: string]: TabType<T> },
+  tabs: TabsType<T>,
   selectedTabKey: T,
   onChange: (tabKey: T) => void,
   extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T }>[],
+  extraNodesPlacement?: 'left' | 'right' | 'bottomLeft' | 'bottomCenter' | 'bottomRight',
 }

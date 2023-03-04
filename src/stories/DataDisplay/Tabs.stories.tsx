@@ -1,7 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Button, Tabs as TabsComponent, TabsInline, TabsProps } from '../../index';
+import { Button, T, Tabs as TabsComponent, TabsInline, TabsProps } from '../../index';
 import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
@@ -54,12 +54,22 @@ export const Tabs: Story<TabsProps<string>> = () => {
           extraNodes={[<Button>button 1</Button>, <Button>button button 2</Button>]}
         />
       </div>
-      <div style={{ height: '200px' }}>
+      <div style={{ height: '200px', position: 'relative' }}>
         <TabsInline
           tabs={tabs}
-          extraNodes={[<Button>button 1</Button>, <Button>button button 2</Button>]}
+          extraNodes={[<Button className="ws-np"><T>button 1</T></Button>, <Button className="ws-np">button button 2</Button>]}
           onChange={() => null}
           selectedTabKey={'1'}
+        />
+      
+      </div>
+      <div style={{ height: '200px', position: 'relative', border: '1px solid red' }}>
+        <TabsInline
+          tabs={tabs}
+          extraNodes={[<Button className="ws-np"><T>button 1</T></Button>, <Button className="ws-np">button button 2</Button>]}
+          onChange={() => null}
+          selectedTabKey={'2'}
+          extraNodesPlacement="left"
         />
       </div>
       <div style={{ height: '200px' }}>

@@ -1,28 +1,30 @@
-import React, { JSXElementConstructor, MutableRefObject, useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { isOverflowed } from '../../helpers';
 
-export const WidthResizer = ({
-  Component,
-  onOverflow,
-  unOverflow,
-  trigger,
-}: { Component: JSXElementConstructor<{ reference: MutableRefObject<any> }>, onOverflow: () => void, unOverflow: () => void, trigger: any }) => {
-  const { width = 0, ref } = useResizeDetector();
+export interface WidthResizerProps {
+  targetRef: MutableRefObject<any>,
+  onOverflow: () => void,
+  unOverflow: () => void,
+  trigger: any,
+}
+
+export const WidthResizer = ({ onOverflow, unOverflow, trigger, targetRef }: WidthResizerProps) => {
+  
+  const { width = 0 } = useResizeDetector({ targetRef });
   const widthRef = useRef(0);
   useEffect(() => {
-    if (width && ref.current) {
-      if (ref.current?.scrollWidth > ref.current?.offsetWidth) {
-        widthRef.current = ref.current?.offsetWidth;
+    if (width && targetRef.current) {
+      if (isOverflowed(targetRef)) {
+        widthRef.current = targetRef.current?.offsetWidth;
         onOverflow();
-      } else if (ref.current?.scrollWidth === ref.current?.offsetWidth) {
-        if (ref.current?.offsetWidth > widthRef.current) {
+      } else if (targetRef.current?.scrollWidth === targetRef.current?.offsetWidth) {
+        if (targetRef.current?.offsetWidth > widthRef.current) {
           unOverflow();
         }
       }
     }
-  }, [width, onOverflow, unOverflow, trigger, ref]);
-  console.log({ width, scrollWidth: ref.current?.scrollWidth, offsetWidth: ref.current?.offsetWidth });
-  return (
-    <Component reference={ref} />
-  );
+  }, [width, onOverflow, unOverflow, trigger, targetRef]);
+  
+  return null;
 };

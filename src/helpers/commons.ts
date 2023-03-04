@@ -1,5 +1,5 @@
 import { stringToArrayBuffer } from '@juki-team/commons';
-import { Children, cloneElement, ReactNode } from 'react';
+import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
 import { utils, write } from 'xlsx';
 import { settings } from '../config';
 import { publishNote } from '../helpers/utils';
@@ -156,4 +156,6 @@ export const openNewTab = (url: string) => {
   }
 };
 
-export { consoleWarn } from '@juki-team/commons';
+export const isOverflowed = (ref: MutableRefObject<any>) => {
+  return ref.current?.scrollWidth > ref.current?.offsetWidth;
+};

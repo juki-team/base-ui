@@ -1,6 +1,6 @@
-import { DataViewMode, Status } from '@juki-team/commons';
+import { consoleWarn, DataViewMode, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { classNames, consoleWarn } from '../../helpers';
+import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks';
 import { OptionType, showOfDatePickerType } from '../index';
 import {

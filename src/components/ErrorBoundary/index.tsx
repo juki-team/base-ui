@@ -1,9 +1,7 @@
-import { ContentsResponseType } from '@juki-team/commons';
+import { consoleWarn, ContentsResponseType } from '@juki-team/commons';
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Button } from '../';
 import { settings } from '../../config';
-
-import { consoleWarn } from '../../helpers';
 import { HelpSection } from '../../integrated-components';
 import { authorizedRequest, cleanRequest } from '../../services';
 
