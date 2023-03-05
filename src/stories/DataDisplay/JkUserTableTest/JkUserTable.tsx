@@ -199,8 +199,8 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
         <TextField text={nickname} label={<T>name</T>} />
       ),
-      sort: true,
-      filter: { type: 'text' },
+      // sort: true,
+      // filter: { type: 'text' },
       cardPosition: 'topLeft',
       sticky: true,
     },
@@ -210,8 +210,8 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
         <TextField text={givenName} label="test" />
       ),
-      sort: true,
-      filter: { type: 'text' },
+      // sort: true,
+      // filter: { type: 'text' },
       cardPosition: 'topLeft',
       sticky: false,
     },
@@ -231,13 +231,14 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       <DataViewer<UserTable>
         preferredDataViewMode={preferredDataViewMode}
         cards={{ expanded: true }}
-        headers={columns}
+        headers={columns2}
         data={data}
         // rows={{ height: 150 }}
         request={request}
         name="users"
         cardsView={cardsView}
-        rowsView={rowsView}
+        // rowsView={rowsView}
+        rowsView={false}
         // rowsView={false}
         extraNodesFloating
         extraNodes={[

@@ -33,6 +33,8 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   const { filtered } = isSomethingFiltered(headers);
   const { viewPortSize } = useJukiUI();
   const isMobileViewPort = viewPortSize === 'sm';
+  console.log({ headers });
+  const viewFilterButton = !!headers.filter(head => head.filter || head.sort).length;
   
   return (
     <div
@@ -56,7 +58,11 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
           'center': !(onColumn && !isMobileViewPort),
         })}
       >
-        <div className={classNames('jk-row nowrap', { gap: onColumn && !isMobileViewPort })}>
+        <div className={classNames('jk-row nowrap', {
+          gap: onColumn && !isMobileViewPort,
+          extend: !(viewFilterButton || viewViews),
+        })}>
+          
           {onReload && (
             <>
               <Popover
@@ -99,16 +105,20 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
             </>
           )}
         </div>
-        {onColumn && <div className="jk-divider horizontal" />}
         <div className={classNames('jk-row nowrap', { gap: onColumn })}>
-          <Popover content={<T className="ws-np">open filters</T>} showPopperArrow>
-            <div
-              className={classNames({ active: filtered }, 'jk-row')}
-              onClick={() => setFilterDrawer(true)}
-            >
-              <FilterListIcon className="jk-br-ie clickable" />
-            </div>
-          </Popover>
+          {viewFilterButton && (
+            <>
+              {onColumn && <div className="jk-divider horizontal" />}
+              <Popover content={<T className="ws-np">open filters</T>} showPopperArrow>
+                <div
+                  className={classNames({ active: filtered }, 'jk-row')}
+                  onClick={() => setFilterDrawer(true)}
+                >
+                  <FilterListIcon className="jk-br-ie clickable" />
+                </div>
+              </Popover>
+            </>
+          )}
           {viewViews && (
             <>
               <div className="jk-divider horizontal" />
