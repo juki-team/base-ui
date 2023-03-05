@@ -71,6 +71,7 @@ export const TabsInline = <T, >({
                 'appearance-secondary clickable elevation': (tabStartIndex > 0),
                 'appearance-gray-5': !(tabStartIndex > 0),
               })}
+              style={{ padding: 2 }}
               onClick={!(tabStartIndex > 0) ? undefined : () => setTabStartIndex(prevState => Math.max(prevState - 1, 0))}
             />
           )}
@@ -96,6 +97,7 @@ export const TabsInline = <T, >({
                 'appearance-secondary clickable elevation': (tabStartIndex + tabsSize < tabsLength),
                 'appearance-gray-5': !(tabStartIndex + tabsSize < tabsLength),
               })}
+              style={{ padding: 2 }}
               onClick={!(tabStartIndex + tabsSize < tabsLength) ? undefined : () => setTabStartIndex(prevState => prevState + 1)}
             />
           )}

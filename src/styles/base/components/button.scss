@@ -14,6 +14,35 @@ button.ws-np {
   }
 }
 
+.clickable {
+  cursor: initial;
+  
+  &:not(.disabled):not(.loading) {
+    cursor: pointer;
+    
+    &:before {
+      @extend .jk-border-radius-inline;
+      top: 0;
+      left: 0;
+      content: "";
+      position: absolute;
+      width: 100%;
+      opacity: 0;
+      height: 100%;
+      background-color: var(--t-color-shadow-lightest);
+    }
+    
+    &:hover {
+      @extend .elevation-1;
+      
+      &:before {
+        opacity: 1;
+        //@include transition(width, opacity);
+      }
+    }
+  }
+}
+
 button[class*=" jk-button-"], button[class^="jk-button-"],
 input[class*=" jk-button-"], input[class^="jk-button-"],
 div[class*=" jk-button-"], div[class^="jk-button-"] {
@@ -122,14 +151,12 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
       width: 0%;
       height: 100%;
       animation: roundGoing 400ms linear infinite;
-      background-color: var(--t-color-shadow-light);
+      background-color: var(--t-color-shadow);
     }
   }
   
   &.disabled {
     opacity: 0.8;
-    cursor: initial;
-    //cursor: not-allowed;
   }
   
   &.extend {
@@ -150,38 +177,6 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   
   overflow: hidden;
   
-  &:not(.loading), &.jk-button-outline {
-    &:before {
-      @extend .jk-border-radius-inline;
-      top: 0;
-      left: 0;
-      content: "";
-      position: absolute;
-      width: 0%;
-      height: 100%;
-      background-color: var(--t-color-shadow-light);
-    }
-  }
-  
-  @keyframes going {
-    0% {
-      left: 0;
-      width: 0%;
-    }
-    20% {
-      left: 0;
-      width: 20%;
-    }
-    80% {
-      left: 80%;
-      width: 20%;
-    }
-    100% {
-      left: 100%;
-      width: 0%;
-    }
-  }
-  
   @keyframes roundGoing {
     0% {
       left: 0;
@@ -196,65 +191,15 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
       width: 0%;
     }
   }
-  
-  @keyframes roundTrip {
-    0% {
-      left: 0;
-      width: 0%;
-    }
-    25% {
-      left: 0;
-      width: 100%;
-    }
-    50% {
-      left: 100%;
-      width: 0%;
-    }
-    75% {
-      left: 0;
-      width: 100%;
-    }
-    100% {
-      left: 0;
-      width: 0%;
-    }
-  }
-  
-  &:not(.disabled):hover {
-    &:before {
-      width: 100%;
-      @include transition-fast(width);
-    }
-  }
 }
 
 .jk-button-primary {
   @extend .appearance-primary;
-  
-  &:not(.disabled):hover {
-    //background-color: rgba(var(--t-color-primary-rgb), 0.90);
-    //background-color: var(--t-color-primary-light);
-  }
-  
-  &:not(.disabled):active, &:not(.disabled):focus {
-    //background-color: rgba(var(--t-color-primary-rgb), 0.80);
-    //background-color: var(--t-color-primary-light);
-  }
 }
 
 .jk-button-secondary {
   background-color: var(--t-color-secondary);
   color: var(--t-color-secondary-text);
-  
-  &:not(.disabled):hover {
-    //background-color: rgba(var(--t-color-secondary-rgb), 0.90);
-    //background-color: var(--t-color-secondary-light);
-  }
-  
-  &:not(.disabled):active, &:not(.disabled):focus {
-    //background-color: rgba(var(--t-color-secondary-rgb), 0.80);
-    //background-color: var(--t-color-secondary-light);
-  }
 }
 
 .jk-button-text {
@@ -264,18 +209,10 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   &:not(.disabled):hover, &:not(.disabled):focus {
     background-color: transparent;
     border-color: transparent;
-    
-    span {
-      text-decoration: underline;
-    }
   }
   
   * {
     color: inherit;
-  }
-  
-  &:hover {
-    //box-shadow: none !important;
   }
 }
 
@@ -284,16 +221,9 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   outline: 1px solid var(--t-color-primary) !important;
   color: var(--t-color-primary);
   font-weight: var(--weight-bolder) !important;
-  
-  &:not(.disabled):hover {
-    color: var(--t-color-primary-text);
-    
-    &:before {
-      background-color: var(--t-color-primary) !important;
-    }
-  }
 }
 
 .jk-button-light {
   background-color: var(--t-color-shadow-lightest);
+  color: inherit;
 }

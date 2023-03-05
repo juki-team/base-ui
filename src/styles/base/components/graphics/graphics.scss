@@ -17,20 +17,6 @@
     &.small { padding: 2px; } // 18, total: 22
     
     &.tiny { padding: 1px; } // 12, total: 14
-    
-    &:not(.disabled) {
-      cursor: pointer;
-      
-      &:not(.elevation):hover {
-        background: var(--t-color-shadow-light);
-      }
-      
-      &.elevation:hover {
-        @extend .elevation-2;
-      }
-    }
-    
-    @include transition-fast(background);
   }
   
   &.very-huge {

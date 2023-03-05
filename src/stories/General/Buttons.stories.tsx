@@ -29,7 +29,7 @@ const Comp = (args: ButtonProps) => {
           <div>56px large</div>
           <div>64px huge</div>
         </div>
-        <div className="jk-row">
+        <div className="jk-row gap">
           <Button {...args} loading={true} />
           <Button {...args} icon={<EyeInvisibleIcon />} />
           <ButtonLoader
@@ -97,6 +97,5 @@ const Template: Story<ButtonProps> = (args) => {
 export const Primary = Template.bind({});
 
 Primary.args = {
-  onClick: action('onClick'),
   children: 'text',
 };

@@ -58,6 +58,23 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
   }
 }
 
+@mixin transition-slow($prop1: false, $prop2: false, $prop3: false) {
+  $time: 600ms;
+  @if $prop1 {
+    @if $prop2 {
+      @if $prop3 {
+        transition: $prop1 $time, $prop2 $time, $prop3 $time;
+      } @else {
+        transition: $prop1 $time, $prop2 $time;
+      }
+    } @else {
+      transition: $prop1 $time;
+    }
+  } @else {
+    transition: $time;
+  }
+}
+
 @mixin transition($prop1: false, $prop2: false, $prop3: false) {
   $time: 400ms;
   @if $prop1 {
