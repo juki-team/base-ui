@@ -20,7 +20,7 @@ export const WelcomeModal = ({ nickname, onClose, onSeeMyProfile }: WelcomeModal
           <p>
             <T>participe in coding contests ranging from beginner level to week-long coding marathons</T>
           </p>
-          <div className="jk-rc-res gap block">
+          <div className="jk-row-col gap block">
             <ButtonLoader type="light" onClick={onSeeMyProfile} extend>
               <T className="ws-np">see my profile</T>
             </ButtonLoader>

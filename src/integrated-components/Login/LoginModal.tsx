@@ -11,12 +11,10 @@ import {
   SetLoaderStatusOnClickType,
   SplitModal,
   T,
-  // useT,
 } from '../../components';
 import { classNames } from '../../helpers';
-import { useJukiUI } from '../../hooks';
-import { LoginFormType, LoginModalComponentProps } from '../Login';
 import { ForgotPasswordModal } from '../ForgotPassword';
+import { LoginFormType, LoginModalComponentProps } from '../Login';
 
 const loginSchema = yup.object().shape({
   nickname: yup.string()
@@ -43,7 +41,6 @@ export const LoginModalComponent = ({
   // const { t } = useT();
   const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState(false);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
-  const { viewPortSize } = useJukiUI();
   
   return (
     <>
@@ -106,7 +103,7 @@ export const LoginModalComponent = ({
                     <span className="link" onClick={onSignUpButton}><T>sign up now</T></span>
                   </p>
                 </div>
-                <div className={classNames('jk-row gap block', { nowrap: viewPortSize !== 'sm' })}>
+                <div className="jk-row-col gap block">
                   <ButtonLoader type="light" onClick={onClose}>
                     <T>cancel</T>
                   </ButtonLoader>

@@ -12,11 +12,8 @@ import {
   SetLoaderStatusOnClickType,
   SplitModal,
   T,
-  // useT,
 } from '../../components';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX, LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX } from '../../constants';
-import { classNames } from '../../helpers';
-import { useJukiUI } from '../../hooks';
 import { SignUpFormType, SignUpModalComponentProps } from './types';
 
 const signUpSchema = yup.object().shape({
@@ -61,7 +58,6 @@ export const SignUpModalComponent = ({
   // const refSetLoading = useRef<SetLoaderStatusOnClickType>();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   // const { t } = useT();
-  const { viewPortSize } = useJukiUI();
   
   return (
     <SplitModal
@@ -154,7 +150,7 @@ export const SignUpModalComponent = ({
               />
               <p><T>{(!isValid && errors?.checkbox?.message) || ''}</T></p>
             </div>
-            <div className={classNames('jk-row gap block', { nowrap: viewPortSize !== 'sm' })}>
+            <div className="jk-row-col gap block">
               <ButtonLoader type="light" onClick={onClose}>
                 <T>cancel</T>
               </ButtonLoader>

@@ -336,7 +336,7 @@ form[class*=" jk-col"], form[class^="jk-col"] {
   padding-bottom: var(--pad-border);
 }
 
-.jk-rc-res {
+.jk-row-col {
   @extend %jk-row-col;
   
   @include sm {

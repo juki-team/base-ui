@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { ButtonLoader, Input, JukiLaptopImage, SplitModal, T } from '../../components';
-import { classNames } from '../../helpers';
-import { useJukiUI } from '../../hooks';
 import { ForgotPasswordModalProps } from './types';
 
 export const ForgotPasswordModalComponent = ({ onClose, onForgotPassword }: ForgotPasswordModalProps) => {
   
   const [email, setEmail] = useState('');
-  const { viewPortSize } = useJukiUI();
   
   return (
     <SplitModal
@@ -33,7 +30,7 @@ export const ForgotPasswordModalComponent = ({ onClose, onForgotPassword }: Forg
             <Input name="email" value={email} onChange={(value) => setEmail(value)} type="email" extend />
           </label>
         </div>
-        <div className={classNames('jk-row gap right block', { nowrap: viewPortSize !== 'sm' })}>
+        <div className="jk-row-col gap right block">
           <ButtonLoader type="light" onClick={onClose}><T>cancel</T></ButtonLoader>
           <ButtonLoader
             type="primary"
