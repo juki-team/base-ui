@@ -118,12 +118,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .disabled-input {
-  box-shadow: inset 0 0 0 1px var(--t-color-gray-4);
-  @extend .appearance-gray-5;
+  //box-shadow: inset 0 0 0 1px var(--t-color-gray-4);
+  //@extend .appearance-gray-6;
+  
+  background-color: var(--t-color-shadow-lightest);
+  box-shadow: inset 0 0 0 1px var(--input-border-color);
 }
 
 .activated {
-  box-shadow: inset 0 0 0 2px var(--t-color-gray-4);
+  box-shadow: inset 0 0 0 2px var(--input-border-color);
+  //box-shadow: inset 0 0 0 2px var(--t-color-gray-4);
 }
 
 // input textarea
@@ -143,9 +147,9 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   box-sizing: border-box;
   font-size: inherit;
   line-height: inherit;
-  //line-height: var(--pad-xs);
-  box-shadow: inset 0 0 0 1px var(--t-color-gray-5);
-  background-color: var(--t-color-shadow-lightest);
+  --input-border-color: var(--t-color-gray-4);
+  box-shadow: inset 0 0 0 1px var(--input-border-color);
+  background-color: transparent;
   @include transition-fast(border-color, box-shadow);
   
   &:hover, &:focus, &:active {
@@ -164,6 +168,14 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   &.disabled {
     @extend .disabled-input;
+  }
+  
+  &.error {
+    --input-border-color: var(--t-color-error);
+  }
+  
+  &.success {
+    --input-border-color: var(--t-color-success);
   }
 }
 

@@ -56,9 +56,15 @@ export const Form = () => {
       <div className="jk-form-item">
         <label>
           label input with error label
-          <Input name="nickname" onChange={(value) => setText(value)} value={text} />
+          <Input name="nickname" onChange={(value) => setText(value)} value={text} className="error" />
         </label>
         <p>error label</p>
+      </div>
+      <div className="jk-form-item">
+        <label>
+          label input with success label
+          <Input name="nickname" onChange={(value) => setText(value)} value={text} className="success" />
+        </label>
       </div>
       <div className="jk-form-item">
         <label>
