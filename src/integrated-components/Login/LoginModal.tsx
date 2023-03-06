@@ -32,7 +32,7 @@ export const LoginModalComponent = ({
   highlightForgotPassword,
 }: LoginModalComponentProps) => {
   
-  const { handleSubmit, formState: { isValid, errors }, register } = useForm<LoginFormType>({
+  const { handleSubmit, formState: { isValid, errors, touchedFields }, register } = useForm<LoginFormType>({
     resolver: yupResolver(loginSchema),
     mode: 'all',
     reValidateMode: 'onBlur',
@@ -80,7 +80,13 @@ export const LoginModalComponent = ({
               <div className="jk-form-item">
                 <label>
                   <T>nickname</T>
-                  <Input register={register('nickname')} />
+                  <Input
+                    register={register('nickname')}
+                    className={classNames({
+                      error: !!errors?.nickname?.message,
+                      success: !!touchedFields.nickname && !errors?.nickname?.message,
+                    })}
+                  />
                 </label>
                 <p><T>{(!isValid && errors?.nickname?.message) || ''}</T></p>
               </div>
@@ -92,7 +98,13 @@ export const LoginModalComponent = ({
                 </p>
                 <label>
                   <T>password</T>
-                  <InputPassword register={register('password')} />
+                  <InputPassword
+                    register={register('password')}
+                    className={classNames({
+                      error: !!errors?.password?.message,
+                      success: !!touchedFields.password && !errors?.password?.message,
+                    })}
+                  />
                 </label>
                 <p><T>{errors?.password?.message || ''}</T></p>
               </div>

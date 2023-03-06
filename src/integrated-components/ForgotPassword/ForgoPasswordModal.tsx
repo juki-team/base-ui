@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ButtonLoader, Input, JukiLaptopImage, SplitModal, T } from '../../components';
+import { classNames } from '../../helpers';
 import { ForgotPasswordModalProps } from './types';
 
 export const ForgotPasswordModalComponent = ({ onClose, onForgotPassword }: ForgotPasswordModalProps) => {
   
   const [email, setEmail] = useState('');
+  const [touched, setTouched] = useState(false);
+  useEffect(() => {
+    if (!touched && email) {
+      setTouched(true);
+    }
+  }, [email, touched]);
+  const disabled = !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email);
   
   return (
     <SplitModal
@@ -27,15 +35,27 @@ export const ForgotPasswordModalComponent = ({ onClose, onForgotPassword }: Forg
         <div className="jk-form-item">
           <label>
             <T>email</T>
-            <Input name="email" value={email} onChange={(value) => setEmail(value)} type="email" extend />
+            <Input
+              name="email"
+              value={email}
+              onChange={(value) => setEmail(value)}
+              type="email"
+              extend
+              className={classNames({
+                error: touched && disabled,
+                success: touched && !disabled,
+              })}
+              onBlur={() => setTouched(true)}
+            />
           </label>
+          <p><T>{(touched && disabled) ? 'must be a valid email' : ''}</T></p>
         </div>
         <div className="jk-row-col gap right block">
           <ButtonLoader type="light" onClick={onClose}><T>cancel</T></ButtonLoader>
           <ButtonLoader
             type="primary"
             onClick={(setLoading) => onForgotPassword(email, setLoading!)}
-            disabled={!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email)}
+            disabled={disabled}
             submit
           >
             <T className="ws-np">send me</T>

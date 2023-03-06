@@ -27,15 +27,17 @@ const profileSettingsChangePasswordSchema = yup.object().shape({
 });
 
 export const ChangePasswordModal = ({ onClose }: BasicModalProps) => {
-  const { register, handleSubmit, formState: { errors, isValid } } = useForm<ProfileChangePasswordInput>({
+  const { register, handleSubmit, formState: { errors, isValid, touchedFields } } = useForm<ProfileChangePasswordInput>({
     resolver: yupResolver(profileSettingsChangePasswordSchema),
-    mode: 'onChange',
+    mode: 'all',
     reValidateMode: 'onBlur',
   });
   
   const { updatePassword } = useJukiUser();
   const { viewPortSize } = useJukiUI();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
+  
+  console.log({ errors, isValid, touchedFields, })
   
   return (
     <Modal
@@ -57,21 +59,39 @@ export const ChangePasswordModal = ({ onClose }: BasicModalProps) => {
           <div className="jk-form-item">
             <label>
               <T>password</T>
-              <InputPassword register={register('oldPassword')} />
+              <InputPassword
+                register={register('oldPassword')}
+                className={classNames({
+                  error: !!errors?.oldPassword?.message,
+                  success: !!touchedFields.oldPassword && !errors?.oldPassword?.message,
+                })}
+              />
             </label>
             <p><T>{errors.oldPassword?.message || ''}</T></p>
           </div>
           <div className="jk-form-item">
             <label>
               <T>new password</T>
-              <InputPassword register={register('newPassword')} />
+              <InputPassword
+                register={register('newPassword')}
+                className={classNames({
+                  error: !!errors?.newPassword?.message,
+                  success: !!touchedFields.newPassword && !errors?.newPassword?.message,
+                })}
+              />
             </label>
             <p><T>{errors.newPassword?.message || ''}</T></p>
           </div>
           <div className="jk-form-item">
             <label>
               <T>confirm new password</T>
-              <InputPassword register={register('newPasswordConfirmation')} />
+              <InputPassword
+                register={register('newPasswordConfirmation')}
+                className={classNames({
+                  error: !!errors?.newPasswordConfirmation?.message,
+                  success: !!touchedFields.newPasswordConfirmation && !errors?.newPasswordConfirmation?.message,
+                })}
+              />
             </label>
             <p><T>{errors.newPasswordConfirmation?.message || ''}</T></p>
           </div>
