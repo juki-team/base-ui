@@ -33,7 +33,6 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   const { filtered } = isSomethingFiltered(headers);
   const { viewPortSize } = useJukiUI();
   const isMobileViewPort = viewPortSize === 'sm';
-  console.log({ headers });
   const viewFilterButton = !!headers.filter(head => head.filter || head.sort).length;
   
   return (

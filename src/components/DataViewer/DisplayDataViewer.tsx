@@ -81,7 +81,6 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   const isMobileViewPort = viewPortSize === 'sm';
   const extraNodes = (_extraNodes || []).filter(extraNode => !!extraNode);
   const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
-  console.log({ viewViews, rowsView, cardsView, isMobileViewPort });
   const onColumn = !isMobileViewPort || (isMobileViewPort && (extraNodes.length === 0 ? true : !!extraNodesFloating) && !viewViews);
   
   return (

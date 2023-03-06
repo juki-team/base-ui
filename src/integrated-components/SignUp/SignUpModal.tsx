@@ -60,8 +60,6 @@ export const SignUpModalComponent = ({
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   // const { t } = useT();
   
-  console.log({ errors, isValid, touchedFields });
-  
   return (
     <SplitModal
       isOpen={true}

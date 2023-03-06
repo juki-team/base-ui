@@ -37,8 +37,6 @@ export const ChangePasswordModal = ({ onClose }: BasicModalProps) => {
   const { viewPortSize } = useJukiUI();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   
-  console.log({ errors, isValid, touchedFields, })
-  
   return (
     <Modal
       isOpen={true}
