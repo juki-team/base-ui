@@ -55,7 +55,7 @@ export const CodeRunnerEditor = ({
     if (data?.success) {
       const newTestCases: CodeEditorTestCasesType = { ...testCases };
       if (data?.content?.status === SubmissionRunStatus.RECEIVED) {
-        if (data?.content?.runId) {
+        if (data?.content?.runId) { // TODO: check when there are many coders valid IDS
           setRunId(data?.content?.runId);
           cleanTestCases(newTestCases, data?.content?.status);
           setErrorData({ err: '', log: '', out: '', status: SubmissionRunStatus.RECEIVED });
