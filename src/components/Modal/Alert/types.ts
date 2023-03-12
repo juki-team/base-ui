@@ -1,10 +1,9 @@
 import { ReactNode } from 'react';
-import { ButtonLoaderOnClickType } from '../../index';
+import { BasicModalProps, ButtonLoaderOnClickType } from '../../index';
 
-export interface AlertModalProps {
+export interface AlertModalProps extends BasicModalProps {
   decline: { onClick: () => void, label?: ReactNode },
   accept: { onClick: ButtonLoaderOnClickType, label?: ReactNode },
-  onCancel: () => void,
   title: ReactNode,
   content: ReactNode,
 }

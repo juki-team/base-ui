@@ -5,12 +5,12 @@ import { ButtonLoader, ExclamationIcon, T } from '../../index';
 import { Modal } from '../index';
 import { AlertModalProps } from './types';
 
-export const AlertModal = ({ decline, accept, title, content, onCancel }: AlertModalProps) => {
+export const AlertModal = ({ decline, accept, title, content, onClose }: AlertModalProps) => {
   
   const { viewPortSize } = useJukiUI();
   
   return (
-    <Modal isOpen={true} className="modal-alert" onClose={onCancel} closeIcon>
+    <Modal isOpen={true} className="modal-alert" onClose={onClose} closeIcon>
       <div className="modal-alert-title cr-py">
         <ExclamationIcon filledCircle className="cr-er" size="large" />
         <h3 className="cr-er">

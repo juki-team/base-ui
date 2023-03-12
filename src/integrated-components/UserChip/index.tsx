@@ -14,7 +14,7 @@ export const UserChip = ({ imageUrl, email, familyName, nickname, givenName }: U
         <UserNicknameLink nickname={nickname}>
           <div className="link">{nickname}</div>
         </UserNicknameLink>
-        <div>{email}</div>
+        <div className="wb-ba">{email}</div>
       </div>
     </div>
   );

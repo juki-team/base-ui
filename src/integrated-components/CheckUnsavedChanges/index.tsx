@@ -39,7 +39,7 @@ export const CheckUnsavedChanges = <T extends object, >({ children, onClickConti
             </div>
           }
           decline={{ onClick: onClickContinue, label: <T>continue without saving</T> }}
-          onCancel={() => setModal(null)}
+          onClose={() => setModal(null)}
         />,
       );
     }

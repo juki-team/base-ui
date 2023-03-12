@@ -2,6 +2,7 @@ import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../helpers';
 import { useOutsideAlerter } from '../../hooks';
+import { UploadImageButton } from '../ImageUploader/UploadImageButton';
 import {
   AlertModal,
   Button,
@@ -19,7 +20,6 @@ import { MdMathViewer } from '../MdMathViewer';
 import { InformationButton } from './InformationButton';
 import { MdFloatToolbar } from './MdFloatToolbar';
 import { MdMathEditorProps } from './types';
-import { UploadImageButton } from '../ImageUploader/UploadImageButton';
 
 export const MdMathEditor = ({
   source,
@@ -54,7 +54,7 @@ export const MdMathEditor = ({
     };
     setModal(
       <AlertModal
-        onCancel={() => setModal(null)}
+        onClose={() => setModal(null)}
         decline={{
           onClick: () => {
             continueWithoutSavingRef.current = true;
