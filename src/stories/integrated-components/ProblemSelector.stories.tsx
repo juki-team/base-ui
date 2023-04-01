@@ -34,7 +34,7 @@ export const ProblemSelector = () => {
 
 export const UserPreviewModal = () => {
   
-  const [open, setOpen] = useState(false);
+  const [ open, setOpen ] = useState(false);
   
   return (
     <JukiProvider>
@@ -70,7 +70,7 @@ export const UserProfileSettings = () => {
 
 export const UserChangePasswordModal = () => {
   
-  const [open, setOpen] = useState(false);
+  const [ open, setOpen ] = useState(false);
   
   return (
     <JukiProvider>
@@ -83,7 +83,7 @@ export const UserChangePasswordModal = () => {
 
 export const UserForgotPasswordModal = () => {
   
-  const [open, setOpen] = useState(false);
+  const [ open, setOpen ] = useState(false);
   
   return (
     <JukiProvider>
@@ -96,12 +96,16 @@ export const UserForgotPasswordModal = () => {
 
 export const WelcomeModal = () => {
   
-  const [open, setOpen] = useState(false);
+  const [ open, setOpen ] = useState(false);
   
   return (
     <JukiProvider>
       {open && (
-        <WelcomeModalCmp onClose={() => setOpen(false)} nickname="OscarGauss" onSeeMyProfile={action('onSeeMyProfile')} />
+        <WelcomeModalCmp
+          onClose={() => setOpen(false)}
+          nickname="OscarGauss"
+          onSeeMyProfile={action('onSeeMyProfile')}
+        />
       )}
       <Button onClick={() => setOpen(true)}>open</Button>
       <ToggleThemeButton />
@@ -111,7 +115,7 @@ export const WelcomeModal = () => {
 
 export const DrawerViewMenuMobile = () => {
   
-  const [open, setOpen] = useState(false);
+  const [ open, setOpen ] = useState(false);
   
   return (
     <JukiProvider>

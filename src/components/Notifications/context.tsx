@@ -77,6 +77,7 @@ export const useNotification = () => {
     setStatus?: SetStatusType,
   ): response is ContentResponseType<T> | ContentsResponseType<T> => {
     if (response.success === false) {
+      
       notifyError(response, (message) => addNotification({ type: NotificationType.ERROR, message }));
       setStatus?.(Status.ERROR);
     }
