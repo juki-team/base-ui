@@ -1,4 +1,11 @@
-import { consoleWarn, HTTPMethod, ProgrammingLanguage, UserSettingsType } from '@juki-team/commons';
+import {
+  consoleWarn,
+  getProblemJudgeKey,
+  HTTPMethod,
+  Judge,
+  ProgrammingLanguage,
+  UserSettingsType,
+} from '@juki-team/commons';
 import { ErrorInfo } from 'react';
 import { LoginFormType } from '../integrated-components';
 import { AuthorizedRequestType } from '../services';
@@ -145,6 +152,11 @@ export class Settings {
           params: { page, size, filterUrl, sortUrl },
         }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/list?'), page, size), filterUrl), sortUrl),
+        })),
+        summary: valid<{ params: { judge: Judge, key: string} }>(({
+          params: { judge, key },
+        }) => ({
+          url: injectBaseUrl('problem', `/${getProblemJudgeKey(judge, key)}/summary`),
         })),
       },
       image: {
