@@ -2,13 +2,15 @@ import { ContentsResponseType, Judge, JUDGE, ProblemSummaryListResponseDTO } fro
 import React, { useEffect, useState } from 'react';
 import { LoadingIcon, MultiSelectSearchable, Select } from '../../components';
 import { settings } from '../../config';
+import { classNames } from '../../helpers';
 import { authorizedRequest, cleanRequest } from '../../services';
 
 type JudgeDataType = {
   [key in Judge]: { problems: ProblemSummaryListResponseDTO[], loading: true }
 };
 
-export const ProblemSelector = ({ onSelect }: {
+export const ProblemSelector = ({ onSelect, extend = false }: {
+  extend?: boolean,
   onSelect: (selectedUsers: Omit<Omit<ProblemSummaryListResponseDTO, 'status'>, 'judge'>) => void
 }) => {
   const [ judge, setJudge ] = useState(Judge.JUKI_JUDGE);
@@ -30,9 +32,8 @@ export const ProblemSelector = ({ onSelect }: {
     getData();
   }, [ judge ]);
   
-  console.log({ data });
   return (
-    <div className="jk-row-col gap nowrap">
+    <div className={classNames('jk-row-col gap nowrap', { extend })}>
       <Select
         options={[
           { value: JUDGE.JUKI_JUDGE.value, label: JUDGE.JUKI_JUDGE.label },
