@@ -70,7 +70,6 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
         onChange={({ value }) => setJudge(value)}
       />
       <div className="jk-col gap extend flex-1">
-        
         <div className="jk-row nowrap gap">
           {judge === Judge.JUKI_JUDGE && (
             <label>
@@ -120,7 +119,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
             }}
             size="tiny"
             icon={<DownloadIcon />}
-            disabled={Judge.CODEFORCES ? key.split('-').filter(cad => !!cad).length !== 2 : !key}
+            disabled={judge === Judge.CODEFORCES ? (key.split('-').filter(cad => !!cad).length !== 2) : !key}
           >
             <T>select</T>
           </ButtonLoader>
