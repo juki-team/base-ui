@@ -104,7 +104,6 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
           )}
           <ButtonLoader
             onClick={async (setLoaderStatus) => {
-              console.log({ key, judge });
               setLoaderStatus(Status.LOADING);
               const { url } = settings.getAPI()
                 .problem
@@ -121,7 +120,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
             }}
             size="tiny"
             icon={<DownloadIcon />}
-            disabled={Judge.CODEFORCES ? key.split('-').filter(cad => !!cad).length !== 2 : !!key}
+            disabled={Judge.CODEFORCES ? key.split('-').filter(cad => !!cad).length !== 2 : !key}
           >
             <T>select</T>
           </ButtonLoader>
