@@ -37,7 +37,9 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
   const { notifyResponse } = useNotification();
   useEffect(() => {
     const getData = async () => {
-      setData(prevState => ({ ...prevState, [judge]: { problems: prevState[judge]?.problems || [], loading: true } }));
+      setData(prevState => (
+        { ...prevState, [judge]: { problems: prevState[judge]?.problems || [], loading: true } }
+      ));
       const { url } = settings.getAPI()
         .problem
         .list({ params: { page: 1, size: 100000, filterUrl: `judge=${judge}` } });
@@ -46,8 +48,10 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
         await authorizedRequest(url),
       );
       const problems = response.success ? response.contents || [] : [];
-      setData(prevState => ({ ...prevState, [judge]: { loading: false, problems } }));
-    }
+      setData(prevState => (
+        { ...prevState, [judge]: { loading: false, problems } }
+      ));
+    };
     setKey('');
     getData();
   }, [ judge ]);
@@ -112,43 +116,52 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
                 onSelect(response.content);
                 setLoaderStatus(Status.SUCCESS);
               } else {
-                notifyResponse(response, setLoaderStatus)
+                notifyResponse(response, setLoaderStatus);
               }
             }}
             size="tiny"
             icon={<DownloadIcon />}
-            disabled={key.split('-').filter(cad => !!cad).length !== 2}
+            disabled={Judge.CODEFORCES ? key.split('-').filter(cad => !!cad).length !== 2 : !!key}
           >
             <T>select</T>
           </ButtonLoader>
         </div>
-        {!data[judge] || (data[judge]?.loading && data[judge]?.problems?.length === 0)
+        {!data[judge] ||
+        (
+          data[judge]?.loading && data[judge]?.problems?.length === 0
+        )
           ? <div className="jk-row flex-1" style={{ height: 34 }}><LoadingIcon /></div>
           : <MultiSelectSearchable
-            options={(data[judge].problems).map(problem => ({
-              label: (
-                <div className="jk-row gap nowrap jk-pad-sm">
-                  <div><span className="fw-br cr-py">{problem.key}</span></div>
-                  <div className="jk-col stretch">
-                    {problem.name}
-                    <div className="jk-row left gap">
-                      {problem.tags?.map(tag => <div className="jk-tag gray-5" key={tag}>{tag}</div>)}
+            options={(
+              data[judge].problems
+            ).map(problem => (
+              {
+                label: (
+                  <div className="jk-row gap nowrap jk-pad-sm">
+                    <div><span className="fw-br cr-py">{problem.key}</span></div>
+                    <div className="jk-col stretch">
+                      {problem.name}
+                      <div className="jk-row left gap">
+                        {problem.tags?.map(tag => <div className="jk-tag gray-5" key={tag}>{tag}</div>)}
+                      </div>
                     </div>
+                  
                   </div>
-                
-                </div>
-              ),
-              inputLabel: (
-                <div>
-                  {problem.key} {problem.name} {problem.tags?.map(tag => <div
-                  className="jk-tag gray-6"
-                  key={tag}
-                >{tag}</div>)}
-                </div>
-              ),
-              value: problem,
-            }))}
-            selectedOptions={[].map(user => ({ value: user }))}
+                ),
+                inputLabel: (
+                  <div>
+                    {problem.key} {problem.name} {problem.tags?.map(tag => <div
+                    className="jk-tag gray-6"
+                    key={tag}
+                  >{tag}</div>)}
+                  </div>
+                ),
+                value: problem,
+              }
+            ))}
+            selectedOptions={[].map(user => (
+              { value: user }
+            ))}
             onChange={options => options[0] ? onSelect({ ...options[0].value }) : null}
             optionsPlacement="bottom"
             extend
