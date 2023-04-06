@@ -59,10 +59,6 @@ export const UsersSelector = ({
     } else {
       _onChangeSelectedUsers(selectedUsers);
     }
-    if (maxUsersSelection === 1) {
-      setShowOptions(false);
-      setShowOptions(undefined);
-    }
   };
   
   return (
