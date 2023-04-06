@@ -31,9 +31,9 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   
   const searchable = !!onFilter;
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
-  const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
-  const [search, setSearch] = useState('');
-  const [filteredOptions, setFilteredOptions] = useState(options);
+  const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
+  const [ search, setSearch ] = useState('');
+  const [ filteredOptions, setFilteredOptions ] = useState(options);
   const selectedOptions: SelectOptionType<T, U, V>[] = useMemo(() => initialSelectedOptions.map(initialOptionSelected => {
     const value = JSON.stringify(initialOptionSelected.value);
     const option = options.find(option => JSON.stringify(option.value) === value);
@@ -42,7 +42,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
       label: initialOptionSelected.label || option?.label || '' as unknown as U,
       inputLabel: initialOptionSelected.inputLabel || option?.inputLabel || '' as unknown as V,
     };
-  }), [initialSelectedOptions, options]);
+  }), [ initialSelectedOptions, options ]);
   
   useEffect(() => {
     if (search && onFilter) {
@@ -50,10 +50,10 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
     } else {
       setFilteredOptions(options);
     }
-  }, [onFilter, options, search, selectedOptions]);
+  }, [ onFilter, options, search, selectedOptions ]);
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
   
-  const widthLabels = Math.max(...[...options, ...selectedOptions].map(({ label }) => getTextContent(label).length));
+  const widthLabels = Math.max(...[ ...options, ...selectedOptions ].map(({ label }) => getTextContent(label).length));
   
   const isDisabled = disabled || !onChange;
   const containerWidth = widthLabels * (12 + 5) + 35;
@@ -66,7 +66,8 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
       <div
         className={classNames('jk-select-option', { selected, disabled })}
         onClick={!option.disabled ? () => {
-          onChange?.(selected ? selectedOptions.filter(optionSelected => JSON.stringify(option.value) !== JSON.stringify(optionSelected.value)) : [
+          onChange?.(selected ? selectedOptions.filter(optionSelected => JSON.stringify(option.value)
+            !== JSON.stringify(optionSelected.value)) : [
             ...(multiselect ? selectedOptions : []),
             option,
           ]);
@@ -79,7 +80,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         }}
       >
         <div className="jk-row left nowrap">
-          {multiselect && <InputCheckbox checked={selected} onChange={() => null} disabled={disabled} />}
+          {multiselect && <InputCheckbox checked={selected} disabled={disabled} />}
           {renderReactNodeOrFunction(option.label)}
         </div>
       </div>
@@ -125,13 +126,15 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
                 className={classNames('jk-row nowrap', { 'jk-tag gray-6': multiselect })}
                 key={JSON.stringify(optionSelected.value)}
               >
-                {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected?.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
+                {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected?.inputLabel) : renderReactNodeOrFunction(
+                  optionSelected.label)}
                 {onChange && multiselect && (
                   <CloseIcon
                     size="small"
                     filledCircle
                     onClick={event => {
-                      onChange(selectedOptions.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(option.value)));
+                      onChange(selectedOptions.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(
+                        option.value)));
                       event.stopPropagation();
                     }}
                     className="cr-g3"

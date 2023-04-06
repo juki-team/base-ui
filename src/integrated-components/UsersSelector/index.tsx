@@ -8,9 +8,14 @@ import { UserChip } from '../../integrated-components';
 export interface UsersSelectorProps {
   selectedUsers: string[],
   onChangeSelectedUsers: (selectedUsers: UserSummaryResponseDTO[]) => void,
+  maxUsersSelection?: number
 }
 
-export const UsersSelector = ({ selectedUsers, onChangeSelectedUsers: _onChangeSelectedUsers }: UsersSelectorProps) => {
+export const UsersSelector = ({
+  selectedUsers,
+  onChangeSelectedUsers: _onChangeSelectedUsers,
+  maxUsersSelection = -1,
+}: UsersSelectorProps) => {
   
   const { isLoading, data } = useFetcher<ContentsResponseType<UserSummaryResponseDTO>>(settings.getAPI()
     .user
@@ -19,6 +24,7 @@ export const UsersSelector = ({ selectedUsers, onChangeSelectedUsers: _onChangeS
   const [ text, setText ] = useState('');
   const [ textNicknames, setTextNicknames ] = useState<string[]>([]);
   const [ error, setError ] = useState('');
+  const [ showOptions, setShowOptions ] = useState<undefined | false>(undefined);
   const users: { [key: string]: UserSummaryResponseDTO } = useMemo(() => {
     const users = {};
     const dataUsers = (data?.success ? data?.contents : []);
@@ -47,7 +53,16 @@ export const UsersSelector = ({ selectedUsers, onChangeSelectedUsers: _onChangeS
   }
   
   const onChangeSelectedUsers = (nicknames: string[]) => {
-    _onChangeSelectedUsers(nicknames.map(nickname => users[nickname]));
+    const users: UserSummaryResponseDTO[] = nicknames.map(nickname => users[nickname]);
+    if (maxUsersSelection > 0) {
+      _onChangeSelectedUsers(users.slice(-maxUsersSelection));
+    } else {
+      _onChangeSelectedUsers(users);
+    }
+    if (maxUsersSelection === 1) {
+      setShowOptions(false);
+      setShowOptions(undefined);
+    }
   };
   
   return (
@@ -117,6 +132,8 @@ export const UsersSelector = ({ selectedUsers, onChangeSelectedUsers: _onChangeS
             user.email.toLowerCase().indexOf(text) > -1
           );
         }}
+        multiselect={maxUsersSelection !== 1}
+        showOptions={showOptions}
       />
       <Popover
         content={<T>add users by nicknames in batches</T>}
