@@ -1,12 +1,15 @@
 import { consoleWarn, SocketEvent } from '@juki-team/commons';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { socket } from '../services';
+import { useJukiUser } from './useJukiUser';
 
 export const useJkSocket = (message: SocketEvent) => {
-  const [messages, setMessages] = useState<any[]>([]);
+  const { socket } = useJukiUser();
+  const [ messages, setMessages ] = useState<any[]>([]);
   const triesRef = useRef(1);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const listener = useCallback((result: any) => setMessages(prevState => ([...prevState, result])), []);
+  const listener = useCallback((result: any) => setMessages(prevState => (
+    [ ...prevState, result ]
+  )), []);
   
   useEffect(() => {
     const on = () => {
@@ -31,7 +34,7 @@ export const useJkSocket = (message: SocketEvent) => {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [listener, message]);
+  }, [listener, message, socket]);
   
   return {
     messages,
@@ -42,10 +45,12 @@ export const useJkSocket = (message: SocketEvent) => {
     pop: useCallback(() => {
       if (messages.length) {
         const message = messages[0];
-        setMessages(prevState => (prevState.splice(1)));
+        setMessages(prevState => (
+          prevState.splice(1)
+        ));
         return message;
       }
       return null;
-    }, [messages]),
+    }, [ messages ]),
   };
 };

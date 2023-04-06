@@ -7,7 +7,7 @@ import { CodeRunnerEditor, CodeRunnerEditorPropertiesType, CodeRunnerEditorProps
 import { JukiProvider } from '../JukiProvider';
 
 export default {
-  title: 'Components/Data Entry',
+  title: 'Components/Integrated Components',
   component: CodeRunnerEditor,
   argTypes: {
     type: {
