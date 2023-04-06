@@ -53,11 +53,11 @@ export const UsersSelector = ({
   }
   
   const onChangeSelectedUsers = (nicknames: string[]) => {
-    const users: UserSummaryResponseDTO[] = nicknames.map(nickname => users[nickname]);
+    const selectedUsers: UserSummaryResponseDTO[] = nicknames.map(nickname => users[nickname]);
     if (maxUsersSelection > 0) {
-      _onChangeSelectedUsers(users.slice(-maxUsersSelection));
+      _onChangeSelectedUsers(selectedUsers.slice(-maxUsersSelection));
     } else {
-      _onChangeSelectedUsers(users);
+      _onChangeSelectedUsers(selectedUsers);
     }
     if (maxUsersSelection === 1) {
       setShowOptions(false);
