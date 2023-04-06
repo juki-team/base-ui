@@ -7,18 +7,18 @@ import { UserChip } from '../../integrated-components';
 
 export interface UsersSelectorProps {
   selectedUsers: string[],
-  onChangeSelectedUsers: (selectedUsers: string[]) => void,
+  onChangeSelectedUsers: (selectedUsers: UserSummaryResponseDTO[]) => void,
 }
 
-export const UsersSelector = ({ selectedUsers, onChangeSelectedUsers }: UsersSelectorProps) => {
+export const UsersSelector = ({ selectedUsers, onChangeSelectedUsers: _onChangeSelectedUsers }: UsersSelectorProps) => {
   
   const { isLoading, data } = useFetcher<ContentsResponseType<UserSummaryResponseDTO>>(settings.getAPI()
     .user
     .summaryList().url);
-  const [show, setShow] = useState(false);
-  const [text, setText] = useState('');
-  const [textNicknames, setTextNicknames] = useState<string[]>([]);
-  const [error, setError] = useState('');
+  const [ show, setShow ] = useState(false);
+  const [ text, setText ] = useState('');
+  const [ textNicknames, setTextNicknames ] = useState<string[]>([]);
+  const [ error, setError ] = useState('');
   const users: { [key: string]: UserSummaryResponseDTO } = useMemo(() => {
     const users = {};
     const dataUsers = (data?.success ? data?.contents : []);
@@ -26,7 +26,7 @@ export const UsersSelector = ({ selectedUsers, onChangeSelectedUsers }: UsersSel
       users[user.nickname] = user;
     });
     return users;
-  }, [data]);
+  }, [ data ]);
   const dataUsers = Object.values(users);
   useEffect(() => {
     const nicknames = text.split(',').map(text => text.trim()).filter(text => !!text);
@@ -41,10 +41,14 @@ export const UsersSelector = ({ selectedUsers, onChangeSelectedUsers }: UsersSel
     });
     setError(error);
     setTextNicknames(validNicknames);
-  }, [text, users]);
+  }, [ text, users ]);
   if (isLoading) {
     return <div><LoadingIcon /></div>;
   }
+  
+  const onChangeSelectedUsers = (nicknames: string[]) => {
+    _onChangeSelectedUsers(nicknames.map(nickname => users[nickname]));
+  };
   
   return (
     <div className="jk-row left stretch gap nowrap extend">
@@ -73,7 +77,7 @@ export const UsersSelector = ({ selectedUsers, onChangeSelectedUsers }: UsersSel
               <Button
                 disabled={!textNicknames.length}
                 onClick={() => {
-                  onChangeSelectedUsers(Array.from(new Set([...selectedUsers, ...textNicknames])));
+                  onChangeSelectedUsers(Array.from(new Set([ ...selectedUsers, ...textNicknames ])));
                   setText('');
                   setShow(false);
                 }}
