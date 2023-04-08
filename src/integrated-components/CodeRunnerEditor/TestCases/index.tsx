@@ -1,4 +1,10 @@
-import { mex, PROGRAMMING_LANGUAGE, SUBMISSION_RUN_STATUS, SubmissionRunStatus } from '@juki-team/commons';
+import {
+  mex,
+  PROGRAMMING_LANGUAGE,
+  ProgrammingLanguage,
+  SUBMISSION_RUN_STATUS,
+  SubmissionRunStatus,
+} from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import {
@@ -20,10 +26,18 @@ import { TestCasesProps } from '../types';
 import { getErrors } from '../utils';
 import { LogInfo } from './LogInfo';
 
-export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimit, errorData, direction }: TestCasesProps) => {
+export const TestCases = <T, >({
+  testCases,
+  onChange,
+  language,
+  timeLimit,
+  memoryLimit,
+  errorData,
+  direction,
+}: TestCasesProps<T>) => {
   const testCasesValues = Object.values(testCases)
     .sort((a, b) => (a.sample !== b.sample) ? +b.sample - +a.sample : a.index - b.index);
-  const [testCaseKey, setTestCaseKey] = useState(testCasesValues[0]?.key || '');
+  const [ testCaseKey, setTestCaseKey ] = useState(testCasesValues[0]?.key || '');
   useEffect(() => {
     const testCasesValues = Object.values(testCases);
     if (testCasesValues.length) {
@@ -31,7 +45,7 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
         setTestCaseKey(testCasesValues[0].key);
       }
     }
-  }, [testCaseKey, testCases]);
+  }, [ testCaseKey, testCases ]);
   
   const tabs: { [key: string]: TabType<string> } = {};
   testCasesValues.forEach(testCaseValue => {
@@ -39,7 +53,8 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
       key: testCaseValue.key,
       header: testCaseValue.sample
         ? testCaseValue.key === testCaseKey
-          ? <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">sample</T>&nbsp;{testCaseValue.index + 1}</div>
+          ?
+          <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">sample</T>&nbsp;{testCaseValue.index + 1}</div>
           : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">s.</T>&nbsp;{testCaseValue.index + 1}</div>
         : testCaseValue.key === testCaseKey
           ? <div className="jk-row ws-np nowrap tx-s">
@@ -89,7 +104,16 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
               onChange?.({
                 testCases: {
                   ...testCases,
-                  [key]: { key, index, in: '', out: '', err: '', log: '', sample: false, status: SubmissionRunStatus.NONE },
+                  [key]: {
+                    key,
+                    index,
+                    in: '',
+                    out: '',
+                    err: '',
+                    log: '',
+                    sample: false,
+                    status: SubmissionRunStatus.NONE,
+                  },
                 },
               });
             } else {
@@ -101,19 +125,25 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
     </Popover>
   );
   
-  const [outputTab, setOutputTab] = useState('output');
+  const [ outputTab, setOutputTab ] = useState('output');
   const { addNotification } = useNotification();
   const status = testCases[testCaseKey]?.status;
   useEffect(() => {
-    setOutputTab(status === SubmissionRunStatus.FAILED || status === SubmissionRunStatus.COMPILATION_ERROR ? 'error' : 'output');
-  }, [status]);
+    setOutputTab(status
+    === SubmissionRunStatus.FAILED
+    || status
+    === SubmissionRunStatus.COMPILATION_ERROR ? 'error' : 'output');
+  }, [ status ]);
   
   const outputTabs: TabType<string>[] = [
     {
       key: 'output',
       header: (
         <T
-          className={classNames('tt-se tx-s', { 'cr-er': getErrors(testCases[testCaseKey], timeLimit, memoryLimit).failed })}
+          className={classNames(
+            'tt-se tx-s',
+            { 'cr-er': getErrors(testCases[testCaseKey], timeLimit, memoryLimit).failed },
+          )}
         >
           output
         </T>
@@ -136,7 +166,8 @@ export const TestCases = ({ testCases, onChange, language, timeLimit, memoryLimi
       key: 'error',
       header: (
         <T className={classNames('tt-se tx-s cr-er')}>
-          {PROGRAMMING_LANGUAGE[language].hasBuildFile && errorData?.status === SubmissionRunStatus.COMPILATION_ERROR ? 'compilation log' : 'error'}
+          {PROGRAMMING_LANGUAGE[language as ProgrammingLanguage]?.hasBuildFile
+          && errorData?.status === SubmissionRunStatus.COMPILATION_ERROR ? 'compilation log' : 'error'}
         </T>
       ),
       body: (

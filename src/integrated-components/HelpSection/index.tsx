@@ -14,7 +14,7 @@ export const HelpSection = () => {
       <div className="jk-row gap nowrap left">
         <TelegramIcon />
         <div className="jk-row link fw-bd">
-          <a href="https://t.me/OscarGauss" target="_blank">t.me/OscarGauss</a>
+          <a href="https://t.me/OscarGauss" target="_blank" rel="noreferrer">t.me/OscarGauss</a>
         </div>
       </div>
       <div />

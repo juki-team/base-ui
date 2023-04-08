@@ -2,9 +2,15 @@ import React from 'react';
 import { CODE_EDIT0R_FONT_SIZES, CODE_EDIT0R_TAB_SIZES, Modal, Select, T } from '../../../components';
 import { SettingsModalProps } from '../types';
 
-export const SettingsModal = ({ onClose, isOpen, onChange, tabSize, fontSize }: SettingsModalProps) => {
+export const SettingsModal = <T, >({ onClose, isOpen, onChange, tabSize, fontSize }: SettingsModalProps<T>) => {
   return (
-    <Modal className="editor-settings-modal jk-pad-lg" isOpen={isOpen} onClose={onClose} closeIcon closeWhenClickOutside>
+    <Modal
+      className="editor-settings-modal jk-pad-lg"
+      isOpen={isOpen}
+      onClose={onClose}
+      closeIcon
+      closeWhenClickOutside
+    >
       <div className="jk-pad-md jk-col stretch gap">
         <h2><T>code editor settings</T></h2>
         <div className="jk-row left gap">

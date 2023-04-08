@@ -2,7 +2,6 @@ import {
   CodeEditorTestCasesType,
   consoleWarn,
   ContentResponseType,
-  PROGRAMMING_LANGUAGE,
   Status,
   SubmissionRunStatus,
 } from '@juki-team/commons';
@@ -25,7 +24,7 @@ import { classNames } from '../../../helpers';
 import { authorizedRequest, cleanRequest } from '../../../services';
 import { HeaderProps } from '../types';
 
-export const Header = ({
+export const Header = <T, >({
   languages,
   sourceCode,
   language,
@@ -39,7 +38,7 @@ export const Header = ({
   setErrorData,
   expanded,
   setExpanded,
-}: HeaderProps) => {
+}: HeaderProps<T>) => {
   
   const { addErrorNotification } = useNotification();
   const { width: widthContainer = 0, ref } = useResizeDetector();
@@ -62,7 +61,7 @@ export const Header = ({
     try {
       const { url, ...options } = settings.getAPI().code.run({
         body: {
-          language,
+          language: language as string,
           source: sourceCode,
           inputs: Object.values(testCases).map(testCase => ({ key: testCase.key, source: testCase.in })),
           timeLimit,
@@ -99,8 +98,14 @@ export const Header = ({
       <div className={classNames('left-options cr-pl jk-row gap', { 'jk-col left gap': twoRows })} ref={refLeftSection}>
         <Select
           className="languages-selector"
-          options={languages.map(language => ({ value: language, label: language }))}
-          selectedOption={{ label: PROGRAMMING_LANGUAGE[language].label, value: PROGRAMMING_LANGUAGE[language].value }}
+          options={languages.map(language => ({
+            value: language.value,
+            label: (language.label || language.value) + '',
+          }))}
+          selectedOption={{
+            value: language,
+            label: (languages.find(lang => lang.value === language)?.label || language) + '',
+          }}
           onChange={({ value }) => onChange?.({ language: value })}
         />
         {withRunCodeButton && (

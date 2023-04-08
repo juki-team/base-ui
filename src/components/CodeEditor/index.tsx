@@ -11,7 +11,7 @@ import React from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CodeEditorProps } from './types';
 
-export const CodeEditor = ({
+export const CodeEditor = <T, >({
   sourceCode,
   language,
   theme,
@@ -19,7 +19,7 @@ export const CodeEditor = ({
   onChange,
   tabSize = 4,
   fontSize = 14,
-}: CodeEditorProps) => {
+}: CodeEditorProps<T>) => {
   const extensions = [];
   switch (language) {
     case ProgrammingLanguage.CPP:

@@ -1,6 +1,7 @@
 import {
   CodeEditorTestCasesType,
   ProfileSetting,
+  PROGRAMMING_LANGUAGE,
   SocketEvent,
   SubmissionRunStatus,
   SubmissionTestCaseType,
@@ -14,10 +15,13 @@ import { SettingsModal } from './SettingsModal';
 import { TestCases } from './TestCases';
 import { CodeRunnerEditorProps } from './types';
 
-export const CodeRunnerEditor = ({
+export const CodeRunnerEditor = <T, >({
   readOnly,
   sourceCode,
-  languages = CODE_EDITOR_PROGRAMMING_LANGUAGES,
+  languages = CODE_EDITOR_PROGRAMMING_LANGUAGES.map(lang => ({
+    value: lang as T,
+    label: PROGRAMMING_LANGUAGE[lang]?.label || lang,
+  })),
   language,
   onChange,
   middleButtons,
@@ -28,11 +32,11 @@ export const CodeRunnerEditor = ({
   memoryLimit = 512000,
   expandPosition,
   className,
-}: CodeRunnerEditorProps) => {
-  const [runId, setRunId] = useState('');
+}: CodeRunnerEditorProps<T>) => {
+  const [ runId, setRunId ] = useState('');
   const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
   const { pop } = useJkSocket(SocketEvent.RUN);
-  const [errorData, setErrorData] = useState<SubmissionTestCaseType>({
+  const [ errorData, setErrorData ] = useState<SubmissionTestCaseType>({
     log: '',
     err: '',
     out: '',
@@ -65,7 +69,12 @@ export const CodeRunnerEditor = ({
         if (data?.content?.status === SubmissionRunStatus.COMPILING) {
           cleanTestCases(newTestCases, data?.content?.status);
           setErrorData({ err: '', log: '', out: '', status: SubmissionRunStatus.COMPILING });
-        } else if (data?.content?.status === SubmissionRunStatus.FAILED || data?.content?.status === SubmissionRunStatus.COMPILED || data?.content?.status === SubmissionRunStatus.COMPILATION_ERROR) {
+        } else if (data?.content?.status
+          === SubmissionRunStatus.FAILED
+          || data?.content?.status
+          === SubmissionRunStatus.COMPILED
+          || data?.content?.status
+          === SubmissionRunStatus.COMPILATION_ERROR) {
           cleanTestCases(newTestCases, data?.content?.status);
           setErrorData({
             err: data?.content?.err || '',
@@ -85,7 +94,10 @@ export const CodeRunnerEditor = ({
             };
             onChange?.({ testCases: newTestCases });
           }
-        } else if (data?.content?.status === SubmissionRunStatus.EXECUTED_TEST_CASE || data?.content?.status === SubmissionRunStatus.FAILED_TEST_CASE) {
+        } else if (data?.content?.status
+          === SubmissionRunStatus.EXECUTED_TEST_CASE
+          || data?.content?.status
+          === SubmissionRunStatus.FAILED_TEST_CASE) {
           const inputKey = data?.content?.inputKey;
           if (inputKey && newTestCases[inputKey]) {
             newTestCases[inputKey] = {
@@ -108,13 +120,19 @@ export const CodeRunnerEditor = ({
         }
       }
     }
-  }, [onChange, pop, runId, testCases]);
-  const [showSettings, setShowSettings] = useState(false);
-  const [direction, setDirection] = useState<'row' | 'column'>('row');
-  const [expanded, setExpanded] = useState(false);
+  }, [ onChange, pop, runId, testCases ]);
+  const [ showSettings, setShowSettings ] = useState(false);
+  const [ direction, setDirection ] = useState<'row' | 'column'>('row');
+  const [ expanded, setExpanded ] = useState(false);
   
   const body = (
-    <div className={classNames('jk-code-mirror-editor-layout jk-border-radius-inline', { 'elevation-3': expanded }, className)}>
+    <div
+      className={classNames(
+        'jk-code-mirror-editor-layout jk-border-radius-inline',
+        { 'elevation-3': expanded },
+        className,
+      )}
+    >
       <SettingsModal
         isOpen={showSettings}
         onClose={() => setShowSettings(false)}

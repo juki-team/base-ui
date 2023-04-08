@@ -1,4 +1,4 @@
-import { ProgrammingLanguage, Theme } from '@juki-team/commons';
+import { Theme } from '@juki-team/commons';
 
 export enum CodeEditorTheme {
   DAY_3024 = '3024-day',
@@ -74,20 +74,20 @@ export enum CodeEditorKeyMap {
   VIM = 'vim',
 }
 
-export type CodeEditorPropertiesType = {
+export type CodeEditorPropertiesType<T = string> = {
   sourceCode?: string,
-  language?: ProgrammingLanguage,
+  language?: T,
   theme?: Theme,
   // keyMap?: CodeEditorKeyMap,
   tabSize?: number,
   fontSize?: number,
 };
 
-export type CodeEditorOnChangeType = (props: CodeEditorPropertiesType) => void;
+export type CodeEditorOnChangeType<T> = (props: CodeEditorPropertiesType<T>) => void;
 
-export interface CodeEditorProps extends CodeEditorPropertiesType {
-  language: ProgrammingLanguage,
+export interface CodeEditorProps<T> extends CodeEditorPropertiesType<T> {
+  language: T,
   sourceCode: string,
   readOnly?: boolean,
-  onChange?: CodeEditorOnChangeType,
+  onChange?: CodeEditorOnChangeType<T>,
 }

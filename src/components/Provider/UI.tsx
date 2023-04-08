@@ -51,7 +51,7 @@ export const UIContext = createContext<UIContextInterface>({
   },
 });
 
-export interface JukiUIProvider {
+export interface JukiUIProviderProps {
   components?: Partial<UIComponentsContextInterface>,
   router?: UIRouterContextInterface,
 }
@@ -60,7 +60,7 @@ const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
   return new URLSearchParams(urlSearchParams.toString());
 };
 
-export const JukiUIProvider = ({ children, components, router }: PropsWithChildren<JukiUIProvider>) => {
+export const JukiUIProvider = ({ children, components, router }: PropsWithChildren<JukiUIProviderProps>) => {
   
   const isPageVisible = usePageVisibility();
   const isPageFocus = usePageFocus();

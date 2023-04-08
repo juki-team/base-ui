@@ -2,9 +2,9 @@ import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
-import { ToggleThemeButton } from '../ToggleThemeButton';
 import { CodeRunnerEditor, CodeRunnerEditorPropertiesType, CodeRunnerEditorProps } from '../../index';
 import { JukiProvider } from '../JukiProvider';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Integrated Components',
@@ -13,7 +13,7 @@ export default {
     type: {
       control: {
         type: 'radio',
-        options: ['default', 'primary', 'text', 'ghost'],
+        options: [ 'default', 'primary', 'text', 'ghost' ],
         disable: true,
       },
       disable: true,
@@ -27,8 +27,11 @@ configureActions({
   limit: 20,
 });
 
-const Template: Story<CodeRunnerEditorProps> = (args) => {
-  const [props, setProps] = useState<CodeRunnerEditorPropertiesType & { language: string, sourceCode: string }>({
+const Template: Story<CodeRunnerEditorProps<string>> = (args) => {
+  const [ props, setProps ] = useState<CodeRunnerEditorPropertiesType<ProgrammingLanguage> & {
+    language: string,
+    sourceCode: string
+  }>({
     language: ProgrammingLanguage.JAVASCRIPT,
     sourceCode: 'console.info("Juki!")',
   });
@@ -38,7 +41,7 @@ const Template: Story<CodeRunnerEditorProps> = (args) => {
         <CodeRunnerEditor
           {...args}
           {...props}
-          onChange={(props) => {
+          onChange={(props: any) => {
             setProps(prevState => ({ ...prevState, ...props }));
           }}
           middleButtons={({ widthContainer }) => <div>width:{widthContainer}</div>}
@@ -80,4 +83,26 @@ CodeRunnerEditorWithIo.args = {
       status: SubmissionRunStatus.NONE,
     },
   },
+};
+
+export const CodeRunnerEditorWithCustomLanguages = Template.bind({});
+
+CodeRunnerEditorWithCustomLanguages.args = {
+  readOnly: false, // op
+  testCases: {
+    'test-empty': {
+      key: 'test-empty',
+      index: 0,
+      in: '',
+      out: '',
+      err: '',
+      log: '',
+      sample: false,
+      status: SubmissionRunStatus.NONE,
+    },
+  },
+  languages: [
+    { value: '43', label: 'GNU GCC C11 5.1.0' },
+    { value: '65', label: 'C# 8, .NET Core 3.1' },
+  ],
 };

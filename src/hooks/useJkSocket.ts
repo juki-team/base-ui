@@ -41,7 +41,7 @@ export const useJkSocket = (message: SocketEvent) => {
     reloadSession: useCallback(async () => {
       await socket.leaveSession();
       await socket.joinSession();
-    }, []),
+    }, [socket]),
     pop: useCallback(() => {
       if (messages.length) {
         const message = messages[0];

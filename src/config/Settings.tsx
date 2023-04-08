@@ -1,11 +1,4 @@
-import {
-  consoleWarn,
-  getProblemJudgeKey,
-  HTTPMethod,
-  Judge,
-  ProgrammingLanguage,
-  UserSettingsType,
-} from '@juki-team/commons';
+import { consoleWarn, getProblemJudgeKey, HTTPMethod, Judge, UserSettingsType } from '@juki-team/commons';
 import { ErrorInfo } from 'react';
 import { LoginFormType } from '../integrated-components';
 import { AuthorizedRequestType } from '../services';
@@ -153,7 +146,7 @@ export class Settings {
         }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/list?'), page, size), filterUrl), sortUrl),
         })),
-        summary: valid<{ params: { judge: Judge, key: string} }>(({
+        summary: valid<{ params: { judge: Judge, key: string } }>(({
           params: { judge, key },
         }) => ({
           url: injectBaseUrl('problem', `/${getProblemJudgeKey(judge, key)}/summary`),
@@ -189,7 +182,7 @@ export class Settings {
       code: {
         run: valid<{
           body: {
-            language: ProgrammingLanguage,
+            language: string,
             source: string,
             inputs: { key: string, source: string }[]
             timeLimit: number,

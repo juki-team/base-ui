@@ -1,12 +1,16 @@
-import { CodeEditorTestCasesType, ProgrammingLanguage, SubmissionTestCaseType } from '@juki-team/commons';
+import { CodeEditorTestCasesType, SubmissionTestCaseType } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { CodeEditorPropertiesType } from '../../components';
 
-export type CodeRunnerEditorPropertiesType = CodeEditorPropertiesType & { testCases?: CodeEditorTestCasesType };
+export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
+  testCases?: CodeEditorTestCasesType
+};
 
-export type CodeRunnerEditorOnChangeType = (props: CodeRunnerEditorPropertiesType) => void;
+export type CodeRunnerEditorOnChangeType<T> = (props: CodeRunnerEditorPropertiesType<T>) => void;
 
-export type CodeEditorMiddleButtonsType = (props: Omit<CodeRunnerEditorProps, 'onChange' | 'className' | 'middleButtons'> & { widthContainer: number }) => ReactNode;
+export type CodeEditorMiddleButtonsType<T> = (props: Omit<CodeRunnerEditorProps<T>, 'onChange' | 'className' | 'middleButtons'> & {
+  widthContainer: number
+}) => ReactNode;
 
 export type CodeEditorExpandPositionType = {
   top: string | number,
@@ -15,43 +19,43 @@ export type CodeEditorExpandPositionType = {
   height: string | number,
 };
 
-export interface CodeRunnerEditorProps extends CodeEditorPropertiesType {
+export interface CodeRunnerEditorProps<T> extends CodeEditorPropertiesType<T> {
   sourceCode: string,
-  language: ProgrammingLanguage,
+  language: T,
   readOnly?: boolean,
-  onChange?: CodeRunnerEditorOnChangeType,
-  languages?: ProgrammingLanguage[],
+  onChange?: CodeRunnerEditorOnChangeType<T>,
+  languages?: { value: T, label: string }[],
   className?: string,
-  middleButtons?: CodeEditorMiddleButtonsType,
+  middleButtons?: CodeEditorMiddleButtonsType<T>,
   testCases?: CodeEditorTestCasesType,
   timeLimit?: number,
   memoryLimit?: number,
   expandPosition?: CodeEditorExpandPositionType,
 }
 
-export interface SettingsModalProps {
+export interface SettingsModalProps<T> {
   isOpen: boolean
   onClose: () => void,
-  onChange?: CodeRunnerEditorOnChangeType,
+  onChange?: CodeRunnerEditorOnChangeType<T>,
   tabSize: number,
   fontSize: number,
 }
 
-export interface TestCasesProps {
+export interface TestCasesProps<T> {
   testCases: CodeEditorTestCasesType,
-  onChange?: CodeRunnerEditorOnChangeType,
-  language: ProgrammingLanguage,
+  onChange?: CodeRunnerEditorOnChangeType<T>,
+  language: T,
   timeLimit: number,
   memoryLimit: number,
   errorData: SubmissionTestCaseType,
   direction: 'row' | 'column',
 }
 
-export interface HeaderProps {
+export interface HeaderProps<T> {
   sourceCode: string,
-  languages: ProgrammingLanguage[],
-  language: ProgrammingLanguage,
-  onChange?: CodeRunnerEditorOnChangeType,
+  languages: { value: T, label: string }[],//ProgrammingLanguage[],
+  language: T,//ProgrammingLanguage,
+  onChange?: CodeRunnerEditorOnChangeType<T>,
   testCases: CodeEditorTestCasesType,
   setShowSettings: Dispatch<SetStateAction<boolean>>,
   setRunId: Dispatch<SetStateAction<string>>,
