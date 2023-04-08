@@ -24,7 +24,6 @@ export const UsersSelector = ({
   const [ text, setText ] = useState('');
   const [ textNicknames, setTextNicknames ] = useState<string[]>([]);
   const [ error, setError ] = useState('');
-  const [ showOptions, setShowOptions ] = useState<undefined | false>(undefined);
   const users: { [key: string]: UserSummaryResponseDTO } = useMemo(() => {
     const users = {};
     const dataUsers = (data?.success ? data?.contents : []);
@@ -129,7 +128,6 @@ export const UsersSelector = ({
           );
         }}
         multiselect={maxUsersSelection !== 1}
-        showOptions={showOptions}
       />
       <Popover
         content={<T>add users by nicknames in batches</T>}
