@@ -1,16 +1,9 @@
-import {
-  mex,
-  PROGRAMMING_LANGUAGE,
-  ProgrammingLanguage,
-  SUBMISSION_RUN_STATUS,
-  SubmissionRunStatus,
-} from '@juki-team/commons';
+import { mex, SUBMISSION_RUN_STATUS, SubmissionRunStatus } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import {
   AddIcon,
   DeleteIcon,
-  LoadingIcon,
   NotificationType,
   Popover,
   SplitPane,
@@ -26,15 +19,7 @@ import { TestCasesProps } from '../types';
 import { getErrors } from '../utils';
 import { LogInfo } from './LogInfo';
 
-export const TestCases = <T, >({
-  testCases,
-  onChange,
-  language,
-  timeLimit,
-  memoryLimit,
-  errorData,
-  direction,
-}: TestCasesProps<T>) => {
+export const TestCases = <T, >({ testCases, onChange, timeLimit, memoryLimit, direction }: TestCasesProps<T>) => {
   const testCasesValues = Object.values(testCases)
     .sort((a, b) => (a.sample !== b.sample) ? +b.sample - +a.sample : a.index - b.index);
   const [ testCaseKey, setTestCaseKey ] = useState(testCasesValues[0]?.key || '');
@@ -135,6 +120,27 @@ export const TestCases = <T, >({
     === SubmissionRunStatus.COMPILATION_ERROR ? 'error' : 'output');
   }, [ status ]);
   
+  const loaderAndInfo = (
+    <>
+      {(
+        testCases[testCaseKey]?.status === SubmissionRunStatus.RECEIVED
+        || testCases[testCaseKey]?.status === SubmissionRunStatus.COMPILING
+        || testCases[testCaseKey]?.status === SubmissionRunStatus.RUNNING_TEST_CASES
+        || testCases[testCaseKey]?.status === SubmissionRunStatus.RUNNING_TEST_CASE
+      ) && (
+        <div className="jk-overlay">
+          <div className="jk-row" style={{ alignItems: 'baseline' }}>
+            <T>{SUBMISSION_RUN_STATUS[testCases[testCaseKey]?.status].label}</T>&nbsp;
+            <div className="dot-flashing" />
+          </div>
+        </div>
+      )}
+      {testCases[testCaseKey]?.log && (
+        <LogInfo testCase={testCases[testCaseKey]} timeLimit={timeLimit} memoryLimit={memoryLimit} />
+      )}
+    </>
+  );
+  
   const outputTabs: TabType<string>[] = [
     {
       key: 'output',
@@ -150,9 +156,7 @@ export const TestCases = <T, >({
       ),
       body: (
         <div>
-          {testCases[testCaseKey]?.log && testCases[testCaseKey]?.status !== SubmissionRunStatus.FAILED && (
-            <LogInfo testCase={testCases[testCaseKey]} timeLimit={timeLimit} memoryLimit={memoryLimit} />
-          )}
+          {loaderAndInfo}
           <div className="content-log">
             <span className="jk-text-stdout">{testCases[testCaseKey]?.out}</span>
           </div>
@@ -161,19 +165,25 @@ export const TestCases = <T, >({
     },
   ];
   
-  if (errorData?.err) {
+  if (testCases[testCaseKey]?.err) {
     outputTabs.push({
       key: 'error',
       header: (
-        <T className={classNames('tt-se tx-s cr-er')}>
-          {PROGRAMMING_LANGUAGE[language as ProgrammingLanguage]?.hasBuildFile
-          && errorData?.status === SubmissionRunStatus.COMPILATION_ERROR ? 'compilation log' : 'error'}
+        <T
+          className={classNames(
+            'tt-se tx-s',
+            { 'cr-er': getErrors(testCases[testCaseKey], timeLimit, memoryLimit).failed },
+          )}
+        >
+          error
         </T>
       ),
       body: (
         <div>
-          <LogInfo testCase={errorData} timeLimit={timeLimit} memoryLimit={memoryLimit} />
-          <span className="jk-text-stdout">{errorData?.out}</span>
+          {loaderAndInfo}
+          <div className="content-log">
+            <span className="jk-text-stderr">{testCases[testCaseKey]?.err}</span>
+          </div>
         </div>
       ),
     });
@@ -200,27 +210,6 @@ export const TestCases = <T, >({
           </div>
         </div>
         <div className="test-cases-output-stderr">
-          {testCases[testCaseKey]?.status === SubmissionRunStatus.RECEIVED && (
-            <div className="jk-overlay ">
-              <div className="jk-row-gap">
-                <T>{SUBMISSION_RUN_STATUS[SubmissionRunStatus.RECEIVED].label}</T>... <LoadingIcon />
-              </div>
-            </div>
-          )}
-          {testCases[testCaseKey]?.status === SubmissionRunStatus.COMPILING && (
-            <div className="jk-overlay ">
-              <div className="jk-row-gap">
-                <T>{SUBMISSION_RUN_STATUS[SubmissionRunStatus.COMPILING].label}</T>... <LoadingIcon />
-              </div>
-            </div>
-          )}
-          {testCases[testCaseKey]?.status === SubmissionRunStatus.RUNNING_TEST_CASE && (
-            <div className="jk-overlay ">
-              <div className="jk-row-gap">
-                <T>{SUBMISSION_RUN_STATUS[SubmissionRunStatus.RUNNING_TEST_CASE].label}</T>... <LoadingIcon />
-              </div>
-            </div>
-          )}
           <Tabs
             tabs={outputTabs}
             selectedTabKey={outputTab}

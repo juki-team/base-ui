@@ -1,6 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { classNames } from '../../helpers';
-import { T, UpIcon_, useHandleState, ViewSideIcon } from '../../index';
+import {
+  ExpandLessIcon,
+  ExpandMoreIcon,
+  NavigateBeforeIcon,
+  NavigateNextIcon,
+  T,
+  useHandleState,
+  ViewSideIcon,
+} from '../../index';
 import { SplitPaneProps } from './types';
 
 export const SplitPane = ({
@@ -14,17 +22,35 @@ export const SplitPane = ({
   closableFirstPane,
   closableSecondPane,
   toggleOption = false,
+  onePanelAtATime = false,
 }: SplitPaneProps) => {
   const clientSizeRef = useRef(0);
-  const [dragging, setDragging] = useState(false);
+  const [ dragging, setDragging ] = useState(false);
   const dividerPositionRef = useRef(0);
   const dividerRef = useRef<HTMLDivElement>(null);
   const firstChildRef = useRef<HTMLDivElement>(null);
   const firstChildSizeRef = useRef<string>('');
   const paneRef = useRef<HTMLDivElement>(null);
-  const [displaySecondPane, setDisplaySecondPane] = useState(true);
-  const [displayFirstPane, setDisplayFirstPane] = useState(true);
-  const [direction, setDirection] = useHandleState('row', initialDirection, onChangeDirection);
+  const [ displaySecondPane, setDisplaySecondPane ] = useState(true);
+  const [ displayFirstPane, setDisplayFirstPane ] = useState(true);
+  const [ direction, setDirection ] = useHandleState('row', initialDirection, onChangeDirection);
+  useEffect(() => {
+    if (onePanelAtATime) {
+      if (onlyFirstPane) {
+        setDisplayFirstPane(true);
+        setDisplaySecondPane(false);
+      } else if (onlySecondPane) {
+        setDisplayFirstPane(false);
+        setDisplaySecondPane(true);
+      } else {
+        setDisplayFirstPane(true);
+        setDisplaySecondPane(false);
+      }
+    } else {
+      setDisplayFirstPane(true);
+      setDisplaySecondPane(true);
+    }
+  }, [ onePanelAtATime, onlyFirstPane, onlySecondPane ]);
   const onMouseHoldDown = (event: React.MouseEvent<HTMLDivElement>) => {
     setDragging(true);
     dividerPositionRef.current = event[direction === 'row' ? 'clientX' : 'clientY'];
@@ -41,7 +67,14 @@ export const SplitPane = ({
     }
     if (firstChildRef.current?.style) {
       const clientDirection = direction === 'row' ? 'clientWidth' : 'clientHeight';
-      clientSizeRef.current = Math.min(Math.max(clientSizeRef.current + (event[direction === 'row' ? 'clientX' : 'clientY'] - (dividerPositionRef.current || 0)), minSize), (paneRef.current?.[clientDirection] || 0) - minSize - 10);
+      clientSizeRef.current = Math.min(
+        Math.max(
+          clientSizeRef.current
+          + (event[direction === 'row' ? 'clientX' : 'clientY'] - (dividerPositionRef.current || 0)),
+          minSize,
+        ),
+        (paneRef.current?.[clientDirection] || 0) - minSize - 10,
+      );
       const size = (clientSizeRef.current * 100 / (paneRef.current?.[clientDirection] || 1)) + '%';
       firstChildSizeRef.current = size;
       firstChildRef.current.style[direction === 'row' ? 'minWidth' : 'minHeight'] = size;
@@ -52,12 +85,14 @@ export const SplitPane = ({
   
   useEffect(() => {
     const timeout = setTimeout(() => {
-      clientSizeRef.current = (direction === 'row' ? firstChildRef.current?.clientWidth : firstChildRef.current?.clientHeight) || 0;
+      clientSizeRef.current = (direction === 'row'
+        ? firstChildRef.current?.clientWidth
+        : firstChildRef.current?.clientHeight) || 0;
     }, 400);
     return () => {
       clearTimeout(timeout);
     };
-  }, [direction, onlyFirstPane, onlySecondPane, displaySecondPane]);
+  }, [ direction, onlyFirstPane, onlySecondPane, displaySecondPane ]);
   
   useEffect(() => {
     if (firstChildRef.current?.style) {
@@ -74,7 +109,7 @@ export const SplitPane = ({
         firstChildRef.current.style[direction !== 'row' ? 'maxWidth' : 'maxHeight'] = '100%';
       }
     }
-  }, [direction, displaySecondPane, displayFirstPane, onlyFirstPane, onlySecondPane]);
+  }, [ direction, displaySecondPane, displayFirstPane, onlyFirstPane, onlySecondPane ]);
   
   return (
     <div
@@ -90,15 +125,15 @@ export const SplitPane = ({
         ref={firstChildRef}
       >
         {children?.[0]}
-        {!!closableSecondPane && (
+        {(!!closableSecondPane || onePanelAtATime) && (
           <div
             className={classNames('closable-tab', {
               'jk-row': direction === 'column',
               'jk-col': direction === 'row',
-              'top': direction === 'row' && closableSecondPane.align === 'right',
-              'bottom': direction === 'row' && closableSecondPane.align === 'left',
-              'right': direction === 'column' && closableSecondPane.align === 'right',
-              'left': direction === 'column' && closableSecondPane.align === 'left',
+              'top': direction === 'row' && closableSecondPane?.align === 'right',
+              'bottom': direction === 'row' && closableSecondPane?.align === 'left',
+              'right': direction === 'column' && closableSecondPane?.align === 'right',
+              'left': direction === 'column' && closableSecondPane?.align === 'left',
             })}
           >
             <div
@@ -106,29 +141,50 @@ export const SplitPane = ({
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
               })}
-              onClick={() => setDisplaySecondPane(prevState => !prevState)}
+              onClick={() => {
+                if (onePanelAtATime) {
+                  if (displaySecondPane) {
+                    setDisplaySecondPane(false);
+                    setDisplayFirstPane(true);
+                  } else {
+                    setDisplaySecondPane(true);
+                    setDisplayFirstPane(false);
+                  }
+                } else {
+                  setDisplaySecondPane(prevState => !prevState);
+                }
+              }}
             >
-              <UpIcon_ rotate={displaySecondPane ? (direction === 'row' ? -90 : 180) : (direction === 'row' ? 90 : 0)} size="small" />
               {displaySecondPane
-                ? (closableSecondPane.hideLabel ?? <T className="label tx-t">hide</T>)
-                : (closableSecondPane.expandLabel ?? <T className="label tx-t">expand</T>)}
+                ? (direction === 'row' ? <NavigateBeforeIcon size="small" /> : <ExpandMoreIcon size="small" />)
+                : (direction === 'row' ? <NavigateNextIcon size="small" /> : <ExpandLessIcon size="small" />)}
+              {displaySecondPane
+                ? (closableSecondPane?.hideLabel ?? <T className="label tx-t">hide</T>)
+                : (closableSecondPane?.expandLabel ?? <T className="label tx-t">expand</T>)}
             </div>
           </div>
         )}
       </div>
       <div
         className="jk-split-pane-divider"
-        style={onlyFirstPane || onlySecondPane || !displaySecondPane || !displayFirstPane ? { display: 'none' } : undefined}
+        style={onlyFirstPane
+        || onlySecondPane
+        || !displaySecondPane
+        || !displayFirstPane ? { display: 'none' } : undefined}
         onMouseDown={onMouseHoldDown}
         ref={dividerRef}
       >
         {toggleOption && (
           <div className={classNames('extend', { 'jk-row': direction === 'column', 'jk-col': direction === 'row' })}>
             <div
-              className={classNames('notch toggle-button  nowrap', { 'jk-row': direction === 'column', 'jk-col': direction === 'row' })}
+              className={classNames(
+                'notch toggle-button  nowrap',
+                { 'jk-row': direction === 'column', 'jk-col': direction === 'row' },
+              )}
               onClick={() => {
                 setDirection(prevState => prevState === 'row' ? 'column' : 'row');
-              }}>
+              }}
+            >
               <ViewSideIcon size="tiny" rotate={direction === 'column' ? 90 : 0} /> <T className="label tx-t">rotate</T>
             </div>
           </div>
@@ -139,15 +195,15 @@ export const SplitPane = ({
         style={onlyFirstPane || !displaySecondPane ? { display: 'none' } : undefined}
       >
         {children?.[1]}
-        {!!closableFirstPane && (
+        {(!!closableFirstPane || onePanelAtATime) && (
           <div
             className={classNames('closable-tab', {
               'jk-row': direction === 'column',
               'jk-col': direction === 'row',
-              'top': direction === 'row' && closableFirstPane.align === 'right',
-              'bottom': direction === 'row' && closableFirstPane.align === 'left',
-              'right': direction === 'column' && closableFirstPane.align === 'right',
-              'left': direction === 'column' && closableFirstPane.align === 'left',
+              'top': direction === 'row' && closableFirstPane?.align === 'right',
+              'bottom': direction === 'row' && closableFirstPane?.align === 'left',
+              'right': direction === 'column' && closableFirstPane?.align === 'right',
+              'left': direction === 'column' && closableFirstPane?.align === 'left',
             })}
           >
             <div
@@ -155,14 +211,26 @@ export const SplitPane = ({
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
               })}
-              onClick={() => setDisplayFirstPane(prevState => !prevState)}
+              onClick={() => {
+                if (onePanelAtATime) {
+                  if (displayFirstPane) {
+                    setDisplayFirstPane(false);
+                    setDisplaySecondPane(true);
+                  } else {
+                    setDisplayFirstPane(true);
+                    setDisplaySecondPane(false);
+                  }
+                } else {
+                  setDisplayFirstPane(prevState => !prevState);
+                }
+              }}
             >
-              <UpIcon_
-                rotate={displayFirstPane ? (direction === 'row' ? -90 : 0) : (direction === 'row' ? 90 : 180)}
-                size="small" />
+              {displaySecondPane
+                ? (direction === 'row' ? <NavigateBeforeIcon size="small" /> : <ExpandLessIcon size="small" />)
+                : (direction === 'row' ? <NavigateNextIcon size="small" /> : <ExpandMoreIcon size="small" />)}
               {displayFirstPane
-                ? (closableFirstPane.hideLabel ?? <T className="label tx-t">hide</T>)
-                : (closableFirstPane.expandLabel ?? <T className="label tx-t">expand</T>)}
+                ? (closableFirstPane?.hideLabel ?? <T className="label tx-t">hide</T>)
+                : (closableFirstPane?.expandLabel ?? <T className="label tx-t">expand</T>)}
             </div>
           </div>
         )}

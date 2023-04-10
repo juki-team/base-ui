@@ -35,7 +35,6 @@ export const Header = <T, >({
   setRunId,
   timeLimit,
   memoryLimit,
-  setErrorData,
   expanded,
   setExpanded,
 }: HeaderProps<T>) => {
@@ -56,7 +55,6 @@ export const Header = <T, >({
       newTestCases[testKey].err = '';
       newTestCases[testKey].status = SubmissionRunStatus.NONE;
     }
-    setErrorData({ status: SubmissionRunStatus.NONE, out: '', err: '', log: '' });
     onChange?.({ testCases: newTestCases });
     try {
       const { url, ...options } = settings.getAPI().code.run({
@@ -71,6 +69,7 @@ export const Header = <T, >({
       const request = cleanRequest<ContentResponseType<{ runId: string }>>(
         await authorizedRequest(url, options),
       );
+      
       if (request?.success && request?.content?.runId) {
         setRunId(request.content.runId);
         setStatus(Status.SUCCESS);
@@ -95,7 +94,7 @@ export const Header = <T, >({
       style={twoRows ? { '--options-header-height': '80px' } as CSSProperties : {}}
       ref={ref}
     >
-      <div className={classNames('left-options cr-pl jk-row gap', { 'jk-col left gap': twoRows })} ref={refLeftSection}>
+      <div className={classNames('left-options cr-pl jk-row gap', { 'jk-col left gap flex-1': twoRows })} ref={refLeftSection}>
         <Select
           className="languages-selector"
           options={languages.map(language => ({
@@ -107,6 +106,7 @@ export const Header = <T, >({
             label: (languages.find(lang => lang.value === language)?.label || language) + '',
           }}
           onChange={({ value }) => onChange?.({ language: value })}
+          extend={twoRows}
         />
         {withRunCodeButton && (
           <ButtonLoader

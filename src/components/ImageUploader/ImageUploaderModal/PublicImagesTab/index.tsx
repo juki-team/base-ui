@@ -40,7 +40,7 @@ export const PublicImagesTab = memo(({
   
   return (
     <LoaderLayer loading={loading}>
-      <div className="public-images-tab jk-row-gap">
+      <div className="public-images-tab jk-row">
         {publicImages.map((publicImage, index) => (
           <div className="thumbnail" key={publicImage.imageUrl}>
             <img src={publicImage.imageThumbnailUrl} alt={'image ' + index} />

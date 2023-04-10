@@ -44,10 +44,8 @@ export interface SettingsModalProps<T> {
 export interface TestCasesProps<T> {
   testCases: CodeEditorTestCasesType,
   onChange?: CodeRunnerEditorOnChangeType<T>,
-  language: T,
   timeLimit: number,
   memoryLimit: number,
-  errorData: SubmissionTestCaseType,
   direction: 'row' | 'column',
 }
 
@@ -62,7 +60,6 @@ export interface HeaderProps<T> {
   centerOptions: (props: { widthContainer: number }) => ReactNode,
   timeLimit: number,
   memoryLimit: number,
-  setErrorData: Dispatch<SetStateAction<SubmissionTestCaseType>>,
   expanded: boolean | null,
   setExpanded: Dispatch<SetStateAction<boolean>>,
 }

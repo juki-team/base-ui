@@ -61,7 +61,7 @@ export const UserProfileSettings = () => {
           canUpdatePassword: true,
           canResetPassword: true,
         }}
-        onClickUpdatePassword={() => console.log('click onClickUpdatePassword')}
+        onClickUpdatePassword={() => console.info('click onClickUpdatePassword')}
       />
       <ToggleThemeButton />
     </JukiProvider>

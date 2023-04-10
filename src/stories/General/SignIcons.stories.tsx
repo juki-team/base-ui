@@ -56,7 +56,7 @@ export const Signs: Story<SignIconProps & { color: string }> = ({ color, ...prop
     ExclamationIcon,
     MinusIcon,
     PlusIcon,
-    UpIcon: UpIcon_,
+    UpIcon_,
     CloseIcon_,
     DoubleUpIcon,
     CheckIcon_,

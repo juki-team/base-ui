@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  
+
   .jk-spin {
     position: relative;
     width: 100%;
@@ -13,12 +13,12 @@
     display: flex;
     max-height: var(--pad-xH);
     max-width: var(--pad-xH);
-    
+
     > span {
       height: 100%;
       width: 100%;
       color: var(--t-color-primary);
-      
+
       svg {
         //margin: auto;
         //width: 100%;
@@ -40,9 +40,67 @@
   justify-content: center;
   align-items: center;
   padding: var(--pad-m) 0;
-  
+
   & + * {
     background: red;
     display: none !important;
+  }
+}
+
+// https://codepen.io/nzbin/pen/GGrXbp
+/* ============================================== *
+ * Dot Flashing                                   *
+ * ============================================== */
+
+.dot-flashing {
+  --dot-flashing-color: var(--t-color-black-2);
+  --dot-flashing-color-light: rgb(var(--t-color-black-2-rgb), 0.2);
+  --dot-flashing-size: 4px;
+  margin-left: calc(var(--dot-flashing-size) * 1.5);
+  position: relative;
+  width: var(--dot-flashing-size);
+  height: var(--dot-flashing-size);
+  border-radius: 50%;
+  background-color: var(--dot-flashing-color);
+  color: var(--dot-flashing-color);
+  animation: dot-flashing 1s infinite linear alternate;
+  animation-delay: 0.5s;
+}
+
+.dot-flashing::before, .dot-flashing::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 0;
+}
+
+.dot-flashing::before {
+  left: calc(var(--dot-flashing-size) * -1.5);
+  width: var(--dot-flashing-size);
+  height: var(--dot-flashing-size);
+  border-radius: 50%;
+  background-color: var(--dot-flashing-color);
+  color: var(--dot-flashing-color);
+  animation: dot-flashing 1s infinite alternate;
+  animation-delay: 0s;
+}
+
+.dot-flashing::after {
+  left: calc(var(--dot-flashing-size) * 1.5);
+  width: var(--dot-flashing-size);
+  height: var(--dot-flashing-size);
+  border-radius: 50%;
+  background-color: var(--dot-flashing-color);
+  color: var(--dot-flashing-color);
+  animation: dot-flashing 1s infinite alternate;
+  animation-delay: 1s;
+}
+
+@keyframes dot-flashing {
+  0% {
+    background-color: var(--dot-flashing-color);
+  }
+  50%, 100% {
+    background-color: var(--dot-flashing-color-light);
   }
 }

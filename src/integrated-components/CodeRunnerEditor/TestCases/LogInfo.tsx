@@ -7,19 +7,19 @@ import { getErrors } from '../utils';
 export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
   
   const dataLogs = testCase?.log?.split?.('\n');
-  const { timeLimitExceded, memoryLimitExceded, runtimeError } = getErrors(testCase, timeLimit, memoryLimit);
+  const { timeLimitExceeded, memoryLimitExceeded, runtimeError } = getErrors(testCase, timeLimit, memoryLimit);
   
   return (
     <>
       <div className="content-log">
-        <span className={classNames('text-log tx-t tt-se', { 'cr-er': timeLimitExceded })}>
-          {timeLimitExceded
+        <span className={classNames('text-log tx-t tt-se', { 'cr-er': timeLimitExceeded })}>
+          {timeLimitExceeded
             ? <><T>time limit exceeded</T> ({dataLogs[0]} <T>ms</T>)</>
             : <><T>used time</T>: {dataLogs[0]} <T>ms</T></>
           },
         </span>
-        <span className={classNames('text-log tx-t tt-se', { 'cr-er': memoryLimitExceded })}>
-          {memoryLimitExceded
+        <span className={classNames('text-log tx-t tt-se', { 'cr-er': memoryLimitExceeded })}>
+          {memoryLimitExceeded
             ? <><T>memory limit exceeded</T> ({dataLogs[1]} <T>KB</T>)</>
             : <><T>used memory</T>: {dataLogs[1]} <T>KB</T></>
           },
@@ -31,11 +31,6 @@ export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
           }
         </span>
       </div>
-      {testCase?.err && (
-        <div className="content-log">
-          <span className="cr-we jk-text-stderr">{testCase?.err}</span>
-        </div>
-      )}
     </>
   );
 };

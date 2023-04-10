@@ -19,4 +19,5 @@ export interface SplitPaneProps {
     hideLabel?: ReactNode,
     expandLabel?: ReactNode
   },
+  onePanelAtATime?: boolean,
 }

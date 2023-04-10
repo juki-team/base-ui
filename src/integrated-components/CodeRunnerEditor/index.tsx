@@ -3,13 +3,13 @@ import {
   ProfileSetting,
   PROGRAMMING_LANGUAGE,
   SocketEvent,
+  SocketEventRunResponseDTO,
   SubmissionRunStatus,
-  SubmissionTestCaseType,
 } from '@juki-team/commons';
-import React, { useEffect, useState } from 'react';
-import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, Portal, SplitPane } from '../../components';
+import React, { useEffect, useMemo, useState } from 'react';
+import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, Portal, SplitPane, T } from '../../components';
 import { classNames } from '../../helpers';
-import { useJkSocket, useJukiUser } from '../../hooks';
+import { useJkSocket, useJukiUI, useJukiUser } from '../../hooks';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
 import { TestCases } from './TestCases';
@@ -36,94 +36,88 @@ export const CodeRunnerEditor = <T, >({
   const [ runId, setRunId ] = useState('');
   const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
   const { pop } = useJkSocket(SocketEvent.RUN);
-  const [ errorData, setErrorData ] = useState<SubmissionTestCaseType>({
-    log: '',
-    err: '',
-    out: '',
-    status: SubmissionRunStatus.NONE,
-  });
+  const [ showSettings, setShowSettings ] = useState(false);
+  const [ direction, setDirection ] = useState<'row' | 'column'>('row');
+  const [ expanded, setExpanded ] = useState(false);
+  const { viewPortSize } = useJukiUI();
+  const [ runStatus, setRunStatus ] = useState<{
+    [key: string]: { [key: number]: SocketEventRunResponseDTO }
+  }>({});
   useEffect(() => {
-    const cleanTestCases = (newTestCases: CodeEditorTestCasesType, status: SubmissionRunStatus) => {
+    const data = pop();
+    if (data?.success) {
+      setRunStatus(prevState => ({
+        ...prevState,
+        [data?.content?.runId]: { ...prevState[data?.content?.runId], [data?.content?.messageTimestamp]: data.content },
+      }));
+    }
+  }, [ pop ]);
+  
+  const currentRunStatus = runStatus[runId];
+  
+  const lastRunStatus: SocketEventRunResponseDTO = useMemo(() => {
+    return Object.values(currentRunStatus || {}).sort((a, b) => a.messageTimestamp - b.messageTimestamp).at(-1) || {
+      status: SubmissionRunStatus.NONE,
+      runId: '',
+      messageTimestamp: 0,
+      log: { log: '', err: '', out: '', inputKey: '' },
+    };
+  }, [ currentRunStatus ]);
+  
+  useEffect(() => {
+    const fillTestCases = (newTestCases: CodeEditorTestCasesType, status: SubmissionRunStatus, err: string, out: string, log: string) => {
       for (const testKey in newTestCases) {
         newTestCases[testKey] = {
           ...newTestCases[testKey],
           status,
-          err: '',
-          out: '',
-          log: '',
+          err,
+          out,
+          log,
         };
       }
-      onChange?.({ testCases: newTestCases });
+      if (JSON.stringify(testCases) !== JSON.stringify(newTestCases)) {
+        onChange?.({ testCases: newTestCases });
+      }
     };
-    const data = pop();
-    if (data?.success) {
-      const newTestCases: CodeEditorTestCasesType = { ...testCases };
-      if (data?.content?.status === SubmissionRunStatus.RECEIVED) {
-        if (data?.content?.runId) { // TODO: check when there are many coders valid IDS
-          setRunId(data?.content?.runId);
-          cleanTestCases(newTestCases, data?.content?.status);
-          setErrorData({ err: '', log: '', out: '', status: SubmissionRunStatus.RECEIVED });
-        }
-      }
-      if (runId === data?.content?.runId) {
-        if (data?.content?.status === SubmissionRunStatus.COMPILING) {
-          cleanTestCases(newTestCases, data?.content?.status);
-          setErrorData({ err: '', log: '', out: '', status: SubmissionRunStatus.COMPILING });
-        } else if (data?.content?.status
-          === SubmissionRunStatus.FAILED
-          || data?.content?.status
-          === SubmissionRunStatus.COMPILED
-          || data?.content?.status
-          === SubmissionRunStatus.COMPILATION_ERROR) {
-          cleanTestCases(newTestCases, data?.content?.status);
-          setErrorData({
-            err: data?.content?.err || '',
-            log: data?.content?.log || '',
-            out: data?.content?.out || '',
-            status: data?.content?.status,
-          });
-        } else if (data?.content?.status === SubmissionRunStatus.RUNNING_TEST_CASE) {
-          const inputKey = data?.content?.inputKey;
-          if (inputKey && newTestCases[inputKey]) {
-            newTestCases[inputKey] = {
-              ...newTestCases[inputKey],
-              status: data?.content?.status,
-              out: '',
-              log: '',
-              err: '',
-            };
+    const status = lastRunStatus.status || SubmissionRunStatus.NONE;
+    const inputKey = lastRunStatus?.log?.inputKey;
+    const newTestCases: CodeEditorTestCasesType = { ...testCases };
+    switch (status) {
+      case SubmissionRunStatus.RECEIVED:
+      case SubmissionRunStatus.COMPILING:
+      case SubmissionRunStatus.RUNNING_TEST_CASES:
+      case SubmissionRunStatus.FAILED:
+      case SubmissionRunStatus.COMPILED:
+      case SubmissionRunStatus.COMPILATION_ERROR:
+        fillTestCases(
+          newTestCases,
+          status,
+          lastRunStatus.log?.err || '',
+          lastRunStatus.log?.out || '',
+          lastRunStatus.log?.log || '',
+        );
+        break;
+      case SubmissionRunStatus.RUNNING_TEST_CASE:
+      case SubmissionRunStatus.EXECUTED_TEST_CASE:
+      case SubmissionRunStatus.FAILED_TEST_CASE:
+        if (inputKey && newTestCases[inputKey]) {
+          newTestCases[inputKey] = {
+            ...newTestCases[inputKey],
+            status,
+            out: lastRunStatus.log?.out || '',
+            log: lastRunStatus.log?.log || '',
+            err: lastRunStatus.log?.err || '',
+          };
+          if (JSON.stringify(testCases) !== JSON.stringify(newTestCases)) {
             onChange?.({ testCases: newTestCases });
           }
-        } else if (data?.content?.status
-          === SubmissionRunStatus.EXECUTED_TEST_CASE
-          || data?.content?.status
-          === SubmissionRunStatus.FAILED_TEST_CASE) {
-          const inputKey = data?.content?.inputKey;
-          if (inputKey && newTestCases[inputKey]) {
-            newTestCases[inputKey] = {
-              ...newTestCases[inputKey],
-              status: data?.content?.status,
-              out: data?.content?.out,
-              log: data?.content?.log,
-              err: data?.content?.err,
-            };
-            onChange?.({ testCases: newTestCases });
-          }
-        } else if (data?.content?.status === SubmissionRunStatus.COMPLETED) {
-          for (const testKey in newTestCases) {
-            newTestCases[testKey] = {
-              ...newTestCases[testKey],
-              status: SubmissionRunStatus.NONE,
-            };
-          }
-          onChange?.({ testCases: newTestCases });
         }
-      }
+        break;
+      default:
     }
-  }, [ onChange, pop, runId, testCases ]);
-  const [ showSettings, setShowSettings ] = useState(false);
-  const [ direction, setDirection ] = useState<'row' | 'column'>('row');
-  const [ expanded, setExpanded ] = useState(false);
+  }, [ lastRunStatus, onChange, testCases ]);
+  
+  const isMobileViewPort = viewPortSize === 'sm';
   
   const body = (
     <div
@@ -158,7 +152,6 @@ export const CodeRunnerEditor = <T, >({
         onChange={onChange}
         timeLimit={timeLimit}
         memoryLimit={memoryLimit}
-        setErrorData={setErrorData}
         expanded={expandPosition ? expanded : null}
         setExpanded={setExpanded}
       />
@@ -167,9 +160,17 @@ export const CodeRunnerEditor = <T, >({
           direction={direction}
           minSize={80}
           onlyFirstPane={!testCases}
-          closableSecondPane={testCases ? { align: 'right' } : undefined}
+          closableSecondPane={testCases ? {
+            align: 'right',
+            expandLabel: <T className="label tx-t">test cases</T>,
+          } : undefined}
+          closableFirstPane={(testCases && isMobileViewPort) ? {
+            align: 'right',
+            expandLabel: <T className="label tx-t">code editor</T>,
+          } : undefined}
           toggleOption
           onChangeDirection={setDirection}
+          onePanelAtATime={isMobileViewPort}
         >
           <div className="editor-layout">
             <CodeEditor
@@ -185,10 +186,8 @@ export const CodeRunnerEditor = <T, >({
           <TestCases
             testCases={testCases || {}}
             onChange={onChange}
-            language={language}
             timeLimit={timeLimit}
             memoryLimit={memoryLimit}
-            errorData={errorData}
             direction={direction}
           />
         </SplitPane>

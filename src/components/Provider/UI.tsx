@@ -2,7 +2,7 @@ import React, { createContext, CSSProperties, FC, PropsWithChildren, useCallback
 import { useOnline, usePageFocus, usePageVisibility, useViewPortSize } from '../../hooks';
 import { NotificationProvider } from '../Notifications';
 
-export type ViewPortSizeType = 'hg' | 'lg' | 'md' | 'sm';
+export type ViewPortSizeType = 'hg' | 'lg' | 'md' | 'sm' | '';
 
 export interface ImageCmpProps {
   src?: string,
@@ -14,7 +14,16 @@ export interface ImageCmpProps {
 }
 
 const Image = ({ src, className, alt, style, width, height }: ImageCmpProps) => {
-  return <img src={src} className={className} alt={alt} width={width} height={height} style={{ ...style, width, height }} />;
+  return (
+    <img
+      src={src}
+      className={className}
+      alt={alt}
+      width={width}
+      height={height}
+      style={{ ...style, width, height }}
+    />
+  );
 };
 
 export interface UIComponentsContextInterface {
@@ -41,7 +50,7 @@ export const UIContext = createContext<UIContextInterface>({
   isOnline: true,
   isPageVisible: true,
   isPageFocus: true,
-  viewPortSize: 'sm',
+  viewPortSize: '',
   components: { Image },
   router: {
     searchParams: new URLSearchParams(''),
@@ -67,7 +76,7 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
   const isOnline = useOnline();
   const viewPortSize = useViewPortSize();
   
-  const [_searchParams, _setSearchParams] = useState<URLSearchParams>(new URLSearchParams(''));
+  const [ _searchParams, _setSearchParams ] = useState<URLSearchParams>(new URLSearchParams(''));
   
   const setSearchParams = useCallback((newSearchParams: URLSearchParams) => {
     const newSearchParamsSorted = cloneURLSearchParams(newSearchParams);
@@ -77,7 +86,7 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
     if (newSearchParamsSorted.toString() !== searchParamsSorted.toString()) {
       _setSearchParams(newSearchParams);
     }
-  }, [_searchParams]);
+  }, [ _searchParams ]);
   
   const { Image: ImageCmp = Image } = components || { Image };
   
@@ -85,7 +94,7 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
     const newSearchParams = cloneURLSearchParams(_searchParams);
     newSearchParams.append(name, value);
     setSearchParams(newSearchParams);
-  }, [_searchParams, setSearchParams]);
+  }, [ _searchParams, setSearchParams ]);
   
   const deleteSearchParam = useCallback(({ name, value }: { name: string, value?: string }) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
@@ -99,7 +108,7 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
       }
     }
     setSearchParams(newSearchParams);
-  }, [_searchParams, setSearchParams]);
+  }, [ _searchParams, setSearchParams ]);
   
   const setSearchParam = useCallback(({ name, value }: { name: string, value: string | string[] }) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
@@ -114,7 +123,7 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
       newSearchParams.append(name, value);
     }
     setSearchParams(newSearchParams);
-  }, [_searchParams, setSearchParams]);
+  }, [ _searchParams, setSearchParams ]);
   
   return (
     <UIContext.Provider
@@ -130,7 +139,8 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
           deleteSearchParam,
           setSearchParam,
         },
-      }}>
+      }}
+    >
       < NotificationProvider>
         {children}
       </NotificationProvider>

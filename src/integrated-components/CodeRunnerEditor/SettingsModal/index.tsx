@@ -11,8 +11,8 @@ export const SettingsModal = <T, >({ onClose, isOpen, onChange, tabSize, fontSiz
       closeIcon
       closeWhenClickOutside
     >
-      <div className="jk-pad-md jk-col stretch gap">
-        <h2><T>code editor settings</T></h2>
+      <div className="jk-col stretch gap">
+        <h3><T>code editor settings</T></h3>
         <div className="jk-row left gap">
           <label className="fw-bd tt-se"><T>choose your tab size</T>: </label>
           <Select
