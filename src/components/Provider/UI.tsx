@@ -43,7 +43,6 @@ export interface UIRouterContextInterface {
   appendSearchParam: (props: { name: string, value: string }) => void,
   deleteSearchParam: (props: { name: string, value?: string }) => void,
   setSearchParam: (props: { name: string, value: string | string[] }) => void,
-  beforePopState: (cb: BeforePopStateCallbackType) => void,
 }
 
 export interface UIContextInterface {
@@ -66,7 +65,6 @@ export const UIContext = createContext<UIContextInterface>({
     appendSearchParam: () => null,
     deleteSearchParam: () => null,
     setSearchParam: () => null,
-    beforePopState: () => null,
   },
 });
 
@@ -135,10 +133,6 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
     setSearchParams(newSearchParams);
   }, [ _searchParams, setSearchParams ]);
   
-  const beforePopState = useCallback((callback: BeforePopStateCallbackType) => {
-  
-  }, []);
-  
   return (
     <UIContext.Provider
       value={{
@@ -152,7 +146,6 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
           appendSearchParam,
           deleteSearchParam,
           setSearchParam,
-          beforePopState,
         },
       }}
     >
