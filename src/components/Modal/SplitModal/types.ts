@@ -7,4 +7,6 @@ export interface SplitModalProps extends BasicModalProps {
   title: ReactNodeOrFunctionType,
   graphic: ReactNodeOrFunctionType,
   closeIcon?: boolean,
+  closeWhenKeyEscape?: boolean,
+  closeWhenClickOutside?: boolean,
 }

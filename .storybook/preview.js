@@ -4,7 +4,7 @@ const customViewports = {
   small: {
     name: 'small, Phones',
     styles: {
-      width: '320px',
+      width: '280px',
       height: '480px',
     },
   },

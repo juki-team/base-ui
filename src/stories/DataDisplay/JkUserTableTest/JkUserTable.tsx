@@ -231,7 +231,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       <DataViewer<UserTable>
         preferredDataViewMode={preferredDataViewMode}
         cards={{ expanded: true }}
-        headers={columns2}
+        headers={columns}
         data={data}
         // rows={{ height: 150 }}
         request={request}

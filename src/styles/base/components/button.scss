@@ -50,7 +50,6 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   height: auto;
   text-transform: uppercase;
   position: relative;
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -224,6 +223,6 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
 }
 
 .jk-button-light {
-  background-color: var(--t-color-shadow-lightest);
+  background-color: var(--t-color-shadow-light);
   color: inherit;
 }

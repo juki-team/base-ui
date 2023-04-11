@@ -59,6 +59,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     getSortQueryParam = (name) => name ? name + '.sort' : 'sort',
     getFilterQueryParam = (name) => name ? name + '.filter' : 'filter',
     getViewModeQueryParam = (name) => name ? name + '.viewMode' : 'viewMode',
+    getShowFilterDrawerQueryParam = (name) => name ? name + '.showFilterDrawer' : 'showFilterDrawer',
     getRecordStyle,
     getRecordClassName,
     onRecordClick,
@@ -73,31 +74,40 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const sortKey = getSortQueryParam(name);
   const filterKey = getFilterQueryParam(name);
   const viewModeKey = getViewModeQueryParam(name);
-  const [refreshCount, setRefreshCount] = useState(0);
-  const [loaderStatus, setLoaderStatus] = useState<Status>(Status.NONE);
+  const showFilterDrawerKey = getShowFilterDrawerQueryParam(name);
+  const [ refreshCount, setRefreshCount ] = useState(0);
+  const [ loaderStatus, setLoaderStatus ] = useState<Status>(Status.NONE);
   const searchSorts = searchParams.get(sortKey) || '';
-  const searchFilter = useMemo(() => searchParams.getAll(filterKey), [filterKey, searchParams]);
-  const [dataTable, setDataTable] = useState(data);
+  const searchFilter = useMemo(() => searchParams.getAll(filterKey), [ filterKey, searchParams ]);
+  const [ dataTable, setDataTable ] = useState(data);
   const prevSearchSorts = useRef<string>();
   const prevSearchFilter = useRef<string[]>();
   const prevRefreshCount = useRef<number>();
   const prevPage = useRef<number>();
   const prevPageSize = useRef<number>();
   const firstRender = useRef(true);
-  const [pageSizeOptions, setPageSizeOptions] = useState(pagination?.pageSizeOptions || [32, 64, 128, 256, 512, 1024]);
-  const initialViewMode = _initialViewMode || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
+  const [ pageSizeOptions, setPageSizeOptions ] = useState(pagination?.pageSizeOptions || [
+    32,
+    64,
+    128,
+    256,
+    512,
+    1024,
+  ]);
+  const initialViewMode = _initialViewMode || (preferredDataViewMode
+  === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
   
   useEffect(() => {
     if (pagination?.pageSizeOptions && JSON.stringify(pagination.pageSizeOptions) !== JSON.stringify(pageSizeOptions)) {
       setPageSizeOptions(pagination?.pageSizeOptions);
     }
-  }, [pageSizeOptions, pagination?.pageSizeOptions]);
+  }, [ pageSizeOptions, pagination?.pageSizeOptions ]);
   useEffect(() => { // Fixing filters
     if (searchFilter.length && searchFilter.length !== headers.length) {
       deleteSearchParam({ name: filterKey });
     }
-  }, [deleteSearchParam, filterKey, headers.length, searchFilter.length]);
-  const page = useMemo(() => +(searchParams.get(pageKey) || 1), [pageKey, searchParams]);
+  }, [ deleteSearchParam, filterKey, headers.length, searchFilter.length ]);
+  const page = useMemo(() => +(searchParams.get(pageKey) || 1), [ pageKey, searchParams ]);
   const pageSize = useMemo(() => +(searchParams.get(pageSizeKey) || 0) || pageSizeOptions[0], [
     pageSizeKey,
     pageSizeOptions,
@@ -105,11 +115,11 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   ]);
   const jumpToPage = useCallback((page: number) => {
     setSearchParam({ name: pageKey, value: page + '' });
-  }, [pageKey, setSearchParam]);
+  }, [ pageKey, setSearchParam ]);
   
   const onPageSizeChange = useCallback((pageSize: number) => {
     setSearchParam({ name: pageSizeKey, value: pageSize + '' });
-  }, [pageSizeKey, setSearchParam]);
+  }, [ pageSizeKey, setSearchParam ]);
   
   useEffect(() => {
     if (withPagination) {
@@ -120,7 +130,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         appendSearchParam({ name: pageSizeKey, value: pageSizeOptions[0] + '' });
       }
     }
-  }, [appendSearchParam, pageKey, pageSizeKey, pageSizeOptions, searchParams, withPagination]);
+  }, [ appendSearchParam, pageKey, pageSizeKey, pageSizeOptions, searchParams, withPagination ]);
   
   const _refLoader = useRef(loaderStatus);
   _refLoader.current = loaderStatus;
@@ -132,8 +142,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         setLoaderStatus(status);
       }
     });
-  }, [setLoaderStatusRef]);
-  useEffect(() => refreshRef?.(() => setRefreshCount(prevRefreshCount => prevRefreshCount + 1)), [refreshRef]);
+  }, [ setLoaderStatusRef ]);
+  useEffect(() => refreshRef?.(() => setRefreshCount(prevRefreshCount => prevRefreshCount + 1)), [ refreshRef ]);
   useEffect(() => {
     const sort: RequestSortType = {};
     const headSort = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
@@ -151,12 +161,16 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       firstRender.current = false;
     } else if (prevSearchSorts.current !== searchSorts) { // Search change
       const head = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
-      const prevHead = headers.find(({ index }) => index === prevSearchSorts.current || '-' + index === prevSearchSorts.current);
+      const prevHead = headers.find(({ index }) => index
+        === prevSearchSorts.current
+        || '-'
+        + index
+        === prevSearchSorts.current);
       if (isSortOnline(head?.sort) || isSortOnline(prevHead?.sort)) {
         request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
       }
     } else if (JSON.stringify(prevSearchFilter.current) !== JSON.stringify(searchFilter)) { // Filter change
-      let fixedSearchFilter = [...searchFilter];
+      let fixedSearchFilter = [ ...searchFilter ];
       if (!fixedSearchFilter.length) {
         fixedSearchFilter = new Array(headers.length).fill('');
       }
@@ -180,10 +194,10 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     } else if (prevRefreshCount.current !== refreshCount) {
       request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
     }
-  }, [request, searchSorts, headers, refreshCount, searchFilter, withPagination, page, pageSize]);
+  }, [ request, searchSorts, headers, refreshCount, searchFilter, withPagination, page, pageSize ]);
   
   useEffect(() => { // Offline filter & Offline sort
-    let newData = [...data];
+    let newData = [ ...data ];
     // if (prevSearchSorts.current !== searchSorts || JSON.stringify(prevSearchFilter.current) !== JSON.stringify(searchFilter)) { // to sort when reload data too
     // Offline filter
     for (let i = 0; i < headers.length; i++) {
@@ -269,10 +283,14 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
               return true;
             });
           } else {
-            consoleWarn({ _message: 'data no filtered, filter not a valid time date', search: searchFilter[i], searchFilter });
+            consoleWarn({
+              _message: 'data no filtered, filter not a valid time date',
+              search: searchFilter[i],
+              searchFilter,
+            });
           }
         } else if (isFilterDateRangeOffline(head?.filter)) {
-          const [start, end] = searchFilter[i]?.split(',');
+          const [ start, end ] = searchFilter[i]?.split(',');
           if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
             newData = newData.filter(head.filter.callbackFn({
               columnIndex: head.index,
@@ -287,7 +305,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             });
           }
         } else if (isFilterDateRangeAutoOffline(head?.filter)) {
-          const [start, end] = searchFilter[i]?.split(',');
+          const [ start, end ] = searchFilter[i]?.split(',');
           if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
             const startSelectedDate = new Date(+start);
             const endSelectedDate = new Date(+end);
@@ -381,40 +399,41 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
     // }
     setDataTable(newData);
-  }, [data, headers, searchFilter, searchSorts]);
+  }, [ data, headers, searchFilter, searchSorts ]);
   
   useEffect(() => {
     if (searchSorts !== prevSearchSorts.current) {
       prevSearchSorts.current = searchSorts;
     }
-  }, [searchSorts]);
+  }, [ searchSorts ]);
   useEffect(() => {
     if (JSON.stringify(searchFilter) !== JSON.stringify(prevSearchFilter.current)) {
       prevSearchFilter.current = searchFilter;
     }
-  }, [searchFilter]);
+  }, [ searchFilter ]);
   useEffect(() => {
     if (refreshCount !== prevRefreshCount.current) {
       prevRefreshCount.current = refreshCount;
     }
-  }, [refreshCount]);
+  }, [ refreshCount ]);
   useEffect(() => {
     if (page !== prevPage.current) {
       prevPage.current = page;
     }
-  }, [page]);
+  }, [ page ]);
   useEffect(() => {
     if (pageSize !== prevPageSize.current) {
       prevPageSize.current = pageSize;
     }
-  }, [pageSize]);
+  }, [ pageSize ]);
   
-  const isSomethingFiltered = (newSearchFilter: string[]) => !!newSearchFilter.filter(search => !!search && (Array.isArray(search) ? search.length : true)).length;
+  const isSomethingFiltered = (newSearchFilter: string[]) => !!newSearchFilter.filter(search => !!search
+    && (Array.isArray(search) ? search.length : true)).length;
   
   const tableHeaders = useMemo(() => {
     
     const onResetFilter = (index: number) => () => {
-      const newSearchFilter = [...searchFilter];
+      const newSearchFilter = [ ...searchFilter ];
       newSearchFilter[index] = '';
       if (isSomethingFiltered(newSearchFilter)) {
         setSearchParam({ name: filterKey, value: newSearchFilter });
@@ -424,7 +443,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     };
     
     const onFilter = (index: number, newFilter: string | string[]) => {
-      const newSearchFilter = searchFilter.length ? [...searchFilter] : new Array(headers.length).fill('');
+      const newSearchFilter = searchFilter.length ? [ ...searchFilter ] : new Array(headers.length).fill('');
       if (JSON.stringify(newSearchFilter[index]) !== JSON.stringify(newFilter)) {
         newSearchFilter[index] = newFilter;
         if (isSomethingFiltered(newSearchFilter)) {
@@ -475,11 +494,15 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           },
           onReset: onResetFilter(index),
           options: filter.options,
-          selectedOptions: searchFilter[index] ? searchFilter[index].split(',').map(value => ({ value, label: '' })) : [],
+          selectedOptions: searchFilter[index] ? searchFilter[index].split(',').map(value => ({
+            value,
+            label: '',
+          })) : [],
           online: isFilterSelectOnline(filter),
         };
       } else if (filter?.type === FILTER_DATE || filter?.type === FILTER_DATE_AUTO) {
-        const selectedDate = searchFilter[index] && new Date(+searchFilter[index]).isValidDate() ? new Date(+searchFilter[index]) : null;
+        const selectedDate = searchFilter[index]
+        && new Date(+searchFilter[index]).isValidDate() ? new Date(+searchFilter[index]) : null;
         newHead.filter = {
           type: FILTER_DATE,
           pickerType: filter.pickerType || DEFAULT_PICKER_TYPE,
@@ -491,7 +514,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           online: isFilterDateOnline(filter),
         };
       } else if (filter?.type === FILTER_DATE_RANGE || filter?.type === FILTER_DATE_RANGE_AUTO) {
-        const [start, end] = searchFilter[index] ? searchFilter[index]?.split(',') : [];
+        const [ start, end ] = searchFilter[index] ? searchFilter[index]?.split(',') : [];
         const startSelectedDate = start && new Date(+start).isValidDate() ? new Date(+start) : null;
         const endSelectedDate = end && new Date(+end).isValidDate() ? new Date(+end) : null;
         newHead.filter = {
@@ -512,15 +535,16 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
       return newHead;
     });
-  }, [deleteSearchParam, filterKey, headers, searchFilter, searchSorts, setSearchParam, sortKey]);
+  }, [ deleteSearchParam, filterKey, headers, searchFilter, searchSorts, setSearchParam, sortKey ]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
-    const newSearchFilter = searchFilter.length ? [...searchFilter] : new Array(headers.length).fill('');
+    const newSearchFilter = searchFilter.length ? [ ...searchFilter ] : new Array(headers.length).fill('');
     headers.forEach(({ filter, index: columnIndex }, index) => {
       if (filter?.type === FILTER_TEXT || filter?.type === FILTER_TEXT_AUTO) {
         newSearchFilter[index] = values[columnIndex] || '';
       } else if (filter?.type === FILTER_SELECT || filter?.type === FILTER_SELECT_AUTO) {
-        newSearchFilter[index] = (values[columnIndex] as OptionType<any>[] || []).filter(({ value }) => !!filter.options.find(option => option.value === value))
+        newSearchFilter[index] = (values[columnIndex] as OptionType<any>[]
+          || []).filter(({ value }) => !!filter.options.find(option => option.value === value))
           .map(({ value }) => value);
       } else if (filter?.type === FILTER_DATE || filter?.type === FILTER_DATE_AUTO) {
         if (values[columnIndex] instanceof Date) {
@@ -529,7 +553,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           newSearchFilter[index] = '';
         }
       } else if (filter?.type === FILTER_DATE_RANGE || filter?.type === FILTER_DATE_RANGE_AUTO) {
-        const [start, end] = values[columnIndex] ? values[columnIndex] as [Date, Date] : [null, null];
+        const [ start, end ] = values[columnIndex] ? values[columnIndex] as [ Date, Date ] : [ null, null ];
         if (start?.isValidDate() && end?.isValidDate()) {
           newSearchFilter[index] = start.getTime() + ',' + end.getTime();
         } else {
@@ -542,13 +566,13 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     } else {
       deleteSearchParam({ name: filterKey });
     }
-  }, [deleteSearchParam, filterKey, headers, searchFilter, setSearchParam]);
+  }, [ deleteSearchParam, filterKey, headers, searchFilter, setSearchParam ]);
   
   const viewMode: DataViewMode = searchParams.get(viewModeKey) ? (searchParams.get(viewModeKey)
     ?.toUpperCase() === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS) : initialViewMode;
   const setViewMode = useCallback((viewMode: DataViewMode) => {
     setSearchParam({ name: viewModeKey, value: viewMode.toLowerCase() });
-  }, [setSearchParam, viewModeKey]);
+  }, [ setSearchParam, viewModeKey ]);
   
   useEffect(() => {
     if (viewMode === DataViewMode.CARDS && !cardsView && rowsView) {
@@ -556,15 +580,18 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     } else if (viewMode === DataViewMode.ROWS && !rowsView && cardsView) {
       setViewMode(DataViewMode.CARDS);
     }
-  }, [viewPortSize, viewMode, cardsView, rowsView, viewModeKey, setViewMode]);
+  }, [ viewPortSize, viewMode, cardsView, rowsView, viewModeKey, setViewMode ]);
   
   const oldViewPortSizeRef = useRef('');
   useEffect(() => {
-    if (oldViewPortSizeRef.current !== viewPortSize && viewMode === DataViewMode.ROWS && cardsView && viewPortSize === 'sm') {
+    if (oldViewPortSizeRef.current !== viewPortSize
+      && viewMode === DataViewMode.ROWS
+      && cardsView
+      && viewPortSize === 'sm') {
       setViewMode(DataViewMode.CARDS);
     }
     oldViewPortSizeRef.current = viewPortSize;
-  }, [viewPortSize, viewMode, cardsView, rowsView, viewModeKey, setViewMode]);
+  }, [ viewPortSize, viewMode, cardsView, rowsView, viewModeKey, setViewMode ]);
   
   return (
     <div className={classNames(className, 'jk-data-viewer-layout', { 'with-pagination': withPagination })}>
@@ -579,6 +606,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         onAllFilters={onAllFilters}
         onReload={request ? () => setRefreshCount(prevState => prevState + 1) : undefined}
         rows={rows}
+        showFilterDrawerKey={showFilterDrawerKey}
         rowsView={rowsView}
         cardsView={cardsView}
         setViewMode={setViewMode}

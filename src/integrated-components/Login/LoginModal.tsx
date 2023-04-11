@@ -39,7 +39,7 @@ export const LoginModalComponent = ({
   });
   
   // const { t } = useT();
-  const [openForgotPasswordModal, setOpenForgotPasswordModal] = useState(false);
+  const [ openForgotPasswordModal, setOpenForgotPasswordModal ] = useState(false);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   
   return (
@@ -60,6 +60,8 @@ export const LoginModalComponent = ({
           </>
         }
         graphic={<JukiLaptopImage />}
+        closeWhenKeyEscape
+        closeWhenClickOutside
       >
         <div className="jk-col stretch">
           {loginWithGoogle && reactAppGoogleClientId && (
@@ -77,7 +79,7 @@ export const LoginModalComponent = ({
           )}
           <form onSubmit={handleSubmit((data: LoginFormType) => onSubmit(data, setLoaderRef.current!))}>
             <div className="jk-col stretch">
-              <div className="jk-form-item">
+              <div className="jk-form-item required">
                 <label>
                   <T>nickname</T>
                   <Input
@@ -90,12 +92,7 @@ export const LoginModalComponent = ({
                 </label>
                 <p><T>{(!isValid && errors?.nickname?.message) || ''}</T></p>
               </div>
-              <div className="jk-form-item">
-                <p className="link" onClick={() => setOpenForgotPasswordModal(true)}>
-                  <T className={classNames('forgot-password-label', { 'fw-br': !!highlightForgotPassword })}>
-                    forgot password?
-                  </T>
-                </p>
+              <div className="jk-form-item required">
                 <label>
                   <T>password</T>
                   <InputPassword
@@ -109,6 +106,13 @@ export const LoginModalComponent = ({
                 <p><T>{errors?.password?.message || ''}</T></p>
               </div>
               <div className="jk-col gap stretch">
+                <div className="jk-row left">
+                  <div className="link" onClick={() => setOpenForgotPasswordModal(true)}>
+                    <T className={classNames('forgot-password-label tt-se', { 'fw-br': !!highlightForgotPassword })}>
+                      Forgot password?
+                    </T>
+                  </div>
+                </div>
                 <div>
                   <p className="label">
                     <T className="tt-se">not a member?</T>,&nbsp;

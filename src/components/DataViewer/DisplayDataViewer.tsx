@@ -48,13 +48,14 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     getRecordClassName,
     onRecordClick,
     extraNodesFloating,
+    showFilterDrawerKey,
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
-  const [headerWidths, setHeaderWidths] = useState<HeaderWidthsType>({});
+  const [ headerWidths, setHeaderWidths ] = useState<HeaderWidthsType>({});
   const prevSizeWidth = usePrevious(viewContainerWidth);
   const prevHeaders = useRef(JSON.stringify(headersMinWidth(headers)));
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const [ scrollLeft, setScrollLeft ] = useState(0);
   
   useEffect(() => {
     const width = (viewContainerWidth || 0) - SCROLL_WIDTH;
@@ -71,17 +72,19 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
       setHeaderWidths(newHeaderWidths);
       prevHeaders.current = JSON.stringify(headersMinWidth(headers));
     }
-  }, [headers, viewContainerWidth, prevSizeWidth]);
+  }, [ headers, viewContainerWidth, prevSizeWidth ]);
   
   const tableHeaders: TableHeadersWithWidthType<T>[] = useMemo(() => headers.map(head => ({
     ...head,
     width: headerWidths[head.index]?.width || 0,
-  })).filter(head => head.width), [headers, headerWidths]);
-  const [recordHoveredIndex, setRecordHoveredIndex] = useState<number | null>(null);
+  })).filter(head => head.width), [ headers, headerWidths ]);
+  const [ recordHoveredIndex, setRecordHoveredIndex ] = useState<number | null>(null);
   const isMobileViewPort = viewPortSize === 'sm';
   const extraNodes = (_extraNodes || []).filter(extraNode => !!extraNode);
   const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
-  const onColumn = !isMobileViewPort || (isMobileViewPort && (extraNodes.length === 0 ? true : !!extraNodesFloating) && !viewViews);
+  const onColumn = !isMobileViewPort || (isMobileViewPort
+    && (extraNodes.length === 0 ? true : !!extraNodesFloating)
+    && !viewViews);
   
   return (
     <div
@@ -103,6 +106,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         extraNodesFloating={extraNodesFloating || false}
         onColumn={onColumn}
         viewViews={viewViews}
+        showFilterDrawerKey={showFilterDrawerKey}
       />
       {extraNodesFloating && isMobileViewPort && (
         <div
@@ -153,8 +157,10 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
             </LoaderLayer>
           </div>
         ) : (
-          <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}
-               style={{ width: (viewContainerWidth || 0) }}>
+          <div
+            className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}
+            style={{ width: (viewContainerWidth || 0) }}
+          >
             <LoaderLayer loading={data.length === 0 && loading}>
               <CardRowVirtualizerFixed
                 headers={tableHeaders}

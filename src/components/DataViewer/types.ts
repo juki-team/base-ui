@@ -14,8 +14,18 @@ import {
 } from './constants';
 
 export type GetRecordKeyType<T> = (props: { data: T[], index: number }) => string;
-export type GetRecordStyleType<T> = (props: { data: T[], index: number, isCard: boolean, isStickySection: boolean }) => CSSProperties;
-export type GetRecordClassNameType<T> = (props: { data: T[], index: number, isCard: boolean, isStickySection: boolean }) => string;
+export type GetRecordStyleType<T> = (props: {
+  data: T[],
+  index: number,
+  isCard: boolean,
+  isStickySection: boolean
+}) => CSSProperties;
+export type GetRecordClassNameType<T> = (props: {
+  data: T[],
+  index: number,
+  isCard: boolean,
+  isStickySection: boolean
+}) => string;
 export type OnRecordClickType<T> = (props: { data: T[], index: number, isCard: boolean }) => void;
 
 export type RecordHoveredIndexType = number | null;
@@ -36,11 +46,28 @@ export interface RowVirtualizerFixedProps<T> {
 }
 
 export type FilterTextOnlineType = { type: typeof FILTER_TEXT };
-export type FilterTextOfflineType<T> = { type: typeof FILTER_TEXT, callbackFn: (props: { columnIndex: string, text: string }) => (record: T, index: number) => boolean };
-export type FilterTextAutoOfflineType<T> = { type: typeof FILTER_TEXT_AUTO, getValue?: (props: { record: T }) => string };
+export type FilterTextOfflineType<T> = {
+  type: typeof FILTER_TEXT,
+  callbackFn: (props: { columnIndex: string, text: string }) => (record: T, index: number) => boolean
+};
+export type FilterTextAutoOfflineType<T> = {
+  type: typeof FILTER_TEXT_AUTO,
+  getValue?: (props: { record: T }) => string
+};
 export type FilterSelectOnlineType = { type: typeof FILTER_SELECT, options: OptionType<string>[] };
-export type FilterSelectOfflineType<T> = { type: typeof FILTER_SELECT, options: OptionType<string>[], callbackFn: (props: { columnIndex: string, selectedOptions: OptionType<string>[] }) => (record: T, index: number) => boolean };
-export type FilterSelectAutoOfflineType<T> = { type: typeof FILTER_SELECT_AUTO, options: OptionType<string>[], getValue?: (props: { record: T }) => string };
+export type FilterSelectOfflineType<T> = {
+  type: typeof FILTER_SELECT,
+  options: OptionType<string>[],
+  callbackFn: (props: {
+    columnIndex: string,
+    selectedOptions: OptionType<string>[]
+  }) => (record: T, index: number) => boolean
+};
+export type FilterSelectAutoOfflineType<T> = {
+  type: typeof FILTER_SELECT_AUTO,
+  options: OptionType<string>[],
+  getValue?: (props: { record: T }) => string
+};
 export type FilterDateOnlineType = {
   baseDate?: Date,
   isDisabled?: DatePickerDateFunType,
@@ -71,7 +98,11 @@ export type FilterDateRangeOnlineType = {
 export type FilterDateRangeOfflineType<T> = {
   baseEndDate?: Date,
   baseStartDate?: Date,
-  callbackFn: (props: { columnIndex: string, startSelectedDate: Date, endSelectedDate: Date }) => (record: T, index: number) => boolean,
+  callbackFn: (props: {
+    columnIndex: string,
+    startSelectedDate: Date,
+    endSelectedDate: Date
+  }) => (record: T, index: number) => boolean,
   isDisabled?: DatePickerDateFunType,
   pickerType?: DatePickerType,
   type: typeof FILTER_DATE_RANGE,
@@ -188,6 +219,8 @@ type PaginationDataType = {
   onPageSizeChange: (pageSize: number) => void,
 }
 
+export type ShowFilterDrawerType = 'open' | 'close';
+
 export interface DisplayDataViewerProps<T> {
   viewPortSize?: ViewPortSizeType,
   cards?: CardsType,
@@ -199,6 +232,7 @@ export interface DisplayDataViewerProps<T> {
   loading?: boolean,
   onAllFilters: (values: FilterValuesType) => void,
   onReload?: () => void,
+  showFilterDrawerKey: string,
   rows?: RowsType,
   rowsView: boolean,
   setViewMode: (viewMode: DataViewMode) => void,
@@ -211,7 +245,9 @@ export interface DisplayDataViewerProps<T> {
 }
 
 export type DataViewerHeaderSortOnlineType = true;
-export type DataViewerHeaderSortOfflineType<T> = { compareFn: (props: { columnIndex: string }) => (recordA: T, recordB: T) => number };
+export type DataViewerHeaderSortOfflineType<T> = {
+  compareFn: (props: { columnIndex: string }) => (recordA: T, recordB: T) => number
+};
 export type DataViewerHeaderSortType<T> = DataViewerHeaderSortOnlineType | DataViewerHeaderSortOfflineType<T>;
 
 export type DataViewerHeadersType<T> = {
@@ -247,7 +283,12 @@ export interface DataViewerProps<T> {
   headers: DataViewerHeadersType<T>[],
   initialViewMode?: DataViewMode,
   name?: string,
-  request?: (props: { sort: RequestSortType, filter: RequestFilterType, pagination?: { page: number, pageSize: number }, setLoaderStatus: LoaderStatusActionType }) => void,
+  request?: (props: {
+    sort: RequestSortType,
+    filter: RequestFilterType,
+    pagination?: { page: number, pageSize: number },
+    setLoaderStatus: LoaderStatusActionType
+  }) => void,
   rows?: RowsType,
   rowsView?: boolean,
   setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
@@ -259,6 +300,7 @@ export interface DataViewerProps<T> {
   getSortQueryParam?: (name: string) => string,
   getFilterQueryParam?: (name: string) => string,
   getViewModeQueryParam?: (name: string) => string,
+  getShowFilterDrawerQueryParam?: (name: string) => string,
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
   onRecordClick?: OnRecordClickType<T>,
@@ -287,7 +329,7 @@ export interface FilterDrawerProps<T> {
   onResetFilters: () => void,
 }
 
-export type FilterValuesType = { [key: string]: string | OptionType<string>[] | Date | [Date | null, Date | null] };
+export type FilterValuesType = { [key: string]: string | OptionType<string>[] | Date | [ Date | null, Date | null ] };
 
 export type FieldProps = PropsWithChildren<{ onClick?: () => void, className?: string }>;
 
@@ -323,6 +365,7 @@ export interface DataViewerToolbarProps<T> {
   paginationData: PaginationDataType,
   onColumn: boolean,
   viewViews: boolean,
+  showFilterDrawerKey: string,
 }
 
 export interface PaginationProps {

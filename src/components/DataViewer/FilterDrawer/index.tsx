@@ -28,7 +28,12 @@ import {
   renderHead,
 } from '../utils';
 
-type renderFilterTitleProps = { onSort?: TableSortOnSortType, order: TableSortOrderType, columnIndex: string, head: TableHeadType }
+type renderFilterTitleProps = {
+  onSort?: TableSortOnSortType,
+  order: TableSortOrderType,
+  columnIndex: string,
+  head: TableHeadType
+}
 
 const renderFilterTitle = ({ head, columnIndex, onSort, order }: renderFilterTitleProps) => {
   return (
@@ -45,9 +50,9 @@ const renderFilterTitle = ({ head, columnIndex, onSort, order }: renderFilterTit
 
 export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetFilters }: FilterDrawerProps<T>) => {
     
-    const [initialValues, setInitialValues] = useState({});
-    const [values, setValues] = useState<FilterValuesType>({});
-    const [isFiltered, setIsFiltered] = useState(false);
+    const [ initialValues, setInitialValues ] = useState({});
+    const [ values, setValues ] = useState<FilterValuesType>({});
+    const [ isFiltered, setIsFiltered ] = useState(false);
     
     const onlyValues = (obj: FilterValuesType) => {
       return Object.values(obj).map(val => {
@@ -63,7 +68,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
       setInitialValues(onlyValues(values));
       setValues(values);
       setIsFiltered(filtered);
-    }, [headers, isOpen]);
+    }, [ headers, isOpen ]);
     const { t } = useT();
     
     return (
@@ -105,11 +110,14 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                       isDisabled={filter.isDisabled}
                       isSelected={isSelected(filter.selectedDate)}
                       baseDate={filter.baseDate}
-                      twoLines={filter.pickerType === 'year-month-day-hours-minutes-seconds-milliseconds' || filter.pickerType === 'year-month-day-hours-minutes-seconds' || filter.pickerType === 'year-month-day-hours-minutes' || filter.pickerType === 'year-month-day-hours'}
+                      twoLines={filter.pickerType === 'year-month-day-hours-minutes-seconds-milliseconds'
+                        || filter.pickerType === 'year-month-day-hours-minutes-seconds'
+                        || filter.pickerType === 'year-month-day-hours-minutes'
+                        || filter.pickerType === 'year-month-day-hours'}
                     />
                   );
                 } else if (isFilterDateRange(filter)) {
-                  const [start, end] = Array.isArray(values?.[columnIndex]) ? values?.[columnIndex] as [Date, Date] : [
+                  const [ start, end ] = Array.isArray(values?.[columnIndex]) ? values?.[columnIndex] as [ Date, Date ] : [
                     null,
                     null,
                   ];
@@ -122,16 +130,19 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                           date={start}
                           onDatePick={date => {
                             if (end && end.isValidDate()) {
-                              setValues(prevState => ({ ...prevState, [columnIndex]: [date, end] }));
+                              setValues(prevState => ({ ...prevState, [columnIndex]: [ date, end ] }));
                             } else {
-                              setValues(prevState => ({ ...prevState, [columnIndex]: [date, date] }));
+                              setValues(prevState => ({ ...prevState, [columnIndex]: [ date, date ] }));
                             }
                           }}
                           onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
                           isDisabled={orDatePickerDateFun(filter.isDisabled, isDisabledStart(end))}
                           isSelected={orDatePickerDateFun(isSelected(start), isRangeSelected(start, end))}
                           baseDate={filter.baseStartDate}
-                          twoLines={filter.pickerType === 'year-month-day-hours-minutes-seconds-milliseconds' || filter.pickerType === 'year-month-day-hours-minutes-seconds' || filter.pickerType === 'year-month-day-hours-minutes' || filter.pickerType === 'year-month-day-hours'}
+                          twoLines={filter.pickerType === 'year-month-day-hours-minutes-seconds-milliseconds'
+                            || filter.pickerType === 'year-month-day-hours-minutes-seconds'
+                            || filter.pickerType === 'year-month-day-hours-minutes'
+                            || filter.pickerType === 'year-month-day-hours'}
                         />
                       </div>
                       <div>
@@ -141,16 +152,23 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                           date={end}
                           onDatePick={date => {
                             if (start && start.isValidDate()) {
-                              setValues(prevState => ({ ...prevState, [columnIndex]: [start, date] }));
+                              setValues(prevState => ({ ...prevState, [columnIndex]: [ start, date ] }));
                             } else {
-                              setValues(prevState => ({ ...prevState, [columnIndex]: [date, date] }));
+                              setValues(prevState => ({ ...prevState, [columnIndex]: [ date, date ] }));
                             }
                           }}
                           onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
                           isDisabled={orDatePickerDateFun(filter.isDisabled, isDisabledEnd(start))}
                           isSelected={orDatePickerDateFun(isSelected(end), isRangeSelected(start, end))}
                           baseDate={filter.baseEndDate}
-                          twoLines={filter.pickerType === 'year-month-day-hours-minutes-seconds-milliseconds' || filter.pickerType === 'year-month-day-hours-minutes-seconds' || filter.pickerType === 'year-month-day-hours-minutes' || filter.pickerType === 'year-month-day-hours'}
+                          twoLines={filter.pickerType
+                            === 'year-month-day-hours-minutes-seconds-milliseconds'
+                            || filter.pickerType
+                            === 'year-month-day-hours-minutes-seconds'
+                            || filter.pickerType
+                            === 'year-month-day-hours-minutes'
+                            || filter.pickerType
+                            === 'year-month-day-hours'}
                         />
                       </div>
                     </>
@@ -166,7 +184,15 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
               })}
             </div>
             <div className="jk-row space-between right buttons">
-              <Button type="text" size="small" onClick={onResetFilters} disabled={!isFiltered}>
+              <Button
+                type="text"
+                size="small"
+                onClick={() => {
+                  onResetFilters();
+                  onClose();
+                }}
+                disabled={!isFiltered}
+              >
                 <T>reset all filters</T>
               </Button>
               <Button

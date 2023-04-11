@@ -1,5 +1,5 @@
 import { DataViewMode } from '@juki-team/commons';
-import React, { Children, useState } from 'react';
+import React, { Children, useCallback } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../helpers';
 import { useJukiUI } from '../../hooks';
 import { FilterListIcon, LoadingIcon, MenuIcon, ReloadIcon, ViewHeadlineIcon, ViewModuleIcon } from '../graphics';
@@ -27,22 +27,31 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
     extraNodesFloating,
     onColumn,
     viewViews,
+    showFilterDrawerKey,
   } = props;
   
-  const [filterDrawer, setFilterDrawer] = useState(false);
   const { filtered } = isSomethingFiltered(headers);
-  const { viewPortSize } = useJukiUI();
+  const { viewPortSize, router: { searchParams, setSearchParam } } = useJukiUI();
+  
+  const showFilterDrawer = searchParams.get(showFilterDrawerKey) === 'open' ? 'open' : 'close';
+  const setShowFilterDrawer = useCallback((show: boolean) => {
+    setSearchParam({ name: showFilterDrawerKey, value: show ? 'open' : 'close' });
+  }, [ setSearchParam, showFilterDrawerKey ]);
   const isMobileViewPort = viewPortSize === 'sm';
   const viewFilterButton = !!headers.filter(head => head.filter || head.sort).length;
   
   return (
     <div
-      className={classNames('jk-data-viewer-toolbar jk-row space-between nowrap', { 'br-g5': viewMode === DataViewMode.CARDS }, viewMode.toLowerCase())}
+      className={classNames(
+        'jk-data-viewer-toolbar jk-row space-between nowrap',
+        { 'br-g5': viewMode === DataViewMode.CARDS },
+        viewMode.toLowerCase(),
+      )}
     >
       <FilterDrawer
-        isOpen={filterDrawer}
+        isOpen={showFilterDrawer === 'open'}
         headers={headers}
-        onClose={() => setFilterDrawer(false)}
+        onClose={() => setShowFilterDrawer(false)}
         onFilter={values => onAllFilters(values)}
         onResetFilters={() => onAllFilters({})}
       />
@@ -57,10 +66,12 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
           'center': !(onColumn && !isMobileViewPort),
         })}
       >
-        <div className={classNames('jk-row nowrap', {
-          gap: onColumn && !isMobileViewPort,
-          extend: !(viewFilterButton || viewViews),
-        })}>
+        <div
+          className={classNames('jk-row nowrap', {
+            gap: onColumn && !isMobileViewPort,
+            extend: !(viewFilterButton || viewViews),
+          })}
+        >
           
           {onReload && (
             <>
@@ -68,7 +79,10 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                 content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
                 showPopperArrow
               >
-                <div className={classNames({ active: loading, loading }, 'jk-row')} onClick={!loading ? onReload : undefined}>
+                <div
+                  className={classNames({ active: loading, loading }, 'jk-row')}
+                  onClick={!loading ? onReload : undefined}
+                >
                   {loading ? <LoadingIcon /> : <ReloadIcon className="jk-br-ie clickable" />}
                 </div>
               </Popover>
@@ -80,7 +94,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               dataLength
                 ? <div className="jk-row nowrap tt-se ws-np">{dataLength}&nbsp;
                   <T>{dataLength > 1 ? 'records' : 'record'}</T>{paginationData.pagination?.total && <>&nbsp;
-                          <T>of</T>&nbsp;{paginationData.pagination.total}&nbsp;<T>records</T></>}</div>
+                    <T>of</T>&nbsp;{paginationData.pagination.total}&nbsp;<T>records</T></>}</div>
                 : <T className="tt-se ws-np">no data</T>
             }
             showPopperArrow
@@ -93,7 +107,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
             <>
               <Pagination
                 loading={loading}
-                pageSizeOptions={isMobileViewPort ? [16] : paginationData.pageSizeOptions}
+                pageSizeOptions={isMobileViewPort ? [ 16 ] : paginationData.pageSizeOptions}
                 total={paginationData.pagination.total}
                 page={paginationData.page}
                 pageSize={paginationData.pageSize}
@@ -111,7 +125,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               <Popover content={<T className="ws-np">open filters</T>} showPopperArrow>
                 <div
                   className={classNames({ active: filtered }, 'jk-row')}
-                  onClick={() => setFilterDrawer(true)}
+                  onClick={() => setShowFilterDrawer(true)}
                 >
                   <FilterListIcon className="jk-br-ie clickable" />
                 </div>
@@ -128,7 +142,12 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                       className={classNames({ active: viewMode === DataViewMode.ROWS }, 'jk-row')}
                       onClick={() => setViewMode(DataViewMode.ROWS)}
                     >
-                      <ViewHeadlineIcon className={classNames('jk-br-ie', { clickable: viewMode === DataViewMode.CARDS })} />
+                      <ViewHeadlineIcon
+                        className={classNames(
+                          'jk-br-ie',
+                          { clickable: viewMode === DataViewMode.CARDS },
+                        )}
+                      />
                     </div>
                   </Popover>
                 )}
@@ -138,7 +157,12 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                       className={classNames({ active: viewMode === DataViewMode.CARDS }, 'jk-row')}
                       onClick={() => setViewMode(DataViewMode.CARDS)}
                     >
-                      <ViewModuleIcon className={classNames('jk-br-ie', { clickable: viewMode === DataViewMode.ROWS })} />
+                      <ViewModuleIcon
+                        className={classNames(
+                          'jk-br-ie',
+                          { clickable: viewMode === DataViewMode.ROWS },
+                        )}
+                      />
                     </div>
                   </Popover>
                 )}

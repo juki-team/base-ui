@@ -29,7 +29,7 @@ const signUpSchema = yup.object().shape({
     .email('must be a valid email'),
   checkbox: yup.boolean()
     .required('you must accept the terms of service')
-    .oneOf([true], 'you must accept the terms of service'),
+    .oneOf([ true ], 'you must accept the terms of service'),
   nickname: yup.string()
     .required('cannot be empty')
     .matches(ALPHANUMERIC_DASH_UNDERSCORE_REGEX, 'only alphanumeric characters or dash or underscore is valid')
@@ -37,11 +37,13 @@ const signUpSchema = yup.object().shape({
   password: yup.string()
     .required('cannot be empty')
     .min(8, 'must be at least 8 characters')
-    .matches(LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX,
-      'must have at least one uppercase, one lowercase letter and one number'),
+    .matches(
+      LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX,
+      'must have at least one uppercase, one lowercase letter and one number',
+    ),
   passwordConfirmation: yup.string()
     .required('cannot be empty')
-    .oneOf([yup.ref('password'), ''], 'both passwords must match'),
+    .oneOf([ yup.ref('password'), '' ], 'both passwords must match'),
 });
 
 export const SignUpModalComponent = ({
@@ -72,6 +74,8 @@ export const SignUpModalComponent = ({
         </>
       }
       graphic={<JukiLaptopImage />}
+      closeWhenKeyEscape
+      closeWhenClickOutside
     >
       <div className="jk-col stretch">
         {signUpWithGoogle && reactAppGoogleClientId && (
@@ -90,7 +94,7 @@ export const SignUpModalComponent = ({
         <form onSubmit={handleSubmit((data: SignUpFormType) => onSubmit(data, setLoaderRef.current!))}>
           <div className="jk-col stretch">
             <div className="jk-row gap block">
-              <div className="jk-form-item">
+              <div className="jk-form-item required">
                 <label>
                   <T>first name</T>
                   <Input
@@ -103,7 +107,7 @@ export const SignUpModalComponent = ({
                 </label>
                 <p><T>{errors?.givenName?.message || ''}</T></p>
               </div>
-              <div className="jk-form-item">
+              <div className="jk-form-item required">
                 <label>
                   <T>last name</T>
                   <Input
@@ -117,7 +121,7 @@ export const SignUpModalComponent = ({
                 <p><T>{errors.familyName?.message || ''}</T></p>
               </div>
             </div>
-            <div className="jk-form-item">
+            <div className="jk-form-item required">
               <label>
                 <T>nickname</T>
                 <Input
@@ -130,7 +134,7 @@ export const SignUpModalComponent = ({
               </label>
               <p><T>{(!isValid && errors?.nickname?.message) || ''}</T></p>
             </div>
-            <div className="jk-form-item">
+            <div className="jk-form-item required">
               <label>
                 <T>e-mail address</T>
                 <Input
@@ -143,8 +147,7 @@ export const SignUpModalComponent = ({
               </label>
               <p><T>{(!isValid && errors?.email?.message) || ''}</T></p>
             </div>
-            <div className="jk-form-item">
-              <p><T>minimum 8 characters</T></p>
+            <div className="jk-form-item required">
               <label>
                 <T>password</T>
                 <InputPassword
@@ -157,7 +160,7 @@ export const SignUpModalComponent = ({
               </label>
               <p><T>{(!isValid && errors?.password?.message) || ''}</T></p>
             </div>
-            <div className="jk-form-item">
+            <div className="jk-form-item required">
               <label>
                 <T>confirm password</T>
                 <InputPassword
@@ -170,7 +173,7 @@ export const SignUpModalComponent = ({
               </label>
               <p><T>{(!isValid && errors?.passwordConfirmation?.message) || ''}</T></p>
             </div>
-            <div className="jk-form-item">
+            <div className="jk-form-item required">
               <Controller
                 control={control}
                 name="checkbox"
