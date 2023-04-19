@@ -10,6 +10,7 @@ interface FetcherLayerProps<T extends (ContentResponseType<U> | ContentsResponse
   url: string,
   options?: SWRConfiguration,
   errorView?: ReactNodeOrFunctionType,
+  loadingView?: ReactNodeOrFunctionType,
   children: ReactNodeOrFunctionP1Type<{ data?: T, isLoading?: boolean, error?: any, mutate?: KeyedMutator<any> }>,
   onError?: (error?: any) => void,
 }
@@ -26,6 +27,7 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
   url,
   options,
   errorView = null,
+  loadingView,
   children,
   onError,
 }: FetcherLayerProps<T, U>) => {
@@ -43,9 +45,12 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
       onError?.(error);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [notifyResponse, JSON.stringify(data), error/*, onError*/]);
+  }, [ notifyResponse, JSON.stringify(data), error/*, onError*/ ]);
   
   if (isLoading) {
+    if (loadingView) {
+      return <>{renderReactNodeOrFunction(loadingView)}</>;
+    }
     return (
       <div className="jk-row jk-col extend">
         <LoadingIcon size="very-huge" className="cr-py" />
