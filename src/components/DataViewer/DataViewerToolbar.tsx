@@ -44,7 +44,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
     <div
       className={classNames(
         'jk-data-viewer-toolbar jk-row space-between nowrap',
-        { 'br-g5': viewMode === DataViewMode.CARDS },
+        { 'jk-br-ie elevation-1': viewMode === DataViewMode.CARDS },
         viewMode.toLowerCase(),
       )}
     >
@@ -94,7 +94,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               dataLength
                 ? <div className="jk-row nowrap tt-se ws-np">{dataLength}&nbsp;
                   <T>{dataLength > 1 ? 'records' : 'record'}</T>{paginationData.pagination?.total && <>&nbsp;
-                    <T>of</T>&nbsp;{paginationData.pagination.total}&nbsp;<T>records</T></>}</div>
+                          <T>of</T>&nbsp;{paginationData.pagination.total}&nbsp;<T>records</T></>}</div>
                 : <T className="tt-se ws-np">no data</T>
             }
             showPopperArrow

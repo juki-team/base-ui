@@ -131,8 +131,6 @@
       width: 100%;
       
       &.rows {
-        background: var(--t-color-white);
-        
         .layout-line-loader {
           position: relative;
         }
@@ -153,6 +151,8 @@
           box-sizing: border-box;
           width: 100%;
           overflow: hidden;
+          background: var(--t-color-white);
+          border-radius: var(--border-radius-inline) var(--border-radius-inline) 0 0;
           
           .jk-table-head-sticky {
             display: flex;
@@ -228,12 +228,23 @@
             }
           }
         }
+
+        &::before {
+          content: "";
+          position: absolute;
+          width: 100%;
+          @extend .elevation-1;
+          height: 1px;
+          bottom: 0;
+          z-index: 3;
+        }
       }
       
       .jk-data-viewer-body {
         
         &.rows {
           height: calc(100% - var(--jk-table-toolbar-height));
+          background: var(--t-color-white);
         }
         
         &.cards {

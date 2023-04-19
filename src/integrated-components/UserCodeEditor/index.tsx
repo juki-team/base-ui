@@ -41,7 +41,7 @@ interface UserCodeEditorProps<T> {
 export const UserCodeEditor = <T, >({
   className,
   expandPosition,
-  initialTestCases = {},
+  initialTestCases,
   sourceStoreKey,
   languages,
   middleButtons,

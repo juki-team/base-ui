@@ -69,6 +69,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
       sort: true,
       filter: { type: 'text' },
       cardPosition: 'top',
+      minWidth: 300,
       sticky: true,
     },
     {
@@ -87,7 +88,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
         <div>test<br />test
         </div>
       ),
-      minWidth: 50,
+      minWidth: 250,
       // filter: { type: 'select', options: [{ value: 'A', label: 'letra A' }, { value: 'B', label: 'letra B' }] },
       // sort: {
       //   compareFn: () => () => (
@@ -233,12 +234,12 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
         cards={{ expanded: true }}
         headers={columns}
         data={data}
-        // rows={{ height: 150 }}
+        rows={{ height: 150 }}
         request={request}
         name="users"
         cardsView={cardsView}
-        // rowsView={rowsView}
-        rowsView={false}
+        rowsView={rowsView}
+        // rowsView={false}
         // rowsView={false}
         extraNodesFloating
         extraNodes={[

@@ -15,7 +15,7 @@ export const TableHead = <T, >({
   loading,
 }: TableHeadProps<T>) => {
   
-  const [dragging, setDragging] = useState({ columnIndex: '', nextColumnIndex: '' });
+  const [ dragging, setDragging ] = useState({ columnIndex: '', nextColumnIndex: '' });
   const dividerPositionRef = useRef(0);
   const onMouseHoldDown = (columnIndex: string, nextColumnIndex?: string) => (event: React.MouseEvent<HTMLDivElement>) => {
     setDragging({ columnIndex, nextColumnIndex: nextColumnIndex || '' });
@@ -36,7 +36,8 @@ export const TableHead = <T, >({
     const moveX = event.clientX - (dividerPositionRef.current || 0);
     dividerPositionRef.current = event.clientX;
     if (fillWidth && headerWidths[nextColumnIndex]) {
-      if (headerWidths[columnIndex].width + moveX >= headerWidths[columnIndex].minWidth && headerWidths[nextColumnIndex].width - moveX >= headerWidths[nextColumnIndex].minWidth) {
+      if (headerWidths[columnIndex].width + moveX >= headerWidths[columnIndex].minWidth
+        && headerWidths[nextColumnIndex].width - moveX >= headerWidths[nextColumnIndex].minWidth) {
         const newHeaderWidths = {
           ...headerWidths,
           [columnIndex]: {
@@ -91,7 +92,9 @@ export const TableHead = <T, >({
               <ArrowIcon size="small" rotate={order < 0 ? 180 : 0} className="clickable jk-br-ie" />
             </div>
           )}
-          {filter?.onFilter && <Filter columnIndex={columnIndex} filter={filter} disabled={loading && filter.online} />}
+          {filter?.onFilter && (
+            <Filter columnIndex={columnIndex} filter={filter} disabled={loading && filter.online} />
+          )}
         </div>
         {(!fillWidth || index < headers.length - 1) && (
           <div
@@ -100,7 +103,8 @@ export const TableHead = <T, >({
             onClick={event => {
               event.preventDefault();
               event.stopPropagation();
-            }}>
+            }}
+          >
             <div />
           </div>
         )}
@@ -113,13 +117,16 @@ export const TableHead = <T, >({
   
   return (
     <div className="jk-table-head-container">
-      <div className="jk-table-head br-g5" onMouseLeave={onMouseHoldUp}>
-        <div className={classNames('jk-table-head-sticky', { '': !!scrollLeft })}>
+      <div className="jk-table-head" onMouseLeave={onMouseHoldUp}>
+        <div className={classNames('jk-table-head-sticky', { 'elevation-1': !!scrollLeft })}>
           {headersSticky.map(renderHeader)}
         </div>
         <div
           className="jk-table-head-no-sticky"
-          style={{ marginLeft: -scrollLeft, minWidth: headersNoSticky.reduce((sum, head) => sum + head.width, 0) }}
+          style={{
+            marginLeft: -scrollLeft,
+            minWidth: headersNoSticky.reduce((sum, head) => sum + head.width, 0),
+          }}
         >
           {headersNoSticky.map(renderHeader)}
         </div>
