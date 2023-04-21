@@ -11,13 +11,24 @@ import {
   UserPingType,
 } from '@juki-team/commons';
 import React, { createContext, Dispatch, PropsWithChildren, SetStateAction, useEffect, useMemo, useState } from 'react';
+import {
+  browserName,
+  browserVersion,
+  deviceType,
+  isMobile,
+  mobileModel,
+  mobileVendor,
+  osName,
+  osVersion,
+} from 'react-device-detect';
 import { KeyedMutator } from 'swr';
 import { settings } from '../../config';
 import { localStorageCrossDomains } from '../../helpers';
-import { useJukiUI } from '../../hooks';
-import { useFetcher } from '../../hooks/useFetcher';
+import { useFetcher, useJukiUI } from '../../hooks';
 import { SocketIo } from '../../services/SocketIo';
 import { JukiUserProviderProps } from './types';
+
+type DeviceType = { label: string, isMobile: boolean, isBrowser: boolean, type: string, osLabel: string };
 
 export const UserContext = createContext<{
   user: UserPingType,
@@ -26,6 +37,7 @@ export const UserContext = createContext<{
   isLoading: boolean,
   mutate: KeyedMutator<any>,
   socket: SocketIo,
+  device: DeviceType,
 }>({
   user: USER_GUEST,
   company: { name: '', imageUrl: '', emailContact: '' },
@@ -33,6 +45,7 @@ export const UserContext = createContext<{
   isLoading: true,
   mutate: null as unknown as KeyedMutator<any>,
   socket: null as unknown as SocketIo,
+  device: { label: '', isMobile: false, isBrowser: false, type: '', osLabel: '' },
 });
 
 const useUser = () => {
@@ -41,7 +54,10 @@ const useUser = () => {
     data,
     isLoading,
     mutate,
-  } = useFetcher<ContentResponseType<PingResponseDTO>>(settings.getAPI().auth.ping().url, { refreshInterval: 1000 * 60 * 5 });
+  } = useFetcher<ContentResponseType<PingResponseDTO>>(
+    settings.getAPI().auth.ping().url,
+    { refreshInterval: 1000 * 60 * 5 },
+  );
   
   const [ user, setUser ] = useState<UserPingType>(USER_GUEST);
   const [ company, setCompany ] = useState<CompanyPingType>({ emailContact: '', imageUrl: '', name: '' });
@@ -111,10 +127,18 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     if (isPageVisible) {
       socket.joinSession().then(() => null);
     }
-  }, [isPageVisible, socket]);
+  }, [ isPageVisible, socket ]);
+  
+  const device: DeviceType = {
+    type: deviceType,
+    isMobile: false,
+    isBrowser: false,
+    label: isMobile ? `${mobileModel} ${mobileVendor}` : `${browserName} ${browserVersion}`,
+    osLabel: `${osName} ${osVersion}`,
+  };
   
   return (
-    <UserContext.Provider value={{ user, company, setUser, isLoading, mutate, socket }}>
+    <UserContext.Provider value={{ user, company, setUser, isLoading, mutate, socket, device }}>
       {children}
     </UserContext.Provider>
   );

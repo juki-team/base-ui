@@ -6,10 +6,10 @@ import { SignUpFormType, SignUpModalProps } from './types';
 
 export const SignUpModal = ({ onClose, onSuccess }: SignUpModalProps) => {
   
-  const { signUp } = useJukiUser();
+  const { signUp, device: { osLabel, label } } = useJukiUser();
   
   const onSubmit = (data: SignUpFormType, setLoader: SetLoaderStatusOnClickType) => signUp({
-    body: data,
+    body: { ...data, osName: osLabel, deviceName: label },
     setLoader,
     onSuccess,
   });

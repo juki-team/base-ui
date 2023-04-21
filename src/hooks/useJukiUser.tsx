@@ -42,7 +42,7 @@ type ApiParamsBodyType<T, U, V> = ApiType<V> & {
 
 export const useJukiUser = () => {
   
-  const { user, isLoading, setUser, mutate, company, socket } = useContext(UserContext);
+  const { user, isLoading, setUser, mutate, company, socket, device } = useContext(UserContext);
   const { notifyResponse, addErrorNotification } = useNotification();
   const { matchMutate } = useMatchMutate();
   
@@ -68,7 +68,10 @@ export const useJukiUser = () => {
     onFinally?.(response);
   }, [ notifyResponse ]);
   
-  const signIn = useCallback(async ({ body, onSuccess, ...props }: ApiBodyType<LoginFormType, PingResponseDTO>) => {
+  const signIn = useCallback(async ({ body, onSuccess, ...props }: ApiBodyType<LoginFormType & {
+    deviceName: string,
+    osName: string
+  }, PingResponseDTO>) => {
     const { url, ...options } = settings.getAPI().auth.signIn({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
       localStorageCrossDomains.setItem(settings.TOKEN_NAME, response.content.user.sessionId);
@@ -79,7 +82,10 @@ export const useJukiUser = () => {
     await doRequest<PingResponseDTO>({ url, options, onSuccess: onSuccessWrap, ...props });
   }, [ doRequest, refreshAllRequest, setUser ]);
   
-  const signUp = useCallback(async ({ body, onSuccess, ...props }: ApiBodyType<SignUpPayloadDTO, PingResponseDTO>) => {
+  const signUp = useCallback(async ({ body, onSuccess, ...props }: ApiBodyType<SignUpPayloadDTO & {
+    osName: string,
+    deviceName: string
+  }, PingResponseDTO>) => {
     const { url, ...options } = settings.getAPI().auth.signUp({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
       localStorageCrossDomains.setItem(settings.TOKEN_NAME, response.content.user.sessionId);
@@ -171,6 +177,7 @@ export const useJukiUser = () => {
     logout,
     updatePassword,
     socket,
+    device,
     // users
     createUser,
     updateUserProfileData,

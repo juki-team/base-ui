@@ -6,12 +6,16 @@ import { LoginModalComponent } from './LoginModal';
 
 export const LoginModal = ({ onClose, onSignUpButton }: LoginModalProps) => {
   
-  const { signIn } = useJukiUser();
-  const [highlightForgotPassword, setHighlightForgotPassword] = useState(false);
+  const { signIn, device: { osLabel, label } } = useJukiUser();
+  const [ highlightForgotPassword, setHighlightForgotPassword ] = useState(false);
   
   const onError = () => setHighlightForgotPassword(true);
   
-  const onSubmit = (data: LoginFormType, setLoader: SetLoaderStatusOnClickType) => signIn({ body: data, setLoader, onError });
+  const onSubmit = (data: LoginFormType, setLoader: SetLoaderStatusOnClickType) => signIn({
+    body: { ...data, osName: osLabel, deviceName: label },
+    setLoader,
+    onError,
+  });
   
   return (
     <LoginModalComponent
