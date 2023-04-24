@@ -1,7 +1,13 @@
 import { ContentResponseType, ContentsResponseType, Status } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import useSWR, { SWRConfiguration, useSWRConfig } from 'swr';
-import { DataViewerRequestPropsType, RequestFilterType, RequestSortType, SetLoaderStatusType } from '../components';
+import useSWR, { SWRConfiguration } from 'swr';
+import {
+  DataViewerRequestPropsType,
+  RefreshType,
+  RequestFilterType,
+  RequestSortType,
+  SetLoaderStatusType,
+} from '../components';
 import { settings } from '../config';
 import { authorizedRequest, cleanRequest } from '../services';
 import { useJukiUser } from './useJukiUser';
@@ -35,12 +41,14 @@ export const useFetcher = <T extends (ContentResponseType<any> | ContentsRespons
 export type DataViewerRequesterGetUrlType = (props: Omit<DataViewerRequestPropsType, 'setLoaderStatus'>) => string;
 
 export const useDataViewerRequester = <T extends ContentResponseType<any> | ContentsResponseType<any>, >(getUrl: DataViewerRequesterGetUrlType, options?: SWRConfiguration) => {
-  const { mutate: swrMutate } = useSWRConfig();
   const setLoaderStatusRef = useRef<SetLoaderStatusType>();
   const { user: { nickname, sessionId } } = useJukiUser();
   const [ url, setUrl ] = useState<string | undefined>(undefined);
   const { data, error, isLoading, mutate, isValidating } = useFetcher<T>(url, options);
   const getUrlRef = useRef(getUrl);
+  const reloadRef = useRef<RefreshType>();
+  const refreshRef = useCallback((reload: RefreshType) => reloadRef.current = reload, []);
+  const reload = useCallback(() => reloadRef.current?.(), []);
   getUrlRef.current = getUrl;
   const request = useCallback(async ({
     pagination,
@@ -72,12 +80,11 @@ export const useDataViewerRequester = <T extends ContentResponseType<any> | Cont
     error,
     isLoading: isLoading || isValidating,
     request,
-    mutate,
     setLoaderStatusRef: useCallback(
       (setLoaderStatus: SetLoaderStatusType) => setLoaderStatusRef.current = setLoaderStatus,
       [],
     ),
-    url,
-    reload: useCallback(() => swrMutate(url), [ swrMutate, url ]),
+    reload,
+    refreshRef,
   };
 };
