@@ -273,6 +273,15 @@ export type LoaderStatusActionType = Dispatch<SetStateAction<Status>>;
 
 export type DataViewerPaginationType = { total: number, pageSizeOptions?: number[] };
 
+export type DataViewerRequestPropsType = {
+  sort: RequestSortType,
+  filter: RequestFilterType,
+  pagination?: { page: number, pageSize: number },
+  setLoaderStatus: LoaderStatusActionType,
+}
+
+export type DataViewerRequestType = (props: DataViewerRequestPropsType) => void;
+
 export interface DataViewerProps<T> {
   cards?: CardsType,
   cardsView?: boolean,
@@ -283,12 +292,7 @@ export interface DataViewerProps<T> {
   headers: DataViewerHeadersType<T>[],
   initialViewMode?: DataViewMode,
   name?: string,
-  request?: (props: {
-    sort: RequestSortType,
-    filter: RequestFilterType,
-    pagination?: { page: number, pageSize: number },
-    setLoaderStatus: LoaderStatusActionType
-  }) => void,
+  request?: DataViewerRequestType,
   rows?: RowsType,
   rowsView?: boolean,
   setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
