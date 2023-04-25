@@ -1,7 +1,6 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { ToggleThemeButton } from '../ToggleThemeButton';
 
 import {
   AssignmentIcon_,
@@ -40,7 +39,7 @@ import {
   GroupIcon_,
   HeadlineIcon_,
   HeadsetMicIcon,
-  HomeIcon,
+  HomeIcon_,
   LeaderboardIcon_,
   LightBulbIcon,
   LinkedInIcon,
@@ -76,13 +75,14 @@ import {
   ViewModuleIcon,
   ViewSideIcon,
 } from '../../index';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/General/Icons',
   argTypes: {
     color: { control: { type: 'color' } },
     size: {
-      options: ['huge', 'large', 'regular', 'small', 'tiny'],
+      options: [ 'huge', 'large', 'regular', 'small', 'tiny' ],
       control: {
         type: 'select',
         labels: {
@@ -140,7 +140,7 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
     GavelIcon,
     GearsIcon,
     HeadlineIcon_,
-    HomeIcon,
+    HomeIcon_,
     LightBulbIcon,
     LinkedInIcon,
     MailOpenedIcon,
@@ -185,8 +185,8 @@ export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...pro
     <NotificationProvider>
       <div className="jk-row block gap" style={{ color }}>
         {Object.entries(icons)
-          .sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2))
-          .map(([iconName, Component]) => (
+          .sort(([ iconName1 ], [ iconName2 ]) => iconName1.localeCompare(iconName2))
+          .map(([ iconName, Component ]) => (
             <div className="jk-row nowrap center">
               <Component {...props} />
               <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>

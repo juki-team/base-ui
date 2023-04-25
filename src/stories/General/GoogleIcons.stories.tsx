@@ -57,7 +57,7 @@ import {
   GroupIcon,
   HardDriveIcon,
   HelpIcon,
-  HistoryIcon,
+  HistoryIcon, HomeIcon,
   HomeStorageIcon,
   InfoIcon,
   InvertColorsIcon,
@@ -93,6 +93,8 @@ import {
   PlayCircleIcon,
   PostAddIcon,
   PreviewIcon,
+  PublicIcon,
+  PublishIcon,
   RedoIcon,
   RefreshIcon,
   ReplyAllIcon,
@@ -128,7 +130,7 @@ export default {
   argTypes: {
     color: { control: { type: 'color' } },
     size: {
-      options: ['huge', 'large', 'regular', 'small', 'tiny'],
+      options: [ 'huge', 'large', 'regular', 'small', 'tiny' ],
       control: {
         type: 'select',
         labels: {
@@ -273,14 +275,17 @@ export const Google: Story<BasicIconProps & { color: string }> = ({ color, ...pr
     VisibilityOffIcon,
     WarningIcon,
     SearchIcon,
+    PublicIcon,
+    PublishIcon,
+    HomeIcon,
   };
   
   return (
     <NotificationProvider>
       <div className="jk-row block gap" style={{ color }}>
         {Object.entries(icons)
-          .sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2))
-          .map(([iconName, Component]) => (
+          .sort(([ iconName1 ], [ iconName2 ]) => iconName1.localeCompare(iconName2))
+          .map(([ iconName, Component ]) => (
             <div className="jk-row gap nowrap center">
               <Component {...props} />
               <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
