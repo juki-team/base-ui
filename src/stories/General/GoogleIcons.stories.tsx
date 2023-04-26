@@ -57,7 +57,8 @@ import {
   GroupIcon,
   HardDriveIcon,
   HelpIcon,
-  HistoryIcon, HomeIcon,
+  HistoryIcon,
+  HomeIcon,
   HomeStorageIcon,
   InfoIcon,
   InvertColorsIcon,
@@ -70,6 +71,7 @@ import {
   LoadingIcon,
   LocationOnIcon,
   LockIcon,
+  LockPersonIcon,
   LoginIcon,
   LogoutIcon,
   MailIcon,
@@ -277,6 +279,7 @@ export const Google: Story<BasicIconProps & { color: string }> = ({ color, ...pr
     SearchIcon,
     PublicIcon,
     PublishIcon,
+    LockPersonIcon,
     HomeIcon,
   };
   

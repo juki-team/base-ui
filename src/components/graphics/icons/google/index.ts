@@ -64,6 +64,7 @@ export * from './LinkIcon';
 export * from './ListIcon';
 export * from './LocationOnIcon';
 export * from './LockIcon';
+export * from './LockPersonIcon';
 export * from './LoginIcon';
 export * from './LogoutIcon';
 export * from './MailIcon';
