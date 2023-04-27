@@ -107,6 +107,7 @@ export const UsersSelector = ({
               email={user.email}
               familyName={user.familyName}
               givenName={user.givenName}
+              className="flex-1"
             />
           ),
           inputLabel: user.nickname,
