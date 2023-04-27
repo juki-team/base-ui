@@ -43,7 +43,11 @@ export const Classes: Story<TabsProps<string>> = () => {
               'jk-row right top',
               'jk-row right bottom',
             ].map(col => (
-              <div className="jk-col elevation-1 jk-pad-md jk-border-radius-inline cr-we" style={{ width: '420px' }} key={col}>
+              <div
+                className="jk-col elevation-1 jk-pad-md jk-border-radius-inline cr-we"
+                style={{ width: '420px' }}
+                key={col}
+              >
                 <pre className="cr-g1">"{col}"</pre>
                 <div style={{ width: 250, height: 60 }} className="bc-g6 fw-br">
                   <div className={col} style={{ outline: '2px solid red', width: 220, height: 50 }}>
@@ -209,12 +213,12 @@ export const Classes: Story<TabsProps<string>> = () => {
           <h1>font size</h1>
           <div className="jk-row gap nowrap block stretch">
             {[
-              ['tx-h', 20],
-              ['tx-l', 18],
-              ['tx-m', 16],
-              ['tx-s', 14],
-              ['tx-t', 12],
-            ].map(([className, size]) => (
+              [ 'tx-h', 20 ],
+              [ 'tx-l', 18 ],
+              [ 'tx-m', 16 ],
+              [ 'tx-s', 14 ],
+              [ 'tx-t', 12 ],
+            ].map(([ className, size ]) => (
               <div className="jk-col gap nowrap elevation-1 jk-pad-md jk-border-radius-inline">
                 <pre>
                   {`.${className} {\n  font-size: ${size}px;\n  line-height: 24px;\n}`}
@@ -268,7 +272,11 @@ export const Classes: Story<TabsProps<string>> = () => {
               'tt-ue',
               'tt-le',
             ].map(tt => (
-              <div className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline" style={{ width: 350 }} key={tt}>
+              <div
+                className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline"
+                style={{ width: 350 }}
+                key={tt}
+              >
                 <pre>"{tt}"</pre>
                 <div className={'ws-np ' + tt}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
               </div>
@@ -289,7 +297,11 @@ export const Classes: Story<TabsProps<string>> = () => {
               'ta-st',
               'ta-ed',
             ].map(tt => (
-              <div className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline" style={{ width: 420 }} key={tt}>
+              <div
+                className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline"
+                style={{ width: 420 }}
+                key={tt}
+              >
                 <pre>"{tt}"</pre>
                 <div className={'ws-np ' + tt} style={{ width: 400 }}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
               </div>
@@ -324,10 +336,10 @@ export const Classes: Story<TabsProps<string>> = () => {
     },
     {
       key: '11',
-      header: <div>jk-tag</div>,
+      header: <div>tags</div>,
       body: (
         <div className="jk-col gap">
-          <h1>text-align</h1>
+          <h1>tags</h1>
           <div className="jk-col gap">
             {[
               'success',
@@ -352,6 +364,60 @@ export const Classes: Story<TabsProps<string>> = () => {
               <div className="jk-row gap nowrap jk-pad-md jk-border-radius-inline" style={{ width: 420 }} key={tt}>
                 <pre>"jk-tag {tt}"</pre>
                 <div className={'jk-tag ' + tt}>Lorem ipsum dolor sit amet</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ),
+    },
+    {
+      key: '12',
+      header: <div>padding</div>,
+      body: (
+        <div className="jk-col gap">
+          <h1>padding</h1>
+          <div className="jk-col gap">
+            {[
+              't',
+              'r',
+              'l',
+              'b',
+              'tr',
+              'tb',
+              'tl',
+              'rb',
+              'rl',
+              'bl',
+              'trb',
+              'trl',
+              'rbl',
+              'trbl',
+            ].map(tt => (
+              <div className="jk-row gap nowrap jk-pad-md jk-border-radius-inline" style={{ width: 420 }} key={tt}>
+                <div>
+                  <pre>"jk-pg-{tt}"</pre>
+                  <div className={'bc-g4 jk-pg-' + tt}>
+                    <div className="bc-io ws-np">Lorem ipsum</div>
+                  </div>
+                </div>
+                <div>
+                  <pre>"jk-pg-sm-{tt}"</pre>
+                  <div className={'bc-g4 jk-pg-sm-' + tt}>
+                    <div className="bc-io ws-np">Lorem ipsum</div>
+                  </div>
+                </div>
+                <div>
+                  <pre>"jk-pg-md-{tt}"</pre>
+                  <div className={'bc-g4 jk-pg-md-' + tt}>
+                    <div className="bc-io ws-np">Lorem ipsum</div>
+                  </div>
+                </div>
+                <div>
+                  <pre>"jk-pg-lg-{tt}"</pre>
+                  <div className={'bc-g4 jk-pg-lg-' + tt}>
+                    <div className="bc-io ws-np">Lorem ipsum</div>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
