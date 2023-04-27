@@ -739,6 +739,32 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-select-layout {
   &.jk-button-primary, &.jk-button-secondary {
+    font-weight: var(--weight-bold);
+
+    &.huge {
+      min-height: 64px;
+      font-size: var(--text-xl-size);
+
+      > .jk-select {
+        gap: var(--pad-s);
+        padding: 0 var(--pad-m);
+      }
+    }
+
+    &.large {
+      min-height: var(--pad-xH);
+      font-size: var(--text-l-size);
+
+      > .jk-select {
+        gap: var(--pad-xs);
+        padding: 0 var(--pad-s);
+      }
+    }
+
+    min-height: var(--pad-h);
+    font-size: var(--text-m-size);
+    padding: 0 !important;
+
     > .jk-select {
       display: flex;
       justify-content: space-between;
@@ -746,9 +772,32 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       width: 100%;
       box-shadow: none;
       background-color: transparent;
+      padding: 0 var(--pad-xs);
+      gap: var(--pad-t);
 
       > .input-icon {
         position: relative;
+        color: inherit;
+      }
+    }
+
+    &.small {
+      min-height: var(--pad-xl);
+      font-size: var(--text-s-size);
+
+      > .jk-select {
+        gap: var(--pad-xt);
+        padding: 0 var(--pad-t);
+      }
+    }
+
+    &.tiny {
+      min-height: 26px;
+      font-size: var(--text-t-size);
+
+      > .jk-select {
+        padding: 0 var(--pad-xt);
+        gap: 4px;
       }
     }
   }

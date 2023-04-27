@@ -43,9 +43,11 @@ button.ws-np {
   }
 }
 
+
 button[class*=" jk-button-"], button[class^="jk-button-"],
 input[class*=" jk-button-"], input[class^="jk-button-"],
 div[class*=" jk-button-"], div[class^="jk-button-"] {
+  --button-tiny-min-height: 26px;
   --button-border-width: 0px;
   height: auto;
   text-transform: uppercase;
@@ -55,6 +57,7 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   justify-content: space-between;
   outline: none;
   border: var(--button-border-width) solid transparent;
+  font-weight: var(--weight-bold);
   
   .button-label {
     z-index: 1;
@@ -62,10 +65,9 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   }
   
   &.tiny {
-    min-height: 26px;
-    font-weight: var(--weight-bold);
-    font-size: var(--text-t-size);
-    padding: 0 var(--pad-xt);
+    min-height: var(--button-tiny-min-height); // 26px
+    font-size: var(--text-t-size); // 12px
+    padding: 0 var(--pad-xt); // 8px
     gap: 4px;
     
     &.pad-icon { padding: 0 calc(var(--pad-xt) + 10px); }
@@ -77,7 +79,6 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   
   &.small {
     min-height: var(--pad-xl);
-    font-weight: var(--weight-bold);
     font-size: var(--text-s-size);
     gap: var(--pad-xt);
     padding: 0 var(--pad-t);
@@ -91,7 +92,6 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   
   &.regular {
     min-height: var(--pad-h);
-    font-weight: var(--weight-bold);
     font-size: var(--text-m-size);
     gap: var(--pad-t);
     padding: 0 var(--pad-xs);
@@ -105,7 +105,6 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   
   &.large {
     min-height: var(--pad-xH);
-    font-weight: var(--weight-bold);
     font-size: var(--text-l-size);
     gap: var(--pad-xs);
     padding: 0 var(--pad-s);
@@ -119,7 +118,6 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   
   &.huge {
     min-height: 64px;
-    font-weight: var(--weight-bold);
     font-size: var(--text-xl-size);
     gap: var(--pad-s);
     padding: 0 var(--pad-m);
@@ -154,13 +152,9 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
     }
   }
   
-  &.disabled {
-    opacity: 0.8;
-  }
+  &.disabled { opacity: 0.8; }
   
-  &.extend {
-    width: 100%;
-  }
+  &.extend { width: 100%; }
   
   &.error {
     background-color: var(--t-color-error) !important;
@@ -177,18 +171,9 @@ div[class*=" jk-button-"], div[class^="jk-button-"] {
   overflow: hidden;
   
   @keyframes roundGoing {
-    0% {
-      left: 0;
-      width: 0%;
-    }
-    50% {
-      left: 0;
-      width: 100%;
-    }
-    100% {
-      left: 100%;
-      width: 0%;
-    }
+    0% { left: 0; width: 0%; }
+    50% { left: 0; width: 100%; }
+    100% { left: 100%; width: 0%; }
   }
 }
 
