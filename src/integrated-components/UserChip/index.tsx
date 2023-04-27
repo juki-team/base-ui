@@ -1,20 +1,21 @@
 import React, { cloneElement, ReactElement } from 'react';
+import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks';
 import { UserChipProps } from './types';
 
-export const UserChip = ({ imageUrl, email, familyName, nickname, givenName }: UserChipProps) => {
+export const UserChip = ({ imageUrl, email, familyName, nickname, givenName, className }: UserChipProps) => {
   
   const { components: { Image } } = useJukiUI();
   
   return (
-    <div className="jk-row nowrap center gap">
+    <div className={classNames('jk-row nowrap center gap jk-pg-sm-tb', className)}>
       <Image src={imageUrl} className="jk-user-profile-img huge" alt={nickname} height={50} width={50} />
-      <div className="jk-col">
-        <div>{givenName} {familyName}</div>
+      <div className="jk-col flex-1" style={{ lineHeight: 1.2 }}>
         <UserNicknameLink nickname={nickname}>
-          <div className="link">{nickname}</div>
+          <div className="link fw-bd">{nickname}</div>
         </UserNicknameLink>
-        <div className="wb-ba">{email}</div>
+        {(!!givenName || !!familyName) && <div className="fw-lar">{givenName} {familyName}</div>}
+        {!!email && <div className="fw-lr">{email}</div>}
       </div>
     </div>
   );
@@ -26,7 +27,10 @@ export enum SearchParamKey {
 
 export const UserNicknameLink = ({ children, nickname }: { nickname: string, children: ReactElement }) => {
   const { router: { setSearchParam } } = useJukiUI();
-  return cloneElement(children, { onClick: () => setSearchParam({ name: SearchParamKey.USER_PREVIEW, value: nickname }) });
+  return cloneElement(
+    children,
+    { onClick: () => setSearchParam({ name: SearchParamKey.USER_PREVIEW, value: nickname }) },
+  );
 };
 
 export * from './types';
