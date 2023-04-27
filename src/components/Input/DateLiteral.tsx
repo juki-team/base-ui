@@ -18,7 +18,7 @@ export const DateLiteral = ({
   return (
     <div className={classNames('date-literal jk-border-radius-inline', {
       'jk-row gap nowrap center': !twoLines,
-      'jk-col nowrap': !!twoLines,
+      'jk-col nowrap center': !!twoLines,
     }, className)}>
       <div>
         {withDayName && <><T>{DAY_NAMES[date.getDay()]}</T>,&nbsp;</>}
