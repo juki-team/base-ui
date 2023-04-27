@@ -8,7 +8,7 @@ export const UserChip = ({ imageUrl, email, familyName, nickname, givenName, cla
   const { components: { Image } } = useJukiUI();
   
   return (
-    <div className={classNames('jk-row nowrap center gap jk-pg-sm-tb', className)}>
+    <div className={classNames('jk-row nowrap center jk-pg-sm-tb', className)}>
       <Image src={imageUrl} className="jk-user-profile-img huge" alt={nickname} height={50} width={50} />
       <div className="jk-col flex-1" style={{ lineHeight: 1.2 }}>
         <UserNicknameLink nickname={nickname}>
