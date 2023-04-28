@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { HomeIcon, JukiSurprisedImage, T } from '../../components';
 import { useJukiUI } from '../../hooks';
 
-export default function PageNotFound({ children }: PropsWithChildren<{}>) {
+export function PageNotFound({ children }: PropsWithChildren<{}>) {
   
   const { components: { Link } } = useJukiUI();
   
