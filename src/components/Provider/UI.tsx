@@ -1,4 +1,5 @@
 import React, { createContext, CSSProperties, FC, PropsWithChildren, useCallback, useState } from 'react';
+import { UrlObject } from 'url';
 import { useOnline, usePageFocus, usePageVisibility, useViewPortSize } from '../../hooks';
 import { NotificationProvider } from '../Notifications';
 
@@ -26,8 +27,36 @@ const Image = ({ src, className, alt, style, width, height }: ImageCmpProps) => 
   );
 };
 
+type Url = string | UrlObject;
+
+export interface LinkCmpProps {
+  href: Url,
+  as?: Url,
+  replace?: boolean,
+  locale?: string | false,
+  className?: string,
+  style?: CSSProperties,
+}
+
+const Link = ({ href, replace, locale, as, children, className, style }: PropsWithChildren<LinkCmpProps>) => {
+  
+  let url = '';
+  if (typeof href === 'string') {
+    url = href;
+  } else {
+    url = href.href || '';
+  }
+  
+  return (
+    <a href={url} className={className} style={style}>
+      {children}
+    </a>
+  );
+};
+
 export interface UIComponentsContextInterface {
   Image: FC<ImageCmpProps>;
+  Link: FC<PropsWithChildren<LinkCmpProps>>;
 }
 
 export type NextHistoryStateType = {
@@ -59,7 +88,7 @@ export const UIContext = createContext<UIContextInterface>({
   isPageVisible: true,
   isPageFocus: true,
   viewPortSize: '',
-  components: { Image },
+  components: { Image, Link },
   router: {
     searchParams: new URLSearchParams(''),
     appendSearchParam: () => null,
@@ -96,7 +125,7 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
     }
   }, [ _searchParams ]);
   
-  const { Image: ImageCmp = Image } = components || { Image };
+  const { Image: ImageCmp = Image, Link: LinkCmp = Link } = components || { Image, Link };
   
   const appendSearchParam = useCallback(({ name, value }: { name: string, value: string }) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
@@ -140,7 +169,7 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
         isPageVisible,
         isPageFocus,
         viewPortSize,
-        components: { Image: ImageCmp },
+        components: { Image: ImageCmp, Link: LinkCmp },
         router: router || {
           searchParams: _searchParams,
           appendSearchParam,

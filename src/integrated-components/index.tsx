@@ -5,6 +5,7 @@ export * from './DrawerViewMenuMobile';
 export * from './ForgotPassword';
 export * from './HelpSection';
 export * from './Login';
+export * from './PageNotFound';
 export * from './ProblemSelector';
 export * from './SettingsSection';
 export * from './SignUp';
