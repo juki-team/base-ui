@@ -166,24 +166,10 @@ export const MdMath = memo(({ source }: { source: string }) => {
   return (
     <div className="jk-md-math">
       <Suspense fallback={<LoadingIcon />}>
-        <>
-          <ReactMarkdown {...props}>
-            {source}
-          </ReactMarkdown>
-          <FocusHash />
-        </>
+        <ReactMarkdown {...props}>
+          {source}
+        </ReactMarkdown>
       </Suspense>
     </div>
   );
 });
-
-const FocusHash = () => {
-  useEffect(() => {
-    const hash = window?.location?.hash;
-    const element = document.getElementById(hash);
-    // element?.focus();
-    element?.scrollIntoView();
-  }, []);
-  
-  return null;
-};
