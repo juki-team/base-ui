@@ -2,7 +2,7 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
 
-import { Button, MdMathEditor as MdMathEditorComponent, MdMathEditorProps } from '../../index';
+import { Button, MdMathEditor as MdMathEditorComponent, MdMathEditorProps, SAMPLE_MD_CONTENT } from '../../index';
 import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
@@ -29,7 +29,8 @@ export const MdMathEditor: Story<MdMathEditorProps> = ({
   sharedButton,
   downloadButton,
 }) => {
-  const example = '# Titulo ```\n#include <bits/stdc++.h>\n\nusing namespace std; \n\n|A | B| C|\n|--|--|--|\n|1|2|3|\n|4|5|6|';
+  // const example = '# Titulo ```\n## [titulo 2](#titulo-2)\n#include <bits/stdc++.h>\n\nusing namespace std; \n\n|A | B| C|\n|--|--|--|\n|1|2|3|\n|4|5|6|';
+  const example = SAMPLE_MD_CONTENT;
   const [text, setText] = useState(example);
   return (
     <JukiProvider>

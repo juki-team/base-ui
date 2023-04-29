@@ -110,12 +110,29 @@
       color: var(--t-color-primary-light);
     }
     
-    margin: var(--pad-xt) 0;
+    margin: 0;
   }
   
-  a {
+  .jk-md-math-link-container {
+    a.jk-md-math-link {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .jk-icon.regular.link {
+      opacity: 0;
+    }
+    
+    &:hover {
+      .jk-icon.regular.link {
+        opacity: 1;
+      }
+    }
+  }
+  
+  a.jk-md-math-link {
     color: var(--t-color-primary-light);
-    margin-right: var(--text-m-size);
+    margin: 0;
     text-decoration: none;
     position: relative;
     
@@ -135,6 +152,7 @@
     padding: 0 4px;
     border-radius: var(--border-radius-inline);
     color: var(--t-color-primary);
+    white-space: nowrap;
   }
 }
 

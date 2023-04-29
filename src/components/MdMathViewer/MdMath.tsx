@@ -7,7 +7,7 @@ import { ReactMarkdownOptions } from 'react-markdown/lib/react-markdown';
 // import rehypeKatex from 'rehype-katex';
 // import gfm from 'remark-gfm';
 // import RemarkMathPlugin from 'remark-math';
-import { CodeViewer, LoadingIcon, OpenInNewIcon } from '../index';
+import { CodeViewer, CopyToClipboard, LinkIcon, LoadingIcon, OpenInNewIcon } from '../index';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
 const ReactMarkdown = lazy(() => import('react-markdown'));
@@ -15,8 +15,8 @@ const ReactMarkdown = lazy(() => import('react-markdown'));
 
 const hx = ({ children, level }: { children: ReactNode & ReactNode[], level: number }) => {
   if (typeof children?.[0] === 'string') {
-    const [commands, newText] = getCommands(children?.[0] as string || '');
-    const newChildren = [...children];
+    const [ commands, newText ] = getCommands(children?.[0] as string || '');
+    const newChildren = [ ...children ];
     newChildren[0] = newText;
     if (commands.textAlign) {
       return hxRender(level, newChildren, textAlignStyle[commands.textAlign]);
@@ -27,11 +27,11 @@ const hx = ({ children, level }: { children: ReactNode & ReactNode[], level: num
 
 export const MdMath = memo(({ source }: { source: string }) => {
   
-  const [rehypePlugins, setRehypePlugins] = useState<any[]>([]);
-  const [remarkPlugins, setRemarkPlugins] = useState<any[]>([]);
+  const [ rehypePlugins, setRehypePlugins ] = useState<any[]>([]);
+  const [ remarkPlugins, setRemarkPlugins ] = useState<any[]>([]);
   useEffect(() => {
-    setRehypePlugins([require('rehype-katex').default]);
-    setRemarkPlugins([require('remark-math').default, require('remark-gfm').default]);
+    setRehypePlugins([ require('rehype-katex').default ]);
+    setRemarkPlugins([ require('remark-math').default, require('remark-gfm').default ]);
   }, []);
   
   const props: ReactMarkdownOptions = {
@@ -44,7 +44,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
           display: 'block',
           margin: '0 auto',
         };
-        const [commands, newAlt] = getCommands(alt);
+        const [ commands, newAlt ] = getCommands(alt);
         if (commands.imgAlign) {
           style = {
             ...style,
@@ -65,7 +65,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
       h6: hx,
       p({ children = [] }) {
         if (typeof children?.[0] === 'string') {
-          const [commands, newText] = getCommands(children?.[0]);
+          const [ commands, newText ] = getCommands(children?.[0]);
           let style: CSSProperties = {
             textAlign: 'justify',
           };
@@ -75,7 +75,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
               ...textAlignStyle[commands.textAlign],
             };
           }
-          const newChildren = [...children];
+          const newChildren = [ ...children ];
           newChildren[0] = newText;
           return <p style={style}>{newChildren}</p>;
         }
@@ -83,7 +83,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
       },
       a({ children, href }) {
         if (typeof children?.[0] === 'string') {
-          const [commands, newText] = getCommands(children?.[0]);
+          const [ commands, newText ] = getCommands(children?.[0]);
           const style = { outline: '2px solid var(--t-color-gray-6)', border: 'none', height: '100%' };
           if (commands.height) {
             style.height = Number.isNaN(+commands.height) ? commands.height : (commands.height + 'px');
@@ -91,16 +91,42 @@ export const MdMath = memo(({ source }: { source: string }) => {
           if (commands.preview === 'pdf') {
             return (
               <object data={href} type="application/pdf" width="100%" height="100%" style={style}>
-                <a href={href} target="_blank" rel="noreferrer">{newText}<OpenInNewIcon /></a>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="jk-md-math-link"
+                >
+                  {newText}&nbsp;<OpenInNewIcon />
+                </a>
               </object>
             );
           }
           if (commands.preview === 'html') {
             return <iframe src={href} style={{ width: '100%', ...style }} title="preview-html-document" />;
           }
-          return <a href={href} target="_blank" rel="noreferrer">{children}<OpenInNewIcon /></a>;
+          if (href?.startsWith('#')) {
+            const url = new URL(window?.location?.href || '');
+            url.hash = href;
+            
+            return (
+              <div className="jk-md-math-link-container" id={href}>
+                <a href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
+                  {children}&nbsp;
+                </a>
+                <CopyToClipboard text={url.toString()}>
+                  <LinkIcon className="clickable" style={{ borderRadius: '50%', display: 'inline-grid' }} />
+                </CopyToClipboard>
+              </div>
+            );
+          }
+          return (
+            <a href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
+              {children}&nbsp;<OpenInNewIcon />
+            </a>
+          );
         }
-        return <a href={href} target="_blank" rel="noreferrer">{children}</a>;
+        return <a href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">{children}</a>;
       },
       // input(...props) {
       //   return <pre>holiwi input</pre>;
@@ -110,8 +136,11 @@ export const MdMath = memo(({ source }: { source: string }) => {
           return <code className="inline-code">{children}</code>;
         }
         const text = (className as string).replace('language-', '');
-        const [commands, newClassName] = getCommands(text);
-        const language = (commands.lang || commands.rest || newClassName || ProgrammingLanguage.TEXT) as ProgrammingLanguage;
+        const [ commands, newClassName ] = getCommands(text);
+        const language = (commands.lang
+          || commands.rest
+          || newClassName
+          || ProgrammingLanguage.TEXT) as ProgrammingLanguage;
         return (
           <CodeViewer
             code={children.join('')}
@@ -133,13 +162,28 @@ export const MdMath = memo(({ source }: { source: string }) => {
     },
     children: source,
   };
+  
   return (
     <div className="jk-md-math">
       <Suspense fallback={<LoadingIcon />}>
-        <ReactMarkdown {...props}>
-          {source}
-        </ReactMarkdown>
+        <>
+          <ReactMarkdown {...props}>
+            {source}
+          </ReactMarkdown>
+          <FocusHash />
+        </>
       </Suspense>
     </div>
   );
 });
+
+const FocusHash = () => {
+  useEffect(() => {
+    const hash = window?.location?.hash;
+    const element = document.getElementById(hash);
+    element?.focus();
+    element?.scrollIntoView();
+  }, []);
+  
+  return null;
+};

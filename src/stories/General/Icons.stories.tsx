@@ -14,7 +14,7 @@ import {
   FileDoneIcon,
   IconProps,
   LayoutIcon,
-  LinkIcon,
+  LinkIcon_,
   MessagePlusIcon,
   MessageQuestionIcon,
   NoteCodeIcon,
@@ -150,8 +150,8 @@ export const Icons: Story<IconProps> = ({ ...props }) => {
             <td><LayoutIcon {...props} /></td>
           </tr>
           <tr>
-            <td>LinkIcon</td>
-            <td><LinkIcon {...props} /></td>
+            <td>LinkIcon_</td>
+            <td><LinkIcon_ {...props} /></td>
           </tr>
           <tr>
             <td>MessagePlusIcon</td>

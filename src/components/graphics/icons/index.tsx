@@ -86,7 +86,7 @@ export const LayoutIcon = ({ size = 'regular', className = '', ...props }: IconP
   );
 };
 
-export const LinkIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
+export const LinkIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
     <span {...props} className={classNames(className, 'jk-icon', size)}><Link /></span>
   );

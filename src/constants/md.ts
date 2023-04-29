@@ -106,7 +106,7 @@ export const SAMPLE_MD_CONTENT = `# \\textAlign=center JUKI Markdown Tutorial
 
 ---
 
-# 3. Images
+# [3. Images](#images)
 
 - Normal image \`![Juki with laptop](https://images.juki.pub/o/juki-laptop.svg)\`
   ![Juki with laptop](https://images.juki.pub/o/juki-laptop.svg)
