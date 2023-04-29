@@ -181,7 +181,7 @@ const FocusHash = () => {
   useEffect(() => {
     const hash = window?.location?.hash;
     const element = document.getElementById(hash);
-    element?.focus();
+    // element?.focus();
     element?.scrollIntoView();
   }, []);
   
