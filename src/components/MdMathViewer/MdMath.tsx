@@ -111,7 +111,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
             
             return (
               <div className="jk-md-math-link-container" id={href}>
-                <a href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
+                <a href={href} className="jk-md-math-link">
                   {children}&nbsp;
                 </a>
                 <CopyToClipboard text={url.toString()}>
