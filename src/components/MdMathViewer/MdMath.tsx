@@ -3,6 +3,7 @@ import { ProgrammingLanguage } from '@juki-team/commons';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 import React, { CSSProperties, lazy, memo, ReactNode, Suspense, useEffect, useState } from 'react';
 import { ReactMarkdownOptions } from 'react-markdown/lib/react-markdown';
+import { useJukiUI } from '../../hooks';
 // import ReactMarkdown from 'react-markdown';
 // import rehypeKatex from 'rehype-katex';
 // import gfm from 'remark-gfm';
@@ -26,7 +27,7 @@ const hx = ({ children, level }: { children: ReactNode & ReactNode[], level: num
 };
 
 export const MdMath = memo(({ source }: { source: string }) => {
-  
+  const { components: { Link } } = useJukiUI();
   const [ rehypePlugins, setRehypePlugins ] = useState<any[]>([]);
   const [ remarkPlugins, setRemarkPlugins ] = useState<any[]>([]);
   useEffect(() => {
@@ -81,7 +82,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
         }
         return <p>{children}</p>;
       },
-      a({ children, href }) {
+      a({ children, href = '' }) {
         if (typeof children?.[0] === 'string') {
           const [ commands, newText ] = getCommands(children?.[0]);
           const style = { outline: '2px solid var(--t-color-gray-6)', border: 'none', height: '100%' };
@@ -91,14 +92,14 @@ export const MdMath = memo(({ source }: { source: string }) => {
           if (commands.preview === 'pdf') {
             return (
               <object data={href} type="application/pdf" width="100%" height="100%" style={style}>
-                <a
+                <Link
                   href={href}
                   target="_blank"
                   rel="noreferrer"
                   className="jk-md-math-link"
                 >
                   {newText}&nbsp;<OpenInNewIcon />
-                </a>
+                </Link>
               </object>
             );
           }
@@ -111,9 +112,9 @@ export const MdMath = memo(({ source }: { source: string }) => {
             
             return (
               <div className="jk-md-math-link-container" id={href}>
-                <a href={href} className="jk-md-math-link">
+                <Link href={href} className="jk-md-math-link">
                   {children}&nbsp;
-                </a>
+                </Link>
                 <CopyToClipboard text={url.toString()}>
                   <LinkIcon className="clickable" style={{ borderRadius: '50%', display: 'inline-grid' }} />
                 </CopyToClipboard>
@@ -121,12 +122,12 @@ export const MdMath = memo(({ source }: { source: string }) => {
             );
           }
           return (
-            <a href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
+            <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
               {children}&nbsp;<OpenInNewIcon />
-            </a>
+            </Link>
           );
         }
-        return <a href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">{children}</a>;
+        return <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">{children}</Link>;
       },
       // input(...props) {
       //   return <pre>holiwi input</pre>;

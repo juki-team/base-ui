@@ -31,6 +31,8 @@ type Url = string | UrlObject;
 
 export interface LinkCmpProps {
   href: Url,
+  target?: '_blank',
+  rel?: 'noreferrer',
   as?: Url,
   replace?: boolean,
   locale?: string | false,
