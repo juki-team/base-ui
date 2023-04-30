@@ -94,10 +94,13 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
       popoverClassName="jk-select-options-content"
       visible={showOptions}
       onVisibleChange={setShowOptions}
+      marginOfChildren={0}
       content={
         <div
           className={classNames('jk-select-options-virtual jk-border-radius-inline')}
-          style={{ width: extend ? (widthContainer || 0) + 32 : containerWidth }}
+          style={{
+            width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2 /*border*/ : containerWidth - 2, /*border*/
+          }}
         >
           {searchable && (
             <div className="jk-row nowrap gap jk-pad-md elevation-1">

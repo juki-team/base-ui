@@ -31,15 +31,15 @@
   @include sm {
     margin: 4px 0;
   }
-
+  
   &.small {
     margin: 6px 0;
   }
-
+  
   &.tiny {
     margin: 0;
   }
-
+  
   &:before, &:after {
     content: " ";
     display: block;
@@ -47,17 +47,17 @@
     height: 2px;
     background-color: var(--t-color-gray-6);
   }
-
+  
   &:not(:empty) {
     &:before {
       margin-right: var(--pad-xs);
     }
-
+    
     &:after {
       margin-left: var(--pad-xs);
     }
   }
-
+  
   &.horizontal {
     display: initial;
     width: initial;
@@ -65,7 +65,7 @@
     border-right: 1px solid var(--t-color-gray-6);
     border-left: 1px solid var(--t-color-gray-6);
     background-color: var(--t-color-gray-6);
-
+    
     &:before, &:after {
       content: none;
     }
@@ -78,7 +78,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-form-item {
   position: relative;
-
+  
   > p:first-child { // clarification
     height: var(--pad-m);
     line-height: var(--pad-m);
@@ -86,12 +86,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     font-size: var(--text-s-size);
     position: absolute;
     right: 0;
-
+    
     &::first-letter {
       text-transform: uppercase;
     }
   }
-
+  
   &.required > label {
     > span:first-child {
       &:after {
@@ -100,7 +100,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       }
     }
   }
-
+  
   > label:not(.jk-input-checkbox-wrapper):not(.jk-input-radio-wrapper) {
     display: block;
     width: 100%;
@@ -108,27 +108,27 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     padding: 0;
     @extend .tt-se;
   }
-
+  
   > label > .jk-select-layout {
     line-height: var(--text-m-height);
     font-weight: var(--weight-normal);
   }
-
+  
   > p:last-child {
     color: var(--t-color-error);
     font-size: var(--text-s-size);
     height: calc(var(--pad-xs) + var(--pad-xs));
     line-height: var(--pad-xs);
-
+    
     &::first-letter {
       text-transform: uppercase;
     }
   }
-
+  
   input {
     width: 100%;
   }
-
+  
   .jk-input-password-wrapper {
     width: 100%;
   }
@@ -137,7 +137,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .disabled-input {
   //box-shadow: inset 0 0 0 1px var(--t-color-gray-4);
   //@extend .appearance-gray-6;
-
+  
   background-color: var(--t-color-shadow-lightest);
   box-shadow: inset 0 0 0 1px var(--input-border-color);
 }
@@ -168,29 +168,29 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   box-shadow: inset 0 0 0 1px var(--input-border-color);
   background-color: transparent;
   @include transition-fast(border-color, box-shadow);
-
+  
   &:hover, &:focus, &:active {
     box-shadow: inset 0 0 0 2px var(--input-border-color);
   }
-
+  
   &:not(.disabled) {
     &:focus, &:active {
       @extend .activated;
     }
   }
-
+  
   &::-webkit-file-upload-button {
     //visibility: hidden;
   }
-
+  
   &.disabled {
     @extend .disabled-input;
   }
-
+  
   &.error {
     --input-border-color: var(--t-color-error);
   }
-
+  
   &.success {
     --input-border-color: var(--t-color-success);
   }
@@ -202,13 +202,13 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       @extend .activated;
     }
   }
-
+  
   > .jk-select {
     > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
       color: var(--t-color-gray-5);
     }
   }
-
+  
   &:hover, &:focus, &:active, &.focused {
     > .jk-select {
       > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
@@ -216,17 +216,17 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       }
     }
   }
-
+  
   &.disabled {
     > .jk-select {
       @extend .disabled-input;
-
+      
       > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
         color: var(--t-color-gray-4);
       }
     }
   }
-
+  
   > .jk-select {
     > .jk-multi-select-selected-searchable-icons > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
       color: var(--t-color-gray-4);
@@ -235,12 +235,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       border-radius: 50%;
     }
   }
-
+  
   &:not(.disabled) {
     > .jk-select {
       > .jk-multi-select-selected-searchable-icons > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
         @extend .clickable;
-
+        
         &:hover {
           color: var(--t-color-gray-3);
         }
@@ -257,7 +257,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   .input-icon {
     color: var(--t-color-gray-5);
   }
-
+  
   &:hover, &:focus, &:active, &.focused {
     .input-icon {
       color: var(--t-color-gray-4);
@@ -292,7 +292,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-input-checkbox-wrapper, .jk-input-radio-wrapper {
   display: inline-flex;
   cursor: pointer;
-
+  
   input.jk-input-checkbox, input.jk-input-radio {
     border: 2px solid var(--t-color-primary);
     left: 0;
@@ -301,7 +301,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     cursor: pointer;
     background-color: transparent;
     @include transition(background-color);
-
+    
     &:after {
       position: absolute;
       opacity: 1;
@@ -310,35 +310,35 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       transform: rotate(45deg);
       box-sizing: content-box;
     }
-
+    
     &:checked:after {
       //content: '✓'; // (U+2713)
       //content: '✔'; // '\2714' // (U+2714)
       content: " ";
     }
-
+    
     &:focus-visible:not(:checked) {
       outline: none;
       background-color: rgba(var(--t-color-primary-rgb), 0.6);
       @extend .elevation-1;
-
+      
       &:after {
         content: " ";
       }
     }
-
+    
     margin: 2px 2px !important;
     height: var(--pad-s) !important;
     width: var(--pad-s) !important;
     min-height: var(--pad-s) !important;
     min-width: var(--pad-s) !important;
   }
-
+  
   input.jk-input-checkbox {
     &:checked {
       background-color: var(--t-color-primary);
     }
-
+    
     &:after {
       border: solid var(--t-color-primary-text);
       border-width: 0 3px 3px 0;
@@ -347,10 +347,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       height: 10px;
     }
   }
-
+  
   input.jk-input-radio {
     border-radius: 50%;
-
+    
     &:after {
       position: absolute;
       opacity: 1;
@@ -364,27 +364,27 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       background-color: var(--t-color-primary);
     }
   }
-
+  
   &.disabled {
     color: var(--t-color-gray-4);
-
+    
     input.jk-input-checkbox, input.jk-input-radio {
       border-color: var(--t-color-gray-4);
     }
-
+    
     input.jk-input-checkbox {
       &:checked {
         background-color: var(--t-color-gray-4);
       }
     }
-
+    
     input.jk-input-radio {
       &:after {
         background-color: var(--t-color-gray-4);
       }
     }
   }
-
+  
   /*
   &.large {
     input.jk-input-checkbox {
@@ -460,18 +460,18 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     &:not(.disabled) {
       input.jk-input-checkbox, input.jk-input-radio {
         border-color: var(--t-color-primary-light);
-
+        
         &:focus-visible:not(:checked) {
           background-color: rgba(var(--t-color-primary-light-rgb), 0.6);
         }
       }
-
+      
       input.jk-input-checkbox {
         &:checked {
           background-color: var(--t-color-primary-light);
         }
       }
-
+      
       input.jk-input-radio {
         &:after {
           background-color: var(--t-color-primary-light);
@@ -484,11 +484,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-input-password-wrapper {
   position: relative;
   display: inline-block;
-
+  
   input {
     padding-right: var(--pad-l);
   }
-
+  
   .jk-icon {
     position: absolute;
     top: 4px;
@@ -507,6 +507,8 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-select-options-content {
   > div.jk-popover-content {
     padding: 0;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
   }
 }
 
@@ -517,45 +519,45 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   overflow: auto;
   box-sizing: border-box;
   display: block;
-
+  
   .jk-select-option {
     padding: 0 var(--pad-xt);
-
+    
     .jk-input-checkbox-wrapper {
       margin-right: 4px;
     }
-
+    
     &:not(.disabled) {
       cursor: pointer;
     }
-
+    
     &.disabled {
       color: var(--t-color-gray-4);
-
+      
       input, label {
         cursor: auto;
       }
     }
-
+    
     &:hover:not(.disabled) {
       background-color: var(--t-color-gray-6);
     }
-
+    
     &.selected {
       @extend .appearance-primary;
-
+      
       &:hover:not(.disabled) {
         background-color: var(--t-color-primary-light);
-
+        
         .jk-input-checkbox {
           background-color: var(--t-color-primary-light);
         }
       }
-
+      
       &.disabled {
         background-color: rgba(var(--t-color-primary-rgb), 0.4);
       }
-
+      
       .jk-input-checkbox {
         border: 1px solid var(--t-color-white);
       }
@@ -565,34 +567,36 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-select-options {
   max-height: 256px;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
 }
 
 .jk-select-layout, .jk-multi-select-layout {
   position: relative;
-
+  
   &.extend {
     width: 100%;
   }
-
+  
   .jk-select {
     padding: 0 4px 0 var(--pad-xt);
     position: relative;
     text-align: start;
-
+    
     > .jk-icon {
       position: absolute;
       right: 2px;
       top: 0;
     }
-
+    
     .jk-multi-select-selected-options {
       gap: 4px;
       padding: 0 4px;
-
+      
       .jk-tag {
         gap: 4px;
         background-color: var(--t-color-shadow-light);
-
+        
         .jk-icon:hover {
           color: var(--t-color-gray-2);
           cursor: pointer;
@@ -600,11 +604,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       }
     }
   }
-
+  
   &.open {
     .jk-select {
       border-color: var(--t-color-gray-4);
-
+      
       > .jk-icon {
         color: var(--t-color-gray-4);
       }
@@ -624,46 +628,46 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   height: var(--input-toggle-height);
   display: flex;
   align-items: center;
-
+  
   &.disabled {
     --input-toggle-color: var(--t-color-gray-6);
   }
-
+  
   > p {
     display: inline-block;
   }
-
+  
   input {
     opacity: 0;
     width: 0;
     height: 0;
     margin: 0;
-
+    
     &:checked + .jk-input-toggle-slider {
       background-color: var(--input-toggle-color);
     }
-
+    
     &:focus + .jk-input-toggle-slider {
       box-shadow: 0 0 1px var(--input-toggle-color);
     }
-
+    
     &:checked + .jk-input-toggle-slider:before {
       transform: translateX(20px);
     }
   }
-
+  
   &.tiny {
     --input-toggle-height: var(--pad-xs);
   }
-
+  
   &.small {
     --input-toggle-height: var(--pad-s);
   }
-
+  
   &.large {
     --input-toggle-height: var(--pad-l);
   }
-
+  
   .jk-input-toggle-slider {
     margin: 0 var(--pad-xt);
     height: var(--input-toggle-height);
@@ -675,7 +679,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     border: 2px solid var(--input-toggle-color);
     @include transition();
     box-sizing: border-box;
-
+    
     &:before {
       position: absolute;
       content: "";
@@ -688,10 +692,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       @include transition();
     }
   }
-
+  
   &.rounded .jk-input-toggle-slider {
     border-radius: 12px;
-
+    
     &:before {
       border-radius: 50%;
     }
@@ -700,23 +704,23 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-input-date-layout {
   position: relative;
-
+  
   .date-literal-label {
     padding: 4px var(--pad-t);
     height: var(--pad-xl);
-
+    
     &.placeholder {
       color: var(--t-color-gray-4);
       font-weight: var(--weight-normal);
       font-size: var(--text-s-size);
       line-height: var(--text-s-height);
     }
-
+    
     &.two-lines {
       height: 58px;
     }
   }
-
+  
   .clear-button {
     position: absolute;
     top: 0;
@@ -726,7 +730,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-checkbox-list {
   .jk-input-checkbox-wrapper {
-
+    
     &:hover:not(.disabled) {
       background-color: var(--t-color-gray-6);
     }
@@ -737,34 +741,45 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   height: 58px;
 }
 
+.jk-select-layout, .jk-multi-select-layout {
+  &.open {
+    > .jk-select {
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+  }
+}
+
 .jk-select-layout {
+  
+  
   &.jk-button-primary, &.jk-button-secondary {
     font-weight: var(--weight-bold);
-
+    
     &.huge {
       min-height: 64px;
       font-size: var(--text-xl-size);
-
+      
       > .jk-select {
         gap: var(--pad-s);
         padding: 0 var(--pad-m);
       }
     }
-
+    
     &.large {
       min-height: var(--pad-xH);
       font-size: var(--text-l-size);
-
+      
       > .jk-select {
         gap: var(--pad-xs);
         padding: 0 var(--pad-s);
       }
     }
-
+    
     min-height: var(--pad-h);
     font-size: var(--text-m-size);
     padding: 0 !important;
-
+    
     > .jk-select {
       display: flex;
       justify-content: space-between;
@@ -774,27 +789,27 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       background-color: transparent;
       padding: 0 var(--pad-xs);
       gap: var(--pad-t);
-
+      
       > .input-icon {
         position: relative;
         color: inherit;
       }
     }
-
+    
     &.small {
       min-height: var(--pad-xl);
       font-size: var(--text-s-size);
-
+      
       > .jk-select {
         gap: var(--pad-xt);
         padding: 0 var(--pad-t);
       }
     }
-
+    
     &.tiny {
       min-height: 26px;
       font-size: var(--text-t-size);
-
+      
       > .jk-select {
         padding: 0 var(--pad-xt);
         gap: 4px;

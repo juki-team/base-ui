@@ -7,9 +7,9 @@ import {
   DateLiteral,
   Input,
   InputCheckbox as CheckboxComponent,
-  InputRadio as RadioComponent,
   InputDate,
   InputPassword,
+  InputRadio as RadioComponent,
   InputSubmit,
   InputToggle,
   MultiSelect as MultiSelectComponent,
@@ -33,7 +33,7 @@ configureActions({
 });
 
 export const Text = () => {
-  const [text, setText] = useState('');
+  const [ text, setText ] = useState('');
   return (
     <div style={{ width: '90%' }}>
       <div className="jk-divider">simple input</div>
@@ -44,7 +44,7 @@ export const Text = () => {
 };
 
 export const Form = () => {
-  const [text, setText] = useState('');
+  const [ text, setText ] = useState('');
   return (
     <div style={{ width: '90%' }}>
       <div className="jk-form-item">
@@ -69,8 +69,10 @@ export const Form = () => {
       <div className="jk-form-item">
         <label>
           label input with placeholder
-          <Input name="nickname" placeholder="this is a placeholder" onChange={(value) => setText(value)} value={text}
-                 disabled />
+          <Input
+            name="nickname" placeholder="this is a placeholder" onChange={(value) => setText(value)} value={text}
+            disabled
+          />
         </label>
       </div>
       <div className="jk-form-item">
@@ -120,14 +122,19 @@ export const Submit = () => {
 
 export const Checkbox = () => {
   
-  const [checked, setChecked] = useState(false);
+  const [ checked, setChecked ] = useState(false);
   
   return (
     <div className="jk-row left">
       <div className="jk-col gap stretch">
         <CheckboxComponent checked={true} name="test" onChange={_ => null} label="checked" />
         <CheckboxComponent checked={false} name="test" onChange={_ => null} label="no checked" />
-        <CheckboxComponent checked={checked} name="test" onChange={(value) => setChecked(value)} label="label of checkbox" />
+        <CheckboxComponent
+          checked={checked}
+          name="test"
+          onChange={(value) => setChecked(value)}
+          label="label of checkbox"
+        />
         <CheckboxComponent checked={checked} name="test" onChange={(value) => setChecked(value)} />
         <CheckboxComponent checked={checked} name="test" label="disabled checkbox" />
       </div>
@@ -144,14 +151,19 @@ export const Checkbox = () => {
 
 export const Radio = () => {
   
-  const [checked, setChecked] = useState(false);
+  const [ checked, setChecked ] = useState(false);
   
   return (
     <div className="jk-row left">
       <div className="jk-col gap stretch">
         <RadioComponent checked={true} name="test" onChange={_ => null} label="checked" />
         <RadioComponent checked={false} name="test" onChange={_ => null} label="no checked" />
-        <RadioComponent checked={checked} name="test" onChange={(value) => setChecked(value)} label="label of checkbox" />
+        <RadioComponent
+          checked={checked}
+          name="test"
+          onChange={(value) => setChecked(value)}
+          label="label of checkbox"
+        />
         <RadioComponent checked={checked} name="test" onChange={(value) => setChecked(value)} />
         <RadioComponent checked={checked} name="test" label="disabled checkbox" />
       </div>
@@ -167,32 +179,40 @@ export const Radio = () => {
 };
 
 export const Toggle = () => {
-  const [checked, setChecked] = useState(false);
+  const [ checked, setChecked ] = useState(false);
   return (
     <div className="jk-row left">
       <div className="jk-col gap">
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="tiny" disabled />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" size="tiny" />
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
-                     size="tiny" />
+        <InputToggle
+          checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
+          size="tiny"
+        />
       </div>
       <div className="jk-col gap">
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="small" disabled />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" size="small" />
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
-                     size="small" />
+        <InputToggle
+          checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
+          size="small"
+        />
       </div>
       <div className="jk-col gap">
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} disabled />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" />
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label"
-                     rightLabel="right label" />
+        <InputToggle
+          checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label"
+          rightLabel="right label"
+        />
       </div>
       <div className="jk-col gap">
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="large" disabled />
         <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" size="large" />
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
-                     size="large" />
+        <InputToggle
+          checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
+          size="large"
+        />
       </div>
       <ToggleThemeButton />
     </div>
@@ -201,7 +221,7 @@ export const Toggle = () => {
 
 export const Select = () => {
   
-  const [value, setValue] = useState<{ label: string, value: number }>({ label: 'test 20', value: 20 });
+  const [ value, setValue ] = useState<{ label: string, value: number }>({ label: 'test 20', value: 20 });
   
   let numbers = new Array(40).fill(0);
   const options: { label: string, value: number, disabled: boolean }[] = numbers.map((_, option) => ({
@@ -212,7 +232,7 @@ export const Select = () => {
   }));
   
   return (
-    <div style={{ width: '90%' }}>
+    <div style={{ width: '90%' }} className="jk-pad-md">
       Text 1
       <SelectComponent
         className=""
@@ -234,10 +254,29 @@ export const Select = () => {
         selectedOption={value}
         onChange={({ value, label }: { value: number, label: string }) => setValue({ value, label })}
       >
-        {({ options, expandIcon }) => {
+        {({ options, expandIcon, showOptions }) => {
           return (
-            <Button>
+            <Button
+              style={showOptions ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : {}}
+            >
               <div className="jk-row nowrap">button cmp {options.length}{expandIcon}</div>
+            </Button>
+          );
+        }}
+      </SelectComponent>
+      <SelectComponent
+        className=""
+        options={options}
+        selectedOption={value}
+        onChange={({ value, label }: { value: number, label: string }) => setValue({ value, label })}
+      >
+        {({ options, expandIcon, showOptions }) => {
+          return (
+            <Button
+              size="tiny"
+              style={showOptions ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : {}}
+            >
+              <div className="jk-row nowrap">button cmp tiny {options.length}{expandIcon}</div>
             </Button>
           );
         }}
@@ -249,13 +288,15 @@ export const Select = () => {
 
 export const MultiSelect = () => {
   
-  const [values, setValues] = useState<{ label: string, value: number }[]>([{ label: 'test 20', value: 20 }]);
+  const [ values, setValues ] = useState<{ label: string, value: number }[]>([ { label: 'test 20', value: 20 } ]);
   
   let options = new Array(40).fill(0);
   options = options.map((_, index) => index);
   
   return (
-    <div style={{ width: '90%' }}>
+    <div style={{ width: '90%' }} className="jk-pad-md">
+      Multi Select
+      <br />
       Text 1
       <MultiSelectComponent
         options={options.map(option => ({
@@ -299,11 +340,13 @@ export const MultiSelect = () => {
 
 export const SelectSearchable = () => {
   
-  const [values, setValues] = useState<{ label: any, value: { nickname: string } }[]>([]);
+  const [ values, setValues ] = useState<{ label: any, value: { nickname: string } }[]>([]);
   
   return (
-    <div>
-      Text 2
+    <div className="jk-pad-md">
+      Select Searchable
+      <br />
+      {'<MultiSelectSearchable onFilter={undefined} ...'}
       <MultiSelectSearchable
         options={mockupUsers.map(option => ({
           label: <div className="jk-col">{option.email}
@@ -316,6 +359,22 @@ export const SelectSearchable = () => {
         onChange={options => setValues(options)}
         extend
       />
+      Searchable
+      <div style={{ width: 100 }}>
+        <MultiSelectSearchable
+          options={mockupUsers.map(option => ({
+            label: <div className="jk-col">{option.email}
+              <div>{option.nickname}</div>
+            </div>,
+            inputLabel: <div>{option.nickname}</div>,
+            value: option,
+            disabled: (Math.round(Math.random() * 10)) > 7,
+          }))}
+          selectedOptions={values}
+          onChange={options => setValues(options)}
+          onFilter={({ search, option }) => option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) > -1}
+        />
+      </div>
       Searchable
       <MultiSelectSearchable
         options={mockupUsers.map(option => ({
@@ -354,14 +413,16 @@ export const SelectSearchable = () => {
 };
 
 export const ColorPicker = () => {
-  const [color, setColor] = useState<Color>();
+  const [ color, setColor ] = useState<Color>();
   
   return (
     <div>
-      <ColorPickerComponent color={color} onChange={color => {
+      <ColorPickerComponent
+        color={color} onChange={color => {
         console.info(color);
         setColor(color);
-      }} />
+      }}
+      />
       <ToggleThemeButton />
     </div>
   );
@@ -369,7 +430,7 @@ export const ColorPicker = () => {
 
 export const DatePicker = () => {
   
-  const [date, setDate] = useState(new Date());
+  const [ date, setDate ] = useState(new Date());
   
   return (
     <div className="jk-col gap">
@@ -406,7 +467,12 @@ export const DatePicker = () => {
         inline
       />
       <ToggleThemeButton />
-      <DateLiteral date={date} twoLines={false} show="year-month-day-hours-minutes-seconds-milliseconds" withDayName={true} />
+      <DateLiteral
+        date={date}
+        twoLines={false}
+        show="year-month-day-hours-minutes-seconds-milliseconds"
+        withDayName={true}
+      />
     </div>
   );
 };

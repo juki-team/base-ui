@@ -122,12 +122,7 @@
 }
 
 .jk-tabs-select {
-  margin-top: -4px;
-  
   .jk-select-options {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    
     .jk-select-option.selected {
       background-color: var(--t-color-secondary);
       color: var(--t-color-secondary-text);

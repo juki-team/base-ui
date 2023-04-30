@@ -17,7 +17,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
 }: MultiSelectProps<T, U, V>) => {
   
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
-  const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
+  const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
   
@@ -30,7 +30,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
     return () => {
       clearTimeout(timeout);
     };
-  }, [showOptions]);
+  }, [ showOptions ]);
   
   const optionRef = useRef<HTMLDivElement | null>(null);
   
@@ -43,7 +43,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
     };
   });
   
-  const widthLabels = Math.max(...[...options, ...optionsSelected].map(({ label }) => getTextContent(label).length));
+  const widthLabels = Math.max(...[ ...options, ...optionsSelected ].map(({ label }) => getTextContent(label).length));
   
   const isDisabled = disabled || !onChange;
   const containerWidth = widthLabels * (12 + 5) + 35;
@@ -55,17 +55,24 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
       popoverClassName="jk-select-options-content"
       visible={showOptions}
       onVisibleChange={value => setShowOptions(value)}
+      marginOfChildren={0}
       content={
-        <div ref={optionRef} className={classNames('jk-select-options jk-border-radius-inline', { disabled: isDisabled })}
-             style={{ width: extend ? (widthContainer || 0) + 32 : containerWidth }}>
+        <div
+          ref={optionRef} className={classNames('jk-select-options jk-border-radius-inline', { disabled: isDisabled })}
+          style={{
+            width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2/*border*/ : containerWidth - 2, /*border*/
+          }}
+        >
           {options.map((option) => {
-            const selected = optionsSelected.some(optionSelected => JSON.stringify(option.value) === JSON.stringify(optionSelected.value));
+            const selected = optionsSelected.some(optionSelected => JSON.stringify(option.value) === JSON.stringify(
+              optionSelected.value));
             const disabled = !!option.disabled;
             return (
               <div
                 className={classNames('jk-select-option', { selected, disabled: isDisabled || disabled })}
                 onClick={(!isDisabled && !option.disabled) ? () => {
-                  onChange?.(selected ? optionsSelected.filter(optionSelected => JSON.stringify(option.value) !== JSON.stringify(optionSelected.value)) : [
+                  onChange?.(selected ? optionsSelected.filter(optionSelected => JSON.stringify(option.value)
+                    !== JSON.stringify(optionSelected.value)) : [
                     ...optionsSelected,
                     option,
                   ]);
@@ -95,13 +102,15 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>({
           <div className="jk-row left jk-multi-select-selected-options">
             {optionsSelected.map(optionSelected => (
               <div className="jk-tag gray-6 jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
-                {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
+                {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(
+                  optionSelected.label)}
                 {!isDisabled && (
                   <CloseIcon
                     size="small"
                     filledCircle
                     onClick={event => {
-                      onChange(optionsSelected.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(option.value)));
+                      onChange(optionsSelected.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(
+                        option.value)));
                       event.stopPropagation();
                     }}
                     className="cr-g3"

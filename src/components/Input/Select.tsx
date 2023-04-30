@@ -24,13 +24,16 @@ export const SelectInline = <T, U extends ReactNode, V extends ReactNodeOrFuncti
   onChangeShowOptions: _onChangeShowOptions,
 }: SelectProps<T, U, V>) => {
   
-  const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
+  const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
   const selectLayoutRef = useRef(null);
   useOutsideAlerter(() => setShowOptions(false), selectLayoutRef);
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => selectedOptionRef.current?.scrollIntoView(), [showOptions]);
+  useEffect(() => selectedOptionRef.current?.scrollIntoView(), [ showOptions ]);
   
-  const width = Math.max(...options.map(({ label }) => getTextContent(label).length), getTextContent(selectedOption.label).length);
+  const width = Math.max(
+    ...options.map(({ label }) => getTextContent(label).length),
+    getTextContent(selectedOption.label).length,
+  );
   
   return (
     <div
@@ -84,7 +87,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
 }: SelectProps<T, U, V>) => {
   
   const { width: selectLayoutWidth = 0, ref: selectLayoutRef } = useResizeDetector();
-  const [showOptions, setShowOptions] = useHandleState(false, _showOptions, _onChangeShowOptions);
+  const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
   
@@ -97,7 +100,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     return () => {
       clearTimeout(timeout);
     };
-  }, [showOptions]);
+  }, [ showOptions ]);
   
   const optionRef = useRef<HTMLDivElement | null>(null);
   
@@ -108,7 +111,10 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     inputLabel: initialOptionSelected.inputLabel || option?.inputLabel,
   };
   
-  const width = Math.max(...options.map(({ label }) => getTextContent(label).length), getTextContent(optionSelected.label).length);
+  const width = Math.max(
+    ...options.map(({ label }) => getTextContent(label).length),
+    getTextContent(optionSelected.label).length,
+  );
   
   const isDisabled = disabled || !onChange;
   const containerWidth = _containerWidth ?? width * 12 + 35;
@@ -139,12 +145,15 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
       popoverClassName={classNames('jk-select-options-content', popoverClassName)}
       visible={showOptions}
       onVisibleChange={value => setShowOptions(value)}
-      marginOfChildren={4}
+      marginOfChildren={0}
       content={
         <div
           ref={optionRef}
           className={classNames('jk-select-options jk-border-radius-inline', { disabled: isDisabled })}
-          style={{ width: extend ? (selectLayoutWidth + 8 + 4 /*padding*/) : containerWidth }}
+          style={{
+            width: extend
+              ? (selectLayoutWidth + 8 + 4 /*padding*/ - 2 /*border*/) : containerWidth - 2, /*border*/
+          }}
         >
           {options.map((option) => (
             <div
@@ -174,10 +183,14 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
         style={{ width: extend ? '100%' : `${containerWidth}px` }}
       >
         {children
-          ? renderReactNodeOrFunctionP1(children, { options, showOptions, disabled: isDisabled, optionSelected, expandIcon })
+          ? renderReactNodeOrFunctionP1(
+            children,
+            { options, showOptions, disabled: isDisabled, optionSelected, expandIcon },
+          )
           : (
             <div className="jk-select jk-border-radius-inline" ref={selectLayoutRef}>
-              {optionSelected.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(optionSelected.label)}
+              {optionSelected.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(
+                optionSelected.label)}
               {expandIcon}
             </div>
           )
