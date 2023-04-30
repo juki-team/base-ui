@@ -1,12 +1,18 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { classNames } from '../../helpers';
 
-export function TwoContentSection({ children }: { children: (ReactNode | JSX.Element | undefined)[] }) {
+export interface TwoContentSectionProps {
+  children: [ ReactNode | JSX.Element | undefined, ReactNode | JSX.Element | undefined ],
+  className?: string,
+}
+
+export function TwoContentSection({ children, className }: TwoContentSectionProps) {
   const { height, ref } = useResizeDetector();
   
   return (
     <section
-      className="two-content-section jk-col nowrap"
+      className={classNames('two-content-section jk-col nowrap', className)}
       style={{ '--first-content-section-height': height + 'px' } as CSSProperties}
     >
       <div ref={ref}>
