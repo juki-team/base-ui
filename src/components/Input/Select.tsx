@@ -179,7 +179,12 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
       }
     >
       <div
-        className={classNames('jk-select-layout', className, { open: showOptions, disabled: isDisabled })}
+        className={classNames(
+          'jk-select-layout',
+          className,
+          optionsPlacement,
+          { open: showOptions, disabled: isDisabled },
+        )}
         style={{ width: extend ? '100%' : `${containerWidth}px` }}
       >
         {children

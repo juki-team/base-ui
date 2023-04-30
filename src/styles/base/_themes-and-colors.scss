@@ -16,14 +16,21 @@
   
   @include defineColor(--t-color-accent, #F0E04A);
   
+  @include defineColor(--t-color-info-dark, #266BBC);
   @include defineColor(--t-color-info, #2F86EB);
-  @include defineColor(--t-color-info-light, #D5E7FB);
+  @include defineColor(--t-color-info-light, #ACCFF7);
+  
+  @include defineColor(--t-color-success-dark, #36AC6C);
   @include defineColor(--t-color-success, #43D787);
-  @include defineColor(--t-color-success-light, #BDF3D6);
+  @include defineColor(--t-color-success-light, #B4EFCF);
+  
+  @include defineColor(--t-color-warning-dark, #C2A13D);
   @include defineColor(--t-color-warning, #F2C94C);
-  @include defineColor(--t-color-warning-light, #F3FF6C);
+  @include defineColor(--t-color-warning-light, #FAE9B7);
+  
+  @include defineColor(--t-color-error-dark, #BC4646);
   @include defineColor(--t-color-error, #EB5757);
-  @include defineColor(--t-color-error-light, #FFBBBB);
+  @include defineColor(--t-color-error-light, #F7BCBC);
   
   @include defineColor(--t-color-black, #000000);
   @include defineColor(--t-color-black-2, #1E1E1E);
@@ -40,28 +47,28 @@
 .jk-theme-dark {
   // https://maketintsandshades.com
   
-  @include defineColor(--t-color-primary-dark, #205d94);
+  @include defineColor(--t-color-primary-dark, #205D94);
   @include defineColor(--t-color-primary, #2874B9);
-  @include defineColor(--t-color-primary-light, #5390c7);
+  @include defineColor(--t-color-primary-light, #5390C7);
   
   @include defineColor(--t-color-primary-text, #F1F1F1);
   
   @include defineColor(--t-color-secondary-dark, #848484);
   @include defineColor(--t-color-secondary, #A5A5A5);
-  @include defineColor(--t-color-secondary-light, #b7b7b7);
+  @include defineColor(--t-color-secondary-light, #B7B7B7);
   
   @include defineColor(--t-color-secondary-text, #FFFFFF);
   
   @include defineColor(--t-color-accent, #4C505C);
   
-  @include defineColor(--t-color-info, #4492ed);
-  @include defineColor(--t-color-info-light, #266bbc);
-  @include defineColor(--t-color-success, #56db93);
-  @include defineColor(--t-color-success-light, #36ac6c);
-  @include defineColor(--t-color-warning, #f3ce5e);
-  @include defineColor(--t-color-warning-light, #c2a13d);
-  @include defineColor(--t-color-error, #ed6868);
-  @include defineColor(--t-color-error-light, #bc4646);
+  @include defineColor(--t-color-info, #4492ED);
+  @include defineColor(--t-color-info-light, #266BBC);
+  @include defineColor(--t-color-success, #56DB93);
+  @include defineColor(--t-color-success-light, #36AC6C);
+  @include defineColor(--t-color-warning, #F3CE5E);
+  @include defineColor(--t-color-warning-light, #C2A13D);
+  @include defineColor(--t-color-error, #ED6868);
+  @include defineColor(--t-color-error-light, #BC4646);
   
   @include defineColor(--t-color-black, #E3E3E3);
   @include defineColor(--t-color-black-2, #F1F1F1);

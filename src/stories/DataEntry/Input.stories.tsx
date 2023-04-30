@@ -46,7 +46,7 @@ export const Text = () => {
 export const Form = () => {
   const [ text, setText ] = useState('');
   return (
-    <div style={{ width: '90%' }}>
+    <div style={{ width: '90%' }} className="jk-pad-md">
       <div className="jk-form-item">
         <label>
           label input
