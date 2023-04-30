@@ -1,4 +1,12 @@
-import React, { createContext, CSSProperties, FC, PropsWithChildren, useCallback, useState } from 'react';
+import React, {
+  createContext,
+  CSSProperties,
+  FC,
+  HTMLAttributeAnchorTarget,
+  PropsWithChildren,
+  useCallback,
+  useState,
+} from 'react';
 import { UrlObject } from 'url';
 import { useOnline, usePageFocus, usePageVisibility, useViewPortSize } from '../../hooks';
 import { NotificationProvider } from '../Notifications';
@@ -31,8 +39,8 @@ type Url = string | UrlObject;
 
 export interface LinkCmpProps {
   href: Url,
-  target?: '_blank',
-  rel?: 'noreferrer',
+  target?: HTMLAttributeAnchorTarget,
+  rel?: string,
   as?: Url,
   replace?: boolean,
   locale?: string | false,
@@ -40,7 +48,17 @@ export interface LinkCmpProps {
   style?: CSSProperties,
 }
 
-const Link = ({ href, replace, locale, as, children, className, style }: PropsWithChildren<LinkCmpProps>) => {
+const Link = ({
+  href,
+  replace,
+  locale,
+  as,
+  children,
+  className,
+  style,
+  target,
+  rel,
+}: PropsWithChildren<LinkCmpProps>) => {
   
   let url = '';
   if (typeof href === 'string') {
@@ -50,7 +68,7 @@ const Link = ({ href, replace, locale, as, children, className, style }: PropsWi
   }
   
   return (
-    <a href={url} className={className} style={style}>
+    <a href={url} className={className} style={style} target={target} rel={rel}>
       {children}
     </a>
   );
