@@ -25,7 +25,6 @@
 }
 
 .jk-vertical-menu-layout-container {
-  --height-jk-menu-item: 56px;
   --top-horizontal-menu-height: 0px;
   --left-vertical-menu-width: calc(64px * 4);
   @include md {
@@ -34,6 +33,8 @@
   @include sm {
     --left-vertical-menu-width: calc(64px * 2);
   }
+  
+  --height-jk-menu-item: 56px;
   
   &.collapsed {
     --left-vertical-menu-width: 64px;
@@ -138,14 +139,13 @@
   }
 }
 
-:root {
+.jk-horizontal-menu-layout-container {
+  --left-vertical-menu-width: 0px;
   --top-horizontal-menu-height: 64px;
   @include sm {
     --top-horizontal-menu-height: 56px;
   }
-}
-
-.jk-horizontal-menu-layout-container {
+  
   height: 100%;
   width: 100%;
   --height-jk-menu-item: var(--top-horizontal-menu-height);
