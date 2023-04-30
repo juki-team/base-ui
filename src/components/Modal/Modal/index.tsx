@@ -40,7 +40,7 @@ export const Modal = ({
       shouldCloseOnOverlayClick={closeWhenClickOutside}
     >
       {closeIcon && (
-        <div className="jk-modal-close-button jk-row jk-pad-sm">
+        <div className="jk-modal-close-button jk-row">
           {loader[0] === Status.LOADING ? <LoadingIcon /> : <CloseIcon className="clickable" onClick={handleOnClose} />}
         </div>
       )}

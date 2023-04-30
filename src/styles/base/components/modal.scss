@@ -2,7 +2,7 @@
 
 .jk-modal-container {
   .ReactModal__Overlay {
-    background-color: var(--t-color-shadow) !important;
+    background-color: var(--t-color-shadow-dark) !important;
     display: grid;
     z-index: var(--z-index-overlay-modal);
   }
@@ -41,6 +41,7 @@
     right: 0;
     line-height: inherit;
     color: var(--t-color-gray-3);
+    padding: calc(var(--border-radius) / 2);
     
     .jk-icon {
       border-radius: 50%;

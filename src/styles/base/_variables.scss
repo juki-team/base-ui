@@ -67,10 +67,10 @@ html body {
   @include md { --gap: 8px; }
   @include sm { --gap: 6px; }
   
-  --border-radius-hg: var(--pad-m);
-  --border-radius-lg: var(--pad-s);
-  --border-radius-md: var(--pad-xs);
-  --border-radius-sm: var(--pad-t);
+  --border-radius-hg: var(--pad-s);
+  --border-radius-lg: var(--pad-xs);
+  --border-radius-md: var(--pad-t);
+  --border-radius-sm: var(--pad-xt);
   
   @include hg { --border-radius: var(--border-radius-hg); }
   @include lg { --border-radius: var(--border-radius-lg); }

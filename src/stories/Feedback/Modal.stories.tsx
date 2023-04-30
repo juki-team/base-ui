@@ -30,6 +30,8 @@ const WrapModal = () => {
         {open && (
           <ModalComponent isOpen={open} onClose={() => setOpen(false)} closeWhenClickOutside closeWhenKeyEscape closeIcon>
             <div>MODAL</div>
+            <div>content 1 </div>
+            <div>content 2</div>
           </ModalComponent>
         )}
         <ToggleThemeButton />
