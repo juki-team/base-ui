@@ -19,6 +19,7 @@ import {
 } from '../../components';
 import { settings } from '../../config';
 import { classNames } from '../../helpers';
+import { useJukiUser } from '../../hooks';
 import { authorizedRequest, cleanRequest } from '../../services';
 
 type JudgeDataType = {
@@ -31,10 +32,11 @@ export interface ProblemSelectorProps {
 }
 
 export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorProps) => {
-  const [ judge, setJudge ] = useState(Judge.JUKI_JUDGE);
+  const [ judge, setJudge ] = useState(Judge.CUSTOMER);
   const [ key, setKey ] = useState('');
   const [ data, setData ] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useNotification();
+  const { company: { name } } = useJukiUser();
   useEffect(() => {
     const getData = async () => {
       setData(prevState => (
@@ -60,18 +62,17 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
     <div className={classNames('jk-row-col gap nowrap', { extend })}>
       <Select
         options={[
-          { value: JUDGE.JUKI_JUDGE.value, label: JUDGE.JUKI_JUDGE.label },
-          { value: JUDGE.CODEFORCES.value, label: JUDGE.CODEFORCES.label },
-          { value: JUDGE.AT_CODER.value, label: JUDGE.AT_CODER.label, disabled: true },
-          { value: JUDGE.UVA_ONLINE_JUDGE.value, label: JUDGE.UVA_ONLINE_JUDGE.label, disabled: true },
-          { value: JUDGE.CODECHEF.value, label: JUDGE.CODECHEF.label, disabled: true },
+          { value: Judge.CUSTOMER, label: <>{name + ' judge'}</> },
+          // TODO: Add to constant or change to CompanyKey
+          ...(name === 'Juki App' ? [] : [ { value: Judge.JUKI_JUDGE, label: <>{JUDGE.JUKI_JUDGE.label}</> } ]),
+          { value: Judge.CODEFORCES, label: <>{JUDGE.CODEFORCES.label}</> },
         ]}
         selectedOption={{ value: judge }}
         onChange={({ value }) => setJudge(value)}
       />
       <div className="jk-col gap extend flex-1">
         <div className="jk-row nowrap gap">
-          {judge === Judge.JUKI_JUDGE && (
+          {(judge === Judge.CUSTOMER || judge === Judge.JUKI_JUDGE) && (
             <label>
               <T className="tt-se ws-np fw-bd">key</T>:&nbsp;
               <Input

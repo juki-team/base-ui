@@ -1910,10 +1910,10 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@juki-team/commons@^0.0.306":
-  version "0.0.306"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.306/0644e8ae4379ac9d5f8cedff202ecbccda08e4b1#0644e8ae4379ac9d5f8cedff202ecbccda08e4b1"
-  integrity sha512-6+ZsTkuGQOoZSwk67iM0NR36zEEV4zMf5QhXhHSpjlzUlD0IZe66soZ/DqaroZ+/bypj+Nct3RwQMSZTuVPizw==
+"@juki-team/commons@^0.0.336":
+  version "0.0.336"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.336/218ff4790dd7d39d70ca72c003fbe50e4d552c70#218ff4790dd7d39d70ca72c003fbe50e4d552c70"
+  integrity sha512-fJBUgENpyDJoWCju/uCsCxsyEN/GNpQrnCiW4ByaNzfRpw+Ckx5V1O272uEPbfxr59o37qOya9o86N7A4qcIag==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
@@ -15774,10 +15774,8 @@ watchpack@^1.7.4:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
-    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
-    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"

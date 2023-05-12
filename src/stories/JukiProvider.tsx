@@ -5,11 +5,7 @@ export const JukiProvider = ({ children }: PropsWithChildren) => {
   return (
     <JukiUIProvider>
       <JukiUserProvider
-        // utilsServiceUrl="https://submissions-service-dev-1.juki.app"
-        // utilsServiceUrl="http://juki-submissions-service-v1-dev.us-east-1.elasticbeanstalk.com"
-        // utilsServiceUrl="https://submissions-service.juki.app"
-        // utilsServiceUrl="https://utils-back-v1.juki.app"
-        utilsServiceUrl="https://submissions-service.juki.app"
+        utilsServiceUrl="https://service.juki.app"
         // utilsServiceUrl="http://localhost:3005"
         utilsServiceApiVersion="api/v1"
         utilsUiUrl="https://utils.juki.app"
