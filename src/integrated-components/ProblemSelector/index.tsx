@@ -5,6 +5,7 @@ import {
   JUDGE,
   ProblemSummaryListResponseDTO,
   Status,
+  JUKI_APP_COMPANY_KEY,
 } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import {
@@ -36,7 +37,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
   const [ key, setKey ] = useState('');
   const [ data, setData ] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useNotification();
-  const { company: { name } } = useJukiUser();
+  const { company: { name, key: companyKey } } = useJukiUser();
   useEffect(() => {
     const getData = async () => {
       setData(prevState => (
@@ -63,8 +64,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
       <Select
         options={[
           { value: Judge.CUSTOMER, label: <>{name + ' judge'}</> },
-          // TODO: Add to constant or change to CompanyKey
-          ...(name === 'Juki App' ? [] : [ { value: Judge.JUKI_JUDGE, label: <>{JUDGE.JUKI_JUDGE.label}</> } ]),
+          ...(companyKey === JUKI_APP_COMPANY_KEY ? [] : [ { value: Judge.JUKI_JUDGE, label: <>{JUDGE.JUKI_JUDGE.label}</> } ]),
           { value: Judge.CODEFORCES, label: <>{JUDGE.CODEFORCES.label}</> },
         ]}
         selectedOption={{ value: judge }}
