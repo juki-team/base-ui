@@ -40,7 +40,7 @@ export const UserContext = createContext<{
   device: DeviceType,
 }>({
   user: USER_GUEST,
-  company: { name: '', imageUrl: '', emailContact: '' },
+  company: { name: '', imageUrl: '', emailContact: '', key: '' },
   setUser: () => null,
   isLoading: true,
   mutate: null as unknown as KeyedMutator<any>,
@@ -60,7 +60,7 @@ const useUser = () => {
   );
   
   const [ user, setUser ] = useState<UserPingType>(USER_GUEST);
-  const [ company, setCompany ] = useState<CompanyPingType>({ emailContact: '', imageUrl: '', name: '' });
+  const [ company, setCompany ] = useState<CompanyPingType>({ emailContact: '', imageUrl: '', name: '', key: '' });
   
   useEffect(() => {
     let preferredLanguage: Language = localStorage.getItem(ProfileSetting.LANGUAGE) as Language;
