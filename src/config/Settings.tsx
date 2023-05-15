@@ -92,8 +92,10 @@ export class Settings {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        resetPassword: valid<{ params: { nickname: string } }>(({ params: { nickname } }) => ({
-          url: injectBaseUrl('auth', `/nickname/${nickname}/reset-password`),
+        resetPassword: valid<{ params: { companyKey: string, nickname: string } }>(({
+          params: { companyKey, nickname },
+        }) => ({
+          url: injectBaseUrl('auth', `/company/${companyKey}/nickname/${nickname}/reset-password`),
           method: HTTPMethod.POST,
         })),
       },

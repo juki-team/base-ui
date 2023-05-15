@@ -122,9 +122,9 @@ export const useJukiUser = () => {
   }, [ doRequest ]);
   
   const resetUserPassword = useCallback(async (
-    { params: { nickname }, ...props }: ApiParamsType<{ nickname: string }, string>,
+    { params: { companyKey, nickname }, ...props }: ApiParamsType<{ companyKey: string, nickname: string }, string>,
   ) => {
-    const { url, ...options } = settings.getAPI().auth.resetPassword({ params: { nickname } });
+    const { url, ...options } = settings.getAPI().auth.resetPassword({ params: { companyKey, nickname } });
     await doRequest<string>({ url, options, ...props });
   }, [ doRequest ]);
   
