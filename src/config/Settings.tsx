@@ -109,8 +109,8 @@ export class Settings {
           url: injectBaseUrl('user', `/nickname/${nickname}/summary`),
           method: HTTPMethod.GET,
         })),
-        summaryList: valid<void>(() => ({
-          url: injectBaseUrl('user', '/summary-list'),
+        summaryList: valid<{ params: { companyKey: string } }>(({ params: { companyKey } }) => ({
+          url: injectBaseUrl('user', `/company/${companyKey}/summary-list`),
           method: HTTPMethod.GET,
         })),
         updateProfileData: valid<{ params: { nickname: string }, body: UpdateUserProfileDataPayloadDTO }>(({

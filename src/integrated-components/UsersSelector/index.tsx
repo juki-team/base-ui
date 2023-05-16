@@ -8,18 +8,20 @@ import { UserChip } from '../../integrated-components';
 export interface UsersSelectorProps {
   selectedUsers: string[],
   onChangeSelectedUsers: (selectedUsers: UserSummaryResponseDTO[]) => void,
-  maxUsersSelection?: number
+  maxUsersSelection?: number,
+  companyKey: string,
 }
 
 export const UsersSelector = ({
   selectedUsers,
   onChangeSelectedUsers: _onChangeSelectedUsers,
   maxUsersSelection = -1,
+  companyKey,
 }: UsersSelectorProps) => {
   
-  const { isLoading, data } = useFetcher<ContentsResponseType<UserSummaryResponseDTO>>(settings.getAPI()
-    .user
-    .summaryList().url);
+  const { isLoading, data } = useFetcher<ContentsResponseType<UserSummaryResponseDTO>>(
+    settings.getAPI().user.summaryList({ params: { companyKey } }).url,
+  );
   const [ show, setShow ] = useState(false);
   const [ text, setText ] = useState('');
   const [ textNicknames, setTextNicknames ] = useState<string[]>([]);
