@@ -1,4 +1,4 @@
-import { consoleWarn, SocketEvent } from '@juki-team/commons';
+import { consoleWarn, ContentResponseType, SocketEvent } from '@juki-team/commons';
 import io, { Socket } from 'socket.io-client';
 import { settings } from '../config';
 
@@ -12,7 +12,7 @@ export class SocketIo {
     }
     this._socket = io(settings.getAPI().websocket.connect().url, {
       withCredentials: true,
-      transports: ['websocket'],
+      transports: [ 'websocket' ],
       autoConnect: false,
       reconnection: true,
     });
@@ -40,15 +40,16 @@ export class SocketIo {
     this._socket = null;
   }
   
-  emitAsync(event: string, payload: any) {
+  emitAsync(event: string, payload: any): Promise<ContentResponseType<string>> {
     return new Promise((resolve, reject) => {
       if (!this._socket) {
         consoleWarn('the socket isn\'t ready, the event will be lost');
       }
-      return this._socket?.emit(event, payload, function (...args: any) {
-        console.info('weird, it doesn\'t get here', { args }); // weird, it doesn't get here
-        if (args[0]) return reject(new Error(args[0]));
-        return resolve.apply(null, args);
+      return this._socket?.emit(event, payload, (response: ContentResponseType<string>) => {
+        if (response.success) {
+          return resolve(response);
+        }
+        reject(response);
       });
     });
   }
@@ -56,8 +57,12 @@ export class SocketIo {
   async joinSession() {
     this._sessionId = localStorage.getItem(settings.TOKEN_NAME) || '';
     if (this._sessionId) {
-      await this.emitAsync(SocketEvent.SIGN_IN, this._sessionId);
-      console.info(SocketEvent.SIGN_IN, this._sessionId);
+      try {
+        const response = await this.emitAsync(SocketEvent.SIGN_IN, this._sessionId);
+        console.info(response.message);
+      } catch (error) {
+        consoleWarn({ message: 'error on joinSession', error });
+      }
     } else {
       consoleWarn({ message: 'join session failed, invalid cookie session' });
     }
@@ -65,8 +70,12 @@ export class SocketIo {
   
   async leaveSession() {
     if (this._sessionId) {
-      await this.emitAsync(SocketEvent.SIGN_OUT, this._sessionId);
-      console.info(SocketEvent.SIGN_OUT, this._sessionId);
+      try {
+        const response = await this.emitAsync(SocketEvent.SIGN_OUT, this._sessionId);
+        console.info(response.message);
+      } catch (error) {
+        consoleWarn({ message: 'error on leaveSession', error });
+      }
     } else {
       consoleWarn({ message: 'leave session failed, invalid cookie session' });
     }

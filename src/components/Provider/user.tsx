@@ -127,7 +127,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     if (isPageVisible) {
       socket.joinSession().then(() => null);
     }
-  }, [ isPageVisible, socket ]);
+  }, [ isPageVisible, socket, user.sessionId ]);
   
   const device: DeviceType = {
     type: deviceType,

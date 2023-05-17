@@ -2,19 +2,17 @@ import React, { PropsWithChildren } from 'react';
 import { JukiUIProvider, JukiUserProvider } from '../components';
 
 export const JukiProvider = ({ children }: PropsWithChildren) => {
+  // const serviceUrl = 'https://service.juki.app';
+  const serviceUrl = 'http://localhost:3005';
+  
   return (
     <JukiUIProvider>
       <JukiUserProvider
-        utilsServiceUrl="https://service.juki.app"
-        // utilsServiceUrl="http://localhost:3005"
+        utilsServiceUrl={serviceUrl}
         utilsServiceApiVersion="api/v1"
         utilsUiUrl="https://utils.juki.app"
         tokenName="juki-token"
-        // utilsSocketServiceUrl="https://submissions-service-dev-1.juki.app"
-        // utilsSocketServiceUrl="http://juki-submissions-service-v1-dev.us-east-1.elasticbeanstalk.com"
-        // utilsSocketServiceUrl="https://submissions-service.juki.app"
-        // utilsSocketServiceUrl="https://utils-back-v1.juki.app"
-        utilsSocketServiceUrl="https://submissions-service.juki.app"
+        utilsSocketServiceUrl={serviceUrl}
       >
         {children}
       </JukiUserProvider>
