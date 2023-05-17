@@ -1,5 +1,6 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
 import React, { useCallback, useRef } from 'react';
+import { classNames } from '../../../helpers';
 import { DataViewerCard } from './DataViewerCard';
 import { CardRowVirtualizerFixedProps } from './types';
 
@@ -21,9 +22,11 @@ export const CardRowVirtualizerFixed = <T, >({
   const rowVirtualizer = useVirtualizer({
     count: Math.ceil(data.length / cardsByRow),
     getScrollElement: () => parentRef.current,
-    estimateSize: useCallback(() => cardHeight + 40, [cardHeight]),
+    estimateSize: useCallback(() => cardHeight + 40, [ cardHeight ]),
     overscan: 5,
   });
+  const scrollOnTop = rowVirtualizer.scrollOffset === 0;
+  const scrollOnBottom = rowVirtualizer.scrollOffset + (parentRef.current?.clientHeight || 0) === rowVirtualizer.getTotalSize();
   
   let finalWidth = Math.min(cardWidth, rowWidth - gap - gap);
   if (expandedCards) {
@@ -31,8 +34,13 @@ export const CardRowVirtualizerFixed = <T, >({
   }
   
   return (
-    <div ref={parentRef} className="jk-list-card-rows-container">
-      <div className="jk-list-card-rows-box" style={{ height: `${rowVirtualizer.getTotalSize()}px` }}>
+    <div
+      ref={parentRef}
+      className={
+        classNames('jk-list-card-rows-container', { 'scroll-on-top': scrollOnTop, 'scroll-on-bottom': scrollOnBottom })
+      }
+    >
+      <div className="jk-list-card-rows-box" style={{ height: `${rowVirtualizer.getTotalSize()}px`, zIndex: 0 }}>
         {rowVirtualizer.getVirtualItems().map(virtualRow => (
           <div
             key={virtualRow.index}

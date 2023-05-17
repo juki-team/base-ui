@@ -44,7 +44,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
     <div
       className={classNames(
         'jk-data-viewer-toolbar jk-row space-between nowrap',
-        { 'jk-br-ie elevation-1': viewMode === DataViewMode.CARDS },
+        //{ 'jk-br-ie elevation-1': viewMode === DataViewMode.CARDS },
         viewMode.toLowerCase(),
       )}
     >

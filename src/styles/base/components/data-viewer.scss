@@ -58,7 +58,7 @@
       position: relative;
       
       &.cards {
-        background-color: var(--t-color-white);
+        //background-color: var(--t-color-white);
         z-index: 1;
       }
       
@@ -250,8 +250,6 @@
         &.cards {
           height: 100%;
         }
-        
-        box-shadow: 0 -20px 20px -24px var(--t-color-shadow) inset;
       }
       
       .jk-list-card-rows-container, .jk-table-rows-container {
@@ -278,6 +276,30 @@
         width: 100%;
         overflow: auto;
         box-sizing: border-box;
+        
+        &:before {
+          content: "";
+          width: calc(100% - var(--scrollbar-size));
+          height: 100%;
+          pointer-events: none;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1;
+          @extend .jk-br-ie;
+        }
+        
+        &:not(.scroll-on-top).scroll-on-bottom:before {
+          box-shadow: 0 20px 20px -24px var(--t-color-shadow-darkest) inset;
+        }
+        
+        &.scroll-on-top:not(.scroll-on-bottom):before {
+          box-shadow: 0 -20px 20px -24px var(--t-color-shadow-darkest) inset;
+        }
+        
+        &:not(.scroll-on-top):not(.scroll-on-bottom):before {
+          box-shadow: 0 -20px 20px -24px var(--t-color-shadow-darkest) inset, 0 20px 20px -24px var(--t-color-shadow-darkest) inset;
+        }
         
         .jk-list-card-rows-box {
           width: 100%;

@@ -228,7 +228,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
   const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
   
   return (
-    <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px', background: 'lightgray' }}>
+    <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px',  }}>
       <DataViewer<UserTable>
         preferredDataViewMode={preferredDataViewMode}
         cards={{ expanded: true }}

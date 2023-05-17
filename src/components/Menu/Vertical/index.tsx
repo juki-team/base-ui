@@ -16,7 +16,7 @@ export const VerticalMenu = ({
   drawerMenuMobile,
 }: PropsWithChildren<VerticalMenuProps>) => {
   
-  const [open, setOpen] = useHandleState(false, isOpen);
+  const [open, setOpen] = useHandleState(true, isOpen);
   
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
