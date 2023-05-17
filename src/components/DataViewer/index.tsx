@@ -109,18 +109,6 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       setPageSizeOptions(pagination?.pageSizeOptions);
     }
   }, [ pageSizeOptions, pagination?.pageSizeOptions ]);
-  useEffect(() => { // Fixing filters
-    if (searchFilter.length && searchFilter.length !== headers.length) {
-      console.log('useEffect deleteSearchParam', {
-        filterKey,
-        searchFilterLength: searchFilter.length,
-        headersLength: headers.length,
-        searchFilter,
-        headers,
-      });
-      deleteSearchParam({ name: filterKey });
-    }
-  }, [ deleteSearchParam, filterKey, headers.length, searchFilter.length ]);
   const page = useMemo(() => +(searchParams.get(pageKey) || 1), [ pageKey, searchParams ]);
   const pageSize = useMemo(() => +(searchParams.get(pageSizeKey) || 0) || pageSizeOptions[0], [
     pageSizeKey,
@@ -606,6 +594,19 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
     oldViewPortSizeRef.current = viewPortSize;
   }, [ viewPortSize, viewMode, cardsView, rowsView, viewModeKey, setViewMode ]);
+  
+  useEffect(() => { // Fixing filters
+    if (searchFilter.length && searchFilter.length !== tableHeaders.length) {
+      console.log('useEffect deleteSearchParam', {
+        filterKey,
+        searchFilterLength: searchFilter.length,
+        tableHeadersLength: tableHeaders.length,
+        searchFilter,
+        tableHeaders,
+      });
+      deleteSearchParam({ name: filterKey });
+    }
+  }, [ deleteSearchParam, filterKey, tableHeaders, searchFilter ]);
   
   return (
     <div className={classNames(className, 'jk-data-viewer-layout', { 'with-pagination': withPagination })}>
