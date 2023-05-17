@@ -255,7 +255,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
         ]}
         pagination={{ pageSizeOptions: [5, 10, 15, 20], total: data.length }}
         getRecordClassName={({ index }) => index + ''}
-        getRecordStyle={({ index }) => ({ zIndex: index })}
+        //getRecordStyle={({ index }) => ({ zIndex: index })}
         onRecordClick={(props) => console.info('click', props)}
         // pagination={{ total: data.length }}
       />
