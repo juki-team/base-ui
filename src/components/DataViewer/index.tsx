@@ -66,7 +66,14 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     extraNodesFloating,
     preferredDataViewMode,
   } = props;
-  const { viewPortSize, router: { searchParams, appendSearchParam, deleteSearchParam, setSearchParam } } = useJukiUI();
+  const {
+    viewPortSize,
+    router: { searchParams, appendSearchParam, deleteSearchParam: _deleteSearchParam, setSearchParam },
+  } = useJukiUI();
+  const deleteSearchParam = useCallback((prop: any) => {
+    console.log('deleteSearchParam wrap', prop);
+    _deleteSearchParam(prop);
+  }, [ _deleteSearchParam ]);
   const withPagination = !!pagination;
   
   const pageKey = getPageQueryParam(name);
@@ -104,6 +111,13 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   }, [ pageSizeOptions, pagination?.pageSizeOptions ]);
   useEffect(() => { // Fixing filters
     if (searchFilter.length && searchFilter.length !== headers.length) {
+      console.log('useEffect deleteSearchParam', {
+        filterKey,
+        searchFilterLength: searchFilter.length,
+        headersLength: headers.length,
+        searchFilter,
+        headers,
+      });
       deleteSearchParam({ name: filterKey });
     }
   }, [ deleteSearchParam, filterKey, headers.length, searchFilter.length ]);
