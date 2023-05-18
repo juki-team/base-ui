@@ -14,7 +14,7 @@
   }
   
   .loader-point-left-to-right {
-    animation-duration: 4s;
+    animation-duration: calc((var(--delay) + 1) * 1s);
     animation-name: slide-left-to-right;
   }
   
@@ -31,7 +31,7 @@
   }
   
   .loader-point-right-to-left {
-    animation-duration: 4s;
+    animation-duration: calc((var(--delay) + 1) * 1s);
     animation-name: slide-right-to-left;
   }
   
