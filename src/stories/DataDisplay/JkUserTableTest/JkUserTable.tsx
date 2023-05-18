@@ -221,7 +221,7 @@ export const JkUserTable = ({ cardsView = true, rowsView = true }: JkUserTablePr
   const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
     console.info('request', { sort, filter, pagination });
     setLoaderStatus(Status.LOADING);
-    await (new Promise((resolve) => setTimeout(() => resolve(true), 3000)));
+    await (new Promise((resolve) => setTimeout(() => resolve(true), 6000)));
     setLoaderStatus(Status.SUCCESS);
   }, []);
   console.info({ columns2, columns, request });

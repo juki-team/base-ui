@@ -1,6 +1,5 @@
 import { configureActions } from '@storybook/addon-actions';
-import { Story } from '@storybook/react';
-import React from 'react';
+import React, { FC } from 'react';
 
 import {
   AssignmentIcon_,
@@ -110,7 +109,7 @@ configureActions({
   limit: 20,
 });
 
-export const Basic: Story<BasicIconProps & { color: string }> = ({ color, ...props }) => {
+export const Basic: FC<BasicIconProps & { color: string }> = ({ color, ...props }) => {
   const icons = {
     AssignmentIcon_,
     AtSignIcon,

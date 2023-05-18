@@ -1,6 +1,5 @@
 import { configureActions } from '@storybook/addon-actions';
-import { Story } from '@storybook/react';
-import React from 'react';
+import React, { FC } from 'react';
 
 import {
   AccountCircleIcon,
@@ -160,7 +159,7 @@ configureActions({
   limit: 20,
 });
 
-export const Google: Story<BasicIconProps & { color: string }> = ({ color, ...props }) => {
+export const Google: FC<BasicIconProps & { color: string }> = ({ color, ...props }) => {
   const icons = {
     AccountCircleIcon,
     AcuteIcon,

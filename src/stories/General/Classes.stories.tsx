@@ -5,7 +5,7 @@ import { Tabs as TabsComponent, TabsProps } from '../../index';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
-  title: 'Components/General/Classes',
+  title: 'Components/General',
   component: TabsComponent,
   argTypes: {},
 };

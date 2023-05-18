@@ -1,6 +1,5 @@
 import { configureActions } from '@storybook/addon-actions';
-import { Story } from '@storybook/react';
-import React from 'react';
+import React, { FC } from 'react';
 
 import {
   ArrowIcon,
@@ -20,7 +19,7 @@ export default {
   argTypes: {
     color: { control: { type: 'color' } },
     size: {
-      options: ['huge', 'large', 'regular', 'small', 'tiny'],
+      options: [ 'huge', 'large', 'regular', 'small', 'tiny' ],
       control: {
         type: 'select',
         labels: {
@@ -49,7 +48,7 @@ configureActions({
   limit: 20,
 });
 
-export const Signs: Story<SignIconProps & { color: string }> = ({ color, ...props }) => {
+export const Signs: FC<SignIconProps & { color: string }> = ({ color, ...props }) => {
   
   const icons = {
     ArrowIcon,
@@ -65,8 +64,8 @@ export const Signs: Story<SignIconProps & { color: string }> = ({ color, ...prop
   return (
     <div className="jk-row block gap" style={{ color }}>
       {Object.entries(icons)
-        .sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2))
-        .map(([iconName, Component]) => (
+        .sort(([ iconName1 ], [ iconName2 ]) => iconName1.localeCompare(iconName2))
+        .map(([ iconName, Component ]) => (
           <div className="jk-row  nowrap center">
             <Component {...props} />
             <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
