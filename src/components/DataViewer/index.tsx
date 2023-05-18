@@ -66,7 +66,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     extraNodesFloating,
     preferredDataViewMode,
   } = props;
-  const { viewPortSize, router: { searchParams, appendSearchParam, deleteSearchParam, setSearchParam } } = useJukiUI();
+  const { viewPortSize, router: { searchParams, appendSearchParams, deleteSearchParam, setSearchParam } } = useJukiUI();
   
   const withPagination = !!pagination;
   
@@ -119,14 +119,11 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   
   useEffect(() => {
     if (withPagination) {
-      if (!searchParams.get(pageKey)) {
-        appendSearchParam({ name: pageKey, value: '1' });
-      }
-      if (!searchParams.get(pageSizeKey)) {
-        appendSearchParam({ name: pageSizeKey, value: pageSizeOptions[0] + '' });
+      if (!searchParams.get(pageKey) || !searchParams.get(pageSizeKey)) {
+        appendSearchParams({ name: pageKey, value: '1' }, { name: pageSizeKey, value: pageSizeOptions[0] + '' });
       }
     }
-  }, [ appendSearchParam, pageKey, pageSizeKey, pageSizeOptions, searchParams, withPagination ]);
+  }, [ appendSearchParams, pageKey, pageSizeKey, pageSizeOptions, searchParams, withPagination ]);
   
   const _refLoader = useRef(loaderStatus);
   _refLoader.current = loaderStatus;

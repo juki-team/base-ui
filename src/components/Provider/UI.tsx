@@ -87,9 +87,11 @@ export type NextHistoryStateType = {
 
 export type BeforePopStateCallbackType = (state: NextHistoryStateType) => boolean;
 
+export type AppendSearchParamsType = (...props: { name: string, value: string }[]) => void;
+
 export interface UIRouterContextInterface {
   searchParams: URLSearchParams,
-  appendSearchParam: (props: { name: string, value: string }) => void,
+  appendSearchParams: AppendSearchParamsType,
   deleteSearchParam: (props: { name: string, value?: string }) => void,
   setSearchParam: (props: { name: string, value: string | string[] }) => void,
 }
@@ -111,7 +113,7 @@ export const UIContext = createContext<UIContextInterface>({
   components: { Image, Link },
   router: {
     searchParams: new URLSearchParams(''),
-    appendSearchParam: () => null,
+    appendSearchParams: () => null,
     deleteSearchParam: () => null,
     setSearchParam: () => null,
   },
@@ -147,9 +149,11 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
   
   const { Image: ImageCmp = Image, Link: LinkCmp = Link } = components || { Image, Link };
   
-  const appendSearchParam = useCallback(({ name, value }: { name: string, value: string }) => {
+  const appendSearchParams: AppendSearchParamsType = useCallback((...props) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
-    newSearchParams.append(name, value);
+    for (const { name, value } of props) {
+      newSearchParams.append(name, value);
+    }
     setSearchParams(newSearchParams);
   }, [ _searchParams, setSearchParams ]);
   
@@ -192,7 +196,7 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
         components: { Image: ImageCmp, Link: LinkCmp },
         router: router || {
           searchParams: _searchParams,
-          appendSearchParam,
+          appendSearchParams,
           deleteSearchParam,
           setSearchParam,
         },
