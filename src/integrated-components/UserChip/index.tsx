@@ -26,10 +26,10 @@ export enum SearchParamKey {
 }
 
 export const UserNicknameLink = ({ children, nickname }: { nickname: string, children: ReactElement }) => {
-  const { router: { setSearchParam } } = useJukiUI();
+  const { router: { setSearchParams } } = useJukiUI();
   return cloneElement(
     children,
-    { onClick: () => setSearchParam({ name: SearchParamKey.USER_PREVIEW, value: nickname }) },
+    { onClick: () => setSearchParams({ name: SearchParamKey.USER_PREVIEW, value: nickname }) },
   );
 };
 

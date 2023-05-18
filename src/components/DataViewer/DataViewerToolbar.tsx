@@ -31,12 +31,12 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   } = props;
   
   const { filtered } = isSomethingFiltered(headers);
-  const { viewPortSize, router: { searchParams, setSearchParam } } = useJukiUI();
+  const { viewPortSize, router: { searchParams, setSearchParams } } = useJukiUI();
   
   const showFilterDrawer = searchParams.get(showFilterDrawerKey) === 'open' ? 'open' : 'close';
   const setShowFilterDrawer = useCallback((show: boolean) => {
-    setSearchParam({ name: showFilterDrawerKey, value: show ? 'open' : 'close' });
-  }, [ setSearchParam, showFilterDrawerKey ]);
+    setSearchParams({ name: showFilterDrawerKey, value: show ? 'open' : 'close' });
+  }, [ setSearchParams, showFilterDrawerKey ]);
   const isMobileViewPort = viewPortSize === 'sm';
   const viewFilterButton = !!headers.filter(head => head.filter || head.sort).length;
   

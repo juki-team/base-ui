@@ -66,7 +66,10 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     extraNodesFloating,
     preferredDataViewMode,
   } = props;
-  const { viewPortSize, router: { searchParams, appendSearchParams, deleteSearchParam, setSearchParam } } = useJukiUI();
+  const {
+    viewPortSize,
+    router: { searchParams, appendSearchParams, deleteSearchParams, setSearchParams },
+  } = useJukiUI();
   
   const withPagination = !!pagination;
   
@@ -110,12 +113,12 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     searchParams,
   ]);
   const jumpToPage = useCallback((page: number) => {
-    setSearchParam({ name: pageKey, value: page + '' });
-  }, [ pageKey, setSearchParam ]);
+    setSearchParams({ name: pageKey, value: page + '' });
+  }, [ pageKey, setSearchParams ]);
   
   const onPageSizeChange = useCallback((pageSize: number) => {
-    setSearchParam({ name: pageSizeKey, value: pageSize + '' });
-  }, [ pageSizeKey, setSearchParam ]);
+    setSearchParams({ name: pageSizeKey, value: pageSize + '' });
+  }, [ pageSizeKey, setSearchParams ]);
   
   useEffect(() => {
     if (withPagination) {
@@ -429,9 +432,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       const newSearchFilter = [ ...searchFilter ];
       newSearchFilter[index] = '';
       if (isSomethingFiltered(newSearchFilter)) {
-        setSearchParam({ name: filterKey, value: newSearchFilter });
+        setSearchParams({ name: filterKey, value: newSearchFilter });
       } else {
-        deleteSearchParam({ name: filterKey });
+        deleteSearchParams({ name: filterKey });
       }
     };
     
@@ -440,9 +443,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       if (JSON.stringify(newSearchFilter[index]) !== JSON.stringify(newFilter)) {
         newSearchFilter[index] = newFilter;
         if (isSomethingFiltered(newSearchFilter)) {
-          setSearchParam({ name: filterKey, value: newSearchFilter });
+          setSearchParams({ name: filterKey, value: newSearchFilter });
         } else {
-          deleteSearchParam({ name: filterKey });
+          deleteSearchParams({ name: filterKey });
         }
       }
     };
@@ -457,9 +460,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           onSort: () => {
             const newSort = newHead.sort?.order === 1 ? down : newHead.sort?.order === -1 ? '' : up;
             if (newSort) {
-              setSearchParam({ name: sortKey, value: newSort });
+              setSearchParams({ name: sortKey, value: newSort });
             } else {
-              deleteSearchParam({ name: sortKey });
+              deleteSearchParams({ name: sortKey });
             }
           },
           online: isSortOnline(sort),
@@ -528,7 +531,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
       return newHead;
     });
-  }, [ deleteSearchParam, filterKey, headers, searchFilter, searchSorts, setSearchParam, sortKey ]);
+  }, [ deleteSearchParams, filterKey, headers, searchFilter, searchSorts, setSearchParams, sortKey ]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
     const newSearchFilter = searchFilter.length ? [ ...searchFilter ] : new Array(headers.length).fill('');
@@ -555,17 +558,17 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
     });
     if (isSomethingFiltered(newSearchFilter)) {
-      setSearchParam({ name: filterKey, value: newSearchFilter });
+      setSearchParams({ name: filterKey, value: newSearchFilter });
     } else {
-      deleteSearchParam({ name: filterKey });
+      deleteSearchParams({ name: filterKey });
     }
-  }, [ deleteSearchParam, filterKey, headers, searchFilter, setSearchParam ]);
+  }, [ deleteSearchParams, filterKey, headers, searchFilter, setSearchParams ]);
   
   const viewMode: DataViewMode = searchParams.get(viewModeKey) ? (searchParams.get(viewModeKey)
     ?.toUpperCase() === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS) : initialViewMode;
   const setViewMode = useCallback((viewMode: DataViewMode) => {
-    setSearchParam({ name: viewModeKey, value: viewMode.toLowerCase() });
-  }, [ setSearchParam, viewModeKey ]);
+    setSearchParams({ name: viewModeKey, value: viewMode.toLowerCase() });
+  }, [ setSearchParams, viewModeKey ]);
   
   useEffect(() => {
     if (viewMode === DataViewMode.CARDS && !cardsView && rowsView) {
@@ -588,9 +591,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   
   useEffect(() => { // Fixing filters
     if (searchFilter.length && searchFilter.length !== tableHeaders.length) {
-      deleteSearchParam({ name: filterKey });
+      deleteSearchParams({ name: filterKey });
     }
-  }, [ deleteSearchParam, filterKey, tableHeaders, searchFilter ]);
+  }, [ deleteSearchParams, filterKey, tableHeaders, searchFilter ]);
   
   return (
     <div className={classNames(className, 'jk-data-viewer-layout', { 'with-pagination': withPagination })}>

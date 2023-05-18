@@ -89,11 +89,15 @@ export type BeforePopStateCallbackType = (state: NextHistoryStateType) => boolea
 
 export type AppendSearchParamsType = (...props: { name: string, value: string }[]) => void;
 
+export type SetSearchParamsType = (...props: { name: string, value: string | string[] }[]) => void;
+
+export type DeleteSearchParamsType = (...props: { name: string, value?: string }[]) => void;
+
 export interface UIRouterContextInterface {
   searchParams: URLSearchParams,
   appendSearchParams: AppendSearchParamsType,
-  deleteSearchParam: (props: { name: string, value?: string }) => void,
-  setSearchParam: (props: { name: string, value: string | string[] }) => void,
+  setSearchParams: SetSearchParamsType,
+  deleteSearchParams: DeleteSearchParamsType,
 }
 
 export interface UIContextInterface {
@@ -114,8 +118,8 @@ export const UIContext = createContext<UIContextInterface>({
   router: {
     searchParams: new URLSearchParams(''),
     appendSearchParams: () => null,
-    deleteSearchParam: () => null,
-    setSearchParam: () => null,
+    deleteSearchParams: () => null,
+    setSearchParams: () => null,
   },
 });
 
@@ -137,7 +141,7 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
   
   const [ _searchParams, _setSearchParams ] = useState<URLSearchParams>(new URLSearchParams(''));
   
-  const setSearchParams = useCallback((newSearchParams: URLSearchParams) => {
+  const updateSearchParams = useCallback((newSearchParams: URLSearchParams) => {
     const newSearchParamsSorted = cloneURLSearchParams(newSearchParams);
     const searchParamsSorted = cloneURLSearchParams(_searchParams);
     newSearchParams.sort();
@@ -154,37 +158,41 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
     for (const { name, value } of props) {
       newSearchParams.append(name, value);
     }
-    setSearchParams(newSearchParams);
-  }, [ _searchParams, setSearchParams ]);
+    updateSearchParams(newSearchParams);
+  }, [ _searchParams, updateSearchParams ]);
   
-  const deleteSearchParam = useCallback(({ name, value }: { name: string, value?: string }) => {
+  const deleteSearchParams: DeleteSearchParamsType = useCallback((...props) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
-    const values = newSearchParams.getAll(name);
-    newSearchParams.delete(name);
-    if (value !== undefined) {
-      for (const v of values) {
-        if (v !== value) {
-          newSearchParams.append(name, v);
+    for (const { name, value } of props) {
+      const values = newSearchParams.getAll(name);
+      newSearchParams.delete(name);
+      if (value !== undefined) {
+        for (const v of values) {
+          if (v !== value) {
+            newSearchParams.append(name, v);
+          }
         }
       }
     }
-    setSearchParams(newSearchParams);
-  }, [ _searchParams, setSearchParams ]);
+    updateSearchParams(newSearchParams);
+  }, [ _searchParams, updateSearchParams ]);
   
-  const setSearchParam = useCallback(({ name, value }: { name: string, value: string | string[] }) => {
+  const setSearchParams: SetSearchParamsType = useCallback((...props) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
-    newSearchParams.delete(name);
-    let values = [];
-    if (typeof value === 'string') {
-      values.push(value);
-    } else {
-      values = value;
+    for (const { name, value } of props) {
+      newSearchParams.delete(name);
+      let values = [];
+      if (typeof value === 'string') {
+        values.push(value);
+      } else {
+        values = value;
+      }
+      for (const value of values) {
+        newSearchParams.append(name, value);
+      }
     }
-    for (const value of values) {
-      newSearchParams.append(name, value);
-    }
-    setSearchParams(newSearchParams);
-  }, [ _searchParams, setSearchParams ]);
+    updateSearchParams(newSearchParams);
+  }, [ _searchParams, updateSearchParams ]);
   
   return (
     <UIContext.Provider
@@ -197,8 +205,8 @@ export const JukiUIProvider = ({ children, components, router }: PropsWithChildr
         router: router || {
           searchParams: _searchParams,
           appendSearchParams,
-          deleteSearchParam,
-          setSearchParam,
+          deleteSearchParams,
+          setSearchParams,
         },
       }}
     >
