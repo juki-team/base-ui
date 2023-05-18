@@ -26,7 +26,7 @@ export const CardRowVirtualizerFixed = <T, >({
     overscan: 5,
   });
   const scrollOnTop = rowVirtualizer.scrollOffset === 0;
-  const scrollOnBottom = rowVirtualizer.scrollOffset + (parentRef.current?.clientHeight || 0) === rowVirtualizer.getTotalSize();
+  const scrollOnBottom = rowVirtualizer.scrollOffset + (parentRef.current?.clientHeight || 0) >= rowVirtualizer.getTotalSize();
   
   let finalWidth = Math.min(cardWidth, rowWidth - gap - gap);
   if (expandedCards) {
