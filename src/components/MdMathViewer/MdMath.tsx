@@ -1,17 +1,17 @@
 // https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119
 import { ProgrammingLanguage } from '@juki-team/commons';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
-import React, { CSSProperties, memo, ReactNode, Suspense, useEffect, useState } from 'react';
+import React, { CSSProperties, lazy, memo, ReactNode, Suspense, useEffect, useState } from 'react';
 import { ReactMarkdownOptions } from 'react-markdown/lib/react-markdown';
 import { useJukiUI } from '../../hooks';
-import ReactMarkdown from 'react-markdown';
+// import ReactMarkdown from 'react-markdown';
 // import rehypeKatex from 'rehype-katex';
 // import gfm from 'remark-gfm';
 // import RemarkMathPlugin from 'remark-math';
 import { CodeViewer, CopyToClipboard, LinkIcon, LoadingIcon, OpenInNewIcon } from '../index';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
-//const ReactMarkdown = lazy(() => import('react-markdown'));
+const ReactMarkdown = lazy(() => import('react-markdown'));
 // const rehypeKatex = lazy(() => import('rehype-katex'));
 
 const hx = ({ children, level }: { children: ReactNode & ReactNode[], level: number }) => {
