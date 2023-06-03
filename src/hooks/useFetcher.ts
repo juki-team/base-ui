@@ -24,7 +24,7 @@ export const useFetcher = <T extends (ContentResponseType<any> | ContentsRespons
   }
   
   const { data, error, mutate, isValidating, isLoading } = useSWR(
-    url ?? [ url, token ],
+    typeof url === 'string' ? [ url, token ] : null,
     fetcherWithToken,
     config,
   );
