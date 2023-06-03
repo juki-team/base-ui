@@ -16,7 +16,7 @@ const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
   return authorizedRequest(url, { token });
 };
 
-export const useFetcher = <T extends (ContentResponseType<any> | ContentsResponseType<any>)>(url?: string, config?: SWRConfiguration) => {
+export const useFetcher = <T extends (ContentResponseType<any> | ContentsResponseType<any>)>(url?: string | null, config?: SWRConfiguration) => {
   
   let token = '';
   if (typeof window !== 'undefined') {
@@ -24,7 +24,7 @@ export const useFetcher = <T extends (ContentResponseType<any> | ContentsRespons
   }
   
   const { data, error, mutate, isValidating, isLoading } = useSWR(
-    url ? [ url, token ] : null,
+    url ?? [ url, token ],
     fetcherWithToken,
     config,
   );
@@ -51,10 +51,14 @@ export const useDataViewerRequester = <T extends ContentResponseType<any> | Cont
   const reload = useCallback(() => reloadRef.current?.(), []);
   getUrlRef.current = getUrl;
   const request = useCallback(async ({
-    pagination,
-    filter,
-    sort,
-  }: { pagination?: { page: number, pageSize: number }, filter: RequestFilterType, sort: RequestSortType }) => {
+                                       pagination,
+                                       filter,
+                                       sort,
+                                     }: {
+    pagination?: { page: number, pageSize: number },
+    filter: RequestFilterType,
+    sort: RequestSortType
+  }) => {
     const newUrl = getUrlRef.current?.({ pagination: pagination || { page: 0, pageSize: 16 }, filter, sort });
     if (url !== newUrl) {
       setUrl(newUrl);

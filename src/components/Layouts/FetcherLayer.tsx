@@ -7,7 +7,7 @@ import { useFetcher } from '../../hooks';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
 
 interface FetcherLayerProps<T extends (ContentResponseType<U> | ContentsResponseType<U>), U extends any> {
-  url: string,
+  url: string | null,
   options?: SWRConfiguration,
   errorView?: ReactNodeOrFunctionP1Type<{
     data: ErrorResponseType | undefined,
