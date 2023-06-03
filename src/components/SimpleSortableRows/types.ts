@@ -14,7 +14,7 @@ export type RowSortableItemContentType = ReactNodeOrFunctionP1Type<{
 export interface RowSortableItem<T> {
   key: string;
   content: RowSortableItemContentType,
-  value?: T,
+  value: T,
 }
 
 export interface DragItem {
