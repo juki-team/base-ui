@@ -50,12 +50,8 @@ export const useDataViewerRequester = <T extends ContentResponseType<any> | Cont
   const refreshRef = useCallback((reload: RefreshType) => reloadRef.current = reload, []);
   const reload = useCallback(() => reloadRef.current?.(), []);
   getUrlRef.current = getUrl;
-  const request = useCallback(async ({
-                                       pagination,
-                                       filter,
-                                       sort,
-                                     }: {
-    pagination?: { page: number, pageSize: number },
+  const request = useCallback(async ({ pagination, filter, sort }: {
+    pagination: { page: number, pageSize: number },
     filter: RequestFilterType,
     sort: RequestSortType
   }) => {

@@ -153,7 +153,12 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
     }
     if (firstRender.current) { // First render
-      request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+      request?.({
+        sort,
+        filter,
+        setLoaderStatus,
+        pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
+      });
       firstRender.current = false;
     } else if (prevSearchSorts.current !== searchSorts) { // Search change
       const head = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
@@ -163,7 +168,12 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         + index
         === prevSearchSorts.current);
       if (isSortOnline(head?.sort) || isSortOnline(prevHead?.sort)) {
-        request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+        request?.({
+          sort,
+          filter,
+          setLoaderStatus,
+          pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
+        });
       }
     } else if (JSON.stringify(prevSearchFilter.current) !== JSON.stringify(searchFilter)) { // Filter change
       let fixedSearchFilter = [ ...searchFilter ];
@@ -180,15 +190,35 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             isFilterDateRangeOnline(headers[i].filter)
           )
         ) {
-          request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+          request?.({
+            sort,
+            filter,
+            setLoaderStatus,
+            pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
+          });
         }
       }
     } else if (withPagination && prevPage.current !== page) {
-      request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+      request?.({
+        sort,
+        filter,
+        setLoaderStatus,
+        pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
+      });
     } else if (withPagination && prevPageSize.current !== pageSize) {
-      request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+      request?.({
+        sort,
+        filter,
+        setLoaderStatus,
+        pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
+      });
     } else if (prevRefreshCount.current !== refreshCount) {
-      request?.({ sort, filter, setLoaderStatus, pagination: withPagination ? { page, pageSize } : undefined });
+      request?.({
+        sort,
+        filter,
+        setLoaderStatus,
+        pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
+      });
     }
   }, [ request, searchSorts, headers, refreshCount, searchFilter, withPagination, page, pageSize ]);
   
@@ -517,9 +547,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           type: FILTER_DATE_RANGE,
           pickerType: filter.pickerType || DEFAULT_PICKER_TYPE,
           onFilter: ({
-            startSelectedDate,
-            endSelectedDate,
-          }) => onFilter(index, startSelectedDate.getTime() + ',' + endSelectedDate.getTime()),
+                       startSelectedDate,
+                       endSelectedDate,
+                     }) => onFilter(index, startSelectedDate.getTime() + ',' + endSelectedDate.getTime()),
           onReset: onResetFilter(index),
           isDisabled: filter.isDisabled || (() => ({})),
           startSelectedDate,

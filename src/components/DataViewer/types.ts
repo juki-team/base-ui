@@ -276,7 +276,7 @@ export type DataViewerPaginationType = { total: number, pageSizeOptions?: number
 export type DataViewerRequestPropsType = {
   sort: RequestSortType,
   filter: RequestFilterType,
-  pagination?: { page: number, pageSize: number },
+  pagination: { page: number, pageSize: number },
   setLoaderStatus: LoaderStatusActionType,
 }
 
