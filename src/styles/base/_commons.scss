@@ -309,3 +309,9 @@
 .wh-ao { width: auto; }
 
 .ht-ao { height: auto; }
+
+.fl-tt-il {
+  &:first-letter {
+    text-transform: initial;
+  }
+}
