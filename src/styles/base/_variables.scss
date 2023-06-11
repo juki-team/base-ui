@@ -96,21 +96,23 @@ html body {
   --weight-bold: 600;
   --weight-bolder: 800;
   
-  --text-h-size: 20px;
-  --text-h-height: var(--pad-m);
-  --text-l-size: 18px;
-  --text-l-height: var(--pad-m);
-  --text-m-size: 16px;
-  --text-m-height: var(--pad-m);
-  --text-s-size: 14px;
-  --text-s-height: var(--pad-m);
-  --text-t-size: 12px;
-  --text-t-height: var(--pad-m);
+  --base-text-size: 16px;
+  --base-text-height: calc(var(--base-text-size) + 8px);
+  --text-h-size: calc(var(--base-text-size) + 4px);
+  --text-h-height: var(--base-text-height);
+  --text-l-size: calc(var(--base-text-size) + 2px);
+  --text-l-height: var(--base-text-height);
+  --text-m-size: var(--base-text-size);
+  --text-m-height: var(--base-text-height);
+  --text-s-size: calc(var(--base-text-size) - 2px);
+  --text-s-height: var(--base-text-height);
+  --text-t-size: calc(var(--base-text-size) - 4px);
+  --text-t-height: var(--base-text-height);
   
   --z-index-menu: 50;
   --z-index-select-options: 60;
-  --z-index-popover: 300;
   --z-index-drawer: 200;
+  --z-index-popover: 300;
   --z-index-overlay-modal: 300;
   --z-index-notification: 400;
   
@@ -127,4 +129,6 @@ html body {
   --t-color-glow: rgba(var(--t-color-white-rgb), 0.25);
   --t-color-glow-dark: rgba(var(--t-color-white-rgb), 0.15);
   --t-color-glow-darkest: rgba(var(--t-color-white-rgb), 0.05);
+  
+  --left-vertical-collapsed-menu-width: 48px;
 }

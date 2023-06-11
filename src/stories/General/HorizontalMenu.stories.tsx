@@ -1,30 +1,29 @@
 import { action, configureActions } from '@storybook/addon-actions';
 import React, { ReactNode } from 'react';
-import { SAMPLE_MD_CONTENT } from '../constants/md';
+import { SAMPLE_MD_CONTENT } from '../../constants/md';
 import {
   AppsIcon,
   Button,
   ConstructionIcon,
   DrawerActionsType,
-  FilterIcon_,
-  HeadlineIcon_,
-  HorizontalMenu,
+  FilterListIcon,
+  HorizontalMenu as HorizontalMenuCmp,
   JukiCouchLogoHorImage,
   JukiJudgeLogoHorImage,
   JukiUtilsLogoHorImage,
   MdMathEditor,
-  PlusIcon,
   Popover,
-  SettingIcon_,
+  SettingsIcon,
   T,
   useNotification,
   VerticalMenu,
-} from '../index';
-import { JukiProvider } from './JukiProvider';
-import { ToggleThemeButton } from './ToggleThemeButton';
+  ViewHeadlineIcon,
+} from '../../index';
+import { JukiProvider } from '../JukiProvider';
+import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
-  title: 'Components/Menus',
+  title: 'Components/General',
   component: VerticalMenu,
 };
 
@@ -33,12 +32,6 @@ configureActions({
   // Limit the number of items logged into the actions panel
   limit: 20,
 });
-
-const menu = [
-  { label: 'contests', icon: <HeadlineIcon_ />, selected: false, onClick: () => action('/contests') },
-  { label: 'problems', icon: <PlusIcon />, selected: true, onClick: () => action('/problems') },
-  { label: 'admin', icon: <FilterIcon_ />, selected: false, onClick: () => action('/admin') },
-];
 
 const rightSection = ({ open = undefined }: { open?: boolean }) => (
   <div className="jk-row gap" style={{ width: '240px' }}>
@@ -49,7 +42,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
       visible={open}
     >
       <div>
-        <Button icon={<SettingIcon_ />} type="text" />
+        <Button icon={<SettingsIcon />} type="text" />
       </div>
     </Popover>
     <Popover
@@ -79,7 +72,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
 );
 
 const rightMobile = {
-  children: <div className="cr-we"><HeadlineIcon_ /></div>,
+  children: <div className="cr-we"><ViewHeadlineIcon /></div>,
   content: ({ onClose }: DrawerActionsType) => (
     <div className="jk-col gap more-apps-popover">
       <div className="fw-bd tt-se"><T>more apps coming soon</T></div>
@@ -103,26 +96,6 @@ const centerMobile = {
 
 const drawerMenuMobile = <div>Rest of Menu</div>;
 
-export const MenuVerticalClassic = () => {
-  return (
-    <div style={{ height: '400px' }}>
-      <VerticalMenu
-        menu={menu}
-        topSection={<div className="jk-row" style={{ width: '60px' }}><JukiJudgeLogoHorImage /></div>}
-        bottomSection={<div className="">{rightSection({})}</div>}
-        rightMobile={rightMobile}
-        centerMobile={centerMobile}
-        drawerMenuMobile={drawerMenuMobile}
-      >
-        <div>
-          <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
-        </div>
-      </VerticalMenu>
-      <ToggleThemeButton />
-    </div>
-  );
-};
-
 const menuHorizontal = [
   {
     label: 'contests',
@@ -133,10 +106,10 @@ const menuHorizontal = [
     ),
   },
   { label: 'problems', selected: true, onClick: () => action('/problems') },
-  { label: 'admin', icon: <FilterIcon_ />, selected: true, onClick: () => action('/admin') },
+  { label: 'admin', icon: <FilterListIcon />, selected: true, onClick: () => action('/admin') },
 ];
 
-export const ButtonN = () => {
+const ButtonN = () => {
   const { addInfoNotification, addQuietNotification } = useNotification();
   return (
     <Button
@@ -151,26 +124,24 @@ export const ButtonN = () => {
     </Button>
   );
 };
-export const HorizontalMenuClassic = () => {
-  
-  return (
-    <JukiProvider>
-      <div style={{ height: '400px' }}>
-        <HorizontalMenu
-          menu={menuHorizontal}
-          leftSection={<div className="jk-row" style={{ width: '240px' }}><JukiJudgeLogoHorImage /></div>}
-          rightSection={<div className="">{rightSection({})}</div>}
-          rightMobile={rightMobile}
-          centerMobile={centerMobile}
-          drawerMenuMobile={drawerMenuMobile}
-        >
-          <div>
-            <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
-            <ButtonN />
-          </div>
-        </HorizontalMenu>
-        <ToggleThemeButton />
-      </div>
-    </JukiProvider>
-  );
-};
+
+export const HorizontalMenu = () => (
+  <JukiProvider>
+    <div style={{ height: '400px' }}>
+      <HorizontalMenuCmp
+        menu={menuHorizontal}
+        leftSection={<div className="jk-row" style={{ width: '240px' }}><JukiJudgeLogoHorImage /></div>}
+        rightSection={<div className="">{rightSection({})}</div>}
+        rightMobile={rightMobile}
+        centerMobile={centerMobile}
+        drawerMenuMobile={drawerMenuMobile}
+      >
+        <div>
+          <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
+          <ButtonN />
+        </div>
+      </HorizontalMenuCmp>
+      <ToggleThemeButton />
+    </div>
+  </JukiProvider>
+);

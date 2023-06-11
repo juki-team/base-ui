@@ -6,6 +6,7 @@ export * from './ForgotPassword';
 export * from './HelpSection';
 export * from './Login';
 export * from './PageNotFound';
+export * from './MainMenu';
 export * from './ProblemSelector';
 export * from './SettingsSection';
 export * from './SignUp';

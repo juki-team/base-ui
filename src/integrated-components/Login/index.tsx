@@ -28,3 +28,4 @@ export const LoginModal = ({ onClose, onSignUpButton }: LoginModalProps) => {
 };
 
 export * from './types';
+export * from './LoginModal';

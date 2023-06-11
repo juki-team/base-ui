@@ -34,13 +34,18 @@
     --left-vertical-menu-width: calc(64px * 2);
   }
   
-  --height-jk-menu-item: 56px;
+  --height-jk-menu-item: var(--left-vertical-collapsed-menu-width);
+  //--height-jk-menu-item: 56px;
   
   &.collapsed {
-    --left-vertical-menu-width: 64px;
+    --left-vertical-menu-width: var(--left-vertical-collapsed-menu-width);
     
     > .jk-menu {
       .jk-menu-items {
+        .jk-menu-item-icon {
+          margin: 0 auto !important;
+        }
+        
         .jk-menu-item-label {
           display: none;
         }
@@ -51,6 +56,7 @@
   > .jk-menu {
     height: 100%;
     width: var(--left-vertical-menu-width);
+    @include transition(width);
     
     .jk-menu-content {
       width: inherit;
@@ -106,6 +112,7 @@
           
           .jk-menu-item-icon {
             height: var(--pad-m);
+            @include transition(margin);
             margin: 0 var(--pad-m) 0 var(--pad-s);
             @include md {
               margin: 0 var(--pad-xs) 0 var(--pad-s);
@@ -160,7 +167,9 @@
       width: 100%;
       height: inherit;
       background-color: var(--menu-color);
-      @include sm { background-color: var(--t-color-white); }
+      @include sm {
+        background-color: var(--t-color-white);
+      }
       position: relative;
       
       .jk-menu-left-section, .jk-menu-items, .jk-menu-right-section,
@@ -178,10 +187,18 @@
           height: var(--height-jk-menu-item);
           align-items: center;
           cursor: pointer;
-          @include md { padding: 0 var(--pad-xt); }
-          @include lg { padding: 0 var(--pad-xs); }
-          @include hg { padding: 0 var(--pad-m); }
-          @include sm { flex-direction: column; }
+          @include md {
+            padding: 0 var(--pad-xt);
+          }
+          @include lg {
+            padding: 0 var(--pad-xs);
+          }
+          @include hg {
+            padding: 0 var(--pad-m);
+          }
+          @include sm {
+            flex-direction: column;
+          }
           
           &:not(.selected):hover {
             background: var(--t-color-shadow-light) !important;
