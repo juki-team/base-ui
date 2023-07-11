@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, ButtonLoader, LoadingIcon, LoginIcon, LogoutIcon, Popover, T } from '../../components';
 import { classNames } from '../../helpers';
 import { useJukiUI, useJukiUser } from '../../hooks';
-import { SessionUserQueryParam } from './types';
+import { QueryParamKey } from '../../types';
 
 interface LoginUserProps {
   collapsed: boolean,
@@ -87,7 +87,7 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile }: Login
     <div className="jk-row extend">
       <Button
         type="secondary"
-        onClick={() => setSearchParams({ name: SessionUserQueryParam.SIGN_IN, value: '1' })}
+        onClick={() => setSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' })}
         size={viewPortSize === 'sm' ? 'small' : undefined}
         icon={!collapsed && <LoginIcon />}
         extend

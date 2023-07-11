@@ -3,8 +3,8 @@ import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { DrawerViewMenuMobile, LoginModal, SettingsSection, SignUpModal, WelcomeModal } from '../';
 import { HorizontalMenu, LoadingIcon, MenuType, VerticalMenu } from '../../components';
 import { useJukiUI, useJukiUser } from '../../hooks';
+import { QueryParamKey } from '../../types';
 import { LoginUser } from './LoginUser';
-import { SessionUserQueryParam } from './types';
 
 export interface MainMenuProps {
   onSeeMyProfile: () => void,
@@ -29,11 +29,11 @@ export const MainMenu = ({ menu, onSeeMyProfile, children }: PropsWithChildren<M
   } = useJukiUser();
   
   useEffect(() => {
-    if (isLogged && (searchParams.has(SessionUserQueryParam.SIGN_IN))) {
-      deleteSearchParams({ name: SessionUserQueryParam.SIGN_IN })
+    if (isLogged && (searchParams.has(QueryParamKey.SIGN_IN))) {
+      deleteSearchParams({ name: QueryParamKey.SIGN_IN })
     }
-    if (isLogged && (searchParams.has(SessionUserQueryParam.SIGN_UP))) {
-      deleteSearchParams({ name: SessionUserQueryParam.SIGN_UP })
+    if (isLogged && (searchParams.has(QueryParamKey.SIGN_UP))) {
+      deleteSearchParams({ name: QueryParamKey.SIGN_UP })
     }
   }, [ isLogged, searchParams ]);
   const [ helpOpen, setHelpOpen ] = useState(false);
@@ -134,32 +134,32 @@ export const MainMenu = ({ menu, onSeeMyProfile, children }: PropsWithChildren<M
   
   return (
     <>
-      {searchParams.has(SessionUserQueryParam.SIGN_UP) && (
+      {searchParams.has(QueryParamKey.SIGN_UP) && (
         <SignUpModal
-          onClose={() => deleteSearchParams({ name: SessionUserQueryParam.SIGN_UP })}
+          onClose={() => deleteSearchParams({ name: QueryParamKey.SIGN_UP })}
           onSuccess={() => {
-            deleteSearchParams({ name: SessionUserQueryParam.SIGN_UP });
-            appendSearchParams({ name: SessionUserQueryParam.WELCOME, value: '1' });
+            deleteSearchParams({ name: QueryParamKey.SIGN_UP });
+            appendSearchParams({ name: QueryParamKey.WELCOME, value: '1' });
           }}
         />
       )}
-      {searchParams.has(SessionUserQueryParam.SIGN_IN) && (
+      {searchParams.has(QueryParamKey.SIGN_IN) && (
         <LoginModal
-          onClose={() => deleteSearchParams({ name: SessionUserQueryParam.SIGN_IN })}
+          onClose={() => deleteSearchParams({ name: QueryParamKey.SIGN_IN })}
           onSignUpButton={() => {
-            deleteSearchParams({ name: SessionUserQueryParam.SIGN_IN });
-            appendSearchParams({ name: SessionUserQueryParam.SIGN_UP, value: '1' });
+            deleteSearchParams({ name: QueryParamKey.SIGN_IN });
+            appendSearchParams({ name: QueryParamKey.SIGN_UP, value: '1' });
           }}
         />
       )}
-      {searchParams.has(SessionUserQueryParam.WELCOME) && (
+      {searchParams.has(QueryParamKey.WELCOME) && (
         <WelcomeModal
           nickname={nickname}
-          onClose={() => deleteSearchParams({ name: SessionUserQueryParam.WELCOME })}
+          onClose={() => deleteSearchParams({ name: QueryParamKey.WELCOME })}
           onSeeMyProfile={async (setLoaderStatus, ...props) => {
             setLoaderStatus(Status.LOADING);
             await onSeeMyProfile();
-            deleteSearchParams({ name: SessionUserQueryParam.WELCOME })
+            deleteSearchParams({ name: QueryParamKey.WELCOME })
             setLoaderStatus(Status.SUCCESS);
           }}
         />
@@ -194,5 +194,3 @@ export const MainMenu = ({ menu, onSeeMyProfile, children }: PropsWithChildren<M
     </>
   );
 };
-
-export * from './types';
