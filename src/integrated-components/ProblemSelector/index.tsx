@@ -3,9 +3,9 @@ import {
   ContentsResponseType,
   Judge,
   JUDGE,
+  JUKI_APP_COMPANY_KEY,
   ProblemSummaryListResponseDTO,
   Status,
-  JUKI_APP_COMPANY_KEY,
 } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import {
@@ -14,6 +14,8 @@ import {
   Input,
   LoadingIcon,
   MultiSelectSearchable,
+  Popover,
+  ReloadIcon,
   Select,
   T,
   useNotification,
@@ -38,6 +40,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
   const [ data, setData ] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useNotification();
   const { company: { name, key: companyKey } } = useJukiUser();
+  const [ timestampTrigger, setTimestampTrigger ] = useState(0);
   useEffect(() => {
     const getData = async () => {
       setData(prevState => (
@@ -57,15 +60,19 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
     };
     setKey('');
     getData();
-  }, [ judge ]);
+  }, [ judge, timestampTrigger ]);
   
   return (
     <div className={classNames('jk-row-col gap nowrap', { extend })}>
       <Select
         options={[
           { value: Judge.CUSTOMER, label: <>{name + ' judge'}</> },
-          ...(companyKey === JUKI_APP_COMPANY_KEY ? [] : [ { value: Judge.JUKI_JUDGE, label: <>{JUDGE.JUKI_JUDGE.label}</> } ]),
+          ...(companyKey === JUKI_APP_COMPANY_KEY ? [] : [ {
+            value: Judge.JUKI_JUDGE,
+            label: <>{JUDGE.JUKI_JUDGE.label}</>,
+          } ]),
           { value: Judge.CODEFORCES, label: <>{JUDGE.CODEFORCES.label}</> },
+          { value: Judge.JV_UMSA, label: <>{JUDGE.JV_UMSA.label}</> },
         ]}
         selectedOption={{ value: judge }}
         onChange={({ value }) => setJudge(value)}
@@ -102,6 +109,16 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
               </label>
             </>
           )}
+          {judge === Judge.JV_UMSA && (
+            <label>
+              <T className="tt-se ws-np fw-bd">key</T>:&nbsp;
+              <Input
+                size={6}
+                value={key}
+                onChange={(value) => setKey(value)}
+              />
+            </label>
+          )}
           <ButtonLoader
             onClick={async (setLoaderStatus) => {
               setLoaderStatus(Status.LOADING);
@@ -125,57 +142,72 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
             <T>select</T>
           </ButtonLoader>
         </div>
-        {!data[judge] ||
-        (
-          data[judge]?.loading && data[judge]?.problems?.length === 0
-        )
-          ? <div className="jk-row flex-1" style={{ height: 34 }}><LoadingIcon /></div>
-          : <MultiSelectSearchable
-            options={(
-              data[judge].problems
-            ).map(problem => (
-              {
-                label: (
-                  <div className="jk-row gap nowrap jk-pad-sm">
-                    <div><span className="fw-br cr-py">{problem.key}</span></div>
-                    <div className="jk-col stretch">
-                      {problem.name}
-                      <div className="jk-row left gap">
-                        {problem.tags?.map(tag => <div className="jk-tag gray-5" key={tag}>{tag}</div>)}
+        <div className="jk-row extend gap">
+          {!data[judge] ||
+          (
+            data[judge]?.loading && data[judge]?.problems?.length === 0
+          )
+            ? <div className="jk-row flex-1" style={{ height: 34 }}><LoadingIcon /></div>
+            : <div className="jk-row flex-1">
+              <MultiSelectSearchable
+                options={(
+                  data[judge].problems
+                ).map(problem => (
+                  {
+                    label: (
+                      <div className="jk-row gap nowrap jk-pad-sm">
+                        <div><span className="fw-br cr-py">{problem.key}</span></div>
+                        <div className="jk-col stretch">
+                          {problem.name}
+                          <div className="jk-row left gap">
+                            {problem.tags?.map(tag => <div className="jk-tag gray-5" key={tag}>{tag}</div>)}
+                          </div>
+                        </div>
+                      
                       </div>
-                    </div>
-                  
-                  </div>
-                ),
-                inputLabel: (
-                  <div>
-                    {problem.key} {problem.name} {problem.tags?.map(tag => <div
-                    className="jk-tag gray-6"
-                    key={tag}
-                  >{tag}</div>)}
-                  </div>
-                ),
-                value: problem,
-              }
-            ))}
-            selectedOptions={[].map(user => (
-              { value: user }
-            ))}
-            onChange={options => options[0] ? onSelect({ ...options[0].value }) : null}
-            optionsPlacement="bottom"
-            extend
-            rowHeightOption={72}
-            onFilter={({ search, option }) => {
-              const text = search.toLowerCase();
-              return (
-                option.value.name.toLowerCase().indexOf(text) > -1 ||
-                option.value.key.toLowerCase().indexOf(text) > -1 ||
-                option.value.tags.some(tag => tag.toLowerCase().indexOf(text) > -1)
-              );
-            }}
-            multiselect={false}
-          />
-        }
+                    ),
+                    inputLabel: (
+                      <div>
+                        {problem.key} {problem.name} {problem.tags?.map(tag => <div
+                        className="jk-tag gray-6"
+                        key={tag}
+                      >{tag}</div>)}
+                      </div>
+                    ),
+                    value: problem,
+                  }
+                ))}
+                selectedOptions={[].map(user => (
+                  { value: user }
+                ))}
+                onChange={options => options[0] ? onSelect({ ...options[0].value }) : null}
+                optionsPlacement="bottom"
+                extend
+                rowHeightOption={72}
+                onFilter={({ search, option }) => {
+                  const text = search.toLowerCase();
+                  return (
+                    option.value.name.toLowerCase().indexOf(text) > -1 ||
+                    option.value.key.toLowerCase().indexOf(text) > -1 ||
+                    option.value.tags.some(tag => tag.toLowerCase().indexOf(text) > -1)
+                  );
+                }}
+                multiselect={false}
+              />
+            </div>
+          }
+          <Popover
+            content={<T>reload</T>}
+            placement="left"
+          >
+            <div className="jk-row">
+              <ReloadIcon
+                className="clickable jk-br-ie"
+                onClick={() => setTimestampTrigger(Date.now())}
+              />
+            </div>
+          </Popover>
+        </div>
       </div>
     </div>
   );

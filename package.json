@@ -18,7 +18,7 @@
     "@codemirror/lang-markdown": "^6.0.5",
     "@codemirror/lang-python": "^6.1.0",
     "@hookform/resolvers": "^2.8.8",
-    "@juki-team/commons": "^0.0.341",
+    "@juki-team/commons": "^0.0.348",
     "@monaco-editor/react": "^4.4.2",
     "@tanstack/react-virtual": "^3.0.0-beta.30",
     "@uiw/react-codemirror": "^4.19.3",

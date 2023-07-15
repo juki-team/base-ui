@@ -1,6 +1,16 @@
 import { ContentsResponseType, UserSummaryResponseDTO } from '@juki-team/commons';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Button, LoadingIcon, Modal, MultiSelectSearchable, PeopleIcon, Popover, T, TextArea } from '../../components';
+import {
+  Button,
+  LoadingIcon,
+  Modal,
+  MultiSelectSearchable,
+  PeopleIcon,
+  Popover,
+  ReloadIcon,
+  T,
+  TextArea,
+} from '../../components';
 import { settings } from '../../config';
 import { useFetcher } from '../../hooks';
 import { UserChip } from '../../integrated-components';
@@ -13,13 +23,13 @@ export interface UsersSelectorProps {
 }
 
 export const UsersSelector = ({
-  selectedUsers,
-  onChangeSelectedUsers: _onChangeSelectedUsers,
-  maxUsersSelection = -1,
-  companyKey,
-}: UsersSelectorProps) => {
+                                selectedUsers,
+                                onChangeSelectedUsers: _onChangeSelectedUsers,
+                                maxUsersSelection = -1,
+                                companyKey,
+                              }: UsersSelectorProps) => {
   
-  const { isLoading, data } = useFetcher<ContentsResponseType<UserSummaryResponseDTO>>(
+  const { isLoading, data, mutate } = useFetcher<ContentsResponseType<UserSummaryResponseDTO>>(
     settings.getAPI().user.summaryList({ params: { companyKey } }).url,
   );
   const [ show, setShow ] = useState(false);
@@ -49,6 +59,10 @@ export const UsersSelector = ({
     setError(error);
     setTextNicknames(validNicknames);
   }, [ text, users ]);
+  
+  const resetText = () => {
+    setText(selectedUsers.join(','));
+  }
   if (isLoading) {
     return <div><LoadingIcon /></div>;
   }
@@ -79,18 +93,14 @@ export const UsersSelector = ({
             <div className="jk-row right gap">
               <Button
                 type="text"
-                onClick={() => {
-                  setText('');
-                  setShow(false);
-                }}
+                onClick={() => setShow(false)}
               >
                 <T>cancel</T>
               </Button>
               <Button
                 disabled={!textNicknames.length}
                 onClick={() => {
-                  onChangeSelectedUsers(Array.from(new Set([ ...selectedUsers, ...textNicknames ])));
-                  setText('');
+                  onChangeSelectedUsers(Array.from(new Set([ ...textNicknames ])));
                   setShow(false);
                 }}
               >
@@ -133,9 +143,29 @@ export const UsersSelector = ({
         multiselect={maxUsersSelection !== 1}
       />
       <Popover
-        content={<T>add users by nicknames in batches</T>}
+        content={<T>reload</T>}
+        placement="left"
       >
-        <div className="jk-row"><PeopleIcon onClick={() => setShow(true)} /></div>
+        <div className="jk-row">
+          <ReloadIcon
+            className="clickable jk-br-ie"
+            onClick={() => mutate()}
+          />
+        </div>
+      </Popover>
+      <Popover
+        content={<T>add users by nicknames in batches</T>}
+        placement="left"
+      >
+        <div className="jk-row">
+          <PeopleIcon
+            className="clickable jk-br-ie"
+            onClick={() => {
+              resetText();
+              setShow(true);
+            }}
+          />
+        </div>
       </Popover>
     </div>
   );
