@@ -38,17 +38,19 @@ interface UserCodeEditorProps<T> {
   initialSource?: { [key: string]: string },
 }
 
-export const UserCodeEditor = <T, >({
-  className,
-  expandPosition,
-  initialTestCases,
-  sourceStoreKey,
-  languages,
-  middleButtons,
-  onSourceChange,
-  onLanguageChange,
-  initialSource,
-}: UserCodeEditorProps<T>) => {
+export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
+  
+  const {
+    className,
+    expandPosition,
+    initialTestCases,
+    sourceStoreKey,
+    languages,
+    middleButtons,
+    onSourceChange,
+    onLanguageChange,
+    initialSource,
+  } = props;
   const { user: { nickname } } = useJukiUser();
   
   const editorSettingsStorageKey = getEditorSettingsStorageKey(nickname);
@@ -67,6 +69,9 @@ export const UserCodeEditor = <T, >({
   
   const [ language, setLanguage ] = useState<T>(editorSettings.lastLanguageUsed as T);
   const [ testCases, setTestCases ] = useState(initialTestCases);
+  useEffect(() => {
+    setTestCases(initialTestCases);
+  }, [ JSON.stringify(initialTestCases) ]);
   useEffect(() => {
     if (languages.length && !languages.some(lang => lang.value === language)) {
       setLanguage(languages[0].value);
