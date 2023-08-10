@@ -48,17 +48,15 @@ export interface LinkCmpProps {
   style?: CSSProperties,
 }
 
-const Link = ({
-  href,
-  replace,
-  locale,
-  as,
-  children,
-  className,
-  style,
-  target,
-  rel,
-}: PropsWithChildren<LinkCmpProps>) => {
+const Link = (props: PropsWithChildren<LinkCmpProps>) => {
+  const {
+    href,
+    children,
+    className,
+    style,
+    target,
+    rel,
+  } = props;
   
   let url = '';
   if (typeof href === 'string') {
@@ -87,11 +85,11 @@ export type NextHistoryStateType = {
 
 export type BeforePopStateCallbackType = (state: NextHistoryStateType) => boolean;
 
-export type AppendSearchParamsType = (...props: { name: string, value: string }[]) => void;
+export type AppendSearchParamsType = (...props: { name: string, value: string, replace?: boolean }[]) => void;
 
-export type SetSearchParamsType = (...props: { name: string, value: string | string[] }[]) => void;
+export type SetSearchParamsType = (...props: { name: string, value: string | string[], replace?: boolean }[]) => void;
 
-export type DeleteSearchParamsType = (...props: { name: string, value?: string }[]) => void;
+export type DeleteSearchParamsType = (...props: { name: string, value?: string, replace?: boolean }[]) => void;
 
 export interface UIRouterContextInterface {
   searchParams: URLSearchParams,

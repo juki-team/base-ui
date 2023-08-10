@@ -98,8 +98,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     512,
     1024,
   ]);
-  const initialViewMode = _initialViewMode || (preferredDataViewMode
-  === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
+  const initialViewMode = _initialViewMode
+    || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
   
   useEffect(() => {
     if (pagination?.pageSizeOptions && JSON.stringify(pagination.pageSizeOptions) !== JSON.stringify(pageSizeOptions)) {
@@ -123,7 +123,10 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   useEffect(() => {
     if (withPagination) {
       if (!searchParams.get(pageKey) || !searchParams.get(pageSizeKey)) {
-        setSearchParams({ name: pageKey, value: '1' }, { name: pageSizeKey, value: pageSizeOptions[0] + '' });
+        setSearchParams(
+          { name: pageKey, value: '1', replace: true },
+          { name: pageSizeKey, value: pageSizeOptions[0] + '', replace: true },
+        );
       }
     }
   }, [ setSearchParams, pageKey, pageSizeKey, pageSizeOptions, searchParams, withPagination ]);
@@ -162,11 +165,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       firstRender.current = false;
     } else if (prevSearchSorts.current !== searchSorts) { // Search change
       const head = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
-      const prevHead = headers.find(({ index }) => index
-        === prevSearchSorts.current
-        || '-'
-        + index
-        === prevSearchSorts.current);
+      const prevHead = headers.find(({ index }) => index === prevSearchSorts.current
+        || '-' + index === prevSearchSorts.current);
       if (isSortOnline(head?.sort) || isSortOnline(prevHead?.sort)) {
         request?.({
           sort,
@@ -596,15 +596,15 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   
   const viewMode: DataViewMode = searchParams.get(viewModeKey) ? (searchParams.get(viewModeKey)
     ?.toUpperCase() === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS) : initialViewMode;
-  const setViewMode = useCallback((viewMode: DataViewMode) => {
-    setSearchParams({ name: viewModeKey, value: viewMode.toLowerCase() });
+  const setViewMode = useCallback((viewMode: DataViewMode, replace?: boolean) => {
+    setSearchParams({ name: viewModeKey, value: viewMode.toLowerCase(), replace });
   }, [ setSearchParams, viewModeKey ]);
   
   useEffect(() => {
     if (viewMode === DataViewMode.CARDS && !cardsView && rowsView) {
-      setViewMode(DataViewMode.ROWS);
+      setViewMode(DataViewMode.ROWS, true);
     } else if (viewMode === DataViewMode.ROWS && !rowsView && cardsView) {
-      setViewMode(DataViewMode.CARDS);
+      setViewMode(DataViewMode.CARDS, true);
     }
   }, [ viewPortSize, viewMode, cardsView, rowsView, viewModeKey, setViewMode ]);
   
@@ -614,14 +614,14 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       && viewMode === DataViewMode.ROWS
       && cardsView
       && viewPortSize === 'sm') {
-      setViewMode(DataViewMode.CARDS);
+      setViewMode(DataViewMode.CARDS, true);
     }
     oldViewPortSizeRef.current = viewPortSize;
   }, [ viewPortSize, viewMode, cardsView, rowsView, viewModeKey, setViewMode ]);
   
   useEffect(() => { // Fixing filters
     if (searchFilter.length && searchFilter.length !== tableHeaders.length) {
-      deleteSearchParams({ name: filterKey });
+      deleteSearchParams({ name: filterKey, replace: true });
     }
   }, [ deleteSearchParams, filterKey, tableHeaders, searchFilter ]);
   
