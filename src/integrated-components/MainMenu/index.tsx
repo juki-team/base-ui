@@ -7,7 +7,7 @@ import { QueryParamKey } from '../../types';
 import { LoginUser } from './LoginUser';
 
 export interface MainMenuProps {
-  onSeeMyProfile: () => Promise<void> | void,
+  onSeeMyProfile: () => Promise<any> | void,
   menu: MenuType[],
   menuViewMode?: MenuViewMode,
   profileSelected?: boolean,
