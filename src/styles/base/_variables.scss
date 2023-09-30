@@ -67,29 +67,15 @@ html body {
   @include md { --gap: 8px; }
   @include sm { --gap: 6px; }
   
-  --border-radius-hg: var(--pad-s);
-  --border-radius-lg: var(--pad-xs);
-  --border-radius-md: var(--pad-t);
-  --border-radius-sm: var(--pad-xt);
+  @include hg { --border-radius: 16px; }
+  @include lg { --border-radius: 14px; }
+  @include md { --border-radius: 12px; }
+  @include sm { --border-radius: 8px; }
   
-  @include hg { --border-radius: var(--border-radius-hg); }
-  @include lg { --border-radius: var(--border-radius-lg); }
-  @include md { --border-radius: var(--border-radius-md); }
-  @include sm { --border-radius: var(--border-radius-sm); }
-  
-  //--border-radius-inline-hg: 8px;
-  //--border-radius-inline-lg: 9px;
-  //--border-radius-inline-md: 9px;
-  //--border-radius-inline-sm: 10px;
-  --border-radius-inline-hg: 8px;
-  --border-radius-inline-lg: 7px;
-  --border-radius-inline-md: 6px;
-  --border-radius-inline-sm: 5px;
-  
-  @include hg { --border-radius-inline: var(--border-radius-inline-hg); }
-  @include lg { --border-radius-inline: var(--border-radius-inline-lg); }
-  @include md { --border-radius-inline: var(--border-radius-inline-md); }
-  @include sm { --border-radius-inline: var(--border-radius-inline-sm); }
+  @include hg { --border-radius-inline: 6px; }
+  @include lg { --border-radius-inline: 5px; }
+  @include md { --border-radius-inline: 4px; }
+  @include sm { --border-radius-inline: 10px; }
   
   --weight-lighter: 200;
   --weight-normal: 400;

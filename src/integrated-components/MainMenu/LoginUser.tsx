@@ -8,9 +8,10 @@ interface LoginUserProps {
   collapsed: boolean,
   popoverPlacement: 'rightBottom' | 'bottomRight',
   onSeeMyProfile: () => void,
+  profileSelected?: boolean,
 }
 
-export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile }: LoginUserProps) => {
+export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profileSelected }: LoginUserProps) => {
   
   const { user, isLoading, logout } = useJukiUser();
   const { viewPortSize, components: { Image }, router: { setSearchParams } } = useJukiUI();
@@ -78,6 +79,8 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile }: Login
           {viewPortSize !== 'sm' && viewPortSize !== 'md' && !collapsed && (
             <div className="jk-row nickname">{user.nickname}</div>
           )}
+          {popoverPlacement === 'bottomRight' && profileSelected && <div className="selected horizontal" />}
+          {popoverPlacement === 'rightBottom' && profileSelected && <div className="selected vertical" />}
         </div>
       </Popover>
     );

@@ -1,13 +1,34 @@
 @import "../../abstracts/index";
 
 .settings-apps-login-user-content {
-  //margin-right: var(--pad-m);
   .jk-icon {
     color: var(--t-color-primary-text);
   }
 }
 
 .user-logged-head {
+  
+  .selected.vertical {
+    width: 6px;
+    height: calc(var(--pad-m) + var(--pad-xt) * 4);
+    background: var(--t-color-primary-text);
+    position: absolute;
+    right: 0;
+    border-bottom-left-radius: var(--pad-xt);
+    border-top-left-radius: var(--pad-xt);
+  }
+  
+  .selected.horizontal {
+    content: "";
+    height: 6px;
+    width: calc(var(--pad-m) + var(--pad-xt) * 4);
+    background: var(--t-color-secondary);
+    position: absolute;
+    bottom: 0;
+    border-top-left-radius: var(--pad-xt);
+    border-top-right-radius: var(--pad-xt);
+  }
+  
   padding: var(--pad-xt);
   
   &:hover {
