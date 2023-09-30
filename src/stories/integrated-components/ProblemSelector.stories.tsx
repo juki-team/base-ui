@@ -132,7 +132,7 @@ export const DrawerViewMenuMobile = () => {
               icon: <EventIcon />,
               label: 'calendar menu',
               selected: false,
-              menuItemWrapper: (children) => <a href="#" target="_blank">{children}</a>,
+              menuItemWrapper: (children) => <a href="/" target="_blank">{children}</a>,
             },
           ]}
           onClose={() => setOpen(false)}

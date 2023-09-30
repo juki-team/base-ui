@@ -7,23 +7,18 @@ import {
   AppstoreIcon,
   BalloonIcon,
   CaretLeftIcon,
-  CodeIcon_,
   DoubleArrowIcon,
   DragIndicatorIcon,
   FacebookIcon,
   FileDoneIcon,
   IconProps,
   LayoutIcon,
-  LinkIcon_,
   MessagePlusIcon,
   MessageQuestionIcon,
   NoteCodeIcon,
   NoteIcon,
-  PlayCircleIcon_,
   ReadIcon,
-  TaskIcon_,
   UploadIcon,
-  WarningIcon_,
   ZoomInIcon,
   ZoomOutIcon,
 } from '../../index';
@@ -126,10 +121,6 @@ export const Icons: Story<IconProps> = ({ ...props }) => {
             <td><CaretLeftIcon {...props} /></td>
           </tr>
           <tr>
-            <td>CodeIcon_</td>
-            <td><CodeIcon_ {...props} /></td>
-          </tr>
-          <tr>
             <td>DoubleArrowIcon</td>
             <td><DoubleArrowIcon {...props} /></td>
           </tr>
@@ -150,10 +141,6 @@ export const Icons: Story<IconProps> = ({ ...props }) => {
             <td><LayoutIcon {...props} /></td>
           </tr>
           <tr>
-            <td>LinkIcon_</td>
-            <td><LinkIcon_ {...props} /></td>
-          </tr>
-          <tr>
             <td>MessagePlusIcon</td>
             <td><MessagePlusIcon {...props} /></td>
           </tr>
@@ -170,16 +157,8 @@ export const Icons: Story<IconProps> = ({ ...props }) => {
             <td><NoteCodeIcon {...props} /></td>
           </tr>
           <tr>
-            <td>PlayCircleIcon_</td>
-            <td><PlayCircleIcon_ {...props} /></td>
-          </tr>
-          <tr>
             <td>ReadIcon</td>
             <td><ReadIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>TaskIcon_</td>
-            <td><TaskIcon_ {...props} /></td>
           </tr>
           <tr>
             <td>UploadIcon</td>
@@ -192,10 +171,6 @@ export const Icons: Story<IconProps> = ({ ...props }) => {
           <tr>
             <td>ZoomOutIcon</td>
             <td><ZoomOutIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>WarningIcon_</td>
-            <WarningIcon_ {...props} />
           </tr>
         </tbody>
       </table>

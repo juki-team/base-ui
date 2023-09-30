@@ -69,9 +69,10 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   
   const [ language, setLanguage ] = useState<T>(editorSettings.lastLanguageUsed as T);
   const [ testCases, setTestCases ] = useState(initialTestCases);
+  const initialTestCasesString = JSON.stringify(initialTestCases);
   useEffect(() => {
-    setTestCases(initialTestCases);
-  }, [ JSON.stringify(initialTestCases) ]);
+    setTestCases(JSON.parse(initialTestCasesString));
+  }, [ initialTestCasesString ]);
   useEffect(() => {
     if (languages.length && !languages.some(lang => lang.value === language)) {
       setLanguage(languages[0].value);

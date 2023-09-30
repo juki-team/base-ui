@@ -9,7 +9,7 @@ import { LoginUser } from './LoginUser';
 export interface MainMenuProps {
   onSeeMyProfile: () => Promise<void> | void,
   menu: MenuType[],
-  menuViewMode: MenuViewMode,
+  menuViewMode?: MenuViewMode,
 }
 
 export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, children }: PropsWithChildren<MainMenuProps>) => {
@@ -36,7 +36,7 @@ export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, children }: Props
     if (isLogged && (searchParams.has(QueryParamKey.SIGN_UP))) {
       deleteSearchParams({ name: QueryParamKey.SIGN_UP })
     }
-  }, [ isLogged, searchParams ]);
+  }, [ isLogged, searchParams, deleteSearchParams ]);
   const [ helpOpen, setHelpOpen ] = useState(false);
   
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode

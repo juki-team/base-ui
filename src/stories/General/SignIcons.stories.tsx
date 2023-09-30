@@ -10,7 +10,7 @@ import {
   MinusIcon,
   PlusIcon,
   SignIconProps,
-  UpIcon_,
+  UpIcon,
 } from '../../index';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
@@ -55,7 +55,7 @@ export const Signs: FC<SignIconProps & { color: string }> = ({ color, ...props }
     ExclamationIcon,
     MinusIcon,
     PlusIcon,
-    UpIcon_,
+    UpIcon_: UpIcon,
     CloseIcon_,
     DoubleUpIcon,
     CheckIcon_,
