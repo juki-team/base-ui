@@ -4,25 +4,20 @@ import { classNames } from '../../../helpers';
 import Apps from './Apps'; // not antd
 import Appstore from './Appstore';
 import CaretLeft from './CaretLeft';
-import Code from './Code';
 import DoubleArrow from './DoubleArrow';
 import DragIndicator from './DragIndicator'; // not antd
 import Facebook from './Facebook';
 import FileDone from './FileDone';
 import InfoCircle from './InfoCircle';
 import Layout from './Layout';
-import Link from './Link';
 import MessagePlus from './MessagePlus';
 import MessageQuestion from './MessageQuestion';
 import Note from './Note';
 import NoteCode from './NoteCode'; // not antd
-import PlayCircle from './PlayCircle';
 import Read from './Read';
-import Task from './Task'; // not antd
 import { IconProps } from './types';
 import Upload from './Upload';
 import User from './User';
-import Warning from './Warning';
 import ZoomIn from './ZoomIn';
 import ZoomOut from './ZoomOut';
 
@@ -41,12 +36,6 @@ export const AppstoreIcon = ({ size = 'regular', className = '', ...props }: Ico
 export const CaretLeftIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
     <span {...props} className={classNames(className, 'jk-icon', size)}><CaretLeft /></span>
-  );
-};
-
-export const CodeIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
-  return (
-    <span {...props} className={classNames(className, 'jk-icon', size)}><Code /></span>
   );
 };
 
@@ -86,12 +75,6 @@ export const LayoutIcon = ({ size = 'regular', className = '', ...props }: IconP
   );
 };
 
-export const LinkIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
-  return (
-    <span {...props} className={classNames(className, 'jk-icon', size)}><Link /></span>
-  );
-};
-
 export const MessagePlusIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
     <span {...props} className={classNames(className, 'jk-icon', size)}><MessagePlus /></span>
@@ -116,21 +99,9 @@ export const NoteCodeIcon = ({ size = 'regular', className = '', ...props }: Ico
   );
 };
 
-export const PlayCircleIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
-  return (
-    <span {...props} className={classNames(className, 'jk-icon', size)}><PlayCircle /></span>
-  );
-};
-
 export const ReadIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
     <span {...props} className={classNames(className, 'jk-icon', size)}><Read /></span>
-  );
-};
-
-export const TaskIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
-  return (
-    <span {...props} className={classNames(className, 'jk-icon', size)}><Task /></span>
   );
 };
 
@@ -143,12 +114,6 @@ export const UploadIcon = ({ size = 'regular', className = '', ...props }: IconP
 export const UserIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
   return (
     <span {...props} className={classNames(className, 'jk-icon', size)}><User /></span>
-  );
-};
-
-export const WarningIcon_ = ({ size = 'regular', className = '', ...props }: IconProps) => {
-  return (
-    <span {...props} className={classNames(className, 'jk-icon', size)}><Warning /></span>
   );
 };
 

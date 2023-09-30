@@ -13,7 +13,7 @@ import {
   CloudUploadIcon_,
   ConstructionIcon,
   CopyFileIcon,
-  CopyIcon_,
+  CopyIcon,
   CopyToClipboard,
   CupIcon,
   CurvedArrowIcon,
@@ -121,7 +121,7 @@ export const Basic: FC<BasicIconProps & { color: string }> = ({ color, ...props 
     CloudUploadIcon_,
     ConstructionIcon,
     CopyFileIcon,
-    CopyIcon_,
+    CopyIcon_: CopyIcon,
     CupIcon,
     CurvedArrowIcon,
     CutIcon,
@@ -191,7 +191,7 @@ export const Basic: FC<BasicIconProps & { color: string }> = ({ color, ...props 
               <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
             </div>
           ))}
-        <CopyToClipboard text={'texto copiado'}><CopyIcon_ /></CopyToClipboard>
+        <CopyToClipboard text={'texto copiado'}><CopyIcon /></CopyToClipboard>
         <ToggleThemeButton />
       </div>
     </NotificationProvider>
