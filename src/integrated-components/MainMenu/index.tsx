@@ -7,11 +7,12 @@ import { QueryParamKey } from '../../types';
 import { LoginUser } from './LoginUser';
 
 export interface MainMenuProps {
-  onSeeMyProfile: () => void,
+  onSeeMyProfile: () => Promise<void> | void,
   menu: MenuType[],
+  menuViewMode: MenuViewMode,
 }
 
-export const MainMenu = ({ menu, onSeeMyProfile, children }: PropsWithChildren<MainMenuProps>) => {
+export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, children }: PropsWithChildren<MainMenuProps>) => {
   
   const {
     viewPortSize,
@@ -22,7 +23,7 @@ export const MainMenu = ({ menu, onSeeMyProfile, children }: PropsWithChildren<M
     user: {
       isLogged,
       nickname,
-      settings: { [ProfileSetting.THEME]: preferredTheme, [ProfileSetting.MENU_VIEW_MODE]: preferredMenuViewMode },
+      settings: { [ProfileSetting.THEME]: preferredTheme, [ProfileSetting.MENU_VIEW_MODE]: userPreferredMenuViewMode },
     },
     isLoading,
     company: { imageUrl, name },
@@ -37,6 +38,8 @@ export const MainMenu = ({ menu, onSeeMyProfile, children }: PropsWithChildren<M
     }
   }, [ isLogged, searchParams ]);
   const [ helpOpen, setHelpOpen ] = useState(false);
+  
+  const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode
   
   const logoImageUrl = (viewPortSize === 'sm' && preferredTheme !== Theme.DARK) ? imageUrl.replace(
     'white',
