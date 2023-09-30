@@ -106,17 +106,19 @@ export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, children }: Props
   
   const leftSection = () => (
     <Link href="/">
-      <div className="jk-row pad-left-right">
-        {isLoading
-          ? <LoadingIcon />
-          : (
-            <Image
-              src={logoImageUrl}
-              alt={name}
-              height={viewPortSize === 'md' ? 40 : 46}
-              width={viewPortSize === 'md' ? 80 : 92}
-            />
-          )}
+      <div className="jk-col extend">
+        <div className="jk-row pad-left-right">
+          {isLoading
+            ? <LoadingIcon />
+            : (
+              <Image
+                src={logoImageUrl}
+                alt={name}
+                height={viewPortSize === 'md' ? 40 : 46}
+                width={viewPortSize === 'md' ? 80 : 92}
+              />
+            )}
+        </div>
       </div>
     </Link>
   );
