@@ -1,9 +1,12 @@
+'use client'
+
 import React, { DetailedHTMLProps, forwardRef, HTMLAttributes, ReactElement, Ref, useEffect, useState } from 'react';
 import { classNames } from '../../helpers';
 
 type DivProps =
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
   & { onClick?: () => void, transition?: boolean, onKeyDownClick?: boolean | 'Enter' };
+
 const DivComponent = ({
   onClick,
   children,
