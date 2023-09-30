@@ -1,5 +1,3 @@
-'use client'
-
 import React, { DetailedHTMLProps, forwardRef, HTMLAttributes, ReactElement, Ref, useEffect, useState } from 'react';
 import { classNames } from '../../helpers';
 
