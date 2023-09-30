@@ -1,5 +1,5 @@
 import { MenuViewMode, ProfileSetting, Status, Theme } from '@juki-team/commons';
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { DrawerViewMenuMobile, LoginModal, SettingsSection, SignUpModal, WelcomeModal } from '../';
 import { HorizontalMenu, LoadingIcon, MenuType, VerticalMenu } from '../../components';
 import { useJukiUI, useJukiUser } from '../../hooks';
@@ -10,9 +10,11 @@ export interface MainMenuProps {
   onSeeMyProfile: () => Promise<void> | void,
   menu: MenuType[],
   menuViewMode?: MenuViewMode,
+  profileSelected?: boolean,
+  children: ReactNode,
 }
 
-export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, children }: PropsWithChildren<MainMenuProps>) => {
+export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, profileSelected, children }: MainMenuProps) => {
   
   const {
     viewPortSize,
@@ -53,7 +55,12 @@ export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, children }: Props
   const rightMobile = {
     children: (
       <div className="jk-row">
-        <LoginUser collapsed={false} popoverPlacement="bottomRight" onSeeMyProfile={onSeeMyProfile} />
+        <LoginUser
+          collapsed={false}
+          popoverPlacement="bottomRight"
+          onSeeMyProfile={onSeeMyProfile}
+          profileSelected={profileSelected}
+        />
       </div>
     ),
   };
@@ -99,7 +106,12 @@ export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, children }: Props
           setHelpOpen={setHelpOpen}
           popoverPlacement="right"
         />
-        <LoginUser collapsed={!isOpen} popoverPlacement="rightBottom" onSeeMyProfile={onSeeMyProfile} />
+        <LoginUser
+          collapsed={!isOpen}
+          popoverPlacement="rightBottom"
+          onSeeMyProfile={onSeeMyProfile}
+          profileSelected={profileSelected}
+        />
       </div>
     );
   };
@@ -132,7 +144,12 @@ export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, children }: Props
           setHelpOpen={setHelpOpen}
           popoverPlacement="bottom"
         />
-        <LoginUser collapsed={false} popoverPlacement="bottomRight" onSeeMyProfile={onSeeMyProfile} />
+        <LoginUser
+          collapsed={false}
+          popoverPlacement="bottomRight"
+          onSeeMyProfile={onSeeMyProfile}
+          profileSelected={profileSelected}
+        />
       </div>
     );
   };
