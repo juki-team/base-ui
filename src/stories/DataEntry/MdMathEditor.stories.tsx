@@ -23,25 +23,17 @@ configureActions({
   limit: 20,
 });
 
-export const MdMathEditor: Story<MdMathEditorProps> = ({
-  uploadImageButton,
-  informationButton,
-  sharedButton,
-  downloadButton,
-}) => {
+export const MdMathEditor: Story<MdMathEditorProps> = (props) => {
   // const example = '# Titulo ```\n## [titulo 2](#titulo-2)\n#include <bits/stdc++.h>\n\nusing namespace std; \n\n|A | B| C|\n|--|--|--|\n|1|2|3|\n|4|5|6|';
   const example = SAMPLE_MD_CONTENT;
-  const [text, setText] = useState(example);
+  const [ text, setText ] = useState(example);
   return (
     <JukiProvider>
       <div>
         <MdMathEditorComponent
+          {...props}
           source={text}
           onChange={(value) => setText(value)}
-          uploadImageButton={uploadImageButton}
-          informationButton={informationButton}
-          sharedButton={sharedButton}
-          downloadButton={downloadButton}
         />
         <p>{text}</p>
         <Button onClick={() => setText(example)}>clear</Button>

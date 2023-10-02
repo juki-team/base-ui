@@ -28,5 +28,6 @@ export * from './SimpleSortableRows';
 export * from './SplitPane';
 export * from './Tabs';
 export * from './TimerClock';
+export * from './Tooltip';
 export * from './Translate';
 export * from './graphics';

@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { ReactNodeOrFunctionP1Type, TriggerOffActionsType, TriggerOnActionsType } from '../../types';
 
 export type PlacementType =
@@ -18,7 +17,7 @@ export type PlacementType =
   | 'centerScreen';
 
 export interface PopoverProps {
-  content: ReactNode | ((prop: { isOpen: boolean, onClose: (timeout: number) => void }) => ReactNode),
+  content: ReactNodeOrFunctionP1Type<{ isOpen: boolean, onClose: (timeout: number) => void }>,
   placement?: PlacementType,
   visible?: boolean,
   onVisibleChange?: (visible: boolean) => void,

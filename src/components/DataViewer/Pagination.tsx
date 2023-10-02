@@ -1,29 +1,31 @@
 import React, { useEffect } from 'react';
-import { classNames } from '../../helpers';
 import {
   DoubleUpIcon,
   LoadingIcon,
   NavigateBeforeIcon,
   NavigateNextIcon,
   PaginationProps,
-  Popover,
   Select,
   T,
+  Tooltip,
   useT,
-} from '../index';
+} from '../';
+import { classNames } from '../../helpers';
 
 const SIZE_PAGES = 3;
 
-export const Pagination = ({
-  total,
-  page,
-  pageSize,
-  loading,
-  pageSizeOptions,
-  jumpToPage,
-  onPageSizeChange,
-  isOnToolbar,
-}: PaginationProps) => {
+export const Pagination = (props: PaginationProps) => {
+  
+  const {
+    total,
+    page,
+    pageSize,
+    loading,
+    pageSizeOptions,
+    jumpToPage,
+    onPageSizeChange,
+    isOnToolbar,
+  } = props;
   
   const startPage = 1;
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
@@ -33,8 +35,8 @@ export const Pagination = ({
     if (page < startPage || endPage < page) {
       jumpToPage(startPage);
     }
-  }, [endPage, jumpToPage, page]);
-  const pages = [page];
+  }, [ endPage, jumpToPage, page ]);
+  const pages = [ page ];
   const right = endPage - page;
   if (page > 1) {
     pages.splice(0, 0, page - 1);
@@ -62,36 +64,34 @@ export const Pagination = ({
         {isOnToolbar ? (
           <div className="jk-row nowrap">
             <div className="jk-row nowrap">
-              <Popover content={<T>previous</T>} showPopperArrow>
+              <Tooltip content={<T>previous</T>}>
                 <div
                   className={classNames('page-item jk-row jk-border-radius', { disabled: page === startPage })}
                   onClick={prev}
                 >
                   <NavigateBeforeIcon className="jk-br-ie clickable" />
                 </div>
-              </Popover>
-              <Popover
-                content={<div className="jk-row nowrap">{page}&nbsp;<T>page</T>&nbsp;
-                  <T>of</T>&nbsp;{endPage}&nbsp;<T>pages</T>
-                </div>}
-                showPopperArrow
+              </Tooltip>
+              <Tooltip
+                content={(
+                  <div className="jk-row nowrap">
+                    {page}&nbsp;<T>page</T>&nbsp;<T>of</T>&nbsp;{endPage}&nbsp;<T>pages</T>
+                  </div>
+                )}
               >
                 <div className="jk-row nowrap">{page}&nbsp;<T>of</T>&nbsp;{endPage}</div>
-              </Popover>
-              <Popover content={<T>next</T>} showPopperArrow>
+              </Tooltip>
+              <Tooltip content={<T>next</T>}>
                 <div
                   className={classNames('page-item jk-row jk-border-radius', { disabled: page === endPage })}
                   onClick={next}
                 >
                   <NavigateNextIcon className="jk-br-ie clickable" />
                 </div>
-              </Popover>
+              </Tooltip>
             </div>
             {pageSizeOptions.length > 1 && (
-              <Popover
-                content={<T className="tt-se ws-np">records per page</T>}
-                showPopperArrow
-              >
+              <Tooltip content={<T className="tt-se ws-np">records per page</T>}>
                 <div>
                   <Select
                     options={pageSizeOptions.map(option => ({ value: option, label: option }))}
@@ -100,7 +100,7 @@ export const Pagination = ({
                     optionsPlacement="bottom"
                   />
                 </div>
-              </Popover>
+              </Tooltip>
             )}
           </div>
         ) : (

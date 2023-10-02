@@ -1,0 +1,13 @@
+@import "react-tooltip/dist/react-tooltip.css";
+
+:root {
+  --rt-color-dark: var(--t-color-white) !important;
+  --rt-color-white: var(--t-color-black-2) !important;
+}
+
+.react-tooltip {
+  z-index: var(--z-index-tooltip);
+  filter: drop-shadow(0 0 2px rgba(var(--t-color-black-rgb), 0.3));
+  opacity: 1 !important;
+  padding: 6px 8px !important;
+}

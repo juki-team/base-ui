@@ -4,15 +4,21 @@ import { isTrigger } from '../helpers';
 import { BoundingClientRectType, NotUndefined } from '../types';
 import { useKeyPress, useOutsideAlerterAnd } from './custom';
 
-export const useTriggerWrapper = ({
-  triggerOn,
-  triggerOff,
-  triggerOnDelayInMs: { hover: hoverOnDelayInMs = 0, click: clickOnDelayInMs = 0 },
-  triggerOffDelayInMs: { hover: hoverOffDelayInMs = 0, click: clickOffDelayInMs = 0, escape: escapeOffDelayInMs = 0 },
-  visible,
-  onVisibleChange,
-  withOutsideAlerter,
-}: UseTriggerWrapperProps) => {
+export const useTriggerWrapper = (props: UseTriggerWrapperProps) => {
+  
+  const {
+    triggerOn,
+    triggerOff,
+    triggerOnDelayInMs: { hover: hoverOnDelayInMs = 0, click: clickOnDelayInMs = 0 },
+    triggerOffDelayInMs: {
+      hover: hoverOffDelayInMs = 0,
+      click: clickOffDelayInMs = 0,
+      escape: escapeOffDelayInMs = 0,
+    },
+    visible,
+    onVisibleChange,
+    withOutsideAlerter,
+  } = props;
   
   const timerIds = useRef<Array<ReturnType<typeof setTimeout>>>([]);
   const closeEventRef = useRef(false);
@@ -20,8 +26,8 @@ export const useTriggerWrapper = ({
   const outsideAlerterRef2 = useRef<any>(null);
   const outsideAlerterRef3 = useRef<any>(null);
   const outsideAlerterRef4 = useRef<any>(null);
-  const [isOpen, _setIsOpen] = useState(false);
-  const [onMouseEnterCounter, setOnMouseEnterCounter] = useState(0);
+  const [ isOpen, _setIsOpen ] = useState(false);
+  const [ onMouseEnterCounter, setOnMouseEnterCounter ] = useState(0);
   
   const openRef = useRef(isOpen);
   useEffect(() => {
@@ -29,7 +35,7 @@ export const useTriggerWrapper = ({
       _setIsOpen(visible);
       openRef.current = JSON.parse(JSON.stringify(visible));
     }
-  }, [visible]);
+  }, [ visible ]);
   
   const clearTimers = () => {
     while (timerIds.current.length) {
@@ -47,18 +53,18 @@ export const useTriggerWrapper = ({
       }
     }, delayInMs);
     timerIds.current.push(hoverToggleId);
-  }, [onVisibleChange, visible]);
+  }, [ onVisibleChange, visible ]);
   
   const setOnVisible = useCallback((delay: number) => {
     clearTimers();
     toggleSchedule(true, delay);
-  }, [toggleSchedule]);
+  }, [ toggleSchedule ]);
   
   const setOffVisible = useCallback((delay: number) => {
     setOnMouseEnterCounter(0);
     clearTimers();
     toggleSchedule(false, delay);
-  }, [toggleSchedule]);
+  }, [ toggleSchedule ]);
   
   useKeyPress((event: KeyboardEvent) => {
     if (isOpen && event.code === 'Escape' && isTrigger(triggerOff, 'escape')) {
@@ -77,14 +83,14 @@ export const useTriggerWrapper = ({
     }
   }, outsideAlerterRef1, outsideAlerterRef2, outsideAlerterRef3, outsideAlerterRef4);
   
-  const [childBoundingClientRect, _setChildBoundingClientRect] = useState<BoundingClientRectType>({
+  const [ childBoundingClientRect, _setChildBoundingClientRect ] = useState<BoundingClientRectType>({
     bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0, x: 0, y: 0,
   });
   useEffect(() => {
     if (isTrigger(triggerOff, 'hover') && onMouseEnterCounter <= 0) {
       setOffVisible(hoverOffDelayInMs);
     }
-  }, [hoverOffDelayInMs, onMouseEnterCounter, setOffVisible, triggerOff]);
+  }, [ hoverOffDelayInMs, onMouseEnterCounter, setOffVisible, triggerOff ]);
   
   const setBoundingClientRect = (newValue: BoundingClientRectType) => {
     if (JSON.stringify(newValue) !== JSON.stringify(childBoundingClientRect) && newValue?.width && newValue?.height) {
@@ -93,12 +99,12 @@ export const useTriggerWrapper = ({
   };
   
   const childProps = ({
-    props: {
-      onClick = undefined,
-      onMouseEnter = undefined,
-      onMouseLeave = undefined,
-    } = {},
-  }: any) => ({
+                        props: {
+                          onClick = undefined,
+                          onMouseEnter = undefined,
+                          onMouseLeave = undefined,
+                        } = {},
+                      }: any) => ({
     ref: (e: any) => {
       setBoundingClientRect(e?.getBoundingClientRect()?.toJSON()); // valid on target too
     },
@@ -132,13 +138,13 @@ export const useTriggerWrapper = ({
     if (isTrigger(triggerOn, 'hover')) {
       setOnMouseEnterCounter(prevState => prevState + 1);
     }
-  }, [triggerOn]);
+  }, [ triggerOn ]);
   
   const onMouseLeave = useCallback(() => {
     if (isTrigger(triggerOn, 'hover')) {
       setOnMouseEnterCounter(prevState => prevState - 1);
     }
-  }, [triggerOn]);
+  }, [ triggerOn ]);
   
   return {
     isOpen,
@@ -163,13 +169,13 @@ export const useHandleState = <T, >(
   defaultState: NotUndefined<T>,
   initialState: NotUndefined<T> | undefined,
   onChange?: (value: NotUndefined<T>) => void,
-): [NotUndefined<T>, (value: NotUndefined<T> | F<T>) => void] => {
-  const [state, _setState] = useState<NotUndefined<T>>(initialState || defaultState);
+): [ NotUndefined<T>, (value: NotUndefined<T> | F<T>) => void ] => {
+  const [ state, _setState ] = useState<NotUndefined<T>>(initialState || defaultState);
   useEffect(() => {
     if (initialState !== undefined) {
       _setState(initialState);
     }
-  }, [initialState]);
+  }, [ initialState ]);
   
   const setState = useCallback((value: NotUndefined<T> | F<T>) => {
     if (initialState === undefined || !onChange) {
@@ -181,7 +187,7 @@ export const useHandleState = <T, >(
         onChange?.(value as NotUndefined<T>);
       }
     }
-  }, [initialState, onChange, state]);
+  }, [ initialState, onChange, state ]);
   
-  return [state, setState];
+  return [ state, setState ];
 };

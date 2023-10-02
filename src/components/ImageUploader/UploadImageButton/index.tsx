@@ -1,17 +1,27 @@
 import React, { Dispatch, MutableRefObject, ReactNode, useState } from 'react';
-import { Button, CloudUploadIcon, ImageUploaderModal, onPickImageUrlType, Popover, T } from '../../index';
+import { Button, CloudUploadIcon, ImageUploaderModal, onPickImageUrlType, T, Tooltip } from '../../index';
 
 type ChildrenProps = { open: boolean, setOpen: Dispatch<boolean>, withLabel: boolean };
 
-export const UploadImageButton = ({
-  isOpenRef,
-  withLabel = false,
-  copyButtons,
-  onPickImageUrl,
-  children: _children,
-}: { isOpenRef?: MutableRefObject<boolean>, withLabel?: boolean, copyButtons?: boolean, onPickImageUrl?: onPickImageUrlType, children?: (props: ChildrenProps) => ReactNode }) => {
+interface UploadImageButtonProps {
+  isOpenRef?: MutableRefObject<boolean>,
+  withLabel?: boolean,
+  copyButtons?: boolean,
+  onPickImageUrl?: onPickImageUrlType,
+  children?: (props: ChildrenProps) => ReactNode
+}
+
+export const UploadImageButton = (props: UploadImageButtonProps) => {
   
-  const [open, setOpen] = useState(false);
+  const {
+    isOpenRef,
+    withLabel = false,
+    copyButtons,
+    onPickImageUrl,
+    children: _children,
+  } = props;
+  
+  const [ open, setOpen ] = useState(false);
   if (isOpenRef) {
     isOpenRef.current = open;
   }
@@ -26,16 +36,15 @@ export const UploadImageButton = ({
   
   return (
     <>
-      <Popover
+      <Tooltip
         content={<T className="ws-np tt-se">upload image</T>}
         placement="bottom"
         visible={withLabel ? false : undefined}
-        showPopperArrow
       >
         <div>
           {children({ open, setOpen, withLabel })}
         </div>
-      </Popover>
+      </Tooltip>
       <ImageUploaderModal
         isOpen={open}
         onClose={() => setOpen(false)}

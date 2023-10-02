@@ -4,6 +4,7 @@ import { classNames, renderReactNodeOrFunction } from '../../helpers';
 import { useJukiUI } from '../../hooks';
 import { FilterListIcon, LoadingIcon, MenuIcon, ReloadIcon, ViewHeadlineIcon, ViewModuleIcon } from '../graphics';
 import { Popover } from '../Popover';
+import { Tooltip } from '../Tooltip';
 import { T } from '../Translate';
 import { FilterDrawer } from './FilterDrawer';
 import { Pagination } from './Pagination';
@@ -75,9 +76,8 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
           
           {onReload && (
             <>
-              <Popover
+              <Tooltip
                 content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
-                showPopperArrow
               >
                 <div
                   className={classNames({ active: loading, loading }, 'jk-row')}
@@ -85,11 +85,11 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                 >
                   {loading ? <LoadingIcon /> : <ReloadIcon className="jk-br-ie clickable" />}
                 </div>
-              </Popover>
+              </Tooltip>
               <div className="jk-divider horizontal" />
             </>
           )}
-          <Popover
+          <Tooltip
             content={
               dataLength
                 ? <div className="jk-row nowrap tt-se ws-np">{dataLength}&nbsp;
@@ -97,12 +97,11 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                           <T>of</T>&nbsp;{paginationData.pagination.total}&nbsp;<T>records</T></>}</div>
                 : <T className="tt-se ws-np">no data</T>
             }
-            showPopperArrow
           >
             <div className="no-records tx-t fw-bd jk-tag gray-6" style={{ marginLeft: '4px' }}>
               {dataLength}{paginationData.pagination?.total ? '/' + paginationData.pagination.total : ''}
             </div>
-          </Popover>
+          </Tooltip>
           {paginationData.pagination && (
             <>
               <Pagination
@@ -122,14 +121,14 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
           {viewFilterButton && (
             <>
               {onColumn && <div className="jk-divider horizontal" />}
-              <Popover content={<T className="ws-np">open filters</T>} showPopperArrow>
+              <Tooltip content={<T className="ws-np">open filters</T>}>
                 <div
                   className={classNames({ active: filtered }, 'jk-row')}
                   onClick={() => setShowFilterDrawer(true)}
                 >
                   <FilterListIcon className="jk-br-ie clickable" />
                 </div>
-              </Popover>
+              </Tooltip>
             </>
           )}
           {viewViews && (
@@ -137,7 +136,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               <div className="jk-divider horizontal" />
               <div className={classNames('jk-row nowrap jk-table-view-tools-view-mode', { rowsView, cardsView })}>
                 {rowsView && (
-                  <Popover content={<T className="tt-se ws-np">list view</T>} showPopperArrow>
+                  <Tooltip content={<T className="tt-se ws-np">list view</T>}>
                     <div
                       className={classNames({ active: viewMode === DataViewMode.ROWS }, 'jk-row')}
                       onClick={() => setViewMode(DataViewMode.ROWS)}
@@ -149,10 +148,10 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                         )}
                       />
                     </div>
-                  </Popover>
+                  </Tooltip>
                 )}
                 {cardsView && (
-                  <Popover content={<T className="tt-se ws-np">cards view</T>} showPopperArrow>
+                  <Tooltip content={<T className="tt-se ws-np">cards view</T>}>
                     <div
                       className={classNames({ active: viewMode === DataViewMode.CARDS }, 'jk-row')}
                       onClick={() => setViewMode(DataViewMode.CARDS)}
@@ -164,7 +163,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                         )}
                       />
                     </div>
-                  </Popover>
+                  </Tooltip>
                 )}
               </div>
             </>
