@@ -1,11 +1,20 @@
-import React, { PropsWithChildren, useState } from 'react';
+import React, { PropsWithChildren } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { useHandleState } from '../../hooks';
 import { CollapseProps } from './types';
 
-export const Collapse = ({ children, header, className }: PropsWithChildren<CollapseProps>) => {
+export const Collapse = (props: PropsWithChildren<CollapseProps>) => {
   
-  const [isOpen, setIsOpen] = useState(false);
+  const {
+    children,
+    header,
+    className,
+    showContent: _showContent,
+    onChangeShowContent: _onChangeShowContent,
+  } = props;
+  
+  const [ isOpen, setIsOpen ] = useHandleState(false, _showContent, _onChangeShowContent);
   const { height = 0, ref } = useResizeDetector();
   
   const open = () => setIsOpen(true);
