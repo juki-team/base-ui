@@ -6,3 +6,7 @@
     @include transition(height);
   }
 }
+
+.ReactCollapse--collapse {
+  @include transition(height);
+}

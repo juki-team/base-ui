@@ -29,8 +29,12 @@ export const Collapse = () => {
           </div>
         )}
       >
-        <div>
+        <div style={{ background: 'blue' }}>
           Texto Collapsable
+          <div>Texto Collapsable</div>
+          <div>Texto Collapsable</div>
+          <div>Texto Collapsable</div>
+          <div>Texto Collapsable</div>
         </div>
       </CollapseComponent>
       <ToggleThemeButton />
