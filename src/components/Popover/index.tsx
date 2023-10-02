@@ -5,25 +5,26 @@ import { useTriggerWrapper, useWindowSize } from '../../hooks';
 import { BoundingClientRectType } from '../../types';
 import { Portal } from '../Basic';
 import { Div } from '../index';
-
 import { PopoverProps } from './types';
 
-export const Popover = ({
-  children,
-  content,
-  placement = 'top',
-  visible,
-  onVisibleChange,
-  triggerOn = 'hover',
-  triggerOff = triggerOn,
-  triggerOnDelayInMs = { hover: 0, click: 0, none: 0 },
-  triggerOffDelayInMs = { hover: 0, click: 0, escape: 0, none: 0 },
-  popoverClassName,
-  showPopperArrow = false,
-  keepMounted = false,
-  popoverContentClassName,
-  marginOfChildren = 12, // --pad-t: 12px;
-}: PopoverProps) => {
+export const Popover = (props: PopoverProps) => {
+  
+  const {
+    children,
+    content,
+    placement = 'top',
+    visible,
+    onVisibleChange,
+    triggerOn = 'hover',
+    triggerOff = triggerOn,
+    triggerOnDelayInMs = { hover: 0, click: 0, none: 0 },
+    triggerOffDelayInMs = { hover: 0, click: 0, escape: 0, none: 0 },
+    popoverClassName,
+    showPopperArrow = false,
+    keepMounted = false,
+    popoverContentClassName,
+    marginOfChildren = 12, // --pad-t: 12px;
+  } = props;
   
   const {
     isOpen,
@@ -63,7 +64,7 @@ export const Popover = ({
   //   return () => clearTimeout(timeout);
   // }, [isOpen, setOffVisible, setOnVisible, onMouseEnterCounter, setOnMouseEnterCounter, triggerOn]);
   
-  const [boundingClientRectContent, _setBoundingClientRectContent] = useState<BoundingClientRectType>({
+  const [ boundingClientRectContent, _setBoundingClientRectContent ] = useState<BoundingClientRectType>({
     bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0, x: 0, y: 0,
   });
   
@@ -209,7 +210,10 @@ export const Popover = ({
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
-            <div ref={e => setBoundingClientRectContent(e?.getBoundingClientRect()?.toJSON())} className={popoverClassName}>
+            <div
+              ref={e => setBoundingClientRectContent(e?.getBoundingClientRect()?.toJSON())}
+              className={popoverClassName}
+            >
               <div className={classNames('jk-popover-content bc-we jk-border-radius-inline jk-pad-sm', popoverContentClassName)}>
                 {renderReactNodeOrFunctionP1(content, { isOpen, onClose: setOffVisible })}
               </div>
@@ -229,20 +233,22 @@ export const Popover = ({
   );
 };
 
-export const PopoverOld = ({
-  children,
-  content,
-  placement = 'top',
-  visible,
-  onVisibleChange,
-  triggerOn = 'hover',
-  triggerOff = triggerOn,
-  triggerOnDelayInMs = { hover: 0, click: 0, none: 0 },
-  triggerOffDelayInMs = { hover: 0, click: 0, escape: 0, none: 0 },
-  popoverClassName = '',
-  showPopperArrow = false,
-  keepMounted = false,
-}: PropsWithChildren<PopoverProps>) => {
+export const PopoverOld = (props: PropsWithChildren<PopoverProps>) => {
+  
+  const {
+    children,
+    content,
+    placement = 'top',
+    visible,
+    onVisibleChange,
+    triggerOn = 'hover',
+    triggerOff = triggerOn,
+    triggerOnDelayInMs = { hover: 0, click: 0, none: 0 },
+    triggerOffDelayInMs = { hover: 0, click: 0, escape: 0, none: 0 },
+    popoverClassName = '',
+    showPopperArrow = false,
+    keepMounted = false,
+  } = props;
   
   const {
     isOpen,
@@ -263,7 +269,7 @@ export const PopoverOld = ({
     triggerOffDelayInMs,
   });
   
-  const [boundingClientRectContent, _setBoundingClientRectContent] = useState<BoundingClientRectType>({
+  const [ boundingClientRectContent, _setBoundingClientRectContent ] = useState<BoundingClientRectType>({
     bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0, x: 0, y: 0,
   });
   
@@ -402,9 +408,12 @@ export const PopoverOld = ({
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
           >
-            <div ref={e => setBoundingClientRectContent(e?.getBoundingClientRect()?.toJSON())} className={popoverClassName}>
+            <div
+              ref={e => setBoundingClientRectContent(e?.getBoundingClientRect()?.toJSON())}
+              className={popoverClassName}
+            >
               <div className="jk-popover-content">
-                {typeof content === 'function' ? content({ isOpen: display, onClose: setOffVisible }) : content}
+                {renderReactNodeOrFunctionP1(content, { isOpen: display, onClose: setOffVisible })}
               </div>
             </div>
           </Div>

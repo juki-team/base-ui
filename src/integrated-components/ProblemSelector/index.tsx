@@ -14,10 +14,10 @@ import {
   Input,
   LoadingIcon,
   MultiSelectSearchable,
-  Popover,
   ReloadIcon,
   Select,
   T,
+  Tooltip,
   useNotification,
 } from '../../components';
 import { settings } from '../../config';
@@ -196,7 +196,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
               />
             </div>
           }
-          <Popover
+          <Tooltip
             content={<T>reload</T>}
             placement="left"
           >
@@ -206,7 +206,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
                 onClick={() => setTimestampTrigger(Date.now())}
               />
             </div>
-          </Popover>
+          </Tooltip>
         </div>
       </div>
     </div>
