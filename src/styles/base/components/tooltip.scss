@@ -1,6 +1,6 @@
 @import "react-tooltip/dist/react-tooltip.css";
 
-:root {
+.jk-theme-light, .jk-theme-dark {
   --rt-color-dark: var(--t-color-white) !important;
   --rt-color-white: var(--t-color-black-2) !important;
 }
