@@ -94,6 +94,7 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
         size={viewPortSize === 'sm' ? 'small' : undefined}
         icon={!collapsed && <LoginIcon />}
         extend
+        style={popoverPlacement === 'rightBottom' ? { margin: '0 var(--pad-xt)' } : undefined}
       >
         {!collapsed ? <T className="ws-np ws-np">sign in</T> : <LoginIcon />}
       </Button>
