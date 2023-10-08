@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
 import { renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useTriggerWrapper } from '../../hooks';
+import { NONE } from '../../types';
 import { DrawerView } from './DrawerView';
 import { DrawerProps } from './types';
 
-export const Drawer = ({
-  content,
-  children,
-  triggerOn = 'click',
-  triggerOnDelayInMs = { hover: 0, click: 0, none: 0 },
-  position,
-  closeIcon,
-  closeOnEscape,
-  closeOnOutside,
-}: DrawerProps) => {
-  const [visible, setVisible] = useState(false);
+export const Drawer = (props: DrawerProps) => {
+  
+  const {
+    content,
+    children,
+    triggerOn = 'click',
+    triggerOnDelayInMs = { hover: 0, click: 0, none: 0 },
+    position,
+    closeIcon,
+    closeOnEscape,
+    closeOnOutside,
+  } = props;
+  const [ visible, setVisible ] = useState(false);
   
   const { isOpen, childProps } = useTriggerWrapper({
     visible,
@@ -32,16 +35,18 @@ export const Drawer = ({
   
   return (
     <>
-      <DrawerView
-        isOpen={isOpen}
-        position={position}
-        closeWhenKeyEscape={closeOnEscape}
-        closeWhenClickOutside={closeOnOutside}
-        onClose={onClose}
-        closeIcon={closeIcon}
-      >
-        {renderReactNodeOrFunctionP1(content, { isOpen, onOpen: open, onClose: close, toggle })}
-      </DrawerView>
+      {triggerOn !== NONE && (
+        <DrawerView
+          isOpen={isOpen}
+          position={position}
+          closeWhenKeyEscape={closeOnEscape}
+          closeWhenClickOutside={closeOnOutside}
+          onClose={onClose}
+          closeIcon={closeIcon}
+        >
+          {renderReactNodeOrFunctionP1(content, { isOpen, onOpen: open, onClose: close, toggle })}
+        </DrawerView>
+      )}
       {typeof children === 'function' ?
         renderChildrenWithProps(children({ isOpen, onOpen: open, onClose: close, toggle }), childProps(children({
           isOpen,

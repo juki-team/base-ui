@@ -157,7 +157,7 @@
   width: 100%;
   --height-jk-menu-item: var(--top-horizontal-menu-height);
   flex-direction: column;
-  overflow-x: auto;
+  overflow: hidden;
   
   > .jk-menu {
     height: var(--top-horizontal-menu-height);
