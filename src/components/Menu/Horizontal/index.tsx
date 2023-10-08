@@ -47,6 +47,13 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
     }
   }
   
+  const drawerProps = {
+    isOpen: false,
+    onOpen: () => null,
+    onClose: () => null,
+    toggle: () => null,
+  }
+  
   return (
     <div className={classNames('jk-horizontal-menu-layout-container', className)}>
       <header className="jk-menu jk-top-horizontal-menu">
@@ -86,32 +93,40 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
           </div>
           <div className="jk-horizontal-menu-mobile-center jk-row stretch">
             {!!centerMobile && (
-              <Drawer
-                content={props => renderReactNodeOrFunctionP1(centerMobile.content, props)}
-                position="top"
-                closeIcon={false}
-                triggerOn={!!centerMobile.content ? NONE : undefined}
-                closeOnOutside
-              >
-                {(props: DrawerActionsType): ReactNode => renderReactNodeOrFunctionP1(centerMobile.children, props)}
-              </Drawer>
+              centerMobile.content ? (
+                <Drawer
+                  content={props => renderReactNodeOrFunctionP1(centerMobile.content, props)}
+                  position="top"
+                  closeIcon={false}
+                  closeOnOutside
+                >
+                  {(props: DrawerActionsType): ReactNode => renderReactNodeOrFunctionP1(centerMobile.children, props)}
+                </Drawer>
+              ) : (
+                renderReactNodeOrFunctionP1(centerMobile.children, drawerProps)
+              )
             )}
           </div>
           <div className="jk-horizontal-menu-mobile-right jk-row stretch right">
             {!!rightMobile && (
-              <Drawer
-                content={props => renderReactNodeOrFunctionP1(rightMobile.content, props)}
-                position="right"
-                closeIcon={false}
-                triggerOn={!!rightMobile.content ? NONE : undefined}
-                closeOnOutside
-              >
-                {(props: DrawerActionsType): ReactNode => (
-                  <div className="jk-row sides-mobile-padding">
-                    {renderReactNodeOrFunctionP1(rightMobile.children, props)}
-                  </div>
-                )}
-              </Drawer>
+              rightMobile.content ? (
+                <Drawer
+                  content={props => renderReactNodeOrFunctionP1(rightMobile.content, props)}
+                  position="right"
+                  closeIcon={false}
+                  closeOnOutside
+                >
+                  {(props: DrawerActionsType): ReactNode => (
+                    <div className="jk-row sides-mobile-padding">
+                      {renderReactNodeOrFunctionP1(rightMobile.children, props)}
+                    </div>
+                  )}
+                </Drawer>
+              ) : (
+                <div className="jk-row sides-mobile-padding">
+                  {renderReactNodeOrFunctionP1(rightMobile.children, drawerProps)}
+                </div>
+              )
             )}
           </div>
         </section>

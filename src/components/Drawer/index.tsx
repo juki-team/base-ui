@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useTriggerWrapper } from '../../hooks';
-import { NONE } from '../../types';
 import { DrawerView } from './DrawerView';
 import { DrawerProps } from './types';
 
@@ -35,18 +34,16 @@ export const Drawer = (props: DrawerProps) => {
   
   return (
     <>
-      {triggerOn !== NONE && (
-        <DrawerView
-          isOpen={isOpen}
-          position={position}
-          closeWhenKeyEscape={closeOnEscape}
-          closeWhenClickOutside={closeOnOutside}
-          onClose={onClose}
-          closeIcon={closeIcon}
-        >
-          {renderReactNodeOrFunctionP1(content, { isOpen, onOpen: open, onClose: close, toggle })}
-        </DrawerView>
-      )}
+      <DrawerView
+        isOpen={isOpen}
+        position={position}
+        closeWhenKeyEscape={closeOnEscape}
+        closeWhenClickOutside={closeOnOutside}
+        onClose={onClose}
+        closeIcon={closeIcon}
+      >
+        {renderReactNodeOrFunctionP1(content, { isOpen, onOpen: open, onClose: close, toggle })}
+      </DrawerView>
       {typeof children === 'function' ?
         renderChildrenWithProps(children({ isOpen, onOpen: open, onClose: close, toggle }), childProps(children({
           isOpen,
