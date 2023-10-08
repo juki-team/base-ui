@@ -35,7 +35,7 @@ export interface ButtonProps extends ButtonBasicProps {
 // export type ButtonLoaderOnClick = (setLoader: ButtonLoaderActionType, loader: ButtonLoaderStateType, event?: MouseEvent<HTMLButtonElement>) => void;
 export type LoaderStatusOnClickType = [Status, number];
 export type SetLoaderStatusOnClickType = (status: (Status | ((props: LoaderStatusOnClickType) => LoaderStatusOnClickType)), timestamp?: number) => void;
-export type ButtonLoaderOnClickType = (setLoaderStatus: SetLoaderStatusOnClickType, loaderStatus: LoaderStatusOnClickType, event: OnClickButtonEventType) => void;
+export type ButtonLoaderOnClickType = (setLoaderStatus: SetLoaderStatusOnClickType, loaderStatus: LoaderStatusOnClickType, event: OnClickButtonEventType) => (Promise<void> | void);
 
 export interface ButtonLoaderProps extends ButtonBasicProps {
   withIconTransition?: boolean,
