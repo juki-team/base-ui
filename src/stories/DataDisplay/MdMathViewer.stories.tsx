@@ -1,8 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { SAMPLE_MD_CONTENT } from '../../constants';
-import { MdMathViewer, MdMathViewerProps } from '../../index';
+import { MdMathViewer, MdMathViewerProps, SAMPLE_MD_CONTENT } from '../../index';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 // import { JukiProvider } from '../JukiProvider';
 

@@ -1,4 +1,5 @@
 export * from './commons';
+export * from './date';
 export * from './notify';
 export * from './pageVisibility';
 export * from './problem';

@@ -2,6 +2,7 @@ import { Status } from '@juki-team/commons';
 import { ReactNode } from 'react';
 
 export type ReactNodeOrFunctionType = ReactNode | (() => ReactNode);
+
 export type ReactNodeOrFunctionP1Type<T> = ReactNode | ((prop1: T) => ReactNode);
 
 export const HOVER = 'hover';

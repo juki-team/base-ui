@@ -1,6 +1,6 @@
 import { consoleWarn, getProblemJudgeKey, HTTPMethod, Judge, UserSettingsType } from '@juki-team/commons';
 import { ErrorInfo } from 'react';
-import { LoginFormType } from '../integrated-components';
+import { LoginFormType } from '../components';
 import { AuthorizedRequestType } from '../services';
 import { SignUpPayloadDTO, UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';
 
@@ -93,8 +93,8 @@ export class Settings {
           body: JSON.stringify(body),
         })),
         resetPassword: valid<{ params: { companyKey: string, nickname: string } }>(({
-          params: { companyKey, nickname },
-        }) => ({
+                                                                                      params: { companyKey, nickname },
+                                                                                    }) => ({
           url: injectBaseUrl('auth', `/company/${companyKey}/nickname/${nickname}/reset-password`),
           method: HTTPMethod.POST,
         })),
@@ -114,25 +114,25 @@ export class Settings {
           method: HTTPMethod.GET,
         })),
         updateProfileData: valid<{ params: { nickname: string }, body: UpdateUserProfileDataPayloadDTO }>(({
-          params: { nickname },
-          body,
-        }) => ({
+                                                                                                             params: { nickname },
+                                                                                                             body,
+                                                                                                           }) => ({
           url: injectBaseUrl('user', `/nickname/${nickname}/profile-data`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
         updateProfileImage: valid<{ params: { nickname: string }, body: FormData }>(({
-          params: { nickname },
-          body,
-        }) => ({
+                                                                                       params: { nickname },
+                                                                                       body,
+                                                                                     }) => ({
           url: injectBaseUrl('user', `/nickname/${nickname}/profile-image`),
           method: HTTPMethod.PUT,
           body,
         })),
         updatePreferences: valid<{ params: { nickname: string }, body: UserSettingsType }>(({
-          params: { nickname },
-          body,
-        }) => ({
+                                                                                              params: { nickname },
+                                                                                              body,
+                                                                                            }) => ({
           url: injectBaseUrl('user', `/nickname/${nickname}/preferences`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
@@ -144,13 +144,18 @@ export class Settings {
       },
       problem: {
         list: valid<{ params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }>(({
-          params: { page, size, filterUrl, sortUrl },
-        }) => ({
+                                                                                                         params: {
+                                                                                                           page,
+                                                                                                           size,
+                                                                                                           filterUrl,
+                                                                                                           sortUrl,
+                                                                                                         },
+                                                                                                       }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/list?'), page, size), filterUrl), sortUrl),
         })),
         summary: valid<{ params: { judge: Judge, key: string } }>(({
-          params: { judge, key },
-        }) => ({
+                                                                     params: { judge, key },
+                                                                   }) => ({
           url: injectBaseUrl('problem', `/${getProblemJudgeKey(judge, key)}/summary`),
         })),
       },

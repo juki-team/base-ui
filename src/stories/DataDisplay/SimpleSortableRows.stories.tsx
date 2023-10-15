@@ -1,6 +1,6 @@
 import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
-import { RowSortableItem, SimpleSortableRows as SimpleSortableRowsComponent } from '../../components/SimpleSortableRows';
+import { RowSortableItem, SimpleSortableRows as SimpleSortableRowsComponent } from '../../components/molecules/SimpleSortableRows';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {

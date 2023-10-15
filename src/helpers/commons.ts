@@ -1,8 +1,8 @@
 import { stringToArrayBuffer } from '@juki-team/commons';
 import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
 import { utils, write } from 'xlsx';
+import { publishNote } from '..';
 import { settings } from '../config';
-import { publishNote } from '../helpers/utils';
 import { authorizedRequest } from '../services';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerActionsType } from '../types';
 
@@ -63,13 +63,13 @@ export const downloadLink = (href: string, fileName: string) => {
 export async function downloadBlobAsFile(data: Blob, fileName: string = 'file') {
   // It is necessary to create a new blob object with mime-type explicitly set
   // otherwise only Chrome works like it should
-  const blob = new Blob([data], { type: data.type || 'application/octet-stream' });
+  const blob = new Blob([ data ], { type: data.type || 'application/octet-stream' });
   const blobURL = window?.URL.createObjectURL(blob);
   downloadLink(blobURL, fileName);
 }
 
 export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName: string = 'file.csv') => {
-  const blob = new Blob([data.map(e => e.join(',')).join('\n')], { type: 'text/csv' });
+  const blob = new Blob([ data.map(e => e.join(',')).join('\n') ], { type: 'text/csv' });
   const blobURL = window?.URL.createObjectURL(blob);
   downloadLink(blobURL, fileName);
 };
@@ -85,7 +85,7 @@ export const downloadXlsxAsFile = async (data: (string | number)[][], fileName: 
   workBook.SheetNames.push(sheetName);
   workBook.Sheets[sheetName] = utils.aoa_to_sheet(data);
   const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
-  const blob = new Blob([stringToArrayBuffer(workBookOut)], { type: 'application/octet-stream' });
+  const blob = new Blob([ stringToArrayBuffer(workBookOut) ], { type: 'application/octet-stream' });
   await downloadBlobAsFile(blob, fileName);
 };
 
@@ -123,7 +123,7 @@ type classType = string | { [key: string]: boolean };
 
 export const classNames = (c1: classType, c2?: classType, c3?: classType, c4?: classType, c5?: classType, c6?: classType, c7?: classType, c8?: classType, c9?: classType, c10?: classType, c11?: classType, c12?: classType, c13?: classType, c14?: classType, c15?: classType): string => {
   let classes = '';
-  [c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15].forEach(prop => {
+  [ c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15 ].forEach(prop => {
     if (prop) {
       if (typeof prop === 'string') {
         classes += (classes ? ' ' : '') + prop;

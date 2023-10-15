@@ -2,8 +2,8 @@ import { Status } from '@juki-team/commons';
 import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
+import { LoginModal, LoginModalComponentProps, SignUpModal } from '../../components';
 import { Button, LoginModalProps, SignUpModalProps } from '../../index';
-import { LoginModal, LoginModalComponentProps, SignUpModal } from '../../integrated-components';
 import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
@@ -23,7 +23,7 @@ configureActions({
 });
 
 const WrapSignUp = (props: SignUpModalProps) => {
-  const [open, setOpen] = useState(false);
+  const [ open, setOpen ] = useState(false);
   
   return (
     <JukiProvider>
@@ -34,7 +34,8 @@ const WrapSignUp = (props: SignUpModalProps) => {
           await new Promise(r => setTimeout(r, 2000));
           setLoaderStatus(Status.SUCCESS);
           setOpen(false);
-        }} />}
+        }}
+        />}
         <ToggleThemeButton />
       </div>
     </JukiProvider>
@@ -62,7 +63,7 @@ export const SignUPWithoutGoogle = () => (
 );
 
 const WrapLogin = (props: LoginModalProps) => {
-  const [open, setOpen] = useState(false);
+  const [ open, setOpen ] = useState(false);
   return (
     <JukiProvider>
       <div>

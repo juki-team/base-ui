@@ -2,7 +2,7 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
 
-import { Button, MdMathEditor as MdMathEditorComponent, MdMathEditorProps, SAMPLE_MD_CONTENT } from '../../index';
+import { Button, MdMathEditor as MdMathEditorComponent, MdMathEditorProps } from '../../index';
 import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 

@@ -1,6 +1,5 @@
 import { action, configureActions } from '@storybook/addon-actions';
 import React from 'react';
-import { SAMPLE_MD_CONTENT } from '../../constants/md';
 import {
   AppsIcon,
   Button,
@@ -12,7 +11,7 @@ import {
   JukiUtilsLogoHorImage,
   MdMathEditor,
   PlusIcon,
-  Popover,
+  Popover, SAMPLE_MD_CONTENT,
   SettingsIcon,
   T,
   VerticalMenu as VerticalMenuCmp,

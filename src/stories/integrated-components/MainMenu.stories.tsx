@@ -1,7 +1,13 @@
 import { action, configureActions } from '@storybook/addon-actions';
 import React from 'react';
-import { SAMPLE_MD_CONTENT } from '../../constants/md';
-import { FilterListIcon, MainMenu as MainMenuCmp, MdMathEditor, PlusIcon, ViewHeadlineIcon } from '../../index';
+import {
+  FilterListIcon,
+  MainMenu as MainMenuCmp,
+  MdMathEditor,
+  PlusIcon,
+  SAMPLE_MD_CONTENT,
+  ViewHeadlineIcon,
+} from '../../index';
 import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 

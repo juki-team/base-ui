@@ -1,16 +1,18 @@
 import { USER_GUEST } from '@juki-team/commons';
 import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
-import { Button, CalendarMonthIcon, EventIcon } from '../../components';
 import {
+  Button,
+  CalendarMonthIcon,
   ChangePasswordModal as UserChangePasswordModalCmp,
   DrawerViewMenuMobile as DrawerViewMenuMobileCmp,
+  EventIcon,
   ForgotPasswordModal as UserForgotPasswordModalCmp,
   ProblemSelector as ProblemSelectorComponent,
   UserPreviewModal as UserPreviewModalCmp,
   UserProfileSettings as UserProfileSettingsCmp,
   WelcomeModal as WelcomeModalCmp,
-} from '../../integrated-components';
+} from '../../components';
 import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 

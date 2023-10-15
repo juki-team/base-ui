@@ -12,13 +12,12 @@ import {
   UserSettingsType,
 } from '@juki-team/commons';
 import React, { useCallback, useContext, useState } from 'react';
-import { T, useNotification, UserContext } from '../components';
+import { LoginFormType, T, useNotification, UserContext } from '../components';
 import { settings } from '../config';
 import { localStorageCrossDomains } from '../helpers';
-import { useMatchMutate } from '../hooks';
-import { LoginFormType } from '../integrated-components';
 import { authorizedRequest, AuthorizedRequestType, cleanRequest } from '../services';
 import { SetStatusType, SignUpPayloadDTO, UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';
+import { useMatchMutate } from './swr';
 
 type ApiType<T> = {
   setLoader?: SetStatusType,

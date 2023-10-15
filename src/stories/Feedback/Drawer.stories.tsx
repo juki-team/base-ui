@@ -1,8 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { SAMPLE_MD_CONTENT } from '../../constants/md';
-import { Button, Drawer as DrawerComponent, DrawerProps, MdMathViewer } from '../../index';
+import { Button, Drawer as DrawerComponent, DrawerProps, MdMathViewer, SAMPLE_MD_CONTENT } from '../../index';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {

@@ -1,6 +1,6 @@
 import { UserSummaryResponseDTO } from '@juki-team/commons';
 import React, { useState } from 'react';
-import { UsersSelector as UsersSelectorComponent } from '../../integrated-components';
+import { UsersSelector as UsersSelectorComponent } from '../../components';
 import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 

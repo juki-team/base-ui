@@ -1,7 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { PropsWithChildren } from 'react';
-import { PageNotFound } from '../../integrated-components';
+import { PageNotFound } from '../../components';
 import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 

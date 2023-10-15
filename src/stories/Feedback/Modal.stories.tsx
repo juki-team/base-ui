@@ -1,7 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
+import { LoginModal } from '../../components';
 import { Button, Modal as ModalComponent } from '../../index';
-import { LoginModal } from '../../integrated-components';
 import { JukiProvider } from '../JukiProvider';
 import { ToggleThemeButton } from '../ToggleThemeButton';
 
@@ -21,16 +21,22 @@ configureActions({
 });
 
 const WrapModal = () => {
-  const [open, setOpen] = useState(false);
+  const [ open, setOpen ] = useState(false);
   
   return (
     <JukiProvider>
       <div>
         <Button onClick={() => setOpen(!open)}>Click</Button>
         {open && (
-          <ModalComponent isOpen={open} onClose={() => setOpen(false)} closeWhenClickOutside closeWhenKeyEscape closeIcon>
+          <ModalComponent
+            isOpen={open}
+            onClose={() => setOpen(false)}
+            closeWhenClickOutside
+            closeWhenKeyEscape
+            closeIcon
+          >
             <div>MODAL</div>
-            <div>content 1 </div>
+            <div>content 1</div>
             <div>content 2</div>
           </ModalComponent>
         )}

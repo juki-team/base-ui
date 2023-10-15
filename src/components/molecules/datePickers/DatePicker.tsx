@@ -1,0 +1,67 @@
+import React from 'react';
+import { classNames, showOfDateDisplayType } from '../../../helpers';
+import { Button, T } from '../../atoms';
+import { DayPicker } from './DayPicker';
+import { MonthPicker } from './MonthPicker';
+import { TimePicker } from './TimerPicker';
+import { DatePickerProps } from './types';
+import { YearPicker } from './YearPicker';
+
+export const DatePicker = (props: DatePickerProps) => {
+  
+  const {
+    todayButton = false,
+    date = new Date(),
+    isDisabled,
+    isSelected,
+    type = 'year-month-day-hours-minutes-seconds',
+    onChange,
+  } = props;
+  
+  const {
+    showYears,
+    showMonths,
+    showDays,
+    showHours,
+    showMinutes,
+    showSeconds,
+    showMilliseconds,
+  } = showOfDateDisplayType(type);
+  
+  return (
+    <div className="jk-date-picker-layout jk-col">
+      {showYears && !showMonths && !showDays && (
+        <YearPicker date={date} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
+      )}
+      {showYears && showMonths && !showDays && (
+        <MonthPicker date={date} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
+      )}
+      {showYears && showMonths && showDays && (
+        <DayPicker date={date} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
+      )}
+      {showHours && (
+        <>
+          {showYears && <div className="jk-divider tiny" />}
+          <div className={classNames('jk-row jk-date-picker-time', { 'only-time': !showYears })}>
+            {showYears && <div className="label-time fw-bd tt-se"><T>time</T>:</div>}
+            <TimePicker
+              date={date}
+              onChange={onChange}
+              showMinutes={showMinutes}
+              showSeconds={showSeconds}
+              showMilliseconds={showMilliseconds}
+              // isSelected={isSelected}
+              isDisabled={isDisabled}
+            />
+          </div>
+        </>
+      )}
+      {todayButton && (
+        <>
+          <div className="jk-divider tiny" />
+          <Button size="tiny" onClick={() => onChange(new Date())}>today</Button>
+        </>
+      )}
+    </div>
+  );
+};
