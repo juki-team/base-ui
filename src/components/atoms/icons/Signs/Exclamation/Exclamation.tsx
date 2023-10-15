@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { CirclePath, Segment } from '../../../../graphics/utils';
 import { RootIconProps } from '../../types';
+import { CirclePath, Segment } from '../../utils';
 
 const Exclamation = memo(({ width, color }: RootIconProps) => (
   <>

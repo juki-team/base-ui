@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { T } from '../../atoms';
+import { Timer } from './Timer';
 import { Period, TimerLabeledProps } from './types';
 import { cutTimeSplit } from './utils';
 

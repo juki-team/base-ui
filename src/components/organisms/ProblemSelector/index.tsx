@@ -10,7 +10,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { settings } from '../../../config';
 import { classNames } from '../../../helpers';
-import { useJukiUser } from '../../../hooks';
+import { useJukiUser, useNotification } from '../../../hooks';
 import { authorizedRequest, cleanRequest } from '../../../services';
 import {
   ButtonLoader,
@@ -22,7 +22,6 @@ import {
   Select,
   T,
   Tooltip,
-  useNotification,
 } from '../../index';
 import { JudgeDataType, ProblemSelectorProps } from './types';
 

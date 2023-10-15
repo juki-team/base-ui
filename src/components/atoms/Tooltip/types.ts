@@ -1,3 +1,6 @@
+import { PlacesType } from 'react-tooltip';
+import { ReactNodeOrFunctionType } from '../../../types';
+
 export interface TooltipProps {
   clickable?: boolean,
   content: ReactNodeOrFunctionType,

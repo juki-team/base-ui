@@ -1,8 +1,7 @@
 import { Status } from '@juki-team/commons';
 import React, { useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { Button } from '../../atoms';
-import { CheckIcon, WarningIcon } from '../../graphics';
+import { Button, CheckIcon, WarningIcon } from '../../atoms';
 import { ButtonLoaderProps } from './types';
 
 // no use memo when there are callbacks on the props, or be careful

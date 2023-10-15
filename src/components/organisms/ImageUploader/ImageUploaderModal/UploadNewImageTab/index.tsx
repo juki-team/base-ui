@@ -2,21 +2,21 @@ import { Status } from '@juki-team/commons';
 import React, { memo, useState } from 'react';
 import { settings } from '../../../../../config';
 import { toBlob } from '../../../../../helpers';
-import { Button, ButtonLoader } from '../../../../molecules/ButtonLoader';
-import { CopyToClipboard } from '../../../CopyToClipboard';
-import { ContentCopyIcon } from '../../../graphics';
-import { CropImageType, ImageLoaderCropper } from '../../../../molecules/ImageLoaderCropper';
-import { NotificationType, useNotification } from '../../../Notifications';
-import { T } from '../../../Translate';
+import { useNotification } from '../../../../../hooks';
+import { Button, ContentCopyIcon, CopyToClipboard, T } from '../../../../atoms';
+import { ButtonLoader, CropImageType, ImageLoaderCropper } from '../../../../molecules';
+import { NotificationType } from '../../../Notifications';
 import { onPickImageUrlType } from '../types';
 
-export const UploadNewImageTab = memo(({
-  copyButtons,
-  onPickImageUrl,
-}: { copyButtons?: boolean, onPickImageUrl?: onPickImageUrlType }) => {
+export interface UploadNewImageTabProps {
+  copyButtons?: boolean,
+  onPickImageUrl?: onPickImageUrlType,
+}
+
+export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl }: UploadNewImageTabProps) => {
   
-  const [imagePublicUrl, setImagePublicUrl] = useState<string>('');
-  const [cropImage, setCropImage] = useState<CropImageType>();
+  const [ imagePublicUrl, setImagePublicUrl ] = useState<string>('');
+  const [ cropImage, setCropImage ] = useState<CropImageType>();
   const { addNotification } = useNotification();
   const handleUpload = async (image: Blob) => {
     const formData = new FormData();

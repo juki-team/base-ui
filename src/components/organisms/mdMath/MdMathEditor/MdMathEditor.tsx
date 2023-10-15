@@ -1,7 +1,5 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { classNames } from '../../../../helpers';
-import { useOutsideAlerter } from '../../../../hooks';
 import {
   AlertModal,
   Button,
@@ -13,11 +11,13 @@ import {
   T,
   TextArea,
   Tooltip,
-} from '../../../atoms';
-import { MdMathViewer } from '../MdMathViewer';
+} from '../../../';
+import { classNames } from '../../../../helpers';
+import { useOutsideAlerter } from '../../../../hooks';
 import { UploadImageButton } from '../../index';
-import { InformationButton } from './InformationButton';
 import { MdFloatToolbar } from '../MdFloatToolbar';
+import { MdMathViewer } from '../MdMathViewer';
+import { InformationButton } from './InformationButton';
 import { MdMathEditorProps } from './types';
 
 export const MdMathEditor = (props: MdMathEditorProps) => {

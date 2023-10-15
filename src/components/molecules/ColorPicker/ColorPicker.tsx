@@ -1,7 +1,7 @@
+import { PALLETE } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { ColorResult, SketchPicker } from 'react-color';
-import { PALLETE } from '../../config/constants';
-import { Button, Input, Popover, T } from '../index';
+import { Button, Input, Popover, T } from '../../atoms';
 import { ColorPickerProps } from './types';
 
 export const ColorPicker = ({ color, children, onChange }: ColorPickerProps) => {

@@ -1,4 +1,4 @@
-import { ModalProps } from '../../../Modal';
+import { ModalProps } from '../../../atoms';
 
 export interface ImageUploaderModalProps extends ModalProps {
   withPublicImagesTab?: boolean,

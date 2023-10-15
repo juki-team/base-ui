@@ -1,7 +1,7 @@
 import React from 'react';
 import { classNames } from '../../../helpers';
 import { Button, DatePicker, InputDateProps, PlusIcon, Popover, T } from '../../index';
-import { DateLiteral } from './DateLiteral';
+import { DateLiteral } from '../DateLiteral';
 
 // Add label
 export const InputDate = (props: InputDateProps) => {

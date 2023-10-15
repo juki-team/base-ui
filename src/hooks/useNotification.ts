@@ -1,10 +1,10 @@
 import { ContentResponseType, ContentsResponseType, ErrorResponseType, Status } from '@juki-team/commons';
 import { ReactNode, useCallback, useContext } from 'react';
 import { v4 } from 'uuid';
-import { notifyError, notifySuccess } from '../../../helpers';
-import { SetStatusType } from '../../../types';
-import { NotificationContext } from './context';
-import { NewNotificationType, NotificationAction, NotificationType } from './types';
+import { notifyError, notifySuccess } from '../helpers';
+import { SetStatusType } from '../types';
+import { NotificationContext } from '../components/organisms/Notifications/context';
+import { NewNotificationType, NotificationAction, NotificationType } from '../components/organisms/Notifications/types';
 
 export const useNotification = () => {
   

@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { Segment } from '../../../../graphics/utils';
 import { RootIconProps } from '../../types';
+import { Segment } from '../../utils';
 
 const NarrowArrow = memo(({ width, color }: RootIconProps) => (
   <>

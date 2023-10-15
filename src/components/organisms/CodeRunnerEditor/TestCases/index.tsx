@@ -1,6 +1,8 @@
 import { mex, SUBMISSION_RUN_STATUS, SubmissionRunStatus } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
+import { useNotification } from '../../../../hooks';
 import {
   AddIcon,
   DeleteIcon,
@@ -12,9 +14,7 @@ import {
   TabsInline,
   TabType,
   TextArea,
-  useNotification,
 } from '../../../index';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { TestCasesProps } from '../types';
 import { getErrors } from '../utils';
 import { LogInfo } from './LogInfo';

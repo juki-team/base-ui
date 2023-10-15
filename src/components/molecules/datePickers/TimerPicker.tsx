@@ -1,19 +1,19 @@
+import { HOURS, MILLISECONDS, MINUTES, SECONDS } from '@juki-team/commons';
 import React from 'react';
-import { HOURS, MILLISECONDS, MINUTES, SECONDS } from '../../../config/constants';
-import { Button } from '../ButtonLoader';
-import { Select } from '../../Input';
-import { T } from '../Translate';
+import { Button, Select, T } from '../../atoms';
 import { TimePickerProps } from './types';
 
-export const TimePicker = ({
-  todayButton = false,
-  date,
-  showMinutes,
-  showSeconds,
-  showMilliseconds,
-  onChange,
-  isDisabled,
-}: TimePickerProps) => {
+export const TimePicker = (props: TimePickerProps) => {
+  
+  const {
+    todayButton = false,
+    date,
+    showMinutes,
+    showSeconds,
+    showMilliseconds,
+    onChange,
+    isDisabled,
+  } = props;
   
   return (
     <div className="jk-col jk-date-picker-grid-time center">

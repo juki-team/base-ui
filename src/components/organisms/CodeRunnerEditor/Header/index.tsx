@@ -7,6 +7,10 @@ import {
 } from '@juki-team/commons';
 import React, { CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { settings } from '../../../../config';
+import { classNames } from '../../../../helpers';
+import { useNotification } from '../../../../hooks';
+import { authorizedRequest, cleanRequest } from '../../../../services';
 import {
   Button,
   ButtonLoader,
@@ -17,27 +21,25 @@ import {
   Select,
   SettingsIcon,
   T,
-  useNotification,
 } from '../../../index';
-import { settings } from '../../../../config';
-import { classNames } from '../../../../helpers';
-import { authorizedRequest, cleanRequest } from '../../../../services';
 import { HeaderProps } from '../types';
 
-export const Header = <T, >({
-  languages,
-  sourceCode,
-  language,
-  onChange,
-  testCases,
-  setShowSettings,
-  centerOptions,
-  setRunId,
-  timeLimit,
-  memoryLimit,
-  expanded,
-  setExpanded,
-}: HeaderProps<T>) => {
+export const Header = <T, >(props: HeaderProps<T>) => {
+  
+  const {
+    languages,
+    sourceCode,
+    language,
+    onChange,
+    testCases,
+    setShowSettings,
+    centerOptions,
+    setRunId,
+    timeLimit,
+    memoryLimit,
+    expanded,
+    setExpanded,
+  } = props;
   
   const { addErrorNotification } = useNotification();
   const { width: widthContainer = 0, ref } = useResizeDetector();
@@ -94,7 +96,10 @@ export const Header = <T, >({
       style={twoRows ? { '--options-header-height': '80px' } as CSSProperties : {}}
       ref={ref}
     >
-      <div className={classNames('left-options cr-pl jk-row gap', { 'jk-col left gap flex-1': twoRows })} ref={refLeftSection}>
+      <div
+        className={classNames('left-options cr-pl jk-row gap', { 'jk-col left gap flex-1': twoRows })}
+        ref={refLeftSection}
+      >
         <Select
           className="languages-selector"
           options={languages.map(language => ({

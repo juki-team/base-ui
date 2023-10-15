@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { Button } from '../../../molecules/ButtonLoader';
-import { ReloadIcon } from '../../graphics';
-import { Modal } from '../../../Modal';
-import { Tabs } from '../../../molecules/Tabs';
-import { T } from '../../Translate';
+import { Button, Modal, ReloadIcon, T } from '../../../atoms';
+import { Tabs } from '../../../molecules';
 import { PublicImagesTab } from './PublicImagesTab';
 import { ImageUploaderModalProps } from './types';
 import { UploadNewImageTab } from './UploadNewImageTab';
 
-export const ImageUploaderModal = ({
-  isOpen,
-  onClose,
-  withPublicImagesTab = true,
-  copyButtons,
-  onPickImageUrl,
-}: ImageUploaderModalProps) => {
+export const ImageUploaderModal = (props: ImageUploaderModalProps) => {
   
-  const [count, setCount] = useState(0);
+  const {
+    isOpen,
+    onClose,
+    withPublicImagesTab = true,
+    copyButtons,
+    onPickImageUrl,
+  } = props;
+  
+  const [ count, setCount ] = useState(0);
   const tabHeaders = [];
   if (withPublicImagesTab) {
     tabHeaders.push({
@@ -26,7 +25,12 @@ export const ImageUploaderModal = ({
         <Button icon={<ReloadIcon />} size="small" type="text" onClick={() => setCount(count + 1)} />
       </>,
       body: (
-        <PublicImagesTab trigger={count} key="public-images-tab" copyButtons={copyButtons} onPickImageUrl={onPickImageUrl} />
+        <PublicImagesTab
+          trigger={count}
+          key="public-images-tab"
+          copyButtons={copyButtons}
+          onPickImageUrl={onPickImageUrl}
+        />
       ),
     });
   }

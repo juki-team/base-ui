@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePickerDateFunType } from '../../Input';
+import { DatePickerDateFunType } from '../../';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,
@@ -117,15 +117,21 @@ export const isFilterDateRange = (filter?: TableHeaderFilterType): filter is Tab
 };
 
 export const renderHead = ({
-  head,
-  columnIndex,
-}: { head: TableHeadType, columnIndex: string }) => head ? (typeof head === 'function' ? head() : head) :
+                             head,
+                             columnIndex,
+                           }: {
+  head: TableHeadType,
+  columnIndex: string
+}) => head ? (typeof head === 'function' ? head() : head) :
   <TextHeadCell text={columnIndex} />;
 
 export const renderField = <T, >(data: T[], index: number, isCard: boolean) => ({
-  field,
-  index: columnIndex,
-}: { field: TableHeadFieldType<T>, index: string }) => (
+                                                                                  field,
+                                                                                  index: columnIndex,
+                                                                                }: {
+  field: TableHeadFieldType<T>,
+  index: string
+}) => (
   typeof field === 'function' ? field({
     record: data[index],
     columnIndex,
@@ -146,7 +152,10 @@ export const isSelected = (start: Date | null) => (date: Date) => ({
 
 export const isRangeSelected = (start: Date | null, end: Date | null) => (date: Date) => ({
   year: !!start && !!end && (date.isSameYear(start) || date.isSameYear(end) || date.isWithinInterval({ start, end })),
-  month: !!start && !!end && (date.isSameMonth(start) || date.isSameMonth(end) || date.isWithinInterval({ start, end })),
+  month: !!start && !!end && (date.isSameMonth(start) || date.isSameMonth(end) || date.isWithinInterval({
+    start,
+    end,
+  })),
   day: !!start && !!end && (date.isSameDay(start) || date.isSameDay(end) || date.isWithinInterval({ start, end })),
   hours: !!start && !!end && (date.isSameHour(start) || date.isSameHour(end) || date.isWithinInterval({ start, end })),
   minutes: !!start && !!end && (date.isSameMinute(start) || date.isSameMinute(end) || date.isWithinInterval({
@@ -221,7 +230,7 @@ export const isSomethingFiltered = <T, >(headers: TableHeadersType<T>[]) => {
         filtered = true;
       }
     } else if (isFilterDateRange(filter)) {
-      values[index] = [filter.startSelectedDate, filter.endSelectedDate];
+      values[index] = [ filter.startSelectedDate, filter.endSelectedDate ];
       if (filter.startSelectedDate?.isValidDate() && filter.endSelectedDate?.isValidDate()) {
         filtered = true;
       }

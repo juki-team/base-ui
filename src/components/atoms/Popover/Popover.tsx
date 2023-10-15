@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  ArrowContainer,
-  ContentRenderer,
-  Popover as ReactPopover,
-  PopoverAlign,
-  PopoverPosition,
-} from 'react-tiny-popover';
+import { ArrowContainer, Popover as ReactPopover, PopoverAlign, PopoverPosition } from 'react-tiny-popover';
 import { classNames, isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useTriggerWrapper } from '../../../hooks';
 import { PlacementType, PopoverProps } from './types';
@@ -85,7 +79,7 @@ export const Popover = (props: PopoverProps) => {
       positions={[ placementPositionAlign[placement].position, 'top', 'bottom', 'left', 'right' ]} // preferred positions by priority
       align={placementPositionAlign[placement].align}
       content={showPopperArrow ?
-        (({ position, childRect, popoverRect }: ContentRenderer) => (
+        (({ position, childRect, popoverRect }) => (
           <ArrowContainer // if you'd like an arrow, you can import the ArrowContainer!
             position={position}
             childRect={childRect}

@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import ReactCopyToClipboard from 'react-copy-to-clipboard';
-import { useNotification } from '../../organisms/Notifications';
-import { T } from '../../Translate';
+import { useNotification } from '../../../hooks';
+import { T } from '../T';
 import { CopyToClipboardProps } from './types';
 
 export const CopyToClipboard = ({ children, text }: PropsWithChildren<CopyToClipboardProps>) => {

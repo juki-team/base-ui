@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { ButtonActionProps, DownloadIcon, EditIcon, FloatToolbar, OpenInNewIcon, T } from '../../';
 import { downloadBlobAsFile, handleShareMdPdf } from '../../../helpers';
-import { FloatToolbar } from '../../molecules/FloatToolbar';
-import { ButtonActionProps } from '../../molecules/FloatToolbar/types';
-import { DownloadIcon, EditIcon, OpenInNewIcon } from '../graphics';
-import { T } from '../Translate';
 
 export interface MdFloatToolbarProps {
   source: string,
@@ -15,14 +12,14 @@ export interface MdFloatToolbarProps {
 
 export const MdFloatToolbar = ({ source, edit, onEdit, share, download }: MdFloatToolbarProps) => {
   
-  const [sourceUrl, setSourceUrl] = useState('');
-  useEffect(() => setSourceUrl(''), [source]);
+  const [ sourceUrl, setSourceUrl ] = useState('');
+  useEffect(() => setSourceUrl(''), [ source ]);
   
   const actionButtons: ButtonActionProps[] = [];
   if (edit && onEdit) {
     actionButtons.push({
       icon: <EditIcon />,
-      buttons: [{ icon: <EditIcon />, label: <T>edit</T>, onClick: onEdit }],
+      buttons: [ { icon: <EditIcon />, label: <T>edit</T>, onClick: onEdit } ],
     });
   }
   if (share) {
@@ -54,7 +51,7 @@ export const MdFloatToolbar = ({ source, edit, onEdit, share, download }: MdFloa
         {
           icon: <OpenInNewIcon />,
           label: <T>md</T>,
-          onClick: async () => await downloadBlobAsFile(new Blob([source], { type: 'text/plain' }), 'file.md'),
+          onClick: async () => await downloadBlobAsFile(new Blob([ source ], { type: 'text/plain' }), 'file.md'),
         },
       ],
     });

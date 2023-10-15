@@ -1,8 +1,9 @@
 import { ContentResponseType, Status } from '@juki-team/commons';
 import React from 'react';
-import { BasicModalProps, useNotification } from '../../../../index';
 import { settings } from '../../../../../config';
+import { useNotification } from '../../../../../hooks';
 import { authorizedRequest, cleanRequest } from '../../../../../services';
+import { BasicModalProps } from '../../../../index';
 import { ForgotPasswordModalComponent } from './ForgoPasswordModal';
 import { OnForgotPasswordType } from './types';
 

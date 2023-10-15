@@ -3,7 +3,7 @@ export * from './Collapse';
 export * from './CopyToClipboard';
 export * from './DateLiteral';
 export * from './Div';
-export * from './Inputs';
+export * from './inputs';
 export * from './Modal';
 export * from './MultiSelect';
 export * from './Popover';

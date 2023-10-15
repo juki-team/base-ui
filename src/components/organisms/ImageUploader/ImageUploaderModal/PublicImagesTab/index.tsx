@@ -1,7 +1,7 @@
 import { ContentsResponseType, ImageSummaryResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { settings } from '../../../../../config';
-import { FetcherLayer } from '../../../../Layouts';
+import { FetcherLayer } from '../../../../molecules';
 import { onPickImageUrlType } from '../types';
 import { PublicImages } from './PublicImages';
 

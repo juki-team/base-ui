@@ -1,13 +1,13 @@
+import { MONTH_NAMES, YEARS } from '@juki-team/commons';
 import React, { useState } from 'react';
-import { Div, Select, T } from '../../index';
-import { MONTH_NAMES, YEARS } from '../../../config/constants';
 import { classNames } from '../../../helpers';
+import { Div, Select, T } from '../../index';
 import { NextButton, PreviousButton } from './commons';
 import { MonthPickerProps } from './types';
 
 export const MonthPicker = ({ date, onChange, isDisabled, isSelected }: MonthPickerProps) => {
   
-  const [viewDate, setViewDate] = useState(date);
+  const [ viewDate, setViewDate ] = useState(date);
   
   const gridMonths: (Date[])[] = [];
   let dateCursor = new Date(viewDate.startOfYear());
@@ -24,7 +24,11 @@ export const MonthPicker = ({ date, onChange, isDisabled, isSelected }: MonthPic
       <div className="jk-row jk-month-picker-header">
         <PreviousButton onClick={() => setViewDate(viewDate.decreaseYear())} />
         <Select
-          options={YEARS.map(year => ({ value: year, label: year, disabled: !!(isDisabled?.(new Date().changeYear(year)).year) }))}
+          options={YEARS.map(year => ({
+            value: year,
+            label: year,
+            disabled: !!(isDisabled?.(new Date().changeYear(year)).year),
+          }))}
           selectedOption={{ value: viewDate.getFullYear(), label: viewDate.getFullYear() }}
           onChange={({ value }) => setViewDate(viewDate.changeYear(value))}
         />

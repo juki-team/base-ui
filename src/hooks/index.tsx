@@ -6,6 +6,7 @@ export * from './useHandleState';
 export * from './useJkSocket';
 export * from './useJukiUI';
 export * from './useJukiUser';
+export * from './useNotification';
 export * from './useOnline';
 export * from './usePageVisibility';
 export * from './useT';

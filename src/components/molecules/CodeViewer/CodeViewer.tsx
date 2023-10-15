@@ -1,9 +1,8 @@
 import { PROGRAMMING_LANGUAGE, ProgrammingLanguage } from '@juki-team/commons';
 import Prism from 'prismjs';
 import React, { useEffect } from 'react';
-import { classNames } from '../../helpers';
-import { CopyToClipboard } from '../CopyToClipboard';
-import { ContentCopyIcon } from '../graphics';
+import { classNames } from '../../../helpers';
+import { ContentCopyIcon, CopyToClipboard } from '../../atoms';
 import { CodeViewerProps } from './types';
 
 export const CodeViewer = (props: CodeViewerProps) => {

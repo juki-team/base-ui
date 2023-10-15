@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, Reducer, useReducer } from 'react';
 import { useJukiUI } from '../../../hooks';
-import { CardNotification } from './component';
+import { CardNotification } from './CardNotification';
 import { NotificationContext } from './context';
 import { NotificationAction, NotificationActionsTypes, NotificationProps, NotificationType } from './types';
 

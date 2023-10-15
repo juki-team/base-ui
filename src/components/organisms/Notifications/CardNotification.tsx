@@ -1,10 +1,9 @@
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames, getTextContent } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI, useNotification } from '../../../hooks';
 import { CloseIcon } from '../../atoms';
 import { NOTIFICATION_ICON } from './constants';
 import { NotificationProps, NotificationType } from './types';
-import { useNotification } from './useNotification';
 
 export const CardNotification = ({ id, type, message }: NotificationProps) => {
   

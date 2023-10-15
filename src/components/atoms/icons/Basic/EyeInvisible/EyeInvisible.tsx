@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { arcS, M, Segment } from '../../../../graphics/utils';
 import { RootIconProps } from '../../types';
+import { arcS, M, Segment } from '../../utils';
 
 const Eye = memo(({ width, color }: RootIconProps) => (
   <>
@@ -9,7 +9,7 @@ const Eye = memo(({ width, color }: RootIconProps) => (
       stroke={color}
       strokeWidth={width}
       strokeLinecap="round"
-      d={[M({ x: 4, y: 12 }), arcS({ x: 5, y: 12 }, { x: 20, y: 12 }, 0.35)].join(' ')}
+      d={[ M({ x: 4, y: 12 }), arcS({ x: 5, y: 12 }, { x: 20, y: 12 }, 0.35) ].join(' ')}
     />
     <Segment start={{ x: 12, y: 15 }} end={{ x: 12, y: 19.1 }} options={{ width }} fill={color} />
     

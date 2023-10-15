@@ -2,9 +2,10 @@ import { ImageSummaryResponseDTO } from '@juki-team/commons';
 import copy from 'copy-to-clipboard';
 import React, { useEffect } from 'react';
 import { KeyedMutator } from 'swr';
+import { useNotification } from '../../../../../hooks';
 import { CheckIcon, ContentCopyIcon, T } from '../../../../atoms';
 import { FloatToolbar } from '../../../../molecules';
-import { NotificationType, useNotification } from '../../../Notifications';
+import { NotificationType } from '../../../Notifications';
 import { onPickImageUrlType } from '../types';
 
 interface PublicImagesTabProps {

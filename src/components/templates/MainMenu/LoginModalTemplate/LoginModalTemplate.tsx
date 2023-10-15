@@ -3,7 +3,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { classNames } from '../../../../helpers';
 import {
   ButtonLoader,
   Input,
@@ -12,7 +11,8 @@ import {
   SetLoaderStatusOnClickType,
   SplitModal,
   T,
-} from '../../../atoms';
+} from '../../../../';
+import { classNames } from '../../../../helpers';
 import { ForgotPasswordModal } from './ForgotPassword';
 import { LoginFormType, LoginModalTemplateProps } from './types';
 
