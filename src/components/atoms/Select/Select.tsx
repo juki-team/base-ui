@@ -144,6 +144,6 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
 
 Select.defaultProps = {
   disabled: false,
-  optionsPlacement: 'bottom',
+  optionsPlacement: 'bottom' as SelectProps<any, any, any>['optionsPlacement'],
   extend: false,
 }
