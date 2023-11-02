@@ -1,4 +1,4 @@
-import { DateDisplayType } from '../../atoms';
+import { DateDisplayType } from '../../../types';
 
 export interface YearPickerProps {
   date: Date,

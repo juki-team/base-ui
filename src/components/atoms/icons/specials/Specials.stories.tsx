@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/react';
+import React, { FC, useState } from 'react';
+import { ColorResult } from 'react-color';
+import { MockupJukiProvider } from '../../../mockup';
+import { InputColor } from '../../../molecules';
+import { Input } from '../../inputs';
+import { BalloonIcon, GmailIcon, TelegramIcon } from '../specials';
+import { BasicIconProps } from '../types';
+
+const meta: Meta<typeof GmailIcon> = {
+  component: GmailIcon,
+};
+
+export default meta;
+
+export const Regular: FC<BasicIconProps> = (args) => {
+  const icons = {
+    TelegramIcon,
+    GmailIcon,
+  };
+  
+  const [ color, setColor ] = useState<ColorResult>({ hex: '', hsl: { h: 0, s: 0, l: 0 }, rgb: { r: 0, g: 0, b: 0 } });
+  const [ percent, setPercent ] = useState<number | undefined>();
+  
+  return (
+    <MockupJukiProvider>
+      <div className="jk-row block gap">
+        <div className="jk-row extend nowrap">
+          <InputColor color={color} onChange={setColor} label="color" />
+          <Input type="number" onChange={setPercent} value={percent} label="percent" />
+        </div>
+        <div className="jk-row" style={{ color: color.hex }}>
+          <BalloonIcon percent={percent} {...args} />
+        </div>
+      </div>
+      <div className="jk-divider" />
+      <div className="jk-row block gap">
+        {Object.entries(icons)
+          .sort(([ iconName1 ], [ iconName2 ]) => iconName1.localeCompare(iconName2))
+          .map(([ iconName, Component ]) => (
+            <div className="jk-row nowrap center">
+              <Component {...args} />
+              <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
+            </div>
+          ))}
+      </div>
+    </MockupJukiProvider>
+  );
+};

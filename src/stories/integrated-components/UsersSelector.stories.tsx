@@ -1,8 +1,7 @@
 import { UserSummaryResponseDTO } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { UsersSelector as UsersSelectorComponent } from '../../components';
-import { JukiProvider } from '../JukiProvider';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupJukiProvider, MockupToggleThemeButton } from '../../components/mockup';
 
 export default {
   title: 'Components/Integrated Components',
@@ -13,7 +12,7 @@ export const UsersSelector = () => {
   const [ users, setUsers ] = useState<UserSummaryResponseDTO[]>([]);
   
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       <div className="jk-pad-lg">
         <UsersSelectorComponent
           selectedUsers={users.map(user => user.nickname)}
@@ -22,8 +21,8 @@ export const UsersSelector = () => {
           }}
           companyKey="juki-judge-dev"
         />
-        <ToggleThemeButton />
+        <MockupToggleThemeButton />
       </div>
-    </JukiProvider>
+    </MockupJukiProvider>
   );
 };

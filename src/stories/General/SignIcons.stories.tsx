@@ -12,7 +12,7 @@ import {
   SignIconProps,
   UpIcon,
 } from '../../index';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/General/Icons',
@@ -71,7 +71,7 @@ export const Signs: FC<SignIconProps & { color: string }> = ({ color, ...props }
             <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
           </div>
         ))}
-      <ToggleThemeButton />
+      <MockupToggleThemeButton />
     </div>
   );
 };

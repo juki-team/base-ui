@@ -22,7 +22,7 @@ import {
   ZoomInIcon,
   ZoomOutIcon,
 } from '../../index';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/General/Icons',
@@ -174,7 +174,7 @@ export const Icons: Story<IconProps> = ({ ...props }) => {
           </tr>
         </tbody>
       </table>
-      <ToggleThemeButton />
+      <MockupToggleThemeButton />
     </>
   );
 };

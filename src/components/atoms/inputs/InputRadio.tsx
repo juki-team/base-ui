@@ -2,12 +2,12 @@ import React from 'react';
 import { classNames } from '../../../helpers';
 import { InputCheckboxProps } from './types';
 
-export const InputRadio = ({ className = '', checked, disabled, onChange, label, ...props }: InputCheckboxProps) => {
+export const InputRadio = ({ className, checked, disabled, onChange, label, ...props }: InputCheckboxProps) => {
   
   const isDisabled = disabled || !onChange;
   
   return (
-    <label className={classNames('jk-input-radio-wrapper', className, { disabled: isDisabled })}>
+    <div className={classNames('jk-input-radio-wrapper', className, { disabled: isDisabled })}>
       <input
         type="radio"
         className="jk-input-radio"
@@ -15,7 +15,9 @@ export const InputRadio = ({ className = '', checked, disabled, onChange, label,
         checked={checked}
         {...props}
       />
-      {label}
-    </label>
+      <label>
+        {label}
+      </label>
+    </div>
   );
 };

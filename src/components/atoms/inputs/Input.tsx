@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactElement, Ref, useEffect } from 'react';
+import React, { forwardRef, ReactElement, Ref, useEffect, useId } from 'react';
 import { classNames } from '../../../helpers';
 import { InputProps } from './types';
 
@@ -9,16 +9,18 @@ const InputComponent = <T extends string | number | FileList, >(_props: InputPro
     onChange,
     onBlur,
     type = 'text',
-    extend,
+    extend = false,
     value,
     register,
-    disabled,
+    disabled = false,
     size,
-    autoFocus,
+    autoFocus = false,
     label: inputLabel,
+    icon,
     ...props
   } = _props;
   
+  const id = useId();
   const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
   const length = Math.max(('' + (value || '')).length, 3);
   useEffect(() => {
@@ -29,20 +31,17 @@ const InputComponent = <T extends string | number | FileList, >(_props: InputPro
   }, [ autoFocus, registerRef, ref ]);
   
   return (
-    <label>
-      {inputLabel}
+    <div className={`jk-input-${type}-wrapper a`}>
       <input
         {...props}
         {...restRegister}
+        id={`input-${id}`}
         ref={registerRef || ref}
         type={type === 'files' ? 'file' : type}
         value={(type === 'file' || type === 'files') ? undefined : value as string | number}
         size={size === 'auto' ? length : size}
         disabled={disabled}
-        className={classNames(className || '', `jk-input-${type} jk-border-radius-inline`, {
-          extend: !!extend,
-          disabled: !!disabled,
-        })}
+        className={classNames(className, `jk-input-${type} jk-border-radius-inline`, { extend, disabled })}
         onChange={registerOnChange ? registerOnChange : (type === 'file' || type === 'files') ? ({ target: { files } }) => onChange?.(files as T) : ({ target: { value } }) => {
           const newValue = (type === 'number' ? +value : value) as T;
           onChange?.(newValue);
@@ -51,7 +50,11 @@ const InputComponent = <T extends string | number | FileList, >(_props: InputPro
         style={size === 'auto' && type === 'number' ? { width: `${length + 1}em` } : {}}
         multiple={type === 'files'}
       />
-    </label>
+      <label htmlFor={`input-${id}`}>
+        {inputLabel}
+      </label>
+      {icon}
+    </div>
   );
 };
 //
@@ -102,7 +105,15 @@ const InputComponent = <T extends string | number | FileList, >(_props: InputPro
 //   );
 // };
 
+InputComponent.defaultProps = {
+  type: 'text',
+  extend: false,
+  disabled: false,
+  autoFocus: false,
+}
+
 // https://stackoverflow.com/questions/58469229/react-with-typescript-generics-while-using-react-forwardref/58473012
+// @ts-ignore
 export const Input = forwardRef(InputComponent) as <T>(p: InputProps<T> & {
   ref?: Ref<HTMLInputElement>
 }) => ReactElement;

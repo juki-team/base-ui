@@ -3,23 +3,29 @@ import { classNames } from '../../../helpers';
 
 type DivProps =
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
-  & { onClick?: () => void, transition?: boolean, onKeyDownClick?: boolean | 'Enter' };
+  & {
+  onClick?: () => void,
+  transition?: boolean,
+  onKeyDownClick?: boolean | 'Enter'
+};
 
-const DivComponent = ({
-  onClick,
-  children,
-  className = '',
-  transition,
-  onKeyDownClick,
-  ...props
-}: DivProps, ref: Ref<HTMLDivElement>) => {
+const DivComponent = (_props: DivProps, ref: Ref<HTMLDivElement>) => {
   
-  const [show, setShow] = useState(false);
+  const {
+    onClick,
+    children,
+    className,
+    transition,
+    onKeyDownClick,
+    ...props
+  } = _props;
+  
+  const [ show, setShow ] = useState(false);
   useEffect(() => {
     if (transition) {
       setShow(true);
     }
-  }, [transition]);
+  }, [ transition ]);
   const newProps = { ...props };
   if (onKeyDownClick) {
     newProps.tabIndex = 0;
@@ -44,4 +50,6 @@ const DivComponent = ({
   );
 };
 
-export const Div = forwardRef(DivComponent) as (p: DivProps & { ref?: Ref<HTMLDivElement> }) => ReactElement;
+export const Div = forwardRef(DivComponent) as (p: DivProps & {
+  ref?: Ref<HTMLDivElement>
+}) => ReactElement;

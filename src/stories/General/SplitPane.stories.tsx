@@ -2,7 +2,7 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 import { SplitPane as SplitPaneComponent, SplitPaneProps } from '../../index';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/General',
@@ -71,7 +71,7 @@ const ImagesTemplate: Story<SplitPaneProps> = (props) => {
               <div style={{ background: 'blueviolet' }}>B</div>
             </SplitPaneComponent>
           </div>
-          <ToggleThemeButton />
+          <MockupToggleThemeButton />
         </div>
       </SplitPaneComponent>
     </div>

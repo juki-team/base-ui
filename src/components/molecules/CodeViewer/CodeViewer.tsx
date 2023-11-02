@@ -22,7 +22,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
     require('prismjs/components/prism-markdown');
     require('prismjs/plugins/line-numbers/prism-line-numbers');
     Prism.highlightAll();
-  }, []);
+  }, [ language, lineNumbers ]);
   
   return (
     <div

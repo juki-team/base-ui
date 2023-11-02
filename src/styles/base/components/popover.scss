@@ -1,20 +1,24 @@
 @import "../../abstracts/index";
 
+.react-tiny-popover-container {
+  z-index: var(--z-index-popover);
+}
+
 .jk-popover-layout, .jk-popover-layout-pointer-after, .jk-popover-layout-pointer-before {
   display: flex;
-  opacity: 0;
-  z-index: var(--z-index-popover);
+  //opacity: 0;
+  //z-index: var(--z-index-popover);
   @include transition(opacity, left, top);
   
   &:not(.display) {
-    position: absolute;
-    top: -10000px !important;
-    left: -10000px !important;
+    //position: absolute;
+    //top: -10000px !important;
+    //left: -10000px !important;
   }
   
   &.display {
-    position: fixed;
-    opacity: 1;
+    //position: fixed;
+    //opacity: 1;
   }
   
   &.showPopperArrow {
@@ -86,7 +90,7 @@
   }
   
   .jk-popover-content {
-    @extend .elevation-1;
+    //@extend .elevation-1;
   }
   
   &.bottomRight, &.bottom, &.bottomLeft {

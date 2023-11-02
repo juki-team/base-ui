@@ -23,7 +23,7 @@ export const TableHeadFilterText = (props: TableHeadFilterTextProps) => {
   
   return (
     <div
-      className="jk-col gap stretch jk-table-head-cell-filter-text"
+      className="jk-col gap stretch jk-table-head-cell-filter-text jk-pad-sm"
       onKeyDown={event => {
         if (event.code === 'Enter') {
           event.preventDefault();

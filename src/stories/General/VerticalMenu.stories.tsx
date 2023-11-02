@@ -17,7 +17,7 @@ import {
   VerticalMenu as VerticalMenuCmp,
   ViewHeadlineIcon,
 } from '../../index';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/General',
@@ -113,6 +113,6 @@ export const VerticalMenu = () => (
         <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
       </div>
     </VerticalMenuCmp>
-    <ToggleThemeButton />
+    <MockupToggleThemeButton />
   </div>
 );

@@ -2,7 +2,7 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 import { Tabs as TabsComponent, TabsProps } from '../../index';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/General',
@@ -428,7 +428,7 @@ export const Classes: Story<TabsProps<string>> = () => {
   return (
     <div style={{ height: '500px' }}>
       <TabsComponent tabs={tabs} />
-      <ToggleThemeButton />
+      <MockupToggleThemeButton />
     </div>
   );
 };

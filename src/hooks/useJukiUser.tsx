@@ -12,8 +12,9 @@ import {
   UserSettingsType,
 } from '@juki-team/commons';
 import React, { useCallback, useContext, useState } from 'react';
-import { LoginFormType, T, UserContext } from '../components';
+import { LoginFormType, T } from '../components';
 import { settings } from '../config';
+import { UserContext } from '../contexts/JukiUserProvider/context';
 import { localStorageCrossDomains } from '../helpers';
 import { authorizedRequest, AuthorizedRequestType, cleanRequest } from '../services';
 import { SetStatusType, SignUpPayloadDTO, UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';

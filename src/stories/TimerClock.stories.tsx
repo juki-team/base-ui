@@ -2,7 +2,7 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 import { Timer, TimerLabeled, TimerLabeledProps } from '../index';
-import { ToggleThemeButton } from './ToggleThemeButton';
+import { MockupToggleThemeButton } from '../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/TimerClock',
@@ -54,7 +54,7 @@ const Template: Story<TimerLabeledProps> = (args) => {
       <Timer interval={1} currentTimestamp={10 * 60 * 1000} laps={7} />
       
       <Timer interval={-1} currentTimestamp={10 * 60 * 1000} literal laps={2} />
-      <ToggleThemeButton />
+      <MockupToggleThemeButton />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import { ReactElement, ReactNode } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
+import { DateDisplayType } from '../../../types';
 import { DatePickerDateFunType } from '../../molecules';
 import { ButtonType } from '../Button';
-import { DateDisplayType } from '../DateLiteral';
 import { T as TCmp } from '../T';
 
 export interface InputCommonsProps<T> {
@@ -26,6 +26,7 @@ export interface InputCommonsProps<T> {
   size?: number | 'auto',
   step?: number | 'auto',
   label?: string | ReactElement<typeof TCmp>,
+  icon?: ReactNode,
 }
 
 // export interface InputFileProps<T> extends InputCommonsProps<T> {

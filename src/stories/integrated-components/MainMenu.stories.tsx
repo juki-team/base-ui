@@ -8,8 +8,8 @@ import {
   SAMPLE_MD_CONTENT,
   ViewHeadlineIcon,
 } from '../../index';
-import { JukiProvider } from '../JukiProvider';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupJukiProvider } from '../../components/mockup/MockupJukiProvider';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/Integrated Components',
@@ -30,7 +30,7 @@ const menu = [
 
 
 export const MainMenu = () => (
-  <JukiProvider>
+  <MockupJukiProvider>
     <div style={{ height: '400px' }}>
       <MainMenuCmp
         menu={menu}
@@ -40,7 +40,7 @@ export const MainMenu = () => (
           <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
         </div>
       </MainMenuCmp>
-      <ToggleThemeButton />
+      <MockupToggleThemeButton />
     </div>
-  </JukiProvider>
+  </MockupJukiProvider>
 );

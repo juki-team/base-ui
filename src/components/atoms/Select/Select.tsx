@@ -16,7 +16,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     onChange,
     showOptions: _showOptions,
     onChangeShowOptions: _onChangeShowOptions,
-    disabled,
+    disabled = false,
     optionsPlacement = 'bottom',
     extend = false,
     containerWidth: _containerWidth,
@@ -141,3 +141,9 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     </Popover>
   );
 };
+
+Select.defaultProps = {
+  disabled: false,
+  optionsPlacement: 'bottom',
+  extend: false,
+}

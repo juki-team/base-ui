@@ -13,8 +13,8 @@ import {
   UserProfileSettings as UserProfileSettingsCmp,
   WelcomeModal as WelcomeModalCmp,
 } from '../../components';
-import { JukiProvider } from '../JukiProvider';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupJukiProvider } from '../../components/mockup/MockupJukiProvider';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/Integrated Components',
@@ -25,12 +25,12 @@ export default {
 
 export const ProblemSelector = () => {
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       <div className="jk-pad-lg">
         <ProblemSelectorComponent onSelect={action('onSelect')} />
-        <ToggleThemeButton />
+        <MockupToggleThemeButton />
       </div>
-    </JukiProvider>
+    </MockupJukiProvider>
   );
 };
 
@@ -39,21 +39,21 @@ export const UserPreviewModal = () => {
   const [ open, setOpen ] = useState(false);
   
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       <div className="jk-pad-lg">
         {open && (
           <UserPreviewModalCmp userHref={'#'} onClose={() => setOpen(false)} nickname="OscarGauss" />
         )}
         <Button onClick={() => setOpen(true)}>open</Button>
-        <ToggleThemeButton />
+        <MockupToggleThemeButton />
       </div>
-    </JukiProvider>
+    </MockupJukiProvider>
   );
 };
 
 export const UserProfileSettings = () => {
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       <UserProfileSettingsCmp
         user={{
           ...USER_GUEST,
@@ -65,8 +65,8 @@ export const UserProfileSettings = () => {
         }}
         onClickUpdatePassword={() => console.info('click onClickUpdatePassword')}
       />
-      <ToggleThemeButton />
-    </JukiProvider>
+      <MockupToggleThemeButton />
+    </MockupJukiProvider>
   );
 };
 
@@ -75,11 +75,11 @@ export const UserChangePasswordModal = () => {
   const [ open, setOpen ] = useState(false);
   
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       {open && <UserChangePasswordModalCmp onClose={() => setOpen(false)} />}
       <Button onClick={() => setOpen(true)}>open</Button>
-      <ToggleThemeButton />
-    </JukiProvider>
+      <MockupToggleThemeButton />
+    </MockupJukiProvider>
   );
 };
 
@@ -88,11 +88,11 @@ export const UserForgotPasswordModal = () => {
   const [ open, setOpen ] = useState(false);
   
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       {open && <UserForgotPasswordModalCmp onClose={() => setOpen(false)} />}
       <Button onClick={() => setOpen(true)}>open</Button>
-      <ToggleThemeButton />
-    </JukiProvider>
+      <MockupToggleThemeButton />
+    </MockupJukiProvider>
   );
 };
 
@@ -101,7 +101,7 @@ export const WelcomeModal = () => {
   const [ open, setOpen ] = useState(false);
   
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       {open && (
         <WelcomeModalCmp
           onClose={() => setOpen(false)}
@@ -110,8 +110,8 @@ export const WelcomeModal = () => {
         />
       )}
       <Button onClick={() => setOpen(true)}>open</Button>
-      <ToggleThemeButton />
-    </JukiProvider>
+      <MockupToggleThemeButton />
+    </MockupJukiProvider>
   );
 };
 
@@ -120,7 +120,7 @@ export const DrawerViewMenuMobile = () => {
   const [ open, setOpen ] = useState(false);
   
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       {open && (
         <DrawerViewMenuMobileCmp
           menu={[
@@ -142,7 +142,7 @@ export const DrawerViewMenuMobile = () => {
         />
       )}
       <Button onClick={() => setOpen(true)}>open</Button>
-      <ToggleThemeButton />
-    </JukiProvider>
+      <MockupToggleThemeButton />
+    </MockupJukiProvider>
   );
 };

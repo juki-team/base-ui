@@ -1,29 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
-import {
-  ExpandLessIcon,
-  ExpandMoreIcon,
-  NavigateBeforeIcon,
-  NavigateNextIcon,
-  T,
-  useHandleState,
-  ViewSideIcon,
-} from '../../../index';
+import { useHandleState } from '../../../hooks'
+import { ExpandLessIcon, ExpandMoreIcon, NavigateBeforeIcon, NavigateNextIcon, T, ViewSideIcon } from '../../atoms';
 import { SplitPaneProps } from './types';
 
-export const SplitPane = ({
-  children,
-  direction: initialDirection,
-  onChangeDirection,
-  className = '',
-  minSize = 64,
-  onlyFirstPane = false,
-  onlySecondPane = false,
-  closableFirstPane,
-  closableSecondPane,
-  toggleOption = false,
-  onePanelAtATime = false,
-}: SplitPaneProps) => {
+export const SplitPane = (props: SplitPaneProps) => {
+  
+  const {
+    children,
+    direction: initialDirection,
+    onChangeDirection,
+    className = '',
+    minSize = 64,
+    onlyFirstPane = false,
+    onlySecondPane = false,
+    closableFirstPane,
+    closableSecondPane,
+    toggleOption = false,
+    onePanelAtATime = false,
+  } = props;
+  
   const clientSizeRef = useRef(0);
   const [ dragging, setDragging ] = useState(false);
   const dividerPositionRef = useRef(0);

@@ -1,10 +1,10 @@
 import { stringToArrayBuffer } from '@juki-team/commons';
 import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
 import { utils, write } from 'xlsx';
-import { publishNote } from '..';
 import { settings } from '../config';
 import { authorizedRequest } from '../services';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerActionsType } from '../types';
+import { publishNote } from './utils';
 
 export const getTextContent = (elem: ReactNode): string => {
   if (!elem) {
@@ -121,7 +121,7 @@ export const renderReactNodeOrFunctionP1 = <T, >(content: ReactNodeOrFunctionP1T
 
 type classType = string | { [key: string]: boolean };
 
-export const classNames = (c1: classType, c2?: classType, c3?: classType, c4?: classType, c5?: classType, c6?: classType, c7?: classType, c8?: classType, c9?: classType, c10?: classType, c11?: classType, c12?: classType, c13?: classType, c14?: classType, c15?: classType): string => {
+export const classNames = (c1?: classType, c2?: classType, c3?: classType, c4?: classType, c5?: classType, c6?: classType, c7?: classType, c8?: classType, c9?: classType, c10?: classType, c11?: classType, c12?: classType, c13?: classType, c14?: classType, c15?: classType): string => {
   let classes = '';
   [ c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15 ].forEach(prop => {
     if (prop) {
@@ -148,13 +148,6 @@ export function toBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
     canvas.toBlob(resolve);
   });
 }
-
-export const openNewTab = (url: string) => {
-  const newWindow = window?.open(url, '_blank', 'noopener,noreferrer');
-  if (newWindow) {
-    newWindow.opener = null;
-  }
-};
 
 export const isOverflowed = (ref: MutableRefObject<any>) => {
   return ref.current?.scrollWidth > ref.current?.offsetWidth;

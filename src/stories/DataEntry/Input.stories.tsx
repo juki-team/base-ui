@@ -1,25 +1,19 @@
 import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 import {
-  Button,
   Color,
-  ColorPicker as ColorPickerComponent,
   DateLiteral,
   Input,
-  InputCheckbox as CheckboxComponent,
+  InputColor as ColorPickerComponent,
   InputDate,
   InputPassword,
-  InputRadio as RadioComponent,
-  InputSubmit,
-  InputToggle,
-  MultiSelect as MultiSelectComponent,
   MultiSelectSearchable,
   Select as SelectComponent,
   TextArea,
   TimePicker,
 } from '../../index';
 import { mockupUsers } from '../mockupUsers';
-import { ToggleThemeButton } from '../ToggleThemeButton';
 
 export default {
   title: 'Components/Data Entry',
@@ -31,17 +25,6 @@ configureActions({
   // Limit the number of items logged into the actions panel
   limit: 20,
 });
-
-export const Text = () => {
-  const [ text, setText ] = useState('');
-  return (
-    <div style={{ width: '90%' }}>
-      <div className="jk-divider">simple input</div>
-      <Input value={text} onChange={(value) => setText(value)} />
-      <ToggleThemeButton />
-    </div>
-  );
-};
 
 export const Form = () => {
   const [ text, setText ] = useState('');
@@ -106,234 +89,7 @@ export const Form = () => {
         </label>
         <p>error label</p>
       </div>
-      <ToggleThemeButton />
-    </div>
-  );
-};
-
-export const Submit = () => {
-  return (
-    <div style={{ width: '90%' }}>
-      <InputSubmit />
-      <ToggleThemeButton />
-    </div>
-  );
-};
-
-export const Checkbox = () => {
-  
-  const [ checked, setChecked ] = useState(false);
-  
-  return (
-    <div className="jk-row left">
-      <div className="jk-col gap stretch">
-        <CheckboxComponent checked={true} name="test" onChange={_ => null} label="checked" />
-        <CheckboxComponent checked={false} name="test" onChange={_ => null} label="no checked" />
-        <CheckboxComponent
-          checked={checked}
-          name="test"
-          onChange={(value) => setChecked(value)}
-          label="label of checkbox"
-        />
-        <CheckboxComponent checked={checked} name="test" onChange={(value) => setChecked(value)} />
-        <CheckboxComponent checked={checked} name="test" label="disabled checkbox" />
-      </div>
-      
-      {/*<CheckboxList*/}
-      {/*  options={[{ value: 1, label: 'uno' }]}*/}
-      {/*  selectedOptions={[{ value: 1 }]}*/}
-      {/*  onSelectOptions={options => setValues(prevState => ({ ...prevState, [columnIndex]: options }))}*/}
-      {/*/>*/}
-      <ToggleThemeButton />
-    </div>
-  );
-};
-
-export const Radio = () => {
-  
-  const [ checked, setChecked ] = useState(false);
-  
-  return (
-    <div className="jk-row left">
-      <div className="jk-col gap stretch">
-        <RadioComponent checked={true} name="test" onChange={_ => null} label="checked" />
-        <RadioComponent checked={false} name="test" onChange={_ => null} label="no checked" />
-        <RadioComponent
-          checked={checked}
-          name="test"
-          onChange={(value) => setChecked(value)}
-          label="label of checkbox"
-        />
-        <RadioComponent checked={checked} name="test" onChange={(value) => setChecked(value)} />
-        <RadioComponent checked={checked} name="test" label="disabled checkbox" />
-      </div>
-      
-      {/*<CheckboxList*/}
-      {/*  options={[{ value: 1, label: 'uno' }]}*/}
-      {/*  selectedOptions={[{ value: 1 }]}*/}
-      {/*  onSelectOptions={options => setValues(prevState => ({ ...prevState, [columnIndex]: options }))}*/}
-      {/*/>*/}
-      <ToggleThemeButton />
-    </div>
-  );
-};
-
-export const Toggle = () => {
-  const [ checked, setChecked ] = useState(false);
-  return (
-    <div className="jk-row left">
-      <div className="jk-col gap">
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="tiny" disabled />
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" size="tiny" />
-        <InputToggle
-          checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
-          size="tiny"
-        />
-      </div>
-      <div className="jk-col gap">
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="small" disabled />
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" size="small" />
-        <InputToggle
-          checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
-          size="small"
-        />
-      </div>
-      <div className="jk-col gap">
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} disabled />
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" />
-        <InputToggle
-          checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label"
-          rightLabel="right label"
-        />
-      </div>
-      <div className="jk-col gap">
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} size="large" disabled />
-        <InputToggle checked={checked} onChange={(value) => setChecked(value)} type="square" size="large" />
-        <InputToggle
-          checked={checked} onChange={(value) => setChecked(value)} leftLabel="left label" rightLabel="right label"
-          size="large"
-        />
-      </div>
-      <ToggleThemeButton />
-    </div>
-  );
-};
-
-export const Select = () => {
-  
-  const [ value, setValue ] = useState<{ label: string, value: number }>({ label: 'test 20', value: 20 });
-  
-  let numbers = new Array(40).fill(0);
-  const options: { label: string, value: number, disabled: boolean }[] = numbers.map((_, option) => ({
-    label: 'label ' + option,
-    inputLabel: 'LABEL' + option,
-    value: option,
-    disabled: (Math.round(Math.random() * 10)) > 7,
-  }));
-  
-  return (
-    <div style={{ width: '90%' }} className="jk-pad-md">
-      Text 1
-      <SelectComponent
-        className=""
-        options={options}
-        selectedOption={value}
-        onChange={({ value, label }: { value: number, label: string }) => setValue({ value, label })}
-      />
-      Text 2 Disabled
-      <SelectComponent
-        className=""
-        disabled={true}
-        options={options}
-        selectedOption={value}
-        onChange={({ value, label }: { value: number, label: string }) => setValue({ value, label })}
-      />
-      <SelectComponent
-        className=""
-        options={options}
-        selectedOption={value}
-        onChange={({ value, label }: { value: number, label: string }) => setValue({ value, label })}
-      >
-        {({ options, expandIcon, showOptions }) => {
-          return (
-            <Button
-              style={showOptions ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : {}}
-            >
-              <div className="jk-row nowrap">button cmp {options.length}{expandIcon}</div>
-            </Button>
-          );
-        }}
-      </SelectComponent>
-      <SelectComponent
-        className=""
-        options={options}
-        selectedOption={value}
-        onChange={({ value, label }: { value: number, label: string }) => setValue({ value, label })}
-      >
-        {({ options, expandIcon, showOptions }) => {
-          return (
-            <Button
-              size="tiny"
-              style={showOptions ? { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 } : {}}
-            >
-              <div className="jk-row nowrap">button cmp tiny {options.length}{expandIcon}</div>
-            </Button>
-          );
-        }}
-      </SelectComponent>
-      <ToggleThemeButton />
-    </div>
-  );
-};
-
-export const MultiSelect = () => {
-  
-  const [ values, setValues ] = useState<{ label: string, value: number }[]>([ { label: 'test 20', value: 20 } ]);
-  
-  let options = new Array(40).fill(0);
-  options = options.map((_, index) => index);
-  
-  return (
-    <div style={{ width: '90%' }} className="jk-pad-md">
-      Multi Select
-      <br />
-      Text 1
-      <MultiSelectComponent
-        options={options.map(option => ({
-          label: 'label ' + option,
-          inputLabel: 'label sel ' + option,
-          value: option,
-          disabled: (Math.round(Math.random() * 10)) > 7,
-        }))}
-        selectedOptions={values}
-        onChange={options => setValues(options)}
-      />
-      Text 2
-      <MultiSelectComponent
-        options={options.map(option => ({
-          label: 'label ' + option,
-          inputLabel: 'label sel ' + option,
-          value: option,
-          disabled: (Math.round(Math.random() * 10)) > 7,
-        }))}
-        selectedOptions={values}
-        onChange={options => setValues(options)}
-        extend
-      />
-      Text 3 disabled
-      <MultiSelectComponent
-        disabled
-        options={options.map(option => ({
-          label: 'label ' + option,
-          inputLabel: 'label sel ' + option,
-          value: option,
-          disabled: (Math.round(Math.random() * 10)) > 7,
-        }))}
-        selectedOptions={values}
-        onChange={options => setValues(options)}
-        extend
-      />
-      <ToggleThemeButton />
+      <MockupToggleThemeButton />
     </div>
   );
 };
@@ -407,7 +163,7 @@ export const SelectSearchable = () => {
         multiselect={false}
       />
       end
-      <ToggleThemeButton />
+      <MockupToggleThemeButton />
     </div>
   );
 };
@@ -423,7 +179,7 @@ export const ColorPicker = () => {
         setColor(color);
       }}
       />
-      <ToggleThemeButton />
+      <MockupToggleThemeButton />
     </div>
   );
 };
@@ -466,7 +222,7 @@ export const DatePicker = () => {
         twoLines
         inline
       />
-      <ToggleThemeButton />
+      <MockupToggleThemeButton />
       <DateLiteral
         date={date}
         twoLines={false}

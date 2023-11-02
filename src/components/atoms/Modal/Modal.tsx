@@ -52,3 +52,8 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
     </ReactModal>
   );
 };
+
+Modal.defaultProps = {
+  closeIcon: false,
+  closeWhenClickOutside: false,
+}

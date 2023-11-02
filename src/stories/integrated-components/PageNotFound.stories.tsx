@@ -2,8 +2,8 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { PropsWithChildren } from 'react';
 import { PageNotFound } from '../../components';
-import { JukiProvider } from '../JukiProvider';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupJukiProvider } from '../../components/mockup/MockupJukiProvider';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/Integrated Components/Page Not Found',
@@ -18,12 +18,12 @@ configureActions({
 
 const Template: Story<PropsWithChildren<{}>> = (args) => {
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       <div style={{ height: '500px' }}>
         <PageNotFound {...args} />
-        <ToggleThemeButton />
+        <MockupToggleThemeButton />
       </div>
-    </JukiProvider>
+    </MockupJukiProvider>
   );
 };
 

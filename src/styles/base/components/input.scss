@@ -271,18 +271,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   @extend .disabled-input;
 }
 
-.jk-input-password-wrapper {
-  .input-icon {
-    color: var(--t-color-gray-5);
-  }
-  
-  &:hover, &:focus, &:active, &.focused {
-    .input-icon {
-      color: var(--t-color-gray-4);
-    }
-  }
-}
-
 .jk-input-text, .jk-input-email, .jk-input-number, .jk-input-password, .jk-input-textarea {
   &.extend {
     width: 100%;
@@ -296,6 +284,47 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-input-number {
   padding: 4px 4px 4px var(--pad-xt);
+}
+
+.jk-input-text-wrapper,
+.jk-input-number-wrapper,
+.jk-input-password-wrapper,
+.jk-input-email-wrapper,
+.jk-input-file-wrapper,
+.jk-input-files-wrapper {
+  position: relative;
+  display: inline-block;
+  
+  > label {
+    position: absolute;
+    top: calc(var(--pad-xt) * -1);
+    left: var(--pad-t);
+    padding: 0 4px;
+    background-color: var(--t-color-white);
+    line-height: 0.9;
+  }
+  
+  > .jk-icon {
+    color: var(--t-color-gray-4);
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    cursor: pointer;
+  }
+  
+  &:has(.jk-icon) {
+    > input {
+      padding-right: var(--pad-xl);
+    }
+  }
+  
+  input:not(.disabled):hover + label, input:not(.disabled):focus + label, input:not(.disabled):active + label {
+    font-weight: var(--weight-bold);
+    
+    + .input-icon {
+      color: var(--t-color-gray-3);
+    }
+  }
 }
 
 .jk-input-text, .jk-input-number, .jk-input-password, .jk-input-email {
@@ -403,74 +432,9 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
   }
   
-  /*
-  &.large {
-    input.jk-input-checkbox {
-      margin: 0 4px !important;
-      height: var(--pad-m) !important;
-      width: var(--pad-m) !important;
-      min-height: var(--pad-m) !important;
-      min-width: var(--pad-m) !important;
-      
-      &:after {
-        left: 6px;
-        width: 6px;
-        height: 12px;
-      }
-    }
+  > label {
+    margin-left: 6px;
   }
-  
-  &.regular {
-    input.jk-input-checkbox {
-      margin: 2px 4px !important;
-      height: var(--pad-s) !important;
-      width: var(--pad-s) !important;
-      min-height: var(--pad-s) !important;
-      min-width: var(--pad-s) !important;
-      
-      &:after {
-        left: 5px;
-        width: 4px;
-        height: 10px;
-      }
-    }
-  }
-  
-  &.small {
-    input.jk-input-checkbox {
-      margin: 4px 4px !important;
-      height: var(--pad-xs) !important;
-      width: var(--pad-xs) !important;
-      min-height: var(--pad-xs) !important;
-      min-width: var(--pad-xs) !important;
-      
-      &:after {
-        left: 4px;
-        width: 3px;
-        height: 8px;
-        border-width: 0 2px 2px 0;
-      }
-    }
-  }
-  
-  &.tiny {
-    input.jk-input-checkbox {
-      margin: 6px 4px !important;
-      height: var(--pad-t) !important;
-      width: var(--pad-t) !important;
-      min-height: var(--pad-t) !important;
-      min-width: var(--pad-t) !important;
-      
-      &:after {
-        top: -1px;
-        left: 2px;
-        width: 2px;
-        height: 7px;
-        border-width: 0 2px 2px 0;
-      }
-    }
-  }
-   */
 }
 
 .jk-theme-dark {
@@ -507,12 +471,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     padding-right: var(--pad-l);
   }
   
-  .jk-icon {
-    position: absolute;
-    top: 4px;
-    right: var(--pad-xt);
-    cursor: pointer;
-  }
+  
 }
 
 .jk-input-textarea {
@@ -608,6 +567,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-select-options {
   max-height: 256px;
+}
+
+.jk-multi-select-layout {
+  .jk-select {
+    padding: 4px 4px 4px var(--pad-xt) !important;
+  }
 }
 
 .jk-select-layout, .jk-multi-select-layout {

@@ -92,9 +92,7 @@ export class Settings {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        resetPassword: valid<{ params: { companyKey: string, nickname: string } }>(({
-                                                                                      params: { companyKey, nickname },
-                                                                                    }) => ({
+        resetPassword: valid<{ params: { companyKey: string, nickname: string } }>(({ params: { companyKey, nickname } }) => ({
           url: injectBaseUrl('auth', `/company/${companyKey}/nickname/${nickname}/reset-password`),
           method: HTTPMethod.POST,
         })),
@@ -113,26 +111,17 @@ export class Settings {
           url: injectBaseUrl('user', `/company/${companyKey}/summary-list`),
           method: HTTPMethod.GET,
         })),
-        updateProfileData: valid<{ params: { nickname: string }, body: UpdateUserProfileDataPayloadDTO }>(({
-                                                                                                             params: { nickname },
-                                                                                                             body,
-                                                                                                           }) => ({
+        updateProfileData: valid<{ params: { nickname: string }, body: UpdateUserProfileDataPayloadDTO }>(({ params: { nickname }, body }) => ({
           url: injectBaseUrl('user', `/nickname/${nickname}/profile-data`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
-        updateProfileImage: valid<{ params: { nickname: string }, body: FormData }>(({
-                                                                                       params: { nickname },
-                                                                                       body,
-                                                                                     }) => ({
+        updateProfileImage: valid<{ params: { nickname: string }, body: FormData }>(({ params: { nickname }, body }) => ({
           url: injectBaseUrl('user', `/nickname/${nickname}/profile-image`),
           method: HTTPMethod.PUT,
           body,
         })),
-        updatePreferences: valid<{ params: { nickname: string }, body: UserSettingsType }>(({
-                                                                                              params: { nickname },
-                                                                                              body,
-                                                                                            }) => ({
+        updatePreferences: valid<{ params: { nickname: string }, body: UserSettingsType }>(({ params: { nickname }, body }) => ({
           url: injectBaseUrl('user', `/nickname/${nickname}/preferences`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
@@ -143,19 +132,10 @@ export class Settings {
         })),
       },
       problem: {
-        list: valid<{ params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }>(({
-                                                                                                         params: {
-                                                                                                           page,
-                                                                                                           size,
-                                                                                                           filterUrl,
-                                                                                                           sortUrl,
-                                                                                                         },
-                                                                                                       }) => ({
+        list: valid<{ params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }>(({ params: { page, size, filterUrl, sortUrl } }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/list?'), page, size), filterUrl), sortUrl),
         })),
-        summary: valid<{ params: { judge: Judge, key: string } }>(({
-                                                                     params: { judge, key },
-                                                                   }) => ({
+        summary: valid<{ params: { judge: Judge, key: string } }>(({ params: { judge, key } }) => ({
           url: injectBaseUrl('problem', `/${getProblemJudgeKey(judge, key)}/summary`),
         })),
       },

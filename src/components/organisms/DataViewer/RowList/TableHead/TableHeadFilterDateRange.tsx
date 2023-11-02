@@ -29,7 +29,7 @@ export const TableHeadFilterDateRange = (props: TableHeadFilterDateRangeProps) =
   }, [ visible ]);
   
   return (
-    <div className="jk-col gap jk-table-head-cell-filter-date-range">
+    <div className="jk-col gap jk-table-head-cell-filter-date-range jk-pad-sm">
       <div className="jk-row gap date-range">
         <div>
           <div className="jk-row center fw-bd"><T className="tt-se">from</T>&nbsp;:</div>

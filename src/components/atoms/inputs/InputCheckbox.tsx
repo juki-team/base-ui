@@ -2,12 +2,12 @@ import React from 'react';
 import { classNames } from '../../../helpers';
 import { InputCheckboxProps } from './types';
 
-export const InputCheckbox = ({ className = '', checked, disabled, onChange, label, ...props }: InputCheckboxProps) => {
+export const InputCheckbox = ({ className, checked, disabled, onChange, label, ...props }: InputCheckboxProps) => {
   
   const isDisabled = disabled || !onChange;
   
   return (
-    <label className={classNames('jk-input-checkbox-wrapper', className, { disabled: isDisabled })}>
+    <div className={classNames('jk-input-checkbox-wrapper', className, { disabled: isDisabled })}>
       <input
         type="checkbox"
         className="jk-input-checkbox jk-border-radius-inline"
@@ -15,7 +15,9 @@ export const InputCheckbox = ({ className = '', checked, disabled, onChange, lab
         checked={checked}
         {...props}
       />
-      {label}
-    </label>
+      <label>
+        {label}
+      </label>
+    </div>
   );
 };

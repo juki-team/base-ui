@@ -1,11 +1,13 @@
 import { useContext } from 'react';
-import { UIContext } from '../components';
+import { UIContext } from '../contexts/JukiUIProvider/context';
+
 
 export const useJukiUI = () => {
   
-  const { isPageVisible, isPageFocus, viewPortSize, router, components, isOnline } = useContext(UIContext);
+  const { ref, isPageVisible, isPageFocus, viewPortSize, router, components, isOnline } = useContext(UIContext);
   
   return {
+    ref,
     isPageVisible,
     isPageFocus,
     viewPortSize,

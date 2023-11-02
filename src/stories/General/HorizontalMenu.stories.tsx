@@ -18,8 +18,8 @@ import {
   VerticalMenu,
   ViewHeadlineIcon,
 } from '../../index';
-import { JukiProvider } from '../JukiProvider';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupJukiProvider } from '../../components/mockup/MockupJukiProvider';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/General',
@@ -125,7 +125,7 @@ const ButtonN = () => {
 };
 
 export const HorizontalMenu = () => (
-  <JukiProvider>
+  <MockupJukiProvider>
     <div style={{ height: '400px' }}>
       <HorizontalMenuCmp
         menu={menuHorizontal}
@@ -140,7 +140,7 @@ export const HorizontalMenu = () => (
           <ButtonN />
         </div>
       </HorizontalMenuCmp>
-      <ToggleThemeButton />
+      <MockupToggleThemeButton />
     </div>
-  </JukiProvider>
+  </MockupJukiProvider>
 );

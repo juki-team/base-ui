@@ -3,8 +3,8 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
 import { CodeRunnerEditor, CodeRunnerEditorPropertiesType, CodeRunnerEditorProps } from '../../index';
-import { JukiProvider } from '../JukiProvider';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupJukiProvider } from '../../components/mockup/MockupJukiProvider';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/Integrated Components',
@@ -36,7 +36,7 @@ const Template: Story<CodeRunnerEditorProps<string>> = (args) => {
     sourceCode: 'console.info("Juki!")',
   });
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       <div style={{ height: '500px' }}>
         <CodeRunnerEditor
           {...args}
@@ -52,9 +52,9 @@ const Template: Story<CodeRunnerEditorProps<string>> = (args) => {
             left: '50px',
           }}
         />
-        <ToggleThemeButton />
+        <MockupToggleThemeButton />
       </div>
-    </JukiProvider>
+    </MockupJukiProvider>
   );
 };
 

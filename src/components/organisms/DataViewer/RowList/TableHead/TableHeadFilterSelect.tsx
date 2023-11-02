@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, CheckboxList, OptionType, T } from '../../../..';
+import { Button, CheckboxList, OptionType, T } from '../../../../';
 import { TableHeadFilterSelectProps } from './types';
 
 export const TableHeadFilterSelect = (props: TableHeadFilterSelectProps) => {
@@ -24,7 +24,7 @@ export const TableHeadFilterSelect = (props: TableHeadFilterSelectProps) => {
   }, [ initialSelectedOptions, visible ]);
   
   return (
-    <div className="jk-col gap stretch jk-table-head-cell-filter-select">
+    <div className="jk-col gap stretch jk-table-head-cell-filter-select jk-pad-sm">
       <div className="checkbox-list">
         <CheckboxList options={options} selectedOptions={selectedOptions} onSelectOptions={setSelectedOptions} />
       </div>

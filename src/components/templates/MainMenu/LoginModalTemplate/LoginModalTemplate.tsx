@@ -11,7 +11,7 @@ import {
   SetLoaderStatusOnClickType,
   SplitModal,
   T,
-} from '../../../../';
+} from '../../../';
 import { classNames } from '../../../../helpers';
 import { ForgotPasswordModal } from './ForgotPassword';
 import { LoginFormType, LoginModalTemplateProps } from './types';

@@ -5,7 +5,7 @@ export * from './ButtonLoader';
 export * from './CheckboxList';
 export * from './CodeEditor';
 export * from './CodeViewer';
-export * from './ColorPicker';
+export * from './InputColor';
 export * from './Drawer';
 export * from './FetcherLayer';
 export * from './FloatToolbar';

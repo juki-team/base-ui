@@ -35,3 +35,9 @@ export const InputToggle = (props: InputToggleProps) => {
     </label>
   );
 };
+
+InputToggle.defaultProps = {
+  type: 'rounded' as InputToggleProps['type'],
+  size: 'regular' as InputToggleProps['size'],
+  disabled: false,
+}

@@ -4,7 +4,7 @@ import { CardNotification } from './CardNotification';
 import { NotificationContext } from './context';
 import { NotificationAction, NotificationActionsTypes, NotificationProps, NotificationType } from './types';
 
-export const NotificationProvider = ({ children }: PropsWithChildren<{}>) => {
+export function NotificationProvider({ children }: PropsWithChildren<{}>) {
   
   const [ state, dispatch ] = useReducer<Reducer<NotificationProps[], NotificationActionsTypes>>((state, action) => {
     switch (action.type) {

@@ -130,9 +130,9 @@ export const ZoomOutIcon = ({ size = 'regular', className = '', ...props }: Icon
 };
 
 export * from './google';
-export * from './Signs';
-export * from './Basic';
-export * from './Specials';
+export * from './signs';
+export * from './basic';
+export * from './specials';
 
 export * from './Link';
 export * from './types';

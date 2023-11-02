@@ -2,10 +2,10 @@ import { Status } from '@juki-team/commons';
 import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
-import { LoginModal, LoginModalComponentProps, SignUpModal } from '../../components';
+import { LoginModal, LoginModalTemplateProps, SignUpModal } from '../../components';
 import { Button, LoginModalProps, SignUpModalProps } from '../../index';
-import { JukiProvider } from '../JukiProvider';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupJukiProvider } from '../../components/mockup/MockupJukiProvider';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/Integrated Components',
@@ -26,7 +26,7 @@ const WrapSignUp = (props: SignUpModalProps) => {
   const [ open, setOpen ] = useState(false);
   
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       <div>
         <Button onClick={() => setOpen(!open)}>Click</Button>
         {open && <SignUpModal {...props} onClose={async (setLoaderStatus) => {
@@ -36,9 +36,9 @@ const WrapSignUp = (props: SignUpModalProps) => {
           setOpen(false);
         }}
         />}
-        <ToggleThemeButton />
+        <MockupToggleThemeButton />
       </div>
-    </JukiProvider>
+    </MockupJukiProvider>
   );
 };
 
@@ -65,17 +65,17 @@ export const SignUPWithoutGoogle = () => (
 const WrapLogin = (props: LoginModalProps) => {
   const [ open, setOpen ] = useState(false);
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       <div>
         <Button onClick={() => setOpen(!open)}>Click</Button>
         {open && <LoginModal {...props} onClose={() => setOpen(false)} />}
-        <ToggleThemeButton />
+        <MockupToggleThemeButton />
       </div>
-    </JukiProvider>
+    </MockupJukiProvider>
   );
 };
 
-const LoginWithGoogleComponent: Story<LoginModalComponentProps> = () => (
+const LoginWithGoogleComponent: Story<LoginModalTemplateProps> = () => (
   <WrapLogin
     // onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => {
     //   action('onSubmit')({ data, setStatus });

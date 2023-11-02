@@ -3,8 +3,8 @@ import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 import { Button, ButtonLoader, ButtonProps, EyeInvisibleIcon, NotificationProvider } from '../../index';
-import { JukiProvider } from '../JukiProvider';
-import { ToggleThemeButton } from '../ToggleThemeButton';
+import { MockupJukiProvider } from '../../components/mockup/MockupJukiProvider';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/General/Buttons',
@@ -21,7 +21,7 @@ const Comp = (args: ButtonProps) => {
   const { size, ...restArgs } = args;
   
   return (
-    <JukiProvider>
+    <MockupJukiProvider>
       <div className="jk-col">
         <div className="jk-col">
           <div>32px small</div>
@@ -80,9 +80,9 @@ const Comp = (args: ButtonProps) => {
             responsive
           </ButtonLoader>
         </div>
-        <ToggleThemeButton />
+        <MockupToggleThemeButton />
       </div>
-    </JukiProvider>
+    </MockupJukiProvider>
   );
 };
 

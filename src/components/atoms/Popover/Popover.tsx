@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowContainer, Popover as ReactPopover, PopoverAlign, PopoverPosition } from 'react-tiny-popover';
 import { classNames, isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useTriggerWrapper } from '../../../hooks';
+import { useJukiUI, useTriggerWrapper } from '../../../hooks';
 import { PlacementType, PopoverProps } from './types';
 
 const placementPositionAlign: { [key in PlacementType]: { position: PopoverPosition, align: PopoverAlign } } = {
@@ -11,12 +11,12 @@ const placementPositionAlign: { [key in PlacementType]: { position: PopoverPosit
   rightTop: { position: 'right', align: 'start' },
   right: { position: 'right', align: 'center' },
   rightBottom: { position: 'right', align: 'end' },
-  bottomRight: { position: 'right', align: 'end' },
-  bottom: { position: 'right', align: 'center' },
-  bottomLeft: { position: 'right', align: 'start' },
+  bottomRight: { position: 'bottom', align: 'end' },
+  bottom: { position: 'bottom', align: 'center' },
+  bottomLeft: { position: 'bottom', align: 'start' },
   leftBottom: { position: 'left', align: 'end' },
-  left: { position: 'right', align: 'center' },
-  leftTop: { position: 'right', align: 'start' },
+  left: { position: 'left', align: 'center' },
+  leftTop: { position: 'left', align: 'start' },
   center: { position: 'top', align: 'center' },
   centerScreen: { position: 'top', align: 'center' },
 }
@@ -40,6 +40,7 @@ export const Popover = (props: PopoverProps) => {
     marginOfChildren = 12, // --pad-t: 12px;
   } = props;
   
+  const withOutsideAlerter = !isTrigger(triggerOn, 'click');
   const {
     isOpen,
     outsideAlerterRef1,
@@ -54,15 +55,16 @@ export const Popover = (props: PopoverProps) => {
     triggerOff,
     triggerOnDelayInMs,
     triggerOffDelayInMs,
-    withOutsideAlerter: !isTrigger(triggerOn, 'click'),
+    withOutsideAlerter,
   });
+  const { ref } = useJukiUI();
   
   const popoverContent = (
     <div
-      className={popoverClassName}
+      className={classNames('jk-popover-layout', popoverClassName)}
     >
       <div
-        className={classNames('jk-popover-content bc-we jk-border-radius-inline jk-pad-sm', popoverContentClassName)}
+        className={classNames('jk-popover-content bc-we jk-border-radius-inline', popoverContentClassName, { 'elevation-1': !showPopperArrow })}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         ref={outsideAlerterRef1}
@@ -74,28 +76,34 @@ export const Popover = (props: PopoverProps) => {
   
   return (
     <ReactPopover
+      boundaryElement={ref?.current}
       padding={marginOfChildren}
       isOpen={isOpen}
       positions={[ placementPositionAlign[placement].position, 'top', 'bottom', 'left', 'right' ]} // preferred positions by priority
       align={placementPositionAlign[placement].align}
+      onClickOutside={() => {
+        if (isTrigger(triggerOff, 'click')) {
+          setOffVisible(0);
+        }
+      }}
       content={showPopperArrow ?
         (({ position, childRect, popoverRect }) => (
           <ArrowContainer // if you'd like an arrow, you can import the ArrowContainer!
             position={position}
             childRect={childRect}
             popoverRect={popoverRect}
-            arrowColor={'blue'}
+            arrowColor={'var(--t-color-white)'}
             arrowSize={8}
-            // arrowStyle={{ opacity: 0.7 }}
             className="popover-arrow-container"
             arrowClassName="popover-arrow"
+            style={{ filter: 'drop-shadow(0 0 2px rgba(var(--t-color-black-rgb), 0.3))' }}
           >
             {popoverContent}
           </ArrowContainer>
         )) : popoverContent
       }
     >
-      {renderChildrenWithProps(children, childProps(children))}
+      <div style={{ display: 'inline-block' }}>{renderChildrenWithProps(children, childProps(children))}</div>
     </ReactPopover>
   )
 };

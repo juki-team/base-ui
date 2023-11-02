@@ -15,9 +15,9 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
     onChange,
     showOptions: _showOptions,
     onChangeShowOptions: _onChangeShowOptions,
-    disabled,
+    disabled = false,
     optionsPlacement = 'bottom',
-    extend,
+    extend = false,
   } = props;
   
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
@@ -140,3 +140,9 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
     </Popover>
   );
 };
+
+MultiSelect.defaultProps = {
+  disabled: false,
+  optionsPlacement: 'bottom' as MultiSelectProps<any, any, any>['optionsPlacement'],
+  extend: false,
+}

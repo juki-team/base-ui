@@ -33,6 +33,8 @@ export const Collapse = (props: PropsWithChildren<CollapseProps>) => {
   );
 };
 
+Collapse.defaultProps = {}
+
 export const CollapseOld = (props: PropsWithChildren<CollapseProps>) => {
   
   const {

@@ -2,7 +2,13 @@ import { consoleWarn, ContentResponseType } from '@juki-team/commons';
 import { Dispatch, SetStateAction } from 'react';
 import { settings } from '../config';
 import { authorizedRequest, cleanRequest } from '../services';
-import { openNewTab } from './commons';
+
+export const openNewTab = (url: string) => {
+  const newWindow = window?.open(url, '_blank', 'noopener,noreferrer');
+  if (newWindow) {
+    newWindow.opener = null;
+  }
+};
 
 export const publishNote = async (source: string) => {
   const { url, ...options } = settings.getAPI().note.publish({ body: { source: source.trim() } });
