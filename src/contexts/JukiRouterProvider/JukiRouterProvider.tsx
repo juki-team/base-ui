@@ -1,12 +1,18 @@
 import React, { PropsWithChildren, useCallback, useState } from 'react';
 import { RouterContext } from './context';
-import { AppendSearchParamsType, DeleteSearchParamsType, SetSearchParamsType, UIRouterContextInterface } from './types';
+import {
+  AppendSearchParamsType,
+  DeleteSearchParamsType,
+  JukiRouterProviderProps,
+  RouterContextInterface,
+  SetSearchParamsType,
+} from './types';
 
 const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
   return new URLSearchParams(urlSearchParams.toString());
 };
 
-export const JukiRouterProvider = ({ children, ...router }: PropsWithChildren<UIRouterContextInterface | {}>) => {
+export const JukiRouterProvider = ({ children, ...router }: PropsWithChildren<JukiRouterProviderProps>) => {
   
   const [ _searchParams, _setSearchParams ] = useState<URLSearchParams>(new URLSearchParams(''));
   
@@ -64,7 +70,7 @@ export const JukiRouterProvider = ({ children, ...router }: PropsWithChildren<UI
   return (
     <RouterContext.Provider
       value={
-        Object.keys(router).length ? router as UIRouterContextInterface : {
+        Object.keys(router).length ? router as RouterContextInterface : {
           searchParams: _searchParams,
           appendSearchParams,
           deleteSearchParams,

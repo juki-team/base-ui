@@ -1,10 +1,12 @@
 import React, { PropsWithChildren } from 'react';
 import { JukiPageProvider } from './JukiPageProvider';
-import { JukiRouterProvider } from './JukiRouterProvider';
+import { JukiRouterProvider, RouterContextInterface } from './JukiRouterProvider';
 import { JukiUIProvider, JukiUIProviderProps } from './JukiUIProvider';
 import { JukiUserProvider, JukiUserProviderProps } from './JukiUserProvider';
 
-export const JukiProviders = (props: PropsWithChildren<JukiUIProviderProps & JukiUserProviderProps>) => {
+type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & { router?: RouterContextInterface };
+
+export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
   
   const {
     children,
@@ -13,10 +15,16 @@ export const JukiProviders = (props: PropsWithChildren<JukiUIProviderProps & Juk
     utilsUiUrl,
     tokenName,
     components,
+    router,
   } = props;
   
   return (
-    <JukiRouterProvider>
+    <JukiRouterProvider
+      searchParams={router?.searchParams}
+      appendSearchParams={router?.appendSearchParams}
+      setSearchParams={router?.setSearchParams}
+      deleteSearchParams={router?.deleteSearchParams}
+    >
       <JukiPageProvider>
         <JukiUserProvider
           socketServiceUrl={socketServiceUrl}

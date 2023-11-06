@@ -4,9 +4,11 @@ export type SetSearchParamsType = (...props: { name: string, value: string | str
 
 export type DeleteSearchParamsType = (...props: { name: string, value?: string, replace?: boolean }[]) => void;
 
-export type UIRouterContextInterface = {
+export type RouterContextInterface = {
   searchParams: URLSearchParams,
   appendSearchParams: AppendSearchParamsType,
   setSearchParams: SetSearchParamsType,
   deleteSearchParams: DeleteSearchParamsType,
 };
+
+export type JukiRouterProviderProps = RouterContextInterface | {};
