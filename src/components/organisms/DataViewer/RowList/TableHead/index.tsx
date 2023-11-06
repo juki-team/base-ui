@@ -83,8 +83,6 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
 
 export const TableHead = <T, >({ headers, headerWidths, setHeaderWidths, scrollLeft, loading }: TableHeadProps<T>) => {
   
-  console.log('TableHead', { headers, headerWidths });
-  
   const [ dragging, setDragging ] = useState({ columnIndex: '', nextColumnIndex: '' });
   
   const dividerPositionRef = useRef(0);

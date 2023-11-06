@@ -32,7 +32,7 @@ export const MainMenu = () => (
     <div style={{ height: '400px' }}>
       <MainMenuCmp
         menu={menu}
-        onSeeMyProfile={() => console.log('onSeeMyProfile')}
+        onSeeMyProfile={() => console.info('onSeeMyProfile')}
       >
         <div>
           <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />

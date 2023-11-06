@@ -64,7 +64,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
   };
   
   return (
-    <div className="jk-row left stretch gap nowrap extend">
+    <div className="jk-row left gap nowrap extend">
       {show && (
         <Modal isOpen={true} onClose={() => setShow(false)}>
           <div className="jk-col stretch left gap jk-pad-md">
