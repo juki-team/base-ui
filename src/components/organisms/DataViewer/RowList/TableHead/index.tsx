@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { Children, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../../helpers';
 import { ArrowIcon, TableHeadersWithWidthType } from '../../../../index';
 import { TableHeadProps } from '../../types';
@@ -7,26 +7,99 @@ import { Filter } from './Filter';
 
 const fillWidth = true;
 
-export const TableHead = <T, >({
-  headers,
-  headerWidths,
-  setHeaderWidths,
-  scrollLeft,
-  loading,
-}: TableHeadProps<T>) => {
+interface RenderHeaderProps<T> {
+  head: TableHeadersWithWidthType<T>,
+  index: number,
+  onMouseHoldMove: (event: React.MouseEvent<HTMLDivElement>) => void,
+  onMouseHoldUp: () => void,
+  onMouseHoldDown: (columnIndex: string, nextColumnIndex?: string) => (event: React.MouseEvent<HTMLDivElement>) => void,
+  loading: boolean,
+  headers: TableHeadersWithWidthType<T>[],
+}
+
+const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
+  
+  const {
+    head: {
+      index: columnIndex,
+      head,
+      width,
+      filter,
+      sort: { onSort, order = 0 } = {} as { onSort: () => void, order: number },
+      sticky,
+    },
+    index,
+    onMouseHoldMove,
+    onMouseHoldUp,
+    onMouseHoldDown,
+    loading,
+    headers,
+  } = props;
+  
+  return (
+    <div
+      className={classNames('jk-row gap nowrap jk-table-head-cell', {
+        'with-sort': !!onSort,
+        'with-filter': !!filter?.onFilter,
+        sticky: !!sticky,
+      })}
+      onMouseMove={onMouseHoldMove}
+      onMouseUp={onMouseHoldUp}
+      key={columnIndex}
+      style={{ width: width + 'px' }}
+    >
+      <div className="jk-table-head-field">{renderHead({ head, columnIndex })}</div>
+      <div className="jk-row gap jk-table-head-tools">
+        {onSort && (
+          <div
+            className={classNames('jk-button-light only-icon small tool', {
+              active: !!order,
+              disabled: loading,
+            })}
+            onClick={() => onSort({ columnIndex })}
+          >
+            <ArrowIcon size="small" rotate={order < 0 ? 180 : 0} />
+          </div>
+        )}
+        {filter?.onFilter && (
+          <Filter columnIndex={columnIndex} filter={filter} disabled={loading} />
+        )}
+      </div>
+      {(!fillWidth || index < headers.length - 1) && (
+        <div
+          className="jk-table-head-drag"
+          onMouseDown={onMouseHoldDown(columnIndex, headers[index + 1]?.index)}
+          onClick={event => {
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+        >
+          <div />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export const TableHead = <T, >({ headers, headerWidths, setHeaderWidths, scrollLeft, loading }: TableHeadProps<T>) => {
+  
+  console.log('TableHead', { headers, headerWidths });
   
   const [ dragging, setDragging ] = useState({ columnIndex: '', nextColumnIndex: '' });
+  
   const dividerPositionRef = useRef(0);
-  const onMouseHoldDown = (columnIndex: string, nextColumnIndex?: string) => (event: React.MouseEvent<HTMLDivElement>) => {
+  
+  const onMouseHoldDown = useCallback((columnIndex: string, nextColumnIndex?: string) => (event: React.MouseEvent<HTMLDivElement>) => {
     setDragging({ columnIndex, nextColumnIndex: nextColumnIndex || '' });
     dividerPositionRef.current = event.clientX;
-  };
-  const onMouseHoldUp = () => {
+  }, []);
+  
+  const onMouseHoldUp = useCallback(() => {
     if (dragging.columnIndex) {
       setDragging({ columnIndex: '', nextColumnIndex: '' });
     }
     dividerPositionRef.current = 0;
-  };
+  }, [ dragging.columnIndex ]);
   
   const onMouseHoldMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const { columnIndex, nextColumnIndex } = dragging;
@@ -62,55 +135,6 @@ export const TableHead = <T, >({
       setHeaderWidths(newHeaderWidths);
     }
   };
-  const renderHeader = ({
-    index: columnIndex,
-    head,
-    width,
-    filter,
-    sort: { onSort, order = 0, online } = {} as any,
-    sticky,
-  }: TableHeadersWithWidthType<T>, index: number) => {
-    return (
-      <div
-        className={classNames('jk-table-head-cell', {
-          'with-sort': !!onSort,
-          'with-filter': !!filter?.onFilter,
-          sticky: !!sticky,
-        })}
-        onMouseMove={onMouseHoldMove}
-        onMouseUp={onMouseHoldUp}
-        key={columnIndex}
-        style={{ width: width + 'px' }}
-      >
-        <div className="jk-table-head-field">{renderHead({ head, columnIndex })}</div>
-        <div className="jk-row jk-table-head-tools">
-          {onSort && (
-            <div
-              className={classNames('jk-row tool', { active: !!order, disabled: loading && online })}
-              onClick={() => onSort({ columnIndex })}
-            >
-              <ArrowIcon size="small" rotate={order < 0 ? 180 : 0} className="clickable jk-br-ie" />
-            </div>
-          )}
-          {filter?.onFilter && (
-            <Filter columnIndex={columnIndex} filter={filter} disabled={loading && filter.online} />
-          )}
-        </div>
-        {(!fillWidth || index < headers.length - 1) && (
-          <div
-            className="jk-table-head-drag"
-            onMouseDown={onMouseHoldDown(columnIndex, headers[index + 1]?.index)}
-            onClick={event => {
-              event.preventDefault();
-              event.stopPropagation();
-            }}
-          >
-            <div />
-          </div>
-        )}
-      </div>
-    );
-  };
   
   const headersSticky = headers.filter(({ sticky }) => sticky);
   const headersNoSticky = headers.filter(({ sticky }) => !sticky);
@@ -119,7 +143,17 @@ export const TableHead = <T, >({
     <div className="jk-table-head-container">
       <div className="jk-table-head" onMouseLeave={onMouseHoldUp}>
         <div className={classNames('jk-table-head-sticky', { 'elevation-1': !!scrollLeft })}>
-          {headersSticky.map(renderHeader)}
+          {Children.toArray(headersSticky.map((head, index) => (
+            <RenderHeader
+              head={head}
+              index={index}
+              onMouseHoldMove={onMouseHoldMove}
+              onMouseHoldUp={onMouseHoldUp}
+              onMouseHoldDown={onMouseHoldDown}
+              loading={loading}
+              headers={headers}
+            />
+          )))}
         </div>
         <div
           className="jk-table-head-no-sticky"
@@ -128,7 +162,17 @@ export const TableHead = <T, >({
             minWidth: headersNoSticky.reduce((sum, head) => sum + head.width, 0),
           }}
         >
-          {headersNoSticky.map(renderHeader)}
+          {Children.toArray(headersNoSticky.map((head, index) => (
+            <RenderHeader
+              head={head}
+              index={index}
+              onMouseHoldMove={onMouseHoldMove}
+              onMouseHoldUp={onMouseHoldUp}
+              onMouseHoldDown={onMouseHoldDown}
+              loading={loading}
+              headers={headers}
+            />
+          )))}
         </div>
       </div>
     </div>

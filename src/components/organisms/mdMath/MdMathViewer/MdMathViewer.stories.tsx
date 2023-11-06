@@ -2,7 +2,7 @@ import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 import { MdMathViewer, MdMathViewerProps, SAMPLE_MD_CONTENT } from '../../../../index';
-import { MockupJukiProvider, MockupToggleThemeButton } from '../../../mockup';
+import { MockupJukiProvider } from '../../../mockup';
 
 export default {
   component: MdMathViewer,
@@ -19,7 +19,6 @@ const MdMathViewerComponent: Story<MdMathViewerProps> = (props) => {
     <MockupJukiProvider>
       <div>
         <MdMathViewer {...props} source={SAMPLE_MD_CONTENT} />
-        <MockupToggleThemeButton />
       </div>
     </MockupJukiProvider>
   );

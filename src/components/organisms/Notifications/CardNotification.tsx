@@ -1,6 +1,6 @@
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames, getTextContent } from '../../../helpers';
-import { useJukiUI, useNotification } from '../../../hooks';
+import { useJukiPage, useJukiUI, useNotification } from '../../../hooks';
 import { CloseIcon } from '../../atoms';
 import { NOTIFICATION_ICON } from './constants';
 import { NotificationProps, NotificationType } from './types';
@@ -36,7 +36,9 @@ export const CardNotification = ({ id, type, message }: NotificationProps) => {
       clearInterval(intervalIDRef.current);
     }
   };
-  const { isPageVisible, isPageFocus } = useJukiUI();
+  
+  const { isPageFocus, isPageVisible } = useJukiPage();
+  
   useEffect(() => {
     if (isPageVisible && isPageFocus) {
       handleStartTimer();
@@ -77,11 +79,10 @@ export const CardNotification = ({ id, type, message }: NotificationProps) => {
           >
             {typeof message === 'string' ? <span className="tt-se">{message}</span> : message}
           </div>
-          <div className="jk-notification-close-icon jk-row">
-            <CloseIcon
-              onClick={() => setExit(true)} className="clickable jk-border-radius"
-              size={type === NotificationType.QUIET ? 'small' : undefined}
-            />
+          <div className="jk-col">
+            <div className={classNames('jk-button-light only-icon', { tiny: type === 'quiet' })}>
+              <CloseIcon onClick={() => setExit(true)} />
+            </div>
           </div>
         </div>
         <div className="bar" style={{ width: `${width}%` }} />

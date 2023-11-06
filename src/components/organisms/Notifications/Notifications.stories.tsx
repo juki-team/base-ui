@@ -2,10 +2,9 @@ import { action, configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
 import { Button, useNotification } from '../../../index';
-import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup';
 
 export default {
-  title: 'Components/Feedback',
   component: Button,
 };
 
@@ -98,7 +97,6 @@ const Comp = () => {
           quiet
         </Button>
       </div>
-      <MockupToggleThemeButton />
     </div>
   );
 };

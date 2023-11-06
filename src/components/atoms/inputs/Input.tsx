@@ -17,6 +17,8 @@ const InputComponent = <T extends string | number | FileList, >(_props: InputPro
     autoFocus = false,
     label: inputLabel,
     icon,
+    labelPlacement = 'top-border',
+    required = false,
     ...props
   } = _props;
   
@@ -31,17 +33,26 @@ const InputComponent = <T extends string | number | FileList, >(_props: InputPro
   }, [ autoFocus, registerRef, ref ]);
   
   return (
-    <div className={`jk-input-${type}-wrapper a`}>
+    <div
+      className={classNames(`jk-input-${type}-wrapper`, {
+        extend,
+        [`label-${labelPlacement}`]: true,
+        required,
+        'no-label': !inputLabel,
+      })}
+    >
       <input
         {...props}
         {...restRegister}
         id={`input-${id}`}
+        autoComplete={props.name}
+        required={required}
         ref={registerRef || ref}
         type={type === 'files' ? 'file' : type}
         value={(type === 'file' || type === 'files') ? undefined : value as string | number}
         size={size === 'auto' ? length : size}
         disabled={disabled}
-        className={classNames(className, `jk-input-${type} jk-border-radius-inline`, { extend, disabled })}
+        className={classNames(className, `jk-input-${type} jk-border-radius-inline`, { disabled })}
         onChange={registerOnChange ? registerOnChange : (type === 'file' || type === 'files') ? ({ target: { files } }) => onChange?.(files as T) : ({ target: { value } }) => {
           const newValue = (type === 'number' ? +value : value) as T;
           onChange?.(newValue);
@@ -51,7 +62,7 @@ const InputComponent = <T extends string | number | FileList, >(_props: InputPro
         multiple={type === 'files'}
       />
       <label htmlFor={`input-${id}`}>
-        {inputLabel}
+        {inputLabel}{labelPlacement === 'left' ? <>:&nbsp;</> : ''}
       </label>
       {icon}
     </div>
@@ -110,6 +121,8 @@ InputComponent.defaultProps = {
   extend: false,
   disabled: false,
   autoFocus: false,
+  labelPlacement: 'top',
+  required: false,
 }
 
 // https://stackoverflow.com/questions/58469229/react-with-typescript-generics-while-using-react-forwardref/58473012

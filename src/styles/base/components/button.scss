@@ -1,213 +1,203 @@
 @import "../../abstracts/index";
 
-%full-fill {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-button.ws-np {
-  > .button-label {
-    white-space: nowrap;
-  }
-}
-
-.clickable {
+:not(*[class*=" jk-button-"], *[class^="jk-button-"]).clickable {
   cursor: initial;
   
   &:not(.disabled):not(.loading) {
     cursor: pointer;
     
-    &:before {
-      @extend .jk-border-radius-inline;
-      top: 0;
-      left: 0;
-      content: "";
-      position: absolute;
-      width: 100%;
-      opacity: 0;
-      height: 100%;
-      background-color: var(--t-color-shadow-lightest);
-    }
-    
     &:hover {
       @extend .elevation-1;
-      
-      &:before {
-        opacity: 1;
-        //@include transition(width, opacity);
-      }
     }
   }
 }
 
-
 button[class*=" jk-button-"], button[class^="jk-button-"],
 input[class*=" jk-button-"], input[class^="jk-button-"],
-div[class*=" jk-button-"], div[class^="jk-button-"] {
-  --button-tiny-min-height: 26px;
-  --button-border-width: 0px;
+div[class*=" jk-button-"], div[class^="jk-button-"],
+span[class*=" jk-button-"], span[class^="jk-button-"] {
+  --button-border-width: 3px;
+  --button-border-color: transparent;
+  --button-padding: var(--pad-xs); // 16px
+  --size-button-loader-icon: var(--size-regular-icon);
+  --button-border-padding: var(--button-padding);
+  --icon-margin-right: 0;
+  background-color: var(--button-background-color, var(--t-color-primary));
   height: auto;
   text-transform: uppercase;
   position: relative;
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  outline: none;
-  border: var(--button-border-width) solid transparent;
+  justify-content: center;
+  border: none;
+  outline: var(--button-border-width) solid var(--button-border-color);
+  outline-offset: -1px;
   font-weight: var(--weight-bold);
+  cursor: initial;
+  padding: var(--gap) var(--button-border-padding);
+  opacity: 1;
+  @include transition(opacity, padding);
   
-  .button-label {
-    z-index: 1;
-    flex: 1;
+  &:not(.disabled) {
+    cursor: pointer;
+    
+    &:hover {
+      --button-border-color: var(--button-background-color);
+    }
   }
   
   &.tiny {
-    min-height: var(--button-tiny-min-height); // 26px
+    line-height: var(--size-tiny-icon); // 12px;
     font-size: var(--text-t-size); // 12px
-    padding: 0 var(--pad-xt); // 8px
-    gap: 4px;
-    
-    &.pad-icon { padding: 0 calc(var(--pad-xt) + 10px); }
-    
-    &.only-icon { width: var(--pad-l); }
+    --button-padding: var(--pad-xt); // 8px
+    --size-button-loader-icon: var(--size-tiny-icon);
     
     .jk-icon { @extend .tiny; }
   }
   
   &.small {
-    min-height: var(--pad-xl);
-    font-size: var(--text-s-size);
-    gap: var(--pad-xt);
-    padding: 0 var(--pad-t);
-    
-    &.pad-icon { padding: 0 calc(var(--pad-t) + 14px); }
-    
-    &.only-icon { width: var(--pad-xl); }
+    line-height: var(--size-small-icon); // 18px
+    font-size: var(--text-s-size); // 14px
+    --button-padding: var(--pad-t); // 12px
+    --size-button-loader-icon: var(--size-small-icon);
     
     .jk-icon { @extend .small; }
   }
   
   &.regular {
-    min-height: var(--pad-h);
+    line-height: var(--size-regular-icon); // 24px
     font-size: var(--text-m-size);
-    gap: var(--pad-t);
-    padding: 0 var(--pad-xs);
+    --button-padding: var(--pad-xs); // 16px
+    --size-button-loader-icon: var(--size-regular-icon);
     
-    &.pad-icon { padding: 0 calc(var(--pad-xs) + 18px); }
-    
-    &.only-icon {
-      width: var(--pad-h);
-    }
+    .jk-icon { @extend .regular; }
   }
   
   &.large {
-    min-height: var(--pad-xH);
+    line-height: var(--size-large-icon); // 36px
     font-size: var(--text-l-size);
-    gap: var(--pad-xs);
-    padding: 0 var(--pad-s);
-    
-    &.pad-icon { padding: 0 calc(var(--pad-s) + 20px); }
-    
-    &.only-icon { width: var(--pad-xH); }
+    --button-padding: var(--pad-s); // 20px
+    --size-button-loader-icon: var(--size-large-icon);
     
     .jk-icon { @extend .large; }
   }
   
   &.huge {
-    min-height: 64px;
-    font-size: var(--text-xl-size);
-    gap: var(--pad-s);
-    padding: 0 var(--pad-m);
-    
-    &.pad-icon { padding: 0 calc(var(--pad-m) + 22px); }
-    
-    &.only-icon { width: 64px; }
+    line-height: var(--size-huge-icon); // 48px
+    font-size: var(--text-h-size);
+    --button-padding: var(--pad-m); // 24px
+    --size-button-loader-icon: var(--size-huge-icon);
     
     .jk-icon { @extend .huge; }
   }
   
+  &.jk-button-loader {
+    
+    .button-loader-icon {
+      overflow: hidden;
+      @include transition(width, min-width, height, min-height, margin-left);
+      
+      .jk-icon {
+        width: inherit;
+        min-width: inherit;
+        height: inherit;
+        min-height: inherit;
+      }
+    }
+    
+    &.with-loader-icon {
+      --button-border-color: var(--button-background-color);
+      
+      .button-loader-icon {
+        @include box-size(var(--size-button-loader-icon));
+      }
+    }
+    
+    &.with-loader-icon:not(.only-icon) .button-loader-icon {
+      margin-left: var(--gap);
+    }
+  }
+  
   &.only-icon {
-    padding: 0;
     border-radius: 50%;
+    padding: calc(var(--button-padding) / 2);
     
     .jk-icon {
       margin: auto;
     }
   }
   
-  &.loading {
-    cursor: initial;
-    
-    &:after {
-      top: 0;
-      content: "";
-      position: absolute;
-      width: 0%;
-      height: 100%;
-      animation: roundGoing 400ms linear infinite;
-      background-color: var(--t-color-shadow);
-    }
-  }
-  
-  &.disabled { opacity: 0.8; }
+  &.disabled:not(.with-loader-icon) { opacity: 0.8; cursor: not-allowed; }
   
   &.extend { width: 100%; }
   
   &.error {
-    background-color: var(--t-color-error) !important;
-    border-color: transparent !important;
+    --button-background-color: var(--t-color-error);
     pointer-events: none;
   }
   
   &.success {
-    background-color: var(--t-color-success) !important;
-    border-color: transparent !important;
+    --button-background-color: var(--t-color-success);
     pointer-events: none;
   }
   
   overflow: hidden;
   
-  @keyframes roundGoing {
-    0% { left: 0; width: 0%; }
-    50% { left: 0; width: 100%; }
-    100% { left: 100%; width: 0%; }
+  &.icon:not(.only-icon) {
+    > :first-child {
+      --icon-margin-right: var(--gap);
+      margin-right: var(--icon-margin-right);
+    }
   }
 }
 
 .jk-button-primary {
-  @extend .appearance-primary;
+  --button-background-color: var(--t-color-primary);
+  color: var(--t-color-primary-text);
 }
 
 .jk-button-secondary {
-  background-color: var(--t-color-secondary);
+  --button-background-color: var(--t-color-secondary);
   color: var(--t-color-secondary-text);
 }
 
 .jk-button-text {
-  background-color: transparent;
+  --button-background-color: transparent;
   color: inherit;
-  
-  &:not(.disabled):hover, &:not(.disabled):focus {
-    background-color: transparent;
-    border-color: transparent;
-  }
   
   * {
     color: inherit;
   }
 }
 
+*.jk-row:not(.block), *.jk-col:not(.block), *.jk-row-col:not(.block), *:not(.jk-row):not(.jk-col):not(.jk-row-col) {
+  > button[class*=" jk-button-"], > button[class^="jk-button-"],
+  > input[class*=" jk-button-"], > input[class^="jk-button-"],
+  > div[class*=" jk-button-"], > div[class^="jk-button-"],
+  > span[class*=" jk-button-"], > span[class^="jk-button-"] {
+    &:not(.with-loader-icon):not(.only-icon) {
+      --button-border-padding: calc((var(--size-button-loader-icon) / 2) + var(--button-padding) + var(--gap) / 2);
+      
+      .button-loader-icon {
+        width: 0;
+        min-width: 0;
+        height: 0;
+        min-height: 0;
+      }
+    }
+  }
+}
+
 .jk-button-outline {
-  background-color: transparent;
+  --button-background-color: transparent;
   outline: 1px solid var(--t-color-primary) !important;
   color: var(--t-color-primary);
   font-weight: var(--weight-bolder) !important;
 }
 
 .jk-button-light {
-  background-color: var(--t-color-shadow-light);
+  --button-background-color: rgba(var(--t-color-black-rgb), 0.06);
+  --button-border-width: 2px !important;
+  outline-offset: 0 !important;
   color: inherit;
 }

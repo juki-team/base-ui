@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { Button, ButtonLoader, LoadingIcon, LoginIcon, LogoutIcon, Popover, T } from '../../index';
 import { classNames } from '../../../helpers';
-import { useJukiUI, useJukiUser } from '../../../hooks';
+import { useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
+import { Button, LoadingIcon, LoginIcon, LogoutIcon, Popover, T } from '../../atoms';
+import { ButtonLoader } from '../../molecules';
 
 interface LoginUserProps {
   collapsed: boolean,
   popoverPlacement: 'rightBottom' | 'bottomRight',
-  onSeeMyProfile: () => void,
+  onSeeMyProfile: (() => Promise<void>) | (() => void),
   profileSelected?: boolean,
 }
 
 export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profileSelected }: LoginUserProps) => {
   
   const { user, isLoading, logout } = useJukiUser();
-  const { viewPortSize, components: { Image }, router: { setSearchParams } } = useJukiUI();
+  const { setSearchParams } = useJukiRouter();
+  const { viewPortSize, components: { Image } } = useJukiUI();
   const [ visible, setVisible ] = useState(false);
   
   if (isLoading) {
@@ -54,7 +56,7 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
               <ButtonLoader
                 extend
                 onClick={(setLoader) => logout({ setLoader, onSuccess: () => setVisible(false) })}
-                type="outline"
+                type="light"
                 icon={<LogoutIcon />}
               >
                 <T className="ws-np">sign out</T>

@@ -23,7 +23,7 @@ import {
 } from 'react-device-detect';
 import { settings } from '../../config';
 import { localStorageCrossDomains } from '../../helpers';
-import { useFetcher, useJukiUI } from '../../hooks';
+import { useFetcher, useJukiPage } from '../../hooks';
 import { SocketIo } from '../../services';
 import { UserContext } from './context';
 import { DeviceType, JukiUserProviderProps } from './types';
@@ -92,14 +92,18 @@ const useUser = () => {
 };
 
 export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>) => {
-  const { children, utilsServiceUrl, utilsServiceApiVersion, utilsSocketServiceUrl, utilsUiUrl, tokenName } = props;
-  const { isPageVisible } = useJukiUI();
+  
+  const { children, serviceApiUrl, socketServiceUrl, utilsUiUrl, tokenName } = props;
+  
+  const { isPageVisible } = useJukiPage();
+  
   const socket = useMemo(() => new SocketIo(), []);
+  
   useEffect(() => {
-    settings.setSetting(utilsServiceUrl, utilsServiceApiVersion, utilsSocketServiceUrl, utilsUiUrl, tokenName);
+    settings.setSetting(serviceApiUrl, socketServiceUrl, utilsUiUrl, tokenName);
     socket.stop();
     socket.start();
-  }, [ socket, tokenName, utilsServiceApiVersion, utilsServiceUrl, utilsSocketServiceUrl, utilsUiUrl ]);
+  }, [ socket, tokenName, serviceApiUrl, socketServiceUrl, utilsUiUrl ]);
   
   const { user, company, setUser, isLoading, mutate } = useUser();
   

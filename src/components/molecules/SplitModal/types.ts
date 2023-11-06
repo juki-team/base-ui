@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { ReactNodeOrFunctionType } from '../../../types';
 import { BasicModalProps } from '../../atoms';
 
@@ -9,4 +10,5 @@ export interface SplitModalProps extends BasicModalProps {
   closeIcon?: boolean,
   closeWhenKeyEscape?: boolean,
   closeWhenClickOutside?: boolean,
+  children: ReactElement,
 }

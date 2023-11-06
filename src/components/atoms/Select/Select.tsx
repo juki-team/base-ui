@@ -82,7 +82,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
       popoverClassName={classNames('jk-select-options-content', popoverClassName)}
       visible={showOptions}
       onVisibleChange={value => setShowOptions(value)}
-      marginOfChildren={0}
+      marginOfChildren={4}
       content={
         <div
           ref={optionRef}

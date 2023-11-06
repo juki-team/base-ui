@@ -16,6 +16,7 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl }: DrawerView
   const { components: { Image } } = useJukiUI();
   
   const { company: { name } } = useJukiUser();
+  
   const [ helpOpen, setHelpOpen ] = useState(false);
   
   return (

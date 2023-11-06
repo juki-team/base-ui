@@ -56,30 +56,29 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
   
   return (
     <div className={classNames('jk-row-col gap nowrap', { extend })}>
-      <Select
-        options={[
-          { value: Judge.CUSTOMER, label: <>{name + ' judge'}</> },
-          ...(companyKey === JUKI_APP_COMPANY_KEY ? [] : [ {
-            value: Judge.JUKI_JUDGE,
-            label: <>{JUDGE.JUKI_JUDGE.label}</>,
-          } ]),
-          { value: Judge.CODEFORCES, label: <>{JUDGE.CODEFORCES.label}</> },
-          { value: Judge.JV_UMSA, label: <>{JUDGE.JV_UMSA.label}</> },
-        ]}
-        selectedOption={{ value: judge }}
-        onChange={({ value }) => setJudge(value)}
-      />
       <div className="jk-col gap extend flex-1">
         <div className="jk-row nowrap gap">
+          <Select
+            options={[
+              { value: Judge.CUSTOMER, label: <>{name + ' judge'}</> },
+              ...(companyKey === JUKI_APP_COMPANY_KEY ? [] : [ {
+                value: Judge.JUKI_JUDGE,
+                label: <>{JUDGE.JUKI_JUDGE.label}</>,
+              } ]),
+              { value: Judge.CODEFORCES, label: <>{JUDGE.CODEFORCES.label}</> },
+              { value: Judge.JV_UMSA, label: <>{JUDGE.JV_UMSA.label}</> },
+            ]}
+            selectedOption={{ value: judge }}
+            onChange={({ value }) => setJudge(value)}
+          />
           {(judge === Judge.CUSTOMER || judge === Judge.JUKI_JUDGE) && (
-            <label>
-              <T className="tt-se ws-np fw-bd">key</T>:&nbsp;
-              <Input
-                size={6}
-                value={key}
-                onChange={(value) => setKey(value)}
-              />
-            </label>
+            <Input
+              labelPlacement="left"
+              label={<T className="tt-se ws-np">key</T>}
+              size={6}
+              value={key}
+              onChange={(value) => setKey(value)}
+            />
           )}
           {judge === Judge.CODEFORCES && (
             <>
@@ -192,11 +191,12 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
             content={<T>reload</T>}
             placement="left"
           >
-            <div className="jk-row">
-              <ReloadIcon
-                className="clickable jk-br-ie"
-                onClick={() => setTimestampTrigger(Date.now())}
-              />
+            <div className="jk-row ">
+              <div className="jk-button-light only-icon">
+                <ReloadIcon
+                  onClick={() => setTimestampTrigger(Date.now())}
+                />
+              </div>
             </div>
           </Tooltip>
         </div>

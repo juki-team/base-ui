@@ -116,14 +116,22 @@ export const isFilterDateRange = (filter?: TableHeaderFilterType): filter is Tab
   return filter?.type === FILTER_DATE_RANGE;
 };
 
-export const renderHead = ({
-                             head,
-                             columnIndex,
-                           }: {
+interface renderHeadProps {
   head: TableHeadType,
   columnIndex: string
-}) => head ? (typeof head === 'function' ? head() : head) :
-  <TextHeadCell text={columnIndex} />;
+}
+
+export const renderHead = ({ head, columnIndex }: renderHeadProps) => {
+  if (head) {
+    if (typeof head === 'string') {
+      return <TextHeadCell text={head} />;
+    }
+    if (typeof head === 'function') {
+      return head();
+    }
+  }
+  return <TextHeadCell text={columnIndex} />;
+}
 
 export const renderField = <T, >(data: T[], index: number, isCard: boolean) => ({
                                                                                   field,

@@ -55,7 +55,6 @@ export * from './Search';
 export * from './Setting';
 export * from './Share';
 export * from './Snowflake';
-export * from './Spin';
 export * from './Star';
 export * from './ThumbUp';
 export * from './Today';

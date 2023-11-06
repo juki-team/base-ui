@@ -43,7 +43,6 @@ import {
   LeaderboardIcon_,
   LightBulbIcon,
   LinkedInIcon,
-  LoadingIcon_,
   LockIcon_,
   MailIcon_,
   MailOpenedIcon,
@@ -65,7 +64,6 @@ import {
   SettingIcon_,
   ShareIcon_,
   SnowflakeIcon,
-  SpinIcon,
   StarIcon,
   ThumbUpIcon,
   TodayIcon,
@@ -136,7 +134,6 @@ export const Regular: FC<BasicIconProps> = (args) => {
     SettingIcon_,
     ShareIcon_,
     SnowflakeIcon,
-    SpinIcon,
     StarIcon,
     ThumbUpIcon,
     TodayIcon,
@@ -154,7 +151,6 @@ export const Regular: FC<BasicIconProps> = (args) => {
     SchoolIcon_,
     SaveIcon_,
     EditIcon_,
-    LoadingIcon_,
     GroupIcon_,
   };
   

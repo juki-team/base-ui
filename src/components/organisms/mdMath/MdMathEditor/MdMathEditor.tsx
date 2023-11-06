@@ -1,7 +1,6 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import {
-  AlertModal,
   Button,
   CloseIcon,
   EditIcon,
@@ -11,6 +10,7 @@ import {
   T,
   TextArea,
   Tooltip,
+  TwoActionModal,
 } from '../../../';
 import { classNames } from '../../../../helpers';
 import { useOutsideAlerter } from '../../../../hooks';
@@ -54,19 +54,21 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
       setModal(null);
     };
     setModal(
-      <AlertModal
+      <TwoActionModal
+        isOpen
         onClose={() => setModal(null)}
-        decline={{
+        secondary={{
           onClick: () => {
             continueWithoutSavingRef.current = true;
             setModal(null);
           },
           label: <T>continue without saving</T>,
         }}
-        accept={{ onClick: handleAccept, label: <T>save and continue</T> }}
+        primary={{ onClick: handleAccept, label: <T>save and continue</T> }}
         title={<T>attention</T>}
-        content={<T>Has unsaved changes</T>}
-      />,
+      >
+        <T>Has unsaved changes</T>
+      </TwoActionModal>,
     );
   };
   useOutsideAlerter(() => {

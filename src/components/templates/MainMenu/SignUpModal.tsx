@@ -8,7 +8,7 @@ export interface SignUpModalProps extends BasicModalProps {
   onSuccess?: (response?: ContentResponseType<PingResponseDTO>) => void,
 }
 
-export const SignUpModal = ({ onClose, onSuccess }: SignUpModalProps) => {
+export const SignUpModal = ({ isOpen, onClose, onSuccess }: SignUpModalProps) => {
   
   const { signUp, device: { osLabel, label } } = useJukiUser();
   
@@ -19,6 +19,6 @@ export const SignUpModal = ({ onClose, onSuccess }: SignUpModalProps) => {
   });
   
   return (
-    <SignUpModalTemplate onClose={onClose} onSubmit={onSubmit} />
+    <SignUpModalTemplate isOpen={isOpen} onClose={onClose} onSubmit={onSubmit} />
   );
 };

@@ -1,7 +1,7 @@
 import { consoleWarn, DataViewMode, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiRouter, useJukiUI } from '../../../hooks';
 import { OptionType } from '../../index';
 import {
   FILTER_DATE,
@@ -36,6 +36,19 @@ import {
 
 const DEFAULT_PICKER_TYPE = 'year-month-day-hours-minutes-seconds';
 
+function getTextWidth(text: string, font: string) {
+  // re-use canvas object for better performance
+  // @ts-ignore
+  const canvas: HTMLCanvasElement = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
+  const context = canvas.getContext('2d');
+  if (context) {
+    context.font = font;
+    const metrics = context.measureText(text);
+    return metrics.width;
+  }
+  return 0;
+}
+
 export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => {
   
   const {
@@ -66,10 +79,10 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     extraNodesFloating,
     preferredDataViewMode,
   } = props;
-  const {
-    viewPortSize,
-    router: { searchParams, deleteSearchParams, setSearchParams },
-  } = useJukiUI();
+  
+  const { viewPortSize } = useJukiUI();
+  
+  const { searchParams, deleteSearchParams, setSearchParams } = useJukiRouter();
   
   const withPagination = !!pagination;
   
@@ -482,7 +495,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     
     return headers.map(({ sort, filter, ...props }, index) => {
       const newHead: TableHeadersType<T> = { ...props };
+      let iconsWidth = filter ? 34 : 0;
       if (sort) { // online or offline
+        iconsWidth += iconsWidth ? (34 + 4) : 34; // size of icon // 4px separation
         const up = props.index;
         const down = '-' + props.index;
         newHead.sort = {
@@ -559,6 +574,13 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           online: isFilterDateRangeOnline(filter),
         };
       }
+      
+      const head = props.head || props.index;
+      if (typeof head === 'string') {
+        const width = getTextWidth(head, '600 16px / 16px Inter, sans-serif');
+        newHead.minWidth = Math.max(props.minWidth || 0, iconsWidth + width + 32 /* padding head cell */)
+      }
+      
       return newHead;
     });
   }, [ deleteSearchParams, filterKey, headers, searchFilter, searchSorts, setSearchParams, sortKey ]);

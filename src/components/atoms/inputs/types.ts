@@ -27,6 +27,8 @@ export interface InputCommonsProps<T> {
   step?: number | 'auto',
   label?: string | ReactElement<typeof TCmp>,
   icon?: ReactNode,
+  labelPlacement?: 'top-border' | 'top' | 'left',
+  required?: boolean,
 }
 
 // export interface InputFileProps<T> extends InputCommonsProps<T> {

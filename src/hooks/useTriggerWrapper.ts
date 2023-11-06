@@ -109,6 +109,7 @@ export const useTriggerWrapper = (props: UseTriggerWrapperProps) => {
   
   const childProps = ({
                         props: {
+                          ref = undefined,
                           onClick = undefined,
                           onMouseEnter = undefined,
                           onMouseLeave = undefined,
@@ -116,6 +117,7 @@ export const useTriggerWrapper = (props: UseTriggerWrapperProps) => {
                       }: any) => ({
     ref: (e: any) => {
       setBoundingClientRect(e?.getBoundingClientRect()?.toJSON()); // valid on target too
+      ref?.(e);
     },
     onMouseEnter: (e: any) => {
       if (isTrigger(triggerOn, 'hover')) {

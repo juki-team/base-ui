@@ -26,6 +26,7 @@ const loginSchema = yup.object().shape({
 export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
   
   const {
+    isOpen,
     onClose,
     onSignUpButton,
     onSubmit,
@@ -46,13 +47,12 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
   
   return (
     <>
-      {openForgotPasswordModal && (
-        <ForgotPasswordModal
-          onClose={() => setOpenForgotPasswordModal(false)}
-        />
-      )}
+      <ForgotPasswordModal
+        isOpen={openForgotPasswordModal}
+        onClose={() => setOpenForgotPasswordModal(false)}
+      />
       <SplitModal
-        isOpen={!openForgotPasswordModal}
+        isOpen={isOpen && !openForgotPasswordModal}
         onClose={onClose}
         className="modal-login"
         title={
@@ -64,6 +64,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
         graphic={<JukiLaptopImage />}
         closeWhenKeyEscape
         closeWhenClickOutside
+        closeIcon={false}
       >
         <div className="jk-col stretch">
           {loginWithGoogle && reactAppGoogleClientId && (
@@ -81,30 +82,32 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
           )}
           <form onSubmit={handleSubmit((data: LoginFormType) => onSubmit(data, setLoaderRef.current!))}>
             <div className="jk-col stretch">
-              <div className="jk-form-item required">
-                <label>
-                  <T>nickname</T>
-                  <Input
-                    register={register('nickname')}
-                    className={classNames({
-                      error: !!errors?.nickname?.message,
-                      success: !!touchedFields.nickname && !errors?.nickname?.message,
-                    })}
-                  />
-                </label>
+              <div className="jk-form-item">
+                <Input
+                  labelPlacement="top"
+                  label={<T className="tt-se">nickname</T>}
+                  register={register('nickname')}
+                  className={classNames({
+                    error: !!errors?.nickname?.message,
+                    success: !!touchedFields.nickname && !errors?.nickname?.message,
+                  })}
+                  extend
+                  required
+                />
                 <p><T>{(!isValid && errors?.nickname?.message) || ''}</T></p>
               </div>
-              <div className="jk-form-item required">
-                <label>
-                  <T>password</T>
-                  <InputPassword
-                    register={register('password')}
-                    className={classNames({
-                      error: !!errors?.password?.message,
-                      success: !!touchedFields.password && !errors?.password?.message,
-                    })}
-                  />
-                </label>
+              <div className="jk-form-item">
+                <InputPassword
+                  labelPlacement="top"
+                  label={<T className="tt-se">password</T>}
+                  register={register('password')}
+                  className={classNames({
+                    error: !!errors?.password?.message,
+                    success: !!touchedFields.password && !errors?.password?.message,
+                  })}
+                  extend
+                  required
+                />
                 <p><T>{errors?.password?.message || ''}</T></p>
               </div>
               <div className="jk-col gap stretch">

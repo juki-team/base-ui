@@ -13,19 +13,22 @@ export interface WelcomeModalProps extends BasicModalProps {
   onSeeMyProfile: ButtonLoaderOnClickType,
 }
 
-export const WelcomeModal = ({ nickname, onClose, onSeeMyProfile }: WelcomeModalProps) => (
+export const WelcomeModal = ({ isOpen, nickname, onClose, onSeeMyProfile }: WelcomeModalProps) => (
   <Modal
-    isOpen={true}
+    isOpen={isOpen}
     onClose={onClose}
     className="modal-welcome"
+    closeIcon={false}
   >
     <div className="jk-pad-md jk-row nowrap">
       <div>
-        <h2><T>hi</T><span className="given-name">{nickname}</span>!</h2>
+        <h2><T>hi</T>&nbsp;<span className="given-name">{nickname}</span>!</h2>
         <h3><T>welcome to the Online Juki Judge</T></h3>
         <div className="jk-col gap stretch">
           <p>
-            <T>participe in coding contests ranging from beginner level to week-long coding marathons</T>
+            <T className="tt-se">
+              participate in coding contests ranging from beginner level to week-long coding marathons
+            </T>
           </p>
           <div className="jk-row-col gap block">
             <ButtonLoader type="light" onClick={onSeeMyProfile} extend>

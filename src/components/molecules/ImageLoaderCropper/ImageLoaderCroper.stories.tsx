@@ -8,11 +8,10 @@ import {
   ImageLoaderCropperProps,
   toBlob,
 } from '../../../index';
+import { MockupJukiProvider } from '../../mockup';
 // import { COMPONENTS_WRITING_TOOLS } from './constants';
-import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 
 const meta: Meta<typeof ImageLoaderCropperCmp> = {
-  title: 'Components/Data Entry',
   component: ImageLoaderCropperCmp,
 };
 
@@ -25,38 +24,39 @@ const ImageLoaderCropperComponent: FC<ImageLoaderCropperProps> = ({ onCropChange
   const [ cropImage, setCropImage ] = useState<CropImageType>();
   
   return (
-    <div className="jk-col gap">
-      <Button
-        onClick={async () => {
-          if (cropImage?.previewCanvasRef.current) {
-            const blob = await toBlob(cropImage.previewCanvasRef.current);
-            if (blob) {
-              await downloadBlobAsFile(blob, 'image');
+    <MockupJukiProvider>
+      <div className="jk-col gap">
+        <Button
+          onClick={async () => {
+            if (cropImage?.previewCanvasRef.current) {
+              const blob = await toBlob(cropImage.previewCanvasRef.current);
+              if (blob) {
+                await downloadBlobAsFile(blob, 'image');
+              }
             }
-          }
-        }}
-      >
-        download
-      </Button>
-      <ImageLoaderCropperCmp
-        onCropChange={setCropImage}
-        {...props}
-      />
-      <div>
-        {!!cropImage?.pixelCrop && (
-          <canvas
-            ref={cropImage.previewCanvasRef}
-            style={{
-              border: '1px solid black',
-              objectFit: 'contain',
-              width: cropImage.pixelCrop.width,
-              height: cropImage.pixelCrop.height,
-            }}
-          />
-        )}
+          }}
+        >
+          download
+        </Button>
+        <ImageLoaderCropperCmp
+          onCropChange={setCropImage}
+          {...props}
+        />
+        <div>
+          {!!cropImage?.pixelCrop && (
+            <canvas
+              ref={cropImage.previewCanvasRef}
+              style={{
+                border: '1px solid black',
+                objectFit: 'contain',
+                width: cropImage.pixelCrop.width,
+                height: cropImage.pixelCrop.height,
+              }}
+            />
+          )}
+        </div>
       </div>
-      <MockupToggleThemeButton />
-    </div>
+    </MockupJukiProvider>
   );
 };
 

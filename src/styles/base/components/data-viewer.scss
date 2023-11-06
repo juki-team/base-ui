@@ -79,8 +79,8 @@
         }
         
         > div > div > .jk-icon, > div > div > div > .jk-icon {
-          color: var(--t-color-gray-3);
-          padding: 4px;
+          //color: var(--t-color-gray-3);
+          //padding: 4px;
         }
         
         .loading, .loading .jk-icon {
@@ -88,7 +88,7 @@
         }
         
         .active .jk-icon {
-          color: var(--t-color-primary-light);
+          color: var(--t-color-primary);
         }
         
         .jk-table-view-tools-view-mode {
@@ -166,6 +166,7 @@
           }
           
           .jk-table-head-field {
+            flex: 1;
             height: 100%;
           }
           
@@ -196,9 +197,9 @@
             }
             
             .jk-table-head-tools {
-              right: 0;
-              top: 0;
-              position: absolute;
+              //right: 0;
+              //top: 0;
+              //position: absolute;
               padding-right: 4px;
             }
             
@@ -470,10 +471,10 @@
   
   .tool {
     color: var(--t-color-gray-3);
-    box-sizing: border-box;
-    height: var(--jk-table-toolbar-height);
-    padding: var(--pad-xt) 4px;
-    cursor: pointer;
+    //box-sizing: border-box;
+    //height: var(--jk-table-toolbar-height);
+    //padding: var(--pad-xt) 4px;
+    //cursor: pointer;
     
     @include md {
       padding: var(--pad-xt) 0;
@@ -483,22 +484,8 @@
     }
     
     &.active {
-      color: var(--t-color-primary-light);
-      
-      &.disabled {
-        color: rgba(var(--t-color-primary-light-rgb), 0.7);
-      }
+      color: var(--t-color-primary);
     }
-    
-    .jk-icon {
-      padding: 2px;
-    }
-  }
-  
-  .tool.disabled {
-    color: var(--t-color-gray-6);
-    cursor: inherit;
-    pointer-events: none;
   }
 }
 

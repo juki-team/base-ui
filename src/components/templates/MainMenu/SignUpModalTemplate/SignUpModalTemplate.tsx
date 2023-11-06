@@ -46,12 +46,9 @@ const signUpSchema = yup.object().shape({
     .oneOf([ yup.ref('password'), '' ], 'both passwords must match'),
 });
 
-export const SignUpModalTemplate = ({
-                                      onClose,
-                                      onSubmit,
-                                      signUpWithGoogle,
-                                      reactAppGoogleClientId,
-                                    }: SignUpModalComponentProps) => {
+export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
+  
+  const { isOpen, onClose, onSubmit, signUpWithGoogle, reactAppGoogleClientId } = props;
   
   const { register, handleSubmit, formState: { errors, isValid, touchedFields }, control } = useForm<SignUpFormType>({
     resolver: yupResolver(signUpSchema),
@@ -64,7 +61,7 @@ export const SignUpModalTemplate = ({
   
   return (
     <SplitModal
-      isOpen={true}
+      isOpen={isOpen}
       onClose={onClose}
       className="modal-sign-up"
       title={
@@ -76,6 +73,7 @@ export const SignUpModalTemplate = ({
       graphic={<JukiLaptopImage />}
       closeWhenKeyEscape
       closeWhenClickOutside
+      closeIcon={false}
     >
       <div className="jk-col stretch">
         {signUpWithGoogle && reactAppGoogleClientId && (
@@ -94,83 +92,83 @@ export const SignUpModalTemplate = ({
         <form onSubmit={handleSubmit((data: SignUpFormType) => onSubmit(data, setLoaderRef.current!))}>
           <div className="jk-col stretch">
             <div className="jk-row gap block">
-              <div className="jk-form-item required">
-                <label>
-                  <T>first name</T>
-                  <Input
-                    register={{ ...register('givenName') }}
-                    className={classNames({
-                      error: !!errors?.givenName?.message,
-                      success: !!touchedFields.givenName && !errors?.givenName?.message,
-                    })}
-                  />
-                </label>
+              <div className="jk-form-item">
+                <Input
+                  labelPlacement="top"
+                  label={<T className="tt-se">first name</T>}
+                  register={{ ...register('givenName') }}
+                  className={classNames({
+                    error: !!errors?.givenName?.message,
+                    success: !!touchedFields.givenName && !errors?.givenName?.message,
+                  })}
+                  required
+                />
                 <p><T>{errors?.givenName?.message || ''}</T></p>
               </div>
-              <div className="jk-form-item required">
-                <label>
-                  <T>last name</T>
-                  <Input
-                    register={register('familyName')}
-                    className={classNames({
-                      error: !!errors?.familyName?.message,
-                      success: !!touchedFields.familyName && !errors?.familyName?.message,
-                    })}
-                  />
-                </label>
+              <div className="jk-form-item">
+                <Input
+                  labelPlacement="top"
+                  label={<T className="tt-se">last name</T>}
+                  register={register('familyName')}
+                  className={classNames({
+                    error: !!errors?.familyName?.message,
+                    success: !!touchedFields.familyName && !errors?.familyName?.message,
+                  })}
+                  required
+                />
                 <p><T>{errors.familyName?.message || ''}</T></p>
               </div>
             </div>
-            <div className="jk-form-item required">
-              <label>
-                <T>nickname</T>
-                <Input
-                  register={register('nickname')}
-                  className={classNames({
-                    error: !!errors?.nickname?.message,
-                    success: !!touchedFields.nickname && !errors?.nickname?.message,
-                  })}
-                />
-              </label>
+            <div className="jk-form-item">
+              <Input
+                labelPlacement="top"
+                label={<T className="tt-se">nickname</T>}
+                register={register('nickname')}
+                className={classNames({
+                  error: !!errors?.nickname?.message,
+                  success: !!touchedFields.nickname && !errors?.nickname?.message,
+                })}
+                required
+              />
               <p><T>{(!isValid && errors?.nickname?.message) || ''}</T></p>
             </div>
-            <div className="jk-form-item required">
-              <label>
-                <T>e-mail address</T>
-                <Input
-                  register={register('email')}
-                  className={classNames({
-                    error: !!errors?.email?.message,
-                    success: !!touchedFields.email && !errors?.email?.message,
-                  })}
-                />
-              </label>
+            <div className="jk-form-item">
+              <Input
+                labelPlacement="top"
+                label={<T className="tt-se">e-mail address</T>}
+                register={register('email')}
+                className={classNames({
+                  error: !!errors?.email?.message,
+                  success: !!touchedFields.email && !errors?.email?.message,
+                })}
+                required
+              />
               <p><T>{(!isValid && errors?.email?.message) || ''}</T></p>
             </div>
-            <div className="jk-form-item required">
-              <label>
-                <T>password</T>
-                <InputPassword
-                  register={register('password')}
-                  className={classNames({
-                    error: !!errors?.password?.message,
-                    success: !!touchedFields.password && !errors?.password?.message,
-                  })}
-                />
-              </label>
+            <div className="jk-form-item">
+              <InputPassword
+                labelPlacement="top"
+                label={<T className="tt-se">password</T>}
+                register={register('password')}
+                className={classNames({
+                  error: !!errors?.password?.message,
+                  success: !!touchedFields.password && !errors?.password?.message,
+                })}
+                required
+              />
               <p><T>{(!isValid && errors?.password?.message) || ''}</T></p>
             </div>
-            <div className="jk-form-item required">
-              <label>
-                <T>confirm password</T>
-                <InputPassword
-                  register={register('passwordConfirmation')}
-                  className={classNames({
-                    error: !!errors?.passwordConfirmation?.message,
-                    success: !!touchedFields.passwordConfirmation && !errors?.passwordConfirmation?.message,
-                  })}
-                />
-              </label>
+            <div className="jk-form-item">
+              <InputPassword
+                labelPlacement="top"
+                label={<T className="tt-se">confirm password</T>}
+                register={register('passwordConfirmation')}
+                className={classNames({
+                  error: !!errors?.passwordConfirmation?.message,
+                  success: !!touchedFields.passwordConfirmation && !errors?.passwordConfirmation?.message,
+                })}
+                required
+              />
               <p><T>{(!isValid && errors?.passwordConfirmation?.message) || ''}</T></p>
             </div>
             <div className="jk-form-item required">

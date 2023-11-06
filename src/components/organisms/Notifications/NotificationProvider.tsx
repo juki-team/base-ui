@@ -36,6 +36,4 @@ export function NotificationProvider({ children }: PropsWithChildren<{}>) {
       {children}
     </NotificationContext.Provider>
   );
-};
-
-
+}

@@ -1,34 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup';
 import { Popover } from './Popover';
 
 const meta: Meta<typeof Popover> = {
   component: Popover,
-  argTypes: {
-    triggerOn: {
-      control: {
-        type: 'select',
-        options: [ 'hover', 'click', [ 'hover', 'click' ] ],
-        // value: 'hover',
-      },
-    },
-    triggerOff: {
-      control: {
-        type: 'select',
-        options: [
-          'hover',
-          'click',
-          'escape',
-          [ 'hover', 'click' ],
-          [ 'hover', 'escape' ],
-          [ 'click', 'escape' ],
-          [ 'hover', 'click', 'escape' ],
-        ],
-        // value: 'hover',
-      },
-    },
-  },
 };
 
 export default meta;
@@ -45,7 +21,7 @@ const content = (
 );
 
 export const Regular: Story = {
-  render: ({ placement = 'top', ...args }) => (
+  render: ({ placement, ...args }) => (
     <MockupJukiProvider>
       <div style={{ padding: '200px' }}>
         <Popover
@@ -55,8 +31,11 @@ export const Regular: Story = {
         >
           <div style={{ background: 'gray', width: '200px' }}>{placement}</div>
         </Popover>
-        <MockupToggleThemeButton />
       </div>
     </MockupJukiProvider>
   ),
 };
+
+Regular.args = {
+  placement: 'top',
+}

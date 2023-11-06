@@ -8,7 +8,7 @@ export interface LoginModalProps extends BasicModalProps {
   onSignUpButton: () => void,
 }
 
-export const LoginModal = ({ onClose, onSignUpButton }: LoginModalProps) => {
+export const LoginModal = ({ isOpen, onClose, onSignUpButton }: LoginModalProps) => {
   
   const { signIn, device: { osLabel, label } } = useJukiUser();
   const [ highlightForgotPassword, setHighlightForgotPassword ] = useState(false);
@@ -23,6 +23,7 @@ export const LoginModal = ({ onClose, onSignUpButton }: LoginModalProps) => {
   
   return (
     <LoginModalTemplate
+      isOpen={isOpen}
       onClose={onClose}
       onSignUpButton={onSignUpButton}
       onSubmit={onSubmit}

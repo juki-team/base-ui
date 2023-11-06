@@ -129,48 +129,45 @@ export const ImageLoaderCropper = (props: ImageLoaderCropperProps) => {
       <div className="jk-row space-between gap nowrap">
         <Input type="file" accept="image/*" onChange={onSelectFile} />
         {withScale && (
-          <label>
-            <T className="tt-se">scale</T>:
-            <Input
-              type="number"
-              step={0.1}
-              value={scale}
-              disabled={!imgSrc}
-              size="auto"
-              onChange={setScale}
-            />
-          </label>
+          <Input
+            labelPlacement="left"
+            label={<T className="tt-se">scale</T>}
+            type="number"
+            step={0.1}
+            value={scale}
+            disabled={!imgSrc}
+            size="auto"
+            onChange={setScale}
+          />
         )}
         {withRotate && (
-          <label>
-            <T className="tt-se">rotate</T>:
-            <Input
-              type="number"
-              value={rotate}
-              disabled={!imgSrc}
-              size="auto"
-              onChange={value => setRotate(Math.min(180, Math.max(-180, value)))}
-            />
-          </label>
+          <Input
+            labelPlacement="left"
+            label={<T className="tt-se">rotate</T>}
+            type="number"
+            value={rotate}
+            disabled={!imgSrc}
+            size="auto"
+            onChange={value => setRotate(Math.min(180, Math.max(-180, value)))}
+          />
         )}
         {withAspect && (
-          <label>
-            <T className="tt-se">aspect</T>:
-            <Input
-              type="text"
-              value={aspectText}
-              disabled={!imgSrc}
-              size="auto"
-              onChange={value => {
-                setAspectText(value);
-                const values = value?.split('/');
-                const aspect = +values[0] / +(values[1] || 1);
-                if (!Number.isNaN(aspect)) {
-                  setAspect(aspect);
-                }
-              }}
-            />
-          </label>
+          <Input
+            labelPlacement="left"
+            label={<T className="tt-se">aspect</T>}
+            type="text"
+            value={aspectText}
+            disabled={!imgSrc}
+            size="auto"
+            onChange={value => {
+              setAspectText(value);
+              const values = value?.split('/');
+              const aspect = +values[0] / +(values[1] || 1);
+              if (!Number.isNaN(aspect)) {
+                setAspect(aspect);
+              }
+            }}
+          />
         )}
       </div>
       {Boolean(imgSrc) && (

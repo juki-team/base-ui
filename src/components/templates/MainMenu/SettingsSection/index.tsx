@@ -128,7 +128,6 @@ export const SettingsSection = ({
       <Modal
         isOpen={helpOpen && !isMobile}
         onClose={() => setHelpOpen(false)}
-        closeIcon
         closeWhenClickOutside
         className="wh-ao"
       >

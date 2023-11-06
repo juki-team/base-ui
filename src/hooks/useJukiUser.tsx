@@ -48,7 +48,7 @@ export const useJukiUser = () => {
   const { matchMutate } = useMatchMutate();
   
   const refreshAllRequest = useCallback(async () => {
-    await matchMutate(new RegExp(`^${settings.UTILS_SERVICE_API_URL}`, 'g'));
+    await matchMutate(new RegExp(`^${settings.SERVICE_API_URL}`, 'g'));
   }, [ matchMutate ]);
   
   const doRequest = useCallback(async <T, >(

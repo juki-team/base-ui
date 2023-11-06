@@ -1,7 +1,6 @@
 import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
-import { LoadingIcon } from '../icons';
 import { ButtonProps } from './types';
 
 const sizeViewPorts = {
@@ -24,13 +23,11 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
     extend = false,
     icon,
     children,
-    loading = false,
     size: _size,
     onClick,
     disabled = false,
     responsive = false,
     responsiveMobile = false,
-    withIconTransition = false,
     ...restProps
   } = props;
   
@@ -47,10 +44,9 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
         extend,
         'only-icon': !hasChildren,
         disabled,
-        icon: !!(icon || loading),
-        loading,
+        icon: !!(icon),
       })}
-      onClick={(!disabled && !loading) ? (event => onClick?.({ onClickEvent: event })) : undefined}
+      onClick={!disabled ? (event => onClick?.({ onClickEvent: event })) : undefined}
       onKeyDown={event => {
         if (event.code === 'Enter' && onClick && !disabled) {
           event.preventDefault();
@@ -60,8 +56,8 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
       }}
       {...restProps}
     >
-      {withIconTransition ? (loading ? <LoadingIcon /> : icon) : icon}
-      {hasChildren && <span className="button-label">{children}</span>}
+      {icon}
+      {children}
     </button>
   );
 };
@@ -70,11 +66,9 @@ ButtonComponent.defaultProps = {
   submit: false,
   type: 'primary',
   extend: false,
-  loading: false,
   disabled: false,
   responsive: false,
   responsiveMobile: false,
-  withIconTransition: false,
 }
 
 // @ts-ignore

@@ -128,14 +128,14 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       <div className="center-options" style={{ width: widthCenterContainer }}>
         {centerOptions({ widthContainer: widthCenterContainer })}
       </div>
-      <div className={classNames('right-options cr-pl', { 'jk-col gap': twoRows })} ref={refRightSection}>
-        <Button size="tiny" type="text" onClick={() => setShowSettings(true)} icon={<SettingsIcon />}>
+      <div className={classNames('jk-row gap right-options cr-py', { 'jk-col gap': twoRows })} ref={refRightSection}>
+        <Button size="tiny" type="light" onClick={() => setShowSettings(true)} icon={<SettingsIcon />}>
           {withLabels && <T>settings</T>}
         </Button>
         {expanded !== null && (
           <Button
             size="tiny"
-            type="text"
+            type="light"
             onClick={() => setExpanded(prevState => !prevState)}
             icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
           >

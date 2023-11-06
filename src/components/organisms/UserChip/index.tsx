@@ -1,6 +1,6 @@
 import React, { cloneElement, ReactElement } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiRouter, useJukiUI } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
 import { UserChipProps } from './types';
 
@@ -23,7 +23,9 @@ export const UserChip = ({ imageUrl, email, familyName, nickname, givenName, cla
 };
 
 export const UserNicknameLink = ({ children, nickname }: { nickname: string, children: ReactElement }) => {
-  const { router: { setSearchParams } } = useJukiUI();
+  
+  const { setSearchParams } = useJukiRouter();
+  
   return cloneElement(
     children,
     { onClick: () => setSearchParams({ name: QueryParamKey.USER_PREVIEW, value: nickname }) },

@@ -1,7 +1,8 @@
 import { Status } from '@juki-team/commons';
 import React, { useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { Button, CheckIcon, WarningIcon } from '../../atoms';
+import { Button, CheckIcon, ErrorIcon, SpinIcon } from '../../atoms';
+import { useSetLoaderStatus } from '../../atoms/hooks';
 import { ButtonLoaderProps } from './types';
 
 // no use memo when there are callbacks on the props, or be careful
@@ -11,28 +12,19 @@ export const ButtonLoader = (props: ButtonLoaderProps) => {
     className = '',
     onClick,
     children,
-    icon,
     setLoaderStatusRef,
-    withIconTransition = false,
+    disabled,
+    icon,
     ...restProps
   } = props;
   
-  const [ loader, setLoader ] = useState<[ Status, number ]>([ Status.NONE, new Date().getTime() ]);
+  const [ loader, setLoader ] = useState<Status>(Status.NONE);
+  useSetLoaderStatus(loader, setLoader, setLoaderStatusRef);
   const refTimeOut = useRef<ReturnType<typeof setTimeout>>();
-  const _refLoader = useRef(loader);
-  _refLoader.current = loader;
+  
   useEffect(() => {
-    setLoaderStatusRef?.((status, timestamp) => {
-      if (typeof status === 'function') {
-        setLoader(status(_refLoader.current));
-      } else {
-        setLoader([ status, timestamp || 0 ]);
-      }
-    });
-  }, [ setLoaderStatusRef ]);
-  useEffect(() => {
-    if (loader[0] === Status.SUCCESS || loader[0] === Status.ERROR) {
-      refTimeOut.current = setTimeout(() => setLoader(prevState => [ Status.NONE, prevState[1] ]), 1200);
+    if (loader === Status.SUCCESS || loader === Status.ERROR) {
+      refTimeOut.current = setTimeout(() => setLoader(prevState => Status.NONE), 1200);
     }
     return () => {
       if (refTimeOut.current) {
@@ -41,30 +33,34 @@ export const ButtonLoader = (props: ButtonLoaderProps) => {
     };
   }, [ loader ]);
   
-  const renderIcon = withIconTransition
-    ? (loader[0] === Status.ERROR ? <WarningIcon /> : loader[0] === Status.SUCCESS ? <CheckIcon /> : icon)
-    : icon;
-  
   return (
     <Button
-      className={classNames(className, {
-        success: loader[0] === Status.SUCCESS,
-        error: loader[0] === Status.ERROR,
-        'pad-icon': withIconTransition ? (!renderIcon && loader[0] !== Status.LOADING) : false,
+      className={classNames(className, 'jk-button-loader', {
+        'with-loader-icon': loader !== Status.NONE,
+        success: loader === Status.SUCCESS,
+        error: loader === Status.ERROR,
+        loading: loader === Status.LOADING,
+        'only-icon': !children && !!icon,
       })}
-      onClick={event => onClick?.((status, timestamp) => {
+      onClick={event => onClick?.((status) => {
         if (typeof status === 'function') {
           setLoader(status(loader));
         } else {
-          setLoader([ status, timestamp || 0 ]);
+          setLoader(status);
         }
       }, loader, event)}
-      loading={loader[0] === Status.LOADING}
-      icon={renderIcon}
-      withIconTransition={withIconTransition}
+      disabled={disabled || loader !== Status.NONE}
+      icon={!children && loader !== Status.NONE ? null : icon}
       {...restProps}
     >
       {children}
+      <div className="jk-row button-loader-icon">
+        {loader === Status.ERROR
+          ? <ErrorIcon />
+          : loader === Status.SUCCESS
+            ? <CheckIcon />
+            : loader === Status.LOADING && <SpinIcon />}
+      </div>
     </Button>
   );
 };

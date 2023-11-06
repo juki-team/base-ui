@@ -7,7 +7,7 @@ import { BasicModalProps } from '../../../../index';
 import { ForgotPasswordModalComponent } from './ForgoPasswordModal';
 import { OnForgotPasswordType } from './types';
 
-export const ForgotPasswordModal = ({ onClose }: BasicModalProps) => {
+export const ForgotPasswordModal = ({ isOpen, onClose }: BasicModalProps) => {
   const { notifyResponse } = useNotification();
   const onForgotPassword: OnForgotPasswordType = async (email, setStatus) => {
     setStatus?.(Status.LOADING);
@@ -17,7 +17,7 @@ export const ForgotPasswordModal = ({ onClose }: BasicModalProps) => {
   };
   
   return (
-    <ForgotPasswordModalComponent onForgotPassword={onForgotPassword} onClose={onClose} />
+    <ForgotPasswordModalComponent isOpen={isOpen} onForgotPassword={onForgotPassword} onClose={onClose} />
   );
 };
 

@@ -39,14 +39,6 @@
         @include sm { display: none; }
       }
       
-      .jk-notification-close-icon {
-        .jk-icon {
-          border-radius: 50%;
-          padding: var(--pad-xt);
-          @include sm { padding: 4px; }
-        }
-      }
-      
       .bar {
         position: absolute;
         bottom: 0;
@@ -156,15 +148,6 @@
       
       .bar {
         height: 2px;
-      }
-      
-      .jk-notification-close-icon {
-        @include sm { padding: 4px; }
-        
-        .jk-icon {
-          padding: 2px;
-          @include sm { padding: 2px; }
-        }
       }
     }
   }

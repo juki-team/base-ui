@@ -8,7 +8,6 @@ export const SettingsModal = <T, >({ onClose, isOpen, onChange, tabSize, fontSiz
       className="editor-settings-modal jk-pad-lg"
       isOpen={isOpen}
       onClose={onClose}
-      closeIcon
       closeWhenClickOutside
     >
       <div className="jk-col stretch gap">

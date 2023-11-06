@@ -21,7 +21,8 @@ const profileSettingsChangePasswordSchema = yup.object().shape({
     .oneOf([ yup.ref('newPassword'), '' ], 'both passwords must match'),
 });
 
-export const ChangePasswordModal = ({ onClose }: BasicModalProps) => {
+export const ChangePasswordModal = ({ isOpen, onClose }: BasicModalProps) => {
+  
   const {
     register,
     handleSubmit,
@@ -38,12 +39,15 @@ export const ChangePasswordModal = ({ onClose }: BasicModalProps) => {
   
   return (
     <Modal
-      isOpen={true}
+      isOpen={isOpen}
       className="wh-ao"
       onClose={onClose}
+      closeIcon={false}
     >
-      <div className="jk-pad-md jk-col gap stretch">
-        <h2>update password</h2>
+      <div className="jk-pad-md jk-col gap stretch change-password-modal">
+        <div className="jk-row">
+          <h2>update password</h2>
+        </div>
         <form
           onSubmit={handleSubmit((data: ProfileChangePasswordInput) => updatePassword({
             body: {
@@ -51,46 +55,49 @@ export const ChangePasswordModal = ({ onClose }: BasicModalProps) => {
               oldPassword: data.oldPassword,
             },
             setLoader: setLoaderRef.current!,
-            onSuccess: () => onClose(() => () => Status.SUCCESS, [ Status.SUCCESS, 0 ], {}),
+            onSuccess: () => onClose(() => () => Status.SUCCESS, Status.SUCCESS, {}),
           }))}
         >
           <div className="jk-form-item">
-            <label>
-              <T>password</T>
-              <InputPassword
-                register={register('oldPassword')}
-                className={classNames({
-                  error: !!errors?.oldPassword?.message,
-                  success: !!touchedFields.oldPassword && !errors?.oldPassword?.message,
-                })}
-              />
-            </label>
+            <InputPassword
+              extend
+              labelPlacement="top"
+              label={<T className="tt-se">password</T>}
+              register={register('oldPassword')}
+              className={classNames({
+                error: !!errors?.oldPassword?.message,
+                success: !!touchedFields.oldPassword && !errors?.oldPassword?.message,
+              })}
+              required
+            />
             <p><T>{errors.oldPassword?.message || ''}</T></p>
           </div>
           <div className="jk-form-item">
-            <label>
-              <T>new password</T>
-              <InputPassword
-                register={register('newPassword')}
-                className={classNames({
-                  error: !!errors?.newPassword?.message,
-                  success: !!touchedFields.newPassword && !errors?.newPassword?.message,
-                })}
-              />
-            </label>
+            <InputPassword
+              extend
+              labelPlacement="top"
+              label={<T className="tt-se">new password</T>}
+              register={register('newPassword')}
+              className={classNames({
+                error: !!errors?.newPassword?.message,
+                success: !!touchedFields.newPassword && !errors?.newPassword?.message,
+              })}
+              required
+            />
             <p><T>{errors.newPassword?.message || ''}</T></p>
           </div>
           <div className="jk-form-item">
-            <label>
-              <T>confirm new password</T>
-              <InputPassword
-                register={register('newPasswordConfirmation')}
-                className={classNames({
-                  error: !!errors?.newPasswordConfirmation?.message,
-                  success: !!touchedFields.newPasswordConfirmation && !errors?.newPasswordConfirmation?.message,
-                })}
-              />
-            </label>
+            <InputPassword
+              extend
+              labelPlacement="top"
+              label={<T className="tt-se">confirm new password</T>}
+              register={register('newPasswordConfirmation')}
+              className={classNames({
+                error: !!errors?.newPasswordConfirmation?.message,
+                success: !!touchedFields.newPasswordConfirmation && !errors?.newPasswordConfirmation?.message,
+              })}
+              required
+            />
             <p><T>{errors.newPasswordConfirmation?.message || ''}</T></p>
           </div>
           <div
@@ -109,7 +116,7 @@ export const ChangePasswordModal = ({ onClose }: BasicModalProps) => {
               submit
               extend
             >
-              <T className="ws-np">update password</T>
+              <T className="ws-np">update</T>
             </ButtonLoader>
           </div>
         </form>

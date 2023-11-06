@@ -39,13 +39,15 @@
   &.tiny {
     margin: 0;
   }
+  //--divider-background-color: var(--t-color-gray-6);
+  --divider-background-color: var(--t-color-shadow-light);
   
   &:before, &:after {
     content: " ";
     display: block;
     width: 100%;
     height: 2px;
-    background-color: var(--t-color-gray-6);
+    background-color: var(--divider-background-color);
   }
   
   &:not(:empty) {
@@ -62,9 +64,9 @@
     display: initial;
     width: initial;
     //height: auto; // TODO: fix height of horizontal divider
-    border-right: 1px solid var(--t-color-gray-6);
-    border-left: 1px solid var(--t-color-gray-6);
-    background-color: var(--t-color-gray-6);
+    border-right: 1px solid var(--divider-background-color);
+    border-left: 1px solid var(--divider-background-color);
+    background-color: var(--divider-background-color);
     
     &:before, &:after {
       content: none;
@@ -90,23 +92,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     &::first-letter {
       text-transform: uppercase;
     }
-  }
-  
-  &.required > label {
-    > span:first-child {
-      &:after {
-        content: " *";
-        color: var(--t-color-error);
-      }
-    }
-  }
-  
-  > label:not(.jk-input-checkbox-wrapper):not(.jk-input-radio-wrapper) {
-    display: block;
-    width: 100%;
-    font-weight: var(--weight-bold);
-    padding: 0;
-    @extend .tt-se;
   }
   
   > label > .jk-select-layout {
@@ -271,7 +256,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   @extend .disabled-input;
 }
 
-.jk-input-text, .jk-input-email, .jk-input-number, .jk-input-password, .jk-input-textarea {
+.jk-input-textarea {
   &.extend {
     width: 100%;
   }
@@ -295,19 +280,52 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   position: relative;
   display: inline-block;
   
-  > label {
-    position: absolute;
-    top: calc(var(--pad-xt) * -1);
-    left: var(--pad-t);
-    padding: 0 4px;
-    background-color: var(--t-color-white);
-    line-height: 0.9;
+  &.extend, &.extend > input {
+    width: 100%;
+  }
+  
+  &.required > label {
+    > span:first-child {
+      &:after {
+        content: " *";
+        color: var(--t-color-error);
+      }
+    }
+  }
+  
+  &.label-top-border {
+    > label {
+      height: 1px;
+      top: 0;
+      display: flex;
+      align-items: center;
+      position: absolute;
+      left: var(--pad-t);
+      padding: 0 4px;
+      background-color: var(--t-color-white);
+      line-height: 0.9;
+    }
+  }
+  
+  &.label-top {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  
+  &.label-left {
+    display: flex;
+    flex-direction: row-reverse;
+    
+    > label {
+      display: flex;
+      align-items: center;
+    }
   }
   
   > .jk-icon {
     color: var(--t-color-gray-4);
     position: absolute;
-    top: 4px;
+    bottom: 4px;
     right: 6px;
     cursor: pointer;
   }
@@ -323,6 +341,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     + .input-icon {
       color: var(--t-color-gray-3);
+    }
+  }
+  
+  > label {
+    font-weight: var(--weight-bold);
+  }
+  
+  &.no-label {
+    > label {
+      display: none;
     }
   }
 }
@@ -470,8 +498,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   input {
     padding-right: var(--pad-l);
   }
-  
-  
 }
 
 .jk-input-textarea {
@@ -745,29 +771,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   height: 58px;
 }
 
-.jk-select-layout, .jk-multi-select-layout {
-  &:not(.top) {
-    &.open {
-      > .jk-select {
-        border-bottom-left-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
-      }
-    }
-  }
-  
-  &.top {
-    &.open {
-      > .jk-select {
-        border-top-left-radius: 0 !important;
-        border-top-right-radius: 0 !important;
-      }
-    }
-  }
-}
-
 .jk-select-layout {
-  
-  
   &.jk-button-primary, &.jk-button-secondary {
     font-weight: var(--weight-bold);
     

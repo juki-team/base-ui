@@ -4,67 +4,61 @@
   display: inline-block;
   overflow: hidden;
   
-  &.clickable {
-    
-    &.very-huge { padding: 6px; } // 60, total 72
-    
-    &.huge { padding: 5px; } // 48, total: 8
-    
-    &.large { padding: 4px; } // 36, total: 44
-    
-    &.regular { padding: 3px; } // 24, total: 30
-    
-    &.small { padding: 2px; } // 18, total: 22
-    
-    &.tiny { padding: 1px; } // 12, total: 14
-  }
+  //&.clickable {
+  //
+  //  &.very-huge { padding: 6px; }
+  //
+  //  // 60, total 72
+  //
+  //  &.huge { padding: 5px; }
+  //
+  //  // 48, total: 8
+  //
+  //  &.large { padding: 4px; }
+  //
+  //  // 36, total: 44
+  //
+  //  &.regular { padding: 3px; }
+  //
+  //  // 24, total: 30
+  //
+  //  &.small { padding: 2px; }
+  //
+  //  // 18, total: 22
+  //
+  //  &.tiny { padding: 1px; }
+  //
+  //  // 12, total: 14
+  //}
   
   &.very-huge {
-    line-height: 60px;
-    width: 60px;
-    min-width: 60px;
-    height: 60px;
-    min-height: 60px;
+    line-height: var(--size-very-huge-icon);
+    @include box-size(var(--size-very-huge-icon));
   }
   
   &.huge {
-    line-height: var(--pad-xL);
-    width: var(--pad-xL);
-    min-width: var(--pad-xL);
-    height: var(--pad-xL);
-    min-height: var(--pad-xL);
+    line-height: var(--size-huge-icon);
+    @include box-size(var(--size-huge-icon));
   }
   
   &.large {
-    line-height: var(--pad-h);
-    width: var(--pad-h);
-    min-width: var(--pad-h);
-    height: var(--pad-h);
-    min-height: var(--pad-h);
+    line-height: var(--size-large-icon);
+    @include box-size(var(--size-large-icon));
   }
   
   &.regular {
-    line-height: var(--pad-m);
-    width: var(--pad-m);
-    min-width: var(--pad-m);
-    height: var(--pad-m);
-    min-height: var(--pad-m);
+    line-height: var(--size-regular-icon);
+    @include box-size(var(--size-regular-icon));
   }
   
   &.small {
-    line-height: 18px;
-    width: 18px;
-    min-width: 18px;
-    height: 18px;
-    min-height: 18px;
+    line-height: var(--size-small-icon);
+    @include box-size(var(--size-small-icon));
   }
   
   &.tiny {
-    line-height: var(--pad-t);
-    width: var(--pad-t);
-    min-width: var(--pad-t);
-    height: var(--pad-t);
-    min-height: var(--pad-t);
+    line-height: var(--size-tiny-icon);
+    @include box-size(var(--size-tiny-icon));
   }
   
   svg {

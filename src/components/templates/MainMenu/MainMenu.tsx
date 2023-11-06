@@ -1,15 +1,15 @@
 import { MenuViewMode, ProfileSetting, Status, Theme } from '@juki-team/commons';
 import React, { ReactNode, useEffect, useState } from 'react';
-import { useJukiUI, useJukiUser } from '../../../hooks';
+import { useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
 import { LoadingIcon } from '../../atoms';
 import { HorizontalMenu, MenuType, VerticalMenu } from '../../organisms';
 import { DrawerViewMenuMobile } from './DrawerViewMenuMobile';
-import { SettingsSection } from './SettingsSection';
-import { WelcomeModal } from './WelcomeModal';
 import { LoginModal } from './LoginModal';
 import { LoginUser } from './LoginUser';
+import { SettingsSection } from './SettingsSection';
 import { SignUpModal } from './SignUpModal';
+import { WelcomeModal } from './WelcomeModal';
 
 export interface MainMenuProps {
   onSeeMyProfile: () => Promise<any> | void,
@@ -21,11 +21,10 @@ export interface MainMenuProps {
 
 export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, profileSelected, children }: MainMenuProps) => {
   
-  const {
-    viewPortSize,
-    components: { Link, Image },
-    router: { searchParams, deleteSearchParams, appendSearchParams },
-  } = useJukiUI();
+  const { viewPortSize, components: { Link, Image } } = useJukiUI();
+  
+  const { searchParams, deleteSearchParams, appendSearchParams } = useJukiRouter();
+  
   const {
     user: {
       isLogged,
@@ -161,36 +160,33 @@ export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, profileSelected, 
   
   return (
     <>
-      {searchParams.has(QueryParamKey.SIGN_UP) && (
-        <SignUpModal
-          onClose={() => deleteSearchParams({ name: QueryParamKey.SIGN_UP })}
-          onSuccess={() => {
-            deleteSearchParams({ name: QueryParamKey.SIGN_UP });
-            appendSearchParams({ name: QueryParamKey.WELCOME, value: '1' });
-          }}
-        />
-      )}
-      {searchParams.has(QueryParamKey.SIGN_IN) && (
-        <LoginModal
-          onClose={() => deleteSearchParams({ name: QueryParamKey.SIGN_IN })}
-          onSignUpButton={() => {
-            deleteSearchParams({ name: QueryParamKey.SIGN_IN });
-            appendSearchParams({ name: QueryParamKey.SIGN_UP, value: '1' });
-          }}
-        />
-      )}
-      {searchParams.has(QueryParamKey.WELCOME) && (
-        <WelcomeModal
-          nickname={nickname}
-          onClose={() => deleteSearchParams({ name: QueryParamKey.WELCOME })}
-          onSeeMyProfile={async (setLoaderStatus, ...props) => {
-            setLoaderStatus(Status.LOADING);
-            await onSeeMyProfile();
-            deleteSearchParams({ name: QueryParamKey.WELCOME })
-            setLoaderStatus(Status.SUCCESS);
-          }}
-        />
-      )}
+      <SignUpModal
+        isOpen={searchParams.has(QueryParamKey.SIGN_UP)}
+        onClose={() => deleteSearchParams({ name: QueryParamKey.SIGN_UP })}
+        onSuccess={() => {
+          deleteSearchParams({ name: QueryParamKey.SIGN_UP });
+          appendSearchParams({ name: QueryParamKey.WELCOME, value: '1' });
+        }}
+      />
+      <LoginModal
+        isOpen={searchParams.has(QueryParamKey.SIGN_IN)}
+        onClose={() => deleteSearchParams({ name: QueryParamKey.SIGN_IN })}
+        onSignUpButton={() => {
+          deleteSearchParams({ name: QueryParamKey.SIGN_IN });
+          appendSearchParams({ name: QueryParamKey.SIGN_UP, value: '1' });
+        }}
+      />
+      <WelcomeModal
+        isOpen={searchParams.has(QueryParamKey.WELCOME)}
+        nickname={nickname}
+        onClose={() => deleteSearchParams({ name: QueryParamKey.WELCOME })}
+        onSeeMyProfile={async (setLoaderStatus, ...props) => {
+          setLoaderStatus(Status.LOADING);
+          await onSeeMyProfile();
+          deleteSearchParams({ name: QueryParamKey.WELCOME })
+          setLoaderStatus(Status.SUCCESS);
+        }}
+      />
       {preferredMenuViewMode === MenuViewMode.HORIZONTAL
         ? (
           <HorizontalMenu

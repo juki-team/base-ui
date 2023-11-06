@@ -1,8 +1,9 @@
 import { Status } from '@juki-team/commons';
-import React, { KeyboardEvent, MouseEvent, PropsWithChildren, useRef, useState } from 'react';
+import React, { KeyboardEvent, MouseEvent, PropsWithChildren, useState } from 'react';
 import ReactModal from 'react-modal';
-import { CloseIcon, LoadingIcon } from '../../';
+import { CloseIcon, SpinIcon } from '../../';
 import { classNames } from '../../../helpers';
+import { useSetLoaderStatus } from '../hooks';
 import { ModalProps } from './types';
 
 // ReactModal.setAppElement('#root'); // no works with nextjs
@@ -14,23 +15,28 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
     isOpen,
     className,
     children,
-    closeIcon = false,
+    closeIcon = true,
     expand,
     closeWhenClickOutside = false,
+    setLoaderStatusRef,
+    onLoaderStatusChange,
+    onAfterOpen,
   } = props;
   
-  const [ loader, setLoader ] = useState<[ Status, number ]>([ Status.NONE, 0 ]);
-  const _refLoader = useRef(loader);
+  const [ loader, setLoader ] = useState<Status>(Status.NONE);
+  const _refLoader = useSetLoaderStatus(loader, setLoader, setLoaderStatusRef, onLoaderStatusChange);
   
-  _refLoader.current = loader;
-  
-  const handleOnClose = (event?: MouseEvent | KeyboardEvent) => onClose((status, timestamp) => {
+  const handleOnClose = (event?: MouseEvent | KeyboardEvent) => onClose((status) => {
     if (typeof status === 'function') {
       setLoader(status(_refLoader.current));
     } else {
-      setLoader([ status, timestamp || 0 ]);
+      setLoader(status);
     }
   }, loader, { onRequestCloseModalEvent: event });
+  
+  if (!isOpen) {
+    return null;
+  }
   
   return (
     <ReactModal
@@ -40,10 +46,11 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
       portalClassName={classNames('jk-modal-container', { expand: !!expand })}
       ariaHideApp={false}
       shouldCloseOnOverlayClick={closeWhenClickOutside}
+      onAfterOpen={onAfterOpen}
     >
       {closeIcon && (
-        <div className="jk-modal-close-button jk-row">
-          {loader[0] === Status.LOADING ? <LoadingIcon /> : <CloseIcon className="clickable" onClick={handleOnClose} />}
+        <div className="jk-modal-close-button jk-button-light only-icon">
+          {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon onClick={handleOnClose} />}
         </div>
       )}
       <div className="jk-modal-body">
@@ -54,6 +61,6 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
 };
 
 Modal.defaultProps = {
-  closeIcon: false,
+  closeIcon: true,
   closeWhenClickOutside: false,
 }

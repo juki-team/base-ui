@@ -37,20 +37,8 @@ span[class*=" jk-row"], span[class^="jk-row"], span[class*=" jk-col"], span[clas
   @include jk-row-col;
 }
 
-div[class*=" jk-row"], div[class^="jk-row"],
-section[class*=" jk-row"], section[class^="jk-row"],
-span[class*=" jk-row"], span[class^="jk-row"],
-a[class*=" jk-row"], a[class^="jk-row"],
-fieldset[class*=" jk-row"], fieldset[class^="jk-row"],
-form[class*=" jk-row"], form[class^="jk-row"],
-label[class*=" jk-row"], label[class^="jk-row"],
-div[class*=" jk-col"], div[class^="jk-col"],
-section[class*=" jk-col"], section[class^="jk-col"],
-span[class*=" jk-col"], span[class^="jk-col"],
-a[class*=" jk-col"], a[class^="jk-col"],
-fieldset[class*=" jk-col"], fieldset[class^="jk-col"],
-form[class*=" jk-col"], form[class^="jk-col"],
-label[class*=" jk-col"], label[class^="jk-col"] {
+div.jk-row, section.jk-row, span.jk-row, a.jk-row, fieldset.jk-row, form.jk-row, label.jk-row,
+div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col, label.jk-col {
   @extend %jk-row-col;
 }
 
@@ -404,9 +392,7 @@ label[class*=" jk-col"], label[class^="jk-col"] {
   
   @include sm {
     @include jk-col;
-    > * {
-      width: 100%;
-    }
+    align-items: stretch; //@extend .stretch;
   }
   
   @include md-hg {

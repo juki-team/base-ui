@@ -45,7 +45,6 @@ export const ImageUploaderModal = (props: ImageUploaderModalProps) => {
       isOpen={isOpen}
       onClose={onClose}
       className="modal-upload-image"
-      closeIcon
     >
       <div>
         <Tabs tabs={tabHeaders} />

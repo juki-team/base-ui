@@ -11,10 +11,10 @@ body {
   width: 100%;
   height: 100%;
   
-  .jk-app {
-    //overflow: hidden;
-    //width: 100vw;
-    //height: var(--100VH);
+  #juki-app {
+    overflow: hidden;
+    width: 100vw;
+    height: var(--100VH);
   }
   
   *::-webkit-scrollbar {

@@ -21,6 +21,10 @@ const placementPositionAlign: { [key in PlacementType]: { position: PopoverPosit
   centerScreen: { position: 'top', align: 'center' },
 }
 
+const CustomComponent = React.forwardRef<HTMLDivElement, any>((props, ref) => (
+  renderChildrenWithProps(props.children, props.childProps({ props: { ref } }))
+));
+
 export const Popover = (props: PopoverProps) => {
   
   const {
@@ -103,7 +107,9 @@ export const Popover = (props: PopoverProps) => {
         )) : popoverContent
       }
     >
-      <div style={{ display: 'inline-block' }}>{renderChildrenWithProps(children, childProps(children))}</div>
+      <CustomComponent childProps={childProps}>
+        {children}
+      </CustomComponent>
     </ReactPopover>
   )
 };

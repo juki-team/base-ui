@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { MockupToggleThemeButton } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup';
 import { UpIcon } from '../icons';
 
 import { Collapse } from './Collapse';
@@ -15,28 +15,29 @@ type Story = StoryObj<typeof Collapse>;
 
 export const Regular: Story = {
   render: (args) => (
-    <div>
-      <Collapse
-        {...args}
-        header={({ isOpen, toggle }) => (
-          <div className="jk-row center gap bc-ss">
-            Collapse Header
-            <div onClick={toggle} className="bc-er jk-row">
-              Click me
-              <UpIcon rotate={isOpen ? 0 : 180} className="link" />
+    <MockupJukiProvider>
+      <div>
+        <Collapse
+          {...args}
+          header={({ isOpen, toggle }) => (
+            <div className="jk-row center gap bc-ss">
+              Collapse Header
+              <div onClick={toggle} className="bc-er jk-row">
+                Click me
+                <UpIcon rotate={isOpen ? 0 : 180} className="link" />
+              </div>
             </div>
+          )}
+        >
+          <div style={{ background: 'blue' }}>
+            Texto Collapsable
+            <div>Texto Collapsable</div>
+            <div>Texto Collapsable</div>
+            <div>Texto Collapsable</div>
+            <div>Texto Collapsable</div>
           </div>
-        )}
-      >
-        <div style={{ background: 'blue' }}>
-          Texto Collapsable
-          <div>Texto Collapsable</div>
-          <div>Texto Collapsable</div>
-          <div>Texto Collapsable</div>
-          <div>Texto Collapsable</div>
-        </div>
-      </Collapse>
-      <MockupToggleThemeButton />
-    </div>
+        </Collapse>
+      </div>
+    </MockupJukiProvider>
   ),
 };

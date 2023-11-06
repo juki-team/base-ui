@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { ReactNodeOrFunctionP1Type, TriggerOffActionsType, TriggerOnActionsType } from '../../../types';
 
 export type PlacementType =
@@ -29,6 +30,6 @@ export interface PopoverProps {
   popoverContentClassName?: string,
   showPopperArrow?: boolean,
   keepMounted?: boolean,
-  children: ReactNodeOrFunctionP1Type<any>,
+  children: ReactElement,
   marginOfChildren?: number,
 }

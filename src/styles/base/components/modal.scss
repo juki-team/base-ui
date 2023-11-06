@@ -5,6 +5,16 @@
     background-color: var(--t-color-shadow-dark) !important;
     display: grid;
     z-index: var(--z-index-overlay-modal);
+    opacity: 0;
+    @include transition-fast(opacity);
+  }
+  
+  .ReactModal__Overlay--after-open {
+    opacity: 1;
+  }
+  
+  .ReactModal__Overlay--before-close {
+    opacity: 0;
   }
   
   &:not(.expand) {
@@ -40,29 +50,10 @@
     top: 0;
     right: 0;
     line-height: inherit;
-    color: var(--t-color-gray-3);
-    padding: calc(var(--border-radius) / 2);
+    margin: calc(var(--border-radius) / 2);
     
     .jk-icon {
       border-radius: 50%;
-      padding: 2px;
-      
-      @include sm {
-        height: var(--pad-s);
-        width: var(--pad-s);
-      }
-      @include md {
-        height: var(--pad-m);
-        width: var(--pad-m);
-      }
-      @include lg {
-        height: var(--pad-l);
-        width: var(--pad-l);
-      }
-      @include hg {
-        height: var(--pad-xl);
-        width: var(--pad-xl);
-      }
     }
   }
   
@@ -81,17 +72,24 @@
     background-color: var(--t-color-accent);
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
+    height: calc(var(--side-main-height, 100%) + var(--pad-lg) * 2);
+    max-height: calc(var(--side-main-height, 100%) + var(--pad-lg) * 2);
+    
+    @include md { flex: 5 !important; }
     
     .title {
+      padding: var(--pad-sm) 0 0 0;
       text-align: center;
     }
     
     .graphic {
-      .jk-image {
-        max-height: 80%;
-        max-width: 80%;
-      }
+      max-height: calc(100% - var(--title-side-main-height) - var(--pad-sm) * 3);
+      padding: var(--pad-sm);
     }
+  }
+  
+  .jk-side-main {
+    @include md { flex: 6 !important; }
   }
   
   @include sm {
@@ -149,11 +147,13 @@
 }
 
 .modal-login, .modal-sign-up {
-  .split-modal > .jk-side-main > div {
-    padding: var(--pad-t) 0;
-  }
-  
   .forgot-password-label {
     @include transition(font-weight);
+  }
+}
+
+.change-password-modal {
+  @include md-hg {
+    width: 340px;
   }
 }

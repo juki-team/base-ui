@@ -1,6 +1,7 @@
 import { CSSProperties, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 
-export type ButtonType = 'primary' | 'secondary' | 'light' | 'outline' | 'text';
+export type ButtonType = 'primary' | 'secondary' | 'light' | 'text'; // 'outline';
+
 export type ButtonSizeType = 'tiny' | 'small' | 'regular' | 'large' | 'huge';
 
 export type ButtonBasicProps = {
@@ -28,5 +29,4 @@ export type OnClickButtonEventType = {
 export interface ButtonProps extends ButtonBasicProps {
   withIconTransition?: boolean,
   onClick?: (props: OnClickButtonEventType) => void,
-  loading?: boolean,
 }

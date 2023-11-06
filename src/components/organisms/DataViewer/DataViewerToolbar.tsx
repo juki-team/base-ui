@@ -1,7 +1,7 @@
 import { DataViewMode } from '@juki-team/commons';
 import React, { Children, useCallback } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiRouter, useJukiUI } from '../../../hooks';
 import {
   FilterListIcon,
   LoadingIcon,
@@ -39,7 +39,10 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   } = props;
   
   const { filtered } = isSomethingFiltered(headers);
-  const { viewPortSize, router: { searchParams, setSearchParams } } = useJukiUI();
+  
+  const { viewPortSize } = useJukiUI();
+  
+  const { searchParams, setSearchParams } = useJukiRouter();
   
   const showFilterDrawer = searchParams.get(showFilterDrawerKey) === 'open' ? 'open' : 'close';
   const setShowFilterDrawer = useCallback((show: boolean) => {
@@ -87,10 +90,10 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                 content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
               >
                 <div
-                  className={classNames({ active: loading, loading }, 'jk-row')}
+                  className={classNames({ active: loading, loading }, 'jk-button-light only-icon small')}
                   onClick={!loading ? onReload : undefined}
                 >
-                  {loading ? <LoadingIcon /> : <ReloadIcon className="jk-br-ie clickable" />}
+                  {loading ? <LoadingIcon /> : <ReloadIcon />}
                 </div>
               </Tooltip>
               <div className="jk-divider horizontal" />
@@ -101,7 +104,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               dataLength
                 ? <div className="jk-row nowrap tt-se ws-np">{dataLength}&nbsp;
                   <T>{dataLength > 1 ? 'records' : 'record'}</T>{paginationData.pagination?.total && <>&nbsp;
-                          <T>of</T>&nbsp;{paginationData.pagination.total}&nbsp;<T>records</T></>}</div>
+                    <T>of</T>&nbsp;{paginationData.pagination.total}&nbsp;<T>records</T></>}</div>
                 : <T className="tt-se ws-np">no data</T>
             }
           >
@@ -130,10 +133,10 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               {onColumn && <div className="jk-divider horizontal" />}
               <Tooltip content={<T className="ws-np">open filters</T>}>
                 <div
-                  className={classNames({ active: filtered }, 'jk-row')}
+                  className={classNames({ active: filtered }, 'jk-button-light only-icon small')}
                   onClick={() => setShowFilterDrawer(true)}
                 >
-                  <FilterListIcon className="jk-br-ie clickable" />
+                  <FilterListIcon />
                 </div>
               </Tooltip>
             </>

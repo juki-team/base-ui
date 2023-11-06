@@ -8,13 +8,15 @@ import { TableHeadFilterDateRange } from './TableHeadFilterDateRange';
 import { TableHeadFilterSelect } from './TableHeadFilterSelect';
 import { TableHeadFilterText } from './TableHeadFilterText';
 
-export const Filter = ({
-  filter,
-  columnIndex,
-  disabled,
-}: { filter?: TableHeaderFilterType, columnIndex: string, disabled: boolean }) => {
+interface FilterProps {
+  filter?: TableHeaderFilterType,
+  columnIndex: string,
+  disabled: boolean,
+}
+
+export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
   
-  const [visible, setVisible] = useState(false);
+  const [ visible, setVisible ] = useState(false);
   
   return (
     <Popover
@@ -91,12 +93,12 @@ export const Filter = ({
         }
       }}
       placement="bottom"
-      triggerOn={['click']}
-      triggerOff={['click', 'escape']}
+      triggerOn={[ 'click' ]}
+      triggerOff={[ 'click', 'escape' ]}
       showPopperArrow
     >
       <div
-        className={classNames('jk-row tool', {
+        className={classNames('jk-button-light only-icon small tool', {
           active: isFilterText(filter) ? !!filter.text
             : isFilterSelect(filter) ? !!filter.selectedOptions.length
               : isFilterDate(filter) ? !!filter.selectedDate?.isValidDate()
@@ -104,8 +106,9 @@ export const Filter = ({
                   : false,
           visible,
           disabled,
-        })}>
-        <FilterListIcon size="small" className="clickable jk-br-ie" />
+        })}
+      >
+        <FilterListIcon size="small" />
       </div>
     </Popover>
   );

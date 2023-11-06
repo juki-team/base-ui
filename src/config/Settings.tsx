@@ -5,19 +5,14 @@ import { AuthorizedRequestType } from '../services';
 import { SignUpPayloadDTO, UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';
 
 export class Settings {
-  private _UTILS_SERVICE_URL = '';
-  private _UTILS_SERVICE_API_URL = '';
+  private _SERVICE_API_URL = '';
   private _UTILS_UI_URL = '';
   private _TOKEN_NAME = '';
-  private _UTILS_SERVICE_SOCKET_URL = '';
+  private _SERVICE_SOCKET_URL = '';
   private _ON_ERROR = (error: any) => consoleWarn({ message: 'a error happened', error });
   
-  get UTILS_SERVICE_URL(): string {
-    return this._UTILS_SERVICE_URL;
-  }
-  
-  get UTILS_SERVICE_API_URL(): string {
-    return this._UTILS_SERVICE_API_URL;
+  get SERVICE_API_URL(): string {
+    return this._SERVICE_API_URL;
   }
   
   get UTILS_UI_URL(): string {
@@ -28,8 +23,8 @@ export class Settings {
     return this._TOKEN_NAME;
   }
   
-  get UTILS_SERVICE_SOCKET_URL(): string {
-    return this._UTILS_SERVICE_SOCKET_URL;
+  get SERVICE_SOCKET_URL(): string {
+    return this._SERVICE_SOCKET_URL;
   }
   
   get reportError(): (error: any) => void {
@@ -40,7 +35,7 @@ export class Settings {
     type ResponseAPI = ({ url: string } & AuthorizedRequestType);
     
     const valid = <T, >(callback: (props: T) => ResponseAPI) => {
-      if (this._UTILS_SERVICE_API_URL) {
+      if (this._SERVICE_API_URL) {
         return callback;
       }
       return () => ({ url: '' });
@@ -59,7 +54,7 @@ export class Settings {
     };
     
     const injectBaseUrl = (prefix: string, path: string) => {
-      return `${this._UTILS_SERVICE_API_URL}/${prefix}${path}`;
+      return `${this._SERVICE_API_URL}/${prefix}${path}`;
     };
     
     return {
@@ -92,7 +87,12 @@ export class Settings {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        resetPassword: valid<{ params: { companyKey: string, nickname: string } }>(({ params: { companyKey, nickname } }) => ({
+        resetPassword: valid<{ params: { companyKey: string, nickname: string } }>(({
+                                                                                      params: {
+                                                                                        companyKey,
+                                                                                        nickname,
+                                                                                      },
+                                                                                    }) => ({
           url: injectBaseUrl('auth', `/company/${companyKey}/nickname/${nickname}/reset-password`),
           method: HTTPMethod.POST,
         })),
@@ -111,17 +111,26 @@ export class Settings {
           url: injectBaseUrl('user', `/company/${companyKey}/summary-list`),
           method: HTTPMethod.GET,
         })),
-        updateProfileData: valid<{ params: { nickname: string }, body: UpdateUserProfileDataPayloadDTO }>(({ params: { nickname }, body }) => ({
+        updateProfileData: valid<{
+          params: { nickname: string },
+          body: UpdateUserProfileDataPayloadDTO
+        }>(({ params: { nickname }, body }) => ({
           url: injectBaseUrl('user', `/nickname/${nickname}/profile-data`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
-        updateProfileImage: valid<{ params: { nickname: string }, body: FormData }>(({ params: { nickname }, body }) => ({
+        updateProfileImage: valid<{ params: { nickname: string }, body: FormData }>(({
+                                                                                       params: { nickname },
+                                                                                       body,
+                                                                                     }) => ({
           url: injectBaseUrl('user', `/nickname/${nickname}/profile-image`),
           method: HTTPMethod.PUT,
           body,
         })),
-        updatePreferences: valid<{ params: { nickname: string }, body: UserSettingsType }>(({ params: { nickname }, body }) => ({
+        updatePreferences: valid<{ params: { nickname: string }, body: UserSettingsType }>(({
+                                                                                              params: { nickname },
+                                                                                              body,
+                                                                                            }) => ({
           url: injectBaseUrl('user', `/nickname/${nickname}/preferences`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
@@ -132,7 +141,14 @@ export class Settings {
         })),
       },
       problem: {
-        list: valid<{ params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }>(({ params: { page, size, filterUrl, sortUrl } }) => ({
+        list: valid<{ params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }>(({
+                                                                                                         params: {
+                                                                                                           page,
+                                                                                                           size,
+                                                                                                           filterUrl,
+                                                                                                           sortUrl,
+                                                                                                         },
+                                                                                                       }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/list?'), page, size), filterUrl), sortUrl),
         })),
         summary: valid<{ params: { judge: Judge, key: string } }>(({ params: { judge, key } }) => ({
@@ -183,15 +199,15 @@ export class Settings {
       },
       websocket: {
         connect: () => ({
-          url: this._UTILS_SERVICE_SOCKET_URL,
+          url: this._SERVICE_SOCKET_URL,
         }),
       },
     };
   }
   
-  setSetting(utilsServiceUrl: string, utilsServiceApiVersion: string, utilsSocketServiceUrl: string, utilsUiUrl: string, tokenName: string) {
-    this._UTILS_SERVICE_API_URL = utilsServiceUrl + '/' + utilsServiceApiVersion;
-    this._UTILS_SERVICE_SOCKET_URL = utilsSocketServiceUrl;
+  setSetting(serviceApiUrl: string, socketServiceUrl: string, utilsUiUrl: string, tokenName: string) {
+    this._SERVICE_API_URL = serviceApiUrl;
+    this._SERVICE_SOCKET_URL = socketServiceUrl;
     this._UTILS_UI_URL = utilsUiUrl;
     this._TOKEN_NAME = tokenName;
   }

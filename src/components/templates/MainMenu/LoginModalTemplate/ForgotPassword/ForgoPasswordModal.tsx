@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { ButtonLoader, Input, JukiLaptopImage, SplitModal, T } from '../../../../index';
 import { classNames } from '../../../../../helpers';
+import { ButtonLoader, Input, JukiLaptopImage, SplitModal, T } from '../../../../index';
 import { ForgotPasswordModalProps } from './types';
 
-export const ForgotPasswordModalComponent = ({ onClose, onForgotPassword }: ForgotPasswordModalProps) => {
+export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword }: ForgotPasswordModalProps) => {
   
-  const [email, setEmail] = useState('');
-  const [touched, setTouched] = useState(false);
+  const [ email, setEmail ] = useState('');
+  const [ touched, setTouched ] = useState(false);
   useEffect(() => {
     if (!touched && email) {
       setTouched(true);
     }
-  }, [email, touched]);
+  }, [ email, touched ]);
   const disabled = !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email);
   
   return (
     <SplitModal
-      isOpen={true}
+      isOpen={isOpen}
       onClose={onClose}
       className="modal-login"
       title={
@@ -25,6 +25,7 @@ export const ForgotPasswordModalComponent = ({ onClose, onForgotPassword }: Forg
         </>
       }
       graphic={<JukiLaptopImage />}
+      closeIcon={false}
     >
       <div className="jk-col gap stretch extend">
         <div className="jk-row left">
@@ -33,24 +34,24 @@ export const ForgotPasswordModalComponent = ({ onClose, onForgotPassword }: Forg
           </T>
         </div>
         <div className="jk-form-item">
-          <label>
-            <T>email</T>
-            <Input
-              name="email"
-              value={email}
-              onChange={(value) => setEmail(value)}
-              type="email"
-              extend
-              className={classNames({
-                error: touched && disabled,
-                success: touched && !disabled,
-              })}
-              onBlur={() => setTouched(true)}
-            />
-          </label>
+          <Input
+            labelPlacement="top"
+            label={<T className="tt-se">email</T>}
+            name="email"
+            value={email}
+            onChange={(value) => setEmail(value)}
+            type="email"
+            extend
+            className={classNames({
+              error: touched && disabled,
+              success: touched && !disabled,
+            })}
+            onBlur={() => setTouched(true)}
+            required
+          />
           <p><T>{(touched && disabled) ? 'must be a valid email' : ''}</T></p>
         </div>
-        <div className="jk-row-col gap right block">
+        <div className="jk-row-col gap block">
           <ButtonLoader type="light" onClick={onClose}><T>cancel</T></ButtonLoader>
           <ButtonLoader
             type="primary"

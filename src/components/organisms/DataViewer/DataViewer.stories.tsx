@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup';
 import { DataViewer } from './DataViewer';
 import { JkUserTable } from './JkUserTableTest/JkUserTable';
 
@@ -18,9 +18,9 @@ export const Regular: Story = {
   render: ({ data, ...args }) => (
     <BrowserRouter>
       <MockupJukiProvider>
+        <div>DadaViewer</div>
         <JkUserTable {...args} />
       </MockupJukiProvider>
-      <MockupToggleThemeButton />
     </BrowserRouter>
   ),
 };
