@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, useId } from 'react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { renderChildrenWithProps, renderReactNodeOrFunction } from '../../../helpers';
+import { Portal } from '../Portal';
 import { TooltipProps } from './types';
 
 export const Tooltip = (props: PropsWithChildren<TooltipProps>) => {
@@ -21,9 +22,11 @@ export const Tooltip = (props: PropsWithChildren<TooltipProps>) => {
         'data-tooltip-id': id,
         'data-tooltip-position-strategy': 'fixed',
       })}
-      <ReactTooltip id={`${id}`} clickable={clickable} place={placement} isOpen={visible} opacity={1}>
-        {renderReactNodeOrFunction(content)}
-      </ReactTooltip>
+      <Portal>
+        <ReactTooltip id={`${id}`} clickable={clickable} place={placement} isOpen={visible} opacity={1}>
+          {renderReactNodeOrFunction(content)}
+        </ReactTooltip>
+      </Portal>
     </>
   );
 }
