@@ -578,7 +578,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       const head = props.head || props.index;
       if (typeof head === 'string') {
         const width = getTextWidth(head, '600 16px / 16px Inter, sans-serif');
-        newHead.minWidth = Math.max(props.minWidth || 0, iconsWidth + width + 32 /* padding head cell */)
+        newHead.minWidth = Math.max(props.minWidth || 0, iconsWidth + width + 36 /* padding head cell */);
       }
       
       return newHead;

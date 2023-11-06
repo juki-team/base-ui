@@ -1,10 +1,14 @@
 import React, { ReactNode } from 'react';
 import { classNames } from '../../../helpers';
-import { DateLiteral } from '../../atoms';
+import { DateLiteral, T } from '../../atoms';
 import { DateFieldProps, FieldProps, TextFieldProps } from './types';
 
 export const TextHeadCell = ({ text, className }: { text: string | ReactNode, className?: string }) => {
-  return <div className={classNames('text-head-field jk-row fw-bd', className)}><span>{text}</span></div>;
+  return (
+    <div className={classNames('text-head-field jk-row fw-bd', className)}>
+      {typeof text === 'string' ? <T className="tt-se">{text}</T> : text}
+    </div>
+  );
 };
 
 export const Field = ({ onClick, className = '', children }: FieldProps) => {

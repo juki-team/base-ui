@@ -122,6 +122,7 @@ interface renderHeadProps {
 }
 
 export const renderHead = ({ head, columnIndex }: renderHeadProps) => {
+  
   if (head) {
     if (typeof head === 'string') {
       return <TextHeadCell text={head} />;
@@ -129,7 +130,9 @@ export const renderHead = ({ head, columnIndex }: renderHeadProps) => {
     if (typeof head === 'function') {
       return head();
     }
+    return head;
   }
+  
   return <TextHeadCell text={columnIndex} />;
 }
 
