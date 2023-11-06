@@ -585,7 +585,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       
       return newHead;
     });
-  }, [ deleteSearchParams, filterKey, headers, searchFilter, searchSorts, setSearchParams, sortKey ]);
+  }, [ deleteSearchParams, filterKey, headers, searchFilter, searchSorts, setSearchParams, sortKey, t ]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
     const newSearchFilter = searchFilter.length ? [ ...searchFilter ] : new Array(headers.length).fill('');
