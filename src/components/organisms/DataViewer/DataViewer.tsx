@@ -1,7 +1,7 @@
 import { consoleWarn, DataViewMode, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
-import { useJukiRouter, useJukiUI } from '../../../hooks';
+import { useJukiRouter, useJukiUI, useT } from '../../../hooks';
 import { OptionType } from '../../index';
 import {
   FILTER_DATE,
@@ -83,6 +83,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const { viewPortSize } = useJukiUI();
   
   const { searchParams, deleteSearchParams, setSearchParams } = useJukiRouter();
+  
+  const { t } = useT();
   
   const withPagination = !!pagination;
   
@@ -577,7 +579,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       
       const head = props.head || props.index;
       if (typeof head === 'string') {
-        const width = getTextWidth(head, '600 16px / 16px Inter, sans-serif');
+        const width = getTextWidth(t(head), '600 16px / 16px Inter, sans-serif');
         newHead.minWidth = Math.max(props.minWidth || 0, iconsWidth + width + 36 /* padding head cell */);
       }
       
