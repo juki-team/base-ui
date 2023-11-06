@@ -17,8 +17,11 @@ export const Tooltip = (props: PropsWithChildren<TooltipProps>) => {
   
   return (
     <>
-      {renderChildrenWithProps(children, { 'data-tooltip-id': id })}
-      <ReactTooltip id={`${id}`} clickable={clickable} place={placement} isOpen={visible}>
+      {renderChildrenWithProps(children, {
+        'data-tooltip-id': id,
+        'data-tooltip-position-strategy': 'fixed',
+      })}
+      <ReactTooltip id={`${id}`} clickable={clickable} place={placement} isOpen={visible} opacity={1}>
         {renderReactNodeOrFunction(content)}
       </ReactTooltip>
     </>

@@ -29,11 +29,11 @@ const Comp = (args: ButtonProps) => {
     <MockupJukiProvider>
       <div className="jk-col gap">
         <div className="jk-col">
-          <div>28px tiny</div>
-          <div>34px <span style={{ textDecoration: 'line-through' }}>32px</span> small</div>
-          <div>40px <span style={{ textDecoration: 'line-through' }}>36px</span> regular</div>
-          <div>52px <span style={{ textDecoration: 'line-through' }}>56px</span> large</div>
-          <div>64px huge</div>
+          <div>24px tiny</div>
+          <div>30px <span style={{ textDecoration: 'line-through' }}>32px</span> small</div>
+          <div>36px <span style={{ textDecoration: 'line-through' }}>36px</span> regular</div>
+          <div>48px <span style={{ textDecoration: 'line-through' }}>56px</span> large</div>
+          <div>60px huge</div>
         </div>
         <div className="jk-row gap block" style={{ width: 500 }}>
           <ButtonLoader

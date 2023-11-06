@@ -3,18 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useNotification } from '../../../../hooks';
-import {
-  AddIcon,
-  DeleteIcon,
-  NotificationType,
-  Popover,
-  SplitPane,
-  T,
-  Tabs,
-  TabsInline,
-  TabType,
-  TextArea,
-} from '../../../index';
+import { AddIcon, DeleteIcon, T, TextArea, Tooltip } from '../../../atoms';
+import { SplitPane, Tabs, TabsInline, TabType } from '../../../molecules';
+import { NotificationType } from '../../../organisms';
 import { TestCasesProps } from '../types';
 import { getErrors } from '../utils';
 import { LogInfo } from './LogInfo';
@@ -76,11 +67,10 @@ export const TestCases = <T, >({ testCases, onChange, timeLimit, memoryLimit, di
   });
   
   const actionSection = (
-    <Popover content={<T className="ws-np tt-se tx-s">add sample test case</T>} placement="bottomRight">
-      <div className="jk-row">
+    <Tooltip content={<T className="ws-np tt-se tx-s">add sample test case</T>} placement="bottom-end">
+      <div className="jk-button-light small only-icon">
         <AddIcon
           size="small"
-          className="clickable br-50-pc"
           onClick={() => {
             const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
             if (customCases.length < 10) {
@@ -107,7 +97,7 @@ export const TestCases = <T, >({ testCases, onChange, timeLimit, memoryLimit, di
           }}
         />
       </div>
-    </Popover>
+    </Tooltip>
   );
   
   const [ outputTab, setOutputTab ] = useState('output');

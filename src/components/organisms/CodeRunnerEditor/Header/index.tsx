@@ -46,7 +46,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector();
   const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector();
   const withRunCodeButton = !!Object.keys(testCases).length;
-  const minWidth = withRunCodeButton ? 600 : 550;
+  const minWidth = withRunCodeButton ? 620 : 570;
   
   const handleRunCode: ButtonLoaderOnClickType = async (setStatus) => {
     setStatus(Status.LOADING);
@@ -87,7 +87,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     }
   };
   const withLabels = widthContainer > minWidth;
-  const twoRows = widthContainer < 400;
+  const twoRows = widthContainer < 420;
   const widthCenterContainer = widthContainer - widthLeftSection - widthRightSection;
   
   return (
@@ -116,12 +116,12 @@ export const Header = <T, >(props: HeaderProps<T>) => {
         {withRunCodeButton && (
           <ButtonLoader
             size="tiny"
-            type={(withLabels || twoRows) ? 'primary' : 'text'}
+            type="primary"
             extend={twoRows}
             icon={<PlayArrowIcon />}
             onClick={handleRunCode}
           >
-            {(withLabels || twoRows) && <T>run</T>}
+            <T>run</T>
           </ButtonLoader>
         )}
       </div>

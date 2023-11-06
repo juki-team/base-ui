@@ -70,7 +70,7 @@ export const JukiRouterProvider = ({ children, ...router }: PropsWithChildren<Ju
   return (
     <RouterContext.Provider
       value={
-        Object.keys(router).length ? router as RouterContextInterface : {
+        Object.values(router).filter(Boolean).length ? router as RouterContextInterface : {
           searchParams: _searchParams,
           appendSearchParams,
           deleteSearchParams,
