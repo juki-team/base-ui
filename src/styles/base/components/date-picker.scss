@@ -27,7 +27,7 @@
   }
   
   .jk-day-picker-header {
-    width: 300px;
+    width: 310px;
     flex-wrap: nowrap;
     
     .years-label {
@@ -120,7 +120,7 @@
   }
   
   .jk-date-picker-grid-dates, .jk-date-picker-days {
-    width: 300px;
+    width: 310px;
     
     .date {
       &.is-next-month, &.is-previous-month {
@@ -160,7 +160,7 @@
 }
 
 .jk-date-picker-time {
-  width: 300px;
+  width: 310px;
   flex-wrap: nowrap;
   
   &.only-time {
@@ -186,8 +186,7 @@
       @include transition(padding);
       
       .jk-icon {
-        top: 7px;
-        right: 2px;
+        right: 0;
         width: var(--pad-xs);
         height: var(--pad-xs);
       }
@@ -195,7 +194,7 @@
     
     &:hover {
       .jk-select {
-        padding: 0 14px 0 0;
+        padding: 0 16px 0 0;
       }
     }
   }

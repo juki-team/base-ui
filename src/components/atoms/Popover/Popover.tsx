@@ -56,7 +56,7 @@ export const Popover = (props: PopoverProps) => {
     visible,
     onVisibleChange,
     triggerOn,
-    triggerOff,
+    triggerOff: typeof triggerOff === 'string' ? (triggerOff === 'click' ? [] : triggerOff) : triggerOff.filter(t => t !== 'click'),
     triggerOnDelayInMs,
     triggerOffDelayInMs,
     withOutsideAlerter,
@@ -64,9 +64,7 @@ export const Popover = (props: PopoverProps) => {
   const { ref } = useJukiUI();
   
   const popoverContent = (
-    <div
-      className={classNames('jk-popover-layout', popoverClassName)}
-    >
+    <div className={classNames('jk-popover-layout', popoverClassName)}>
       <div
         className={classNames('jk-popover-content bc-we jk-border-radius-inline', popoverContentClassName, { 'elevation-1': !showPopperArrow })}
         onMouseEnter={onMouseEnter}

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { useT } from '../../../../hooks';
-import { ArrowIcon, Button, FilterListIcon, Input, InputDate, T } from '../../../atoms';
-import { CheckboxList, DrawerView, OptionType } from '../../../molecules';
+import { ArrowIcon, Button, FilterListIcon, Input, T } from '../../../atoms';
+import { CheckboxList, DrawerView, InputDate, OptionType } from '../../../molecules';
 import { FilterDrawerProps, FilterValuesType, TableHeadType, TableSortOnSortType, TableSortOrderType } from '../types';
 import {
   isDisabledEnd,
@@ -18,11 +18,11 @@ import {
   renderHead,
 } from '../utils';
 
-type renderFilterTitleProps = {
+interface renderFilterTitleProps {
   onSort?: TableSortOnSortType,
   order: TableSortOrderType,
   columnIndex: string,
-  head: TableHeadType
+  head: TableHeadType,
 }
 
 const renderFilterTitle = ({ head, columnIndex, onSort, order }: renderFilterTitleProps) => {

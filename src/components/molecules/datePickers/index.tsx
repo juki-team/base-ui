@@ -4,3 +4,4 @@ export * from './MonthPicker';
 export * from './TimerPicker';
 export * from './YearPicker';
 export * from './types';
+export * from './InputDate';

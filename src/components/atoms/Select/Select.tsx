@@ -98,9 +98,10 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
                 selected: JSON.stringify(option.value) === JSON.stringify(optionSelected.value),
                 disabled: !!option.disabled || isDisabled,
               })}
-              onClick={(!isDisabled && !option.disabled) ? () => {
+              onClick={(!isDisabled && !option.disabled) ? (event) => {
                 onChange?.(option);
                 setShowOptions(false);
+                event.stopPropagation();
               } : undefined}
               key={JSON.stringify(option.value)}
               ref={(e) => {

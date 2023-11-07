@@ -50,6 +50,7 @@ export const DayPicker = ({ date, onChange, isDisabled, isSelected }: DayPickerP
           </div>
         ))}
       </div>
+      <div className="jk-divider tiny" style={{ marginBottom: -6 }} />
       <div className="jk-date-picker-grid-dates">
         {gridDays.map((row, index) => (
           <div className="jk-row" key={index}>

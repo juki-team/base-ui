@@ -3,16 +3,18 @@ import { Button, NavigateBeforeIcon, NavigateNextIcon } from '../../atoms';
 
 export const PreviousButton = ({ onClick }: { onClick: (() => void) }) => (
   <Button
+    size="small"
     icon={<NavigateBeforeIcon />}
-    type="text"
+    type="light"
     onClick={onClick}
   />
 );
 
 export const NextButton = ({ onClick }: { onClick: () => void }) => (
   <Button
+    size="small"
     icon={<NavigateNextIcon />}
-    type="text"
+    type="light"
     onClick={onClick}
   />
 );

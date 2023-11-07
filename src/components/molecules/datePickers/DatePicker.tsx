@@ -29,7 +29,8 @@ export const DatePicker = (props: DatePickerProps) => {
   } = showOfDateDisplayType(type);
   
   return (
-    <div className="jk-date-picker-layout jk-col">
+    
+    <div className="jk-date-picker-layout jk-col jk-pad-sm">
       {showYears && !showMonths && !showDays && (
         <YearPicker date={date} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
       )}
@@ -41,9 +42,9 @@ export const DatePicker = (props: DatePickerProps) => {
       )}
       {showHours && (
         <>
-          {showYears && <div className="jk-divider tiny" />}
-          <div className={classNames('jk-row jk-date-picker-time', { 'only-time': !showYears })}>
-            {showYears && <div className="label-time fw-bd tt-se"><T>time</T>:</div>}
+          {showYears && <div className="jk-divider tiny" style={{ marginTop: -6 }} />}
+          <div className={classNames('jk-row center jk-date-picker-time', { 'only-time': !showYears })}>
+            {showYears && <div className="label-time fw-bd tt-se"><T>time</T>:&nbsp;</div>}
             <TimePicker
               date={date}
               onChange={onChange}
@@ -57,10 +58,12 @@ export const DatePicker = (props: DatePickerProps) => {
         </>
       )}
       {todayButton && (
-        <>
+        <div className="jk-row left extend">
           <div className="jk-divider tiny" />
-          <Button size="tiny" onClick={() => onChange(new Date())}>today</Button>
-        </>
+          <Button type="light" size="tiny" onClick={() => onChange(new Date())}>
+            <T>select today</T>
+          </Button>
+        </div>
       )}
     </div>
   );

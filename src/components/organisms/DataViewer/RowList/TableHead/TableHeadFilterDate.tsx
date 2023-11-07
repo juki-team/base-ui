@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, InputDate, T } from '../../../../atoms';
+import { Button, T } from '../../../../atoms';
+import { InputDate } from '../../../../molecules';
 import { TableHeadFilterDateProps } from './types';
 
 export const TableHeadFilterDate = (props: TableHeadFilterDateProps) => {

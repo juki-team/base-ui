@@ -35,7 +35,9 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
           <JukiUIProvider
             components={components}
           >
-            {children}
+            <div style={{ overflow: 'auto', height: '100%' }}>
+              {children}
+            </div>
           </JukiUIProvider>
         </JukiUserProvider>
       </JukiPageProvider>

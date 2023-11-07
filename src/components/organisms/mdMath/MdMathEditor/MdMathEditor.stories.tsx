@@ -1,12 +1,11 @@
-import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React, { useState } from 'react';
-import { Button, MdMathEditor as MdMathEditorComponent, MdMathEditorProps, SAMPLE_MD_CONTENT } from '../../../index';
-import { MockupJukiProvider } from '../../../mockup/MockupJukiProvider';
-import { MockupToggleThemeButton } from '../../../mockup/MockupToggleThemeButton';
+import { Button } from '../../../atoms';
+import { MockupJukiProvider } from '../../../mockup';
+import { SAMPLE_MD_CONTENT } from '../constants';
+import { MdMathEditor as MdMathEditorComponent, MdMathEditorProps } from './';
 
 export default {
-  title: 'Components/Data Entry',
   component: MdMathEditorComponent,
   argTypes: {
     uploadImageButton: { control: { type: 'boolean' } },
@@ -16,16 +15,10 @@ export default {
   },
 };
 
-configureActions({
-  depth: 100,
-  // Limit the number of items logged into the actions panel
-  limit: 20,
-});
-
 export const MdMathEditor: Story<MdMathEditorProps> = (props) => {
-  // const example = '# Titulo ```\n## [titulo 2](#titulo-2)\n#include <bits/stdc++.h>\n\nusing namespace std; \n\n|A | B| C|\n|--|--|--|\n|1|2|3|\n|4|5|6|';
-  const example = SAMPLE_MD_CONTENT;
-  const [ text, setText ] = useState(example);
+  
+  const [ text, setText ] = useState(SAMPLE_MD_CONTENT);
+  
   return (
     <MockupJukiProvider>
       <div>
@@ -35,8 +28,7 @@ export const MdMathEditor: Story<MdMathEditorProps> = (props) => {
           onChange={(value) => setText(value)}
         />
         <p>{text}</p>
-        <Button onClick={() => setText(example)}>clear</Button>
-        <MockupToggleThemeButton />
+        <Button onClick={() => setText(SAMPLE_MD_CONTENT)}>clear</Button>
       </div>
     </MockupJukiProvider>
   );

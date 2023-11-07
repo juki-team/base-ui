@@ -40,7 +40,7 @@ export const InputColor = ({ color, children, onChange, label }: ColorPickerProp
       placement="bottom"
       showPopperArrow
     >
-      {children ? children : <Input onChange={() => null} value={color?.hex} label={label} />}
+      {children ? children : <Input onChange={() => null} value={color?.hex || ''} label={label} />}
     </Popover>
   );
 };
