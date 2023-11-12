@@ -1,13 +1,5 @@
-import React, { CSSProperties } from 'react';
-
-export interface ImageCmpProps {
-  src?: string,
-  className?: string,
-  alt: string,
-  height: number,
-  width: number,
-  style?: CSSProperties,
-}
+import React from 'react';
+import { ImageCmpProps } from './types';
 
 export const Image = ({ src, className, alt, style, width, height }: ImageCmpProps) => {
   return (
