@@ -42,7 +42,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     getRecordStyle,
     getRecordClassName,
     onRecordClick,
-    extraNodesFloating,
+    extraNodesFloating = false,
     showFilterDrawerKey,
   } = props;
   
@@ -78,7 +78,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   const extraNodes = (_extraNodes || []).filter(extraNode => !!extraNode);
   const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
   const onColumn = !isMobileViewPort || (isMobileViewPort
-    && (extraNodes.length === 0 ? true : !!extraNodesFloating)
+    && (extraNodes.length === 0 ? true : extraNodesFloating)
     && !viewViews);
   
   return (
@@ -98,7 +98,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         onReload={onReload}
         onAllFilters={onAllFilters}
         paginationData={paginationData}
-        extraNodesFloating={extraNodesFloating || false}
+        extraNodesFloating={extraNodesFloating}
         onColumn={onColumn}
         viewViews={viewViews}
         showFilterDrawerKey={showFilterDrawerKey}

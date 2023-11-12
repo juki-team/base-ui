@@ -57,7 +57,7 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
       {...restProps}
     >
       {icon}
-      {children}
+      {hasChildren && children}
     </button>
   );
 };

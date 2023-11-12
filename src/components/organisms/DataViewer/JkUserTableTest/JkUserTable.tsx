@@ -260,7 +260,10 @@ export const JkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>) => 
           >
             <T>download</T>
           </ButtonLoader>,
-          <ButtonLoader size="small" type="text" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
+          <ButtonLoader size="small" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
+            <T>download</T>
+          </ButtonLoader>,
+          <ButtonLoader size="small" icon={<ReloadIcon />} onClick={() => console.info('CLICK')} responsiveMobile>
             <T>download</T>
           </ButtonLoader>,
         ]}

@@ -183,7 +183,11 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
               <div className="jk-divider horizontal" />
               <div>
                 <Popover
-                  content={Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
+                  content={
+                    <div className="jk-pad-sm jk-col stretch gap">
+                      {Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
+                    </div>
+                  }
                   triggerOn="click"
                   placement="bottomRight"
                 >
