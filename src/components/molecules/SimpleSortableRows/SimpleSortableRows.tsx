@@ -2,15 +2,17 @@
 // https://react-dnd.github.io/react-dnd/examples/customize/handles-and-previews
 import type { XYCoord } from 'dnd-core';
 import update from 'immutability-helper';
-import React, { Dispatch, lazy, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 // import { useDrag } from 'react-dnd/dist/hooks/useDrag';
 // import { useDrop } from 'react-dnd/dist/hooks/useDrop';
-import { DropTargetMonitor } from 'react-dnd/dist/types/monitors.js';
+import { DropTargetMonitor } from 'react-dnd';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { DragIcon } from '../../atoms';
 import { DragItem, RowSortableItem, RowSortableItemContentType } from './types';
 
-const DndProvider = lazy(() => import('react-dnd').then(module => ({ default: module.DndProvider })));
+// const DndProvider = lazy(() => import('react-dnd').then(module => ({ default: module.DndProvider })));
 
 interface TestProps {
   key: string,
@@ -21,7 +23,9 @@ interface TestProps {
   useDrag: any,
 }
 
-export const Test = ({ key, content, index, moveRow, useDrop, useDrag }: TestProps) => {
+// export const Test = ({ key, content, index, moveRow, useDrop, useDrag }: TestProps) => {
+export const Test = ({ key, content, index, moveRow }: TestProps) => {
+  console.log('Test', { key, content, index });
   
   const ref = useRef<HTMLDivElement>(null);
   const [ { handlerId }, drop ] = useDrop({
@@ -122,12 +126,12 @@ export const Row = ({ id: key, content, index, moveRow }: RowProps) => {
   const useDropRef = useRef();
   const [ render, setRender ] = useState(0);
   useEffect(() => {
-    useDragRef.current = require('react-dnd').useDrag;
-    useDropRef.current = require('react-dnd').useDrop;
+    // useDragRef.current = require('react-dnd').useDrag;
+    // useDropRef.current = require('react-dnd').useDrop;
     setRender(1);
   }, []);
   if (!render) {
-    return null;
+    // return null;
   }
   return <Test
     key={key}
@@ -169,18 +173,19 @@ export const SimpleSortableRows = <T, >({ rows, setRows, className }: SimpleSort
       />
     );
   }, [ moveRow ]);
-  const HTML5BackendRef = useRef<any>();
-  const [ render, setRender ] = useState(0);
+  // const HTML5BackendRef = useRef<any>();
+  // const [ render, setRender ] = useState(0);
   useEffect(() => {
-    HTML5BackendRef.current = require('react-dnd-html5-backend').HTML5Backend;
-    setRender(1);
+    // HTML5BackendRef.current = require('react-dnd-html5-backend').HTML5Backend;
+    // setRender(1);
   }, []);
   
   return (
-    !!render && HTML5BackendRef.current && <DndProvider backend={HTML5BackendRef.current}>
-        <div className={classNames('jk-sortable-rows-container', className)}>
-          {rows.map((row, i) => renderRow(row, i))}
-        </div>
+    // !!render && HTML5BackendRef.current && <DndProvider backend={HTML5BackendRef.current}>
+    <DndProvider backend={HTML5Backend}>
+      <div className={classNames('jk-sortable-rows-container', className)}>
+        {rows.map((row, i) => renderRow(row, i))}
+      </div>
     </DndProvider>
   );
 };

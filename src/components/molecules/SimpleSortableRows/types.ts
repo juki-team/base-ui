@@ -1,10 +1,11 @@
 import { ReactNode, RefObject } from 'react';
+import { ConnectDragPreview } from 'react-dnd';
 import { ReactNodeOrFunctionP1Type } from '../../../types';
 
 export type RowSortableItemContentType = ReactNodeOrFunctionP1Type<{
   dragComponentRef: RefObject<HTMLDivElement>,
   dragComponent: ReactNode,
-  previewRef: RefObject<HTMLDivElement>,
+  previewRef: RefObject<HTMLDivElement> | ConnectDragPreview,
   dataHandlerId: any,
   isDragging: boolean,
   index: number,
