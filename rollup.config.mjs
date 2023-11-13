@@ -1,26 +1,45 @@
-import typescript from 'rollup-plugin-typescript2';
+// import typescript from 'rollup-plugin-typescript2';
+import typescript from "@rollup/plugin-typescript";
 import copy from 'rollup-plugin-copy';
-
-import pkg from './package.json';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import babel from '@rollup/plugin-babel';
+import pkg from './package.json' assert { type: 'json' };
 
 export default {
   input: 'src/index.ts',
   inlineDynamicImports: true,
   output: [
     {
-      file: './dist/cjs/index.js',
+      file: pkg.main,
       format: 'cjs',
+      sourcemap: true,
     },
     {
-      file: './dist/esm/index.js',
-      format: 'es',
+      file: pkg.module,
+      format: 'esm',
+      sourcemap: true,
     },
+    /* {
+      file: 'dist/bundle.min.js',
+      format: 'iife',
+      name: 'version',
+      plugins: [terser()]
+    } */
   ],
-  external: [...Object.keys(pkg.peerDependencies || {})],
+  external: [ ...Object.keys(pkg.dependencies || {}) ],
   plugins: [
-    typescript({
-      typescript: require('typescript'),
+    nodeResolve({
+      extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
     }),
+    babel({
+      babelHelpers: 'bundled',
+      presets: [ '@babel/preset-react' ],
+      extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
+    }),
+    commonjs(),
+    // typescript({ typescript: require('typescript') }),
+    typescript({ tsconfig: './tsconfig.json' }),
     copy({
       targets: [
         // { src: './src/components/styles', dest: './dist' },

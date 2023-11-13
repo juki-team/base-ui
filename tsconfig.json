@@ -24,8 +24,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "declaration": true,
+    "declarationDir": "./types",
     "jsx": "react",
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
   },
   "include": ["src/**/*.ts*"],
   "exclude": ["node_modules", "dist", "build"]
