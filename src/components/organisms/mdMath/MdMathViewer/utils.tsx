@@ -64,17 +64,17 @@ export const imgAlignStyle: { [key: string]: CSSProperties } = {
   right: { display: 'block', margin: '0 0 0 auto' },
 };
 
-export const hxRender = (level: number, children: ReactNode, style: CSSProperties) => {
-  switch (level) {
-    case 1:
+export const hxRender = (tagName: string, children: ReactNode, style: CSSProperties) => {
+  switch (tagName) {
+    case 'h1':
       return <h1 style={style}>{children}</h1>;
-    case 2:
+    case 'h2':
       return <h2 style={style}>{children}</h2>;
-    case 3:
+    case 'h3':
       return <h3 style={style}>{children}</h3>;
-    case 4:
+    case 'h4':
       return <h4 style={style}>{children}</h4>;
-    case 5:
+    case 'h5':
       return <h5 style={style}>{children}</h5>;
     default:
       return <h6 style={style}>{children}</h6>;

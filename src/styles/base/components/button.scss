@@ -34,7 +34,8 @@ span[class*=" jk-button-"], span[class^="jk-button-"] {
   outline-offset: -1px;
   font-weight: var(--weight-bold);
   cursor: initial;
-  padding: calc(var(--gap) - 2px) var(--button-border-padding);
+  //padding: calc(var(--gap) - 2px) var(--button-border-padding);
+  padding: 6px var(--button-border-padding);
   opacity: 1;
   @include transition(opacity, padding);
   

@@ -2,7 +2,7 @@
 import { ProgrammingLanguage } from '@juki-team/commons';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 import React, { CSSProperties, lazy, memo, ReactNode, Suspense, useEffect, useState } from 'react';
-import { ReactMarkdownOptions } from 'react-markdown/lib/react-markdown';
+import { Options as ReactMarkdownOptions } from 'react-markdown';
 import { useJukiUI } from '../../../../hooks';
 // import ReactMarkdown from 'react-markdown';
 // import rehypeKatex from 'rehype-katex';
@@ -14,16 +14,17 @@ import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 const ReactMarkdown = lazy(() => import('react-markdown'));
 // const rehypeKatex = lazy(() => import('rehype-katex'));
 
-const hx = ({ children, level }: { children: ReactNode & ReactNode[], level: number }) => {
-  if (typeof children?.[0] === 'string') {
-    const [ commands, newText ] = getCommands(children?.[0] as string || '');
-    const newChildren = [ ...children ];
+const hx = ({ children, node: { tagName } }: { children: ReactNode & ReactNode[], node: { tagName: string } }) => {
+  const newChildren = Array.isArray(children) ? [ ...children ] : [ children ];
+  if (typeof newChildren[0] === 'string') {
+    const [ commands, newText ] = getCommands(newChildren[0]);
     newChildren[0] = newText;
     if (commands.textAlign) {
-      return hxRender(level, newChildren, textAlignStyle[commands.textAlign]);
+      return hxRender(tagName, newText, textAlignStyle[commands.textAlign]);
     }
   }
-  return hxRender(level, children, {});
+  
+  return hxRender(tagName, children, {});
 };
 
 export const MdMath = memo(({ source }: { source: string }) => {
@@ -58,15 +59,20 @@ export const MdMath = memo(({ source }: { source: string }) => {
         }
         return <img alt={newAlt} src={src} style={style} />;
       },
-      h1: hx,
-      h2: hx,
-      h3: hx,
-      h4: hx,
-      h5: hx,
-      h6: hx,
+      // h1(...props) {
+      //   console.log({ props });
+      //   return null;
+      // },
+      h1: hx as any,
+      h2: hx as any,
+      h3: hx as any,
+      h4: hx as any,
+      h5: hx as any,
+      h6: hx as any,
       p({ children = [] }) {
-        if (typeof children?.[0] === 'string') {
-          const [ commands, newText ] = getCommands(children?.[0]);
+        const newChildren = Array.isArray(children) ? [ ...children ] : [ children ];
+        if (typeof newChildren[0] === 'string') {
+          const [ commands, newText ] = getCommands(newChildren[0]);
           let style: CSSProperties = {
             textAlign: 'justify',
           };
@@ -76,15 +82,14 @@ export const MdMath = memo(({ source }: { source: string }) => {
               ...textAlignStyle[commands.textAlign],
             };
           }
-          const newChildren = [ ...children ];
           newChildren[0] = newText;
           return <p style={style}>{newChildren}</p>;
         }
         return <p>{children}</p>;
       },
       a({ children, href = '' }) {
-        if (typeof children?.[0] === 'string') {
-          const [ commands, newText ] = getCommands(children?.[0]);
+        if (typeof children === 'string') {
+          const [ commands, newText ] = getCommands(children);
           const style = { outline: '2px solid var(--t-color-gray-6)', border: 'none', height: '100%' };
           if (commands.height) {
             style.height = Number.isNaN(+commands.height) ? commands.height : (commands.height + 'px');
@@ -113,7 +118,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
             return (
               <div className="jk-md-math-link-container" id={href}>
                 <Link href={href} className="jk-md-math-link">
-                  {children}&nbsp;
+                  <>{children}&nbsp;</>
                 </Link>
                 <CopyToClipboard text={url.toString()}>
                   <LinkIcon className="clickable" style={{ borderRadius: '50%', display: 'inline-grid' }} />
@@ -123,16 +128,21 @@ export const MdMath = memo(({ source }: { source: string }) => {
           }
           return (
             <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
-              {children}&nbsp;<OpenInNewIcon />
+              <>{children}&nbsp;<OpenInNewIcon /></>
             </Link>
           );
         }
-        return <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">{children}</Link>;
+        return (
+          <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
+            <>{children}</>
+          </Link>
+        );
       },
       // input(...props) {
       //   return <pre>holiwi input</pre>;
       // },
-      code: ({ children, inline, className = '' }) => {
+      code: ({ children, className = '' }) => {
+        const inline = !children?.toString().includes('\n');
         if (inline) {
           return <code className="inline-code">{children}</code>;
         }
@@ -142,14 +152,20 @@ export const MdMath = memo(({ source }: { source: string }) => {
           || commands.rest
           || newClassName
           || ProgrammingLanguage.TEXT) as ProgrammingLanguage;
-        return (
-          <CodeViewer
-            code={children.join('')}
-            language={language}
-            lineNumbers={commands.lineNumbers}
-            height={Number.isNaN(+(commands.height || '_')) ? commands.height : commands.height + 'px'}
-          />
-        );
+        
+        if (typeof children === 'string') {
+          return (
+            <CodeViewer
+              // code={children.join('')}
+              code={children}
+              language={language}
+              lineNumbers={commands.lineNumbers}
+              height={Number.isNaN(+(commands.height || '_')) ? commands.height : commands.height + 'px'}
+            />
+          );
+        }
+        
+        return null;
       },
       table: ({ children, className = '', ...props }) => {
         return (
@@ -167,7 +183,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
   return (
     <div className="jk-md-math">
       <Suspense fallback={<LoadingIcon />}>
-        <ReactMarkdown {...props}>
+        <ReactMarkdown {...props} >
           {source}
         </ReactMarkdown>
       </Suspense>

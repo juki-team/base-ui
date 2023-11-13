@@ -16,7 +16,7 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
     const response: ErrorResponseType = {
       success: false,
       message: ERROR[ErrorCode.ERR9999].message,
-      errors: [{ code: ErrorCode.ERR9999, detail: '', message: ERROR[ErrorCode.ERR9999].message }],
+      errors: [ { code: ErrorCode.ERR9999, detail: '', message: ERROR[ErrorCode.ERR9999].message } ],
     };
     settings.reportError({ message: 'success false on cleaning request', responseText, response });
     return response;
@@ -49,7 +49,7 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
   const response: ErrorResponseType = {
     success: false,
     message: ERROR[ErrorCode.ERR9998].message,
-    errors: [{ code: ErrorCode.ERR9998, detail: '', message: ERROR[ErrorCode.ERR9998].message }],
+    errors: [ { code: ErrorCode.ERR9998, detail: '', message: ERROR[ErrorCode.ERR9998].message } ],
   };
   settings.reportError({ message: 'success false on cleaning request', responseText, response });
   return response;
@@ -65,7 +65,7 @@ export interface AuthorizedRequestType extends RequestInit {
 
 export const authorizedRequest = async (url: string, options?: AuthorizedRequestType) => {
   const { method, body, signal, responseType } = options || {};
-  const requestHeaders: HeadersInit = new Headers();
+  const requestHeaders = new Headers();
   requestHeaders.set('Accept', 'application/json');
   if (!(body instanceof FormData)) {
     requestHeaders.set('Content-Type', 'application/json');
@@ -94,13 +94,16 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
         return JSON.stringify({
           success: false,
           message: ERROR[ErrorCode.ERR9997].message,
-          errors: [{ code: ErrorCode.ERR9997, detail: `[${method}] ${url} \n ${body}` }],
+          errors: [ { code: ErrorCode.ERR9997, detail: `[${method}] ${url} \n ${body}` } ],
         } as ErrorResponseType);
       }
       return JSON.stringify({
         success: false,
         message: ERROR[ErrorCode.ERR9998].message,
-        errors: [{ code: ErrorCode.ERR9998, detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }) }],
+        errors: [ {
+          code: ErrorCode.ERR9998,
+          detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
+        } ],
       } as ErrorResponseType);
     });
 };
