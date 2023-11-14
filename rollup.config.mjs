@@ -10,17 +10,17 @@ import commonjs from '@rollup/plugin-commonjs';
 import pkg from './package.json' assert { type: 'json' };
 
 const minifiedOutputs = [
-  {
-    // dir: 'dist',
-    file: pkg.main,
-    format: 'cjs',
-    // sourcemap: true,
-  },
+  // {
+  //   // dir: 'dist',
+  //   file: pkg.main,
+  //   format: 'cjs',
+  //   // sourcemap: true,
+  // },
   {
     // dir: 'dist',
     file: pkg.module,
     format: 'esm',
-    // sourcemap: true,
+    sourcemap: true,
   },
   /* {
     file: 'dist/bundle.min.js',
