@@ -1,3 +1,4 @@
+'use client';
 import { ContentResponseType, ContentsResponseType, Status } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import useSWR, { SWRConfiguration } from 'swr';
