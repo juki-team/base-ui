@@ -2,20 +2,22 @@
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 import nodeResolve from '@rollup/plugin-node-resolve';
-// import commonjs from '@rollup/plugin-commonjs';
+import commonjs from '@rollup/plugin-commonjs';
 // import babel from '@rollup/plugin-babel';
 // https://medium.com/@martin_hotell/typescript-library-tips-rollup-your-types-995153cc81c7
-import { dts } from 'rollup-plugin-dts';
+// import { dts } from 'rollup-plugin-dts';
 // import terser from '@rollup/plugin-terser';
 import pkg from './package.json' assert { type: 'json' };
 
 const minifiedOutputs = [
   {
+    // dir: 'dist',
     file: pkg.main,
     format: 'cjs',
     // sourcemap: true,
   },
   {
+    // dir: 'dist',
     file: pkg.module,
     format: 'esm',
     // sourcemap: true,
@@ -39,8 +41,8 @@ export default [
     // inlineDynamicImports: true,
     // output: [ ...unminifiedOutputs, ...minifiedOutputs ],
     output: minifiedOutputs,
-    // external: [ ...Object.keys(pkg.dependencies || {}) ],
-    external: [ ...Object.keys(pkg.peerDependencies || {}) ],
+    external: [ ...Object.keys(pkg.dependencies || {}) ],
+    // external: [ ...Object.keys(pkg.peerDependencies || {}) ],
     // external: [ 'react', 'react-dom' ],
     plugins: [
       nodeResolve({
@@ -52,7 +54,9 @@ export default [
       //   extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
       // }),
       // commonjs(),
-      typescript({ tsconfig: './tsconfig.json' }),
+      // typescript({ tsconfig: './tsconfig.json' }),
+      typescript(),
+      commonjs({ extensions: ['.js', '.ts'] }),
       copy({
         targets: [
           { src: './src/styles', dest: './dist' },
