@@ -12439,7 +12439,7 @@ react-resize-detector@^9.1.0:
   dependencies:
     lodash "^4.17.21"
 
-react-router-dom@^6.4.0:
+react-router-dom@^6.18.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.18.0.tgz#0a50c167209d6e7bd2ed9de200a6579ea4fb1dca"
   integrity sha512-Ubrue4+Ercc/BoDkFQfc6og5zRQ4A8YxSO3Knsne+eRbZ+IepAsK249XBH/XaFuOYOYr3L3r13CXTLvYt5JDjw==
