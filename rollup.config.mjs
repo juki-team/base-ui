@@ -39,7 +39,8 @@ export default [
     // inlineDynamicImports: true,
     // output: [ ...unminifiedOutputs, ...minifiedOutputs ],
     output: minifiedOutputs,
-    external: [ ...Object.keys(pkg.dependencies || {}) ],
+    // external: [ ...Object.keys(pkg.dependencies || {}) ],
+    external: [ ...Object.keys(pkg.peerDependencies || {}) ],
     // external: [ 'react', 'react-dom' ],
     plugins: [
       // nodeResolve({
