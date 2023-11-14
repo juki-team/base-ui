@@ -24,20 +24,12 @@ const minifiedOutputs = [
   },
 ];
 
-// const unminifiedOutputs = minifiedOutputs.map(({ file, ...rest }) => ({
-//   ...rest,
-//   file: file.replace('.min.', '.'),
-// }));
-
 export default [
   {
     input: 'src/index.ts',
     // inlineDynamicImports: true,
-    // output: [ ...unminifiedOutputs, ...minifiedOutputs ],
     output: minifiedOutputs,
     external: [ ...Object.keys(pkg.dependencies || {}) ],
-    // external: [ ...Object.keys(pkg.peerDependencies || {}) ],
-    // external: [ 'react', 'react-dom' ],
     plugins: [
       peerDepsExternal(),
       external(),
@@ -60,10 +52,4 @@ export default [
       terser(),
     ],
   },
-  // {
-  //   input: 'dist/esm/index.d.ts',
-  //   output: [ { file: 'dist/index.d.ts', format: 'esm' } ],
-  //   plugins: [ dts() ],
-  //   external: [ /\.(css|less|scss)$/ ],
-  // },
 ];
