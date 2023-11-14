@@ -6,7 +6,7 @@ import typescript from '@rollup/plugin-typescript';
 import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import copy from 'rollup-plugin-copy';
 import commonjs from '@rollup/plugin-commonjs';
-// import babel from '@rollup/plugin-babel';
+import babel from '@rollup/plugin-babel';
 // https://medium.com/@martin_hotell/typescript-library-tips-rollup-your-types-995153cc81c7
 // import { dts } from 'rollup-plugin-dts';
 // import terser from '@rollup/plugin-terser';
@@ -55,11 +55,11 @@ export default [
       nodeResolve({
         extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
       }),
-      // babel({
-      //   babelHelpers: 'bundled',
-      //   presets: [ '@babel/preset-react' ],
-      //   extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
-      // }),
+      babel({
+        babelHelpers: 'bundled',
+        presets: [ '@babel/preset-react' ],
+        extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
+      }),
       typescript({ tsconfig: './tsconfig.json' }),
       // typescript(),
       commonjs({ extensions: [ '.js', '.ts' ] }),
