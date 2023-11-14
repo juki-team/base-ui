@@ -1,7 +1,9 @@
 // import typescript from 'rollup-plugin-typescript2';
+import external from 'rollup-plugin-peer-deps-external';
+import resolve from '@rollup/plugin-node-resolve';
+import nodeResolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
-import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 // import babel from '@rollup/plugin-babel';
 // https://medium.com/@martin_hotell/typescript-library-tips-rollup-your-types-995153cc81c7
@@ -45,6 +47,8 @@ export default [
     // external: [ ...Object.keys(pkg.peerDependencies || {}) ],
     // external: [ 'react', 'react-dom' ],
     plugins: [
+      external(),
+      resolve(),
       nodeResolve({
         extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
       }),
@@ -55,7 +59,7 @@ export default [
       // }),
       // typescript({ tsconfig: './tsconfig.json' }),
       typescript(),
-      commonjs({ extensions: ['.js', '.ts'] }),
+      commonjs({ extensions: [ '.js', '.ts' ] }),
       copy({
         targets: [
           { src: './src/styles', dest: './dist' },
