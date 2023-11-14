@@ -6,7 +6,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 // https://medium.com/@martin_hotell/typescript-library-tips-rollup-your-types-995153cc81c7
 import { dts } from 'rollup-plugin-dts';
-import terser from '@rollup/plugin-terser';
+// import terser from '@rollup/plugin-terser';
 import pkg from './package.json' assert { type: 'json' };
 
 const minifiedOutputs = [
@@ -56,7 +56,7 @@ export default [
           { src: './src/styles', dest: './dist' },
         ],
       }),
-      terser(),
+      // terser(),
     ],
   },
   {
