@@ -36,7 +36,7 @@ const minifiedOutputs = [
 export default [
   {
     input: 'src/index.ts',
-    inlineDynamicImports: true,
+    // inlineDynamicImports: true,
     // output: [ ...unminifiedOutputs, ...minifiedOutputs ],
     output: minifiedOutputs,
     external: [ ...Object.keys(pkg.dependencies || {}) ],
