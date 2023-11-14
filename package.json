@@ -4,8 +4,8 @@
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
-  "main": "dist/cjs/bundle.js",
-  "module": "dist/esm/bundle.js",
+  "main": "dist/cjs/bundle.min.js",
+  "module": "dist/esm/bundle.min.js",
   "types": "dist/index.d.ts",
   "files": [
     "/dist"
@@ -95,6 +95,7 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
+    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.5",
     "@storybook/addon-actions": "^7.5.2",
     "@storybook/addon-essentials": "^7.5.2",
@@ -125,6 +126,7 @@
     "react-scripts": "5.0.1",
     "rollup": "^4.4.0",
     "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-typescript2": "^0.36.0",
     "storybook": "^7.5.2",
     "typescript": "^4.9.5",

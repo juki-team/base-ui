@@ -24,7 +24,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "declaration": true,
-    "declarationDir": "./types",
+    "outDir": "dist",
     "jsx": "react",
     "noUnusedLocals": true,
   },
