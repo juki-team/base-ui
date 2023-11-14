@@ -24,6 +24,7 @@ const minifiedOutputs = [
     file: pkg.module,
     format: 'esm',
     //sourcemap: true,
+    // preserveModules: true,
   },
   /* {
     file: 'dist/bundle.min.js',
