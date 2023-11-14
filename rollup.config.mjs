@@ -39,7 +39,7 @@ export default [
     inlineDynamicImports: true,
     output: [ ...unminifiedOutputs, ...minifiedOutputs ],
     // external: [ ...Object.keys(pkg.dependencies || {}) ],
-    external: ["react", "react-dom"],
+    external: [ 'react', 'react-dom' ],
     plugins: [
       nodeResolve({
         extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
