@@ -3,6 +3,7 @@ import external from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import copy from 'rollup-plugin-copy';
 import commonjs from '@rollup/plugin-commonjs';
 // import babel from '@rollup/plugin-babel';
@@ -47,6 +48,7 @@ export default [
     // external: [ ...Object.keys(pkg.peerDependencies || {}) ],
     // external: [ 'react', 'react-dom' ],
     plugins: [
+      peerDepsExternal(),
       external(),
       resolve(),
       nodeResolve({
@@ -57,8 +59,8 @@ export default [
       //   presets: [ '@babel/preset-react' ],
       //   extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
       // }),
-      // typescript({ tsconfig: './tsconfig.json' }),
-      typescript(),
+      typescript({ tsconfig: './tsconfig.json' }),
+      // typescript(),
       commonjs({ extensions: [ '.js', '.ts' ] }),
       copy({
         targets: [
