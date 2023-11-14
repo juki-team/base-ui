@@ -1,8 +1,8 @@
 // import typescript from 'rollup-plugin-typescript2';
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
-import nodeResolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
+// import nodeResolve from '@rollup/plugin-node-resolve';
+// import commonjs from '@rollup/plugin-commonjs';
 // import babel from '@rollup/plugin-babel';
 // https://medium.com/@martin_hotell/typescript-library-tips-rollup-your-types-995153cc81c7
 import { dts } from 'rollup-plugin-dts';
@@ -42,15 +42,15 @@ export default [
     external: [ ...Object.keys(pkg.dependencies || {}) ],
     // external: [ 'react', 'react-dom' ],
     plugins: [
-      nodeResolve({
-        extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
-      }),
+      // nodeResolve({
+      //   extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
+      // }),
       // babel({
       //   babelHelpers: 'bundled',
       //   presets: [ '@babel/preset-react' ],
       //   extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
       // }),
-      commonjs(),
+      // commonjs(),
       typescript({ tsconfig: './tsconfig.json' }),
       copy({
         targets: [
