@@ -38,8 +38,8 @@ export default [
     input: 'src/index.ts',
     inlineDynamicImports: true,
     output: [ ...unminifiedOutputs, ...minifiedOutputs ],
-    external: [ ...Object.keys(pkg.dependencies || {}) ],
-    // external: ["react", "react-dom"],
+    // external: [ ...Object.keys(pkg.dependencies || {}) ],
+    external: ["react", "react-dom"],
     plugins: [
       nodeResolve({
         extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
