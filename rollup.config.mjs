@@ -7,7 +7,7 @@ import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
-import terser from '@rollup/plugin-terser';
+// import terser from '@rollup/plugin-terser';
 import pkg from './package.json' assert { type: 'json' };
 
 const minifiedOutputs = [
@@ -34,6 +34,8 @@ export default [
       peerDepsExternal(),
       external(),
       resolve(),
+      typescript({ tsconfig: './tsconfig.json' }),
+      commonjs({ extensions: [ '.js', '.ts' ] }),
       nodeResolve({
         extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
       }),
@@ -42,14 +44,12 @@ export default [
         presets: [ '@babel/preset-react' ],
         extensions: [ '.js', '.jsx', '.ts', '.tsx' ],
       }),
-      typescript({ tsconfig: './tsconfig.json' }),
-      commonjs({ extensions: [ '.js', '.ts' ] }),
       copy({
         targets: [
           { src: './src/styles', dest: './dist' },
         ],
       }),
-      terser(),
+      // terser(),
     ],
   },
 ];
