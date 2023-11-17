@@ -21,7 +21,7 @@ export default {
       sourcemap: true,
     },
   ],
-  external: [ ...Object.keys(pkg.dependencies || {}) ],
+  // external: [ ...Object.keys(pkg.dependencies || {}) ],
   // external: [ 'react', 'react-dom', 'swr' ],
   // plugins: [
   //   typescript({
