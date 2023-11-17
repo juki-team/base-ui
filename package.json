@@ -1,12 +1,12 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "0.0.538",
+  "version": "0.0.539",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/esm/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.es.js",
+  "types": "dist/types/index.d.ts",
   "files": [
     "/dist"
   ],
@@ -57,8 +57,8 @@
     "storybook:build": "storybook build -s public -o docs",
     "rollup:build": "rm -rf dist && rollup -c",
     "pull": "yarn add @juki-team/commons",
-    "buildw": "rm -rf docs && rm -rf dist && yarn rollup:build",
-    "build": "rm -rf docs && yarn storybook:build && rm -rf dist && yarn rollup:build",
+    "buildw": "rm -rf docs && yarn rollup:build",
+    "build": "rm -rf docs && yarn storybook:build && yarn rollup:build",
     "git-push": "f() { param=${1}; message=${param:-chore}; echo ${message}; git add .; echo $message | git commit -F -; yarn publish --patch --no-git-tag-version; version=\"v$(node -p \"require('./package.json').version\")\"; git add .; echo $version | git commit -F -; git push origin main; echo $version | git tag -a $(echo $version) -F -; git push origin --tags; }; f",
     "push": "f() { yarn build; yarn git-push \"${1}\"; }; f"
   },
@@ -91,6 +91,8 @@
     ]
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
     "@storybook/addon-actions": "^7.5.2",
     "@storybook/addon-essentials": "^7.5.2",
     "@storybook/addon-interactions": "^7.5.2",
@@ -121,9 +123,10 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
-    "rollup": "^2.70.2",
-    "rollup-plugin-copy": "^3.4.0",
-    "rollup-plugin-typescript2": "^0.31.2",
+    "rollup": "^4.4.1",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.36.0",
     "storybook": "^7.5.2",
     "typescript": "^4.9.5",
     "web-vitals": "^3.0.2",
