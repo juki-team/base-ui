@@ -122,7 +122,7 @@
     "@types/react-modal": "^3.13.1",
     "@types/uuid": "^9.0.0",
     "react-router-dom": "^6.4.0",
-    "rollup": "^4.4.1",
+    "rollup": "3.29.4",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
