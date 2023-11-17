@@ -1,9 +1,8 @@
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
+import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
-import pkg from './package.json' assert { type: 'json' };
 
 export default {
   input: 'src/index.ts',
@@ -23,16 +22,17 @@ export default {
   ],
   // external: [ ...Object.keys(pkg.dependencies || {}) ],
   // external: [ 'react', 'react-dom', 'swr' ],
+  external: [ 'react', 'react-dom' ],
   // plugins: [
   //   typescript({
   //     typescript: require('typescript'),
   //   }),
   plugins: [
     peerDepsExternal(),
-    // resolve(),
+    resolve(),
     // nodePolyfills(),
     // nodeResolve({ preferBuiltins: false }),
-    nodeResolve(),
+    // nodeResolve(),
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
     copy({
