@@ -30,7 +30,7 @@ export default {
   external: [ 'react', 'react-dom', 'swr' ],
   plugins: [
     peerDepsExternal(),
-    resolve(),
+    // resolve(),
     nodeResolve(),
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
