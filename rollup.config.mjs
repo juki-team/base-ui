@@ -1,7 +1,8 @@
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import resolve, { nodeResolve } from '@rollup/plugin-node-resolve';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
+import nodePolyfills from 'rollup-plugin-node-polyfills';
 import copy from 'rollup-plugin-copy';
 
 // import pkg from './package.json';
@@ -31,7 +32,9 @@ export default {
   plugins: [
     peerDepsExternal(),
     // resolve(),
-    nodeResolve(),
+    nodePolyfills(),
+    nodeResolve({ preferBuiltins: false }),
+    // nodeResolve(),
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
     copy({
