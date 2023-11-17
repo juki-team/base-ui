@@ -32,9 +32,9 @@ export default {
   plugins: [
     peerDepsExternal(),
     // resolve(),
-    nodePolyfills(),
-    nodeResolve({ preferBuiltins: false }),
-    // nodeResolve(),
+    // nodePolyfills(),
+    // nodeResolve({ preferBuiltins: false }),
+    nodeResolve(),
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
     copy({
