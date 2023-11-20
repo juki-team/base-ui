@@ -26,7 +26,7 @@ export const TextField = ({ text, label, onClick, className }: TextFieldProps) =
         {text}
       </div>
       <div className="jk-row text-field-label cr-g3 tx-t">
-        {label}
+        {typeof label === 'string' ? <T className="tt-se">{label}</T> : label}
       </div>
     </Field>
   );
@@ -39,7 +39,7 @@ export const DateField = ({ date, label, show, twoLines, withDayName, className,
         <DateLiteral date={date} twoLines={twoLines} show={show} withDayName={withDayName} />
       </div>
       <div className="jk-row date-field-label cr-g3 tx-t">
-        {label}
+        {typeof label === 'string' ? <T className="tt-se">{label}</T> : label}
       </div>
     </Field>
   );
