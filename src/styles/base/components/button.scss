@@ -119,6 +119,10 @@ span[class*=" jk-button-"], span[class^="jk-button-"] {
     }
   }
   
+  &:not(.jk-button-loader) {
+    --size-button-loader-icon: 0px;
+  }
+  
   &.only-icon {
     border-radius: 50%;
     padding: calc(var(--button-padding) / 2);

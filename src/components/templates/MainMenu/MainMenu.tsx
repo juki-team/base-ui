@@ -100,6 +100,7 @@ export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, profileSelected, 
       </div>
     </Link>
   );
+  
   const bottomSection = ({ isOpen }: { isOpen: boolean }) => {
     return (
       <div className="jk-col stretch gap settings-apps-login-user-content nowrap pad-top-bottom">
@@ -138,6 +139,7 @@ export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, profileSelected, 
       </div>
     </Link>
   );
+  
   const rightSection = () => {
     return (
       <div className="jk-row stretch gap settings-apps-login-user-content nowrap pad-left-right">

@@ -2,14 +2,14 @@
   "compilerOptions": {
     "target": "es2020",
     "lib": [
-      "dom",
-      "dom.iterable",
-      "es2020"
+      "DOM",
+      "DOM.Iterable",
+      "ES2015"
     ],
     "allowJs": true,
     "skipLibCheck": true,
     "noImplicitReturns": true,
-    "suppressImplicitAnyIndexErrors": true,
+//    "suppressImplicitAnyIndexErrors": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -19,7 +19,7 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,

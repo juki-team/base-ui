@@ -1,5 +1,6 @@
 import { action, configureActions } from '@storybook/addon-actions';
 import React, { ReactNode } from 'react';
+import { MockupJukiProvider } from '../../components/mockup';
 import {
   AppsIcon,
   Button,
@@ -11,15 +12,14 @@ import {
   JukiJudgeLogoHorImage,
   JukiUtilsLogoHorImage,
   MdMathEditor,
-  Popover, SAMPLE_MD_CONTENT,
+  Popover,
+  SAMPLE_MD_CONTENT,
   SettingsIcon,
   T,
   useNotification,
   VerticalMenu,
   ViewHeadlineIcon,
 } from '../../index';
-import { MockupJukiProvider } from '../../components/mockup/MockupJukiProvider';
-import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 export default {
   title: 'Components/General',
@@ -140,7 +140,6 @@ export const HorizontalMenu = () => (
           <ButtonN />
         </div>
       </HorizontalMenuCmp>
-      <MockupToggleThemeButton />
     </div>
   </MockupJukiProvider>
 );

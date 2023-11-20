@@ -1,22 +1,18 @@
-import { configureActions } from '@storybook/addon-actions';
-import { Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Button, Drawer as DrawerComponent, DrawerProps, MdMathViewer, SAMPLE_MD_CONTENT } from '../../../index';
+import { Button, Drawer as DrawerComponent, MdMathViewer, SAMPLE_MD_CONTENT } from '../../../index';
 import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 
-export default {
+const meta: Meta<typeof DrawerComponent> = {
   component: DrawerComponent,
-  argTypes: {},
 };
 
-configureActions({
-  depth: 100,
-  // Limit the number of items logged into the actions panel
-  limit: 20,
-});
+export default meta;
 
-const Template: Story<DrawerProps> = (args) => {
-  return (
+type Story = StoryObj<typeof DrawerComponent>;
+
+export const Regular: Story = {
+  render: (args) => (
     <div style={{ height: '500px' }}>
       <DrawerComponent
         {...args}
@@ -26,9 +22,5 @@ const Template: Story<DrawerProps> = (args) => {
         <MockupToggleThemeButton />
       </DrawerComponent>
     </div>
-  );
+  ),
 };
-
-export const Drawer = Template.bind({});
-
-Drawer.args = {};

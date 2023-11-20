@@ -23,8 +23,8 @@ export const UsersSelector = (props: UsersSelectorProps) => {
   const [ text, setText ] = useState('');
   const [ textNicknames, setTextNicknames ] = useState<string[]>([]);
   const [ error, setError ] = useState('');
-  const users: { [key: string]: UserSummaryResponseDTO } = useMemo(() => {
-    const users = {};
+  const users = useMemo(() => {
+    const users: { [key: string]: UserSummaryResponseDTO } = {};
     const dataUsers = (data?.success ? data?.contents : []);
     dataUsers.forEach(user => {
       users[user.nickname] = user;

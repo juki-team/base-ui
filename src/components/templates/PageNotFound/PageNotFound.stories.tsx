@@ -1,34 +1,35 @@
-import { configureActions } from '@storybook/addon-actions';
-import { Story } from '@storybook/react';
-import React, { PropsWithChildren } from 'react';
-import { PageNotFound } from '../../index';
+import { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import { PageNotFound } from '../../';
 import { MockupJukiProvider } from '../../mockup';
 
-export default {
+const meta: Meta<typeof PageNotFound> = {
   component: PageNotFound,
 };
 
-configureActions({
-  depth: 100,
-  // Limit the number of items logged into the actions panel
-  limit: 20,
-});
+export default meta;
 
-const Template: Story<PropsWithChildren<{}>> = (args) => {
-  return (
+type Story = StoryObj<typeof PageNotFound>;
+
+export const Regular: Story = {
+  render: (args) => (
     <MockupJukiProvider>
       <div style={{ height: '500px' }}>
         <PageNotFound {...args} />
       </div>
     </MockupJukiProvider>
-  );
+  ),
 };
 
-export const PageNotFoundDefault = Template.bind({});
-
-PageNotFoundDefault.args = {};
-
-export const PageNotFoundWithCustomChildren = Template.bind({});
+export const PageNotFoundWithCustomChildren: Story = {
+  render: (args) => (
+    <MockupJukiProvider>
+      <div style={{ height: '500px' }}>
+        <PageNotFound {...args} />
+      </div>
+    </MockupJukiProvider>
+  ),
+};
 
 PageNotFoundWithCustomChildren.args = {
   children: (

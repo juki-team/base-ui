@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { LockIcon } from '../icons';
-
 import { Button } from './Button';
 
 const meta: Meta<typeof Button> = {

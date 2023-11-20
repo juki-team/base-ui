@@ -1,14 +1,18 @@
-import { Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
-import { Timer, TimerLabeled, TimerLabeledProps } from './';
+import { Timer, TimerLabeled } from './';
 
-export default {
+const meta: Meta<typeof TimerLabeled> = {
   component: TimerLabeled,
 };
 
-const Template: Story<TimerLabeledProps> = (args) => {
-  return (
+export default meta;
+
+type Story = StoryObj<typeof TimerLabeled>;
+
+export const Regular: Story = {
+  render: (args) => (
     <MockupJukiProvider>
       <h3>TimerClock</h3>
       {[ 15 * 1000, 0, -30 * 1000 ].map((startTimestamp) => (
@@ -46,7 +50,5 @@ const Template: Story<TimerLabeledProps> = (args) => {
       
       <Timer interval={-1} currentTimestamp={10 * 60 * 1000} literal laps={2} />
     </MockupJukiProvider>
-  );
+  ),
 };
-
-export const Regular = Template.bind({});

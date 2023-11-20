@@ -33,7 +33,10 @@ export default {
     // nodePolyfills(),
     // nodeResolve({ preferBuiltins: false }),
     // nodeResolve(),
-    commonjs(),
+    // commonjs(),
+    commonjs({
+      ignore: [ 'bufferutil', 'utf-8-validate' ], // Ignore optional peer dependencies of ws
+    }),
     typescript({ useTsconfigDeclarationDir: true }),
     copy({
       targets: [

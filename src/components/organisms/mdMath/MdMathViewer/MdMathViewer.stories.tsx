@@ -1,32 +1,27 @@
-import { configureActions } from '@storybook/addon-actions';
-import { Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { MdMathViewer, MdMathViewerProps, SAMPLE_MD_CONTENT } from '../../../../index';
+import { MdMathViewer, SAMPLE_MD_CONTENT } from '../../../../index';
 import { MockupJukiProvider } from '../../../mockup';
 
-export default {
+const meta: Meta<typeof MdMathViewer> = {
   component: MdMathViewer,
 };
 
-configureActions({
-  depth: 100,
-  // Limit the number of items logged into the actions panel
-  limit: 20,
-});
+export default meta;
 
-const MdMathViewerComponent: Story<MdMathViewerProps> = (props) => {
-  return (
+type Story = StoryObj<typeof MdMathViewer>;
+
+export const Regular: Story = {
+  render: (args) => (
     <MockupJukiProvider>
       <div>
-        <MdMathViewer {...props} source={SAMPLE_MD_CONTENT} />
+        <MdMathViewer {...args} source={SAMPLE_MD_CONTENT} />
       </div>
     </MockupJukiProvider>
-  );
+  ),
 };
 
-export const MdMathViewerClassic = MdMathViewerComponent.bind({});
-
-MdMathViewerClassic.args = {
+Regular.args = {
   sharedButton: true,
   downloadButton: true,
 };

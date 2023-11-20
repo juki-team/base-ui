@@ -1,13 +1,15 @@
 import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
+import { ViewPortSizeType } from '../../../types';
 import { ButtonProps } from './types';
 
-const sizeViewPorts = {
+const sizeViewPorts: { [key in ViewPortSizeType]: string } = {
   // sm: 'small',
   // md: 'regular',
   // lg: 'large',
   // hg: 'huge',
+  '': '',
   sm: 'tiny',
   md: 'small',
   lg: 'regular',

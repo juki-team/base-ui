@@ -1,18 +1,8 @@
-import { action, configureActions } from '@storybook/addon-actions';
-import { Story } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { Button, useNotification } from '../../../index';
 import { MockupJukiProvider } from '../../mockup';
-
-export default {
-  component: Button,
-};
-
-configureActions({
-  depth: 100,
-  // Limit the number of items logged into the actions panel
-  limit: 20,
-});
 
 const Comp = () => {
   const {
@@ -100,17 +90,24 @@ const Comp = () => {
     </div>
   );
 };
-const Template: Story<{}> = (args) => {
-  return (
-    <MockupJukiProvider>
-      <Comp {...args} />
-    </MockupJukiProvider>
-  );
+
+const meta: Meta<typeof Button> = {
+  component: Button,
 };
 
-export const Notifications = Template.bind({});
+export default meta;
 
-Notifications.args = {
+type Story = StoryObj<typeof Button>;
+
+export const Regular: Story = {
+  render: (args) => (
+    <MockupJukiProvider>
+      <Comp />
+    </MockupJukiProvider>
+  ),
+};
+
+Regular.args = {
   onClick: action('onClick'),
   children: 'text',
 };

@@ -87,7 +87,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     }
   }, [ language, languages ]);
   const problemJudgeKey = sourceStoreKey || '-';
-  const defaultValue = { [problemJudgeKey]: {} };
+  const defaultValue: { [key: string]: { [key: string]: string } } = { [problemJudgeKey]: {} };
   ACCEPTED_PROGRAMMING_LANGUAGES.forEach(key => {
     defaultValue[problemJudgeKey][PROGRAMMING_LANGUAGE[key].mime] = PROGRAMMING_LANGUAGE[key].templateSourceCode;
   });

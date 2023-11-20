@@ -1,15 +1,18 @@
-import { Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 import { SplitPane as SplitPaneComponent } from './SplitPane';
-import { SplitPaneProps } from './types';
 
-export default {
+const meta: Meta<typeof SplitPaneComponent> = {
   component: SplitPaneComponent,
 };
 
-const ImagesTemplate: Story<SplitPaneProps> = (props) => {
-  return (
+export default meta;
+
+type Story = StoryObj<typeof SplitPaneComponent>;
+
+export const Regular: Story = {
+  render: (args) => (
     <div style={{ border: '1px solid red', width: 800, height: 1000 }}>
       <SplitPaneComponent toggleOption>
         <div style={{ background: '' }}>
@@ -79,11 +82,5 @@ const ImagesTemplate: Story<SplitPaneProps> = (props) => {
         </div>
       </SplitPaneComponent>
     </div>
-  );
-};
-
-export const SplitPane = ImagesTemplate.bind({});
-
-SplitPane.args = {
-  // onClick: action('onClick'),
+  ),
 };

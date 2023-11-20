@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, ReactNode } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { NONE } from '../../../../types';
-import { Button, Drawer, DrawerActionsType, ExpandLessIcon, ExpandMoreIcon, T } from '../../../index';
+import { Button, Drawer, DrawerActionsType, ViewHeadlineIcon } from '../../../index';
 import { HorizontalMenuProps } from '../types';
 
 export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) => {
@@ -81,9 +81,9 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
                 {({ isOpen, onOpen }) => {
                   return (
                     <div className="jk-row sides-mobile-padding">
-                      <Button size="small" onClick={onOpen}>
-                        <div className="jk-row nowrap"><T>menu</T>{isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-                        </div>
+                      <Button size="small" onClick={onOpen} icon={<ViewHeadlineIcon />}>
+                        {/*<div className="jk-row nowrap"><T>menu</T>{isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}*/}
+                        {/*</div>*/}
                       </Button>
                     </div>
                   );

@@ -1,16 +1,20 @@
 import { action } from '@storybook/addon-actions';
-import { Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
-import { LoginModal, LoginModalProps, LoginModalTemplateProps } from './'
+import { LoginModal, LoginModalProps, LoginModalTemplate } from './'
 
-export default {
-  component: LoginModal,
+const meta: Meta<typeof LoginModalTemplate> = {
+  component: LoginModalTemplate,
   argTypes: {
     highlightForgotPassword: { control: { type: 'boolean' } },
   },
 };
+
+export default meta;
+
+type Story = StoryObj<typeof LoginModal>;
 
 const WrapLogin = (props: LoginModalProps) => {
   const [ open, setOpen ] = useState(false);
@@ -24,31 +28,33 @@ const WrapLogin = (props: LoginModalProps) => {
   );
 };
 
-const LoginWithGoogleComponent: Story<LoginModalTemplateProps> = () => (
-  <WrapLogin
-    // onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => {
-    //   action('onSubmit')({ data, setStatus });
-    // }}
-    // loginWithGoogle={() => () => {
-    //   action('loginWithGoogle')();
-    // }}
-    // reactAppGoogleClientId="test"
-    isOpen
-    onClose={() => action('onClose')}
-    onSignUpButton={() => action('onSignUpButton')}
-    // onForgotPassword={() => action('onForgotPasswordButton')}
-  />
-);
+export const LoginWithGoogleComponent: Story = {
+  render: (args) => (
+    <WrapLogin
+      // onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => {
+      //   action('onSubmit')({ data, setStatus });
+      // }}
+      // loginWithGoogle={() => () => {
+      //   action('loginWithGoogle')();
+      // }}
+      // reactAppGoogleClientId="test"
+      isOpen
+      onClose={() => action('onClose')}
+      onSignUpButton={() => action('onSignUpButton')}
+      // onForgotPassword={() => action('onForgotPasswordButton')}
+    />
+  ),
+};
 
-export const LoginWithGoogle = LoginWithGoogleComponent.bind({});
-
-export const LoginWithoutGoogle = ({ ...props }) => (
-  <WrapLogin
-    {...props}
-    // onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setStatus })}
-    isOpen
-    onClose={() => action('onClose')}
-    onSignUpButton={() => action('onSignUpButton')}
-    // onForgotPassword={() => action('onForgotPasswordButton')}
-  />
-);
+export const LoginWithoutGoogle: Story = {
+  render: (args) => (
+    <WrapLogin
+      {...args}
+      // onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setStatus })}
+      isOpen
+      onClose={() => action('onClose')}
+      onSignUpButton={() => action('onSignUpButton')}
+      // onForgotPassword={() => action('onForgotPasswordButton')}
+    />
+  ),
+};

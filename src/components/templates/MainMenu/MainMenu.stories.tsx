@@ -1,3 +1,4 @@
+import { MenuViewMode } from '@juki-team/commons';
 import { action, configureActions } from '@storybook/addon-actions';
 import React from 'react';
 import {
@@ -33,6 +34,7 @@ export const MainMenu = () => (
       <MainMenuCmp
         menu={menu}
         onSeeMyProfile={() => console.info('onSeeMyProfile')}
+        menuViewMode={MenuViewMode.HORIZONTAL}
       >
         <div>
           <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />

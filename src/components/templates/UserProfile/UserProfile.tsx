@@ -1,4 +1,4 @@
-import { JUDGE } from '@juki-team/commons';
+import { Judge, JUDGE } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
@@ -41,15 +41,15 @@ export function UserProfile({ user }: UserProfileProps) {
             )}
             <div className="jk-row left gap"><MailIcon />{user?.email}</div>
             {Object.entries(user?.handles || {})
-              .filter(([judge, nickname]) => !!nickname && !!JUDGE[judge])
-              .map(([judge, nickname]) => (
+              .filter(([ judge, nickname ]) => !!nickname && !!JUDGE[judge as Judge])
+              .map(([ judge, nickname ]) => (
                 <div key={judge}>
                   <div className="jk-col left gap block stretch">
                     <div className="jk-row gap">
                       <Image
-                        src={JUDGE[judge]?.logo}
+                        src={JUDGE[judge as Judge]?.logo}
                         alt={judge}
-                        height={(64 / JUDGE[judge]?.logoSize[0]) * JUDGE[judge]?.logoSize[1]}
+                        height={(64 / JUDGE[judge as Judge]?.logoSize[0]) * JUDGE[judge as Judge]?.logoSize[1]}
                         width={64}
                       />
                       {nickname}

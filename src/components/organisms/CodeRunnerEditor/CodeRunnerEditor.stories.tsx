@@ -1,31 +1,25 @@
 import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
-import { configureActions } from '@storybook/addon-actions';
-import { Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import { CodeRunnerEditor, CodeRunnerEditorPropertiesType, CodeRunnerEditorProps } from '../../../index';
 import { MockupJukiProvider } from '../../mockup';
 
-export default {
+const meta: Meta<typeof CodeRunnerEditor> = {
   component: CodeRunnerEditor,
   argTypes: {
-    type: {
-      control: {
-        type: 'radio',
-        options: [ 'default', 'primary', 'text', 'ghost' ],
-        disable: true,
-      },
-      disable: true,
-    },
+    // type: {
+    //   control: {
+    //     type: 'radio',
+    //     options: [ 'default', 'primary', 'text', 'ghost' ],
+    //     disable: true,
+    //   },
+    //   disable: true,
+    // },
   },
 };
 
-configureActions({
-  depth: 100,
-  // Limit the number of items logged into the actions panel
-  limit: 20,
-});
-
-const Template: Story<CodeRunnerEditorProps<string>> = (args) => {
+const Template = (args: CodeRunnerEditorProps<string>) => {
+  
   const [ props, setProps ] = useState<CodeRunnerEditorPropertiesType<ProgrammingLanguage> & {
     language: string,
     sourceCode: string
@@ -33,6 +27,7 @@ const Template: Story<CodeRunnerEditorProps<string>> = (args) => {
     language: ProgrammingLanguage.JAVASCRIPT,
     sourceCode: 'console.info("Juki!")',
   });
+  
   return (
     <MockupJukiProvider>
       <div style={{ height: '500px' }}>
@@ -55,7 +50,15 @@ const Template: Story<CodeRunnerEditorProps<string>> = (args) => {
   );
 };
 
-export const CodeRunnerEditorNormal = Template.bind({});
+export default meta;
+
+type Story = StoryObj<typeof CodeRunnerEditor<string>>;
+
+export const CodeRunnerEditorNormal: Story = {
+  render: (args) => (
+    <Template {...args} />
+  ),
+};
 
 CodeRunnerEditorNormal.args = {
   readOnly: false, // op
@@ -64,7 +67,11 @@ CodeRunnerEditorNormal.args = {
   // middleButtons?: (props: Omit<CodeRunnerEditorProps, 'onChange' | 'className' | 'middleButtons'>) => ReactNode,
 };
 
-export const CodeRunnerEditorWithIo = Template.bind({});
+export const CodeRunnerEditorWithIo: Story = {
+  render: (args) => (
+    <Template {...args} />
+  ),
+};
 
 CodeRunnerEditorWithIo.args = {
   readOnly: false, // op
@@ -82,7 +89,11 @@ CodeRunnerEditorWithIo.args = {
   },
 };
 
-export const CodeRunnerEditorWithCustomLanguages = Template.bind({});
+export const CodeRunnerEditorWithCustomLanguages: Story = {
+  render: (args) => (
+    <Template {...args} />
+  ),
+};
 
 CodeRunnerEditorWithCustomLanguages.args = {
   readOnly: false, // op
