@@ -20,20 +20,13 @@ export default {
       sourcemap: true,
     },
   ],
-  // external: [ ...Object.keys(pkg.dependencies || {}) ],
-  // external: [ 'react', 'react-dom', 'swr' ],
   external: [ 'react', 'react-dom' ],
-  // plugins: [
-  //   typescript({
-  //     typescript: require('typescript'),
-  //   }),
   plugins: [
     peerDepsExternal(),
     resolve(),
     // nodePolyfills(),
     // nodeResolve({ preferBuiltins: false }),
     // nodeResolve(),
-    // commonjs(),
     commonjs({
       ignore: [ 'bufferutil', 'utf-8-validate' ], // Ignore optional peer dependencies of ws
     }),
