@@ -158,7 +158,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
         <Popover
           content={
             <div className="jk-col gap more-apps-popover jk-pad-sm">
-              <div className="semi-bold tt-se"><T>more apps coming soon</T></div>
+              <div className="fw-bd tt-se"><T>more apps</T></div>
               <div className={classNames('jk-col gap stretch', { 'cr-py': !isDark, 'cr-b2': isDark })}>
                 {moreApps}
               </div>

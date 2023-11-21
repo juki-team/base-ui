@@ -42,10 +42,12 @@ export const MainMenu = () => (
         moreApps={
           <>
             <div className="jk-row">
-              <JukiCouchLogoHorImage /> <LoadingIcon size="small" /> <T className="tt-se">developing</T>...
+              <div style={{ width: 95 }}><JukiCouchLogoHorImage /></div>
+              <LoadingIcon size="small" /> <T className="tt-se">developing</T>...
             </div>
             <div className="jk-row">
-              <JukiUtilsLogoHorImage /> <LoadingIcon size="small" /> <T className="tt-se">developing</T>...
+              <div style={{ width: 95 }}><JukiUtilsLogoHorImage /></div>
+              <LoadingIcon size="small" /> <T className="tt-se">developing</T>...
             </div>
           </>
         }

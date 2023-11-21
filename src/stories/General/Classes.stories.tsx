@@ -1,8 +1,8 @@
 import { configureActions } from '@storybook/addon-actions';
 import { Story } from '@storybook/react';
 import React from 'react';
-import { Tabs as TabsComponent, TabsProps } from '../../index';
 import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
+import { Tabs as TabsComponent, TabsProps } from '../../index';
 
 export default {
   title: 'Components/General',
@@ -422,6 +422,13 @@ export const Classes: Story<TabsProps<string>> = () => {
             ))}
           </div>
         </div>
+      ),
+    },
+    {
+      key: '13',
+      header: <div>dot dot-flashing</div>,
+      body: (
+        <div className="dot-flashing" />
       ),
     },
   ];
