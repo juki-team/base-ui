@@ -5,11 +5,10 @@ import update from 'immutability-helper';
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 // import { useDrag } from 'react-dnd/dist/hooks/useDrag';
 // import { useDrop } from 'react-dnd/dist/hooks/useDrop';
-import { DndProvider, DropTargetMonitor } from 'react-dnd';
+import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { DragIcon } from '../../atoms';
 import { DragItem, RowSortableItem, RowSortableItemContentType } from './types';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 // const DndProvider = lazy(() => import('react-dnd').then(module => ({ default: module.DndProvider })));
 
@@ -22,7 +21,7 @@ interface TestProps {
   useDrag: any,
 }
 
-export const Test = ({ key, content, index, moveRow, useDrop, useDrag }: TestProps) => {
+export const Test = ({ key, content, index, moveRow }: TestProps) => {
   
   const ref = useRef<HTMLDivElement>(null);
   
@@ -127,8 +126,8 @@ export const Row = ({ id: key, content, index, moveRow }: RowProps) => {
   const useDropRef = useRef();
   const [ render, setRender ] = useState(0);
   useEffect(() => {
-    useDragRef.current = require('react-dnd').useDrag;
-    useDropRef.current = require('react-dnd').useDrop;
+    // useDragRef.current = require('react-dnd').useDrag;
+    // useDropRef.current = require('react-dnd').useDrop;
     setRender(1);
   }, []);
   
@@ -175,19 +174,17 @@ export const SimpleSortableRows = <T, >({ rows, setRows, className }: SimpleSort
   }, []);
   
   return (
-    <DndProvider backend={HTML5Backend}>
-      <div className={classNames('jk-sortable-rows-container', className)}>
-        {rows.map((row, i) => (
-          <Row
-            key={row.key}
-            index={i}
-            id={row.key}
-            content={row.content}
-            moveRow={moveRow}
-          />
-        ))}
-      </div>
-    </DndProvider>
+    <div className={classNames('jk-sortable-rows-container', className)}>
+      {rows.map((row, i) => (
+        <Row
+          key={row.key}
+          index={i}
+          id={row.key}
+          content={row.content}
+          moveRow={moveRow}
+        />
+      ))}
+    </div>
   );
   
   // return (

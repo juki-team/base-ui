@@ -1,4 +1,6 @@
 import React, { PropsWithChildren } from 'react';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import { JukiPageProvider } from './JukiPageProvider';
 import { JukiRouterProvider, RouterContextInterface } from './JukiRouterProvider';
 import { JukiUIProvider, JukiUIProviderProps } from './JukiUIProvider';
@@ -35,7 +37,9 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
           <JukiUIProvider
             components={components}
           >
-            {children}
+            <DndProvider backend={HTML5Backend}>
+              {children}
+            </DndProvider>
           </JukiUIProvider>
         </JukiUserProvider>
       </JukiPageProvider>
