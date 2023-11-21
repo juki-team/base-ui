@@ -2,15 +2,15 @@
 // https://react-dnd.github.io/react-dnd/examples/customize/handles-and-previews
 import type { XYCoord } from 'dnd-core';
 import update from 'immutability-helper';
-import React, { Dispatch, lazy, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 // import { useDrag } from 'react-dnd/dist/hooks/useDrag';
 // import { useDrop } from 'react-dnd/dist/hooks/useDrop';
-import { DropTargetMonitor } from 'react-dnd';
+import { DndProvider, DropTargetMonitor } from 'react-dnd';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { DragIcon } from '../../atoms';
 import { DragItem, RowSortableItem, RowSortableItemContentType } from './types';
 
-const DndProvider = lazy(() => import('react-dnd').then(module => ({ default: module.DndProvider })));
+// const DndProvider = lazy(() => import('react-dnd').then(module => ({ default: module.DndProvider })));
 
 interface TestProps {
   key: string,
@@ -166,17 +166,6 @@ export const SimpleSortableRows = <T, >({ rows, setRows, className }: SimpleSort
     );
   }, [ setRows ]);
   
-  const renderRow = useCallback((row: { key: string; content: RowSortableItemContentType }, index: number) => {
-    return (
-      <Row
-        key={row.key}
-        index={index}
-        id={row.key}
-        content={row.content}
-        moveRow={moveRow}
-      />
-    );
-  }, [ moveRow ]);
   const HTML5BackendRef = useRef<any>();
   const [ render, setRender ] = useState(0);
   useEffect(() => {
@@ -187,7 +176,15 @@ export const SimpleSortableRows = <T, >({ rows, setRows, className }: SimpleSort
   return (
     !!render && HTML5BackendRef.current && <DndProvider backend={HTML5BackendRef.current}>
       <div className={classNames('jk-sortable-rows-container', className)}>
-        {rows.map((row, i) => renderRow(row, i))}
+        {rows.map((row, i) => (
+          <Row
+            key={row.key}
+            index={i}
+            id={row.key}
+            content={row.content}
+            moveRow={moveRow}
+          />
+        ))}
       </div>
     </DndProvider>
   );
