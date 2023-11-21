@@ -9,6 +9,7 @@ import { DndProvider, DropTargetMonitor } from 'react-dnd';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { DragIcon } from '../../atoms';
 import { DragItem, RowSortableItem, RowSortableItemContentType } from './types';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 // const DndProvider = lazy(() => import('react-dnd').then(module => ({ default: module.DndProvider })));
 
@@ -166,15 +167,15 @@ export const SimpleSortableRows = <T, >({ rows, setRows, className }: SimpleSort
     );
   }, [ setRows ]);
   
-  const HTML5BackendRef = useRef<any>();
-  const [ render, setRender ] = useState(0);
+  // const HTML5BackendRef = useRef<any>();
+  // const [ render, setRender ] = useState(0);
   useEffect(() => {
-    HTML5BackendRef.current = require('react-dnd-html5-backend').HTML5Backend;
-    setRender(1);
+    // HTML5BackendRef.current = require('react-dnd-html5-backend').HTML5Backend;
+    // setRender(1);
   }, []);
   
   return (
-    !!render && HTML5BackendRef.current && <DndProvider backend={HTML5BackendRef.current}>
+    <DndProvider backend={HTML5Backend}>
       <div className={classNames('jk-sortable-rows-container', className)}>
         {rows.map((row, i) => (
           <Row
@@ -188,4 +189,20 @@ export const SimpleSortableRows = <T, >({ rows, setRows, className }: SimpleSort
       </div>
     </DndProvider>
   );
+  
+  // return (
+  //   !!render && HTML5BackendRef.current && <DndProvider backend={HTML5BackendRef.current}>
+  //     <div className={classNames('jk-sortable-rows-container', className)}>
+  //       {rows.map((row, i) => (
+  //         <Row
+  //           key={row.key}
+  //           index={i}
+  //           id={row.key}
+  //           content={row.content}
+  //           moveRow={moveRow}
+  //         />
+  //       ))}
+  //     </div>
+  //   </DndProvider>
+  // );
 };
