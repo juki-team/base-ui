@@ -20,7 +20,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
   
   static getDerivedStateFromError(error: any) {
     // Update state so the next render will show the fallback UI
-    console.error(error);
+    console.error({ error }, error);
     return { hasError: true };
   }
   
@@ -29,7 +29,16 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
     const token = localStorage.getItem(settings.TOKEN_NAME) || '';
     const location = window?.location;
     try {
-      const { url, ...options } = settings.getAPI().log({ body: { error, errorInfo, location, token } });
+      const { url, ...options } = settings.getAPI().log({
+        body: {
+          location,
+          token,
+          errorName: error?.name,
+          errorMessage: error?.message,
+          errorStack: error?.stack,
+          errorInfo,
+        },
+      });
       const response = cleanRequest<ContentsResponseType<{}>>(
         await authorizedRequest(url, options));
       if (response.success) {

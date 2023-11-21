@@ -97,7 +97,16 @@ export class Settings {
           method: HTTPMethod.POST,
         })),
       },
-      log: valid<{ body: { error: Error, errorInfo: ErrorInfo, location: Location, token: string } }>(({ body }) => ({
+      log: valid<{
+        body: {
+          errorName: string,
+          errorMessage: string,
+          errorStack?: string,
+          errorInfo: ErrorInfo,
+          location: Location,
+          token: string
+        }
+      }>(({ body }) => ({
         url: injectBaseUrl('log', `/error`),
         method: HTTPMethod.POST,
         body: JSON.stringify(body),
