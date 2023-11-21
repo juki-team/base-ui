@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { ErrorBoundary as ErrorBoundaryCmp } from '../../index';
+import { ErrorBoundary as ErrorBoundaryCmp } from '../../../index';
 
 const meta: Meta<typeof ErrorBoundaryCmp> = {
   component: ErrorBoundaryCmp,

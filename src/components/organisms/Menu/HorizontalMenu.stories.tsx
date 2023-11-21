@@ -1,27 +1,28 @@
 import { action, configureActions } from '@storybook/addon-actions';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import {
   AppsIcon,
   Button,
   ConstructionIcon,
   DrawerActionsType,
   FilterListIcon,
+  HorizontalMenu as HorizontalMenuCmp,
   JukiCouchLogoHorImage,
   JukiJudgeLogoHorImage,
   JukiUtilsLogoHorImage,
   MdMathEditor,
-  PlusIcon,
-  Popover, SAMPLE_MD_CONTENT,
+  Popover,
+  SAMPLE_MD_CONTENT,
   SettingsIcon,
   T,
-  VerticalMenu as VerticalMenuCmp,
+  useNotification,
+  VerticalMenu,
   ViewHeadlineIcon,
-} from '../../index';
-import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
+} from '../../../index';
+import { MockupJukiProvider } from '../../mockup';
 
 export default {
-  title: 'Components/General',
-  component: VerticalMenuCmp,
+  component: VerticalMenu,
 };
 
 configureActions({
@@ -29,12 +30,6 @@ configureActions({
   // Limit the number of items logged into the actions panel
   limit: 20,
 });
-
-const menu = [
-  { label: 'contests', icon: <ViewHeadlineIcon />, selected: false, onClick: () => action('/contests') },
-  { label: 'problems', icon: <PlusIcon />, selected: true, onClick: () => action('/problems') },
-  { label: 'admin', icon: <FilterListIcon />, selected: false, onClick: () => action('/admin') },
-];
 
 const rightSection = ({ open = undefined }: { open?: boolean }) => (
   <div className="jk-row gap" style={{ width: '240px' }}>
@@ -99,20 +94,51 @@ const centerMobile = {
 
 const drawerMenuMobile = <div>Rest of Menu</div>;
 
-export const VerticalMenu = () => (
-  <div style={{ height: '400px' }}>
-    <VerticalMenuCmp
-      menu={menu}
-      topSection={<div className="jk-row" style={{ width: '60px' }}><JukiJudgeLogoHorImage /></div>}
-      bottomSection={<div className="">{rightSection({})}</div>}
-      rightMobile={rightMobile}
-      centerMobile={centerMobile}
-      drawerMenuMobile={drawerMenuMobile}
+const menuHorizontal = [
+  {
+    label: 'contests',
+    selected: false,
+    onClick: () => action('/contests'),
+    menuItemWrapper: ({ children }: { children: ReactNode }) => (
+      <div className="test-children" key="test-contest">{children}</div>
+    ),
+  },
+  { label: 'problems', selected: true, onClick: () => action('/problems') },
+  { label: 'admin', icon: <FilterListIcon />, selected: true, onClick: () => action('/admin') },
+];
+
+const ButtonN = () => {
+  const { addInfoNotification, addQuietNotification } = useNotification();
+  return (
+    <Button
+      onClick={() => {
+        addInfoNotification('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
+        addInfoNotification('Lorem ipsum');
+        addQuietNotification('Lorem ipsum dolor sit amet, consectetur adipiscing elit');
+        addQuietNotification('Lorem ipsum ');
+      }}
     >
-      <div>
-        <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
-      </div>
-    </VerticalMenuCmp>
-    <MockupToggleThemeButton />
-  </div>
+      notification
+    </Button>
+  );
+};
+
+export const HorizontalMenu = () => (
+  <MockupJukiProvider>
+    <div style={{ height: '400px' }}>
+      <HorizontalMenuCmp
+        menu={menuHorizontal}
+        leftSection={<div className="jk-row" style={{ width: '240px' }}><JukiJudgeLogoHorImage /></div>}
+        rightSection={<div className="">{rightSection({})}</div>}
+        rightMobile={rightMobile}
+        centerMobile={centerMobile}
+        drawerMenuMobile={drawerMenuMobile}
+      >
+        <div>
+          <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
+          <ButtonN />
+        </div>
+      </HorizontalMenuCmp>
+    </div>
+  </MockupJukiProvider>
 );

@@ -16,10 +16,13 @@ export interface MainMenuProps {
   menu: MenuType[],
   menuViewMode?: MenuViewMode,
   profileSelected?: boolean,
+  moreApps?: ReactNode,
   children: ReactNode,
 }
 
-export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, profileSelected, children }: MainMenuProps) => {
+export const MainMenu = (props: MainMenuProps) => {
+  
+  const { menu, onSeeMyProfile, menuViewMode, profileSelected, moreApps, children } = props;
   
   const { viewPortSize, components: { Link, Image } } = useJukiUI();
   
@@ -53,7 +56,7 @@ export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, profileSelected, 
   ) : imageUrl;
   
   const drawerMenuMobile = (props: { onClose: () => void, menu: MenuType[] }) => (
-    <DrawerViewMenuMobile {...props} logoImageUrl={logoImageUrl} />
+    <DrawerViewMenuMobile {...props} logoImageUrl={logoImageUrl} moreApps={moreApps} />
   );
   
   const rightMobile = {
@@ -110,6 +113,7 @@ export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, profileSelected, 
           helpOpen={helpOpen}
           setHelpOpen={setHelpOpen}
           popoverPlacement="right"
+          moreApps={moreApps}
         />
         <LoginUser
           collapsed={!isOpen}
@@ -149,6 +153,7 @@ export const MainMenu = ({ menu, onSeeMyProfile, menuViewMode, profileSelected, 
           helpOpen={helpOpen}
           setHelpOpen={setHelpOpen}
           popoverPlacement="bottom"
+          moreApps={moreApps}
         />
         <LoginUser
           collapsed={false}

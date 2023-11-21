@@ -1,4 +1,4 @@
-import React, { Children, useState } from 'react';
+import React, { Children, ReactNode, useState } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useJukiUI, useJukiUser } from '../../../../hooks';
 import { ArrowBackIcon, CloseIcon, T } from '../../../atoms';
@@ -10,9 +10,10 @@ export interface DrawerViewMenuMobileProps {
   onClose: () => void,
   menu: MenuType[],
   logoImageUrl: string,
+  moreApps?: ReactNode,
 }
 
-export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl }: DrawerViewMenuMobileProps) => {
+export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: DrawerViewMenuMobileProps) => {
   
   const { components: { Image } } = useJukiUI();
   
@@ -82,6 +83,7 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl }: DrawerView
                 helpOpen={helpOpen}
                 setHelpOpen={setHelpOpen}
                 popoverPlacement="top"
+                moreApps={moreApps}
               />
             </div>
           </div>

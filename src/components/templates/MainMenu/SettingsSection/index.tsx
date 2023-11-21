@@ -1,5 +1,5 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
-import React, { Dispatch } from 'react';
+import React, { Dispatch, ReactNode } from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiUI, useJukiUser, useJukiUserToggleSetting } from '../../../../hooks';
 import {
@@ -8,8 +8,6 @@ import {
   FlagEnImage,
   FlagEsImage,
   HelpIcon,
-  JukiCouchLogoHorImage,
-  JukiUtilsLogoHorImage,
   LightModeIcon,
   LoadingIcon,
   Modal,
@@ -104,15 +102,12 @@ export interface SettingsSectionProps {
   helpOpen: boolean,
   setHelpOpen: Dispatch<boolean>,
   popoverPlacement: 'top' | 'bottom' | 'right',
+  moreApps?: ReactNode,
 }
 
-export const SettingsSection = ({
-                                  isMobile,
-                                  isOpen,
-                                  helpOpen,
-                                  setHelpOpen,
-                                  popoverPlacement,
-                                }: SettingsSectionProps) => {
+export const SettingsSection = (props: SettingsSectionProps) => {
+  
+  const { isMobile, isOpen, helpOpen, setHelpOpen, popoverPlacement, moreApps } = props;
   
   const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
   const { viewPortSize, components: { Image } } = useJukiUI();
@@ -159,32 +154,29 @@ export const SettingsSection = ({
           </div>
         )}
       </div>
-      <Popover
-        content={
-          <div className="jk-col gap more-apps-popover">
-            <div className="semi-bold tt-se"><T>more apps coming soon</T></div>
-            <div className={classNames('jk-col gap ', { 'cr-py': !isDark, 'cr-b2': isDark })}>
-              <div className="jk-row">
-                <JukiCouchLogoHorImage /> <LoadingIcon size="small" /> <T className="tt-se">developing</T>...
-              </div>
-              <div className="jk-row">
-                <JukiUtilsLogoHorImage /> <LoadingIcon size="small" /> <T className="tt-se">developing</T>...
+      {moreApps && (
+        <Popover
+          content={
+            <div className="jk-col gap more-apps-popover jk-pad-sm">
+              <div className="semi-bold tt-se"><T>more apps coming soon</T></div>
+              <div className={classNames('jk-col gap ', { 'cr-py': !isDark, 'cr-b2': isDark })}>
+                {moreApps}
               </div>
             </div>
+          }
+          triggerOn="click"
+          placement={popoverPlacement}
+        >
+          <div className="jk-row center extend">
+            <AppsIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
+            {isOpen && (
+              <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
+                <T className="tt-se">more apps</T>
+              </div>
+            )}
           </div>
-        }
-        triggerOn="click"
-        placement={popoverPlacement}
-      >
-        <div className="jk-row center extend">
-          <AppsIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
-          {isOpen && (
-            <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
-              <T className="tt-se">more apps</T>
-            </div>
-          )}
-        </div>
-      </Popover>
+        </Popover>
+      )}
     </>
   );
 };
