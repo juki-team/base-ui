@@ -1,7 +1,7 @@
 import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
+import { MockupJukiProvider } from '../../mockup';
 import { RowSortableItem, SimpleSortableRows as SimpleSortableRowsComponent } from './index';
-import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 
 export default {
   component: SimpleSortableRowsComponent,
@@ -15,7 +15,7 @@ configureActions({
 });
 
 export const SimpleSortableRows = () => {
-  const [rows, setRows] = useState<RowSortableItem<string>[]>([
+  const [ rows, setRows ] = useState<RowSortableItem<string>[]>([
     { key: '1', content: 'Write a cool JS library', value: '111' },
     {
       key: '2',
@@ -35,7 +35,8 @@ export const SimpleSortableRows = () => {
     { key: '4', content: 'Create some examples', value: '4444' },
     {
       key: '5',
-      content: ({ dragComponent }) => <div className="jk-row">{dragComponent}Spam in Twitter and IRC to promote it (note that
+      content: ({ dragComponent }) => <div className="jk-row">{dragComponent}Spam in Twitter and IRC to promote it (note
+        that
         this
         element is taller than the others)</div>,
       value: '555',
@@ -44,9 +45,10 @@ export const SimpleSortableRows = () => {
     { key: '7', content: 'PROFIT', value: '7' },
   ]);
   return (
-    <div style={{ height: '500px' }}>
-      <SimpleSortableRowsComponent<string> rows={rows} setRows={setRows} />
-      <MockupToggleThemeButton />
-    </div>
+    <MockupJukiProvider>
+      <div style={{ height: '500px' }}>
+        <SimpleSortableRowsComponent<string> rows={rows} setRows={setRows} />
+      </div>
+    </MockupJukiProvider>
   );
 };

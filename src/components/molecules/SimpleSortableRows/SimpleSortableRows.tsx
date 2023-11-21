@@ -2,26 +2,20 @@
 // https://react-dnd.github.io/react-dnd/examples/customize/handles-and-previews
 import type { XYCoord } from 'dnd-core';
 import update from 'immutability-helper';
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
-// import { useDrag } from 'react-dnd/dist/hooks/useDrag';
-// import { useDrop } from 'react-dnd/dist/hooks/useDrop';
+import React, { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 import { DropTargetMonitor, useDrag, useDrop } from 'react-dnd';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { DragIcon } from '../../atoms';
 import { DragItem, RowSortableItem, RowSortableItemContentType } from './types';
 
-// const DndProvider = lazy(() => import('react-dnd').then(module => ({ default: module.DndProvider })));
-
-interface TestProps {
+interface RowProps {
   key: string,
   content: RowSortableItemContentType,
   index: number,
   moveRow: (i: number, j: number) => void,
-  useDrop: any,
-  useDrag: any,
 }
 
-export const Test = ({ key, content, index, moveRow }: TestProps) => {
+export const Row = ({ key, content, index, moveRow }: RowProps) => {
   
   const ref = useRef<HTMLDivElement>(null);
   
@@ -120,33 +114,6 @@ interface RowProps {
   moveRow: (i: number, j: number) => void,
 }
 
-export const Row = ({ id: key, content, index, moveRow }: RowProps) => {
-  
-  const useDragRef = useRef<any>();
-  const useDropRef = useRef();
-  const [ render, setRender ] = useState(0);
-  useEffect(() => {
-    // useDragRef.current = require('react-dnd').useDrag;
-    // useDropRef.current = require('react-dnd').useDrop;
-    setRender(1);
-  }, []);
-  
-  if (!render) {
-    return null;
-  }
-  
-  return (
-    <Test
-      key={key}
-      content={content}
-      index={index}
-      moveRow={moveRow}
-      useDrop={useDropRef.current}
-      useDrag={useDragRef.current}
-    />
-  );
-};
-
 export interface SimpleSortableRowsProps<T> {
   rows: RowSortableItem<T>[],
   setRows: Dispatch<SetStateAction<RowSortableItem<T>[]>>,
@@ -166,13 +133,6 @@ export const SimpleSortableRows = <T, >({ rows, setRows, className }: SimpleSort
     );
   }, [ setRows ]);
   
-  // const HTML5BackendRef = useRef<any>();
-  // const [ render, setRender ] = useState(0);
-  useEffect(() => {
-    // HTML5BackendRef.current = require('react-dnd-html5-backend').HTML5Backend;
-    // setRender(1);
-  }, []);
-  
   return (
     <div className={classNames('jk-sortable-rows-container', className)}>
       {rows.map((row, i) => (
@@ -186,20 +146,4 @@ export const SimpleSortableRows = <T, >({ rows, setRows, className }: SimpleSort
       ))}
     </div>
   );
-  
-  // return (
-  //   !!render && HTML5BackendRef.current && <DndProvider backend={HTML5BackendRef.current}>
-  //     <div className={classNames('jk-sortable-rows-container', className)}>
-  //       {rows.map((row, i) => (
-  //         <Row
-  //           key={row.key}
-  //           index={i}
-  //           id={row.key}
-  //           content={row.content}
-  //           moveRow={moveRow}
-  //         />
-  //       ))}
-  //     </div>
-  //   </DndProvider>
-  // );
 };
