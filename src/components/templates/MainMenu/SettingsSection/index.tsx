@@ -159,7 +159,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
           content={
             <div className="jk-col gap more-apps-popover jk-pad-sm">
               <div className="semi-bold tt-se"><T>more apps coming soon</T></div>
-              <div className={classNames('jk-col gap ', { 'cr-py': !isDark, 'cr-b2': isDark })}>
+              <div className={classNames('jk-col gap stretch', { 'cr-py': !isDark, 'cr-b2': isDark })}>
                 {moreApps}
               </div>
             </div>
