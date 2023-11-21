@@ -11,17 +11,8 @@ import { settings } from '../../../../config';
 import { classNames } from '../../../../helpers';
 import { useNotification } from '../../../../hooks';
 import { authorizedRequest, cleanRequest } from '../../../../services';
-import {
-  Button,
-  ButtonLoader,
-  ButtonLoaderOnClickType,
-  FullscreenExitIcon,
-  FullscreenIcon,
-  PlayArrowIcon,
-  Select,
-  SettingsIcon,
-  T,
-} from '../../../index';
+import { Button, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, Select, SettingsIcon, T } from '../../../atoms';
+import { ButtonLoader, ButtonLoaderOnClickType } from '../../../molecules';
 import { HeaderProps } from '../types';
 
 export const Header = <T, >(props: HeaderProps<T>) => {

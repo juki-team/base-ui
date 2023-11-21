@@ -4,12 +4,12 @@ import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
 import { usePrevious } from '../../../hooks';
-import { LineLoader, LoaderLayer, TableHeadersType } from '../../index';
+import { LineLoader, LoaderLayer } from '../../atoms';
 import { CardRowVirtualizerFixed } from './CardList';
 import { DataViewerToolbar } from './DataViewerToolbar';
 import { RowVirtualizerFixed } from './RowList/RowVirtualizerFixed';
 import { TableHead } from './RowList/TableHead';
-import { DisplayDataViewerProps, HeaderWidthsType, TableHeadersWithWidthType } from './types';
+import { DisplayDataViewerProps, HeaderWidthsType, TableHeadersType, TableHeadersWithWidthType } from './types';
 
 const minCellWidth = 100;
 

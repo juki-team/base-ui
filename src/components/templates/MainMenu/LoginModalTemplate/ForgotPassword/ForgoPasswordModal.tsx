@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../../../../helpers';
-import { ButtonLoader, Input, JukiLaptopImage, SplitModal, T } from '../../../../index';
+import { Input, JukiLaptopImage, T } from '../../../../atoms';
+import { ButtonLoader, SplitModal } from '../../../../molecules';
 import { ForgotPasswordModalProps } from './types';
 
 export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword }: ForgotPasswordModalProps) => {

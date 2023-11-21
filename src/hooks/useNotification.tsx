@@ -1,8 +1,9 @@
 import { ContentResponseType, ContentsResponseType, ErrorResponseType, Status } from '@juki-team/commons';
 import React, { Children, ReactNode, useCallback, useContext } from 'react';
 import { v4 } from 'uuid';
-import { NewNotificationType, NotificationAction, NotificationType, T } from '../components';
+import { T } from '../components/atoms/T';
 import { NotificationContext } from '../components/organisms/Notifications/context';
+import { NewNotificationType, NotificationAction, NotificationType } from '../components/organisms/Notifications/types';
 import { SetStatusType } from '../types';
 
 export const notifyError = (response: ErrorResponseType, addErrorNotification: (message: ReactNode) => void) => {

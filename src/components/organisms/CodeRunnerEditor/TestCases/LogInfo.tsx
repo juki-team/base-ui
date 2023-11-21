@@ -1,6 +1,6 @@
 import React from 'react';
-import { T } from '../../../index';
 import { classNames } from '../../../../helpers';
+import { T } from '../../../atoms';
 import { LogInfoProps } from '../types';
 import { getErrors } from '../utils';
 

@@ -2,7 +2,7 @@ import { consoleWarn, DataViewMode, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useT } from '../../../hooks';
-import { OptionType } from '../../index';
+import { OptionType } from '../../molecules';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, CheckboxList, OptionType, T } from '../../../../';
+import { Button, T } from '../../../../atoms';
+import { CheckboxList, OptionType } from '../../../../molecules';
 import { TableHeadFilterSelectProps } from './types';
 
 export const TableHeadFilterSelect = (props: TableHeadFilterSelectProps) => {

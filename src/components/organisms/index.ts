@@ -1,7 +1,6 @@
 export * from './CheckUnsavedChanges';
 export * from './CodeRunnerEditor';
 export * from './DataViewer';
-export * from './ErrorBoundary';
 export * from './ImageUploader';
 export * from './Menu';
 export * from './Notifications';

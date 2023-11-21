@@ -1,7 +1,7 @@
 import { Status } from '@juki-team/commons';
 import React, { KeyboardEvent, MouseEvent, PropsWithChildren, useState } from 'react';
 import ReactModal from 'react-modal';
-import { CloseIcon, SpinIcon } from '../../';
+import { CloseIcon, SpinIcon } from '../icons';
 import { classNames } from '../../../helpers';
 import { useSetLoaderStatus } from '../hooks';
 import { ModalProps } from './types';

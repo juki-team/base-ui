@@ -1,5 +1,5 @@
 import React from 'react';
-import { DatePickerDateFunType } from '../../';
+import { DatePickerDateFunType } from '../../molecules';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,

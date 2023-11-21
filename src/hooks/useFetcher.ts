@@ -7,7 +7,7 @@ import {
   RequestFilterType,
   RequestSortType,
   SetLoaderStatusType,
-} from '../components';
+} from '../components/organisms/DataViewer/types';
 import { settings } from '../config';
 import { authorizedRequest, cleanRequest } from '../services';
 import { useJukiUser } from './useJukiUser';

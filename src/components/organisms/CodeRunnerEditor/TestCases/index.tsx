@@ -5,7 +5,7 @@ import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useNotification } from '../../../../hooks';
 import { AddIcon, DeleteIcon, T, TextArea, Tooltip } from '../../../atoms';
 import { SplitPane, Tabs, TabsInline, TabType } from '../../../molecules';
-import { NotificationType } from '../../../organisms';
+import { NotificationType } from '../../Notifications';
 import { TestCasesProps } from '../types';
 import { getErrors } from '../utils';
 import { LogInfo } from './LogInfo';

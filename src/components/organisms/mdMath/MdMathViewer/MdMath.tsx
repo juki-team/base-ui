@@ -8,7 +8,8 @@ import { useJukiUI } from '../../../../hooks';
 // import rehypeKatex from 'rehype-katex';
 // import gfm from 'remark-gfm';
 // import RemarkMathPlugin from 'remark-math';
-import { CodeViewer, CopyToClipboard, LinkIcon, LoadingIcon, OpenInNewIcon } from '../../../index';
+import { CopyToClipboard, LinkIcon, LoadingIcon, OpenInNewIcon } from '../../../atoms';
+import { CodeViewer } from '../../../molecules';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
 const ReactMarkdown = lazy(() => import('react-markdown'));

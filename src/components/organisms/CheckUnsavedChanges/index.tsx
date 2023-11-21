@@ -1,7 +1,8 @@
 import { ProgrammingLanguage } from '@juki-team/commons';
 import { diff } from 'deep-object-diff';
 import React, { cloneElement, ReactElement, ReactNode, useRef, useState } from 'react';
-import { CodeEditor, T, TwoActionModal } from '../../index';
+import { T } from '../../atoms';
+import { CodeEditor, TwoActionModal } from '../../molecules';
 
 export interface CheckUnsavedChangesProps<T> {
   children: ReactElement,

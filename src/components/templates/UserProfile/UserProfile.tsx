@@ -2,11 +2,11 @@ import { Judge, JUDGE } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
-import { LocationOnIcon, MailIcon, SchoolIcon } from '../../index';
+import { LocationOnIcon, MailIcon, SchoolIcon } from '../../atoms';
 import { UserProfileProps } from './types';
 
-
 export function UserProfile({ user }: UserProfileProps) {
+  
   const { components: { Image } } = useJukiUI();
   
   return (

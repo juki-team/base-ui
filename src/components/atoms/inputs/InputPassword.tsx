@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Input, VisibilityIcon, VisibilityOffIcon } from '../index';
+import { VisibilityIcon, VisibilityOffIcon } from '../icons';
+import { Input } from './Input';
 import { InputPasswordProps } from './types';
 
 export const InputPassword = ({ className = '', onChange, register, ...props }: InputPasswordProps<string>) => {

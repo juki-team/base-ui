@@ -1,6 +1,5 @@
 import React, { Children, ReactNode, useCallback, useRef, useState } from 'react';
-import { WidthResizer } from '../../atoms';
-import { Popover } from '../../index';
+import { Popover, WidthResizer } from '../../atoms';
 
 export const Breadcrumbs = ({ breadcrumbs }: { breadcrumbs: ReactNode[] }) => {
   const breadcrumbsLength = breadcrumbs.length;

@@ -1,5 +1,7 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
 import React, { Dispatch } from 'react';
+import { classNames } from '../../../../helpers';
+import { useJukiUI, useJukiUser, useJukiUserToggleSetting } from '../../../../hooks';
 import {
   AppsIcon,
   DarkModeIcon,
@@ -13,9 +15,7 @@ import {
   Modal,
   Popover,
   T,
-} from '../../../index';
-import { classNames } from '../../../../helpers';
-import { useJukiUI, useJukiUser, useJukiUserToggleSetting } from '../../../../hooks';
+} from '../../../atoms';
 import { HelpSection } from '../../HelpSection';
 
 export const LanguageSetting = ({ isOpen, small }: { isOpen: boolean, small: boolean }) => {
@@ -39,10 +39,16 @@ export const LanguageSetting = ({ isOpen, small }: { isOpen: boolean, small: boo
         ? <LoadingIcon style={{ margin: '0 var(--pad-xt)' }} />
         : (
           isEs
-            ? <div className="jk-row" style={{ ...{ width: 24, height: 24 }, ...(small ? { margin: '0 var(--pad-xt)' } : {}) }}>
+            ? <div
+              className="jk-row"
+              style={{ ...{ width: 24, height: 24 }, ...(small ? { margin: '0 var(--pad-xt)' } : {}) }}
+            >
               <FlagEnImage />
             </div>
-            : <div className="jk-row" style={{ ...{ width: 24, height: 24 }, ...(small ? { margin: '0 var(--pad-xt)' } : {}) }}>
+            : <div
+              className="jk-row"
+              style={{ ...{ width: 24, height: 24 }, ...(small ? { margin: '0 var(--pad-xt)' } : {}) }}
+            >
               <FlagEsImage />
             </div>
         )}
@@ -101,12 +107,12 @@ export interface SettingsSectionProps {
 }
 
 export const SettingsSection = ({
-  isMobile,
-  isOpen,
-  helpOpen,
-  setHelpOpen,
-  popoverPlacement,
-}: SettingsSectionProps) => {
+                                  isMobile,
+                                  isOpen,
+                                  helpOpen,
+                                  setHelpOpen,
+                                  popoverPlacement,
+                                }: SettingsSectionProps) => {
   
   const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
   const { viewPortSize, components: { Image } } = useJukiUI();

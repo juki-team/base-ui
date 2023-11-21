@@ -7,32 +7,36 @@ import {
   SubmissionRunStatus,
 } from '@juki-team/commons';
 import React, { useEffect, useMemo, useState } from 'react';
-import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, Portal, SplitPane, T } from '../../index';
 import { classNames } from '../../../helpers';
 import { useJkSocket, useJukiUI, useJukiUser } from '../../../hooks';
+import { Portal, T } from '../../atoms';
+import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, SplitPane } from '../../molecules';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
 import { TestCases } from './TestCases';
 import { CodeRunnerEditorProps } from './types';
 
-export const CodeRunnerEditor = <T, >({
-  readOnly,
-  sourceCode,
-  languages = CODE_EDITOR_PROGRAMMING_LANGUAGES.map(lang => ({
-    value: lang as T,
-    label: PROGRAMMING_LANGUAGE[lang]?.label || lang,
-  })),
-  language,
-  onChange,
-  middleButtons,
-  testCases,
-  tabSize = 4,
-  fontSize = 14,
-  timeLimit = 1000,
-  memoryLimit = 512000,
-  expandPosition,
-  className,
-}: CodeRunnerEditorProps<T>) => {
+export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
+  
+  const {
+    readOnly,
+    sourceCode,
+    languages = CODE_EDITOR_PROGRAMMING_LANGUAGES.map(lang => ({
+      value: lang as T,
+      label: PROGRAMMING_LANGUAGE[lang]?.label || lang,
+    })),
+    language,
+    onChange,
+    middleButtons,
+    testCases,
+    tabSize = 4,
+    fontSize = 14,
+    timeLimit = 1000,
+    memoryLimit = 512000,
+    expandPosition,
+    className,
+  } = props;
+  
   const [ runId, setRunId ] = useState('');
   const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
   const { pop } = useJkSocket(SocketEvent.RUN);

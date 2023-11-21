@@ -2,7 +2,9 @@ import React, { ReactNode, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
 import { useHandleState } from '../../../hooks';
-import { CloseIcon, ExpandMoreIcon, InputCheckbox, Popover } from '../index';
+import { CloseIcon, ExpandMoreIcon } from '../icons';
+import { InputCheckbox } from '../inputs';
+import { Popover } from '../Popover';
 import { SelectOptionType } from '../Select';
 import { MultiSelectProps } from './types';
 

@@ -12,7 +12,8 @@ import {
   UserSettingsType,
 } from '@juki-team/commons';
 import React, { useCallback, useContext, useState } from 'react';
-import { LoginFormType, T } from '../components';
+import { T } from '../components/atoms/T';
+import { LoginFormType } from '../components/templates/MainMenu/LoginModalTemplate/types';
 import { settings } from '../config';
 import { UserContext } from '../contexts/JukiUserProvider/context';
 import { localStorageCrossDomains } from '../helpers';

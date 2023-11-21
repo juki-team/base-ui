@@ -2,9 +2,8 @@ import { consoleWarn, ContentsResponseType } from '@juki-team/commons';
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { settings } from '../../../config';
 import { authorizedRequest, cleanRequest } from '../../../services';
-import { T } from '../../atoms';
-import { Button, JukiSurprisedImage } from '../../index';
-import { HelpSection } from '../../templates/HelpSection';
+import { Button, JukiSurprisedImage, T } from '../../atoms';
+import { HelpSection } from '../HelpSection';
 
 export interface ErrorBoundaryProps {
   children: ReactNode,

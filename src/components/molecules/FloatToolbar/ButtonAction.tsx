@@ -1,8 +1,8 @@
 import { Status } from '@juki-team/commons';
 import React, { useRef, useState } from 'react';
-import { ButtonLoader, SetLoaderStatusOnClickType } from '../';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useOutsideAlerter } from '../../../hooks';
+import { ButtonLoader, SetLoaderStatusOnClickType } from '../ButtonLoader';
 import { ButtonActionProps } from './types';
 
 export const ButtonAction = ({ icon, buttons }: ButtonActionProps) => {

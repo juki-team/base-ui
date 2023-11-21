@@ -1,7 +1,8 @@
 import React, { Children, useState } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useJukiUI, useJukiUser } from '../../../../hooks';
-import { ArrowBackIcon, CloseIcon, MenuType, T } from '../../../index';
+import { ArrowBackIcon, CloseIcon, T } from '../../../atoms';
+import { MenuType } from '../../../organisms';
 import { HelpSection } from '../../HelpSection'
 import { SettingsSection } from '../SettingsSection';
 

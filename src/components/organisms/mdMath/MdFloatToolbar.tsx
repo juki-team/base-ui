@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ButtonActionProps, DownloadIcon, EditIcon, FloatToolbar, OpenInNewIcon, T } from '../../';
 import { downloadBlobAsFile, handleShareMdPdf } from '../../../helpers';
+import { DownloadIcon, EditIcon, OpenInNewIcon, T } from '../../atoms';
+import { ButtonActionProps, FloatToolbar } from '../../molecules';
 
 export interface MdFloatToolbarProps {
   source: string,

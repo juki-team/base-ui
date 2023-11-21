@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Div } from '../../index';
 import { classNames } from '../../../helpers';
+import { Div } from '../../atoms';
 import { NextButton, PreviousButton } from './commons';
 import { YearPickerProps } from './types';
 
 export const YearPicker = ({ date, onChange, isDisabled, isSelected }: YearPickerProps) => {
   
-  const [viewDate, setViewDate] = useState(date);
+  const [ viewDate, setViewDate ] = useState(date);
   
   const gridYears: (Date[])[] = [];
   let dateCursor = new Date(viewDate);

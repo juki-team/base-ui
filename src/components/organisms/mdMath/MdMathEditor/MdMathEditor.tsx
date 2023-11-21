@@ -1,26 +1,65 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react';
+import React, { MutableRefObject, ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { classNames } from '../../../../helpers';
+import { useOutsideAlerter } from '../../../../hooks';
 import {
   Button,
   CloseIcon,
   EditIcon,
+  ExclamationIcon,
+  Modal,
   PreviewIcon,
   SaveIcon,
-  SplitPane,
   T,
   TextArea,
   Tooltip,
-  TwoActionModal,
-} from '../../../';
-import { classNames } from '../../../../helpers';
-import { useOutsideAlerter } from '../../../../hooks';
-import { UploadImageButton } from '../../index';
+} from '../../../atoms';
+import { SplitPane, TwoActionModal } from '../../../molecules';
+import { UploadImageButton } from '../../ImageUploader';
+import { SAMPLE_MD_CONTENT } from '../constants';
 import { MdFloatToolbar } from '../MdFloatToolbar';
 import { MdMathViewer } from '../MdMathViewer';
-import { InformationButton } from './InformationButton';
 import { MdMathEditorProps } from './types';
 
+export interface InformationButtonProps {
+  isOpenRef: MutableRefObject<boolean>,
+  withLabel: boolean
+}
+
+export const InformationButton = ({ isOpenRef, withLabel }: InformationButtonProps) => {
+  
+  const [ open, setOpen ] = useState(false);
+  const [ source, setSource ] = useState(SAMPLE_MD_CONTENT);
+  useEffect(() => setSource(SAMPLE_MD_CONTENT), [ open ]);
+  isOpenRef.current = open;
+  
+  return (
+    <>
+      <Tooltip
+        content={<T className="ws-np tt-se">information</T>}
+        placement="bottom"
+        visible={withLabel ? false : undefined}
+      >
+        <div>
+          <Button icon={<ExclamationIcon circle rotate={180} />} type="text" size="small" onClick={() => setOpen(true)}>
+            {withLabel && <T>information</T>}
+          </Button>
+        </div>
+      </Tooltip>
+      <Modal
+        isOpen={open}
+        onClose={() => setOpen(false)}
+        className="modal-info-markdown"
+        closeWhenClickOutside
+      >
+        <MdMathEditor source={source} onChange={setSource} />
+      </Modal>
+    </>
+  );
+};
+
 export const MdMathEditor = (props: MdMathEditorProps) => {
+  
   const {
     source,
     onChange,
@@ -32,6 +71,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
     onPickImageUrl,
     online = false,
   } = props;
+  
   // 0 editor-expanded, 1 editor-right-view-left, 2 editor-top-view-bottom, 3 view-expanded
   const [ view, setView ] = useState(1);
   const [ editValue, setEditValue ] = useState(source || '');

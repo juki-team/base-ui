@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../../../helpers';
-import { FilterListIcon, Popover } from '../../../../index';
+import { FilterListIcon, Popover } from '../../../../atoms';
 import { TableHeaderFilterType } from '../../types';
 import { isFilterDate, isFilterDateRange, isFilterSelect, isFilterText } from '../../utils';
 import { TableHeadFilterDate } from './TableHeadFilterDate';

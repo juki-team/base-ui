@@ -1,6 +1,6 @@
 import React from 'react';
-import { MailIcon, PhoneIcon, T, TelegramIcon } from '../../index';
 import { useJukiUser } from '../../../hooks';
+import { MailIcon, PhoneIcon, T, TelegramIcon } from '../../atoms';
 
 export const HelpSection = () => {
   

@@ -5,18 +5,20 @@ import { TableHeadersWithWidthType } from '../types';
 import { renderField } from '../utils';
 import { DataViewerCardProps } from './types';
 
-export const DataViewerCard = <T, >({
-  cardWidth,
-  index,
-  data,
-  headers,
-  fake,
-  recordHoveredIndex,
-  setRecordHoveredIndex,
-  cardStyle,
-  cardClassName,
-  onCardClick,
-}: DataViewerCardProps<T>) => {
+export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
+  
+  const {
+    cardWidth,
+    index,
+    data,
+    headers,
+    fake,
+    recordHoveredIndex,
+    setRecordHoveredIndex,
+    cardStyle,
+    cardClassName,
+    onCardClick,
+  } = props;
   
   const { height: topLeftHeight, ref: topLeftRef } = useResizeDetector();
   const { height: topHeight, ref: topRef } = useResizeDetector();

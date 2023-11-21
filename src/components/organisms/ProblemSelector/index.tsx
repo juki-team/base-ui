@@ -12,17 +12,8 @@ import { settings } from '../../../config';
 import { classNames } from '../../../helpers';
 import { useJukiUser, useNotification } from '../../../hooks';
 import { authorizedRequest, cleanRequest } from '../../../services';
-import {
-  ButtonLoader,
-  DownloadIcon,
-  Input,
-  LoadingIcon,
-  MultiSelectSearchable,
-  ReloadIcon,
-  Select,
-  T,
-  Tooltip,
-} from '../../index';
+import { DownloadIcon, Input, LoadingIcon, ReloadIcon, Select, T, Tooltip } from '../../atoms';
+import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { JudgeDataType, ProblemSelectorProps } from './types';
 
 export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorProps) => {

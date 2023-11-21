@@ -1,7 +1,7 @@
 import React, { Children, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../../helpers';
-import { ArrowIcon, TableHeadersWithWidthType } from '../../../../index';
-import { TableHeadProps } from '../../types';
+import { ArrowIcon } from '../../../../atoms';
+import { TableHeadersWithWidthType, TableHeadProps } from '../../types';
 import { renderHead } from '../../utils';
 import { Filter } from './Filter';
 

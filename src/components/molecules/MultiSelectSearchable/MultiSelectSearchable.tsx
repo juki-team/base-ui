@@ -11,7 +11,7 @@ import {
   SearchIcon,
   SelectOptionType,
   VirtualizedRowsFixed,
-} from '../../index';
+} from '../../atoms';
 import { SelectSearchableProps } from './types';
 
 export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNode>(props: SelectSearchableProps<T, U, V>) => {

@@ -1,8 +1,9 @@
 import React, { Children, PropsWithChildren } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useHandleState, useJukiUI } from '../../../../hooks';
-import { HorizontalMenu, NavigateBeforeIcon, NavigateNextIcon } from '../../../index';
-import { VerticalMenuProps } from '../index';
+import { NavigateBeforeIcon, NavigateNextIcon } from '../../../atoms';
+import { HorizontalMenu } from '../Horizontal';
+import { VerticalMenuProps } from '../types';
 
 export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
   
@@ -75,16 +76,17 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
       <header className={classNames('jk-menu')}>
         <section className="jk-menu-content">
           <div className="jk-row jk-menu-collapse elevation-2" onClick={handleCollapse}>
-            {open ? <NavigateBeforeIcon/> : <NavigateNextIcon/>}
+            {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
           </div>
           <div className={classNames('jk-menu-top-section')}>
             {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
           </div>
           <div className="jk-menu-items">
-            <div className={classNames('jk-menu-item extra', { 'selected-down': menu[0]?.selected })}/>
+            <div className={classNames('jk-menu-item extra', { 'selected-down': menu[0]?.selected })} />
             {Children.toArray(menus)}
             <div
-              className={classNames('jk-menu-item extra', { 'selected-up': menu[menu.length - 1]?.selected })}/>
+              className={classNames('jk-menu-item extra', { 'selected-up': menu[menu.length - 1]?.selected })}
+            />
           </div>
           <div className={classNames('jk-menu-bottom-section')}>
             {typeof bottomSection === 'function' ? bottomSection({ isOpen: open }) : bottomSection}

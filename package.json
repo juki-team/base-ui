@@ -58,7 +58,7 @@
   "scripts": {
     "storybook": "storybook dev -p 6006 -s public",
     "storybook:build": "rm -rf docs && storybook build -s public -o docs",
-    "rollup:build": "rm -rf dist && rollup -c",
+    "rollup:build": "rm -rf dist && rollup -c --strictDeprecations",
     "pull": "yarn add @juki-team/commons",
     "buildo": "yarn rollup:build",
     "build": "yarn storybook:build && yarn rollup:build",
@@ -123,7 +123,7 @@
     "@types/react-modal": "^3.13.1",
     "@types/uuid": "^9.0.0",
     "react-scripts": "^5.0.1",
-    "rollup": "3.29.4",
+    "rollup": "^4.5.0",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",

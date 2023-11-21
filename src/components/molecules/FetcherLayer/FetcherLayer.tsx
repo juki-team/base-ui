@@ -2,7 +2,7 @@ import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
 import React, { useEffect } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useFetcher, useNotification } from '../../../hooks';
-import { JukiSurprisedImage, LoadingIcon } from '../../index';
+import { JukiSurprisedImage, LoadingIcon } from '../../atoms';
 import { FetcherLayerProps } from './types';
 
 const isContentResponseType = <T, >(data: any): data is ContentResponseType<T> => {

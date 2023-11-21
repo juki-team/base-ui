@@ -1,7 +1,8 @@
 import React, { PropsWithChildren, ReactNode } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { NONE } from '../../../../types';
-import { Button, Drawer, DrawerActionsType, ViewHeadlineIcon } from '../../../index';
+import { Button, ViewHeadlineIcon } from '../../../atoms';
+import { Drawer, DrawerActionsType } from '../../../molecules';
 import { HorizontalMenuProps } from '../types';
 
 export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) => {

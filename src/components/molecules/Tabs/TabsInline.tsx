@@ -1,23 +1,20 @@
 import React, { Children, useCallback, useEffect, useRef, useState } from 'react';
-import { NavigateBeforeIcon, NavigateNextIcon, TabsInlineProps, WidthResizer } from '../../index';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { NavigateBeforeIcon, NavigateNextIcon, WidthResizer } from '../../atoms';
+import { TabsInlineProps } from './types';
 
-export const TabsInline = <T, >({
-  tabs,
-  selectedTabKey,
-  onChange,
-  extraNodes,
-  extraNodesPlacement = 'right',
-}: TabsInlineProps<T>) => {
+export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
+  
+  const { tabs, selectedTabKey, onChange, extraNodes, extraNodesPlacement = 'right' } = props;
   
   const tabsLength = Object.keys(tabs).length;
-  const [tabsSize, setTabsSize] = useState(tabsLength);
-  const [tabStartIndex, setTabStartIndex] = useState(0);
+  const [ tabsSize, setTabsSize ] = useState(tabsLength);
+  const [ tabStartIndex, setTabStartIndex ] = useState(0);
   useEffect(() => {
     if (tabsSize >= tabsLength) {
       setTabStartIndex(0);
     }
-  }, [tabsSize, tabsLength, tabStartIndex]);
+  }, [ tabsSize, tabsLength, tabStartIndex ]);
   
   const withArrows = tabsSize !== tabsLength;
   const refA = useRef<HTMLDivElement>(null);
@@ -28,19 +25,19 @@ export const TabsInline = <T, >({
       setTabsSize(prevState => Math.max(prevState - 1, 1));
       maxWidthWithArrows.current = Math.max(maxWidthWithArrows.current, refB.current.offsetWidth);
     }
-  }, [refB]);
+  }, [ refB ]);
   const unOverflow = useCallback(async () => {
     if (refB.current?.offsetWidth) {
       if (refB.current.offsetWidth > maxWidthWithArrows.current) {
         setTabsSize(prevState => Math.min(prevState + 1, tabsLength));
       }
     }
-  }, [tabsLength, refB]);
+  }, [ tabsLength, refB ]);
   
-  const [trigger, setTrigger] = useState(Date.now());
+  const [ trigger, setTrigger ] = useState(Date.now());
   useEffect(() => {
     setTrigger(Date.now());
-  }, [tabsSize, tabStartIndex, tabs, selectedTabKey, extraNodes]);
+  }, [ tabsSize, tabStartIndex, tabs, selectedTabKey, extraNodes ]);
   
   return (
     <>
@@ -82,7 +79,10 @@ export const TabsInline = <T, >({
             })}
             ref={refA}
           >
-            {Children.toArray(Object.values(tabs).slice(tabStartIndex, tabStartIndex + tabsSize).map(({ key, header }) => (
+            {Children.toArray(Object.values(tabs).slice(tabStartIndex, tabStartIndex + tabsSize).map(({
+                                                                                                        key,
+                                                                                                        header,
+                                                                                                      }) => (
               <div
                 onClick={() => onChange(key)}
                 className={classNames('jk-row stretch', { selected: key === selectedTabKey })}

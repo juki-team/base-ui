@@ -1,7 +1,7 @@
 import { MONTH_NAMES, YEARS } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
-import { Div, Select, T } from '../../index';
+import { Div, Select, T } from '../../atoms';
 import { NextButton, PreviousButton } from './commons';
 import { MonthPickerProps } from './types';
 
