@@ -13,11 +13,12 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
       utilsUiUrl="https://utils.juki.app"
       tokenName="juki-token"
       socketServiceUrl={serviceUrl}
-      pathname=""
-      routeParam={{
+      router={{
+        pathname: '',
         routeParams: {},
-        routerPush: () => null,
-        routerReplace: () => null,
+        pushRoute: () => null,
+        replaceRoute: () => null,
+        reloadRoute: () => null,
       }}
     >
       {children}

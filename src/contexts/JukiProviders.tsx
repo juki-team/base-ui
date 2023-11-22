@@ -24,14 +24,18 @@ export type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & {
     pushRoute: RouterFn<string>,
     replaceRoute: RouterFn<string>,
     reloadRoute: RouterFn<void>,
-    isLoadingRoute: boolean,
-  } & {
+    isLoadingRoute?: boolean,
+  } | {
+    searchParams?: never,
+    appendSearchParams?: never,
+    setSearchParams?: never,
+    deleteSearchParams?: never,
     pathname: string,
     routeParams: ParsedUrlQuery,
     pushRoute: RouterFn<string>,
     replaceRoute: RouterFn<string>,
     reloadRoute: RouterFn<void>,
-    isLoadingRoute: boolean,
+    isLoadingRoute?: boolean,
   }
 };
 
