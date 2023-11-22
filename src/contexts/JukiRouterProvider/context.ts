@@ -10,4 +10,5 @@ export const RouterContext = createContext<RouterContextInterface>({
   routerPush: () => null,
   routerReplace: () => null,
   routeIsLoading: false,
+  pathname: '',
 });
