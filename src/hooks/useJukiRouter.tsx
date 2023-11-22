@@ -3,12 +3,25 @@ import { RouterContext } from '../contexts/JukiRouterProvider/context';
 
 export const useJukiRouter = () => {
   
-  const { searchParams, appendSearchParams, deleteSearchParams, setSearchParams } = useContext(RouterContext);
+  const {
+    searchParams,
+    appendSearchParams,
+    deleteSearchParams,
+    setSearchParams,
+    routeParams,
+    routerPush,
+    routerReplace,
+    routeIsLoading,
+  } = useContext(RouterContext);
   
   return {
     searchParams,
     appendSearchParams,
     deleteSearchParams,
     setSearchParams,
+    routeParams,
+    routerPush,
+    routerReplace,
+    routeIsLoading,
   };
 };
