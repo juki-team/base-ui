@@ -6,7 +6,7 @@ export type SetSearchParamsType = (...props: { name: string, value: string | str
 
 export type DeleteSearchParamsType = (...props: { name: string, value?: string, replace?: boolean }[]) => void;
 
-type RouterFn<T> = ((href: T) => Promise<void>) | ((href: T) => void);
+export type RouterFn<T> = ((href: T) => Promise<void>) | ((href: T) => void);
 
 export type Href = string | { pathname: string, searchParams?: URLSearchParams };
 

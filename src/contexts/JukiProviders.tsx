@@ -1,12 +1,31 @@
+import { ParsedUrlQuery } from 'querystring';
 import React, { PropsWithChildren } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { JukiPageProvider } from './JukiPageProvider';
-import { JukiRouterProvider, RouterContextInterface } from './JukiRouterProvider';
+import {
+  AppendSearchParamsType,
+  DeleteSearchParamsType,
+  JukiRouterProvider,
+  RouterFn,
+  SetSearchParamsType,
+} from './JukiRouterProvider';
 import { JukiUIProvider, JukiUIProviderProps } from './JukiUIProvider';
 import { JukiUserProvider, JukiUserProviderProps } from './JukiUserProvider';
 
-type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & { router?: RouterContextInterface };
+type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & {
+  searchParam: {
+    searchParams: URLSearchParams,
+    appendSearchParams: AppendSearchParamsType,
+    setSearchParams: SetSearchParamsType,
+    deleteSearchParams: DeleteSearchParamsType,
+  },
+  route: {
+    routeParams: ParsedUrlQuery,
+    routerPush: RouterFn<string>,
+    routerReplace: RouterFn<string>
+  }
+};
 
 export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
   
@@ -17,20 +36,19 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
     utilsUiUrl,
     tokenName,
     components,
-    router,
+    searchParam,
+    route,
   } = props;
   
   return (
     <JukiRouterProvider
-      searchParams={router?.searchParams}
-      appendSearchParams={router?.appendSearchParams}
-      setSearchParams={router?.setSearchParams}
-      deleteSearchParams={router?.deleteSearchParams}
-      routeParams={{}}
-      routerPush={() => {
-      }}
-      routerReplace={() => {
-      }}
+      searchParams={searchParam?.searchParams}
+      appendSearchParams={searchParam?.appendSearchParams}
+      setSearchParams={searchParam?.setSearchParams}
+      deleteSearchParams={searchParam?.deleteSearchParams}
+      routeParams={route.routeParams}
+      routerPush={route.routerPush}
+      routerReplace={route.routerReplace}
     >
       <JukiPageProvider>
         <JukiUserProvider
