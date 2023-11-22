@@ -1,3 +1,5 @@
+@import "../../abstracts/index";
+
 .layout-line-loader {
   position: absolute;
   left: 0;
@@ -45,4 +47,17 @@
       background: var(--t-color-primary);
     }
   }
+}
+
+.loading-route-overlay {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--t-color-shadow);
+  z-index: 1000;
+  opacity: 0;
+  @include transition-fast(opacity);
 }

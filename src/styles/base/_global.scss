@@ -15,12 +15,13 @@ body {
     overflow: hidden;
     width: 100vw;
     height: var(--100VH);
-    opacity: 1;
-    @include transition-fast(opacity);
     
     &.loading-route {
-      opacity: 0.8;
       pointer-events: none;
+      
+      .loading-route-overlay {
+        opacity: 1;
+      }
     }
   }
   

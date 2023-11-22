@@ -28,6 +28,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
       <NotificationProvider>
         {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={3} /></div>}
         <div id="juki-app" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
+          <div className="loading-route-overlay" />
           {children}
         </div>
       </NotificationProvider>
