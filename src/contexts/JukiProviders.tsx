@@ -26,6 +26,11 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
       appendSearchParams={router?.appendSearchParams}
       setSearchParams={router?.setSearchParams}
       deleteSearchParams={router?.deleteSearchParams}
+      routeParams={{}}
+      routerPush={() => {
+      }}
+      routerReplace={() => {
+      }}
     >
       <JukiPageProvider>
         <JukiUserProvider

@@ -3,6 +3,7 @@ import { RouterContext } from './context';
 import {
   AppendSearchParamsType,
   DeleteSearchParamsType,
+  Href,
   JukiRouterProviderProps,
   RouterContextInterface,
   SetSearchParamsType,
@@ -12,7 +13,17 @@ const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
   return new URLSearchParams(urlSearchParams.toString());
 };
 
-export const JukiRouterProvider = ({ children, ...router }: PropsWithChildren<JukiRouterProviderProps>) => {
+const getHref = (href: Href) => {
+  if (typeof href === 'string') {
+    return href;
+  }
+  const search = href.searchParams?.toString() || '';
+  return `${href.pathname}${search ? '?' + search : ''}`;
+}
+
+export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderProps>) => {
+  
+  const { children, routeParams, routerPush, routerReplace, ...router } = props;
   
   const [ _searchParams, _setSearchParams ] = useState<URLSearchParams>(new URLSearchParams(''));
   
@@ -67,14 +78,38 @@ export const JukiRouterProvider = ({ children, ...router }: PropsWithChildren<Ju
     updateSearchParams(newSearchParams);
   }, [ _searchParams, updateSearchParams ]);
   
+  const [ loaderCounter, setLoaderCounter ] = useState(0);
+  
+  const push = useCallback(async (href: Href) => {
+    setLoaderCounter(prevState => prevState + 1);
+    const result = await routerPush(getHref(href));
+    setLoaderCounter(prevState => prevState - 1);
+    return result;
+  }, [ routerPush ]);
+  
+  const replace = useCallback(async (href: Href) => {
+    setLoaderCounter(prevState => prevState + 1);
+    const result = await routerReplace(getHref(href));
+    setLoaderCounter(prevState => prevState - 1);
+    return result;
+  }, [ routerReplace ]);
+  
   return (
     <RouterContext.Provider
       value={
-        Object.values(router).filter(Boolean).length ? router as RouterContextInterface : {
-          searchParams: _searchParams,
-          appendSearchParams,
-          deleteSearchParams,
-          setSearchParams,
+        {
+          ...(
+            Object.values(router).filter(Boolean).length ? router as RouterContextInterface : {
+              searchParams: _searchParams,
+              appendSearchParams,
+              deleteSearchParams,
+              setSearchParams,
+            }
+          ),
+          routeParams: routeParams,
+          routerPush: push,
+          routerReplace: replace,
+          routeIsLoading: !!loaderCounter,
         }
       }
     >

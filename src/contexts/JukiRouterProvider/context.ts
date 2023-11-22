@@ -6,4 +6,8 @@ export const RouterContext = createContext<RouterContextInterface>({
   appendSearchParams: () => null,
   deleteSearchParams: () => null,
   setSearchParams: () => null,
+  routeParams: {},
+  routerPush: () => null,
+  routerReplace: () => null,
+  routeIsLoading: false,
 });
