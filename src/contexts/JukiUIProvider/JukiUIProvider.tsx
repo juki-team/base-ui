@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useRef } from 'react';
 import { LineLoader, NotificationProvider } from '../../components';
+import { classNames } from '../../helpers';
 import { useJukiRouter } from '../../hooks';
 import { UIContext } from './context';
 import { Image } from './Image';
@@ -25,8 +26,8 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
       }}
     >
       <NotificationProvider>
-        <div id="juki-app" ref={ref}>
-          {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={3} /></div>}
+        {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={3} /></div>}
+        <div id="juki-app" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
           {children}
         </div>
       </NotificationProvider>
