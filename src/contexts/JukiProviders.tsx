@@ -13,18 +13,25 @@ import {
 import { JukiUIProvider, JukiUIProviderProps } from './JukiUIProvider';
 import { JukiUserProvider, JukiUserProviderProps } from './JukiUserProvider';
 
-type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & {
-  searchParam?: {
+export type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & {
+  router: {
     searchParams: URLSearchParams,
     appendSearchParams: AppendSearchParamsType,
     setSearchParams: SetSearchParamsType,
     deleteSearchParams: DeleteSearchParamsType,
-  },
-  pathname: string,
-  routeParam: {
+    pathname: string,
     routeParams: ParsedUrlQuery,
-    routerPush: RouterFn<string>,
-    routerReplace: RouterFn<string>
+    pushRoute: RouterFn<string>,
+    replaceRoute: RouterFn<string>,
+    reloadRoute: RouterFn<void>,
+    isLoadingRoute: boolean,
+  } & {
+    pathname: string,
+    routeParams: ParsedUrlQuery,
+    pushRoute: RouterFn<string>,
+    replaceRoute: RouterFn<string>,
+    reloadRoute: RouterFn<void>,
+    isLoadingRoute: boolean,
   }
 };
 
@@ -37,21 +44,21 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
     utilsUiUrl,
     tokenName,
     components,
-    searchParam,
-    routeParam,
-    pathname,
+    router,
   } = props;
   
   return (
     <JukiRouterProvider
-      searchParams={searchParam?.searchParams}
-      appendSearchParams={searchParam?.appendSearchParams}
-      setSearchParams={searchParam?.setSearchParams}
-      deleteSearchParams={searchParam?.deleteSearchParams}
-      routeParams={routeParam.routeParams}
-      routerPush={routeParam.routerPush}
-      routerReplace={routeParam.routerReplace}
-      pathname={pathname}
+      searchParams={router.searchParams}
+      appendSearchParams={router.appendSearchParams}
+      setSearchParams={router.setSearchParams}
+      deleteSearchParams={router.deleteSearchParams}
+      routeParams={router.routeParams}
+      pushRoute={router.pushRoute}
+      replaceRoute={router.replaceRoute}
+      reloadRoute={router.reloadRoute}
+      isLoadingRoute={router.isLoadingRoute}
+      pathname={router.pathname}
     >
       <JukiPageProvider>
         <JukiUserProvider

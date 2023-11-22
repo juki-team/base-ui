@@ -16,24 +16,25 @@ export type RouterContextInterface = {
   setSearchParams: SetSearchParamsType,
   deleteSearchParams: DeleteSearchParamsType,
   routeParams: ParsedUrlQuery,
-  routerPush: RouterFn<Href>,
-  routerReplace: RouterFn<Href>,
-  routeIsLoading: boolean,
+  pushRoute: RouterFn<Href>,
+  replaceRoute: RouterFn<Href>,
+  reloadRoute: RouterFn<void>,
+  isLoadingRoute: boolean,
   pathname: string,
 };
 
-export type JukiRouterProviderProps = {
+type JukiRouterProviderRequiredProps = {
+  routeParams: ParsedUrlQuery,
+  pushRoute: RouterFn<string>,
+  replaceRoute: RouterFn<string>,
+  reloadRoute: RouterFn<void>,
+  pathname: string,
+  isLoadingRoute?: boolean,
+}
+
+export type JukiRouterProviderProps = JukiRouterProviderRequiredProps | ({
   searchParams: URLSearchParams,
   appendSearchParams: AppendSearchParamsType,
   setSearchParams: SetSearchParamsType,
   deleteSearchParams: DeleteSearchParamsType,
-  routeParams: ParsedUrlQuery,
-  routerPush: RouterFn<string>,
-  routerReplace: RouterFn<string>,
-  pathname: string,
-} | {
-  routeParams: ParsedUrlQuery,
-  routerPush: RouterFn<string>,
-  routerReplace: RouterFn<string>,
-  pathname: string,
-};
+} & JukiRouterProviderRequiredProps);

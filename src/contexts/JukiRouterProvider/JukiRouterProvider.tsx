@@ -23,7 +23,7 @@ const getHref = (href: Href) => {
 
 export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderProps>) => {
   
-  const { children, routeParams, routerPush, routerReplace, pathname, ...router } = props;
+  const { children, routeParams, pushRoute, replaceRoute, reloadRoute, pathname, isLoadingRoute, ...router } = props;
   
   const [ _searchParams, _setSearchParams ] = useState<URLSearchParams>(new URLSearchParams(''));
   
@@ -82,17 +82,24 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
   
   const push = useCallback(async (href: Href) => {
     setLoaderCounter(prevState => prevState + 1);
-    const result = await routerPush(getHref(href));
+    const result = await pushRoute(getHref(href));
     setLoaderCounter(prevState => prevState - 1);
     return result;
-  }, [ routerPush ]);
+  }, [ pushRoute ]);
   
   const replace = useCallback(async (href: Href) => {
     setLoaderCounter(prevState => prevState + 1);
-    const result = await routerReplace(getHref(href));
+    const result = await replaceRoute(getHref(href));
     setLoaderCounter(prevState => prevState - 1);
     return result;
-  }, [ routerReplace ]);
+  }, [ replaceRoute ]);
+  
+  const reload = useCallback(async () => {
+    setLoaderCounter(prevState => prevState + 1);
+    const result = await reloadRoute();
+    setLoaderCounter(prevState => prevState - 1);
+    return result;
+  }, [ reloadRoute ]);
   
   return (
     <RouterContext.Provider
@@ -106,10 +113,11 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
               setSearchParams,
             }
           ),
-          routeParams: routeParams,
-          routerPush: push,
-          routerReplace: replace,
-          routeIsLoading: !!loaderCounter,
+          routeParams,
+          pushRoute: push,
+          replaceRoute: replace,
+          reloadRoute: reload,
+          isLoadingRoute: isLoadingRoute || !!loaderCounter,
           pathname,
         }
       }

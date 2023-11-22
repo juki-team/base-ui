@@ -9,9 +9,10 @@ export const useJukiRouter = () => {
     deleteSearchParams,
     setSearchParams,
     routeParams,
-    routerPush,
-    routerReplace,
-    routeIsLoading,
+    pushRoute,
+    replaceRoute,
+    reloadRoute,
+    isLoadingRoute,
     pathname,
   } = useContext(RouterContext);
   
@@ -21,9 +22,10 @@ export const useJukiRouter = () => {
     deleteSearchParams,
     setSearchParams,
     routeParams,
-    routerPush,
-    routerReplace,
-    routeIsLoading,
+    pushRoute,
+    replaceRoute,
+    reloadRoute,
+    isLoadingRoute,
     pathname,
   };
 };
