@@ -19,7 +19,8 @@ body {
     @include transition-fast(opacity);
     
     &.loading-route {
-      opacity: 0.6;
+      opacity: 0.8;
+      pointer-events: none;
     }
   }
   
