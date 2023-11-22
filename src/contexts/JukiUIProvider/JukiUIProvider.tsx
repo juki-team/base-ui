@@ -12,7 +12,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
   const viewPortSize = useViewPortSize();
   
   const { Image: ImageCmp = Image, Link: LinkCmp = Link } = components || { Image, Link };
-  const { routeIsLoading } = useJukiRouter();
+  const { isLoadingRoute } = useJukiRouter();
   
   const ref = useRef(null);
   
@@ -26,7 +26,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
     >
       <NotificationProvider>
         <div id="juki-app" ref={ref}>
-          {routeIsLoading && <div className="page-line-loader"><LineLoader delay={3} /></div>}
+          {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={3} /></div>}
           {children}
         </div>
       </NotificationProvider>
