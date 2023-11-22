@@ -34,3 +34,15 @@
     }
   }
 }
+
+.page-line-loader {
+  .layout-line-loader {
+    z-index: 100;
+    height: 3px;
+    overflow: hidden;
+    
+    > div {
+      background: var(--t-color-primary);
+    }
+  }
+}
