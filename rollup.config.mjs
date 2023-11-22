@@ -30,7 +30,7 @@ export default {
     commonjs({
       ignore: [ 'bufferutil', 'utf-8-validate' ], // Ignore optional peer dependencies of ws
     }),
-    typescript({ useTsconfigDeclarationDir: true }),
+    typescript({ useTsconfigDeclarationDir: true, tsconfig: './tsconfig.json' }),
     copy({
       targets: [
         { src: './src/styles', dest: 'dist' },
