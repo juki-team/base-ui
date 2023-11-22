@@ -13,6 +13,12 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
       utilsUiUrl="https://utils.juki.app"
       tokenName="juki-token"
       socketServiceUrl={serviceUrl}
+      pathname=""
+      routeParam={{
+        routeParams: {},
+        routerPush: () => null,
+        routerReplace: () => null,
+      }}
     >
       {children}
       <MockupToggleThemeButton />

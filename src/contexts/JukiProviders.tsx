@@ -14,7 +14,7 @@ import { JukiUIProvider, JukiUIProviderProps } from './JukiUIProvider';
 import { JukiUserProvider, JukiUserProviderProps } from './JukiUserProvider';
 
 type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & {
-  searchParam: {
+  searchParam?: {
     searchParams: URLSearchParams,
     appendSearchParams: AppendSearchParamsType,
     setSearchParams: SetSearchParamsType,
