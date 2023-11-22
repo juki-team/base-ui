@@ -23,7 +23,7 @@ const getHref = (href: Href) => {
 
 export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderProps>) => {
   
-  const { children, routeParams, routerPush, routerReplace, ...router } = props;
+  const { children, routeParams, routerPush, routerReplace, pathname, ...router } = props;
   
   const [ _searchParams, _setSearchParams ] = useState<URLSearchParams>(new URLSearchParams(''));
   
@@ -110,6 +110,7 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
           routerPush: push,
           routerReplace: replace,
           routeIsLoading: !!loaderCounter,
+          pathname,
         }
       }
     >

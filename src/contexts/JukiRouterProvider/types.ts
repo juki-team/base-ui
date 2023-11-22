@@ -19,6 +19,7 @@ export type RouterContextInterface = {
   routerPush: RouterFn<Href>,
   routerReplace: RouterFn<Href>,
   routeIsLoading: boolean,
+  pathname: string,
 };
 
 export type JukiRouterProviderProps = {
@@ -29,8 +30,10 @@ export type JukiRouterProviderProps = {
   routeParams: ParsedUrlQuery,
   routerPush: RouterFn<string>,
   routerReplace: RouterFn<string>,
+  pathname: string,
 } | {
   routeParams: ParsedUrlQuery,
   routerPush: RouterFn<string>,
   routerReplace: RouterFn<string>,
+  pathname: string,
 };

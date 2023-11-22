@@ -12,6 +12,7 @@ export const useJukiRouter = () => {
     routerPush,
     routerReplace,
     routeIsLoading,
+    pathname,
   } = useContext(RouterContext);
   
   return {
@@ -23,5 +24,6 @@ export const useJukiRouter = () => {
     routerPush,
     routerReplace,
     routeIsLoading,
+    pathname,
   };
 };

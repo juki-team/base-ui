@@ -20,7 +20,8 @@ type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & {
     setSearchParams: SetSearchParamsType,
     deleteSearchParams: DeleteSearchParamsType,
   },
-  route: {
+  pathname: string,
+  routeParam: {
     routeParams: ParsedUrlQuery,
     routerPush: RouterFn<string>,
     routerReplace: RouterFn<string>
@@ -37,7 +38,8 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
     tokenName,
     components,
     searchParam,
-    route,
+    routeParam,
+    pathname,
   } = props;
   
   return (
@@ -46,9 +48,10 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
       appendSearchParams={searchParam?.appendSearchParams}
       setSearchParams={searchParam?.setSearchParams}
       deleteSearchParams={searchParam?.deleteSearchParams}
-      routeParams={route.routeParams}
-      routerPush={route.routerPush}
-      routerReplace={route.routerReplace}
+      routeParams={routeParam.routeParams}
+      routerPush={routeParam.routerPush}
+      routerReplace={routeParam.routerReplace}
+      pathname={pathname}
     >
       <JukiPageProvider>
         <JukiUserProvider
