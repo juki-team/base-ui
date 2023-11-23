@@ -16,9 +16,11 @@ export function NotificationProvider({ children }: PropsWithChildren<{}>) {
         return state;
     }
   }, []);
+  
   const { viewPortSize } = useJukiUI();
   
   const notificationsFiltered = state.filter(note => note.type !== NotificationType.QUIET);
+  
   const notifications = viewPortSize === 'sm' ? [ ...notificationsFiltered ].reverse() : notificationsFiltered;
   
   return (

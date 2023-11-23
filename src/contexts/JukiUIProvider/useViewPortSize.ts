@@ -4,6 +4,7 @@ import { ViewPortSizeType } from '../../types';
 export const useViewPortSize = () => {
   
   const [ viewPortSize, setViewPortSize ] = useState<ViewPortSizeType>('');
+  
   useEffect(() => {
     const listener = () => {
       // First we get the viewport height and multiply it by 1% to get a value for a vh unit
