@@ -23,7 +23,9 @@ export default {
   external: [ 'react', 'react-dom' ],
   plugins: [
     peerDepsExternal(),
-    resolve(),
+    resolve({
+      dedupe: [ 'useTranslation', 'i18n', 'I18nextProvider' ],
+    }),
     // nodePolyfills(),
     // nodeResolve({ preferBuiltins: false }),
     // nodeResolve(),
