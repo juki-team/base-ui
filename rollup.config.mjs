@@ -20,7 +20,7 @@ export default {
       sourcemap: true,
     },
   ],
-  external: [ 'react', 'react-dom', 'react-i18next' ],
+  external: [ 'react', 'react-dom' ],
   plugins: [
     peerDepsExternal(),
     resolve(),
