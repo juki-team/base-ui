@@ -20,12 +20,13 @@ export default {
       sourcemap: true,
     },
   ],
-  external: [ 'react', 'react-dom', 'i18next', 'react-i18next' ],
+  external: [ 'react', 'react-dom' ],
   plugins: [
     peerDepsExternal(),
-    resolve({
-      dedupe: [ 'useTranslation', 'i18n', 'I18nextProvider' ],
-    }),
+    resolve(),
+    // resolve({
+    //   dedupe: [ 'useTranslation', 'i18n', 'I18nextProvider' ],
+    // }),
     // nodePolyfills(),
     // nodeResolve({ preferBuiltins: false }),
     // nodeResolve(),
