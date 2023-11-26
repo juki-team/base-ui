@@ -1,31 +1,24 @@
-import { useVirtualizer, VirtualItem } from '@tanstack/react-virtual';
-import React, { ReactNode, useCallback, useRef } from 'react';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import React, { useCallback, useRef } from 'react';
+import { VirtualizedRowsFixedProps } from './types';
 
-export interface VirtualizedRowsFixedProps {
-  rowHeight: number,
-  size: number,
-  renderRow: (virtualItem: VirtualItem) => ReactNode,
-  classNameContainer?: string,
-  classNameRows?: string
-  classNameRow?: string,
-  getRowKey?: (virtualItem: VirtualItem) => string,
-}
-
-export const VirtualizedRowsFixed = ({
-  rowHeight,
-  size,
-  renderRow,
-  classNameContainer,
-  classNameRows,
-  classNameRow,
-  getRowKey = (virtualItem) => virtualItem.index.toString(),
-}: VirtualizedRowsFixedProps) => {
+export const VirtualizedRowsFixed = (props: VirtualizedRowsFixedProps) => {
+  
+  const {
+    rowHeight,
+    size,
+    renderRow,
+    classNameContainer,
+    classNameRows,
+    classNameRow,
+    getRowKey = (virtualItem) => virtualItem.index.toString(),
+  } = props;
   
   const parentRef = useRef<HTMLDivElement>(null);
   
   const rowVirtualizer = useVirtualizer({
     count: size,
-    estimateSize: useCallback(() => rowHeight, [rowHeight]),
+    estimateSize: useCallback(() => rowHeight, [ rowHeight ]),
     overscan: 5,
     getScrollElement: () => parentRef.current,
   });

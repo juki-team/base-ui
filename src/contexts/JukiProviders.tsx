@@ -1,7 +1,9 @@
+import type { i18n } from 'i18next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { PropsWithChildren } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { I18nextProvider } from 'react-i18next';
 import { JukiPageProvider } from './JukiPageProvider';
 import {
   AppendSearchParamsType,
@@ -13,7 +15,11 @@ import {
 import { JukiUIProvider, JukiUIProviderProps } from './JukiUIProvider';
 import { JukiUserProvider, JukiUserProviderProps } from './JukiUserProvider';
 
-export type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & {
+type I18nextProviderProps = {
+  i18n?: i18n
+}
+
+export type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & I18nextProviderProps & {
   router: {
     searchParams: URLSearchParams,
     appendSearchParams: AppendSearchParamsType,
@@ -49,6 +55,7 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
     tokenName,
     components,
     router,
+    i18n,
   } = props;
   
   return (
@@ -75,11 +82,17 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
             components={components}
           >
             <DndProvider backend={HTML5Backend}>
-              {children}
+              {i18n ? (
+                <I18nextProvider i18n={i18n}>
+                  {children}
+                </I18nextProvider>
+              ) : (
+                children
+              )}
             </DndProvider>
           </JukiUIProvider>
         </JukiUserProvider>
       </JukiPageProvider>
     </JukiRouterProvider>
-  )
+  );
 }
