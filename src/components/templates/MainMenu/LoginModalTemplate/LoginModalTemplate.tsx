@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 // import { consoleWarn } from '@juki-team/commons';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { classNames } from '../../../../helpers';
@@ -28,11 +28,15 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
     highlightForgotPassword,
   } = props;
   
-  const { handleSubmit, formState: { isValid, errors, touchedFields }, register } = useForm<LoginFormType>({
+  const { handleSubmit, formState: { isValid, errors, touchedFields }, register, reset } = useForm<LoginFormType>({
     resolver: yupResolver(loginSchema),
     mode: 'all',
     reValidateMode: 'onBlur',
   });
+  
+  useEffect(() => {
+    reset();
+  }, [ isOpen ]);
   
   // const { t } = useT();
   const [ openForgotPasswordModal, setOpenForgotPasswordModal ] = useState(false);
@@ -56,7 +60,6 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
         }
         graphic={<JukiLaptopImage />}
         closeWhenKeyEscape
-        closeWhenClickOutside
         closeIcon={false}
       >
         <div className="jk-col stretch">

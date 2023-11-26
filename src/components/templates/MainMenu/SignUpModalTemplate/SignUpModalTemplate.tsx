@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 // import { consoleWarn } from '@juki-team/commons';
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX, LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX } from '../../../../constants';
@@ -42,11 +42,22 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
   
   const { isOpen, onClose, onSubmit, signUpWithGoogle, reactAppGoogleClientId } = props;
   
-  const { register, handleSubmit, formState: { errors, isValid, touchedFields }, control } = useForm<SignUpFormType>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid, touchedFields },
+    control,
+    reset,
+  } = useForm<SignUpFormType>({
     resolver: yupResolver(signUpSchema),
     mode: 'all',
     reValidateMode: 'onBlur',
   });
+  
+  useEffect(() => {
+    reset();
+  }, [ isOpen ]);
+  
   // const refSetLoading = useRef<SetLoaderStatusOnClickType>();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   // const { t } = useT();
@@ -64,7 +75,6 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
       }
       graphic={<JukiLaptopImage />}
       closeWhenKeyEscape
-      closeWhenClickOutside
       closeIcon={false}
     >
       <div className="jk-col stretch">
