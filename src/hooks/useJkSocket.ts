@@ -24,24 +24,22 @@ export const useJkSocket = (message: SocketEvent) => {
       }
     };
     
-    socket.off(message, listener);
-    // if (!socket.on(message, listener)) {
     on();
-    // }
+    
     return () => {
       socket.off(message, listener);
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [listener, message, socket]);
+  }, [ listener, message, socket ]);
   
   return {
     messages,
     reloadSession: useCallback(async () => {
       await socket.leaveSession();
       await socket.joinSession();
-    }, [socket]),
+    }, [ socket ]),
     pop: useCallback(() => {
       if (messages.length) {
         const message = messages[0];
