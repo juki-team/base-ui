@@ -1,13 +1,13 @@
 // https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119
 import { ProgrammingLanguage } from '@juki-team/commons';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
-import React, { CSSProperties, lazy, memo, ReactNode, Suspense, useEffect, useState } from 'react';
+import React, { CSSProperties, lazy, memo, ReactNode, Suspense } from 'react';
 import { Options as ReactMarkdownOptions } from 'react-markdown';
-import { useJukiUI } from '../../../../hooks';
 // import ReactMarkdown from 'react-markdown';
-// import rehypeKatex from 'rehype-katex';
-// import gfm from 'remark-gfm';
-// import RemarkMathPlugin from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import RemarkGfmPlugin from 'remark-gfm';
+import RemarkMathPlugin from 'remark-math';
+import { useJukiUI } from '../../../../hooks';
 import { CopyToClipboard, LinkIcon, LoadingIcon, OpenInNewIcon } from '../../../atoms';
 import { CodeViewer } from '../../../molecules';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
@@ -30,16 +30,16 @@ const hx = ({ children, node: { tagName } }: { children: ReactNode & ReactNode[]
 
 export const MdMath = memo(({ source }: { source: string }) => {
   const { components: { Link } } = useJukiUI();
-  const [ rehypePlugins, setRehypePlugins ] = useState<any[]>([]);
-  const [ remarkPlugins, setRemarkPlugins ] = useState<any[]>([]);
-  useEffect(() => {
-    setRehypePlugins([ require('rehype-katex').default ]);
-    setRemarkPlugins([ require('remark-math').default, require('remark-gfm').default ]);
-  }, []);
+  // const [ rehypePlugins, setRehypePlugins ] = useState<any[]>([]);
+  // const [ remarkPlugins, setRemarkPlugins ] = useState<any[]>([]);
+  // useEffect(() => {
+  //   setRehypePlugins([ require('rehype-katex').default ]);
+  //   setRemarkPlugins([ require('remark-math').default, require('remark-gfm').default ]);
+  // }, []);
   
   const props: ReactMarkdownOptions = {
-    remarkPlugins,
-    rehypePlugins,
+    remarkPlugins: [ RemarkMathPlugin, RemarkGfmPlugin ],
+    rehypePlugins: [ rehypeKatex ],
     components: {
       img({ alt = '', src }) {
         let style: CSSProperties = {
