@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
+import pkg from './package.json' assert { type: 'json' };
 
 export default {
   input: 'src/index.ts',
@@ -20,7 +21,7 @@ export default {
       sourcemap: true,
     },
   ],
-  external: [ 'react', 'react-dom', 'swr' ],
+  external: [ ...Object.keys(pkg.peerDependencies || {}) ],
   plugins: [
     peerDepsExternal(),
     // resolve(),
