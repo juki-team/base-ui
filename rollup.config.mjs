@@ -26,8 +26,8 @@ export default {
     peerDepsExternal(),
     // resolve(),
     resolve({
-      dedupe: [ ...Object.keys(pkg.peerDependencies || {}) ],
-      // dedupe: [ 'useTranslation', 'i18n', 'I18nextProvider' ],
+      // dedupe: [ ...Object.keys(pkg.peerDependencies || {}) ],
+      dedupe: [ 'useTranslation', 'i18n', 'I18nextProvider' ],
     }),
     // nodePolyfills(),
     // nodeResolve({ preferBuiltins: false }),
