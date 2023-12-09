@@ -19,7 +19,7 @@ import { UserContext } from '../contexts/JukiUserProvider/context';
 import { localStorageCrossDomains } from '../helpers';
 import { authorizedRequest, AuthorizedRequestType, cleanRequest } from '../services';
 import { SetStatusType, SignUpPayloadDTO, UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';
-import { useMatchMutate } from './swr';
+import { useMatchMutate } from './useMatchMutate';
 import { useNotification } from './useNotification';
 
 type ApiType<T> = {

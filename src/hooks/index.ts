@@ -1,5 +1,4 @@
 export * from './custom';
-export * from './swr';
 export * from './useDebounceEffect';
 export * from './useFetcher';
 export * from './useHandleState';
@@ -8,6 +7,8 @@ export * from './useJukiPage';
 export * from './useJukiRouter';
 export * from './useJukiUI';
 export * from './useJukiUser';
+export * from './useMatchMutate';
 export * from './useNotification';
+export * from './useSWR';
 export * from './useT';
 export * from './useTriggerWrapper';
