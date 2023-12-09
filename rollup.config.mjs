@@ -21,12 +21,13 @@ export default {
       sourcemap: true,
     },
   ],
-  // external: [ ...Object.keys(pkg.peerDependencies || {}) ],
+  external: [ ...Object.keys(pkg.peerDependencies || {}) ],
   plugins: [
     peerDepsExternal(),
     // resolve(),
     resolve({
-      dedupe: [ 'useTranslation', 'i18n', 'I18nextProvider' ],
+      dedupe: [ ...Object.keys(pkg.peerDependencies || {}) ],
+      // dedupe: [ 'useTranslation', 'i18n', 'I18nextProvider' ],
     }),
     // nodePolyfills(),
     // nodeResolve({ preferBuiltins: false }),
