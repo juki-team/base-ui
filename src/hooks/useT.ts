@@ -1,8 +1,9 @@
-import { useTranslation } from 'react-i18next';
+import { useContext } from 'react';
+import { TContext } from '../contexts/JukiTProvider/context';
 
 export const useT = () => {
   
-  const { t, i18n } = useTranslation();
+  const { t } = useContext(TContext);
   
-  return { t, i18n };
+  return { t };
 };

@@ -1,9 +1,7 @@
-import type { i18n } from 'i18next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { PropsWithChildren } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-// import { I18nextProvider } from 'react-i18next';
 import { JukiPageProvider } from './JukiPageProvider';
 import {
   AppendSearchParamsType,
@@ -12,14 +10,12 @@ import {
   RouterFn,
   SetSearchParamsType,
 } from './JukiRouterProvider';
+import { JukiTProvider, JukiTProviderProps } from './JukiTProvider';
 import { JukiUIProvider, JukiUIProviderProps } from './JukiUIProvider';
 import { JukiUserProvider, JukiUserProviderProps } from './JukiUserProvider';
 
-type I18nextProviderProps = {
-  i18n?: i18n
-}
 
-export type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & I18nextProviderProps & {
+export type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & Partial<JukiTProviderProps> & {
   router: {
     searchParams: URLSearchParams,
     appendSearchParams: AppendSearchParamsType,
@@ -55,7 +51,7 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
     tokenName,
     components,
     router,
-    // i18n,
+    t,
   } = props;
   
   return (
@@ -78,18 +74,11 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
           utilsUiUrl={utilsUiUrl}
           tokenName={tokenName}
         >
-          <JukiUIProvider
-            components={components}
-          >
+          <JukiUIProvider components={components}>
             <DndProvider backend={HTML5Backend}>
-              {/*{i18n ? (*/}
-              {/*  <I18nextProvider i18n={i18n}>*/}
-              {/*    {children}*/}
-              {/*  </I18nextProvider>*/}
-              {/*) : (*/}
-              {/*  children*/}
-              {/*)}*/}
-              {children}
+              <JukiTProvider t={t}>
+                {children}
+              </JukiTProvider>
             </DndProvider>
           </JukiUIProvider>
         </JukiUserProvider>

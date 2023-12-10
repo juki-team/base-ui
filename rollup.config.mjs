@@ -24,10 +24,10 @@ export default {
   // external: [ ...Object.keys(pkg.peerDependencies || {}) ],
   plugins: [
     peerDepsExternal(),
-    // resolve(),
+    resolve(),
     resolve({
       // dedupe: [ ...Object.keys(pkg.peerDependencies || {}) ],
-      dedupe: [ 'useTranslation', 'i18n', 'I18nextProvider' ],
+      // dedupe: [ 'useTranslation', 'i18n', 'I18nextProvider' ],
     }),
     // nodePolyfills(),
     // nodeResolve({ preferBuiltins: false }),

@@ -51,10 +51,8 @@
   },
   "peerDependencies": {
     "@juki-team/commons": ">=0.0.367",
-    "i18next": "^23.7.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-i18next": "^13.5.0",
     "socket.io-client": "^4.7.2",
     "swr": "^2.2.4"
   },
@@ -126,10 +124,8 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-modal": "^3.13.1",
     "@types/uuid": "^9.0.0",
-    "i18next": "^23.7.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-i18next": "^13.5.0",
     "react-scripts": "^5.0.1",
     "rollup": "^4.5.0",
     "rollup-plugin-copy": "^3.5.0",
