@@ -23,11 +23,12 @@
         "require": "./dist/types/utils/index.d.ts",
         "import": "./dist/types/utils/index.d.ts"
       },
-      "module": "./dist/esm/utils.js",
-      "import": "./dist/esm/utils.js",
+      "module": "./dist/esm/utils.es.js",
+      "import": "./dist/esm/utils.es.js",
       "require": "./dist/cjs/utils.js",
-      "default": "./dist/esm/utils.js"
-    }
+      "default": "./dist/esm/utils.es.js"
+    },
+    "./styles": "./dist/styles/base/_index.scss"
   },
   "dependencies": {
     "@codemirror/lang-cpp": "^6.0.2",
