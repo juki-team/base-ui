@@ -1,6 +1,6 @@
 import React from 'react';
 import { classNames } from '../../../helpers';
-import { useT } from '../../../hooks';
+import { useT } from '../../../hooks/useT';
 import { TProps } from './types';
 
 export const T = ({ className = '', children }: TProps) => {
