@@ -1,4 +1,4 @@
-import { RequestFilterType, RequestSortType } from '../components';
+import { RequestFilterType, RequestSortType } from '../types';
 
 export const toFilterUrl = (filter: RequestFilterType) => {
   let filterUrl = '';

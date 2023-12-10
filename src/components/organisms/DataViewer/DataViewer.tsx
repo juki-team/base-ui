@@ -2,6 +2,7 @@ import { consoleWarn, DataViewMode, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useT } from '../../../hooks';
+import { RequestFilterType, RequestSortType } from '../../../types';
 import { OptionType } from '../../molecules';
 import {
   FILTER_DATE,
@@ -14,7 +15,7 @@ import {
   FILTER_TEXT_AUTO,
 } from './constants';
 import { DisplayDataViewer } from './DisplayDataViewer';
-import { DataViewerProps, FilterValuesType, RequestFilterType, RequestSortType, TableHeadersType } from './types';
+import { DataViewerProps, FilterValuesType, TableHeadersType } from './types';
 import {
   getPageKey,
   getPageSizeKey,

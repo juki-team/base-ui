@@ -3,11 +3,10 @@ import React, { FC, useState } from 'react';
 import {
   Button,
   CropImageType,
-  downloadBlobAsFile,
   ImageLoaderCropper as ImageLoaderCropperCmp,
   ImageLoaderCropperProps,
-  toBlob,
-} from '../../../index';
+} from '../../../components';
+import { downloadBlobAsFile, toBlob } from '../../../utils';
 import { MockupJukiProvider } from '../../mockup';
 // import { COMPONENTS_WRITING_TOOLS } from './constants';
 

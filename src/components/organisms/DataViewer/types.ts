@@ -1,7 +1,13 @@
 import { DataViewMode, Status } from '@juki-team/commons';
 import { CSSProperties, Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { DatePickerDateFunType, OptionType } from '../../';
-import { DateDisplayType, ReactNodeOrFunctionType, ViewPortSizeType } from '../../../types';
+import {
+  DateDisplayType,
+  ReactNodeOrFunctionType,
+  RequestFilterType,
+  RequestSortType,
+  ViewPortSizeType,
+} from '../../../types';
 
 import {
   FILTER_DATE,
@@ -261,9 +267,6 @@ export type DataViewerHeadersType<T> = {
   cardPosition?: CardPositionType,
   sticky?: boolean,
 }
-
-export type RequestSortType = { [key: string]: 1 | -1 };
-export type RequestFilterType = { [key: string]: string | string[] };
 
 // export type URLSearchParamsInitType = string | [string, string][] | Record<string, string | string[]> | URLSearchParams;
 // export type SetSearchParamsType = ((nextInit: URLSearchParamsInitType, navigateOptions?: ({ replace?: boolean | undefined, state?: any } | undefined)) => void);

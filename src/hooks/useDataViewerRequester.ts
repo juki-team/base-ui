@@ -4,10 +4,9 @@ import { SWRConfiguration } from 'swr';
 import {
   DataViewerRequestPropsType,
   RefreshType,
-  RequestFilterType,
-  RequestSortType,
   SetLoaderStatusType,
 } from '../components/organisms/DataViewer/types';
+import { RequestFilterType, RequestSortType } from '../types';
 import { useFetcher } from './useFetcher';
 import { useJukiUser } from './useJukiUser';
 

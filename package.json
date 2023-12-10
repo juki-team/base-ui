@@ -8,8 +8,30 @@
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
-    "/dist"
+    "/dist/styles"
   ],
+  "exports": {
+    ".": {
+      "types": {
+        "require": "./dist/types/index.d.ts",
+        "import": "./dist/types/index.d.ts"
+      },
+      "module": "./dist/esm/index.js",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/esm/index.js"
+    },
+    "./utils": {
+      "types": {
+        "require": "./dist/types/index.d.ts",
+        "import": "./dist/types/index.d.ts"
+      },
+      "module": "./dist/esm/utils.js",
+      "import": "./dist/esm/utils.js",
+      "require": "./dist/cjs/utils.js",
+      "default": "./dist/esm/utils.js"
+    }
+  },
   "dependencies": {
     "@codemirror/lang-cpp": "^6.0.2",
     "@codemirror/lang-html": "^6.4.6",
