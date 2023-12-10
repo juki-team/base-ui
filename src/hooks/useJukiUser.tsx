@@ -17,8 +17,14 @@ import { LoginFormType } from '../components/templates/MainMenu/LoginModalTempla
 import { settings } from '../config';
 import { UserContext } from '../contexts/JukiUserProvider/context';
 import { localStorageCrossDomains } from '../helpers';
-import { authorizedRequest, AuthorizedRequestType, cleanRequest } from '../services';
-import { SetStatusType, SignUpPayloadDTO, UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';
+import { authorizedRequest, cleanRequest } from '../services';
+import {
+  AuthorizedRequestType,
+  SetStatusType,
+  SignUpPayloadDTO,
+  UpdatePasswordPayloadDTO,
+  UpdateUserProfileDataPayloadDTO,
+} from '../types';
 import { useMatchMutate } from './useMatchMutate';
 import { useNotification } from './useNotification';
 
