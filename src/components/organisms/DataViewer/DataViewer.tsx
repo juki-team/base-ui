@@ -319,17 +319,13 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
                     return searchDate.isSameYear(datum[head.index]);
                   }
                 } else {
-                  consoleWarn({ _message: 'datum no filtered', datum, searchDate, index: head.index, head });
+                  consoleWarn('datum no filtered', { datum, searchDate, index: head.index, head });
                 }
               }
               return true;
             });
           } else {
-            consoleWarn({
-              _message: 'data no filtered, filter not a valid time date',
-              search: searchFilter[i],
-              searchFilter,
-            });
+            consoleWarn('data no filtered, filter not a valid time date', { search: searchFilter[i], searchFilter });
           }
         } else if (isFilterDateRangeOffline(head?.filter)) {
           const [ start, end ] = searchFilter[i]?.split(',');
@@ -340,8 +336,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
               endSelectedDate: new Date(+end),
             }));
           } else {
-            consoleWarn({
-              _message: 'data no filtered, filter not a valid range times date',
+            consoleWarn('data no filtered, filter not a valid range times date', {
               search: searchFilter[i],
               searchFilter,
             });
@@ -400,8 +395,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
                   }
                   return isWithin;
                 } else {
-                  consoleWarn({
-                    _message: 'datum no filtered',
+                  consoleWarn('datum no filtered', {
                     datum,
                     startSelectedDate,
                     endSelectedDate,
@@ -413,8 +407,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
               return true;
             });
           } else {
-            consoleWarn({
-              _message: 'data no filtered, filter not a valid range times date',
+            consoleWarn('data no filtered, filter not a valid range times date', {
               search: searchFilter[i],
               searchFilter,
             });

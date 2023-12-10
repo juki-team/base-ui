@@ -83,7 +83,7 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
             {/*<GoogleLogin*/}
             {/*  clientId={reactAppGoogleClientId}*/}
             {/*  onSuccess={signUpWithGoogle(refSetLoading.current)}*/}
-            {/*  onFailure={(err) => consoleWarn({ message: 'FAILURE GOOGLE LOGIN', err })}*/}
+            {/*  onFailure={(err) => consoleWarn('failure google login', { err })}*/}
             {/*  cookiePolicy="single_host_origin"*/}
             {/*  buttonText={t('sign up with Google')}*/}
             {/*  className="google-button"*/}

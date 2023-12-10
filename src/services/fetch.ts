@@ -57,17 +57,22 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
 };
 
 export const authorizedRequest = async (url: string, options?: AuthorizedRequestType) => {
+  
   const { method, body, signal, responseType } = options || {};
+  
   const requestHeaders = new Headers();
   requestHeaders.set('Accept', 'application/json');
+  
   if (!(body instanceof FormData)) {
     requestHeaders.set('Content-Type', 'application/json');
   }
+  
   const token = options?.token || localStorage.getItem(settings.TOKEN_NAME);
+  
   if (token) {
     requestHeaders.set('Authorization', `Bearer ${token}`);
   }
-  console.log(url, fetch);
+  
   return await fetch(url, {
     method: method ? method : HTTPMethod.GET,
     headers: requestHeaders,
@@ -82,7 +87,9 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
       return response.text();
     })
     .catch((error) => {
-      consoleWarn({ message: `error on fetch url: ${url}`, error });
+      
+      consoleWarn('error on fetch', { url, error });
+      
       if (signal?.aborted) {
         return JSON.stringify({
           success: false,
@@ -90,6 +97,7 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
           errors: [ { code: ErrorCode.ERR9997, detail: `[${method}] ${url} \n ${body}` } ],
         } as ErrorResponseType);
       }
+      
       return JSON.stringify({
         success: false,
         message: ERROR[ErrorCode.ERR9998].message,

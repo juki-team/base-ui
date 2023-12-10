@@ -42,7 +42,7 @@ type UserTable = {
   dateTestRange: Date,
 }
 
-export const JkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>) => {
+export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>) => {
   const [ data, setData ] = useState<UserTable[]>([]);
   useEffect(() => {
     setTimeout(() => {

@@ -1,4 +1,4 @@
-import { consoleWarn, ContentResponseType, SocketEvent } from '@juki-team/commons';
+import { consoleInfo, consoleWarn, ContentResponseType, SocketEvent } from '@juki-team/commons';
 import io, { Socket } from 'socket.io-client';
 import { settings } from '../config';
 
@@ -20,16 +20,16 @@ export class SocketIo {
     this._socket.connect();
     
     this._socket.on('connect', async () => {
-      console.info('socket connected');
+      consoleInfo('Jk socket connected');
       await this.joinSession();
     });
     
     this._socket.on('disconnect', () => {
-      console.info('socket disconnect');
+      consoleInfo('Jk socket disconnect');
     });
     
-    this._socket.on('connect_error', (err) => {
-      consoleWarn(`connect_error due to ${err.message}`);
+    this._socket.on('connect_error', (error) => {
+      consoleWarn('connect_error', { error });
     });
   }
   
@@ -59,12 +59,12 @@ export class SocketIo {
     if (this._sessionId) {
       try {
         const response = await this.emitAsync(SocketEvent.SIGN_IN, this._sessionId);
-        console.info(response.message);
+        consoleInfo('join session', response.message);
       } catch (error) {
-        consoleWarn({ message: 'error on joinSession', error });
+        consoleWarn('error on joinSession', { error });
       }
     } else {
-      consoleWarn({ message: 'join session failed, invalid cookie session' });
+      consoleWarn('join session failed, invalid cookie session');
     }
   }
   
@@ -72,12 +72,12 @@ export class SocketIo {
     if (this._sessionId) {
       try {
         const response = await this.emitAsync(SocketEvent.SIGN_OUT, this._sessionId);
-        console.info(response.message);
+        consoleInfo('leave session', response.message);
       } catch (error) {
-        consoleWarn({ message: 'error on leaveSession', error });
+        consoleWarn('error on leaveSession', { error });
       }
     } else {
-      consoleWarn({ message: 'leave session failed, invalid cookie session' });
+      consoleWarn('leave session failed, invalid cookie session');
     }
     this._sessionId = '';
   }

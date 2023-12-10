@@ -68,7 +68,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
               {/*<GoogleLogin*/}
               {/*  clientId={reactAppGoogleClientId}*/}
               {/*  onSuccess={loginWithGoogle(setLoaderRef.current)}*/}
-              {/*  onFailure={(err) => consoleWarn({ message: 'FAILURE GOOGLE LOGIN', err })}*/}
+              {/*  onFailure={(err) => consoleWarn('failure google login ', { err })}*/}
               {/*  cookiePolicy="single_host_origin"*/}
               {/*  buttonText={t('login with Google')}*/}
               {/*  className="google-button"*/}

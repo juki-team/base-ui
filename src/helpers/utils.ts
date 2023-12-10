@@ -18,7 +18,7 @@ export const publishNote = async (source: string) => {
   if (request?.success && request?.content.sourceUrl) {
     return request.content.sourceUrl;
   }
-  consoleWarn({ message: 'error on publish note', request });
+  consoleWarn('error on publish note', { request });
   return '';
 };
 

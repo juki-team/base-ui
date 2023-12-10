@@ -13,7 +13,7 @@ export class Settings {
   private _UTILS_UI_URL = '';
   private _TOKEN_NAME = '';
   private _SERVICE_SOCKET_URL = '';
-  private _ON_ERROR = (error: any) => consoleWarn({ message: 'a error happened', error });
+  private _ON_ERROR = (error: any) => consoleWarn('an error happened', { error });
   
   get SERVICE_API_URL(): string {
     return this._SERVICE_API_URL;

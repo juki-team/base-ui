@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { MockupJukiProvider } from '../../mockup';
 import { DataViewer } from './DataViewer';
-import { JkUserTable } from './JkUserTableTest/JkUserTable';
+import { MockJkUserTable } from './JkUserTableTest/MockJkUserTable';
 
 const meta: Meta<typeof DataViewer> = {
   component: DataViewer,
@@ -19,7 +19,7 @@ export const Regular: Story = {
     <BrowserRouter>
       <MockupJukiProvider>
         <div>DadaViewer</div>
-        <JkUserTable {...args} />
+        <MockJkUserTable {...args} />
       </MockupJukiProvider>
     </BrowserRouter>
   ),

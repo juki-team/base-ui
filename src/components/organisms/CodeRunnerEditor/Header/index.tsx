@@ -69,11 +69,11 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       } else {
         addErrorNotification(request?.message);
         setRunId('');
-        consoleWarn(request);
+        consoleWarn('run code request failed', { request });
         setStatus(Status.ERROR);
       }
     } catch (error) {
-      consoleWarn(error);
+      consoleWarn('error on run code', { error });
       setStatus(Status.ERROR);
     }
   };
