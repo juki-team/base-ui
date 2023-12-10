@@ -6,6 +6,16 @@ import { Input } from './Input';
 import { InputPassword } from './InputPassword';
 import { InputProps } from './types';
 
+// @ts-ignore
+Input.defaultProps = {
+  type: 'text',
+  extend: false,
+  disabled: false,
+  autoFocus: false,
+  labelPlacement: 'top',
+  required: false,
+}
+
 const meta: Meta<typeof Input> = {
   component: Input,
 };

@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
+import { DateDisplayType } from '../../../types';
 
 import { DateLiteral } from './DateLiteral';
+
+// @ts-ignore
+DateLiteral.defaultProps = {
+  show: 'year-month-day-hours-minutes-seconds' as DateDisplayType,
+}
 
 const meta: Meta<typeof DateLiteral> = {
   component: DateLiteral,

@@ -4,6 +4,13 @@ import { MockupJukiProvider } from '../../mockup';
 import { MultiSelect } from './MultiSelect';
 import { MultiSelectProps } from './types';
 
+// @ts-ignore
+MultiSelect.defaultProps = {
+  disabled: false,
+  optionsPlacement: 'bottom' as MultiSelectProps<any, any, any>['optionsPlacement'],
+  extend: false,
+}
+
 const meta: Meta<typeof MultiSelect> = {
   component: MultiSelect,
 };

@@ -1,7 +1,6 @@
 import { DAY_NAMES, MONTH_NAMES } from '@juki-team/commons';
 import React from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
-import { DateDisplayType } from '../../../types';
 import { T } from '../T';
 import { DateLiteralProps } from './types';
 
@@ -49,7 +48,3 @@ export const DateLiteral = (props: DateLiteralProps) => {
     </div>
   );
 };
-
-DateLiteral.defaultProps = {
-  show: 'year-month-day-hours-minutes-seconds' as DateDisplayType,
-}

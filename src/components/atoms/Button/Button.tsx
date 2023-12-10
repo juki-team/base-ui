@@ -64,15 +64,6 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
   );
 };
 
-ButtonComponent.defaultProps = {
-  submit: false,
-  type: 'primary',
-  extend: false,
-  disabled: false,
-  responsive: false,
-  responsiveMobile: false,
-}
-
 // @ts-ignore
 export const Button = forwardRef(ButtonComponent) as (p: ButtonProps & {
   ref?: Ref<HTMLButtonElement>

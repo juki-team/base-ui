@@ -142,9 +142,3 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
     </Popover>
   );
 };
-
-MultiSelect.defaultProps = {
-  disabled: false,
-  optionsPlacement: 'bottom' as MultiSelectProps<any, any, any>['optionsPlacement'],
-  extend: false,
-}

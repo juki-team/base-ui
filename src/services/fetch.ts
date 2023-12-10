@@ -74,7 +74,7 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
   if (token) {
     requestHeaders.set('Authorization', `Bearer ${token}`);
   }
-  
+  console.log(url, fetch);
   return await fetch(url, {
     method: method ? method : HTTPMethod.GET,
     headers: requestHeaders,

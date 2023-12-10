@@ -1,8 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
-
 import { InputToggle } from './InputToggle';
+import { InputToggleProps } from './types';
+
+// @ts-ignore
+InputToggle.defaultProps = {
+  type: 'rounded' as InputToggleProps['type'],
+  size: 'regular' as InputToggleProps['size'],
+  disabled: false,
+}
 
 const meta: Meta<typeof InputToggle> = {
   component: InputToggle,

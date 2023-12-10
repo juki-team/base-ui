@@ -116,15 +116,6 @@ const InputComponent = <T extends string | number | FileList, >(_props: InputPro
 //   );
 // };
 
-InputComponent.defaultProps = {
-  type: 'text',
-  extend: false,
-  disabled: false,
-  autoFocus: false,
-  labelPlacement: 'top',
-  required: false,
-}
-
 // https://stackoverflow.com/questions/58469229/react-with-typescript-generics-while-using-react-forwardref/58473012
 // @ts-ignore
 export const Input = forwardRef(InputComponent) as <T>(p: InputProps<T> & {
