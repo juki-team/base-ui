@@ -7,6 +7,12 @@ import { Input } from '../inputs';
 import { Modal } from './Modal';
 import { ModalProps } from './types';
 
+// @ts-ignore
+Modal.defaultProps = {
+  closeIcon: true,
+  closeWhenClickOutside: false,
+}
+
 const meta: Meta<typeof Modal> = {
   component: Modal,
 };
