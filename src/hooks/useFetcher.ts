@@ -22,7 +22,7 @@ export const useFetcher = <T extends (ContentResponseType<any> | ContentsRespons
   if (typeof window !== 'undefined') {
     token = localStorage.getItem(settings.TOKEN_NAME) || '';
   }
-  
+  console.log('useFetcher', { token, url });
   const { data, error, mutate, isValidating, isLoading } = useSWR(
     typeof url === 'string' ? [ url, token ] : null,
     fetcherWithToken,

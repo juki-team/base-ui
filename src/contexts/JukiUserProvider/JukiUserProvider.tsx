@@ -29,7 +29,7 @@ import { UserContext } from './context';
 import { DeviceType, JukiUserProviderProps } from './types';
 
 const useUser = () => {
-  
+  console.log('userUser', settings, settings.getAPI().auth.ping().url);
   const {
     data,
     isLoading,
