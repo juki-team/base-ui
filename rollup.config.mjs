@@ -3,32 +3,20 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
-// import pkg from './package.json' assert { type: 'json' };
+import { visualizer } from 'rollup-plugin-visualizer';
 
-const commonProps = {
-  // external: [ ...Object.keys(pkg.peerDependencies || {}) ],
-  plugins: [
-    peerDepsExternal(),
-    resolve(),
-    resolve({
-      // dedupe: [ ...Object.keys(pkg.peerDependencies || {}) ],
-      // dedupe: [ 'useTranslation', 'i18n', 'I18nextProvider' ],
-    }),
-    // nodePolyfills(),
-    // nodeResolve({ preferBuiltins: false }),
-    // nodeResolve(),
-    commonjs(),
-    // commonjs({
-    // ignore: [ 'bufferutil', 'utf-8-validate' ], // Ignore optional peer dependencies of ws
-    // }),
-    typescript({ useTsconfigDeclarationDir: true, tsconfig: './tsconfig.json' }),
-    copy({
-      targets: [
-        { src: './src/styles', dest: 'dist' },
-      ],
-    }),
-  ],
-};
+const plugins = [
+  peerDepsExternal(),
+  resolve(),
+  commonjs(),
+  typescript({ useTsconfigDeclarationDir: true, tsconfig: './tsconfig.json' }),
+  copy({
+    targets: [
+      { src: './src/styles', dest: 'dist' },
+    ],
+  }),
+  visualizer(),
+];
 
 export default [
   {
@@ -47,7 +35,8 @@ export default [
         sourcemap: true,
       },
     ],
-    ...commonProps,
+    // external: [ ...Object.keys(pkg.peerDependencies || {}) ],
+    plugins,
   },
   {
     input: 'src/utils/index.ts',
@@ -65,6 +54,6 @@ export default [
         sourcemap: true,
       },
     ],
-    ...commonProps,
+    plugins,
   },
 ];

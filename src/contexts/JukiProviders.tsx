@@ -51,7 +51,7 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
     tokenName,
     components,
     router,
-    t,
+    i18n,
   } = props;
   
   return (
@@ -76,9 +76,11 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
         >
           <JukiUIProvider components={components}>
             <DndProvider backend={HTML5Backend}>
-              <JukiTProvider t={t}>
-                {children}
-              </JukiTProvider>
+              {i18n ? (
+                <JukiTProvider i18n={i18n}>
+                  {children}
+                </JukiTProvider>
+              ) : children}
             </DndProvider>
           </JukiUIProvider>
         </JukiUserProvider>

@@ -65,7 +65,6 @@
     "rehype-katex": "^7.0.0",
     "remark-gfm": "^4.0.0",
     "remark-math": "^6.0.0",
-    "sass": "^1.69.5",
     "swr": "^2.2.4",
     "uuid": "^9.0.0",
     "xlsx": "^0.18.5",
@@ -75,6 +74,7 @@
     "@juki-team/commons": ">=0.0.367",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sass": "^1.69.5",
     "socket.io-client": "^4.7.2"
   },
   "scripts": {
@@ -145,6 +145,7 @@
     "@types/react-dom": "^18.0.6",
     "@types/react-modal": "^3.13.1",
     "@types/uuid": "^9.0.0",
+    "i18next": "^23.7.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
@@ -153,6 +154,8 @@
     "rollup-plugin-node-polyfills": "^0.2.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.36.0",
+    "rollup-plugin-visualizer": "^5.11.0",
+    "sass": "^1.69.5",
     "socket.io-client": "^4.7.2",
     "storybook": "^7.6.4",
     "swr": "^2.2.4",

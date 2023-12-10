@@ -3,7 +3,11 @@ import { TContext } from '../contexts/JukiTProvider/context';
 
 export const useT = () => {
   
-  const { t } = useContext(TContext);
+  const { i18n } = useContext(TContext);
   
-  return { t };
+  if (!i18n) {
+    console.error('i18n not configured');
+  }
+  
+  return i18n;
 };

@@ -1,3 +1,5 @@
-export type TContextInterface = { t: (key: string) => string };
+import type { i18n } from 'i18next';
 
-export type JukiTProviderProps = { t?: (key: string) => string };
+export type TContextInterface = { i18n: i18n };
+
+export type JukiTProviderProps = { i18n: i18n };
