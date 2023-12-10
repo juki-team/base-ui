@@ -5,7 +5,8 @@
   "author": "juki-team",
   "license": "MIT",
   "files": [
-    "dist"
+    "dist",
+    "dist/styles"
   ],
   "exports": {
     ".": {
