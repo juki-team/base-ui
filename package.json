@@ -23,8 +23,8 @@
     },
     "./utils": {
       "types": {
-        "require": "./dist/types/index.d.ts",
-        "import": "./dist/types/index.d.ts"
+        "require": "./dist/types/utils/index.d.ts",
+        "import": "./dist/types/utils/index.d.ts"
       },
       "module": "./dist/esm/utils.js",
       "import": "./dist/esm/utils.js",
