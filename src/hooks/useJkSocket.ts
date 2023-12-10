@@ -1,4 +1,4 @@
-import { consoleWarn, SocketEvent } from '@juki-team/commons';
+import { consoleInfo, consoleWarn, SocketEvent } from '@juki-team/commons';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useJukiUser } from './useJukiUser';
 
@@ -14,7 +14,12 @@ export const useJkSocket = (message: SocketEvent) => {
   useEffect(() => {
     const on = () => {
       const success = socket.on(message, listener);
-      consoleWarn(`socket.on(${message}): ${success}`);
+      if (success) {
+        consoleWarn(`socket.on(${message}): failed, will try again`);
+      } else {
+        consoleInfo(`socket.on(${message}): success`);
+      }
+      
       if (!success) {
         if (timeoutRef.current) {
           clearTimeout(timeoutRef.current);

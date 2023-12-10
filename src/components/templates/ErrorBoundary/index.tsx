@@ -1,4 +1,4 @@
-import { consoleWarn, ContentsResponseType } from '@juki-team/commons';
+import { consoleError, consoleInfo, ContentsResponseType } from '@juki-team/commons';
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { settings } from '../../../config';
 import { authorizedRequest, cleanRequest } from '../../../services';
@@ -20,7 +20,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
   
   static getDerivedStateFromError(error: any) {
     // Update state so the next render will show the fallback UI
-    console.error({ error }, error);
+    consoleError('getDerivedStateFromError', { error });
     return { hasError: true };
   }
   
@@ -39,15 +39,14 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
           errorInfo,
         },
       });
-      const response = cleanRequest<ContentsResponseType<{}>>(
-        await authorizedRequest(url, options));
+      const response = cleanRequest<ContentsResponseType<{}>>(await authorizedRequest(url, options));
       if (response.success) {
-        consoleWarn('Error reported');
+        consoleInfo('Error reported');
       } else {
-        console.error({ error, errorInfo, location, token, response });
+        consoleError('error reported failed', { error, errorInfo, location, token, response });
       }
     } catch (errorOnLog) {
-      console.error({ error, errorInfo, location, token, errorOnLog });
+      consoleError('error on log error', { error, errorInfo, location, token, errorOnLog });
     }
   }
   
