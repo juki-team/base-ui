@@ -25,7 +25,6 @@
     "codemirror": "^5.65.2",
     "copy-to-clipboard": "^3.3.3",
     "deep-object-diff": "^1.1.9",
-    "i18next": "^23.7.8",
     "immutability-helper": "^3.1.1",
     "prismjs": "^1.29.0",
     "react-collapse": "^5.1.1",
@@ -35,7 +34,6 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-hook-form": "^7.43.2",
-    "react-i18next": "^13.5.0",
     "react-image-crop": "^11.0.1",
     "react-markdown": "^9.0.1",
     "react-modal": "^3.15.1",
@@ -55,6 +53,8 @@
     "@juki-team/commons": ">=0.0.367",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-i18next": "^13.5.0",
+    "i18next": "^23.7.8",
     "socket.io-client": "^4.7.2",
     "swr": "^2.2.4"
   },
@@ -97,6 +97,8 @@
     ]
   },
   "devDependencies": {
+    "react-i18next": "^13.5.0",
+    "i18next": "^23.7.8",
     "@juki-team/commons": "^0.0.367",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
