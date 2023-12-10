@@ -9,6 +9,7 @@ import {
   isStringJson,
 } from '@juki-team/commons';
 import { settings } from '../config';
+import { AuthorizedRequestType } from '../types'
 
 export const cleanRequest = <T extends ContentResponseType<any> | ContentsResponseType<any>>(responseText: string): (ErrorResponseType | T) => {
   if (!isStringJson(responseText)) {
@@ -54,14 +55,6 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
   settings.reportError({ message: 'success false on cleaning request', responseText, response });
   return response;
 };
-
-export interface AuthorizedRequestType extends RequestInit {
-  method?: HTTPMethod,
-  body?: string | BodyInit,
-  signal?: AbortSignal,
-  responseType?: 'text' | 'blob',
-  token?: string,
-}
 
 export const authorizedRequest = async (url: string, options?: AuthorizedRequestType) => {
   const { method, body, signal, responseType } = options || {};
