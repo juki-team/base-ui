@@ -4,6 +4,7 @@
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
+  "private": true,
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
@@ -51,12 +52,12 @@
     "yup": "^1.3.2"
   },
   "peerDependencies": {
-    "@juki-team/commons": "^0.0.367",
-    "i18next": "^23.7.6",
+    "@juki-team/commons": ">=0.0.367",
+    "i18next": "^23.7.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "socket.io-client": "^4.5.2",
-    "swr": "^2.0.0"
+    "socket.io-client": "^4.7.2",
+    "swr": "^2.2.4"
   },
   "scripts": {
     "storybook": "storybook dev -p 6006 -s public",
