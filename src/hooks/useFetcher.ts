@@ -5,17 +5,17 @@ import { settings } from '../config';
 import { authorizedRequest, cleanRequest } from '../services';
 
 const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
-  console.log('fetcherWithToken', { url, token });
   return authorizedRequest(url, { token });
 };
 
 export const useFetcher = <T extends (ContentResponseType<any> | ContentsResponseType<any>)>(url?: string | null, config?: SWRConfiguration) => {
   
   let token = '';
+  
   if (typeof window !== 'undefined') {
     token = localStorage.getItem(settings.TOKEN_NAME) || '';
   }
-  console.log('useFetcher', { token, url });
+  
   const { data, error, mutate, isValidating, isLoading } = useSWR(
     typeof url === 'string' ? [ url, token ] : null,
     fetcherWithToken,

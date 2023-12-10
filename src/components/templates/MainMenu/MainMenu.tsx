@@ -38,8 +38,6 @@ export const MainMenu = (props: MainMenuProps) => {
     company: { imageUrl, name },
   } = useJukiUser();
   
-  console.log('MainMenu', { isLoading, nickname, name });
-  
   useEffect(() => {
     if (isLogged && (searchParams.has(QueryParamKey.SIGN_IN))) {
       deleteSearchParams({ name: QueryParamKey.SIGN_IN })

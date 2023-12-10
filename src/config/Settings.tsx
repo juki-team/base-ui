@@ -1,8 +1,12 @@
 import { consoleWarn, getProblemJudgeKey, HTTPMethod, Judge, UserSettingsType } from '@juki-team/commons';
 import { ErrorInfo } from 'react';
 import { LoginFormType } from '../components';
-import { AuthorizedRequestType } from '../services';
-import { SignUpPayloadDTO, UpdatePasswordPayloadDTO, UpdateUserProfileDataPayloadDTO } from '../types';
+import {
+  AuthorizedRequestType,
+  SignUpPayloadDTO,
+  UpdatePasswordPayloadDTO,
+  UpdateUserProfileDataPayloadDTO,
+} from '../types';
 
 export class Settings {
   private _SERVICE_API_URL = '';

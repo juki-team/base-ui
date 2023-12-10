@@ -38,7 +38,6 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   } = props;
   
   const [ runId, setRunId ] = useState('');
-  console.log({ runId });
   const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
   const { pop } = useJkSocket(SocketEvent.RUN);
   const [ showSettings, setShowSettings ] = useState(false);
