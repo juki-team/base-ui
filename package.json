@@ -26,10 +26,12 @@
       "module": "./dist/esm/utils.es.js",
       "import": "./dist/esm/utils.es.js",
       "require": "./dist/cjs/utils.js",
-      "default": "./dist/esm/utils.es.js"
+      "default": "./dist/esm/utils.es.js",
+      "sass": "./dist/styles/abstracts/_index.scss"
     },
-    "./styles/*.scss": "./dist/styles/base/*.scss",
-    "./mixins.scss": "./dist/styles/abstracts/_mixins.scss"
+    "./styles": {
+      "sass": "./dist/styles/base/_index.scss"
+    }
   },
   "dependencies": {
     "@codemirror/lang-cpp": "^6.0.2",
@@ -95,7 +97,7 @@
     "overrides": [
       {
         "files": [
-          "**/*.stories.*"
+          "**/*.stories.*,"
         ],
         "rules": {
           "import/no-anonymous-default-export": "off"
