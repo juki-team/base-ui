@@ -76,12 +76,16 @@ export const MainMenu = (props: MainMenuProps) => {
     children: (
       <div className="jk-row">
         <Link href="/">
-          <Image
-            src={logoImageUrl}
-            alt={name}
-            height={45}
-            width={90}
-          />
+          {isLoading
+            ? <LoadingIcon />
+            : (
+              <Image
+                src={logoImageUrl}
+                alt={name}
+                height={45}
+                width={90}
+              />
+            )}
         </Link>
       </div>
     ),
