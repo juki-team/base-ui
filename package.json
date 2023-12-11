@@ -5,8 +5,7 @@
   "author": "juki-team",
   "license": "MIT",
   "files": [
-    "dist",
-    "dist/styles"
+    "dist"
   ],
   "exports": {
     ".": {
@@ -29,7 +28,8 @@
       "require": "./dist/cjs/utils.js",
       "default": "./dist/esm/utils.es.js"
     },
-    "./styles": "./dist/styles/base/_index.scss"
+    "./styles/*.scss": "./dist/styles/base/*.scss",
+    "./mixins.scss": "./dist/styles/abstracts/_mixins.scss"
   },
   "dependencies": {
     "@codemirror/lang-cpp": "^6.0.2",
