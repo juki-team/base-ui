@@ -7,8 +7,6 @@ export function TwoContentSection({ children, className }: TwoContentSectionProp
   
   const { height, ref } = useResizeDetector();
   
-  console.log({ height, ref });
-  
   return (
     <section
       className={classNames('two-content-section jk-col nowrap', className)}
