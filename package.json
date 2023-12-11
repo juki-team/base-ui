@@ -26,11 +26,7 @@
       "module": "./dist/esm/utils.es.js",
       "import": "./dist/esm/utils.es.js",
       "require": "./dist/cjs/utils.js",
-      "default": "./dist/esm/utils.es.js",
-      "sass": "./dist/styles/abstracts/_index.scss"
-    },
-    "./styles": {
-      "sass": "./dist/styles/base/_index.scss"
+      "default": "./dist/esm/utils.es.js"
     }
   },
   "dependencies": {
