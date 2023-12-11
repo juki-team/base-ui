@@ -2,7 +2,7 @@ import { MenuViewMode, ProfileSetting, Status, Theme } from '@juki-team/commons'
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
-import { LoadingIcon } from '../../atoms';
+import { SpinIcon } from '../../atoms';
 import { HorizontalMenu, MenuType, VerticalMenu } from '../../organisms';
 import { DrawerViewMenuMobile } from './DrawerViewMenuMobile';
 import { LoginModal } from './LoginModal';
@@ -77,7 +77,7 @@ export const MainMenu = (props: MainMenuProps) => {
       <div className="jk-row">
         <Link href="/">
           {(isLoading || !logoImageUrl)
-            ? <LoadingIcon />
+            ? <SpinIcon />
             : (
               <Image
                 src={logoImageUrl}
@@ -95,7 +95,7 @@ export const MainMenu = (props: MainMenuProps) => {
     <Link href="/">
       <div className="jk-row" style={{ padding: 'calc(var(--pad-lg) + var(--pad-lg)) 0' }}>
         {(isLoading || !logoImageUrl)
-          ? <LoadingIcon />
+          ? <SpinIcon />
           : (
             <Image
               src={isOpen ? logoImageUrl : logoImageUrl.replace('horizontal', 'vertical')}
@@ -134,7 +134,7 @@ export const MainMenu = (props: MainMenuProps) => {
       <div className="jk-col extend">
         <div className="jk-row pad-left-right">
           {(isLoading || !logoImageUrl)
-            ? <LoadingIcon />
+            ? <SpinIcon />
             : (
               <Image
                 src={logoImageUrl}
@@ -209,7 +209,7 @@ export const MainMenu = (props: MainMenuProps) => {
             centerMobile={centerMobile}
           >
             {isLoading ?
-              <div className="jk-col extend"><LoadingIcon size="very-huge" className="cr-py" /></div> : children}
+              <div className="jk-col extend"><SpinIcon size="very-huge" className="cr-py" /></div> : children}
           </HorizontalMenu>
         )
         : (
@@ -222,7 +222,7 @@ export const MainMenu = (props: MainMenuProps) => {
             centerMobile={centerMobile}
           >
             {isLoading ?
-              <div className="jk-col extend"><LoadingIcon size="very-huge" className="cr-py" /></div> : children}
+              <div className="jk-col extend"><SpinIcon size="very-huge" className="cr-py" /></div> : children}
           </VerticalMenu>
         )}
     </>
