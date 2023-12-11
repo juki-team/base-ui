@@ -76,7 +76,7 @@ export const MainMenu = (props: MainMenuProps) => {
     children: (
       <div className="jk-row">
         <Link href="/">
-          {isLoading
+          {(isLoading || !logoImageUrl)
             ? <LoadingIcon />
             : (
               <Image
@@ -94,7 +94,7 @@ export const MainMenu = (props: MainMenuProps) => {
   const topSection = ({ isOpen }: { isOpen: boolean }) => (
     <Link href="/">
       <div className="jk-row" style={{ padding: 'calc(var(--pad-lg) + var(--pad-lg)) 0' }}>
-        {isLoading
+        {(isLoading || !logoImageUrl)
           ? <LoadingIcon />
           : (
             <Image
@@ -133,7 +133,7 @@ export const MainMenu = (props: MainMenuProps) => {
     <Link href="/">
       <div className="jk-col extend">
         <div className="jk-row pad-left-right">
-          {isLoading
+          {(isLoading || !logoImageUrl)
             ? <LoadingIcon />
             : (
               <Image
