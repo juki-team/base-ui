@@ -4,7 +4,10 @@ import { classNames } from '../../../helpers';
 import { TwoContentSectionProps } from './types';
 
 export function TwoContentSection({ children, className }: TwoContentSectionProps) {
+  
   const { height, ref } = useResizeDetector();
+  
+  console.log({ height, ref });
   
   return (
     <section
