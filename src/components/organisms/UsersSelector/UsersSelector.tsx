@@ -2,7 +2,7 @@ import { ContentsResponseType, UserSummaryResponseDTO } from '@juki-team/commons
 import React, { useEffect, useMemo, useState } from 'react';
 import { settings } from '../../../config';
 import { useFetcher } from '../../../hooks';
-import { Button, LoadingIcon, Modal, PeopleIcon, ReloadIcon, T, TextArea, Tooltip } from '../../atoms';
+import { Button, Modal, PeopleIcon, ReloadIcon, SpinIcon, T, TextArea, Tooltip } from '../../atoms';
 import { MultiSelectSearchable } from '../../molecules';
 import { UserChip } from '../UserChip';
 import { UsersSelectorProps } from './types';
@@ -51,7 +51,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
     setText(selectedUsers.join(','));
   }
   if (isLoading) {
-    return <div><LoadingIcon /></div>;
+    return <div><SpinIcon /></div>;
   }
   
   const onChangeSelectedUsers = (nicknames: string[]) => {

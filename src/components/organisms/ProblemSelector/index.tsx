@@ -12,7 +12,7 @@ import { settings } from '../../../config';
 import { classNames } from '../../../helpers';
 import { useJukiUser, useNotification } from '../../../hooks';
 import { authorizedRequest, cleanRequest } from '../../../services';
-import { DownloadIcon, Input, LoadingIcon, ReloadIcon, Select, T, Tooltip } from '../../atoms';
+import { DownloadIcon, Input, ReloadIcon, Select, SpinIcon, T, Tooltip } from '../../atoms';
 import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { JudgeDataType, ProblemSelectorProps } from './types';
 
@@ -129,7 +129,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
           (
             data[judge]?.loading && data[judge]?.problems?.length === 0
           )
-            ? <div className="jk-row flex-1" style={{ height: 34 }}><LoadingIcon /></div>
+            ? <div className="jk-row flex-1" style={{ height: 34 }}><SpinIcon /></div>
             : <div className="jk-row flex-1">
               <MultiSelectSearchable
                 options={(

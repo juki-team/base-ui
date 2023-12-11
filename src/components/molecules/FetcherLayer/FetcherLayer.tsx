@@ -2,7 +2,7 @@ import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
 import React, { useEffect } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useFetcher, useNotification } from '../../../hooks';
-import { JukiSurprisedImage, LoadingIcon } from '../../atoms';
+import { JukiSurprisedImage, SpinIcon } from '../../atoms';
 import { FetcherLayerProps } from './types';
 
 const isContentResponseType = <T, >(data: any): data is ContentResponseType<T> => {
@@ -37,7 +37,7 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
     }
     return (
       <div className="jk-row jk-col extend">
-        <LoadingIcon size="very-huge" className="cr-py" />
+        <SpinIcon size="very-huge" className="cr-py" />
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import { PROGRAMMING_LANGUAGE, ProgrammingLanguage } from '@juki-team/commons';
 import React, { lazy, Suspense } from 'react';
-import { LoadingIcon } from '../../../';
+import { SpinIcon } from '../../../atoms';
 
 const MonacoCodeEditor = lazy(() => import('@monaco-editor/react'));
 
@@ -14,7 +14,7 @@ export const Monaco = ({ language, sourceCode, onSourceChange }: MonacoProps) =>
   
   const dark = false;
   return (
-    <Suspense fallback={<LoadingIcon />}>
+    <Suspense fallback={<SpinIcon />}>
       <MonacoCodeEditor
         width="100%"
         height="100%"

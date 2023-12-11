@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { classNames } from '../../../helpers';
 import { useT } from '../../../hooks';
-import { DoubleUpIcon, LoadingIcon, NavigateBeforeIcon, NavigateNextIcon, Select, T, Tooltip } from '../../atoms';
+import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, Select, SpinIcon, T, Tooltip } from '../../atoms';
 import { PaginationProps } from './types';
 
 const SIZE_PAGES = 3;
@@ -110,7 +110,7 @@ export const Pagination = (props: PaginationProps) => {
                     className={classNames('page-item jk-row jk-border-radius cr-g3', { selected: startPage === page })}
                     onClick={() => jumpToPage(startPage)}
                   >
-                    {loading && startPage === page ? <LoadingIcon /> : startPage}
+                    {loading && startPage === page ? <SpinIcon /> : startPage}
                   </div>
                   {startPage + 1 < pages[0] && (
                     <div className="jk-row" onClick={() => jumpToPage(Math.max(page - SIZE_PAGES, startPage))}>
@@ -128,7 +128,7 @@ export const Pagination = (props: PaginationProps) => {
                   })}
                   onClick={() => jumpToPage(index)}
                 >
-                  {loading && index === page ? <LoadingIcon /> : index}
+                  {loading && index === page ? <SpinIcon /> : index}
                 </div>
               ))}
               {pages[pages.length - 1] < endPage && (
@@ -142,7 +142,7 @@ export const Pagination = (props: PaginationProps) => {
                     className={classNames('page-item jk-row jk-border-radius cr-g3', { selected: endPage === page })}
                     onClick={() => jumpToPage(endPage)}
                   >
-                    {loading && endPage === page ? <LoadingIcon /> : endPage}
+                    {loading && endPage === page ? <SpinIcon /> : endPage}
                   </div>
                 </>
               )}

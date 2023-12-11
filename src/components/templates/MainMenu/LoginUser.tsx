@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
-import { Button, LoadingIcon, LoginIcon, LogoutIcon, Popover, T } from '../../atoms';
+import { Button, LoginIcon, LogoutIcon, Popover, SpinIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 
 interface LoginUserProps {
@@ -20,7 +20,7 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
   const [ visible, setVisible ] = useState(false);
   
   if (isLoading) {
-    return <div className="jk-row"><LoadingIcon className="cr-we" /></div>;
+    return <div className="jk-row"><SpinIcon className="cr-we" /></div>;
   }
   
   if (user.isLogged) {
