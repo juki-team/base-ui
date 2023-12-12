@@ -49,7 +49,7 @@ type ApiParamsBodyType<T, U, V> = ApiType<V> & {
 
 export const useJukiUser = () => {
   
-  const { user, isLoading, setUser, mutate, company, socket, device } = useContext(UserContext);
+  const { user, isLoading, isValidating, setUser, mutate, company, socket, device } = useContext(UserContext);
   const { notifyResponse, addErrorNotification } = useNotification();
   const { matchMutate } = useMatchMutate();
   
@@ -171,6 +171,7 @@ export const useJukiUser = () => {
     user,
     setUser,
     isLoading,
+    isValidating,
     mutatePing: mutate,
     refreshAllRequest,
     signIn,

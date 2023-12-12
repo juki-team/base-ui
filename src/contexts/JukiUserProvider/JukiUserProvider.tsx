@@ -33,6 +33,7 @@ const useUser = () => {
   const {
     data,
     isLoading,
+    isValidating,
     mutate,
   } = useFetcher<ContentResponseType<PingResponseDTO>>(
     jukiSettings.getAPI().auth.ping().url,
@@ -87,6 +88,7 @@ const useUser = () => {
     company,
     setUser,
     isLoading,
+    isValidating,
     mutate,
   };
 };
@@ -105,7 +107,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     socket.start();
   }, [ socket, tokenName, serviceApiUrl, socketServiceUrl, utilsUiUrl ]);
   
-  const { user, company, setUser, isLoading, mutate } = useUser();
+  const { user, company, setUser, isLoading, isValidating, mutate } = useUser();
   
   useEffect(() => {
     if (isPageVisible) {
@@ -122,7 +124,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   };
   
   return (
-    <UserContext.Provider value={{ user, company, setUser, isLoading, mutate, socket, device }}>
+    <UserContext.Provider value={{ user, company, setUser, isLoading, isValidating, mutate, socket, device }}>
       {children}
     </UserContext.Provider>
   );
