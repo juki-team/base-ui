@@ -7,10 +7,9 @@ import {
 } from '@juki-team/commons';
 import React, { CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { settings } from '../../../../config';
-import { classNames } from '../../../../helpers';
+import { jukiSettings } from '../../../../config';
+import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
 import { useNotification } from '../../../../hooks';
-import { authorizedRequest, cleanRequest } from '../../../../services';
 import { Button, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, Select, SettingsIcon, T } from '../../../atoms';
 import { ButtonLoader, ButtonLoaderOnClickType } from '../../../molecules';
 import { HeaderProps } from '../types';
@@ -50,7 +49,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     }
     onChange?.({ testCases: newTestCases });
     try {
-      const { url, ...options } = settings.getAPI().code.run({
+      const { url, ...options } = jukiSettings.getAPI().code.run({
         body: {
           language: language as string,
           source: sourceCode,

@@ -1,7 +1,7 @@
 import { CompanyPingType, USER_GUEST, UserPingType } from '@juki-team/commons';
 import { createContext, Dispatch, SetStateAction } from 'react';
 import { KeyedMutator } from 'swr';
-import { SocketIo } from '../../services';
+import { SocketIo } from './SocketIo';
 import { DeviceType } from './types';
 
 export const UserContext = createContext<{

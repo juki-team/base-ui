@@ -6,7 +6,7 @@ import {
   ImageLoaderCropper as ImageLoaderCropperCmp,
   ImageLoaderCropperProps,
 } from '../../../components';
-import { downloadBlobAsFile, toBlob } from '../../../utils';
+import { downloadBlobAsFile, toBlob } from '../../../helpers';
 import { MockupJukiProvider } from '../../mockup';
 // import { COMPONENTS_WRITING_TOOLS } from './constants';
 

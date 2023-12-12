@@ -14,10 +14,9 @@ import {
 import React, { useCallback, useContext, useState } from 'react';
 import { T } from '../components/atoms/T';
 import { LoginFormType } from '../components/templates/MainMenu/LoginModalTemplate/types';
-import { settings } from '../config';
+import { jukiSettings } from '../config';
 import { UserContext } from '../contexts/JukiUserProvider/context';
-import { localStorageCrossDomains } from '../helpers';
-import { authorizedRequest, cleanRequest } from '../services';
+import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../helpers';
 import {
   AuthorizedRequestType,
   SetStatusType,
@@ -55,7 +54,7 @@ export const useJukiUser = () => {
   const { matchMutate } = useMatchMutate();
   
   const refreshAllRequest = useCallback(async () => {
-    await matchMutate(new RegExp(`^${settings.SERVICE_API_URL}`, 'g'));
+    await matchMutate(new RegExp(`^${jukiSettings.SERVICE_API_URL}`, 'g'));
   }, [ matchMutate ]);
   
   const doRequest = useCallback(async <T, >(
@@ -77,9 +76,9 @@ export const useJukiUser = () => {
   const signIn = useCallback(async (
     { body, onSuccess, ...props }: ApiBodyType<LoginFormType & { deviceName: string, osName: string }, PingResponseDTO>,
   ) => {
-    const { url, ...options } = settings.getAPI().auth.signIn({ body });
+    const { url, ...options } = jukiSettings.getAPI().auth.signIn({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
-      localStorageCrossDomains.setItem(settings.TOKEN_NAME, response.content.user.sessionId);
+      localStorageCrossDomains.setItem(jukiSettings.TOKEN_NAME, response.content.user.sessionId);
       setUser({ ...response.content.user, isLogged: true });
       await refreshAllRequest();
       await onSuccess?.(response);
@@ -93,9 +92,9 @@ export const useJukiUser = () => {
       deviceName: string
     }, PingResponseDTO>,
   ) => {
-    const { url, ...options } = settings.getAPI().auth.signUp({ body });
+    const { url, ...options } = jukiSettings.getAPI().auth.signUp({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
-      localStorageCrossDomains.setItem(settings.TOKEN_NAME, response.content.user.sessionId);
+      localStorageCrossDomains.setItem(jukiSettings.TOKEN_NAME, response.content.user.sessionId);
       setUser({ ...response.content.user, isLogged: true });
       await refreshAllRequest();
       await onSuccess?.(response);
@@ -106,42 +105,42 @@ export const useJukiUser = () => {
   const createUser = useCallback(async (
     { body, ...props }: ApiBodyType<SignUpPayloadDTO & { companyKey: string }, PingResponseDTO>,
   ) => {
-    const { url, ...options } = settings.getAPI().auth.signUp({ body });
+    const { url, ...options } = jukiSettings.getAPI().auth.signUp({ body });
     await doRequest<PingResponseDTO>({ url, options, ...props });
   }, [ doRequest ]);
   
   const updateUserProfileData = useCallback(async (
     { params, body, ...props }: ApiParamsBodyType<{ nickname: string }, UpdateUserProfileDataPayloadDTO, string>,
   ) => {
-    const { url, ...options } = settings.getAPI().user.updateProfileData({ params, body });
+    const { url, ...options } = jukiSettings.getAPI().user.updateProfileData({ params, body });
     await doRequest<string>({ url, options, ...props });
   }, [ doRequest ]);
   
   const updateUserProfileImage = useCallback(async (
     { params, body, ...props }: ApiParamsBodyType<{ nickname: string }, FormData, string>,
   ) => {
-    const { url, ...options } = settings.getAPI().user.updateProfileImage({ params, body });
+    const { url, ...options } = jukiSettings.getAPI().user.updateProfileImage({ params, body });
     await doRequest<string>({ url, options, ...props });
   }, [ doRequest ]);
   
   const updatePassword = useCallback(async ({ body, ...props }: ApiBodyType<UpdatePasswordPayloadDTO, string>) => {
-    const { url, ...options } = settings.getAPI().auth.updatePassword({ body });
+    const { url, ...options } = jukiSettings.getAPI().auth.updatePassword({ body });
     await doRequest<string>({ url, options, ...props });
   }, [ doRequest ]);
   
   const resetUserPassword = useCallback(async (
     { params: { companyKey, nickname }, ...props }: ApiParamsType<{ companyKey: string, nickname: string }, string>,
   ) => {
-    const { url, ...options } = settings.getAPI().auth.resetPassword({ params: { companyKey, nickname } });
+    const { url, ...options } = jukiSettings.getAPI().auth.resetPassword({ params: { companyKey, nickname } });
     await doRequest<string>({ url, options, ...props });
   }, [ doRequest ]);
   
   const logout = useCallback(async ({ onError, onFinally, ...props }: ApiType<string>) => {
     
-    const { url, ...options } = settings.getAPI().auth.signOut();
+    const { url, ...options } = jukiSettings.getAPI().auth.signOut();
     
     const onFinallyWrap = async (response: ErrorResponseType | ContentResponseType<string>) => {
-      localStorageCrossDomains.removeItem(settings.TOKEN_NAME);
+      localStorageCrossDomains.removeItem(jukiSettings.TOKEN_NAME);
       setUser(USER_GUEST);
       await refreshAllRequest();
       await onFinally?.(response);
@@ -156,14 +155,14 @@ export const useJukiUser = () => {
   }, [ addErrorNotification, doRequest, refreshAllRequest, setUser ]);
   
   const deleteUserSession = useCallback(async ({ params, ...props }: ApiParamsType<{ sessionId: string }, string>) => {
-    const { url, ...options } = settings.getAPI().user.deleteSession({ params });
+    const { url, ...options } = jukiSettings.getAPI().user.deleteSession({ params });
     await doRequest<string>({ url, options, ...props });
   }, [ doRequest ]);
   
   const updateUserPreferences = useCallback(async (
     { params, body, ...props }: ApiParamsBodyType<{ nickname: string }, UserSettingsType, string>,
   ) => {
-    const { url, ...options } = settings.getAPI().user.updatePreferences({ params, body });
+    const { url, ...options } = jukiSettings.getAPI().user.updatePreferences({ params, body });
     await doRequest<string>({ url, options, ...props });
   }, [ doRequest ]);
   

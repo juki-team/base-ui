@@ -1,6 +1,6 @@
 import { ContentsResponseType, UserSummaryResponseDTO } from '@juki-team/commons';
 import React, { useEffect, useMemo, useState } from 'react';
-import { settings } from '../../../config';
+import { jukiSettings } from '../../../config';
 import { useFetcher } from '../../../hooks';
 import { Button, Modal, PeopleIcon, ReloadIcon, SpinIcon, T, TextArea, Tooltip } from '../../atoms';
 import { MultiSelectSearchable } from '../../molecules';
@@ -17,7 +17,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
   } = props;
   
   const { isLoading, data, mutate } = useFetcher<ContentsResponseType<UserSummaryResponseDTO>>(
-    settings.getAPI().user.summaryList({ params: { companyKey } }).url,
+    jukiSettings.getAPI().user.summaryList({ params: { companyKey } }).url,
   );
   const [ show, setShow ] = useState(false);
   const [ text, setText ] = useState('');

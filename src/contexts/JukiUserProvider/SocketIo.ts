@@ -1,16 +1,22 @@
 import { consoleInfo, consoleWarn, ContentResponseType, SocketEvent } from '@juki-team/commons';
 import io, { Socket } from 'socket.io-client';
-import { settings } from '../config';
 
 export class SocketIo {
   private _socket: null | Socket = null;
   private _sessionId = '';
+  private readonly _socketServiceUrl: string;
+  private readonly _tokenName: string;
+  
+  constructor(socketServiceUrl: string, tokenName: string) {
+    this._socketServiceUrl = socketServiceUrl;
+    this._tokenName = tokenName;
+  }
   
   start() {
     if (this._socket) {
       this._socket.disconnect();
     }
-    this._socket = io(settings.getAPI().websocket.connect().url, {
+    this._socket = io(this._socketServiceUrl, {
       withCredentials: true,
       transports: [ 'websocket' ],
       autoConnect: false,
@@ -55,7 +61,7 @@ export class SocketIo {
   }
   
   async joinSession() {
-    this._sessionId = localStorage.getItem(settings.TOKEN_NAME) || '';
+    this._sessionId = localStorage.getItem(this._tokenName) || '';
     if (this._sessionId) {
       try {
         const response = await this.emitAsync(SocketEvent.SIGN_IN, this._sessionId);

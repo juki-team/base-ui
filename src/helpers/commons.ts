@@ -1,9 +1,9 @@
 import { stringToArrayBuffer } from '@juki-team/commons';
 import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
 import { utils, write } from 'xlsx';
-import { settings } from '../config';
-import { authorizedRequest } from '../services';
+import { jukiSettings } from '../config';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerActionsType } from '../types';
+import { authorizedRequest } from './fetch';
 import { publishNote } from './utils';
 
 export const getTextContent = (elem: ReactNode): string => {
@@ -93,7 +93,7 @@ export const downloadJukiMarkdownAdPdf = async (source: string, fileName: string
   const url = await publishNote(source);
   if (url) {
     const result = await authorizedRequest(
-      settings.getAPI().note.pdf({ params: { sourceUrl: url } }).url, { responseType: 'blob' },
+      jukiSettings.getAPI().note.pdf({ params: { sourceUrl: url } }).url, { responseType: 'blob' },
     );
     await downloadBlobAsFile(result, fileName);
   } else {

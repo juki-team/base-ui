@@ -1,8 +1,8 @@
 import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
 import { useMemo } from 'react';
 import useSWR, { SWRConfiguration } from 'swr';
-import { settings } from '../config';
-import { authorizedRequest, cleanRequest } from '../services';
+import { jukiSettings } from '../config';
+import { authorizedRequest, cleanRequest } from '../helpers';
 
 const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
   return authorizedRequest(url, { token });
@@ -13,7 +13,7 @@ export const useFetcher = <T extends (ContentResponseType<any> | ContentsRespons
   let token = '';
   
   if (typeof window !== 'undefined') {
-    token = localStorage.getItem(settings.TOKEN_NAME) || '';
+    token = localStorage.getItem(jukiSettings.TOKEN_NAME) || '';
   }
   
   const { data, error, mutate, isValidating, isLoading } = useSWR(

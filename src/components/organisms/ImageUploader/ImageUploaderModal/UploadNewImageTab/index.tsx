@@ -1,6 +1,6 @@
 import { Status } from '@juki-team/commons';
 import React, { memo, useState } from 'react';
-import { settings } from '../../../../../config';
+import { jukiSettings } from '../../../../../config';
 import { toBlob } from '../../../../../helpers';
 import { useNotification } from '../../../../../hooks';
 import { Button, ContentCopyIcon, CopyToClipboard, T } from '../../../../atoms';
@@ -22,7 +22,7 @@ export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl }: UploadNe
     const formData = new FormData();
     formData.append('image', image);
     try {
-      const { url, ...options } = settings.getAPI().image.create({ body: formData });
+      const { url, ...options } = jukiSettings.getAPI().image.create({ body: formData });
       const data = await (await fetch(url, options)).json();
       if (data.success) {
         return { status: Status.SUCCESS, message: data.message, content: data.content };

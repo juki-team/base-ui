@@ -38,22 +38,22 @@ export default [
     // external: [ ...Object.keys(pkg.peerDependencies || {}) ],
     plugins,
   },
-  {
-    input: 'src/utils/index.ts',
-    output: [
-      {
-        file: 'dist/cjs/utils.js',
-        // dir: 'dist/cjs',
-        format: 'cjs',
-        sourcemap: true,
-      },
-      {
-        file: 'dist/esm/utils.es.js',
-        // dir: 'dist/esm',
-        format: 'esm',
-        sourcemap: true,
-      },
-    ],
-    plugins,
-  },
+  // {
+  //   input: 'src/utils/index.ts',
+  //   output: [
+  //     {
+  //       file: 'dist/cjs/utils.js',
+  //       // dir: 'dist/cjs',
+  //       format: 'cjs',
+  //       sourcemap: true,
+  //     },
+  //     {
+  //       file: 'dist/esm/utils.es.js',
+  //       // dir: 'dist/esm',
+  //       format: 'esm',
+  //       sourcemap: true,
+  //     },
+  //   ],
+  //   plugins,
+  // },
 ];

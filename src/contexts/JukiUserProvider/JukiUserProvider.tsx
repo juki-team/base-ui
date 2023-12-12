@@ -21,11 +21,11 @@ import {
   osName,
   osVersion,
 } from 'react-device-detect';
-import { settings } from '../../config';
+import { jukiSettings } from '../../config';
 import { localStorageCrossDomains } from '../../helpers';
 import { useFetcher, useJukiPage } from '../../hooks';
-import { SocketIo } from '../../services';
 import { UserContext } from './context';
+import { SocketIo } from './SocketIo';
 import { DeviceType, JukiUserProviderProps } from './types';
 
 const useUser = () => {
@@ -35,7 +35,7 @@ const useUser = () => {
     isLoading,
     mutate,
   } = useFetcher<ContentResponseType<PingResponseDTO>>(
-    settings.getAPI().auth.ping().url,
+    jukiSettings.getAPI().auth.ping().url,
     { refreshInterval: 1000 * 60 * 5 },
   );
   
@@ -67,7 +67,7 @@ const useUser = () => {
           },
         });
       }
-      localStorageCrossDomains.setItem(settings.TOKEN_NAME, data?.content.user.sessionId);
+      localStorageCrossDomains.setItem(jukiSettings.TOKEN_NAME, data?.content.user.sessionId);
     } else {
       setUser({
         ...USER_GUEST,
@@ -97,10 +97,10 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   
   const { isPageVisible } = useJukiPage();
   
-  const socket = useMemo(() => new SocketIo(), []);
+  const socket = useMemo(() => new SocketIo(socketServiceUrl, tokenName), [ socketServiceUrl, tokenName ]);
   
   useEffect(() => {
-    settings.setSetting(serviceApiUrl, socketServiceUrl, utilsUiUrl, tokenName);
+    jukiSettings.setSetting(serviceApiUrl, utilsUiUrl, tokenName);
     socket.stop();
     socket.start();
   }, [ socket, tokenName, serviceApiUrl, socketServiceUrl, utilsUiUrl ]);

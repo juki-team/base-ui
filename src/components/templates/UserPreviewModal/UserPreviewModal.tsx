@@ -1,7 +1,7 @@
 import { ContentResponseType, Status, UserBasicResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import { settings } from '../../../config';
+import { jukiSettings } from '../../../config';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
 import { Button, ContentCopyIcon, LocationOnIcon, MailIcon, Modal, OpenInNewIcon, SchoolIcon, T } from '../../atoms';
@@ -21,7 +21,7 @@ export const UserPreviewModal = ({ isOpen, nickname, onClose, userHref }: UserPr
       closeIcon={false}
     >
       <FetcherLayer<ContentResponseType<UserBasicResponseDTO>>
-        url={settings.getAPI().user.summary({ params: { nickname } }).url}
+        url={jukiSettings.getAPI().user.summary({ params: { nickname } }).url}
         onError={(error) => onClose(() => () => Status.ERROR, Status.ERROR, { fetcherLayerErrorEvent: error })}
       >
         {({ data }) => (

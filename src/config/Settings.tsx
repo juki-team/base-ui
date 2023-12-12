@@ -12,7 +12,6 @@ export class Settings {
   private _SERVICE_API_URL = '';
   private _UTILS_UI_URL = '';
   private _TOKEN_NAME = '';
-  private _SERVICE_SOCKET_URL = '';
   private _ON_ERROR = (error: any) => consoleWarn('an error happened', { error });
   
   get SERVICE_API_URL(): string {
@@ -25,10 +24,6 @@ export class Settings {
   
   get TOKEN_NAME(): string {
     return this._TOKEN_NAME;
-  }
-  
-  get SERVICE_SOCKET_URL(): string {
-    return this._SERVICE_SOCKET_URL;
   }
   
   get reportError(): (error: any) => void {
@@ -210,17 +205,11 @@ export class Settings {
           body: JSON.stringify(body),
         })),
       },
-      websocket: {
-        connect: () => ({
-          url: this._SERVICE_SOCKET_URL,
-        }),
-      },
     };
   }
   
-  setSetting(serviceApiUrl: string, socketServiceUrl: string, utilsUiUrl: string, tokenName: string) {
+  setSetting(serviceApiUrl: string, utilsUiUrl: string, tokenName: string) {
     this._SERVICE_API_URL = serviceApiUrl;
-    this._SERVICE_SOCKET_URL = socketServiceUrl;
     this._UTILS_UI_URL = utilsUiUrl;
     this._TOKEN_NAME = tokenName;
   }

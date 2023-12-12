@@ -1,7 +1,7 @@
 import { consoleWarn, ContentResponseType } from '@juki-team/commons';
 import { Dispatch, SetStateAction } from 'react';
-import { settings } from '../config';
-import { authorizedRequest, cleanRequest } from '../services';
+import { jukiSettings } from '../config';
+import { authorizedRequest, cleanRequest } from './fetch';
 
 export const openNewTab = (url: string) => {
   const newWindow = window?.open(url, '_blank', 'noopener,noreferrer');
@@ -11,7 +11,7 @@ export const openNewTab = (url: string) => {
 };
 
 export const publishNote = async (source: string) => {
-  const { url, ...options } = settings.getAPI().note.publish({ body: { source: source.trim() } });
+  const { url, ...options } = jukiSettings.getAPI().note.publish({ body: { source: source.trim() } });
   const request = cleanRequest<ContentResponseType<{ sourceUrl: string }>>(
     await authorizedRequest(url, options),
   );
@@ -31,10 +31,10 @@ export const handleShareMdPdf = (type: string, source: string, sourceUrl: string
   if (url) {
     openNewTab((
       type === 'md-fullscreen'
-        ? settings.getAPI().note.viewFullscreen({ params: { sourceUrl: url } }).url
+        ? jukiSettings.getAPI().note.viewFullscreen({ params: { sourceUrl: url } }).url
         : type === 'md'
-          ? settings.getAPI().note.view({ params: { sourceUrl: url } }).url
-          : settings.getAPI().note.pdf({ params: { sourceUrl: url } }).url
+          ? jukiSettings.getAPI().note.view({ params: { sourceUrl: url } }).url
+          : jukiSettings.getAPI().note.pdf({ params: { sourceUrl: url } }).url
     ));
   } else {
     throw new Error('no url generated');

@@ -8,10 +8,9 @@ import {
   Status,
 } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
-import { settings } from '../../../config';
-import { classNames } from '../../../helpers';
+import { jukiSettings } from '../../../config';
+import { authorizedRequest, classNames, cleanRequest } from '../../../helpers';
 import { useJukiUser, useNotification } from '../../../hooks';
-import { authorizedRequest, cleanRequest } from '../../../services';
 import { DownloadIcon, Input, ReloadIcon, Select, SpinIcon, T, Tooltip } from '../../atoms';
 import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { JudgeDataType, ProblemSelectorProps } from './types';
@@ -29,7 +28,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
       setData(prevState => (
         { ...prevState, [judge]: { problems: prevState[judge]?.problems || [], loading: true } }
       ));
-      const { url } = settings.getAPI()
+      const { url } = jukiSettings.getAPI()
         .problem
         .list({ params: { page: 1, size: 100000, filterUrl: `judge=${judge}` } });
       // TODO: change limit of problems
@@ -104,7 +103,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
           <ButtonLoader
             onClick={async (setLoaderStatus) => {
               setLoaderStatus(Status.LOADING);
-              const { url } = settings.getAPI()
+              const { url } = jukiSettings.getAPI()
                 .problem
                 .summary({ params: { judge, key } });
               const response = cleanRequest<ContentResponseType<ProblemSummaryListResponseDTO>>(

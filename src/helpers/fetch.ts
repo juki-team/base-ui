@@ -8,7 +8,7 @@ import {
   HTTPMethod,
   isStringJson,
 } from '@juki-team/commons';
-import { settings } from '../config';
+import { jukiSettings } from '../config';
 import { AuthorizedRequestType } from '../types'
 
 export const cleanRequest = <T extends ContentResponseType<any> | ContentsResponseType<any>>(responseText: string): (ErrorResponseType | T) => {
@@ -19,7 +19,7 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
       message: ERROR[ErrorCode.ERR9999].message,
       errors: [ { code: ErrorCode.ERR9999, detail: '', message: ERROR[ErrorCode.ERR9999].message } ],
     };
-    settings.reportError({ message: 'success false on cleaning request', responseText, response });
+    jukiSettings.reportError({ message: 'success false on cleaning request', responseText, response });
     return response;
   }
   const responseJson = JSON.parse(responseText);
@@ -43,7 +43,7 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
         message: responseJson.message,
         errors: responseJson.errors,
       };
-      settings.reportError({ message: 'success false on cleaning request', responseText, response });
+      jukiSettings.reportError({ message: 'success false on cleaning request', responseText, response });
       return response;
     }
   }
@@ -52,7 +52,7 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
     message: ERROR[ErrorCode.ERR9998].message,
     errors: [ { code: ErrorCode.ERR9998, detail: '', message: ERROR[ErrorCode.ERR9998].message } ],
   };
-  settings.reportError({ message: 'success false on cleaning request', responseText, response });
+  jukiSettings.reportError({ message: 'success false on cleaning request', responseText, response });
   return response;
 };
 
@@ -67,9 +67,7 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
     requestHeaders.set('Content-Type', 'application/json');
   }
   
-  
-  const token = options?.token || localStorage.getItem(settings.TOKEN_NAME);
-  console.log('authorizedRequest', { token, options, settings, tokenName: settings.TOKEN_NAME });
+  const token = options?.token || localStorage.getItem(jukiSettings.TOKEN_NAME);
   
   if (token) {
     requestHeaders.set('Authorization', `Bearer ${token}`);
