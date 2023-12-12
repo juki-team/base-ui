@@ -170,7 +170,7 @@ export const TableHead = <T, >(props: TableHeadProps<T>) => {
               onMouseHoldUp={onMouseHoldUp}
               onMouseHoldDown={onMouseHoldDown}
               loading={loading}
-              headers={headers}
+              headers={headersNoSticky}
             />
           )))}
         </div>

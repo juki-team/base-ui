@@ -62,7 +62,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
       let accumulatedWidth = 0;
       headers.forEach(({ minWidth = minCellWidth, index }) => {
         const percentage = minWidth / totalWidth;
-        newHeaderWidths[index] = { width: minWidth + (extra * percentage), minWidth, accumulatedWidth };
+        newHeaderWidths[index] = { width: Math.floor(minWidth + (extra * percentage)), minWidth, accumulatedWidth };
         accumulatedWidth += newHeaderWidths[index].width;
       });
       setHeaderWidths(newHeaderWidths);

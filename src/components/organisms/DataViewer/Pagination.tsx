@@ -54,7 +54,7 @@ export const Pagination = (props: PaginationProps) => {
     <div className={classNames('jk-data-viewer-pagination jk-row gap center', { loading })}>
       <div className="jk-row center nowrap">
         {isOnToolbar ? (
-          <div className="jk-row nowrap">
+          <div className="jk-row gap nowrap">
             <div className="jk-row nowrap">
               <Tooltip content={<T>previous</T>}>
                 <div
@@ -64,6 +64,7 @@ export const Pagination = (props: PaginationProps) => {
                   <NavigateBeforeIcon className="jk-br-ie clickable" />
                 </div>
               </Tooltip>
+              &nbsp;
               <Tooltip
                 content={(
                   <div className="jk-row nowrap">
@@ -73,6 +74,7 @@ export const Pagination = (props: PaginationProps) => {
               >
                 <div className="jk-row nowrap">{page}&nbsp;<T>of</T>&nbsp;{endPage}</div>
               </Tooltip>
+              &nbsp;
               <Tooltip content={<T>next</T>}>
                 <div
                   className={classNames('page-item jk-row jk-border-radius', { disabled: page === endPage })}

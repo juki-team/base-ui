@@ -1,18 +1,18 @@
-import { DataViewMode } from '@juki-team/commons';
-import React, { Children, useCallback } from 'react';
+import { DataViewMode, Status } from '@juki-team/commons';
+import React, { Children, useCallback, useEffect, useRef } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
 import { useJukiRouter, useJukiUI } from '../../../hooks';
 import {
   FilterListIcon,
-  LoadingIcon,
   MenuIcon,
   Popover,
-  ReloadIcon,
+  RefreshIcon,
   T,
   Tooltip,
   ViewHeadlineIcon,
   ViewModuleIcon,
 } from '../../atoms';
+import { ButtonLoader, SetLoaderStatusOnClickType } from '../../molecules';
 import { FilterDrawer } from './FilterDrawer';
 import { Pagination } from './Pagination';
 import { DataViewerToolbarProps } from './types';
@@ -44,12 +44,39 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const { searchParams, setSearchParams } = useJukiRouter();
   
+  const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
+  
   const showFilterDrawer = searchParams.get(showFilterDrawerKey) === 'open' ? 'open' : 'close';
   const setShowFilterDrawer = useCallback((show: boolean) => {
     setSearchParams({ name: showFilterDrawerKey, value: show ? 'open' : 'close' });
   }, [ setSearchParams, showFilterDrawerKey ]);
   const isMobileViewPort = viewPortSize === 'sm';
-  const viewFilterButton = !!headers.filter(head => head.filter || head.sort).length;
+  const viewFilterButton = !!headers.filter(head => head.filter || head.sort).length && (viewMode === DataViewMode.CARDS ? true : isMobileViewPort);
+  
+  useEffect(() => {
+    if (loading) {
+      setLoaderRef.current?.(Status.LOADING);
+    } else {
+      setLoaderRef.current?.(Status.NONE);
+    }
+  }, [ loading ]);
+  
+  const reloadSection = (
+    <>
+      <Tooltip
+        content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
+      >
+        <ButtonLoader
+          icon={<RefreshIcon />}
+          size="small"
+          type="light"
+          onClick={onReload}
+          setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
+        />
+      </Tooltip>
+      <div className="jk-divider horizontal" />
+    </>
+  );
   
   return (
     <div
@@ -73,7 +100,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
         className={classNames('jk-table-view-tools', {
           'jk-row nowrap': onColumn,
           'jk-col stretch': !onColumn,
-          gap: onColumn && !isMobileViewPort,
+          gap: onColumn || isMobileViewPort,
           'center': !(onColumn && !isMobileViewPort),
         })}
       >
@@ -83,22 +110,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
             extend: !(viewFilterButton || viewViews),
           })}
         >
-          
-          {onReload && (
-            <>
-              <Tooltip
-                content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
-              >
-                <div
-                  className={classNames({ active: loading, loading }, 'jk-button-light only-icon small')}
-                  onClick={!loading ? onReload : undefined}
-                >
-                  {loading ? <LoadingIcon /> : <ReloadIcon />}
-                </div>
-              </Tooltip>
-              <div className="jk-divider horizontal" />
-            </>
-          )}
+          {onReload && !isMobileViewPort && reloadSection}
           <Tooltip
             content={
               dataLength
@@ -116,7 +128,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
             <>
               <Pagination
                 loading={loading}
-                pageSizeOptions={isMobileViewPort ? [ 16 ] : paginationData.pageSizeOptions}
+                pageSizeOptions={isMobileViewPort ? [ 20 ] : paginationData.pageSizeOptions}
                 total={paginationData.pagination.total}
                 page={paginationData.page}
                 pageSize={paginationData.pageSize}
@@ -128,6 +140,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
           )}
         </div>
         <div className={classNames('jk-row nowrap', { gap: onColumn })}>
+          {onReload && isMobileViewPort && reloadSection}
           {viewFilterButton && (
             <>
               {onColumn && <div className="jk-divider horizontal" />}
@@ -153,9 +166,10 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                     >
                       <ViewHeadlineIcon
                         className={classNames(
-                          'jk-br-ie',
+                          // 'jk-br-ie',
                           { clickable: viewMode === DataViewMode.CARDS },
                         )}
+                        style={{ borderRadius: 4 }}
                       />
                     </div>
                   </Tooltip>
@@ -168,9 +182,10 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                     >
                       <ViewModuleIcon
                         className={classNames(
-                          'jk-br-ie',
+                          // 'jk-br-ie',
                           { clickable: viewMode === DataViewMode.ROWS },
                         )}
+                        style={{ borderRadius: 4 }}
                       />
                     </div>
                   </Tooltip>
