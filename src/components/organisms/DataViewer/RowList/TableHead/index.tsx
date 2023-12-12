@@ -38,7 +38,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
   
   return (
     <div
-      className={classNames('jk-row gap nowrap jk-table-head-cell', {
+      className={classNames('jk-row nowrap jk-table-head-cell', {
         'with-sort': !!onSort,
         'with-filter': !!filter?.onFilter,
         sticky: !!sticky,
@@ -49,7 +49,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
       style={{ width: width + 'px' }}
     >
       <div className="jk-table-head-field">{renderHead({ head, columnIndex })}</div>
-      <div className="jk-row gap jk-table-head-tools">
+      <div className="jk-row jk-table-head-tools">
         {onSort && (
           <div
             className={classNames('jk-button-light only-icon small tool', {
@@ -81,7 +81,9 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
   );
 };
 
-export const TableHead = <T, >({ headers, headerWidths, setHeaderWidths, scrollLeft, loading }: TableHeadProps<T>) => {
+export const TableHead = <T, >(props: TableHeadProps<T>) => {
+  
+  const { headers, headerWidths, setHeaderWidths, scrollLeft, scrollTop, loading } = props;
   
   const [ dragging, setDragging ] = useState({ columnIndex: '', nextColumnIndex: '' });
   
@@ -138,7 +140,7 @@ export const TableHead = <T, >({ headers, headerWidths, setHeaderWidths, scrollL
   const headersNoSticky = headers.filter(({ sticky }) => !sticky);
   
   return (
-    <div className="jk-table-head-container">
+    <div className={classNames('jk-table-head-container', { withVerticalScroll: !!scrollTop })}>
       <div className="jk-table-head" onMouseLeave={onMouseHoldUp}>
         <div className={classNames('jk-table-head-sticky', { 'elevation-1': !!scrollLeft })}>
           {Children.toArray(headersSticky.map((head, index) => (

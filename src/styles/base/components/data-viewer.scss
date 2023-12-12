@@ -50,12 +50,15 @@
   
   .jk-data-viewer-content {
     height: 100%;
+    background: var(--t-color-white);
+    border: 1px solid var(--t-color-shadow-lightest);
     
     --jk-table-toolbar-height: 50px; // 48 + 2 (border)
     
     .jk-data-viewer-toolbar {
       height: var(--jk-table-toolbar-height);
       position: relative;
+      border-bottom: 1px solid var(--t-color-shadow-light);
       
       &.cards {
         //background-color: var(--t-color-white);
@@ -200,7 +203,7 @@
               //right: 0;
               //top: 0;
               //position: absolute;
-              padding-right: 4px;
+              //padding-right: 4px;
             }
             
             .jk-table-head-drag {
@@ -230,7 +233,7 @@
           }
         }
         
-        &::before {
+        &.withVerticalScroll::before {
           content: "";
           position: absolute;
           width: 100%;
@@ -238,6 +241,11 @@
           height: 1px;
           bottom: 0;
           z-index: 3;
+          border-bottom: 1px solid var(--t-color-shadow-light);
+        }
+        
+        &:not(.withVerticalScroll) {
+          border-bottom: 1px solid var(--t-color-shadow-light);
         }
       }
       
@@ -287,7 +295,8 @@
           top: 0;
           left: 0;
           z-index: 1;
-          @extend .jk-br-ie;
+          //@extend .jk-br-ie;
+          border-bottom-left-radius: var(--border-radius-inline);
         }
         
         &:not(.scroll-on-top).scroll-on-bottom:before {
@@ -322,9 +331,10 @@
             flex-direction: column;
             justify-content: space-evenly;
             background-color: var(--t-color-white);
+            border: 1px solid var(--t-color-shadow-light);
             
             &.hovered {
-              outline: calc(var(--pad-md) / 9) solid var(--t-color-white);
+              //outline: calc(var(--pad-md) / 9) solid var(--t-color-white);
             }
             
             .top-container, .center-container, .bottom-container {
@@ -471,16 +481,15 @@
   
   .tool {
     color: var(--t-color-gray-3);
+    padding: 4px !important;
+    margin-left: 2px;
+    outline: none;
     //box-sizing: border-box;
     //height: var(--jk-table-toolbar-height);
     //padding: var(--pad-xt) 4px;
     //cursor: pointer;
-    
-    @include md {
-      padding: var(--pad-xt) 0;
-    }
-    @include sm {
-      padding: var(--pad-xt) 0;
+    &:not(:hover) {
+      background: transparent;
     }
     
     &.active {

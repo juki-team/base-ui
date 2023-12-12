@@ -83,19 +83,22 @@ export const VirtualizedRowsFixed = ({
   );
 };
 
-export const RowVirtualizerFixed = <T, >({
-                                           data,
-                                           headers,
-                                           rowHeight,
-                                           scrollLeft,
-                                           setScrollLeft,
-                                           getRecordStyle,
-                                           getRecordClassName,
-                                           getRecordKey,
-                                           onRecordClick,
-                                           setRecordHoveredIndex,
-                                           recordHoveredIndex,
-                                         }: RowVirtualizerFixedProps<T>) => {
+export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => {
+  
+  const {
+    data,
+    headers,
+    rowHeight,
+    scrollLeft,
+    setScrollLeft,
+    setScrollTop,
+    getRecordStyle,
+    getRecordClassName,
+    getRecordKey,
+    onRecordClick,
+    setRecordHoveredIndex,
+    recordHoveredIndex,
+  } = props;
   
   const renderRowField = (virtualRow: VirtualItem) => ({
                                                          field,
@@ -121,7 +124,10 @@ export const RowVirtualizerFixed = <T, >({
       ref={parentRef}
       style={{ height: '100%', overflow: 'auto' }}
       className={classNames('jk-table-rows-container')}
-      onScroll={({ currentTarget }: SyntheticEvent<HTMLDivElement>) => setScrollLeft(currentTarget.scrollLeft || 0)}
+      onScroll={({ currentTarget }: SyntheticEvent<HTMLDivElement>) => {
+        setScrollLeft(currentTarget.scrollLeft || 0);
+        setScrollTop(currentTarget.scrollTop || 0);
+      }}
     >
       <VirtualizedRowsFixed
         size={data.length}

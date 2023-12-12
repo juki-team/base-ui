@@ -58,8 +58,8 @@
           .jk-data-viewer-toolbar.cards {
             //background-color: transparent;
             //border-bottom: 1px solid var(--t-color-gray-5);
-            @extend .jk-border-radius-inline;
-            box-sizing: border-box;
+            //@extend .jk-border-radius-inline;
+            //box-sizing: border-box;
           }
         }
       }

@@ -46,7 +46,7 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
   
   return (
     <div
-      className={classNames('jk-list-card jk-border-radius', cardClassName, { hovered: recordHoveredIndex === index })}
+      className={classNames('jk-list-card jk-border-radius', cardClassName, { 'elevation-1': recordHoveredIndex === index })}
       style={{ ...cardStyle, width: cardWidth }}
       onMouseEnter={() => setRecordHoveredIndex(index)}
       onMouseLeave={() => setRecordHoveredIndex(null)}

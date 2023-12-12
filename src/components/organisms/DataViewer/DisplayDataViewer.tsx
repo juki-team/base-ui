@@ -51,6 +51,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   const prevSizeWidth = usePrevious(viewContainerWidth);
   const prevHeaders = useRef(JSON.stringify(headersMinWidth(headers)));
   const [ scrollLeft, setScrollLeft ] = useState(0);
+  const [ scrollTop, setScrollTop ] = useState(0);
   
   useEffect(() => {
     const width = (viewContainerWidth || 0) - SCROLL_WIDTH;
@@ -83,7 +84,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   
   return (
     <div
-      className="jk-data-viewer-content"
+      className="jk-data-viewer-content jk-br-ie"
       style={{ '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px', position: 'relative' } as CSSProperties}
     >
       <DataViewerToolbar
@@ -129,12 +130,13 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
               setHeaderWidths(newHeaderWidths);
             }}
             scrollLeft={scrollLeft}
+            scrollTop={scrollTop}
             loading={loading}
           />
         )}
         {data.length > 0 && loading && <LineLoader />}
         {viewMode === DataViewMode.ROWS ? (
-          <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}>
+          <div className={classNames('jk-data-viewer-body jk-br-ie', viewMode.toLowerCase())}>
             <LoaderLayer loading={data.length === 0 && loading}>
               <RowVirtualizerFixed
                 data={data}
@@ -142,6 +144,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
                 rowHeight={rowHeight}
                 scrollLeft={scrollLeft}
                 setScrollLeft={setScrollLeft}
+                setScrollTop={setScrollTop}
                 getRecordKey={getRecordKey}
                 recordHoveredIndex={recordHoveredIndex}
                 setRecordHoveredIndex={setRecordHoveredIndex}

@@ -202,8 +202,8 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
       field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
         <TextField text={nickname} label={<T>name</T>} />
       ),
-      // sort: true,
-      // filter: { type: 'text' },
+      sort: true,
+      filter: { type: 'text' },
       cardPosition: 'topLeft',
       sticky: true,
     },
@@ -235,7 +235,8 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
         {...props}
         preferredDataViewMode={preferredDataViewMode}
         cards={{ expanded: true }}
-        headers={columns}
+        // headers={columns.slice(0, 4).map(c => ({ ...c, sticky: false }))}
+        headers={columns.slice(0, 4)}
         data={data}
         rows={{ height: 150 }}
         request={request}

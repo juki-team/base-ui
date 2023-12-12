@@ -491,9 +491,11 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     
     return headers.map(({ sort, filter, ...props }, index) => {
       const newHead: TableHeadersType<T> = { ...props };
-      let iconsWidth = filter ? 34 : 0;
+      // let iconsWidth = filter ? 34 : 0;
+      let iconsWidth = filter ? (26 + 2) : 0; // size of icon // 2px separation
       if (sort) { // online or offline
-        iconsWidth += iconsWidth ? (34 + 4) : 34; // size of icon // 4px separation
+        // iconsWidth += iconsWidth ? (34 + 4) : 34; // size of icon // 4px separation
+        iconsWidth += 26 + 2; // size of icon // 2px separation
         const up = props.index;
         const down = '-' + props.index;
         newHead.sort = {
@@ -573,8 +575,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       
       const head = props.head || props.index;
       if (typeof head === 'string') {
-        const width = getTextWidth(t(head), '600 16px / 16px Inter, sans-serif');
-        newHead.minWidth = Math.max(props.minWidth || 0, iconsWidth + width + 36 /* padding head cell */);
+        const width = Math.ceil(getTextWidth(t(head), '600 16px / 16px Inter, sans-serif'));
+        // newHead.minWidth = Math.max(props.minWidth || 0, iconsWidth + width + 36 /* padding head cell */);
+        newHead.minWidth = Math.max(props.minWidth || 0, iconsWidth + width + 8 /* padding head cell */ + 4 /* extra padding */);
       }
       
       return newHead;

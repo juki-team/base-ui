@@ -47,6 +47,7 @@ export interface RowVirtualizerFixedProps<T> {
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
   setScrollLeft: Dispatch<SetStateAction<number>>,
+  setScrollTop: Dispatch<SetStateAction<number>>,
   onRecordClick?: OnRecordClickType<T>,
   setRecordHoveredIndex: SetRecordHoveredIndexType,
   recordHoveredIndex: RecordHoveredIndexType,
@@ -326,6 +327,7 @@ export interface TableHeadProps<T> {
   headers: TableHeadersWithWidthType<T>[],
   setHeaderWidths: Dispatch<HeaderWidthsType>,
   scrollLeft: number,
+  scrollTop: number,
   loading: boolean,
 }
 
