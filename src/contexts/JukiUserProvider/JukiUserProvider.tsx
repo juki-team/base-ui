@@ -32,7 +32,7 @@ const useUser = () => {
   
   const {
     data,
-    isLoading,
+    isLoading: isLoadingPing,
     isValidating,
     mutate,
   } = useFetcher<ContentResponseType<PingResponseDTO>>(
@@ -83,12 +83,14 @@ const useUser = () => {
     }
   }, [ data ]);
   
+  const isLoading = isLoadingPing || company.key === '';
+  
   return {
     user,
     company,
     setUser,
     isLoading,
-    isValidating,
+    isValidating: isLoading || isValidating,
     mutate,
   };
 };
