@@ -67,7 +67,9 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
     requestHeaders.set('Content-Type', 'application/json');
   }
   
+  
   const token = options?.token || localStorage.getItem(settings.TOKEN_NAME);
+  console.log('authorizedRequest', { token, options, settings, tokenName: settings.TOKEN_NAME });
   
   if (token) {
     requestHeaders.set('Authorization', `Bearer ${token}`);
