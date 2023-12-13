@@ -24,7 +24,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     children,
   } = props;
   
-  const { width: selectLayoutWidth = 0, ref: selectLayoutRef } = useResizeDetector();
+  const { ref: selectLayoutRef } = useResizeDetector();
   const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
@@ -90,7 +90,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
           className={classNames('jk-select-options jk-border-radius-inline', { disabled: isDisabled })}
           style={{
             width: extend
-              ? (selectLayoutWidth + 8 + 4 /*padding*/ - 2 /*border*/) : containerWidth - 2, /*border*/
+              ? ((selectLayoutRef.current?.clientWidth || 0) /*padding*/ - 2 /*border*/) : containerWidth - 2, /*border*/
           }}
         >
           {options.map((option) => (

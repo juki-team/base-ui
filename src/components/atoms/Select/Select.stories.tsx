@@ -24,6 +24,23 @@ const Cmp = (args: SelectProps<any, any, any>) => {
   return (
     <MockupJukiProvider>
       <Select {...args} options={options} selectedOption={value} onChange={setValue} />
+      <Select
+        {...args}
+        options={options}
+        selectedOption={value}
+        onChange={setValue}
+        className="jk-br-ie jk-button-secondary"
+      />
+      <div style={{ width: 300 }}>
+        <Select
+          {...args}
+          options={options}
+          selectedOption={value}
+          onChange={setValue}
+          className="jk-br-ie jk-button-secondary"
+          extend
+        />
+      </div>
     </MockupJukiProvider>
   );
 }
