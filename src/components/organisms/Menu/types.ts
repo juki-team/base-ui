@@ -15,7 +15,11 @@ export type MenuBasicType = {
 }
 
 export type MenuType = MenuBasicType & {
-  menuItemWrapper?: ReactNodeOrFunctionP1Type<MenuBasicType & { children: ReactNode, index: number }>,
+  menuItemWrapper?: ReactNodeOrFunctionP1Type<MenuBasicType & {
+    children: ReactNode,
+    index: number,
+    isOpenVerticalMenu: boolean | null,
+  }>,
 };
 
 export interface MenuMobileProps {

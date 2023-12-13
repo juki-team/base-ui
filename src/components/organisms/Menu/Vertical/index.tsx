@@ -46,6 +46,7 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
         onClick,
         children: menuItem,
         index: i,
+        isOpenVerticalMenu: open,
       }));
     } else {
       menus.push(menuItem);

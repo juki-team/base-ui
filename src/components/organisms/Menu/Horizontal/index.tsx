@@ -42,6 +42,7 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
         onClick,
         children: menuItem,
         index: i,
+        isOpenVerticalMenu: null,
       }));
     } else {
       menus.push(menuItem);
