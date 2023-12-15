@@ -271,7 +271,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
             <T>download</T>
           </ButtonLoader>,
         ]}
-        // pagination={{ pageSizeOptions: [ 5, 10, 15, 20 ], total: data.length }}
+        pagination={{ pageSizeOptions: [ 5, 10, 15, 20 ], total: data.length }}
         getRecordClassName={({ index }) => index + ''}
         //getRecordStyle={({ index }) => ({ zIndex: index })}
         onRecordClick={(props) => console.info('click', props)}

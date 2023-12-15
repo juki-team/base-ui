@@ -124,8 +124,8 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                 : <T className="tt-se ws-np">no data</T>
             }
           >
-            <div className="no-records tx-t fw-bd jk-tag gray-6" style={{ marginLeft: '4px' }}>
-              {dataLength}{paginationData.pagination?.total ? '/' + paginationData.pagination.total : ''}
+            <div className="no-records tx-t fw-bd jk-tag gray-6 ws-np" style={{ marginLeft: '4px' }}>
+              {dataLength}{paginationData.pagination?.total ? ' / ' + paginationData.pagination.total : ''}
             </div>
           </Tooltip>
           {paginationData.pagination && (
