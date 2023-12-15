@@ -69,9 +69,14 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
                   <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
                 </div>
               );
-              return renderReactNodeOrFunctionP1(menuItemWrapper, {
-                children: menuItem, selected, icon, label, index,
-              });
+              
+              if (menuItemWrapper) {
+                return renderReactNodeOrFunctionP1(menuItemWrapper, {
+                  children: menuItem, selected, icon, label, index, isOpenVerticalMenu: false,
+                })
+              }
+              
+              return menuItem;
             }))}
           </div>
           <div className="jk-divider pad-left-right" style={{ boxSizing: 'border-box' }} />

@@ -150,5 +150,5 @@ export function toBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
 }
 
 export const isOverflowed = (ref: MutableRefObject<any>) => {
-  return ref.current?.scrollWidth > ref.current?.offsetWidth;
+  return ref.current?.scrollWidth > ref.current?.clientWidth;
 };

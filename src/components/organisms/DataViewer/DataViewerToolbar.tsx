@@ -51,7 +51,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
     setSearchParams({ name: showFilterDrawerKey, value: show ? 'open' : 'close' });
   }, [ setSearchParams, showFilterDrawerKey ]);
   const isMobileViewPort = viewPortSize === 'sm';
-  const viewFilterButton = !!headers.filter(head => head.filter || head.sort).length && (viewMode === DataViewMode.CARDS ? true : isMobileViewPort);
+  const viewFilterButton = !!headers.filter(head => head.filter || head.sort).length;
   
   useEffect(() => {
     if (loading) {
@@ -74,7 +74,6 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
           setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
         />
       </Tooltip>
-      <div className="jk-divider horizontal" />
     </>
   );
   
@@ -110,12 +109,17 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
             extend: !(viewFilterButton || viewViews),
           })}
         >
-          {onReload && !isMobileViewPort && reloadSection}
+          {onReload && !isMobileViewPort && (
+            <>
+              {reloadSection}
+              <div className="jk-divider horizontal" />
+            </>
+          )}
           <Tooltip
             content={
               dataLength
                 ? <div className="jk-row nowrap tt-se ws-np">{dataLength}&nbsp;
-                  <T>{dataLength > 1 ? 'records' : 'record'}</T>{paginationData.pagination?.total && <>&nbsp;
+                  <T>{dataLength === 1 ? 'record' : 'records'}</T>{paginationData.pagination?.total && <>&nbsp;
                     <T>of</T>&nbsp;{paginationData.pagination.total}&nbsp;<T>records</T></>}</div>
                 : <T className="tt-se ws-np">no data</T>
             }
@@ -140,21 +144,26 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
           )}
         </div>
         <div className={classNames('jk-row nowrap', { gap: onColumn })}>
-          {onReload && isMobileViewPort && reloadSection}
-          {viewFilterButton && (
+          {onReload && isMobileViewPort && (
             <>
               {onColumn && <div className="jk-divider horizontal" />}
+              {reloadSection}
+            </>
+          )}
+          {viewFilterButton && (
+            <>
+              <div className="jk-divider horizontal" />
               <Tooltip content={<T className="ws-np">open filters</T>}>
                 <div
-                  className={classNames({ active: filtered }, 'jk-button-light only-icon small')}
+                  className={classNames({ active: filtered }, 'jk-row')}
                   onClick={() => setShowFilterDrawer(true)}
                 >
-                  <FilterListIcon />
+                  <FilterListIcon className={classNames('jk-br-ie cr-g4 clickable')} />
                 </div>
               </Tooltip>
             </>
           )}
-          {viewViews && (
+          {viewViews && (rowsView || cardsView) && (
             <>
               <div className="jk-divider horizontal" />
               <div className={classNames('jk-row nowrap jk-table-view-tools-view-mode', { rowsView, cardsView })}>
@@ -166,10 +175,10 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                     >
                       <ViewHeadlineIcon
                         className={classNames(
-                          // 'jk-br-ie',
+                          'jk-br-ie',
+                          'cr-g4',
                           { clickable: viewMode === DataViewMode.CARDS },
                         )}
-                        style={{ borderRadius: 4 }}
                       />
                     </div>
                   </Tooltip>
@@ -182,10 +191,10 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
                     >
                       <ViewModuleIcon
                         className={classNames(
-                          // 'jk-br-ie',
+                          'jk-br-ie',
+                          'cr-g4',
                           { clickable: viewMode === DataViewMode.ROWS },
                         )}
-                        style={{ borderRadius: 4 }}
                       />
                     </div>
                   </Tooltip>

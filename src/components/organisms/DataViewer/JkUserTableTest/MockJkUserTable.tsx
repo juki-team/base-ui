@@ -203,7 +203,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
         <TextField text={nickname} label={<T>name</T>} />
       ),
       sort: true,
-      filter: { type: 'text' },
+      // filter: { type: 'text' },
       cardPosition: 'topLeft',
       sticky: true,
     },
@@ -226,7 +226,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     await (new Promise((resolve) => setTimeout(() => resolve(true), 6000)));
     setLoaderStatus(Status.SUCCESS);
   }, []);
-  console.info({ columns2, columns, request });
+  
   const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
   
   return (
@@ -236,7 +236,10 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
         preferredDataViewMode={preferredDataViewMode}
         cards={{ expanded: true }}
         // headers={columns.slice(0, 4).map(c => ({ ...c, sticky: false }))}
-        headers={columns.slice(0, 4)}
+        // headers={columns.slice(0, 4)}
+        rowsView={false}
+        cardsView={false}
+        headers={columns2 || columns}
         data={data}
         rows={{ height: 150 }}
         request={request}
@@ -268,7 +271,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
             <T>download</T>
           </ButtonLoader>,
         ]}
-        pagination={{ pageSizeOptions: [ 5, 10, 15, 20 ], total: data.length }}
+        // pagination={{ pageSizeOptions: [ 5, 10, 15, 20 ], total: data.length }}
         getRecordClassName={({ index }) => index + ''}
         //getRecordStyle={({ index }) => ({ zIndex: index })}
         onRecordClick={(props) => console.info('click', props)}

@@ -95,20 +95,21 @@
         }
         
         .jk-table-view-tools-view-mode {
+          
           &.rowsView.cardsView {
             > div:first-child .jk-icon {
-              border-top-right-radius: 0 !important;
-              border-bottom-right-radius: 0 !important;
+              //border-top-right-radius: 0 !important;
+              //border-bottom-right-radius: 0 !important;
             }
             
             > div:last-child .jk-icon {
-              border-top-left-radius: 0 !important;
-              border-bottom-left-radius: 0 !important;
+              //border-top-left-radius: 0 !important;
+              //border-bottom-left-radius: 0 !important;
             }
           }
           
           .active .jk-icon {
-            @extend .appearance-primary;
+            //@extend .appearance-primary;
           }
         }
         
