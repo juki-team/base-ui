@@ -92,7 +92,6 @@ export const MainMenu = (props: MainMenuProps) => {
           icon: null,
           selected: false,
           menuItemWrapper: ({ isOpenVerticalMenu }) => {
-            console.log({ isOpenVerticalMenu });
             return (
               <div className="jk-menu-item menu-item-company-selector">
                 <div className="jk-menu-item-icon" style={{ height: 48 }}>
