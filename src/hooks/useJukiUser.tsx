@@ -74,7 +74,11 @@ export const useJukiUser = () => {
   }, [ notifyResponse ]);
   
   const signIn = useCallback(async (
-    { body, onSuccess, ...props }: ApiBodyType<LoginFormType & { deviceName: string, osName: string, companyKey?: string }, PingResponseDTO>,
+    { body, onSuccess, ...props }: ApiBodyType<LoginFormType & {
+      deviceName: string,
+      osName: string,
+      companyKey?: string
+    }, PingResponseDTO>,
   ) => {
     const { url, ...options } = jukiSettings.getAPI().auth.signIn({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
@@ -105,7 +109,7 @@ export const useJukiUser = () => {
   const createUser = useCallback(async (
     { body, ...props }: ApiBodyType<SignUpPayloadDTO & { companyKey: string }, PingResponseDTO>,
   ) => {
-    const { url, ...options } = jukiSettings.getAPI().auth.signUp({ body });
+    const { url, ...options } = jukiSettings.getAPI().auth.createUser({ body });
     await doRequest<PingResponseDTO>({ url, options, ...props });
   }, [ doRequest ]);
   

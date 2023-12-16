@@ -72,6 +72,11 @@ export class Settings {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
+        createUser: valid<{ body: SignUpPayloadDTO }>(({ body }) => ({
+          url: injectBaseUrl('auth', '/sign-up'),
+          method: HTTPMethod.POST,
+          body: JSON.stringify({ body, isGenerated: true }),
+        })),
         signOut: valid<void>(() => ({
           url: injectBaseUrl('auth', '/sign-out'),
           method: HTTPMethod.POST,
