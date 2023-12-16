@@ -6,9 +6,10 @@ import { LoginFormType, LoginModalTemplate } from './LoginModalTemplate';
 
 export interface LoginModalProps extends BasicModalProps {
   onSignUpButton: () => void,
+  multiCompanies?: boolean,
 }
 
-export const LoginModal = ({ isOpen, onClose, onSignUpButton }: LoginModalProps) => {
+export const LoginModal = ({ isOpen, onClose, onSignUpButton, multiCompanies }: LoginModalProps) => {
   
   const { signIn, device: { osLabel, label } } = useJukiUser();
   const [ highlightForgotPassword, setHighlightForgotPassword ] = useState(false);
@@ -28,6 +29,7 @@ export const LoginModal = ({ isOpen, onClose, onSignUpButton }: LoginModalProps)
       onSignUpButton={onSignUpButton}
       onSubmit={onSubmit}
       highlightForgotPassword={highlightForgotPassword}
+      multiCompanies={multiCompanies}
     />
   );
 };

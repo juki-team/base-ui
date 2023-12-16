@@ -31,6 +31,7 @@ const WrapLogin = (props: LoginModalProps) => {
 export const LoginWithGoogleComponent: Story = {
   render: (args) => (
     <WrapLogin
+      {...args}
       // onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => {
       //   action('onSubmit')({ data, setStatus });
       // }}

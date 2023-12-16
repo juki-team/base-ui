@@ -3,6 +3,7 @@ import { BasicModalProps, SetLoaderStatusOnClickType } from '../../../index';
 export type LoginFormType = {
   nickname: string,
   password: string,
+  companyKey: string,
 }
 
 export interface LoginModalTemplateProps extends BasicModalProps {
@@ -12,4 +13,5 @@ export interface LoginModalTemplateProps extends BasicModalProps {
   loginWithGoogle?: (setStatus?: SetLoaderStatusOnClickType) => (response: any) => void,
   reactAppGoogleClientId?: string,
   highlightForgotPassword?: boolean,
+  multiCompanies?: boolean,
 }

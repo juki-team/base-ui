@@ -1,8 +1,16 @@
-import { MenuViewMode, ProfileSetting, Status, Theme } from '@juki-team/commons';
-import React, { ReactNode, useEffect, useState } from 'react';
-import { useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
+import {
+  CompanyUserPermissionsResponseDTO,
+  ContentsResponseType,
+  MenuViewMode,
+  ProfileSetting,
+  Status,
+  Theme,
+} from '@juki-team/commons';
+import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import { jukiSettings } from '../../../config';
+import { useFetcher, useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
-import { SpinIcon } from '../../atoms';
+import { Popover, Select, SpinIcon, T } from '../../atoms';
 import { HorizontalMenu, MenuType, VerticalMenu } from '../../organisms';
 import { DrawerViewMenuMobile } from './DrawerViewMenuMobile';
 import { LoginModal } from './LoginModal';
@@ -18,15 +26,24 @@ export interface MainMenuProps {
   profileSelected?: boolean,
   moreApps?: ReactNode,
   children: ReactNode,
+  multiCompanies?: boolean,
 }
 
 export const MainMenu = (props: MainMenuProps) => {
   
-  const { menu, onSeeMyProfile, menuViewMode, profileSelected, moreApps, children } = props;
+  const {
+    menu: initialMenu,
+    onSeeMyProfile,
+    menuViewMode,
+    profileSelected,
+    moreApps,
+    multiCompanies,
+    children,
+  } = props;
   
   const { viewPortSize, components: { Link, Image } } = useJukiUI();
   
-  const { searchParams, deleteSearchParams, appendSearchParams } = useJukiRouter();
+  const { searchParams, deleteSearchParams, setSearchParams, appendSearchParams } = useJukiRouter();
   
   const {
     user: {
@@ -38,6 +55,11 @@ export const MainMenu = (props: MainMenuProps) => {
     company: { imageUrl, name },
   } = useJukiUser();
   
+  const { data } = useFetcher<ContentsResponseType<CompanyUserPermissionsResponseDTO>>(multiCompanies && isLogged ? jukiSettings.getAPI().company.permissionList().url : null);
+  const companyKey = searchParams.get(QueryParamKey.COMPANY) as string;
+  const companies = useMemo(() => data?.success ? data.contents : [], [ data ]);
+  const company = useMemo(() => companies.find((company) => company.key === companyKey), [ companyKey, companies ]);
+  
   useEffect(() => {
     if (isLogged && (searchParams.has(QueryParamKey.SIGN_IN))) {
       deleteSearchParams({ name: QueryParamKey.SIGN_IN })
@@ -47,6 +69,63 @@ export const MainMenu = (props: MainMenuProps) => {
     }
   }, [ isLogged, searchParams, deleteSearchParams ]);
   const [ helpOpen, setHelpOpen ] = useState(false);
+  
+  const menu = useMemo(() => {
+    const menu: MenuType[] = [];
+    if (multiCompanies && isLogged) {
+      const select = (
+        <Select
+          options={companies.map(company => ({
+            value: company.key,
+            label: <span className="ws-np">{company.name}</span>,
+          }))}
+          selectedOption={{ value: company?.key || '', label: company?.key ? undefined : <T>select</T> }}
+          onChange={({ value }) => setSearchParams({ name: QueryParamKey.COMPANY, value })}
+          className="jk-br-ie jk-button-secondary"
+          // containerWidth={1000}
+          extend
+        />
+      );
+      
+      menu.push({
+          label: null,
+          icon: null,
+          selected: false,
+          menuItemWrapper: ({ isOpenVerticalMenu }) => {
+            console.log({ isOpenVerticalMenu });
+            return (
+              <div className="jk-menu-item menu-item-company-selector">
+                <div className="jk-menu-item-icon" style={{ height: 48 }}>
+                  {company && (
+                    <Popover
+                      triggerOn={isOpenVerticalMenu ? [] : 'click'}
+                      content={<div style={{ width: 200 }}>{select}</div>}
+                      placement="right"
+                    >
+                      <Image
+                        src={company.imageUrl?.replace('horizontal', 'vertical')}
+                        alt={company?.name}
+                        width={24}
+                        height={48}
+                      />
+                    </Popover>
+                  )}
+                </div>
+                <div className="jk-menu-item-label">
+                  <div className="menu-item-label-company-selector">
+                    {select}
+                  </div>
+                </div>
+              </div>
+            )
+          },
+        },
+        { label: <div />, icon: <div />, selected: false },
+      );
+    }
+    menu.push(...initialMenu);
+    return menu;
+  }, [ initialMenu, companies, company, setSearchParams, isLogged ]);
   
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode
   
@@ -186,6 +265,7 @@ export const MainMenu = (props: MainMenuProps) => {
           deleteSearchParams({ name: QueryParamKey.SIGN_IN });
           appendSearchParams({ name: QueryParamKey.SIGN_UP, value: '1' });
         }}
+        multiCompanies={multiCompanies}
       />
       <WelcomeModal
         isOpen={searchParams.has(QueryParamKey.WELCOME)}

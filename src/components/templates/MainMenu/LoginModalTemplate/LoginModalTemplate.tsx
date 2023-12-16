@@ -14,6 +14,8 @@ const loginSchema = yup.object().shape({
     .required('cannot be empty'),
   password: yup.string()
     .required('cannot be empty'),
+  companyKey: yup.string()
+    .required('cannot be empty'),
 });
 
 export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
@@ -26,6 +28,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
     loginWithGoogle,
     reactAppGoogleClientId,
     highlightForgotPassword,
+    multiCompanies,
   } = props;
   
   const { handleSubmit, formState: { isValid, errors, touchedFields }, register, reset } = useForm<LoginFormType>({
@@ -78,6 +81,22 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
           )}
           <form onSubmit={handleSubmit((data: LoginFormType) => onSubmit(data, setLoaderRef.current!))}>
             <div className="jk-col stretch">
+              {multiCompanies && (
+                <div className="jk-form-item">
+                  <Input
+                    labelPlacement="top"
+                    label={<T className="tt-se">company key</T>}
+                    register={register('companyKey')}
+                    className={classNames({
+                      error: !!errors?.companyKey?.message,
+                      success: !!touchedFields.companyKey && !errors?.companyKey?.message,
+                    })}
+                    extend
+                    required
+                  />
+                  <p><T>{(!isValid && errors?.companyKey?.message) || ''}</T></p>
+                </div>
+              )}
               <div className="jk-form-item">
                 <Input
                   labelPlacement="top"
@@ -114,12 +133,14 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                     </T>
                   </div>
                 </div>
-                <div>
-                  <p className="label">
-                    <T className="tt-se">not a member?</T>,&nbsp;
-                    <span className="link" onClick={onSignUpButton}><T>sign up now</T></span>
-                  </p>
-                </div>
+                {!multiCompanies && (
+                  <div>
+                    <p className="label">
+                      <T className="tt-se">not a member?</T>,&nbsp;
+                      <span className="link" onClick={onSignUpButton}><T>sign up now</T></span>
+                    </p>
+                  </div>
+                )}
                 <div className="jk-row-col gap block">
                   <ButtonLoader type="light" onClick={onClose}>
                     <T>cancel</T>

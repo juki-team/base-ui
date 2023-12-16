@@ -4,8 +4,8 @@ import { MockupToggleThemeButton } from './MockupToggleThemeButton';
 
 export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   
-  const serviceUrl = 'https://service.juki.app';
-  // const serviceUrl = 'http://localhost:3005';
+  // const serviceUrl = 'https://service.juki.app';
+  const serviceUrl = 'http://localhost:3005';
   
   return (
     <JukiProviders

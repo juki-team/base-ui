@@ -8,7 +8,7 @@ import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
 import { useJukiUI } from '../../../../hooks';
-import { CopyToClipboard, LinkIcon, SpinIcon, OpenInNewIcon } from '../../../atoms';
+import { CopyToClipboard, LinkIcon, OpenInNewIcon, SpinIcon } from '../../../atoms';
 import { CodeViewer } from '../../../molecules';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
@@ -61,7 +61,6 @@ export const MdMath = memo(({ source }: { source: string }) => {
         return <img alt={newAlt} src={src} style={style} />;
       },
       // h1(...props) {
-      //   console.log({ props });
       //   return null;
       // },
       h1: hx as any,

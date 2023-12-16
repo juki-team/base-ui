@@ -38,7 +38,8 @@ export const MainMenu = () => (
       <MainMenuCmp
         menu={menu}
         onSeeMyProfile={() => console.info('onSeeMyProfile')}
-        menuViewMode={MenuViewMode.HORIZONTAL}
+        menuViewMode={MenuViewMode.VERTICAL}
+        multiCompanies
         moreApps={
           <>
             <div className="jk-row">

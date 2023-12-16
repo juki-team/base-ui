@@ -205,6 +205,12 @@ export class Settings {
           body: JSON.stringify(body),
         })),
       },
+      company: {
+        permissionList: valid<void>(() => ({
+          url: injectBaseUrl('company', '/permission-list'),
+          method: HTTPMethod.GET,
+        })),
+      },
     };
   }
   

@@ -17,6 +17,7 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
     drawerMenuMobile,
     centerMobile,
   } = props;
+  
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
     const { selected, icon, label, onClick, menuItemWrapper } = menu[i];
