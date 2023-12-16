@@ -3,7 +3,7 @@ import { BasicModalProps, SetLoaderStatusOnClickType } from '../../../index';
 export type LoginFormType = {
   nickname: string,
   password: string,
-  companyKey: string,
+  companyKey?: string,
 }
 
 export interface LoginModalTemplateProps extends BasicModalProps {

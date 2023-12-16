@@ -14,6 +14,13 @@ const loginSchema = yup.object().shape({
     .required('cannot be empty'),
   password: yup.string()
     .required('cannot be empty'),
+});
+
+const loginMultiCompaniesSchema = yup.object().shape({
+  nickname: yup.string()
+    .required('cannot be empty'),
+  password: yup.string()
+    .required('cannot be empty'),
   companyKey: yup.string()
     .required('cannot be empty'),
 });
@@ -32,7 +39,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
   } = props;
   
   const { handleSubmit, formState: { isValid, errors, touchedFields }, register, reset } = useForm<LoginFormType>({
-    resolver: yupResolver(loginSchema),
+    resolver: yupResolver(multiCompanies ? loginMultiCompaniesSchema : loginSchema),
     mode: 'all',
     reValidateMode: 'onBlur',
   });
