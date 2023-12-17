@@ -24,7 +24,7 @@ export const LanguageSetting = ({ isOpen, small }: { isOpen: boolean, small: boo
   
   return (
     <div
-      className="jk-row center extend"
+      className="jk-row center extend language-setting"
       onClick={loading ? undefined : () => setSettings([
         {
           key: ProfileSetting.LANGUAGE,
@@ -69,7 +69,7 @@ export const ThemeSetting = ({ isOpen, small }: { isOpen: boolean, small: boolea
   
   return (
     <div
-      className="jk-row center extend"
+      className="jk-row center extend theme-setting"
       onClick={loading ? undefined : () => setSettings([
         {
           key: ProfileSetting.THEME,
