@@ -1,7 +1,7 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
 import React, { Dispatch, ReactNode } from 'react';
 import { classNames } from '../../../../helpers';
-import { useJukiUI, useJukiUser, useJukiUserToggleSetting } from '../../../../hooks';
+import { useJukiUI, useJukiUser, useJukiUserSettings } from '../../../../hooks';
 import {
   AppsIcon,
   DarkModeIcon,
@@ -18,14 +18,14 @@ import { HelpSection } from '../../HelpSection';
 
 export const LanguageSetting = ({ isOpen, small }: { isOpen: boolean, small: boolean }) => {
   
-  const { loading, toggleSetting, [ProfileSetting.LANGUAGE]: preferredLanguage } = useJukiUserToggleSetting();
+  const { loading, setSettings, [ProfileSetting.LANGUAGE]: preferredLanguage } = useJukiUserSettings();
   
   const isEs = preferredLanguage === Language.ES;
   
   return (
     <div
       className="jk-row center extend"
-      onClick={loading ? undefined : () => toggleSetting([
+      onClick={loading ? undefined : () => setSettings([
         {
           key: ProfileSetting.LANGUAGE,
           value: preferredLanguage === Language.EN ? Language.ES : Language.EN,
@@ -63,14 +63,14 @@ export const LanguageSetting = ({ isOpen, small }: { isOpen: boolean, small: boo
 
 export const ThemeSetting = ({ isOpen, small }: { isOpen: boolean, small: boolean }) => {
   
-  const { loading, toggleSetting, [ProfileSetting.THEME]: preferredTheme } = useJukiUserToggleSetting();
+  const { loading, setSettings, [ProfileSetting.THEME]: preferredTheme } = useJukiUserSettings();
   
   const isDark = preferredTheme === Theme.DARK;
   
   return (
     <div
       className="jk-row center extend"
-      onClick={loading ? undefined : () => toggleSetting([
+      onClick={loading ? undefined : () => setSettings([
         {
           key: ProfileSetting.THEME,
           value: preferredTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT,

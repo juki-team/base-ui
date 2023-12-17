@@ -194,11 +194,11 @@ export const useJukiUser = () => {
   };
 };
 
-export const useJukiUserToggleSetting = () => {
+export const useJukiUserSettings = () => {
   
   const { updateUserPreferences, setUser, user: { isLogged, settings, nickname }, mutatePing } = useJukiUser();
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
-  const toggleSetting = async (settingsToUpdate: { key: ProfileSetting, value: string | boolean }[]) => {
+  const setSettings = async (settingsToUpdate: { key: ProfileSetting, value: string | boolean }[]) => {
     const newSettings: UserSettingsType = { ...settings };
     for (const { key, value } of settingsToUpdate) {
       if (key === ProfileSetting.LANGUAGE) {
@@ -243,6 +243,6 @@ export const useJukiUserToggleSetting = () => {
   return {
     ...settings,
     loading,
-    toggleSetting,
+    setSettings,
   };
 };

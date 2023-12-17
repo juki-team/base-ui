@@ -1,7 +1,7 @@
 import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUserToggleSetting } from '../../../hooks';
+import { useJukiUserSettings } from '../../../hooks';
 import {
   Button,
   DarkModeIcon,
@@ -23,13 +23,13 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
   
   const {
     loading,
-    toggleSetting,
+    setSettings,
     [ProfileSetting.LANGUAGE]: preferredLanguage,
     [ProfileSetting.THEME]: preferredTheme,
     [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode,
     [ProfileSetting.MENU_VIEW_MODE]: preferredMenuViewMode,
     [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: newsletterSubscription,
-  } = useJukiUserToggleSetting();
+  } = useJukiUserSettings();
   
   return (
     <div className="jk-row gap top stretch">
@@ -128,7 +128,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
                     <InputRadio
                       disabled={loading}
                       checked={value === valueFirst}
-                      onChange={() => toggleSetting([ { key, value: valueFirst } ])}
+                      onChange={() => setSettings([ { key, value: valueFirst } ])}
                       label={labelFirst}
                     />
                   </div>
@@ -136,7 +136,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
                     <InputRadio
                       disabled={loading}
                       checked={value === valueSecond}
-                      onChange={() => toggleSetting([ { key, value: valueSecond } ])}
+                      onChange={() => setSettings([ { key, value: valueSecond } ])}
                       label={labelSecond}
                     />
                   </div>
@@ -148,7 +148,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
               <Button
                 size="small"
                 type="light"
-                onClick={() => toggleSetting([
+                onClick={() => setSettings([
                   { key: ProfileSetting.LANGUAGE, value: Language.EN },
                   { key: ProfileSetting.THEME, value: Theme.LIGHT },
                   { key: ProfileSetting.DATA_VIEW_MODE, value: DataViewMode.ROWS },
@@ -180,7 +180,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
                 <InputToggle
                   disabled={loading}
                   checked={newsletterSubscription}
-                  onChange={(newValue) => toggleSetting([
+                  onChange={(newValue) => setSettings([
                     { key: ProfileSetting.NEWSLETTER_SUBSCRIPTION, value: newValue },
                   ])}
                   leftLabel={
