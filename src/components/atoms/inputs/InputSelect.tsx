@@ -5,6 +5,7 @@ import { Select } from '../Select';
 import { InputSelectProps } from './types';
 
 export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => {
+  
   const {
     extend = false,
     labelPlacement = 'top-border',
@@ -15,8 +16,11 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
     register,
     ...selectProps
   } = props;
+  
   const { onChange: onChangeRegister, onBlur: onBlurRegister, name } = register || {};
+  
   const id = useId();
+  
   return (
     <div
       className={classNames(`jk-input-select-wrapper`, {
@@ -28,7 +32,7 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
     >
       <Select
         {...selectProps}
-        onChange={onChangeRegister ? ({ value }) => onChangeRegister({ target: { value } }) : onChange}
+        onChange={onChangeRegister ? ({ value }) => onChangeRegister({ target: { value, name } }) : onChange}
         onBlur={onBlurRegister ? () => onBlurRegister({ target: { name } }) : onBlur}
       />
       <label htmlFor={`input-${id}`}>
