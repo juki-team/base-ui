@@ -39,6 +39,7 @@
   &.tiny {
     margin: 0;
   }
+  
   //--divider-background-color: var(--t-color-gray-6);
   --divider-background-color: var(--t-color-shadow-light);
   
@@ -276,7 +277,9 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-input-password-wrapper,
 .jk-input-email-wrapper,
 .jk-input-file-wrapper,
-.jk-input-files-wrapper {
+.jk-input-files-wrapper,
+.jk-input-select-wrapper,
+.jk-input-cell-phone-number-wrapper {
   position: relative;
   display: inline-block;
   
@@ -352,6 +355,60 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     > label {
       display: none;
     }
+  }
+}
+
+.jk-input-select-wrapper {
+  .jk-select-layout .jk-select {
+    padding: 4px var(--pad-xt);
+    
+    .input-icon {
+      top: 4px;
+    }
+  }
+}
+
+.jk-input-cell-phone-number-wrapper {
+  .jk-select-layout {
+    position: absolute;
+    bottom: 0;
+    height: 32px;
+    
+    .jk-select {
+      width: 64px;
+      padding: 4px;
+      box-shadow: none;
+      
+      img {
+        min-height: 24px;
+        max-height: 24px;
+      }
+      
+      .input-icon {
+        top: 4px;
+      }
+    }
+  }
+  
+  .jk-input-text {
+    padding-left: 128px;
+  }
+  
+  .dial-code {
+    position: absolute;
+    left: 64px;
+    padding: 4px 0;
+  }
+}
+
+.popover-select-cell-phone-number-wrapper {
+  .jk-select-options {
+    //width: 100px !important;
+  }
+  
+  .jk-select-option {
+    padding: 4px var(--pad-xt) !important;
+    display: flex;
   }
 }
 

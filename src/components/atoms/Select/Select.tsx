@@ -22,19 +22,24 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     extend = false,
     containerWidth: _containerWidth,
     children,
+    onBlur,
   } = props;
   
   const { ref: selectLayoutRef } = useResizeDetector();
   const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
-  
+  const onBlurRef = useRef(onBlur);
+  onBlurRef.current = onBlur;
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (showOptions && (optionRef.current?.scrollHeight || 0) > (optionRef.current?.clientHeight || 0)) {
         selectedOptionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }, 100);
+    if (!showOptions) {
+      onBlurRef.current?.();
+    }
     return () => {
       clearTimeout(timeout);
     };
@@ -133,9 +138,9 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
           )
           : (
             <div className="jk-select jk-border-radius-inline" ref={selectLayoutRef}>
-              {optionSelected.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(
-                optionSelected.label)}
-              {expandIcon}
+              {optionSelected.inputLabel
+                ? renderReactNodeOrFunction(optionSelected.inputLabel)
+                : renderReactNodeOrFunction(optionSelected.label)} {expandIcon}
             </div>
           )
         }

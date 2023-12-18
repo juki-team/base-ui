@@ -3,8 +3,10 @@ import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
 
 import { Input } from './Input';
+import { InputCellPhoneNumber } from './InputCellPhoneNumber';
 import { InputPassword } from './InputPassword';
-import { InputProps } from './types';
+import { InputSelect } from './InputSelect';
+import { InputPasswordProps, InputSelectProps } from './types';
 
 // @ts-ignore
 Input.defaultProps = {
@@ -12,7 +14,7 @@ Input.defaultProps = {
   extend: false,
   disabled: false,
   autoFocus: false,
-  labelPlacement: 'top',
+  labelPlacement: 'top-border',
   required: false,
 }
 
@@ -27,14 +29,24 @@ type Story = StoryObj<typeof Input>;
 export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <div className="jk-col gap nowrap">
-        <Input {...args} type="text" />
-        <Input {...args} type="number" />
-        <Input {...args} type="email" />
-        <Input {...args} type="password" />
-        <Input {...args} type="file" />
-        <Input {...args} type="files" />
-        <InputPassword {...args as InputProps<string>} />
+      <div className="jk-col gap nowrap jk-pad-md">
+        <div style={{ outline: '1px solid red' }}><Input {...args} type="text" /></div>
+        <div style={{ outline: '1px solid red' }}><Input {...args} type="number" /></div>
+        <div style={{ outline: '1px solid red' }}><Input {...args} type="email" /></div>
+        <div style={{ outline: '1px solid red' }}><Input {...args} type="password" /></div>
+        <div style={{ outline: '1px solid red' }}><Input {...args} type="file" /></div>
+        <div style={{ outline: '1px solid red' }}><Input {...args} type="files" /></div>
+        <div style={{ outline: '1px solid red' }}><InputPassword {...args as InputPasswordProps<any>} /></div>
+        <div style={{ outline: '1px solid red' }}>
+          <InputSelect
+            {...args as InputSelectProps<any, any, any>}
+            options={[ { value: 1, label: 'label 1' }, { value: 2, label: 'label 2' } ]}
+            selectedOption={{ value: 0, label: 'select option' }}
+          />
+        </div>
+        <div style={{ outline: '1px solid red' }}>
+          <InputCellPhoneNumber {...args} />
+        </div>
       </div>
     </MockupJukiProvider>
   ),

@@ -1,8 +1,9 @@
 import { ReactElement, ReactNode } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { DateDisplayType } from '../../../types';
+import { DateDisplayType, ReactNodeOrFunctionType } from '../../../types';
 import { DatePickerDateFunType } from '../../molecules';
 import { ButtonType } from '../Button';
+import { SelectProps } from '../Select';
 import { T as TCmp } from '../T';
 
 export interface InputCommonsProps<T> {
@@ -81,7 +82,13 @@ export interface InputToggleProps {
   disabled?: boolean,
 }
 
-export type InputPasswordProps<T> = Omit<InputProps<T>, 'type'>
+export type InputPasswordProps<T> = Omit<InputProps<T>, 'type'>;
+
+export type InputSelectProps<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> =
+  Omit<InputProps<T>, 'type' | 'onChange' | 'value'>
+  & Omit<SelectProps<T, U, V>, ''>;
+
+export type InputCellPhoneNumberProps<T> = Omit<InputProps<T>, 'type'>;
 
 export interface InputDateProps {
   todayButton?: boolean,

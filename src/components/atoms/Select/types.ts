@@ -21,6 +21,7 @@ export interface SelectProps<T, U extends ReactNodeOrFunctionType, V extends Rea
   options: SelectOptionType<T, U, V>[],
   selectedOption: SelectOption2Type<T, U, V>,
   onChange?: (option: SelectOptionType<T, U, V>) => void,
+  onBlur?: () => void,
   showOptions?: boolean,
   onChangeShowOptions?: (value: boolean) => void,
   disabled?: boolean,

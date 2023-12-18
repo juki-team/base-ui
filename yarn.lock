@@ -5726,6 +5726,16 @@ cosmiconfig@^7.0.0, cosmiconfig@^7.0.1:
     path-type "^4.0.0"
     yaml "^1.10.0"
 
+countries-and-timezones@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/countries-and-timezones/-/countries-and-timezones-3.6.0.tgz#80716f05ebef270842fd72010f9b33e2848e24c7"
+  integrity sha512-8/nHBCs1eKeQ1jnsZVGdqrLYxS8nPcfJn8PnmxdJXWRLZdXsGFR8gnVhRjatGDBjqmPm7H+FtYpBYTPWd0Eiqg==
+
+country-list-with-dial-code-and-flag@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/country-list-with-dial-code-and-flag/-/country-list-with-dial-code-and-flag-5.0.3.tgz#5cc8efd862a7850869583947f436f4aa2e18fce4"
+  integrity sha512-lz/jjHO351Nigjgc2B7WQSH7kycU/pCKBFh0fyN92efZGCbm9b4H9N83MABzqXFl2fMa9bmvPwBykbGZUrhLKw==
+
 crc-32@~1.2.0, crc-32@~1.2.1:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/crc-32/-/crc-32-1.2.2.tgz#3cad35a934b8bf71f25ca524b6da51fb7eace2ff"

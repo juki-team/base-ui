@@ -2,19 +2,71 @@ import React, { forwardRef, ReactElement, Ref, useEffect, useId } from 'react';
 import { classNames } from '../../../helpers';
 import { InputProps } from './types';
 
-const InputComponent = <T extends string | number | FileList, >(_props: InputProps<T>, ref: Ref<HTMLInputElement>) => {
-  
+const BasicInputComponent = <T extends string | number | FileList, >(_props: InputProps<T> & {
+  inputId: string
+}, ref: Ref<HTMLInputElement>) => {
   const {
     className,
     onChange,
     onBlur,
     type = 'text',
-    extend = false,
     value,
     register,
     disabled = false,
     size,
     autoFocus = false,
+    required = false,
+    inputId: id,
+    ...props
+  } = _props;
+  
+  const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
+  
+  useEffect(() => {
+    if (autoFocus) {
+      // @ts-ignore
+      setTimeout(() => ref?.current?.focus(), 10);
+    }
+  }, [ autoFocus, registerRef, ref ]);
+  
+  const length = Math.max(('' + (value || '')).length, 3);
+  
+  return (
+    <input
+      {...props}
+      {...restRegister}
+      id={`input-${id}`}
+      autoComplete={props.name}
+      required={required}
+      ref={registerRef || ref}
+      type={type === 'files' ? 'file' : type}
+      value={(type === 'file' || type === 'files') ? undefined : value as string | number}
+      size={size === 'auto' ? length : size}
+      disabled={disabled}
+      className={classNames(className, `jk-input-${type} jk-border-radius-inline`, { disabled })}
+      onChange={registerOnChange ? registerOnChange : (type === 'file' || type === 'files') ? ({ target: { files } }) => onChange?.(files as T) : ({ target: { value } }) => {
+        const newValue = (type === 'number' ? +value : value) as T;
+        onChange?.(newValue);
+      }}
+      onBlur={registerOnBlur ? registerOnBlur : onBlur}
+      style={size === 'auto' && type === 'number' ? { width: `${length + 1}em` } : {}}
+      multiple={type === 'files'}
+    />
+  );
+}
+
+// @ts-ignore
+export const BasicInput = forwardRef(BasicInputComponent) as <T>(p: InputProps<T> & {
+  inputId: string,
+  ref?: Ref<HTMLInputElement>
+}) => ReactElement;
+
+
+const InputComponent = <T extends string | number | FileList, >(_props: InputProps<T>, ref: Ref<HTMLInputElement>) => {
+  
+  const {
+    type = 'text',
+    extend = false,
     label: inputLabel,
     icon,
     labelPlacement = 'top-border',
@@ -23,14 +75,6 @@ const InputComponent = <T extends string | number | FileList, >(_props: InputPro
   } = _props;
   
   const id = useId();
-  const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
-  const length = Math.max(('' + (value || '')).length, 3);
-  useEffect(() => {
-    if (autoFocus) {
-      // @ts-ignore
-      setTimeout(() => ref?.current?.focus(), 10);
-    }
-  }, [ autoFocus, registerRef, ref ]);
   
   return (
     <div
@@ -41,26 +85,7 @@ const InputComponent = <T extends string | number | FileList, >(_props: InputPro
         'no-label': !inputLabel,
       })}
     >
-      <input
-        {...props}
-        {...restRegister}
-        id={`input-${id}`}
-        autoComplete={props.name}
-        required={required}
-        ref={registerRef || ref}
-        type={type === 'files' ? 'file' : type}
-        value={(type === 'file' || type === 'files') ? undefined : value as string | number}
-        size={size === 'auto' ? length : size}
-        disabled={disabled}
-        className={classNames(className, `jk-input-${type} jk-border-radius-inline`, { disabled })}
-        onChange={registerOnChange ? registerOnChange : (type === 'file' || type === 'files') ? ({ target: { files } }) => onChange?.(files as T) : ({ target: { value } }) => {
-          const newValue = (type === 'number' ? +value : value) as T;
-          onChange?.(newValue);
-        }}
-        onBlur={registerOnBlur ? registerOnBlur : onBlur}
-        style={size === 'auto' && type === 'number' ? { width: `${length + 1}em` } : {}}
-        multiple={type === 'files'}
-      />
+      <BasicInput {...props} inputId={id} type={type} required={required} />
       <label htmlFor={`input-${id}`}>
         {inputLabel}{labelPlacement === 'left' ? <>:&nbsp;</> : ''}
       </label>
