@@ -7,13 +7,14 @@ import { Select } from '../Select';
 import { BasicInput } from './Input';
 import { InputCellPhoneNumberProps } from './types';
 
-export const InputCellPhoneNumber = <T, >(props: InputCellPhoneNumberProps<T>) => {
+export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) => {
   
   const {
     extend = false,
     labelPlacement = 'top-border',
     required = false,
     label: inputLabel,
+    onChange,
     register,
     ...inputProps
   } = props;
@@ -40,6 +41,8 @@ export const InputCellPhoneNumber = <T, >(props: InputCellPhoneNumberProps<T>) =
     }))
   }, []);
   
+  const dialCode = CountryList.findByCountryCode(countryCode)[0]?.dial_code;
+  
   return (
     <div
       className={classNames(`jk-input-cell-phone-number-wrapper`, {
@@ -64,8 +67,18 @@ export const InputCellPhoneNumber = <T, >(props: InputCellPhoneNumberProps<T>) =
         popoverClassName="popover-select-cell-phone-number-wrapper"
         containerWidth={120}
       />
-      <div className="dial-code">({CountryList.findByCountryCode(countryCode)[0]?.dial_code})</div>
-      <BasicInput {...inputProps} inputId={id} />
+      <div className="dial-code">({dialCode})</div>
+      <BasicInput
+        {...inputProps}
+        onChange={(value) => onChange?.(`${dialCode} ${value}`)}
+        register={register ? {
+          ...register,
+          onChange: async ({ target }) => {
+            register.onChange({ target: { value: `${dialCode} ${target.value}`, ...target } })
+          },
+        } : undefined}
+        inputId={id}
+      />
       <label htmlFor={`input-${id}`}>
         {inputLabel}{labelPlacement === 'left' ? <>:&nbsp;</> : ''}
       </label>
