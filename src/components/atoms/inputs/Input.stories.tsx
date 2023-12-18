@@ -6,7 +6,7 @@ import { Input } from './Input';
 import { InputCellPhoneNumber } from './InputCellPhoneNumber';
 import { InputPassword } from './InputPassword';
 import { InputSelect } from './InputSelect';
-import { InputPasswordProps, InputSelectProps } from './types';
+import { InputCellPhoneNumberProps, InputPasswordProps, InputSelectProps } from './types';
 
 // @ts-ignore
 Input.defaultProps = {
@@ -45,7 +45,7 @@ export const Regular: Story = {
           />
         </div>
         <div style={{ outline: '1px solid red' }}>
-          <InputCellPhoneNumber {...args} />
+          <InputCellPhoneNumber {...args as InputCellPhoneNumberProps<any>} />
         </div>
       </div>
     </MockupJukiProvider>

@@ -1,4 +1,5 @@
 import React, { forwardRef, ReactElement, Ref, useEffect, useId } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { classNames } from '../../../helpers';
 import { InputProps } from './types';
 
@@ -20,7 +21,12 @@ const BasicInputComponent = <T extends string | number | FileList, >(_props: Inp
     ...props
   } = _props;
   
-  const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
+  const {
+    onChange: registerOnChange,
+    onBlur: registerOnBlur,
+    ref: registerRef,
+    ...restRegister
+  } = (register ? (typeof register === 'function' ? register((v) => v) : register) : {} as Partial<UseFormRegisterReturn>);
   
   useEffect(() => {
     if (autoFocus) {

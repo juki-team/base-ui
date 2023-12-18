@@ -18,6 +18,7 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) =
     register,
     ...inputProps
   } = props;
+  
   const id = useId();
   const [ countryCode, setCountryCode ] = useState<string>(getTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone)?.countries[0] as string);
   const options = useMemo(() => {
@@ -56,12 +57,14 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) =
         options={options}
         selectedOption={{
           value: countryCode,
-          label: <img
-            src={`data:image/svg+xml;utf8,${encodeURIComponent(CountryFlagSvg[countryCode])}`}
-            alt={countryCode}
-            height={24}
-            width={36}
-          />,
+          label: (
+            <img
+              src={`data:image/svg+xml;utf8,${encodeURIComponent(CountryFlagSvg[countryCode])}`}
+              alt={countryCode}
+              height={24}
+              width={36}
+            />
+          ),
         }}
         onChange={({ value }) => setCountryCode(value)}
         popoverClassName="popover-select-cell-phone-number-wrapper"
@@ -71,12 +74,7 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) =
       <BasicInput
         {...inputProps}
         onChange={(value) => onChange?.(`${dialCode} ${value}`)}
-        register={register ? {
-          ...register,
-          onChange: async ({ target }) => {
-            register.onChange({ target: { value: `${dialCode} ${target.value}`, ...target } })
-          },
-        } : undefined}
+        register={register ? typeof register === 'function' ? register((value) => `${dialCode} ${value}`) : register : undefined}
         inputId={id}
       />
       <label htmlFor={`input-${id}`}>

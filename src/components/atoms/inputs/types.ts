@@ -3,7 +3,7 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 import { DateDisplayType, ReactNodeOrFunctionType } from '../../../types';
 import { DatePickerDateFunType } from '../../molecules';
 import { ButtonType } from '../Button';
-import { SelectProps } from '../Select';
+import { SelectOption2Type, SelectProps } from '../Select';
 import { T as TCmp } from '../T';
 
 export interface InputCommonsProps<T> {
@@ -20,7 +20,7 @@ export interface InputCommonsProps<T> {
   onClick?: () => void,
   autoFocus?: boolean,
   placeholder?: string,
-  register?: UseFormRegisterReturn, //{ name: string, onBlur: ChangeHandler, onChange: ChangeHandler, ref: any },
+  register?: UseFormRegisterReturn | ((setValueAs: (value: T) => void) => UseFormRegisterReturn),  //{ name: string, onBlur: ChangeHandler, onChange: ChangeHandler, ref: any },
   // types
   type?: 'text' | 'number' | 'password' | 'email' | 'file' | 'files',
   accept?: string,
@@ -86,7 +86,7 @@ export type InputPasswordProps<T> = Omit<InputProps<T>, 'type'>;
 
 export type InputSelectProps<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> =
   Omit<InputProps<T>, 'type' | 'onChange' | 'value'>
-  & Omit<SelectProps<T, U, V>, ''>;
+  & Omit<SelectProps<T, U, V>, 'selectedOption'> & { selectedOption?: SelectOption2Type<T, U, V>, };
 
 export type InputCellPhoneNumberProps<T> = Omit<InputProps<T>, 'type'>;
 

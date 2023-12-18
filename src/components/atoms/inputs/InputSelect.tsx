@@ -1,10 +1,12 @@
-import React, { ReactNode, useId } from 'react';
+import React, { ReactNode, useId, useState } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 import { classNames } from '../../../helpers';
 import { ReactNodeOrFunctionType } from '../../../types';
-import { Select } from '../Select';
+import { Select, SelectProps } from '../Select';
+import { T } from '../T';
 import { InputSelectProps } from './types';
 
-export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => {
+export const InputSelect = <T extends string, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => {
   
   const {
     extend = false,
@@ -14,10 +16,17 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
     onChange,
     onBlur,
     register,
+    selectedOption,
     ...selectProps
   } = props;
   
-  const { onChange: onChangeRegister, onBlur: onBlurRegister, name } = register || {};
+  const [ value, setValue ] = useState<T>('' as T);
+  
+  const myRegister = (register ? (typeof register === 'function' ? register((v) => v) : register) : {} as Partial<UseFormRegisterReturn>);
+  
+  const myOnChange: SelectProps<T, U, V>['onChange'] = onChange ? onChange : ({ value }) => {
+    setValue(value);
+  }
   
   const id = useId();
   
@@ -30,10 +39,15 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
         'no-label': !inputLabel,
       })}
     >
+      <input {...myRegister} value={value as string} style={{ display: 'none' }} />
       <Select
         {...selectProps}
-        onChange={onChangeRegister ? ({ value }) => onChangeRegister({ target: { value, name } }) : onChange}
-        onBlur={onBlurRegister ? () => onBlurRegister({ target: { name } }) : onBlur}
+        onChange={myOnChange}
+        selectedOption={onChange && selectedOption ? selectedOption : {
+          value,
+          label: value ? undefined : <T>select an option</T> as U,
+        }}
+        onBlur={onBlur}
       />
       <label htmlFor={`input-${id}`}>
         {inputLabel}{labelPlacement === 'left' ? <>:&nbsp;</> : ''}
