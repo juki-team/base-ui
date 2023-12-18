@@ -111,7 +111,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
   }
   
-  input, .jk-select-layout, .jk-input-password-wrapper {
+  input, > .jk-input-select-wrapper > .jk-select-layout, .jk-input-password-wrapper {
     width: 100% !important;
   }
 }
