@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import { DateDisplayType, ReactNodeOrFunctionType } from '../../../types';
 import { DatePickerDateFunType } from '../../molecules';
 import { ButtonType } from '../Button';
@@ -85,8 +85,9 @@ export interface InputToggleProps {
 export type InputPasswordProps<T> = Omit<InputProps<T>, 'type'>;
 
 export type InputSelectProps<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> =
-  Omit<InputProps<T>, 'type' | 'onChange' | 'value'>
-  & Omit<SelectProps<T, U, V>, 'selectedOption'> & { selectedOption?: SelectOption2Type<T, U, V>, };
+  Omit<InputProps<T>, 'type' | 'onChange' | 'value' | 'register'>
+  & Omit<SelectProps<T, U, V>, 'selectedOption'> & { selectedOption?: SelectOption2Type<T, U, V>, }
+  & { register?: UseFormRegisterReturn & { setValue: UseFormSetValue<any> } };
 
 export type InputCellPhoneNumberProps<T> = Omit<InputProps<T>, 'type'>;
 

@@ -26,7 +26,7 @@ const BasicInputComponent = <T extends string | number | FileList, >(_props: Inp
     onBlur: registerOnBlur,
     ref: registerRef,
     ...restRegister
-  } = (register ? (typeof register === 'function' ? register((v) => v) : register) : {} as Partial<UseFormRegisterReturn>);
+  } = (register ? (typeof register === 'function' ? register((v) => (type === 'number' ? +v : v) as T) : register) : {} as Partial<UseFormRegisterReturn>);
   
   useEffect(() => {
     if (autoFocus) {

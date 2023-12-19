@@ -29,6 +29,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
+  const selectRef = useRef(null);
   const onBlurRef = useRef(onBlur);
   onBlurRef.current = onBlur;
   useEffect(() => {
@@ -37,8 +38,8 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
         selectedOptionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }, 100);
-    if (!showOptions) {
-      onBlurRef.current?.();
+    if (!showOptions && selectRef.current) {
+      onBlurRef.current?.({ target: selectRef.current });
     }
     return () => {
       clearTimeout(timeout);
@@ -130,6 +131,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
           { open: showOptions, disabled: isDisabled },
         )}
         style={{ width: extend ? '100%' : `${containerWidth}px` }}
+        ref={selectRef}
       >
         {children
           ? renderReactNodeOrFunctionP1(
