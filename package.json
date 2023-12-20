@@ -25,7 +25,6 @@
     "codemirror": "^5.65.2",
     "copy-to-clipboard": "^3.3.3",
     "countries-and-timezones": "^3.6.0",
-    "country-list-with-dial-code-and-flag": "^5.0.3",
     "deep-object-diff": "^1.1.9",
     "immutability-helper": "^3.1.1",
     "prismjs": "^1.29.0",

@@ -1,8 +1,7 @@
 import { getTimezone } from 'countries-and-timezones';
-import CountryList from 'country-list-with-dial-code-and-flag'
-import CountryFlagSvg from 'country-list-with-dial-code-and-flag/dist/flag-svg';
 import React, { ReactNode, useId, useMemo, useState } from 'react';
 import { classNames } from '../../../helpers';
+import { countryFlagSvg, countryList } from '../../../modules';
 import { Select } from '../Select';
 import { BasicInput } from './Input';
 import { InputCellPhoneNumberProps } from './types';
@@ -22,7 +21,7 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) =
   const id = useId();
   const [ countryCode, setCountryCode ] = useState<string>(getTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone)?.countries[0] as string);
   const options = useMemo(() => {
-    const list = CountryList.getAll();
+    const list = countryList.getAll();
     return list.map((country) => ({
       value: country.code,
       label: (
@@ -30,7 +29,7 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) =
           <div className="jk-row extend left fw-bd">{country.name}</div>
           <div className="jk-row gap nowrap">
             <img
-              src={`data:image/svg+xml;utf8,${encodeURIComponent(CountryFlagSvg[country.code])}`}
+              src={`data:image/svg+xml;utf8,${encodeURIComponent(countryFlagSvg[country.code])}`}
               alt={country.name}
               height={24}
               width={36}
@@ -42,7 +41,7 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) =
     }))
   }, []);
   
-  const dialCode = CountryList.findByCountryCode(countryCode)[0]?.dial_code;
+  const dialCode = countryList.findByCountryCode(countryCode)[0]?.dial_code;
   
   return (
     <div
@@ -59,7 +58,7 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) =
           value: countryCode,
           label: (
             <img
-              src={`data:image/svg+xml;utf8,${encodeURIComponent(CountryFlagSvg[countryCode])}`}
+              src={`data:image/svg+xml;utf8,${encodeURIComponent(countryFlagSvg[countryCode])}`}
               alt={countryCode}
               height={24}
               width={36}
