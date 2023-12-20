@@ -1,4 +1,4 @@
-import { consoleWarn, getProblemJudgeKey, HTTPMethod, Judge, UserSettingsType } from '@juki-team/commons';
+import { consoleWarn, getProblemJudgeKey, HTTPMethod, Judge, Language, UserSettingsType } from '@juki-team/commons';
 import { ErrorInfo } from 'react';
 import { LoginFormType } from '../components';
 import {
@@ -213,6 +213,12 @@ export class Settings {
       company: {
         permissionList: valid<void>(() => ({
           url: injectBaseUrl('company', '/permission-list'),
+          method: HTTPMethod.GET,
+        })),
+      },
+      locale: {
+        get: valid<{ params: { locale: Language, namespace: string } }>(({ params: { locale, namespace } }) => ({
+          url: injectBaseUrl('locale', `/${locale}/${namespace}`),
           method: HTTPMethod.GET,
         })),
       },

@@ -57,7 +57,7 @@ const useUser = () => {
       setCompany(data.content.company);
       if (data.content.user.isLogged) {
         setUser(data?.content.user);
-        void i18n.changeLanguage(data?.content?.user?.settings?.[ProfileSetting.LANGUAGE]);
+        void i18n.changeLanguage?.(data?.content?.user?.settings?.[ProfileSetting.LANGUAGE]);
       } else {
         setUser({
           ...data?.content.user,
@@ -69,7 +69,7 @@ const useUser = () => {
             [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
           },
         });
-        void i18n.changeLanguage(preferredLanguage);
+        void i18n.changeLanguage?.(preferredLanguage);
       }
       localStorageCrossDomains.setItem(jukiSettings.TOKEN_NAME, data?.content.user.sessionId);
     } else {
@@ -82,9 +82,8 @@ const useUser = () => {
           [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
           [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
         },
-      
       });
-      void i18n.changeLanguage(preferredLanguage);
+      void i18n.changeLanguage?.(preferredLanguage);
     }
   }, [ data ]);
   
