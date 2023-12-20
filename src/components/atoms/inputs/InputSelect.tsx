@@ -57,7 +57,7 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
       <Select
         {...selectProps}
         onChange={myOnChange}
-        selectedOption={onChange && selectedOption ? selectedOption : {
+        selectedOption={selectedOption ? selectedOption : {
           value,
           label: value ? undefined : <T>select an option</T> as U,
         }}
