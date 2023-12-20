@@ -54,7 +54,7 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
     i18n,
   } = props;
   
-  return (
+  const providers = (
     <JukiRouterProvider
       searchParams={router.searchParams}
       appendSearchParams={router.appendSearchParams}
@@ -76,15 +76,21 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
         >
           <JukiUIProvider components={components}>
             <DndProvider backend={HTML5Backend}>
-              {i18n ? (
-                <JukiTProvider i18n={i18n}>
-                  {children}
-                </JukiTProvider>
-              ) : children}
+              {children}
             </DndProvider>
           </JukiUIProvider>
         </JukiUserProvider>
       </JukiPageProvider>
     </JukiRouterProvider>
   );
+  
+  if (i18n) {
+    return (
+      <JukiTProvider i18n={i18n}>
+        {providers}
+      </JukiTProvider>
+    );
+  }
+  
+  return providers;
 }

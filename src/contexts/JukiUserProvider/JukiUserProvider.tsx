@@ -23,7 +23,7 @@ import {
 } from 'react-device-detect';
 import { jukiSettings } from '../../config';
 import { localStorageCrossDomains } from '../../helpers';
-import { useFetcher, useJukiPage } from '../../hooks';
+import { useFetcher, useJukiPage, useT } from '../../hooks';
 import { UserContext } from './context';
 import { SocketIo } from './SocketIo';
 import { DeviceType, JukiUserProviderProps } from './types';
@@ -42,6 +42,7 @@ const useUser = () => {
   
   const [ user, setUser ] = useState<UserPingType>(USER_GUEST);
   const [ company, setCompany ] = useState<CompanyPingType>({ emailContact: '', imageUrl: '', name: '', key: '' });
+  const i18n = useT();
   
   useEffect(() => {
     let preferredLanguage: Language = localStorage.getItem(ProfileSetting.LANGUAGE) as Language;
@@ -56,6 +57,7 @@ const useUser = () => {
       setCompany(data.content.company);
       if (data.content.user.isLogged) {
         setUser(data?.content.user);
+        void i18n.changeLanguage(data?.content?.user?.settings?.[ProfileSetting.LANGUAGE]);
       } else {
         setUser({
           ...data?.content.user,
@@ -67,6 +69,7 @@ const useUser = () => {
             [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
           },
         });
+        void i18n.changeLanguage(preferredLanguage);
       }
       localStorageCrossDomains.setItem(jukiSettings.TOKEN_NAME, data?.content.user.sessionId);
     } else {
@@ -79,7 +82,9 @@ const useUser = () => {
           [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
           [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
         },
+      
       });
+      void i18n.changeLanguage(preferredLanguage);
     }
   }, [ data ]);
   
