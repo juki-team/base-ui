@@ -4,6 +4,13 @@ import { MockupJukiProvider } from '../../mockup';
 import { Select } from './Select';
 import { SelectProps } from './types';
 
+// @ts-ignore
+Select.defaultProps = {
+  disabled: false,
+  optionsPlacement: 'bottom' as SelectProps<any, any, any>['optionsPlacement'],
+  extend: false,
+}
+
 const meta: Meta<typeof Select> = {
   component: Select,
 };

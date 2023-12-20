@@ -14,10 +14,12 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
     label: inputLabel,
     onChange,
     onBlur,
-    register,
+    register: _register,
     selectedOption,
     ...selectProps
   } = props;
+  
+  const { setValue: registerSetValue, ...register } = _register || {};
   
   const [ value, setValue ] = useState<T>('' as T);
   
@@ -25,7 +27,9 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
   
   const myOnChange: SelectProps<T, U, V>['onChange'] = onChange ? onChange : ({ value }) => {
     setValue(value);
-    register?.setValue?.(register?.name, value);
+    if ('name' in register) {
+      registerSetValue?.(register?.name, value);
+    }
   }
   
   const id = useId();
@@ -43,7 +47,9 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
         {...register}
         ref={(ref) => {
           inputRef.current = ref;
-          register?.ref?.(ref);
+          if ('ref' in register) {
+            register?.ref?.(ref);
+          }
         }}
         value={value as string}
         style={{ display: 'none' }}

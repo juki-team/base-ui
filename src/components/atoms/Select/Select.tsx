@@ -150,9 +150,3 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     </Popover>
   );
 };
-
-Select.defaultProps = {
-  disabled: false,
-  optionsPlacement: 'bottom' as SelectProps<any, any, any>['optionsPlacement'],
-  extend: false,
-}
