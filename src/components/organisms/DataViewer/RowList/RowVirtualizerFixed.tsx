@@ -121,11 +121,12 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   const headersSticky = headers.filter(({ sticky }) => sticky);
   const headersStickyWidth = headersSticky.reduce((sum, head) => sum + head.width, 0);
   
-  console.log({
+  console.log('RowVirtualizerFixed', {
+    headers,
     headersSticky,
     headersNoSticky,
     headersStickyWidth,
-    width: `calc(100% - ${headersStickyWidth}px - ${SCROLL_WIDTH}px)`,
+    width: `calc(100% - ${headersStickyWidth}px - ${SCROLL_WIDTH - SCROLL_WIDTH}px)`,
   });
   
   return (
@@ -166,7 +167,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
         recordHoveredIndex={recordHoveredIndex}
         setRecordHoveredIndex={setRecordHoveredIndex}
       />
-      <div style={{ width: `calc(100% - ${headersStickyWidth}px - ${SCROLL_WIDTH}px)` }}>
+      <div style={{ width: `calc(100% - ${headersStickyWidth}px - ${SCROLL_WIDTH - SCROLL_WIDTH}px)` }}>
         <VirtualizedRowsFixed
           size={data.length}
           rowHeight={rowHeight}

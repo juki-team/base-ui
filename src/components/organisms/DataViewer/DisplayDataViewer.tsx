@@ -83,6 +83,8 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     && (extraNodes.length === 0 ? true : extraNodesFloating)
     && !viewViews);
   
+  console.log('DisplayDataViewer', { tableHeaders })
+  
   return (
     <div
       className="jk-data-viewer-content jk-br-ie"
