@@ -46,6 +46,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     showFilterDrawerKey,
   } = props;
   
+  console.log('DisplayDataViewer', { headers });
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
   const [ headerWidths, setHeaderWidths ] = useState<HeaderWidthsType>({});
   const prevSizeWidth = usePrevious(viewContainerWidth);

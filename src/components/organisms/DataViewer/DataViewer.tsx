@@ -646,6 +646,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
   }, [ deleteSearchParams, filterKey, tableHeaders, searchFilter ]);
   
+  console.log('DataViewer', { tableHeaders, headers });
   return (
     <div className={classNames(className, 'jk-data-viewer-layout', { 'with-pagination': withPagination })}>
       <DisplayDataViewer<T>
