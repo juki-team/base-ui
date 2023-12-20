@@ -104,20 +104,29 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
                                                          field,
                                                          index: columnIndex,
                                                          width,
-                                                       }: TableHeadersWithWidthType<T>) => (
-    <div
-      key={virtualRow.key + ',' + columnIndex}
-      style={{ width: width + 'px' }}
-    >
-      {renderField(data, virtualRow.index, false)({ field, index: columnIndex })}
-    </div>
-  );
+                                                       }: TableHeadersWithWidthType<T>) => {
+    console.log({ field, columnIndex, virtualRow });
+    return (<div
+        key={virtualRow.key + ',' + columnIndex}
+        style={{ width: width + 'px' }}
+      >
+        {renderField(data, virtualRow.index, false)({ field, index: columnIndex })}
+      </div>
+    );
+  }
   
   const parentRef = useRef<HTMLDivElement>(null);
   
   const headersNoSticky = headers.filter(({ sticky }) => !sticky);
   const headersSticky = headers.filter(({ sticky }) => sticky);
   const headersStickyWidth = headersSticky.reduce((sum, head) => sum + head.width, 0);
+  
+  console.log({
+    headersSticky,
+    headersNoSticky,
+    headersStickyWidth,
+    width: `calc(100% - ${headersStickyWidth}px - ${SCROLL_WIDTH}px)`,
+  });
   
   return (
     <div
@@ -157,7 +166,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
         recordHoveredIndex={recordHoveredIndex}
         setRecordHoveredIndex={setRecordHoveredIndex}
       />
-      <div style={{ width: `calc(100% - ${headersStickyWidth}px - ${SCROLL_WIDTH - SCROLL_WIDTH}px)` }}>
+      <div style={{ width: `calc(100% - ${headersStickyWidth}px - ${SCROLL_WIDTH}px)` }}>
         <VirtualizedRowsFixed
           size={data.length}
           rowHeight={rowHeight}
