@@ -235,10 +235,9 @@ export const useJukiUserSettings = () => {
       for (const { key, value } of settingsToUpdate) {
         localStorageCrossDomains.setItem(key, value + '');
       }
-      setUser(prevState => (
-        { ...prevState, settings: newSettings }
-      ));
+      setUser(prevState => ({ ...prevState, settings: newSettings }));
     }
+    void i18n.changeLanguage?.(newSettings[ProfileSetting.LANGUAGE]);
   }, [ i18n, settings, updateUserPreferences ]);
   
   const loading = loader === Status.LOADING;

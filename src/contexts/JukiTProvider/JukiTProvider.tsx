@@ -26,6 +26,7 @@ export const JukiTProvider = ({ i18n, children }: PropsWithChildren<JukiTProvide
         ])
         i18n.addResourceBundle(Language.EN, namespace, dataEN);
         i18n.addResourceBundle(Language.ES, namespace, dataES);
+        setTimeout(() => setTrigger(Date.now()), 200);
       } catch (error) {
         consoleError(error);
       }
