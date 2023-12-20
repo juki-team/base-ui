@@ -46,7 +46,6 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     showFilterDrawerKey,
   } = props;
   
-  console.log('DisplayDataViewer', { headers });
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
   const [ headerWidths, setHeaderWidths ] = useState<HeaderWidthsType>({});
   const prevSizeWidth = usePrevious(viewContainerWidth);
@@ -82,8 +81,6 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   const onColumn = !isMobileViewPort || (isMobileViewPort
     && (extraNodes.length === 0 ? true : extraNodesFloating)
     && !viewViews);
-  
-  console.log('DisplayDataViewer', { tableHeaders })
   
   return (
     <div

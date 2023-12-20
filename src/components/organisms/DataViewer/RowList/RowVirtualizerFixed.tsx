@@ -105,7 +105,6 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
                                                          index: columnIndex,
                                                          width,
                                                        }: TableHeadersWithWidthType<T>) => {
-    console.log({ field, columnIndex, virtualRow });
     return (<div
         key={virtualRow.key + ',' + columnIndex}
         style={{ width: width + 'px' }}
@@ -120,14 +119,6 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   const headersNoSticky = headers.filter(({ sticky }) => !sticky);
   const headersSticky = headers.filter(({ sticky }) => sticky);
   const headersStickyWidth = headersSticky.reduce((sum, head) => sum + head.width, 0);
-  
-  console.log('RowVirtualizerFixed', {
-    headers,
-    headersSticky,
-    headersNoSticky,
-    headersStickyWidth,
-    width: `calc(100% - ${headersStickyWidth}px - ${SCROLL_WIDTH - SCROLL_WIDTH}px)`,
-  });
   
   return (
     <div

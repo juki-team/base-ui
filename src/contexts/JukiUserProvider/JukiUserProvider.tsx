@@ -48,13 +48,11 @@ const useUser = () => {
     if (typeof user === 'function') {
       _setUser((prevState) => {
         const newUser = user(prevState);
-        console.log({ newUser, changeLanguage: i18n.changeLanguage, i18n });
         void i18n.changeLanguage?.(newUser.settings[ProfileSetting.LANGUAGE]);
         return newUser;
       });
     } else {
       _setUser(user);
-      console.log({ user, changeLanguage: i18n.changeLanguage, i18n });
       void i18n.changeLanguage?.(user.settings[ProfileSetting.LANGUAGE]);
     }
   }, [ _setUser, i18n ]);
