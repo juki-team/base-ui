@@ -10,7 +10,7 @@ import {
   USER_GUEST,
   UserPingType,
 } from '@juki-team/commons';
-import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
+import React, { Dispatch, PropsWithChildren, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   browserName,
   browserVersion,
@@ -40,9 +40,22 @@ const useUser = () => {
     { refreshInterval: 1000 * 60 * 5 },
   );
   
-  const [ user, setUser ] = useState<UserPingType>(USER_GUEST);
+  const [ user, _setUser ] = useState<UserPingType>(USER_GUEST);
   const [ company, setCompany ] = useState<CompanyPingType>({ emailContact: '', imageUrl: '', name: '', key: '' });
   const i18n = useT();
+  
+  const setUser: Dispatch<SetStateAction<UserPingType>> = useCallback((user) => {
+    if (typeof user === 'function') {
+      _setUser((prevState) => {
+        const newUser = user(prevState);
+        void i18n.changeLanguage?.(newUser.settings[ProfileSetting.LANGUAGE]);
+        return newUser;
+      });
+    } else {
+      _setUser(user);
+      void i18n.changeLanguage?.(user.settings[ProfileSetting.LANGUAGE]);
+    }
+  }, [ _setUser, i18n ]);
   
   useEffect(() => {
     let preferredLanguage: Language = localStorage.getItem(ProfileSetting.LANGUAGE) as Language;
@@ -57,7 +70,6 @@ const useUser = () => {
       setCompany(data.content.company);
       if (data.content.user.isLogged) {
         setUser(data?.content.user);
-        void i18n.changeLanguage?.(data?.content?.user?.settings?.[ProfileSetting.LANGUAGE]);
       } else {
         setUser({
           ...data?.content.user,
@@ -69,7 +81,6 @@ const useUser = () => {
             [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
           },
         });
-        void i18n.changeLanguage?.(preferredLanguage);
       }
       localStorageCrossDomains.setItem(jukiSettings.TOKEN_NAME, data?.content.user.sessionId);
     } else {
@@ -83,7 +94,6 @@ const useUser = () => {
           [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
         },
       });
-      void i18n.changeLanguage?.(preferredLanguage);
     }
   }, [ data ]);
   

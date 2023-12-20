@@ -239,8 +239,6 @@ export const useJukiUserSettings = () => {
         { ...prevState, settings: newSettings }
       ));
     }
-    
-    void i18n.changeLanguage?.(newSettings[ProfileSetting.LANGUAGE]);
   }, [ i18n, settings, updateUserPreferences ]);
   
   const loading = loader === Status.LOADING;
