@@ -26,6 +26,7 @@ import {
 } from '../types';
 import { useMatchMutate } from './useMatchMutate';
 import { useNotification } from './useNotification';
+import { useT } from './useT';
 
 type ApiType<T> = {
   setLoader?: SetStatusType,
@@ -196,9 +197,10 @@ export const useJukiUser = () => {
 
 export const useJukiUserSettings = () => {
   
+  const i18n = useT();
   const { updateUserPreferences, setUser, user: { isLogged, settings, nickname }, mutatePing } = useJukiUser();
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
-  const setSettings = async (settingsToUpdate: { key: ProfileSetting, value: string | boolean }[]) => {
+  const setSettings = useCallback(async (settingsToUpdate: { key: ProfileSetting, value: string | boolean }[]) => {
     const newSettings: UserSettingsType = { ...settings };
     for (const { key, value } of settingsToUpdate) {
       if (key === ProfileSetting.LANGUAGE) {
@@ -237,7 +239,10 @@ export const useJukiUserSettings = () => {
         { ...prevState, settings: newSettings }
       ));
     }
-  };
+    
+    void i18n.changeLanguage(newSettings[ProfileSetting.LANGUAGE]);
+  }, [ i18n, settings, updateUserPreferences ]);
+  
   const loading = loader === Status.LOADING;
   
   return {
