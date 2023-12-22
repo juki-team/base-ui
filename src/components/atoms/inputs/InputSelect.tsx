@@ -28,7 +28,7 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
   const myOnChange: SelectProps<T, U, V>['onChange'] = onChange ? onChange : ({ value }) => {
     setValue(value);
     if ('name' in register) {
-      registerSetValue?.(register?.name, value);
+      registerSetValue?.(register?.name, value, { shouldTouch: true });
     }
   }
   
