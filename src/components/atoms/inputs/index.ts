@@ -4,5 +4,6 @@ export * from './InputCheckbox';
 export * from './InputPassword';
 export * from './InputRadio';
 export * from './InputSelect';
+export * from './InputTextArea';
 export * from './InputToggle';
 export * from './types';

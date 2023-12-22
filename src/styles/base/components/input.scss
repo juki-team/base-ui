@@ -275,7 +275,8 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-input-file-wrapper,
 .jk-input-files-wrapper,
 .jk-input-select-wrapper,
-.jk-input-cell-phone-number-wrapper {
+.jk-input-cell-phone-number-wrapper,
+.jk-input-text-area-wrapper {
   position: relative;
   display: inline-block;
   
@@ -660,6 +661,14 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   &.extend {
     width: 100%;
+  }
+  
+  &.error .jk-select {
+    --input-border-color: var(--t-color-error);
+  }
+  
+  &.success .jk-select {
+    --input-border-color: var(--t-color-success);
   }
   
   .jk-select {

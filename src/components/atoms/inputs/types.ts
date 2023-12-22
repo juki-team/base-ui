@@ -91,6 +91,8 @@ export type InputSelectProps<T, U extends ReactNodeOrFunctionType, V extends Rea
 
 export type InputCellPhoneNumberProps<T> = Omit<InputProps<T>, 'type'>;
 
+export type InputTextAreaProps = Omit<InputProps<string>, 'type'>;
+
 export interface InputDateProps {
   todayButton?: boolean,
   date: Date | null,
