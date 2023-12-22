@@ -1,10 +1,9 @@
-import React, { ReactNode, useId } from 'react';
+import React, { useId } from 'react';
 import { classNames } from '../../../helpers';
-import { ReactNodeOrFunctionType } from '../../../types';
 import { TextArea } from '../TextArea';
 import { InputTextAreaProps } from './types';
 
-export const InputTextArea = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: InputTextAreaProps) => {
+export const InputTextArea = (props: InputTextAreaProps) => {
   
   const {
     extend = false,
