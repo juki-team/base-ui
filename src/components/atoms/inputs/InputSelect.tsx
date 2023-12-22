@@ -59,7 +59,7 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
         onChange={myOnChange}
         selectedOption={selectedOption ? selectedOption : {
           value,
-          label: value ? undefined : <T>select an option</T> as U,
+          label: value ? undefined : <T className="tt-se">select an option</T> as U,
         }}
         onBlur={() => inputRef.current?.blur()}
       />
