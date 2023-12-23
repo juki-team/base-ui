@@ -7,10 +7,17 @@ import { UserChipProps } from './types';
 export const UserChip = ({ imageUrl, email, familyName, nickname, givenName, className }: UserChipProps) => {
   
   const { components: { Image } } = useJukiUI();
+  const onlyNickname = !givenName && !familyName && !email;
   
   return (
-    <div className={classNames('jk-row nowrap center jk-pg-sm-tb', className)}>
-      <Image src={imageUrl} className="jk-user-profile-img huge" alt={nickname} height={50} width={50} />
+    <div className={classNames('jk-row nowrap center', className)}>
+      <Image
+        src={imageUrl}
+        className="jk-user-profile-img huge"
+        alt={nickname}
+        height={onlyNickname ? 24 : 50}
+        width={onlyNickname ? 24 : 50}
+      />
       <div className="jk-col flex-1" style={{ lineHeight: 1.2 }}>
         <UserNicknameLink nickname={nickname}>
           <div className="link fw-bd">{nickname}</div>

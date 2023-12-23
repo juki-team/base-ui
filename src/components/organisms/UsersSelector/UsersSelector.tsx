@@ -106,7 +106,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
               email={user.email}
               familyName={user.familyName}
               givenName={user.givenName}
-              className="flex-1"
+              className="flex-1 jk-pg-sm-tb"
             />
           ),
           inputLabel: user.nickname,
