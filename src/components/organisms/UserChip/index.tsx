@@ -13,7 +13,7 @@ export const UserChip = ({ imageUrl, email, familyName, nickname, givenName, cla
     <div className={classNames('jk-row nowrap center', className)}>
       <Image
         src={imageUrl}
-        className="jk-user-profile-img huge"
+        className={classNames('jk-user-profile-img ', { huge: !onlyNickname })}
         alt={nickname}
         height={onlyNickname ? 24 : 50}
         width={onlyNickname ? 24 : 50}
