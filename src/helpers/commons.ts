@@ -74,7 +74,10 @@ export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName
   downloadLink(blobURL, fileName);
 };
 
-export const downloadXlsxAsFile = async (data: (string | number)[][], fileName: string, sheetName: string) => {
+export const downloadXlsxAsFile = async (fileName: string, sheets: {
+  sheetName: string,
+  data: (string | number)[][],
+}[]) => {
   const workBook = utils.book_new();
   workBook.Props = {
     Title: fileName,
@@ -82,8 +85,10 @@ export const downloadXlsxAsFile = async (data: (string | number)[][], fileName: 
     Author: 'Juki Judge',
     CreatedDate: new Date(),
   };
-  workBook.SheetNames.push(sheetName);
-  workBook.Sheets[sheetName] = utils.aoa_to_sheet(data);
+  for (const { sheetName, data } of sheets) {
+    workBook.SheetNames.push(sheetName);
+    workBook.Sheets[sheetName] = utils.aoa_to_sheet(data);
+  }
   const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
   const blob = new Blob([ stringToArrayBuffer(workBookOut) ], { type: 'application/octet-stream' });
   await downloadBlobAsFile(blob, fileName);
