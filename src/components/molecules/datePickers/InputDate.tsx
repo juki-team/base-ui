@@ -19,10 +19,16 @@ export const InputDate = (props: InputDateProps) => {
     twoLines = false,
     withDayName = false,
     extend = false,
+    inputLabel,
   } = props;
   const [ visible, setVisible ] = useState(false);
   
   const input = () => {
+    
+    if (inputLabel) {
+      return inputLabel(date, () => setVisible(false));
+    }
+    
     return date?.isValidDate() ? (
       <>
         <DateLiteral
