@@ -104,10 +104,8 @@ export const TestCases = <T, >({ testCases, onChange, timeLimit, memoryLimit, di
   const { addNotification } = useNotification();
   const status = testCases[testCaseKey]?.status;
   useEffect(() => {
-    setOutputTab(status
-    === SubmissionRunStatus.FAILED
-    || status
-    === SubmissionRunStatus.COMPILATION_ERROR ? 'error' : 'output');
+    setOutputTab(status === SubmissionRunStatus.FAILED
+    || status === SubmissionRunStatus.COMPILATION_ERROR ? 'error' : 'output');
   }, [ status ]);
   
   const loaderAndInfo = (

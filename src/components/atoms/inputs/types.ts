@@ -96,7 +96,7 @@ export type InputTextAreaProps = Omit<InputProps<string>, 'type'>;
 export interface InputDateProps {
   todayButton?: boolean,
   date: Date | null,
-  onDatePick: (date: Date) => void,
+  onDatePick: (date: Date, onClose: () => void) => void,
   onDateClean?: () => void
   inline?: boolean,
   type?: DateDisplayType,

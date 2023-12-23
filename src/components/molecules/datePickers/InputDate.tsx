@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
 import { Button, DateLiteral, InputDateProps, PlusIcon, Popover, T } from '../../atoms';
 import { DatePicker } from './DatePicker';
@@ -20,6 +20,7 @@ export const InputDate = (props: InputDateProps) => {
     withDayName = false,
     extend = false,
   } = props;
+  const [ visible, setVisible ] = useState(false);
   
   const input = () => {
     return date?.isValidDate() ? (
@@ -61,7 +62,7 @@ export const InputDate = (props: InputDateProps) => {
         <DatePicker
           todayButton={todayButton}
           date={date || baseDate}
-          onChange={date => onDatePick(date)}
+          onChange={date => onDatePick(date, () => setVisible(false))}
           type={type}
           isDisabled={isDisabled}
           isSelected={isSelected}
@@ -77,7 +78,7 @@ export const InputDate = (props: InputDateProps) => {
           <DatePicker
             todayButton={todayButton}
             date={date || baseDate}
-            onChange={date => onDatePick(date)}
+            onChange={date => onDatePick(date, () => setVisible(false))}
             type={type}
             isDisabled={isDisabled}
             isSelected={isSelected}
@@ -86,6 +87,8 @@ export const InputDate = (props: InputDateProps) => {
         triggerOn="click"
         placement="bottom"
         showPopperArrow
+        visible={visible}
+        onVisibleChange={(visible) => setVisible(visible)}
       >
         <div>{input()}</div>
       </Popover>
