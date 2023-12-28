@@ -1,4 +1,5 @@
 import React, { PropsWithChildren, useCallback, useState } from 'react';
+import { cloneURLSearchParams } from '../../helpers';
 import { RouterContext } from './context';
 import {
   AppendSearchParamsType,
@@ -8,10 +9,6 @@ import {
   RouterContextInterface,
   SetSearchParamsType,
 } from './types';
-
-const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
-  return new URLSearchParams(urlSearchParams.toString());
-};
 
 const getHref = (href: Href) => {
   if (typeof href === 'string') {

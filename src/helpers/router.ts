@@ -1,5 +1,9 @@
 import { RequestFilterType, RequestSortType } from '../types';
 
+export const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
+  return new URLSearchParams(urlSearchParams.toString());
+};
+
 export const toFilterUrl = (filter: RequestFilterType) => {
   let filterUrl = '';
   Object.entries(filter).forEach(([ key, value ]) => {
