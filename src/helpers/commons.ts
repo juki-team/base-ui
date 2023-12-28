@@ -74,7 +74,7 @@ export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName
   downloadLink(blobURL, fileName);
 };
 
-export const downloadXlsxAsFile = async (fileName: string, sheets: {
+export const downloadDataTablesAsXlsxFile = async (fileName: string, sheets: {
   sheetName: string,
   data: (string | number)[][],
 }[]) => {
