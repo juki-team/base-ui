@@ -94,6 +94,7 @@ export type InputCellPhoneNumberProps<T> = Omit<InputProps<T>, 'type'>;
 export type InputTextAreaProps = Omit<InputProps<string>, 'type'>;
 
 export interface InputDateProps {
+  disabled?: boolean,
   todayButton?: boolean,
   date: Date | null,
   onDatePick: (date: Date, onClose: () => void) => void,
@@ -106,7 +107,7 @@ export interface InputDateProps {
   twoLines?: boolean,
   extend?: boolean,
   withDayName?: boolean,
-  inputLabel?: (date: Date | null, onClose: () => void) => ReactNode,
+  inputLabel?: (inputDateProps: InputDateProps | null, onClose: () => void) => ReactNode,
 }
 
 export interface InputSubmitProps {

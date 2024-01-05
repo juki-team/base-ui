@@ -20,13 +20,14 @@ export const InputDate = (props: InputDateProps) => {
     withDayName = false,
     extend = false,
     inputLabel,
+    disabled = false,
   } = props;
   const [ visible, setVisible ] = useState(false);
   
   const input = () => {
     
     if (inputLabel) {
-      return inputLabel(date, () => setVisible(false));
+      return inputLabel(props, () => setVisible(false));
     }
     
     return date?.isValidDate() ? (
@@ -78,26 +79,30 @@ export const InputDate = (props: InputDateProps) => {
   }
   
   return (
-    <div className="jk-input-date-layout" style={extend ? { width: '100%' } : {}}>
-      <Popover
-        content={() => (
-          <DatePicker
-            todayButton={todayButton}
-            date={date || baseDate}
-            onChange={date => onDatePick(date, () => setVisible(false))}
-            type={type}
-            isDisabled={isDisabled}
-            isSelected={isSelected}
-          />
-        )}
-        triggerOn="click"
-        placement="bottom"
-        showPopperArrow
-        visible={visible}
-        onVisibleChange={(visible) => setVisible(visible)}
-      >
+    <div className={classNames('jk-input-date-layout', { disabled })} style={extend ? { width: '100%' } : {}}>
+      {disabled ? (
         <div>{input()}</div>
-      </Popover>
+      ) : (
+        <Popover
+          content={() => (
+            <DatePicker
+              todayButton={todayButton}
+              date={date || baseDate}
+              onChange={date => onDatePick(date, () => setVisible(false))}
+              type={type}
+              isDisabled={isDisabled}
+              isSelected={isSelected}
+            />
+          )}
+          triggerOn="click"
+          placement="bottom"
+          showPopperArrow
+          visible={visible}
+          onVisibleChange={(visible) => setVisible(visible)}
+        >
+          <div>{input()}</div>
+        </Popover>
+      )}
     </div>
   );
 };
