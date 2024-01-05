@@ -80,29 +80,25 @@ export const InputDate = (props: InputDateProps) => {
   
   return (
     <div className={classNames('jk-input-date-layout', { disabled })} style={extend ? { width: '100%' } : {}}>
-      {disabled ? (
+      <Popover
+        content={() => (
+          <DatePicker
+            todayButton={todayButton}
+            date={date || baseDate}
+            onChange={date => onDatePick(date, () => setVisible(false))}
+            type={type}
+            isDisabled={isDisabled}
+            isSelected={isSelected}
+          />
+        )}
+        triggerOn="click"
+        placement="bottom"
+        showPopperArrow
+        visible={disabled ? false : visible}
+        onVisibleChange={(visible) => setVisible(visible)}
+      >
         <div>{input()}</div>
-      ) : (
-        <Popover
-          content={() => (
-            <DatePicker
-              todayButton={todayButton}
-              date={date || baseDate}
-              onChange={date => onDatePick(date, () => setVisible(false))}
-              type={type}
-              isDisabled={isDisabled}
-              isSelected={isSelected}
-            />
-          )}
-          triggerOn="click"
-          placement="bottom"
-          showPopperArrow
-          visible={visible}
-          onVisibleChange={(visible) => setVisible(visible)}
-        >
-          <div>{input()}</div>
-        </Popover>
-      )}
+      </Popover>
     </div>
   );
 };
