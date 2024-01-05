@@ -107,7 +107,7 @@ export interface InputDateProps {
   twoLines?: boolean,
   extend?: boolean,
   withDayName?: boolean,
-  inputLabel?: (inputDateProps: InputDateProps | null, onClose: () => void) => ReactNode,
+  inputLabel?: (inputDateProps: InputDateProps, onClose: () => void) => ReactNode,
 }
 
 export interface InputSubmitProps {
