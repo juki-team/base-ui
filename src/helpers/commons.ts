@@ -82,7 +82,7 @@ export const downloadDataTablesAsXlsxFile = async (fileName: string, sheets: {
   workBook.Props = {
     Title: fileName,
     Subject: fileName,
-    Author: 'Juki Judge',
+    Author: 'Juki',
     CreatedDate: new Date(),
   };
   for (const { sheetName, data } of sheets) {

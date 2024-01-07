@@ -3,6 +3,8 @@ import React, { FC, useState } from 'react';
 import { ColorResult } from 'react-color';
 import { MockupJukiProvider } from '../../../mockup';
 import { InputColor } from '../../../molecules';
+import { Input } from '../../inputs';
+import { T } from '../../T';
 import { BasicIconProps } from '../types';
 
 import {
@@ -26,6 +28,7 @@ import {
   AttachmentIcon,
   AutorenewIcon,
   BadgeIcon,
+  BuildIcon,
   CalendarMonthIcon,
   CalendarTodayIcon,
   CheckIcon,
@@ -51,6 +54,7 @@ import {
   ExpandMoreIcon,
   FilterListIcon,
   FolderIcon,
+  FolderManagedIcon,
   FolderOpenIcon,
   ForwardIcon,
   FullscreenExitIcon,
@@ -79,6 +83,7 @@ import {
   MailIcon,
   ManageAccountsIcon,
   ManageSearchIcon,
+  ManufacturingIcon,
   MenuBookIcon,
   MoreTimeIcon,
   NavigateBeforeIcon,
@@ -87,6 +92,7 @@ import {
   NoteAddIcon,
   NoteIcon,
   OpenInNewIcon,
+  PageInfoIcon,
   PaletteIcon,
   PendingActionsIcon,
   PersonIcon,
@@ -112,6 +118,7 @@ import {
   SettingsSuggestIcon,
   ShareIcon,
   StopCircleIcon,
+  StorageIcon,
   SupportAgentIcon,
   SyncIcon,
   TaskIcon,
@@ -170,6 +177,7 @@ export const Google: FC<BasicIconProps> = (args) => {
     ArrowForwardIcon,
     ArrowLeftIcon,
     ArrowRightIcon,
+    BuildIcon,
     ArrowUpwardIcon,
     ArticleIcon,
     AssignmentIcon,
@@ -204,6 +212,7 @@ export const Google: FC<BasicIconProps> = (args) => {
     FolderIcon,
     FolderOpenIcon,
     ForwardIcon,
+    StorageIcon,
     FullscreenExitIcon,
     FullscreenIcon,
     GroupAddIcon,
@@ -276,17 +285,24 @@ export const Google: FC<BasicIconProps> = (args) => {
     PublishIcon,
     LockPersonIcon,
     HomeIcon,
+    ManufacturingIcon,
+    PageInfoIcon,
+    FolderManagedIcon,
   };
   
   const [ color, setColor ] = useState<ColorResult>({ hex: '', hsl: { h: 0, s: 0, l: 0 }, rgb: { r: 0, g: 0, b: 0 } });
+  const [ filter, setFilter ] = useState('');
   
   return (
     <MockupJukiProvider>
+      <h3>icons</h3>
       <div className="jk-row extend">
-        <InputColor color={color} onChange={setColor} />
+        <InputColor color={color} onChange={setColor} label={<T className="tt-se">color</T>} />
+        <Input value={filter} onChange={setFilter} label={<T className="tt-se">filter</T>} />
       </div>
       <div className="jk-row block gap" style={{ color: color.hex }}>
         {Object.entries(icons)
+          .filter(([ iconName ]) => filter ? iconName.toLowerCase().includes(filter.toLowerCase()) : true)
           .sort(([ iconName1 ], [ iconName2 ]) => iconName1.localeCompare(iconName2))
           .map(([ iconName, Component ]) => (
             <div className="jk-row gap nowrap center">
