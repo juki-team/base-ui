@@ -2,6 +2,7 @@ import { ParsedUrlQuery } from 'querystring';
 import React, { PropsWithChildren } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { JukiLastPathProvider, LastPathProviderProps } from './JukiLastPathProvider';
 import { JukiPageProvider } from './JukiPageProvider';
 import {
   AppendSearchParamsType,
@@ -14,8 +15,12 @@ import { JukiTProvider, JukiTProviderProps } from './JukiTProvider';
 import { JukiUIProvider, JukiUIProviderProps } from './JukiUIProvider';
 import { JukiUserProvider, JukiUserProviderProps } from './JukiUserProvider';
 
-
-export type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & Partial<JukiTProviderProps> & {
+export type JukiProvidersProps<T extends string | number> =
+  JukiUIProviderProps
+  & JukiUserProviderProps
+  & Partial<JukiTProviderProps>
+  & LastPathProviderProps<T>
+  & {
   router: {
     searchParams: URLSearchParams,
     appendSearchParams: AppendSearchParamsType,
@@ -41,7 +46,7 @@ export type JukiProvidersProps = JukiUIProviderProps & JukiUserProviderProps & P
   }
 };
 
-export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
+export const JukiProviders = <T extends string | number, >(props: PropsWithChildren<JukiProvidersProps<T>>) => {
   
   const {
     children,
@@ -52,6 +57,7 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
     components,
     router,
     i18n,
+    initialLastPath,
   } = props;
   
   const providers = (
@@ -75,9 +81,11 @@ export const JukiProviders = (props: PropsWithChildren<JukiProvidersProps>) => {
           tokenName={tokenName}
         >
           <JukiUIProvider components={components}>
-            <DndProvider backend={HTML5Backend}>
-              {children}
-            </DndProvider>
+            <JukiLastPathProvider initialLastPath={initialLastPath}>
+              <DndProvider backend={HTML5Backend}>
+                {children}
+              </DndProvider>
+            </JukiLastPathProvider>
           </JukiUIProvider>
         </JukiUserProvider>
       </JukiPageProvider>

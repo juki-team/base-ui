@@ -1,4 +1,4 @@
-import { CSSProperties, FC, HTMLAttributeAnchorTarget, PropsWithChildren } from 'react';
+import { CSSProperties, FC, HTMLAttributeAnchorTarget, MouseEventHandler, PropsWithChildren } from 'react';
 import { UrlObject } from 'url';
 
 export interface ImageCmpProps {
@@ -21,6 +21,7 @@ export interface LinkCmpProps {
   locale?: string | false,
   className?: string,
   style?: CSSProperties,
+  onClick?: MouseEventHandler<HTMLAnchorElement>,
 }
 
 export interface UIComponentsContextInterface {

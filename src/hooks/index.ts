@@ -8,6 +8,7 @@ export * from './useJukiPage';
 export * from './useJukiRouter';
 export * from './useJukiUI';
 export * from './useJukiUser';
+export * from './useLastPath';
 export * from './useMatchMutate';
 export * from './useNotification';
 export * from './useSWR';
