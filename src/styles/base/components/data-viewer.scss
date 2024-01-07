@@ -52,6 +52,7 @@
     height: 100%;
     background: var(--t-color-white);
     border: 1px solid var(--t-color-shadow-lightest);
+    box-sizing: border-box;
     
     --jk-table-toolbar-height: 50px; // 48 + 2 (border)
     
@@ -59,6 +60,7 @@
       height: var(--jk-table-toolbar-height);
       position: relative;
       border-bottom: 1px solid var(--t-color-shadow-light);
+      box-sizing: border-box;
       
       &.cards {
         //background-color: var(--t-color-white);
@@ -404,6 +406,7 @@
             border-top: 1px solid var(--t-color-gray-6);
             width: 100%;
             display: flex;
+            box-sizing: border-box;
             
             &.hovered {
               background: rgba(0, 0, 0, 0.08);
