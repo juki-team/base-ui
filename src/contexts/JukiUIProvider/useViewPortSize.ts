@@ -4,6 +4,8 @@ import { ViewPortSizeType } from '../../types';
 export const useViewPortSize = () => {
   
   const [ viewPortSize, setViewPortSize ] = useState<ViewPortSizeType>('');
+  const [ viewPortWidth, setViewPortWidth ] = useState(0);
+  const [ viewPortHeight, setViewPortHeight ] = useState(0);
   
   useEffect(() => {
     const listener = () => {
@@ -11,12 +13,15 @@ export const useViewPortSize = () => {
       const vh = window.innerHeight * 0.01;
       // Then we set the value in the --vh custom property to the root of the document
       document?.documentElement.style.setProperty('--vh', `${vh}px`);
-      const vw = window.innerWidth;
-      if (vw >= 1920) {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      setViewPortWidth(width);
+      setViewPortHeight(height);
+      if (width >= 1920) {
         setViewPortSize('hg');
-      } else if (vw >= 1280) {
+      } else if (width >= 1280) {
         setViewPortSize('lg');
-      } else if (vw >= 640) {
+      } else if (width >= 640) {
         setViewPortSize('md');
       } else {
         setViewPortSize('sm');
@@ -29,5 +34,5 @@ export const useViewPortSize = () => {
     };
   }, []);
   
-  return viewPortSize;
+  return { viewPortSize, viewPortWidth, viewPortHeight };
 };

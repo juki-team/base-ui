@@ -10,7 +10,7 @@ import { useViewPortSize } from './useViewPortSize';
 
 export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiUIProviderProps>) => {
   
-  const viewPortSize = useViewPortSize();
+  const { viewPortSize, viewPortHeight, viewPortWidth} = useViewPortSize();
   
   const { Image: ImageCmp = Image, Link: LinkCmp = Link } = components || { Image, Link };
   const { isLoadingRoute } = useJukiRouter();
@@ -22,6 +22,8 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
       value={{
         ref,
         viewPortSize,
+        viewPortHeight,
+        viewPortWidth,
         components: { Image: ImageCmp, Link: LinkCmp },
       }}
     >
