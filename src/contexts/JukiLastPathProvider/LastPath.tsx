@@ -10,7 +10,7 @@ interface LastPathProps<T> {
   overwriteCompanyKey?: string,
 }
 
-export const LastPath = <T, >(props: PropsWithChildren<LastPathProps<T>>) => {
+export const LinkLastPath = <T, >(props: PropsWithChildren<LastPathProps<T>>) => {
   
   const { children, lastPathKey, onDoubleClickRoute, overwriteCompanyKey } = props;
   const { components: { Link } } = useJukiUI();
