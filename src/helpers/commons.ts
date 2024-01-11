@@ -77,6 +77,8 @@ export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName
 export const downloadDataTablesAsXlsxFile = async (fileName: string, sheets: {
   sheetName: string,
   data: (string | number)[][],
+  autoFilter?: string,
+  columns?: { wpx: number }[]
 }[]) => {
   const workBook = utils.book_new();
   workBook.Props = {
@@ -85,9 +87,25 @@ export const downloadDataTablesAsXlsxFile = async (fileName: string, sheets: {
     Author: 'Juki',
     CreatedDate: new Date(),
   };
-  for (const { sheetName, data } of sheets) {
+  for (const { sheetName, data, autoFilter, columns } of sheets) {
     workBook.SheetNames.push(sheetName);
     workBook.Sheets[sheetName] = utils.aoa_to_sheet(data);
+    if (autoFilter) {
+      workBook.Sheets[sheetName]['!autofilter'] = { ref: autoFilter }
+    }
+    if (columns) {
+      if (!workBook.Sheets[sheetName]['!cols']) {
+        workBook.Sheets[sheetName]['!cols'] = [];
+      }
+      for (let index = 0; index < columns.length; index++) {
+        if (!workBook.Sheets[sheetName]['!cols']![index]) {
+          workBook.Sheets[sheetName]['!cols']![index] = {};
+        }
+        if (columns[index].wpx) {
+          workBook.Sheets[sheetName]['!cols']![index].wpx = columns[index].wpx;
+        }
+      }
+    }
   }
   const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
   const blob = new Blob([ stringToArrayBuffer(workBookOut) ], { type: 'application/octet-stream' });

@@ -119,7 +119,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .disabled-input {
   //box-shadow: inset 0 0 0 1px var(--t-color-gray-4);
   //@extend .appearance-gray-6;
-  
+  --input-border-color: var(--t-color-shadow-lightest);
   background-color: var(--t-color-shadow-lightest);
   box-shadow: inset 0 0 0 1px var(--input-border-color);
 }
@@ -304,6 +304,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       padding: 0 4px;
       background-color: var(--t-color-white);
       line-height: 0.9;
+    }
+    
+    input.disabled + label, textarea.disabled + label, div.jk-select-layout.disabled + label {
+      background: transparent;
     }
   }
   

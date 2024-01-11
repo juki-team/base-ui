@@ -62,8 +62,8 @@
     "storybook:build": "rm -rf docs && storybook build -s public -o docs",
     "rollup:build": "rm -rf dist && rollup -c --strictDeprecations",
     "pull": "yarn add @juki-team/commons -D",
-    "build": "yarn rollup:build",
-    "buildo": "yarn storybook:build && yarn rollup:build",
+    "buildo": "yarn rollup:build",
+    "build": "yarn storybook:build && yarn rollup:build",
     "git-push": "f() { param=${1}; message=${param:-chore}; echo ${message}; git add .; echo $message | git commit -F -; yarn publish --patch --no-git-tag-version; version=\"v$(node -p \"require('./package.json').version\")\"; git add .; echo $version | git commit -F -; git push origin main; echo $version | git tag -a $(echo $version) -F -; git push origin --tags; }; f",
     "push": "f() { yarn build && yarn git-push \"${1}\"; }; f"
   },
