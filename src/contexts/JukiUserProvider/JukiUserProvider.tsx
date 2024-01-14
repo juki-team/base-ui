@@ -139,8 +139,12 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     osLabel: `${osName} ${osVersion}`,
   };
   
+  const valueString = JSON.stringify({ user, company, setUser, isLoading, isValidating, device });
+  
+  const value = useMemo(() => ({ ...JSON.parse(valueString), socket, mutate }), [ valueString, socket, mutate ]);
+  
   return (
-    <UserContext.Provider value={{ user, company, setUser, isLoading, isValidating, mutate, socket, device }}>
+    <UserContext.Provider value={value}>
       {children}
     </UserContext.Provider>
   );

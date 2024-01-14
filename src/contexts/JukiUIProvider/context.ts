@@ -1,11 +1,11 @@
-import { createContext, MutableRefObject } from 'react';
+import { createContext } from 'react';
 import { ViewPortSizeType } from '../../types';
 import { Image } from './Image';
 import { Link } from './Link';
 import { UIComponentsContextInterface } from './types';
 
 export interface UIContextInterface {
-  ref: MutableRefObject<any>,
+  jukiAppDiv: HTMLDivElement | undefined,
   viewPortSize: ViewPortSizeType,
   viewPortHeight: number,
   viewPortWidth: number,
@@ -13,7 +13,7 @@ export interface UIContextInterface {
 }
 
 export const UIContext = createContext<UIContextInterface>({
-  ref: null as unknown as MutableRefObject<any>,
+  jukiAppDiv: undefined,
   viewPortSize: '',
   viewPortHeight: 0,
   viewPortWidth: 0,

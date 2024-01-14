@@ -61,7 +61,7 @@ export const Popover = (props: PopoverProps) => {
     triggerOffDelayInMs,
     withOutsideAlerter,
   });
-  const { ref } = useJukiUI();
+  const { jukiAppDiv } = useJukiUI();
   
   const popoverContent = (
     <div className={classNames('jk-popover-layout', popoverClassName)}>
@@ -78,7 +78,7 @@ export const Popover = (props: PopoverProps) => {
   
   return (
     <ReactPopover
-      boundaryElement={ref?.current}
+      boundaryElement={jukiAppDiv}
       padding={marginOfChildren}
       isOpen={isOpen}
       positions={[ placementPositionAlign[placement].position, 'top', 'bottom', 'left', 'right' ]} // preferred positions by priority

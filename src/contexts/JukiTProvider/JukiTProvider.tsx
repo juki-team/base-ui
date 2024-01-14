@@ -1,5 +1,5 @@
 import { consoleError, Language } from '@juki-team/commons';
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
 import { jukiSettings } from '../../config';
 import { TContext } from './context';
 import { JukiTProviderProps } from './types';
@@ -33,8 +33,10 @@ export const JukiTProvider = ({ i18n, children }: PropsWithChildren<JukiTProvide
     })();
   }, []);
   
+  const value = useMemo(() => ({ i18n }), [ i18n ]);
+  
   return (
-    <TContext.Provider value={{ i18n }}>
+    <TContext.Provider value={value}>
       {children}
     </TContext.Provider>
   );

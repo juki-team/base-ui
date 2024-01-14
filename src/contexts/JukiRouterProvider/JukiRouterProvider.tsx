@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useCallback, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { cloneURLSearchParams } from '../../helpers';
 import { RouterContext } from './context';
 import {
@@ -98,27 +98,38 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
     return result;
   }, [ reloadRoute ]);
   
-  return (
-    <RouterContext.Provider
-      value={
-        {
-          ...(
-            Object.values(router).filter(Boolean).length ? router as RouterContextInterface : {
-              searchParams: _searchParams,
-              appendSearchParams,
-              deleteSearchParams,
-              setSearchParams,
-            }
-          ),
-          routeParams,
-          pushRoute: push,
-          replaceRoute: replace,
-          reloadRoute: reload,
-          isLoadingRoute: isLoadingRoute || !!loaderCounter,
-          pathname,
-        }
+  const value = useMemo(() => ({
+    ...(
+      Object.values(router).filter(Boolean).length ? router as RouterContextInterface : {
+        searchParams: _searchParams,
+        appendSearchParams,
+        deleteSearchParams,
+        setSearchParams,
       }
-    >
+    ),
+    routeParams,
+    pushRoute: push,
+    replaceRoute: replace,
+    reloadRoute: reload,
+    isLoadingRoute: isLoadingRoute || !!loaderCounter,
+    pathname,
+  }), [
+    _searchParams,
+    (router as RouterContextInterface).searchParams,
+    (router as RouterContextInterface).appendSearchParams,
+    (router as RouterContextInterface).deleteSearchParams,
+    (router as RouterContextInterface).setSearchParams,
+    routeParams,
+    push,
+    replace,
+    reload,
+    isLoadingRoute,
+    loaderCounter,
+    pathname,
+  ]);
+  
+  return (
+    <RouterContext.Provider value={value}>
       {children}
     </RouterContext.Provider>
   );
