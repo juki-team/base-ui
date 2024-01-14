@@ -57,6 +57,14 @@ export const VirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProps<T>) =
     getScrollElement: () => parentRef.current,
   });
   
+  console.log('VirtualizedRowsFixed', {
+    size,
+    rowHeight,
+    getVirtualItems: rowVirtualizer.getVirtualItems(),
+    headers,
+    data,
+  })
+  
   return (
     
     <div
