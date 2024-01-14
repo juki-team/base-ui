@@ -13,9 +13,10 @@ export const Collapse = (props: PropsWithChildren<CollapseProps>) => {
     className,
     showContent: _showContent,
     onChangeShowContent: _onChangeShowContent,
+    startsShowing = false,
   } = props;
   
-  const [ isOpen, setIsOpen ] = useHandleState(false, _showContent, _onChangeShowContent);
+  const [ isOpen, setIsOpen ] = useHandleState(startsShowing, _showContent, _onChangeShowContent);
   
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
