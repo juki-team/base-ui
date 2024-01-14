@@ -57,7 +57,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     cardsView = true,
     className = '',
     data,
-    extraNodes,
+    extraNodes: initialExtraNodes,
     headers,
     initialViewMode: _initialViewMode,
     name = '',
@@ -65,8 +65,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     rows,
     rowsView = true,
     setLoaderStatusRef,
-    refreshRef,
-    pagination,
+    reloadRef,
+    totalData,
+    pageSizeOptions: initialPageSizeOptions,
     getRecordKey,
     getPageQueryParam = getPageKey,
     getPageSizeQueryParam = getPageSizeKey,
@@ -87,7 +88,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   
   const { t } = useT();
   
-  const withPagination = !!pagination;
+  const withPagination = !!initialPageSizeOptions;
   
   const pageKey = getPageQueryParam(name);
   const pageSizeKey = getPageSizeQueryParam(name);
@@ -95,7 +96,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const filterKey = getFilterQueryParam(name);
   const viewModeKey = getViewModeQueryParam(name);
   const showFilterDrawerKey = getShowFilterDrawerQueryParam(name);
-  const [ refreshCount, setRefreshCount ] = useState(0);
+  const [ reloadCount, setReloadCount ] = useState(0);
   const [ loaderStatus, setLoaderStatus ] = useState<Status>(Status.NONE);
   const searchSorts = searchParams.get(sortKey) || '';
   const searchFilter = useMemo(() => searchParams.getAll(filterKey), [ filterKey, searchParams ]);
@@ -106,22 +107,14 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const prevPage = useRef<number>();
   const prevPageSize = useRef<number>();
   const firstRender = useRef(true);
-  const [ pageSizeOptions, setPageSizeOptions ] = useState(pagination?.pageSizeOptions || [
-    32,
-    64,
-    128,
-    256,
-    512,
-    1024,
-  ]);
+  const [ pageSizeOptions, setPageSizeOptions ] = useState([]);
   const initialViewMode = _initialViewMode
     || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
   
+  const initialPageSizeOptionsString = JSON.stringify(initialPageSizeOptions ?? [ 25, 50, 100 ]);
   useEffect(() => {
-    if (pagination?.pageSizeOptions && JSON.stringify(pagination.pageSizeOptions) !== JSON.stringify(pageSizeOptions)) {
-      setPageSizeOptions(pagination?.pageSizeOptions);
-    }
-  }, [ pageSizeOptions, pagination?.pageSizeOptions ]);
+    setPageSizeOptions(JSON.parse(initialPageSizeOptionsString));
+  }, [ initialPageSizeOptionsString ]);
   const page = useMemo(() => +(searchParams.get(pageKey) || 1), [ pageKey, searchParams ]);
   const pageSize = useMemo(() => +(searchParams.get(pageSizeKey) || 0) || pageSizeOptions[0], [
     pageSizeKey,
@@ -158,7 +151,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
     });
   }, [ setLoaderStatusRef ]);
-  useEffect(() => refreshRef?.(() => setRefreshCount(prevRefreshCount => prevRefreshCount + 1)), [ refreshRef ]);
+  useEffect(() => reloadRef?.(() => setReloadCount(prevRefreshCount => prevRefreshCount + 1)), [ reloadRef ]);
   useEffect(() => {
     const sort: RequestSortType = {};
     const headSort = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
@@ -228,7 +221,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         setLoaderStatus,
         pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
       });
-    } else if (prevRefreshCount.current !== refreshCount) {
+    } else if (prevRefreshCount.current !== reloadCount) {
       request?.({
         sort,
         filter,
@@ -236,7 +229,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
       });
     }
-  }, [ request, searchSorts, headers, refreshCount, searchFilter, withPagination, page, pageSize ]);
+  }, [ request, searchSorts, headers, reloadCount, searchFilter, withPagination, page, pageSize ]);
   
   useEffect(() => { // Offline filter & Offline sort
     let newData = [ ...data ];
@@ -447,10 +440,10 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
   }, [ searchFilter ]);
   useEffect(() => {
-    if (refreshCount !== prevRefreshCount.current) {
-      prevRefreshCount.current = refreshCount;
+    if (reloadCount !== prevRefreshCount.current) {
+      prevRefreshCount.current = reloadCount;
     }
-  }, [ refreshCount ]);
+  }, [ reloadCount ]);
   useEffect(() => {
     if (page !== prevPage.current) {
       prevPage.current = page;
@@ -646,6 +639,20 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
   }, [ deleteSearchParams, filterKey, tableHeaders, searchFilter ]);
   
+  const onReload = useCallback(() => request && setReloadCount(prevState => prevState + 1), [ setReloadCount, request ]);
+  
+  const paginationData = useMemo(() => ({
+    withPagination,
+    total: totalData,
+    pageSizeOptions,
+    page,
+    pageSize,
+    jumpToPage,
+    onPageSizeChange,
+  }), [ withPagination, totalData, pageSizeOptions, page, pageSize, jumpToPage, onPageSizeChange ]);
+  
+  const extraNodes = useMemo(() => (initialExtraNodes || []).filter(extraNode => !!extraNode), [ initialExtraNodes ]);
+  
   return (
     <div className={classNames(className, 'jk-data-viewer-layout', { 'with-pagination': withPagination })}>
       <DisplayDataViewer<T>
@@ -657,7 +664,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         headers={tableHeaders}
         loading={loaderStatus === Status.LOADING}
         onAllFilters={onAllFilters}
-        onReload={request ? () => setRefreshCount(prevState => prevState + 1) : undefined}
+        onReload={onReload}
         rows={rows}
         showFilterDrawerKey={showFilterDrawerKey}
         rowsView={rowsView}
@@ -668,14 +675,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         getRecordStyle={getRecordStyle}
         getRecordClassName={getRecordClassName}
         onRecordClick={onRecordClick}
-        paginationData={{
-          pagination,
-          pageSizeOptions,
-          page,
-          pageSize,
-          jumpToPage,
-          onPageSizeChange,
-        }}
+        pagination={paginationData}
       />
       {/*{withPagination && (*/}
       {/*  <Pagination*/}

@@ -1,20 +1,26 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import React, { useCallback, useRef } from 'react';
+import React, { Children, useCallback, useRef } from 'react';
 import { classNames } from '../../../../helpers';
 import { DataViewerCard } from './DataViewerCard';
 import { CardRowVirtualizerFixedProps } from './types';
 
 const gap = 16;
 
-export const CardRowVirtualizerFixed = <T, >({
-  headers,
-  data,
-  cardHeight,
-  cardWidth,
-  rowWidth,
-  getRecordStyle, recordHoveredIndex, setRecordHoveredIndex, onRecordClick, getRecordClassName,
-  expandedCards,
-}: CardRowVirtualizerFixedProps<T>) => {
+export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps<T>) => {
+  
+  const {
+    headers,
+    data,
+    cardHeight,
+    cardWidth,
+    rowWidth,
+    getRecordStyle,
+    recordHoveredIndex,
+    setRecordHoveredIndex,
+    onRecordClick,
+    getRecordClassName,
+    expandedCards,
+  } = props;
   
   const parentRef = useRef<HTMLDivElement>(null);
   const cardsByRow = Math.max(Math.floor((rowWidth - gap) / (cardWidth + gap)), 1);
@@ -23,7 +29,7 @@ export const CardRowVirtualizerFixed = <T, >({
     count: Math.ceil(data.length / cardsByRow),
     getScrollElement: () => parentRef.current,
     estimateSize: useCallback(() => cardHeight + 40, [ cardHeight ]),
-    overscan: 5,
+    overscan: 2,
   });
   const scrollOnTop = rowVirtualizer.scrollOffset === 0;
   const scrollOnBottom = rowVirtualizer.scrollOffset + (parentRef.current?.clientHeight || 0) >= rowVirtualizer.getTotalSize();
@@ -51,7 +57,7 @@ export const CardRowVirtualizerFixed = <T, >({
             }}
             className="jk-row jk-list-card-row"
           >
-            {new Array(cardsByRow).fill('').map((_, index) => {
+            {Children.toArray(new Array(cardsByRow).fill('').map((_, index) => {
               const cardIndex = virtualRow.index * cardsByRow + index;
               return (
                 <DataViewerCard
@@ -78,7 +84,7 @@ export const CardRowVirtualizerFixed = <T, >({
                   onCardClick={() => onRecordClick?.({ data, index: cardIndex, isCard: true })}
                 />
               );
-            })}
+            }))}
           </div>
         ))}
       </div>

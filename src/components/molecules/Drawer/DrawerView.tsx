@@ -1,4 +1,4 @@
-import React, { CSSProperties, PropsWithChildren, useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, memo, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../constants';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
@@ -6,7 +6,7 @@ import { useKeyPress } from '../../../hooks';
 import { Button, CloseIcon, Portal } from '../../atoms';
 import { DrawerViewProps } from './types';
 
-export const DrawerView = (props: PropsWithChildren<DrawerViewProps>) => {
+export const DrawerView = memo((props: PropsWithChildren<DrawerViewProps>) => {
   
   const {
     children,
@@ -61,4 +61,6 @@ export const DrawerView = (props: PropsWithChildren<DrawerViewProps>) => {
       </div>
     </Portal>
   );
-};
+}, ({ isOpen }, { isOpen: isOpenNext }) => {
+  return isOpen === isOpenNext && !isOpen;
+});

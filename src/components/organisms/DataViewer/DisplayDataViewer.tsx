@@ -28,7 +28,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     },
     cardsView,
     data,
-    extraNodes: _extraNodes,
+    extraNodes,
     headers,
     loading = false,
     onAllFilters,
@@ -38,7 +38,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     viewMode,
     setViewMode,
     getRecordKey,
-    paginationData,
+    pagination,
     getRecordStyle,
     getRecordClassName,
     onRecordClick,
@@ -76,7 +76,6 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   })).filter(head => head.width), [ headers, headerWidths ]);
   const [ recordHoveredIndex, setRecordHoveredIndex ] = useState<number | null>(null);
   const isMobileViewPort = viewPortSize === 'sm';
-  const extraNodes = (_extraNodes || []).filter(extraNode => !!extraNode);
   const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
   const onColumn = !isMobileViewPort || (isMobileViewPort
     && (extraNodes.length === 0 ? true : extraNodesFloating)
@@ -87,7 +86,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
       className="jk-data-viewer-content jk-br-ie"
       style={{ '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px', position: 'relative' } as CSSProperties}
     >
-      <DataViewerToolbar
+      <DataViewerToolbar<T>
         setViewMode={setViewMode}
         extraNodes={extraNodes}
         headers={headers}
@@ -98,7 +97,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         loading={loading}
         onReload={onReload}
         onAllFilters={onAllFilters}
-        paginationData={paginationData}
+        pagination={pagination}
         extraNodesFloating={extraNodesFloating}
         onColumn={onColumn}
         viewViews={viewViews}

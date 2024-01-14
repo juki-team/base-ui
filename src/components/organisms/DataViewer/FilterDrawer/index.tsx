@@ -25,7 +25,7 @@ interface renderFilterTitleProps {
   head: TableHeadType,
 }
 
-const renderFilterTitle = ({ head, columnIndex, onSort, order }: renderFilterTitleProps) => {
+const RenderFilterTitle = ({ head, columnIndex, onSort, order }: renderFilterTitleProps) => {
   return (
     <div className="jk-row space-between">
       <div>{renderHead({ head, columnIndex })}</div>
@@ -167,7 +167,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                 
                 return (
                   <div className="jk-col stretch" key={columnIndex}>
-                    {renderFilterTitle({ head, columnIndex, onSort, order })}
+                    <RenderFilterTitle head={head} columnIndex={columnIndex} onSort={onSort} order={order} />
                     {filterCmp}
                   </div>
                 );

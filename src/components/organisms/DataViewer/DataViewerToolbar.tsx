@@ -1,5 +1,5 @@
 import { DataViewMode, Status } from '@juki-team/commons';
-import React, { Children, useCallback, useEffect, useRef } from 'react';
+import React, { Children, memo, useCallback, useEffect, useRef } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
 import { useJukiRouter, useJukiUI } from '../../../hooks';
 import {
@@ -18,7 +18,7 @@ import { Pagination } from './Pagination';
 import { DataViewerToolbarProps } from './types';
 import { isSomethingFiltered } from './utils';
 
-export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
+const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const {
     extraNodes,
@@ -31,7 +31,7 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
     loading,
     onReload,
     onAllFilters,
-    paginationData,
+    pagination,
     extraNodesFloating,
     onColumn,
     viewViews,
@@ -118,29 +118,30 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
           <Tooltip
             content={
               dataLength
-                ? <div className="jk-row nowrap tt-se ws-np">{dataLength}&nbsp;
-                  <T>{dataLength === 1 ? 'record' : 'records'}</T>{paginationData.pagination?.total && <>&nbsp;
-                    <T>of</T>&nbsp;{paginationData.pagination.total}&nbsp;<T>records</T></>}</div>
+                ? <div className="jk-row nowrap tt-se ws-np">
+                  {dataLength}&nbsp;<T>{dataLength === 1 ? 'record' : 'records'}</T>
+                  {pagination.withPagination && (
+                    <>&nbsp;<T>of</T>&nbsp;{pagination.total}&nbsp;<T>records</T></>
+                  )}
+                </div>
                 : <T className="tt-se ws-np">no data</T>
             }
           >
             <div className="no-records tx-t fw-bd jk-tag gray-6 ws-np" style={{ marginLeft: '4px' }}>
-              {dataLength}{paginationData.pagination?.total ? ' / ' + paginationData.pagination.total : ''}
+              {dataLength}{pagination.withPagination ? ' / ' + pagination.total : ''}
             </div>
           </Tooltip>
-          {paginationData.pagination && (
-            <>
-              <Pagination
-                loading={loading}
-                pageSizeOptions={isMobileViewPort ? [ 20 ] : paginationData.pageSizeOptions}
-                total={paginationData.pagination.total}
-                page={paginationData.page}
-                pageSize={paginationData.pageSize}
-                jumpToPage={paginationData.jumpToPage}
-                onPageSizeChange={paginationData.onPageSizeChange}
-                isOnToolbar
-              />
-            </>
+          {pagination.withPagination && (
+            <Pagination
+              loading={loading}
+              pageSizeOptions={isMobileViewPort ? [ 20 ] : pagination.pageSizeOptions}
+              total={pagination.total}
+              page={pagination.page}
+              pageSize={pagination.pageSize}
+              jumpToPage={pagination.jumpToPage}
+              onPageSizeChange={pagination.onPageSizeChange}
+              isOnToolbar
+            />
           )}
         </div>
         <div className={classNames('jk-row nowrap', { gap: onColumn })}>
@@ -224,4 +225,6 @@ export const DataViewerToolbar = <T, >(props: DataViewerToolbarProps<T>) => {
       </div>
     </div>
   );
-};
+}
+
+export const DataViewerToolbar = memo(DataViewerToolbarCmp) as typeof DataViewerToolbarCmp;

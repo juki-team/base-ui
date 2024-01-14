@@ -219,7 +219,8 @@ type RowsType = { height?: number };
 type CardsType = { height?: number, width?: number, expanded?: boolean };
 
 type PaginationDataType = {
-  pagination?: DataViewerPaginationType,
+  withPagination: boolean,
+  total: number,
   page: number,
   pageSize: number,
   pageSizeOptions: number[],
@@ -234,7 +235,7 @@ export interface DisplayDataViewerProps<T> {
   cards?: CardsType,
   cardsView: boolean,
   data: T[],
-  extraNodes?: ReactNodeOrFunctionType[],
+  extraNodes: ReactNodeOrFunctionType[],
   extraNodesFloating?: boolean,
   headers: TableHeadersType<T>[],
   loading?: boolean,
@@ -246,7 +247,7 @@ export interface DisplayDataViewerProps<T> {
   setViewMode: (viewMode: DataViewMode) => void,
   viewMode: DataViewMode,
   getRecordKey?: GetRecordKeyType<T>,
-  paginationData: PaginationDataType,
+  pagination: PaginationDataType,
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
   onRecordClick?: OnRecordClickType<T>,
@@ -276,8 +277,6 @@ export type setURLSearchParams = (params: URLSearchParams) => void;
 
 export type LoaderStatusActionType = Dispatch<SetStateAction<Status>>;
 
-export type DataViewerPaginationType = { total: number, pageSizeOptions?: number[] };
-
 export type DataViewerRequestPropsType = {
   sort: RequestSortType,
   filter: RequestFilterType,
@@ -301,8 +300,9 @@ export interface DataViewerProps<T> {
   rows?: RowsType,
   rowsView?: boolean,
   setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
-  refreshRef?: (refresh: RefreshType) => void,
-  pagination?: DataViewerPaginationType,
+  reloadRef?: (reload: ReloadType) => void,
+  totalData: number,
+  pageSizeOptions?: number[],
   getRecordKey?: GetRecordKeyType<T>,
   getPageQueryParam?: (name: string) => string,
   getPageSizeQueryParam?: (name: string) => string,
@@ -318,7 +318,7 @@ export interface DataViewerProps<T> {
 
 export type LoaderStatusType = Status;
 export type SetLoaderStatusType = (status: (Status | ((props: LoaderStatusType) => LoaderStatusType))) => void;
-export type RefreshType = () => void;
+export type ReloadType = () => void;
 
 export type HeaderWidthsType = { [key: string]: { width: number, minWidth: number, accumulatedWidth: number } };
 
@@ -372,7 +372,7 @@ export interface DataViewerToolbarProps<T> {
   rowsView: boolean,
   setViewMode: (viewMode: DataViewMode) => void,
   viewMode: DataViewMode,
-  paginationData: PaginationDataType,
+  pagination: PaginationDataType,
   onColumn: boolean,
   viewViews: boolean,
   showFilterDrawerKey: string,

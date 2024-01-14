@@ -229,6 +229,33 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
   
   const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
   
+  const extraNodes = useMemo(() => [
+    <ButtonLoader
+      size="small"
+      type="text"
+      icon={<ReloadIcon />}
+      onClick={() => console.info('CLICK')}
+      responsiveMobile
+    >
+      <T>download</T>
+    </ButtonLoader>,
+    <ButtonLoader
+      size="small"
+      type="text"
+      icon={<ReloadIcon />}
+      onClick={() => console.info('CLICK')}
+      responsiveMobile
+    >
+      <T>download</T>
+    </ButtonLoader>,
+    <ButtonLoader size="small" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
+      <T>download</T>
+    </ButtonLoader>,
+    <ButtonLoader size="small" icon={<ReloadIcon />} onClick={() => console.info('CLICK')} responsiveMobile>
+      <T>download</T>
+    </ButtonLoader>,
+  ], []);
+  
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px' }}>
       <DataViewer<UserTable>
@@ -237,41 +264,17 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
         cards={{ expanded: true }}
         // headers={columns.slice(0, 4).map(c => ({ ...c, sticky: false }))}
         // headers={columns.slice(0, 4)}
-        rowsView={false}
-        cardsView={false}
+        // rowsView={false}
+        // cardsView={false}
         headers={columns2 || columns}
         data={data}
         rows={{ height: 150 }}
         request={request}
         name="users"
         extraNodesFloating
-        extraNodes={[
-          <ButtonLoader
-            size="small"
-            type="text"
-            icon={<ReloadIcon />}
-            onClick={() => console.info('CLICK')}
-            responsiveMobile
-          >
-            <T>download</T>
-          </ButtonLoader>,
-          <ButtonLoader
-            size="small"
-            type="text"
-            icon={<ReloadIcon />}
-            onClick={() => console.info('CLICK')}
-            responsiveMobile
-          >
-            <T>download</T>
-          </ButtonLoader>,
-          <ButtonLoader size="small" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
-            <T>download</T>
-          </ButtonLoader>,
-          <ButtonLoader size="small" icon={<ReloadIcon />} onClick={() => console.info('CLICK')} responsiveMobile>
-            <T>download</T>
-          </ButtonLoader>,
-        ]}
-        pagination={{ pageSizeOptions: [ 5, 10, 15, 20 ], total: data.length }}
+        extraNodes={extraNodes}
+        pageSizeOptions={[ 5, 10, 15, 20 ]}
+        totalData={data.length}
         getRecordClassName={({ index }) => index + ''}
         //getRecordStyle={({ index }) => ({ zIndex: index })}
         onRecordClick={(props) => console.info('click', props)}

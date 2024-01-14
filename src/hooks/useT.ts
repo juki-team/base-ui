@@ -1,4 +1,4 @@
-import { consoleError } from '@juki-team/commons';
+import { consoleWarn } from '@juki-team/commons';
 import { useContext } from 'react';
 import { TContext } from '../contexts/JukiTProvider/context';
 
@@ -8,7 +8,7 @@ export const useT = () => {
   
   // @ts-ignore
   if (i18n?.mocked) {
-    consoleError('i18n not configured');
+    consoleWarn('i18n not configured');
   }
   
   return i18n;

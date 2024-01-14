@@ -1,11 +1,7 @@
 import { ContentResponseType, ContentsResponseType, Status } from '@juki-team/commons';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SWRConfiguration } from 'swr';
-import {
-  DataViewerRequestPropsType,
-  RefreshType,
-  SetLoaderStatusType,
-} from '../components/organisms/DataViewer/types';
+import { DataViewerRequestPropsType, ReloadType, SetLoaderStatusType } from '../components/organisms/DataViewer/types';
 import { RequestFilterType, RequestSortType } from '../types';
 import { useFetcher } from './useFetcher';
 import { useJukiUser } from './useJukiUser';
@@ -18,9 +14,7 @@ export const useDataViewerRequester = <T extends ContentResponseType<any> | Cont
   const [ url, setUrl ] = useState<string | undefined>(undefined);
   const { data, error, isLoading, mutate, isValidating } = useFetcher<T>(url, options);
   const getUrlRef = useRef(getUrl);
-  const reloadRef = useRef<RefreshType>();
-  const refreshRef = useCallback((reload: RefreshType) => reloadRef.current = reload, []);
-  const reload = useCallback(() => reloadRef.current?.(), []);
+  const reloadRef = useRef<ReloadType>();
   getUrlRef.current = getUrl;
   const request = useCallback(async ({ pagination, filter, sort }: {
     pagination: { page: number, pageSize: number },
@@ -52,11 +46,8 @@ export const useDataViewerRequester = <T extends ContentResponseType<any> | Cont
     error,
     isLoading: isLoading || isValidating,
     request,
-    setLoaderStatusRef: useCallback(
-      (setLoaderStatus: SetLoaderStatusType) => setLoaderStatusRef.current = setLoaderStatus,
-      [],
-    ),
-    reload,
-    refreshRef,
+    setLoaderStatusRef: useCallback((setLoaderStatus: SetLoaderStatusType) => setLoaderStatusRef.current = setLoaderStatus, []),
+    reload: useCallback(() => reloadRef.current?.(), []),
+    reloadRef: useCallback((reload: ReloadType) => reloadRef.current = reload, []), // To pass to DataViewer
   };
 };
