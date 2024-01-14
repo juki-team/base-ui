@@ -119,6 +119,8 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   const headersSticky = headers.filter(({ sticky }) => sticky);
   const headersStickyWidth = headersSticky.reduce((sum, head) => sum + head.width, 0);
   
+  console.log('RowVirtualizerFixed', { headers, headersNoSticky, headersSticky });
+  
   return (
     <div
       ref={parentRef}
