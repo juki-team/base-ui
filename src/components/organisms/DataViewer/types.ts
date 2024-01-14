@@ -301,7 +301,7 @@ export interface DataViewerProps<T> {
   rowsView?: boolean,
   setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
   reloadRef?: (reload: ReloadType) => void,
-  totalData: number,
+  totalData?: number,
   pageSizeOptions?: number[],
   getRecordKey?: GetRecordKeyType<T>,
   getPageQueryParam?: (name: string) => string,

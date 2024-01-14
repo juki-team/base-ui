@@ -66,7 +66,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     rowsView = true,
     setLoaderStatusRef,
     reloadRef,
-    totalData,
+    totalData: initialTotalData,
     pageSizeOptions: initialPageSizeOptions,
     getRecordKey,
     getPageQueryParam = getPageKey,
@@ -641,15 +641,17 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   
   const onReload = useCallback(() => request && setReloadCount(prevState => prevState + 1), [ setReloadCount, request ]);
   
+  const total = initialTotalData ?? data.length;
+  
   const paginationData = useMemo(() => ({
     withPagination,
-    total: totalData,
+    total,
     pageSizeOptions,
     page,
     pageSize,
     jumpToPage,
     onPageSizeChange,
-  }), [ withPagination, totalData, pageSizeOptions, page, pageSize, jumpToPage, onPageSizeChange ]);
+  }), [ withPagination, total, pageSizeOptions, page, pageSize, jumpToPage, onPageSizeChange ]);
   
   const extraNodes = useMemo(() => (initialExtraNodes || []).filter(extraNode => !!extraNode), [ initialExtraNodes ]);
   
