@@ -28,6 +28,7 @@ import {
   AttachmentIcon,
   AutorenewIcon,
   BadgeIcon,
+  BubbleChartIcon,
   BuildIcon,
   CalendarMonthIcon,
   CalendarTodayIcon,
@@ -288,6 +289,7 @@ export const Google: FC<BasicIconProps> = (args) => {
     ManufacturingIcon,
     PageInfoIcon,
     FolderManagedIcon,
+    BubbleChartIcon,
   };
   
   const [ color, setColor ] = useState<ColorResult>({ hex: '', hsl: { h: 0, s: 0, l: 0 }, rgb: { r: 0, g: 0, b: 0 } });

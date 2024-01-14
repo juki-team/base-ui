@@ -18,6 +18,7 @@ export * from './AttachFileIcon';
 export * from './AttachmentIcon';
 export * from './AutorenewIcon';
 export * from './BadgeIcon';
+export * from './BubbleChartIcon';
 export * from './BuildIcon';
 export * from './CalendarMonthIcon';
 export * from './CalendarTodayIcon';
