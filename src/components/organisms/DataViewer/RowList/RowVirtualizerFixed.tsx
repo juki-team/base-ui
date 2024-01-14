@@ -63,14 +63,6 @@ export const RowListVirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProp
   
   useEffect(() => setRender(Date.now()), [ size ]);
   
-  console.log('VirtualizedRowsFixed', {
-    size,
-    rowHeight,
-    getVirtualItems: rowVirtualizer.getVirtualItems(),
-    headers,
-    data,
-  })
-  
   return (
     
     <div
@@ -132,8 +124,6 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   const headersNoSticky = headers.filter(({ sticky }) => !sticky);
   const headersSticky = headers.filter(({ sticky }) => sticky);
   const headersStickyWidth = headersSticky.reduce((sum, head) => sum + head.width, 0);
-  
-  console.log('RowVirtualizerFixed', { headers, headersNoSticky, headersSticky });
   
   return (
     <div
