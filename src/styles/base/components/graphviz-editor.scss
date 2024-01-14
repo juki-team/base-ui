@@ -1,0 +1,11 @@
+.jk-graph {
+  > svg > g > polygon {
+    fill: transparent;
+  }
+}
+
+.jk-graph-editor {
+  textarea {
+    max-height: calc(var(--100VH) - 100px);
+  }
+}
