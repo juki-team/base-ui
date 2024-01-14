@@ -7,7 +7,9 @@ import React, {
   SetStateAction,
   SyntheticEvent,
   useCallback,
+  useEffect,
   useRef,
+  useState,
 } from 'react';
 import { SCROLL_WIDTH } from '../../../../constants';
 import { classNames } from '../../../../helpers';
@@ -31,7 +33,7 @@ interface VirtualizedRowsFixedProps<T> {
   data: T[],
 }
 
-export const VirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProps<T>) => {
+export const RowListVirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProps<T>) => {
   
   const {
     rowHeight,
@@ -56,6 +58,10 @@ export const VirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProps<T>) =
     overscan: 2,
     getScrollElement: () => parentRef.current,
   });
+  
+  const [ _, setRender ] = useState(Date.now());
+  
+  useEffect(() => setRender(Date.now()), [ size ]);
   
   console.log('VirtualizedRowsFixed', {
     size,
@@ -139,7 +145,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
         setScrollTop(currentTarget.scrollTop || 0);
       }}
     >
-      <VirtualizedRowsFixed
+      <RowListVirtualizedRowsFixed
         size={data.length}
         rowHeight={rowHeight}
         classNameRows={classNames('jk-table-rows-box sticky', { 'elevation-1': !!scrollLeft })}
@@ -169,7 +175,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
         setRecordHoveredIndex={setRecordHoveredIndex}
       />
       <div style={{ width: `calc(100% - ${headersStickyWidth}px - ${SCROLL_WIDTH - SCROLL_WIDTH}px)` }}>
-        <VirtualizedRowsFixed
+        <RowListVirtualizedRowsFixed
           size={data.length}
           rowHeight={rowHeight}
           classNameRows="jk-table-rows-box"
