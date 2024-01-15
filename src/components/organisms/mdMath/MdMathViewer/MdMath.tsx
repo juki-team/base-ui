@@ -94,6 +94,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
           if (commands.height) {
             style.height = Number.isNaN(+commands.height) ? commands.height : (commands.height + 'px');
           }
+          
           if (commands.preview === 'pdf') {
             return (
               <object data={href} type="application/pdf" width="100%" height="100%" style={style}>
@@ -108,18 +109,21 @@ export const MdMath = memo(({ source }: { source: string }) => {
               </object>
             );
           }
+          
           if (commands.preview === 'html') {
             return <iframe src={href} style={{ width: '100%', ...style }} title="preview-html-document" />;
           }
+          
           if (href?.startsWith('#')) {
             const url = new URL(window?.location?.href || '');
             url.hash = href;
             
             return (
-              <div className="jk-md-math-link-container" id={href}>
+              <div className="jk-md-math-link-container jk-row left" id={href}>
                 <Link href={href} className="jk-md-math-link">
-                  <>{children}&nbsp;</>
+                  {children}
                 </Link>
+                &nbsp;
                 <CopyToClipboard text={url.toString()}>
                   <LinkIcon className="clickable" style={{ borderRadius: '50%', display: 'inline-grid' }} />
                 </CopyToClipboard>
@@ -127,14 +131,15 @@ export const MdMath = memo(({ source }: { source: string }) => {
             );
           }
           return (
-            <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
+            <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link with-icon">
               <>{children}&nbsp;<OpenInNewIcon /></>
             </Link>
           );
         }
+        
         return (
           <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
-            <>{children}</>
+            {children}
           </Link>
         );
       },

@@ -132,9 +132,12 @@
   
   a.jk-md-math-link {
     color: var(--t-color-primary-light);
-    margin-right: 24px;
     text-decoration: none;
     position: relative;
+    
+    &.with-icon {
+      margin-right: 24px;
+    }
     
     .jk-icon {
       position: absolute;
