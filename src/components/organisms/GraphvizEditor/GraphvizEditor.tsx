@@ -36,8 +36,10 @@ const useDotValue = (value: string) => {
 const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModal) => {
   
   const [ input, setInput ] = useState(value);
-  const { dot, error } = useDotValue(input);
   const { ref, width = 0 } = useResizeDetector();
+  useEffect(() => setInput(value), [ value ]);
+  
+  const { dot, error } = useDotValue(input);
   
   return (
     <Modal {...props}>
