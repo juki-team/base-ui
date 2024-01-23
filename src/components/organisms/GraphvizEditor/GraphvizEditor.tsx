@@ -81,8 +81,9 @@ export const GraphvizEditor = ({ value, onChange, className, width, height }: Gr
         <Button onClick={() => setOpen(true)} style={{}} icon={<EditIcon />} className="float-top-right pad-t" />
       )}
       <Suspense fallback={<SpinIcon />}>
-        <div className="bc-eras jk-tag error">{error}</div>
-        {!error && <Graphviz dot={dot} className="jk-graph" options={{ width, height }} />}
+        {error
+          ? <div className="bc-eras jk-tag error">{error}</div>
+          : <Graphviz dot={dot} className="jk-graph" options={{ width, height }} />}
       </Suspense>
       {onChange && <GraphvizEditorModal value={value} onSave={onChange} isOpen={open} onClose={() => setOpen(false)} />}
     </div>
