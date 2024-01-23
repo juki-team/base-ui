@@ -70,7 +70,7 @@ const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModal) =
   )
 }
 
-export const GraphvizEditor = ({ value, onChange, className }: GraphvizEditorProps) => {
+export const GraphvizEditor = ({ value, onChange, className, width, height }: GraphvizEditorProps) => {
   
   const [ open, setOpen ] = useState(false);
   const { dot, error } = useDotValue(value);
@@ -82,7 +82,7 @@ export const GraphvizEditor = ({ value, onChange, className }: GraphvizEditorPro
       )}
       <Suspense fallback={<SpinIcon />}>
         <div className="bc-eras jk-tag error">{error}</div>
-        {!error && <Graphviz dot={dot} className="jk-graph" options={{}} />}
+        {!error && <Graphviz dot={dot} className="jk-graph" options={{ width, height }} />}
       </Suspense>
       {onChange && <GraphvizEditorModal value={value} onSave={onChange} isOpen={open} onClose={() => setOpen(false)} />}
     </div>
