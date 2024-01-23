@@ -1,6 +1,7 @@
 export * from './CheckUnsavedChanges';
 export * from './CodeRunnerEditor';
 export * from './DataViewer';
+export * from './GraphvizEditor';
 export * from './ImageUploader';
 export * from './Menu';
 export * from './Notifications';
