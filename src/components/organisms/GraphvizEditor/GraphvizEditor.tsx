@@ -54,7 +54,7 @@ const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModal) =
           </div>
         </SplitPane>
         <div className="jk-row gap right">
-          <Button type="light"><T>cancel</T></Button>
+          <Button type="light" onClick={props.onClose}><T>cancel</T></Button>
           <Button
             disabled={!!error}
             onClick={() => {
