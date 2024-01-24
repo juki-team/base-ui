@@ -87,9 +87,13 @@ export const MdMath = memo(({ source }: { source: string }) => {
         }
         return <p>{children}</p>;
       },
-      a({ children, href = '' }) {
-        if (typeof children === 'string') {
-          const [ commands, newText ] = getCommands(children);
+      a({ children, href = '' }: { children?: ReactNode[] | ReactNode, href?: string }) {
+        const firstChildrenString = typeof children === 'string'
+          ? children
+          : Array.isArray(children) ? (typeof children[0] === 'string' ? children[0] : null) : null;
+        
+        if (typeof firstChildrenString === 'string') {
+          const [ commands, newText ] = getCommands(firstChildrenString);
           const style = { outline: '2px solid var(--t-color-gray-6)', border: 'none', height: '100%' };
           if (commands.height) {
             style.height = Number.isNaN(+commands.height) ? commands.height : (commands.height + 'px');

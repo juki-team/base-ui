@@ -34,6 +34,26 @@ export const SAMPLE_MD_CONTENT = `# \\textAlign=center JUKI Markdown Tutorial
 
 > Headings are **left** aligned by default
 
+## 1.3 With links
+
+Anchor (\`#title-id\`) should be unique on the page
+
+Heading with link
+
+## [Title](#title-id)
+
+\`\`\`
+##[ Title](#title-id)
+\`\`\`
+
+Heading with code and link
+
+## [Title \`some code\`](#title-some-code-id)
+
+\`\`\`
+## [Title \`some code\`](#title-some-code-id)
+\`\`\`
+
 ---
 
 # 2. Paragraphs
