@@ -80,7 +80,7 @@ export interface Sheet {
   columns?: { wpx: number }[],
 }
 
-export const dataTablesToXlsxFile = (sheets: Sheet[], fileName: string = 'file.xlsx') => {
+export const dataTablesToWorkBook = (sheets: Sheet[], fileName: string = 'file.xlsx') => {
   const workBook = utils.book_new();
   workBook.Props = {
     Title: fileName,
@@ -108,11 +108,12 @@ export const dataTablesToXlsxFile = (sheets: Sheet[], fileName: string = 'file.x
       }
     }
   }
-  return write(workBook, { bookType: 'xlsx', type: 'binary' });
+  return workBook;
 }
 
 export const downloadDataTablesAsXlsxFile = (sheets: Sheet[], fileName: string = 'file.xlsx') => {
-  const workBookOut = dataTablesToXlsxFile(sheets, fileName);
+  const workBook = dataTablesToWorkBook(sheets, fileName);
+  const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
   const blob = new Blob([ stringToArrayBuffer(workBookOut) ], { type: 'application/octet-stream' });
   downloadBlobAsFile(blob, fileName);
 };
