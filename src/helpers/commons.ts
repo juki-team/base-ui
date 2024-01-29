@@ -60,7 +60,7 @@ export const downloadLink = (href: string, fileName: string) => {
   }, 100);
 };
 
-export async function downloadBlobAsFile(data: Blob, fileName: string = 'file') {
+export function downloadBlobAsFile(data: Blob, fileName: string = 'file') {
   // It is necessary to create a new blob object with mime-type explicitly set
   // otherwise only Chrome works like it should
   const blob = new Blob([ data ], { type: data.type || 'application/octet-stream' });
@@ -70,16 +70,17 @@ export async function downloadBlobAsFile(data: Blob, fileName: string = 'file') 
 
 export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName: string = 'file.csv') => {
   const blob = new Blob([ data.map(e => e.join(',')).join('\n') ], { type: 'text/csv' });
-  const blobURL = window?.URL.createObjectURL(blob);
-  downloadLink(blobURL, fileName);
+  downloadBlobAsFile(blob, fileName);
 };
 
-export const downloadDataTablesAsXlsxFile = async (fileName: string, sheets: {
+export interface Sheet {
   sheetName: string,
   data: (string | number)[][],
   autoFilter?: string,
-  columns?: { wpx: number }[]
-}[]) => {
+  columns?: { wpx: number }[],
+}
+
+export const dataTablesToXlsxFile = (sheets: Sheet[], fileName: string = 'file.xlsx') => {
   const workBook = utils.book_new();
   workBook.Props = {
     Title: fileName,
@@ -107,9 +108,13 @@ export const downloadDataTablesAsXlsxFile = async (fileName: string, sheets: {
       }
     }
   }
-  const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
+  return write(workBook, { bookType: 'xlsx', type: 'binary' });
+}
+
+export const downloadDataTablesAsXlsxFile = (sheets: Sheet[], fileName: string = 'file.xlsx') => {
+  const workBookOut = dataTablesToXlsxFile(sheets, fileName);
   const blob = new Blob([ stringToArrayBuffer(workBookOut) ], { type: 'application/octet-stream' });
-  await downloadBlobAsFile(blob, fileName);
+  downloadBlobAsFile(blob, fileName);
 };
 
 export const downloadJukiMarkdownAdPdf = async (source: string, fileName: string) => {
@@ -118,7 +123,7 @@ export const downloadJukiMarkdownAdPdf = async (source: string, fileName: string
     const result = await authorizedRequest(
       jukiSettings.getAPI().note.pdf({ params: { sourceUrl: url } }).url, { responseType: 'blob' },
     );
-    await downloadBlobAsFile(result, fileName);
+    downloadBlobAsFile(result, fileName);
   } else {
     throw new Error('no url generated');
   }
