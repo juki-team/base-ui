@@ -6,7 +6,7 @@ import { JukiTProviderProps } from './types';
 
 export const JukiTProvider = ({ i18n, children }: PropsWithChildren<JukiTProviderProps>) => {
   
-  const [ _, setTrigger ] = useState(Date.now());
+  const [ trigger, setTrigger ] = useState(Date.now());
   
   useEffect(() => {
     i18n.on('languageChanged', () => setTrigger(Date.now));
@@ -33,7 +33,7 @@ export const JukiTProvider = ({ i18n, children }: PropsWithChildren<JukiTProvide
     })();
   }, []);
   
-  const value = useMemo(() => ({ i18n }), [ i18n ]);
+  const value = useMemo(() => ({ i18n }), [ i18n, trigger ]);
   
   return (
     <TContext.Provider value={value}>
