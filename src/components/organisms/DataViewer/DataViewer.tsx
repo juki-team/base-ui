@@ -429,7 +429,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
     // }
     setDataTable(newData);
-    setDataTableRef.current?.(data);
+    setDataTableRef.current?.(newData);
   }, [ data, headers, searchFilter, searchSorts ]);
   
   useEffect(() => {
