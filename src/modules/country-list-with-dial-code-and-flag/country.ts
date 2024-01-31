@@ -1,4 +1,4 @@
-import { countryList } from '.';
+import { countryList } from './countryList';
 import { CountryInterface } from './types';
 
 class Country {
