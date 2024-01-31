@@ -2,6 +2,7 @@ import { stringToArrayBuffer } from '@juki-team/commons';
 import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
 import { utils, write } from 'xlsx';
 import { jukiSettings } from '../config';
+import { SheetData } from '../modules';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerActionsType } from '../types';
 import { authorizedRequest } from './fetch';
 import { publishNote } from './utils';
@@ -80,7 +81,7 @@ export interface Sheet {
   columns?: { wpx: number }[],
 }
 
-export const dataTablesToWorkBook = (sheets: Sheet[], fileName: string = 'file.xlsx') => {
+export const dataTablesToWorkBook = (sheets: SheetData[], fileName: string = 'file.xlsx') => {
   const workBook = utils.book_new();
   workBook.Props = {
     Title: fileName,
@@ -88,30 +89,93 @@ export const dataTablesToWorkBook = (sheets: Sheet[], fileName: string = 'file.x
     Author: 'Juki',
     CreatedDate: new Date(),
   };
-  for (const { sheetName, data, autoFilter, columns } of sheets) {
-    workBook.SheetNames.push(sheetName);
-    workBook.Sheets[sheetName] = utils.aoa_to_sheet(data);
-    if (autoFilter) {
-      workBook.Sheets[sheetName]['!autofilter'] = { ref: autoFilter }
-    }
-    if (columns) {
-      if (!workBook.Sheets[sheetName]['!cols']) {
-        workBook.Sheets[sheetName]['!cols'] = [];
+  for (const { name, autofilter, cols, rows, styles } of sheets) {
+    const range = { s: { c: 10000000, r: 10000000 }, e: { c: 0, r: 0 } };
+    workBook.SheetNames.push(name);
+    workBook.Sheets[name] = {};
+    workBook.Sheets[name]['!rows'] = [];
+    Object.entries(rows).forEach(([ i, rowData ]) => {
+      const R = +i;
+      if (rowData.height) {
+        workBook.Sheets[name]['!rows']![R] = { hpx: rowData.height };
       }
-      for (let index = 0; index < columns.length; index++) {
-        if (!workBook.Sheets[sheetName]['!cols']![index]) {
-          workBook.Sheets[sheetName]['!cols']![index] = {};
+      Object.entries(rowData.cells).forEach(([ i, cellData ]) => {
+        const C = +i;
+        if (range.s.r > R) range.s.r = R;
+        if (range.s.c > C) range.s.c = C;
+        if (range.e.r < R) range.e.r = R;
+        if (range.e.c < C) range.e.c = C;
+        const cell: { v: string | number | boolean | Date, t: string, z?: string, s?: any } = {
+          v: cellData.text,
+          t: 's',
+        };
+        if (cell.v == null) return;
+        const cellRef = utils.encode_cell({ c: C, r: R });
+        
+        if (typeof cell.v === 'number') {
+          cell.t = 'n';
+        } else if (typeof cell.v === 'boolean') {
+          cell.t = 'b';
+        } else if (cell.v instanceof Date) {
+          // cell.t = 'n';
+          // cell.z = SSF._table[14];
+          // cell.v = datenum(cell.v);
+        } else {
+          // cell.v = `'${cell.v}`;
         }
-        if (columns[index].wpx) {
-          workBook.Sheets[sheetName]['!cols']![index].wpx = columns[index].wpx;
+        cell.s = {};
+        if (typeof cell.v === 'string' && cell.v.includes('\n')) {
+          cell.s.alignment = { wrapText: true };
         }
-      }
+        
+        if (typeof cellData.style === 'number' && styles?.[cellData.style]) {
+          const bgcolor = styles[cellData.style].bgcolor;
+          if (typeof bgcolor === 'string') {
+            cell.s.fill = { fgColor: { rgb: bgcolor.replace('#', '') } };
+          }
+          const color = styles[cellData.style].color;
+          if (typeof color === 'string') {
+            if (!cell.s.font) {
+              cell.s.font = {};
+            }
+            cell.s.font.color = { rgb: color.replace('#', '') };
+          }
+          if (styles[cellData.style].font?.bold) {
+            if (!cell.s.font) {
+              cell.s.font = {};
+            }
+            cell.s.font.bold = true;
+          }
+        }
+        workBook.Sheets[name][cellRef] = cell;
+      });
+    });
+    if (range.s.c < 10000000) {
+      workBook.Sheets[name]['!ref'] = utils.encode_range(range);
     }
+    if (autofilter?.ref) {
+      workBook.Sheets[name]['!autofilter'] = { ref: autofilter?.ref }
+    }
+    
+    if (!workBook.Sheets[name]['!cols']) {
+      workBook.Sheets[name]['!cols'] = [];
+    }
+    const c = cols || { len: 0 };
+    const { len, ...columns } = c;
+    Object.entries(columns).forEach(([ i, property ]) => {
+      const index = +i;
+      if (!workBook.Sheets[name]['!cols']![index]) {
+        workBook.Sheets[name]['!cols']![index] = {};
+      }
+      if (property.width) {
+        workBook.Sheets[name]['!cols']![index].wpx = property.width;
+      }
+    });
   }
   return workBook;
 }
 
-export const downloadDataTablesAsXlsxFile = (sheets: Sheet[], fileName: string = 'file.xlsx') => {
+export const downloadDataTablesAsXlsxFile = (sheets: SheetData[], fileName: string = 'file.xlsx') => {
   const workBook = dataTablesToWorkBook(sheets, fileName);
   const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
   const blob = new Blob([ stringToArrayBuffer(workBookOut) ], { type: 'application/octet-stream' });
