@@ -36,7 +36,7 @@ class Spreadsheet {
       rootEl.child(this.bottombar.el);
     }
   }
-
+  
   addSheet(name, active = true) {
     const n = name || `sheet${this.sheetIndex}`;
     const d = new DataProxy(n, this.options);
@@ -51,19 +51,19 @@ class Spreadsheet {
     this.sheetIndex += 1;
     return d;
   }
-
+  
   deleteSheet() {
     if (this.bottombar === null) return;
-
-    const [oldIndex, nindex] = this.bottombar.deleteItem();
+    
+    const [ oldIndex, nindex ] = this.bottombar.deleteItem();
     if (oldIndex >= 0) {
       this.datas.splice(oldIndex, 1);
       if (nindex >= 0) this.sheet.resetData(this.datas[nindex]);
     }
   }
-
+  
   loadData(data) {
-    const ds = Array.isArray(data) ? data : [data];
+    const ds = Array.isArray(data) ? data : [ data ];
     if (this.bottombar !== null) {
       this.bottombar.clear();
     }
@@ -80,44 +80,44 @@ class Spreadsheet {
     }
     return this;
   }
-
+  
   getData() {
     return this.datas.map(it => it.getData());
   }
-
+  
   cellText(ri, ci, text, sheetIndex = 0) {
     this.datas[sheetIndex].setCellText(ri, ci, text, 'finished');
     return this;
   }
-
+  
   cell(ri, ci, sheetIndex = 0) {
     return this.datas[sheetIndex].getCell(ri, ci);
   }
-
+  
   cellStyle(ri, ci, sheetIndex = 0) {
     return this.datas[sheetIndex].getCellStyle(ri, ci);
   }
-
+  
   reRender() {
     this.sheet.table.render();
     return this;
   }
-
+  
   on(eventName, func) {
     this.sheet.on(eventName, func);
     return this;
   }
-
+  
   validate() {
     const { validations } = this.data;
     return validations.errors.size <= 0;
   }
-
+  
   change(cb) {
     this.sheet.on('change', cb);
     return this;
   }
-
+  
   static locale(lang, message) {
     locale(lang, message);
   }
@@ -125,7 +125,7 @@ class Spreadsheet {
 
 const spreadsheet = (el, options = {}) => new Spreadsheet(el, options);
 
-if (window) {
+if (typeof window !== 'undefined') {
   window.x_spreadsheet = spreadsheet;
   window.x_spreadsheet.locale = (lang, message) => locale(lang, message);
 }
