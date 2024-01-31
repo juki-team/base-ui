@@ -1,4 +1,3 @@
-import Spreadsheet from './dist/xspreadsheet';
+export { spreadsheet as Spreadsheet } from './src/index';
 
-export { Spreadsheet };
 export * from './types';
