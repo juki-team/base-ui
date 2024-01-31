@@ -1,4 +1,4 @@
-export interface Options {
+export type SpreadsheetOptionsType = {
   mode?: 'edit' | 'read';
   showToolbar?: boolean;
   showGrid?: boolean;
@@ -39,27 +39,27 @@ export type CELL_SELECTED = 'cell-selected';
 export type CELLS_SELECTED = 'cells-selected';
 export type CELL_EDITED = 'cell-edited';
 
-export type CellMerge = [ number, number ];
+export type CellMergeType = [ number, number ];
 
-export interface ColProperties {
-  width?: number;
+export type ColPropertiesType = {
+  width?: number,
 }
 
 /**
  * Data for representing a cell
  */
-export interface CellData {
-  text: string | number | Date | boolean;
-  style?: number | number[];
-  merge?: CellMerge;
+export type CellDataType = {
+  text: string | number | Date | boolean,
+  style?: number | number[],
+  merge?: CellMergeType,
 }
 
 /**
  * Data for representing a row
  */
-export interface RowData {
+export type RowDataType = {
   cells: {
-    [key: number]: CellData;
+    [key: number]: CellDataType,
   },
   height?: number,
 }
@@ -67,42 +67,35 @@ export interface RowData {
 /**
  * Data for representing a sheet
  */
-export interface SheetData {
+export type SheetDataType = {
   name: string,
   freeze?: string,
-  styles?: CellStyle[],
+  styles?: CellStyleType[],
   merges?: string[],
   cols?: {
     len?: number,
-    [key: number]: ColProperties,
+    [key: number]: ColPropertiesType,
   },
   rows: {
-    [key: number]: RowData,
+    [key: number]: RowDataType,
     // len: number,
   };
   autofilter?: { ref: string, filters: [] },
 }
 
-/**
- * Data for representing a spreadsheet
- */
-export interface SpreadsheetData {
-  [index: number]: SheetData;
-}
-
-export interface CellStyle {
-  align?: 'left' | 'center' | 'right';
-  valign?: 'top' | 'middle' | 'bottom';
+export type CellStyleType = {
+  align?: 'left' | 'center' | 'right',
+  valign?: 'top' | 'middle' | 'bottom',
   font?: {
-    bold?: boolean;
+    bold?: boolean,
   }
-  bgcolor?: string;
-  textwrap?: boolean;
-  color?: string;
+  bgcolor?: string,
+  textwrap?: boolean,
+  color?: string,
   border?: {
-    top?: string[];
-    right?: string[];
-    bottom?: string[];
-    left?: string[];
+    top?: string[],
+    right?: string[],
+    bottom?: string[],
+    left?: string[],
   };
 }
