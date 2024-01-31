@@ -1,6 +1,7 @@
 import { stringToArrayBuffer } from '@juki-team/commons';
 import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
-import { utils, write } from 'xlsx';
+import { utils } from 'xlsx';
+import { write } from 'xlsx-js-style';
 import { jukiSettings } from '../config';
 import { SheetData } from '../modules';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerActionsType } from '../types';
@@ -81,7 +82,7 @@ export interface Sheet {
   columns?: { wpx: number }[],
 }
 
-export const dataTablesToWorkBook = (sheets: SheetData[], fileName: string = 'file.xlsx') => {
+export const sheetDataToWorkBook = (sheets: SheetData[], fileName: string = 'file.xlsx') => {
   const workBook = utils.book_new();
   workBook.Props = {
     Title: fileName,
@@ -175,8 +176,8 @@ export const dataTablesToWorkBook = (sheets: SheetData[], fileName: string = 'fi
   return workBook;
 }
 
-export const downloadDataTablesAsXlsxFile = (sheets: SheetData[], fileName: string = 'file.xlsx') => {
-  const workBook = dataTablesToWorkBook(sheets, fileName);
+export const downloadSheetDataAsXlsxFile = (sheets: SheetData[], fileName: string = 'file.xlsx') => {
+  const workBook = sheetDataToWorkBook(sheets, fileName);
   const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
   const blob = new Blob([ stringToArrayBuffer(workBookOut) ], { type: 'application/octet-stream' });
   downloadBlobAsFile(blob, fileName);

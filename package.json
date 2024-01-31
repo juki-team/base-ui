@@ -58,7 +58,8 @@
     "react-dom": "^18.2.0",
     "sass": "^1.69.5",
     "socket.io-client": "^4.7.2",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "xlsx-js-style": "^1.2.0"
   },
   "scripts": {
     "storybook": "storybook dev -p 6006 -s public",
@@ -145,7 +146,8 @@
     "typescript": "^5.2.2",
     "web-vitals": "^3.0.2",
     "webpack": "^5.74.0",
-    "xlsx": "^0.18.5"
+    "xlsx": "^0.18.5",
+    "xlsx-js-style": "^1.2.0"
   },
   "resolutions": {
     "jackspeak": "2.1.1"
