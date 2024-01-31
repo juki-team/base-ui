@@ -80,6 +80,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     onRecordClick,
     extraNodesFloating,
     preferredDataViewMode,
+    setDataTableRef: _setDataTableRef,
   } = props;
   
   const { viewPortSize } = useJukiUI();
@@ -230,7 +231,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       });
     }
   }, [ request, searchSorts, headers, reloadCount, searchFilter, withPagination, page, pageSize ]);
-  
+  const setDataTableRef = useRef<undefined | ((data: T[]) => void)>(undefined);
+  setDataTableRef.current = _setDataTableRef;
   useEffect(() => { // Offline filter & Offline sort
     let newData = [ ...data ];
     // if (prevSearchSorts.current !== searchSorts || JSON.stringify(prevSearchFilter.current) !== JSON.stringify(searchFilter)) { // to sort when reload data too
@@ -427,6 +429,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
     // }
     setDataTable(newData);
+    setDataTableRef.current?.(data);
   }, [ data, headers, searchFilter, searchSorts ]);
   
   useEffect(() => {
