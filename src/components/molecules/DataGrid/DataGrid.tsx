@@ -60,8 +60,6 @@ export const DataGrid = ({ rows, cols, freeze, styles, autofilter, firstRowAsHea
   
   let colHeaders = firstRowAsHeaders ? data[0] : true;
   
-  console.log({ data });
-  
   return (
     <HotTable
       // set `HotTable`'s props here
