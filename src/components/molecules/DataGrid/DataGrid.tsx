@@ -1,14 +1,14 @@
 import { HotTable, HotTableProps } from '@handsontable/react';
 import { registerAllModules } from 'handsontable/registry';
 import { registerRenderer, textRenderer } from 'handsontable/renderers';
-import React from 'react';
+import React, { memo } from 'react';
 import { utils } from 'xlsx';
 import { CellStyleType } from '../../../modules';
 import { DataGridProps } from './types';
 
 registerAllModules();
 
-export const DataGrid = ({ rows, freeze, styles, autofilter, firstRowAsHeaders }: DataGridProps) => {
+export const DataGrid = memo(({ rows, freeze, styles, autofilter, firstRowAsHeaders }: DataGridProps) => {
   const data: (string)[][] = [];
   const dataStyles: CellStyleType[][] = [];
   const cell: HotTableProps['cell'] = [];
@@ -97,4 +97,4 @@ export const DataGrid = ({ rows, freeze, styles, autofilter, firstRowAsHeaders }
       }}
     />
   );
-};
+});
