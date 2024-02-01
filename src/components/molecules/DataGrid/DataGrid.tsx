@@ -3,12 +3,23 @@ import { registerAllModules } from 'handsontable/registry';
 import { registerRenderer, textRenderer } from 'handsontable/renderers';
 import React, { memo } from 'react';
 import { utils } from 'xlsx';
+import { classNames } from '../../../helpers';
 import { CellStyleType } from '../../../modules';
 import { DataGridProps } from './types';
 
 registerAllModules();
 
-export const DataGrid = memo(({ rows, freeze, styles, autofilter, firstRowAsHeaders }: DataGridProps) => {
+const alignment: { [key: string]: string } = {
+  'hleft': 'htLeft',
+  'hcenter': 'htCenter',
+  'hright': 'htRight',
+  'hjustify': 'htJustify',
+  'vtop': 'htTop',
+  'vmiddle': 'htMiddle',
+  'vbottom': 'htBottom',
+}
+
+export const DataGrid = memo(({ rows, cols, freeze, styles, autofilter, firstRowAsHeaders }: DataGridProps) => {
   const data: (string)[][] = [];
   const dataStyles: CellStyleType[][] = [];
   const cell: HotTableProps['cell'] = [];
@@ -33,9 +44,21 @@ export const DataGrid = memo(({ rows, freeze, styles, autofilter, firstRowAsHead
           dataStyles[row] = [];
         }
         dataStyles[row][col] = styles?.[cellData.style];
-        cell.push({ row, col, renderer: 'customStylesRenderer' })
+        cell.push({
+          row,
+          col,
+          renderer: 'customStylesRenderer',
+          className: classNames(alignment[`h${styles?.[cellData.style].align}`], alignment[`v${styles?.[cellData.style].valign}`]),
+        });
       }
     })
+  });
+  
+  const colWidths: number[] = [];
+  Object.entries(cols || {}).forEach(([ i, colProperty ]) => {
+    if (typeof colProperty.width === 'number') {
+      colWidths[+i] = colProperty.width
+    }
   });
   
   const freezeCell = utils.decode_cell(freeze || '');
@@ -95,6 +118,7 @@ export const DataGrid = memo(({ rows, freeze, styles, autofilter, firstRowAsHead
         }
         return cellProperties;
       }}
+      colWidths={colWidths.length ? colWidths : undefined}
     />
   );
 });

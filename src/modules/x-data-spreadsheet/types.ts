@@ -84,7 +84,7 @@ export type SheetDataType = {
 }
 
 export type CellStyleType = {
-  align?: 'left' | 'center' | 'right',
+  align?: 'left' | 'center' | 'right' | 'justify' /*not supported by x-data-spreadsheet*/,
   valign?: 'top' | 'middle' | 'bottom',
   font?: {
     bold?: boolean,

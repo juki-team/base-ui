@@ -75,13 +75,6 @@ export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName
   downloadBlobAsFile(blob, fileName);
 };
 
-export interface Sheet {
-  sheetName: string,
-  data: (string | number)[][],
-  autoFilter?: string,
-  columns?: { wpx: number }[],
-}
-
 export const sheetDataToWorkBook = (sheets: SheetDataType[], fileName: string = 'file.xlsx') => {
   const workBook = utils.book_new();
   workBook.Props = {
@@ -146,6 +139,20 @@ export const sheetDataToWorkBook = (sheets: SheetDataType[], fileName: string = 
               cell.s.font = {};
             }
             cell.s.font.bold = true;
+          }
+          const alignment = styles[cellData.style].align;
+          if (typeof alignment === 'string') {
+            if (!cell.s.alignment) {
+              cell.s.alignment = {};
+            }
+            cell.s.alignment.horizontal = alignment;
+          }
+          const alignmentVertical = styles[cellData.style].valign;
+          if (typeof alignmentVertical === 'string') {
+            if (!cell.s.alignment) {
+              cell.s.alignment = {};
+            }
+            cell.s.alignment.vertical = alignmentVertical;
           }
         }
         workBook.Sheets[name][cellRef] = cell;
