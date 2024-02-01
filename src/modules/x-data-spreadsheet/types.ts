@@ -73,7 +73,7 @@ export type SheetDataType = {
   styles?: CellStyleType[],
   merges?: string[],
   cols?: {
-    len?: number,
+    // len?: number,
     [key: number]: ColPropertiesType,
   },
   rows: {

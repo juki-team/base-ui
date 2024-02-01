@@ -161,9 +161,9 @@ export const sheetDataToWorkBook = (sheets: SheetDataType[], fileName: string = 
     if (!workBook.Sheets[name]['!cols']) {
       workBook.Sheets[name]['!cols'] = [];
     }
-    const c = cols || { len: 0 };
-    const { len, ...columns } = c;
-    Object.entries(columns).forEach(([ i, property ]) => {
+    // const c = cols || { len: 0 };
+    // const { .columns } = c;
+    Object.entries(cols || {}).forEach(([ i, property ]) => {
       const index = +i;
       if (!workBook.Sheets[name]['!cols']![index]) {
         workBook.Sheets[name]['!cols']![index] = {};
