@@ -8,12 +8,18 @@ import { DataGridProps } from './types';
 
 registerAllModules();
 
-export const DataGrid = ({ rows, cols, freeze, styles, autofilter, firstRowAsHeaders }: DataGridProps) => {
+export const DataGrid = ({ rows, freeze, styles, autofilter, firstRowAsHeaders }: DataGridProps) => {
   const data: (string)[][] = [];
   const dataStyles: CellStyleType[][] = [];
   const cell: HotTableProps['cell'] = [];
   Object.entries(rows).forEach(([ i, rowData ]) => {
-    const row = +i;
+    let row = +i;
+    if (firstRowAsHeaders) {
+      if (row === 0) {
+        return;
+      }
+      row -= 1;
+    }
     data[row] = [] as string[];
     Object.entries(rowData.cells).forEach(([ j, cellData ]) => {
       const col = +j;
@@ -68,7 +74,7 @@ export const DataGrid = ({ rows, cols, freeze, styles, autofilter, firstRowAsHea
   return (
     <HotTable
       // set `HotTable`'s props here
-      data={firstRowAsHeaders ? data.slice(1) : data}
+      data={data}
       rowHeaders={true}
       colHeaders={colHeaders}
       licenseKey="non-commercial-and-evaluation" // for non-commercial use only

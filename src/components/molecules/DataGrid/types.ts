@@ -1,3 +1,4 @@
 import { SheetDataType } from '../../../modules';
 
-export type DataGridProps = SheetDataType & { firstRowAsHeaders?: boolean };
+export type DataGridProps = Pick<SheetDataType, 'rows' | 'freeze' | 'styles' | 'autofilter'>
+  & { firstRowAsHeaders?: boolean };
