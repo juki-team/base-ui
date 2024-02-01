@@ -30,6 +30,11 @@ export const DataGrid = ({ rows, cols, freeze, styles, autofilter, firstRowAsHea
   
   const freezeCell = utils.decode_cell(freeze || '');
   const autofilterRange = utils.decode_range(autofilter?.ref || '');
+  if (firstRowAsHeaders) {
+    if (freezeCell.r !== -1) {
+      freezeCell.r -= 1;
+    }
+  }
   
   const removeColumnMenuButton: HotTableProps['afterGetColHeader'] = (col: number, TH) => {
     if (!(autofilterRange.s.c <= col && col <= autofilterRange.e.c)) {
