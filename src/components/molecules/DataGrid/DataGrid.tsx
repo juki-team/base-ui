@@ -12,10 +12,14 @@ export const DataGrid = ({ rows, freeze, styles, autofilter, firstRowAsHeaders }
   const data: (string)[][] = [];
   const dataStyles: CellStyleType[][] = [];
   const cell: HotTableProps['cell'] = [];
+  const colHeaders: true | string[] = firstRowAsHeaders ? [] : true;
   Object.entries(rows).forEach(([ i, rowData ]) => {
     let row = +i;
     if (firstRowAsHeaders) {
       if (row === 0) {
+        (colHeaders as string[]).push(
+          ...(Object.entries(rowData.cells).map(([ j, cellData ]) => cellData.text as string)),
+        );
         return;
       }
       row -= 1;
@@ -68,8 +72,6 @@ export const DataGrid = ({ rows, freeze, styles, autofilter, firstRowAsHeaders }
       td.style.background = cellProperties.style?.bgcolor;
     }
   });
-  
-  let colHeaders = firstRowAsHeaders ? data[0] : true;
   
   return (
     <HotTable
