@@ -1,2 +1,2 @@
 export * from './JukiLastPathProvider';
-export * from './LastPath';
+export * from './LinkLastPath';

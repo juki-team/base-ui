@@ -108,14 +108,11 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const prevPage = useRef<number>();
   const prevPageSize = useRef<number>();
   const firstRender = useRef(true);
-  const [ pageSizeOptions, setPageSizeOptions ] = useState([]);
+  const initialPageSizeOptionsString = JSON.stringify(initialPageSizeOptions ?? [ 25, 50, 100 ]);
+  const pageSizeOptions = useMemo(() => JSON.parse(initialPageSizeOptionsString), [ initialPageSizeOptionsString ]);
   const initialViewMode = _initialViewMode
     || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
   
-  const initialPageSizeOptionsString = JSON.stringify(initialPageSizeOptions ?? [ 25, 50, 100 ]);
-  useEffect(() => {
-    setPageSizeOptions(JSON.parse(initialPageSizeOptionsString));
-  }, [ initialPageSizeOptionsString ]);
   const page = useMemo(() => +(searchParams.get(pageKey) || 1), [ pageKey, searchParams ]);
   const pageSize = useMemo(() => +(searchParams.get(pageSizeKey) || 0) || pageSizeOptions[0], [
     pageSizeKey,
