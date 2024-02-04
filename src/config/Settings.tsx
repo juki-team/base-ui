@@ -8,20 +8,28 @@ import {
   UpdateUserProfileDataPayloadDTO,
 } from '../types';
 
+const addQuery = (path: string) => {
+  return !path.includes('?') ? path + '?' : path;
+}
+
+const addAnd = (path: string) => {
+  return path[path.length - 1] !== '?' ? path + '&' : path;
+}
+
 const injectPage = (path: string, page: number, size: number) => {
-  return path + `page=${page}&size=${size}`;
+  return addAnd(addQuery(path)) + `page=${page}&size=${size}`;
 };
 
 const injectSort = (path: string, sortUrl: string | undefined) => {
-  return path + (sortUrl ? '&' + sortUrl : '');
+  return sortUrl ? addAnd(addQuery(path)) + sortUrl : path;
 };
 
 const injectFilter = (path: string, filterUrl: string | undefined) => {
-  return path + (filterUrl ? '&' + filterUrl : '');
+  return filterUrl ? addAnd(addQuery(path)) + filterUrl : path;
 };
 
 const injectCompany = (path: string, companyKey: string | undefined) => {
-  return path + (companyKey ? `companyKey=${companyKey}` : '');
+  return companyKey ? addAnd(addQuery(path)) + `companyKey=${companyKey}` : path;
 }
 
 type ResponseAPI = ({ url: string } & AuthorizedRequestType);
@@ -71,7 +79,7 @@ export class Settings {
                                                                                    params: { companyKey } = {},
                                                                                    body,
                                                                                  }) => ({
-          url: injectCompany(injectBaseUrl('auth', '/sign-in?'), companyKey),
+          url: injectCompany(injectBaseUrl('auth', '/sign-in'), companyKey),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
@@ -84,7 +92,7 @@ export class Settings {
                                                                                           params: { companyKey } = {},
                                                                                           body,
                                                                                         }) => ({
-          url: injectCompany(injectBaseUrl('auth', '/sign-up?'), companyKey),
+          url: injectCompany(injectBaseUrl('auth', '/sign-up'), companyKey),
           method: HTTPMethod.POST,
           body: JSON.stringify({ ...body, isGenerated: true }),
         })),
@@ -108,7 +116,7 @@ export class Settings {
                                                                                          nickname,
                                                                                        },
                                                                                      }) => ({
-          url: injectCompany(injectBaseUrl('auth', `/nickname/${nickname}/reset-password?`), companyKey),
+          url: injectCompany(injectBaseUrl('auth', `/nickname/${nickname}/reset-password`), companyKey),
           method: HTTPMethod.POST,
         })),
       },
@@ -139,7 +147,7 @@ export class Settings {
         getSummaryList: valid<{
           params: { companyKey: string }
         } | void>(({ params: { companyKey } = { companyKey: '' } } = { params: { companyKey: '' } }) => ({
-          url: injectCompany(injectBaseUrl('user', `/summary-list?`), companyKey),
+          url: injectCompany(injectBaseUrl('user', `/summary-list`), companyKey),
           method: HTTPMethod.GET,
         })),
         getProfile: valid<{ params: { nickname: string, companyKey?: string } }>(({
@@ -199,7 +207,7 @@ export class Settings {
                                                                                                               sortUrl,
                                                                                                             },
                                                                                                           }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/list?'), page, size), filterUrl), sortUrl),
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/list'), page, size), filterUrl), sortUrl),
         })),
         getSummary: valid<{ params: { judge: Judge, key: string } }>(({ params: { judge, key } }) => ({
           url: injectBaseUrl('problem', `/${getProblemJudgeKey(judge, key)}/summary`),
@@ -251,7 +259,7 @@ export class Settings {
         get: valid<{
           params: { companyKey: string }
         } | void>(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
-          url: injectCompany(injectBaseUrl('company', '?'), companyKey),
+          url: injectCompany(injectBaseUrl('company', ''), companyKey),
           method: HTTPMethod.GET,
         })),
         getPermissionList: valid<void>(() => ({
