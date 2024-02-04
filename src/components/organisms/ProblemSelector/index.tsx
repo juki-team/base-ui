@@ -28,9 +28,9 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
       setData(prevState => (
         { ...prevState, [judge]: { problems: prevState[judge]?.problems || [], loading: true } }
       ));
-      const { url } = jukiSettings.getAPI()
+      const { url } = jukiSettings.API
         .problem
-        .list({ params: { page: 1, size: 100000, filterUrl: `judge=${judge}` } });
+        .getList({ params: { page: 1, size: 100000, filterUrl: `judge=${judge}` } });
       // TODO: change limit of problems
       const response = cleanRequest<ContentsResponseType<ProblemSummaryListResponseDTO>>(
         await authorizedRequest(url),
@@ -103,9 +103,9 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
           <ButtonLoader
             onClick={async (setLoaderStatus) => {
               setLoaderStatus(Status.LOADING);
-              const { url } = jukiSettings.getAPI()
+              const { url } = jukiSettings.API
                 .problem
-                .summary({ params: { judge, key } });
+                .getSummary({ params: { judge, key } });
               const response = cleanRequest<ContentResponseType<ProblemSummaryListResponseDTO>>(
                 await authorizedRequest(url),
               );

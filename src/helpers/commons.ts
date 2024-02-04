@@ -194,7 +194,7 @@ export const downloadJukiMarkdownAdPdf = async (source: string, fileName: string
   const url = await publishNote(source);
   if (url) {
     const result = await authorizedRequest(
-      jukiSettings.getAPI().note.pdf({ params: { sourceUrl: url } }).url, { responseType: 'blob' },
+      jukiSettings.API.note.pdf({ params: { sourceUrl: url } }).url, { responseType: 'blob' },
     );
     downloadBlobAsFile(result, fileName);
   } else {

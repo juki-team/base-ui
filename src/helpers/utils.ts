@@ -11,7 +11,7 @@ export const openNewTab = (url: string) => {
 };
 
 export const publishNote = async (source: string) => {
-  const { url, ...options } = jukiSettings.getAPI().note.publish({ body: { source: source.trim() } });
+  const { url, ...options } = jukiSettings.API.note.publish({ body: { source: source.trim() } });
   const request = cleanRequest<ContentResponseType<{ sourceUrl: string }>>(
     await authorizedRequest(url, options),
   );
@@ -31,10 +31,10 @@ export const handleShareMdPdf = (type: string, source: string, sourceUrl: string
   if (url) {
     openNewTab((
       type === 'md-fullscreen'
-        ? jukiSettings.getAPI().note.viewFullscreen({ params: { sourceUrl: url } }).url
+        ? jukiSettings.API.note.viewFullscreen({ params: { sourceUrl: url } }).url
         : type === 'md'
-          ? jukiSettings.getAPI().note.view({ params: { sourceUrl: url } }).url
-          : jukiSettings.getAPI().note.pdf({ params: { sourceUrl: url } }).url
+          ? jukiSettings.API.note.view({ params: { sourceUrl: url } }).url
+          : jukiSettings.API.note.pdf({ params: { sourceUrl: url } }).url
     ));
   } else {
     throw new Error('no url generated');

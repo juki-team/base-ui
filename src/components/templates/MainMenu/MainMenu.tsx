@@ -55,7 +55,7 @@ export const MainMenu = (props: MainMenuProps) => {
     company: { imageUrl, name },
   } = useJukiUser();
   
-  const { data } = useFetcher<ContentsResponseType<CompanyUserPermissionsResponseDTO>>(multiCompanies && isLogged ? jukiSettings.getAPI().company.permissionList().url : null);
+  const { data } = useFetcher<ContentsResponseType<CompanyUserPermissionsResponseDTO>>(multiCompanies && isLogged ? jukiSettings.API.company.getPermissionList().url : null);
   const companyKey = searchParams.get(QueryParamKey.COMPANY) as string;
   const companies = useMemo(() => data?.success ? data.contents : [], [ data ]);
   const company = useMemo(() => companies.find((company) => company.key === companyKey), [ companyKey, companies ]);

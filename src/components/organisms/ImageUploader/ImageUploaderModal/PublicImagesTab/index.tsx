@@ -14,7 +14,7 @@ interface PublicImagesTabProps {
 export const PublicImagesTab = (props: PublicImagesTabProps) => {
   
   return (
-    <FetcherLayer<ContentsResponseType<ImageSummaryResponseDTO>> url={jukiSettings.getAPI().image.list().url}>
+    <FetcherLayer<ContentsResponseType<ImageSummaryResponseDTO>> url={jukiSettings.API.image.getList().url}>
       {({ data: { contents }, mutate }) => (
         <PublicImages {...props} publicImages={contents} mutate={mutate} />
       )}

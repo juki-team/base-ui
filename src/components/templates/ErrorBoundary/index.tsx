@@ -29,7 +29,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
     const token = localStorage.getItem(jukiSettings.TOKEN_NAME) || '';
     const location = window?.location;
     try {
-      const { url, ...options } = jukiSettings.getAPI().log({
+      const { url, ...options } = jukiSettings.API.log({
         body: {
           location,
           token,

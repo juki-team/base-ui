@@ -17,10 +17,10 @@ export const JukiTProvider = ({ i18n, children }: PropsWithChildren<JukiTProvide
       try {
         const namespace = 'translation';
         const [ dataEN, dataES ] = await Promise.all([
-          fetch(jukiSettings.getAPI().locale.get({
+          fetch(jukiSettings.API.locale.get({
             params: { locale: Language.EN, namespace },
           }).url).then(res => res.json()),
-          fetch(jukiSettings.getAPI().locale.get({
+          fetch(jukiSettings.API.locale.get({
             params: { locale: Language.ES, namespace },
           }).url).then(res => res.json()),
         ])

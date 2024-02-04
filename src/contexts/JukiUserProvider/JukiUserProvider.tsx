@@ -36,7 +36,7 @@ const useUser = () => {
     isValidating,
     mutate,
   } = useFetcher<ContentResponseType<PingResponseDTO>>(
-    jukiSettings.getAPI().auth.ping().url,
+    jukiSettings.API.auth.ping().url,
     { refreshInterval: 1000 * 60 * 5 },
   );
   

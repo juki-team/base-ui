@@ -17,7 +17,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
   } = props;
   
   const { isLoading, data, mutate } = useFetcher<ContentsResponseType<UserSummaryResponseDTO>>(
-    jukiSettings.getAPI().user.summaryList({ params: { companyKey } }).url,
+    jukiSettings.API.user.getSummaryList({ params: { companyKey } }).url,
   );
   const [ show, setShow ] = useState(false);
   const [ text, setText ] = useState('');

@@ -49,7 +49,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     }
     onChange?.({ testCases: newTestCases });
     try {
-      const { url, ...options } = jukiSettings.getAPI().code.run({
+      const { url, ...options } = jukiSettings.API.code.run({
         body: {
           language: language as string,
           source: sourceCode,

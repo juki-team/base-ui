@@ -11,7 +11,7 @@ export const ForgotPasswordModal = ({ isOpen, onClose }: BasicModalProps) => {
   const { notifyResponse } = useNotification();
   const onForgotPassword: OnForgotPasswordType = async (email, setStatus) => {
     setStatus?.(Status.LOADING);
-    const { url, ...options } = jukiSettings.getAPI().auth.initiateResetPassword({ body: { email } });
+    const { url, ...options } = jukiSettings.API.auth.initiateResetPassword({ body: { email } });
     const response = cleanRequest<ContentResponseType<any>>(await authorizedRequest(url, options));
     notifyResponse(response, setStatus);
   };

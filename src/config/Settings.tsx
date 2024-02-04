@@ -8,6 +8,24 @@ import {
   UpdateUserProfileDataPayloadDTO,
 } from '../types';
 
+const injectPage = (path: string, page: number, size: number) => {
+  return path + `page=${page}&size=${size}`;
+};
+
+const injectSort = (path: string, sortUrl: string | undefined) => {
+  return path + (sortUrl ? '&' + sortUrl : '');
+};
+
+const injectFilter = (path: string, filterUrl: string | undefined) => {
+  return path + (filterUrl ? '&' + filterUrl : '');
+};
+
+const injectCompany = (path: string, companyKey: string | undefined) => {
+  return path + (companyKey ? `companyKey=${companyKey}` : '');
+}
+
+type ResponseAPI = ({ url: string } & AuthorizedRequestType);
+
 export class Settings {
   private _SERVICE_API_URL = '';
   private _UTILS_UI_URL = '';
@@ -30,8 +48,11 @@ export class Settings {
     return this._ON_ERROR;
   }
   
-  public getAPI() {
-    type ResponseAPI = ({ url: string } & AuthorizedRequestType);
+  get API() {
+    
+    const injectBaseUrl = (prefix: string, path: string) => {
+      return `${this._SERVICE_API_URL}/${prefix}${path}`;
+    };
     
     const valid = <T, >(callback: (props: T) => ResponseAPI) => {
       if (this._SERVICE_API_URL) {
@@ -40,30 +61,17 @@ export class Settings {
       return () => ({ url: '' });
     };
     
-    const injectPage = (path: string, page: number, size: number) => {
-      return path + `page=${page}&size=${size}`;
-    };
-    
-    const injectSort = (path: string, sortUrl: string | undefined) => {
-      return path + (sortUrl ? '&' + sortUrl : '');
-    };
-    
-    const injectFilter = (path: string, filterUrl: string | undefined) => {
-      return path + (filterUrl ? '&' + filterUrl : '');
-    };
-    
-    const injectBaseUrl = (prefix: string, path: string) => {
-      return `${this._SERVICE_API_URL}/${prefix}${path}`;
-    };
-    
     return {
       auth: {
         ping: valid<void>(() => ({
           url: injectBaseUrl('auth', '/ping'),
           method: HTTPMethod.GET,
         })),
-        signIn: valid<{ body: LoginFormType }>(({ body }) => ({
-          url: injectBaseUrl('auth', '/sign-in'),
+        signIn: valid<{ params?: { companyKey: string }, body: LoginFormType }>(({
+                                                                                   params: { companyKey } = {},
+                                                                                   body,
+                                                                                 }) => ({
+          url: injectCompany(injectBaseUrl('auth', '/sign-in?'), companyKey),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
@@ -72,8 +80,11 @@ export class Settings {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        createUser: valid<{ body: SignUpPayloadDTO }>(({ body }) => ({
-          url: injectBaseUrl('auth', '/sign-up'),
+        createUser: valid<{ params?: { companyKey: string }, body: SignUpPayloadDTO }>(({
+                                                                                          params: { companyKey } = {},
+                                                                                          body,
+                                                                                        }) => ({
+          url: injectCompany(injectBaseUrl('auth', '/sign-up?'), companyKey),
           method: HTTPMethod.POST,
           body: JSON.stringify({ ...body, isGenerated: true }),
         })),
@@ -91,13 +102,13 @@ export class Settings {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        resetPassword: valid<{ params: { companyKey: string, nickname: string } }>(({
-                                                                                      params: {
-                                                                                        companyKey,
-                                                                                        nickname,
-                                                                                      },
-                                                                                    }) => ({
-          url: injectBaseUrl('auth', `/company/${companyKey}/nickname/${nickname}/reset-password`),
+        resetPassword: valid<{ params: { companyKey?: string, nickname: string } }>(({
+                                                                                       params: {
+                                                                                         companyKey,
+                                                                                         nickname,
+                                                                                       },
+                                                                                     }) => ({
+          url: injectCompany(injectBaseUrl('auth', `/nickname/${nickname}/reset-password?`), companyKey),
           method: HTTPMethod.POST,
         })),
       },
@@ -116,35 +127,61 @@ export class Settings {
         body: JSON.stringify(body),
       })),
       user: {
-        summary: valid<{ params: { nickname: string } }>(({ params: { nickname } }) => ({
-          url: injectBaseUrl('user', `/nickname/${nickname}/summary`),
+        getSummary: valid<{ params: { nickname: string, companyKey?: string } }>(({
+                                                                                    params: {
+                                                                                      nickname,
+                                                                                      companyKey,
+                                                                                    },
+                                                                                  }) => ({
+          url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/summary`), companyKey),
           method: HTTPMethod.GET,
         })),
-        summaryList: valid<{ params: { companyKey: string } }>(({ params: { companyKey } }) => ({
-          url: injectBaseUrl('user', `/company/${companyKey}/summary-list`),
+        getSummaryList: valid<{
+          params: { companyKey: string }
+        } | void>(({ params: { companyKey } = { companyKey: '' } } = { params: { companyKey: '' } }) => ({
+          url: injectCompany(injectBaseUrl('user', `/summary-list?`), companyKey),
+          method: HTTPMethod.GET,
+        })),
+        getProfile: valid<{ params: { nickname: string, companyKey?: string } }>(({
+                                                                                    params: {
+                                                                                      nickname,
+                                                                                      companyKey,
+                                                                                    },
+                                                                                  }) => ({
+          url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/profile`), companyKey),
+          method: HTTPMethod.GET,
+        })),
+        getMySessions: valid<void>(() => ({
+          url: injectBaseUrl('user', `/my-sessions`),
           method: HTTPMethod.GET,
         })),
         updateProfileData: valid<{
-          params: { nickname: string },
+          params: { nickname: string, companyKey?: string },
           body: UpdateUserProfileDataPayloadDTO
-        }>(({ params: { nickname }, body }) => ({
-          url: injectBaseUrl('user', `/nickname/${nickname}/profile-data`),
+        }>(({ params: { nickname, companyKey }, body }) => ({
+          url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/profile-data`), companyKey),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
-        updateProfileImage: valid<{ params: { nickname: string }, body: FormData }>(({
-                                                                                       params: { nickname },
-                                                                                       body,
-                                                                                     }) => ({
-          url: injectBaseUrl('user', `/nickname/${nickname}/profile-image`),
+        updateProfileImage: valid<{ params: { nickname: string, companyKey?: string }, body: FormData }>(({
+                                                                                                            params: {
+                                                                                                              nickname,
+                                                                                                              companyKey,
+                                                                                                            },
+                                                                                                            body,
+                                                                                                          }) => ({
+          url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/profile-image`), companyKey),
           method: HTTPMethod.PUT,
           body,
         })),
-        updatePreferences: valid<{ params: { nickname: string }, body: UserSettingsType }>(({
-                                                                                              params: { nickname },
-                                                                                              body,
-                                                                                            }) => ({
-          url: injectBaseUrl('user', `/nickname/${nickname}/preferences`),
+        updatePreferences: valid<{ params: { nickname: string, companyKey?: string }, body: UserSettingsType }>(({
+                                                                                                                   params: {
+                                                                                                                     nickname,
+                                                                                                                     companyKey,
+                                                                                                                   },
+                                                                                                                   body,
+                                                                                                                 }) => ({
+          url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/preferences`), companyKey),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
@@ -154,22 +191,22 @@ export class Settings {
         })),
       },
       problem: {
-        list: valid<{ params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }>(({
-                                                                                                         params: {
-                                                                                                           page,
-                                                                                                           size,
-                                                                                                           filterUrl,
-                                                                                                           sortUrl,
-                                                                                                         },
-                                                                                                       }) => ({
+        getList: valid<{ params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }>(({
+                                                                                                            params: {
+                                                                                                              page,
+                                                                                                              size,
+                                                                                                              filterUrl,
+                                                                                                              sortUrl,
+                                                                                                            },
+                                                                                                          }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/list?'), page, size), filterUrl), sortUrl),
         })),
-        summary: valid<{ params: { judge: Judge, key: string } }>(({ params: { judge, key } }) => ({
+        getSummary: valid<{ params: { judge: Judge, key: string } }>(({ params: { judge, key } }) => ({
           url: injectBaseUrl('problem', `/${getProblemJudgeKey(judge, key)}/summary`),
         })),
       },
       image: {
-        list: valid<void>(() => ({
+        getList: valid<void>(() => ({
           url: injectBaseUrl('image', '/list'),
         })),
         create: valid<{ body: FormData }>(({ body }) => ({
@@ -211,9 +248,35 @@ export class Settings {
         })),
       },
       company: {
-        permissionList: valid<void>(() => ({
-          url: injectBaseUrl('company', '/permission-list'),
+        get: valid<{
+          params: { companyKey: string }
+        } | void>(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
+          url: injectCompany(injectBaseUrl('company', '?'), companyKey),
           method: HTTPMethod.GET,
+        })),
+        getPermissionList: valid<void>(() => ({
+          url: injectBaseUrl('company', '/permission-list?'),
+          method: HTTPMethod.GET,
+        })),
+        getResourceSpecifications: valid<{
+          params: { companyKey: string }
+        } | void>(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
+          url: injectCompany(injectBaseUrl('company', '/resource-specifications'), companyKey),
+          method: HTTPMethod.GET,
+        })),
+        getEmailData: valid<{
+          params: { companyKey: string }
+        } | void>(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
+          url: injectCompany(injectBaseUrl('company', '/email-data'), companyKey),
+          method: HTTPMethod.GET,
+        })),
+        updateImage: valid<{ params?: { companyKey: string }, body: FormData }>(({
+                                                                                   params: { companyKey } = { companyKey: '' },
+                                                                                   body,
+                                                                                 }) => ({
+          url: injectCompany(injectBaseUrl('user', `/image`), companyKey),
+          method: HTTPMethod.PUT,
+          body,
         })),
       },
       locale: {

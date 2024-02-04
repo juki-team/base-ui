@@ -21,7 +21,7 @@ export const UserPreviewModal = ({ isOpen, nickname, onClose, userHref }: UserPr
       closeIcon={false}
     >
       <FetcherLayer<ContentResponseType<UserBasicResponseDTO>>
-        url={jukiSettings.getAPI().user.summary({ params: { nickname } }).url}
+        url={jukiSettings.API.user.getSummary({ params: { nickname } }).url}
         onError={(error) => onClose(() => () => Status.ERROR, Status.ERROR, { fetcherLayerErrorEvent: error })}
       >
         {({ data }) => (

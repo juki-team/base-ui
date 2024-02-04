@@ -22,7 +22,7 @@ export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl }: UploadNe
     const formData = new FormData();
     formData.append('image', image);
     try {
-      const { url, ...options } = jukiSettings.getAPI().image.create({ body: formData });
+      const { url, ...options } = jukiSettings.API.image.create({ body: formData });
       const data = await (await fetch(url, options)).json();
       if (data.success) {
         return { status: Status.SUCCESS, message: data.message, content: data.content };
