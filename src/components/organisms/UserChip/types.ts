@@ -5,4 +5,5 @@ export interface UserChipProps {
   familyName?: string,
   email?: string,
   className?: string,
+  companyKey?: string,
 }
