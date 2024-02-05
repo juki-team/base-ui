@@ -1,6 +1,7 @@
 import { CompanyPingType, USER_GUEST, UserPingType } from '@juki-team/commons';
 import { createContext, Dispatch, SetStateAction } from 'react';
 import { KeyedMutator } from 'swr';
+import { EMPTY_COMPANY } from '../../constants';
 import { SocketIo } from './SocketIo';
 import { DeviceType } from './types';
 
@@ -15,7 +16,7 @@ export const UserContext = createContext<{
   device: DeviceType,
 }>({
   user: USER_GUEST,
-  company: { name: '', imageUrl: '', emailContact: '', key: '' },
+  company: EMPTY_COMPANY,
   setUser: () => null,
   isLoading: true,
   isValidating: true,

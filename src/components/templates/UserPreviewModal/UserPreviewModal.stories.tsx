@@ -14,7 +14,13 @@ export const UserPreviewModal = () => {
   return (
     <MockupJukiProvider>
       <div className="jk-pad-lg">
-        <UserPreviewModalCmp isOpen={open} userHref={'#'} onClose={() => setOpen(false)} nickname="OscarGauss" />
+        <UserPreviewModalCmp
+          isOpen={open}
+          userHref={'#'}
+          onClose={() => setOpen(false)}
+          nickname="OscarGauss"
+          companyKey="juki-app"
+        />
         <Button onClick={() => setOpen(true)}>open</Button>
       </div>
     </MockupJukiProvider>

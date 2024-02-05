@@ -4,7 +4,7 @@ import { MailIcon, PhoneIcon, T, TelegramIcon } from '../../atoms';
 
 export const HelpSection = () => {
   
-  const { isLoading, company: { emailContact } } = useJukiUser();
+  const { company: { contactEmail, contactTelegram, contactCellPhoneNumber } } = useJukiUser();
   
   return (
     <div className="jk-col gap left stretch extend">
@@ -14,21 +14,19 @@ export const HelpSection = () => {
       <div className="jk-row gap nowrap">
         <TelegramIcon />
         <div className="jk-row link fw-bd">
-          <a href="https://t.me/OscarGauss" target="_blank" rel="noreferrer">t.me/OscarGauss</a>
+          <a href={contactTelegram} target="_blank" rel="noreferrer">{contactTelegram.replace('https://', '')}</a>
         </div>
       </div>
       <div />
       <div className="jk-row gap nowrap">
         <PhoneIcon />
-        <div className="jk-row fw-bd">+591 79153358</div>
+        <div className="jk-row fw-bd">{contactCellPhoneNumber}</div>
       </div>
       <div />
-      {!isLoading && !!emailContact && (
-        <div className="jk-row gap nowrap">
-          <MailIcon />
-          <div className="jk-row fw-bd">{emailContact}</div>
-        </div>
-      )}
+      <div className="jk-row gap nowrap">
+        <MailIcon />
+        <div className="jk-row fw-bd">{contactEmail}</div>
+      </div>
     </div>
   );
 };

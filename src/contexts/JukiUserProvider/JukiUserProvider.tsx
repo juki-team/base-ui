@@ -22,6 +22,7 @@ import {
   osVersion,
 } from 'react-device-detect';
 import { jukiSettings } from '../../config';
+import { EMPTY_COMPANY } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
 import { useFetcher, useJukiPage, useT } from '../../hooks';
 import { UserContext } from './context';
@@ -41,7 +42,7 @@ const useUser = () => {
   );
   
   const [ user, _setUser ] = useState<UserPingType>(USER_GUEST);
-  const [ company, setCompany ] = useState<CompanyPingType>({ emailContact: '', imageUrl: '', name: '', key: '' });
+  const [ company, setCompany ] = useState<CompanyPingType>(EMPTY_COMPANY);
   const i18n = useT();
   
   const setUser: Dispatch<SetStateAction<UserPingType>> = useCallback((user) => {

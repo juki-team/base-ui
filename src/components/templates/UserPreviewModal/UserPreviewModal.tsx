@@ -8,7 +8,7 @@ import { Button, ContentCopyIcon, LocationOnIcon, MailIcon, Modal, OpenInNewIcon
 import { ButtonLoader, FetcherLayer } from '../../molecules';
 import { UserPreviewModalProps } from './types';
 
-export const UserPreviewModal = ({ isOpen, nickname, onClose, userHref }: UserPreviewModalProps) => {
+export const UserPreviewModal = ({ isOpen, nickname, companyKey, onClose, userHref }: UserPreviewModalProps) => {
   
   const { viewPortSize, components: { Image } } = useJukiUI();
   
@@ -21,7 +21,7 @@ export const UserPreviewModal = ({ isOpen, nickname, onClose, userHref }: UserPr
       closeIcon={false}
     >
       <FetcherLayer<ContentResponseType<UserBasicResponseDTO>>
-        url={jukiSettings.API.user.getSummary({ params: { nickname } }).url}
+        url={jukiSettings.API.user.getSummary({ params: { nickname, companyKey } }).url}
         onError={(error) => onClose(() => () => Status.ERROR, Status.ERROR, { fetcherLayerErrorEvent: error })}
       >
         {({ data }) => (
