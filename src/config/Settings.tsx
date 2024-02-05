@@ -282,7 +282,7 @@ export class Settings {
                                                                                    params: { companyKey } = { companyKey: '' },
                                                                                    body,
                                                                                  }) => ({
-          url: injectCompany(injectBaseUrl('user', `/image`), companyKey),
+          url: injectCompany(injectBaseUrl('company', `/image`), companyKey),
           method: HTTPMethod.PUT,
           body,
         })),
