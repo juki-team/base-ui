@@ -47,6 +47,7 @@ export const useDataViewerRequester = <T extends ContentResponseType<any> | Cont
     isLoading: isLoading || isValidating,
     request,
     setLoaderStatusRef: useCallback((setLoaderStatus: SetLoaderStatusType) => setLoaderStatusRef.current = setLoaderStatus, []),
+    mutate,
     reload: useCallback(() => reloadRef.current?.(), []),
     reloadRef: useCallback((reload: ReloadType) => reloadRef.current = reload, []), // To pass to DataViewer
   };
