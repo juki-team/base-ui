@@ -13,13 +13,13 @@ import {
 } from '@juki-team/commons';
 import React, { useCallback, useContext, useState } from 'react';
 import { T } from '../components/atoms/T';
-import { LoginFormType } from '../components/templates/MainMenu/LoginModalTemplate/types';
 import { jukiSettings } from '../config';
 import { UserContext } from '../contexts/JukiUserProvider/context';
 import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../helpers';
 import {
   AuthorizedRequestType,
   SetStatusType,
+  SignInPayloadDTO,
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
@@ -75,13 +75,11 @@ export const useJukiUser = () => {
   }, [ notifyResponse ]);
   
   const signIn = useCallback(async (
-    { body, onSuccess, ...props }: ApiBodyType<LoginFormType & {
-      deviceName: string,
-      osName: string,
-      companyKey?: string
-    }, PingResponseDTO>,
+    { params, body, onSuccess, ...props }: ApiParamsBodyType<{
+      companyKey: string
+    } | undefined, SignInPayloadDTO, PingResponseDTO>,
   ) => {
-    const { url, ...options } = jukiSettings.API.auth.signIn({ body });
+    const { url, ...options } = jukiSettings.API.auth.signIn({ body, params });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
       localStorageCrossDomains.setItem(jukiSettings.TOKEN_NAME, response.content.user.sessionId);
       setUser({ ...response.content.user, isLogged: true });
@@ -108,9 +106,11 @@ export const useJukiUser = () => {
   }, [ doRequest, refreshAllRequest, setUser ]);
   
   const createUser = useCallback(async (
-    { body, ...props }: ApiBodyType<SignUpPayloadDTO & { companyKey: string }, PingResponseDTO>,
+    { params, body, ...props }: ApiParamsBodyType<{
+      companyKey: string
+    } | undefined, SignUpPayloadDTO, PingResponseDTO>,
   ) => {
-    const { url, ...options } = jukiSettings.API.auth.createUser({ body });
+    const { url, ...options } = jukiSettings.API.auth.createUser({ params, body });
     await doRequest<PingResponseDTO>({ url, options, ...props });
   }, [ doRequest ]);
   

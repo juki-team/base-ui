@@ -1,8 +1,8 @@
 import { consoleWarn, getProblemJudgeKey, HTTPMethod, Judge, Language, UserSettingsType } from '@juki-team/commons';
 import { ErrorInfo } from 'react';
-import { LoginFormType } from '../components';
 import {
   AuthorizedRequestType,
+  SignInPayloadDTO,
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
@@ -75,10 +75,10 @@ export class Settings {
           url: injectBaseUrl('auth', '/ping'),
           method: HTTPMethod.GET,
         })),
-        signIn: valid<{ params?: { companyKey: string }, body: LoginFormType }>(({
-                                                                                   params: { companyKey } = {},
-                                                                                   body,
-                                                                                 }) => ({
+        signIn: valid<{ params?: { companyKey: string }, body: SignInPayloadDTO }>(({
+                                                                                      params: { companyKey } = {},
+                                                                                      body,
+                                                                                    }) => ({
           url: injectCompany(injectBaseUrl('auth', '/sign-in'), companyKey),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),

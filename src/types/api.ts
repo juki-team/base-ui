@@ -5,6 +5,13 @@ export interface UpdatePasswordPayloadDTO {
   oldPassword: string,
 }
 
+export interface SignInPayloadDTO {
+  nickname: string,
+  password: string,
+  deviceName: string,
+  osName: string,
+}
+
 export interface SignUpPayloadDTO {
   givenName: string,
   familyName: string,

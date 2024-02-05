@@ -16,7 +16,8 @@ export const LoginModal = ({ isOpen, onClose, onSignUpButton, multiCompanies }: 
   
   const onError = () => setHighlightForgotPassword(true);
   
-  const onSubmit = (data: LoginFormType, setLoader: SetLoaderStatusOnClickType) => signIn({
+  const onSubmit = ({ companyKey, ...data }: LoginFormType, setLoader: SetLoaderStatusOnClickType) => signIn({
+    params: companyKey ? { companyKey } : undefined,
     body: { ...data, osName: osLabel, deviceName: label },
     setLoader,
     onError,
