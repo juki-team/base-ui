@@ -1,9 +1,9 @@
 import { Status } from '@juki-team/commons';
 import React, { KeyboardEvent, MouseEvent, PropsWithChildren, useState } from 'react';
 import ReactModal from 'react-modal';
-import { CloseIcon, SpinIcon } from '../icons';
 import { classNames } from '../../../helpers';
 import { useSetLoaderStatus } from '../hooks';
+import { CloseIcon, SpinIcon } from '../icons';
 import { ModalProps } from './types';
 
 // ReactModal.setAppElement('#root'); // no works with nextjs
@@ -49,8 +49,11 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
       onAfterOpen={onAfterOpen}
     >
       {closeIcon && (
-        <div className="jk-modal-close-button jk-button-light only-icon">
-          {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon onClick={handleOnClose} />}
+        <div
+          className="jk-modal-close-button jk-button-light only-icon"
+          onClick={loader !== Status.LOADING ? handleOnClose : undefined}
+        >
+          {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon />}
         </div>
       )}
       <div className="jk-modal-body">
