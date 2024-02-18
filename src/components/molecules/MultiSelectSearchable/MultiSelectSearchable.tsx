@@ -1,4 +1,5 @@
-import React, { ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { VirtualItem } from '@tanstack/react-virtual';
+import React, { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
 import { useHandleState } from '../../../hooks';
@@ -60,7 +61,8 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   const isDisabled = disabled || !onChange;
   const containerWidth = widthLabels * (12 + 5) + 35;
   
-  const renderOption = (option: SelectOptionType<T, U, V>) => {
+  const renderRow = useCallback((virtualItem: VirtualItem) => {
+    const option = filteredOptions[virtualItem.index];
     const value = JSON.stringify(option.value);
     const selected = selectedOptions.some(optionSelected => value === JSON.stringify(optionSelected.value));
     const disabled = !!option.disabled;
@@ -87,7 +89,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         </div>
       </div>
     );
-  };
+  }, [ filteredOptions, multiselect ]);
   
   return (
     <Popover
@@ -114,7 +116,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
             <VirtualizedRowsFixed
               size={filteredOptions.length}
               rowHeight={rowHeightOption}
-              renderRow={(virtualItem) => renderOption(filteredOptions[virtualItem.index])}
+              renderRow={renderRow}
             />
           </div>
         </div>

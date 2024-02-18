@@ -1,8 +1,8 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import React, { useCallback, useRef } from 'react';
+import React, { memo, useCallback, useRef } from 'react';
 import { VirtualizedRowsFixedProps } from './types';
 
-export const VirtualizedRowsFixed = (props: VirtualizedRowsFixedProps) => {
+export const VirtualizedRowsFixed = memo((props: VirtualizedRowsFixedProps) => {
   
   const {
     rowHeight,
@@ -48,4 +48,4 @@ export const VirtualizedRowsFixed = (props: VirtualizedRowsFixedProps) => {
       </div>
     </div>
   );
-};
+});
