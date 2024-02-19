@@ -1,15 +1,14 @@
 import { consoleInfo, consoleWarn, ContentResponseType, SocketEvent } from '@juki-team/commons';
 import io, { Socket } from 'socket.io-client';
+import { getLocalToken } from '../../helpers';
 
 export class SocketIo {
   private _socket: null | Socket = null;
   private _sessionId = '';
   private readonly _socketServiceUrl: string;
-  private readonly _tokenName: string;
   
-  constructor(socketServiceUrl: string, tokenName: string) {
+  constructor(socketServiceUrl: string) {
     this._socketServiceUrl = socketServiceUrl;
-    this._tokenName = tokenName;
   }
   
   start() {
@@ -61,7 +60,7 @@ export class SocketIo {
   }
   
   async joinSession() {
-    this._sessionId = localStorage.getItem(this._tokenName) || '';
+    this._sessionId = getLocalToken();
     if (this._sessionId) {
       try {
         const response = await this.emitAsync(SocketEvent.SIGN_IN, this._sessionId);

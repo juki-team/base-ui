@@ -8,6 +8,7 @@ import {
 } from '@juki-team/commons';
 import React, { ReactNode, useEffect, useMemo, useState } from 'react';
 import { jukiSettings } from '../../../config';
+import { classNames } from '../../../helpers';
 import { useFetcher, useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
 import { Popover, Select, SpinIcon, T } from '../../atoms';
@@ -92,8 +93,15 @@ export const MainMenu = (props: MainMenuProps) => {
           icon: null,
           selected: false,
           menuItemWrapper: ({ isOpenVerticalMenu }) => {
+            let imageUrl = company?.imageUrl?.replace('horizontal', 'vertical') || '';
+            if (viewPortSize === 'sm' && preferredTheme !== Theme.DARK) {
+              imageUrl.replace('white', 'color');
+            }
+            const isSmall = viewPortSize === 'sm';
             return (
-              <div className="jk-menu-item menu-item-company-selector">
+              <div
+                className={classNames('jk-menu-item menu-item-company-selector', { 'jk-col gap': isSmall })}
+              >
                 <div className="jk-menu-item-icon" style={{ height: 48 }}>
                   {company && (
                     <Popover
@@ -102,7 +110,7 @@ export const MainMenu = (props: MainMenuProps) => {
                       placement="right"
                     >
                       <Image
-                        src={company.imageUrl?.replace('horizontal', 'vertical')}
+                        src={imageUrl}
                         alt={company?.name}
                         width={24}
                         height={48}
@@ -110,7 +118,7 @@ export const MainMenu = (props: MainMenuProps) => {
                     </Popover>
                   )}
                 </div>
-                <div className="jk-menu-item-label">
+                <div className="jk-menu-item-label" style={{ ...(isSmall ? { width: '100%' } : {}) }}>
                   <div className="menu-item-label-company-selector">
                     {select}
                   </div>
@@ -124,7 +132,7 @@ export const MainMenu = (props: MainMenuProps) => {
     }
     menu.push(...initialMenu);
     return menu;
-  }, [ initialMenu, companies, company, setSearchParams, isLogged ]);
+  }, [ initialMenu, companies, company, setSearchParams, isLogged, viewPortSize ]);
   
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode
   
