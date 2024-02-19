@@ -7,3 +7,11 @@ export const getLocalToken = () => {
   }
   return queryToken ?? (localStorage.getItem(jukiSettings.TOKEN_NAME) || '');
 }
+
+export const isQueryToken = () => {
+  let queryToken = '';
+  if (typeof window !== 'undefined') {
+    queryToken = (new URLSearchParams(window.location.search)).get('token') ?? '';
+  }
+  return queryToken === getLocalToken();
+}

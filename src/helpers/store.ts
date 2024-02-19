@@ -1,8 +1,13 @@
+import { isQueryToken } from './token';
+
 export const isIFrame = (input: Element): input is HTMLIFrameElement =>
   input !== null && input.tagName === 'IFRAME';
 
 export const localStorageCrossDomains = {
   setItem: (key: string, value: string) => {
+    if (!isQueryToken()) {
+      return;
+    }
     localStorage.setItem(key, value);
     const iframes = document.getElementsByClassName('juki-iframe-cross-domain');
     for (const iframe of iframes) {
@@ -13,6 +18,9 @@ export const localStorageCrossDomains = {
     }
   },
   removeItem: (key: string) => {
+    if (!isQueryToken()) {
+      return;
+    }
     localStorage.removeItem(key);
     const iframes = document.getElementsByClassName('juki-iframe-cross-domain');
     for (const iframe of iframes) {
