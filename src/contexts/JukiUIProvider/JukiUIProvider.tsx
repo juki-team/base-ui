@@ -13,12 +13,12 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
   
   const { viewPortSize, viewPortHeight, viewPortWidth } = useViewPortSize();
   const { searchParams } = useJukiRouter();
-  const { Image: ImageCmp = Image, Link: _LinkCmp = Link } = components || { Image, Link };
+  const { Image: ImageCmp = Image, Link: LinkCMP = Link } = components || { Image, Link };
   const { isLoadingRoute } = useJukiRouter();
   
   const ref = useRef(null);
   
-  const LinkCmp: FC<LinkCmpProps> = useCallback(({ href, ...restProps }, ...rest) => {
+  const LinkCmp: FC<LinkCmpProps> = useCallback(({ href, ...restProps }) => {
     let pathname;
     let sp;
     if (typeof href === 'string') {
@@ -37,8 +37,8 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
     if (company) {
       sp.set(QueryParamKey.COMPANY, company);
     }
-    return _LinkCmp({ href: { pathname, query: sp.toString() }, ...restProps }, ...rest);
-  }, [ _LinkCmp, searchParams ]);
+    return <LinkCMP href={{ pathname, query: sp.toString() }} {...restProps} />;
+  }, [ LinkCMP, searchParams ]);
   
   const value = useMemo(() => ({
     jukiAppDiv: ref.current ? ref.current : undefined,
