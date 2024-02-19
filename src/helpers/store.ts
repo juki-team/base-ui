@@ -5,7 +5,7 @@ export const isIFrame = (input: Element): input is HTMLIFrameElement =>
 
 export const localStorageCrossDomains = {
   setItem: (key: string, value: string) => {
-    if (!isQueryToken()) {
+    if (isQueryToken()) {
       return;
     }
     localStorage.setItem(key, value);
@@ -18,7 +18,7 @@ export const localStorageCrossDomains = {
     }
   },
   removeItem: (key: string) => {
-    if (!isQueryToken()) {
+    if (isQueryToken()) {
       return;
     }
     localStorage.removeItem(key);
