@@ -20,8 +20,6 @@ export const useJukiRouter = () => {
   } = useContext(RouterContext);
   
   const pushRoute: RouterFn<Href> = useCallback((url) => {
-    const token = searchParams.get(QueryParamKey.TOKEN);
-    const company = searchParams.get(QueryParamKey.COMPANY);
     let sp;
     let pathname;
     if (typeof url === 'string') {
@@ -32,14 +30,15 @@ export const useJukiRouter = () => {
       pathname = url.pathname;
       sp = cloneURLSearchParams(url.searchParams ?? new URLSearchParams());
     }
+    const token = searchParams.get(QueryParamKey.TOKEN);
     if (token) {
       sp.set(QueryParamKey.TOKEN, token);
     }
+    const company = searchParams.get(QueryParamKey.COMPANY);
     if (company) {
       sp.set(QueryParamKey.COMPANY, company);
     }
     _pushRoute({ pathname, searchParams: sp })
-    
   }, [ searchParams, _pushRoute ])
   
   return {
