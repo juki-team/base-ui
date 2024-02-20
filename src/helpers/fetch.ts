@@ -10,6 +10,7 @@ import {
 } from '@juki-team/commons';
 import { jukiSettings } from '../config';
 import { AuthorizedRequestType } from '../types'
+import { getLocalToken } from './token';
 
 export const cleanRequest = <T extends ContentResponseType<any> | ContentsResponseType<any>>(responseText: string): (ErrorResponseType | T) => {
   if (!isStringJson(responseText)) {
@@ -67,7 +68,7 @@ export const authorizedRequest = async (url: string, options?: AuthorizedRequest
     requestHeaders.set('Content-Type', 'application/json');
   }
   
-  const token = options?.token || localStorage.getItem(jukiSettings.TOKEN_NAME);
+  const token = options?.token || getLocalToken();
   
   if (token) {
     requestHeaders.set('Authorization', `Bearer ${token}`);
