@@ -56,6 +56,24 @@ export class Settings {
     return this._ON_ERROR;
   }
   
+  get UTILS_ROUTER() {
+    
+    const injectBaseUrl = (prefix: string, path: string) => {
+      return `${this._UTILS_UI_URL}/${prefix}${path}`;
+    };
+    
+    return {
+      note: {
+        view: ({ sourceUrl }: { sourceUrl: string }) => ({
+          url: injectBaseUrl('note', `/v?sourceUrl=${sourceUrl}`),
+        }),
+        viewFullscreen: ({ sourceUrl }: { sourceUrl: string }) => ({
+          url: injectBaseUrl('note', `/v?sourceUrl=${sourceUrl}&view=fullscreen`),
+        }),
+      },
+    }
+  }
+  
   get API() {
     
     const injectBaseUrl = (prefix: string, path: string) => {
@@ -214,11 +232,11 @@ export class Settings {
         })),
       },
       image: {
-        getList: valid<void>(() => ({
-          url: injectBaseUrl('image', '/list'),
+        getPublicList: valid<void>(() => ({
+          url: injectBaseUrl('image', '/public-list'),
         })),
-        create: valid<{ body: FormData }>(({ body }) => ({
-          url: injectBaseUrl('image', ''),
+        publish: valid<{ body: FormData }>(({ body }) => ({
+          url: injectBaseUrl('image', '/publish'),
           method: HTTPMethod.POST,
           body,
         })),
@@ -229,12 +247,6 @@ export class Settings {
           method: HTTPMethod.POST,
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(body),
-        })),
-        view: valid<{ params: { sourceUrl: string } }>(({ params: { sourceUrl } }) => ({
-          url: injectBaseUrl('note', `/v?sourceUrl=${sourceUrl}`),
-        })),
-        viewFullscreen: valid<{ params: { sourceUrl: string } }>(({ params: { sourceUrl } }) => ({
-          url: injectBaseUrl('note', `/v?sourceUrl=${sourceUrl}&view=fullscreen`),
         })),
         pdf: valid<{ params: { sourceUrl: string } }>(({ params: { sourceUrl } }) => ({
           url: injectBaseUrl('note', `/pdf?sourceUrl=${sourceUrl}`),

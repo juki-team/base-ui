@@ -2,7 +2,10 @@ import { jukiSettings } from '../config';
 import { QueryParamKey } from '../types';
 
 export const getLocalToken = () => {
-  return getQueryToken() || localStorage.getItem(jukiSettings.TOKEN_NAME) || '';
+  if (typeof localStorage !== 'undefined') {
+    return getQueryToken() || localStorage.getItem(jukiSettings.TOKEN_NAME) || '';
+  }
+  return getQueryToken() || '';
 }
 
 // const UUID_WITHOUT_DASHES = /^[0-9A-F]{32}$/i;

@@ -22,7 +22,7 @@ export const publishNote = async (source: string) => {
   return '';
 };
 
-export const handleShareMdPdf = (type: string, source: string, sourceUrl: string, setSourceUrl: Dispatch<SetStateAction<string>>) => async () => {
+export const handleShareMdPdf = (type: 'md' | 'md-fullscreen' | 'pdf', source: string, sourceUrl: string, setSourceUrl: Dispatch<SetStateAction<string>>) => async () => {
   let url = sourceUrl;
   if (!sourceUrl) {
     url = await publishNote(source);
@@ -31,9 +31,9 @@ export const handleShareMdPdf = (type: string, source: string, sourceUrl: string
   if (url) {
     openNewTab((
       type === 'md-fullscreen'
-        ? jukiSettings.API.note.viewFullscreen({ params: { sourceUrl: url } }).url
+        ? jukiSettings.UTILS_ROUTER.note.viewFullscreen({ sourceUrl: url }).url
         : type === 'md'
-          ? jukiSettings.API.note.view({ params: { sourceUrl: url } }).url
+          ? jukiSettings.UTILS_ROUTER.note.view({ sourceUrl: url }).url
           : jukiSettings.API.note.pdf({ params: { sourceUrl: url } }).url
     ));
   } else {
