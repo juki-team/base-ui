@@ -6,7 +6,7 @@ export type MdMathEditorProps = {
   informationButton?: boolean,
   uploadImageButton?: boolean,
   downloadButton?: boolean,
-  sharedButton?: boolean,
+  // sharedButton?: boolean,
   initEditMode?: boolean,
   onPickImageUrl?: onPickImageUrlType,
   online?: boolean,

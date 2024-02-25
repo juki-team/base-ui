@@ -1,4 +1,12 @@
-import { consoleWarn, getProblemJudgeKey, HTTPMethod, Judge, Language, UserSettingsType } from '@juki-team/commons';
+import {
+  consoleWarn,
+  getProblemJudgeKey,
+  HTTPMethod,
+  Judge,
+  Language,
+  Theme,
+  UserSettingsType,
+} from '@juki-team/commons';
 import { ErrorInfo } from 'react';
 import {
   AuthorizedRequestType,
@@ -64,11 +72,8 @@ export class Settings {
     
     return {
       note: {
-        view: ({ sourceUrl }: { sourceUrl: string }) => ({
-          url: injectBaseUrl('note', `/v?sourceUrl=${sourceUrl}`),
-        }),
-        viewFullscreen: ({ sourceUrl }: { sourceUrl: string }) => ({
-          url: injectBaseUrl('note', `/v?sourceUrl=${sourceUrl}&view=fullscreen`),
+        view: ({ sourceUrl, theme }: { sourceUrl: string, theme: Theme }) => ({
+          url: injectBaseUrl('note', `?sourceUrl=${sourceUrl}&theme=${theme}`),
         }),
       },
     }

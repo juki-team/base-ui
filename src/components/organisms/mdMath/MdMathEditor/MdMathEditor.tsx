@@ -66,7 +66,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
     informationButton = false,
     uploadImageButton = false,
     downloadButton = false,
-    sharedButton = false,
+    // sharedButton = false,
     initEditMode = false,
     onPickImageUrl,
     online = false,
@@ -253,7 +253,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
             source={editValue?.trim()}
             edit onEdit={() => setEditing(true)}
             download={downloadButton}
-            share={sharedButton}
+            // share={sharedButton}
           />
           <div className="preview">
             <MdMathViewer source={editValue?.trim()} />

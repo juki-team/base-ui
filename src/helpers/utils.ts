@@ -1,4 +1,4 @@
-import { consoleWarn, ContentResponseType } from '@juki-team/commons';
+import { consoleWarn, ContentResponseType, Theme } from '@juki-team/commons';
 import { Dispatch, SetStateAction } from 'react';
 import { jukiSettings } from '../config';
 import { authorizedRequest, cleanRequest } from './fetch';
@@ -22,7 +22,7 @@ export const publishNote = async (source: string) => {
   return '';
 };
 
-export const handleShareMdPdf = (type: 'md' | 'md-fullscreen' | 'pdf', source: string, sourceUrl: string, setSourceUrl: Dispatch<SetStateAction<string>>) => async () => {
+export const handleShareMdPdf = (type: 'md' | 'pdf', source: string, sourceUrl: string, setSourceUrl: Dispatch<SetStateAction<string>>, theme: Theme) => async () => {
   let url = sourceUrl;
   if (!sourceUrl) {
     url = await publishNote(source);
@@ -30,11 +30,9 @@ export const handleShareMdPdf = (type: 'md' | 'md-fullscreen' | 'pdf', source: s
   }
   if (url) {
     openNewTab((
-      type === 'md-fullscreen'
-        ? jukiSettings.UTILS_ROUTER.note.viewFullscreen({ sourceUrl: url }).url
-        : type === 'md'
-          ? jukiSettings.UTILS_ROUTER.note.view({ sourceUrl: url }).url
-          : jukiSettings.API.note.pdf({ params: { sourceUrl: url } }).url
+      type === 'md'
+        ? jukiSettings.UTILS_ROUTER.note.view({ sourceUrl: url, theme }).url
+        : jukiSettings.API.note.pdf({ params: { sourceUrl: url } }).url
     ));
   } else {
     throw new Error('no url generated');
