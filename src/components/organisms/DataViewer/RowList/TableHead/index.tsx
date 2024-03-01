@@ -52,7 +52,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
       <div className="jk-row jk-table-head-tools">
         {onSort && (
           <div
-            className={classNames('jk-button-light only-icon small tool', {
+            className={classNames('jk-button light only-icon small tool', {
               active: !!order,
               disabled: loading,
             })}

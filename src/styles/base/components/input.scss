@@ -839,7 +839,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-select-layout {
-  &.jk-button-primary, &.jk-button-secondary {
+  &.jk-button.primary, &.jk-button.secondary {
     font-weight: var(--weight-bold);
     
     &.huge {

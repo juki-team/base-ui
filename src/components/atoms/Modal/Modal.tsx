@@ -50,7 +50,7 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
     >
       {closeIcon && (
         <div
-          className="jk-modal-close-button jk-button-light only-icon"
+          className="jk-modal-close-button jk-button light only-icon"
           onClick={loader !== Status.LOADING ? handleOnClose : undefined}
         >
           {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon />}

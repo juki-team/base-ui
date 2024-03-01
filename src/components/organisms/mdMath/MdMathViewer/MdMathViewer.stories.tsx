@@ -22,6 +22,6 @@ export const Regular: Story = {
 };
 
 Regular.args = {
-  sharedButton: true,
+  // sharedButton: true,
   downloadButton: true,
 };

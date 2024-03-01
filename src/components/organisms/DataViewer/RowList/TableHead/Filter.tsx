@@ -98,7 +98,7 @@ export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
       showPopperArrow
     >
       <div
-        className={classNames('jk-button-light only-icon small tool', {
+        className={classNames('jk-button light only-icon small tool', {
           active: isFilterText(filter) ? !!filter.text
             : isFilterSelect(filter) ? !!filter.selectedOptions.length
               : isFilterDate(filter) ? !!filter.selectedDate?.isValidDate()

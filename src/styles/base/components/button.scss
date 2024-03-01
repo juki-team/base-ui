@@ -1,6 +1,6 @@
 @import "../../abstracts/index";
 
-:not(*[class*=" jk-button-"], *[class^="jk-button-"]).clickable {
+:not(*.jk-button).clickable {
   cursor: initial;
   
   &:not(.disabled):not(.loading) {
@@ -12,10 +12,7 @@
   }
 }
 
-button[class*=" jk-button-"], button[class^="jk-button-"],
-input[class*=" jk-button-"], input[class^="jk-button-"],
-div[class*=" jk-button-"], div[class^="jk-button-"],
-span[class*=" jk-button-"], span[class^="jk-button-"] {
+button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   --button-border-width: 3px;
   --button-border-color: transparent;
   --button-padding: var(--pad-xs); // 16px
@@ -156,17 +153,17 @@ span[class*=" jk-button-"], span[class^="jk-button-"] {
   }
 }
 
-.jk-button-primary {
+.jk-button.primary {
   --button-background-color: var(--t-color-primary);
   color: var(--t-color-primary-text);
 }
 
-.jk-button-secondary {
+.jk-button.secondary {
   --button-background-color: var(--t-color-secondary);
   color: var(--t-color-secondary-text);
 }
 
-.jk-button-text {
+.jk-button.text {
   --button-background-color: transparent;
   color: inherit;
   
@@ -175,11 +172,22 @@ span[class*=" jk-button-"], span[class^="jk-button-"] {
   }
 }
 
+.jk-button.outline {
+  --button-background-color: transparent;
+  outline: 1px solid var(--t-color-primary) !important;
+  color: var(--t-color-primary);
+  font-weight: var(--weight-bolder) !important;
+}
+
+.jk-button.light {
+  --button-background-color: rgba(var(--t-color-black-rgb), 0.06);
+  --button-border-width: 2px !important;
+  outline-offset: 0 !important;
+  color: inherit;
+}
+
 *.jk-row:not(.block), *.jk-col:not(.block), *.jk-row-col:not(.block), *:not(.jk-row):not(.jk-col):not(.jk-row-col) {
-  > button[class*=" jk-button-"], > button[class^="jk-button-"],
-  > input[class*=" jk-button-"], > input[class^="jk-button-"],
-  > div[class*=" jk-button-"], > div[class^="jk-button-"],
-  > span[class*=" jk-button-"], > span[class^="jk-button-"] {
+  > button.jk-button, > input.jk-button, > div.jk-button, > span.jk-button {
     &:not(.with-loader-icon):not(.only-icon) {
       --button-border-padding: calc((var(--size-button-loader-icon) / 2) + var(--button-padding) + var(--gap) / 2);
       
@@ -191,18 +199,4 @@ span[class*=" jk-button-"], span[class^="jk-button-"] {
       }
     }
   }
-}
-
-.jk-button-outline {
-  --button-background-color: transparent;
-  outline: 1px solid var(--t-color-primary) !important;
-  color: var(--t-color-primary);
-  font-weight: var(--weight-bolder) !important;
-}
-
-.jk-button-light {
-  --button-background-color: rgba(var(--t-color-black-rgb), 0.06);
-  --button-border-width: 2px !important;
-  outline-offset: 0 !important;
-  color: inherit;
 }

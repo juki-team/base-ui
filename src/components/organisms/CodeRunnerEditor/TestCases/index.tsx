@@ -68,7 +68,7 @@ export const TestCases = <T, >({ testCases, onChange, timeLimit, memoryLimit, di
   
   const actionSection = (
     <Tooltip content={<T className="ws-np tt-se tx-s">add sample test case</T>} placement="bottom-end">
-      <div className="jk-button-light small only-icon">
+      <div className="jk-button light small only-icon">
         <AddIcon
           size="small"
           onClick={() => {

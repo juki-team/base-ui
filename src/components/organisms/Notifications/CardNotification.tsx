@@ -80,7 +80,7 @@ export const CardNotification = ({ id, type, message }: NotificationProps) => {
             {typeof message === 'string' ? <span className="tt-se">{message}</span> : message}
           </div>
           <div className="jk-col">
-            <div className={classNames('jk-button-light only-icon', { tiny: type === 'quiet' })}>
+            <div className={classNames('jk-button light only-icon', { tiny: type === 'quiet' })}>
               <CloseIcon onClick={() => setExit(true)} />
             </div>
           </div>

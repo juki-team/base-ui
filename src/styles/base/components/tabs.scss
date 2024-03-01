@@ -135,7 +135,7 @@
 }
 
 .jk-tab-extra-nodes {
-  > [class*=" jk-button-"], [class^="jk-button-"] {
+  > .jk-button {
     white-space: nowrap;
   }
 }

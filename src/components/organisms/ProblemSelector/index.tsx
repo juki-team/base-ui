@@ -182,7 +182,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
             placement="left"
           >
             <div className="jk-row ">
-              <div className="jk-button-light only-icon">
+              <div className="jk-button light only-icon">
                 <ReloadIcon
                   onClick={() => setTimestampTrigger(Date.now())}
                 />

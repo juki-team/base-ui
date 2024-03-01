@@ -38,7 +38,7 @@ export const UserPreviewModal = ({ isOpen, nickname, companyKey, onClose, userHr
                 <div className="jk-row left gap nowrap">
                   <h3 className="fl-tt-il">{data?.content?.nickname}</h3>
                   <CopyToClipboard text={data?.content?.nickname}>
-                    <div className="jk-button-light only-icon small">
+                    <div className="jk-button light only-icon small">
                       <ContentCopyIcon />
                     </div>
                   </CopyToClipboard>

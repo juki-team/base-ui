@@ -133,7 +133,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
         placement="left"
         content={<T className="tt-se">reload</T>}
       >
-        <div className="jk-button-light only-icon">
+        <div className="jk-button light only-icon">
           <ReloadIcon onClick={() => mutate()} />
         </div>
       </Tooltip>
@@ -141,7 +141,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
         placement="left"
         content={<T className="tt-se">add users by nicknames in batches</T>}
       >
-        <div className="jk-button-light only-icon">
+        <div className="jk-button light only-icon">
           <PeopleIcon
             onClick={() => {
               resetText();
