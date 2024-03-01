@@ -143,7 +143,6 @@
     "sass": "^1.71.1",
     "socket.io-client": "^4.7.4",
     "storybook": "^7.6.17",
-    "swr": "^2.2.4",
     "typescript": "^5.2.2",
     "web-vitals": "^3.5.2",
     "webpack": "^5.90.3",

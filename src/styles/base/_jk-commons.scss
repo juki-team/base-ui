@@ -162,26 +162,8 @@ label[class*=" jk-col"], label[class^="jk-col"] {
   padding: var(--pad-sm); // responsive variable
 }
 
-.jk-pg-t, .jk-pg-r, .jk-pg-b, .jk-pg-l,
-.jk-pg-tr, .jk-pg-tb, .jk-pg-tl, .jk-pg-rb, .jk-pg-rl, .jk-pg-bl,
-.jk-pg-trb, .jk-pg-trl, .jk-pg-rbl,
-.jk-pg-trbl,
-.jk-pg-sm-t, .jk-pg-sm-r, .jk-pg-sm-b, .jk-pg-sm-l,
-.jk-pg-sm-tr, .jk-pg-sm-tb, .jk-pg-sm-tl, .jk-pg-sm-rb, .jk-pg-sm-rl, .jk-pg-sm-bl,
-.jk-pg-sm-trb, .jk-pg-sm-trl, .jk-pg-sm-rbl,
-.jk-pg-sm-trbl,
-.jk-pg-md-t, .jk-pg-md-r, .jk-pg-md-b, .jk-pg-md-l,
-.jk-pg-md-tr, .jk-pg-md-tb, .jk-pg-md-tl, .jk-pg-md-rb, .jk-pg-md-rl, .jk-pg-md-bl,
-.jk-pg-md-trb, .jk-pg-md-trl, .jk-pg-md-rbl,
-.jk-pg-md-trbl,
-.jk-pg-lg-t, .jk-pg-lg-r, .jk-pg-lg-b, .jk-pg-lg-l,
-.jk-pg-lg-tr, .jk-pg-lg-tb, .jk-pg-lg-tl, .jk-pg-lg-rb, .jk-pg-lg-rl, .jk-pg-lg-bl,
-.jk-pg-lg-trb, .jk-pg-lg-trl, .jk-pg-lg-rbl,
-.jk-pg-lg-trbl {
-  box-sizing: border-box;
-}
-
 .jk-pg {
+  box-sizing: border-box;
   &-lg {
     &-t, &-tr, &-tb, &-tl, &-trb, &-trl, &-trbl { padding-top: var(--pad-lg); }
     
