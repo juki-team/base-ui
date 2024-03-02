@@ -47,10 +47,11 @@
 
 .jk-theme-dark {
   // https://maketintsandshades.com
+  // https://colorffy.com/dark-theme-generator
   
-  @include defineColor(--t-color-primary-dark, #205D94);
-  @include defineColor(--t-color-primary, #2874B9);
-  @include defineColor(--t-color-primary-light, #5390C7);
+  @include defineColor(--t-color-primary-dark, #6591c9);
+  @include defineColor(--t-color-primary, #4a82c1);
+  @include defineColor(--t-color-primary-light, #2874b9);
   
   @include defineColor(--t-color-primary-text, #F1F1F1);
   
@@ -60,7 +61,7 @@
   
   @include defineColor(--t-color-secondary-text, #FFFFFF);
   
-  @include defineColor(--t-color-accent, #4C505C);
+  @include defineColor(--t-color-accent, #4c5666);
   
   @include defineColor(--t-color-info, #4492ED);
   @include defineColor(--t-color-info-light, #266BBC);
@@ -79,6 +80,6 @@
   @include defineColor(--t-color-gray-4, #878787);
   @include defineColor(--t-color-gray-5, #6B6B6B);
   @include defineColor(--t-color-gray-6, #4F4F4F);
-  @include defineColor(--t-color-white-2, #1C1B1F);
-  @include defineColor(--t-color-white, #34373F);
+  @include defineColor(--t-color-white-2, #202d3f);
+  @include defineColor(--t-color-white, #364152);
 }
