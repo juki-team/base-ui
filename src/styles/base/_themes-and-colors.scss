@@ -61,7 +61,7 @@
   
   @include defineColor(--t-color-secondary-text, #FFFFFF);
   
-  @include defineColor(--t-color-accent, #4c5666);
+  @include defineColor(--t-color-accent, #484e58);
   
   @include defineColor(--t-color-info, #4492ED);
   @include defineColor(--t-color-info-light, #266BBC);
@@ -80,6 +80,6 @@
   @include defineColor(--t-color-gray-4, #878787);
   @include defineColor(--t-color-gray-5, #6B6B6B);
   @include defineColor(--t-color-gray-6, #4F4F4F);
-  @include defineColor(--t-color-white-2, #202d3f);
-  @include defineColor(--t-color-white, #364152);
+  @include defineColor(--t-color-white-2, #1c242f);
+  @include defineColor(--t-color-white, #313843);
 }
