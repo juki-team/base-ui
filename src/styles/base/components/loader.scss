@@ -53,8 +53,8 @@
  * ============================================== */
 
 .dot-flashing {
-  --dot-flashing-color: var(--t-color-black-2);
-  --dot-flashing-color-light: rgb(var(--t-color-black-2-rgb), 0.2);
+  --dot-flashing-color: var(--t-color-black-light);
+  // TODO: fix --dot-flashing-color-light: rgb(var(--t-color-black-2-rgb), 0.2);
   --dot-flashing-size: 4px;
   margin-left: calc(var(--dot-flashing-size) * 1.5);
   position: relative;

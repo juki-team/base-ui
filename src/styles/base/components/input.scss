@@ -530,7 +530,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
         border-color: var(--t-color-primary-light);
         
         &:focus-visible:not(:checked) {
-          background-color: rgba(var(--t-color-primary-light-rgb), 0.6);
+          // TODO:fix background-color: rgba(var(--t-color-primary-light-rgb), 0.6);
         }
       }
       

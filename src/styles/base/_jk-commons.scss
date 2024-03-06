@@ -164,6 +164,7 @@ label[class*=" jk-col"], label[class^="jk-col"] {
 
 .jk-pg {
   box-sizing: border-box;
+  
   &-lg {
     &-t, &-tr, &-tb, &-tl, &-trb, &-trl, &-trbl { padding-top: var(--pad-lg); }
     
@@ -227,21 +228,29 @@ label[class*=" jk-col"], label[class^="jk-col"] {
   align-items: center;
 }
 
+.appearance-success-dark { background-color: var(--t-color-success-dark); color: var(--t-color-white);}
+
 .appearance-success { background-color: var(--t-color-success); color: var(--t-color-white);}
 
-.appearance-success-light { background-color: var(--t-color-success-light); color: var(--t-color-black-2); }
+.appearance-success-light { background-color: var(--t-color-success-light); color: var(--t-color-black); }
+
+.appearance-info-dark { background-color: var(--t-color-info-dark); color: var(--t-color-white); }
 
 .appearance-info { background-color: var(--t-color-info); color: var(--t-color-white);}
 
-.appearance-info-light { background-color: var(--t-color-info-light); color: var(--t-color-black-2); }
+.appearance-info-light { background-color: var(--t-color-info-light); color: var(--t-color-black); }
+
+.appearance-warning-dark { background-color: var(--t-color-warning-dark); color: var(--t-color-white); }
 
 .appearance-warning { background-color: var(--t-color-warning); color: var(--t-color-white); }
 
-.appearance-warning-light { background-color: var(--t-color-warning-light); color: var(--t-color-black-2); }
+.appearance-warning-light { background-color: var(--t-color-warning-light); color: var(--t-color-black); }
+
+.appearance-error-dark { background-color: var(--t-color-error-dark); color: var(--t-color-white); }
 
 .appearance-error { background-color: var(--t-color-error); color: var(--t-color-white); }
 
-.appearance-error-light { background-color: var(--t-color-error-light); color: var(--t-color-black-2); }
+.appearance-error-light { background-color: var(--t-color-error-light); color: var(--t-color-black); }
 
 .appearance-primary-dark { background-color: var(--t-color-primary-dark); color: var(--t-color-primary-text); }
 
@@ -249,7 +258,11 @@ label[class*=" jk-col"], label[class^="jk-col"] {
 
 .appearance-primary-light { background-color: var(--t-color-primary-light); color: var(--t-color-primary-text); }
 
+.appearance-secondary-dark { background-color: var(--t-color-secondary-dark); color: var(--t-color-secondary-text); }
+
 .appearance-secondary { background-color: var(--t-color-secondary); color: var(--t-color-secondary-text); }
+
+.appearance-secondary-light { background-color: var(--t-color-secondary-light); color: var(--t-color-secondary-text); }
 
 .appearance-gray-1 { background-color: var(--t-color-gray-1); color: var(--t-color-white-2); }
 
@@ -257,11 +270,11 @@ label[class*=" jk-col"], label[class^="jk-col"] {
 
 .appearance-gray-3 { background-color: var(--t-color-gray-3); color: var(--t-color-white-2); }
 
-.appearance-gray-4 { background-color: var(--t-color-gray-4); color: var(--t-color-black-2); }
+.appearance-gray-4 { background-color: var(--t-color-gray-4); color: var(--t-color-black-light); }
 
-.appearance-gray-5 { background-color: var(--t-color-gray-5); color: var(--t-color-black-2); }
+.appearance-gray-5 { background-color: var(--t-color-gray-5); color: var(--t-color-black-light); }
 
-.appearance-gray-6 { background-color: var(--t-color-gray-6); color: var(--t-color-black-2); }
+.appearance-gray-6 { background-color: var(--t-color-gray-6); color: var(--t-color-black-light); }
 
 .jk-tag {
   @extend .appearance-primary;
@@ -269,17 +282,25 @@ label[class*=" jk-col"], label[class^="jk-col"] {
   border-radius: var(--border-radius-inline);
   display: inline-block;
   
+  &.success-dark { @extend .appearance-success-dark; }
+  
   &.success { @extend .appearance-success; }
   
   &.success-light { @extend .appearance-success-light; }
+  
+  &.info-dark { @extend .appearance-info-dark; }
   
   &.info { @extend .appearance-info; }
   
   &.info-light { @extend .appearance-info-light; }
   
+  &.warning-dark { @extend .appearance-warning-dark; }
+  
   &.warning { @extend .appearance-warning; }
   
   &.warning-light { @extend .appearance-warning-light; }
+  
+  &.error-dark { @extend .appearance-error-dark; }
   
   &.error { @extend .appearance-error; }
   
@@ -289,7 +310,11 @@ label[class*=" jk-col"], label[class^="jk-col"] {
   
   &.primary-dark { @extend .appearance-primary-dark; }
   
+  &.secondary-dark { @extend .appearance-secondary-dark; }
+  
   &.secondary { @extend .appearance-secondary; }
+  
+  &.secondary-light { @extend .appearance-secondary-light; }
   
   &.gray-1 { @extend .appearance-gray-1; }
   
