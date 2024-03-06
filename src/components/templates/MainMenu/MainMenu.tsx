@@ -6,7 +6,7 @@ import {
   Status,
   Theme,
 } from '@juki-team/commons';
-import React, { ReactNode, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { classNames } from '../../../helpers';
 import { useFetcher, useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
@@ -18,17 +18,8 @@ import { LoginModal } from './LoginModal';
 import { LoginUser } from './LoginUser';
 import { SettingsSection } from './SettingsSection';
 import { SignUpModal } from './SignUpModal';
+import { MainMenuProps } from './types';
 import { WelcomeModal } from './WelcomeModal';
-
-export interface MainMenuProps {
-  onSeeMyProfile: () => Promise<any> | void,
-  menu: MenuType[],
-  menuViewMode?: MenuViewMode,
-  profileSelected?: boolean,
-  moreApps?: ReactNode,
-  children: ReactNode,
-  multiCompanies?: boolean,
-}
 
 export const MainMenu = (props: MainMenuProps) => {
   

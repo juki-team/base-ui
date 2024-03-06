@@ -2,9 +2,11 @@
 
 /* ********************************             COLORS             ******************************** */
 .jk-theme-light {
-  @include defineColor(--t-color-primary-dark, #164066);
+  //@include defineColor(--t-color-primary-dark, #164066);
+  @include defineColor(--t-color-primary-dark, color-mix(in srgb, #2874B9 80%, black));
   @include defineColor(--t-color-primary, #2874B9);
-  @include defineColor(--t-color-primary-light, #68A6DE);
+  @include defineColor(--t-color-primary-light, color-mix(in srgb, #2874B9 80%, white));
+  //@include defineColor(--t-color-primary-light, #68A6DE);
   
   @include defineColor(--t-color-primary-text, #FFFFFF);
   
@@ -47,11 +49,11 @@
 
 .jk-theme-dark {
   // https://maketintsandshades.com
-  // https://colorffy.com/dark-theme-generator
+  // https://colorffy.com/dark-theme-generator #2874B9 #121212 0.1
   
-  @include defineColor(--t-color-primary-dark, #93afd8);
-  @include defineColor(--t-color-primary, #7da0d1);
-  @include defineColor(--t-color-primary-light, #6591c9);
+  @include defineColor(--t-color-primary-dark, color-mix(in srgb, #7DA0D1 80%, white));
+  @include defineColor(--t-color-primary, #7DA0D1);
+  @include defineColor(--t-color-primary-light, color-mix(in srgb, #7DA0D1 80%, black));
   
   @include defineColor(--t-color-primary-text, #F1F1F1);
   
@@ -61,7 +63,7 @@
   
   @include defineColor(--t-color-secondary-text, #FFFFFF);
   
-  @include defineColor(--t-color-accent, #44464c);
+  @include defineColor(--t-color-accent, #44464C);
   
   @include defineColor(--t-color-info, #4492ED);
   @include defineColor(--t-color-info-light, #266BBC);
@@ -80,6 +82,6 @@
   @include defineColor(--t-color-gray-4, #878787);
   @include defineColor(--t-color-gray-5, #6B6B6B);
   @include defineColor(--t-color-gray-6, #4F4F4F);
-  @include defineColor(--t-color-white-2, #181b21);
-  @include defineColor(--t-color-white, #2d3036);
+  @include defineColor(--t-color-white-2, #181B21);
+  @include defineColor(--t-color-white, #2D3036);
 }

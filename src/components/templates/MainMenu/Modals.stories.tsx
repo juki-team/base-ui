@@ -2,11 +2,9 @@ import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 import { Button, CalendarMonthIcon, EventIcon } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
-import {
-  DrawerViewMenuMobile as DrawerViewMenuMobileCmp,
-  ForgotPasswordModal as UserForgotPasswordModalCmp,
-  WelcomeModal as WelcomeModalCmp,
-} from './';
+import { DrawerViewMenuMobile as DrawerViewMenuMobileCmp } from './DrawerViewMenuMobile';
+import { ForgotPasswordModal as UserForgotPasswordModalCmp } from './LoginModalTemplate';
+import { WelcomeModal as WelcomeModalCmp } from './WelcomeModal';
 
 export default {
   component: DrawerViewMenuMobileCmp,
