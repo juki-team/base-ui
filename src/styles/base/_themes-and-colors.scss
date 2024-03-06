@@ -1,6 +1,52 @@
 @import "../abstracts/index";
 
-:root {
+/* ********************************             COLORS             ******************************** */
+.jk-theme-light {
+  
+  --base-black: black;
+  --base-white: white;
+  
+  @include defineColor(--t-color-primary, #2874B9);
+  @include defineColor(--t-color-primary-text, #FFFFFF);
+  @include defineColor(--t-color-secondary, #EDB745);
+  @include defineColor(--t-color-secondary-text, #FFFFFF);
+  
+  @include defineColor(--t-color-accent, #F0E04A);
+  @include defineColor(--t-color-info, #2F86EB);
+  @include defineColor(--t-color-success, #43D787);
+  @include defineColor(--t-color-warning, #F2C94C);
+  @include defineColor(--t-color-error, #EB5757);
+  @include defineColor(--t-color-gray, #333333);
+  
+  @include defineColor(--t-color-black, #000000);
+  @include defineColor(--t-color-white, #FFFFFF);
+}
+
+.jk-theme-dark {
+  
+  --base-black: white;
+  --base-white: black;
+  
+  // https://maketintsandshades.com
+  // https://colorffy.com/dark-theme-generator #2874B9 #121212 0.1
+  
+  @include defineColor(--t-color-primary, #7DA0D1);
+  @include defineColor(--t-color-primary-text, #F1F1F1);
+  @include defineColor(--t-color-secondary, #A5A5A5);
+  @include defineColor(--t-color-secondary-text, #FFFFFF);
+  
+  @include defineColor(--t-color-accent, #44464C);
+  @include defineColor(--t-color-info, #4492ED);
+  @include defineColor(--t-color-success, #56DB93);
+  @include defineColor(--t-color-warning, #F3CE5E);
+  @include defineColor(--t-color-error, #ED6868);
+  @include defineColor(--t-color-gray, #DBDBDB);
+  
+  @include defineColor(--t-color-black, #E3E3E3);
+  @include defineColor(--t-color-white, #2D3036);
+}
+
+.jk-theme-light, .jk-theme-dark {
   --tone: 75%;
   --t-color-primary-dark: color-mix(in srgb, var(--t-color-primary) var(--tone), var(--base-black));
   --t-color-primary-light: color-mix(in srgb, var(--t-color-primary) var(--tone), var(--base-white));
@@ -27,51 +73,6 @@
   --t-color-gray-5: color-mix(in srgb, var(--t-color-gray) 40%, var(--base-white));
   --t-color-gray-6: color-mix(in srgb, var(--t-color-gray) 25%, var(--base-white));
   
-  --t-color-black-light: color-mix(in srgb, var(--t-color-black) 90%, white);
-  //@include defineColor(--t-color-white-2, #F6F6F6);
-  //@include defineColor(--t-color-white, #FFFFFF);
-}
-
-/* ********************************             COLORS             ******************************** */
-.jk-theme-light {
-  --base-black: black;
-  --base-white: white;
-  @include defineColor(--t-color-primary, #2874B9);
-  @include defineColor(--t-color-primary-text, #FFFFFF);
-  @include defineColor(--t-color-secondary, #EDB745);
-  @include defineColor(--t-color-secondary-text, #FFFFFF);
-  
-  @include defineColor(--t-color-accent, #F0E04A);
-  @include defineColor(--t-color-info, #2F86EB);
-  @include defineColor(--t-color-success, #43D787);
-  @include defineColor(--t-color-warning, #F2C94C);
-  @include defineColor(--t-color-error, #EB5757);
-  @include defineColor(--t-color-gray, #333333);
-  
-  @include defineColor(--t-color-black, #000000);
-  @include defineColor(--t-color-white-2, #F6F6F6);
-  @include defineColor(--t-color-white, #FFFFFF);
-}
-
-.jk-theme-dark {
-  --base-black: white;
-  --base-white: black;
-  // https://maketintsandshades.com
-  // https://colorffy.com/dark-theme-generator #2874B9 #121212 0.1
-  
-  @include defineColor(--t-color-primary, #7DA0D1);
-  @include defineColor(--t-color-primary-text, #F1F1F1);
-  @include defineColor(--t-color-secondary, #A5A5A5);
-  @include defineColor(--t-color-secondary-text, #FFFFFF);
-  
-  @include defineColor(--t-color-accent, #44464C);
-  @include defineColor(--t-color-info, #4492ED);
-  @include defineColor(--t-color-success, #56DB93);
-  @include defineColor(--t-color-warning, #F3CE5E);
-  @include defineColor(--t-color-error, #ED6868);
-  @include defineColor(--t-color-gray, #DBDBDB);
-  
-  @include defineColor(--t-color-black, #E3E3E3);
-  @include defineColor(--t-color-white-2, #181B21);
-  @include defineColor(--t-color-white, #2D3036);
+  --t-color-black-light: color-mix(in srgb, var(--t-color-black) 90%, var(--base-white));
+  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 90%, var(--base-black));
 }
