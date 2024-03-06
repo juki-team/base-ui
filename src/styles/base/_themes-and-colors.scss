@@ -73,6 +73,6 @@
   --t-color-gray-5: color-mix(in srgb, var(--t-color-gray) 40%, var(--base-white));
   --t-color-gray-6: color-mix(in srgb, var(--t-color-gray) 25%, var(--base-white));
   
-  --t-color-black-light: color-mix(in srgb, var(--t-color-black) 90%, var(--base-white));
-  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 90%, var(--base-black));
+  --t-color-black-light: color-mix(in srgb, var(--t-color-black) 95%, var(--base-white));
+  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 95%, var(--base-black));
 }

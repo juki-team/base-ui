@@ -371,7 +371,7 @@ export interface DataViewerToolbarProps<T> {
   onAllFilters: (values: FilterValuesType) => void,
   onReload?: () => void,
   rowsView: boolean,
-  setViewMode: (viewMode: DataViewMode) => void,
+  setViewMode: (viewMode: DataViewMode, replace?: boolean) => void,
   viewMode: DataViewMode,
   pagination: PaginationDataType,
   onColumn: boolean,

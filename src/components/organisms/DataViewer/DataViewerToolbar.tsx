@@ -172,7 +172,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                   <Tooltip content={<T className="tt-se ws-np">list view</T>}>
                     <div
                       className={classNames({ active: viewMode === DataViewMode.ROWS }, 'jk-row')}
-                      onClick={() => setViewMode(DataViewMode.ROWS)}
+                      onClick={() => setViewMode(DataViewMode.ROWS, true)}
                     >
                       <ViewHeadlineIcon
                         className={classNames(
@@ -188,7 +188,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                   <Tooltip content={<T className="tt-se ws-np">cards view</T>}>
                     <div
                       className={classNames({ active: viewMode === DataViewMode.CARDS }, 'jk-row')}
-                      onClick={() => setViewMode(DataViewMode.CARDS)}
+                      onClick={() => setViewMode(DataViewMode.CARDS, true)}
                     >
                       <ViewModuleIcon
                         className={classNames(
