@@ -1,4 +1,4 @@
-import React, { cloneElement, ReactElement } from 'react';
+import React, { cloneElement, MouseEventHandler, ReactElement } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiRouter, useJukiUI } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
@@ -44,10 +44,13 @@ export const UserNicknameLink = ({ children, nickname, companyKey }: UserNicknam
   return cloneElement(
     children,
     {
-      onClick: () => setSearchParams({
-        name: QueryParamKey.USER_PREVIEW,
-        value: companyKey ? [ nickname, companyKey ] : nickname,
-      }),
+      onClick: ((event) => {
+        event.stopPropagation();
+        setSearchParams({
+          name: QueryParamKey.USER_PREVIEW,
+          value: companyKey ? [ nickname, companyKey ] : nickname,
+        });
+      }) as MouseEventHandler,
     },
   );
 };
