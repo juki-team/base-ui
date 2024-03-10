@@ -7,6 +7,7 @@ export interface BasicModalProps {
 
 export type ModalProps = BasicModalProps & {
   className?: string,
+  portalClassName?: string,
   closeIcon?: boolean,
   expand?: boolean,
   closeWhenKeyEscape?: boolean,

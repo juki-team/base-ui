@@ -14,6 +14,7 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
     onClose,
     isOpen,
     className,
+    portalClassName,
     children,
     closeIcon = true,
     expand,
@@ -43,7 +44,7 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
       isOpen={isOpen}
       className={classNames('jk-modal jk-border-radius', className)}
       onRequestClose={handleOnClose}
-      portalClassName={classNames('jk-modal-container', { expand: !!expand })}
+      portalClassName={classNames('jk-modal-container', portalClassName, { expand: !!expand })}
       ariaHideApp={false}
       shouldCloseOnOverlayClick={closeWhenClickOutside}
       onAfterOpen={onAfterOpen}
