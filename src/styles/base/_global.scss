@@ -37,20 +37,9 @@ body {
   }
 }
 
-// overwriting styles
-.jk-theme-light {
-  h1, h2, h3 {
-    &:not([class*=" cr-"]):not([class^="cr-"]) {
-      color: var(--t-color-primary-dark);
-    }
-  }
-}
-
-.jk-theme-dark {
-  h1, h2, h3 {
-    &:not([class*=" cr-"]):not([class^="cr-"]) {
-      color: var(--t-color-primary);
-    }
+h1, h2, h3 {
+  &:not([class*=" cr-"]):not([class^="cr-"]) {
+    color: var(--t-color-primary-dark);
   }
 }
 
