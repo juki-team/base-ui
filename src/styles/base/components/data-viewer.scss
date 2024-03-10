@@ -59,11 +59,10 @@
     .jk-data-viewer-toolbar {
       height: var(--jk-table-toolbar-height);
       position: relative;
-      border-bottom: 1px solid var(--t-color-shadow-light);
+      border-bottom: 1px solid var(--t-color-shadow);
       box-sizing: border-box;
       
       &.cards {
-        //background-color: var(--t-color-white);
         z-index: 1;
       }
       
@@ -341,10 +340,6 @@
             background-color: var(--t-color-white);
             border: 1px solid var(--t-color-shadow-light);
             
-            &.hovered {
-              //outline: calc(var(--pad-md) / 9) solid var(--t-color-white);
-            }
-            
             .top-container, .center-container, .bottom-container {
               display: flex;
               align-items: flex-start;
@@ -403,7 +398,7 @@
           }
           
           .jk-table-row {
-            border-top: 1px solid var(--t-color-gray-6);
+            border-top: 1px solid var(--t-color-shadow-light);
             width: 100%;
             display: flex;
             box-sizing: border-box;

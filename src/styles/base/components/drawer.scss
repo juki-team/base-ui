@@ -16,7 +16,7 @@
   left: 0;
   
   &:not(.transparent) {
-    background-color: var(--t-color-shadow-light);
+    background-color: var(--t-color-shadow-overlay);
   }
 }
 

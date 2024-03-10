@@ -2,11 +2,11 @@
 
 .jk-modal-container {
   .ReactModal__Overlay {
-    background-color: var(--t-color-shadow-dark) !important;
+    background-color: var(--t-color-shadow-overlay) !important;
     display: grid;
     z-index: var(--z-index-overlay-modal);
     opacity: 0;
-    @include transition-fast(opacity);
+    @include transition-slow(opacity, background-color);
   }
   
   .ReactModal__Overlay--after-open {
@@ -41,6 +41,7 @@
   margin: auto;
   @extend .elevation-3;
   background-color: var(--t-color-white);
+  @include transition-slow(background-color);
   outline: none;
   width: var(--modal-width);
   
@@ -70,6 +71,7 @@
 .split-modal {
   .jk-side-secondary {
     background-color: var(--t-color-accent);
+    @include transition-slow(background-color);
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     height: calc(var(--side-main-height, 100%) + var(--pad-lg) * 2);
