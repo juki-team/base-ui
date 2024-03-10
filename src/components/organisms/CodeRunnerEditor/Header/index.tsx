@@ -87,7 +87,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       ref={ref}
     >
       <div
-        className={classNames('left-options cr-pl jk-row gap', { 'jk-col left gap flex-1': twoRows })}
+        className={classNames('left-options cr-pd jk-row gap', { 'jk-col left gap flex-1': twoRows })}
         ref={refLeftSection}
       >
         <Select
@@ -118,7 +118,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       <div className="center-options" style={{ width: widthCenterContainer }}>
         {centerOptions({ widthContainer: widthCenterContainer })}
       </div>
-      <div className={classNames('jk-row gap right-options cr-py', { 'jk-col gap': twoRows })} ref={refRightSection}>
+      <div className={classNames('jk-row gap right-options cr-pd', { 'jk-col gap': twoRows })} ref={refRightSection}>
         <Button size="tiny" type="light" onClick={() => setShowSettings(true)} icon={<SettingsIcon />}>
           {withLabels && <T>settings</T>}
         </Button>
