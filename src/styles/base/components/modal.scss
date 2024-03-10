@@ -6,7 +6,8 @@
     display: grid;
     z-index: var(--z-index-overlay-modal);
     opacity: 0;
-    @include transition-slow(opacity, background-color);
+    //@include transition-slow(opacity, background-color);
+    transition: background-color 600ms, opacity 400ms;
   }
   
   .ReactModal__Overlay--after-open {
