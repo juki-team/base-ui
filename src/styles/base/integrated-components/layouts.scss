@@ -13,7 +13,7 @@
     left: 0;
     border-bottom: 1px solid var(--t-color-shadow-light);
     background-color: var(--t-color-white);
-    @include transition-slow(background-color);
+    @include transition(background-color);
     z-index: 1;
   }
   

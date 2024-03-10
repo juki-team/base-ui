@@ -7,7 +7,7 @@ body {
   line-height: var(--text-m-height, 24px);
   color: var(--t-color-black-light);
   background-color: var(--t-color-white-dark);
-  @include transition-slow(background-color, color);
+  @include transition(background-color, color);
   margin: 0;
   width: 100%;
   height: 100%;

@@ -67,7 +67,7 @@
       position: relative;
       
       .jk-menu-top-section, .jk-menu-item, .jk-menu-bottom-section, .jk-menu-collapse-section {
-        @include transition-slow(background-color, color);
+        @include transition(background-color, color);
         background-color: var(--menu-color);
         color: var(--t-color-primary-text);
       }
