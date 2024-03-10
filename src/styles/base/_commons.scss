@@ -2,135 +2,135 @@
 
 // color
 
-.cr-bk { color: var(--t-color-black); }
+.cr-bk { color: var(--t-color-black); @include transition-slow(background-color, color, border-color); }
 
-.cr-b2 { color: var(--t-color-black-light); }
+.cr-b2 { color: var(--t-color-black-light); @include transition-slow(background-color, color, border-color); }
 
-.cr-g1 { color: var(--t-color-gray-1); }
+.cr-g1 { color: var(--t-color-gray-1); @include transition-slow(background-color, color, border-color); }
 
-.cr-g2 { color: var(--t-color-gray-2); }
+.cr-g2 { color: var(--t-color-gray-2); @include transition-slow(background-color, color, border-color); }
 
-.cr-g3 { color: var(--t-color-gray-3); }
+.cr-g3 { color: var(--t-color-gray-3); @include transition-slow(background-color, color, border-color); }
 
-.cr-g4 { color: var(--t-color-gray-4); }
+.cr-g4 { color: var(--t-color-gray-4); @include transition-slow(background-color, color, border-color); }
 
-.cr-g5 { color: var(--t-color-gray-5); }
+.cr-g5 { color: var(--t-color-gray-5); @include transition-slow(background-color, color, border-color); }
 
-.cr-g6 { color: var(--t-color-gray-6); }
+.cr-g6 { color: var(--t-color-gray-6); @include transition-slow(background-color, color, border-color); }
 
-.cr-w2 { color: var(--t-color-white-dark); }
+.cr-w2 { color: var(--t-color-white-dark); @include transition-slow(background-color, color, border-color); }
 
-.cr-we { color: var(--t-color-white); }
+.cr-we { color: var(--t-color-white); @include transition-slow(background-color, color, border-color); }
 
-.cr-io { color: var(--t-color-info); }
+.cr-io { color: var(--t-color-info); @include transition-slow(background-color, color, border-color); }
 
-.cr-ss { color: var(--t-color-success); }
+.cr-ss { color: var(--t-color-success); @include transition-slow(background-color, color, border-color); }
 
-.cr-wg { color: var(--t-color-warning); }
+.cr-wg { color: var(--t-color-warning); @include transition-slow(background-color, color, border-color); }
 
-.cr-er { color: var(--t-color-error); }
+.cr-er { color: var(--t-color-error); @include transition-slow(background-color, color, border-color); }
 
-.cr-pl { color: var(--t-color-primary-light); }
+.cr-pl { color: var(--t-color-primary-light); @include transition-slow(background-color, color, border-color); }
 
-.cr-py { color: var(--t-color-primary); }
+.cr-py { color: var(--t-color-primary); @include transition-slow(background-color, color, border-color); }
 
-.cr-pd { color: var(--t-color-primary-dark); }
+.cr-pd { color: var(--t-color-primary-dark); @include transition-slow(background-color, color, border-color); }
 
-.cr-sy { color: var(--t-color-secondary); }
+.cr-sy { color: var(--t-color-secondary); @include transition-slow(background-color, color, border-color); }
 
-.cr-al { color: var(--t-color-accent-light); }
+.cr-al { color: var(--t-color-accent-light); @include transition-slow(background-color, color, border-color); }
 
-.cr-at { color: var(--t-color-accent); }
+.cr-at { color: var(--t-color-accent); @include transition-slow(background-color, color, border-color); }
 
-.cr-ad { color: var(--t-color-accent-dark); }
+.cr-ad { color: var(--t-color-accent-dark); @include transition-slow(background-color, color, border-color); }
 
 // background-color
 
-.bc-bk { background-color: var(--t-color-black); @include transition-slow(background-color); }
+.bc-bk { background-color: var(--t-color-black); @include transition-slow(background-color, color, border-color); }
 
-.bc-b2 { background-color: var(--t-color-black-light); @include transition-slow(background-color); }
+.bc-b2 { background-color: var(--t-color-black-light); @include transition-slow(background-color, color, border-color); }
 
-.bc-g1 { background-color: var(--t-color-gray-1); @include transition-slow(background-color); }
+.bc-g1 { background-color: var(--t-color-gray-1); @include transition-slow(background-color, color, border-color); }
 
-.bc-g2 { background-color: var(--t-color-gray-2); @include transition-slow(background-color); }
+.bc-g2 { background-color: var(--t-color-gray-2); @include transition-slow(background-color, color, border-color); }
 
-.bc-g3 { background-color: var(--t-color-gray-3); @include transition-slow(background-color); }
+.bc-g3 { background-color: var(--t-color-gray-3); @include transition-slow(background-color, color, border-color); }
 
-.bc-g4 { background-color: var(--t-color-gray-4); @include transition-slow(background-color); }
+.bc-g4 { background-color: var(--t-color-gray-4); @include transition-slow(background-color, color, border-color); }
 
-.bc-g5 { background-color: var(--t-color-gray-5); @include transition-slow(background-color); }
+.bc-g5 { background-color: var(--t-color-gray-5); @include transition-slow(background-color, color, border-color); }
 
-.bc-g6 { background-color: var(--t-color-gray-6); @include transition-slow(background-color); }
+.bc-g6 { background-color: var(--t-color-gray-6); @include transition-slow(background-color, color, border-color); }
 
-.bc-w2 { background-color: var(--t-color-white-dark); @include transition-slow(background-color); }
+.bc-w2 { background-color: var(--t-color-white-dark); @include transition-slow(background-color, color, border-color); }
 
-.bc-we { background-color: var(--t-color-white); @include transition-slow(background-color); }
+.bc-we { background-color: var(--t-color-white); @include transition-slow(background-color, color, border-color); }
 
-.bc-io { background-color: var(--t-color-info); @include transition-slow(background-color); }
+.bc-io { background-color: var(--t-color-info); @include transition-slow(background-color, color, border-color); }
 
-.bc-ss { background-color: var(--t-color-success); @include transition-slow(background-color); }
+.bc-ss { background-color: var(--t-color-success); @include transition-slow(background-color, color, border-color); }
 
-.bc-wg { background-color: var(--t-color-warning); @include transition-slow(background-color); }
+.bc-wg { background-color: var(--t-color-warning); @include transition-slow(background-color, color, border-color); }
 
-.bc-er { background-color: var(--t-color-error); @include transition-slow(background-color); }
+.bc-er { background-color: var(--t-color-error); @include transition-slow(background-color, color, border-color); }
 
-.bc-pl { background-color: var(--t-color-primary-light); @include transition-slow(background-color); }
+.bc-pl { background-color: var(--t-color-primary-light); @include transition-slow(background-color, color, border-color); }
 
-.bc-py { background-color: var(--t-color-primary); @include transition-slow(background-color); }
+.bc-py { background-color: var(--t-color-primary); @include transition-slow(background-color, color, border-color); }
 
-.bc-pd { background-color: var(--t-color-primary-dark); @include transition-slow(background-color); }
+.bc-pd { background-color: var(--t-color-primary-dark); @include transition-slow(background-color, color, border-color); }
 
-.bc-sy { background-color: var(--t-color-secondary); @include transition-slow(background-color); }
+.bc-sy { background-color: var(--t-color-secondary); @include transition-slow(background-color, color, border-color); }
 
-.bc-al { background-color: var(--t-color-accent-light); @include transition-slow(background-color); }
+.bc-al { background-color: var(--t-color-accent-light); @include transition-slow(background-color, color, border-color); }
 
-.bc-at { background-color: var(--t-color-accent); @include transition-slow(background-color); }
+.bc-at { background-color: var(--t-color-accent); @include transition-slow(background-color, color, border-color); }
 
-.bc-ad { background-color: var(--t-color-accent-dark); @include transition-slow(background-color); }
+.bc-ad { background-color: var(--t-color-accent-dark); @include transition-slow(background-color, color, border-color); }
 
 // border
 
-.br-bk { border: 1px solid var(--t-color-black); }
+.br-bk { border: 1px solid var(--t-color-black); @include transition-slow(background-color, color, border-color); }
 
-.br-b2 { border: 1px solid var(--t-color-black-light); }
+.br-b2 { border: 1px solid var(--t-color-black-light); @include transition-slow(background-color, color, border-color); }
 
-.br-g1 { border: 1px solid var(--t-color-gray-1); }
+.br-g1 { border: 1px solid var(--t-color-gray-1); @include transition-slow(background-color, color, border-color); }
 
-.br-g2 { border: 1px solid var(--t-color-gray-2); }
+.br-g2 { border: 1px solid var(--t-color-gray-2); @include transition-slow(background-color, color, border-color); }
 
-.br-g3 { border: 1px solid var(--t-color-gray-3); }
+.br-g3 { border: 1px solid var(--t-color-gray-3); @include transition-slow(background-color, color, border-color); }
 
-.br-g4 { border: 1px solid var(--t-color-gray-4); }
+.br-g4 { border: 1px solid var(--t-color-gray-4); @include transition-slow(background-color, color, border-color); }
 
-.br-g5 { border: 1px solid var(--t-color-gray-5); }
+.br-g5 { border: 1px solid var(--t-color-gray-5); @include transition-slow(background-color, color, border-color); }
 
-.br-g6 { border: 1px solid var(--t-color-gray-6); }
+.br-g6 { border: 1px solid var(--t-color-gray-6); @include transition-slow(background-color, color, border-color); }
 
-.br-w2 { border: 1px solid var(--t-color-white-dark); }
+.br-w2 { border: 1px solid var(--t-color-white-dark); @include transition-slow(background-color, color, border-color); }
 
-.br-we { border: 1px solid var(--t-color-white); }
+.br-we { border: 1px solid var(--t-color-white); @include transition-slow(background-color, color, border-color); }
 
-.br-io { border: 1px solid var(--t-color-info); }
+.br-io { border: 1px solid var(--t-color-info); @include transition-slow(background-color, color, border-color); }
 
-.br-ss { border: 1px solid var(--t-color-success); }
+.br-ss { border: 1px solid var(--t-color-success); @include transition-slow(background-color, color, border-color); }
 
-.br-wg { border: 1px solid var(--t-color-warning); }
+.br-wg { border: 1px solid var(--t-color-warning); @include transition-slow(background-color, color, border-color); }
 
-.br-er { border: 1px solid var(--t-color-error); }
+.br-er { border: 1px solid var(--t-color-error); @include transition-slow(background-color, color, border-color); }
 
-.br-pl { border: 1px solid var(--t-color-primary-light); }
+.br-pl { border: 1px solid var(--t-color-primary-light); @include transition-slow(background-color, color, border-color); }
 
-.br-py { border: 1px solid var(--t-color-primary); }
+.br-py { border: 1px solid var(--t-color-primary); @include transition-slow(background-color, color, border-color); }
 
-.br-pd { border: 1px solid var(--t-color-primary-dark); }
+.br-pd { border: 1px solid var(--t-color-primary-dark); @include transition-slow(background-color, color, border-color); }
 
-.br-sy { border: 1px solid var(--t-color-secondary); }
+.br-sy { border: 1px solid var(--t-color-secondary); @include transition-slow(background-color, color, border-color); }
 
-.br-al { border: 1px solid var(--t-color-accent-light); }
+.br-al { border: 1px solid var(--t-color-accent-light); @include transition-slow(background-color, color, border-color); }
 
-.br-at { border: 1px solid var(--t-color-accent); }
+.br-at { border: 1px solid var(--t-color-accent); @include transition-slow(background-color, color, border-color); }
 
-.br-ad { border: 1px solid var(--t-color-accent-dark); }
+.br-ad { border: 1px solid var(--t-color-accent-dark); @include transition-slow(background-color, color, border-color); }
 
 .cursor-pointer { cursor: pointer; }
 
