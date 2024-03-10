@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
+import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 import { CodeViewer } from './CodeViewer';
 
 const codeTemplate = `
@@ -28,5 +29,10 @@ export default meta;
 type Story = StoryObj<typeof CodeViewer>;
 
 export const Regular: Story = {
-  render: ({ code = codeTemplate, ...args }) => <CodeViewer code={code} {...args} />,
+  render: ({ code = codeTemplate, ...args }) => (
+    <div>
+      <CodeViewer code={code} {...args} />
+      <MockupToggleThemeButton />
+    </div>
+  ),
 };

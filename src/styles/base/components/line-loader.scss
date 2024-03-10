@@ -40,7 +40,7 @@
 .page-line-loader {
   .layout-line-loader {
     z-index: 100;
-    height: var(--scrollbar-size);
+    height: var(--size-scrollbar);
     overflow: hidden;
     
     > div {

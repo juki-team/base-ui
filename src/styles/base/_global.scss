@@ -26,8 +26,8 @@ body {
   }
   
   *::-webkit-scrollbar {
-    width: var(--scrollbar-size);
-    height: var(--scrollbar-size);
+    width: var(--size-scrollbar);
+    height: var(--size-scrollbar);
   }
   
   *::-webkit-scrollbar-thumb {

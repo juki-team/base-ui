@@ -5,7 +5,8 @@
 }
 
 .jk-theme-dark {
-  --menu-color: var(--t-color-accent);
+  --menu-color: var(--t-color-primary-light);
+  //--menu-color: var(--t-color-accent);
 }
 
 .jk-vertical-menu-layout-container, .jk-horizontal-menu-layout-container {
@@ -128,14 +129,16 @@
         }
       }
       
-      .jk-menu-collapse {
-        cursor: pointer;
-        position: absolute;
-        right: -12px;
-        background: var(--t-color-white);
-        z-index: 1;
-        border-radius: 50%;
-        top: var(--pad-md);
+      .jk-menu-collapse-section {
+        background-color: var(--menu-color);
+        color: var(--t-color-primary-text);
+        padding: calc((var(--left-vertical-collapsed-menu-width) - var(--size-regular-icon)) / 2);
+        
+        .jk-menu-collapse {
+          border-radius: 50%;
+          cursor: pointer;
+          background-color: var(--t-color-primary);
+        }
       }
     }
   }

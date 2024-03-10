@@ -434,7 +434,9 @@ export const Classes: Story<TabsProps<string>> = () => {
       key: '13',
       header: <div>dot dot-flashing</div>,
       body: (
-        <div className="dot-flashing" />
+        <div className="jk-pad-md">
+          <div className="dot-flashing" />
+        </div>
       ),
     },
   ];

@@ -20,6 +20,10 @@ export const CodeViewer = (props: CodeViewerProps) => {
     require('prismjs/components/prism-c');
     require('prismjs/components/prism-cpp');
     require('prismjs/components/prism-markdown');
+    require('prismjs/components/prism-json');
+    require('prismjs/components/prism-java');
+    require('prismjs/components/prism-javascript');
+    require('prismjs/components/prism-python');
     require('prismjs/plugins/line-numbers/prism-line-numbers');
     Prism.highlightAll();
   }, [ language, lineNumbers ]);

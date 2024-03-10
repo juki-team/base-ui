@@ -450,14 +450,8 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       content: " ";
     }
     
-    &:focus-visible:not(:checked) {
-      outline: none;
-      background-color: rgba(var(--t-color-primary-rgb), 0.6);
-      @extend .elevation-1;
-      
-      &:after {
-        content: " ";
-      }
+    &:focus-visible {
+      outline-color: var(--t-color-primary);
     }
     
     margin: 2px 2px !important;
@@ -523,32 +517,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.jk-theme-dark {
-  .jk-input-checkbox-wrapper, .jk-input-radio-wrapper {
-    &:not(.disabled) {
-      input.jk-input-checkbox, input.jk-input-radio {
-        border-color: var(--t-color-primary-light);
-        
-        &:focus-visible:not(:checked) {
-          // TODO:fix background-color: rgba(var(--t-color-primary-light-rgb), 0.6);
-        }
-      }
-      
-      input.jk-input-checkbox {
-        &:checked {
-          background-color: var(--t-color-primary-light);
-        }
-      }
-      
-      input.jk-input-radio {
-        &:after {
-          background-color: var(--t-color-primary-light);
-        }
-      }
-    }
-  }
-}
-
 .jk-input-password-wrapper {
   position: relative;
   display: inline-block;
@@ -607,21 +575,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   .jk-select-option {
     padding: 0 var(--pad-xt);
+    cursor: pointer;
     
     .jk-input-checkbox-wrapper {
       margin-right: 4px;
     }
     
-    &:not(.disabled) {
-      cursor: pointer;
-    }
-    
     &.disabled {
       color: var(--t-color-gray-4);
-      
-      input, label {
-        cursor: auto;
-      }
+      pointer-events: none;
+      cursor: auto;
     }
     
     &:hover:not(.disabled) {
@@ -632,15 +595,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       @extend .appearance-primary;
       
       &:hover:not(.disabled) {
-        background-color: var(--t-color-primary-light);
-        
-        .jk-input-checkbox {
-          background-color: var(--t-color-primary-light);
-        }
+        background-color: var(--t-color-primary-dark);
       }
       
       &.disabled {
-        background-color: rgba(var(--t-color-primary-rgb), 0.4);
+        background-color: var(--t-color-primary-light);
       }
       
       .jk-input-checkbox {

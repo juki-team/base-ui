@@ -84,7 +84,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         }}
       >
         <div className="jk-row left nowrap">
-          {multiselect && <InputCheckbox checked={selected} disabled={disabled} />}
+          {multiselect && <InputCheckbox checked={selected} disabled={disabled} onChange={() => null} />}
           {renderReactNodeOrFunction(option.label)}
         </div>
       </div>

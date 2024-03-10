@@ -76,8 +76,10 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
     <div className={classNames('jk-vertical-menu-layout-container', { collapsed: !open })}>
       <header className={classNames('jk-menu')}>
         <section className="jk-menu-content">
-          <div className="jk-row jk-menu-collapse elevation-2" onClick={handleCollapse}>
-            {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
+          <div className="jk-row right jk-menu-collapse-section">
+            <div className="jk-row jk-menu-collapse" onClick={handleCollapse}>
+              {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
+            </div>
           </div>
           <div className={classNames('jk-menu-top-section')}>
             {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}

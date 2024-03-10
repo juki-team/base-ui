@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-
+  
   .jk-spin {
     position: relative;
     width: 100%;
@@ -13,12 +13,12 @@
     display: flex;
     max-height: var(--pad-xH);
     max-width: var(--pad-xH);
-
+    
     > span {
       height: 100%;
       width: 100%;
       color: var(--t-color-primary);
-
+      
       svg {
         //margin: auto;
         //width: 100%;
@@ -40,7 +40,7 @@
   justify-content: center;
   align-items: center;
   padding: var(--pad-m) 0;
-
+  
   & + * {
     background: red;
     display: none !important;
@@ -53,8 +53,8 @@
  * ============================================== */
 
 .dot-flashing {
-  --dot-flashing-color: var(--t-color-black-light);
-  // TODO: fix --dot-flashing-color-light: rgb(var(--t-color-black-2-rgb), 0.2);
+  --dot-flashing-color: var(--t-color-black);
+  --dot-flashing-color-light: rgba(var(--t-color-black-rgb), 0.2);
   --dot-flashing-size: 4px;
   margin-left: calc(var(--dot-flashing-size) * 1.5);
   position: relative;

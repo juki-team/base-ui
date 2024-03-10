@@ -341,8 +341,7 @@ label[class*=" jk-col"], label[class^="jk-col"] {
 }
 
 .jk-text-stderr {
-  background-color: rgba(var(--t-color-error-rgb), 0.1);
-  color: var(--t-color-error);
+  @extend .appearance-error;
   font-size: var(--text-t-size);
   line-height: var(--text-t-size);
   padding: 5px 0;

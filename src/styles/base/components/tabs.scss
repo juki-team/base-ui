@@ -124,11 +124,10 @@
 .jk-tabs-select {
   .jk-select-options {
     .jk-select-option.selected {
-      background-color: var(--t-color-secondary);
-      color: var(--t-color-secondary-text);
+      @extend .appearance-secondary;
       
       &:hover {
-        background-color: rgba(var(--t-color-secondary-rgb), 0.8);
+        background-color: var(--t-color-secondary-light);
       }
     }
   }
