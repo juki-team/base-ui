@@ -15,7 +15,7 @@
     border: none;
     
     &:hover {
-      box-shadow: 0 0 13px 0 rgba(var(--t-color-black-rgb), 0.25);
+      box-shadow: 0 0 13px 0 var(--t-color-shadow-dark);
     }
     
     // Preventing an image from being draggable or selectable without using JS
@@ -29,7 +29,7 @@
   }
   
   .notch {
-    @extend .appearance-primary-light;
+    @include look(primary-light);
     cursor: pointer;
     
     &:hover {

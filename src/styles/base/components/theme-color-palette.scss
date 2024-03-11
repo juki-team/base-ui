@@ -1,0 +1,26 @@
+@import "../../abstracts/index";
+
+.color-cells {
+  //border: 2px solid black;
+  > div {
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    display: grid;
+    align-items: center;
+    @include font-size(small);
+  }
+  
+  &.with-labels {
+    > div {
+      align-items: start;
+      height: 80px;
+      
+      > div {
+        height: 20px;
+        @include font-size(tiny);
+        @include look(gray-4);
+      }
+    }
+  }
+}

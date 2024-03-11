@@ -43,7 +43,7 @@
         position: absolute;
         bottom: 0;
         height: 4px;
-        background-color: var(--t-color-shadow);
+        background-color: var(--t-color-highlight);
       }
     }
   }
@@ -68,7 +68,7 @@
     }
     
     .jk-notification-item {
-      @extend .elevation-2;
+      @include elevation(2);
       padding: var(--pad-xt);
       @include sm { padding: 2px 4px; }
       
@@ -91,19 +91,19 @@
     }
     
     &.success {
-      .jk-notification-item { @extend .appearance-success; }
+      .jk-notification-item { @include look(success); }
     }
     
     &.error {
-      .jk-notification-item { @extend .appearance-error; }
+      .jk-notification-item { @include look(error); }
     }
     
     &.info {
-      .jk-notification-item { @extend .appearance-info; }
+      .jk-notification-item { @include look(info); }
     }
     
     &.warning {
-      .jk-notification-item { @extend .appearance-warning; }
+      .jk-notification-item { @include look(warning); }
     }
   }
 }
@@ -131,9 +131,9 @@
     }
     
     .jk-notification-item {
-      @extend .elevation-1;
+      @include elevation(1);
       @extend .jk-border-radius-inline;
-      @extend .appearance-primary-light;
+      @include look(primary-light);
       @include sm { border-radius: 0; }
       font-weight: var(--weight-normal);
       padding: 0 4px;
@@ -141,8 +141,7 @@
       @include sm { right: 0; }
       
       .jk-notification-message-content {
-        font-size: var(--text-t-size);
-        line-height: var(--text-t-height);
+        @include font-size(tiny);
         text-align: center;
       }
       

@@ -34,7 +34,7 @@
 
 .ReactCrop__drag-handle {position: absolute}
 
-.ReactCrop__drag-handle::after {position: absolute;content: "";display: block;width: var(--pad-t);height: var(--pad-t);background-color: var(--t-color-shadow-dark);border: 2px solid var(--t-color-white);outline: 1px solid transparent}
+.ReactCrop__drag-handle::after {position: absolute;content: "";display: block;width: var(--pad-t);height: var(--pad-t);background-color: var(--t-color-highlight-dark);border: 2px solid var(--t-color-white);outline: 1px solid transparent}
 
 .ReactCrop__drag-handle:focus::after {border-color: blue;background: #2DBFFF}
 

@@ -3,11 +3,10 @@
 body {
   font-family: "Inter", sans-serif;
   font-weight: var(--weight-normal, 400);
-  font-size: var(--text-m-size, 16px);
-  line-height: var(--text-m-height, 24px);
   color: var(--t-color-black-light);
   background-color: var(--t-color-white-dark);
   @include transition(background-color, color);
+  @include font-size(medium);
   margin: 0;
   width: 100%;
   height: 100%;
@@ -33,7 +32,7 @@ body {
   
   *::-webkit-scrollbar-thumb {
     border-radius: 3px;
-    background: var(--t-color-shadow);
+    background: var(--t-color-highlight);
   }
 }
 
@@ -78,7 +77,7 @@ h1 {
 }
 
 p {
-  @extend .tx-m;
+  @include font-size(medium);
   margin: unset;
 }
 

@@ -1,3 +1,4 @@
+@import "../../../abstracts";
 @import "katex";
 //@import "vs-code-theme";
 //@import "prism-default-theme";
@@ -14,7 +15,7 @@
   p {
     margin: var(--pad-xt) 0;
     font-family: inherit;
-    font-size: var(--text-m-size);
+    font-size: var(--text-medium-size);
     word-break: break-word;
     text-align: justify;
   }
@@ -44,7 +45,7 @@
     border-spacing: 0;
     
     thead tr {
-      @extend .appearance-primary;
+      @include look(primary);
       
       th:first-child {
         border-radius: var(--border-radius-inline) 0 0 0;
@@ -141,7 +142,7 @@
     
     .jk-icon {
       position: absolute;
-      width: var(--text-m-size);
+      width: var(--text-medium-size);
     }
     
     &:hover {
@@ -151,7 +152,7 @@
   }
   
   code.inline-code {
-    background-color: var(--t-color-shadow-lightest);
+    background-color: var(--t-color-highlight-light);
     padding: 0 4px;
     border-radius: var(--border-radius-inline);
     color: var(--t-color-primary);

@@ -114,3 +114,33 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
   //#{$color-name}-g: $green;
   //#{$color-name}-b: $blue;
 }
+
+@mixin look($look) {
+  background-color: unquote("var(--t-color-#{$look});");
+  @if $look == primary-dark or $look == primary or $look == primary-light {
+    color: var(--t-color-primary-text);
+  } @else if $look == secondary-dark or $look == secondary or $look == secondary-light {
+    color: var(--t-color-secondary-text);
+  } @else if $look == accent-light or $look == success-light or $look == info-light or $look == warning-light or $look == error-light or $look== gray-4 or $look == gray-5 or $look == gray-6 {
+    color: var(--t-color-black);
+  } @else {
+    color: var(--t-color-white);
+  }
+}
+
+@mixin font-size($size) {
+  font-size: unquote("var(--text-#{$size}-size);");
+  line-height: unquote("var(--text-#{$size}-height);");
+}
+
+@mixin elevation($level) {
+  @if $level == 1 {
+    box-shadow: 0 0 2px 0 var(--t-color-shadow-light), 0 1px 3px 1px var(--t-color-shadow-light);
+  }
+  @if $level == 2 {
+    box-shadow: 0 2px 4px 0 var(--t-color-shadow), 0 1.25px 4px 1px var(--t-color-shadow);
+  }
+  @if $level == 3 {
+    box-shadow: 0 4px 6px 2px var(--t-color-shadow), 0 1.5px 5px 1px var(--t-color-shadow-dark);
+  }
+}

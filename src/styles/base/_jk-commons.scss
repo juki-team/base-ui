@@ -4,7 +4,7 @@
  FLEX
  */
 
-span[class*=" jk-row"], span[class^="jk-row"], span[class*=" jk-col"], span[class^="jk-col"] {
+span.jk-row, span.jk-col {
   display: inline-flex;
 }
 
@@ -33,13 +33,9 @@ span[class*=" jk-row"], span[class^="jk-row"], span[class*=" jk-col"], span[clas
   &.stretch { align-items: stretch; }
 }
 
-%jk-row-col {
-  @include jk-row-col;
-}
-
 div.jk-row, section.jk-row, span.jk-row, a.jk-row, fieldset.jk-row, form.jk-row, label.jk-row,
 div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col, label.jk-col {
-  @extend %jk-row-col;
+  @include jk-row-col;
 }
 
 @mixin jk-row {
@@ -54,18 +50,8 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   &.bottom { align-content: end; }
 }
 
-%jk-row {
+div.jk-row, section.jk-row, span.jk-row, a.jk-row, fieldset.jk-row, form.jk-row, label.jk-row {
   @include jk-row;
-}
-
-div[class*=" jk-row"], div[class^="jk-row"],
-section[class*=" jk-row"], section[class^="jk-row"],
-span[class*=" jk-row"], span[class^="jk-row"],
-a[class*=" jk-row"], a[class^="jk-row"],
-fieldset[class*=" jk-row"], fieldset[class^="jk-row"],
-form[class*=" jk-row"], form[class^="jk-row"],
-label[class*=" jk-row"], label[class^="jk-row"] {
-  @extend %jk-row;
 }
 
 @mixin jk-col {
@@ -82,18 +68,8 @@ label[class*=" jk-row"], label[class^="jk-row"] {
   &.right { align-content: end; }
 }
 
-%jk-col {
+div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col, label.jk-col {
   @include jk-col;
-}
-
-div[class*=" jk-col"], div[class^="jk-col"],
-section[class*=" jk-col"], section[class^="jk-col"],
-span[class*=" jk-col"], span[class^="jk-col"],
-a[class*=" jk-col"], a[class^="jk-col"],
-fieldset[class*=" jk-col"], fieldset[class^="jk-col"],
-form[class*=" jk-col"], form[class^="jk-col"],
-label[class*=" jk-col"], label[class^="jk-col"] {
-  @extend %jk-col;
 }
 
 /*
@@ -228,105 +204,117 @@ label[class*=" jk-col"], label[class^="jk-col"] {
   align-items: center;
 }
 
-.appearance-success-dark { background-color: var(--t-color-success-dark); color: var(--t-color-white);}
+.appearance-accent-dark { @include look(accent-dark); }
 
-.appearance-success { background-color: var(--t-color-success); color: var(--t-color-white);}
+.appearance-accent { @include look(accent); }
 
-.appearance-success-light { background-color: var(--t-color-success-light); color: var(--t-color-black); }
+.appearance-accent-light { @include look(accent-light); }
 
-.appearance-info-dark { background-color: var(--t-color-info-dark); color: var(--t-color-white); }
+.appearance-success-dark { @include look(success-dark); }
 
-.appearance-info { background-color: var(--t-color-info); color: var(--t-color-white);}
+.appearance-success { @include look(success); }
 
-.appearance-info-light { background-color: var(--t-color-info-light); color: var(--t-color-black); }
+.appearance-success-light { @include look(success-light); }
 
-.appearance-warning-dark { background-color: var(--t-color-warning-dark); color: var(--t-color-white); }
+.appearance-info-dark { @include look(info-dark); }
 
-.appearance-warning { background-color: var(--t-color-warning); color: var(--t-color-white); }
+.appearance-info { @include look(info); }
 
-.appearance-warning-light { background-color: var(--t-color-warning-light); color: var(--t-color-black); }
+.appearance-info-light { @include look(info-light); }
 
-.appearance-error-dark { background-color: var(--t-color-error-dark); color: var(--t-color-white); }
+.appearance-warning-dark { @include look(warning-dark); }
 
-.appearance-error { background-color: var(--t-color-error); color: var(--t-color-white); }
+.appearance-warning { @include look(warning); }
 
-.appearance-error-light { background-color: var(--t-color-error-light); color: var(--t-color-black); }
+.appearance-warning-light { @include look(warning-light); }
 
-.appearance-primary-dark { background-color: var(--t-color-primary-dark); color: var(--t-color-primary-text); }
+.appearance-error-dark { @include look(error-dark); }
 
-.appearance-primary { background-color: var(--t-color-primary); color: var(--t-color-primary-text); }
+.appearance-error { @include look(error); }
 
-.appearance-primary-light { background-color: var(--t-color-primary-light); color: var(--t-color-primary-text); }
+.appearance-error-light { @include look(error-light); }
 
-.appearance-secondary-dark { background-color: var(--t-color-secondary-dark); color: var(--t-color-secondary-text); }
+.appearance-primary-dark { @include look(primary-dark); }
 
-.appearance-secondary { background-color: var(--t-color-secondary); color: var(--t-color-secondary-text); }
+.appearance-primary { @include look(primary); }
 
-.appearance-secondary-light { background-color: var(--t-color-secondary-light); color: var(--t-color-secondary-text); }
+.appearance-primary-light { @include look(primary-light); }
 
-.appearance-gray-1 { background-color: var(--t-color-gray-1); color: var(--t-color-white-dark); }
+.appearance-secondary-dark { @include look(secondary-dark); }
 
-.appearance-gray-2 { background-color: var(--t-color-gray-2); color: var(--t-color-white-dark); }
+.appearance-secondary { @include look(secondary); }
 
-.appearance-gray-3 { background-color: var(--t-color-gray-3); color: var(--t-color-white-dark); }
+.appearance-secondary-light { @include look(secondary-light); }
 
-.appearance-gray-4 { background-color: var(--t-color-gray-4); color: var(--t-color-black-light); }
+.appearance-gray-1 { @include look(gray-1); }
 
-.appearance-gray-5 { background-color: var(--t-color-gray-5); color: var(--t-color-black-light); }
+.appearance-gray-2 { @include look(gray-2); }
 
-.appearance-gray-6 { background-color: var(--t-color-gray-6); color: var(--t-color-black-light); }
+.appearance-gray-3 { @include look(gray-3); }
+
+.appearance-gray-4 { @include look(gray-4); }
+
+.appearance-gray-5 { @include look(gray-5); }
+
+.appearance-gray-6 { @include look(gray-6); }
 
 .jk-tag {
-  @extend .appearance-primary;
+  @include look(primary);
   padding: 0 var(--pad-xt);
   border-radius: var(--border-radius-inline);
   display: inline-block;
   
-  &.success-dark { @extend .appearance-success-dark; }
+  &.accent-dark { @include look(accent-dark); }
   
-  &.success { @extend .appearance-success; }
+  &.accent { @include look(accent); }
   
-  &.success-light { @extend .appearance-success-light; }
+  &.accent-light { @include look(accent-light); }
   
-  &.info-dark { @extend .appearance-info-dark; }
+  &.success-dark { @include look(success-dark); }
   
-  &.info { @extend .appearance-info; }
+  &.success { @include look(success); }
   
-  &.info-light { @extend .appearance-info-light; }
+  &.success-light { @include look(success-light); }
   
-  &.warning-dark { @extend .appearance-warning-dark; }
+  &.info-dark { @include look(info-dark); }
   
-  &.warning { @extend .appearance-warning; }
+  &.info { @include look(info); }
   
-  &.warning-light { @extend .appearance-warning-light; }
+  &.info-light { @include look(info-light); }
   
-  &.error-dark { @extend .appearance-error-dark; }
+  &.warning-dark { @include look(warning-dark); }
   
-  &.error { @extend .appearance-error; }
+  &.warning { @include look(warning); }
   
-  &.error-light { @extend .appearance-error-light; }
+  &.warning-light { @include look(warning-light); }
   
-  &.primary-light { @extend .appearance-primary-light; }
+  &.error-dark { @include look(error-dark); }
   
-  &.primary-dark { @extend .appearance-primary-dark; }
+  &.error { @include look(error); }
   
-  &.secondary-dark { @extend .appearance-secondary-dark; }
+  &.error-light { @include look(error-light); }
   
-  &.secondary { @extend .appearance-secondary; }
+  &.primary-light { @include look(primary-light); }
   
-  &.secondary-light { @extend .appearance-secondary-light; }
+  &.primary-dark { @include look(primary-dark); }
   
-  &.gray-1 { @extend .appearance-gray-1; }
+  &.secondary-dark { @include look(secondary-dark); }
   
-  &.gray-2 { @extend .appearance-gray-2; }
+  &.secondary { @include look(secondary); }
   
-  &.gray-3 { @extend .appearance-gray-3; }
+  &.secondary-light { @include look(secondary-light); }
   
-  &.gray-4 { @extend .appearance-gray-4; }
+  &.gray-1 { @include look(gray-1); }
   
-  &.gray-5 { @extend .appearance-gray-5; }
+  &.gray-2 { @include look(gray-2); }
   
-  &.gray-6 { @extend .appearance-gray-6; }
+  &.gray-3 { @include look(gray-3); }
+  
+  &.gray-4 { @include look(gray-4); }
+  
+  &.gray-5 { @include look(gray-5); }
+  
+  &.gray-6 { @include look(gray-6); }
 }
 
 .jk-text-stdout, .jk-text-stderr {
@@ -341,9 +329,8 @@ label[class*=" jk-col"], label[class^="jk-col"] {
 }
 
 .jk-text-stderr {
-  @extend .appearance-error;
-  font-size: var(--text-t-size);
-  line-height: var(--text-t-size);
+  @include font-size(tiny);
+  @include look(error);
   padding: 5px 0;
 }
 
@@ -394,11 +381,11 @@ label[class*=" jk-col"], label[class^="jk-col"] {
 }
 
 .jk-row-col {
-  @extend %jk-row-col;
+  @include jk-row-col;
   
   @include sm {
     @include jk-col;
-    align-items: stretch; //@extend .stretch;
+    align-items: stretch;
   }
   
   @include md-hg {

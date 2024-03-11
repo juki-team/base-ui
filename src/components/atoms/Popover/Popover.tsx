@@ -98,7 +98,7 @@ export const Popover = (props: PopoverProps) => {
             arrowSize={8}
             className="popover-arrow-container"
             arrowClassName="popover-arrow"
-            style={{ filter: 'drop-shadow(0 0 2px rgba(var(--t-color-black-rgb), 0.3))' }}
+            style={{ filter: 'drop-shadow(0 0 2px var(--t-color-shadow-dark))' }}
           >
             {popoverContent}
           </ArrowContainer>

@@ -84,16 +84,16 @@ html body {
   
   --base-text-size: 16px;
   --base-text-height: calc(var(--base-text-size) + 8px);
-  --text-h-size: calc(var(--base-text-size) + 4px);
-  --text-h-height: var(--base-text-height);
-  --text-l-size: calc(var(--base-text-size) + 2px);
-  --text-l-height: var(--base-text-height);
-  --text-m-size: var(--base-text-size);
-  --text-m-height: var(--base-text-height);
-  --text-s-size: calc(var(--base-text-size) - 2px);
-  --text-s-height: var(--base-text-height);
-  --text-t-size: calc(var(--base-text-size) - 4px);
-  --text-t-height: var(--base-text-height);
+  --text-huge-size: calc(var(--base-text-size) + 4px);
+  --text-huge-height: var(--base-text-height);
+  --text-large-size: calc(var(--base-text-size) + 2px);
+  --text-large-height: var(--base-text-height);
+  --text-medium-size: var(--base-text-size); // 6
+  --text-medium-height: var(--base-text-height);
+  --text-small-size: calc(var(--base-text-size) - 2px);
+  --text-small-height: var(--base-text-height);
+  --text-tiny-size: calc(var(--base-text-size) - 4px);
+  --text-tiny-height: var(--base-text-height);
   
   --z-index-menu: 50;
   --z-index-select-options: 60;

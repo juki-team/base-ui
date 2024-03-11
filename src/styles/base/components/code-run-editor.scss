@@ -1,3 +1,5 @@
+@import "../../abstracts";
+
 .editor-settings-modal {
   max-width: var(--modal-width-md-min);
   
@@ -31,7 +33,7 @@
         width: min-content;
         text-align: center;
         align-items: center;
-        @extend .tx-s;
+        @include font-size(small);
         height: 24px;
         
         .tt-se {
@@ -70,27 +72,8 @@
       }
     }
     
-    .jk-tabs-layout {
-      height: 100%;
-      width: 100%;
-      
-      .jk-input-textarea {
-        border: none;
-        font-family: monospace;
-        background-color: var(--t-color-shadow-lightest);
-        border-radius: 0;
-      }
-    }
-    
     .jk-split-first-pane {
       position: relative;
-      
-      //.add-test-case {
-      //  z-index: 1;
-      //  position: absolute;
-      //  top: 4px;
-      //  right: var(--pad-xt);
-      //}
     }
     
     .jk-split-second-pane {

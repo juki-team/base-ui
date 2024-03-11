@@ -56,7 +56,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background: var(--t-color-shadow-overlay);
+  background: var(--t-color-shadow);
   z-index: 1000;
   opacity: 0;
   @include transition-fast(opacity);

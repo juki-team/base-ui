@@ -2,7 +2,7 @@
 
 .jk-modal-container {
   .ReactModal__Overlay {
-    background-color: var(--t-color-shadow-overlay) !important;
+    background-color: var(--t-color-shadow) !important;
     display: grid;
     z-index: var(--z-index-overlay-modal);
     opacity: 0;
@@ -39,7 +39,7 @@
 .jk-modal {
   position: relative;
   margin: auto;
-  @extend .elevation-3;
+  @include elevation(3);
   background-color: var(--t-color-white);
   @include transition(background-color);
   outline: none;

@@ -321,9 +321,6 @@ export const Classes: Story<TabsProps<string>> = () => {
               'elevation-1',
               'elevation-2',
               'elevation-3',
-              'elevation-4',
-              'elevation-5',
-              'elevation-6',
             ].map(tt => (
               <div className="jk-row gap nowrap jk-pad-md jk-border-radius-inline" style={{ width: 420 }} key={tt}>
                 <pre>"{tt}"</pre>
@@ -342,6 +339,9 @@ export const Classes: Story<TabsProps<string>> = () => {
           <h1>tags</h1>
           <div className="jk-col gap">
             {[
+              'accent-dark',
+              'accent',
+              'accent-light',
               'success-dark',
               'success',
               'success-light',

@@ -1,6 +1,6 @@
 @import "../../abstracts/index";
 
-.jk-select-layout-for-datepicker {
+@mixin jk-select-layout-for-datepicker {
   .jk-select {
     color: var(--t-color-primary-light);
     font-weight: var(--weight-bold);
@@ -23,7 +23,7 @@
 .jk-date-picker-layout {
   
   .jk-select-layout {
-    @extend .jk-select-layout-for-datepicker;
+    @include jk-select-layout-for-datepicker;
   }
   
   .jk-day-picker-header {
@@ -175,7 +175,7 @@
   }
   
   .jk-select-layout {
-    @extend .jk-select-layout-for-datepicker;
+    @include jk-select-layout-for-datepicker;
     width: initial !important;
     
     .jk-select {

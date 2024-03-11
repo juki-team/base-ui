@@ -1,32 +1,17 @@
-/* ********************************             FONT               ******************************** */
+@import "../abstracts/index";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;800&display=swap");
 
 // font size
 
-.tx-h {
-  font-size: var(--text-h-size);
-  line-height: var(--text-h-height);
-}
+.tx-h { @include font-size(huge); }
 
-.tx-l {
-  font-size: var(--text-l-size);
-  line-height: var(--text-l-height);
-}
+.tx-l { @include font-size(large); }
 
-.tx-m {
-  font-size: var(--text-m-size);
-  line-height: var(--text-m-height);
-}
+.tx-m { @include font-size(medium); }
 
-.tx-s {
-  font-size: var(--text-s-size);
-  line-height: var(--text-s-height);
-}
+.tx-s { @include font-size(small); }
 
-.tx-t {
-  font-size: var(--text-t-size);
-  line-height: var(--text-t-height);
-}
+.tx-t { @include font-size(tiny); }
 
 // width
 .fw-lr { font-weight: var(--weight-lighter); }

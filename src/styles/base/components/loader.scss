@@ -54,7 +54,7 @@
 
 .dot-flashing {
   --dot-flashing-color: var(--t-color-black);
-  --dot-flashing-color-light: rgba(var(--t-color-black-rgb), 0.2);
+  --dot-flashing-color-light: var(--t-color-highlight);
   --dot-flashing-size: 4px;
   margin-left: calc(var(--dot-flashing-size) * 1.5);
   position: relative;

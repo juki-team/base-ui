@@ -7,7 +7,7 @@
 
 .react-tooltip {
   z-index: var(--z-index-tooltip);
-  filter: drop-shadow(0 0 2px rgba(var(--t-color-black-rgb), 0.3));
+  filter: drop-shadow(0 0 2px var(--t-color-shadow-dark));
   padding: calc(var(--gap) / 2) calc(var(--gap) / 2 + 2px) !important;
   font-size: inherit !important;
 }

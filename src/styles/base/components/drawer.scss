@@ -16,7 +16,7 @@
   left: 0;
   
   &:not(.transparent) {
-    background-color: var(--t-color-shadow-overlay);
+    background-color: var(--t-color-shadow);
   }
 }
 
@@ -24,7 +24,7 @@
   position: fixed;
   z-index: var(--z-index-drawer);
   overflow: auto;
-  @extend .elevation-4;
+  @include elevation(2);
   background-color: var(--t-color-white);
   
   &.right, &.left {
@@ -71,19 +71,19 @@
     &.right {
       right: 0;
     }
-  
+    
     &.top {
       top: 0;
     }
-  
+    
     &.left {
       left: 0;
     }
-  
+    
     &.bottom {
       bottom: 0;
     }
-  
+    
     @include sm {
       //top: 0;
       //left: 0;

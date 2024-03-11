@@ -7,7 +7,7 @@
     cursor: pointer;
     
     &:hover {
-      @extend .elevation-1;
+      @include elevation(1);
     }
   }
 }
@@ -46,7 +46,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   
   &.tiny {
     line-height: var(--size-tiny-icon); // 12px;
-    font-size: var(--text-t-size); // 12px
+    font-size: var(--text-tiny-size); // 12px
     --button-padding: var(--pad-xt); // 8px
     --size-button-loader-icon: var(--size-tiny-icon);
     
@@ -55,7 +55,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   
   &.small {
     line-height: var(--size-small-icon); // 18px
-    font-size: var(--text-s-size); // 14px
+    font-size: var(--text-small-size); // 14px
     --button-padding: var(--pad-t); // 12px
     --size-button-loader-icon: var(--size-small-icon);
     
@@ -64,7 +64,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   
   &.regular {
     line-height: var(--size-regular-icon); // 24px
-    font-size: var(--text-m-size);
+    font-size: var(--text-medium-size);
     --button-padding: var(--pad-xs); // 16px
     --size-button-loader-icon: var(--size-regular-icon);
     
@@ -73,7 +73,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   
   &.large {
     line-height: var(--size-large-icon); // 36px
-    font-size: var(--text-l-size);
+    font-size: var(--text-large-size);
     --button-padding: var(--pad-s); // 20px
     --size-button-loader-icon: var(--size-large-icon);
     
@@ -82,7 +82,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   
   &.huge {
     line-height: var(--size-huge-icon); // 48px
-    font-size: var(--text-h-size);
+    font-size: var(--text-huge-size);
     --button-padding: var(--pad-m); // 24px
     --size-button-loader-icon: var(--size-huge-icon);
     
@@ -180,7 +180,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
 }
 
 .jk-button.light {
-  --button-background-color: rgba(var(--t-color-black-rgb), 0.08);
+  --button-background-color: var(--t-color-highlight-light);
   --button-border-width: 2px !important;
   outline-offset: 0 !important;
   color: inherit;

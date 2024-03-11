@@ -124,7 +124,7 @@
 .jk-tabs-select {
   .jk-select-options {
     .jk-select-option.selected {
-      @extend .appearance-secondary;
+      @include look(secondary);
       
       &:hover {
         background-color: var(--t-color-secondary-light);

@@ -51,7 +51,7 @@
   .jk-data-viewer-content {
     height: 100%;
     background: var(--t-color-white);
-    border: 1px solid var(--t-color-shadow-lightest);
+    border: 1px solid var(--t-color-highlight-light);
     box-sizing: border-box;
     
     --jk-table-toolbar-height: 50px; // 48 + 2 (border)
@@ -59,7 +59,7 @@
     .jk-data-viewer-toolbar {
       height: var(--jk-table-toolbar-height);
       position: relative;
-      border-bottom: 1px solid var(--t-color-shadow);
+      border-bottom: 1px solid var(--t-color-highlight);
       box-sizing: border-box;
       
       &.cards {
@@ -82,36 +82,12 @@
           margin: 0;
         }
         
-        > div > div > .jk-icon, > div > div > div > .jk-icon {
-          //color: var(--t-color-gray-3);
-          //padding: 4px;
-        }
-        
         .loading, .loading .jk-icon {
           cursor: initial;
         }
         
         .active .jk-icon {
           color: var(--t-color-primary);
-        }
-        
-        .jk-table-view-tools-view-mode {
-          
-          &.rowsView.cardsView {
-            > div:first-child .jk-icon {
-              //border-top-right-radius: 0 !important;
-              //border-bottom-right-radius: 0 !important;
-            }
-            
-            > div:last-child .jk-icon {
-              //border-top-left-radius: 0 !important;
-              //border-bottom-left-radius: 0 !important;
-            }
-          }
-          
-          .active .jk-icon {
-            //@extend .appearance-primary;
-          }
         }
         
         .jk-data-viewer-pagination {
@@ -244,15 +220,15 @@
           content: "";
           position: absolute;
           width: 100%;
-          @extend .elevation-1;
+          @include elevation(1);
           height: 1px;
           bottom: 0;
           z-index: 3;
-          border-bottom: 1px solid var(--t-color-shadow-light);
+          border-bottom: 1px solid var(--t-color-highlight-light);
         }
         
         &:not(.withVerticalScroll) {
-          border-bottom: 1px solid var(--t-color-shadow-light);
+          border-bottom: 1px solid var(--t-color-highlight-light);
         }
       }
       
@@ -302,20 +278,19 @@
           top: 0;
           left: 0;
           z-index: 1;
-          //@extend .jk-br-ie;
           border-bottom-left-radius: var(--border-radius-inline);
         }
         
         &:not(.scroll-on-top).scroll-on-bottom:before {
-          box-shadow: 0 20px 20px -24px var(--t-color-shadow-darkest) inset;
+          box-shadow: 0 20px 20px -24px var(--t-color-highlight-dark) inset;
         }
         
         &.scroll-on-top:not(.scroll-on-bottom):before {
-          box-shadow: 0 -20px 20px -24px var(--t-color-shadow-darkest) inset;
+          box-shadow: 0 -20px 20px -24px var(--t-color-highlight-dark) inset;
         }
         
         &:not(.scroll-on-top):not(.scroll-on-bottom):before {
-          box-shadow: 0 -20px 20px -24px var(--t-color-shadow-darkest) inset, 0 20px 20px -24px var(--t-color-shadow-darkest) inset;
+          box-shadow: 0 -20px 20px -24px var(--t-color-highlight-dark) inset, 0 20px 20px -24px var(--t-color-highlight-dark) inset;
         }
         
         .jk-list-card-rows-box {
@@ -338,7 +313,7 @@
             flex-direction: column;
             justify-content: space-evenly;
             background-color: var(--t-color-white);
-            border: 1px solid var(--t-color-shadow-light);
+            border: 1px solid var(--t-color-highlight-light);
             
             .top-container, .center-container, .bottom-container {
               display: flex;
@@ -398,7 +373,7 @@
           }
           
           .jk-table-row {
-            border-top: 1px solid var(--t-color-shadow-light);
+            border-top: 1px solid var(--t-color-highlight-light);
             width: 100%;
             display: flex;
             box-sizing: border-box;

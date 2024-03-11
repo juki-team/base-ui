@@ -41,7 +41,7 @@
   }
   
   //--divider-background-color: var(--t-color-gray-6);
-  --divider-background-color: var(--t-color-shadow-light);
+  --divider-background-color: var(--t-color-highlight-light);
   
   &:before, &:after {
     content: " ";
@@ -86,7 +86,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     height: var(--pad-m);
     line-height: var(--pad-m);
     color: var(--t-color-gray-4);
-    font-size: var(--text-s-size);
+    font-size: var(--text-small-size);
     position: absolute;
     right: 0;
     
@@ -96,13 +96,13 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
   
   > label > .jk-select-layout {
-    line-height: var(--text-m-height);
+    line-height: var(--text-medium-height);
     font-weight: var(--weight-normal);
   }
   
   > p:last-child {
     color: var(--t-color-error);
-    font-size: var(--text-s-size);
+    font-size: var(--text-small-size);
     height: calc(var(--pad-xs) + var(--pad-xs));
     line-height: var(--pad-xs);
     
@@ -116,11 +116,9 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.disabled-input {
-  //box-shadow: inset 0 0 0 1px var(--t-color-gray-4);
-  //@extend .appearance-gray-6;
-  --input-border-color: var(--t-color-shadow-lightest);
-  background-color: var(--t-color-shadow-lightest);
+@mixin disabled-input {
+  --input-border-color: var(--t-color-highlight-light);
+  background-color: var(--t-color-highlight-light);
   box-shadow: inset 0 0 0 1px var(--input-border-color);
 }
 
@@ -184,7 +182,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
   
   &.disabled {
-    @extend .disabled-input;
+    @include disabled-input;
   }
   
   &.error {
@@ -219,7 +217,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   &.disabled {
     > .jk-select {
-      @extend .disabled-input;
+      @include disabled-input;
       
       > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
         color: var(--t-color-gray-4);
@@ -250,7 +248,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-select-options.disabled {
-  @extend .disabled-input;
+  @include disabled-input;
 }
 
 .jk-input-textarea {
@@ -417,8 +415,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   &::placeholder {
     color: var(--t-color-gray-4);
     font-weight: var(--weight-normal);
-    font-size: var(--text-s-size);
-    line-height: var(--text-s-height);
+    @include font-size(small);
   }
 }
 
@@ -592,7 +589,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
     
     &.selected {
-      @extend .appearance-primary;
+      @include look(primary);
       
       &:hover:not(.disabled) {
         background-color: var(--t-color-primary-dark);
@@ -651,7 +648,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       
       .jk-tag {
         gap: 4px;
-        background-color: var(--t-color-shadow-light);
+        background-color: var(--t-color-highlight-light);
         
         .jk-icon:hover {
           color: var(--t-color-gray-2);
@@ -731,7 +728,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     width: calc(var(--input-toggle-height) + 20px);
     display: inline-block;
     cursor: pointer;
-    background-color: var(--t-color-shadow-lightest);
+    background-color: var(--t-color-highlight-light);
     border: 2px solid var(--input-toggle-color);
     @include transition();
     box-sizing: border-box;
@@ -768,8 +765,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     &.placeholder {
       color: var(--t-color-gray-4);
       font-weight: var(--weight-normal);
-      font-size: var(--text-s-size);
-      line-height: var(--text-s-height);
+      @include font-size(small);
     }
     
     &.two-lines {
@@ -813,7 +809,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     &.large {
       min-height: var(--pad-xH);
-      font-size: var(--text-l-size);
+      font-size: var(--text-large-size);
       
       > .jk-select {
         gap: var(--pad-xs);
@@ -822,7 +818,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
     
     min-height: var(--pad-h);
-    font-size: var(--text-m-size);
+    font-size: var(--text-medium-size);
     padding: 0 !important;
     
     > .jk-select {
@@ -843,7 +839,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     &.small {
       min-height: var(--pad-xl);
-      font-size: var(--text-s-size);
+      font-size: var(--text-small-size);
       
       > .jk-select {
         gap: var(--pad-xt);
@@ -853,7 +849,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     &.tiny {
       min-height: 26px;
-      font-size: var(--text-t-size);
+      font-size: var(--text-tiny-size);
       
       > .jk-select {
         padding: 0 var(--pad-xt);
