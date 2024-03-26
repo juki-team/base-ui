@@ -1,7 +1,7 @@
 import { HTTPMethod } from '@juki-team/commons';
 
-export interface AuthorizedRequestType extends RequestInit {
-  method?: HTTPMethod,
+export interface AuthorizedRequestType<Method extends HTTPMethod = HTTPMethod.GET, > extends RequestInit {
+  method: Method,
   body?: string | BodyInit,
   signal?: AbortSignal,
   responseType?: 'text' | 'blob',

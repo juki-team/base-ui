@@ -1,10 +1,10 @@
-import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
+import { ContentResponseType, ContentsResponseType, HTTPMethod } from '@juki-team/commons';
 import { useMemo } from 'react';
 import useSWR, { SWRConfiguration } from 'swr';
 import { authorizedRequest, cleanRequest, getLocalToken } from '../helpers';
 
 const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
-  return authorizedRequest(url, { token });
+  return authorizedRequest(url, { token, method: HTTPMethod.GET });
 };
 
 export const useFetcher = <T extends (ContentResponseType<any> | ContentsResponseType<any>)>(url?: string | null, config?: SWRConfiguration) => {

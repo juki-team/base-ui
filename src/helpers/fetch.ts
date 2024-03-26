@@ -57,7 +57,7 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
   return response;
 };
 
-export const authorizedRequest = async (url: string, options?: AuthorizedRequestType) => {
+export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >(url: string, options?: AuthorizedRequestType<M>) => {
   
   const { method, body, signal, responseType } = options || {};
   

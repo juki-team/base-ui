@@ -81,6 +81,9 @@ export const ThemeColorPalette = ({}) => {
             </div>
           </div>
           <div className="jk-row color-cells with-labels">
+            <div style={{ backgroundColor: 'var(--t-color-white-dark)' }}>
+              <div>dark</div>
+            </div>
             <div style={{ backgroundColor: 'var(--t-color-white)' }}>
               <div>white</div>
             </div>
@@ -89,6 +92,9 @@ export const ThemeColorPalette = ({}) => {
             </div>
             <div style={{ backgroundColor: 'var(--t-color-black)' }}>
               <div>black</div>
+            </div>
+            <div style={{ backgroundColor: 'var(--t-color-black-light)' }}>
+              <div>light</div>
             </div>
           </div>
         </div>

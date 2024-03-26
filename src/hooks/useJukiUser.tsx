@@ -2,6 +2,7 @@ import {
   ContentResponseType,
   DataViewMode,
   ErrorResponseType,
+  HTTPMethod,
   Language,
   MenuViewMode,
   PingResponseDTO,
@@ -58,10 +59,10 @@ export const useJukiUser = () => {
     await matchMutate(new RegExp(`^${jukiSettings.SERVICE_API_URL}`, 'g'));
   }, [ matchMutate ]);
   
-  const doRequest = useCallback(async <T, >(
+  const doRequest = useCallback(async <T, M extends HTTPMethod = HTTPMethod.GET>(
     { url, options, setLoader, onSuccess, onError, onFinally }: ApiType<T> & {
       url: string,
-      options?: AuthorizedRequestType
+      options?: AuthorizedRequestType<M>
     },
   ) => {
     setLoader?.(Status.LOADING);
@@ -86,7 +87,7 @@ export const useJukiUser = () => {
       await refreshAllRequest();
       await onSuccess?.(response);
     };
-    await doRequest<PingResponseDTO>({ url, options, onSuccess: onSuccessWrap, ...props });
+    await doRequest<PingResponseDTO, HTTPMethod.POST>({ url, options, onSuccess: onSuccessWrap, ...props });
   }, [ doRequest, refreshAllRequest, setUser ]);
   
   const signUp = useCallback(async (
@@ -102,7 +103,7 @@ export const useJukiUser = () => {
       await refreshAllRequest();
       await onSuccess?.(response);
     };
-    await doRequest<PingResponseDTO>({ url, options, onSuccess: onSuccessWrap, ...props });
+    await doRequest<PingResponseDTO, HTTPMethod.POST>({ url, options, onSuccess: onSuccessWrap, ...props });
   }, [ doRequest, refreshAllRequest, setUser ]);
   
   const createUser = useCallback(async (
@@ -111,33 +112,33 @@ export const useJukiUser = () => {
     } | undefined, SignUpPayloadDTO, PingResponseDTO>,
   ) => {
     const { url, ...options } = jukiSettings.API.auth.createUser({ params, body });
-    await doRequest<PingResponseDTO>({ url, options, ...props });
+    await doRequest<PingResponseDTO, HTTPMethod.POST>({ url, options, ...props });
   }, [ doRequest ]);
   
   const updateUserProfileData = useCallback(async (
     { params, body, ...props }: ApiParamsBodyType<{ nickname: string }, UpdateUserProfileDataPayloadDTO, string>,
   ) => {
     const { url, ...options } = jukiSettings.API.user.updateProfileData({ params, body });
-    await doRequest<string>({ url, options, ...props });
+    await doRequest<string, HTTPMethod.PUT>({ url, options, ...props });
   }, [ doRequest ]);
   
   const updateUserProfileImage = useCallback(async (
     { params, body, ...props }: ApiParamsBodyType<{ nickname: string }, FormData, string>,
   ) => {
     const { url, ...options } = jukiSettings.API.user.updateProfileImage({ params, body });
-    await doRequest<string>({ url, options, ...props });
+    await doRequest<string, HTTPMethod.PUT>({ url, options, ...props });
   }, [ doRequest ]);
   
   const updatePassword = useCallback(async ({ body, ...props }: ApiBodyType<UpdatePasswordPayloadDTO, string>) => {
     const { url, ...options } = jukiSettings.API.auth.updatePassword({ body });
-    await doRequest<string>({ url, options, ...props });
+    await doRequest<string, HTTPMethod.POST>({ url, options, ...props });
   }, [ doRequest ]);
   
   const resetUserPassword = useCallback(async (
     { params: { companyKey, nickname }, ...props }: ApiParamsType<{ companyKey: string, nickname: string }, string>,
   ) => {
     const { url, ...options } = jukiSettings.API.auth.resetPassword({ params: { companyKey, nickname } });
-    await doRequest<string>({ url, options, ...props });
+    await doRequest<string, HTTPMethod.POST>({ url, options, ...props });
   }, [ doRequest ]);
   
   const logout = useCallback(async ({ onError, onFinally, ...props }: ApiType<string>) => {
@@ -156,19 +157,24 @@ export const useJukiUser = () => {
       await onError?.(response);
     };
     
-    await doRequest<string>({ url, options, onError: onErrorWrap, onFinally: onFinallyWrap, ...props });
+    await doRequest<string, HTTPMethod.POST>({
+      url,
+      options,
+      onError: onErrorWrap,
+      onFinally: onFinallyWrap, ...props,
+    });
   }, [ addErrorNotification, doRequest, refreshAllRequest, setUser ]);
   
   const deleteUserSession = useCallback(async ({ params, ...props }: ApiParamsType<{ sessionId: string }, string>) => {
     const { url, ...options } = jukiSettings.API.user.deleteSession({ params });
-    await doRequest<string>({ url, options, ...props });
+    await doRequest<string, HTTPMethod.DELETE>({ url, options, ...props });
   }, [ doRequest ]);
   
   const updateUserPreferences = useCallback(async (
     { params, body, ...props }: ApiParamsBodyType<{ nickname: string }, UserSettingsType, string>,
   ) => {
     const { url, ...options } = jukiSettings.API.user.updatePreferences({ params, body });
-    await doRequest<string>({ url, options, ...props });
+    await doRequest<string, HTTPMethod.PUT>({ url, options, ...props });
   }, [ doRequest ]);
   
   return {

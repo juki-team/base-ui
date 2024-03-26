@@ -32,7 +32,7 @@ export const handleShareMdPdf = (type: 'md' | 'pdf', source: string, sourceUrl: 
     openNewTab((
       type === 'md'
         ? jukiSettings.UTILS_ROUTER.note.view({ sourceUrl: url, theme }).url
-        : jukiSettings.API.note.pdf({ params: { sourceUrl: url } }).url
+        : jukiSettings.API.note.getPdf({ params: { sourceUrl: url } }).url
     ));
   } else {
     throw new Error('no url generated');

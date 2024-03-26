@@ -1,4 +1,4 @@
-import { stringToArrayBuffer } from '@juki-team/commons';
+import { stringToArrayBuffer, Theme } from '@juki-team/commons';
 import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
 import { utils } from 'xlsx';
 import { write } from 'xlsx-js-style';
@@ -6,7 +6,6 @@ import { jukiSettings } from '../config';
 import { SheetDataType } from '../modules';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerActionsType } from '../types';
 import { authorizedRequest } from './fetch';
-import { publishNote } from './utils';
 
 export const getTextContent = (elem: ReactNode): string => {
   if (!elem) {
@@ -190,16 +189,12 @@ export const downloadSheetDataAsXlsxFile = (sheets: SheetDataType[], fileName: s
   downloadBlobAsFile(blob, fileName);
 };
 
-export const downloadJukiMarkdownAdPdf = async (source: string, fileName: string) => {
-  const url = await publishNote(source);
-  if (url) {
-    const result = await authorizedRequest(
-      jukiSettings.API.note.pdf({ params: { sourceUrl: url } }).url, { responseType: 'blob' },
-    );
-    downloadBlobAsFile(result, fileName);
-  } else {
-    throw new Error('no url generated');
-  }
+export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fileName: string) => {
+  const { url, method } = jukiSettings.API.note.createPdf({ body: { source, theme } });
+  const result = await authorizedRequest(
+    url, { responseType: 'blob', method },
+  );
+  downloadBlobAsFile(result, fileName);
 };
 
 export const renderChildrenWithProps = (children: any, props: any) => {
