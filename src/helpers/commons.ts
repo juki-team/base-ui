@@ -190,9 +190,9 @@ export const downloadSheetDataAsXlsxFile = (sheets: SheetDataType[], fileName: s
 };
 
 export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fileName: string) => {
-  const { url, method } = jukiSettings.API.note.createPdf({ body: { source, theme } });
+  const { url, ...options } = jukiSettings.API.note.createPdf({ body: { source, theme } });
   const result = await authorizedRequest(
-    url, { responseType: 'blob', method },
+    url, { responseType: 'blob', ...options },
   );
   downloadBlobAsFile(result, fileName);
 };
