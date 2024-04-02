@@ -124,7 +124,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
             
             return (
               <div className="jk-md-math-link-container jk-row left" id={href.replace('#', '')}>
-                <Link href={'/' + href} className="jk-md-math-link">
+                <Link href={'/' + href} className="jk-md-math-link" scroll={false}>
                   {children}
                 </Link>
                 &nbsp;
