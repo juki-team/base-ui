@@ -1,4 +1,4 @@
-import { stringToArrayBuffer, Theme } from '@juki-team/commons';
+import { ErrorCode, ErrorResponseType, isObjectJson, JkError, stringToArrayBuffer, Theme } from '@juki-team/commons';
 import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
 import { utils } from 'xlsx';
 import { write } from 'xlsx-js-style';
@@ -194,6 +194,15 @@ export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fi
   const result = await authorizedRequest(
     url, { responseType: 'blob', ...options },
   );
+  if (typeof result === 'string') {
+    if (isObjectJson(result)) {
+      const response = JSON.parse(result) as ErrorResponseType;
+      if (response.errors.length) {
+        throw new JkError(response.errors[0].code, { message: response.errors[0].detail });
+      }
+    }
+    throw new JkError(ErrorCode.ERR9997, { message: 'error generating the pdf' })
+  }
   downloadBlobAsFile(result, fileName);
 };
 
