@@ -8,7 +8,7 @@ import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
 import { useJukiUI } from '../../../../hooks';
-import { CopyToClipboard, LinkIcon, OpenInNewIcon, SpinIcon } from '../../../atoms';
+import { OpenInNewIcon, SpinIcon } from '../../../atoms';
 import { CodeViewer } from '../../../molecules';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
@@ -127,13 +127,10 @@ export const MdMath = memo(({ source }: { source: string }) => {
                 <a href={href} className="jk-md-math-link">
                   {children}
                 </a>
-                &nbsp;
-                <CopyToClipboard text={url.toString()}>
-                  <LinkIcon className="clickable" style={{ borderRadius: '50%', display: 'inline-grid' }} />
-                </CopyToClipboard>
               </div>
             );
           }
+          
           return (
             <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link with-icon">
               <>{children}&nbsp;<OpenInNewIcon /></>

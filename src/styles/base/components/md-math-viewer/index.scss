@@ -115,6 +115,22 @@
   }
   
   .jk-md-math-link-container {
+    position: relative;
+    
+    &::before {
+      display: inline-block;
+      position: absolute;
+      left: -0.7em;
+      top: 0;
+      color: var(--t-color-primary-light);
+    }
+    
+    &:hover {
+      &::before {
+        content: "#";
+      }
+    }
+    
     a.jk-md-math-link {
       text-decoration: none;
       color: inherit;
