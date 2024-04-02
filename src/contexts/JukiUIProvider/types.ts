@@ -22,6 +22,7 @@ export interface LinkCmpProps {
   className?: string,
   style?: CSSProperties,
   onClick?: MouseEventHandler<HTMLAnchorElement>,
+  scroll?: boolean,
 }
 
 export interface UIComponentsContextInterface {
