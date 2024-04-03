@@ -44,6 +44,10 @@
     }
     
     .test-cases-output-stderr {
+      .jk-tabs-layout {
+        height: 100%;
+      }
+      
       .jk-tabs-content {
         position: relative;
         

@@ -222,7 +222,7 @@
         position: absolute;
         top: calc(50% - 32px);
         left: calc((var(--size) - 2px) / 2 * -1);
-        width: 8px;
+        width: calc(var(--size) - 2px);
         height: 64px;
         background: linear-gradient(to right, var(--t-color-gray-4) 20%, var(--t-color-white) 20% 40%, var(--t-color-gray-4) 40% 60%, var(--t-color-white) 60% 80%, var(--t-color-gray-4) 80%);
         border-radius: 2px;
