@@ -1,7 +1,7 @@
 
 .jk-split-pane {
   --size: 6px;
-  --line-size: 1px;
+  --line-size: 3px;
   --line-notch-size: 6px;
   display: flex;
   width: 100%;
@@ -20,7 +20,13 @@
     .jk-split-pane-divider-line {
       z-index: 1;
       position: relative;
-      background: var(--t-color-highlight);
+      background: var(--t-color-highlight-light);
+    }
+    
+    &:hover {
+      .jk-split-pane-divider-line {
+        background: var(--t-color-highlight);
+      }
     }
     
     // Preventing an image from being draggable or selectable without using JS
@@ -107,7 +113,7 @@
     }
     
     > .jk-split-pane-divider {
-      height: 0;
+      height: var(--line-size);
       width: 100%;
       
       .jk-split-pane-divider-line {
@@ -116,10 +122,6 @@
       }
       
       &:hover {
-        .jk-split-pane-divider-line {
-          --line-size: var(--size);
-        }
-        
         &:after {
           --line-notch-size: 8px;
         }
@@ -140,11 +142,6 @@
     
     &.dragging, > .jk-split-pane-divider {
       cursor: row-resize;
-    }
-    
-    &.dragging > .jk-split-pane-divider > .jk-split-pane-divider-line {
-      height: var(--size);
-      top: calc(var(--size) / 2 * -1);
     }
   }
   
@@ -207,7 +204,7 @@
     
     > .jk-split-pane-divider {
       height: 100%;
-      width: 0;
+      width: var(--line-size);
       
       .jk-split-pane-divider-line {
         height: 100%;
@@ -216,10 +213,6 @@
       }
       
       &:hover {
-        .jk-split-pane-divider-line {
-          --line-size: var(--size);
-        }
-        
         &:after {
           --line-notch-size: 8px;
         }
@@ -240,11 +233,6 @@
     
     &.dragging, > .jk-split-pane-divider {
       cursor: col-resize;
-    }
-    
-    &.dragging > .jk-split-pane-divider > .jk-split-pane-divider-line {
-      width: var(--size);
-      left: calc(var(--size) / 2 * -1);
     }
   }
 }
