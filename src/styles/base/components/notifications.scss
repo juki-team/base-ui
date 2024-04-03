@@ -7,12 +7,12 @@
 
 .notification-wrapper, .notification-wrapper-quiet {
   position: fixed;
-  right: calc(var(--width-notification-wrapper) + var(--pad-border));
-  @include md-hg { top: var(--pad-border); }
+  right: calc(var(--width-notification-wrapper) + var(--pad-md));
+  @include md-hg { top: var(--pad-md); }
   @include sm {
     --width-notification-wrapper: 100vw;
-    --width-notification: calc(100vw - var(--pad-border) - var(--pad-border));
-    right: calc(var(--width-notification-wrapper) - var(--pad-border));
+    --width-notification: calc(100vw - var(--pad-md) - var(--pad-md));
+    right: calc(var(--width-notification-wrapper) - var(--pad-md));
     bottom: 0;
     display: flex;
     flex-direction: column;
