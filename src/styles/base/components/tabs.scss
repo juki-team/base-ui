@@ -98,10 +98,10 @@
     &:before {
       position: absolute;
       content: " ";
-      bottom: -1px;
-      height: 3px;
+      bottom: 0;
+      height: 1px;
       width: 100%;
-      background-color: var(--t-color-gray-6);
+      background-color: var(--t-color-highlight-light);
     }
   }
   

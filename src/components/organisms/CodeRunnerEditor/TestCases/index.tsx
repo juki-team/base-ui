@@ -36,17 +36,15 @@ export const TestCases = <T, >({ testCases, onChange, timeLimit, memoryLimit, di
           ? <div className="jk-row ws-np nowrap tx-s">
             <T className="tt-se">custom</T>
             &nbsp;{testCaseValue.index + 1}&nbsp;
-            {Object.keys(testCases).length > 1 && (
-              <DeleteIcon
-                size="small"
-                className="clickable br-50-pc"
-                onClick={() => {
-                  const newTestCases = { ...testCases };
-                  delete newTestCases[testCaseValue.key];
-                  onChange?.({ testCases: newTestCases });
-                }}
-              />
-            )}
+            <DeleteIcon
+              size="small"
+              className="clickable br-50-pc"
+              onClick={() => {
+                const newTestCases = { ...testCases };
+                delete newTestCases[testCaseValue.key];
+                onChange?.({ testCases: newTestCases });
+              }}
+            />
           </div>
           : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">c.</T>&nbsp;{testCaseValue.index + 1}</div>,
       body: (
@@ -181,7 +179,7 @@ export const TestCases = <T, >({ testCases, onChange, timeLimit, memoryLimit, di
     <div className="jk-code-mirror-editor-test-cases">
       <SplitPane direction={direction === 'row' ? 'column' : 'row'}>
         <div className="jk-col extend stretch nowrap">
-          <div className="jk-row nowrap" style={{ margin: '0 var(--gap)' }}>
+          <div className="jk-row nowrap border-bottom-highlight-light">
             <div className="flex-1">
               <TabsInline
                 tabs={tabs}

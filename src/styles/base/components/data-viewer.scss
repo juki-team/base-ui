@@ -42,16 +42,9 @@
   height: 100%;
   --pagination-height: 64px;
   
-  &.with-pagination {
-    .jk-data-viewer-content {
-      //height: calc(100% - var(--pagination-height));
-    }
-  }
-  
   .jk-data-viewer-content {
     height: 100%;
     background: var(--t-color-white);
-    border: 1px solid var(--t-color-highlight-light);
     box-sizing: border-box;
     
     --jk-table-toolbar-height: 50px; // 48 + 2 (border)
@@ -59,7 +52,7 @@
     .jk-data-viewer-toolbar {
       height: var(--jk-table-toolbar-height);
       position: relative;
-      border-bottom: 1px solid var(--t-color-highlight);
+      border-bottom: 1px solid var(--t-color-highlight-light);
       box-sizing: border-box;
       
       &.cards {

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
 import { useHandleState } from '../../../hooks'
 import { ExpandLessIcon, ExpandMoreIcon, NavigateBeforeIcon, NavigateNextIcon, T, ViewSideIcon } from '../../atoms';
@@ -27,6 +28,7 @@ export const SplitPane = (props: SplitPaneProps) => {
   const firstChildRef = useRef<HTMLDivElement>(null);
   const firstChildSizeRef = useRef<string>('');
   const paneRef = useRef<HTMLDivElement>(null);
+  const { height = 0, width = 0 } = useResizeDetector({ targetRef: paneRef });
   const [ displaySecondPane, setDisplaySecondPane ] = useState(true);
   const [ displayFirstPane, setDisplayFirstPane ] = useState(true);
   const [ direction, setDirection ] = useHandleState('row', initialDirection, onChangeDirection);
@@ -57,12 +59,13 @@ export const SplitPane = (props: SplitPaneProps) => {
     dividerPositionRef.current = 0;
   };
   
+  const clientDirection = direction === 'row' ? 'clientWidth' : 'clientHeight';
+  
   const onMouseHoldMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!dividerPositionRef.current) {
       return;
     }
     if (firstChildRef.current?.style) {
-      const clientDirection = direction === 'row' ? 'clientWidth' : 'clientHeight';
       clientSizeRef.current = Math.min(
         Math.max(
           clientSizeRef.current
@@ -81,14 +84,12 @@ export const SplitPane = (props: SplitPaneProps) => {
   
   useEffect(() => {
     const timeout = setTimeout(() => {
-      clientSizeRef.current = (direction === 'row'
-        ? firstChildRef.current?.clientWidth
-        : firstChildRef.current?.clientHeight) || 0;
+      clientSizeRef.current = firstChildRef.current?.[clientDirection] || 0;
     }, 400);
     return () => {
       clearTimeout(timeout);
     };
-  }, [ direction, onlyFirstPane, onlySecondPane, displaySecondPane ]);
+  }, [ direction, onlyFirstPane, onlySecondPane, displaySecondPane, height, width ]);
   
   useEffect(() => {
     if (firstChildRef.current?.style) {
@@ -170,6 +171,7 @@ export const SplitPane = (props: SplitPaneProps) => {
         onMouseDown={onMouseHoldDown}
         ref={dividerRef}
       >
+        <div className="jk-split-pane-divider-line" />
         {toggleOption && (
           <div className={classNames('extend', { 'jk-row': direction === 'column', 'jk-col': direction === 'row' })}>
             <div
