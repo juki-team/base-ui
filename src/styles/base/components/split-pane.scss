@@ -1,6 +1,8 @@
 
 .jk-split-pane {
-  --size: 8px;
+  --size: 6px;
+  --line-size: 1px;
+  --line-notch-size: 6px;
   display: flex;
   width: 100%;
   height: 100%;
@@ -96,7 +98,7 @@
     
     > .jk-split-pane-divider .toggle-button {
       position: absolute;
-      bottom: var(--size);
+      bottom: calc(5px + var(--line-size) / 2);
       border-radius: 4px 4px 0 0;
       
       > .label {
@@ -109,14 +111,17 @@
       width: 100%;
       
       .jk-split-pane-divider-line {
-        height: 1px;
-        top: 0;
+        height: var(--line-size);
+        top: calc(var(--line-size) / 2 * -1);
       }
       
       &:hover {
         .jk-split-pane-divider-line {
-          height: var(--size);
-          top: calc(var(--size) / 2 * -1);
+          --line-size: var(--size);
+        }
+        
+        &:after {
+          --line-notch-size: 8px;
         }
       }
       
@@ -124,10 +129,10 @@
         z-index: 1;
         content: " ";
         position: absolute;
-        top: calc((var(--size) - 2px) / 2 * -1);
+        top: calc(var(--line-notch-size) / 2 * -1);
         left: calc(50% - 32px);
         width: 64px;
-        height: calc(var(--size) - 2px);
+        height: var(--line-notch-size);
         background: linear-gradient(to bottom, var(--t-color-gray-4) 20%, var(--t-color-white) 20% 40%, var(--t-color-gray-4) 40% 60%, var(--t-color-white) 60% 80%, var(--t-color-gray-4) 80%);
         border-radius: 2px;
       }
@@ -146,7 +151,7 @@
   &.row {
     > .jk-split-pane-divider .toggle-button {
       position: absolute;
-      right: var(--size);
+      right: calc(5px + var(--line-size) / 2);
       transform: rotate(180deg);
       border-radius: 0 4px 4px 0;
       
@@ -206,23 +211,27 @@
       
       .jk-split-pane-divider-line {
         height: 100%;
-        width: 1px;
+        width: var(--line-size);
+        left: calc(var(--line-size) / 2 * -1);
       }
       
       &:hover {
         .jk-split-pane-divider-line {
-          width: var(--size);
-          left: calc(var(--size) / 2 * -1);
+          --line-size: var(--size);
+        }
+        
+        &:after {
+          --line-notch-size: 8px;
         }
       }
       
-      &:before {
+      &:after {
         z-index: 1;
         content: " ";
         position: absolute;
         top: calc(50% - 32px);
-        left: calc((var(--size) - 2px) / 2 * -1);
-        width: calc(var(--size) - 2px);
+        left: calc(var(--line-notch-size) / 2 * -1);
+        width: var(--line-notch-size);
         height: 64px;
         background: linear-gradient(to right, var(--t-color-gray-4) 20%, var(--t-color-white) 20% 40%, var(--t-color-gray-4) 40% 60%, var(--t-color-white) 60% 80%, var(--t-color-gray-4) 80%);
         border-radius: 2px;

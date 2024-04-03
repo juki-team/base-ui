@@ -172,7 +172,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
             align: 'right',
             expandLabel: <T className="label tx-t">code editor</T>,
           } : undefined}
-          toggleOption
+          toggleable
           onChangeDirection={setDirection}
           onePanelAtATime={isMobileViewPort}
         >

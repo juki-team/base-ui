@@ -14,13 +14,14 @@ type Story = StoryObj<typeof SplitPaneComponent>;
 export const Regular: Story = {
   render: (args) => (
     <div style={{ border: '1px solid red', width: 800, height: 1000 }}>
-      <SplitPaneComponent toggleOption>
+      <SplitPaneComponent toggleable>
         <div style={{ background: '' }}>
           {`<SplitPaneComponent minSize={1} direction="row" closableFirstPane={{ pane: 'both', align: 'right', hideLabel: '' }} closableSecondPane={{ align: 'right', hideLabel: '' }}>`}
           <div style={{ height: 200 }}>
             <SplitPaneComponent
               minSize={1} direction="row" closableFirstPane={{ align: 'right', hideLabel: '' }}
               closableSecondPane={{ align: 'right', hideLabel: '' }}
+              toggleable
             >
               <div style={{ background: 'yellow' }}>A<br />A</div>
               <div style={{ background: 'blueviolet' }}>B</div>

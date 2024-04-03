@@ -8,7 +8,7 @@ export interface SplitPaneProps {
   minSize?: number,
   onlyFirstPane?: boolean,
   onlySecondPane?: boolean,
-  toggleOption?: boolean,
+  toggleable?: boolean,
   closableFirstPane?: {
     align: 'right' | 'center' | 'left',
     hideLabel?: ReactNode,

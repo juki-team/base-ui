@@ -17,7 +17,7 @@ export const SplitPane = (props: SplitPaneProps) => {
     onlySecondPane = false,
     closableFirstPane,
     closableSecondPane,
-    toggleOption = false,
+    toggleable = false,
     onePanelAtATime = false,
   } = props;
   
@@ -171,22 +171,24 @@ export const SplitPane = (props: SplitPaneProps) => {
         onMouseDown={onMouseHoldDown}
         ref={dividerRef}
       >
-        <div className="jk-split-pane-divider-line" />
-        {toggleOption && (
-          <div className={classNames('extend', { 'jk-row': direction === 'column', 'jk-col': direction === 'row' })}>
-            <div
-              className={classNames(
-                'notch toggle-button  nowrap',
-                { 'jk-row': direction === 'column', 'jk-col': direction === 'row' },
-              )}
-              onClick={() => {
-                setDirection(prevState => prevState === 'row' ? 'column' : 'row');
-              }}
-            >
-              <ViewSideIcon size="tiny" rotate={direction === 'column' ? 90 : 0} /> <T className="label tx-t">rotate</T>
+        <div className="jk-split-pane-divider-line">
+          {toggleable && (
+            <div className={classNames('extend', { 'jk-row': direction === 'column', 'jk-col': direction === 'row' })}>
+              <div
+                className={classNames(
+                  'notch toggle-button  nowrap',
+                  { 'jk-row': direction === 'column', 'jk-col': direction === 'row' },
+                )}
+                onClick={() => {
+                  setDirection(prevState => prevState === 'row' ? 'column' : 'row');
+                }}
+              >
+                <ViewSideIcon size="tiny" rotate={direction === 'column' ? 90 : 0} />
+                <T className="label tx-t">rotate</T>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <div
         className="jk-split-second-pane"
