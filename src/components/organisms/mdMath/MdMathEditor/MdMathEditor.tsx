@@ -107,7 +107,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
         primary={{ onClick: handleAccept, label: <T>save and continue</T> }}
         title={<T>attention</T>}
       >
-        <T>Has unsaved changes</T>
+        <T className="tt-se">has unsaved changes</T>
       </TwoActionModal>,
     );
   };
