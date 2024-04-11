@@ -5,7 +5,7 @@ import { useJukiUI, useOutsideAlerter } from '../../../hooks';
 import { ButtonLoader, SetLoaderStatusOnClickType } from '../ButtonLoader';
 import { ButtonActionProps } from './types';
 
-export const ButtonAction = ({ icon, buttons }: ButtonActionProps) => {
+export const ButtonAction = ({ icon, buttons, disabled }: ButtonActionProps) => {
   
   const { viewPortSize } = useJukiUI();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
@@ -25,14 +25,16 @@ export const ButtonAction = ({ icon, buttons }: ButtonActionProps) => {
           type="primary"
           size="small"
           setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
+          disabled={disabled}
         />
       </div>
       <div className="buttons-content">
-        {buttons.map(({ icon, onClick, label }, index) => (
+        {buttons.map(({ icon, onClick, label, disabled }, index) => (
           <ButtonLoader
             key={index}
             icon={icon}
             size="small"
+            disabled={disabled}
             onClick={async setLoader => {
               const result = onClick();
               if (result instanceof Promise) {

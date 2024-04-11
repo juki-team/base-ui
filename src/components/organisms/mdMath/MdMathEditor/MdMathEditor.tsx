@@ -251,7 +251,8 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
         <div className="content-preview">
           <MdFloatToolbar
             source={editValue?.trim()}
-            edit onEdit={() => setEditing(true)}
+            edit
+            onEdit={() => setEditing(true)}
             download={downloadButton}
             // share={sharedButton}
           />
