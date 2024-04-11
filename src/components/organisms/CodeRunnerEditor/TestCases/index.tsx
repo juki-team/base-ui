@@ -10,7 +10,10 @@ import { TestCasesProps } from '../types';
 import { getErrors } from '../utils';
 import { LogInfo } from './LogInfo';
 
-export const TestCases = <T, >({ testCases, onChange, timeLimit, memoryLimit, direction }: TestCasesProps<T>) => {
+export const TestCases = <T, >(props: TestCasesProps<T>) => {
+  
+  const { testCases, onChange, timeLimit, memoryLimit, direction, noCustomTestCases } = props;
+  
   const testCasesValues = Object.values(testCases)
     .sort((a, b) => (a.sample !== b.sample) ? +b.sample - +a.sample : a.index - b.index);
   const [ testCaseKey, setTestCaseKey ] = useState(testCasesValues[0]?.key || '');
@@ -66,7 +69,7 @@ export const TestCases = <T, >({ testCases, onChange, timeLimit, memoryLimit, di
   
   const actionSection = (
     <Tooltip content={<T className="ws-np tt-se tx-s">add sample test case</T>} placement="bottom-end">
-      <div className="jk-button light small only-icon">
+      <div className="jk-button light small only-icon" style={{ margin: '6px' }}>
         <AddIcon
           size="small"
           onClick={() => {
@@ -187,9 +190,11 @@ export const TestCases = <T, >({ testCases, onChange, timeLimit, memoryLimit, di
                 onChange={tabKey => setTestCaseKey(tabKey)}
               />
             </div>
-            <div>
-              {actionSection}
-            </div>
+            {!noCustomTestCases && (
+              <div>
+                {actionSection}
+              </div>
+            )}
           </div>
           <div className="flex-1">
             {renderReactNodeOrFunctionP1(tabs[testCaseKey]?.body, { selectedTabKey: testCaseKey })}

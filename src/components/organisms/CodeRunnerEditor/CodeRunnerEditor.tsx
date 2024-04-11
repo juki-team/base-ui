@@ -35,6 +35,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     memoryLimit = 512000,
     expandPosition,
     className,
+    noCustomTestCases,
   } = props;
   
   const [ runId, setRunId ] = useState('');
@@ -193,6 +194,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
             timeLimit={timeLimit}
             memoryLimit={memoryLimit}
             direction={direction}
+            noCustomTestCases={noCustomTestCases}
           />
         </SplitPane>
       </div>

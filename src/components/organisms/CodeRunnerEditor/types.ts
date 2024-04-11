@@ -31,6 +31,7 @@ export interface CodeRunnerEditorProps<T> extends CodeEditorPropertiesType<T> {
   timeLimit?: number,
   memoryLimit?: number,
   expandPosition?: CodeEditorExpandPositionType,
+  noCustomTestCases?: boolean,
 }
 
 export interface SettingsModalProps<T> {
@@ -47,6 +48,7 @@ export interface TestCasesProps<T> {
   timeLimit: number,
   memoryLimit: number,
   direction: 'row' | 'column',
+  noCustomTestCases?: boolean,
 }
 
 export interface HeaderProps<T> {
