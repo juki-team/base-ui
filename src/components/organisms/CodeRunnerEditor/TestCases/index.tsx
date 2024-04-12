@@ -1,8 +1,16 @@
-import { mex, SUBMISSION_RUN_STATUS, SubmissionRunStatus } from '@juki-team/commons';
+import {
+  mex,
+  PROBLEM_VERDICT,
+  ProblemVerdict,
+  ProfileSetting,
+  SUBMISSION_RUN_STATUS,
+  SubmissionRunStatus,
+  Theme,
+} from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
-import { useNotification } from '../../../../hooks';
+import { useJukiUser, useNotification } from '../../../../hooks';
 import { AddIcon, DeleteIcon, T, TextArea, Tooltip } from '../../../atoms';
 import { SplitPane, Tabs, TabsInline, TabType } from '../../../molecules';
 import { NotificationType } from '../../Notifications';
@@ -13,7 +21,9 @@ import { LogInfo } from './LogInfo';
 export const TestCases = <T, >(props: TestCasesProps<T>) => {
   
   const { testCases, onChange, timeLimit, memoryLimit, direction, noCustomTestCases } = props;
+  const { user: { settings: { [ProfileSetting.THEME]: userTheme } } } = useJukiUser();
   
+  const addDark = userTheme === Theme.DARK ? 'CC' : '';
   const testCasesValues = Object.values(testCases)
     .sort((a, b) => (a.sample !== b.sample) ? +b.sample - +a.sample : a.index - b.index);
   const [ testCaseKey, setTestCaseKey ] = useState(testCasesValues[0]?.key || '');
@@ -28,13 +38,51 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   
   const tabs: { [key: string]: TabType<string> } = {};
   testCasesValues.forEach(testCaseValue => {
+    
+    const sample = (
+      testCaseValue.key === testCaseKey
+        ?
+        <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">sample</T>&nbsp;{testCaseValue.index + 1}</div>
+        : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">s.</T>&nbsp;{testCaseValue.index + 1}</div>
+    );
+    
+    const { timeLimitExceeded, memoryLimitExceeded, runtimeError } = getErrors(testCaseValue, timeLimit, memoryLimit);
+    
+    const verdict = (
+      timeLimitExceeded
+        ? ProblemVerdict.TLE
+        : memoryLimitExceeded
+          ? ProblemVerdict.MLE
+          : runtimeError
+            ? ProblemVerdict.RE
+            : testCaseValue.out === testCaseValue.testOut
+              ? ProblemVerdict.AC
+              : testCaseValue.out.split(' ').join('').split('\n').join('') === testCaseValue.testOut.split(' ').join('').split('\n').join('')
+                ? ProblemVerdict.PE
+                : ProblemVerdict.WA
+    );
+    
     tabs[testCaseValue.key] = {
       key: testCaseValue.key,
       header: testCaseValue.sample
-        ? testCaseValue.key === testCaseKey
-          ?
-          <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">sample</T>&nbsp;{testCaseValue.index + 1}</div>
-          : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">s.</T>&nbsp;{testCaseValue.index + 1}</div>
+        ? <>
+          {sample}
+          {testCaseValue.testOut
+            && (testCaseValue.status === SubmissionRunStatus.EXECUTED_TEST_CASE || testCaseValue.status === SubmissionRunStatus.FAILED_TEST_CASE)
+            && (
+              <>
+                &nbsp;
+                <Tooltip content={<T className="tt-se">{PROBLEM_VERDICT[verdict]?.label}</T>}>
+                  <div
+                    className="jk-row nowrap jk-tag tx-t"
+                    style={{ backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark }}
+                  >
+                    {verdict}
+                  </div>
+                </Tooltip>
+              </>
+            )}
+        </>
         : testCaseValue.key === testCaseKey
           ? <div className="jk-row ws-np nowrap tx-s">
             <T className="tt-se">custom</T>
@@ -85,8 +133,10 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                     index,
                     in: '',
                     out: '',
+                    testOut: '',
                     err: '',
                     log: '',
+                    hidden: false,
                     sample: false,
                     status: SubmissionRunStatus.NONE,
                   },

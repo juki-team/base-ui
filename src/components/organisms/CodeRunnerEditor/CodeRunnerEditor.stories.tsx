@@ -18,6 +18,24 @@ const meta: Meta<typeof CodeRunnerEditor> = {
   },
 };
 
+const sourceCode = `#include <bits/stdc++.h>
+
+using namespace std;
+
+int main() {
+    int n, a, b;
+    cin >> n;
+    int m = n;
+    if (n == 3) {
+        m = 10000000;
+    }
+    for (int i = 0; i < m; i++) {
+        cin >> a >> b;
+        cout << a + b << "\\n";
+    }
+    return 0;
+}`;
+
 const Template = (args: CodeRunnerEditorProps<string>) => {
   
   const [ props, setProps ] = useState<CodeRunnerEditorPropertiesType<ProgrammingLanguage> & {
@@ -25,7 +43,7 @@ const Template = (args: CodeRunnerEditorProps<string>) => {
     sourceCode: string
   }>({
     language: ProgrammingLanguage.JAVASCRIPT,
-    sourceCode: 'console.info("Juki!")',
+    sourceCode: sourceCode,
   });
   
   return (
@@ -79,11 +97,25 @@ CodeRunnerEditorWithIo.args = {
     'test-empty': {
       key: 'test-empty',
       index: 0,
-      in: '',
+      in: '3\n1 2 -9 9 -19 8',
       out: '',
+      testOut: '3\n0\n-11\n',
       err: '',
       log: '',
-      sample: false,
+      sample: true,
+      hidden: false,
+      status: SubmissionRunStatus.NONE,
+    },
+    'test-empty-1': {
+      key: 'test-empty-1',
+      index: 0,
+      in: '5\n1 2\n-9 9\n-19 8\n0 0\n1 1',
+      out: '',
+      testOut: '3\n0\n-11\n0\n2',
+      err: '',
+      log: '',
+      sample: true,
+      hidden: false,
       status: SubmissionRunStatus.NONE,
     },
   },
@@ -103,9 +135,11 @@ CodeRunnerEditorWithCustomLanguages.args = {
       index: 0,
       in: '',
       out: '',
+      testOut: '',
       err: '',
       log: '',
       sample: false,
+      hidden: false,
       status: SubmissionRunStatus.NONE,
     },
   },
