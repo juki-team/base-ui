@@ -57,7 +57,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             ? ProblemVerdict.RE
             : testCaseValue.out === testCaseValue.testOut
               ? ProblemVerdict.AC
-              : testCaseValue.out.split(' ').join('').split('\n').join('') === testCaseValue.testOut.split(' ').join('').split('\n').join('')
+              : testCaseValue.withPE && testCaseValue.out.split(' ').join('').split('\n').join('') === testCaseValue.testOut.split(' ').join('').split('\n').join('')
                 ? ProblemVerdict.PE
                 : ProblemVerdict.WA
     );
@@ -122,6 +122,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
           size="small"
           onClick={() => {
             const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
+            const noCustomCases = testCasesValues.filter(testCaseValue => testCaseValue.sample);
             if (customCases.length < 10) {
               const key = v4();
               const index = mex(customCases.map(testCaseValue => testCaseValue.index));
@@ -134,6 +135,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                     in: '',
                     out: '',
                     testOut: '',
+                    withPE: noCustomCases?.[0].withPE ?? true,
                     err: '',
                     log: '',
                     hidden: false,
