@@ -14,3 +14,4 @@ export * from './useNotification';
 export * from './useSWR';
 export * from './useT';
 export * from './useTriggerWrapper';
+export * from './useWidthResizer';

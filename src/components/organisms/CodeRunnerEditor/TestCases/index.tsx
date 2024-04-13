@@ -235,7 +235,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       <SplitPane direction={direction === 'row' ? 'column' : 'row'}>
         <div className="jk-col extend stretch nowrap">
           <div className="jk-row nowrap border-bottom-highlight-light">
-            <div className="flex-1">
+            <div className="flex-1" style={{ overflow: 'auto' }}>
               <TabsInline
                 tabs={tabs}
                 selectedTabKey={testCaseKey}

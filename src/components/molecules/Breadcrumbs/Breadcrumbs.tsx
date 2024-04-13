@@ -1,5 +1,6 @@
 import React, { Children, ReactNode, useCallback, useMemo, useRef, useState } from 'react';
-import { NavigateNextIcon, Popover, WidthResizer } from '../../atoms';
+import { useWidthResizer } from '../../../hooks';
+import { NavigateNextIcon, Popover } from '../../atoms';
 
 export const Breadcrumbs = ({ breadcrumbs }: { breadcrumbs: ReactNode[] }) => {
   const breadcrumbsLength = breadcrumbs.length;
@@ -18,57 +19,57 @@ export const Breadcrumbs = ({ breadcrumbs }: { breadcrumbs: ReactNode[] }) => {
     return [ breadcrumbs, reducedSize ]
   }, [ breadcrumbs, reducedSize ]);
   
+  useWidthResizer({ targetRef: refBreadcrumb, unOverflow, onOverflow, trigger });
+  
   return (
-    <>
-      <WidthResizer targetRef={refBreadcrumb} unOverflow={unOverflow} onOverflow={onOverflow} trigger={trigger} />
-      <div
-        className="jk-row nowrap left extend jk-breadcrumb pad-left-right"
-        ref={refBreadcrumb}
-        style={{ overflow: 'auto' }}
-      >
-        {/*<ArrowRightIcon />*/}
-        {/*<div className="separator">|</div>*/}
-        {Children.toArray(startBreadcrumbs.map((breadcrumb, index) => {
-          return (
-            <>
-              {/*{!!index && <div className="separator">/</div>}*/}
-              {!!index && <NavigateNextIcon className="cr-g5" />}
-              <div>{breadcrumb}</div>
-            </>
-          );
-        }))}
-        {!!middleBreadcrumbs.length && (
+    <div
+      className="jk-row nowrap left extend jk-breadcrumb pad-left-right"
+      ref={refBreadcrumb}
+      style={{ overflow: 'auto' }}
+    >
+      {/*<ArrowRightIcon />*/}
+      {/*<div className="separator">|</div>*/}
+      {Children.toArray(startBreadcrumbs.map((breadcrumb, index) => {
+        return (
+          <>
+            {/*{!!index && <div className="separator">/</div>}*/}
+            {!!index && <NavigateNextIcon className="cr-g5" />}
+            <div>{breadcrumb}</div>
+          </>
+        );
+      }))}
+      {!!middleBreadcrumbs.length && (
+        <>
+          {/*<div className="separator">/</div>*/}
+          <NavigateNextIcon className="cr-g5" />
+          <Popover
+            content={
+              <div className="jk-pad-sm">
+                {Children.toArray(middleBreadcrumbs.map((breadcrumb, index) => {
+                  return (
+                    <>
+                      <div>{breadcrumb}</div>
+                    </>
+                  );
+                }))}
+              </div>
+            }
+            triggerOn="click"
+            placement="bottom"
+          >
+            <div className="link">...</div>
+          </Popover>
+        </>
+      )}
+      {Children.toArray(endBreadcrumbs.map((breadcrumb) => {
+        return (
           <>
             {/*<div className="separator">/</div>*/}
             <NavigateNextIcon className="cr-g5" />
-            <Popover
-              content={
-                <div>
-                  {Children.toArray(middleBreadcrumbs.map((breadcrumb, index) => {
-                    return (
-                      <>
-                        <div>{breadcrumb}</div>
-                      </>
-                    );
-                  }))}
-                </div>
-              }
-              triggerOn="click"
-              placement="bottomLeft"
-            >
-              <div className="link">...</div>
-            </Popover>
+            <div>{breadcrumb}</div>
           </>
-        )}
-        {Children.toArray(endBreadcrumbs.map((breadcrumb) => {
-          return (
-            <>
-              <div className="separator">/</div>
-              <div>{breadcrumb}</div>
-            </>
-          );
-        }))}
-      </div>
-    </>
+        );
+      }))}
+    </div>
   );
 };

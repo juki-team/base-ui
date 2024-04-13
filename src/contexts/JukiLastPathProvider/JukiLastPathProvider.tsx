@@ -1,4 +1,5 @@
-import React, { PropsWithChildren, useMemo, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
+import { useJukiUser } from '../../hooks';
 import { LastPathContextFn, LastPathContextRef } from './context';
 import { LastPathContextInterface, LastPathType } from './types';
 
@@ -9,7 +10,7 @@ export interface LastPathProviderProps<T extends string | number> {
 export const JukiLastPathProvider = <T extends string | number, >(props: PropsWithChildren<LastPathProviderProps<T>>) => {
   
   const { children, initialLastPath } = props;
-  
+  const { user: { nickname } } = useJukiUser();
   if (!LastPathContextRef.current) {
     LastPathContextRef.current = LastPathContextFn<T>(initialLastPath);
   }
@@ -23,6 +24,12 @@ export const JukiLastPathProvider = <T extends string | number, >(props: PropsWi
     })),
     lastPath,
   }), [ lastPath, setLastPath ]);
+  
+  useEffect(() => {
+    if (nickname === '') {
+      setLastPath(initialLastPath);
+    }
+  }, [ nickname ]);
   
   return (
     <LastPathContextRef.current.Provider value={value}>
