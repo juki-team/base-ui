@@ -1,5 +1,6 @@
 import React, { MutableRefObject, ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { ERROR_AUDIO } from '../../../../constants';
 import { classNames } from '../../../../helpers';
 import { useOutsideAlerter } from '../../../../hooks';
 import {
@@ -93,6 +94,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
       accept?.();
       setModal(null);
     };
+    void ERROR_AUDIO.play();
     setModal(
       <TwoActionModal
         isOpen
