@@ -74,7 +74,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                 &nbsp;
                 <Tooltip content={<T className="tt-se">{PROBLEM_VERDICT[verdict]?.label}</T>}>
                   <div
-                    className="jk-row nowrap jk-tag tx-t"
+                    className="jk-tag tx-t"
                     style={{ backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark }}
                   >
                     {verdict}

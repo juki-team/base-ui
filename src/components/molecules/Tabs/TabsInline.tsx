@@ -76,7 +76,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
               .map(({ key, header }) => (
                 <div
                   onClick={() => onChange(key)}
-                  className={classNames('jk-row stretch', { selected: key === selectedTabKey })}
+                  className={classNames('jk-row nowrap', { selected: key === selectedTabKey })}
                 >
                   {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
                 </div>
