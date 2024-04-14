@@ -16,13 +16,13 @@ export const useSound = () => {
   const [ sounds, setSounds ] = useState<{ [key in Sound]: HTMLAudioElement } | null>(null);
   useEffect(() => {
     setSounds({
-      [Sound.CLICK]: new Audio('https://files.juki.pub/sounds/click.mp3'),
+      [Sound.CLICK]: new Audio('https://files.juki.pub/sounds/click.wav'),
       [Sound.SUCCESS]: new Audio('https://files.juki.pub/sounds/success.mp3'),
       [Sound.ERROR]: new Audio('https://files.juki.pub/sounds/error.mp3'),
-      [Sound.NOTIFICATION]: new Audio('https://files.juki.pub/sounds/notification.mp3'),
+      [Sound.NOTIFICATION]: new Audio('https://files.juki.pub/sounds/notification.wav'),
       [Sound.WARNING]: new Audio('https://files.juki.pub/sounds/warning.mp3'),
       [Sound.MESSAGE]: new Audio('https://files.juki.pub/sounds/message.mp3'),
-      [Sound.POP]: new Audio('https://files.juki.pub/sounds/pop.mp3'),
+      [Sound.POP]: new Audio('https://files.juki.pub/sounds/pop.wav'),
       [Sound.BELL]: new Audio('https://files.juki.pub/sounds/bell.mp3'),
     })
   }, []);
