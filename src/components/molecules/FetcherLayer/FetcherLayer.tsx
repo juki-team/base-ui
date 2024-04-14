@@ -17,12 +17,7 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
   
   const { url, options, errorView, loadingView, children, onError, triggerFetch } = props;
   
-  const { isLoading, data, error, mutate, isValidating } = useFetcher<T>(url, {
-    revalidateOnFocus: true,
-    revalidateIfStale: true,
-    shouldRetryOnError: true,
-    ...options,
-  });
+  const { isLoading, data, error, mutate, isValidating } = useFetcher<T>(url, options);
   const { notifyResponse } = useNotification();
   useEffect(() => {
     if (triggerFetch) {
