@@ -36,7 +36,7 @@ interface UserCodeEditorProps<T> {
   className?: string,
   expandPosition?: CodeEditorExpandPositionType,
   initialTestCases?: CodeEditorTestCasesType,
-  sourceStoreKey?: string,
+  sourceStoreKey: string,
   languages: { value: T, label: string }[],
   middleButtons?: CodeEditorMiddleButtonsType<T>,
   onSourceChange: (source: string) => void,
@@ -90,19 +90,18 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       setLanguage(languages[0].value);
     }
   }, [ language, languages ]);
-  const problemJudgeKey = sourceStoreKey || '-';
-  const defaultValue: { [key: string]: { [key: string]: string } } = { [problemJudgeKey]: {} };
+  const defaultValue: { [key: string]: { [key: string]: string } } = { [sourceStoreKey]: {} };
   ACCEPTED_PROGRAMMING_LANGUAGES.forEach(key => {
-    defaultValue[problemJudgeKey][PROGRAMMING_LANGUAGE[key].mime] = PROGRAMMING_LANGUAGE[key].templateSourceCode;
+    defaultValue[sourceStoreKey][PROGRAMMING_LANGUAGE[key].mime] = PROGRAMMING_LANGUAGE[key].templateSourceCode;
   });
   
   const [ source, setSource ] = useSaveStorage(
     sourceStoreKey ? getSourcesStoreKey(nickname) : '',
     defaultValue,
-    initialSource ? { [problemJudgeKey]: initialSource } : undefined,
+    initialSource ? { [sourceStoreKey]: initialSource } : undefined,
   );
   const mime = PROGRAMMING_LANGUAGE[language as ProgrammingLanguage]?.mime || '.txt';
-  const newSource = source[problemJudgeKey]?.[mime] || '';
+  const newSource = source[sourceStoreKey]?.[mime] || '';
   useEffect(() => {
     onSourceChange(newSource);
   }, [ newSource, onSourceChange ]);
@@ -117,15 +116,15 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       theme={editorSettings.theme}
       tabSize={editorSettings.tabSize}
       fontSize={editorSettings.fontSize}
-      sourceCode={source[problemJudgeKey]?.[mime] || ''}
+      sourceCode={source[sourceStoreKey]?.[mime] || ''}
       language={language}
       languages={languages}
       onChange={({ sourceCode, language: newLanguage, testCases, theme, tabSize, fontSize }) => {
         if (typeof sourceCode === 'string') {
           setSource(prevState => ({
             ...prevState,
-            [problemJudgeKey]: {
-              ...(prevState[problemJudgeKey] || {}),
+            [sourceStoreKey]: {
+              ...(prevState[sourceStoreKey] || {}),
               [mime]: sourceCode,
             },
           }));
