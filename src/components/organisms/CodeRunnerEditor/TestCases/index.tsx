@@ -99,11 +99,29 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   const tabs: { [key: string]: TabType<string> } = {};
   testCasesValues.forEach(testCaseValue => {
     
-    const sample = (
+    const headerLabel = (
       testCaseValue.key === testCaseKey
         ?
-        <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">sample</T>&nbsp;{testCaseValue.index + 1}</div>
-        : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">s.</T>&nbsp;{testCaseValue.index + 1}</div>
+        <div className="jk-row ws-np nowrap tx-s">
+          <T className="tt-se">{testCaseValue.sample ? 'sample' : 'custom'}</T>&nbsp;{testCaseValue.index + 1}
+          {(testCaseValue.sample ? enableAddSampleCases : enableAddCustomSampleCases) && (
+            <>
+              &nbsp;
+              <DeleteIcon
+                size="small"
+                className="clickable br-50-pc"
+                onClick={() => {
+                  const newTestCases = { ...testCases };
+                  delete newTestCases[testCaseValue.key];
+                  onChange?.({ testCases: newTestCases });
+                }}
+              />
+            </>
+          )}
+        </div>
+        : <div className="jk-row ws-np nowrap tx-s">
+          <T className="tt-se">{testCaseValue.sample ? 's.' : 'c.'}</T>&nbsp;{testCaseValue.index + 1}
+        </div>
     );
     
     const { timeLimitExceeded, memoryLimitExceeded, runtimeError } = getErrors(testCaseValue, timeLimit, memoryLimit);
@@ -124,40 +142,24 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     
     tabs[testCaseValue.key] = {
       key: testCaseValue.key,
-      header: testCaseValue.sample
-        ? <>
-          {sample}
-          {testCaseValue.testOut
-            && (testCaseValue.status === SubmissionRunStatus.EXECUTED_TEST_CASE || testCaseValue.status === SubmissionRunStatus.FAILED_TEST_CASE)
-            && (
-              <>
-                &nbsp;
-                <Tooltip content={<T className="tt-se">{PROBLEM_VERDICT[verdict]?.label}</T>}>
-                  <div
-                    className="jk-tag tx-t"
-                    style={{ backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark }}
-                  >
-                    {verdict}
-                  </div>
-                </Tooltip>
-              </>
-            )}
-        </>
-        : testCaseValue.key === testCaseKey
-          ? <div className="jk-row ws-np nowrap tx-s">
-            <T className="tt-se">custom</T>
-            &nbsp;{testCaseValue.index + 1}&nbsp;
-            <DeleteIcon
-              size="small"
-              className="clickable br-50-pc"
-              onClick={() => {
-                const newTestCases = { ...testCases };
-                delete newTestCases[testCaseValue.key];
-                onChange?.({ testCases: newTestCases });
-              }}
-            />
-          </div>
-          : <div className="jk-row ws-np nowrap tx-s"><T className="tt-se">c.</T>&nbsp;{testCaseValue.index + 1}</div>,
+      header: <>
+        {headerLabel}
+        {testCaseValue.testOut
+          && (testCaseValue.status === SubmissionRunStatus.EXECUTED_TEST_CASE || testCaseValue.status === SubmissionRunStatus.FAILED_TEST_CASE)
+          && (
+            <>
+              &nbsp;
+              <Tooltip content={<T className="tt-se">{PROBLEM_VERDICT[verdict]?.label}</T>}>
+                <div
+                  className="jk-tag tx-t"
+                  style={{ backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark }}
+                >
+                  {verdict}
+                </div>
+              </Tooltip>
+            </>
+          )}
+      </>,
       body: (
         <TextArea
           style={{ height: '100%', boxShadow: 'none', borderRadius: 0 }}
@@ -263,6 +265,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                 onChange={tabKey => setTestCaseKey(tabKey)}
               />
             </div>
+            {/*TODO: add character to distinguish the buttons*/}
             {enableAddSampleCases && onChange && (
               <div>
                 <AddCaseButton onChange={onChange} testCasesValues={testCasesValues} testCases={testCases} sample />
