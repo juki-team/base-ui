@@ -14,4 +14,5 @@ export interface FetcherLayerProps<T extends (ContentResponseType<U> | ContentsR
   loadingView?: ReactNodeOrFunctionType,
   children: ReactNodeOrFunctionP1Type<{ data: T, isLoading: boolean, error?: any, mutate: KeyedMutator<any> }>,
   onError?: (error?: any) => void,
+  triggerFetch?: number,
 }

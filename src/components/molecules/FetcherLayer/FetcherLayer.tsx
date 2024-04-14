@@ -1,5 +1,5 @@
 import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useFetcher, useNotification } from '../../../hooks';
 import { JukiSurprisedImage, SpinIcon } from '../../atoms';
@@ -14,7 +14,7 @@ const isContentsResponseType = <T, >(data: any): data is ContentsResponseType<T>
 };
 
 export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>(props: FetcherLayerProps<T, U>) => {
-  const { url, options, errorView, loadingView, children, onError } = props;
+  const { url, options, errorView, loadingView, children, onError, triggerFetch } = props;
   const { isLoading, data, error, mutate } = useFetcher<T>(url, {
     revalidateOnFocus: true,
     revalidateIfStale: true,
@@ -22,6 +22,13 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
     ...options,
   });
   const { notifyResponse } = useNotification();
+  const renderRef = useRef(0);
+  useEffect(() => {
+    if (renderRef.current) {
+      void mutate();
+    }
+    renderRef.current++;
+  }, [ triggerFetch, mutate ]);
   
   useEffect(() => {
     if (data && (data?.success === false || error)) {
