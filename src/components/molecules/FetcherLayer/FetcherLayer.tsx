@@ -14,8 +14,10 @@ const isContentsResponseType = <T, >(data: any): data is ContentsResponseType<T>
 };
 
 export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>(props: FetcherLayerProps<T, U>) => {
+  
   const { url, options, errorView, loadingView, children, onError, triggerFetch } = props;
-  const { isLoading, data, error, mutate } = useFetcher<T>(url, {
+  
+  const { isLoading, data, error, mutate, isValidating } = useFetcher<T>(url, {
     revalidateOnFocus: true,
     revalidateIfStale: true,
     shouldRetryOnError: true,
@@ -46,12 +48,15 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
       </div>
     );
   }
-  if (isContentResponseType<U>(data)) {
-    return <>{renderReactNodeOrFunctionP1(children, { data, isLoading, error, mutate })}</>;
-  }
-  
-  if (isContentsResponseType<U>(data)) {
-    return <>{renderReactNodeOrFunctionP1(children, { data, isLoading, error, mutate })}</>;
+  if (isContentResponseType<U>(data) || isContentsResponseType<U>(data)) {
+    return <>
+      {renderReactNodeOrFunctionP1(children, { data, isLoading, error, mutate })}
+      {isValidating && (
+        <div className="jk-overlay">
+          <SpinIcon size="very-huge" className="cr-py" />
+        </div>
+      )}
+    </>;
   }
   
   if (errorView) {

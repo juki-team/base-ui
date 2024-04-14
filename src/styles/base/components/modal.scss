@@ -45,6 +45,7 @@
   @include transition(background-color);
   outline: none;
   width: var(--modal-width);
+  overflow: hidden;
   
   .jk-modal-close-button {
     z-index: 1;
