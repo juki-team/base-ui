@@ -18,5 +18,3 @@ export const EMPTY_COMPANY = {
   contactTelegram: 'https://t.me/OscarGauss',
   key: '',
 };
-
-export * from './sounds';

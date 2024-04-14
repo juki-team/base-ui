@@ -1,20 +1,26 @@
 import React, { PropsWithChildren, Reducer, useReducer } from 'react';
-import { ERROR_AUDIO, SUCCESS_AUDIO } from '../../../constants';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI, useSound } from '../../../hooks';
 import { CardNotification } from './CardNotification';
 import { NotificationContext } from './context';
 import { NotificationAction, NotificationActionsTypes, NotificationProps, NotificationType } from './types';
 
 export function NotificationProvider({ children }: PropsWithChildren<{}>) {
   
+  const sound = useSound();
   const [ state, dispatch ] = useReducer<Reducer<NotificationProps[], NotificationActionsTypes>>((state, action) => {
     switch (action.type) {
       case NotificationAction.ADD_NOTIFICATION:
         if (action.payload.type === NotificationType.SUCCESS) {
-          void SUCCESS_AUDIO.play();
+          void sound.playSuccess();
+        }
+        if (action.payload.type === NotificationType.INFO) {
+          void sound.playNotification();
         }
         if (action.payload.type === NotificationType.ERROR) {
-          void ERROR_AUDIO.play();
+          void sound.playError();
+        }
+        if (action.payload.type === NotificationType.WARNING) {
+          void sound.playWarning();
         }
         return [ ...state, { ...action.payload } ];
       case NotificationAction.REMOVE_NOTIFICATION:

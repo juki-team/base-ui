@@ -1,8 +1,7 @@
 import React, { MutableRefObject, ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { ERROR_AUDIO } from '../../../../constants';
 import { classNames } from '../../../../helpers';
-import { useOutsideAlerter } from '../../../../hooks';
+import { useOutsideAlerter, useSound } from '../../../../hooks';
 import {
   Button,
   CloseIcon,
@@ -84,6 +83,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
   const layoutEditorRef = useRef(null);
   const isOpenInformationModalRef = useRef(false);
   const isOpenUploadImageModalRef = useRef(false);
+  const sound = useSound();
   useEffect(() => {
     setEditValue(source);
     setTextareaValue(source);
@@ -94,7 +94,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
       accept?.();
       setModal(null);
     };
-    void ERROR_AUDIO.play();
+    sound.playWarning();
     setModal(
       <TwoActionModal
         isOpen
