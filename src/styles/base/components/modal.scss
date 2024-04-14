@@ -19,7 +19,7 @@
   
   &:not(.expand) {
     .ReactModal__Overlay {
-      padding: var(--pad-m);
+      padding: var(--pad-md);
       overflow: auto;
     }
   }
@@ -32,6 +32,7 @@
     
     .jk-modal-body {
       max-height: var(--100VH);
+      max-width: 100vw;
     }
   }
 }
@@ -51,7 +52,8 @@
     top: 0;
     right: 0;
     line-height: inherit;
-    margin: calc(var(--border-radius) / 2);
+    margin: var(--border-radius);
+    --button-padding: 4px;
     
     .jk-icon {
       border-radius: 50%;
@@ -62,9 +64,10 @@
     position: relative;
     width: 100%;
     padding: 0;
-    overflow: visible;
-    //max-height: calc(var(--100VH) - var(--pad-m) * 2);
+    overflow: auto;
     box-sizing: border-box;
+    max-height: calc(var(--100VH) - var(--pad-md) - var(--pad-md));
+    max-width: calc(100vw - var(--pad-md) - var(--pad-md));
   }
 }
 
@@ -128,15 +131,6 @@
       padding: var(--pad-s) 0;
       @include sm {
         text-align: center;
-      }
-    }
-    
-    .modal-alert-actions {
-      @include sm {
-        flex-direction: column;
-        button {
-          margin: var(--pad-t) 0 !important;
-        }
       }
     }
   }

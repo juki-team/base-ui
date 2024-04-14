@@ -30,7 +30,7 @@ export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) =>
       <div className="modal-alert-content">
         {children}
       </div>
-      <div className={classNames('modal-alert-actions jk-row gap right', { nowrap: viewPortSize !== 'sm' })}>
+      <div className={classNames('modal-alert-actions jk-row-col gap right', { nowrap: viewPortSize !== 'sm' })}>
         {secondary && (
           <ButtonLoader
             onClick={secondary.onClick}

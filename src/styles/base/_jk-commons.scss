@@ -387,7 +387,11 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   
   @include sm {
     @include jk-col;
-    align-items: stretch;
+    align-items: stretch !important;
+    align-content: center !important;
+    > * {
+      width: 100% !important;
+    }
   }
   
   @include md-hg {
