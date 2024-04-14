@@ -1,5 +1,5 @@
 import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useFetcher, useNotification } from '../../../hooks';
 import { JukiSurprisedImage, SpinIcon } from '../../atoms';
@@ -22,12 +22,10 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
     ...options,
   });
   const { notifyResponse } = useNotification();
-  const renderRef = useRef(0);
   useEffect(() => {
-    if (renderRef.current) {
+    if (triggerFetch) {
       void mutate();
     }
-    renderRef.current++;
   }, [ triggerFetch, mutate ]);
   
   useEffect(() => {
