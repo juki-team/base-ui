@@ -1,4 +1,6 @@
 import {
+  CodeEditorTestCasesType,
+  CodeEditorTestCaseType,
   mex,
   PROBLEM_VERDICT,
   ProblemVerdict,
@@ -14,13 +16,71 @@ import { useJukiUser, useNotification } from '../../../../hooks';
 import { AddIcon, DeleteIcon, T, TextArea, Tooltip } from '../../../atoms';
 import { SplitPane, Tabs, TabsInline, TabType } from '../../../molecules';
 import { NotificationType } from '../../Notifications';
-import { TestCasesProps } from '../types';
+import { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
 import { getErrors } from '../utils';
 import { LogInfo } from './LogInfo';
 
+const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = false }: {
+  onChange: CodeRunnerEditorOnChangeType<T>,
+  testCasesValues: CodeEditorTestCaseType[],
+  testCases: CodeEditorTestCasesType,
+  sample?: boolean,
+}) => {
+  const { addNotification } = useNotification();
+  return (
+    <Tooltip
+      content={<T className="ws-np tt-se tx-s">{`add ${sample ? 'sample' : 'custom sample'} case`}</T>}
+      placement="bottom-end"
+    >
+      <div className="jk-button light small only-icon" style={{ margin: '6px' }}>
+        <AddIcon
+          size="small"
+          onClick={() => {
+            const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
+            const noCustomCases = testCasesValues.filter(testCaseValue => testCaseValue.sample);
+            const cases = sample ? noCustomCases : customCases;
+            if (cases.length < 10) {
+              const key = v4();
+              const index = mex(cases.map(testCaseValue => testCaseValue.index));
+              onChange?.({
+                testCases: {
+                  ...testCases,
+                  [key]: {
+                    key,
+                    index,
+                    in: '',
+                    out: '',
+                    testOut: '',
+                    withPE: noCustomCases?.[0]?.withPE ?? true,
+                    err: '',
+                    log: '',
+                    hidden: false,
+                    sample: sample,
+                    status: SubmissionRunStatus.NONE,
+                  },
+                },
+              });
+            } else {
+              addNotification({ type: NotificationType.QUIET, message: <T>maximum test cases achieved</T> });
+            }
+          }}
+        />
+      </div>
+    </Tooltip>
+  );
+}
+
 export const TestCases = <T, >(props: TestCasesProps<T>) => {
   
-  const { testCases, onChange, timeLimit, memoryLimit, direction, noCustomTestCases } = props;
+  const {
+    testCases,
+    onChange,
+    timeLimit,
+    memoryLimit,
+    direction,
+    enableAddSampleCases,
+    enableAddCustomSampleCases,
+  } = props;
   const { user: { settings: { [ProfileSetting.THEME]: userTheme } } } = useJukiUser();
   
   const addDark = userTheme === Theme.DARK ? 'CC' : '';
@@ -115,46 +175,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     };
   });
   
-  const actionSection = (
-    <Tooltip content={<T className="ws-np tt-se tx-s">add sample test case</T>} placement="bottom-end">
-      <div className="jk-button light small only-icon" style={{ margin: '6px' }}>
-        <AddIcon
-          size="small"
-          onClick={() => {
-            const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
-            const noCustomCases = testCasesValues.filter(testCaseValue => testCaseValue.sample);
-            if (customCases.length < 10) {
-              const key = v4();
-              const index = mex(customCases.map(testCaseValue => testCaseValue.index));
-              onChange?.({
-                testCases: {
-                  ...testCases,
-                  [key]: {
-                    key,
-                    index,
-                    in: '',
-                    out: '',
-                    testOut: '',
-                    withPE: noCustomCases?.[0].withPE ?? true,
-                    err: '',
-                    log: '',
-                    hidden: false,
-                    sample: false,
-                    status: SubmissionRunStatus.NONE,
-                  },
-                },
-              });
-            } else {
-              addNotification({ type: NotificationType.QUIET, message: <T>maximum test cases achieved</T> });
-            }
-          }}
-        />
-      </div>
-    </Tooltip>
-  );
-  
   const [ outputTab, setOutputTab ] = useState('output');
-  const { addNotification } = useNotification();
   const status = testCases[testCaseKey]?.status;
   useEffect(() => {
     setOutputTab(status === SubmissionRunStatus.FAILED
@@ -242,9 +263,14 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                 onChange={tabKey => setTestCaseKey(tabKey)}
               />
             </div>
-            {!noCustomTestCases && (
+            {enableAddSampleCases && onChange && (
               <div>
-                {actionSection}
+                <AddCaseButton onChange={onChange} testCasesValues={testCasesValues} testCases={testCases} sample />
+              </div>
+            )}
+            {enableAddCustomSampleCases && onChange && (
+              <div>
+                <AddCaseButton onChange={onChange} testCasesValues={testCasesValues} testCases={testCases} />
               </div>
             )}
           </div>

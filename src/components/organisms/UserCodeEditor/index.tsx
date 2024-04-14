@@ -42,6 +42,8 @@ interface UserCodeEditorProps<T> {
   onSourceChange: (source: string) => void,
   onLanguageChange?: (language: T) => void,
   initialSource?: { [key: string]: string },
+  enableAddSampleCases?: boolean,
+  enableAddCustomSampleCases?: boolean,
 }
 
 export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
@@ -56,6 +58,8 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     onSourceChange,
     onLanguageChange,
     initialSource,
+    enableAddSampleCases,
+    enableAddCustomSampleCases,
   } = props;
   const { user: { nickname } } = useJukiUser();
   
@@ -146,6 +150,8 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       middleButtons={middleButtons}
       testCases={testCases}
       expandPosition={expandPosition}
+      enableAddSampleCases={enableAddSampleCases}
+      enableAddCustomSampleCases={enableAddCustomSampleCases}
     />
   );
 };
