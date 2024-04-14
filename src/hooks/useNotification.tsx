@@ -47,7 +47,7 @@ export const useNotification = () => {
       setStatus?.(Status.ERROR);
     }
     if (response.success) {
-      notifySuccess(response, (message) => addNotification({ type: NotificationType.SUCCESS, message }));
+      notifySuccess(response, (message) => addNotification({ type: NotificationType.INFO, message }));
       setStatus?.(Status.SUCCESS);
     }
     return !!response.success;
