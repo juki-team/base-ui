@@ -41,6 +41,7 @@ export interface UserCodeEditorProps<T> {
   middleButtons?: CodeEditorMiddleButtonsType<T>,
   onSourceChange: (source: string) => void,
   onLanguageChange?: (language: T) => void,
+  onTestCasesChange?: (testCases: CodeEditorTestCasesType) => void,
   initialSource?: { [key: string]: string },
   enableAddSampleCases?: boolean,
   enableAddCustomSampleCases?: boolean,
@@ -57,6 +58,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     middleButtons,
     onSourceChange,
     onLanguageChange,
+    onTestCasesChange,
     initialSource,
     enableAddSampleCases,
     enableAddCustomSampleCases,
@@ -78,7 +80,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   });
   
   const [ language, setLanguage ] = useState<T>(editorSettings.lastLanguageUsed as T);
-  const [ testCases, setTestCases ] = useState(initialTestCases);
+  const [ testCases, setTestCases ] = useState<CodeEditorTestCasesType>(initialTestCases ?? {});
   const initialTestCasesString = JSON.stringify(initialTestCases);
   useEffect(() => {
     if (isStringJson(initialTestCasesString)) {
@@ -90,6 +92,9 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       setLanguage(languages[0].value);
     }
   }, [ language, languages ]);
+  useEffect(() => {
+    onTestCasesChange?.(testCases);
+  }, [ onTestCasesChange, testCases ]);
   const defaultValue: { [key: string]: { [key: string]: string } } = { [sourceStoreKey]: {} };
   ACCEPTED_PROGRAMMING_LANGUAGES.forEach(key => {
     defaultValue[sourceStoreKey][PROGRAMMING_LANGUAGE[key].mime] = PROGRAMMING_LANGUAGE[key].templateSourceCode;
