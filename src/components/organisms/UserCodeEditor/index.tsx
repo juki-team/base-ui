@@ -32,7 +32,7 @@ const useSaveStorage = <T extends Object, >(storeKey: string, defaultValue: T, i
   return [ value, setValue ];
 };
 
-interface UserCodeEditorProps<T> {
+export interface UserCodeEditorProps<T> {
   className?: string,
   expandPosition?: CodeEditorExpandPositionType,
   initialTestCases?: CodeEditorTestCasesType,
