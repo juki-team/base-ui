@@ -39,7 +39,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = fal
             const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
             const noCustomCases = testCasesValues.filter(testCaseValue => testCaseValue.sample);
             const cases = sample ? noCustomCases : customCases;
-            if (cases.length < 10) {
+            if (cases.length < (sample ? 30 : 15)) {
               const key = v4();
               const index = mex(cases.map(testCaseValue => testCaseValue.index));
               onChange?.({
