@@ -19,9 +19,14 @@ export const Regular: Story = {
       <div>
         <Collapse
           {...args}
-          header={({ isOpen, toggle }) => (
+          header={({ isOpen, toggle, isFullyOpened, isFullyClosed }) => (
             <div className="jk-row center gap bc-ss">
               Collapse Header
+              <div>
+                {!isFullyClosed && !isFullyOpened ? 'transition' : null}
+                {isFullyClosed ? 'fully-closed' : null}
+                {isFullyOpened ? 'fully-opened' : null}
+              </div>
               <div onClick={toggle} className="bc-er jk-row">
                 Click me
                 <UpIcon rotate={isOpen ? 0 : 180} className="link" />
