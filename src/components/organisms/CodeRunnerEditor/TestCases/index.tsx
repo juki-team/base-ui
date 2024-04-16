@@ -96,86 +96,87 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     }
   }, [ testCaseKey, testCases ]);
   
-  const tabs: { [key: string]: TabType<string> } = {};
-  testCasesValues.forEach(testCaseValue => {
-    
-    const headerLabel = (
-      testCaseValue.key === testCaseKey
-        ?
-        <div className="jk-row ws-np nowrap tx-s">
-          <T className="tt-se">{testCaseValue.sample ? 'sample' : 'custom'}</T>&nbsp;{testCaseValue.index + 1}
-          {(testCaseValue.sample ? enableAddSampleCases : enableAddCustomSampleCases) && (
-            <>
-              &nbsp;
-              <DeleteIcon
-                size="small"
-                className="clickable br-50-pc"
-                onClick={() => {
-                  const newTestCases = { ...testCases };
-                  delete newTestCases[testCaseValue.key];
-                  onChange?.({ testCases: newTestCases });
-                }}
-              />
-            </>
-          )}
-        </div>
-        : <div className="jk-row ws-np nowrap tx-s">
-          <T className="tt-se">{testCaseValue.sample ? 's.' : 'c.'}</T>&nbsp;{testCaseValue.index + 1}
-        </div>
-    );
-    
-    const { timeLimitExceeded, memoryLimitExceeded, runtimeError } = getErrors(testCaseValue, timeLimit, memoryLimit);
-    
-    const verdict = (
-      timeLimitExceeded
-        ? ProblemVerdict.TLE
-        : memoryLimitExceeded
-          ? ProblemVerdict.MLE
-          : runtimeError
-            ? ProblemVerdict.RE
-            : testCaseValue.out === testCaseValue.testOut
-              ? ProblemVerdict.AC
-              : testCaseValue.withPE && testCaseValue.out.split(' ').join('').split('\n').join('') === testCaseValue.testOut.split(' ').join('').split('\n').join('')
-                ? ProblemVerdict.PE
-                : ProblemVerdict.WA
-    );
-    
-    tabs[testCaseValue.key] = {
-      key: testCaseValue.key,
-      header: <>
-        {headerLabel}
-        {testCaseValue.testOut
-          && (testCaseValue.status === SubmissionRunStatus.EXECUTED_TEST_CASE || testCaseValue.status === SubmissionRunStatus.FAILED_TEST_CASE)
-          && (
-            <>
-              &nbsp;
-              <Tooltip content={<T className="tt-se">{PROBLEM_VERDICT[verdict]?.label}</T>}>
-                <div
-                  className="jk-tag tx-t"
-                  style={{ backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark }}
-                >
-                  {verdict}
-                </div>
-              </Tooltip>
-            </>
-          )}
-      </>,
-      body: (
-        <TextArea
-          style={{ height: '100%', boxShadow: 'none', borderRadius: 0 }}
-          className="tx-s"
-          key={testCaseValue.key}
-          value={testCaseValue.in}
-          onChange={value => onChange?.({
-            testCases: {
-              ...testCases,
-              [testCaseValue.key]: { ...testCaseValue, in: value },
-            },
-          })}
-        />
-      ),
-    };
-  });
+  const inputTabs: { [key: string]: TabType<string> } = {};
+  testCasesValues
+    .filter(testCaseValue => !testCaseValue.hidden)
+    .forEach(testCaseValue => {
+      const headerLabel = (
+        testCaseValue.key === testCaseKey
+          ?
+          <div className="jk-row ws-np nowrap tx-s">
+            <T className="tt-se">{testCaseValue.sample ? 'sample' : 'custom'}</T>&nbsp;{testCaseValue.index + 1}
+            {(testCaseValue.sample ? enableAddSampleCases : enableAddCustomSampleCases) && (
+              <>
+                &nbsp;
+                <DeleteIcon
+                  size="small"
+                  className="clickable br-50-pc"
+                  onClick={() => {
+                    const newTestCases = { ...testCases };
+                    delete newTestCases[testCaseValue.key];
+                    onChange?.({ testCases: newTestCases });
+                  }}
+                />
+              </>
+            )}
+          </div>
+          : <div className="jk-row ws-np nowrap tx-s">
+            <T className="tt-se">{testCaseValue.sample ? 's.' : 'c.'}</T>&nbsp;{testCaseValue.index + 1}
+          </div>
+      );
+      
+      const { timeLimitExceeded, memoryLimitExceeded, runtimeError } = getErrors(testCaseValue, timeLimit, memoryLimit);
+      
+      const verdict = (
+        timeLimitExceeded
+          ? ProblemVerdict.TLE
+          : memoryLimitExceeded
+            ? ProblemVerdict.MLE
+            : runtimeError
+              ? ProblemVerdict.RE
+              : testCaseValue.out === testCaseValue.testOut
+                ? ProblemVerdict.AC
+                : testCaseValue.withPE && testCaseValue.out.split(' ').join('').split('\n').join('') === testCaseValue.testOut.split(' ').join('').split('\n').join('')
+                  ? ProblemVerdict.PE
+                  : ProblemVerdict.WA
+      );
+      
+      inputTabs[testCaseValue.key] = {
+        key: testCaseValue.key,
+        header: <>
+          {headerLabel}
+          {testCaseValue.testOut
+            && (testCaseValue.status === SubmissionRunStatus.EXECUTED_TEST_CASE || testCaseValue.status === SubmissionRunStatus.FAILED_TEST_CASE)
+            && (
+              <>
+                &nbsp;
+                <Tooltip content={<T className="tt-se">{PROBLEM_VERDICT[verdict]?.label}</T>}>
+                  <div
+                    className="jk-tag tx-t"
+                    style={{ backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark }}
+                  >
+                    {verdict}
+                  </div>
+                </Tooltip>
+              </>
+            )}
+        </>,
+        body: (
+          <TextArea
+            style={{ height: '100%', boxShadow: 'none', borderRadius: 0 }}
+            className="tx-s"
+            key={testCaseValue.key}
+            value={testCaseValue.in}
+            onChange={value => onChange?.({
+              testCases: {
+                ...testCases,
+                [testCaseValue.key]: { ...testCaseValue, in: value },
+              },
+            })}
+          />
+        ),
+      };
+    });
   
   const [ outputTab, setOutputTab ] = useState('output');
   const status = testCases[testCaseKey]?.status;
@@ -260,12 +261,12 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
           <div className="jk-row nowrap border-bottom-highlight-light">
             <div className="flex-1" style={{ overflow: 'auto' }}>
               <TabsInline
-                tabs={tabs}
+                tabs={inputTabs}
                 selectedTabKey={testCaseKey}
                 onChange={tabKey => setTestCaseKey(tabKey)}
               />
             </div>
-            {/*TODO: add character to distinguish the buttons*/}
+            {/*TODO: add character inside de buttons to distinguish the buttons*/}
             {enableAddSampleCases && onChange && (
               <div>
                 <AddCaseButton onChange={onChange} testCasesValues={testCasesValues} testCases={testCases} sample />
@@ -278,7 +279,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             )}
           </div>
           <div className="flex-1">
-            {renderReactNodeOrFunctionP1(tabs[testCaseKey]?.body, { selectedTabKey: testCaseKey })}
+            {renderReactNodeOrFunctionP1(inputTabs[testCaseKey]?.body, { selectedTabKey: testCaseKey })}
           </div>
         </div>
         <div className="test-cases-output-stderr">
