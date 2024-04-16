@@ -44,8 +44,12 @@ export interface UserCodeEditorProps<T> {
   initialTestCases?: CodeEditorTestCasesType,
   sourceStoreKey: string,
   languages: { value: T, label: string }[],
-  middleButtons?: CodeEditorMiddleButtonsType<T>,
-  onSourceChange: (source: string) => void,
+  middleButtons?: (props: {
+    source: string,
+    language: T,
+    testCases: CodeEditorTestCasesType
+  }) => CodeEditorMiddleButtonsType<T>,
+  onSourceChange?: (source: string) => void,
   onLanguageChange?: (language: T) => void,
   onTestCasesChange?: (testCases: CodeEditorTestCasesType) => void,
   initialSource?: { [key: string]: string },
@@ -114,7 +118,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   const mime = PROGRAMMING_LANGUAGE[language as ProgrammingLanguage]?.mime || '.txt';
   const newSource = source[sourceStoreKey]?.[mime] || '';
   useEffect(() => {
-    onSourceChange(newSource);
+    onSourceChange?.(newSource);
   }, [ newSource, onSourceChange ]);
   
   useEffect(() => {
@@ -127,7 +131,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       theme={editorSettings.theme}
       tabSize={editorSettings.tabSize}
       fontSize={editorSettings.fontSize}
-      sourceCode={source[sourceStoreKey]?.[mime] || ''}
+      sourceCode={newSource}
       language={language}
       languages={languages}
       onChange={({ sourceCode, language: newLanguage, testCases, theme, tabSize, fontSize }) => {
@@ -157,7 +161,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
           setEditorSettings(prevState => ({ ...prevState, fontSize }));
         }
       }}
-      middleButtons={middleButtons}
+      middleButtons={middleButtons?.({ source: newSource, language, testCases })}
       testCases={testCases}
       expandPosition={expandPosition}
       enableAddSampleCases={enableAddSampleCases}
