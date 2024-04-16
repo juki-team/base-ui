@@ -6,10 +6,10 @@ import {
   ProgrammingLanguage,
   Theme,
 } from '@juki-team/commons';
-import React, { Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { getEditorSettingsStorageKey, getSourcesStoreKey } from '../../../helpers';
 import { useJukiUser } from '../../../hooks';
-import { CodeEditorExpandPositionType, CodeRunnerEditor, CodeRunnerEditorProps } from '../CodeRunnerEditor';
+import { CodeEditorExpandPositionType, CodeEditorMiddleButtonsType, CodeRunnerEditor } from '../CodeRunnerEditor';
 
 const useSaveStorage = <T extends Object, >(storeKey: string, defaultValue: T, initialValue?: T): [ T, Dispatch<SetStateAction<T>> ] => {
   
@@ -38,10 +38,6 @@ const useSaveStorage = <T extends Object, >(storeKey: string, defaultValue: T, i
   return [ value, setValue ];
 };
 
-// types CodeEditorMiddleButtonsType = (props: Omit<CodeRunnerEditorProps<T>, 'onChange' | 'className' | 'middleButtons'> & {
-//   widthContainer: number
-// }) => ReactNode
-
 export interface UserCodeEditorProps<T> {
   className?: string,
   expandPosition?: CodeEditorExpandPositionType,
@@ -52,8 +48,7 @@ export interface UserCodeEditorProps<T> {
     source: string,
     language: T,
     testCases: CodeEditorTestCasesType
-  }) => (props: Omit<CodeRunnerEditorProps<T>, 'onChange' | 'className' | 'middleButtons'> & { widthContainer: number })
-    => ReactNode,
+  }) => CodeEditorMiddleButtonsType<T>,
   onSourceChange?: (source: string) => void,
   onLanguageChange?: (language: T) => void,
   onTestCasesChange?: (testCases: CodeEditorTestCasesType) => void,
