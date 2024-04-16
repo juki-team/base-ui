@@ -20,6 +20,12 @@ const useSaveStorage = <T extends Object, >(storeKey: string, defaultValue: T, i
   }
   const [ value, setValue ] = useState<T>({ ...defaultValue, ...storeRecovered, ...(initialValue || {}) });
   
+  const initialValueString = JSON.stringify(initialValue ?? {});
+  useEffect(() => {
+    const initialValue = JSON.parse(initialValueString);
+    setValue(prevState => ({ ...prevState, ...initialValue }));
+  }, [ initialValueString ]);
+  
   useEffect(() => {
     if (storeKey) {
       const stringValue = JSON.stringify(value);
