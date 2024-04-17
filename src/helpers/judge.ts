@@ -21,7 +21,7 @@ export const getErrors = (testCase: SubmissionTestCaseType, timeLimit: number, m
   };
 };
 
-export const getVerdictFromTestCase = (testCaseValue: CodeEditorTestCaseType, timeLimit: number, memoryLimit: number) => {
+export const getVerdictFromTestCase = (testCaseValue: CodeEditorTestCaseType, timeLimit: number, memoryLimit: number): ProblemVerdict => {
   const { timeLimitExceeded, memoryLimitExceeded, runtimeError } = getErrors(testCaseValue, timeLimit, memoryLimit);
   
   return (
