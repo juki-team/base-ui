@@ -3,7 +3,6 @@ import {
   CodeEditorTestCaseType,
   mex,
   PROBLEM_VERDICT,
-  ProblemVerdict,
   ProfileSetting,
   SUBMISSION_RUN_STATUS,
   SubmissionRunStatus,
@@ -11,13 +10,12 @@ import {
 } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
+import { classNames, getErrors, getVerdictFromTestCase, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useJukiUser, useNotification } from '../../../../hooks';
 import { AddIcon, DeleteIcon, T, TextArea, Tooltip } from '../../../atoms';
 import { SplitPane, Tabs, TabsInline, TabType } from '../../../molecules';
 import { NotificationType } from '../../Notifications';
 import { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
-import { getErrors } from '../utils';
 import { LogInfo } from './LogInfo';
 
 const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = false }: {
@@ -125,21 +123,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
           </div>
       );
       
-      const { timeLimitExceeded, memoryLimitExceeded, runtimeError } = getErrors(testCaseValue, timeLimit, memoryLimit);
-      
-      const verdict = (
-        timeLimitExceeded
-          ? ProblemVerdict.TLE
-          : memoryLimitExceeded
-            ? ProblemVerdict.MLE
-            : runtimeError
-              ? ProblemVerdict.RE
-              : testCaseValue.out === testCaseValue.testOut
-                ? ProblemVerdict.AC
-                : testCaseValue.withPE && testCaseValue.out.split(' ').join('').split('\n').join('') === testCaseValue.testOut.split(' ').join('').split('\n').join('')
-                  ? ProblemVerdict.PE
-                  : ProblemVerdict.WA
-      );
+      const verdict = getVerdictFromTestCase(testCaseValue, timeLimit, memoryLimit);
       
       inputTabs[testCaseValue.key] = {
         key: testCaseValue.key,

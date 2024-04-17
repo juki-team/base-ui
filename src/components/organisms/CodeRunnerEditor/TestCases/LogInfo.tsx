@@ -1,8 +1,8 @@
 import React from 'react';
-import { classNames } from '../../../../helpers';
+import { classNames, getErrors } from '../../../../helpers';
 import { T } from '../../../atoms';
 import { LogInfoProps } from '../types';
-import { getErrors } from '../utils';
+
 
 export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
   

@@ -1,6 +1,7 @@
 export * from './commons';
 export * from './date';
 export * from './fetch';
+export * from './judge';
 export * from './problem';
 export * from './router';
 export * from './store';
