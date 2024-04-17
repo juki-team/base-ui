@@ -1,8 +1,8 @@
+import { getDataOfTestCase } from '@juki-team/commons';
 import React from 'react';
-import { classNames, getErrors } from '../../../../helpers';
+import { classNames } from '../../../../helpers';
 import { T } from '../../../atoms';
 import { LogInfoProps } from '../types';
-
 
 export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
   
@@ -13,7 +13,7 @@ export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
     memoryLimitExceeded,
     exitCode,
     runtimeError,
-  } = getErrors(testCase, timeLimit, memoryLimit);
+  } = getDataOfTestCase(testCase, timeLimit, memoryLimit);
   
   return (
     <>

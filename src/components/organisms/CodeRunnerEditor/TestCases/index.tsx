@@ -1,13 +1,15 @@
 import {
   CodeEditorTestCasesType,
   CodeEditorTestCaseType,
+  getDataOfTestCase,
+  getVerdictFromTestCase,
   mex,
   SUBMISSION_RUN_STATUS,
   SubmissionRunStatus,
 } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
-import { classNames, getErrors, getVerdictFromTestCase, renderReactNodeOrFunctionP1 } from '../../../../helpers';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useNotification } from '../../../../hooks';
 import { AddIcon, DeleteIcon, T, TextArea, Tooltip } from '../../../atoms';
 import { SplitPane, Tabs, TabsInline, TabType } from '../../../molecules';
@@ -119,7 +121,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
           </div>
       );
       
-      const verdict = getVerdictFromTestCase(testCaseValue, timeLimit, memoryLimit);
+      const { verdict } = getVerdictFromTestCase(testCaseValue, timeLimit, memoryLimit);
       
       inputTabs[testCaseValue.key] = {
         key: testCaseValue.key,
@@ -186,7 +188,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
         <T
           className={classNames(
             'tt-se tx-s',
-            { 'cr-er': getErrors(testCases[testCaseKey], timeLimit, memoryLimit).failed },
+            { 'cr-er': getDataOfTestCase(testCases[testCaseKey], timeLimit, memoryLimit).failed },
           )}
         >
           output
@@ -210,7 +212,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
         <T
           className={classNames(
             'tt-se tx-s',
-            { 'cr-er': getErrors(testCases[testCaseKey], timeLimit, memoryLimit).failed },
+            { 'cr-er': getDataOfTestCase(testCases[testCaseKey], timeLimit, memoryLimit).failed },
           )}
         >
           error
