@@ -11,6 +11,7 @@ export type CodeRunnerEditorOnChangeType<T> = (props: CodeRunnerEditorProperties
 export type CodeEditorMiddleButtonsType<T> = (props: Omit<CodeRunnerEditorProps<T>, 'onChange' | 'className' | 'middleButtons'> & {
   widthContainer: number
   isRunning: boolean,
+  testCases: CodeEditorTestCasesType,
 }) => ReactNode;
 
 export type CodeEditorExpandPositionType = {
