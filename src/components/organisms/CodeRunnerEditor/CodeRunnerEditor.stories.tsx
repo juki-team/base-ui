@@ -93,7 +93,7 @@ export const CodeRunnerEditorWithIo: Story = {
 
 CodeRunnerEditorWithIo.args = {
   readOnly: false, // op
-  enableAddSampleCases: true,
+  // enableAddSampleCases: true,
   enableAddCustomSampleCases: true,
   testCases: {
     'test-empty': {
@@ -114,7 +114,7 @@ CodeRunnerEditorWithIo.args = {
       index: 1,
       in: '5\n1 2\n-9 9\n-19 8\n0 0\n1 1',
       out: '',
-      testOut: '3\n0\n-11\n0\n2',
+      testOut: '3\n0\n-11\n0\n2\n',
       withPE: true,
       err: '',
       log: '',

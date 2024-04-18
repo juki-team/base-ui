@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useNotification } from '../../../../hooks';
-import { AddIcon, DeleteIcon, T, TextArea, Tooltip } from '../../../atoms';
+import { AddIcon, DeleteIcon, InfoIcon, T, TextArea, Tooltip } from '../../../atoms';
 import { SplitPane, Tabs, TabsInline, TabType } from '../../../molecules';
 import { NotificationType } from '../../Notifications';
 import { ProblemVerdictTag } from '../../ProblemVerdictTag';
@@ -142,12 +142,12 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             className="tx-s"
             key={testCaseValue.key}
             value={testCaseValue.in}
-            onChange={value => onChange?.({
+            onChange={(testCaseValue.sample ? enableAddSampleCases : enableAddCustomSampleCases) ? value => onChange?.({
               testCases: {
                 ...testCases,
                 [testCaseValue.key]: { ...testCaseValue, in: value },
               },
-            })}
+            }) : undefined}
           />
         ),
       };
@@ -181,29 +181,57 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     </>
   );
   
-  const outputTabs: TabType<string>[] = [
-    {
-      key: 'output',
+  const outputTabs: TabType<string>[] = [];
+  
+  if (testCases[testCaseKey]?.testOut) {
+    outputTabs.push({
+      key: 'test-output',
       header: (
-        <T
-          className={classNames(
-            'tt-se tx-s',
-            { 'cr-er': getDataOfTestCase(testCases[testCaseKey], timeLimit, memoryLimit).failed },
-          )}
-        >
-          output
-        </T>
+        <div className="jk-row gap">
+          <T className={classNames('tt-se tx-s')}>
+            sample output
+          </T>
+          <Tooltip
+            content={
+              <T>{`${testCases[testCaseKey]?.testOut.lastIndexOf('\n') === testCases[testCaseKey]?.testOut.length - 1 ? '' : 'no '}newline at end of file`}</T>
+            }
+            placement="top"
+          >
+            <div className="jk-row"><InfoIcon size="small" /></div>
+          </Tooltip>
+        </div>
       ),
       body: (
         <div>
           {loaderAndInfo}
           <div className="content-log">
-            <span className="jk-text-stdout">{testCases[testCaseKey]?.out}</span>
+            <span className="jk-text-stdout">{testCases[testCaseKey]?.testOut}</span>
           </div>
         </div>
       ),
-    },
-  ];
+    });
+  }
+  outputTabs.push({
+    key: 'output',
+    header: (
+      <T
+        className={classNames(
+          'tt-se tx-s',
+          { 'cr-er': getDataOfTestCase(testCases[testCaseKey], timeLimit, memoryLimit).failed },
+        )}
+      >
+        output
+      </T>
+    ),
+    body: (
+      <div>
+        {loaderAndInfo}
+        <div className="content-log">
+          <span className="jk-text-stdout">{testCases[testCaseKey]?.out}</span>
+        </div>
+      </div>
+    ),
+  });
   
   if (testCases[testCaseKey]?.err) {
     outputTabs.push({
