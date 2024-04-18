@@ -6,11 +6,11 @@ import {
   SocketEventRunResponseDTO,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJkSocket, useJukiUI, useJukiUser } from '../../../hooks';
 import { Portal, T } from '../../atoms';
-import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, SplitPane } from '../../molecules';
+import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, CodeEditorPropertiesType, SplitPane } from '../../molecules';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
 import { TestCases } from './TestCases';
@@ -122,8 +122,51 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
       default:
     }
   }, [ lastRunStatus, onChange, testCases ]);
+  const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
+    onChange?.(props);
+  }, [ onChange ]);
   
   const isMobileViewPort = viewPortSize === 'sm';
+  
+  const firstChild = useMemo(() => (
+    <div className="editor-layout">
+      <CodeEditor
+        theme={preferredTheme}
+        onChange={codeEditorOnChange}
+        language={language}
+        readOnly={false}
+        sourceCode={sourceCode}
+        tabSize={tabSize}
+        fontSize={fontSize}
+      />
+    </div>
+  ), [ preferredTheme, codeEditorOnChange, language, sourceCode, tabSize, fontSize ]);
+  
+  const withTestCases = !!testCases;
+  
+  const closableSecondPane = useMemo(() => (
+    withTestCases
+      ? { align: 'right' as 'right', expandLabel: <T className="label tx-t">test cases</T> }
+      : undefined
+  ), [ withTestCases ]);
+  
+  const closableFirstPane = useMemo(() => (
+    (withTestCases && isMobileViewPort)
+      ? { align: 'right' as 'right', expandLabel: <T className="label tx-t">code editor</T> }
+      : undefined
+  ), [ withTestCases, isMobileViewPort ]);
+  
+  const secondChild = useMemo(() => (
+    <TestCases
+      testCases={testCases}
+      onChange={onChange}
+      timeLimit={timeLimit}
+      memoryLimit={memoryLimit}
+      direction={direction}
+      enableAddSampleCases={!!enableAddSampleCases}
+      enableAddCustomSampleCases={!!enableAddCustomSampleCases}
+    />
+  ), [ testCases, onChange, timeLimit, memoryLimit, direction, enableAddSampleCases, enableAddCustomSampleCases ]);
   
   const body = (
     <div
@@ -166,38 +209,14 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           direction={direction}
           minSize={80}
           onlyFirstPane={!testCases}
-          closableSecondPane={testCases ? {
-            align: 'right',
-            expandLabel: <T className="label tx-t">test cases</T>,
-          } : undefined}
-          closableFirstPane={(testCases && isMobileViewPort) ? {
-            align: 'right',
-            expandLabel: <T className="label tx-t">code editor</T>,
-          } : undefined}
+          closableSecondPane={closableSecondPane}
+          closableFirstPane={closableFirstPane}
           toggleable
           onChangeDirection={setDirection}
           onePanelAtATime={isMobileViewPort}
         >
-          <div className="editor-layout">
-            <CodeEditor
-              theme={preferredTheme}
-              onChange={(props) => onChange?.(props)}
-              language={language}
-              readOnly={false}
-              sourceCode={sourceCode}
-              tabSize={tabSize}
-              fontSize={fontSize}
-            />
-          </div>
-          <TestCases
-            testCases={testCases || {}}
-            onChange={onChange}
-            timeLimit={timeLimit}
-            memoryLimit={memoryLimit}
-            direction={direction}
-            enableAddSampleCases={!!enableAddSampleCases}
-            enableAddCustomSampleCases={!!enableAddCustomSampleCases}
-          />
+          {firstChild}
+          {secondChild}
         </SplitPane>
       </div>
     </div>

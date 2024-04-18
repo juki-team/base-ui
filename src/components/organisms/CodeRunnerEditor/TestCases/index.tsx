@@ -71,7 +71,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = fal
 export const TestCases = <T, >(props: TestCasesProps<T>) => {
   
   const {
-    testCases,
+    testCases = {},
     onChange,
     timeLimit,
     memoryLimit,

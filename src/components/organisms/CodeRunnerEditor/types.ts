@@ -44,7 +44,7 @@ export interface SettingsModalProps<T> {
 }
 
 export interface TestCasesProps<T> {
-  testCases: CodeEditorTestCasesType,
+  testCases?: CodeEditorTestCasesType,
   onChange?: CodeRunnerEditorOnChangeType<T>,
   timeLimit: number,
   memoryLimit: number,

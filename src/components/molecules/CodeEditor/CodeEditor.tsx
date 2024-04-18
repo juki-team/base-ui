@@ -7,11 +7,11 @@ import { markdown } from '@codemirror/lang-markdown';
 import { python } from '@codemirror/lang-python';
 import { ProgrammingLanguage, Theme } from '@juki-team/commons';
 import CodeMirror from '@uiw/react-codemirror';
-import React from 'react';
+import React, { memo } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CodeEditorProps } from './types';
 
-export const CodeEditor = <T, >(props: CodeEditorProps<T>) => {
+const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
   
   const {
     sourceCode,
@@ -71,3 +71,5 @@ export const CodeEditor = <T, >(props: CodeEditorProps<T>) => {
     </div>
   );
 };
+
+export const CodeEditor = memo(CodeEditorCmp) as typeof CodeEditorCmp;

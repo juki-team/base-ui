@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
 import { useHandleState } from '../../../hooks'
 import { ExpandLessIcon, ExpandMoreIcon, NavigateBeforeIcon, NavigateNextIcon, T, ViewSideIcon } from '../../atoms';
 import { SplitPaneProps } from './types';
 
-export const SplitPane = (props: SplitPaneProps) => {
+export const SplitPane = memo((props: SplitPaneProps) => {
   
   const {
     children,
@@ -237,4 +237,4 @@ export const SplitPane = (props: SplitPaneProps) => {
       </div>
     </div>
   );
-};
+});

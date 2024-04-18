@@ -6,10 +6,15 @@ import {
   ProgrammingLanguage,
   Theme,
 } from '@juki-team/commons';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { getEditorSettingsStorageKey, getSourcesStoreKey } from '../../../helpers';
 import { useJukiUser } from '../../../hooks';
-import { CodeEditorExpandPositionType, CodeEditorMiddleButtonsType, CodeRunnerEditor } from '../CodeRunnerEditor';
+import {
+  CodeEditorExpandPositionType,
+  CodeEditorMiddleButtonsType,
+  CodeRunnerEditor,
+  CodeRunnerEditorPropertiesType,
+} from '../CodeRunnerEditor';
 
 const useSaveStorage = <T extends Object, >(storeKey: string, defaultValue: T, initialValue?: T): [ T, Dispatch<SetStateAction<T>> ] => {
   
@@ -125,6 +130,41 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     onLanguageChange?.(language);
   }, [ language, onLanguageChange ]);
   
+  const onChange = useCallback(({
+                                  sourceCode,
+                                  language: newLanguage,
+                                  testCases,
+                                  theme,
+                                  tabSize,
+                                  fontSize,
+                                }: CodeRunnerEditorPropertiesType<T>) => {
+    if (typeof sourceCode === 'string') {
+      setSource(prevState => ({
+        ...prevState,
+        [sourceStoreKey]: {
+          ...(prevState[sourceStoreKey] || {}),
+          [mime]: sourceCode,
+        },
+      }));
+    }
+    if (newLanguage) {
+      setLanguage(newLanguage);
+      setEditorSettings(prevState => ({ ...prevState, lastLanguageUsed: newLanguage }));
+    }
+    if (testCases) {
+      setTestCases(testCases);
+    }
+    if (theme) {
+      setEditorSettings(prevState => ({ ...prevState, theme }));
+    }
+    if (tabSize) {
+      setEditorSettings(prevState => ({ ...prevState, tabSize }));
+    }
+    if (fontSize) {
+      setEditorSettings(prevState => ({ ...prevState, fontSize }));
+    }
+  }, [ mime ]);
+  
   return (
     <CodeRunnerEditor
       className={className}
@@ -134,33 +174,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       sourceCode={newSource}
       language={language}
       languages={languages}
-      onChange={({ sourceCode, language: newLanguage, testCases, theme, tabSize, fontSize }) => {
-        if (typeof sourceCode === 'string') {
-          setSource(prevState => ({
-            ...prevState,
-            [sourceStoreKey]: {
-              ...(prevState[sourceStoreKey] || {}),
-              [mime]: sourceCode,
-            },
-          }));
-        }
-        if (newLanguage) {
-          setLanguage(newLanguage);
-          setEditorSettings(prevState => ({ ...prevState, lastLanguageUsed: newLanguage }));
-        }
-        if (testCases) {
-          setTestCases(testCases);
-        }
-        if (theme) {
-          setEditorSettings(prevState => ({ ...prevState, theme }));
-        }
-        if (tabSize) {
-          setEditorSettings(prevState => ({ ...prevState, tabSize }));
-        }
-        if (fontSize) {
-          setEditorSettings(prevState => ({ ...prevState, fontSize }));
-        }
-      }}
+      onChange={onChange}
       middleButtons={middleButtons?.({ source: newSource, language, testCases })}
       testCases={testCases}
       expandPosition={expandPosition}
