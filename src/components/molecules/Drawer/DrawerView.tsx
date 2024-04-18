@@ -1,6 +1,6 @@
 import React, { CSSProperties, memo, PropsWithChildren, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { SCROLL_WIDTH } from '../../../constants';
+import { RESIZE_DETECTOR_PROPS, SCROLL_WIDTH } from '../../../constants';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useKeyPress } from '../../../hooks';
 import { Button, CloseIcon, Portal } from '../../atoms';
@@ -19,7 +19,7 @@ export const DrawerView = memo((props: PropsWithChildren<DrawerViewProps>) => {
   } = props;
   
   const drawerLayoutRef = useRef(null);
-  const { height = 0, width = 0 } = useResizeDetector({ targetRef: drawerLayoutRef });
+  const { height = 0, width = 0 } = useResizeDetector({ targetRef: drawerLayoutRef, ...RESIZE_DETECTOR_PROPS });
   const [ render, setRender ] = useState(0);
   useEffect(() => {
     setTimeout(() => setRender(1), 400); // to load html components

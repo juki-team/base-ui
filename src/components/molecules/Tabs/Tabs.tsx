@@ -1,5 +1,6 @@
 import React, { Children, CSSProperties, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../../hooks';
 import { NotUndefined } from '../../../types';
@@ -28,10 +29,10 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => {
   
   const [ tabKey, setTabKey ] = useHandleState<T>((tabs[0]?.key || '') as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined, onChange);
   const tabsHeaderRef = useRef<HTMLDivElement>(null);
-  const { width: widthTabs = 0, ref: refTabs } = useResizeDetector();
-  const { width: widthActions = 0, ref: refActions } = useResizeDetector();
-  const { width: widthContainer = 0, ref: refContainer } = useResizeDetector();
-  const { height: heightTabsContainer = 0, ref: refTabsContainer } = useResizeDetector();
+  const { width: widthTabs = 0, ref: refTabs } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const { width: widthActions = 0, ref: refActions } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const { width: widthContainer = 0, ref: refContainer } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const { height: heightTabsContainer = 0, ref: refTabsContainer } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const indexes = useMemo(() => {
     const indexes: { [key: string]: number } = {};
     tabs.forEach(({ key }, index) => {

@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
 import { useHandleState } from '../../../hooks';
 import { CloseIcon, ExpandMoreIcon } from '../icons';
@@ -22,7 +23,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
     extend = false,
   } = props;
   
-  const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
+  const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);

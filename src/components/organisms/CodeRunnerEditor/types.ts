@@ -10,6 +10,7 @@ export type CodeRunnerEditorOnChangeType<T> = (props: CodeRunnerEditorProperties
 
 export type CodeEditorMiddleButtonsType<T> = (props: Omit<CodeRunnerEditorProps<T>, 'onChange' | 'className' | 'middleButtons'> & {
   widthContainer: number
+  isRunning: boolean,
 }) => ReactNode;
 
 export type CodeEditorExpandPositionType = {
@@ -66,6 +67,7 @@ export interface HeaderProps<T> {
   memoryLimit: number,
   expanded: boolean | null,
   setExpanded: Dispatch<SetStateAction<boolean>>,
+  isRunning: boolean,
 }
 
 export interface LogInfoProps {

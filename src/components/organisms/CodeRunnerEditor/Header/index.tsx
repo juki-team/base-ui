@@ -5,13 +5,14 @@ import {
   Status,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { jukiSettings } from '../../../../config';
+import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
 import { useNotification } from '../../../../hooks';
 import { Button, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, Select, SettingsIcon, T } from '../../../atoms';
-import { ButtonLoader, ButtonLoaderOnClickType } from '../../../molecules';
+import { ButtonLoader, ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../molecules';
 import { HeaderProps } from '../types';
 
 export const Header = <T, >(props: HeaderProps<T>) => {
@@ -29,12 +30,23 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     memoryLimit,
     expanded,
     setExpanded,
+    isRunning,
   } = props;
   
   const { addErrorNotification } = useNotification();
-  const { width: widthContainer = 0, ref } = useResizeDetector();
-  const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector();
-  const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector();
+  const { width: widthContainer = 0, ref } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  
+  const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
+  
+  useEffect(() => {
+    if (isRunning) {
+      setLoaderRef.current?.(Status.LOADING);
+    } else {
+      setLoaderRef.current?.(Status.NONE);
+    }
+  }, [ isRunning ]);
   const withRunCodeButton = !!Object.keys(testCases).length;
   const minWidth = withRunCodeButton ? 620 : 570;
   
@@ -110,6 +122,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             extend={twoRows}
             icon={<PlayArrowIcon />}
             onClick={handleRunCode}
+            setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
           >
             <T>run</T>
           </ButtonLoader>

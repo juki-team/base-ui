@@ -1,5 +1,6 @@
 import React, { cloneElement, CSSProperties, PropsWithChildren, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { renderReactNodeOrFunction } from '../../../helpers';
 import { Modal } from '../../atoms';
 import { SplitModalProps } from './types';
@@ -20,9 +21,8 @@ export const SplitModal = (props: PropsWithChildren<SplitModalProps>) => {
   
   const [ , setRender ] = useState(0);
   
-  const { height: sideMainHeight = 0, ref: sideMainRef } = useResizeDetector();
-  
-  const { height: titleSideSecondaryHeight = 0, ref: titleSideSecondaryRef } = useResizeDetector();
+  const { height: sideMainHeight = 0, ref: sideMainRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const { height: titleSideSecondaryHeight = 0, ref: titleSideSecondaryRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   
   return (
     <Modal

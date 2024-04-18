@@ -1,11 +1,12 @@
 import React, { CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { TwoContentSectionProps } from './types';
 
 export function TwoContentSection({ children, className }: TwoContentSectionProps) {
   
-  const { height, ref } = useResizeDetector();
+  const { height, ref } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   
   return (
     <section

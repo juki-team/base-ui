@@ -1,5 +1,6 @@
 import React, { MutableRefObject, ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { classNames } from '../../../../helpers';
 import { useOutsideAlerter, useSound } from '../../../../hooks';
 import {
@@ -119,7 +120,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
     }
   }, layoutEditorRef);
   
-  const { width = 0 } = useResizeDetector({ targetRef: layoutEditorRef });
+  const { width = 0 } = useResizeDetector({ targetRef: layoutEditorRef, ...RESIZE_DETECTOR_PROPS });
   const withLabels = width > 600;
   
   return (

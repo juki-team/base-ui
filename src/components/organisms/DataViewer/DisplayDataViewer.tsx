@@ -1,7 +1,7 @@
 import { DataViewMode } from '@juki-team/commons';
 import React, { Children, CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { SCROLL_WIDTH } from '../../../constants';
+import { RESIZE_DETECTOR_PROPS, SCROLL_WIDTH } from '../../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
 import { usePrevious } from '../../../hooks';
 import { LineLoader, LoaderLayer } from '../../atoms';
@@ -46,7 +46,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     showFilterDrawerKey,
   } = props;
   
-  const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
+  const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ headerWidths, setHeaderWidths ] = useState<HeaderWidthsType>({});
   const prevSizeWidth = usePrevious(viewContainerWidth);
   const prevHeaders = useRef(JSON.stringify(headersMinWidth(headers)));

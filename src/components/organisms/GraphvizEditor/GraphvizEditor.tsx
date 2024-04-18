@@ -1,6 +1,7 @@
 import { read } from 'graphlib-dot';
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { BasicModalProps, Button, EditIcon, Modal, SpinIcon, T, TextArea } from '../../atoms';
 import { SplitPane } from '../../molecules';
@@ -37,7 +38,7 @@ const useDotValue = (value: string) => {
 const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModal) => {
   
   const [ input, setInput ] = useState(value);
-  const { ref, width = 0 } = useResizeDetector();
+  const { ref, width = 0 } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   useEffect(() => setInput(value), [ value ]);
   
   const { dot, error } = useDotValue(input);

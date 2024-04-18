@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useHandleState } from '../../../hooks'
 import { ExpandLessIcon, ExpandMoreIcon, NavigateBeforeIcon, NavigateNextIcon, T, ViewSideIcon } from '../../atoms';
@@ -28,7 +29,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
   const firstChildRef = useRef<HTMLDivElement>(null);
   const firstChildSizeRef = useRef<string>('');
   const paneRef = useRef<HTMLDivElement>(null);
-  const { height = 0, width = 0 } = useResizeDetector({ targetRef: paneRef });
+  const { height = 0, width = 0 } = useResizeDetector({ targetRef: paneRef, ...RESIZE_DETECTOR_PROPS });
   const [ displaySecondPane, setDisplaySecondPane ] = useState(true);
   const [ displayFirstPane, setDisplayFirstPane ] = useState(true);
   const [ direction, setDirection ] = useHandleState('row', initialDirection, onChangeDirection);

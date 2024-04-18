@@ -6,7 +6,7 @@ import {
   SocketEventRunResponseDTO,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJkSocket, useJukiUI, useJukiUser } from '../../../hooks';
 import { Portal, T } from '../../atoms';
@@ -26,7 +26,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
       label: PROGRAMMING_LANGUAGE[lang]?.label || lang,
     })),
     language,
-    onChange,
+    onChange: _onChange,
     middleButtons,
     testCases,
     tabSize = 4,
@@ -39,6 +39,9 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     enableAddSampleCases,
   } = props;
   
+  const onChangeRef = useRef(_onChange);
+  onChangeRef.current = _onChange;
+  const [ isRunning, setIsRunning ] = useState(false);
   const [ runId, setRunId ] = useState('');
   const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
   const { pop } = useJkSocket(SocketEvent.RUN);
@@ -82,7 +85,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         };
       }
       if (JSON.stringify(testCases) !== JSON.stringify(newTestCases)) {
-        onChange?.({ testCases: newTestCases });
+        onChangeRef.current?.({ testCases: newTestCases });
       }
     };
     const status = lastRunStatus.status || SubmissionRunStatus.NONE;
@@ -90,6 +93,9 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     const newTestCases: CodeEditorTestCasesType = { ...testCases };
     switch (status) {
       case SubmissionRunStatus.RECEIVED:
+        setIsRunning(true);
+        onChangeRef.current?.({ isRunning: true });
+        break;
       case SubmissionRunStatus.COMPILING:
       case SubmissionRunStatus.RUNNING_TEST_CASES:
       case SubmissionRunStatus.FAILED:
@@ -115,16 +121,20 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
             err: lastRunStatus.log?.err || '',
           };
           if (JSON.stringify(testCases) !== JSON.stringify(newTestCases)) {
-            onChange?.({ testCases: newTestCases });
+            onChangeRef.current?.({ testCases: newTestCases });
           }
         }
         break;
+      case SubmissionRunStatus.COMPLETED:
+        setIsRunning(false);
+        onChangeRef.current?.({ isRunning: false });
+        break;
       default:
     }
-  }, [ lastRunStatus, onChange, testCases ]);
+  }, [ lastRunStatus, testCases ]);
   const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
-    onChange?.(props);
-  }, [ onChange ]);
+    onChangeRef.current?.(props);
+  }, []);
   
   const isMobileViewPort = viewPortSize === 'sm';
   
@@ -159,14 +169,14 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const secondChild = useMemo(() => (
     <TestCases
       testCases={testCases}
-      onChange={onChange}
+      onChange={onChangeRef.current}
       timeLimit={timeLimit}
       memoryLimit={memoryLimit}
       direction={direction}
       enableAddSampleCases={!!enableAddSampleCases}
       enableAddCustomSampleCases={!!enableAddCustomSampleCases}
     />
-  ), [ testCases, onChange, timeLimit, memoryLimit, direction, enableAddSampleCases, enableAddCustomSampleCases ]);
+  ), [ testCases, timeLimit, memoryLimit, direction, enableAddSampleCases, enableAddCustomSampleCases ]);
   
   const body = (
     <div
@@ -179,7 +189,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
       <SettingsModal
         isOpen={showSettings}
         onClose={() => setShowSettings(false)}
-        onChange={onChange}
+        onChange={onChangeRef.current}
         tabSize={tabSize}
         fontSize={fontSize}
       />
@@ -189,6 +199,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         sourceCode={sourceCode}
         testCases={testCases || {}}
         centerOptions={({ widthContainer }) => middleButtons?.({
+          isRunning,
           readOnly,
           sourceCode,
           languages,
@@ -198,11 +209,12 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         })}
         setShowSettings={setShowSettings}
         setRunId={setRunId}
-        onChange={onChange}
+        onChange={onChangeRef.current}
         timeLimit={timeLimit}
         memoryLimit={memoryLimit}
         expanded={expandPosition ? expanded : null}
         setExpanded={setExpanded}
+        isRunning={isRunning}
       />
       <div className="editor-stdio-content">
         <SplitPane

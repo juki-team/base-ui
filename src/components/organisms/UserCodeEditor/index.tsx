@@ -1,5 +1,4 @@
 import {
-  ACCEPTED_PROGRAMMING_LANGUAGES,
   CodeEditorTestCasesType,
   isStringJson,
   PROGRAMMING_LANGUAGE,
@@ -16,20 +15,14 @@ import {
   CodeRunnerEditorPropertiesType,
 } from '../CodeRunnerEditor';
 
-const useSaveStorage = <T extends Object, >(storeKey: string, defaultValue: T, initialValue?: T): [ T, Dispatch<SetStateAction<T>> ] => {
+const useSaveStorage = <T extends Object, >(storeKey: string, defaultValue: T): [ T, Dispatch<SetStateAction<T>> ] => {
   
   let storeRecovered = {};
   const localStorageData = localStorage.getItem(storeKey) || '{}';
   if (isStringJson(localStorageData)) {
     storeRecovered = JSON.parse(localStorageData);
   }
-  const [ value, setValue ] = useState<T>({ ...defaultValue, ...storeRecovered, ...(initialValue || {}) });
-  
-  const initialValueString = JSON.stringify(initialValue ?? {});
-  useEffect(() => {
-    const initialValue = JSON.parse(initialValueString);
-    setValue(prevState => ({ ...prevState, ...initialValue }));
-  }, [ initialValueString ]);
+  const [ value, setValue ] = useState<T>({ ...defaultValue, ...storeRecovered });
   
   useEffect(() => {
     if (storeKey) {
@@ -49,17 +42,18 @@ export interface UserCodeEditorProps<T> {
   initialTestCases?: CodeEditorTestCasesType,
   sourceStoreKey: string,
   languages: { value: T, label: string }[],
-  middleButtons?: (props: {
-    source: string,
-    language: T,
-    testCases: CodeEditorTestCasesType
-  }) => CodeEditorMiddleButtonsType<T>,
+  middleButtons?: CodeEditorMiddleButtonsType<T>,
   onSourceChange?: (source: string) => void,
   onLanguageChange?: (language: T) => void,
   onTestCasesChange?: (testCases: CodeEditorTestCasesType) => void,
+  onIsRunningChange?: (isRunning: boolean) => void,
   initialSource?: { [key: string]: string },
   enableAddSampleCases?: boolean,
   enableAddCustomSampleCases?: boolean,
+}
+
+type SourceStorageType = {
+  [key: string]: { [key: string]: string },
 }
 
 export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
@@ -77,6 +71,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     initialSource,
     enableAddSampleCases,
     enableAddCustomSampleCases,
+    onIsRunningChange,
   } = props;
   const { user: { nickname } } = useJukiUser();
   
@@ -93,7 +88,6 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     tabSize: 2,
     fontSize: 14,
   });
-  
   const [ language, setLanguage ] = useState<T>(editorSettings.lastLanguageUsed as T);
   const [ testCases, setTestCases ] = useState<CodeEditorTestCasesType>(initialTestCases ?? {});
   const initialTestCasesString = JSON.stringify(initialTestCases);
@@ -110,25 +104,29 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   useEffect(() => {
     onTestCasesChange?.(testCases);
   }, [ onTestCasesChange, testCases ]);
-  const defaultValue: { [key: string]: { [key: string]: string } } = { [sourceStoreKey]: {} };
-  ACCEPTED_PROGRAMMING_LANGUAGES.forEach(key => {
-    defaultValue[sourceStoreKey][PROGRAMMING_LANGUAGE[key].mime] = PROGRAMMING_LANGUAGE[key].templateSourceCode;
-  });
   
-  const [ source, setSource ] = useSaveStorage(
-    sourceStoreKey ? getSourcesStoreKey(nickname) : '',
-    defaultValue,
-    initialSource ? { [sourceStoreKey]: initialSource } : undefined,
-  );
-  const mime = PROGRAMMING_LANGUAGE[language as ProgrammingLanguage]?.mime || '.txt';
-  const newSource = source[sourceStoreKey]?.[mime] || '';
-  useEffect(() => {
-    onSourceChange?.(newSource);
-  }, [ newSource, onSourceChange ]);
+  const [ sourceStore, setSourceStore ] = useSaveStorage<SourceStorageType>(getSourcesStoreKey(nickname), {});
   
+  const initialSourceString = JSON.stringify(initialSource);
   useEffect(() => {
-    onLanguageChange?.(language);
-  }, [ language, onLanguageChange ]);
+    if (isStringJson(initialSourceString)) {
+      const initialSource = JSON.parse(initialSourceString);
+      const initialSourcePerLanguages: SourceStorageType[string] = {};
+      for (const { value } of languages) {
+        initialSourcePerLanguages[value as string] = PROGRAMMING_LANGUAGE[value as ProgrammingLanguage]?.templateSourceCode || '';
+      }
+      setSourceStore(prevState => ({
+        ...prevState,
+        [sourceStoreKey]: {
+          ...initialSourcePerLanguages,
+          ...(prevState[sourceStoreKey] || {}),
+          ...initialSource,
+        },
+      }))
+    }
+  }, [ initialSourceString ]);
+  
+  const newSource = sourceStore[sourceStoreKey]?.[language as string] || '';
   
   const onChange = useCallback(({
                                   sourceCode,
@@ -137,18 +135,24 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
                                   theme,
                                   tabSize,
                                   fontSize,
+                                  isRunning,
                                 }: CodeRunnerEditorPropertiesType<T>) => {
+    if (typeof isRunning === 'boolean') {
+      onIsRunningChange?.(isRunning);
+    }
     if (typeof sourceCode === 'string') {
-      setSource(prevState => ({
+      setSourceStore(prevState => ({
         ...prevState,
         [sourceStoreKey]: {
           ...(prevState[sourceStoreKey] || {}),
-          [mime]: sourceCode,
+          [language as string]: sourceCode,
         },
       }));
+      onSourceChange?.(sourceCode);
     }
     if (newLanguage) {
       setLanguage(newLanguage);
+      onLanguageChange?.(newLanguage);
       setEditorSettings(prevState => ({ ...prevState, lastLanguageUsed: newLanguage }));
     }
     if (testCases) {
@@ -163,7 +167,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     if (fontSize) {
       setEditorSettings(prevState => ({ ...prevState, fontSize }));
     }
-  }, [ mime ]);
+  }, [ language, onSourceChange, onLanguageChange ]);
   
   return (
     <CodeRunnerEditor
@@ -175,7 +179,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       language={language}
       languages={languages}
       onChange={onChange}
-      middleButtons={middleButtons?.({ source: newSource, language, testCases })}
+      middleButtons={middleButtons}
       testCases={testCases}
       expandPosition={expandPosition}
       enableAddSampleCases={enableAddSampleCases}

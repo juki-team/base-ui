@@ -9,6 +9,7 @@ import { ProgrammingLanguage, Theme } from '@juki-team/commons';
 import CodeMirror from '@uiw/react-codemirror';
 import React, { memo } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { CodeEditorProps } from './types';
 
 const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
@@ -56,7 +57,9 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
     default:
       break;
   }
-  const { height = 0, ref } = useResizeDetector();
+  
+  const { height = 0, ref } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  
   return (
     <div style={{ fontSize: `${fontSize}px`, width: '100%', height: '100%' }} ref={ref}>
       <CodeMirror

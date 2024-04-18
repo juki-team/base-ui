@@ -1,5 +1,6 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { isOverflowed } from '../../../helpers';
 
 export interface WidthResizerProps {
@@ -11,7 +12,7 @@ export interface WidthResizerProps {
 
 export const WidthResizer = ({ onOverflow, unOverflow, trigger, targetRef }: WidthResizerProps) => {
   
-  const { width = 0 } = useResizeDetector({ targetRef });
+  const { width = 0 } = useResizeDetector({ targetRef, ...RESIZE_DETECTOR_PROPS });
   const [ now, setNow ] = useState(0);
   const widthRef = useRef(0);
   useEffect(() => {

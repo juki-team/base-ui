@@ -75,6 +75,7 @@ export enum CodeEditorKeyMap {
 }
 
 export type CodeEditorPropertiesType<T = string> = {
+  isRunning?: boolean,
   sourceCode?: string,
   language?: T,
   theme?: Theme,

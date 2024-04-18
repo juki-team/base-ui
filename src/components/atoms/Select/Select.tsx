@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, getTextContent, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState } from '../../../hooks';
 import { ReactNodeOrFunctionType } from '../../../types';
@@ -25,7 +26,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     onBlur,
   } = props;
   
-  const { ref: selectLayoutRef } = useResizeDetector();
+  const { ref: selectLayoutRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
   const selectedOptionRef = useRef<HTMLDivElement | null>(null);
