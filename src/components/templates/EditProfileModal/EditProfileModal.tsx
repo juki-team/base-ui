@@ -1,5 +1,5 @@
 import { JUDGE, Judge, Status, UserProfileResponseDTO } from '@juki-team/commons';
-import React, { Dispatch, useState } from 'react';
+import React, { Dispatch, useRef, useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
 import { classNames } from '../../../helpers';
@@ -78,7 +78,8 @@ export function EditProfileModal({ user, isOpen, onClose }: EditProfileModalPros
   const { updateUserProfileData, mutatePing } = useJukiUser();
   const { components: { Image } } = useJukiUI();
   const { mutate } = useSWR();
-  useEntityDiff(user, isOpen);
+  const loadingRef = useRef(false);
+  useEntityDiff(user, isOpen && !loadingRef.current);
   const [ modalImageProfile, setModalImageProfile ] = useState(false);
   const validLengthNickname = userState.nickname.length >= 3;
   const validCharNickname = ALPHANUMERIC_DASH_UNDERSCORE_REGEX.test(userState.nickname);
@@ -206,10 +207,12 @@ export function EditProfileModal({ user, isOpen, onClose }: EditProfileModalPros
                 },
                 setLoader,
                 onSuccess: async () => {
+                  loadingRef.current = true;
                   setLoader?.(Status.LOADING);
                   await mutatePing();
                   await mutate(jukiSettings.API.user.getProfile({ params: { nickname: user.nickname } }).url);
                   setLoader?.(Status.SUCCESS);
+                  loadingRef.current = false;
                   onClose();
                 },
               })}
