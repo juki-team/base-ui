@@ -8,14 +8,18 @@ import { useNotification } from './useNotification';
 export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {
   
   const { addWarningNotification } = useNotification();
-  const lastContest = useRef<T>(initialEntity);
+  const lastEntity = useRef<T>(initialEntity);
   
   const initialEntityString = JSON.stringify(initialEntity);
   
+  if (!enable) {
+    lastEntity.current = initialEntity;
+  }
+  
   useEffect(() => {
-    if (enable && initialEntityString !== JSON.stringify(lastContest.current)) {
+    if (enable && initialEntityString !== JSON.stringify(lastEntity.current)) {
       const initialEntity = JSON.parse(initialEntityString);
-      const text = JSON.stringify(diff(lastContest.current as object, initialEntity), null, 2);
+      const text = JSON.stringify(diff(lastEntity.current as object, initialEntity), null, 2);
       const height = text.split('\n').length;
       addWarningNotification(
         <div>
@@ -30,7 +34,7 @@ export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {
           </div>
         </div>,
       );
-      lastContest.current = initialEntity;
+      lastEntity.current = initialEntity;
     }
   }, [ initialEntityString, enable, addWarningNotification ]);
 }
