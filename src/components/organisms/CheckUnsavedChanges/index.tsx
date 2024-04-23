@@ -37,7 +37,7 @@ export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChang
             <T className="tt-se">there are unsaved changes</T>:
             <div
               className="alert-modal-json-viewer jk-border-radius-inline"
-              style={{ height: height * 24 + 'px' }}
+              style={{ height: `min(${height * 24}px, calc(var(--100VH) - 300px))` }}
             >
               <CodeEditor
                 sourceCode={text}
