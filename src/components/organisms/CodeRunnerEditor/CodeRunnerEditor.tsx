@@ -204,7 +204,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           sourceCode,
           languages,
           language,
-          testCases,
+          testCases: testCases || {},
           widthContainer,
         })}
         setShowSettings={setShowSettings}
