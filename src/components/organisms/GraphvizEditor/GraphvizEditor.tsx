@@ -10,7 +10,7 @@ import { GraphvizEditorProps } from './types';
 const Graphviz = lazy(() => import('graphviz-react'));
 
 
-interface GraphvizEditorModal extends BasicModalProps {
+interface GraphvizEditorModalProps extends BasicModalProps {
   value: string,
   onSave: (newValue: string) => void,
   onClose: () => void,
@@ -35,7 +35,7 @@ const useDotValue = (value: string) => {
   }
 }
 
-const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModal) => {
+const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModalProps) => {
   
   const [ input, setInput ] = useState(value);
   const { ref, width = 0 } = useResizeDetector(RESIZE_DETECTOR_PROPS);

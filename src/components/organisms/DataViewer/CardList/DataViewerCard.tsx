@@ -1,6 +1,5 @@
 import React from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { classNames } from '../../../../helpers';
 import { TableHeadersWithWidthType } from '../types';
 import { renderField } from '../utils';
@@ -21,17 +20,17 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
     onCardClick,
   } = props;
   
-  const { height: topLeftHeight, ref: topLeftRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  const { height: topHeight, ref: topRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  const { height: topRightHeight, ref: topRightRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const { height: topLeftHeight, ref: topLeftRef } = useResizeDetector();
+  const { height: topHeight, ref: topRef } = useResizeDetector();
+  const { height: topRightHeight, ref: topRightRef } = useResizeDetector();
   const topContainerHeight = Math.max(topLeftHeight || 0, topHeight || 0, topRightHeight || 0);
-  const { height: centerLeftHeight, ref: centerLeftRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  const { height: centerHeight, ref: centerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  const { height: centerRightHeight, ref: centerRightRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const { height: centerLeftHeight, ref: centerLeftRef } = useResizeDetector();
+  const { height: centerHeight, ref: centerRef } = useResizeDetector();
+  const { height: centerRightHeight, ref: centerRightRef } = useResizeDetector();
   const centerContainerHeight = Math.max(centerLeftHeight || 0, centerHeight || 0, centerRightHeight || 0);
-  const { height: bottomLeftHeight, ref: bottomLeftRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  const { height: bottomHeight, ref: bottomRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  const { height: bottomRightHeight, ref: bottomRightRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const { height: bottomLeftHeight, ref: bottomLeftRef } = useResizeDetector();
+  const { height: bottomHeight, ref: bottomRef } = useResizeDetector();
+  const { height: bottomRightHeight, ref: bottomRightRef } = useResizeDetector();
   const bottomContainerHeight = Math.max(bottomLeftHeight || 0, bottomHeight || 0, bottomRightHeight || 0);
   
   if (fake) {

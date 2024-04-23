@@ -1,7 +1,6 @@
 import { VirtualItem } from '@tanstack/react-virtual';
 import React, { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
 import { useHandleState } from '../../../hooks';
 import {
@@ -34,7 +33,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   } = props;
   
   const searchable = !!onFilter;
-  const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
   const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
   const [ search, setSearch ] = useState('');
   const [ filteredOptions, setFilteredOptions ] = useState(options);
