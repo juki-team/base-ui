@@ -43,6 +43,7 @@ export * from './ErrorIcon';
 export * from './EventIcon';
 export * from './ExpandLessIcon';
 export * from './ExpandMoreIcon';
+export * from './ExtensionIcon';
 export * from './FilterListIcon';
 export * from './FolderIcon';
 export * from './FolderManagedIcon';

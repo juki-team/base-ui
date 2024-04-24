@@ -10,5 +10,5 @@ const Icon = ({ color }: RootIconProps) => (
 );
 
 export const BubbleChartIcon = (props: BasicIconProps) => {
-  return renderBasicIcon({ ...props, viewBox: '0 -960 960 960' }, Icon, 'lock-person');
+  return renderBasicIcon({ ...props, viewBox: '0 -960 960 960' }, Icon, 'bubble-chart');
 };

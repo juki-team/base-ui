@@ -19,7 +19,6 @@ export * from './Edit';
 export * from './EnterFullScreen';
 export * from './ErlenmeyerFlask';
 export * from './ExitFullScreen';
-export * from './Extension';
 export * from './External';
 export * from './Eye';
 export * from './EyeInvisible';
