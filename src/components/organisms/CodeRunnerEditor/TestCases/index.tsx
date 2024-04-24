@@ -138,7 +138,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
         </>,
         body: (
           <TextArea
-            style={{ height: '100%', boxShadow: 'none', borderRadius: 0 }}
+            style={{ height: '100%', boxShadow: 'none', borderRadius: 0, overflow: 'auto' }}
             className="tx-s"
             key={testCaseValue.key}
             value={testCaseValue.in}
@@ -281,7 +281,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
               </div>
             )}
           </div>
-          <div className="flex-1">
+          <div className="flex-1" style={{ overflow: 'hidden' }}>
             {renderReactNodeOrFunctionP1(inputTabs[testCaseKey]?.body, { selectedTabKey: testCaseKey })}
           </div>
         </div>
