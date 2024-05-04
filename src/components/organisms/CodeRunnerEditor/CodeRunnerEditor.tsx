@@ -96,9 +96,19 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         setIsRunning(true);
         onChangeRef.current?.({ isRunning: true });
         break;
+      case SubmissionRunStatus.FAILED:
+        setIsRunning(false);
+        onChangeRef.current?.({ isRunning: false });
+        fillTestCases(
+          newTestCases,
+          status,
+          lastRunStatus.log?.err || '',
+          lastRunStatus.log?.out || '',
+          lastRunStatus.log?.log || '',
+        );
+        break;
       case SubmissionRunStatus.COMPILING:
       case SubmissionRunStatus.RUNNING_TEST_CASES:
-      case SubmissionRunStatus.FAILED:
       case SubmissionRunStatus.COMPILED:
       case SubmissionRunStatus.COMPILATION_ERROR:
         fillTestCases(
