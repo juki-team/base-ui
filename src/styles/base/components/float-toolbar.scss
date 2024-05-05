@@ -3,18 +3,58 @@
 .jk-float-toolbar-layout {
   position: sticky;
   top: calc(var(--pad-t) + var(--pad-t));
-  right: 0;
   z-index: 1;
   width: 100%;
   
+  &.rightBottom, &.rightTop {
+    right: var(--pad-t);
+    
+    .jk-float-toolbar-container {
+      right: var(--pad-t);
+    }
+  }
+  
+  &.bottom, &.top {
+    .jk-float-toolbar-container {
+      right: calc(50% - var(--container-width) / 2);
+      
+      .buttons-content {
+        @include transition-fast(right);
+        right: calc(50% - var(--buttons-content-width) / 2);
+      }
+    }
+  }
+  
+  &.leftBottom, &.leftTop {
+    left: var(--pad-t);
+    
+    .jk-float-toolbar-container {
+      left: var(--pad-t);
+      
+      .buttons-content {
+        right: unset;
+        left: 0;
+      }
+    }
+  }
+  
+  &.rightTop, &.top, &.leftTop {
+    .button-action .buttons-content {
+      top: unset;
+      bottom: 0;
+    }
+  }
+  
   .jk-float-toolbar-container {
     position: absolute;
-    right: 0;
+  }
+  
+  .button-action + .button-action {
+    margin: var(--pad-xt) 0 0 0;
   }
   
   .button-action {
     position: relative;
-    margin: 0 0 var(--pad-xt) 0;
     
     .buttons-content {
       display: none;
@@ -23,8 +63,11 @@
       right: 0;
       flex-direction: column;
       
+      button + button {
+        margin: var(--pad-xt) 0 0 0 !important;
+      }
+      
       button {
-        margin: 0 0 var(--pad-xt) 0 !important;
         white-space: nowrap;
       }
     }

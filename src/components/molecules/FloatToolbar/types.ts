@@ -17,4 +17,5 @@ export interface ButtonActionProps {
 
 export interface FloatToolbarProps {
   actionButtons: ButtonActionProps[],
+  placement?: 'leftBottom' | 'bottom' | 'rightBottom' | 'rightTop' | 'top' | 'leftTop',
 }

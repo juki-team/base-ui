@@ -1,5 +1,6 @@
 import { Status } from '@juki-team/commons';
-import React, { useRef, useState } from 'react';
+import React, { CSSProperties, useRef, useState } from 'react';
+import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useOutsideAlerter } from '../../../hooks';
 import { ButtonLoader, SetLoaderStatusOnClickType } from '../ButtonLoader';
@@ -12,12 +13,18 @@ export const ButtonAction = ({ icon, buttons, disabled }: ButtonActionProps) => 
   const [ open, setOpen ] = useState(false);
   const ref = useRef(null);
   useOutsideAlerter(() => setOpen(false), ref);
+  const { ref: refButtonsContent, width = 0 } = useResizeDetector();
+  const lastWidthRef = useRef(width);
+  if (width) {
+    lastWidthRef.current = width;
+  }
   
   return (
     <div
       className={classNames('button-action', { open })}
       onClick={viewPortSize === 'sm' ? () => setOpen(true) : undefined}
       ref={ref}
+      style={{ '--buttons-content-width': `${width || lastWidthRef.current}px` } as CSSProperties}
     >
       <div className="button-trigger">
         <ButtonLoader
@@ -28,7 +35,7 @@ export const ButtonAction = ({ icon, buttons, disabled }: ButtonActionProps) => 
           disabled={disabled}
         />
       </div>
-      <div className="buttons-content">
+      <div className="buttons-content" ref={refButtonsContent}>
         {buttons.map(({ icon, onClick, label, disabled }, index) => (
           <ButtonLoader
             key={index}
