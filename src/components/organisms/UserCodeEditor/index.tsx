@@ -106,11 +106,20 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       setTestCases(JSON.parse(initialTestCasesString));
     }
   }, [ initialTestCasesString ]);
+  
+  const onLanguageChangeRef = useRef(onLanguageChange);
+  onLanguageChangeRef.current = onLanguageChange;
+  
+  const languagesString = JSON.stringify(languages);
   useEffect(() => {
+    const languages: UserCodeEditorProps<T>['languages'] = JSON.parse(languagesString);
     if (languages.length && !languages.some(lang => lang.value === language)) {
-      setLanguage(languages[0].value);
+      const newLanguage = languages[0].value;
+      setLanguage(newLanguage);
+      onLanguageChangeRef.current?.(newLanguage);
     }
-  }, [ language, languages ]);
+  }, [ language, languagesString ]);
+  
   useEffect(() => {
     onTestCasesChange?.(testCases);
   }, [ onTestCasesChange, testCases ]);
@@ -118,7 +127,6 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   const [ sourceStore, setSourceStore ] = useSaveStorage<SourceStorageType>(sourceStoreKey ? getSourcesStoreKey(nickname) : undefined, {});
   
   const initialSourceString = JSON.stringify(initialSource);
-  const languagesString = JSON.stringify(languages);
   useEffect(() => {
     if (isStringJson(initialSourceString)) {
       const initialSource = JSON.parse(initialSourceString);
