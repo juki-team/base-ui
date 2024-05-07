@@ -5,7 +5,7 @@ import {
   ProgrammingLanguage,
   Theme,
 } from '@juki-team/commons';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { getEditorSettingsStorageKey, getSourcesStoreKey } from '../../../helpers';
 import { useJukiUser } from '../../../hooks';
 import {
@@ -23,6 +23,16 @@ const useSaveStorage = <T extends Object, >(storeKey: string | undefined, defaul
     storeRecovered = JSON.parse(localStorageData);
   }
   const [ value, setValue ] = useState<T>({ ...defaultValue, ...storeRecovered });
+  
+  const defaultValueRef = useRef(defaultValue);
+  defaultValueRef.current = defaultValue;
+  
+  const storeRecoveredRef = useRef(storeRecovered);
+  storeRecoveredRef.current = storeRecovered;
+  
+  useEffect(() => {
+    setValue({ ...defaultValueRef.current, ...storeRecoveredRef.current });
+  }, [ storeKey ]);
   
   useEffect(() => {
     if (storeKey) {
