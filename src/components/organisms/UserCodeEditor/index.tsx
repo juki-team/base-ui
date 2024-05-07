@@ -131,7 +131,6 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
         ...prevState,
         [sourceStoreKey]: {
           ...initialSourcePerLanguages,
-          ...(prevState[sourceStoreKey] || {}),
           ...initialSource,
         },
       }));
