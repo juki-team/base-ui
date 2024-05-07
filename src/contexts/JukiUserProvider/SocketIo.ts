@@ -26,8 +26,8 @@ export class SocketIo {
     consoleInfo('Jk socket disconnect');
   }
   
-  onConnectError(error: Error) {
-    consoleWarn('connect_error', { error });
+  onConnectError(error: any) {
+    consoleWarn('connect_error', { error, req: error.req, code: error.code, message: error.message, context: error.context });
   }
   
   start() {

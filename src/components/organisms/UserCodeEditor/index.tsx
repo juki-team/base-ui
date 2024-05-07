@@ -5,7 +5,7 @@ import {
   ProgrammingLanguage,
   Theme,
 } from '@juki-team/commons';
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { getEditorSettingsStorageKey, getSourcesStoreKey } from '../../../helpers';
 import { useJukiUser } from '../../../hooks';
 import {
@@ -15,10 +15,10 @@ import {
   CodeRunnerEditorPropertiesType,
 } from '../CodeRunnerEditor';
 
-const useSaveStorage = <T extends Object, >(storeKey: string, defaultValue: T): [ T, Dispatch<SetStateAction<T>> ] => {
+const useSaveStorage = <T extends Object, >(storeKey: string | undefined, defaultValue: T): [ T, Dispatch<SetStateAction<T>> ] => {
   
   let storeRecovered = {};
-  const localStorageData = localStorage.getItem(storeKey) || '{}';
+  const localStorageData = storeKey ? (localStorage.getItem(storeKey) || '{}') : '{}';
   if (isStringJson(localStorageData)) {
     storeRecovered = JSON.parse(localStorageData);
   }
@@ -40,7 +40,7 @@ export interface UserCodeEditorProps<T> {
   className?: string,
   expandPosition?: CodeEditorExpandPositionType,
   initialTestCases?: CodeEditorTestCasesType,
-  sourceStoreKey: string,
+  sourceStoreKey?: string,
   languages: { value: T, label: string }[],
   middleButtons?: CodeEditorMiddleButtonsType<T>,
   onSourceChange?: (source: string) => void,
@@ -62,7 +62,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     className,
     expandPosition,
     initialTestCases,
-    sourceStoreKey,
+    sourceStoreKey = '',
     languages,
     middleButtons,
     onSourceChange,
@@ -105,16 +105,18 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     onTestCasesChange?.(testCases);
   }, [ onTestCasesChange, testCases ]);
   
-  const [ sourceStore, setSourceStore ] = useSaveStorage<SourceStorageType>(getSourcesStoreKey(nickname), {});
+  const [ sourceStore, setSourceStore ] = useSaveStorage<SourceStorageType>(sourceStoreKey ? getSourcesStoreKey(nickname) : undefined, {});
   
   const initialSourceString = JSON.stringify(initialSource);
+  const languagesString = JSON.stringify(languages);
   useEffect(() => {
     if (isStringJson(initialSourceString)) {
       const initialSource = JSON.parse(initialSourceString);
       const initialSourcePerLanguages: SourceStorageType[string] = {};
-      for (const { value } of languages) {
+      for (const { value } of JSON.parse(languagesString)) {
         initialSourcePerLanguages[value as string] = PROGRAMMING_LANGUAGE[value as ProgrammingLanguage]?.templateSourceCode || '';
       }
+      
       setSourceStore(prevState => ({
         ...prevState,
         [sourceStoreKey]: {
@@ -122,21 +124,21 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
           ...(prevState[sourceStoreKey] || {}),
           ...initialSource,
         },
-      }))
+      }));
     }
-  }, [ initialSourceString ]);
+  }, [ initialSourceString, languagesString, setSourceStore, sourceStoreKey ]);
   
   const newSource = sourceStore[sourceStoreKey]?.[language as string] || '';
   
-  const onChange = useCallback(({
-                                  sourceCode,
-                                  language: newLanguage,
-                                  testCases,
-                                  theme,
-                                  tabSize,
-                                  fontSize,
-                                  isRunning,
-                                }: CodeRunnerEditorPropertiesType<T>) => {
+  const onChange = ({
+                      sourceCode,
+                      language: newLanguage,
+                      testCases,
+                      theme,
+                      tabSize,
+                      fontSize,
+                      isRunning,
+                    }: CodeRunnerEditorPropertiesType<T>) => {
     if (typeof isRunning === 'boolean') {
       onIsRunningChange?.(isRunning);
     }
@@ -167,7 +169,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     if (fontSize) {
       setEditorSettings(prevState => ({ ...prevState, fontSize }));
     }
-  }, [ language, onSourceChange, onLanguageChange ]);
+  }
   
   return (
     <CodeRunnerEditor
