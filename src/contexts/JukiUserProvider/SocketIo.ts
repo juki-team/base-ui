@@ -31,10 +31,13 @@ export class SocketIo {
   }
   
   start() {
-    console.log('start!!!');
+    if (typeof window !== 'undefined') {
+      // @ts-ignore
+      window.__JUKI_SOCKET_IO__ = this._socket;
+    }
     this._socket.connect();
     
-    this._socket.on('connect', this.onConnect);
+    this._socket.on('connect', this.onConnect.bind(this));
     
     this._socket.on('disconnect', this.onDisconnect);
     
@@ -42,8 +45,7 @@ export class SocketIo {
   }
   
   stop() {
-    console.log('stop!!!');
-    this._socket.off('connect', this.onConnect);
+    this._socket.off('connect', this.onConnect.bind(this));
     
     this._socket.off('disconnect', this.onDisconnect);
     

@@ -121,7 +121,6 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const socket = useMemo(() => new SocketIo(socketServiceUrl), [ socketServiceUrl ]);
   
   useEffect(() => {
-    console.log('useEffect stop, start');
     jukiSettings.setSetting(serviceApiUrl, utilsUiUrl, tokenName);
     socket.start();
     return () => {
