@@ -3,46 +3,53 @@ import io, { Socket } from 'socket.io-client';
 import { getLocalToken } from '../../helpers';
 
 export class SocketIo {
-  private _socket: null | Socket = null;
+  private readonly _socket: Socket;
   private _sessionId = '';
   private readonly _socketServiceUrl: string;
   
   constructor(socketServiceUrl: string) {
     this._socketServiceUrl = socketServiceUrl;
-  }
-  
-  start() {
-    if (this._socket) {
-      this._socket.disconnect();
-    }
     this._socket = io(this._socketServiceUrl, {
       withCredentials: true,
       transports: [ 'websocket' ],
       autoConnect: false,
       reconnection: true,
     });
-    
+  }
+  
+  async onConnect() {
+    consoleInfo('Jk socket connected');
+    await this.joinSession();
+  }
+  
+  onDisconnect() {
+    consoleInfo('Jk socket disconnect');
+  }
+  
+  onConnectError(error: Error) {
+    consoleWarn('connect_error', { error });
+  }
+  
+  start() {
+    console.log('start!!!');
     this._socket.connect();
     
-    this._socket.on('connect', async () => {
-      consoleInfo('Jk socket connected');
-      await this.joinSession();
-    });
+    this._socket.on('connect', this.onConnect);
     
-    this._socket.on('disconnect', () => {
-      consoleInfo('Jk socket disconnect');
-    });
+    this._socket.on('disconnect', this.onDisconnect);
     
-    this._socket.on('connect_error', (error) => {
-      consoleWarn('connect_error', { error });
-    });
+    this._socket.on('connect_error', this.onConnectError);
   }
   
   stop() {
-    if (this._socket) {
-      this._socket.disconnect();
-    }
-    this._socket = null;
+    console.log('stop!!!');
+    this._socket.off('connect', this.onConnect);
+    
+    this._socket.off('disconnect', this.onDisconnect);
+    
+    this._socket.off('connect_error', this.onConnectError);
+    
+    this._socket.disconnect();
   }
   
   emitAsync(event: string, payload: any): Promise<ContentResponseType<string>> {
