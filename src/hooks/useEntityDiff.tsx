@@ -23,10 +23,9 @@ export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {
       const height = text.split('\n').length;
       addWarningNotification(
         <div className="jk-notification-message-body">
-          <T className="tt-se">{'something changed, your changes may overwrite others\' changes.'}</T>
-          <T className="tt-se">we suggest you reload the page.</T>
-          <T className="tt-se">differences</T>:
-          <div style={{ height: height * 24 + 'px', color: 'initial' }}>
+          <T className="tt-se">{'something changed, your changes may overwrite others\' changes, we suggest you reload the page.'}</T>
+          &nbsp;<T className="tt-se">differences:</T>
+          <div style={{ height: (height * 24 + 8) + 'px', color: 'initial' }}>
             <CodeEditor
               sourceCode={text}
               language={ProgrammingLanguage.JSON}
