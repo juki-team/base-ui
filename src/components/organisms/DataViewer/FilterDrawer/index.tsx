@@ -173,9 +173,9 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                 );
               })}
             </div>
-            <div className="jk-row space-between right buttons">
+            <div className="jk-row-col space-between right buttons">
               <Button
-                type="text"
+                type="light"
                 size="small"
                 onClick={() => {
                   onResetFilters();

@@ -79,7 +79,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
             <p className="cr-er">{error}</p>
             <div className="jk-row right gap">
               <Button
-                type="text"
+                type="light"
                 onClick={() => setShow(false)}
               >
                 <T>cancel</T>

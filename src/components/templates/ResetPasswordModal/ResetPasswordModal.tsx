@@ -34,7 +34,7 @@ export const ResetPasswordModal = ({ isOpen, onClose, nickname, companyKey }: Re
           <T className="tt-se">{'the new password will be sent to user\'s email'}</T>.
         </div>
         <div className="jk-row right gap extend">
-          <Button type="text" onClick={onClose}><T>cancel</T></Button>
+          <Button type="light" onClick={onClose}><T>cancel</T></Button>
           <ButtonLoader
             onClick={(setLoader) => resetUserPassword({
               params: { nickname, companyKey },

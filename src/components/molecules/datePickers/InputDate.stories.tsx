@@ -34,6 +34,8 @@ export const DatePicker = () => {
           onDatePick={(date) => setDate(date)}
           twoLines
           extend
+          onDateClean={() => null}
+          todayButton
         />
         <div className="jk-divider" />
         <InputDate

@@ -53,7 +53,7 @@ export const DrawerView = memo((props: PropsWithChildren<DrawerViewProps>) => {
         } as CSSProperties}
       >
         {closeIcon === undefined ? (
-          <div className="jk-drawer-close-button" onClick={close}><Button icon={<CloseIcon />} type="text" /></div>
+          <div className="jk-drawer-close-button" onClick={close}><Button icon={<CloseIcon />} type="light" /></div>
         ) : renderReactNodeOrFunctionP1(closeIcon, { isOpen, close })}
         <div className="jk-drawer-body">
           {children}

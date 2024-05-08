@@ -42,7 +42,7 @@ export const InformationButton = ({ isOpenRef, withLabel }: InformationButtonPro
         visible={withLabel ? false : undefined}
       >
         <div>
-          <Button icon={<ExclamationIcon circle rotate={180} />} type="text" size="small" onClick={() => setOpen(true)}>
+          <Button icon={<ExclamationIcon circle rotate={180} />} type="light" size="tiny" onClick={() => setOpen(true)}>
             {withLabel && <T>information</T>}
           </Button>
         </div>
@@ -129,7 +129,10 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
       {editing ? (
         <>
           <div className="content-bar-options">
-            <div className={classNames('jk-row left', { gap: !withLabels })}>
+            <div
+              className={classNames('jk-row gap left', { gap: !withLabels })}
+              style={{ padding: '0 var(--gap)' }}
+            >
               {informationButton && <InformationButton isOpenRef={isOpenInformationModalRef} withLabel={withLabels} />}
               {uploadImageButton && (
                 <UploadImageButton
@@ -149,7 +152,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
                   placement="bottom"
                   visible={withLabels ? false : undefined}
                 >
-                  <Button type="text" size="small" onClick={() => setView(1)}>
+                  <Button type="light" size="tiny" onClick={() => setView(1)}>
                     <div className="jk-row">
                       {withLabels && (
                         <>
@@ -167,7 +170,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
                   placement="bottom"
                   visible={withLabels ? false : undefined}
                 >
-                  <Button type="text" size="small" icon={<PreviewIcon />} onClick={() => setView(3)}>
+                  <Button type="light" size="tiny" icon={<PreviewIcon />} onClick={() => setView(3)}>
                     {withLabels && <T>preview</T>}
                   </Button>
                 </Tooltip>
@@ -178,13 +181,13 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
                   placement="bottom"
                   visible={withLabels ? false : undefined}
                 >
-                  <Button type="text" size="small" icon={<EditIcon />} onClick={() => setView(0)}>
+                  <Button type="light" size="tiny" icon={<EditIcon />} onClick={() => setView(0)}>
                     {withLabels && <T>editor</T>}
                   </Button>
                 </Tooltip>
               )}
             </div>
-            <div className="right">
+            <div className="jk-row gap right" style={{ padding: '0 var(--gap)' }}>
               {onChange && !online && (
                 <Tooltip
                   placement="bottom"
@@ -193,8 +196,8 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
                 >
                   <Button
                     icon={<SaveIcon />}
-                    type="text"
-                    size="small"
+                    type="light"
+                    size="tiny"
                     onClick={() => onChange(editValue)}
                     disabled={source === editValue}
                   >
@@ -204,7 +207,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
               )}
               <Button
                 icon={<CloseIcon />}
-                type="text"
+                type="light"
                 size="small"
                 onClick={() => {
                   if (editValue !== source) {

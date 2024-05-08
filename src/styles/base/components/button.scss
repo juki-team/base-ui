@@ -122,7 +122,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   
   &.only-icon {
     border-radius: 50%;
-    padding: calc(var(--button-padding) / 2);
+    padding: calc(var(--button-padding) / 4);
     
     .jk-icon {
       margin: auto;

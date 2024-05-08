@@ -40,7 +40,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
       visible={open}
     >
       <div>
-        <Button icon={<SettingsIcon />} type="text" />
+        <Button icon={<SettingsIcon />} type="light" />
       </div>
     </Popover>
     <Popover

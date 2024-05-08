@@ -29,7 +29,7 @@ export const UploadImageButton = (props: UploadImageButtonProps) => {
   
   const children = _children || (({ setOpen, withLabel }: ChildrenProps) => {
     return (
-      <Button icon={<CloudUploadIcon />} type="text" size="small" onClick={() => setOpen(true)}>
+      <Button icon={<CloudUploadIcon />} type="light" size="tiny" onClick={() => setOpen(true)}>
         {withLabel && <T>pick/upload image</T>}
       </Button>
     );

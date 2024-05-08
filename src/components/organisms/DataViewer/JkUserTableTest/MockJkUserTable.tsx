@@ -232,7 +232,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
   const extraNodes = useMemo(() => [
     <ButtonLoader
       size="small"
-      type="text"
+      type="light"
       icon={<ReloadIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
@@ -241,7 +241,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     </ButtonLoader>,
     <ButtonLoader
       size="small"
-      type="text"
+      type="light"
       icon={<ReloadIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
@@ -266,7 +266,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
         // headers={columns.slice(0, 4)}
         // rowsView={false}
         // cardsView={false}
-        headers={columns2 || columns}
+        headers={columns || columns2}
         data={data}
         rows={{ height: 150 }}
         request={request}

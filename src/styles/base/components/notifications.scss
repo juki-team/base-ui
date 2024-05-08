@@ -74,7 +74,12 @@
       
       .jk-notification-message-content {
         justify-content: center;
-        padding: var(--pad-xt) 0 var(--pad-xt) var(--pad-xt);
+        padding: var(--pad-xt);
+        
+        .jk-notification-message-body {
+          width: calc(var(--width-notification) - var(--pad-xt) * 6 - var(--size-regular-icon) - 32px);
+          @include sm { width: calc(var(--width-notification) - var(--pad-xt) * 4 - 32px); }
+        }
         
         &.text-message {
           min-height: 42px;

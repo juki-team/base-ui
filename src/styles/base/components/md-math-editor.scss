@@ -56,8 +56,8 @@
       border-radius: var(--border-radius-sm);
     }
     
-    > div.jk-split-pane {
-      min-height: var(--min-height);
+    > div.jk-split-pane > .jk-split-pane-divider {
+      height: auto;
     }
     
     .no-saved-label {
