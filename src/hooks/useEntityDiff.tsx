@@ -24,7 +24,7 @@ export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {
       addWarningNotification(
         <div className="jk-notification-message-body">
           <T className="tt-se">{'something changed, your changes may overwrite others\' changes, we suggest you reload the page.'}</T>
-          &nbsp;<T className="tt-se">differences:</T>
+          &nbsp;<T className="tt-se">differences_colon</T>
           <div style={{ height: (height * 24 + 8) + 'px', color: 'initial' }}>
             <CodeEditor
               sourceCode={text}
