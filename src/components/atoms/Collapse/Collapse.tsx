@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Collapse as ReactCollapse } from 'react-collapse';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState } from '../../../hooks';
+import { useHandleState } from '../../../hooks/useHandleState';
 import { CollapseProps } from './types';
 
 export const Collapse = (props: CollapseProps) => {
