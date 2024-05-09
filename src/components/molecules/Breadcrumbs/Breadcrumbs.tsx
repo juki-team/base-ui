@@ -1,5 +1,5 @@
 import React, { Children, ReactNode, useCallback, useMemo, useRef, useState } from 'react';
-import { useWidthResizer } from '../../../hooks';
+import { useWidthResizer } from '../../../hooks/useWidthResizer';
 import { NavigateNextIcon, Popover } from '../../atoms';
 
 export const Breadcrumbs = ({ breadcrumbs }: { breadcrumbs: ReactNode[] }) => {
