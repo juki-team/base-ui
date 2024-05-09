@@ -1,7 +1,7 @@
 import { ContentsResponseType, UserSummaryResponseDTO } from '@juki-team/commons';
 import React, { useEffect, useMemo, useState } from 'react';
 import { jukiSettings } from '../../../config';
-import { useFetcher } from '../../../hooks';
+import { useFetcher } from '../../../hooks/useFetcher';
 import { Button, Modal, PeopleIcon, ReloadIcon, SpinIcon, T, TextArea, Tooltip } from '../../atoms';
 import { MultiSelectSearchable } from '../../molecules';
 import { UserChip } from '../UserChip';

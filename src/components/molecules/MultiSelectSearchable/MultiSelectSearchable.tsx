@@ -2,7 +2,7 @@ import { VirtualItem } from '@tanstack/react-virtual';
 import React, { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
-import { useHandleState } from '../../../hooks';
+import { useHandleState } from '../../../hooks/useHandleState';
 import {
   CloseIcon,
   ExpandMoreIcon,

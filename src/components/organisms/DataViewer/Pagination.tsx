@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { classNames } from '../../../helpers';
-import { useT } from '../../../hooks';
+import { useT } from '../../../hooks/useT';
 import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, Select, SpinIcon, T, Tooltip } from '../../atoms';
 import { PaginationProps } from './types';
 

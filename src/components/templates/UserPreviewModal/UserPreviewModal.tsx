@@ -3,7 +3,7 @@ import React from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { jukiSettings } from '../../../config';
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { Button, ContentCopyIcon, LocationOnIcon, MailIcon, Modal, OpenInNewIcon, SchoolIcon, T } from '../../atoms';
 import { ButtonLoader, FetcherLayer } from '../../molecules';
 import { UserPreviewModalProps } from './types';

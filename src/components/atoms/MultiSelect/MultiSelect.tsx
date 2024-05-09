@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
-import { useHandleState } from '../../../hooks';
+import { useHandleState } from '../../../hooks/useHandleState';
 import { CloseIcon, ExpandMoreIcon } from '../icons';
 import { InputCheckbox } from '../inputs';
 import { Popover } from '../Popover';

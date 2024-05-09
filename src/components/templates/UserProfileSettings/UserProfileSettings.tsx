@@ -1,7 +1,7 @@
 import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUserSettings } from '../../../hooks';
+import { useJukiUserSettings } from '../../../hooks/useJukiUser';
 import {
   Button,
   DarkModeIcon,

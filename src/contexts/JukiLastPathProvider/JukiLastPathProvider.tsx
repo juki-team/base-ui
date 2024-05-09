@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
-import { useJukiUser } from '../../hooks';
+import { useJukiUser } from '../../hooks/useJukiUser';
 import { LastPathContextFn, LastPathContextRef } from './context';
 import { LastPathContextInterface, LastPathType } from './types';
 

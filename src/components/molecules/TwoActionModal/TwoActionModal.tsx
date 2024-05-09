@@ -1,7 +1,7 @@
 import { Status } from '@juki-team/commons';
 import React, { PropsWithChildren, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { ExclamationIcon, Modal, T } from '../../atoms';
 import { ButtonLoader, SetLoaderStatusOnClickType } from '../ButtonLoader';
 import { TwoActionModalProps } from './types';

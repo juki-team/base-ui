@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useInterval } from '../../../hooks';
+import { useInterval } from '../../../hooks/custom';
 import { T } from '../../atoms';
 import { TimerProps } from './types';
 import { cutTimeSplit } from './utils';

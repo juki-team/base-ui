@@ -10,7 +10,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
-import { useNotification } from '../../../../hooks';
+import { useNotification } from '../../../../hooks/useNotification';
 import { AddIcon, DeleteIcon, InfoIcon, T, TextArea, Tooltip } from '../../../atoms';
 import { SplitPane, Tabs, TabsInline, TabType } from '../../../molecules';
 import { NotificationType } from '../../Notifications';

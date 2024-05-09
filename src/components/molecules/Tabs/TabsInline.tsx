@@ -1,6 +1,6 @@
 import React, { Children, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useWidthResizer } from '../../../hooks';
+import { useWidthResizer } from '../../../hooks/useWidthResizer';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../atoms';
 import { TabsInlineProps } from './types';
 

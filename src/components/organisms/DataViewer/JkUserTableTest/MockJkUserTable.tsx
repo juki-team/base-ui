@@ -22,7 +22,7 @@ import {
   TextField,
   TextHeadCell,
 } from '../../../';
-import { useJukiUser } from '../../../../hooks';
+import { useJukiUser } from '../../../../hooks/useJukiUser';
 import users from './data.json';
 
 export interface JkUserTableProps {

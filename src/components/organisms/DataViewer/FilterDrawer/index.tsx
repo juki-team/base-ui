@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
-import { useT } from '../../../../hooks';
+import { useT } from '../../../../hooks/useT';
 import { ArrowIcon, Button, FilterListIcon, Input, T } from '../../../atoms';
 import { CheckboxList, DrawerView, InputDate, OptionType } from '../../../molecules';
 import { FilterDrawerProps, FilterValuesType, TableHeadType, TableSortOnSortType, TableSortOrderType } from '../types';

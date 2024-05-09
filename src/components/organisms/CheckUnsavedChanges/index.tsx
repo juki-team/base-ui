@@ -1,7 +1,7 @@
 import { ProgrammingLanguage } from '@juki-team/commons';
 import { diff } from 'deep-object-diff';
 import React, { cloneElement, ReactElement, ReactNode, useRef, useState } from 'react';
-import { useSound } from '../../../hooks';
+import { useSound } from '../../../hooks/useSound';
 import { T } from '../../atoms';
 import { CodeEditor, TwoActionModal } from '../../molecules';
 

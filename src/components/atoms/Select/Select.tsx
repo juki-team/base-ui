@@ -1,7 +1,7 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState } from '../../../hooks';
+import { useHandleState } from '../../../hooks/useHandleState';
 import { ReactNodeOrFunctionType } from '../../../types';
 import { ArrowDropDownIcon, ArrowDropUpIcon, ArrowLeftIcon, ArrowRightIcon } from '../icons';
 import { PlacementType, Popover } from '../Popover';

@@ -2,7 +2,7 @@ import React, { CSSProperties, memo, PropsWithChildren, useEffect, useRef, useSt
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS, SCROLL_WIDTH } from '../../../constants';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useKeyPress } from '../../../hooks';
+import { useKeyPress } from '../../../hooks/custom';
 import { Button, CloseIcon, Portal } from '../../atoms';
 import { DrawerViewProps } from './types';
 

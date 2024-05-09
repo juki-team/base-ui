@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useTriggerWrapper } from '../../../hooks';
+import { useTriggerWrapper } from '../../../hooks/useTriggerWrapper';
 import { DrawerView } from './DrawerView';
 import { DrawerProps } from './types';
 
