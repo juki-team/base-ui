@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import ReactCopyToClipboard from 'react-copy-to-clipboard';
-import { useNotification } from '../../../hooks';
+import { useNotification } from '../../../hooks/useNotification';
 import { T } from '../T';
 import { CopyToClipboardProps } from './types';
 
