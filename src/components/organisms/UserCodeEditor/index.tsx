@@ -112,13 +112,16 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   const onLanguageChangeRef = useRef(onLanguageChange);
   onLanguageChangeRef.current = onLanguageChange;
   
+  useEffect(() => {
+    onLanguageChangeRef.current?.(language);
+  }, [ language ]);
+  
   const languagesString = JSON.stringify(languages);
   useEffect(() => {
     const languages: UserCodeEditorProps<T>['languages'] = JSON.parse(languagesString);
     if (languages.length && !languages.some(lang => lang.value === language)) {
       const newLanguage = languages[0].value;
       setLanguage(newLanguage);
-      onLanguageChangeRef.current?.(newLanguage);
     }
   }, [ language, languagesString ]);
   
@@ -173,7 +176,6 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     }
     if (newLanguage) {
       setLanguage(newLanguage);
-      onLanguageChange?.(newLanguage);
       setEditorSettings(prevState => ({ ...prevState, lastLanguageUsed: newLanguage }));
     }
     if (testCases) {
