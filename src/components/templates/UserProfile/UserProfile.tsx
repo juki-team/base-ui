@@ -1,7 +1,7 @@
 import { Judge, JUDGE } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { LocationOnIcon, MailIcon, SchoolIcon } from '../../atoms';
 import { UserProfileProps } from './types';
 

@@ -1,7 +1,8 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
 import React, { Dispatch, ReactNode } from 'react';
 import { classNames } from '../../../../helpers';
-import { useJukiUI, useJukiUser, useJukiUserSettings } from '../../../../hooks';
+import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { useJukiUser, useJukiUserSettings } from '../../../../hooks/useJukiUser';
 import {
   AppsIcon,
   DarkModeIcon,

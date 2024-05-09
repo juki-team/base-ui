@@ -1,8 +1,8 @@
 import { ProgrammingLanguage } from '@juki-team/commons';
 import { diff } from 'deep-object-diff';
 import React, { useEffect, useRef } from 'react';
-import { T } from '../components/atoms';
-import { CodeEditor } from '../components/molecules';
+import { T } from '../components/atoms/T/T';
+import { CodeEditor } from '../components/molecules/CodeEditor/CodeEditor';
 import { useNotification } from './useNotification';
 
 export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {

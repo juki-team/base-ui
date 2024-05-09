@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { HomeIcon, JukiSurprisedImage, T } from '../../atoms';
 
 export function PageNotFound({ children }: PropsWithChildren<{}>) {

@@ -24,7 +24,9 @@ import {
 import { jukiSettings } from '../../config';
 import { EMPTY_COMPANY } from '../../constants';
 import { getLocalToken, localStorageCrossDomains } from '../../helpers';
-import { useFetcher, useJukiPage, useT } from '../../hooks';
+import { useFetcher } from '../../hooks/useFetcher';
+import { useJukiPage } from '../../hooks/useJukiPage';
+import { useT } from '../../hooks/useT';
 import { UserContext } from './context';
 import { SocketIo } from './SocketIo';
 import { DeviceType, JukiUserProviderProps } from './types';

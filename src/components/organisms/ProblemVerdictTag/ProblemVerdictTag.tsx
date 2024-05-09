@@ -1,6 +1,6 @@
 import { PROBLEM_VERDICT, ProblemVerdict, ProfileSetting, Theme } from '@juki-team/commons';
 import React from 'react';
-import { useJukiUser } from '../../../hooks';
+import { useJukiUser } from '../../../hooks/useJukiUser';
 import { T, Tooltip } from '../../atoms';
 
 export const ProblemVerdictTag = ({ verdict }: { verdict: ProblemVerdict }) => {

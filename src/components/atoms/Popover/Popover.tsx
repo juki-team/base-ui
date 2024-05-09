@@ -1,7 +1,8 @@
 import React from 'react';
 import { ArrowContainer, Popover as ReactPopover, PopoverAlign, PopoverPosition } from 'react-tiny-popover';
 import { classNames, isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useJukiUI, useTriggerWrapper } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useTriggerWrapper } from '../../../hooks/useTriggerWrapper';
 import { PlacementType, PopoverProps } from './types';
 
 const placementPositionAlign: { [key in PlacementType]: { position: PopoverPosition, align: PopoverAlign } } = {

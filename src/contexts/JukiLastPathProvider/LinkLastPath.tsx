@@ -1,6 +1,8 @@
 import React, { PropsWithChildren, useMemo } from 'react';
 import { cloneURLSearchParams } from '../../helpers';
-import { useJukiRouter, useJukiUI, useLastPath } from '../../hooks';
+import { useJukiRouter } from '../../hooks/useJukiRouter';
+import { useJukiUI } from '../../hooks/useJukiUI';
+import { useLastPath } from '../../hooks/useLastPath';
 import { QueryParamKey } from '../../types';
 import { Href } from '../JukiRouterProvider';
 

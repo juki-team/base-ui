@@ -8,7 +8,9 @@ import {
 } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useJkSocket, useJukiUI, useJukiUser } from '../../../hooks';
+import { useJkSocket } from '../../../hooks/useJkSocket';
+import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useJukiUser } from '../../../hooks/useJukiUser';
 import { Portal, T } from '../../atoms';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, CodeEditorPropertiesType, SplitPane } from '../../molecules';
 import { Header } from './Header';
