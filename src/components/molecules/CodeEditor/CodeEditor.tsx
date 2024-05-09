@@ -26,10 +26,12 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
   
   const extensions = [];
   switch (language) {
+    case ProgrammingLanguage.ICPC_CPP:
     case ProgrammingLanguage.CPP:
     case ProgrammingLanguage.CPP11:
     case ProgrammingLanguage.CPP14:
     case ProgrammingLanguage.CPP17:
+    case ProgrammingLanguage.ICPC_C:
     case ProgrammingLanguage.C:
     case ProgrammingLanguage.ARDUINO:
       extensions.push(cpp());
@@ -46,6 +48,7 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
     case ProgrammingLanguage.MARKDOWN:
       extensions.push(markdown());
       break;
+    case ProgrammingLanguage.ICPC_PYTHON:
     case ProgrammingLanguage.PYTHON:
     case ProgrammingLanguage.PYTHON3:
       extensions.push(python());
