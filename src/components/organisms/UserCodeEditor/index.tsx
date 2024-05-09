@@ -50,6 +50,7 @@ export interface UserCodeEditorProps<T> {
   className?: string,
   expandPosition?: CodeEditorExpandPositionType,
   initialTestCases?: CodeEditorTestCasesType,
+  initialLanguage?: T,
   sourceStoreKey?: string,
   languages: { value: T, label: string }[],
   middleButtons?: CodeEditorMiddleButtonsType<T>,
@@ -72,6 +73,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     className,
     expandPosition,
     initialTestCases,
+    initialLanguage,
     sourceStoreKey = '',
     languages,
     middleButtons,
@@ -98,7 +100,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     tabSize: 2,
     fontSize: 14,
   });
-  const [ language, setLanguage ] = useState<T>(editorSettings.lastLanguageUsed as T);
+  const [ language, setLanguage ] = useState<T>(initialLanguage ?? editorSettings.lastLanguageUsed as T);
   const [ testCases, setTestCases ] = useState<CodeEditorTestCasesType>(initialTestCases ?? {});
   const initialTestCasesString = JSON.stringify(initialTestCases);
   useEffect(() => {
