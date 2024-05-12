@@ -24,7 +24,7 @@ export const UserChip = (props: UserChipProps) => {
         <UserNicknameLink nickname={nickname} companyKey={companyKey}>
           <div className="link fw-bd">{nickname}</div>
         </UserNicknameLink>
-        {(!!givenName || !!familyName) && <div className="fw-lar">{givenName} {familyName}</div>}
+        {(!!givenName || !!familyName) && <div className="fw-lr ta-cr">{givenName} {familyName}</div>}
         {!!email && <div className="fw-lr">{email}</div>}
       </div>
     </div>
