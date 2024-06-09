@@ -36,7 +36,6 @@ Regular.args = {
     familyName: '',
     givenName: '',
     handles: {},
-    id: '',
     imageUrl: '',
     institution: '',
     nickname: 'OscarGauss',

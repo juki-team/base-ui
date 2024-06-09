@@ -12,7 +12,6 @@ export const WelcomeModal = ({ isOpen, nickname, onClose, onSeeMyProfile }: Welc
     isOpen={isOpen}
     onClose={onClose}
     className="modal-welcome"
-    closeIcon={false}
   >
     <div className="jk-pad-md jk-row nowrap">
       <div>

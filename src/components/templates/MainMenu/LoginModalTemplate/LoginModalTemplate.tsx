@@ -70,7 +70,6 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
         }
         graphic={<JukiLaptopImage />}
         closeWhenKeyEscape
-        closeIcon={false}
       >
         <div className="jk-col stretch">
           {loginWithGoogle && reactAppGoogleClientId && (

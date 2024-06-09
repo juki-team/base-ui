@@ -326,7 +326,7 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
 }
 
 .jk-text-stdout {
-  background: var(--t-color-shadow-light)!important;
+  background: var(--t-color-shadow-light) !important;
   padding: 3px 0;
 }
 
@@ -369,17 +369,17 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
 .pad-left-right, .pad-top, .pad-bottom, .pad-top-bottom { box-sizing: border-box; }
 
 .pad-left-right {
-  padding-left: var(--pad-md);
-  padding-right: var(--pad-md);
+  padding-left: var(--pad-sm);
+  padding-right: var(--pad-sm);
 }
 
-.pad-top { padding-top: var(--pad-md); }
+.pad-top { padding-top: var(--pad-sm); }
 
-.pad-bottom { padding-bottom: var(--pad-md); }
+.pad-bottom { padding-bottom: var(--pad-sm); }
 
 .pad-top-bottom {
-  padding-top: var(--pad-md);
-  padding-bottom: var(--pad-md);
+  padding-top: var(--pad-sm);
+  padding-bottom: var(--pad-sm);
 }
 
 .jk-row-col {

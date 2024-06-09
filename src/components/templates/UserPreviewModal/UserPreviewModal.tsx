@@ -1,10 +1,19 @@
 import { ContentResponseType, Status, UserBasicResponseDTO } from '@juki-team/commons';
 import React from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
 import { jukiSettings } from '../../../config';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { Button, ContentCopyIcon, LocationOnIcon, MailIcon, Modal, OpenInNewIcon, SchoolIcon, T } from '../../atoms';
+import {
+  Button,
+  ContentCopyIcon,
+  LocationOnIcon,
+  MailIcon,
+  Modal,
+  OpenInNewIcon,
+  SchoolIcon,
+  T,
+  CopyToClipboard,
+} from '../../atoms';
 import { ButtonLoader, FetcherLayer } from '../../molecules';
 import { UserPreviewModalProps } from './types';
 
@@ -18,7 +27,6 @@ export const UserPreviewModal = ({ isOpen, nickname, companyKey, onClose, userHr
       onClose={onClose}
       className="modal-user-preview wh-aoa"
       closeWhenClickOutside
-      closeIcon={false}
     >
       <FetcherLayer<ContentResponseType<UserBasicResponseDTO>>
         url={jukiSettings.API.user.getSummary({ params: { nickname, companyKey } }).url}
@@ -34,26 +42,30 @@ export const UserPreviewModal = ({ isOpen, nickname, companyKey, onClose, userHr
                 height={100}
                 width={100}
               />
-              <div className="jk-col gap stretch">
-                <div className="jk-row left gap nowrap">
-                  <h3 className="fl-tt-il">{data?.content?.nickname}</h3>
-                  <CopyToClipboard text={data?.content?.nickname}>
-                    <div className="jk-button light only-icon small">
-                      <ContentCopyIcon />
-                    </div>
-                  </CopyToClipboard>
-                </div>
-                <div className="cr-g3">{data?.content?.givenName} {data?.content?.familyName}</div>
-                <div className="jk-divider tiny" />
-                {(data?.content?.city?.trim() || data?.content?.country?.trim()) && (
-                  <div className="jk-row left gap">
-                    <LocationOnIcon />{data?.content?.city}{data?.content?.city && ','} {data?.content?.country}
+              <div className="jk-col stretch">
+                <div className="jk-col stretch">
+                  <div className="jk-row left gap nowrap">
+                    <h3 className="fl-tt-il">{data?.content?.nickname}</h3>
+                    <CopyToClipboard text={data?.content?.nickname}>
+                      <div className="jk-button light only-icon small">
+                        <ContentCopyIcon />
+                      </div>
+                    </CopyToClipboard>
                   </div>
-                )}
-                {data?.content?.institution?.trim() && (
-                  <div className="jk-row left gap nowrap wb-ba"><SchoolIcon />{data?.content?.institution}</div>
-                )}
-                <div className="jk-row left gap nowrap wb-ba"><MailIcon />{data?.content?.email}</div>
+                  <div className="cr-g3">{data?.content?.givenName} {data?.content?.familyName}</div>
+                </div>
+                <div className="jk-col gap stretch">
+                  <div className="jk-divider tiny" />
+                  {(data?.content?.city?.trim() || data?.content?.country?.trim()) && (
+                    <div className="jk-row left gap">
+                      <LocationOnIcon />{data?.content?.city}{data?.content?.city && ','} {data?.content?.country}
+                    </div>
+                  )}
+                  {data?.content?.institution?.trim() && (
+                    <div className="jk-row left gap nowrap wb-ba"><SchoolIcon />{data?.content?.institution}</div>
+                  )}
+                  <div className="jk-row left gap nowrap wb-ba"><MailIcon />{data?.content?.email}</div>
+                </div>
               </div>
             </div>
             <div

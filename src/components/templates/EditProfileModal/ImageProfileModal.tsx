@@ -18,7 +18,7 @@ export const ImageProfileModal = ({ isOpen, onClose, nickname }: ImageProfileMod
   const [ cropImage, setCropImage ] = useState<CropImageType>();
   
   return (
-    <Modal onClose={onClose} isOpen={isOpen} closeIcon={false}>
+    <Modal onClose={onClose} isOpen={isOpen}>
       <div className="jk-pad-lg jk-col gap">
         <ImageLoaderCropper
           aspect={1}

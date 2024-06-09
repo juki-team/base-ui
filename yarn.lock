@@ -2047,10 +2047,10 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
 
-"@juki-team/commons@^0.0.412":
-  version "0.0.412"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.412/8be793e8104c5d64463137082f24c72dcdd8345a#8be793e8104c5d64463137082f24c72dcdd8345a"
-  integrity sha512-Bnoge8nJNmcV8+rUJDKLaKpfI83OakFS6QlbQEyTUvN+d7FKV7VqLz4CQNUa5vb/0EQD1shSFJQF4VrAjbVYZA==
+"@juki-team/commons@^0.0.469":
+  version "0.0.469"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.469/1476a9871a53657a7e62993fe5bffe7e3957e1ca#1476a9871a53657a7e62993fe5bffe7e3957e1ca"
+  integrity sha512-S9Y+HVDbxBk5BQ/Nl/k8kCn1pzVa5pJv5j0ls7EWEB5qQ8YcY29Vb8PkXlgV5zmJfppi3GQMd+zUt7XRFdOEGA==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"

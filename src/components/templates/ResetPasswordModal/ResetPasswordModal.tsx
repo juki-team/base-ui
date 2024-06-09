@@ -19,7 +19,7 @@ export const ResetPasswordModal = ({ isOpen, onClose, nickname, companyKey }: Re
       isOpen={isOpen}
       onClose={onClose}
       closeWhenClickOutside
-      closeIcon
+      closeWhenKeyEscape
     >
       <div className="jk-pad-md jk-col gap left stretch">
         <h2><T>reset password</T></h2>

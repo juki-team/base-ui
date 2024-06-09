@@ -16,7 +16,7 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
     className,
     portalClassName,
     children,
-    closeIcon = true,
+    closeIcon = false,
     expand,
     closeWhenClickOutside = false,
     setLoaderStatusRef,

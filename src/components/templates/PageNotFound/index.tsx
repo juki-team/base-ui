@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { HomeIcon, JukiSurprisedImage, T } from '../../atoms';
+import { Button, HomeIcon, JukiSurprisedImage, T } from '../../atoms';
 
 export function PageNotFound({ children }: PropsWithChildren<{}>) {
   
@@ -13,9 +13,11 @@ export function PageNotFound({ children }: PropsWithChildren<{}>) {
         {children || (
           <>
             <h3><T className="tt-se">page not found</T></h3>
-            <p><T className="tt-se">the page does not exist or you do not have permissions to view it</T></p>
-            <Link href="/" className="link tt-ue">
-              <div className="jk-row gap"><HomeIcon /><T>go to home page</T></div>
+            <p className="ta-cr">
+              <T className="tt-se">the page does not exist or you do not have permissions to view it</T>
+            </p>
+            <Link href="/">
+              <Button size="small" icon={<HomeIcon />}><T>go to home page</T></Button>
             </Link>
           </>
         )}

@@ -77,7 +77,6 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
               <Drawer
                 content={props => renderReactNodeOrFunctionP1(drawerMenuMobile, { ...props, menu })}
                 position="left"
-                closeIcon={false}
                 triggerOn={NONE}
                 closeOnOutside
               >
@@ -100,7 +99,6 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
                 <Drawer
                   content={props => renderReactNodeOrFunctionP1(centerMobile.content, props)}
                   position="top"
-                  closeIcon={false}
                   closeOnOutside
                 >
                   {(props: DrawerActionsType): ReactNode => renderReactNodeOrFunctionP1(centerMobile.children, props)}
@@ -116,7 +114,6 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
                 <Drawer
                   content={props => renderReactNodeOrFunctionP1(rightMobile.content, props)}
                   position="right"
-                  closeIcon={false}
                   closeOnOutside
                 >
                   {(props: DrawerActionsType): ReactNode => (

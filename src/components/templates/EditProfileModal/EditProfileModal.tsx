@@ -85,7 +85,7 @@ export function EditProfileModal({ user, isOpen, onClose }: EditProfileModalPros
   const validCharNickname = ALPHANUMERIC_DASH_UNDERSCORE_REGEX.test(userState.nickname);
   
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeIcon={false}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <div className="user-profile jk-row stretch center gap jk-pad-md pn-re">
         <ImageProfileModal
           onClose={() => setModalImageProfile(false)}

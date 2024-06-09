@@ -24,7 +24,6 @@ export const Regular: Story = {
 
 Regular.args = {
   user: {
-    id: '',
     email: 'me@oscargauss.com',
     familyName: 'family name',
     givenName: 'given name',

@@ -43,7 +43,6 @@ export const ChangePasswordModal = ({ isOpen, onClose }: BasicModalProps) => {
       isOpen={isOpen}
       className="wh-ao"
       onClose={onClose}
-      closeIcon={false}
     >
       <div className="jk-pad-md jk-col gap stretch change-password-modal">
         <div className="jk-row">

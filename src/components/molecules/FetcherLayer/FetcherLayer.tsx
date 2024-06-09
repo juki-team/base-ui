@@ -2,7 +2,7 @@ import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
 import React, { useEffect } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useFetcher, useNotification } from '../../../hooks';
-import { JukiSurprisedImage, SpinIcon } from '../../atoms';
+import { JukiSurprisedImage, LineLoader, SpinIcon } from '../../atoms';
 import { FetcherLayerProps } from './types';
 
 const isContentResponseType = <T, >(data: any): data is ContentResponseType<T> => {
@@ -37,18 +37,20 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
     if (loadingView) {
       return <>{renderReactNodeOrFunction(loadingView)}</>;
     }
+    
     return (
       <div className="jk-row jk-col extend">
         <SpinIcon size="very-huge" className="cr-py" />
       </div>
     );
   }
+  
   if (isContentResponseType<U>(data) || isContentsResponseType<U>(data)) {
     return <>
       {renderReactNodeOrFunctionP1(children, { data, isLoading, error, mutate })}
       {isValidating && (
-        <div className="jk-overlay">
-          <SpinIcon size="very-huge" className="cr-py" />
+        <div style={{ position: 'absolute', top: 0, width: '100%' }}>
+          <LineLoader />
         </div>
       )}
     </>;
