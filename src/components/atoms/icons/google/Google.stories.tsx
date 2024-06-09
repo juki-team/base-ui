@@ -61,6 +61,7 @@ import {
   ForwardIcon,
   FullscreenExitIcon,
   FullscreenIcon,
+  GlobeIcon,
   GroupAddIcon,
   GroupIcon,
   HardDriveIcon,
@@ -292,6 +293,7 @@ export const Google: FC<BasicIconProps> = (args) => {
     PageInfoIcon,
     FolderManagedIcon,
     BubbleChartIcon,
+    GlobeIcon,
   };
   
   const [ color, setColor ] = useState<ColorResult>({ hex: '', hsl: { h: 0, s: 0, l: 0 }, rgb: { r: 0, g: 0, b: 0 } });

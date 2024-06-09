@@ -51,6 +51,7 @@ export * from './FolderOpenIcon';
 export * from './ForwardIcon';
 export * from './FullscreenExitIcon';
 export * from './FullscreenIcon';
+export * from './Globe';
 export * from './GroupAddIcon';
 export * from './GroupIcon';
 export * from './HardDriveIcon';
