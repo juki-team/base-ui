@@ -1,7 +1,6 @@
 import { ContentResponseType, Status, UserBasicResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { jukiSettings } from '../../../config';
-import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import {
   Button,
@@ -19,7 +18,7 @@ import { UserPreviewModalProps } from './types';
 
 export const UserPreviewModal = ({ isOpen, nickname, companyKey, onClose, userHref }: UserPreviewModalProps) => {
   
-  const { viewPortSize, components: { Image } } = useJukiUI();
+  const { components: { Image } } = useJukiUI();
   
   return (
     <Modal
@@ -68,12 +67,7 @@ export const UserPreviewModal = ({ isOpen, nickname, companyKey, onClose, userHr
                 </div>
               </div>
             </div>
-            <div
-              className={classNames('gap block stretch', {
-                'jk-col': viewPortSize === 'sm',
-                'jk-row': viewPortSize !== 'sm',
-              })}
-            >
+            <div className="jk-row-col gap block stretch">
               <ButtonLoader size="small" type="light" onClick={onClose}><T>close</T></ButtonLoader>
               <a href={userHref} target="_blank" rel="noreferrer">
                 <Button size="small" extend>
