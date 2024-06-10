@@ -317,6 +317,8 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   &.gray-5 { @include look(gray-5); }
   
   &.gray-6 { @include look(gray-6); }
+  
+  &.white { @include look(white); }
 }
 
 .jk-text-stdout, .jk-text-stderr {

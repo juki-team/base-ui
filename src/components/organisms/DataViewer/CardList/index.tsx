@@ -53,7 +53,7 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
             style={{
               height: `${virtualRow.size}px`,
               transform: `translateY(${virtualRow.start}px)`,
-              padding: '20px 0px',
+              padding: 'var(--pad-sm) 0px',
             }}
             className="jk-row jk-list-card-row"
           >

@@ -56,13 +56,13 @@ export const Pagination = (props: PaginationProps) => {
       <div className="jk-row center nowrap">
         {isOnToolbar ? (
           <div className="jk-row gap nowrap">
-            <div className="jk-row nowrap">
+            <div className="jk-row nowrap bc-we jk-br-ie">
               <Tooltip content={<T>previous</T>}>
                 <div
-                  className={classNames('page-item jk-row jk-border-radius', { disabled: page === startPage })}
+                  className={classNames('page-item jk-row jk-br-ie', { disabled: page === startPage })}
                   onClick={prev}
                 >
-                  <NavigateBeforeIcon className="jk-br-ie clickable" />
+                  <NavigateBeforeIcon />
                 </div>
               </Tooltip>
               &nbsp;
@@ -73,15 +73,15 @@ export const Pagination = (props: PaginationProps) => {
                   </div>
                 )}
               >
-                <div className="jk-row nowrap">{page}&nbsp;<T>of</T>&nbsp;{endPage}</div>
+                <div className="jk-row nowrap tx-s">{page}&nbsp;<T>of</T>&nbsp;{endPage}</div>
               </Tooltip>
               &nbsp;
               <Tooltip content={<T>next</T>}>
                 <div
-                  className={classNames('page-item jk-row jk-border-radius', { disabled: page === endPage })}
+                  className={classNames('page-item jk-row jk-br-ie', { disabled: page === endPage })}
                   onClick={next}
                 >
-                  <NavigateNextIcon className="jk-br-ie clickable" />
+                  <NavigateNextIcon />
                 </div>
               </Tooltip>
             </div>

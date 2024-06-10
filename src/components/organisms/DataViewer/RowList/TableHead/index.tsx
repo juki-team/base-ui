@@ -1,4 +1,4 @@
-import React, { Children, useCallback, useRef, useState } from 'react';
+import React, { Children, ReactElement, Ref, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../../helpers';
 import { ArrowIcon } from '../../../../atoms';
 import { TableHeadersWithWidthType, TableHeadProps } from '../../types';
@@ -81,7 +81,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
   );
 };
 
-export const TableHead = <T, >(props: TableHeadProps<T>) => {
+const TableHeadCmp = <T, >(props: TableHeadProps<T>, ref: Ref<HTMLDivElement>) => {
   
   const { headers, headerWidths, setHeaderWidths, scrollLeft, scrollTop, loading } = props;
   
@@ -140,7 +140,7 @@ export const TableHead = <T, >(props: TableHeadProps<T>) => {
   const headersNoSticky = headers.filter(({ sticky }) => !sticky);
   
   return (
-    <div className={classNames('jk-table-head-container', { withVerticalScroll: !!scrollTop })}>
+    <div className={classNames('jk-table-head-container', { withVerticalScroll: !!scrollTop })} ref={ref}>
       <div className="jk-table-head" onMouseLeave={onMouseHoldUp}>
         <div className={classNames('jk-table-head-sticky', { 'elevation-1': !!scrollLeft })}>
           {Children.toArray(headersSticky.map((head, index) => (
@@ -178,3 +178,6 @@ export const TableHead = <T, >(props: TableHeadProps<T>) => {
     </div>
   );
 };
+
+export const TableHead = React.forwardRef(TableHeadCmp) as
+  <T>(p: TableHeadProps<T> & { ref?: Ref<HTMLDivElement> }) => ReactElement;

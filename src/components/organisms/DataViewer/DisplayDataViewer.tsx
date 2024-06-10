@@ -52,6 +52,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   const prevHeaders = useRef(JSON.stringify(headersMinWidth(headers)));
   const [ scrollLeft, setScrollLeft ] = useState(0);
   const [ scrollTop, setScrollTop ] = useState(0);
+  const { height = 0, ref } = useResizeDetector();
   
   useEffect(() => {
     const width = (viewContainerWidth || 0) - SCROLL_WIDTH;
@@ -84,7 +85,11 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   return (
     <div
       className="jk-data-viewer-content jk-br-ie"
-      style={{ '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px', position: 'relative' } as CSSProperties}
+      style={{
+        '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px',
+        position: 'relative',
+        '--jk-data-viewer-table-height': height + 1 + 'px',
+      } as CSSProperties}
     >
       <DataViewerToolbar<T>
         setViewMode={setViewMode}
@@ -131,6 +136,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
             scrollLeft={scrollLeft}
             scrollTop={scrollTop}
             loading={loading}
+            ref={ref}
           />
         )}
         {data.length > 0 && loading && <LineLoader />}

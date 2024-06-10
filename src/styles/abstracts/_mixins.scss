@@ -123,6 +123,8 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
     color: var(--t-color-secondary-text);
   } @else if $look == accent-light or $look == success-light or $look == info-light or $look == warning-light or $look == error-light or $look== gray-4 or $look == gray-5 or $look == gray-6 {
     color: var(--t-color-black);
+  } @else if $look == white {
+    color: var(--t-color-black-light);
   } @else {
     color: var(--t-color-white);
   }

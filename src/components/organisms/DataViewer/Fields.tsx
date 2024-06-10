@@ -5,8 +5,8 @@ import { DateFieldProps, FieldProps, TextFieldProps } from './types';
 
 export const TextHeadCell = ({ text, className }: { text: string | ReactNode, className?: string }) => {
   return (
-    <div className={classNames('text-head-field jk-row fw-bd', className)}>
-      {typeof text === 'string' ? <T className="tt-se">{text}</T> : text}
+    <div className={classNames('text-head-field jk-row', className)}>
+      {typeof text === 'string' ? <T className="tt-ue tx-s">{text}</T> : text}
     </div>
   );
 };
