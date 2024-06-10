@@ -13,7 +13,7 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
   const breadcrumbs = useMemo(() => {
     const result = [ ...initialBreadcrumbs ];
     if (!withoutHomeLink) {
-      breadcrumbs.unshift(<HomeLink key="home" />);
+      result.unshift(<HomeLink key="home" />);
     }
     return result;
   }, [ initialBreadcrumbs, withoutHomeLink ]);
