@@ -134,6 +134,7 @@
               outline: 2px solid var(--t-color-white);
             }
           }
+          
           &:not(.active):hover {
             background: var(--t-color-highlight-light);
           }
@@ -215,7 +216,7 @@
             box-sizing: border-box;
             height: 100%;
             position: relative;
-            padding: 0 4px;
+            padding: 0 var(--pad-xt);
             //background: var(--t-color-highlight-light);
             
             &.with-sort:not(.with-filter), &.with-filter:not(.with-sort) {

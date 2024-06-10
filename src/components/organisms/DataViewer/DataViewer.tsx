@@ -570,7 +570,10 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       if (typeof head === 'string') {
         const width = Math.ceil(getTextWidth(t(head.toUpperCase()), '400 14px / 14px Inter, sans-serif')) + 4;
         // newHead.minWidth = Math.max(props.minWidth || 0, iconsWidth + width + 36 /* padding head cell */);
-        newHead.minWidth = Math.max(props.minWidth || 0, iconsWidth + width + 8 /* padding head cell */ + 4 /* extra padding */);
+        newHead.minWidth = Math.max(
+          props.minWidth || 0,
+          iconsWidth + width + 8 * 2 /* padding head cell left - right */ + 4, /* extra padding */
+        );
       }
       
       return newHead;
