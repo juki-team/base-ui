@@ -126,7 +126,7 @@ export const renderHead = ({ head, columnIndex, className }: renderHeadProps) =>
   
   if (head) {
     if (typeof head === 'string') {
-      return <TextHeadCell text={head} />;
+      return <TextHeadCell text={head} className={className} />;
     }
     if (typeof head === 'function') {
       return head();
