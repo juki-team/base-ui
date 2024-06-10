@@ -212,6 +212,7 @@ export type TableHeadersType<T> = {
   minWidth?: number,
   sort?: TableSortType,
   sticky?: boolean,
+  headClassName?: string,
 }
 
 export type TableHeadersWithWidthType<T> = TableHeadersType<T> & { width: number };

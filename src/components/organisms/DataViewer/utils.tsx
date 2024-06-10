@@ -118,10 +118,11 @@ export const isFilterDateRange = (filter?: TableHeaderFilterType): filter is Tab
 
 interface renderHeadProps {
   head: TableHeadType,
-  columnIndex: string
+  columnIndex: string,
+  className?: string,
 }
 
-export const renderHead = ({ head, columnIndex }: renderHeadProps) => {
+export const renderHead = ({ head, columnIndex, className }: renderHeadProps) => {
   
   if (head) {
     if (typeof head === 'string') {
@@ -133,8 +134,8 @@ export const renderHead = ({ head, columnIndex }: renderHeadProps) => {
     return head;
   }
   
-  return <TextHeadCell text={columnIndex} />;
-}
+  return <TextHeadCell text={columnIndex} className={className} />;
+};
 
 export const renderField = <T, >(data: T[], index: number, isCard: boolean) => ({
                                                                                   field,

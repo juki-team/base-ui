@@ -27,6 +27,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
       filter,
       sort: { onSort, order = 0 } = {} as { onSort: () => void, order: number },
       sticky,
+      headClassName,
     },
     index,
     onMouseHoldMove,
@@ -48,7 +49,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
       key={columnIndex}
       style={{ width: width + 'px' }}
     >
-      <div className="jk-table-head-field">{renderHead({ head, columnIndex })}</div>
+      <div className="jk-table-head-field">{renderHead({ head, columnIndex, className: headClassName })}</div>
       <div className="jk-row jk-table-head-tools">
         {onSort && (
           <div
