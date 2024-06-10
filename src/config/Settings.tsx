@@ -18,11 +18,11 @@ import {
 
 const addQuery = (path: string) => {
   return !path.includes('?') ? path + '?' : path;
-}
+};
 
 const addAnd = (path: string) => {
   return path[path.length - 1] !== '?' ? path + '&' : path;
-}
+};
 
 const injectPage = (path: string, page: number, size: number) => {
   return addAnd(addQuery(path)) + `page=${page}&size=${size}`;
@@ -38,7 +38,7 @@ const injectFilter = (path: string, filterUrl: string | undefined) => {
 
 const injectCompany = (path: string, companyKey: string | undefined) => {
   return companyKey ? addAnd(addQuery(path)) + `companyKey=${companyKey}` : path;
-}
+};
 
 type ResponseAPI<M extends HTTPMethod = HTTPMethod.GET> = ({ url: string } & AuthorizedRequestType<M>);
 
@@ -76,7 +76,7 @@ export class Settings {
           url: injectBaseUrl('note', `?sourceUrl=${sourceUrl}&theme=${theme}`),
         }),
       },
-    }
+    };
   }
   
   get API() {
@@ -308,6 +308,14 @@ export class Settings {
       locale: {
         get: valid<{ params: { locale: Language, namespace: string } }>(({ params: { locale, namespace } }) => ({
           url: injectBaseUrl('locale', `/${locale}/${namespace}`),
+          method: HTTPMethod.GET,
+        })),
+      },
+      worksheet: {
+        getList: valid<
+          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('worksheet', '/list'), page, size), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
       },
