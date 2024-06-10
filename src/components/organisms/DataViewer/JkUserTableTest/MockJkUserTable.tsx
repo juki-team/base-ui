@@ -76,6 +76,8 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     },
     {
       index: 'email',
+      headClassName: 'left',
+      minWidth: 200,
       field: ({ record: { email } }) => <TextField text={email} label={<T>email</T>} />,
       sort: { compareFn: () => (rowA, rowB) => rowA.email.localeCompare(rowB.email) },
       // filter: { type: 'text', callbackFn: ({ text }) => (row) => row.email === text } as FilterTextOffline<UserTable>,

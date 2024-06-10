@@ -269,6 +269,7 @@ export type DataViewerHeadersType<T> = {
   filter?: JkTableHeaderFilterType<T>,
   cardPosition?: CardPositionType,
   sticky?: boolean,
+  headClassName?: string,
 }
 
 // export type URLSearchParamsInitType = string | [string, string][] | Record<string, string | string[]> | URLSearchParams;
