@@ -1,8 +1,23 @@
 import React, { Children, ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import { useWidthResizer } from '../../../hooks/useWidthResizer';
 import { NavigateNextIcon, Popover } from '../../atoms';
+import { HomeLink } from '../links';
 
-export const Breadcrumbs = ({ breadcrumbs }: { breadcrumbs: ReactNode[] }) => {
+interface BreadcrumbsProps {
+  breadcrumbs: ReactNode[],
+  withoutHomeLink: boolean,
+}
+
+export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }: BreadcrumbsProps) => {
+  
+  const breadcrumbs = useMemo(() => {
+    const result = [ ...initialBreadcrumbs ];
+    if (!withoutHomeLink) {
+      breadcrumbs.unshift(<HomeLink key="home" />);
+    }
+    return result;
+  }, [ initialBreadcrumbs, withoutHomeLink ]);
+  
   const breadcrumbsLength = breadcrumbs.length;
   const [ reducedSize, setReducedSize ] = useState(0);
   
@@ -16,7 +31,7 @@ export const Breadcrumbs = ({ breadcrumbs }: { breadcrumbs: ReactNode[] }) => {
   const unOverflow = useCallback(() => setReducedSize(prevState => Math.max(prevState - 1, 0)), []);
   
   const trigger = useMemo(() => {
-    return [ breadcrumbs, reducedSize ]
+    return [ breadcrumbs, reducedSize ];
   }, [ breadcrumbs, reducedSize ]);
   
   useWidthResizer({ targetRef: refBreadcrumb, unOverflow, onOverflow, trigger });
