@@ -23,7 +23,7 @@ export const Breadcrumbs = ({ breadcrumbs }: { breadcrumbs: ReactNode[] }) => {
   
   return (
     <div
-      className="jk-row nowrap left extend jk-breadcrumb pad-left-right"
+      className="jk-row nowrap left extend jk-breadcrumb jk-pg-rl"
       ref={refBreadcrumb}
       style={{ overflow: 'auto' }}
     >

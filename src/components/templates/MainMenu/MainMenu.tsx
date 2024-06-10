@@ -187,7 +187,7 @@ export const MainMenu = (props: MainMenuProps) => {
   
   const bottomSection = ({ isOpen }: { isOpen: boolean }) => {
     return (
-      <div className="jk-col stretch gap settings-apps-login-user-content nowrap pad-top-bottom">
+      <div className="jk-col stretch gap settings-apps-login-user-content nowrap jk-pg-tb">
         <SettingsSection
           isOpen={isOpen}
           isMobile={false}
@@ -209,7 +209,7 @@ export const MainMenu = (props: MainMenuProps) => {
   const leftSection = () => (
     <Link href="/">
       <div className="jk-col extend">
-        <div className="jk-row pad-left-right">
+        <div className="jk-row jk-pg-rl">
           {(isLoading || !logoImageUrl)
             ? <SpinIcon />
             : (
@@ -227,7 +227,7 @@ export const MainMenu = (props: MainMenuProps) => {
   
   const rightSection = () => {
     return (
-      <div className="jk-row stretch gap settings-apps-login-user-content nowrap pad-left-right">
+      <div className="jk-row stretch gap settings-apps-login-user-content nowrap jk-pg-rl">
         <SettingsSection
           isOpen={false}
           isMobile={false}

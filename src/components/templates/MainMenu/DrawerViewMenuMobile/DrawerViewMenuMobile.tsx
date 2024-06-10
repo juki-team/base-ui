@@ -3,7 +3,7 @@ import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } fr
 import { useJukiUI, useJukiUser } from '../../../../hooks';
 import { ArrowBackIcon, CloseIcon, T } from '../../../atoms';
 import { MenuType } from '../../../organisms';
-import { HelpSection } from '../../HelpSection'
+import { HelpSection } from '../../HelpSection';
 import { SettingsSection } from '../SettingsSection';
 
 export interface DrawerViewMenuMobileProps {
@@ -30,7 +30,7 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
         className="jk-row extend center nowrap bc-we elevation-1 pn-re"
         style={{ height: 'var(--top-horizontal-menu-height)' }}
       >
-        <div className="jk-row pad-left-right" style={{ position: helpOpen ? undefined : 'absolute', left: 0 }}>
+        <div className="jk-row jk-pg-rl" style={{ position: helpOpen ? undefined : 'absolute', left: 0 }}>
           {helpOpen ? (
             <ArrowBackIcon className="clickable jk-border-radius-inline" onClick={() => setHelpOpen(false)} />
           ) : <CloseIcon className="clickable jk-border-radius-inline" onClick={onClose} />}
@@ -50,12 +50,12 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
         </div>
       </div>
       {helpOpen ? (
-        <div className="jk-col gap top pad-left-right pad-top-bottom">
+        <div className="jk-col gap top jk-pg-rl jk-pg-tb">
           <HelpSection />
         </div>
       ) : (
         <>
-          <div className="jk-menu-items jk-col gap stretch top pad-left-right pad-top-bottom flex-1">
+          <div className="jk-menu-items jk-col gap stretch top jk-pg-rl jk-pg-tb flex-1">
             {Children.toArray(menu.map(({ selected, icon, label, menuItemWrapper }, index) => {
               const menuItem = (
                 <div
@@ -73,15 +73,15 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
               if (menuItemWrapper) {
                 return renderReactNodeOrFunctionP1(menuItemWrapper, {
                   children: menuItem, selected, icon, label, index, isOpenVerticalMenu: false,
-                })
+                });
               }
               
               return menuItem;
             }))}
           </div>
-          <div className="jk-divider pad-left-right" style={{ boxSizing: 'border-box' }} />
+          <div className="jk-divider jk-pg-rl" style={{ boxSizing: 'border-box' }} />
           <div className="jk-row extend block">
-            <div className="jk-col gap pad-left-right pad-top-bottom">
+            <div className="jk-col gap jk-pg-rl jk-pg-tb">
               <SettingsSection
                 isOpen
                 isMobile={true}
