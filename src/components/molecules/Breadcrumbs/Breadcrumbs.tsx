@@ -5,7 +5,7 @@ import { HomeLink } from '../links';
 
 interface BreadcrumbsProps {
   breadcrumbs: ReactNode[],
-  withoutHomeLink: boolean,
+  withoutHomeLink?: boolean,
 }
 
 export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }: BreadcrumbsProps) => {
