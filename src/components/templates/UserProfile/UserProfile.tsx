@@ -19,9 +19,10 @@ export function UserProfile({ user }: UserProfileProps) {
             alt={user?.nickname as string}
             width={104}
             height={104}
+            style={{ width: 104, height: 104 }}
           />
         </div>
-        <div className={classNames('jk-col top stretch left jk-pad-md bc-we jk-border-radius-inline br-g6')}>
+        <div className={classNames('jk-col top stretch left jk-pad-md bc-we jk-br-ie')}>
           <div className="jk-col gap stretch">
             <div>
               <div className="fw-br">{user?.nickname}</div>
