@@ -65,6 +65,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     <>
       <Tooltip
         content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
+        placement="top"
       >
         <ButtonLoader
           icon={<RefreshIcon />}
@@ -126,6 +127,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                 </div>
                 : <T className="tt-se ws-np">no data</T>
             }
+            placement="top"
           >
             <div className="no-records tx-s jk-tag white ws-np">
               {dataLength}{pagination.withPagination ? ' / ' + pagination.total : ''}
@@ -154,7 +156,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
           {viewFilterButton && (
             <>
               <div className="jk-divider horizontal" />
-              <Tooltip content={<T className="ws-np">open filters</T>}>
+              <Tooltip content={<T className="ws-np">open filters</T>} placement="top">
                 <div
                   className={classNames({ active: filtered }, 'jk-row jk-data-viewer-tools-filter jk-br-ie')}
                   onClick={() => setShowFilterDrawer(true)}
@@ -169,7 +171,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               <div className="jk-divider horizontal" />
               <div className={classNames('jk-row nowrap jk-table-view-tools-view-mode', { rowsView, cardsView })}>
                 {rowsView && (
-                  <Tooltip content={<T className="tt-se ws-np">list view</T>}>
+                  <Tooltip content={<T className="tt-se ws-np">list view</T>} placement="top">
                     <div
                       className={classNames({ active: viewMode === DataViewMode.ROWS }, 'jk-row jk-br-ie')}
                       onClick={() => setViewMode(DataViewMode.ROWS, true)}
@@ -179,7 +181,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                   </Tooltip>
                 )}
                 {cardsView && (
-                  <Tooltip content={<T className="tt-se ws-np">cards view</T>}>
+                  <Tooltip content={<T className="tt-se ws-np">cards view</T>} placement="top-end">
                     <div
                       className={classNames({ active: viewMode === DataViewMode.CARDS }, 'jk-row jk-br-ie')}
                       onClick={() => setViewMode(DataViewMode.CARDS, true)}
@@ -202,7 +204,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                     </div>
                   }
                   triggerOn="click"
-                  placement="bottomRight"
+                  placement="topRight"
                 >
                   <div className="jk-row"><MenuIcon /></div>
                 </Popover>

@@ -57,7 +57,7 @@ export const Pagination = (props: PaginationProps) => {
         {isOnToolbar ? (
           <div className="jk-row gap nowrap">
             <div className="jk-row nowrap bc-we jk-br-ie">
-              <Tooltip content={<T>previous</T>}>
+              <Tooltip content={<T>previous</T>} placement="top">
                 <div
                   className={classNames('page-item jk-row jk-br-ie', { disabled: page === startPage })}
                   onClick={prev}
@@ -72,11 +72,12 @@ export const Pagination = (props: PaginationProps) => {
                     {page}&nbsp;<T>page</T>&nbsp;<T>of</T>&nbsp;{endPage}&nbsp;<T>pages</T>
                   </div>
                 )}
+                placement="top"
               >
                 <div className="jk-row nowrap tx-s">{page}&nbsp;<T>of</T>&nbsp;{endPage}</div>
               </Tooltip>
               &nbsp;
-              <Tooltip content={<T>next</T>}>
+              <Tooltip content={<T>next</T>} placement="top">
                 <div
                   className={classNames('page-item jk-row jk-br-ie', { disabled: page === endPage })}
                   onClick={next}

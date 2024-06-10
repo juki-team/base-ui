@@ -368,22 +368,6 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   border-top-right-radius: 0;
 }
 
-.pad-left-right, .pad-top, .pad-bottom, .pad-top-bottom { box-sizing: border-box; }
-
-.pad-left-right {
-  padding-left: var(--pad-sm);
-  padding-right: var(--pad-sm);
-}
-
-.pad-top { padding-top: var(--pad-sm); }
-
-.pad-bottom { padding-bottom: var(--pad-sm); }
-
-.pad-top-bottom {
-  padding-top: var(--pad-sm);
-  padding-bottom: var(--pad-sm);
-}
-
 .jk-row-col {
   @include jk-row-col;
   

@@ -9,6 +9,11 @@
     @include transition(opacity, background-color);
   }
   
+  .ReactModal__Content.small-viewport-popover {
+    width: auto;
+    border-radius: var(--border-radius-inline);
+  }
+  
   .ReactModal__Overlay--after-open {
     opacity: 1;
   }

@@ -273,7 +273,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
         rows={{ height: 150 }}
         request={request}
         name="users"
-        extraNodesFloating
+        //extraNodesFloating
         extraNodes={extraNodes}
         pageSizeOptions={[ 5, 10, 15, 20 ]}
         totalData={data.length}

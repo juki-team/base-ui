@@ -10,4 +10,6 @@
   filter: drop-shadow(0 0 2px var(--t-color-shadow-dark));
   padding: calc(var(--gap) / 2) calc(var(--gap) / 2 + 2px) !important;
   font-size: inherit !important;
+  background: var(--rt-color-dark) !important;
+  color: var(--rt-color-white) !important;
 }

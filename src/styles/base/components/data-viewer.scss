@@ -60,11 +60,11 @@
       }
       
       .jk-table-view-extra-nodes {
-        margin-left: var(--pad-t);
+        // margin-left: var(--pad-t);
       }
       
       .jk-table-view-tools {
-        margin: 0 var(--pad-t);
+        // margin: 0 var(--pad-t);
         
         button {
           --button-background-color: var(--t-color-white);
@@ -369,6 +369,9 @@
             left: 0;
             width: 100%;
             box-sizing: border-box;
+            padding: var(--pad-sm) 3px;
+            justify-content: space-between;
+            @include sm { justify-content: center; }
           }
           
           .jk-list-card {

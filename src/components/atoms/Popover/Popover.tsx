@@ -3,6 +3,7 @@ import { ArrowContainer, Popover as ReactPopover, PopoverAlign, PopoverPosition 
 import { classNames, isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useTriggerWrapper } from '../../../hooks/useTriggerWrapper';
+import { Modal } from '../Modal';
 import { PlacementType, PopoverProps } from './types';
 
 const placementPositionAlign: { [key in PlacementType]: { position: PopoverPosition, align: PopoverAlign } } = {
@@ -20,7 +21,7 @@ const placementPositionAlign: { [key in PlacementType]: { position: PopoverPosit
   leftTop: { position: 'left', align: 'start' },
   center: { position: 'top', align: 'center' },
   centerScreen: { position: 'top', align: 'center' },
-}
+};
 
 const CustomComponent = React.forwardRef<HTMLDivElement, any>((props, ref) => (
   renderChildrenWithProps(props.children, props.childProps({ props: { ref } }))
@@ -62,7 +63,8 @@ export const Popover = (props: PopoverProps) => {
     triggerOffDelayInMs,
     withOutsideAlerter,
   });
-  const { jukiAppDiv } = useJukiUI();
+  const { jukiAppDiv, viewPortSize } = useJukiUI();
+  const isMobileViewPort = viewPortSize === 'sm';
   
   const popoverContent = (
     <div className={classNames('jk-popover-layout', popoverClassName)}>
@@ -76,6 +78,26 @@ export const Popover = (props: PopoverProps) => {
       </div>
     </div>
   );
+  
+  
+  if (isMobileViewPort) {
+    return (
+      <>
+        <CustomComponent childProps={childProps}>
+          {children}
+        </CustomComponent>
+        <Modal
+          onClose={() => setOffVisible(0)}
+          isOpen={isOpen}
+          closeWhenClickOutside
+          closeWhenKeyEscape
+          className="small-viewport-popover"
+        >
+          {popoverContent}
+        </Modal>
+      </>
+    );
+  }
   
   return (
     <ReactPopover
@@ -110,5 +132,5 @@ export const Popover = (props: PopoverProps) => {
         {children}
       </CustomComponent>
     </ReactPopover>
-  )
+  );
 };
