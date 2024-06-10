@@ -5,10 +5,10 @@ import React from 'react'
  */
 export const ThemeColorPalette = ({}) => {
   return (
-    <div className="jk-row gap jk-pad-md">
+    <div className="jk-row gap jk-pg-md">
       {[ 'light', 'dark' ].map((theme) => (
         <div
-          className={'jk-pad-sm jk-col gap jk-theme-' + theme}
+          className={'jk-pg-sm jk-col gap jk-theme-' + theme}
           style={{ backgroundColor: 'var(--t-color-white-dark)' }}
         >
           <h3>Theme {theme}</h3>

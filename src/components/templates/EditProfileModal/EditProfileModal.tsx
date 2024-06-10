@@ -86,13 +86,13 @@ export function EditProfileModal({ user, isOpen, onClose }: EditProfileModalPros
   
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <div className="user-profile jk-row stretch center gap jk-pad-md pn-re">
+      <div className="user-profile jk-row stretch center gap jk-pg-md pn-re">
         <ImageProfileModal
           onClose={() => setModalImageProfile(false)}
           nickname={user.nickname}
           isOpen={modalImageProfile}
         />
-        <div className="jk-col top jk-pad-md">
+        <div className="jk-col top jk-pg-md">
           <Image
             width={48}
             height={48}
@@ -102,7 +102,7 @@ export function EditProfileModal({ user, isOpen, onClose }: EditProfileModalPros
           />
           <EditIcon onClick={() => setModalImageProfile(true)} />
         </div>
-        <div className={classNames('jk-col top stretch left jk-pad-md gap')}>
+        <div className={classNames('jk-col top stretch left jk-pg-md gap')}>
           <div className="jk-form-item">
             <Input
               label={

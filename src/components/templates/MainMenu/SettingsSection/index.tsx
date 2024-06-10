@@ -133,7 +133,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
         closeWhenClickOutside
         className="wh-ao"
       >
-        <div className="jk-col nowrap extend stretch jk-pad-md">
+        <div className="jk-col nowrap extend stretch jk-pg-md">
           <div className="jk-row">
             <HelpSection />
             <div className="jk-row ">
@@ -158,7 +158,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
       {moreApps && (
         <Popover
           content={
-            <div className="jk-col gap more-apps-popover jk-pad-sm">
+            <div className="jk-col gap more-apps-popover jk-pg-sm">
               <div className="fw-bd tt-se"><T>more apps</T></div>
               <div className={classNames('jk-col gap stretch', { 'cr-py': !isDark, 'cr-b2': isDark })}>
                 {moreApps}

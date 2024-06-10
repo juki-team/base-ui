@@ -19,7 +19,7 @@ export const ImageProfileModal = ({ isOpen, onClose, nickname }: ImageProfileMod
   
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
-      <div className="jk-pad-lg jk-col gap">
+      <div className="jk-pg-lg jk-col gap">
         <ImageLoaderCropper
           aspect={1}
           onCropChange={setCropImage}

@@ -35,7 +35,7 @@ export const SplitModal = (props: PropsWithChildren<SplitModalProps>) => {
     >
       <div className="split-modal jk-row stretch block">
         <div
-          className="jk-side-secondary jk-border-radius jk-col nowrap stretch jk-pad-lg"
+          className="jk-side-secondary jk-border-radius jk-col nowrap stretch jk-pg-lg"
           style={{
             '--side-main-height': sideMainHeight + 'px',
             '--title-side-main-height': titleSideSecondaryHeight + 'px',
@@ -46,7 +46,7 @@ export const SplitModal = (props: PropsWithChildren<SplitModalProps>) => {
             {renderReactNodeOrFunction(graphic)}
           </div>
         </div>
-        <div className="jk-side-main jk-col stretch jk-pad-lg">
+        <div className="jk-side-main jk-col stretch jk-pg-lg">
           {cloneElement(children, { ref: sideMainRef })}
         </div>
       </div>

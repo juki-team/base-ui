@@ -21,7 +21,7 @@ export const ResetPasswordModal = ({ isOpen, onClose, nickname, companyKey }: Re
       closeWhenClickOutside
       closeWhenKeyEscape
     >
-      <div className="jk-pad-md jk-col gap left stretch">
+      <div className="jk-pg-md jk-col gap left stretch">
         <h2><T>reset password</T></h2>
         <div className="jk-row left">
           <T className="tt-se">the password for</T>&nbsp;

@@ -136,7 +136,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
                 ).map(problem => (
                   {
                     label: (
-                      <div className="jk-row gap nowrap jk-pad-sm">
+                      <div className="jk-row gap nowrap jk-pg-sm">
                         <div><span className="fw-br cr-py">{problem.key}</span></div>
                         <div className="jk-col stretch">
                           {problem.name}

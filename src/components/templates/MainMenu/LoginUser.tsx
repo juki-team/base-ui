@@ -31,8 +31,8 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
         content={
           <div
             className={classNames('jk-col gap user-profile-popup', {
-              'jk-pad-md': viewPortSize === 'sm',
-              'jk-pad-sm': viewPortSize !== 'sm',
+              'jk-pg-md': viewPortSize === 'sm',
+              'jk-pg-sm': viewPortSize !== 'sm',
             })}
           >
             <Image

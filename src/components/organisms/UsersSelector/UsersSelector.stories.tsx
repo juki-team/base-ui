@@ -13,7 +13,7 @@ export const UsersSelector = () => {
   
   return (
     <MockupJukiProvider>
-      <div className="jk-pad-lg">
+      <div className="jk-pg-lg">
         <UsersSelectorComponent
           selectedUsers={users.map(user => user.nickname)}
           onChangeSelectedUsers={(selectedUsers) => {

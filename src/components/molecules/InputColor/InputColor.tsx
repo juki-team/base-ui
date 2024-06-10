@@ -18,7 +18,7 @@ export const InputColor = ({ color, children, onChange, label }: ColorPickerProp
   return (
     <Popover
       content={({ onClose }) => (
-        <div className="color-picker-layout jk-pad-sm">
+        <div className="color-picker-layout jk-pg-sm">
           <SketchPicker
             color={newColor?.hex}
             onChangeComplete={(colorResult) => setNewColor(colorResult)}

@@ -45,7 +45,7 @@ const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModalPro
   
   return (
     <Modal {...props}>
-      <div className="jk-graph-editor jk-pad-sm jk-col gap stretch">
+      <div className="jk-graph-editor jk-pg-sm jk-col gap stretch">
         <SplitPane>
           <div>
             <div className="bc-eras jk-tag error">{error}</div>

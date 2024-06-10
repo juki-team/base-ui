@@ -13,7 +13,7 @@ export const WelcomeModal = ({ isOpen, nickname, onClose, onSeeMyProfile }: Welc
     onClose={onClose}
     className="modal-welcome"
   >
-    <div className="jk-pad-md jk-row nowrap">
+    <div className="jk-pg-md jk-row nowrap">
       <div>
         <h2><T>hi</T>&nbsp;<span className="given-name">{nickname}</span>!</h2>
         <h3><T>welcome to the platform!</T></h3>

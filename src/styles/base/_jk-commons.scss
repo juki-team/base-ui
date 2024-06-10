@@ -120,28 +120,12 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   border-radius: var(--border-radius-inline); // responsive variable
 }
 
-/*
- PADDING
- */
-.jk-pad-lg, .jk-pg-lg {
-  box-sizing: border-box;
-  padding: var(--pad-lg); // responsive variable
-}
-
-.jk-pad-md, .jk-pg-md {
-  box-sizing: border-box;
-  padding: var(--pad-md); // responsive variable
-}
-
-.jk-pad-sm, .jk-pg-sm {
-  box-sizing: border-box;
-  padding: var(--pad-sm); // responsive variable
-}
-
 .jk-pg {
   box-sizing: border-box;
   
   &-lg {
+    padding: var(--pad-lg);
+    
     &-t, &-tr, &-tb, &-tl, &-trb, &-trl, &-trbl { padding-top: var(--pad-lg); }
     
     &-r, &-tr, &-rb, &-rl, &-trb, &-trl, &-rbl, &-trbl { padding-right: var(--pad-lg); }
@@ -152,6 +136,8 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   }
   
   &-md {
+    padding: var(--pad-md);
+    
     &-t, &-tr, &-tb, &-tl, &-trb, &-trl, &-trbl { padding-top: var(--pad-md); }
     
     &-r, &-tr, &-rb, &-rl, &-trb, &-trl, &-rbl, &-trbl { padding-right: var(--pad-md); }
@@ -162,6 +148,8 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   }
   
   &-sm {
+    padding: var(--pad-sm);
+    
     &-t, &-tr, &-tb, &-tl, &-trb, &-trl, &-trbl { padding-top: var(--pad-sm); }
     
     &-r, &-tr, &-rb, &-rl, &-trb, &-trl, &-rbl, &-trbl { padding-right: var(--pad-sm); }
@@ -178,6 +166,8 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   &-b, &-tb, &-rb, &-bl, &-trb, &-rbl, &-trbl { padding-bottom: var(--pad-md); }
   
   &-l, &-tl, &-rl, &-bl, &-trl, &-rbl, &-trbl { padding-left: var(--pad-md); }
+  
+  padding: var(--pad-md);
 }
 
 /*

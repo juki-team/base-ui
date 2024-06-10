@@ -10,7 +10,7 @@ export default {
 export const ProblemSelector = () => {
   return (
     <MockupJukiProvider>
-      <div className="jk-pad-lg">
+      <div className="jk-pg-lg">
         <ProblemSelectorComponent onSelect={action('onSelect')} />
       </div>
     </MockupJukiProvider>

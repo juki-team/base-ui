@@ -32,7 +32,7 @@ export const UserPreviewModal = ({ isOpen, nickname, companyKey, onClose, userHr
         onError={(error) => onClose(() => () => Status.ERROR, Status.ERROR, { fetcherLayerErrorEvent: error })}
       >
         {({ data }) => (
-          <div className="jk-pad-md jk-col stretch gap">
+          <div className="jk-pg-md jk-col stretch gap">
             <div className="jk-row center gap">
               <Image
                 src={data?.content?.imageUrl}

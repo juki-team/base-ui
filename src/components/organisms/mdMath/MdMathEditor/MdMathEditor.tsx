@@ -167,7 +167,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
               )}
               {view === 1 && (
                 <Tooltip
-                  content={<T className="ws-np jk-pad-sm">preview</T>}
+                  content={<T className="ws-np jk-pg-sm">preview</T>}
                   placement="bottom"
                   visible={withLabels ? false : undefined}
                 >
@@ -178,7 +178,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
               )}
               {view === 3 && (
                 <Tooltip
-                  content={<T className="ws-np jk-pad-sm">editor</T>}
+                  content={<T className="ws-np jk-pg-sm">editor</T>}
                   placement="bottom"
                   visible={withLabels ? false : undefined}
                 >
@@ -192,7 +192,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
               {onChange && !online && (
                 <Tooltip
                   placement="bottom"
-                  content={<T className="jk-pad-sm">save</T>}
+                  content={<T className="jk-pg-sm">save</T>}
                   visible={withLabels ? false : undefined}
                 >
                   <Button

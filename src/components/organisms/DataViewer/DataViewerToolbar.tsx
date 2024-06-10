@@ -199,7 +199,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               <div>
                 <Popover
                   content={
-                    <div className="jk-pad-sm jk-col stretch gap">
+                    <div className="jk-pg-sm jk-col stretch gap">
                       {Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
                     </div>
                   }

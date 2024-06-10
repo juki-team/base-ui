@@ -212,7 +212,7 @@ export const Popover = (props: PopoverProps) => {
               ref={e => setBoundingClientRectContent(e?.getBoundingClientRect()?.toJSON())}
               className={popoverClassName}
             >
-              <div className={classNames('jk-popover-content bc-we jk-border-radius-inline jk-pad-sm', popoverContentClassName)}>
+              <div className={classNames('jk-popover-content bc-we jk-border-radius-inline jk-pg-sm', popoverContentClassName)}>
                 {renderReactNodeOrFunctionP1(content, { isOpen, onClose: setOffVisible })}
               </div>
             </div>

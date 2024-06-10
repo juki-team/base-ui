@@ -44,7 +44,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'jk-row right bottom',
             ].map(col => (
               <div
-                className="jk-col elevation-1 jk-pad-md jk-border-radius-inline cr-we"
+                className="jk-col elevation-1 jk-pg-md jk-border-radius-inline cr-we"
                 style={{ width: '420px' }}
                 key={col}
               >
@@ -94,7 +94,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'jk-col bottom right',
             ].map(col => (
               <div
-                className="jk-row gap elevation-1 jk-pad-md jk-border-radius-inline cr-we"
+                className="jk-row gap elevation-1 jk-pg-md jk-border-radius-inline cr-we"
                 style={{ width: '320px' }}
                 key={col}
               >
@@ -146,7 +146,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'cr-ad',
             ].map(color => (
               <div
-                className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline"
+                className="jk-row gap nowrap elevation-1 jk-pg-md jk-border-radius-inline"
                 style={{ width: '140px' }}
                 key={color}
               >
@@ -186,7 +186,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'bc-ad',
             ].map(color => (
               <div
-                className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline"
+                className="jk-row gap nowrap elevation-1 jk-pg-md jk-border-radius-inline"
                 style={{ width: '140px' }}
                 key={color}
               >
@@ -219,7 +219,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               [ 'tx-s', 14 ],
               [ 'tx-t', 12 ],
             ].map(([ className, size ]) => (
-              <div className="jk-col gap nowrap elevation-1 jk-pad-md jk-border-radius-inline">
+              <div className="jk-col gap nowrap elevation-1 jk-pg-md jk-border-radius-inline">
                 <pre>
                   {`.${className} {\n  font-size: ${size}px;\n  line-height: 24px;\n}`}
                 </pre>
@@ -247,7 +247,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'fw-br',
             ].map(width => (
               <div
-                className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline"
+                className="jk-row gap nowrap elevation-1 jk-pg-md jk-border-radius-inline"
                 style={{ width: '140px' }}
                 key={width}
               >
@@ -273,7 +273,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'tt-le',
             ].map(tt => (
               <div
-                className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline"
+                className="jk-row gap nowrap elevation-1 jk-pg-md jk-border-radius-inline"
                 style={{ width: 350 }}
                 key={tt}
               >
@@ -298,7 +298,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'ta-ed',
             ].map(tt => (
               <div
-                className="jk-row gap nowrap elevation-1 jk-pad-md jk-border-radius-inline"
+                className="jk-row gap nowrap elevation-1 jk-pg-md jk-border-radius-inline"
                 style={{ width: 420 }}
                 key={tt}
               >
@@ -322,7 +322,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'elevation-2',
               'elevation-3',
             ].map(tt => (
-              <div className="jk-row gap nowrap jk-pad-md jk-border-radius-inline" style={{ width: 420 }} key={tt}>
+              <div className="jk-row gap nowrap jk-pg-md jk-border-radius-inline" style={{ width: 420 }} key={tt}>
                 <pre>"{tt}"</pre>
                 <div className={'ws-np ' + tt} style={{ width: 400 }}>&nbsp;Lorem ipsum dolor sit amet&nbsp;</div>
               </div>
@@ -367,7 +367,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'gray-5',
               'gray-6',
             ].map(tt => (
-              <div className="jk-row gap nowrap jk-pad-md jk-border-radius-inline" style={{ width: 420 }} key={tt}>
+              <div className="jk-row gap nowrap jk-pg-md jk-border-radius-inline" style={{ width: 420 }} key={tt}>
                 <pre>"jk-tag {tt}"</pre>
                 <div className={'jk-tag ' + tt}>Lorem ipsum dolor sit amet</div>
               </div>
@@ -399,7 +399,7 @@ export const Classes: Story<TabsProps<string>> = () => {
               'rbl',
               'trbl',
             ].map(tt => (
-              <div className="jk-row gap nowrap jk-pad-md jk-border-radius-inline" style={{ width: 420 }} key={tt}>
+              <div className="jk-row gap nowrap jk-pg-md jk-border-radius-inline" style={{ width: 420 }} key={tt}>
                 <div>
                   <pre>"jk-pg-{tt}"</pre>
                   <div className={'bc-g4 jk-pg-' + tt}>
@@ -434,7 +434,7 @@ export const Classes: Story<TabsProps<string>> = () => {
       key: '13',
       header: <div>dot dot-flashing</div>,
       body: (
-        <div className="jk-pad-md">
+        <div className="jk-pg-md">
           <div className="dot-flashing" />
         </div>
       ),

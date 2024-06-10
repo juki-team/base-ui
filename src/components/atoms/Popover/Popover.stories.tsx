@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj<typeof Popover>;
 
 const content = (
-  <div className="jk-pad-sm">
+  <div className="jk-pg-sm">
     <h3>title</h3>
     <div>
       Lorem ipsum

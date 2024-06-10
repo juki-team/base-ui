@@ -44,7 +44,7 @@ export const ChangePasswordModal = ({ isOpen, onClose }: BasicModalProps) => {
       className="wh-ao"
       onClose={onClose}
     >
-      <div className="jk-pad-md jk-col gap stretch change-password-modal">
+      <div className="jk-pg-md jk-col gap stretch change-password-modal">
         <div className="jk-row">
           <h2>update password</h2>
         </div>

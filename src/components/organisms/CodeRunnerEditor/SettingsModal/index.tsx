@@ -6,7 +6,7 @@ import { SettingsModalProps } from '../types';
 export const SettingsModal = <T, >({ onClose, isOpen, onChange, tabSize, fontSize }: SettingsModalProps<T>) => {
   return (
     <Modal
-      className="editor-settings-modal jk-pad-lg"
+      className="editor-settings-modal jk-pg-lg"
       isOpen={isOpen}
       onClose={onClose}
       closeWhenClickOutside

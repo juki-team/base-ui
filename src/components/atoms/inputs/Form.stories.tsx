@@ -17,7 +17,7 @@ const Cmp = (props: InputProps<any>) => {
   
   return (
     <MockupJukiProvider>
-      <div style={{ width: '90%' }} className="jk-pad-md">
+      <div style={{ width: '90%' }} className="jk-pg-md">
         <div className="jk-form-item">
           <label>
             label input

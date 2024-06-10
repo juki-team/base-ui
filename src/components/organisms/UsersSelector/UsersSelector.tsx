@@ -67,7 +67,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
     <div className="jk-row left gap nowrap extend">
       {show && (
         <Modal isOpen={true} onClose={() => setShow(false)}>
-          <div className="jk-col stretch left gap jk-pad-md">
+          <div className="jk-col stretch left gap jk-pg-md">
             <div className="jk-row left">
               <T className="tt-se">write the nicknames separated by commas</T>&nbsp;
               (<T>the nicknames are case sensitive</T>)

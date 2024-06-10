@@ -12,7 +12,7 @@ export function UserProfile({ user }: UserProfileProps) {
   return (
     <div className="jk-col gap">
       <div className="user-profile jk-row stretch center gap pn-re">
-        <div className="jk-col top jk-pad-md">
+        <div className="jk-col top jk-pg-md">
           <Image
             src={user?.imageUrl}
             className="jk-user-profile-img elevation-1 bc-we"
@@ -22,7 +22,7 @@ export function UserProfile({ user }: UserProfileProps) {
             style={{ width: 104, height: 104 }}
           />
         </div>
-        <div className={classNames('jk-col top stretch left jk-pad-md bc-we jk-br-ie')}>
+        <div className={classNames('jk-col top stretch left jk-pg-md bc-we jk-br-ie')}>
           <div className="jk-col gap stretch">
             <div>
               <div className="fw-br">{user?.nickname}</div>

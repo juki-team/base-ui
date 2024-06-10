@@ -30,7 +30,7 @@ type Story = StoryObj<typeof Input>;
 export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <div className="jk-col gap nowrap jk-pad-md">
+      <div className="jk-col gap nowrap jk-pg-md">
         <div style={{ outline: '1px solid red', padding: 8 }}><Input {...args} type="text" /></div>
         <div style={{ outline: '1px solid red', padding: 8 }}><Input {...args} type="number" /></div>
         <div style={{ outline: '1px solid red', padding: 8 }}><Input {...args} type="email" /></div>

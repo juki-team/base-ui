@@ -13,7 +13,7 @@ export const UserPreviewModal = () => {
   
   return (
     <MockupJukiProvider>
-      <div className="jk-pad-lg">
+      <div className="jk-pg-lg">
         <UserPreviewModalCmp
           isOpen={open}
           userHref={'#'}

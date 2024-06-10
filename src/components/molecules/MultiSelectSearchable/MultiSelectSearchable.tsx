@@ -107,7 +107,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
           }}
         >
           {searchable && (
-            <div className="jk-row nowrap gap jk-pad-md elevation-1">
+            <div className="jk-row nowrap gap jk-pg-md elevation-1">
               <SearchIcon />
               <Input value={search} onChange={setSearch} extend />
             </div>

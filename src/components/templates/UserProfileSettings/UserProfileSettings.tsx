@@ -36,7 +36,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
       <div className="jk-col top extend">
         <h3><T>preferences</T></h3>
         <div
-          className="jk-col stretch gap bc-we jk-border-radius-inline jk-pad-md br-g6 pn-re"
+          className="jk-col stretch gap bc-we jk-border-radius-inline jk-pg-md br-g6 pn-re"
           style={{ width: 300 }}
         >
           {loading && <LineLoader />}
@@ -144,7 +144,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
               </div>
             ))}
             
-            <div className="jk-col left gap nowrap jk-pad-sm" style={{ width: '100%' }}>
+            <div className="jk-col left gap nowrap jk-pg-sm" style={{ width: '100%' }}>
               <Button
                 size="small"
                 type="light"
@@ -165,7 +165,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
       </div>
       <div className="jk-col top extend">
         <h3><T>actions</T></h3>
-        <div className="jk-col stretch gap bc-we jk-border-radius-inline jk-pad-md br-g6" style={{ width: 300 }}>
+        <div className="jk-col stretch gap bc-we jk-border-radius-inline jk-pg-md br-g6" style={{ width: 300 }}>
           {user?.canUpdatePassword && (
             <Button size="small" icon={<LockIcon />} onClick={onClickUpdatePassword} extend>
               <T className="ws-np">update password</T>

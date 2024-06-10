@@ -12,7 +12,7 @@ export const SelectSearchable = () => {
   
   return (
     <MockupJukiProvider>
-      <div className="jk-pad-md">
+      <div className="jk-pg-md">
         Select Searchable
         <br />
         {'<MultiSelectSearchable onFilter={undefined} ...'}

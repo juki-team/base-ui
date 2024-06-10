@@ -51,8 +51,8 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (
-        <div className="jk-col extend stretch jk-pad-lg">
-          <div className="bc-we jk-br-ie jk-pad-md">
+        <div className="jk-col extend stretch jk-pg-lg">
+          <div className="bc-we jk-br-ie jk-pg-md">
             <div className="jk-col">
               <div style={{ width: '50vw', height: '20vh' }}>
                 <JukiSurprisedImage />

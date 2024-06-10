@@ -30,7 +30,7 @@ export const DatePicker = (props: DatePickerProps) => {
   
   return (
     
-    <div className="jk-date-picker-layout jk-col jk-pad-sm">
+    <div className="jk-date-picker-layout jk-col jk-pg-sm">
       {showYears && !showMonths && !showDays && (
         <YearPicker date={date} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
       )}
