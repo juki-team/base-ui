@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Collapse as ReactCollapse } from 'react-collapse';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState } from '../../../hooks/useHandleState';
+import { ExpandLessIcon, ExpandMoreIcon } from '../icons';
 import { CollapseProps } from './types';
 
 export const Collapse = (props: CollapseProps) => {
@@ -41,6 +42,7 @@ export const Collapse = (props: CollapseProps) => {
         toggle,
         isFullyClosed: currentIsFullyClosed,
         isFullyOpened: currentIsFullyOpened,
+        icon: isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />,
       })}
       <ReactCollapse
         isOpened={isOpen}

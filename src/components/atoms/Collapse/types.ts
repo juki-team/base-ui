@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { ReactNodeOrFunctionP1Type } from '../../../types';
 
 export interface CollapseProps {
@@ -10,6 +11,7 @@ export interface CollapseProps {
     toggle: () => void,
     isFullyClosed: boolean,
     isFullyOpened: boolean,
+    icon: ReactNode,
   }>,
   children: ReactNodeOrFunctionP1Type<{
     isOpen: boolean,
