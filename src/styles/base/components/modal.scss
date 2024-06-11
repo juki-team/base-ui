@@ -2,7 +2,7 @@
 
 .jk-modal-container {
   .ReactModal__Overlay {
-    background-color: var(--t-color-shadow) !important;
+    background-color: var(--t-color-shadow-light) !important;
     display: grid;
     z-index: var(--z-index-overlay-modal);
     opacity: 0;

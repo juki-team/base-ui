@@ -1,14 +1,14 @@
-import React from 'react'
+import React from 'react';
 
 /*
 
  */
 export const ThemeColorPalette = ({}) => {
   return (
-    <div className="jk-row gap jk-pg-md">
+    <div className="jk-row gap jk-pg">
       {[ 'light', 'dark' ].map((theme) => (
         <div
-          className={'jk-pg-sm jk-col gap jk-theme-' + theme}
+          className={'jk-pg-lg jk-col gap jk-theme-' + theme}
           style={{ backgroundColor: 'var(--t-color-white-dark)' }}
         >
           <h3>Theme {theme}</h3>
@@ -73,32 +73,48 @@ export const ThemeColorPalette = ({}) => {
             </div>
           </div>
           <div className="jk-row color-cells with-labels">
+            <div style={{ backgroundColor: 'var(--t-color-shadow-light)' }}>
+              <div>light</div>
+            </div>
             <div style={{ backgroundColor: 'var(--t-color-shadow)' }}>
               <div>shadow</div>
             </div>
-            <div style={{ backgroundColor: 'var(--t-color-glow)' }}>
-              <div>glow</div>
+            <div style={{ backgroundColor: 'var(--t-color-shadow-dark)' }}>
+              <div>dark</div>
             </div>
           </div>
           <div className="jk-row color-cells with-labels">
-            <div style={{ backgroundColor: 'var(--t-color-white-dark)' }}>
-              <div>dark</div>
-            </div>
-            <div style={{ backgroundColor: 'var(--t-color-white)' }}>
-              <div>white</div>
+            <div style={{ backgroundColor: 'var(--t-color-glow)' }}>
+              <div>glow</div>
             </div>
             <div style={{ backgroundColor: 'var(--t-color-gray)' }}>
               <div>gray</div>
             </div>
+          </div>
+          <div className="jk-row color-cells with-labels">
             <div style={{ backgroundColor: 'var(--t-color-black)' }}>
               <div>black</div>
             </div>
             <div style={{ backgroundColor: 'var(--t-color-black-light)' }}>
               <div>light</div>
             </div>
+            <div style={{ backgroundColor: 'var(--t-color-black-lightest)' }}>
+              <div>lightest</div>
+            </div>
+          </div>
+          <div className="jk-row color-cells with-labels">
+            <div style={{ backgroundColor: 'var(--t-color-white)' }}>
+              <div>white</div>
+            </div>
+            <div style={{ backgroundColor: 'var(--t-color-white-dark)' }}>
+              <div>dark</div>
+            </div>
+            <div style={{ backgroundColor: 'var(--t-color-white-darkest)' }}>
+              <div>darkest</div>
+            </div>
           </div>
         </div>
       ))}
     </div>
-  )
-}
+  );
+};

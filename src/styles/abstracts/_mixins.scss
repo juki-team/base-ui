@@ -137,12 +137,12 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
 
 @mixin elevation($level) {
   @if $level == 1 {
-    box-shadow: 0 0 2px 0 var(--t-color-shadow-light), 0 1px 3px 1px var(--t-color-shadow-light);
+    box-shadow: 0 0 2px 0 var(--t-color-highlight-light), 0 1px 3px 1px var(--t-color-highlight-light);
   }
   @if $level == 2 {
-    box-shadow: 0 2px 4px 0 var(--t-color-shadow), 0 1.25px 4px 1px var(--t-color-shadow);
+    box-shadow: 0 2px 4px 0 var(--t-color-highlight), 0 1.25px 4px 1px var(--t-color-highlight);
   }
   @if $level == 3 {
-    box-shadow: 0 4px 6px 2px var(--t-color-shadow), 0 1.5px 5px 1px var(--t-color-shadow-dark);
+    box-shadow: 0 4px 6px 2px var(--t-color-highlight), 0 1.5px 5px 1px var(--t-color-highlight-dark);
   }
 }
