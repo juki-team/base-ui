@@ -7,7 +7,7 @@ import {
   JukiUtilsLogoHorImage,
   LoadingIcon,
   MainMenu as MainMenuCmp,
-  MdMathEditor,
+  MdMathEditor, MdMathViewer,
   PlusIcon,
   SAMPLE_MD_CONTENT,
   T,
@@ -53,8 +53,13 @@ export const MainMenu = () => (
           </>
         }
       >
-        <div>
-          <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
+        <div className="jk-pg-lg">
+          <div className="bc-we jk-pg">
+            <MdMathViewer source={SAMPLE_MD_CONTENT} />
+          </div>
+          <div className="bc-we">
+            <MdMathEditor source={SAMPLE_MD_CONTENT} uploadImageButton informationButton />
+          </div>
         </div>
       </MainMenuCmp>
     </div>

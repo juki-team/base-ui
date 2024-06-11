@@ -55,9 +55,11 @@
   --t-color-error: #ED6868;
   
   //--t-color-white: #0A1D2E;
-  --t-color-white: #081725;
+  --t-color-white: #091a29;
+  //--t-color-white: #081725;
   //--t-color-white: #0C233B;
   //--t-color-white: #102D4B;
+  --t-color-white: #12161a;
   --t-color-gray: #E1E2E3;
   //--t-color-black: #DCE2E8;
   //--t-color-black: #D2DEE9;
@@ -113,7 +115,7 @@
 }
 
 .jk-theme-dark {
-  --tone: 65%;
+  --tone: 85%;
   --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 86%, var(--base-white));
   --t-color-black-light: color-mix(in srgb, var(--t-color-black) 96%, var(--base-white));
   --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 90%, var(--base-black));

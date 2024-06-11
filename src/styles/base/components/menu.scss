@@ -5,8 +5,11 @@
 }
 
 .jk-theme-dark {
-  --menu-color: var(--t-color-primary-light);
   //--menu-color: var(--t-color-accent);
+  //--menu-color: var(--t-color-primary-light);
+  //--menu-color: var(--t-color-primary-dark);
+  //--menu-color: var(--t-color-secondary-light);
+  --menu-color: var(--t-color-white-darkest);
 }
 
 .jk-vertical-menu-layout-container, .jk-horizontal-menu-layout-container {
