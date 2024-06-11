@@ -50,7 +50,7 @@
   --t-color-error: #ED6868;
   
   //--t-color-white: #0A1D2E;
-  --t-color-white: #06121D;
+  --t-color-white: #0C233B;
   --t-color-gray: #FAFBFC;
   //--t-color-black: #DCE2E8;
   --t-color-black: #D2DEE9;
@@ -96,8 +96,8 @@
   --t-color-gray-5: color-mix(in srgb, var(--t-color-gray) 32%, var(--t-color-white));
   --t-color-gray-6: color-mix(in srgb, var(--t-color-gray) 15%, var(--t-color-white));
   
-  --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 88%, var(--base-white));
-  --t-color-black-light: color-mix(in srgb, var(--t-color-black) 96%, var(--base-white));
+  --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 80%, var(--base-white));
+  --t-color-black-light: color-mix(in srgb, var(--t-color-black) 90%, var(--base-white));
   --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 98%, var(--base-black));
-  --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 90%, var(--base-black));
+  --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 88%, var(--base-black));
 }
