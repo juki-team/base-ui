@@ -120,8 +120,11 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   border-radius: var(--border-radius-inline); // responsive variable
 }
 
-.jk-pg {
+*[class^="jk-pg"], *[class*=" jk-pg"] {
   box-sizing: border-box;
+}
+
+.jk-pg {
   
   &-lg {
     padding: var(--pad-lg);
