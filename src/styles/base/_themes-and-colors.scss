@@ -39,8 +39,12 @@
   --base-black: white;
   
   //--t-color-primary: #27598B;
-  --t-color-primary: #5A7AAB;
-  --t-color-primary-text: #F1F1F1;
+  //--t-color-primary: #5A7AAB;
+  //--t-color-primary: #08427A;
+  //--t-color-primary: #315488;
+  //--t-color-primary: #1762a1;
+  --t-color-primary: #3E72AB;
+  --t-color-primary-text: #FCFCFC;
   --t-color-secondary: #A5A5A5;
   --t-color-secondary-text: #FFFFFF;
   
@@ -50,26 +54,26 @@
   --t-color-warning: #F3CE5E;
   --t-color-error: #ED6868;
   
-  //--t-color-white: #0A1D2E;
+  --t-color-white: #0A1D2E;
   //--t-color-white: #0C233B;
-  --t-color-white: #102D4B;
-  --t-color-gray: #FAFBFC;
+  //--t-color-white: #102D4B;
+  --t-color-gray: #E1E2E3;
   //--t-color-black: #DCE2E8;
-  --t-color-black: #D2DEE9;
+  //--t-color-black: #D2DEE9;
+  --t-color-black: #FEFEFE;
   
-  --t-color-highlight-light: #D2DEE91A; // rgba(var(--t-color-black-rgb), 0.10);
-  --t-color-highlight: #D2DEE940; // rgba(var(--t-color-black-rgb), 0.25);
-  --t-color-highlight-dark: #D2DEE966; // rgba(var(--t-color-black-rgb), 0.40);
+  --t-color-highlight-light: #FEFEFE1A; // rgba(var(--t-color-black-rgb), 0.10);
+  --t-color-highlight: #FEFEFE40; // rgba(var(--t-color-black-rgb), 0.25);
+  --t-color-highlight-dark: #FEFEFE66; // rgba(var(--t-color-black-rgb), 0.40);
   
-  --t-color-shadow-light: #D2DEE98C; // rgba(var(--t-color-white-rgb), 0.55);
-  --t-color-shadow: #D2DEE9B3; // rgba(var(--t-color-white-rgb), 0.70);
-  --t-color-shadow-dark: #D2DEE9D9; // rgba(var(--t-color-white-rgb), 0.85);
+  --t-color-shadow-light: #FEFEFE8C; // rgba(var(--t-color-white-rgb), 0.55);
+  --t-color-shadow: #FEFEFEB3; // rgba(var(--t-color-white-rgb), 0.70);
+  --t-color-shadow-dark: #FEFEFED9; // rgba(var(--t-color-white-rgb), 0.85);
   
-  --t-color-glow: #D2DEE940; // rgba(var(--t-color-black-rgb), 0.25);
+  --t-color-glow: #FEFEFE40; // rgba(var(--t-color-black-rgb), 0.25);
 }
 
 .jk-theme-light, .jk-theme-dark {
-  --tone: 75%;
   --t-color-primary-dark: color-mix(in srgb, var(--t-color-primary) var(--tone), var(--base-black));
   --t-color-primary-light: color-mix(in srgb, var(--t-color-primary) var(--tone), var(--base-white));
   
@@ -97,9 +101,20 @@
   --t-color-gray-4: color-mix(in srgb, var(--t-color-gray) 49%, var(--t-color-white));
   --t-color-gray-5: color-mix(in srgb, var(--t-color-gray) 32%, var(--t-color-white));
   --t-color-gray-6: color-mix(in srgb, var(--t-color-gray) 15%, var(--t-color-white));
-  
+}
+
+.jk-theme-light {
+  --tone: 75%;
   --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 80%, var(--base-white));
   --t-color-black-light: color-mix(in srgb, var(--t-color-black) 90%, var(--base-white));
-  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 98%, var(--base-black));
-  --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 88%, var(--base-black));
+  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 96%, var(--base-black));
+  --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 86%, var(--base-black));
+}
+
+.jk-theme-dark {
+  --tone: 65%;
+  --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 86%, var(--base-white));
+  --t-color-black-light: color-mix(in srgb, var(--t-color-black) 96%, var(--base-white));
+  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 90%, var(--base-black));
+  --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 80%, var(--base-black));
 }
