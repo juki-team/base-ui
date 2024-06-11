@@ -1,5 +1,11 @@
 @import "../../abstracts";
 
+.cm-gutters {
+  background-color: var(--t-color-highlight-light) !important;
+  color: inherit !important;
+  border: none !important;
+}
+
 .editor-settings-modal {
   max-width: var(--modal-width-md-min);
   
