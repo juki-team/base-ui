@@ -20,7 +20,7 @@ export const Tooltip = (props: PropsWithChildren<TooltipProps>) => {
   if (withPortal) {
     return (
       <>
-        {renderChildrenWithProps(children, { 'data-tooltip-id': id })}i
+        {renderChildrenWithProps(children, { 'data-tooltip-id': id })}
         <Portal>
           <ReactTooltip
             id={`${id}`}
