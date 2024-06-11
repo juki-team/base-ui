@@ -6,4 +6,5 @@ export interface TooltipProps {
   content: ReactNodeOrFunctionType,
   placement?: PlacesType,
   visible?: boolean,
+  withPortal?: boolean,
 }

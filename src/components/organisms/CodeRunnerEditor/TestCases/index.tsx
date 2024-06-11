@@ -66,7 +66,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = fal
       </div>
     </Tooltip>
   );
-}
+};
 
 export const TestCases = <T, >(props: TestCasesProps<T>) => {
   
@@ -196,6 +196,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
               <T>{`${testCases[testCaseKey]?.testOut.lastIndexOf('\n') === testCases[testCaseKey]?.testOut.length - 1 ? '' : 'no '}newline at end of file`}</T>
             }
             placement="top"
+            withPortal
           >
             <div className="jk-row"><InfoIcon size="small" /></div>
           </Tooltip>
