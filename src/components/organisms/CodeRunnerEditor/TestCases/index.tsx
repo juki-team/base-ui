@@ -28,7 +28,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = fal
   return (
     <Tooltip
       content={<T className="ws-np tt-se tx-s">{`add ${sample ? 'sample' : 'custom sample'} case`}</T>}
-      placement="bottom-end"
+      placement="top-end"
     >
       <div className="jk-button light small only-icon" style={{ margin: '6px' }}>
         <AddIcon
@@ -195,7 +195,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             content={
               <T>{`${testCases[testCaseKey]?.testOut.lastIndexOf('\n') === testCases[testCaseKey]?.testOut.length - 1 ? '' : 'no '}newline at end of file`}</T>
             }
-            placement="top"
+            placement="top-end"
             withPortal
           >
             <div className="jk-row"><InfoIcon size="small" /></div>
