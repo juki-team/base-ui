@@ -41,6 +41,8 @@ export const getCommands = (text: string): [ CommandsObjectType, string ] => {
         commandsObject[key] = true;
       } else if (key === 'preview') {
         commandsObject[key] = keys[key](value);
+      } else if (key === 'asImage') {
+        commandsObject[key] = true;
       } else {
         commandsObject.rest = (commandsObject.rest || '') + key + '=' + value;
       }

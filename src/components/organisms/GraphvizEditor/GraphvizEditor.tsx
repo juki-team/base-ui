@@ -32,8 +32,8 @@ const useDotValue = (value: string) => {
   return {
     dot,
     error,
-  }
-}
+  };
+};
 
 const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModalProps) => {
   
@@ -45,7 +45,7 @@ const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModalPro
   
   return (
     <Modal {...props}>
-      <div className="jk-graph-editor jk-pg-sm jk-col gap stretch">
+      <div className="jk-graph-editor-modal jk-pg-sm jk-col gap stretch">
         <SplitPane>
           <div>
             <div className="bc-eras jk-tag error">{error}</div>
@@ -71,25 +71,38 @@ const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModalPro
         </div>
       </div>
     </Modal>
-  )
-}
+  );
+};
 
 export const GraphvizEditor = ({ value, onChange, className, width, height }: GraphvizEditorProps) => {
   
   const [ open, setOpen ] = useState(false);
-  const { dot, error } = useDotValue(value);
   
   return (
-    <div className={classNames('jk-row nowrap center', className)} style={{ position: 'relative' }}>
+    <div
+      className={classNames('jk-row nowrap center jk-graphviz-editor-container', className)}
+      style={{ position: 'relative' }}
+    >
       {onChange && (
         <Button onClick={() => setOpen(true)} style={{}} icon={<EditIcon />} className="float-top-right pad-t" />
       )}
+      <GraphvizViewer value={value} width={width} height={height} />
+      {onChange && <GraphvizEditorModal value={value} onSave={onChange} isOpen={open} onClose={() => setOpen(false)} />}
+    </div>
+  );
+};
+
+export const GraphvizViewer = ({ value, className, width, height }: Omit<GraphvizEditorProps, 'onChange'>) => {
+  
+  const { dot, error } = useDotValue(value);
+  
+  return (
+    <div className={classNames('jk-graphviz-viewer-container', className)}>
       <Suspense fallback={<SpinIcon />}>
         {error
           ? <div className="bc-eras jk-tag error">{error}</div>
-          : <Graphviz dot={dot} className="jk-graph" options={{ width, height }} />}
+          : <Graphviz dot={dot} className="jk-graphviz-viewer" options={{ width, height }} />}
       </Suspense>
-      {onChange && <GraphvizEditorModal value={value} onSave={onChange} isOpen={open} onClose={() => setOpen(false)} />}
     </div>
   );
 };

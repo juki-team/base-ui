@@ -10,6 +10,7 @@ import RemarkMathPlugin from 'remark-math';
 import { useJukiUI } from '../../../../hooks';
 import { OpenInNewIcon, SpinIcon } from '../../../atoms';
 import { CodeViewer } from '../../../molecules';
+import { GraphvizViewer } from '../../GraphvizEditor';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
 const ReactMarkdown = lazy(() => import('react-markdown'));
@@ -152,7 +153,14 @@ export const MdMath = memo(({ source }: { source: string }) => {
         if (inline) {
           return <code className="inline-code">{children}</code>;
         }
-        const text = (className as string).replace('language-', '');
+        
+        let text = (className as string).replace('language-', '');
+        for (const a of Object.keys(ProgrammingLanguage)) {
+          if (text.startsWith(a)) {
+            text = `\\lang=${text}`;
+            break;
+          }
+        }
         const [ commands, newClassName ] = getCommands(text);
         const language = (commands.lang
           || commands.rest
@@ -160,6 +168,13 @@ export const MdMath = memo(({ source }: { source: string }) => {
           || ProgrammingLanguage.TEXT) as ProgrammingLanguage;
         
         if (typeof children === 'string') {
+          
+          if (language === ProgrammingLanguage.DOT && commands.asImage) {
+            return (
+              <GraphvizViewer value={children} className={`jk-row ${commands.imgAlign || ''}`} />
+            );
+          }
+          
           return (
             <CodeViewer
               // code={children.join('')}

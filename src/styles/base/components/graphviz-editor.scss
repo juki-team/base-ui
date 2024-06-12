@@ -1,10 +1,14 @@
-.jk-graph {
-  > svg > g > polygon {
-    fill: transparent;
+.jk-graphviz-viewer {
+  > svg {
+    max-width: 100%;
+    
+    & > g > polygon:nth-child(2) {
+      fill: transparent;
+    }
   }
 }
 
-.jk-graph-editor {
+.jk-graph-editor-modal {
   textarea {
     max-height: calc(var(--100VH) - 100px);
   }

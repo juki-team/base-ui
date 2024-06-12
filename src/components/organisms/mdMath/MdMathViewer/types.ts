@@ -13,6 +13,7 @@ export type CommandsObjectType = {
   lineNumbers?: boolean,
   rest?: string,
   preview?: string,
+  asImage?: boolean,
 }
 
 export type CommandsFunctionsType = {
