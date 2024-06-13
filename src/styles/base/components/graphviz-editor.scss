@@ -5,6 +5,14 @@
     & > g > polygon:nth-child(2) {
       fill: transparent;
     }
+    
+    *[fill="#000000"] {
+      fill: var(--t-color-black-light);
+    }
+    
+    *[stroke="#000000"] {
+      stroke: var(--t-color-black-light);
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 import { read } from 'graphlib-dot';
-import React, { lazy, Suspense, useEffect, useState } from 'react';
+import React, { lazy, memo, Suspense, useEffect, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
@@ -92,7 +92,7 @@ export const GraphvizEditor = ({ value, onChange, className, width, height }: Gr
   );
 };
 
-export const GraphvizViewer = ({ value, className, width, height }: Omit<GraphvizEditorProps, 'onChange'>) => {
+export const GraphvizViewer = memo(({ value, className, width, height }: Omit<GraphvizEditorProps, 'onChange'>) => {
   
   const { dot, error } = useDotValue(value);
   
@@ -105,4 +105,4 @@ export const GraphvizViewer = ({ value, className, width, height }: Omit<Graphvi
       </Suspense>
     </div>
   );
-};
+});
