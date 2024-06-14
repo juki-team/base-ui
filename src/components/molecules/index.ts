@@ -9,6 +9,7 @@ export * from './FetcherLayer';
 export * from './FloatToolbar';
 export * from './ImageLoaderCropper';
 export * from './InputColor';
+export * from './layouts';
 export * from './links';
 export * from './MultiSelectSearchable';
 export * from './SimpleSortableRows';

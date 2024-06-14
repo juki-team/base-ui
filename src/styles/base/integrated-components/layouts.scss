@@ -50,3 +50,57 @@
     }
   }
 }
+
+.two-content-section.rectangular-style {
+  > div:first-child {
+    width: 100%;
+    border-radius: 0;
+  }
+  
+  > div:last-child {
+    width: 100%;
+    padding: var(--pad-sm) var(--pad-md);
+    
+    .two-content-layout-body {
+      background: none;
+      border-radius: 0;
+    }
+  }
+}
+
+.two-content-section.cards-style {
+  &::before {
+    display: none;
+  }
+  
+  > div:first-child {
+    width: calc(100% - var(--pad-md) - var(--pad-md));
+    background: var(--t-color-white);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+  }
+  
+  > div:last-child {
+    width: calc(100% - var(--pad-md) - var(--pad-md));
+    padding: var(--pad-md) 0;
+    
+    > div > .jk-tabs-inline {
+      padding: 0 var(--border-radius);
+      box-sizing: border-box;
+      
+      .selected {
+        background: var(--t-color-white);
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+        
+        &::after {
+          display: none;
+        }
+      }
+    }
+    
+    .two-content-layout-body {
+      overflow: auto;
+      background: var(--t-color-white);
+      border-radius: var(--border-radius);
+    }
+  }
+}
