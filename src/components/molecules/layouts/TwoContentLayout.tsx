@@ -1,7 +1,6 @@
-import { MenuViewMode } from '@juki-team/commons';
 import React, { PropsWithChildren, ReactNode, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState, useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
+import { useHandleState, useJukiRouter, useJukiUI } from '../../../hooks';
 import { NotUndefined, ReactNodeOrFunctionP1Type } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { TabsInline, TabsType } from '../Tabs';
@@ -25,7 +24,6 @@ export const TwoContentLayout = <T, >({
                                       }: TwoContentLayoutProps<T>) => {
   
   const { viewPortSize } = useJukiUI();
-  const { user: { settings: { preferredMenuViewMode } } } = useJukiUser();
   const { searchParams, pushRoute } = useJukiRouter();
   const tabKeys = Object.keys(tabs);
   const [ tab, setTab ] = useHandleState<T>(tabs[tabKeys[0] as string].key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
@@ -93,7 +91,7 @@ export const TwoContentLayout = <T, >({
         )}
         <div
           className="two-content-layout-body"
-          style={{ height: preferredMenuViewMode === MenuViewMode.VERTICAL && withTabs ? 'calc(100% - 40px)' : '100%' }}
+          style={{ height: tabsOnBody ? 'calc(100% - 40px)' : '100%' }}
         >
           {renderReactNodeOrFunctionP1(tabs[tab as string]?.body, { selectedTabKey: tab })}
         </div>
