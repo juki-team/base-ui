@@ -59,7 +59,7 @@ export const TwoContentLayout = <T, >({
           className={classNames('jk-row gap jk-pg-md-rl left', {
             //'jk-pg-sm-t': preferredMenuViewMode === MenuViewMode.HORIZONTAL && withTabs,
             'jk-pg-sm-t': !withBreadcrumbs,
-            'jk-pg-sm-b': !(preferredMenuViewMode === MenuViewMode.HORIZONTAL && withTabs),
+            'jk-pg-sm-b': !tabsOnHeader,
           })}
         >
           {children}
