@@ -55,7 +55,7 @@ export const TwoContentCardsLayout = <T, >({
       <div>
         {!!breadcrumbs?.length && <Breadcrumbs breadcrumbs={breadcrumbs} />}
         <div
-          className={classNames('jk-row gap pad-left-right', {
+          className={classNames('jk-row gap jk-pg-rl', {
             'pad-top': preferredMenuViewMode === MenuViewMode.HORIZONTAL && withTabs,
             'pad-top-bottom': !(preferredMenuViewMode === MenuViewMode.HORIZONTAL && withTabs),
           })}
@@ -68,7 +68,7 @@ export const TwoContentCardsLayout = <T, >({
           )}
         </div>
         {preferredMenuViewMode === MenuViewMode.HORIZONTAL && withTabs && (
-          <div className="pad-left-right">
+          <div className="jk-pg-rl">
             <TabsInline
               tabs={tabs}
               selectedTabKey={tab}
@@ -90,7 +90,7 @@ export const TwoContentCardsLayout = <T, >({
           />
         )}
         <div
-          className="two-content-layout-body pad-top-bottom pad-left-right"
+          className="two-content-layout-body jk-pg-trbl"
           style={{ height: preferredMenuViewMode === MenuViewMode.VERTICAL && withTabs ? 'calc(100% - 40px)' : '100%' }}
         >
           {renderReactNodeOrFunctionP1(tabs[tab as string]?.body, { selectedTabKey: tab })}

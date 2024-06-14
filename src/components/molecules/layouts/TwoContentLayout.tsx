@@ -70,7 +70,7 @@ export const TwoContentLayout = <T, >({
           )}
         </div>
         {tabsOnHeader && (
-          <div className="pad-left-right">
+          <div className="jk-pg-rl">
             <TabsInline
               tabs={tabs}
               selectedTabKey={tab}
