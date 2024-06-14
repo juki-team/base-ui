@@ -54,7 +54,7 @@ export const TwoContentLayout = <T, >({
       <div>
         {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
         <div
-          className={classNames('jk-row gap jk-pg-md-rl left', {
+          className={classNames('jk-row gap left', {
             //'jk-pg-sm-t': preferredMenuViewMode === MenuViewMode.HORIZONTAL && withTabs,
             'jk-pg-sm-t': !withBreadcrumbs,
             'jk-pg-sm-b': !tabsOnHeader,
@@ -68,15 +68,13 @@ export const TwoContentLayout = <T, >({
           )}
         </div>
         {tabsOnHeader && (
-          <div className="jk-pg-rl">
-            <TabsInline
-              tabs={tabs}
-              selectedTabKey={tab}
-              onChange={pushTab}
-              extraNodes={tabButtons}
-              extraNodesPlacement={(viewPortSize === 'sm') ? 'bottomRight' : undefined}
-            />
-          </div>
+          <TabsInline
+            tabs={tabs}
+            selectedTabKey={tab}
+            onChange={pushTab}
+            extraNodes={tabButtons}
+            extraNodesPlacement={(viewPortSize === 'sm') ? 'bottomRight' : undefined}
+          />
         )}
       </div>
       <div>

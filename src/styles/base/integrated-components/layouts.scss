@@ -55,6 +55,7 @@
   > div:first-child {
     width: 100%;
     border-radius: 0;
+    padding: 0 var(--pad-md);
   }
   
   > div:last-child {
