@@ -6,6 +6,7 @@ export * from './CodeViewer';
 export * from './DataGrid';
 export * from './Drawer';
 export * from './FetcherLayer';
+export * from './FirstLoginWrapper';
 export * from './FloatToolbar';
 export * from './ImageLoaderCropper';
 export * from './InputColor';
