@@ -38,7 +38,7 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
   
   return (
     <div
-      className="jk-row nowrap left extend jk-breadcrumb jk-pg-rl"
+      className="jk-row nowrap left extend jk-breadcrumb"
       ref={refBreadcrumb}
       style={{ overflow: 'auto' }}
     >
@@ -49,7 +49,7 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
           <>
             {/*{!!index && <div className="separator">/</div>}*/}
             {!!index && <NavigateNextIcon className="cr-g5" />}
-            <div>{breadcrumb}</div>
+            <div className="jk-br-ie">{breadcrumb}</div>
           </>
         );
       }))}
@@ -81,7 +81,7 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
           <>
             {/*<div className="separator">/</div>*/}
             <NavigateNextIcon className="cr-g5" />
-            <div>{breadcrumb}</div>
+            <div className="jk-br-ie">{breadcrumb}</div>
           </>
         );
       }))}
