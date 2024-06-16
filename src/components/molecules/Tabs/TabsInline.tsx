@@ -6,7 +6,7 @@ import { TabsInlineProps } from './types';
 
 export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   
-  const { tabs, selectedTabKey, onChange, extraNodes, extraNodesPlacement = 'right' } = props;
+  const { tabs, selectedTabKey, onChange, extraNodes, extraNodesPlacement = 'right', className } = props;
   
   const tabsLength = Object.keys(tabs).length;
   const [ tabsSize, setTabsSize ] = useState(tabsLength);
@@ -44,7 +44,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   useWidthResizer({ onOverflow, unOverflow, targetRef: refB, trigger });
   
   return (
-    <div className="jk-row gap space-between nowrap jk-tabs-inline extend" ref={refB}>
+    <div className={classNames('jk-row gap space-between nowrap jk-tabs-inline extend', className)} ref={refB}>
       {extraNodesPlacement === 'left' && (
         <div className="jk-row gap nowrap">
           {Children.toArray(extraNodes?.map(action => (

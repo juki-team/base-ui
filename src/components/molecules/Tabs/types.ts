@@ -25,4 +25,5 @@ export interface TabsInlineProps<T = string> {
   onChange: (tabKey: T) => void,
   extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T }>[],
   extraNodesPlacement?: 'left' | 'right' | 'bottomLeft' | 'bottomCenter' | 'bottomRight',
+  className?: string,
 }

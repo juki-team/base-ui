@@ -10,7 +10,7 @@ export const TextArea = ({ value, onChange, style, className, register, onBlur, 
     <textarea
       {...restRegister}
       ref={registerRef}
-      className={classNames('jk-input-textarea jk-border-radius-inline', className, { disabled: !!disabled })}
+      className={classNames('jk-pg-sm jk-input-textarea jk-border-radius-inline', className, { disabled: !!disabled })}
       value={value}
       onChange={registerOnChange ? registerOnChange : ({ target }) => onChange?.(target.value)}
       onBlur={registerOnBlur ? registerOnBlur : onBlur}

@@ -12,7 +12,7 @@ import { v4 } from 'uuid';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useNotification } from '../../../../hooks/useNotification';
 import { AddIcon, DeleteIcon, InfoIcon, T, TextArea, Tooltip } from '../../../atoms';
-import { SplitPane, Tabs, TabsInline, TabType } from '../../../molecules';
+import { SplitPane, TabsInline, TabsType, TabType } from '../../../molecules';
 import { NotificationType } from '../../Notifications';
 import { ProblemVerdictTag } from '../../ProblemVerdictTag';
 import { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
@@ -137,18 +137,24 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             )}
         </>,
         body: (
-          <TextArea
-            style={{ height: '100%', boxShadow: 'none', borderRadius: 0, overflow: 'auto' }}
-            className="tx-s"
-            key={testCaseValue.key}
-            value={testCaseValue.in}
-            onChange={(testCaseValue.sample ? enableAddSampleCases : enableAddCustomSampleCases) ? value => onChange?.({
-              testCases: {
-                ...testCases,
-                [testCaseValue.key]: { ...testCaseValue, in: value },
-              },
-            }) : undefined}
-          />
+          (testCaseValue.sample ? enableAddSampleCases : enableAddCustomSampleCases) && onChange ?
+            <TextArea
+              style={{ height: '100%', boxShadow: 'none', borderRadius: 0, overflow: 'auto' }}
+              className="tx-s"
+              key={testCaseValue.key}
+              value={testCaseValue.in}
+              onChange={(testCaseValue.sample ? enableAddSampleCases : enableAddCustomSampleCases) ? value => onChange?.({
+                testCases: {
+                  ...testCases,
+                  [testCaseValue.key]: { ...testCaseValue, in: value },
+                },
+              }) : undefined}
+            /> :
+            <div className="content-log jk-pg-sm">
+              <span className="jk-text-stdout">
+                {testCaseValue.in}
+              </span>
+            </div>
         ),
       };
     });
@@ -181,38 +187,40 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     </>
   );
   
-  const outputTabs: TabType<string>[] = [];
+  const outputTabs: TabsType<string> = {};
   
   if (testCases[testCaseKey]?.testOut) {
-    outputTabs.push({
+    outputTabs['test-output'] = {
       key: 'test-output',
       header: (
-        <div className="jk-row gap">
+        <div className="jk-row gap left nowrap">
           <T className={classNames('tt-se tx-s')}>
             sample output
           </T>
-          <Tooltip
-            content={
-              <T>{`${testCases[testCaseKey]?.testOut.lastIndexOf('\n') === testCases[testCaseKey]?.testOut.length - 1 ? '' : 'no '}newline at end of file`}</T>
-            }
-            placement="top-end"
-            withPortal
-          >
-            <div className="jk-row"><InfoIcon size="small" /></div>
-          </Tooltip>
+          {testCases[testCaseKey]?.withPE && (
+            <Tooltip
+              content={
+                <T>{`${testCases[testCaseKey]?.testOut.lastIndexOf('\n') === testCases[testCaseKey]?.testOut.length - 1 ? '' : 'no '}newline at end of file`}</T>
+              }
+              placement="top-end"
+              withPortal
+            >
+              <div className="jk-row"><InfoIcon size="small" /></div>
+            </Tooltip>
+          )}
         </div>
       ),
       body: (
         <div>
           {loaderAndInfo}
-          <div className="content-log">
+          <div className="content-log jk-pg-sm">
             <span className="jk-text-stdout">{testCases[testCaseKey]?.testOut}</span>
           </div>
         </div>
       ),
-    });
+    };
   }
-  outputTabs.push({
+  outputTabs['output'] = {
     key: 'output',
     header: (
       <T
@@ -227,15 +235,15 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     body: (
       <div>
         {loaderAndInfo}
-        <div className="content-log">
+        <div className="content-log jk-pg-sm">
           <span className="jk-text-stdout">{testCases[testCaseKey]?.out}</span>
         </div>
       </div>
     ),
-  });
+  };
   
   if (testCases[testCaseKey]?.err) {
-    outputTabs.push({
+    outputTabs['error'] = {
       key: 'error',
       header: (
         <T
@@ -250,12 +258,12 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       body: (
         <div>
           {loaderAndInfo}
-          <div className="content-log">
+          <div className="content-log jk-pg-sm">
             <span className="jk-text-stderr">{testCases[testCaseKey]?.err}</span>
           </div>
         </div>
       ),
-    });
+    };
   }
   
   return (
@@ -286,13 +294,16 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             {renderReactNodeOrFunctionP1(inputTabs[testCaseKey]?.body, { selectedTabKey: testCaseKey })}
           </div>
         </div>
-        <div className="test-cases-output-stderr">
-          <Tabs
+        <div className="jk-col stretch test-cases-output-stderr">
+          <TabsInline
             tabs={outputTabs}
             selectedTabKey={outputTab}
             onChange={value => setOutputTab(value)}
-            extend={true}
+            className="border-bottom-highlight-light"
           />
+          <div className="flex-1" style={{ overflow: 'auto' }}>
+            {renderReactNodeOrFunctionP1(outputTabs[outputTab]?.body, { selectedTabKey: outputTab })}
+          </div>
         </div>
       </SplitPane>
     </div>

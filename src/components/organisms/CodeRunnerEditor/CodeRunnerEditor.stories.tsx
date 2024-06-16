@@ -133,17 +133,29 @@ export const CodeRunnerEditorWithCustomLanguages: Story = {
 
 CodeRunnerEditorWithCustomLanguages.args = {
   readOnly: false, // op
+  enableAddCustomSampleCases: true,
+  enableAddSampleCases: true,
   testCases: {
     'test-empty': {
       key: 'test-empty',
       index: 0,
-      in: '',
-      out: '',
-      testOut: '',
-      withPE: false,
-      err: '',
+      in: '4\n2\n24242\n',
+      out: '5\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 1',
+      testOut: '5\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 1',
+      withPE: true,
+      err: `int main() {
+    int n, a, b;
+    cin >> n;
+    int m = n;
+    if (n == 3) {
+        m = 10000000;
+    }
+    for (int i = 0; i < m; i++) {
+        cin >> a >> b;
+        cout << a + b << "\\n";
+    }`,
       log: '',
-      sample: false,
+      sample: true,
       hidden: false,
       status: SubmissionRunStatus.NONE,
     },
