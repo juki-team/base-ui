@@ -7,11 +7,14 @@ export const FirstLoginWrapper = ({ children }: { children: ReactElement; }) => 
   const { user: { isLogged } } = useJukiUser();
   const { setSearchParams } = useJukiRouter();
   const { addWarningNotification } = useNotification();
+  if (isLogged) {
+    return children;
+  }
+  
   const onClick = () => {
-    if (!isLogged) {
-      addWarningNotification(<T className="tt-se">first login</T>);
-      setSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' });
-    }
+    addWarningNotification(<T className="tt-se">first login</T>);
+    setSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' });
   };
+  
   return cloneElement(children, { onClick });
 };
