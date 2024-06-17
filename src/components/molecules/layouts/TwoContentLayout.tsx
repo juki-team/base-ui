@@ -26,11 +26,12 @@ export const TwoContentLayout = <T, >({
                                         loading,
                                       }: TwoContentLayoutProps<T>) => {
   
+  const LOADING_TAB = 'loading' as T;
   const { viewPortSize } = useJukiUI();
   const { searchParams, pushRoute } = useJukiRouter();
   const tabs: TabsType<T> = loading ? {
-    'loading': {
-      key: 'loading' as T,
+    [LOADING_TAB as string]: {
+      key: LOADING_TAB,
       header: (
         <div className="jk-row">
           <div className="dot-flashing" />
@@ -44,8 +45,8 @@ export const TwoContentLayout = <T, >({
     },
   } : initialTAbs;
   const tabKeys = Object.keys(tabs);
-  const [ tab, setTab ] = useHandleState<T>(tabs[tabKeys[0] as string].key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
-  
+  const [ initialTab, setTab ] = useHandleState<T>(tabs[tabKeys[0] as string].key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
+  const tab = loading ? LOADING_TAB : initialTab;
   const pushTab = (tabKey: T) => {
     if (getPathname) {
       pushRoute({
