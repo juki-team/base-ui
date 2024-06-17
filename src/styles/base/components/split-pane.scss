@@ -42,6 +42,7 @@
   .notch {
     @include look(primary-light);
     cursor: pointer;
+    z-index: 1;
     
     &:hover {
       background-color: var(--t-color-primary-dark);
