@@ -8,11 +8,16 @@ export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
 
 export type CodeRunnerEditorOnChangeType<T> = (props: CodeRunnerEditorPropertiesType<T>) => void;
 
-export type CodeEditorMiddleButtonsType<T> = (props: Omit<CodeRunnerEditorProps<T>, 'onChange' | 'className' | 'middleButtons'> & {
+
+export type CodeEditorCenterButtonsPropertiesType<T> =
+  Omit<CodeRunnerEditorProps<T>, 'onChange' | 'className' | 'centerButtons' | 'rightButtons'>
+  & {
   widthContainer: number
   isRunning: boolean,
   testCases: CodeEditorTestCasesType,
-}) => ReactNode;
+}
+
+export type CodeEditorCenterButtonsType<T> = (props: CodeEditorCenterButtonsPropertiesType<T>) => ReactNode;
 
 export type CodeEditorExpandPositionType = {
   top: string | number,
@@ -28,8 +33,9 @@ export interface CodeRunnerEditorProps<T> extends CodeEditorPropertiesType<T> {
   onChange?: CodeRunnerEditorOnChangeType<T>,
   languages?: { value: T, label: string }[],
   className?: string,
-  middleButtons?: CodeEditorMiddleButtonsType<T>,
   testCases?: CodeEditorTestCasesType,
+  centerButtons?: CodeEditorCenterButtonsType<T>,
+  rightButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode,
   timeLimit?: number,
   memoryLimit?: number,
   expandPosition?: CodeEditorExpandPositionType,
@@ -64,6 +70,7 @@ export interface HeaderProps<T> {
   setShowSettings: Dispatch<SetStateAction<boolean>>,
   setRunId: Dispatch<SetStateAction<string>>,
   centerOptions: (props: { widthContainer: number }) => ReactNode,
+  rightOptions: () => ReactNode,
   timeLimit: number,
   memoryLimit: number,
   expanded: boolean | null,

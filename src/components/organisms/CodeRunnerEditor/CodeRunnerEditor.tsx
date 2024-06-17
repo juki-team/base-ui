@@ -29,7 +29,8 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     })),
     language,
     onChange: _onChange,
-    middleButtons,
+    centerButtons,
+    rightButtons,
     testCases,
     tabSize = 4,
     fontSize = 14,
@@ -210,7 +211,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         languages={languages}
         sourceCode={sourceCode}
         testCases={testCases || {}}
-        centerOptions={({ widthContainer }) => middleButtons?.({
+        centerOptions={({ widthContainer }) => centerButtons?.({
           isRunning,
           readOnly,
           sourceCode,
@@ -218,6 +219,14 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           language,
           testCases: testCases || {},
           widthContainer,
+        })}
+        rightOptions={() => rightButtons?.({
+          isRunning,
+          readOnly,
+          sourceCode,
+          languages,
+          language,
+          testCases: testCases || {},
         })}
         setShowSettings={setShowSettings}
         setRunId={setRunId}

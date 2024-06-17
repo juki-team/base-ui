@@ -25,6 +25,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     testCases,
     setShowSettings,
     centerOptions,
+    rightOptions,
     setRunId,
     timeLimit,
     memoryLimit,
@@ -124,7 +125,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             onClick={handleRunCode}
             setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
           >
-            <T>run</T>
+            {withLabels && <T>run</T>}
           </ButtonLoader>
         )}
       </div>
@@ -145,6 +146,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             {withLabels && <T>{expanded ? 'back' : 'expand'}</T>}
           </Button>
         )}
+        {rightOptions()}
       </div>
     </div>
   );

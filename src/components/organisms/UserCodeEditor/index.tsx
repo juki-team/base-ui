@@ -5,12 +5,13 @@ import {
   ProgrammingLanguage,
   Theme,
 } from '@juki-team/commons';
-import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from 'react';
 import { getEditorSettingsStorageKey, getSourcesStoreKey } from '../../../helpers';
 import { useJukiUser } from '../../../hooks';
 import {
+  CodeEditorCenterButtonsPropertiesType,
   CodeEditorExpandPositionType,
-  CodeEditorMiddleButtonsType,
+  CodeEditorCenterButtonsType,
   CodeRunnerEditor,
   CodeRunnerEditorPropertiesType,
 } from '../CodeRunnerEditor';
@@ -53,7 +54,8 @@ export interface UserCodeEditorProps<T> {
   initialLanguage?: T,
   sourceStoreKey?: string,
   languages: { value: T, label: string }[],
-  middleButtons?: CodeEditorMiddleButtonsType<T>,
+  centerButtons?: CodeEditorCenterButtonsType<T>,
+  rightButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode,
   onSourceChange?: (source: string) => void,
   onLanguageChange?: (language: T) => void,
   onTestCasesChange?: (testCases: CodeEditorTestCasesType) => void,
@@ -76,7 +78,8 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     initialLanguage,
     sourceStoreKey = '',
     languages,
-    middleButtons,
+    centerButtons,
+    rightButtons,
     onSourceChange,
     onLanguageChange,
     onTestCasesChange,
@@ -190,7 +193,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     if (fontSize) {
       setEditorSettings(prevState => ({ ...prevState, fontSize }));
     }
-  }
+  };
   
   return (
     <CodeRunnerEditor
@@ -202,7 +205,8 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       language={language}
       languages={languages}
       onChange={onChange}
-      middleButtons={middleButtons}
+      centerButtons={centerButtons}
+      rightButtons={rightButtons}
       testCases={testCases}
       expandPosition={expandPosition}
       enableAddSampleCases={enableAddSampleCases}
