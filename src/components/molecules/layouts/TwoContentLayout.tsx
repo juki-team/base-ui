@@ -2,10 +2,10 @@ import React, { PropsWithChildren, ReactNode, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiRouter, useJukiUI } from '../../../hooks';
 import { NotUndefined, ReactNodeOrFunctionP1Type } from '../../../types';
-import { LoadingIcon } from '../../atoms';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { TabsInline, TabsType } from '../Tabs';
 import { TwoContentSection } from '../TwoContentSection';
+import { PawsLoadingLayout } from './PawsLoadingLayout';
 
 interface TwoContentLayoutProps<T> extends PropsWithChildren {
   breadcrumbs?: ReactNode[],
@@ -37,15 +37,11 @@ export const TwoContentLayout = <T, >({
           <div className="dot-flashing" />
         </div>
       ),
-      body: (
-        <div className="jk-row jk-col extend">
-          <LoadingIcon size="very-huge" className="cr-py" />
-        </div>
-      ),
+      body: <PawsLoadingLayout />,
     },
   } : initialTAbs;
   const tabKeys = Object.keys(tabs);
-  const [ initialTab, setTab ] = useHandleState<T>(tabs[tabKeys[0] as string].key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
+  const [ initialTab, setTab ] = useHandleState<T>(tabs[tabKeys[0] as string]?.key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
   const tab = loading ? LOADING_TAB : initialTab;
   const pushTab = (tabKey: T) => {
     if (getPathname) {
@@ -69,7 +65,7 @@ export const TwoContentLayout = <T, >({
   const withBreadcrumbs = !!breadcrumbs?.length;
   
   return (
-    <TwoContentSection className="rectangular-style">
+    <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })}>
       <div>
         {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
         <div
@@ -107,7 +103,7 @@ export const TwoContentLayout = <T, >({
           />
         )}
         <div
-          className="two-content-layout-body"
+          className={classNames('two-content-layout-body', { 'pn-re': !!loading })}
           style={{ height: tabsOnBody ? 'calc(100% - 40px)' : '100%' }}
         >
           {renderReactNodeOrFunctionP1(tabs[tab as string]?.body, { selectedTabKey: tab })}

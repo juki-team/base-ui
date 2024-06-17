@@ -10,7 +10,7 @@ import {
   MdMathEditor, MdMathViewer,
   PlusIcon,
   SAMPLE_MD_CONTENT,
-  T,
+  T, TwoContentLayout as TwoContentLayoutComponent,
   ViewHeadlineIcon,
 } from '../../../index';
 import { MockupJukiProvider } from '../../mockup';
@@ -65,3 +65,33 @@ export const MainMenu = () => (
     </div>
   </MockupJukiProvider>
 );
+
+export const MainMenuLoading = () => (
+  <MockupJukiProvider>
+    <div style={{ height: '100VH' }}>
+      <MainMenuCmp
+        menu={menu}
+        onSeeMyProfile={() => console.info('onSeeMyProfile')}
+        menuViewMode={MenuViewMode.VERTICAL}
+        multiCompanies
+        moreApps={
+          <>
+            <div className="jk-row">
+              <div style={{ width: 95 }}><JukiCouchLogoHorImage /></div>
+              <LoadingIcon size="small" /> <T className="tt-se">developing</T>...
+            </div>
+            <div className="jk-row">
+              <div style={{ width: 95 }}><JukiUtilsLogoHorImage /></div>
+              <LoadingIcon size="small" /> <T className="tt-se">developing</T>...
+            </div>
+          </>
+        }
+      >
+        <TwoContentLayoutComponent loading>
+          <h1>Title 1</h1>
+        </TwoContentLayoutComponent>
+      </MainMenuCmp>
+    </div>
+  </MockupJukiProvider>
+);
+
