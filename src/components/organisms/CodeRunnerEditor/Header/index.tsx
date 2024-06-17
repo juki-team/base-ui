@@ -134,7 +134,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       </div>
       <div className={classNames('jk-row gap right-options cr-pd', { 'jk-col gap': twoRows })} ref={refRightSection}>
         <Button size="tiny" type="light" onClick={() => setShowSettings(true)} icon={<SettingsIcon />}>
-          {withLabels && <T>settings</T>}
+          {(twoRows || withLabels) && <T>settings</T>}
         </Button>
         {expanded !== null && (
           <Button
