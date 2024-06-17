@@ -211,7 +211,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         languages={languages}
         sourceCode={sourceCode}
         testCases={testCases || {}}
-        centerOptions={({ widthContainer }) => centerButtons?.({
+        centerOptions={({ widthContainer, twoRows, withLabels }) => centerButtons?.({
           isRunning,
           readOnly,
           sourceCode,
@@ -219,14 +219,18 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           language,
           testCases: testCases || {},
           widthContainer,
+          twoRows,
+          withLabels,
         })}
-        rightOptions={() => rightButtons?.({
+        rightOptions={({ twoRows, withLabels }) => rightButtons?.({
           isRunning,
           readOnly,
           sourceCode,
           languages,
           language,
           testCases: testCases || {},
+          twoRows,
+          withLabels,
         })}
         setShowSettings={setShowSettings}
         setRunId={setRunId}

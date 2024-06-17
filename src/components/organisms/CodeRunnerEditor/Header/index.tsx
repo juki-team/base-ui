@@ -125,12 +125,12 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             onClick={handleRunCode}
             setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
           >
-            {withLabels && <T>run</T>}
+            {(twoRows || withLabels) && <T>run</T>}
           </ButtonLoader>
         )}
       </div>
       <div className="center-options" style={{ width: widthCenterContainer }}>
-        {centerOptions({ widthContainer: widthCenterContainer })}
+        {centerOptions({ widthContainer: widthCenterContainer, withLabels, twoRows })}
       </div>
       <div className={classNames('jk-row gap right-options cr-pd', { 'jk-col gap': twoRows })} ref={refRightSection}>
         <Button size="tiny" type="light" onClick={() => setShowSettings(true)} icon={<SettingsIcon />}>
@@ -146,7 +146,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             {withLabels && <T>{expanded ? 'back' : 'expand'}</T>}
           </Button>
         )}
-        {rightOptions()}
+        {rightOptions({ withLabels, twoRows })}
       </div>
     </div>
   );

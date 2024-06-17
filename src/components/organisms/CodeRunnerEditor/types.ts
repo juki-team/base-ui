@@ -15,6 +15,8 @@ export type CodeEditorCenterButtonsPropertiesType<T> =
   widthContainer: number
   isRunning: boolean,
   testCases: CodeEditorTestCasesType,
+  withLabels: boolean,
+  twoRows: boolean,
 }
 
 export type CodeEditorCenterButtonsType<T> = (props: CodeEditorCenterButtonsPropertiesType<T>) => ReactNode;
@@ -69,8 +71,8 @@ export interface HeaderProps<T> {
   testCases: CodeEditorTestCasesType,
   setShowSettings: Dispatch<SetStateAction<boolean>>,
   setRunId: Dispatch<SetStateAction<string>>,
-  centerOptions: (props: { widthContainer: number }) => ReactNode,
-  rightOptions: () => ReactNode,
+  centerOptions: (props: { widthContainer: number, withLabels: boolean, twoRows: boolean }) => ReactNode,
+  rightOptions: (props: { withLabels: boolean, twoRows: boolean }) => ReactNode,
   timeLimit: number,
   memoryLimit: number,
   expanded: boolean | null,

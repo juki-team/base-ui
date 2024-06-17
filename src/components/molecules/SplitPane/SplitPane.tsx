@@ -2,7 +2,7 @@ import React, { memo, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { useHandleState } from '../../../hooks'
+import { useHandleState } from '../../../hooks';
 import { ExpandLessIcon, ExpandMoreIcon, NavigateBeforeIcon, NavigateNextIcon, T, ViewSideIcon } from '../../atoms';
 import { SplitPaneProps } from './types';
 
@@ -90,7 +90,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
     return () => {
       clearTimeout(timeout);
     };
-  }, [ direction, onlyFirstPane, onlySecondPane, displaySecondPane, height, width ]);
+  }, [ clientDirection, direction, onlyFirstPane, onlySecondPane, displaySecondPane, height, width ]);
   
   useEffect(() => {
     if (firstChildRef.current?.style) {
