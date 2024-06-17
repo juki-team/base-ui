@@ -2,29 +2,47 @@ import React, { PropsWithChildren, ReactNode, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiRouter, useJukiUI } from '../../../hooks';
 import { NotUndefined, ReactNodeOrFunctionP1Type } from '../../../types';
+import { LoadingIcon } from '../../atoms';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { TabsInline, TabsType } from '../Tabs';
 import { TwoContentSection } from '../TwoContentSection';
 
 interface TwoContentLayoutProps<T> extends PropsWithChildren {
   breadcrumbs?: ReactNode[],
-  tabs: TabsType<T>,
+  tabs?: TabsType<T>,
   tabButtons?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T; }>[],
   getPathname?: (selectedTabKey: T) => string,
   selectedTabKey?: T,
+  loading?: boolean,
 }
 
 export const TwoContentLayout = <T, >({
                                         breadcrumbs,
-                                        tabs,
+                                        tabs: initialTAbs = {},
                                         tabButtons,
                                         getPathname,
                                         selectedTabKey,
                                         children,
+                                        loading,
                                       }: TwoContentLayoutProps<T>) => {
   
   const { viewPortSize } = useJukiUI();
   const { searchParams, pushRoute } = useJukiRouter();
+  const tabs: TabsType<T> = loading ? {
+    'loading': {
+      key: 'loading' as T,
+      header: (
+        <div className="jk-row">
+          <div className="dot-flashing" />
+        </div>
+      ),
+      body: (
+        <div className="jk-row jk-col extend">
+          <LoadingIcon size="very-huge" className="cr-py" />
+        </div>
+      ),
+    },
+  } : initialTAbs;
   const tabKeys = Object.keys(tabs);
   const [ tab, setTab ] = useHandleState<T>(tabs[tabKeys[0] as string].key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
   
