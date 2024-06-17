@@ -12,6 +12,7 @@ import { classNames } from '../../../helpers';
 import { useFetcher, useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
 import { Popover, Select, SpinIcon, T } from '../../atoms';
+import { PawsLoadingLayout } from '../../molecules';
 import { HorizontalMenu, MenuType, VerticalMenu } from '../../organisms';
 import { DrawerViewMenuMobile } from './DrawerViewMenuMobile';
 import { LoginModal } from './LoginModal';
@@ -54,10 +55,10 @@ export const MainMenu = (props: MainMenuProps) => {
   
   useEffect(() => {
     if (isLogged && (searchParams.has(QueryParamKey.SIGN_IN))) {
-      deleteSearchParams({ name: QueryParamKey.SIGN_IN })
+      deleteSearchParams({ name: QueryParamKey.SIGN_IN });
     }
     if (isLogged && (searchParams.has(QueryParamKey.SIGN_UP))) {
-      deleteSearchParams({ name: QueryParamKey.SIGN_UP })
+      deleteSearchParams({ name: QueryParamKey.SIGN_UP });
     }
   }, [ isLogged, searchParams, deleteSearchParams ]);
   const [ helpOpen, setHelpOpen ] = useState(false);
@@ -115,7 +116,7 @@ export const MainMenu = (props: MainMenuProps) => {
                   </div>
                 </div>
               </div>
-            )
+            );
           },
         },
         { label: <div />, icon: <div />, selected: false },
@@ -123,9 +124,9 @@ export const MainMenu = (props: MainMenuProps) => {
     }
     menu.push(...initialMenu);
     return menu;
-  }, [ initialMenu, companies, company, setSearchParams, isLogged, viewPortSize ]);
+  }, [ initialMenu, companies, company, setSearchParams, isLogged, viewPortSize, preferredTheme, Image, multiCompanies ]);
   
-  const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode
+  const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode;
   
   const logoImageUrl = (viewPortSize === 'sm' && preferredTheme !== Theme.DARK) ? imageUrl.replace(
     'white',
@@ -272,7 +273,7 @@ export const MainMenu = (props: MainMenuProps) => {
         onSeeMyProfile={async (setLoaderStatus, ...props) => {
           setLoaderStatus(Status.LOADING);
           await onSeeMyProfile();
-          deleteSearchParams({ name: QueryParamKey.WELCOME })
+          deleteSearchParams({ name: QueryParamKey.WELCOME });
           setLoaderStatus(Status.SUCCESS);
         }}
       />
@@ -286,8 +287,7 @@ export const MainMenu = (props: MainMenuProps) => {
             rightMobile={rightMobile}
             centerMobile={centerMobile}
           >
-            {isLoading ?
-              <div className="jk-col extend"><SpinIcon size="very-huge" className="cr-py" /></div> : children}
+            {isLoading ? <PawsLoadingLayout /> : children}
           </HorizontalMenu>
         )
         : (
@@ -299,8 +299,7 @@ export const MainMenu = (props: MainMenuProps) => {
             rightMobile={rightMobile}
             centerMobile={centerMobile}
           >
-            {isLoading ?
-              <div className="jk-col extend"><SpinIcon size="very-huge" className="cr-py" /></div> : children}
+            {isLoading ? <PawsLoadingLayout /> : children}
           </VerticalMenu>
         )}
     </>
