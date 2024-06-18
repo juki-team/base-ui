@@ -1,11 +1,11 @@
 import React, { lazy, PropsWithChildren, Suspense } from 'react';
-import { SpinIcon } from '../components';
+import { JukiLoadingPLayout } from '../components';
 import { JukiProvidersProps } from './types';
 
 const LazyJukiProviders = lazy(() => import('./JukiProviders').then(module => ({ default: module.JukiProviders })));
 
 export const JukiProviders = <T extends string | number, >(props: PropsWithChildren<JukiProvidersProps<T>>) => (
-  <Suspense fallback={<SpinIcon />}>
+  <Suspense fallback={<JukiLoadingPLayout />}>
     <LazyJukiProviders {...props} />
   </Suspense>
 );

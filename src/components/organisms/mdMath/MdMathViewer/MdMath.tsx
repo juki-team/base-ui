@@ -8,8 +8,8 @@ import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
 import { useJukiUI } from '../../../../hooks';
-import { OpenInNewIcon, SpinIcon } from '../../../atoms';
-import { CodeViewer } from '../../../molecules';
+import { OpenInNewIcon } from '../../../atoms';
+import { CodeViewer, JukiLoadingPLayout } from '../../../molecules';
 import { GraphvizViewer } from '../../GraphvizEditor';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
@@ -203,7 +203,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
   
   return (
     <div className="jk-md-math">
-      <Suspense fallback={<SpinIcon />}>
+      <Suspense fallback={<JukiLoadingPLayout />}>
         <ReactMarkdown {...props} >
           {source}
         </ReactMarkdown>

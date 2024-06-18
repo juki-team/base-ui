@@ -1,11 +1,11 @@
 import React, { lazy, Suspense } from 'react';
-import { SpinIcon } from '../../atoms';
+import { JukiLoadingPLayout } from '../../molecules';
 import { UserPreviewModalProps } from './types';
 
 const LazyUserPreviewModal = lazy(() => import('./UserPreviewModal').then(module => ({ default: module.UserPreviewModal })));
 
 export const UserPreviewModal = (props: UserPreviewModalProps) => (
-  <Suspense fallback={<SpinIcon />}>
+  <Suspense fallback={<JukiLoadingPLayout />}>
     <LazyUserPreviewModal {...props} />
   </Suspense>
 );

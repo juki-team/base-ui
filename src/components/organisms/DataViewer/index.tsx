@@ -1,11 +1,11 @@
 import React, { lazy, Suspense } from 'react';
-import { SpinIcon } from '../../atoms';
+import { JukiLoadingPLayout } from '../../molecules';
 import { DataViewerProps } from './types';
 
 const LazyDataViewer = lazy(() => import('./DataViewer').then(module => ({ default: module.DataViewer })));
 
 export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => (
-  <Suspense fallback={<SpinIcon />}>
+  <Suspense fallback={<JukiLoadingPLayout />}>
     {/* @ts-ignore*/}
     <LazyDataViewer {...props} />
   </Suspense>
