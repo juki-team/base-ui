@@ -1,4 +1,4 @@
-import React, { CSSProperties, memo, useId } from 'react';
+import React, { Children, CSSProperties, memo, useId } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 
 const Icon = ({ height, width }: { height: number, width: number }) => (
@@ -67,7 +67,7 @@ export const PathLoadingPaws = memo(function A(props: PathLoadingPawsProps) {
         className="jk-loader-layout-paws"
         style={{ width: 56, '--paws-rotate': `${ang}rad` } as CSSProperties}
       >
-        {children}
+        {Children.toArray(children)}
       </div>
     </div>
   );
@@ -129,7 +129,7 @@ export const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PawsL
     }
   }`}
       </style>
-      {children}
+      {Children.toArray(children)}
     </div>
   );
 });
