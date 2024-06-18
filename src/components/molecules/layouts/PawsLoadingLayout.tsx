@@ -134,4 +134,4 @@ export const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PawsL
   );
 });
 
-export const JukiLoadingPLayout = PawsLoadingLayout;
+export const JukiLoadingLayout = PawsLoadingLayout;

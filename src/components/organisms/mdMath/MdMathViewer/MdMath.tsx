@@ -9,7 +9,7 @@ import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
 import { useJukiUI } from '../../../../hooks';
 import { OpenInNewIcon } from '../../../atoms';
-import { CodeViewer, JukiLoadingPLayout } from '../../../molecules';
+import { CodeViewer, JukiLoadingLayout } from '../../../molecules';
 import { GraphvizViewer } from '../../GraphvizEditor';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
@@ -203,7 +203,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
   
   return (
     <div className="jk-md-math">
-      <Suspense fallback={<JukiLoadingPLayout />}>
+      <Suspense fallback={<JukiLoadingLayout />}>
         <ReactMarkdown {...props} >
           {source}
         </ReactMarkdown>
