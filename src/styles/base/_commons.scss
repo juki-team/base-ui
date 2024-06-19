@@ -132,6 +132,12 @@
 
 .br-ad { border: 1px solid var(--t-color-accent-dark); @include transition(background-color, color, border-color); }
 
+.br-hl { border: 1px solid var(--t-color-highlight-light); @include transition(background-color, color, border-color); }
+
+.br-ht { border: 1px solid var(--t-color-highlight); @include transition(background-color, color, border-color); }
+
+.br-hd { border: 1px solid var(--t-color-highlight-dark); @include transition(background-color, color, border-color); }
+
 .cursor-pointer { cursor: pointer; }
 
 .screen:not(.hg) {
