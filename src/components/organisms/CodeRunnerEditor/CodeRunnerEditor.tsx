@@ -95,13 +95,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     const inputKey = lastRunStatus?.log?.inputKey;
     const newTestCases: CodeEditorTestCasesType = { ...testCases };
     switch (status) {
-      case SubmissionRunStatus.RECEIVED:
-        setIsRunning(true);
-        onChangeRef.current?.({ isRunning: true });
-        break;
       case SubmissionRunStatus.FAILED:
-        setIsRunning(false);
-        onChangeRef.current?.({ isRunning: false });
         fillTestCases(
           newTestCases,
           status,
@@ -138,6 +132,15 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           }
         }
         break;
+      default:
+    }
+    switch (status) {
+      case SubmissionRunStatus.RECEIVED:
+        setIsRunning(true);
+        onChangeRef.current?.({ isRunning: true });
+        break;
+      case SubmissionRunStatus.FAILED:
+      case SubmissionRunStatus.COMPILATION_ERROR:
       case SubmissionRunStatus.COMPLETED:
         setIsRunning(false);
         onChangeRef.current?.({ isRunning: false });
@@ -146,7 +149,8 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     }
   }, [ lastRunStatus, testCases ]);
   const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
-    onChangeRef.current?.(props);
+    onChangeRef.current?.({ ...props, isRunning: false });
+    setIsRunning(false);
   }, []);
   
   const isMobileViewPort = viewPortSize === 'sm';
