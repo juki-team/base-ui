@@ -312,6 +312,8 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   &.gray-6 { @include look(gray-6); }
   
   &.white { @include look(white); }
+  
+  &.bc-hl, &.bc-hd, &.bc-ht { color: inherit; }
 }
 
 .jk-text-stdout, .jk-text-stderr {
