@@ -1,0 +1,24 @@
+.sample-text-content {
+  width: 100%;
+  padding: var(--pad-xt);
+  position: relative;
+  min-height: 26px;
+  
+  .sample-text-icons {
+    position: absolute;
+    top: var(--pad-xt);
+    right: var(--pad-xt);
+  }
+  
+  > span:not(.jk-icon) {
+    background-color: var(--t-color-highlight-light) !important;
+    white-space: pre;
+    font-family: monospace;
+  }
+}
+
+.jk-problem-view-statement {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}

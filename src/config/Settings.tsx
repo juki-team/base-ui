@@ -311,6 +311,12 @@ export class Settings {
           method: HTTPMethod.GET,
         })),
       },
+      judge: {
+        get: valid<{ params: { judge: Judge, companyKey: string } }>(({ params: { judge, companyKey } }) => ({
+          url: injectBaseUrl('judge', `/${judge}/company/${companyKey}`),
+          method: HTTPMethod.GET,
+        })),
+      },
       worksheet: {
         getList: valid<
           { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }

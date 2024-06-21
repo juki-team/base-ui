@@ -150,7 +150,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                 },
               }) : undefined}
             /> :
-            <div className="content-log jk-pg-sm">
+            <div className="content-log" style={{ padding: 'calc(var(--pad-sm) / 2)' }}>
               <span className="jk-text-stdout">
                 {testCaseValue.in}
               </span>
@@ -213,7 +213,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       body: (
         <div>
           {loaderAndInfo}
-          <div className="content-log jk-pg-sm">
+          <div className="content-log" style={{ padding: 'calc(var(--pad-sm) / 2)' }}>
             <span className="jk-text-stdout">{testCases[testCaseKey]?.testOut}</span>
           </div>
         </div>
@@ -235,7 +235,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     body: (
       <div>
         {loaderAndInfo}
-        <div className="content-log jk-pg-sm">
+        <div className="content-log" style={{ padding: 'calc(var(--pad-sm) / 2)' }}>
           <span className="jk-text-stdout">{testCases[testCaseKey]?.out}</span>
         </div>
       </div>
@@ -258,7 +258,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       body: (
         <div>
           {loaderAndInfo}
-          <div className="content-log jk-pg-sm">
+          <div className="content-log" style={{ padding: 'calc(var(--pad-sm) / 2)' }}>
             <span className="jk-text-stderr">{testCases[testCaseKey]?.err}</span>
           </div>
         </div>
@@ -290,7 +290,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
               </div>
             )}
           </div>
-          <div className="flex-1" style={{ overflow: 'hidden' }}>
+          <div className="flex-1" style={{ overflow: 'auto' }}>
             {renderReactNodeOrFunctionP1(inputTabs[testCaseKey]?.body, { selectedTabKey: testCaseKey })}
           </div>
         </div>

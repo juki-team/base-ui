@@ -9,3 +9,4 @@ export * from './UserPreviewModal';
 export * from './UserProfile';
 export * from './UserProfileSettings';
 export * from './modals';
+export * from './ProblemView';
