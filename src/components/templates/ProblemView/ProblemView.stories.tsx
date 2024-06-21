@@ -78,7 +78,7 @@ Regular.args = {
     'settings': {
       'timeLimit': 10000,
       'memoryLimit': 512000,
-      'withPE': false,
+      'withPE': true,
       'type': ProblemType.STANDARD,
       'mode': ProblemScoringMode.TOTAL,
       'byProgrammingLanguage': {
