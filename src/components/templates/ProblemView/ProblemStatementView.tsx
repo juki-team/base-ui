@@ -5,7 +5,7 @@ import { useJukiUser, useT } from '../../../hooks';
 import { DownloadIcon, T } from '../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
 import { MdMathViewer } from '../../organisms/mdMath';
-import { JukiProblemInfo, ProblemInfo } from './ProblemInfo';
+import { JukiProblemInfo, ProblemInfo } from '../ProblemInfo';
 import { SampleTest } from './SampleTest';
 
 export interface ProblemStatementViewProps {
