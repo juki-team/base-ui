@@ -216,6 +216,12 @@ export class Settings {
         })),
       },
       problem: {
+        getData: valid<
+          { params: { problemKey: string } }
+        >(({ params: { problemKey } }) => ({
+          url: injectBaseUrl('problem', `/${problemKey}/data`),
+          method: HTTPMethod.GET,
+        })),
         getList: valid<
           { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
         >(({ params: { page, size, filterUrl, sortUrl } }) => ({
