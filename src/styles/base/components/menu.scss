@@ -60,6 +60,7 @@
   > .jk-menu {
     height: 100%;
     width: var(--left-vertical-menu-width);
+    overflow: hidden auto;
     @include transition(width);
     
     .jk-menu-content {
