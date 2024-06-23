@@ -8,7 +8,7 @@ import { TwoContentSection } from '../TwoContentSection';
 import { PawsLoadingLayout } from './PawsLoadingLayout';
 
 interface TwoContentLayoutProps<T> extends PropsWithChildren {
-  breadcrumbs?: ReactNode[],
+  breadcrumbs?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T; }, ReactNode[]>,
   tabs?: TabsType<T>,
   tabButtons?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T; }>[],
   getPathname?: (selectedTabKey: T) => string,
@@ -17,7 +17,7 @@ interface TwoContentLayoutProps<T> extends PropsWithChildren {
 }
 
 export const TwoContentLayout = <T, >({
-                                        breadcrumbs,
+                                        breadcrumbs: initialBreadcrumbs,
                                         tabs: initialTAbs = {},
                                         tabButtons,
                                         getPathname,
@@ -40,9 +40,11 @@ export const TwoContentLayout = <T, >({
       body: <PawsLoadingLayout />,
     },
   } : initialTAbs;
+  
   const tabKeys = Object.keys(tabs);
   const [ initialTab, setTab ] = useHandleState<T>(tabs[tabKeys[0] as string]?.key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
   const tab = loading ? LOADING_TAB : initialTab;
+  const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey: tab }) as ReactNode[];
   const pushTab = (tabKey: T) => {
     if (getPathname) {
       pushRoute({
@@ -67,7 +69,8 @@ export const TwoContentLayout = <T, >({
   return (
     <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })}>
       <div>
-        {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
+        {withBreadcrumbs &&
+          <Breadcrumbs breadcrumbs={breadcrumbs} />}
         <div
           className={classNames('jk-row gap left', {
             //'jk-pg-sm-t': preferredMenuViewMode === MenuViewMode.HORIZONTAL && withTabs,

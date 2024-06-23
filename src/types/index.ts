@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 export type ReactNodeOrFunctionType = ReactNode | (() => ReactNode);
 
-export type ReactNodeOrFunctionP1Type<T> = ReactNode | ((prop1: T) => ReactNode);
+export type ReactNodeOrFunctionP1Type<T, U = ReactNode> = U | ((prop1: T) => U);
 
 export const HOVER = 'hover';
 export const CLICK = 'click';

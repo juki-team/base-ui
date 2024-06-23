@@ -7,10 +7,12 @@ import {
   JukiUtilsLogoHorImage,
   LoadingIcon,
   MainMenu as MainMenuCmp,
-  MdMathEditor, MdMathViewer,
+  MdMathEditor,
+  MdMathViewer,
   PlusIcon,
   SAMPLE_MD_CONTENT,
-  T, TwoContentLayout as TwoContentLayoutComponent,
+  T,
+  TwoContentLayout as TwoContentLayoutComponent,
   ViewHeadlineIcon,
 } from '../../../index';
 import { MockupJukiProvider } from '../../mockup';
@@ -87,7 +89,7 @@ export const MainMenuLoading = () => (
           </>
         }
       >
-        <TwoContentLayoutComponent loading>
+        <TwoContentLayoutComponent loading breadcrumbs={[ <div>a</div> ]}>
           <h1>Title 1</h1>
         </TwoContentLayoutComponent>
       </MainMenuCmp>
