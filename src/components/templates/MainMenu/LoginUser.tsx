@@ -73,7 +73,10 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
         triggerOn="click"
         placement={popoverPlacement}
       >
-        <div className={classNames('user-logged-head nowrap jk-row gap')}>
+        <div
+          className={classNames('user-logged-head nowrap jk-row gap')}
+          style={{ padding: collapsed ? undefined : 'var(--pad-xt)' }}
+        >
           <img
             src={user.imageUrl}
             alt={user.nickname}

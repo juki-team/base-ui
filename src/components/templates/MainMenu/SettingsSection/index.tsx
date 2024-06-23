@@ -18,7 +18,11 @@ import {
 } from '../../../atoms';
 import { HelpSection } from '../../HelpSection';
 
-export const LanguageSetting = ({ isOpen, small }: { isOpen: boolean, small: boolean }) => {
+export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
+  isOpen: boolean,
+  small: boolean,
+  popoverPlacement: 'top' | 'bottom' | 'right',
+}) => {
   
   const { loading, setSettings, [ProfileSetting.LANGUAGE]: preferredLanguage } = useJukiUserSettings();
   
@@ -61,13 +65,17 @@ export const LanguageSetting = ({ isOpen, small }: { isOpen: boolean, small: boo
   );
   
   return isOpen ? content : (
-    <Tooltip content={<T className="tt-se">{isEs ? 'english' : 'español'}</T>} placement="right">
+    <Tooltip content={<T className="tt-se">{isEs ? 'english' : 'español'}</T>} placement={popoverPlacement}>
       {content}
     </Tooltip>
   );
 };
 
-export const ThemeSetting = ({ isOpen, small }: { isOpen: boolean, small: boolean }) => {
+export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
+  isOpen: boolean,
+  small: boolean,
+  popoverPlacement: 'top' | 'bottom' | 'right',
+}) => {
   
   const { loading, setSettings, [ProfileSetting.THEME]: preferredTheme } = useJukiUserSettings();
   
@@ -100,7 +108,7 @@ export const ThemeSetting = ({ isOpen, small }: { isOpen: boolean, small: boolea
   );
   
   return isOpen ? content : (
-    <Tooltip content={<T className="tt-se">{isDark ? 'light mode' : 'dark mode'}</T>} placement="right">
+    <Tooltip content={<T className="tt-se">{isDark ? 'light mode' : 'dark mode'}</T>} placement={popoverPlacement}>
       {content}
     </Tooltip>
   );
@@ -153,10 +161,12 @@ export const SettingsSection = (props: SettingsSectionProps) => {
       <LanguageSetting
         isOpen={isOpen}
         small={margin}
+        popoverPlacement={popoverPlacement}
       />
       <ThemeSetting
         isOpen={isOpen}
         small={margin}
+        popoverPlacement={popoverPlacement}
       />
       <Modal
         isOpen={helpOpen && !isMobile}
@@ -179,7 +189,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
         </div>
       </Modal>
       {isOpen ? helpContent : (
-        <Tooltip content={<T className="tt-se">help</T>} placement="right">
+        <Tooltip content={<T className="tt-se">help</T>} placement={popoverPlacement}>
           {helpContent}
         </Tooltip>
       )}
@@ -197,8 +207,8 @@ export const SettingsSection = (props: SettingsSectionProps) => {
           placement={popoverPlacement === 'right' ? 'rightBottom' : popoverPlacement}
         >
           {isOpen ? moreAppsContent : (
-            <div>
-              <Tooltip content={<T className="tt-se">more apps</T>} placement="right">
+            <div className="jk-row center extend">
+              <Tooltip content={<T className="tt-se">more apps</T>} placement={popoverPlacement}>
                 {moreAppsContent}
               </Tooltip>
             </div>
