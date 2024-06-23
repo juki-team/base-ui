@@ -21,7 +21,6 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   --icon-margin-right: 0;
   background-color: var(--button-background-color, var(--t-color-primary));
   height: auto;
-  text-transform: uppercase;
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -29,12 +28,16 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   border: none;
   outline: var(--button-border-width) solid var(--button-border-color);
   outline-offset: -1px;
-  font-weight: var(--weight-bold);
   cursor: initial;
   //padding: calc(var(--gap) - 2px) var(--button-border-padding);
   padding: 6px var(--button-border-padding);
   opacity: 1;
   @include transition(opacity, padding);
+  
+  &:not(.void) {
+    text-transform: uppercase;
+    font-weight: var(--weight-bold);
+  }
   
   &:not(.disabled) {
     cursor: pointer;
@@ -163,7 +166,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   color: var(--t-color-secondary-text);
 }
 
-.jk-button.text {
+.jk-button.text.void {
   --button-background-color: transparent;
   color: inherit;
   

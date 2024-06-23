@@ -1,6 +1,6 @@
 import { CSSProperties, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 
-export type ButtonType = 'primary' | 'secondary' | 'light' | 'text'; // 'outline';
+export type ButtonType = 'primary' | 'secondary' | 'light' | 'text' | 'void'; // 'outline';
 
 export type ButtonSizeType = 'tiny' | 'small' | 'regular' | 'large' | 'huge';
 
