@@ -36,7 +36,7 @@ const menu = [
 
 export const MainMenu = () => (
   <MockupJukiProvider>
-    <div style={{ height: '400px' }}>
+    <div style={{ height: '500px' }}>
       <MainMenuCmp
         menu={menu}
         onSeeMyProfile={() => console.info('onSeeMyProfile')}

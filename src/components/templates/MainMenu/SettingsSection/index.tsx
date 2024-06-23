@@ -14,6 +14,7 @@ import {
   Modal,
   Popover,
   T,
+  Tooltip,
 } from '../../../atoms';
 import { HelpSection } from '../../HelpSection';
 
@@ -23,7 +24,7 @@ export const LanguageSetting = ({ isOpen, small }: { isOpen: boolean, small: boo
   
   const isEs = preferredLanguage === Language.ES;
   
-  return (
+  const content = (
     <div
       className="jk-row center extend language-setting"
       onClick={loading ? undefined : () => setSettings([
@@ -53,12 +54,16 @@ export const LanguageSetting = ({ isOpen, small }: { isOpen: boolean, small: boo
         )}
       {isOpen && (
         <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
-          {isEs
-            ? <T className="tt-se">english</T>
-            : <T className="tt-se">español</T>}
+          <T className="tt-se">{isEs ? 'english' : 'español'}</T>
         </div>
       )}
     </div>
+  );
+  
+  return isOpen ? content : (
+    <Tooltip content={<T className="tt-se">{isEs ? 'english' : 'español'}</T>} placement="right">
+      {content}
+    </Tooltip>
   );
 };
 
@@ -68,7 +73,7 @@ export const ThemeSetting = ({ isOpen, small }: { isOpen: boolean, small: boolea
   
   const isDark = preferredTheme === Theme.DARK;
   
-  return (
+  const content = (
     <div
       className="jk-row center extend theme-setting"
       onClick={loading ? undefined : () => setSettings([
@@ -88,12 +93,16 @@ export const ThemeSetting = ({ isOpen, small }: { isOpen: boolean, small: boolea
         )}
       {isOpen && (
         <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
-          {isDark
-            ? <T className="tt-se">light mode</T>
-            : <T className="tt-se">dark mode</T>}
+          <T className="tt-se">{isDark ? 'light mode' : 'dark mode'}</T>
         </div>
       )}
     </div>
+  );
+  
+  return isOpen ? content : (
+    <Tooltip content={<T className="tt-se">{isDark ? 'light mode' : 'dark mode'}</T>} placement="right">
+      {content}
+    </Tooltip>
   );
 };
 
@@ -116,6 +125,28 @@ export const SettingsSection = (props: SettingsSectionProps) => {
   const isDark = preferredTheme === Theme.DARK;
   
   const margin = (popoverPlacement === 'right' && isOpen) || !(viewPortSize === 'md' && popoverPlacement === 'bottom');
+  
+  const helpContent = (
+    <div className="jk-row center extend" onClick={() => setHelpOpen(true)}>
+      <HelpIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
+      {isOpen && (
+        <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
+          <T className="tt-se">help</T>
+        </div>
+      )}
+    </div>
+  );
+  
+  const moreAppsContent = (
+    <div className="jk-row center extend">
+      <AppsIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
+      {isOpen && (
+        <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
+          <T className="tt-se">more apps</T>
+        </div>
+      )}
+    </div>
+  );
   
   return (
     <>
@@ -147,14 +178,11 @@ export const SettingsSection = (props: SettingsSectionProps) => {
           </div>
         </div>
       </Modal>
-      <div className="jk-row center extend" onClick={() => setHelpOpen(true)}>
-        <HelpIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
-        {isOpen && (
-          <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
-            <T className="tt-se">help</T>
-          </div>
-        )}
-      </div>
+      {isOpen ? helpContent : (
+        <Tooltip content={<T className="tt-se">help</T>} placement="right">
+          {helpContent}
+        </Tooltip>
+      )}
       {moreApps && (
         <Popover
           content={
@@ -166,16 +194,15 @@ export const SettingsSection = (props: SettingsSectionProps) => {
             </div>
           }
           triggerOn="click"
-          placement={popoverPlacement}
+          placement={popoverPlacement === 'right' ? 'rightBottom' : popoverPlacement}
         >
-          <div className="jk-row center extend">
-            <AppsIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
-            {isOpen && (
-              <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
-                <T className="tt-se">more apps</T>
-              </div>
-            )}
-          </div>
+          {isOpen ? moreAppsContent : (
+            <div>
+              <Tooltip content={<T className="tt-se">more apps</T>} placement="right">
+                {moreAppsContent}
+              </Tooltip>
+            </div>
+          )}
         </Popover>
       )}
     </>

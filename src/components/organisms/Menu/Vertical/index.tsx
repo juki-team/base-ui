@@ -1,7 +1,7 @@
 import React, { Children, PropsWithChildren } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useHandleState, useJukiUI } from '../../../../hooks';
-import { NavigateBeforeIcon, NavigateNextIcon } from '../../../atoms';
+import { NavigateBeforeIcon, NavigateNextIcon, Tooltip } from '../../../atoms';
 import { HorizontalMenu } from '../Horizontal';
 import { VerticalMenuProps } from '../types';
 
@@ -19,12 +19,15 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
     drawerMenuMobile,
   } = props;
   
-  const [ open, setOpen ] = useHandleState(true, isOpen);
+  const [ _open, setOpen ] = useHandleState(true, isOpen);
   const { viewPortSize } = useJukiUI();
+  const isAlwaysClosed = viewPortSize === 'md';
+  const open = isAlwaysClosed ? false : _open;
+  
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
     const { selected, icon, label, onClick, menuItemWrapper } = menu[i];
-    const menuItem = (
+    const menuItemContent = (
       <div
         className={classNames('jk-menu-item', {
           'selected-up': menu[i - 1]?.selected,
@@ -37,6 +40,14 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
         <div className="jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>
         <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
       </div>
+    );
+    const menuItem = open ? menuItemContent : (
+      <Tooltip
+        content={<div className="tt-ce">{renderReactNodeOrFunction(label)}</div>}
+        placement="right"
+      >
+        {menuItemContent}
+      </Tooltip>
     );
     if (menuItemWrapper) {
       menus.push(renderReactNodeOrFunctionP1(menuItemWrapper, {
@@ -76,16 +87,17 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
     <div className={classNames('jk-vertical-menu-layout-container', { collapsed: !open })}>
       <header className={classNames('jk-menu')}>
         <section className="jk-menu-content">
-          <div className="jk-row right jk-menu-collapse-section">
-            <div className="jk-row jk-menu-collapse" onClick={handleCollapse}>
-              {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
+          {!isAlwaysClosed && (
+            <div className="jk-row right jk-menu-collapse-section">
+              <div className="jk-row jk-menu-collapse" onClick={handleCollapse}>
+                {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
+              </div>
             </div>
-          </div>
-          <div className={classNames('jk-menu-top-section')}>
+          )}
+          <div className={classNames('jk-menu-top-section', { 'selected-down': menu[0]?.selected })}>
             {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
           </div>
           <div className="jk-menu-items">
-            <div className={classNames('jk-menu-item extra', { 'selected-down': menu[0]?.selected })} />
             {Children.toArray(menus)}
             <div
               className={classNames('jk-menu-item extra', { 'selected-up': menu[menu.length - 1]?.selected })}

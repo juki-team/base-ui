@@ -171,7 +171,7 @@ export const MainMenu = (props: MainMenuProps) => {
   
   const topSection = ({ isOpen }: { isOpen: boolean }) => (
     <Link href="/">
-      <div className="jk-row" style={{ padding: 'calc(var(--pad-lg) + var(--pad-lg)) 0' }}>
+      <div className="jk-row" style={{ height: '100%' }}>
         {(isLoading || !logoImageUrl)
           ? <SpinIcon />
           : (

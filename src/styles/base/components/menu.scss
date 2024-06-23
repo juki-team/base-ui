@@ -75,8 +75,12 @@
         color: var(--t-color-primary-text);
       }
       
+      .jk-menu-top-section {
+        flex: 2;
+      }
+      
       .jk-menu-items {
-        flex: 1;
+        flex: 8;
         display: flex;
         flex-direction: column;
         

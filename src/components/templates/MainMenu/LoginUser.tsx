@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { classNames, isQueryToken } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
-import { Button, LoginIcon, LogoutIcon, Popover, SpinIcon, T } from '../../atoms';
+import { Button, LoginIcon, LogoutIcon, Popover, SpinIcon, T, Tooltip } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 
 interface LoginUserProps {
@@ -89,7 +89,7 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
     );
   }
   
-  return (
+  const content = (
     <div className="jk-row extend">
       <Button
         type="secondary"
@@ -97,10 +97,16 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
         size={viewPortSize === 'sm' ? 'small' : undefined}
         icon={!collapsed && <LoginIcon />}
         extend
-        style={popoverPlacement === 'rightBottom' ? { margin: '0 var(--pad-xt)' } : undefined}
+        style={(popoverPlacement === 'rightBottom' && !collapsed) ? { margin: '0 var(--pad-xt)' } : undefined}
       >
         {viewPortSize !== 'sm' && (!collapsed ? <T className="ws-np ws-np">sign in</T> : <LoginIcon />)}
       </Button>
     </div>
+  );
+  
+  return !collapsed ? content : (
+    <Tooltip content={<T className="ws-np ws-np">sign in</T>}>
+      {content}
+    </Tooltip>
   );
 };
