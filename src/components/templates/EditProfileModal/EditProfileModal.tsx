@@ -23,6 +23,7 @@ import { ImageProfileModal } from './ImageProfileModal';
 interface EditProfileModalPros extends BasicModalProps {
   user: UserProfileResponseDTO,
   onClose: () => void,
+  onSuccess?: () => Promise<void> | (() => void),
 }
 
 interface JudgeInputProps {
@@ -72,7 +73,7 @@ const JudgeInput = ({ judge: { value, label, logo, url, logoSize }, user, setUse
   );
 };
 
-export function EditProfileModal({ user, isOpen, onClose }: EditProfileModalPros) {
+export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfileModalPros) {
   
   const [ userState, setUserState ] = useState(user);
   const { updateUserProfileData, mutatePing } = useJukiUser();
@@ -211,6 +212,7 @@ export function EditProfileModal({ user, isOpen, onClose }: EditProfileModalPros
                   setLoader?.(Status.LOADING);
                   await mutatePing();
                   await mutate(jukiSettings.API.user.getProfile({ params: { nickname: user.nickname } }).url);
+                  await onSuccess?.();
                   setLoader?.(Status.SUCCESS);
                   loadingRef.current = false;
                   onClose();
