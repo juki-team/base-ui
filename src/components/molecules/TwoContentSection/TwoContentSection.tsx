@@ -12,10 +12,10 @@ export function TwoContentSection({ children, className }: TwoContentSectionProp
       className={classNames('two-content-section jk-col nowrap', className)}
       style={{ '--first-content-section-height': height + 'px' } as CSSProperties}
     >
-      <div ref={ref}>
+      <div ref={ref} id="jk-two-content-section-first-panel">
         {children[0]}
       </div>
-      <div>
+      <div id="jk-two-content-section-second-panel">
         {children[1]}
       </div>
     </section>
