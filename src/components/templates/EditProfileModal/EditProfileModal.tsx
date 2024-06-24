@@ -1,9 +1,10 @@
-import { JUDGE, Judge, Status, UserProfileResponseDTO } from '@juki-team/commons';
+import { ContentResponseType, JUDGE, Judge, Status, UserProfileResponseDTO } from '@juki-team/commons';
 import React, { Dispatch, useRef, useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useEntityDiff, useJukiUI, useJukiUser, useSWR } from '../../../hooks';
+import { UpdateUserProfileDataPayloadDTO } from '../../../types';
 import {
   BasicModalProps,
   Button,
@@ -23,7 +24,10 @@ import { ImageProfileModal } from './ImageProfileModal';
 interface EditProfileModalPros extends BasicModalProps {
   user: UserProfileResponseDTO,
   onClose: () => void,
-  onSuccess?: () => Promise<void> | (() => void),
+  onSuccess?: (props: {
+    body: UpdateUserProfileDataPayloadDTO,
+    response: ContentResponseType<string>,
+  }) => Promise<void> | (() => void),
 }
 
 interface JudgeInputProps {
@@ -193,31 +197,33 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
           <Button type="light" onClick={onClose}><T>cancel</T></Button>
           <ButtonLoader
             disabled={!validLengthNickname || !validCharNickname}
-            onClick={(setLoader) =>
+            onClick={(setLoader) => {
+              const body = {
+                nickname: userState.nickname,
+                givenName: userState.givenName,
+                familyName: userState.familyName,
+                aboutMe: userState.aboutMe,
+                country: userState.country,
+                city: userState.city,
+                institution: userState.institution,
+                handles: userState.handles,
+              };
               updateUserProfileData({
                 params: { nickname: user.nickname },
-                body: {
-                  nickname: userState.nickname,
-                  givenName: userState.givenName,
-                  familyName: userState.familyName,
-                  aboutMe: userState.aboutMe,
-                  country: userState.country,
-                  city: userState.city,
-                  institution: userState.institution,
-                  handles: userState.handles,
-                },
+                body,
                 setLoader,
-                onSuccess: async () => {
+                onSuccess: async (response) => {
                   loadingRef.current = true;
                   setLoader?.(Status.LOADING);
                   await mutatePing();
                   await mutate(jukiSettings.API.user.getProfile({ params: { nickname: user.nickname } }).url);
-                  await onSuccess?.();
+                  await onSuccess?.({ body, response });
                   setLoader?.(Status.SUCCESS);
                   loadingRef.current = false;
                   onClose();
                 },
-              })}
+              });
+            }}
           >
             <T>update</T>
           </ButtonLoader>
