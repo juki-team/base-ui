@@ -51,7 +51,7 @@ type ApiParamsBodyType<T, U, V> = ApiType<V> & {
 
 export const useJukiUser = () => {
   
-  const { user, isLoading, isValidating, setUser, mutate, company, socket, device } = useContext(UserContext);
+  const { user, isLoading, setUser, mutate, company, socket, device } = useContext(UserContext);
   const { notifyResponse, addErrorNotification } = useNotification();
   const { matchMutate } = useMatchMutate();
   
@@ -182,7 +182,7 @@ export const useJukiUser = () => {
     user,
     setUser,
     isLoading,
-    isValidating,
+    // isValidating,
     mutatePing: mutate,
     refreshAllRequest,
     signIn,
@@ -244,7 +244,7 @@ export const useJukiUserSettings = () => {
       setUser(prevState => ({ ...prevState, settings: newSettings }));
     }
     void i18n.changeLanguage?.(newSettings[ProfileSetting.LANGUAGE]);
-  }, [ i18n, settings, updateUserPreferences ]);
+  }, [ i18n, isLogged, mutatePing, nickname, setUser, settings, updateUserPreferences ]);
   
   const loading = loader === Status.LOADING;
   

@@ -98,7 +98,7 @@ const useUser = () => {
         },
       });
     }
-  }, [ data ]);
+  }, [ data, setUser ]);
   
   const isLoading = isLoadingPing || company.key === '';
   
@@ -127,10 +127,10 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     socket.start();
     return () => {
       socket.stop();
-    }
+    };
   }, [ socket, tokenName, serviceApiUrl, socketServiceUrl, utilsUiUrl, token ]);
   
-  const { user, company, setUser, isLoading, isValidating, mutate } = useUser();
+  const { user, company, setUser, isLoading, mutate } = useUser();
   
   useEffect(() => {
     if (isPageVisible) {
@@ -138,22 +138,23 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     }
   }, [ isPageVisible, socket, user.sessionId ]);
   
-  const device: DeviceType = {
+  const device: DeviceType = useMemo(() => ({
     type: deviceType,
     isMobile: false,
     isBrowser: false,
     label: isMobile ? `${mobileModel} ${mobileVendor}` : `${browserName} ${browserVersion}`,
     osLabel: `${osName} ${osVersion}`,
-  };
-  
-  const valueString = JSON.stringify({ user, company, isLoading, isValidating, device });
+  }), []);
   
   const value = useMemo(() => ({
-    ...JSON.parse(valueString),
+    user,
+    company,
+    isLoading,
+    device,
     socket,
     setUser,
     mutate,
-  }), [ valueString, socket, mutate, setUser ]);
+  }), [ user, company, isLoading, device, socket, setUser, mutate ]);
   
   return (
     <UserContext.Provider value={value}>
