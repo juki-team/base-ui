@@ -10,7 +10,7 @@ export const JukiTProvider = ({ i18n, children }: PropsWithChildren<JukiTProvide
   
   useEffect(() => {
     i18n.on('languageChanged', () => setTrigger(Date.now));
-  }, []);
+  }, [ i18n ]);
   
   useEffect(() => {
     (async () => {
@@ -31,7 +31,7 @@ export const JukiTProvider = ({ i18n, children }: PropsWithChildren<JukiTProvide
         consoleError(error);
       }
     })();
-  }, []);
+  }, [ i18n ]);
   
   const value = useMemo(() => ({ i18n }), [ i18n, trigger ]);
   
