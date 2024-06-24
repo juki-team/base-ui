@@ -1,9 +1,8 @@
 import { ContentResponseType, JUDGE, Judge, Status, UserProfileResponseDTO } from '@juki-team/commons';
 import React, { Dispatch, useRef, useState } from 'react';
-import { jukiSettings } from '../../../config';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { useEntityDiff, useJukiUI, useJukiUser, useSWR } from '../../../hooks';
+import { useEntityDiff, useJukiUI, useJukiUser } from '../../../hooks';
 import { UpdateUserProfileDataPayloadDTO } from '../../../types';
 import {
   BasicModalProps,
@@ -80,9 +79,8 @@ const JudgeInput = ({ judge: { value, label, logo, url, logoSize }, user, setUse
 export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfileModalPros) {
   
   const [ userState, setUserState ] = useState(user);
-  const { updateUserProfileData, mutatePing } = useJukiUser();
+  const { updateUserProfileData } = useJukiUser();
   const { components: { Image } } = useJukiUI();
-  const { mutate } = useSWR();
   const loadingRef = useRef(false);
   useEntityDiff(user, isOpen && !loadingRef.current);
   const [ modalImageProfile, setModalImageProfile ] = useState(false);
@@ -215,8 +213,6 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
                 onSuccess: async (response) => {
                   loadingRef.current = true;
                   setLoader?.(Status.LOADING);
-                  await mutatePing();
-                  await mutate(jukiSettings.API.user.getProfile({ params: { nickname: user.nickname } }).url);
                   await onSuccess?.({ body, response });
                   setLoader?.(Status.SUCCESS);
                   loadingRef.current = false;
