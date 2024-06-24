@@ -25,7 +25,8 @@ const signUpSchema = yup.object().shape({
   nickname: yup.string()
     .required('cannot be empty')
     .matches(ALPHANUMERIC_DASH_UNDERSCORE_REGEX, 'only alphanumeric characters or dash or underscore is valid')
-    .min(3, 'must be at least 3 characters'),
+    .min(3, 'must be at least 3 characters')
+    .max(32, 'must be less than 32 characters'),
   password: yup.string()
     .required('cannot be empty')
     .min(8, 'must be at least 8 characters')

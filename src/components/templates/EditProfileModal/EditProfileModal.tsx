@@ -70,7 +70,7 @@ const JudgeInput = ({ judge: { value, label, logo, url, logoSize }, user, setUse
       />
     </div>
   );
-}
+};
 
 export function EditProfileModal({ user, isOpen, onClose }: EditProfileModalPros) {
   
@@ -81,7 +81,7 @@ export function EditProfileModal({ user, isOpen, onClose }: EditProfileModalPros
   const loadingRef = useRef(false);
   useEntityDiff(user, isOpen && !loadingRef.current);
   const [ modalImageProfile, setModalImageProfile ] = useState(false);
-  const validLengthNickname = userState.nickname.length >= 3;
+  const validLengthNickname = userState.nickname.length >= 3 && userState.nickname.length <= 32;
   const validCharNickname = ALPHANUMERIC_DASH_UNDERSCORE_REGEX.test(userState.nickname);
   
   return (
@@ -114,7 +114,7 @@ export function EditProfileModal({ user, isOpen, onClose }: EditProfileModalPros
             />
             <p>
               {!validLengthNickname
-                ? <T className="tt-se">must be at least 3 characters</T>
+                ? <T className="tt-se">must be at least 3 characters and must be less than 32 characters</T>
                 : !validCharNickname &&
                 <T className="tt-se">only alphanumeric characters or dash or underscore is valid</T>}
             </p>
