@@ -1,5 +1,5 @@
-import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
-import React, { useEffect } from 'react';
+import { ContentResponseType, ContentsResponseType, ErrorResponseType } from '@juki-team/commons';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useFetcher, useNotification } from '../../../hooks';
 import { JukiSurprisedImage, LineLoader } from '../../atoms';
@@ -14,6 +14,10 @@ const isContentsResponseType = <T, >(data: any): data is ContentsResponseType<T>
   return !!(data?.success && data?.contents);
 };
 
+const isErrorResponseType = (data: any): data is ErrorResponseType => {
+  return data?.success === false;
+};
+
 export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>(props: FetcherLayerProps<T, U>) => {
   
   const { url, options, errorView, loadingView, children, onError, triggerFetch } = props;
@@ -25,14 +29,28 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
       void mutate();
     }
   }, [ triggerFetch, mutate ]);
+  const dataRef = useRef(data);
+  
+  dataRef.current = data;
+  
+  const isError = !isLoading && (data?.success === false || error);
   
   useEffect(() => {
-    if (data && (data?.success === false || error)) {
-      notifyResponse(data);
+    if (isError) {
+      if (isErrorResponseType(dataRef.current)) {
+        notifyResponse(dataRef.current);
+      }
       onError?.(error);
     }
+  }, [ notifyResponse, isError, error, onError ]);
+  
+  const validChild = useMemo(() => {
+    if (isContentResponseType<U>(data) || isContentsResponseType<U>(data)) {
+      return renderReactNodeOrFunctionP1(children, { data, isLoading, error, mutate });
+    }
+    return null;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ notifyResponse, JSON.stringify(data), error/*, onError*/ ]);
+  }, [ data, error, isLoading, mutate ]); // [ children ]
   
   if (isLoading) {
     if (loadingView) {
@@ -44,7 +62,7 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
   
   if (isContentResponseType<U>(data) || isContentsResponseType<U>(data)) {
     return <>
-      {renderReactNodeOrFunctionP1(children, { data, isLoading, error, mutate })}
+      {validChild}
       {isValidating && (
         <div style={{ position: 'absolute', top: 0, width: '100%' }}>
           <LineLoader />
