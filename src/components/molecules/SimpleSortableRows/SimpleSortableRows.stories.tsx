@@ -1,7 +1,8 @@
 import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
+import { classNames } from '../../../helpers';
 import { MockupJukiProvider } from '../../mockup';
-import { RowSortableItem, SimpleSortableRows as SimpleSortableRowsComponent } from './index';
+import { RowComponentProps, RowSortableItem, SimpleSortableRows as SimpleSortableRowsComponent } from './index';
 
 export default {
   component: SimpleSortableRowsComponent,
@@ -14,72 +15,64 @@ configureActions({
   limit: 20,
 });
 
+// const getStyles = ({ isDragging, isPreview }: { isDragging: boolean, isPreview: boolean }) => {
+//   return (
+//     {
+//       opacity: (isDragging && !isPreview) ? 0 : 1,
+//     }
+//   );
+// };
+
+const Component = ({
+                     value,
+                     dragComponent,
+                     dragComponentRef,
+                     isDragging,
+                     isPreview,
+                     index,
+                     isOver,
+                     rowKey,
+                   }: RowComponentProps<string>) => {
+    return (
+      <div className="jk-row left gap" style={{ opacity: (isDragging && !isPreview) ? 0 : 1 }} ref={dragComponentRef}>
+        {index}{dragComponent}{value}
+        <div className={classNames({ 'bc-er': isDragging })}>isD</div>
+        <div className={classNames({ 'bc-er': isPreview })}>isP</div>
+        <div className={classNames({ 'bc-er': isOver })}>isO</div>
+        {rowKey}
+      </div>
+    );
+  }
+;
 export const SimpleSortableRows = () => {
   const [ rows, setRows ] = useState<RowSortableItem<string>[]>([
-    { key: '1', content: 'Write a cool JS library', value: '111' },
+    { key: '1', value: '111' },
     {
       key: '2',
-      content: ({ dragComponent, isOver, isDragging, previewRef }) => (
-        <div
-          className="jk-row br-g6"
-          style={{ marginTop: (isOver && !isDragging) ? 24 : undefined, opacity: isDragging ? 0 : 1 }}
-          ref={previewRef}
-        >
-          {dragComponent}Make it generic enough
-        </div>
-      ),
       value: '222',
     },
     {
       key: '3',
-      content: ({ dragComponentRef, previewRef, isOver }) => (
-        <div className="jk-row" ref={previewRef} style={{ width: '400px', marginTop: isOver ? 24 : undefined }}>
-          <div ref={dragComponentRef}>drag me</div>
-          Write README
-        </div>
-      ),
+      
       value: '333',
     },
     {
       key: '3.5',
-      content: ({ dragComponentRef, previewRef, isOver, isDragging }) => (
-        <div
-          className="jk-row bc-g6"
-          style={{ marginTop: (isOver && !isDragging) ? 24 : undefined }}
-        >
-          <div className="jk-row" ref={previewRef} style={{ width: '400px' }}>
-            <div ref={dragComponentRef}>drag me</div>
-            <div className="jk-row">
-              some text
-            </div>
-          </div>
-        </div>
-      ),
-      value: '333.5',
+      value: '444',
     },
-    { key: '4', content: 'Create some examples', value: '4444' },
+    { key: '4', value: '555' },
     {
       key: '5',
-      content: ({ dragComponent, isOver }) => (
-        <div
-          className="jk-row"
-          style={{ marginTop: isOver ? 24 : undefined }}
-        >
-          {dragComponent}Spam in Twitter and IRC to promote it (note
-        that
-        this
-          element is taller than the others)
-        </div>
-      ),
-      value: '555',
+      
+      value: '666',
     },
-    { key: '6', content: '???', value: '666' },
-    { key: '7', content: 'PROFIT', value: '7' },
+    { key: '6', value: '777' },
+    { key: '7', value: '888' },
   ]);
   return (
     <MockupJukiProvider>
       <div style={{ height: '500px' }}>
-        <SimpleSortableRowsComponent<string> rows={rows} setRows={setRows} />
+        <SimpleSortableRowsComponent<string> rows={rows} setRows={setRows} Cmp={Component} />
       </div>
     </MockupJukiProvider>
   );
