@@ -2,12 +2,12 @@
 // https://react-dnd.github.io/react-dnd/examples/customize/handles-and-previews
 import type { XYCoord } from 'dnd-core';
 import update from 'immutability-helper';
-import React, { CSSProperties, Dispatch, FC, SetStateAction, useCallback, useEffect, useRef } from 'react';
+import React, { CSSProperties, FC, useCallback, useEffect, useRef } from 'react';
 import { DropTargetMonitor, useDrag, useDragLayer, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { classNames } from '../../../helpers';
 import { DragIcon } from '../../atoms';
-import { DragItem, RowComponentProps, RowSortableItem } from './types';
+import { DragItem, RowComponentProps, RowProps, RowSortableItem, SimpleSortableRowsProps } from './types';
 
 const layerStyles: CSSProperties = {
   position: 'fixed',
@@ -46,11 +46,11 @@ function getItemStyles(initialOffset: XYCoord | null, currentOffset: XYCoord | n
   };
 }
 
-interface CustomDragLayerProps<T> {
-  Cmp: FC<RowComponentProps<T>>,
+interface CustomDragLayerProps<T, U> {
+  Cmp: FC<RowComponentProps<T, U>>,
 }
 
-export const CustomDragLayer = <T, >({ Cmp }: CustomDragLayerProps<T>) => {
+export const CustomDragLayer = <T, U>({ Cmp }: CustomDragLayerProps<T, U>) => {
   const { itemType, isDragging, item, initialOffset, currentOffset } =
     useDragLayer((monitor) => ({
       item: monitor.getItem(),
@@ -77,6 +77,7 @@ export const CustomDragLayer = <T, >({ Cmp }: CustomDragLayerProps<T>) => {
             rowKey={item.key}
             isPreview={true}
             value={item.value}
+            props={item.props}
           />
         );
       default:
@@ -98,7 +99,7 @@ export const CustomDragLayer = <T, >({ Cmp }: CustomDragLayerProps<T>) => {
   );
 };
 
-export const Row = <T, >({ rowKey, Cmp, index, moveRow, value }: RowProps<T>) => {
+export const Row = <T, U, >({ rowKey, Cmp, index, moveRow, value, props }: RowProps<T, U>) => {
   
   const ref = useRef<HTMLDivElement>(null);
   
@@ -163,7 +164,7 @@ export const Row = <T, >({ rowKey, Cmp, index, moveRow, value }: RowProps<T>) =>
   const [ { item }, drag, preview ] = useDrag({
     type: 'row',
     item: () => {
-      return { key: rowKey, index, value };
+      return { key: rowKey, index, value, props };
     },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
@@ -187,53 +188,24 @@ export const Row = <T, >({ rowKey, Cmp, index, moveRow, value }: RowProps<T>) =>
       isOver={isOver}
       rowKey={rowKey}
       value={value}
+      props={props}
       dragComponent={
         <div ref={ref} style={{ cursor: 'move' }} className="jk-sortable-row-drag-icon jk-row">
           <DragIcon />
-          </div>
+        </div>
       }
       dragComponentRef={ref}
-    
     />
   );
-  // return (
-  //   <>
-  //     {renderReactNodeOrFunctionP1(content, {
-  //       dragComponentRef: ref,
-  //       dragComponent: (
-  //         <div ref={ref} style={{ cursor: 'move' }} className="jk-sortable-row-drag-icon jk-row">
-  //           <DragIcon />
-  //         </div>
-  //       ),
-  //       // previewRef: preview,
-  //       // dataHandlerId: handlerId,
-  //       isDragging,
-  //       isOver,
-  //       index,
-  //       key: rowKey,
-  //       isPreview: false,
-  //     })}
-  //   </>
-  // );
 };
 
-interface RowProps<T> {
-  rowKey: string,
-  id: string,
-  Cmp: FC<RowComponentProps<T>>,
-  index: number,
-  moveRow: (i: number, j: number) => void,
-  value: T,
-}
-
-export interface SimpleSortableRowsProps<T> {
-  rows: RowSortableItem<T>[],
-  setRows: Dispatch<SetStateAction<RowSortableItem<T>[]>>,
-  className?: string,
-  Cmp: FC<RowComponentProps<T>>,
-}
-
-export const SimpleSortableRows = <T, >({ rows, setRows, className, Cmp }: SimpleSortableRowsProps<T>) => {
+export const SimpleSortableRows = <T, U = undefined>({
+                                                       rows,
+                                                       setRows,
+                                                       className,
+                                                       Cmp,
+                                                       props,
+                                                     }: SimpleSortableRowsProps<T, U>) => {
   
   const moveRow = useCallback((dragIndex: number, hoverIndex: number) => {
     setRows((prevCards: RowSortableItem<T>[]) =>
@@ -258,6 +230,7 @@ export const SimpleSortableRows = <T, >({ rows, setRows, className, Cmp }: Simpl
           Cmp={Cmp}
           moveRow={moveRow}
           value={row.value}
+          props={props}
         />
       ))}
     </div>

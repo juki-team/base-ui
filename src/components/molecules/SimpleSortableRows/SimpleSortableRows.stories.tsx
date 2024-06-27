@@ -2,7 +2,7 @@ import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
 import { MockupJukiProvider } from '../../mockup';
-import { RowComponentProps, RowSortableItem, SimpleSortableRows as SimpleSortableRowsComponent } from './index';
+import { RowSortableItem, SimpleSortableRows as SimpleSortableRowsComponent, SimpleSortableRowsProps } from './index';
 
 export default {
   component: SimpleSortableRowsComponent,
@@ -23,16 +23,17 @@ configureActions({
 //   );
 // };
 
-const Component = ({
-                     value,
-                     dragComponent,
-                     dragComponentRef,
-                     isDragging,
-                     isPreview,
-                     index,
-                     isOver,
-                     rowKey,
-                   }: RowComponentProps<string>) => {
+const Component: (SimpleSortableRowsProps<string, { otherValue: string }>['Cmp']) = ({
+                                                                                       value,
+                                                                                       dragComponent,
+                                                                                       dragComponentRef,
+                                                                                       isDragging,
+                                                                                       isPreview,
+                                                                                       index,
+                                                                                       isOver,
+                                                                                       rowKey,
+                                                                                       props,
+                                                                                     }) => {
     return (
       <div className="jk-row left gap" style={{ opacity: (isDragging && !isPreview) ? 0 : 1 }} ref={dragComponentRef}>
         {index}{dragComponent}{value}
@@ -40,6 +41,7 @@ const Component = ({
         <div className={classNames({ 'bc-er': isPreview })}>isP</div>
         <div className={classNames({ 'bc-er': isOver })}>isO</div>
         {rowKey}
+        {JSON.stringify(props)}
       </div>
     );
   }
@@ -72,7 +74,13 @@ export const SimpleSortableRows = () => {
   return (
     <MockupJukiProvider>
       <div style={{ height: '500px' }}>
-        <SimpleSortableRowsComponent<string> rows={rows} setRows={setRows} Cmp={Component} />
+        <SimpleSortableRowsComponent<string, { otherValue: string }>
+          rows={rows}
+          setRows={setRows}
+          Cmp={Component}
+          // props={undefined}
+          props={{ otherValue: 'test' }}
+        />
       </div>
     </MockupJukiProvider>
   );

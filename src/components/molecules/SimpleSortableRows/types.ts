@@ -1,11 +1,10 @@
-import { ReactNode, RefObject } from 'react';
-import { ReactNodeOrFunctionP1Type } from '../../../types';
+import { Dispatch, FC, ReactNode, RefObject, SetStateAction } from 'react';
 
-
-export interface RowComponentProps<T> {
+export interface RowComponentProps<T, U> {
   rowKey: string,
   index: number,
   value: T,
+  props?: U,
   dragComponent: ReactNode,
   dragComponentRef: RefObject<HTMLDivElement>,
   // dataHandlerId: any,
@@ -13,18 +12,6 @@ export interface RowComponentProps<T> {
   isOver: boolean,
   isPreview: boolean,
 }
-
-export type RowSortableItemContentType = ReactNodeOrFunctionP1Type<{
-  dragComponentRef: RefObject<HTMLDivElement>,
-  dragComponent: ReactNode,
-  // previewRef: RefObject<HTMLDivElement> | ConnectDragPreview,
-  // dataHandlerId: any,
-  isDragging: boolean,
-  isOver: boolean,
-  index: number,
-  key: string,
-  isPreview: boolean,
-}>;
 
 export interface RowSortableItem<T> {
   key: string;
@@ -35,4 +22,22 @@ export interface DragItem {
   index: number,
   key: string,
   type: string,
+}
+
+export interface RowProps<T, U> {
+  rowKey: string,
+  id: string,
+  Cmp: FC<RowComponentProps<T, U>>,
+  index: number,
+  moveRow: (i: number, j: number) => void,
+  value: T,
+  props: U,
+}
+
+export interface SimpleSortableRowsProps<T, U = undefined> {
+  rows: RowSortableItem<T>[],
+  setRows: Dispatch<SetStateAction<RowSortableItem<T>[]>>,
+  className?: string,
+  Cmp: FC<RowComponentProps<T, U>>,
+  props: U,
 }
