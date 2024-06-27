@@ -5,6 +5,7 @@ import update from 'immutability-helper';
 import React, { CSSProperties, FC, useCallback, useEffect, useRef } from 'react';
 import { DropTargetMonitor, useDrag, useDragLayer, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
 import { DragIcon } from '../../atoms';
 import { DragItem, RowComponentProps, RowProps, RowSortableItem, SimpleSortableRowsProps } from './types';
@@ -15,7 +16,7 @@ const layerStyles: CSSProperties = {
   zIndex: 100,
   left: 0,
   top: 0,
-  width: '100%',
+  // width: '400px',
   height: '100%',
 };
 
@@ -48,9 +49,10 @@ function getItemStyles(initialOffset: XYCoord | null, currentOffset: XYCoord | n
 
 interface CustomDragLayerProps<T, U> {
   Cmp: FC<RowComponentProps<T, U>>,
+  width: number,
 }
 
-export const CustomDragLayer = <T, U>({ Cmp }: CustomDragLayerProps<T, U>) => {
+export const CustomDragLayer = <T, U>({ Cmp, width }: CustomDragLayerProps<T, U>) => {
   const { itemType, isDragging, item, initialOffset, currentOffset } =
     useDragLayer((monitor) => ({
       item: monitor.getItem(),
@@ -89,7 +91,7 @@ export const CustomDragLayer = <T, U>({ Cmp }: CustomDragLayerProps<T, U>) => {
     return null;
   }
   return (
-    <div style={layerStyles}>
+    <div style={{ ...layerStyles, width }}>
       <div
         style={getItemStyles(initialOffset, currentOffset, false)}
       >
@@ -217,10 +219,10 @@ export const SimpleSortableRows = <T, U = undefined>({
       }),
     );
   }, [ setRows ]);
-  
+  const { width = 0, ref } = useResizeDetector();
   return (
-    <div className={classNames('jk-sortable-rows-container', className)}>
-      <CustomDragLayer Cmp={Cmp} />
+    <div className={classNames('jk-sortable-rows-container', className)} ref={ref}>
+      <CustomDragLayer Cmp={Cmp} width={width} />
       {rows.map((row, i) => (
         <Row
           key={row.key}

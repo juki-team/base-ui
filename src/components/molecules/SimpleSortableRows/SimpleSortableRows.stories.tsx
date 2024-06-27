@@ -35,7 +35,11 @@ const Component: (SimpleSortableRowsProps<string, { otherValue: string }>['Cmp']
                                                                                        props,
                                                                                      }) => {
     return (
-      <div className="jk-row left gap" style={{ opacity: (isDragging && !isPreview) ? 0 : 1 }} ref={dragComponentRef}>
+      <div
+        className="jk-row left gap bc-we"
+        style={{ opacity: (isDragging && !isPreview) ? 0 : 1 }}
+        ref={dragComponentRef}
+      >
         {index}{dragComponent}{value}
         <div className={classNames({ 'bc-er': isDragging })}>isD</div>
         <div className={classNames({ 'bc-er': isPreview })}>isP</div>
@@ -73,7 +77,7 @@ export const SimpleSortableRows = () => {
   ]);
   return (
     <MockupJukiProvider>
-      <div style={{ height: '500px' }}>
+      <div style={{ height: '500px', width: '400px' }}>
         <SimpleSortableRowsComponent<string, { otherValue: string }>
           rows={rows}
           setRows={setRows}
