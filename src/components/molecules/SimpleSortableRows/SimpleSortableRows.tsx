@@ -19,11 +19,12 @@ export const Row = ({ key, content, index, moveRow }: RowProps) => {
   
   const ref = useRef<HTMLDivElement>(null);
   
-  const [ { handlerId }, drop ] = useDrop({
+  const [ { handlerId, isOver }, drop ] = useDrop({
     accept: 'row',
     collect(monitor: DropTargetMonitor<DragItem, void>) {
       return {
         handlerId: monitor.getHandlerId(),
+        isOver: monitor.isOver(),
       };
     },
     hover(item: DragItem, monitor: DropTargetMonitor<DragItem, void>) {
@@ -83,6 +84,7 @@ export const Row = ({ key, content, index, moveRow }: RowProps) => {
     },
     collect: (monitor: any) => ({
       isDragging: monitor.isDragging(),
+      a: console.log(monitor),
     }),
   });
   
@@ -100,6 +102,7 @@ export const Row = ({ key, content, index, moveRow }: RowProps) => {
         previewRef: preview,
         dataHandlerId: handlerId,
         isDragging,
+        isOver,
         index,
         key,
       })}

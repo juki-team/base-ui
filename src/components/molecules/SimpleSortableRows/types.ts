@@ -8,6 +8,7 @@ export type RowSortableItemContentType = ReactNodeOrFunctionP1Type<{
   previewRef: RefObject<HTMLDivElement> | ConnectDragPreview,
   dataHandlerId: any,
   isDragging: boolean,
+  isOver: boolean,
   index: number,
   key: string,
 }>;
