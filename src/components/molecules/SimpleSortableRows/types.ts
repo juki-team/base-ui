@@ -1,4 +1,4 @@
-import { Dispatch, FC, ReactNode, RefObject, SetStateAction } from 'react';
+import { Dispatch, FC, MutableRefObject, ReactNode, RefObject, SetStateAction } from 'react';
 
 export interface RowComponentProps<T, U> {
   rowKey: string,
@@ -33,6 +33,7 @@ export interface RowProps<T, U> {
   value: T,
   props: U,
   setIsDraggingCount: Dispatch<SetStateAction<number>>,
+  rowDraggingRef: MutableRefObject<null | string>,
 }
 
 export interface SimpleSortableRowsProps<T, U = undefined> {
@@ -41,6 +42,6 @@ export interface SimpleSortableRowsProps<T, U = undefined> {
   className?: string,
   Cmp: FC<RowComponentProps<T, U>>,
   props: U,
-  onDragStart?: () => void,
-  onDragEnd?: () => void,
+  onDragStart?: (rowKey: string | null) => void,
+  onDragEnd?: (rowKey: string | null) => void,
 }

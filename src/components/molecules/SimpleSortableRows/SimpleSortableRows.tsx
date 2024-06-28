@@ -110,6 +110,7 @@ export const Row = <T, U, >({
                               value,
                               props,
                               setIsDraggingCount,
+                              rowDraggingRef,
                             }: RowProps<T, U>) => {
   
   const ref = useRef<HTMLDivElement>(null);
@@ -196,6 +197,10 @@ export const Row = <T, U, >({
     setIsDraggingCount(prevState => prevState + (isItemDragging ? 1 : -1));
   }, [ isItemDragging, setIsDraggingCount ]);
   
+  if (item) {
+    rowDraggingRef.current = item?.key ?? null;
+  }
+  
   return (
     <Cmp
       index={index}
@@ -231,6 +236,7 @@ export const SimpleSortableRows = <T, U = undefined>(properties: SimpleSortableR
   }, [ setRows ]);
   const [ isDraggingCount, setIsDraggingCount ] = useStableState(rows.length);
   const { width = 0, ref } = useResizeDetector();
+  const rowDraggingRef = useRef(null);
   const onDragStartRef = useRef(onDragStart);
   onDragStartRef.current = onDragStart;
   const onDragEndRef = useRef(onDragEnd);
@@ -240,10 +246,10 @@ export const SimpleSortableRows = <T, U = undefined>(properties: SimpleSortableR
   
   useEffect(() => {
     if (isDraggingCount === 1) {
-      onDragStartRef.current?.();
+      onDragStartRef.current?.(rowDraggingRef.current);
       startedRef.current = true;
     } else if (isDraggingCount === 0 && startedRef.current) {
-      onDragEndRef.current?.();
+      onDragEndRef.current?.(rowDraggingRef.current);
       startedRef.current = false;
     }
   }, [ isDraggingCount, rows.length ]);
@@ -262,6 +268,7 @@ export const SimpleSortableRows = <T, U = undefined>(properties: SimpleSortableR
           value={row.value}
           props={props}
           setIsDraggingCount={setIsDraggingCount}
+          rowDraggingRef={rowDraggingRef}
         />
       ))}
     </div>

@@ -85,11 +85,11 @@ export const SimpleSortableRows = () => {
           Cmp={Component}
           // props={undefined}
           props={{ otherValue: 'test' }}
-          onDragEnd={() => {
-            console.log('onDragEnd');
+          onDragEnd={(rowKey) => {
+            console.log('onDragEnd', { rowKey });
           }}
-          onDragStart={() => {
-            console.log('onDragStart');
+          onDragStart={(rowKey) => {
+            console.log('onDragStart', { rowKey });
           }}
         />
       </div>
