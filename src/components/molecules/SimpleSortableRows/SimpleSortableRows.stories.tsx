@@ -2,7 +2,8 @@ import { configureActions } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
 import { MockupJukiProvider } from '../../mockup';
-import { RowSortableItem, SimpleSortableRows as SimpleSortableRowsComponent, SimpleSortableRowsProps } from './index';
+import { SimpleSortableRows as SimpleSortableRowsComponent } from './SimpleSortableRows';
+import { RowSortableItem, SimpleSortableRowsProps } from './types';
 
 export default {
   component: SimpleSortableRowsComponent,
