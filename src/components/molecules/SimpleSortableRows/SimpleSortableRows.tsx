@@ -5,7 +5,7 @@ import update from 'immutability-helper';
 import React, { CSSProperties, FC, useCallback, useEffect, useRef } from 'react';
 import { DropTargetMonitor, useDrag, useDragLayer, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
-import type { DragSourceMonitor } from 'react-dnd/src/types';
+// import type { DragSourceMonitor } from 'react-dnd/src/types';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
 import { useStableState } from '../../../hooks';
@@ -178,7 +178,7 @@ export const Row = <T, U, >({
     item: () => {
       return { key: rowKey, index, value, props };
     },
-    collect: (monitor: DragSourceMonitor<RowSortableItem<string>>) => ({
+    collect: (monitor) => ({
       isDragging: monitor.isDragging(),
       handlerId: monitor.getHandlerId(),
       item: monitor.getItem(),
