@@ -7,7 +7,7 @@ import { DragSourceMonitor, DropTargetMonitor, useDrag, useDragLayer, useDrop } 
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
-import { useStableState } from '../../../hooks/useStableState';
+import { useStableState } from '../../../hooks';
 import { DragIcon } from '../../atoms';
 import { DragItem, RowComponentProps, RowProps, RowSortableItem, SimpleSortableRowsProps } from './types';
 
