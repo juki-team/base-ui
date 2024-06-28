@@ -84,6 +84,12 @@ export const SimpleSortableRows = () => {
           Cmp={Component}
           // props={undefined}
           props={{ otherValue: 'test' }}
+          onDragEnd={() => {
+            console.log('onDragEnd');
+          }}
+          onDragStart={() => {
+            console.log('onDragStart');
+          }}
         />
       </div>
     </MockupJukiProvider>

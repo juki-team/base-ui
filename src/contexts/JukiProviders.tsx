@@ -64,4 +64,4 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
   }
   
   return providers;
-}
+};

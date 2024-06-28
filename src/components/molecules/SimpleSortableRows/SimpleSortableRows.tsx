@@ -5,8 +5,10 @@ import update from 'immutability-helper';
 import React, { CSSProperties, FC, useCallback, useEffect, useRef } from 'react';
 import { DropTargetMonitor, useDrag, useDragLayer, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
+import type { DragSourceMonitor } from 'react-dnd/src/types';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
+import { useStableState } from '../../../hooks';
 import { DragIcon } from '../../atoms';
 import { DragItem, RowComponentProps, RowProps, RowSortableItem, SimpleSortableRowsProps } from './types';
 
@@ -101,7 +103,15 @@ export const CustomDragLayer = <T, U>({ Cmp, width }: CustomDragLayerProps<T, U>
   );
 };
 
-export const Row = <T, U, >({ rowKey, Cmp, index, moveRow, value, props }: RowProps<T, U>) => {
+export const Row = <T, U, >({
+                              rowKey,
+                              Cmp,
+                              index,
+                              moveRow,
+                              value,
+                              props,
+                              setIsDraggingCount,
+                            }: RowProps<T, U>) => {
   
   const ref = useRef<HTMLDivElement>(null);
   
@@ -163,12 +173,12 @@ export const Row = <T, U, >({ rowKey, Cmp, index, moveRow, value, props }: RowPr
     },
   });
   
-  const [ { item }, drag, preview ] = useDrag({
+  const [ { item, isDragging: isItemDragging }, drag, preview ] = useDrag({
     type: 'row',
     item: () => {
       return { key: rowKey, index, value, props };
     },
-    collect: (monitor: any) => ({
+    collect: (monitor: DragSourceMonitor<RowSortableItem<string>>) => ({
       isDragging: monitor.isDragging(),
       handlerId: monitor.getHandlerId(),
       item: monitor.getItem(),
@@ -182,10 +192,15 @@ export const Row = <T, U, >({ rowKey, Cmp, index, moveRow, value, props }: RowPr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
+  const isDragging = item?.key === rowKey;
+  useEffect(() => {
+    setIsDraggingCount(prevState => prevState + (isItemDragging ? 1 : -1));
+  }, [ isItemDragging, setIsDraggingCount ]);
+  
   return (
     <Cmp
       index={index}
-      isDragging={item?.key === rowKey}
+      isDragging={isDragging}
       isPreview={false}
       isOver={isOver}
       rowKey={rowKey}
@@ -201,13 +216,9 @@ export const Row = <T, U, >({ rowKey, Cmp, index, moveRow, value, props }: RowPr
   );
 };
 
-export const SimpleSortableRows = <T, U = undefined>({
-                                                       rows,
-                                                       setRows,
-                                                       className,
-                                                       Cmp,
-                                                       props,
-                                                     }: SimpleSortableRowsProps<T, U>) => {
+export const SimpleSortableRows = <T, U = undefined>(properties: SimpleSortableRowsProps<T, U>) => {
+  
+  const { rows, setRows, className, Cmp, props, onDragEnd, onDragStart } = properties;
   
   const moveRow = useCallback((dragIndex: number, hoverIndex: number) => {
     setRows((prevCards: RowSortableItem<T>[]) =>
@@ -219,7 +230,25 @@ export const SimpleSortableRows = <T, U = undefined>({
       }),
     );
   }, [ setRows ]);
+  const [ isDraggingCount, setIsDraggingCount ] = useStableState(rows.length);
   const { width = 0, ref } = useResizeDetector();
+  const onDragStartRef = useRef(onDragStart);
+  onDragStartRef.current = onDragStart;
+  const onDragEndRef = useRef(onDragEnd);
+  onDragEndRef.current = onDragEnd;
+  
+  const startedRef = useRef(false);
+  
+  useEffect(() => {
+    if (isDraggingCount === 1) {
+      onDragStartRef.current?.();
+      startedRef.current = true;
+    } else if (isDraggingCount === 0 && startedRef.current) {
+      onDragEndRef.current?.();
+      startedRef.current = false;
+    }
+  }, [ isDraggingCount, rows.length ]);
+  
   return (
     <div className={classNames('jk-sortable-rows-container', className)} ref={ref}>
       <CustomDragLayer Cmp={Cmp} width={width} />
@@ -233,6 +262,7 @@ export const SimpleSortableRows = <T, U = undefined>({
           moveRow={moveRow}
           value={row.value}
           props={props}
+          setIsDraggingCount={setIsDraggingCount}
         />
       ))}
     </div>

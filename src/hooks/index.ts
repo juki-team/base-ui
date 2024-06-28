@@ -14,6 +14,7 @@ export * from './useMatchMutate';
 export * from './useNotification';
 export * from './useSWR';
 export * from './useSound';
+export * from './useStableState';
 export * from './useT';
 export * from './useTriggerWrapper';
 export * from './useWidthResizer';

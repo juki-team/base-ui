@@ -32,6 +32,7 @@ export interface RowProps<T, U> {
   moveRow: (i: number, j: number) => void,
   value: T,
   props: U,
+  setIsDraggingCount: Dispatch<SetStateAction<number>>,
 }
 
 export interface SimpleSortableRowsProps<T, U = undefined> {
@@ -40,4 +41,6 @@ export interface SimpleSortableRowsProps<T, U = undefined> {
   className?: string,
   Cmp: FC<RowComponentProps<T, U>>,
   props: U,
+  onDragStart?: () => void,
+  onDragEnd?: () => void,
 }
