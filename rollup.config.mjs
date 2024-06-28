@@ -9,7 +9,7 @@ const plugins = [
   peerDepsExternal(),
   resolve(),
   commonjs(),
-  typescript({ useTsconfigDeclarationDir: false, tsconfig: './tsconfig.json', exclude: [ '**/*.stories.tsx' ] }),
+  typescript({ useTsconfigDeclarationDir: true, tsconfig: './tsconfig.json', exclude: [ '**/*.stories.tsx' ] }),
   copy({
     targets: [
       { src: './src/styles', dest: 'dist' },

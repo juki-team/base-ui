@@ -9,7 +9,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "noImplicitReturns": true,
-//    "suppressImplicitAnyIndexErrors": true,
+    //    "suppressImplicitAnyIndexErrors": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -24,11 +24,17 @@
     "isolatedModules": true,
     "noEmit": true,
     "declaration": true,
-    "declarationDir": "dist/types",
-    "outDir": "dist/types",
+    "declarationDir": "dist/module-types",
+    "outDir": "dist",
     "jsx": "react",
-    "noUnusedLocals": true,
+    "noUnusedLocals": true
   },
-  "include": ["src/**/*.ts*"],
-  "exclude": ["node_modules", "dist", "build"]
+  "include": [
+    "src/**/*.ts*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "build"
+  ]
 }
