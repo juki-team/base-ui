@@ -32,7 +32,7 @@ export interface RowProps<T, U> {
   moveRow: (i: number, j: number) => void,
   value: T,
   props: U,
-  setIsDraggingCount: Dispatch<SetStateAction<number>>,
+  setIsDragging: Dispatch<SetStateAction<{ [key: string]: boolean }>>,
   rowDraggingRef: MutableRefObject<null | string>,
 }
 

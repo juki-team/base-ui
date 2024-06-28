@@ -23,10 +23,12 @@
   }
   
   > div:first-child {
+    position: relative;
     z-index: 1;
   }
   
   > div:last-child {
+    position: relative;
     overflow: auto;
     height: calc(var(--100VH) - var(--first-content-section-height) - var(--top-horizontal-menu-height, 0px));
     width: 100%;

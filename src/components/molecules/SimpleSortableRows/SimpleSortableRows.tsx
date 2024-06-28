@@ -2,12 +2,11 @@
 // https://react-dnd.github.io/react-dnd/examples/customize/handles-and-previews
 import type { XYCoord } from 'dnd-core';
 import update from 'immutability-helper';
-import React, { CSSProperties, FC, useCallback, useEffect, useRef } from 'react';
+import React, { CSSProperties, FC, useCallback, useEffect, useRef, useState } from 'react';
 import { DragSourceMonitor, DropTargetMonitor, useDrag, useDragLayer, useDrop } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
-import { useStableState } from '../../../hooks';
 import { DragIcon } from '../../atoms';
 import { DragItem, RowComponentProps, RowProps, RowSortableItem, SimpleSortableRowsProps } from './types';
 
@@ -109,7 +108,7 @@ export const Row = <T, U, >({
                               moveRow,
                               value,
                               props,
-                              setIsDraggingCount,
+                              setIsDragging,
                               rowDraggingRef,
                             }: RowProps<T, U>) => {
   
@@ -173,7 +172,7 @@ export const Row = <T, U, >({
     },
   });
   
-  const [ { item, isDragging: isItemDragging }, drag, preview ] = useDrag({
+  const [ { item }, drag, preview ] = useDrag({
     type: 'row',
     item: () => {
       return { key: rowKey, index, value, props };
@@ -193,13 +192,19 @@ export const Row = <T, U, >({
   }, []);
   
   const isDragging = item?.key === rowKey;
-  useEffect(() => {
-    setIsDraggingCount(prevState => prevState + (isItemDragging ? 1 : -1));
-  }, [ isItemDragging, setIsDraggingCount ]);
   
   if (item) {
     rowDraggingRef.current = item?.key ?? null;
   }
+  
+  useEffect(() => {
+    if (item) {
+      setIsDragging(prevState => ({ ...prevState, [item?.key]: true }));
+    } else {
+      setIsDragging(prevState => ({ ...prevState, [rowDraggingRef.current!]: false }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ item, setIsDragging ]);
   
   return (
     <Cmp
@@ -234,7 +239,7 @@ export const SimpleSortableRows = <T, U = undefined>(properties: SimpleSortableR
       }),
     );
   }, [ setRows ]);
-  const [ isDraggingCount, setIsDraggingCount ] = useStableState(rows.length);
+  const [ isDragging, setIsDragging ] = useState<{ [key: string]: boolean }>({});
   const { width = 0, ref } = useResizeDetector();
   const rowDraggingRef = useRef(null);
   const onDragStartRef = useRef(onDragStart);
@@ -245,14 +250,15 @@ export const SimpleSortableRows = <T, U = undefined>(properties: SimpleSortableR
   const startedRef = useRef(false);
   
   useEffect(() => {
-    if (isDraggingCount === 1) {
-      onDragStartRef.current?.(rowDraggingRef.current);
+    const item = Object.entries(isDragging).find(([ key, value ]) => value);
+    if (item) {
+      onDragStartRef.current?.(item[0]);
       startedRef.current = true;
-    } else if (isDraggingCount === 0 && startedRef.current) {
+    } else if (startedRef.current) {
       onDragEndRef.current?.(rowDraggingRef.current);
       startedRef.current = false;
     }
-  }, [ isDraggingCount, rows.length ]);
+  }, [ isDragging, rows.length ]);
   
   return (
     <div className={classNames('jk-sortable-rows-container', className)} ref={ref}>
@@ -267,7 +273,7 @@ export const SimpleSortableRows = <T, U = undefined>(properties: SimpleSortableR
           moveRow={moveRow}
           value={row.value}
           props={props}
-          setIsDraggingCount={setIsDraggingCount}
+          setIsDragging={setIsDragging}
           rowDraggingRef={rowDraggingRef}
         />
       ))}

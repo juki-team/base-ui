@@ -86,10 +86,10 @@ export const SimpleSortableRows = () => {
           // props={undefined}
           props={{ otherValue: 'test' }}
           onDragEnd={(rowKey) => {
-            console.log('onDragEnd', { rowKey });
+            console.info('onDragEnd', { rowKey });
           }}
           onDragStart={(rowKey) => {
-            console.log('onDragStart', { rowKey });
+            console.info('onDragStart', { rowKey });
           }}
         />
       </div>
