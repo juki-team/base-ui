@@ -10,4 +10,5 @@ export interface MainMenuProps {
   moreApps?: ReactNode,
   children: ReactNode,
   multiCompanies?: boolean,
+  topImageUrl?: string,
 }

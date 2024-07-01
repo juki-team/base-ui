@@ -32,6 +32,7 @@ export const MainMenu = (props: MainMenuProps) => {
     moreApps,
     multiCompanies,
     children,
+    topImageUrl,
   } = props;
   
   const { viewPortSize, components: { Link, Image } } = useJukiUI();
@@ -45,8 +46,10 @@ export const MainMenu = (props: MainMenuProps) => {
       settings: { [ProfileSetting.THEME]: preferredTheme, [ProfileSetting.MENU_VIEW_MODE]: userPreferredMenuViewMode },
     },
     isLoading,
-    company: { imageUrl, name },
+    company: { imageUrl: companyImageUrl, name },
   } = useJukiUser();
+  
+  const imageUrl = topImageUrl || companyImageUrl;
   
   const { data } = useFetcher<ContentsResponseType<CompanyUserPermissionsResponseDTO>>(multiCompanies && isLogged ? jukiSettings.API.company.getPermissionList().url : null);
   const companyKey = searchParams.get(QueryParamKey.COMPANY) as string;
