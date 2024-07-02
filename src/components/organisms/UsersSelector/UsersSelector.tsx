@@ -49,7 +49,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
   
   const resetText = () => {
     setText(selectedUsers.join(','));
-  }
+  };
   if (isLoading) {
     return <div><SpinIcon /></div>;
   }
@@ -137,19 +137,21 @@ export const UsersSelector = (props: UsersSelectorProps) => {
           <ReloadIcon onClick={() => mutate()} />
         </div>
       </Tooltip>
-      <Tooltip
-        placement="left"
-        content={<T className="tt-se">add users by nicknames in batches</T>}
-      >
-        <div className="jk-button light only-icon">
-          <PeopleIcon
-            onClick={() => {
-              resetText();
-              setShow(true);
-            }}
-          />
-        </div>
-      </Tooltip>
+      {maxUsersSelection !== 1 && (
+        <Tooltip
+          placement="left"
+          content={<T className="tt-se">add users by nicknames in batches</T>}
+        >
+          <div className="jk-button light only-icon">
+            <PeopleIcon
+              onClick={() => {
+                resetText();
+                setShow(true);
+              }}
+            />
+          </div>
+        </Tooltip>
+      )}
     </div>
   );
 };

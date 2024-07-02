@@ -19,9 +19,9 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   
   const {
     className,
-    options,
-    selectedOptions: initialSelectedOptions,
-    onChange,
+    options: _options,
+    selectedOptions: _initialSelectedOptions,
+    onChange: _onChange,
     showOptions: _showOptions,
     onChangeShowOptions: _onChangeShowOptions,
     disabled,
@@ -31,6 +31,21 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
     onFilter,
     multiselect = true,
   } = props;
+  
+  const optionValues = JSON.stringify(_options.map(option => option.value));
+  const options = useMemo(() => {
+    return _options;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ optionValues ]);
+  
+  const initialSelectedOptionValues = JSON.stringify(_initialSelectedOptions.map(option => option.value));
+  const initialSelectedOptions = useMemo(() => {
+    return _initialSelectedOptions;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ initialSelectedOptionValues ]);
+  
+  const onChangeRef = useRef(_onChange);
+  onChangeRef.current = _onChange;
   
   const searchable = !!onFilter;
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
@@ -58,7 +73,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   
   const widthLabels = Math.max(...[ ...options, ...selectedOptions ].map(({ label }) => getTextContent(label).length));
   
-  const isDisabled = disabled || !onChange;
+  const isDisabled = disabled || !onChangeRef.current;
   const containerWidth = widthLabels * (12 + 5) + 35;
   
   const renderRow = useCallback((virtualItem: VirtualItem) => {
@@ -70,7 +85,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
       <div
         className={classNames('jk-select-option', { selected, disabled })}
         onClick={!option.disabled ? () => {
-          onChange?.(selected ? selectedOptions.filter(optionSelected => JSON.stringify(option.value)
+          onChangeRef.current?.(selected ? selectedOptions.filter(optionSelected => JSON.stringify(option.value)
             !== JSON.stringify(optionSelected.value)) : [
             ...(multiselect ? selectedOptions : []),
             option,
@@ -89,7 +104,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         </div>
       </div>
     );
-  }, [ filteredOptions, multiselect ]);
+  }, [ filteredOptions, multiselect, selectedOptions ]);
   
   return (
     <Popover
@@ -135,12 +150,12 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
               >
                 {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected?.inputLabel) : renderReactNodeOrFunction(
                   optionSelected.label)}
-                {onChange && multiselect && (
+                {onChangeRef.current && multiselect && (
                   <CloseIcon
                     size="small"
                     filledCircle
                     onClick={event => {
-                      onChange(selectedOptions.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(
+                      onChangeRef.current?.(selectedOptions.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(
                         option.value)));
                       event.stopPropagation();
                     }}
@@ -151,11 +166,11 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
             ))}
           </div>
           <div className="jk-row nowrap jk-multi-select-selected-searchable-icons">
-            {!!onChange && (
+            {!!onChangeRef.current && (
               <CloseIcon
                 className="input-icon"
                 onClick={event => {
-                  onChange([]);
+                  onChangeRef.current?.([]);
                   event.stopPropagation();
                 }}
               />
