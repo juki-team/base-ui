@@ -9,12 +9,12 @@ import {
   ProfileSetting,
   Status,
   Theme,
-  USER_GUEST,
   UserSettingsType,
 } from '@juki-team/commons';
 import React, { useCallback, useContext, useState } from 'react';
 import { T } from '../components/atoms/T';
 import { jukiSettings } from '../config';
+import { EMPTY_USER } from '../constants';
 import { UserContext } from '../contexts/JukiUserProvider/context';
 import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../helpers';
 import {
@@ -147,7 +147,7 @@ export const useJukiUser = () => {
     
     const onFinallyWrap = async (response: ErrorResponseType | ContentResponseType<string>) => {
       localStorageCrossDomains.removeItem(jukiSettings.TOKEN_NAME);
-      setUser(USER_GUEST);
+      setUser(EMPTY_USER);
       await refreshAllRequest();
       await onFinally?.(response);
     };

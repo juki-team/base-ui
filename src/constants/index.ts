@@ -1,4 +1,14 @@
-import { DAY_NAMES } from '@juki-team/commons';
+import {
+  DataViewMode,
+  DAY_NAMES,
+  EMPTY_USER_PERMISSIONS,
+  Language,
+  MenuViewMode,
+  ProfileSetting,
+  Theme,
+  UserPingType,
+  UserStatus,
+} from '@juki-team/commons';
 import { useResizeDetectorProps } from 'react-resize-detector';
 
 export const DAYS_2 = DAY_NAMES.map(name => name.substring(0, 2));
@@ -22,3 +32,19 @@ export const EMPTY_COMPANY = {
 
 
 export const RESIZE_DETECTOR_PROPS: useResizeDetectorProps<any> = { refreshRate: 200, refreshMode: 'debounce' };
+
+export const EMPTY_USER: UserPingType = {
+  nickname: '',
+  status: UserStatus.ACTIVE,
+  imageUrl: 'https://images.juki.pub/c/juki-image-profile.svg',
+  settings: {
+    [ProfileSetting.LANGUAGE]: Language.ES,
+    [ProfileSetting.THEME]: Theme.LIGHT,
+    [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.ROWS,
+    [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
+    [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
+  },
+  permissions: { ...EMPTY_USER_PERMISSIONS },
+  isLogged: false,
+  sessionId: '',
+};

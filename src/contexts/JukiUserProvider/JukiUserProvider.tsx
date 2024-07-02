@@ -7,7 +7,6 @@ import {
   PingResponseDTO,
   ProfileSetting,
   Theme,
-  USER_GUEST,
   UserPingType,
 } from '@juki-team/commons';
 import React, { Dispatch, PropsWithChildren, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
@@ -22,7 +21,7 @@ import {
   osVersion,
 } from 'react-device-detect';
 import { jukiSettings } from '../../config';
-import { EMPTY_COMPANY } from '../../constants';
+import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
 import { getLocalToken, localStorageCrossDomains } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiPage } from '../../hooks/useJukiPage';
@@ -43,7 +42,7 @@ const useUser = () => {
     { refreshInterval: 1000 * 60 * 5 },
   );
   
-  const [ user, _setUser ] = useState<UserPingType>(USER_GUEST);
+  const [ user, _setUser ] = useState<UserPingType>(EMPTY_USER);
   const [ company, setCompany ] = useState<CompanyPingType>(EMPTY_COMPANY);
   const i18n = useT();
   
@@ -88,7 +87,7 @@ const useUser = () => {
       localStorageCrossDomains.setItem(jukiSettings.TOKEN_NAME, data?.content.user.sessionId);
     } else {
       setUser({
-        ...USER_GUEST,
+        ...EMPTY_USER,
         settings: {
           [ProfileSetting.THEME]: preferredTheme,
           [ProfileSetting.LANGUAGE]: preferredLanguage,
