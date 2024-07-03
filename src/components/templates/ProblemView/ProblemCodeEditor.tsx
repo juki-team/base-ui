@@ -6,6 +6,7 @@ import {
   ProblemResponseDTO,
   PROGRAMMING_LANGUAGE,
   ProgrammingLanguage,
+  RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
   SubmissionRunStatus,
 } from '@juki-team/commons';
 import React, { useMemo } from 'react';
@@ -51,8 +52,8 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
   );
   const languages = useMemo(
     () => {
-      let languages = [];
-      if ([ Judge.CODEFORCES, Judge.JV_UMSA, Judge.CODEFORCES_GYM ].includes(problem.judge)) {
+      let languages: { value: ProgrammingLanguage | string, label: string }[] = [];
+      if ([ Judge.CODEFORCES, Judge.JV_UMSA, Judge.CODEFORCES, Judge.CODEFORCES_GYM ].includes(problem.judge)) {
         languages = ((virtualJudgeData?.success && virtualJudgeData.content.languages) || [])
           .filter(lang => lang.enabled)
           .map(lang => ({
@@ -60,16 +61,11 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
             label: lang.label || lang.value,
           }));
       } else if (problem.judge === Judge.CUSTOMER || problem.judge === Judge.JUKI_JUDGE) {
-        languages = Object.values(problem?.settings.byProgrammingLanguage || {})
-          .map(({ language }) => ({
+        languages = RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES
+          .map((language) => ({
             value: language,
             label: PROGRAMMING_LANGUAGE[language]?.label || language,
           }));
-      } else {
-        languages = Object.values(problem?.settings.byProgrammingLanguage || {}).map(({ language }) => ({
-          value: language,
-          label: PROGRAMMING_LANGUAGE[language]?.label || language,
-        }));
       }
       if (!languages.length) {
         languages = [ {
@@ -79,8 +75,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       }
       return languages as { value: T, label: string }[];
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [ JSON.stringify(problem?.settings.byProgrammingLanguage), virtualJudgeData, problem.judge ],
+    [ virtualJudgeData, problem.judge ],
   );
   
   return (
