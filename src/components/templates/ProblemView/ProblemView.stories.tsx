@@ -106,6 +106,9 @@ Regular.args = {
       'solved': true,
       'tried': true,
     },
-    'ownerUserNickname': 'OscarGauss',
+    owner: {
+      nickname: 'OscarGauss',
+      imageUrl: '',
+    },
   },
 };

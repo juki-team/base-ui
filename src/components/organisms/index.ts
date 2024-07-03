@@ -11,3 +11,4 @@ export * from './UserCodeEditor';
 export * from './UsersSelector';
 export * from './ProblemVerdictTag';
 export * from './mdMath';
+export * from './members';
