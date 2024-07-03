@@ -10,6 +10,7 @@ import {
   UserStatus,
 } from '@juki-team/commons';
 import { useResizeDetectorProps } from 'react-resize-detector';
+import { QueryParamKey } from '../types';
 
 export const DAYS_2 = DAY_NAMES.map(name => name.substring(0, 2));
 
@@ -47,4 +48,14 @@ export const EMPTY_USER: UserPingType = {
   permissions: { ...EMPTY_USER_PERMISSIONS },
   isLogged: false,
   sessionId: '',
+};
+
+export const PAGE_SIZE_OPTIONS = [ 25, 50, 100 ];
+
+export const DEFAULT_DATA_VIEWER_PROPS = {
+  getPageQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.PAGE_TABLE,
+  getPageSizeQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.PAGE_SIZE_TABLE,
+  getSortQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.SORT_TABLE,
+  getFilterQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.FILTER_TABLE,
+  getViewModeQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.VIEW_MODE_TABLE,
 };
