@@ -20,8 +20,10 @@ const isErrorResponseType = (data: any): data is ErrorResponseType => {
 
 export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>(props: FetcherLayerProps<T, U>) => {
   
-  const { url, options, errorView, loadingView, children, onError, triggerFetch } = props;
+  const { url, options, errorView, loadingView, children, onError: _onError, triggerFetch } = props;
   
+  const onErrorRef = useRef(_onError);
+  onErrorRef.current = _onError;
   const { isLoading, data, error, mutate, isValidating } = useFetcher<T>(url, options);
   const { notifyResponse } = useNotification();
   useEffect(() => {
@@ -40,9 +42,9 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
       if (isErrorResponseType(dataRef.current)) {
         notifyResponse(dataRef.current);
       }
-      onError?.(error);
+      onErrorRef.current?.(error);
     }
-  }, [ notifyResponse, isError, error, onError ]);
+  }, [ notifyResponse, isError, error ]);
   
   const validChild = useMemo(() => {
     if (isContentResponseType<U>(data) || isContentsResponseType<U>(data)) {
