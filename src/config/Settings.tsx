@@ -222,10 +222,10 @@ export class Settings {
           url: injectBaseUrl('problem', `/${problemKey}/data`),
           method: HTTPMethod.GET,
         })),
-        getList: valid<
+        getSummaryList: valid<
           { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
         >(({ params: { page, size, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/list'), page, size), filterUrl), sortUrl),
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/summary-list'), page, size), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
         getSummary: valid<{ params: { judge: Judge, key: string } }>(({ params: { judge, key } }) => ({
