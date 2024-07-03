@@ -1,26 +1,11 @@
 import { ContentResponseType, DocumentCreateResponseDTO, HTTPMethod, Status } from '@juki-team/commons';
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiRouter, useNotification } from '../../../hooks';
-import { ReactNodeOrFunctionP1Type } from '../../../types';
 import { CloseIcon, SaveIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';
-
-export interface UpsertComponentEntityProps<EntityUI, Tab> {
-  entity: EntityUI,
-  entityKey: string,
-  tabButtons: (entityData: EntityUI) => ReactNodeOrFunctionP1Type<{ selectedTabKey: Tab }>[],
-}
-
-interface CreateEntityLayoutProps<EntityUI, EntityUpsert, Tab> {
-  Cmp: FC<UpsertComponentEntityProps<EntityUI, Tab>>,
-  newEntity: () => EntityUI,
-  listRoute: () => string,
-  viewRoute: (entityKey: string) => string,
-  createApiURL: () => string,
-  toEntityUpsert: (entity: EntityUI) => EntityUpsert,
-}
+import { CreateEntityLayoutProps } from './types';
 
 export function CreateEntityLayout<T, U, V>(props: CreateEntityLayoutProps<T, U, V>) {
   

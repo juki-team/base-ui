@@ -1,21 +1,11 @@
 import { ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiRouter, useNotification, useSWR } from '../../../hooks';
 import { CloseIcon, SaveIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';
-import { UpsertComponentEntityProps } from './CreateEntity';
-
-interface UpdateEntityLayoutProps<EntityUI, EntityUpsert, Tab> {
-  Cmp: FC<UpsertComponentEntityProps<EntityUI, Tab>>,
-  entity: EntityUI,
-  entityKey: string,
-  viewRoute: (entityKey: string) => string,
-  updateApiURL: (entityKey: string) => string,
-  viewApiURL: (entityKey: string) => string,
-  toEntityUpsert: (entity: EntityUI) => EntityUpsert,
-}
+import { UpdateEntityLayoutProps } from './types';
 
 export function UpdateEntityLayout<T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) {
   
