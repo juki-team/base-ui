@@ -274,7 +274,7 @@ export const JukiProblemInfo = (props: PropsWithChildren<ProblemInfoProps>) => {
 export const ProblemInfo = ({ problem }: { problem: ProblemResponseDTO }) => {
   return (
     <Popover
-      content={problem.judge === Judge.JUKI_JUDGE
+      content={(problem.judge === Judge.JUKI_JUDGE || problem.judge === Judge.CUSTOMER)
         ? (
           <div className="jk-pg-sm">
             <JukiProblemInfo
