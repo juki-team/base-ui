@@ -1,5 +1,6 @@
 export * from './ChangePasswordModal';
 export * from './EditProfileModal';
+export * from './entity';
 export * from './ErrorBoundary';
 export * from './HelpSection';
 export * from './MainMenu';
