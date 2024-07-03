@@ -1,6 +1,7 @@
 import { DataViewMode, Status } from '@juki-team/commons';
 import { CSSProperties, Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { DatePickerDateFunType, OptionType } from '../../';
+import { DataViewerRequesterGetUrlType } from '../../../hooks';
 import {
   DateDisplayType,
   ReactNodeOrFunctionType,
@@ -390,4 +391,19 @@ export interface PaginationProps {
   jumpToPage: (page: number) => void,
   onPageSizeChange: (pageSize: number) => void,
   isOnToolbar?: boolean,
+}
+
+export interface PagedDataViewerProps<T, V = T> {
+  cards?: { height?: number, width?: number, expanded?: boolean },
+  rows?: { height?: number, width?: number },
+  headers: DataViewerHeadersType<T>[],
+  name: string,
+  toRow?: (row: V, index: number) => T,
+  getUrl: DataViewerRequesterGetUrlType,
+  refreshInterval?: number,
+  extraNodes?: ReactNodeOrFunctionType[],
+  getRowKey?: GetRecordKeyType<T>
+  onRecordClick?: OnRecordClickType<T>,
+  getRecordStyle?: GetRecordStyleType<T>;
+  dependencies?: any[],
 }

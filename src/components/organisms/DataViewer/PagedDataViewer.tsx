@@ -1,28 +1,11 @@
 import { ContentsResponseType } from '@juki-team/commons';
 import React, { useEffect, useRef, useState } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS, PAGE_SIZE_OPTIONS } from '../../../constants';
-import { DataViewerRequesterGetUrlType, useDataViewerRequester, useJukiUI } from '../../../hooks';
-import { ReactNodeOrFunctionType } from '../../../types';
+import { useDataViewerRequester, useJukiUI } from '../../../hooks';
 import { DataViewer } from './DataViewer';
-import { DataViewerHeadersType, GetRecordKeyType, GetRecordStyleType, OnRecordClickType } from './types';
+import { PagedDataViewerProps } from './types';
 
-
-interface PagedDataViewerPros<T, V = T> {
-  cards?: { height?: number, width?: number, expanded?: boolean },
-  rows?: { height?: number, width?: number },
-  headers: DataViewerHeadersType<T>[],
-  name: string,
-  toRow?: (row: V, index: number) => T,
-  getUrl: DataViewerRequesterGetUrlType,
-  refreshInterval?: number,
-  extraNodes?: ReactNodeOrFunctionType[],
-  getRowKey?: GetRecordKeyType<T>
-  onRecordClick?: OnRecordClickType<T>,
-  getRecordStyle?: GetRecordStyleType<T>;
-  dependencies?: any[],
-}
-
-export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: PagedDataViewerPros<T, V>) => {
+export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: PagedDataViewerProps<T, V>) => {
   const {
     cards,
     rows = { height: 68 },
