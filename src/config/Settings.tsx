@@ -305,7 +305,7 @@ export class Settings {
         getJudgeProblemTags: valid<
           { params: { companyKey?: string } } | void
         >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
-          url: injectCompany(injectBaseUrl('user', `/problem-tags-list`), companyKey),
+          url: injectCompany(injectBaseUrl('company', `/problem-tags-list`), companyKey),
           method: HTTPMethod.GET,
         })),
         updateImage: valid<

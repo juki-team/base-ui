@@ -101,7 +101,7 @@
     ]
   },
   "devDependencies": {
-    "@juki-team/commons": "^0.0.549",
+    "@juki-team/commons": "^0.0.562",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@storybook/addon-actions": "^7.6.17",
