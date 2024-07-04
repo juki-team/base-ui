@@ -77,30 +77,21 @@ const ContentInfo = ({ label, value, children, expand, valueAsList, centered, wi
   );
 };
 
-export const ExtraProblemInfo = ({ settings, tags, author, status, centered, withoutPadding }: ProblemInfoProps) => {
-  
-  const languages = Object.values(settings?.byProgrammingLanguage || {});
+export const ExtraProblemInfo = ({ tags, author, status, centered, withoutPadding }: ProblemInfoProps) => {
   
   return (
     <>
-      <ContentInfo
-        label="languages"
-        value={Children.toArray(languages.map(({ language }) => (
-          <div className="jk-tag gray-6">{PROGRAMMING_LANGUAGE[language].label}</div>
-        )))}
-        valueAsList
-        centered={centered}
-        withoutPadding={withoutPadding}
-      />
-      <ContentInfo
-        label="tags"
-        value={Children.toArray(tags.filter(tag => !!tag.trim()).map(tag => (
-          <><span className="jk-tag gray-6">{tag}</span>&nbsp;</>
-        )))}
-        valueAsList
-        centered={centered}
-        withoutPadding={withoutPadding}
-      />
+      {!!tags.length && (
+        <ContentInfo
+          label="tags"
+          value={Children.toArray(tags.filter(tag => !!tag.trim()).map(tag => (
+            <><span className="jk-tag gray-6">{tag}</span>&nbsp;</>
+          )))}
+          valueAsList
+          centered={centered}
+          withoutPadding={withoutPadding}
+        />
+      )}
       {author && (
         <ContentInfo
           label="author"

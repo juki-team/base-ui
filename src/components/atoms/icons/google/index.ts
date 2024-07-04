@@ -87,6 +87,7 @@ export * from './OpenInNewIcon';
 export * from './PageInfoIcon';
 export * from './PaletteIcon';
 export * from './PendingActionsIcon';
+export * from './PendingIcon';
 export * from './PersonIcon';
 export * from './PhotoLibraryIcon';
 export * from './PictureAsPdfIcon';
