@@ -2,7 +2,7 @@ import React from 'react';
 import { arcS, H, M, V } from './functions';
 
 export const SquareFilledFrame = () => { // width = 2
-                                         // const  k = (2 - Math.sqrt(2)) / Math.sqrt(8);
+  // const  k = (2 - Math.sqrt(2)) / Math.sqrt(8);
   const k = 0.4;
   return (
     <path

@@ -1,11 +1,9 @@
 import React, { ComponentType } from 'react';
 import { classNames } from '../../../../helpers';
 import { BasicIconProps, RootIconProps } from '../types';
-import { CircleFilledFrame } from './CircleFilledFrame';
-import { CircleFrame } from './CircleFrame';
+import { CirclePath } from './CirclePath';
+import { arcS, H, M, V } from './functions';
 import { Segment } from './Segment';
-import { SquareFilledFrame } from './SquareFilledFrame';
-import { SquareFrame } from './SquareFrame';
 import { Vector } from './Vector';
 
 export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType<RootIconProps>, name?: string) => {
@@ -25,11 +23,26 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
   } = _props;
   
   const isFilled = filledCircle || filledSquare;
-  const scale = isFilled || circle || square ? 0.7 : 1;
+  const scale = filledSquare ? 0.8 : (circle ? 0.6 : (filledCircle || square ? 0.7 : 1));
   
-  const A1 = new Vector(21.5, 19.5);
-  const A2 = new Vector(19.5, 21.5);
+  const [ minX, minY, widthBox ] = viewBox.split(' ').map(Number);
+  
+  const A1 = (new Vector(widthBox * 21.5 / 24, widthBox * 19.5 / 24)).add(new Vector(minX, minY));
+  const A2 = (new Vector(widthBox * 19.5 / 24, widthBox * 21.5 / 24)).add(new Vector(minX, minY));
   const width = A1.sub(A2).mod();
+  
+  const sizeBox = widthBox / 2;
+  const lineWidth = 2; // [1,24]
+  const scaleLineWidth = (widthBox * lineWidth / 24);
+  const start = 2;
+  const scaleStart = (widthBox * start / 24);
+  const centerX = minX + widthBox / 2;
+  const centerY = minY + widthBox / 2;
+  
+  // const  k = (2 - Math.sqrt(2)) / Math.sqrt(8);
+  const k = 0.4;
+  const a = widthBox - scaleStart;
+  const b = a - scaleStart;
   
   return (
     <span
@@ -38,11 +51,54 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
       style={{ transform: `rotate(${rotate}deg)`, ...style }}
     >
       <svg viewBox={viewBox} fill="currentColor">
-        {filledCircle && <CircleFilledFrame />}
-        {filledSquare && <SquareFilledFrame />}
-        {circle && <CircleFrame />}
-        {square && <SquareFrame />}
-        <g transform={`translate(${(1 - scale) * 12}, ${(1 - scale) * 12}) scale(${scale})`}>
+        {filledCircle && (
+          <CirclePath center={{ x: centerX, y: centerY }} radio={sizeBox} />
+        )}
+        {filledSquare && (
+          <path
+            fill="currentColor"
+            strokeWidth="0"
+            stroke="currentColor"
+            d={[
+              M({ x: minX + scaleStart, y: minY + b }),
+              arcS({ x: minX + scaleStart, y: minY + b }, { x: minX + scaleStart * 2, y: minY + a }, k),
+              H(minX + b),
+              arcS({ x: minX + b, y: minY + a }, { x: minX + a, y: minY + b }, k),
+              V(minY + scaleStart * 2),
+              arcS({ x: minX + a, y: minY + scaleStart * 2 }, { x: minX + b, y: minY + scaleStart }, k),
+              H(minX + scaleStart * 2),
+              arcS({ x: minX + scaleStart * 2, y: minY + scaleStart }, {
+                x: minX + scaleStart,
+                y: minY + scaleStart * 2,
+              }, k),
+              'Z',
+            ].join(' ')}
+          />
+        )}
+        {circle && (
+          <circle
+            cx={centerX}
+            cy={centerY}
+            r={sizeBox - scaleLineWidth - scaleLineWidth / 2}
+            fill="none"
+            strokeWidth={scaleLineWidth}
+            stroke="currentColor"
+          />
+        )}
+        {square && (
+          <rect
+            x={minX + scaleStart + scaleLineWidth / 2}
+            y={minY + scaleStart + scaleLineWidth / 2}
+            width={widthBox - scaleStart - scaleStart - scaleLineWidth}
+            height={widthBox - scaleStart - scaleStart - scaleLineWidth}
+            fill="none"
+            strokeWidth={scaleLineWidth}
+            stroke="currentColor"
+            rx={scaleLineWidth / 4}
+            ry={scaleLineWidth / 4}
+          />
+        )}
+        <g transform={`translate(${(1 - scale) * (minX + sizeBox)}, ${(1 - scale) * (minY + sizeBox)}) scale(${scale})`}>
           <Component
             color={isFilled ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)')) : 'currentColor'}
             width={2.5}
@@ -51,13 +107,13 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
             <>
               <Segment
                 start={A1}
-                end={{ x: 4.5, y: 2.5 }}
+                end={{ x: minX + widthBox * 4.5 / 24, y: minY + widthBox * 2.5 / 24 }}
                 fill={!isFilled ? 'var(--t-color-white)' : 'currentColor'}
                 options={{ width, roundWidth: 0 }}
               />
               <Segment
                 start={A2}
-                end={{ x: 2.5, y: 4.5 }}
+                end={{ x: minX + widthBox * 2.5 / 24, y: minY + widthBox * 4.5 / 24 }}
                 fill={isFilled ? 'var(--t-color-white)' : 'currentColor'}
                 options={{ width, roundWidth: 0 }}
               />
