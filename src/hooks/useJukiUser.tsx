@@ -25,8 +25,8 @@ import {
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
 } from '../types';
+import { useJukiNotification } from './useJukiNotification';
 import { useMatchMutate } from './useMatchMutate';
-import { useNotification } from './useNotification';
 import { useT } from './useT';
 
 type ApiType<T> = {
@@ -52,7 +52,7 @@ type ApiParamsBodyType<T, U, V> = ApiType<V> & {
 export const useJukiUser = () => {
   
   const { user, isLoading, setUser, mutate, company, socket, device } = useContext(UserContext);
-  const { notifyResponse, addErrorNotification } = useNotification();
+  const { notifyResponse, addErrorNotification } = useJukiNotification();
   const { matchMutate } = useMatchMutate();
   
   const refreshAllRequest = useCallback(async () => {

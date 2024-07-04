@@ -10,7 +10,7 @@ import { useResizeDetector } from 'react-resize-detector';
 import { jukiSettings } from '../../../../config';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
-import { useNotification } from '../../../../hooks';
+import { useJukiNotification } from '../../../../hooks';
 import { Button, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, Select, SettingsIcon, T } from '../../../atoms';
 import { ButtonLoader, ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../molecules';
 import { HeaderProps } from '../types';
@@ -34,7 +34,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     isRunning,
   } = props;
   
-  const { addErrorNotification } = useNotification();
+  const { addErrorNotification } = useJukiNotification();
   const { width: widthContainer = 0, ref } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);

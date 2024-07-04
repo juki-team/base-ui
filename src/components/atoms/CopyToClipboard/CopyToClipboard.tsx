@@ -1,12 +1,12 @@
 import React, { PropsWithChildren } from 'react';
 import ReactCopyToClipboard from 'react-copy-to-clipboard';
-import { useNotification } from '../../../hooks/useNotification';
+import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { T } from '../T';
 import { CopyToClipboardProps } from './types';
 
 export const CopyToClipboard = ({ children, text }: PropsWithChildren<CopyToClipboardProps>) => {
   
-  const { addQuietNotification } = useNotification();
+  const { addQuietNotification } = useJukiNotification();
   
   return (
     <ReactCopyToClipboard

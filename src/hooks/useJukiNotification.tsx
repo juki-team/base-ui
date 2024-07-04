@@ -27,7 +27,7 @@ export const notifySuccess = (response: ContentResponseType<any> | ContentsRespo
   );
 };
 
-export const useNotification = () => {
+export const useJukiNotification = () => {
   
   const { dispatch } = useContext(NotificationContext);
   const addNotification = useCallback((props: NewNotificationType) => dispatch({

@@ -2,7 +2,7 @@ import { ImageSummaryResponseDTO } from '@juki-team/commons';
 import copy from 'copy-to-clipboard';
 import React, { useEffect } from 'react';
 import { KeyedMutator } from 'swr';
-import { useNotification } from '../../../../../hooks';
+import { useJukiNotification } from '../../../../../hooks';
 import { CheckIcon, ContentCopyIcon, T } from '../../../../atoms';
 import { FloatToolbar } from '../../../../molecules';
 import { NotificationType } from '../../../Notifications';
@@ -29,7 +29,7 @@ export const PublicImages = (props: PublicImagesTabProps) => {
     void mutate();
   }, [ trigger, mutate ]);
   
-  const { addNotification } = useNotification();
+  const { addNotification } = useJukiNotification();
   
   return (
     <div className="public-images-tab jk-row">
@@ -76,4 +76,4 @@ export const PublicImages = (props: PublicImagesTabProps) => {
       ))}
     </div>
   );
-}
+};

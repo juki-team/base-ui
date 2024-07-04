@@ -1,7 +1,7 @@
 import { ContentResponseType, ContentsResponseType, ErrorResponseType } from '@juki-team/commons';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useFetcher, useNotification } from '../../../hooks';
+import { useFetcher, useJukiNotification } from '../../../hooks';
 import { JukiSurprisedImage, LineLoader } from '../../atoms';
 import { JukiLoadingLayout } from '../layouts';
 import { FetcherLayerProps } from './types';
@@ -25,7 +25,7 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
   const onErrorRef = useRef(_onError);
   onErrorRef.current = _onError;
   const { isLoading, data, error, mutate, isValidating } = useFetcher<T>(url, options);
-  const { notifyResponse } = useNotification();
+  const { notifyResponse } = useJukiNotification();
   useEffect(() => {
     if (triggerFetch) {
       void mutate();

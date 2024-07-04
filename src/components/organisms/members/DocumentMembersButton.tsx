@@ -8,7 +8,7 @@ import {
 } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiUser, useNotification } from '../../../hooks';
+import { useJukiNotification, useJukiUser } from '../../../hooks';
 import { Button, InfoIcon, T, Tooltip } from '../../atoms';
 import { DocumentMembersModal } from './DocumentMembersModal';
 
@@ -43,7 +43,7 @@ export const DocumentMembersButton = (props: DocumentMembersButton1Props | Docum
   
   const [ show, setShow ] = useState(false);
   const { user: { nickname } } = useJukiUser();
-  const { notifyResponse } = useNotification();
+  const { notifyResponse } = useJukiNotification();
   
   const onSave = initialOnSave ?? (async (members, close) => {
     const worksheetToPatch: { members: DocumentMembersDTO } = {

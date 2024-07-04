@@ -3,11 +3,11 @@ import { diff } from 'deep-object-diff';
 import React, { useEffect, useRef } from 'react';
 import { T } from '../components/atoms/T/T';
 import { CodeEditor } from '../components/molecules/CodeEditor/CodeEditor';
-import { useNotification } from './useNotification';
+import { useJukiNotification } from './useJukiNotification';
 
 export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {
   
-  const { addWarningNotification } = useNotification();
+  const { addWarningNotification } = useJukiNotification();
   const lastEntity = useRef<T>(initialEntity);
   
   const initialEntityString = JSON.stringify(initialEntity);
@@ -37,4 +37,4 @@ export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {
       lastEntity.current = initialEntity;
     }
   }, [ initialEntityString, enable, addWarningNotification ]);
-}
+};

@@ -2,7 +2,7 @@ import { Status } from '@juki-team/commons';
 import React, { memo, useState } from 'react';
 import { jukiSettings } from '../../../../../config';
 import { toBlob } from '../../../../../helpers';
-import { useNotification } from '../../../../../hooks';
+import { useJukiNotification } from '../../../../../hooks';
 import { Button, ContentCopyIcon, CopyToClipboard, T } from '../../../../atoms';
 import { ButtonLoader, CropImageType, ImageLoaderCropper } from '../../../../molecules';
 import { NotificationType } from '../../../Notifications';
@@ -17,7 +17,7 @@ export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl }: UploadNe
   
   const [ imagePublicUrl, setImagePublicUrl ] = useState<string>('');
   const [ cropImage, setCropImage ] = useState<CropImageType>();
-  const { addNotification } = useNotification();
+  const { addNotification } = useJukiNotification();
   const handleUpload = async (image: Blob) => {
     const formData = new FormData();
     formData.append('image', image);

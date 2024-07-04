@@ -10,7 +10,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
-import { useNotification } from '../../../../hooks/useNotification';
+import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { AddIcon, DeleteIcon, InfoIcon, T, TextArea, Tooltip } from '../../../atoms';
 import { SplitPane, TabsInline, TabsType, TabType } from '../../../molecules';
 import { NotificationType } from '../../Notifications';
@@ -24,7 +24,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = fal
   testCases: CodeEditorTestCasesType,
   sample?: boolean,
 }) => {
-  const { addNotification } = useNotification();
+  const { addNotification } = useJukiNotification();
   return (
     <Tooltip
       content={<T className="ws-np tt-se tx-s">{`add ${sample ? 'sample' : 'custom sample'} case`}</T>}

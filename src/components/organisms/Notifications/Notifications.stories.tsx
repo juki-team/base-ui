@@ -1,7 +1,7 @@
 import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Button, useNotification } from '../../../index';
+import { Button, useJukiNotification } from '../../../index';
 import { MockupJukiProvider } from '../../mockup';
 
 const Comp = () => {
@@ -11,7 +11,7 @@ const Comp = () => {
     addWarningNotification,
     addErrorNotification,
     addQuietNotification,
-  } = useNotification();
+  } = useJukiNotification();
   const largeMessage = (
     <div>
       LoremIpsumLoremIpsum

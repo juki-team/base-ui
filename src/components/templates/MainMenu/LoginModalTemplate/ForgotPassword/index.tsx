@@ -2,13 +2,13 @@ import { ContentResponseType, Status } from '@juki-team/commons';
 import React from 'react';
 import { jukiSettings } from '../../../../../config';
 import { authorizedRequest, cleanRequest } from '../../../../../helpers';
-import { useNotification } from '../../../../../hooks/useNotification';
+import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { BasicModalProps } from '../../../../atoms';
 import { ForgotPasswordModalComponent } from './ForgoPasswordModal';
 import { OnForgotPasswordType } from './types';
 
 export const ForgotPasswordModal = ({ isOpen, onClose }: BasicModalProps) => {
-  const { notifyResponse } = useNotification();
+  const { notifyResponse } = useJukiNotification();
   const onForgotPassword: OnForgotPasswordType = async (email, setStatus) => {
     setStatus?.(Status.LOADING);
     const { url, ...options } = jukiSettings.API.auth.initiateResetPassword({ body: { email } });

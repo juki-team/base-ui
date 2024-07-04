@@ -10,7 +10,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { authorizedRequest, classNames, cleanRequest } from '../../../helpers';
-import { useJukiUser, useNotification } from '../../../hooks';
+import { useJukiNotification, useJukiUser } from '../../../hooks';
 import { DownloadIcon, Input, ReloadIcon, Select, SpinIcon, T, Tooltip } from '../../atoms';
 import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { JudgeDataType, ProblemSelectorProps } from './types';
@@ -20,7 +20,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
   const [ judge, setJudge ] = useState(Judge.CUSTOMER);
   const [ key, setKey ] = useState('');
   const [ data, setData ] = useState<JudgeDataType>({} as JudgeDataType);
-  const { notifyResponse } = useNotification();
+  const { notifyResponse } = useJukiNotification();
   const { company: { name, key: companyKey } } = useJukiUser();
   const [ timestampTrigger, setTimestampTrigger ] = useState(0);
   useEffect(() => {

@@ -15,7 +15,7 @@ import {
   SAMPLE_MD_CONTENT,
   SettingsIcon,
   T,
-  useNotification,
+  useJukiNotification,
   VerticalMenu,
   ViewHeadlineIcon,
 } from '../../../index';
@@ -108,7 +108,7 @@ const menuHorizontal = [
 ];
 
 const ButtonN = () => {
-  const { addInfoNotification, addQuietNotification } = useNotification();
+  const { addInfoNotification, addQuietNotification } = useJukiNotification();
   return (
     <Button
       onClick={() => {

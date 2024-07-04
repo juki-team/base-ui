@@ -1,6 +1,6 @@
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames, getTextContent } from '../../../helpers';
-import { useJukiPage, useJukiUI, useNotification } from '../../../hooks';
+import { useJukiNotification, useJukiPage, useJukiUI } from '../../../hooks';
 import { CloseIcon } from '../../atoms';
 import { NOTIFICATION_ICON } from './constants';
 import { NotificationProps, NotificationType } from './types';
@@ -10,7 +10,7 @@ export const CardNotification = ({ id, type, message }: NotificationProps) => {
   const [ exit, setExit ] = useState(false);
   const [ width, setWidth ] = useState(0);
   const intervalIDRef = useRef<ReturnType<typeof setTimeout>>();
-  const { removeNotification } = useNotification();
+  const { removeNotification } = useJukiNotification();
   const { viewPortSize } = useJukiUI();
   
   const messageString = getTextContent(message);

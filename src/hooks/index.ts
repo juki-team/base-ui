@@ -11,7 +11,7 @@ export * from './useJukiUI';
 export * from './useJukiUser';
 export * from './useLastPath';
 export * from './useMatchMutate';
-export * from './useNotification';
+export * from './useJukiNotification';
 export * from './useSWR';
 export * from './useSound';
 export * from './useStableState';
