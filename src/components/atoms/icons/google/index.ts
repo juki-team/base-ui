@@ -124,4 +124,5 @@ export * from './ViewCozyIcon';
 export * from './ViewHeadlineIcon';
 export * from './VisibilityIcon';
 export * from './VisibilityOffIcon';
+export * from './VoidIcon';
 export * from './WarningIcon';

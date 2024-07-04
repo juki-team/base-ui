@@ -19,11 +19,12 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
     strikethrough = false,
     style,
     viewBox = '0 0 24 24',
+    letter,
     ...props
   } = _props;
   
   const isFilled = filledCircle || filledSquare;
-  const scale = filledSquare ? 0.8 : (circle ? 0.6 : (filledCircle || square ? 0.7 : 1));
+  const scale = circle ? 0.6 : square ? 0.7 : (filledSquare || filledCircle) ? 0.8 : 1;
   
   const [ minX, minY, widthBox ] = viewBox.split(' ').map(Number);
   
@@ -43,6 +44,8 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
   const k = 0.4;
   const a = widthBox - scaleStart;
   const b = a - scaleStart;
+  
+  const color = isFilled ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)')) : 'currentColor';
   
   return (
     <span
@@ -100,9 +103,26 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
         )}
         <g transform={`translate(${(1 - scale) * (minX + sizeBox)}, ${(1 - scale) * (minY + sizeBox)}) scale(${scale})`}>
           <Component
-            color={isFilled ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)')) : 'currentColor'}
+            color={color}
             width={2.5}
           />
+        </g>
+        {!!letter && (
+          <text
+            x={centerX}
+            y={centerY}
+            style={{
+              alignmentBaseline: 'central',
+              textAnchor: 'middle',
+              fontSize: widthBox * (circle ? 0.6 : square ? 0.7 : (filledCircle || filledSquare) ? 0.80 : 0.9),
+              color,
+              fontWeight: 800,
+            }}
+          >
+            {letter}
+          </text>
+        )}
+        <g transform={`translate(${(1 - scale) * (minX + sizeBox)}, ${(1 - scale) * (minY + sizeBox)}) scale(${scale})`}>
           {strikethrough && (
             <>
               <Segment

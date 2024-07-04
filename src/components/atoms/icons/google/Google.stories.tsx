@@ -135,6 +135,7 @@ import {
   ViewHeadlineIcon,
   VisibilityIcon,
   VisibilityOffIcon,
+  VoidIcon,
   WarningIcon,
 } from './';
 
@@ -158,6 +159,7 @@ const meta: Meta<typeof AccountCircleIcon> = {
     filledSquare: { control: { type: 'boolean' } },
     strikethrough: { control: { type: 'boolean' } },
     rotate: { control: { type: 'number', value: 0 } },
+    letter: { control: { type: 'text' } },
     onClick: {},
     style: {},
     className: { control: { type: 'text' } },
@@ -296,6 +298,7 @@ export const Google: FC<BasicIconProps> = (args) => {
     FolderManagedIcon,
     BubbleChartIcon,
     GlobeIcon,
+    VoidIcon,
   };
   
   const [ color, setColor ] = useState<ColorResult>({ hex: '', hsl: { h: 0, s: 0, l: 0 }, rgb: { r: 0, g: 0, b: 0 } });
