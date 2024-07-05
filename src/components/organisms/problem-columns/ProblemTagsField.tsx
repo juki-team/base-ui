@@ -1,10 +1,10 @@
-import { ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import { ProblemDataSystemResponseDTO, ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../helpers';
 import { T } from '../../atoms';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
-export const ProblemTagsField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field'] =
+export const ProblemTagsField: DataViewerHeadersType<ProblemDataSystemResponseDTO | ProblemSummaryListResponseDTO>['Field'] =
   ({
      record: { tags },
      isCard,

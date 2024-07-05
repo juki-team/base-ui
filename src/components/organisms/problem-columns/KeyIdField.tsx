@@ -2,10 +2,12 @@ import React from 'react';
 import { CopyToClipboard, T, Tooltip } from '../../atoms';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
-export const KeyIdField: DataViewerHeadersType<{
+interface Test {
   key: string,
-  id?: string | undefined
-}>['Field'] = ({ record: { key, id } }) => (
+  id: string | undefined,
+}
+
+export const KeyIdField: DataViewerHeadersType<Test>['Field'] = ({ record: { key, id } }) => (
   <Field className="jk-col center">
     <CopyToClipboard text={key}>
       <div>
