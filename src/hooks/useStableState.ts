@@ -1,7 +1,7 @@
 import { isObjectJson, isStringJson } from '@juki-team/commons';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 
-export const useStableState = <T, >(initialStableState: T): [ T, Dispatch<SetStateAction<T>> ] => {
+export const useStableState = <T, >(initialStableState: T, deps?: string[]): [ T, Dispatch<SetStateAction<T>> ] => {
   
   const [ state, setState ] = useState<T>(initialStableState);
   
@@ -13,7 +13,8 @@ export const useStableState = <T, >(initialStableState: T): [ T, Dispatch<SetSta
     if (stateRef.current !== initialStableStateString && isStringJson(initialStableStateString)) {
       setState(JSON.parse(initialStableStateString));
     }
-  }, [ initialStableStateString ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ initialStableStateString, ...(deps || []) ]);
   
   return [ state, setState ];
 };
