@@ -65,7 +65,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     {
       head: <TextHeadCell text="Name / Nickname" />,
       index: 'name',
-      field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
+      Field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
         <TextField text={nickname + givenName + familyName + imageUrl} label={<T>name</T>} />
       ),
       sort: true,
@@ -78,7 +78,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
       index: 'email',
       headClassName: 'left',
       minWidth: 200,
-      field: ({ record: { email } }) => <TextField text={email} label={<T>email</T>} />,
+      Field: ({ record: { email } }) => <TextField text={email} label={<T>email</T>} />,
       sort: { compareFn: () => (rowA, rowB) => rowA.email.localeCompare(rowB.email) },
       // filter: { type: 'text', callbackFn: ({ text }) => (row) => row.email === text } as FilterTextOffline<UserTable>,
       filter: { type: FILTER_TEXT_AUTO },
@@ -88,7 +88,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     {
       index: 'permissions',
       head: <TextHeadCell text={<>prueba permisos</>} />,
-      field: () => (
+      Field: () => (
         <div>test<br />test
         </div>
       ),
@@ -108,7 +108,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     },
     {
       index: 'text-large-text-large-text',
-      field: () => <Field>
+      Field: () => <Field>
         <div>holi</div>
         <div>123</div>
         <SelectComponent
@@ -126,7 +126,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     },
     {
       index: 'dateTest',
-      field: ({ record: { dateTest } }) => <DateField date={dateTest} label="fecha" />,
+      Field: ({ record: { dateTest } }) => <DateField date={dateTest} label="fecha" />,
       sort: {
         compareFn: () => (rowA, rowB) => (
           rowB.dateTest.getTime() - rowA.dateTest.getTime()
@@ -151,7 +151,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     },
     {
       index: 'dateTestRange',
-      field: ({ record: { dateTestRange } }) => <DateField date={dateTestRange} label="fecha" />,
+      Field: ({ record: { dateTestRange } }) => <DateField date={dateTestRange} label="fecha" />,
       filter: {
         type: FILTER_DATE_RANGE_AUTO,
         pickerType: 'year-month-day-hours-minutes-seconds',
@@ -160,7 +160,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     },
     {
       index: 'status',
-      field: ({ record: { status } }) => (
+      Field: ({ record: { status } }) => (
         <Field>
           <Popover
             showPopperArrow
@@ -175,7 +175,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
         </Field>
       ),
       sort: { compareFn: () => (rowA, rowB) => rowA.status.localeCompare(rowB.status) },
-      filter: {
+      Filter: {
         type: FILTER_SELECT_AUTO,
         options: [
           { value: 'ARCHIVED', label: 'Archived :(' },
@@ -201,7 +201,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     {
       head: <TextHeadCell text="Name / Nickname" />,
       index: 'name',
-      field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
+      Field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
         <TextField text={nickname} label={<T>name</T>} />
       ),
       sort: true,
@@ -212,7 +212,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     {
       head: <TextHeadCell text="Name / Nickname" />,
       index: 'name-2',
-      field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
+      Field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
         <TextField text={givenName} label="test" />
       ),
       // sort: true,

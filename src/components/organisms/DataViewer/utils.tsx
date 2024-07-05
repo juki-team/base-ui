@@ -35,7 +35,6 @@ import {
   TableHeaderFilterTextType,
   TableHeaderFilterType,
   TableHeadersType,
-  TableHeadFieldType,
   TableHeadType,
 } from './types';
 
@@ -136,21 +135,6 @@ export const renderHead = ({ head, columnIndex, className }: renderHeadProps) =>
   
   return <TextHeadCell text={columnIndex} className={className} />;
 };
-
-export const renderField = <T, >(data: T[], index: number, isCard: boolean) => ({
-                                                                                  field,
-                                                                                  index: columnIndex,
-                                                                                }: {
-  field: TableHeadFieldType<T>,
-  index: string
-}) => (
-  typeof field === 'function' ? field({
-    record: data[index],
-    columnIndex,
-    recordIndex: index,
-    isCard,
-  }) : field
-);
 
 export const isSelected = (start: Date | null) => (date: Date) => ({
   year: !!start && date.isSameYear(start),

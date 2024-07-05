@@ -14,7 +14,6 @@ import React, {
 import { SCROLL_WIDTH } from '../../../../constants';
 import { classNames } from '../../../../helpers';
 import { RowVirtualizerFixedProps, TableHeadersWithWidthType } from '../types';
-import { renderField } from '../utils';
 
 interface VirtualizedRowsFixedProps<T> {
   rowHeight: number,
@@ -86,13 +85,18 @@ export const RowListVirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProp
             onMouseLeave={() => setRecordHoveredIndex(null)}
             onClick={() => onRowClick(virtualRow)}
           >
-            {Children.toArray(headers.map(({ field, index: columnIndex, width }) => (
+            {Children.toArray(headers.map(({ Field, index: columnIndex, width }) => (
               <div
                 key={getRecordKey(virtualRow) + '_' + columnIndex}
                 style={{ width: width + 'px' }}
                 data-testid={getRecordKey(virtualRow) + '_' + columnIndex}
               >
-                {renderField(data, virtualRow.index, false)({ field, index: columnIndex })}
+                <Field
+                  record={data[virtualRow.index]}
+                  columnIndex={columnIndex}
+                  recordIndex={virtualRow.index}
+                  isCard={false}
+                />
               </div>
             )))}
           </div>

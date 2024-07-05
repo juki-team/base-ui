@@ -3,7 +3,7 @@ import {
   ContentResponseType,
   Judge,
   JudgeResponseDTO,
-  ProblemResponseDTO,
+  ProblemDataResponseDTO,
   PROGRAMMING_LANGUAGE,
   ProgrammingLanguage,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
@@ -15,7 +15,7 @@ import { useFetcher, useJukiUser } from '../../../hooks';
 import { UserCodeEditor, UserCodeEditorProps } from '../../organisms/UserCodeEditor';
 
 interface ProblemCodeEditorProps<T> {
-  problem: ProblemResponseDTO,
+  problem: ProblemDataResponseDTO,
   codeEditorCenterButtons?: UserCodeEditorProps<T>['centerButtons'],
   codeEditorRightButtons?: UserCodeEditorProps<T>['rightButtons'],
   codeEditorSourceStoreKey?: string,

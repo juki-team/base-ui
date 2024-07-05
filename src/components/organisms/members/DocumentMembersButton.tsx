@@ -49,10 +49,7 @@ export const DocumentMembersButton = (props: DocumentMembersButton1Props | Docum
     const worksheetToPatch: { members: DocumentMembersDTO } = {
       members: {
         access: members.access,
-        administrators: Object.keys(members.administrators),
         managers: Object.keys(members.managers),
-        participants: Object.keys(members.participants),
-        guests: Object.keys(members.guests),
         spectators: Object.keys(members.spectators),
       },
     };

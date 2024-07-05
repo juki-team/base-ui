@@ -2,7 +2,6 @@ import React from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../../helpers';
 import { TableHeadersWithWidthType } from '../types';
-import { renderField } from '../utils';
 import { DataViewerCardProps } from './types';
 
 export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
@@ -57,13 +56,25 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
         style={{ height: topContainerHeight }}
       >
         <div className="top-left jk-col stretch" ref={topLeftRef}>
-          {positionsList.topLeft?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
+          {positionsList.topLeft?.map(({ index: columnIndex, Field }) => (
+            <div key={index}>
+              <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
+            </div>
+          ))}
         </div>
         <div className="top jk-col stretch" ref={topRef}>
-          {positionsList.top?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
+          {positionsList.top?.map(({ index: columnIndex, Field }) => (
+            <div key={index}>
+              <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
+            </div>
+          ))}
         </div>
         <div className="top-right jk-col stretch" ref={topRightRef}>
-          {positionsList.topRight?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
+          {positionsList.topRight?.map(({ index: columnIndex, Field }) => (
+            <div key={index}>
+              <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
+            </div>
+          ))}
         </div>
       </div>
       <div
@@ -71,13 +82,25 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
         style={{ height: centerContainerHeight }}
       >
         <div className="center-left jk-col stretch" ref={centerLeftRef}>
-          {positionsList.centerLeft?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
+          {positionsList.centerLeft?.map(({ index: columnIndex, Field }) => (
+            <div key={index}>
+              <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
+            </div>
+          ))}
         </div>
         <div className="center jk-col stretch" ref={centerRef}>
-          {positionsList.center?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
+          {positionsList.center?.map(({ index: columnIndex, Field }) => (
+            <div key={index}>
+              <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
+            </div>
+          ))}
         </div>
         <div className="center-right jk-col stretch" ref={centerRightRef}>
-          {positionsList.centerRight?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
+          {positionsList.centerRight?.map(({ index: columnIndex, Field }) => (
+            <div key={index}>
+              <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
+            </div>
+          ))}
         </div>
       </div>
       <div
@@ -85,13 +108,25 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
         style={{ height: bottomContainerHeight }}
       >
         <div className="bottom-left jk-col stretch" ref={bottomLeftRef}>
-          {positionsList.bottomLeft?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
+          {positionsList.bottomLeft?.map(({ index: columnIndex, Field }) => (
+            <div key={index}>
+              <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
+            </div>
+          ))}
         </div>
         <div className="bottom jk-col stretch" ref={bottomRef}>
-          {positionsList.bottom?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
+          {positionsList.bottom?.map(({ index: columnIndex, Field }) => (
+            <div key={index}>
+              <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
+            </div>
+          ))}
         </div>
         <div className="bottom-right jk-col stretch" ref={bottomRightRef}>
-          {positionsList.bottomRight?.map(head => <div key={head.index}>{renderField(data, index, true)(head)}</div>)}
+          {positionsList.bottomRight?.map(({ index: columnIndex, Field }) => (
+            <div key={index}>
+              <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
+            </div>
+          ))}
         </div>
       </div>
     </div>

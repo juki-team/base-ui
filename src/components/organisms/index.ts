@@ -5,6 +5,7 @@ export * from './GraphvizEditor';
 export * from './ImageUploader';
 export * from './Menu';
 export * from './Notifications';
+export * from './problem-columns';
 export * from './ProblemSelector';
 export * from './UserChip';
 export * from './UserCodeEditor';

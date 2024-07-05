@@ -1,5 +1,5 @@
 import { DataViewMode, Status } from '@juki-team/commons';
-import { CSSProperties, Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
+import { CSSProperties, Dispatch, FC, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { DatePickerDateFunType, OptionType } from '../../';
 import { DataViewerRequesterGetUrlType } from '../../../hooks';
 import {
@@ -204,9 +204,11 @@ export type TableHeadFieldType<T> =
   ((props: { record: T, columnIndex: string, recordIndex: number, isCard: boolean }) => ReactNode)
   | ReactNode;
 
+export type TableHeadCmpFieldType<T> = FC<{ record: T, columnIndex: string, recordIndex: number, isCard: boolean }>;
+
 export type TableHeadersType<T> = {
   cardPosition?: CardPositionType,
-  field: TableHeadFieldType<T>,
+  Field: TableHeadCmpFieldType<T>,
   filter?: TableHeaderFilterType,
   head?: TableHeadType,
   index: string,
@@ -263,7 +265,7 @@ export type DataViewerHeaderSortType<T> = DataViewerHeaderSortOnlineType | DataV
 
 export type DataViewerHeadersType<T> = {
   head?: TableHeadType,
-  field: TableHeadFieldType<T>,
+  Field: TableHeadCmpFieldType<T>,
   index: string,
   minWidth?: number,
   sort?: DataViewerHeaderSortType<T>,
