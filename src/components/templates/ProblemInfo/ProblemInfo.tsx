@@ -1,6 +1,4 @@
 import {
-  ENTITY_STATE,
-  EntityState,
   Judge,
   Language,
   PROBLEM_MODE,
@@ -18,7 +16,6 @@ export interface ProblemInfoProps {
   settings: ProblemSettingsType,
   tags: string[],
   author: string,
-  state?: EntityState,
   expand?: boolean,
   asPopover?: boolean,
   centered?: boolean,
@@ -77,7 +74,7 @@ const ContentInfo = ({ label, value, children, expand, valueAsList, centered, wi
   );
 };
 
-export const ExtraProblemInfo = ({ tags, author, state, centered, withoutPadding }: ProblemInfoProps) => {
+export const ExtraProblemInfo = ({ tags, author, centered, withoutPadding }: ProblemInfoProps) => {
   
   return (
     <>
@@ -96,14 +93,6 @@ export const ExtraProblemInfo = ({ tags, author, state, centered, withoutPadding
         <ContentInfo
           label="author"
           value={author}
-          centered={centered}
-          withoutPadding={withoutPadding}
-        />
-      )}
-      {state && (
-        <ContentInfo
-          label="visibility"
-          value={<T className="tt-ce">{ENTITY_STATE[state]?.label}</T>}
           centered={centered}
           withoutPadding={withoutPadding}
         />

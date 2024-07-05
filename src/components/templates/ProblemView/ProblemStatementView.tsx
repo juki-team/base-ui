@@ -1,4 +1,11 @@
-import { Judge, Language, ProblemResponseDTO, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
+import {
+  Judge,
+  Language,
+  ProblemDataResponseDTO,
+  ProblemScoringMode,
+  ProfileSetting,
+  Status,
+} from '@juki-team/commons';
 import React from 'react';
 import { downloadBlobAsFile, downloadJukiMarkdownAsPdf, getStatementData } from '../../../helpers';
 import { useJukiUser, useT } from '../../../hooks';
@@ -9,7 +16,7 @@ import { JukiProblemInfo, ProblemInfo } from '../ProblemInfo';
 import { SampleTest } from './SampleTest';
 
 export interface ProblemStatementViewProps {
-  problem: ProblemResponseDTO,
+  problem: ProblemDataResponseDTO,
   contest?: { index: string, color: string },
   infoPlacement: 'left' | 'name' | 'none',
   withoutName?: boolean,
@@ -17,7 +24,7 @@ export interface ProblemStatementViewProps {
 
 export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutName }: ProblemStatementViewProps) => {
   
-  const { judge, key: problemKey, name, settings, tags, author, status, statement } = problem;
+  const { judge, key: problemKey, name, settings, tags, author, statement } = problem;
   const {
     user: {
       settings: {
@@ -175,7 +182,6 @@ export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutN
           <div className="screen md lg hg flex-1">
             <JukiProblemInfo
               settings={settings}
-              status={status}
               tags={tags}
               author={author}
               expand
