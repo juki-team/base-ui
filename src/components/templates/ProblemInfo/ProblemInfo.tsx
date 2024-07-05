@@ -1,13 +1,13 @@
 import {
+  ENTITY_STATE,
+  EntityState,
   Judge,
   Language,
   PROBLEM_MODE,
-  PROBLEM_STATUS,
   PROBLEM_TYPE,
-  ProblemResponseDTO,
+  ProblemDataResponseDTO,
   ProblemScoringMode,
   ProblemSettingsType,
-  ProblemStatus,
   PROGRAMMING_LANGUAGE,
 } from '@juki-team/commons';
 import React, { Children, PropsWithChildren, ReactNode } from 'react';
@@ -18,7 +18,7 @@ export interface ProblemInfoProps {
   settings: ProblemSettingsType,
   tags: string[],
   author: string,
-  status: ProblemStatus,
+  state?: EntityState,
   expand?: boolean,
   asPopover?: boolean,
   centered?: boolean,
@@ -77,7 +77,7 @@ const ContentInfo = ({ label, value, children, expand, valueAsList, centered, wi
   );
 };
 
-export const ExtraProblemInfo = ({ tags, author, status, centered, withoutPadding }: ProblemInfoProps) => {
+export const ExtraProblemInfo = ({ tags, author, state, centered, withoutPadding }: ProblemInfoProps) => {
   
   return (
     <>
@@ -85,7 +85,7 @@ export const ExtraProblemInfo = ({ tags, author, status, centered, withoutPaddin
         <ContentInfo
           label="tags"
           value={Children.toArray(tags.filter(tag => !!tag.trim()).map(tag => (
-            <><span className="jk-tag gray-6">{tag}</span>&nbsp;</>
+            <><span className="jk-tag gray-6"><T>{tag}</T></span>&nbsp;</>
           )))}
           valueAsList
           centered={centered}
@@ -100,10 +100,10 @@ export const ExtraProblemInfo = ({ tags, author, status, centered, withoutPaddin
           withoutPadding={withoutPadding}
         />
       )}
-      {status && (
+      {state && (
         <ContentInfo
           label="visibility"
-          value={<T className="tt-ce">{PROBLEM_STATUS[status]?.label}</T>}
+          value={<T className="tt-ce">{ENTITY_STATE[state]?.label}</T>}
           centered={centered}
           withoutPadding={withoutPadding}
         />
@@ -262,7 +262,7 @@ export const JukiProblemInfo = (props: PropsWithChildren<ProblemInfoProps>) => {
   );
 };
 
-export const ProblemInfo = ({ problem }: { problem: ProblemResponseDTO }) => {
+export const ProblemInfo = ({ problem }: { problem: ProblemDataResponseDTO }) => {
   return (
     <Popover
       content={(problem.judge === Judge.JUKI_JUDGE || problem.judge === Judge.CUSTOMER)
@@ -270,7 +270,6 @@ export const ProblemInfo = ({ problem }: { problem: ProblemResponseDTO }) => {
           <div className="jk-pg-sm">
             <JukiProblemInfo
               author={problem.author}
-              status={problem.status}
               tags={problem.tags}
               settings={problem.settings}
               expand
