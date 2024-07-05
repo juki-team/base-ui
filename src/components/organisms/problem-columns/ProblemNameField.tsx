@@ -1,14 +1,14 @@
-import { ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
 import { T, Tooltip, VoidIcon } from '../../atoms';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 import { ProblemStatus } from './ProblemStatus';
+import { ProblemDataViewer } from './types';
 
-export const ProblemNameField: DataViewerHeadersType<ProblemSummaryListResponseDTO & {
-  viewProblemUrl: string
-}>['Field'] = ({ record: { name, user, viewProblemUrl }, isCard }) => {
+export const ProblemNameField: DataViewerHeadersType<ProblemDataViewer>['Field'] = (props) => {
+  
+  const { record: { name, user, viewProblemUrl }, isCard } = props;
   
   const { components: { Link } } = useJukiUI();
   

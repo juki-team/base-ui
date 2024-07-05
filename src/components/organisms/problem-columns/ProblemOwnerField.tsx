@@ -1,25 +1,23 @@
-import { ProblemDataSystemResponseDTO, ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { T } from '../../atoms';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 import { UserChip } from '../UserChip';
+import { ProblemDataViewer } from './types';
 
-export const ProblemOwnerField: DataViewerHeadersType<(ProblemDataSystemResponseDTO | ProblemSummaryListResponseDTO) & {
-  companyKey: string
-}>['Field'] = ({ record: { owner: { nickname, imageUrl }, companyKey } }) => (
+export const ProblemOwnerField: DataViewerHeadersType<ProblemDataViewer>['Field']
+  = ({ record: { ownerCompanyKey, ownerImageUrl, ownerNickname } }) => (
   <TextField
     className="jk-row"
-    text={<UserChip nickname={nickname} imageUrl={imageUrl} companyKey={companyKey} />}
+    text={<UserChip nickname={ownerNickname} imageUrl={ownerImageUrl} companyKey={ownerCompanyKey} />}
     label={<T className="tt-se">owner</T>}
   />
 );
 
-export const ProblemCrawlerField: DataViewerHeadersType<(ProblemDataSystemResponseDTO | ProblemSummaryListResponseDTO) & {
-  companyKey: string
-}>['Field'] = ({ record: { owner: { nickname, imageUrl }, companyKey } }) => (
+export const ProblemCrawlerField: DataViewerHeadersType<ProblemDataViewer>['Field']
+  = ({ record: { ownerCompanyKey, ownerImageUrl, ownerNickname } }) => (
   <TextField
     className="jk-row"
-    text={<UserChip nickname={nickname} imageUrl={imageUrl} companyKey={companyKey} />}
+    text={<UserChip nickname={ownerNickname} imageUrl={ownerImageUrl} companyKey={ownerCompanyKey} />}
     label={<T className="tt-se">crawler</T>}
   />
 );

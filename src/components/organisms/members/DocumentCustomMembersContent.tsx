@@ -194,6 +194,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                   administrators[user.nickname] = {
                     imageUrl: user.imageUrl,
                     nickname: user.nickname,
+                    companyKey: user.companyKey,
                     type: MemberType.USER,
                   };
                 }
@@ -223,6 +224,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                   managers[user.nickname] = {
                     imageUrl: user.imageUrl,
                     nickname: user.nickname,
+                    companyKey: user.companyKey,
                     type: MemberType.USER,
                   };
                 }
@@ -252,6 +254,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                   participants[user.nickname] = {
                     imageUrl: user.imageUrl,
                     nickname: user.nickname,
+                    companyKey: user.companyKey,
                     type: MemberType.USER,
                   };
                 }
@@ -281,6 +284,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                   guests[user.nickname] = {
                     imageUrl: user.imageUrl,
                     nickname: user.nickname,
+                    companyKey: user.companyKey,
                     type: MemberType.USER,
                   };
                 }
@@ -310,6 +314,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                   spectators[user.nickname] = {
                     imageUrl: user.imageUrl,
                     nickname: user.nickname,
+                    companyKey: user.companyKey,
                     type: MemberType.USER,
                   };
                 }

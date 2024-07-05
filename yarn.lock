@@ -2047,10 +2047,10 @@
   resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.4.0.tgz#08d6c5e20cf7e4cc02fd181c4b0c225cd31dbb60"
   integrity sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==
 
-"@juki-team/commons@^0.0.562":
-  version "0.0.562"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.562/cf629f15a49f0eab76ad2eedf30dbd875165483e#cf629f15a49f0eab76ad2eedf30dbd875165483e"
-  integrity sha512-nq8W6sv8ErjYe4uvCDiKthA7dZMZitrMH5AdKyxdItR3q2MHJhuQWnwzgwSdnIgI9cOcZbegy8VzynNW4C3NQQ==
+"@juki-team/commons@^0.0.565":
+  version "0.0.565"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.565/a213177ab963ae9c87598f705f51f4d191a72a83#a213177ab963ae9c87598f705f51f4d191a72a83"
+  integrity sha512-esYa02YUlhg/2XZ2BkvQ6Mm/DKY6CHXjw5WugIgWckLfxiIq6f3wvK4b/HhSQFXRI6dYZiS47hyiVKW2CKFRiA==
   dependencies:
     uuid "^10.0.0"
 
