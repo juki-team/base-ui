@@ -232,6 +232,12 @@ export class Settings {
           url: injectBaseUrl('problem', `/${getProblemJudgeKey(judge, key)}/summary`),
           method: HTTPMethod.GET,
         })),
+        getLogs: valid<
+          { params: { judge: Judge, key: string, companyKey: string } }
+        >(({ params: { judge, key, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('problem', `/${getProblemJudgeKey(judge, key)}/logs`), companyKey),
+          method: HTTPMethod.GET,
+        })),
       },
       image: {
         getPublicList: valid<void>(() => ({

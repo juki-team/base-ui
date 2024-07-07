@@ -6,8 +6,12 @@ const isProblemDataSystemResponseDTO = (problem: ProblemDataSystemResponseDTO | 
 };
 
 export const toProblemDataViewer = (problem: ProblemDataSystemResponseDTO | ProblemSummaryListResponseDTO): ProblemDataViewer => ({
+  companyKey: problem.companyKey,
   key: problem.key,
+  judge: problem.judge,
+  state: isProblemDataSystemResponseDTO(problem) ? problem.state : undefined,
   id: isProblemDataSystemResponseDTO(problem) ? problem.id : undefined,
+  isManager: isProblemDataSystemResponseDTO(problem) ? problem.isManager : undefined,
   scoringMode: problem.settings.mode,
   type: problem.settings.type,
   viewProblemUrl: '',

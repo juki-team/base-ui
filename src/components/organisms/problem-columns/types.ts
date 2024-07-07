@@ -1,8 +1,11 @@
-import { ProblemScoringMode, ProblemType, ProblemUserType } from '@juki-team/commons';
+import { EntityState, Judge, ProblemScoringMode, ProblemType, ProblemUserType } from '@juki-team/commons';
 
 export interface ProblemDataViewer {
-  key: string,
+  companyKey: string,
   id: string | undefined,
+  key: string,
+  judge: Judge,
+  isManager: boolean | undefined,
   scoringMode: ProblemScoringMode,
   type: ProblemType,
   viewProblemUrl: string,
@@ -12,4 +15,5 @@ export interface ProblemDataViewer {
   ownerImageUrl: string,
   ownerCompanyKey: string,
   tags: string[],
+  state: EntityState | undefined,
 }
