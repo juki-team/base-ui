@@ -1,5 +1,5 @@
 import { ContentsResponseType } from '@juki-team/commons';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS, PAGE_SIZE_OPTIONS } from '../../../constants';
 import { useDataViewerRequester, useJukiUI } from '../../../hooks';
 import { DataViewer } from './DataViewer';
@@ -45,14 +45,17 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
   
   lastTotalRef.current = response?.success ? response.meta.totalElements : lastTotalRef.current;
   
-  const data: V[] = (response?.success ? response.contents : []);
+  const data: T[] = useMemo(() => {
+    const data = response?.success ? response.contents : [];
+    return toRow ? data.map(toRow) : (data as unknown as T[]);
+  }, [ response, toRow ]);
   
   return (
     <DataViewer<T>
       getRecordStyle={getRecordStyle}
       cards={cards}
       headers={headers}
-      data={toRow ? data.map(toRow) : (data as unknown as T[])}
+      data={data}
       rows={rows}
       request={request}
       rowsView={viewPortSize !== 'sm'}
