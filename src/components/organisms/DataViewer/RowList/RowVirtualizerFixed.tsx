@@ -54,7 +54,7 @@ export const RowListVirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProp
   const rowVirtualizer = useVirtualizer({
     count: size,
     estimateSize: useCallback(() => rowHeight, [ rowHeight ]),
-    overscan: 10,
+    overscan: 2,
     getScrollElement: () => parentRef.current,
   });
   
