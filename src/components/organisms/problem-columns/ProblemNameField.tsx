@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
 import { T, Tooltip, VoidIcon } from '../../atoms';
@@ -6,7 +6,7 @@ import { DataViewerHeadersType, Field } from '../DataViewer';
 import { ProblemStatus } from './ProblemStatus';
 import { ProblemDataViewer } from './types';
 
-export const ProblemNameField: DataViewerHeadersType<ProblemDataViewer>['Field'] = (props) => {
+export const ProblemNameField: DataViewerHeadersType<ProblemDataViewer>['Field'] = memo((props) => {
   
   const { record: { name, user, viewProblemUrl }, isCard } = props;
   
@@ -34,4 +34,4 @@ export const ProblemNameField: DataViewerHeadersType<ProblemDataViewer>['Field']
       </div>
     </Field>
   );
-};
+});

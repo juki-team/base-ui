@@ -1,10 +1,10 @@
-import React, { ReactNode, useState } from 'react';
+import React, { memo, ReactNode, useState } from 'react';
 import { Button, T } from '../../atoms';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 import { ProblemLogsModal } from './ProblemLogsModal';
 import { ProblemDataViewer } from './types';
 
-export const ProblemAdminActionsField: DataViewerHeadersType<ProblemDataViewer>['Field'] = (props) => {
+export const ProblemAdminActionsField: DataViewerHeadersType<ProblemDataViewer>['Field'] = memo((props) => {
   
   const { record: { key, judge, isManager, companyKey } } = props;
   
@@ -34,4 +34,4 @@ export const ProblemAdminActionsField: DataViewerHeadersType<ProblemDataViewer>[
       )}
     </Field>
   );
-};
+});

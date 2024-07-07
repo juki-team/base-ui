@@ -62,6 +62,8 @@ export const RowListVirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProp
   
   useEffect(() => setRender(Date.now()), [ size ]);
   
+  console.log(rowVirtualizer.getVirtualItems());
+  
   return (
     
     <div
@@ -85,6 +87,7 @@ export const RowListVirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProp
             onMouseLeave={() => setRecordHoveredIndex(null)}
             onClick={() => onRowClick(virtualRow)}
           >
+            {}
             {Children.toArray(headers.map(({ Field, index: columnIndex, width }) => (
               <div
                 key={getRecordKey(virtualRow) + '_' + columnIndex}

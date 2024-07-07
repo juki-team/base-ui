@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { CopyToClipboard, T, Tooltip } from '../../atoms';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 import { ProblemDataViewer } from './types';
 
-export const ProblemKeyIdField: DataViewerHeadersType<ProblemDataViewer>['Field'] = ({ record: { key, id } }) => (
+export const ProblemKeyIdField: DataViewerHeadersType<ProblemDataViewer>['Field'] = memo(({ record: { key, id } }) => (
   <Field className="jk-col center">
     <CopyToClipboard text={key}>
       <div>
@@ -22,4 +22,4 @@ export const ProblemKeyIdField: DataViewerHeadersType<ProblemDataViewer>['Field'
       </CopyToClipboard>
     )}
   </Field>
-);
+));
