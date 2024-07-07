@@ -7,7 +7,7 @@ export const ProblemKeyIdField: DataViewerHeadersType<ProblemDataViewer>['Field'
   <Field className="jk-col center">
     <CopyToClipboard text={key}>
       <div>
-        <Tooltip content={<T>copy key</T>} placement="top" withPortal>
+        <Tooltip content={<T>copy key</T>} placement="top">
           <div className="jk-row hoverable jk-br-ie tx-s fw-bd">{key}</div>
         </Tooltip>
       </div>
@@ -15,7 +15,7 @@ export const ProblemKeyIdField: DataViewerHeadersType<ProblemDataViewer>['Field'
     {id && (
       <CopyToClipboard text={id}>
         <div>
-          <Tooltip content={<T>copy id</T>} placement="top" withPortal>
+          <Tooltip content={<T>copy id</T>} placement="top">
             <div className="jk-row hoverable jk-br-ie tx-t fw-lr">{id}</div>
           </Tooltip>
         </div>
