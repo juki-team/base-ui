@@ -1,24 +1,26 @@
-import { Story } from '@storybook/react';
+import { type Meta, type StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import { Button } from '../../../atoms';
 import { MockupJukiProvider } from '../../../mockup';
 import { SAMPLE_MD_CONTENT } from '../constants';
 import { MdMathEditor as MdMathEditorComponent, MdMathEditorProps } from './';
 
-export default {
+const meta: Meta<typeof MdMathEditorComponent> = {
   component: MdMathEditorComponent,
   argTypes: {
     uploadImageButton: { control: { type: 'boolean' } },
     informationButton: { control: { type: 'boolean' } },
-    sharedButton: { control: { type: 'boolean' } },
+    // sharedButton: { control: { type: "boolean" } },
     downloadButton: { control: { type: 'boolean' } },
   },
 };
 
-export const MdMathEditor: Story<MdMathEditorProps> = (props) => {
-  
+export default meta;
+
+type Story = StoryObj<typeof MdMathEditorComponent>;
+
+const Cmp = ({ props }: { props: MdMathEditorProps }) => {
   const [ text, setText ] = useState(SAMPLE_MD_CONTENT);
-  
   return (
     <MockupJukiProvider>
       <div>
@@ -32,4 +34,10 @@ export const MdMathEditor: Story<MdMathEditorProps> = (props) => {
       </div>
     </MockupJukiProvider>
   );
+};
+
+export const Regular: Story = {
+  render: (args) => (
+    <Cmp props={args} />
+  ),
 };

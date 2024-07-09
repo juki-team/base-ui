@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { MockupJukiProvider } from '../../mockup';
-import { LockIcon } from '../icons';
-import { Button } from './Button';
+import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { MockupJukiProvider } from "../../mockup";
+import { LockIcon } from "../icons";
+import { Button } from "./Button";
 
 // @ts-ignore
 Button.defaultProps = {
   submit: false,
-  type: 'primary',
+  type: "primary",
   extend: false,
   disabled: false,
   responsive: false,
   responsiveMobile: false,
-}
+};
 
 const meta: Meta<typeof Button> = {
   component: Button,

@@ -11,7 +11,7 @@ export const VirtualizedRowsFixed = memo((props: VirtualizedRowsFixedProps) => {
     classNameContainer,
     classNameRows,
     classNameRow,
-    getRowKey = (virtualItem) => virtualItem.index.toString(),
+    getRowKey,
   } = props;
   
   const parentRef = useRef<HTMLDivElement>(null);
@@ -21,6 +21,7 @@ export const VirtualizedRowsFixed = memo((props: VirtualizedRowsFixedProps) => {
     estimateSize: useCallback(() => rowHeight, [ rowHeight ]),
     overscan: 5,
     getScrollElement: () => parentRef.current,
+    getItemKey: getRowKey,
   });
   
   return (
@@ -31,7 +32,7 @@ export const VirtualizedRowsFixed = memo((props: VirtualizedRowsFixedProps) => {
       >
         {rowVirtualizer.getVirtualItems().map(virtualRow => (
           <div
-            key={getRowKey(virtualRow)}
+            key={virtualRow.key}
             style={{
               position: 'absolute',
               top: 0,
@@ -42,7 +43,7 @@ export const VirtualizedRowsFixed = memo((props: VirtualizedRowsFixedProps) => {
             }}
             className={classNameRow}
           >
-            {renderRow(virtualRow)}
+            {renderRow(virtualRow.index)}
           </div>
         ))}
       </div>

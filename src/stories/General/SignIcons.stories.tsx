@@ -1,5 +1,5 @@
-import { configureActions } from '@storybook/addon-actions';
-import React, { FC } from 'react';
+import { configureActions } from "@storybook/addon-actions";
+import React, { FC } from "react";
 
 import {
   ArrowIcon,
@@ -11,34 +11,34 @@ import {
   PlusIcon,
   SignIconProps,
   UpIcon,
-} from '../../index';
-import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
+} from "../../index";
+import { MockupToggleThemeButton } from "../../components/mockup/MockupToggleThemeButton";
 
 export default {
-  title: 'Components/General/Icons',
+  title: "Components/General/Icons",
   argTypes: {
-    color: { control: { type: 'color' } },
+    color: { control: { type: "color" } },
     size: {
-      options: [ 'huge', 'large', 'regular', 'small', 'tiny' ],
+      options: ["huge", "large", "regular", "small", "tiny"],
       control: {
-        type: 'select',
+        type: "select",
         labels: {
-          huge: 'huge (48px)', // 12
-          large: 'large (36px)', // 12
-          regular: 'regular (24px)', // 6
-          small: 'small (18px)', // 6
-          tiny: 'tiny (12px)',
+          huge: "huge (48px)", // 12
+          large: "large (36px)", // 12
+          regular: "regular (24px)", // 6
+          small: "small (18px)", // 6
+          tiny: "tiny (12px)",
         },
       },
     },
-    circle: { control: { type: 'boolean' } },
-    square: { control: { type: 'boolean' } },
-    filledCircle: { control: { type: 'boolean' } },
-    filledSquare: { control: { type: 'boolean' } },
-    rotate: { control: { type: 'number', value: 0 } },
+    circle: { control: { type: "boolean" } },
+    square: { control: { type: "boolean" } },
+    filledCircle: { control: { type: "boolean" } },
+    filledSquare: { control: { type: "boolean" } },
+    rotate: { control: { type: "number", value: 0 } },
     onClick: {},
     style: {},
-    className: { control: { type: 'text' } },
+    className: { control: { type: "text" } },
   },
 };
 
@@ -48,8 +48,10 @@ configureActions({
   limit: 20,
 });
 
-export const Signs: FC<SignIconProps & { color: string }> = ({ color, ...props }) => {
-  
+export const Signs: FC<SignIconProps & { color: string }> = ({
+  color,
+  ...props
+}) => {
   const icons = {
     ArrowIcon,
     ExclamationIcon,
@@ -60,15 +62,17 @@ export const Signs: FC<SignIconProps & { color: string }> = ({ color, ...props }
     DoubleUpIcon,
     CheckIcon_,
   };
-  
+
   return (
     <div className="jk-row block gap" style={{ color }}>
       {Object.entries(icons)
-        .sort(([ iconName1 ], [ iconName2 ]) => iconName1.localeCompare(iconName2))
-        .map(([ iconName, Component ]) => (
+        .sort(([iconName1], [iconName2]) => iconName1.localeCompare(iconName2))
+        .map(([iconName, Component]) => (
           <div className="jk-row  nowrap center">
             <Component {...props} />
-            <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
+            <div className="tx-t cr-g1" style={{ width: 140 }}>
+              {iconName}
+            </div>
           </div>
         ))}
       <MockupToggleThemeButton />

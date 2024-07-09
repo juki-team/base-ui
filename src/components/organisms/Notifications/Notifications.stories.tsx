@@ -1,8 +1,8 @@
-import { action } from '@storybook/addon-actions';
-import { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { Button, useJukiNotification } from '../../../index';
-import { MockupJukiProvider } from '../../mockup';
+import { action } from "@storybook/addon-actions";
+import { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { Button, useJukiNotification } from "../../../index";
+import { MockupJukiProvider } from "../../mockup";
 
 const Comp = () => {
   const {
@@ -22,11 +22,12 @@ const Comp = () => {
       </ul>
     </div>
   );
-  const textMessage = 'Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum';
+  const textMessage =
+    "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum";
   const shortMessage = <div> LoremIpsumLoremIpsum </div>;
-  const veryShortMessage = 'Lorem';
+  const veryShortMessage = "Lorem";
   // const veryShortMessage = <div> Lorem </div>;
-  
+
   return (
     <div className="jk-row left">
       <div className="jk-col">
@@ -108,6 +109,6 @@ export const Regular: Story = {
 };
 
 Regular.args = {
-  onClick: action('onClick'),
-  children: 'text',
+  onClick: action("onClick"),
+  children: "text",
 };

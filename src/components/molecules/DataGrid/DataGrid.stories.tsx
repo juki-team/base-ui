@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { DataGrid } from './DataGrid';
+import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { DataGrid } from "./DataGrid";
 
 const meta: Meta<typeof DataGrid> = {
   component: DataGrid,
@@ -19,38 +19,38 @@ export const Regular: Story = {
         firstRowAsHeaders
         styles={[
           {},
-          { bgcolor: '#1F4E7A', color: '#FFFFFF', font: { bold: true } }, // 0
+          { bgcolor: "#1F4E7A", color: "#FFFFFF", font: { bold: true } }, // 0
           { font: { bold: true } }, // 1
-          { bgcolor: '#B4EFCF' }, // 2
-          { bgcolor: '#F7BCBC' }, // 3
-          { color: '#CBCBCB' }, // 4
-          { align: 'right' }, // 5
+          { bgcolor: "#B4EFCF" }, // 2
+          { bgcolor: "#F7BCBC" }, // 3
+          { color: "#CBCBCB" }, // 4
+          { align: "right" }, // 5
         ]}
         freeze="C4"
-        autofilter={{ ref: 'A1:F7', filters: [] }}
+        autofilter={{ ref: "A1:F7", filters: [] }}
         rows={{
-          ...(new Array(100).fill(1).map((a, i) => ({
+          ...new Array(100).fill(1).map((a, i) => ({
             cells: {
               0: { text: i },
-              1: { text: 'Tesla', style: Math.floor(Math.random() * 6) },
-              2: { text: 'Volvo' },
-              3: { text: 'Toyota' },
-              4: { text: 'Ford' },
+              1: { text: "Tesla", style: Math.floor(Math.random() * 6) },
+              2: { text: "Volvo" },
+              3: { text: "Toyota" },
+              4: { text: "Ford" },
               5: { text: i % 3 },
               6: { text: Math.random() },
               7: { text: Date.now() },
             },
-          }))),
+          })),
           0: {
             cells: {
-              0: { text: 'head' },
-              1: { text: 'Tesla' },
-              2: { text: 'Volvo' },
-              3: { text: 'Toyota' },
-              4: { text: 'Ford' },
-              5: { text: 'A' },
-              6: { text: 'B' },
-              7: { text: 'C' },
+              0: { text: "head" },
+              1: { text: "Tesla" },
+              2: { text: "Volvo" },
+              3: { text: "Toyota" },
+              4: { text: "Ford" },
+              5: { text: "A" },
+              6: { text: "B" },
+              7: { text: "C" },
             },
           },
           // [ '2019', 10, 11, 12, 13, 14, 15, 16 ],

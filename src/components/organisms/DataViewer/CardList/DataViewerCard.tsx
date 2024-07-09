@@ -57,21 +57,21 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
       >
         <div className="top-left jk-col stretch" ref={topLeftRef}>
           {positionsList.topLeft?.map(({ index: columnIndex, Field }) => (
-            <div key={index}>
+            <div key={columnIndex}>
               <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
             </div>
           ))}
         </div>
         <div className="top jk-col stretch" ref={topRef}>
           {positionsList.top?.map(({ index: columnIndex, Field }) => (
-            <div key={index}>
+            <div key={columnIndex}>
               <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
             </div>
           ))}
         </div>
         <div className="top-right jk-col stretch" ref={topRightRef}>
           {positionsList.topRight?.map(({ index: columnIndex, Field }) => (
-            <div key={index}>
+            <div key={columnIndex}>
               <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
             </div>
           ))}
@@ -83,21 +83,21 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
       >
         <div className="center-left jk-col stretch" ref={centerLeftRef}>
           {positionsList.centerLeft?.map(({ index: columnIndex, Field }) => (
-            <div key={index}>
+            <div key={columnIndex}>
               <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
             </div>
           ))}
         </div>
         <div className="center jk-col stretch" ref={centerRef}>
           {positionsList.center?.map(({ index: columnIndex, Field }) => (
-            <div key={index}>
+            <div key={columnIndex}>
               <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
             </div>
           ))}
         </div>
         <div className="center-right jk-col stretch" ref={centerRightRef}>
           {positionsList.centerRight?.map(({ index: columnIndex, Field }) => (
-            <div key={index}>
+            <div key={columnIndex}>
               <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
             </div>
           ))}
@@ -109,21 +109,21 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
       >
         <div className="bottom-left jk-col stretch" ref={bottomLeftRef}>
           {positionsList.bottomLeft?.map(({ index: columnIndex, Field }) => (
-            <div key={index}>
+            <div key={columnIndex}>
               <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
             </div>
           ))}
         </div>
         <div className="bottom jk-col stretch" ref={bottomRef}>
           {positionsList.bottom?.map(({ index: columnIndex, Field }) => (
-            <div key={index}>
+            <div key={columnIndex}>
               <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
             </div>
           ))}
         </div>
         <div className="bottom-right jk-col stretch" ref={bottomRightRef}>
           {positionsList.bottomRight?.map(({ index: columnIndex, Field }) => (
-            <div key={index}>
+            <div key={columnIndex}>
               <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
             </div>
           ))}

@@ -1,14 +1,13 @@
-import { action } from '@storybook/addon-actions';
-import { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
-import { Button } from '../../../atoms';
-import { MockupJukiProvider } from '../../../mockup';
-import { NewVersionAvailableModal as NewVersionAvailableModalCmp } from './NewVersionAvailableModal';
+import { action } from "@storybook/addon-actions";
+import { Meta, StoryObj } from "@storybook/react";
+import React, { useState } from "react";
+import { Button } from "../../../atoms";
+import { MockupJukiProvider } from "../../../mockup";
+import { NewVersionAvailableModal as NewVersionAvailableModalCmp } from "./NewVersionAvailableModal";
 
 export const NewVersionAvailableModal = () => {
-  
-  const [ open, setOpen ] = useState(false);
-  
+  const [open, setOpen] = useState(false);
+
   return (
     <MockupJukiProvider>
       <NewVersionAvailableModalCmp
@@ -16,7 +15,7 @@ export const NewVersionAvailableModal = () => {
         onClose={() => setOpen(false)}
         newVersion="2"
         previousVersion="1"
-        reload={() => action('reload')}
+        reload={() => action("reload")}
       />
       <Button onClick={() => setOpen(true)}>open</Button>
     </MockupJukiProvider>
@@ -32,7 +31,5 @@ export default meta;
 type Story = StoryObj<typeof NewVersionAvailableModalCmp>;
 
 export const Regular: Story = {
-  render: (args) => (
-    <NewVersionAvailableModal />
-  ),
+  render: (args) => <NewVersionAvailableModal />,
 };

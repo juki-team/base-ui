@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { MockupJukiProvider } from '../../mockup';
+import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { MockupJukiProvider } from "../../mockup";
 
-import { Div } from './Div';
+import { Div } from "./Div";
 
 const meta: Meta<typeof Div> = {
   component: Div,

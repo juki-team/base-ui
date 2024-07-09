@@ -1,4 +1,3 @@
-import { VirtualItem } from '@tanstack/react-virtual';
 import React, { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
@@ -76,8 +75,8 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   const isDisabled = disabled || !onChangeRef.current;
   const containerWidth = widthLabels * (12 + 5) + 35;
   
-  const renderRow = useCallback((virtualItem: VirtualItem) => {
-    const option = filteredOptions[virtualItem.index];
+  const renderRow = useCallback((index: number) => {
+    const option = filteredOptions[index];
     const value = JSON.stringify(option.value);
     const selected = selectedOptions.some(optionSelected => value === JSON.stringify(optionSelected.value));
     const disabled = !!option.disabled;

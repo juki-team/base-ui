@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { MockupJukiProvider } from '../../mockup';
+import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { MockupJukiProvider } from "../../mockup";
 
-import { LoaderLayer } from './LoaderLayer';
+import { LoaderLayer } from "./LoaderLayer";
 
 const meta: Meta<typeof LoaderLayer> = {
   component: LoaderLayer,

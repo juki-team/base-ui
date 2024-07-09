@@ -43,12 +43,11 @@ export interface RowVirtualizerFixedProps<T> {
   data: T[],
   headers: TableHeadersWithWidthType<T>[],
   rowHeight: number,
-  scrollLeft: number,
+  scroll: Scroll,
   getRecordKey?: GetRecordKeyType<T>,
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
-  setScrollLeft: Dispatch<SetStateAction<number>>,
-  setScrollTop: Dispatch<SetStateAction<number>>,
+  setScroll: Dispatch<SetStateAction<Scroll>>,
   onRecordClick?: OnRecordClickType<T>,
   setRecordHoveredIndex: SetRecordHoveredIndexType,
   recordHoveredIndex: RecordHoveredIndexType,
@@ -332,8 +331,7 @@ export interface TableHeadProps<T> {
   headerWidths: HeaderWidthsType,
   headers: TableHeadersWithWidthType<T>[],
   setHeaderWidths: Dispatch<HeaderWidthsType>,
-  scrollLeft: number,
-  scrollTop: number,
+  scroll: Scroll,
   loading: boolean,
 }
 
@@ -408,4 +406,11 @@ export interface PagedDataViewerProps<T, V = T> {
   onRecordClick?: OnRecordClickType<T>,
   getRecordStyle?: GetRecordStyleType<T>;
   dependencies?: any[],
+}
+
+export interface Scroll {
+  left: number,
+  right: number,
+  top: number,
+  bottom: number,
 }

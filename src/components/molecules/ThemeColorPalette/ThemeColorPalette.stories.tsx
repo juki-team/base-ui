@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { MockupJukiProvider } from '../../mockup';
-import { ThemeColorPalette } from './ThemeColorPalette';
+import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { MockupJukiProvider } from "../../mockup";
+import { ThemeColorPalette } from "./ThemeColorPalette";
 
 const meta: Meta<typeof ThemeColorPalette> = {
   component: ThemeColorPalette,

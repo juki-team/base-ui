@@ -1,4 +1,4 @@
-import { useVirtualizer, VirtualItem } from '@tanstack/react-virtual';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import React, {
   Children,
   CSSProperties,
@@ -20,14 +20,14 @@ interface VirtualizedRowsFixedProps<T> {
   rowClassName?: string,
   size: number,
   classNameRows?: string
-  getRecordKey: (virtualItem: VirtualItem) => string,
-  getRowStyle: (virtualItem: VirtualItem) => CSSProperties,
-  getRowClassName: (virtualItem: VirtualItem) => string,
+  getRecordKey?: (index: number) => string,
+  getRowStyle: (index: number) => CSSProperties,
+  getRowClassName: (index: number) => string,
   parentRef: RefObject<HTMLDivElement>
   style: CSSProperties,
   recordHoveredIndex: number | null,
   setRecordHoveredIndex: Dispatch<SetStateAction<number | null>>,
-  onRowClick: (virtualItem: VirtualItem) => void,
+  onRowClick: (index: number) => void,
   headers: TableHeadersWithWidthType<T>[],
   data: T[],
 }
@@ -39,7 +39,7 @@ export const RowListVirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProp
     size,
     classNameRows,
     rowClassName,
-    getRecordKey = (virtualItem) => virtualItem.index.toString(),
+    getRecordKey,
     parentRef,
     style,
     recordHoveredIndex,
@@ -56,13 +56,12 @@ export const RowListVirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProp
     estimateSize: useCallback(() => rowHeight, [ rowHeight ]),
     overscan: 2,
     getScrollElement: () => parentRef.current,
+    getItemKey: getRecordKey,
   });
   
   const [ _, setRender ] = useState(Date.now());
   
   useEffect(() => setRender(Date.now()), [ size ]);
-  
-  console.log(rowVirtualizer.getVirtualItems());
   
   return (
     
@@ -72,9 +71,9 @@ export const RowListVirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProp
     >
       {rowVirtualizer.getVirtualItems().map(virtualRow => (
           <div
-            key={getRecordKey(virtualRow)}
+            key={virtualRow.key}
             style={{
-              ...getRowStyle(virtualRow),
+              ...getRowStyle(virtualRow.index),
               position: 'absolute',
               top: 0,
               left: 0,
@@ -82,17 +81,17 @@ export const RowListVirtualizedRowsFixed = <T, >(props: VirtualizedRowsFixedProp
               height: `${virtualRow.size}px`,
               transform: `translateY(${virtualRow.start}px)`,
             }}
-            className={classNames(rowClassName || '', getRowClassName(virtualRow), { 'hovered': recordHoveredIndex === virtualRow.index })}
+            className={classNames(rowClassName || '', getRowClassName(virtualRow.index), { 'hovered': recordHoveredIndex === virtualRow.index })}
             onMouseEnter={() => setRecordHoveredIndex(virtualRow.index)}
             onMouseLeave={() => setRecordHoveredIndex(null)}
-            onClick={() => onRowClick(virtualRow)}
+            onClick={() => onRowClick(virtualRow.index)}
           >
-            {}
+            {/*<div>Row {virtualRow.index}</div>*/}
             {Children.toArray(headers.map(({ Field, index: columnIndex, width }) => (
               <div
-                key={getRecordKey(virtualRow) + '_' + columnIndex}
+                key={virtualRow.key + '_' + columnIndex}
                 style={{ width: width + 'px' }}
-                data-testid={getRecordKey(virtualRow) + '_' + columnIndex}
+                data-testid={virtualRow.key + '_' + columnIndex}
               >
                 <Field
                   record={data[virtualRow.index]}
@@ -115,9 +114,8 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     data,
     headers,
     rowHeight,
-    scrollLeft,
-    setScrollLeft,
-    setScrollTop,
+    scroll,
+    setScroll,
     getRecordStyle,
     getRecordClassName,
     getRecordKey,
@@ -138,36 +136,42 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       style={{ height: '100%', overflow: 'auto' }}
       className={classNames('jk-table-rows-container')}
       onScroll={({ currentTarget }: SyntheticEvent<HTMLDivElement>) => {
-        setScrollLeft(currentTarget.scrollLeft || 0);
-        setScrollTop(currentTarget.scrollTop || 0);
+        const scrollLeft = currentTarget.scrollLeft || 0;
+        const scrollTop = currentTarget.scrollTop || 0;
+        setScroll({
+          bottom: currentTarget.scrollHeight - currentTarget.clientHeight - scrollTop,
+          top: scrollTop,
+          left: scrollLeft,
+          right: currentTarget.scrollWidth - currentTarget.clientWidth - scrollLeft,
+        });
       }}
     >
       <RowListVirtualizedRowsFixed
         size={data.length}
         rowHeight={rowHeight}
-        classNameRows={classNames('jk-table-rows-box sticky', { 'elevation-1': !!scrollLeft })}
+        classNameRows={classNames('jk-table-rows-box sticky', { 'elevation-1': !!scroll.left })}
         rowClassName="jk-table-row"
         parentRef={parentRef}
-        getRecordKey={(virtualItem) => getRecordKey?.({
+        getRecordKey={getRecordKey ? (index) => getRecordKey({
           data,
-          index: virtualItem.index,
-        }) ?? virtualItem.index.toString()}
-        getRowClassName={(virtualItem) => getRecordClassName?.({
+          index,
+        }) : undefined}
+        getRowClassName={(index) => getRecordClassName?.({
           data,
-          index: virtualItem.index,
+          index,
           isCard: false,
           isStickySection: true,
         }) || ''}
-        getRowStyle={(virtualItem) => getRecordStyle?.({
+        getRowStyle={(index) => getRecordStyle?.({
           data,
-          index: virtualItem.index,
+          index,
           isCard: false,
           isStickySection: true,
         }) || {}}
         headers={headersSticky}
         data={data}
         style={{ minWidth: headersStickyWidth }}
-        onRowClick={(virtualItem) => onRecordClick?.({ data, index: virtualItem.index, isCard: false })}
+        onRowClick={index => onRecordClick?.({ data, index, isCard: false })}
         recordHoveredIndex={recordHoveredIndex}
         setRecordHoveredIndex={setRecordHoveredIndex}
       />
@@ -178,26 +182,26 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
           classNameRows="jk-table-rows-box"
           rowClassName="jk-table-row"
           parentRef={parentRef}
-          getRecordKey={(virtualItem) => getRecordKey?.({
+          getRecordKey={getRecordKey ? (index) => getRecordKey({
             data,
-            index: virtualItem.index,
-          }) ?? virtualItem.index.toString()}
-          getRowClassName={(virtualItem) => getRecordClassName?.({
+            index,
+          }) : undefined}
+          getRowClassName={(index) => getRecordClassName?.({
             data,
-            index: virtualItem.index,
+            index,
             isCard: false,
             isStickySection: false,
           }) || ''}
-          getRowStyle={(virtualItem) => getRecordStyle?.({
+          getRowStyle={(index) => getRecordStyle?.({
             data,
-            index: virtualItem.index,
+            index,
             isCard: false,
             isStickySection: false,
           }) || {}}
           headers={headersNoSticky}
           data={data}
           style={{ minWidth: headersNoSticky.reduce((sum, head) => sum + head.width, 0) }}
-          onRowClick={(virtualItem) => onRecordClick?.({ data, index: virtualItem.index, isCard: false })}
+          onRowClick={index => onRecordClick?.({ data, index, isCard: false })}
           recordHoveredIndex={recordHoveredIndex}
           setRecordHoveredIndex={setRecordHoveredIndex}
         />
@@ -205,3 +209,9 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     </div>
   );
 };
+// , (prevProps, nextProps) => {
+//   // rowHeight: number,
+//   //   scrollLeft: number,
+//   // recordHoveredIndex
+//   return prevProps.data === nextProps.data && prevProps.headers === nextProps.headers;
+// });

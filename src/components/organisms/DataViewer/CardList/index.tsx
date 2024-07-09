@@ -31,8 +31,10 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
     estimateSize: useCallback(() => cardHeight + 40, [ cardHeight ]),
     overscan: 2,
   });
-  const scrollOnTop = rowVirtualizer.scrollOffset === 0;
-  const scrollOnBottom = rowVirtualizer.scrollOffset + (parentRef.current?.clientHeight || 0) >= rowVirtualizer.getTotalSize();
+  
+  const scrollOffset = rowVirtualizer.scrollOffset ?? 0;
+  const scrollOnTop = scrollOffset === 0;
+  const scrollOnBottom = scrollOffset + (parentRef.current?.clientHeight || 0) >= rowVirtualizer.getTotalSize();
   
   let finalWidth = Math.min(cardWidth, rowWidth - gap - gap);
   if (expandedCards) {

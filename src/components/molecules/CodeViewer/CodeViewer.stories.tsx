@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
-import { CodeViewer } from './CodeViewer';
+import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { MockupToggleThemeButton } from "../../mockup/MockupToggleThemeButton";
+import { CodeViewer } from "./CodeViewer";
 
 const codeTemplate = `
 #include <bits/stdc++.h>

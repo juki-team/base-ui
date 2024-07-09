@@ -84,7 +84,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
 
 const TableHeadCmp = <T, >(props: TableHeadProps<T>, ref: Ref<HTMLDivElement>) => {
   
-  const { headers, headerWidths, setHeaderWidths, scrollLeft, scrollTop, loading } = props;
+  const { headers, headerWidths, setHeaderWidths, scroll, loading } = props;
   
   const [ dragging, setDragging ] = useState({ columnIndex: '', nextColumnIndex: '' });
   
@@ -141,9 +141,9 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>, ref: Ref<HTMLDivElement>) =
   const headersNoSticky = headers.filter(({ sticky }) => !sticky);
   
   return (
-    <div className={classNames('jk-table-head-container', { withVerticalScroll: !!scrollTop })} ref={ref}>
+    <div className={classNames('jk-table-head-container', { withVerticalScroll: !!scroll.top })} ref={ref}>
       <div className="jk-table-head" onMouseLeave={onMouseHoldUp}>
-        <div className={classNames('jk-table-head-sticky', { 'elevation-1': !!scrollLeft })}>
+        <div className={classNames('jk-table-head-sticky', { 'elevation-1': !!scroll.left })}>
           {Children.toArray(headersSticky.map((head, index) => (
             <RenderHeader
               head={head}
@@ -159,7 +159,7 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>, ref: Ref<HTMLDivElement>) =
         <div
           className="jk-table-head-no-sticky"
           style={{
-            marginLeft: -scrollLeft,
+            marginLeft: -scroll.left,
             minWidth: headersNoSticky.reduce((sum, head) => sum + head.width, 0),
           }}
         >

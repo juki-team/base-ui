@@ -1,8 +1,14 @@
-import { Judge, ProblemScoringMode, ProblemStatus, ProblemType, ProgrammingLanguage } from '@juki-team/commons';
-import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { MockupJukiProvider } from '../../mockup';
-import { ProblemView } from './ProblemView';
+import {
+  EntityAccess,
+  Judge,
+  ProblemScoringMode,
+  ProblemType,
+  ProgrammingLanguage,
+} from "@juki-team/commons";
+import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { MockupJukiProvider } from "../../mockup";
+import { ProblemView } from "./ProblemView";
 
 const meta: Meta<typeof ProblemView> = {
   component: ProblemView,
@@ -16,7 +22,7 @@ export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
       <div className="jk-col gap">
-        <div style={{ width: '100%', height: 600 }}>
+        <div style={{ width: "100%", height: 600 }}>
           <ProblemView {...args} />
         </div>
       </div>
@@ -26,89 +32,95 @@ export const Regular: Story = {
 
 Regular.args = {
   problem: {
-    'name': 'B + A',
+    name: "B + A",
     judge: Judge.JUKI_JUDGE,
-    'author': '',
-    'key': '1000',
-    'ownerNickname': 'OscarGauss',
-    'statement': {
-      'description': {
-        'ES': 'La tarea es sumar dos números.',
-        'EN': '',
+    author: "",
+    key: "1000",
+    ownerNickname: "OscarGauss",
+    statement: {
+      description: {
+        ES: "La tarea es sumar dos números.",
+        EN: "",
       },
-      'input': {
-        'ES': 'Se te daran dos numeros enteros a y b, ($-100000 \\leq a, b \\leq 100000$).',
-        'EN': '',
+      input: {
+        ES: "Se te daran dos numeros enteros a y b, ($-100000 \\leq a, b \\leq 100000$).",
+        EN: "",
       },
-      'output': {
-        'ES': 'Debes imprimir la suma de los numeros enteros de la entrada',
-        'EN': '',
+      output: {
+        ES: "Debes imprimir la suma de los numeros enteros de la entrada",
+        EN: "",
       },
-      'sampleCases': [
+      sampleCases: [
         {
-          'input': '1 3',
-          'output': '4\n',
+          input: "1 3",
+          output: "4\n",
         },
         {
-          'input': '4 -1',
-          'output': '3\n',
+          input: "4 -1",
+          output: "3\n",
         },
         {
-          'input': '1012 -1012',
-          'output': '0\n',
+          input: "1012 -1012",
+          output: "0\n",
         },
       ],
-      'note': {
-        'ES': '',
-        'EN': '',
+      note: {
+        ES: "",
+        EN: "",
       },
-      'html': {
-        'ES': '',
-        'EN': '',
+      html: {
+        ES: "",
+        EN: "",
       },
     },
-    'editorial': {
-      'ES': '  ',
-      'EN': '',
+    editorial: {
+      ES: "  ",
+      EN: "",
     },
-    status: ProblemStatus.PUBLIC,
-    'tags': [
-      'new',
-    ],
-    'settings': {
-      'timeLimit': 10000,
-      'memoryLimit': 512000,
-      'withPE': true,
-      'type': ProblemType.STANDARD,
-      'mode': ProblemScoringMode.TOTAL,
-      'byProgrammingLanguage': {
-        'C': {
-          'language': ProgrammingLanguage.C,
-          'timeLimit': 10000,
-          'memoryLimit': 512000,
+    tags: ["new"],
+    settings: {
+      timeLimit: 10000,
+      memoryLimit: 512000,
+      withPE: true,
+      type: ProblemType.STANDARD,
+      mode: ProblemScoringMode.TOTAL,
+      byProgrammingLanguage: {
+        C: {
+          language: ProgrammingLanguage.C,
+          timeLimit: 10000,
+          memoryLimit: 512000,
         },
       },
-      'pointsByGroups': {
-        '0': {
-          'group': 0,
-          'points': 0,
-          'partial': 0,
-          'description': {
-            'ES': '',
-            'EN': '',
+      pointsByGroups: {
+        "0": {
+          group: 0,
+          points: 0,
+          partial: 0,
+          description: {
+            ES: "",
+            EN: "",
           },
         },
       },
-      'evaluatorSource': '',
+      evaluatorSource: "",
     },
-    'user': {
-      'isEditor': true,
-      'solved': true,
-      'tried': true,
+    members: {
+      access: EntityAccess.PUBLIC,
+      managers: {},
+      spectators: {},
+    },
+    companyKey: "juki-app",
+    user: {
+      isOwner: true,
+      isSpectator: true,
+      isManager: true,
+      solved: true,
+      tried: true,
     },
     owner: {
-      nickname: 'OscarGauss',
-      imageUrl: '',
+      companyKey: "",
+      nickname: "OscarGauss",
+      imageUrl: "",
     },
   },
 };

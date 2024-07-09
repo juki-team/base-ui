@@ -173,7 +173,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
                 );
               })}
             </div>
-            <div className="jk-row-col space-between right buttons">
+            <div className="jk-row-col space-between gap block buttons">
               <Button
                 type="light"
                 size="small"

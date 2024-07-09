@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { MockupJukiProvider } from '../../mockup';
-import { ResetPasswordModal } from './ResetPasswordModal';
+import type { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { MockupJukiProvider } from "../../mockup";
+import { ResetPasswordModal } from "./ResetPasswordModal";
 
 const meta: Meta<typeof ResetPasswordModal> = {
   component: ResetPasswordModal,
@@ -22,5 +22,5 @@ export const Regular: Story = {
 };
 
 Regular.args = {
-  nickname: 'fakeuser',
-}
+  nickname: "fakeuser",
+};

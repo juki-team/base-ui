@@ -1,7 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { MdMathViewer, SAMPLE_MD_CONTENT } from '../../../../index';
-import { MockupJukiProvider } from '../../../mockup';
+import { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { MdMathViewer, SAMPLE_MD_CONTENT } from "../../../../index";
+import { MockupJukiProvider } from "../../../mockup";
 
 const meta: Meta<typeof MdMathViewer> = {
   component: MdMathViewer,

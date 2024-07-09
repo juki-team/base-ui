@@ -9,7 +9,7 @@ import { CardRowVirtualizerFixed } from './CardList';
 import { DataViewerToolbar } from './DataViewerToolbar';
 import { RowVirtualizerFixed } from './RowList/RowVirtualizerFixed';
 import { TableHead } from './RowList/TableHead';
-import { DisplayDataViewerProps, HeaderWidthsType, TableHeadersType, TableHeadersWithWidthType } from './types';
+import { DisplayDataViewerProps, HeaderWidthsType, Scroll, TableHeadersType, TableHeadersWithWidthType } from './types';
 
 const minCellWidth = 100;
 
@@ -50,8 +50,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   const [ headerWidths, setHeaderWidths ] = useState<HeaderWidthsType>({});
   const prevSizeWidth = usePrevious(viewContainerWidth);
   const prevHeaders = useRef(JSON.stringify(headersMinWidth(headers)));
-  const [ scrollLeft, setScrollLeft ] = useState(0);
-  const [ scrollTop, setScrollTop ] = useState(0);
+  const [ scroll, setScroll ] = useState<Scroll>({ left: 0, right: 0, top: 0, bottom: 0 });
   const { height = 0, ref } = useResizeDetector();
   
   useEffect(() => {
@@ -82,6 +81,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     && (extraNodes.length === 0 ? true : extraNodesFloating)
     && !viewViews);
   
+  console.log({ scroll });
   return (
     <div
       className="jk-data-viewer-content jk-br-ie"
@@ -133,8 +133,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
               });
               setHeaderWidths(newHeaderWidths);
             }}
-            scrollLeft={scrollLeft}
-            scrollTop={scrollTop}
+            scroll={scroll}
             loading={loading}
             ref={ref}
           />
@@ -147,9 +146,8 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
                 data={data}
                 headers={tableHeaders}
                 rowHeight={rowHeight}
-                scrollLeft={scrollLeft}
-                setScrollLeft={setScrollLeft}
-                setScrollTop={setScrollTop}
+                scroll={scroll}
+                setScroll={setScroll}
                 getRecordKey={getRecordKey}
                 recordHoveredIndex={recordHoveredIndex}
                 setRecordHoveredIndex={setRecordHoveredIndex}
@@ -158,6 +156,36 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
                 onRecordClick={onRecordClick}
               />
             </LoaderLayer>
+            {!!scroll.right && (
+              <div
+                className="elevation-2"
+                style={{
+                  height: '100%',
+                  width: 1,
+                  position: 'absolute',
+                  right: -1,
+                  top: 0,
+                  zIndex: 3,
+                  background: 'transparent',
+                  pointerEvents: 'none',
+                }}
+              />
+            )}
+            {!!scroll.bottom && (
+              <div
+                className="elevation-2"
+                style={{
+                  width: '100%',
+                  height: 1,
+                  position: 'absolute',
+                  left: 0,
+                  bottom: -1,
+                  zIndex: 3,
+                  background: 'transparent',
+                  pointerEvents: 'none',
+                }}
+              />
+            )}
           </div>
         ) : (
           <div

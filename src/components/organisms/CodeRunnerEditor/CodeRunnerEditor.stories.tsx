@@ -1,8 +1,12 @@
-import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
-import { Meta, StoryObj } from '@storybook/react';
-import React, { useState } from 'react';
-import { CodeRunnerEditor, CodeRunnerEditorPropertiesType, CodeRunnerEditorProps } from '../../../index';
-import { MockupJukiProvider } from '../../mockup';
+import { ProgrammingLanguage, SubmissionRunStatus } from "@juki-team/commons";
+import { Meta, StoryObj } from "@storybook/react";
+import React, { useState } from "react";
+import {
+  CodeRunnerEditor,
+  CodeRunnerEditorPropertiesType,
+  CodeRunnerEditorProps,
+} from "../../../index";
+import { MockupJukiProvider } from "../../mockup";
 
 const meta: Meta<typeof CodeRunnerEditor> = {
   component: CodeRunnerEditor,
@@ -37,30 +41,33 @@ int main() {
 }`;
 
 const Template = (args: CodeRunnerEditorProps<string>) => {
-  
-  const [ props, setProps ] = useState<CodeRunnerEditorPropertiesType<ProgrammingLanguage> & {
-    language: string,
-    sourceCode: string
-  }>({
+  const [props, setProps] = useState<
+    CodeRunnerEditorPropertiesType<ProgrammingLanguage> & {
+      language: string;
+      sourceCode: string;
+    }
+  >({
     language: ProgrammingLanguage.JAVASCRIPT,
     sourceCode: sourceCode,
   });
-  
+
   return (
     <MockupJukiProvider>
-      <div style={{ height: '500px' }}>
+      <div style={{ height: "500px" }}>
         <CodeRunnerEditor
           {...args}
           {...props}
           onChange={(props: any) => {
-            setProps(prevState => ({ ...prevState, ...props }));
+            setProps((prevState) => ({ ...prevState, ...props }));
           }}
-          centerButtons={({ widthContainer }) => <div>width:{widthContainer}</div>}
+          centerButtons={({ widthContainer }) => (
+            <div>width:{widthContainer}</div>
+          )}
           expandPosition={{
-            width: '800px',
-            height: '800px',
-            top: '50px',
-            left: '50px',
+            width: "800px",
+            height: "800px",
+            top: "50px",
+            left: "50px",
           }}
         />
       </div>
@@ -73,9 +80,7 @@ export default meta;
 type Story = StoryObj<typeof CodeRunnerEditor<string>>;
 
 export const CodeRunnerEditorNormal: Story = {
-  render: (args) => (
-    <Template {...args} />
-  ),
+  render: (args) => <Template {...args} />,
 };
 
 CodeRunnerEditorNormal.args = {
@@ -86,9 +91,7 @@ CodeRunnerEditorNormal.args = {
 };
 
 export const CodeRunnerEditorWithIo: Story = {
-  render: (args) => (
-    <Template {...args} />
-  ),
+  render: (args) => <Template {...args} />,
 };
 
 CodeRunnerEditorWithIo.args = {
@@ -96,28 +99,28 @@ CodeRunnerEditorWithIo.args = {
   // enableAddSampleCases: true,
   enableAddCustomSampleCases: true,
   testCases: {
-    'test-empty': {
-      key: 'test-empty',
+    "test-empty": {
+      key: "test-empty",
       index: 0,
-      in: '3\n1 2 -9 9 -19 8',
-      out: '',
-      testOut: '3\n0\n-11\n',
+      in: "3\n1 2 -9 9 -19 8",
+      out: "",
+      testOut: "3\n0\n-11\n",
       withPE: true,
-      err: '',
-      log: '',
+      err: "",
+      log: "",
       sample: true,
       hidden: false,
       status: SubmissionRunStatus.NONE,
     },
-    'test-empty-1': {
-      key: 'test-empty-1',
+    "test-empty-1": {
+      key: "test-empty-1",
       index: 1,
-      in: '5\n1 2\n-9 9\n-19 8\n0 0\n1 1',
-      out: '',
-      testOut: '3\n0\n-11\n0\n2\n',
+      in: "5\n1 2\n-9 9\n-19 8\n0 0\n1 1",
+      out: "",
+      testOut: "3\n0\n-11\n0\n2\n",
       withPE: true,
-      err: '',
-      log: '',
+      err: "",
+      log: "",
       sample: true,
       hidden: false,
       status: SubmissionRunStatus.NONE,
@@ -126,9 +129,7 @@ CodeRunnerEditorWithIo.args = {
 };
 
 export const CodeRunnerEditorWithCustomLanguages: Story = {
-  render: (args) => (
-    <Template {...args} />
-  ),
+  render: (args) => <Template {...args} />,
 };
 
 CodeRunnerEditorWithCustomLanguages.args = {
@@ -136,12 +137,13 @@ CodeRunnerEditorWithCustomLanguages.args = {
   enableAddCustomSampleCases: true,
   enableAddSampleCases: true,
   testCases: {
-    'test-empty': {
-      key: 'test-empty',
+    "test-empty": {
+      key: "test-empty",
       index: 0,
-      in: '4\n2\n24242\n',
-      out: '5\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 1',
-      testOut: '5\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 1',
+      in: "4\n2\n24242\n",
+      out: "5\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 1",
+      testOut:
+        "5\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 15\n1 2\n-9 9\n-19 8\n0 0\n1 1",
       withPE: true,
       err: `int main() {
     int n, a, b;
@@ -154,14 +156,14 @@ CodeRunnerEditorWithCustomLanguages.args = {
         cin >> a >> b;
         cout << a + b << "\\n";
     }`,
-      log: '',
+      log: "",
       sample: true,
       hidden: false,
       status: SubmissionRunStatus.NONE,
     },
   },
   languages: [
-    { value: '43', label: 'GNU GCC C11 5.1.0' },
-    { value: '65', label: 'C# 8, .NET Core 3.1' },
+    { value: "43", label: "GNU GCC C11 5.1.0" },
+    { value: "65", label: "C# 8, .NET Core 3.1" },
   ],
 };

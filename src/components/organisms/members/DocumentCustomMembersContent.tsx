@@ -60,7 +60,6 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
     spectators,
   } = props;
   const { company: { key: companyKey } } = useJukiUser();
-  console.log({ members });
   
   useEffect(() => {
     setMembers(prevState => {

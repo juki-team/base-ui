@@ -1,6 +1,7 @@
-import { action, configureActions } from '@storybook/addon-actions';
-import { Story } from '@storybook/react';
+import { configureActions } from '@storybook/addon-actions';
+import { type Meta, type StoryObj } from '@storybook/react';
 import React from 'react';
+import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
 import {
   AppsIcon,
@@ -11,7 +12,6 @@ import {
   DragIndicatorIcon,
   FacebookIcon,
   FileDoneIcon,
-  IconProps,
   LayoutIcon,
   MessagePlusIcon,
   MessageQuestionIcon,
@@ -22,18 +22,18 @@ import {
   ZoomInIcon,
   ZoomOutIcon,
 } from '../../index';
-import { MockupToggleThemeButton } from '../../components/mockup/MockupToggleThemeButton';
 
-export default {
-  title: 'Components/General/Icons',
+
+const meta: Meta<typeof AppsIcon> = {
+  component: AppsIcon,
   argTypes: {
-    color: {
-      control: {
-        type: 'color',
-      },
-    },
+    // color: {
+    //   control: {
+    //     type: 'color',
+    //   },
+    // },
     size: {
-      options: ['huge', 'large', 'regular', 'small', 'tiny'],
+      options: [ 'huge', 'large', 'regular', 'small', 'tiny' ],
       control: {
         type: 'select',
         labels: {
@@ -45,30 +45,30 @@ export default {
         },
       },
     },
-    circle: {
-      control: {
-        type: 'boolean',
-        // value: false,
-      },
-    },
-    square: {
-      control: {
-        type: 'boolean',
-        // value: false,
-      },
-    },
-    filled: {
-      control: {
-        type: 'boolean',
-        // value: false,
-      },
-    },
-    rotate: {
-      control: {
-        type: 'number',
-        value: 0,
-      },
-    },
+    // circle: {
+    //   control: {
+    //     type: 'boolean',
+    //     // value: false,
+    //   },
+    // },
+    // square: {
+    //   control: {
+    //     type: 'boolean',
+    //     // value: false,
+    //   },
+    // },
+    // filled: {
+    //   control: {
+    //     type: 'boolean',
+    //     // value: false,
+    //   },
+    // },
+    // rotate: {
+    //   control: {
+    //     type: 'number',
+    //     value: 0,
+    //   },
+    // },
     onClick: {},
     style: {},
     className: {
@@ -79,106 +79,148 @@ export default {
   },
 };
 
+export default meta;
+
+type Story = StoryObj<typeof AppsIcon>;
+
 configureActions({
   depth: 100,
   // Limit the number of items logged into the actions panel
   limit: 20,
 });
 
-export const Icons: Story<IconProps> = ({ ...props }) => {
-  return (
+export const Regular: Story = {
+  render: (props) => (
     <>
       <table style={{ color: 'green' }}>
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Icon</th>
-          </tr>
+        <tr>
+          <th>Name</th>
+          <th>Icon</th>
+        </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>AppsIcon</td>
-            <td><AppsIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>AppstoreIcon</td>
-            <td><AppstoreIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>BalloonIcon 20%</td>
-            <td><BalloonIcon {...props} percent={20} /></td>
-          </tr>
-          <tr>
-            <td>BalloonIcon 60%</td>
-            <td><BalloonIcon {...props} percent={60} /></td>
-          </tr>
-          <tr>
-            <td>BalloonIcon 90%</td>
-            <td><BalloonIcon {...props} percent={90} /></td>
-          </tr>
-          <tr>
-            <td>CaretLeftIcon</td>
-            <td><CaretLeftIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>DoubleArrowIcon</td>
-            <td><DoubleArrowIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>DragIndicatorIcon</td>
-            <td><DragIndicatorIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>FacebookIcon</td>
-            <td><FacebookIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>FileDoneIcon</td>
-            <td><FileDoneIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>LayoutIcon</td>
-            <td><LayoutIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>MessagePlusIcon</td>
-            <td><MessagePlusIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>MessageQuestionIcon</td>
-            <td><MessageQuestionIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>NoteIcon</td>
-            <td><NoteIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>NoteCodeIcon</td>
-            <td><NoteCodeIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>ReadIcon</td>
-            <td><ReadIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>UploadIcon</td>
-            <td><UploadIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>ZoomInIcon</td>
-            <td><ZoomInIcon {...props} /></td>
-          </tr>
-          <tr>
-            <td>ZoomOutIcon</td>
-            <td><ZoomOutIcon {...props} /></td>
-          </tr>
+        <tr>
+          <td>AppsIcon</td>
+          <td>
+            <AppsIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>AppstoreIcon</td>
+          <td>
+            <AppstoreIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>BalloonIcon 20%</td>
+          <td>
+            <BalloonIcon {...props} percent={20} />
+          </td>
+        </tr>
+        <tr>
+          <td>BalloonIcon 60%</td>
+          <td>
+            <BalloonIcon {...props} percent={60} />
+          </td>
+        </tr>
+        <tr>
+          <td>BalloonIcon 90%</td>
+          <td>
+            <BalloonIcon {...props} percent={90} />
+          </td>
+        </tr>
+        <tr>
+          <td>CaretLeftIcon</td>
+          <td>
+            <CaretLeftIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>DoubleArrowIcon</td>
+          <td>
+            <DoubleArrowIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>DragIndicatorIcon</td>
+          <td>
+            <DragIndicatorIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>FacebookIcon</td>
+          <td>
+            <FacebookIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>FileDoneIcon</td>
+          <td>
+            <FileDoneIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>LayoutIcon</td>
+          <td>
+            <LayoutIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>MessagePlusIcon</td>
+          <td>
+            <MessagePlusIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>MessageQuestionIcon</td>
+          <td>
+            <MessageQuestionIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>NoteIcon</td>
+          <td>
+            <NoteIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>NoteCodeIcon</td>
+          <td>
+            <NoteCodeIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>ReadIcon</td>
+          <td>
+            <ReadIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>UploadIcon</td>
+          <td>
+            <UploadIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>ZoomInIcon</td>
+          <td>
+            <ZoomInIcon {...props} />
+          </td>
+        </tr>
+        <tr>
+          <td>ZoomOutIcon</td>
+          <td>
+            <ZoomOutIcon {...props} />
+          </td>
+        </tr>
         </tbody>
       </table>
       <MockupToggleThemeButton />
     </>
-  );
+  ),
 };
 
-Icons.args = {
-  onClick: action('onClick'),
-};
+// Icons.args = {
+//   onClick: action("onClick"),
+// };

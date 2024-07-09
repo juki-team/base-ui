@@ -1,7 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { MockupJukiProvider } from '../../mockup';
-import { TwoContentLayout as TwoContentLayoutComponent } from './TwoContentLayout';
+import { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { MockupJukiProvider } from "../../mockup";
+import { TwoContentLayout as TwoContentLayoutComponent } from "./TwoContentLayout";
 
 const meta: Meta<typeof TwoContentLayoutComponent> = {
   component: TwoContentLayoutComponent,

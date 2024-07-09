@@ -1,7 +1,7 @@
-import { action } from '@storybook/addon-actions';
-import { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
-import { MockupJukiProvider } from '../../mockup';
+import { action } from "@storybook/addon-actions";
+import { Meta, StoryObj } from "@storybook/react";
+import React from "react";
+import { MockupJukiProvider } from "../../mockup";
 
 import {
   FlagEnImage,
@@ -16,7 +16,7 @@ import {
   JukiLaptopImage,
   JukiSurprisedImage,
   JukiUtilsLogoHorImage,
-} from './';
+} from "./";
 
 const meta: Meta<typeof FlagEnImage> = {
   component: FlagEnImage,
@@ -28,7 +28,6 @@ type Story = StoryObj<typeof FlagEnImage>;
 
 export const Regular: Story = {
   render: (args) => {
-    
     const images = {
       FlagEnImage,
       FlagEsImage,
@@ -43,16 +42,25 @@ export const Regular: Story = {
       JukiUtilsLogoHorImage,
       JukiSurprisedImage,
     };
-    
+
     return (
       <MockupJukiProvider>
-        <div style={{ color: '#164066', backgroundColor: '#F0F2F5' }} className="jk-col">
+        <div
+          style={{ color: "#164066", backgroundColor: "#F0F2F5" }}
+          className="jk-col"
+        >
           {Object.entries(images)
-            .sort(([ iconName1 ], [ iconName2 ]) => iconName1.localeCompare(iconName2))
-            .map(([ iconName, Component ]) => (
+            .sort(([iconName1], [iconName2]) =>
+              iconName1.localeCompare(iconName2),
+            )
+            .map(([iconName, Component]) => (
               <div className="jk-row nowrap center block">
-                <div style={{ width: '200px', height: '200px' }}><Component {...args} /></div>
-                <div className="tx-t cr-g1" style={{ width: 140 }}>{iconName}</div>
+                <div style={{ width: "200px", height: "200px" }}>
+                  <Component {...args} />
+                </div>
+                <div className="tx-t cr-g1" style={{ width: 140 }}>
+                  {iconName}
+                </div>
               </div>
             ))}
         </div>
@@ -62,5 +70,5 @@ export const Regular: Story = {
 };
 
 Regular.args = {
-  onClick: action('onClick'),
-}
+  onClick: action("onClick"),
+};

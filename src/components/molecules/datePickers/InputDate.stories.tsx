@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
-import { DateLiteral } from '../../atoms';
-import { MockupJukiProvider } from '../../mockup';
-import { InputDate, TimePicker } from './';
+import React, { useState } from "react";
+import { DateLiteral } from "../../atoms";
+import { MockupJukiProvider } from "../../mockup";
+import { InputDate, TimePicker } from "./";
 
 export default {
   component: InputDate,
 };
 
 export const DatePicker = () => {
-  
-  const [ date, setDate ] = useState(new Date());
-  
+  const [date, setDate] = useState(new Date());
+
   return (
     <MockupJukiProvider>
       <div className="jk-col gap">
@@ -29,7 +28,7 @@ export const DatePicker = () => {
           date={date}
           // onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
           isDisabled={() => ({})}
-          isSelected={(() => ({}))}
+          isSelected={() => ({})}
           baseDate={date}
           onDatePick={(date) => setDate(date)}
           twoLines
@@ -43,7 +42,7 @@ export const DatePicker = () => {
           date={date}
           // onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
           isDisabled={() => ({})}
-          isSelected={(() => ({}))}
+          isSelected={() => ({})}
           baseDate={date}
           onDatePick={(date) => setDate(date)}
           twoLines
@@ -56,7 +55,7 @@ export const DatePicker = () => {
           date={date}
           // onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
           isDisabled={() => ({})}
-          isSelected={(() => ({}))}
+          isSelected={() => ({})}
           baseDate={date}
           onDatePick={(date) => setDate(date)}
           twoLines
@@ -68,7 +67,7 @@ export const DatePicker = () => {
           date={date}
           // onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
           isDisabled={() => ({})}
-          isSelected={(() => ({}))}
+          isSelected={() => ({})}
           baseDate={date}
           onDatePick={(date) => setDate(date)}
           twoLines
@@ -80,7 +79,7 @@ export const DatePicker = () => {
           date={date}
           // onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
           isDisabled={() => ({})}
-          isSelected={(() => ({}))}
+          isSelected={() => ({})}
           baseDate={date}
           onDatePick={(date) => setDate(date)}
           twoLines
@@ -92,7 +91,7 @@ export const DatePicker = () => {
           date={date}
           // onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
           isDisabled={() => ({})}
-          isSelected={(() => ({}))}
+          isSelected={() => ({})}
           baseDate={date}
           onDatePick={(date) => setDate(date)}
           twoLines
@@ -104,7 +103,7 @@ export const DatePicker = () => {
           date={date}
           // onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
           isDisabled={() => ({})}
-          isSelected={(() => ({}))}
+          isSelected={() => ({})}
           baseDate={date}
           onDatePick={(date) => setDate(date)}
           twoLines
