@@ -7,10 +7,12 @@ export const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
 export const toFilterUrl = (filter: RequestFilterType) => {
   let filterUrl = '';
   Object.entries(filter).forEach(([ key, value ]) => {
-    if (filterUrl) {
-      filterUrl += '&';
+    if (value) {
+      if (filterUrl) {
+        filterUrl += '&';
+      }
+      filterUrl += `${key}=${encodeURIComponent(value.toString())}`;
     }
-    filterUrl += `${key}=${encodeURIComponent(value.toString())}`;
   });
   return filterUrl;
 };
