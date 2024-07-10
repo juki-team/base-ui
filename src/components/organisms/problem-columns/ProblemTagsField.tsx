@@ -17,7 +17,7 @@ export const getProblemTagsHeader = (tags: string[]): DataViewerHeadersType<Prob
   Field: ProblemTagsField,
   filter: {
     type: 'select',
-    options: tags.map(tag => ({ value: tag, label: <T>tag</T> })),
+    options: tags.map(tag => ({ value: tag, label: <T>{tag}</T> })),
   } as FilterSelectOnlineType,
   cardPosition: 'lower',
   minWidth: 250,
