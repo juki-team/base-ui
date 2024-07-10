@@ -1,8 +1,9 @@
 .modal-user-preview {
   max-width: 460px;
-  min-height: 200px;
   
   .jk-modal-body {
+    min-height: 200px;
+    
     > .jk-row {
       min-height: 200px;
     }

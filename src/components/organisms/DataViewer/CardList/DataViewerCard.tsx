@@ -59,8 +59,6 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
     <div
       className={classNames('jk-list-card jk-border-radius', cardClassName)}
       style={{ ...cardStyle, width: cardWidth }}
-      // onMouseEnter={() => setRecordHoveredIndex(index)}
-      // onMouseLeave={() => setRecordHoveredIndex(null)}
       onClick={onCardClick}
     >
       <div

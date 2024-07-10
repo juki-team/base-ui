@@ -21,7 +21,7 @@ export const Field = ({ onClick, className = '', children }: FieldProps) => {
 
 export const TextField = ({ text, label, onClick, className }: TextFieldProps) => {
   return (
-    <Field className="jk-col nowrap" onClick={onClick}>
+    <Field className="text-field-container jk-col nowrap" onClick={onClick}>
       <div className={classNames('text-field jk-row', className)}>
         {text}
       </div>

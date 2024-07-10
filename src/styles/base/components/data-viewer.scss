@@ -306,6 +306,10 @@
       
       .jk-list-card-rows-container, .jk-table-rows-container {
         
+        .text-field-container {
+          padding: 2px 0;
+        }
+        
         .field, .text-field, .date-field {
           text-align: center;
         }
@@ -415,7 +419,7 @@
             }
             
             .text-field-label, .date-field-label {
-              line-height: 1.2;
+              line-height: 1;
             }
           }
         }

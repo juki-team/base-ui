@@ -107,7 +107,8 @@
   @include sm {
     flex-direction: column;
     .jk-side-secondary {
-      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      //border-radius: var(--border-radius) var(--border-radius) 0 0;
+      border-radius: 0;
     }
   }
 }

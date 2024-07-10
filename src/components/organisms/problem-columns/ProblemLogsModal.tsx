@@ -16,12 +16,12 @@ interface ProblemLogsModalProps extends BasicModalProps {
 export const ProblemLogsModal = ({ judge, problemKey, companyKey, ...restProps }: ProblemLogsModalProps) => {
   return (
     <Modal {...restProps} closeWhenClickOutside closeWhenKeyEscape closeIcon>
-      <FetcherLayer<ContentResponseType<LogDataResponseDTO[]>>
-        url={jukiSettings.API.problem.getLogs({ params: { judge, key: problemKey, companyKey } }).url}
-      >
-        {({ data }) => (
-          <div className="jk-pg">
-            <h3><T>logs of problem</T></h3>
+      <div className="jk-pg">
+        <h3><T>logs of problem</T></h3>
+        <FetcherLayer<ContentResponseType<LogDataResponseDTO[]>>
+          url={jukiSettings.API.problem.getLogs({ params: { judge, key: problemKey, companyKey } }).url}
+        >
+          {({ data }) => (
             <div>
               {data.content.map(({ timestamp, changes, customerUser }, index) => (
                 <div key={index} className="jk-col stretch jk-pg-sm-tb">
@@ -59,9 +59,9 @@ export const ProblemLogsModal = ({ judge, problemKey, companyKey, ...restProps }
                 </div>
               ))}
             </div>
-          </div>
-        )}
-      </FetcherLayer>
+          )}
+        </FetcherLayer>
+      </div>
     </Modal>
   );
 };

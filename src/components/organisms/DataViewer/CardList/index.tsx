@@ -1,5 +1,5 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import React, { Children, useCallback, useRef } from 'react';
+import React, { Children, SyntheticEvent, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { DataViewerCard } from './DataViewerCard';
 import { CardRowVirtualizerFixedProps } from './types';
@@ -21,6 +21,8 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
   } = props;
   
   const parentRef = useRef<HTMLDivElement>(null);
+  const [ borderTop, setBorderTop ] = useState(false);
+  const [ borderBottom, setBorderBottom ] = useState(false);
   const cardsByRow = Math.max(Math.floor((rowWidth - gap) / (cardWidth + gap)), 1);
   
   const rowVirtualizer = useVirtualizer({
@@ -29,10 +31,6 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
     estimateSize: useCallback(() => cardHeight + 40, [ cardHeight ]),
     overscan: 2,
   });
-  
-  const scrollOffset = rowVirtualizer.scrollOffset ?? 0;
-  const scrollOnTop = scrollOffset === 0;
-  const scrollOnBottom = scrollOffset + (parentRef.current?.clientHeight || 0) >= rowVirtualizer.getTotalSize();
   
   let finalWidth = Math.min(cardWidth, rowWidth - gap - gap);
   if (expandedCards) {
@@ -43,8 +41,13 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
     <div
       ref={parentRef}
       className={
-        classNames('jk-list-card-rows-container', { 'scroll-on-top': scrollOnTop, 'scroll-on-bottom': scrollOnBottom })
+        classNames('jk-list-card-rows-container', { 'scroll-on-top': !borderTop, 'scroll-on-bottom': !borderBottom })
       }
+      onScroll={({ currentTarget }: SyntheticEvent<HTMLDivElement>) => {
+        const scrollTop = currentTarget.scrollTop || 0;
+        setBorderBottom(!!(currentTarget.scrollHeight - currentTarget.clientHeight - scrollTop));
+        setBorderTop(!!scrollTop);
+      }}
     >
       <div className="jk-list-card-rows-box" style={{ height: `${rowVirtualizer.getTotalSize()}px`, zIndex: 0 }}>
         {rowVirtualizer.getVirtualItems().map(virtualRow => (

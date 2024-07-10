@@ -5,13 +5,13 @@ import { useJukiUI } from '../../../hooks/useJukiUI';
 import {
   Button,
   ContentCopyIcon,
+  CopyToClipboard,
   LocationOnIcon,
   MailIcon,
   Modal,
   OpenInNewIcon,
   SchoolIcon,
   T,
-  CopyToClipboard,
 } from '../../atoms';
 import { ButtonLoader, FetcherLayer } from '../../molecules';
 import { UserPreviewModalProps } from './types';

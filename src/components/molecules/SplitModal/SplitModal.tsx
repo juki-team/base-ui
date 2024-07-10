@@ -1,6 +1,7 @@
 import React, { cloneElement, CSSProperties, PropsWithChildren, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { renderReactNodeOrFunction } from '../../../helpers';
+import { useJukiUI } from '../../../hooks';
 import { Modal } from '../../atoms';
 import { SplitModalProps } from './types';
 
@@ -19,7 +20,7 @@ export const SplitModal = (props: PropsWithChildren<SplitModalProps>) => {
   } = props;
   
   const [ , setRender ] = useState(0);
-  
+  const { viewPortSize } = useJukiUI();
   const { height: sideMainHeight = 0, ref: sideMainRef } = useResizeDetector();
   const { height: titleSideSecondaryHeight = 0, ref: titleSideSecondaryRef } = useResizeDetector();
   
@@ -32,6 +33,7 @@ export const SplitModal = (props: PropsWithChildren<SplitModalProps>) => {
       closeWhenClickOutside={closeWhenClickOutside}
       closeWhenKeyEscape={closeWhenKeyEscape}
       onAfterOpen={() => setRender(Date.now)}
+      expand={viewPortSize === 'sm'}
     >
       <div className="split-modal jk-row stretch block">
         <div
@@ -51,5 +53,5 @@ export const SplitModal = (props: PropsWithChildren<SplitModalProps>) => {
         </div>
       </div>
     </Modal>
-  )
-}
+  );
+};
