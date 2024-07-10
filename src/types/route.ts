@@ -15,7 +15,7 @@ export enum QueryParamKey {
 
 export type RequestSortType = { [key: string]: 1 | -1 };
 
-export type RequestFilterType = { [key: string]: string | string[] };
+export type RequestFilterType = { [key: string]: string };
 
 export enum ProblemTab {
   STATEMENT = 'statement',

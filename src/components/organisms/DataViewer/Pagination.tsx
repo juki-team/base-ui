@@ -24,20 +24,23 @@ export const Pagination = (props: PaginationProps) => {
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
   
   const { t } = useT();
+  console.log({ initializing, loading });
   useEffect(() => {
     if (!initializing && (page < startPage || endPage < page)) {
       jumpToPage(startPage);
+      console.log({ startPage, endPage, page, initializing });
     }
   }, [ endPage, initializing, jumpToPage, page ]);
   
-  // useEffect(() => {
-  //     if (!searchParams.get(pageKey) || !searchParams.get(pageSizeKey)) {
-  //       setSearchParams(
-  //         // { name: pageKey, value: '1', replace: true },
-  //         { name: pageSizeKey, value: pageSizeOptions[0] + '', replace: true },
-  //       );
-  //     }
-  // }, [ setSearchParams, pageKey, pageSizeKey, pageSizeOptions, searchParams, withPagination ]);
+  useEffect(() => {
+    if (!pageSizeOptions.includes(pageSize)) {
+      onPageSizeChange(pageSizeOptions[0]);
+      // setSearchParams(
+      // { name: pageKey, value: '1', replace: true },
+      // { name: pageSizeKey, value: pageSizeOptions[0] + '', replace: true },
+      // );
+    }
+  }, [ pageSizeOptions, pageSize, onPageSizeChange ]);
   
   const pages = [ page ];
   const right = endPage - page;

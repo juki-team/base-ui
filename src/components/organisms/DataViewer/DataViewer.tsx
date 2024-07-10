@@ -1,4 +1,4 @@
-import { consoleWarn, DataViewMode, ProfileSetting, Status } from '@juki-team/commons';
+import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useJukiUser, useSessionStorage, useT } from '../../../hooks';
@@ -54,8 +54,14 @@ function getTextWidth(text: string, font: string) {
   return 0;
 }
 
-const join = (array: string[]) => {
-  return array.join('\x1E');
+const SEP = '\x1E';
+
+const join = (array: (string | null | Date)[]) => {
+  return array.join(SEP);
+};
+
+const split = (text: string) => {
+  return text.split(SEP);
 };
 
 export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => {
@@ -112,8 +118,16 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const [ searchSorts, setSort, deleteSort ] = useSessionStorage(sortKey, searchParams.get(sortKey));
   
   const filterKey = getFilterQueryParam(name);
-  const [ _searchFilter, setFilter, deleteFilter ] = useSessionStorage(filterKey, join(searchParams.getAll(filterKey)));
-  const searchFilter = useMemo(() => _searchFilter.split('\x1E'), [ _searchFilter ]);
+  const iniFilters = searchParams.get(filterKey) || '';
+  const [ _searchFilter, setFilter, deleteFilter ] = useSessionStorage(filterKey, isStringJson(iniFilters) ? iniFilters : '{}');
+  const filters = useMemo(() => {
+    const initialFilters = isStringJson(_searchFilter) ? JSON.parse(_searchFilter) : {};
+    const result: RequestFilterType = {};
+    for (const head of headers) {
+      result[head.index] = initialFilters[head.index];
+    }
+    return result;
+  }, [ _searchFilter, headers ]);
   
   const [ dataTable, setDataTable ] = useState(data);
   
@@ -121,7 +135,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const prevPage = useRef<number>();
   const prevPageSize = useRef<number>();
   const prevSearchSorts = useRef<string>();
-  const prevSearchFilter = useRef<string[]>();
+  const prevSearchFilter = useRef<RequestFilterType>();
   
   const firstRender = useRef(true);
   
@@ -160,16 +174,11 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     if (headSort?.sort) {
       sort[headSort.index] = headSort.index === searchSorts ? 1 : -1;
     }
-    const filter: RequestFilterType = {};
-    for (let i = 0; i < Math.min(searchFilter.length, headers.length); i++) {
-      if (searchFilter[i]) {
-        filter[headers[i].index] = searchFilter[i];
-      }
-    }
+    
     if (firstRender.current) { // First render
       request?.({
         sort,
-        filter,
+        filter: filters,
         setLoaderStatus,
         pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
       });
@@ -181,29 +190,25 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       if (isSortOnline(head?.sort) || isSortOnline(prevHead?.sort)) {
         request?.({
           sort,
-          filter,
+          filter: filters,
           setLoaderStatus,
           pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
         });
       }
-    } else if (JSON.stringify(prevSearchFilter.current) !== JSON.stringify(searchFilter)) { // Filter change
-      let fixedSearchFilter = [ ...searchFilter ];
-      if (!fixedSearchFilter.length) {
-        fixedSearchFilter = new Array(headers.length).fill('');
-      }
-      for (let i = 0; i < Math.min(fixedSearchFilter.length, headers.length); i++) {
+    } else if (JSON.stringify(prevSearchFilter.current) !== JSON.stringify(filters)) { // Filter change
+      for (const head of headers) {
         if (
-          (fixedSearchFilter[i] || prevSearchFilter.current?.[i]) &&
-          fixedSearchFilter[i] !== prevSearchFilter.current?.[i] &&
-          (isFilterTextOnline(headers[i].filter) ||
-            isFilterSelectOnline(headers[i].filter) ||
-            isFilterDateOnline(headers[i].filter) ||
-            isFilterDateRangeOnline(headers[i].filter)
+          (filters[head.index] || prevSearchFilter.current?.[head.index]) &&
+          filters[head.index] !== prevSearchFilter.current?.[head.index] &&
+          (isFilterTextOnline(head.filter) ||
+            isFilterSelectOnline(head.filter) ||
+            isFilterDateOnline(head.filter) ||
+            isFilterDateRangeOnline(head.filter)
           )
         ) {
           request?.({
             sort,
-            filter,
+            filter: filters,
             setLoaderStatus,
             pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
           });
@@ -212,39 +217,39 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     } else if (withPagination && prevPage.current !== page) {
       request?.({
         sort,
-        filter,
+        filter: filters,
         setLoaderStatus,
         pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
       });
     } else if (withPagination && prevPageSize.current !== pageSize) {
       request?.({
         sort,
-        filter,
+        filter: filters,
         setLoaderStatus,
         pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
       });
     } else if (prevRefreshCount.current !== reloadCount) {
       request?.({
         sort,
-        filter,
+        filter: filters,
         setLoaderStatus,
         pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
       });
     }
-  }, [ request, searchSorts, headers, reloadCount, searchFilter, withPagination, page, pageSize ]);
+  }, [ request, searchSorts, headers, reloadCount, filters, withPagination, page, pageSize ]);
   const setDataTableRef = useRef<undefined | ((data: T[]) => void)>(undefined);
   setDataTableRef.current = _setDataTableRef;
   useEffect(() => { // Offline filter & Offline sort
     let newData = [ ...data ];
     // if (prevSearchSorts.current !== searchSorts || JSON.stringify(prevSearchFilter.current) !== JSON.stringify(searchFilter)) { // to sort when reload data too
     // Offline filter
-    for (let i = 0; i < headers.length; i++) {
-      if (searchFilter[i]) {
-        const head = headers[i];
+    for (const head of headers) {
+      const filterIndex = head.index;
+      if (filters[filterIndex]) {
         if (isFilterTextOffline(head?.filter)) {
-          newData = newData.filter(head.filter.callbackFn({ columnIndex: head.index, text: searchFilter[i] }));
+          newData = newData.filter(head.filter.callbackFn({ columnIndex: head.index, text: filters[filterIndex] }));
         } else if (isFilterTextAutoOffline(head?.filter)) {
-          const regExp = new RegExp(searchFilter[i], 'gi');
+          const regExp = new RegExp(filters[filterIndex], 'gi');
           newData = newData.filter(datum => {
             if (isFilterTextAutoOffline(head?.filter)) {
               const value = head.filter.getValue ? head.filter.getValue({ record: datum }) : datum[head.index];
@@ -253,7 +258,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             return false;
           });
         } else if (isFilterSelectOffline(head?.filter)) {
-          const selectedOptions = searchFilter[i].split(',').map(search => {
+          const selectedOptions = filters[filterIndex].split(',').map(search => {
             if (isFilterSelectOffline(head?.filter)) {
               return head.filter.options.find(({ value }) => value === search);
             }
@@ -263,7 +268,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             head.filter.callbackFn({ columnIndex: head.index, selectedOptions }),
           );
         } else if (isFilterSelectAutoOffline(head?.filter)) {
-          const selectedOptions = searchFilter[i].split(',').map(search => {
+          const selectedOptions = filters[filterIndex].split(',').map(search => {
             if (isFilterSelectAutoOffline(head?.filter)) {
               return head.filter.options.find(({ value }) => value === search);
             }
@@ -281,7 +286,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         } else if (isFilterDateOffline(head?.filter)) {
           newData = newData.filter(head.filter.callbackFn({
             columnIndex: head.index,
-            selectedDate: new Date(+searchFilter[i]),
+            selectedDate: new Date(+filters[filterIndex]),
           }));
         } else if (isFilterDateAutoOffline(head?.filter)) {
           const {
@@ -293,8 +298,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             showSeconds,
             showMilliseconds,
           } = showOfDateDisplayType(head.filter.pickerType || DEFAULT_PICKER_TYPE);
-          if (searchFilter[i] && new Date(+searchFilter[i])?.isValidDate()) {
-            const searchDate = new Date(+searchFilter[i]);
+          if (filters[filterIndex] && new Date(+filters[filterIndex])?.isValidDate()) {
+            const searchDate = new Date(+filters[filterIndex]);
             newData = newData.filter(datum => {
               if (isFilterDateAutoOffline(head?.filter)) {
                 const value = head.filter.getValue ? head.filter.getValue({ record: datum }) : datum[head.index];
@@ -321,10 +326,13 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
               return true;
             });
           } else {
-            consoleWarn('data no filtered, filter not a valid time date', { search: searchFilter[i], searchFilter });
+            consoleWarn('data no filtered, filter not a valid time date', {
+              search: filters[filterIndex],
+              searchFilter: filters,
+            });
           }
         } else if (isFilterDateRangeOffline(head?.filter)) {
-          const [ start, end ] = searchFilter[i]?.split(',');
+          const [ start, end ] = filters[filterIndex]?.split(',');
           if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
             newData = newData.filter(head.filter.callbackFn({
               columnIndex: head.index,
@@ -333,12 +341,12 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             }));
           } else {
             consoleWarn('data no filtered, filter not a valid range times date', {
-              search: searchFilter[i],
-              searchFilter,
+              search: filters[filterIndex],
+              searchFilter: filters,
             });
           }
         } else if (isFilterDateRangeAutoOffline(head?.filter)) {
-          const [ start, end ] = searchFilter[i]?.split(',');
+          const [ start, end ] = filters[filterIndex]?.split(',');
           if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
             const startSelectedDate = new Date(+start);
             const endSelectedDate = new Date(+end);
@@ -404,8 +412,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             });
           } else {
             consoleWarn('data no filtered, filter not a valid range times date', {
-              search: searchFilter[i],
-              searchFilter,
+              search: filters[filterIndex],
+              searchFilter: filters,
             });
           }
         }
@@ -431,7 +439,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     // }
     setDataTable(newData);
     setDataTableRef.current?.(newData);
-  }, [ data, headers, searchFilter, searchSorts ]);
+  }, [ data, headers, filters, searchSorts ]);
   
   useEffect(() => {
     if (searchSorts !== prevSearchSorts.current) {
@@ -439,10 +447,10 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
   }, [ searchSorts ]);
   useEffect(() => {
-    if (JSON.stringify(searchFilter) !== JSON.stringify(prevSearchFilter.current)) {
-      prevSearchFilter.current = searchFilter;
+    if (JSON.stringify(filters) !== JSON.stringify(prevSearchFilter.current)) {
+      prevSearchFilter.current = filters;
     }
-  }, [ searchFilter ]);
+  }, [ filters ]);
   useEffect(() => {
     if (reloadCount !== prevRefreshCount.current) {
       prevRefreshCount.current = reloadCount;
@@ -459,35 +467,36 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
   }, [ pageSize ]);
   
-  const isSomethingFiltered = (newSearchFilter: string[]) => !!newSearchFilter.filter(search => !!search
+  const isSomethingFiltered = (newSearchFilter: RequestFilterType) => !!Object.values(newSearchFilter).filter(search => !!search
     && (Array.isArray(search) ? search.length : true)).length;
   
   const tableHeaders = useMemo(() => {
     
-    const onResetFilter = (index: number) => () => {
-      const newSearchFilter = [ ...searchFilter ];
-      newSearchFilter[index] = '';
+    const onResetFilter = (filterIndex: string) => () => {
+      const newSearchFilter: RequestFilterType = { ...filters };
+      newSearchFilter[filterIndex] = '';
       if (isSomethingFiltered(newSearchFilter)) {
-        setFilter(join(newSearchFilter));
+        setFilter(JSON.stringify(newSearchFilter));
       } else {
         deleteFilter();
       }
     };
     
-    const onFilter = (index: number, newFilter: string | string[]) => {
-      const newSearchFilter = searchFilter.length ? [ ...searchFilter ] : new Array(headers.length).fill('');
-      if (JSON.stringify(newSearchFilter[index]) !== JSON.stringify(newFilter)) {
-        newSearchFilter[index] = newFilter;
+    const onFilter = (filterIndex: string, newFilter: string) => {
+      const newSearchFilter = { ...filters };
+      if (JSON.stringify(newSearchFilter[filterIndex]) !== JSON.stringify(newFilter)) {
+        newSearchFilter[filterIndex] = newFilter;
         if (isSomethingFiltered(newSearchFilter)) {
-          setFilter(join(newSearchFilter));
+          setFilter(JSON.stringify(newSearchFilter));
         } else {
           deleteFilter();
         }
       }
     };
     
-    return headers.map(({ sort, filter, ...props }, index) => {
+    return headers.map(({ sort, filter, ...props }) => {
       const newHead: TableHeadersType<T> = { ...props };
+      const headIndex = props.index;
       // let iconsWidth = filter ? 34 : 0;
       let iconsWidth = filter ? (26 + 2) : 0; // size of icon // 2px separation
       if (sort) { // online or offline
@@ -512,9 +521,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       if (filter?.type === FILTER_TEXT || filter?.type === FILTER_TEXT_AUTO) {
         newHead.filter = {
           type: FILTER_TEXT,
-          onFilter: ({ text }) => onFilter(index, text),
-          onReset: onResetFilter(index),
-          text: searchFilter[index] || '',
+          onFilter: ({ text }) => onFilter(headIndex, text),
+          onReset: onResetFilter(headIndex),
+          text: filters[headIndex] || '',
           online: isFilterTextOnline(filter),
         };
       } else if (filter?.type === FILTER_SELECT || filter?.type === FILTER_SELECT_AUTO) {
@@ -522,35 +531,35 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           type: FILTER_SELECT,
           onFilter: ({ selectedOptions }) => {
             onFilter(
-              index,
-              selectedOptions
+              headIndex,
+              join(selectedOptions
                 .filter(({ value }) => !!filter.options.find(option => option.value === value))
-                .map(({ value }) => value),
+                .map(({ value }) => value)),
             );
           },
-          onReset: onResetFilter(index),
+          onReset: onResetFilter(headIndex),
           options: filter.options,
-          selectedOptions: searchFilter[index] ? searchFilter[index].split(',').map(value => ({
+          selectedOptions: filters[headIndex] ? split(filters[headIndex]).map(value => ({
             value,
             label: '',
           })) : [],
           online: isFilterSelectOnline(filter),
         };
       } else if (filter?.type === FILTER_DATE || filter?.type === FILTER_DATE_AUTO) {
-        const selectedDate = searchFilter[index]
-        && new Date(+searchFilter[index]).isValidDate() ? new Date(+searchFilter[index]) : null;
+        const selectedDate = filters[headIndex]
+        && new Date(+filters[headIndex]).isValidDate() ? new Date(+filters[headIndex]) : null;
         newHead.filter = {
           type: FILTER_DATE,
           pickerType: filter.pickerType || DEFAULT_PICKER_TYPE,
-          onFilter: ({ selectedDate }) => onFilter(index, selectedDate.getTime() + ''),
+          onFilter: ({ selectedDate }) => onFilter(headIndex, selectedDate.getTime() + ''),
           isDisabled: filter.isDisabled || (() => ({})),
-          onReset: onResetFilter(index),
+          onReset: onResetFilter(headIndex),
           selectedDate,
           baseDate: selectedDate || filter.baseDate || new Date(),
           online: isFilterDateOnline(filter),
         };
       } else if (filter?.type === FILTER_DATE_RANGE || filter?.type === FILTER_DATE_RANGE_AUTO) {
-        const [ start, end ] = searchFilter[index] ? searchFilter[index]?.split(',') : [];
+        const [ start, end ] = filters[headIndex] ? split(filters[headIndex]) : [];
         const startSelectedDate = start && new Date(+start).isValidDate() ? new Date(+start) : null;
         const endSelectedDate = end && new Date(+end).isValidDate() ? new Date(+end) : null;
         newHead.filter = {
@@ -559,8 +568,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           onFilter: ({
                        startSelectedDate,
                        endSelectedDate,
-                     }) => onFilter(index, startSelectedDate.getTime() + ',' + endSelectedDate.getTime()),
-          onReset: onResetFilter(index),
+                     }) => onFilter(headIndex, join([ startSelectedDate.getTime() + '', endSelectedDate.getTime() + '' ])),
+          onReset: onResetFilter(headIndex),
           isDisabled: filter.isDisabled || (() => ({})),
           startSelectedDate,
           endSelectedDate,
@@ -582,38 +591,39 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       
       return newHead;
     });
-  }, [ deleteFilter, deleteSort, headers, searchFilter, searchSorts, setFilter, setSort, t ]);
+  }, [ deleteFilter, deleteSort, headers, filters, searchSorts, setFilter, setSort, t ]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
-    const newSearchFilter = searchFilter.length ? [ ...searchFilter ] : new Array(headers.length).fill('');
-    headers.forEach(({ filter, index: columnIndex }, index) => {
+    const newSearchFilter = { ...filters };
+    headers.forEach(({ filter, index: columnIndex }) => {
+      const value = values[columnIndex];
       if (filter?.type === FILTER_TEXT || filter?.type === FILTER_TEXT_AUTO) {
-        newSearchFilter[index] = values[columnIndex] || '';
+        newSearchFilter[columnIndex] = value as string;
       } else if (filter?.type === FILTER_SELECT || filter?.type === FILTER_SELECT_AUTO) {
-        newSearchFilter[index] = (values[columnIndex] as OptionType<any>[]
+        newSearchFilter[columnIndex] = join((values[columnIndex] as OptionType<any>[]
           || []).filter(({ value }) => !!filter.options.find(option => option.value === value))
-          .map(({ value }) => value);
+          .map(({ value }) => value));
       } else if (filter?.type === FILTER_DATE || filter?.type === FILTER_DATE_AUTO) {
         if (values[columnIndex] instanceof Date) {
-          newSearchFilter[index] = (values[columnIndex] as Date).getTime();
+          newSearchFilter[columnIndex] = (values[columnIndex] as Date).getTime() + '';
         } else {
-          newSearchFilter[index] = '';
+          newSearchFilter[columnIndex] = '';
         }
       } else if (filter?.type === FILTER_DATE_RANGE || filter?.type === FILTER_DATE_RANGE_AUTO) {
         const [ start, end ] = values[columnIndex] ? values[columnIndex] as [ Date, Date ] : [ null, null ];
         if (start?.isValidDate() && end?.isValidDate()) {
-          newSearchFilter[index] = start.getTime() + ',' + end.getTime();
+          newSearchFilter[columnIndex] = join([ start.getTime() + '', end.getTime() + '' ]);
         } else {
-          newSearchFilter[index] = '';
+          newSearchFilter[columnIndex] = '';
         }
       }
     });
     if (isSomethingFiltered(newSearchFilter)) {
-      setFilter(join(newSearchFilter));
+      setFilter(JSON.stringify(newSearchFilter));
     } else {
       deleteFilter();
     }
-  }, [ deleteFilter, headers, searchFilter, setFilter ]);
+  }, [ deleteFilter, headers, filters, setFilter ]);
   
   const initialViewMode = _initialViewMode
     || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
@@ -641,12 +651,6 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
     oldViewPortSizeRef.current = viewPortSize;
   }, [ viewPortSize, viewMode, cardsView, rowsView, setViewMode ]);
-  
-  useEffect(() => { // Fixing filters
-    if (searchFilter.length && searchFilter.length !== tableHeaders.length) {
-      deleteFilter();
-    }
-  }, [ tableHeaders, searchFilter, deleteFilter ]);
   
   const onReload = useCallback(() => request && setReloadCount(prevState => prevState + 1), [ setReloadCount, request ]);
   
