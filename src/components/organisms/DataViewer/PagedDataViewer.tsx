@@ -43,7 +43,7 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
   //   setTimeout(() => setRender(Date.now()), 100);
   // }, [ response ]);
   
-  const lastTotalRef = useRef(0);
+  const lastTotalRef = useRef(-1);
   
   lastTotalRef.current = response?.success ? response.meta.totalElements : lastTotalRef.current;
   
@@ -67,12 +67,12 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
       setLoaderStatusRef={setLoaderStatusRef}
       extraNodes={extraNodes}
       extraNodesFloating
-      totalData={lastTotalRef.current}
+      totalData={Math.max(lastTotalRef.current, 0)}
       getRecordKey={getRowKey}
       onRecordClick={onRecordClick}
       reloadRef={reloadRef}
       pageSizeOptions={PAGE_SIZE_OPTIONS}
-      initializing={response === undefined}
+      initializing={lastTotalRef.current === -1}
       {...DEFAULT_DATA_VIEWER_PROPS}
     />
   );
