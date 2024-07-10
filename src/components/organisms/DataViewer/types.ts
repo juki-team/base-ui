@@ -313,6 +313,7 @@ export interface DataViewerProps<T> {
   getRecordClassName?: GetRecordClassNameType<T>,
   onRecordClick?: OnRecordClickType<T>,
   setDataTableRef?: (data: T[]) => void,
+  initializing?: boolean,
 }
 
 export type LoaderStatusType = Status;

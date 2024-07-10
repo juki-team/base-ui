@@ -24,7 +24,7 @@ export const Pagination = (props: PaginationProps) => {
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
   
   const { t } = useT();
-  console.log({ initializing, loading });
+  console.log({ initializing, loading, total, pageSize });
   useEffect(() => {
     if (!initializing && (page < startPage || endPage < page)) {
       jumpToPage(startPage);

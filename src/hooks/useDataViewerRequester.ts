@@ -44,7 +44,8 @@ export const useDataViewerRequester = <T extends ContentResponseType<any> | Cont
   return {
     data,
     error,
-    isLoading: isLoading || isValidating,
+    isLoading,
+    isValidating,
     request,
     setLoaderStatusRef: useCallback((setLoaderStatus: SetLoaderStatusType) => setLoaderStatusRef.current = setLoaderStatus, []),
     reload: useCallback(() => reloadRef.current?.(), []),

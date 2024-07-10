@@ -1,5 +1,5 @@
 import { ContentsResponseType } from '@juki-team/commons';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS, PAGE_SIZE_OPTIONS } from '../../../constants';
 import { useDataViewerRequester, useJukiUI } from '../../../hooks';
 import { DataViewer } from './DataViewer';
@@ -29,6 +29,7 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
     setLoaderStatusRef,
     reload,
     reloadRef,
+    isLoading,
   } = useDataViewerRequester<ContentsResponseType<V>>(getUrl, { refreshInterval });
   
   useEffect(() => {
@@ -37,10 +38,10 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
-  const [ _, setRender ] = useState(Date.now()); // TODO: Fix the render of DataViewer
-  useEffect(() => {
-    setTimeout(() => setRender(Date.now()), 100);
-  }, [ response ]);
+  // const [ _, setRender ] = useState(Date.now()); // TODO: Fix the render of DataViewer
+  // useEffect(() => {
+  //   setTimeout(() => setRender(Date.now()), 100);
+  // }, [ response ]);
   
   const lastTotalRef = useRef(0);
   
@@ -69,6 +70,7 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
       onRecordClick={onRecordClick}
       reloadRef={reloadRef}
       pageSizeOptions={PAGE_SIZE_OPTIONS}
+      initializing={isLoading}
       {...DEFAULT_DATA_VIEWER_PROPS}
     />
   );

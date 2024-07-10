@@ -94,6 +94,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     onRecordClick,
     extraNodesFloating,
     setDataTableRef: _setDataTableRef,
+    initializing: initialInitializing = false,
   } = props;
   
   const { viewPortSize } = useJukiUI();
@@ -107,12 +108,14 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   
   const [ reloadCount, setReloadCount ] = useState(0);
   const [ loaderStatus, setLoaderStatus ] = useState<Status>(Status.LOADING);
-  const [ initializing, setInitializing ] = useState(true);
+  const [ _initializing, setInitializing ] = useState(true);
   useEffect(() => {
     if (loaderStatus !== Status.LOADING) {
       setInitializing(false);
     }
   }, [ loaderStatus ]);
+  console.log({ _initializing, initialInitializing });
+  const initializing = _initializing || initialInitializing;
   
   const sortKey = getSortQueryParam(name);
   const [ searchSorts, setSort, deleteSort ] = useSessionStorage(sortKey, searchParams.get(sortKey));
