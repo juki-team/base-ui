@@ -42,6 +42,12 @@
   }
 }
 
+.jk-modal-height-expanded {
+  .jk-modal-body {
+    height: calc(var(--100VH) - var(--pad-md) - var(--pad-md));
+  }
+}
+
 .jk-modal-bc-wd {
   .jk-modal {
     background: var(--t-color-white-dark);

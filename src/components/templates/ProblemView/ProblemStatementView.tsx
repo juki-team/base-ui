@@ -172,7 +172,7 @@ export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutN
           {!!statementNote && (
             <div>
               <h3><T>note</T></h3>
-              <div className="br-g6 bc-we jk-pg-md jk-border-radius-inline">
+              <div className="bc-we jk-pg-sm jk-border-radius-inline">
                 <MdMathViewer source={statementNote} />
               </div>
             </div>

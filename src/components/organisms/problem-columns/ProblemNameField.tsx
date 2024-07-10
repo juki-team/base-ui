@@ -30,11 +30,9 @@ export const ProblemNameField: DataViewerHeadersType<ProblemDataViewerType>['Fie
                   onClose={() => setModal(null)}
                   closeWhenClickOutside
                   closeWhenKeyEscape
-                  portalClassName="jk-modal-bc-wd"
+                  portalClassName="jk-modal-bc-wd jk-modal-height-expanded"
                 >
-                  <div className="jk-pg-sm pn-re">
-                    <ProblemView problem={problem} infoPlacement="name" />
-                  </div>
+                  <ProblemView problem={problem} infoPlacement="name" />
                 </Modal>,
               );
             }}

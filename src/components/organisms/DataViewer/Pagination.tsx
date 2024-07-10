@@ -77,8 +77,9 @@ export const Pagination = (props: PaginationProps) => {
                   borderRight: '1px solid var(--t-color-highlight-light)',
                   padding: '0 4px',
                 }}
+                className="ws-np"
               >
-                {dataLength ? `${firstItem}-${firstItem + dataLength - 1}` : '0'}&nbsp;<T>of</T>&nbsp;{total}
+                {dataLength ? `${firstItem} - ${firstItem + dataLength - 1}` : '0'}&nbsp;<T>of</T>&nbsp;{total}
               </div>
               <Tooltip content={<T>previous</T>} placement="top">
                 <div
