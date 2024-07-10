@@ -334,7 +334,7 @@ export class Settings {
   get ROUTES() {
     
     const _injectOrigin = (origin?: string) => (path: string) => {
-      return `${origin ? origin : ''}${path}}`;
+      return `${origin ? origin : ''}${path}`;
     };
     
     return {
