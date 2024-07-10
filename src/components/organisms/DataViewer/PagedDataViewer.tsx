@@ -29,7 +29,6 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
     setLoaderStatusRef,
     reload,
     reloadRef,
-    isLoading,
   } = useDataViewerRequester<ContentsResponseType<V>>(getUrl, { refreshInterval });
   
   useEffect(() => {
@@ -51,8 +50,6 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
     const data = response?.success ? response.contents : [];
     return toRow ? data.map(toRow) : (data as unknown as T[]);
   }, [ response, toRow ]);
-  
-  console.log({ isLoading, data, response });
   
   return (
     <DataViewer<T>

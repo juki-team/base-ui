@@ -117,25 +117,9 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               <div className="jk-divider horizontal" />
             </>
           )}
-          <Tooltip
-            content={
-              dataLength
-                ? <div className="jk-row nowrap tt-se ws-np">
-                  {dataLength}&nbsp;<T>{dataLength === 1 ? 'record' : 'records'}</T>
-                  {pagination.withPagination && (
-                    <>&nbsp;<T>of</T>&nbsp;{pagination.total}&nbsp;<T>records</T></>
-                  )}
-                </div>
-                : <T className="tt-se ws-np">no data</T>
-            }
-            placement="top"
-          >
-            <div className="no-records tx-s jk-tag white ws-np">
-              {dataLength}{pagination.withPagination ? ' / ' + pagination.total : ''}
-            </div>
-          </Tooltip>
           {pagination.withPagination && (
             <Pagination
+              dataLength={dataLength}
               loading={loading}
               initializing={initializing}
               pageSizeOptions={isMobileViewPort ? [ 20 ] : pagination.pageSizeOptions}
@@ -175,7 +159,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                 {rowsView && (
                   <Tooltip content={<T className="tt-se ws-np">list view</T>} placement="top">
                     <div
-                      className={classNames({ active: viewMode === DataViewMode.ROWS }, 'jk-row jk-br-ie')}
+                      className={classNames({ active: viewMode === DataViewMode.ROWS }, 'jk-row rows jk-br-ie')}
                       onClick={() => setViewMode(DataViewMode.ROWS, true)}
                     >
                       <ViewHeadlineIcon className="jk-br-ie cr-g4" />
@@ -185,7 +169,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                 {cardsView && (
                   <Tooltip content={<T className="tt-se ws-np">cards view</T>} placement="top-end">
                     <div
-                      className={classNames({ active: viewMode === DataViewMode.CARDS }, 'jk-row jk-br-ie')}
+                      className={classNames({ active: viewMode === DataViewMode.CARDS }, 'jk-row cards jk-br-ie')}
                       onClick={() => setViewMode(DataViewMode.CARDS, true)}
                     >
                       <ViewModuleIcon className="jk-br-ie cr-g4" />

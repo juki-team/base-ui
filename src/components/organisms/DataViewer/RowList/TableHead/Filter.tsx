@@ -105,7 +105,7 @@ export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
                 : isFilterDateRange(filter) ? !!filter.startSelectedDate?.isValidDate() && !!filter.endSelectedDate?.isValidDate()
                   : false,
           visible,
-          disabled,
+          // disabled,
         })}
       >
         <FilterListIcon size="small" />

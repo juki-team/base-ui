@@ -7,7 +7,6 @@ export const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
 
 export const toFilterUrl = (filter: RequestFilterType) => {
   let filterUrl = '';
-  console.log('toFilterUrl', { filter });
   Object.entries(filter).forEach(([ key, value ]) => {
     if (value) {
       if (filterUrl) {

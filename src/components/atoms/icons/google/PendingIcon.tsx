@@ -10,5 +10,5 @@ const Icon = ({ color }: RootIconProps) => (
 );
 
 export const PendingIcon = (props: BasicIconProps) => {
-  return renderBasicIcon({ ...props, viewBox: '0 -960 960 960', letter: 'Z' }, Icon, 'pending');
+  return renderBasicIcon({ ...props, viewBox: '0 -960 960 960' }, Icon, 'pending');
 };

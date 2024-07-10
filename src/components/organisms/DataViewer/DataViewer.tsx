@@ -112,7 +112,6 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       setInitializing(false);
     }
   }, [ loaderStatus ]);
-  console.log({ _initializing, initialInitializing });
   const initializing = _initializing || initialInitializing;
   
   const sortKey = getSortQueryParam(name);

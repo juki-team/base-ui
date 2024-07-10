@@ -103,7 +103,7 @@
             cursor: pointer;
             
             &:hover:not(.disabled) {
-              outline: 3px solid var(--t-color-white);
+              //outline: 3px solid var(--t-color-white);
             }
             
             &.disabled {
@@ -113,8 +113,8 @@
             }
             
             + .page-item {
-              margin-left: var(--pad-xt);
-              @include sm { margin-left: 0; }
+              //margin-left: var(--pad-xt);
+              //@include sm { margin-left: 0; }
             }
           }
           
@@ -153,12 +153,12 @@
             padding: 0 2px;
           }
           
-          > div:first-child {
+          > div.rows {
             border-bottom-right-radius: 0;
             border-top-right-radius: 0;
           }
           
-          > div:last-child {
+          > div.cards {
             border-bottom-left-radius: 0;
             border-top-left-radius: 0;
           }
@@ -449,13 +449,12 @@
             }
             
             &:hover {
-              background-color: rgba(0, 0, 0, 0.04);
+              background-color: var(--t-color-white-dark);
               
               .sticky {
-                background-color: #F1F2F4;
+                background-color: var(--t-color-white-dark);
               }
             }
-            
             
             .field {
               padding: 0 var(--pad-xt);
@@ -515,7 +514,7 @@
   }
   
   .tool {
-    color: var(--t-color-gray-3);
+    color: var(--t-color-highlight-light);
     padding: 4px !important;
     margin-left: 2px;
     outline: none;

@@ -380,6 +380,7 @@ export interface DataViewerToolbarProps<T> {
 }
 
 export interface PaginationProps {
+  dataLength: number,
   total: number,
   page: number,
   pageSize: number,

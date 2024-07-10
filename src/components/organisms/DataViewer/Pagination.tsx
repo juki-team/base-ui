@@ -9,6 +9,7 @@ const SIZE_PAGES = 3;
 export const Pagination = (props: PaginationProps) => {
   
   const {
+    dataLength,
     total,
     page,
     pageSize,
@@ -24,11 +25,9 @@ export const Pagination = (props: PaginationProps) => {
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
   
   const { t } = useT();
-  console.log({ initializing, loading, total, pageSize });
   useEffect(() => {
     if (!initializing && (page < startPage || endPage < page)) {
       jumpToPage(startPage);
-      console.log({ startPage, endPage, page, initializing });
     }
   }, [ endPage, initializing, jumpToPage, page ]);
   
@@ -65,12 +64,22 @@ export const Pagination = (props: PaginationProps) => {
   const prev = page > startPage ? () => jumpToPage(page - 1) : undefined;
   const next = page < endPage ? () => jumpToPage(page + 1) : undefined;
   
+  const firstItem = (page - 1) * pageSize + 1;
+  
   return (
     <div className={classNames('jk-data-viewer-pagination jk-row gap center', { loading })}>
       <div className="jk-row center nowrap">
         {isOnToolbar ? (
           <div className="jk-row gap nowrap">
-            <div className="jk-row nowrap bc-we jk-br-ie">
+            <div className="jk-row nowrap bc-we jk-br-ie tx-s ws-np" style={{}}>
+              <div
+                style={{
+                  borderRight: '1px solid var(--t-color-highlight-light)',
+                  padding: '0 4px',
+                }}
+              >
+                {firstItem}-{firstItem + dataLength}&nbsp;<T>of</T>&nbsp;{total}
+              </div>
               <Tooltip content={<T>previous</T>} placement="top">
                 <div
                   className={classNames('page-item jk-row jk-br-ie', { disabled: page === startPage || initializing })}
@@ -79,24 +88,6 @@ export const Pagination = (props: PaginationProps) => {
                   <NavigateBeforeIcon />
                 </div>
               </Tooltip>
-              &nbsp;
-              <Tooltip
-                content={(initializing ? (
-                      <div className="jk-row">
-                        <T>loading</T>&nbsp;
-                        <div className="dot-flashing bottom" />
-                      </div>
-                    ) :
-                    <div className="jk-row nowrap">
-                      {page}&nbsp;<T>page</T>&nbsp;<T>of</T>&nbsp;{endPage}&nbsp;<T>pages</T>
-                    </div>
-                )}
-                placement="top"
-              >
-                <div className="jk-row nowrap tx-s ws-np">
-                  {initializing ? '-' : page}&nbsp;<T>of</T>&nbsp;{initializing ? '-' : endPage}</div>
-              </Tooltip>
-              &nbsp;
               <Tooltip content={<T>next</T>} placement="top">
                 <div
                   className={classNames('page-item jk-row jk-br-ie', { disabled: page === endPage || initializing })}
@@ -107,16 +98,15 @@ export const Pagination = (props: PaginationProps) => {
               </Tooltip>
             </div>
             {pageSizeOptions.length > 1 && (
-              <Tooltip content={<T className="tt-se ws-np">records per page</T>}>
-                <div>
-                  <Select
-                    options={pageSizeOptions.map(option => ({ value: option, label: option }))}
-                    selectedOption={{ value: pageSize }}
-                    onChange={initializing ? undefined : ({ value }) => onPageSizeChange(value)}
-                    optionsPlacement="bottom"
-                  />
-                </div>
-              </Tooltip>
+              <Select
+                options={pageSizeOptions.map(option => ({
+                  value: option,
+                  label: <>{option}&nbsp;<T>per page</T></>,
+                }))}
+                selectedOption={{ value: pageSize }}
+                onChange={initializing ? undefined : ({ value }) => onPageSizeChange(value)}
+                optionsPlacement="bottom"
+              />
             )}
           </div>
         ) : (

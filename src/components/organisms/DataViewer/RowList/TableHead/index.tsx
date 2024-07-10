@@ -1,6 +1,6 @@
 import React, { Children, ReactElement, Ref, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../../helpers';
-import { ArrowIcon } from '../../../../atoms';
+import { SortIcon } from '../../../../atoms/icons/specials/SortIcon';
 import { TableHeadersWithWidthType, TableHeadProps } from '../../types';
 import { renderHead } from '../../utils';
 import { Filter } from './Filter';
@@ -49,17 +49,20 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
       key={columnIndex}
       style={{ width: width + 'px' }}
     >
-      <div className="jk-table-head-field">{renderHead({ head, columnIndex, className: headClassName })}</div>
+      <div className="jk-table-head-field">
+        {renderHead({ head, columnIndex, className: headClassName })}
+      </div>
       <div className="jk-row jk-table-head-tools">
         {onSort && (
           <div
             className={classNames('jk-button light only-icon small tool', {
               active: !!order,
-              disabled: loading,
+              // disabled: loading,
             })}
             onClick={() => onSort({ columnIndex })}
           >
-            <ArrowIcon size="small" rotate={order < 0 ? 180 : 0} />
+            <SortIcon up={order > 0} down={order < 0} />
+            {/*<ArrowIcon size="small" rotate={order < 0 ? 180 : 0} />*/}
           </div>
         )}
         {filter?.onFilter && (
