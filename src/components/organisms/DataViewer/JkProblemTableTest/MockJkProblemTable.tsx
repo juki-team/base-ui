@@ -1,138 +1,44 @@
-import {
-  ENTITY_STATE,
-  EntityState,
-  PROBLEM_MODE,
-  PROBLEM_MODES,
-  PROBLEM_TYPE,
-  ProblemType,
-  ProfileSetting,
-  Status,
-} from '@juki-team/commons';
+import { ProfileSetting, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
   DataViewer,
   DataViewerHeadersType,
   DataViewerProps,
-  ProblemAdminActionsField,
-  ProblemDataViewer,
-  ProblemKeyIdField,
-  ProblemModeField,
-  ProblemNameField,
-  ProblemOwnerField,
-  ProblemTypeField,
+  getProblemAdminActionsHeader,
+  getProblemKeyIdHeader,
+  getProblemModeHeader,
+  getProblemNameHeader,
+  getProblemOwnerHeader,
+  getProblemStateHeader,
+  getProblemTagsHeader,
+  getProblemTypeHeader,
+  ProblemDataViewerType,
   ReloadIcon,
   T,
-  TextField,
   toProblemDataViewer,
 } from '../../../';
 import { useJukiUser } from '../../../../hooks/useJukiUser';
 import problems from './data.json';
 
-export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemDataViewer>, 'data'>) => {
-  const [ data, setData ] = useState<ProblemDataViewer[]>([]);
+export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemDataViewerType>, 'data'>) => {
+  const [ data, setData ] = useState<ProblemDataViewerType[]>([]);
   useEffect(() => {
     setTimeout(() => {
       // @ts-ignore
-      setData(problems.contents.map(toProblemDataViewer) as ProblemDataViewer[]);
+      setData(problems.contents.map(toProblemDataViewer) as ProblemDataViewerType[]);
+      // setData([]);
     }, 2000);
   }, []);
-  const columns: DataViewerHeadersType<ProblemDataViewer>[] = useMemo(() => [
-    {
-      head: 'id',
-      index: 'key',
-      Field: ProblemKeyIdField,
-      sort: true,
-      filter: { type: 'text' },
-      cardPosition: 'top',
-      sticky: true,
-      minWidth: 240,
-    },
-    {
-      head: 'problem name',
-      headClassName: 'left',
-      index: 'name',
-      Field: ProblemNameField,
-      sort: true,
-      filter: { type: 'text' },
-      cardPosition: 'center',
-      minWidth: 300,
-    },
-    {
-      head: 'mode',
-      index: 'mode',
-      Field: ProblemModeField,
-      sort: true,
-      filter: {
-        type: 'select',
-        options: PROBLEM_MODES.map((problemMode) => ({ value: problemMode, label: PROBLEM_MODE[problemMode].label })),
-      },
-      cardPosition: 'top',
-    },
-    {
-      head: 'type',
-      index: 'type',
-      Field: ProblemTypeField,
-      sort: true,
-      filter: {
-        type: 'select',
-        options: [ ProblemType.STANDARD, ProblemType.DYNAMIC ].map((problemType) => ({
-          value: problemType,
-          label: PROBLEM_TYPE[problemType].label,
-        })),
-      },
-      cardPosition: 'top',
-      minWidth: 100,
-    },
-    // {
-    //   head: 'tags',
-    //   index: 'tags',
-    //   Field: ProblemTagsField,
-    //   filter: {
-    //     type: 'select',
-    //     options: tags.map(tag => ({ value: tag, label: <T>tag</T> })),
-    //   } as FilterSelectOnlineType,
-    //   cardPosition: 'center',
-    //   minWidth: 250,
-    // },
-    {
-      head: 'owner',
-      index: 'owner',
-      Field: ProblemOwnerField,
-      sort: true,
-      cardPosition: 'bottomRight',
-      minWidth: 200,
-    },
-    {
-      head: 'state',
-      index: 'state',
-      Field: ({ record: { state } }) => (
-        <TextField
-          text={<T className="tt-se">{state ? ENTITY_STATE[state].label : '-'}</T>}
-          label={<T className="tt-se">visibility</T>}
-        />
-      ),
-      sort: true,
-      filter: {
-        type: 'select',
-        options: ([
-          EntityState.ARCHIVED,
-          EntityState.RELEASED,
-        ]).map(state => ({
-          value: state,
-          label: <T className="tt-se">{ENTITY_STATE[state].label}</T>,
-        })),
-      },
-      cardPosition: 'bottomLeft',
-      minWidth: 180,
-    },
-    {
-      head: 'actions',
-      index: 'actions',
-      Field: ProblemAdminActionsField,
-      cardPosition: 'bottom',
-      minWidth: 100,
-    },
+  const columns: DataViewerHeadersType<ProblemDataViewerType>[] = useMemo(() => [
+    getProblemKeyIdHeader(),
+    getProblemNameHeader(),
+    getProblemModeHeader(),
+    getProblemTypeHeader(),
+    getProblemTagsHeader([]),
+    getProblemOwnerHeader(false),
+    getProblemStateHeader(),
+    getProblemAdminActionsHeader(),
   ], []);
   
   const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
@@ -173,7 +79,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemDataViewer
   
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px' }}>
-      <DataViewer<ProblemDataViewer>
+      <DataViewer<ProblemDataViewerType>
         {...props}
         preferredDataViewMode={preferredDataViewMode}
         cards={{ expanded: true }}
@@ -185,7 +91,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemDataViewer
         data={data}
         rows={{ height: 150 }}
         request={request}
-        name="users"
+        name="problems"
         //extraNodesFloating
         extraNodes={extraNodes}
         pageSizeOptions={[ 5, 10, 15, 20 ]}

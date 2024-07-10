@@ -2,9 +2,9 @@ import React from 'react';
 import { T } from '../../atoms';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 import { UserChip } from '../UserChip';
-import { ProblemDataViewer } from './types';
+import { ProblemDataViewerType } from './types';
 
-export const ProblemOwnerField: DataViewerHeadersType<ProblemDataViewer>['Field']
+export const ProblemOwnerField: DataViewerHeadersType<ProblemDataViewerType>['Field']
   = ({ record: { ownerCompanyKey, ownerImageUrl, ownerNickname } }) => (
   <TextField
     className="jk-row"
@@ -13,7 +13,7 @@ export const ProblemOwnerField: DataViewerHeadersType<ProblemDataViewer>['Field'
   />
 );
 
-export const ProblemCrawlerField: DataViewerHeadersType<ProblemDataViewer>['Field']
+export const ProblemCrawlerField: DataViewerHeadersType<ProblemDataViewerType>['Field']
   = ({ record: { ownerCompanyKey, ownerImageUrl, ownerNickname } }) => (
   <TextField
     className="jk-row"
@@ -21,3 +21,12 @@ export const ProblemCrawlerField: DataViewerHeadersType<ProblemDataViewer>['Fiel
     label={<T className="tt-se">crawler</T>}
   />
 );
+
+export const getProblemOwnerHeader = (isForeignProblem: boolean): DataViewerHeadersType<ProblemDataViewerType> => ({
+  head: 'owner',
+  index: 'owner',
+  Field: isForeignProblem ? ProblemCrawlerField : ProblemOwnerField,
+  sort: true,
+  cardPosition: 'bottom',
+  minWidth: 200,
+});

@@ -328,3 +328,9 @@
     background-color: var(--t-color-highlight-light);
   }
 }
+
+.hoverable {
+  &:hover {
+    background: var(--t-color-highlight-light);
+  }
+}

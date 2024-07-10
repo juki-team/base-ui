@@ -6,6 +6,7 @@ import { DataViewer } from './DataViewer';
 import { PagedDataViewerProps } from './types';
 
 export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: PagedDataViewerProps<T, V>) => {
+  
   const {
     cards,
     rows = { height: 68 },

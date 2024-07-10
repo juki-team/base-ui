@@ -1,21 +1,14 @@
 import { DataViewMode } from '@juki-team/commons';
-import React, { Children, CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
+import React, { Children, CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
-import { usePrevious } from '../../../hooks';
-import { LineLoader, LoaderLayer } from '../../atoms';
+import { LineLoader } from '../../atoms';
+import { JukiLoadingLayout } from '../../molecules';
 import { CardRowVirtualizerFixed } from './CardList';
 import { DataViewerToolbar } from './DataViewerToolbar';
-import { RowVirtualizerFixed } from './RowList/RowVirtualizerFixed';
-import { TableHead } from './RowList/TableHead';
-import { DisplayDataViewerProps, HeaderWidthsType, Scroll, TableHeadersType, TableHeadersWithWidthType } from './types';
-
-const minCellWidth = 100;
-
-const headersMinWidth = <T, >(headers: TableHeadersType<T>[]) => {
-  return headers.map(head => head.minWidth || minCellWidth);
-};
+import { ViewContainerRows } from './RowList/ViewContainerRows';
+import { DisplayDataViewerProps } from './types';
 
 export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   
@@ -47,48 +40,21 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
-  const [ headerWidths, setHeaderWidths ] = useState<HeaderWidthsType>({});
-  const prevSizeWidth = usePrevious(viewContainerWidth);
-  const prevHeaders = useRef(JSON.stringify(headersMinWidth(headers)));
-  const [ scroll, setScroll ] = useState<Scroll>({ left: 0, right: 0, top: 0, bottom: 0 });
-  const { height = 0, ref } = useResizeDetector();
+  const { height = 0, ref: headerRef } = useResizeDetector();
   
-  useEffect(() => {
-    const width = (viewContainerWidth || 0) - SCROLL_WIDTH;
-    const totalWidth = headers.reduce((total, { minWidth = minCellWidth }) => total + minWidth, 0);
-    const extra = width > totalWidth ? width - totalWidth : 0;
-    if (viewContainerWidth !== prevSizeWidth || prevHeaders.current !== JSON.stringify(headersMinWidth(headers))) {
-      const newHeaderWidths: HeaderWidthsType = {};
-      let accumulatedWidth = 0;
-      headers.forEach(({ minWidth = minCellWidth, index }) => {
-        const percentage = minWidth / totalWidth;
-        newHeaderWidths[index] = { width: Math.floor(minWidth + (extra * percentage)), minWidth, accumulatedWidth };
-        accumulatedWidth += newHeaderWidths[index].width;
-      });
-      setHeaderWidths(newHeaderWidths);
-      prevHeaders.current = JSON.stringify(headersMinWidth(headers));
-    }
-  }, [ headers, viewContainerWidth, prevSizeWidth ]);
-  
-  const tableHeaders: TableHeadersWithWidthType<T>[] = useMemo(() => headers.map(head => ({
-    ...head,
-    width: headerWidths[head.index]?.width || 0,
-  })).filter(head => head.width), [ headers, headerWidths ]);
-  const [ recordHoveredIndex, setRecordHoveredIndex ] = useState<number | null>(null);
   const isMobileViewPort = viewPortSize === 'sm';
   const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
   const onColumn = !isMobileViewPort || (isMobileViewPort
     && (extraNodes.length === 0 ? true : extraNodesFloating)
     && !viewViews);
   
-  console.log({ scroll });
   return (
     <div
       className="jk-data-viewer-content jk-br-ie"
       style={{
         '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px',
         position: 'relative',
-        '--jk-data-viewer-table-height': height + 1 + 'px',
+        '--jk-data-viewer-header-table-height': height + 1 + 'px',
       } as CSSProperties}
     >
       <DataViewerToolbar<T>
@@ -120,93 +86,38 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         className={classNames('jk-view-container', viewMode.toLowerCase())}
         ref={viewContainerRef}
       >
-        {viewMode === DataViewMode.ROWS && (
-          <TableHead
-            headers={tableHeaders}
-            headerWidths={headerWidths}
-            setHeaderWidths={headerWidths => {
-              let accumulatedWidth = 0;
-              const newHeaderWidths: HeaderWidthsType = {};
-              headers.forEach(({ index }) => {
-                newHeaderWidths[index] = { ...headerWidths[index], accumulatedWidth };
-                accumulatedWidth += headerWidths[index].width;
-              });
-              setHeaderWidths(newHeaderWidths);
-            }}
-            scroll={scroll}
-            loading={loading}
-            ref={ref}
-          />
-        )}
         {data.length > 0 && loading && <LineLoader />}
         {viewMode === DataViewMode.ROWS ? (
-          <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}>
-            <LoaderLayer loading={data.length === 0 && loading}>
-              <RowVirtualizerFixed
-                data={data}
-                headers={tableHeaders}
-                rowHeight={rowHeight}
-                scroll={scroll}
-                setScroll={setScroll}
-                getRecordKey={getRecordKey}
-                recordHoveredIndex={recordHoveredIndex}
-                setRecordHoveredIndex={setRecordHoveredIndex}
-                getRecordClassName={getRecordClassName}
-                getRecordStyle={getRecordStyle}
-                onRecordClick={onRecordClick}
-              />
-            </LoaderLayer>
-            {!!scroll.right && (
-              <div
-                className="elevation-2"
-                style={{
-                  height: '100%',
-                  width: 1,
-                  position: 'absolute',
-                  right: -1,
-                  top: 0,
-                  zIndex: 3,
-                  background: 'transparent',
-                  pointerEvents: 'none',
-                }}
-              />
-            )}
-            {!!scroll.bottom && (
-              <div
-                className="elevation-2"
-                style={{
-                  width: '100%',
-                  height: 1,
-                  position: 'absolute',
-                  left: 0,
-                  bottom: -1,
-                  zIndex: 3,
-                  background: 'transparent',
-                  pointerEvents: 'none',
-                }}
-              />
-            )}
-          </div>
+          <ViewContainerRows
+            headers={headers}
+            viewContainerWidth={viewContainerWidth || 0}
+            headerRef={headerRef}
+            rowHeight={rowHeight}
+            data={data}
+            loading={loading}
+            viewMode={viewMode}
+            getRecordKey={getRecordKey}
+            getRecordStyle={getRecordStyle}
+            getRecordClassName={getRecordClassName}
+            onRecordClick={onRecordClick}
+          />
         ) : (
           <div
             className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}
             style={{ width: (viewContainerWidth || 0) }}
           >
-            <LoaderLayer loading={data.length === 0 && loading}>
-              <CardRowVirtualizerFixed
-                headers={tableHeaders}
-                data={data}
-                cardHeight={cardHeight}
-                cardWidth={cardWidth}
-                rowWidth={(viewContainerWidth || 0) - SCROLL_WIDTH}
-                recordHoveredIndex={recordHoveredIndex}
-                setRecordHoveredIndex={setRecordHoveredIndex}
-                getRecordClassName={getRecordClassName}
-                getRecordStyle={getRecordStyle}
-                onRecordClick={onRecordClick}
-                expandedCards={cardExpanded}
-              />
-            </LoaderLayer>
+            {data.length === 0 && loading && <JukiLoadingLayout />}
+            <CardRowVirtualizerFixed
+              headers={headers}
+              data={data}
+              cardHeight={cardHeight}
+              cardWidth={cardWidth}
+              rowWidth={(viewContainerWidth || 0) - SCROLL_WIDTH}
+              getRecordClassName={getRecordClassName}
+              getRecordStyle={getRecordStyle}
+              onRecordClick={onRecordClick}
+              expandedCards={cardExpanded}
+            />
           </div>
         )}
       </div>

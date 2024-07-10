@@ -42,6 +42,12 @@
   }
 }
 
+.jk-modal-bc-wd {
+  .jk-modal {
+    background: var(--t-color-white-dark);
+  }
+}
+
 .jk-modal {
   position: relative;
   margin: auto;

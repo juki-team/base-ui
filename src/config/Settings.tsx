@@ -346,6 +346,21 @@ export class Settings {
     };
   }
   
+  get ROUTES() {
+    
+    return {
+      judge(host?: string) {
+        return {
+          problems: {
+            view(problemJudgeKey: string) {
+              return `${host ? host : ''}/problem/${problemJudgeKey}`;
+            },
+          },
+        };
+      },
+    };
+  }
+  
   setSetting(serviceApiUrl: string, utilsUiUrl: string, tokenName: string) {
     this._SERVICE_API_URL = serviceApiUrl;
     this._UTILS_UI_URL = utilsUiUrl;

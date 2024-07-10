@@ -1,6 +1,13 @@
-import { EntityState, Judge, ProblemScoringMode, ProblemType, ProblemUserType } from '@juki-team/commons';
+import {
+  EntityState,
+  Judge,
+  ProblemDataResponseDTO,
+  ProblemScoringMode,
+  ProblemType,
+  ProblemUserType,
+} from '@juki-team/commons';
 
-export interface ProblemDataViewer {
+export interface ProblemDataViewerType {
   companyKey: string,
   id: string | undefined,
   key: string,
@@ -16,4 +23,5 @@ export interface ProblemDataViewer {
   ownerCompanyKey: string,
   tags: string[],
   state: EntityState | undefined,
+  problem: ProblemDataResponseDTO | undefined,
 }

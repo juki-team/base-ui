@@ -2,9 +2,9 @@ import React, { ReactNode, useState } from 'react';
 import { Button, T } from '../../atoms';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 import { ProblemLogsModal } from './ProblemLogsModal';
-import { ProblemDataViewer } from './types';
+import { ProblemDataViewerType } from './types';
 
-export const ProblemAdminActionsField: DataViewerHeadersType<ProblemDataViewer>['Field'] = (props) => {
+export const ProblemAdminActionsField: DataViewerHeadersType<ProblemDataViewerType>['Field'] = (props) => {
   
   const { record: { key, judge, isManager, companyKey } } = props;
   
@@ -35,3 +35,11 @@ export const ProblemAdminActionsField: DataViewerHeadersType<ProblemDataViewer>[
     </Field>
   );
 };
+
+export const getProblemAdminActionsHeader = (): DataViewerHeadersType<ProblemDataViewerType> => ({
+  head: 'actions',
+  index: 'actions',
+  Field: ProblemAdminActionsField,
+  cardPosition: 'bottom',
+  minWidth: 100,
+});

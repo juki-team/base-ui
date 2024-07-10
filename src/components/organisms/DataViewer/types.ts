@@ -43,14 +43,12 @@ export interface RowVirtualizerFixedProps<T> {
   data: T[],
   headers: TableHeadersWithWidthType<T>[],
   rowHeight: number,
-  scroll: Scroll,
   getRecordKey?: GetRecordKeyType<T>,
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
-  setScroll: Dispatch<SetStateAction<Scroll>>,
-  onRecordClick?: OnRecordClickType<T>,
-  setRecordHoveredIndex: SetRecordHoveredIndexType,
-  recordHoveredIndex: RecordHoveredIndexType,
+  setScrollLeft: Dispatch<SetStateAction<number>>,
+  onRecordClick: OnRecordClickType<T> | undefined,
+  setBorderTop: Dispatch<SetStateAction<boolean>>,
 }
 
 export type FilterTextOnlineType = { type: typeof FILTER_TEXT };
@@ -178,15 +176,11 @@ export type TableHeaderFilterType =
   | TableHeaderFilterDateRangeType;
 
 export type CardPositionType =
-  'topLeft'
-  | 'top'
-  | 'topRight'
-  | 'centerLeft'
-  | 'center'
-  | 'centerRight'
-  | 'bottomLeft'
-  | 'bottom'
-  | 'bottomRight';
+  'topLeft' | 'top' | 'topRight'
+  | 'upperLeft' | 'upper' | 'upperRight'
+  | 'centerLeft' | 'center' | 'centerRight'
+  | 'lowerLeft' | 'lower' | 'lowerRight'
+  | 'bottomLeft' | 'bottom' | 'bottomRight';
 
 export type TableHeadType = (() => ReactNode) | ReactNode;
 
@@ -331,8 +325,9 @@ export interface TableHeadProps<T> {
   headerWidths: HeaderWidthsType,
   headers: TableHeadersWithWidthType<T>[],
   setHeaderWidths: Dispatch<HeaderWidthsType>,
-  scroll: Scroll,
+  scrollLeft: number,
   loading: boolean,
+  borderTop: boolean,
 }
 
 export interface FilterDrawerProps<T> {

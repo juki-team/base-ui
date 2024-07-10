@@ -12,14 +12,15 @@ export interface ProblemViewProps<T> extends ProblemStatementViewProps {
   codeEditorSourceStoreKey?: string,
 }
 
-export const ProblemView = <T, >({
-                                   problem,
-                                   codeEditorCenterButtons,
-                                   codeEditorSourceStoreKey,
-                                   infoPlacement,
-                                   withoutName,
-                                 }: ProblemViewProps<T>) => {
+export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
   
+  const {
+    problem,
+    codeEditorCenterButtons,
+    codeEditorSourceStoreKey,
+    infoPlacement,
+    withoutName,
+  } = props;
   const { viewPortSize } = useJukiUI();
   const [ expanded, setExpanded ] = useState(false);
   
