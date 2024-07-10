@@ -1,20 +1,12 @@
-import React, { PropsWithChildren, ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiRouter, useJukiUI } from '../../../hooks';
-import { NotUndefined, ReactNodeOrFunctionP1Type } from '../../../types';
+import { NotUndefined } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { TabsInline, TabsType } from '../Tabs';
 import { TwoContentSection } from '../TwoContentSection';
 import { PawsLoadingLayout } from './PawsLoadingLayout';
-
-interface TwoContentLayoutProps<T> extends PropsWithChildren {
-  breadcrumbs?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T; }, ReactNode[]>,
-  tabs?: TabsType<T>,
-  tabButtons?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T; }>[],
-  getPathname?: (selectedTabKey: T) => string,
-  selectedTabKey?: T,
-  loading?: boolean,
-}
+import { TwoContentLayoutProps } from './types';
 
 export const TwoContentLayout = <T, >({
                                         breadcrumbs: initialBreadcrumbs,
