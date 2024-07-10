@@ -23,7 +23,7 @@ export const ProblemCrawlerField: DataViewerHeadersType<ProblemDataViewerType>['
 );
 
 export const getProblemOwnerHeader = (isForeignProblem: boolean): DataViewerHeadersType<ProblemDataViewerType> => ({
-  head: 'owner',
+  head: isForeignProblem ? 'crawler' : 'owner',
   index: 'owner',
   Field: isForeignProblem ? ProblemCrawlerField : ProblemOwnerField,
   sort: true,

@@ -16,3 +16,17 @@ export enum QueryParamKey {
 export type RequestSortType = { [key: string]: 1 | -1 };
 
 export type RequestFilterType = { [key: string]: string | string[] };
+
+export enum ProblemTab {
+  STATEMENT = 'statement',
+  EDITOR = 'editor',
+  MY_SUBMISSIONS = 'my-submissions',
+  SUBMISSIONS = 'submissions',
+  TESTS = 'tests',
+  // RANKING = 'ranking',
+  // STATISTICS = 'statistics',
+  SETUP = 'setup',
+  EDITORIAL = 'editorial',
+  ACCESS = 'access',
+  DELETE = 'delete',
+}

@@ -10,6 +10,7 @@ import {
 import { ErrorInfo } from 'react';
 import {
   AuthorizedRequestType,
+  ProblemTab,
   SignInPayloadDTO,
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,
@@ -352,8 +353,8 @@ export class Settings {
       judge(host?: string) {
         return {
           problems: {
-            view(problemJudgeKey: string) {
-              return `${host ? host : ''}/problem/${problemJudgeKey}`;
+            view(problemJudgeKey: string, tab?: ProblemTab) {
+              return `${host ? host : ''}/problem/${problemJudgeKey}/${tab ? tab : ProblemTab.STATEMENT}`;
             },
           },
         };
