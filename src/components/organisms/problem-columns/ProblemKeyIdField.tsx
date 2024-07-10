@@ -1,24 +1,26 @@
 import React from 'react';
-import { CopyIcon, CopyToClipboard } from '../../atoms';
+import { ContentCopyIcon, CopyToClipboard } from '../../atoms';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 import { ProblemDataViewerType } from './types';
 
 export const ProblemKeyIdField: DataViewerHeadersType<ProblemDataViewerType>['Field'] = ({ record: { key, id } }) => (
   <Field className="jk-col center">
-    <div className="jk-row gap">
+    <div className="jk-row">
       <div className="jk-row tx-s fw-bd">{key}</div>
+      &nbsp;
       <CopyToClipboard text={key}>
-        <div className="jk-row hoverable jk-br-ie" style={{ padding: 2 }}>
-          <CopyIcon size="tiny" />
+        <div className="jk-button light only-icon tiny">
+          <ContentCopyIcon />
         </div>
       </CopyToClipboard>
     </div>
     {id && (
-      <div className="jk-row gap">
+      <div className="jk-row">
         <div className="jk-row tx-t fw-lr">{id}</div>
+        &nbsp;
         <CopyToClipboard text={id}>
-          <div className="jk-row hoverable jk-br-ie" style={{ padding: 2 }}>
-            <CopyIcon size="tiny" />
+          <div className="jk-button light only-icon tiny">
+            <ContentCopyIcon />
           </div>
         </CopyToClipboard>
       </div>

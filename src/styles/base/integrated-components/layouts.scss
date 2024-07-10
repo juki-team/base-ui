@@ -40,14 +40,6 @@
       div.jk-data-viewer-layout {
         height: 100%;
         width: 100%;
-        
-        .jk-data-viewer-content {
-          .jk-view-container.rows {
-            .jk-data-viewer-body.rows {
-              box-shadow: 0 -20px 20px -24px var(--t-color-highlight) inset, 0 -20px 20px -24px var(--t-color-highlight) inset;
-            }
-          }
-        }
       }
     }
   }

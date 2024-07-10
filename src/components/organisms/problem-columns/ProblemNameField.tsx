@@ -14,8 +14,6 @@ export const ProblemNameField: DataViewerHeadersType<ProblemDataViewerType>['Fie
   const { components: { Link } } = useJukiUI();
   const [ modal, setModal ] = useState<ReactNode>(null);
   
-  console.log({ viewProblemUrl });
-  
   return (
     <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
       {modal}
