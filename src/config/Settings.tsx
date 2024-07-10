@@ -351,6 +351,9 @@ export class Settings {
             edit({ problemJudgeKey }: { problemJudgeKey: string }) {
               return injectOrigin(`/problems/${problemJudgeKey}/edit`);
             },
+            new() {
+              return injectOrigin(`/problems/new`);
+            },
           },
         };
       },
