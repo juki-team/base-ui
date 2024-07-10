@@ -58,6 +58,8 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
     }
   }, [ isLoading ]);
   
+  console.log({ isLoading, initializing, data, response });
+  
   return (
     <DataViewer<T>
       getRecordStyle={getRecordStyle}
