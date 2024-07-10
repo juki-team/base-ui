@@ -78,7 +78,7 @@ export const Pagination = (props: PaginationProps) => {
                   padding: '0 4px',
                 }}
               >
-                {firstItem}-{firstItem + dataLength}&nbsp;<T>of</T>&nbsp;{total}
+                {dataLength ? `${firstItem}-${firstItem + dataLength - 1}` : '0'}&nbsp;<T>of</T>&nbsp;{total}
               </div>
               <Tooltip content={<T>previous</T>} placement="top">
                 <div
