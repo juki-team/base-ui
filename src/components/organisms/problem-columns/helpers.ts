@@ -1,5 +1,4 @@
-import { getProblemJudgeKey, ProblemDataSystemResponseDTO, ProblemSummaryListResponseDTO } from '@juki-team/commons';
-import { jukiSettings } from '../../../config';
+import { ProblemDataSystemResponseDTO, ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import { ProblemDataViewerType } from './types';
 
 const isProblemDataSystemResponseDTO = (problem: ProblemDataSystemResponseDTO | ProblemSummaryListResponseDTO): problem is ProblemDataSystemResponseDTO => {
@@ -16,7 +15,6 @@ export const toProblemDataViewer = (problem: ProblemDataSystemResponseDTO | Prob
   problem: isProblemDataSystemResponseDTO(problem) ? problem : undefined,
   scoringMode: problem.settings.mode,
   type: problem.settings.type,
-  viewProblemUrl: jukiSettings.ROUTES.judge().problems.view(getProblemJudgeKey(problem.judge, problem.key)),
   name: problem.name,
   user: problem.user,
   ownerNickname: problem.owner.nickname,

@@ -238,3 +238,11 @@ export const isSomethingFiltered = <T, >(headers: TableHeadersType<T>[]) => {
 export const getPageKey = (name: string) => name ? name + '.page' : 'page';
 
 export const getPageSizeKey = (name: string) => name ? name + '.pageSize' : 'pageSize';
+
+export const getSortKey = (name: string) => name ? name + '.sort' : 'sort';
+
+export const getFilterKey = (name: string) => name ? name + '.filter' : 'filter';
+
+export const getViewModeKey = (name: string) => name ? name + '.viewMode' : 'viewMode';
+
+export const getShowFilterDrawerKey = (name: string) => name ? name + '.showFilterDrawer' : 'showFilterDrawer';

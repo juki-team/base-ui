@@ -235,7 +235,8 @@ export interface DisplayDataViewerProps<T> {
   extraNodes: ReactNodeOrFunctionType[],
   extraNodesFloating?: boolean,
   headers: TableHeadersType<T>[],
-  loading?: boolean,
+  loading: boolean,
+  initializing: boolean,
   onAllFilters: (values: FilterValuesType) => void,
   onReload?: () => void,
   showFilterDrawerKey: string,
@@ -311,7 +312,6 @@ export interface DataViewerProps<T> {
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
   onRecordClick?: OnRecordClickType<T>,
-  preferredDataViewMode?: DataViewMode,
   setDataTableRef?: (data: T[]) => void,
 }
 
@@ -366,6 +366,7 @@ export interface DataViewerToolbarProps<T> {
   extraNodesFloating: boolean,
   headers: TableHeadersType<T>[],
   loading: boolean,
+  initializing: boolean,
   onAllFilters: (values: FilterValuesType) => void,
   onReload?: () => void,
   rowsView: boolean,
@@ -382,6 +383,7 @@ export interface PaginationProps {
   page: number,
   pageSize: number,
   loading: boolean,
+  initializing: boolean,
   pageSizeOptions: number[],
   jumpToPage: (page: number) => void,
   onPageSizeChange: (pageSize: number) => void,

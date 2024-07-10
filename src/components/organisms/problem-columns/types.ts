@@ -15,7 +15,6 @@ export interface ProblemDataViewerType {
   isManager: boolean | undefined,
   scoringMode: ProblemScoringMode,
   type: ProblemType,
-  viewProblemUrl: string,
   name: string,
   user: ProblemUserType,
   ownerNickname: string,

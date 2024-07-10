@@ -1,7 +1,7 @@
 import { DataViewMode, Status } from '@juki-team/commons';
 import React, { Children, memo, useCallback, useEffect, useRef } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
-import { useJukiRouter, useJukiUI } from '../../../hooks';
+import { useJukiRouter, useJukiUI, useSessionStorage } from '../../../hooks';
 import {
   FilterListIcon,
   MenuIcon,
@@ -29,6 +29,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     rowsView,
     cardsView,
     loading,
+    initializing,
     onReload,
     onAllFilters,
     pagination,
@@ -42,14 +43,15 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const { viewPortSize } = useJukiUI();
   
-  const { searchParams, setSearchParams } = useJukiRouter();
+  const { searchParams } = useJukiRouter();
   
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   
-  const showFilterDrawer = searchParams.get(showFilterDrawerKey) === 'open' ? 'open' : 'close';
+  const [ showFilterDrawer, _setShowFilterDrawer ] = useSessionStorage(showFilterDrawerKey, searchParams.get(showFilterDrawerKey) === 'open' ? 'open' : 'close');
   const setShowFilterDrawer = useCallback((show: boolean) => {
-    setSearchParams({ name: showFilterDrawerKey, value: show ? 'open' : 'close' });
-  }, [ setSearchParams, showFilterDrawerKey ]);
+    // setSearchParams({ name: showFilterDrawerKey, value: show ? 'open' : 'close' });
+    _setShowFilterDrawer(show ? 'open' : 'close');
+  }, [ _setShowFilterDrawer ]);
   const isMobileViewPort = viewPortSize === 'sm';
   const viewFilterButton = !!headers.filter(head => head.filter || head.sort).length;
   
@@ -82,7 +84,6 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     <div
       className={classNames(
         'jk-data-viewer-toolbar jk-row space-between nowrap',
-        //{ 'jk-br-ie elevation-1': viewMode === DataViewMode.CARDS },
         viewMode.toLowerCase(),
       )}
     >
@@ -136,6 +137,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
           {pagination.withPagination && (
             <Pagination
               loading={loading}
+              initializing={initializing}
               pageSizeOptions={isMobileViewPort ? [ 20 ] : pagination.pageSizeOptions}
               total={pagination.total}
               page={pagination.page}

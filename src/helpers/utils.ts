@@ -31,7 +31,7 @@ export const handleShareMdPdf = (type: 'md' | 'pdf', source: string, sourceUrl: 
   if (url) {
     openNewTab((
       type === 'md'
-        ? jukiSettings.UTILS_ROUTER.note.view({ sourceUrl: url, theme }).url
+        ? jukiSettings.ROUTES.utils(jukiSettings.UTILS_UI_URL).note.view({ sourceUrl: url, theme }).url
         : jukiSettings.API.note.getPdf({ params: { sourceUrl: url } }).url
     ));
   } else {

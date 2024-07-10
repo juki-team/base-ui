@@ -1,4 +1,4 @@
-import { ProfileSetting, Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
@@ -18,7 +18,6 @@ import {
   T,
   toProblemDataViewer,
 } from '../../../';
-import { useJukiUser } from '../../../../hooks/useJukiUser';
 import problems from './data.json';
 
 export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemDataViewerType>, 'data'>) => {
@@ -47,8 +46,6 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemDataViewer
     await (new Promise((resolve) => setTimeout(() => resolve(true), 6000)));
     setLoaderStatus(Status.SUCCESS);
   }, []);
-  
-  const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
   
   const extraNodes = useMemo(() => [
     <ButtonLoader
@@ -81,7 +78,6 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemDataViewer
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px' }}>
       <DataViewer<ProblemDataViewerType>
         {...props}
-        preferredDataViewMode={preferredDataViewMode}
         cards={{ expanded: true }}
         // headers={columns.slice(0, 4).map(c => ({ ...c, sticky: false }))}
         // headers={columns.slice(0, 4)}

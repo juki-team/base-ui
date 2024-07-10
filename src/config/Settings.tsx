@@ -10,7 +10,6 @@ import {
 import { ErrorInfo } from 'react';
 import {
   AuthorizedRequestType,
-  ProblemTab,
   SignInPayloadDTO,
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,
@@ -63,21 +62,6 @@ export class Settings {
   
   get reportError(): (error: any) => void {
     return this._ON_ERROR;
-  }
-  
-  get UTILS_ROUTER() {
-    
-    const injectBaseUrl = (prefix: string, path: string) => {
-      return `${this._UTILS_UI_URL}/${prefix}${path}`;
-    };
-    
-    return {
-      note: {
-        view: ({ sourceUrl, theme }: { sourceUrl: string, theme: Theme }) => ({
-          url: injectBaseUrl('note', `?sourceUrl=${sourceUrl}&theme=${theme}`),
-        }),
-      },
-    };
   }
   
   get API() {
@@ -349,13 +333,34 @@ export class Settings {
   
   get ROUTES() {
     
+    const _injectOrigin = (origin?: string) => (path: string) => {
+      return `${origin ? origin : ''}${path}}`;
+    };
+    
     return {
-      judge(host?: string) {
+      judge(origin?: string) {
+        const injectOrigin = _injectOrigin(origin);
         return {
           problems: {
-            view(problemJudgeKey: string, tab?: ProblemTab) {
-              return `${host ? host : ''}/problem/${problemJudgeKey}/${tab ? tab : ProblemTab.STATEMENT}`;
+            list() {
+              return injectOrigin(`/problems`);
             },
+            view({ problemJudgeKey }: { problemJudgeKey: string }) {
+              return injectOrigin(`/problems/${problemJudgeKey}`);
+            },
+            edit({ problemJudgeKey }: { problemJudgeKey: string }) {
+              return injectOrigin(`/problems/${problemJudgeKey}/edit`);
+            },
+          },
+        };
+      },
+      utils(origin?: string) {
+        const injectOrigin = _injectOrigin(origin);
+        return {
+          note: {
+            view: ({ sourceUrl, theme }: { sourceUrl: string, theme: Theme }) => ({
+              url: injectOrigin(`/note?sourceUrl=${sourceUrl}&theme=${theme}`),
+            }),
           },
         };
       },

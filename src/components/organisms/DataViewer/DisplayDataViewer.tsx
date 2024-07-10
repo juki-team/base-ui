@@ -23,7 +23,8 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     data,
     extraNodes,
     headers,
-    loading = false,
+    loading,
+    initializing,
     onAllFilters,
     onReload,
     rows: { height: rowHeight = 56 } = { height: 56 },
@@ -66,6 +67,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         rowsView={rowsView}
         cardsView={cardsView}
         loading={loading}
+        initializing={initializing}
         onReload={onReload}
         onAllFilters={onAllFilters}
         pagination={pagination}

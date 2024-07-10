@@ -57,6 +57,7 @@
   --dot-flashing-color-light: var(--t-color-highlight);
   --dot-flashing-size: 4px;
   margin-left: calc(var(--dot-flashing-size) * 1.5);
+  margin-right: calc(var(--dot-flashing-size) * 1.5);
   position: relative;
   width: var(--dot-flashing-size);
   height: var(--dot-flashing-size);
@@ -65,6 +66,10 @@
   color: var(--dot-flashing-color);
   animation: dot-flashing 1s infinite linear alternate;
   animation-delay: 0.5s;
+  
+  &.bottom {
+    margin-top: 7px;
+  }
 }
 
 .dot-flashing::before, .dot-flashing::after {

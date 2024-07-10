@@ -1,4 +1,4 @@
-import { ProfileSetting, Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
@@ -22,7 +22,6 @@ import {
   TextField,
   TextHeadCell,
 } from '../../../';
-import { useJukiUser } from '../../../../hooks/useJukiUser';
 import users from './data.json';
 
 export interface JkUserTableProps {
@@ -229,8 +228,6 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     setLoaderStatus(Status.SUCCESS);
   }, []);
   
-  const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
-  
   const extraNodes = useMemo(() => [
     <ButtonLoader
       size="small"
@@ -262,7 +259,6 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data'>)
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px' }}>
       <DataViewer<UserTable>
         {...props}
-        preferredDataViewMode={preferredDataViewMode}
         cards={{ expanded: true }}
         // headers={columns.slice(0, 4).map(c => ({ ...c, sticky: false }))}
         // headers={columns.slice(0, 4)}

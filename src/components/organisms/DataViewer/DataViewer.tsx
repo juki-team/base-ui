@@ -1,7 +1,7 @@
-import { consoleWarn, DataViewMode, Status } from '@juki-team/commons';
+import { consoleWarn, DataViewMode, ProfileSetting, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
-import { useJukiRouter, useJukiUI, useT } from '../../../hooks';
+import { useJukiRouter, useJukiUI, useJukiUser, useSessionStorage, useT } from '../../../hooks';
 import { RequestFilterType, RequestSortType } from '../../../types';
 import { OptionType } from '../../molecules';
 import {
@@ -17,8 +17,12 @@ import {
 import { DisplayDataViewer } from './DisplayDataViewer';
 import { DataViewerProps, FilterValuesType, TableHeadersType } from './types';
 import {
+  getFilterKey,
   getPageKey,
   getPageSizeKey,
+  getShowFilterDrawerKey,
+  getSortKey,
+  getViewModeKey,
   isFilterDateAutoOffline,
   isFilterDateOffline,
   isFilterDateOnline,
@@ -50,6 +54,10 @@ function getTextWidth(text: string, font: string) {
   return 0;
 }
 
+const join = (array: string[]) => {
+  return array.join('\x1E');
+};
+
 export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => {
   
   const {
@@ -71,72 +79,68 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     getRecordKey,
     getPageQueryParam = getPageKey,
     getPageSizeQueryParam = getPageSizeKey,
-    getSortQueryParam = (name) => name ? name + '.sort' : 'sort',
-    getFilterQueryParam = (name) => name ? name + '.filter' : 'filter',
-    getViewModeQueryParam = (name) => name ? name + '.viewMode' : 'viewMode',
-    getShowFilterDrawerQueryParam = (name) => name ? name + '.showFilterDrawer' : 'showFilterDrawer',
+    getSortQueryParam = getSortKey,
+    getFilterQueryParam = getFilterKey,
+    getViewModeQueryParam = getViewModeKey,
+    getShowFilterDrawerQueryParam = getShowFilterDrawerKey,
     getRecordStyle,
     getRecordClassName,
     onRecordClick,
     extraNodesFloating,
-    preferredDataViewMode,
     setDataTableRef: _setDataTableRef,
   } = props;
   
   const { viewPortSize } = useJukiUI();
-  
-  const { searchParams, deleteSearchParams, setSearchParams } = useJukiRouter();
-  
+  const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
+  const { searchParams } = useJukiRouter();
   const { t } = useT();
   
   const withPagination = !!initialPageSizeOptions;
   
-  const pageKey = getPageQueryParam(name);
-  const pageSizeKey = getPageSizeQueryParam(name);
-  const sortKey = getSortQueryParam(name);
-  const filterKey = getFilterQueryParam(name);
-  const viewModeKey = getViewModeQueryParam(name);
   const showFilterDrawerKey = getShowFilterDrawerQueryParam(name);
+  
   const [ reloadCount, setReloadCount ] = useState(0);
-  const [ loaderStatus, setLoaderStatus ] = useState<Status>(Status.NONE);
-  const searchSorts = searchParams.get(sortKey) || '';
-  const searchFilter = useMemo(() => searchParams.getAll(filterKey), [ filterKey, searchParams ]);
+  const [ loaderStatus, setLoaderStatus ] = useState<Status>(Status.LOADING);
+  const [ initializing, setInitializing ] = useState(true);
+  useEffect(() => {
+    if (loaderStatus !== Status.LOADING) {
+      setInitializing(false);
+    }
+  }, [ loaderStatus ]);
+  
+  const sortKey = getSortQueryParam(name);
+  const [ searchSorts, setSort, deleteSort ] = useSessionStorage(sortKey, searchParams.get(sortKey));
+  
+  const filterKey = getFilterQueryParam(name);
+  const [ _searchFilter, setFilter, deleteFilter ] = useSessionStorage(filterKey, join(searchParams.getAll(filterKey)));
+  const searchFilter = useMemo(() => _searchFilter.split('\x1E'), [ _searchFilter ]);
+  
   const [ dataTable, setDataTable ] = useState(data);
-  const prevSearchSorts = useRef<string>();
-  const prevSearchFilter = useRef<string[]>();
+  
   const prevRefreshCount = useRef<number>();
   const prevPage = useRef<number>();
   const prevPageSize = useRef<number>();
+  const prevSearchSorts = useRef<string>();
+  const prevSearchFilter = useRef<string[]>();
+  
   const firstRender = useRef(true);
+  
+  const pageKey = getPageQueryParam(name);
+  const pageSizeKey = getPageSizeQueryParam(name);
   const initialPageSizeOptionsString = JSON.stringify(initialPageSizeOptions ?? [ 25, 50, 100 ]);
   const pageSizeOptions = useMemo(() => JSON.parse(initialPageSizeOptionsString), [ initialPageSizeOptionsString ]);
-  const initialViewMode = _initialViewMode
-    || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
-  
-  const page = useMemo(() => +(searchParams.get(pageKey) || 1), [ pageKey, searchParams ]);
-  const pageSize = useMemo(() => +(searchParams.get(pageSizeKey) || 0) || pageSizeOptions[0], [
-    pageSizeKey,
-    pageSizeOptions,
-    searchParams,
-  ]);
+  const [ _page, setPage ] = useSessionStorage(pageKey, searchParams.get(pageKey));
+  const page = useMemo(() => +_page || 1, [ _page ]);
+  const [ _pageSize, setPageSize ] = useSessionStorage(pageSizeKey, searchParams.get(pageSizeKey));
+  const pageSize = useMemo(() => +_pageSize || pageSizeOptions[0], [ _pageSize, pageSizeOptions ]);
   const jumpToPage = useCallback((page: number) => {
-    setSearchParams({ name: pageKey, value: page + '' });
-  }, [ pageKey, setSearchParams ]);
-  
+    // setSearchParams({ name: pageKey, value: page + '' });
+    setPage(page + '');
+  }, [ setPage ]);
   const onPageSizeChange = useCallback((pageSize: number) => {
-    setSearchParams({ name: pageSizeKey, value: pageSize + '' });
-  }, [ pageSizeKey, setSearchParams ]);
-  
-  useEffect(() => {
-    if (withPagination) {
-      if (!searchParams.get(pageKey) || !searchParams.get(pageSizeKey)) {
-        setSearchParams(
-          { name: pageKey, value: '1', replace: true },
-          { name: pageSizeKey, value: pageSizeOptions[0] + '', replace: true },
-        );
-      }
-    }
-  }, [ setSearchParams, pageKey, pageSizeKey, pageSizeOptions, searchParams, withPagination ]);
+    // setSearchParams({ name: pageSizeKey, value: pageSize + '' });
+    setPageSize(pageSize + '');
+  }, [ setPageSize ]);
   
   const _refLoader = useRef(loaderStatus);
   _refLoader.current = loaderStatus;
@@ -464,9 +468,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       const newSearchFilter = [ ...searchFilter ];
       newSearchFilter[index] = '';
       if (isSomethingFiltered(newSearchFilter)) {
-        setSearchParams({ name: filterKey, value: newSearchFilter });
+        setFilter(join(newSearchFilter));
       } else {
-        deleteSearchParams({ name: filterKey });
+        deleteFilter();
       }
     };
     
@@ -475,9 +479,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       if (JSON.stringify(newSearchFilter[index]) !== JSON.stringify(newFilter)) {
         newSearchFilter[index] = newFilter;
         if (isSomethingFiltered(newSearchFilter)) {
-          setSearchParams({ name: filterKey, value: newSearchFilter });
+          setFilter(join(newSearchFilter));
         } else {
-          deleteSearchParams({ name: filterKey });
+          deleteFilter();
         }
       }
     };
@@ -496,9 +500,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           onSort: () => {
             const newSort = newHead.sort?.order === 1 ? down : newHead.sort?.order === -1 ? '' : up;
             if (newSort) {
-              setSearchParams({ name: sortKey, value: newSort });
+              setSort(newSort);
             } else {
-              deleteSearchParams({ name: sortKey });
+              deleteSort();
             }
           },
           online: isSortOnline(sort),
@@ -578,7 +582,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       
       return newHead;
     });
-  }, [ deleteSearchParams, filterKey, headers, searchFilter, searchSorts, setSearchParams, sortKey, t ]);
+  }, [ deleteFilter, deleteSort, headers, searchFilter, searchSorts, setFilter, setSort, t ]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
     const newSearchFilter = searchFilter.length ? [ ...searchFilter ] : new Array(headers.length).fill('');
@@ -605,26 +609,28 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
     });
     if (isSomethingFiltered(newSearchFilter)) {
-      setSearchParams({ name: filterKey, value: newSearchFilter });
+      setFilter(join(newSearchFilter));
     } else {
-      deleteSearchParams({ name: filterKey });
+      deleteFilter();
     }
-  }, [ deleteSearchParams, filterKey, headers, searchFilter, setSearchParams ]);
+  }, [ deleteFilter, headers, searchFilter, setFilter ]);
   
-  const viewMode: DataViewMode = searchParams.get(viewModeKey) ? (searchParams.get(viewModeKey)
-    ?.toUpperCase() === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS) : initialViewMode;
+  const initialViewMode = _initialViewMode
+    || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
+  const viewModeKey = getViewModeQueryParam(name);
+  const [ viewMode, _setViewMode ] = useSessionStorage(viewModeKey, searchParams.get(viewModeKey) ? (searchParams.get(viewModeKey)
+    ?.toUpperCase() === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS) : initialViewMode);
   const setViewMode = useCallback((viewMode: DataViewMode, replace?: boolean) => {
-    setSearchParams({ name: viewModeKey, value: viewMode.toLowerCase(), replace });
-  }, [ setSearchParams, viewModeKey ]);
-  
+    // setSearchParams({ name: viewModeKey, value: viewMode.toLowerCase(), replace });
+    _setViewMode(viewMode);
+  }, [ _setViewMode ]);
   useEffect(() => {
     if (viewMode === DataViewMode.CARDS && !cardsView && rowsView) {
       setViewMode(DataViewMode.ROWS, true);
     } else if (viewMode === DataViewMode.ROWS && !rowsView && cardsView) {
       setViewMode(DataViewMode.CARDS, true);
     }
-  }, [ viewPortSize, viewMode, cardsView, rowsView, viewModeKey, setViewMode ]);
-  
+  }, [ viewPortSize, viewMode, cardsView, rowsView, setViewMode ]);
   const oldViewPortSizeRef = useRef('');
   useEffect(() => {
     if (oldViewPortSizeRef.current !== viewPortSize
@@ -634,13 +640,13 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       setViewMode(DataViewMode.CARDS, true);
     }
     oldViewPortSizeRef.current = viewPortSize;
-  }, [ viewPortSize, viewMode, cardsView, rowsView, viewModeKey, setViewMode ]);
+  }, [ viewPortSize, viewMode, cardsView, rowsView, setViewMode ]);
   
   useEffect(() => { // Fixing filters
     if (searchFilter.length && searchFilter.length !== tableHeaders.length) {
-      deleteSearchParams({ name: filterKey, replace: true });
+      deleteFilter();
     }
-  }, [ deleteSearchParams, filterKey, tableHeaders, searchFilter ]);
+  }, [ tableHeaders, searchFilter, deleteFilter ]);
   
   const onReload = useCallback(() => request && setReloadCount(prevState => prevState + 1), [ setReloadCount, request ]);
   
@@ -668,6 +674,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         extraNodesFloating={extraNodesFloating}
         headers={tableHeaders}
         loading={loaderStatus === Status.LOADING}
+        initializing={initializing}
         onAllFilters={onAllFilters}
         onReload={onReload}
         rows={rows}
@@ -675,7 +682,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         rowsView={rowsView}
         cardsView={cardsView}
         setViewMode={setViewMode}
-        viewMode={viewMode}
+        viewMode={viewMode as DataViewMode}
         getRecordKey={getRecordKey}
         getRecordStyle={getRecordStyle}
         getRecordClassName={getRecordClassName}
