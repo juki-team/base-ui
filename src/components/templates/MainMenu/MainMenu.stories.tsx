@@ -1,6 +1,6 @@
-import { MenuViewMode } from "@juki-team/commons";
-import { action, configureActions } from "@storybook/addon-actions";
-import React from "react";
+import { MenuViewMode } from '@juki-team/commons';
+import { action, configureActions } from '@storybook/addon-actions';
+import React from 'react';
 import {
   FilterListIcon,
   JukiCouchLogoHorImage,
@@ -14,8 +14,8 @@ import {
   T,
   TwoContentLayout as TwoContentLayoutComponent,
   ViewHeadlineIcon,
-} from "../../../index";
-import { MockupJukiProvider } from "../../mockup";
+} from '../../../index';
+import { MockupJukiProvider } from '../../mockup';
 
 export default {
   component: MainMenuCmp,
@@ -29,31 +29,31 @@ configureActions({
 
 const menu = [
   {
-    label: "contests",
+    label: 'contests',
     icon: <ViewHeadlineIcon />,
     selected: false,
-    onClick: () => action("/contests"),
+    onClick: () => action('/contests'),
   },
   {
-    label: "problems",
+    label: 'problems',
     icon: <PlusIcon />,
     selected: true,
-    onClick: () => action("/problems"),
+    onClick: () => action('/problems'),
   },
   {
-    label: "admin",
+    label: 'admin',
     icon: <FilterListIcon />,
     selected: false,
-    onClick: () => action("/admin"),
+    onClick: () => action('/admin'),
   },
 ];
 
 export const MainMenu = () => (
   <MockupJukiProvider>
-    <div style={{ height: "500px" }}>
+    <div style={{ height: '500px' }}>
       <MainMenuCmp
         menu={menu}
-        onSeeMyProfile={() => console.info("onSeeMyProfile")}
+        onSeeMyProfile={() => console.info('onSeeMyProfile')}
         menuViewMode={MenuViewMode.VERTICAL}
         multiCompanies
         moreApps={
@@ -94,10 +94,10 @@ export const MainMenu = () => (
 
 export const MainMenuLoading = () => (
   <MockupJukiProvider>
-    <div style={{ height: "100VH" }}>
+    <div style={{ height: '100VH' }}>
       <MainMenuCmp
         menu={menu}
-        onSeeMyProfile={() => console.info("onSeeMyProfile")}
+        onSeeMyProfile={() => console.info('onSeeMyProfile')}
         menuViewMode={MenuViewMode.VERTICAL}
         multiCompanies
         moreApps={
@@ -119,7 +119,7 @@ export const MainMenuLoading = () => (
           </>
         }
       >
-        <TwoContentLayoutComponent loading breadcrumbs={[<div>a</div>]}>
+        <TwoContentLayoutComponent loading breadcrumbs={[ <div>a</div> ]}>
           <h1>Title 1</h1>
         </TwoContentLayoutComponent>
       </MainMenuCmp>

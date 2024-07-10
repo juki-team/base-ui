@@ -118,11 +118,11 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const { isPageVisible } = useJukiPage();
   
   const token = getLocalToken();
+  jukiSettings.setSetting(serviceApiUrl, utilsUiUrl, tokenName);
   
   const socket = useMemo(() => new SocketIo(socketServiceUrl), [ socketServiceUrl ]);
   
   useEffect(() => {
-    jukiSettings.setSetting(serviceApiUrl, utilsUiUrl, tokenName);
     socket.start();
     return () => {
       socket.stop();
