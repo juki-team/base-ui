@@ -1,4 +1,4 @@
-import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, Status } from '@juki-team/commons';
+import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, SEPARATOR_TOKEN, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useJukiUser, useSessionStorage, useT } from '../../../hooks';
@@ -54,14 +54,12 @@ function getTextWidth(text: string, font: string) {
   return 0;
 }
 
-const SEP = '\x1E';
-
 const join = (array: (string | null | Date)[]) => {
-  return array.join(SEP);
+  return array.join(SEPARATOR_TOKEN);
 };
 
 const split = (text: string) => {
-  return text.split(SEP);
+  return text.split(SEPARATOR_TOKEN);
 };
 
 export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => {
@@ -122,7 +120,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   
   const filterKey = getFilterQueryParam(name);
   const iniFilters = searchParams.get(filterKey) || '';
-  const [ _searchFilter, setFilter, deleteFilter ] = useSessionStorage(filterKey, isStringJson(iniFilters) ? iniFilters : '{}');
+  const [ _searchFilter, setFilter, deleteFilter ] = useSessionStorage(filterKey, isStringJson(iniFilters) ? iniFilters : null);
   const filters = useMemo(() => {
     const initialFilters = isStringJson(_searchFilter) ? JSON.parse(_searchFilter) : {};
     const result: RequestFilterType = {};
@@ -261,7 +259,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             return false;
           });
         } else if (isFilterSelectOffline(head?.filter)) {
-          const selectedOptions = filters[filterIndex].split(',').map(search => {
+          const selectedOptions = split(filters[filterIndex]).map(search => {
             if (isFilterSelectOffline(head?.filter)) {
               return head.filter.options.find(({ value }) => value === search);
             }
@@ -271,7 +269,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             head.filter.callbackFn({ columnIndex: head.index, selectedOptions }),
           );
         } else if (isFilterSelectAutoOffline(head?.filter)) {
-          const selectedOptions = filters[filterIndex].split(',').map(search => {
+          const selectedOptions = split(filters[filterIndex]).map(search => {
             if (isFilterSelectAutoOffline(head?.filter)) {
               return head.filter.options.find(({ value }) => value === search);
             }
@@ -335,7 +333,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             });
           }
         } else if (isFilterDateRangeOffline(head?.filter)) {
-          const [ start, end ] = filters[filterIndex]?.split(',');
+          const [ start, end ] = split(filters[filterIndex]);
           if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
             newData = newData.filter(head.filter.callbackFn({
               columnIndex: head.index,
@@ -349,7 +347,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             });
           }
         } else if (isFilterDateRangeAutoOffline(head?.filter)) {
-          const [ start, end ] = filters[filterIndex]?.split(',');
+          const [ start, end ] = split(filters[filterIndex]);
           if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
             const startSelectedDate = new Date(+start);
             const endSelectedDate = new Date(+end);
@@ -424,7 +422,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
     
     // Offline sort
-    for (const searchSort of searchSorts.split(',')) {
+    for (const searchSort of split(searchSorts)) {
       const head = headers.find(({ index }) => index === searchSort || '-' + index === searchSort);
       if (head?.sort && isSortOffline(head?.sort)) {
         if (head.index === searchSort) {
@@ -508,7 +506,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         const up = props.index;
         const down = '-' + props.index;
         newHead.sort = {
-          order: searchSorts.split(',').includes(up) ? 1 : searchSorts.split(',').includes(down) ? -1 : 0,
+          order: split(searchSorts).includes(up) ? 1 : split(searchSorts).includes(down) ? -1 : 0,
           onSort: () => {
             const newSort = newHead.sort?.order === 1 ? down : newHead.sort?.order === -1 ? '' : up;
             if (newSort) {

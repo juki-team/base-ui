@@ -1,5 +1,5 @@
 import { ContentsResponseType } from '@juki-team/commons';
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS, PAGE_SIZE_OPTIONS } from '../../../constants';
 import { useDataViewerRequester, useJukiUI } from '../../../hooks';
 import { DataViewer } from './DataViewer';
@@ -51,6 +51,12 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
     const data = response?.success ? response.contents : [];
     return toRow ? data.map(toRow) : (data as unknown as T[]);
   }, [ response, toRow ]);
+  const [ initializing, setInitializing ] = useState(true);
+  useEffect(() => {
+    if (!isLoading) {
+      setInitializing(false);
+    }
+  }, [ isLoading ]);
   
   return (
     <DataViewer<T>
@@ -70,7 +76,7 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
       onRecordClick={onRecordClick}
       reloadRef={reloadRef}
       pageSizeOptions={PAGE_SIZE_OPTIONS}
-      initializing={isLoading}
+      initializing={initializing}
       {...DEFAULT_DATA_VIEWER_PROPS}
     />
   );

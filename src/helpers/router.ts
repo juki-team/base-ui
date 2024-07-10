@@ -1,3 +1,4 @@
+import { SEPARATOR_TOKEN } from '@juki-team/commons';
 import { RequestFilterType, RequestSortType } from '../types';
 
 export const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
@@ -22,7 +23,7 @@ export const toSortUrl = (sort: RequestSortType) => {
   let filterUrl = '';
   Object.entries(sort).forEach(([ key, value ]) => {
     if (filterUrl && (value === -1 || value === 1)) {
-      filterUrl += ',';
+      filterUrl += SEPARATOR_TOKEN;
     }
     if (value === -1) {
       filterUrl += encodeURIComponent(`-${key}`);
