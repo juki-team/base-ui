@@ -1,23 +1,16 @@
 import { MenuViewMode } from '@juki-team/commons';
-import React, { PropsWithChildren, ReactNode, useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
-import { NotUndefined, ReactNodeOrFunctionP1Type } from '../../../types';
+import { NotUndefined } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs';
-import { TabsInline, TabsType } from '../Tabs';
+import { TabsInline } from '../Tabs';
 import { TwoContentSection } from '../TwoContentSection';
-
-interface TwoContentLayoutProps<T> extends PropsWithChildren {
-  breadcrumbs?: ReactNode[],
-  tabs: TabsType<T>,
-  tabButtons?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T; }>[],
-  getPathname?: (selectedTabKey: T) => string,
-  selectedTabKey?: T,
-}
+import { TwoContentLayoutProps } from './types';
 
 export const TwoContentCardsLayout = <T, >({
-                                             breadcrumbs,
-                                             tabs,
+                                             breadcrumbs: initialBreadcrumbs,
+                                             tabs = {},
                                              tabButtons,
                                              getPathname,
                                              selectedTabKey,
@@ -49,6 +42,7 @@ export const TwoContentCardsLayout = <T, >({
   
   const withTabs = tabKeys.length > 1;
   const tabsOnBody = preferredMenuViewMode === MenuViewMode.VERTICAL && withTabs;
+  const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey: tab }) as ReactNode[];
   
   return (
     <TwoContentSection className="cards-style">
