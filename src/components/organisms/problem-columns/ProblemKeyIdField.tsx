@@ -26,7 +26,7 @@ export const ProblemKeyIdField: DataViewerHeadersType<ProblemDataViewerType>['Fi
   </Field>
 );
 
-export const getProblemKeyIdHeader = (): DataViewerHeadersType<ProblemDataViewerType> => ({
+export const getProblemKeyIdHeader = (isManager: boolean): DataViewerHeadersType<ProblemDataViewerType> => ({
   head: 'id',
   index: 'key',
   Field: ProblemKeyIdField,
@@ -34,5 +34,5 @@ export const getProblemKeyIdHeader = (): DataViewerHeadersType<ProblemDataViewer
   filter: { type: 'text' },
   cardPosition: 'top',
   sticky: true,
-  minWidth: 240,
+  minWidth: isManager ? 240 : 100,
 });

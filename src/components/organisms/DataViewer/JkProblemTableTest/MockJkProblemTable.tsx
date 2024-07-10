@@ -31,7 +31,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemDataViewer
     }, 2000);
   }, []);
   const columns: DataViewerHeadersType<ProblemDataViewerType>[] = useMemo(() => [
-    getProblemKeyIdHeader(),
+    getProblemKeyIdHeader(true),
     getProblemNameHeader(),
     getProblemModeHeader(),
     getProblemTypeHeader(),
