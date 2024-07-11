@@ -1,4 +1,3 @@
-import { getProblemJudgeKey } from '@juki-team/commons';
 import React, { ReactNode, useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { classNames } from '../../../helpers';
@@ -11,7 +10,7 @@ import { ProblemDataViewerType } from './types';
 
 export const ProblemNameField: DataViewerHeadersType<ProblemDataViewerType>['Field'] = (props) => {
   
-  const { record: { name, user, judge, key, isManager, problem }, isCard } = props;
+  const { record: { name, user, key, isManager, problem }, isCard } = props;
   
   const { components: { Link } } = useJukiUI();
   const [ modal, setModal ] = useState<ReactNode>(null);
@@ -40,7 +39,7 @@ export const ProblemNameField: DataViewerHeadersType<ProblemDataViewerType>['Fie
             {name}
           </div>
         ) : (
-          <Link href={{ pathname: jukiSettings.ROUTES.judge().problems.view({ problemJudgeKey: getProblemJudgeKey(judge, key) }) }}>
+          <Link href={{ pathname: jukiSettings.ROUTES.problems().view({ key }) }}>
             <div className="jk-row link fw-bd">{name}</div>
           </Link>
         )}
