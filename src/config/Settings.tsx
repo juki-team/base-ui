@@ -338,69 +338,71 @@ export class Settings {
     };
     
     return {
-      judge(origin?: string) {
+      problems(origin?: string) {
         const injectOrigin = _injectOrigin(origin);
         return {
-          problems: {
-            list() {
-              return injectOrigin(`/problems`);
-            },
-            view({ problemJudgeKey }: { problemJudgeKey: string }) {
-              return injectOrigin(`/problems/${problemJudgeKey}`);
-            },
-            edit({ problemJudgeKey }: { problemJudgeKey: string }) {
-              return injectOrigin(`/problems/${problemJudgeKey}/edit`);
-            },
-            new() {
-              return injectOrigin(`/problems/new`);
-            },
+          list() {
+            return injectOrigin(`/problems`);
+          },
+          view({ problemJudgeKey }: { problemJudgeKey: string }) {
+            return injectOrigin(`/problems/${problemJudgeKey}`);
+          },
+          edit({ problemJudgeKey }: { problemJudgeKey: string }) {
+            return injectOrigin(`/problems/${problemJudgeKey}/edit`);
+          },
+          new() {
+            return injectOrigin(`/problems/new`);
           },
         };
       },
-      coach(origin?: string) {
+      worksheets(origin?: string) {
         const injectOrigin = _injectOrigin(origin);
         return {
-          worksheets: {
-            list() {
-              return injectOrigin(`/worksheets`);
-            },
-            view({ worksheetKey }: { worksheetKey: string }) {
-              return injectOrigin(`/worksheets/${worksheetKey}`);
-            },
-            edit({ worksheetKey }: { worksheetKey: string }) {
-              return injectOrigin(`/worksheets/${worksheetKey}/edit`);
-            },
-            new() {
-              return injectOrigin(`/worksheets/new`);
-            },
+          list() {
+            return injectOrigin(`/worksheets`);
           },
-          classes: {
-            list() {
-              return injectOrigin(`/classes`);
-            },
-            view({ classKey }: { classKey: string }) {
-              return injectOrigin(`/classes/${classKey}`);
-            },
-            edit({ classKey }: { classKey: string }) {
-              return injectOrigin(`/classes/${classKey}/edit`);
-            },
-            new() {
-              return injectOrigin(`/classes/new`);
-            },
+          view({ worksheetKey }: { worksheetKey: string }) {
+            return injectOrigin(`/worksheets/${worksheetKey}`);
           },
-          courses: {
-            list() {
-              return injectOrigin(`/courses`);
-            },
-            view({ courseKey }: { courseKey: string }) {
-              return injectOrigin(`/courses/${courseKey}`);
-            },
-            edit({ courseKey }: { courseKey: string }) {
-              return injectOrigin(`/courses/${courseKey}/edit`);
-            },
-            new() {
-              return injectOrigin(`/courses/new`);
-            },
+          edit({ worksheetKey }: { worksheetKey: string }) {
+            return injectOrigin(`/worksheets/${worksheetKey}/edit`);
+          },
+          new() {
+            return injectOrigin(`/worksheets/new`);
+          },
+        };
+      },
+      classes(origin?: string) {
+        const injectOrigin = _injectOrigin(origin);
+        return {
+          list() {
+            return injectOrigin(`/classes`);
+          },
+          view({ classKey }: { classKey: string }) {
+            return injectOrigin(`/classes/${classKey}`);
+          },
+          edit({ classKey }: { classKey: string }) {
+            return injectOrigin(`/classes/${classKey}/edit`);
+          },
+          new() {
+            return injectOrigin(`/classes/new`);
+          },
+        };
+      },
+      courses(origin?: string) {
+        const injectOrigin = _injectOrigin(origin);
+        return {
+          list() {
+            return injectOrigin(`/courses`);
+          },
+          view({ courseKey }: { courseKey: string }) {
+            return injectOrigin(`/courses/${courseKey}`);
+          },
+          edit({ courseKey }: { courseKey: string }) {
+            return injectOrigin(`/courses/${courseKey}/edit`);
+          },
+          new() {
+            return injectOrigin(`/courses/new`);
           },
         };
       },
