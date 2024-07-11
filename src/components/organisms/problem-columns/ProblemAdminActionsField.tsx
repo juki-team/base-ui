@@ -6,7 +6,7 @@ import { ProblemDataViewerType } from './types';
 
 export const ProblemAdminActionsField: DataViewerHeadersType<ProblemDataViewerType>['Field'] = (props) => {
   
-  const { record: { key, judge, isManager, companyKey } } = props;
+  const { record: { key, isManager, companyKey } } = props;
   
   const [ modal, setModal ] = useState<ReactNode>(null);
   
@@ -20,7 +20,6 @@ export const ProblemAdminActionsField: DataViewerHeadersType<ProblemDataViewerTy
           onClick={() => {
             setModal(
               <ProblemLogsModal
-                judge={judge}
                 problemKey={key}
                 companyKey={companyKey}
                 isOpen

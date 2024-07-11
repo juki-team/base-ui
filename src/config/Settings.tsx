@@ -338,8 +338,8 @@ export class Settings {
         })),
       },
       judge: {
-        get: valid<{ params: { judge: Judge, companyKey: string } }>(({ params: { judge, companyKey } }) => ({
-          url: injectBaseUrl('judge', `/${judge}/company/${companyKey}`),
+        get: valid<{ params: { key: string | Judge } }>(({ params: { key } }) => ({
+          url: injectBaseUrl('judge', `/${key}`),
           method: HTTPMethod.GET,
         })),
       },

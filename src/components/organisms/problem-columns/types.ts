@@ -11,7 +11,7 @@ export interface ProblemDataViewerType {
   companyKey: string,
   id: string | undefined,
   key: string,
-  judge: Judge,
+  judgeKey: Judge | string,
   isManager: boolean | undefined,
   scoringMode: ProblemScoringMode,
   type: ProblemType,

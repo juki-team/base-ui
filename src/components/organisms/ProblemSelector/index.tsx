@@ -105,7 +105,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
               setLoaderStatus(Status.LOADING);
               const { url } = jukiSettings.API
                 .problem
-                .getSummary({ params: { judge, key } });
+                .getSummary({ params: { key } });
               const response = cleanRequest<ContentResponseType<ProblemSummaryListResponseDTO>>(
                 await authorizedRequest(url),
               );

@@ -1,5 +1,5 @@
 import {
-  Judge,
+  EXTERNAL_JUDGE_KEYS,
   Language,
   PROBLEM_MODE,
   PROBLEM_TYPE,
@@ -254,7 +254,7 @@ export const JukiProblemInfo = (props: PropsWithChildren<ProblemInfoProps>) => {
 export const ProblemInfo = ({ problem }: { problem: ProblemDataResponseDTO }) => {
   return (
     <Popover
-      content={(problem.judge === Judge.JUKI_JUDGE || problem.judge === Judge.CUSTOMER)
+      content={!EXTERNAL_JUDGE_KEYS.includes(problem.judgeKey)
         ? (
           <div className="jk-pg-sm">
             <JukiProblemInfo
@@ -266,15 +266,14 @@ export const ProblemInfo = ({ problem }: { problem: ProblemDataResponseDTO }) =>
               withoutPadding
             />
           </div>
-        ) : [ Judge.CODEFORCES, Judge.JV_UMSA, Judge.CODEFORCES_GYM ].includes(problem.judge)
-          ? (
-            <div className="jk-row extend top">
-              <div
-                className={`${problem.judge}-statement only-info`}
-                dangerouslySetInnerHTML={{ __html: problem.statement.html[Language.EN] || problem.statement.html[Language.ES] }}
-              />
-            </div>
-          ) : <div></div>}
+        ) : (
+          <div className="jk-row extend top">
+            <div
+              className={`${problem.judgeKey}-statement only-info`}
+              dangerouslySetInnerHTML={{ __html: problem.statement.html[Language.EN] || problem.statement.html[Language.ES] }}
+            />
+          </div>
+        )}
       triggerOn="click"
       placement="bottom"
     >

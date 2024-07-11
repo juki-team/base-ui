@@ -1,8 +1,8 @@
 import {
   CodeEditorTestCasesType,
   ContentResponseType,
-  Judge,
-  JudgeResponseDTO,
+  EXTERNAL_JUDGE_KEYS,
+  JudgeResponseDataDTO,
   ProblemDataResponseDTO,
   PROGRAMMING_LANGUAGE,
   ProgrammingLanguage,
@@ -11,7 +11,7 @@ import {
 } from '@juki-team/commons';
 import React, { useMemo } from 'react';
 import { jukiSettings } from '../../../config';
-import { useFetcher, useJukiUser } from '../../../hooks';
+import { useFetcher } from '../../../hooks';
 import { UserCodeEditor, UserCodeEditorProps } from '../../organisms/UserCodeEditor';
 
 interface ProblemCodeEditorProps<T> {
@@ -41,26 +41,24 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       hidden: false,
     };
   });
-  const { company: { key: companyKey } } = useJukiUser();
-  const { data: virtualJudgeData } = useFetcher<ContentResponseType<JudgeResponseDTO>>(
-    [ Judge.CODEFORCES, Judge.JV_UMSA, Judge.CODEFORCES_GYM ].includes(problem.judge) ? jukiSettings.API.judge.get({
+  const { data: virtualJudgeData } = useFetcher<ContentResponseType<JudgeResponseDataDTO>>(
+    EXTERNAL_JUDGE_KEYS.includes(problem.judgeKey) ? jukiSettings.API.judge.get({
       params: {
-        judge: problem.judge,
-        companyKey,
+        key: problem.judgeKey,
       },
     }).url : null,
   );
   const languages = useMemo(
     () => {
       let languages: { value: ProgrammingLanguage | string, label: string }[] = [];
-      if ([ Judge.CODEFORCES, Judge.JV_UMSA, Judge.CODEFORCES, Judge.CODEFORCES_GYM ].includes(problem.judge)) {
+      if (EXTERNAL_JUDGE_KEYS.includes(problem.judgeKey)) {
         languages = ((virtualJudgeData?.success && virtualJudgeData.content.languages) || [])
           .filter(lang => lang.enabled)
           .map(lang => ({
             value: lang.value,
             label: lang.label || lang.value,
           }));
-      } else if (problem.judge === Judge.CUSTOMER || problem.judge === Judge.JUKI_JUDGE) {
+      } else {
         languages = RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES
           .map((language) => ({
             value: language,
@@ -75,7 +73,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       }
       return languages as { value: T, label: string }[];
     },
-    [ virtualJudgeData, problem.judge ],
+    [ virtualJudgeData, problem.judgeKey ],
   );
   
   return (
@@ -84,7 +82,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       sourceStoreKey={codeEditorSourceStoreKey}
       centerButtons={codeEditorCenterButtons}
       rightButtons={codeEditorRightButtons}
-      initialTestCases={(problem.judge === Judge.JUKI_JUDGE || problem.judge === Judge.CUSTOMER)
+      initialTestCases={!EXTERNAL_JUDGE_KEYS.includes(problem.judgeKey)
         ? initialTestCases
         : undefined}
       enableAddCustomSampleCases
