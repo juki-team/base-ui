@@ -338,6 +338,18 @@ export class Settings {
     };
     
     return {
+      root(origin?: string) {
+        const injectOrigin = _injectOrigin(origin);
+        return injectOrigin(`/problems`);
+      },
+      profiles(origin?: string) {
+        const injectOrigin = _injectOrigin(origin);
+        return {
+          view({ nickname }: { nickname: string }) {
+            return injectOrigin(`/profiles/${nickname}`);
+          },
+        };
+      },
       problems(origin?: string) {
         const injectOrigin = _injectOrigin(origin);
         return {
