@@ -357,6 +357,53 @@ export class Settings {
           },
         };
       },
+      coach(origin?: string) {
+        const injectOrigin = _injectOrigin(origin);
+        return {
+          worksheets: {
+            list() {
+              return injectOrigin(`/worksheets`);
+            },
+            view({ worksheetKey }: { worksheetKey: string }) {
+              return injectOrigin(`/worksheets/${worksheetKey}`);
+            },
+            edit({ worksheetKey }: { worksheetKey: string }) {
+              return injectOrigin(`/worksheets/${worksheetKey}/edit`);
+            },
+            new() {
+              return injectOrigin(`/worksheets/new`);
+            },
+          },
+          classes: {
+            list() {
+              return injectOrigin(`/classes`);
+            },
+            view({ classKey }: { classKey: string }) {
+              return injectOrigin(`/classes/${classKey}`);
+            },
+            edit({ classKey }: { classKey: string }) {
+              return injectOrigin(`/classes/${classKey}/edit`);
+            },
+            new() {
+              return injectOrigin(`/classes/new`);
+            },
+          },
+          courses: {
+            list() {
+              return injectOrigin(`/courses`);
+            },
+            view({ classKey }: { classKey: string }) {
+              return injectOrigin(`/courses/${classKey}`);
+            },
+            edit({ classKey }: { classKey: string }) {
+              return injectOrigin(`/courses/${classKey}/edit`);
+            },
+            new() {
+              return injectOrigin(`/courses/new`);
+            },
+          },
+        };
+      },
       utils(origin?: string) {
         const injectOrigin = _injectOrigin(origin);
         return {
