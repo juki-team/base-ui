@@ -346,6 +346,14 @@ export class Settings {
           url: injectBaseUrl('judge', `/list`),
           method: HTTPMethod.GET,
         })),
+        crawlLanguages: valid<void, HTTPMethod.POST>(() => ({
+          url: injectBaseUrl('judge', '/crawl-languages'),
+          method: HTTPMethod.POST,
+        })),
+        patch: valid<void, HTTPMethod.PATCH>(() => ({
+          url: injectBaseUrl('judge', ''),
+          method: HTTPMethod.PATCH,
+        })),
       },
       worksheet: {
         getList: valid<
