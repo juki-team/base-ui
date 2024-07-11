@@ -39,7 +39,7 @@ export const ProblemNameField: DataViewerHeadersType<ProblemDataViewerType>['Fie
             {name}
           </div>
         ) : (
-          <Link href={{ pathname: jukiSettings.ROUTES.problems().view({ key }) }}>
+          <Link href={jukiSettings.ROUTES.problems().view({ key })}>
             <div className="jk-row link fw-bd">{name}</div>
           </Link>
         )}
