@@ -342,6 +342,10 @@ export class Settings {
           url: injectBaseUrl('judge', `/${key}`),
           method: HTTPMethod.GET,
         })),
+        getList: valid<{}>(() => ({
+          url: injectBaseUrl('judge', `/list`),
+          method: HTTPMethod.GET,
+        })),
       },
       worksheet: {
         getList: valid<
