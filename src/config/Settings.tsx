@@ -1,4 +1,12 @@
-import { consoleWarn, HTTPMethod, Judge, Language, Theme, UserSettingsType } from '@juki-team/commons';
+import {
+  consoleWarn,
+  HTTPMethod,
+  Judge,
+  JudgeLanguageType,
+  Language,
+  Theme,
+  UserSettingsType,
+} from '@juki-team/commons';
 import { ErrorInfo } from 'react';
 import {
   AuthorizedRequestType,
@@ -350,10 +358,26 @@ export class Settings {
           url: injectBaseUrl('judge', '/crawl-languages'),
           method: HTTPMethod.POST,
         })),
-        patch: valid<void, HTTPMethod.PATCH>(() => ({
-          url: injectBaseUrl('judge', ''),
-          method: HTTPMethod.PATCH,
-        })),
+        patch: valid<{
+          body: { languages?: JudgeLanguageType[], problemTags?: string[], label?: string }
+        }, HTTPMethod.PATCH>(({ body: { languages, label, problemTags } }) => {
+          const body: any = {};
+          if (languages) {
+            body.languages = languages;
+          }
+          if (label) {
+            body.label = label;
+          }
+          if (problemTags) {
+            body.problemTags = problemTags;
+          }
+          
+          return {
+            url: injectBaseUrl('judge', ''),
+            method: HTTPMethod.PATCH,
+            body: JSON.stringify(body),
+          };
+        }),
       },
       worksheet: {
         getList: valid<
