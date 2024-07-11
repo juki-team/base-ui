@@ -231,6 +231,13 @@ export class Settings {
           url: injectCompany(injectBaseUrl('problem', `/${getProblemJudgeKey(judge, key)}/logs`), companyKey),
           method: HTTPMethod.GET,
         })),
+        submit: valid<
+          { params: { key: string, companyKey: string }, body: { language: string, source: string } }, HTTPMethod.POST
+        >(({ params: { key, companyKey }, body }) => ({
+          url: injectCompany(injectBaseUrl('submit', `/problem/${key}`), companyKey),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
       },
       image: {
         getPublicList: valid<void>(() => ({
