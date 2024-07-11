@@ -10,6 +10,8 @@ import {
 import { ErrorInfo } from 'react';
 import {
   AuthorizedRequestType,
+  ProblemTab,
+  ProfileTab,
   SignInPayloadDTO,
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,
@@ -345,8 +347,8 @@ export class Settings {
       profiles(origin?: string) {
         const injectOrigin = _injectOrigin(origin);
         return {
-          view({ nickname }: { nickname: string }) {
-            return injectOrigin(`/profiles/${nickname}`);
+          view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
+            return injectOrigin(`/profiles/${nickname}?tab=${tab}`);
           },
         };
       },
@@ -356,11 +358,11 @@ export class Settings {
           list() {
             return injectOrigin(`/problems`);
           },
-          view({ problemJudgeKey }: { problemJudgeKey: string }) {
-            return injectOrigin(`/problems/${problemJudgeKey}`);
+          view({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
+            return injectOrigin(`/problems/${key}?tab=${tab}`);
           },
-          edit({ problemJudgeKey }: { problemJudgeKey: string }) {
-            return injectOrigin(`/problems/${problemJudgeKey}/edit`);
+          edit({ key }: { key: string }) {
+            return injectOrigin(`/problems/${key}/edit`);
           },
           new() {
             return injectOrigin(`/problems/new`);
@@ -373,11 +375,11 @@ export class Settings {
           list() {
             return injectOrigin(`/worksheets`);
           },
-          view({ worksheetKey }: { worksheetKey: string }) {
-            return injectOrigin(`/worksheets/${worksheetKey}`);
+          view({ key, page = 1 }: { key: string, page?: number }) {
+            return injectOrigin(`/worksheets/${key}?page=${page}`);
           },
-          edit({ worksheetKey }: { worksheetKey: string }) {
-            return injectOrigin(`/worksheets/${worksheetKey}/edit`);
+          edit({ key }: { key: string }) {
+            return injectOrigin(`/worksheets/${key}/edit`);
           },
           new() {
             return injectOrigin(`/worksheets/new`);
@@ -390,11 +392,14 @@ export class Settings {
           list() {
             return injectOrigin(`/classes`);
           },
-          view({ classKey }: { classKey: string }) {
-            return injectOrigin(`/classes/${classKey}`);
+          view({ key }: { key: string }) {
+            return injectOrigin(`/classes/${key}`);
           },
-          edit({ classKey }: { classKey: string }) {
-            return injectOrigin(`/classes/${classKey}/edit`);
+          cycleView({ key, cycleId }: { key: string, cycleId: string }) {
+            return injectOrigin(`/classes/${key}/cycle/${cycleId}`);
+          },
+          edit({ key }: { key: string }) {
+            return injectOrigin(`/classes/${key}/edit`);
           },
           new() {
             return injectOrigin(`/classes/new`);
@@ -407,11 +412,14 @@ export class Settings {
           list() {
             return injectOrigin(`/courses`);
           },
-          view({ courseKey }: { courseKey: string }) {
-            return injectOrigin(`/courses/${courseKey}`);
+          view({ key }: { key: string }) {
+            return injectOrigin(`/courses/${key}`);
           },
-          edit({ courseKey }: { courseKey: string }) {
-            return injectOrigin(`/courses/${courseKey}/edit`);
+          lessonView({ key, lessonIndex, lessonPage = 1 }: { key: string, lessonIndex: number, lessonPage?: number }) {
+            return injectOrigin(`/courses/${key}/lessons/${lessonIndex}?page=${lessonPage}`);
+          },
+          edit({ key }: { key: string }) {
+            return injectOrigin(`/courses/${key}/edit`);
           },
           new() {
             return injectOrigin(`/courses/new`);

@@ -24,9 +24,15 @@ export enum ProblemTab {
   SUBMISSIONS = 'submissions',
   TESTS = 'tests',
   // RANKING = 'ranking',
-  // STATISTICS = 'statistics',
+  STATISTICS = 'statistics',
   SETUP = 'setup',
   EDITORIAL = 'editorial',
   ACCESS = 'access',
   DELETE = 'delete',
+}
+
+export enum ProfileTab {
+  OVERVIEW = 'overview',
+  SETTINGS = 'settings',
+  SUBMISSIONS = 'submissions',
 }
