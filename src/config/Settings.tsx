@@ -1,12 +1,4 @@
-import {
-  consoleWarn,
-  getProblemJudgeKey,
-  HTTPMethod,
-  Judge,
-  Language,
-  Theme,
-  UserSettingsType,
-} from '@juki-team/commons';
+import { consoleWarn, HTTPMethod, Judge, Language, Theme, UserSettingsType } from '@juki-team/commons';
 import { ErrorInfo } from 'react';
 import {
   AuthorizedRequestType,
@@ -226,9 +218,9 @@ export class Settings {
           method: HTTPMethod.GET,
         })),
         getLogs: valid<
-          { params: { judge: Judge, key: string, companyKey: string } }
-        >(({ params: { judge, key, companyKey } }) => ({
-          url: injectCompany(injectBaseUrl('problem', `/${getProblemJudgeKey(judge, key)}/logs`), companyKey),
+          { params: { key: string, companyKey: string } }
+        >(({ params: { key, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('problem', `/${key}/logs`), companyKey),
           method: HTTPMethod.GET,
         })),
         submit: valid<

@@ -7,7 +7,6 @@ import {
   ProfileSetting,
   Theme,
   UserPingType,
-  UserStatus,
 } from '@juki-team/commons';
 import { useResizeDetectorProps } from 'react-resize-detector';
 import { QueryParamKey } from '../types';
@@ -36,7 +35,6 @@ export const RESIZE_DETECTOR_PROPS: useResizeDetectorProps<any> = { refreshRate:
 
 export const EMPTY_USER: UserPingType = {
   nickname: '',
-  status: UserStatus.ACTIVE,
   imageUrl: 'https://images.juki.pub/c/juki-image-profile.svg',
   settings: {
     [ProfileSetting.LANGUAGE]: Language.ES,

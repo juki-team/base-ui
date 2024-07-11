@@ -1,5 +1,5 @@
 import {
-  Judge,
+  EXTERNAL_JUDGE_KEYS,
   Language,
   ProblemDataResponseDTO,
   ProblemScoringMode,
@@ -24,7 +24,7 @@ export interface ProblemStatementViewProps {
 
 export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutName }: ProblemStatementViewProps) => {
   
-  const { judge, key: problemKey, name, settings, tags, author, statement } = problem;
+  const { judgeKey, key: problemKey, name, settings, tags, author, statement } = problem;
   const {
     user: {
       settings: {
@@ -43,7 +43,7 @@ export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutN
     mdStatement,
   } = getStatementData(t, { statement, settings }, preferredLanguage, problemName);
   
-  if ([ Judge.CODEFORCES, Judge.JV_UMSA, Judge.CODEFORCES_GYM ].includes(judge)) {
+  if (EXTERNAL_JUDGE_KEYS.includes(judgeKey)) {
     return (
       <div className="jk-row extend top" style={{ overflow: 'auto', height: '100%', width: '100%' }}>
         <div
@@ -58,7 +58,7 @@ export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutN
           {/*  />*/}
           {/*)}*/}
           <div
-            className={`${judge}-statement`}
+            className={`${judgeKey}-statement`}
             dangerouslySetInnerHTML={{ __html: statement.html[Language.EN] || statement.html[Language.ES] }}
           />
         </div>

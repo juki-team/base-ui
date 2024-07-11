@@ -1,5 +1,4 @@
 import {
-  Judge,
   Language,
   PROBLEM_MODE,
   PROBLEM_TYPE,
@@ -9,13 +8,6 @@ import {
   PROGRAMMING_LANGUAGE,
 } from '@juki-team/commons';
 import { TFunction } from 'i18next';
-
-export const getProblemUrl = (judge: Judge, key: string) => {
-  if (judge === Judge.JUKI_JUDGE) {
-    return `/problem/view/${key}`;
-  }
-  return '#';
-};
 
 export const getEditorSettingsStorageKey = (useNickname: string) => `jk-editor-settings-store/${useNickname}`;
 
