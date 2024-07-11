@@ -359,8 +359,9 @@ export class Settings {
           method: HTTPMethod.POST,
         })),
         patch: valid<{
+          params: { key: string },
           body: { languages?: JudgeLanguageType[], problemTags?: string[], label?: string }
-        }, HTTPMethod.PATCH>(({ body: { languages, label, problemTags } }) => {
+        }, HTTPMethod.PATCH>(({ params: { key }, body: { languages, label, problemTags } }) => {
           const body: any = {};
           if (languages) {
             body.languages = languages;
@@ -373,7 +374,7 @@ export class Settings {
           }
           
           return {
-            url: injectBaseUrl('judge', ''),
+            url: injectBaseUrl('judge', `/${key}`),
             method: HTTPMethod.PATCH,
             body: JSON.stringify(body),
           };
