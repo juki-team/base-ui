@@ -392,11 +392,11 @@ export class Settings {
             list() {
               return injectOrigin(`/courses`);
             },
-            view({ classKey }: { classKey: string }) {
-              return injectOrigin(`/courses/${classKey}`);
+            view({ courseKey }: { courseKey: string }) {
+              return injectOrigin(`/courses/${courseKey}`);
             },
-            edit({ classKey }: { classKey: string }) {
-              return injectOrigin(`/courses/${classKey}/edit`);
+            edit({ courseKey }: { courseKey: string }) {
+              return injectOrigin(`/courses/${courseKey}/edit`);
             },
             new() {
               return injectOrigin(`/courses/new`);
