@@ -234,7 +234,19 @@ export class Settings {
         submit: valid<
           { params: { key: string, companyKey: string }, body: { language: string, source: string } }, HTTPMethod.POST
         >(({ params: { key, companyKey }, body }) => ({
-          url: injectCompany(injectBaseUrl('submit', `/problem/${key}`), companyKey),
+          url: injectCompany(injectBaseUrl('problem', `/${key}/submit`), companyKey),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+      },
+      contest: {
+        submit: valid<
+          {
+            params: { key: string, problemKey: string, companyKey: string },
+            body: { language: string, source: string }
+          }, HTTPMethod.POST
+        >(({ params: { key, problemKey, companyKey }, body }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/problem/${problemKey}/submit`), companyKey),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
