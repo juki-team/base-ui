@@ -286,7 +286,11 @@ export class Settings {
           method: HTTPMethod.GET,
         })),
         getPermissionList: valid<void>(() => ({
-          url: injectBaseUrl('company', '/permission-list?'),
+          url: injectBaseUrl('company', '/permission-list'),
+          method: HTTPMethod.GET,
+        })),
+        getJudgeList: valid<void>(() => ({
+          url: injectBaseUrl('company', '/judge-list'),
           method: HTTPMethod.GET,
         })),
         getResourceSpecifications: valid<
