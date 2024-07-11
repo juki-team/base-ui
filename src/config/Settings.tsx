@@ -342,7 +342,7 @@ export class Settings {
           url: injectBaseUrl('judge', `/${key}`),
           method: HTTPMethod.GET,
         })),
-        getList: valid<{}>(() => ({
+        getList: valid<void>(() => ({
           url: injectBaseUrl('judge', `/list`),
           method: HTTPMethod.GET,
         })),
