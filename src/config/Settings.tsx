@@ -204,9 +204,9 @@ export class Settings {
       },
       problem: {
         getData: valid<
-          { params: { problemKey: string } }
-        >(({ params: { problemKey } }) => ({
-          url: injectBaseUrl('problem', `/${problemKey}/data`),
+          { params: { key: string } }
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
         getSummaryList: valid<
@@ -215,8 +215,14 @@ export class Settings {
           url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/summary-list'), page, size), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
-        getSummary: valid<{ params: { judge: Judge, key: string } }>(({ params: { judge, key } }) => ({
-          url: injectBaseUrl('problem', `/${getProblemJudgeKey(judge, key)}/summary`),
+        getSystemList: valid<
+          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/system-list'), page, size), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        getSummary: valid<{ params: { key: string } }>(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}/summary`),
           method: HTTPMethod.GET,
         })),
         getLogs: valid<
