@@ -10,6 +10,7 @@ import {
 import { ErrorInfo } from 'react';
 import {
   AuthorizedRequestType,
+  ContestTab,
   ProblemTab,
   ProfileTab,
   SignInPayloadDTO,
@@ -457,6 +458,23 @@ export class Settings {
           },
           new() {
             return injectOrigin(`/problems/new`);
+          },
+        };
+      },
+      contests(origin?: string) {
+        const injectOrigin = _injectOrigin(origin);
+        return {
+          list() {
+            return injectOrigin(`/contests`);
+          },
+          view({ key, tab = ContestTab.OVERVIEW }: { key: string, tab?: ContestTab }) {
+            return injectOrigin(`/contests/${key}?tab=${tab}`);
+          },
+          edit({ key }: { key: string }) {
+            return injectOrigin(`/contests/${key}/edit`);
+          },
+          new() {
+            return injectOrigin(`/contests/new`);
           },
         };
       },
