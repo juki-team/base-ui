@@ -2,7 +2,7 @@ import {
   CodeEditorTestCasesType,
   ContentResponseType,
   EXTERNAL_JUDGE_KEYS,
-  JudgeResponseDataDTO,
+  JudgeDataResponseDTO,
   ProblemDataResponseDTO,
   PROGRAMMING_LANGUAGE,
   ProgrammingLanguage,
@@ -41,8 +41,8 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       hidden: false,
     };
   });
-  const { data: virtualJudgeData } = useFetcher<ContentResponseType<JudgeResponseDataDTO>>(
-    EXTERNAL_JUDGE_KEYS.includes(problem.judgeKey) ? jukiSettings.API.judge.get({
+  const { data: virtualJudgeData } = useFetcher<ContentResponseType<JudgeDataResponseDTO>>(
+    EXTERNAL_JUDGE_KEYS.includes(problem.judgeKey) ? jukiSettings.API.judge.getData({
       params: {
         key: problem.judgeKey,
       },
