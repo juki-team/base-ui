@@ -273,6 +273,12 @@ export class Settings {
         })),
       },
       contest: {
+        getData: valid<
+          { params: { key: string } }
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}/data`),
+          method: HTTPMethod.GET,
+        })),
         submit: valid<
           {
             params: { key: string, problemKey: string, companyKey?: string },
