@@ -274,6 +274,18 @@ export class Settings {
         })),
       },
       contest: {
+        getSummaryList: valid<
+          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('contest', '/summary-list'), page, size), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        getSystemList: valid<
+          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('contest', '/system-list'), page, size), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
         getData: valid<
           { params: { key: string } }
         >(({ params: { key } }) => ({
