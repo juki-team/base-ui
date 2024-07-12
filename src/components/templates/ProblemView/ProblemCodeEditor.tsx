@@ -42,16 +42,16 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
     };
   });
   const { data: virtualJudgeData } = useFetcher<ContentResponseType<JudgeDataResponseDTO>>(
-    EXTERNAL_JUDGE_KEYS.includes(problem.judgeKey) ? jukiSettings.API.judge.getData({
+    EXTERNAL_JUDGE_KEYS.includes(problem.judge.key) ? jukiSettings.API.judge.getData({
       params: {
-        key: problem.judgeKey,
+        key: problem.judge.key,
       },
     }).url : null,
   );
   const languages = useMemo(
     () => {
       let languages: { value: ProgrammingLanguage | string, label: string }[] = [];
-      if (EXTERNAL_JUDGE_KEYS.includes(problem.judgeKey)) {
+      if (EXTERNAL_JUDGE_KEYS.includes(problem.judge.key)) {
         languages = ((virtualJudgeData?.success && virtualJudgeData.content.languages) || [])
           .filter(lang => lang.enabled)
           .map(lang => ({
@@ -73,7 +73,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       }
       return languages as { value: T, label: string }[];
     },
-    [ virtualJudgeData, problem.judgeKey ],
+    [ virtualJudgeData, problem.judge.key ],
   );
   
   return (
@@ -82,7 +82,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       sourceStoreKey={codeEditorSourceStoreKey}
       centerButtons={codeEditorCenterButtons}
       rightButtons={codeEditorRightButtons}
-      initialTestCases={!EXTERNAL_JUDGE_KEYS.includes(problem.judgeKey)
+      initialTestCases={!EXTERNAL_JUDGE_KEYS.includes(problem.judge.key)
         ? initialTestCases
         : undefined}
       enableAddCustomSampleCases

@@ -9,16 +9,15 @@ import { UserChip } from '../UserChip';
 interface ProblemLogsModalProps extends BasicModalProps {
   onClose: () => void,
   problemKey: string,
-  companyKey: string,
 }
 
-export const ProblemLogsModal = ({ problemKey, companyKey, ...restProps }: ProblemLogsModalProps) => {
+export const ProblemLogsModal = ({ problemKey, ...restProps }: ProblemLogsModalProps) => {
   return (
     <Modal {...restProps} closeWhenClickOutside closeWhenKeyEscape closeIcon>
       <div className="jk-pg">
         <h3><T>logs of problem</T></h3>
         <FetcherLayer<ContentResponseType<LogDataResponseDTO[]>>
-          url={jukiSettings.API.problem.getLogs({ params: { key: problemKey, companyKey } }).url}
+          url={jukiSettings.API.problem.getLogs({ params: { key: problemKey } }).url}
         >
           {({ data }) => (
             <div>

@@ -6,7 +6,7 @@ import { ProblemLogsModal } from './ProblemLogsModal';
 
 export const ProblemAdminActionsField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field'] = (props) => {
   
-  const { record: { key, companyKey } } = props;
+  const { record: { key } } = props;
   
   const [ modal, setModal ] = useState<ReactNode>(null);
   
@@ -20,7 +20,6 @@ export const ProblemAdminActionsField: DataViewerHeadersType<ProblemSummaryListR
           setModal(
             <ProblemLogsModal
               problemKey={key}
-              companyKey={companyKey}
               isOpen
               onClose={() => setModal(null)}
             />,

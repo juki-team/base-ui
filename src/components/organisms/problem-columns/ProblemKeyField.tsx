@@ -26,5 +26,5 @@ export const getProblemKeyHeader = (): DataViewerHeadersType<ProblemSummaryListR
   filter: { type: 'text' },
   cardPosition: 'top',
   sticky: true,
-  minWidth: 100,
+  minWidth: 120,
 });
