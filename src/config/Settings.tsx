@@ -394,7 +394,7 @@ export class Settings {
             body.languages = languages;
           }
           if (name) {
-            body.label = name;
+            body.name = name;
           }
           if (problemTags) {
             body.problemTags = problemTags;
