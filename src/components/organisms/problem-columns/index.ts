@@ -6,4 +6,3 @@ export * from './ProblemOwnerField';
 export * from './ProblemStatus';
 export * from './ProblemTagsField';
 export * from './ProblemTypeField';
-export * from './types';
