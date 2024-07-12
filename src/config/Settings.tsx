@@ -467,8 +467,8 @@ export class Settings {
           list() {
             return injectOrigin(`/contests`);
           },
-          view({ key, tab = ContestTab.OVERVIEW, subTab }: { key: string, tab?: ContestTab, subTab?: number }) {
-            return injectOrigin(`/contests/${key}?tab=${tab}${typeof subTab === 'number' ? '&subTab=' + subTab : ''}`);
+          view({ key, tab = ContestTab.OVERVIEW, subTab }: { key: string, tab?: ContestTab, subTab?: string }) {
+            return injectOrigin(`/contests/${key}?tab=${tab}${subTab ? '&subTab=' + subTab : ''}`);
           },
           edit({ key }: { key: string }) {
             return injectOrigin(`/contests/${key}/edit`);
