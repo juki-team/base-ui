@@ -203,6 +203,27 @@ export class Settings {
         })),
       },
       problem: {
+        create: valid<
+          void,
+          HTTPMethod.POST
+        >(() => ({
+          url: injectBaseUrl('problem', ''),
+          method: HTTPMethod.POST,
+        })),
+        update: valid<
+          { params: { key: string } },
+          HTTPMethod.PUT
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}`),
+          method: HTTPMethod.PUT,
+        })),
+        delete: valid<
+          { params: { key: string } },
+          HTTPMethod.DELETE
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}`),
+          method: HTTPMethod.DELETE,
+        })),
         getData: valid<
           { params: { key: string } }
         >(({ params: { key } }) => ({
@@ -226,17 +247,29 @@ export class Settings {
           method: HTTPMethod.GET,
         })),
         getLogs: valid<
-          { params: { key: string, companyKey: string } }
-        >(({ params: { key, companyKey } }) => ({
-          url: injectCompany(injectBaseUrl('problem', `/${key}/logs`), companyKey),
+          { params: { key: string, } }
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}/logs`),
+          method: HTTPMethod.GET,
+        })),
+        getTestCases: valid<
+          { params: { key: string, } }
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}/test-cases`),
           method: HTTPMethod.GET,
         })),
         submit: valid<
-          { params: { key: string, companyKey?: string }, body: { language: string, source: string } }, HTTPMethod.POST
-        >(({ params: { key, companyKey }, body }) => ({
-          url: injectCompany(injectBaseUrl('problem', `/${key}/submit`), companyKey),
+          { params: { key: string }, body: { language: string, source: string } }, HTTPMethod.POST
+        >(({ params: { key }, body }) => ({
+          url: injectBaseUrl('problem', `/${key}/submit`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
+        })),
+        reCrawl: valid<
+          { params: { key: string } }, HTTPMethod.POST
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}/re-crawl`),
+          method: HTTPMethod.POST,
         })),
       },
       contest: {
@@ -354,14 +387,14 @@ export class Settings {
         })),
         patch: valid<{
           params: { key: string },
-          body: { languages?: JudgeLanguageType[], problemTags?: string[], label?: string }
-        }, HTTPMethod.PATCH>(({ params: { key }, body: { languages, label, problemTags } }) => {
+          body: { languages?: JudgeLanguageType[], problemTags?: string[], name?: string }
+        }, HTTPMethod.PATCH>(({ params: { key }, body: { languages, name, problemTags } }) => {
           const body: any = {};
           if (languages) {
             body.languages = languages;
           }
-          if (label) {
-            body.label = label;
+          if (name) {
+            body.label = name;
           }
           if (problemTags) {
             body.problemTags = problemTags;
