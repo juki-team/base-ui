@@ -127,7 +127,7 @@ export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutN
               </div>
             </div>
           )}
-          {settings.mode === ProblemScoringMode.SUBTASK && (
+          {settings.scoringMode === ProblemScoringMode.SUBTASK && (
             <div>
               <h3><T>subtasks description</T></h3>
               <div className="jk-col left stretch gap">

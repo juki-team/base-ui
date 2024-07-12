@@ -145,12 +145,12 @@ export const ProblemModeInfo = ({ settings, expand, centered, withoutPadding }: 
   return (
     <ContentInfo
       label="mode"
-      value={<T className="tt-ce">{PROBLEM_MODE[settings?.mode]?.label}</T>}
+      value={<T className="tt-ce">{PROBLEM_MODE[settings?.scoringMode]?.label}</T>}
       expand={expand}
       centered={centered}
       withoutPadding={withoutPadding}
     >
-      {settings?.mode === ProblemScoringMode.SUBTASK ? subTasks : null}
+      {settings?.scoringMode === ProblemScoringMode.SUBTASK ? subTasks : null}
     </ContentInfo>
   );
 };

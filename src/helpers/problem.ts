@@ -44,7 +44,7 @@ export const getStatementData = (t: TFunction,
   const mdStatement = `
 # \\textAlign=center ${problemName}
 
-\\textAlign=center **${t('type')}:** ${PROBLEM_TYPE[settings?.type]?.label}, **${t('mode')}:** ${PROBLEM_MODE[settings?.mode]?.label}
+\\textAlign=center **${t('type')}:** ${PROBLEM_TYPE[settings?.type]?.label}, **${t('mode')}:** ${PROBLEM_MODE[settings?.scoringMode]?.label}
 
 |${t('language')}|${t('time limit')}|${t('memory limit')}|
 |--|--|--|
@@ -69,7 +69,7 @@ ${statementOutput}
 
 # ${t('subtasks description')}
 
-${settings.mode === ProblemScoringMode.SUBTASK
+${settings.scoringMode === ProblemScoringMode.SUBTASK
     ? Object.values(settings.pointsByGroups).map((pointsByGroup, index) => (
       `### ${t('group')} ${pointsByGroup.group} (${pointsByGroup.points} ${t('points')})
 

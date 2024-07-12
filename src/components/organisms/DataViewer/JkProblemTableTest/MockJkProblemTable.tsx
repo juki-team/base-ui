@@ -1,4 +1,4 @@
-import { Status } from '@juki-team/commons';
+import { ProblemSummaryListResponseDTO, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
@@ -6,37 +6,33 @@ import {
   DataViewerHeadersType,
   DataViewerProps,
   getProblemAdminActionsHeader,
-  getProblemKeyIdHeader,
+  getProblemKeyHeader,
   getProblemModeHeader,
   getProblemNameHeader,
   getProblemOwnerHeader,
-  getProblemStateHeader,
   getProblemTagsHeader,
   getProblemTypeHeader,
-  ProblemDataViewerType,
   ReloadIcon,
   T,
-  toProblemDataViewer,
 } from '../../../';
 import problems from './data.json';
 
-export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemDataViewerType>, 'data'>) => {
-  const [ data, setData ] = useState<ProblemDataViewerType[]>([]);
+export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data'>) => {
+  const [ data, setData ] = useState<ProblemSummaryListResponseDTO[]>([]);
   useEffect(() => {
     setTimeout(() => {
       // @ts-ignore
-      setData(problems.contents.map(toProblemDataViewer) as ProblemDataViewerType[]);
+      setData(problems.contents as ProblemSummaryListResponseDTO[]);
       // setData([]);
     }, 2000);
   }, []);
-  const columns: DataViewerHeadersType<ProblemDataViewerType>[] = useMemo(() => [
-    getProblemKeyIdHeader(true),
-    getProblemNameHeader(),
+  const columns: DataViewerHeadersType<ProblemSummaryListResponseDTO>[] = useMemo(() => [
+    getProblemKeyHeader(),
+    getProblemNameHeader(false),
     getProblemModeHeader(),
     getProblemTypeHeader(),
     getProblemTagsHeader([]),
     getProblemOwnerHeader(false),
-    getProblemStateHeader(),
     getProblemAdminActionsHeader(),
   ], []);
   
@@ -76,7 +72,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemDataViewer
   
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px' }}>
-      <DataViewer<ProblemDataViewerType>
+      <DataViewer<ProblemSummaryListResponseDTO>
         {...props}
         cards={{ expanded: true }}
         // headers={columns.slice(0, 4).map(c => ({ ...c, sticky: false }))}

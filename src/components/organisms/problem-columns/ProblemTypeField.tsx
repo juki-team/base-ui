@@ -1,11 +1,10 @@
-import { PROBLEM_TYPE, ProblemType } from '@juki-team/commons';
+import { PROBLEM_TYPE, ProblemSummaryListResponseDTO, ProblemType } from '@juki-team/commons';
 import React from 'react';
 import { T } from '../../atoms';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
-import { ProblemDataViewerType } from './types';
 
-export const ProblemTypeField: DataViewerHeadersType<ProblemDataViewerType>['Field']
-  = ({ record: { type }, isCard }) => (
+export const ProblemTypeField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field']
+  = ({ record: { settings: { type } }, isCard }) => (
   <TextField
     className="jk-row"
     text={<T className="tt-se">{PROBLEM_TYPE[type].label}</T>}
@@ -13,7 +12,7 @@ export const ProblemTypeField: DataViewerHeadersType<ProblemDataViewerType>['Fie
   />
 );
 
-export const getProblemTypeHeader = (): DataViewerHeadersType<ProblemDataViewerType> => ({
+export const getProblemTypeHeader = (): DataViewerHeadersType<ProblemSummaryListResponseDTO> => ({
   head: 'type',
   index: 'type',
   Field: ProblemTypeField,
