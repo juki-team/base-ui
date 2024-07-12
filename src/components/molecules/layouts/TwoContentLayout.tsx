@@ -8,19 +8,21 @@ import { TwoContentSection } from '../TwoContentSection';
 import { PawsLoadingLayout } from './PawsLoadingLayout';
 import { TwoContentLayoutProps } from './types';
 
-export const TwoContentLayout = <T, >({
-                                        breadcrumbs: initialBreadcrumbs,
-                                        tabs: initialTAbs = {},
-                                        tabButtons,
-                                        getPathname,
-                                        selectedTabKey,
-                                        children,
-                                        loading,
-                                      }: TwoContentLayoutProps<T>) => {
+export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
+  
+  const {
+    breadcrumbs: initialBreadcrumbs,
+    tabs: initialTAbs = {},
+    tabButtons,
+    getHrefOnTabChange,
+    selectedTabKey,
+    children,
+    loading,
+  } = props;
   
   const LOADING_TAB = 'loading' as T;
   const { viewPortSize } = useJukiUI();
-  const { searchParams, pushRoute } = useJukiRouter();
+  const { pushRoute } = useJukiRouter();
   const tabs: TabsType<T> = loading ? {
     [LOADING_TAB as string]: {
       key: LOADING_TAB,
@@ -38,11 +40,8 @@ export const TwoContentLayout = <T, >({
   const tab = loading ? LOADING_TAB : initialTab;
   const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey: tab }) as ReactNode[];
   const pushTab = (tabKey: T) => {
-    if (getPathname) {
-      pushRoute({
-        pathname: getPathname(tabKey),
-        searchParams,
-      });
+    if (getHrefOnTabChange) {
+      pushRoute(getHrefOnTabChange(tabKey));
     } else {
       setTab(tabKey as NotUndefined<T>);
     }

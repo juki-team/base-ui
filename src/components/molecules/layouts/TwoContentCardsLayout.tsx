@@ -8,27 +8,26 @@ import { TabsInline } from '../Tabs';
 import { TwoContentSection } from '../TwoContentSection';
 import { TwoContentLayoutProps } from './types';
 
-export const TwoContentCardsLayout = <T, >({
-                                             breadcrumbs: initialBreadcrumbs,
-                                             tabs = {},
-                                             tabButtons,
-                                             getPathname,
-                                             selectedTabKey,
-                                             children,
-                                           }: TwoContentLayoutProps<T>) => {
+export const TwoContentCardsLayout = <T, >(props: TwoContentLayoutProps<T>) => {
+  
+  const {
+    breadcrumbs: initialBreadcrumbs,
+    tabs = {},
+    tabButtons,
+    getHrefOnTabChange,
+    selectedTabKey,
+    children,
+  } = props;
   
   const { viewPortSize } = useJukiUI();
   const { user: { settings: { preferredMenuViewMode } } } = useJukiUser();
-  const { searchParams, pushRoute } = useJukiRouter();
+  const { pushRoute } = useJukiRouter();
   const tabKeys = Object.keys(tabs);
   const [ tab, setTab ] = useHandleState<T>(tabs[tabKeys[0] as string].key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
   
   const pushTab = (tabKey: T) => {
-    if (getPathname) {
-      pushRoute({
-        pathname: getPathname(tabKey),
-        searchParams,
-      });
+    if (getHrefOnTabChange) {
+      pushRoute(getHrefOnTabChange(tabKey));
     } else {
       setTab(tabKey as NotUndefined<T>);
     }
