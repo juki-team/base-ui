@@ -324,12 +324,6 @@ export class Settings {
           url: injectCompany(injectBaseUrl('company', '/email-data'), companyKey),
           method: HTTPMethod.GET,
         })),
-        getJudgeProblemTags: valid<
-          { params: { companyKey?: string } } | void
-        >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
-          url: injectCompany(injectBaseUrl('company', `/problem-tags-list`), companyKey),
-          method: HTTPMethod.GET,
-        })),
         updateImage: valid<
           { params?: { companyKey: string }, body: FormData },
           HTTPMethod.PUT
