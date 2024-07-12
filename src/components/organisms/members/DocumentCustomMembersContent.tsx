@@ -5,7 +5,7 @@ import {
   UserBasicInfoResponseDTO,
   UserSummaryResponseDTO,
 } from '@juki-team/commons';
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
 import { useJukiUser } from '../../../hooks';
 import { InfoIcon, T, Tooltip } from '../../atoms';
 import { UserChip } from '../UserChip';
@@ -16,13 +16,13 @@ const PrintUsers = ({ members }: { members?: EntityMembersResponseDTO['spectator
   const users = Object.values(members || {});
   
   if (!users.length) {
-    return <div className="jk-row extend"><T className="fw-lr">nobody</T></div>;
+    return <div className="jk-row extend left"><T className="fw-lr tt-se">nobody</T></div>;
   }
   
   return (
     <div className="jk-row left gap">
-      {users.map(({ nickname, imageUrl }) => (
-        <UserChip imageUrl={imageUrl} nickname={nickname} key={nickname} />
+      {users.map(({ nickname, imageUrl, companyKey }) => (
+        <UserChip imageUrl={imageUrl} nickname={nickname} key={nickname} companyKey={companyKey} />
       ))}
     </div>
   );
@@ -33,11 +33,11 @@ export interface DocumentCustomMembersContentProps {
   setMembers: Dispatch<SetStateAction<EntityMembersResponseDTO>>,
   documentOwner: UserBasicInfoResponseDTO,
   labels?: {
-    administrators?: { name?: string, description?: string },
-    managers?: { name?: string, description?: string },
-    participants?: { name?: string, description?: string },
-    guests?: { name?: string, description?: string },
-    spectators?: { name?: string, description?: string },
+    administrators?: { name?: string, description?: ReactNode },
+    managers?: { name?: string, description?: ReactNode },
+    participants?: { name?: string, description?: ReactNode },
+    guests?: { name?: string, description?: ReactNode },
+    spectators?: { name?: string, description?: ReactNode },
   }
   administrators?: boolean,
   managers?: boolean,
@@ -170,7 +170,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
     <div className="jk-col gap stretch gap">
       <div>
         <T className="tt-se fw-bd">owner</T>
-        <div className="jk-row">
+        <div className="jk-row extend left">
           <UserChip nickname={documentOwner.nickname} imageUrl={documentOwner.imageUrl} />
         </div>
       </div>
@@ -179,7 +179,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{labels?.administrators?.name || 'administrators'}</T>
             {!!labels?.administrators?.description && (
-              <Tooltip content={<T>{labels?.administrators?.description || ''}</T>}>
+              <Tooltip content={labels?.administrators?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Tooltip>
             )}
@@ -209,7 +209,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{labels?.managers?.name || 'managers'}</T>
             {!!labels?.managers?.description && (
-              <Tooltip content={<T>{labels?.managers?.description || ''}</T>}>
+              <Tooltip content={labels?.managers?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Tooltip>
             )}
@@ -239,7 +239,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{labels?.participants?.name || 'participants'}</T>
             {!!labels?.participants?.description && (
-              <Tooltip content={<T>{labels?.participants?.description || ''}</T>}>
+              <Tooltip content={labels?.participants?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Tooltip>
             )}
@@ -269,7 +269,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{labels?.guests?.name || 'guests'}</T>
             {!!labels?.guests?.description && (
-              <Tooltip content={<T>{labels?.guests?.description || ''}</T>}>
+              <Tooltip content={labels?.guests?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Tooltip>
             )}
@@ -299,7 +299,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{labels?.spectators?.name || 'spectators'}</T>
             {!!labels?.spectators?.description && (
-              <Tooltip content={<T>{labels?.spectators?.description || ''}</T>}>
+              <Tooltip content={labels?.spectators?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Tooltip>
             )}
