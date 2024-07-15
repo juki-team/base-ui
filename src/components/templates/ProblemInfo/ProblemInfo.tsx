@@ -254,7 +254,7 @@ export const JukiProblemInfo = (props: PropsWithChildren<ProblemInfoProps>) => {
 export const ProblemInfo = ({ problem }: { problem: ProblemDataResponseDTO }) => {
   return (
     <Popover
-      content={!EXTERNAL_JUDGE_KEYS.includes(problem.judgeKey)
+      content={!EXTERNAL_JUDGE_KEYS.includes(problem.judge?.key)
         ? (
           <div className="jk-pg-sm">
             <JukiProblemInfo
@@ -269,7 +269,7 @@ export const ProblemInfo = ({ problem }: { problem: ProblemDataResponseDTO }) =>
         ) : (
           <div className="jk-row extend top">
             <div
-              className={`${problem.judgeKey}-statement only-info`}
+              className={`${problem.judge?.key}-statement only-info`}
               dangerouslySetInnerHTML={{ __html: problem.statement.html[Language.EN] || problem.statement.html[Language.ES] }}
             />
           </div>

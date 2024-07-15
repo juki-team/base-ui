@@ -24,7 +24,7 @@ export interface ProblemStatementViewProps {
 
 export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutName }: ProblemStatementViewProps) => {
   
-  const { judgeKey, key: problemKey, name, settings, tags, author, statement } = problem;
+  const { judge: { key: judgeKey }, key: problemKey, name, settings, tags, author, statement } = problem;
   const {
     user: {
       settings: {

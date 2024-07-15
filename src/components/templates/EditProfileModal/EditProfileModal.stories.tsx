@@ -1,8 +1,7 @@
-import { UserStatus } from "@juki-team/commons";
-import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
-import { MockupJukiProvider } from "../../mockup";
-import { EditProfileModal } from "./EditProfileModal";
+import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import { MockupJukiProvider } from '../../mockup';
+import { EditProfileModal } from './EditProfileModal';
 
 const meta: Meta<typeof EditProfileModal> = {
   component: EditProfileModal,
@@ -24,22 +23,21 @@ export const Regular: Story = {
 
 Regular.args = {
   user: {
-    companyKey: "",
-    aboutMe: "",
+    companyKey: '',
+    aboutMe: '',
     canEditPermissionsData: false,
     canEditProfileData: false,
     canEditSettingsData: false,
     canResetPassword: false,
     canUpdatePassword: false,
-    city: "",
-    country: "",
-    email: "",
-    familyName: "",
-    givenName: "",
+    city: '',
+    country: '',
+    email: '',
+    familyName: '',
+    givenName: '',
     handles: {},
-    imageUrl: "",
-    institution: "",
-    nickname: "OscarGauss",
-    status: UserStatus.ACTIVE,
+    imageUrl: '',
+    institution: '',
+    nickname: 'OscarGauss',
   },
 };

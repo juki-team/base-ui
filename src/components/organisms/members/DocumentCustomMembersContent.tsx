@@ -6,11 +6,11 @@ import {
   UserSummaryResponseDTO,
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
+import { classNames } from '../../../helpers';
 import { useJukiUser } from '../../../hooks';
-import { InfoIcon, T, Tooltip } from '../../atoms';
+import { InfoIcon, InputToggle, T, Tooltip } from '../../atoms';
 import { UserChip } from '../UserChip';
 import { UsersSelector } from '../UsersSelector';
-
 
 const PrintUsers = ({ members }: { members?: EntityMembersResponseDTO['spectators'] }) => {
   const users = Object.values(members || {});
@@ -30,20 +30,13 @@ const PrintUsers = ({ members }: { members?: EntityMembersResponseDTO['spectator
 
 export interface DocumentCustomMembersContentProps {
   members: EntityMembersResponseDTO,
-  setMembers: Dispatch<SetStateAction<EntityMembersResponseDTO>>,
+  setMembers?: Dispatch<SetStateAction<EntityMembersResponseDTO>>,
   documentOwner: UserBasicInfoResponseDTO,
-  labels?: {
-    administrators?: { name?: string, description?: ReactNode },
-    managers?: { name?: string, description?: ReactNode },
-    participants?: { name?: string, description?: ReactNode },
-    guests?: { name?: string, description?: ReactNode },
-    spectators?: { name?: string, description?: ReactNode },
-  }
-  administrators?: boolean,
-  managers?: boolean,
-  participants?: boolean,
-  guests?: boolean,
-  spectators?: boolean,
+  administrators?: { name?: string, description?: ReactNode, closeable?: boolean, readonly?: boolean },
+  managers?: { name?: string, description?: ReactNode, closeable?: boolean, readonly?: boolean },
+  participants?: { name?: string, description?: ReactNode, closeable?: boolean, readonly?: boolean },
+  guests?: { name?: string, description?: ReactNode, closeable?: boolean, readonly?: boolean },
+  spectators?: { name?: string, description?: ReactNode, closeable?: boolean, readonly?: boolean },
 }
 
 export const DocumentCustomMembersContent = (props: DocumentCustomMembersContentProps) => {
@@ -52,7 +45,6 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
     members,
     setMembers,
     documentOwner,
-    labels,
     administrators,
     managers,
     participants,
@@ -62,7 +54,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
   const { company: { key: companyKey } } = useJukiUser();
   
   useEffect(() => {
-    setMembers(prevState => {
+    setMembers?.(prevState => {
       let rankAdministrators;
       let newAdministrators;
       if (administrators === undefined) {
@@ -166,6 +158,12 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ administrators, guests, managers, participants, spectators ]);
   
+  const administratorsLabel = administrators?.name || 'administrators';
+  const managersLabel = managers?.name || 'managers';
+  const participantsLabel = participants?.name || 'participants';
+  const guestsLabel = guests?.name || 'guests';
+  const spectatorsLabel = spectators?.name || 'spectators';
+  
   return (
     <div className="jk-col gap stretch gap">
       <div>
@@ -177,151 +175,296 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
       {administrators !== undefined && (
         <div>
           <div className="jk-row left gap">
-            <T className="tt-se fw-bd">{labels?.administrators?.name || 'administrators'}</T>
-            {!!labels?.administrators?.description && (
-              <Tooltip content={labels?.administrators?.description || ''}>
+            <T className="tt-se fw-bd">{administratorsLabel}</T>
+            {!!administrators?.description && (
+              <Tooltip content={administrators?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Tooltip>
             )}
-          </div>
-          {administrators ? (
-            <UsersSelector
-              selectedUsers={Object.keys(members.administrators ?? {})}
-              onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
-                const administrators: EntityMembersResponseDTO['administrators'] = {};
-                for (const user of selectedUsers) {
-                  administrators[user.nickname] = {
-                    imageUrl: user.imageUrl,
-                    nickname: user.nickname,
-                    companyKey: user.companyKey,
-                    type: MemberType.USER,
-                  };
+            {administrators?.closeable && setMembers && (
+              <InputToggle
+                checked={members.rankAdministrators === EntityMembersRank.CLOSE}
+                onChange={(value) => setMembers(prevState => ({
+                  ...prevState,
+                  rankAdministrators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                }))}
+                leftLabel={
+                  <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.CLOSE })}>
+                    open
+                  </T>
                 }
-                setMembers(prevState => ({ ...prevState, administrators }));
-              }}
-              companyKey={companyKey}
-            />
-          ) : <PrintUsers members={members.managers} />}
+                rightLabel={
+                  <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.OPEN })}>
+                    close
+                  </T>
+                }
+                size="small"
+              />
+            )}
+          </div>
+          {members.rankAdministrators === EntityMembersRank.NONE ? (
+            <T>not selectable</T>
+          ) : members.rankAdministrators === EntityMembersRank.CLOSE ? (
+            <T>{`only the following users will be ${administratorsLabel}`}</T>
+          ) : (
+            <T>{`all users will be ${administratorsLabel}`}</T>
+          )}
+          {members.rankAdministrators === EntityMembersRank.CLOSE && (
+            administrators && setMembers ? (
+              <UsersSelector
+                selectedUsers={Object.keys(members.administrators ?? {})}
+                onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
+                  const administrators: EntityMembersResponseDTO['administrators'] = {};
+                  for (const user of selectedUsers) {
+                    administrators[user.nickname] = {
+                      imageUrl: user.imageUrl,
+                      nickname: user.nickname,
+                      companyKey: user.companyKey,
+                      type: MemberType.USER,
+                    };
+                  }
+                  setMembers(prevState => ({ ...prevState, administrators }));
+                }}
+                companyKey={companyKey}
+              />
+            ) : <PrintUsers members={members.managers} />
+          )}
         </div>
       )}
       {managers !== undefined && (
         <div>
           <div className="jk-row left gap">
-            <T className="tt-se fw-bd">{labels?.managers?.name || 'managers'}</T>
-            {!!labels?.managers?.description && (
-              <Tooltip content={labels?.managers?.description || ''}>
+            <T className="tt-se fw-bd">{managers?.name || 'managers'}</T>
+            {!!managers?.description && (
+              <Tooltip content={managers?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Tooltip>
             )}
-          </div>
-          {managers ? (
-            <UsersSelector
-              selectedUsers={Object.keys(members.managers ?? {})}
-              onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
-                const managers: EntityMembersResponseDTO['managers'] = {};
-                for (const user of selectedUsers) {
-                  managers[user.nickname] = {
-                    imageUrl: user.imageUrl,
-                    nickname: user.nickname,
-                    companyKey: user.companyKey,
-                    type: MemberType.USER,
-                  };
+            {managers?.closeable && setMembers && (
+              <InputToggle
+                checked={members.rankManagers === EntityMembersRank.CLOSE}
+                onChange={(value) => setMembers(prevState => ({
+                  ...prevState,
+                  rankManagers: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                }))}
+                leftLabel={
+                  <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.CLOSE })}>
+                    open
+                  </T>
                 }
-                setMembers(prevState => ({ ...prevState, managers }));
-              }}
-              companyKey={companyKey}
-            />
-          ) : <PrintUsers members={members.managers} />}
+                rightLabel={
+                  <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.OPEN })}>
+                    close
+                  </T>
+                }
+                size="small"
+              />
+            )}
+          </div>
+          {members.rankManagers === EntityMembersRank.NONE ? (
+            <T>not selectable</T>
+          ) : members.rankManagers === EntityMembersRank.CLOSE ? (
+            <T>{`only the following users will be ${managersLabel}`}</T>
+          ) : (
+            <T>{`all users will be ${managersLabel}`}</T>
+          )}
+          {members.rankManagers === EntityMembersRank.CLOSE && (
+            managers && setMembers ? (
+              <UsersSelector
+                selectedUsers={Object.keys(members.managers ?? {})}
+                onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
+                  const managers: EntityMembersResponseDTO['managers'] = {};
+                  for (const user of selectedUsers) {
+                    managers[user.nickname] = {
+                      imageUrl: user.imageUrl,
+                      nickname: user.nickname,
+                      companyKey: user.companyKey,
+                      type: MemberType.USER,
+                    };
+                  }
+                  setMembers(prevState => ({ ...prevState, managers }));
+                }}
+                companyKey={companyKey}
+              />
+            ) : <PrintUsers members={members.managers} />
+          )}
         </div>
       )}
       {participants !== undefined && (
         <div>
           <div className="jk-row left gap">
-            <T className="tt-se fw-bd">{labels?.participants?.name || 'participants'}</T>
-            {!!labels?.participants?.description && (
-              <Tooltip content={labels?.participants?.description || ''}>
+            <T className="tt-se fw-bd">{participants?.name || 'participants'}</T>
+            {!!participants?.description && (
+              <Tooltip content={participants?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Tooltip>
             )}
-          </div>
-          {participants ? (
-            <UsersSelector
-              selectedUsers={Object.keys(members.participants ?? {})}
-              onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
-                const participants: EntityMembersResponseDTO['participants'] = {};
-                for (const user of selectedUsers) {
-                  participants[user.nickname] = {
-                    imageUrl: user.imageUrl,
-                    nickname: user.nickname,
-                    companyKey: user.companyKey,
-                    type: MemberType.USER,
-                  };
+            {participants?.closeable && setMembers && (
+              <InputToggle
+                checked={members.rankParticipants === EntityMembersRank.CLOSE}
+                onChange={(value) => setMembers(prevState => ({
+                  ...prevState,
+                  rankParticipants: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                }))}
+                leftLabel={
+                  <T className={classNames({ 'fw-bd': members.rankParticipants === EntityMembersRank.CLOSE })}>
+                    open
+                  </T>
                 }
-                setMembers(prevState => ({ ...prevState, participants }));
-              }}
-              companyKey={companyKey}
-            />
-          ) : <PrintUsers members={members.participants} />}
+                rightLabel={
+                  <T className={classNames({ 'fw-bd': members.rankParticipants === EntityMembersRank.OPEN })}>
+                    close
+                  </T>
+                }
+                size="small"
+              />
+            )}
+          </div>
+          {members.rankParticipants === EntityMembersRank.NONE ? (
+            <T>not selectable</T>
+          ) : members.rankParticipants === EntityMembersRank.CLOSE ? (
+            <T>{`only the following users will be ${participantsLabel}`}</T>
+          ) : (
+            <T>{`all users will be ${participantsLabel}`}</T>
+          )}
+          {members.rankParticipants === EntityMembersRank.CLOSE && (
+            participants && setMembers ? (
+              <UsersSelector
+                selectedUsers={Object.keys(members.participants ?? {})}
+                onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
+                  const participants: EntityMembersResponseDTO['participants'] = {};
+                  for (const user of selectedUsers) {
+                    participants[user.nickname] = {
+                      imageUrl: user.imageUrl,
+                      nickname: user.nickname,
+                      companyKey: user.companyKey,
+                      type: MemberType.USER,
+                    };
+                  }
+                  setMembers(prevState => ({ ...prevState, participants }));
+                }}
+                companyKey={companyKey}
+              />
+            ) : <PrintUsers members={members.participants} />
+          )}
         </div>
       )}
       {guests !== undefined && (
         <div>
           <div className="jk-row left gap">
-            <T className="tt-se fw-bd">{labels?.guests?.name || 'guests'}</T>
-            {!!labels?.guests?.description && (
-              <Tooltip content={labels?.guests?.description || ''}>
+            <T className="tt-se fw-bd">{guests?.name || 'guests'}</T>
+            {!!guests?.description && (
+              <Tooltip content={guests?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Tooltip>
             )}
-          </div>
-          {guests ? (
-            <UsersSelector
-              selectedUsers={Object.keys(members.guests ?? {})}
-              onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
-                const guests: EntityMembersResponseDTO['guests'] = {};
-                for (const user of selectedUsers) {
-                  guests[user.nickname] = {
-                    imageUrl: user.imageUrl,
-                    nickname: user.nickname,
-                    companyKey: user.companyKey,
-                    type: MemberType.USER,
-                  };
+            {guests?.closeable && setMembers && (
+              <InputToggle
+                checked={members.rankGuests === EntityMembersRank.CLOSE}
+                onChange={(value) => setMembers(prevState => ({
+                  ...prevState,
+                  rankGuests: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                }))}
+                leftLabel={
+                  <T className={classNames({ 'fw-bd': members.rankGuests === EntityMembersRank.CLOSE })}>
+                    open
+                  </T>
                 }
-                setMembers(prevState => ({ ...prevState, guests }));
-              }}
-              companyKey={companyKey}
-            />
-          ) : <PrintUsers members={members.guests} />}
+                rightLabel={
+                  <T className={classNames({ 'fw-bd': members.rankGuests === EntityMembersRank.OPEN })}>
+                    close
+                  </T>
+                }
+                size="small"
+              />
+            )}
+          </div>
+          {members.rankGuests === EntityMembersRank.NONE ? (
+            <T>not selectable</T>
+          ) : members.rankGuests === EntityMembersRank.CLOSE ? (
+            <T>{`only the following users will be ${guestsLabel}`}</T>
+          ) : (
+            <T>{`all users will be ${guestsLabel}`}</T>
+          )}
+          {members.rankGuests === EntityMembersRank.CLOSE && (
+            guests && setMembers ? (
+              <UsersSelector
+                selectedUsers={Object.keys(members.guests ?? {})}
+                onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
+                  const guests: EntityMembersResponseDTO['guests'] = {};
+                  for (const user of selectedUsers) {
+                    guests[user.nickname] = {
+                      imageUrl: user.imageUrl,
+                      nickname: user.nickname,
+                      companyKey: user.companyKey,
+                      type: MemberType.USER,
+                    };
+                  }
+                  setMembers(prevState => ({ ...prevState, guests }));
+                }}
+                companyKey={companyKey}
+              />
+            ) : <PrintUsers members={members.guests} />
+          )}
         </div>
       )}
       {spectators !== undefined && (
         <div>
           <div className="jk-row left gap">
-            <T className="tt-se fw-bd">{labels?.spectators?.name || 'spectators'}</T>
-            {!!labels?.spectators?.description && (
-              <Tooltip content={labels?.spectators?.description || ''}>
+            <T className="tt-se fw-bd">{spectators?.name || 'spectators'}</T>
+            {!!spectators?.description && (
+              <Tooltip content={spectators?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Tooltip>
             )}
-          </div>
-          {spectators ? (
-            <UsersSelector
-              selectedUsers={Object.keys(members.spectators ?? {})}
-              onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
-                const spectators: EntityMembersResponseDTO['spectators'] = {};
-                for (const user of selectedUsers) {
-                  spectators[user.nickname] = {
-                    imageUrl: user.imageUrl,
-                    nickname: user.nickname,
-                    companyKey: user.companyKey,
-                    type: MemberType.USER,
-                  };
+            {spectators?.closeable && setMembers && (
+              <InputToggle
+                checked={members.rankSpectators === EntityMembersRank.CLOSE}
+                onChange={(value) => setMembers(prevState => ({
+                  ...prevState,
+                  rankSpectators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                }))}
+                leftLabel={
+                  <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.CLOSE })}>
+                    open
+                  </T>
                 }
-                setMembers(prevState => ({ ...prevState, spectators }));
-              }}
-              companyKey={companyKey}
-            />
-          ) : <PrintUsers members={members.spectators} />}
+                rightLabel={
+                  <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.OPEN })}>
+                    close
+                  </T>
+                }
+                size="small"
+              />
+            )}
+          </div>
+          {members.rankSpectators === EntityMembersRank.NONE ? (
+            <T>not selectable</T>
+          ) : members.rankSpectators === EntityMembersRank.CLOSE ? (
+            <T>{`only the following users will be ${spectatorsLabel}`}</T>
+          ) : (
+            <T>{`all users will be ${spectatorsLabel}`}</T>
+          )}
+          {members.rankGuests === EntityMembersRank.CLOSE && (
+            spectators && setMembers ? (
+              <UsersSelector
+                selectedUsers={Object.keys(members.spectators ?? {})}
+                onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
+                  const spectators: EntityMembersResponseDTO['spectators'] = {};
+                  for (const user of selectedUsers) {
+                    spectators[user.nickname] = {
+                      imageUrl: user.imageUrl,
+                      nickname: user.nickname,
+                      companyKey: user.companyKey,
+                      type: MemberType.USER,
+                    };
+                  }
+                  setMembers(prevState => ({ ...prevState, spectators }));
+                }}
+                companyKey={companyKey}
+              />
+            ) : <PrintUsers members={members.spectators} />
+          )}
         </div>
       )}
     </div>
