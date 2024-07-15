@@ -182,24 +182,27 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
               </Tooltip>
             )}
             {administrators?.closeable && setMembers && (
-              <InputToggle
-                checked={members.rankAdministrators === EntityMembersRank.CLOSE}
-                onChange={(value) => setMembers(prevState => ({
-                  ...prevState,
-                  rankAdministrators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
-                }))}
-                leftLabel={
-                  <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.CLOSE })}>
-                    open
-                  </T>
-                }
-                rightLabel={
-                  <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.OPEN })}>
-                    close
-                  </T>
-                }
-                size="small"
-              />
+              <>
+                <div className="jk-divider horizontal tiny" />
+                <InputToggle
+                  checked={members.rankAdministrators === EntityMembersRank.CLOSE}
+                  onChange={(value) => setMembers(prevState => ({
+                    ...prevState,
+                    rankAdministrators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                  }))}
+                  leftLabel={
+                    <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.CLOSE })}>
+                      open
+                    </T>
+                  }
+                  rightLabel={
+                    <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.OPEN })}>
+                      close
+                    </T>
+                  }
+                  size="small"
+                />
+              </>
             )}
           </div>
           {members.rankAdministrators === EntityMembersRank.NONE ? (
@@ -241,24 +244,27 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
               </Tooltip>
             )}
             {managers?.closeable && setMembers && (
-              <InputToggle
-                checked={members.rankManagers === EntityMembersRank.CLOSE}
-                onChange={(value) => setMembers(prevState => ({
-                  ...prevState,
-                  rankManagers: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
-                }))}
-                leftLabel={
-                  <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.CLOSE })}>
-                    open
-                  </T>
-                }
-                rightLabel={
-                  <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.OPEN })}>
-                    close
-                  </T>
-                }
-                size="small"
-              />
+              <>
+                <div className="jk-divider horizontal tiny" />
+                <InputToggle
+                  checked={members.rankManagers === EntityMembersRank.CLOSE}
+                  onChange={(value) => setMembers(prevState => ({
+                    ...prevState,
+                    rankManagers: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                  }))}
+                  leftLabel={
+                    <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.CLOSE })}>
+                      open
+                    </T>
+                  }
+                  rightLabel={
+                    <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.OPEN })}>
+                      close
+                    </T>
+                  }
+                  size="small"
+                />
+              </>
             )}
           </div>
           {members.rankManagers === EntityMembersRank.NONE ? (
@@ -300,24 +306,27 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
               </Tooltip>
             )}
             {participants?.closeable && setMembers && (
-              <InputToggle
-                checked={members.rankParticipants === EntityMembersRank.CLOSE}
-                onChange={(value) => setMembers(prevState => ({
-                  ...prevState,
-                  rankParticipants: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
-                }))}
-                leftLabel={
-                  <T className={classNames({ 'fw-bd': members.rankParticipants === EntityMembersRank.CLOSE })}>
-                    open
-                  </T>
-                }
-                rightLabel={
-                  <T className={classNames({ 'fw-bd': members.rankParticipants === EntityMembersRank.OPEN })}>
-                    close
-                  </T>
-                }
-                size="small"
-              />
+              <>
+                <div className="jk-divider horizontal tiny" />
+                <InputToggle
+                  checked={members.rankParticipants === EntityMembersRank.CLOSE}
+                  onChange={(value) => setMembers(prevState => ({
+                    ...prevState,
+                    rankParticipants: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                  }))}
+                  leftLabel={
+                    <T className={classNames({ 'fw-bd': members.rankParticipants === EntityMembersRank.CLOSE })}>
+                      open
+                    </T>
+                  }
+                  rightLabel={
+                    <T className={classNames({ 'fw-bd': members.rankParticipants === EntityMembersRank.OPEN })}>
+                      close
+                    </T>
+                  }
+                  size="small"
+                />
+              </>
             )}
           </div>
           {members.rankParticipants === EntityMembersRank.NONE ? (
@@ -359,24 +368,27 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
               </Tooltip>
             )}
             {guests?.closeable && setMembers && (
-              <InputToggle
-                checked={members.rankGuests === EntityMembersRank.CLOSE}
-                onChange={(value) => setMembers(prevState => ({
-                  ...prevState,
-                  rankGuests: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
-                }))}
-                leftLabel={
-                  <T className={classNames({ 'fw-bd': members.rankGuests === EntityMembersRank.CLOSE })}>
-                    open
-                  </T>
-                }
-                rightLabel={
-                  <T className={classNames({ 'fw-bd': members.rankGuests === EntityMembersRank.OPEN })}>
-                    close
-                  </T>
-                }
-                size="small"
-              />
+              <>
+                <div className="jk-divider horizontal tiny" />
+                <InputToggle
+                  checked={members.rankGuests === EntityMembersRank.CLOSE}
+                  onChange={(value) => setMembers(prevState => ({
+                    ...prevState,
+                    rankGuests: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                  }))}
+                  leftLabel={
+                    <T className={classNames({ 'fw-bd': members.rankGuests === EntityMembersRank.CLOSE })}>
+                      open
+                    </T>
+                  }
+                  rightLabel={
+                    <T className={classNames({ 'fw-bd': members.rankGuests === EntityMembersRank.OPEN })}>
+                      close
+                    </T>
+                  }
+                  size="small"
+                />
+              </>
             )}
           </div>
           {members.rankGuests === EntityMembersRank.NONE ? (
@@ -418,24 +430,27 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
               </Tooltip>
             )}
             {spectators?.closeable && setMembers && (
-              <InputToggle
-                checked={members.rankSpectators === EntityMembersRank.CLOSE}
-                onChange={(value) => setMembers(prevState => ({
-                  ...prevState,
-                  rankSpectators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
-                }))}
-                leftLabel={
-                  <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.CLOSE })}>
-                    open
-                  </T>
-                }
-                rightLabel={
-                  <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.OPEN })}>
-                    close
-                  </T>
-                }
-                size="small"
-              />
+              <>
+                <div className="jk-divider horizontal tiny" />
+                <InputToggle
+                  checked={members.rankSpectators === EntityMembersRank.CLOSE}
+                  onChange={(value) => setMembers(prevState => ({
+                    ...prevState,
+                    rankSpectators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
+                  }))}
+                  leftLabel={
+                    <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.CLOSE })}>
+                      open
+                    </T>
+                  }
+                  rightLabel={
+                    <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.OPEN })}>
+                      close
+                    </T>
+                  }
+                  size="small"
+                />
+              </>
             )}
           </div>
           {members.rankSpectators === EntityMembersRank.NONE ? (
