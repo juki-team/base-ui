@@ -156,7 +156,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
       return newMembers;
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ administrators, guests, managers, participants, spectators ]);
+  }, []);
   
   const administratorsLabel = administrators?.name || 'administrators';
   const managersLabel = managers?.name || 'managers';
