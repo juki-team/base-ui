@@ -1,10 +1,11 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import { MockupJukiProvider } from "../../mockup";
-import { DataViewer } from "./DataViewer";
-import { MockJkProblemTable } from "./JkProblemTableTest/MockJkProblemTable";
-import { MockJkUserTable } from "./JkUserTableTest/MockJkUserTable";
+import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { MockupJukiProvider } from '../../mockup';
+import { DataViewer } from './DataViewer';
+import { MockJkContestTable } from './JkContestTableTest/MockJkContestTable';
+import { MockJkProblemTable } from './JkProblemTableTest/MockJkProblemTable';
+import { MockJkUserTable } from './JkUserTableTest/MockJkUserTable';
 
 const meta: Meta<typeof DataViewer> = {
   component: DataViewer,
@@ -34,6 +35,18 @@ export const RegularProblem: Story = {
         <div>DadaViewer</div>
         {/* @ts-ignore*/}
         <MockJkProblemTable {...args} />
+      </MockupJukiProvider>
+    </BrowserRouter>
+  ),
+};
+
+export const RegularContest: Story = {
+  render: ({ data, ...args }) => (
+    <BrowserRouter>
+      <MockupJukiProvider>
+        <div>DadaViewer</div>
+        {/* @ts-ignore*/}
+        <MockJkContestTable {...args} />
       </MockupJukiProvider>
     </BrowserRouter>
   ),

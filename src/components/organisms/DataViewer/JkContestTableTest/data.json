@@ -1,0 +1,3219 @@
+{
+  "success": true,
+  "message": "OK",
+  "contents": [
+    {
+      "name": "Segunda División UMSA 2022",
+      "key": "2D-UMSA-2022",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 30,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "SanSi Cup 2023 Ronda Final",
+      "key": "2880",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "pacha2880",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 0,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "Práctica Python",
+      "key": "python-practica",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "nubol23",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 2,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "OBI 2022 Departamental Nivel 3",
+      "key": "OBI-2022-departamental-nivel-3",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 38,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "OBI 2022 Departamental Nivel 2",
+      "key": "OBI-2022-departamental-nivel-2",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 19,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "OBI 2021 Nacional Nivel 3",
+      "key": "OBI-2021-nacional-nivel-3",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 11,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "OBI 2021 Nacional Nivel 2",
+      "key": "OBI-2021-nacional-nivel-2",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 9,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "OBI 2021 Distrital",
+      "key": "OBI-2021-distrital",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 22,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "OBI 2020 Distrital",
+      "key": "OBI-2020-distrital",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 25,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "OBI 2020 Departamental Nivel 3",
+      "key": "OBI-2020-departamental-nivel-3",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 7,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "OBI 2020 Departamental Nivel 2",
+      "key": "OBI-2020-departamental-nivel-2",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 21,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "OBI 2019 Nacional Nivel 3",
+      "key": "OBI-2019-nacional-nivel-3",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "OBI 2019 Nacional Nivel 2",
+      "key": "OBI-2019-nacional-nivel-2",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 17,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "Maratona de Programação da SBC - ICPC - 2022",
+      "key": "2022-SBC-programming-marathon",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 19,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "ICPC Latin American Regional - 2021",
+      "key": "ICPC-latin-american-regional-2021",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 7,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "Concurso de practica",
+      "key": "Concurso-de-practica",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/b19ba75e-6829-4a19-9c8b-656d5c308104.png",
+        "nickname": "Abraham",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 10,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "Codeforces Div. 2 A",
+      "key": "codeforces-div-2-A",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 0,
+        "frozenTimestamp": 8640000000000000,
+        "quietTimestamp": 8640000000000000,
+        "endTimestamp": 8640000000000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 29,
+      "isLive": false,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": true,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "test2880",
+      "key": "test2880",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "pacha2880",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1702000260000,
+        "frozenTimestamp": 1702000320000,
+        "quietTimestamp": 1702000320000,
+        "endTimestamp": 1762300260000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 1,
+      "isLive": true,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CDS24 M5 Practica",
+      "key": "T-NmY",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1721084400000,
+        "frozenTimestamp": 1722398400000,
+        "quietTimestamp": 1722398400000,
+        "endTimestamp": 1722398400000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 10,
+      "isLive": true,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "Examen Practico Mod 4 - Creadores Digitales",
+      "key": "T-x38",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1721083980000,
+        "frozenTimestamp": 1721259000000,
+        "quietTimestamp": 1721259000000,
+        "endTimestamp": 1721259000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 9,
+      "isLive": true,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "CD Junior Virtual - Módulo 4",
+      "key": "cdjv-mod4",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1719873000000,
+        "frozenTimestamp": 1721255400000,
+        "quietTimestamp": 1721255400000,
+        "endTimestamp": 1721255400000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 10,
+      "isLive": true,
+      "isPast": false,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": false,
+      "isQuietTime": false
+    },
+    {
+      "name": "Test1",
+      "key": "T-GsY",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1721084520000,
+        "frozenTimestamp": 1721098920000,
+        "quietTimestamp": 1721101620000,
+        "endTimestamp": 1721102520000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 0,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Test",
+      "key": "T-rey",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1721084340000,
+        "frozenTimestamp": 1721098740000,
+        "quietTimestamp": 1721101440000,
+        "endTimestamp": 1721102340000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 0,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD24 G1 M4 Examen",
+      "key": "T-5Gp",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1720825200000,
+        "frozenTimestamp": 1721015940000,
+        "quietTimestamp": 1721015940000,
+        "endTimestamp": 1721015940000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 7,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Presencial 2024 - M3",
+      "key": "cdg1m3",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1719892740000,
+        "frozenTimestamp": 1720996740000,
+        "quietTimestamp": 1720996740000,
+        "endTimestamp": 1720996740000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 5,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior Presencial M3 Examen",
+      "key": "cdjpm3",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1720645500000,
+        "frozenTimestamp": 1720670700000,
+        "quietTimestamp": 1720670700000,
+        "endTimestamp": 1720670700000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "TESTContest",
+      "key": "TESTs",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/ee384354-350d-4e4f-9d87-bad18b23cedf.png",
+        "nickname": "andreschirinos",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1720491840000,
+        "frozenTimestamp": 1720506240000,
+        "quietTimestamp": 1720508940000,
+        "endTimestamp": 1720509840000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 0,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD24 S G1 M4 Ejercicios",
+      "key": "CD24-S-G1-M3-Examen-copiar",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1718838660000,
+        "frozenTimestamp": 1719806400000,
+        "quietTimestamp": 1719806400000,
+        "endTimestamp": 1719806400000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 12,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Examen CD Junior - Módulo 3",
+      "key": "cdjmod3-examen",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1718404800000,
+        "frozenTimestamp": 1718836200000,
+        "quietTimestamp": 1718836200000,
+        "endTimestamp": 1718836200000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 9,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior Virtual 2024 - Modulo 3",
+      "key": "cdj-virtual-mod3",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1718231400000,
+        "frozenTimestamp": 1718836200000,
+        "quietTimestamp": 1718836200000,
+        "endTimestamp": 1718836200000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 9,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD24 S G1 M3 Examen",
+      "key": "CD24-S-G1-M3-Examen",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1718234100000,
+        "frozenTimestamp": 1718582400000,
+        "quietTimestamp": 1718582400000,
+        "endTimestamp": 1718582400000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 11,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior Presencial M2T1",
+      "key": "cdjpm2t1",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1716853740000,
+        "frozenTimestamp": 1718260020000,
+        "quietTimestamp": 1718260140000,
+        "endTimestamp": 1718260140000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 5,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior Virtual - Módulo 3 - Repaso",
+      "key": "cdjvirtual-mod3-repaso",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1715985000000,
+        "frozenTimestamp": 1717453800000,
+        "quietTimestamp": 1717453800000,
+        "endTimestamp": 1717453800000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 9,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior Presencial M2 Examen",
+      "key": "cdjpm2e",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1717246800000,
+        "frozenTimestamp": 1717252740000,
+        "quietTimestamp": 1717252800000,
+        "endTimestamp": 1717252800000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 5,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "f",
+      "key": "sd",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1717129080000,
+        "frozenTimestamp": 1717129200000,
+        "quietTimestamp": 1717129200000,
+        "endTimestamp": 1717129200000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 0,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD-24-S-M2 Examen",
+      "key": "CD-24-S-M2-Examen",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1715814000000,
+        "frozenTimestamp": 1716418800000,
+        "quietTimestamp": 1716418800000,
+        "endTimestamp": 1716418800000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 14,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior Presencial Tarea 1 M2",
+      "key": "cdjpt1m2",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1714833000000,
+        "frozenTimestamp": 1716042600000,
+        "quietTimestamp": 1716042600000,
+        "endTimestamp": 1716042600000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 7,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Creadores Digitales Junior Virtual - Modulo 2",
+      "key": "cdj-virtual-mod2",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1713826140000,
+        "frozenTimestamp": 1715985000000,
+        "quietTimestamp": 1715985000000,
+        "endTimestamp": 1715985000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 9,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior Presencial M1",
+      "key": "cdjpm1",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1714771800000,
+        "frozenTimestamp": 1714777200000,
+        "quietTimestamp": 1714777200000,
+        "endTimestamp": 1714777200000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Concurso de Programación del mes de ABRIL/2024",
+      "key": "202402-copy-copiar",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/39be7994-21f8-4a02-8ff2-e69066fed73c.png",
+        "nickname": "rzeballos",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1711944000000,
+        "frozenTimestamp": 1714449600000,
+        "quietTimestamp": 1714449600000,
+        "endTimestamp": 1714449600000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 4,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior Virtual - Modulo 1 (COPY)",
+      "key": "cd_junior_virtual_mod_1-copiar",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "Adriko",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1712962440000,
+        "frozenTimestamp": 1713391200000,
+        "quietTimestamp": 1713391200000,
+        "endTimestamp": 1713391200000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 0,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior Virtual - Modulo 1",
+      "key": "cd_junior_virtual_mod_1",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1712962440000,
+        "frozenTimestamp": 1713391200000,
+        "quietTimestamp": 1713391200000,
+        "endTimestamp": 1713391200000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 9,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CDS24 Bienvenida",
+      "key": "CDS24-bienvenida",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1710549000000,
+        "frozenTimestamp": 1712617200000,
+        "quietTimestamp": 1712617200000,
+        "endTimestamp": 1712790060000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 13,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Concurso de Programación del mes de MARZO/2024",
+      "key": "202402-copy",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/39be7994-21f8-4a02-8ff2-e69066fed73c.png",
+        "nickname": "rzeballos",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1709265600000,
+        "frozenTimestamp": 1711857600000,
+        "quietTimestamp": 1711857600000,
+        "endTimestamp": 1711857600000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 1,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Concurso de Programación del mes de FEBRERO/2024",
+      "key": "202402",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/39be7994-21f8-4a02-8ff2-e69066fed73c.png",
+        "nickname": "rzeballos",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1708745460000,
+        "frozenTimestamp": 1709483460000,
+        "quietTimestamp": 1709483460000,
+        "endTimestamp": 1709483460000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 0,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Concurso",
+      "key": "Concurso",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/b19ba75e-6829-4a19-9c8b-656d5c308104.png",
+        "nickname": "Abraham",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1701662400000,
+        "frozenTimestamp": 1701662400000,
+        "quietTimestamp": 1701662400000,
+        "endTimestamp": 1702262400000,
+        "penalty": 1
+      },
+      "tags": [],
+      "totalContestants": 0,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Test 2 abierto 1",
+      "key": "Test-2-abierto",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/0f122754-b4e7-419c-bb5a-8671af757e7f.png",
+        "nickname": "virtual-user-0000",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1681954920000,
+        "frozenTimestamp": 1682136000000,
+        "quietTimestamp": 1702094400000,
+        "endTimestamp": 1702094400000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "LIBERACION DE AUXILIATURA INF-143 \"B\" RTC",
+      "key": "liberacionINF143B",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7bbc53bb30980d46c022f0.",
+        "nickname": "mc_rodrix99",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1701475200000,
+        "frozenTimestamp": 1701482400000,
+        "quietTimestamp": 1701482400000,
+        "endTimestamp": 1701482400000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Test",
+      "key": "11431",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/64c2a40b-4341-4d3b-a29d-7992f6d5abf5.png",
+        "nickname": "luchxDD",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1700580420000,
+        "frozenTimestamp": 1700598420000,
+        "quietTimestamp": 1700598420000,
+        "endTimestamp": 1700598420000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 4,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD23 S G1 M8 Examen",
+      "key": "CD23-S-G1-M8-Examen",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1699659000000,
+        "frozenTimestamp": 1700452740000,
+        "quietTimestamp": 1700452740000,
+        "endTimestamp": 1700452740000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 3,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Examen final. CD Junior 2023 G2",
+      "key": "Cdg2m82023",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1699485000000,
+        "frozenTimestamp": 1699493400000,
+        "quietTimestamp": 1699493400000,
+        "endTimestamp": 1699493400000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 5,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior G2 2023 | Modulo 8, T1",
+      "key": "cdjg2m8t1",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1698276240000,
+        "frozenTimestamp": 1699485840000,
+        "quietTimestamp": 1699485840000,
+        "endTimestamp": 1699485840000,
+        "penalty": -2
+      },
+      "tags": [],
+      "totalContestants": 5,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior 2023 G2 | Modulo 7, examen",
+      "key": "cdj2023g2m7",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1697065800000,
+        "frozenTimestamp": 1697764200000,
+        "quietTimestamp": 1697764200000,
+        "endTimestamp": 1697764200000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 4,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD23 S G1 M7 Examen",
+      "key": "CD23-S-G1-M7-Examen",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1697239800000,
+        "frozenTimestamp": 1697601600000,
+        "quietTimestamp": 1697601600000,
+        "endTimestamp": 1697601600000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "UCB Chukuta Development",
+      "key": "cd-ucb",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1697310000000,
+        "frozenTimestamp": 1697317200000,
+        "quietTimestamp": 1697318400000,
+        "endTimestamp": 1697319000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 5,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Warm Up Chukuta Development",
+      "key": "warmup-cd-ucb",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1697302800000,
+        "frozenTimestamp": 1697309100000,
+        "quietTimestamp": 1697309400000,
+        "endTimestamp": 1697310000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 5,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD23 S G1 M7 Concurso 2",
+      "key": "CD23-S-G1-M7-Concurso-2",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1695182400000,
+        "frozenTimestamp": 1696478340000,
+        "quietTimestamp": 1696478340000,
+        "endTimestamp": 1696478340000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior G2 2023, Modulo 7, T1",
+      "key": "cdjg2m7t1",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1695085500000,
+        "frozenTimestamp": 1695955500000,
+        "quietTimestamp": 1695955500000,
+        "endTimestamp": 1695955500000,
+        "penalty": 2
+      },
+      "tags": [],
+      "totalContestants": 4,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD23 S G1 M7 Concurso 1",
+      "key": "CD23-S-G1-M7-Concurso-1",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1695182400000,
+        "frozenTimestamp": 1695873540000,
+        "quietTimestamp": 1695873540000,
+        "endTimestamp": 1695873540000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 4,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD23 S G1 M6 Examen",
+      "key": "CD23-S-G1-M6-Examen",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1694820600000,
+        "frozenTimestamp": 1695252600000,
+        "quietTimestamp": 1695252600000,
+        "endTimestamp": 1695252600000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "RAFA",
+      "key": "2307",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "raphaelo2307",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1695090000000,
+        "frozenTimestamp": 1695090000000,
+        "quietTimestamp": 1695090000000,
+        "endTimestamp": 1695090600000,
+        "penalty": 15
+      },
+      "tags": [],
+      "totalContestants": 1,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Examen CD Junior 2023 G2 | Modulo 6 ",
+      "key": "ecdg2m6",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1694646300000,
+        "frozenTimestamp": 1694748300000,
+        "quietTimestamp": 1694748300000,
+        "endTimestamp": 1694748300000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior G2 Modulo 6,1 ",
+      "key": "cdg2m6",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1693368000000,
+        "frozenTimestamp": 1694404800000,
+        "quietTimestamp": 1694404800000,
+        "endTimestamp": 1694404800000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 7,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Examen Modulo 5 - Creadores Digitales Junior",
+      "key": "cdjg1-exmod5",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1692224460000,
+        "frozenTimestamp": 1693796400000,
+        "quietTimestamp": 1693796400000,
+        "endTimestamp": 1693796400000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 8,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior G1 - Módulo 5",
+      "key": "cdjg1-mod5",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1692050400000,
+        "frozenTimestamp": 1693796400000,
+        "quietTimestamp": 1693796400000,
+        "endTimestamp": 1693796400000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 8,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Training ",
+      "key": "1145",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/64c2a40b-4341-4d3b-a29d-7992f6d5abf5.png",
+        "nickname": "luchxDD",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1693320480000,
+        "frozenTimestamp": 1693320720000,
+        "quietTimestamp": 1693320720000,
+        "endTimestamp": 1693349280000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 0,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior G2 2023 Modulo 5",
+      "key": "cdm5c1",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1692158400000,
+        "frozenTimestamp": 1693195200000,
+        "quietTimestamp": 1693195200000,
+        "endTimestamp": 1693195200000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 5,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior G2 2023, Examen M5",
+      "key": "cdjg2m5",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1692158400000,
+        "frozenTimestamp": 1692763200000,
+        "quietTimestamp": 1692763200000,
+        "endTimestamp": 1692763200000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 7,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD23 S G1 M5 Examen",
+      "key": "CD23-S-G1-M5-Examen",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1692228600000,
+        "frozenTimestamp": 1692590340000,
+        "quietTimestamp": 1692590340000,
+        "endTimestamp": 1692590340000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior 2023 G2 Upsolve M4 y M5",
+      "key": "upsolvem4m5",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1689979980000,
+        "frozenTimestamp": 1692571980000,
+        "quietTimestamp": 1692571980000,
+        "endTimestamp": 1692571980000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 1,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "OLIMPIADA CIENTÍFICA ESCOLAR OCE 2023 - 1ra PRUEBA - NIVEL 2 (UPSOLVING)",
+      "key": "OLIMPIADA-CIENTFICA-ESCOLAR-OCE-2023---1ra-PRUEBA---NIVEL-2-UPSOLVING",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1692058320000,
+        "frozenTimestamp": 1692417540000,
+        "quietTimestamp": 1692417540000,
+        "endTimestamp": 1692417540000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 4,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "OLIMPIADA CIENTÍFICA ESCOLAR OCE 2023 - 1ra PRUEBA - NIVEL 1 (UPSOLVING)",
+      "key": "OLIMPIADA-CIENTFICA-ESCOLAR-OCE-2023---1ra-PRUEBA---NIVEL-1-UPSOLVING",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1692057360000,
+        "frozenTimestamp": 1692417540000,
+        "quietTimestamp": 1692417540000,
+        "endTimestamp": 1692417540000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Test 0",
+      "key": "1143",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/64c2a40b-4341-4d3b-a29d-7992f6d5abf5.png",
+        "nickname": "luchxDD",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1692053280000,
+        "frozenTimestamp": 1692417000000,
+        "quietTimestamp": 1692417000000,
+        "endTimestamp": 1692417000000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 0,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD23 S G1 M5 Practica 2",
+      "key": "CD23-S-G1-M5-Practica-2",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1690587960000,
+        "frozenTimestamp": 1691380740000,
+        "quietTimestamp": 1691380740000,
+        "endTimestamp": 1691380740000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "grupo 16 Contest 1",
+      "key": "grupo-16-Contest-1",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1686014460000,
+        "frozenTimestamp": 1691207940000,
+        "quietTimestamp": 1691207940000,
+        "endTimestamp": 1691207940000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Vectores",
+      "key": "Vectores",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/b19ba75e-6829-4a19-9c8b-656d5c308104.png",
+        "nickname": "Abraham",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1680235200000,
+        "frozenTimestamp": 1690776000000,
+        "quietTimestamp": 1690776000000,
+        "endTimestamp": 1690776000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 12,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Contestdeprueba",
+      "key": "vivayo",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f6b4f0deed17632e7683841.",
+        "nickname": "Micky",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1690504200000,
+        "frozenTimestamp": 1690775940000,
+        "quietTimestamp": 1690775940000,
+        "endTimestamp": 1690775940000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 1,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD23 S G1 M5 Practica 1",
+      "key": "CD23-S-G1-M5-Practica-1",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1689636600000,
+        "frozenTimestamp": 1690516800000,
+        "quietTimestamp": 1690516800000,
+        "endTimestamp": 1690516800000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD 2023 G2 Modulo 4",
+      "key": "cdg2juniorm4",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1688615940000,
+        "frozenTimestamp": 1689825540000,
+        "quietTimestamp": 1689825540000,
+        "endTimestamp": 1689825540000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 7,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior G2 2023 Examen B",
+      "key": "CdexBg2",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1689377700000,
+        "frozenTimestamp": 1689723900000,
+        "quietTimestamp": 1689723900000,
+        "endTimestamp": 1689723900000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 3,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "gabmod3.0",
+      "key": "123",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "luis278911",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1688859120000,
+        "frozenTimestamp": 1689163320000,
+        "quietTimestamp": 1689205920000,
+        "endTimestamp": 1689205920000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 2,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD23 S G1 M4 Examen",
+      "key": "CD23-S-G1-M4-Examen",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1688772600000,
+        "frozenTimestamp": 1689047940000,
+        "quietTimestamp": 1689047940000,
+        "endTimestamp": 1689047940000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 4,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD Junior Modulo 4, G2 EXAMEN",
+      "key": "cdg2m4ex",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1688771100000,
+        "frozenTimestamp": 1688777700000,
+        "quietTimestamp": 1688777700000,
+        "endTimestamp": 1688777700000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 4,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "GABMOD2.0",
+      "key": "123456789",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "luis278911",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1686752400000,
+        "frozenTimestamp": 1688492400000,
+        "quietTimestamp": 1688492400000,
+        "endTimestamp": 1688492400000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 7,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CONCURSO DE PRACTICA",
+      "key": "CONCURSO-DE-PRACTICA",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/b19ba75e-6829-4a19-9c8b-656d5c308104.png",
+        "nickname": "Abraham",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1681358400000,
+        "frozenTimestamp": 1688097600000,
+        "quietTimestamp": 1688097600000,
+        "endTimestamp": 1688097600000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD junior Examen G2B modulo3",
+      "key": "G2bcd",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1686867180000,
+        "frozenTimestamp": 1686957180000,
+        "quietTimestamp": 1686957180000,
+        "endTimestamp": 1686957180000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 2,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Tarea 2 - Módulo 3 - CD Junior 23 G1",
+      "key": "tarea2-modulo3-junior-g1",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1685397600000,
+        "frozenTimestamp": 1686780000000,
+        "quietTimestamp": 1686780000000,
+        "endTimestamp": 1686780000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 8,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Examen - Módulo 3 - CD23 Junior G1",
+      "key": "cd23jg1-exmod3",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1686175200000,
+        "frozenTimestamp": 1686780000000,
+        "quietTimestamp": 1686780000000,
+        "endTimestamp": 1686780000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 8,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Tarea 2 - Módulo 3 - CD Junior 23 G2",
+      "key": "cdg2t3",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1685911500000,
+        "frozenTimestamp": 1686716700000,
+        "quietTimestamp": 1686716700000,
+        "endTimestamp": 1686716700000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 7,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "CD23 S G1 M3 Examen",
+      "key": "CD23-S-G1-M3-examen",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "OscarGauss",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1686007800000,
+        "frozenTimestamp": 1686612600000,
+        "quietTimestamp": 1686612600000,
+        "endTimestamp": 1686612600000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Liberación INF-143 \"B\"",
+      "key": "xd",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/64c2a40b-4341-4d3b-a29d-7992f6d5abf5.png",
+        "nickname": "luchxDD",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1686349860000,
+        "frozenTimestamp": 1686349860000,
+        "quietTimestamp": 1686349860000,
+        "endTimestamp": 1686366660000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 3,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Diagnostico",
+      "key": "Diagnostico-Yhorel",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "Yhorel123",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1686265800000,
+        "frozenTimestamp": 1686267000000,
+        "quietTimestamp": 1686267000000,
+        "endTimestamp": 1686273000000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 6,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Div2GABMOD",
+      "key": "gabmod1234",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "luis278911",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1685419200000,
+        "frozenTimestamp": 1686257400000,
+        "quietTimestamp": 1686259200000,
+        "endTimestamp": 1686259200000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 7,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Diagnostico",
+      "key": "123456",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/7e6d1385-9a31-4a97-9d25-abdd7fd4f773.png",
+        "nickname": "Yhorel123",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1686092700000,
+        "frozenTimestamp": 1686181320000,
+        "quietTimestamp": 1686186420000,
+        "endTimestamp": 1686186720000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 0,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Examen - CD Junior 2023 G2 - Modulo 3",
+      "key": "examenm3",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1686179100000,
+        "frozenTimestamp": 1686186000000,
+        "quietTimestamp": 1686186000000,
+        "endTimestamp": 1686186000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 5,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "EXAMEN DE LIBERACION AUXILIATURA INF-143 \"A\"",
+      "key": "w7RnxTfP5",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7bbc53bb30980d46c022f0.",
+        "nickname": "mc_rodrix99",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1685901600000,
+        "frozenTimestamp": 1685919540000,
+        "quietTimestamp": 1685919540000,
+        "endTimestamp": 1685919600000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 11,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Tarea 1 - Modulo 3 - CD Junior 2023 G2",
+      "key": "elementalg2",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f7b1cd30b1c10653050431b.",
+        "nickname": "chuby",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1684814400000,
+        "frozenTimestamp": 1685592000000,
+        "quietTimestamp": 1685592000000,
+        "endTimestamp": 1685592000000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 8,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Concurso de practica nivel 1",
+      "key": "Concurso-de-practica-nivel-1",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/b19ba75e-6829-4a19-9c8b-656d5c308104.png",
+        "nickname": "Abraham",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1681496280000,
+        "frozenTimestamp": 1685505600000,
+        "quietTimestamp": 1685505600000,
+        "endTimestamp": 1685505600000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 11,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "Tarea 1 - Módulo 3 - CD Junior 23 G1",
+      "key": "t1m3-cdj23",
+      "owner": {
+        "imageUrl": "https://juki-judge.s3.us-east-2.amazonaws.com/public/user/image/5f88b3b3a552db7e9359ba49.",
+        "nickname": "lordofmont",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": false,
+        "isSpectator": false
+      },
+      "settings": {
+        "startTimestamp": 1684360800000,
+        "frozenTimestamp": 1685415600000,
+        "quietTimestamp": 1685415600000,
+        "endTimestamp": 1685415600000,
+        "penalty": 0
+      },
+      "tags": [],
+      "totalContestants": 8,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    },
+    {
+      "name": "COMPETENCIA DE PROGRAMACION COMPETITIVA UABJB",
+      "key": "uabjb2023",
+      "owner": {
+        "imageUrl": "https://images.juki.pub/u/b5e5ace4-a5c7-4871-899b-8c86c261a723.png",
+        "nickname": "bladycondor",
+        "companyKey": "juki-app"
+      },
+      "user": {
+        "isOwner": false,
+        "isAdministrator": false,
+        "isManager": false,
+        "isParticipant": false,
+        "isGuest": true,
+        "isSpectator": true
+      },
+      "settings": {
+        "startTimestamp": 1684438200000,
+        "frozenTimestamp": 1684447200000,
+        "quietTimestamp": 1684448400000,
+        "endTimestamp": 1684449000000,
+        "penalty": 20
+      },
+      "tags": [],
+      "totalContestants": 4,
+      "isLive": false,
+      "isPast": true,
+      "isFuture": false,
+      "isEndless": false,
+      "isFrozenTime": true,
+      "isQuietTime": true
+    }
+  ],
+  "meta": {
+    "sort": [
+      {
+        "settings.endTimestamp": -1
+      },
+      {
+        "name": -1
+      }
+    ],
+    "page": 1,
+    "size": 100,
+    "totalElements": 272
+  }
+}
