@@ -1,5 +1,6 @@
 export * from './CheckUnsavedChanges';
 export * from './CodeRunnerEditor';
+export * from './contest-columns';
 export * from './DataViewer';
 export * from './GraphvizEditor';
 export * from './ImageUploader';
