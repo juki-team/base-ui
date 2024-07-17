@@ -43,6 +43,7 @@ export enum ContestTab {
   SETUP = 'setup',
   // JUDGE = 'judge',
   MEMBERS = 'members',
+  DELETE = 'delete',
 }
 
 export enum ProfileTab {
