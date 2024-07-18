@@ -396,9 +396,15 @@ export class Settings {
           url: injectBaseUrl('judge', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
+        getSummaryList: valid<
+          { params?: { filterUrl?: string, sortUrl?: string } } | void
+        >(({ params: { filterUrl, sortUrl } = { filterUrl: '', sortUrl: '' } } = {}) => ({
+          url: injectSort(injectFilter(injectBaseUrl('judge', '/summary-list'), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
         getSystemList: valid<
-          { params: { filterUrl?: string, sortUrl?: string } }
-        >(({ params: { filterUrl, sortUrl } }) => ({
+          { params?: { filterUrl?: string, sortUrl?: string } } | void
+        >(({ params: { filterUrl, sortUrl } = { filterUrl: '', sortUrl: '' } } = {}) => ({
           url: injectSort(injectFilter(injectBaseUrl('judge', '/system-list'), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
