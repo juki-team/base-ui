@@ -292,6 +292,12 @@ export class Settings {
           url: injectBaseUrl('contest', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
+        getLogs: valid<
+          { params: { key: string, } }
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}/logs`),
+          method: HTTPMethod.GET,
+        })),
         submit: valid<
           {
             params: { key: string, problemKey: string, companyKey?: string },
