@@ -66,9 +66,10 @@ export const MainMenu = (props: MainMenuProps) => {
   }, [ isLogged, searchParams, deleteSearchParams ]);
   const [ helpOpen, setHelpOpen ] = useState(false);
   
+  const enabled = false;
   const menu = useMemo(() => {
     const menu: MenuType[] = [];
-    if (multiCompanies && isLogged) {
+    if (multiCompanies && isLogged && enabled) {
       const select = (
         <Select
           options={companies.map(company => ({
@@ -127,7 +128,7 @@ export const MainMenu = (props: MainMenuProps) => {
     }
     menu.push(...initialMenu);
     return menu;
-  }, [ initialMenu, companies, company, setSearchParams, isLogged, viewPortSize, preferredTheme, Image, multiCompanies ]);
+  }, [ multiCompanies, isLogged, enabled, initialMenu, companies, company, setSearchParams, viewPortSize, preferredTheme, Image ]);
   
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode;
   
