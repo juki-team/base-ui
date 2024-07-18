@@ -1,8 +1,9 @@
 import { ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import React, { ReactNode, useState } from 'react';
+import { jukiSettings } from '../../../config';
 import { Button, T } from '../../atoms';
 import { DataViewerHeadersType, Field } from '../DataViewer';
-import { ProblemLogsModal } from './ProblemLogsModal';
+import { EntityLogsModal } from './EntityLogsModal';
 
 export const ProblemAdminActionsField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field'] = (props) => {
   
@@ -18,8 +19,8 @@ export const ProblemAdminActionsField: DataViewerHeadersType<ProblemSummaryListR
         size="tiny"
         onClick={() => {
           setModal(
-            <ProblemLogsModal
-              problemKey={key}
+            <EntityLogsModal
+              url={jukiSettings.API.problem.getLogs({ params: { key } }).url}
               isOpen
               onClose={() => setModal(null)}
             />,

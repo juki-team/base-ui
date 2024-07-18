@@ -1,3 +1,4 @@
+export * from './EntityLogsModal';
 export * from './ProblemAdminActionsField';
 export * from './ProblemKeyField';
 export * from './ProblemModeField';

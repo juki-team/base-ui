@@ -1,24 +1,21 @@
 import { ContentResponseType, isObjectJson, LogDataResponseDTO } from '@juki-team/commons';
 import React from 'react';
-import { jukiSettings } from '../../../config';
 import { classNames } from '../../../helpers';
 import { BasicModalProps, DateLiteral, Modal, T } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { UserChip } from '../UserChip';
 
-interface ProblemLogsModalProps extends BasicModalProps {
+export interface EntityLogsModalProps extends BasicModalProps {
   onClose: () => void,
-  problemKey: string,
+  url: string,
 }
 
-export const ProblemLogsModal = ({ problemKey, ...restProps }: ProblemLogsModalProps) => {
+export const EntityLogsModal = ({ url, ...restProps }: EntityLogsModalProps) => {
   return (
     <Modal {...restProps} closeWhenClickOutside closeWhenKeyEscape closeIcon>
       <div className="jk-pg">
         <h3><T>logs of problem</T></h3>
-        <FetcherLayer<ContentResponseType<LogDataResponseDTO[]>>
-          url={jukiSettings.API.problem.getLogs({ params: { key: problemKey } }).url}
-        >
+        <FetcherLayer<ContentResponseType<LogDataResponseDTO[]>> url={url}>
           {({ data }) => (
             <div>
               {data.content.map(({ timestamp, changes, customerUser }, index) => (

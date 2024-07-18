@@ -5,8 +5,8 @@ import { T } from '../../atoms';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
 export const getContestStatusHeader = (): DataViewerHeadersType<ContestSummaryListResponseDTO> => ({
-  head: 'state',
-  index: 'state',
+  head: 'status',
+  index: 'status',
   Field: ({ record: contest }) => (
     <Field className="jk-row pad">
       <div
@@ -27,7 +27,8 @@ export const getContestStatusHeader = (): DataViewerHeadersType<ContestSummaryLi
     </Field>
   ),
   filter: {
-    type: 'select', options: [ 'upcoming', 'live', 'past' ].map(option => ({
+    type: 'select',
+    options: [ 'upcoming', 'live', 'past' ].map(option => ({
       value: option,
       label: <T className="tt-ce">{option}</T>,
     })),
