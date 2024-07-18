@@ -396,8 +396,10 @@ export class Settings {
           url: injectBaseUrl('judge', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
-        getList: valid<void>(() => ({
-          url: injectBaseUrl('judge', `/list`),
+        getSystemList: valid<
+          { params: { filterUrl?: string, sortUrl?: string } }
+        >(({ params: { filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectBaseUrl('judge', '/system-list'), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
         crawlLanguages: valid<void, HTTPMethod.POST>(() => ({
