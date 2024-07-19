@@ -211,6 +211,7 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
         </div>
       }
       placement="top"
+      withPortal
     >
       {content}
     </Tooltip>
