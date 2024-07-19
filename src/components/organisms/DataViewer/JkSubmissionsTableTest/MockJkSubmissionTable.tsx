@@ -42,7 +42,7 @@ export const MockJkSubmissionTable = (props: Omit<DataViewerProps<ProblemSummary
           jukiSettings.API.submission.getSystemList({
             params: {
               page,
-              size: pageSize,
+              pageSize,
               filterUrl: toFilterUrl(filter),
               sortUrl: toSortUrl(sort),
             },

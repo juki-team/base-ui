@@ -7,7 +7,7 @@ import {
 import React from 'react';
 import { jukiSettings } from '../../../config';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification, useMatchMutate } from '../../../hooks';
+import { useJukiNotification, useSWR } from '../../../hooks';
 import { ReloadIcon, T } from '../../atoms';
 import { ButtonLoader, ButtonLoaderOnClickType } from '../../molecules';
 import { DataViewerHeadersType, Field } from '../DataViewer';
@@ -15,7 +15,7 @@ import { DataViewerHeadersType, Field } from '../DataViewer';
 export const RejudgeButton = ({ submissionId }: { submissionId: string }) => {
   
   const { notifyResponse } = useJukiNotification();
-  const { matchMutate } = useMatchMutate();
+  const { matchMutate } = useSWR();
   const rejudgeSubmission = (submissionId: string): ButtonLoaderOnClickType => async (setLoaderStatus, loaderStatus, event) => {
     setLoaderStatus(Status.LOADING);
     const { url, ...options } = jukiSettings.API.submission.rejudge({ params: { id: submissionId } });

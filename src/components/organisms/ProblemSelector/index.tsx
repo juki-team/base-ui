@@ -30,7 +30,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
       ));
       const { url } = jukiSettings.API
         .problem
-        .getSummaryList({ params: { page: 1, size: 100000, filterUrl: `judge=${judge}` } });
+        .getSummaryList({ params: { page: 1, pageSize: 100000, filterUrl: `judge=${judge}` } });
       // TODO: change limit of problems
       const response = cleanRequest<ContentsResponseType<ProblemSummaryListResponseDTO>>(
         await authorizedRequest(url),

@@ -26,7 +26,7 @@ import {
   UpdateUserProfileDataPayloadDTO,
 } from '../types';
 import { useJukiNotification } from './useJukiNotification';
-import { useMatchMutate } from './useMatchMutate';
+import { useSWR } from './useSWR';
 import { useT } from './useT';
 
 type ApiType<T> = {
@@ -53,7 +53,7 @@ export const useJukiUser = () => {
   
   const { user, isLoading, setUser, mutate, company, socket, device } = useContext(UserContext);
   const { notifyResponse, addErrorNotification } = useJukiNotification();
-  const { matchMutate } = useMatchMutate();
+  const { matchMutate } = useSWR();
   
   const refreshAllRequest = useCallback(async () => {
     await matchMutate(new RegExp(`^${jukiSettings.SERVICE_API_URL}`, 'g'));
