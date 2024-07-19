@@ -73,7 +73,7 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
           tokenName={tokenName}
         >
           <JukiUIProvider components={components}>
-            <JukiLastPathProvider initialLastPath={initialLastPath}>\
+            <JukiLastPathProvider initialLastPath={initialLastPath}>
               <JukiTasksProvider>
                 <DndProvider backend={HTML5Backend}>
                   <CommonModals>
