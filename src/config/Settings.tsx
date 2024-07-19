@@ -327,6 +327,7 @@ export class Settings {
         >(({ params: { page, size, filterUrl, sortUrl } }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/summary-list-export'), page, size), filterUrl), sortUrl),
           method: HTTPMethod.GET,
+          responseType: 'blob',
         })),
         getData: valid<
           { params: { id: string } }
