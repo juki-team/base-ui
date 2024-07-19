@@ -9,7 +9,7 @@ import { DataViewerHeadersType, Field } from '../DataViewer';
 
 export const getSubmissionLanguageHeader = (): DataViewerHeadersType<SubmissionSummaryListResponseDTO> => ({
   head: 'language',
-  index: 'language',
+  index: 'languages',
   Field: ({ record: { submitId, user: { canViewSourceCode }, language }, isCard }) => (
     isCard ? null :
       <Field>

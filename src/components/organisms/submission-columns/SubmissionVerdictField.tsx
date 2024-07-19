@@ -7,7 +7,7 @@ import { DataViewerHeadersType, Field, TextField } from '../DataViewer';
 
 export const getSubmissionVerdictHeader = (): DataViewerHeadersType<SubmissionSummaryListResponseDTO> => ({
   head: 'verdict',
-  index: 'verdict',
+  index: 'verdicts',
   Field: ({ record: { submitId, points, status, verdict, user: { canViewSourceCode }, processedCases }, isCard }) => (
     <Field>
       <div className="jk-col nowrap extend" style={{ padding: '4px 0', boxSizing: 'border-box' }}>
