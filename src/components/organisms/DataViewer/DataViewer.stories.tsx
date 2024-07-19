@@ -5,7 +5,7 @@ import { MockupJukiProvider } from '../../mockup';
 import { DataViewer } from './DataViewer';
 import { MockJkContestTable } from './JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from './JkProblemTableTest/MockJkProblemTable';
-import { MockJkSubmissionTable } from './JkSubmissionsTableTest/MockJkProblemTable';
+import { MockJkSubmissionTable } from './JkSubmissionsTableTest/MockJkSubmissionTable';
 import { MockJkUserTable } from './JkUserTableTest/MockJkUserTable';
 
 const meta: Meta<typeof DataViewer> = {

@@ -5,6 +5,7 @@ import { jukiSettings } from '../../../../config';
 import { toFilterUrl, toSortUrl } from '../../../../helpers';
 import {
   getSubmissionContestHeader,
+  getSubmissionContestProblemHeader,
   getSubmissionDateHeader,
   getSubmissionLanguageHeader,
   getSubmissionMemoryHeader,
@@ -21,6 +22,7 @@ export const MockJkSubmissionTable = (props: Omit<DataViewerProps<ProblemSummary
   const columns: DataViewerHeadersType<SubmissionSummaryListResponseDTO>[] = useMemo(() => [
     getSubmissionNicknameHeader(),
     getSubmissionContestHeader(),
+    getSubmissionContestProblemHeader(),
     getSubmissionProblemHeader(),
     getSubmissionDateHeader(),
     getSubmissionVerdictHeader(),

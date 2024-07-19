@@ -26,7 +26,7 @@ export const SubmissionContestProblemField: DataViewerHeadersType<SubmissionSumm
               {contest.name}&nbsp;({contest.problemIndex || '-'})
             </div>
             <div className="jk-row">
-              {problemKey} {problemName}
+              {problemName}
               {/*{!!props?.blankTarget && <OpenInNewIcon size="small" />}*/}
             </div>
           </div>
@@ -37,7 +37,7 @@ export const SubmissionContestProblemField: DataViewerHeadersType<SubmissionSumm
           // target={props?.blankTarget ? '_blank' : ''}
         >
           <div className="jk-row link">
-            {problemKey} {problemName}
+            {problemName}
             {/*{!!props?.blankTarget && <OpenInNewIcon size="small" />}*/}
           </div>
         </Link>

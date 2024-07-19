@@ -12,5 +12,6 @@ export * from './UserChip';
 export * from './UserCodeEditor';
 export * from './UsersSelector';
 export * from './ProblemVerdictTag';
+export * from './submission-columns';
 export * from './mdMath';
 export * from './members';
