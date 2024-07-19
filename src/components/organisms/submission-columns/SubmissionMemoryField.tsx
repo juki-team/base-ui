@@ -13,4 +13,5 @@ export const getSubmissionMemoryHeader = (): DataViewerHeadersType<SubmissionSum
   sort: true,
   // filter: { type: 'text-auto' }, // TODO filter by integer
   cardPosition: 'center',
+  minWidth: 120,
 });
