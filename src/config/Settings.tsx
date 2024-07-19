@@ -27,8 +27,8 @@ const addAnd = (path: string) => {
   return path[path.length - 1] !== '?' ? path + '&' : path;
 };
 
-const injectPage = (path: string, page: number, size: number) => {
-  return addAnd(addQuery(path)) + `page=${page}&size=${size}`;
+const injectPage = (path: string, page: number, pageSize: number) => {
+  return addAnd(addQuery(path)) + `page=${page}&pageSize=${pageSize}`;
 };
 
 const injectSort = (path: string, sortUrl: string | undefined) => {
@@ -232,15 +232,15 @@ export class Settings {
           method: HTTPMethod.GET,
         })),
         getSummaryList: valid<
-          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/summary-list'), page, size), filterUrl), sortUrl),
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/summary-list'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
         getSystemList: valid<
-          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/system-list'), page, size), filterUrl), sortUrl),
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/system-list'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
         getSummary: valid<{ params: { key: string } }>(({ params: { key } }) => ({
@@ -275,15 +275,15 @@ export class Settings {
       },
       contest: {
         getSummaryList: valid<
-          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('contest', '/summary-list'), page, size), filterUrl), sortUrl),
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('contest', '/summary-list'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
         getSystemList: valid<
-          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('contest', '/system-list'), page, size), filterUrl), sortUrl),
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('contest', '/system-list'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
         getData: valid<
@@ -311,21 +311,21 @@ export class Settings {
       },
       submission: {
         getSummaryList: valid<
-          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/summary-list'), page, size), filterUrl), sortUrl),
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/summary-list'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
         getSystemList: valid<
-          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/system-list'), page, size), filterUrl), sortUrl),
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/system-list'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
         getExportSummaryList: valid<
-          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/summary-list-export'), page, size), filterUrl), sortUrl),
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/summary-list-export'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
           responseType: 'blob',
         })),
@@ -473,9 +473,11 @@ export class Settings {
       },
       worksheet: {
         getList: valid<
-          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('worksheet', '/list'), page, size), filterUrl), sortUrl),
+          {
+            params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string }
+          }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('worksheet', '/list'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
       },
