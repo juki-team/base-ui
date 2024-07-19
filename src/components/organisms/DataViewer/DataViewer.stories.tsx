@@ -5,6 +5,7 @@ import { MockupJukiProvider } from '../../mockup';
 import { DataViewer } from './DataViewer';
 import { MockJkContestTable } from './JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from './JkProblemTableTest/MockJkProblemTable';
+import { MockJkSubmissionTable } from './JkSubmissionsTableTest/MockJkProblemTable';
 import { MockJkUserTable } from './JkUserTableTest/MockJkUserTable';
 
 const meta: Meta<typeof DataViewer> = {
@@ -47,6 +48,18 @@ export const RegularContest: Story = {
         <div>DadaViewer</div>
         {/* @ts-ignore*/}
         <MockJkContestTable {...args} />
+      </MockupJukiProvider>
+    </BrowserRouter>
+  ),
+};
+
+export const RegularSubmission: Story = {
+  render: ({ data, ...args }) => (
+    <BrowserRouter>
+      <MockupJukiProvider>
+        <div>DadaViewer</div>
+        {/* @ts-ignore*/}
+        <MockJkSubmissionTable {...args} />
       </MockupJukiProvider>
     </BrowserRouter>
   ),

@@ -8,7 +8,7 @@ import {
 } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useJkSocket } from '../../../hooks/useJkSocket';
+import { useJukiSocket } from '../../../hooks/useJukiSocket';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useJukiUser } from '../../../hooks/useJukiUser';
 import { Portal, T } from '../../atoms';
@@ -47,7 +47,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const [ isRunning, setIsRunning ] = useState(false);
   const [ runId, setRunId ] = useState('');
   const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
-  const { pop } = useJkSocket(SocketEvent.RUN);
+  const { pop } = useJukiSocket(SocketEvent.RUN);
   const [ showSettings, setShowSettings ] = useState(false);
   const [ direction, setDirection ] = useState<'row' | 'column'>('row');
   const [ expanded, setExpanded ] = useState(false);

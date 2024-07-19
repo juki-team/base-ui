@@ -27,6 +27,7 @@
     "copy-to-clipboard": "^3.3.3",
     "countries-and-timezones": "^3.6.0",
     "deep-object-diff": "^1.1.9",
+    "diff2html": "^3.4.48",
     "graphlib-dot": "^0.6.4",
     "graphviz-react": "^1.2.5",
     "handsontable": "^14.4.0",
@@ -102,7 +103,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1",
-    "@juki-team/commons": "^0.0.611",
+    "@juki-team/commons": "^0.0.617",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@storybook/addon-actions": "^8.1.11",

@@ -2,7 +2,7 @@ import { consoleInfo, consoleWarn, SocketEvent } from '@juki-team/commons';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useJukiUser } from './useJukiUser';
 
-export const useJkSocket = (message: SocketEvent) => {
+export const useJukiSocket = (message: SocketEvent) => {
   const { socket } = useJukiUser();
   const [ messages, setMessages ] = useState<any[]>([]);
   const triesRef = useRef(1);

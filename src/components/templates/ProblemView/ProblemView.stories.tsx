@@ -30,6 +30,7 @@ Regular.args = {
     judge: {
       key: Judge.JUKI_JUDGE,
       name: 'juki judge',
+      isCustom: false,
     },
     author: '',
     key: '1000',
@@ -106,7 +107,9 @@ Regular.args = {
       managers: {},
       spectators: {},
     },
-    companyKey: 'juki-app',
+    company: {
+      key: 'juki-app',
+    },
     user: {
       isOwner: true,
       isSpectator: true,

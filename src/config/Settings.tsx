@@ -309,6 +309,36 @@ export class Settings {
           body: JSON.stringify(body),
         })),
       },
+      submission: {
+        getSummaryList: valid<
+          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/summary-list'), page, size), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        getSystemList: valid<
+          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/system-list'), page, size), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        getExportSummaryList: valid<
+          { params: { page: number, size: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, size, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/summary-list-export'), page, size), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        getData: valid<
+          { params: { id: string } }
+        >(({ params: { id } }) => ({
+          url: injectBaseUrl('submission', `/${id}/data`),
+          method: HTTPMethod.GET,
+        })),
+        rejudge: valid<{ params: { id: string } }, HTTPMethod.POST>(({ params: { id } }) => ({
+          url: injectBaseUrl('submission', `/${id}/rejudge`),
+          method: HTTPMethod.POST,
+        })),
+      },
       image: {
         getPublicList: valid<void>(() => ({
           url: injectBaseUrl('image', '/public-list'),
@@ -501,6 +531,14 @@ export class Settings {
           },
           new() {
             return injectOrigin(`/contests/new`);
+          },
+        };
+      },
+      submissions(origin?: string) {
+        const injectOrigin = _injectOrigin(origin);
+        return {
+          view({ id }: { id: string }) {
+            return injectOrigin(`/submissions/${id}`);
           },
         };
       },

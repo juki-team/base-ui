@@ -1,5 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { JukiProviders } from '../../contexts';
+import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
 
 enum TestPath {
@@ -9,8 +10,8 @@ enum TestPath {
 
 export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   
-  const serviceUrl = 'https://service.juki.app';
-  // const serviceUrl = 'http://localhost:3005';
+  // const serviceUrl = 'https://service.juki.app';
+  const serviceUrl = 'http://localhost:3005';
   
   return (
     <JukiProviders<TestPath>
@@ -31,6 +32,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
       }}
     >
       {children}
+      <MockupLoginButton />
       <MockupToggleThemeButton />
     </JukiProviders>
   );
