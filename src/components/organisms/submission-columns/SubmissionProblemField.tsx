@@ -2,16 +2,34 @@ import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { jukiSettings } from '../../../config';
 import { useJukiUI } from '../../../hooks';
+import { ContestTab } from '../../../types';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 
 export const SubmissionProblemField: DataViewerHeadersType<SubmissionSummaryListResponseDTO>['Field']
-  = ({ record: { problem: { key: problemKey, name: problemName } }, isCard }) => {
+  = ({ record: { problem: { key: problemKey, name: problemName }, contest }, isCard }) => {
   
   const { components: { Link } } = useJukiUI();
   
   return (
     <TextField
-      text={
+      text={contest ? (
+        <Link
+          href={jukiSettings.ROUTES.contests().view({
+            key: contest.key,
+            tab: ContestTab.PROBLEM,
+            subTab: contest.problemIndex,
+          })}
+          // target={props?.blankTarget ? '_blank' : ''} // TODO: check
+        >
+          <div className="jk-col link">
+            {contest.name}
+            <div className="jk-row">
+              ({contest.problemIndex || '-'})&nbsp;{problemName}
+              {/*{!!props?.blankTarget && <OpenInNewIcon size="small" />}*/}
+            </div>
+          </div>
+        </Link>
+      ) : (
         <Link
           href={jukiSettings.ROUTES.problems().view({ key: problemKey })}
           // target={props?.blankTarget ? '_blank' : ''}
@@ -22,7 +40,7 @@ export const SubmissionProblemField: DataViewerHeadersType<SubmissionSummaryList
             {/*{!!props?.blankTarget && <OpenInNewIcon size="small" />}*/}
           </div>
         </Link>
-      }
+      )}
       label="problem"
     />
   );

@@ -22,7 +22,7 @@ export const SubmissionContestField: DataViewerHeadersType<SubmissionSummaryList
           // target={props?.blankTarget ? '_blank' : ''}
         >
           <div className="jk-row link">
-            {contest.name} ({contest.problemIndex})
+            {contest.name}
             {/*{!!props?.blankTarget && <OpenInNewIcon size="small" />}*/}
           </div>
         </Link>
