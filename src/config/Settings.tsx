@@ -335,6 +335,12 @@ export class Settings {
           url: injectBaseUrl('submission', `/${id}/data`),
           method: HTTPMethod.GET,
         })),
+        getLogs: valid<
+          { params: { id: string, } }
+        >(({ params: { id } }) => ({
+          url: injectBaseUrl('submission', `/${id}/logs`),
+          method: HTTPMethod.GET,
+        })),
         rejudge: valid<{ params: { id: string } }, HTTPMethod.POST>(({ params: { id } }) => ({
           url: injectBaseUrl('submission', `/${id}/rejudge`),
           method: HTTPMethod.POST,
