@@ -12,7 +12,7 @@ import { ReloadIcon, T } from '../../atoms';
 import { ButtonLoader, ButtonLoaderOnClickType } from '../../molecules';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
-export const RejudgeButton = ({ submissionId }: { submissionId: string }) => {
+export const SubmissionRejudgeButton = ({ submissionId }: { submissionId: string }) => {
   
   const { notifyResponse } = useJukiNotification();
   const { matchMutate } = useSWR();
@@ -31,7 +31,7 @@ export const RejudgeButton = ({ submissionId }: { submissionId: string }) => {
         await matchMutate(new RegExp(`^${jukiSettings.SERVICE_API_URL}/submission`, 'g'));
       }}
       size="tiny"
-      icon={<ReloadIcon />}
+      icon={<ReloadIcon/>}
     >
       <T>rejudge</T>
     </ButtonLoader>
@@ -39,15 +39,15 @@ export const RejudgeButton = ({ submissionId }: { submissionId: string }) => {
 };
 
 export const getSubmissionRejudgeHeader = (): DataViewerHeadersType<SubmissionSummaryListResponseDTO> => ({
-  head: 'actions',
-  index: 'actions',
+  head: 'rejudge',
+  index: 'rejudge',
   Field: ({ record: { submitId }, isCard }) => (
     <Field>
       <div className="jk-col nowrap extend" style={{ padding: '4px 0', boxSizing: 'border-box' }}>
-        <RejudgeButton submissionId={submitId} />
+        <SubmissionRejudgeButton submissionId={submitId}/>
       </div>
     </Field>
   ),
   cardPosition: 'bottom',
-  minWidth: 160,
+  minWidth: 180,
 });
