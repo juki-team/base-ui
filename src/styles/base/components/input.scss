@@ -776,10 +776,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-checkbox-list {
   .jk-input-checkbox-wrapper {
+    padding: 4px 2px;
+    border-radius: var(--border-radius-inline);
+
     &:hover:not(.disabled) {
       background-color: var(--t-color-gray-6);
-      padding: 4px 2px;
-      border-radius: var(--border-radius-inline);
     }
   }
 }
