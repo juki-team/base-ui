@@ -28,7 +28,7 @@ export const getSubmissionLanguageHeader = (languagesByJudge: LanguagesByJudge):
           : (
             <div className="jk-row">
               {label}&nbsp;
-              <div className="jk-tag gray-6 tx-t">{name}</div>
+              <div className="jk-tag bc-hl tx-t">{name}</div>
             </div>
           ),
         value,
