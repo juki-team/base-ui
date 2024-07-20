@@ -103,7 +103,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1",
-    "@juki-team/commons": "^0.0.617",
+    "@juki-team/commons": "^0.0.618",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@storybook/addon-actions": "^8.1.11",
