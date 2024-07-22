@@ -159,6 +159,12 @@ export class Settings {
           url: injectCompany(injectBaseUrl('user', `/summary-list`), companyKey),
           method: HTTPMethod.GET,
         })),
+        getSystemList: valid<
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('user', '/system-list'), page, pageSize), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
         getProfile: valid<
           { params: { nickname: string, companyKey?: string } }
         >(({ params: { nickname, companyKey } }) => ({
