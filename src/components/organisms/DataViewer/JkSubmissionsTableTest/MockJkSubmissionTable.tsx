@@ -1,8 +1,15 @@
-import { ProblemSummaryListResponseDTO, SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import {
+  ContentsResponseType,
+  JudgeSummaryListResponseDTO,
+  JudgeSystemSummaryListResponseDTO,
+  ProblemSummaryListResponseDTO,
+  SubmissionSummaryListResponseDTO,
+} from '@juki-team/commons';
 import React, { useMemo } from 'react';
-import { DataViewerHeadersType, DataViewerProps } from '../../../';
+import { DataViewerHeadersType, DataViewerProps, LanguagesByJudge } from '../../../';
 import { jukiSettings } from '../../../../config';
 import { toFilterUrl, toSortUrl } from '../../../../helpers';
+import { useFetcher } from '../../../../hooks';
 import {
   getSubmissionContestHeader,
   getSubmissionContestProblemHeader,
@@ -18,7 +25,20 @@ import {
 import { PagedDataViewer } from '../PagedDataViewer';
 
 export const MockJkSubmissionTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data'>) => {
-  
+  const { data: judgeSystemList } = useFetcher<ContentsResponseType<JudgeSystemSummaryListResponseDTO>>(jukiSettings.API.judge.getSystemList().url);
+  const { data: judgePublicList } = useFetcher<ContentsResponseType<JudgeSummaryListResponseDTO>>(jukiSettings.API.judge.getSummaryList().url);
+  const allJudges = useMemo(() => judgeSystemList?.success ? judgeSystemList.contents : (judgePublicList?.success ? judgePublicList.contents : []), [ judgeSystemList, judgePublicList ]);
+  const languages = useMemo(() => {
+    const result: LanguagesByJudge = {};
+    for (const { name, languages, key } of allJudges) {
+      const languagesResult: LanguagesByJudge[string]['languages'] = {};
+      for (const { value, label } of languages) {
+        languagesResult[value] = { label, value };
+      }
+      result[key] = { key, languages: languagesResult, name };
+    }
+    return result;
+  }, [ allJudges ]);
   const columns: DataViewerHeadersType<SubmissionSummaryListResponseDTO>[] = useMemo(() => [
     getSubmissionNicknameHeader(),
     getSubmissionContestHeader(),
@@ -27,10 +47,10 @@ export const MockJkSubmissionTable = (props: Omit<DataViewerProps<ProblemSummary
     getSubmissionDateHeader(),
     getSubmissionVerdictHeader(),
     getSubmissionRejudgeHeader(),
-    getSubmissionLanguageHeader(),
+    getSubmissionLanguageHeader(languages),
     getSubmissionTimeHeader(),
     getSubmissionMemoryHeader(),
-  ], []);
+  ], [ languages ]);
   
   return (
     <div style={{ height: 'calc(var(--100VH) - 100px)', width: '90%', margin: '24px' }}>

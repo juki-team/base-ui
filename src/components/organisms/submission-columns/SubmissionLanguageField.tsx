@@ -23,7 +23,7 @@ export const getSubmissionLanguageHeader = (languagesByJudge: LanguagesByJudge):
     type: 'select',
     options: Object.values(languagesByJudge).map(({ name, languages }) => (
       Object.values(languages).map(({ label, value }) => ({
-        label: Object.keys(languages).length === 1
+        label: Object.keys(languagesByJudge).length === 1
           ? label
           : (
             <div className="jk-row">
