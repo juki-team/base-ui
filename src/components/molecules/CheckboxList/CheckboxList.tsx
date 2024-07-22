@@ -5,9 +5,9 @@ import { CheckboxListProps } from './types';
 export const CheckboxList = <T, >({ selectedOptions, options, onSelectOptions }: CheckboxListProps<T>) => {
   return (
     <div className="jk-checkbox-list jk-col stretch">
-      {options.map(({ value, label }) => (
+      {options.map(({ value, label }, index) => (
         <InputCheckbox
-          key={JSON.stringify(value)}
+          key={`${JSON.stringify(value)}_${index}`}
           onChange={() => {
             if (!!selectedOptions.find(option => option.value === value)) {
               onSelectOptions(selectedOptions.filter(option => JSON.stringify(option.value) !== JSON.stringify(value)));
