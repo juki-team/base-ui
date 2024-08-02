@@ -35,8 +35,8 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   @include transition(opacity, padding);
 
   &:not(.void) {
-    //text-transform: uppercase;
-    //font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    font-weight: var(--weight-bold);
   }
 
   &:not(.disabled) {

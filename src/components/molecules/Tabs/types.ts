@@ -21,8 +21,8 @@ export type TabsType<T> = { [key: string]: TabType<T> };
 
 export interface TabsInlineProps<T = string> {
   tabs: TabsType<T>,
-  selectedTabKey: T,
-  onChange: (tabKey: T) => void,
+  selectedTabKey?: T,
+  onChange?: (tabKey: T) => void,
   extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T }>[],
   extraNodesPlacement?: 'left' | 'right' | 'bottomLeft' | 'bottomCenter' | 'bottomRight',
   className?: string,

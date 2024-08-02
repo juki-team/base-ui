@@ -2,7 +2,7 @@
 
 body {
   font-family: "Inter", sans-serif;
-  font-weight: var(--weight-normal, 400);
+  font-weight: var(--weight-regular, 400);
   color: var(--t-color-black-light);
   background-color: var(--t-color-white-dark);
   @include transition(background-color, color);
@@ -10,26 +10,26 @@ body {
   margin: 0;
   width: 100%;
   height: 100%;
-  
+
   #juki-app {
     overflow: hidden;
     width: 100vw;
     height: var(--100VH);
-    
+
     &.loading-route {
       pointer-events: none;
-      
+
       .loading-route-overlay {
         opacity: 1;
       }
     }
   }
-  
+
   *::-webkit-scrollbar {
     width: var(--size-scrollbar);
     height: var(--size-scrollbar);
   }
-  
+
   *::-webkit-scrollbar-thumb {
     border-radius: 3px;
     background: var(--t-color-highlight);
@@ -46,7 +46,7 @@ h1, h2, h3 {
   &:first-letter {
     text-transform: capitalize;
   }
-  
+
   font-weight: var(--weight-bold);
   margin-block-start: 0;
   margin-block-end: 0;

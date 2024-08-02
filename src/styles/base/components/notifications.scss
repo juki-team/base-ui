@@ -8,7 +8,9 @@
 .notification-wrapper, .notification-wrapper-quiet {
   position: fixed;
   right: calc(var(--width-notification-wrapper) + var(--pad-md));
-  @include md-hg { top: var(--pad-md); }
+  @include md-hg {
+    top: var(--pad-md);
+  }
   @include sm {
     --width-notification-wrapper: 100vw;
     --width-notification: calc(100vw - var(--pad-md) - var(--pad-md));
@@ -20,7 +22,7 @@
   }
   width: 0;
   z-index: var(--z-index-notification);
-  
+
   .jk-notification-item-container {
     .jk-notification-item {
       border-radius: var(--border-radius-inline);
@@ -33,12 +35,14 @@
       position: relative;
       font-weight: var(--weight-bold);
       box-sizing: border-box;
-      
+
       > .jk-icon {
         padding: var(--pad-xt);
-        @include sm { display: none; }
+        @include sm {
+          display: none;
+        }
       }
-      
+
       .bar {
         position: absolute;
         bottom: 0;
@@ -56,31 +60,39 @@
       margin-top: unset;
     }
   }
-  
+
   .jk-notification-item-container {
     animation: SlideLeft 400ms forwards;
-    @include sm { animation: SlideBottom 400ms forwards; }
-    
+    @include sm {
+      animation: SlideBottom 400ms forwards;
+    }
+
     &.exit {
       animation: SlideRight 400ms forwards;
       margin-bottom: var(--pad-xt);
-      @include sm { animation: Dispel 400ms forwards; }
+      @include sm {
+        animation: Dispel 400ms forwards;
+      }
     }
-    
+
     .jk-notification-item {
       @include elevation(2);
       padding: var(--pad-xt);
-      @include sm { padding: 2px 4px; }
-      
+      @include sm {
+        padding: 2px 4px;
+      }
+
       .jk-notification-message-content {
         justify-content: center;
         padding: var(--pad-xt);
-        
+
         .jk-notification-message-body {
           width: calc(var(--width-notification) - var(--pad-xt) * 6 - var(--size-regular-icon) - 32px);
-          @include sm { width: calc(var(--width-notification) - var(--pad-xt) * 4 - 32px); }
+          @include sm {
+            width: calc(var(--width-notification) - var(--pad-xt) * 4 - 32px);
+          }
         }
-        
+
         &.text-message {
           min-height: 42px;
           display: flex;
@@ -94,21 +106,29 @@
         }
       }
     }
-    
+
     &.success {
-      .jk-notification-item { @include look(success); }
+      .jk-notification-item {
+        @include look(success);
+      }
     }
-    
+
     &.error {
-      .jk-notification-item { @include look(error); }
+      .jk-notification-item {
+        @include look(error);
+      }
     }
-    
+
     &.info {
-      .jk-notification-item { @include look(info); }
+      .jk-notification-item {
+        @include look(info);
+      }
     }
-    
+
     &.warning {
-      .jk-notification-item { @include look(warning); }
+      .jk-notification-item {
+        @include look(warning);
+      }
     }
   }
 }
@@ -118,7 +138,7 @@
   display: flex;
   flex-direction: column-reverse;
   height: var(--100VH);
-  
+
   .jk-notification-item-container {
     margin-bottom: var(--pad-xt);
     animation: SlideLeft 400ms forwards;
@@ -127,29 +147,33 @@
       margin-bottom: unset;
       margin-top: var(--pad-xt);
     }
-    
+
     &.exit {
       animation: FadeOut 400ms forwards;
       @include sm {
         animation: FadeOut 400ms forwards;
       }
     }
-    
+
     .jk-notification-item {
       @include elevation(1);
       @extend .jk-border-radius-inline;
       @include look(primary-light);
-      @include sm { border-radius: 0; }
-      font-weight: var(--weight-normal);
+      @include sm {
+        border-radius: 0;
+      }
+      font-weight: var(--weight-regular);
       padding: 0 4px;
       right: calc(var(--width-notification) - var(--width-notification-wrapper));
-      @include sm { right: 0; }
-      
+      @include sm {
+        right: 0;
+      }
+
       .jk-notification-message-content {
         @include font-size(tiny);
         text-align: center;
       }
-      
+
       .bar {
         height: 2px;
       }
@@ -161,7 +185,7 @@
   0% {
     margin-left: calc(var(--width-notification) + var(--pad-H));
   }
-  
+
   100% {
     margin-left: 0;
   }
@@ -171,7 +195,7 @@
   0% {
     margin-left: 0;
   }
-  
+
   100% {
     margin-left: calc(var(--width-notification) + var(--pad-H));
   }
@@ -181,7 +205,7 @@
   0% {
     margin-bottom: calc(var(--100VH) * -1);
   }
-  
+
   100% {
     margin-bottom: var(--pad-xt);
   }
@@ -191,7 +215,7 @@
   0% {
     opacity: 1;
   }
-  
+
   100% {
     opacity: 0;
   }
@@ -201,7 +225,7 @@
   0% {
     opacity: 0;
   }
-  
+
   100% {
     opacity: 1;
   }

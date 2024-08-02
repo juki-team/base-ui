@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { NotUndefined } from '../types';
 
-type F<T> = ((prevState: NotUndefined<T>) => NotUndefined<T>);
+export type Func<T> = ((prevState: NotUndefined<T>) => NotUndefined<T>);
 
 export const useHandleState = <T, >(
   defaultState: NotUndefined<T>,
   initialState: NotUndefined<T> | undefined,
   onChange?: (value: NotUndefined<T>) => void,
-): [ NotUndefined<T>, (value: NotUndefined<T> | F<T>) => void ] => {
+): [ NotUndefined<T>, (value: NotUndefined<T> | Func<T>) => void ] => {
   const [ state, _setState ] = useState<NotUndefined<T>>(initialState || defaultState);
   useEffect(() => {
     if (initialState !== undefined) {
@@ -15,17 +15,20 @@ export const useHandleState = <T, >(
     }
   }, [ initialState ]);
   
-  const setState = useCallback((value: NotUndefined<T> | F<T>) => {
-    if (initialState === undefined || !onChange) {
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+  
+  const setState = useCallback((value: NotUndefined<T> | Func<T>) => {
+    if (initialState === undefined || !onChangeRef.current) {
       _setState(value);
     } else {
       if (typeof value === 'function') {
-        onChange?.((value as F<T>)?.(state));
+        onChangeRef.current?.((value as Func<T>)?.(state));
       } else {
-        onChange?.(value as NotUndefined<T>);
+        onChangeRef.current?.(value as NotUndefined<T>);
       }
     }
-  }, [ initialState, onChange, state ]);
+  }, [ initialState, state ]);
   
   return [ state, setState ];
 };

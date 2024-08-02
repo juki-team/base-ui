@@ -97,7 +97,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
   > label > .jk-select-layout {
     line-height: var(--text-medium-height);
-    font-weight: var(--weight-normal);
+    font-weight: var(--weight-regular);
   }
 
   > p:last-child {
@@ -409,7 +409,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-input-text, .jk-input-number, .jk-input-password, .jk-input-email {
   &::placeholder {
     color: var(--t-color-gray-4);
-    font-weight: var(--weight-normal);
+    font-weight: var(--weight-regular);
     @include font-size(small);
   }
 }
@@ -758,7 +758,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
     &.placeholder {
       color: var(--t-color-gray-4);
-      font-weight: var(--weight-normal);
+      font-weight: var(--weight-regular);
       @include font-size(small);
     }
 
