@@ -2,10 +2,10 @@
 
 :not(*.jk-button).clickable {
   cursor: initial;
-  
+
   &:not(.disabled):not(.loading) {
     cursor: pointer;
-    
+
     &:hover {
       @include elevation(1);
     }
@@ -33,71 +33,81 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   padding: 6px var(--button-border-padding);
   opacity: 1;
   @include transition(opacity, padding);
-  
+
   &:not(.void) {
-    text-transform: uppercase;
+    //text-transform: uppercase;
     font-weight: var(--weight-bold);
   }
-  
+
   &:not(.disabled) {
     cursor: pointer;
-    
+
     &:hover {
       --button-border-color: var(--button-background-color);
     }
   }
-  
+
   &.tiny {
     line-height: var(--size-tiny-icon); // 12px;
     font-size: var(--text-tiny-size); // 12px
     --button-padding: var(--pad-xt); // 8px
     --size-button-loader-icon: var(--size-tiny-icon);
-    
-    .jk-icon { @extend .tiny; }
+
+    .jk-icon {
+      @extend .tiny;
+    }
   }
-  
+
   &.small {
     line-height: var(--size-small-icon); // 18px
     font-size: var(--text-small-size); // 14px
     --button-padding: var(--pad-t); // 12px
     --size-button-loader-icon: var(--size-small-icon);
-    
-    .jk-icon { @extend .small; }
+
+    .jk-icon {
+      @extend .small;
+    }
   }
-  
+
   &.regular {
     line-height: var(--size-regular-icon); // 24px
     font-size: var(--text-medium-size);
     --button-padding: var(--pad-xs); // 16px
     --size-button-loader-icon: var(--size-regular-icon);
-    
-    .jk-icon { @extend .regular; }
+
+    .jk-icon {
+      @extend .regular;
+    }
   }
-  
+
   &.large {
     line-height: var(--size-large-icon); // 36px
     font-size: var(--text-large-size);
     --button-padding: var(--pad-s); // 20px
     --size-button-loader-icon: var(--size-large-icon);
-    
-    .jk-icon { @extend .large; }
+
+    .jk-icon {
+      @extend .large;
+    }
   }
-  
+
   &.huge {
     line-height: var(--size-huge-icon); // 48px
     font-size: var(--text-huge-size);
     --button-padding: var(--pad-m); // 24px
     --size-button-loader-icon: var(--size-huge-icon);
-    
-    .jk-icon { @extend .huge; }
+
+    .jk-icon {
+      @extend .huge;
+    }
   }
-  
+
   &.jk-button-loader {
-    
+
     .button-loader-icon {
       overflow: hidden;
       @include transition(width, min-width, height, min-height, margin-left);
-      
+
       .jk-icon {
         width: inherit;
         min-width: inherit;
@@ -105,49 +115,54 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
         min-height: inherit;
       }
     }
-    
+
     &.with-loader-icon {
       --button-border-color: var(--button-background-color);
-      
+
       .button-loader-icon {
         @include box-size(var(--size-button-loader-icon));
       }
     }
-    
+
     &.with-loader-icon:not(.only-icon) .button-loader-icon {
       margin-left: var(--gap);
     }
   }
-  
+
   &:not(.jk-button-loader) {
     --size-button-loader-icon: 0px;
   }
-  
+
   &.only-icon {
     border-radius: 50%;
     padding: calc(var(--button-padding) / 4);
-    
+
     .jk-icon {
       margin: auto;
     }
   }
-  
-  &.disabled:not(.with-loader-icon) { opacity: 0.8; cursor: not-allowed; }
-  
-  &.extend { width: 100%; }
-  
+
+  &.disabled:not(.with-loader-icon) {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+
+  &.extend {
+    width: 100%;
+  }
+
   &.error {
     --button-background-color: var(--t-color-error);
     pointer-events: none;
   }
-  
+
   &.success {
     --button-background-color: var(--t-color-success);
     pointer-events: none;
   }
-  
+
   overflow: hidden;
-  
+
   &.icon:not(.only-icon) {
     > :first-child {
       --icon-margin-right: var(--gap);
@@ -169,7 +184,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
 .jk-button.text, .jk-button.void {
   --button-background-color: transparent;
   color: inherit;
-  
+
   * {
     color: inherit;
   }
@@ -193,7 +208,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   > button.jk-button, > input.jk-button, > div.jk-button, > span.jk-button {
     &:not(.with-loader-icon):not(.only-icon) {
       --button-border-padding: calc((var(--size-button-loader-icon) / 2) + var(--button-padding) + var(--gap) / 2);
-      
+
       .button-loader-icon {
         width: 0;
         min-width: 0;
