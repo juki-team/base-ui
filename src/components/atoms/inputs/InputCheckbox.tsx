@@ -15,9 +15,11 @@ export const InputCheckbox = ({ className, checked, disabled, onChange, label, .
         checked={checked}
         {...props}
       />
-      <label>
-        {label}
-      </label>
+      {!!label && (
+        <label>
+          {label}
+        </label>
+      )}
     </div>
   );
 };
