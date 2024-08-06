@@ -48,7 +48,7 @@
   
   .content-editor-preview {
     --min-height: 120px;
-    min-height: var(--min-height);
+    //min-height: var(--min-height);
     position: relative;
     display: flex;
     width: 100%;
