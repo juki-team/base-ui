@@ -116,7 +116,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
     );
   };
   useOutsideAlerter(() => {
-    if (editValue !== source && !modal && !isOpenInformationModalRef.current && !isOpenUploadImageModalRef.current && onChange && !continueWithoutSavingRef.current) {
+    if (!online && editValue !== source && !modal && !isOpenInformationModalRef.current && !isOpenUploadImageModalRef.current && onChange && !continueWithoutSavingRef.current) {
       triggerUnsavedAlert();
     }
   }, layoutEditorRef);
@@ -230,7 +230,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
               },
             )}
           >
-            {editValue !== source && <div className="no-saved-label">{<T>not saved</T>}</div>}
+            {editValue !== source && !online && <div className="no-saved-label">{<T>not saved</T>}</div>}
             <SplitPane onlyFirstPane={view === 0} onlySecondPane={view === 3}>
               <div className="editor" onClick={() => continueWithoutSavingRef.current = false}>
                 <TextArea
