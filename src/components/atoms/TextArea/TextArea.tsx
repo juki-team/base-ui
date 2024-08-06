@@ -12,7 +12,15 @@ export const TextArea = ({ value, onChange, style, className, register, onBlur, 
       ref={registerRef}
       className={classNames('jk-pg-sm jk-input-textarea jk-border-radius-inline', className, { disabled: !!disabled })}
       value={value}
-      onChange={registerOnChange ? registerOnChange : ({ target }) => onChange?.(target.value)}
+      onChange={registerOnChange ? registerOnChange : ({ target }) => {
+        const pointer = target.selectionStart;
+        const element = target;
+        window?.requestAnimationFrame?.(() => {
+          element.selectionStart = pointer;
+          element.selectionEnd = pointer;
+        });
+        onChange?.(target.value);
+      }}
       onBlur={registerOnBlur ? registerOnBlur : onBlur}
       disabled={disabled}
       rows={Math.max((value || '').split('\n').length, 2)}
