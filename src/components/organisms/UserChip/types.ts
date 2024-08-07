@@ -6,4 +6,5 @@ export interface UserChipProps {
   email?: string,
   className?: string,
   companyKey?: string,
+  withoutLink?: boolean,
 }
