@@ -8,7 +8,6 @@ export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
 
 export type CodeRunnerEditorOnChangeType<T> = (props: CodeRunnerEditorPropertiesType<T>) => void;
 
-
 export type CodeEditorCenterButtonsPropertiesType<T> =
   Omit<CodeRunnerEditorProps<T>, 'onChange' | 'className' | 'centerButtons' | 'rightButtons'>
   & {
@@ -43,6 +42,7 @@ export interface CodeRunnerEditorProps<T> extends CodeEditorPropertiesType<T> {
   expandPosition?: CodeEditorExpandPositionType,
   enableAddSampleCases?: boolean,
   enableAddCustomSampleCases?: boolean,
+  readonly?: boolean,
 }
 
 export interface SettingsModalProps<T> {

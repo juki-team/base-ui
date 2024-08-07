@@ -10,8 +10,8 @@ import { getEditorSettingsStorageKey, getSourcesStoreKey } from '../../../helper
 import { useJukiUser } from '../../../hooks';
 import {
   CodeEditorCenterButtonsPropertiesType,
-  CodeEditorExpandPositionType,
   CodeEditorCenterButtonsType,
+  CodeEditorExpandPositionType,
   CodeRunnerEditor,
   CodeRunnerEditorPropertiesType,
 } from '../CodeRunnerEditor';
@@ -63,6 +63,7 @@ export interface UserCodeEditorProps<T> {
   initialSource?: { [key: string]: string },
   enableAddSampleCases?: boolean,
   enableAddCustomSampleCases?: boolean,
+  readonly?: boolean,
 }
 
 type SourceStorageType = {
@@ -87,6 +88,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     enableAddSampleCases,
     enableAddCustomSampleCases,
     onIsRunningChange,
+    readonly,
   } = props;
   const { user: { nickname } } = useJukiUser();
   
@@ -204,6 +206,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       sourceCode={newSource}
       language={language}
       languages={languages}
+      readonly={readonly}
       onChange={onChange}
       centerButtons={centerButtons}
       rightButtons={rightButtons}
