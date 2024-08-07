@@ -40,11 +40,10 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     className,
     enableAddCustomSampleCases,
     enableAddSampleCases,
-    readonly,
   } = props;
   
   const onChangeRef = useRef(_onChange);
-  onChangeRef.current = readonly ? undefined : _onChange;
+  onChangeRef.current = readOnly ? undefined : _onChange;
   const [ isRunning, setIsRunning ] = useState(false);
   const [ runId, setRunId ] = useState('');
   const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
@@ -162,7 +161,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         theme={preferredTheme}
         onChange={codeEditorOnChange}
         language={language}
-        readOnly={false}
+        readOnly={readOnly}
         sourceCode={sourceCode}
         tabSize={tabSize}
         fontSize={fontSize}
@@ -191,10 +190,10 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
       timeLimit={timeLimit}
       memoryLimit={memoryLimit}
       direction={direction}
-      enableAddSampleCases={readonly ? false : !!enableAddSampleCases}
-      enableAddCustomSampleCases={readonly ? false : !!enableAddCustomSampleCases}
+      enableAddSampleCases={readOnly ? false : !!enableAddSampleCases}
+      enableAddCustomSampleCases={readOnly ? false : !!enableAddCustomSampleCases}
     />
-  ), [ testCases, timeLimit, memoryLimit, direction, readonly, enableAddSampleCases, enableAddCustomSampleCases ]);
+  ), [ testCases, timeLimit, memoryLimit, direction, readOnly, enableAddSampleCases, enableAddCustomSampleCases ]);
   
   const body = (
     <div

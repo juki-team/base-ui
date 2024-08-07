@@ -42,7 +42,6 @@ export interface CodeRunnerEditorProps<T> extends CodeEditorPropertiesType<T> {
   expandPosition?: CodeEditorExpandPositionType,
   enableAddSampleCases?: boolean,
   enableAddCustomSampleCases?: boolean,
-  readonly?: boolean,
 }
 
 export interface SettingsModalProps<T> {

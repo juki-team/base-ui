@@ -32,11 +32,11 @@ export interface DocumentCustomMembersContentProps {
   members: EntityMembersResponseDTO,
   setMembers?: Dispatch<SetStateAction<EntityMembersResponseDTO>>,
   documentOwner: UserBasicInfoResponseDTO,
-  administrators?: { name?: string, description?: ReactNode, closeable?: boolean, readonly?: boolean },
-  managers?: { name?: string, description?: ReactNode, closeable?: boolean, readonly?: boolean },
-  participants?: { name?: string, description?: ReactNode, closeable?: boolean, readonly?: boolean },
-  guests?: { name?: string, description?: ReactNode, closeable?: boolean, readonly?: boolean },
-  spectators?: { name?: string, description?: ReactNode, closeable?: boolean, readonly?: boolean },
+  administrators?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
+  managers?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
+  participants?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
+  guests?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
+  spectators?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
 }
 
 export const DocumentCustomMembersContent = (props: DocumentCustomMembersContentProps) => {

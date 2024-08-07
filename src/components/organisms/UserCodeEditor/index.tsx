@@ -63,7 +63,7 @@ export interface UserCodeEditorProps<T> {
   initialSource?: { [key: string]: string },
   enableAddSampleCases?: boolean,
   enableAddCustomSampleCases?: boolean,
-  readonly?: boolean,
+  readOnly?: boolean,
 }
 
 type SourceStorageType = {
@@ -88,7 +88,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     enableAddSampleCases,
     enableAddCustomSampleCases,
     onIsRunningChange,
-    readonly,
+    readOnly,
   } = props;
   const { user: { nickname } } = useJukiUser();
   
@@ -206,7 +206,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       sourceCode={newSource}
       language={language}
       languages={languages}
-      readonly={readonly}
+      readOnly={readOnly}
       onChange={onChange}
       centerButtons={centerButtons}
       rightButtons={rightButtons}
