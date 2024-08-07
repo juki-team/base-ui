@@ -1,5 +1,6 @@
 import React, { FC, PropsWithChildren, useCallback, useMemo, useRef } from 'react';
 import { LineLoader, NotificationProvider } from '../../components';
+import { SoundProvider } from '../../components/organisms/Notifications/SoundProvider';
 import { classNames } from '../../helpers';
 import { useJukiRouter } from '../../hooks';
 import { QueryParamKey } from '../../types';
@@ -50,13 +51,15 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
   
   return (
     <UIContext.Provider value={value}>
-      <NotificationProvider>
-        {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={1} /></div>}
-        <div id="juki-app" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
-          <div className="loading-route-overlay" />
-          {children}
-        </div>
-      </NotificationProvider>
+      <SoundProvider>
+        <NotificationProvider>
+          {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={1} /></div>}
+          <div id="juki-app" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
+            <div className="loading-route-overlay" />
+            {children}
+          </div>
+        </NotificationProvider>
+      </SoundProvider>
     </UIContext.Provider>
   );
 };

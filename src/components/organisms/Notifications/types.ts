@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { Sound } from '../../../types';
 
 export enum NotificationAction {
   ADD_NOTIFICATION = 'ADD_NOTIFICATION',
@@ -35,3 +36,5 @@ export enum NotificationType {
   ERROR = 'error',
   QUIET = 'quiet'
 }
+
+export type Sounds = { [key in Sound]: HTMLAudioElement };

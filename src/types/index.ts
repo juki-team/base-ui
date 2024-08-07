@@ -46,6 +46,17 @@ export type DateDisplayType =
   | 'hours-minutes-seconds'
   | 'hours-minutes-seconds-milliseconds';
 
+export enum Sound {
+  CLICK,
+  SUCCESS,
+  ERROR,
+  NOTIFICATION,
+  WARNING,
+  MESSAGE,
+  POP,
+  BELL,
+}
+
 export * from './api';
 export * from './route';
 export * from './services';
