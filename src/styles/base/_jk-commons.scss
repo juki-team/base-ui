@@ -81,6 +81,7 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   // regular
   width: var(--pad-m);
   height: var(--pad-m);
+  box-sizing: border-box;
   
   &.small {
     width: var(--pad-t);
