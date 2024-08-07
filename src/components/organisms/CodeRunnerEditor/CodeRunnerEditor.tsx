@@ -167,7 +167,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         fontSize={fontSize}
       />
     </div>
-  ), [ preferredTheme, codeEditorOnChange, language, sourceCode, tabSize, fontSize ]);
+  ), [ preferredTheme, codeEditorOnChange, language, readOnly, sourceCode, tabSize, fontSize ]);
   
   const withTestCases = !!testCases;
   
