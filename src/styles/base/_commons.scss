@@ -52,53 +52,69 @@
 
 // background-color
 
-.bc-bk { background-color: var(--t-color-black); @include transition(background-color, color, border-color); }
+.bc-bk { background-color: var(--t-color-black) !important; @include transition(background-color, color, border-color); }
 
-.bc-b2 { background-color: var(--t-color-black-light); @include transition(background-color, color, border-color); }
+.bc-b2 { background-color: var(--t-color-black-light) !important; @include transition(background-color, color, border-color); }
 
-.bc-g1 { background-color: var(--t-color-gray-1); @include transition(background-color, color, border-color); }
+.bc-g1 { background-color: var(--t-color-gray-1) !important; @include transition(background-color, color, border-color); }
 
-.bc-g2 { background-color: var(--t-color-gray-2); @include transition(background-color, color, border-color); }
+.bc-g2 { background-color: var(--t-color-gray-2) !important; @include transition(background-color, color, border-color); }
 
-.bc-g3 { background-color: var(--t-color-gray-3); @include transition(background-color, color, border-color); }
+.bc-g3 { background-color: var(--t-color-gray-3) !important; @include transition(background-color, color, border-color); }
 
-.bc-g4 { background-color: var(--t-color-gray-4); @include transition(background-color, color, border-color); }
+.bc-g4 { background-color: var(--t-color-gray-4) !important; @include transition(background-color, color, border-color); }
 
-.bc-g5 { background-color: var(--t-color-gray-5); @include transition(background-color, color, border-color); }
+.bc-g5 { background-color: var(--t-color-gray-5) !important; @include transition(background-color, color, border-color); }
 
-.bc-g6 { background-color: var(--t-color-gray-6); @include transition(background-color, color, border-color); }
+.bc-g6 { background-color: var(--t-color-gray-6) !important; @include transition(background-color, color, border-color); }
 
-.bc-wd { background-color: var(--t-color-white-dark); @include transition(background-color, color, border-color); }
+.bc-wd { background-color: var(--t-color-white-dark) !important; @include transition(background-color, color, border-color); }
 
-.bc-we { background-color: var(--t-color-white); @include transition(background-color, color, border-color); }
+.bc-we { background-color: var(--t-color-white) !important; @include transition(background-color, color, border-color); }
 
-.bc-io { background-color: var(--t-color-info); @include transition(background-color, color, border-color); }
+.bc-il { background-color: var(--t-color-info-light) !important; @include transition(background-color, color, border-color); }
 
-.bc-ss { background-color: var(--t-color-success); @include transition(background-color, color, border-color); }
+.bc-io { background-color: var(--t-color-info) !important; @include transition(background-color, color, border-color); }
 
-.bc-wg { background-color: var(--t-color-warning); @include transition(background-color, color, border-color); }
+.bc-id { background-color: var(--t-color-info-dark) !important; @include transition(background-color, color, border-color); }
 
-.bc-er { background-color: var(--t-color-error); @include transition(background-color, color, border-color); }
+.bc-sl { background-color: var(--t-color-success-light) !important; @include transition(background-color, color, border-color); }
 
-.bc-pl { background-color: var(--t-color-primary-light); @include transition(background-color, color, border-color); }
+.bc-ss { background-color: var(--t-color-success) !important; @include transition(background-color, color, border-color); }
 
-.bc-py { background-color: var(--t-color-primary); @include transition(background-color, color, border-color); }
+.bc-sd { background-color: var(--t-color-success-dark) !important; @include transition(background-color, color, border-color); }
 
-.bc-pd { background-color: var(--t-color-primary-dark); @include transition(background-color, color, border-color); }
+.bc-wl { background-color: var(--t-color-warning-light) !important; @include transition(background-color, color, border-color); }
 
-.bc-sy { background-color: var(--t-color-secondary); @include transition(background-color, color, border-color); }
+.bc-wg { background-color: var(--t-color-warning) !important; @include transition(background-color, color, border-color); }
 
-.bc-al { background-color: var(--t-color-accent-light); @include transition(background-color, color, border-color); }
+.bc-wgd { background-color: var(--t-color-warning-dark) !important; @include transition(background-color, color, border-color); }
 
-.bc-at { background-color: var(--t-color-accent); @include transition(background-color, color, border-color); }
+.bc-el { background-color: var(--t-color-error-light) !important; @include transition(background-color, color, border-color); }
 
-.bc-ad { background-color: var(--t-color-accent-dark); @include transition(background-color, color, border-color); }
+.bc-er { background-color: var(--t-color-error) !important; @include transition(background-color, color, border-color); }
 
-.bc-hl { background-color: var(--t-color-highlight-light); @include transition(background-color, color, border-color); }
+.bc-ed { background-color: var(--t-color-error-dark) !important; @include transition(background-color, color, border-color); }
 
-.bc-ht { background-color: var(--t-color-highlight); @include transition(background-color, color, border-color); }
+.bc-pl { background-color: var(--t-color-primary-light) !important; @include transition(background-color, color, border-color); }
 
-.bc-hd { background-color: var(--t-color-highlight-dark); @include transition(background-color, color, border-color); }
+.bc-py { background-color: var(--t-color-primary) !important; @include transition(background-color, color, border-color); }
+
+.bc-pd { background-color: var(--t-color-primary-dark) !important; @include transition(background-color, color, border-color); }
+
+.bc-sy { background-color: var(--t-color-secondary) !important; @include transition(background-color, color, border-color); }
+
+.bc-al { background-color: var(--t-color-accent-light) !important; @include transition(background-color, color, border-color); }
+
+.bc-at { background-color: var(--t-color-accent) !important; @include transition(background-color, color, border-color); }
+
+.bc-ad { background-color: var(--t-color-accent-dark) !important; @include transition(background-color, color, border-color); }
+
+.bc-hl { background-color: var(--t-color-highlight-light) !important; @include transition(background-color, color, border-color); }
+
+.bc-ht { background-color: var(--t-color-highlight) !important; @include transition(background-color, color, border-color); }
+
+.bc-hd { background-color: var(--t-color-highlight-dark) !important; @include transition(background-color, color, border-color); }
 
 // border
 
