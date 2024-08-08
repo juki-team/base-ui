@@ -8,4 +8,5 @@ export interface TooltipProps {
   visible?: boolean,
   withPortal?: boolean,
   className?: string,
+  classNameArrow?: string,
 }

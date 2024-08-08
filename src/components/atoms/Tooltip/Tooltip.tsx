@@ -14,6 +14,7 @@ export const Tooltip = (props: PropsWithChildren<TooltipProps>) => {
     visible,
     withPortal,
     className,
+    classNameArrow,
   } = props;
   
   const id = useId();
@@ -31,6 +32,7 @@ export const Tooltip = (props: PropsWithChildren<TooltipProps>) => {
             opacity={1}
             positionStrategy="fixed"
             className={className}
+            classNameArrow={classNameArrow}
           >
             {renderReactNodeOrFunction(content)}
           </ReactTooltip>
@@ -49,6 +51,8 @@ export const Tooltip = (props: PropsWithChildren<TooltipProps>) => {
         isOpen={visible}
         opacity={1}
         positionStrategy="fixed"
+        className={className}
+        classNameArrow={classNameArrow}
       >
         {renderReactNodeOrFunction(content)}
       </ReactTooltip>
