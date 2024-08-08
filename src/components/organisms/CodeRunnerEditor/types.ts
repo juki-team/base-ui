@@ -42,6 +42,7 @@ export interface CodeRunnerEditorProps<T> extends CodeEditorPropertiesType<T> {
   expandPosition?: CodeEditorExpandPositionType,
   enableAddSampleCases?: boolean,
   enableAddCustomSampleCases?: boolean,
+  withoutRunCodeButton?: boolean,
 }
 
 export interface SettingsModalProps<T> {
@@ -77,6 +78,8 @@ export interface HeaderProps<T> {
   expanded: boolean | null,
   setExpanded: Dispatch<SetStateAction<boolean>>,
   isRunning: boolean,
+  withoutRunCodeButton: boolean,
+  readOnly: boolean,
 }
 
 export interface LogInfoProps {

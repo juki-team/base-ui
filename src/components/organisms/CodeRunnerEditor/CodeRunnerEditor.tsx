@@ -40,6 +40,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     className,
     enableAddCustomSampleCases,
     enableAddSampleCases,
+    withoutRunCodeButton,
   } = props;
   
   const onChangeRef = useRef(_onChange);
@@ -244,6 +245,8 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         expanded={expandPosition ? expanded : null}
         setExpanded={setExpanded}
         isRunning={isRunning}
+        withoutRunCodeButton={!!withoutRunCodeButton}
+        readOnly={!!readOnly}
       />
       <div className="editor-stdio-content">
         <SplitPane

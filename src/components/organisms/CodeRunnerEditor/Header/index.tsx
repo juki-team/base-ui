@@ -32,6 +32,8 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     expanded,
     setExpanded,
     isRunning,
+    withoutRunCodeButton,
+    readOnly,
   } = props;
   
   const { addErrorNotification } = useJukiNotification();
@@ -48,7 +50,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       setLoaderRef.current?.(Status.NONE);
     }
   }, [ isRunning ]);
-  const withRunCodeButton = !!Object.keys(testCases).length;
+  const withRunCodeButton = withoutRunCodeButton ? false : !!Object.keys(testCases).length;
   const minWidth = withRunCodeButton ? 620 : 570;
   
   const handleRunCode: ButtonLoaderOnClickType = async (setStatus) => {
@@ -103,19 +105,25 @@ export const Header = <T, >(props: HeaderProps<T>) => {
         className={classNames('left-options cr-pd jk-row gap', { 'jk-col left gap flex-1': twoRows })}
         ref={refLeftSection}
       >
-        <Select
-          className="languages-selector"
-          options={languages.map(language => ({
-            value: language.value,
-            label: (language.label || language.value) + '',
-          }))}
-          selectedOption={{
-            value: language,
-            label: (languages.find(lang => lang.value === language)?.label || language) + '',
-          }}
-          onChange={({ value }) => onChange?.({ language: value })}
-          extend={twoRows}
-        />
+        {readOnly ? (
+          <div className="jk-tag info">
+            {(languages.find(lang => lang.value === language)?.label || language) + ''}
+          </div>
+        ) : (
+          <Select
+            className="languages-selector"
+            options={languages.map(language => ({
+              value: language.value,
+              label: (language.label || language.value) + '',
+            }))}
+            selectedOption={{
+              value: language,
+              label: (languages.find(lang => lang.value === language)?.label || language) + '',
+            }}
+            onChange={({ value }) => onChange?.({ language: value })}
+            extend={twoRows}
+          />
+        )}
         {withRunCodeButton && (
           <ButtonLoader
             size="tiny"

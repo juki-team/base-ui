@@ -7,7 +7,7 @@ import {
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from 'react';
 import { getEditorSettingsStorageKey, getSourcesStoreKey } from '../../../helpers';
-import { useJukiUser } from '../../../hooks';
+import { useJukiUser, useStableState } from '../../../hooks';
 import {
   CodeEditorCenterButtonsPropertiesType,
   CodeEditorCenterButtonsType,
@@ -64,6 +64,7 @@ export interface UserCodeEditorProps<T> {
   enableAddSampleCases?: boolean,
   enableAddCustomSampleCases?: boolean,
   readOnly?: boolean,
+  withoutRunCodeButton?: boolean,
 }
 
 type SourceStorageType = {
@@ -89,7 +90,9 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     enableAddCustomSampleCases,
     onIsRunningChange,
     readOnly,
+    withoutRunCodeButton,
   } = props;
+  
   const { user: { nickname } } = useJukiUser();
   
   const editorSettingsStorageKey = getEditorSettingsStorageKey(nickname);
@@ -105,7 +108,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     tabSize: 2,
     fontSize: 14,
   });
-  const [ language, setLanguage ] = useState<T>(initialLanguage ?? editorSettings.lastLanguageUsed as T);
+  const [ language, setLanguage ] = useStableState<T>(initialLanguage ?? editorSettings.lastLanguageUsed as T);
   const [ testCases, setTestCases ] = useState<CodeEditorTestCasesType>(initialTestCases ?? {});
   const initialTestCasesString = JSON.stringify(initialTestCases);
   useEffect(() => {
@@ -214,6 +217,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       expandPosition={expandPosition}
       enableAddSampleCases={enableAddSampleCases}
       enableAddCustomSampleCases={enableAddCustomSampleCases}
+      withoutRunCodeButton={withoutRunCodeButton}
     />
   );
 };
