@@ -7,4 +7,5 @@ export interface TooltipProps {
   placement?: PlacesType,
   visible?: boolean,
   withPortal?: boolean,
+  className?: string,
 }
