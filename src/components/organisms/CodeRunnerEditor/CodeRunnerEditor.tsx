@@ -6,7 +6,9 @@ import {
   SocketEventRunResponseDTO,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useJukiSocket } from '../../../hooks/useJukiSocket';
 import { useJukiUI } from '../../../hooks/useJukiUI';
@@ -53,6 +55,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const [ direction, setDirection ] = useState<'row' | 'column'>('row');
   const [ expanded, setExpanded ] = useState(false);
   const { viewPortSize } = useJukiUI();
+  const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ runStatus, setRunStatus ] = useState<{
     [key: string]: { [key: number]: SocketEventRunResponseDTO }
   }>({});
@@ -171,6 +174,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   ), [ preferredTheme, codeEditorOnChange, language, readOnly, sourceCode, tabSize, fontSize ]);
   
   const withTestCases = !!testCases;
+  const twoRows = headerWidthContainer < (withoutRunCodeButton ? 340 : 420);
   
   const closableSecondPane = useMemo(() => (
     withTestCases
@@ -203,6 +207,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         { 'elevation-3': expanded },
         className,
       )}
+      style={twoRows ? { '--options-header-height': '80px' } as CSSProperties : {}}
     >
       <SettingsModal
         isOpen={showSettings}
@@ -212,6 +217,9 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         fontSize={fontSize}
       />
       <Header
+        headerRef={headerRef}
+        headerWidthContainer={headerWidthContainer}
+        twoRows={twoRows}
         language={language}
         languages={languages}
         sourceCode={sourceCode}

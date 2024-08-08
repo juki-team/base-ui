@@ -1,5 +1,6 @@
 import { CodeEditorTestCasesType, SubmissionTestCaseType } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { OnRefChangeType } from 'react-resize-detector/build/types/types';
 import { CodeEditorPropertiesType } from '../../index';
 
 export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
@@ -80,6 +81,9 @@ export interface HeaderProps<T> {
   isRunning: boolean,
   withoutRunCodeButton: boolean,
   readOnly: boolean,
+  headerRef: OnRefChangeType<any>,
+  headerWidthContainer: number,
+  twoRows: boolean,
 }
 
 export interface LogInfoProps {

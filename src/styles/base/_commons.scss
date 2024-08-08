@@ -44,6 +44,12 @@
 
 .cr-ad { color: var(--t-color-accent-dark); @include transition(background-color, color, border-color); }
 
+.cr-hl { color: var(--t-color-highlight-light); @include transition(background-color, color, border-color); }
+
+.cr-ht { color: var(--t-color-highlight); @include transition(background-color, color, border-color); }
+
+.cr-hd { color: var(--t-color-highlight-dark); @include transition(background-color, color, border-color); }
+
 // background-color
 
 .bc-bk { background-color: var(--t-color-black); @include transition(background-color, color, border-color); }

@@ -5,7 +5,7 @@ import {
   Status,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import React, { CSSProperties, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { jukiSettings } from '../../../../config';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
@@ -34,10 +34,12 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     isRunning,
     withoutRunCodeButton,
     readOnly,
+    headerRef,
+    headerWidthContainer,
+    twoRows,
   } = props;
   
   const { addErrorNotification } = useJukiNotification();
-  const { width: widthContainer = 0, ref } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   
@@ -50,8 +52,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       setLoaderRef.current?.(Status.NONE);
     }
   }, [ isRunning ]);
-  const withRunCodeButton = withoutRunCodeButton ? false : !!Object.keys(testCases).length;
-  const minWidth = withRunCodeButton ? 620 : 570;
+  const minWidth = !withoutRunCodeButton ? 620 : 570;
   
   const handleRunCode: ButtonLoaderOnClickType = async (setStatus) => {
     setStatus(Status.LOADING);
@@ -91,18 +92,16 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       setStatus(Status.ERROR);
     }
   };
-  const withLabels = widthContainer > minWidth;
-  const twoRows = widthContainer < 420;
-  const widthCenterContainer = widthContainer - widthLeftSection - widthRightSection;
+  const withLabels = headerWidthContainer > minWidth;
+  const widthCenterContainer = headerWidthContainer - widthLeftSection - widthRightSection;
   
   return (
     <div
       className={classNames('options-header-content jk-row', { 'two-rows': twoRows })}
-      style={twoRows ? { '--options-header-height': '80px' } as CSSProperties : {}}
-      ref={ref}
+      ref={headerRef}
     >
       <div
-        className={classNames('left-options cr-pd jk-row gap', { 'jk-col left gap flex-1': twoRows })}
+        className={classNames('left-options cr-pd jk-row gap', { 'jk-col left gap': twoRows })}
         ref={refLeftSection}
       >
         {readOnly ? (
@@ -124,7 +123,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             extend={twoRows}
           />
         )}
-        {withRunCodeButton && (
+        {!withoutRunCodeButton && (
           <ButtonLoader
             size="tiny"
             type="primary"
@@ -132,12 +131,13 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             icon={<PlayArrowIcon />}
             onClick={handleRunCode}
             setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
+            disabled={!Object.keys(testCases).length}
           >
             {(twoRows || withLabels) && <T>run</T>}
           </ButtonLoader>
         )}
       </div>
-      <div className="center-options" style={{ width: widthCenterContainer }}>
+      <div className="center-options flex-1" style={{ width: widthCenterContainer }}>
         {centerOptions({ widthContainer: widthCenterContainer, withLabels, twoRows })}
       </div>
       <div className={classNames('jk-row gap right-options cr-pd', { 'jk-col gap': twoRows })} ref={refRightSection}>
