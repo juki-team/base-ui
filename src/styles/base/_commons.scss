@@ -2,53 +2,53 @@
 
 // color
 
-.cr-bk { color: var(--t-color-black); @include transition(background-color, color, border-color); }
+.cr-bk { color: var(--t-color-black) !important; @include transition(background-color, color, border-color); }
 
-.cr-b2 { color: var(--t-color-black-light); @include transition(background-color, color, border-color); }
+.cr-b2 { color: var(--t-color-black-light) !important; @include transition(background-color, color, border-color); }
 
-.cr-g1 { color: var(--t-color-gray-1); @include transition(background-color, color, border-color); }
+.cr-g1 { color: var(--t-color-gray-1) !important; @include transition(background-color, color, border-color); }
 
-.cr-g2 { color: var(--t-color-gray-2); @include transition(background-color, color, border-color); }
+.cr-g2 { color: var(--t-color-gray-2) !important; @include transition(background-color, color, border-color); }
 
-.cr-g3 { color: var(--t-color-gray-3); @include transition(background-color, color, border-color); }
+.cr-g3 { color: var(--t-color-gray-3) !important; @include transition(background-color, color, border-color); }
 
-.cr-g4 { color: var(--t-color-gray-4); @include transition(background-color, color, border-color); }
+.cr-g4 { color: var(--t-color-gray-4) !important; @include transition(background-color, color, border-color); }
 
-.cr-g5 { color: var(--t-color-gray-5); @include transition(background-color, color, border-color); }
+.cr-g5 { color: var(--t-color-gray-5) !important; @include transition(background-color, color, border-color); }
 
-.cr-g6 { color: var(--t-color-gray-6); @include transition(background-color, color, border-color); }
+.cr-g6 { color: var(--t-color-gray-6) !important; @include transition(background-color, color, border-color); }
 
-.cr-w2 { color: var(--t-color-white-dark); @include transition(background-color, color, border-color); }
+.cr-w2 { color: var(--t-color-white-dark) !important; @include transition(background-color, color, border-color); }
 
-.cr-we { color: var(--t-color-white); @include transition(background-color, color, border-color); }
+.cr-we { color: var(--t-color-white) !important; @include transition(background-color, color, border-color); }
 
-.cr-io { color: var(--t-color-info); @include transition(background-color, color, border-color); }
+.cr-io { color: var(--t-color-info) !important; @include transition(background-color, color, border-color); }
 
-.cr-ss { color: var(--t-color-success); @include transition(background-color, color, border-color); }
+.cr-ss { color: var(--t-color-success) !important; @include transition(background-color, color, border-color); }
 
-.cr-wg { color: var(--t-color-warning); @include transition(background-color, color, border-color); }
+.cr-wg { color: var(--t-color-warning) !important; @include transition(background-color, color, border-color); }
 
-.cr-er { color: var(--t-color-error); @include transition(background-color, color, border-color); }
+.cr-er { color: var(--t-color-error) !important; @include transition(background-color, color, border-color); }
 
-.cr-pl { color: var(--t-color-primary-light); @include transition(background-color, color, border-color); }
+.cr-pl { color: var(--t-color-primary-light) !important; @include transition(background-color, color, border-color); }
 
-.cr-py { color: var(--t-color-primary); @include transition(background-color, color, border-color); }
+.cr-py { color: var(--t-color-primary) !important; @include transition(background-color, color, border-color); }
 
-.cr-pd { color: var(--t-color-primary-dark); @include transition(background-color, color, border-color); }
+.cr-pd { color: var(--t-color-primary-dark) !important; @include transition(background-color, color, border-color); }
 
-.cr-sy { color: var(--t-color-secondary); @include transition(background-color, color, border-color); }
+.cr-sy { color: var(--t-color-secondary) !important; @include transition(background-color, color, border-color); }
 
-.cr-al { color: var(--t-color-accent-light); @include transition(background-color, color, border-color); }
+.cr-al { color: var(--t-color-accent-light) !important; @include transition(background-color, color, border-color); }
 
-.cr-at { color: var(--t-color-accent); @include transition(background-color, color, border-color); }
+.cr-at { color: var(--t-color-accent) !important; @include transition(background-color, color, border-color); }
 
-.cr-ad { color: var(--t-color-accent-dark); @include transition(background-color, color, border-color); }
+.cr-ad { color: var(--t-color-accent-dark) !important; @include transition(background-color, color, border-color); }
 
-.cr-hl { color: var(--t-color-highlight-light); @include transition(background-color, color, border-color); }
+.cr-hl { color: var(--t-color-highlight-light) !important; @include transition(background-color, color, border-color); }
 
-.cr-ht { color: var(--t-color-highlight); @include transition(background-color, color, border-color); }
+.cr-ht { color: var(--t-color-highlight) !important; @include transition(background-color, color, border-color); }
 
-.cr-hd { color: var(--t-color-highlight-dark); @include transition(background-color, color, border-color); }
+.cr-hd { color: var(--t-color-highlight-dark) !important; @include transition(background-color, color, border-color); }
 
 // background-color
 
