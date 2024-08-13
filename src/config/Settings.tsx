@@ -208,6 +208,12 @@ export class Settings {
           url: injectBaseUrl('user', `/session/${sessionId}`),
           method: HTTPMethod.DELETE,
         })),
+        getLogs: valid<
+          { params: { nickname: string, companyKey?: string } }
+        >(({ params: { nickname, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('user', `/${nickname}/logs`), companyKey),
+          method: HTTPMethod.GET,
+        })),
       },
       problem: {
         create: valid<
