@@ -499,6 +499,14 @@ export class Settings {
           method: HTTPMethod.GET,
         })),
       },
+      system: {
+        aws: {
+          ecsPostWakeUp: valid<void, HTTPMethod.POST>(() => ({
+            url: injectBaseUrl('sys', '/aws/ecs/wake-up'),
+            method: HTTPMethod.POST,
+          })),
+        },
+      },
     };
   }
   
