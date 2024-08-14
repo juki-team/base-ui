@@ -39,7 +39,7 @@ export const MockJkSubmissionTable = (props: Omit<DataViewerProps<ProblemSummary
     return result;
   }, [ allJudges ]);
   const columns: DataViewerHeadersType<SubmissionSummaryListResponseDTO>[] = useMemo(() => [
-    getSubmissionNicknameHeader(),
+    getSubmissionNicknameHeader([ { value: 'OscarGauss', label: 'OscarGauss' }, { value: 'test', label: 'test' } ]),
     getSubmissionContestHeader(),
     getSubmissionContestProblemHeader(),
     // getSubmissionProblemHeader(),

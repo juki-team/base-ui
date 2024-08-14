@@ -1,6 +1,7 @@
 import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { useJukiUI } from '../../../hooks';
+import { OptionType } from '../../molecules';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 import { UserNicknameLink } from '../UserChip';
 
@@ -25,12 +26,12 @@ export const SubmissionNicknameField: DataViewerHeadersType<SubmissionSummaryLis
   );
 };
 
-export const getSubmissionNicknameHeader = (): DataViewerHeadersType<SubmissionSummaryListResponseDTO> => ({
-  head: 'user nickname',
-  index: 'nickname',
+export const getSubmissionNicknameHeader = (options: OptionType<string>[]): DataViewerHeadersType<SubmissionSummaryListResponseDTO> => ({
+  head: 'nickname',
+  index: 'nicknames',
   Field: SubmissionNicknameField,
   sort: true,
-  filter: { type: 'text' },
+  filter: { type: 'select', options },
   cardPosition: 'top',
   minWidth: 250,
 });
