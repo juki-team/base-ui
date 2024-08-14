@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react';
+import React, { ReactNode, useCallback, useEffect, useRef } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiRouter, useJukiUI } from '../../../hooks';
 import { NotUndefined } from '../../../types';
@@ -20,6 +20,8 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
     loading,
   } = props;
   
+  const getHrefOnTabChangeRef = useRef(getHrefOnTabChange);
+  getHrefOnTabChangeRef.current = getHrefOnTabChange;
   const LOADING_TAB = 'loading' as T;
   const { viewPortSize } = useJukiUI();
   const { pushRoute } = useJukiRouter();
@@ -36,22 +38,28 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
   } : initialTAbs;
   
   const tabKeys = Object.keys(tabs);
-  const [ initialTab, setTab ] = useHandleState<T>(tabs[tabKeys[0] as string]?.key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
+  const firstTabKey = tabKeys[0] as string;
+  const [ initialTab, setTab ] = useHandleState<T>(tabs[firstTabKey]?.key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
   const tab = loading ? LOADING_TAB : initialTab;
   const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey: tab }) as ReactNode[];
-  const pushTab = (tabKey: T) => {
-    if (getHrefOnTabChange) {
-      pushRoute(getHrefOnTabChange(tabKey));
+  const pushTab = useCallback((tabKey: T) => {
+    if (getHrefOnTabChangeRef.current) {
+      pushRoute(getHrefOnTabChangeRef.current(tabKey));
     } else {
       setTab(tabKey as NotUndefined<T>);
     }
-  };
-  
+  }, [ pushRoute, setTab ]);
   useEffect(() => {
     if (selectedTabKey) {
       setTab(selectedTabKey as NotUndefined<T>);
     }
   }, [ selectedTabKey, setTab ]);
+  const selectedKey = tabs[tab as string]?.key;
+  useEffect(() => {
+    if (!selectedKey && firstTabKey) {
+      pushTab(firstTabKey as NotUndefined<T>);
+    }
+  }, [ firstTabKey, setTab, selectedKey, pushTab ]);
   const withTabs = tabKeys.length > 1;
   const tabsOnBody = withTabs && false;
   const tabsOnHeader = withTabs && true;
@@ -61,7 +69,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
     <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })}>
       <div>
         {withBreadcrumbs &&
-          <Breadcrumbs breadcrumbs={breadcrumbs} />}
+            <Breadcrumbs breadcrumbs={breadcrumbs} />}
         <div
           className={classNames('jk-row gap left', {
             //'jk-pg-sm-t': preferredMenuViewMode === MenuViewMode.HORIZONTAL && withTabs,
