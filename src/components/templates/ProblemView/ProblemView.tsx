@@ -1,8 +1,6 @@
-import { consoleInfo, ContentResponseType } from '@juki-team/commons';
-import React, { useEffect, useState } from 'react';
-import { jukiSettings } from '../../../config';
-import { authorizedRequest, classNames, cleanRequest } from '../../../helpers';
-import { useJukiPage, useJukiUI } from '../../../hooks';
+import React, { useState } from 'react';
+import { classNames } from '../../../helpers';
+import { useEcsWakeUp, useJukiUI } from '../../../hooks';
 import { Button, FullscreenExitIcon, FullscreenIcon, T, Tooltip } from '../../atoms';
 import { SplitPane } from '../../molecules';
 import { UserCodeEditorProps } from '../../organisms/UserCodeEditor';
@@ -26,17 +24,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
   const { viewPortSize } = useJukiUI();
   const [ expanded, setExpanded ] = useState(false);
   
-  const { isOnline, isPageFocus, isPageVisible } = useJukiPage();
-  useEffect(() => {
-    const fun = async () => {
-      const { url, ...options } = jukiSettings.API.system.aws.ecsPostWakeUp();
-      const response = cleanRequest<ContentResponseType<string>>(await authorizedRequest(url, options));
-      consoleInfo('ecs wake up', response);
-    };
-    if (isPageVisible && isOnline) {
-      void fun();
-    }
-  }, [ isOnline, isPageFocus, isPageVisible ]);
+  useEcsWakeUp();
   
   return (
     <SplitPane

@@ -1,6 +1,7 @@
 export * from './custom';
 export * from './useDataViewerRequester';
 export * from './useDebounceEffect';
+export * from './useEcsWakeUp';
 export * from './useEntityDiff';
 export * from './useFetcher';
 export * from './useHandleState';
