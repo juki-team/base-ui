@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import { DateLiteral } from "../../atoms";
-import { MockupJukiProvider } from "../../mockup";
-import { InputDate, TimePicker } from "./";
+import React, { useState } from 'react';
+import { DateLiteral } from '../../atoms';
+import { MockupJukiProvider } from '../../mockup';
+import { InputDate, TimePicker } from './';
 
 export default {
   component: InputDate,
 };
 
 export const DatePicker = () => {
-  const [date, setDate] = useState(new Date());
-
+  const [ date, setDate ] = useState(new Date());
+  
   return (
     <MockupJukiProvider>
-      <div className="jk-col gap">
+      <div className="jk-col gap jk-pg-lg">
         <TimePicker
           date={new Date()}
           onChange={(...props) => console.info(props)}
@@ -34,6 +34,18 @@ export const DatePicker = () => {
           twoLines
           extend
           onDateClean={() => null}
+          todayButton
+        />
+        <div className="jk-divider" />
+        <InputDate
+          type="year-month-day-hours-minutes-seconds-milliseconds"
+          date={date}
+          // onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
+          isDisabled={() => ({})}
+          isSelected={() => ({})}
+          baseDate={date}
+          onDatePick={(date) => setDate(date)}
+          extend
           todayButton
         />
         <div className="jk-divider" />

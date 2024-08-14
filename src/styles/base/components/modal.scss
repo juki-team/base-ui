@@ -38,6 +38,11 @@
     .jk-modal-body {
       max-height: var(--100VH);
       max-width: 100vw;
+      height: 100%;
+      
+      .split-modal {
+        height: 100%;
+      }
     }
   }
 }

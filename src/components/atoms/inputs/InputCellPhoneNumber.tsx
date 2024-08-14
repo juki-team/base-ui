@@ -31,14 +31,14 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) =
             <img
               src={`data:image/svg+xml;utf8,${encodeURIComponent(countryFlagSvg[country.code])}`}
               alt={country.name}
-              height={24}
-              width={36}
+              height={22}
+              width={33}
             />
             ({country.dial_code})
           </div>
         </div>
       ),
-    }))
+    }));
   }, []);
   
   const dialCode = countryList.findByCountryCode(countryCode)[0]?.dial_code;
@@ -60,8 +60,8 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) =
             <img
               src={`data:image/svg+xml;utf8,${encodeURIComponent(countryFlagSvg[countryCode])}`}
               alt={countryCode}
-              height={24}
-              width={36}
+              height={22}
+              width={33}
             />
           ),
         }}
