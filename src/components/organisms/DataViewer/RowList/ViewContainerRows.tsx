@@ -58,10 +58,19 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
   const [ headerWidths, setHeaderWidths ] = useState<HeaderWidthsType>({});
   const prevSizeWidth = usePrevious(viewContainerWidth);
   const prevHeaders = useRef(JSON.stringify(headersMinWidth(headers)));
-  const tableHeaders: TableHeadersWithWidthType<T>[] = useMemo(() => headers.map(head => ({
-    ...head,
-    width: headerWidths[head.index]?.width || 0,
-  })).filter(head => head.width), [ headers, headerWidths ]);
+  const tableHeaders: TableHeadersWithWidthType<T>[] = useMemo(() => {
+    const tableHeaders = headers.map((head) => ({
+      ...head,
+      width: headerWidths[head.index]?.width || 0,
+      accumulatedWidth: 0,
+    })).filter(head => head.width);
+    
+    for (let i = 1; i < tableHeaders.length; i++) {
+      tableHeaders[i].accumulatedWidth = tableHeaders[i - 1].accumulatedWidth + tableHeaders[i - 1].width;
+    }
+    
+    return tableHeaders;
+  }, [ headers, headerWidths ]);
   
   useEffect(() => {
     const width = (viewContainerWidth || 0) - SCROLL_WIDTH;

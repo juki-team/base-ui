@@ -151,10 +151,10 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
               className={classNames('jk-table-row', getRowClassName(virtualRow.index))}
               onClick={() => onRecordClick?.({ data, index: virtualRow.index, isCard: false })}
             >
-              {Children.toArray(headers.map(({ Field, index: columnIndex, width, sticky }) => (
+              {Children.toArray(headers.map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }) => (
                 <div
                   key={virtualRow.key + '_' + columnIndex}
-                  style={{ width: width, minWidth: width }}
+                  style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
                   className={classNames({ sticky: !!sticky })}
                   data-testid={virtualRow.key + '_' + columnIndex}
                 >

@@ -211,7 +211,7 @@ export type TableHeadersType<T> = {
   headClassName?: string,
 }
 
-export type TableHeadersWithWidthType<T> = TableHeadersType<T> & { width: number };
+export type TableHeadersWithWidthType<T> = TableHeadersType<T> & { width: number, accumulatedWidth: number };
 type RowsType = { height?: number };
 type CardsType = { height?: number, width?: number, expanded?: boolean };
 
