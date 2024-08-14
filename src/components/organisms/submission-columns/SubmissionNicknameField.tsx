@@ -26,12 +26,12 @@ export const SubmissionNicknameField: DataViewerHeadersType<SubmissionSummaryLis
   );
 };
 
-export const getSubmissionNicknameHeader = (options: OptionType<string>[]): DataViewerHeadersType<SubmissionSummaryListResponseDTO> => ({
+export const getSubmissionNicknameHeader = (options: OptionType<string>[] | void): DataViewerHeadersType<SubmissionSummaryListResponseDTO> => ({
   head: 'nickname',
   index: 'nicknames',
   Field: SubmissionNicknameField,
   sort: true,
-  filter: { type: 'select', options },
+  filter: options ? { type: 'select', options } : { type: 'text' },
   cardPosition: 'top',
   minWidth: 250,
 });
