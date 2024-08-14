@@ -54,6 +54,10 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
     }
   });
   
+  const compilationFailed = verdict !== ProblemVerdict.NONE
+    && verdict !== ProblemVerdict.PENDING
+    && compilationResult?.success === false;
+  
   return (
     <div>
       <Collapse
@@ -66,10 +70,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
             <div className="jk-col">
               <div className="jk-row gap center">
                 <SubmissionListenerVerdict verdict={verdict} points={points} status={status} submitId={submitId} />
-                {verdict !== ProblemVerdict.NONE
-                  && verdict !== ProblemVerdict.PENDING
-                  && compilationResult?.success === false
-                  && <UpIcon onClick={toggle} rotate={isOpen ? 0 : 180} className="link" />}
+                {compilationFailed && <UpIcon onClick={toggle} rotate={isOpen ? 0 : 180} className="link" />}
               </div>
               <T className="fw-bd tt-se">verdict</T>
             </div>
@@ -106,6 +107,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
             )}
           </div>
         )}
+        startsShowing={compilationFailed}
       >
         <div className="submission-stderr-content jk-text-stderr">
           {compilationResult?.err}
