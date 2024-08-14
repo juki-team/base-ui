@@ -460,7 +460,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           ) : (
             <T className="tt-se">{`all users will be ${spectatorsLabel}`}</T>
           )}
-          {members.rankGuests === EntityMembersRank.CLOSE && (
+          {members.rankSpectators === EntityMembersRank.CLOSE && (
             spectators && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.spectators ?? {})}
