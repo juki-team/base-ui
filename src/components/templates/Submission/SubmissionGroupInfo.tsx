@@ -47,9 +47,9 @@ const DiffViewButton = ({ diffInput, croppedDiff }: { diffInput: string, cropped
   
   return (
     <>
-      <Button icon={<VisibilityIcon />} className="" size="tiny" type="light" onClick={() => setIsOpen(true)}>
-        <T>view diff</T>
-      </Button>
+      <Tooltip content={<T>view diff</T>}>
+        <Button icon={<VisibilityIcon />} size="tiny" type="light" onClick={() => setIsOpen(true)} />
+      </Tooltip>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} closeWhenKeyEscape closeWhenClickOutside closeIcon>
         <div className="jk-col stretch gap jk-pg-lg diff-body-modal">
           <div>
@@ -181,8 +181,8 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
           <div className="jk-row" style={{ flex: 0.4 }}><T>#</T></div>
           <div className="jk-row center gap"><T className="tt-se">verdict</T></div>
           {problemScoringMode === ProblemScoringMode.PARTIAL &&
-            <div className="jk-row center gap"><T className="tt-se">points</T>
-            </div>}
+              <div className="jk-row center gap"><T className="tt-se">points</T>
+              </div>}
           <div className="jk-row center gap"><T className="tt-se">time</T></div>
           <div className="jk-row center gap"><T className="tt-se">memory</T></div>
           <div className="jk-row center gap"><T className="tt-se">exit code</T></div>
