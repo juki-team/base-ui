@@ -16,7 +16,7 @@ const PrintUsers = ({ members }: { members?: EntityMembersResponseDTO['spectator
   const users = Object.values(members || {});
   
   if (!users.length) {
-    return <div className="jk-row extend left"><T className="fw-lr tt-se">nobody</T></div>;
+    return <div className="jk-row extend left"><T className="fw-lr tt-se tx-s">nobody</T></div>;
   }
   
   return (
@@ -206,11 +206,11 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             )}
           </div>
           {members.rankAdministrators === EntityMembersRank.NONE ? (
-            <T>not selectable</T>
+            <T className="tt-se">not selectable</T>
           ) : members.rankAdministrators === EntityMembersRank.CLOSE ? (
-            <T>{`only the following users will be ${administratorsLabel}`}</T>
+            <><T className="tt-se">{`only the following users will be ${administratorsLabel}`}</T>:</>
           ) : (
-            <T>{`all users will be ${administratorsLabel}`}</T>
+            <T className="tt-se">{`all users will be ${administratorsLabel}`}</T>
           )}
           {members.rankAdministrators === EntityMembersRank.CLOSE && (
             administrators && setMembers ? (
@@ -268,11 +268,11 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             )}
           </div>
           {members.rankManagers === EntityMembersRank.NONE ? (
-            <T>not selectable</T>
+            <T className="tt-se">not selectable</T>
           ) : members.rankManagers === EntityMembersRank.CLOSE ? (
-            <T>{`only the following users will be ${managersLabel}`}</T>
+            <><T className="tt-se">{`only the following users will be ${managersLabel}`}</T>:</>
           ) : (
-            <T>{`all users will be ${managersLabel}`}</T>
+            <T className="tt-se">{`all users will be ${managersLabel}`}</T>
           )}
           {members.rankManagers === EntityMembersRank.CLOSE && (
             managers && setMembers ? (
@@ -330,11 +330,11 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             )}
           </div>
           {members.rankParticipants === EntityMembersRank.NONE ? (
-            <T>not selectable</T>
+            <T className="tt-se">not selectable</T>
           ) : members.rankParticipants === EntityMembersRank.CLOSE ? (
-            <T>{`only the following users will be ${participantsLabel}`}</T>
+            <><T className="tt-se">{`only the following users will be ${participantsLabel}`}</T>:</>
           ) : (
-            <T>{`all users will be ${participantsLabel}`}</T>
+            <T className="tt-se">{`all users will be ${participantsLabel}`}</T>
           )}
           {members.rankParticipants === EntityMembersRank.CLOSE && (
             participants && setMembers ? (
@@ -392,11 +392,11 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             )}
           </div>
           {members.rankGuests === EntityMembersRank.NONE ? (
-            <T>not selectable</T>
+            <T className="tt-se">not selectable</T>
           ) : members.rankGuests === EntityMembersRank.CLOSE ? (
-            <T>{`only the following users will be ${guestsLabel}`}</T>
+            <><T className="tt-se">{`only the following users will be ${guestsLabel}`}</T>:</>
           ) : (
-            <T>{`all users will be ${guestsLabel}`}</T>
+            <T className="tt-se">{`all users will be ${guestsLabel}`}</T>
           )}
           {members.rankGuests === EntityMembersRank.CLOSE && (
             guests && setMembers ? (
@@ -454,11 +454,11 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             )}
           </div>
           {members.rankSpectators === EntityMembersRank.NONE ? (
-            <T>not selectable</T>
+            <T className="tt-se">not selectable</T>
           ) : members.rankSpectators === EntityMembersRank.CLOSE ? (
-            <T>{`only the following users will be ${spectatorsLabel}`}</T>
+            <><T className="tt-se">{`only the following users will be ${spectatorsLabel}`}</T>:</>
           ) : (
-            <T>{`all users will be ${spectatorsLabel}`}</T>
+            <T className="tt-se">{`all users will be ${spectatorsLabel}`}</T>
           )}
           {members.rankGuests === EntityMembersRank.CLOSE && (
             spectators && setMembers ? (
