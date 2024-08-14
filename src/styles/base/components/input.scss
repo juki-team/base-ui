@@ -786,8 +786,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   height: 58px;
 }
 
-.jk-select-layout {
-  &.jk-button.primary, &.jk-button.secondary {
+.jk-select-layout.jk-button {
+  .jk-select {
+    outline: none;
+  }
+  
+  &.primary, &.secondary {
     font-weight: var(--weight-bold);
     
     &.huge {

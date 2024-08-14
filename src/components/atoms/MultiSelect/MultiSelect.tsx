@@ -119,7 +119,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
                         option.value)));
                       event.stopPropagation();
                     }}
-                    className="cr-g3"
+                    className="cr-hd"
                   />
                 )}
               </div>

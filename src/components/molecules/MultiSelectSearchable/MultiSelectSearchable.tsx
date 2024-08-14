@@ -158,7 +158,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
                         option.value)));
                       event.stopPropagation();
                     }}
-                    className="cr-g3"
+                    className="cr-hd"
                   />
                 )}
               </div>
