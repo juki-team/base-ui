@@ -4,6 +4,7 @@ import {
   Judge,
   JudgeLanguageType,
   Language,
+  ProblemVerdict,
   Theme,
   UserSettingsType,
 } from '@juki-team/commons';
@@ -356,6 +357,14 @@ export class Settings {
         rejudge: valid<{ params: { id: string } }, HTTPMethod.POST>(({ params: { id } }) => ({
           url: injectBaseUrl('submission', `/${id}/rejudge`),
           method: HTTPMethod.POST,
+        })),
+        judge: valid<{ params: { id: string }, body: { verdict: ProblemVerdict } }, HTTPMethod.POST>(({
+                                                                                                        params: { id },
+                                                                                                        body,
+                                                                                                      }) => ({
+          url: injectBaseUrl('submission', `/${id}/judge`),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
         })),
       },
       image: {
