@@ -469,19 +469,41 @@ export class Settings {
         })),
         patch: valid<{
           params: { key: string },
-          body: { languages?: JudgeLanguageType[], problemTags?: string[], name?: string }
-        }, HTTPMethod.PATCH>(({ params: { key }, body: { languages, name, problemTags } }) => {
+          body: {
+            languages?: JudgeLanguageType[],
+            problemTags?: string[],
+            name?: string,
+            isExternal?: boolean,
+            url?: string,
+            logo?: string,
+            logoSize: [ number, number ]
+          }
+        }, HTTPMethod.PATCH>(({
+                                params: { key },
+                                body: { languages, name, problemTags, isExternal, url, logo, logoSize },
+                              }) => {
           const body: any = {};
           if (languages) {
             body.languages = languages;
           }
-          if (name) {
+          if (typeof name === 'string') {
             body.name = name;
           }
           if (problemTags) {
             body.problemTags = problemTags;
           }
-          
+          if (typeof isExternal === 'boolean') {
+            body.isExternal = isExternal;
+          }
+          if (typeof url === 'string') {
+            body.url = url;
+          }
+          if (typeof logo === 'string') {
+            body.logo = logo;
+          }
+          if (logoSize) {
+            body.logoSize = logoSize;
+          }
           return {
             url: injectBaseUrl('judge', `/${key}`),
             method: HTTPMethod.PATCH,
