@@ -476,7 +476,7 @@ export class Settings {
             isExternal?: boolean,
             url?: string,
             logo?: string,
-            logoSize: [ number, number ]
+            logoSize?: [ number, number ]
           }
         }, HTTPMethod.PATCH>(({
                                 params: { key },
