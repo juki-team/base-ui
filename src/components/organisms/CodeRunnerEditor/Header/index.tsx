@@ -85,6 +85,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       );
       
       if (request?.success && request?.content?.runId) {
+        socket.subscribe(SocketEvent.RUN, request?.content?.runId);
         setRunId(request.content.runId);
         setStatus(Status.SUCCESS);
       } else {
