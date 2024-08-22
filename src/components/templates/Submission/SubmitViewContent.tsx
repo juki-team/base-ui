@@ -58,17 +58,18 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
     && verdict !== ProblemVerdict.PENDING
     && compilationResult?.success === false;
   
+  console.log({ verdictByGroups, testCasesByGroup });
   return (
     <div>
       <Collapse
         header={({ isOpen, toggle }) => (
           <div className="jk-row-col gap">
             <div className="jk-col">
-              <div>{PROGRAMMING_LANGUAGE[language]?.label || language}</div>
+              <div style={{ height: 48 }} className="jk-row">{PROGRAMMING_LANGUAGE[language]?.label || language}</div>
               <T className="fw-bd tt-se">language</T>
             </div>
             <div className="jk-col">
-              <div className="jk-row gap center">
+              <div className="jk-row gap center" style={{ height: 48 }}>
                 <SubmissionListenerVerdict verdict={verdict} points={points} status={status} submitId={submitId} />
                 {compilationFailed && <UpIcon onClick={toggle} rotate={isOpen ? 0 : 180} className="link" />}
               </div>
@@ -76,23 +77,27 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
             </div>
             {hasTimeHasMemory(verdict) && (
               <div className="jk-col">
-                <div><SubmissionTime timeUsed={timeUsed} verdict={verdict} /></div>
+                <div className="jk-row" style={{ height: 48 }}><SubmissionTime timeUsed={timeUsed} verdict={verdict} />
+                </div>
                 <T className="fw-bd tt-se">time used</T>
               </div>
             )}
             {hasTimeHasMemory(verdict) && (
               <div className="jk-col">
-                <div><SubmissionMemory memoryUsed={memoryUsed} verdict={verdict} /></div>
+                <div className="jk-row" style={{ height: 48 }}><SubmissionMemory
+                  memoryUsed={memoryUsed}
+                  verdict={verdict}
+                /></div>
                 <T className="fw-bd tt-se">memory used</T>
               </div>
             )}
             <div className="jk-col">
-              <DateLiteral date={date} />
+              <DateLiteral date={date} twoLines style={{ height: 48 }} />
               <T className="fw-bd tt-se">date</T>
             </div>
             {isProblemEditor && (
               <div className="jk-col">
-                <div className="jk-row">
+                <div className="jk-row" style={{ height: 48 }}>
                   ~&nbsp;
                   {judgmentTime > 0
                     ? <Timer currentTimestamp={judgmentTime} interval={0} literal laps={1} />
@@ -118,15 +123,15 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
         || (testCasesByGroup && !!Object.keys(testCasesByGroup).length)
       ) && (
         <div>
-          <h3>
-            <T>
+          <div className="tx-l fw-bd cr-pd">
+            <T className="tt-se">
               {problemScoringMode === ProblemScoringMode.SUBTASK
                 ? 'information by subtasks'
                 : problemScoringMode === ProblemScoringMode.PARTIAL
                   ? 'information by groups'
                   : 'sample and test case information'}
             </T>
-          </h3>
+          </div>
           <div className="jk-col gap">
             <div className="jk-row extend block gap jk-table-inline-header">
               <div className="jk-row"><T>{problemScoringMode === ProblemScoringMode.SUBTASK ? 'groups' : ''}</T></div>
@@ -166,7 +171,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
                   isProblemEditor={isProblemEditor}
                   problemScoringMode={problemScoringMode}
                   memoryUsed={0}
-                  verdict={ProblemVerdict.PENDING}
+                  verdict={verdict}
                   timeUsed={0}
                   points={problemScoringMode === ProblemScoringMode.PARTIAL
                     ? +result.reduce((sum, testCase) => sum + testCase.points, 0).toFixed(3)
@@ -181,7 +186,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
       )}
       {!!canViewSourceCode && (
         <div className="jk-col gap stretch">
-          <h3><T>source code</T></h3>
+          <div className="tx-l fw-bd cr-pd"><T className="tt-se">source code</T></div>
           <div className="submission-info-code-source">
             <CodeViewer code={sourceCode} language={language} lineNumbers withCopyButton withLanguageLabel />
           </div>

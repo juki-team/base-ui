@@ -1,5 +1,5 @@
 import { SubmissionDataResponseDTO } from '@juki-team/commons';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useJukiTask } from '../../../contexts/JukiTasksProvider/useJukiTask';
 import { SubmissionVerdict, SubmissionVerdictProps } from './SubmissionVerdict';
 
@@ -14,7 +14,19 @@ export const SubmissionListenerVerdict = ({
                                             submitId,
                                             processedCases,
                                           }: ListenerVerdictProps) => {
-  const { submissions } = useJukiTask();
+  
+  const { submissions, listenSubmission, unListenSubmission } = useJukiTask();
+  
+  useEffect(() => {
+    listenSubmission({
+      id: submitId,
+      problem: { name: '' },
+      contest: { name: '', problemIndex: '' },
+    }, false);
+    return () => {
+      unListenSubmission(submitId);
+    };
+  }, [ listenSubmission, submitId, unListenSubmission ]);
   
   const submissionData = submissions[submitId];
   

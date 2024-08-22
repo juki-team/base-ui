@@ -12,6 +12,7 @@ export const DateLiteral = (props: DateLiteralProps) => {
     show = 'year-month-day-hours-minutes-seconds',
     twoLines,
     withDayName,
+    style,
   } = props;
   
   const {
@@ -30,6 +31,7 @@ export const DateLiteral = (props: DateLiteralProps) => {
         'jk-row gap nowrap center': !twoLines,
         'jk-col nowrap center': !!twoLines,
       }, className)}
+      style={style}
     >
       <div>
         {withDayName && <><T>{DAY_NAMES[date.getDay()]}</T>,&nbsp;</>}

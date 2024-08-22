@@ -31,6 +31,8 @@ Regular.args = {
       key: Judge.JUKI_JUDGE,
       name: 'juki judge',
       isCustom: false,
+      isExternal: false,
+      isMain: false,
     },
     author: '',
     key: '1000',
@@ -118,7 +120,7 @@ Regular.args = {
       tried: true,
     },
     owner: {
-      companyKey: '',
+      company: { key: '' },
       nickname: 'OscarGauss',
       imageUrl: '',
     },

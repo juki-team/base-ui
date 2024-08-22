@@ -6,7 +6,7 @@ import { DataViewerHeadersType, TextField } from '../DataViewer';
 import { UserNicknameLink } from '../UserChip';
 
 export const SubmissionNicknameField: DataViewerHeadersType<SubmissionSummaryListResponseDTO>['Field']
-  = ({ record: { user: { imageUrl, nickname, companyKey } }, isCard }) => {
+  = ({ record: { user: { imageUrl, nickname, company: { key: companyKey } } }, isCard }) => {
   
   const { components: { Image } } = useJukiUI();
   

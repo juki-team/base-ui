@@ -3,7 +3,6 @@ import {
   ProfileSetting,
   PROGRAMMING_LANGUAGE,
   SocketEvent,
-  SocketEventRunResponseDTO,
   SubmissionRunStatus,
 } from '@juki-team/commons';
 import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -32,7 +31,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     onChange: _onChange,
     centerButtons,
     rightButtons,
-    testCases,
+    testCases: _testCases,
     tabSize = 4,
     fontSize = 14,
     timeLimit = 1000,
@@ -54,19 +53,70 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const [ expanded, setExpanded ] = useState(false);
   const { viewPortSize } = useJukiUI();
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  const [ runStatus, setRunStatus ] = useState<{
-    [key: string]: { [key: number]: SocketEventRunResponseDTO }
-  }>({});
+  const testCasesRef = useRef(_testCases);
+  testCasesRef.current = _testCases;
   useEffect(() => {
     socket.onMessage(SocketEvent.RUN, runId, (data) => {
       if (data?.success && data?.content?.runId && data?.content?.messageTimestamp) {
-        setRunStatus(prevState => ({
-          ...prevState,
-          [data?.content?.runId]: {
-            ...prevState[data?.content?.runId],
-            [data?.content?.messageTimestamp]: data.content,
-          },
-        }));
+        const lastRunStatus = data.content;
+        const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
+          const newTestCases: CodeEditorTestCasesType = { ...testCasesRef.current };
+          for (const testKey in newTestCases) {
+            newTestCases[testKey] = {
+              ...newTestCases[testKey],
+              status,
+              err,
+              out,
+              log,
+            };
+          }
+          onChangeRef.current?.({ testCases: newTestCases });
+        };
+        const status = lastRunStatus.status || SubmissionRunStatus.NONE;
+        const inputKey = lastRunStatus?.log?.inputKey;
+        switch (status) {
+          case SubmissionRunStatus.FAILED:
+          case SubmissionRunStatus.COMPILING:
+          // case SubmissionRunStatus.RUNNING_TEST_CASES:
+          case SubmissionRunStatus.COMPILED:
+          case SubmissionRunStatus.COMPILATION_ERROR:
+            fillTestCases(
+              status,
+              lastRunStatus.log?.err || '',
+              lastRunStatus.log?.out || '',
+              lastRunStatus.log?.log || '',
+            );
+            break;
+          case SubmissionRunStatus.RUNNING_TEST_CASE:
+          case SubmissionRunStatus.EXECUTED_TEST_CASE:
+          case SubmissionRunStatus.FAILED_TEST_CASE:
+            const newTestCases: CodeEditorTestCasesType = { ...testCasesRef.current };
+            if (inputKey && newTestCases[inputKey]) {
+              newTestCases[inputKey] = {
+                ...newTestCases[inputKey],
+                status,
+                out: lastRunStatus.log?.out || '',
+                log: lastRunStatus.log?.log || '',
+                err: lastRunStatus.log?.err || '',
+              };
+            }
+            onChangeRef.current?.({ testCases: newTestCases });
+            break;
+          default:
+        }
+        switch (status) {
+          case SubmissionRunStatus.RECEIVED:
+            setIsRunning(true);
+            onChangeRef.current?.({ isRunning: true });
+            break;
+          case SubmissionRunStatus.FAILED:
+          case SubmissionRunStatus.COMPILATION_ERROR:
+          case SubmissionRunStatus.COMPLETED:
+            setIsRunning(false);
+            onChangeRef.current?.({ isRunning: false });
+            break;
+          default:
+        }
       }
     });
   }, [ socket, runId ]);
@@ -74,92 +124,9 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     socket.subscribe(SocketEvent.RUN, runId);
     return () => {
       socket.unsubscribe(SocketEvent.RUN, runId);
-      setRunStatus(prevState => ({ ...prevState, [runId]: {} }));
     };
   }, [ runId, socket ]);
-  const currentRunStatus = runStatus[runId];
   
-  const lastRunStatus: SocketEventRunResponseDTO = useMemo(() => {
-    return Object.values(currentRunStatus || {}).sort((a, b) => a.messageTimestamp - b.messageTimestamp).at(-1) || {
-      status: SubmissionRunStatus.NONE,
-      runId: '',
-      messageTimestamp: 0,
-      log: { log: '', err: '', out: '', inputKey: '' },
-    };
-  }, [ currentRunStatus ]);
-  
-  useEffect(() => {
-    const fillTestCases = (newTestCases: CodeEditorTestCasesType, status: SubmissionRunStatus, err: string, out: string, log: string) => {
-      for (const testKey in newTestCases) {
-        newTestCases[testKey] = {
-          ...newTestCases[testKey],
-          status,
-          err,
-          out,
-          log,
-        };
-      }
-      if (JSON.stringify(testCases) !== JSON.stringify(newTestCases)) {
-        onChangeRef.current?.({ testCases: newTestCases });
-      }
-    };
-    const status = lastRunStatus.status || SubmissionRunStatus.NONE;
-    const inputKey = lastRunStatus?.log?.inputKey;
-    const newTestCases: CodeEditorTestCasesType = { ...testCases };
-    switch (status) {
-      case SubmissionRunStatus.FAILED:
-        fillTestCases(
-          newTestCases,
-          status,
-          lastRunStatus.log?.err || '',
-          lastRunStatus.log?.out || '',
-          lastRunStatus.log?.log || '',
-        );
-        break;
-      case SubmissionRunStatus.COMPILING:
-      // case SubmissionRunStatus.RUNNING_TEST_CASES:
-      case SubmissionRunStatus.COMPILED:
-      case SubmissionRunStatus.COMPILATION_ERROR:
-        fillTestCases(
-          newTestCases,
-          status,
-          lastRunStatus.log?.err || '',
-          lastRunStatus.log?.out || '',
-          lastRunStatus.log?.log || '',
-        );
-        break;
-      case SubmissionRunStatus.RUNNING_TEST_CASE:
-      case SubmissionRunStatus.EXECUTED_TEST_CASE:
-      case SubmissionRunStatus.FAILED_TEST_CASE:
-        if (inputKey && newTestCases[inputKey]) {
-          newTestCases[inputKey] = {
-            ...newTestCases[inputKey],
-            status,
-            out: lastRunStatus.log?.out || '',
-            log: lastRunStatus.log?.log || '',
-            err: lastRunStatus.log?.err || '',
-          };
-          if (JSON.stringify(testCases) !== JSON.stringify(newTestCases)) {
-            onChangeRef.current?.({ testCases: newTestCases });
-          }
-        }
-        break;
-      default:
-    }
-    switch (status) {
-      case SubmissionRunStatus.RECEIVED:
-        setIsRunning(true);
-        onChangeRef.current?.({ isRunning: true });
-        break;
-      case SubmissionRunStatus.FAILED:
-      case SubmissionRunStatus.COMPILATION_ERROR:
-      case SubmissionRunStatus.COMPLETED:
-        setIsRunning(false);
-        onChangeRef.current?.({ isRunning: false });
-        break;
-      default:
-    }
-  }, [ lastRunStatus, testCases ]);
   const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
     onChangeRef.current?.({ ...props, isRunning: false });
     setIsRunning(false);
@@ -181,7 +148,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     </div>
   ), [ preferredTheme, codeEditorOnChange, language, readOnly, sourceCode, tabSize, fontSize ]);
   
-  const withTestCases = !!testCases;
+  const withTestCases = !!_testCases;
   const twoRows = headerWidthContainer < (withoutRunCodeButton ? 340 : 420);
   
   const closableSecondPane = useMemo(() => (
@@ -198,7 +165,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   
   const secondChild = useMemo(() => (
     <TestCases
-      testCases={testCases}
+      testCases={_testCases}
       onChange={onChangeRef.current}
       timeLimit={timeLimit}
       memoryLimit={memoryLimit}
@@ -207,7 +174,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
       enableAddCustomSampleCases={readOnly ? false : !!enableAddCustomSampleCases}
       isRunning={isRunning}
     />
-  ), [ testCases, timeLimit, memoryLimit, direction, readOnly, enableAddSampleCases, enableAddCustomSampleCases, isRunning ]);
+  ), [ _testCases, timeLimit, memoryLimit, direction, readOnly, enableAddSampleCases, enableAddCustomSampleCases, isRunning ]);
   
   const body = (
     <div
@@ -232,14 +199,14 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         language={language}
         languages={languages}
         sourceCode={sourceCode}
-        testCases={testCases || {}}
+        testCases={_testCases || {}}
         centerOptions={({ widthContainer, twoRows, withLabels }) => centerButtons?.({
           isRunning,
           readOnly,
           sourceCode,
           languages,
           language,
-          testCases: testCases || {},
+          testCases: _testCases || {},
           widthContainer,
           twoRows,
           withLabels,
@@ -250,7 +217,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           sourceCode,
           languages,
           language,
-          testCases: testCases || {},
+          testCases: _testCases || {},
           twoRows,
           withLabels,
         })}
@@ -270,7 +237,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         <SplitPane
           direction={direction}
           minSize={80}
-          onlyFirstPane={!testCases}
+          onlyFirstPane={!_testCases}
           closableSecondPane={closableSecondPane}
           closableFirstPane={closableFirstPane}
           toggleable

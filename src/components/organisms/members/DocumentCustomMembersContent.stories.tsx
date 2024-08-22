@@ -20,7 +20,7 @@ const Cmp = () => {
       <DocumentCustomMembersContent
         members={members}
         setMembers={setMembers}
-        documentOwner={{ nickname: 'OscarGauss', imageUrl: '', companyKey: 'juki-app' }}
+        documentOwner={{ nickname: 'OscarGauss', imageUrl: '', company: { key: 'juki-app' } }}
         administrators={{}}
         managers={{}}
         participants={{ closeable: true }}

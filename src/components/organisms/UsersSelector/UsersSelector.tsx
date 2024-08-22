@@ -1,4 +1,4 @@
-import { ContentsResponseType, UserSummaryResponseDTO } from '@juki-team/commons';
+import { ContentsResponseType, UserSummaryListResponseDTO } from '@juki-team/commons';
 import React, { useEffect, useMemo, useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { useFetcher } from '../../../hooks/useFetcher';
@@ -16,7 +16,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
     companyKey,
   } = props;
   
-  const { isLoading, data, mutate } = useFetcher<ContentsResponseType<UserSummaryResponseDTO>>(
+  const { isLoading, data, mutate } = useFetcher<ContentsResponseType<UserSummaryListResponseDTO>>(
     jukiSettings.API.user.getSummaryList({ params: { companyKey } }).url,
   );
   const [ show, setShow ] = useState(false);
@@ -24,7 +24,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
   const [ textNicknames, setTextNicknames ] = useState<string[]>([]);
   const [ error, setError ] = useState('');
   const users = useMemo(() => {
-    const users: { [key: string]: UserSummaryResponseDTO } = {};
+    const users: { [key: string]: UserSummaryListResponseDTO } = {};
     const dataUsers = (data?.success ? data?.contents : []);
     dataUsers.forEach(user => {
       users[user.nickname] = user;
@@ -55,7 +55,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
   }
   
   const onChangeSelectedUsers = (nicknames: string[]) => {
-    const selectedUsers: UserSummaryResponseDTO[] = nicknames.map(nickname => users[nickname]);
+    const selectedUsers: UserSummaryListResponseDTO[] = nicknames.map(nickname => users[nickname]);
     if (maxUsersSelection > 0) {
       _onChangeSelectedUsers(selectedUsers.slice(-maxUsersSelection));
     } else {

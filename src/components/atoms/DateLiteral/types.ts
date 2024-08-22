@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import { DateDisplayType } from '../../../types';
 
 export interface DateLiteralProps {
@@ -6,4 +7,5 @@ export interface DateLiteralProps {
   show?: DateDisplayType,
   twoLines?: boolean,
   withDayName?: boolean,
+  style?: CSSProperties,
 }

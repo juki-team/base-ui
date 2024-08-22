@@ -5,7 +5,7 @@ import { DataViewerHeadersType, TextField } from '../DataViewer';
 import { UserChip } from '../UserChip';
 
 export const ProblemOwnerField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field']
-  = ({ record: { owner: { imageUrl, nickname, companyKey } } }) => (
+  = ({ record: { owner: { imageUrl, nickname, company: { key: companyKey } } } }) => (
   <TextField
     className="jk-row"
     text={<UserChip nickname={nickname} imageUrl={imageUrl} companyKey={companyKey} />}
@@ -14,7 +14,7 @@ export const ProblemOwnerField: DataViewerHeadersType<ProblemSummaryListResponse
 );
 
 export const ProblemCrawlerField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field']
-  = ({ record: { owner: { companyKey, imageUrl, nickname } } }) => (
+  = ({ record: { owner: { company: { key: companyKey }, imageUrl, nickname } } }) => (
   <TextField
     className="jk-row"
     text={<UserChip nickname={nickname} imageUrl={imageUrl} companyKey={companyKey} />}

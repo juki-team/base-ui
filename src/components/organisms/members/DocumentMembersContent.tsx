@@ -72,7 +72,7 @@ export const DocumentMembersContent = ({ members, setMembers, documentOwner }: D
             {[
               ...Object.values(members.managers).map(mem => ({ ...mem, role: FileMemberRole.EDITOR })),
               ...Object.values(members.spectators).map(mem => ({ ...mem, role: FileMemberRole.VIEWER })),
-            ].map(({ nickname, imageUrl, companyKey, role }) => (
+            ].map(({ nickname, imageUrl, company, role }) => (
               <div
                 key={nickname}
                 className="jk-row gap space-between extend hover-highlight gap-full-borders jk-br-ie"
@@ -95,9 +95,9 @@ export const DocumentMembersContent = ({ members, setMembers, documentOwner }: D
                     const { [nickname]: _1, ...newManagers } = members.managers;
                     const { [nickname]: _2, ...newSpectators } = members.spectators;
                     if (value === FileMemberRole.EDITOR) {
-                      newManagers[nickname] = { nickname, imageUrl, companyKey, type: MemberType.USER };
+                      newManagers[nickname] = { nickname, imageUrl, company, type: MemberType.USER };
                     } else {
-                      newSpectators[nickname] = { nickname, imageUrl, companyKey, type: MemberType.USER };
+                      newSpectators[nickname] = { nickname, imageUrl, company, type: MemberType.USER };
                     }
                     setMembers(prevState => ({ ...prevState, managers: newManagers, spectators: newSpectators }));
                   } : undefined}
@@ -135,7 +135,7 @@ export const DocumentMembersContent = ({ members, setMembers, documentOwner }: D
                       newManagers[user.nickname] = {
                         nickname: user.nickname,
                         imageUrl: user.imageUrl,
-                        companyKey: user.companyKey,
+                        company: user.company,
                         type: MemberType.USER,
                       };
                       setMembers(prevState => ({ ...prevState, managers: newManagers }));
@@ -144,7 +144,7 @@ export const DocumentMembersContent = ({ members, setMembers, documentOwner }: D
                       newSpectators[user.nickname] = {
                         nickname: user.nickname,
                         imageUrl: user.imageUrl,
-                        companyKey: user.companyKey,
+                        company: user.company,
                         type: MemberType.USER,
                       };
                       setMembers(prevState => ({ ...prevState, spectators: newSpectators }));

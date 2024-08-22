@@ -132,7 +132,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             && (
               <>
                 &nbsp;
-                <ProblemVerdictTag verdict={verdict} />
+                <ProblemVerdictTag verdict={verdict} small />
               </>
             )}
         </>,
