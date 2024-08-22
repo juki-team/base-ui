@@ -47,7 +47,7 @@ const DiffViewButton = ({ diffInput, croppedDiff }: { diffInput: string, cropped
   
   return (
     <>
-      <Tooltip content={<T>view diff</T>}>
+      <Tooltip content={<T>view diff</T>} withPortal>
         <Button icon={<VisibilityIcon />} size="tiny" type="light" onClick={() => setIsOpen(true)} />
       </Tooltip>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} closeWhenKeyEscape closeWhenClickOutside closeIcon>
@@ -109,6 +109,7 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
               </div>
             }
             placement="top"
+            withPortal
           >
             <div className="jk-row" style={{ flex: 0.4 }}>
               {index + 1}
@@ -119,7 +120,7 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
             {index + 1}
           </div>
         )}
-        <div className="jk-row">
+        <div className="jk-row gap center">
           <SubmissionVerdict verdict={testCase.verdict} submitId={submitId} />
           {testCase.diff && (
             <DiffViewButton
