@@ -1,5 +1,4 @@
 import {
-  EXTERNAL_JUDGE_KEYS,
   Language,
   PROBLEM_MODE,
   PROBLEM_TYPE,
@@ -254,7 +253,7 @@ export const JukiProblemInfo = (props: PropsWithChildren<ProblemInfoProps>) => {
 export const ProblemInfo = ({ problem }: { problem: ProblemDataResponseDTO }) => {
   return (
     <Popover
-      content={!EXTERNAL_JUDGE_KEYS.includes(problem.judge?.key)
+      content={!problem.judge?.isExternal
         ? (
           <div className="jk-pg-sm">
             <JukiProblemInfo
