@@ -162,8 +162,10 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   const [ outputTab, setOutputTab ] = useState('output');
   const status = testCases[testCaseKey]?.status;
   useEffect(() => {
-    setOutputTab(status === SubmissionRunStatus.FAILED
-    || status === SubmissionRunStatus.COMPILATION_ERROR ? 'error' : 'output');
+    setOutputTab(
+      [ SubmissionRunStatus.FAILED, SubmissionRunStatus.COMPILATION_ERROR, SubmissionRunStatus.FAILED_TEST_CASE ].includes(status)
+        ? 'error' : 'output',
+    );
   }, [ status ]);
   
   const loaderAndInfo = (
@@ -301,7 +303,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             onChange={value => setOutputTab(value)}
             className="border-bottom-highlight-light"
           />
-          <div className="flex-1" style={{ overflow: 'auto' }}>
+          <div className="flex-1" style={{ overflow: 'auto', width: '100%' }}>
             {renderReactNodeOrFunctionP1(outputTabs[outputTab]?.body, { selectedTabKey: outputTab })}
           </div>
         </div>

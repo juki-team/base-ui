@@ -2861,10 +2861,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@juki-team/commons@^0.0.618":
-  version "0.0.618"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.618/24516946fa982945e74a6ae34b81f53148cd93fc#24516946fa982945e74a6ae34b81f53148cd93fc"
-  integrity sha512-it9OrMF83BWEjdqTLQRWSP0L/o54EGT+98oEDz3Dec58o8a8W38lyDLZmtUF2tbLeuZlwvbg3FEamTWVDOJfbw==
+"@juki-team/commons@^0.0.641":
+  version "0.0.641"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.641/8f4625092e52a6013fecd0e2b42bda4bcc9d0078#8f4625092e52a6013fecd0e2b42bda4bcc9d0078"
+  integrity sha512-S9x8ruBVoxXOyZDfFW954QD34GsMaKtcPtyz8ap+M5gDvaGn0C10mQKCYnwVdmsBYz1LzQcKSjoWURG0iLH7nw==
   dependencies:
     uuid "^10.0.0"
 
@@ -15852,6 +15852,11 @@ ws@^8.13.0, ws@^8.2.3:
   version "8.16.0"
   resolved "https://registry.yarnpkg.com/ws/-/ws-8.16.0.tgz#d1cd774f36fbc07165066a60e40323eab6446fd4"
   integrity sha512-HS0c//TP7Ina87TfiPUz1rQzMhHrl/SG2guqRcTOIUYD2q8uhUdNHZYJUaQ8aTGPzCh+c6oawMKW35nFl1dxyQ==
+
+ws@^8.18.0:
+  version "8.18.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.18.0.tgz#0d7505a6eafe2b0e712d232b42279f53bc289bbc"
+  integrity sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==
 
 ws@~8.11.0:
   version "8.11.0"

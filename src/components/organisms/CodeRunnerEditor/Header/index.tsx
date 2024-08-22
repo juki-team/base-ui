@@ -2,6 +2,7 @@ import {
   CodeEditorTestCasesType,
   consoleWarn,
   ContentResponseType,
+  SocketEvent,
   Status,
   SubmissionRunStatus,
 } from '@juki-team/commons';
@@ -10,7 +11,7 @@ import { useResizeDetector } from 'react-resize-detector';
 import { jukiSettings } from '../../../../config';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
-import { useJukiNotification } from '../../../../hooks';
+import { useJukiNotification, useJukiUser } from '../../../../hooks';
 import { Button, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, Select, SettingsIcon, T } from '../../../atoms';
 import { ButtonLoader, ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../molecules';
 import { HeaderProps } from '../types';
@@ -26,6 +27,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     setShowSettings,
     centerOptions,
     rightOptions,
+    runId,
     setRunId,
     timeLimit,
     memoryLimit,
@@ -42,7 +44,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const { addErrorNotification } = useJukiNotification();
   const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  
+  const { socket } = useJukiUser();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   
   useEffect(() => {
@@ -55,16 +57,20 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const minWidth = !withoutRunCodeButton ? 620 : 570;
   
   const handleRunCode: ButtonLoaderOnClickType = async (setStatus) => {
+    const clean = (status: SubmissionRunStatus) => {
+      const newTestCases: CodeEditorTestCasesType = {};
+      for (const testKey in testCases) {
+        newTestCases[testKey] = { ...testCases[testKey] };
+        newTestCases[testKey].out = '';
+        newTestCases[testKey].err = '';
+        newTestCases[testKey].status = status;
+      }
+      onChange?.({ testCases: newTestCases });
+    };
     setStatus(Status.LOADING);
-    const newTestCases: CodeEditorTestCasesType = {};
-    for (const testKey in testCases) {
-      newTestCases[testKey] = { ...testCases[testKey] };
-      newTestCases[testKey].out = '';
-      newTestCases[testKey].err = '';
-      newTestCases[testKey].status = SubmissionRunStatus.NONE;
-    }
-    onChange?.({ testCases: newTestCases });
+    clean(SubmissionRunStatus.RECEIVED);
     try {
+      socket.unsubscribe(SocketEvent.RUN, runId);
       const { url, ...options } = jukiSettings.API.code.run({
         body: {
           language: language as string,
@@ -84,11 +90,13 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       } else {
         addErrorNotification(request?.message);
         setRunId('');
+        clean(SubmissionRunStatus.NONE);
         consoleWarn('run code request failed', { request });
         setStatus(Status.ERROR);
       }
     } catch (error) {
       consoleWarn('error on run code', { error });
+      clean(SubmissionRunStatus.NONE);
       setStatus(Status.ERROR);
     }
   };
@@ -124,17 +132,19 @@ export const Header = <T, >(props: HeaderProps<T>) => {
           />
         )}
         {!withoutRunCodeButton && (
-          <ButtonLoader
-            size="tiny"
-            type="primary"
-            extend={twoRows}
-            icon={<PlayArrowIcon />}
-            onClick={handleRunCode}
-            setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-            disabled={!Object.keys(testCases).length}
-          >
-            {(twoRows || withLabels) && <T>run</T>}
-          </ButtonLoader>
+          <>
+            <ButtonLoader
+              size="tiny"
+              type="primary"
+              extend={twoRows}
+              icon={<PlayArrowIcon />}
+              onClick={handleRunCode}
+              setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
+              disabled={!Object.keys(testCases).length}
+            >
+              {(twoRows || withLabels) && <T>run</T>}
+            </ButtonLoader>
+          </>
         )}
       </div>
       <div className="center-options flex-1" style={{ width: widthCenterContainer }}>

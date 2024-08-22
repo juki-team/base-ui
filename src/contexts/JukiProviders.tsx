@@ -1,10 +1,13 @@
-import React, { PropsWithChildren } from 'react';
+import { Status } from '@juki-team/commons';
+import React, { CSSProperties, PropsWithChildren, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { ErrorIcon, T, Tooltip } from '../components/atoms';
+import { ButtonLoader } from '../components/molecules';
 import { SubmissionModal } from '../components/templates/Submission/Submission';
 import { UserPreviewModal } from '../components/templates/UserPreviewModal/UserPreviewModal';
 import { jukiSettings } from '../config';
-import { useJukiRouter } from '../hooks';
+import { useJukiRouter, useJukiUser } from '../hooks';
 import { QueryParamKey } from '../types';
 import { JukiLastPathProvider } from './JukiLastPathProvider';
 import { JukiPageProvider } from './JukiPageProvider';
@@ -20,6 +23,10 @@ const CommonModals = ({ children }: PropsWithChildren<{}>) => {
   const { searchParams, deleteSearchParams } = useJukiRouter();
   const userPreviewQuery = searchParams.getAll(QueryParamKey.USER_PREVIEW);
   const [ userPreviewNickname, userPreviewCompanyKey ] = Array.isArray(userPreviewQuery) ? userPreviewQuery as unknown as [ string, string ] : [ userPreviewQuery as string ];
+  const { socket } = useJukiUser();
+  const [ _, setTimestamp ] = useState(0);
+  
+  const readyState = socket.getReadyState();
   
   return (
     <>
@@ -34,6 +41,28 @@ const CommonModals = ({ children }: PropsWithChildren<{}>) => {
         <SubmissionModal submitId={searchParams.get(QueryParamKey.SUBMISSION) as string} />
       )}
       {children}
+      {!(readyState === WebSocket.OPEN) && (
+        <Tooltip content={<T className="tt-se">offline, try to reconnect</T>}>
+          <div
+            style={{ position: 'fixed', left: 'var(--pad-md)', bottom: 'var(--pad-md', zIndex: 1000000 }}
+          >
+            <ButtonLoader
+              className="jk-row bc-er"
+              style={{ '--button-background-color': 'var(--t-color-error)' } as CSSProperties}
+              onClick={(setLoader) => {
+                setLoader(Status.LOADING);
+                socket.start();
+                setTimeout(() => {
+                  setTimestamp(Date.now());
+                  setLoader(Status.NONE);
+                }, 1000);
+              }}
+              icon={<ErrorIcon />}
+              size="small"
+            />
+          </div>
+        </Tooltip>
+      )}
     </>
   );
 };

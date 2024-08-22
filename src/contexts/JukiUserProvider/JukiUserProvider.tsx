@@ -120,22 +120,24 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const token = getLocalToken();
   jukiSettings.setSetting(serviceApiUrl, utilsUiUrl, tokenName);
   
-  const socket = useMemo(() => new SocketIo(socketServiceUrl), [ socketServiceUrl ]);
+  const socket = useMemo(() => {
+    return new SocketIo(socketServiceUrl);
+  }, [ socketServiceUrl ]);
   
   useEffect(() => {
     socket.start();
     return () => {
       socket.stop();
     };
-  }, [ socket, tokenName, serviceApiUrl, socketServiceUrl, utilsUiUrl, token ]);
+  }, [ socket, socketServiceUrl, token ]);
   
   const { user, company, setUser, isLoading, mutate } = useUser();
   
   useEffect(() => {
     if (isPageVisible) {
-      socket.joinSession().then(() => null);
+      socket.start();
     }
-  }, [ isPageVisible, socket, user.sessionId ]);
+  }, [ isPageVisible, socket ]);
   
   const device: DeviceType = useMemo(() => ({
     type: deviceType,

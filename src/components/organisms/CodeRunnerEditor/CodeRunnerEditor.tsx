@@ -10,7 +10,6 @@ import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { useJukiSocket } from '../../../hooks/useJukiSocket';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useJukiUser } from '../../../hooks/useJukiUser';
 import { Portal, T } from '../../atoms';
@@ -49,8 +48,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   onChangeRef.current = readOnly ? undefined : _onChange;
   const [ isRunning, setIsRunning ] = useState(false);
   const [ runId, setRunId ] = useState('');
-  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
-  const { pop } = useJukiSocket(SocketEvent.RUN);
+  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } }, socket } = useJukiUser();
   const [ showSettings, setShowSettings ] = useState(false);
   const [ direction, setDirection ] = useState<'row' | 'column'>('row');
   const [ expanded, setExpanded ] = useState(false);
@@ -60,15 +58,25 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     [key: string]: { [key: number]: SocketEventRunResponseDTO }
   }>({});
   useEffect(() => {
-    const data = pop();
-    if (data?.success) {
-      setRunStatus(prevState => ({
-        ...prevState,
-        [data?.content?.runId]: { ...prevState[data?.content?.runId], [data?.content?.messageTimestamp]: data.content },
-      }));
-    }
-  }, [ pop ]);
-  
+    socket.onMessage(SocketEvent.RUN, runId, (data) => {
+      if (data?.success && data?.content?.runId && data?.content?.messageTimestamp) {
+        setRunStatus(prevState => ({
+          ...prevState,
+          [data?.content?.runId]: {
+            ...prevState[data?.content?.runId],
+            [data?.content?.messageTimestamp]: data.content,
+          },
+        }));
+      }
+    });
+  }, [ socket, runId ]);
+  useEffect(() => {
+    socket.subscribe(SocketEvent.RUN, runId);
+    return () => {
+      socket.unsubscribe(SocketEvent.RUN, runId);
+      setRunStatus(prevState => ({ ...prevState, [runId]: {} }));
+    };
+  }, [ runId, socket ]);
   const currentRunStatus = runStatus[runId];
   
   const lastRunStatus: SocketEventRunResponseDTO = useMemo(() => {
@@ -109,7 +117,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         );
         break;
       case SubmissionRunStatus.COMPILING:
-      case SubmissionRunStatus.RUNNING_TEST_CASES:
+      // case SubmissionRunStatus.RUNNING_TEST_CASES:
       case SubmissionRunStatus.COMPILED:
       case SubmissionRunStatus.COMPILATION_ERROR:
         fillTestCases(
@@ -197,8 +205,9 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
       direction={direction}
       enableAddSampleCases={readOnly ? false : !!enableAddSampleCases}
       enableAddCustomSampleCases={readOnly ? false : !!enableAddCustomSampleCases}
+      isRunning={isRunning}
     />
-  ), [ testCases, timeLimit, memoryLimit, direction, readOnly, enableAddSampleCases, enableAddCustomSampleCases ]);
+  ), [ testCases, timeLimit, memoryLimit, direction, readOnly, enableAddSampleCases, enableAddCustomSampleCases, isRunning ]);
   
   const body = (
     <div
@@ -246,6 +255,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           withLabels,
         })}
         setShowSettings={setShowSettings}
+        runId={runId}
         setRunId={setRunId}
         onChange={onChangeRef.current}
         timeLimit={timeLimit}

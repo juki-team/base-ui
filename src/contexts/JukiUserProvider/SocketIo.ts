@@ -1,116 +1,104 @@
-import { consoleInfo, consoleWarn, ContentResponseType, SocketEvent } from '@juki-team/commons';
-import io, { Socket } from 'socket.io-client';
+import { consoleError, consoleInfo, consoleWarn, isStringJson, SocketEvent } from '@juki-team/commons';
 import { getLocalToken } from '../../helpers';
 
+const FORCE_CLOSED = 'FORCE_CLOSED';
+
 export class SocketIo {
-  private readonly _socket: Socket;
-  private _sessionId = '';
-  private readonly _socketServiceUrl: string;
+  private _socket: WebSocket | null = null;
+  private socketServiceUrl: string;
+  private callbacks: { [key: string]: { [key: string]: (data: any) => void } } = {};
   
   constructor(socketServiceUrl: string) {
-    this._socketServiceUrl = socketServiceUrl;
-    this._socket = io(this._socketServiceUrl, {
-      withCredentials: true,
-      transports: [ 'websocket' ],
-      autoConnect: false,
-      reconnection: true,
-    });
+    this.socketServiceUrl = socketServiceUrl;
   }
   
-  async onConnect() {
-    consoleInfo('Jk socket connected');
-    await this.joinSession();
-  }
-  
-  onDisconnect() {
-    consoleInfo('Jk socket disconnect');
-  }
-  
-  onConnectError(error: any) {
-    consoleWarn('connect_error', { error, req: error.req, code: error.code, message: error.message, context: error.context });
+  connect() {
+    const ws = new WebSocket(this.socketServiceUrl);
+    ws.onopen = function () {
+      ws.send('hello');
+      consoleInfo('Jk socket connected');
+    };
+    
+    ws.onmessage = (event) => {
+      if (isStringJson(event.data)) {
+        const data = JSON.parse(event.data);
+        if (data.event && data.id && data.payload) {
+          if (this.callbacks?.[data.event]?.[data.id]) {
+            this.callbacks?.[data.event]?.[data.id](data.payload);
+            return true;
+          } else {
+            consoleWarn('websocket message not subscribed', { event, data });
+          }
+          return false;
+        }
+        consoleWarn('websocket message not recognized', { event, data });
+        return false;
+      }
+      consoleError('data of websocket message not valid', event);
+      return false;
+    };
+    
+    ws.onclose = (e) => {
+      if (e.reason !== FORCE_CLOSED) {
+        consoleInfo('Socket is closed. Reconnect will be attempted in 1 second.', e.reason);
+        setTimeout(() => {
+          this._socket = this.connect();
+          if (typeof window !== 'undefined') {
+            // @ts-ignore
+            window.__JUKI_SOCKET_IO__ = this._socket;
+          }
+        }, 800);
+      }
+    };
+    
+    ws.onerror = (error) => {
+      consoleError('Socket encountered error, Closing socket', error);
+      ws.close();
+    };
+    return ws;
   }
   
   start() {
-    if (typeof window !== 'undefined') {
-      // @ts-ignore
-      window.__JUKI_SOCKET_IO__ = this._socket;
+    if (this._socket?.readyState === undefined || this._socket?.readyState === WebSocket.CLOSED || this._socket?.readyState === WebSocket.CLOSING) {
+      this._socket = this.connect();
     }
-    this._socket.connect();
-    
-    this._socket.on('connect', this.onConnect.bind(this));
-    
-    this._socket.on('disconnect', this.onDisconnect);
-    
-    this._socket.on('connect_error', this.onConnectError);
+  }
+  
+  getReadyState() {
+    return this._socket?.readyState;
   }
   
   stop() {
-    this._socket.off('connect', this.onConnect.bind(this));
-    
-    this._socket.off('disconnect', this.onDisconnect);
-    
-    this._socket.off('connect_error', this.onConnectError);
-    
-    this._socket.disconnect();
+    this._socket?.close(3001, FORCE_CLOSED);
   }
   
-  emitAsync(event: string, payload: any): Promise<ContentResponseType<string>> {
-    return new Promise((resolve, reject) => {
-      if (!this._socket) {
-        consoleWarn('the socket isn\'t ready, the event will be lost');
-      }
-      return this._socket?.emit(event, payload, (response: ContentResponseType<string>) => {
-        if (response.success) {
-          return resolve(response);
-        }
-        reject(response);
-      });
-    });
-  }
-  
-  async joinSession() {
-    this._sessionId = getLocalToken();
-    if (this._sessionId) {
-      try {
-        const response = await this.emitAsync(SocketEvent.SIGN_IN, this._sessionId);
-        consoleInfo('join session', response.message);
-      } catch (error) {
-        consoleWarn('error on joinSession', { error });
-      }
-    } else {
-      consoleWarn('join session failed, invalid cookie session');
-    }
-  }
-  
-  async leaveSession() {
-    if (this._sessionId) {
-      try {
-        const response = await this.emitAsync(SocketEvent.SIGN_OUT, this._sessionId);
-        consoleInfo('leave session', response.message);
-      } catch (error) {
-        consoleWarn('error on leaveSession', { error });
-      }
-    } else {
-      consoleWarn('leave session failed, invalid cookie session');
-    }
-    this._sessionId = '';
-  }
-  
-  on(message: string, listener: (result: any) => void) {
-    if (this._socket) {
-      this._socket.on(message, listener);
+  subscribe(event: SocketEvent, id: string) {
+    if (this._socket?.readyState === WebSocket.OPEN) {
+      this._socket.send(JSON.stringify({ action: 'subscribe', event, id, sessionId: getLocalToken() }));
       return true;
     }
-    consoleWarn('the socket isn\'t ready, the listener will be added when socket is ready');
+    consoleWarn('the socket isn\'t ready');
     return false;
   }
   
-  off(message: string, listener: (result: any) => void) {
-    if (this._socket) {
-      this._socket.off(message, listener);
+  unsubscribe(event: SocketEvent, id: string) {
+    if (this._socket?.readyState === WebSocket.OPEN) {
+      this._socket.send(JSON.stringify({ action: 'unsubscribe', event, id, sessionId: getLocalToken() }));
       return true;
     }
-    consoleWarn('the socket isn\'t ready, the listener will be added when socket is ready');
+    consoleWarn('the socket isn\'t ready');
+    return false;
+  }
+  
+  onMessage(event: SocketEvent, id: string, callback: (data: any) => void) {
+    if (this._socket) {
+      if (!this.callbacks?.[event]) {
+        this.callbacks[event] = {};
+      }
+      this.callbacks[event][id] = callback;
+      return true;
+    }
+    consoleWarn('the socket isn\'t ready');
     return false;
   }
 }

@@ -62,6 +62,7 @@ export interface TestCasesProps<T> {
   direction: 'row' | 'column',
   enableAddSampleCases: boolean,
   enableAddCustomSampleCases: boolean,
+  isRunning: boolean,
 }
 
 export interface HeaderProps<T> {
@@ -71,6 +72,7 @@ export interface HeaderProps<T> {
   onChange?: CodeRunnerEditorOnChangeType<T>,
   testCases: CodeEditorTestCasesType,
   setShowSettings: Dispatch<SetStateAction<boolean>>,
+  runId: string,
   setRunId: Dispatch<SetStateAction<string>>,
   centerOptions: (props: { widthContainer: number, withLabels: boolean, twoRows: boolean }) => ReactNode,
   rightOptions: (props: { withLabels: boolean, twoRows: boolean }) => ReactNode,

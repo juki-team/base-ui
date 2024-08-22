@@ -3,7 +3,7 @@ import {
   EntityMembersResponseDTO,
   MemberType,
   UserBasicInfoResponseDTO,
-  UserSummaryResponseDTO,
+  UserSummaryListResponseDTO,
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
 import { classNames } from '../../../helpers';
@@ -21,7 +21,7 @@ const PrintUsers = ({ members }: { members?: EntityMembersResponseDTO['spectator
   
   return (
     <div className="jk-row left gap">
-      {users.map(({ nickname, imageUrl, companyKey }) => (
+      {users.map(({ nickname, imageUrl, company: { key: companyKey } }) => (
         <UserChip imageUrl={imageUrl} nickname={nickname} key={nickname} companyKey={companyKey} />
       ))}
     </div>
@@ -216,13 +216,13 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             administrators && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.administrators ?? {})}
-                onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
+                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
                   const administrators: EntityMembersResponseDTO['administrators'] = {};
                   for (const user of selectedUsers) {
                     administrators[user.nickname] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      companyKey: user.companyKey,
+                      company: { key: user.company?.key },
                       type: MemberType.USER,
                     };
                   }
@@ -278,13 +278,13 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             managers && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.managers ?? {})}
-                onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
+                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
                   const managers: EntityMembersResponseDTO['managers'] = {};
                   for (const user of selectedUsers) {
                     managers[user.nickname] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      companyKey: user.companyKey,
+                      company: { key: user.company?.key },
                       type: MemberType.USER,
                     };
                   }
@@ -340,13 +340,13 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             participants && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.participants ?? {})}
-                onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
+                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
                   const participants: EntityMembersResponseDTO['participants'] = {};
                   for (const user of selectedUsers) {
                     participants[user.nickname] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      companyKey: user.companyKey,
+                      company: { key: user.company?.key },
                       type: MemberType.USER,
                     };
                   }
@@ -402,13 +402,13 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             guests && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.guests ?? {})}
-                onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
+                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
                   const guests: EntityMembersResponseDTO['guests'] = {};
                   for (const user of selectedUsers) {
                     guests[user.nickname] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      companyKey: user.companyKey,
+                      company: { key: user.company?.key },
                       type: MemberType.USER,
                     };
                   }
@@ -464,13 +464,13 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             spectators && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.spectators ?? {})}
-                onChangeSelectedUsers={(selectedUsers: UserSummaryResponseDTO[]) => {
+                onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
                   const spectators: EntityMembersResponseDTO['spectators'] = {};
                   for (const user of selectedUsers) {
                     spectators[user.nickname] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      companyKey: user.companyKey,
+                      company: { key: user.company?.key },
                       type: MemberType.USER,
                     };
                   }
