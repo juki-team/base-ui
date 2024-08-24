@@ -47,7 +47,7 @@ const ContentInfo = ({ label, value, children, expand, valueAsList, centered, wi
   
   if (expand) {
     return (
-      <div className={classNames('jk-col stretch jk-br-ie bc-we', { 'jk-pg-sm': !withoutPadding })}>
+      <div className={classNames('jk-col stretch jk-br-ie', { 'jk-pg-sm': !withoutPadding })}>
         {head}
         {children && (
           <div className="jk-pg-sm-l">
@@ -59,7 +59,7 @@ const ContentInfo = ({ label, value, children, expand, valueAsList, centered, wi
   }
   
   return (
-    <div className={classNames('jk-col stretch jk-br-ie bc-we', { 'jk-pg-sm': !withoutPadding })}>
+    <div className={classNames('jk-col stretch jk-br-ie', { 'jk-pg-sm': !withoutPadding })}>
       {head}
       {children && (
         <Tooltip

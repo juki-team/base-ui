@@ -17,7 +17,7 @@ export const Regular: Story = {
     <MockupJukiProvider>
       <div className="jk-col gap">
         <div style={{ width: '100%', height: 600 }}>
-          <ProblemView {...args} />
+          <ProblemView {...args} forPrinting />
         </div>
       </div>
     </MockupJukiProvider>

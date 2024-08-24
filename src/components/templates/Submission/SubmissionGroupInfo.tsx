@@ -47,7 +47,7 @@ const DiffViewButton = ({ diffInput, croppedDiff }: { diffInput: string, cropped
   
   return (
     <>
-      <Tooltip content={<T>view diff</T>} withPortal>
+      <Tooltip content={<T>view diff</T>} withPortal placement="top">
         <Button icon={<VisibilityIcon />} size="tiny" type="light" onClick={() => setIsOpen(true)} />
       </Tooltip>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} closeWhenKeyEscape closeWhenClickOutside closeIcon>

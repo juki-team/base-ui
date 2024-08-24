@@ -20,11 +20,23 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
     codeEditorSourceStoreKey,
     infoPlacement,
     withoutName,
+    forPrinting,
   } = props;
   const { viewPortSize } = useJukiUI();
   const [ expanded, setExpanded ] = useState(false);
   
   useEcsWakeUp();
+  if (forPrinting) {
+    return (
+      <ProblemStatementView
+        problem={problem}
+        withoutName={expanded ? false : withoutName}
+        infoPlacement={infoPlacement}
+        forPrinting={!!forPrinting}
+        // contest={{ index: routeParams?.index as string, color: problem.color }}
+      />
+    );
+  }
   
   return (
     <SplitPane

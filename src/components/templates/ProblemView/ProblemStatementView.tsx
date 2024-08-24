@@ -1,11 +1,18 @@
 import { Language, ProblemDataResponseDTO, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
 import React from 'react';
-import { downloadBlobAsFile, downloadJukiMarkdownAsPdf, getStatementData } from '../../../helpers';
+import { classNames, downloadBlobAsFile, downloadJukiMarkdownAsPdf, getStatementData } from '../../../helpers';
 import { useJukiUser, useT } from '../../../hooks';
 import { DownloadIcon, T } from '../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
 import { MdMathViewer } from '../../organisms/mdMath';
-import { JukiProblemInfo, ProblemInfo } from '../ProblemInfo';
+import {
+  JukiProblemInfo,
+  ProblemInfo,
+  ProblemMemoryLimitInfo,
+  ProblemModeInfo,
+  ProblemTimeLimitInfo,
+  ProblemTypeInfo,
+} from '../ProblemInfo';
 import { SampleTest } from './SampleTest';
 
 export interface ProblemStatementViewProps {
@@ -13,11 +20,27 @@ export interface ProblemStatementViewProps {
   contest?: { index: string, color: string },
   infoPlacement: 'left' | 'name' | 'none',
   withoutName?: boolean,
+  forPrinting?: boolean,
 }
 
-export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutName }: ProblemStatementViewProps) => {
+export const ProblemStatementView = ({
+                                       problem,
+                                       contest,
+                                       infoPlacement,
+                                       withoutName,
+                                       forPrinting,
+                                     }: ProblemStatementViewProps) => {
   
-  const { judge: { key: judgeKey, isExternal }, key: problemKey, name, settings, tags, author, statement } = problem;
+  const {
+    judge: { key: judgeKey, isExternal },
+    key: problemKey,
+    name,
+    settings,
+    tags,
+    author,
+    statement,
+  } = problem;
+  
   const {
     user: {
       settings: {
@@ -71,7 +94,7 @@ export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutN
     <div className="jk-row extend top">
       <div className="jk-row extend top gap nowrap stretch left">
         <div className="jk-col top stretch flex-3">
-          {infoPlacement !== 'left' && (
+          {!forPrinting && infoPlacement !== 'left' && (
             <FloatToolbar
               actionButtons={[
                 {
@@ -93,9 +116,21 @@ export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutN
             />
           )}
           {!withoutName && (
-            <div className="jk-row gap center">
+            <div className={classNames({ 'jk-row gap': !forPrinting, 'jk-col block': !!forPrinting }, 'center')}>
               <h3>{problem.name}</h3>
               {infoPlacement === 'name' && <ProblemInfo problem={problem} />}
+              {forPrinting && (
+                <div className="jk-col" style={{ width: '100%' }}>
+                  <div className="jk-row gap extend center">
+                    <ProblemTimeLimitInfo settings={settings} expand withoutPadding />
+                    <ProblemMemoryLimitInfo settings={settings} expand withoutPadding />
+                  </div>
+                  <div className="jk-row gap extend center">
+                    <ProblemTypeInfo settings={settings} withoutPadding />
+                    <ProblemModeInfo settings={settings} expand withoutPadding />
+                  </div>
+                </div>
+              )}
             </div>
           )}
           <div>
@@ -159,6 +194,7 @@ export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutN
                 sampleCases={statement.sampleCases}
                 key={index}
                 withPE={problem.settings.withPE}
+                forPrinting={!!forPrinting}
               />
             ))}
           </div>
@@ -171,7 +207,7 @@ export const ProblemStatementView = ({ problem, contest, infoPlacement, withoutN
             </div>
           )}
         </div>
-        {infoPlacement === 'left' && (
+        {!forPrinting && infoPlacement === 'left' && (
           <div className="screen md lg hg flex-1">
             <JukiProblemInfo
               settings={settings}

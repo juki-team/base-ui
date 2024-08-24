@@ -6,9 +6,10 @@ interface SampleTestProps {
   index: number,
   sampleCases: ProblemSampleCasesType,
   withPE: boolean,
+  forPrinting: boolean,
 }
 
-export const SampleTest = ({ index, sampleCases, withPE }: SampleTestProps) => {
+export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTestProps) => {
   
   const sample = sampleCases?.[index] || { input: '', output: '' };
   
@@ -18,7 +19,7 @@ export const SampleTest = ({ index, sampleCases, withPE }: SampleTestProps) => {
         <div className="jk-row nowrap left stretch gap bc-we jk-border-radius-inline">
           <div className="sample-text-content jk-border-radius-inline">
             <div className="jk-row gap sample-text-icons">
-              {withPE && (
+              {!forPrinting && withPE && (
                 <Tooltip
                   content={
                     <T>{`${sample.input.lastIndexOf('\n') === sample.input.length - 1 ? '' : 'no '}newline at end of file`}</T>
@@ -28,12 +29,14 @@ export const SampleTest = ({ index, sampleCases, withPE }: SampleTestProps) => {
                   <div className="jk-row"><InfoIcon size="small" /></div>
                 </Tooltip>
               )}
-              <CopyToClipboard text={sample.input}>
-                <ContentCopyIcon
-                  size="small"
-                  className="jk-button light only-icon"
-                />
-              </CopyToClipboard>
+              {!forPrinting && (
+                <CopyToClipboard text={sample.input}>
+                  <ContentCopyIcon
+                    size="small"
+                    className="jk-button light only-icon"
+                  />
+                </CopyToClipboard>
+              )}
             </div>
             <span>{sample.input}</span>
           </div>
@@ -41,7 +44,7 @@ export const SampleTest = ({ index, sampleCases, withPE }: SampleTestProps) => {
         <div className="jk-row nowrap left stretch gap bc-we jk-border-radius-inline">
           <div className="sample-text-content jk-border-radius-inline">
             <div className="jk-row gap sample-text-icons">
-              {withPE && (
+              {!forPrinting && withPE && (
                 <Tooltip
                   content={
                     <T>{`${sample.output.lastIndexOf('\n') === sample.output.length - 1 ? '' : 'no '}newline at end of file`}</T>
@@ -51,12 +54,14 @@ export const SampleTest = ({ index, sampleCases, withPE }: SampleTestProps) => {
                   <div className="newline-eof"><InfoIcon size="small" /></div>
                 </Tooltip>
               )}
-              <CopyToClipboard text={sample.output}>
-                <ContentCopyIcon
-                  size="small"
-                  className="jk-button light only-icon br-50-pc copy-test-icon"
-                />
-              </CopyToClipboard>
+              {!forPrinting && (
+                <CopyToClipboard text={sample.output}>
+                  <ContentCopyIcon
+                    size="small"
+                    className="jk-button light only-icon br-50-pc copy-test-icon"
+                  />
+                </CopyToClipboard>
+              )}
             </div>
             <span>
                 {sample.output}
