@@ -153,6 +153,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   &:not(.disabled) {
     &:hover, &:focus, &:active {
       --input-border-color: var(--t-color-highlight-dark);
+      outline-width: 2px;
     }
     
     &.error {

@@ -428,6 +428,10 @@ export class Settings {
           url: injectBaseUrl('company', '/judge-list'),
           method: HTTPMethod.GET,
         })),
+        getStats: valid<void>(() => ({
+          url: injectBaseUrl('company', '/stats'),
+          method: HTTPMethod.GET,
+        })),
         getResourceSpecifications: valid<
           { params: { companyKey: string } } | void
         >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
