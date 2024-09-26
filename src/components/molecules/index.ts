@@ -13,6 +13,7 @@ export * from './InputColor';
 export * from './layouts';
 export * from './links';
 export * from './MultiSelectSearchable';
+export * from './progress';
 export * from './SimpleSortableRows';
 export * from './SplitModal';
 export * from './SplitPane';
