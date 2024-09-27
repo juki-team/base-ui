@@ -155,7 +155,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       --input-border-color: var(--t-color-highlight-dark);
     }
     
-    &:active {
+    &:active, &:focus {
       outline-width: 2px;
     }
     
