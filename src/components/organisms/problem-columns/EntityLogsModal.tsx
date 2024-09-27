@@ -14,7 +14,7 @@ export const EntityLogsModal = ({ url, ...restProps }: EntityLogsModalProps) => 
   return (
     <Modal {...restProps} closeWhenClickOutside closeWhenKeyEscape closeIcon>
       <div className="jk-pg">
-        <h3><T>logs of problem</T></h3>
+        <h3><T>logs</T></h3>
         <FetcherLayer<ContentResponseType<LogDataResponseDTO[]>> url={url}>
           {({ data }) => (
             <div>
