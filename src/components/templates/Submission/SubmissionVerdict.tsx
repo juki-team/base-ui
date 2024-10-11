@@ -66,22 +66,26 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
           SubmissionRunStatus.EXECUTED_TEST_CASE,
           SubmissionRunStatus.FAILED_TEST_CASE,
           SubmissionRunStatus.GRADING,
-        ].includes(status) || verdict == ProblemVerdict.PENDING) && (
+        ].includes(status) || verdict === ProblemVerdict.PENDING) && (
           <>
             <LoadingIcon size="small" />
             &nbsp;
           </>
         )}
         <div className="jk-row" style={{ lineHeight: 1, padding: '4px 0' }}>
-          <T className="tt-se">{SUBMISSION_RUN_STATUS?.[status].label || status}</T>
+          {status === SubmissionRunStatus.COMPLETED ? (
+            <T className="tt-se">{PROBLEM_VERDICT[verdict]?.label || verdict}</T>
+          ) : (
+            <T className="tt-se">{SUBMISSION_RUN_STATUS?.[status].label || status}</T>
+          )}
         </div>
         {!!testInfo && status === SubmissionRunStatus.EXECUTED_TEST_CASE && (
-          <div className="jk-row  nowrap" style={{ lineHeight: 1, padding: '4px 0' }}>
+          <div className="jk-row nowrap" style={{ lineHeight: 1, padding: '4px 0' }}>
             {testInfo.sampleCase
               ? <T className="tt-se">running sample cases</T>
               : <T className="tt-se">running test cases</T>}
             &nbsp;
-            <span className="ws-np">{testInfo.caseResultsExecuted}/{testInfo.caseResultsTotal}</span>
+            <span className="ws-np">{testInfo.caseResultsExecuted} / {testInfo.caseResultsTotal}</span>
           </div>
         )}
         {status === SubmissionRunStatus.COMPLETED && verdict === ProblemVerdict.PA && (
