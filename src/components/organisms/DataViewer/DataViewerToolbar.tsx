@@ -63,7 +63,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     }
   }, [ loading ]);
   
-  const reloadSection = (
+  const reloadSection = onReload && (
     <>
       <Tooltip
         content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
@@ -114,7 +114,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
           {onReload && !isMobileViewPort && (
             <>
               {reloadSection}
-              <div className="jk-divider horizontal" />
+              {pagination.withPagination && <div className="jk-divider horizontal" />}
             </>
           )}
           {pagination.withPagination && (

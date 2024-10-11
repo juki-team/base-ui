@@ -680,7 +680,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         loading={loaderStatus === Status.LOADING}
         initializing={initializing}
         onAllFilters={onAllFilters}
-        onReload={onReload}
+        onReload={request ? onReload : null}
         rows={rows}
         showFilterDrawerKey={showFilterDrawerKey}
         rowsView={rowsView}
