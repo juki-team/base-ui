@@ -79,7 +79,8 @@ html body {
   --weight-bolder: 700;
 
   --base-text-size: 16px;
-  --base-text-height: calc(var(--base-text-size) + 8px);
+  --base-text-height: 24px;
+  
   --text-huge-size: calc(var(--base-text-size) + 4px);
   --text-huge-height: var(--base-text-height);
   --text-large-size: calc(var(--base-text-size) + 2px);
