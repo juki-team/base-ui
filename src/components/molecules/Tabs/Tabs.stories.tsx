@@ -1,13 +1,13 @@
 import { configureActions } from '@storybook/addon-actions';
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Button, T, Tabs as TabsComponent, TabsInline } from '../../../index';
+import { Button, T, TabsInline } from '../../../index';
 import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 import { UserProfile } from '../../templates/UserProfile/UserProfile';
 
-const meta: Meta<typeof TabsComponent> = {
-  component: TabsComponent,
+const meta: Meta<typeof TabsInline> = {
+  component: TabsInline,
 };
 
 export default meta;
@@ -46,17 +46,18 @@ export const Regular: Story = {
     
     return (
       <MockupJukiProvider>
-        <div style={{ height: '200px' }}>
-          <TabsComponent
-            tabs={Object.values(tabs)}
-            extraNodes={[
-              <Button>button 1</Button>,
-              <Button>button button 2</Button>,
-            ]}
-          />
-        </div>
+        {/*<div style={{ height: '200px' }}>*/}
+        {/*  <TabsComponent*/}
+        {/*    tabs={Object.values(tabs)}*/}
+        {/*    extraNodes={[*/}
+        {/*      <Button>button 1</Button>,*/}
+        {/*      <Button>button button 2</Button>,*/}
+        {/*    ]}*/}
+        {/*  />*/}
+        {/*</div>*/}
         <div style={{ height: '200px', position: 'relative' }}>
           <TabsInline
+            {...args}
             tabs={tabs}
             extraNodes={[
               <Button className="ws-np">
@@ -88,22 +89,22 @@ export const Regular: Story = {
             extraNodesPlacement="bottomLeft"
           />
         </div>
-        <div style={{ height: '200px' }}>
-          <TabsComponent
-            tabs={Object.values(tabs)}
-            extraNodes={[ <Button>button 1</Button> ]}
-          />
-        </div>
-        <div style={{ height: '200px' }}>
-          <TabsComponent
-            tabs={[
-              { key: '1', header: <div>tab 1 </div>, body: <div>1</div> },
-              { key: '2', header: <div>tab 2</div> },
-            ]}
-            extraNodes={[ <Button>button 1</Button>, <Button>button 2</Button> ]}
-          />
-          <MockupToggleThemeButton />
-        </div>
+        {/*<div style={{ height: '200px' }}>*/}
+        {/*  <TabsComponent*/}
+        {/*    tabs={Object.values(tabs)}*/}
+        {/*    extraNodes={[ <Button>button 1</Button> ]}*/}
+        {/*  />*/}
+        {/*</div>*/}
+        {/*<div style={{ height: '200px' }}>*/}
+        {/*  <TabsComponent*/}
+        {/*    tabs={[*/}
+        {/*      { key: '1', header: <div>tab 1 </div>, body: <div>1</div> },*/}
+        {/*      { key: '2', header: <div>tab 2</div> },*/}
+        {/*    ]}*/}
+        {/*    extraNodes={[ <Button>button 1</Button>, <Button>button 2</Button> ]}*/}
+        {/*  />*/}
+        {/*</div>*/}
+        <MockupToggleThemeButton />
       </MockupJukiProvider>
     );
   },

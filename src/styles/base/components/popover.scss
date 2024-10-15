@@ -1,7 +1,15 @@
 @import "../../abstracts/index";
 
-#react-tiny-popover-container {
+.react-tiny-popover-container {
   z-index: var(--z-index-popover);
+  
+  .jk-motion-popover-layout {
+    overflow: hidden;
+    
+    .jk-popover-content {
+      overflow: hidden;
+    }
+  }
 }
 
 .jk-popover-layout, .jk-popover-layout-pointer-after, .jk-popover-layout-pointer-before {

@@ -1,11 +1,12 @@
 import { AnimatePresence } from 'framer-motion';
 import * as motion from 'framer-motion/client';
 import React, { cloneElement, forwardRef, Ref, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { PopoverPosition, PopoverProps, PopoverState, usePopover } from 'react-tiny-popover';
+import { PopoverPosition, PopoverState, usePopover } from 'react-tiny-popover';
 import { useMemoizedArray } from '../../../hooks';
 import { PopoverPortal } from './ReactTinyPopover.PopoverPortal';
 import { useHandlePrevValues } from './ReactTinyPopover.useHandlePrevValues';
 import { EMPTY_RECT, rectsAreEqual } from './ReactTinyPopover.util';
+import { ReactTinyPopoverProps } from './types';
 
 const DEFAULT_POSITIONS: PopoverPosition[] = [ 'top', 'left', 'right', 'bottom' ];
 
@@ -17,7 +18,8 @@ const PopoverInternal = forwardRef(
       content,
       positions: externalPositions = DEFAULT_POSITIONS,
       align = 'center',
-      padding = 0,
+      padding: _padding = 0,
+      // padding = 0,
       reposition = true,
       parentElement = window.document.body,
       boundaryElement = parentElement,
@@ -28,9 +30,11 @@ const PopoverInternal = forwardRef(
       boundaryInset = 0,
       onClickOutside,
       clickOutsideCapture = false,
-    }: PopoverProps,
+      showPopperArrow,
+    }: ReactTinyPopoverProps,
     externalRef: Ref<HTMLElement>,
   ) => {
+    const padding = showPopperArrow ? _padding - 3 : _padding;
     const positions = useMemoizedArray(
       Array.isArray(externalPositions) ? externalPositions : [ externalPositions ],
     );
@@ -208,11 +212,47 @@ const PopoverInternal = forwardRef(
     
     const renderChild = () => cloneElement(children, { ref: handleRef });
     
+    const isY = popoverState.position === 'bottom' || popoverState.position === 'top';
+    const ANIMATION = {
+      collapse: {
+        initial: isY
+          ? { height: 0, boxShadow: 'none', y: 0 }
+          : { height: 0, boxShadow: 'none', x: 0 },
+        show: {
+          height: 'auto',
+          width: 'auto',
+          boxShadow: showPopperArrow ? undefined : '0 0 2px 0 var(--t-color-highlight-light), 0 1px 3px 1px var(--t-color-highlight-light)',
+          y: 0,
+          x: 0,
+        },
+        exit: isY
+          ? {
+            height: 0,
+            boxShadow: 'none',
+            y: popoverState.position === 'top' ? popoverState.popoverRect.height : showPopperArrow ? 3 : 0,
+          }
+          : {
+            height: 0,
+            boxShadow: 'none',
+            x: 0,
+            y: popoverState.align === 'start' ? 0 : popoverState.align === 'end' ? popoverState.popoverRect.height : popoverState.popoverRect.height / 2,
+          },
+      },
+      fade: {
+        initial: { opacity: 0 },
+        show: { opacity: 1 },
+        exit: { opacity: 0 },
+      },
+      expand: {
+        initial: { scale: 0 },
+        show: { scale: 1 },
+        exit: { scale: 0 },
+      },
+    };
+    
     return (
       <>
         {renderChild()}
-        
-        
         <PopoverPortal
           element={popoverRef.current}
           scoutElement={scoutRef.current}
@@ -221,10 +261,12 @@ const PopoverInternal = forwardRef(
           <AnimatePresence>
             {isOpen && (
               <motion.div
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0 }}
-                className="jk-motion-popover-layout"
+                initial={showPopperArrow ? ANIMATION.expand.initial : ANIMATION.collapse.initial}
+                animate={showPopperArrow ? ANIMATION.expand.show : ANIMATION.collapse.show}
+                exit={showPopperArrow ? ANIMATION.expand.exit : ANIMATION.collapse.exit}
+                className="jk-motion-popover-layout jk-br-ie"
+                // style={{ margin: _padding }}
+                style={showPopperArrow ? { padding: isY ? '3px  0' : '0 3px' } : {}}
               >
                 {typeof content === 'function' ? content(popoverState) : content}
               </motion.div>
@@ -236,7 +278,7 @@ const PopoverInternal = forwardRef(
   },
 );
 
-export const Popover = forwardRef<HTMLElement, PopoverProps>((props, ref) => {
+export const Popover = forwardRef<HTMLElement, ReactTinyPopoverProps>((props, ref) => {
   if (typeof window === 'undefined') return props.children;
   return <PopoverInternal {...props} ref={ref} />;
 });

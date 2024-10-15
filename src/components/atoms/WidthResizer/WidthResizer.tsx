@@ -7,7 +7,7 @@ export interface WidthResizerProps {
   targetRef: MutableRefObject<any>,
   onOverflow: () => void,
   unOverflow: () => void,
-  trigger: any,
+  trigger?: any,
 }
 
 export const WidthResizer = ({ onOverflow, unOverflow, trigger, targetRef }: WidthResizerProps) => {
@@ -27,7 +27,7 @@ export const WidthResizer = ({ onOverflow, unOverflow, trigger, targetRef }: Wid
           }
         }
       }
-    }
+    };
     setTimeout(handleEvent, 0);
   }, [ width, onOverflow, unOverflow, trigger, targetRef, now ]);
   
@@ -36,7 +36,7 @@ export const WidthResizer = ({ onOverflow, unOverflow, trigger, targetRef }: Wid
     window.addEventListener('resize', handleTrigger);
     return () => {
       window.removeEventListener('resize', handleTrigger);
-    }
+    };
   }, [ width, onOverflow, unOverflow, trigger, targetRef ]);
   
   return null;

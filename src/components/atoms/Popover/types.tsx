@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { BasePopoverProps, ContentRenderer, PopoverPosition } from 'react-tiny-popover';
 import { ReactNodeOrFunctionP1Type, TriggerOffActionsType, TriggerOnActionsType } from '../../../types';
 
 export type PlacementType =
@@ -31,3 +32,14 @@ export interface PopoverProps {
   children: ReactElement,
   marginOfChildren?: number,
 }
+
+export type ReactTinyPopoverProps = BasePopoverProps & {
+  children: JSX.Element;
+  positions?: PopoverPosition[] | PopoverPosition;
+  content: ContentRenderer | JSX.Element;
+  ref?: React.Ref<HTMLElement>;
+  containerStyle?: Partial<CSSStyleDeclaration>;
+  onClickOutside?: (e: MouseEvent) => void;
+  clickOutsideCapture?: boolean;
+  showPopperArrow: boolean;
+};

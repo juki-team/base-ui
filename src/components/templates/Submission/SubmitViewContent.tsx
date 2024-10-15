@@ -58,7 +58,6 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
     && verdict !== ProblemVerdict.PENDING
     && compilationResult?.success === false;
   
-  console.log({ verdictByGroups, testCasesByGroup });
   return (
     <div>
       <Collapse

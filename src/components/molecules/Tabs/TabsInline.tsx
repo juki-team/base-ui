@@ -1,8 +1,9 @@
-import React, { Children, useCallback, useEffect, useRef, useState } from 'react';
+import * as motion from 'framer-motion/client';
+import React, { Children, useCallback, useRef, useState } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { Func, useHandleState } from '../../../hooks';
 import { useWidthResizer } from '../../../hooks/useWidthResizer';
-import { NotUndefined } from '../../../types';
+import { BoundingClientRectType, NotUndefined } from '../../../types';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../atoms';
 import { TabsInlineProps } from './types';
 
@@ -17,41 +18,42 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
     className,
   } = props;
   
-  const [ selectedTabKey, setSelectedTabKey ] = useHandleState<T>((Object.values(tabs)[0]?.key || '') as NotUndefined<T>, _selectedTabKey as NotUndefined<T> | undefined, onChange);
-  const tabsLength = Object.keys(tabs).length;
-  const [ tabsSize, setTabsSize ] = useState(tabsLength);
-  const [ tabStartIndex, setTabStartIndex ] = useState(0);
-  useEffect(() => {
-    if (tabsSize >= tabsLength) {
-      setTabStartIndex(0);
-    }
-  }, [ tabsSize, tabsLength, tabStartIndex ]);
+  const tabsArray = Object.values(tabs);
+  const [ selectedTabKey, setSelectedTabKey ] = useHandleState<T>((tabsArray[0]?.key || '') as NotUndefined<T>, _selectedTabKey as NotUndefined<T> | undefined, onChange);
+  const tabsLength = tabsArray.length;
+  const [ oneTabView, setOneTabView ] = useState(false);
+  const selectedTabIndex = tabsArray.findIndex(({ key }) => key === selectedTabKey);
   
-  const withArrows = tabsSize !== tabsLength;
   const refA = useRef<HTMLDivElement>(null);
   const refB = useRef<HTMLDivElement>(null);
   const maxWidthWithArrows = useRef(0);
   const onOverflow = useCallback(() => {
-    if (refB.current?.offsetWidth) {
-      setTabsSize(prevState => Math.max(prevState - 1, 1));
+    if (refB.current?.offsetWidth && !oneTabView) {
+      setOneTabView(true);
       maxWidthWithArrows.current = Math.max(maxWidthWithArrows.current, refB.current.offsetWidth);
     }
-  }, [ refB ]);
+  }, [ refB, oneTabView ]);
   const unOverflow = useCallback(async () => {
     if (refB.current?.offsetWidth) {
       if (refB.current.offsetWidth > maxWidthWithArrows.current) {
-        setTabsSize(prevState => Math.min(prevState + 1, tabsLength));
+        setOneTabView(false);
       }
     }
-  }, [ tabsLength, refB ]);
+  }, [ refB ]);
   
-  const [ trigger, setTrigger ] = useState(Date.now());
-  useEffect(() => {
-    setTrigger(Date.now());
-  }, [ tabsSize, tabStartIndex, tabs, selectedTabKey, extraNodes ]);
+  useWidthResizer({ onOverflow, unOverflow, targetRef: refB });
   
-  useWidthResizer({ onOverflow, unOverflow, targetRef: refA, trigger });
-  useWidthResizer({ onOverflow, unOverflow, targetRef: refB, trigger });
+  const [ boundingClientRectContent, _setBoundingClientRectContent ] = useState<BoundingClientRectType>({
+    bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0, x: 0, y: 0,
+  });
+  
+  const setBoundingClientRectContent = (newValue: BoundingClientRectType) => {
+    if (JSON.stringify(newValue) !== JSON.stringify(boundingClientRectContent) && newValue?.width && newValue?.height) {
+      _setBoundingClientRectContent(newValue);
+    }
+  };
+  
+  const displayedTabs = oneTabView ? (tabsArray[selectedTabIndex] ? [ tabsArray[selectedTabIndex] ] : []) : tabsArray;
   
   return (
     <>
@@ -64,44 +66,64 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
           </div>
         )}
         <div className="jk-row left gap extend">
-          {withArrows && (
+          {oneTabView && (
             <NavigateBeforeIcon
               className={classNames('br-50-pc', {
-                'appearance-secondary clickable elevation': (tabStartIndex > 0),
-                'appearance-gray-5': !(tabStartIndex > 0),
+                'appearance-secondary clickable elevation': (selectedTabIndex - 1 >= 0),
+                'appearance-gray-5': !(selectedTabIndex - 1 >= 0),
               })}
               style={{ padding: 2 }}
-              onClick={!(tabStartIndex > 0) ? undefined : () => setTabStartIndex(prevState => Math.max(prevState - 1, 0))}
+              onClick={!(selectedTabIndex - 1 >= 0) ? undefined : () => setSelectedTabKey(tabsArray[selectedTabIndex - 1].key as NotUndefined<T>)}
             />
           )}
           <div
             className={classNames('jk-row left stretch jk-tabs-headers-inline nowrap', {
-              'block flex-1': withArrows,
+              'block flex-1': oneTabView,
               // 'block extend': extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter',
             })}
+            style={{ position: 'relative' /*overflow: oneTabView ? 'visible' : undefined*/, overflow: 'hidden' }}
             ref={refA}
           >
-            {Children.toArray(
-              Object.values(tabs)
-                .slice(tabStartIndex, tabStartIndex + tabsSize)
-                .map(({ key, header }) => (
-                  <div
-                    onClick={() => setSelectedTabKey(key as (NotUndefined<T> | Func<T>))}
-                    className={classNames('jk-row nowrap', { selected: key === selectedTabKey })}
-                  >
-                    {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
-                  </div>
-                )),
+            {Children.toArray(displayedTabs
+              .map(({ key, header }) => (
+                <div
+                  ref={(e) => {
+                    if (key === selectedTabKey && !oneTabView) {
+                      setBoundingClientRectContent(e?.getBoundingClientRect()?.toJSON());
+                    }
+                  }}
+                  onClick={() => setSelectedTabKey(key as (NotUndefined<T> | Func<T>))}
+                  className={classNames('jk-row nowrap', {
+                    selected: key === selectedTabKey,
+                    'one-tab-view': oneTabView,
+                  })}
+                >
+                  {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
+                </div>
+              )),
+            )}
+            {!!displayedTabs.length && !oneTabView && !!tabs?.[selectedTabKey as string] && (
+              <motion.div
+                initial={{
+                  width: 0,
+                  left: 0,
+                }}
+                animate={{
+                  width: boundingClientRectContent.width,
+                  left: boundingClientRectContent.left - (refA.current?.getBoundingClientRect()?.left ?? 0),
+                }}
+                className="selected-tab-tick"
+              />
             )}
           </div>
-          {withArrows && (
+          {oneTabView && (
             <NavigateNextIcon
               className={classNames('br-50-pc', {
-                'appearance-secondary clickable elevation': (tabStartIndex + tabsSize < tabsLength),
-                'appearance-gray-5': !(tabStartIndex + tabsSize < tabsLength),
+                'appearance-secondary clickable elevation': (selectedTabIndex + 1 < tabsLength),
+                'appearance-gray-5': !(selectedTabIndex + 1 < tabsLength),
               })}
               style={{ padding: 2 }}
-              onClick={!(tabStartIndex + tabsSize < tabsLength) ? undefined : () => setTabStartIndex(prevState => prevState + 1)}
+              onClick={!(selectedTabIndex + 1 < tabsLength) ? undefined : () => setSelectedTabKey(tabsArray[selectedTabIndex + 1].key as NotUndefined<T>)}
             />
           )}
         </div>

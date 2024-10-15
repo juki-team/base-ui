@@ -19,13 +19,13 @@ const sizeViewPorts: { [key in ViewPortSizeType]: string } = {
 };
 
 const buttonsVariants = (isDisabled: boolean) => ({
-  whileHover: isDisabled ? {} : { scale: 1.05 },
+  whileHover: isDisabled ? {} : { scale: 1.05, transition: { duration: Duration.FAST } },
   whileTap: isDisabled ? {
     x: [ '-1rem', '1rem', 0 ],
     transitionEnd: {
       x: 0,
     },
-  } : { scale: 0.9 },
+  } : { scale: 0.9, transition: { duration: Duration.FAST } },
   
 });
 

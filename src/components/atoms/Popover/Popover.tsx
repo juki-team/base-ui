@@ -38,7 +38,6 @@ export const Popover = (props: PopoverProps) => {
     onVisibleChange,
     triggerOn = 'hover',
     triggerOff = triggerOn,
-    popoverClassName,
     showPopperArrow = false,
     popoverContentClassName,
     marginOfChildren = 12, // --pad-t: 12px;
@@ -50,10 +49,8 @@ export const Popover = (props: PopoverProps) => {
   const isMobileViewPort = viewPortSize === 'sm';
   
   const popoverContent = (
-    <div className={classNames('jk-popover-layout', popoverClassName)}>
-      <div className={classNames('jk-popover-content bc-we jk-border-radius-inline', popoverContentClassName, { 'elevation-1': !showPopperArrow })}>
-        {renderReactNodeOrFunctionP1(content, { isOpen, onClose: () => setIsOpen(false) })}
-      </div>
+    <div className={classNames('jk-popover-content jk-br-ie bc-we', popoverContentClassName)}>
+      {renderReactNodeOrFunctionP1(content, { isOpen, onClose: () => setIsOpen(false) })}
     </div>
   );
   
@@ -119,6 +116,7 @@ export const Popover = (props: PopoverProps) => {
           setIsOpen(false);
         }
       }}
+      showPopperArrow={showPopperArrow}
       content={showPopperArrow ?
         (({ position, childRect, popoverRect }) => (
           <ArrowContainer // if you'd like an arrow, you can import the ArrowContainer!
@@ -127,7 +125,7 @@ export const Popover = (props: PopoverProps) => {
             popoverRect={popoverRect}
             arrowColor={'var(--t-color-white)'}
             arrowSize={8}
-            className="popover-arrow-container"
+            className="popover-arrow-container jk-br-ie"
             arrowClassName="popover-arrow"
             style={{ filter: 'drop-shadow(0 0 2px var(--t-color-shadow-dark))' }}
           >

@@ -95,11 +95,9 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
   const rowHeight = isSmall ? 54 + 8 + 8 : 24 + 8 + 8;
   
   const testCasesString = JSON.stringify(testCases);
-  console.log({ verdict, testCasesString });
   const renderRow: VirtualizedRowsFixedProps['renderRow'] = useCallback((index) => {
     const testCases = JSON.parse(testCasesString);
     const testCase = testCases[index];
-    console.log({ testCase });
     return (
       <div
         className="jk-row extend block gap jk-table-inline-row"

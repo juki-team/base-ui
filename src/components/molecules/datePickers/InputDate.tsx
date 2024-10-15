@@ -91,9 +91,9 @@ export const InputDate = (props: InputDateProps) => {
             isSelected={isSelected}
           />
         )}
+        marginOfChildren={1}
         triggerOn="click"
         placement="bottom"
-        showPopperArrow
         visible={disabled ? false : visible}
         onVisibleChange={(visible) => setVisible(visible)}
       >

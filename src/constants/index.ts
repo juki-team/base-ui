@@ -60,7 +60,7 @@ export const DEFAULT_DATA_VIEWER_PROPS = {
 };
 
 export enum Duration {
-  FAST = 0.08,
-  NORMAL = 0.2,
-  LOW = 0.32,
+  FAST = 0.050,
+  NORMAL = 0.200,
+  LOW = 0.350,
 }

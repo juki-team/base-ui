@@ -1,6 +1,6 @@
 import { useMemo, useRef } from 'react';
 
-export const useMemoizedArray = <T extends number | string>(externalArray: T[]) => {
+export const useMemoizedArray = <T>(externalArray: T[]) => {
   const prevArrayRef = useRef(externalArray);
   return useMemo(() => {
     if (prevArrayRef.current === externalArray) return prevArrayRef.current;

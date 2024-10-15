@@ -11,16 +11,18 @@
       
       &.selected {
         font-weight: var(--weight-bold);
-        
-        &:after {
-          content: "";
-          width: 100%;
-          height: 4px;
-          position: absolute;
-          left: 0;
-          bottom: 0;
-          background-color: var(--t-color-secondary);
-        }
+      }
+      
+      &.selected.one-tab-view:after, &.selected-tab-tick {
+        content: "";
+        width: 100%;
+        height: 4px;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        padding: 0;
+        background-color: var(--t-color-secondary);
+        border-radius: 2px 2px 0 0;
       }
     }
   }

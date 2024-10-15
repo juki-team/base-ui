@@ -516,7 +516,7 @@ export const Regular: Story = {
     <div style={{ height: '500px' }} {...args}>
       <TabsComponent tabs={tabs} />
       {/*<MockupToggleThemeButton />*/}
-      <div className="flex-1" style={{ overflow: 'auto' }}>
+      <div className="flex-1" style={{ overflow: 'auto' }} {...args}>
       
       </div>
     </div>
