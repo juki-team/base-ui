@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { useJukiRouter, useJukiUI } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
-import { ContentCopyIcon, CopyToClipboard, Modal, OpenInNewIcon, RefreshIcon, T, Tooltip } from '../../atoms';
+import { ContentCopyIcon, CopyToClipboard, Modal, OpenInNewIcon, RefreshIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { SubmitView } from './SubmitView';
 
@@ -25,27 +25,35 @@ export const SubmissionModal = ({ submitId }: SubmissionModalProps) => {
         <div className="fw-bd tx-l jk-row-col left gap">
           <h3><T>submission</T></h3>
           <div className="jk-row gap">
-            <Tooltip content={<T>open submission in new tab</T>}>
-              <Link href={jukiSettings.ROUTES.submissions().view({ id: submitId })} target="_blank">
-                <div className="jk-button light only-icon small link"><OpenInNewIcon /></div>
-              </Link>
-            </Tooltip>
-            <Tooltip content={<T>copy id</T>}>
-              <CopyToClipboard text={submitId}>
-                <div className="jk-button light only-icon small"><ContentCopyIcon /></div>
-              </CopyToClipboard>
-            </Tooltip>
-            <Tooltip content={<T>reload</T>}>
-              <ButtonLoader
-                size="small"
-                icon={<RefreshIcon />}
-                onClick={async (setLoaderStatus) => {
-                  setLoaderStatus(Status.LOADING);
-                  setTriggerFetch(Date.now());
-                  setLoaderStatus(Status.SUCCESS);
-                }}
-              />
-            </Tooltip>
+            <Link href={jukiSettings.ROUTES.submissions().view({ id: submitId })} target="_blank">
+              <div
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="open submission in new tab"
+                className="jk-button light only-icon small link"
+              >
+                <OpenInNewIcon />
+              </div>
+            </Link>
+            <CopyToClipboard text={submitId}>
+              <div
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="copy id"
+                className="jk-button light only-icon small"
+              >
+                <ContentCopyIcon />
+              </div>
+            </CopyToClipboard>
+            <ButtonLoader
+              data-tooltip-id="jk-tooltip"
+              data-tooltip-content="reload"
+              size="small"
+              icon={<RefreshIcon />}
+              onClick={async (setLoaderStatus) => {
+                setLoaderStatus(Status.LOADING);
+                setTriggerFetch(Date.now());
+                setLoaderStatus(Status.SUCCESS);
+              }}
+            />
           </div>
         </div>
         <SubmitView submitId={submitId} triggerFetch={triggerFetch} />

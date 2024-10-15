@@ -1,6 +1,9 @@
+import { MotionConfig } from 'framer-motion';
 import React, { FC, PropsWithChildren, useCallback, useMemo, useRef } from 'react';
-import { LineLoader, NotificationProvider } from '../../components';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
+import { LineLoader, NotificationProvider, T } from '../../components';
 import { SoundProvider } from '../../components/organisms/Notifications/SoundProvider';
+import { Duration } from '../../constants';
 import { classNames } from '../../helpers';
 import { useJukiRouter } from '../../hooks';
 import { QueryParamKey } from '../../types';
@@ -50,16 +53,28 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
   }), [ viewPortSize, viewPortHeight, viewPortWidth, ImageCmp, LinkCmp ]);
   
   return (
-    <UIContext.Provider value={value}>
-      <SoundProvider>
-        <NotificationProvider>
-          {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={1} /></div>}
-          <div id="juki-app" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
-            <div className="loading-route-overlay" />
-            {children}
-          </div>
-        </NotificationProvider>
-      </SoundProvider>
-    </UIContext.Provider>
+    <MotionConfig transition={{ duration: Duration.NORMAL }}>
+      <UIContext.Provider value={value}>
+        <SoundProvider>
+          <NotificationProvider>
+            {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={1} /></div>}
+            <div id="juki-app" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
+              <div className="loading-route-overlay" />
+              {children}
+              <ReactTooltip
+                id="jk-tooltip"
+                opacity={1}
+                positionStrategy="fixed"
+                // isOpen
+                render={({ content, activeAnchor }) => (
+                  content ?
+                    <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') || ''}>{content}</T> : null // Relevant attribute: { || 'not set'}
+                )}
+              />
+            </div>
+          </NotificationProvider>
+        </SoundProvider>
+      </UIContext.Provider>
+    </MotionConfig>
   );
 };

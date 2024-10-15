@@ -14,7 +14,6 @@ import {
   Modal,
   Popover,
   T,
-  Tooltip,
 } from '../../../atoms';
 import { HelpSection } from '../../HelpSection';
 
@@ -28,8 +27,12 @@ export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
   
   const isEs = preferredLanguage === Language.ES;
   
-  const content = (
+  return (
     <div
+      data-tooltip-id="jk-tooltip"
+      data-tooltip-content={isOpen ? '' : isEs ? 'english' : 'español'}
+      data-tooltip-place={popoverPlacement}
+      data-tooltip-t-class-name="tt-se"
       className="jk-row center extend language-setting"
       onClick={loading ? undefined : () => setSettings([
         {
@@ -63,12 +66,6 @@ export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
       )}
     </div>
   );
-  
-  return isOpen ? content : (
-    <Tooltip content={<T className="tt-se">{isEs ? 'english' : 'español'}</T>} placement={popoverPlacement}>
-      {content}
-    </Tooltip>
-  );
 };
 
 export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
@@ -81,8 +78,12 @@ export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
   
   const isDark = preferredTheme === Theme.DARK;
   
-  const content = (
+  return (
     <div
+      data-tooltip-id="jk-tooltip"
+      data-tooltip-content={isOpen ? '' : isDark ? 'light mode' : 'dark mode'}
+      data-tooltip-place={popoverPlacement}
+      data-tooltip-t-class-name="tt-se"
       className="jk-row center extend theme-setting"
       onClick={loading ? undefined : () => setSettings([
         {
@@ -105,12 +106,6 @@ export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
         </div>
       )}
     </div>
-  );
-  
-  return isOpen ? content : (
-    <Tooltip content={<T className="tt-se">{isDark ? 'light mode' : 'dark mode'}</T>} placement={popoverPlacement}>
-      {content}
-    </Tooltip>
   );
 };
 
@@ -135,7 +130,14 @@ export const SettingsSection = (props: SettingsSectionProps) => {
   const margin = (popoverPlacement === 'right' && isOpen) || !(viewPortSize === 'md' && popoverPlacement === 'bottom');
   
   const helpContent = (
-    <div className="jk-row center extend" onClick={() => setHelpOpen(true)}>
+    <div
+      data-tooltip-id="jk-tooltip"
+      data-tooltip-content={isOpen ? '' : 'help'}
+      data-tooltip-place={popoverPlacement}
+      data-tooltip-t-class-name="tt-se"
+      className="jk-row center extend"
+      onClick={() => setHelpOpen(true)}
+    >
       <HelpIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
       {isOpen && (
         <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
@@ -146,7 +148,13 @@ export const SettingsSection = (props: SettingsSectionProps) => {
   );
   
   const moreAppsContent = (
-    <div className="jk-row center extend">
+    <div
+      data-tooltip-id="jk-tooltip"
+      data-tooltip-content={isOpen ? '' : 'more apps'}
+      data-tooltip-place={popoverPlacement}
+      data-tooltip-t-class-name="tt-se"
+      className="jk-row center extend"
+    >
       <AppsIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
       {isOpen && (
         <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
@@ -188,11 +196,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
           </div>
         </div>
       </Modal>
-      {isOpen ? helpContent : (
-        <Tooltip content={<T className="tt-se">help</T>} placement={popoverPlacement}>
-          {helpContent}
-        </Tooltip>
-      )}
+      {helpContent}
       {moreApps && (
         <Popover
           content={
@@ -206,13 +210,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
           triggerOn="click"
           placement={popoverPlacement === 'right' ? 'rightBottom' : popoverPlacement}
         >
-          {isOpen ? moreAppsContent : (
-            <div className="jk-row center extend">
-              <Tooltip content={<T className="tt-se">more apps</T>} placement={popoverPlacement}>
-                {moreAppsContent}
-              </Tooltip>
-            </div>
-          )}
+          {moreAppsContent}
         </Popover>
       )}
     </>

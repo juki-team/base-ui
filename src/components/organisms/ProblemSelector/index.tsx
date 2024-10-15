@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { authorizedRequest, classNames, cleanRequest } from '../../../helpers';
 import { useJukiNotification, useJukiUser } from '../../../hooks';
-import { DownloadIcon, Input, ReloadIcon, Select, SpinIcon, T, Tooltip } from '../../atoms';
+import { DownloadIcon, Input, ReloadIcon, Select, SpinIcon, T } from '../../atoms';
 import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { JudgeDataType, ProblemSelectorProps } from './types';
 
@@ -177,18 +177,17 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
               />
             </div>
           }
-          <Tooltip
-            content={<T>reload</T>}
-            placement="left"
+          <div
+            data-tooltip-id="jk-tooltip"
+            data-tooltip-content="reload"
+            className="jk-row"
           >
-            <div className="jk-row ">
-              <div className="jk-button light only-icon">
-                <ReloadIcon
-                  onClick={() => setTimestampTrigger(Date.now())}
-                />
-              </div>
+            <div className="jk-button light only-icon">
+              <ReloadIcon
+                onClick={() => setTimestampTrigger(Date.now())}
+              />
             </div>
-          </Tooltip>
+          </div>
         </div>
       </div>
     </div>

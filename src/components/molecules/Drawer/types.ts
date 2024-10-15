@@ -16,7 +16,8 @@ export interface DrawerProps {
   content: ReactNodeOrFunctionP1Type<DrawerActionsType>,
   position?: 'top' | 'right' | 'bottom' | 'left',
   triggerOn?: TriggerOnActionsType,
-  triggerOnDelayInMs?: { [key in TriggerOnActionsType]: number },
+  
+  // triggerOnDelayInMs?: { [key in TriggerOnActionsType]: number },
   closeOnEscape?: boolean,
   closeOnOutside?: boolean,
   closeIcon?: ReactNodeOrFunctionType,

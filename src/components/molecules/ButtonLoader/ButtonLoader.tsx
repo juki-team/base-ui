@@ -54,13 +54,17 @@ export const ButtonLoader = (props: ButtonLoaderProps) => {
       {...restProps}
     >
       {children}
-      <div className="jk-row button-loader-icon">
-        {loader === Status.ERROR
-          ? <ErrorIcon />
-          : loader === Status.SUCCESS
-            ? <CheckIcon />
-            : loader === Status.LOADING && <SpinIcon />}
-      </div>
+      {loader !== Status.NONE && (
+        <div
+          className="jk-row button-loader-icon"
+        >
+          {loader === Status.ERROR
+            ? <ErrorIcon />
+            : loader === Status.SUCCESS
+              ? <CheckIcon />
+              : loader === Status.LOADING && <SpinIcon />}
+        </div>
+      )}
     </Button>
   );
 };

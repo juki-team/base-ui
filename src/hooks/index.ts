@@ -11,6 +11,7 @@ export * from './useJukiRouter';
 export * from './useJukiUI';
 export * from './useJukiUser';
 export * from './useLastPath';
+export * from './useMemoizedArray';
 export * from './useSessionStorage';
 export * from './useJukiNotification';
 export * from './useSWR';

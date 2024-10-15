@@ -71,7 +71,7 @@ export const FilterDrawer = <T, >({ headers, isOpen, onClose, onFilter, onResetF
           <div className="jk-divider" />
           <div className="jk-col stretch space-between filters-buttons">
             <div className="filters">
-              {headers.map(({ index: columnIndex, head, filter, sort: { onSort, order = 0 } = {} }) => {
+              {headers.map(({ index: columnIndex, head, filter, sort: { onSort, order = 0 as TableSortOrderType } = {} }) => {
                 let filterCmp = null;
                 if (isFilterText(filter)) {
                   filterCmp = (

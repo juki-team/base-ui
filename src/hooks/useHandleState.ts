@@ -8,7 +8,7 @@ export const useHandleState = <T, >(
   initialState: NotUndefined<T> | undefined,
   onChange?: (value: NotUndefined<T>) => void,
 ): [ NotUndefined<T>, (value: NotUndefined<T> | Func<T>) => void ] => {
-  const [ state, _setState ] = useState<NotUndefined<T>>(initialState || defaultState);
+  const [ state, _setState ] = useState<NotUndefined<T>>(initialState ?? defaultState);
   useEffect(() => {
     if (initialState !== undefined) {
       _setState(initialState);

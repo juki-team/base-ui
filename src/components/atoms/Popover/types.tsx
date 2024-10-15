@@ -18,18 +18,16 @@ export type PlacementType =
   | 'centerScreen';
 
 export interface PopoverProps {
-  content: ReactNodeOrFunctionP1Type<{ isOpen: boolean, onClose: (timeout: number) => void }>,
+  // content: ReactNodeOrFunctionP1Type<{ isOpen: boolean, onClose: (timeout: number) => void }>,
+  content: ReactNodeOrFunctionP1Type<{ isOpen: boolean, onClose: () => void }>,
   placement?: PlacementType,
   visible?: boolean,
   onVisibleChange?: (visible: boolean) => void,
   triggerOn?: TriggerOnActionsType | TriggerOnActionsType[],
   triggerOff?: TriggerOffActionsType | TriggerOffActionsType[],
-  triggerOnDelayInMs?: { [key in TriggerOnActionsType]: number },
-  triggerOffDelayInMs?: { [key in TriggerOffActionsType]: number },
   popoverClassName?: string,
   popoverContentClassName?: string,
   showPopperArrow?: boolean,
-  keepMounted?: boolean,
   children: ReactElement,
   marginOfChildren?: number,
 }

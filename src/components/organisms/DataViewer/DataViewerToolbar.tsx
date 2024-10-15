@@ -2,16 +2,7 @@ import { DataViewMode, Status } from '@juki-team/commons';
 import React, { Children, memo, useCallback, useEffect, useRef } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useSessionStorage } from '../../../hooks';
-import {
-  FilterListIcon,
-  MenuIcon,
-  Popover,
-  RefreshIcon,
-  T,
-  Tooltip,
-  ViewHeadlineIcon,
-  ViewModuleIcon,
-} from '../../atoms';
+import { FilterListIcon, MenuIcon, Popover, RefreshIcon, ViewHeadlineIcon, ViewModuleIcon } from '../../atoms';
 import { ButtonLoader, SetLoaderStatusOnClickType } from '../../molecules';
 import { FilterDrawer } from './FilterDrawer';
 import { Pagination } from './Pagination';
@@ -64,20 +55,16 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   }, [ loading ]);
   
   const reloadSection = onReload && (
-    <>
-      <Tooltip
-        content={<T className="tt-se ws-np">{loading ? 'reloading data' : 'reload data'}</T>}
-        placement="top"
-      >
-        <ButtonLoader
-          icon={<RefreshIcon />}
-          size="small"
-          type="light"
-          onClick={onReload}
-          setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-        />
-      </Tooltip>
-    </>
+    <ButtonLoader
+      icon={<RefreshIcon />}
+      size="small"
+      type="light"
+      onClick={onReload}
+      setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
+      data-tooltip-id="jk-tooltip"
+      data-tooltip-content={loading ? 'reloading data' : 'reload data'}
+      data-tooltip-t-class-name="tt-se ws-np"
+    />
   );
   
   return (
@@ -142,14 +129,15 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
           {viewFilterButton && (
             <>
               <div className="jk-divider horizontal" />
-              <Tooltip content={<T className="ws-np">open filters</T>} placement="top">
-                <div
-                  className={classNames({ active: filtered }, 'jk-row jk-data-viewer-tools-filter jk-br-ie')}
-                  onClick={() => setShowFilterDrawer(true)}
-                >
-                  <FilterListIcon className="jk-br-ie cr-g4" />
-                </div>
-              </Tooltip>
+              <div
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="open filters"
+                data-tooltip-t-class-name="tt-se ws-np"
+                className={classNames({ active: filtered }, 'jk-row jk-data-viewer-tools-filter jk-br-ie')}
+                onClick={() => setShowFilterDrawer(true)}
+              >
+                <FilterListIcon className="jk-br-ie cr-g4" />
+              </div>
             </>
           )}
           {viewViews && (rowsView || cardsView) && (
@@ -157,24 +145,26 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               <div className="jk-divider horizontal" />
               <div className={classNames('jk-row nowrap jk-table-view-tools-view-mode', { rowsView, cardsView })}>
                 {rowsView && (
-                  <Tooltip content={<T className="tt-se ws-np">list view</T>} placement="top">
-                    <div
-                      className={classNames({ active: viewMode === DataViewMode.ROWS }, 'jk-row rows jk-br-ie')}
-                      onClick={() => setViewMode(DataViewMode.ROWS, true)}
-                    >
-                      <ViewHeadlineIcon className="jk-br-ie cr-g4" />
-                    </div>
-                  </Tooltip>
+                  <div
+                    data-tooltip-id="jk-tooltip"
+                    data-tooltip-content="list view"
+                    data-tooltip-t-class-name="tt-se ws-np"
+                    className={classNames({ active: viewMode === DataViewMode.ROWS }, 'jk-row rows jk-br-ie')}
+                    onClick={() => setViewMode(DataViewMode.ROWS, true)}
+                  >
+                    <ViewHeadlineIcon className="jk-br-ie cr-g4" />
+                  </div>
                 )}
                 {cardsView && (
-                  <Tooltip content={<T className="tt-se ws-np">cards view</T>} placement="top-end">
-                    <div
-                      className={classNames({ active: viewMode === DataViewMode.CARDS }, 'jk-row cards jk-br-ie')}
-                      onClick={() => setViewMode(DataViewMode.CARDS, true)}
-                    >
-                      <ViewModuleIcon className="jk-br-ie cr-g4" />
-                    </div>
-                  </Tooltip>
+                  <div
+                    data-tooltip-id="jk-tooltip"
+                    data-tooltip-content="cards view"
+                    data-tooltip-t-class-name="tt-se ws-np"
+                    className={classNames({ active: viewMode === DataViewMode.CARDS }, 'jk-row cards jk-br-ie')}
+                    onClick={() => setViewMode(DataViewMode.CARDS, true)}
+                  >
+                    <ViewModuleIcon className="jk-br-ie cr-g4" />
+                  </div>
                 )}
               </div>
             </>

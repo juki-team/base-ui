@@ -6,7 +6,7 @@ import { DataViewerHeadersType, TextField } from '../DataViewer';
 export const ProblemModeField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field'] = ({ record: { settings: { scoringMode } } }) => (
   <TextField
     className="jk-row"
-    text={<T className="tt-se">{PROBLEM_MODE[scoringMode].label}</T>}
+    text={<T className="tt-se">{PROBLEM_MODE[scoringMode]?.label}</T>}
     label={<T className="tt-se">mode</T>}
   />
 );

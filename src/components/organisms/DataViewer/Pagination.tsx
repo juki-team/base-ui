@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { classNames } from '../../../helpers';
 import { useT } from '../../../hooks/useT';
-import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, Select, SpinIcon, T, Tooltip } from '../../atoms';
+import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, Select, SpinIcon, T } from '../../atoms';
 import { PaginationProps } from './types';
 
 const SIZE_PAGES = 3;
@@ -81,22 +81,22 @@ export const Pagination = (props: PaginationProps) => {
               >
                 {dataLength ? `${firstItem} - ${firstItem + dataLength - 1}` : '0'}&nbsp;<T>of</T>&nbsp;{total}
               </div>
-              <Tooltip content={<T>previous</T>} placement="top">
-                <div
-                  className={classNames('page-item jk-row jk-br-ie', { disabled: page === startPage || initializing })}
-                  onClick={prev}
-                >
-                  <NavigateBeforeIcon />
-                </div>
-              </Tooltip>
-              <Tooltip content={<T>next</T>} placement="top">
-                <div
-                  className={classNames('page-item jk-row jk-br-ie', { disabled: page === endPage || initializing })}
-                  onClick={next}
-                >
-                  <NavigateNextIcon />
-                </div>
-              </Tooltip>
+              <div
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="previous"
+                className={classNames('page-item jk-row jk-br-ie', { disabled: page === startPage || initializing })}
+                onClick={prev}
+              >
+                <NavigateBeforeIcon />
+              </div>
+              <div
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="next"
+                className={classNames('page-item jk-row jk-br-ie', { disabled: page === endPage || initializing })}
+                onClick={next}
+              >
+                <NavigateNextIcon />
+              </div>
             </div>
             {pageSizeOptions.length > 1 && (
               <Select

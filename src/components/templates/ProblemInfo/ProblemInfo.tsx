@@ -9,7 +9,7 @@ import {
 } from '@juki-team/commons';
 import React, { Children, PropsWithChildren, ReactNode } from 'react';
 import { classNames } from '../../../helpers';
-import { ExclamationIcon, Popover, T, Tooltip } from '../../atoms';
+import { ExclamationIcon, Popover, T } from '../../atoms';
 
 export interface ProblemInfoProps {
   settings: ProblemSettingsType,
@@ -62,12 +62,12 @@ const ContentInfo = ({ label, value, children, expand, valueAsList, centered, wi
     <div className={classNames('jk-col stretch jk-br-ie', { 'jk-pg-sm': !withoutPadding })}>
       {head}
       {children && (
-        <Tooltip
+        <Popover
           content={<div className="">{children}</div>}
           placement="bottom"
         >
           <div className="jk-row">&nbsp;<ExclamationIcon filledCircle className="cr-py" rotate={180} /></div>
-        </Tooltip>
+        </Popover>
       )}
     </div>
   );

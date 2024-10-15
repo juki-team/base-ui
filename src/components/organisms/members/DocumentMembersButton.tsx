@@ -9,7 +9,7 @@ import {
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification, useJukiUser } from '../../../hooks';
-import { Button, InfoIcon, T, Tooltip } from '../../atoms';
+import { Button, InfoIcon, Popover, T } from '../../atoms';
 import { DocumentMembersModal } from './DocumentMembersModal';
 
 export interface DocumentMembersButton1Props {
@@ -64,7 +64,7 @@ export const DocumentMembersButton = (props: DocumentMembersButton1Props | Docum
   });
   
   const info = (
-    <Tooltip
+    <Popover
       content={
         <div style={{ width: 120 }}>
           <div className="fw-bd"><T className="tt-se">{ENTITY_ACCESS[documentMembers.access].label}</T></div>
@@ -75,7 +75,7 @@ export const DocumentMembersButton = (props: DocumentMembersButton1Props | Docum
       <div className="jk-row">
         <InfoIcon />
       </div>
-    </Tooltip>
+    </Popover>
   );
   
   if (nickname !== documentOwner.nickname) {

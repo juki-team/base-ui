@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useEcsWakeUp, useJukiUI } from '../../../hooks';
-import { Button, FullscreenExitIcon, FullscreenIcon, T, Tooltip } from '../../atoms';
+import { Button, FullscreenExitIcon, FullscreenIcon, T } from '../../atoms';
 import { SplitPane } from '../../molecules';
 import { UserCodeEditorProps } from '../../organisms/UserCodeEditor';
 import { ProblemCodeEditor } from './ProblemCodeEditor';
@@ -22,6 +22,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
     withoutName,
     forPrinting,
   } = props;
+  
   const { viewPortSize } = useJukiUI();
   const [ expanded, setExpanded ] = useState(false);
   
@@ -81,15 +82,16 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
           }
           
           return (
-            <Tooltip content={<T>{expanded ? 'back' : 'expand'}</T>} placement="bottom-end">
-              <Button
-                size="tiny"
-                type="light"
-                onClick={() => setExpanded(prevState => !prevState)}
-                icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
-                extend={twoRows}
-              />
-            </Tooltip>
+            <Button
+              data-tooltip-id="jk-tooltip"
+              data-tooltip-content="back"
+              data-tooltip-place="bottom-end"
+              size="tiny"
+              type="light"
+              onClick={() => setExpanded(prevState => !prevState)}
+              icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
+              extend={twoRows}
+            />
           );
         }}
         codeEditorSourceStoreKey={codeEditorSourceStoreKey}

@@ -10,7 +10,7 @@ import {
 } from '@juki-team/commons';
 import React from 'react';
 import { useJukiUser } from '../../../hooks';
-import { LoadingIcon, T, Tooltip } from '../../atoms';
+import { LoadingIcon, Popover, T } from '../../atoms';
 
 export interface SubmissionVerdictProps {
   verdict: ProblemVerdict,
@@ -112,16 +112,15 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
   }
   
   return (
-    <Tooltip
+    <Popover
       content={
         <div className="tt-se ws-np">
           {verdictLabel(verdict)}
         </div>
       }
       placement="top"
-      withPortal
     >
       {content}
-    </Tooltip>
+    </Popover>
   );
 };

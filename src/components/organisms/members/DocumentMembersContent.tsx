@@ -8,7 +8,7 @@ import {
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction } from 'react';
 import { useJukiUser } from '../../../hooks';
-import { Button, DeleteIcon, GlobeIcon, LockIcon, LockPersonIcon, PublicIcon, Select, T, Tooltip } from '../../atoms';
+import { Button, DeleteIcon, GlobeIcon, LockIcon, LockPersonIcon, PublicIcon, Select, T } from '../../atoms';
 import { UserChip } from '../UserChip';
 import { UsersSelector } from '../UsersSelector';
 
@@ -110,9 +110,7 @@ export const DocumentMembersContent = ({ members, setMembers, documentOwner }: D
                       setMembers(prevState => ({ ...prevState, managers: newManagers, spectators: newSpectators }));
                     }}
                     icon={
-                      <Tooltip content={<T>remove access</T>}>
-                        <div><DeleteIcon /></div>
-                      </Tooltip>
+                      <div data-tooltip-id="jk-tooltip" data-tooltip-content="remove access"><DeleteIcon /></div>
                     }
                     size="small"
                     type="light"

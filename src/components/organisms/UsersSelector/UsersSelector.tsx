@@ -2,7 +2,7 @@ import { ContentsResponseType, UserSummaryListResponseDTO } from '@juki-team/com
 import React, { useEffect, useMemo, useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { useFetcher } from '../../../hooks/useFetcher';
-import { Button, Modal, PeopleIcon, ReloadIcon, SpinIcon, T, TextArea, Tooltip } from '../../atoms';
+import { Button, Modal, PeopleIcon, ReloadIcon, SpinIcon, T, TextArea } from '../../atoms';
 import { MultiSelectSearchable } from '../../molecules';
 import { UserChip } from '../UserChip';
 import { UsersSelectorProps } from './types';
@@ -129,28 +129,28 @@ export const UsersSelector = (props: UsersSelectorProps) => {
         }}
         multiselect={maxUsersSelection !== 1}
       />
-      <Tooltip
-        placement="left"
-        content={<T className="tt-se">reload</T>}
+      <div
+        data-tooltip-id="jk-tooltip"
+        data-tooltip-content="reload"
+        data-tooltip-t-class-name="tt-se"
+        className="jk-button light only-icon"
       >
-        <div className="jk-button light only-icon">
-          <ReloadIcon onClick={() => mutate()} />
-        </div>
-      </Tooltip>
+        <ReloadIcon onClick={() => mutate()} />
+      </div>
       {maxUsersSelection !== 1 && (
-        <Tooltip
-          placement="left"
-          content={<T className="tt-se">add users by nicknames in batches</T>}
+        <div
+          data-tooltip-id="jk-tooltip"
+          data-tooltip-content="add users by nicknames in batches"
+          data-tooltip-t-class-name="tt-se"
+          className="jk-button light only-icon"
         >
-          <div className="jk-button light only-icon">
-            <PeopleIcon
-              onClick={() => {
-                resetText();
-                setShow(true);
-              }}
-            />
-          </div>
-        </Tooltip>
+          <PeopleIcon
+            onClick={() => {
+              resetText();
+              setShow(true);
+            }}
+          />
+        </div>
       )}
     </div>
   );

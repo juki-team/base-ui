@@ -3,7 +3,7 @@ import React from 'react';
 import { jukiSettings } from '../../../config';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
-import { CheckIcon, Popover, T } from '../../atoms';
+import { CheckIcon } from '../../atoms';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
 export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListResponseDTO>['Field'] = (props) => {
@@ -19,45 +19,51 @@ export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListRespo
           <div className={classNames('gap nowrap link fw-bd space-between', { 'jk-col': isCard, 'jk-row': !isCard })}>
             <div style={{ textAlign: isCard ? undefined : 'left' }}>{name}</div>
             {user.isAdministrator ? (
-              <Popover
-                content={<T className="tt-se ws-np">you are admin</T>}
-                placement="top"
-                showPopperArrow
+              <div
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="you are admin"
+                data-tooltip-t-class-name="tt-se ws-np"
+                className="jk-tag tx-s fw-bd letter-tag"
               >
-                <div className="jk-tag tx-s fw-bd letter-tag">A</div>
-              </Popover>
+                A
+              </div>
             ) : user.isManager ? (
-              <Popover
-                content={<T className="tt-se ws-np">you are judge</T>}
-                placement="top"
-                showPopperArrow
+              <div
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="you are judge"
+                data-tooltip-t-class-name="tt-se ws-np"
+                className="jk-tag tx-s fw-bd letter-tag"
               >
-                <div className="jk-tag tx-s fw-bd letter-tag">J</div>
-              </Popover>
+                J
+              </div>
             ) : user.isParticipant ? (
-              <Popover
-                content={<T className="tt-se ws-np">registered</T>}
-                placement="top"
-                showPopperArrow
-              >
-                <div><CheckIcon filledCircle className="cr-ss" /></div>
-              </Popover>
+              <div>
+                <CheckIcon
+                  data-tooltip-id="jk-tooltip"
+                  data-tooltip-content="registered"
+                  data-tooltip-t-class-name="tt-se ws-np"
+                  filledCircle
+                  className="cr-ss"
+                />
+              </div>
             ) : user.isGuest ? (
-              <Popover
-                content={<T className="tt-se ws-np">you are guest</T>}
-                placement="top"
-                showPopperArrow
+              <div
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="you are guest"
+                data-tooltip-t-class-name="tt-se ws-np"
+                className="jk-tag tx-s fw-bd letter-tag"
               >
-                <div className="jk-tag tx-s fw-bd letter-tag">G</div>
-              </Popover>
+                G
+              </div>
             ) : user.isSpectator && (
-              <Popover
-                content={<T className="tt-se ws-np">you are spectator</T>}
-                placement="top"
-                showPopperArrow
+              <div
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="you are spectator"
+                data-tooltip-t-class-name="tt-se ws-np"
+                className="jk-tag tx-s fw-bd letter-tag"
               >
-                <div className="jk-tag tx-s fw-bd letter-tag">S</div>
-              </Popover>
+                S
+              </div>
             )}
           </div>
         </Link>

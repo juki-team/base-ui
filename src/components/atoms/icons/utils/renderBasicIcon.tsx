@@ -1,3 +1,4 @@
+import * as motion from 'framer-motion/client';
 import React, { ComponentType } from 'react';
 import { classNames } from '../../../../helpers';
 import { BasicIconProps, RootIconProps } from '../types';
@@ -48,10 +49,13 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
   const color = isFilled ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)')) : 'currentColor';
   
   return (
-    <span
+    <motion.span
       {...props}
       className={classNames(className, 'jk-icon', size, name, { 'cursor-pointer': !!props.onClick })}
       style={{ transform: `rotate(${rotate}deg)`, ...style }}
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+      exit={{ scale: 0, transition: { duration: 5 } }}
     >
       <svg viewBox={viewBox} fill="currentColor">
         {filledCircle && (
@@ -141,6 +145,6 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
           )}
         </g>
       </svg>
-    </span>
+    </motion.span>
   );
 };

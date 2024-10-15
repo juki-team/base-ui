@@ -1,6 +1,6 @@
-import React, { CSSProperties, memo, PropsWithChildren, useEffect, useRef, useState } from 'react';
-import { useResizeDetector } from 'react-resize-detector';
-import { RESIZE_DETECTOR_PROPS, SCROLL_WIDTH } from '../../../constants';
+import { AnimatePresence } from 'framer-motion';
+import * as motion from 'framer-motion/client';
+import React, { memo, PropsWithChildren, useRef } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useKeyPress } from '../../../hooks/custom';
 import { Button, CloseIcon, Portal } from '../../atoms';
@@ -19,12 +19,6 @@ export const DrawerView = memo((props: PropsWithChildren<DrawerViewProps>) => {
   } = props;
   
   const drawerLayoutRef = useRef(null);
-  const { height = 0, width = 0 } = useResizeDetector({ targetRef: drawerLayoutRef, ...RESIZE_DETECTOR_PROPS });
-  const [ render, setRender ] = useState(0);
-  useEffect(() => {
-    setTimeout(() => setRender(1), 400); // to load html components
-    setTimeout(() => setRender(2), 800);
-  }, []);
   
   const close = () => {
     if (isOpen) {
@@ -40,25 +34,37 @@ export const DrawerView = memo((props: PropsWithChildren<DrawerViewProps>) => {
   
   return (
     <Portal>
-      {isOpen && <div className="jk-drawer-overlay" onClick={closeWhenClickOutside ? close : undefined} />}
-      <div
-        ref={drawerLayoutRef}
-        className={classNames('jk-drawer-layout', position, { open: isOpen })}
-        style={{
-          zIndex: (render < 2 && !isOpen) ? -1 : undefined,
-          opacity: (render < 2 && !isOpen) ? 0 : undefined,
-          transition: 'right 400ms, left 400ms, top 400ms, bottom 400ms',
-          '--height-jk-drawer-layout': (height + SCROLL_WIDTH * 2) + 'px',
-          '--width-jk-drawer-layout': (width + SCROLL_WIDTH * 2) + 'px',
-        } as CSSProperties}
-      >
-        {closeIcon === undefined ? (
-          <div className="jk-drawer-close-button" onClick={close}><Button icon={<CloseIcon />} type="light" /></div>
-        ) : renderReactNodeOrFunctionP1(closeIcon, { isOpen, close })}
-        <div className="jk-drawer-body">
-          {children}
-        </div>
-      </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            key="jk-drawer-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="jk-drawer-overlay" onClick={closeWhenClickOutside ? close : undefined}
+          />
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            key="jk-drawer-layout"
+            initial={{ x: '100vw' }}
+            animate={{ x: 0, transition: { stiffness: 0 } }}
+            exit={{ x: '100vw' }}
+            ref={drawerLayoutRef}
+            className={classNames('jk-drawer-layout', position, { open: isOpen })}
+          >
+            {closeIcon === undefined ? (
+              <div className="jk-drawer-close-button" onClick={close}><Button icon={<CloseIcon />} type="light" />
+              </div>
+            ) : renderReactNodeOrFunctionP1(closeIcon, { isOpen, close })}
+            <div className="jk-drawer-body">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Portal>
   );
 }, ({ isOpen }, { isOpen: isOpenNext }) => {

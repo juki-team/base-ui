@@ -8,7 +8,7 @@ import {
 import React, { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUser } from '../../../hooks';
-import { InfoIcon, InputToggle, T, Tooltip } from '../../atoms';
+import { InfoIcon, InputToggle, Popover, T } from '../../atoms';
 import { UserChip } from '../UserChip';
 import { UsersSelector } from '../UsersSelector';
 
@@ -177,9 +177,9 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{administratorsLabel}</T>
             {!!administrators?.description && (
-              <Tooltip content={administrators?.description || ''}>
+              <Popover content={administrators?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
-              </Tooltip>
+              </Popover>
             )}
             {administrators?.closeable && setMembers && (
               <>
@@ -239,9 +239,9 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{managers?.name || 'managers'}</T>
             {!!managers?.description && (
-              <Tooltip content={managers?.description || ''}>
+              <Popover content={managers?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
-              </Tooltip>
+              </Popover>
             )}
             {managers?.closeable && setMembers && (
               <>
@@ -301,9 +301,9 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{participants?.name || 'participants'}</T>
             {!!participants?.description && (
-              <Tooltip content={participants?.description || ''}>
+              <Popover content={participants?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
-              </Tooltip>
+              </Popover>
             )}
             {participants?.closeable && setMembers && (
               <>
@@ -363,9 +363,9 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{guests?.name || 'guests'}</T>
             {!!guests?.description && (
-              <Tooltip content={guests?.description || ''}>
+              <Popover content={guests?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
-              </Tooltip>
+              </Popover>
             )}
             {guests?.closeable && setMembers && (
               <>
@@ -425,9 +425,9 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{spectators?.name || 'spectators'}</T>
             {!!spectators?.description && (
-              <Tooltip content={spectators?.description || ''}>
+              <Popover content={spectators?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
-              </Tooltip>
+              </Popover>
             )}
             {spectators?.closeable && setMembers && (
               <>

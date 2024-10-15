@@ -1,8 +1,8 @@
-import React from 'react';
-import { Tooltip } from '../../atoms/Tooltip';
+import React, { ReactNode } from 'react';
+import { Popover } from '../../atoms/Popover';
 
 export interface MultiProgressBarProps {
-  label?: string,
+  label?: ReactNode,
   progress: { label?: string, percentage: number, color?: string }[];
 }
 
@@ -14,9 +14,12 @@ export const MultiProgressBar = ({ progress, label }: MultiProgressBarProps) => 
         style={{ width: '100%', overflow: 'hidden', background: 'var(--t-color-highlight-light)' }}
       >
         {progress.map(({ label, percentage, color }, index) => (
-          <Tooltip content={label} key={index}>
-            <div key={index} style={{ width: percentage + '%', background: color, height: 12 }} />
-          </Tooltip>
+          <div
+            key={index}
+            data-tooltip-id="jk-tooltip"
+            data-tooltip-content={label}
+            style={{ width: percentage + '%', background: color, height: 12 }}
+          />
         ))}
       </div>
       {/*<div
@@ -31,8 +34,8 @@ export const MultiProgressBar = ({ progress, label }: MultiProgressBarProps) => 
   );
   
   return !!label ? (
-    <Tooltip content={label} placement="top">
+    <Popover content={label} placement="bottom" showPopperArrow>
       {content}
-    </Tooltip>
+    </Popover>
   ) : content;
 };

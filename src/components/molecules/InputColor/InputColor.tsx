@@ -27,7 +27,7 @@ export const InputColor = ({ color, children, onChange, label }: ColorPickerProp
           <Button
             onClick={() => {
               handlePick();
-              onClose(0);
+              onClose();
             }}
             extend
             size="small"

@@ -1,6 +1,6 @@
 import { ProblemSampleCasesType } from '@juki-team/commons';
 import React from 'react';
-import { ContentCopyIcon, CopyToClipboard, InfoIcon, T, Tooltip } from '../../atoms';
+import { ContentCopyIcon, CopyToClipboard, InfoIcon } from '../../atoms';
 
 interface SampleTestProps {
   index: number,
@@ -20,14 +20,14 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
           <div className="sample-text-content jk-border-radius-inline">
             <div className="jk-row gap sample-text-icons">
               {!forPrinting && withPE && (
-                <Tooltip
-                  content={
-                    <T>{`${sample.input.lastIndexOf('\n') === sample.input.length - 1 ? '' : 'no '}newline at end of file`}</T>
-                  }
-                  placement="left"
+                <div
+                  data-tooltip-id="jk-tooltip"
+                  data-tooltip-content={`${sample.input.lastIndexOf('\n') === sample.input.length - 1 ? '' : 'no '}newline at end of file`}
+                  data-tooltip-place="left"
+                  className="jk-row"
                 >
-                  <div className="jk-row"><InfoIcon size="small" /></div>
-                </Tooltip>
+                  <InfoIcon size="small" />
+                </div>
               )}
               {!forPrinting && (
                 <CopyToClipboard text={sample.input}>
@@ -45,14 +45,14 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
           <div className="sample-text-content jk-border-radius-inline">
             <div className="jk-row gap sample-text-icons">
               {!forPrinting && withPE && (
-                <Tooltip
-                  content={
-                    <T>{`${sample.output.lastIndexOf('\n') === sample.output.length - 1 ? '' : 'no '}newline at end of file`}</T>
-                  }
-                  placement="left"
+                <div
+                  data-tooltip-id="jk-tooltip"
+                  data-tooltip-content={`${sample.output.lastIndexOf('\n') === sample.output.length - 1 ? '' : 'no '}newline at end of file`}
+                  data-tooltip-place="left"
+                  className="newline-eof"
                 >
-                  <div className="newline-eof"><InfoIcon size="small" /></div>
-                </Tooltip>
+                  <InfoIcon size="small" />
+                </div>
               )}
               {!forPrinting && (
                 <CopyToClipboard text={sample.output}>

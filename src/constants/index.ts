@@ -1,4 +1,5 @@
 import {
+  CompanyPingType,
   DataViewMode,
   DAY_NAMES,
   EMPTY_USER_PERMISSIONS,
@@ -21,15 +22,15 @@ export const ALPHANUMERIC_DASH_UNDERSCORE_REGEX = /^[a-z0-9\-_]+$/i;
 
 export const LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?"()-_]{8,}$/;
 
-export const EMPTY_COMPANY = {
+export const EMPTY_COMPANY: CompanyPingType = {
   name: '',
   imageUrl: '',
   contactEmail: 'contact@juki.app',
   contactCellPhoneNumber: '+519 79153358',
   contactTelegram: 'https://t.me/OscarGauss',
   key: '',
+  codeEditorRunEnabled: true,
 };
-
 
 export const RESIZE_DETECTOR_PROPS: useResizeDetectorProps<any> = { refreshRate: 200, refreshMode: 'debounce' };
 
@@ -57,3 +58,9 @@ export const DEFAULT_DATA_VIEWER_PROPS = {
   getFilterQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.FILTER_TABLE,
   getViewModeQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.VIEW_MODE_TABLE,
 };
+
+export enum Duration {
+  FAST = 0.08,
+  NORMAL = 0.2,
+  LOW = 0.32,
+}

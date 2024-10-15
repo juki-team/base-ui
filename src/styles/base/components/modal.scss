@@ -5,22 +5,24 @@
     background-color: var(--t-color-shadow-light) !important;
     display: grid;
     z-index: var(--z-index-overlay-modal);
-    opacity: 0;
-    @include transition(opacity, background-color);
+    //opacity: 0;
+    //@include transition(opacity, background-color);
+    //@include transition(background-color);
   }
   
   .ReactModal__Content.small-viewport-popover {
+    padding: var(--pad-sm);
     width: auto;
     border-radius: var(--border-radius-inline);
   }
   
-  .ReactModal__Overlay--after-open {
-    opacity: 1;
-  }
-  
-  .ReactModal__Overlay--before-close {
-    opacity: 0;
-  }
+  //.ReactModal__Overlay--after-open {
+  //  opacity: 1;
+  //}
+  //
+  //.ReactModal__Overlay--before-close {
+  //  opacity: 0;
+  //}
   
   &:not(.expand) {
     .ReactModal__Overlay {

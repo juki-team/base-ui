@@ -1,9 +1,10 @@
 import React from 'react';
-import { ArrowContainer, Popover as ReactPopover, PopoverAlign, PopoverPosition } from 'react-tiny-popover';
+import { ArrowContainer, PopoverAlign, PopoverPosition } from 'react-tiny-popover';
 import { classNames, isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { useHandleState } from '../../../hooks';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { useTriggerWrapper } from '../../../hooks/useTriggerWrapper';
 import { Modal } from '../Modal';
+import { Popover as ReactPopover } from './ReactTinyPopover.Popover';
 import { PlacementType, PopoverProps } from './types';
 
 const placementPositionAlign: { [key in PlacementType]: { position: PopoverPosition, align: PopoverAlign } } = {
@@ -37,48 +38,55 @@ export const Popover = (props: PopoverProps) => {
     onVisibleChange,
     triggerOn = 'hover',
     triggerOff = triggerOn,
-    triggerOnDelayInMs = { hover: 0, click: 0, none: 0 },
-    triggerOffDelayInMs = { hover: 0, click: 0, escape: 0, none: 0 },
     popoverClassName,
     showPopperArrow = false,
-    // keepMounted = false,
     popoverContentClassName,
     marginOfChildren = 12, // --pad-t: 12px;
   } = props;
   
-  const withOutsideAlerter = !isTrigger(triggerOn, 'click');
-  const {
-    isOpen,
-    outsideAlerterRef1,
-    childProps,
-    onMouseEnter,
-    onMouseLeave,
-    setOffVisible,
-  } = useTriggerWrapper({
-    visible,
-    onVisibleChange,
-    triggerOn,
-    triggerOff: typeof triggerOff === 'string' ? (triggerOff === 'click' ? [] : triggerOff) : triggerOff.filter(t => t !== 'click'),
-    triggerOnDelayInMs,
-    triggerOffDelayInMs,
-    withOutsideAlerter,
-  });
+  const [ isOpen, setIsOpen ] = useHandleState(false, visible, onVisibleChange);
+  
   const { jukiAppDiv, viewPortSize } = useJukiUI();
   const isMobileViewPort = viewPortSize === 'sm';
   
   const popoverContent = (
     <div className={classNames('jk-popover-layout', popoverClassName)}>
-      <div
-        className={classNames('jk-popover-content bc-we jk-border-radius-inline', popoverContentClassName, { 'elevation-1': !showPopperArrow })}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        ref={outsideAlerterRef1}
-      >
-        {renderReactNodeOrFunctionP1(content, { isOpen, onClose: setOffVisible })}
+      <div className={classNames('jk-popover-content bc-we jk-border-radius-inline', popoverContentClassName, { 'elevation-1': !showPopperArrow })}>
+        {renderReactNodeOrFunctionP1(content, { isOpen, onClose: () => setIsOpen(false) })}
       </div>
     </div>
   );
   
+  const childProps = ({
+                        props: {
+                          ref = undefined,
+                          onMouseEnter = undefined,
+                          onMouseLeave = undefined,
+                          onClick = undefined,
+                        } = {},
+                      }: any) => ({
+    ref: (e: any) => {
+      ref?.(e);
+    },
+    onMouseEnter: (e: any) => {
+      if (isTrigger(triggerOn, 'hover')) {
+        setIsOpen(true);
+      }
+      onMouseEnter?.(e);
+    },
+    onMouseLeave: (e: any) => {
+      if (isTrigger(triggerOff, 'hover')) {
+        setIsOpen(false);
+      }
+      onMouseLeave?.(e);
+    },
+    onClick: (e: any) => {
+      if (isTrigger(triggerOn, 'click')) {
+        setIsOpen(prevState => !prevState);
+      }
+      onClick?.(e);
+    },
+  });
   
   if (isMobileViewPort) {
     return (
@@ -87,7 +95,7 @@ export const Popover = (props: PopoverProps) => {
           {children}
         </CustomComponent>
         <Modal
-          onClose={() => setOffVisible(0)}
+          onClose={(() => setIsOpen(false))}
           isOpen={isOpen}
           closeWhenClickOutside
           closeWhenKeyEscape
@@ -108,7 +116,7 @@ export const Popover = (props: PopoverProps) => {
       align={placementPositionAlign[placement].align}
       onClickOutside={() => {
         if (isTrigger(triggerOff, 'click')) {
-          setOffVisible(0);
+          setIsOpen(false);
         }
       }}
       content={showPopperArrow ?

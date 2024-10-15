@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
-import { AddIcon, DeleteIcon, InfoIcon, T, TextArea, Tooltip } from '../../../atoms';
+import { AddIcon, DeleteIcon, InfoIcon, T, TextArea } from '../../../atoms';
 import { SplitPane, TabsInline, TabsType, TabType } from '../../../molecules';
 import { NotificationType } from '../../Notifications';
 import { ProblemVerdictTag } from '../../ProblemVerdictTag';
@@ -26,45 +26,45 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = fal
 }) => {
   const { addNotification } = useJukiNotification();
   return (
-    <Tooltip
-      content={<T className="ws-np tt-se tx-s">{`add ${sample ? 'sample' : 'custom sample'} case`}</T>}
-      placement="top-end"
+    <div
+      data-tooltip-t-class-name="ws-np tt-se tx-s"
+      data-tooltip-id="jk-tooltip"
+      data-tooltip-content={`add ${sample ? 'sample' : 'custom sample'} case`}
+      className="jk-button light small only-icon" style={{ margin: '6px' }}
     >
-      <div className="jk-button light small only-icon" style={{ margin: '6px' }}>
-        <AddIcon
-          size="small"
-          onClick={() => {
-            const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
-            const noCustomCases = testCasesValues.filter(testCaseValue => testCaseValue.sample);
-            const cases = sample ? noCustomCases : customCases;
-            if (cases.length < (sample ? 30 : 15)) {
-              const key = v4();
-              const index = mex(cases.map(testCaseValue => testCaseValue.index));
-              onChange?.({
-                testCases: {
-                  ...testCases,
-                  [key]: {
-                    key,
-                    index,
-                    in: '',
-                    out: '',
-                    testOut: '',
-                    withPE: noCustomCases?.[0]?.withPE ?? true,
-                    err: '',
-                    log: '',
-                    hidden: false,
-                    sample: sample,
-                    status: SubmissionRunStatus.NONE,
-                  },
+      <AddIcon
+        size="small"
+        onClick={() => {
+          const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
+          const noCustomCases = testCasesValues.filter(testCaseValue => testCaseValue.sample);
+          const cases = sample ? noCustomCases : customCases;
+          if (cases.length < (sample ? 30 : 15)) {
+            const key = v4();
+            const index = mex(cases.map(testCaseValue => testCaseValue.index));
+            onChange?.({
+              testCases: {
+                ...testCases,
+                [key]: {
+                  key,
+                  index,
+                  in: '',
+                  out: '',
+                  testOut: '',
+                  withPE: noCustomCases?.[0]?.withPE ?? true,
+                  err: '',
+                  log: '',
+                  hidden: false,
+                  sample: sample,
+                  status: SubmissionRunStatus.NONE,
                 },
-              });
-            } else {
-              addNotification({ type: NotificationType.QUIET, message: <T>maximum test cases achieved</T> });
-            }
-          }}
-        />
-      </div>
-    </Tooltip>
+              },
+            });
+          } else {
+            addNotification({ type: NotificationType.QUIET, message: <T>maximum test cases achieved</T> });
+          }
+        }}
+      />
+    </div>
   );
 };
 
@@ -200,15 +200,13 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             sample output
           </T>
           {testCases[testCaseKey]?.withPE && (
-            <Tooltip
-              content={
-                <T>{`${testCases[testCaseKey]?.testOut.lastIndexOf('\n') === testCases[testCaseKey]?.testOut.length - 1 ? '' : 'no '}newline at end of file`}</T>
-              }
-              placement="top-end"
-              withPortal
+            <div
+              data-tooltip-id="jk-tooltip"
+              data-tooltip-content={`${testCases[testCaseKey]?.testOut.lastIndexOf('\n') === testCases[testCaseKey]?.testOut.length - 1 ? '' : 'no '}newline at end of file`}
+              className="jk-row"
             >
-              <div className="jk-row"><InfoIcon size="small" /></div>
-            </Tooltip>
+              <InfoIcon size="small" />
+            </div>
           )}
         </div>
       ),

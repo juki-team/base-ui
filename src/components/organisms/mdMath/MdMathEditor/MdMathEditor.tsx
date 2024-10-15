@@ -13,7 +13,6 @@ import {
   SaveIcon,
   T,
   TextArea,
-  Tooltip,
 } from '../../../atoms';
 import { SplitPane, TwoActionModal } from '../../../molecules';
 import { UploadImageButton } from '../../ImageUploader';
@@ -36,17 +35,14 @@ export const InformationButton = ({ isOpenRef, withLabel }: InformationButtonPro
   
   return (
     <>
-      <Tooltip
-        content={<T className="ws-np tt-se">information</T>}
-        placement="bottom"
-        visible={withLabel ? false : undefined}
+      <Button
+        data-tooltip-id="jk-tooltip"
+        data-tooltip-content={withLabel ? '' : 'information'}
+        data-tooltip-t-class-name="ws-np tt-se"
+        icon={<ExclamationIcon circle rotate={180} />} type="light" size="tiny" onClick={() => setOpen(true)}
       >
-        <div>
-          <Button icon={<ExclamationIcon circle rotate={180} />} type="light" size="tiny" onClick={() => setOpen(true)}>
-            {withLabel && <T>information</T>}
-          </Button>
-        </div>
-      </Tooltip>
+        {withLabel && <T>information</T>}
+      </Button>
       <Modal
         isOpen={open}
         onClose={() => setOpen(false)}
@@ -144,67 +140,65 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
                 />
               )}
               {view === 0 && (
-                <Tooltip
-                  content={(
-                    <div className="jk-row nowrap ws-np">
-                      <T className="ws-np tt-se">editor</T> ⮜ | ⮞ <T>preview</T>
-                    </div>
-                  )}
-                  placement="bottom"
-                  visible={withLabels ? false : undefined}
+                <Button
+                  data-tooltip-id="jk-tooltip"
+                  data-tooltip-content={withLabels ? '' : 'editor | preview'}
+                  data-tooltip-t-class-name="ws-np"
+                  type="light"
+                  size="tiny"
+                  onClick={() => setView(1)}
                 >
-                  <Button type="light" size="tiny" onClick={() => setView(1)}>
-                    <div className="jk-row">
-                      {withLabels && (
-                        <>
-                          <T>editor</T>&nbsp;<EditIcon />&nbsp;
-                          |&nbsp;<PreviewIcon />&nbsp;<T>preview</T>
-                        </>
-                      )}
-                    </div>
-                  </Button>
-                </Tooltip>
+                  <div className="jk-row">
+                    {withLabels && (
+                      <>
+                        <T>editor</T>&nbsp;<EditIcon />&nbsp;
+                        |&nbsp;<PreviewIcon />&nbsp;<T>preview</T>
+                      </>
+                    )}
+                  </div>
+                </Button>
               )}
               {view === 1 && (
-                <Tooltip
-                  content={<T className="ws-np jk-pg-sm">preview</T>}
-                  placement="bottom"
-                  visible={withLabels ? false : undefined}
+                <Button
+                  data-tooltip-id="jk-tooltip"
+                  data-tooltip-content={withLabels ? '' : 'preview'}
+                  data-tooltip-t-class-name="ws-np"
+                  type="light"
+                  size="tiny"
+                  icon={<PreviewIcon />}
+                  onClick={() => setView(3)}
                 >
-                  <Button type="light" size="tiny" icon={<PreviewIcon />} onClick={() => setView(3)}>
-                    {withLabels && <T>preview</T>}
-                  </Button>
-                </Tooltip>
+                  {withLabels && <T>preview</T>}
+                </Button>
               )}
               {view === 3 && (
-                <Tooltip
-                  content={<T className="ws-np jk-pg-sm">editor</T>}
-                  placement="bottom"
-                  visible={withLabels ? false : undefined}
+                <Button
+                  data-tooltip-id="jk-tooltip"
+                  data-tooltip-content={withLabels ? '' : 'editor'}
+                  data-tooltip-t-class-name="ws-np"
+                  type="light"
+                  size="tiny"
+                  icon={<EditIcon />}
+                  onClick={() => setView(0)}
                 >
-                  <Button type="light" size="tiny" icon={<EditIcon />} onClick={() => setView(0)}>
-                    {withLabels && <T>editor</T>}
-                  </Button>
-                </Tooltip>
+                  {withLabels && <T>editor</T>}
+                </Button>
               )}
             </div>
             <div className="jk-row gap right" style={{ padding: '0 var(--gap)' }}>
               {onChange && !online && (
-                <Tooltip
-                  placement="bottom"
-                  content={<T className="jk-pg-sm">save</T>}
-                  visible={withLabels ? false : undefined}
+                <Button
+                  data-tooltip-id="jk-tooltip"
+                  data-tooltip-content={withLabels ? '' : 'save'}
+                  data-tooltip-t-class-name="ws-np"
+                  icon={<SaveIcon />}
+                  type="light"
+                  size="tiny"
+                  onClick={() => onChange(editValue)}
+                  disabled={source === editValue}
                 >
-                  <Button
-                    icon={<SaveIcon />}
-                    type="light"
-                    size="tiny"
-                    onClick={() => onChange(editValue)}
-                    disabled={source === editValue}
-                  >
-                    {withLabels && <T>save</T>}
-                  </Button>
-                </Tooltip>
+                  {withLabels && <T>save</T>}
+                </Button>
               )}
               <Button
                 icon={<CloseIcon />}

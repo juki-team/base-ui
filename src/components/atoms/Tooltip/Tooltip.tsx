@@ -4,7 +4,7 @@ import { renderChildrenWithProps, renderReactNodeOrFunction } from '../../../hel
 import { Portal } from '../Portal';
 import { TooltipProps } from './types';
 
-export const Tooltip = (props: PropsWithChildren<TooltipProps>) => {
+export const TooltipOld = (props: PropsWithChildren<TooltipProps>) => {
   
   const {
     clickable = true,

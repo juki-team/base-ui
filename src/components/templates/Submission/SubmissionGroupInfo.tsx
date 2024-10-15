@@ -5,7 +5,7 @@ import { ColorSchemeType } from 'diff2html/lib/types';
 import React, { useCallback, useEffect, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useJukiUser } from '../../../hooks';
-import { Button, Collapse, Modal, T, Tooltip, UpIcon, VirtualizedRowsFixed, VisibilityIcon } from '../../atoms';
+import { Button, Collapse, Modal, T, UpIcon, VirtualizedRowsFixed, VisibilityIcon } from '../../atoms';
 import { VirtualizedRowsFixedProps } from '../../atoms/VirtualizedRowsFixed/types';
 import { SubmissionMemory } from './SubmissionMemory';
 import { SubmissionTime } from './SubmissionTime';
@@ -47,9 +47,14 @@ const DiffViewButton = ({ diffInput, croppedDiff }: { diffInput: string, cropped
   
   return (
     <>
-      <Tooltip content={<T>view diff</T>} withPortal placement="top">
-        <Button icon={<VisibilityIcon />} size="tiny" type="light" onClick={() => setIsOpen(true)} />
-      </Tooltip>
+      <Button
+        data-tooltip-id="jk-tooltip"
+        data-tooltip-content="view diff"
+        icon={<VisibilityIcon />}
+        size="tiny"
+        type="light"
+        onClick={() => setIsOpen(true)}
+      />
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} closeWhenKeyEscape closeWhenClickOutside closeIcon>
         <div className="jk-col stretch gap jk-pg-lg diff-body-modal">
           <div>
@@ -102,19 +107,14 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
         style={{ borderBottom: '1px solid var(--t-color-gray-5)' }}
       >
         {isProblemEditor ? (
-          <Tooltip
-            content={
-              <div className="jk-row ws-np">
-                {testCase.testCaseKey}
-              </div>
-            }
-            placement="top"
-            withPortal
+          <div
+            data-tooltip-id="jk-tooltip"
+            data-tooltip-content={testCase.testCaseKey}
+            data-tooltip-t-class-name="ws-np"
+            className="jk-row" style={{ flex: 0.4 }}
           >
-            <div className="jk-row" style={{ flex: 0.4 }}>
-              {index + 1}
-            </div>
-          </Tooltip>
+            {index + 1}
+          </div>
         ) : (
           <div className="jk-row" style={{ flex: 0.4 }}>
             {index + 1}

@@ -1,7 +1,7 @@
 import React, { Children, PropsWithChildren } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useHandleState, useJukiUI } from '../../../../hooks';
-import { NavigateBeforeIcon, NavigateNextIcon, Tooltip } from '../../../atoms';
+import { NavigateBeforeIcon, NavigateNextIcon, Popover } from '../../../atoms';
 import { HorizontalMenu } from '../Horizontal';
 import { VerticalMenuProps } from '../types';
 
@@ -42,12 +42,13 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
       </div>
     );
     const menuItem = open ? menuItemContent : (
-      <Tooltip
-        content={<div className="tt-ce">{renderReactNodeOrFunction(label)}</div>}
+      <Popover
+        content={<div className="tt-ce jk-pg-sm">{renderReactNodeOrFunction(label)}</div>}
         placement="right"
+        showPopperArrow
       >
         {menuItemContent}
-      </Tooltip>
+      </Popover>
     );
     if (menuItemWrapper) {
       menus.push(renderReactNodeOrFunctionP1(menuItemWrapper, {

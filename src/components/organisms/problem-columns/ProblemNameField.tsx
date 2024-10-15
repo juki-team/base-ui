@@ -3,7 +3,7 @@ import React, { ReactNode, useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
-import { Modal, T, Tooltip, VoidIcon } from '../../atoms';
+import { Modal, VoidIcon } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { ProblemView } from '../../templates';
 import { DataViewerHeadersType, Field } from '../DataViewer';
@@ -24,15 +24,14 @@ export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListRespo
         {(user.tried || user.solved) && <>&nbsp;</>}
         <ProblemStatus {...user} size="small" />
         {user.isManager && (
-          <Tooltip
-            content={<T className="tt-se ws-np">you are editor</T>}
-            placement="top"
-            withPortal
+          <div
+            data-tooltip-id="jk-tooltip"
+            data-tooltip-content="you are editor"
+            data-tooltip-t-class-name="tt-se ws-np"
+            className="jk-row tx-s cr-py"
           >
-            <div className="jk-row tx-s cr-py">
-              &nbsp;<VoidIcon size="small" filledSquare letter="E" />
-            </div>
-          </Tooltip>
+            &nbsp;<VoidIcon size="small" filledSquare letter="E" />
+          </div>
         )}
       </div>
     </Field>
@@ -76,15 +75,14 @@ export const ProblemNameModalField: DataViewerHeadersType<ProblemSummaryListResp
         {(user.tried || user.solved) && <>&nbsp;</>}
         <ProblemStatus {...user} size="small" />
         {user.isManager && (
-          <Tooltip
-            content={<T className="tt-se ws-np">you are editor</T>}
-            placement="top"
-            withPortal
+          <div
+            data-tooltip-id="jk-tooltip"
+            data-tooltip-content="you are editor"
+            data-tooltip-t-class-name="tt-se ws-np"
+            className="jk-row tx-s cr-py"
           >
-            <div className="jk-row tx-s cr-py">
-              &nbsp;<VoidIcon size="small" filledSquare letter="E" />
-            </div>
-          </Tooltip>
+            &nbsp;<VoidIcon size="small" filledSquare letter="E" />
+          </div>
         )}
       </div>
     </Field>

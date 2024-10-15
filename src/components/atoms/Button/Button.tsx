@@ -1,4 +1,6 @@
+import * as motion from 'framer-motion/client';
 import React, { forwardRef, ReactElement, Ref } from 'react';
+import { Duration } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { ViewPortSizeType } from '../../../types';
@@ -15,6 +17,17 @@ const sizeViewPorts: { [key in ViewPortSizeType]: string } = {
   lg: 'regular',
   hg: 'regular',
 };
+
+const buttonsVariants = (isDisabled: boolean) => ({
+  whileHover: isDisabled ? {} : { scale: 1.05 },
+  whileTap: isDisabled ? {
+    x: [ '-1rem', '1rem', 0 ],
+    transitionEnd: {
+      x: 0,
+    },
+  } : { scale: 0.9 },
+  
+});
 
 const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
   
@@ -39,8 +52,14 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
   const hasChildren = !!children && (responsiveMobile ? viewPortSize !== 'sm' : true);
   
   return (
-    <button
+    <motion.button
       ref={ref}
+      variants={buttonsVariants(disabled)}
+      whileHover="whileHover"
+      whileTap="whileTap"
+      transition={{
+        duration: disabled ? Duration.FAST : Duration.NORMAL,
+      }}
       type={submit ? 'submit' : 'button'}
       className={classNames(className, `clickable jk-button ${type} jk-border-radius-inline`, size, {
         extend,
@@ -60,7 +79,7 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
     >
       {icon}
       {hasChildren && children}
-    </button>
+    </motion.button>
   );
 };
 

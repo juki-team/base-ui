@@ -1,7 +1,6 @@
 import { PROBLEM_VERDICT, ProblemVerdict, ProfileSetting, Theme } from '@juki-team/commons';
 import React from 'react';
 import { useJukiUser } from '../../../hooks/useJukiUser';
-import { T, Tooltip } from '../../atoms';
 
 export const ProblemVerdictTag = ({ verdict, small }: { verdict: ProblemVerdict, small?: boolean }) => {
   
@@ -10,16 +9,17 @@ export const ProblemVerdictTag = ({ verdict, small }: { verdict: ProblemVerdict,
   const addDark = userTheme === Theme.DARK ? 'CC' : '';
   
   return (
-    <Tooltip content={<T className="tt-se">{PROBLEM_VERDICT[verdict]?.label}</T>}>
-      <div
-        className="jk-tag tx-t"
-        style={{
-          backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark,
-          ...(small ? { lineHeight: 1, padding: '2px 4px' } : {}),
-        }}
-      >
-        {verdict}
-      </div>
-    </Tooltip>
+    <div
+      data-tooltip-id="jk-tooltip"
+      data-tooltip-content={PROBLEM_VERDICT[verdict]?.label}
+      data-tooltip-t-class-name="tt-se"
+      className="jk-tag tx-t"
+      style={{
+        backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark,
+        ...(small ? { lineHeight: 1, padding: '2px 4px' } : {}),
+      }}
+    >
+      {verdict}
+    </div>
   );
 };

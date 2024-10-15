@@ -1,5 +1,5 @@
 import React, { Dispatch, MutableRefObject, ReactNode, useState } from 'react';
-import { Button, CloudUploadIcon, T, Tooltip } from '../../../atoms';
+import { Button, CloudUploadIcon, T } from '../../../atoms';
 import { ImageUploaderModal, onPickImageUrlType } from '../ImageUploaderModal';
 
 type ChildrenProps = { open: boolean, setOpen: Dispatch<boolean>, withLabel: boolean };
@@ -37,15 +37,13 @@ export const UploadImageButton = (props: UploadImageButtonProps) => {
   
   return (
     <>
-      <Tooltip
-        content={<T className="ws-np tt-se">upload image</T>}
-        placement="bottom"
-        visible={withLabel ? false : undefined}
+      <div
+        data-tooltip-id="jk-tooltip"
+        data-tooltip-content={withLabel ? '' : 'upload image'}
+        data-tooltip-t-class-name="ws-np tt-se"
       >
-        <div>
-          {children({ open, setOpen, withLabel })}
-        </div>
-      </Tooltip>
+        {children({ open, setOpen, withLabel })}
+      </div>
       <ImageUploaderModal
         isOpen={open}
         onClose={() => setOpen(false)}

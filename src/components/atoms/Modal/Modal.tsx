@@ -1,4 +1,6 @@
 import { Status } from '@juki-team/commons';
+import { AnimatePresence } from 'framer-motion';
+import * as motion from 'framer-motion/client';
 import React, { KeyboardEvent, MouseEvent, PropsWithChildren, useState } from 'react';
 import ReactModal from 'react-modal';
 import { classNames } from '../../../helpers';
@@ -35,31 +37,52 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
     }
   }, loader, { onRequestCloseModalEvent: event });
   
-  if (!isOpen) {
-    return null;
-  }
-  
   return (
-    <ReactModal
-      isOpen={isOpen}
-      className={classNames('jk-modal jk-border-radius', className)}
-      onRequestClose={handleOnClose}
-      portalClassName={classNames('jk-modal-container', portalClassName, { expand: !!expand })}
-      ariaHideApp={false}
-      shouldCloseOnOverlayClick={closeWhenClickOutside}
-      onAfterOpen={onAfterOpen}
-    >
-      {closeIcon && (
-        <div
-          className="jk-modal-close-button jk-button light only-icon"
-          onClick={loader !== Status.LOADING ? handleOnClose : undefined}
+    <AnimatePresence>
+      {isOpen && (
+        <ReactModal
+          isOpen={true}
+          className={classNames('jk-modal jk-border-radius', className)}
+          onRequestClose={handleOnClose}
+          portalClassName={classNames('jk-modal-container', portalClassName, { expand: !!expand })}
+          ariaHideApp={false}
+          shouldCloseOnOverlayClick={closeWhenClickOutside}
+          onAfterOpen={onAfterOpen}
+          overlayElement={(props, contentElement) => (
+            <motion.div
+              {...(props as {})}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {contentElement}
+            </motion.div>
+          
+          )}
+          contentElement={(props, contentElement) => (
+            isOpen && <motion.div
+              {...(props as {})}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+            >
+              {contentElement}
+            </motion.div>
+          )}
         >
-          {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon />}
-        </div>
+          {closeIcon && (
+            <div
+              className="jk-modal-close-button jk-button light only-icon"
+              onClick={loader !== Status.LOADING ? handleOnClose : undefined}
+            >
+              {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon />}
+            </div>
+          )}
+          <div className="jk-modal-body">
+            {children}
+          </div>
+        </ReactModal>
       )}
-      <div className="jk-modal-body">
-        {children}
-      </div>
-    </ReactModal>
+    </AnimatePresence>
   );
 };
