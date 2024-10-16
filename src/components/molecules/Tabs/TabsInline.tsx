@@ -120,7 +120,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
             className="jk-col gap nowrap"
             style={{
               position: 'absolute',
-              bottom: 'var(--pad-t)',
+              bottom: 'calc(var(--bottom-horizontal-menu-height, 0) + var(--pad-t))',
               right: (extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomCenter') ? 'var(--pad-t)' : '',
               left: (extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter') ? 'var(--pad-t)' : '',
             }}
