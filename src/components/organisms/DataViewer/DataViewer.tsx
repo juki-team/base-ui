@@ -17,6 +17,7 @@ import {
 import { DisplayDataViewer } from './DisplayDataViewer';
 import { DataViewerProps, DataViewerTableHeadersType, FilterValuesType } from './types';
 import {
+  fixHeaders,
   getFilterKey,
   getPageKey,
   getPageSizeKey,
@@ -502,7 +503,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
     };
     
-    setTableHeaders(prevState => headers.map(({ sort, filter, ...props }, index) => {
+    setTableHeaders(prevState => fixHeaders(headers.map(({ sort, filter, ...props }, index) => {
       const newHead: DataViewerTableHeadersType<T> = {
         ...props,
         minWidth: props.minWidth ?? 0,
@@ -611,7 +612,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
       
       return newHead;
-    }));
+    })));
   }, [ deleteFilter, deleteSort, headers, setFilter, setSort, t ]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
