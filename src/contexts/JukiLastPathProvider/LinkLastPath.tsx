@@ -27,12 +27,12 @@ export const LinkLastPath = <T, >(props: PropsWithChildren<LastPathProps<T>>) =>
     }
     
     return lastPath[lastPathKey].searchParams;
-  }, [ lastPath, overwriteCompanyKey ]);
+  }, [ lastPath, lastPathKey, overwriteCompanyKey ]);
   
   return (
     <Link
       href={{ pathname: lastPath[lastPathKey].pathname, query: searchParams.toString() }}
-      className="link"
+      className="link dy-cs"
       onClick={event => {
         if (onDoubleClickRoute && event.detail === 2) {
           void pushRoute(onDoubleClickRoute);
