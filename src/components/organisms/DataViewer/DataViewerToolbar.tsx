@@ -15,6 +15,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     extraNodes,
     setViewMode,
     headers,
+    setHeaders,
     viewMode,
     dataLength,
     rowsView,
@@ -77,6 +78,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
       <FilterDrawer
         isOpen={showFilterDrawer === 'open'}
         headers={headers}
+        setHeaders={setHeaders}
         onClose={() => setShowFilterDrawer(false)}
         onFilter={values => onAllFilters(values)}
         onResetFilters={() => onAllFilters({})}

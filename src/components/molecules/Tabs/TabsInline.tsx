@@ -57,7 +57,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   
   return (
     <>
-      <div className={classNames('jk-row gap space-between nowrap jk-tabs-inline extend', className)} ref={refB}>
+      <div className={classNames('jk-row gap space-between nowrap jk-tabs-inline extend', className)}>
         {extraNodesPlacement === 'left' && (
           <div className="jk-row gap nowrap">
             {Children.toArray(extraNodes?.map(action => (
@@ -65,7 +65,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
             )))}
           </div>
         )}
-        <div className="jk-row left gap extend">
+        <div className="jk-row left gap extend" style={{ overflow: 'auto' }} ref={refB}>
           {oneTabView && (
             <NavigateBeforeIcon
               className={classNames('br-50-pc', {
@@ -81,7 +81,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
               'block flex-1': oneTabView,
               // 'block extend': extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter',
             })}
-            style={{ position: 'relative' /*overflow: oneTabView ? 'visible' : undefined*/, overflow: 'hidden' }}
+            style={{ position: 'relative' /*overflow: oneTabView ? 'visible' : undefined*/, overflow: 'visible' }}
             ref={refA}
           >
             {Children.toArray(displayedTabs

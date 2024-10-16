@@ -15,7 +15,7 @@ import {
   FILTER_TEXT_AUTO,
 } from './constants';
 import { DisplayDataViewer } from './DisplayDataViewer';
-import { DataViewerProps, FilterValuesType, TableHeadersType } from './types';
+import { DataViewerProps, DataViewerTableHeadersType, FilterValuesType } from './types';
 import {
   getFilterKey,
   getPageKey,
@@ -116,6 +116,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   
   const sortKey = getSortQueryParam(name);
   const [ searchSorts, setSort, deleteSort ] = useSessionStorage(sortKey, searchParams.get(sortKey));
+  const searchSortsRef = useRef(searchSorts);
+  searchSortsRef.current = searchSorts;
   
   const filterKey = getFilterQueryParam(name);
   const iniFilters = searchParams.get(filterKey) || '';
@@ -128,6 +130,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
     return result;
   }, [ _searchFilter, headers ]);
+  const filtersRef = useRef(filters);
+  filtersRef.current = filters;
   
   const [ dataTable, setDataTable ] = useState(data);
   
@@ -470,10 +474,14 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const isSomethingFiltered = (newSearchFilter: RequestFilterType) => !!Object.values(newSearchFilter).filter(search => !!search
     && (Array.isArray(search) ? search.length : true)).length;
   
-  const tableHeaders = useMemo(() => {
-    
+  const [ tableHeaders, setTableHeaders ] = useState<DataViewerTableHeadersType<T>[]>(headers.map(head => ({
+    ...head,
+    width: 0,
+    accumulatedWidth: 0,
+  }) as DataViewerTableHeadersType<T>));
+  useEffect(() => {
     const onResetFilter = (filterIndex: string) => () => {
-      const newSearchFilter: RequestFilterType = { ...filters };
+      const newSearchFilter: RequestFilterType = { ...filtersRef.current };
       newSearchFilter[filterIndex] = '';
       if (isSomethingFiltered(newSearchFilter)) {
         setFilter(JSON.stringify(newSearchFilter));
@@ -483,7 +491,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     };
     
     const onFilter = (filterIndex: string, newFilter: string) => {
-      const newSearchFilter = { ...filters };
+      const newSearchFilter = { ...filtersRef.current };
       if (JSON.stringify(newSearchFilter[filterIndex]) !== JSON.stringify(newFilter)) {
         newSearchFilter[filterIndex] = newFilter;
         if (isSomethingFiltered(newSearchFilter)) {
@@ -494,8 +502,15 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
     };
     
-    return headers.map(({ sort, filter, ...props }) => {
-      const newHead: TableHeadersType<T> = { ...props };
+    setTableHeaders(prevState => headers.map(({ sort, filter, ...props }, index) => {
+      const newHead: DataViewerTableHeadersType<T> = {
+        ...props,
+        minWidth: props.minWidth ?? 0,
+        width: 0,
+        accumulatedWidth: 0,
+        visible: true,
+        headIndex: index,
+      };
       const headIndex = props.index;
       // let iconsWidth = filter ? 34 : 0;
       let iconsWidth = filter ? (26 + 2) : 0; // size of icon // 2px separation
@@ -505,9 +520,9 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         const up = props.index;
         const down = '-' + props.index;
         newHead.sort = {
-          order: split(searchSorts).includes(up) ? 1 : split(searchSorts).includes(down) ? -1 : 0,
+          getOrder: () => split(searchSortsRef.current).includes(up) ? 1 : split(searchSortsRef.current).includes(down) ? -1 : 0,
           onSort: () => {
-            const newSort = newHead.sort?.order === 1 ? down : newHead.sort?.order === -1 ? '' : up;
+            const newSort = newHead.sort?.getOrder() === 1 ? down : newHead.sort?.getOrder() === -1 ? '' : up;
             if (newSort) {
               setSort(newSort);
             } else {
@@ -523,7 +538,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           type: FILTER_TEXT,
           onFilter: ({ text }) => onFilter(headIndex, text),
           onReset: onResetFilter(headIndex),
-          text: filters[headIndex] || '',
+          getFilter: () => filtersRef.current[headIndex] || '',
+          // text: string
           online: isFilterTextOnline(filter),
         };
       } else if (filter?.type === FILTER_SELECT || filter?.type === FILTER_SELECT_AUTO) {
@@ -539,29 +555,30 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           },
           onReset: onResetFilter(headIndex),
           options: filter.options,
-          selectedOptions: filters[headIndex] ? split(filters[headIndex]).map(value => ({
+          getFilter: () => filtersRef.current[headIndex] ? split(filtersRef.current[headIndex]).map(value => ({
             value,
             label: '',
           })) : [],
+          // selectedOptions: [
           online: isFilterSelectOnline(filter),
         };
       } else if (filter?.type === FILTER_DATE || filter?.type === FILTER_DATE_AUTO) {
-        const selectedDate = filters[headIndex]
-        && new Date(+filters[headIndex]).isValidDate() ? new Date(+filters[headIndex]) : null;
+        
         newHead.filter = {
           type: FILTER_DATE,
           pickerType: filter.pickerType || DEFAULT_PICKER_TYPE,
           onFilter: ({ selectedDate }) => onFilter(headIndex, selectedDate.getTime() + ''),
           isDisabled: filter.isDisabled || (() => ({})),
           onReset: onResetFilter(headIndex),
-          selectedDate,
-          baseDate: selectedDate || filter.baseDate || new Date(),
+          getFilter: () => {
+            return filtersRef.current[headIndex]
+            && new Date(+filtersRef.current[headIndex]).isValidDate() ? new Date(+filtersRef.current[headIndex]) : null;
+          },
+          // selectedDate,
+          baseDate: /* TODO: newHead.filter?.getFilter() as Date ||*/ filter.baseDate || new Date(),
           online: isFilterDateOnline(filter),
         };
       } else if (filter?.type === FILTER_DATE_RANGE || filter?.type === FILTER_DATE_RANGE_AUTO) {
-        const [ start, end ] = filters[headIndex] ? split(filters[headIndex]) : [];
-        const startSelectedDate = start && new Date(+start).isValidDate() ? new Date(+start) : null;
-        const endSelectedDate = end && new Date(+end).isValidDate() ? new Date(+end) : null;
         newHead.filter = {
           type: FILTER_DATE_RANGE,
           pickerType: filter.pickerType || DEFAULT_PICKER_TYPE,
@@ -571,10 +588,14 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
                      }) => onFilter(headIndex, join([ startSelectedDate.getTime() + '', endSelectedDate.getTime() + '' ])),
           onReset: onResetFilter(headIndex),
           isDisabled: filter.isDisabled || (() => ({})),
-          startSelectedDate,
-          endSelectedDate,
-          baseStartDate: startSelectedDate || filter.baseStartDate || new Date(),
-          baseEndDate: endSelectedDate || filter.baseEndDate || new Date(),
+          getFilter: () => {
+            const [ start, end ] = filtersRef.current[headIndex] ? split(filtersRef.current[headIndex]) : [];
+            const startSelectedDate = start && new Date(+start).isValidDate() ? new Date(+start) : null;
+            const endSelectedDate = end && new Date(+end).isValidDate() ? new Date(+end) : null;
+            return [ startSelectedDate, endSelectedDate ];
+          },
+          baseStartDate: /* TODO: newHead.filter?.getFilter()?.[0] as Date ||*/ filter.baseStartDate || new Date(),
+          baseEndDate: /* TODO: newHead.filter?.getFilter()?.[1] as Date  ||*/ filter.baseEndDate || new Date(),
           online: isFilterDateRangeOnline(filter),
         };
       }
@@ -590,8 +611,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
       
       return newHead;
-    });
-  }, [ deleteFilter, deleteSort, headers, filters, searchSorts, setFilter, setSort, t ]);
+    }));
+  }, [ deleteFilter, deleteSort, headers, setFilter, setSort, t ]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
     const newSearchFilter = { ...filters };
@@ -677,6 +698,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         extraNodes={extraNodes}
         extraNodesFloating={extraNodesFloating}
         headers={tableHeaders}
+        setHeaders={setTableHeaders}
         loading={loaderStatus === Status.LOADING}
         initializing={initializing}
         onAllFilters={onAllFilters}

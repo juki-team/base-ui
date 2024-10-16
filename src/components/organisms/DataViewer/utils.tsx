@@ -15,6 +15,7 @@ import {
   DataViewerHeaderSortOfflineType,
   DataViewerHeaderSortOnlineType,
   DataViewerHeaderSortType,
+  DataViewerTableHeadersType,
   FilterDateAutoOfflineType,
   FilterDateOfflineType,
   FilterDateOnlineType,
@@ -211,23 +212,24 @@ export const isSomethingFiltered = <T, >(headers: TableHeadersType<T>[]) => {
   const values: FilterValuesType = {};
   headers.forEach(({ index, filter }) => {
     if (isFilterText(filter)) {
-      if (filter.text) {
-        values[index] = filter.text;
+      if (filter.getFilter?.()) {
+        values[index] = filter.getFilter();
         filtered = true;
       }
     } else if (isFilterSelect(filter)) {
-      values[index] = filter.selectedOptions;
-      if (filter.selectedOptions.length) {
+      if (filter.getFilter?.()?.length) {
+        values[index] = filter.getFilter();
         filtered = true;
       }
     } else if (isFilterDate(filter)) {
-      if (filter.selectedDate?.isValidDate()) {
-        values[index] = filter.selectedDate;
+      if (filter.getFilter?.()?.isValidDate()) {
+        values[index] = filter.getFilter() as Date;
         filtered = true;
       }
     } else if (isFilterDateRange(filter)) {
-      values[index] = [ filter.startSelectedDate, filter.endSelectedDate ];
-      if (filter.startSelectedDate?.isValidDate() && filter.endSelectedDate?.isValidDate()) {
+      const dates = filter.getFilter?.();
+      if (dates[0]?.isValidDate() && dates[1]?.isValidDate()) {
+        values[index] = dates;
         filtered = true;
       }
     }
@@ -246,3 +248,15 @@ export const getFilterKey = (name: string) => name ? name + '.filter' : 'filter'
 export const getViewModeKey = (name: string) => name ? name + '.viewMode' : 'viewMode';
 
 export const getShowFilterDrawerKey = (name: string) => name ? name + '.showFilterDrawer' : 'showFilterDrawer';
+
+export const fixHeaders = <T, >(headers: DataViewerTableHeadersType<T>[]) => {
+  let accumulatedWidth = 0;
+  const newHeaderWidths = [ ...headers ];
+  headers.forEach((head, index) => {
+    if (head.visible) {
+      newHeaderWidths[index] = { ...head, accumulatedWidth };
+      accumulatedWidth += head.width;
+    }
+  });
+  return newHeaderWidths;
+};

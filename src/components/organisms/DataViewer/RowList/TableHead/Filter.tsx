@@ -31,7 +31,7 @@ export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
           return (
             <TableHeadFilterText
               columnIndex={columnIndex}
-              initialText={filter.text}
+              initialText={filter.getFilter()}
               onFilter={props => {
                 filter.onFilter(props);
                 setVisible(false);
@@ -46,7 +46,7 @@ export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
               visible={isOpen}
               columnIndex={columnIndex}
               options={filter.options}
-              initialSelectedOptions={filter.selectedOptions}
+              initialSelectedOptions={filter.getFilter()}
               onFilter={props => {
                 filter.onFilter(props);
                 setVisible(false);
@@ -61,7 +61,7 @@ export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
               pickerType={filter.pickerType}
               columnIndex={columnIndex}
               isDisabled={filter.isDisabled}
-              initialSelectedDate={filter.selectedDate}
+              initialSelectedDate={filter.getFilter()}
               onFilter={props => {
                 filter.onFilter(props);
                 setVisible(false);
@@ -77,8 +77,8 @@ export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
               pickerType={filter.pickerType}
               columnIndex={columnIndex}
               isDisabled={filter.isDisabled}
-              initialStartSelectedDate={filter.startSelectedDate}
-              initialEndSelectedDate={filter.endSelectedDate}
+              initialStartSelectedDate={filter.getFilter()[0]}
+              initialEndSelectedDate={filter.getFilter()[1]}
               onFilter={props => {
                 filter.onFilter(props);
                 setVisible(false);
@@ -99,10 +99,10 @@ export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
     >
       <div
         className={classNames('jk-button light only-icon small tool', {
-          active: isFilterText(filter) ? !!filter.text
-            : isFilterSelect(filter) ? !!filter.selectedOptions.length
-              : isFilterDate(filter) ? !!filter.selectedDate?.isValidDate()
-                : isFilterDateRange(filter) ? !!filter.startSelectedDate?.isValidDate() && !!filter.endSelectedDate?.isValidDate()
+          active: isFilterText(filter) ? !!filter.getFilter()
+            : isFilterSelect(filter) ? !!filter.getFilter().length
+              : isFilterDate(filter) ? !!filter.getFilter()?.isValidDate()
+                : isFilterDateRange(filter) ? !!filter.getFilter()?.[0]?.isValidDate() && !!filter.getFilter()?.[1]?.isValidDate()
                   : false,
           visible,
           // disabled,

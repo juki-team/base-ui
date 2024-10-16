@@ -23,6 +23,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     data,
     extraNodes,
     headers,
+    setHeaders,
     loading,
     initializing,
     onAllFilters,
@@ -62,6 +63,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         setViewMode={setViewMode}
         extraNodes={extraNodes}
         headers={headers}
+        setHeaders={setHeaders}
         dataLength={data.length}
         viewMode={viewMode}
         rowsView={rowsView}
@@ -92,6 +94,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         {viewMode === DataViewMode.ROWS ? (
           <ViewContainerRows
             headers={headers}
+            setHeaders={setHeaders}
             viewContainerWidth={viewContainerWidth || 0}
             headerRef={headerRef}
             rowHeight={rowHeight}

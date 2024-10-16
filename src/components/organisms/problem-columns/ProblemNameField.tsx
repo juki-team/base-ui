@@ -24,14 +24,17 @@ export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListRespo
         {(user.tried || user.solved) && <>&nbsp;</>}
         <ProblemStatus {...user} size="small" />
         {user.isManager && (
-          <div
-            data-tooltip-id="jk-tooltip"
-            data-tooltip-content="you are editor"
-            data-tooltip-t-class-name="tt-se ws-np"
-            className="jk-row tx-s cr-py"
-          >
-            &nbsp;<VoidIcon size="small" filledSquare letter="E" />
-          </div>
+          <>
+            &nbsp;
+            <div
+              data-tooltip-id="jk-tooltip"
+              data-tooltip-content="you are editor"
+              data-tooltip-t-class-name="tt-se ws-np"
+              className="jk-row tx-s cr-py"
+            >
+              <VoidIcon size="small" filledSquare letter="E" />
+            </div>
+          </>
         )}
       </div>
     </Field>
@@ -75,21 +78,24 @@ export const ProblemNameModalField: DataViewerHeadersType<ProblemSummaryListResp
         {(user.tried || user.solved) && <>&nbsp;</>}
         <ProblemStatus {...user} size="small" />
         {user.isManager && (
-          <div
-            data-tooltip-id="jk-tooltip"
-            data-tooltip-content="you are editor"
-            data-tooltip-t-class-name="tt-se ws-np"
-            className="jk-row tx-s cr-py"
-          >
-            &nbsp;<VoidIcon size="small" filledSquare letter="E" />
-          </div>
+          <>
+            &nbsp;
+            <div
+              data-tooltip-id="jk-tooltip"
+              data-tooltip-content="you are editor"
+              data-tooltip-t-class-name="tt-se ws-np"
+              className="jk-row tx-s cr-py"
+            >
+              <VoidIcon size="small" filledSquare letter="E" />
+            </div>
+          </>
         )}
       </div>
     </Field>
   );
 };
 
-export const getProblemNameHeader = (modal: boolean): DataViewerHeadersType<ProblemSummaryListResponseDTO> => ({
+export const getProblemNameHeader = (modal: boolean, props?: DataViewerHeadersType<ProblemSummaryListResponseDTO>): DataViewerHeadersType<ProblemSummaryListResponseDTO> => ({
   head: 'problem name',
   headClassName: 'left',
   index: 'name',
@@ -98,4 +104,5 @@ export const getProblemNameHeader = (modal: boolean): DataViewerHeadersType<Prob
   filter: { type: 'text' },
   cardPosition: 'center',
   minWidth: 300,
+  ...props,
 });

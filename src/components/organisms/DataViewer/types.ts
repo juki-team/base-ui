@@ -41,7 +41,7 @@ export type SetRecordHoveredIndexType = Dispatch<SetStateAction<RecordHoveredInd
 
 export interface RowVirtualizerFixedProps<T> {
   data: T[],
-  headers: TableHeadersWithWidthType<T>[],
+  headers: DataViewerTableHeadersType<T>[],
   rowHeight: number,
   getRecordKey?: GetRecordKeyType<T>,
   getRecordStyle?: GetRecordStyleType<T>,
@@ -131,7 +131,7 @@ export type JkTableHeaderFilterType<T> =
 export type TableHeaderFilterTextType = {
   onFilter: (props: { columnIndex: string, text: string }) => void,
   onReset: () => void,
-  text: string,
+  getFilter: () => string, // text
   type: typeof FILTER_TEXT,
   online: boolean,
 };
@@ -140,7 +140,7 @@ export type TableHeaderFilterSelectType = {
   onFilter: (props: { columnIndex: string, selectedOptions: OptionType<string>[] }) => void,
   onReset: () => void,
   options: OptionType<string>[],
-  selectedOptions: OptionType<string>[],
+  getFilter: () => OptionType<string>[], // selectedOptions
   type: typeof FILTER_SELECT,
   online: boolean,
 }
@@ -151,7 +151,7 @@ export type TableHeaderFilterDateType = {
   onFilter: ((props: { columnIndex: string, selectedDate: Date }) => void),
   onReset: () => void,
   pickerType: DateDisplayType,
-  selectedDate: Date | null,
+  getFilter: () => Date | null, // selectedDate
   type: typeof FILTER_DATE,
   online: boolean,
 };
@@ -159,12 +159,13 @@ export type TableHeaderFilterDateType = {
 export type TableHeaderFilterDateRangeType = {
   baseEndDate: Date,
   baseStartDate: Date,
-  endSelectedDate: Date | null,
+  // startSelectedDate: Date | null,
+  // endSelectedDate: Date | null,
+  getFilter: () => [ Date | null, Date | null ],
   isDisabled: DatePickerDateFunType,
   onFilter: ((props: { columnIndex: string, startSelectedDate: Date, endSelectedDate: Date }) => void),
   onReset: () => void,
   pickerType: DateDisplayType,
-  startSelectedDate: Date | null,
   type: typeof FILTER_DATE_RANGE,
   online: boolean,
 };
@@ -188,8 +189,8 @@ export type TableSortOrderType = 1 | -1 | 0;
 export type TableSortOnSortType = (props: { columnIndex: string }) => void;
 
 export type TableSortType = {
-  onSort?: TableSortOnSortType,
-  order: TableSortOrderType,
+  onSort: TableSortOnSortType,
+  getOrder: () => TableSortOrderType,
   online: boolean,
 }
 
@@ -211,7 +212,13 @@ export type TableHeadersType<T> = {
   headClassName?: string,
 }
 
-export type TableHeadersWithWidthType<T> = TableHeadersType<T> & { width: number, accumulatedWidth: number };
+export type DataViewerTableHeadersType<T> = TableHeadersType<T> & {
+  minWidth: number,
+  width: number,
+  accumulatedWidth: number,
+  visible: boolean,
+  headIndex: number,
+};
 type RowsType = { height?: number };
 type CardsType = { height?: number, width?: number, expanded?: boolean };
 
@@ -234,7 +241,8 @@ export interface DisplayDataViewerProps<T> {
   data: T[],
   extraNodes: ReactNodeOrFunctionType[],
   extraNodesFloating?: boolean,
-  headers: TableHeadersType<T>[],
+  headers: DataViewerTableHeadersType<T>[],
+  setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   loading: boolean,
   initializing: boolean,
   onAllFilters: (values: FilterValuesType) => void,
@@ -323,16 +331,16 @@ export type ReloadType = () => void;
 export type HeaderWidthsType = { [key: string]: { width: number, minWidth: number, accumulatedWidth: number } };
 
 export interface TableHeadProps<T> {
-  headerWidths: HeaderWidthsType,
-  headers: TableHeadersWithWidthType<T>[],
-  setHeaderWidths: Dispatch<HeaderWidthsType>,
+  headers: DataViewerTableHeadersType<T>[],
+  setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   scrollLeft: number,
   loading: boolean,
   borderTop: boolean,
 }
 
 export interface FilterDrawerProps<T> {
-  headers: TableHeadersType<T>[],
+  headers: DataViewerTableHeadersType<T>[],
+  setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   isOpen: boolean,
   onClose: () => void,
   onFilter: (values: FilterValuesType) => void,
@@ -365,7 +373,8 @@ export interface DataViewerToolbarProps<T> {
   dataLength: number,
   extraNodes: ReactNodeOrFunctionType[],
   extraNodesFloating: boolean,
-  headers: TableHeadersType<T>[],
+  headers: DataViewerTableHeadersType<T>[],
+  setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   loading: boolean,
   initializing: boolean,
   onAllFilters: (values: FilterValuesType) => void,

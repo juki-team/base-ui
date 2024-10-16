@@ -3,7 +3,6 @@ import { ArrowContainer, PopoverAlign, PopoverPosition } from 'react-tiny-popove
 import { classNames, isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState } from '../../../hooks';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { Modal } from '../Modal';
 import { Popover as ReactPopover } from './ReactTinyPopover.Popover';
 import { PlacementType, PopoverProps } from './types';
 
@@ -45,8 +44,8 @@ export const Popover = (props: PopoverProps) => {
   
   const [ isOpen, setIsOpen ] = useHandleState(false, visible, onVisibleChange);
   
-  const { jukiAppDiv, viewPortSize } = useJukiUI();
-  const isMobileViewPort = viewPortSize === 'sm';
+  const { jukiAppDiv } = useJukiUI();
+  // const isMobileViewPort = viewPortSize === 'sm';
   
   const popoverContent = (
     <div className={classNames('jk-popover-content jk-br-ie bc-we', popoverContentClassName)}>
@@ -85,24 +84,24 @@ export const Popover = (props: PopoverProps) => {
     },
   });
   
-  if (isMobileViewPort) {
-    return (
-      <>
-        <CustomComponent childProps={childProps}>
-          {children}
-        </CustomComponent>
-        <Modal
-          onClose={(() => setIsOpen(false))}
-          isOpen={isOpen}
-          closeWhenClickOutside
-          closeWhenKeyEscape
-          className="small-viewport-popover"
-        >
-          {popoverContent}
-        </Modal>
-      </>
-    );
-  }
+  // if (isMobileViewPort) {
+  //   return (
+  //     <>
+  //       <CustomComponent childProps={childProps}>
+  //         {children}
+  //       </CustomComponent>
+  //       <Modal
+  //         onClose={(() => setIsOpen(false))}
+  //         isOpen={isOpen}
+  //         closeWhenClickOutside
+  //         closeWhenKeyEscape
+  //         className="small-viewport-popover"
+  //       >
+  //         {popoverContent}
+  //       </Modal>
+  //     </>
+  //   );
+  // }
   
   return (
     <ReactPopover

@@ -22,8 +22,8 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   const [ borderRight, setBorderRight ] = useState(false);
   const [ borderLeft, setBorderLeft ] = useState(false);
   const [ borderBottom, setBorderBottom ] = useState(false);
-  const headersStickyWidth = headers.reduce((sum, head) => sum + (head.sticky ? head.width : 0), 0);
-  const headersWidth = headers.reduce((sum, head) => sum + head.width, 0);
+  const headersStickyWidth = headers.reduce((sum, head) => sum + (head.sticky && head.visible ? head.width : 0), 0);
+  const headersWidth = headers.reduce((sum, head) => sum + (head.visible ? head.width : 0), 0);
   
   const rowVirtualizer = useVirtualizer({
     count: data.length,
@@ -126,14 +126,18 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
             }}
             className={classNames('jk-table-row')}
           >
-            {Children.toArray(headers.map(({ Field, index: columnIndex, width, sticky }) => (
-              <div
-                key={columnIndex}
-                style={{ width: width, minWidth: width }}
-                className={classNames({ sticky: !!sticky })}
-              >
-              </div>
-            )))}
+            {Children.toArray(
+              headers
+                .filter(({ visible }) => visible)
+                .map(({ index: columnIndex, width, sticky }) => (
+                  <div
+                    key={columnIndex}
+                    style={{ width: width, minWidth: width }}
+                    className={classNames({ sticky: !!sticky })}
+                  >
+                  </div>
+                )),
+            )}
           </div>
         )}
         {rowVirtualizer.getVirtualItems().map(virtualRow => (
@@ -151,21 +155,25 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
               className={classNames('jk-table-row', getRowClassName(virtualRow.index))}
               onClick={() => onRecordClick?.({ data, index: virtualRow.index, isCard: false })}
             >
-              {Children.toArray(headers.map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }) => (
-                <div
-                  key={virtualRow.key + '_' + columnIndex}
-                  style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
-                  className={classNames({ sticky: !!sticky })}
-                  data-testid={virtualRow.key + '_' + columnIndex}
-                >
-                  <Field
-                    record={data[virtualRow.index]}
-                    columnIndex={columnIndex}
-                    recordIndex={virtualRow.index}
-                    isCard={false}
-                  />
-                </div>
-              )))}
+              {Children.toArray(
+                headers
+                  .filter(({ visible }) => visible)
+                  .map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }) => (
+                    <div
+                      key={virtualRow.key + '_' + columnIndex}
+                      style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
+                      className={classNames({ sticky: !!sticky })}
+                      data-testid={virtualRow.key + '_' + columnIndex}
+                    >
+                      <Field
+                        record={data[virtualRow.index]}
+                        columnIndex={columnIndex}
+                        recordIndex={virtualRow.index}
+                        isCard={false}
+                      />
+                    </div>
+                  )),
+              )}
             </div>
           ),
         )}
