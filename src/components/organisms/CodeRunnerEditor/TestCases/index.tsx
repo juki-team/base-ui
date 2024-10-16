@@ -9,10 +9,10 @@ import {
 } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { v4 } from 'uuid';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../../../helpers';
+import { classNames } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { AddIcon, DeleteIcon, InfoIcon, T, TextArea } from '../../../atoms';
-import { SplitPane, TabsInline, TabsType, TabType } from '../../../molecules';
+import { SplitPane, TabsInline, TabsInlineBody, TabsType, TabType } from '../../../molecules';
 import { NotificationType } from '../../Notifications';
 import { ProblemVerdictTag } from '../../ProblemVerdictTag';
 import { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
@@ -291,7 +291,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             )}
           </div>
           <div className="flex-1" style={{ overflow: 'auto' }}>
-            {renderReactNodeOrFunctionP1(inputTabs[testCaseKey]?.body, { selectedTabKey: testCaseKey })}
+            <TabsInlineBody tabs={inputTabs} selectedTabKey={testCaseKey} />
           </div>
         </div>
         <div className="jk-col stretch test-cases-output-stderr">
@@ -302,7 +302,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             className="border-bottom-highlight-light"
           />
           <div className="flex-1" style={{ overflow: 'auto', width: '100%' }}>
-            {renderReactNodeOrFunctionP1(outputTabs[outputTab]?.body, { selectedTabKey: outputTab })}
+            <TabsInlineBody tabs={outputTabs} selectedTabKey={outputTab} />
           </div>
         </div>
       </SplitPane>

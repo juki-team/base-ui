@@ -4,6 +4,17 @@
   .jk-tabs-headers-inline {
     overflow: auto;
     
+    .selected-tab-tick {
+      width: 100%;
+      height: 4px;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      padding: 0;
+      background-color: var(--t-color-secondary);
+      border-radius: 2px 2px 0 0;
+    }
+    
     > div {
       padding: var(--pad-xt) var(--pad-t);
       position: relative;

@@ -228,7 +228,7 @@ export const isSomethingFiltered = <T, >(headers: TableHeadersType<T>[]) => {
       }
     } else if (isFilterDateRange(filter)) {
       const dates = filter.getFilter?.();
-      if (dates[0]?.isValidDate() && dates[1]?.isValidDate()) {
+      if (dates?.[0]?.isValidDate() && dates?.[1]?.isValidDate()) {
         values[index] = dates;
         filtered = true;
       }

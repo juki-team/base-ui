@@ -95,7 +95,7 @@ export const ProblemNameModalField: DataViewerHeadersType<ProblemSummaryListResp
   );
 };
 
-export const getProblemNameHeader = (modal: boolean, props?: DataViewerHeadersType<ProblemSummaryListResponseDTO>): DataViewerHeadersType<ProblemSummaryListResponseDTO> => ({
+export const getProblemNameHeader = (modal: boolean, props?: Partial<DataViewerHeadersType<ProblemSummaryListResponseDTO>>): DataViewerHeadersType<ProblemSummaryListResponseDTO> => ({
   head: 'problem name',
   headClassName: 'left',
   index: 'name',

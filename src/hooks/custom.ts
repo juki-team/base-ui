@@ -6,7 +6,7 @@ export function useInterval(callback: Function, delay: number) {
   // Remember the latest callback.
   useEffect(() => {
     savedCallback.current = callback;
-  }, [callback]);
+  }, [ callback ]);
   
   // Set up the interval.
   useEffect(() => {
@@ -21,7 +21,7 @@ export function useInterval(callback: Function, delay: number) {
       return () => clearInterval(id);
     }
     return () => null;
-  }, [delay]);
+  }, [ delay ]);
 }
 
 /**
@@ -44,7 +44,7 @@ export function useOutsideAlerter(clickOutside: (event: MouseEvent) => void, ref
       // Unbind the event listener on clean up
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [clickOutside, ref]);
+  }, [ clickOutside, ref ]);
 }
 
 export function useOutsideAlerterAnd(clickOutside: (event: MouseEvent) => void, ...refs: any) {
@@ -64,18 +64,18 @@ export function useOutsideAlerterAnd(clickOutside: (event: MouseEvent) => void, 
     
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [clickOutside, refs]);
+  }, [ clickOutside, refs ]);
 }
 
 // Hook
-export function usePrevious<T>(value: T) {
+export function usePrevious<T>(value: T, initialValue?: T) {
   // The ref object is a generic container whose current property is mutable ...
   // ... and can hold any value, similar to an instance property on a class
-  const ref = useRef<T>();
+  const ref = useRef<T>(initialValue as T);
   // Store current value in ref
   useEffect(() => {
     ref.current = value;
-  }, [value]); // Only re-run if value changes
+  }, [ value ]); // Only re-run if value changes
   // Return previous value (happens before update in useEffect above)
   return ref.current;
 }
@@ -87,14 +87,14 @@ export function useKeyPress(handleKeyPress: (event: KeyboardEvent) => void) {
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
     };
-  }, [handleKeyPress]);
+  }, [ handleKeyPress ]);
 }
 
 // https://usehooks.com/useWindowSize/
 export function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+  const [ windowSize, setWindowSize ] = useState({ width: 0, height: 0 });
   useEffect(() => {
     // Handler to call on window resize
     function handleResize() {

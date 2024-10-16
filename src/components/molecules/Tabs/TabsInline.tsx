@@ -1,11 +1,12 @@
+import { AnimatePresence } from 'framer-motion';
 import * as motion from 'framer-motion/client';
-import React, { Children, useCallback, useRef, useState } from 'react';
+import React, { Children, useCallback, useId, useRef, useState } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { Func, useHandleState } from '../../../hooks';
+import { Func, useHandleState, useMemoizedArray, usePrevious } from '../../../hooks';
 import { useWidthResizer } from '../../../hooks/useWidthResizer';
-import { BoundingClientRectType, NotUndefined } from '../../../types';
+import { NotUndefined } from '../../../types';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../atoms';
-import { TabsInlineProps } from './types';
+import { TabsInlineProps, TabsType } from './types';
 
 export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   
@@ -23,6 +24,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   const tabsLength = tabsArray.length;
   const [ oneTabView, setOneTabView ] = useState(false);
   const selectedTabIndex = tabsArray.findIndex(({ key }) => key === selectedTabKey);
+  const tabKeys = useMemoizedArray(Object.keys(tabs));
   
   const refA = useRef<HTMLDivElement>(null);
   const refB = useRef<HTMLDivElement>(null);
@@ -41,19 +43,10 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
     }
   }, [ refB ]);
   
-  useWidthResizer({ onOverflow, unOverflow, targetRef: refB });
-  
-  const [ boundingClientRectContent, _setBoundingClientRectContent ] = useState<BoundingClientRectType>({
-    bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0, x: 0, y: 0,
-  });
-  
-  const setBoundingClientRectContent = (newValue: BoundingClientRectType) => {
-    if (JSON.stringify(newValue) !== JSON.stringify(boundingClientRectContent) && newValue?.width && newValue?.height) {
-      _setBoundingClientRectContent(newValue);
-    }
-  };
+  useWidthResizer({ onOverflow, unOverflow, targetRef: refB, trigger: tabKeys });
   
   const displayedTabs = oneTabView ? (tabsArray[selectedTabIndex] ? [ tabsArray[selectedTabIndex] ] : []) : tabsArray;
+  const layoutId = useId();
   
   return (
     <>
@@ -87,11 +80,6 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
             {Children.toArray(displayedTabs
               .map(({ key, header }) => (
                 <div
-                  ref={(e) => {
-                    if (key === selectedTabKey && !oneTabView) {
-                      setBoundingClientRectContent(e?.getBoundingClientRect()?.toJSON());
-                    }
-                  }}
                   onClick={() => setSelectedTabKey(key as (NotUndefined<T> | Func<T>))}
                   className={classNames('jk-row nowrap', {
                     selected: key === selectedTabKey,
@@ -99,21 +87,14 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
                   })}
                 >
                   {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
+                  {key === selectedTabKey && (
+                    <motion.div
+                      className="selected-tab-tick"
+                      layoutId={layoutId}
+                    />
+                  )}
                 </div>
               )),
-            )}
-            {!!displayedTabs.length && !oneTabView && !!tabs?.[selectedTabKey as string] && (
-              <motion.div
-                initial={{
-                  width: 0,
-                  left: 0,
-                }}
-                animate={{
-                  width: boundingClientRectContent.width,
-                  left: boundingClientRectContent.left - (refA.current?.getBoundingClientRect()?.left ?? 0),
-                }}
-                className="selected-tab-tick"
-              />
             )}
           </div>
           {oneTabView && (
@@ -152,5 +133,29 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
       </div>
       {!onChange && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}
     </>
+  );
+};
+
+export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T>, selectedTabKey: T }) => {
+  const prevSelectedTabKey = usePrevious(selectedTabKey);
+  // const prevPrevSelectedTabKey = usePrevious(prevSelectedTabKey);
+  const currentIndex = Object.keys(tabs).indexOf(selectedTabKey as string);
+  const prevIndex = Object.keys(tabs).indexOf(prevSelectedTabKey as string);
+  // const prevPrevIndex = Object.keys(tabs).indexOf(prevPrevSelectedTabKey as string);
+  const fromLeft = prevIndex < currentIndex;
+  // const prevFromLeft = prevPrevIndex < currentIndex;
+  
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={fromLeft ? { left: '100%', opacity: 0 } : { left: '-100%', opacity: 0 }}
+        animate={fromLeft ? { left: 0, opacity: 1 } : { left: 0, opacity: 1 }}
+        exit={fromLeft ? { left: '-100%', opacity: 0 } : { left: '100%', opacity: 0 }}
+        style={{ position: 'absolute', width: '100%', height: '100%' }}
+        key={selectedTabKey as string}
+      >
+        {renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}
+      </motion.div>
+    </AnimatePresence>
   );
 };

@@ -4,7 +4,7 @@ import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
 import { NotUndefined } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs';
-import { TabsInline } from '../Tabs';
+import { TabsInline, TabsInlineBody } from '../Tabs';
 import { TwoContentSection } from '../TwoContentSection';
 import { TwoContentLayoutProps } from './types';
 
@@ -86,7 +86,10 @@ export const TwoContentCardsLayout = <T, >(props: TwoContentLayoutProps<T>) => {
           className="two-content-layout-body jk-pg-trbl"
           style={{ height: preferredMenuViewMode === MenuViewMode.VERTICAL && withTabs ? 'calc(100% - 40px)' : '100%' }}
         >
-          {renderReactNodeOrFunctionP1(tabs[tab as string]?.body, { selectedTabKey: tab })}
+          <TabsInlineBody
+            tabs={tabs}
+            selectedTabKey={tab}
+          />
         </div>
       </div>
     </TwoContentSection>
