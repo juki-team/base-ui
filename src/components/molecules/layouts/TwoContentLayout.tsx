@@ -68,9 +68,8 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
   
   return (
     <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })}>
-      <div>
-        {withBreadcrumbs &&
-            <Breadcrumbs breadcrumbs={breadcrumbs} />}
+      <>
+        {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
         <div
           className={classNames('jk-row gap left', {
             //'jk-pg-sm-t': preferredMenuViewMode === MenuViewMode.HORIZONTAL && withTabs,
@@ -94,8 +93,8 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
             extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
           />
         )}
-      </div>
-      <div>
+      </>
+      <>
         {tabsOnBody && (
           <TabsInline
             tabs={tabs}
@@ -107,14 +106,14 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
         )}
         <div
           className={classNames('two-content-layout-body', { 'pn-re': !!loading })}
-          style={{ height: tabsOnBody ? 'calc(100% - 40px)' : '100%' }}
+          style={{ height: tabsOnBody ? 'calc(100% - 40px)' : '100%', position: 'relative' }}
         >
           <TabsInlineBody
             tabs={tabs}
             selectedTabKey={tab}
           />
         </div>
-      </div>
+      </>
     </TwoContentSection>
   );
 };
