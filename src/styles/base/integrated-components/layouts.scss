@@ -27,15 +27,17 @@
     z-index: 1;
   }
   
-  > div.jk-two-content-section-second-panel > div {
+  > div.jk-two-content-section-second-panel > div.jk-tabs-inline-body-motion-layout {
     position: relative;
     overflow: auto;
     height: calc(var(--100VH) - var(--first-content-section-height) - var(--top-horizontal-menu-height, 0px));
     width: 100%;
+    box-sizing: border-box;
     
-    > div {
+    > div.two-content-layout-body {
       height: 100%;
       box-sizing: border-box;
+      position: relative;
       
       div.jk-data-viewer-layout {
         height: 100%;
@@ -58,9 +60,10 @@
     padding: 0 var(--pad-md);
   }
   
-  > div.jk-two-content-section-second-panel > div {
+  > div.jk-two-content-section-second-panel > div.jk-tabs-inline-body-motion-layout {
     width: 100%;
     padding: var(--pad-sm) var(--pad-md);
+    box-sizing: border-box;
     
     .two-content-layout-body {
       background: none;

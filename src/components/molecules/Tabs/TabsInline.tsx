@@ -153,6 +153,7 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T
         exit={fromLeft ? { left: '-100%', opacity: 0 } : { left: '100%', opacity: 0 }}
         style={{ position: 'absolute', width: '100%', height: '100%' }}
         key={selectedTabKey as string}
+        className="jk-tabs-inline-body-motion-layout"
       >
         {renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}
       </motion.div>
