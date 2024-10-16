@@ -3,7 +3,7 @@ import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiRouter, useJukiUI } from '../../../hooks';
 import { NotUndefined } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs';
-import { TabsInline, TabsType } from '../Tabs';
+import { TabsInline, TabsInlineBody, TabsType } from '../Tabs';
 import { TwoContentSection } from '../TwoContentSection';
 import { PawsLoadingLayout } from './PawsLoadingLayout';
 import { TwoContentLayoutProps } from './types';
@@ -108,7 +108,10 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
           className={classNames('two-content-layout-body', { 'pn-re': !!loading })}
           style={{ height: tabsOnBody ? 'calc(100% - 40px)' : '100%' }}
         >
-          {renderReactNodeOrFunctionP1(tabs[tab as string]?.body, { selectedTabKey: tab })}
+          <TabsInlineBody
+            tabs={tabs}
+            selectedTabKey={tab}
+          />
         </div>
       </div>
     </TwoContentSection>
