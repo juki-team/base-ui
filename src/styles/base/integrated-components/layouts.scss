@@ -22,12 +22,12 @@
     width: 100%;
   }
   
-  > div:first-child {
+  > div.jk-two-content-section-first-panel {
     position: relative;
     z-index: 1;
   }
   
-  > div:last-child {
+  > div.jk-two-content-section-second-panel > div {
     position: relative;
     overflow: auto;
     height: calc(var(--100VH) - var(--first-content-section-height) - var(--top-horizontal-menu-height, 0px));
@@ -52,13 +52,13 @@
     }
   }
   
-  > div:first-child {
+  > div.jk-two-content-section-first-panel {
     width: 100%;
     border-radius: 0;
     padding: 0 var(--pad-md);
   }
   
-  > div:last-child {
+  > div.jk-two-content-section-second-panel > div {
     width: 100%;
     padding: var(--pad-sm) var(--pad-md);
     
