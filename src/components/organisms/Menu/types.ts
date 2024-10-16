@@ -33,6 +33,7 @@ export interface HorizontalMenuProps extends MenuMobileProps {
   leftSection?: ReactNodeOrFunctionType,
   rightSection?: ReactNodeOrFunctionType,
   menu: MenuType[],
+  onBack?: () => void,
 }
 
 export interface VerticalMenuProps extends MenuMobileProps {

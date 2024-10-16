@@ -14,7 +14,6 @@ import { QueryParamKey } from '../../../types';
 import { Popover, Select, SpinIcon, T } from '../../atoms';
 import { PawsLoadingLayout } from '../../molecules';
 import { HorizontalMenu, MenuType, VerticalMenu } from '../../organisms';
-import { DrawerViewMenuMobile } from './DrawerViewMenuMobile';
 import { LoginModal } from './LoginModal';
 import { LoginUser } from './LoginUser';
 import { SettingsSection } from './SettingsSection';
@@ -33,6 +32,7 @@ export const MainMenu = (props: MainMenuProps) => {
     multiCompanies,
     children,
     topImageUrl,
+    onBack,
   } = props;
   
   const { viewPortSize, components: { Link, Image } } = useJukiUI();
@@ -137,9 +137,9 @@ export const MainMenu = (props: MainMenuProps) => {
     'color',
   ) : imageUrl;
   
-  const drawerMenuMobile = (props: { onClose: () => void, menu: MenuType[] }) => (
-    <DrawerViewMenuMobile {...props} logoImageUrl={logoImageUrl} moreApps={moreApps} />
-  );
+  // const drawerMenuMobile = (props: { onClose: () => void, menu: MenuType[] }) => (
+  //   <DrawerViewMenuMobile {...props} logoImageUrl={logoImageUrl} moreApps={moreApps} />
+  // );
   
   const rightMobile = {
     children: (
@@ -157,15 +157,15 @@ export const MainMenu = (props: MainMenuProps) => {
   const centerMobile = {
     children: (
       <div className="jk-row">
-        <Link href="/">
+        <Link href="/" style={{ display: 'contents' }}>
           {(isLoading || !logoImageUrl)
             ? <SpinIcon />
             : (
               <Image
                 src={logoImageUrl}
                 alt={name}
-                height={45}
-                width={90}
+                height={40}
+                width={80}
               />
             )}
         </Link>
@@ -287,9 +287,10 @@ export const MainMenu = (props: MainMenuProps) => {
             menu={menu}
             leftSection={leftSection}
             rightSection={rightSection}
-            drawerMenuMobile={drawerMenuMobile}
+            // drawerMenuMobile={drawerMenuMobile}
             rightMobile={rightMobile}
             centerMobile={centerMobile}
+            onBack={onBack}
           >
             {isLoading ? <PawsLoadingLayout /> : children}
           </HorizontalMenu>
@@ -299,7 +300,7 @@ export const MainMenu = (props: MainMenuProps) => {
             menu={menu}
             topSection={topSection}
             bottomSection={bottomSection}
-            drawerMenuMobile={drawerMenuMobile}
+            // drawerMenuMobile={drawerMenuMobile}
             rightMobile={rightMobile}
             centerMobile={centerMobile}
           >

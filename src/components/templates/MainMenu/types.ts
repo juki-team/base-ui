@@ -11,4 +11,5 @@ export interface MainMenuProps {
   children: ReactNode,
   multiCompanies?: boolean,
   topImageUrl?: string,
+  onBack?: () => void,
 }

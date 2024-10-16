@@ -31,13 +31,13 @@ const menu = [
   {
     label: 'contests',
     icon: <ViewHeadlineIcon />,
-    selected: false,
+    selected: true,
     onClick: () => action('/contests'),
   },
   {
     label: 'problems',
     icon: <PlusIcon />,
-    selected: true,
+    selected: false,
     onClick: () => action('/problems'),
   },
   {

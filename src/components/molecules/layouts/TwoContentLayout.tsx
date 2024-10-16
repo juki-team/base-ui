@@ -63,7 +63,8 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
   const withTabs = tabKeys.length > 1;
   const tabsOnBody = withTabs && false;
   const tabsOnHeader = withTabs && true;
-  const withBreadcrumbs = !!breadcrumbs?.length;
+  const isMobile = viewPortSize === 'sm';
+  const withBreadcrumbs = !!breadcrumbs?.length && !isMobile;
   
   return (
     <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })}>
@@ -90,7 +91,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
             selectedTabKey={tab}
             onChange={pushTab}
             extraNodes={tabButtons}
-            extraNodesPlacement={(viewPortSize === 'sm') ? 'bottomRight' : undefined}
+            extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
           />
         )}
       </div>
@@ -101,7 +102,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
             selectedTabKey={tab}
             onChange={pushTab}
             extraNodes={tabButtons}
-            extraNodesPlacement={(viewPortSize === 'sm') ? 'bottomRight' : undefined}
+            extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
           />
         )}
         <div

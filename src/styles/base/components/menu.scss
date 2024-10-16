@@ -24,7 +24,7 @@
   }
   
   > .jk-menu-main-layout {
-    height: calc(100% - var(--top-horizontal-menu-height));
+    height: calc(100% - var(--top-horizontal-menu-height) - var(--bottom-horizontal-menu-height));
   }
 }
 
@@ -160,13 +160,16 @@
   }
 }
 
-.jk-horizontal-menu-layout-container {
+.jk-horizontal-menu-layout-container, .jk-drawer-menu-mobile {
   --left-vertical-menu-width: 0px;
   --top-horizontal-menu-height: 64px;
   @include sm {
-    --top-horizontal-menu-height: 56px;
+    --top-horizontal-menu-height: 48px;
+    --bottom-horizontal-menu-height: 3rem;
   }
-  
+}
+
+.jk-horizontal-menu-layout-container {
   height: 100%;
   width: 100%;
   --height-jk-menu-item: var(--top-horizontal-menu-height);
@@ -273,6 +276,47 @@
   > .jk-top-horizontal-menu {
     position: sticky;
     top: 0;
+  }
+  
+  > .jk-bottom-horizontal-menu {
+    height: var(--bottom-horizontal-menu-height);
+    background-color: var(--t-color-white);
+    
+    .jk-menu-items {
+      height: 100%;
+      padding: 0 var(--pad-sm);
+      
+      .jk-menu-item {
+        height: 100%;
+        position: relative;
+        
+        .selected-tab-tick {
+          width: 100%;
+          height: 4px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          padding: 0;
+          background-color: var(--t-color-secondary);
+          border-radius: 0 0 2px 2px;
+        }
+        
+        .jk-menu-item-icon {
+          margin: 0;
+          
+          @include sm {
+            height: var(--pad-s);
+            width: var(--pad-s);
+            .jk-icon {
+              min-height: var(--pad-s);
+              min-width: var(--pad-s);
+              height: var(--pad-s);
+              width: var(--pad-s);
+            }
+          }
+        }
+      }
+    }
   }
 }
 
