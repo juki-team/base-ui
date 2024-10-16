@@ -22,12 +22,12 @@
     width: 100%;
   }
   
-  > div.jk-two-content-section-first-panel {
+  > div#jk-two-content-section-first-panel {
     position: relative;
     z-index: 1;
   }
   
-  > div.jk-two-content-section-second-panel > div.jk-tabs-inline-body-motion-layout {
+  > div#jk-two-content-section-second-panel > div.jk-tabs-inline-body-motion-layout {
     position: relative;
     overflow: auto;
     height: calc(var(--100VH) - var(--first-content-section-height) - var(--top-horizontal-menu-height, 0px));
@@ -54,13 +54,13 @@
     }
   }
   
-  > div.jk-two-content-section-first-panel {
+  > div#jk-two-content-section-first-panel {
     width: 100%;
     border-radius: 0;
     padding: 0 var(--pad-md);
   }
   
-  > div.jk-two-content-section-second-panel > div.jk-tabs-inline-body-motion-layout {
+  > div#jk-two-content-section-second-panel > div.jk-tabs-inline-body-motion-layout {
     width: 100%;
     padding: var(--pad-sm) var(--pad-md);
     box-sizing: border-box;
