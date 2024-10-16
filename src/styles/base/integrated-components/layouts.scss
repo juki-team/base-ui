@@ -85,6 +85,7 @@
     width: 100%;
     height: calc(var(--100VH) - var(--first-content-section-height));
     padding: var(--pad-sm) var(--pad-md);
+    overflow: auto;
   }
 }
 

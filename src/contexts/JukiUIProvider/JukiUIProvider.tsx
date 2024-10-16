@@ -59,13 +59,13 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
           <NotificationProvider>
             {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={1} /></div>}
             <div id="juki-app" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
-              <div className="loading-route-overlay" />
+              {/*<div className="loading-route-overlay" />*/}
               {children}
               <ReactTooltip
                 id="jk-tooltip"
                 opacity={1}
                 positionStrategy="fixed"
-                // isOpen
+                clickable
                 render={({ content, activeAnchor }) => (
                   content ?
                     <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') || ''}>{content}</T> : null // Relevant attribute: { || 'not set'}

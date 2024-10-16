@@ -161,6 +161,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                   <div
                     data-tooltip-id="jk-tooltip"
                     data-tooltip-content="cards view"
+                    data-tooltip-place="top-end"
                     data-tooltip-t-class-name="tt-se ws-np"
                     className={classNames({ active: viewMode === DataViewMode.CARDS }, 'jk-row cards jk-br-ie')}
                     onClick={() => setViewMode(DataViewMode.CARDS, true)}
