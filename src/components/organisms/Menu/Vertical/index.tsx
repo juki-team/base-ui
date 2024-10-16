@@ -17,6 +17,7 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
     rightMobile,
     centerMobile,
     drawerMenuMobile,
+    onBack,
   } = props;
   
   const [ _open, setOpen ] = useHandleState(true, isOpen);
@@ -81,6 +82,7 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
       rightMobile={rightMobile}
       centerMobile={centerMobile}
       drawerMenuMobile={drawerMenuMobile}
+      onBack={onBack}
     >
       {children}
     </HorizontalMenu>

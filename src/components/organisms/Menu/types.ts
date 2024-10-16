@@ -26,6 +26,7 @@ export interface MenuMobileProps {
   rightMobile?: MenuMobileSectionType,
   drawerMenuMobile?: ReactNodeOrFunctionP1Type<{ onClose: () => void, menu: MenuType[] }>,
   centerMobile?: MenuMobileSectionType,
+  onBack?: () => void,
 }
 
 export interface HorizontalMenuProps extends MenuMobileProps {

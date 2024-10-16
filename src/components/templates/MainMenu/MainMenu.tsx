@@ -303,6 +303,7 @@ export const MainMenu = (props: MainMenuProps) => {
             // drawerMenuMobile={drawerMenuMobile}
             rightMobile={rightMobile}
             centerMobile={centerMobile}
+            onBack={onBack}
           >
             {isLoading ? <PawsLoadingLayout /> : children}
           </VerticalMenu>

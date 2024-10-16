@@ -98,7 +98,7 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
                   triggerOn={NONE}
                   closeOnOutside
                 >
-                  {({ isOpen, onOpen }) => {
+                  {({ onOpen }) => {
                     return (
                       <div className="jk-row sides-mobile-padding">
                         <Button size="small" onClick={onOpen} icon={<ViewHeadlineIcon />}>
