@@ -53,6 +53,7 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }} // TODO
+            layout
           >
             {contentElement}
           </motion.div>}
@@ -65,6 +66,7 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           exit={{ scale: 0 }} // TODO
+          layout
         >
           {contentElement}
         </motion.div>

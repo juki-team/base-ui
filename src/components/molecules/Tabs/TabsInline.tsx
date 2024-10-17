@@ -148,6 +148,7 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T
   return (
     <AnimatePresence>
       <motion.div
+        layout
         initial={fromLeft ? { left: '100%', opacity: 0 } : { left: '-100%', opacity: 0 }}
         animate={fromLeft ? { left: 0, opacity: 1 } : { left: 0, opacity: 1 }}
         exit={fromLeft ? { left: '-100%', opacity: 0 } : { left: '100%', opacity: 0 }}

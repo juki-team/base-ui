@@ -57,7 +57,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
       <UIContext.Provider value={value}>
         <SoundProvider>
           <NotificationProvider>
-            {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={1} /></div>}
+            {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={800} /></div>}
             <div id="juki-app" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
               {/*<div className="loading-route-overlay" />*/}
               {children}
