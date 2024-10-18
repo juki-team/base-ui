@@ -12,7 +12,7 @@ import {
   ProblemModeInfo,
   ProblemTimeLimitInfo,
   ProblemTypeInfo,
-} from '../ProblemInfo';
+} from './ProblemInfo';
 import { SampleTest } from './SampleTest';
 
 export interface ProblemStatementViewProps {
