@@ -52,7 +52,7 @@ interface CustomDragLayerProps<T, U> {
   width: number,
 }
 
-export const CustomDragLayer = <T, U>({ Cmp, width }: CustomDragLayerProps<T, U>) => {
+const CustomDragLayer = <T, U>({ Cmp, width }: CustomDragLayerProps<T, U>) => {
   const { itemType, isDragging, item, initialOffset, currentOffset } =
     useDragLayer((monitor) => ({
       item: monitor.getItem(),
@@ -101,16 +101,16 @@ export const CustomDragLayer = <T, U>({ Cmp, width }: CustomDragLayerProps<T, U>
   );
 };
 
-export const Row = <T, U, >({
-                              rowKey,
-                              Cmp,
-                              index,
-                              moveRow,
-                              value,
-                              props,
-                              setIsDragging,
-                              rowDraggingRef,
-                            }: RowProps<T, U>) => {
+const Row = <T, U, >({
+                       rowKey,
+                       Cmp,
+                       index,
+                       moveRow,
+                       value,
+                       props,
+                       setIsDragging,
+                       rowDraggingRef,
+                     }: RowProps<T, U>) => {
   
   const ref = useRef<HTMLDivElement>(null);
   

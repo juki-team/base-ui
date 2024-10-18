@@ -3,20 +3,7 @@ import React, { forwardRef, ReactElement, Ref } from 'react';
 import { Duration } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { ViewPortSizeType } from '../../../types';
 import { ButtonProps } from './types';
-
-const sizeViewPorts: { [key in ViewPortSizeType]: string } = {
-  // sm: 'small',
-  // md: 'regular',
-  // lg: 'large',
-  // hg: 'huge',
-  '': '',
-  sm: 'tiny',
-  md: 'small',
-  lg: 'regular',
-  hg: 'regular',
-};
 
 const buttonsVariants = (isDisabled: boolean) => ({
   whileHover: isDisabled ? {} : { scale: 1.05, transition: { duration: Duration.FAST } },
@@ -38,17 +25,16 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
     extend = false,
     icon,
     children,
-    size: _size,
+    size: _size = 'regular',
     onClick,
     disabled = false,
-    responsive = false,
     responsiveMobile = false,
     ...restProps
   } = props;
   
   const { viewPortSize } = useJukiUI();
   
-  const size = (responsiveMobile && viewPortSize === 'sm') ? 'large' : (_size || (responsive ? sizeViewPorts[viewPortSize] : 'regular'));
+  const size = (responsiveMobile && viewPortSize === 'sm') ? 'large' : _size;
   const hasChildren = !!children && (responsiveMobile ? viewPortSize !== 'sm' : true);
   
   return (

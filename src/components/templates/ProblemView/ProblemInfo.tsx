@@ -73,7 +73,7 @@ const ContentInfo = ({ label, value, children, expand, valueAsList, centered, wi
   );
 };
 
-export const ExtraProblemInfo = ({ tags, author, centered, withoutPadding }: ProblemInfoProps) => {
+const ExtraProblemInfo = ({ tags, author, centered, withoutPadding }: ProblemInfoProps) => {
   
   return (
     <>
@@ -154,7 +154,7 @@ export const ProblemModeInfo = ({ settings, expand, centered, withoutPadding }: 
   );
 };
 
-export const timeFixed = (milliseconds: number) => {
+const timeFixed = (milliseconds: number) => {
   milliseconds /= 1000;
   const label = <T>{milliseconds === 1 ? 'second' : 'seconds'}</T>;
   if (milliseconds === ~~milliseconds) {
@@ -194,7 +194,7 @@ export const ProblemTimeLimitInfo = ({ settings, expand, centered, withoutPaddin
   );
 };
 
-export const memoryFixed = (kbs: number) => {
+const memoryFixed = (kbs: number) => {
   kbs /= 1000;
   const label = <T>{kbs === 1 ? 'MB' : 'MB'}</T>;
   if (kbs === ~~kbs) {

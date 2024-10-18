@@ -1,9 +1,6 @@
 import React from 'react';
 
-/*
-
- */
-export const ThemeColorPalette = ({}) => {
+export const ThemeColorPalette = () => {
   return (
     <div className="jk-row gap jk-pg">
       {[ 'light', 'dark' ].map((theme) => (

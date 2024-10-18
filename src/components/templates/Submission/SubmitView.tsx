@@ -4,8 +4,9 @@ import { jukiSettings } from '../../../config';
 import { JukiSurprisedImage, T } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { SubmitViewContent } from './SubmitViewContent';
+import { SubmitViewProps } from './types';
 
-export const SubmitView = ({ submitId, triggerFetch }: { submitId: string, triggerFetch?: number }) => (
+export const SubmitView = ({ submitId, triggerFetch }: SubmitViewProps) => (
   <FetcherLayer<ContentResponseType<SubmissionDataResponseDTO>>
     url={jukiSettings.API.submission.getData({ params: { id: submitId } }).url}
     errorView={() => {

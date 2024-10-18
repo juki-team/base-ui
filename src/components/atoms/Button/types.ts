@@ -15,7 +15,6 @@ export type ButtonBasicProps = {
   submit?: boolean,
   size?: ButtonSizeType,
   style?: CSSProperties,
-  responsive?: boolean,
   responsiveMobile?: boolean,
 }
 

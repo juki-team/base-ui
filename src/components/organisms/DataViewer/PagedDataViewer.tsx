@@ -37,10 +37,6 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
-  // const [ _, setRender ] = useState(Date.now()); // TODO: Fix the render of DataViewer
-  // useEffect(() => {
-  //   setTimeout(() => setRender(Date.now()), 100);
-  // }, [ response ]);
   
   const lastTotalRef = useRef(-1);
   

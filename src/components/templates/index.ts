@@ -11,5 +11,4 @@ export * from './UserProfile';
 export * from './UserProfileSettings';
 export * from './modals';
 export * from './ProblemView';
-export * from './ProblemInfo';
 export * from './Submission';

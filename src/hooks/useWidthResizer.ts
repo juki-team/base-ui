@@ -1,8 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { WidthResizerProps } from '../components';
 import { RESIZE_DETECTOR_PROPS } from '../constants';
 import { isOverflowed } from '../helpers';
+
+export interface WidthResizerProps {
+  targetRef: MutableRefObject<any>,
+  onOverflow: () => void,
+  unOverflow: () => void,
+  trigger?: any,
+}
 
 export const useWidthResizer = ({ onOverflow, unOverflow, trigger, targetRef }: WidthResizerProps) => {
   
@@ -21,7 +27,7 @@ export const useWidthResizer = ({ onOverflow, unOverflow, trigger, targetRef }: 
           }
         }
       }
-    }
+    };
     setTimeout(handleEvent, 0);
   }, [ width, onOverflow, unOverflow, trigger, targetRef, now ]);
   
@@ -30,6 +36,6 @@ export const useWidthResizer = ({ onOverflow, unOverflow, trigger, targetRef }: 
     window.addEventListener('resize', handleTrigger);
     return () => {
       window.removeEventListener('resize', handleTrigger);
-    }
+    };
   }, [ width, onOverflow, unOverflow, trigger, targetRef ]);
 };

@@ -9,7 +9,6 @@ import { GraphvizEditorProps } from './types';
 
 const Graphviz = lazy(() => import('graphviz-react'));
 
-
 interface GraphvizEditorModalProps extends BasicModalProps {
   value: string,
   onSave: (newValue: string) => void,

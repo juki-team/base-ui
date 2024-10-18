@@ -26,7 +26,6 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   const selectedTabIndex = tabsArray.findIndex(({ key }) => key === selectedTabKey);
   const tabKeys = useMemoizedArray(Object.keys(tabs));
   
-  const refA = useRef<HTMLDivElement>(null);
   const refB = useRef<HTMLDivElement>(null);
   const maxWidthWithArrows = useRef(0);
   const onOverflow = useCallback(() => {
@@ -75,7 +74,6 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
               // 'block extend': extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter',
             })}
             style={{ position: 'relative' /*overflow: oneTabView ? 'visible' : undefined*/, overflow: 'visible' }}
-            ref={refA}
           >
             {Children.toArray(displayedTabs
               .map(({ key, header }) => (

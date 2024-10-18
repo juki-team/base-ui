@@ -1,5 +1,4 @@
 export * from './Button';
-export * from './Collapse';
 export * from './CopyToClipboard';
 export * from './DateLiteral';
 export * from './Div';
@@ -12,7 +11,6 @@ export * from './T';
 export * from './TextArea';
 export * from './Tooltip';
 export * from './VirtualizedRowsFixed';
-export * from './WidthResizer';
 export * from './icons';
 export * from './images';
 export * from './inputs';

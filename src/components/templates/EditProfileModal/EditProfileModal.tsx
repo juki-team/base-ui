@@ -1,11 +1,9 @@
-import { ContentResponseType, JUDGE, Judge, Status, UserProfileResponseDTO } from '@juki-team/commons';
+import { JUDGE, Judge, Status, UserProfileResponseDTO } from '@juki-team/commons';
 import React, { Dispatch, useRef, useState } from 'react';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useEntityDiff, useJukiUI, useJukiUser } from '../../../hooks';
-import { UpdateUserProfileDataPayloadDTO } from '../../../types';
 import {
-  BasicModalProps,
   Button,
   CityIcon,
   EditIcon,
@@ -19,15 +17,7 @@ import {
 } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { ImageProfileModal } from './ImageProfileModal';
-
-interface EditProfileModalPros extends BasicModalProps {
-  user: UserProfileResponseDTO,
-  onClose: () => void,
-  onSuccess?: (props: {
-    body: UpdateUserProfileDataPayloadDTO,
-    response: ContentResponseType<string>,
-  }) => Promise<void> | (() => void),
-}
+import { EditProfileModalPros } from './types';
 
 interface JudgeInputProps {
   judge: { value: Judge, label: string, logo: string, url: string, logoSize: [ number, number ] },
@@ -119,7 +109,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
               {!validLengthNickname
                 ? <T className="tt-se">must be at least 3 characters and must be less than 32 characters</T>
                 : !validCharNickname &&
-                <T className="tt-se">only alphanumeric characters or dash or underscore is valid</T>}
+                  <T className="tt-se">only alphanumeric characters or dash or underscore is valid</T>}
             </p>
           </div>
           <div className="jk-row gap">

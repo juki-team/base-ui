@@ -1,9 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
-import { MockupJukiProvider } from "../../mockup";
-import { UpIcon } from "../icons";
-
-import { Collapse } from "./Collapse";
+import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import { UpIcon } from '../../atoms/icons';
+import { MockupJukiProvider } from '../../mockup';
+import { Collapse } from './';
 
 const meta: Meta<typeof Collapse> = {
   component: Collapse,
@@ -23,9 +22,9 @@ export const Regular: Story = {
             <div className="jk-row center gap bc-ss">
               Collapse Header
               <div>
-                {!isFullyClosed && !isFullyOpened ? "transition" : null}
-                {isFullyClosed ? "fully-closed" : null}
-                {isFullyOpened ? "fully-opened" : null}
+                {!isFullyClosed && !isFullyOpened ? 'transition' : null}
+                {isFullyClosed ? 'fully-closed' : null}
+                {isFullyOpened ? 'fully-opened' : null}
               </div>
               <div onClick={toggle} className="bc-er jk-row">
                 Click me
@@ -34,7 +33,7 @@ export const Regular: Story = {
             </div>
           )}
         >
-          <div style={{ background: "blue" }}>
+          <div style={{ background: 'blue' }}>
             Texto Collapsable
             <div>Texto Collapsable</div>
             <div>Texto Collapsable</div>

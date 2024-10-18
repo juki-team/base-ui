@@ -1,12 +1,8 @@
-import React, { Children, ReactNode, useCallback, useMemo, useRef, useState } from 'react';
+import React, { Children, useCallback, useMemo, useRef, useState } from 'react';
 import { useWidthResizer } from '../../../hooks/useWidthResizer';
 import { NavigateNextIcon, Popover } from '../../atoms';
 import { HomeLink } from '../links';
-
-interface BreadcrumbsProps {
-  breadcrumbs: ReactNode[],
-  withoutHomeLink?: boolean,
-}
+import { BreadcrumbsProps } from './types';
 
 export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }: BreadcrumbsProps) => {
   
