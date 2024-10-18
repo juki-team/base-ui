@@ -3,14 +3,9 @@ import { classNames } from '../../../helpers';
 import { useEcsWakeUp, useJukiUI } from '../../../hooks';
 import { Button, FullscreenExitIcon, FullscreenIcon, T } from '../../atoms';
 import { SplitPane } from '../../molecules';
-import { UserCodeEditorProps } from '../../organisms/UserCodeEditor';
 import { ProblemCodeEditor } from './ProblemCodeEditor';
-import { ProblemStatementView, ProblemStatementViewProps } from './ProblemStatementView';
-
-export interface ProblemViewProps<T> extends ProblemStatementViewProps {
-  codeEditorCenterButtons?: UserCodeEditorProps<T>['centerButtons'],
-  codeEditorSourceStoreKey?: string,
-}
+import { ProblemStatementView } from './ProblemStatementView';
+import { ProblemViewProps } from './types';
 
 export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
   

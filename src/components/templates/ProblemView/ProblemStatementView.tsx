@@ -1,4 +1,4 @@
-import { Language, ProblemDataResponseDTO, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
+import { Language, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
 import React from 'react';
 import { classNames, downloadBlobAsFile, downloadJukiMarkdownAsPdf, getStatementData } from '../../../helpers';
 import { useJukiUser, useT } from '../../../hooks';
@@ -14,14 +14,7 @@ import {
   ProblemTypeInfo,
 } from './ProblemInfo';
 import { SampleTest } from './SampleTest';
-
-export interface ProblemStatementViewProps {
-  problem: ProblemDataResponseDTO,
-  contest?: { index: string, color: string },
-  infoPlacement: 'left' | 'name' | 'none',
-  withoutName?: boolean,
-  forPrinting?: boolean,
-}
+import { ProblemStatementViewProps } from './types';
 
 export const ProblemStatementView = ({
                                        problem,

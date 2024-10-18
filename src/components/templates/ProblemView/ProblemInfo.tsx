@@ -2,7 +2,6 @@ import {
   Language,
   PROBLEM_MODE,
   PROBLEM_TYPE,
-  ProblemDataResponseDTO,
   ProblemScoringMode,
   ProblemSettingsType,
   PROGRAMMING_LANGUAGE,
@@ -10,8 +9,9 @@ import {
 import React, { Children, PropsWithChildren, ReactNode } from 'react';
 import { classNames } from '../../../helpers';
 import { ExclamationIcon, Popover, T } from '../../atoms';
+import { ProblemInfoProps } from './types';
 
-export interface ProblemInfoProps {
+export interface JukiProblemInfoProps {
   settings: ProblemSettingsType,
   tags: string[],
   author: string,
@@ -73,7 +73,7 @@ const ContentInfo = ({ label, value, children, expand, valueAsList, centered, wi
   );
 };
 
-const ExtraProblemInfo = ({ tags, author, centered, withoutPadding }: ProblemInfoProps) => {
+const ExtraProblemInfo = ({ tags, author, centered, withoutPadding }: JukiProblemInfoProps) => {
   
   return (
     <>
@@ -234,7 +234,7 @@ export const ProblemMemoryLimitInfo = ({ settings, expand, centered, withoutPadd
   );
 };
 
-export const JukiProblemInfo = (props: PropsWithChildren<ProblemInfoProps>) => {
+export const JukiProblemInfo = (props: PropsWithChildren<JukiProblemInfoProps>) => {
   
   const { settings, expand, asPopover, centered, withoutPadding, children } = props;
   
@@ -250,7 +250,7 @@ export const JukiProblemInfo = (props: PropsWithChildren<ProblemInfoProps>) => {
   );
 };
 
-export const ProblemInfo = ({ problem }: { problem: ProblemDataResponseDTO }) => {
+export const ProblemInfo = ({ problem }: ProblemInfoProps) => {
   return (
     <Popover
       content={!problem.judge?.isExternal
