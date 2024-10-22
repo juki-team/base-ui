@@ -157,6 +157,20 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     mutate,
   }), [ user, company, isLoading, device, socket, setUser, mutate ]);
   
+  const userTheme = user.settings?.[ProfileSetting.THEME];
+  
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.querySelector('body')?.classList.remove('jk-theme-dark');
+      document.querySelector('body')?.classList.remove('jk-theme-light');
+      if (userTheme === Theme.DARK) {
+        document.querySelector('body')?.classList.add('jk-theme-dark');
+      } else {
+        document.querySelector('body')?.classList.add('jk-theme-light');
+      }
+    }
+  }, [ userTheme ]);
+  
   return (
     <UserContext.Provider value={value}>
       {children}
