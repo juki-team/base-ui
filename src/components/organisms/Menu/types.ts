@@ -10,7 +10,7 @@ export type MenuMobileSectionType = {
 export type MenuBasicType = {
   icon?: ReactNodeOrFunctionType,
   label: ReactNodeOrFunctionType,
-  selected: boolean,
+  selected?: boolean,
   onClick?: (isOpen?: boolean) => void,
 }
 

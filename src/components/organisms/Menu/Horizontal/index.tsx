@@ -31,9 +31,9 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
     const menuItem = (
       <div
         className={classNames('jk-menu-item nowrap', {
-          'selected-up': menu[i - 1]?.selected,
-          'selected-down': menu[i + 1]?.selected,
-          selected: selected,
+          'selected-up': !!menu[i - 1]?.selected,
+          'selected-down': !!menu[i + 1]?.selected,
+          selected: !!selected,
           'jk-row gap': !withBottomMobileNav,
           'jk-col flex-1 bottom': withBottomMobileNav,
         })}

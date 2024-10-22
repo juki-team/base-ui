@@ -31,9 +31,9 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
     const menuItemContent = (
       <div
         className={classNames('jk-menu-item', {
-          'selected-up': menu[i - 1]?.selected,
-          'selected-down': menu[i + 1]?.selected,
-          selected: selected,
+          'selected-up': !!menu[i - 1]?.selected,
+          'selected-down': !!menu[i + 1]?.selected,
+          selected: !!selected,
         })}
         onClick={() => onClick?.(open)}
         key={i}
@@ -97,13 +97,13 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
               </div>
             </div>
           )}
-          <div className={classNames('jk-menu-top-section', { 'selected-down': menu[0]?.selected })}>
+          <div className={classNames('jk-menu-top-section', { 'selected-down': !!menu[0]?.selected })}>
             {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
           </div>
           <div className="jk-menu-items">
             {Children.toArray(menus)}
             <div
-              className={classNames('jk-menu-item extra', { 'selected-up': menu[menu.length - 1]?.selected })}
+              className={classNames('jk-menu-item extra', { 'selected-up': !!menu[menu.length - 1]?.selected })}
             />
           </div>
           <div className={classNames('jk-menu-bottom-section')}>
