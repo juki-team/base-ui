@@ -64,6 +64,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
               <ReactTooltip
                 id="jk-tooltip"
                 opacity={1}
+                // isOpen
                 positionStrategy="fixed"
                 clickable
                 render={({ content, activeAnchor }) => (

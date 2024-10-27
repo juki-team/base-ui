@@ -20,7 +20,7 @@ export const Regular: Story = {
           {/*</Tooltip>*/}
           <div
             data-tooltip-id="jk-tooltip"
-            data-tooltip-content="test"
+            data-tooltip-content="it is not possible to submit to external judges at this time, we apologize for the inconvenience"
             data-tooltip-t-class-name="class"
             data-tooltip-place="bottom"
             // to add class names to <T>

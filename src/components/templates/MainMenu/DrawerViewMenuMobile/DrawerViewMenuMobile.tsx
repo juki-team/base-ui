@@ -60,7 +60,7 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
               const menuItem = (
                 <div
                   className={classNames('jk-menu-item jk-row extend gap nowrap left jk-border-radius-inline', {
-                    selected: selected,
+                    selected: !!selected,
                   })}
                   key={index}
                   onClick={onClose}

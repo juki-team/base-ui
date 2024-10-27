@@ -16,6 +16,7 @@ type Story = StoryObj<typeof ButtonLoader>;
 export const Regular: Story = {
   render: (args) => {
     const { size, ...restArgs } = args;
+    console.log(restArgs);
     const onClick: (status: Status) => ButtonLoaderProps['onClick'] =
       (status) => (setLoader, loader) => {
         action('onClick')({ setLoader, loader });
@@ -91,14 +92,6 @@ export const Regular: Story = {
                 large text text text
               </ButtonLoader>
             </div>
-            <ButtonLoader
-              {...restArgs}
-              onClick={onClick(Status.ERROR)}
-              icon={<EyeInvisibleIcon />}
-              responsive
-            >
-              responsive
-            </ButtonLoader>
           </div>
         </div>
       </MockupJukiProvider>
