@@ -80,7 +80,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   );
   
   const url = new URL(window?.location?.href || '');
-  url.searchParams.set(filterKey, encodeURI(JSON.stringify(filters)));
+  url.searchParams.set(filterKey, JSON.stringify(filters));
   
   return (
     <div
