@@ -166,9 +166,15 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T
   // const prevFromLeft = prevPrevIndex < currentIndex;
   // console.log({ fromLeft, prevFromLeft, prevPrevIndex, prevIndex, currentIndex });
   const direction = fromLeft ? 1 : -1;
+  const [ render, setRender ] = useState(Date.now());
   
   return (
-    <AnimatePresence custom={direction} mode="popLayout" presenceAffectsLayout>
+    <AnimatePresence
+      custom={direction}
+      mode="popLayout"
+      presenceAffectsLayout
+      onExitComplete={() => setRender(Date.now())}
+    >
       <motion.div
         layout
         initial={{ x: fromLeft ? '100%' : '-100%' }}
@@ -180,7 +186,7 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T
         key={selectedTabKey as string}
         className="jk-tabs-inline-body-motion-layout"
       >
-        {renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}
+        {render && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}
       </motion.div>
     </AnimatePresence>
   );
