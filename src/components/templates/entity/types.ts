@@ -4,7 +4,9 @@ import { ReactNodeOrFunctionP1Type } from '../../../types';
 export interface UpsertComponentEntityProps<EntityUI, Tab> {
   entity: EntityUI,
   entityKey: string,
-  tabButtons: (entityData: EntityUI) => ReactNodeOrFunctionP1Type<{ selectedTabKey: Tab }>[],
+  tabButtons: (props: { entityData: EntityUI, disableUpdateButton?: boolean }) => ReactNodeOrFunctionP1Type<{
+    selectedTabKey: Tab
+  }>[],
 }
 
 export interface CreateEntityLayoutProps<EntityUI, EntityUpsert, Tab> {

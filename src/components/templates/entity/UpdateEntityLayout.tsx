@@ -15,11 +15,11 @@ export function UpdateEntityLayout<T, U, V>(props: UpdateEntityLayoutProps<T, U,
   const { pushRoute } = useJukiRouter();
   const { notifyResponse } = useJukiNotification();
   const { mutate } = useSWR();
-  const tabButtons = (entityData: T) => [
+  const tabButtons = ({ entityData, disableUpdateButton }: { entityData: T, disableUpdateButton?: boolean }) => [
     <CheckUnsavedChanges
       key="cancel"
       onClickContinue={() => pushRoute(viewRoute(entityKey))}
-      value={entity as object}
+      value={entityData as object}
     >
       <ButtonLoader
         type="light"
@@ -34,6 +34,7 @@ export function UpdateEntityLayout<T, U, V>(props: UpdateEntityLayoutProps<T, U,
       key="save"
       size="small"
       type="secondary"
+      disabled={disableUpdateButton}
       icon={<SaveIcon />}
       onClick={async (setLoaderStatus) => {
         setLoaderStatus(Status.LOADING);
