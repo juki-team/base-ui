@@ -458,7 +458,8 @@ export class Settings {
         })),
         updateData: valid<
           {
-            params: { companyKey: string }, body: {
+            params: { companyKey: string },
+            body: {
               name?: string, emailTemplate?: string,
               contactEmails?: string[],
               mainEmail?: string,
@@ -475,7 +476,8 @@ export class Settings {
         })),
         updateSensitiveData: valid<
           {
-            params: { companyKey: string }, body: {
+            params: { companyKey: string },
+            body: {
               managerUserNickname?: string,
               systemAdminUserNickname?: string,
               hosts?: string[],
