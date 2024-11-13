@@ -9,7 +9,7 @@ import {
   Theme,
 } from '@juki-team/commons';
 import React from 'react';
-import { useJukiUser } from '../../../hooks';
+import { useJukiUser, useT } from '../../../hooks';
 import { LoadingIcon, Popover, T } from '../../atoms';
 
 export interface SubmissionVerdictProps {
@@ -26,26 +26,19 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
   
   const { verdict, points, submissionData, processedCases, shortLabel: _shortLabel } = props;
   const { user: { settings: { [ProfileSetting.THEME]: userTheme } } } = useJukiUser();
+  const { t } = useT();
   const addDark = userTheme === Theme.DARK ? 'CC' : '';
   
-  const verdictLabel = (verdict: ProblemVerdict, shortLabel = _shortLabel) => {
+  const verdictLabel = (shortLabel = _shortLabel) => {
     return (
       <>
         {verdict === ProblemVerdict.PENDING && <><LoadingIcon size="small" />&nbsp;</>}
-        {PROBLEM_VERDICT[verdict]?.label
-          ? (
-            (verdict === ProblemVerdict.PENDING && processedCases && !!(processedCases.samples.total + processedCases.tests.total))
-              ? <>
-                <T className="tt-se ws-np">{PROBLEM_VERDICT[verdict]?.label}</T>
-                &nbsp;{processedCases.samples.processed + processedCases.tests.processed}&nbsp;/&nbsp;{processedCases.samples.total + processedCases.tests.total}
-              </>
-              : <T className="tt-se ws-np">{shortLabel ? verdict : PROBLEM_VERDICT[verdict]?.label}</T>
-          )
-          : verdict}
+        <T className="tt-se ws-np">{(shortLabel && !PROBLEM_VERDICT[verdict]?.label) ? verdict : PROBLEM_VERDICT[verdict]?.label}</T>
+        {(verdict === ProblemVerdict.PENDING && processedCases && !!(processedCases.samples.total + processedCases.tests.total)) && (
+          <>&nbsp;{processedCases.samples.processed + processedCases.tests.processed}&nbsp;/&nbsp;{processedCases.samples.total + processedCases.tests.total}</>
+        )}
         {verdict === ProblemVerdict.PA && points && (
-          <>
-            &nbsp;<span className="ws-np">({(+points || 0).toFixed(2)} <T>pts.</T>)</span>
-          </>
+          <>&nbsp;<span className="ws-np">({(+points || 0).toFixed(2)} <T>pts.</T>)</span></>
         )}
       </>
     );
@@ -97,30 +90,39 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
     );
   };
   
-  const content = (
-    submissionData && verdict === ProblemVerdict.PENDING
-      ? submissionLabel(submissionData)
-      : (
-        <div className="jk-row center jk-tag" style={{ backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark }}>
-          {verdictLabel(verdict, true)}
-        </div>
-      )
-  );
-  
-  if (_shortLabel) {
-    return content;
+  if (_shortLabel || !(submissionData && verdict === ProblemVerdict.PENDING)) {
+    return (
+      <div
+        className="jk-row center jk-tag"
+        style={{ backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark }}
+        data-tooltip-id="jk-tooltip"
+        data-tooltip-html={`
+            <span class="tt-se ws-np">${PROBLEM_VERDICT[verdict]?.label ? t(PROBLEM_VERDICT[verdict]?.label) : verdict}</span>
+            ${(verdict === ProblemVerdict.PENDING && processedCases && !!(processedCases.samples.total + processedCases.tests.total))
+          ? `&nbsp;(${processedCases.samples.processed + processedCases.tests.processed}&nbsp;/&nbsp;${processedCases.samples.total + processedCases.tests.total})`
+          : ''}
+            ${verdict === ProblemVerdict.PA && points && (
+          `&nbsp;<span class="ws-np">(${(+points || 0).toFixed(2)} <span>${t('pts.')}</span>)</span>`
+        )}
+          `}
+      >
+        {verdictLabel(true)}
+      </div>
+    );
   }
   
   return (
     <Popover
       content={
         <div className="tt-se ws-np">
-          {verdictLabel(verdict)}
+          {verdictLabel()}
         </div>
       }
       placement="top"
+      visible
+      showPopperArrow
     >
-      {content}
+      {submissionLabel(submissionData)}
     </Popover>
   );
 };
