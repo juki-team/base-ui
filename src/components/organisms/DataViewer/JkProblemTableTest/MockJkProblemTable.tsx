@@ -17,7 +17,7 @@ import {
 } from '../../../';
 import problems from './data.json';
 
-export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data'>) => {
+export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data' | 'headers'>) => {
   const [ data, setData ] = useState<ProblemSummaryListResponseDTO[]>([]);
   useEffect(() => {
     setTimeout(() => {

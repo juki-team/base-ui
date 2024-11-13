@@ -134,6 +134,28 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   );
 };
 
+const variants = {
+  // enter: (direction: number) => {
+  //   console.log('enter', { direction });
+  //   return {
+  //     x: direction > 0 ? '100%' : '-100%',
+  //     // opacity: 0,
+  //   };
+  // },
+  center: {
+    zIndex: 1,
+    x: 0,
+    // opacity: 1,
+  },
+  exit: (direction: number) => {
+    return {
+      zIndex: 0,
+      x: direction < 0 ? '100%' : '-100%',
+      // opacity: 0,
+    };
+  },
+};
+
 export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T>, selectedTabKey: T }) => {
   const prevSelectedTabKey = usePrevious(selectedTabKey);
   // const prevPrevSelectedTabKey = usePrevious(prevSelectedTabKey);
@@ -142,14 +164,18 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T
   // const prevPrevIndex = Object.keys(tabs).indexOf(prevPrevSelectedTabKey as string);
   const fromLeft = prevIndex < currentIndex;
   // const prevFromLeft = prevPrevIndex < currentIndex;
+  // console.log({ fromLeft, prevFromLeft, prevPrevIndex, prevIndex, currentIndex });
+  const direction = fromLeft ? 1 : -1;
   
   return (
-    <AnimatePresence>
+    <AnimatePresence custom={direction}>
       <motion.div
         layout
-        initial={fromLeft ? { left: '100%', opacity: 0 } : { left: '-100%', opacity: 0 }}
-        animate={fromLeft ? { left: 0, opacity: 1 } : { left: 0, opacity: 1 }}
-        exit={fromLeft ? { left: '-100%', opacity: 0 } : { left: '100%', opacity: 0 }}
+        initial={{ x: fromLeft ? '100%' : '-100%' }}
+        variants={variants}
+        // initial="enter"
+        animate="center"
+        exit="exit"
         style={{ position: 'absolute', width: '100%', height: '100%' }}
         key={selectedTabKey as string}
         className="jk-tabs-inline-body-motion-layout"

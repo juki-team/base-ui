@@ -9,7 +9,7 @@ import {
 } from '../../contest-columns';
 import contests from './data.json';
 
-export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryListResponseDTO>, 'data'>) => {
+export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryListResponseDTO>, 'data' | 'headers'>) => {
   const [ data, setData ] = useState<ContestSummaryListResponseDTO[]>([]);
   useEffect(() => {
     setTimeout(() => {
