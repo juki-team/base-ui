@@ -97,16 +97,16 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
         style={{ backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark }}
         data-tooltip-id="jk-tooltip"
         data-tooltip-html={`
-            <span class="tt-se ws-np">${PROBLEM_VERDICT[verdict]?.label ? t(PROBLEM_VERDICT[verdict]?.label) : verdict}</span>
-            ${(verdict === ProblemVerdict.PENDING && processedCases && !!(processedCases.samples.total + processedCases.tests.total))
+          <span class="tt-se ws-np">${PROBLEM_VERDICT[verdict]?.label ? t(PROBLEM_VERDICT[verdict]?.label) : verdict}</span>
+          ${(verdict === ProblemVerdict.PENDING && processedCases && !!(processedCases.samples.total + processedCases.tests.total))
           ? `&nbsp;(${processedCases.samples.processed + processedCases.tests.processed}&nbsp;/&nbsp;${processedCases.samples.total + processedCases.tests.total})`
           : ''}
-            ${verdict === ProblemVerdict.PA && points && (
-          `&nbsp;<span class="ws-np">(${(+points || 0).toFixed(2)} <span>${t('pts.')}</span>)</span>`
-        )}
-          `}
+          ${verdict === ProblemVerdict.PA && points
+          ? `&nbsp;<span class="ws-np">(${(+points || 0).toFixed(2)} <span>${t('pts.')}</span>)</span>`
+          : ''}
+        `}
       >
-        {verdictLabel(true)}
+        {verdictLabel()}
       </div>
     );
   }
