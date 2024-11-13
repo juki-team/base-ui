@@ -11,14 +11,13 @@ import {
   GetRecordKeyType,
   GetRecordStyleType,
   OnRecordClickType,
-  TableHeadersType,
 } from '../types';
 import { RowVirtualizerFixed } from './RowVirtualizerFixed';
 import { TableHead } from './TableHead';
 
 const minCellWidth = 100;
 
-const headersMinWidth = <T, >(headers: TableHeadersType<T>[]) => {
+const headersMinWidth = <T, >(headers: DataViewerTableHeadersType<T>[]) => {
   return headers.map(head => head.minWidth || minCellWidth);
 };
 
@@ -63,15 +62,20 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
   
   useEffect(() => {
     const width = (viewContainerWidth || 0) - SCROLL_WIDTH;
-    const totalWidth = headers
-      .reduce((total, { minWidth = minCellWidth, visible }) => total + (visible ? minWidth : 0), 0);
-    const extra = width > totalWidth ? width - totalWidth : 0;
-    if (viewContainerWidth !== prevSizeWidth || prevHeaders.current !== JSON.stringify(headersMinWidth(headers)) || extra !== prevExtraWidth.current) {
+    const [ visibleHeaders, totalMinUsedWidth, totalUsedWidth ] = headers
+      .reduce(([ visibleHeaders, totalMinUsedWidth, totalUsedWidth ], { minWidth = minCellWidth, visible, width }) => [
+        visibleHeaders + (visible ? 1 : 0),
+        totalMinUsedWidth + (visible ? minWidth : 0),
+        totalUsedWidth + (visible ? width : 0),
+      ], [ 0, 0, 0 ]);
+    
+    const extra = width > totalMinUsedWidth ? width - totalMinUsedWidth : 0;
+    if (viewContainerWidth !== prevSizeWidth || prevHeaders.current !== JSON.stringify(headersMinWidth(headers)) || extra !== prevExtraWidth.current || (visibleHeaders ? (totalUsedWidth === 0) : false)) {
       const newHeaders = [ ...headers ];
       let accumulatedWidth = 0;
       headers.forEach(({ minWidth = minCellWidth, ...restProps }, index) => {
         if (restProps.visible) {
-          const percentage = minWidth / totalWidth;
+          const percentage = minWidth / totalMinUsedWidth;
           newHeaders[index] = {
             ...restProps,
             width: Math.floor(minWidth + (extra * percentage)),
