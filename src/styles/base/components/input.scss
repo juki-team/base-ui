@@ -145,29 +145,39 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   line-height: inherit;
   --input-border-color: var(--t-color-highlight-light);
   //box-shadow: inset 0 0 0 1px var(--input-border-color);
-  background-color: transparent;
+  --input-background-color: transparent;
+  background-color: var(--input-background-color);
   outline: 1px solid var(--input-border-color);
   outline-color: var(--input-border-color);
   @include transition-fast(border-color, box-shadow, outline-color);
   
   &:not(.disabled) {
     &:hover, &:focus, &:active {
+      outline-width: 2px;
       --input-border-color: var(--t-color-highlight-dark);
     }
     
     &:active, &:focus {
-      outline-width: 2px;
+      --input-background-color: var(--t-color-highlight-light);
     }
     
     &.error {
       &:hover, &:focus, &:active {
         --input-border-color: var(--t-color-error-dark);
       }
+      
+      &:active, &:focus {
+        --input-background-color: var(--t-color-error-light);
+      }
     }
     
     &.success {
       &:hover, &:focus, &:active {
         --input-border-color: var(--t-color-success-dark);
+      }
+      
+      &:active, &:focus {
+        --input-background-color: var(--t-color-success-light);
       }
     }
   }

@@ -3,7 +3,7 @@ import { VisibilityIcon, VisibilityOffIcon } from '../icons';
 import { Input } from './Input';
 import { InputPasswordProps } from './types';
 
-export const InputPassword = ({ className = '', onChange, register, ...props }: InputPasswordProps<string>) => {
+export const InputPassword = ({ onChange, register, ...props }: InputPasswordProps<string>) => {
   
   const [ type, setType ] = useState<'password' | 'text'>('password');
   
