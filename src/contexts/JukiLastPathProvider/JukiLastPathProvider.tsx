@@ -26,9 +26,8 @@ export const JukiLastPathProvider = <T extends string | number, >(props: PropsWi
   }), [ lastPath, setLastPath ]);
   
   useEffect(() => {
-    if (nickname === '') {
-      setLastPath(initialLastPath);
-    }
+    setLastPath(initialLastPath);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ nickname ]);
   
   return (
