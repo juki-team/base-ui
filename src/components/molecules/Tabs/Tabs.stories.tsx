@@ -125,7 +125,7 @@ const Component = <T, >(args: TabsInlineProps<T>) => {
       </div>
       <div className="jk-col gap nowrap bc-ss" style={{ height: 400 }}>
         <TabsInline tabs={outputTabs} onChange={setOutputTab} selectedTabKey={outputTab} />
-        <div className="flex-1" style={{ overflow: 'auto', width: '500px', height: '300px', position: 'relative' }}>
+        <div className="flex-1" style={{ overflow: 'auto', width: '100%', height: '300px', position: 'relative' }}>
           <TabsInlineBody tabs={outputTabs} selectedTabKey={outputTab} />
         </div>
       </div>

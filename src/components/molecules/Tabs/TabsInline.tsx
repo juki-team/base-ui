@@ -168,7 +168,7 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T
   const direction = fromLeft ? 1 : -1;
   
   return (
-    <AnimatePresence custom={direction}>
+    <AnimatePresence custom={direction} mode="popLayout" presenceAffectsLayout>
       <motion.div
         layout
         initial={{ x: fromLeft ? '100%' : '-100%' }}
