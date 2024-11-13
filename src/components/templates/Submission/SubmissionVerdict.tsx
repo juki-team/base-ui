@@ -33,7 +33,7 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
     return (
       <>
         {verdict === ProblemVerdict.PENDING && <><LoadingIcon size="small" />&nbsp;</>}
-        <T className="tt-se ws-np">{(shortLabel && !PROBLEM_VERDICT[verdict]?.label) ? verdict : PROBLEM_VERDICT[verdict]?.label}</T>
+        <T className="tt-se ws-np">{(shortLabel || !PROBLEM_VERDICT[verdict]?.label) ? verdict : PROBLEM_VERDICT[verdict]?.label}</T>
         {(verdict === ProblemVerdict.PENDING && processedCases && !!(processedCases.samples.total + processedCases.tests.total)) && (
           <>&nbsp;{processedCases.samples.processed + processedCases.tests.processed}&nbsp;/&nbsp;{processedCases.samples.total + processedCases.tests.total}</>
         )}
@@ -106,7 +106,7 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
           : ''}
         `}
       >
-        {verdictLabel()}
+        {verdictLabel(true)}
       </div>
     );
   }
