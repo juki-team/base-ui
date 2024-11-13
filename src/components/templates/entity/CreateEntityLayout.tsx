@@ -15,7 +15,7 @@ export function CreateEntityLayout<T, U, V>(props: CreateEntityLayoutProps<T, U,
   const { notifyResponse } = useJukiNotification();
   const { pushRoute } = useJukiRouter();
   
-  const tabButtons = (entityData: T) => [
+  const tabButtons = ({ entityData }: { entityData: T }) => [
     <CheckUnsavedChanges
       key="cancel"
       onClickContinue={() => pushRoute(listRoute())}
