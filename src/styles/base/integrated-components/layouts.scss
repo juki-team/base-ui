@@ -56,7 +56,8 @@
     width: 100vw;
     height: calc(var(--first-content-section-height) - 1px);
     position: absolute;
-    top: var(--top-horizontal-menu-height, 0px);
+    //top: var(--top-horizontal-menu-height, 0px);
+    top: 0;
     left: 0;
     border-bottom: 1px solid var(--t-color-highlight-light);
     background-color: var(--t-color-white);
