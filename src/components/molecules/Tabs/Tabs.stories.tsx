@@ -76,7 +76,6 @@ const Component = <T, >(args: TabsInlineProps<T>) => {
   };
   
   const [ outputTab, setOutputTab ] = useState('problems');
-  console.log({ outputTab });
   
   return (
     <MockupJukiProvider>

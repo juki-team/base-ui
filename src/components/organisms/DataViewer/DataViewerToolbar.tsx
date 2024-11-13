@@ -2,7 +2,16 @@ import { DataViewMode, Status } from '@juki-team/commons';
 import React, { Children, memo, useCallback, useEffect, useRef } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useSessionStorage } from '../../../hooks';
-import { FilterListIcon, MenuIcon, Popover, RefreshIcon, ViewHeadlineIcon, ViewModuleIcon } from '../../atoms';
+import {
+  CopyIcon,
+  CopyToClipboard,
+  FilterListIcon,
+  MenuIcon,
+  Popover,
+  RefreshIcon,
+  ViewHeadlineIcon,
+  ViewModuleIcon,
+} from '../../atoms';
 import { ButtonLoader, SetLoaderStatusOnClickType } from '../../molecules';
 import { FilterDrawer } from './FilterDrawer';
 import { Pagination } from './Pagination';
@@ -29,6 +38,8 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     onColumn,
     viewViews,
     showFilterDrawerKey,
+    filterKey,
+    filters,
   } = props;
   
   const { filtered } = isSomethingFiltered(headers);
@@ -67,6 +78,9 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
       data-tooltip-t-class-name="tt-se ws-np"
     />
   );
+  
+  const url = new URL(window?.location?.href || '');
+  url.searchParams.set(filterKey, encodeURI(JSON.stringify(filters)));
   
   return (
     <div
@@ -139,6 +153,29 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                 onClick={() => setShowFilterDrawer(true)}
               >
                 <FilterListIcon className="jk-br-ie cr-g4" />
+              </div>
+              <div>
+                {filtered ? (
+                  <CopyToClipboard text={url.toString()}>
+                    <div
+                      data-tooltip-id="jk-tooltip"
+                      data-tooltip-content="copy the link of the filtered table"
+                      data-tooltip-t-class-name="tt-se ws-np"
+                      className={classNames({ active: filtered }, 'jk-row jk-data-viewer-tools-filter jk-br-ie')}
+                    >
+                      <CopyIcon className="jk-br-ie cr-g4" />
+                    </div>
+                  </CopyToClipboard>
+                ) : (
+                  <div
+                    data-tooltip-id="jk-tooltip"
+                    data-tooltip-content="First filter something so that you can copy the link of the filtered table"
+                    data-tooltip-t-class-name="tt-se"
+                    className={classNames({ active: filtered }, 'jk-row jk-data-viewer-tools-filter jk-br-ie')}
+                  >
+                    <CopyIcon className="jk-br-ie cr-g4" />
+                  </div>
+                )}
               </div>
             </>
           )}

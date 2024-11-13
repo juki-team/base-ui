@@ -39,6 +39,8 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     onRecordClick,
     extraNodesFloating = false,
     showFilterDrawerKey,
+    filterKey,
+    filters,
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
@@ -77,6 +79,8 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         onColumn={onColumn}
         viewViews={viewViews}
         showFilterDrawerKey={showFilterDrawerKey}
+        filterKey={filterKey}
+        filters={filters}
       />
       {extraNodesFloating && isMobileViewPort && (
         <div

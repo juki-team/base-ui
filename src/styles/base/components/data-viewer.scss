@@ -77,7 +77,7 @@
         }
         
         .active .jk-icon {
-          color: var(--t-color-primary);
+          color: var(--t-color-primary) !important;
         }
         
         .jk-data-viewer-pagination {

@@ -254,6 +254,8 @@ export interface DisplayDataViewerProps<T> {
   viewMode: DataViewMode,
   getRecordKey?: GetRecordKeyType<T>,
   pagination: PaginationDataType,
+  filterKey: string,
+  filters: RequestFilterType,
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
   onRecordClick?: OnRecordClickType<T>,
@@ -386,6 +388,8 @@ export interface DataViewerToolbarProps<T> {
   onColumn: boolean,
   viewViews: boolean,
   showFilterDrawerKey: string,
+  filterKey: string,
+  filters: RequestFilterType,
 }
 
 export interface PaginationProps {

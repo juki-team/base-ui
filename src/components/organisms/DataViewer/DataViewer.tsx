@@ -131,6 +131,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     }
     return result;
   }, [ _searchFilter, headers ]);
+  
   const filtersRef = useRef(filters);
   filtersRef.current = filters;
   
@@ -715,6 +716,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         getRecordClassName={getRecordClassName}
         onRecordClick={onRecordClick}
         pagination={paginationData}
+        filterKey={filterKey}
+        filters={filters}
       />
       {/*{withPagination && (*/}
       {/*  <Pagination*/}
