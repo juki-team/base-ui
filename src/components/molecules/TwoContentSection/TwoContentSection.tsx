@@ -12,35 +12,22 @@ export function TwoContentSection({ children, className }: TwoContentSectionProp
     <motion.section
       className={classNames('jk-two-content-section jk-col nowrap stretch', className)}
       style={{ '--first-content-section-height': height + 'px' } as CSSProperties}
-      initial={{ y: '-100%' }}
-      animate={{ y: 0 }}
-      // transition={{ duration: 15 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
     >
-      {/*<AnimatePresence>*/}
       <div
         ref={ref}
         id="jk-two-content-section-first-panel"
         className="jk-col stretch top"
-        // initial={{ top: '-100%', position: 'absolute' }}
-        // exit={{ top: '-100%', position: 'absolute' }}
-        // animate={{ top: 0, position: 'initial' }}
-        // transition={{ duration: 5 }}
       >
         {children[0]}
       </div>
-      {/*</AnimatePresence>*/}
-      {/*<AnimatePresence>*/}
       <div
         id="jk-two-content-section-second-panel"
         className=""
-        // initial={{ top: '-100%', position: 'absolute' }}
-        // exit={{ top: '-100%', position: 'absolute' }}
-        // animate={{ top: 0, position: 'initial' }}
-        // transition={{ duration: 5 }}
       >
         {children[1]}
       </div>
-      {/*</AnimatePresence>*/}
     </motion.section>
   );
 }

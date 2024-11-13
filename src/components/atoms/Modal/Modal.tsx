@@ -38,51 +38,59 @@ export const Modal = (props: PropsWithChildren<ModalProps>) => {
   }, loader, { onRequestCloseModalEvent: event });
   
   return (
-    <ReactModal
-      isOpen={isOpen}
-      className={classNames('jk-modal jk-border-radius', className)}
-      onRequestClose={handleOnClose}
-      portalClassName={classNames('jk-modal-container', portalClassName, { expand: !!expand })}
-      ariaHideApp={false}
-      shouldCloseOnOverlayClick={closeWhenClickOutside}
-      onAfterOpen={onAfterOpen}
-      overlayElement={(props, contentElement) => (
-        <AnimatePresence>
-          {<motion.div
-            {...(props as {})}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }} // TODO
-            layout
-          >
-            {contentElement}
-          </motion.div>}
-        </AnimatePresence>
-      
-      )}
-      contentElement={(props, contentElement) => (
-        <motion.div
-          {...(props as {})}
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          exit={{ scale: 0 }} // TODO
-          layout
+    <AnimatePresence presenceAffectsLayout>
+      {isOpen && (
+        <ReactModal
+          isOpen={true}
+          className={classNames('jk-modal jk-border-radius', className)}
+          onRequestClose={handleOnClose}
+          portalClassName={classNames('jk-modal-container', portalClassName, { expand: !!expand })}
+          ariaHideApp={false}
+          shouldCloseOnOverlayClick={closeWhenClickOutside}
+          onAfterOpen={onAfterOpen}
+          overlayElement={(props, contentElement) => (
+            // <AnimatePresence>
+            <motion.div
+              {...(props as {})}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }} // TODO
+              // layout
+              // className="TEST-1"
+            >
+              {contentElement}
+            </motion.div>
+            // </AnimatePresence>
+          )}
+          contentElement={(props, contentElement) => (
+            // <AnimatePresence>
+            isOpen && (<motion.div
+                {...(props as {})}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                exit={{ scale: 0 }} // TODO
+                // layout
+                // className="TEST-2"
+              >
+                {contentElement}
+              </motion.div>
+            )
+            // </AnimatePresence>
+          )}
         >
-          {contentElement}
-        </motion.div>
+          {closeIcon && (
+            <div
+              className="jk-modal-close-button jk-button light only-icon"
+              onClick={loader !== Status.LOADING ? handleOnClose : undefined}
+            >
+              {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon />}
+            </div>
+          )}
+          <div className="jk-modal-body">
+            {children}
+          </div>
+        </ReactModal>
       )}
-    >
-      {closeIcon && (
-        <div
-          className="jk-modal-close-button jk-button light only-icon"
-          onClick={loader !== Status.LOADING ? handleOnClose : undefined}
-        >
-          {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon />}
-        </div>
-      )}
-      <div className="jk-modal-body">
-        {children}
-      </div>
-    </ReactModal>
+    </AnimatePresence>
   );
 };
