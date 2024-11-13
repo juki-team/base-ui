@@ -1,4 +1,5 @@
 import {
+  CompanyPlan,
   consoleWarn,
   HTTPMethod,
   Judge,
@@ -48,17 +49,18 @@ type ResponseAPI<M extends HTTPMethod = HTTPMethod.GET> = ({ url: string } & Aut
 
 export class Settings {
   private _SERVICE_API_URL = '';
-  private _UTILS_UI_URL = '';
-  private _TOKEN_NAME = '';
-  private _ON_ERROR = (error: any) => consoleWarn('an error happened', { error });
   
   get SERVICE_API_URL(): string {
     return this._SERVICE_API_URL;
   }
   
+  private _UTILS_UI_URL = '';
+  
   get UTILS_UI_URL(): string {
     return this._UTILS_UI_URL;
   }
+  
+  private _TOKEN_NAME = '';
   
   get TOKEN_NAME(): string {
     return this._TOKEN_NAME;
@@ -454,6 +456,40 @@ export class Settings {
           method: HTTPMethod.PUT,
           body,
         })),
+        updateData: valid<
+          {
+            params: { companyKey: string }, body: {
+              name?: string, emailTemplate?: string,
+              contactEmails?: string[],
+              mainEmail?: string,
+              contactTelegram?: string,
+              contactCellPhoneNumber?: string,
+              contactEmail?: string
+            }
+          },
+          HTTPMethod.PATCH
+        >(({ params: { companyKey } = { companyKey: '' }, body }) => ({
+          url: injectCompany(injectBaseUrl('company', ''), companyKey),
+          method: HTTPMethod.PATCH,
+          body: JSON.stringify(body),
+        })),
+        updateSensitiveData: valid<
+          {
+            params: { companyKey: string }, body: {
+              managerUserNickname?: string,
+              systemAdminUserNickname?: string,
+              hosts?: string[],
+              judgeKeys?: string[],
+              startTimestamp?: number,
+              plan?: CompanyPlan,
+            }
+          },
+          HTTPMethod.PATCH
+        >(({ params: { companyKey } = { companyKey: '' }, body }) => ({
+          url: injectCompany(injectBaseUrl('company', '/sensitive-data'), companyKey),
+          method: HTTPMethod.PATCH,
+          body: JSON.stringify(body),
+        })),
       },
       locale: {
         get: valid<{ params: { locale: Language, namespace: string } }>(({ params: { locale, namespace } }) => ({
@@ -687,4 +723,6 @@ export class Settings {
   setOnError(onError: (error: any) => void) {
     this._ON_ERROR = onError;
   }
+  
+  private _ON_ERROR = (error: any) => consoleWarn('an error happened', { error });
 }
