@@ -1,5 +1,4 @@
 import { consoleInfo, ContentResponseType } from '@juki-team/commons';
-import { clearInterval } from 'node:timers';
 import { useEffect } from 'react';
 import { jukiSettings } from '../config';
 import { authorizedRequest, cleanRequest } from '../helpers';
