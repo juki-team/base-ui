@@ -70,7 +70,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     setStatus(Status.LOADING);
     clean(SubmissionRunStatus.RECEIVED);
     try {
-      socket.unsubscribe(SocketEvent.RUN, runId);
+      socket.unsubscribe(SocketEvent.CODE_RUN_STATUS, runId);
       const { url, ...options } = jukiSettings.API.code.run({
         body: {
           language: language as string,
@@ -85,7 +85,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       );
       
       if (request?.success && request?.content?.runId) {
-        socket.subscribe(SocketEvent.RUN, request?.content?.runId);
+        socket.subscribe(SocketEvent.CODE_RUN_STATUS, request?.content?.runId);
         setRunId(request.content.runId);
         setStatus(Status.SUCCESS);
       } else {

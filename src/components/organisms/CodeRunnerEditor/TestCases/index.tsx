@@ -139,7 +139,13 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
         body: (
           (testCaseValue.sample ? enableAddSampleCases : enableAddCustomSampleCases) && onChange ?
             <TextArea
-              style={{ height: '100%', boxShadow: 'none', borderRadius: 0, overflow: 'auto' }}
+              style={{
+                height: 'calc(100% - 10px)',
+                overflow: 'auto',
+                width: 'calc(100% - 10px)',
+                marginLeft: '4px',
+                marginTop: '4px',
+              }}
               className="tx-s"
               key={testCaseValue.key}
               value={testCaseValue.in}
@@ -150,7 +156,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                 },
               }) : undefined}
             /> :
-            <div className="content-log" style={{ padding: 'calc(var(--pad-sm) / 2)' }}>
+            <div className="content-log">
               <span className="jk-text-stdout">
                 {testCaseValue.in}
               </span>
@@ -213,7 +219,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       body: (
         <div>
           {loaderAndInfo}
-          <div className="content-log" style={{ padding: 'calc(var(--pad-sm) / 2)' }}>
+          <div className="content-log">
             <span className="jk-text-stdout">{testCases[testCaseKey]?.testOut}</span>
           </div>
         </div>
@@ -235,7 +241,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     body: (
       <div>
         {loaderAndInfo}
-        <div className="content-log" style={{ padding: 'calc(var(--pad-sm) / 2)' }}>
+        <div className="content-log">
           <span className="jk-text-stdout">{testCases[testCaseKey]?.out}</span>
         </div>
       </div>
@@ -258,7 +264,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       body: (
         <div>
           {loaderAndInfo}
-          <div className="content-log" style={{ padding: 'calc(var(--pad-sm) / 2)' }}>
+          <div className="content-log">
             <span className="jk-text-stderr">{testCases[testCaseKey]?.err}</span>
           </div>
         </div>
@@ -270,7 +276,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     <div className="jk-code-mirror-editor-test-cases">
       <SplitPane direction={direction === 'row' ? 'column' : 'row'}>
         <div className="jk-col extend stretch nowrap">
-          <div className="jk-row nowrap border-bottom-highlight-light">
+          <div className="jk-row nowrap border-bottom-highlight">
             <div className="flex-1" style={{ overflow: 'auto' }}>
               <TabsInline
                 tabs={inputTabs}
@@ -290,7 +296,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
               </div>
             )}
           </div>
-          <div className="flex-1" style={{ overflow: 'auto' }}>
+          <div className="flex-1 pn-re">
             <TabsInlineBody tabs={inputTabs} selectedTabKey={testCaseKey} />
           </div>
         </div>
@@ -299,7 +305,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             tabs={outputTabs}
             selectedTabKey={outputTab}
             onChange={value => setOutputTab(value)}
-            className="border-bottom-highlight-light"
+            className="border-bottom-highlight"
           />
           <div className="flex-1" style={{ overflow: 'auto', width: '100%' }}>
             <TabsInlineBody tabs={outputTabs} selectedTabKey={outputTab} />

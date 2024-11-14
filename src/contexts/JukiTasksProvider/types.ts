@@ -1,6 +1,6 @@
-import { SocketEventSubmissionResponseDTO } from '@juki-team/commons';
+import { SocketEventSubmissionStatusResponseDTO } from '@juki-team/commons';
 
-export type SocketSubmissions = { [key: string]: SocketEventSubmissionResponseDTO };
+export type SocketSubmissions = { [key: string]: SocketEventSubmissionStatusResponseDTO };
 
 export type SubmissionToCheck = {
   id: string,

@@ -171,7 +171,6 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T
   return (
     <AnimatePresence
       custom={direction}
-      mode="popLayout"
       presenceAffectsLayout
       onExitComplete={() => setRender(Date.now())}
     >
@@ -182,7 +181,7 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T
         // initial="enter"
         animate="center"
         exit="exit"
-        style={{ position: 'absolute', width: '100%', height: '100%' }}
+        style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}
         key={selectedTabKey as string}
         className="jk-tabs-inline-body-motion-layout"
       >

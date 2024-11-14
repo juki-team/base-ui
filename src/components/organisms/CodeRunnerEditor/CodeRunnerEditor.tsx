@@ -3,6 +3,7 @@ import {
   ProfileSetting,
   PROGRAMMING_LANGUAGE,
   SocketEvent,
+  SocketEventCodeRunStatusResponseDTO,
   SubmissionRunStatus,
 } from '@juki-team/commons';
 import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -56,9 +57,9 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const testCasesRef = useRef(_testCases);
   testCasesRef.current = _testCases;
   useEffect(() => {
-    socket.onMessage(SocketEvent.RUN, runId, (data) => {
-      if (data?.success && data?.content?.runId && data?.content?.messageTimestamp) {
-        const lastRunStatus = data.content;
+    socket.onMessage(SocketEvent.CODE_RUN_STATUS, runId, (data) => {
+      if (data?.id && data?.messageTimestamp) {
+        const lastRunStatus: SocketEventCodeRunStatusResponseDTO = data as SocketEventCodeRunStatusResponseDTO;
         const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
           const newTestCases: CodeEditorTestCasesType = { ...testCasesRef.current };
           for (const testKey in newTestCases) {
@@ -121,9 +122,9 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     });
   }, [ socket, runId ]);
   useEffect(() => {
-    socket.subscribe(SocketEvent.RUN, runId);
+    socket.subscribe(SocketEvent.CODE_RUN_STATUS, runId);
     return () => {
-      socket.unsubscribe(SocketEvent.RUN, runId);
+      socket.unsubscribe(SocketEvent.CODE_RUN_STATUS, runId);
     };
   }, [ runId, socket ]);
   

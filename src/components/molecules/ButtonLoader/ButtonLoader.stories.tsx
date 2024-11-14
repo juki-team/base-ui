@@ -16,7 +16,7 @@ type Story = StoryObj<typeof ButtonLoader>;
 export const Regular: Story = {
   render: (args) => {
     const { size, ...restArgs } = args;
-    console.log(restArgs);
+    console.info(restArgs);
     const onClick: (status: Status) => ButtonLoaderProps['onClick'] =
       (status) => (setLoader, loader) => {
         action('onClick')({ setLoader, loader });

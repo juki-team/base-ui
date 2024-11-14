@@ -1,4 +1,13 @@
-import { consoleError, consoleInfo, consoleWarn, isStringJson, SocketEvent } from '@juki-team/commons';
+import {
+  consoleError,
+  consoleInfo,
+  consoleWarn,
+  isStringJson,
+  SocketEvent,
+  SocketEventsResponseDTO,
+  SocketSubscribeEventDTO,
+  SocketUnsubscribeEventDTO,
+} from '@juki-team/commons';
 import { getLocalToken } from '../../helpers';
 
 const FORCE_CLOSED = 'FORCE_CLOSED';
@@ -6,14 +15,14 @@ const FORCE_CLOSED = 'FORCE_CLOSED';
 export class SocketIo {
   private _socket: WebSocket | null = null;
   private socketServiceUrl: string;
-  private callbacks: { [key: string]: { [key: string]: (data: any) => void } } = {};
+  private callbacks: { [key: string]: { [key: string]: (data: SocketEventsResponseDTO) => void } } = {};
   
   constructor(socketServiceUrl: string) {
     this.socketServiceUrl = socketServiceUrl;
   }
   
   connect() {
-    const ws = new WebSocket(this.socketServiceUrl);
+    const ws = new WebSocket(this.socketServiceUrl + `?sessionId=${getLocalToken()}`);
     ws.onopen = function () {
       ws.send('hello');
       consoleInfo('Jk socket connected');
@@ -21,10 +30,10 @@ export class SocketIo {
     
     ws.onmessage = (event) => {
       if (isStringJson(event.data)) {
-        const data = JSON.parse(event.data);
-        if (data.event && data.id && data.payload) {
+        const data: SocketEventsResponseDTO = JSON.parse(event.data);
+        if (data.event && data.id) {
           if (this.callbacks?.[data.event]?.[data.id]) {
-            this.callbacks?.[data.event]?.[data.id](data.payload);
+            this.callbacks?.[data.event]?.[data.id](data);
             return true;
           } else {
             consoleWarn('websocket message not subscribed', { event, data });
@@ -74,7 +83,13 @@ export class SocketIo {
   
   subscribe(event: SocketEvent, id: string) {
     if (this._socket?.readyState === WebSocket.OPEN) {
-      this._socket.send(JSON.stringify({ action: 'subscribe', event, id, sessionId: getLocalToken() }));
+      const payload: SocketSubscribeEventDTO = {
+        action: 'subscribe',
+        event,
+        id,
+        sessionId: getLocalToken(),
+      };
+      this._socket.send(JSON.stringify(payload));
       return true;
     }
     consoleWarn('the socket isn\'t ready');
@@ -83,14 +98,20 @@ export class SocketIo {
   
   unsubscribe(event: SocketEvent, id: string) {
     if (this._socket?.readyState === WebSocket.OPEN) {
-      this._socket.send(JSON.stringify({ action: 'unsubscribe', event, id, sessionId: getLocalToken() }));
+      const payload: SocketUnsubscribeEventDTO = {
+        action: 'unsubscribe',
+        event,
+        id,
+        sessionId: getLocalToken(),
+      };
+      this._socket.send(JSON.stringify(payload));
       return true;
     }
     consoleWarn('the socket isn\'t ready');
     return false;
   }
   
-  onMessage(event: SocketEvent, id: string, callback: (data: any) => void) {
+  onMessage(event: SocketEvent, id: string, callback: (data: SocketEventsResponseDTO) => void) {
     if (this._socket) {
       if (!this.callbacks?.[event]) {
         this.callbacks[event] = {};

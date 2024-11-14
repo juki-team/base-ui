@@ -1896,10 +1896,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@juki-team/commons@^0.0.659":
-  version "0.0.659"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.659/93d35b988f270544903b7513844eda06989a889a#93d35b988f270544903b7513844eda06989a889a"
-  integrity sha512-mEfCtYGHZ+zPaWzLYKNlQv5Q3YouksGaOB8wfatpFrnuxf5Dc7e1xP0i8TdJHxuJtLLWEwH3FJiivl25Ij3gsQ==
+"@juki-team/commons@^0.0.661":
+  version "0.0.661"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.661/7dd4d290f1844fe4cb3a55a85476a33e718b9c58#7dd4d290f1844fe4cb3a55a85476a33e718b9c58"
+  integrity sha512-mmkaAkinBYd6xfvChwShZY7/MQVZ5OSJgxIdWaJheNTf0v58oz/+JVt0T7fjiX3ayOyPYEyMMDwq8ILstuJy7g==
   dependencies:
     uuid "^10.0.0"
 

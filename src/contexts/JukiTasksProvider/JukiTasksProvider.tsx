@@ -1,4 +1,10 @@
-import { PROBLEM_VERDICT, ProblemVerdict, SocketEvent, SubmissionRunStatus } from '@juki-team/commons';
+import {
+  PROBLEM_VERDICT,
+  ProblemVerdict,
+  SocketEvent,
+  SocketEventSubmissionStatusResponseDTO,
+  SubmissionRunStatus,
+} from '@juki-team/commons';
 import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
 import { T } from '../../components';
 import { useJukiNotification, useJukiUser } from '../../hooks';
@@ -64,82 +70,87 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [ submissionsToCheck, submissions, addSuccessNotification, addErrorNotification ]);
   
   const unListenSubmission = useCallback((submissionId: string) => {
-    socket.unsubscribe(SocketEvent.SUBMISSION, submissionId);
+    socket.unsubscribe(SocketEvent.SUBMISSION_RUN_STATUS, submissionId);
   }, [ socket ]);
   
   const listenSubmission = useCallback((submissionToCheck: SubmissionToCheck, withNotification: boolean) => {
     if (withNotification) {
       setSubmissionsToCheck(prevState => [ ...prevState, submissionToCheck ]);
     }
-    socket.subscribe(SocketEvent.SUBMISSION, submissionToCheck.id);
+    socket.subscribe(SocketEvent.SUBMISSION_RUN_STATUS, submissionToCheck.id);
     if (!onMessageRef.current[submissionToCheck.id]) {
-      socket.onMessage(SocketEvent.SUBMISSION, submissionToCheck.id, (data) => {
-        const submitId = data?.content?.submitId;
-        if (submitId) {
-          setSubmissions((prevState) => {
-            const submissionData = prevState[submitId];
-            const currentStatus = prevState[submitId]?.status;
-            const nextStatus = data.content.status;
-            if (!submissionData) {
-              return { ...prevState, [submitId]: data.content };
-            }
-            if (
-              [ SubmissionRunStatus.COMPILING, SubmissionRunStatus.COMPILED, SubmissionRunStatus.FAILED ]
-                .includes(nextStatus)
-              && (data.content.messageTimestamp > submissionData.messageTimestamp)
-            ) {
-              return { ...prevState, [submitId]: data.content };
-            }
-            if (
+      socket.onMessage(SocketEvent.SUBMISSION_RUN_STATUS, submissionToCheck.id, (dataResponse) => {
+        const data: SocketEventSubmissionStatusResponseDTO = dataResponse as SocketEventSubmissionStatusResponseDTO;
+        const submitId = data?.id;
+        const nextStatus = data.status;
+        setSubmissions((prevState) => {
+          const submissionData = prevState[submitId];
+          const currentStatus = prevState[submitId]?.status;
+          
+          if (!submissionData) {
+            return { ...prevState, [submitId]: data };
+          }
+          
+          if (data.messageTimestamp > submissionData.messageTimestamp) {
+            return { ...prevState, [submitId]: data };
+          }
+          
+          if (
+            [ SubmissionRunStatus.COMPILING, SubmissionRunStatus.COMPILED, SubmissionRunStatus.FAILED ]
+              .includes(nextStatus)
+            && (data.messageTimestamp > submissionData.messageTimestamp)
+          ) {
+            return { ...prevState, [submitId]: data };
+          }
+          if (
+            [
+              SubmissionRunStatus.FETCHING_TEST_CASES,
+              SubmissionRunStatus.RUNNING_SAMPLE_TEST_CASES,
+              SubmissionRunStatus.RUNNING_TEST_CASES,
+              SubmissionRunStatus.EXECUTED_TEST_CASE,
+            ].includes(nextStatus) && (
               [
+                SubmissionRunStatus.COMPILING,
+                SubmissionRunStatus.COMPILED,
+                SubmissionRunStatus.FAILED,
                 SubmissionRunStatus.FETCHING_TEST_CASES,
                 SubmissionRunStatus.RUNNING_SAMPLE_TEST_CASES,
                 SubmissionRunStatus.RUNNING_TEST_CASES,
                 SubmissionRunStatus.EXECUTED_TEST_CASE,
-              ].includes(nextStatus) && (
-                [
-                  SubmissionRunStatus.COMPILING,
-                  SubmissionRunStatus.COMPILED,
-                  SubmissionRunStatus.FAILED,
-                  SubmissionRunStatus.FETCHING_TEST_CASES,
-                  SubmissionRunStatus.RUNNING_SAMPLE_TEST_CASES,
-                  SubmissionRunStatus.RUNNING_TEST_CASES,
-                  SubmissionRunStatus.EXECUTED_TEST_CASE,
-                ].includes(currentStatus)
-              )
-              && (data.content.messageTimestamp > submissionData.messageTimestamp)
-            ) {
-              return {
-                ...prevState,
-                [submitId]: {
-                  ...data.content,
-                },
-              };
-            }
-            
-            if (
+              ].includes(currentStatus)
+            )
+            && (data.messageTimestamp > submissionData.messageTimestamp)
+          ) {
+            return {
+              ...prevState,
+              [submitId]: {
+                ...data,
+              },
+            };
+          }
+          
+          if (
+            [
+              SubmissionRunStatus.GRADING,
+              SubmissionRunStatus.COMPLETED,
+            ].includes(nextStatus) && (
               [
+                SubmissionRunStatus.RECEIVED,
+                SubmissionRunStatus.COMPILING,
+                SubmissionRunStatus.COMPILED,
+                SubmissionRunStatus.FAILED,
+                SubmissionRunStatus.FETCHING_TEST_CASES,
+                SubmissionRunStatus.RUNNING_SAMPLE_TEST_CASES,
+                SubmissionRunStatus.RUNNING_TEST_CASES,
+                SubmissionRunStatus.EXECUTED_TEST_CASE,
                 SubmissionRunStatus.GRADING,
-                SubmissionRunStatus.COMPLETED,
-              ].includes(nextStatus) && (
-                [
-                  SubmissionRunStatus.RECEIVED,
-                  SubmissionRunStatus.COMPILING,
-                  SubmissionRunStatus.COMPILED,
-                  SubmissionRunStatus.FAILED,
-                  SubmissionRunStatus.FETCHING_TEST_CASES,
-                  SubmissionRunStatus.RUNNING_SAMPLE_TEST_CASES,
-                  SubmissionRunStatus.RUNNING_TEST_CASES,
-                  SubmissionRunStatus.EXECUTED_TEST_CASE,
-                  SubmissionRunStatus.GRADING,
-                ].includes(currentStatus)
-              )
-            ) {
-              return { ...prevState, [submitId]: data.content };
-            }
-            return prevState;
-          });
-        }
+              ].includes(currentStatus)
+            )
+          ) {
+            return { ...prevState, [submitId]: data };
+          }
+          return prevState;
+        });
       });
     }
   }, [ socket ]);

@@ -351,6 +351,19 @@
   }
 }
 
+.border-bottom-highlight {
+  position: relative;
+  
+  &::before {
+    position: absolute;
+    content: " ";
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background-color: var(--t-color-highlight);
+  }
+}
+
 .hoverable {
   &:hover {
     background: var(--t-color-highlight-light);

@@ -18,6 +18,7 @@ export const SubmissionRejudgeButton = ({ submissionId }: { submissionId: string
   const { matchMutate } = useSWR();
   const rejudgeSubmission = (submissionId: string): ButtonLoaderOnClickType => async (setLoaderStatus, loaderStatus, event) => {
     setLoaderStatus(Status.LOADING);
+    
     const { url, ...options } = jukiSettings.API.submission.rejudge({ params: { id: submissionId } });
     const response = cleanRequest<ContentResponseType<{ listCount: number, status: SubmissionRunStatus.RECEIVED }>>(
       await authorizedRequest(url, options));
@@ -31,7 +32,7 @@ export const SubmissionRejudgeButton = ({ submissionId }: { submissionId: string
         await matchMutate(new RegExp(`^${jukiSettings.SERVICE_API_URL}/submission`, 'g'));
       }}
       size="tiny"
-      icon={<ReloadIcon/>}
+      icon={<ReloadIcon />}
     >
       <T>rejudge</T>
     </ButtonLoader>
@@ -44,7 +45,7 @@ export const getSubmissionRejudgeHeader = (): DataViewerHeadersType<SubmissionSu
   Field: ({ record: { submitId }, isCard }) => (
     <Field>
       <div className="jk-col nowrap extend" style={{ padding: '4px 0', boxSizing: 'border-box' }}>
-        <SubmissionRejudgeButton submissionId={submitId}/>
+        <SubmissionRejudgeButton submissionId={submitId} />
       </div>
     </Field>
   ),
