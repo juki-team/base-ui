@@ -14,9 +14,8 @@ export const useRunnerServicesWakeUp = () => {
         consoleInfo('runner services wake up requested', response);
       }
     };
-    
-    const interval = setInterval(fun, 1000 * 60, isPageVisible, isOnline);
-    
+    void fun(isPageVisible, isOnline);
+    const interval = setInterval(fun, 1000 * 45, isPageVisible, isOnline);
     return () => {
       clearInterval(interval);
     };
