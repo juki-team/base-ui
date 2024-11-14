@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useEcsWakeUp, useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../../hooks';
 import { Button, FullscreenExitIcon, FullscreenIcon, T } from '../../atoms';
 import { SplitPane } from '../../molecules';
 import { ProblemCodeEditor } from './ProblemCodeEditor';
@@ -21,7 +21,6 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
   const { viewPortSize } = useJukiUI();
   const [ expanded, setExpanded ] = useState(false);
   
-  useEcsWakeUp();
   if (forPrinting) {
     return (
       <ProblemStatementView

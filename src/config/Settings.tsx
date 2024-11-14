@@ -575,12 +575,10 @@ export class Settings {
         })),
       },
       system: {
-        aws: {
-          ecsPostWakeUp: valid<void, HTTPMethod.POST>(() => ({
-            url: injectBaseUrl('sys', '/aws/ecs/wake-up'),
-            method: HTTPMethod.POST,
-          })),
-        },
+        runnerServicesWakeUp: valid<void, HTTPMethod.POST>(() => ({
+          url: injectBaseUrl('sys', '/runner-services-wake-up'),
+          method: HTTPMethod.POST,
+        })),
       },
     };
   }
