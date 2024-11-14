@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
-import { Button, FullscreenExitIcon, FullscreenIcon, T } from '../../atoms';
+import { Button, FullscreenExitIcon, FullscreenIcon, Portal, T } from '../../atoms';
 import { SplitPane } from '../../molecules';
 import { ProblemCodeEditor } from './ProblemCodeEditor';
 import { ProblemStatementView } from './ProblemStatementView';
@@ -34,10 +34,11 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
     );
   }
   
-  return (
+  const body = (
     <SplitPane
       minSize={400}
-      className={classNames('jk-problem-view-layout', { 'jk-full-screen-overlay': expanded })}
+      className={classNames('jk-problem-view-layout', { 'jk-full-screen-overlay elevation-1 jk-br-ie': expanded })}
+      style={expanded ? expandPosition : {}}
       closableSecondPane={{
         expandLabel: <T className="label tx-t">code editor</T>,
         align: 'center',
@@ -79,7 +80,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
           return (
             <Button
               data-tooltip-id="jk-tooltip"
-              data-tooltip-content="back"
+              data-tooltip-content={expanded ? 'back' : 'expand'}
               data-tooltip-place="bottom-end"
               size="tiny"
               type="light"
@@ -90,8 +91,19 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
           );
         }}
         codeEditorSourceStoreKey={codeEditorSourceStoreKey}
-        expandPosition={expandPosition}
       />
     </SplitPane>
   );
+  
+  if (expanded) {
+    return (
+      <Portal>
+        <div style={{ position: 'absolute', ...expandPosition }} className="jk-problem-view-expanded-layout">
+          {body}
+        </div>
+      </Portal>
+    );
+  }
+  
+  return body;
 };

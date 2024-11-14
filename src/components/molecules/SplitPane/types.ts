@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
 export interface SplitPaneProps {
   direction?: 'column' | 'row',
@@ -20,4 +20,5 @@ export interface SplitPaneProps {
     expandLabel?: ReactNode
   },
   onePanelAtATime?: boolean,
+  style?: CSSProperties,
 }

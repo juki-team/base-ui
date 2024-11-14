@@ -20,6 +20,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
     closableSecondPane,
     toggleable = false,
     onePanelAtATime = false,
+    style,
   } = props;
   
   const clientSizeRef = useRef(0);
@@ -115,6 +116,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
       onMouseMove={onMouseHoldMove}
       onMouseUp={onMouseHoldUp}
       onMouseLeave={onMouseHoldUp}
+      style={style}
       ref={paneRef}
     >
       <div

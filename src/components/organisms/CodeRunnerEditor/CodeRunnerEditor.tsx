@@ -255,11 +255,12 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   if (expanded) {
     return (
       <Portal>
-        <div style={{ position: 'absolute', ...expandPosition }} className="jk-code-mirror-editor-expanded-layout">
+        <div style={{ position: 'absolute' }} className="jk-code-mirror-editor-expanded-layout">
           {body}
         </div>
       </Portal>
     );
   }
+  
   return body;
 };

@@ -383,10 +383,10 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
 .jk-full-screen-overlay {
   background: var(--t-color-white-dark);
   position: fixed;
-  top: 0;
-  left: 0;
+  top: var(--pad-md);
+  left: var(--pad-md);
   z-index: var(--z-index-popover);
   width: calc(100% - var(--pad-md) * 2);
   height: calc(100% - var(--pad-md) * 2);
-  padding: var(--pad-md);
+  //padding: var(--pad-md);
 }
