@@ -12,7 +12,7 @@ export const FirstLoginWrapper = ({ children }: { children: ReactElement; }) => 
   }
   
   const onClick = () => {
-    addWarningNotification(<T className="tt-se">first login</T>);
+    addWarningNotification(<T className="tt-se">you must log in</T>);
     setSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' });
   };
   
