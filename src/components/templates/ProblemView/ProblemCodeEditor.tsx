@@ -11,18 +11,19 @@ import {
 import React, { useMemo } from 'react';
 import { jukiSettings } from '../../../config';
 import { useFetcher } from '../../../hooks';
-import { UserCodeEditor, UserCodeEditorProps } from '../../organisms/UserCodeEditor';
+import { CodeEditorExpandPositionType, UserCodeEditor, UserCodeEditorProps } from '../../organisms';
 
 interface ProblemCodeEditorProps<T> {
   problem: ProblemDataResponseDTO,
   codeEditorCenterButtons?: UserCodeEditorProps<T>['centerButtons'],
   codeEditorRightButtons?: UserCodeEditorProps<T>['rightButtons'],
   codeEditorSourceStoreKey?: string,
+  expandPosition?: CodeEditorExpandPositionType,
 }
 
 export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
   
-  const { problem, codeEditorCenterButtons, codeEditorRightButtons, codeEditorSourceStoreKey } = props;
+  const { problem, codeEditorCenterButtons, codeEditorRightButtons, codeEditorSourceStoreKey, expandPosition } = props;
   const initialTestCases: CodeEditorTestCasesType = {};
   problem.statement.sampleCases?.forEach((sample, index) => {
     const key = 'sample-' + index;
@@ -72,7 +73,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       }
       return languages as { value: T, label: string }[];
     },
-    [ virtualJudgeData, problem.judge.key ],
+    [ virtualJudgeData, problem.judge.isExternal ],
   );
   
   return (
@@ -85,6 +86,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
         ? initialTestCases
         : undefined}
       enableAddCustomSampleCases
+      expandPosition={expandPosition}
     />
   );
 };

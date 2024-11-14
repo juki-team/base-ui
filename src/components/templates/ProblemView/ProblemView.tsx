@@ -16,6 +16,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
     infoPlacement,
     withoutName,
     forPrinting,
+    expandPosition,
   } = props;
   
   const { viewPortSize } = useJukiUI();
@@ -89,6 +90,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
           );
         }}
         codeEditorSourceStoreKey={codeEditorSourceStoreKey}
+        expandPosition={expandPosition}
       />
     </SplitPane>
   );
