@@ -156,7 +156,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                 },
               }) : undefined}
             /> :
-            <div>
+            <div style={{ padding: 'calc(var(--pad-sm) / 2)' }}>
               <span className="jk-text-stdout">
                 {testCaseValue.in}
               </span>
