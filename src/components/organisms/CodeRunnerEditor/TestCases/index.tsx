@@ -156,7 +156,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                 },
               }) : undefined}
             /> :
-            <div className="content-log">
+            <div>
               <span className="jk-text-stdout">
                 {testCaseValue.in}
               </span>

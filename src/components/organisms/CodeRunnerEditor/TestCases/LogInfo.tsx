@@ -17,7 +17,7 @@ export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
   
   return (
     <>
-      <div className="content-log">
+      <div className="content-log cr-g2">
         <span className={classNames('text-log tx-t tt-se', { 'cr-er': timeLimitExceeded })}>
           {timeLimitExceeded
             ? <><T>time limit exceeded</T> ({timeUsed} <T>ms</T>)</>
