@@ -1,7 +1,5 @@
-import { ProfileSetting } from '@juki-team/commons';
-import React, { useEffect, useState } from 'react';
-import { downloadBlobAsFile, handleShareMdPdf } from '../../../helpers';
-import { useJukiUser } from '../../../hooks';
+import React from 'react';
+import { downloadBlobAsFile } from '../../../helpers';
 import { DownloadIcon, EditIcon, OpenInNewIcon, T } from '../../atoms';
 import { ButtonActionProps, FloatToolbar } from '../../molecules';
 
@@ -15,9 +13,9 @@ export interface MdFloatToolbarProps {
 
 export const MdFloatToolbar = ({ source, edit, onEdit, download }: MdFloatToolbarProps) => {
   
-  const [ sourceUrl, setSourceUrl ] = useState('');
-  const { user: { settings: { [ProfileSetting.THEME]: userTheme } } } = useJukiUser();
-  useEffect(() => setSourceUrl(''), [ source ]);
+  // const [ sourceUrl, setSourceUrl ] = useState('');
+  // const { user: { settings: { [ProfileSetting.THEME]: userTheme } } } = useJukiUser();
+  // useEffect(() => setSourceUrl(''), [ source ]);
   
   const actionButtons: ButtonActionProps[] = [];
   if (edit && onEdit) {
@@ -47,11 +45,12 @@ export const MdFloatToolbar = ({ source, edit, onEdit, download }: MdFloatToolba
     actionButtons.push({
       icon: <DownloadIcon />,
       buttons: [
-        {
-          icon: <DownloadIcon />,
-          label: <T>pdf</T>,
-          onClick: handleShareMdPdf('pdf', source, sourceUrl, setSourceUrl, userTheme),
-        },
+        // TODO:
+        // {
+        //   icon: <DownloadIcon />,
+        //   label: <T>pdf</T>,
+        //   onClick: handleShareMdPdf('pdf', source, sourceUrl, setSourceUrl, userTheme),
+        // },
         {
           icon: <OpenInNewIcon />,
           label: <T>md</T>,

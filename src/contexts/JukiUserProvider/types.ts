@@ -3,6 +3,6 @@ export type DeviceType = { label: string, isMobile: boolean, isBrowser: boolean,
 export interface JukiUserProviderProps {
   serviceApiUrl: string,
   socketServiceUrl: string,
-  utilsUiUrl: string,
+  serviceApiV2Url: string,
   tokenName: string,
 }

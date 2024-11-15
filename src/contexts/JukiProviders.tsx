@@ -74,7 +74,7 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
     children,
     serviceApiUrl,
     socketServiceUrl,
-    utilsUiUrl,
+    serviceApiV2Url,
     tokenName,
     components,
     router,
@@ -99,7 +99,7 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
         <JukiUserProvider
           socketServiceUrl={socketServiceUrl}
           serviceApiUrl={serviceApiUrl}
-          utilsUiUrl={utilsUiUrl}
+          serviceApiV2Url={serviceApiV2Url}
           tokenName={tokenName}
         >
           <JukiUIProvider components={components}>

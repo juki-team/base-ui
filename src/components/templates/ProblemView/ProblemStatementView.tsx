@@ -1,6 +1,12 @@
 import { Language, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
 import React from 'react';
-import { classNames, downloadBlobAsFile, downloadJukiMarkdownAsPdf, getStatementData } from '../../../helpers';
+import {
+  classNames,
+  downloadBlobAsFile,
+  downloadWebsiteAsPdf,
+  getLocalToken,
+  getStatementData,
+} from '../../../helpers';
 import { useJukiUser, useT } from '../../../hooks';
 import { DownloadIcon, T } from '../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
@@ -32,13 +38,14 @@ export const ProblemStatementView = ({
     tags,
     author,
     statement,
+    company: { key: problemCompanyKey },
   } = problem;
   
   const {
     user: {
       settings: {
         [ProfileSetting.LANGUAGE]: preferredLanguage,
-        [ProfileSetting.THEME]: preferredTheme,
+        // [ProfileSetting.THEME]: preferredTheme,
       },
     },
   } = useJukiUser();
@@ -75,8 +82,8 @@ export const ProblemStatementView = ({
     );
   }
   
-  const handleDownloadPdf = () => {
-    return downloadJukiMarkdownAsPdf(mdStatement, preferredTheme, `Juki Judge ${problemName}.pdf`);
+  const handleDownloadPdf = async () => {
+    await downloadWebsiteAsPdf(`https://${problemCompanyKey}.jukijudge.com/problems/${problemKey}?tab=statement&TOKEN=${getLocalToken()}&print-mode=asProblemSet`, `Juki Judge ${problemName}.pdf`);
   };
   
   const handleDownloadMd = async () => {

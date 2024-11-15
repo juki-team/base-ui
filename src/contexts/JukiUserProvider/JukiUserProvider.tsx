@@ -113,12 +113,12 @@ const useUser = () => {
 
 export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>) => {
   
-  const { children, serviceApiUrl, socketServiceUrl, utilsUiUrl, tokenName } = props;
+  const { children, serviceApiUrl, socketServiceUrl, serviceApiV2Url, tokenName } = props;
   
   const { isPageVisible } = useJukiPage();
   
   const token = getLocalToken();
-  jukiSettings.setSetting(serviceApiUrl, utilsUiUrl, tokenName);
+  jukiSettings.setSetting(serviceApiUrl, serviceApiV2Url, tokenName);
   
   const socket = useMemo(() => {
     return new SocketIo(socketServiceUrl);

@@ -9,7 +9,7 @@ import {
   isStringJson,
 } from '@juki-team/commons';
 import { jukiSettings } from '../config';
-import { AuthorizedRequestType } from '../types'
+import { AuthorizedRequestType } from '../types';
 import { getLocalToken } from './token';
 
 export const cleanRequest = <T extends ContentResponseType<any> | ContentsResponseType<any>>(responseText: string): (ErrorResponseType | T) => {

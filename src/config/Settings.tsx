@@ -54,10 +54,10 @@ export class Settings {
     return this._SERVICE_API_URL;
   }
   
-  private _UTILS_UI_URL = '';
+  private _SERVICE_API_V2_URL = '';
   
-  get UTILS_UI_URL(): string {
-    return this._UTILS_UI_URL;
+  get SERVICE_API_V2_URL(): string {
+    return this._SERVICE_API_V2_URL;
   }
   
   private _TOKEN_NAME = '';
@@ -68,6 +68,30 @@ export class Settings {
   
   get reportError(): (error: any) => void {
     return this._ON_ERROR;
+  }
+  
+  get API_V2() {
+    
+    const injectBaseUrl = (prefix: string, path: string) => {
+      return `${this._SERVICE_API_V2_URL}/${prefix}${path}`;
+    };
+    
+    const valid = <T, M extends HTTPMethod = HTTPMethod.GET>(callback: (props: T) => ResponseAPI<M>): ((props: T) => ResponseAPI<M>) => {
+      if (this._SERVICE_API_V2_URL) {
+        return callback;
+      }
+      return () => ({ url: '', method: HTTPMethod.GET as M });
+    };
+    
+    return {
+      export: {
+        websiteToPdf: valid<{ params: { url: string } }, HTTPMethod.POST>(({ params: { url } }) => ({
+          url: injectBaseUrl('export', '/website-to-pdf'),
+          method: HTTPMethod.POST,
+          body: JSON.stringify({ url }),
+        })),
+      },
+    };
   }
   
   get API() {
@@ -714,9 +738,9 @@ export class Settings {
     };
   }
   
-  setSetting(serviceApiUrl: string, utilsUiUrl: string, tokenName: string) {
+  setSetting(serviceApiUrl: string, serviceApiV2Url: string, tokenName: string) {
     this._SERVICE_API_URL = serviceApiUrl;
-    this._UTILS_UI_URL = utilsUiUrl;
+    this._SERVICE_API_V2_URL = serviceApiV2Url;
     this._TOKEN_NAME = tokenName;
   }
   

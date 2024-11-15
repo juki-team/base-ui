@@ -1,11 +1,19 @@
-import { ErrorCode, ErrorResponseType, isObjectJson, JkError, stringToArrayBuffer, Theme } from '@juki-team/commons';
+import {
+  ContentResponseType,
+  ErrorCode,
+  ErrorResponseType,
+  isObjectJson,
+  JkError,
+  stringToArrayBuffer,
+  Theme,
+} from '@juki-team/commons';
 import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
 import { utils } from 'xlsx';
 import { write } from 'xlsx-js-style';
 import { jukiSettings } from '../config';
 import { SheetDataType } from '../modules';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerActionsType } from '../types';
-import { authorizedRequest } from './fetch';
+import { authorizedRequest, cleanRequest } from './fetch';
 
 export const getTextContent = (elem: ReactNode): string => {
   if (!elem) {
@@ -59,6 +67,19 @@ export const downloadLink = (href: string, fileName: string) => {
     // For Firefox it is necessary to delay revoking the ObjectURL
     window?.URL.revokeObjectURL(href);
   }, 100);
+};
+
+export const downloadWebsiteAsPdf = async (websiteUrl: string, name: string) => {
+  const { url, ...options } = jukiSettings.API_V2.export.websiteToPdf({ params: { url: websiteUrl } });
+  const response = cleanRequest<ContentResponseType<{ urlExportedPDF: string }>>(
+    await authorizedRequest(url, options),
+  );
+  
+  if (response.success) {
+    downloadLink('https://' + response.content.urlExportedPDF, name);
+  } else {
+    throw new Error('error on download pdf');
+  }
 };
 
 export function downloadBlobAsFile(data: Blob, fileName: string = 'file') {
@@ -161,7 +182,7 @@ export const sheetDataToWorkBook = (sheets: SheetDataType[], fileName: string = 
       workBook.Sheets[name]['!ref'] = utils.encode_range(range);
     }
     if (autofilter?.ref) {
-      workBook.Sheets[name]['!autofilter'] = { ref: autofilter?.ref }
+      workBook.Sheets[name]['!autofilter'] = { ref: autofilter?.ref };
     }
     
     if (!workBook.Sheets[name]['!cols']) {
@@ -180,7 +201,7 @@ export const sheetDataToWorkBook = (sheets: SheetDataType[], fileName: string = 
     });
   }
   return workBook;
-}
+};
 
 export const downloadSheetDataAsXlsxFile = (sheets: SheetDataType[], fileName: string = 'file.xlsx') => {
   const workBook = sheetDataToWorkBook(sheets, fileName);
@@ -201,7 +222,7 @@ export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fi
         throw new JkError(response.errors[0].code, { message: response.errors[0].detail });
       }
     }
-    throw new JkError(ErrorCode.ERR9997, { message: 'error generating the pdf' })
+    throw new JkError(ErrorCode.ERR9997, { message: 'error generating the pdf' });
   }
   downloadBlobAsFile(result, fileName);
 };

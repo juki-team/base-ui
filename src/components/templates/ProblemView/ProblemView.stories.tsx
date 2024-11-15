@@ -35,7 +35,7 @@ Regular.args = {
       isMain: false,
     },
     author: '',
-    key: '1000',
+    key: 'P-1000',
     ownerNickname: 'OscarGauss',
     statement: {
       description: {

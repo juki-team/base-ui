@@ -1,5 +1,4 @@
-import { consoleWarn, ContentResponseType, Theme } from '@juki-team/commons';
-import { Dispatch, SetStateAction } from 'react';
+import { consoleWarn, ContentResponseType } from '@juki-team/commons';
 import { jukiSettings } from '../config';
 import { authorizedRequest, cleanRequest } from './fetch';
 
@@ -22,19 +21,19 @@ export const publishNote = async (source: string) => {
   return '';
 };
 
-export const handleShareMdPdf = (type: 'md' | 'pdf', source: string, sourceUrl: string, setSourceUrl: Dispatch<SetStateAction<string>>, theme: Theme) => async () => {
-  let url = sourceUrl;
-  if (!sourceUrl) {
-    url = await publishNote(source);
-    setSourceUrl(url);
-  }
-  if (url) {
-    openNewTab((
-      type === 'md'
-        ? jukiSettings.ROUTES.utils(jukiSettings.UTILS_UI_URL).note.view({ sourceUrl: url, theme }).url
-        : jukiSettings.API.note.getPdf({ params: { sourceUrl: url } }).url
-    ));
-  } else {
-    throw new Error('no url generated');
-  }
-};
+// export const handleShareMdPdf = (type: 'md' | 'pdf', source: string, sourceUrl: string, setSourceUrl: Dispatch<SetStateAction<string>>, theme: Theme) => async () => {
+//   let url = sourceUrl;
+//   if (!sourceUrl) {
+//     url = await publishNote(source);
+//     setSourceUrl(url);
+//   }
+//   if (url) {
+//     openNewTab((
+//       type === 'md'
+//         ? jukiSettings.ROUTES.utils(jukiSettings.UTILS_UI_URL).note.view({ sourceUrl: url, theme }).url
+//         : jukiSettings.API.note.getPdf({ params: { sourceUrl: url } }).url
+//     ));
+//   } else {
+//     throw new Error('no url generated');
+//   }
+// };
