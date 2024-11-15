@@ -57,9 +57,9 @@ export const downloadLink = (href: string, fileName: string) => {
   // target if the browser does not support the HTML5 download attribute.
   // This allows you to download files in desktop safari if pop up blocking
   // is enabled.
-  if (typeof tempLink.download === 'undefined') {
-    tempLink.setAttribute('target', '_blank');
-  }
+  // if (typeof tempLink.download === 'undefined') {
+  tempLink.setAttribute('target', '_blank');
+  // }
   document.body.appendChild(tempLink);
   tempLink.click();
   document.body.removeChild(tempLink);
@@ -69,8 +69,21 @@ export const downloadLink = (href: string, fileName: string) => {
   }, 100);
 };
 
-export const downloadWebsiteAsPdf = async (websiteUrl: string, name: string) => {
-  const { url, ...options } = jukiSettings.API_V2.export.websiteToPdf({ params: { url: websiteUrl } });
+export const downloadWebsiteAsPdf = async (websiteUrl: string, name: string, exportOptions?: {
+  headerTemplate?: string,
+  footerTemplate?: string,
+  margin?: { top: string, bottom: string, left: string, right: string }
+  format?: string,
+}) => {
+  const { url, ...options } = jukiSettings.API_V2.export.websiteToPdf({
+    params: {
+      url: websiteUrl,
+      footerTemplate: exportOptions?.footerTemplate?.split('\n').join(''),
+      headerTemplate: exportOptions?.headerTemplate?.split('\n').join(''),
+      format: exportOptions?.format,
+      margin: exportOptions?.margin,
+    },
+  });
   const response = cleanRequest<ContentResponseType<{ urlExportedPDF: string }>>(
     await authorizedRequest(url, options),
   );

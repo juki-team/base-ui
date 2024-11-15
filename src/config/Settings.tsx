@@ -85,10 +85,18 @@ export class Settings {
     
     return {
       export: {
-        websiteToPdf: valid<{ params: { url: string } }, HTTPMethod.POST>(({ params: { url } }) => ({
+        websiteToPdf: valid<{
+          params: {
+            url: string,
+            headerTemplate?: string,
+            footerTemplate?: string,
+            format?: string,
+            margin?: { top: string, bottom: string, left: string, right: string }
+          }
+        }, HTTPMethod.POST>(({ params: { url, headerTemplate, footerTemplate, margin, format } }) => ({
           url: injectBaseUrl('export', '/website-to-pdf'),
           method: HTTPMethod.POST,
-          body: JSON.stringify({ url }),
+          body: JSON.stringify({ url, headerTemplate, footerTemplate, margin, format }),
         })),
       },
     };
