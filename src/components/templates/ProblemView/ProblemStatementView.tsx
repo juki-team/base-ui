@@ -91,8 +91,8 @@ export const ProblemStatementView = ({
       {
         format: 'letter',
         margin: {
-          top: '64px',
-          bottom: '48px',
+          top: '70px',
+          bottom: '54px',
           left: '32px',
           right: '32px',
         },
