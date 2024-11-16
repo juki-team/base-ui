@@ -151,8 +151,11 @@ export class Settings {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        updatePassword: valid<{ body: UpdatePasswordPayloadDTO }, HTTPMethod.POST>(({ body }) => ({
-          url: injectBaseUrl('auth', '/update-password'),
+        updatePassword: valid<{
+          params: { companyKey?: string, nickname: string },
+          body: UpdatePasswordPayloadDTO
+        }, HTTPMethod.POST>(({ params: { companyKey, nickname }, body }) => ({
+          url: injectCompany(injectBaseUrl('auth', `/nickname/${nickname}/update-password`), companyKey),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),

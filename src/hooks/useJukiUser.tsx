@@ -130,9 +130,14 @@ export const useJukiUser = () => {
   }, [ doRequest ]);
   
   const updatePassword = useCallback(async ({ body, ...props }: ApiBodyType<UpdatePasswordPayloadDTO, string>) => {
-    const { url, ...options } = jukiSettings.API.auth.updatePassword({ body });
+    const { url, ...options } = jukiSettings.API.auth.updatePassword({
+      params: {
+        nickname: user.nickname,
+        companyKey: company.key,
+      }, body,
+    });
     await doRequest<string, HTTPMethod.POST>({ url, options, ...props });
-  }, [ doRequest ]);
+  }, [ company.key, doRequest, user.nickname ]);
   
   const resetUserPassword = useCallback(async (
     { params: { companyKey, nickname }, ...props }: ApiParamsType<{ companyKey: string, nickname: string }, string>,
