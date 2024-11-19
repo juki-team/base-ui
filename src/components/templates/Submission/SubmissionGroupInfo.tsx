@@ -102,7 +102,7 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
   
   const testCasesString = JSON.stringify(testCases);
   const renderRow: VirtualizedRowsFixedProps['renderRow'] = useCallback((index) => {
-    const testCases = JSON.parse(testCasesString);
+    const testCases: TestCaseResultType[] = JSON.parse(testCasesString);
     const testCase = testCases[index];
     return (
       <div
@@ -124,7 +124,7 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
             {index + 1}
           </div>
         )}
-        <div className="jk-row gap center nowrap">
+        <div className="jk-row gap center nowrap" style={{ flex: 2 }}>
           <SubmissionVerdict verdict={testCase.verdict} submitId={submitId} />
           {testCase.diff && (
             <DiffViewButton
@@ -133,7 +133,9 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
             />
           )}
         </div>
-        {problemScoringMode === ProblemScoringMode.PARTIAL && <div className="jk-row">{testCase.points}</div>}
+        {problemScoringMode === ProblemScoringMode.PARTIAL && (
+          <div className="jk-row">{testCase.points?.toFixed(3)}</div>
+        )}
         <div className="jk-row center ws-np nowrap">
           <SubmissionTime verdict={testCase.verdict} timeUsed={testCase.timeUsed} />
         </div>
@@ -185,10 +187,13 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
       <div className={classNames('jk-row extend group-info-details')}>
         <div className={classNames('jk-row extend block gap jk-table-inline-row fw-bd')}>
           <div className="jk-row" style={{ flex: 0.4 }}><T>#</T></div>
-          <div className="jk-row center gap"><T className="tt-se">verdict</T></div>
-          {problemScoringMode === ProblemScoringMode.PARTIAL &&
-              <div className="jk-row center gap"><T className="tt-se">points</T>
-              </div>}
+          <div className="jk-row center gap" style={{ flex: 2 }}>
+            <T className="tt-se">verdict</T>
+          </div>
+          {problemScoringMode === ProblemScoringMode.PARTIAL && (
+            <div className="jk-row center gap"><T className="tt-se">points</T>
+            </div>
+          )}
           <div className="jk-row center gap"><T className="tt-se">time</T></div>
           <div className="jk-row center gap"><T className="tt-se">memory</T></div>
           <div className="jk-row center gap"><T className="tt-se">exit code</T></div>
