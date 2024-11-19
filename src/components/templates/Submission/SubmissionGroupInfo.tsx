@@ -31,18 +31,23 @@ const DiffViewButton = ({ diffInput, croppedDiff }: { diffInput: string, cropped
   const { user: { settings: { [ProfileSetting.THEME]: userTheme } } } = useJukiUser();
   
   useEffect(() => {
-    const diffHtml = Diff2Html.html(diffInput,
-      {
-        drawFileList: false,
-        matching: 'words' as LineMatchingType,
-        renderNothingWhenEmpty: false,
-        colorScheme: userTheme === Theme.DARK ? ColorSchemeType.DARK : ColorSchemeType.LIGHT,
-        outputFormat: 'side-by-side',
-      },
-    );
-    
-    setDiff(diffHtml);
-  }, [ diffInput, userTheme ]);
+    if (isOpen) {
+      if (diffInput.includes('$/test-A') || diffInput.includes('$/test-B')) {
+        const diffHtml = Diff2Html.html(diffInput,
+          {
+            drawFileList: false,
+            matching: 'words' as LineMatchingType,
+            renderNothingWhenEmpty: false,
+            colorScheme: userTheme === Theme.DARK ? ColorSchemeType.DARK : ColorSchemeType.LIGHT,
+            outputFormat: 'side-by-side',
+          },
+        );
+        setDiff(diffHtml);
+      } else {
+        setDiff(diffInput);
+      }
+    }
+  }, [ diffInput, userTheme, isOpen ]);
   
   const left = diffInput.length - diffInput.indexOf('No newline at end of file') > 26;
   
@@ -119,7 +124,7 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
             {index + 1}
           </div>
         )}
-        <div className="jk-row gap center">
+        <div className="jk-row gap center nowrap">
           <SubmissionVerdict verdict={testCase.verdict} submitId={submitId} />
           {testCase.diff && (
             <DiffViewButton
