@@ -71,8 +71,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
       <>
         {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
         <div
-          className={classNames('jk-row gap left', {
-            //'jk-pg-sm-t': preferredMenuViewMode === MenuViewMode.HORIZONTAL && withTabs,
+          className={classNames('jk-row gap left extend', {
             'jk-pg-sm-t': !withBreadcrumbs,
             'jk-pg-sm-b': !tabsOnHeader,
           })}
