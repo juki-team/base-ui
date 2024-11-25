@@ -74,6 +74,8 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
           className={classNames('jk-row gap left extend', {
             'jk-pg-sm-t': !withBreadcrumbs,
             'jk-pg-sm-b': !tabsOnHeader,
+            'left': !isMobile,
+            'center': isMobile,
           })}
         >
           {children}
