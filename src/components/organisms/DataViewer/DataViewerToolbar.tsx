@@ -1,5 +1,5 @@
 import { DataViewMode, Status } from '@juki-team/commons';
-import React, { Children, memo, useCallback, useEffect, useRef } from 'react';
+import React, { Children, memo, ReactNode, useCallback, useEffect, useRef } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useSessionStorage } from '../../../hooks';
 import {
@@ -82,6 +82,31 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   const url = new URL(window?.location?.href || '');
   url.searchParams.set(filterKey, JSON.stringify(filters));
   
+  const firstRow: ReactNode[] = [];
+  
+  if (onReload && !isMobileViewPort) {
+    firstRow.push(<>
+        {reloadSection}
+        {pagination.withPagination && <div className="jk-divider horizontal" />}
+      </>,
+    );
+  }
+  if (pagination.withPagination) {
+    firstRow.push(
+      <Pagination
+        dataLength={dataLength}
+        loading={loading}
+        initializing={initializing}
+        pageSizeOptions={isMobileViewPort ? [ 20 ] : pagination.pageSizeOptions}
+        total={pagination.total}
+        page={pagination.page}
+        pageSize={pagination.pageSize}
+        jumpToPage={pagination.jumpToPage}
+        onPageSizeChange={pagination.onPageSizeChange}
+        isOnToolbar
+      />,
+    );
+  }
   return (
     <div
       className={classNames(
@@ -108,33 +133,16 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
           'center': !(onColumn && !isMobileViewPort),
         })}
       >
-        <div
-          className={classNames('jk-row nowrap', {
-            gap: onColumn && !isMobileViewPort,
-            extend: !(viewFilterButton || viewViews),
-          })}
-        >
-          {onReload && !isMobileViewPort && (
-            <>
-              {reloadSection}
-              {pagination.withPagination && <div className="jk-divider horizontal" />}
-            </>
-          )}
-          {pagination.withPagination && (
-            <Pagination
-              dataLength={dataLength}
-              loading={loading}
-              initializing={initializing}
-              pageSizeOptions={isMobileViewPort ? [ 20 ] : pagination.pageSizeOptions}
-              total={pagination.total}
-              page={pagination.page}
-              pageSize={pagination.pageSize}
-              jumpToPage={pagination.jumpToPage}
-              onPageSizeChange={pagination.onPageSizeChange}
-              isOnToolbar
-            />
-          )}
-        </div>
+        {!!firstRow.length && (
+          <div
+            className={classNames('jk-row nowrap', {
+              gap: onColumn && !isMobileViewPort,
+              extend: !(viewFilterButton || viewViews),
+            })}
+          >
+            {firstRow}
+          </div>
+        )}
         <div className={classNames('jk-row nowrap', { gap: onColumn })}>
           {onReload && isMobileViewPort && (
             <>

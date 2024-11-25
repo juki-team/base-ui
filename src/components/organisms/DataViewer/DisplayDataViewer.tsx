@@ -48,9 +48,9 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   
   const isMobileViewPort = viewPortSize === 'sm';
   const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
-  const onColumn = !isMobileViewPort || (isMobileViewPort
-    && (extraNodes.length === 0 ? true : extraNodesFloating)
-    && !viewViews);
+  const onColumn = !isMobileViewPort
+    || (isMobileViewPort && (extraNodes.length === 0 ? true : extraNodesFloating) && !viewViews)
+    || (isMobileViewPort && (!(onReload && !isMobileViewPort) && !(pagination.withPagination)));
   
   return (
     <div

@@ -1,57 +1,5 @@
 @import "../../abstracts/_index.scss";
 
-.two-content-section {
-  width: 100%;
-  height: calc(var(--100VH) - var(--top-horizontal-menu-height, 0px));
-  
-  &:before {
-    content: "";
-    width: 100vw;
-    height: calc(var(--first-content-section-height) - 1px);
-    position: absolute;
-    top: var(--top-horizontal-menu-height, 0px);
-    left: 0;
-    border-bottom: 1px solid var(--t-color-highlight-light);
-    background-color: var(--t-color-white);
-    @include transition(background-color);
-    z-index: 1;
-  }
-  
-  > div {
-    box-sizing: border-box;
-    width: 100%;
-  }
-  
-  > div#jk-two-content-section-first-panel {
-    position: relative;
-    z-index: 2;
-    
-    @include sm {
-      justify-content: center;
-      align-content: center;
-    }
-  }
-  
-  > div#jk-two-content-section-second-panel > div.jk-tabs-inline-body-motion-layout {
-    position: relative;
-    overflow: auto;
-    height: calc(var(--100VH) - var(--first-content-section-height) - var(--top-horizontal-menu-height, 0px));
-    width: 100%;
-    box-sizing: border-box;
-    
-    > div.two-content-layout-body {
-      height: 100%;
-      box-sizing: border-box;
-      position: relative;
-      
-      div.jk-data-viewer-layout {
-        height: 100%;
-        width: 100%;
-      }
-    }
-  }
-}
-
 .jk-two-content-section.rectangular-style {
   width: 100%;
   height: calc(var(--100VH) - var(--top-horizontal-menu-height, 0px) - var(--bottom-horizontal-menu-height, 0px));
@@ -73,8 +21,7 @@
   > #jk-two-content-section-first-panel {
     box-sizing: border-box;
     width: 100%;
-    //position: relative;
-    z-index: 1;
+    z-index: 2;
     padding: 0 var(--pad-md);
     border-radius: 0;
   }
