@@ -16,11 +16,21 @@ import { JudgeDataType, ProblemSelectorProps } from './types';
 
 export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: ProblemSelectorProps) => {
   
-  const [ judge, setJudge ] = useState<string>(Judge.JUKI_JUDGE);
+  const [ judge, setJudge ] = useState('');
   const [ key, setKey ] = useState('');
   const [ data, setData ] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useJukiNotification();
   const [ timestampTrigger, setTimestampTrigger ] = useState(0);
+  const { data: judgesData } = useFetcher<ContentResponseType<JudgeDataResponseDTO[]>>(jukiSettings.API.company.getJudgeList({ params: { companyKey } }).url);
+  const judges = judgesData?.success ? judgesData.content : [];
+  const firstJudgeKey = judges[0]?.key;
+  
+  useEffect(() => {
+    if (!judge && firstJudgeKey) {
+      setJudge(firstJudgeKey);
+    }
+  }, [ firstJudgeKey, judge ]);
+  
   useEffect(() => {
     const getData = async () => {
       setData(prevState => (
@@ -47,8 +57,6 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
     setKey('');
     void getData();
   }, [ judge, timestampTrigger ]);
-  const { data: judgesData } = useFetcher<ContentResponseType<JudgeDataResponseDTO[]>>(jukiSettings.API.company.getJudgeList({ params: { companyKey } }).url);
-  const judges = judgesData?.success ? judgesData.content : [];
   
   return (
     <div className={classNames('jk-row-col gap nowrap', { extend })}>
