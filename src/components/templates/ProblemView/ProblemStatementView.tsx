@@ -34,7 +34,7 @@ export const ProblemStatementView = ({
                                      }: ProblemStatementViewProps) => {
   
   const {
-    judge: { key: judgeKey, isExternal },
+    judge: { key: judgeKey, isExternal, name: judgeName },
     key: problemKey,
     name,
     settings,
@@ -97,14 +97,14 @@ export const ProblemStatementView = ({
     );
     
     if (response.success) {
-      await downloadUrlAsFile('https://' + response.content.urlExportedPDF, name);
+      await downloadUrlAsFile('https://' + response.content.urlExportedPDF, `${judgeName} - ${problemName}`);
     } else {
       throw new Error('error on download pdf');
     }
   };
   
   const handleDownloadMd = async () => {
-    downloadBlobAsFile(new Blob([ mdStatement ], { type: 'text/plain' }), `Juki Judge ${problemName}.md`);
+    downloadBlobAsFile(new Blob([ mdStatement ], { type: 'text/plain' }), `${judgeName} - ${problemName}.md`);
   };
   
   return (
