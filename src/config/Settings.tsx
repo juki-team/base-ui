@@ -391,9 +391,9 @@ export class Settings {
           body: JSON.stringify(body),
         })),
         recalculateScoreboard: valid<
-          { params: { key: string }, }, HTTPMethod.POST
-        >(({ params: { key } }) => ({
-          url: injectBaseUrl('contest', `/${key}/recalculate-scoreboard`),
+          { params: { key: string, companyKey?: string }, }, HTTPMethod.POST
+        >(({ params: { key, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/recalculate-scoreboard`), companyKey),
           method: HTTPMethod.POST,
         })),
       },
