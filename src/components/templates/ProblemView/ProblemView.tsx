@@ -17,6 +17,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
     withoutName,
     forPrinting,
     expandPosition,
+    withoutDownloadButtons,
   } = props;
   
   const { viewPortSize } = useJukiUI();
@@ -29,6 +30,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
         withoutName={expanded ? false : withoutName}
         infoPlacement={infoPlacement}
         forPrinting={!!forPrinting}
+        withoutDownloadButtons={withoutDownloadButtons}
         // contest={{ index: routeParams?.index as string, color: problem.color }}
       />
     );
@@ -54,6 +56,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
           problem={problem}
           withoutName={expanded ? false : withoutName}
           infoPlacement={infoPlacement}
+          withoutDownloadButtons={withoutDownloadButtons}
           // contest={{ index: routeParams?.index as string, color: problem.color }}
         />
       </div>
