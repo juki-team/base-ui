@@ -152,7 +152,9 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
           )}
           {viewFilterButton && (
             <>
-              <div className="jk-divider horizontal" />
+              {(onReload && isMobileViewPort ? true : (!!firstRow.length && onColumn)) && (
+                <div className="jk-divider horizontal" />
+              )}
               <div
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="open filters"
@@ -228,7 +230,8 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                     </div>
                   }
                   triggerOn="click"
-                  placement="topRight"
+                  placement="bottom"
+                  showPopperArrow
                 >
                   <div className="jk-row"><MenuIcon /></div>
                 </Popover>
