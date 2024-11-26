@@ -2,26 +2,24 @@ import {
   ContentResponseType,
   ContentsResponseType,
   Judge,
-  JUDGE,
-  JUKI_APP_COMPANY_KEY,
+  JudgeDataResponseDTO,
   ProblemSummaryListResponseDTO,
   Status,
 } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { authorizedRequest, classNames, cleanRequest } from '../../../helpers';
-import { useJukiNotification, useJukiUser } from '../../../hooks';
+import { useFetcher, useJukiNotification } from '../../../hooks';
 import { DownloadIcon, Input, ReloadIcon, Select, SpinIcon, T } from '../../atoms';
 import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { JudgeDataType, ProblemSelectorProps } from './types';
 
 export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorProps) => {
   
-  const [ judge, setJudge ] = useState(Judge.CUSTOMER);
+  const [ judge, setJudge ] = useState<string>(Judge.JUKI_JUDGE);
   const [ key, setKey ] = useState('');
   const [ data, setData ] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useJukiNotification();
-  const { company: { name, key: companyKey } } = useJukiUser();
   const [ timestampTrigger, setTimestampTrigger ] = useState(0);
   useEffect(() => {
     const getData = async () => {
@@ -30,34 +28,34 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
       ));
       const { url } = jukiSettings.API
         .problem
-        .getSummaryList({ params: { page: 1, pageSize: 100000, filterUrl: `judge=${judge}` } });
+        .getSummaryList({
+          params: {
+            page: 1,
+            pageSize: 100000,
+            filterUrl: `judgeKeys=${judge}`,
+          },
+        });
       // TODO: change limit of problems
       const response = cleanRequest<ContentsResponseType<ProblemSummaryListResponseDTO>>(
         await authorizedRequest(url),
       );
       const problems = response.success ? response.contents || [] : [];
       setData(prevState => (
-        { ...prevState, [judge]: { loading: false, problems } }
+        { ...prevState, [judge]: { problems, loading: true } }
       ));
     };
     setKey('');
     void getData();
   }, [ judge, timestampTrigger ]);
+  const { data: judgesData } = useFetcher<ContentResponseType<JudgeDataResponseDTO[]>>(jukiSettings.API.company.getJudgeList().url);
+  const judges = judgesData?.success ? judgesData.content : [];
   
   return (
     <div className={classNames('jk-row-col gap nowrap', { extend })}>
       <div className="jk-col gap extend flex-1">
         <div className="jk-row nowrap gap">
           <Select
-            options={[
-              { value: Judge.CUSTOMER, label: <>{name + ' judge'}</> },
-              ...(companyKey === JUKI_APP_COMPANY_KEY ? [] : [ {
-                value: Judge.JUKI_JUDGE,
-                label: <>{JUDGE.JUKI_JUDGE.label}</>,
-              } ]),
-              { value: Judge.CODEFORCES, label: <>{JUDGE.CODEFORCES.label}</> },
-              { value: Judge.JV_UMSA, label: <>{JUDGE.JV_UMSA.label}</> },
-            ]}
+            options={judges.map(judge => ({ label: judge.name, value: judge.key }))}
             selectedOption={{ value: judge }}
             onChange={({ value }) => setJudge(value)}
           />
