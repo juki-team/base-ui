@@ -22,12 +22,11 @@
     }
     
     .selected-tab-tick-back {
-      background-color: var(--t-color-secondary);
-      opacity: 1;
+      background-color: var(--t-color-secondary-light);
       position: absolute;
-      top: var(--pad-xt);
+      top: calc(var(--pad-xt) - 1px);
       right: calc(var(--pad-t) - 4px);
-      padding: 0 4px;
+      padding: 1px 4px;
       
       .selected-tab-tick-back-content {
         opacity: 0;
