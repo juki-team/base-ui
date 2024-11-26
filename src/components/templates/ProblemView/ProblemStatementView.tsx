@@ -31,6 +31,7 @@ export const ProblemStatementView = ({
                                        infoPlacement,
                                        withoutName,
                                        forPrinting,
+                                       withoutDownloadButtons,
                                      }: ProblemStatementViewProps) => {
   
   const {
@@ -111,7 +112,7 @@ export const ProblemStatementView = ({
     <div className="jk-row extend top">
       <div className="jk-row extend top gap nowrap stretch left">
         <div className="jk-col top stretch flex-3">
-          {!forPrinting && infoPlacement !== 'left' && (
+          {!forPrinting && infoPlacement !== 'left' && !withoutDownloadButtons && (
             <FloatToolbar
               actionButtons={[
                 {
@@ -224,7 +225,7 @@ export const ProblemStatementView = ({
             </div>
           )}
         </div>
-        {!forPrinting && infoPlacement === 'left' && (
+        {!forPrinting && infoPlacement === 'left' && !withoutDownloadButtons && (
           <div className="screen md lg hg flex-1">
             <JukiProblemInfo
               settings={settings}

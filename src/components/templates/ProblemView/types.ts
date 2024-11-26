@@ -7,6 +7,7 @@ export interface ProblemStatementViewProps {
   infoPlacement: 'left' | 'name' | 'none',
   withoutName?: boolean,
   forPrinting?: boolean,
+  withoutDownloadButtons?: boolean,
 }
 
 export interface ProblemViewProps<T> extends ProblemStatementViewProps {
