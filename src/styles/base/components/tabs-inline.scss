@@ -27,6 +27,7 @@
       top: calc(var(--pad-xt) - 1px);
       right: calc(var(--pad-t) - 4px);
       padding: 1px 4px;
+      z-index: -1;
       
       .selected-tab-tick-back-content {
         opacity: 0;
