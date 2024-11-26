@@ -3,6 +3,7 @@ import {
   ContentsResponseType,
   Judge,
   JudgeDataResponseDTO,
+  ProblemBasicSummaryListResponseDTO,
   ProblemSummaryListResponseDTO,
   Status,
 } from '@juki-team/commons';
@@ -38,7 +39,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
       ));
       const { url } = jukiSettings.API
         .problem
-        .getSummaryList({
+        .getBasicSummaryList({
           params: {
             page: 1,
             pageSize: 100000,
@@ -46,7 +47,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
           },
         });
       // TODO: change limit of problems
-      const response = cleanRequest<ContentsResponseType<ProblemSummaryListResponseDTO>>(
+      const response = cleanRequest<ContentsResponseType<ProblemBasicSummaryListResponseDTO>>(
         await authorizedRequest(url),
       );
       const problems = response.success ? response.contents || [] : [];

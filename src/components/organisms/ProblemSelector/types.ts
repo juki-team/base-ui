@@ -1,11 +1,11 @@
-import { ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import { ProblemBasicSummaryListResponseDTO } from '@juki-team/commons';
 
 export type JudgeDataType = {
-  [key: string]: { problems: ProblemSummaryListResponseDTO[], loading: true }
+  [key: string]: { problems: ProblemBasicSummaryListResponseDTO[], loading: true }
 };
 
 export interface ProblemSelectorProps {
   extend?: boolean,
-  onSelect: (selectedUsers: ProblemSummaryListResponseDTO) => void,
+  onSelect: (selectedUsers: ProblemBasicSummaryListResponseDTO) => void,
   companyKey?: string,
 }

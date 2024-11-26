@@ -307,6 +307,12 @@ export class Settings {
           url: injectBaseUrl('problem', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
+        getBasicSummaryList: valid<
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/basic-summary-list'), page, pageSize), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
         getSummaryList: valid<
           { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
         >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
