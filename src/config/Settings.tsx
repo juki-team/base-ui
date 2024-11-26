@@ -110,6 +110,20 @@ export class Settings {
             body: JSON.stringify({ key, token }),
           })),
         },
+        contest: {
+          problems: {
+            statementsToPdf: valid<{
+              params: {
+                key: string,
+                token: string,
+              }
+            }, HTTPMethod.POST>(({ params: { key, token } }) => ({
+              url: injectBaseUrl('export', '/contest/problems/statements-to-pdf'),
+              method: HTTPMethod.POST,
+              body: JSON.stringify({ key, token }),
+            })),
+          },
+        },
       },
     };
   }
