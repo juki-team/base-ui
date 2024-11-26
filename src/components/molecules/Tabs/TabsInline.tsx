@@ -17,6 +17,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
     extraNodes,
     extraNodesPlacement = 'right',
     className,
+    tickStyle = 'line',
   } = props;
   
   const tabsArray = Object.values(tabs);
@@ -80,16 +81,25 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
                 <div
                   onClick={() => setSelectedTabKey(key as (NotUndefined<T> | Func<T>))}
                   className={classNames('jk-row nowrap', {
-                    selected: key === selectedTabKey,
+                    'selected': key === selectedTabKey,
                     'one-tab-view': oneTabView,
+                    'cr-pt': key === selectedTabKey && tickStyle === 'background',
                   })}
                 >
                   {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
-                  {key === selectedTabKey && (
+                  {tickStyle === 'line' && key === selectedTabKey && (
                     <motion.div
                       className="selected-tab-tick"
                       layoutId={layoutId}
                     />
+                  )}
+                  {tickStyle === 'background' && key === selectedTabKey && (
+                    <motion.div
+                      className="selected-tab-tick-back jk-br-ie"
+                      layoutId={layoutId}
+                    >
+                      <div className="selected-tab-tick-back-content"> {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
+                    </motion.div>
                   )}
                 </div>
               )),

@@ -15,10 +15,33 @@
       border-radius: 2px 2px 0 0;
     }
     
+    .one-tab-view {
+      .selected-tab-tick-back {
+        width: calc(100% - var(--pad-t) - var(--pad-t));
+      }
+    }
+    
+    .selected-tab-tick-back {
+      background-color: var(--t-color-secondary);
+      opacity: 1;
+      position: absolute;
+      top: var(--pad-xt);
+      right: calc(var(--pad-t) - 4px);
+      padding: 0 4px;
+      
+      .selected-tab-tick-back-content {
+        opacity: 0;
+      }
+    }
+    
     > div {
       padding: var(--pad-xt) var(--pad-t);
       position: relative;
       cursor: pointer;
+      
+      > *:not(.selected-tab-tick-back) {
+        z-index: 1;
+      }
       
       &.selected {
         font-weight: var(--weight-bold);

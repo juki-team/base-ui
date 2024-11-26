@@ -100,6 +100,7 @@ const Component = <T, >(args: TabsInlineProps<T>) => {
           ]}
           onChange={() => null}
           selectedTabKey={'1'}
+          tickStyle="background"
         />
       </div>
       <div
@@ -122,8 +123,8 @@ const Component = <T, >(args: TabsInlineProps<T>) => {
           extraNodesPlacement="bottomLeft"
         />
       </div>
-      <div className="jk-col gap nowrap bc-ss" style={{ height: 400 }}>
-        <TabsInline tabs={outputTabs} onChange={setOutputTab} selectedTabKey={outputTab} />
+      <div className="jk-col gap nowrap bc-wd" style={{ height: 400 }}>
+        <TabsInline tabs={outputTabs} onChange={setOutputTab} selectedTabKey={outputTab} tickStyle="background" />
         <div className="flex-1" style={{ overflow: 'auto', width: '100%', height: '300px', position: 'relative' }}>
           <TabsInlineBody tabs={outputTabs} selectedTabKey={outputTab} />
         </div>

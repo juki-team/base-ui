@@ -34,6 +34,8 @@
 
 .cr-py { color: var(--t-color-primary) !important; @include transition(background-color, color, border-color); }
 
+.cr-pt { color: var(--t-color-primary-text) !important; @include transition(background-color, color, border-color); }
+
 .cr-pd { color: var(--t-color-primary-dark) !important; @include transition(background-color, color, border-color); }
 
 .cr-sy { color: var(--t-color-secondary) !important; @include transition(background-color, color, border-color); }

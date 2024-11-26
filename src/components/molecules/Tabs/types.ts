@@ -26,4 +26,5 @@ export interface TabsInlineProps<T = string> {
   extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T }>[],
   extraNodesPlacement?: 'left' | 'right' | 'bottomLeft' | 'bottomCenter' | 'bottomRight',
   className?: string,
+  tickStyle?: 'line' | 'background',
 }
