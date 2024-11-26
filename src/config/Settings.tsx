@@ -98,6 +98,18 @@ export class Settings {
           method: HTTPMethod.POST,
           body: JSON.stringify({ url, headerTemplate, footerTemplate, margin, format }),
         })),
+        problem: {
+          statementToPdf: valid<{
+            params: {
+              key: string,
+              token: string,
+            }
+          }, HTTPMethod.POST>(({ params: { key, token } }) => ({
+            url: injectBaseUrl('export', '/problem/statement-to-pdf'),
+            method: HTTPMethod.POST,
+            body: JSON.stringify({ key, token }),
+          })),
+        },
       },
     };
   }

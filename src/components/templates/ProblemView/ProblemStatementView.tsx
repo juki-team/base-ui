@@ -1,9 +1,12 @@
-import { Language, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
+import { ContentResponseType, Language, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
 import React from 'react';
+import { jukiSettings } from '../../../config';
 import {
+  authorizedRequest,
   classNames,
+  cleanRequest,
   downloadBlobAsFile,
-  downloadWebsiteAsPdf,
+  downloadUrlAsFile,
   getLocalToken,
   getStatementData,
 } from '../../../helpers';
@@ -11,7 +14,6 @@ import { useJukiUser, useT } from '../../../hooks';
 import { DownloadIcon, T } from '../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
 import { MdMathViewer } from '../../organisms/mdMath';
-import { image64 } from './image64';
 import {
   JukiProblemInfo,
   ProblemInfo,
@@ -39,7 +41,6 @@ export const ProblemStatementView = ({
     tags,
     author,
     statement,
-    company: { key: problemCompanyKey },
   } = problem;
   
   const {
@@ -84,35 +85,22 @@ export const ProblemStatementView = ({
   }
   
   const handleDownloadPdf = async () => {
-    await downloadWebsiteAsPdf(
-      // TODO: change with env vars
-      `https://${problemCompanyKey}.jukijudge.com/problems/${problemKey}?tab=statement&TOKEN=${getLocalToken()}&print-mode=asProblemSet`,
-      `Juki Judge ${problemName}.pdf`,
-      {
-        format: 'letter',
-        margin: {
-          top: '70px',
-          bottom: '54px',
-          left: '32px',
-          right: '32px',
-        },
-        headerTemplate: `<div style="width: 100%; font-size: 16px; font-weight: 300; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 0 32px;">
-         <div style="width: 100%; display: flex; align-items: center; justify-content: space-between;">
-           <div style="display: flex; gap: 8px; padding-left: 24px; align-items: center; justify-content: center;">
-             ${image64}
-             <div style="color: color(srgb 0.0911765 0.258824 0.432353); font-weight: 700;">${problem.judge.name}</div>
-           </div>
-           <div style="color: color(srgb 0.0911765 0.258824 0.432353); padding-right: 24px;">${problem.name}</div>
-         </div>
-         <div style="border-bottom: 1px solid rgba(0, 1, 2, 0.4); width: 100%; padding-top: 12px;"></div>
-       </div>`,
-        footerTemplate: `<div style="width: 100%; padding: 0 0 12px 0; font-size: 16px; font-weight: 300;" class="jk-row beet space-between">
-         <div style="text-align: center; width: 100%;">
-           <span class="tt-se">${t('page')}</span> <span class="pageNumber"></span> ${t('of')} <span class="totalPages"></span>
-         </div>
-       </div>`,
+    
+    const { url, ...options } = jukiSettings.API_V2.export.problem.statementToPdf({
+      params: {
+        key: problemKey,
+        token: getLocalToken(),
       },
+    });
+    const response = cleanRequest<ContentResponseType<{ urlExportedPDF: string }>>(
+      await authorizedRequest(url, options),
     );
+    
+    if (response.success) {
+      await downloadUrlAsFile('https://' + response.content.urlExportedPDF, name);
+    } else {
+      throw new Error('error on download pdf');
+    }
   };
   
   const handleDownloadMd = async () => {

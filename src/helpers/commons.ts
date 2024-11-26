@@ -89,7 +89,7 @@ export const downloadWebsiteAsPdf = async (websiteUrl: string, name: string, exp
   );
   
   if (response.success) {
-    downloadLink('https://' + response.content.urlExportedPDF, name);
+    await downloadUrlAsFile('https://' + response.content.urlExportedPDF, name);
   } else {
     throw new Error('error on download pdf');
   }
@@ -101,6 +101,20 @@ export function downloadBlobAsFile(data: Blob, fileName: string = 'file') {
   const blob = new Blob([ data ], { type: data.type || 'application/octet-stream' });
   const blobURL = window?.URL.createObjectURL(blob);
   downloadLink(blobURL, fileName);
+}
+
+export async function downloadUrlAsFile(url: string, filename: string) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`HTTP error! Status: ${response.status}`);
+  }
+  const blob = await response.blob();
+  const blobURL = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = blobURL;
+  a.download = filename;
+  a.dispatchEvent(new MouseEvent('click'));
+  URL.revokeObjectURL(blobURL);
 }
 
 export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName: string = 'file.csv') => {
