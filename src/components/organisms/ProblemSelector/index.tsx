@@ -14,7 +14,7 @@ import { DownloadIcon, Input, ReloadIcon, Select, SpinIcon, T } from '../../atom
 import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { JudgeDataType, ProblemSelectorProps } from './types';
 
-export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorProps) => {
+export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: ProblemSelectorProps) => {
   
   const [ judge, setJudge ] = useState<string>(Judge.JUKI_JUDGE);
   const [ key, setKey ] = useState('');
@@ -47,7 +47,7 @@ export const ProblemSelector = ({ onSelect, extend = false }: ProblemSelectorPro
     setKey('');
     void getData();
   }, [ judge, timestampTrigger ]);
-  const { data: judgesData } = useFetcher<ContentResponseType<JudgeDataResponseDTO[]>>(jukiSettings.API.company.getJudgeList().url);
+  const { data: judgesData } = useFetcher<ContentResponseType<JudgeDataResponseDTO[]>>(jukiSettings.API.company.getJudgeList({ params: { companyKey } }).url);
   const judges = judgesData?.success ? judgesData.content : [];
   
   return (

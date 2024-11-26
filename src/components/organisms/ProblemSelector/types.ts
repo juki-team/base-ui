@@ -7,4 +7,5 @@ export type JudgeDataType = {
 export interface ProblemSelectorProps {
   extend?: boolean,
   onSelect: (selectedUsers: ProblemSummaryListResponseDTO) => void,
+  companyKey?: string,
 }

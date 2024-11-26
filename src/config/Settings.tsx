@@ -487,8 +487,10 @@ export class Settings {
           url: injectBaseUrl('company', '/permission-list'),
           method: HTTPMethod.GET,
         })),
-        getJudgeList: valid<void>(() => ({
-          url: injectBaseUrl('company', '/judge-list'),
+        getJudgeList: valid<{
+          params: { companyKey: string }
+        } | void>(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
+          url: injectCompany(injectBaseUrl('company', '/judge-list'), companyKey),
           method: HTTPMethod.GET,
         })),
         getStats: valid<
