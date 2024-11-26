@@ -52,7 +52,7 @@ export const ProblemStatementView = ({
     },
   } = useJukiUser();
   const { t } = useT();
-  const problemName = contest?.index ? `(${t('problem')} ${contest?.index}) ${name}` : `(${t('id')} ${problemKey}) ${name}`;
+  const problemName = contest?.index ? `${contest?.index}. (${problemKey}) ${name}` : `(${problemKey}) ${name}`;
   const {
     statementDescription,
     statementInput,
