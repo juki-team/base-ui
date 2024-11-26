@@ -384,6 +384,12 @@ export class Settings {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
+        recalculateScoreboard: valid<
+          { params: { key: string }, }, HTTPMethod.POST
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('contest', `/${key}/recalculate-scoreboard`),
+          method: HTTPMethod.POST,
+        })),
       },
       submission: {
         getSummaryList: valid<
