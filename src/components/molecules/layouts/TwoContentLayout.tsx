@@ -92,6 +92,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
             onChange={pushTab}
             extraNodes={tabButtons}
             extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
+            tickStyle="background"
           />
         )}
       </>
