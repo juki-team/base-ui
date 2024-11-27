@@ -33,6 +33,7 @@ export const SubmissionRejudgeButton = ({ submissionId }: { submissionId: string
       }}
       size="tiny"
       icon={<ReloadIcon />}
+      type="light"
     >
       <T>rejudge</T>
     </ButtonLoader>

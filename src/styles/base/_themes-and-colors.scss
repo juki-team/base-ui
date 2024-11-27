@@ -65,9 +65,9 @@
   //--t-color-black: #D2DEE9;
   --t-color-black: #FEFEFE;
   
-  --t-color-highlight-light: #FEFEFE1A; // rgba(var(--t-color-black-rgb), 0.10);
-  --t-color-highlight: #FEFEFE40; // rgba(var(--t-color-black-rgb), 0.25);
-  --t-color-highlight-dark: #FEFEFE66; // rgba(var(--t-color-black-rgb), 0.40);
+  --t-color-highlight-light: #FEFEFE40; // rgba(var(--t-color-black-rgb), 0.25);
+  --t-color-highlight: #FEFEFE66; // rgba(var(--t-color-black-rgb), 0.40);
+  --t-color-highlight-dark: #FEFEFE8C; // rgba(var(--t-color-black-rgb), 0.55);
   
   --t-color-shadow-light: #FEFEFE8C; // rgba(var(--t-color-white-rgb), 0.55);
   --t-color-shadow: #FEFEFEB3; // rgba(var(--t-color-white-rgb), 0.70);
@@ -76,9 +76,19 @@
   --t-color-glow: #FEFEFE40; // rgba(var(--t-color-black-rgb), 0.25);
 }
 
+.jk-theme-light {
+  --t-color-primary-dark: #1C3C5E;
+  --t-color-primary-light: #3281C5;
+}
+
+.jk-theme-light {
+  --t-color-primary-dark: #3281C5;
+  --t-color-primary-light: #1C3C5E;
+}
+
 .jk-theme-light, .jk-theme-dark {
-  --t-color-primary-dark: color-mix(in srgb, var(--t-color-primary) var(--tone), var(--base-black));
-  --t-color-primary-light: color-mix(in srgb, var(--t-color-primary) var(--tone), var(--base-white));
+  //--t-color-primary-dark: color-mix(in srgb, var(--t-color-primary) var(--tone), var(--base-black));
+  //--t-color-primary-light: color-mix(in srgb, var(--t-color-primary) var(--tone), var(--base-white));
   
   --t-color-secondary-dark: color-mix(in srgb, var(--t-color-secondary) var(--tone), var(--base-black));
   --t-color-secondary-light: color-mix(in srgb, var(--t-color-secondary) var(--tone), var(--base-white));
