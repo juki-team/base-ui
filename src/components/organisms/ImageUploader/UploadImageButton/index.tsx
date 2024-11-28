@@ -44,8 +44,6 @@ export const UploadImageButton = (props: UploadImageButtonProps) => {
       >
         {children({ open, setOpen, withLabel })}
       </div>
-      
-      
       <ImageUploaderModal
         isOpen={open}
         onClose={() => setOpen(false)}
