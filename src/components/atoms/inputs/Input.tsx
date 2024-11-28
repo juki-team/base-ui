@@ -67,7 +67,7 @@ export const BasicInput = forwardRef(BasicInputComponent) as <T>(p: InputProps<T
   ref?: Ref<HTMLInputElement>
 }) => ReactElement;
 
-export const Input = <T extends string | number | FileList, >(_props: InputProps<T>) => {
+const InputComponent = <T extends string | number | FileList, >(_props: InputProps<T>, ref: Ref<HTMLInputElement>) => {
   
   const {
     type = 'text',
@@ -90,7 +90,7 @@ export const Input = <T extends string | number | FileList, >(_props: InputProps
         'no-label': !inputLabel,
       })}
     >
-      <BasicInput {...props} inputId={id} type={type} required={required} />
+      <BasicInput {...props} inputId={id} type={type} required={required} ref={ref} />
       <label htmlFor={`input-${id}`}>
         {inputLabel}{labelPlacement === 'left' ? <>:&nbsp;</> : ''}
       </label>
@@ -148,6 +148,6 @@ export const Input = <T extends string | number | FileList, >(_props: InputProps
 
 // https://stackoverflow.com/questions/58469229/react-with-typescript-generics-while-using-react-forwardref/58473012
 // @ts-ignore
-// export const Input = forwardRef(InputComponent) as <T>(p: InputProps<T> & {
-//   ref?: Ref<HTMLInputElement>
-// }) => ReactElement;
+export const Input = forwardRef(InputComponent) as <T>(p: InputProps<T> & {
+  ref?: Ref<HTMLInputElement>
+}) => ReactElement;

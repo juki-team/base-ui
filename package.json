@@ -10,6 +10,24 @@
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/main.js",
+      "import": "./dist/esm/main.js"
+    },
+    "./helpers": {
+      "require": "./dist/cjs/helpers.js",
+      "import": "./dist/esm/helpers.js"
+    },
+    "./types": {
+      "require": "./dist/cjs/types.js",
+      "import": "./dist/esm/types.js"
+    },
+    "./constants": {
+      "require": "./dist/cjs/constants.js",
+      "import": "./dist/esm/constants.s"
+    }
+  },
   "dependencies": {
     "@codemirror/lang-cpp": "^6.0.2",
     "@codemirror/lang-html": "^6.4.9",

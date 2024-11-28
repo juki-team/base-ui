@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { JukiLoadingLayout } from '../layouts';
+import { JukiLoadingLayout } from '../layouts/PawsLoadingLayout';
 import { BreadcrumbsProps } from './types';
 
 const LazyBreadcrumbs = lazy(() => import('./Breadcrumbs').then(module => ({ default: module.Breadcrumbs })));
