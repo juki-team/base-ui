@@ -3,8 +3,8 @@
 import type { XYCoord } from 'dnd-core';
 import update from 'immutability-helper';
 import React, { CSSProperties, FC, useCallback, useEffect, useRef, useState } from 'react';
-import { DragSourceMonitor, DropTargetMonitor, useDrag, useDragLayer, useDrop } from 'react-dnd';
-import { getEmptyImage } from 'react-dnd-html5-backend';
+import { DndProvider, DragSourceMonitor, DropTargetMonitor, useDrag, useDragLayer, useDrop } from 'react-dnd';
+import { getEmptyImage, HTML5Backend } from 'react-dnd-html5-backend';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
 import { DragIcon } from '../../atoms';
@@ -261,22 +261,24 @@ export const SimpleSortableRows = <T, U = undefined>(properties: SimpleSortableR
   }, [ isDragging, rows.length ]);
   
   return (
-    <div className={classNames('jk-sortable-rows-container', className)} ref={ref}>
-      <CustomDragLayer Cmp={Cmp} width={width} />
-      {rows.map((row, i) => (
-        <Row
-          key={row.key}
-          rowKey={row.key}
-          index={i}
-          id={row.key}
-          Cmp={Cmp}
-          moveRow={moveRow}
-          value={row.value}
-          props={props}
-          setIsDragging={setIsDragging}
-          rowDraggingRef={rowDraggingRef}
-        />
-      ))}
-    </div>
+    <DndProvider backend={HTML5Backend}>
+      <div className={classNames('jk-sortable-rows-container', className)} ref={ref}>
+        <CustomDragLayer Cmp={Cmp} width={width} />
+        {rows.map((row, i) => (
+          <Row
+            key={row.key}
+            rowKey={row.key}
+            index={i}
+            id={row.key}
+            Cmp={Cmp}
+            moveRow={moveRow}
+            value={row.value}
+            props={props}
+            setIsDragging={setIsDragging}
+            rowDraggingRef={rowDraggingRef}
+          />
+        ))}
+      </div>
+    </DndProvider>
   );
 };

@@ -1,10 +1,12 @@
 import { MotionConfig } from 'framer-motion';
 import React, { FC, PropsWithChildren, useCallback, useMemo, useRef } from 'react';
 import { Tooltip as ReactTooltip } from 'react-tooltip';
-import { LineLoader, NotificationProvider, T } from '../../components';
+import { LineLoader } from '../../components/atoms/loaders';
+import { T } from '../../components/atoms/T';
+import { NotificationProvider } from '../../components/organisms/Notifications/NotificationProvider';
 import { SoundProvider } from '../../components/organisms/Notifications/SoundProvider';
 import { classNames } from '../../helpers';
-import { useJukiRouter } from '../../hooks';
+import { useJukiRouter } from '../../hooks/useJukiRouter';
 import { Duration, QueryParamKey } from '../../types';
 import { UIContext } from './context';
 import { Image } from './Image';

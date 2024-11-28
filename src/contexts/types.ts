@@ -1,6 +1,11 @@
 import { ParsedUrlQuery } from 'querystring';
 import { LastPathProviderProps } from './JukiLastPathProvider';
-import { AppendSearchParamsType, DeleteSearchParamsType, RouterFn, SetSearchParamsType } from './JukiRouterProvider';
+import {
+  AppendSearchParamsType,
+  DeleteSearchParamsType,
+  RouterFn,
+  SetSearchParamsType,
+} from './JukiRouterProvider/types';
 import { JukiTProviderProps } from './JukiTProvider';
 import { JukiUIProviderProps } from './JukiUIProvider';
 import { JukiUserProviderProps } from './JukiUserProvider';
@@ -35,3 +40,5 @@ export type JukiProvidersProps<T extends string | number> =
     isLoadingRoute?: boolean,
   }
 };
+
+export * from './JukiRouterProvider/types';

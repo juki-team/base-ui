@@ -4,7 +4,7 @@ import { useJukiRouter } from '../../hooks/useJukiRouter';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { useLastPath } from '../../hooks/useLastPath';
 import { QueryParamKey } from '../../types';
-import { Href } from '../JukiRouterProvider';
+import { Href } from '../JukiRouterProvider/types';
 
 interface LastPathProps<T> {
   lastPathKey: T,

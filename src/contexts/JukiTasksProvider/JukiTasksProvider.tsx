@@ -6,8 +6,9 @@ import {
   SubmissionRunStatus,
 } from '@juki-team/commons';
 import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
-import { T } from '../../components';
-import { useJukiNotification, useJukiUser } from '../../hooks';
+import { T } from '../../components/atoms/T';
+import { useJukiNotification } from '../../hooks/useJukiNotification';
+import { useJukiUser } from '../../hooks/useJukiUser';
 import { TasksContext } from './context';
 import { SocketSubmissions, SubmissionToCheck } from './types';
 

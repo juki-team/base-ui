@@ -1,6 +1,6 @@
 import { useCallback, useContext } from 'react';
-import { Href, RouterFn } from '../contexts';
 import { RouterContext } from '../contexts/JukiRouterProvider/context';
+import { Href, RouterFn } from '../contexts/JukiRouterProvider/types';
 import { cloneURLSearchParams } from '../helpers';
 import { QueryParamKey } from '../types';
 
@@ -38,8 +38,8 @@ export const useJukiRouter = () => {
     if (company) {
       sp.set(QueryParamKey.COMPANY, company);
     }
-    _pushRoute({ pathname, searchParams: sp })
-  }, [ searchParams, _pushRoute ])
+    _pushRoute({ pathname, searchParams: sp });
+  }, [ searchParams, _pushRoute ]);
   
   return {
     searchParams,

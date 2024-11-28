@@ -1,14 +1,8 @@
 import { Status } from '@juki-team/commons';
 import React, { CSSProperties, PropsWithChildren, useState } from 'react';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { ErrorIcon } from '../components/atoms';
-import { ButtonLoader } from '../components/molecules';
-import { SubmissionModal } from '../components/templates/Submission/Submission';
-import { UserPreviewModal } from '../components/templates/UserPreviewModal/UserPreviewModal';
-import { jukiSettings } from '../config';
-import { useJukiRouter, useJukiUser } from '../hooks';
-import { QueryParamKey } from '../types';
+import { ErrorIcon } from '../components/atoms/icons';
+import { ButtonLoader } from '../components/molecules/ButtonLoader';
+import { useJukiUser } from '../hooks/useJukiUser';
 import { JukiLastPathProvider } from './JukiLastPathProvider';
 import { JukiPageProvider } from './JukiPageProvider';
 import { JukiRouterProvider } from './JukiRouterProvider';
@@ -18,11 +12,8 @@ import { JukiUIProvider } from './JukiUIProvider';
 import { JukiUserProvider } from './JukiUserProvider';
 import { JukiProvidersProps } from './types';
 
-const CommonModals = ({ children }: PropsWithChildren<{}>) => {
+const SocketAlert = ({ children }: PropsWithChildren<{}>) => {
   
-  const { searchParams, deleteSearchParams } = useJukiRouter();
-  const userPreviewQuery = searchParams.getAll(QueryParamKey.USER_PREVIEW);
-  const [ userPreviewNickname, userPreviewCompanyKey ] = Array.isArray(userPreviewQuery) ? userPreviewQuery as unknown as [ string, string ] : [ userPreviewQuery as string ];
   const { socket } = useJukiUser();
   const [ _, setTimestamp ] = useState(0);
   
@@ -30,16 +21,6 @@ const CommonModals = ({ children }: PropsWithChildren<{}>) => {
   
   return (
     <>
-      <UserPreviewModal
-        isOpen={!!searchParams.get(QueryParamKey.USER_PREVIEW)}
-        nickname={userPreviewNickname}
-        companyKey={userPreviewCompanyKey}
-        onClose={() => deleteSearchParams({ name: QueryParamKey.USER_PREVIEW })}
-        userHref={jukiSettings.ROUTES.profiles().view({ nickname: userPreviewNickname })}
-      />
-      {searchParams.get(QueryParamKey.SUBMISSION) && (
-        <SubmissionModal submitId={searchParams.get(QueryParamKey.SUBMISSION) as string} />
-      )}
       {children}
       {!(readyState === WebSocket.OPEN) && (
         <div
@@ -105,11 +86,9 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
           <JukiUIProvider components={components}>
             <JukiLastPathProvider initialLastPath={initialLastPath}>
               <JukiTasksProvider>
-                <DndProvider backend={HTML5Backend}>
-                  <CommonModals>
-                    {children}
-                  </CommonModals>
-                </DndProvider>
+                <SocketAlert>
+                  {children}
+                </SocketAlert>
               </JukiTasksProvider>
             </JukiLastPathProvider>
           </JukiUIProvider>
