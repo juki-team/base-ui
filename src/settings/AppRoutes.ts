@@ -10,6 +10,9 @@ export class AppRotes {
     const origin = _origin ?? '';
     
     return {
+      home() {
+        return '';
+      },
       profiles: {
         view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
           return injectOrigin(origin, `/profiles/${nickname}?tab=${tab}`);
@@ -56,6 +59,9 @@ export class AppRotes {
     const origin = _origin ?? '';
     
     return {
+      home() {
+        return '';
+      },
       worksheets: {
         list() {
           return injectOrigin(origin, `/worksheets`);
