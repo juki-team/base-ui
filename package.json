@@ -28,7 +28,7 @@
     },
     "./constants": {
       "require": "./dist/cjs/constants.js",
-      "import": "./dist/esm/constants.s",
+      "import": "./dist/esm/constants.js",
       "types": "./dist/module-types/constants/index.d.ts"
     },
     "./styles/abstracts": {
