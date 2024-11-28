@@ -1,5 +1,5 @@
 import { consoleWarn, ContentResponseType } from '@juki-team/commons';
-import { jukiSettings } from '../config';
+import { jukiApiManager } from '../settings';
 import { authorizedRequest, cleanRequest } from './fetch';
 
 export const openNewTab = (url: string) => {
@@ -10,7 +10,7 @@ export const openNewTab = (url: string) => {
 };
 
 export const publishNote = async (source: string) => {
-  const { url, ...options } = jukiSettings.API.note.publish({ body: { source: source.trim() } });
+  const { url, ...options } = jukiApiManager.V1.note.publish({ body: { source: source.trim() } });
   const request = cleanRequest<ContentResponseType<{ sourceUrl: string }>>(
     await authorizedRequest(url, options),
   );
@@ -30,8 +30,8 @@ export const publishNote = async (source: string) => {
 //   if (url) {
 //     openNewTab((
 //       type === 'md'
-//         ? jukiSettings.ROUTES.utils(jukiSettings.UTILS_UI_URL).note.view({ sourceUrl: url, theme }).url
-//         : jukiSettings.API.note.getPdf({ params: { sourceUrl: url } }).url
+//         ? jukiAppRotes.UTILS.utils(jukiSettings.UTILS_UI_URL).note.view({ sourceUrl: url, theme }).url
+//         : jukiApiManager.V1.note.getPdf({ params: { sourceUrl: url } }).url
 //     ));
 //   } else {
 //     throw new Error('no url generated');

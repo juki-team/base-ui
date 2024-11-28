@@ -63,7 +63,17 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
     initialLastPath,
   } = props;
   
-  const providers = (
+  let jukiTProvider = children;
+  
+  if (i18n) {
+    jukiTProvider = (
+      <JukiTProvider i18n={i18n}>
+        {children}
+      </JukiTProvider>
+    );
+  }
+  
+  return (
     <JukiRouterProvider
       searchParams={router.searchParams}
       appendSearchParams={router.appendSearchParams}
@@ -87,7 +97,7 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
             <JukiLastPathProvider initialLastPath={initialLastPath}>
               <JukiTasksProvider>
                 <SocketAlert>
-                  {children}
+                  {jukiTProvider}
                 </SocketAlert>
               </JukiTasksProvider>
             </JukiLastPathProvider>
@@ -96,14 +106,4 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
       </JukiPageProvider>
     </JukiRouterProvider>
   );
-  
-  if (i18n) {
-    return (
-      <JukiTProvider i18n={i18n}>
-        {providers}
-      </JukiTProvider>
-    );
-  }
-  
-  return providers;
 };

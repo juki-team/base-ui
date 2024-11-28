@@ -1,16 +1,15 @@
 import { ContentResponseType, Language, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
 import React from 'react';
-import { jukiSettings } from '../../../config';
 import {
   authorizedRequest,
   classNames,
   cleanRequest,
   downloadBlobAsFile,
   downloadUrlAsFile,
-  getLocalToken,
   getStatementData,
 } from '../../../helpers';
 import { useJukiUser, useT } from '../../../hooks';
+import { jukiApiManager } from '../../../settings';
 import { DownloadIcon, T } from '../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
 import { MdMathViewer } from '../../organisms/mdMath';
@@ -87,10 +86,10 @@ export const ProblemStatementView = ({
   
   const handleDownloadPdf = async () => {
     
-    const { url, ...options } = jukiSettings.API_V2.export.problem.statementToPdf({
+    const { url, ...options } = jukiApiManager.V2.export.problem.statementToPdf({
       params: {
         key: problemKey,
-        token: getLocalToken(),
+        token: jukiApiManager.getToken(),
       },
     });
     const response = cleanRequest<ContentResponseType<{ urlExportedPDF: string }>>(

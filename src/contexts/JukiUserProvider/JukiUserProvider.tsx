@@ -20,12 +20,12 @@ import {
   osName,
   osVersion,
 } from 'react-device-detect';
-import { jukiSettings } from '../../config';
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
-import { getLocalToken, localStorageCrossDomains } from '../../helpers';
+import { localStorageCrossDomains } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiPage } from '../../hooks/useJukiPage';
 import { useT } from '../../hooks/useT';
+import { jukiApiManager } from '../../settings';
 import { UserContext } from './context';
 import { SocketIo } from './SocketIo';
 import { DeviceType, JukiUserProviderProps } from './types';
@@ -38,7 +38,7 @@ const useUser = () => {
     isValidating,
     mutate,
   } = useFetcher<ContentResponseType<PingResponseDTO>>(
-    jukiSettings.API.auth.ping().url,
+    jukiApiManager.V1.auth.ping().url,
     { refreshInterval: 1000 * 60 * 5 },
   );
   
@@ -84,7 +84,7 @@ const useUser = () => {
           },
         });
       }
-      localStorageCrossDomains.setItem(jukiSettings.TOKEN_NAME, data?.content.user.sessionId);
+      localStorageCrossDomains.setItem(jukiApiManager.TOKEN_NAME, data?.content.user.sessionId);
     } else {
       setUser({
         ...EMPTY_USER,
@@ -117,8 +117,8 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   
   const { isPageVisible } = useJukiPage();
   
-  const token = getLocalToken();
-  jukiSettings.setSetting(serviceApiUrl, serviceApiV2Url, tokenName);
+  const token = jukiApiManager.getToken();
+  jukiApiManager.setSetting(serviceApiUrl, serviceApiV2Url, tokenName);
   
   const socket = useMemo(() => {
     return new SocketIo(socketServiceUrl);
@@ -136,8 +136,9 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   useEffect(() => {
     if (isPageVisible) {
       socket.start();
+      void mutate();
     }
-  }, [ isPageVisible, socket ]);
+  }, [ isPageVisible, mutate, socket ]);
   
   const device: DeviceType = useMemo(() => ({
     type: deviceType,

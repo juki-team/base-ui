@@ -1,10 +1,10 @@
 import { useCallback } from 'react';
 import { useSWRConfig } from 'swr';
-import { getLocalToken } from '../helpers';
+import { jukiApiManager } from '../settings';
 
 export const useSWR = () => {
   const { cache, mutate } = useSWRConfig();
-  const token = getLocalToken();
+  const token = jukiApiManager.getToken();
   // @ts-ignore
   const matchMutate = useCallback((matcher, ...args) => {
     if (!(cache instanceof Map)) {

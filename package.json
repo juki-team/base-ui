@@ -31,6 +31,11 @@
       "import": "./dist/esm/constants.js",
       "types": "./dist/module-types/constants/index.d.ts"
     },
+    "./settings": {
+      "require": "./dist/cjs/settings.js",
+      "import": "./dist/esm/settings.js",
+      "types": "./dist/module-types/settings/index.d.ts"
+    },
     "./styles/abstracts": {
       "sass": "./dist/styles/abstracts/_index.scss"
     },

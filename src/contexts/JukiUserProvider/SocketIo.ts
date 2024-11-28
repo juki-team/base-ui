@@ -8,7 +8,7 @@ import {
   SocketSubscribeEventDTO,
   SocketUnsubscribeEventDTO,
 } from '@juki-team/commons';
-import { getLocalToken } from '../../helpers';
+import { jukiApiManager } from '../../settings';
 
 const FORCE_CLOSED = 'FORCE_CLOSED';
 
@@ -22,7 +22,7 @@ export class SocketIo {
   }
   
   connect() {
-    const ws = new WebSocket(this.socketServiceUrl + `?sessionId=${getLocalToken()}`);
+    const ws = new WebSocket(this.socketServiceUrl + `?sessionId=${jukiApiManager.getToken()}`);
     ws.onopen = function () {
       ws.send('hello');
       consoleInfo('Jk socket connected');
@@ -87,7 +87,7 @@ export class SocketIo {
         action: 'subscribe',
         event,
         id,
-        sessionId: getLocalToken(),
+        sessionId: jukiApiManager.getToken(),
       };
       this._socket.send(JSON.stringify(payload));
       return true;
@@ -102,7 +102,7 @@ export class SocketIo {
         action: 'unsubscribe',
         event,
         id,
-        sessionId: getLocalToken(),
+        sessionId: jukiApiManager.getToken(),
       };
       this._socket.send(JSON.stringify(payload));
       return true;

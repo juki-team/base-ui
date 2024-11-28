@@ -1,7 +1,7 @@
 import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
-import { jukiSettings } from '../../../config';
 import { useJukiUI } from '../../../hooks';
+import { jukiAppRotes } from '../../../settings';
 import { ContestTab } from '../../../types';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 
@@ -14,7 +14,7 @@ export const SubmissionContestField: DataViewerHeadersType<SubmissionSummaryList
     <TextField
       text={contest ? (
         <Link
-          href={jukiSettings.ROUTES.contests().view({
+          href={jukiAppRotes.JUDGE().contests.view({
             key: contest.key,
             tab: ContestTab.PROBLEM,
             subTab: contest.problemIndex,

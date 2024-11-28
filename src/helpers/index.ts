@@ -6,5 +6,4 @@ export * from './layout';
 export * from './problem';
 export * from './router';
 export * from './store';
-export * from './token';
 export * from './utils';

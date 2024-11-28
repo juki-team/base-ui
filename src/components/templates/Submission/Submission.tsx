@@ -1,7 +1,7 @@
 import { Status } from '@juki-team/commons';
 import React, { useState } from 'react';
-import { jukiSettings } from '../../../config';
 import { useJukiRouter, useJukiUI } from '../../../hooks';
+import { jukiAppRotes } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { ContentCopyIcon, CopyToClipboard, Modal, OpenInNewIcon, RefreshIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
@@ -25,7 +25,7 @@ export const SubmissionModal = ({ submitId }: SubmissionModalProps) => {
         <div className="fw-bd tx-l jk-row-col left gap">
           <h3><T>submission</T></h3>
           <div className="jk-row gap">
-            <Link href={jukiSettings.ROUTES.submissions().view({ id: submitId })} target="_blank">
+            <Link href={jukiAppRotes.JUDGE().submissions.view({ id: submitId })} target="_blank">
               <div
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="open submission in new tab"

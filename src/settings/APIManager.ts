@@ -1,6 +1,5 @@
 import {
   CompanyPlan,
-  consoleWarn,
   HTTPMethod,
   Judge,
   JudgeLanguageType,
@@ -12,14 +11,13 @@ import {
 import { ErrorInfo } from 'react';
 import {
   AuthorizedRequestType,
-  ContestTab,
-  ProblemTab,
-  ProfileTab,
+  QueryParamKey,
   SignInPayloadDTO,
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
 } from '../types';
+import { jukiApiManager } from './index';
 
 const addQuery = (path: string) => {
   return !path.includes('?') ? path + '?' : path;
@@ -47,7 +45,24 @@ const injectCompany = (path: string, companyKey: string | undefined) => {
 
 type ResponseAPI<M extends HTTPMethod = HTTPMethod.GET> = ({ url: string } & AuthorizedRequestType<M>);
 
-export class Settings {
+// const UUID_WITHOUT_DASHES = /^[0-9A-F]{32}$/i;
+// const UUID_WITH_DASHES = /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i;
+const checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
+
+const validate = (representation: string) => {
+  return representation.length === 24 && checkForHexRegExp.test(representation);
+  // return UUID_WITHOUT_DASHES.test(representation) || UUID_WITH_DASHES.test(representation)
+};
+
+const getQueryToken = () => {
+  let queryToken = '';
+  if (typeof window !== 'undefined') {
+    queryToken = (new URLSearchParams(window.location.search)).get(QueryParamKey.TOKEN) ?? '';
+  }
+  return validate(queryToken) ? queryToken : null;
+};
+
+export class APIManager {
   private _SERVICE_API_URL = '';
   
   get SERVICE_API_URL(): string {
@@ -66,11 +81,7 @@ export class Settings {
     return this._TOKEN_NAME;
   }
   
-  get reportError(): (error: any) => void {
-    return this._ON_ERROR;
-  }
-  
-  get API_V2() {
+  get V2() {
     
     const injectBaseUrl = (prefix: string, path: string) => {
       return `${this._SERVICE_API_V2_URL}/${prefix}${path}`;
@@ -128,7 +139,7 @@ export class Settings {
     };
   }
   
-  get API() {
+  get V1() {
     
     const injectBaseUrl = (prefix: string, path: string) => {
       return `${this._SERVICE_API_URL}/${prefix}${path}`;
@@ -658,135 +669,15 @@ export class Settings {
     };
   }
   
-  get ROUTES() {
-    
-    const _injectOrigin = (origin?: string) => (path: string) => {
-      return `${origin ? origin : ''}${path}`;
-    };
-    
-    return {
-      root(origin?: string) {
-        const injectOrigin = _injectOrigin(origin);
-        return injectOrigin(`/problems`);
-      },
-      profiles(origin?: string) {
-        const injectOrigin = _injectOrigin(origin);
-        return {
-          view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
-            return injectOrigin(`/profiles/${nickname}?tab=${tab}`);
-          },
-        };
-      },
-      problems(origin?: string) {
-        const injectOrigin = _injectOrigin(origin);
-        return {
-          list() {
-            return injectOrigin(`/problems`);
-          },
-          view({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
-            return injectOrigin(`/problems/${key}?tab=${tab}`);
-          },
-          edit({ key }: { key: string }) {
-            return injectOrigin(`/problems/${key}/edit`);
-          },
-          new() {
-            return injectOrigin(`/problems/new`);
-          },
-        };
-      },
-      contests(origin?: string) {
-        const injectOrigin = _injectOrigin(origin);
-        return {
-          list() {
-            return injectOrigin(`/contests`);
-          },
-          view({ key, tab = ContestTab.OVERVIEW, subTab }: { key: string, tab?: ContestTab, subTab?: string }) {
-            return injectOrigin(`/contests/${key}?tab=${tab}${subTab ? '&subTab=' + subTab : ''}`);
-          },
-          edit({ key }: { key: string }) {
-            return injectOrigin(`/contests/${key}/edit`);
-          },
-          new() {
-            return injectOrigin(`/contests/new`);
-          },
-        };
-      },
-      submissions(origin?: string) {
-        const injectOrigin = _injectOrigin(origin);
-        return {
-          view({ id }: { id: string }) {
-            return injectOrigin(`/submissions/${id}`);
-          },
-        };
-      },
-      worksheets(origin?: string) {
-        const injectOrigin = _injectOrigin(origin);
-        return {
-          list() {
-            return injectOrigin(`/worksheets`);
-          },
-          view({ key, page = 1 }: { key: string, page?: number }) {
-            return injectOrigin(`/worksheets/${key}?page=${page}`);
-          },
-          edit({ key }: { key: string }) {
-            return injectOrigin(`/worksheets/${key}/edit`);
-          },
-          new() {
-            return injectOrigin(`/worksheets/new`);
-          },
-        };
-      },
-      classes(origin?: string) {
-        const injectOrigin = _injectOrigin(origin);
-        return {
-          list() {
-            return injectOrigin(`/classes`);
-          },
-          view({ key }: { key: string }) {
-            return injectOrigin(`/classes/${key}`);
-          },
-          cycleView({ key, cycleId }: { key: string, cycleId: string }) {
-            return injectOrigin(`/classes/${key}/cycle/${cycleId}`);
-          },
-          edit({ key }: { key: string }) {
-            return injectOrigin(`/classes/${key}/edit`);
-          },
-          new() {
-            return injectOrigin(`/classes/new`);
-          },
-        };
-      },
-      courses(origin?: string) {
-        const injectOrigin = _injectOrigin(origin);
-        return {
-          list() {
-            return injectOrigin(`/courses`);
-          },
-          view({ key }: { key: string }) {
-            return injectOrigin(`/courses/${key}`);
-          },
-          lessonView({ key, lessonIndex, lessonPage = 1 }: { key: string, lessonIndex: number, lessonPage?: number }) {
-            return injectOrigin(`/courses/${key}/lessons/${lessonIndex}?page=${lessonPage}`);
-          },
-          edit({ key }: { key: string }) {
-            return injectOrigin(`/courses/${key}/edit`);
-          },
-          new() {
-            return injectOrigin(`/courses/new`);
-          },
-        };
-      },
-      utils(origin?: string) {
-        const injectOrigin = _injectOrigin(origin);
-        return {
-          note: {
-            view: ({ sourceUrl, theme }: { sourceUrl: string, theme: Theme }) => ({
-              url: injectOrigin(`/note?sourceUrl=${sourceUrl}&theme=${theme}`),
-            }),
-          },
-        };
-      },
-    };
+  getToken(): string {
+    if (typeof localStorage !== 'undefined') {
+      return getQueryToken() || localStorage.getItem(jukiApiManager.TOKEN_NAME) || '';
+    }
+    return getQueryToken() || '';
+  }
+  
+  isQueryToken(): boolean {
+    return typeof getQueryToken() === 'string';
   }
   
   setSetting(serviceApiUrl: string, serviceApiV2Url: string, tokenName: string) {
@@ -794,10 +685,4 @@ export class Settings {
     this._SERVICE_API_V2_URL = serviceApiV2Url;
     this._TOKEN_NAME = tokenName;
   }
-  
-  setOnError(onError: (error: any) => void) {
-    this._ON_ERROR = onError;
-  }
-  
-  private _ON_ERROR = (error: any) => consoleWarn('an error happened', { error });
 }

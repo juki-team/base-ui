@@ -1,8 +1,8 @@
 import { ContentResponseType, ProblemDataResponseDTO, ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import React, { ReactNode, useState } from 'react';
-import { jukiSettings } from '../../../config';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
+import { jukiApiManager, jukiAppRotes } from '../../../settings';
 import { Modal, VoidIcon } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { ProblemView } from '../../templates';
@@ -18,7 +18,7 @@ export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListRespo
   return (
     <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
       <div className="jk-row nowrap">
-        <Link href={jukiSettings.ROUTES.problems().view({ key })}>
+        <Link href={jukiAppRotes.JUDGE().problems.view({ key })}>
           <div className="jk-row link fw-bd ta-st">{name}</div>
         </Link>
         {(user.tried || user.solved) && <>&nbsp;</>}
@@ -62,7 +62,7 @@ export const ProblemNameModalField: DataViewerHeadersType<ProblemSummaryListResp
                 portalClassName="jk-modal-bc-wd jk-modal-height-expanded"
               >
                 <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
-                  url={jukiSettings.API.problem.getData({ params: { key } }).url}
+                  url={jukiApiManager.V1.problem.getData({ params: { key } }).url}
                 >
                   {data => (
                     <ProblemView problem={data.data.content} infoPlacement="name" />

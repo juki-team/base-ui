@@ -1,6 +1,6 @@
 import { ContentsResponseType, ImageSummaryResponseDTO } from '@juki-team/commons';
 import React from 'react';
-import { jukiSettings } from '../../../../../config';
+import { jukiApiManager } from '../../../../../settings';
 import { FetcherLayer } from '../../../../molecules';
 import { onPickImageUrlType } from '../types';
 import { PublicImages } from './PublicImages';
@@ -14,10 +14,10 @@ interface PublicImagesTabProps {
 export const PublicImagesTab = (props: PublicImagesTabProps) => {
   
   return (
-    <FetcherLayer<ContentsResponseType<ImageSummaryResponseDTO>> url={jukiSettings.API.image.getPublicList().url}>
+    <FetcherLayer<ContentsResponseType<ImageSummaryResponseDTO>> url={jukiApiManager.V1.image.getPublicList().url}>
       {({ data: { contents }, mutate }) => (
         <PublicImages {...props} publicImages={contents} mutate={mutate} />
       )}
     </FetcherLayer>
   );
-}
+};

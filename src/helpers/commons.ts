@@ -10,8 +10,8 @@ import {
 import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
 import { utils } from 'xlsx';
 import { write } from 'xlsx-js-style';
-import { jukiSettings } from '../config';
 import { SheetDataType } from '../modules';
+import { jukiApiManager } from '../settings';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerActionsType } from '../types';
 import { authorizedRequest, cleanRequest } from './fetch';
 
@@ -75,7 +75,7 @@ export const downloadWebsiteAsPdf = async (websiteUrl: string, name: string, exp
   margin?: { top: string, bottom: string, left: string, right: string }
   format?: string,
 }) => {
-  const { url, ...options } = jukiSettings.API_V2.export.websiteToPdf({
+  const { url, ...options } = jukiApiManager.V2.export.websiteToPdf({
     params: {
       url: websiteUrl,
       footerTemplate: exportOptions?.footerTemplate?.split('\n').join(''),
@@ -238,7 +238,7 @@ export const downloadSheetDataAsXlsxFile = (sheets: SheetDataType[], fileName: s
 };
 
 export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fileName: string) => {
-  const { url, ...options } = jukiSettings.API.note.createPdf({ body: { source, theme } });
+  const { url, ...options } = jukiApiManager.V1.note.createPdf({ body: { source, theme } });
   const result = await authorizedRequest(
     url, { responseType: 'blob', ...options },
   );

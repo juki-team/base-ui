@@ -7,9 +7,9 @@ import {
   Theme,
 } from '@juki-team/commons';
 import React, { useEffect, useMemo, useState } from 'react';
-import { jukiSettings } from '../../../config';
 import { classNames } from '../../../helpers';
 import { useFetcher, useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
+import { jukiApiManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { Popover, Select, SpinIcon, T } from '../../atoms';
 import { PawsLoadingLayout } from '../../molecules';
@@ -51,7 +51,7 @@ export const MainMenu = (props: MainMenuProps) => {
   
   const imageUrl = topImageUrl || companyImageUrl;
   
-  const { data } = useFetcher<ContentsResponseType<CompanyUserPermissionsResponseDTO>>((multiCompanies && isLogged) ? jukiSettings.API.company.getPermissionList().url : null);
+  const { data } = useFetcher<ContentsResponseType<CompanyUserPermissionsResponseDTO>>((multiCompanies && isLogged) ? jukiApiManager.V1.company.getPermissionList().url : null);
   const companyKey = searchParams.get(QueryParamKey.COMPANY) as string;
   const companies = useMemo(() => data?.success ? data.contents : [], [ data ]);
   const company = useMemo(() => companies.find((company) => company.key === companyKey), [ companyKey, companies ]);

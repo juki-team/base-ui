@@ -1,7 +1,7 @@
 import { consoleInfo, ContentResponseType } from '@juki-team/commons';
 import { useEffect } from 'react';
-import { jukiSettings } from '../config';
 import { authorizedRequest, cleanRequest } from '../helpers';
+import { jukiApiManager } from '../settings';
 import { useJukiPage } from './useJukiPage';
 
 export const useRunnerServicesWakeUp = () => {
@@ -9,7 +9,7 @@ export const useRunnerServicesWakeUp = () => {
   useEffect(() => {
     const fun = async (isPageVisible: boolean, isOnline: boolean) => {
       if (isPageVisible && isOnline) {
-        const { url, ...options } = jukiSettings.API.system.runnerServicesWakeUp();
+        const { url, ...options } = jukiApiManager.V1.system.runnerServicesWakeUp();
         const response = cleanRequest<ContentResponseType<string>>(await authorizedRequest(url, options));
         consoleInfo('runner services wake up requested', response);
       }

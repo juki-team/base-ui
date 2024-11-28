@@ -1,4 +1,5 @@
 import {
+  consoleError,
   consoleWarn,
   ContentResponseType,
   ContentsResponseType,
@@ -8,9 +9,8 @@ import {
   HTTPMethod,
   isStringJson,
 } from '@juki-team/commons';
-import { jukiSettings } from '../config';
+import { jukiApiManager } from '../settings';
 import { AuthorizedRequestType } from '../types';
-import { getLocalToken } from './token';
 
 export const cleanRequest = <T extends ContentResponseType<any> | ContentsResponseType<any>>(responseText: string): (ErrorResponseType | T) => {
   if (!isStringJson(responseText)) {
@@ -20,7 +20,8 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
       message: ERROR[ErrorCode.ERR9999].message,
       errors: [ { code: ErrorCode.ERR9999, detail: '', message: ERROR[ErrorCode.ERR9999].message } ],
     };
-    jukiSettings.reportError({ message: 'success false on cleaning request', responseText, response });
+    consoleError({ message: 'success false on cleaning request', responseText, response });
+    // jukiApiManager.reportError({ message: 'success false on cleaning request', responseText, response });
     return response;
   }
   const responseJson = JSON.parse(responseText);
@@ -44,7 +45,8 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
         message: responseJson.message,
         errors: responseJson.errors,
       };
-      jukiSettings.reportError({ message: 'success false on cleaning request', responseText, response });
+      consoleError({ message: 'success false on cleaning request', responseText, response });
+      // jukiApiManager.reportError({ message: 'success false on cleaning request', responseText, response });
       return response;
     }
   }
@@ -53,7 +55,8 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
     message: ERROR[ErrorCode.ERR9998].message,
     errors: [ { code: ErrorCode.ERR9998, detail: '', message: ERROR[ErrorCode.ERR9998].message } ],
   };
-  jukiSettings.reportError({ message: 'success false on cleaning request', responseText, response });
+  consoleError({ message: 'success false on cleaning request', responseText, response });
+  // jukiApiManager.reportError({ message: 'success false on cleaning request', responseText, response });
   return response;
 };
 
@@ -68,7 +71,7 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >
     requestHeaders.set('Content-Type', 'application/json');
   }
   
-  const token = options?.token || getLocalToken();
+  const token = options?.token || jukiApiManager.getToken();
   
   if (token) {
     requestHeaders.set('Authorization', `Bearer ${token}`);

@@ -25,6 +25,7 @@ export default [
             'helpers': 'src/helpers/index.ts',
             'types': 'src/types/index.ts',
             'constants': 'src/constants/index.ts',
+            'settings': 'src/settings/index.ts',
         },
         output: [
             {

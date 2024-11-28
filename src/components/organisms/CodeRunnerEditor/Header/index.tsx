@@ -8,10 +8,10 @@ import {
 } from '@juki-team/commons';
 import React, { useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { jukiSettings } from '../../../../config';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
 import { useJukiNotification, useJukiUser } from '../../../../hooks';
+import { jukiApiManager } from '../../../../settings';
 import { Button, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, Select, SettingsIcon, T } from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';
 import { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../molecules/types';
@@ -72,7 +72,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     clean(SubmissionRunStatus.RECEIVED);
     try {
       socket.unsubscribe(SocketEvent.CODE_RUN_STATUS, runId);
-      const { url, ...options } = jukiSettings.API.code.run({
+      const { url, ...options } = jukiApiManager.V1.code.run({
         body: {
           language: language as string,
           source: sourceCode,
