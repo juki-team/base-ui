@@ -31,7 +31,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
     getProblemNameHeader(false),
     getProblemModeHeader(),
     getProblemTypeHeader(),
-    getProblemTagsHeader([]),
+    getProblemTagsHeader([ '1', '2', '3' ]),
     getProblemOwnerHeader(false),
     getProblemAdminActionsHeader(),
   ], []);
@@ -64,12 +64,6 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
       onClick={() => console.info('CLICK')}
       responsiveMobile
     >
-      <T>download</T>
-    </ButtonLoader>,
-    <ButtonLoader size="small" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
-      <T>download</T>
-    </ButtonLoader>,
-    <ButtonLoader size="small" icon={<ReloadIcon />} onClick={() => console.info('CLICK')} responsiveMobile>
       <T>download</T>
     </ButtonLoader>,
   ], []);

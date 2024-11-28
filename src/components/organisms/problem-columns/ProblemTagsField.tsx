@@ -7,7 +7,7 @@ import { DataViewerHeadersType, Field, FilterSelectOnlineType } from '../DataVie
 export const ProblemTagsField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field']
   = ({ record: { tags }, isCard }) => (
   <Field className={classNames('jk-row gap', { center: isCard, left: !isCard, 'jk-pg-smp': isCard })}>
-    {tags.filter(tag => !!tag).map(tag => <div className="jk-tag gray-6 tx-s" key={tag}><T>{tag}</T></div>)}
+    {tags.filter(tag => !!tag).map(tag => <div className="jk-tag bc-hl tx-s" key={tag}><T>{tag}</T></div>)}
   </Field>
 );
 

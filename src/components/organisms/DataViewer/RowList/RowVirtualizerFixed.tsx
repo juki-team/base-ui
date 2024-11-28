@@ -15,6 +15,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     onRecordClick,
     setBorderTop,
     setScrollLeft,
+    gap,
   } = props;
   
   const parentRef = useRef<HTMLDivElement>(null);
@@ -27,7 +28,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   
   const rowVirtualizer = useVirtualizer({
     count: data.length,
-    estimateSize: useCallback(() => rowHeight, [ rowHeight ]),
+    estimateSize: useCallback(() => rowHeight + gap * 2, [ rowHeight, gap ]),
     overscan: 2,
     getScrollElement: () => parentRef.current,
     getItemKey: getRecordKey ? (index) => getRecordKey({
@@ -149,8 +150,8 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
                 top: 0,
                 left: 0,
                 width: headersWidth,
-                height: `${virtualRow.size}px`,
-                transform: `translateY(${virtualRow.start}px)`,
+                height: `${virtualRow.size - gap * 2}px`,
+                transform: `translateY(${virtualRow.start + gap}px)`,
               }}
               className={classNames('jk-table-row', getRowClassName(virtualRow.index))}
               onClick={() => onRecordClick?.({ data, index: virtualRow.index, isCard: false })}
@@ -162,7 +163,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
                     <div
                       key={virtualRow.key + '_' + columnIndex}
                       style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
-                      className={classNames({ sticky: !!sticky })}
+                      className={classNames({ sticky: !!sticky }, 'jk-table-row-field bc-we')}
                       data-testid={virtualRow.key + '_' + columnIndex}
                     >
                       <Field

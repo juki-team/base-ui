@@ -58,9 +58,3 @@ export const DEFAULT_DATA_VIEWER_PROPS = {
   getFilterQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.FILTER_TABLE,
   getViewModeQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.VIEW_MODE_TABLE,
 };
-
-export enum Duration {
-  FAST = 0.100,
-  NORMAL = 0.250,
-  LOW = 0.400,
-}

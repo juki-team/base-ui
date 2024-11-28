@@ -21,30 +21,38 @@
       }
     }
     
-    .selected-tab-tick-back {
+    .selected-tab-tick-back, .selected-tab-tick-back-hover {
       background-color: var(--t-color-primary-light);
       position: absolute;
       top: calc(var(--pad-xt) - 1px);
       right: calc(var(--pad-t) - 10px);
       padding: 1px 10px;
-      z-index: -1;
+      //z-index: -1;
       
       .selected-tab-tick-back-content {
         opacity: 0;
       }
     }
     
+    .selected-tab-tick-back-hover {
+      background-color: var(--t-color-highlight-light);
+      opacity: 0 !important;
+    }
+    
+    .jk-tabs-inline-tab:hover .selected-tab-tick-back-hover {
+      opacity: 1 !important;
+    }
+    
+    .jk-tabs-inline-tab:not(.selected) {
+      cursor: pointer;
+    }
+    
     > div {
       padding: var(--pad-xt) var(--pad-t);
       position: relative;
-      cursor: pointer;
       
       > *:not(.selected-tab-tick-back) {
         z-index: 1;
-      }
-      
-      &.selected {
-        font-weight: var(--weight-bold);
       }
       
       //&.selected.one-tab-view:after, &.selected-tab-tick {

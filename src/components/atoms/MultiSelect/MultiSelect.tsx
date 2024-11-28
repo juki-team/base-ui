@@ -64,7 +64,8 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
       marginOfChildren={0}
       content={
         <div
-          ref={optionRef} className={classNames('jk-select-options jk-border-radius-inline', { disabled: isDisabled })}
+          ref={optionRef}
+          className={classNames('jk-select-options jk-pg-sm jk-border-radius-inline', { disabled: isDisabled })}
           style={{
             width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2/*border*/ : containerWidth - 2, /*border*/
           }}
@@ -76,13 +77,6 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
             return (
               <div
                 className={classNames('jk-select-option', { selected, disabled: isDisabled || disabled })}
-                onClick={(!isDisabled && !option.disabled) ? () => {
-                  onChange?.(selected ? optionsSelected.filter(optionSelected => JSON.stringify(option.value)
-                    !== JSON.stringify(optionSelected.value)) : [
-                    ...optionsSelected,
-                    option,
-                  ]);
-                } : undefined}
                 key={JSON.stringify(option.value)}
                 ref={(e) => {
                   if (selected) {
@@ -90,10 +84,18 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
                   }
                 }}
               >
-                <div className="jk-row left nowrap">
-                  <InputCheckbox checked={selected} onChange={() => null} disabled={isDisabled || disabled} />
-                  {renderReactNodeOrFunction(option.label)}
-                </div>
+                <InputCheckbox
+                  checked={selected}
+                  onChange={(!isDisabled && !option.disabled) ? () => {
+                    onChange?.(selected ? optionsSelected.filter(optionSelected => JSON.stringify(option.value)
+                      !== JSON.stringify(optionSelected.value)) : [
+                      ...optionsSelected,
+                      option,
+                    ]);
+                  } : undefined}
+                  disabled={isDisabled || disabled}
+                  label={renderReactNodeOrFunction(option.label)}
+                />
               </div>
             );
           })}
@@ -104,7 +106,10 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
         className={classNames('jk-multi-select-layout', className, { open: showOptions, disabled: isDisabled })}
         style={{ width: extend ? '100%' : `${containerWidth}px` }}
       >
-        <div className="jk-select jk-border-radius-inline jk-row space-between nowrap" ref={selectLayoutRef}>
+        <div
+          className={classNames({ open: showOptions }, 'jk-select jk-border-radius-inline jk-row space-between nowrap')}
+          ref={selectLayoutRef}
+        >
           <div className="jk-row left jk-multi-select-selected-options">
             {optionsSelected.map(optionSelected => (
               <div className="jk-tag gray-6 jk-row nowrap" key={JSON.stringify(optionSelected.value)}>

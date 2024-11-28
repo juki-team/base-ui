@@ -7,7 +7,7 @@ export const InputCheckbox = ({ className, checked, disabled, onChange, label, .
   const isDisabled = disabled || !onChange;
   
   return (
-    <div className={classNames('jk-input-checkbox-wrapper', className, { disabled: isDisabled })}>
+    <label className={classNames('jk-input-checkbox-wrapper', className, { disabled: isDisabled })}>
       <input
         type="checkbox"
         className="jk-input-checkbox jk-border-radius-inline"
@@ -15,11 +15,7 @@ export const InputCheckbox = ({ className, checked, disabled, onChange, label, .
         checked={checked}
         {...props}
       />
-      {!!label && (
-        <label>
-          {label}
-        </label>
-      )}
-    </div>
+      {label}
+    </label>
   );
 };

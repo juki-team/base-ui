@@ -2,15 +2,24 @@
 
 .jk-theme-light, .jk-theme-dark {
   --rt-color-dark: var(--t-color-white) !important;
+  //--rt-color-dark: var(--t-color-highlight-light) !important;
   --rt-color-white: var(--t-color-black-light) !important;
 }
 
 .react-tooltip {
   z-index: var(--z-index-tooltip);
-  filter: drop-shadow(0 0 2px var(--t-color-shadow-dark));
-  padding: calc(var(--gap) / 2) calc(var(--gap) / 2 + 2px) !important;
+  filter: drop-shadow(0 0 2px var(--t-color-shadow-light));
+  padding: calc(var(--gap) / 3) calc(var(--gap) / 3 + 2px) !important;
   font-size: inherit !important;
   max-width: 256px;
+  line-height: 1;
+  
+  .react-tooltip-content-wrapper {
+    > span.tt-se.tx-s {
+      line-height: var(--text-medium-height);
+    }
+  }
+  
   //background: var(--rt-color-dark) !important;
   //color: var(--rt-color-white) !important;
 }

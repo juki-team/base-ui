@@ -60,3 +60,4 @@ export enum Sound {
 export * from './api';
 export * from './route';
 export * from './services';
+export * from './duration';

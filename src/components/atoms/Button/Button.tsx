@@ -1,8 +1,8 @@
 import * as motion from 'framer-motion/client';
 import React, { forwardRef, ReactElement, Ref } from 'react';
-import { Duration } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
+import { Duration } from '../../../types';
 import { ButtonProps } from './types';
 
 const buttonsVariants = (isDisabled: boolean) => ({

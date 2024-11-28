@@ -49,6 +49,7 @@ export interface RowVirtualizerFixedProps<T> {
   setScrollLeft: Dispatch<SetStateAction<number>>,
   onRecordClick: OnRecordClickType<T> | undefined,
   setBorderTop: Dispatch<SetStateAction<boolean>>,
+  gap: number,
 }
 
 export type FilterTextOnlineType = { type: typeof FILTER_TEXT };
@@ -338,6 +339,7 @@ export interface TableHeadProps<T> {
   scrollLeft: number,
   loading: boolean,
   borderTop: boolean,
+  gap: number,
 }
 
 export interface FilterDrawerProps<T> {

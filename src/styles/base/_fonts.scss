@@ -27,7 +27,7 @@
 // text transforms
 .tt-se { // case sentence
   display: inline-block;
-
+  
   &::first-letter { text-transform: uppercase; }
 }
 
@@ -40,7 +40,7 @@
 // white-space
 .ws-np {
   white-space: nowrap;
-
+  
   > *:not(.ws-np) {
     white-space: normal;
   }

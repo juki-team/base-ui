@@ -19,7 +19,7 @@ export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListRespo
     <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
       <div className="jk-row nowrap">
         <Link href={jukiSettings.ROUTES.problems().view({ key })}>
-          <div className="jk-row link fw-bd">{name}</div>
+          <div className="jk-row link fw-bd ta-st">{name}</div>
         </Link>
         {(user.tried || user.solved) && <>&nbsp;</>}
         <ProblemStatus {...user} size="small" />
@@ -29,10 +29,9 @@ export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListRespo
             <div
               data-tooltip-id="jk-tooltip"
               data-tooltip-content="you are editor"
-              data-tooltip-t-class-name="tt-se ws-np"
-              className="jk-row tx-s cr-py"
+              className="jk-row tx-s cr-pl"
             >
-              <VoidIcon size="small" filledSquare letter="E" />
+              <VoidIcon size="small" filledSquare letter="E" letterColor="var(--t-color-primary-text)" />
             </div>
           </>
         )}

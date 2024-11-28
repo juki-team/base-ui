@@ -1,6 +1,6 @@
 import React, { Children, ReactElement, Ref, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../../helpers';
-import { SortIcon } from '../../../../atoms/icons/specials/SortIcon';
+import { ArrowIcon, SortIcon } from '../../../../atoms';
 import { DataViewerTableHeadersType, TableHeadProps, TableSortType } from '../../types';
 import { fixHeaders, renderHead } from '../../utils';
 import { Filter } from './Filter';
@@ -36,10 +36,11 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
   } = props;
   
   const { onSort, getOrder } = sort || {} as TableSortType;
+  const order = getOrder?.();
   
   return (
     <div
-      className={classNames('jk-row nowrap jk-table-head-cell', {
+      className={classNames('jk-row nowrap jk-table-head-cell jk-pg-sm', {
         'with-sort': !!sort,
         'with-filter': !!filter?.onFilter,
         sticky: !!sticky,
@@ -54,14 +55,15 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
       <div className="jk-row jk-table-head-tools">
         {sort && (
           <div
-            className={classNames('jk-button light only-icon small tool', {
-              active: !!getOrder(),
-              // disabled: loading,
+            className={classNames('tool jk-row jk-br-ie', {
+              'cr-we bc-pl active': !!order,
+              'cr-hd bc-hl': !order,
             })}
             onClick={() => onSort({ columnIndex })}
           >
-            <SortIcon up={getOrder() > 0} down={getOrder() < 0} />
-            {/*<ArrowIcon size="small" rotate={order < 0 ? 180 : 0} />*/}
+            {order
+              ? <ArrowIcon size="small" rotate={order < 0 ? 180 : 0} />
+              : <SortIcon up down size="small" />}
           </div>
         )}
         {filter?.onFilter && (
@@ -86,7 +88,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
 
 const TableHeadCmp = <T, >(props: TableHeadProps<T>, ref: Ref<HTMLDivElement>) => {
   
-  const { headers, setHeaders, scrollLeft, loading, borderTop } = props;
+  const { headers, setHeaders, scrollLeft, loading, borderTop, gap } = props;
   
   const [ dragging, setDragging ] = useState(-1);
   
@@ -135,14 +137,17 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>, ref: Ref<HTMLDivElement>) =
     // }
   };
   
-  const headersSticky = headers.filter(({ sticky, visible }) => sticky && visible);
-  const headersNoSticky = headers.filter(({ sticky, visible }) => !sticky && visible);
+  const headersSticky = scrollLeft ? headers.filter(({ sticky, visible }) => sticky && visible) : [];
+  const headersNoSticky = scrollLeft
+    ? headers.filter(({ sticky, visible }) => !sticky && visible)
+    : headers.filter(({ sticky, visible }) => visible);
   
   return (
     <div
       className={classNames('jk-table-head-container', { withVerticalScroll: borderTop })}
       ref={ref}
       onMouseMove={onMouseHoldMove}
+      style={{ paddingBottom: gap }}
     >
       <div className="jk-table-head" onMouseLeave={onMouseHoldUp}>
         <div className={classNames('jk-table-head-sticky', { 'elevation-1': !!scrollLeft })}>

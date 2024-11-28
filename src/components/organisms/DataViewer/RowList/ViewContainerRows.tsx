@@ -36,6 +36,8 @@ interface ViewContainerRowsProps<T> {
   onRecordClick: OnRecordClickType<T> | undefined,
 }
 
+const gap = 4;
+
 export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
   
   const {
@@ -99,6 +101,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
         borderTop={borderTop}
         scrollLeft={scrollLeft}
         loading={loading}
+        gap={gap}
         ref={headerRef}
       />
       <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}>
@@ -113,6 +116,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
           getRecordClassName={getRecordClassName}
           getRecordStyle={getRecordStyle}
           onRecordClick={onRecordClick}
+          gap={gap}
         />
       </div>
     </>

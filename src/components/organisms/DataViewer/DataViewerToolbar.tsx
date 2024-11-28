@@ -1,5 +1,14 @@
 import { DataViewMode, Status } from '@juki-team/commons';
-import React, { Children, memo, ReactNode, useCallback, useEffect, useRef } from 'react';
+import React, {
+  Children,
+  ElementType,
+  memo,
+  PropsWithChildren,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useSessionStorage } from '../../../hooks';
 import {
@@ -9,14 +18,50 @@ import {
   MenuIcon,
   Popover,
   RefreshIcon,
+  SpinIcon,
   ViewHeadlineIcon,
   ViewModuleIcon,
 } from '../../atoms';
-import { ButtonLoader, SetLoaderStatusOnClickType } from '../../molecules';
+import { SetLoaderStatusOnClickType } from '../../molecules';
 import { FilterDrawer } from './FilterDrawer';
 import { Pagination } from './Pagination';
 import { DataViewerToolbarProps } from './types';
 import { isSomethingFiltered } from './utils';
+
+const buttonFilterStyles = (active: boolean) => classNames(
+  {
+    'bc-pl cr-pt': active,
+    'bc-we': !active,
+    active,
+  },
+  'jk-row jk-data-viewer-tools-filter jk-br-ie cursor-pointer jk-row nowrap',
+);
+
+interface ToolbarButtonIconProps {
+  Icon: ElementType,
+  onClick?: () => void,
+  active?: boolean,
+  tooltipContent: string,
+  className?: string,
+}
+
+const ToolbarButtonIcon = ({
+                             Icon,
+                             active,
+                             onClick,
+                             tooltipContent,
+                             className = '',
+                             children,
+                           }: PropsWithChildren<ToolbarButtonIconProps>) => (
+  <div
+    data-tooltip-id="jk-tooltip"
+    data-tooltip-content={tooltipContent}
+    className={buttonFilterStyles(!!active) + ' ' + className}
+    onClick={onClick}
+  >
+    <Icon className="jk-br-ie" size="small" />{children}
+  </div>
+);
 
 const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   
@@ -42,7 +87,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     filters,
   } = props;
   
-  const { filtered } = isSomethingFiltered(headers);
+  const { filtered, values } = isSomethingFiltered(headers);
   
   const { viewPortSize } = useJukiUI();
   
@@ -67,15 +112,11 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   }, [ loading ]);
   
   const reloadSection = onReload && (
-    <ButtonLoader
-      icon={<RefreshIcon />}
-      size="small"
-      type="light"
+    <ToolbarButtonIcon
+      Icon={loading ? SpinIcon : RefreshIcon}
+      tooltipContent={loading ? 'reloading data' : 'reload data'}
+      active={loading}
       onClick={onReload}
-      setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-      data-tooltip-id="jk-tooltip"
-      data-tooltip-content={loading ? 'reloading data' : 'reload data'}
-      data-tooltip-t-class-name="tt-se ws-np"
     />
   );
   
@@ -91,6 +132,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
       </>,
     );
   }
+  
   if (pagination.withPagination) {
     firstRow.push(
       <Pagination
@@ -107,6 +149,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
       />,
     );
   }
+  
   return (
     <div
       className={classNames(
@@ -155,36 +198,36 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               {(onReload && isMobileViewPort ? true : (!!firstRow.length && onColumn)) && (
                 <div className="jk-divider horizontal" />
               )}
-              <div
-                data-tooltip-id="jk-tooltip"
-                data-tooltip-content="open filters"
-                data-tooltip-t-class-name="tt-se ws-np"
-                className={classNames({ active: filtered }, 'jk-row jk-data-viewer-tools-filter jk-br-ie')}
+              <ToolbarButtonIcon
+                Icon={FilterListIcon}
+                tooltipContent="open filters"
                 onClick={() => setShowFilterDrawer(true)}
+                active={filtered}
               >
-                <FilterListIcon className="jk-br-ie cr-g4" />
-              </div>
+                {!!Object.values(values).length && (
+                  <>
+                    &nbsp;
+                    <span className="bc-hl jk-br-ie" style={{ lineHeight: 1, padding: '0 4px' }}>
+                      {Object.values(values).length}
+                    </span>
+                    &nbsp;
+                  </>
+                )}
+              </ToolbarButtonIcon>
               <div>
                 {filtered ? (
                   <CopyToClipboard text={url.toString()}>
-                    <div
-                      data-tooltip-id="jk-tooltip"
-                      data-tooltip-content="copy the link of the filtered table"
-                      data-tooltip-t-class-name="tt-se ws-np"
-                      className={classNames({ active: filtered }, 'jk-row jk-data-viewer-tools-filter jk-br-ie')}
-                    >
-                      <CopyIcon className="jk-br-ie cr-g4" />
-                    </div>
+                    <ToolbarButtonIcon
+                      Icon={CopyIcon}
+                      tooltipContent="copy the link of the filtered table"
+                    />
                   </CopyToClipboard>
                 ) : (
-                  <div
-                    data-tooltip-id="jk-tooltip"
-                    data-tooltip-content="First filter something so that you can copy the link of the filtered table"
-                    data-tooltip-t-class-name="tt-se"
-                    className={classNames({ active: filtered }, 'jk-row jk-data-viewer-tools-filter jk-br-ie')}
-                  >
-                    <CopyIcon className="jk-br-ie cr-g4" />
-                  </div>
+                  <ToolbarButtonIcon
+                    Icon={CopyIcon}
+                    tooltipContent="first filter something so that you can copy the link of the filtered table"
+                    active={filtered}
+                  />
                 )}
               </div>
             </>
@@ -194,27 +237,23 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               <div className="jk-divider horizontal" />
               <div className={classNames('jk-row nowrap jk-table-view-tools-view-mode', { rowsView, cardsView })}>
                 {rowsView && (
-                  <div
-                    data-tooltip-id="jk-tooltip"
-                    data-tooltip-content="list view"
-                    data-tooltip-t-class-name="tt-se ws-np"
-                    className={classNames({ active: viewMode === DataViewMode.ROWS }, 'jk-row rows jk-br-ie')}
+                  <ToolbarButtonIcon
+                    Icon={ViewHeadlineIcon}
+                    tooltipContent="list view"
+                    className="rows"
+                    active={viewMode === DataViewMode.ROWS}
                     onClick={() => setViewMode(DataViewMode.ROWS, true)}
-                  >
-                    <ViewHeadlineIcon className="jk-br-ie cr-g4" />
-                  </div>
+                  />
                 )}
                 {cardsView && (
-                  <div
-                    data-tooltip-id="jk-tooltip"
-                    data-tooltip-content="cards view"
+                  <ToolbarButtonIcon
+                    Icon={ViewModuleIcon}
+                    tooltipContent="cards view"
                     data-tooltip-place="top-end"
-                    data-tooltip-t-class-name="tt-se ws-np"
-                    className={classNames({ active: viewMode === DataViewMode.CARDS }, 'jk-row cards jk-br-ie')}
+                    className="cards"
+                    active={viewMode === DataViewMode.CARDS}
                     onClick={() => setViewMode(DataViewMode.CARDS, true)}
-                  >
-                    <ViewModuleIcon className="jk-br-ie cr-g4" />
-                  </div>
+                  />
                 )}
               </div>
             </>

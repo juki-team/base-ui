@@ -71,7 +71,7 @@ export const Pagination = (props: PaginationProps) => {
       <div className="jk-row center nowrap">
         {isOnToolbar ? (
           <div className="jk-row gap nowrap">
-            <div className="jk-row nowrap bc-we jk-br-ie tx-s ws-np" style={{}}>
+            <div className="jk-row nowrap jk-br-ie tx-s ws-np jk-data-viewer-pagination-toolbar-content ">
               <div
                 style={{
                   borderRight: '1px solid var(--t-color-highlight-light)',

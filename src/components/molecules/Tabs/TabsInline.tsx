@@ -26,6 +26,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   const [ oneTabView, setOneTabView ] = useState(false);
   const selectedTabIndex = tabsArray.findIndex(({ key }) => key === selectedTabKey);
   const tabKeys = useMemoizedArray(Object.keys(tabs));
+  const [ hover, setHover ] = useState('');
   
   const refB = useRef<HTMLDivElement>(null);
   const maxWidthWithArrows = useRef(0);
@@ -47,6 +48,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   
   const displayedTabs = oneTabView ? (tabsArray[selectedTabIndex] ? [ tabsArray[selectedTabIndex] ] : []) : tabsArray;
   const layoutId = useId();
+  const layoutHoverId = useId();
   
   return (
     <>
@@ -76,34 +78,43 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
             })}
             style={{ position: 'relative' /*overflow: oneTabView ? 'visible' : undefined*/, overflow: 'visible' }}
           >
-            {Children.toArray(displayedTabs
-              .map(({ key, header }) => (
-                <div
-                  onClick={() => setSelectedTabKey(key as (NotUndefined<T> | Func<T>))}
-                  className={classNames('jk-row nowrap', {
-                    'selected': key === selectedTabKey,
-                    'one-tab-view': oneTabView,
-                    'cr-pt': key === selectedTabKey && tickStyle === 'background',
-                  })}
-                >
-                  {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
-                  {tickStyle === 'line' && key === selectedTabKey && (
-                    <motion.div
-                      className="selected-tab-tick"
-                      layoutId={layoutId}
-                    />
-                  )}
-                  {tickStyle === 'background' && key === selectedTabKey && (
-                    <motion.div
-                      className="selected-tab-tick-back jk-br-ie"
-                      layoutId={layoutId}
-                    >
-                      <div className="selected-tab-tick-back-content"> {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
-                    </motion.div>
-                  )}
-                </div>
-              )),
-            )}
+            {displayedTabs.map(({ key, header }) => (
+              <div
+                key={key as string}
+                onClick={key === selectedTabKey ? undefined : () => setSelectedTabKey(key as (NotUndefined<T> | Func<T>))}
+                className={classNames('jk-tabs-inline-tab jk-row nowrap', {
+                  'selected fw-bd': key === selectedTabKey,
+                  'one-tab-view': oneTabView,
+                  'cr-pt': key === selectedTabKey && tickStyle === 'background',
+                })}
+                onMouseEnter={() => setHover(key as string)}
+                onMouseLeave={() => setHover('')}
+              >
+                {tickStyle === 'line' && key === selectedTabKey && (
+                  <motion.div
+                    className="selected-tab-tick"
+                    layoutId={layoutId}
+                  />
+                )}
+                {tickStyle === 'background' && key === selectedTabKey && (
+                  <motion.div
+                    className="selected-tab-tick-back jk-br-ie"
+                    layoutId={layoutId}
+                  >
+                    <div className="selected-tab-tick-back-content"> {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
+                  </motion.div>
+                )}
+                {tickStyle === 'background' && key === hover && key !== selectedTabKey && (
+                  <motion.div
+                    className="selected-tab-tick-back-hover jk-br-ie"
+                    layoutId={layoutHoverId}
+                  >
+                    <div className="selected-tab-tick-back-content"> {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
+                  </motion.div>
+                )}
+                {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
+              </div>
+            ))}
           </div>
           {oneTabView && (
             <NavigateNextIcon

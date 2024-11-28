@@ -18,6 +18,11 @@ export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
   
   const [ visible, setVisible ] = useState(false);
   
+  const filtered = isFilterText(filter) ? !!filter.getFilter()
+    : isFilterSelect(filter) ? !!filter.getFilter().length
+      : isFilterDate(filter) ? !!filter.getFilter()?.isValidDate()
+        : isFilterDateRange(filter) ? !!filter.getFilter()?.[0]?.isValidDate() && !!filter.getFilter()?.[1]?.isValidDate()
+          : false;
   return (
     <Popover
       visible={visible}
@@ -98,12 +103,9 @@ export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
       showPopperArrow
     >
       <div
-        className={classNames('jk-button light only-icon small tool', {
-          active: isFilterText(filter) ? !!filter.getFilter()
-            : isFilterSelect(filter) ? !!filter.getFilter().length
-              : isFilterDate(filter) ? !!filter.getFilter()?.isValidDate()
-                : isFilterDateRange(filter) ? !!filter.getFilter()?.[0]?.isValidDate() && !!filter.getFilter()?.[1]?.isValidDate()
-                  : false,
+        className={classNames('tool jk-row jk-br-ie', {
+          'cr-we bc-pl active': filtered,
+          'cr-hd bc-hl': !filtered,
           visible,
           // disabled,
         })}

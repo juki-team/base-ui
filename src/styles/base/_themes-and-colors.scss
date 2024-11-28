@@ -43,7 +43,7 @@
   //--t-color-primary: #08427A;
   //--t-color-primary: #315488;
   //--t-color-primary: #1762a1;
-  --t-color-primary: #3E72AB;
+  //--t-color-primary: #3E72AB;
   --t-color-primary-text: #FCFCFC;
   --t-color-secondary: #A5A5A5;
   --t-color-secondary-text: #FFFFFF;
@@ -76,14 +76,18 @@
   --t-color-glow: #FEFEFE40; // rgba(var(--t-color-black-rgb), 0.25);
 }
 
+//https://uicolors.app/create
 .jk-theme-light {
-  --t-color-primary-dark: #1C3C5E;
+  --t-color-primary-dark: #1C4670;
   --t-color-primary-light: #3281C5;
 }
 
 .jk-theme-dark {
-  --t-color-primary-dark: #3281C5;
-  --t-color-primary-light: #1C3C5E;
+  --t-color-primary-dark: #315E98;
+  --t-color-primary: #4278B5;
+  --t-color-primary-light: #6695CA;
+  //--t-color-primary-dark: #2266A7;
+  //--t-color-primary-light: #1C4670;
 }
 
 .jk-theme-light, .jk-theme-dark {

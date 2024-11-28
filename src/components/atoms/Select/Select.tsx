@@ -98,7 +98,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
       content={
         <div
           ref={optionRef}
-          className={classNames('jk-select-options jk-border-radius-inline', { disabled: isDisabled })}
+          className={classNames('jk-select-options jk-pg-sm jk-border-radius-inline', { disabled: isDisabled })}
           style={{
             width: extend
               ? ((selectLayoutRef.current?.clientWidth || 0) /*padding*/ - 2 /*border*/) : containerWidth, /*border*/
@@ -141,7 +141,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
         <div>
           <div
             ref={fakeOptionRef}
-            className="jk-select-options jk-border-radius-inline"
+            className="jk-select-options jk-pg-sm jk-border-radius-inline"
             style={{
               position: 'fixed',
               width: 'auto',
@@ -169,7 +169,10 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
             { options, showOptions, disabled: isDisabled, optionSelected, expandIcon },
           )
           : (
-            <div className="jk-select jk-border-radius-inline" ref={selectLayoutRef}>
+            <div
+              className={classNames({ open: showOptions }, 'jk-select jk-border-radius-inline')}
+              ref={selectLayoutRef}
+            >
               {optionSelected.inputLabel
                 ? renderReactNodeOrFunction(optionSelected.inputLabel)
                 : renderReactNodeOrFunction(optionSelected.label)} {expandIcon}

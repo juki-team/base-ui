@@ -7,7 +7,7 @@ export const InputRadio = ({ className, checked, disabled, onChange, label, ...p
   const isDisabled = disabled || !onChange;
   
   return (
-    <div className={classNames('jk-input-radio-wrapper', className, { disabled: isDisabled })}>
+    <label className={classNames('jk-input-radio-wrapper', className, { disabled: isDisabled })}>
       <input
         type="radio"
         className="jk-input-radio"
@@ -15,9 +15,7 @@ export const InputRadio = ({ className, checked, disabled, onChange, label, ...p
         checked={checked}
         {...props}
       />
-      <label>
-        {label}
-      </label>
-    </div>
+      {label}
+    </label>
   );
 };

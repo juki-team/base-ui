@@ -83,13 +83,6 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
     return (
       <div
         className={classNames('jk-select-option', { selected, disabled })}
-        onClick={!option.disabled ? () => {
-          onChangeRef.current?.(selected ? selectedOptions.filter(optionSelected => JSON.stringify(option.value)
-            !== JSON.stringify(optionSelected.value)) : [
-            ...(multiselect ? selectedOptions : []),
-            option,
-          ]);
-        } : undefined}
         key={JSON.stringify(option.value)}
         ref={(e) => {
           if (selected) {
@@ -97,10 +90,20 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
           }
         }}
       >
-        <div className="jk-row left nowrap">
-          {multiselect && <InputCheckbox checked={selected} disabled={disabled} onChange={() => null} />}
-          {renderReactNodeOrFunction(option.label)}
-        </div>
+        {multiselect
+          ? <InputCheckbox
+            checked={selected}
+            disabled={disabled}
+            onChange={!option.disabled ? () => {
+              onChangeRef.current?.(selected ? selectedOptions.filter(optionSelected => JSON.stringify(option.value)
+                !== JSON.stringify(optionSelected.value)) : [
+                ...(multiselect ? selectedOptions : []),
+                option,
+              ]);
+            } : undefined}
+            label={renderReactNodeOrFunction(option.label)}
+          />
+          : renderReactNodeOrFunction(option.label)}
       </div>
     );
   }, [ filteredOptions, multiselect, selectedOptions ]);
@@ -115,7 +118,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
       marginOfChildren={0}
       content={
         <div
-          className={classNames('jk-select-options-virtual jk-border-radius-inline')}
+          className={classNames('jk-select-options-virtual jk-pg-sm jk-border-radius-inline')}
           style={{
             width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2 /*border*/ : containerWidth - 2, /*border*/
           }}
@@ -140,7 +143,10 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         className={classNames('jk-multi-select-layout', className, { open: showOptions, disabled: isDisabled })}
         style={{ width: extend ? '100%' : `${containerWidth}px` }}
       >
-        <div className="jk-select jk-border-radius-inline jk-row space-between nowrap" ref={selectLayoutRef}>
+        <div
+          className={classNames({ open: showOptions }, 'jk-select jk-border-radius-inline jk-row space-between nowrap')}
+          ref={selectLayoutRef}
+        >
           <div className="jk-row left jk-multi-select-selected-options">
             {selectedOptions.map(optionSelected => (
               <div

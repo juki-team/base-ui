@@ -3,10 +3,9 @@ import React, { FC, PropsWithChildren, useCallback, useMemo, useRef } from 'reac
 import { Tooltip as ReactTooltip } from 'react-tooltip';
 import { LineLoader, NotificationProvider, T } from '../../components';
 import { SoundProvider } from '../../components/organisms/Notifications/SoundProvider';
-import { Duration } from '../../constants';
 import { classNames } from '../../helpers';
 import { useJukiRouter } from '../../hooks';
-import { QueryParamKey } from '../../types';
+import { Duration, QueryParamKey } from '../../types';
 import { UIContext } from './context';
 import { Image } from './Image';
 import { Link } from './Link';
@@ -69,7 +68,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
                 clickable
                 render={({ content, activeAnchor }) => (
                   content ?
-                    <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') || ''}>{content}</T> : null // Relevant attribute: { || 'not set'}
+                    <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') || 'tt-se tx-s'}>{content}</T> : null // Relevant attribute: { || 'not set'}
                 )}
               />
             </div>
