@@ -95,7 +95,7 @@
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "storybook:build": "rm -rf docs && storybook build -o docs",
-    "rollup:build": "rm -rf dist && rollup -c --strictDeprecations --verbose",
+    "rollup:build": "rm -rf dist && rollup -c --strictDeprecations",
     "pull": "yarn add @juki-team/commons -D",
     "build": "yarn rollup:build",
     "build:deploy": "yarn storybook:build && yarn rollup:build",
