@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useJukiUser } from '../../../hooks/useJukiUser';
 import { BasicModalProps, SetLoaderStatusOnClickType } from '../../../types';
-import { LoginFormType, LoginModalTemplate } from './LoginModalTemplate';
+import { LoginModalTemplate } from './LoginModalTemplate';
+import { LoginFormType } from './LoginModalTemplate/types';
 
 export interface LoginModalProps extends BasicModalProps {
   onSignUpButton: () => void,

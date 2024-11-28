@@ -1,8 +1,8 @@
 import { MotionConfig } from 'framer-motion';
-import React, { FC, PropsWithChildren, useCallback, useMemo, useRef } from 'react';
-import { Tooltip as ReactTooltip } from 'react-tooltip';
+import React, { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
 import { LineLoader } from '../../components/atoms/loaders';
 import { T } from '../../components/atoms/T';
+import { JukiLoadingLayout } from '../../components/molecules/layouts';
 import { NotificationProvider } from '../../components/organisms/Notifications/NotificationProvider';
 import { SoundProvider } from '../../components/organisms/Notifications/SoundProvider';
 import { classNames } from '../../helpers';
@@ -13,6 +13,8 @@ import { Image } from './Image';
 import { Link } from './Link';
 import { JukiUIProviderProps, LinkCmpProps } from './types';
 import { useViewPortSize } from './useViewPortSize';
+
+const ReactTooltip = lazy(() => import('react-tooltip').then(module => ({ default: module.Tooltip })));
 
 export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiUIProviderProps>) => {
   
@@ -62,17 +64,19 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
             <div id="juki-app" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
               {/*<div className="loading-route-overlay" />*/}
               {children}
-              <ReactTooltip
-                id="jk-tooltip"
-                opacity={1}
-                // isOpen
-                positionStrategy="fixed"
-                clickable
-                render={({ content, activeAnchor }) => (
-                  content ?
-                    <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') || 'tt-se tx-s'}>{content}</T> : null // Relevant attribute: { || 'not set'}
-                )}
-              />
+              <Suspense fallback={<JukiLoadingLayout />}>
+                <ReactTooltip
+                  id="jk-tooltip"
+                  opacity={1}
+                  // isOpen
+                  positionStrategy="fixed"
+                  clickable
+                  render={({ content, activeAnchor }) => (
+                    content ?
+                      <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') || 'tt-se tx-s'}>{content}</T> : null // Relevant attribute: { || 'not set'}
+                  )}
+                />
+              </Suspense>
             </div>
           </NotificationProvider>
         </SoundProvider>

@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { PlacementType } from '../Popover';
-import { SelectOption2Type, SelectOptionType } from '../Select';
+import type { ReactNode } from 'react';
+import type { PlacementType } from '../Popover/types';
+import type { SelectOption2Type, SelectOptionType } from '../Select';
 
 export interface MultiSelectProps<T, U extends ReactNode, V extends ReactNode> {
   className?: string,

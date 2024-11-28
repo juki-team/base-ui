@@ -8,12 +8,12 @@ import {
   Theme,
 } from '@juki-team/commons';
 import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
-import { utils } from 'xlsx';
 import { write } from 'xlsx-js-style';
 import { SheetDataType } from '../modules';
 import { jukiApiManager } from '../settings';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerActionsType } from '../types';
 import { authorizedRequest, cleanRequest } from './fetch';
+import { getXLSX } from './xlsx';
 
 export const getTextContent = (elem: ReactNode): string => {
   if (!elem) {
@@ -122,7 +122,8 @@ export const downloadDataTableAsCsvFile = (data: (string | number)[][], fileName
   downloadBlobAsFile(blob, fileName);
 };
 
-export const sheetDataToWorkBook = (sheets: SheetDataType[], fileName: string = 'file.xlsx') => {
+export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: string = 'file.xlsx') => {
+  const { utils } = await getXLSX();
   const workBook = utils.book_new();
   workBook.Props = {
     Title: fileName,
@@ -230,8 +231,8 @@ export const sheetDataToWorkBook = (sheets: SheetDataType[], fileName: string = 
   return workBook;
 };
 
-export const downloadSheetDataAsXlsxFile = (sheets: SheetDataType[], fileName: string = 'file.xlsx') => {
-  const workBook = sheetDataToWorkBook(sheets, fileName);
+export const downloadSheetDataAsXlsxFile = async (sheets: SheetDataType[], fileName: string = 'file.xlsx') => {
+  const workBook = await sheetDataToWorkBook(sheets, fileName);
   const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
   const blob = new Blob([ stringToArrayBuffer(workBookOut) ], { type: 'application/octet-stream' });
   downloadBlobAsFile(blob, fileName);

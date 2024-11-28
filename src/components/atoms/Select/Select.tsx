@@ -4,7 +4,8 @@ import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } fr
 import { useHandleState } from '../../../hooks/useHandleState';
 import { ReactNodeOrFunctionType } from '../../../types';
 import { ArrowDropDownIcon, ArrowDropUpIcon, ArrowLeftIcon, ArrowRightIcon } from '../icons';
-import { PlacementType, Popover } from '../Popover';
+import { Popover } from '../Popover';
+import { PlacementType } from '../Popover/types';
 import { SelectOptionType, SelectProps } from './types';
 
 export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: SelectProps<T, U, V>) => {

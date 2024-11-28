@@ -1,7 +1,7 @@
 import { ImageSummaryResponseDTO } from '@juki-team/commons';
-import copy from 'copy-to-clipboard';
 import React, { useEffect } from 'react';
 import { KeyedMutator } from 'swr';
+import { copy } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks';
 import { CheckIcon, ContentCopyIcon, T } from '../../../../atoms';
 import { FloatToolbar } from '../../../../molecules';

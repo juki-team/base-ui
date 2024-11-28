@@ -1,5 +1,5 @@
 import React, { forwardRef, ReactElement, Ref, useEffect, useId } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import type { UseFormRegisterReturn } from 'react-hook-form';
 import { classNames } from '../../../helpers';
 import { InputProps } from './types';
 

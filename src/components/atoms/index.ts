@@ -9,7 +9,6 @@ export * from './Portal';
 export * from './Select';
 export * from './T';
 export * from './TextArea';
-export * from './Tooltip';
 export * from './VirtualizedRowsFixed';
 export * from './icons';
 export * from './images';

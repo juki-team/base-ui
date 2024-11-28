@@ -1,5 +1,6 @@
 export * from './commons';
 export * from './contest';
+export * from './copy';
 export * from './date';
 export * from './fetch';
 export * from './layout';

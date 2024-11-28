@@ -1,5 +1,5 @@
-import { RefObject } from 'react';
-import { Crop, PercentCrop, PixelCrop } from 'react-image-crop';
+import type { RefObject } from 'react';
+import type { Crop, PercentCrop, PixelCrop } from 'react-image-crop';
 
 export type CroppedImageType = {
   url: string,

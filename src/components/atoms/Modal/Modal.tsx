@@ -7,7 +7,6 @@ import { classNames } from '../../../helpers';
 import { useSetLoaderStatus } from '../hooks';
 import { CloseIcon, SpinIcon } from '../icons';
 import { ModalProps } from './types';
-
 // ReactModal.setAppElement('#root'); // no works with nextjs
 
 export const Modal = (props: PropsWithChildren<ModalProps>) => {

@@ -17,7 +17,7 @@ const alignment: { [key: string]: string } = {
   'vtop': 'htTop',
   'vmiddle': 'htMiddle',
   'vbottom': 'htBottom',
-}
+};
 
 export const DataGrid = memo(({ rows, cols, freeze, styles, autofilter, firstRowAsHeaders }: DataGridProps) => {
   const data: (string)[][] = [];
@@ -51,13 +51,13 @@ export const DataGrid = memo(({ rows, cols, freeze, styles, autofilter, firstRow
           className: classNames(alignment[`h${styles?.[cellData.style].align}`], alignment[`v${styles?.[cellData.style].valign}`]),
         });
       }
-    })
+    });
   });
   
   const colWidths: number[] = [];
   Object.entries(cols || {}).forEach(([ i, colProperty ]) => {
     if (typeof colProperty.width === 'number') {
-      colWidths[+i] = colProperty.width
+      colWidths[+i] = colProperty.width;
     }
   });
   

@@ -1,16 +1,16 @@
-import { Meta } from "@storybook/react";
-import React, { FC, useState } from "react";
-import { ColorResult } from "react-color";
-import { MockupJukiProvider } from "../../../mockup";
-import { InputColor } from "../../../molecules";
-import { GmailIcon, TelegramIcon } from "../specials";
-import { BasicIconProps } from "../types";
+import { Meta } from '@storybook/react';
+import React, { FC, useState } from 'react';
+import { ColorResult } from 'react-color';
+import { MockupJukiProvider } from '../../../mockup';
+import { InputColor } from '../../../molecules';
+import { GmailIcon, TelegramIcon } from '../specials';
+import { BasicIconProps } from '../types';
 
 import {
+  _BuildIcon,
   AssignmentIcon_,
   AtSignIcon,
   BugIcon,
-  _BuildIcon,
   CityIcon,
   ClockIcon,
   CloudDownloadIcon,
@@ -69,16 +69,16 @@ import {
   UnorderedListIcon,
   ViewModuleIcon,
   ViewSideIcon,
-} from "./";
+} from './';
 
 const meta: Meta<typeof AtSignIcon> = {
   component: AtSignIcon,
   argTypes: {
-    circle: { control: { type: "boolean" } },
-    square: { control: { type: "boolean" } },
-    filledCircle: { control: { type: "boolean" } },
-    filledSquare: { control: { type: "boolean" } },
-    strikethrough: { control: { type: "boolean" } },
+    circle: { control: { type: 'boolean' } },
+    square: { control: { type: 'boolean' } },
+    filledCircle: { control: { type: 'boolean' } },
+    filledSquare: { control: { type: 'boolean' } },
+    strikethrough: { control: { type: 'boolean' } },
   },
 };
 
@@ -151,13 +151,13 @@ export const Regular: FC<BasicIconProps> = (args) => {
     EditIcon_,
     GroupIcon_,
   };
-
-  const [color, setColor] = useState<ColorResult>({
-    hex: "",
+  
+  const [ color, setColor ] = useState<ColorResult>({
+    hex: '',
     hsl: { h: 0, s: 0, l: 0 },
     rgb: { r: 0, g: 0, b: 0 },
   });
-
+  
   return (
     <MockupJukiProvider>
       <div className="jk-row extend">
@@ -165,10 +165,10 @@ export const Regular: FC<BasicIconProps> = (args) => {
       </div>
       <div className="jk-row block gap" style={{ color: color.hex }}>
         {Object.entries(icons)
-          .sort(([iconName1], [iconName2]) =>
+          .sort(([ iconName1 ], [ iconName2 ]) =>
             iconName1.localeCompare(iconName2),
           )
-          .map(([iconName, Component]) => (
+          .map(([ iconName, Component ]) => (
             <div className="jk-row nowrap center">
               <Component {...args} />
               <div className="tx-t cr-g1" style={{ width: 140 }}>

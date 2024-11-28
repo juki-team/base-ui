@@ -1,14 +1,14 @@
-import React, { memo } from 'react';
-import { classNames } from '../../../../helpers';
-import { MdFloatToolbar } from '../MdFloatToolbar';
-import { MdMath } from './MdMath';
+import React, { lazy, Suspense } from 'react';
+import { JukiLoadingLayout } from '../../../molecules';
 import { MdMathViewerProps } from './types';
 
-export const MdMathViewer = memo(({ source, downloadButton, className }: MdMathViewerProps) => (
-  <div className={classNames('jk-md-math-viewer-layout', className)}>
-    <MdFloatToolbar source={source} /*share={sharedButton}*/ download={downloadButton} />
-    <MdMath source={source} />
-  </div>
-));
+const LazyMdMathViewer = lazy(() => import('./MdMathViewer').then(module => ({ default: module.MdMathViewer })));
+
+export const MdMathViewer = (props: MdMathViewerProps) => (
+  <Suspense fallback={<JukiLoadingLayout />}>
+    {/*@ts-ignore*/}
+    <LazyMdMathViewer {...props} />
+  </Suspense>
+);
 
 export * from './types';

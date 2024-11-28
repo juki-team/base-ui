@@ -1,5 +1,5 @@
-import { CSSProperties } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import type { CSSProperties } from 'react';
+import type { UseFormRegisterReturn } from 'react-hook-form';
 
 export interface TextAreaProps {
   value?: string,

@@ -8,7 +8,6 @@ import {
   SubmissionRunStatus,
 } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
-import { v4 } from 'uuid';
 import { classNames } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { AddIcon, DeleteIcon, InfoIcon, T, TextArea } from '../../../atoms';
@@ -39,7 +38,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = fal
           const noCustomCases = testCasesValues.filter(testCaseValue => testCaseValue.sample);
           const cases = sample ? noCustomCases : customCases;
           if (cases.length < (sample ? 30 : 15)) {
-            const key = v4();
+            const key = crypto.randomUUID();
             const index = mex(cases.map(testCaseValue => testCaseValue.index));
             onChange?.({
               testCases: {

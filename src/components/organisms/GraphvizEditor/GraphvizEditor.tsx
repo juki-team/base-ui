@@ -1,39 +1,21 @@
-import { read } from 'graphlib-dot';
-import React, { lazy, memo, Suspense, useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { Button, EditIcon, Modal, SpinIcon, T, TextArea } from '../../atoms';
 import { BasicModalProps } from '../../atoms/types';
 import { SplitPane } from '../../molecules';
+import { GraphvizViewer } from './GraphvizViewer';
 import { GraphvizEditorProps } from './types';
+import { useDotValue } from './useDotValue';
 
-const Graphviz = lazy(() => import('graphviz-react'));
+const Graphviz = lazy(() => import('./Graphviz').then(module => ({ default: module.Graphviz })));
 
 interface GraphvizEditorModalProps extends BasicModalProps {
   value: string,
   onSave: (newValue: string) => void,
   onClose: () => void,
 }
-
-const useDotValue = (value: string) => {
-  const [ error, setError ] = useState('');
-  const [ dot, setDot ] = useState('graph {}');
-  useEffect(() => {
-    try {
-      read(value);
-      setDot(value);
-      setError('');
-    } catch (err: any) {
-      setError(`Parse Error: ${err.message}`);
-    }
-  }, [ value ]);
-  
-  return {
-    dot,
-    error,
-  };
-};
 
 const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModalProps) => {
   
@@ -91,18 +73,3 @@ export const GraphvizEditor = ({ value, onChange, className, width, height }: Gr
     </div>
   );
 };
-
-export const GraphvizViewer = memo(({ value, className, width, height }: Omit<GraphvizEditorProps, 'onChange'>) => {
-  
-  const { dot, error } = useDotValue(value);
-  
-  return (
-    <div className={classNames('jk-graphviz-viewer-container', className)}>
-      <Suspense fallback={<SpinIcon />}>
-        {error
-          ? <div className="bc-eras jk-tag error">{error}</div>
-          : <Graphviz dot={dot} className="jk-graphviz-viewer" options={{ width, height }} />}
-      </Suspense>
-    </div>
-  );
-});

@@ -1,6 +1,5 @@
 import { ContentResponseType, ContentsResponseType, ErrorResponseType, Status } from '@juki-team/commons';
 import React, { Children, ReactNode, useCallback, useContext } from 'react';
-import { v4 } from 'uuid';
 import { T } from '../components/atoms/T';
 import { NotificationContext } from '../components/organisms/Notifications/context';
 import { NewNotificationType, NotificationAction, NotificationType } from '../components/organisms/Notifications/types';
@@ -33,7 +32,7 @@ export const useJukiNotification = () => {
   const addNotification = useCallback((props: NewNotificationType) => dispatch({
     type: NotificationAction.ADD_NOTIFICATION,
     payload: {
-      id: v4(),
+      id: crypto.randomUUID(),
       ...props,
     },
   }), [ dispatch ]);
