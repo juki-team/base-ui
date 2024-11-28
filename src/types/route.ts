@@ -51,4 +51,5 @@ export enum ProfileTab {
   OVERVIEW = 'overview',
   SETTINGS = 'settings',
   SUBMISSIONS = 'submissions',
+  MY_SESSIONS = 'my-sessions',
 }
