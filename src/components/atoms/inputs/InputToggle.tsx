@@ -1,8 +1,8 @@
-import React, { forwardRef, MouseEventHandler, ReactElement, Ref } from 'react';
+import React, { MouseEventHandler } from 'react';
 import { classNames } from '../../../helpers';
 import { InputToggleProps } from './types';
 
-const InputToggleComponent = (props: InputToggleProps) => {
+export const InputToggle = (props: InputToggleProps) => {
   
   const {
     className,
@@ -42,7 +42,3 @@ const InputToggleComponent = (props: InputToggleProps) => {
     </label>
   );
 };
-
-export const InputToggle = forwardRef(InputToggleComponent) as (p: InputToggleProps & {
-  ref?: Ref<HTMLButtonElement>
-}) => ReactElement;
