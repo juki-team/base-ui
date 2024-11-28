@@ -62,9 +62,9 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
 
 export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >(url: string, options?: AuthorizedRequestType<M>) => {
   
-  const { method, body, signal, responseType } = options || {};
+  const { method, body, signal, responseType, headers } = options || {};
   
-  const requestHeaders = new Headers();
+  const requestHeaders = headers ?? new Headers();
   requestHeaders.set('Accept', 'application/json');
   
   if (!(body instanceof FormData)) {
