@@ -27,6 +27,8 @@ export const UserPreviewContentModal = ({ isOpen, nickname, companyKey, onClose,
       className="modal-user-preview wh-aoa"
       closeWhenClickOutside
     >
+      
+      
       <FetcherLayer<ContentResponseType<UserBasicResponseDTO>>
         url={jukiApiManager.V1.user.getSummary({ params: { nickname, companyKey } }).url}
         onError={(error) => onClose(() => () => Status.ERROR, Status.ERROR, { fetcherLayerErrorEvent: error })}
