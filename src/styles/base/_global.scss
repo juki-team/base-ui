@@ -1,7 +1,8 @@
 @import "../abstracts/_index.scss";
 
 body {
-  font-family: "Inter", sans-serif;
+  // define --font-primary
+  font-family: var(--font-primary), sans-serif;
   font-weight: var(--weight-regular, 400);
   color: var(--t-color-black-light);
   background-color: var(--t-color-white-dark);
