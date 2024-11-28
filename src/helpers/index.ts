@@ -2,6 +2,7 @@ export * from './commons';
 export * from './contest';
 export * from './date';
 export * from './fetch';
+export * from './layout';
 export * from './problem';
 export * from './router';
 export * from './store';
