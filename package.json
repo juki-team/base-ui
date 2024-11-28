@@ -4,8 +4,8 @@
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
+  "main": "dist/cjs/main.js",
+  "module": "dist/esm/main.js",
   "types": "dist/module-types/index.d.ts",
   "files": [
     "dist"
