@@ -1,4 +1,5 @@
 import { consoleError, Language } from '@juki-team/commons';
+import type { i18n } from 'i18next';
 import React, { PropsWithChildren, useEffect, useMemo, useState } from 'react';
 import { useJukiPage } from '../../hooks/useJukiPage';
 import { jukiApiManager } from '../../settings';
@@ -11,7 +12,7 @@ export const JukiTProvider = ({ i18n, children }: PropsWithChildren<JukiTProvide
   const { isPageVisible } = useJukiPage();
   
   useEffect(() => {
-    i18n.on('languageChanged', () => setTrigger(Date.now));
+    i18n?.on('languageChanged', () => setTrigger(Date.now));
   }, [ i18n ]);
   
   useEffect(() => {
@@ -26,8 +27,8 @@ export const JukiTProvider = ({ i18n, children }: PropsWithChildren<JukiTProvide
             params: { locale: Language.ES, namespace },
           }).url).then(res => res.json()),
         ]);
-        i18n.addResourceBundle(Language.EN, namespace, dataEN);
-        i18n.addResourceBundle(Language.ES, namespace, dataES);
+        i18n?.addResourceBundle(Language.EN, namespace, dataEN);
+        i18n?.addResourceBundle(Language.ES, namespace, dataES);
       } catch (error) {
         consoleError(error);
       }
@@ -38,7 +39,10 @@ export const JukiTProvider = ({ i18n, children }: PropsWithChildren<JukiTProvide
     }
   }, [ i18n, trigger, isPageVisible ]);
   
-  const value = useMemo(() => ({ i18n }), [ i18n ]);
+  const value = useMemo(() => ({
+    i18n: i18n
+      ?? { t: (key: string) => key, mocked: true } as unknown as i18n,
+  }), [ i18n ]);
   
   return (
     <TContext.Provider value={value}>
