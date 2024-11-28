@@ -30,6 +30,12 @@
       "require": "./dist/cjs/constants.js",
       "import": "./dist/esm/constants.s",
       "types": "./dist/module-types/constants/index.d.ts"
+    },
+    "./styles/abstracts": {
+      "sass": "./dist/styles/abstracts/_index.scss"
+    },
+    "./styles/base": {
+      "sass": "./dist/styles/base/_index.scss"
     }
   },
   "dependencies": {
