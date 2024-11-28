@@ -13,19 +13,23 @@
   "exports": {
     ".": {
       "require": "./dist/cjs/main.js",
-      "import": "./dist/esm/main.js"
+      "import": "./dist/esm/main.js",
+      "types": "./dist/module-types/index.d.ts"
     },
     "./helpers": {
       "require": "./dist/cjs/helpers.js",
-      "import": "./dist/esm/helpers.js"
+      "import": "./dist/esm/helpers.js",
+      "types": "./dist/module-types/helpers/index.d.ts"
     },
     "./types": {
       "require": "./dist/cjs/types.js",
-      "import": "./dist/esm/types.js"
+      "import": "./dist/esm/types.js",
+      "types": "./dist/module-types/types/index.d.ts"
     },
     "./constants": {
       "require": "./dist/cjs/constants.js",
-      "import": "./dist/esm/constants.s"
+      "import": "./dist/esm/constants.s",
+      "types": "./dist/module-types/constants/index.d.ts"
     }
   },
   "dependencies": {
