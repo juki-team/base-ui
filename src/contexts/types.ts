@@ -6,9 +6,9 @@ import {
   RouterFn,
   SetSearchParamsType,
 } from './JukiRouterProvider/types';
-import { JukiTProviderProps } from './JukiTProvider';
-import { JukiUIProviderProps } from './JukiUIProvider';
-import { JukiUserProviderProps } from './JukiUserProvider';
+import { JukiTProviderProps } from './JukiTProvider/types';
+import { JukiUIProviderProps } from './JukiUIProvider/types';
+import { JukiUserProviderProps } from './JukiUserProvider/types';
 
 export type JukiProvidersProps<T extends string | number> =
   JukiUIProviderProps
@@ -42,3 +42,4 @@ export type JukiProvidersProps<T extends string | number> =
 };
 
 export * from './JukiRouterProvider/types';
+export * from './JukiUIProvider';
