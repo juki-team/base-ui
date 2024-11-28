@@ -12,6 +12,7 @@ export * from './FloatToolbar';
 export * from './ImageLoaderCropper';
 export * from './InputColor';
 export * from './layouts';
+export * from './LinkLastPath';
 export * from './links';
 export * from './MultiSelectSearchable';
 export * from './progress';
