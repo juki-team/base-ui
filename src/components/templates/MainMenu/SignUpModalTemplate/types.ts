@@ -1,4 +1,5 @@
-import { BasicModalProps, SetLoaderStatusOnClickType } from '../../../index';
+import { BasicModalProps } from '../../../atoms/types';
+import { SetLoaderStatusOnClickType } from '../../../molecules/types';
 
 export type SignUpFormType = {
   givenName: string,

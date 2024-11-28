@@ -3,7 +3,8 @@ import React, { lazy, memo, Suspense, useEffect, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { BasicModalProps, Button, EditIcon, Modal, SpinIcon, T, TextArea } from '../../atoms';
+import { Button, EditIcon, Modal, SpinIcon, T, TextArea } from '../../atoms';
+import { BasicModalProps } from '../../atoms/types';
 import { SplitPane } from '../../molecules';
 import { GraphvizEditorProps } from './types';
 

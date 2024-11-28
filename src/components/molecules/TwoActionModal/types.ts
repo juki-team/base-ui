@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { BasicModalProps, ButtonLoaderOnClickType } from '../../index';
+import { BasicModalProps, ButtonLoaderOnClickType } from '../../../types';
 
 export interface TwoActionModalProps extends BasicModalProps {
   primary: { onClick: ButtonLoaderOnClickType, label?: ReactNode, disabled?: boolean },

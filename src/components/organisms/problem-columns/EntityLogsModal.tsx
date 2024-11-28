@@ -1,7 +1,8 @@
 import { ContentResponseType, isObjectJson, LogDataResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../helpers';
-import { BasicModalProps, DateLiteral, Modal, T } from '../../atoms';
+import { DateLiteral, Modal, T } from '../../atoms';
+import { BasicModalProps } from '../../atoms/types';
 import { FetcherLayer } from '../../molecules';
 import { UserChip } from '../UserChip';
 

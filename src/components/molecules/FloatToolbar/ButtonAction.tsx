@@ -3,7 +3,8 @@ import React, { CSSProperties, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useOutsideAlerter } from '../../../hooks';
-import { ButtonLoader, SetLoaderStatusOnClickType } from '../ButtonLoader';
+import { ButtonLoader } from '../ButtonLoader';
+import { SetLoaderStatusOnClickType } from '../ButtonLoader/types';
 import { ButtonActionProps } from './types';
 
 export const ButtonAction = ({ icon, buttons, disabled }: ButtonActionProps) => {

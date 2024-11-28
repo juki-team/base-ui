@@ -1,7 +1,7 @@
 import { ContentResponseType, PingResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { useJukiUser } from '../../../hooks';
-import { BasicModalProps, SetLoaderStatusOnClickType } from '../../index';
+import { BasicModalProps, SetLoaderStatusOnClickType } from '../../../types';
 import { SignUpFormType, SignUpModalTemplate } from './SignUpModalTemplate';
 
 export interface SignUpModalProps extends BasicModalProps {

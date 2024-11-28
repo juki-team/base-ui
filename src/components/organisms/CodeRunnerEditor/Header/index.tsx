@@ -13,7 +13,8 @@ import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
 import { useJukiNotification, useJukiUser } from '../../../../hooks';
 import { Button, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, Select, SettingsIcon, T } from '../../../atoms';
-import { ButtonLoader, ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../molecules';
+import { ButtonLoader } from '../../../molecules';
+import { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../molecules/types';
 import { HeaderProps } from '../types';
 
 export const Header = <T, >(props: HeaderProps<T>) => {

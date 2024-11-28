@@ -5,7 +5,7 @@ import { KeyedMutator } from 'swr';
 import { useJukiNotification } from '../../../../../hooks';
 import { CheckIcon, ContentCopyIcon, T } from '../../../../atoms';
 import { FloatToolbar } from '../../../../molecules';
-import { NotificationType } from '../../../Notifications';
+import { NotificationType } from '../../../types';
 import { onPickImageUrlType } from '../types';
 
 interface PublicImagesTabProps {

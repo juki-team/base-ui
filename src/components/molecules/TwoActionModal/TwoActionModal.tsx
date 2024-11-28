@@ -3,7 +3,8 @@ import React, { PropsWithChildren, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { ExclamationIcon, Modal, T } from '../../atoms';
-import { ButtonLoader, SetLoaderStatusOnClickType } from '../ButtonLoader';
+import { ButtonLoader } from '../ButtonLoader';
+import { SetLoaderStatusOnClickType } from '../ButtonLoader/types';
 import { TwoActionModalProps } from './types';
 
 export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) => {

@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { ReactNodeOrFunctionType } from '../../../types';
-import { BasicModalProps } from '../../atoms';
+import { BasicModalProps } from '../../atoms/types';
 
 export interface SplitModalProps extends BasicModalProps {
   isOpen: boolean,

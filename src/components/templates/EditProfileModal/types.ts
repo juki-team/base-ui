@@ -1,6 +1,6 @@
 import { ContentResponseType, UserProfileResponseDTO } from '@juki-team/commons';
 import { UpdateUserProfileDataPayloadDTO } from '../../../types';
-import { BasicModalProps } from '../../atoms';
+import { BasicModalProps } from '../../atoms/types';
 
 export interface EditProfileModalPros extends BasicModalProps {
   user: UserProfileResponseDTO,

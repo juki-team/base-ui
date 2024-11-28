@@ -9,5 +9,3 @@ export const ButtonLoader = (props: ButtonLoaderProps) => (
     <LazyButtonLoader {...props} />
   </Suspense>
 );
-
-export * from './types';

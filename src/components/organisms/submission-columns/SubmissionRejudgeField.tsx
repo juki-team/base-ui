@@ -9,7 +9,8 @@ import { jukiSettings } from '../../../config';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification, useSWR } from '../../../hooks';
 import { ReloadIcon, T } from '../../atoms';
-import { ButtonLoader, ButtonLoaderOnClickType } from '../../molecules';
+import { ButtonLoader } from '../../molecules';
+import { ButtonLoaderOnClickType } from '../../molecules/types';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
 export const SubmissionRejudgeButton = ({ submissionId }: { submissionId: string }) => {

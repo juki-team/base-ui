@@ -3,7 +3,7 @@ import React from 'react';
 import { jukiSettings } from '../../../../../config';
 import { authorizedRequest, cleanRequest } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
-import { BasicModalProps } from '../../../../atoms';
+import { BasicModalProps } from '../../../../atoms/types';
 import { ForgotPasswordModalComponent } from './ForgoPasswordModal';
 import { OnForgotPasswordType } from './types';
 

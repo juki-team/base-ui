@@ -1,6 +1,8 @@
 import React from 'react';
-import { BasicModalProps, JukiCompleteLaptopImage, Modal, T } from '../../../atoms';
-import { ButtonLoader, ButtonLoaderOnClickType } from '../../../molecules';
+import { JukiCompleteLaptopImage, Modal, T } from '../../../atoms';
+import { BasicModalProps } from '../../../atoms/types';
+import { ButtonLoader } from '../../../molecules';
+import { ButtonLoaderOnClickType } from '../../../molecules/types';
 
 export interface WelcomeModalProps extends BasicModalProps {
   nickname: string,

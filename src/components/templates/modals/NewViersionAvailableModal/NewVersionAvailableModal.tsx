@@ -1,5 +1,6 @@
 import React from 'react';
-import { ModalProps, T } from '../../../atoms';
+import { T } from '../../../atoms';
+import { ModalProps } from '../../../atoms/types';
 import { TwoActionModal } from '../../../molecules';
 
 export interface NewVersionAvailableModalProps extends ModalProps {
@@ -42,4 +43,4 @@ export const NewVersionAvailableModal = (props: NewVersionAvailableModalProps) =
       </div>
     </TwoActionModal>
   );
-}
+};

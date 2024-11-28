@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { jukiSettings } from '../../../config';
 import { toBlob } from '../../../helpers';
 import { useJukiUser, useSWR } from '../../../hooks';
-import { BasicModalProps, Button, Modal, T } from '../../atoms';
+import { Button, Modal, T } from '../../atoms';
+import { BasicModalProps } from '../../atoms/types';
 import { ButtonLoader, CropImageType, ImageLoaderCropper } from '../../molecules';
 
 interface ImageProfileModalProps extends BasicModalProps {

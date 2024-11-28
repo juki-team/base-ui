@@ -5,8 +5,9 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useJukiUser } from '../../../hooks';
-import { BasicModalProps, InputPassword, Modal, T } from '../../atoms';
-import { ButtonLoader, SetLoaderStatusOnClickType } from '../../molecules';
+import { BasicModalProps, SetLoaderStatusOnClickType } from '../../../types';
+import { InputPassword, Modal, T } from '../../atoms';
+import { ButtonLoader } from '../../molecules';
 import { ProfileChangePasswordInput } from './types';
 
 const profileSettingsChangePasswordSchema = yup.object().shape({

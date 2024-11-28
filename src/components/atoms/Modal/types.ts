@@ -1,4 +1,4 @@
-import { ButtonLoaderOnClickType, LoaderStatusOnClickType, SetLoaderStatusOnClickType } from '../../molecules';
+import { ButtonLoaderOnClickType, LoaderStatusOnClickType, SetLoaderStatusOnClickType } from '../../molecules/types';
 
 export interface BasicModalProps {
   isOpen: boolean,

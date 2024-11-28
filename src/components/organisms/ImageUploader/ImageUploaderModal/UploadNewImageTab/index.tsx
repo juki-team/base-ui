@@ -5,7 +5,7 @@ import { toBlob } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks';
 import { Button, ContentCopyIcon, CopyToClipboard, T } from '../../../../atoms';
 import { ButtonLoader, CropImageType, ImageLoaderCropper } from '../../../../molecules';
-import { NotificationType } from '../../../Notifications';
+import { NotificationType } from '../../../types';
 import { onPickImageUrlType } from '../types';
 
 export interface UploadNewImageTabProps {

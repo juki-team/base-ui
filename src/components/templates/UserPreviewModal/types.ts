@@ -1,4 +1,4 @@
-import { BasicModalProps } from '../../atoms';
+import { BasicModalProps } from '../../atoms/types';
 
 export interface UserPreviewModalProps extends BasicModalProps {
   nickname: string,

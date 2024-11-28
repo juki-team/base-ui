@@ -13,8 +13,8 @@ import { classNames } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { AddIcon, DeleteIcon, InfoIcon, T, TextArea } from '../../../atoms';
 import { SplitPane, TabsInline, TabsInlineBody, TabsType, TabType } from '../../../molecules';
-import { NotificationType } from '../../Notifications';
 import { ProblemVerdictTag } from '../../ProblemVerdictTag';
+import { NotificationType } from '../../types';
 import { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
 import { LogInfo } from './LogInfo';
 

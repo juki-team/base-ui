@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BasicModalProps } from '../../atoms';
+import { BasicModalProps } from '../../atoms/types';
 import { JukiLoadingLayout } from '../../molecules';
 
 const LazyChangePasswordModal = lazy(() => import('./ChangePasswordModal').then(module => ({ default: module.ChangePasswordModal })));

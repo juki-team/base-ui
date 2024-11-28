@@ -2,7 +2,8 @@ import { Status } from '@juki-team/commons';
 import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { ButtonLoader, ButtonLoaderProps, EventIcon, EyeInvisibleIcon } from '../../index';
+import { ButtonLoaderProps } from '../../../types';
+import { ButtonLoader, EventIcon, EyeInvisibleIcon } from '../../index';
 import { MockupJukiProvider } from '../../mockup';
 
 const meta: Meta<typeof ButtonLoader> = {

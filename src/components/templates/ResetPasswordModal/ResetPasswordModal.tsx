@@ -1,6 +1,7 @@
 import React from 'react';
 import { useJukiUser } from '../../../hooks';
-import { BasicModalProps, Button, Modal, T } from '../../atoms';
+import { Button, Modal, T } from '../../atoms';
+import { BasicModalProps } from '../../atoms/types';
 import { ButtonLoader } from '../../molecules';
 import { UserNicknameLink } from '../../organisms';
 

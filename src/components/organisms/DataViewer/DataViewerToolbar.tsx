@@ -22,7 +22,7 @@ import {
   ViewHeadlineIcon,
   ViewModuleIcon,
 } from '../../atoms';
-import { SetLoaderStatusOnClickType } from '../../molecules';
+import { SetLoaderStatusOnClickType } from '../../molecules/types';
 import { FilterDrawer } from './FilterDrawer';
 import { Pagination } from './Pagination';
 import { DataViewerToolbarProps } from './types';

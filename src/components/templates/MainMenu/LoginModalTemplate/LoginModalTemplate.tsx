@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { classNames } from '../../../../helpers';
 import { Input, InputPassword, JukiLaptopImage, T } from '../../../atoms';
-import { ButtonLoader, SetLoaderStatusOnClickType, SplitModal } from '../../../molecules';
+import { ButtonLoader, SplitModal } from '../../../molecules';
+import { SetLoaderStatusOnClickType } from '../../../molecules/types';
 import { ForgotPasswordModal } from './ForgotPassword';
 import { LoginFormType, LoginModalTemplateProps } from './types';
 

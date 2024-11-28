@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useJukiUser } from '../../../hooks/useJukiUser';
-import { BasicModalProps } from '../../atoms';
-import { SetLoaderStatusOnClickType } from '../../molecules';
+import { BasicModalProps, SetLoaderStatusOnClickType } from '../../../types';
 import { LoginFormType, LoginModalTemplate } from './LoginModalTemplate';
 
 export interface LoginModalProps extends BasicModalProps {
