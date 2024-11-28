@@ -1,3 +1,4 @@
+import { autocompletion } from '@codemirror/autocomplete';
 import { cpp } from '@codemirror/lang-cpp';
 import { html } from '@codemirror/lang-html';
 import { java } from '@codemirror/lang-java';
@@ -24,7 +25,8 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
     fontSize = 14,
   } = props;
   
-  const extensions = [];
+  const extensions = [ autocompletion() ];
+  
   switch (language) {
     case ProgrammingLanguage.ICPC_CPP:
     case ProgrammingLanguage.CPP:
@@ -62,7 +64,7 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
   }
   
   const { height = 0, ref } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  
+  console.log({ extensions, theme });
   return (
     <div style={{ fontSize: `${fontSize}px`, width: '100%', height: '100%' }} ref={ref}>
       <CodeMirror
@@ -74,6 +76,15 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
         theme={theme === Theme.DARK ? 'dark' : 'light'}
         basicSetup={{ tabSize }}
       />
+      {/*<CodeMirrorEditor*/}
+      {/*  readOnly={readOnly}*/}
+      {/*  value={sourceCode}*/}
+      {/*  height={height + 'px'}*/}
+      {/*  extensions={extensions}*/}
+      {/*  onChange={(value) => onChange?.({ sourceCode: value })}*/}
+      {/*  theme={theme === Theme.DARK ? 'dark' : 'light'}*/}
+      {/*  basicSetup={{ tabSize }} */}
+      {/*/>*/}
     </div>
   );
 };
