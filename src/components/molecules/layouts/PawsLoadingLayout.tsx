@@ -46,6 +46,7 @@ export const PathLoadingPaws = memo(function A(props: PathLoadingPawsProps) {
     const totalDelay = (N - i) * sec + delay;
     children.push(
       <div
+        key={i}
         className="paw"
         style={{
           width: size,
@@ -99,6 +100,7 @@ export const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PawsL
   for (let i = 0; i < totalSteps; i++) {
     children.push(
       <PathLoadingPaws
+        key={i}
         sec={sec}
         size={size}
         trace={trace}

@@ -1,4 +1,4 @@
-import React, { Children, useCallback, useMemo, useRef, useState } from 'react';
+import React, { Children, Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { useWidthResizer } from '../../../hooks/useWidthResizer';
 import { NavigateNextIcon, Popover } from '../../atoms';
 import { HomeLink } from '../links';
@@ -42,11 +42,11 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
       {/*<div className="separator">|</div>*/}
       {Children.toArray(startBreadcrumbs.map((breadcrumb, index) => {
         return (
-          <>
+          <Fragment key={index + JSON.stringify(breadcrumb)}>
             {/*{!!index && <div className="separator">/</div>}*/}
             {!!index && <NavigateNextIcon className="cr-g5" />}
             <div className="jk-br-ie">{breadcrumb}</div>
-          </>
+          </Fragment>
         );
       }))}
       {!!middleBreadcrumbs.length && (
@@ -56,13 +56,9 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
           <Popover
             content={
               <div className="jk-pg-sm">
-                {Children.toArray(middleBreadcrumbs.map((breadcrumb, index) => {
-                  return (
-                    <>
-                      <div>{breadcrumb}</div>
-                    </>
-                  );
-                }))}
+                {Children.toArray(middleBreadcrumbs.map((breadcrumb, index) => (
+                  <div key={index + JSON.stringify(breadcrumb)}>{breadcrumb}</div>
+                )))}
               </div>
             }
             triggerOn="click"
@@ -72,15 +68,13 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
           </Popover>
         </>
       )}
-      {Children.toArray(endBreadcrumbs.map((breadcrumb) => {
-        return (
-          <>
-            {/*<div className="separator">/</div>*/}
-            <NavigateNextIcon className="cr-g5" />
-            <div className="jk-br-ie">{breadcrumb}</div>
-          </>
-        );
-      }))}
+      {Children.toArray(endBreadcrumbs.map((breadcrumb, index) => (
+        <Fragment key={index + JSON.stringify(breadcrumb)}>
+          {/*<div className="separator">/</div>*/}
+          <NavigateNextIcon className="cr-g5" />
+          <div className="jk-br-ie">{breadcrumb}</div>
+        </Fragment>
+      )))}
     </div>
   );
 };

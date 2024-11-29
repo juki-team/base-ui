@@ -11,7 +11,9 @@ export const notifyError = (response: ErrorResponseType, addErrorNotification: (
       <span className="tt-se"><T>{response.message}</T></span>
       {(response.errors[0]?.message !== response.message || response.errors.length > 1) && (
         <ul>
-          {Children.toArray(response.errors.map(error => <li><T className="tt-se">{error.message}</T></li>))}
+          {Children.toArray(response.errors.map(error => (
+            <li key={JSON.stringify(error.message)}><T className="tt-se">{error.message}</T></li>
+          )))}
         </ul>
       )}
     </div>,

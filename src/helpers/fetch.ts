@@ -64,7 +64,7 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >
   
   const { method, body, signal, responseType, headers } = options || {};
   
-  const requestHeaders = headers ?? new Headers();
+  const requestHeaders = new Headers(headers ?? {});
   requestHeaders.set('Accept', 'application/json');
   
   if (!(body instanceof FormData)) {

@@ -6,5 +6,5 @@ export interface AuthorizedRequestType<Method extends HTTPMethod = HTTPMethod.GE
   signal?: AbortSignal,
   responseType?: 'text' | 'blob',
   token?: string,
-  headers?: Headers,
+  // headers?: Headers,
 }

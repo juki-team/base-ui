@@ -6,7 +6,7 @@ import {
   ProblemSettingsType,
   PROGRAMMING_LANGUAGE,
 } from '@juki-team/commons';
-import React, { Children, PropsWithChildren, ReactNode } from 'react';
+import React, { Children, Fragment, PropsWithChildren, ReactNode } from 'react';
 import { classNames } from '../../../helpers';
 import { ExclamationIcon, Popover, T } from '../../atoms';
 import { ProblemInfoProps } from './types';
@@ -81,7 +81,7 @@ const ExtraProblemInfo = ({ tags, author, centered, withoutPadding }: JukiProble
         <ContentInfo
           label="tags"
           value={Children.toArray(tags.filter(tag => !!tag.trim()).map(tag => (
-            <><span className="jk-tag gray-6"><T>{tag}</T></span>&nbsp;</>
+            <Fragment key={tag}><span className="jk-tag gray-6"><T>{tag}</T></span>&nbsp;</Fragment>
           )))}
           valueAsList
           centered={centered}

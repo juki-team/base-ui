@@ -151,8 +151,9 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>, ref: Ref<HTMLDivElement>) =
     >
       <div className="jk-table-head" onMouseLeave={onMouseHoldUp}>
         <div className={classNames('jk-table-head-sticky', { 'elevation-1': !!scrollLeft })}>
-          {Children.toArray(headersSticky.map((head, index) => (
+          {Children.toArray(headersSticky.map(head => (
             <RenderHeader
+              key={head.headIndex}
               head={head}
               onMouseHoldMove={onMouseHoldMove}
               onMouseHoldUp={onMouseHoldUp}
@@ -169,8 +170,9 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>, ref: Ref<HTMLDivElement>) =
             minWidth: headersNoSticky.reduce((sum, head) => sum + head.width, 0),
           }}
         >
-          {Children.toArray(headersNoSticky.map((head, index) => (
+          {Children.toArray(headersNoSticky.map(head => (
             <RenderHeader
+              key={head.headIndex}
               head={head}
               onMouseHoldMove={onMouseHoldMove}
               onMouseHoldUp={onMouseHoldUp}
