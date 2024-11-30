@@ -40,15 +40,13 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
     >
       {/*<ArrowRightIcon />*/}
       {/*<div className="separator">|</div>*/}
-      {Children.toArray(startBreadcrumbs.map((breadcrumb, index) => {
-        return (
-          <Fragment key={index + JSON.stringify(breadcrumb)}>
-            {/*{!!index && <div className="separator">/</div>}*/}
-            {!!index && <NavigateNextIcon className="cr-g5" />}
-            <div className="jk-br-ie">{breadcrumb}</div>
-          </Fragment>
-        );
-      }))}
+      {Children.toArray(startBreadcrumbs.map((breadcrumb, index) => (
+        <Fragment key={index}>
+          {/*{!!index && <div className="separator">/</div>}*/}
+          {!!index && <NavigateNextIcon className="cr-g5" />}
+          <div className="jk-br-ie">{breadcrumb}</div>
+        </Fragment>
+      )))}
       {!!middleBreadcrumbs.length && (
         <>
           {/*<div className="separator">/</div>*/}
@@ -57,7 +55,7 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
             content={
               <div className="jk-pg-sm">
                 {Children.toArray(middleBreadcrumbs.map((breadcrumb, index) => (
-                  <div key={index + JSON.stringify(breadcrumb)}>{breadcrumb}</div>
+                  <div key={index}>{breadcrumb}</div>
                 )))}
               </div>
             }
@@ -69,7 +67,7 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
         </>
       )}
       {Children.toArray(endBreadcrumbs.map((breadcrumb, index) => (
-        <Fragment key={index + JSON.stringify(breadcrumb)}>
+        <Fragment key={index}>
           {/*<div className="separator">/</div>*/}
           <NavigateNextIcon className="cr-g5" />
           <div className="jk-br-ie">{breadcrumb}</div>
