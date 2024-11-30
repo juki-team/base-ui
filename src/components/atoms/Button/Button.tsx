@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';

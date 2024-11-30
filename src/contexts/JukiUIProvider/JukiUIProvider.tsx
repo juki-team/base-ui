@@ -1,4 +1,4 @@
-import { MotionConfig } from 'framer-motion';
+import { MotionConfig } from 'motion/react';
 import React, { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
 import { LineLoader } from '../../components/atoms/loaders';
 import { T } from '../../components/atoms/T';

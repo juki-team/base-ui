@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import React, { KeyboardEvent, MouseEvent, PropsWithChildren, useState } from 'react';
 import ReactModal from 'react-modal';
 import { classNames } from '../../../helpers';

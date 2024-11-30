@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import React, { cloneElement, forwardRef, Ref, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { PopoverPosition, PopoverState, usePopover } from 'react-tiny-popover';
 import { useMemoizedArray } from '../../../hooks';
