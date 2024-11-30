@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .jk-md-math-editor-layout {
   display: flex;
@@ -53,7 +53,7 @@
     position: relative;
     display: flex;
     width: 100%;
-    @include sm {
+    @include mixins.sm {
       border-radius: var(--border-radius-sm);
     }
     

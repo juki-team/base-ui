@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .jk-float-toolbar-layout {
   position: sticky;
@@ -19,7 +19,7 @@
       right: calc(50% - var(--container-width) / 2);
       
       .buttons-content {
-        @include transition-fast(right);
+        @include mixins.transition-fast(right);
         right: calc(50% - var(--buttons-content-width) / 2);
       }
     }
@@ -72,7 +72,7 @@
       }
     }
     
-    @include sm {
+    @include mixins.sm {
       &.open {
         .buttons-content {
           display: flex;
@@ -80,7 +80,7 @@
         }
       }
     }
-    @include md-hg {
+    @include mixins.md-hg {
       &:hover {
         .buttons-content {
           display: flex;

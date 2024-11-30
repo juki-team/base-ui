@@ -1,8 +1,8 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .jk-transition {
   opacity: 0 !important;
-  @include transition(opacity);
+  @include mixins.transition(opacity);
   
   &.jk-transition-open {
     opacity: 1 !important;

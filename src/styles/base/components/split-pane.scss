@@ -1,3 +1,4 @@
+@use "../../abstracts/mixins";
 
 .jk-split-pane {
   --size: 6px;
@@ -40,7 +41,7 @@
   }
   
   .notch {
-    @include look(primary-light);
+    @include mixins.look(primary-light);
     cursor: pointer;
     z-index: 1;
     

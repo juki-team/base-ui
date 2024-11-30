@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .color-cells {
   //border: 2px solid black;
@@ -8,7 +8,7 @@
     text-align: center;
     display: grid;
     align-items: center;
-    @include font-size(small);
+    @include mixins.font-size(small);
   }
   
   &.with-labels {
@@ -18,8 +18,8 @@
       
       > div {
         height: 20px;
-        @include font-size(tiny);
-        @include look(gray-4);
+        @include mixins.font-size(tiny);
+        @include mixins.look(gray-4);
       }
     }
   }

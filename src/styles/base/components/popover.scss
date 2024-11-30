@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .react-tiny-popover-container {
   z-index: var(--z-index-popover);
@@ -16,7 +16,7 @@
   display: flex;
   //opacity: 0;
   //z-index: var(--z-index-popover);
-  @include transition(opacity, left, top);
+  @include mixins.transition(opacity, left, top);
   
   &:not(.display) {
     //position: absolute;

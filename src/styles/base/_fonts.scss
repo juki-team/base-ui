@@ -1,17 +1,17 @@
-@import "../abstracts/index";
+@use "../abstracts/mixins";
 //@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;500;700&display=swap");
 
 // font size
 
-.tx-h { @include font-size(huge); }
+.tx-h { @include mixins.font-size(huge); }
 
-.tx-l { @include font-size(large); }
+.tx-l { @include mixins.font-size(large); }
 
-.tx-m { @include font-size(medium); }
+.tx-m { @include mixins.font-size(medium); }
 
-.tx-s { @include font-size(small); }
+.tx-s { @include mixins.font-size(small); }
 
-.tx-t { @include font-size(tiny); }
+.tx-t { @include mixins.font-size(tiny); }
 
 // width
 .fw-lr { font-weight: var(--weight-lighter); }

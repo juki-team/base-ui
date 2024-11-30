@@ -1,4 +1,4 @@
-@import "../abstracts/index";
+@use "../abstracts/mixins";
 
 // color
 
@@ -180,19 +180,19 @@
 .cursor-pointer, .cr-pr { cursor: pointer; }
 
 .screen:not(.hg) {
-  @include hg { display: none; }
+  @include mixins.hg { display: none; }
 }
 
 .screen:not(.lg) {
-  @include lg { display: none; }
+  @include mixins.lg { display: none; }
 }
 
 .screen:not(.md) {
-  @include md { display: none; }
+  @include mixins.md { display: none; }
 }
 
 .screen:not(.sm) {
-  @include sm { display: none; }
+  @include mixins.sm { display: none; }
 }
 
 .link:not(.jk-icon) {
@@ -299,7 +299,7 @@
     &:hover { opacity: 1; }
   }
   
-  @include transition(opacity);
+  @include mixins.transition(opacity);
 }
 
 .wb-bw { word-break: break-word; }
@@ -327,11 +327,11 @@
   padding-right: var(--pad-xs);
 }
 
-.elevation-1 { @include elevation(1); }
+.elevation-1 { @include mixins.elevation(1); }
 
-.elevation-2 { @include elevation(2); }
+.elevation-2 { @include mixins.elevation(2); }
 
-.elevation-3 { @include elevation(1); }
+.elevation-3 { @include mixins.elevation(3); }
 
 .pn-re { position: relative; }
 

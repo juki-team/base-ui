@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .layout-line-loader {
   position: absolute;
@@ -59,5 +59,5 @@
   background: var(--t-color-shadow);
   z-index: 1000;
   opacity: 0;
-  @include transition-fast(opacity);
+  @include mixins.transition-fast(opacity);
 }

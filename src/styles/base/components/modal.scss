@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .jk-modal-container {
   .ReactModal__Overlay {
@@ -64,9 +64,9 @@
 .jk-modal {
   position: relative;
   margin: auto;
-  @include elevation(3);
+  @include mixins.elevation(3);
   background-color: var(--t-color-white);
-  @include transition(background-color);
+  @include mixins.transition(background-color);
   outline: none;
   width: var(--modal-width);
   overflow: hidden;
@@ -94,13 +94,13 @@
 .split-modal {
   .jk-side-secondary {
     background-color: var(--t-color-accent);
-    @include transition(background-color);
+    @include mixins.transition(background-color);
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     height: calc(var(--side-main-height, 100%) + var(--pad-lg) * 2);
     max-height: calc(var(--side-main-height, 100%) + var(--pad-lg) * 2);
     
-    @include md { flex: 5 !important; }
+    @include mixins.md { flex: 5 !important; }
     
     .title {
       padding: var(--pad-sm) 0 0 0;
@@ -114,10 +114,10 @@
   }
   
   .jk-side-main {
-    @include md { flex: 6 !important; }
+    @include mixins.md { flex: 6 !important; }
   }
   
-  @include sm {
+  @include mixins.sm {
     flex-direction: column;
     .jk-side-secondary {
       //border-radius: var(--border-radius) var(--border-radius) 0 0;
@@ -139,7 +139,7 @@
         margin-right: var(--pad-t);
       }
       
-      @include sm {
+      @include mixins.sm {
         flex-direction: column;
         justify-content: center;
         .jk-icon {
@@ -150,7 +150,7 @@
     
     .modal-alert-content {
       padding: var(--pad-s) 0;
-      @include sm {
+      @include mixins.sm {
         text-align: center;
       }
     }
@@ -165,12 +165,12 @@
 
 .modal-login, .modal-sign-up {
   .forgot-password-label {
-    @include transition(font-weight);
+    @include mixins.transition(font-weight);
   }
 }
 
 .change-password-modal {
-  @include md-hg {
+  @include mixins.md-hg {
     width: 340px;
   }
 }

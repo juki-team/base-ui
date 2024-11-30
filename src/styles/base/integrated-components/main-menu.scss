@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .settings-apps-login-user-content {
   .jk-icon {
@@ -41,7 +41,7 @@
     text-overflow: ellipsis;
     text-align: center;
     display: block;
-    @include sm { display: none; }
+    @include mixins.sm { display: none; }
   }
   
   > img.jk-user-profile-img {

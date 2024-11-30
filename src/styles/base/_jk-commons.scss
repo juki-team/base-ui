@@ -1,4 +1,4 @@
-@import "../abstracts/index";
+@use "../abstracts/mixins";
 
 /*
  FLEX
@@ -200,119 +200,119 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   left: 0;
 }
 
-.appearance-accent-dark { @include look(accent-dark); }
+.appearance-accent-dark { @include mixins.look(accent-dark); }
 
-.appearance-accent { @include look(accent); }
+.appearance-accent { @include mixins.look(accent); }
 
-.appearance-accent-light { @include look(accent-light); }
+.appearance-accent-light { @include mixins.look(accent-light); }
 
-.appearance-success-dark { @include look(success-dark); }
+.appearance-success-dark { @include mixins.look(success-dark); }
 
-.appearance-success { @include look(success); }
+.appearance-success { @include mixins.look(success); }
 
-.appearance-success-light { @include look(success-light); }
+.appearance-success-light { @include mixins.look(success-light); }
 
-.appearance-info-dark { @include look(info-dark); }
+.appearance-info-dark { @include mixins.look(info-dark); }
 
-.appearance-info { @include look(info); }
+.appearance-info { @include mixins.look(info); }
 
-.appearance-info-light { @include look(info-light); }
+.appearance-info-light { @include mixins.look(info-light); }
 
-.appearance-warning-dark { @include look(warning-dark); }
+.appearance-warning-dark { @include mixins.look(warning-dark); }
 
-.appearance-warning { @include look(warning); }
+.appearance-warning { @include mixins.look(warning); }
 
-.appearance-warning-light { @include look(warning-light); }
+.appearance-warning-light { @include mixins.look(warning-light); }
 
-.appearance-error-dark { @include look(error-dark); }
+.appearance-error-dark { @include mixins.look(error-dark); }
 
-.appearance-error { @include look(error); }
+.appearance-error { @include mixins.look(error); }
 
-.appearance-error-light { @include look(error-light); }
+.appearance-error-light { @include mixins.look(error-light); }
 
-.appearance-primary-dark { @include look(primary-dark); }
+.appearance-primary-dark { @include mixins.look(primary-dark); }
 
-.appearance-primary { @include look(primary); }
+.appearance-primary { @include mixins.look(primary); }
 
-.appearance-primary-light { @include look(primary-light); }
+.appearance-primary-light { @include mixins.look(primary-light); }
 
-.appearance-secondary-dark { @include look(secondary-dark); }
+.appearance-secondary-dark { @include mixins.look(secondary-dark); }
 
-.appearance-secondary { @include look(secondary); }
+.appearance-secondary { @include mixins.look(secondary); }
 
-.appearance-secondary-light { @include look(secondary-light); }
+.appearance-secondary-light { @include mixins.look(secondary-light); }
 
-.appearance-gray-1 { @include look(gray-1); }
+.appearance-gray-1 { @include mixins.look(gray-1); }
 
-.appearance-gray-2 { @include look(gray-2); }
+.appearance-gray-2 { @include mixins.look(gray-2); }
 
-.appearance-gray-3 { @include look(gray-3); }
+.appearance-gray-3 { @include mixins.look(gray-3); }
 
-.appearance-gray-4 { @include look(gray-4); }
+.appearance-gray-4 { @include mixins.look(gray-4); }
 
-.appearance-gray-5 { @include look(gray-5); }
+.appearance-gray-5 { @include mixins.look(gray-5); }
 
-.appearance-gray-6 { @include look(gray-6); }
+.appearance-gray-6 { @include mixins.look(gray-6); }
 
 .jk-tag {
-  @include look(primary);
+  @include mixins.look(primary);
   padding: 0 var(--pad-xt);
   border-radius: var(--border-radius-inline);
   display: inline-block;
   
-  &.accent-dark { @include look(accent-dark); }
+  &.accent-dark { @include mixins.look(accent-dark); }
   
-  &.accent { @include look(accent); }
+  &.accent { @include mixins.look(accent); }
   
-  &.accent-light { @include look(accent-light); }
+  &.accent-light { @include mixins.look(accent-light); }
   
-  &.success-dark { @include look(success-dark); }
+  &.success-dark { @include mixins.look(success-dark); }
   
-  &.success { @include look(success); }
+  &.success { @include mixins.look(success); }
   
-  &.success-light { @include look(success-light); }
+  &.success-light { @include mixins.look(success-light); }
   
-  &.info-dark { @include look(info-dark); }
+  &.info-dark { @include mixins.look(info-dark); }
   
-  &.info { @include look(info); }
+  &.info { @include mixins.look(info); }
   
-  &.info-light { @include look(info-light); }
+  &.info-light { @include mixins.look(info-light); }
   
-  &.warning-dark { @include look(warning-dark); }
+  &.warning-dark { @include mixins.look(warning-dark); }
   
-  &.warning { @include look(warning); }
+  &.warning { @include mixins.look(warning); }
   
-  &.warning-light { @include look(warning-light); }
+  &.warning-light { @include mixins.look(warning-light); }
   
-  &.error-dark { @include look(error-dark); }
+  &.error-dark { @include mixins.look(error-dark); }
   
-  &.error { @include look(error); }
+  &.error { @include mixins.look(error); }
   
-  &.error-light { @include look(error-light); }
+  &.error-light { @include mixins.look(error-light); }
   
-  &.primary-light { @include look(primary-light); }
+  &.primary-light { @include mixins.look(primary-light); }
   
-  &.primary-dark { @include look(primary-dark); }
+  &.primary-dark { @include mixins.look(primary-dark); }
   
-  &.secondary-dark { @include look(secondary-dark); }
+  &.secondary-dark { @include mixins.look(secondary-dark); }
   
-  &.secondary { @include look(secondary); }
+  &.secondary { @include mixins.look(secondary); }
   
-  &.secondary-light { @include look(secondary-light); }
+  &.secondary-light { @include mixins.look(secondary-light); }
   
-  &.gray-1 { @include look(gray-1); }
+  &.gray-1 { @include mixins.look(gray-1); }
   
-  &.gray-2 { @include look(gray-2); }
+  &.gray-2 { @include mixins.look(gray-2); }
   
-  &.gray-3 { @include look(gray-3); }
+  &.gray-3 { @include mixins.look(gray-3); }
   
-  &.gray-4 { @include look(gray-4); }
+  &.gray-4 { @include mixins.look(gray-4); }
   
-  &.gray-5 { @include look(gray-5); }
+  &.gray-5 { @include mixins.look(gray-5); }
   
-  &.gray-6 { @include look(gray-6); }
+  &.gray-6 { @include mixins.look(gray-6); }
   
-  &.white { @include look(white); }
+  &.white { @include mixins.look(white); }
   
   &.bc-hl, &.bc-hd, &.bc-ht { color: inherit; }
 }
@@ -329,8 +329,8 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
 }
 
 .jk-text-stderr {
-  @include font-size(tiny);
-  @include look(error);
+  @include mixins.font-size(tiny);
+  @include mixins.look(error);
   padding: 5px 0;
 }
 
@@ -366,7 +366,7 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
 .jk-row-col {
   @include jk-row-col;
   
-  @include sm {
+  @include mixins.sm {
     @include jk-col;
     align-items: stretch !important;
     align-content: center !important;
@@ -375,7 +375,7 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
     }
   }
   
-  @include md-hg {
+  @include mixins.md-hg {
     @include jk-row;
   }
 }

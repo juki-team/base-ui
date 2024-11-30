@@ -1,4 +1,4 @@
-@import "../../abstracts";
+@use "../../abstracts/mixins";
 
 .jk-drawer-menu-mobile {
   width: 100vw;
@@ -12,7 +12,7 @@
       box-sizing: border-box;
       
       &.selected {
-        @include look(primary-light);
+        @include mixins.look(primary-light);
         
         .jk-menu-item-label {
           font-weight: var(--weight-bold);

@@ -1,4 +1,4 @@
-@import "../../abstracts/_index.scss";
+@use "../../abstracts/mixins";
 
 .jk-two-content-section.rectangular-style {
   width: 100%;
@@ -14,7 +14,7 @@
     left: 0;
     border-bottom: 1px solid var(--t-color-highlight-light);
     background-color: var(--t-color-white);
-    @include transition(background-color);
+    @include mixins.transition(background-color);
     z-index: 1;
   }
   

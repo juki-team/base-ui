@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .google-button {
   span {
@@ -19,16 +19,16 @@
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  @include hg {
+  @include mixins.hg {
     margin: 16px 0;
   }
-  @include lg {
+  @include mixins.lg {
     margin: 12px 0;
   }
-  @include md {
+  @include mixins.md {
     margin: 8px 0;
   }
-  @include sm {
+  @include mixins.sm {
     margin: 4px 0;
   }
   
@@ -149,7 +149,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   background-color: var(--input-background-color);
   outline: 1px solid var(--input-border-color);
   outline-color: var(--input-border-color);
-  @include transition-fast(border-color, box-shadow, outline-color);
+  @include mixins.transition-fast(border-color, box-shadow, outline-color);
   
   &:not(.disabled) {
     &:hover, &:focus, &:active, &.open {
@@ -210,7 +210,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   &:not(.disabled) {
     > .jk-select > .jk-multi-select-selected-searchable-icons > .input-icon,
     > .jk-multi-select-selected-icons > .input-icon {
-      @extend .clickable;
+      cursor: pointer;
     }
   }
   
@@ -392,7 +392,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   &::placeholder {
     color: var(--t-color-gray-4);
     font-weight: var(--weight-regular);
-    @include font-size(small);
+    @include mixins.font-size(small);
   }
 }
 
@@ -407,7 +407,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     position: relative;
     cursor: pointer;
     background-color: transparent;
-    @include transition(background-color);
+    @include mixins.transition(background-color);
     
     &:after {
       position: absolute;
@@ -673,7 +673,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     cursor: pointer;
     background-color: var(--t-color-highlight-light);
     border: 2px solid var(--input-toggle-color);
-    @include transition();
+    @include mixins.transition();
     box-sizing: border-box;
     
     &:before {
@@ -685,7 +685,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       bottom: 0;
       background-color: var(--input-toggle-color);
       border: 2px solid var(--input-toggle-text-color);
-      @include transition();
+      @include mixins.transition();
     }
   }
   
@@ -708,7 +708,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     &.placeholder {
       color: var(--t-color-gray-4);
       font-weight: var(--weight-regular);
-      @include font-size(small);
+      @include mixins.font-size(small);
     }
     
     &.two-lines {

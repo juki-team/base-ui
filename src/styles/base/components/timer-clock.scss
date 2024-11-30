@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .jk-timer-layout {
   width: min-content;
@@ -15,7 +15,7 @@
   
   .content-stamp {
     padding: 0 8px;
-    @include sm {
+    @include mixins.sm {
       width: min-content;
       padding: 2px;
     }
@@ -25,7 +25,7 @@
       line-height: var(--pad-t);
       
       span {
-        @include sm {
+        @include mixins.sm {
           width: 8px;
           margin: 0 auto;
           visibility: hidden;
@@ -34,7 +34,7 @@
     }
     
     .content-label span:first-letter {
-      @include sm {
+      @include mixins.sm {
         visibility: visible;
       }
     }
@@ -42,7 +42,7 @@
   
   .content-dots {
     padding: 0 0 var(--pad-t) 0;
-    @include sm {
+    @include mixins.sm {
       top: 0;
       line-height: var(--pad-t);
     }

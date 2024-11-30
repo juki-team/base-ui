@@ -1,3 +1,5 @@
+@use "sass:color";
+@use "sass:string";
 /* ********************************          BREAK POINTS          ******************************** */
 // sync with variables
 $screen-sm-min: 320px; /* Phones      [320,  768  )  0px |  320px ( 7c 32|16) |  0px */
@@ -105,10 +107,10 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
 
 // https://stackoverflow.com/questions/40010597/how-do-i-apply-opacity-to-a-css-color-variable
 @mixin defineColor($color-name, $value) {
-  $red: red($value);
-  $green: green($value);
-  $blue: blue($value);
-  #{$color-name}: unquote("rgb(#{$red}, #{$green}, #{$blue})");
+  $red: color.red($value);
+  $green: color.green($value);
+  $blue: color.blue($value);
+  #{$color-name}: string.unquote("rgb(#{$red}, #{$green}, #{$blue})");
   #{$color-name}-rgb: $red, $green, $blue;
   //#{$color-name}-r: $red;
   //#{$color-name}-g: $green;
@@ -116,7 +118,7 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
 }
 
 @mixin look($look) {
-  background-color: unquote("var(--t-color-#{$look});");
+  background-color: string.unquote("var(--t-color-#{$look});");
   @if $look == primary-dark or $look == primary or $look == primary-light {
     color: var(--t-color-primary-text);
   } @else if $look == secondary-dark or $look == secondary or $look == secondary-light {
@@ -131,8 +133,8 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
 }
 
 @mixin font-size($size) {
-  font-size: unquote("var(--text-#{$size}-size);");
-  line-height: unquote("var(--text-#{$size}-height);");
+  font-size: string.unquote("var(--text-#{$size}-size);");
+  line-height: string.unquote("var(--text-#{$size}-height);");
 }
 
 @mixin elevation($level) {

@@ -1,4 +1,4 @@
-@import "../../abstracts";
+@use "../../abstracts/mixins";
 
 .cm-gutters {
   background-color: var(--t-color-white-darkest) !important;
@@ -39,7 +39,7 @@
         width: min-content;
         text-align: center;
         align-items: center;
-        @include font-size(small);
+        @include mixins.font-size(small);
         height: 24px;
         
         .tt-se {

@@ -1,4 +1,4 @@
-@import "../../../abstracts/index";
+@use "../../../abstracts/mixins";
 
 .jk-icon {
   display: inline-block;
@@ -33,32 +33,32 @@
   
   &.very-huge {
     line-height: var(--size-very-huge-icon);
-    @include box-size(var(--size-very-huge-icon));
+    @include mixins.box-size(var(--size-very-huge-icon));
   }
   
   &.huge {
     line-height: var(--size-huge-icon);
-    @include box-size(var(--size-huge-icon));
+    @include mixins.box-size(var(--size-huge-icon));
   }
   
   &.large {
     line-height: var(--size-large-icon);
-    @include box-size(var(--size-large-icon));
+    @include mixins.box-size(var(--size-large-icon));
   }
   
   &.regular {
     line-height: var(--size-regular-icon);
-    @include box-size(var(--size-regular-icon));
+    @include mixins.box-size(var(--size-regular-icon));
   }
   
   &.small {
     line-height: var(--size-small-icon);
-    @include box-size(var(--size-small-icon));
+    @include mixins.box-size(var(--size-small-icon));
   }
   
   &.tiny {
     line-height: var(--size-tiny-icon);
-    @include box-size(var(--size-tiny-icon));
+    @include mixins.box-size(var(--size-tiny-icon));
   }
   
   svg {

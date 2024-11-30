@@ -1,4 +1,4 @@
-@import "../abstracts/index";
+@use "../abstracts/mixins";
 
 html body {
   --100VH: calc(var(--vh, 1vh) * 100);
@@ -9,22 +9,22 @@ html body {
   --screen-md-min: 640px; /* Tablets     [640,   1280) 40px |  560px (12c 32|16) | 40px */
   --screen-sm-min: 320px; /* Phones      [320,    640)  0px |  320px ( 7c 32|16) |  0px */
   
-  @include hg { --screen-content-width: 1760px; }
-  @include lg { --screen-content-width: calc(100vw - 160px); }
-  @include md { --screen-content-width: calc(100vw - 80px); }
-  @include sm { --screen-content-width: calc(100vw - 20px); }
+  @include mixins.hg { --screen-content-width: 1760px; }
+  @include mixins.lg { --screen-content-width: calc(100vw - 160px); }
+  @include mixins.md { --screen-content-width: calc(100vw - 80px); }
+  @include mixins.sm { --screen-content-width: calc(100vw - 20px); }
   
-  @include hg { --screen-col-pad-width: calc(var(--screen-content-width) / ((15 * 2) + 14)); }
-  @include lg { --screen-col-pad-width: calc(var(--screen-content-width) / ((12 * 2) + 11)); }
-  @include md { --screen-col-pad-width: calc(var(--screen-content-width) / ((12 * 2) + 11)); }
-  @include sm { --screen-col-pad-width: calc(var(--screen-content-width) / ((7 * 2) + 6)); }
+  @include mixins.hg { --screen-col-pad-width: calc(var(--screen-content-width) / ((15 * 2) + 14)); }
+  @include mixins.lg { --screen-col-pad-width: calc(var(--screen-content-width) / ((12 * 2) + 11)); }
+  @include mixins.md { --screen-col-pad-width: calc(var(--screen-content-width) / ((12 * 2) + 11)); }
+  @include mixins.sm { --screen-col-pad-width: calc(var(--screen-content-width) / ((7 * 2) + 6)); }
   
   --screen-col-width: calc(var(--screen-col-pad-width) * 2);
   
-  @include hg { --modal-no-cols: 11; }
-  @include lg { --modal-no-cols: 10; }
-  @include md { --modal-no-cols: 11; }
-  @include sm { --modal-no-cols: 6; }
+  @include mixins.hg { --modal-no-cols: 11; }
+  @include mixins.lg { --modal-no-cols: 10; }
+  @include mixins.md { --modal-no-cols: 11; }
+  @include mixins.sm { --modal-no-cols: 6; }
   
   --modal-width: calc(var(--modal-no-cols) * var(--screen-col-width) + (var(--modal-no-cols) - 1) * var(--screen-col-pad-width));
   
@@ -42,35 +42,35 @@ html body {
   --pad-t: 12px;
   --pad-xt: 8px;
   
-  @include hg { --pad-lg: var(--pad-h); }
-  @include lg { --pad-lg: var(--pad-xl); }
-  @include md { --pad-lg: var(--pad-l); }
-  @include sm { --pad-lg: var(--pad-m); }
+  @include mixins.hg { --pad-lg: var(--pad-h); }
+  @include mixins.lg { --pad-lg: var(--pad-xl); }
+  @include mixins.md { --pad-lg: var(--pad-l); }
+  @include mixins.sm { --pad-lg: var(--pad-m); }
   
-  @include hg { --pad-md: var(--pad-l); }
-  @include lg { --pad-md: var(--pad-m); }
-  @include md { --pad-md: var(--pad-s); }
-  @include sm { --pad-md: var(--pad-xs); }
+  @include mixins.hg { --pad-md: var(--pad-l); }
+  @include mixins.lg { --pad-md: var(--pad-m); }
+  @include mixins.md { --pad-md: var(--pad-s); }
+  @include mixins.sm { --pad-md: var(--pad-xs); }
   
-  @include hg { --pad-sm: var(--pad-s); }
-  @include lg { --pad-sm: var(--pad-xs); }
-  @include md { --pad-sm: var(--pad-t); }
-  @include sm { --pad-sm: var(--pad-xt); }
+  @include mixins.hg { --pad-sm: var(--pad-s); }
+  @include mixins.lg { --pad-sm: var(--pad-xs); }
+  @include mixins.md { --pad-sm: var(--pad-t); }
+  @include mixins.sm { --pad-sm: var(--pad-xt); }
   
-  @include hg { --gap: 12px; }
-  @include lg { --gap: 10px; }
-  @include md { --gap: 8px; }
-  @include sm { --gap: 6px; }
+  @include mixins.hg { --gap: 12px; }
+  @include mixins.lg { --gap: 10px; }
+  @include mixins.md { --gap: 8px; }
+  @include mixins.sm { --gap: 6px; }
   
-  @include hg { --border-radius: 16px; }
-  @include lg { --border-radius: 14px; }
-  @include md { --border-radius: 12px; }
-  @include sm { --border-radius: 10px; }
+  @include mixins.hg { --border-radius: 16px; }
+  @include mixins.lg { --border-radius: 14px; }
+  @include mixins.md { --border-radius: 12px; }
+  @include mixins.sm { --border-radius: 10px; }
   
-  @include hg { --border-radius-inline: 7px; }
-  @include lg { --border-radius-inline: 6px; }
-  @include md { --border-radius-inline: 5px; }
-  @include sm { --border-radius-inline: 10px; }
+  @include mixins.hg { --border-radius-inline: 7px; }
+  @include mixins.lg { --border-radius-inline: 6px; }
+  @include mixins.md { --border-radius-inline: 5px; }
+  @include mixins.sm { --border-radius-inline: 10px; }
   
   --weight-lighter: 100;
   --weight-light: 200;

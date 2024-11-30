@@ -1,13 +1,13 @@
-@import "../../../abstracts";
-@import "katex";
+@use "../../../abstracts/mixins";
+@use "katex";
 //@import "vs-code-theme";
 //@import "prism-default-theme";
 //@import "prism-dark";
 //@import "prism-okaidia";
-@import "prism-vs-theme";
+@use "prism-vs-theme";
 //@import "prism-nord-theme";
-@import "prism-vsc-dark-plus-theme";
-@import "prism-line-numbers";
+@use "prism-vsc-dark-plus-theme";
+@use "prism-line-numbers";
 
 .jk-md-math {
   padding: 0;
@@ -45,7 +45,7 @@
     border-spacing: 0;
     
     thead tr {
-      @include look(primary);
+      @include mixins.look(primary);
       
       th:first-child {
         border-radius: var(--border-radius-inline) 0 0 0;

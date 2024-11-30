@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .jk-theme-light {
   --menu-color: var(--t-color-primary-dark);
@@ -31,10 +31,10 @@
 .jk-vertical-menu-layout-container {
   --top-horizontal-menu-height: 0px;
   --left-vertical-menu-width: calc(64px * 4);
-  @include md {
+  @include mixins.md {
     --left-vertical-menu-width: calc(64px * 3);
   }
-  @include sm {
+  @include mixins.sm {
     --left-vertical-menu-width: calc(64px * 2);
   }
   
@@ -61,7 +61,7 @@
     height: 100%;
     width: var(--left-vertical-menu-width);
     overflow: hidden auto;
-    @include transition(width);
+    @include mixins.transition(width);
     
     .jk-menu-content {
       width: inherit;
@@ -71,7 +71,7 @@
       position: relative;
       
       .jk-menu-top-section, .jk-menu-item, .jk-menu-bottom-section, .jk-menu-collapse-section {
-        @include transition(background-color, color);
+        @include mixins.transition(background-color, color);
         background-color: var(--menu-color);
         color: var(--t-color-primary-text);
       }
@@ -126,12 +126,12 @@
           
           .jk-menu-item-icon {
             height: var(--pad-m);
-            @include transition(margin);
+            @include mixins.transition(margin);
             margin: 0 var(--pad-m) 0 var(--pad-s);
-            @include md {
+            @include mixins.md {
               margin: 0 var(--pad-xs) 0 var(--pad-s);
             }
-            @include sm {
+            @include mixins.sm {
               margin: 0 var(--pad-xt) 0 var(--pad-s);
             }
           }
@@ -163,7 +163,7 @@
 .jk-horizontal-menu-layout-container, .jk-drawer-menu-mobile {
   --left-vertical-menu-width: 0px;
   --top-horizontal-menu-height: 64px;
-  @include sm {
+  @include mixins.sm {
     --top-horizontal-menu-height: 48px;
     --bottom-horizontal-menu-height: 3rem;
   }
@@ -184,7 +184,7 @@
       width: 100%;
       height: inherit;
       background-color: var(--menu-color);
-      @include sm {
+      @include mixins.sm {
         background-color: var(--t-color-white);
       }
       position: relative;
@@ -204,16 +204,16 @@
           height: var(--height-jk-menu-item);
           align-items: center;
           cursor: pointer;
-          @include md {
+          @include mixins.md {
             padding: 0 var(--pad-xt);
           }
-          @include lg {
+          @include mixins.lg {
             padding: 0 var(--pad-xs);
           }
-          @include hg {
+          @include mixins.hg {
             padding: 0 var(--pad-m);
           }
-          @include sm {
+          @include mixins.sm {
             flex-direction: column;
           }
           
@@ -223,7 +223,7 @@
           
           &.selected {
             font-weight: var(--weight-bold);
-            @include sm {
+            @include mixins.sm {
               background-color: var(--t-color-secondary);
             }
             
@@ -236,7 +236,7 @@
               background-color: var(--t-color-secondary);
               border-radius: 4px 4px 0 0;
               
-              @include sm {
+              @include mixins.sm {
                 content: none;
               }
             }
@@ -249,7 +249,7 @@
           .jk-menu-item-icon {
             margin: 0;
             
-            @include sm {
+            @include mixins.sm {
               height: var(--pad-s);
               width: var(--pad-s);
               .jk-icon {
@@ -304,7 +304,7 @@
         .jk-menu-item-icon {
           margin: 0;
           
-          @include sm {
+          @include mixins.sm {
             height: var(--pad-s);
             width: var(--pad-s);
             .jk-icon {
@@ -338,17 +338,13 @@
   .jk-menu-item-label > div {
     
     --margin: calc(var(--pad-m) + var(--pad-s));
-    @include md {
+    @include mixins.md {
       --margin: calc(var(--pad-xs) + var(--pad-s));
     }
-    @include sm {
+    @include mixins.sm {
       --margin: calc(var(--pad-xt) + var(--pad-s));
     }
     
     width: calc(var(--width-company-selector) - var(--margin) - 24px - 4px) !important;
-  }
-  
-  .menu-item-label-company-selector {
-  
   }
 }

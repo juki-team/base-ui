@@ -1,10 +1,10 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .jk-drawer-filters {
   width: 380px;
   height: 100%;
   
-  @include sm {
+  @include mixins.sm {
     width: 100%;
   }
   
@@ -58,7 +58,7 @@
           margin: 0;
         }
         
-        @include sm {
+        @include mixins.sm {
           flex: 1;
           margin: 0;
         }
@@ -312,7 +312,7 @@
             box-sizing: border-box;
             padding: var(--pad-sm) 3px;
             justify-content: space-between;
-            @include sm { justify-content: center; }
+            @include mixins.sm { justify-content: center; }
           }
           
           .jk-list-card {
@@ -326,7 +326,7 @@
             border: 1px solid var(--t-color-highlight-light);
             
             &:hover {
-              @include elevation(1);
+              @include mixins.elevation(1);
             }
             
             .top-container, .upper-container, .center-container, .lower-container, .bottom-container {
@@ -426,7 +426,7 @@
         padding: 2px;
         background-color: var(--t-color-white);
         margin: 0 var(--pad-t);
-        @include sm { margin: 0; }
+        @include mixins.sm { margin: 0; }
         
         > div {
           cursor: pointer;

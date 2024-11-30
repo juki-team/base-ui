@@ -1,4 +1,4 @@
-@import "../../../abstracts/index";
+@use "../../../abstracts/mixins";
 
 .load-crop-image {
   width: 100%;
@@ -23,7 +23,7 @@
     height: calc(100% - 61px);
     display: flex;
     align-items: center;
-    @include sm {
+    @include mixins.sm {
       flex-direction: column;
     }
     
@@ -67,8 +67,8 @@
         width: 100%;
         height: 100%;
         background: repeating-linear-gradient(
-            0deg, #000000 0, #000000 10px,
-            #FFFFFF 10px, #FFFFFF 20px);
+                        0deg, #000000 0, #000000 10px,
+                        #FFFFFF 10px, #FFFFFF 20px);
       }
       
       &::after {
@@ -78,8 +78,8 @@
         width: 100%;
         height: 100%;
         background: repeating-linear-gradient(
-            90deg, #000000 0, #000000 10px,
-            #FFFFFF 10px, #FFFFFF 20px);
+                        90deg, #000000 0, #000000 10px,
+                        #FFFFFF 10px, #FFFFFF 20px);
         mix-blend-mode: difference;
       }
       

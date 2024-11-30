@@ -1,4 +1,4 @@
-@import "../../../styles/abstracts/index";
+@use "../../../styles/abstracts/mixins";
 
 .jk-tabs-tabs {
   position: relative;
@@ -124,7 +124,7 @@
 .jk-tabs-select {
   .jk-select-options {
     .jk-select-option.selected {
-      @include look(secondary);
+      @include mixins.look(secondary);
       
       &:hover {
         background-color: var(--t-color-secondary-light);

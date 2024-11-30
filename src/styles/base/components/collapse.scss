@@ -1,12 +1,12 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .jk-collapse-container {
   .jk-collapse-collapsible {
     overflow: hidden;
-    @include transition(height);
+    @include mixins.transition(height);
   }
 }
 
 .ReactCollapse--collapse {
-  @include transition(height);
+  @include mixins.transition(height);
 }

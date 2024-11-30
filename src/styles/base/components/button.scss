@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 :not(*.jk-button).clickable {
   cursor: initial;
@@ -7,7 +7,7 @@
     cursor: pointer;
     
     &:hover {
-      @include elevation(1);
+      @include mixins.elevation(1);
     }
   }
 }
@@ -34,7 +34,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   //padding: calc(var(--gap) - 2px) var(--button-border-padding);
   padding: 6px var(--button-border-padding);
   opacity: 1;
-  @include transition(opacity, padding, outline-color);
+  @include mixins.transition(opacity, padding, outline-color);
   
   &:not(.void) {
     text-transform: uppercase;
@@ -109,7 +109,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
     
     .button-loader-icon {
       overflow: hidden;
-      @include transition(width, min-width, height, min-height, margin-left);
+      @include mixins.transition(width, min-width, height, min-height, margin-left);
       
       .jk-icon {
         width: inherit;
@@ -123,7 +123,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
       --button-border-color: var(--button-background-color);
       
       .button-loader-icon {
-        @include box-size(var(--size-button-loader-icon));
+        @include mixins.box-size(var(--size-button-loader-icon));
       }
     }
     

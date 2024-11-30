@@ -1,11 +1,11 @@
-@import "themes-and-colors";
-@import "variables";
-@import "global";
+@use "themes-and-colors";
+@use "variables";
+@use "global";
 
-@import "components/index";
-@import "integrated-components/index";
-@import "modules/index";
+@use "components/index";
+@use "integrated-components/index" as index2;
+@use "modules/index" as index3;
 
-@import "fonts";
-@import "jk-commons";
-@import "commons";
+@use "fonts";
+@use "jk-commons";
+@use "commons";

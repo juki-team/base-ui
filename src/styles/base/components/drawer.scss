@@ -1,4 +1,4 @@
-@import "../../abstracts/index";
+@use "../../abstracts/mixins";
 
 .jk-popover-overlay {
   z-index: var(--z-index-popover);
@@ -24,7 +24,7 @@
   position: fixed;
   z-index: var(--z-index-drawer);
   overflow: auto;
-  @include elevation(2);
+  @include mixins.elevation(2);
   background-color: var(--t-color-white);
   
   &.right, &.left {
@@ -82,13 +82,6 @@
     
     &.bottom {
       bottom: 0;
-    }
-    
-    @include sm {
-      //top: 0;
-      //left: 0;
-      //height: var(--100VH);
-      //width: 100vw;
     }
   }
   
