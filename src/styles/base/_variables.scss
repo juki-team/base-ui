@@ -1,4 +1,4 @@
-@use "../abstracts/mixins";
+@use "../mixins";
 
 html body {
   --100VH: calc(var(--vh, 1vh) * 100);

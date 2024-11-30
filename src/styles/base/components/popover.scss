@@ -1,4 +1,4 @@
-@use "../../abstracts/mixins";
+@use "../../mixins";
 
 .react-tiny-popover-container {
   z-index: var(--z-index-popover);

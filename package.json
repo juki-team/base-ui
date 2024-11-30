@@ -36,8 +36,8 @@
       "import": "./dist/esm/settings.js",
       "types": "./dist/module-types/settings/index.d.ts"
     },
-    "./styles/abstracts": {
-      "sass": "./dist/styles/abstracts/_index.scss"
+    "./styles/mixins": {
+      "sass": "./dist/styles/mixins"
     },
     "./styles/base": {
       "sass": "./dist/styles/base/_index.scss"
