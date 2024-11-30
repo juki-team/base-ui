@@ -1,4 +1,4 @@
-import * as motion from 'framer-motion/client';
+import { motion } from 'framer-motion';
 import React, { PropsWithChildren, ReactNode, useId } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks';

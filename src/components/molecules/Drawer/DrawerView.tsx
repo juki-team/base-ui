@@ -1,5 +1,4 @@
-import { AnimatePresence } from 'framer-motion';
-import * as motion from 'framer-motion/client';
+import { AnimatePresence, motion } from 'framer-motion';
 import React, { memo, PropsWithChildren, useRef } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useKeyPress } from '../../../hooks/custom';

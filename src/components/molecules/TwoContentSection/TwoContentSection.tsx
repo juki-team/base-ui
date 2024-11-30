@@ -1,4 +1,4 @@
-import * as motion from 'framer-motion/client';
+import { motion } from 'framer-motion';
 import React, { CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
