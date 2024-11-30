@@ -3,6 +3,7 @@ export * from './EditProfileModal';
 export * from './entity';
 export * from './ErrorBoundary';
 export * from './HelpSection';
+export * from './JukiSocketAlert';
 export * from './MainMenu';
 export * from './PageNotFound';
 export * from './ResetPasswordModal';

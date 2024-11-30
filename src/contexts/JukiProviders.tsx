@@ -1,8 +1,4 @@
-import { Status } from '@juki-team/commons';
-import React, { CSSProperties, PropsWithChildren, useState } from 'react';
-import { ErrorIcon } from '../components/atoms/icons';
-import { ButtonLoader } from '../components/molecules/ButtonLoader';
-import { useJukiUser } from '../hooks/useJukiUser';
+import React, { PropsWithChildren } from 'react';
 import { JukiLastPathProvider } from './JukiLastPathProvider';
 import { JukiPageProvider } from './JukiPageProvider';
 import { JukiRouterProvider } from './JukiRouterProvider';
@@ -11,38 +7,6 @@ import { JukiTProvider } from './JukiTProvider';
 import { JukiUIProvider } from './JukiUIProvider';
 import { JukiUserProvider } from './JukiUserProvider';
 import { JukiProvidersProps } from './types';
-
-const SocketAlert = () => {
-  
-  const { socket } = useJukiUser();
-  const [ _, setTimestamp ] = useState(0);
-  
-  const readyState = socket.getReadyState();
-  
-  return !(readyState === WebSocket.OPEN) && (
-    <div
-      data-tooltip-id="jk-tooltip"
-      data-tooltip-content="offline, try to reconnect"
-      data-tooltip-t-class-name="tt-se"
-      style={{ position: 'fixed', left: 'var(--pad-md)', bottom: 'var(--pad-md', zIndex: 1000000 }}
-    >
-      <ButtonLoader
-        className="jk-row bc-er"
-        style={{ '--button-background-color': 'var(--t-color-error)' } as CSSProperties}
-        onClick={(setLoader) => {
-          setLoader(Status.LOADING);
-          socket.start();
-          setTimeout(() => {
-            setTimestamp(Date.now());
-            setLoader(Status.NONE);
-          }, 1000);
-        }}
-        icon={<ErrorIcon />}
-        size="small"
-      />
-    </div>
-  );
-};
 
 export const JukiProviders = <T extends string | number, >(props: PropsWithChildren<JukiProvidersProps<T>>) => {
   
@@ -83,7 +47,6 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
               <JukiLastPathProvider initialLastPath={initialLastPath}>
                 <JukiTasksProvider>
                   {children}
-                  <SocketAlert />
                 </JukiTasksProvider>
               </JukiLastPathProvider>
             </JukiUIProvider>
