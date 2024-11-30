@@ -1,4 +1,4 @@
-import React, { Children, CSSProperties, memo, useId } from 'react';
+import React, { Children, CSSProperties, memo, PropsWithChildren, useId } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 
 const Icon = ({ height, width }: { height: number, width: number }) => (
@@ -36,10 +36,10 @@ interface PathLoadingPawsProps extends Full<PawsLoadingLayoutProps> {
   bottom: number | string,
 }
 
-export const PathLoadingPaws = memo(function A(props: PathLoadingPawsProps) {
+export const PathLoadingPaws = memo(function A(props: PropsWithChildren<PathLoadingPawsProps>) {
   
   // const { step, totalSteps, N, H, W, delay, animationName, bottom, sec, size } = props;
-  const { totalSteps, N, delay, animationName, bottom, sec, size, trace } = props;
+  const { totalSteps, N, delay, animationName, bottom, sec, size, trace, children: childrenCmp } = props;
   
   const children = [];
   for (let i = 0; i < N; i++) {
@@ -64,6 +64,11 @@ export const PathLoadingPaws = memo(function A(props: PathLoadingPawsProps) {
   
   return (
     <div className="jk-loader-layout-container" style={{ bottom }}>
+      {childrenCmp && (
+        <div className="jk-row extend center" style={{ marginTop: size, overflow: 'visible' }}>
+          {childrenCmp}
+        </div>
+      )}
       <div
         className="jk-loader-layout-paws"
         style={{ width: 56, '--paws-rotate': `${ang}rad` } as CSSProperties}
@@ -80,10 +85,10 @@ interface PawsLoadingLayoutProps {
   trace?: number
 }
 
-export const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PawsLoadingLayoutProps) {
+export const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PropsWithChildren<PawsLoadingLayoutProps>) {
   
   // const { sec = 0.1, size = 36, trace = 14 } = props;
-  const { sec = 0.25, size = 18, trace = 4 } = props; // 1
+  const { sec = 0.25, size = 18, trace = 4, children: childrenCmp } = props; // 1
   
   const id = useId().split(':').join('');
   const { width = 0, height = 0, ref } = useResizeDetector();
@@ -112,6 +117,7 @@ export const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PawsL
         delay={N * sec * i}
         animationName={animationName}
         bottom={totalSteps === 1 ? '50%' : (6 + i * 10) * H - (i % 2 ? 0 : 0)}
+        children={childrenCmp}
       />,
     );
   }

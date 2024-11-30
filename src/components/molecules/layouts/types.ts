@@ -9,5 +9,5 @@ export interface TwoContentLayoutProps<T> extends PropsWithChildren {
   tabButtons?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T; }>[],
   getHrefOnTabChange?: (selectedTabKey: T) => Href,
   selectedTabKey?: T,
-  loading?: boolean,
+  loading?: boolean | ReactNode,
 }

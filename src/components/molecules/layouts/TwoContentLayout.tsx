@@ -25,7 +25,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
   const LOADING_TAB = 'loading' as T;
   const { viewPortSize } = useJukiUI();
   const { pushRoute } = useJukiRouter();
-  const tabs: TabsType<T> = loading ? {
+  const tabs: TabsType<T> = !!loading ? {
     [LOADING_TAB as string]: {
       key: LOADING_TAB,
       header: (
@@ -33,7 +33,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
           <div className="dot-flashing" />
         </div>
       ),
-      body: <PawsLoadingLayout />,
+      body: <PawsLoadingLayout children={typeof loading === 'boolean' ? undefined : loading} />,
     },
   } : initialTAbs;
   
