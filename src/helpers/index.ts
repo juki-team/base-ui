@@ -5,6 +5,7 @@ export * from './date';
 export * from './fetch';
 export * from './layout';
 export * from './problem';
+export * from './render';
 export * from './router';
 export * from './store';
 export * from './utils';

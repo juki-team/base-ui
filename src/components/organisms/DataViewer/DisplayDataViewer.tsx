@@ -87,7 +87,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
           className="jk-col gap nowrap"
           style={{ position: 'absolute', bottom: 'var(--pad-t)', right: 'var(--pad-t)', zIndex: 1 }}
         >
-          {Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
+          {Children.toArray(extraNodes.map((extraButton, index) => renderReactNodeOrFunction(extraButton, index)))}
         </div>
       )}
       <div

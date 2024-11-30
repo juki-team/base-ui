@@ -55,8 +55,8 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
       <div className={classNames('jk-row gap space-between nowrap jk-tabs-inline extend', className)}>
         {extraNodesPlacement === 'left' && (
           <div className="jk-row gap nowrap">
-            {Children.toArray(extraNodes?.map(action => (
-              renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey })
+            {Children.toArray(extraNodes?.map((action, index) => (
+              renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index)
             )))}
           </div>
         )}
@@ -129,8 +129,8 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
         </div>
         {extraNodesPlacement === 'right' && (
           <div className="jk-row gap nowrap">
-            {Children.toArray(extraNodes?.map(action => (
-              renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey })
+            {Children.toArray(extraNodes?.map((action, index) => (
+              renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index)
             )))}
           </div>
         )}
@@ -144,8 +144,8 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
               left: (extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter') ? 'var(--pad-t)' : '',
             }}
           >
-            {Children.toArray(extraNodes?.map(action => (
-              renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey })
+            {Children.toArray(extraNodes?.map((action, index) => (
+              renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index)
             )))}
           </div>
         )}

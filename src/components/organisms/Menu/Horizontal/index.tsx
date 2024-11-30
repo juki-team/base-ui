@@ -59,7 +59,7 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
         children: menuItem,
         index: i,
         isOpenVerticalMenu: null,
-      }));
+      }, i));
     } else {
       menus.push(menuItem);
     }

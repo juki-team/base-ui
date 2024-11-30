@@ -118,8 +118,8 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => {
         >
           <div className="jk-divider horizontal" />
           <div className="jk-row gap nowrap" ref={refActions}>
-            {Children.toArray(extraNodes.map(action => (
-              renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
+            {Children.toArray(extraNodes.map((action, index) => (
+              renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey }, index)
             )))}
           </div>
         </div>
@@ -127,8 +127,8 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => {
           <Popover
             content={
               <div className="jk-col gap stretch jk-tab-extra-nodes">
-                {Children.toArray(extraNodes.map(action => (
-                  renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey })
+                {Children.toArray(extraNodes.map((action, index) => (
+                  renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey }, index)
                 )))}
               </div>
             }

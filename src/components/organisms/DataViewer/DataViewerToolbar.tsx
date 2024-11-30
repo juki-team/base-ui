@@ -166,7 +166,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
         onResetFilters={() => onAllFilters({})}
       />
       <div className="jk-table-view-extra-nodes jk-row left gap screen md lg hg">
-        {Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
+        {Children.toArray(extraNodes.map((extraButton, index) => renderReactNodeOrFunction(extraButton, index)))}
       </div>
       <div
         className={classNames('jk-table-view-tools', {
@@ -265,7 +265,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                 <Popover
                   content={
                     <div className="jk-pg-sm jk-col stretch gap">
-                      {Children.toArray(extraNodes.map(extraButton => renderReactNodeOrFunction(extraButton)))}
+                      {Children.toArray(extraNodes.map((extraButton, index) => renderReactNodeOrFunction(extraButton, index)))}
                     </div>
                   }
                   triggerOn="click"

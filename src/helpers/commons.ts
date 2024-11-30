@@ -11,7 +11,7 @@ import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
 import { write } from 'xlsx-js-style';
 import { SheetDataType } from '../modules';
 import { jukiApiManager } from '../settings';
-import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerActionsType } from '../types';
+import { TriggerActionsType } from '../types';
 import { authorizedRequest, cleanRequest } from './fetch';
 import { getXLSX } from './xlsx';
 
@@ -263,14 +263,6 @@ export const renderChildrenWithProps = (children: any, props: any) => {
   return Children.map(children, (child) => {
     return !!child ? cloneElement(child, props) : child;
   });
-};
-
-export const renderReactNodeOrFunction = (content: ReactNodeOrFunctionType) => {
-  return typeof content === 'function' ? content() : content;
-};
-
-export const renderReactNodeOrFunctionP1 = <T, >(content: ReactNodeOrFunctionP1Type<T>, prop1: T) => {
-  return typeof content === 'function' ? content(prop1) : content;
 };
 
 type classType = string | { [key: string]: boolean };

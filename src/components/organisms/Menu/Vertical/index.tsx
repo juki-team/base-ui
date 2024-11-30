@@ -60,7 +60,7 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
         children: menuItem,
         index: i,
         isOpenVerticalMenu: open,
-      }));
+      }, i));
     } else {
       menus.push(menuItem);
     }
@@ -102,9 +102,7 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
           </div>
           <div className="jk-menu-items">
             {Children.toArray(menus)}
-            <div
-              className={classNames('jk-menu-item extra', { 'selected-up': !!menu[menu.length - 1]?.selected })}
-            />
+            <div className={classNames('jk-menu-item extra', { 'selected-up': !!menu[menu.length - 1]?.selected })} />
           </div>
           <div className={classNames('jk-menu-bottom-section')}>
             {typeof bottomSection === 'function' ? bottomSection({ isOpen: open }) : bottomSection}
