@@ -194,20 +194,24 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T
       presenceAffectsLayout
       // onExitComplete={() => setRender(Date.now())}
     >
-      <motion.div
-        layout
-        initial={{ x: fromLeft ? '100%' : '-100%' }}
-        variants={variants}
-        // initial="enter"
-        animate="center"
-        exit="exit"
-        style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}
-        key={selectedTabKey as string}
-        className="jk-tabs-inline-body-motion-layout"
-      >
-        {/*{render && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}*/}
-        {renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}
-      </motion.div>
+      {Object.values(tabs).map(tab => (
+        tab.key === selectedTabKey && (
+          <motion.div
+            layout
+            initial={{ x: fromLeft ? '100%' : '-100%' }}
+            variants={variants}
+            // initial="enter"
+            animate="center"
+            exit="exit"
+            style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}
+            key={tab.key as string}
+            className="jk-tabs-inline-body-motion-layout"
+          >
+            {/*{render && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}*/}
+            {renderReactNodeOrFunctionP1(tab?.body, { selectedTabKey })}
+          </motion.div>
+        )
+      ))}
     </AnimatePresence>
   );
 };
