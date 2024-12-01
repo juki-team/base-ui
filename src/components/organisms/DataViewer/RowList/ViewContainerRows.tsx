@@ -4,6 +4,7 @@ import { OnRefChangeType } from 'react-resize-detector/build/types/types';
 import { SCROLL_WIDTH } from '../../../../constants';
 import { classNames } from '../../../../helpers';
 import { usePrevious } from '../../../../hooks';
+import { T } from '../../../atoms/T';
 import { JukiLoadingLayout } from '../../../molecules';
 import {
   DataViewerTableHeadersType,
@@ -105,7 +106,9 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
         ref={headerRef}
       />
       <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}>
-        {data.length === 0 && loading && <JukiLoadingLayout />}
+        {data.length === 0 && loading && (
+          <JukiLoadingLayout><T className="tt-se">loading data</T>...</JukiLoadingLayout>
+        )}
         <RowVirtualizerFixed
           data={data}
           setBorderTop={setBorderTop}

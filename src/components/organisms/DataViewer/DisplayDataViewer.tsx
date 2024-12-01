@@ -3,7 +3,7 @@ import React, { Children, CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
-import { LineLoader } from '../../atoms';
+import { LineLoader, T } from '../../atoms';
 import { JukiLoadingLayout } from '../../molecules';
 import { CardRowVirtualizerFixed } from './CardList';
 import { DataViewerToolbar } from './DataViewerToolbar';
@@ -115,7 +115,9 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
             className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}
             style={{ width: (viewContainerWidth || 0) }}
           >
-            {data.length === 0 && loading && <JukiLoadingLayout />}
+            {data.length === 0 && loading && (
+              <JukiLoadingLayout><T className="tt-se">loading data</T>...</JukiLoadingLayout>
+            )}
             <CardRowVirtualizerFixed
               headers={headers}
               data={data}

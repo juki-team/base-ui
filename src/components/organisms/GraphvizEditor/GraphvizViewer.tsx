@@ -1,6 +1,7 @@
 import React, { lazy, memo, Suspense } from 'react';
 import { classNames } from '../../../helpers';
-import { SpinIcon } from '../../atoms';
+import { T } from '../../atoms';
+import { JukiLoadingLayout } from '../../molecules';
 import { GraphvizEditorProps } from './types';
 import { useDotValue } from './useDotValue';
 
@@ -12,7 +13,7 @@ export const GraphvizViewer = memo(({ value, className, width, height }: Omit<Gr
   
   return (
     <div className={classNames('jk-graphviz-viewer-container', className)}>
-      <Suspense fallback={<SpinIcon />}>
+      <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
         {error
           ? <div className="bc-eras jk-tag error">{error}</div>
           : <Graphviz dot={dot} className="jk-graphviz-viewer" options={{ width, height }} />}

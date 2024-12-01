@@ -1,11 +1,12 @@
 import React, { lazy, Suspense } from 'react';
 import { JukiLoadingLayout } from '../../molecules';
+import { T } from '../T';
 import { InputCellPhoneNumberProps } from './types';
 
 const LazyInputCellPhoneNumber = lazy(() => import('./InputCellPhoneNumber').then(module => ({ default: module.InputCellPhoneNumber })));
 
-export const InputCellPhoneNumber = <T, >(props: InputCellPhoneNumberProps<string>) => (
-  <Suspense fallback={<JukiLoadingLayout />}>
+export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) => (
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
     {/*@ts-ignore*/}
     <LazyInputCellPhoneNumber {...props} />
   </Suspense>

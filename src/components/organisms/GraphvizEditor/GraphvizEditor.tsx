@@ -2,9 +2,9 @@ import React, { lazy, Suspense, useEffect, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { Button, EditIcon, Modal, SpinIcon, T, TextArea } from '../../atoms';
+import { Button, EditIcon, Modal, T, TextArea } from '../../atoms';
 import { BasicModalProps } from '../../atoms/types';
-import { SplitPane } from '../../molecules';
+import { JukiLoadingLayout, SplitPane } from '../../molecules';
 import { GraphvizViewer } from './GraphvizViewer';
 import { GraphvizEditorProps } from './types';
 import { useDotValue } from './useDotValue';
@@ -34,7 +34,7 @@ const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModalPro
             <TextArea value={input} onChange={setInput} />
           </div>
           <div className="jk-row" style={{ overflow: 'auto' }} ref={ref}>
-            <Suspense fallback={<SpinIcon />}>
+            <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
               <Graphviz dot={dot} className="jk-graph" options={{ width: width - 20 }} />
             </Suspense>
           </div>
