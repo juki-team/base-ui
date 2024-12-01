@@ -2,10 +2,10 @@ import { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import { Input, T } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
-import { TabsType } from '../../molecules/Tabs';
 import { MockJkContestTable } from '../../organisms/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../organisms/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkUserTable } from '../../organisms/DataViewer/JkUserTableTest/MockJkUserTable';
+import { TabsType } from '../Tabs/types';
 import { TwoContentLayout as TwoContentLayoutComponent } from './TwoContentLayout';
 import { TwoContentLayoutProps } from './types';
 

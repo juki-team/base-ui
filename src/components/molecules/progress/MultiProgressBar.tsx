@@ -1,10 +1,6 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Popover } from '../../atoms/Popover';
-
-export interface MultiProgressBarProps {
-  label?: ReactNode,
-  progress: { label?: string, percentage: number, color?: string }[];
-}
+import { MultiProgressBarProps } from './types';
 
 export const MultiProgressBar = ({ progress, label }: MultiProgressBarProps) => {
   const content = (

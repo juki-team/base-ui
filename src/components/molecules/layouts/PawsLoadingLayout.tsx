@@ -1,5 +1,6 @@
 import React, { Children, CSSProperties, memo, PropsWithChildren, useId } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { PathLoadingPawsProps, PawsLoadingLayoutProps } from './types';
 
 const Icon = ({ height, width }: { height: number, width: number }) => (
   <svg
@@ -21,22 +22,7 @@ const Icon = ({ height, width }: { height: number, width: number }) => (
   </svg>
 );
 
-type Full<T> = {
-  [P in keyof T]-?: T[P];
-}
-
-interface PathLoadingPawsProps extends Full<PawsLoadingLayoutProps> {
-  step: number,
-  totalSteps: number,
-  N: number,
-  H: number,
-  W: number,
-  delay: number,
-  animationName: string,
-  bottom: number | string,
-}
-
-export const PathLoadingPaws = memo(function A(props: PropsWithChildren<PathLoadingPawsProps>) {
+const PathLoadingPaws = memo(function A(props: PropsWithChildren<PathLoadingPawsProps>) {
   
   // const { step, totalSteps, N, H, W, delay, animationName, bottom, sec, size } = props;
   const { totalSteps, N, delay, animationName, bottom, sec, size, trace, children: childrenCmp } = props;
@@ -79,13 +65,7 @@ export const PathLoadingPaws = memo(function A(props: PropsWithChildren<PathLoad
   );
 });
 
-interface PawsLoadingLayoutProps {
-  sec?: number,
-  size?: number,
-  trace?: number
-}
-
-export const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PropsWithChildren<PawsLoadingLayoutProps>) {
+const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PropsWithChildren<PawsLoadingLayoutProps>) {
   
   // const { sec = 0.1, size = 36, trace = 14 } = props;
   const { sec = 0.25, size = 18, trace = 4, children: childrenCmp } = props; // 1

@@ -1,7 +1,7 @@
 import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { useJukiUI } from '../../../hooks';
-import { OptionType } from '../../molecules';
+import { OptionType } from '../../molecules/types';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 import { UserNicknameLink } from '../UserChip';
 

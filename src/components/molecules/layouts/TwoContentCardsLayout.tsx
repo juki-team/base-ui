@@ -4,7 +4,8 @@ import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
 import { NotUndefined } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs';
-import { TabsInline, TabsInlineBody } from '../Tabs';
+import { TabsInline } from '../Tabs';
+import { TabsInlineBody } from '../Tabs/TabsInline';
 import { TwoContentSection } from '../TwoContentSection';
 import { TwoContentLayoutProps } from './types';
 

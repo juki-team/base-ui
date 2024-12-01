@@ -12,7 +12,7 @@ import { useFetcher, useJukiRouter, useJukiUI, useJukiUser } from '../../../hook
 import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { Popover, Select, SpinIcon, T } from '../../atoms';
-import { PawsLoadingLayout } from '../../molecules';
+import { JukiLoadingLayout } from '../../molecules';
 import { HorizontalMenu, MenuType, VerticalMenu } from '../../organisms';
 import { LoginModal } from './LoginModal';
 import { LoginUser } from './LoginUser';
@@ -292,7 +292,7 @@ export const MainMenu = (props: MainMenuProps) => {
             centerMobile={centerMobile}
             onBack={onBack}
           >
-            {isLoading ? <PawsLoadingLayout /> : children}
+            {isLoading ? <JukiLoadingLayout /> : children}
           </HorizontalMenu>
         )
         : (
@@ -305,7 +305,7 @@ export const MainMenu = (props: MainMenuProps) => {
             centerMobile={centerMobile}
             onBack={onBack}
           >
-            {isLoading ? <PawsLoadingLayout /> : children}
+            {isLoading ? <JukiLoadingLayout /> : children}
           </VerticalMenu>
         )}
     </>

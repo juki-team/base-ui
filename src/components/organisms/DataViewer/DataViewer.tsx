@@ -4,7 +4,7 @@ import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useJukiUser, useSessionStorage } from '../../../hooks';
 import { jukiGlobalStore } from '../../../settings';
 import { RequestFilterType, RequestSortType } from '../../../types';
-import { OptionType } from '../../molecules';
+import { OptionType } from '../../molecules/types';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,

@@ -2,9 +2,9 @@ import { motion } from 'motion/react';
 import React, { PropsWithChildren, ReactNode, useId } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks';
-import { NONE } from '../../../../types';
+import { DrawerActionsType, NONE } from '../../../../types';
 import { ArrowBackIcon, Button, ViewHeadlineIcon } from '../../../atoms';
-import { Drawer, DrawerActionsType } from '../../../molecules';
+import { Drawer } from '../../../molecules';
 import { HorizontalMenuProps } from '../types';
 
 export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) => {

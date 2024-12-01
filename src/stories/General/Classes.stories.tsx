@@ -511,12 +511,12 @@ const tabs = {
 };
 
 export const Regular: Story = {
-  render: (args) => (
+  render: (args: any) => (
     // <MockupJukiProvider>
-    <div style={{ height: '500px' }} {...args}>
-      <TabsComponent tabs={tabs} />
+    <div style={{ height: '500px' }}>
+      <TabsComponent {...args} tabs={tabs} />
       {/*<MockupToggleThemeButton />*/}
-      <div className="flex-1" style={{ overflow: 'auto' }} {...args}>
+      <div className="flex-1" style={{ overflow: 'auto' }}>
       
       </div>
     </div>

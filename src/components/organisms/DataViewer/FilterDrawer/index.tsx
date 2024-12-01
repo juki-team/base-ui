@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { jukiGlobalStore } from '../../../../settings';
 import { ArrowIcon, Button, FilterListIcon, Input, InputToggle, T } from '../../../atoms';
-import { CheckboxList, DrawerView, InputDate, OptionType } from '../../../molecules';
+import { CheckboxList, DrawerView, InputDate } from '../../../molecules';
+import { OptionType } from '../../../molecules/types';
 import { FilterDrawerProps, FilterValuesType, TableHeadType, TableSortOnSortType, TableSortOrderType } from '../types';
 import {
   fixHeaders,

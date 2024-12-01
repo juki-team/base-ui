@@ -1,5 +1,5 @@
 import { DateDisplayType } from '../../../../../types';
-import { DatePickerDateFunType, OptionType } from '../../../../index';
+import { DatePickerDateFunType, OptionType } from '../../../../molecules/types';
 
 export interface TableHeadFilterTextProps {
   columnIndex: string,

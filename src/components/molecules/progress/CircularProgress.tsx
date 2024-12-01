@@ -1,9 +1,5 @@
 import React, { CSSProperties } from 'react';
-
-export interface CircularProgressProps {
-  progress: number,
-  size?: number,
-}
+import { CircularProgressProps } from './types';
 
 export const CircularProgress = ({ progress, size = 96 }: CircularProgressProps) => {
   return (

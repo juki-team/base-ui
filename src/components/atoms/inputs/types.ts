@@ -1,7 +1,7 @@
 import type { ReactElement, ReactNode } from 'react';
 import type { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import type { DateDisplayType, ReactNodeOrFunctionType } from '../../../types';
-import type { DatePickerDateFunType } from '../../molecules';
+import type { DatePickerDateFunType } from '../../molecules/types';
 import type { ButtonType } from '../Button';
 import type { SelectOption2Type, SelectProps } from '../Select';
 import { T as TCmp } from '../T';

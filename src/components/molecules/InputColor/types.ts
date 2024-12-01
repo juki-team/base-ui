@@ -1,6 +1,6 @@
-import { ReactElement } from 'react';
-import { ColorResult } from 'react-color';
-import { InputProps } from '../../atoms';
+import type { ReactElement } from 'react';
+import type { ColorResult } from 'react-color';
+import type { InputProps } from '../../atoms';
 
 export type Color = ColorResult;
 

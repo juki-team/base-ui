@@ -3,7 +3,7 @@ import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { Button, T } from '../../atoms';
 import { DayPicker } from './DayPicker';
 import { MonthPicker } from './MonthPicker';
-import { TimePicker } from './TimerPicker';
+import { TimePicker } from './TimePicker';
 import { DatePickerProps } from './types';
 import { YearPicker } from './YearPicker';
 

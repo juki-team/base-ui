@@ -1,12 +1,12 @@
 import React, { lazy, Suspense } from 'react';
 import { T } from '../../atoms';
 import { JukiLoadingLayout } from '../layouts';
-import { ColorPickerProps } from './types';
+import { FloatToolbarProps } from './types';
 
-const LazyInputColor = lazy(() => import('./InputColor').then(module => ({ default: module.InputColor })));
+const LazyFloatToolbar = lazy(() => import('./FloatToolbar').then(module => ({ default: module.FloatToolbar })));
 
-export const InputColor = (props: ColorPickerProps) => (
+export const FloatToolbar = (props: FloatToolbarProps) => (
   <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
-    <LazyInputColor {...props} />
+    <LazyFloatToolbar {...props} />
   </Suspense>
 );

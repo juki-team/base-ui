@@ -1,16 +1,10 @@
 import React, { PropsWithChildren, useMemo } from 'react';
-import { Href } from '../../../contexts/JukiRouterProvider/types';
 import { cloneURLSearchParams } from '../../../helpers';
 import { useJukiRouter } from '../../../hooks/useJukiRouter';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useLastPath } from '../../../hooks/useLastPath';
 import { QueryParamKey } from '../../../types';
-
-interface LastPathProps<T> {
-  lastPathKey: T,
-  onDoubleClickRoute?: Href,
-  overwriteCompanyKey?: string,
-}
+import { LastPathProps } from './types';
 
 export const LinkLastPath = <T, >(props: PropsWithChildren<LastPathProps<T>>) => {
   

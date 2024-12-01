@@ -1,11 +1,12 @@
 import React, { ReactNode, useCallback, useEffect, useRef } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiRouter, useJukiUI } from '../../../hooks';
-import { NotUndefined } from '../../../types';
+import { NotUndefined, TabsType } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs';
-import { TabsInline, TabsInlineBody, TabsType } from '../Tabs';
+import { TabsInline } from '../Tabs';
+import { TabsInlineBody } from '../Tabs/TabsInline';
 import { TwoContentSection } from '../TwoContentSection';
-import { PawsLoadingLayout } from './PawsLoadingLayout';
+import { JukiLoadingLayout } from './PawsLoadingLayout';
 import { TwoContentLayoutProps } from './types';
 
 export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
@@ -33,7 +34,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
           <div className="dot-flashing" />
         </div>
       ),
-      body: <PawsLoadingLayout children={typeof loading === 'boolean' ? undefined : loading} />,
+      body: <JukiLoadingLayout children={typeof loading === 'boolean' ? undefined : loading} />,
     },
   } : initialTAbs;
   

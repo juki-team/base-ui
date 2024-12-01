@@ -11,5 +11,3 @@ export const SimpleSortableRows = <T, U = undefined>(props: SimpleSortableRowsPr
     <LazySimpleSortableRows {...props} />
   </Suspense>
 );
-
-export * from './types';

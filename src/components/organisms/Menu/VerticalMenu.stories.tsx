@@ -1,10 +1,9 @@
-import { action, configureActions } from "@storybook/addon-actions";
-import React from "react";
+import { action, configureActions } from '@storybook/addon-actions';
+import React from 'react';
 import {
   AppsIcon,
   Button,
   ConstructionIcon,
-  DrawerActionsType,
   FilterListIcon,
   JukiCouchLogoHorImage,
   JukiJudgeLogoHorImage,
@@ -17,8 +16,9 @@ import {
   T,
   VerticalMenu as VerticalMenuCmp,
   ViewHeadlineIcon,
-} from "../../../index";
-import { MockupToggleThemeButton } from "../../mockup/MockupToggleThemeButton";
+} from '../../../index';
+import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
+import { DrawerActionsType } from '../../molecules/Drawer/types';
 
 export default {
   component: VerticalMenuCmp,
@@ -32,27 +32,27 @@ configureActions({
 
 const menu = [
   {
-    label: "contests",
+    label: 'contests',
     icon: <ViewHeadlineIcon />,
     selected: false,
-    onClick: () => action("/contests"),
+    onClick: () => action('/contests'),
   },
   {
-    label: "problems",
+    label: 'problems',
     icon: <PlusIcon />,
     selected: true,
-    onClick: () => action("/problems"),
+    onClick: () => action('/problems'),
   },
   {
-    label: "admin",
+    label: 'admin',
     icon: <FilterListIcon />,
     selected: false,
-    onClick: () => action("/admin"),
+    onClick: () => action('/admin'),
   },
 ];
 
 const rightSection = ({ open = undefined }: { open?: boolean }) => (
-  <div className="jk-row gap" style={{ width: "240px" }}>
+  <div className="jk-row gap" style={{ width: '240px' }}>
     <Popover
       content={<div className="cr-g1"> Settings </div>}
       triggerOn="click"
@@ -72,11 +72,11 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
           </div>
           <div className="jk-col gap cr-py">
             <div className="jk-row">
-              <JukiCouchLogoHorImage /> <ConstructionIcon />{" "}
+              <JukiCouchLogoHorImage /> <ConstructionIcon />{' '}
               <T className="tt-se">developing</T>...
             </div>
             <div className="jk-row">
-              <JukiUtilsLogoHorImage /> <ConstructionIcon />{" "}
+              <JukiUtilsLogoHorImage /> <ConstructionIcon />{' '}
               <T className="tt-se">developing</T>...
             </div>
           </div>
@@ -104,13 +104,13 @@ const rightMobile = {
       <div className="fw-bd tt-se">
         <T>more apps coming soon</T>
       </div>
-      <div className="jk-col gap cr-py" style={{ width: "100px" }}>
+      <div className="jk-col gap cr-py" style={{ width: '100px' }}>
         <div className="jk-row">
-          <JukiCouchLogoHorImage /> <ConstructionIcon />{" "}
+          <JukiCouchLogoHorImage /> <ConstructionIcon />{' '}
           <T className="tt-se">developing</T>...
         </div>
         <div className="jk-row">
-          <JukiUtilsLogoHorImage /> <ConstructionIcon />{" "}
+          <JukiUtilsLogoHorImage /> <ConstructionIcon />{' '}
           <T className="tt-se">developing</T>...
         </div>
         <div onClick={onClose}>close right!</div>
@@ -135,11 +135,11 @@ const centerMobile = {
 const drawerMenuMobile = <div>Rest of Menu</div>;
 
 export const VerticalMenu = () => (
-  <div style={{ height: "400px" }}>
+  <div style={{ height: '400px' }}>
     <VerticalMenuCmp
       menu={menu}
       topSection={
-        <div className="jk-row" style={{ width: "60px" }}>
+        <div className="jk-row" style={{ width: '60px' }}>
           <JukiJudgeLogoHorImage />
         </div>
       }

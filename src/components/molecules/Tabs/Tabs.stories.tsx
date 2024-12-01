@@ -1,12 +1,14 @@
 import { configureActions } from '@storybook/addon-actions';
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
-import { Button, T, TabsInline, TabsInlineBody, TabsInlineProps, TabsType } from '../../../index';
+import { Button, T, TabsInline } from '../../../index';
 import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 import { MockJkContestTable } from '../../organisms/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../organisms/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkUserTable } from '../../organisms/DataViewer/JkUserTableTest/MockJkUserTable';
+import { TabsInlineBody } from './TabsInline';
+import { TabsInlineProps, TabsType } from './types';
 
 const meta: Meta<typeof TabsInline> = {
   component: TabsInline,

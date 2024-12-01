@@ -1,9 +1,9 @@
-import React, { cloneElement, ReactElement } from 'react';
+import React, { cloneElement, PropsWithChildren, ReactElement } from 'react';
 import { useJukiNotification, useJukiRouter, useJukiUser } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
 import { T } from '../../atoms';
 
-export const FirstLoginWrapper = ({ children }: { children: ReactElement; }) => {
+export const FirstLoginWrapper = ({ children }: PropsWithChildren) => {
   const { user: { isLogged } } = useJukiUser();
   const { setSearchParams } = useJukiRouter();
   const { addWarningNotification } = useJukiNotification();
@@ -16,5 +16,5 @@ export const FirstLoginWrapper = ({ children }: { children: ReactElement; }) => 
     setSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' });
   };
   
-  return cloneElement(children, { onClick });
+  return cloneElement(children as ReactElement, { onClick });
 };

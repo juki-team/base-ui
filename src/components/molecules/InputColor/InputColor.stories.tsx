@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { MockupJukiProvider } from "../../mockup";
-import { Color, InputColor as ColorPickerComponent } from "./";
+import React, { useState } from 'react';
+import { MockupJukiProvider } from '../../mockup';
+import { InputColor as ColorPickerComponent } from './';
+import { Color } from './types';
 
 export default {
   component: ColorPickerComponent,
 };
 
 export const InputColor = () => {
-  const [color, setColor] = useState<Color>();
-
+  const [ color, setColor ] = useState<Color>();
+  
   return (
     <MockupJukiProvider>
       <div>
