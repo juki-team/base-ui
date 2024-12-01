@@ -28,3 +28,8 @@ export interface TabsInlineProps<T = string> {
   className?: string,
   tickStyle?: 'line' | 'background',
 }
+
+export interface TabsInlineBodyProps<T> {
+  tabs: TabsType<T>,
+  selectedTabKey: T,
+}

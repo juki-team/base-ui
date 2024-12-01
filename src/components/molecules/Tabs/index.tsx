@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { T } from '../../atoms';
 import { JukiLoadingLayout } from '../layouts';
-import { TabsInlineProps, TabsProps } from './types';
+import { TabsInlineBodyProps, TabsInlineProps, TabsProps } from './types';
 
 const LazyComponent = lazy(() => import('./Tabs').then(module => ({ default: module.Tabs })));
 
@@ -18,5 +18,14 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => (
   <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
     {/*@ts-ignore*/}
     <LazyComponent2 {...props} />
+  </Suspense>
+);
+
+const LazyComponent3 = lazy(() => import('./TabsInline').then(module => ({ default: module.TabsInlineBody })));
+
+export const TabsInlineBody = <T, >(props: TabsInlineBodyProps<T>) => (
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+    {/*@ts-ignore*/}
+    <LazyComponent3 {...props} />
   </Suspense>
 );

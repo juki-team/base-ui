@@ -3,9 +3,9 @@ import React, { Children, useCallback, useId, useRef, useState } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { Func, useHandleState, useMemoizedArray, usePrevious } from '../../../hooks';
 import { useWidthResizer } from '../../../hooks/useWidthResizer';
-import { NotUndefined } from '../../../types';
+import { NotUndefined, TabsInlineBodyProps } from '../../../types';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../atoms';
-import { TabsInlineProps, TabsType } from './types';
+import { TabsInlineProps } from './types';
 
 export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   
@@ -176,7 +176,7 @@ const variants = {
   },
 };
 
-export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: { tabs: TabsType<T>, selectedTabKey: T }) => {
+export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: TabsInlineBodyProps<T>) => {
   const prevSelectedTabKey = usePrevious(selectedTabKey);
   // const prevPrevSelectedTabKey = usePrevious(prevSelectedTabKey);
   const currentIndex = Object.keys(tabs).indexOf(selectedTabKey as string);
