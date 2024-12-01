@@ -9,7 +9,7 @@ import { TwoActionModalProps } from './types';
 
 export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) => {
   
-  const { isOpen, secondary, primary, title, children, onClose } = props;
+  const { isOpen, secondary, primary, title, children, onClose, className, ...rest } = props;
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   const { viewPortSize } = useJukiUI();
@@ -17,10 +17,11 @@ export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) =>
   return (
     <Modal
       isOpen={isOpen}
-      className="modal-alert"
+      className={classNames(className, 'modal-alert')}
       onClose={onClose}
       setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
       onLoaderStatusChange={setLoader}
+      {...rest}
     >
       <div className="modal-alert-title cr-py">
         <ExclamationIcon filledCircle className="cr-er" size="large" />
