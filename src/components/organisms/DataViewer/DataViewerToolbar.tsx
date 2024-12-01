@@ -117,6 +117,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
       tooltipContent={loading ? 'reloading data' : 'reload data'}
       active={loading}
       onClick={onReload}
+      key="reload-button-icon"
     />
   );
   
@@ -128,7 +129,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   if (onReload && !isMobileViewPort) {
     firstRow.push(<>
         {reloadSection}
-        {pagination.withPagination && <div className="jk-divider horizontal" />}
+        {pagination.withPagination && <div className="jk-divider horizontal" key="reload-button-icon-divider" />}
       </>,
     );
   }
@@ -146,6 +147,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
         jumpToPage={pagination.jumpToPage}
         onPageSizeChange={pagination.onPageSizeChange}
         isOnToolbar
+        key="first-row-pagination"
       />,
     );
   }
@@ -183,7 +185,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               extend: !(viewFilterButton || viewViews),
             })}
           >
-            {firstRow}
+            {Children.toArray(firstRow)}
           </div>
         )}
         <div className={classNames('jk-row nowrap', { gap: onColumn })}>

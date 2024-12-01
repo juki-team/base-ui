@@ -47,6 +47,7 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
         content={<div className="tt-ce jk-pg-sm">{renderReactNodeOrFunction(label)}</div>}
         placement="right"
         showPopperArrow
+        key={i}
       >
         {menuItemContent}
       </Popover>
