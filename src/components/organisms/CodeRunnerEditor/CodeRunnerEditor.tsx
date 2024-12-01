@@ -12,6 +12,7 @@ import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useJukiUser } from '../../../hooks/useJukiUser';
+import { jukiApiSocketManager } from '../../../settings';
 import { Portal, T } from '../../atoms';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, CodeEditorPropertiesType, SplitPane } from '../../molecules';
 import { Header } from './Header';
@@ -48,7 +49,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   onChangeRef.current = readOnly ? undefined : _onChange;
   const [ isRunning, setIsRunning ] = useState(false);
   const [ runId, setRunId ] = useState('');
-  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } }, socket } = useJukiUser();
+  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
   const [ showSettings, setShowSettings ] = useState(false);
   const [ direction, setDirection ] = useState<'row' | 'column'>('row');
   const [ expanded, setExpanded ] = useState(false);
@@ -57,7 +58,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const testCasesRef = useRef(_testCases);
   testCasesRef.current = _testCases;
   useEffect(() => {
-    socket.onMessage(SocketEvent.CODE_RUN_STATUS, runId, (data) => {
+    jukiApiSocketManager.SOCKET.onMessage(SocketEvent.CODE_RUN_STATUS, runId, (data) => {
       if (data?.id && data?.messageTimestamp) {
         const lastRunStatus: SocketEventCodeRunStatusResponseDTO = data as SocketEventCodeRunStatusResponseDTO;
         const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
@@ -120,13 +121,13 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         }
       }
     });
-  }, [ socket, runId ]);
+  }, [ runId ]);
   useEffect(() => {
-    socket.subscribe(SocketEvent.CODE_RUN_STATUS, runId);
+    jukiApiSocketManager.SOCKET.subscribe(SocketEvent.CODE_RUN_STATUS, runId);
     return () => {
-      socket.unsubscribe(SocketEvent.CODE_RUN_STATUS, runId);
+      jukiApiSocketManager.SOCKET.unsubscribe(SocketEvent.CODE_RUN_STATUS, runId);
     };
-  }, [ runId, socket ]);
+  }, [ runId ]);
   
   const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
     onChangeRef.current?.({ ...props, isRunning: false });

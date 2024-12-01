@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
-import { useT } from '../../../../hooks/useT';
+import { jukiGlobalStore } from '../../../../settings';
 import { ArrowIcon, Button, FilterListIcon, Input, InputToggle, T } from '../../../atoms';
 import { CheckboxList, DrawerView, InputDate, OptionType } from '../../../molecules';
 import { FilterDrawerProps, FilterValuesType, TableHeadType, TableSortOnSortType, TableSortOrderType } from '../types';
@@ -86,7 +86,8 @@ export const FilterDrawer = <T, >({
       setValues(values);
       setIsFiltered(filtered);
     }, [ headers, isOpen ]);
-    const { t } = useT();
+    
+    const { t } = jukiGlobalStore.getI18n();
     
     return (
       <DrawerView isOpen={isOpen} onClose={onClose} closeWhenKeyEscape closeWhenClickOutside>

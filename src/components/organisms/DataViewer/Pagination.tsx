@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { classNames } from '../../../helpers';
-import { useT } from '../../../hooks/useT';
+import { jukiGlobalStore } from '../../../settings';
 import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, Select, SpinIcon, T } from '../../atoms';
 import { PaginationProps } from './types';
 
@@ -24,7 +24,7 @@ export const Pagination = (props: PaginationProps) => {
   const startPage = 1;
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
   
-  const { t } = useT();
+  const { t } = jukiGlobalStore.getI18n();
   useEffect(() => {
     if (!initializing && (page < startPage || endPage < page)) {
       jumpToPage(startPage);

@@ -1,11 +1,11 @@
-import { jukiApiManager } from '../settings';
+import { jukiApiSocketManager } from '../settings';
 
 export const isIFrame = (input: Element): input is HTMLIFrameElement =>
   input !== null && input.tagName === 'IFRAME';
 
 export const localStorageCrossDomains = {
   setItem: (key: string, value: string) => {
-    if (jukiApiManager.isQueryToken()) {
+    if (jukiApiSocketManager.isQueryToken()) {
       return;
     }
     localStorage.setItem(key, value);
@@ -18,7 +18,7 @@ export const localStorageCrossDomains = {
     }
   },
   removeItem: (key: string) => {
-    if (jukiApiManager.isQueryToken()) {
+    if (jukiApiSocketManager.isQueryToken()) {
       return;
     }
     localStorage.removeItem(key);

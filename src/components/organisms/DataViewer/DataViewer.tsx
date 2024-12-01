@@ -1,7 +1,8 @@
 import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, SEPARATOR_TOKEN, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
-import { useJukiRouter, useJukiUI, useJukiUser, useSessionStorage, useT } from '../../../hooks';
+import { useJukiRouter, useJukiUI, useJukiUser, useSessionStorage } from '../../../hooks';
+import { jukiGlobalStore } from '../../../settings';
 import { RequestFilterType, RequestSortType } from '../../../types';
 import { OptionType } from '../../molecules';
 import {
@@ -99,7 +100,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const { viewPortSize } = useJukiUI();
   const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
   const { searchParams } = useJukiRouter();
-  const { t } = useT();
+  const { t } = jukiGlobalStore.getI18n();
   
   const withPagination = !!initialPageSizeOptions;
   

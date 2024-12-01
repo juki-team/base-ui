@@ -7,7 +7,7 @@ import {
 import React from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification, useSWR } from '../../../hooks';
-import { jukiApiManager } from '../../../settings';
+import { jukiApiSocketManager } from '../../../settings';
 import { ReloadIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { ButtonLoaderOnClickType } from '../../molecules/types';
@@ -20,7 +20,7 @@ export const SubmissionRejudgeButton = ({ submissionId }: { submissionId: string
   const rejudgeSubmission = (submissionId: string): ButtonLoaderOnClickType => async (setLoaderStatus, loaderStatus, event) => {
     setLoaderStatus(Status.LOADING);
     
-    const { url, ...options } = jukiApiManager.V1.submission.rejudge({ params: { id: submissionId } });
+    const { url, ...options } = jukiApiSocketManager.API_V1.submission.rejudge({ params: { id: submissionId } });
     const response = cleanRequest<ContentResponseType<{ listCount: number, status: SubmissionRunStatus.RECEIVED }>>(
       await authorizedRequest(url, options));
     notifyResponse(response, setLoaderStatus);
@@ -30,7 +30,7 @@ export const SubmissionRejudgeButton = ({ submissionId }: { submissionId: string
     <ButtonLoader
       onClick={async (...props) => {
         await rejudgeSubmission(submissionId)(...props);
-        await matchMutate(new RegExp(`^${jukiApiManager.SERVICE_API_URL}/submission`, 'g'));
+        await matchMutate(new RegExp(`^${jukiApiSocketManager.SERVICE_API_URL}/submission`, 'g'));
       }}
       size="tiny"
       icon={<ReloadIcon />}

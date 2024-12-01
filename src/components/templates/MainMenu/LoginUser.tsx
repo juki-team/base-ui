@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
-import { jukiApiManager } from '../../../settings';
+import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { Button, LoginIcon, LogoutIcon, Popover, SpinIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
@@ -59,7 +59,7 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
                 onClick={(setLoader) => logout({ setLoader, onSuccess: () => setVisible(false) })}
                 type="light"
                 icon={<LogoutIcon />}
-                disabled={jukiApiManager.isQueryToken()}
+                disabled={jukiApiSocketManager.isQueryToken()}
               >
                 <T className="ws-np">sign out</T>
               </ButtonLoader>

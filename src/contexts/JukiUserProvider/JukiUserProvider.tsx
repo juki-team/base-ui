@@ -24,10 +24,8 @@ import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiPage } from '../../hooks/useJukiPage';
-import { useT } from '../../hooks/useT';
-import { jukiApiManager } from '../../settings';
+import { jukiApiSocketManager, jukiGlobalStore } from '../../settings';
 import { UserContext } from './context';
-import { SocketIo } from './SocketIo';
 import { DeviceType, JukiUserProviderProps } from './types';
 
 const useUser = () => {
@@ -38,13 +36,13 @@ const useUser = () => {
     isValidating,
     mutate,
   } = useFetcher<ContentResponseType<PingResponseDTO>>(
-    jukiApiManager.V1.auth.ping().url,
+    jukiApiSocketManager.API_V1.auth.ping().url,
     { refreshInterval: 1000 * 60 * 5 },
   );
   
   const [ user, _setUser ] = useState<UserPingType>(EMPTY_USER);
   const [ company, setCompany ] = useState<CompanyPingType>(EMPTY_COMPANY);
-  const i18n = useT();
+  const i18n = jukiGlobalStore.getI18n();
   
   const setUser: Dispatch<SetStateAction<UserPingType>> = useCallback((user) => {
     if (typeof user === 'function') {
@@ -84,7 +82,7 @@ const useUser = () => {
           },
         });
       }
-      localStorageCrossDomains.setItem(jukiApiManager.TOKEN_NAME, data?.content.user.sessionId);
+      localStorageCrossDomains.setItem(jukiApiSocketManager.TOKEN_NAME, data?.content.user.sessionId);
     } else {
       setUser({
         ...EMPTY_USER,
@@ -113,32 +111,20 @@ const useUser = () => {
 
 export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>) => {
   
-  const { children, serviceApiUrl, socketServiceUrl, serviceApiV2Url, tokenName } = props;
+  const { children } = props;
   
   const { isPageVisible } = useJukiPage();
   
-  const token = jukiApiManager.getToken();
-  jukiApiManager.setSetting(serviceApiUrl, serviceApiV2Url, tokenName);
-  
-  const socket = useMemo(() => {
-    return new SocketIo(socketServiceUrl);
-  }, [ socketServiceUrl ]);
-  
-  useEffect(() => {
-    socket.start();
-    return () => {
-      socket.stop();
-    };
-  }, [ socket, socketServiceUrl, token ]);
+  const token = jukiApiSocketManager.getToken();
   
   const { user, company, setUser, isLoading, mutate } = useUser();
   
   useEffect(() => {
-    if (isPageVisible) {
-      socket.start();
-      void mutate();
-    }
-  }, [ isPageVisible, mutate, socket ]);
+    jukiApiSocketManager.SOCKET.start();
+    return () => {
+      jukiApiSocketManager.SOCKET.stop();
+    };
+  }, [ token, isPageVisible, mutate ]);
   
   const device: DeviceType = useMemo(() => ({
     type: deviceType,
@@ -153,10 +139,9 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     company,
     isLoading,
     device,
-    socket,
     setUser,
     mutate,
-  }), [ user, company, isLoading, device, socket, setUser, mutate ]);
+  }), [ user, company, isLoading, device, setUser, mutate ]);
   
   const userTheme = user.settings?.[ProfileSetting.THEME];
   

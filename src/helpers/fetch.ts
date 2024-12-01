@@ -9,7 +9,7 @@ import {
   HTTPMethod,
   isStringJson,
 } from '@juki-team/commons';
-import { jukiApiManager } from '../settings';
+import { jukiApiSocketManager } from '../settings';
 import { AuthorizedRequestType } from '../types';
 
 export const cleanRequest = <T extends ContentResponseType<any> | ContentsResponseType<any>>(responseText: string): (ErrorResponseType | T) => {
@@ -71,7 +71,7 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >
     requestHeaders.set('Content-Type', 'application/json');
   }
   
-  const token = options?.token || jukiApiManager.getToken();
+  const token = options?.token || jukiApiSocketManager.getToken();
   
   if (token) {
     requestHeaders.set('Authorization', `Bearer ${token}`);

@@ -2,7 +2,6 @@ import { CompanyPingType, UserPingType } from '@juki-team/commons';
 import { createContext, Dispatch, SetStateAction } from 'react';
 import { KeyedMutator } from 'swr';
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
-import { SocketIo } from './SocketIo';
 import { DeviceType } from './types';
 
 export const UserContext = createContext<{
@@ -12,7 +11,6 @@ export const UserContext = createContext<{
   isLoading: boolean,
   // isValidating: boolean,
   mutate: KeyedMutator<any>,
-  socket: SocketIo,
   device: DeviceType,
 }>({
   user: EMPTY_USER,
@@ -21,6 +19,5 @@ export const UserContext = createContext<{
   isLoading: true,
   // isValidating: true,
   mutate: null as unknown as KeyedMutator<any>,
-  socket: null as unknown as SocketIo,
   device: { label: '', isMobile: false, isBrowser: false, type: '', osLabel: '' },
 });

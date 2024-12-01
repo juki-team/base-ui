@@ -1,7 +1,7 @@
 import { ContentResponseType, Status, UserBasicResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { jukiApiManager } from '../../../settings';
+import { jukiApiSocketManager } from '../../../settings';
 import {
   Button,
   ContentCopyIcon,
@@ -30,7 +30,7 @@ export const UserPreviewContentModal = ({ isOpen, nickname, companyKey, onClose,
       
       
       <FetcherLayer<ContentResponseType<UserBasicResponseDTO>>
-        url={jukiApiManager.V1.user.getSummary({ params: { nickname, companyKey } }).url}
+        url={jukiApiSocketManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url}
         onError={(error) => onClose(() => () => Status.ERROR, Status.ERROR, { fetcherLayerErrorEvent: error })}
       >
         {({ data }) => (

@@ -10,8 +10,8 @@ import React, { useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
-import { useJukiNotification, useJukiUser } from '../../../../hooks';
-import { jukiApiManager } from '../../../../settings';
+import { useJukiNotification } from '../../../../hooks';
+import { jukiApiSocketManager } from '../../../../settings';
 import { Button, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, Select, SettingsIcon, T } from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';
 import { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../molecules/types';
@@ -45,7 +45,6 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const { addErrorNotification } = useJukiNotification();
   const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  const { socket } = useJukiUser();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
   
   useEffect(() => {
@@ -71,8 +70,8 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     setStatus(Status.LOADING);
     clean(SubmissionRunStatus.RECEIVED);
     try {
-      socket.unsubscribe(SocketEvent.CODE_RUN_STATUS, runId);
-      const { url, ...options } = jukiApiManager.V1.code.run({
+      jukiApiSocketManager.SOCKET.unsubscribe(SocketEvent.CODE_RUN_STATUS, runId);
+      const { url, ...options } = jukiApiSocketManager.API_V1.code.run({
         body: {
           language: language as string,
           source: sourceCode,
@@ -86,7 +85,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       );
       
       if (request?.success && request?.content?.runId) {
-        socket.subscribe(SocketEvent.CODE_RUN_STATUS, request?.content?.runId);
+        jukiApiSocketManager.SOCKET.subscribe(SocketEvent.CODE_RUN_STATUS, request?.content?.runId);
         setRunId(request.content.runId);
         setStatus(Status.SUCCESS);
       } else {

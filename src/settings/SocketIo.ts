@@ -8,7 +8,7 @@ import {
   SocketSubscribeEventDTO,
   SocketUnsubscribeEventDTO,
 } from '@juki-team/commons';
-import { jukiApiManager } from '../../settings';
+import { jukiApiSocketManager } from './index';
 
 const FORCE_CLOSED = 'FORCE_CLOSED';
 
@@ -22,7 +22,8 @@ export class SocketIo {
   }
   
   connect() {
-    const ws = new WebSocket(this.socketServiceUrl + `?sessionId=${jukiApiManager.getToken()}`);
+    console.log('connect');
+    const ws = new WebSocket(this.socketServiceUrl + `?sessionId=${jukiApiSocketManager.getToken()}`);
     ws.onopen = function () {
       ws.send('hello');
       consoleInfo('Jk socket connected');
@@ -68,6 +69,7 @@ export class SocketIo {
   }
   
   start() {
+    console.log('start');
     if (this._socket?.readyState === undefined || this._socket?.readyState === WebSocket.CLOSED || this._socket?.readyState === WebSocket.CLOSING) {
       this._socket = this.connect();
     }
@@ -87,7 +89,7 @@ export class SocketIo {
         action: 'subscribe',
         event,
         id,
-        sessionId: jukiApiManager.getToken(),
+        sessionId: jukiApiSocketManager.getToken(),
       };
       this._socket.send(JSON.stringify(payload));
       return true;
@@ -102,7 +104,7 @@ export class SocketIo {
         action: 'unsubscribe',
         event,
         id,
-        sessionId: jukiApiManager.getToken(),
+        sessionId: jukiApiSocketManager.getToken(),
       };
       this._socket.send(JSON.stringify(payload));
       return true;

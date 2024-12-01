@@ -8,8 +8,8 @@ import {
   downloadUrlAsFile,
   getStatementData,
 } from '../../../helpers';
-import { useJukiUser, useT } from '../../../hooks';
-import { jukiApiManager } from '../../../settings';
+import { useJukiUser } from '../../../hooks';
+import { jukiApiSocketManager, jukiGlobalStore } from '../../../settings';
 import { DownloadIcon, T } from '../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
 import { MdMathViewer } from '../../organisms/mdMath';
@@ -51,7 +51,7 @@ export const ProblemStatementView = ({
       },
     },
   } = useJukiUser();
-  const { t } = useT();
+  const { t } = jukiGlobalStore.getI18n();
   const problemName = contest?.index ? `${contest?.index}. (${problemKey}) ${name}` : `(${problemKey}) ${name}`;
   const {
     statementDescription,
@@ -86,10 +86,10 @@ export const ProblemStatementView = ({
   
   const handleDownloadPdf = async () => {
     
-    const { url, ...options } = jukiApiManager.V2.export.problem.statementToPdf({
+    const { url, ...options } = jukiApiSocketManager.API_V2.export.problem.statementToPdf({
       params: {
         key: problemKey,
-        token: jukiApiManager.getToken(),
+        token: jukiApiSocketManager.getToken(),
       },
     });
     const response = cleanRequest<ContentResponseType<{ urlExportedPDF: string }>>(

@@ -2,7 +2,7 @@ import { ContentResponseType, ProblemDataResponseDTO, ProblemSummaryListResponse
 import React, { ReactNode, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
-import { jukiApiManager, jukiAppRotes } from '../../../settings';
+import { jukiApiSocketManager, jukiAppRotes } from '../../../settings';
 import { Modal, VoidIcon } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { ProblemView } from '../../templates';
@@ -62,7 +62,7 @@ export const ProblemNameModalField: DataViewerHeadersType<ProblemSummaryListResp
                 portalClassName="jk-modal-bc-wd jk-modal-height-expanded"
               >
                 <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
-                  url={jukiApiManager.V1.problem.getData({ params: { key } }).url}
+                  url={jukiApiSocketManager.API_V1.problem.getData({ params: { key } }).url}
                 >
                   {data => (
                     <ProblemView problem={data.data.content} infoPlacement="name" />

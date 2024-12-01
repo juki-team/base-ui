@@ -8,7 +8,7 @@ import {
 import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
 import { T } from '../../components/atoms/T';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { useJukiUser } from '../../hooks/useJukiUser';
+import { jukiApiSocketManager } from '../../settings';
 import { TasksContext } from './context';
 import { SocketSubmissions, SubmissionToCheck } from './types';
 
@@ -17,7 +17,6 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
   const { addErrorNotification, addSuccessNotification } = useJukiNotification();
   const [ submissions, setSubmissions ] = useState<SocketSubmissions>({});
   const [ submissionsToCheck, setSubmissionsToCheck ] = useState<SubmissionToCheck[]>([]);
-  const { socket } = useJukiUser();
   const onMessageRef = useRef<{ [key: string]: boolean }>({});
   
   useEffect(() => {
@@ -71,16 +70,16 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [ submissionsToCheck, submissions, addSuccessNotification, addErrorNotification ]);
   
   const unListenSubmission = useCallback((submissionId: string) => {
-    socket.unsubscribe(SocketEvent.SUBMISSION_RUN_STATUS, submissionId);
-  }, [ socket ]);
+    jukiApiSocketManager.SOCKET.unsubscribe(SocketEvent.SUBMISSION_RUN_STATUS, submissionId);
+  }, []);
   
   const listenSubmission = useCallback((submissionToCheck: SubmissionToCheck, withNotification: boolean) => {
     if (withNotification) {
       setSubmissionsToCheck(prevState => [ ...prevState, submissionToCheck ]);
     }
-    socket.subscribe(SocketEvent.SUBMISSION_RUN_STATUS, submissionToCheck.id);
+    jukiApiSocketManager.SOCKET.subscribe(SocketEvent.SUBMISSION_RUN_STATUS, submissionToCheck.id);
     if (!onMessageRef.current[submissionToCheck.id]) {
-      socket.onMessage(SocketEvent.SUBMISSION_RUN_STATUS, submissionToCheck.id, (dataResponse) => {
+      jukiApiSocketManager.SOCKET.onMessage(SocketEvent.SUBMISSION_RUN_STATUS, submissionToCheck.id, (dataResponse) => {
         const data: SocketEventSubmissionStatusResponseDTO = dataResponse as SocketEventSubmissionStatusResponseDTO;
         const submitId = data?.id;
         const nextStatus = data.status;
@@ -154,7 +153,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
         });
       });
     }
-  }, [ socket ]);
+  }, []);
   
   return (
     <TasksContext.Provider

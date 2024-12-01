@@ -1,15 +1,14 @@
 import { Status } from '@juki-team/commons';
 import React, { CSSProperties, useState } from 'react';
-import { useJukiUser } from '../../../hooks';
+import { jukiApiSocketManager } from '../../../settings';
 import { ErrorIcon } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 
 export const JukiSocketAlert = () => {
   
-  const { socket } = useJukiUser();
   const [ _, setTimestamp ] = useState(0);
   
-  const readyState = socket.getReadyState();
+  const readyState = jukiApiSocketManager.SOCKET.getReadyState();
   
   return !(readyState === WebSocket.OPEN) && (
     <div
@@ -23,7 +22,7 @@ export const JukiSocketAlert = () => {
         style={{ '--button-background-color': 'var(--t-color-error)' } as CSSProperties}
         onClick={(setLoader) => {
           setLoader(Status.LOADING);
-          socket.start();
+          jukiApiSocketManager.SOCKET.start();
           setTimeout(() => {
             setTimestamp(Date.now());
             setLoader(Status.NONE);

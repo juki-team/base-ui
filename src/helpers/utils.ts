@@ -1,5 +1,5 @@
 import { consoleWarn, ContentResponseType } from '@juki-team/commons';
-import { jukiApiManager } from '../settings';
+import { jukiApiSocketManager } from '../settings';
 import { authorizedRequest, cleanRequest } from './fetch';
 
 export const openNewTab = (url: string) => {
@@ -10,7 +10,7 @@ export const openNewTab = (url: string) => {
 };
 
 export const publishNote = async (source: string) => {
-  const { url, ...options } = jukiApiManager.V1.note.publish({ body: { source: source.trim() } });
+  const { url, ...options } = jukiApiSocketManager.API_V1.note.publish({ body: { source: source.trim() } });
   const request = cleanRequest<ContentResponseType<{ sourceUrl: string }>>(
     await authorizedRequest(url, options),
   );

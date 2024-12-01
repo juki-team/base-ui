@@ -6,14 +6,12 @@ import {
   RouterFn,
   SetSearchParamsType,
 } from './JukiRouterProvider/types';
-import { JukiTProviderProps } from './JukiTProvider/types';
 import { JukiUIProviderProps } from './JukiUIProvider/types';
 import { JukiUserProviderProps } from './JukiUserProvider/types';
 
 export type JukiProvidersProps<T extends string | number> =
   JukiUIProviderProps
   & JukiUserProviderProps
-  & Partial<JukiTProviderProps>
   & LastPathProviderProps<T>
   & {
   router: {

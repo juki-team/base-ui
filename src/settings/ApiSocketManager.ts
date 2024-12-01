@@ -17,7 +17,8 @@ import {
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
 } from '../types';
-import { jukiApiManager } from './index';
+import { jukiApiSocketManager } from './index';
+import { SocketIo } from './SocketIo';
 
 const addQuery = (path: string) => {
   return !path.includes('?') ? path + '?' : path;
@@ -62,7 +63,7 @@ const getQueryToken = () => {
   return validate(queryToken) ? queryToken : null;
 };
 
-export class APIManager {
+export class ApiSocketManager {
   private _SERVICE_API_URL = '';
   
   get SERVICE_API_URL(): string {
@@ -81,7 +82,19 @@ export class APIManager {
     return this._TOKEN_NAME;
   }
   
-  get V2() {
+  private _SOCKET_SERVICE_URL = '';
+  
+  get SOCKET_SERVICE_URL(): string {
+    return this._SOCKET_SERVICE_URL;
+  }
+  
+  private _SOCKET = new SocketIo('');
+  
+  get SOCKET(): SocketIo {
+    return this._SOCKET;
+  }
+  
+  get API_V2() {
     
     const injectBaseUrl = (prefix: string, path: string) => {
       return `${this._SERVICE_API_V2_URL}/${prefix}${path}`;
@@ -139,7 +152,7 @@ export class APIManager {
     };
   }
   
-  get V1() {
+  get API_V1() {
     
     const injectBaseUrl = (prefix: string, path: string) => {
       return `${this._SERVICE_API_URL}/${prefix}${path}`;
@@ -671,7 +684,7 @@ export class APIManager {
   
   getToken(): string {
     if (typeof localStorage !== 'undefined') {
-      return getQueryToken() || localStorage.getItem(jukiApiManager.TOKEN_NAME) || '';
+      return getQueryToken() || localStorage.getItem(jukiApiSocketManager.TOKEN_NAME) || '';
     }
     return getQueryToken() || '';
   }
@@ -680,9 +693,20 @@ export class APIManager {
     return typeof getQueryToken() === 'string';
   }
   
-  setSetting(serviceApiUrl: string, serviceApiV2Url: string, tokenName: string) {
+  setApiSettings(serviceApiUrl: string, serviceApiV2Url: string, tokenName: string) {
     this._SERVICE_API_URL = serviceApiUrl;
     this._SERVICE_API_V2_URL = serviceApiV2Url;
     this._TOKEN_NAME = tokenName;
+  }
+  
+  setSocketSettings(socketServiceUrl: string) {
+    this._SOCKET?.stop();
+    
+    this._SOCKET_SERVICE_URL = socketServiceUrl;
+    this._SOCKET = new SocketIo(socketServiceUrl);
+    
+    console.log('setSocketSettings');
+    
+    this._SOCKET.start();
   }
 }

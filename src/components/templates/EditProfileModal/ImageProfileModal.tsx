@@ -2,7 +2,7 @@ import { Status } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { toBlob } from '../../../helpers';
 import { useJukiUser, useSWR } from '../../../hooks';
-import { jukiApiManager } from '../../../settings';
+import { jukiApiSocketManager } from '../../../settings';
 import { Button, Modal, T } from '../../atoms';
 import { BasicModalProps } from '../../atoms/types';
 import { ButtonLoader, CropImageType, ImageLoaderCropper } from '../../molecules';
@@ -45,7 +45,7 @@ export const ImageProfileModal = ({ isOpen, onClose, nickname }: ImageProfileMod
                     onSuccess: async () => {
                       setLoader?.(Status.LOADING);
                       await mutatePing();
-                      await mutate(jukiApiManager.V1.user.getProfile({ params: { nickname } }).url);
+                      await mutate(jukiApiSocketManager.API_V1.user.getProfile({ params: { nickname } }).url);
                       setLoader?.(Status.SUCCESS);
                       onClose();
                     },
