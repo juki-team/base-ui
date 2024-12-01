@@ -28,7 +28,7 @@ export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChang
       setModal(
         <TwoActionModal
           isOpen
-          title={<h2><T>attention</T></h2>}
+          title={<T>attention</T>}
           primary={{ onClick: () => setModal(null), label: <T>close</T> }}
           secondary={{ onClick: onClickContinue, label: <T>continue without saving</T> }}
           onClose={() => setModal(null)}

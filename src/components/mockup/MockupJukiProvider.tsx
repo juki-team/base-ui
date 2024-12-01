@@ -22,8 +22,6 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
     jukiApiSocketManager.setApiSettings(serviceUrl, serviceV2Url, 'juki-token');
   }, []);
   
-  console.log('MockupJukiProvider');
-  
   return (
     <JukiProviders<TestPath>
       // serviceApiUrl={serviceUrl + '/api/v1'}

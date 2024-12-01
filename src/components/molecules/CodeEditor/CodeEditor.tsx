@@ -64,7 +64,7 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
   }
   
   const { height = 0, ref } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  console.log({ extensions, theme });
+  
   return (
     <div style={{ fontSize: `${fontSize}px`, width: '100%', height: '100%' }} ref={ref}>
       <CodeMirror

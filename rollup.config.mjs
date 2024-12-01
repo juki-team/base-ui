@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
-// import terser from "@rollup/plugin-terser";
+import terser from "@rollup/plugin-terser";
 // import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 
 // import { visualizer } from 'rollup-plugin-visualizer';
@@ -14,7 +14,7 @@ const plugins = [
   commonjs(),
   typescript({useTsconfigDeclarationDir: true, tsconfig: './tsconfig.json', exclude: [ '**/*.stories.tsx' ]}),
   // sizeSnapshot(),
-  // terser(),
+  terser(),
   copy({
     targets: [
       {src: './src/styles', dest: 'dist'},
