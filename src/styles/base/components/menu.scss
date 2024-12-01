@@ -24,6 +24,7 @@
   }
   
   > .jk-menu-main-layout {
+    position: relative;
     height: calc(100% - var(--top-horizontal-menu-height) - var(--bottom-horizontal-menu-height));
   }
 }
