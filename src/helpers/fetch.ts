@@ -62,7 +62,7 @@ export const cleanRequest = <T extends ContentResponseType<any> | ContentsRespon
 
 export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >(url: string, options?: AuthorizedRequestType<M>) => {
   
-  const { method, body, signal, responseType, headers } = options || {};
+  const { method, body, signal, responseType, headers, cache, next } = options || {};
   
   const requestHeaders = new Headers(headers ?? {});
   requestHeaders.set('Accept', 'application/json');
@@ -83,6 +83,9 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >
     credentials: 'include',
     ...(body ? { body } : {}),
     ...(signal ? { signal } : {}),
+    cache,
+    // @ts-ignore
+    next,
   })
     .then((response: any) => {
       if (responseType === 'blob') {

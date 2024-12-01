@@ -73,6 +73,13 @@ const Component = <T, >(args: TabsInlineProps<T>) => {
         </div>
       ),
     },
+    test: {
+      key: 'test',
+      header: 'test',
+      body: (
+        <div>test</div>
+      ),
+    },
   };
   
   const [ outputTab, setOutputTab ] = useState('problems');
