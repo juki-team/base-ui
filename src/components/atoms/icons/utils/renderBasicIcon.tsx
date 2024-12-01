@@ -1,5 +1,5 @@
 import React, { ComponentType } from 'react';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../../helpers/commons';
 import { BasicIconProps, RootIconProps } from '../types';
 import { CirclePath } from './CirclePath';
 import { arcS, H, M, V } from './functions';

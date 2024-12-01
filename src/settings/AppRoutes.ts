@@ -11,7 +11,7 @@ export class AppRoutes {
     
     return {
       home() {
-        return '';
+        return '/';
       },
       profiles: {
         view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
@@ -60,7 +60,7 @@ export class AppRoutes {
     
     return {
       home() {
-        return '';
+        return '/';
       },
       worksheets: {
         list() {
