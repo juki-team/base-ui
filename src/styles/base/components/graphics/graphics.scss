@@ -3,6 +3,7 @@
 .jk-icon {
   display: inline-block;
   overflow: hidden;
+  --size-icon: var(--size-regular-icon);
   
   //&.clickable {
   //
@@ -31,34 +32,31 @@
   //  // 12, total: 14
   //}
   
+  line-height: var(--size-icon);
+  @include mixins.box-size(var(--size-icon));
+  
   &.very-huge {
-    line-height: var(--size-very-huge-icon);
-    @include mixins.box-size(var(--size-very-huge-icon));
+    --size-icon: var(--size-very-huge-icon);
   }
   
   &.huge {
-    line-height: var(--size-huge-icon);
-    @include mixins.box-size(var(--size-huge-icon));
+    --size-icon: var(--size-huge-icon);
   }
   
   &.large {
-    line-height: var(--size-large-icon);
-    @include mixins.box-size(var(--size-large-icon));
+    --size-icon: var(--size-large-icon);
   }
   
   &.regular {
-    line-height: var(--size-regular-icon);
-    @include mixins.box-size(var(--size-regular-icon));
+    --size-icon: var(--size-regular-icon);
   }
   
   &.small {
-    line-height: var(--size-small-icon);
-    @include mixins.box-size(var(--size-small-icon));
+    --size-icon: var(--size-small-icon);
   }
   
   &.tiny {
-    line-height: var(--size-tiny-icon);
-    @include mixins.box-size(var(--size-tiny-icon));
+    --size-icon: var(--size-tiny-icon);
   }
   
   svg {

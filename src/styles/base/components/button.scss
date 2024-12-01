@@ -57,7 +57,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
     --size-button-loader-icon: var(--size-tiny-icon);
     
     .jk-icon {
-      @extend .tiny;
+      --size-icon: var(--size-tiny-icon);
     }
   }
   
@@ -68,7 +68,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
     --size-button-loader-icon: var(--size-small-icon);
     
     .jk-icon {
-      @extend .small;
+      --size-icon: var(--size-small-icon);
     }
   }
   
@@ -79,7 +79,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
     --size-button-loader-icon: var(--size-regular-icon);
     
     .jk-icon {
-      @extend .regular;
+      --size-icon: var(--size-regular-icon);
     }
   }
   
@@ -90,7 +90,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
     --size-button-loader-icon: var(--size-large-icon);
     
     .jk-icon {
-      @extend .large;
+      --size-icon: var(--size-large-icon);
     }
   }
   
@@ -101,7 +101,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
     --size-button-loader-icon: var(--size-huge-icon);
     
     .jk-icon {
-      @extend .huge;
+      --size-icon: var(--size-huge-icon);
     }
   }
   
