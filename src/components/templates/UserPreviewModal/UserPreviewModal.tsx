@@ -1,6 +1,6 @@
 import React from 'react';
 import { useJukiRouter } from '../../../hooks';
-import { jukiAppRotes } from '../../../settings';
+import { jukiAppRoutes } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { UserPreviewContentModal } from './UserPreviewContentModal';
 
@@ -16,7 +16,7 @@ export const UserPreviewModal = () => {
       nickname={userPreviewNickname}
       companyKey={userPreviewCompanyKey}
       onClose={() => deleteSearchParams({ name: QueryParamKey.USER_PREVIEW })}
-      userHref={jukiAppRotes.JUDGE().profiles.view({ nickname: userPreviewNickname })}
+      userHref={jukiAppRoutes.JUDGE().profiles.view({ nickname: userPreviewNickname })}
     />
   );
 };

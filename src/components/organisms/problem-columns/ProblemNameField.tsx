@@ -2,7 +2,7 @@ import { ContentResponseType, ProblemDataResponseDTO, ProblemSummaryListResponse
 import React, { ReactNode, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
-import { jukiApiSocketManager, jukiAppRotes } from '../../../settings';
+import { jukiApiSocketManager, jukiAppRoutes } from '../../../settings';
 import { Modal, VoidIcon } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { ProblemView } from '../../templates';
@@ -18,7 +18,7 @@ export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListRespo
   return (
     <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
       <div className="jk-row nowrap">
-        <Link href={jukiAppRotes.JUDGE().problems.view({ key })}>
+        <Link href={jukiAppRoutes.JUDGE().problems.view({ key })}>
           <div className="jk-row link fw-bd ta-st">{name}</div>
         </Link>
         {(user.tried || user.solved) && <>&nbsp;</>}

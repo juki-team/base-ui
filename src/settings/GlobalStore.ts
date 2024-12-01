@@ -1,4 +1,4 @@
-import { Language } from '@juki-team/commons';
+import { consoleWarn, Language } from '@juki-team/commons';
 import type { i18n } from 'i18next';
 import { jukiApiSocketManager } from './index';
 
@@ -6,6 +6,10 @@ export class GlobalStore {
   private _I18N = { t: (key: string) => key, mocked: true } as unknown as i18n;
   
   getI18n() {
+    // @ts-ignore
+    if (this._I18N.mocked) {
+      consoleWarn('i18n not configured');
+    }
     return this._I18N;
   }
   

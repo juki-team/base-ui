@@ -2,7 +2,7 @@ import { ContestSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
-import { jukiAppRotes } from '../../../settings';
+import { jukiAppRoutes } from '../../../settings';
 import { CheckIcon } from '../../atoms';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
@@ -15,7 +15,7 @@ export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListRespo
   return (
     <Field className="jk-row left block">
       {user.isGuest || user.isAdministrator || user.isParticipant || user.isManager || user.isSpectator ? (
-        <Link href={jukiAppRotes.JUDGE().contests.view({ key })}>
+        <Link href={jukiAppRoutes.JUDGE().contests.view({ key })}>
           <div className={classNames('gap nowrap link fw-bd space-between', { 'jk-col': isCard, 'jk-row': !isCard })}>
             <div style={{ textAlign: isCard ? undefined : 'left' }}>{name}</div>
             {user.isAdministrator ? (

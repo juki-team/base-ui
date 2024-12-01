@@ -4,7 +4,7 @@ const injectOrigin = (origin: string, path: string) => {
   return `${origin ? origin : ''}${path}`;
 };
 
-export class AppRotes {
+export class AppRoutes {
   public JUDGE(_origin?: string) {
     
     const origin = _origin ?? '';
