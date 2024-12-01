@@ -10,4 +10,12 @@ export const SubmitView = (props: SubmitViewProps) => (
   </Suspense>
 );
 
+const LazySubmissionModal = lazy(() => import('./SubmissionModal').then(module => ({ default: module.SubmissionModal })));
+
+export const SubmissionModal = () => (
+  <Suspense fallback={<JukiLoadingLayout />}>
+    <LazySubmissionModal />
+  </Suspense>
+);
+
 export * from './types';

@@ -1,26 +1,23 @@
 import { Status } from '@juki-team/commons';
 import React, { useState } from 'react';
-import { useJukiRouter, useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
-import { QueryParamKey } from '../../../types';
+import { BasicModalProps } from '../../../types';
 import { ContentCopyIcon, CopyToClipboard, Modal, OpenInNewIcon, RefreshIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { SubmitView } from './SubmitView';
 
-export interface SubmissionModalProps {
+export interface SubmissionModalProps extends BasicModalProps {
   submitId: string;
 }
 
-export const SubmissionModal = ({ submitId }: SubmissionModalProps) => {
+export const SubmissionContentModal = ({ submitId, isOpen, onClose }: SubmissionModalProps) => {
   
   const { components: { Link } } = useJukiUI();
-  const { deleteSearchParams } = useJukiRouter();
   const [ triggerFetch, setTriggerFetch ] = useState(0);
   
-  const handleClose = () => deleteSearchParams({ name: QueryParamKey.SUBMISSION });
-  
   return (
-    <Modal isOpen={true} onClose={handleClose} closeIcon closeWhenClickOutside>
+    <Modal isOpen={isOpen} onClose={onClose} closeIcon closeWhenClickOutside>
       <section className="jk-pg-md">
         <div className="fw-bd tx-l jk-row-col left gap">
           <h3><T>submission</T></h3>
