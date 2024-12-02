@@ -51,7 +51,7 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
   return (
     <span
       {...props}
-      className={classNames(className, 'jk-icon', size, name, { 'cursor-pointer': !!props.onClick })}
+      className={classNames(className, 'jk-icon', size, `jk-icon-${name}`, { 'cursor-pointer': !!props.onClick })}
       style={{ transform: `rotate(${rotate}deg)`, ...style }}
       // initial={{ scale: 0 }}
       // animate={{ scale: 1 }}

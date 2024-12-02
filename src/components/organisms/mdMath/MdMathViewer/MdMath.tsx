@@ -1,19 +1,21 @@
 // https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119
-import { ProgrammingLanguage } from '@juki-team/commons';
+import { ContentResponseType, ProgrammingLanguage, UserBasicResponseDTO } from '@juki-team/commons';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
-import React, { CSSProperties, lazy, memo, ReactNode, Suspense } from 'react';
-import { Options as ReactMarkdownOptions } from 'react-markdown';
-// import ReactMarkdown from 'react-markdown';
+import React, { CSSProperties, memo, ReactNode, useMemo } from 'react';
+import ReactMarkdown, { Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
-import { useJukiUI } from '../../../../hooks';
-import { OpenInNewIcon, T } from '../../../atoms';
-import { CodeViewer, JukiLoadingLayout } from '../../../molecules';
+import { useFetcher, useJukiUI } from '../../../../hooks';
+import { jukiApiSocketManager } from '../../../../settings';
+import { ErrorIcon, OpenInNewIcon, SpinIcon } from '../../../atoms';
+import { CodeViewer } from '../../../molecules';
 import { GraphvizViewer } from '../../GraphvizEditor';
+import { UserChip } from '../../UserChip';
+import { CommandsObjectType } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
-const ReactMarkdown = lazy(() => import('react-markdown'));
+// const ReactMarkdown = lazy(() => import('react-markdown'));
 // const rehypeKatex = lazy(() => import('rehype-katex'));
 
 const hx = ({ children, node: { tagName } }: { children: ReactNode & ReactNode[], node: { tagName: string } }) => {
@@ -29,6 +31,38 @@ const hx = ({ children, node: { tagName } }: { children: ReactNode & ReactNode[]
   return hxRender(tagName, children, {});
 };
 
+const UserInlineChip = ({ nickname }: { nickname: string }) => {
+  
+  const {
+    isLoading,
+    data,
+  } = useFetcher<ContentResponseType<UserBasicResponseDTO>>(jukiApiSocketManager.API_V1.user.getSummary({ params: { nickname } }).url);
+  console.log({ isLoading });
+  
+  if (isLoading) {
+    return <SpinIcon size="tiny" />;
+  }
+  
+  if (!data?.success) {
+    return <ErrorIcon />;
+  }
+  
+  return (
+    <UserChip
+      nickname={nickname}
+      imageUrl={data.content.imageUrl}
+      className="jk-tag bc-hl dy-if- va-tp nowrap"
+    />
+  );
+};
+
+const CustomField = ({ commands, restText }: { commands: CommandsObjectType, restText: string }) => {
+  if (commands.jkUserNickname) {
+    return <UserInlineChip nickname={commands.jkUserNickname} />;
+  }
+  return <span>--</span>;
+};
+
 export const MdMath = memo(({ source }: { source: string }) => {
   const { components: { Link } } = useJukiUI();
   // const [ rehypePlugins, setRehypePlugins ] = useState<any[]>([]);
@@ -38,7 +72,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
   //   setRemarkPlugins([ require('remark-math').default, require('remark-gfm').default ]);
   // }, []);
   
-  const props: ReactMarkdownOptions = {
+  const props: ReactMarkdownOptions = useMemo(() => ({
     remarkPlugins: [ RemarkMathPlugin, RemarkGfmPlugin ],
     rehypePlugins: [ rehypeKatex ],
     components: {
@@ -94,7 +128,10 @@ export const MdMath = memo(({ source }: { source: string }) => {
           : Array.isArray(children) ? (typeof children[0] === 'string' ? children[0] : null) : null;
         
         if (typeof firstChildrenString === 'string') {
-          const [ commands, newText ] = getCommands(firstChildrenString);
+          const [ commands, restText ] = getCommands(firstChildrenString);
+          if (href === '@') {
+            return <CustomField commands={commands} restText={restText} />;
+          }
           const style = { outline: '2px solid var(--t-color-gray-6)', border: 'none', height: '100%' };
           if (commands.height) {
             style.height = Number.isNaN(+commands.height) ? commands.height : (commands.height + 'px');
@@ -109,7 +146,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
                   rel="noreferrer"
                   className="jk-md-math-link"
                 >
-                  {newText}&nbsp;<OpenInNewIcon />
+                  {restText}&nbsp;<OpenInNewIcon />
                 </Link>
               </object>
             );
@@ -198,16 +235,13 @@ export const MdMath = memo(({ source }: { source: string }) => {
         );
       },
     },
-    children: source,
-  };
+  }), [ Link ]);
   
   return (
     <div className="jk-md-math">
-      <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
-        <ReactMarkdown {...props} >
-          {source}
-        </ReactMarkdown>
-      </Suspense>
+      <ReactMarkdown {...props} >
+        {source}
+      </ReactMarkdown>
     </div>
   );
 });

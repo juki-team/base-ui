@@ -3,22 +3,21 @@
 .jk-md-math-editor-layout {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--t-color-gray-5);
   
   &.editing {
-    border: 1px solid var(--t-color-gray-4);
+    //border: 1px solid var(--t-color-highlight);
+    border: none;
   }
   
-  .content-preview {
-    position: relative;
-    padding: var(--pad-s);
+  .preview {
+    //border: 1px solid var(--t-color-highlight-light);
   }
   
   .content-bar-options {
-    display: flex;
-    border-bottom: 1px solid var(--t-color-gray-4);
-    justify-content: space-between;
-    padding: 4px 0;
+    //display: flex;
+    //border-bottom: 1px solid var(--t-color-gray-4);
+    //justify-content: space-between;
+    padding: calc(var(--gap) / 2);
     
     > div {
       text-transform: capitalize;
@@ -45,6 +44,15 @@
     > div + div {
       border-left: 1px solid var(--t-color-white);
     }
+  }
+  
+  .content-preview {
+    position: relative;
+    padding: calc(var(--gap) / 2);
+  }
+  
+  .jk-md-math-viewer-layout {
+    padding: var(--gap);
   }
   
   .content-editor-preview {
@@ -77,22 +85,26 @@
     }
     
     .preview {
+      padding: 4px;
+      
       > div {
-        padding: var(--pad-s);
+        //padding: var(--pad-s);
       }
     }
     
     .editor {
       box-sizing: border-box;
-      padding-top: 16px;
-      background-color: var(--t-color-highlight-light);
+      //padding-top: 16px;
+      //background-color: var(--t-color-highlight-light);
       height: 100%;
+      padding: 4px;
+      //width: calc(100% - 3px);
       
       textarea {
         box-shadow: none;
         border: none;
         font-family: monospace;
-        background-color: transparent;
+        //background-color: transparent;
         height: 100%;
       }
     }

@@ -14,6 +14,7 @@ export type CommandsObjectType = {
   rest?: string,
   preview?: string,
   asImage?: boolean,
+  jkUserNickname?: string,
 }
 
 export type CommandsFunctionsType = {

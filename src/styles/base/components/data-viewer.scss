@@ -49,10 +49,7 @@
       }
       
       .jk-table-view-tools {
-        
-        background: var(--t-color-highlight-light);
-        padding: 4px;
-        border-radius: var(--border-radius-inline);
+        padding: calc(var(--gap) / 2);
         
         .jk-divider {
           margin: 0;

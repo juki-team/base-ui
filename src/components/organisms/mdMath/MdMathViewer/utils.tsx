@@ -20,11 +20,13 @@ export const getCommands = (text: string): [ CommandsObjectType, string ] => {
   const Y = X[0].split(' ');
   const commands = Y[0].split('\\');
   const commandsObject: CommandsObjectType = {};
+  console.log({ commands, X, Y });
   let i = 0;
   if (commands[0] === '') {
     for (i++; i < commands.length; i++) {
       const command = commands[i];
       const [ key = '', value = '' ] = command.trim().split('=');
+      console.log({ key, value });
       if (key === 'textAlign') {
         commandsObject[key] = keys[key](value);
       } else if (key === 'imgAlign') {
@@ -43,6 +45,8 @@ export const getCommands = (text: string): [ CommandsObjectType, string ] => {
         commandsObject[key] = keys[key](value);
       } else if (key === 'asImage') {
         commandsObject[key] = true;
+      } else if (key === 'jkUserNickname') {
+        commandsObject[key] = value;
       } else {
         commandsObject.rest = (commandsObject.rest || '') + key + '=' + value;
       }

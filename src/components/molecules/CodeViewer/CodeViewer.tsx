@@ -4,6 +4,14 @@ import React, { useEffect } from 'react';
 import { classNames } from '../../../helpers';
 import { ContentCopyIcon, CopyToClipboard } from '../../atoms';
 import { CodeViewerProps } from './types';
+import 'prismjs/components/prism-c';
+import 'prismjs/components/prism-cpp';
+import 'prismjs/components/prism-markdown';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-python';
+import 'prismjs/plugins/line-numbers/prism-line-numbers';
 
 export const CodeViewer = (props: CodeViewerProps) => {
   
@@ -17,16 +25,16 @@ export const CodeViewer = (props: CodeViewerProps) => {
   } = props;
   
   useEffect(() => {
-    require('prismjs/components/prism-c');
-    require('prismjs/components/prism-cpp');
-    require('prismjs/components/prism-markdown');
-    require('prismjs/components/prism-json');
-    require('prismjs/components/prism-java');
-    require('prismjs/components/prism-javascript');
-    require('prismjs/components/prism-python');
-    require('prismjs/plugins/line-numbers/prism-line-numbers');
+    // require('prismjs/components/prism-c');
+    // require('prismjs/components/prism-cpp');
+    // require('prismjs/components/prism-markdown');
+    // require('prismjs/components/prism-json');
+    // require('prismjs/components/prism-java');
+    // require('prismjs/components/prism-javascript');
+    // require('prismjs/components/prism-python');
+    // require('prismjs/plugins/line-numbers/prism-line-numbers');
     Prism.highlightAll();
-  }, [ language, lineNumbers ]);
+  }, [ language, lineNumbers, code ]);
   
   return (
     <div
@@ -37,8 +45,9 @@ export const CodeViewer = (props: CodeViewerProps) => {
         {withLanguageLabel && !!PROGRAMMING_LANGUAGE[language]?.label && (
           <div className="tx-t jk-tag">{PROGRAMMING_LANGUAGE[language]?.label}</div>
         )}
-        {withCopyButton &&
-            <CopyToClipboard text={code}><ContentCopyIcon size="small" className="link" /></CopyToClipboard>}
+        {withCopyButton && (
+          <CopyToClipboard text={code}><ContentCopyIcon size="small" className="link" /></CopyToClipboard>
+        )}
       </div>
       <pre style={height ? { height: height } : undefined} className="jk-border-radius-inline">
         <code

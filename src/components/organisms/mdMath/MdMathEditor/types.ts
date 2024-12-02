@@ -9,5 +9,5 @@ export type MdMathEditorProps = {
   // sharedButton?: boolean,
   initEditMode?: boolean,
   onPickImageUrl?: onPickImageUrlType,
-  online?: boolean,
+  // online?: boolean,
 }

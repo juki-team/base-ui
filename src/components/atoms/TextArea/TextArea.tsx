@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
 import { TextAreaProps } from './types';
 
-export const TextArea = ({ value, onChange, style, className, register, onBlur, disabled }: TextAreaProps) => {
+export const TextAreaComponent = ({
+                                    value,
+                                    onChange,
+                                    style,
+                                    className,
+                                    register,
+                                    onBlur,
+                                    disabled,
+                                  }: TextAreaProps, ref: Ref<HTMLTextAreaElement>) => {
   
   const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
   
   return (
     <textarea
       {...restRegister}
-      ref={registerRef}
+      ref={registerRef ?? ref}
       className={classNames('jk-pg-sm jk-input-textarea jk-border-radius-inline', className, { disabled: !!disabled })}
       value={value}
       onChange={registerOnChange ? registerOnChange : ({ target }) => {
@@ -28,3 +36,7 @@ export const TextArea = ({ value, onChange, style, className, register, onBlur, 
     />
   );
 };
+
+export const TextArea = forwardRef(TextAreaComponent) as (p: TextAreaProps & {
+  ref?: Ref<HTMLTextAreaElement>
+}) => ReactElement;

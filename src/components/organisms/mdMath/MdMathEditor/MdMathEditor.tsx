@@ -1,20 +1,9 @@
-import React, { MutableRefObject, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { classNames } from '../../../../helpers';
-import { useOutsideAlerter, useSound } from '../../../../hooks';
-import {
-  Button,
-  CloseIcon,
-  EditIcon,
-  ExclamationIcon,
-  Modal,
-  PreviewIcon,
-  SaveIcon,
-  T,
-  TextArea,
-} from '../../../atoms';
-import { SplitPane, TwoActionModal } from '../../../molecules';
+import { Button, CloseIcon, EditIcon, InfoIcon, Modal, PreviewIcon, T, TextArea } from '../../../atoms';
+import { SplitPane } from '../../../molecules';
 import { UploadImageButton } from '../../ImageUploader';
 import { SAMPLE_MD_CONTENT } from '../constants';
 import { MdFloatToolbar } from '../MdFloatToolbar';
@@ -22,7 +11,7 @@ import { MdMathViewer } from '../MdMathViewer';
 import { MdMathEditorProps } from './types';
 
 export interface InformationButtonProps {
-  isOpenRef: MutableRefObject<boolean>,
+  isOpenRef?: MutableRefObject<boolean>,
   withLabel: boolean
 }
 
@@ -31,7 +20,9 @@ export const InformationButton = ({ isOpenRef, withLabel }: InformationButtonPro
   const [ open, setOpen ] = useState(false);
   const [ source, setSource ] = useState(SAMPLE_MD_CONTENT);
   useEffect(() => setSource(SAMPLE_MD_CONTENT), [ open ]);
-  isOpenRef.current = open;
+  if (isOpenRef) {
+    isOpenRef.current = open;
+  }
   
   return (
     <>
@@ -39,9 +30,13 @@ export const InformationButton = ({ isOpenRef, withLabel }: InformationButtonPro
         data-tooltip-id="jk-tooltip"
         data-tooltip-content={withLabel ? '' : 'information'}
         data-tooltip-t-class-name="ws-np tt-se"
-        icon={<ExclamationIcon circle rotate={180} />} type="light" size="tiny" onClick={() => setOpen(true)}
+        size="small"
+        className="bc-we"
+        type="void"
+        icon={<InfoIcon />}
+        onClick={() => setOpen(true)}
       >
-        {withLabel && <T>information</T>}
+        {withLabel && <T className="tt-se">information</T>}
       </Button>
       <Modal
         isOpen={open}
@@ -56,6 +51,13 @@ export const InformationButton = ({ isOpenRef, withLabel }: InformationButtonPro
   );
 };
 
+enum View {
+  ONLY_EDITOR = 'ONLY_EDITOR',
+  EDITOR_VIEWER_HORIZONTAL = 'EDITOR_VIEWER_HORIZONTAL',
+  EDITOR_VIEWER_VERTICAL = 'EDITOR_VIEWER_VERTICAL',
+  ONLY_VIEWER = 'ONLY_VIEWER',
+}
+
 export const MdMathEditor = (props: MdMathEditorProps) => {
   
   const {
@@ -67,86 +69,56 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
     // sharedButton = false,
     initEditMode = false,
     onPickImageUrl,
-    online = false,
   } = props;
   
   // 0 editor-expanded, 1 editor-right-view-left, 2 editor-top-view-bottom, 3 view-expanded
-  const [ view, setView ] = useState(1);
-  const [ editValue, setEditValue ] = useState(source || '');
-  const [ textareaValue, setTextareaValue ] = useState(source);
+  const [ view, setView ] = useState<View>(View.EDITOR_VIEWER_HORIZONTAL);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [ mdSource, setMdSource ] = useState(source);
   const [ editing, setEditing ] = useState(initEditMode);
-  const continueWithoutSavingRef = useRef(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-  const [ modal, setModal ] = useState<ReactNode>(null);
   const layoutEditorRef = useRef(null);
-  const isOpenInformationModalRef = useRef(false);
-  const isOpenUploadImageModalRef = useRef(false);
-  const sound = useSound();
+  console.log({ view });
   useEffect(() => {
-    setEditValue(source);
-    setTextareaValue(source);
-  }, [ source ]);
-  const triggerUnsavedAlert = (accept?: () => void) => {
-    const handleAccept = () => {
-      onChange?.(editValue);
-      accept?.();
-      setModal(null);
+    const fun = () => {
+      console.log('fun');
+      if (textareaRef.current) {
+        textareaRef.current.value = source;
+      } else {
+        setTimeout(fun, 200);
+      }
     };
-    sound.playWarning();
-    setModal(
-      <TwoActionModal
-        isOpen
-        onClose={() => setModal(null)}
-        secondary={{
-          onClick: () => {
-            continueWithoutSavingRef.current = true;
-            setModal(null);
-          },
-          label: <T>continue without saving</T>,
-        }}
-        primary={{ onClick: handleAccept, label: <T>save and continue</T> }}
-        title={<T>attention</T>}
-      >
-        <T className="tt-se">has unsaved changes</T>
-      </TwoActionModal>,
-    );
-  };
-  useOutsideAlerter(() => {
-    if (!online && editValue !== source && !modal && !isOpenInformationModalRef.current && !isOpenUploadImageModalRef.current && onChange && !continueWithoutSavingRef.current) {
-      triggerUnsavedAlert();
+    if (editing && (view === View.ONLY_EDITOR || view === View.EDITOR_VIEWER_VERTICAL || view === View.EDITOR_VIEWER_HORIZONTAL)) {
+      fun();
     }
-  }, layoutEditorRef);
+    setMdSource(source);
+  }, [ editing, source, view ]);
   
   const { width = 0 } = useResizeDetector({ targetRef: layoutEditorRef, ...RESIZE_DETECTOR_PROPS });
   const withLabels = width > 600;
   
   return (
     <div ref={layoutEditorRef} className={classNames('jk-md-math-editor-layout jk-border-radius-inline', { editing })}>
-      {modal}
       {editing ? (
         <>
-          <div className="content-bar-options">
-            <div
-              className={classNames('jk-row gap left', { gap: !withLabels })}
-              style={{ padding: '0 var(--gap)' }}
-            >
-              {informationButton && <InformationButton isOpenRef={isOpenInformationModalRef} withLabel={withLabels} />}
+          <div className="content-bar-options jk-row space-between bc-hl jk-br-ie">
+            <div className={classNames('jk-row gap left', { gap: !withLabels })}>
+              {informationButton && <InformationButton withLabel={withLabels} />}
               {uploadImageButton && (
                 <UploadImageButton
-                  isOpenRef={isOpenUploadImageModalRef}
                   withLabel={withLabels}
                   onPickImageUrl={onPickImageUrl}
                   copyButtons
                 />
               )}
-              {view === 0 && (
+              {view === View.ONLY_EDITOR && (
                 <Button
                   data-tooltip-id="jk-tooltip"
                   data-tooltip-content={withLabels ? '' : 'editor | preview'}
                   data-tooltip-t-class-name="ws-np"
-                  type="light"
-                  size="tiny"
-                  onClick={() => setView(1)}
+                  type="void"
+                  size="small"
+                  className="bc-we"
+                  onClick={() => setView(View.EDITOR_VIEWER_HORIZONTAL)}
                 >
                   <div className="jk-row">
                     {withLabels && (
@@ -158,107 +130,70 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
                   </div>
                 </Button>
               )}
-              {view === 1 && (
+              {view === View.EDITOR_VIEWER_HORIZONTAL && (
                 <Button
                   data-tooltip-id="jk-tooltip"
                   data-tooltip-content={withLabels ? '' : 'preview'}
                   data-tooltip-t-class-name="ws-np"
-                  type="light"
-                  size="tiny"
+                  type="void"
+                  size="small"
+                  className="bc-we"
                   icon={<PreviewIcon />}
-                  onClick={() => setView(3)}
+                  onClick={() => setView(View.ONLY_VIEWER)}
                 >
                   {withLabels && <T>preview</T>}
                 </Button>
               )}
-              {view === 3 && (
+              {view === View.ONLY_VIEWER && (
                 <Button
                   data-tooltip-id="jk-tooltip"
                   data-tooltip-content={withLabels ? '' : 'editor'}
                   data-tooltip-t-class-name="ws-np"
-                  type="light"
-                  size="tiny"
+                  type="void"
+                  size="small"
+                  className="bc-we"
                   icon={<EditIcon />}
-                  onClick={() => setView(0)}
+                  onClick={() => setView(View.ONLY_EDITOR)}
                 >
                   {withLabels && <T>editor</T>}
                 </Button>
               )}
             </div>
-            <div className="jk-row gap right" style={{ padding: '0 var(--gap)' }}>
-              {onChange && !online && (
-                <Button
-                  data-tooltip-id="jk-tooltip"
-                  data-tooltip-content={withLabels ? '' : 'save'}
-                  data-tooltip-t-class-name="ws-np"
-                  icon={<SaveIcon />}
-                  type="light"
-                  size="tiny"
-                  onClick={() => onChange(editValue)}
-                  disabled={source === editValue}
-                >
-                  {withLabels && <T>save</T>}
-                </Button>
-              )}
-              <Button
-                icon={<CloseIcon />}
-                type="light"
-                size="small"
-                onClick={() => {
-                  if (editValue !== source) {
-                    triggerUnsavedAlert(() => {
-                      setEditing(false);
-                    });
-                  } else {
-                    setEditing(false);
-                  }
-                }}
-              />
-            </div>
+            <Button
+              icon={<CloseIcon />}
+              type="void"
+              size="small"
+              className="bc-we"
+              onClick={() => setEditing(false)}
+            />
           </div>
           <div
-            className={classNames(
-              'content-editor-preview',
-              {
-                'editor-top-preview-bottom': view === 2,
-              },
-            )}
+            className={classNames('content-editor-preview', { 'editor-top-preview-bottom': view === View.EDITOR_VIEWER_VERTICAL })}
           >
-            {editValue !== source && !online && <div className="no-saved-label">{<T>not saved</T>}</div>}
-            <SplitPane onlyFirstPane={view === 0} onlySecondPane={view === 3}>
-              <div className="editor" onClick={() => continueWithoutSavingRef.current = false}>
+            <SplitPane onlyFirstPane={view === View.ONLY_EDITOR} onlySecondPane={view === View.ONLY_VIEWER}>
+              <div className="editor">
                 <TextArea
-                  value={textareaValue}
+                  ref={textareaRef}
                   onChange={value => {
-                    if (onChange) {
-                      if (online) {
-                        onChange(value);
-                      } else {
-                        setTextareaValue(value);
-                        if (timeoutRef.current) {
-                          clearTimeout(timeoutRef.current);
-                        }
-                        timeoutRef.current = setTimeout(() => setEditValue(value), 400);
-                      }
-                    }
+                    onChange?.(value);
+                    setMdSource(value);
                   }}
                 />
               </div>
-              <div className="preview"><MdMathViewer source={editValue?.trim()} /></div>
+              <div className="preview"><MdMathViewer className="jk-br-ie br-hl" source={mdSource} /></div>
             </SplitPane>
           </div>
         </>
       ) : (
         <div className="content-preview">
           <MdFloatToolbar
-            source={editValue?.trim()}
+            source={mdSource}
             edit
             onEdit={() => setEditing(true)}
             download={downloadButton}
-            // share={sharedButton}
           />
           <div className="preview">
-            <MdMathViewer source={editValue?.trim()} />
+            <MdMathViewer className="jk-br-ie br-hl" source={mdSource} />
           </div>
         </div>
       )}

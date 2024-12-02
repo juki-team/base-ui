@@ -381,6 +381,14 @@
   }
 }
 
-.dy-cs {
-  display: contents;
-}
+.dy-cs { display: contents; }
+
+.dy-ib { display: inline-block; }
+
+.dy-ib- { display: inline-block !important; }
+
+.dy-if { display: inline-flex; }
+
+.dy-if- { display: inline-flex !important; }
+
+.va-tp { vertical-align: top; }

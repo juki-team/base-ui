@@ -20,7 +20,6 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   --size-button-loader-icon: var(--size-regular-icon);
   --button-border-padding: var(--button-padding);
   --icon-margin-right: 0;
-  background-color: var(--button-background-color, var(--t-color-primary));
   height: auto;
   position: relative;
   display: inline-flex;
@@ -39,6 +38,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   &:not(.void) {
     text-transform: uppercase;
     font-weight: var(--weight-bold);
+    background-color: var(--button-background-color, var(--t-color-primary));
   }
   
   &:not(.disabled) {

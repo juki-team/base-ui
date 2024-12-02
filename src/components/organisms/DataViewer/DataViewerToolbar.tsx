@@ -171,7 +171,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
         {Children.toArray(extraNodes.map((extraButton, index) => renderReactNodeOrFunction(extraButton, index)))}
       </div>
       <div
-        className={classNames('jk-table-view-tools', {
+        className={classNames('jk-table-view-tools jk-br-ie bc-hl', {
           'jk-row nowrap': onColumn,
           'jk-col stretch': !onColumn,
           gap: onColumn || isMobileViewPort,

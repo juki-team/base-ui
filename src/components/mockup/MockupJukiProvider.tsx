@@ -1,6 +1,7 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 import { JukiProviders } from '../../contexts';
 import { jukiApiSocketManager } from '../../settings';
+import { UserPreviewModal } from '../templates';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
 
@@ -40,6 +41,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
         [TestPath.ADMIN]: { pathname: '', searchParams: new URLSearchParams() },
       }}
     >
+      <UserPreviewModal key="user-preview-modal" />
       {children}
       <MockupLoginButton />
       <MockupToggleThemeButton />
