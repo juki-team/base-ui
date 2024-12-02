@@ -65,7 +65,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
       content={
         <div
           ref={optionRef}
-          className={classNames('jk-select-options jk-pg-sm jk-border-radius-inline', { disabled: isDisabled })}
+          className={classNames('jk-select-options jk-border-radius-inline', { disabled: isDisabled })}
           style={{
             width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2/*border*/ : containerWidth - 2, /*border*/
           }}
@@ -76,7 +76,10 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
             const disabled = !!option.disabled;
             return (
               <div
-                className={classNames('jk-select-option', { selected, disabled: isDisabled || disabled })}
+                className={classNames('jk-select-option jk-row multiselect', {
+                  selected,
+                  disabled: isDisabled || disabled,
+                })}
                 key={JSON.stringify(option.value)}
                 ref={(e) => {
                   if (selected) {

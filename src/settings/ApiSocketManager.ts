@@ -705,8 +705,6 @@ export class ApiSocketManager {
     this._SOCKET_SERVICE_URL = socketServiceUrl;
     this._SOCKET = new SocketIo(socketServiceUrl);
     
-    console.log('setSocketSettings');
-    
     this._SOCKET.start();
   }
 }

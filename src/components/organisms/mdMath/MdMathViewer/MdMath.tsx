@@ -37,7 +37,6 @@ const UserInlineChip = ({ nickname }: { nickname: string }) => {
     isLoading,
     data,
   } = useFetcher<ContentResponseType<UserBasicResponseDTO>>(jukiApiSocketManager.API_V1.user.getSummary({ params: { nickname } }).url);
-  console.log({ isLoading });
   
   if (isLoading) {
     return <SpinIcon size="tiny" />;

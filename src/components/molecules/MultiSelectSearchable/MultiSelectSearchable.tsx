@@ -80,27 +80,31 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
     const value = JSON.stringify(option.value);
     const selected = selectedOptions.some(optionSelected => value === JSON.stringify(optionSelected.value));
     const disabled = !!option.disabled;
+    
+    const onChange = !option.disabled ? () => {
+      onChangeRef.current?.(selected ? selectedOptions.filter(optionSelected => JSON.stringify(option.value)
+        !== JSON.stringify(optionSelected.value)) : [
+        ...(multiselect ? selectedOptions : []),
+        option,
+      ]);
+    } : undefined;
+    
     return (
       <div
-        className={classNames('jk-select-option', { selected, disabled })}
+        className={classNames('jk-select-option', { selected, disabled, multiselect })}
         key={JSON.stringify(option.value)}
         ref={(e) => {
           if (selected) {
             selectedOptionRef.current = e;
           }
         }}
+        onClick={multiselect ? undefined : onChange}
       >
         {multiselect
           ? <InputCheckbox
             checked={selected}
             disabled={disabled}
-            onChange={!option.disabled ? () => {
-              onChangeRef.current?.(selected ? selectedOptions.filter(optionSelected => JSON.stringify(option.value)
-                !== JSON.stringify(optionSelected.value)) : [
-                ...(multiselect ? selectedOptions : []),
-                option,
-              ]);
-            } : undefined}
+            onChange={onChange}
             label={renderReactNodeOrFunction(option.label)}
           />
           : renderReactNodeOrFunction(option.label)}
@@ -118,7 +122,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
       marginOfChildren={0}
       content={
         <div
-          className={classNames('jk-select-options-virtual jk-pg-sm jk-border-radius-inline')}
+          className={classNames('jk-select-options-virtual jk-border-radius-inline')}
           style={{
             width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2 /*border*/ : containerWidth - 2, /*border*/
           }}
@@ -153,8 +157,9 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
                 className={classNames('jk-row nowrap', { 'jk-tag gray-6': multiselect })}
                 key={JSON.stringify(optionSelected.value)}
               >
-                {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected?.inputLabel) : renderReactNodeOrFunction(
-                  optionSelected.label)}
+                {optionSelected?.inputLabel
+                  ? renderReactNodeOrFunction(optionSelected?.inputLabel)
+                  : renderReactNodeOrFunction(optionSelected.label)}
                 {onChangeRef.current && multiselect && (
                   <CloseIcon
                     size="small"

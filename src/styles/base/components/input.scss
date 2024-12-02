@@ -724,14 +724,20 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-checkbox-list, .jk-select-options, .jk-select-options-virtual {
-  .jk-input-checkbox-wrapper {
-    width: calc(100% - 4px);
-    padding: 4px 2px;
-    border-radius: var(--border-radius-inline);
+  .jk-input-checkbox-wrapper, .jk-select-option:not(.multiselect) {
+    width: calc(100% - 12px);
+    padding: 2px 6px;
+    //border-radius: var(--border-radius-inline);
     
     &:hover:not(.disabled) {
-      background-color: var(--t-color-gray-6);
+      background-color: var(--t-color-highlight-light);
     }
+  }
+}
+
+.jk-checkbox-list, .jk-select-options, .jk-select-options-virtual {
+  .jk-select-option {
+  
   }
 }
 

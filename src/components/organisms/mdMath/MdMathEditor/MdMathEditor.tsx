@@ -77,10 +77,8 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
   const [ mdSource, setMdSource ] = useState(source);
   const [ editing, setEditing ] = useState(initEditMode);
   const layoutEditorRef = useRef(null);
-  console.log({ view });
   useEffect(() => {
     const fun = () => {
-      console.log('fun');
       if (textareaRef.current) {
         textareaRef.current.value = source;
       } else {

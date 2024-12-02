@@ -22,7 +22,6 @@ export class SocketIo {
   }
   
   connect() {
-    console.log('connect');
     const ws = new WebSocket(this.socketServiceUrl + `?sessionId=${jukiApiSocketManager.getToken()}`);
     ws.onopen = function () {
       ws.send('hello');
@@ -69,7 +68,6 @@ export class SocketIo {
   }
   
   start() {
-    console.log('start');
     if (this._socket?.readyState === undefined || this._socket?.readyState === WebSocket.CLOSED || this._socket?.readyState === WebSocket.CLOSING) {
       this._socket = this.connect();
     }
