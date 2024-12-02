@@ -61,76 +61,86 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
       style={{ ...cardStyle, width: cardWidth }}
       onClick={onCardClick}
     >
-      <div
-        className={classNames('top-container', { 'no-middle': !positionsList.topi?.length })}
-        style={{ height: topContainerHeight }}
-      >
-        <div className="top-left jk-col stretch" ref={topLeftRef}>
-          {positionsList.topLeft?.map(renderField)}
+      {(!!positionsList.topLeft?.length || !!positionsList.top?.length || !!positionsList.topRight?.length) && (
+        <div
+          className={classNames('top-container', { 'no-middle': !positionsList.topi?.length })}
+          style={{ height: topContainerHeight }}
+        >
+          <div className="top-left jk-col stretch" ref={topLeftRef}>
+            {positionsList.topLeft?.map(renderField)}
+          </div>
+          <div className="top jk-col stretch" ref={topRef}>
+            {positionsList.top?.map(renderField)}
+          </div>
+          <div className="top-right jk-col stretch" ref={topRightRef}>
+            {positionsList.topRight?.map(renderField)}
+          </div>
         </div>
-        <div className="top jk-col stretch" ref={topRef}>
-          {positionsList.top?.map(renderField)}
+      )}
+      {(!!positionsList.upperLeft?.length || !!positionsList.upper?.length || !!positionsList.upperRight?.length) && (
+        <div
+          className={classNames('upper-container', { 'no-middle': !positionsList.upper?.length })}
+          style={{ height: upperContainerHeight }}
+        >
+          <div className="upper-left jk-col stretch" ref={upperLeftRef}>
+            {positionsList.upperLeft?.map(renderField)}
+          </div>
+          <div className="upper jk-col stretch" ref={upperRef}>
+            {positionsList.upper?.map(renderField)}
+          </div>
+          <div className="upper-right jk-col stretch" ref={upperRightRef}>
+            {positionsList.upperRight?.map(renderField)}
+          </div>
         </div>
-        <div className="top-right jk-col stretch" ref={topRightRef}>
-          {positionsList.topRight?.map(renderField)}
+      )}
+      {(!!positionsList.centerLeft?.length || !!positionsList.center?.length || !!positionsList.centerRight?.length) && (
+        <div
+          className={classNames('center-container', { 'no-middle': !positionsList.center?.length })}
+          style={{ height: centerContainerHeight }}
+        >
+          <div className="center-left jk-col stretch" ref={centerLeftRef}>
+            {positionsList.centerLeft?.map(renderField)}
+          </div>
+          <div className="center jk-col stretch" ref={centerRef}>
+            {positionsList.center?.map(renderField)}
+          </div>
+          <div className="center-right jk-col stretch" ref={centerRightRef}>
+            {positionsList.centerRight?.map(renderField)}
+          </div>
         </div>
-      </div>
-      <div
-        className={classNames('upper-container', { 'no-middle': !positionsList.upper?.length })}
-        style={{ height: upperContainerHeight }}
-      >
-        <div className="upper-left jk-col stretch" ref={upperLeftRef}>
-          {positionsList.upperLeft?.map(renderField)}
+      )}
+      {(!!positionsList.lowerLeft?.length || !!positionsList.lower?.length || !!positionsList.lowerRight?.length) && (
+        <div
+          className={classNames('lower-container', { 'no-middle': !positionsList.lower?.length })}
+          style={{ height: lowerContainerHeight }}
+        >
+          <div className="lower-left jk-col stretch" ref={lowerLeftRef}>
+            {positionsList.lowerLeft?.map(renderField)}
+          </div>
+          <div className="lower jk-col stretch" ref={lowerRef}>
+            {positionsList.lower?.map(renderField)}
+          </div>
+          <div className="lower-right jk-col stretch" ref={lowerRightRef}>
+            {positionsList.lowerRight?.map(renderField)}
+          </div>
         </div>
-        <div className="upper jk-col stretch" ref={upperRef}>
-          {positionsList.upper?.map(renderField)}
+      )}
+      {(!!positionsList.bottomLeft?.length || !!positionsList.bottom?.length || !!positionsList.bottomRight?.length) && (
+        <div
+          className={classNames('bottom-container', { 'no-middle': !positionsList.bottom?.length })}
+          style={{ height: bottomContainerHeight }}
+        >
+          <div className="bottom-left jk-col stretch" ref={bottomLeftRef}>
+            {positionsList.bottomLeft?.map(renderField)}
+          </div>
+          <div className="bottom jk-col stretch" ref={bottomRef}>
+            {positionsList.bottom?.map(renderField)}
+          </div>
+          <div className="bottom-right jk-col stretch" ref={bottomRightRef}>
+            {positionsList.bottomRight?.map(renderField)}
+          </div>
         </div>
-        <div className="upper-right jk-col stretch" ref={upperRightRef}>
-          {positionsList.upperRight?.map(renderField)}
-        </div>
-      </div>
-      <div
-        className={classNames('center-container', { 'no-middle': !positionsList.center?.length })}
-        style={{ height: centerContainerHeight }}
-      >
-        <div className="center-left jk-col stretch" ref={centerLeftRef}>
-          {positionsList.centerLeft?.map(renderField)}
-        </div>
-        <div className="center jk-col stretch" ref={centerRef}>
-          {positionsList.center?.map(renderField)}
-        </div>
-        <div className="center-right jk-col stretch" ref={centerRightRef}>
-          {positionsList.centerRight?.map(renderField)}
-        </div>
-      </div>
-      <div
-        className={classNames('lower-container', { 'no-middle': !positionsList.lower?.length })}
-        style={{ height: lowerContainerHeight }}
-      >
-        <div className="lower-left jk-col stretch" ref={lowerLeftRef}>
-          {positionsList.lowerLeft?.map(renderField)}
-        </div>
-        <div className="lower jk-col stretch" ref={lowerRef}>
-          {positionsList.lower?.map(renderField)}
-        </div>
-        <div className="lower-right jk-col stretch" ref={lowerRightRef}>
-          {positionsList.lowerRight?.map(renderField)}
-        </div>
-      </div>
-      <div
-        className={classNames('bottom-container', { 'no-middle': !positionsList.bottom?.length })}
-        style={{ height: bottomContainerHeight }}
-      >
-        <div className="bottom-left jk-col stretch" ref={bottomLeftRef}>
-          {positionsList.bottomLeft?.map(renderField)}
-        </div>
-        <div className="bottom jk-col stretch" ref={bottomRef}>
-          {positionsList.bottom?.map(renderField)}
-        </div>
-        <div className="bottom-right jk-col stretch" ref={bottomRightRef}>
-          {positionsList.bottomRight?.map(renderField)}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
