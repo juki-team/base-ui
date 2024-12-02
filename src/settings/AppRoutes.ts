@@ -110,6 +110,11 @@ export class AppRoutes {
           return injectOrigin(origin, `/courses/new`);
         },
       },
+      profiles: {
+        view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
+          return injectOrigin(origin, `/profiles/${nickname}?tab=${tab}`);
+        },
+      },
     };
   }
   
