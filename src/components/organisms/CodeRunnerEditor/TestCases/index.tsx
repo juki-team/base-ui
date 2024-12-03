@@ -57,6 +57,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = fal
                   hidden: false,
                   sample: sample,
                   status: SubmissionRunStatus.NONE,
+                  messageTimestamp: 0,
                 },
               },
             });

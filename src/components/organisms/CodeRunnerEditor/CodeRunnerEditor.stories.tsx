@@ -109,6 +109,7 @@ CodeRunnerEditorWithIo.args = {
       sample: true,
       hidden: false,
       status: SubmissionRunStatus.NONE,
+      messageTimestamp: 0,
     },
     'test-empty-without-PE': {
       key: 'test-empty-without-PE',
@@ -122,6 +123,7 @@ CodeRunnerEditorWithIo.args = {
       sample: true,
       hidden: false,
       status: SubmissionRunStatus.NONE,
+      messageTimestamp: 0,
     },
     'test-empty': {
       key: 'test-empty',
@@ -135,6 +137,7 @@ CodeRunnerEditorWithIo.args = {
       sample: true,
       hidden: false,
       status: SubmissionRunStatus.NONE,
+      messageTimestamp: 0,
     },
     'test-empty-1': {
       key: 'test-empty-1',
@@ -148,6 +151,7 @@ CodeRunnerEditorWithIo.args = {
       sample: true,
       hidden: false,
       status: SubmissionRunStatus.NONE,
+      messageTimestamp: 0,
     },
   },
 };
@@ -184,6 +188,7 @@ CodeRunnerEditorWithCustomLanguages.args = {
       sample: true,
       hidden: false,
       status: SubmissionRunStatus.NONE,
+      messageTimestamp: 0,
     },
   },
   languages: [

@@ -23,7 +23,6 @@ import {
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
-import { useJukiPage } from '../../hooks/useJukiPage';
 import { jukiApiSocketManager, jukiGlobalStore } from '../../settings';
 import { UserContext } from './context';
 import { DeviceType, JukiUserProviderProps } from './types';
@@ -113,8 +112,6 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   
   const { children } = props;
   
-  const { isPageVisible } = useJukiPage();
-  
   const token = jukiApiSocketManager.getToken();
   
   const { user, company, setUser, isLoading, mutate } = useUser();
@@ -124,7 +121,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     return () => {
       jukiApiSocketManager.SOCKET.stop();
     };
-  }, [ token, isPageVisible, mutate ]);
+  }, [ token ]);
   
   const device: DeviceType = useMemo(() => ({
     type: deviceType,

@@ -70,12 +70,16 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
               err,
               out,
               log,
+              messageTimestamp: lastRunStatus.messageTimestamp,
             };
           }
           onChangeRef.current?.({ testCases: newTestCases });
         };
         const status = lastRunStatus.status || SubmissionRunStatus.NONE;
         const inputKey = lastRunStatus?.log?.inputKey;
+        if (!!testCasesRef.current?.[inputKey]?.messageTimestamp && lastRunStatus.messageTimestamp < (testCasesRef.current[inputKey].messageTimestamp ?? 0)) {
+          return;
+        }
         switch (status) {
           case SubmissionRunStatus.FAILED:
           case SubmissionRunStatus.COMPILING:
@@ -100,6 +104,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
                 out: lastRunStatus.log?.out || '',
                 log: lastRunStatus.log?.log || '',
                 err: lastRunStatus.log?.err || '',
+                messageTimestamp: lastRunStatus.messageTimestamp,
               };
             }
             onChangeRef.current?.({ testCases: newTestCases });

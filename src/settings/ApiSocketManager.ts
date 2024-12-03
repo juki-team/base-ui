@@ -704,7 +704,5 @@ export class ApiSocketManager {
     
     this._SOCKET_SERVICE_URL = socketServiceUrl;
     this._SOCKET = new SocketIo(socketServiceUrl);
-    
-    this._SOCKET.start();
   }
 }
