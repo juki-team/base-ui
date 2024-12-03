@@ -38,10 +38,11 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
   errorRef.current = error;
   
   const isError = !isLoading && (data?.success === false || error);
-  
+  console.log({ isError, data, error, isLoading, isValidating });
   useEffect(() => {
     if (isError) {
       if (isErrorResponseType(dataRef.current)) {
+        console.log('notifyResponse', dataRef.current);
         notifyResponse(dataRef.current);
       }
       onErrorRef.current?.(errorRef.current);

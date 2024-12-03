@@ -47,7 +47,7 @@ export const useJukiNotification = () => {
       notifyError(response, (message) => addNotification({ type: NotificationType.ERROR, message }));
       setStatus?.(Status.ERROR);
     }
-    if (response.success) {
+    if (response.success === true) {
       notifySuccess(response, (message) => addNotification({ type: NotificationType.INFO, message }));
       setStatus?.(Status.SUCCESS);
     }
