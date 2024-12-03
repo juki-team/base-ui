@@ -25,14 +25,6 @@ export const CodeViewer = (props: CodeViewerProps) => {
   } = props;
   
   useEffect(() => {
-    // require('prismjs/components/prism-c');
-    // require('prismjs/components/prism-cpp');
-    // require('prismjs/components/prism-markdown');
-    // require('prismjs/components/prism-json');
-    // require('prismjs/components/prism-java');
-    // require('prismjs/components/prism-javascript');
-    // require('prismjs/components/prism-python');
-    // require('prismjs/plugins/line-numbers/prism-line-numbers');
     Prism.highlightAll();
   }, [ language, lineNumbers, code ]);
   
@@ -51,7 +43,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
       </div>
       <pre style={height ? { height: height } : undefined} className="jk-border-radius-inline">
         <code
-          className={`language-${PROGRAMMING_LANGUAGE[language]?.codeMirrorKey || PROGRAMMING_LANGUAGE[ProgrammingLanguage.TEXT].codeMirrorKey}`}
+          className={`language-${PROGRAMMING_LANGUAGE[language]?.codeMirrorKey || language || PROGRAMMING_LANGUAGE[ProgrammingLanguage.TEXT].codeMirrorKey}`}
         >
           {code}
         </code>
