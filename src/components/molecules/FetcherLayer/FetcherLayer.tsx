@@ -32,8 +32,10 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
     }
   }, [ triggerFetch, mutate ]);
   const dataRef = useRef(data);
-  
   dataRef.current = data;
+  
+  const errorRef = useRef(error);
+  errorRef.current = error;
   
   const isError = !isLoading && (data?.success === false || error);
   
@@ -42,9 +44,9 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
       if (isErrorResponseType(dataRef.current)) {
         notifyResponse(dataRef.current);
       }
-      onErrorRef.current?.(error);
+      onErrorRef.current?.(errorRef.current);
     }
-  }, [ notifyResponse, isError, error ]);
+  }, [ notifyResponse, isError ]);
   
   const validChild = useMemo(() => {
     if (isContentResponseType<U>(data) || isContentsResponseType<U>(data)) {
