@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
+import { oneTab } from '../../../helpers';
 import { Input, T } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { MockJkContestTable } from '../../organisms/DataViewer/JkContestTableTest/MockJkContestTable';
@@ -78,6 +79,11 @@ const Component = <T, >(args: TwoContentLayoutProps<T>) => {
         {layout === 4 && (
           <TwoContentLayoutComponent {...args} loading={<><T>loading</T>...</>}>
             <h1>Title 1 loading</h1>
+          </TwoContentLayoutComponent>
+        )}
+        {layout === 5 && (
+          <TwoContentLayoutComponent tabs={oneTab(<div>one tab</div>)}>
+            <h1>Title 5</h1>
           </TwoContentLayoutComponent>
         )}
       </div>
