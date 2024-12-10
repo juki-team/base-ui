@@ -4,6 +4,7 @@ import { jukiApiSocketManager } from '../../settings';
 import { UserPreviewModal } from '../templates';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
+import './styles.scss';
 
 enum TestPath {
   USER = 'USER',

@@ -85,12 +85,12 @@ html body {
   --text-huge-height: var(--base-text-height);
   --text-large-size: calc(var(--base-text-size) + 2px);
   --text-large-height: var(--base-text-height);
-  --text-medium-size: var(--base-text-size); // 6
+  --text-medium-size: var(--base-text-size); // 16
   --text-medium-height: var(--base-text-height);
   --text-small-size: calc(var(--base-text-size) - 2px);
-  --text-small-height: var(--base-text-height);
+  --text-small-height: 1.2;
   --text-tiny-size: calc(var(--base-text-size) - 4px);
-  --text-tiny-height: var(--base-text-height);
+  --text-tiny-height: 1.2;
   
   --z-index-menu: 50;
   --z-index-select-options: 60;

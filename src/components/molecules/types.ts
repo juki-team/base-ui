@@ -8,7 +8,7 @@ export * from './ImageLoaderCropper/types';
 export * from './InputColor/types';
 export * from './layouts/types';
 export * from './LinkLastPath/types';
-export * from './MultiSelectSearchable';
+export * from './MultiSelectSearchable/types';
 export * from './progress/types';
 export * from './SimpleSortableRows/types';
 export * from './SplitModal/types';

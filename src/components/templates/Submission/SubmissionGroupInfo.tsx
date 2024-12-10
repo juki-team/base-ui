@@ -32,7 +32,7 @@ const DiffViewButton = ({ diffInput, croppedDiff }: { diffInput: string, cropped
   
   useEffect(() => {
     if (isOpen) {
-      if (diffInput.includes('$/test-A') || diffInput.includes('$/test-B')) {
+      if (/\$\/.*\.out/.test(diffInput) || /\$\/.*\.judge.out/.test(diffInput)) {
         const diffHtml = Diff2Html.html(diffInput,
           {
             drawFileList: false,
@@ -172,17 +172,17 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
             <SubmissionVerdict verdict={verdict} points={points} submitId={submitId} />
           </div>
           {(problemScoringMode === ProblemScoringMode.SUBTASK || problemScoringMode === ProblemScoringMode.PARTIAL) && (
-            <div className="jk-row">{+points.toFixed(4)}</div>
+            <div className="jk-row center">{+points.toFixed(4)}</div>
           )}
-          <div className="jk-row center gap">
+          <div className="jk-row center">
             <SubmissionTime timeUsed={timeUsed} verdict={verdict} />
           </div>
-          <div className="jk-row center gap">
+          <div className="jk-row center">
             <SubmissionMemory verdict={verdict} memoryUsed={memoryUsed} />
           </div>
         </div>
       )}
-      className="jk-row extend"
+      className="wh-100 tx-s"
     >
       <div className={classNames('jk-row extend group-info-details')}>
         <div className={classNames('jk-row extend block gap jk-table-inline-row fw-bd')}>

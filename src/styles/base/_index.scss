@@ -3,8 +3,9 @@
 @use "global";
 
 @use "components/index";
-@use "integrated-components/index" as index2;
-@use "modules/index" as index3;
+@use "templates/index" as templates;
+@use "integrated-components/index" as integrated-component;
+@use "modules/index" as modules;
 
 @use "fonts";
 @use "jk-commons";

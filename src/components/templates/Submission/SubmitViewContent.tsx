@@ -9,6 +9,7 @@ import React from 'react';
 import { hasTimeHasMemory } from '../../../helpers/submission';
 import { DateLiteral, T, UpIcon } from '../../atoms';
 import { CodeViewer, Collapse, Timer } from '../../molecules';
+import { SubmissionRejudgeButton, UserChip } from '../../organisms';
 import { SubmissionGroupInfo } from './SubmissionGroupInfo';
 import { SubmissionListenerVerdict } from './SubmissionListenerVerdict';
 import { SubmissionMemory } from './SubmissionMemory';
@@ -59,16 +60,22 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
     && compilationResult?.success === false;
   
   return (
-    <div>
+    <div className="jk-col stretch gap">
       <Collapse
         header={({ isOpen, toggle }) => (
-          <div className="jk-row-col gap">
+          <div className="jk-row-col gap tx-s bottom">
             <div className="jk-col">
-              <div style={{ height: 48 }} className="jk-row">{PROGRAMMING_LANGUAGE[language]?.label || language}</div>
+              <div className="jk-row">
+                <UserChip imageUrl={submit.user.imageUrl} nickname={submit.user.nickname} />
+              </div>
+              <T className="fw-bd tt-se">nickname</T>
+            </div>
+            <div className="jk-col">
+              <div className="jk-row">{PROGRAMMING_LANGUAGE[language]?.label || language}</div>
               <T className="fw-bd tt-se">language</T>
             </div>
             <div className="jk-col">
-              <div className="jk-row gap center" style={{ height: 48 }}>
+              <div className="jk-row gap center">
                 <SubmissionListenerVerdict verdict={verdict} points={points} status={status} submitId={submitId} />
                 {compilationFailed && <UpIcon onClick={toggle} rotate={isOpen ? 0 : 180} className="link" />}
               </div>
@@ -76,14 +83,14 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
             </div>
             {hasTimeHasMemory(verdict) && (
               <div className="jk-col">
-                <div className="jk-row" style={{ height: 48 }}><SubmissionTime timeUsed={timeUsed} verdict={verdict} />
+                <div className="jk-row"><SubmissionTime timeUsed={timeUsed} verdict={verdict} />
                 </div>
                 <T className="fw-bd tt-se">time used</T>
               </div>
             )}
             {hasTimeHasMemory(verdict) && (
               <div className="jk-col">
-                <div className="jk-row" style={{ height: 48 }}><SubmissionMemory
+                <div className="jk-row"><SubmissionMemory
                   memoryUsed={memoryUsed}
                   verdict={verdict}
                 /></div>
@@ -91,27 +98,36 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
               </div>
             )}
             <div className="jk-col">
-              <DateLiteral date={date} twoLines style={{ height: 48 }} />
+              <DateLiteral date={date} twoLines />
               <T className="fw-bd tt-se">date</T>
             </div>
             {isProblemEditor && (
-              <div className="jk-col">
-                <div className="jk-row" style={{ height: 48 }}>
-                  ~&nbsp;
-                  {judgmentTime > 0
-                    ? <Timer currentTimestamp={judgmentTime} interval={0} literal laps={1} />
-                    : (
-                      <>
-                        <Timer currentTimestamp={Date.now() - -judgmentTime} interval={1000} literal laps={1} />
-                      </>
-                    )}
+              <>
+                <div className="jk-col">
+                  <div className="jk-row">
+                    ~&nbsp;
+                    {judgmentTime > 0
+                      ? <Timer currentTimestamp={judgmentTime} interval={0} literal laps={1} />
+                      : (
+                        <>
+                          <Timer currentTimestamp={Date.now() - -judgmentTime} interval={1000} literal laps={1} />
+                        </>
+                      )}
+                  </div>
+                  <T className="fw-bd tt-se">{judgmentTime > 0 ? 'judgment time' : 'judging'}</T>
                 </div>
-                <T className="fw-bd tt-se">{judgmentTime > 0 ? 'judgment time' : 'judging'}</T>
-              </div>
+                <div className="jk-col">
+                  <div className="jk-row">
+                    <SubmissionRejudgeButton submissionId={submit.submitId} />
+                  </div>
+                  <T className="fw-bd tt-se">actions</T>
+                </div>
+              </>
             )}
           </div>
         )}
         startsShowing={compilationFailed}
+        className="wh-100"
       >
         <div className="submission-stderr-content jk-text-stderr">
           {compilationResult?.err}
@@ -121,7 +137,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
         (verdictByGroups && !!Object.keys(verdictByGroups).length)
         || (testCasesByGroup && !!Object.keys(testCasesByGroup).length)
       ) && (
-        <div>
+        <div className="wh-100">
           <div className="tx-l fw-bd cr-pd">
             <T className="tt-se">
               {problemScoringMode === ProblemScoringMode.SUBTASK
@@ -133,13 +149,15 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
           </div>
           <div className="jk-col gap">
             <div className="jk-row extend block gap jk-table-inline-header">
-              <div className="jk-row"><T>{problemScoringMode === ProblemScoringMode.SUBTASK ? 'groups' : ''}</T></div>
-              <div className="jk-row" style={{ flex: 3 }}><T>verdict</T></div>
+              <div className="jk-row">
+                <T className="tt-se">{problemScoringMode === ProblemScoringMode.SUBTASK ? 'groups' : ''}</T>
+              </div>
+              <div className="jk-row" style={{ flex: 3 }}><T className="tt-se">verdict</T></div>
               {(problemScoringMode === ProblemScoringMode.SUBTASK || problemScoringMode === ProblemScoringMode.PARTIAL) && (
-                <div className="jk-row"><T>points</T></div>
+                <div className="jk-row"><T className="tt-se">points</T></div>
               )}
-              <div className="jk-row"><T>time</T></div>
-              <div className="jk-row"><T>memory</T></div>
+              <div className="jk-row"><T className="tt-se">time</T></div>
+              <div className="jk-row"><T className="tt-se">memory</T></div>
             </div>
           </div>
           {(
@@ -184,7 +202,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
         </div>
       )}
       {!!canViewSourceCode && (
-        <div className="jk-col gap stretch">
+        <div className="jk-col stretch wh-100">
           <div className="tx-l fw-bd cr-pd"><T className="tt-se">source code</T></div>
           <div className="submission-info-code-source">
             <CodeViewer code={sourceCode} language={language} lineNumbers withCopyButton withLanguageLabel />

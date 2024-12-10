@@ -183,15 +183,15 @@ const PopoverInternal = forwardRef(
     }, [ positionPopover ]);
     
     useEffect(() => {
-      const body = parentElement.ownerDocument.body;
-      body.addEventListener('click', handleOnClickOutside, clickOutsideCapture);
-      body.addEventListener('contextmenu', handleOnClickOutside, clickOutsideCapture);
-      body.addEventListener('resize', handleWindowResize);
+      const body = parentElement?.ownerDocument?.body;
+      body?.addEventListener('click', handleOnClickOutside, clickOutsideCapture);
+      body?.addEventListener('contextmenu', handleOnClickOutside, clickOutsideCapture);
+      body?.addEventListener('resize', handleWindowResize);
       
       return () => {
-        body.removeEventListener('click', handleOnClickOutside, clickOutsideCapture);
-        body.removeEventListener('contextmenu', handleOnClickOutside, clickOutsideCapture);
-        body.removeEventListener('resize', handleWindowResize);
+        body?.removeEventListener('click', handleOnClickOutside, clickOutsideCapture);
+        body?.removeEventListener('contextmenu', handleOnClickOutside, clickOutsideCapture);
+        body?.removeEventListener('resize', handleWindowResize);
       };
     }, [ clickOutsideCapture, handleOnClickOutside, handleWindowResize, parentElement ]);
     

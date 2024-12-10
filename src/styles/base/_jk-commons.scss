@@ -45,9 +45,9 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   
   &.right { justify-content: flex-end; }
   
-  &.top { align-content: start; }
+  &.top { align-items: start; }
   
-  &.bottom { align-content: end; }
+  &.bottom { align-items: end; }
 }
 
 div.jk-row, section.jk-row, span.jk-row, a.jk-row, fieldset.jk-row, form.jk-row, label.jk-row {
