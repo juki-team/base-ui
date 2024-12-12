@@ -1,4 +1,4 @@
-import { CSSProperties, KeyboardEvent, MouseEvent, ReactNode } from 'react';
+import { CSSProperties, KeyboardEvent as ReactKeyboardEvent, MouseEvent, ReactNode } from 'react';
 
 export type ButtonType = 'primary' | 'secondary' | 'light' | 'text' | 'void'; // 'outline';
 
@@ -20,8 +20,7 @@ export type ButtonBasicProps = {
 
 export type OnClickButtonEventType = {
   onClickEvent?: MouseEvent<HTMLButtonElement>,
-  onKeyDownEvent?: KeyboardEvent<HTMLButtonElement>,
-  onRequestCloseModalEvent?: MouseEvent | KeyboardEvent,
+  onKeyDownEvent?: KeyboardEvent | ReactKeyboardEvent,
   fetcherLayerErrorEvent?: any,
 };
 

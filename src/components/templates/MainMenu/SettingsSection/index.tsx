@@ -179,7 +179,6 @@ export const SettingsSection = (props: SettingsSectionProps) => {
       <Modal
         isOpen={helpOpen && !isMobile}
         onClose={() => setHelpOpen(false)}
-        closeWhenClickOutside
         className="wh-ao"
       >
         <div className="jk-col nowrap extend stretch jk-pg-md">

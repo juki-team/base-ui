@@ -5,7 +5,7 @@ body {
   font-family: var(--font-primary), sans-serif;
   font-weight: var(--weight-regular, 400);
   color: var(--t-color-black-light);
-  background-color: var(--t-color-white-dark);
+  background-color: var(--t-color-background);
   @include mixins.transition(background-color, color);
   @include mixins.font-size(medium);
   margin: 0;

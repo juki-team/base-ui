@@ -1,11 +1,11 @@
 import { DocumentMembersResponseDTO, Status, UserBasicInfoResponseDTO } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { Modal, T } from '../../atoms';
+import { BasicModalProps } from '../../atoms/Modal/types';
 import { ButtonLoader } from '../../molecules';
 import { DocumentMembersContent } from './DocumentMembersContent';
 
-export interface DocumentMembersModalProps {
-  onClose: () => void,
+export interface DocumentMembersModalProps extends BasicModalProps {
   documentName: string,
   documentMembers: DocumentMembersResponseDTO,
   documentOwner: UserBasicInfoResponseDTO,
@@ -14,7 +14,7 @@ export interface DocumentMembersModalProps {
 
 export const DocumentMembersModal = (props: DocumentMembersModalProps) => {
   
-  const { documentName, documentMembers, documentOwner, onClose, onSave } = props;
+  const { documentName, documentMembers, documentOwner, onClose, onSave, isOpen } = props;
   
   const [ members, setMembers ] = useState(documentMembers);
   
@@ -23,10 +23,10 @@ export const DocumentMembersModal = (props: DocumentMembersModalProps) => {
   
   return (
     <Modal
-      isOpen={true}
+      isOpen={isOpen}
       onClose={loading ? () => null : onClose}
-      closeWhenClickOutside={done}
-      closeWhenKeyEscape={done}
+      closeOnClickOverlay={done}
+      closeOnKeyEscape={done}
       className="wh-ao"
     >
       <div className="jk-col stretch gap jk-pg-md">

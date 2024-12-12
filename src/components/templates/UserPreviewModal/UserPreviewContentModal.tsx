@@ -1,4 +1,4 @@
-import { ContentResponseType, Status, UserBasicResponseDTO } from '@juki-team/commons';
+import { ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { jukiApiSocketManager } from '../../../settings';
@@ -24,12 +24,11 @@ export const UserPreviewContentModal = ({ isOpen, nickname, companyKey, onClose,
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      className="modal-user-preview wh-aoa"
-      closeWhenClickOutside
+      className="modal-user-preview"
     >
       <FetcherLayer<ContentResponseType<UserBasicResponseDTO>>
         url={jukiApiSocketManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url}
-        onError={(error) => onClose(() => () => Status.ERROR, Status.ERROR, { fetcherLayerErrorEvent: error })}
+        onError={onClose}
       >
         {({ data }) => (
           <div className="jk-pg-md jk-col stretch gap">

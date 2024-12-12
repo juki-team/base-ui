@@ -1,9 +1,9 @@
 import React from 'react';
 import { T } from '../../../atoms';
-import { ModalProps } from '../../../atoms/types';
+import { BasicModalProps } from '../../../atoms/types';
 import { TwoActionModal } from '../../../molecules';
 
-export interface NewVersionAvailableModalProps extends ModalProps {
+export interface NewVersionAvailableModalProps extends BasicModalProps {
   previousVersion: string,
   newVersion: string,
   reload: () => void,

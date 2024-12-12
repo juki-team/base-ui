@@ -57,9 +57,7 @@ export const ProblemNameModalField: DataViewerHeadersType<ProblemSummaryListResp
               <Modal
                 isOpen
                 onClose={() => setModal(null)}
-                closeWhenClickOutside
-                closeWhenKeyEscape
-                portalClassName="jk-modal-bc-wd jk-modal-height-expanded"
+                // portalClassName="jk-modal-bc-wd jk-modal-height-expanded" // TODO:
               >
                 <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
                   url={jukiApiSocketManager.API_V1.problem.getData({ params: { key } }).url}

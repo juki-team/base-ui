@@ -3,10 +3,10 @@ import { UIContext } from '../contexts/JukiUIProvider/context';
 
 export const useJukiUI = () => {
   
-  const { jukiAppDiv, viewPortSize, viewPortWidth, viewPortHeight, components } = useContext(UIContext);
+  const { jukiAppDivRef, viewPortSize, viewPortWidth, viewPortHeight, components } = useContext(UIContext);
   
   return {
-    jukiAppDiv,
+    jukiAppDivRef,
     viewPortSize,
     viewPortWidth,
     viewPortHeight,

@@ -3,14 +3,9 @@ import { Modal, Select, T } from '../../../atoms';
 import { CODE_EDIT0R_FONT_SIZES, CODE_EDIT0R_TAB_SIZES } from '../../../molecules';
 import { SettingsModalProps } from '../types';
 
-export const SettingsModal = <T, >({ onClose, isOpen, onChange, tabSize, fontSize }: SettingsModalProps<T>) => {
+export const SettingsModal = <T, >({ onChange, tabSize, fontSize, ...modalProps }: SettingsModalProps<T>) => {
   return (
-    <Modal
-      className="editor-settings-modal jk-pg-lg"
-      isOpen={isOpen}
-      onClose={onClose}
-      closeWhenClickOutside
-    >
+    <Modal className="editor-settings-modal jk-pg-lg"      {...modalProps}    >
       <div className="jk-col stretch gap jk-pg-sm-tb">
         <h3><T>code editor settings</T></h3>
         <div className="jk-row left gap">

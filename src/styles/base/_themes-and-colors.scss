@@ -55,7 +55,7 @@
   --t-color-error: #ED6868;
   
   //--t-color-white: #0A1D2E;
-  --t-color-white: #091A29;
+  //--t-color-white: #091A29;
   //--t-color-white: #081725;
   //--t-color-white: #0C233B;
   //--t-color-white: #102D4B;
@@ -124,7 +124,7 @@
   --tone: 75%;
   --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 80%, var(--base-white));
   --t-color-black-light: color-mix(in srgb, var(--t-color-black) 90%, var(--base-white));
-  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 96%, var(--base-black));
+  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 98%, var(--base-black));
   --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 92%, var(--base-black));
 }
 

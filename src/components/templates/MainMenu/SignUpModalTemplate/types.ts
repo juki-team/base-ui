@@ -1,4 +1,4 @@
-import { BasicModalProps } from '../../../atoms/types';
+import { BasicModalProps, ModalButtonLoaderEventType } from '../../../atoms/types';
 import { SetLoaderStatusOnClickType } from '../../../molecules/types';
 
 export type SignUpFormType = {
@@ -11,7 +11,7 @@ export type SignUpFormType = {
   checkbox: boolean,
 }
 
-export interface SignUpModalComponentProps extends BasicModalProps {
+export interface SignUpModalComponentProps extends BasicModalProps<ModalButtonLoaderEventType> {
   onSubmit: (data: SignUpFormType, setStatus?: SetLoaderStatusOnClickType) => void,
   signUpWithGoogle?: (setStatus?: SetLoaderStatusOnClickType) => (response: any) => void,
   reactAppGoogleClientId?: string,

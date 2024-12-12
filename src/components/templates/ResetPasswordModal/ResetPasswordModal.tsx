@@ -6,22 +6,16 @@ import { ButtonLoader } from '../../molecules';
 import { UserNicknameLink } from '../../organisms';
 
 interface ResetPasswordModalProps extends BasicModalProps {
-  onClose: () => void,
   nickname: string,
   companyKey: string,
 }
 
-export const ResetPasswordModal = ({ isOpen, onClose, nickname, companyKey }: ResetPasswordModalProps) => {
+export const ResetPasswordModal = ({ nickname, companyKey, ...modalProps }: ResetPasswordModalProps) => {
   
   const { resetUserPassword } = useJukiUser();
   
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      closeWhenClickOutside
-      closeWhenKeyEscape
-    >
+    <Modal {...modalProps}>
       <div className="jk-pg-md jk-col gap left stretch">
         <h2><T>reset password</T></h2>
         <div className="jk-row left">
@@ -35,12 +29,12 @@ export const ResetPasswordModal = ({ isOpen, onClose, nickname, companyKey }: Re
           <T className="tt-se">{'the new password will be sent to user\'s email'}</T>.
         </div>
         <div className="jk-row right gap extend">
-          <Button type="light" onClick={onClose}><T>cancel</T></Button>
+          <Button type="light" onClick={modalProps.onClose}><T>cancel</T></Button>
           <ButtonLoader
             onClick={(setLoader) => resetUserPassword({
               params: { nickname, companyKey },
               setLoader,
-              onSuccess: onClose,
+              onSuccess: modalProps.onClose,
             })}
           >
             <T>reset_2</T>

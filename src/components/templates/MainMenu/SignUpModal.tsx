@@ -1,11 +1,11 @@
 import { ContentResponseType, PingResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { useJukiUser } from '../../../hooks';
-import { BasicModalProps } from '../../../types';
+import { BasicModalProps, ModalButtonLoaderEventType } from '../../../types';
 import { SignUpModalTemplate } from './SignUpModalTemplate';
 import { SignUpModalComponentProps } from './SignUpModalTemplate/types';
 
-export interface SignUpModalProps extends BasicModalProps {
+export interface SignUpModalProps extends BasicModalProps<ModalButtonLoaderEventType> {
   onSuccess?: (response?: ContentResponseType<PingResponseDTO>) => void,
 }
 

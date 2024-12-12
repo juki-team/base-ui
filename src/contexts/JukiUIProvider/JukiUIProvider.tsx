@@ -23,7 +23,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
   const { Image: ImageCmp = Image, Link: LinkCMP = Link } = components || { Image, Link };
   const { isLoadingRoute } = useJukiRouter();
   
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   
   const LinkCmp: FC<LinkCmpProps> = useCallback(({ href, ...restProps }) => {
     let pathname;
@@ -48,7 +48,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
   }, [ LinkCMP, searchParams ]);
   
   const value = useMemo(() => ({
-    jukiAppDiv: ref.current ? ref.current : undefined,
+    jukiAppDivRef: ref,
     viewPortSize,
     viewPortHeight,
     viewPortWidth,

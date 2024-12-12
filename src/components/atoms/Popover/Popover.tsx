@@ -44,7 +44,7 @@ export const Popover = (props: PopoverProps) => {
   
   const [ isOpen, setIsOpen ] = useHandleState(false, visible, onVisibleChange);
   
-  const { jukiAppDiv } = useJukiUI();
+  const { jukiAppDivRef } = useJukiUI();
   // const isMobileViewPort = viewPortSize === 'sm';
   
   const popoverContent = (
@@ -105,7 +105,7 @@ export const Popover = (props: PopoverProps) => {
   
   return (
     <ReactPopover
-      boundaryElement={jukiAppDiv}
+      boundaryElement={jukiAppDivRef.current ? jukiAppDivRef.current : undefined}
       padding={marginOfChildren}
       isOpen={isOpen}
       positions={[ placementPositionAlign[placement].position, 'top', 'bottom', 'left', 'right' ]} // preferred positions by priority

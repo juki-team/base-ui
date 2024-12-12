@@ -9,7 +9,6 @@ import { ButtonLoader, CropImageType, ImageLoaderCropper } from '../../molecules
 
 interface ImageProfileModalProps extends BasicModalProps {
   nickname: string,
-  onClose: () => void,
 }
 
 export const ImageProfileModal = ({ isOpen, onClose, nickname }: ImageProfileModalProps) => {

@@ -76,7 +76,6 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
         </>
       }
       graphic={<JukiLaptopImage />}
-      closeWhenKeyEscape
     >
       <div className="jk-col stretch">
         {signUpWithGoogle && reactAppGoogleClientId && (

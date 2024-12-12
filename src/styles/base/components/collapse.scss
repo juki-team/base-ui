@@ -1,12 +1,12 @@
 @use "../../mixins";
 
-.jk-collapse-container {
-  .jk-collapse-collapsible {
-    overflow: hidden;
-    @include mixins.transition(height);
-  }
-}
-
-.ReactCollapse--collapse {
-  @include mixins.transition(height);
-}
+//.jk-collapse-container {
+//  .jk-collapse-collapsible {
+//    overflow: hidden;
+//    @include mixins.transition(height);
+//  }
+//}
+//
+//.ReactCollapse--collapse {
+//  @include mixins.transition(height);
+//}

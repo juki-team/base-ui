@@ -1,10 +1,11 @@
-import React, { cloneElement, CSSProperties, PropsWithChildren, ReactElement, useState } from 'react';
+import React, { cloneElement, CSSProperties, PropsWithChildren, ReactElement } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { renderReactNodeOrFunction } from '../../../helpers';
 import { Modal } from '../../atoms';
+import { ModalButtonLoaderEventType } from '../../atoms/Modal/types';
 import { SplitModalProps } from './types';
 
-export const SplitModal = (props: PropsWithChildren<SplitModalProps>) => {
+export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: PropsWithChildren<SplitModalProps<T>>) => {
   
   const {
     isOpen,
@@ -14,23 +15,21 @@ export const SplitModal = (props: PropsWithChildren<SplitModalProps>) => {
     title,
     graphic,
     closeIcon,
-    closeWhenClickOutside,
-    closeWhenKeyEscape,
+    closeOnClickOverlay,
+    closeOnKeyEscape,
   } = props;
   
-  const [ , setRender ] = useState(0);
   const { height: sideMainHeight = 0, ref: sideMainRef } = useResizeDetector();
   const { height: titleSideSecondaryHeight = 0, ref: titleSideSecondaryRef } = useResizeDetector();
   
   return (
-    <Modal
+    <Modal<T>
       isOpen={isOpen}
       className={className}
       onClose={onClose}
       closeIcon={closeIcon}
-      closeWhenClickOutside={closeWhenClickOutside}
-      closeWhenKeyEscape={closeWhenKeyEscape}
-      onAfterOpen={() => setRender(Date.now)}
+      closeOnClickOverlay={closeOnClickOverlay}
+      closeOnKeyEscape={closeOnKeyEscape}
     >
       <div className="split-modal jk-row stretch block">
         <div

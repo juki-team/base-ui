@@ -1,94 +1,87 @@
 import { Status } from '@juki-team/commons';
 import { AnimatePresence, motion } from 'motion/react';
-import React, { KeyboardEvent, MouseEvent, PropsWithChildren, useState } from 'react';
-import ReactModal from 'react-modal';
+import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
+import { SetLoaderStatusOnClickType } from '../../molecules/ButtonLoader/types';
 import { useSetLoaderStatus } from '../hooks';
 import { CloseIcon, SpinIcon } from '../icons';
-import { ModalProps } from './types';
-// ReactModal.setAppElement('#root'); // no works with nextjs
+import { Portal } from '../Portal';
+import { ModalButtonLoaderEventType, ModalProps } from './types';
 
-export const Modal = (props: PropsWithChildren<ModalProps>) => {
+export const Modal = <T extends ModalButtonLoaderEventType, >(props: PropsWithChildren<ModalProps<T>>) => {
   
   const {
     onClose,
     isOpen,
     className,
-    portalClassName,
     children,
     closeIcon = false,
-    expand,
-    closeWhenClickOutside = false,
+    // expand,
+    closeOnClickOverlay = true,
+    closeOnKeyEscape = true,
     setLoaderStatusRef,
     onLoaderStatusChange,
-    onAfterOpen,
   } = props;
   
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
   const _refLoader = useSetLoaderStatus(loader, setLoader, setLoaderStatusRef, onLoaderStatusChange);
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
   
-  const handleOnClose = (event?: MouseEvent | KeyboardEvent) => onClose((status) => {
+  const setLoaderStatusOnClick: SetLoaderStatusOnClickType = useCallback((status) => {
     if (typeof status === 'function') {
       setLoader(status(_refLoader.current));
     } else {
       setLoader(status);
     }
-  }, loader, { onRequestCloseModalEvent: event });
+  }, [ _refLoader ]);
+  
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && closeOnKeyEscape) {
+        onCloseRef.current?.(setLoaderStatusOnClick, loader, { onKeyDownEvent: event });
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [ loader, setLoaderStatusOnClick, closeOnKeyEscape ]);
   
   return (
-    <AnimatePresence presenceAffectsLayout>
-      {isOpen && (
-        <ReactModal
-          isOpen={true}
-          className={classNames('jk-modal jk-border-radius', className)}
-          onRequestClose={handleOnClose}
-          portalClassName={classNames('jk-modal-container', portalClassName, { expand: !!expand })}
-          ariaHideApp={false}
-          shouldCloseOnOverlayClick={closeWhenClickOutside}
-          onAfterOpen={onAfterOpen}
-          overlayElement={(props, contentElement) => (
-            // <AnimatePresence>
+    <Portal>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div className={classNames('jk-modal-container', className)}>
             <motion.div
-              {...(props as {})}
+              className="jk-modal-overlay"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }} // TODO
-              // layout
-              // className="TEST-1"
+              exit={{ opacity: 0 }}
+              onClick={closeOnClickOverlay
+                ? (event) => onCloseRef.current?.(setLoaderStatusOnClick, loader, { overlayOnClickEvent: event })
+                : undefined}
+            />
+            <motion.div
+              className="jk-modal-content jk-border-radius elevation-3"
+              initial={{ scale: 0.6, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.6, opacity: 0 }}
             >
-              {contentElement}
+              {closeIcon && (
+                <div
+                  className="jk-modal-close-button jk-button light only-icon"
+                  onClick={loader !== Status.LOADING
+                    ? (event) => onCloseRef.current?.(setLoaderStatusOnClick, loader, { closeButtonOnClickEvent: event })
+                    : undefined}
+                >
+                  {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon />}
+                </div>
+              )}
+              {children}
             </motion.div>
-            // </AnimatePresence>
-          )}
-          contentElement={(props, contentElement) => (
-            // <AnimatePresence>
-            isOpen && (<motion.div
-                {...(props as {})}
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0 }} // TODO
-                // layout
-                // className="TEST-2"
-              >
-                {contentElement}
-              </motion.div>
-            )
-            // </AnimatePresence>
-          )}
-        >
-          {closeIcon && (
-            <div
-              className="jk-modal-close-button jk-button light only-icon"
-              onClick={loader !== Status.LOADING ? handleOnClose : undefined}
-            >
-              {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon />}
-            </div>
-          )}
-          <div className="jk-modal-body">
-            {children}
-          </div>
-        </ReactModal>
-      )}
-    </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </Portal>
   );
 };

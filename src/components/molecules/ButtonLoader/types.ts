@@ -5,9 +5,9 @@ export type LoaderStatusOnClickType = Status;
 
 export type SetLoaderStatusOnClickType = (status: (Status | ((props: LoaderStatusOnClickType) => LoaderStatusOnClickType))) => void;
 
-export type ButtonLoaderOnClickType =
-  ((setLoaderStatus: SetLoaderStatusOnClickType, loaderStatus: LoaderStatusOnClickType, event: OnClickButtonEventType) => void)
-  | ((setLoaderStatus: SetLoaderStatusOnClickType, loaderStatus: LoaderStatusOnClickType, event: OnClickButtonEventType) => Promise<void>);
+export type ButtonLoaderOnClickType<T = OnClickButtonEventType> =
+  ((setLoaderStatus: SetLoaderStatusOnClickType, loaderStatus: LoaderStatusOnClickType, event: T) => void)
+  | ((setLoaderStatus: SetLoaderStatusOnClickType, loaderStatus: LoaderStatusOnClickType, event: T) => Promise<void>);
 
 export interface ButtonLoaderProps extends ButtonBasicProps {
   setLoaderStatusRef?: (setLoader: SetLoaderStatusOnClickType) => void,

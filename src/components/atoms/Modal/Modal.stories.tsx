@@ -5,7 +5,7 @@ import { MockupJukiProvider } from '../../mockup';
 import { Button } from '../Button';
 import { Input } from '../inputs';
 import { Modal } from './Modal';
-import { ModalProps } from './types';
+import { ModalButtonLoaderEventType, ModalProps } from './types';
 
 // @ts-ignore
 Modal.defaultProps = {
@@ -25,11 +25,11 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-const Cmp = (args: ModalProps) => {
+const Cmp = (args: ModalProps<ModalButtonLoaderEventType>) => {
   const [ open, setOpen ] = useState(false);
   const [ waitOnClose, setWaitOnClose ] = useState(0);
   
-  const onClose: ModalProps['onClose'] = async (setLoader) => {
+  const onClose: ModalProps<ModalButtonLoaderEventType>['onClose'] = async (setLoader) => {
     setLoader(Status.LOADING);
     await sleep(waitOnClose);
     setOpen(false);
@@ -47,7 +47,7 @@ const Cmp = (args: ModalProps) => {
         />{' '}
         ms
         <Button onClick={() => setOpen(!open)}>Click</Button>
-        <Modal {...args} isOpen={open} onClose={onClose}>
+        <Modal<ModalButtonLoaderEventType> {...args} isOpen={open} onClose={onClose}>
           <div>MODAL</div>
           <div>content 1</div>
           <div>content 2</div>

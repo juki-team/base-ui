@@ -7,8 +7,8 @@ import {
 } from '@juki-team/commons';
 import React from 'react';
 import { hasTimeHasMemory } from '../../../helpers/submission';
-import { DateLiteral, T, UpIcon } from '../../atoms';
-import { CodeViewer, Collapse, Timer } from '../../molecules';
+import { Collapse, DateLiteral, T, UpIcon } from '../../atoms';
+import { CodeViewer, Timer } from '../../molecules';
 import { SubmissionRejudgeButton, UserChip } from '../../organisms';
 import { SubmissionGroupInfo } from './SubmissionGroupInfo';
 import { SubmissionListenerVerdict } from './SubmissionListenerVerdict';

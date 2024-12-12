@@ -1,4 +1,4 @@
-import { ContentResponseType, ContentsResponseType, ErrorResponseType } from '@juki-team/commons';
+import { consoleError, ContentResponseType, ContentsResponseType, ErrorResponseType } from '@juki-team/commons';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useFetcher, useJukiNotification } from '../../../hooks';
@@ -45,6 +45,7 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
       if (isErrorResponseType(dataRef.current)) {
         notifyResponse(dataRef.current);
       }
+      consoleError(errorRef.current);
       onErrorRef.current?.(errorRef.current);
     }
   }, [ notifyResponse, isError ]);

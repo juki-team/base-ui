@@ -1,11 +1,11 @@
-import { createContext } from 'react';
+import { createContext, RefObject } from 'react';
 import { ViewPortSizeType } from '../../types';
 import { Image } from './Image';
 import { Link } from './Link';
 import { UIComponentsContextInterface } from './types';
 
 export interface UIContextInterface {
-  jukiAppDiv: HTMLDivElement | undefined,
+  jukiAppDivRef: RefObject<HTMLDivElement | null>,
   viewPortSize: ViewPortSizeType,
   viewPortHeight: number,
   viewPortWidth: number,
@@ -13,7 +13,7 @@ export interface UIContextInterface {
 }
 
 export const UIContext = createContext<UIContextInterface>({
-  jukiAppDiv: undefined,
+  jukiAppDivRef: { current: null },
   viewPortSize: '',
   viewPortHeight: 0,
   viewPortWidth: 0,

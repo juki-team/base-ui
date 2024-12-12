@@ -1,18 +1,26 @@
+import { KeyboardEvent as ReactKeyboardEvent, MouseEvent } from 'react';
 import { ButtonLoaderOnClickType, LoaderStatusOnClickType, SetLoaderStatusOnClickType } from '../../molecules/types';
 
-export interface BasicModalProps {
+export type OnClickModalEventType = {
+  overlayOnClickEvent?: MouseEvent<HTMLDivElement>,
+  closeButtonOnClickEvent?: MouseEvent<HTMLDivElement>,
+  onKeyDownEvent?: KeyboardEvent | ReactKeyboardEvent,
+  fetcherLayerErrorEvent?: any,
+};
+
+export type ModalButtonLoaderEventType = ButtonLoaderOnClickType<OnClickModalEventType>;
+
+export interface BasicModalProps<T extends ModalButtonLoaderEventType = () => void> {
   isOpen: boolean,
-  onClose: ButtonLoaderOnClickType,
+  onClose: T,
 }
 
-export type ModalProps = BasicModalProps & {
+export type ModalProps<T extends ModalButtonLoaderEventType = () => void> = BasicModalProps<T> & {
   className?: string,
-  portalClassName?: string,
   closeIcon?: boolean,
   expand?: boolean,
-  closeWhenKeyEscape?: boolean,
-  closeWhenClickOutside?: boolean,
+  closeOnKeyEscape?: boolean,
+  closeOnClickOverlay?: boolean,
   setLoaderStatusRef?: (setLoader: SetLoaderStatusOnClickType) => void,
   onLoaderStatusChange?: (status: LoaderStatusOnClickType) => void,
-  onAfterOpen?: () => void,
 }

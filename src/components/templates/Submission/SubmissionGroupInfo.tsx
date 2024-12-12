@@ -6,8 +6,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useJukiUser } from '../../../hooks';
 import { Button, Modal, T, UpIcon, VirtualizedRowsFixed, VisibilityIcon } from '../../atoms';
+import { Collapse } from '../../atoms/Collapse';
 import { VirtualizedRowsFixedProps } from '../../atoms/VirtualizedRowsFixed/types';
-import { Collapse } from '../../molecules';
 import { SubmissionMemory } from './SubmissionMemory';
 import { SubmissionTime } from './SubmissionTime';
 import { SubmissionVerdict } from './SubmissionVerdict';
@@ -61,7 +61,7 @@ const DiffViewButton = ({ diffInput, croppedDiff }: { diffInput: string, cropped
         type="light"
         onClick={() => setIsOpen(true)}
       />
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} closeWhenKeyEscape closeWhenClickOutside closeIcon>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} closeIcon>
         <div className="jk-col stretch gap jk-pg-lg diff-body-modal">
           <div>
             {croppedDiff && (

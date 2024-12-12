@@ -7,13 +7,12 @@ import { FetcherLayer } from '../../molecules';
 import { UserChip } from '../UserChip';
 
 export interface EntityLogsModalProps extends BasicModalProps {
-  onClose: () => void,
   url: string,
 }
 
 export const EntityLogsModal = ({ url, ...restProps }: EntityLogsModalProps) => {
   return (
-    <Modal {...restProps} closeWhenClickOutside closeWhenKeyEscape closeIcon>
+    <Modal {...restProps} closeIcon>
       <div className="jk-pg">
         <h3><T>logs</T></h3>
         <FetcherLayer<ContentResponseType<LogDataResponseDTO[]>> url={url}>

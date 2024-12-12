@@ -3,7 +3,6 @@ export * from './ButtonLoader';
 export * from './CheckboxList';
 export * from './CodeEditor';
 export * from './CodeViewer';
-export * from './Collapse';
 export * from './DataGrid';
 export * from './Drawer';
 export * from './FetcherLayer';

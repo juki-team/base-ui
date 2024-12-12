@@ -42,8 +42,6 @@ export const InformationButton = ({ isOpenRef, withLabel }: InformationButtonPro
         isOpen={open}
         onClose={() => setOpen(false)}
         className="modal-info-markdown"
-        closeWhenClickOutside
-        closeWhenKeyEscape
       >
         <MdMathEditor source={source} onChange={setSource} />
       </Modal>

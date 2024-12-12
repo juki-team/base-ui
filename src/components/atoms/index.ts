@@ -1,4 +1,5 @@
 export * from './Button';
+export * from './Collapse';
 export * from './CopyToClipboard';
 export * from './DateLiteral';
 export * from './Div';

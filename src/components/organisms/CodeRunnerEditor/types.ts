@@ -2,6 +2,7 @@ import { CodeEditorTestCasesType, SubmissionTestCaseType } from '@juki-team/comm
 import { CodeEditorTestCaseType } from '@juki-team/commons/dist/types/types/sheet';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { OnRefChangeType } from 'react-resize-detector/build/types/types';
+import { BasicModalProps } from '../../atoms/Modal/types';
 import { CodeEditorPropertiesType } from '../../index';
 
 export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
@@ -48,9 +49,7 @@ export interface CodeRunnerEditorProps<T> extends CodeEditorPropertiesType<T> {
   withoutRunCodeButton?: boolean,
 }
 
-export interface SettingsModalProps<T> {
-  isOpen: boolean
-  onClose: () => void,
+export interface SettingsModalProps<T> extends BasicModalProps {
   onChange?: CodeRunnerEditorOnChangeType<T>,
   tabSize: number,
   fontSize: number,

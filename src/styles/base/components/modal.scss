@@ -1,51 +1,40 @@
 @use "../../mixins";
 
 .jk-modal-container {
-  .ReactModal__Overlay {
-    background-color: var(--t-color-shadow-light) !important;
-    backdrop-filter: blur(3px);
-    display: grid;
-    z-index: var(--z-index-overlay-modal);
-    //opacity: 0;
-    //@include transition(opacity, background-color);
-    //@include transition(background-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: var(--z-index-overlay-modal);
+  display: grid;
+  place-items: center;
+  overflow: auto;
+  
+  .jk-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--t-color-shadow-light);
+    backdrop-filter: blur(2px);
+    overflow: hidden;
   }
   
-  .ReactModal__Content.small-viewport-popover {
-    padding: var(--pad-sm);
-    width: auto;
-    border-radius: var(--border-radius-inline);
-  }
-  
-  //.ReactModal__Overlay--after-open {
-  //  opacity: 1;
-  //}
-  //
-  //.ReactModal__Overlay--before-close {
-  //  opacity: 0;
-  //}
-  
-  &:not(.expand) {
-    .ReactModal__Overlay {
-      padding: var(--pad-md);
-      overflow: auto;
-    }
-  }
-  
-  &.expand .jk-modal {
-    width: 100vw;
-    height: var(--100VH);
-    border-radius: 0;
-    overflow: auto;
+  .jk-modal-content {
+    margin: var(--pad-md);
+    background-color: var(--t-color-background);
+    z-index: 1;
+    position: relative;
+    //max-width: var(--modal-width);
     
-    .jk-modal-body {
-      max-height: var(--100VH);
-      max-width: 100vw;
-      height: 100%;
-      
-      .split-modal {
-        height: 100%;
-      }
+    .jk-modal-close-button {
+      z-index: 1;
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: var(--border-radius);
     }
   }
 }
@@ -56,39 +45,9 @@
   }
 }
 
-.jk-modal-bc-wd {
+.jk-modal-bc-wd-TODO {
   .jk-modal {
     background: var(--t-color-white-dark);
-  }
-}
-
-.jk-modal {
-  position: relative;
-  margin: auto;
-  @include mixins.elevation(3);
-  background-color: var(--t-color-white);
-  @include mixins.transition(background-color);
-  outline: none;
-  width: var(--modal-width);
-  overflow: hidden;
-  
-  .jk-modal-close-button {
-    z-index: 10;
-    position: absolute;
-    top: 0;
-    right: 0;
-    line-height: inherit;
-    margin: var(--border-radius);
-  }
-  
-  .jk-modal-body {
-    position: relative;
-    width: 100%;
-    padding: 0;
-    overflow: auto;
-    box-sizing: border-box;
-    max-height: calc(var(--100VH) - var(--pad-md) - var(--pad-md));
-    max-width: calc(100vw - var(--pad-md) - var(--pad-md));
   }
 }
 

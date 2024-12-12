@@ -90,15 +90,14 @@ export const DocumentMembersButton = (props: DocumentMembersButton1Props | Docum
           {info}
         </div>
       </Button>
-      {show && (
-        <DocumentMembersModal
-          onClose={() => setShow(false)}
-          documentMembers={documentMembers}
-          documentName={documentName}
-          documentOwner={documentOwner}
-          onSave={onSave}
-        />
-      )}
+      <DocumentMembersModal
+        isOpen={show}
+        onClose={() => setShow(false)}
+        documentMembers={documentMembers}
+        documentName={documentName}
+        documentOwner={documentOwner}
+        onSave={onSave}
+      />
     </>
   );
 };

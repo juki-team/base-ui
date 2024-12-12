@@ -1,20 +1,5 @@
 .modal-user-preview {
-  max-width: 460px;
-  
-  .jk-modal-body {
-    min-height: 200px;
-    
-    > .jk-row {
-      min-height: 200px;
-    }
-    
-    > .jk-col > .jk-row:first-child {
-      padding: 0 0 var(--pad-md) 0;
-    }
-  }
-  
-  .jk-row img {
-    width: 100px;
-    height: 100px;
+  .jk-modal-content {
+    max-width: 460px;
   }
 }
