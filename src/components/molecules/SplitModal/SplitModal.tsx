@@ -1,4 +1,4 @@
-import React, { cloneElement, CSSProperties, PropsWithChildren, useState } from 'react';
+import React, { cloneElement, CSSProperties, PropsWithChildren, ReactElement, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { renderReactNodeOrFunction } from '../../../helpers';
 import { Modal } from '../../atoms';
@@ -46,7 +46,7 @@ export const SplitModal = (props: PropsWithChildren<SplitModalProps>) => {
           </div>
         </div>
         <div className="jk-side-main jk-col stretch jk-pg-lg">
-          {cloneElement(children, { ref: sideMainRef })}
+          {cloneElement(children, { ref: sideMainRef } as ReactElement<{}>['props'])}
         </div>
       </div>
     </Modal>

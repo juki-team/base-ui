@@ -54,7 +54,7 @@ export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChang
   return (
     <>
       {modal}
-      {cloneElement(children, { onClick: handleOnClick })}
+      {cloneElement(children, { onClick: handleOnClick } as ReactElement<{}>['props'])}
     </>
   );
 };

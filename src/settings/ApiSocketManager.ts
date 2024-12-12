@@ -18,7 +18,7 @@ import {
   UpdateUserProfileDataPayloadDTO,
 } from '../types';
 import { jukiApiSocketManager } from './index';
-import { SocketIo } from './SocketIo';
+import { JukiWebSocketManagement } from './JukiWebSocketManagement';
 
 const addQuery = (path: string) => {
   return !path.includes('?') ? path + '?' : path;
@@ -88,9 +88,9 @@ export class ApiSocketManager {
     return this._SOCKET_SERVICE_URL;
   }
   
-  private _SOCKET = new SocketIo('');
+  private _SOCKET = new JukiWebSocketManagement('');
   
-  get SOCKET(): SocketIo {
+  get SOCKET(): JukiWebSocketManagement {
     return this._SOCKET;
   }
   
@@ -703,6 +703,6 @@ export class ApiSocketManager {
     this._SOCKET?.stop();
     
     this._SOCKET_SERVICE_URL = socketServiceUrl;
-    this._SOCKET = new SocketIo(socketServiceUrl);
+    this._SOCKET = new JukiWebSocketManagement(socketServiceUrl);
   }
 }

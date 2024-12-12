@@ -29,7 +29,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   const { ref: selectLayoutRef } = useResizeDetector();
   const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
-  const selectedOptionRef = useRef<HTMLDivElement | null>(null);
+  const selectedOptionRef = useRef<HTMLDivElement>(null);
   const selectRef = useRef(null);
   const onBlurRef = useRef(onBlur);
   const [ width, setWidth ] = useState(0);
@@ -50,8 +50,8 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     };
   }, [ showOptions ]);
   
-  const optionRef = useRef<HTMLDivElement | null>(null);
-  const fakeOptionRef = useRef<HTMLDivElement | null>(null);
+  const optionRef = useRef<HTMLDivElement>(null);
+  const fakeOptionRef = useRef<HTMLDivElement>(null);
   
   const option = options.find(option => JSON.stringify(option.value) === JSON.stringify(initialOptionSelected.value));
   const optionSelected: SelectOptionType<T, U, V> = {

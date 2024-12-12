@@ -37,7 +37,7 @@ export const ChangePasswordModal = ({ isOpen, onClose }: BasicModalProps) => {
   
   const { updatePassword } = useJukiUser();
   const { viewPortSize } = useJukiUI();
-  const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
+  const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
   return (
     <Modal

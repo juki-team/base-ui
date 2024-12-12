@@ -117,9 +117,9 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const { user, company, setUser, isLoading, mutate } = useUser();
   
   useEffect(() => {
-    jukiApiSocketManager.SOCKET.start();
+    void jukiApiSocketManager.SOCKET.start();
     return () => {
-      jukiApiSocketManager.SOCKET.stop();
+      void jukiApiSocketManager.SOCKET.stop();
     };
   }, [ token ]);
   

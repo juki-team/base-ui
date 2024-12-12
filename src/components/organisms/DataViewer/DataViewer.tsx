@@ -138,11 +138,11 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   
   const [ dataTable, setDataTable ] = useState(data);
   
-  const prevRefreshCount = useRef<number>();
-  const prevPage = useRef<number>();
-  const prevPageSize = useRef<number>();
-  const prevSearchSorts = useRef<string>();
-  const prevSearchFilter = useRef<RequestFilterType>();
+  const prevRefreshCount = useRef<number>(undefined);
+  const prevPage = useRef<number>(undefined);
+  const prevPageSize = useRef<number>(undefined);
+  const prevSearchSorts = useRef<string>(undefined);
+  const prevSearchFilter = useRef<RequestFilterType>(undefined);
   
   const firstRender = useRef(true);
   
@@ -244,7 +244,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       });
     }
   }, [ request, searchSorts, headers, reloadCount, filters, withPagination, page, pageSize ]);
-  const setDataTableRef = useRef<undefined | ((data: T[]) => void)>(undefined);
+  const setDataTableRef = useRef<(data: T[]) => void>(undefined);
   setDataTableRef.current = _setDataTableRef;
   useEffect(() => { // Offline filter & Offline sort
     let newData = [ ...data ];

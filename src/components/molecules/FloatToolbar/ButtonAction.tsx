@@ -10,7 +10,7 @@ import { ButtonActionProps } from './types';
 export const ButtonAction = ({ icon, buttons, disabled }: ButtonActionProps) => {
   
   const { viewPortSize } = useJukiUI();
-  const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
+  const setLoaderRef = useRef<SetLoaderStatusOnClickType>(null);
   const [ open, setOpen ] = useState(false);
   const ref = useRef(null);
   useOutsideAlerter(() => setOpen(false), ref);

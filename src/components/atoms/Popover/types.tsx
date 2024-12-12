@@ -34,9 +34,9 @@ export interface PopoverProps {
 }
 
 export type ReactTinyPopoverProps = BasePopoverProps & {
-  children: JSX.Element;
+  children: ReactElement;
   positions?: PopoverPosition[] | PopoverPosition;
-  content: ContentRenderer | JSX.Element;
+  content: ContentRenderer | ReactElement;
   ref?: React.Ref<HTMLElement>;
   containerStyle?: Partial<CSSStyleDeclaration>;
   onClickOutside?: (e: MouseEvent) => void;

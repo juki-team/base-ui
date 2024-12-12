@@ -11,7 +11,7 @@ export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) =>
   
   const { isOpen, secondary, primary, title, children, onClose, className, ...rest } = props;
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
-  const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
+  const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   const { viewPortSize } = useJukiUI();
   
   return (

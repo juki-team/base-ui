@@ -2,10 +2,10 @@ import {
   PROBLEM_VERDICT,
   ProblemVerdict,
   ProfileSetting,
-  SocketEventSubmissionStatusResponseDTO,
   SUBMISSION_RUN_STATUS,
   SubmissionDataResponseDTO,
   SubmissionRunStatus,
+  SubmissionRunStatusMessageWebSocketResponseEventDTO,
   Theme,
 } from '@juki-team/commons';
 import React from 'react';
@@ -18,7 +18,7 @@ export interface SubmissionVerdictProps {
   points?: number,
   status?: SubmissionRunStatus,
   submitId: string,
-  submissionData?: SocketEventSubmissionStatusResponseDTO,
+  submissionData?: SubmissionRunStatusMessageWebSocketResponseEventDTO,
   processedCases?: SubmissionDataResponseDTO['processedCases'],
   shortLabel?: boolean,
 }

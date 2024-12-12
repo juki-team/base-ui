@@ -9,7 +9,7 @@ export type CroppedImageType = {
 export type CropImageType = {
   percentCrop: PercentCrop,
   pixelCrop: PixelCrop,
-  previewCanvasRef: RefObject<HTMLCanvasElement>,
+  previewCanvasRef: RefObject<HTMLCanvasElement | null>,
   scale: number,
   rotate: number,
   aspect: number | undefined,

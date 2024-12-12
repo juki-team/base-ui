@@ -25,7 +25,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
   const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
   
-  const selectedOptionRef = useRef<HTMLDivElement | null>(null);
+  const selectedOptionRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -38,7 +38,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
     };
   }, [ showOptions ]);
   
-  const optionRef = useRef<HTMLDivElement | null>(null);
+  const optionRef = useRef<HTMLDivElement>(null);
   
   const optionsSelected: SelectOptionType<T, U, V>[] = initialOptionsSelected.map(initialOptionSelected => {
     const option = options.find(option => JSON.stringify(option.value) === JSON.stringify(initialOptionSelected.value));

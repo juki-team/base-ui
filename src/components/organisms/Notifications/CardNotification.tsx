@@ -9,7 +9,7 @@ export const CardNotification = ({ id, type, message }: NotificationProps) => {
   
   const [ exit, setExit ] = useState(false);
   const [ width, setWidth ] = useState(0);
-  const intervalIDRef = useRef<ReturnType<typeof setTimeout>>();
+  const intervalIDRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const { removeNotification } = useJukiNotification();
   const { viewPortSize } = useJukiUI();
   

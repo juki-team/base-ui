@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 import { JukiProviders } from '../../contexts';
 import { jukiApiSocketManager } from '../../settings';
-import { UserPreviewModal } from '../templates';
+import { JukiSocketAlert, UserPreviewModal } from '../templates';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
 import './styles.scss';
@@ -43,6 +43,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
       }}
     >
       <UserPreviewModal key="user-preview-modal" />
+      <JukiSocketAlert />
       {children}
       <MockupLoginButton />
       <MockupToggleThemeButton />

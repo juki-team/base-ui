@@ -23,14 +23,14 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
   
   const [ value, setValue ] = useState<T>('' as T);
   
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   
   const myOnChange: SelectProps<T, U, V>['onChange'] = onChange ? onChange : ({ value }) => {
     setValue(value);
     if ('name' in register) {
       registerSetValue?.(register?.name, value, { shouldTouch: true });
     }
-  }
+  };
   
   const id = useId();
   

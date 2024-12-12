@@ -1,15 +1,18 @@
 import {
   CodeEditorTestCasesType,
+  isCodeRunStatusMessageWebSocketResponseEventDTO,
   ProfileSetting,
   PROGRAMMING_LANGUAGE,
-  SocketEvent,
-  SocketEventCodeRunStatusResponseDTO,
   SubmissionRunStatus,
+  SubscribeCodeRunStatusWebSocketEventDTO,
+  WebSocketActionEvent,
 } from '@juki-team/commons';
+import { CodeEditorTestCaseType } from '@juki-team/commons/dist/types/types/sheet';
 import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
+import { useRunnerServicesWakeUp } from '../../../hooks';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useJukiUser } from '../../../hooks/useJukiUser';
 import { jukiApiSocketManager } from '../../../settings';
@@ -45,11 +48,12 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     withoutRunCodeButton,
   } = props;
   
+  useRunnerServicesWakeUp();
   const onChangeRef = useRef(_onChange);
   onChangeRef.current = readOnly ? undefined : _onChange;
   const [ isRunning, setIsRunning ] = useState(false);
   const [ runId, setRunId ] = useState('');
-  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
+  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme }, sessionId } } = useJukiUser();
   const [ showSettings, setShowSettings ] = useState(false);
   const [ direction, setDirection ] = useState<'row' | 'column'>('row');
   const [ expanded, setExpanded ] = useState(false);
@@ -58,9 +62,16 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const testCasesRef = useRef(_testCases);
   testCasesRef.current = _testCases;
   useEffect(() => {
-    jukiApiSocketManager.SOCKET.onMessage(SocketEvent.CODE_RUN_STATUS, runId, (data) => {
-      if (data?.id && data?.messageTimestamp) {
-        const lastRunStatus: SocketEventCodeRunStatusResponseDTO = data as SocketEventCodeRunStatusResponseDTO;
+    if (!runId) {
+      return;
+    }
+    const event: SubscribeCodeRunStatusWebSocketEventDTO = {
+      event: WebSocketActionEvent.SUBSCRIBE_CODE_RUN_STATUS,
+      sessionId,
+      runId,
+    };
+    jukiApiSocketManager.SOCKET.send(event, '', (data) => {
+      if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
         const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
           const newTestCases: CodeEditorTestCasesType = { ...testCasesRef.current };
           for (const testKey in newTestCases) {
@@ -70,16 +81,14 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
               err,
               out,
               log,
-              messageTimestamp: lastRunStatus.messageTimestamp,
+              messageTimestamp: data.messageTimestamp,
             };
           }
           onChangeRef.current?.({ testCases: newTestCases });
         };
-        const status = lastRunStatus.status || SubmissionRunStatus.NONE;
-        const inputKey = lastRunStatus?.log?.inputKey;
-        if (!!testCasesRef.current?.[inputKey]?.messageTimestamp && lastRunStatus.messageTimestamp < (testCasesRef.current[inputKey].messageTimestamp ?? 0)) {
-          return;
-        }
+        const status = data.status || SubmissionRunStatus.NONE;
+        const inputKey = data?.log?.inputKey;
+        
         switch (status) {
           case SubmissionRunStatus.FAILED:
           case SubmissionRunStatus.COMPILING:
@@ -88,9 +97,9 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           case SubmissionRunStatus.COMPILATION_ERROR:
             fillTestCases(
               status,
-              lastRunStatus.log?.err || '',
-              lastRunStatus.log?.out || '',
-              lastRunStatus.log?.log || '',
+              data.log?.err || '',
+              data.log?.out || '',
+              data.log?.log || '',
             );
             break;
           case SubmissionRunStatus.RUNNING_TEST_CASE:
@@ -98,16 +107,17 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           case SubmissionRunStatus.FAILED_TEST_CASE:
             const newTestCases: CodeEditorTestCasesType = { ...testCasesRef.current };
             if (inputKey && newTestCases[inputKey]) {
-              newTestCases[inputKey] = {
+              const testCase: CodeEditorTestCaseType = {
                 ...newTestCases[inputKey],
                 status,
-                out: lastRunStatus.log?.out || '',
-                log: lastRunStatus.log?.log || '',
-                err: lastRunStatus.log?.err || '',
-                messageTimestamp: lastRunStatus.messageTimestamp,
+                out: data.log?.out || '',
+                log: data.log?.log || '',
+                err: data.log?.err || '',
+                messageTimestamp: data.messageTimestamp,
               };
+              onChangeRef.current?.({ testCase });
             }
-            onChangeRef.current?.({ testCases: newTestCases });
+            
             break;
           default:
         }
@@ -126,13 +136,11 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         }
       }
     });
-  }, [ runId ]);
-  useEffect(() => {
-    jukiApiSocketManager.SOCKET.subscribe(SocketEvent.CODE_RUN_STATUS, runId);
+    
     return () => {
-      jukiApiSocketManager.SOCKET.unsubscribe(SocketEvent.CODE_RUN_STATUS, runId);
+      jukiApiSocketManager.SOCKET.unsubscribe(event);
     };
-  }, [ runId ]);
+  }, [ runId, sessionId ]);
   
   const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
     onChangeRef.current?.({ ...props, isRunning: false });

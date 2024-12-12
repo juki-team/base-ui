@@ -6,7 +6,7 @@ export interface RowComponentProps<T, U> {
   value: T,
   props?: U,
   dragComponent: ReactNode,
-  dragComponentRef: RefObject<HTMLDivElement>,
+  dragComponentRef: RefObject<HTMLDivElement | null>,
   // dataHandlerId: any,
   isDragging: boolean,
   isOver: boolean,

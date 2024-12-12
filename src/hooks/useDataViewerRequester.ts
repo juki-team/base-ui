@@ -9,12 +9,12 @@ import { useJukiUser } from './useJukiUser';
 export type DataViewerRequesterGetUrlType = (props: Omit<DataViewerRequestPropsType, 'setLoaderStatus'>) => string;
 
 export const useDataViewerRequester = <T extends ContentResponseType<any> | ContentsResponseType<any>, >(getUrl: DataViewerRequesterGetUrlType, options?: SWRConfiguration) => {
-  const setLoaderStatusRef = useRef<SetLoaderStatusType>();
+  const setLoaderStatusRef = useRef<SetLoaderStatusType>(null);
   const { user: { nickname, sessionId } } = useJukiUser();
   const [ url, setUrl ] = useState<string | undefined>(undefined);
   const { data, error, isLoading, mutate, isValidating } = useFetcher<T>(url, options);
   const getUrlRef = useRef(getUrl);
-  const reloadRef = useRef<ReloadType>();
+  const reloadRef = useRef<ReloadType>(null);
   getUrlRef.current = getUrl;
   const request = useCallback(async ({ pagination, filter, sort }: {
     pagination: { page: number, pageSize: number },

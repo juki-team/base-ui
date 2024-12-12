@@ -1,4 +1,5 @@
 import {
+  cleanRequest,
   ContentResponseType,
   ErrorCode,
   ErrorResponseType,
@@ -7,13 +8,15 @@ import {
   stringToArrayBuffer,
   Theme,
 } from '@juki-team/commons';
-import { Children, cloneElement, MutableRefObject, ReactNode } from 'react';
+import { Children, cloneElement, isValidElement, MutableRefObject, PropsWithChildren, ReactNode } from 'react';
 import { write } from 'xlsx-js-style';
 import { SheetDataType } from '../modules';
 import { jukiApiSocketManager } from '../settings';
 import { TriggerActionsType } from '../types';
-import { authorizedRequest, cleanRequest } from './fetch';
+import { authorizedRequest } from './fetch';
 import { getXLSX } from './xlsx';
+
+export { cleanRequest } from '@juki-team/commons';
 
 export const getTextContent = (elem: ReactNode): string => {
   if (!elem) {
@@ -27,7 +30,7 @@ export const getTextContent = (elem: ReactNode): string => {
     return elem.map(getTextContent).join('');
   }
   
-  if (typeof elem === 'object' && 'props' in elem) {
+  if (isValidElement<PropsWithChildren<{}>>(elem) && !!elem.props.children) {
     const children = elem.props.children;
     if (children instanceof Array) {
       return children.map(getTextContent).join('');

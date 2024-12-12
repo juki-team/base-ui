@@ -51,7 +51,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
   
   // const { t } = useT();
   const [ openForgotPasswordModal, setOpenForgotPasswordModal ] = useState(false);
-  const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
+  const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
   return (
     <>

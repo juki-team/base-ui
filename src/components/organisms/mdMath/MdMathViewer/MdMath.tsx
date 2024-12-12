@@ -71,7 +71,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
   //   setRemarkPlugins([ require('remark-math').default, require('remark-gfm').default ]);
   // }, []);
   
-  const props: ReactMarkdownOptions = useMemo(() => ({
+  const props = useMemo((): ReactMarkdownOptions => ({
     remarkPlugins: [ RemarkMathPlugin, RemarkGfmPlugin ],
     rehypePlugins: [ rehypeKatex ],
     components: {
@@ -103,7 +103,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
       h4: hx as any,
       h5: hx as any,
       h6: hx as any,
-      p({ children = [] }) {
+      p({ children = null }) {
         const newChildren = Array.isArray(children) ? [ ...children ] : [ children ];
         if (typeof newChildren[0] === 'string') {
           const [ commands, newText ] = getCommands(newChildren[0]);
@@ -119,9 +119,9 @@ export const MdMath = memo(({ source }: { source: string }) => {
           newChildren[0] = newText;
           return <p style={style}>{newChildren}</p>;
         }
-        return <p>{children}</p>;
+        return <p>{children as ReactNode}</p>;
       },
-      a({ children, href = '' }: { children?: ReactNode[] | ReactNode, href?: string }) {
+      a({ children, href = '' }) {
         const firstChildrenString = typeof children === 'string'
           ? children
           : Array.isArray(children) ? (typeof children[0] === 'string' ? children[0] : null) : null;
@@ -162,7 +162,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
             return (
               <div className="jk-md-math-link-container jk-row left" id={href.replace('#', '')}>
                 <a href={href} className="jk-md-math-link">
-                  {children}
+                  {children as ReactNode}
                 </a>
               </div>
             );
@@ -170,14 +170,14 @@ export const MdMath = memo(({ source }: { source: string }) => {
           
           return (
             <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link with-icon">
-              <>{children}&nbsp;<OpenInNewIcon /></>
+              <>{children as ReactNode}&nbsp;<OpenInNewIcon /></>
             </Link>
           );
         }
         
         return (
           <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
-            {children}
+            {children as ReactNode}
           </Link>
         );
       },
@@ -187,7 +187,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
       code: ({ children, className = '' }) => {
         const inline = !children?.toString().includes('\n');
         if (inline) {
-          return <code className="inline-code">{children}</code>;
+          return <code className="inline-code">{children as ReactNode}</code>;
         }
         
         let text = (className as string).replace('language-', '');
@@ -228,7 +228,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
         return (
           <div style={{ overflowX: 'auto' }}>
             <table>
-              {children}
+              {children as ReactNode}
             </table>
           </div>
         );

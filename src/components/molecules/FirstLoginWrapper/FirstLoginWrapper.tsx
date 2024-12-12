@@ -16,5 +16,5 @@ export const FirstLoginWrapper = ({ children }: PropsWithChildren) => {
     setSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' });
   };
   
-  return cloneElement(children as ReactElement, { onClick });
+  return cloneElement(children as ReactElement, { onClick } as ReactElement<{}>['props']);
 };

@@ -309,7 +309,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             onChange={value => setOutputTab(value)}
             className="border-bottom-highlight"
           />
-          <div className="flex-1" style={{ overflow: 'auto', width: '100%' }}>
+          <div className="flex-1 wh-100 pn-re ow-ao">
             <TabsInlineBody tabs={outputTabs} selectedTabKey={outputTab} />
           </div>
         </div>

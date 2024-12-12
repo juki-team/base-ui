@@ -9,8 +9,8 @@ export interface CollapseProps {
     close: () => void,
     open: () => void,
     toggle: () => void,
-    isFullyClosed: boolean,
-    isFullyOpened: boolean,
+    // isFullyClosed: boolean,
+    // isFullyOpened: boolean,
     icon: ReactNode,
   }>,
   children: ReactNodeOrFunctionP1Type<{
@@ -18,9 +18,10 @@ export interface CollapseProps {
     close: () => void,
     open: () => void,
     toggle: () => void,
-    isFullyClosed: boolean,
-    isFullyOpened: boolean,
+    // isFullyClosed: boolean,
+    // isFullyOpened: boolean,
   }>,
   className?: string,
   startsShowing?: boolean,
+  direction?: 'column' | 'row',
 }

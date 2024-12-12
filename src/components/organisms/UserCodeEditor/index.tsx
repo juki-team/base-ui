@@ -131,7 +131,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       const newLanguage = languages[0].value;
       setLanguage(newLanguage);
     }
-  }, [ language, languagesString ]);
+  }, [ language, languagesString, setLanguage ]);
   
   useEffect(() => {
     onTestCasesChange?.(testCases);
@@ -164,6 +164,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
                       sourceCode,
                       language: newLanguage,
                       testCases,
+                      testCase,
                       theme,
                       tabSize,
                       fontSize,
@@ -188,6 +189,14 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     }
     if (testCases) {
       setTestCases(testCases);
+    }
+    if (testCase) {
+      setTestCases(prevState => {
+        if (prevState[testCase.key]?.messageTimestamp && prevState[testCase.key].messageTimestamp > testCase.messageTimestamp) {
+          return prevState;
+        }
+        return { ...prevState, [testCase.key]: testCase };
+      });
     }
     if (theme) {
       setEditorSettings(prevState => ({ ...prevState, theme }));

@@ -4,6 +4,8 @@ import { authorizedRequest, cleanRequest } from '../helpers';
 import { jukiApiSocketManager } from '../settings';
 import { useJukiPage } from './useJukiPage';
 
+const intervalRef: { current: ReturnType<typeof setInterval> | undefined } = { current: undefined };
+
 export const useRunnerServicesWakeUp = () => {
   const { isOnline, isPageFocus, isPageVisible } = useJukiPage();
   useEffect(() => {
@@ -15,9 +17,10 @@ export const useRunnerServicesWakeUp = () => {
       }
     };
     void fun(isPageVisible, isOnline);
-    const interval = setInterval(fun, 1000 * 45, isPageVisible, isOnline);
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(fun, 1000 * 60, isPageVisible, isOnline);
     return () => {
-      clearInterval(interval);
+      clearInterval(intervalRef.current);
     };
   }, [ isOnline, isPageFocus, isPageVisible ]);
 };

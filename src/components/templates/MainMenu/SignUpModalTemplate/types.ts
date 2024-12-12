@@ -12,7 +12,7 @@ export type SignUpFormType = {
 }
 
 export interface SignUpModalComponentProps extends BasicModalProps {
-  onSubmit: (data: SignUpFormType, setStatus: SetLoaderStatusOnClickType) => void,
+  onSubmit: (data: SignUpFormType, setStatus?: SetLoaderStatusOnClickType) => void,
   signUpWithGoogle?: (setStatus?: SetLoaderStatusOnClickType) => (response: any) => void,
   reactAppGoogleClientId?: string,
 }

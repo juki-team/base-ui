@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
 export interface TwoContentSectionProps {
-  children: [ ReactNode | JSX.Element | undefined, ReactNode | JSX.Element | undefined ],
+  children: [ ReactNode, ReactNode ],
   className?: string,
 }

@@ -2,17 +2,25 @@ import {
   CodeEditorTestCasesType,
   consoleWarn,
   ContentResponseType,
-  SocketEvent,
   Status,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import React, { useEffect, useRef } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
-import { useJukiNotification } from '../../../../hooks';
+import { useJukiNotification, useJukiUser } from '../../../../hooks';
 import { jukiApiSocketManager } from '../../../../settings';
-import { Button, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, Select, SettingsIcon, T } from '../../../atoms';
+import {
+  Button,
+  ErrorIcon,
+  FullscreenExitIcon,
+  FullscreenIcon,
+  PlayArrowIcon,
+  Select,
+  SettingsIcon,
+  T,
+} from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';
 import { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../molecules/types';
 import { HeaderProps } from '../types';
@@ -28,7 +36,6 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     setShowSettings,
     centerOptions,
     rightOptions,
-    runId,
     setRunId,
     timeLimit,
     memoryLimit,
@@ -45,7 +52,13 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const { addErrorNotification } = useJukiNotification();
   const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
+  const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
+  const [ readyState, setReadyState ] = useState<number>(WebSocket.CLOSED);
+  const { user: { sessionId } } = useJukiUser();
+  const [ timestamp, setTimestamp ] = useState(0);
+  useEffect(() => {
+    setReadyState(jukiApiSocketManager.SOCKET.getReadyState());
+  }, [ sessionId, timestamp ]);
   
   useEffect(() => {
     if (isRunning) {
@@ -70,7 +83,6 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     setStatus(Status.LOADING);
     clean(SubmissionRunStatus.RECEIVED);
     try {
-      jukiApiSocketManager.SOCKET.unsubscribe(SocketEvent.CODE_RUN_STATUS, runId);
       const { url, ...options } = jukiApiSocketManager.API_V1.code.run({
         body: {
           language: language as string,
@@ -85,7 +97,6 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       );
       
       if (request?.success && request?.content?.runId) {
-        jukiApiSocketManager.SOCKET.subscribe(SocketEvent.CODE_RUN_STATUS, request?.content?.runId);
         setRunId(request.content.runId);
         setStatus(Status.SUCCESS);
       } else {
@@ -135,16 +146,38 @@ export const Header = <T, >(props: HeaderProps<T>) => {
         {!withoutRunCodeButton && (
           <>
             <ButtonLoader
+              data-tooltip-id="jk-tooltip"
+              data-tooltip-content={readyState !== WebSocket.OPEN
+                ? 'run the editor is not available yet'
+                : undefined}
               size="tiny"
               type="primary"
               extend={twoRows}
               icon={<PlayArrowIcon />}
               onClick={handleRunCode}
               setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-              disabled={!Object.keys(testCases).length}
+              disabled={readyState !== WebSocket.OPEN}
             >
               {(twoRows || withLabels) && <T>run</T>}
             </ButtonLoader>
+            {!(readyState === WebSocket.OPEN) && (
+              <ButtonLoader
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="offline, click to try to reconnect"
+                className="jk-row bc-er"
+                style={{ '--button-background-color': 'var(--t-color-error)' } as CSSProperties}
+                onClick={async (setLoader) => {
+                  setLoader(Status.LOADING);
+                  if (jukiApiSocketManager.SOCKET.getReadyState() !== WebSocket.OPEN) {
+                    await jukiApiSocketManager.SOCKET.start();
+                  }
+                  setTimestamp(Date.now());
+                  setLoader(Status.NONE);
+                }}
+                icon={<ErrorIcon />}
+                size="small"
+              />
+            )}
           </>
         )}
       </div>

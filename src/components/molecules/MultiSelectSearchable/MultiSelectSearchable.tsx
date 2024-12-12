@@ -68,7 +68,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
       setFilteredOptions(options);
     }
   }, [ onFilter, options, search, selectedOptions ]);
-  const selectedOptionRef = useRef<HTMLDivElement | null>(null);
+  const selectedOptionRef = useRef<HTMLDivElement>(null);
   
   const widthLabels = Math.max(...[ ...options, ...selectedOptions ].map(({ label }) => getTextContent(label).length));
   

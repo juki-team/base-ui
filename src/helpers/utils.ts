@@ -1,6 +1,6 @@
-import { consoleWarn, ContentResponseType } from '@juki-team/commons';
+import { cleanRequest, consoleWarn, ContentResponseType } from '@juki-team/commons';
 import { jukiApiSocketManager } from '../settings';
-import { authorizedRequest, cleanRequest } from './fetch';
+import { authorizedRequest } from './fetch';
 
 export const openNewTab = (url: string) => {
   const newWindow = window?.open(url, '_blank', 'noopener,noreferrer');

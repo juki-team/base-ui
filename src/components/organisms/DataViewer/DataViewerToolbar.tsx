@@ -93,7 +93,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const { searchParams } = useJukiRouter();
   
-  const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
+  const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
   const [ showFilterDrawer, _setShowFilterDrawer ] = useSessionStorage(showFilterDrawerKey, searchParams.get(showFilterDrawerKey) === 'open' ? 'open' : 'close');
   const setShowFilterDrawer = useCallback((show: boolean) => {

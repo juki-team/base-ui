@@ -20,7 +20,7 @@ export const ButtonLoader = (props: ButtonLoaderProps) => {
   
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
   useSetLoaderStatus(loader, setLoader, setLoaderStatusRef);
-  const refTimeOut = useRef<ReturnType<typeof setTimeout>>();
+  const refTimeOut = useRef<ReturnType<typeof setTimeout>>(null);
   
   useEffect(() => {
     if (loader === Status.SUCCESS || loader === Status.ERROR) {

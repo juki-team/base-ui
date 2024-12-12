@@ -1,5 +1,15 @@
 import { AnimatePresence, motion } from 'motion/react';
-import React, { cloneElement, forwardRef, Ref, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import React, {
+  cloneElement,
+  forwardRef,
+  ReactElement,
+  Ref,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { PopoverPosition, PopoverState, usePopover } from 'react-tiny-popover';
 import { useMemoizedArray } from '../../../hooks';
 import { PopoverPortal } from './ReactTinyPopover.PopoverPortal';
@@ -47,7 +57,7 @@ const PopoverInternal = forwardRef(
       boundaryInset,
     });
     
-    const childRef = useRef<HTMLElement | undefined>();
+    const childRef = useRef<HTMLElement>(undefined);
     
     const [ popoverState, setPopoverState ] = useState<PopoverState>({
       align,
@@ -209,7 +219,7 @@ const PopoverInternal = forwardRef(
       [ externalRef ],
     );
     
-    const renderChild = () => cloneElement(children, { ref: handleRef });
+    const renderChild = () => cloneElement(children, { ref: handleRef } as ReactElement<{}>['props']);
     
     const isY = popoverState.position === 'bottom' || popoverState.position === 'top';
     const ANIMATION = {

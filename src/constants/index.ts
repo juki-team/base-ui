@@ -5,6 +5,7 @@ import {
   EMPTY_USER_PERMISSIONS,
   Language,
   MenuViewMode,
+  ObjectIdType,
   ProfileSetting,
   Theme,
   UserPingType,
@@ -46,7 +47,7 @@ export const EMPTY_USER: UserPingType = {
   },
   permissions: { ...EMPTY_USER_PERMISSIONS },
   isLogged: false,
-  sessionId: '',
+  sessionId: '' as ObjectIdType,
 };
 
 export const PAGE_SIZE_OPTIONS = [ 25, 50, 100 ];

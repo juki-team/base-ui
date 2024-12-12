@@ -61,7 +61,7 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
   }, [ isOpen ]);
   
   // const refSetLoading = useRef<SetLoaderStatusOnClickType>();
-  const setLoaderRef = useRef<SetLoaderStatusOnClickType>();
+  const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   // const { t } = useT();
   
   return (
@@ -92,7 +92,7 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
             <div className="jk-divider"><T>or</T></div>
           </>
         )}
-        <form onSubmit={handleSubmit((data: SignUpFormType) => onSubmit(data, setLoaderRef.current!))}>
+        <form onSubmit={handleSubmit((data: SignUpFormType) => onSubmit(data, setLoaderRef.current))}>
           <div className="jk-col stretch">
             <div className="jk-row-col gap block">
               <div className="jk-form-item">
