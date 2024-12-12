@@ -191,8 +191,8 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: TabsInlineBodyProp
   return (
     <AnimatePresence
       custom={direction}
-      presenceAffectsLayout
       // onExitComplete={() => setRender(Date.now())}
+      mode="wait"
     >
       {Object.values(tabs).map(tab => (
         tab.key === selectedTabKey && (
