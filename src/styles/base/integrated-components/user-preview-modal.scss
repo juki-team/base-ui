@@ -1,5 +1,10 @@
 .modal-user-preview {
   .jk-modal-content {
     max-width: 460px;
+    
+    img {
+      width: 100px;
+      height: 100px;
+    }
   }
 }

@@ -134,3 +134,9 @@
     width: 340px;
   }
 }
+
+.submission-modal, .modal-login, .modal-sign-up {
+  .jk-modal-content {
+    width: var(--modal-width);
+  }
+}

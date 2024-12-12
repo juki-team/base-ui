@@ -17,7 +17,7 @@ export const SubmissionContentModal = ({ submitId, isOpen, onClose }: Submission
   const [ triggerFetch, setTriggerFetch ] = useState(0);
   
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeIcon>
+    <Modal isOpen={isOpen} onClose={onClose} closeIcon className="submission-modal">
       <section className="jk-pg-md">
         <div className="fw-bd tx-l jk-row-col left gap">
           <h3><T>submission</T></h3>
