@@ -1,6 +1,8 @@
+import { Language } from '@juki-team/commons';
+import { createInstance, i18n } from 'i18next';
 import React, { PropsWithChildren, useEffect } from 'react';
 import { JukiProviders } from '../../contexts';
-import { jukiApiSocketManager } from '../../settings';
+import { jukiApiSocketManager, jukiGlobalStore } from '../../settings';
 import { JukiSocketAlert, UserPreviewModal } from '../templates';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
@@ -10,6 +12,34 @@ enum TestPath {
   USER = 'USER',
   ADMIN = 'ADMIN'
 }
+
+const i18nInstance = createInstance() as i18n;
+
+const i18nConfig = {
+  locales: [ Language.EN, Language.ES ],
+  defaultLocale: Language.EN,
+  namespaces: [ 'translation' ],
+};
+
+await i18nInstance.init({
+  // lng: i18nConfig.defaultLocale,
+  // fallbackLng: i18nConfig.defaultLocale,
+  supportedLngs: i18nConfig.locales,
+  defaultNS: i18nConfig.namespaces[0],
+  fallbackNS: i18nConfig.namespaces[0],
+  ns: i18nConfig.namespaces,
+  preload: i18nConfig.locales,
+  keySeparator: false, // we do not use keys in form messages.welcome
+  interpolation: {
+    escapeValue: false, // react already safes from xss
+  },
+  backend: {
+    backends: [
+      // resourcesToBackend(localResources),
+    ],
+    backendOptions: [],
+  },
+});
 
 export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   
@@ -22,6 +52,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     jukiApiSocketManager.setSocketSettings(socketServiceUrl);
     jukiApiSocketManager.setApiSettings(serviceUrl, serviceV2Url, 'juki-token');
+    void jukiGlobalStore.setI18n(i18nInstance);
   }, []);
   
   return (
@@ -41,6 +72,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
         [TestPath.USER]: { pathname: '', searchParams: new URLSearchParams() },
         [TestPath.ADMIN]: { pathname: '', searchParams: new URLSearchParams() },
       }}
+    
     >
       <UserPreviewModal key="user-preview-modal" />
       <JukiSocketAlert />
