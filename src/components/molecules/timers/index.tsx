@@ -6,7 +6,7 @@ import { TimerLabeledProps, TimerProps } from './types';
 const LazyComponent = lazy(() => import('./Timer').then(module => ({ default: module.Timer })));
 
 export const Timer = (props: TimerProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyComponent {...props} />
   </Suspense>
 );
@@ -14,7 +14,7 @@ export const Timer = (props: TimerProps) => (
 const LazyComponent2 = lazy(() => import('./TimerLabeled').then(module => ({ default: module.TimerLabeled })));
 
 export const TimerLabeled = (props: TimerLabeledProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyComponent2 {...props} />
   </Suspense>
 );

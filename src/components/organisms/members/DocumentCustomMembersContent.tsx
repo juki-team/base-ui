@@ -2,7 +2,7 @@ import {
   EntityMembersRank,
   EntityMembersResponseDTO,
   MemberType,
-  UserBasicInfoResponseDTO,
+  UserCompanyBasicInfoResponseDTO,
   UserSummaryListResponseDTO,
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
@@ -31,7 +31,7 @@ const PrintUsers = ({ members }: { members?: EntityMembersResponseDTO['spectator
 export interface DocumentCustomMembersContentProps {
   members: EntityMembersResponseDTO,
   setMembers?: Dispatch<SetStateAction<EntityMembersResponseDTO>>,
-  documentOwner: UserBasicInfoResponseDTO,
+  documentOwner: UserCompanyBasicInfoResponseDTO,
   administrators?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
   managers?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
   participants?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },

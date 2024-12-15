@@ -6,7 +6,7 @@ import { CreateEntityLayoutProps, UpdateEntityLayoutProps } from './types';
 const LazyCreateEntityLayout = lazy(() => import('./CreateEntityLayout').then(module => ({ default: module.CreateEntityLayout })));
 
 export const CreateEntityLayout = <T, U, V>(props: CreateEntityLayoutProps<T, U, V>) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     {/*@ts-ignore*/}
     <LazyCreateEntityLayout {...props} />
   </Suspense>
@@ -15,7 +15,7 @@ export const CreateEntityLayout = <T, U, V>(props: CreateEntityLayoutProps<T, U,
 const LazyUpdateEntityLayout = lazy(() => import('./UpdateEntityLayout').then(module => ({ default: module.UpdateEntityLayout })));
 
 export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     {/*@ts-ignore*/}
     <LazyUpdateEntityLayout {...props} />
   </Suspense>

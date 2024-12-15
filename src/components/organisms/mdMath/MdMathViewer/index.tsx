@@ -6,7 +6,7 @@ import { MdMathViewerProps } from './types';
 const LazyMdMathViewer = lazy(() => import('./MdMathViewer').then(module => ({ default: module.MdMathViewer })));
 
 export const MdMathViewer = (props: MdMathViewerProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     {/*@ts-ignore*/}
     <LazyMdMathViewer {...props} />
   </Suspense>

@@ -6,7 +6,7 @@ import { UserProfileSettingsProps } from './types';
 const LazyUserProfileSettings = lazy(() => import('./UserProfileSettings').then(module => ({ default: module.UserProfileSettings })));
 
 export const UserProfileSettings = (props: UserProfileSettingsProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyUserProfileSettings {...props} />
   </Suspense>
 );

@@ -6,7 +6,7 @@ import { DatePickerProps, DayPickerProps, MonthPickerProps, TimePickerProps, Yea
 const LazyDatePicker = lazy(() => import('./DatePicker').then(module => ({ default: module.DatePicker })));
 
 export const DatePicker = (props: DatePickerProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyDatePicker {...props} />
   </Suspense>
 );
@@ -14,7 +14,7 @@ export const DatePicker = (props: DatePickerProps) => (
 const LazyDayPicker = lazy(() => import('./DayPicker').then(module => ({ default: module.DayPicker })));
 
 export const DayPicker = (props: DayPickerProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyDayPicker {...props} />
   </Suspense>
 );
@@ -22,7 +22,7 @@ export const DayPicker = (props: DayPickerProps) => (
 const LazyMonthPicker = lazy(() => import('./MonthPicker').then(module => ({ default: module.MonthPicker })));
 
 export const MonthPicker = (props: MonthPickerProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyMonthPicker {...props} />
   </Suspense>
 );
@@ -30,7 +30,7 @@ export const MonthPicker = (props: MonthPickerProps) => (
 const LazyTimePicker = lazy(() => import('./TimePicker').then(module => ({ default: module.TimePicker })));
 
 export const TimePicker = (props: TimePickerProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyTimePicker {...props} />
   </Suspense>
 );
@@ -38,7 +38,7 @@ export const TimePicker = (props: TimePickerProps) => (
 const LazyYearPicker = lazy(() => import('./YearPicker').then(module => ({ default: module.YearPicker })));
 
 export const YearPicker = (props: YearPickerProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyYearPicker {...props} />
   </Suspense>
 );
@@ -46,7 +46,7 @@ export const YearPicker = (props: YearPickerProps) => (
 const LazyInputDate = lazy(() => import('./InputDate').then(module => ({ default: module.InputDate })));
 
 export const InputDate = (props: InputDateProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyInputDate {...props} />
   </Suspense>
 );

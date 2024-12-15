@@ -5,7 +5,6 @@ import { SCROLL_WIDTH } from '../../../../constants';
 import { classNames } from '../../../../helpers';
 import { usePrevious } from '../../../../hooks';
 import { T } from '../../../atoms/T';
-import { JukiLoadingLayout } from '../../../molecules';
 import {
   DataViewerTableHeadersType,
   GetRecordClassNameType,
@@ -107,7 +106,13 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
       />
       <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}>
         {data.length === 0 && loading && (
-          <JukiLoadingLayout><T className="tt-se">loading data</T>...</JukiLoadingLayout>
+          <div className="jk-row center" style={{ height: '100%' }}>
+            <div className="jk-row" style={{ alignItems: 'baseline' }}>
+              <T className="tt-se">loading data</T>
+              &nbsp;
+              <div className="dot-flashing" />
+            </div>
+          </div>
         )}
         <RowVirtualizerFixed
           data={data}

@@ -13,7 +13,7 @@ export const GraphvizViewer = memo(({ value, className, width, height }: Omit<Gr
   
   return (
     <div className={classNames('jk-graphviz-viewer-container', className)}>
-      <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+      <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
         {error
           ? <div className="bc-eras jk-tag error">{error}</div>
           : <Graphviz dot={dot} className="jk-graphviz-viewer" options={{ width, height }} />}

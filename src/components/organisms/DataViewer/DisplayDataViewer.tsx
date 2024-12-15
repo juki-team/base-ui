@@ -4,7 +4,6 @@ import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
 import { LineLoader, T } from '../../atoms';
-import { JukiLoadingLayout } from '../../molecules';
 import { CardRowVirtualizerFixed } from './CardList';
 import { DataViewerToolbar } from './DataViewerToolbar';
 import { ViewContainerRows } from './RowList/ViewContainerRows';
@@ -116,7 +115,13 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
             style={{ width: (viewContainerWidth || 0) }}
           >
             {data.length === 0 && loading && (
-              <JukiLoadingLayout><T className="tt-se">loading data</T>...</JukiLoadingLayout>
+              <div className="jk-row center" style={{ height: '100%' }}>
+                <div className="jk-row" style={{ alignItems: 'baseline' }}>
+                  <T className="tt-se">loading data</T>
+                  &nbsp;
+                  <div className="dot-flashing" />
+                </div>
+              </div>
             )}
             <CardRowVirtualizerFixed
               headers={headers}

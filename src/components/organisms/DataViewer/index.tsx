@@ -6,7 +6,7 @@ import { DataViewerProps, PagedDataViewerProps } from './types';
 const LazyDataViewer = lazy(() => import('./DataViewer').then(module => ({ default: module.DataViewer })));
 
 export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     {/* @ts-ignore*/}
     <LazyDataViewer {...props} />
   </Suspense>
@@ -15,7 +15,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
 const LazyPagedDataViewer = lazy(() => import('./PagedDataViewer').then(module => ({ default: module.PagedDataViewer })));
 
 export const PagedDataViewer = <T, V>(props: PagedDataViewerProps<T, V>) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     {/* @ts-ignore*/}
     <LazyPagedDataViewer {...props} />
   </Suspense>

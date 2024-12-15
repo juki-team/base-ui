@@ -1,4 +1,4 @@
-import { DocumentMembersResponseDTO, Status, UserBasicInfoResponseDTO } from '@juki-team/commons';
+import { DocumentMembersResponseDTO, Status, UserCompanyBasicInfoResponseDTO } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { Modal, T } from '../../atoms';
 import { BasicModalProps } from '../../atoms/Modal/types';
@@ -8,7 +8,7 @@ import { DocumentMembersContent } from './DocumentMembersContent';
 export interface DocumentMembersModalProps extends BasicModalProps {
   documentName: string,
   documentMembers: DocumentMembersResponseDTO,
-  documentOwner: UserBasicInfoResponseDTO,
+  documentOwner: UserCompanyBasicInfoResponseDTO,
   onSave: (members: DocumentMembersResponseDTO, close: () => void) => Promise<void>,
 }
 

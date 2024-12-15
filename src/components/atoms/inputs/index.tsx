@@ -6,7 +6,7 @@ import { InputCellPhoneNumberProps } from './types';
 const LazyInputCellPhoneNumber = lazy(() => import('./InputCellPhoneNumber').then(module => ({ default: module.InputCellPhoneNumber })));
 
 export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     {/*@ts-ignore*/}
     <LazyInputCellPhoneNumber {...props} />
   </Suspense>

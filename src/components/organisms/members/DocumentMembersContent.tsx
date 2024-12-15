@@ -4,7 +4,7 @@ import {
   EntityAccess,
   FileMemberRole,
   MemberType,
-  UserBasicInfoResponseDTO,
+  UserCompanyBasicInfoResponseDTO,
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction } from 'react';
 import { useJukiUser } from '../../../hooks';
@@ -15,7 +15,7 @@ import { UsersSelector } from '../UsersSelector';
 export interface DocumentMembersContentProps {
   members: DocumentMembersResponseDTO,
   setMembers?: Dispatch<SetStateAction<DocumentMembersResponseDTO>>,
-  documentOwner: UserBasicInfoResponseDTO,
+  documentOwner: UserCompanyBasicInfoResponseDTO,
 }
 
 export const DocumentMembersContent = ({ members, setMembers, documentOwner }: DocumentMembersContentProps) => {

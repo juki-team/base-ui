@@ -34,7 +34,7 @@ const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModalPro
             <TextArea value={input} onChange={setInput} />
           </div>
           <div className="jk-row" style={{ overflow: 'auto' }} ref={ref}>
-            <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+            <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
               <Graphviz dot={dot} className="jk-graph" options={{ width: width - 20 }} />
             </Suspense>
           </div>

@@ -6,7 +6,7 @@ import { SignUpModalComponentProps } from './types';
 const LazySignUpModalTemplate = lazy(() => import('./SignUpModalTemplate').then(module => ({ default: module.SignUpModalTemplate })));
 
 export const SignUpModalTemplate = (props: SignUpModalComponentProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazySignUpModalTemplate{...props} />
   </Suspense>
 );

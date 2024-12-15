@@ -9,7 +9,16 @@ import {
   Theme,
   UserPingType,
 } from '@juki-team/commons';
-import React, { Dispatch, PropsWithChildren, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   browserName,
   browserVersion,
@@ -22,6 +31,7 @@ import {
 } from 'react-device-detect';
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
+import { useJukiPage } from '../../hooks';
 import { useFetcher } from '../../hooks/useFetcher';
 import { jukiApiSocketManager, jukiGlobalStore } from '../../settings';
 import { UserContext } from './context';
@@ -113,15 +123,17 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const { children } = props;
   
   const token = jukiApiSocketManager.getToken();
+  const lastTokenRef = useRef('');
   
   const { user, company, setUser, isLoading, mutate } = useUser();
+  const { isPageVisible } = useJukiPage();
   
   useEffect(() => {
-    void jukiApiSocketManager.SOCKET.start();
-    return () => {
-      void jukiApiSocketManager.SOCKET.stop();
-    };
-  }, [ token ]);
+    if (isPageVisible && token !== lastTokenRef.current) {
+      lastTokenRef.current = token;
+      void jukiApiSocketManager.SOCKET.start();
+    }
+  }, [ isPageVisible, token ]);
   
   const device: DeviceType = useMemo(() => ({
     type: deviceType,

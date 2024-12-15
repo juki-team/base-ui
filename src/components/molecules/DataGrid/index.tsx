@@ -6,7 +6,7 @@ import { DataGridProps } from './types';
 const LazyDataGrid = lazy(() => import('./DataGrid').then(module => ({ default: module.DataGrid })));
 
 export const DataGrid = (props: DataGridProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyDataGrid {...props} />
   </Suspense>
 );

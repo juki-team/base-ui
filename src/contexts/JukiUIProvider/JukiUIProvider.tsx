@@ -64,7 +64,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
             <div id="juki-app" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
               {/*<div className="loading-route-overlay" />*/}
               {children}
-              <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+              <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
                 <ReactTooltip
                   id="jk-tooltip"
                   opacity={1}

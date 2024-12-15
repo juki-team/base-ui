@@ -6,7 +6,7 @@ import { BreadcrumbsProps } from './types';
 const LazyBreadcrumbs = lazy(() => import('./Breadcrumbs').then(module => ({ default: module.Breadcrumbs })));
 
 export const Breadcrumbs = (props: BreadcrumbsProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyBreadcrumbs {...props} />
   </Suspense>
 );

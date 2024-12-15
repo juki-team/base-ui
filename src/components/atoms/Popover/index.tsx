@@ -6,7 +6,7 @@ import { PopoverProps } from './types';
 const LazyPopover = lazy(() => import('./Popover').then(module => ({ default: module.Popover })));
 
 export const Popover = (props: PopoverProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     {/*@ts-ignore*/}
     <LazyPopover {...props} />
   </Suspense>

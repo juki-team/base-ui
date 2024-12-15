@@ -6,7 +6,7 @@ import { MainMenuProps } from './types';
 const LazyMainMenu = lazy(() => import('./MainMenu').then(module => ({ default: module.MainMenu })));
 
 export const MainMenu = (props: MainMenuProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyMainMenu {...props} />
   </Suspense>
 );

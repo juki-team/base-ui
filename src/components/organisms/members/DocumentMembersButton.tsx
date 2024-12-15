@@ -4,7 +4,7 @@ import {
   DocumentMembersResponseDTO,
   ENTITY_ACCESS,
   HTTPMethod,
-  UserBasicInfoResponseDTO,
+  UserCompanyBasicInfoResponseDTO,
 } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
@@ -15,7 +15,7 @@ import { DocumentMembersModal } from './DocumentMembersModal';
 export interface DocumentMembersButton1Props {
   documentName: string,
   documentMembers: DocumentMembersResponseDTO,
-  documentOwner: UserBasicInfoResponseDTO,
+  documentOwner: UserCompanyBasicInfoResponseDTO,
   onSave: (members: DocumentMembersResponseDTO, close: () => void) => Promise<void>,
   saveUrl?: never,
   reloadDocument?: never,
@@ -24,7 +24,7 @@ export interface DocumentMembersButton1Props {
 export interface DocumentMembersButton2Props {
   documentName: string,
   documentMembers: DocumentMembersResponseDTO,
-  documentOwner: UserBasicInfoResponseDTO,
+  documentOwner: UserCompanyBasicInfoResponseDTO,
   onSave?: never,
   saveUrl: string,
   reloadDocument: () => Promise<void>,

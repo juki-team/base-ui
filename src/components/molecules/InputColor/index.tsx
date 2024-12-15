@@ -6,7 +6,7 @@ import { ColorPickerProps } from './types';
 const LazyInputColor = lazy(() => import('./InputColor').then(module => ({ default: module.InputColor })));
 
 export const InputColor = (props: ColorPickerProps) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyInputColor {...props} />
   </Suspense>
 );

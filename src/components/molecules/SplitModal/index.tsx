@@ -7,7 +7,7 @@ import { SplitModalProps } from './types';
 const LazyComponent = lazy(() => import('./SplitModal').then(module => ({ default: module.SplitModal })));
 
 export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: PropsWithChildren<SplitModalProps<T>>) => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyComponent {...props} />
   </Suspense>
 );

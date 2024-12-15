@@ -5,7 +5,7 @@ import { JukiLoadingLayout } from '../../molecules';
 const LazyUserPreviewModal = lazy(() => import('./UserPreviewModal').then(module => ({ default: module.UserPreviewModal })));
 
 export const UserPreviewModal = () => (
-  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T>...</JukiLoadingLayout>}>
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyUserPreviewModal />
   </Suspense>
 );

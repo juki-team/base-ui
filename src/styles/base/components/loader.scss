@@ -56,6 +56,7 @@
   --dot-flashing-color: var(--t-color-black);
   --dot-flashing-color-light: var(--t-color-highlight);
   --dot-flashing-size: 4px;
+  --dot-flashing-duration: 0.6s;
   margin-left: calc(var(--dot-flashing-size) * 1.5);
   margin-right: calc(var(--dot-flashing-size) * 1.5);
   position: relative;
@@ -64,8 +65,8 @@
   border-radius: 50%;
   background-color: var(--dot-flashing-color);
   color: var(--dot-flashing-color);
-  animation: dot-flashing 1s infinite linear alternate;
-  animation-delay: 0.5s;
+  animation: dot-flashing var(--dot-flashing-duration) infinite linear alternate;
+  animation-delay: calc(var(--dot-flashing-duration) / 2);
   
   &.bottom {
     margin-top: 7px;
@@ -86,7 +87,7 @@
   border-radius: 50%;
   background-color: var(--dot-flashing-color);
   color: var(--dot-flashing-color);
-  animation: dot-flashing 1s infinite alternate;
+  animation: dot-flashing var(--dot-flashing-duration) infinite alternate;
   animation-delay: 0s;
 }
 
@@ -97,8 +98,8 @@
   border-radius: 50%;
   background-color: var(--dot-flashing-color);
   color: var(--dot-flashing-color);
-  animation: dot-flashing 1s infinite alternate;
-  animation-delay: 1s;
+  animation: dot-flashing var(--dot-flashing-duration) infinite alternate;
+  animation-delay: var(--dot-flashing-duration);
 }
 
 @keyframes dot-flashing {
