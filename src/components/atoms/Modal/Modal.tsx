@@ -14,6 +14,7 @@ export const Modal = <T extends ModalButtonLoaderEventType, >(props: PropsWithCh
     onClose,
     isOpen,
     className,
+    containerClassName,
     children,
     closeIcon = false,
     // expand,
@@ -51,7 +52,7 @@ export const Modal = <T extends ModalButtonLoaderEventType, >(props: PropsWithCh
     <Portal>
       <AnimatePresence>
         {isOpen && (
-          <motion.div className={classNames('jk-modal-container', className)}>
+          <motion.div className={classNames('jk-modal-container', containerClassName)}>
             <motion.div
               className="jk-modal-overlay"
               initial={{ opacity: 0 }}
@@ -62,7 +63,7 @@ export const Modal = <T extends ModalButtonLoaderEventType, >(props: PropsWithCh
                 : undefined}
             />
             <motion.div
-              className="jk-modal-content jk-border-radius elevation-3"
+              className={classNames('jk-modal-content jk-border-radius elevation-3', className)}
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.6, opacity: 0 }}

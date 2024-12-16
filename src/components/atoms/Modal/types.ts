@@ -17,6 +17,7 @@ export interface BasicModalProps<T extends ModalButtonLoaderEventType = () => vo
 
 export type ModalProps<T extends ModalButtonLoaderEventType = () => void> = BasicModalProps<T> & {
   className?: string,
+  containerClassName?: string,
   closeIcon?: boolean,
   expand?: boolean,
   closeOnKeyEscape?: boolean,

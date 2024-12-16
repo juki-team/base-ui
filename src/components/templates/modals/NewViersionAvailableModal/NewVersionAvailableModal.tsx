@@ -19,6 +19,7 @@ export const NewVersionAvailableModal = (props: NewVersionAvailableModalProps) =
       secondary={{ label: <T>cancel</T>, onClick: props.onClose }}
       primary={{ label: <T>reload</T>, onClick: reload }}
       title={<div><T>attention</T></div>}
+      className="jk-pg"
     >
       <div className="jk-col gap left stretch">
         <div>
