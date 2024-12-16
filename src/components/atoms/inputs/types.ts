@@ -5,6 +5,7 @@ import type { DatePickerDateFunType } from '../../molecules/types';
 import type { ButtonType } from '../Button';
 import type { SelectOption2Type, SelectProps } from '../Select';
 import { T as TCmp } from '../T';
+import { TextAreaProps } from '../TextArea';
 
 export interface InputCommonsProps<T> {
   id?: string,
@@ -91,7 +92,7 @@ export type InputSelectProps<T, U extends ReactNodeOrFunctionType, V extends Rea
 
 export type InputCellPhoneNumberProps<T> = Omit<InputProps<T>, 'type'>;
 
-export type InputTextAreaProps = Omit<InputProps<string>, 'type'>;
+export type InputTextAreaProps = Omit<InputProps<string>, 'type'> & TextAreaProps;
 
 export interface InputDateProps {
   disabled?: boolean,
