@@ -9,4 +9,5 @@ export interface TextAreaProps {
   register?: UseFormRegisterReturn,
   onBlur?: () => void,
   disabled?: boolean,
+  rows?: number,
 }

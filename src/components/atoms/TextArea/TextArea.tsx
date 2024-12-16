@@ -10,6 +10,7 @@ export const TextAreaComponent = ({
                                     register,
                                     onBlur,
                                     disabled,
+                                    rows,
                                   }: TextAreaProps, ref: Ref<HTMLTextAreaElement>) => {
   
   const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
@@ -31,7 +32,7 @@ export const TextAreaComponent = ({
       }}
       onBlur={registerOnBlur ? registerOnBlur : onBlur}
       disabled={disabled}
-      rows={Math.max((value || '').split('\n').length, 2)}
+      rows={rows ?? Math.max((value || '').split('\n').length, 2)}
       style={style}
     />
   );
