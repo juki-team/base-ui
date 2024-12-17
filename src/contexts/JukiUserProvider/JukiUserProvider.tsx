@@ -4,11 +4,14 @@ import {
   DataViewMode,
   Language,
   MenuViewMode,
+  ObjectIdType,
   PingResponseDTO,
   ProfileSetting,
   Theme,
   UserPingType,
+  WebSocketActionEvent,
 } from '@juki-team/commons';
+import { clearInterval } from 'node:timers';
 import React, {
   Dispatch,
   PropsWithChildren,
@@ -127,11 +130,16 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   
   const { user, company, setUser, isLoading, mutate } = useUser();
   const { isPageVisible } = useJukiPage();
+  const intervalRef = useRef<ReturnType<typeof setTimeout>>(null);
   
   useEffect(() => {
     if (isPageVisible && token !== lastTokenRef.current) {
       lastTokenRef.current = token;
       void jukiApiSocketManager.SOCKET.start();
+      intervalRef.current && clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(() => {
+        jukiApiSocketManager.SOCKET.send({ event: WebSocketActionEvent.PING, sessionId: token as ObjectIdType });
+      }, 30000);
     }
   }, [ isPageVisible, token ]);
   
