@@ -149,6 +149,31 @@ export class ApiSocketManager {
           },
         },
       },
+      webScraping: {
+        codeforces: {
+          problemStatement: valid<{
+            params: {
+              contestId: string,
+              index: string,
+            }
+          }, HTTPMethod.POST>(({ params: { contestId, index } }) => ({
+            url: 'web-scraping/web-scraping/codeforces/problem-statement',
+            method: HTTPMethod.POST,
+            body: JSON.stringify({ contestId, index }),
+          })),
+        },
+        patito: {
+          problemStatement: valid<{
+            params: {
+              id: string,
+            }
+          }, HTTPMethod.POST>(({ params: { id } }) => ({
+            url: 'web-scraping/web-scraping/patito/problem-statement',
+            method: HTTPMethod.POST,
+            body: JSON.stringify({ id }),
+          })),
+        },
+      },
     };
   }
   
