@@ -96,8 +96,8 @@ export class ApiSocketManager {
   
   get API_V2() {
     
-    const injectBaseUrl = (prefix: string, path: string) => {
-      return `${this._SERVICE_API_V2_URL}/${prefix}${path}`;
+    const injectBaseUrl = (path: string) => {
+      return `${this._SERVICE_API_V2_URL}/${path}`;
     };
     
     const valid = <T, M extends HTTPMethod = HTTPMethod.GET>(callback: (props: T) => ResponseAPI<M>): ((props: T) => ResponseAPI<M>) => {
@@ -118,7 +118,7 @@ export class ApiSocketManager {
             margin?: { top: string, bottom: string, left: string, right: string }
           }
         }, HTTPMethod.POST>(({ params: { url, headerTemplate, footerTemplate, margin, format } }) => ({
-          url: injectBaseUrl('export', '/website-to-pdf'),
+          url: injectBaseUrl('export/website-to-pdf'),
           method: HTTPMethod.POST,
           body: JSON.stringify({ url, headerTemplate, footerTemplate, margin, format }),
         })),
@@ -129,7 +129,7 @@ export class ApiSocketManager {
               token: string,
             }
           }, HTTPMethod.POST>(({ params: { key, token } }) => ({
-            url: injectBaseUrl('export', '/problem/statement-to-pdf'),
+            url: injectBaseUrl('export/problem/statement-to-pdf'),
             method: HTTPMethod.POST,
             body: JSON.stringify({ key, token }),
           })),
@@ -142,7 +142,7 @@ export class ApiSocketManager {
                 token: string,
               }
             }, HTTPMethod.POST>(({ params: { key, token } }) => ({
-              url: injectBaseUrl('export', '/contest/problems/statements-to-pdf'),
+              url: injectBaseUrl('export/contest/problems/statements-to-pdf'),
               method: HTTPMethod.POST,
               body: JSON.stringify({ key, token }),
             })),
@@ -157,7 +157,7 @@ export class ApiSocketManager {
               index: string,
             }
           }, HTTPMethod.POST>(({ params: { contestId, index } }) => ({
-            url: 'web-scraping/web-scraping/codeforces/problem-statement',
+            url: injectBaseUrl('web-scraping/codeforces/problem-statement'),
             method: HTTPMethod.POST,
             body: JSON.stringify({ contestId, index }),
           })),
@@ -168,7 +168,7 @@ export class ApiSocketManager {
               id: string,
             }
           }, HTTPMethod.POST>(({ params: { id } }) => ({
-            url: 'web-scraping/web-scraping/patito/problem-statement',
+            url: injectBaseUrl('web-scraping/patito/problem-statement'),
             method: HTTPMethod.POST,
             body: JSON.stringify({ id }),
           })),
