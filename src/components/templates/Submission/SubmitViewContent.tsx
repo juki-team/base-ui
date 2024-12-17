@@ -129,9 +129,11 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
         startsShowing={compilationFailed}
         className="wh-100"
       >
-        <div className="submission-stderr-content jk-text-stderr">
-          {compilationResult?.err}
-        </div>
+        {!!compilationResult?.err && (
+          <div className="submission-stderr-content jk-text-stderr">
+            {compilationResult?.err}
+          </div>
+        )}
       </Collapse>
       {(
         (verdictByGroups && !!Object.keys(verdictByGroups).length)
