@@ -81,6 +81,22 @@ html body {
   --base-text-size: 16px;
   --base-text-height: 24px;
   
+  
+  --font-size-h3: calc(var(--base-text-size) + 10px); // 26
+  @include mixins.sm {
+    --font-size-h3: calc(var(--base-text-size) + 10px - 4px); // 22
+  }
+  
+  --font-size-h2: calc(var(--base-text-size) + 14px); // 30
+  @include mixins.sm {
+    --font-size-h2: calc(var(--base-text-size) + 14px - 4px); // 26
+  }
+  
+  --font-size-h1: calc(var(--base-text-size) + 18px); // 34
+  @include mixins.sm {
+    --font-size-h1: calc(var(--base-text-size) + 18px - 4px); // 30
+  }
+  
   --text-huge-size: calc(var(--base-text-size) + 4px);
   --text-huge-height: var(--base-text-height);
   --text-large-size: calc(var(--base-text-size) + 2px);

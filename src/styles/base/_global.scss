@@ -61,24 +61,15 @@ h1, h2, h3 {
 }
 
 h3 {
-  font-size: calc(var(--base-text-size) + 10px);
-  @include mixins.sm {
-    font-size: 22px;
-  }
+  font-size: var(--font-size-h3);
 }
 
 h2 {
-  font-size: calc(var(--base-text-size) + 14px);
-  @include mixins.sm {
-    font-size: 26px;
-  }
+  font-size: var(--font-size-h2);
 }
 
 h1 {
-  font-size: calc(var(--base-text-size) + 18px);
-  @include mixins.sm {
-    font-size: 30px;
-  }
+  font-size: var(--font-size-h1);
 }
 
 p {
