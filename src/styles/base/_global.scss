@@ -57,7 +57,7 @@ h1, h2, h3 {
   margin-block-end: 0;
   margin-inline-start: 0;
   margin-inline-end: 0;
-  line-height: 1.4;
+  line-height: var(--line-height-head);
 }
 
 h3 {

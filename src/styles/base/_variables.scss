@@ -81,7 +81,7 @@ html body {
   --base-text-size: 16px;
   --base-text-height: 24px;
   
-  
+  --line-height-head: 1.4;
   --font-size-h3: calc(var(--base-text-size) + 10px); // 26
   @include mixins.sm {
     --font-size-h3: calc(var(--base-text-size) + 10px - 4px); // 22
