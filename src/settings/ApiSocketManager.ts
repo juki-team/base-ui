@@ -97,7 +97,7 @@ export class ApiSocketManager {
   get API_V2() {
     
     const injectBaseUrl = (path: string) => {
-      return `${this._SERVICE_API_V2_URL}/${path}`;
+      return `${this._SERVICE_API_V2_URL}/v2/${path}`;
     };
     
     const valid = <T, M extends HTTPMethod = HTTPMethod.GET>(callback: (props: T) => ResponseAPI<M>): ((props: T) => ResponseAPI<M>) => {
