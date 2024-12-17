@@ -418,15 +418,15 @@ export class ApiSocketManager {
           method: HTTPMethod.GET,
         })),
         getData: valid<
-          { params: { key: string } }
-        >(({ params: { key } }) => ({
-          url: injectBaseUrl('contest', `/${key}/data`),
+          { params: { key: string, companyKey?: string } }
+        >(({ params: { key, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/data`), companyKey),
           method: HTTPMethod.GET,
         })),
         getLogs: valid<
-          { params: { key: string, } }
-        >(({ params: { key } }) => ({
-          url: injectBaseUrl('contest', `/${key}/logs`),
+          { params: { key: string, companyKey?: string } }
+        >(({ params: { key, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/logs`), companyKey),
           method: HTTPMethod.GET,
         })),
         submit: valid<
