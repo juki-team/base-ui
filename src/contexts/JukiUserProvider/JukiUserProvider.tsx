@@ -11,7 +11,6 @@ import {
   UserPingType,
   WebSocketActionEvent,
 } from '@juki-team/commons';
-import { clearInterval } from 'node:timers';
 import React, {
   Dispatch,
   PropsWithChildren,
