@@ -350,6 +350,12 @@ export class ApiSocketManager {
           url: injectBaseUrl('problem', `/${key}`),
           method: HTTPMethod.DELETE,
         })),
+        getMetadata: valid<
+          { params: { key: string } }
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('problem', `/${key}/metadata`),
+          method: HTTPMethod.GET,
+        })),
         getData: valid<
           { params: { key: string } }
         >(({ params: { key } }) => ({
@@ -415,6 +421,12 @@ export class ApiSocketManager {
           { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
         >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('contest', '/system-list'), page, pageSize), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        getMetadata: valid<
+          { params: { key: string, companyKey?: string } }
+        >(({ params: { key, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/metadata`), companyKey),
           method: HTTPMethod.GET,
         })),
         getData: valid<
