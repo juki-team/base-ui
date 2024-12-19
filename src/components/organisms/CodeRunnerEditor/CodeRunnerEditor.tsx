@@ -1,5 +1,6 @@
 import {
   CodeEditorTestCasesType,
+  CodeEditorTestCaseType,
   isCodeRunStatusMessageWebSocketResponseEventDTO,
   ProfileSetting,
   PROGRAMMING_LANGUAGE,
@@ -7,7 +8,6 @@ import {
   SubscribeCodeRunStatusWebSocketEventDTO,
   WebSocketActionEvent,
 } from '@juki-team/commons';
-import { CodeEditorTestCaseType } from '@juki-team/commons/dist/types/types/sheet';
 import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
@@ -84,7 +84,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
               messageTimestamp: data.messageTimestamp,
             };
           }
-          onChangeRef.current?.({ testCases: newTestCases });
+          onChangeRef.current?.({ onTestCasesChange: () => newTestCases });
         };
         const status = data.status || SubmissionRunStatus.NONE;
         const inputKey = data?.log?.inputKey;
@@ -115,9 +115,15 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
                 err: data.log?.err || '',
                 messageTimestamp: data.messageTimestamp,
               };
-              onChangeRef.current?.({ testCase });
+              onChangeRef.current?.({
+                onTestCasesChange: (prevState) => {
+                  if (prevState[testCase.key]?.messageTimestamp && prevState[testCase.key].messageTimestamp > testCase.messageTimestamp) {
+                    return prevState;
+                  }
+                  return { ...prevState, [testCase.key]: testCase };
+                },
+              });
             }
-            
             break;
           default:
         }

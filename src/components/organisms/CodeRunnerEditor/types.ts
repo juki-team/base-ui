@@ -1,13 +1,11 @@
 import { CodeEditorTestCasesType, SubmissionTestCaseType } from '@juki-team/commons';
-import { CodeEditorTestCaseType } from '@juki-team/commons/dist/types/types/sheet';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { OnRefChangeType } from 'react-resize-detector/build/types/types';
 import { BasicModalProps } from '../../atoms/Modal/types';
 import { CodeEditorPropertiesType } from '../../index';
 
 export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
-  testCases?: CodeEditorTestCasesType,
-  testCase?: CodeEditorTestCaseType,
+  onTestCasesChange?: (testCases: CodeEditorTestCasesType) => CodeEditorTestCasesType,
 };
 
 export type CodeRunnerEditorOnChangeType<T> = (props: CodeRunnerEditorPropertiesType<T>) => void;
