@@ -181,24 +181,23 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   }, [ status ]);
   
   const loaderAndInfo = (
-    <>
-      {(
-        testCases[testCaseKey]?.status === SubmissionRunStatus.RECEIVED
-        || testCases[testCaseKey]?.status === SubmissionRunStatus.COMPILING
-        || testCases[testCaseKey]?.status === SubmissionRunStatus.RUNNING_TEST_CASES
-        || testCases[testCaseKey]?.status === SubmissionRunStatus.RUNNING_TEST_CASE
-      ) && (
-        <div className="jk-overlay-backdrop">
-          <div className="jk-row" style={{ alignItems: 'baseline' }}>
-            <T>{SUBMISSION_RUN_STATUS[testCases[testCaseKey]?.status].label}</T>&nbsp;
-            <div className="dot-flashing" />
-          </div>
-        </div>
-      )}
-      {testCases[testCaseKey]?.log && (
-        <LogInfo testCase={testCases[testCaseKey]} timeLimit={timeLimit} memoryLimit={memoryLimit} />
-      )}
-    </>
+    testCases[testCaseKey]?.status === SubmissionRunStatus.RECEIVED
+    || testCases[testCaseKey]?.status === SubmissionRunStatus.COMPILING
+    || testCases[testCaseKey]?.status === SubmissionRunStatus.RUNNING_TEST_CASES
+    || testCases[testCaseKey]?.status === SubmissionRunStatus.RUNNING_TEST_CASE
+  ) ? (
+    <div
+      className="jk-overlay jk-overlay-backdrop jk-row center"
+      style={{ position: 'absolute', background: 'transparent' }}
+    >
+      <div className="jk-row" style={{ alignItems: 'baseline' }}>
+        <T>{SUBMISSION_RUN_STATUS[testCases[testCaseKey]?.status].label}</T>&nbsp;
+        <div className="dot-flashing" />
+      </div>
+    </div>
+  ) : (
+    !!testCases[testCaseKey]?.log &&
+    <LogInfo testCase={testCases[testCaseKey]} timeLimit={timeLimit} memoryLimit={memoryLimit} />
   );
   
   const outputTabs: TabsType<string> = {};
