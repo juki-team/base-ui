@@ -73,7 +73,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
                 type="light"
                 onClick={() => setExpanded(prevState => !prevState)}
                 icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
-                extend={twoRows}
+                expand={twoRows}
               >
                 <T>{expanded ? 'back' : 'expand'}</T>
               </Button>
@@ -89,7 +89,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
               type="light"
               onClick={() => setExpanded(prevState => !prevState)}
               icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
-              extend={twoRows}
+              expand={twoRows}
             />
           );
         }}

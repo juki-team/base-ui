@@ -46,7 +46,7 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
             {user.nickname}
             <div className="jk-col gap">
               <ButtonLoader
-                extend
+                expand
                 onClick={async () => {
                   await onSeeMyProfile();
                   setVisible(false);
@@ -55,7 +55,7 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
                 <T className="ws-np">my account</T>
               </ButtonLoader>
               <ButtonLoader
-                extend
+                expand
                 onClick={(setLoader) => logout({ setLoader, onSuccess: () => setVisible(false) })}
                 type="light"
                 icon={<LogoutIcon />}
@@ -105,7 +105,7 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
         onClick={() => setSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' })}
         size={viewPortSize === 'sm' ? 'small' : undefined}
         icon={!collapsed && <LoginIcon />}
-        extend
+        expand
         style={(popoverPlacement === 'rightBottom' && !collapsed) ? { margin: '0 var(--pad-xt)' } : undefined}
       >
         {viewPortSize !== 'sm' && (!collapsed ? <T className="ws-np ws-np">sign in</T> : <LoginIcon />)}

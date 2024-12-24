@@ -22,7 +22,7 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
     submit = false,
     type = 'primary',
     className,
-    extend = false,
+    expand = false,
     icon,
     children,
     size: _size = 'regular',
@@ -48,7 +48,7 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
       }}
       type={submit ? 'submit' : 'button'}
       className={classNames(className, `clickable jk-button ${type} jk-border-radius-inline`, size, {
-        extend,
+        expand,
         'only-icon': !hasChildren,
         disabled,
         icon: !!(icon),

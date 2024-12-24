@@ -26,10 +26,10 @@ export const WelcomeModal = ({ isOpen, nickname, onClose, onSeeMyProfile }: Welc
           {/*  </T>*/}
           {/*</p>*/}
           <div className="jk-row-col gap block">
-            <ButtonLoader type="light" onClick={onSeeMyProfile} extend>
+            <ButtonLoader type="light" onClick={onSeeMyProfile} expand>
               <T className="ws-np">see my profile</T>
             </ButtonLoader>
-            <ButtonLoader onClick={onClose} extend><T>continue</T></ButtonLoader>
+            <ButtonLoader onClick={onClose} expand><T>continue</T></ButtonLoader>
           </div>
         </div>
       </div>

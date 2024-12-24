@@ -78,7 +78,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
         newTestCases[testKey].err = '';
         newTestCases[testKey].status = status;
       }
-      onChange?.({ testCases: newTestCases });
+      onChange?.({ onTestCasesChange: () => newTestCases });
     };
     setStatus(Status.LOADING);
     clean(SubmissionRunStatus.RECEIVED);
@@ -152,7 +152,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
                 : undefined}
               size="tiny"
               type="primary"
-              extend={twoRows}
+              expand={twoRows}
               icon={<PlayArrowIcon />}
               onClick={handleRunCode}
               setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}

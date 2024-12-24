@@ -150,9 +150,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
     //cursor: not-allowed;
   }
   
-  &.extend {
-    width: 100%;
-  }
+  &.expand { width: 100%; }
   
   &.error {
     --button-background-color: var(--t-color-error);

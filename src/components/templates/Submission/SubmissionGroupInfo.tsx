@@ -5,6 +5,7 @@ import { ColorSchemeType } from 'diff2html/lib/types';
 import React, { useCallback, useEffect, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useJukiUser } from '../../../hooks';
+import { jukiGlobalStore } from '../../../settings';
 import { Button, Modal, T, UpIcon, VirtualizedRowsFixed, VisibilityIcon } from '../../atoms';
 import { Collapse } from '../../atoms/Collapse';
 import { VirtualizedRowsFixedProps } from '../../atoms/VirtualizedRowsFixed/types';
@@ -24,16 +25,31 @@ export interface GroupInfoProps {
   submitId: string,
 }
 
-const DiffViewButton = ({ diffInput, croppedDiff }: { diffInput: string, croppedDiff: boolean }) => {
+function hideTestKey(input: string, text: string) {
+  const result = input.replace(/\$\S+\.out/, `$/${text}.out`);
+  return result.replace(/\$\S+\.judge\.out/g, `$/${text}.judge.out`);
+}
+
+const DiffViewButton = ({ diffInput, croppedDiff, isProblemEditor }: {
+  diffInput: string,
+  croppedDiff: boolean,
+  isProblemEditor: boolean
+}) => {
   
   const [ isOpen, setIsOpen ] = useState(false);
   const [ diff, setDiff ] = useState('');
   const { user: { settings: { [ProfileSetting.THEME]: userTheme } } } = useJukiUser();
+  const { t } = jukiGlobalStore.getI18n();
   
   useEffect(() => {
     if (isOpen) {
+      
       if (/\$\/.*\.out/.test(diffInput) || /\$\/.*\.judge.out/.test(diffInput)) {
-        const diffHtml = Diff2Html.html(diffInput,
+        let diff = diffInput;
+        if (!isProblemEditor) {
+          diff = hideTestKey(diffInput, t('file'));
+        }
+        const diffHtml = Diff2Html.html(diff,
           {
             drawFileList: false,
             matching: 'words' as LineMatchingType,
@@ -47,7 +63,7 @@ const DiffViewButton = ({ diffInput, croppedDiff }: { diffInput: string, cropped
         setDiff(diffInput);
       }
     }
-  }, [ diffInput, userTheme, isOpen ]);
+  }, [ diffInput, userTheme, isOpen, isProblemEditor ]);
   
   const left = diffInput.length - diffInput.indexOf('No newline at end of file') > 26;
   
@@ -61,7 +77,7 @@ const DiffViewButton = ({ diffInput, croppedDiff }: { diffInput: string, cropped
         type="light"
         onClick={() => setIsOpen(true)}
       />
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} closeIcon>
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} closeIcon expand>
         <div className="jk-col stretch gap jk-pg-lg diff-body-modal">
           <div>
             {croppedDiff && (
@@ -70,7 +86,7 @@ const DiffViewButton = ({ diffInput, croppedDiff }: { diffInput: string, cropped
               </T>
             )}
           </div>
-          <div dangerouslySetInnerHTML={{ __html: diff }} />
+          <div className="wh-100" dangerouslySetInnerHTML={{ __html: diff }} />
           {diffInput.includes('No newline at end of file') && (
             <div className="jk-row block center">
               <div className="appearance-error">{left && <T>no newline at end of file</T>}</div>
@@ -108,7 +124,7 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
       <div
         className="jk-row extend block gap jk-table-inline-row"
         key={index}
-        style={{ borderBottom: '1px solid var(--t-color-gray-5)' }}
+        style={{ borderBottom: '1px solid var(--t-color-gray-5)', height: '100%', padding: 0 }}
       >
         {isProblemEditor ? (
           <div
@@ -130,6 +146,7 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
             <DiffViewButton
               croppedDiff={testCase.croppedDiff}
               diffInput={testCase.diff.replaceAll(testCase.testCaseKey + '.judge.out', 'A').replaceAll(testCase.testCaseKey + '.out', 'B')}
+              isProblemEditor={isProblemEditor}
             />
           )}
         </div>

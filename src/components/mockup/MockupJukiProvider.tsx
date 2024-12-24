@@ -1,9 +1,10 @@
 import { Language } from '@juki-team/commons';
 import { createInstance, i18n } from 'i18next';
 import React, { PropsWithChildren, useEffect } from 'react';
+import { SWRConfig } from 'swr';
 import { JukiProviders } from '../../contexts';
 import { jukiApiSocketManager, jukiGlobalStore } from '../../settings';
-import { JukiSocketAlert, UserPreviewModal } from '../templates';
+import { JukiSocketAlert, SubmissionModal, UserPreviewModal } from '../templates';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
 import './styles.scss';
@@ -45,7 +46,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   
   const serviceUrl = 'https://service.juki.app/api/v1';
   // const serviceUrl = 'http://localhost:3005';
-  const serviceV2Url = 'https://api.juki.app';
+  const serviceV2Url = 'https://api.juki.app/v2';
   // const socketServiceUrl = 'wss://im7lou2on3.execute-api.us-east-1.amazonaws.com/production';
   // const socketServiceUrl = 'wss://im7lou2on3.execute-api.us-east-1.amazonaws.com/v1/';
   const socketServiceUrl = 'wss://websocket.juki.app';
@@ -72,13 +73,15 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
         [TestPath.USER]: { pathname: '', searchParams: new URLSearchParams() },
         [TestPath.ADMIN]: { pathname: '', searchParams: new URLSearchParams() },
       }}
-    
     >
-      <UserPreviewModal key="user-preview-modal" />
-      <JukiSocketAlert />
-      {children}
-      <MockupLoginButton />
-      <MockupToggleThemeButton />
+      <SWRConfig>
+        <UserPreviewModal key="user-preview-modal" />
+        <SubmissionModal />
+        <JukiSocketAlert />
+        {children}
+        <MockupLoginButton />
+        <MockupToggleThemeButton />
+      </SWRConfig>
     </JukiProviders>
   );
 };

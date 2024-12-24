@@ -43,7 +43,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = fal
             const key = crypto.randomUUID();
             const index = mex(cases.map(testCaseValue => testCaseValue.index));
             onChange?.({
-              testCases: {
+              onTestCasesChange: (testCases) => ({
                 ...testCases,
                 [key]: {
                   key,
@@ -59,7 +59,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = fal
                   status: SubmissionRunStatus.NONE,
                   messageTimestamp: 0,
                 },
-              },
+              }),
             });
           } else {
             addNotification({ type: NotificationType.QUIET, message: <T>maximum test cases achieved</T> });
@@ -110,9 +110,13 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                   size="small"
                   className="clickable br-50-pc"
                   onClick={() => {
-                    const newTestCases = { ...testCases };
-                    delete newTestCases[testCaseValue.key];
-                    onChange?.({ testCases: newTestCases });
+                    onChange?.({
+                      onTestCasesChange: (testCases) => {
+                        const newTestCases = { ...testCases };
+                        delete newTestCases[testCaseValue.key];
+                        return newTestCases;
+                      },
+                    });
                   }}
                 />
               </>
@@ -152,10 +156,10 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
               key={testCaseValue.key}
               value={testCaseValue.in}
               onChange={(testCaseValue.sample ? enableAddSampleCases : enableAddCustomSampleCases) ? value => onChange?.({
-                testCases: {
+                onTestCasesChange: (testCases) => ({
                   ...testCases,
                   [testCaseValue.key]: { ...testCaseValue, in: value },
-                },
+                }),
               }) : undefined}
             /> :
             <div style={{ padding: 'calc(var(--pad-sm) / 2)' }}>

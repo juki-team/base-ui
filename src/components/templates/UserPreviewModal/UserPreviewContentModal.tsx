@@ -69,7 +69,7 @@ export const UserPreviewContentModal = ({ isOpen, nickname, companyKey, onClose,
             <div className="jk-row-col gap block stretch">
               <ButtonLoader size="small" type="light" onClick={onClose}><T>close</T></ButtonLoader>
               <a href={userHref} target="_blank" rel="noreferrer">
-                <Button size="small" extend>
+                <Button size="small" expand>
                   <div className="jk-row nowrap gap"><T className="ws-np">see profile</T><OpenInNewIcon /></div>
                 </Button>
               </a>

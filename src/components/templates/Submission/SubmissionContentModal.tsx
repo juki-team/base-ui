@@ -2,22 +2,22 @@ import { Status } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
-import { BasicModalProps } from '../../../types';
+import { ModalProps } from '../../../types';
 import { ContentCopyIcon, CopyToClipboard, Modal, OpenInNewIcon, RefreshIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { SubmitView } from './SubmitView';
 
-export interface SubmissionModalProps extends BasicModalProps {
+export interface SubmissionModalProps extends ModalProps {
   submitId: string;
 }
 
-export const SubmissionContentModal = ({ submitId, isOpen, onClose }: SubmissionModalProps) => {
+export const SubmissionContentModal = ({ submitId, ...modalProps }: SubmissionModalProps) => {
   
   const { components: { Link } } = useJukiUI();
   const [ triggerFetch, setTriggerFetch ] = useState(0);
   
   return (
-    <Modal isOpen={isOpen} onClose={onClose} closeIcon className="submission-modal">
+    <Modal closeIcon expand className="submission-modal" {...modalProps}>
       <section className="jk-pg-md">
         <div className="fw-bd tx-l jk-row-col left gap">
           <h3><T>submission</T></h3>

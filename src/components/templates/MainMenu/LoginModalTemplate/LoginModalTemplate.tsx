@@ -70,6 +70,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
           </>
         }
         graphic={<JukiLaptopImage />}
+        expand
       >
         <div className="jk-col stretch">
           {loginWithGoogle && reactAppGoogleClientId && (

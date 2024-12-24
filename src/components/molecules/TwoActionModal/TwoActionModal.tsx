@@ -38,7 +38,7 @@ export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) =>
             onClick={secondary.onClick}
             disabled={secondary.disabled || loader === Status.LOADING}
             type="light"
-            extend={viewPortSize === 'sm'}
+            expand={viewPortSize === 'sm'}
           >
             {secondary.label || <T>cancel</T>}
           </ButtonLoader>
@@ -46,7 +46,7 @@ export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) =>
         <ButtonLoader
           onClick={primary.onClick}
           disabled={primary.disabled || loader === Status.LOADING}
-          extend={viewPortSize === 'sm'}
+          expand={viewPortSize === 'sm'}
         >
           {primary.label || <T>ok</T>}
         </ButtonLoader>

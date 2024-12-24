@@ -22,12 +22,19 @@
     overflow: hidden;
   }
   
+  &.expand {
+    .jk-modal-content {
+      width: var(--modal-width-lg);
+    }
+  }
+  
   .jk-modal-content {
     margin: var(--pad-md);
     background-color: var(--t-color-background);
     z-index: 1;
     position: relative;
-    //max-width: var(--modal-width);
+    max-width: var(--modal-width-lg);
+    min-width: var(--modal-width-sm);
     
     .jk-modal-close-button {
       z-index: 1;
@@ -132,11 +139,5 @@
 .change-password-modal {
   @include mixins.md-hg {
     width: 340px;
-  }
-}
-
-.submission-modal, .modal-login, .modal-sign-up {
-  .jk-modal-content {
-    width: var(--modal-width);
   }
 }

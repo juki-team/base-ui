@@ -11,7 +11,7 @@ export type ButtonBasicProps = {
   // Icon?: Icons,
   icon?: ReactNode,
   disabled?: boolean,
-  extend?: boolean,
+  expand?: boolean,
   submit?: boolean,
   size?: ButtonSizeType,
   style?: CSSProperties,

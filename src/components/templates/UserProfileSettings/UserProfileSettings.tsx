@@ -167,7 +167,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
         <h3><T>actions</T></h3>
         <div className="jk-col stretch gap bc-we jk-border-radius-inline jk-pg-md br-g6" style={{ width: 300 }}>
           {user?.canUpdatePassword && (
-            <Button size="small" icon={<LockIcon />} onClick={onClickUpdatePassword} extend>
+            <Button size="small" icon={<LockIcon />} onClick={onClickUpdatePassword} expand>
               <T className="ws-np">update password</T>
             </Button>
           )}

@@ -17,7 +17,7 @@ export const Modal = <T extends ModalButtonLoaderEventType, >(props: PropsWithCh
     containerClassName,
     children,
     closeIcon = false,
-    // expand,
+    expand = false,
     closeOnClickOverlay = true,
     closeOnKeyEscape = true,
     setLoaderStatusRef,
@@ -52,7 +52,7 @@ export const Modal = <T extends ModalButtonLoaderEventType, >(props: PropsWithCh
     <Portal>
       <AnimatePresence>
         {isOpen && (
-          <motion.div className={classNames('jk-modal-container', containerClassName)}>
+          <motion.div className={classNames('jk-modal-container', containerClassName, { expand })}>
             <motion.div
               className="jk-modal-overlay"
               initial={{ opacity: 0 }}

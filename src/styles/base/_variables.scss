@@ -9,24 +9,28 @@ html body {
   --screen-md-min: 640px; /* Tablets     [640,   1280) 40px |  560px (12c 32|16) | 40px */
   --screen-sm-min: 320px; /* Phones      [320,    640)  0px |  320px ( 7c 32|16) |  0px */
   
-  @include mixins.hg { --screen-content-width: 1760px; }
-  @include mixins.lg { --screen-content-width: calc(100vw - 160px); }
-  @include mixins.md { --screen-content-width: calc(100vw - 80px); }
-  @include mixins.sm { --screen-content-width: calc(100vw - 20px); }
+  //@include mixins.hg { --screen-content-width: 1760px; }
+  //@include mixins.lg { --screen-content-width: calc(100vw - 160px); }
+  //@include mixins.md { --screen-content-width: calc(100vw - 80px); }
+  //@include mixins.sm { --screen-content-width: calc(100vw - 20px); }
   
-  @include mixins.hg { --screen-col-pad-width: calc(var(--screen-content-width) / ((15 * 2) + 14)); }
-  @include mixins.lg { --screen-col-pad-width: calc(var(--screen-content-width) / ((12 * 2) + 11)); }
-  @include mixins.md { --screen-col-pad-width: calc(var(--screen-content-width) / ((12 * 2) + 11)); }
-  @include mixins.sm { --screen-col-pad-width: calc(var(--screen-content-width) / ((7 * 2) + 6)); }
+  @include mixins.hg { --screen-cols: 15; }
+  @include mixins.lg { --screen-cols: 12; }
+  @include mixins.md { --screen-cols: 12; }
+  @include mixins.sm { --screen-cols: 7; }
   
-  --screen-col-width: calc(var(--screen-col-pad-width) * 2);
+  //--screen-col-pad-width: calc(var(--screen-content-width, 100vw) / ((var(--screen-cols, 1) * 2) + var(--screen-cols, 1) - 1));
+  --screen-col-pad-width: calc(min(100vw, 1760px) / ((var(--screen-cols, 1) * 2) + 4 + var(--screen-cols, 1) - 1));
+  --screen-col-width: calc(var(--screen-col-pad-width, 1) * 2);
+  --screen-content-width: calc((var(--screen-cols, 1) + 2) * var(--screen-col-width) + (var(--screen-cols, 1) - 1) * var(--screen-col-pad-width, 1));
   
-  @include mixins.hg { --modal-no-cols: 11; }
-  @include mixins.lg { --modal-no-cols: 10; }
-  @include mixins.md { --modal-no-cols: 11; }
-  @include mixins.sm { --modal-no-cols: 6; }
+  --modal-cols-sm: calc(var(--screen-cols) - 4);
+  --modal-cols-md: calc(var(--screen-cols) - 2);
+  --modal-cols-lg: var(--screen-cols);
   
-  --modal-width: calc(var(--modal-no-cols) * var(--screen-col-width) + (var(--modal-no-cols) - 1) * var(--screen-col-pad-width));
+  --modal-width-sm: calc(var(--modal-cols-sm, 1) * var(--screen-col-width) + (var(--modal-cols-sm, 1) - 1) * var(--screen-col-pad-width, 1));
+  --modal-width-md: calc(var(--modal-cols-md, 1) * var(--screen-col-width) + (var(--modal-cols-md, 1) - 1) * var(--screen-col-pad-width, 1));
+  --modal-width-lg: calc(var(--modal-cols-lg, 1) * var(--screen-col-width) + (var(--modal-cols-lg, 1) - 1) * var(--screen-col-pad-width, 1));
   
   --pad-xH: 56px;
   --pad-H: 52px;

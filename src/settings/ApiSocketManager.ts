@@ -64,10 +64,10 @@ const getQueryToken = () => {
 };
 
 export class ApiSocketManager {
-  private _SERVICE_API_URL = '';
+  private _SERVICE_API_V1_URL = '';
   
-  get SERVICE_API_URL(): string {
-    return this._SERVICE_API_URL;
+  get SERVICE_API_V1_URL(): string {
+    return this._SERVICE_API_V1_URL;
   }
   
   private _SERVICE_API_V2_URL = '';
@@ -97,7 +97,7 @@ export class ApiSocketManager {
   get API_V2() {
     
     const injectBaseUrl = (path: string) => {
-      return `${this._SERVICE_API_V2_URL}/v2/${path}`;
+      return `${this._SERVICE_API_V2_URL}/${path}`;
     };
     
     const valid = <T, M extends HTTPMethod = HTTPMethod.GET>(callback: (props: T) => ResponseAPI<M>): ((props: T) => ResponseAPI<M>) => {
@@ -180,11 +180,11 @@ export class ApiSocketManager {
   get API_V1() {
     
     const injectBaseUrl = (prefix: string, path: string) => {
-      return `${this._SERVICE_API_URL}/${prefix}${path}`;
+      return `${this._SERVICE_API_V1_URL}/${prefix}${path}`;
     };
     
     const valid = <T, M extends HTTPMethod = HTTPMethod.GET>(callback: (props: T) => ResponseAPI<M>): ((props: T) => ResponseAPI<M>) => {
-      if (this._SERVICE_API_URL) {
+      if (this._SERVICE_API_V1_URL) {
         return callback;
       }
       return () => ({ url: '', method: HTTPMethod.GET as M });
@@ -731,7 +731,7 @@ export class ApiSocketManager {
   }
   
   setApiSettings(serviceApiUrl: string, serviceApiV2Url: string, tokenName: string) {
-    this._SERVICE_API_URL = serviceApiUrl;
+    this._SERVICE_API_V1_URL = serviceApiUrl;
     this._SERVICE_API_V2_URL = serviceApiV2Url;
     this._TOKEN_NAME = tokenName;
   }

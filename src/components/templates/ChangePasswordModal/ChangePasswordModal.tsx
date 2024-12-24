@@ -107,7 +107,7 @@ export const ChangePasswordModal = ({ isOpen, onClose }: BasicModalProps<ModalBu
               'jk-col': viewPortSize === 'sm',
             })}
           >
-            <ButtonLoader type="light" onClick={onClose} extend>
+            <ButtonLoader type="light" onClick={onClose} expand>
               <T>cancel</T>
             </ButtonLoader>
             <ButtonLoader
@@ -115,7 +115,7 @@ export const ChangePasswordModal = ({ isOpen, onClose }: BasicModalProps<ModalBu
               setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
               disabled={!isValid}
               submit
-              extend
+              expand
             >
               <T className="ws-np">update</T>
             </ButtonLoader>

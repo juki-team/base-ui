@@ -55,7 +55,7 @@ export const useJukiUser = () => {
   const { matchMutate } = useSWR();
   
   const refreshAllRequest = useCallback(async () => {
-    await matchMutate(new RegExp(`^${jukiApiSocketManager.SERVICE_API_URL}`, 'g'));
+    await matchMutate(new RegExp(`${jukiApiSocketManager.SERVICE_API_V1_URL}`, 'g'));
   }, [ matchMutate ]);
   
   const doRequest = useCallback(async <T, M extends HTTPMethod = HTTPMethod.GET>(

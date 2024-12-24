@@ -76,6 +76,7 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
         </>
       }
       graphic={<JukiLaptopImage />}
+      expand
     >
       <div className="jk-col stretch">
         {signUpWithGoogle && reactAppGoogleClientId && (

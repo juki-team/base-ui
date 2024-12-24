@@ -1,8 +1,7 @@
 import { ReactElement } from 'react';
-import { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../../types';
-import { BasicModalProps } from '../../atoms/types';
+import { ModalButtonLoaderEventType, ModalProps, ReactNodeOrFunctionType } from '../../../types';
 
-export interface SplitModalProps<T extends ModalButtonLoaderEventType> extends BasicModalProps<T> {
+export interface SplitModalProps<T extends ModalButtonLoaderEventType> extends ModalProps<T> {
   className?: string,
   title: ReactNodeOrFunctionType,
   graphic: ReactNodeOrFunctionType,

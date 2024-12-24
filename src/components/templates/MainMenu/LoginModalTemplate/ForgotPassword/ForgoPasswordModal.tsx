@@ -26,6 +26,7 @@ export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword
         </>
       }
       graphic={<JukiLaptopImage />}
+      expand
     >
       <div className="jk-col gap stretch extend">
         <div className="jk-row left">

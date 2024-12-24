@@ -29,7 +29,7 @@ export const InputColor = ({ color, children, onChange, label }: ColorPickerProp
               handlePick();
               onClose();
             }}
-            extend
+            expand
             size="small"
           >
             <T>pick</T>

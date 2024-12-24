@@ -15,7 +15,7 @@ export const useFetcher = <T extends (ContentResponseType<any> | ContentsRespons
   const { user: { sessionId } } = useJukiUser();
   
   const { data, error, mutate, isValidating, isLoading } = useSWR(
-    typeof url === 'string' ? [ url, token, sessionId ] : null,
+    typeof url === 'string' && url ? [ url, token, sessionId ] : null,
     fetcherWithToken,
     config,
   );

@@ -4,11 +4,12 @@ import {
   ProblemVerdict,
   SubmissionRunStatus,
   SubscribeSubmissionRunStatusWebSocketEventDTO,
+  UnsubscribeSubmissionRunStatusWebSocketEventDTO,
   WebSocketActionEvent,
 } from '@juki-team/commons';
-import React, { PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
 import { T } from '../../components/atoms/T';
-import { useJukiUser } from '../../hooks';
+import { useJukiUser, useSWR } from '../../hooks';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { jukiApiSocketManager } from '../../settings';
 import { TasksContext } from './context';
@@ -20,6 +21,8 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
   const [ submissions, setSubmissions ] = useState<SocketSubmissions>({});
   const [ submissionsToCheck, setSubmissionsToCheck ] = useState<SubmissionToCheck[]>([]);
   const { user: { sessionId } } = useJukiUser();
+  const submissionIdListenerCount = useRef<{ [key: string]: number }>({});
+  const { matchMutate } = useSWR();
   
   useEffect(() => {
     for (const { id, problem, contest } of submissionsToCheck) {
@@ -72,12 +75,15 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
   }, [ submissionsToCheck, submissions, addSuccessNotification, addErrorNotification ]);
   
   const unListenSubmission = useCallback((submissionId: string) => {
-    const event: SubscribeSubmissionRunStatusWebSocketEventDTO = {
-      event: WebSocketActionEvent.SUBSCRIBE_SUBMISSION_RUN_STATUS,
-      sessionId,
-      submitId: submissionId,
-    };
-    jukiApiSocketManager.SOCKET.unsubscribe(event);
+    if (!submissionIdListenerCount.current[submissionId]) {
+      const event: UnsubscribeSubmissionRunStatusWebSocketEventDTO = {
+        event: WebSocketActionEvent.UNSUBSCRIBE_SUBMISSION_RUN_STATUS,
+        sessionId,
+        submitId: submissionId,
+      };
+      jukiApiSocketManager.SOCKET.unsubscribe(event);
+      submissionIdListenerCount.current[submissionId] = 0;
+    }
   }, [ sessionId ]);
   
   const listenSubmission = useCallback((submissionToCheck: SubmissionToCheck, withNotification: boolean) => {
@@ -89,8 +95,12 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
       sessionId,
       submitId: submissionToCheck.id,
     };
+    submissionIdListenerCount.current[submissionToCheck.id] = (submissionIdListenerCount.current[submissionToCheck.id] ?? 0) + 1;
     jukiApiSocketManager.SOCKET.send(event, '', (data) => {
       if (isSubmissionRunStatusMessageWebSocketResponseEventDTO(data)) {
+        if (data.status === SubmissionRunStatus.COMPLETED || data.status === SubmissionRunStatus.RECEIVED) {
+          void matchMutate(new RegExp(`${jukiApiSocketManager.SERVICE_API_V1_URL}/submission`, 'g'));
+        }
         const nextStatus = data.status;
         const submitId = data.submitId;
         setSubmissions((prevState) => {

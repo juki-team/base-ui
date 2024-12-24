@@ -66,7 +66,7 @@ export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl }: UploadNe
                 imageThumbnailUrl: imagePublicUrl.replace('https://images.juki.pub/o/', 'https://images.juki.pub/t/'),
               })}
               size="small"
-              extend
+              expand
             >
               <T>pick</T>
             </Button>

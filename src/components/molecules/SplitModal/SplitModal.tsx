@@ -8,15 +8,10 @@ import { SplitModalProps } from './types';
 export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: PropsWithChildren<SplitModalProps<T>>) => {
   
   const {
-    isOpen,
-    onClose,
-    className,
     children,
     title,
     graphic,
-    closeIcon,
-    closeOnClickOverlay,
-    closeOnKeyEscape,
+    ...modalProps
   } = props;
   
   const { height: sideMainHeight = 0, ref: sideMainRef } = useResizeDetector();
@@ -24,12 +19,7 @@ export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: PropsW
   
   return (
     <Modal<T>
-      isOpen={isOpen}
-      className={className}
-      onClose={onClose}
-      closeIcon={closeIcon}
-      closeOnClickOverlay={closeOnClickOverlay}
-      closeOnKeyEscape={closeOnKeyEscape}
+      {...modalProps}
     >
       <div className="split-modal jk-row stretch block">
         <div
