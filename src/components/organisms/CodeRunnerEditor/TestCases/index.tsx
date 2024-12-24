@@ -188,7 +188,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
         || testCases[testCaseKey]?.status === SubmissionRunStatus.RUNNING_TEST_CASES
         || testCases[testCaseKey]?.status === SubmissionRunStatus.RUNNING_TEST_CASE
       ) && (
-        <div className="jk-overlay">
+        <div className="jk-overlay-backdrop">
           <div className="jk-row" style={{ alignItems: 'baseline' }}>
             <T>{SUBMISSION_RUN_STATUS[testCases[testCaseKey]?.status].label}</T>&nbsp;
             <div className="dot-flashing" />

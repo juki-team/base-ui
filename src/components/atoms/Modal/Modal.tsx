@@ -54,7 +54,7 @@ export const Modal = <T extends ModalButtonLoaderEventType, >(props: PropsWithCh
         {isOpen && (
           <motion.div className={classNames('jk-modal-container', containerClassName, { expand })}>
             <motion.div
-              className="jk-modal-overlay jk-overlay-backdrop"
+              className="jk-modal-overlay jk-overlay jk-overlay-backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}

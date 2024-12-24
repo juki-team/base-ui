@@ -188,16 +188,17 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
 }
 
 .jk-overlay {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
-  background-color: #FFFFFFAA;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   top: 0;
   left: 0;
+  z-index: var(--z-index-overlay);
+}
+
+.jk-overlay-backdrop {
+  background-color: var(--t-color-shadow-light);
+  backdrop-filter: blur(2px);
 }
 
 .appearance-accent-dark { @include mixins.look(accent-dark); }

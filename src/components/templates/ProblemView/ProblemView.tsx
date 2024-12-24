@@ -101,10 +101,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
   if (expanded) {
     return (
       <Portal>
-        <div
-          style={{ position: 'absolute', width: '100%', height: '100%', top: 0, left: 0 }}
-          className="jk-overlay-backdrop"
-        >
+        <div className="jk-overlay jk-overlay-backdrop">
           <div style={{ position: 'absolute', ...expandPosition }} className="jk-problem-view-expanded-layout">
             {body}
           </div>

@@ -208,10 +208,13 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     <div
       className={classNames(
         'jk-code-mirror-editor-layout jk-border-radius-inline',
-        { 'elevation-3': expanded },
+        { 'elevation-1': expanded },
         className,
       )}
-      style={twoRows ? { '--options-header-height': '80px' } as CSSProperties : {}}
+      style={{
+        ...(twoRows ? { '--options-header-height': '80px' } as CSSProperties : {}),
+        overflow: expanded ? 'hidden' : undefined,
+      }}
     >
       <SettingsModal
         isOpen={showSettings}
@@ -282,10 +285,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   if (expanded) {
     return (
       <Portal>
-        <div
-          style={{ position: 'absolute', width: '100%', height: '100%', top: 0, left: 0 }}
-          className="jk-overlay-backdrop"
-        >
+        <div className="jk-overlay jk-overlay-backdrop">
           <div style={{ position: 'absolute', ...expandPosition }} className="jk-code-mirror-editor-expanded-layout">
             {body}
           </div>
