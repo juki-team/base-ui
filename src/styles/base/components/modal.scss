@@ -1,5 +1,10 @@
 @use "../../mixins";
 
+.jk-overlay-backdrop {
+  background-color: var(--t-color-shadow-light);
+  backdrop-filter: blur(2px);
+}
+
 .jk-modal-container {
   position: fixed;
   top: 0;
@@ -17,8 +22,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--t-color-shadow-light);
-    backdrop-filter: blur(2px);
     overflow: hidden;
   }
   

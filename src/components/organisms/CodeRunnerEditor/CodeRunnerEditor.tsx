@@ -36,7 +36,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     onChange: _onChange,
     centerButtons,
     rightButtons,
-    testCases: _testCases,
+    testCases,
     tabSize = 4,
     fontSize = 14,
     timeLimit = 1000,
@@ -59,8 +59,6 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const [ expanded, setExpanded ] = useState(false);
   const { viewPortSize } = useJukiUI();
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  const testCasesRef = useRef(_testCases);
-  testCasesRef.current = _testCases;
   useEffect(() => {
     if (!runId) {
       return;
@@ -73,18 +71,25 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     jukiApiSocketManager.SOCKET.send(event, '', (data) => {
       if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
         const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
-          const newTestCases: CodeEditorTestCasesType = { ...testCasesRef.current };
-          for (const testKey in newTestCases) {
-            newTestCases[testKey] = {
-              ...newTestCases[testKey],
-              status,
-              err,
-              out,
-              log,
-              messageTimestamp: data.messageTimestamp,
-            };
-          }
-          onChangeRef.current?.({ onTestCasesChange: () => newTestCases });
+          onChangeRef.current?.({
+            onTestCasesChange: (prevState) => {
+              const newTestCases: CodeEditorTestCasesType = { ...prevState };
+              for (const testKey in newTestCases) {
+                if (prevState[testKey]?.messageTimestamp && prevState[testKey].messageTimestamp > data.messageTimestamp) {
+                  continue;
+                }
+                newTestCases[testKey] = {
+                  ...newTestCases[testKey],
+                  status,
+                  err,
+                  out,
+                  log,
+                  messageTimestamp: data.messageTimestamp,
+                };
+              }
+              return newTestCases;
+            },
+          });
         };
         const status = data.status || SubmissionRunStatus.NONE;
         const inputKey = data?.log?.inputKey;
@@ -105,25 +110,27 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           case SubmissionRunStatus.RUNNING_TEST_CASE:
           case SubmissionRunStatus.EXECUTED_TEST_CASE:
           case SubmissionRunStatus.FAILED_TEST_CASE:
-            const newTestCases: CodeEditorTestCasesType = { ...testCasesRef.current };
-            if (inputKey && newTestCases[inputKey]) {
-              const testCase: CodeEditorTestCaseType = {
-                ...newTestCases[inputKey],
-                status,
-                out: data.log?.out || '',
-                log: data.log?.log || '',
-                err: data.log?.err || '',
-                messageTimestamp: data.messageTimestamp,
-              };
-              onChangeRef.current?.({
-                onTestCasesChange: (prevState) => {
+            onChangeRef.current?.({
+              onTestCasesChange: (prevState) => {
+                const newTestCases: CodeEditorTestCasesType = { ...prevState };
+                if (inputKey && newTestCases[inputKey]) {
+                  const testCase: CodeEditorTestCaseType = {
+                    ...newTestCases[inputKey],
+                    status,
+                    out: data.log?.out || '',
+                    log: data.log?.log || '',
+                    err: data.log?.err || '',
+                    messageTimestamp: data.messageTimestamp,
+                  };
+                  
                   if (prevState[testCase.key]?.messageTimestamp && prevState[testCase.key].messageTimestamp > testCase.messageTimestamp) {
                     return prevState;
                   }
                   return { ...prevState, [testCase.key]: testCase };
-                },
-              });
-            }
+                }
+                return prevState;
+              },
+            });
             break;
           default:
         }
@@ -169,7 +176,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     </div>
   ), [ preferredTheme, codeEditorOnChange, language, readOnly, sourceCode, tabSize, fontSize ]);
   
-  const withTestCases = !!_testCases;
+  const withTestCases = !!testCases;
   const twoRows = headerWidthContainer < (withoutRunCodeButton ? 340 : 420);
   
   const closableSecondPane = useMemo(() => (
@@ -186,7 +193,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   
   const secondChild = useMemo(() => (
     <TestCases
-      testCases={_testCases}
+      testCases={testCases}
       onChange={onChangeRef.current}
       timeLimit={timeLimit}
       memoryLimit={memoryLimit}
@@ -195,7 +202,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
       enableAddCustomSampleCases={readOnly ? false : !!enableAddCustomSampleCases}
       isRunning={isRunning}
     />
-  ), [ _testCases, timeLimit, memoryLimit, direction, readOnly, enableAddSampleCases, enableAddCustomSampleCases, isRunning ]);
+  ), [ testCases, timeLimit, memoryLimit, direction, readOnly, enableAddSampleCases, enableAddCustomSampleCases, isRunning ]);
   
   const body = (
     <div
@@ -220,14 +227,14 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         language={language}
         languages={languages}
         sourceCode={sourceCode}
-        testCases={_testCases || {}}
+        testCases={testCases || {}}
         centerOptions={({ widthContainer, twoRows, withLabels }) => centerButtons?.({
           isRunning,
           readOnly,
           sourceCode,
           languages,
           language,
-          testCases: _testCases || {},
+          testCases: testCases || {},
           widthContainer,
           twoRows,
           withLabels,
@@ -238,7 +245,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           sourceCode,
           languages,
           language,
-          testCases: _testCases || {},
+          testCases: testCases || {},
           twoRows,
           withLabels,
         })}
@@ -258,7 +265,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         <SplitPane
           direction={direction}
           minSize={80}
-          onlyFirstPane={!_testCases}
+          onlyFirstPane={!testCases}
           closableSecondPane={closableSecondPane}
           closableFirstPane={closableFirstPane}
           toggleable
@@ -275,8 +282,13 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   if (expanded) {
     return (
       <Portal>
-        <div style={{ position: 'absolute' }} className="jk-code-mirror-editor-expanded-layout">
-          {body}
+        <div
+          style={{ position: 'absolute', width: '100%', height: '100%', top: 0, left: 0 }}
+          className="jk-overlay-backdrop"
+        >
+          <div style={{ position: 'absolute', ...expandPosition }} className="jk-code-mirror-editor-expanded-layout">
+            {body}
+          </div>
         </div>
       </Portal>
     );
