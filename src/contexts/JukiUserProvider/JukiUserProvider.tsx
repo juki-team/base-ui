@@ -138,7 +138,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
       intervalRef.current && clearInterval(intervalRef.current);
       intervalRef.current = setInterval(() => {
         jukiApiSocketManager.SOCKET.send({ event: WebSocketActionEvent.PING, sessionId: token as ObjectIdType });
-      }, 30000);
+      }, 60000);
     }
   }, [ isPageVisible, token ]);
   
