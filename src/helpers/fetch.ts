@@ -47,13 +47,14 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >
         } as ErrorResponseType);
       }
       
-      return JSON.stringify({
-        success: false,
-        message: ERROR[ErrorCode.ERR9998].message,
-        errors: [ {
-          code: ErrorCode.ERR9998,
-          detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
-        } ],
-      } as ErrorResponseType);
+      throw error;
+      // return JSON.stringify({
+      //   success: false,
+      //   message: ERROR[ErrorCode.ERR9998].message,
+      //   errors: [ {
+      //     code: ErrorCode.ERR9998,
+      //     detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
+      //   } ],
+      // } as ErrorResponseType);
     });
 };
