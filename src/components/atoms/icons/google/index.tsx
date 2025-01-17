@@ -1,8 +1,30 @@
-import { lazy } from 'react';
+import React, { lazy, Suspense } from 'react';
+import { BasicIconProps } from '../types';
+import { LoadingIcon } from './AutorenewIcon';
 
-export const AccountCircleIcon = lazy(() => import('./AccountCircleIcon').then(module => ({ default: module.AccountCircleIcon })));
-export const AcuteIcon = lazy(() => import('./AcuteIcon').then(module => ({ default: module.AcuteIcon })));
-export const AddIcon = lazy(() => import('./AddIcon').then(module => ({ default: module.AddIcon })));
+export { LoadingIcon } from './AutorenewIcon';
+
+// export * from './AccountCircleIcon';
+// export * from './AcuteIcon';
+// export * from './AddIcon';
+// export * from './AdminPanelSettingsIcon';
+// export * from './AlarmIcon';
+// export * from './AppsIcon';
+// export * from './ArrowBackIcon';
+// export * from './ArrowDownwardIcon';
+
+export const LazyAccountCircleIcon = lazy(() => import('./AccountCircleIcon').then(module => ({ default: module.AccountCircleIcon })));
+export const AccountCircleIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}><LazyAccountCircleIcon {...props} /> </Suspense>
+);
+export const LazyAcuteIcon = lazy(() => import('./AcuteIcon').then(module => ({ default: module.AcuteIcon })));
+export const AcuteIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}><LazyAcuteIcon {...props} /> </Suspense>
+);
+export const LazAddIcon = lazy(() => import('./AddIcon').then(module => ({ default: module.AddIcon })));
+export const AddIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}><LazAddIcon {...props} /> </Suspense>
+);
 export const AdminPanelSettingsIcon = lazy(() => import('./AdminPanelSettingsIcon').then(module => ({ default: module.AdminPanelSettingsIcon })));
 export const AlarmIcon = lazy(() => import('./AlarmIcon').then(module => ({ default: module.AlarmIcon })));
 export const AppsIcon = lazy(() => import('./AppsIcon').then(module => ({ default: module.AppsIcon })));
@@ -18,8 +40,10 @@ export const ArticleIcon = lazy(() => import('./ArticleIcon').then(module => ({ 
 export const AssignmentIcon = lazy(() => import('./AssignmentIcon').then(module => ({ default: module.AssignmentIcon })));
 export const AttachFileIcon = lazy(() => import('./AttachFileIcon').then(module => ({ default: module.AttachFileIcon })));
 export const AttachmentIcon = lazy(() => import('./AttachmentIcon').then(module => ({ default: module.AttachmentIcon })));
-export const AutorenewIcon = lazy(() => import('./AutorenewIcon').then(module => ({ default: module.AutorenewIcon })));
-export const LoadingIcon = lazy(() => import('./AutorenewIcon').then(module => ({ default: module.LoadingIcon })));
+export const LazyAutorenewIcon = lazy(() => import('./AutorenewIcon').then(module => ({ default: module.AutorenewIcon })));
+export const AutorenewIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}><LazyAutorenewIcon {...props} /> </Suspense>
+);
 export const BadgeIcon = lazy(() => import('./BadgeIcon').then(module => ({ default: module.BadgeIcon })));
 export const BoltIcon = lazy(() => import('./BoltIcon').then(module => ({ default: module.BoltIcon })));
 export const BubbleChartIcon = lazy(() => import('./BubbleChartIcon').then(module => ({ default: module.BubbleChartIcon })));
@@ -47,14 +71,15 @@ export const ErrorIcon = lazy(() => import('./ErrorIcon').then(module => ({ defa
 export const EventIcon = lazy(() => import('./EventIcon').then(module => ({ default: module.EventIcon })));
 export const ExpandLessIcon = lazy(() => import('./ExpandLessIcon').then(module => ({ default: module.ExpandLessIcon })));
 export const ExpandMoreIcon = lazy(() => import('./ExpandMoreIcon').then(module => ({ default: module.ExpandMoreIcon })));
-export const ExtensionIcon = lazy(() => import('./ExtensionIcon').then(module => ({ default: module.ExtensionIcon })));
-export const FilterListIcon = lazy(() => import('./FilterListIcon').then(module => ({ default: module.FilterListIcon })));
-export const FolderIcon = lazy(() => import('./FolderIcon').then(module => ({ default: module.FolderIcon })));
-export const FolderManagedIcon = lazy(() => import('./FolderManagedIcon').then(module => ({ default: module.FolderManagedIcon })));
-export const FolderOpenIcon = lazy(() => import('./FolderOpenIcon').then(module => ({ default: module.FolderOpenIcon })));
-export const ForwardIcon = lazy(() => import('./ForwardIcon').then(module => ({ default: module.ForwardIcon })));
-export const FullscreenExitIcon = lazy(() => import('./FullscreenExitIcon').then(module => ({ default: module.FullscreenExitIcon })));
 
+export * from './ExtensionIcon';
+export * from './FilterListIcon';
+export * from './FilterListIcon';
+export * from './FolderIcon';
+export * from './FolderManagedIcon';
+export * from './FolderOpenIcon';
+export * from './ForwardIcon';
+export * from './FullscreenExitIcon';
 export * from './FullscreenIcon';
 export * from './Globe';
 export * from './GroupAddIcon';
