@@ -17,39 +17,41 @@ export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) =>
   return (
     <Modal
       isOpen={isOpen}
-      containerClassName={classNames(containerClassName, 'modal-alert')}
+      containerClassName={containerClassName}
       onClose={onClose}
       setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
       onLoaderStatusChange={setLoader}
       {...rest}
     >
-      <div className="modal-alert-title cr-py">
-        <ExclamationIcon filledCircle className="cr-er" size="large" />
-        <h3 className="cr-er">
-          {title}
-        </h3>
-      </div>
-      <div className="modal-alert-content">
-        {children}
-      </div>
-      <div className={classNames('modal-alert-actions jk-row-col gap right', { nowrap: viewPortSize !== 'sm' })}>
-        {secondary && (
+      <div className="jk-col stretch jk-pg gap">
+        <div className="modal-alert-title cr-py jk-col">
+          <ExclamationIcon filledCircle className="cr-er" size="large" />
+          <h3 className="cr-er">
+            {title}
+          </h3>
+        </div>
+        <div className="modal-alert-content">
+          {children}
+        </div>
+        <div className={classNames('modal-alert-actions jk-row-col gap right', { nowrap: viewPortSize !== 'sm' })}>
+          {secondary && (
+            <ButtonLoader
+              onClick={secondary.onClick}
+              disabled={secondary.disabled || loader === Status.LOADING}
+              type="light"
+              expand
+            >
+              {secondary.label || <T>cancel</T>}
+            </ButtonLoader>
+          )}
           <ButtonLoader
-            onClick={secondary.onClick}
-            disabled={secondary.disabled || loader === Status.LOADING}
-            type="light"
-            expand={viewPortSize === 'sm'}
+            onClick={primary.onClick}
+            disabled={primary.disabled || loader === Status.LOADING}
+            expand
           >
-            {secondary.label || <T>cancel</T>}
+            {primary.label || <T>ok</T>}
           </ButtonLoader>
-        )}
-        <ButtonLoader
-          onClick={primary.onClick}
-          disabled={primary.disabled || loader === Status.LOADING}
-          expand={viewPortSize === 'sm'}
-        >
-          {primary.label || <T>ok</T>}
-        </ButtonLoader>
+        </div>
       </div>
     </Modal>
   );

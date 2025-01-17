@@ -87,37 +87,6 @@
   }
 }
 
-.modal-alert {
-  .jk-modal-body {
-    display: flex;
-    flex-direction: column;
-    
-    .modal-alert-title {
-      display: flex;
-      align-items: center;
-      
-      .jk-icon {
-        margin-right: var(--pad-t);
-      }
-      
-      @include mixins.sm {
-        flex-direction: column;
-        justify-content: center;
-        .jk-icon {
-          display: none;
-        }
-      }
-    }
-    
-    .modal-alert-content {
-      padding: var(--pad-s) 0;
-      @include mixins.sm {
-        text-align: center;
-      }
-    }
-  }
-}
-
 .modal-info-markdown, .modal-alert, .modal-upload-image {
   .jk-modal-body {
     padding: var(--pad-l);
