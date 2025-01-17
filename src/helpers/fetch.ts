@@ -2,7 +2,7 @@ import { consoleWarn, ERROR, ErrorCode, ErrorResponseType, HTTPMethod } from '@j
 import { jukiApiSocketManager } from '../settings';
 import { AuthorizedRequestType } from '../types';
 
-export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >(url: string, options?: AuthorizedRequestType<M>) => {
+export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >(url: string, options?: AuthorizedRequestType<M>, safe?: boolean) => {
   
   const { method, body, signal, responseType, headers, cache, next } = options || {};
   
@@ -46,15 +46,16 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >
           errors: [ { code: ErrorCode.ERR9997, detail: `[${method}] ${url} \n ${body}` } ],
         } as ErrorResponseType);
       }
-      
-      throw error;
-      // return JSON.stringify({
-      //   success: false,
-      //   message: ERROR[ErrorCode.ERR9998].message,
-      //   errors: [ {
-      //     code: ErrorCode.ERR9998,
-      //     detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
-      //   } ],
-      // } as ErrorResponseType);
+      if (safe === false) {
+        throw error;
+      }
+      return JSON.stringify({
+        success: false,
+        message: ERROR[ErrorCode.ERR9998].message,
+        errors: [ {
+          code: ErrorCode.ERR9998,
+          detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
+        } ],
+      } as ErrorResponseType);
     });
 };
