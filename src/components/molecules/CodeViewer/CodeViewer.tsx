@@ -22,6 +22,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
     height,
     withCopyButton = false,
     withLanguageLabel = false,
+    style,
   } = props;
   
   useEffect(() => {
@@ -32,6 +33,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
     <div
       className={classNames('jk-code-viewer jk-border-radius-inline br-g6', { 'line-numbers': !!lineNumbers })}
       data-plugin-header="show-language"
+      style={style}
     >
       <div className="float-top-right pad-xt jk-row gap">
         {withLanguageLabel && !!PROGRAMMING_LANGUAGE[language]?.label && (

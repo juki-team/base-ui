@@ -1,4 +1,5 @@
 import { ProgrammingLanguage } from '@juki-team/commons';
+import { CSSProperties } from 'react';
 
 export interface CodeViewerProps {
   code: string,
@@ -7,4 +8,5 @@ export interface CodeViewerProps {
   height?: string,
   withCopyButton?: boolean,
   withLanguageLabel?: boolean,
+  style?: CSSProperties,
 }
