@@ -7,7 +7,7 @@ import { DndProvider, DragSourceMonitor, DropTargetMonitor, useDrag, useDragLaye
 import { getEmptyImage, HTML5Backend } from 'react-dnd-html5-backend';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
-import { DragIcon } from '../../atoms';
+import { DragIndicatorIcon } from '../../atoms';
 import { DragItem, RowComponentProps, RowProps, RowSortableItem, SimpleSortableRowsProps } from './types';
 
 const layerStyles: CSSProperties = {
@@ -70,7 +70,7 @@ const CustomDragLayer = <T, U>({ Cmp, width }: CustomDragLayerProps<T, U>) => {
             dragComponentRef={null as any}
             dragComponent={(
               <div style={{ cursor: 'move' }} className="jk-sortable-row-drag-icon jk-row">
-                <DragIcon />
+                <DragIndicatorIcon />
               </div>
             )}
             isDragging={true}
@@ -217,7 +217,7 @@ const Row = <T, U, >({
       props={props}
       dragComponent={
         <div ref={ref} style={{ cursor: 'move' }} className="jk-sortable-row-drag-icon jk-row">
-          <DragIcon />
+          <DragIndicatorIcon />
         </div>
       }
       dragComponentRef={ref}

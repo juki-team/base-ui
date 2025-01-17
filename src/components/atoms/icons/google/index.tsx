@@ -4,6 +4,9 @@ import { LoadingIcon } from './AutorenewIcon';
 
 export { LoadingIcon } from './AutorenewIcon';
 
+// https://fonts.google.com/icons
+// wight: 400, grade: 0, optical size: 24
+
 // export * from './AccountCircleIcon';
 // export * from './AcuteIcon';
 // export * from './AddIcon';
@@ -138,6 +141,11 @@ export const CalendarTodayIcon = (props: BasicIconProps) => (
   <Suspense fallback={<LoadingIcon size="tiny" />}><LazyCalendarTodayIcon {...props} /> </Suspense>
 );
 
+const LazyCalendarViewWeekIcon = lazy(() => import('./CalendarViewWeekIcon').then(module => ({ default: module.CalendarViewWeekIcon })));
+export const CalendarViewWeekIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}><LazyCalendarViewWeekIcon {...props} /> </Suspense>
+);
+
 const LazyCheckIcon = lazy(() => import('./CheckIcon').then(module => ({ default: module.CheckIcon })));
 export const CheckIcon = (props: BasicIconProps) => (
   <Suspense fallback={<LoadingIcon size="tiny" />}><LazyCheckIcon {...props} /> </Suspense>
@@ -161,6 +169,11 @@ export const CloudUploadIcon = (props: BasicIconProps) => (
 const LazyCodeIcon = lazy(() => import('./CodeIcon').then(module => ({ default: module.CodeIcon })));
 export const CodeIcon = (props: BasicIconProps) => (
   <Suspense fallback={<LoadingIcon size="tiny" />}><LazyCodeIcon {...props} /> </Suspense>
+);
+
+const LazyContactPhoneIcon = lazy(() => import('./ContactPhoneIcon').then(module => ({ default: module.ContactPhoneIcon })));
+export const ContactPhoneIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}><LazyContactPhoneIcon {...props} /> </Suspense>
 );
 
 const LazyContactsIcon = lazy(() => import('./ContactsIcon').then(module => ({ default: module.ContactsIcon })));
@@ -255,6 +268,7 @@ export * from './FullscreenIcon';
 export * from './Globe';
 export * from './GroupAddIcon';
 export * from './GroupIcon';
+export * from './GroupsIcon';
 export * from './HardDriveIcon';
 export * from './HelpIcon';
 export * from './HistoryIcon';
@@ -268,6 +282,7 @@ export * from './LibraryBooksIcon';
 export * from './LightModeIcon';
 export * from './LinkIcon';
 export * from './ListIcon';
+export * from './LocationCityIcon';
 export * from './LocationOnIcon';
 export * from './LockIcon';
 export * from './LockPersonIcon';
@@ -278,6 +293,7 @@ export * from './ManageAccountsIcon';
 export * from './ManageSearchIcon';
 export * from './ManufacturingIcon';
 export * from './MenuBookIcon';
+export * from './MenuIcon';
 export * from './MoreTimeIcon';
 export * from './NavigateBeforeIcon';
 export * from './NavigateNextIcon';
@@ -311,6 +327,7 @@ export * from './SettingsAlertIcon';
 export * from './SettingsIcon';
 export * from './SettingsSuggestIcon';
 export * from './ShareIcon';
+export * from './SideNavigationIcon';
 export * from './SpeedIcon';
 export * from './StopCircleIcon';
 export * from './StorageIcon';
@@ -319,11 +336,13 @@ export * from './SyncIcon';
 export * from './TaskIcon';
 export * from './TimerIcon';
 export * from './TrendingUpIcon';
+export * from './TrophyIcon';
 export * from './UndoIcon';
 export * from './UpdateIcon';
 export * from './VerticalSplitIcon';
 export * from './ViewCozyIcon';
 export * from './ViewHeadlineIcon';
+export * from './ViewModuleIcon';
 export * from './VisibilityIcon';
 export * from './VisibilityOffIcon';
 export * from './VoidIcon';

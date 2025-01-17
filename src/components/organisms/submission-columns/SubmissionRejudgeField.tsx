@@ -8,7 +8,7 @@ import React from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification, useSWR } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
-import { ReloadIcon, T } from '../../atoms';
+import { RefreshIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { ButtonLoaderOnClickType } from '../../molecules/types';
 import { DataViewerHeadersType, Field } from '../DataViewer';
@@ -33,7 +33,7 @@ export const SubmissionRejudgeButton = ({ submissionId }: { submissionId: string
         await matchMutate(new RegExp(`${jukiApiSocketManager.SERVICE_API_V1_URL}/submission`, 'g'));
       }}
       size="tiny"
-      icon={<ReloadIcon />}
+      icon={<RefreshIcon />}
       type="light"
     >
       <T>rejudge</T>

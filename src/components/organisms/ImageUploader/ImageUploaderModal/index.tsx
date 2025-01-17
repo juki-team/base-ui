@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, ReloadIcon, T } from '../../../atoms';
+import { Button, Modal, RefreshIcon, T } from '../../../atoms';
 import { Tabs } from '../../../molecules';
 import { PublicImagesTab } from './PublicImagesTab';
 import { ImageUploaderModalProps } from './types';
@@ -22,7 +22,7 @@ export const ImageUploaderModal = (props: ImageUploaderModalProps) => {
       key: 'public-images',
       header: <>
         <T className="tt-se">public images</T>
-        <Button icon={<ReloadIcon />} size="small" type="light" onClick={() => setCount(count + 1)} />
+        <Button icon={<RefreshIcon />} size="small" type="light" onClick={() => setCount(count + 1)} />
       </>,
       body: (
         <PublicImagesTab

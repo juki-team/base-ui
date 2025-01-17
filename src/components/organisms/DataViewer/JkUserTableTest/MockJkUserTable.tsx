@@ -15,7 +15,7 @@ import {
   FilterDateRangeAutoOfflineType,
   FilterSelectAutoOfflineType,
   Popover,
-  ReloadIcon,
+  RefreshIcon,
   Select as SelectComponent,
   SelectOptionType,
   T,
@@ -232,7 +232,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
     <ButtonLoader
       size="small"
       type="light"
-      icon={<ReloadIcon />}
+      icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
     >
@@ -241,16 +241,16 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
     <ButtonLoader
       size="small"
       type="light"
-      icon={<ReloadIcon />}
+      icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
     >
       <T>download</T>
     </ButtonLoader>,
-    <ButtonLoader size="small" icon={<ReloadIcon />} onClick={() => console.info('CLICK')}>
+    <ButtonLoader size="small" icon={<RefreshIcon />} onClick={() => console.info('CLICK')}>
       <T>download</T>
     </ButtonLoader>,
-    <ButtonLoader size="small" icon={<ReloadIcon />} onClick={() => console.info('CLICK')} responsiveMobile>
+    <ButtonLoader size="small" icon={<RefreshIcon />} onClick={() => console.info('CLICK')} responsiveMobile>
       <T>download</T>
     </ButtonLoader>,
   ], []);

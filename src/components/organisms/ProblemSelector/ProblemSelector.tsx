@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { authorizedRequest, classNames, cleanRequest } from '../../../helpers';
 import { useFetcher, useJukiNotification } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
-import { DownloadIcon, Input, ReloadIcon, Select, SpinIcon, T } from '../../atoms';
+import { DownloadIcon, Input, RefreshIcon, Select, SpinIcon, T } from '../../atoms';
 import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { JudgeDataType, ProblemSelectorProps } from './types';
 
@@ -190,7 +190,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
             className="jk-row"
           >
             <div className="jk-button light only-icon">
-              <ReloadIcon
+              <RefreshIcon
                 onClick={() => setTimestampTrigger(Date.now())}
               />
             </div>

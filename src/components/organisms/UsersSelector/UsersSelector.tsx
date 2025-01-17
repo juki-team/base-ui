@@ -2,7 +2,7 @@ import { ContentsResponseType, UserSummaryListResponseDTO } from '@juki-team/com
 import React, { useEffect, useMemo, useState } from 'react';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { jukiApiSocketManager } from '../../../settings';
-import { Button, Modal, PeopleIcon, ReloadIcon, SpinIcon, T, TextArea } from '../../atoms';
+import { Button, GroupsIcon, Modal, RefreshIcon, SpinIcon, T, TextArea } from '../../atoms';
 import { MultiSelectSearchable } from '../../molecules';
 import { UserChip } from '../UserChip';
 import { UsersSelectorProps } from './types';
@@ -135,7 +135,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
         data-tooltip-t-class-name="tt-se"
         className="jk-button light only-icon"
       >
-        <ReloadIcon onClick={() => mutate()} />
+        <RefreshIcon onClick={() => mutate()} />
       </div>
       {maxUsersSelection !== 1 && (
         <div
@@ -144,7 +144,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
           data-tooltip-t-class-name="tt-se"
           className="jk-button light only-icon"
         >
-          <PeopleIcon
+          <GroupsIcon
             onClick={() => {
               resetText();
               setShow(true);

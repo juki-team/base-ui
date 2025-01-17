@@ -1,6 +1,6 @@
 import { ContestSummaryListResponseDTO, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ButtonLoader, DataViewer, DataViewerHeadersType, DataViewerProps, ReloadIcon, T } from '../../../';
+import { ButtonLoader, DataViewer, DataViewerHeadersType, DataViewerProps, RefreshIcon, T } from '../../../';
 import {
   getContestContestantsHeader,
   getContestDateHeader,
@@ -36,7 +36,7 @@ export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryLis
     <ButtonLoader
       size="small"
       type="light"
-      icon={<ReloadIcon />}
+      icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
     >
@@ -45,7 +45,7 @@ export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryLis
     <ButtonLoader
       size="small"
       type="light"
-      icon={<ReloadIcon />}
+      icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
     >

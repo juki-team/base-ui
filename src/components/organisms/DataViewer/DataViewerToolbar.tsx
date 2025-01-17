@@ -12,14 +12,14 @@ import React, {
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useSessionStorage } from '../../../hooks';
 import {
-  CopyIcon,
+  CalendarViewWeekIcon,
+  ContentCopyIcon,
   CopyToClipboard,
   FilterListIcon,
   MenuIcon,
   Popover,
   RefreshIcon,
   SpinIcon,
-  ViewHeadlineIcon,
   ViewModuleIcon,
 } from '../../atoms';
 import { SetLoaderStatusOnClickType } from '../../molecules/types';
@@ -43,6 +43,7 @@ interface ToolbarButtonIconProps {
   active?: boolean,
   tooltipContent: string,
   className?: string,
+  rotate?: number,
 }
 
 const ToolbarButtonIcon = ({
@@ -52,6 +53,7 @@ const ToolbarButtonIcon = ({
                              tooltipContent,
                              className = '',
                              children,
+                             rotate,
                            }: PropsWithChildren<ToolbarButtonIconProps>) => (
   <div
     data-tooltip-id="jk-tooltip"
@@ -59,7 +61,7 @@ const ToolbarButtonIcon = ({
     className={buttonFilterStyles(!!active) + ' ' + className}
     onClick={onClick}
   >
-    <Icon className="jk-br-ie" size="small" />{children}
+    <Icon className="jk-br-ie" size="small" rotate={rotate} />{children}
   </div>
 );
 
@@ -220,13 +222,13 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                 {filtered ? (
                   <CopyToClipboard text={url.toString()}>
                     <ToolbarButtonIcon
-                      Icon={CopyIcon}
+                      Icon={ContentCopyIcon}
                       tooltipContent="copy the link of the filtered table"
                     />
                   </CopyToClipboard>
                 ) : (
                   <ToolbarButtonIcon
-                    Icon={CopyIcon}
+                    Icon={ContentCopyIcon}
                     tooltipContent="first filter something so that you can copy the link of the filtered table"
                     active={filtered}
                   />
@@ -240,11 +242,12 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               <div className={classNames('jk-row nowrap jk-table-view-tools-view-mode', { rowsView, cardsView })}>
                 {rowsView && (
                   <ToolbarButtonIcon
-                    Icon={ViewHeadlineIcon}
+                    Icon={CalendarViewWeekIcon}
                     tooltipContent="list view"
                     className="rows"
                     active={viewMode === DataViewMode.ROWS}
                     onClick={() => setViewMode(DataViewMode.ROWS, true)}
+                    rotate={90}
                   />
                 )}
                 {cardsView && (

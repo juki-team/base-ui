@@ -1,6 +1,6 @@
 import React from 'react';
 import { useJukiUser } from '../../../hooks/useJukiUser';
-import { MailIcon, PhoneIcon, T, TelegramIcon } from '../../atoms';
+import { ContactPhoneIcon, MailIcon, T, TelegramIcon } from '../../atoms';
 
 export const HelpSection = () => {
   
@@ -19,7 +19,7 @@ export const HelpSection = () => {
       </div>
       <div />
       <div className="jk-row gap nowrap">
-        <PhoneIcon />
+        <ContactPhoneIcon />
         <div className="jk-row fw-bd">{contactCellPhoneNumber}</div>
       </div>
       <div />

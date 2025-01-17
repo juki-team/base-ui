@@ -12,7 +12,7 @@ import {
   getProblemOwnerHeader,
   getProblemTagsHeader,
   getProblemTypeHeader,
-  ReloadIcon,
+  RefreshIcon,
   T,
 } from '../../../';
 import problems from './data.json';
@@ -51,7 +51,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
       data-tooltip-place="left"
       size="small"
       type="light"
-      icon={<ReloadIcon />}
+      icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
     >
@@ -60,7 +60,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
     <ButtonLoader
       size="small"
       type="light"
-      icon={<ReloadIcon />}
+      icon={<RefreshIcon />}
       onClick={() => console.info('CLICK')}
       responsiveMobile
     >

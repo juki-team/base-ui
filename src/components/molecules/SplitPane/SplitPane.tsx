@@ -3,7 +3,14 @@ import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useHandleState } from '../../../hooks';
-import { ExpandLessIcon, ExpandMoreIcon, NavigateBeforeIcon, NavigateNextIcon, T, ViewSideIcon } from '../../atoms';
+import {
+  ExpandLessIcon,
+  ExpandMoreIcon,
+  NavigateBeforeIcon,
+  NavigateNextIcon,
+  SideNavigationIcon,
+  T,
+} from '../../atoms';
 import { SplitPaneProps } from './types';
 
 export const SplitPane = memo((props: SplitPaneProps) => {
@@ -186,7 +193,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
                   setDirection(prevState => prevState === 'row' ? 'column' : 'row');
                 }}
               >
-                <ViewSideIcon size="tiny" rotate={direction === 'column' ? 90 : 0} />
+                <SideNavigationIcon size="tiny" rotate={direction === 'column' ? 90 : 0} />
                 <T className="label tx-t">rotate</T>
               </div>
             </div>

@@ -5,9 +5,9 @@ import { classNames } from '../../../helpers';
 import { useEntityDiff, useJukiUI, useJukiUser } from '../../../hooks';
 import {
   Button,
-  CityIcon,
   EditIcon,
   Input,
+  LocationCityIcon,
   LocationOnIcon,
   Modal,
   PersonIcon,
@@ -109,7 +109,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
               {!validLengthNickname
                 ? <T className="tt-se">must be at least 3 characters and must be less than 32 characters</T>
                 : !validCharNickname &&
-                  <T className="tt-se">only alphanumeric characters or dash or underscore is valid</T>}
+                <T className="tt-se">only alphanumeric characters or dash or underscore is valid</T>}
             </p>
           </div>
           <div className="jk-row gap">
@@ -143,7 +143,11 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
           <div className="jk-row gap">
             <div className="jk-form-item">
               <Input
-                label={<div className="jk-row left gap"><CityIcon size="small" /><T className="tt-se">country</T></div>}
+                label={
+                  <div className="jk-row left gap">
+                    <LocationCityIcon size="small" /><T className="tt-se">country</T>
+                  </div>
+                }
                 labelPlacement="top"
                 onChange={country => setUserState({ ...userState, country })}
                 value={userState.country}
