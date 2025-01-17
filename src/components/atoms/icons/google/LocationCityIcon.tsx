@@ -10,5 +10,5 @@ const Icon = ({ color }: RootIconProps) => (
 );
 
 export const LocationCityIcon = (props: BasicIconProps) => {
-  return renderBasicIcon({ ...props, viewBox: '0 96 960 960' }, Icon, 'location-city');
+  return renderBasicIcon({ ...props, viewBox: '0 -960 960 960' }, Icon, 'location-city');
 };

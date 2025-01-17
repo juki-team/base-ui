@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { ButtonLoaderProps } from '../../../types';
-import { ButtonLoader, EventIcon, EyeInvisibleIcon } from '../../index';
+import { ButtonLoader, EventIcon, VisibilityIcon } from '../../index';
 import { MockupJukiProvider } from '../../mockup';
 
 const meta: Meta<typeof ButtonLoader> = {
@@ -66,21 +66,21 @@ export const Regular: Story = {
             <ButtonLoader
               {...args}
               onClick={onClick(Status.NONE)}
-              icon={<EyeInvisibleIcon />}
+              icon={<VisibilityIcon />}
             >
               click me
             </ButtonLoader>
             <ButtonLoader
               {...args}
               onClick={onClick(Status.SUCCESS)}
-              icon={<EyeInvisibleIcon />}
+              icon={<VisibilityIcon />}
             >
               click me
             </ButtonLoader>
             <ButtonLoader
               {...args}
               onClick={onClick(Status.ERROR)}
-              icon={<EyeInvisibleIcon />}
+              icon={<VisibilityIcon />}
             >
               click me
             </ButtonLoader>
@@ -88,7 +88,7 @@ export const Regular: Story = {
               <ButtonLoader
                 {...args}
                 onClick={onClick(Status.ERROR)}
-                icon={<EyeInvisibleIcon />}
+                icon={<VisibilityIcon />}
               >
                 large text text text
               </ButtonLoader>

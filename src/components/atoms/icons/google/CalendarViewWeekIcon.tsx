@@ -10,5 +10,5 @@ const Icon = ({ color }: RootIconProps) => (
 );
 
 export const CalendarViewWeekIcon = (props: BasicIconProps) => {
-  return renderBasicIcon({ ...props, viewBox: '0 96 960 960' }, Icon, 'calendar-view-week');
+  return renderBasicIcon({ ...props, viewBox: '0 -960 960 960' }, Icon, 'calendar-view-week');
 };

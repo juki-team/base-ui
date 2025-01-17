@@ -3,11 +3,11 @@ import React from 'react';
 import {
   AppsIcon,
   Button,
-  ConstructionIcon,
   FilterListIcon,
   JukiCouchLogoHorImage,
   JukiJudgeLogoHorImage,
   JukiUtilsLogoHorImage,
+  ManufacturingIcon,
   MdMathEditor,
   PlusIcon,
   Popover,
@@ -72,11 +72,11 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
           </div>
           <div className="jk-col gap cr-py">
             <div className="jk-row">
-              <JukiCouchLogoHorImage /> <ConstructionIcon />{' '}
+              <JukiCouchLogoHorImage /> <ManufacturingIcon />{' '}
               <T className="tt-se">developing</T>...
             </div>
             <div className="jk-row">
-              <JukiUtilsLogoHorImage /> <ConstructionIcon />{' '}
+              <JukiUtilsLogoHorImage /> <ManufacturingIcon />{' '}
               <T className="tt-se">developing</T>...
             </div>
           </div>
@@ -106,11 +106,11 @@ const rightMobile = {
       </div>
       <div className="jk-col gap cr-py" style={{ width: '100px' }}>
         <div className="jk-row">
-          <JukiCouchLogoHorImage /> <ConstructionIcon />{' '}
+          <JukiCouchLogoHorImage /> <ManufacturingIcon />{' '}
           <T className="tt-se">developing</T>...
         </div>
         <div className="jk-row">
-          <JukiUtilsLogoHorImage /> <ConstructionIcon />{' '}
+          <JukiUtilsLogoHorImage /> <ManufacturingIcon />{' '}
           <T className="tt-se">developing</T>...
         </div>
         <div onClick={onClose}>close right!</div>
