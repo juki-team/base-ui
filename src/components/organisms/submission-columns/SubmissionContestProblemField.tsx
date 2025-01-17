@@ -1,45 +1,55 @@
 import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
+import { getJudgeOrigin } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { ContestTab } from '../../../types';
+import { OpenInNewIcon } from '../../atoms';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 
 export const SubmissionContestProblemField: DataViewerHeadersType<SubmissionSummaryListResponseDTO>['Field']
-  = ({ record: { problem: { key: problemKey, name: problemName }, contest }, isCard }) => {
+  = (props) => {
+  
+  const {
+    record: { problem: { key: problemKey, name: problemName }, company: { key: companyKey }, contest },
+    isCard,
+  } = props;
   
   const { components: { Link } } = useJukiUI();
+  
+  const origin = getJudgeOrigin(companyKey);
   
   return (
     <TextField
       text={contest ? (
         <Link
-          href={jukiAppRoutes.JUDGE().contests.view({
+          href={jukiAppRoutes.JUDGE(origin).contests.view({
             key: contest.key,
             tab: ContestTab.PROBLEM,
             subTab: contest.problemIndex,
           })}
-          // target={props?.blankTarget ? '_blank' : ''} // TODO: check
+          target={origin ? '_blank' : undefined}
+          className="link"
         >
-          <div className="jk-col link">
+          <div className="jk-col">
             <div className="jk-row">
               {contest.name}&nbsp;({contest.problemIndex || '-'})
             </div>
             <div className="jk-row">
               {problemName}
-              {/*{!!props?.blankTarget && <OpenInNewIcon size="small" />}*/}
+              {!!origin && <OpenInNewIcon size="small" />}
             </div>
           </div>
         </Link>
       ) : (
         <Link
-          href={jukiAppRoutes.JUDGE().problems.view({ key: problemKey })}
-          // target={props?.blankTarget ? '_blank' : ''}
+          href={jukiAppRoutes.JUDGE(origin).problems.view({ key: problemKey })}
+          target={origin ? '_blank' : undefined}
+          className="link"
         >
-          <div className="jk-row link">
-            {problemName}
-            {/*{!!props?.blankTarget && <OpenInNewIcon size="small" />}*/}
-          </div>
+          <div style={{ textAlign: isCard ? undefined : 'left', display: 'inline' }}>{problemName}</div>
+          &nbsp;
+          {!!origin && <OpenInNewIcon size="small" />}
         </Link>
       )}
       label="problem / contest"

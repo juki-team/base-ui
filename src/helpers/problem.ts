@@ -1,4 +1,5 @@
 import {
+  JUKI_APP_COMPANY_KEY,
   Language,
   PROBLEM_MODE,
   PROBLEM_TYPE,
@@ -20,7 +21,6 @@ export const getStatementData = (t: TFunction,
                                    statement: ProblemStatementType,
                                    settings: ProblemSettingsType
                                  }, preferredLanguage: Language, problemName: string) => {
-  
   
   const statementDescription = (statement?.description?.[preferredLanguage] ||
     statement?.description?.[Language.EN] ||
@@ -100,4 +100,15 @@ ${statementNote}
     statementNote,
     mdStatement,
   };
+};
+
+export const getJudgeOrigin = (companyKey: string) => {
+  let origin = `https://${companyKey}.jukijudge.com`;
+  if (companyKey === JUKI_APP_COMPANY_KEY) {
+    origin = 'https://judge.juki.app';
+  }
+  if (typeof window !== 'undefined' && window.location.origin === origin) {
+    return '';
+  }
+  return origin;
 };
