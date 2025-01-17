@@ -19,43 +19,49 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, >
     requestHeaders.set('Authorization', `Bearer ${token}`);
   }
   
-  return await fetch(url, {
-    method: method ? method : HTTPMethod.GET,
-    headers: requestHeaders,
-    credentials: 'include',
-    ...(body ? { body } : {}),
-    ...(signal ? { signal } : {}),
-    cache,
-    // @ts-ignore
-    next,
-  })
-    .then((response: any) => {
+  try {
+    const response = await fetch(url, {
+      method: method ? method : HTTPMethod.GET,
+      headers: requestHeaders,
+      credentials: 'include',
+      ...(body ? { body } : {}),
+      ...(signal ? { signal } : {}),
+      cache,
+      // @ts-ignore
+      next,
+    });
+    try {
       if (responseType === 'blob') {
         return response.blob();
       }
       return response.text();
-    })
-    .catch((error) => {
-      
-      consoleWarn('error on fetch', { url, error });
-      
-      if (signal?.aborted) {
-        return JSON.stringify({
-          success: false,
-          message: ERROR[ErrorCode.ERR9997].message,
-          errors: [ { code: ErrorCode.ERR9997, detail: `[${method}] ${url} \n ${body}` } ],
-        } as ErrorResponseType);
-      }
-      if (safe === false) {
-        throw error;
-      }
+    } catch (error) {
+      consoleWarn('error on get data', { url, error, responseType });
+    }
+    if (responseType === 'blob') {
+      return new Blob();
+    }
+    return '';
+  } catch (error) {
+    consoleWarn('error on fetch', { url, error });
+    
+    if (signal?.aborted) {
       return JSON.stringify({
         success: false,
-        message: ERROR[ErrorCode.ERR9998].message,
-        errors: [ {
-          code: ErrorCode.ERR9998,
-          detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
-        } ],
+        message: ERROR[ErrorCode.ERR9997].message,
+        errors: [ { code: ErrorCode.ERR9997, detail: `[${method}] ${url} \n ${body}` } ],
       } as ErrorResponseType);
-    });
+    }
+    if (safe === false) {
+      throw error;
+    }
+    return JSON.stringify({
+      success: false,
+      message: ERROR[ErrorCode.ERR9998].message,
+      errors: [ {
+        code: ErrorCode.ERR9998,
+        detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
+      } ],
+    } as ErrorResponseType);
+  }
 };
