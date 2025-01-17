@@ -18,6 +18,7 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
     extraNodes,
     getRowKey,
     onRecordClick,
+    onRecordHover,
     dependencies = [],
     getRecordStyle,
   } = props;
@@ -63,6 +64,7 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
       totalData={Math.max(lastTotalRef.current, 0)}
       getRecordKey={getRowKey}
       onRecordClick={onRecordClick}
+      onRecordHover={onRecordHover}
       reloadRef={reloadRef}
       pageSizeOptions={PAGE_SIZE_OPTIONS}
       initializing={lastTotalRef.current === -1}

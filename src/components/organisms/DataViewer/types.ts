@@ -421,6 +421,7 @@ export interface PagedDataViewerProps<T, V = T> {
   extraNodes?: ReactNodeOrFunctionType[],
   getRowKey?: GetRecordKeyType<T>
   onRecordClick?: OnRecordClickType<T>,
+  onRecordHover?: OnRecordClickType<T>,
   getRecordStyle?: GetRecordStyleType<T>;
   dependencies?: any[],
 }
