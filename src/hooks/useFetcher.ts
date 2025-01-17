@@ -5,7 +5,7 @@ import { authorizedRequest, cleanRequest } from '../helpers';
 import { jukiApiSocketManager } from '../settings';
 import { useJukiUser } from './useJukiUser';
 
-const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
+export const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
   return authorizedRequest(url, { token, method: HTTPMethod.GET }, false);
 };
 

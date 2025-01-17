@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
-import { useSWRConfig } from 'swr';
+import { preload, useSWRConfig } from 'swr';
 import { jukiApiSocketManager } from '../settings';
+import { fetcherWithToken } from './useFetcher';
 
 export const useSWR = () => {
   const { cache, mutate } = useSWRConfig();
@@ -25,5 +26,6 @@ export const useSWR = () => {
   return {
     mutate: useCallback((url: string) => mutate([ url, token ]), [ mutate, token ]),
     matchMutate,
+    preload: (key: string) => preload(key, fetcherWithToken),
   };
 };
