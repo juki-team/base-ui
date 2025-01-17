@@ -21,6 +21,11 @@ export const AccountCircleIcon = (props: BasicIconProps) => (
   <Suspense fallback={<LoadingIcon size="tiny" />}><LazyAccountCircleIcon {...props} /> </Suspense>
 );
 
+const LazyAcUnitIcon = lazy(() => import('./AcUnitIcon').then(module => ({ default: module.AcUnitIcon })));
+export const AcUnitIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}><LazyAcUnitIcon {...props} /> </Suspense>
+);
+
 const LazyAcuteIcon = lazy(() => import('./AcuteIcon').then(module => ({ default: module.AcuteIcon })));
 export const AcuteIcon = (props: BasicIconProps) => (
   <Suspense fallback={<LoadingIcon size="tiny" />}><LazyAcuteIcon {...props} /> </Suspense>
@@ -161,6 +166,11 @@ export const CloseIcon = (props: BasicIconProps) => (
   <Suspense fallback={<LoadingIcon size="tiny" />}><LazyCloseIcon {...props} /> </Suspense>
 );
 
+const LazyCloudDownloadIcon = lazy(() => import('./CloudDownloadIcon').then(module => ({ default: module.CloudDownloadIcon })));
+export const CloudDownloadIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}><LazyCloudDownloadIcon {...props} /> </Suspense>
+);
+
 const LazyCloudUploadIcon = lazy(() => import('./CloudUploadIcon').then(module => ({ default: module.CloudUploadIcon })));
 export const CloudUploadIcon = (props: BasicIconProps) => (
   <Suspense fallback={<LoadingIcon size="tiny" />}><LazyCloudUploadIcon {...props} /> </Suspense>
@@ -169,6 +179,11 @@ export const CloudUploadIcon = (props: BasicIconProps) => (
 const LazyCodeIcon = lazy(() => import('./CodeIcon').then(module => ({ default: module.CodeIcon })));
 export const CodeIcon = (props: BasicIconProps) => (
   <Suspense fallback={<LoadingIcon size="tiny" />}><LazyCodeIcon {...props} /> </Suspense>
+);
+
+const LazyCommentIcon = lazy(() => import('./CommentIcon').then(module => ({ default: module.CommentIcon })));
+export const CommentIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}><LazyCommentIcon {...props} /> </Suspense>
 );
 
 const LazyContactPhoneIcon = lazy(() => import('./ContactPhoneIcon').then(module => ({ default: module.ContactPhoneIcon })));
@@ -300,6 +315,7 @@ export * from './NavigateNextIcon';
 export * from './NewReleasesIcon';
 export * from './NoteAddIcon';
 export * from './NoteIcon';
+export * from './NotificationsActiveIcon';
 export * from './OpenInNewIcon';
 export * from './PageInfoIcon';
 export * from './PaletteIcon';

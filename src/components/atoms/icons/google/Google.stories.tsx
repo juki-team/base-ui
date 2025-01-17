@@ -9,6 +9,7 @@ import { BasicIconProps } from '../types';
 
 import {
   AccountCircleIcon,
+  AcUnitIcon,
   AcuteIcon,
   AddIcon,
   AdminPanelSettingsIcon,
@@ -37,6 +38,7 @@ import {
   CheckIcon,
   ChecklistIcon,
   CloseIcon,
+  CloudDownloadIcon,
   CloudUploadIcon,
   CodeIcon,
   ContactPhoneIcon,
@@ -148,6 +150,8 @@ import {
   VoidIcon,
   WarningIcon,
 } from './';
+import { CommentIcon } from './CommentIcon';
+import { NotificationsActiveIcon } from './NotificationsActiveIcon';
 
 const meta: Meta<typeof AccountCircleIcon> = {
   component: AccountCircleIcon,
@@ -263,10 +267,14 @@ export const Google: FC<BasicIconProps> = (args) => {
     NoteAddIcon,
     NoteIcon,
     OpenInNewIcon,
+    NotificationsActiveIcon,
     PaletteIcon,
+    CloudDownloadIcon,
     PendingActionsIcon,
     PendingIcon,
+    AcUnitIcon,
     PersonIcon,
+    CommentIcon,
     PhotoLibraryIcon,
     PictureAsPdfIcon,
     PlayArrowIcon,
