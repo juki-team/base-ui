@@ -10,6 +10,7 @@ export interface DataViewerCardProps<T> {
   cardClassName: string,
   cardStyle: CSSProperties,
   onCardClick: () => void,
+  onCardHover: () => void,
 }
 
 export interface CardRowVirtualizerFixedProps<T> {
@@ -21,5 +22,6 @@ export interface CardRowVirtualizerFixedProps<T> {
   getRecordStyle: GetRecordStyleType<T> | undefined,
   getRecordClassName: GetRecordClassNameType<T> | undefined,
   onRecordClick: OnRecordClickType<T> | undefined,
+  onRecordHover: OnRecordClickType<T> | undefined,
   expandedCards: boolean,
 }

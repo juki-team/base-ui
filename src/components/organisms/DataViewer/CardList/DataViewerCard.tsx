@@ -15,6 +15,7 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
     cardStyle,
     cardClassName,
     onCardClick,
+    onCardHover,
   } = props;
   
   const { height: topLeftHeight, ref: topLeftRef } = useResizeDetector();
@@ -60,6 +61,7 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
       className={classNames('jk-list-card jk-border-radius', cardClassName)}
       style={{ ...cardStyle, width: cardWidth }}
       onClick={onCardClick}
+      onMouseEnter={onCardHover}
     >
       {(!!positionsList.topLeft?.length || !!positionsList.top?.length || !!positionsList.topRight?.length) && (
         <div

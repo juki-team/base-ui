@@ -92,6 +92,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     getRecordStyle,
     getRecordClassName,
     onRecordClick,
+    onRecordHover,
     extraNodesFloating,
     setDataTableRef: _setDataTableRef,
     initializing: initialInitializing = false,
@@ -716,6 +717,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         getRecordStyle={getRecordStyle}
         getRecordClassName={getRecordClassName}
         onRecordClick={onRecordClick}
+        onRecordHover={onRecordHover}
         pagination={paginationData}
         filterKey={filterKey}
         filters={filters}

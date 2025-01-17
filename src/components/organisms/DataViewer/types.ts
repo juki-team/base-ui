@@ -48,6 +48,7 @@ export interface RowVirtualizerFixedProps<T> {
   getRecordClassName?: GetRecordClassNameType<T>,
   setScrollLeft: Dispatch<SetStateAction<number>>,
   onRecordClick: OnRecordClickType<T> | undefined,
+  onRecordHover: OnRecordClickType<T> | undefined,
   setBorderTop: Dispatch<SetStateAction<boolean>>,
   gap: number,
 }
@@ -260,6 +261,7 @@ export interface DisplayDataViewerProps<T> {
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
   onRecordClick?: OnRecordClickType<T>,
+  onRecordHover?: OnRecordClickType<T>,
 }
 
 export type DataViewerHeaderSortOnlineType = true;
@@ -323,6 +325,7 @@ export interface DataViewerProps<T> {
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
   onRecordClick?: OnRecordClickType<T>,
+  onRecordHover?: OnRecordClickType<T>,
   setDataTableRef?: (data: T[]) => void,
   initializing?: boolean,
 }

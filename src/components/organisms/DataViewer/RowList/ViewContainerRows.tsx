@@ -34,6 +34,7 @@ interface ViewContainerRowsProps<T> {
   getRecordStyle: GetRecordStyleType<T> | undefined,
   getRecordClassName: GetRecordClassNameType<T> | undefined,
   onRecordClick: OnRecordClickType<T> | undefined,
+  onRecordHover: OnRecordClickType<T> | undefined,
 }
 
 const gap = 4;
@@ -52,6 +53,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
     getRecordStyle,
     getRecordClassName,
     onRecordClick,
+    onRecordHover,
     viewMode,
   } = props;
   
@@ -124,6 +126,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
           getRecordClassName={getRecordClassName}
           getRecordStyle={getRecordStyle}
           onRecordClick={onRecordClick}
+          onRecordHover={onRecordHover}
           gap={gap}
         />
       </div>

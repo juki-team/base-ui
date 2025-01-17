@@ -16,6 +16,7 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
     rowWidth,
     getRecordStyle,
     onRecordClick,
+    onRecordHover,
     getRecordClassName,
     expandedCards,
   } = props;
@@ -82,6 +83,7 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
                     isStickySection: false,
                   }) || {}}
                   onCardClick={() => onRecordClick?.({ data, index: cardIndex, isCard: true })}
+                  onCardHover={() => onRecordHover?.({ data, index: cardIndex, isCard: true })}
                 />
               );
             }))}

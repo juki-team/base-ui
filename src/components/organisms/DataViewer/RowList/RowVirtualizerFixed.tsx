@@ -13,6 +13,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     getRecordClassName,
     getRecordKey,
     onRecordClick,
+    onRecordHover,
     setBorderTop,
     setScrollLeft,
     gap,
@@ -155,6 +156,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
               }}
               className={classNames('jk-table-row', getRowClassName(virtualRow.index))}
               onClick={() => onRecordClick?.({ data, index: virtualRow.index, isCard: false })}
+              onMouseEnter={() => onRecordHover?.({ data, index: virtualRow.index, isCard: false })}
             >
               {Children.toArray(
                 headers
