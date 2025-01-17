@@ -272,6 +272,7 @@ export const ExpandMoreIcon = (props: BasicIconProps) => (
 );
 
 export * from './ExtensionIcon';
+export * from './FileOpenIcon';
 export * from './FilterListIcon';
 export * from './FilterListIcon';
 export * from './FolderIcon';
