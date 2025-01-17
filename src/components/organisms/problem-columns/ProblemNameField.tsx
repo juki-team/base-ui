@@ -60,7 +60,7 @@ export const ProblemNameModalField: DataViewerHeadersType<ProblemSummaryListResp
       {modal}
       <div className="jk-row nowrap">
         <div
-          className={classNames('jk-row link fw-bd', { 'ta-lt': !isCard })}
+          className={classNames('jk-row link', { 'ta-lt': !isCard })}
           onClick={() => {
             setModal(
               <Modal

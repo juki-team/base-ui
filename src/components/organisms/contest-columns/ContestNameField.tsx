@@ -17,7 +17,7 @@ export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListRespo
   return (
     <Field className="jk-row left block">
       {user.isGuest || user.isAdministrator || user.isParticipant || user.isManager || user.isSpectator ? (
-        <div className={classNames('gap nowrap fw-bd space-between', { 'jk-col': isCard, 'jk-row': !isCard })}>
+        <div className={classNames('gap nowrap', { 'jk-col': isCard, 'jk-row left': !isCard })}>
           <Link
             href={jukiAppRoutes.JUDGE(origin).contests.view({ key })}
             className={classNames('link jk-row nowrap', { 'ta-lt': !isCard })}
