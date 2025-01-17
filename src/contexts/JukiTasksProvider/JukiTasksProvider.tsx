@@ -9,7 +9,7 @@ import {
 } from '@juki-team/commons';
 import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
 import { T } from '../../components/atoms/T';
-import { useJukiUser, useSWR } from '../../hooks';
+import { useJukiUser, useMutate } from '../../hooks';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { jukiApiSocketManager } from '../../settings';
 import { TasksContext } from './context';
@@ -22,7 +22,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
   const [ submissionsToCheck, setSubmissionsToCheck ] = useState<SubmissionToCheck[]>([]);
   const { user: { sessionId } } = useJukiUser();
   const submissionIdListenerCount = useRef<{ [key: string]: number }>({});
-  const { matchMutate } = useSWR();
+  const mutate = useMutate();
   
   useEffect(() => {
     for (const { id, problem, contest } of submissionsToCheck) {
@@ -99,7 +99,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
     jukiApiSocketManager.SOCKET.send(event, '', (data) => {
       if (isSubmissionRunStatusMessageWebSocketResponseEventDTO(data)) {
         if (data.status === SubmissionRunStatus.COMPLETED || data.status === SubmissionRunStatus.RECEIVED) {
-          void matchMutate(new RegExp(`${jukiApiSocketManager.SERVICE_API_V1_URL}/submission`, 'g'));
+          void mutate(new RegExp(`${jukiApiSocketManager.SERVICE_API_V1_URL}/submission`, 'g'));
         }
         const nextStatus = data.status;
         const submitId = data.submitId;

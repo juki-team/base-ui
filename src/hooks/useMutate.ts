@@ -1,15 +1,16 @@
 import { useCallback } from 'react';
-import { preload, useSWRConfig } from 'swr';
-import { jukiApiSocketManager } from '../settings';
-import { fetcherWithToken } from './useFetcher';
+import { useSWRConfig } from 'swr';
 
-export const useSWR = () => {
+export const useMutate = () => {
+  
   const { cache, mutate } = useSWRConfig();
-  const token = jukiApiSocketManager.getToken();
-  const matchMutate = useCallback((matcher: RegExp) => {
+  
+  return useCallback((_matcher: RegExp | string) => {
     if (!(cache instanceof Map)) {
       throw new Error('matchMutate requires the cache provider to be a Map instance');
     }
+    
+    const matcher = typeof _matcher === 'string' ? new RegExp(_matcher) : _matcher;
     
     const keys = [];
     const allKeys = [];
@@ -22,10 +23,4 @@ export const useSWR = () => {
     const mutations = keys.map((key) => mutate(key));
     return Promise.all(mutations);
   }, [ cache, mutate ]);
-  
-  return {
-    mutate: useCallback((url: string) => mutate([ url, token ]), [ mutate, token ]),
-    matchMutate,
-    preload: (key: string) => preload(key, fetcherWithToken),
-  };
 };

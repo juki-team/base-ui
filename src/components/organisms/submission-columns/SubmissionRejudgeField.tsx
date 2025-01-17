@@ -6,7 +6,7 @@ import {
 } from '@juki-team/commons';
 import React from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification, useSWR } from '../../../hooks';
+import { useJukiNotification, useMutate } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { RefreshIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
@@ -16,7 +16,7 @@ import { DataViewerHeadersType, Field } from '../DataViewer';
 export const SubmissionRejudgeButton = ({ submissionId }: { submissionId: string }) => {
   
   const { notifyResponse } = useJukiNotification();
-  const { matchMutate } = useSWR();
+  const mutate = useMutate();
   const rejudgeSubmission = (submissionId: string): ButtonLoaderOnClickType => async (setLoaderStatus, loaderStatus, event) => {
     setLoaderStatus(Status.LOADING);
     
@@ -30,7 +30,7 @@ export const SubmissionRejudgeButton = ({ submissionId }: { submissionId: string
     <ButtonLoader
       onClick={async (...props) => {
         await rejudgeSubmission(submissionId)(...props);
-        await matchMutate(new RegExp(`${jukiApiSocketManager.SERVICE_API_V1_URL}/submission`, 'g'));
+        await mutate(new RegExp(`${jukiApiSocketManager.SERVICE_API_V1_URL}/submission`, 'g'));
       }}
       size="tiny"
       icon={<RefreshIcon />}
