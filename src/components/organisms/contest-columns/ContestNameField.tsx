@@ -20,7 +20,7 @@ export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListRespo
         <div className={classNames('gap nowrap fw-bd space-between', { 'jk-col': isCard, 'jk-row': !isCard })}>
           <Link
             href={jukiAppRoutes.JUDGE(origin).contests.view({ key })}
-            className={classNames('link jk-row', { 'ta-lt': !isCard })}
+            className={classNames('link jk-row nowrap', { 'ta-lt': !isCard })}
           >
             <div style={{ textAlign: isCard ? undefined : 'left', display: 'inline' }}>{name}</div>
             &nbsp;

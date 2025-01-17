@@ -22,7 +22,7 @@ export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListRespo
       <div className="jk-row nowrap">
         <Link
           href={jukiAppRoutes.JUDGE(origin).problems.view({ key })}
-          className={classNames('link jk-row', { 'ta-lt': !isCard })}
+          className={classNames('link jk-row nowrap', { 'ta-lt': !isCard })}
         >
           <div style={{ textAlign: isCard ? undefined : 'left', display: 'inline' }}>{name}</div>
           &nbsp;
