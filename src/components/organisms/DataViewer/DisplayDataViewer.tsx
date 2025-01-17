@@ -37,6 +37,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     getRecordClassName,
     onRecordClick,
     onRecordHover,
+    onRecordRender,
     extraNodesFloating = false,
     showFilterDrawerKey,
     filterKey,
@@ -110,6 +111,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
             getRecordClassName={getRecordClassName}
             onRecordClick={onRecordClick}
             onRecordHover={onRecordHover}
+            onRecordRender={onRecordRender}
           />
         ) : (
           <div
@@ -135,6 +137,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
               getRecordStyle={getRecordStyle}
               onRecordClick={onRecordClick}
               onRecordHover={onRecordHover}
+              onRecordRender={onRecordRender}
               expandedCards={cardExpanded}
             />
           </div>

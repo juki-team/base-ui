@@ -23,5 +23,6 @@ export interface CardRowVirtualizerFixedProps<T> {
   getRecordClassName: GetRecordClassNameType<T> | undefined,
   onRecordClick: OnRecordClickType<T> | undefined,
   onRecordHover: OnRecordClickType<T> | undefined,
+  onRecordRender: OnRecordClickType<T> | undefined,
   expandedCards: boolean,
 }

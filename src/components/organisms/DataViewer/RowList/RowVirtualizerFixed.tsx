@@ -1,5 +1,5 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import React, { Children, SyntheticEvent, useCallback, useRef, useState } from 'react';
+import React, { Children, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { RowVirtualizerFixedProps } from '../types';
 
@@ -14,6 +14,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     getRecordKey,
     onRecordClick,
     onRecordHover,
+    onRecordRender,
     setBorderTop,
     setScrollLeft,
     gap,
@@ -37,6 +38,13 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       index,
     }) : undefined,
   });
+  const onRecordRenderRef = useRef(onRecordRender);
+  onRecordRenderRef.current = onRecordRender;
+  useEffect(() => {
+    rowVirtualizer.getVirtualItems().map((virtualRow) => (
+      onRecordRenderRef.current?.({ data, index: virtualRow.index, isCard: false })
+    ));
+  }, [ data, rowVirtualizer ]);
   
   const getRowClassName = (index: number) => getRecordClassName?.({
     data,
