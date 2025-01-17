@@ -21,6 +21,7 @@ export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListRespo
           <Link
             href={jukiAppRoutes.JUDGE(origin).contests.view({ key })}
             className={classNames('link jk-row nowrap', { 'ta-lt': !isCard })}
+            target={origin ? '_blank' : undefined}
           >
             <div style={{ textAlign: isCard ? undefined : 'left', display: 'inline' }}>{name}</div>
             &nbsp;
