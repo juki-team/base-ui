@@ -25,7 +25,7 @@ export const SubmissionContestField: DataViewerHeadersType<SubmissionSummaryList
             subTab: contest.problemIndex,
           })}
           target={origin ? '_blank' : undefined}
-          className="link"
+          className="link jk-row"
         >
           <div style={{ textAlign: isCard ? undefined : 'left', display: 'inline' }}>{contest.name}</div>
           &nbsp;

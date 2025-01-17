@@ -7,8 +7,7 @@ import { ContestTab } from '../../../types';
 import { OpenInNewIcon } from '../../atoms';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 
-export const SubmissionProblemField: DataViewerHeadersType<SubmissionSummaryListResponseDTO>['Field']
-  = (props) => {
+export const SubmissionProblemField: DataViewerHeadersType<SubmissionSummaryListResponseDTO>['Field'] = (props) => {
   
   const {
     record: {
@@ -39,6 +38,7 @@ export const SubmissionProblemField: DataViewerHeadersType<SubmissionSummaryList
             {contest.name}
             <div className="jk-row">
               ({contest.problemIndex || '-'})&nbsp;{problemName}
+              &nbsp;
               {!!origin && <OpenInNewIcon size="small" />}
             </div>
           </div>
@@ -47,7 +47,7 @@ export const SubmissionProblemField: DataViewerHeadersType<SubmissionSummaryList
         <Link
           href={jukiAppRoutes.JUDGE(origin).problems.view({ key: problemKey })}
           target={origin ? '_blank' : undefined}
-          className="link"
+          className="link jk-row"
         >
           <div style={{ textAlign: isCard ? undefined : 'left', display: 'inline' }}>{problemName}</div>
           &nbsp;

@@ -18,7 +18,10 @@ export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListRespo
     <Field className="jk-row left block">
       {user.isGuest || user.isAdministrator || user.isParticipant || user.isManager || user.isSpectator ? (
         <div className={classNames('gap nowrap fw-bd space-between', { 'jk-col': isCard, 'jk-row': !isCard })}>
-          <Link href={jukiAppRoutes.JUDGE(origin).contests.view({ key })} className="link">
+          <Link
+            href={jukiAppRoutes.JUDGE(origin).contests.view({ key })}
+            className={classNames('link jk-row', { 'ta-lt': !isCard })}
+          >
             <div style={{ textAlign: isCard ? undefined : 'left', display: 'inline' }}>{name}</div>
             &nbsp;
             {!!origin && <OpenInNewIcon size="small" />}
@@ -29,7 +32,9 @@ export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListRespo
               data-tooltip-content="you are admin"
               data-tooltip-t-class-name="tt-se ws-np"
               size="small"
-              filledSquare letter="A"
+              filledSquare
+              letter="A"
+              className="cr-py"
               letterColor="var(--t-color-primary-text)"
             />
           ) : user.isManager ? (
@@ -38,7 +43,9 @@ export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListRespo
               data-tooltip-content="you are judge"
               data-tooltip-t-class-name="tt-se ws-np"
               size="small"
-              filledSquare letter="J"
+              filledSquare
+              letter="J"
+              className="cr-py"
               letterColor="var(--t-color-primary-text)"
             />
           ) : user.isParticipant ? (
@@ -57,7 +64,9 @@ export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListRespo
               data-tooltip-content="you are guest"
               data-tooltip-t-class-name="tt-se ws-np"
               size="small"
-              filledSquare letter="G"
+              filledSquare
+              letter="G"
+              className="cr-py"
               letterColor="var(--t-color-primary-text)"
             />
           ) : user.isSpectator && (
@@ -66,7 +75,9 @@ export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListRespo
               data-tooltip-content="you are spectator"
               data-tooltip-t-class-name="tt-se ws-np"
               size="small"
-              filledSquare letter="S"
+              filledSquare
+              letter="S"
+              className="cr-py"
               letterColor="var(--t-color-primary-text)"
             />
           )}

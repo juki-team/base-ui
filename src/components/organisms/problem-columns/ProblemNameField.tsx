@@ -20,7 +20,10 @@ export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListRespo
   return (
     <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
       <div className="jk-row nowrap">
-        <Link href={jukiAppRoutes.JUDGE(origin).problems.view({ key })} className="link">
+        <Link
+          href={jukiAppRoutes.JUDGE(origin).problems.view({ key })}
+          className={classNames('link jk-row', { 'ta-lt': !isCard })}
+        >
           <div style={{ textAlign: isCard ? undefined : 'left', display: 'inline' }}>{name}</div>
           &nbsp;
           {!!origin && <OpenInNewIcon size="small" />}
@@ -30,13 +33,15 @@ export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListRespo
         {user.isManager && (
           <>
             &nbsp;
-            <div
+            <VoidIcon
               data-tooltip-id="jk-tooltip"
               data-tooltip-content="you are editor"
-              className="jk-row tx-s cr-pl"
-            >
-              <VoidIcon size="small" filledSquare letter="E" letterColor="var(--t-color-primary-text)" />
-            </div>
+              size="small"
+              filledSquare
+              letter="E"
+              className="cr-py"
+              letterColor="var(--t-color-primary-text)"
+            />
           </>
         )}
       </div>
@@ -55,7 +60,7 @@ export const ProblemNameModalField: DataViewerHeadersType<ProblemSummaryListResp
       {modal}
       <div className="jk-row nowrap">
         <div
-          className="jk-row link fw-bd"
+          className={classNames('jk-row link fw-bd', { 'ta-lt': !isCard })}
           onClick={() => {
             setModal(
               <Modal

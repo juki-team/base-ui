@@ -36,8 +36,7 @@ export const SubmissionContestProblemField: DataViewerHeadersType<SubmissionSumm
               {contest.name}&nbsp;({contest.problemIndex || '-'})
             </div>
             <div className="jk-row">
-              {problemName}
-              {!!origin && <OpenInNewIcon size="small" />}
+              {problemName}&nbsp;{!!origin && <OpenInNewIcon size="small" />}
             </div>
           </div>
         </Link>
@@ -45,7 +44,7 @@ export const SubmissionContestProblemField: DataViewerHeadersType<SubmissionSumm
         <Link
           href={jukiAppRoutes.JUDGE(origin).problems.view({ key: problemKey })}
           target={origin ? '_blank' : undefined}
-          className="link"
+          className="link jk-row"
         >
           <div style={{ textAlign: isCard ? undefined : 'left', display: 'inline' }}>{problemName}</div>
           &nbsp;
