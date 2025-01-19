@@ -1,6 +1,6 @@
-import { Status } from '@juki-team/commons';
+import { ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
 import React, { memo, useState } from 'react';
-import { toBlob } from '../../../../../helpers';
+import { authorizedRequest, cleanRequest, toBlob } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks';
 import { jukiApiSocketManager } from '../../../../../settings';
 import { Button, ContentCopyIcon, CopyToClipboard, T } from '../../../../atoms';
@@ -19,20 +19,30 @@ export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl }: UploadNe
   const [ cropImage, setCropImage ] = useState<CropImageType>();
   const { addNotification } = useJukiNotification();
   const handleUpload = async (image: Blob) => {
-    const formData = new FormData();
-    formData.append('image', image);
     try {
-      const { url, ...options } = jukiApiSocketManager.API_V1.image.publish({ body: formData });
-      const data = await (await fetch(url, options)).json();
-      if (data.success) {
-        return { status: Status.SUCCESS, message: data.message, content: data.content };
-      } else {
-        return { status: Status.ERROR, message: data.message };
+      const { url, ...options } = jukiApiSocketManager.API_V1.image.publish({ body: { contentType: image.type } });
+      const response = cleanRequest<ContentResponseType<{ imageUrl: string, signedUrl: string }>>(
+        await authorizedRequest(url, options),
+      );
+      
+      if (!response.success) {
+        throw response;
       }
-    } catch (e) {
-      return { status: Status.ERROR, message: 'Ups, please try again' };
+      
+      await fetch(response.content.signedUrl, {
+        method: HTTPMethod.PUT,
+        headers: {
+          'Content-Type': image.type,
+        },
+        body: image,
+      });
+      return { status: Status.SUCCESS, message: response.message, content: response.content };
+    } catch (error) {
+      console.error(error);
+      return { status: Status.ERROR, message: 'Ups, please try again', content: null };
     }
   };
+  
   return (
     <div className="upload-new-image-tab jk-col top gap">
       {imagePublicUrl && (
@@ -83,7 +93,7 @@ export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl }: UploadNe
               if (status === Status.SUCCESS) {
                 addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
                 setLoader?.(Status.SUCCESS);
-                setImagePublicUrl(content.imageUrl);
+                setImagePublicUrl(content!.imageUrl);
               } else {
                 addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
                 setLoader?.(Status.ERROR);

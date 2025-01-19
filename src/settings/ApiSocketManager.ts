@@ -508,10 +508,10 @@ export class ApiSocketManager {
           url: injectBaseUrl('image', '/public-list'),
           method: HTTPMethod.GET,
         })),
-        publish: valid<{ body: FormData }, HTTPMethod.POST>(({ body }) => ({
+        publish: valid<{ body: { contentType: string } }, HTTPMethod.POST>(({ body }) => ({
           url: injectBaseUrl('image', '/publish'),
           method: HTTPMethod.POST,
-          body,
+          body: JSON.stringify(body),
         })),
       },
       note: {

@@ -44,7 +44,8 @@ await i18nInstance.init({
 
 export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   
-  const serviceUrl = 'https://service.juki.app/api/v1';
+  // const serviceUrl = 'https://service.juki.app/api/v1';
+  const serviceUrl = 'https://api.juki.app/v2';
   // const serviceUrl = 'http://localhost:3005';
   const serviceV2Url = 'https://api.juki.app/v2';
   // const socketServiceUrl = 'wss://im7lou2on3.execute-api.us-east-1.amazonaws.com/production';
