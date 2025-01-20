@@ -36,11 +36,10 @@ export const ImageProfileModal = ({ isOpen, onClose, nickname }: ImageProfileMod
               if (cropImage?.previewCanvasRef.current) {
                 const blob = (await toBlob(cropImage.previewCanvasRef.current));
                 if (blob) {
-                  const formData = new FormData();
-                  formData.append('image', blob);
                   await updateUserProfileImage({
                     params: { nickname },
-                    body: formData,
+                    setLoader,
+                    body: blob,
                     onSuccess: async () => {
                       setLoader?.(Status.LOADING);
                       await mutatePing();

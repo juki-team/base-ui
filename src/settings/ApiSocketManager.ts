@@ -299,12 +299,12 @@ export class ApiSocketManager {
           body: JSON.stringify(body),
         })),
         updateProfileImage: valid<
-          { params: { nickname: string, companyKey?: string }, body: FormData },
+          { params: { nickname: string, companyKey?: string }, body: { contentType: string } },
           HTTPMethod.PUT
         >(({ params: { nickname, companyKey }, body }) => ({
           url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/profile-image`), companyKey),
           method: HTTPMethod.PUT,
-          body,
+          body: JSON.stringify(body),
         })),
         updatePreferences: valid<
           { params: { nickname: string, companyKey?: string }, body: UserSettingsType },

@@ -122,11 +122,32 @@ export const useJukiUser = () => {
   }, [ doRequest ]);
   
   const updateUserProfileImage = useCallback(async (
-    { params, body, ...props }: ApiParamsBodyType<{ nickname: string }, FormData, string>,
+    { params, body, setLoader, onSuccess, onError, onFinally, ...props }: ApiParamsBodyType<{
+      nickname: string
+    }, Blob, { signedUrl: string }>,
   ) => {
-    const { url, ...options } = jukiApiSocketManager.API_V1.user.updateProfileImage({ params, body });
-    await doRequest<string, HTTPMethod.PUT>({ url, options, ...props });
-  }, [ doRequest ]);
+    const { url, ...options } = jukiApiSocketManager.API_V1.user.updateProfileImage({
+      params,
+      body: { contentType: body.type },
+    });
+    setLoader?.(Status.LOADING);
+    const response = cleanRequest<ContentResponseType<{ signedUrl: string }>>(await authorizedRequest(url, options));
+    if (response.success) {
+      await fetch(response.content.signedUrl, {
+        method: HTTPMethod.PUT,
+        headers: {
+          'Content-Type': body.type,
+        },
+        body,
+      });
+    }
+    if (notifyResponse(response, setLoader)) {
+      await onSuccess?.(response);
+    } else {
+      await onError?.(response);
+    }
+    onFinally?.(response);
+  }, [ notifyResponse ]);
   
   const updatePassword = useCallback(async ({ body, ...props }: ApiBodyType<UpdatePasswordPayloadDTO, string>) => {
     const { url, ...options } = jukiApiSocketManager.API_V1.auth.updatePassword({
