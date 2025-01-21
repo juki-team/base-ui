@@ -82,7 +82,7 @@ export const useJukiUser = () => {
     const { url, ...options } = jukiApiSocketManager.API_V1.auth.signIn({ body, params });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
       localStorageCrossDomains.setItem(jukiApiSocketManager.TOKEN_NAME, response.content.user.sessionId);
-      setUser({ ...response.content.user, isLogged: true });
+      setUser({ ...response.content.user, connectionId: '' });
       await refreshAllRequest();
       await onSuccess?.(response);
     };
@@ -98,7 +98,7 @@ export const useJukiUser = () => {
     const { url, ...options } = jukiApiSocketManager.API_V1.auth.signUp({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
       localStorageCrossDomains.setItem(jukiApiSocketManager.TOKEN_NAME, response.content.user.sessionId);
-      setUser({ ...response.content.user, isLogged: true });
+      setUser({ ...response.content.user, connectionId: '' });
       await refreshAllRequest();
       await onSuccess?.(response);
     };
