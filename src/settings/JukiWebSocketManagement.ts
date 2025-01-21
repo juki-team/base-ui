@@ -24,7 +24,7 @@ const FORCE_CLOSED = 'FORCE_CLOSED';
 export class JukiWebSocketManagement {
   private _socket: WebSocket | null = null;
   private socketServiceUrl: string;
-  private callbacks: { [key: WebSocketResponseEventKey]: ((data: WebSocketResponseEventDTO) => void) | null } = {};
+  private callbacks: { [key: WebSocketResponseEventKey]: ((data: WebSocketResponseEventDTO) => void)[] } = {};
   private _messageQueue: string[] = [];
   private _reconnecting = false;
   
@@ -101,8 +101,11 @@ export class JukiWebSocketManagement {
         const response = cleanRequest<ContentResponseType<WebSocketResponseEventDTO>>(event.data);
         if (response.success) {
           const content = response.content;
-          if (this.callbacks?.[content.key]) {
-            this.callbacks?.[content.key]?.(content);
+          const callbacks = (this.callbacks?.[content.key] || []);
+          if (callbacks.length) {
+            for (const callback of callbacks) {
+              callback?.(content);
+            }
             return true;
           }
           consoleWarn('no callback for key ', { content });
@@ -178,23 +181,44 @@ export class JukiWebSocketManagement {
     return '' as WebSocketResponseEventKey;
   }
   
+  subscribe(event: WebSocketEventDTO, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
+    const eventKey = this._getKeyWebSocketEventDTO(event);
+    if (!Array.isArray(this.callbacks[eventKey])) {
+      this.callbacks[eventKey] = [];
+    }
+    this.callbacks[eventKey].push(callbackSubscription);
+  }
+  
   send(event: WebSocketEventDTO, message?: string, callbackSubscription?: (data: WebSocketResponseEventDTO) => void) {
     if (!event.sessionId) {
       consoleWarn('session id not valid sending web socket event', { event, message, callbackSubscription });
       return;
     }
     if (callbackSubscription) {
-      const eventKey = this._getKeyWebSocketEventDTO(event);
-      this.callbacks[eventKey] = callbackSubscription;
+      this.subscribe(event, callbackSubscription);
     }
     
     return this._send(JSON.stringify(contentResponse(message || 'sent', event)), true);
   }
   
-  unsubscribe(event: WebSocketEventDTO) {
+  unsubscribeAll(event: WebSocketEventDTO) {
     const eventKey = this._getKeyWebSocketEventDTO(event);
     
-    this.callbacks[eventKey] = null;
+    this.callbacks[eventKey] = [];
+    
+    return this._send(JSON.stringify(contentResponse('sent', event)), true);
+  }
+  
+  unsubscribe(event: WebSocketEventDTO, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
+    const eventKey = this._getKeyWebSocketEventDTO(event);
+    this.callbacks[eventKey] = (this.callbacks[eventKey] || []).filter(callback => callback !== callbackSubscription);
+  }
+  
+  unSend(event: WebSocketEventDTO, callbackSubscription?: (data: WebSocketResponseEventDTO) => void) {
+    
+    if (callbackSubscription) {
+      this.unsubscribe(event, callbackSubscription);
+    }
     
     return this._send(JSON.stringify(contentResponse('sent', event)), true);
   }

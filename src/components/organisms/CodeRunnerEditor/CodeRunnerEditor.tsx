@@ -151,7 +151,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     });
     
     return () => {
-      jukiApiSocketManager.SOCKET.unsubscribe(event);
+      jukiApiSocketManager.SOCKET.unsubscribeAll(event);
     };
   }, [ runId, sessionId ]);
   

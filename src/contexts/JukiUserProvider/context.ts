@@ -1,13 +1,13 @@
-import { CompanyPingType, UserPingType } from '@juki-team/commons';
+import { CompanyPingType } from '@juki-team/commons';
 import { createContext, Dispatch, SetStateAction } from 'react';
 import { KeyedMutator } from 'swr';
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
-import { DeviceType } from './types';
+import { DeviceType, UserDataType } from './types';
 
 export const UserContext = createContext<{
-  user: UserPingType,
+  user: UserDataType,
   company: CompanyPingType,
-  setUser: Dispatch<SetStateAction<UserPingType>>,
+  setUser: Dispatch<SetStateAction<UserDataType>>,
   isLoading: boolean,
   // isValidating: boolean,
   mutate: KeyedMutator<any>,

@@ -81,7 +81,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
         sessionId,
         submitId: submissionId,
       };
-      jukiApiSocketManager.SOCKET.unsubscribe(event);
+      jukiApiSocketManager.SOCKET.unsubscribeAll(event);
       submissionIdListenerCount.current[submissionId] = 0;
     }
   }, [ sessionId ]);
@@ -173,7 +173,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
         });
       }
     });
-  }, [ sessionId ]);
+  }, [ mutate, sessionId ]);
   
   return (
     <TasksContext.Provider

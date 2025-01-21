@@ -8,9 +8,9 @@ import {
   ObjectIdType,
   ProfileSetting,
   Theme,
-  UserPingType,
 } from '@juki-team/commons';
 import { useResizeDetectorProps } from 'react-resize-detector';
+import { UserDataType } from '../contexts/JukiUserProvider';
 import { QueryParamKey } from '../types';
 
 export const DAYS_2 = DAY_NAMES.map(name => name.substring(0, 2));
@@ -35,7 +35,7 @@ export const EMPTY_COMPANY: CompanyPingType = {
 
 export const RESIZE_DETECTOR_PROPS: useResizeDetectorProps<any> = { refreshRate: 200, refreshMode: 'debounce' };
 
-export const EMPTY_USER: UserPingType = {
+export const EMPTY_USER: UserDataType = {
   nickname: '',
   imageUrl: 'https://images.juki.pub/c/juki-image-profile.svg',
   settings: {
@@ -48,6 +48,7 @@ export const EMPTY_USER: UserPingType = {
   permissions: { ...EMPTY_USER_PERMISSIONS },
   isLogged: false,
   sessionId: '' as ObjectIdType,
+  connectionId: '',
 };
 
 export const PAGE_SIZE_OPTIONS = [ 25, 50, 100 ];

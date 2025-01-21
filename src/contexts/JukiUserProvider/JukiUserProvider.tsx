@@ -2,13 +2,13 @@ import {
   CompanyPingType,
   ContentResponseType,
   DataViewMode,
+  isPongWebSocketResponseEventDTO,
   Language,
   MenuViewMode,
   ObjectIdType,
   PingResponseDTO,
   ProfileSetting,
   Theme,
-  UserPingType,
   WebSocketActionEvent,
 } from '@juki-team/commons';
 import React, {
@@ -37,7 +37,7 @@ import { useJukiPage } from '../../hooks';
 import { useFetcher } from '../../hooks/useFetcher';
 import { jukiApiSocketManager, jukiGlobalStore } from '../../settings';
 import { UserContext } from './context';
-import { DeviceType, JukiUserProviderProps } from './types';
+import { DeviceType, JukiUserProviderProps, UserDataType } from './types';
 
 const useUser = () => {
   
@@ -51,11 +51,11 @@ const useUser = () => {
     { refreshInterval: 1000 * 60 * 5 },
   );
   
-  const [ user, _setUser ] = useState<UserPingType>(EMPTY_USER);
+  const [ user, _setUser ] = useState<UserDataType>(EMPTY_USER);
   const [ company, setCompany ] = useState<CompanyPingType>(EMPTY_COMPANY);
   const i18n = jukiGlobalStore.getI18n();
   
-  const setUser: Dispatch<SetStateAction<UserPingType>> = useCallback((user) => {
+  const setUser: Dispatch<SetStateAction<UserDataType>> = useCallback((user) => {
     if (typeof user === 'function') {
       _setUser((prevState) => {
         const newUser = user(prevState);
@@ -80,7 +80,7 @@ const useUser = () => {
     if (data?.success) {
       setCompany(data.content.company);
       if (data.content.user.isLogged) {
-        setUser(data?.content.user);
+        setUser({ ...data?.content.user, connectionId: '' });
       } else {
         setUser({
           ...data?.content.user,
@@ -91,6 +91,7 @@ const useUser = () => {
             [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
             [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
           },
+          connectionId: '',
         });
       }
       localStorageCrossDomains.setItem(jukiApiSocketManager.TOKEN_NAME, data?.content.user.sessionId);
@@ -130,6 +131,8 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const { user, company, setUser, isLoading, mutate } = useUser();
   const { isPageVisible } = useJukiPage();
   const intervalRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const userConnectionIdRef = useRef(user?.connectionId);
+  userConnectionIdRef.current = user?.connectionId;
   
   useEffect(() => {
     if (isPageVisible && token !== lastTokenRef.current) {
@@ -137,10 +140,19 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
       void jukiApiSocketManager.SOCKET.start();
       intervalRef.current && clearInterval(intervalRef.current);
       intervalRef.current = setInterval(() => {
-        jukiApiSocketManager.SOCKET.send({ event: WebSocketActionEvent.PING, sessionId: token as ObjectIdType });
+        jukiApiSocketManager.SOCKET.send({
+          event: WebSocketActionEvent.PING,
+          sessionId: token as ObjectIdType,
+        }, '', (data) => {
+          if (isPongWebSocketResponseEventDTO(data)) {
+            if (userConnectionIdRef.current !== data.connectionId) {
+              setUser(prevState => ({ ...prevState, connectionId: data.connectionId }));
+            }
+          }
+        });
       }, 60000);
     }
-  }, [ isPageVisible, token ]);
+  }, [ isPageVisible, setUser, token ]);
   
   const device: DeviceType = useMemo(() => ({
     type: deviceType,
