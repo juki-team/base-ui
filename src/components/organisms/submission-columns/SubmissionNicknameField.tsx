@@ -1,6 +1,6 @@
 import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI, useJukiUser } from '../../../hooks';
 import { OptionType } from '../../molecules/types';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 import { UserNicknameLink } from '../UserChip';
@@ -9,6 +9,7 @@ export const SubmissionNicknameField: DataViewerHeadersType<SubmissionSummaryLis
   = ({ record: { user: { imageUrl, nickname, company: { key: companyKey } } }, isCard }) => {
   
   const { components: { Image } } = useJukiUI();
+  const { company: { key } } = useJukiUser();
   
   return (
     <TextField
@@ -17,7 +18,12 @@ export const SubmissionNicknameField: DataViewerHeadersType<SubmissionSummaryLis
         <>
           <Image src={imageUrl} className="jk-user-profile-img large" alt={nickname} height={36} width={36} />
           <UserNicknameLink nickname={nickname} companyKey={companyKey}>
-            <div className="link">{nickname}</div>
+            <div className="jk-col">
+              <div className="link">{nickname}</div>
+              {key !== companyKey && (
+                <div className="jk-tag info tx-t" style={{ padding: '1px 2px' }}>{companyKey}</div>
+              )}
+            </div>
           </UserNicknameLink>
         </>
       }
