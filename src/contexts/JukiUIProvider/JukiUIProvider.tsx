@@ -73,7 +73,10 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
                   clickable
                   render={({ content, activeAnchor }) => (
                     content ?
-                      <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') || 'tt-se tx-s'}>{content}</T>
+                      activeAnchor?.getAttribute('data-tooltip-t') === 'false'
+                        ? content
+                        :
+                        <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') ?? 'tt-se tx-s'}>{content}</T>
                       : null // Relevant attribute: { || 'not set'}
                   )}
                 />
