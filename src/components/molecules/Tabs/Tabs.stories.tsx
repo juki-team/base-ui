@@ -77,7 +77,7 @@ const Component = <T, >(args: TabsInlineProps<T>) => {
     },
     test: {
       key: 'test',
-      header: 'test',
+      header: <div>'test'</div>,
       body: (
         <div>test</div>
       ),

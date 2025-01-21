@@ -566,6 +566,17 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-select-layout, .jk-multi-select-layout {
   position: relative;
   
+  &.jk-select-void {
+    .jk-select {
+      padding: 0;
+      outline: none;
+      
+      > .input-icon {
+        display: none;
+      }
+    }
+  }
+  
   &.extend {
     width: 100%;
   }
