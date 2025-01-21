@@ -181,8 +181,7 @@ export class JukiWebSocketManagement {
     return '' as WebSocketResponseEventKey;
   }
   
-  subscribe(event: WebSocketEventDTO, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
-    const eventKey = this._getKeyWebSocketEventDTO(event);
+  subscribe(eventKey: WebSocketResponseEventKey, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
     if (!Array.isArray(this.callbacks[eventKey])) {
       this.callbacks[eventKey] = [];
     }
@@ -195,7 +194,8 @@ export class JukiWebSocketManagement {
       return;
     }
     if (callbackSubscription) {
-      this.subscribe(event, callbackSubscription);
+      const eventKey = this._getKeyWebSocketEventDTO(event);
+      this.subscribe(eventKey, callbackSubscription);
     }
     
     return this._send(JSON.stringify(contentResponse(message || 'sent', event)), true);
@@ -209,15 +209,15 @@ export class JukiWebSocketManagement {
     return this._send(JSON.stringify(contentResponse('sent', event)), true);
   }
   
-  unsubscribe(event: WebSocketEventDTO, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
-    const eventKey = this._getKeyWebSocketEventDTO(event);
+  unsubscribe(eventKey: WebSocketResponseEventKey, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
     this.callbacks[eventKey] = (this.callbacks[eventKey] || []).filter(callback => callback !== callbackSubscription);
   }
   
   unSend(event: WebSocketEventDTO, callbackSubscription?: (data: WebSocketResponseEventDTO) => void) {
     
     if (callbackSubscription) {
-      this.unsubscribe(event, callbackSubscription);
+      const eventKey = this._getKeyWebSocketEventDTO(event);
+      this.unsubscribe(eventKey, callbackSubscription);
     }
     
     return this._send(JSON.stringify(contentResponse('sent', event)), true);
