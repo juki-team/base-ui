@@ -6,7 +6,7 @@ import { RequestFilterType, RequestSortType } from '../types';
 import { useFetcher } from './useFetcher';
 import { useJukiUser } from './useJukiUser';
 
-export type DataViewerRequesterGetUrlType = (props: Omit<DataViewerRequestPropsType, 'setLoaderStatus'>) => string;
+export type DataViewerRequesterGetUrlType = (props: Omit<DataViewerRequestPropsType, 'setLoaderStatus'>) => string | null;
 
 export const useDataViewerRequester = <T extends ContentResponseType<any> | ContentsResponseType<any>, >(getUrl: DataViewerRequesterGetUrlType, options?: SWRConfiguration) => {
   const setLoaderStatusRef = useRef<SetLoaderStatusType>(null);
@@ -22,10 +22,12 @@ export const useDataViewerRequester = <T extends ContentResponseType<any> | Cont
     sort: RequestSortType
   }) => {
     const newUrl = getUrlRef.current?.({ pagination: pagination || { page: 0, pageSize: 16 }, filter, sort });
-    if (url !== newUrl) {
-      setUrl(newUrl);
-    } else {
-      await mutate();
+    if (newUrl) {
+      if (url !== newUrl) {
+        setUrl(newUrl);
+      } else {
+        await mutate();
+      }
     }
   }, [ mutate, url ]);
   
