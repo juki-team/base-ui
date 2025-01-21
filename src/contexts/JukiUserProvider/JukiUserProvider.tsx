@@ -2,6 +2,7 @@ import {
   CompanyPingType,
   ContentResponseType,
   DataViewMode,
+  getWebSocketResponseEventKey,
   isPongWebSocketResponseEventDTO,
   Language,
   MenuViewMode,
@@ -10,6 +11,8 @@ import {
   ProfileSetting,
   Theme,
   WebSocketActionEvent,
+  WebSocketResponseEvent,
+  WebSocketResponseEventDTO,
 } from '@juki-team/commons';
 import React, {
   Dispatch,
@@ -135,6 +138,25 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   userConnectionIdRef.current = user?.connectionId;
   
   useEffect(() => {
+    
+    const eventKey = getWebSocketResponseEventKey(WebSocketResponseEvent.PONG, user.sessionId, '*');
+    
+    const callback = (data: WebSocketResponseEventDTO) => {
+      if (isPongWebSocketResponseEventDTO(data)) {
+        if (userConnectionIdRef.current !== data.connectionId) {
+          setUser(prevState => ({ ...prevState, connectionId: data.connectionId }));
+        }
+      }
+    };
+    
+    jukiApiSocketManager.SOCKET.subscribe(eventKey, callback);
+    
+    return () => {
+      jukiApiSocketManager.SOCKET.unsubscribe(eventKey, callback);
+    };
+  }, [ setUser, user.sessionId ]);
+  
+  useEffect(() => {
     if (isPageVisible && token !== lastTokenRef.current) {
       lastTokenRef.current = token;
       void jukiApiSocketManager.SOCKET.start();
@@ -143,13 +165,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
         jukiApiSocketManager.SOCKET.send({
           event: WebSocketActionEvent.PING,
           sessionId: token as ObjectIdType,
-        }, '', (data) => {
-          if (isPongWebSocketResponseEventDTO(data)) {
-            if (userConnectionIdRef.current !== data.connectionId) {
-              setUser(prevState => ({ ...prevState, connectionId: data.connectionId }));
-            }
-          }
-        });
+        }, '');
       }, 60000);
     }
   }, [ isPageVisible, setUser, token ]);
