@@ -1,4 +1,11 @@
-import { EntityAccess, Judge, ProblemScoringMode, ProblemType, ProgrammingLanguage } from '@juki-team/commons';
+import {
+  EntityAccess,
+  EntityState,
+  Judge,
+  ProblemScoringMode,
+  ProblemType,
+  ProgrammingLanguage,
+} from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
@@ -26,6 +33,7 @@ export const Regular: Story = {
 
 Regular.args = {
   problem: {
+    state: EntityState.RELEASED,
     name: 'B + A',
     judge: {
       key: Judge.JUKI_JUDGE,
@@ -124,5 +132,6 @@ Regular.args = {
       nickname: 'OscarGauss',
       imageUrl: '',
     },
+    
   },
 };
