@@ -226,6 +226,7 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: TabsInlineBodyProp
       // onExitComplete={() => setRender(Date.now())}
       // mode="wait"
       // mode="sync"
+      mode="popLayout"
     >
       {Object.values(tabs).map(tab => (
         tab.key === selectedTabKey && (
