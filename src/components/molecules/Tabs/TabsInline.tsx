@@ -224,7 +224,8 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: TabsInlineBodyProp
     <AnimatePresence
       custom={direction}
       // onExitComplete={() => setRender(Date.now())}
-      mode="wait"
+      // mode="wait"
+      // mode="sync"
     >
       {Object.values(tabs).map(tab => (
         tab.key === selectedTabKey && (
