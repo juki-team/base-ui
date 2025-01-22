@@ -288,6 +288,22 @@ export class ApiSocketManager {
           url: injectBaseUrl('user', `/my-sessions`),
           method: HTTPMethod.GET,
         })),
+        getAllOnlineUsers: valid<
+          { params: { filterUrl?: string, sortUrl?: string } }
+        >(({ params: { filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectBaseUrl('user', `/all-online-users`), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        getOnlineUsers: valid<
+          { params: { filterUrl?: string, sortUrl?: string } }
+        >(({ params: { filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectBaseUrl('user', `/online-users`), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        deleteOldSessions: valid<void, HTTPMethod.POST>(() => ({
+          url: injectBaseUrl('user', `/delete-old-sessions`),
+          method: HTTPMethod.POST,
+        })),
         updateProfileData: valid<
           {
             params: { nickname: string, companyKey?: string },
@@ -455,6 +471,54 @@ export class ApiSocketManager {
           { params: { key: string, companyKey?: string }, }, HTTPMethod.POST
         >(({ params: { key, companyKey } }) => ({
           url: injectCompany(injectBaseUrl('contest', `/${key}/recalculate-scoreboard`), companyKey),
+          method: HTTPMethod.POST,
+        })),
+        editGlobal: valid<
+          {
+            params: { key: string, companyKey?: string },
+            body: {
+              name: string, problems: {
+                [key: string]: {
+                  key: string,
+                  index: string,
+                  points: number,
+                  color: string,
+                  startTimestamp: number,
+                  endTimestamp: number
+                }
+              }
+            }
+          }, HTTPMethod.PUT
+        >(({ params: { key, companyKey }, body }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/global`), companyKey),
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(body),
+        })),
+        createGlobal: valid<
+          {
+            params: { companyKey?: string },
+            body: {
+              name: string, problems: {
+                [key: string]: {
+                  key: string,
+                  index: string,
+                  points: number,
+                  color: string,
+                  startTimestamp: number,
+                  endTimestamp: number
+                }
+              }
+            }
+          }, HTTPMethod.POST
+        >(({ params: { companyKey }, body }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/global`), companyKey),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        unlinkSubmissions: valid<
+          { params: { key: string, companyKey?: string }, }, HTTPMethod.POST
+        >(({ params: { key, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/unlink-submissions`), companyKey),
           method: HTTPMethod.POST,
         })),
       },
