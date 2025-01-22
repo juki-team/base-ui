@@ -124,7 +124,7 @@
   --tone: 75%;
   --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 80%, var(--base-white));
   --t-color-black-light: color-mix(in srgb, var(--t-color-black) 90%, var(--base-white));
-  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 98%, var(--base-black));
+  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 96%, var(--base-black));
   --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 92%, var(--base-black));
 }
 
@@ -132,6 +132,6 @@
   --tone: 85%;
   --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 86%, var(--base-white));
   --t-color-black-light: color-mix(in srgb, var(--t-color-black) 96%, var(--base-white));
-  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 90%, var(--base-black));
+  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 92%, var(--base-black));
   --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 80%, var(--base-black));
 }
