@@ -72,7 +72,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
       <>
         {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
         <div
-          className={classNames('jk-row gap left extend', {
+          className={classNames('jk-row gap extend', {
             'jk-pg-sm-t': !withBreadcrumbs,
             'jk-pg-sm-b': !tabsOnHeader,
             'left': !isMobile,
@@ -94,6 +94,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
             extraNodes={tabButtons}
             extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
             tickStyle="background"
+            className="jk-pg-sm-t"
           />
         )}
       </>
