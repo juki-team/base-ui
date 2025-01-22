@@ -39,7 +39,7 @@ export function UpdateEntityLayout<T, U, V>(props: UpdateEntityLayoutProps<T, U,
       onClick={async (setLoaderStatus) => {
         setLoaderStatus(Status.LOADING);
         const response = cleanRequest<ContentResponseType<string>>(await authorizedRequest(
-          updateApiURL(entityKey),
+          updateApiURL(entityData)(entityKey),
           {
             method: HTTPMethod.PUT,
             body: JSON.stringify(toEntityUpsert(entityData)),

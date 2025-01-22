@@ -23,7 +23,7 @@ export interface UpdateEntityLayoutProps<EntityUI, EntityUpsert, Tab> {
   entity: EntityUI,
   entityKey: string,
   viewRoute: (entityKey: string) => string,
-  updateApiURL: (entityKey: string) => string,
+  updateApiURL: (entity: EntityUI) => (entityKey: string) => string,
   viewApiURL: (entityKey: string) => string,
   toEntityUpsert: (entity: EntityUI) => EntityUpsert,
 }
