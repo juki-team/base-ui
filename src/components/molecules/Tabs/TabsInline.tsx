@@ -59,7 +59,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
         'cr-pt': key === selectedTabKey && tickStyle === 'background',
       })}
       onMouseEnter={() => setHover(key as string)}
-      onMouseLeave={() => setHover('')}
+      // onMouseLeave={() => setHover('')}
     >
       {tickStyle === 'line' && key === selectedTabKey && (
         <motion.div
@@ -83,7 +83,15 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
           <div className="selected-tab-tick-back-content">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
         </motion.div>
       )}
-      {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
+      {tickStyle === 'background' ? (
+        <div
+          className="tab-tick-back-hover jk-br-ie"
+        >
+          <div className="selected-tab-tick-back-content">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
+        </div>
+      ) : (
+        renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })
+      )}
     </div>
   );
   
@@ -138,7 +146,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
             />
           ) : (
             <div
-              className={classNames('jk-row left stretch jk-tabs-headers-inline nowrap', {
+              className={classNames('jk-row gap left stretch jk-tabs-headers-inline nowrap', {
                 'block flex-1': oneTabView,
                 // 'block extend': extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter',
               })}

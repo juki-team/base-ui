@@ -24,10 +24,10 @@
     .selected-tab-tick-back, .selected-tab-tick-back-hover {
       background-color: var(--t-color-primary-light);
       position: absolute;
-      top: calc(var(--pad-xt) - 1px);
-      right: calc(var(--pad-t) - 10px);
+      top: calc(var(--pad-xt) - 0px);
+      //right: calc(var(--pad-t) - 10px);
+      //left: 0;
       padding: 1px 10px;
-      //z-index: -1;
       
       .selected-tab-tick-back-content {
         opacity: 0;
@@ -35,8 +35,14 @@
     }
     
     .selected-tab-tick-back-hover {
-      background-color: var(--t-color-highlight-light);
+      background-color: var(--t-color-highlight);
       opacity: 0 !important;
+    }
+    
+    .tab-tick-back-hover {
+      background-color: var(--t-color-highlight-light);
+      //border: 1px solid var(--t-color-highlight-light);
+      padding: 1px 10px;
     }
     
     .jk-tabs-inline-tab:hover .selected-tab-tick-back-hover {
@@ -48,7 +54,8 @@
     }
     
     > div {
-      padding: var(--pad-xt) var(--pad-t);
+      //padding: var(--pad-xt) var(--pad-t);
+      padding: var(--pad-xt) 0;
       position: relative;
       
       > *:not(.selected-tab-tick-back) {
