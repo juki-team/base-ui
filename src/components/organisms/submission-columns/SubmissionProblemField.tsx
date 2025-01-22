@@ -11,8 +11,7 @@ export const SubmissionProblemField: DataViewerHeadersType<SubmissionSummaryList
   
   const {
     record: {
-      problem: { key: problemKey, name: problemName },
-      company: { key: companyKey },
+      problem: { key: problemKey, name: problemName, company: { key: problemCompanyKey } },
       contest,
     },
     isCard,
@@ -20,7 +19,7 @@ export const SubmissionProblemField: DataViewerHeadersType<SubmissionSummaryList
   
   const { components: { Link } } = useJukiUI();
   
-  const origin = getJudgeOrigin(companyKey);
+  const origin = getJudgeOrigin(contest ? contest.company.key : problemCompanyKey);
   
   return (
     <TextField

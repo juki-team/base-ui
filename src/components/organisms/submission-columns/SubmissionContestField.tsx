@@ -9,11 +9,11 @@ import { DataViewerHeadersType, TextField } from '../DataViewer';
 
 export const SubmissionContestField: DataViewerHeadersType<SubmissionSummaryListResponseDTO>['Field'] = (props) => {
   
-  const { record: { company: { key: companyKey }, contest }, isCard } = props;
+  const { record: { contest }, isCard } = props;
   
   const { components: { Link } } = useJukiUI();
   
-  const origin = getJudgeOrigin(companyKey);
+  const origin = contest ? getJudgeOrigin(contest.company.key) : '';
   
   return (
     <TextField
