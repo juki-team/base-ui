@@ -1,8 +1,10 @@
 import { DataViewMode, Status } from '@juki-team/commons';
 import { CSSProperties, Dispatch, FC, PropsWithChildren, ReactNode, SetStateAction } from 'react';
+import { OnRefChangeType } from 'react-resize-detector/build/types/types';
 import { DataViewerRequesterGetUrlType } from '../../../hooks';
 import {
   DateDisplayType,
+  ReactNodeOrFunctionP1Type,
   ReactNodeOrFunctionType,
   RequestFilterType,
   RequestSortType,
@@ -46,12 +48,13 @@ export interface RowVirtualizerFixedProps<T> {
   getRecordKey?: GetRecordKeyType<T>,
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
-  setScrollLeft: Dispatch<SetStateAction<number>>,
   onRecordClick: OnRecordClickType<T> | undefined,
   onRecordHover: OnRecordClickType<T> | undefined,
   onRecordRender: OnRecordClickType<T> | undefined,
-  setBorderTop: Dispatch<SetStateAction<boolean>>,
   gap: number,
+  loading: boolean,
+  setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
+  groups: DataViewerGroupsType<T>[],
 }
 
 export type FilterTextOnlineType = { type: typeof FILTER_TEXT };
@@ -186,7 +189,7 @@ export type CardPositionType =
   | 'lowerLeft' | 'lower' | 'lowerRight'
   | 'bottomLeft' | 'bottom' | 'bottomRight';
 
-export type TableHeadType = (() => ReactNode) | ReactNode;
+export type TableHeadType<T> = ReactNodeOrFunctionP1Type<{ header: DataViewerTableHeadersType<T>, data: T[] }>;
 
 export type TableSortOrderType = 1 | -1 | 0;
 export type TableSortOnSortType = (props: { columnIndex: string }) => void;
@@ -207,12 +210,13 @@ export type TableHeadersType<T> = {
   cardPosition?: CardPositionType,
   Field: TableHeadCmpFieldType<T>,
   filter?: TableHeaderFilterType,
-  head?: TableHeadType,
+  head?: TableHeadType<T>,
   index: string,
   minWidth?: number,
   sort?: TableSortType,
   sticky?: boolean,
   headClassName?: string,
+  group?: string,
 }
 
 export type DataViewerTableHeadersType<T> = TableHeadersType<T> & {
@@ -245,6 +249,7 @@ export interface DisplayDataViewerProps<T> {
   extraNodes: ReactNodeOrFunctionType[],
   extraNodesFloating?: boolean,
   headers: DataViewerTableHeadersType<T>[],
+  groups: DataViewerGroupsType<T>[],
   setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   loading: boolean,
   initializing: boolean,
@@ -273,7 +278,7 @@ export type DataViewerHeaderSortOfflineType<T> = {
 export type DataViewerHeaderSortType<T> = DataViewerHeaderSortOnlineType | DataViewerHeaderSortOfflineType<T>;
 
 export type DataViewerHeadersType<T> = {
-  head?: TableHeadType,
+  head?: TableHeadType<T>,
   Field: TableHeadCmpFieldType<T>,
   index: string,
   minWidth?: number,
@@ -282,6 +287,7 @@ export type DataViewerHeadersType<T> = {
   cardPosition?: CardPositionType,
   sticky?: boolean,
   headClassName?: string,
+  group?: string,
 }
 
 // export type URLSearchParamsInitType = string | [string, string][] | Record<string, string | string[]> | URLSearchParams;
@@ -300,6 +306,11 @@ export type DataViewerRequestPropsType = {
 
 export type DataViewerRequestType = (props: DataViewerRequestPropsType) => void;
 
+export type DataViewerGroupsType<T> = {
+  key: string,
+  label?: TableHeadType<T>,
+};
+
 export interface DataViewerProps<T> {
   cards?: CardsType,
   cardsView?: boolean,
@@ -308,6 +319,7 @@ export interface DataViewerProps<T> {
   extraNodes?: ReactNodeOrFunctionType[],
   extraNodesFloating?: boolean,
   headers: DataViewerHeadersType<T>[],
+  groups?: DataViewerGroupsType<T>[],
   initialViewMode?: DataViewMode,
   name?: string,
   request?: DataViewerRequestType,
@@ -337,15 +349,14 @@ export type LoaderStatusType = Status;
 export type SetLoaderStatusType = (status: (Status | ((props: LoaderStatusType) => LoaderStatusType))) => void;
 export type ReloadType = () => void;
 
-export type HeaderWidthsType = { [key: string]: { width: number, minWidth: number, accumulatedWidth: number } };
-
 export interface TableHeadProps<T> {
   headers: DataViewerTableHeadersType<T>[],
   setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
-  scrollLeft: number,
   loading: boolean,
-  borderTop: boolean,
   gap: number,
+  headerRef: OnRefChangeType,
+  topHeaders: DataViewerTableHeadersType<T>[],
+  rightBorders: number[],
 }
 
 export interface FilterDrawerProps<T> {

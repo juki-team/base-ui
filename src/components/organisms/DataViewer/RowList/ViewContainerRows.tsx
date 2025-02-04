@@ -1,11 +1,8 @@
-import { DataViewMode } from '@juki-team/commons';
-import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { OnRefChangeType } from 'react-resize-detector/build/types/types';
+import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { SCROLL_WIDTH } from '../../../../constants';
-import { classNames } from '../../../../helpers';
 import { usePrevious } from '../../../../hooks';
-import { T } from '../../../atoms/T';
 import {
+  DataViewerGroupsType,
   DataViewerTableHeadersType,
   GetRecordClassNameType,
   GetRecordKeyType,
@@ -13,7 +10,6 @@ import {
   OnRecordClickType,
 } from '../types';
 import { RowVirtualizerFixed } from './RowVirtualizerFixed';
-import { TableHead } from './TableHead';
 
 const minCellWidth = 100;
 
@@ -25,10 +21,8 @@ interface ViewContainerRowsProps<T> {
   headers: DataViewerTableHeadersType<T>[],
   setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   viewContainerWidth: number,
-  headerRef: OnRefChangeType,
   rowHeight: number,
   data: T[],
-  viewMode: DataViewMode,
   loading: boolean,
   getRecordKey: GetRecordKeyType<T> | undefined,
   getRecordStyle: GetRecordStyleType<T> | undefined,
@@ -36,6 +30,7 @@ interface ViewContainerRowsProps<T> {
   onRecordClick: OnRecordClickType<T> | undefined,
   onRecordHover: OnRecordClickType<T> | undefined,
   onRecordRender: OnRecordClickType<T> | undefined,
+  groups: DataViewerGroupsType<T>[],
 }
 
 const gap = 4;
@@ -46,7 +41,6 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
     headers,
     setHeaders,
     viewContainerWidth,
-    headerRef,
     rowHeight,
     loading,
     data,
@@ -56,12 +50,9 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
     onRecordClick,
     onRecordHover,
     onRecordRender,
-    viewMode,
+    groups,
   } = props;
   
-  const [ scrollLeft, setScrollLeft ] = useState(0);
-  const [ borderTop, setBorderTop ] = useState(false);
-  //
   const prevSizeWidth = usePrevious(viewContainerWidth);
   const prevHeaders = useRef(JSON.stringify(headersMinWidth(headers)));
   const prevExtraWidth = useRef(0);
@@ -98,41 +89,20 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
   }, [ headers, prevSizeWidth, setHeaders, viewContainerWidth ]);
   
   return (
-    <>
-      <TableHead
-        headers={headers}
-        setHeaders={setHeaders}
-        borderTop={borderTop}
-        scrollLeft={scrollLeft}
-        loading={loading}
-        gap={gap}
-        ref={headerRef}
-      />
-      <div className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}>
-        {data.length === 0 && loading && (
-          <div className="jk-row center" style={{ height: '100%' }}>
-            <div className="jk-row" style={{ alignItems: 'baseline' }}>
-              <T className="tt-se">loading data</T>
-              &nbsp;
-              <div className="dot-flashing" />
-            </div>
-          </div>
-        )}
-        <RowVirtualizerFixed
-          data={data}
-          setBorderTop={setBorderTop}
-          headers={headers}
-          rowHeight={rowHeight}
-          setScrollLeft={setScrollLeft}
-          getRecordKey={getRecordKey}
-          getRecordClassName={getRecordClassName}
-          getRecordStyle={getRecordStyle}
-          onRecordClick={onRecordClick}
-          onRecordHover={onRecordHover}
-          onRecordRender={onRecordRender}
-          gap={gap}
-        />
-      </div>
-    </>
+    <RowVirtualizerFixed
+      data={data}
+      headers={headers}
+      rowHeight={rowHeight}
+      getRecordKey={getRecordKey}
+      getRecordClassName={getRecordClassName}
+      getRecordStyle={getRecordStyle}
+      onRecordClick={onRecordClick}
+      onRecordHover={onRecordHover}
+      onRecordRender={onRecordRender}
+      gap={gap}
+      loading={loading}
+      setHeaders={setHeaders}
+      groups={groups}
+    />
   );
 };

@@ -58,7 +58,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
           dateTestRange: new Date(new Date().getFullYear(), new Date().getMonth() + Math.round(Math.random() * 3), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 20 + 1), Math.round(Math.random() * 50 + 1), Math.round(Math.random() * 50 + 1)),
         } as UserTable
       )));
-    }, 2000);
+    }, 8000);
   }, []);
   const columns: DataViewerHeadersType<UserTable>[] = useMemo(() => [
     {
@@ -72,6 +72,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       cardPosition: 'top',
       minWidth: 300,
       sticky: true,
+      group: '_',
     },
     {
       index: 'email',
@@ -83,6 +84,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       filter: { type: FILTER_TEXT_AUTO },
       cardPosition: 'center',
       sticky: true,
+      group: '_',
     },
     {
       index: 'permissions',
@@ -104,6 +106,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
         getValue: () => new Date(),
         baseStartDate: new Date(0),
       } as FilterDateRangeAutoOfflineType<UserTable>,
+      group: 'group2',
     },
     {
       index: 'text-large-text-large-text',
@@ -147,6 +150,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
         pickerType: 'year-month-day',
         isDisabled: () => ({ year: false }),
       } as FilterDateAutoOfflineType<UserTable>,
+      group: 'group1',
     },
     {
       index: 'dateTestRange',
@@ -156,6 +160,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
         pickerType: 'year-month-day-hours-minutes-seconds',
         isDisabled: () => ({ year: false }),
       } as FilterDateRangeAutoOfflineType<UserTable>,
+      group: 'group1',
     },
     {
       index: 'status',
@@ -224,7 +229,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
   const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
     console.info('request', { sort, filter, pagination });
     setLoaderStatus(Status.LOADING);
-    await (new Promise((resolve) => setTimeout(() => resolve(true), 6000)));
+    await (new Promise((resolve) => setTimeout(() => resolve(true), 4000)));
     setLoaderStatus(Status.SUCCESS);
   }, []);
   
@@ -247,12 +252,12 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
     >
       <T>download</T>
     </ButtonLoader>,
-    <ButtonLoader size="small" icon={<RefreshIcon />} onClick={() => console.info('CLICK')}>
-      <T>download</T>
-    </ButtonLoader>,
-    <ButtonLoader size="small" icon={<RefreshIcon />} onClick={() => console.info('CLICK')} responsiveMobile>
-      <T>download</T>
-    </ButtonLoader>,
+    // <ButtonLoader size="small" icon={<RefreshIcon />} onClick={() => console.info('CLICK')}>
+    //   <T>download</T>
+    // </ButtonLoader>,
+    // <ButtonLoader size="small" icon={<RefreshIcon />} onClick={() => console.info('CLICK')} responsiveMobile>
+    //   <T>download</T>
+    // </ButtonLoader>,
   ], []);
   
   return (
@@ -265,6 +270,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
         // rowsView={false}
         // cardsView={false}
         headers={columns || columns2}
+        groups={[ { key: 'group1', label: <div>hola</div> }, { key: 'group2', label: <div>holaaaaaaaaaaaaaaaa</div> } ]}
         data={data}
         rows={{ height: 150 }}
         request={request}

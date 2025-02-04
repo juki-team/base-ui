@@ -42,10 +42,10 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     showFilterDrawerKey,
     filterKey,
     filters,
+    groups,
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
-  const { height = 0, ref: headerRef } = useResizeDetector();
   
   const isMobileViewPort = viewPortSize === 'sm';
   const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
@@ -59,7 +59,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
       style={{
         '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px',
         position: 'relative',
-        '--jk-data-viewer-header-table-height': height + 1 + 'px',
+        // '--jk-data-viewer-header-table-height': height + 1 + 'px',
       } as CSSProperties}
     >
       <DataViewerToolbar<T>
@@ -96,37 +96,36 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         ref={viewContainerRef}
       >
         {data.length > 0 && loading && <LineLoader />}
-        {viewMode === DataViewMode.ROWS ? (
-          <ViewContainerRows
-            headers={headers}
-            setHeaders={setHeaders}
-            viewContainerWidth={viewContainerWidth || 0}
-            headerRef={headerRef}
-            rowHeight={rowHeight}
-            data={data}
-            loading={loading}
-            viewMode={viewMode}
-            getRecordKey={getRecordKey}
-            getRecordStyle={getRecordStyle}
-            getRecordClassName={getRecordClassName}
-            onRecordClick={onRecordClick}
-            onRecordHover={onRecordHover}
-            onRecordRender={onRecordRender}
-          />
-        ) : (
-          <div
-            className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}
-            style={{ width: (viewContainerWidth || 0) }}
-          >
-            {data.length === 0 && loading && (
-              <div className="jk-row center" style={{ height: '100%' }}>
-                <div className="jk-row" style={{ alignItems: 'baseline' }}>
-                  <T className="tt-se">loading data</T>
-                  &nbsp;
-                  <div className="dot-flashing" />
-                </div>
+        <div
+          className={classNames('jk-data-viewer-body', viewMode.toLowerCase())}
+          style={{ width: (viewContainerWidth || 0) }}
+        >
+          {data.length === 0 && loading && (
+            <div className="jk-row center expand-absolute" style={{ height: '100%' }}>
+              <div className="jk-row" style={{ alignItems: 'baseline' }}>
+                <T className="tt-se">loading data</T>
+                &nbsp;
+                <div className="dot-flashing" />
               </div>
-            )}
+            </div>
+          )}
+          {viewMode === DataViewMode.ROWS ? (
+            <ViewContainerRows
+              headers={headers}
+              setHeaders={setHeaders}
+              viewContainerWidth={viewContainerWidth || 0}
+              rowHeight={rowHeight}
+              data={data}
+              loading={loading}
+              getRecordKey={getRecordKey}
+              getRecordStyle={getRecordStyle}
+              getRecordClassName={getRecordClassName}
+              onRecordClick={onRecordClick}
+              onRecordHover={onRecordHover}
+              onRecordRender={onRecordRender}
+              groups={groups}
+            />
+          ) : (
             <CardRowVirtualizerFixed
               headers={headers}
               data={data}
@@ -140,8 +139,8 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
               onRecordRender={onRecordRender}
               expandedCards={cardExpanded}
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

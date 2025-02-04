@@ -1,7 +1,9 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
 import React, { Children, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../../helpers';
-import { RowVirtualizerFixedProps } from '../types';
+import { DataViewerTableHeadersType, RowVirtualizerFixedProps } from '../types';
+import { TableHead } from './TableHead';
 
 export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => {
   
@@ -15,9 +17,10 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     onRecordClick,
     onRecordHover,
     onRecordRender,
-    setBorderTop,
-    setScrollLeft,
     gap,
+    loading,
+    setHeaders,
+    groups,
   } = props;
   
   const parentRef = useRef<HTMLDivElement>(null);
@@ -25,6 +28,9 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   const [ borderRight, setBorderRight ] = useState(false);
   const [ borderLeft, setBorderLeft ] = useState(false);
   const [ borderBottom, setBorderBottom ] = useState(false);
+  const [ borderTop, setBorderTop ] = useState(false);
+  const { height: headerHeight = 0, ref: headerRef } = useResizeDetector();
+  
   const headersStickyWidth = headers.reduce((sum, head) => sum + (head.sticky && head.visible ? head.width : 0), 0);
   const headersWidth = headers.reduce((sum, head) => sum + (head.visible ? head.width : 0), 0);
   
@@ -60,6 +66,32 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     isStickySection: false,
   }) || {};
   
+  const topHeaders: DataViewerTableHeadersType<T>[] = [];
+  const rightBorders: number[] = [];
+  let index = 0;
+  for (const header of headers) {
+    if (header.visible) {
+      const group = groups.find(group => group.key === header.group);
+      if (group) {
+        if (topHeaders[topHeaders.length - 1]?.group === group.key) {
+          topHeaders[topHeaders.length - 1].width += header.width;
+          topHeaders[topHeaders.length - 1].sticky &&= header.sticky;
+        } else {
+          if (!rightBorders.length || topHeaders[topHeaders.length - 1]?.head === '') {
+            rightBorders.push(index - 1);
+          }
+          rightBorders.push(index);
+          topHeaders.push({ ...header });
+        }
+        rightBorders[rightBorders.length - 1] = index;
+        topHeaders[topHeaders.length - 1].head = group.label;
+      } else {
+        topHeaders.push({ ...header, head: '' });
+      }
+      index++;
+    }
+  }
+  
   return (
     <div
       ref={parentRef}
@@ -68,54 +100,77 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       onScroll={({ currentTarget }: SyntheticEvent<HTMLDivElement>) => {
         const scrollLeft = currentTarget.scrollLeft || 0;
         const scrollTop = currentTarget.scrollTop || 0;
-        setBorderRight(!!(currentTarget.scrollWidth - currentTarget.clientWidth - scrollLeft));
-        setBorderBottom(!!(currentTarget.scrollHeight - currentTarget.clientHeight - scrollTop));
-        setBorderTop(!!scrollTop);
-        setBorderLeft(!!scrollLeft);
-        setScrollLeft(scrollLeft);
+        const scrollRight = !!(currentTarget.scrollWidth - currentTarget.clientWidth - scrollLeft);
+        const scrollBottom = !!(currentTarget.scrollHeight - currentTarget.clientHeight - scrollTop);
+        if (scrollRight !== borderRight) {
+          setBorderRight(scrollRight);
+        }
+        if (scrollBottom !== borderBottom) {
+          setBorderBottom(scrollBottom);
+        }
+        if (!!scrollTop !== borderTop) {
+          setBorderTop(!!scrollTop);
+        }
+        if (!!scrollLeft !== borderLeft) {
+          setBorderLeft(!!scrollLeft);
+        }
+        // setScrollLeft(scrollLeft);
       }}
     >
+      <TableHead
+        headers={headers}
+        setHeaders={setHeaders}
+        loading={loading}
+        gap={gap}
+        headerRef={headerRef}
+        topHeaders={topHeaders}
+        rightBorders={rightBorders}
+      />
+      {borderTop && (
+        <div
+          className="expand-absolute"
+          style={{
+            height: headerHeight,
+            zIndex: 3,
+            width: 'calc(100% - 8px)',
+            background: 'transparent',
+            boxShadow: '0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight)',
+          }}
+        />
+      )}
       {borderLeft && (
         <div
+          className="expand-absolute"
           style={{
-            height: '100%',
             width: headersStickyWidth,
-            position: 'absolute',
-            left: 0,
-            top: 0,
             zIndex: 3,
             background: 'transparent',
-            pointerEvents: 'none',
             boxShadow: '0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight)',
           }}
         />
       )}
       {borderRight && (
         <div
+          className="expand-absolute"
           style={{
-            height: '100%',
             width: 1,
-            position: 'absolute',
+            left: 'unset',
             right: -1,
-            top: 0,
             zIndex: 3,
             background: 'transparent',
-            pointerEvents: 'none',
             boxShadow: '0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight)',
           }}
         />
       )}
       {borderBottom && (
         <div
+          className="expand-absolute"
           style={{
-            width: '100%',
             height: 1,
-            position: 'absolute',
-            left: 0,
+            top: 'unset',
             bottom: -1,
             zIndex: 3,
             background: 'transparent',
-            pointerEvents: 'none',
             boxShadow: '0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight)',
           }}
         />
@@ -169,11 +224,14 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
               {Children.toArray(
                 headers
                   .filter(({ visible }) => visible)
-                  .map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }) => (
+                  .map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
                     <div
                       key={virtualRow.key + '_' + columnIndex}
                       style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
-                      className={classNames({ sticky: !!sticky }, 'jk-table-row-field bc-we')}
+                      className={classNames({
+                        sticky: !!sticky,
+                        'with-right-border': rightBorders.includes(index),
+                      }, 'jk-table-row-field bc-we')}
                       data-testid={virtualRow.key + '_' + columnIndex}
                     >
                       <Field

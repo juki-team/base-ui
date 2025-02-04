@@ -97,6 +97,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     extraNodesFloating,
     setDataTableRef: _setDataTableRef,
     initializing: initialInitializing = false,
+    groups,
   } = props;
   
   const { viewPortSize } = useJukiUI();
@@ -703,6 +704,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         extraNodes={extraNodes}
         extraNodesFloating={extraNodesFloating}
         headers={tableHeaders}
+        groups={groups || []}
         setHeaders={setTableHeaders}
         loading={loaderStatus === Status.LOADING}
         initializing={initializing}

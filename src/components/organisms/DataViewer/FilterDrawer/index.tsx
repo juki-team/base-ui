@@ -4,7 +4,13 @@ import { jukiGlobalStore } from '../../../../settings';
 import { ArrowIcon, Button, FilterListIcon, Input, InputToggle, T } from '../../../atoms';
 import { CheckboxList, DrawerView, InputDate } from '../../../molecules';
 import { OptionType } from '../../../molecules/types';
-import { FilterDrawerProps, FilterValuesType, TableHeadType, TableSortOnSortType, TableSortOrderType } from '../types';
+import {
+  DataViewerTableHeadersType,
+  FilterDrawerProps,
+  FilterValuesType,
+  TableSortOnSortType,
+  TableSortOrderType,
+} from '../types';
 import {
   fixHeaders,
   isDisabledEnd,
@@ -20,23 +26,23 @@ import {
   renderHead,
 } from '../utils';
 
-interface renderFilterTitleProps {
+interface renderFilterTitleProps<T> {
   onSort?: TableSortOnSortType,
   order: TableSortOrderType,
   columnIndex: string,
-  head: TableHeadType,
+  header: DataViewerTableHeadersType<T>,
   visibility: boolean,
   onToggleVisibility: () => void,
 }
 
-const RenderFilterTitle = ({
-                             visibility,
-                             onToggleVisibility,
-                             head,
-                             columnIndex,
-                             onSort,
-                             order,
-                           }: renderFilterTitleProps) => {
+const RenderFilterTitle = <T, >({
+                                  visibility,
+                                  onToggleVisibility,
+                                  header,
+                                  columnIndex,
+                                  onSort,
+                                  order,
+                                }: renderFilterTitleProps<T>) => {
   return (
     <div className="jk-row space-between">
       <div className="jk-row gap">
@@ -48,7 +54,7 @@ const RenderFilterTitle = ({
           checked={visibility}
           onChange={onToggleVisibility}
         />
-        <div className="fw-bd">{renderHead({ head, columnIndex })}</div>
+        <div className="fw-bd">{renderHead({ header, columnIndex })}</div>
       </div>
       {onSort ? (
         <div className={classNames('jk-row tool', { active: !!order })} onClick={() => onSort({ columnIndex })}>
@@ -98,13 +104,14 @@ export const FilterDrawer = <T, >({
             <T>order and filters</T>
           </div>
           <div className="jk-col top nowrap stretch space-between filter-drawer-columns flex-1">
-            {headers.map(({
-                            index: columnIndex,
-                            head,
-                            visible,
-                            filter,
-                            sort: { onSort, getOrder = () => (0 as TableSortOrderType) } = {},
-                          }, index) => {
+            {headers.map((header, index) => {
+              const {
+                index: columnIndex,
+                visible,
+                filter,
+                sort: { onSort, getOrder = () => (0 as TableSortOrderType) } = {},
+              } = header;
+              
               let filterCmp = null;
               if (isFilterText(filter)) {
                 filterCmp = (
@@ -205,7 +212,7 @@ export const FilterDrawer = <T, >({
                   key={columnIndex}
                 >
                   <RenderFilterTitle
-                    head={head}
+                    header={header}
                     columnIndex={columnIndex}
                     onSort={onSort}
                     order={getOrder()}

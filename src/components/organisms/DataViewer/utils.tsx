@@ -1,4 +1,5 @@
 import React from 'react';
+import { renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { DatePickerDateFunType } from '../../molecules/types';
 import {
   FILTER_DATE,
@@ -36,7 +37,6 @@ import {
   TableHeaderFilterTextType,
   TableHeaderFilterType,
   TableHeadersType,
-  TableHeadType,
 } from './types';
 
 export const isSortOffline = <T, >(sort?: DataViewerHeaderSortType<T>): sort is DataViewerHeaderSortOfflineType<T> => {
@@ -116,22 +116,20 @@ export const isFilterDateRange = (filter?: TableHeaderFilterType): filter is Tab
   return filter?.type === FILTER_DATE_RANGE;
 };
 
-interface renderHeadProps {
-  head: TableHeadType,
+interface renderHeadProps<T> {
+  header: DataViewerTableHeadersType<T>,
   columnIndex: string,
   className?: string,
 }
 
-export const renderHead = ({ head, columnIndex, className }: renderHeadProps) => {
+export const renderHead = <T, >({ header, columnIndex, className }: renderHeadProps<T>) => {
   
-  if (head) {
-    if (typeof head === 'string') {
-      return <TextHeadCell text={head} className={className} />;
-    }
-    if (typeof head === 'function') {
-      return head();
-    }
-    return head;
+  if (typeof header.head === 'string') {
+    return <TextHeadCell text={header.head} className={className} />;
+  }
+  
+  if (header.head) {
+    return renderReactNodeOrFunctionP1(header.head, { header, data: [] });
   }
   
   return <TextHeadCell text={columnIndex} className={className} />;

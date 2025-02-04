@@ -33,7 +33,6 @@
   
   .jk-data-viewer-content {
     height: 100%;
-    // background: var(--t-color-white);
     box-sizing: border-box;
     
     --jk-table-toolbar-height: 50px; // 48 + 2 (border)
@@ -41,7 +40,6 @@
     .jk-data-viewer-toolbar {
       height: var(--jk-table-toolbar-height);
       position: relative;
-      // border-bottom: 1px solid var(--t-color-highlight-light);
       box-sizing: border-box;
       
       &.cards {
@@ -64,20 +62,13 @@
           height: auto;
           
           .page-item {
-            //color: var(--t-color-gray-1);
             box-sizing: border-box;
-            //background-color: var(--t-color-white);
             cursor: pointer;
             
             &.disabled {
               color: var(--t-color-gray-4);
               border-color: var(--t-color-gray-4);
               cursor: not-allowed;
-            }
-            
-            + .page-item {
-              //margin-left: var(--pad-xt);
-              //@include sm { margin-left: 0; }
             }
           }
           
@@ -151,26 +142,23 @@
       }
       
       .jk-table-head-container {
-        position: relative;
         box-sizing: border-box;
+        position: sticky;
+        z-index: 1;
+        top: 0;
         
         .jk-table-head {
-          z-index: 3;
-          position: relative;
           display: flex;
           box-sizing: border-box;
-          width: 100%;
-          overflow: hidden;
           
-          .jk-table-head-sticky {
-            display: flex;
-            box-sizing: border-box;
-            //background: var(--t-color-white-darkest);
-            z-index: 2;
-          }
-          
-          .jk-table-head-no-sticky {
-            display: flex;
+          .jk-table-row-head {
+            overflow: hidden;
+            
+            &.with-right-border {
+              .jk-table-head-cell {
+                border-right: 2px dashed var(--t-color-highlight-light);
+              }
+            }
           }
           
           .jk-table-head-field {
@@ -182,8 +170,6 @@
             box-sizing: border-box;
             height: 100%;
             position: relative;
-            //padding: 0 var(--pad-xt);
-            //background: var(--t-color-highlight-light);
             background: var(--t-color-white-darkest);
             
             .jk-table-head-drag {
@@ -191,20 +177,26 @@
               cursor: col-resize;
               position: absolute;
               top: 0;
-              right: -5px;
+              right: -4px;
               width: 10px;
               padding: 8px 4px;
               height: 100%;
               z-index: 1;
               display: flex;
               
-              //&:hover {
-              > div {
-                //margin: 0 10px;
-                background: var(--t-color-gray-6);
+              &:hover {
+                padding: 8px 2px;
+                right: -2px;
+                
+                > div {
+                  border-radius: var(--border-radius-inline);
+                  background: var(--t-color-highlight);
+                }
               }
               
-              //}
+              > div {
+                background: var(--t-color-highlight-light);
+              }
               
               > div {
                 width: 100%;
@@ -219,24 +211,12 @@
             }
           }
         }
-        
-        //&.withVerticalScroll::before {
-        //  content: "";
-        //  position: absolute;
-        //  width: 100%;
-        //  left: 0;
-        //  height: calc(var(--jk-table-toolbar-height) + 4px);
-        //  bottom: 4px;
-        //  z-index: 3;
-        //  box-shadow: 0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight);
-        //}
       }
       
       .jk-data-viewer-body {
         
         &.rows {
-          height: calc(100% - var(--jk-data-viewer-header-table-height));
-          //background: var(--t-color-white);
+          height: 100%;
         }
         
         &.cards {
@@ -258,12 +238,6 @@
           white-space: break-spaces;
           word-break: break-word;
           flex-wrap: nowrap;
-        }
-      }
-      
-      .jk-table-rows-container {
-        .field, .text-field, .date-field {
-          height: 100%;
         }
       }
       
@@ -367,27 +341,50 @@
       
       .jk-table-rows-container {
         box-sizing: border-box;
-        display: flex;
+        
+        .field, .text-field, .date-field {
+          height: 100%;
+        }
+        
+        .jk-table-row, .jk-table-head {
+          .sticky {
+            position: sticky;
+            z-index: 1;
+          }
+        }
         
         .jk-table-rows-box {
           position: relative;
           width: 100%;
           
           .jk-table-row {
-            //border-top: 1px solid var(--t-color-highlight-light);
             width: 100%;
             display: flex;
             box-sizing: border-box;
             
-            .sticky {
-              position: sticky;
-              left: 0;
-              z-index: 1;
-            }
-            
             &:hover {
               .jk-table-row-field {
                 background-color: var(--t-color-white-darkest);
+              }
+            }
+            
+            .jk-table-row-field {
+              box-sizing: border-box;
+              
+              &.with-right-border {
+                //border-right: 2px dashed var(--t-color-primary-light);
+                border-right: 2px dashed var(--t-color-highlight-light);
+                
+                &:after {
+                  //content: "";
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  width: 2px;
+                  height: 100%;
+                  background: red;
+                  //border-right: 2px solid var(--t-color-highlight-light);
+                }
               }
             }
             
@@ -412,11 +409,6 @@
   
   .jk-data-viewer-pagination {
     height: var(--pagination-height);
-    
-    &.loading {
-      // pointer-events: none;
-      // opacity: 0.4;
-    }
     
     > div:first-child {
       .page-items {
@@ -454,6 +446,16 @@
     height: 22px;
     width: 22px;
     cursor: pointer;
+    
+    &:hover {
+      background-color: var(--t-color-highlight);
+    }
+    
+    &.active {
+      &:hover {
+        background-color: var(--t-color-primary);
+      }
+    }
   }
 }
 
