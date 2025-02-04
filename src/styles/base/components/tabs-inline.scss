@@ -54,7 +54,6 @@
     }
     
     > div {
-      //padding: var(--pad-xt) var(--pad-t);
       padding: var(--pad-xt) 0;
       position: relative;
       
@@ -73,6 +72,12 @@
       //  background-color: var(--t-color-secondary);
       //  border-radius: 2px 2px 0 0;
       //}
+    }
+  }
+  
+  &.tick-style-line {
+    .jk-tabs-headers-inline > div {
+      padding: var(--pad-xt);
     }
   }
 }

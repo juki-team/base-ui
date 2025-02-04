@@ -53,7 +53,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
     <div
       key={key as string}
       onClick={key === selectedTabKey ? undefined : () => setSelectedTabKey(key as (NotUndefined<T> | Func<T>))}
-      className={classNames('jk-tabs-inline-tab jk-row nowrap', {
+      className={classNames(`jk-tabs-inline-tab jk-row nowrap`, {
         'selected fw-bd': key === selectedTabKey,
         'one-tab-view': oneTabView,
         'cr-pt': key === selectedTabKey && tickStyle === 'background',
@@ -97,8 +97,8 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   
   return (
     <>
-      <div className={classNames('jk-row gap space-between nowrap jk-tabs-inline extend', className)}>
-        {extraNodesPlacement === 'left' && (
+      <div className={classNames(`jk-row gap space-between nowrap jk-tabs-inline extend tick-style-${tickStyle}`, className)}>
+        {extraNodesPlacement === 'left' && extraNodes?.length && (
           <div className="jk-row gap nowrap">
             {Children.toArray(extraNodes?.map((action, index) => (
               renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index)
@@ -166,14 +166,14 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
             />
           )}
         </div>
-        {extraNodesPlacement === 'right' && (
+        {extraNodesPlacement === 'right' && extraNodes?.length && (
           <div className="jk-row gap nowrap">
             {Children.toArray(extraNodes?.map((action, index) => (
               renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index)
             )))}
           </div>
         )}
-        {(extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter') && (
+        {(extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter') && extraNodes?.length && (
           <div
             className="jk-col gap nowrap"
             style={{

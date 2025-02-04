@@ -151,14 +151,14 @@ export const ProblemStatementView = ({
             </div>
           )}
           <div>
-            <h3><T>description</T></h3>
+            <h3><T className="tt-se">description</T></h3>
             <div className="bc-we jk-pg-sm jk-br-ie">
               <MdMathViewer source={statementDescription} />
             </div>
           </div>
           {!!statementInput && (
             <div>
-              <h3><T>input</T></h3>
+              <h3><T className="tt-se">input</T></h3>
               <div className="bc-we jk-pg-sm jk-br-ie">
                 <MdMathViewer source={statementInput} />
               </div>
@@ -166,7 +166,7 @@ export const ProblemStatementView = ({
           )}
           {!!statementOutput && (
             <div>
-              <h3><T>output</T></h3>
+              <h3><T className="tt-se">output</T></h3>
               <div className="bc-we jk-pg-sm jk-br-ie">
                 <MdMathViewer source={statementOutput} />
               </div>
@@ -174,7 +174,7 @@ export const ProblemStatementView = ({
           )}
           {settings.scoringMode === ProblemScoringMode.SUBTASK && (
             <div>
-              <h3><T>subtasks description</T></h3>
+              <h3><T className="tt-se">subtasks description</T></h3>
               <div className="jk-col left stretch gap">
                 {Object.values(settings.pointsByGroups).map(pointsByGroup => (
                   <div className="jk-row extend gap" key={pointsByGroup.group}>
@@ -202,7 +202,6 @@ export const ProblemStatementView = ({
               <div className="jk-row"><T className="tt-se tx-h cr-pd fw-bd">input sample</T></div>
               <div className="jk-row"><T className="tt-se tx-h cr-pd fw-bd">output sample</T></div>
             </div>
-          
           </div>
           <div className="jk-col stretch gap">
             {(statement.sampleCases || [ { input: '', output: '' } ]).map((sample, index) => (
@@ -217,7 +216,7 @@ export const ProblemStatementView = ({
           </div>
           {!!statementNote && (
             <div>
-              <h3><T>note</T></h3>
+              <h3><T className="tt-se">note</T></h3>
               <div className="bc-we jk-pg-sm jk-border-radius-inline">
                 <MdMathViewer source={statementNote} />
               </div>

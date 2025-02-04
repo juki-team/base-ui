@@ -49,7 +49,7 @@ h1, h2, h3 {
 
 h1, h2, h3 {
   &:first-letter {
-    text-transform: capitalize;
+    //text-transform: capitalize;
   }
   
   font-weight: var(--weight-bolder);
