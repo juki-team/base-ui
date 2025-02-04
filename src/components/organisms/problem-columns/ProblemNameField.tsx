@@ -11,7 +11,7 @@ import { ProblemStatus } from './ProblemStatus';
 
 export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field'] = (props) => {
   
-  const { record: { name, user, key }, isCard } = props;
+  const { record: { name, shortname, user, key }, isCard } = props;
   
   const { components: { Link } } = useJukiUI();
   
@@ -26,7 +26,14 @@ export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListRespo
           className={classNames('link jk-row nowrap', { 'ta-lt': !isCard })}
           target={origin ? '_blank' : undefined}
         >
-          <div style={{ textAlign: isCard ? undefined : 'left', display: 'inline' }}>{name}</div>
+          <div
+            style={{
+              textAlign: isCard ? undefined : 'left',
+              display: 'inline',
+            }}
+          >
+            {(shortname ? `[${shortname}] ` : '') + name}
+          </div>
           &nbsp;
           {!!origin && <OpenInNewIcon size="small" />}
         </Link>
@@ -53,7 +60,7 @@ export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListRespo
 
 export const ProblemNameModalField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field'] = (props) => {
   
-  const { record: { name, user, key }, isCard } = props;
+  const { record: { name, user, key, shortname }, isCard } = props;
   
   const [ modal, setModal ] = useState<ReactNode>(null);
   
@@ -81,7 +88,7 @@ export const ProblemNameModalField: DataViewerHeadersType<ProblemSummaryListResp
             );
           }}
         >
-          {name}
+          {(shortname ? `[${shortname}] ` : '') + name}
         </div>
         {(user.tried || user.solved) && <>&nbsp;</>}
         <ProblemStatus {...user} size="small" />

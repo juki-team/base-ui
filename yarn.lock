@@ -1892,10 +1892,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@juki-team/commons@^0.0.718":
-  version "0.0.718"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.718/50e26669b2d5e7c6e30da9e474d99cd2fe0c7616#50e26669b2d5e7c6e30da9e474d99cd2fe0c7616"
-  integrity sha512-PhID89rohM2FLdpiiXTF6kfkKXUeV3XdsO/H41HhTqsS6Y44Zm1k6s1tzu1vExBu/2JNk2/Prsi8TAyBsUOdgA==
+"@juki-team/commons@^0.0.722":
+  version "0.0.722"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.722/9d5a14c330bac8768f3fe60898b499f341f4a0b6#9d5a14c330bac8768f3fe60898b499f341f4a0b6"
+  integrity sha512-ry5EKE/gKn4lk5Uew3MwBQ6onrrezjKQ2hfOqsZZC0OBVAv+OIgLEklzilBFlVKJk5ze3Wr1z8TPKqU2I4UCmA==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.5"
