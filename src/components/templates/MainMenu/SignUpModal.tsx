@@ -6,10 +6,11 @@ import { SignUpModalTemplate } from './SignUpModalTemplate';
 import { SignUpModalComponentProps } from './SignUpModalTemplate/types';
 
 export interface SignUpModalProps extends BasicModalProps<ModalButtonLoaderEventType> {
+  onSignInButton: () => void,
   onSuccess?: (response?: ContentResponseType<PingResponseDTO>) => void,
 }
 
-export const SignUpModal = ({ isOpen, onClose, onSuccess }: SignUpModalProps) => {
+export const SignUpModal = ({ isOpen, onClose, onSuccess, onSignInButton }: SignUpModalProps) => {
   
   const { signUp, device: { osLabel, label } } = useJukiUser();
   
@@ -20,6 +21,6 @@ export const SignUpModal = ({ isOpen, onClose, onSuccess }: SignUpModalProps) =>
   });
   
   return (
-    <SignUpModalTemplate isOpen={isOpen} onClose={onClose} onSubmit={onSubmit} />
+    <SignUpModalTemplate isOpen={isOpen} onClose={onClose} onSubmit={onSubmit} onSignInButton={onSignInButton} />
   );
 };

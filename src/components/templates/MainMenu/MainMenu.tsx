@@ -256,6 +256,10 @@ export const MainMenu = (props: MainMenuProps) => {
       <SignUpModal
         isOpen={searchParams.has(QueryParamKey.SIGN_UP)}
         onClose={() => deleteSearchParams({ name: QueryParamKey.SIGN_UP })}
+        onSignInButton={() => {
+          deleteSearchParams({ name: QueryParamKey.SIGN_UP });
+          appendSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' });
+        }}
         onSuccess={() => {
           deleteSearchParams({ name: QueryParamKey.SIGN_UP });
           appendSearchParams({ name: QueryParamKey.WELCOME, value: '1' });

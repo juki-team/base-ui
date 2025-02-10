@@ -42,7 +42,7 @@ const signUpSchema = yup.object().shape({
 
 export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
   
-  const { isOpen, onClose, onSubmit, signUpWithGoogle, reactAppGoogleClientId } = props;
+  const { isOpen, onClose, onSubmit, signUpWithGoogle, reactAppGoogleClientId, onSignInButton } = props;
   
   const {
     register,
@@ -190,6 +190,12 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
                 }}
               />
               <p><T>{(!isValid && errors?.checkbox?.message) || ''}</T></p>
+            </div>
+            <div className="jk-pg-b">
+              <p className="label">
+                <T className="tt-se">are you already a member?</T>,&nbsp;
+                <span className="link" onClick={onSignInButton}><T>sign in now</T></span>
+              </p>
             </div>
             <div className="jk-row-col gap block">
               <ButtonLoader type="light" onClick={onClose}>

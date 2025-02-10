@@ -33,6 +33,7 @@ export const Regular: Story = {
 
 Regular.args = {
   problem: {
+    shortname: '',
     state: EntityState.RELEASED,
     name: 'B + A',
     judge: {

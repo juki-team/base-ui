@@ -28,6 +28,7 @@ const WrapSignUp = (props: SignUpModalProps) => {
             setLoaderStatus(Status.SUCCESS);
             setOpen(false);
           }}
+          onSignInButton={() => action('onSignInButton')}
         />
       </div>
     </MockupJukiProvider>
@@ -44,6 +45,7 @@ export const SignUpWithGoogle = () => (
     // reactAppGoogleClientId="test"
     isOpen
     onClose={() => action('onClose')}
+    onSignInButton={() => action('onSignInButton')}
   />
 );
 
@@ -53,5 +55,6 @@ export const SignUPWithoutGoogle = () => (
     // onSubmit={(data: SignUpFormType, setLoading: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setLoading })}
     isOpen
     onClose={() => action('onClose')}
+    onSignInButton={() => action('onSignInButton')}
   />
 );
