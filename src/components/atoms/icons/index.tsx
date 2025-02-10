@@ -48,12 +48,6 @@
 //   );
 // };
 //
-// export const FacebookIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
-//   return (
-//     <span {...props} className={classNames(className, 'jk-icon', size, 'facebook')}><Facebook /></span>
-//   );
-// };
-//
 // export const FileDoneIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {
 //   return (
 //     <span {...props} className={classNames(className, 'jk-icon', size)}><FileDone /></span>
