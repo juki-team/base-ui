@@ -98,7 +98,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   return (
     <>
       <div className={classNames(`jk-row gap space-between nowrap jk-tabs-inline extend tick-style-${tickStyle}`, className)}>
-        {extraNodesPlacement === 'left' && extraNodes?.length && (
+        {extraNodesPlacement === 'left' && !!extraNodes?.length && (
           <div className="jk-row gap nowrap">
             {Children.toArray(extraNodes?.map((action, index) => (
               renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index)
@@ -166,14 +166,14 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
             />
           )}
         </div>
-        {extraNodesPlacement === 'right' && extraNodes?.length && (
+        {extraNodesPlacement === 'right' && !!extraNodes?.length && (
           <div className="jk-row gap nowrap">
             {Children.toArray(extraNodes?.map((action, index) => (
               renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index)
             )))}
           </div>
         )}
-        {(extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter') && extraNodes?.length && (
+        {(extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter') && !!extraNodes?.length && (
           <div
             className="jk-col gap nowrap"
             style={{
