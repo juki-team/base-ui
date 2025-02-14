@@ -9,7 +9,7 @@ import {
   Theme,
 } from '@juki-team/commons';
 import { Children, cloneElement, isValidElement, MutableRefObject, PropsWithChildren, ReactNode } from 'react';
-import { write } from 'xlsx-js-style';
+import * as XLSX from 'xlsx-js-style';
 import { SheetDataType } from '../modules';
 import { jukiApiSocketManager } from '../settings';
 import { TriggerActionsType } from '../types';
@@ -236,7 +236,7 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
 
 export const downloadSheetDataAsXlsxFile = async (sheets: SheetDataType[], fileName: string = 'file.xlsx') => {
   const workBook = await sheetDataToWorkBook(sheets, fileName);
-  const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
+  const workBookOut = XLSX.write(workBook, { bookType: 'xlsx', type: 'binary' });
   const blob = new Blob([ stringToArrayBuffer(workBookOut) ], { type: 'application/octet-stream' });
   downloadBlobAsFile(blob, fileName);
 };
