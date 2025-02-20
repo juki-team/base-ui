@@ -8,9 +8,9 @@
 .notification-wrapper, .notification-wrapper-quiet {
   position: fixed;
   right: calc(var(--width-notification-wrapper) + var(--pad-md));
-  @include mixins.md-hg {
-    top: var(--pad-md);
-  }
+  width: 0;
+  z-index: var(--z-index-notification);
+  @include mixins.md-hg { top: var(--pad-md); }
   @include mixins.sm {
     --width-notification-wrapper: 100vw;
     --width-notification: calc(100vw - var(--pad-md) - var(--pad-md));
@@ -20,8 +20,6 @@
     flex-direction: column;
     justify-content: flex-end;
   }
-  width: 0;
-  z-index: var(--z-index-notification);
   
   .jk-notification-item-container {
     .jk-notification-item {
@@ -156,21 +154,24 @@
     }
     
     .jk-notification-item {
+      
+      font-weight: var(--weight-regular);
+      padding: 0 4px;
+      
+      right: calc(var(--width-notification) - var(--width-notification-wrapper));
+      @include mixins.sm { right: 0; }
+      
       @include mixins.elevation(1);
       @include mixins.look(primary-light);
       @include mixins.sm {
         border-radius: 0;
       }
-      font-weight: var(--weight-regular);
-      padding: 0 4px;
-      right: calc(var(--width-notification) - var(--width-notification-wrapper));
-      @include mixins.sm {
-        right: 0;
-      }
       
       .jk-notification-message-content {
-        @include mixins.font-size(tiny);
+        
         text-align: center;
+        
+        @include mixins.font-size(tiny);
       }
       
       .bar {

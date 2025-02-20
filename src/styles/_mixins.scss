@@ -66,18 +66,28 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
       @if $prop3 {
         @if $prop4 {
           @if $prop5 {
-            transition: $prop1 $time, $prop2 $time, $prop3 $time, $prop4 $time, $prop5 $time;
+            & {
+              transition: $prop1 $time, $prop2 $time, $prop3 $time, $prop4 $time, $prop5 $time;
+            }
           } @else {
-            transition: $prop1 $time, $prop2 $time, $prop3 $time, $prop4 $time;
+            & {
+              transition: $prop1 $time, $prop2 $time, $prop3 $time, $prop4 $time;
+            }
           }
         } @else {
-          transition: $prop1 $time, $prop2 $time, $prop3 $time;
+          & {
+            transition: $prop1 $time, $prop2 $time, $prop3 $time;
+          }
         }
       } @else {
-        transition: $prop1 $time, $prop2 $time;
+        & {
+          transition: $prop1 $time, $prop2 $time;
+        }
       }
     } @else {
-      transition: $prop1 $time;
+      & {
+        transition: $prop1 $time;
+      }
     }
   }
 }

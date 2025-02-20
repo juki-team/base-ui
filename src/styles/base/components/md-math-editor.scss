@@ -61,9 +61,7 @@
     position: relative;
     display: flex;
     width: 100%;
-    @include mixins.sm {
-      border-radius: var(--border-radius-sm);
-    }
+    @include mixins.sm { border-radius: var(--border-radius-sm); }
     
     > div.jk-split-pane > .jk-split-pane-divider {
       height: auto;

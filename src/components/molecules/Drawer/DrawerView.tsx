@@ -52,7 +52,7 @@ export const DrawerView = memo((props: PropsWithChildren<DrawerViewProps>) => {
             animate={{ x: 0, transition: { stiffness: 0 } }}
             exit={{ x: '100vw' }}
             ref={drawerLayoutRef}
-            className={classNames('jk-drawer-layout', position, { open: isOpen })}
+            className={classNames('jk-drawer-layout elevation-2', position, { open: isOpen })}
           >
             {closeIcon === undefined ? (
               <div className="jk-drawer-close-button" onClick={close}><Button icon={<CloseIcon />} type="light" />

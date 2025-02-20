@@ -55,12 +55,12 @@
 .split-modal {
   .jk-side-secondary {
     background-color: var(--t-color-accent);
-    @include mixins.transition(background-color);
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
     height: calc(var(--side-main-height, 100%) + var(--pad-lg) * 2);
     max-height: calc(var(--side-main-height, 100%) + var(--pad-lg) * 2);
     
+    @include mixins.transition(background-color);
     @include mixins.md { flex: 5 !important; }
     
     .title {

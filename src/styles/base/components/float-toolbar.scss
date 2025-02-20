@@ -19,8 +19,8 @@
       right: calc(50% - var(--container-width) / 2);
       
       .buttons-content {
-        @include mixins.transition-fast(right);
         right: calc(50% - var(--buttons-content-width) / 2);
+        @include mixins.transition-fast(right);
       }
     }
   }

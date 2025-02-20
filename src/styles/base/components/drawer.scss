@@ -24,7 +24,6 @@
   position: fixed;
   z-index: var(--z-index-drawer);
   overflow: auto;
-  @include mixins.elevation(2);
   background-color: var(--t-color-white);
   
   &.right, &.left {

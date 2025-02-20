@@ -41,9 +41,11 @@
   }
   
   .notch {
-    @include mixins.look(primary-light);
+    
     cursor: pointer;
     z-index: 1;
+    
+    @include mixins.look(primary-light);
     
     &:hover {
       background-color: var(--t-color-primary-dark);

@@ -175,8 +175,8 @@
   }
   
   .jk-select-layout {
-    @include jk-select-layout-for-datepicker;
     width: initial !important;
+    @include jk-select-layout-for-datepicker;
     
     .jk-select {
       width: 42px;
