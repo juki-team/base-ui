@@ -1,8 +1,8 @@
-@use 'sass:math';
+@use "sass:math";
 
 // Query to kick us into "mobile" mode with larger drag handles/bars.
 // See: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/pointer
-$mobile-media-query: '(pointer: coarse)' !default;
+$mobile-media-query: "(pointer: coarse)" !default;
 
 :root {
   --rc-drag-handle-size: 12px;
@@ -10,7 +10,7 @@ $mobile-media-query: '(pointer: coarse)' !default;
   --rc-drag-handle-bg-colour: rgba(0, 0, 0, 0.2);
   --rc-drag-bar-size: 6px; // The invisible grip size of the crop selection edges
   --rc-border-color: rgba(255, 255, 255, 0.7);
-  --rc-focus-color: #0088ff;
+  --rc-focus-color: #0088FF;
 }
 
 .ReactCrop {
@@ -51,6 +51,7 @@ $mobile-media-query: '(pointer: coarse)' !default;
         touch-action: none;
       }
     }
+    
     #{$root}__crop-selection {
       touch-action: none;
     }
@@ -81,7 +82,7 @@ $mobile-media-query: '(pointer: coarse)' !default;
       
       &::after {
         pointer-events: none;
-        content: '';
+        content: "";
         position: absolute;
         top: -1px;
         right: -1px;
@@ -96,9 +97,21 @@ $mobile-media-query: '(pointer: coarse)' !default;
       // border: 1px dashed white;
       outline: 1px dashed white;
     }
+    
     &:not(.ReactCrop--no-animate &) {
       $antWidth: 10px;
       $doubleAntWidth: 10px * 2;
+      
+      animation: marching-ants 1s;
+      background-image: linear-gradient(to right, #FFFFFF 50%, #444444 50%), linear-gradient(to right, #FFFFFF 50%, #444444 50%),
+      linear-gradient(to bottom, #FFFFFF 50%, #444444 50%), linear-gradient(to bottom, #FFFFFF 50%, #444444 50%);
+      background-size: $antWidth 1px, $antWidth 1px, 1px $antWidth, 1px $antWidth;
+      background-position: 0 0, 0 100%, 0 0, 100% 0;
+      background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+      color: #FFFFFF;
+      animation-play-state: running;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
       
       @keyframes marching-ants {
         0% {
@@ -108,17 +121,6 @@ $mobile-media-query: '(pointer: coarse)' !default;
           background-position: $doubleAntWidth 0, (-$doubleAntWidth) 100%, 0 (-$doubleAntWidth), 100% $doubleAntWidth;
         }
       }
-      
-      animation: marching-ants 1s;
-      background-image: linear-gradient(to right, #fff 50%, #444 50%), linear-gradient(to right, #fff 50%, #444 50%),
-      linear-gradient(to bottom, #fff 50%, #444 50%), linear-gradient(to bottom, #fff 50%, #444 50%);
-      background-size: $antWidth 1px, $antWidth 1px, 1px $antWidth, 1px $antWidth;
-      background-position: 0 0, 0 100%, 0 0, 100% 0;
-      background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
-      color: #fff;
-      animation-play-state: running;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
     }
     
     &:focus {
@@ -126,6 +128,7 @@ $mobile-media-query: '(pointer: coarse)' !default;
       outline-offset: -1px;
     }
   }
+  
   &--invisible-crop &__crop-mask,
   &--invisible-crop &__crop-selection {
     display: none;
@@ -135,7 +138,7 @@ $mobile-media-query: '(pointer: coarse)' !default;
   &__rule-of-thirds-vt::after,
   &__rule-of-thirds-hz::before,
   &__rule-of-thirds-hz::after {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     background-color: rgba(255, 255, 255, 0.4);
@@ -195,42 +198,49 @@ $mobile-media-query: '(pointer: coarse)' !default;
     transform: translate(-50%, -50%);
     cursor: nw-resize;
   }
+  
   .ord-n {
     top: 0;
     left: 50%;
     transform: translate(-50%, -50%);
     cursor: n-resize;
   }
+  
   .ord-ne {
     top: 0;
     right: 0;
     transform: translate(50%, -50%);
     cursor: ne-resize;
   }
+  
   .ord-e {
     top: 50%;
     right: 0;
     transform: translate(50%, -50%);
     cursor: e-resize;
   }
+  
   .ord-se {
     bottom: 0;
     right: 0;
     transform: translate(50%, 50%);
     cursor: se-resize;
   }
+  
   .ord-s {
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 50%);
     cursor: s-resize;
   }
+  
   .ord-sw {
     bottom: 0;
     left: 0;
     transform: translate(-50%, 50%);
     cursor: sw-resize;
   }
+  
   .ord-w {
     top: 50%;
     left: 0;
@@ -254,6 +264,7 @@ $mobile-media-query: '(pointer: coarse)' !default;
       height: var(--rc-drag-bar-size);
       transform: translateY(-50%);
     }
+    
     &.ord-e {
       right: 0;
       top: 0;
@@ -261,6 +272,7 @@ $mobile-media-query: '(pointer: coarse)' !default;
       height: 100%;
       transform: translateX(50%);
     }
+    
     &.ord-s {
       bottom: 0;
       left: 0;
@@ -268,6 +280,7 @@ $mobile-media-query: '(pointer: coarse)' !default;
       height: var(--rc-drag-bar-size);
       transform: translateY(50%);
     }
+    
     &.ord-w {
       top: 0;
       left: 0;
