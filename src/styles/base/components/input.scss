@@ -19,18 +19,12 @@
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  @include mixins.hg {
-    margin: 16px 0;
-  }
-  @include mixins.lg {
-    margin: 12px 0;
-  }
-  @include mixins.md {
-    margin: 8px 0;
-  }
-  @include mixins.sm {
-    margin: 4px 0;
-  }
+  //--divider-background-color: var(--t-color-gray-6);
+  --divider-background-color: var(--t-color-highlight-light);
+  @include mixins.hg { margin: 16px 0; }
+  @include mixins.lg { margin: 12px 0; }
+  @include mixins.md { margin: 8px 0; }
+  @include mixins.sm { margin: 4px 0; }
   
   &.small {
     margin: 6px 0;
@@ -39,9 +33,6 @@
   &.tiny {
     margin: 0;
   }
-  
-  //--divider-background-color: var(--t-color-gray-6);
-  --divider-background-color: var(--t-color-highlight-light);
   
   &:before, &:after {
     content: " ";
@@ -684,7 +675,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     cursor: pointer;
     background-color: var(--t-color-highlight-light);
     border: 2px solid var(--input-toggle-color);
-    @include mixins.transition();
     box-sizing: border-box;
     
     &:before {
@@ -696,7 +686,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       bottom: 0;
       background-color: var(--input-toggle-color);
       border: 2px solid var(--input-toggle-text-color);
-      @include mixins.transition();
     }
   }
   

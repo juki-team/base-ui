@@ -8,8 +8,8 @@
     border-color: transparent;
     
     .jk-icon {
-      @include mixins.transition(opacity);
       opacity: 0;
+      @include mixins.transition(opacity);
     }
   }
   

@@ -68,9 +68,9 @@
       position: relative;
       
       .jk-menu-top-section, .jk-menu-item, .jk-menu-bottom-section, .jk-menu-collapse-section {
-        @include mixins.transition(background-color, color);
         background-color: var(--menu-color);
         color: var(--t-color-primary-text);
+        @include mixins.transition(background-color, color);
       }
       
       .jk-menu-top-section {
@@ -123,14 +123,10 @@
           
           .jk-menu-item-icon {
             height: var(--pad-m);
-            @include mixins.transition(margin);
             margin: 0 var(--pad-m) 0 var(--pad-s);
-            @include mixins.md {
-              margin: 0 var(--pad-xs) 0 var(--pad-s);
-            }
-            @include mixins.sm {
-              margin: 0 var(--pad-xt) 0 var(--pad-s);
-            }
+            @include mixins.md { margin: 0 var(--pad-xs) 0 var(--pad-s); }
+            @include mixins.sm { margin: 0 var(--pad-xt) 0 var(--pad-s); }
+            @include mixins.transition(margin);
           }
           
           .jk-menu-item-label {
@@ -180,11 +176,9 @@
     .jk-menu-content {
       width: 100%;
       height: inherit;
-      background-color: var(--menu-color);
-      @include mixins.sm {
-        background-color: var(--t-color-white);
-      }
       position: relative;
+      background-color: var(--menu-color);
+      @include mixins.sm { background-color: var(--t-color-white); }
       
       .jk-menu-left-section, .jk-menu-items, .jk-menu-right-section,
       .jk-horizontal-menu-mobile-left, .jk-horizontal-menu-mobile-center, .jk-horizontal-menu-mobile-right {
@@ -201,18 +195,10 @@
           height: var(--height-jk-menu-item);
           align-items: center;
           cursor: pointer;
-          @include mixins.md {
-            padding: 0 var(--pad-xt);
-          }
-          @include mixins.lg {
-            padding: 0 var(--pad-xs);
-          }
-          @include mixins.hg {
-            padding: 0 var(--pad-m);
-          }
-          @include mixins.sm {
-            flex-direction: column;
-          }
+          @include mixins.md { padding: 0 var(--pad-xt); }
+          @include mixins.lg { padding: 0 var(--pad-xs); }
+          @include mixins.hg { padding: 0 var(--pad-m); }
+          @include mixins.sm { flex-direction: column; }
           
           &:not(.selected):hover {
             background: var(--t-color-highlight-light) !important;
@@ -220,9 +206,7 @@
           
           &.selected {
             font-weight: var(--weight-bold);
-            @include mixins.sm {
-              background-color: var(--t-color-secondary);
-            }
+            @include mixins.sm { background-color: var(--t-color-secondary); }
             
             &:after {
               position: absolute;
@@ -233,9 +217,7 @@
               background-color: var(--t-color-secondary);
               border-radius: 4px 4px 0 0;
               
-              @include mixins.sm {
-                content: none;
-              }
+              @include mixins.sm { content: none; }
             }
           }
           
@@ -249,6 +231,7 @@
             @include mixins.sm {
               height: var(--pad-s);
               width: var(--pad-s);
+              
               .jk-icon {
                 min-height: var(--pad-s);
                 min-width: var(--pad-s);
@@ -304,6 +287,7 @@
           @include mixins.sm {
             height: var(--pad-s);
             width: var(--pad-s);
+            
             .jk-icon {
               min-height: var(--pad-s);
               min-width: var(--pad-s);
@@ -334,14 +318,10 @@
   
   .jk-menu-item-label > div {
     
-    --margin: calc(var(--pad-m) + var(--pad-s));
-    @include mixins.md {
-      --margin: calc(var(--pad-xs) + var(--pad-s));
-    }
-    @include mixins.sm {
-      --margin: calc(var(--pad-xt) + var(--pad-s));
-    }
-    
     width: calc(var(--width-company-selector) - var(--margin) - 24px - 4px) !important;
+    
+    --margin: calc(var(--pad-m) + var(--pad-s));
+    @include mixins.md { --margin: calc(var(--pad-xs) + var(--pad-s)); }
+    @include mixins.sm { --margin: calc(var(--pad-xt) + var(--pad-s)); }
   }
 }
