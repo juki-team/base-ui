@@ -2,6 +2,7 @@ import { DataViewMode, Status } from '@juki-team/commons';
 import React, {
   Children,
   ElementType,
+  Fragment,
   memo,
   PropsWithChildren,
   ReactNode,
@@ -129,10 +130,11 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   const firstRow: ReactNode[] = [];
   
   if (onReload && !isMobileViewPort) {
-    firstRow.push(<>
+    firstRow.push(
+      <Fragment key="reload-section">
         {reloadSection}
         {pagination.withPagination && <div className="jk-divider horizontal" key="reload-button-icon-divider" />}
-      </>,
+      </Fragment>,
     );
   }
   
