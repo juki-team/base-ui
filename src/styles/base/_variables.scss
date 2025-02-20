@@ -18,7 +18,9 @@ html body {
   @include mixins.lg { --screen-cols: 12; }
   @include mixins.md { --screen-cols: 12; }
   @include mixins.sm { --screen-cols: 7; }
-  
+}
+
+html body {
   //--screen-col-pad-width: calc(var(--screen-content-width, 100vw) / ((var(--screen-cols, 1) * 2) + var(--screen-cols, 1) - 1));
   --screen-col-pad-width: calc(min(100vw, 1760px) / ((var(--screen-cols, 1) * 2) + 4 + var(--screen-cols, 1) - 1));
   --screen-col-width: calc(var(--screen-col-pad-width, 1) * 2);
@@ -75,7 +77,9 @@ html body {
   @include mixins.lg { --border-radius-inline: 6px; }
   @include mixins.md { --border-radius-inline: 5px; }
   @include mixins.sm { --border-radius-inline: 10px; }
-  
+}
+
+html body {
   --weight-lighter: 100;
   --weight-light: 200;
   --weight-regular: 300;
@@ -84,22 +88,6 @@ html body {
   
   --base-text-size: 16px;
   --base-text-height: 24px;
-  
-  --line-height-head: 1.4;
-  --font-size-h3: calc(var(--base-text-size) + 10px); // 26
-  @include mixins.sm {
-    --font-size-h3: calc(var(--base-text-size) + 10px - 4px); // 22
-  }
-  
-  --font-size-h2: calc(var(--base-text-size) + 14px); // 30
-  @include mixins.sm {
-    --font-size-h2: calc(var(--base-text-size) + 14px - 4px); // 26
-  }
-  
-  --font-size-h1: calc(var(--base-text-size) + 18px); // 34
-  @include mixins.sm {
-    --font-size-h1: calc(var(--base-text-size) + 18px - 4px); // 30
-  }
   
   --text-huge-size: calc(var(--base-text-size) + 4px);
   --text-huge-height: var(--base-text-height);
@@ -112,6 +100,20 @@ html body {
   --text-tiny-size: calc(var(--base-text-size) - 4px);
   --text-tiny-height: 1.2;
   
+  --line-height-head: 1.4;
+  --font-size-h3: calc(var(--base-text-size) + 10px); // 26
+  --font-size-h2: calc(var(--base-text-size) + 14px); // 30
+  --font-size-h1: calc(var(--base-text-size) + 18px); // 34
+  
+  // 22
+  @include mixins.sm { --font-size-h3: calc(var(--base-text-size) + 10px - 4px); }
+  // 26
+  @include mixins.sm { --font-size-h2: calc(var(--base-text-size) + 14px - 4px); }
+  // 30
+  @include mixins.sm { --font-size-h1: calc(var(--base-text-size) + 18px - 4px); }
+}
+
+html body {
   --z-index-menu: 50;
   --z-index-select-options: 60;
   --z-index-drawer: 200;
