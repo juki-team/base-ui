@@ -397,6 +397,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     -webkit-appearance: none;
     position: relative;
     cursor: pointer;
+    margin: 2px 2px !important;
+    height: var(--pad-s) !important;
+    width: var(--pad-s) !important;
+    min-height: var(--pad-s) !important;
+    min-width: var(--pad-s) !important;
+    
     background-color: transparent;
     @include mixins.transition(background-color);
     
@@ -418,12 +424,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     &:focus-visible {
       outline-color: var(--t-color-primary);
     }
-    
-    margin: 2px 2px !important;
-    height: var(--pad-s) !important;
-    width: var(--pad-s) !important;
-    min-height: var(--pad-s) !important;
-    min-width: var(--pad-s) !important;
   }
   
   input.jk-input-checkbox {

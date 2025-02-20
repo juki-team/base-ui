@@ -30,6 +30,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   outline-offset: -1px;
   //cursor: initial;
   cursor: pointer;
+  overflow: hidden;
   //padding: calc(var(--gap) - 2px) var(--button-border-padding);
   padding: 6px var(--button-border-padding);
   opacity: 1;
@@ -161,8 +162,6 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
     --button-background-color: var(--t-color-success);
     pointer-events: none;
   }
-  
-  overflow: hidden;
   
   &.icon:not(.only-icon) {
     > :first-child {

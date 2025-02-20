@@ -155,8 +155,10 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
 }
 
 @mixin font-size($size) {
-  font-size: string.unquote("var(--text-#{$size}-size);");
-  line-height: string.unquote("var(--text-#{$size}-height);");
+  & {
+    font-size: string.unquote("var(--text-#{$size}-size);");
+    line-height: string.unquote("var(--text-#{$size}-height);");
+  }
 }
 
 @mixin elevation($level) {
