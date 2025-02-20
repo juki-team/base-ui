@@ -31,16 +31,12 @@
 
 .jk-vertical-menu-layout-container {
   --top-horizontal-menu-height: 0px;
-  --left-vertical-menu-width: calc(64px * 4);
-  @include mixins.md {
-    --left-vertical-menu-width: calc(64px * 3);
-  }
-  @include mixins.sm {
-    --left-vertical-menu-width: calc(64px * 2);
-  }
-  
   --height-jk-menu-item: var(--left-vertical-collapsed-menu-width);
   //--height-jk-menu-item: 56px;
+  
+  --left-vertical-menu-width: calc(64px * 4);
+  @include mixins.md { --left-vertical-menu-width: calc(64px * 3); }
+  @include mixins.sm { --left-vertical-menu-width: calc(64px * 2); }
   
   &.collapsed {
     --left-vertical-menu-width: var(--left-vertical-collapsed-menu-width);

@@ -6,8 +6,6 @@ body {
   font-weight: var(--weight-regular, 400);
   color: var(--t-color-black-light);
   background-color: var(--t-color-background);
-  @include mixins.transition(background-color, color);
-  @include mixins.font-size(medium);
   margin: 0;
   width: 100%;
   height: 100%;
@@ -15,6 +13,9 @@ body {
   --left-vertical-collapsed-menu-width: 0px;
   --top-horizontal-menu-height: 0px;
   --bottom-horizontal-menu-height: 0px;
+  
+  @include mixins.transition(background-color, color);
+  @include mixins.font-size(medium);
   
   #juki-app {
     overflow: hidden;

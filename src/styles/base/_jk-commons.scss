@@ -256,10 +256,12 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
 .appearance-gray-6 { @include mixins.look(gray-6); }
 
 .jk-tag {
-  @include mixins.look(primary);
+  
   padding: 0 var(--pad-xt);
   border-radius: var(--border-radius-inline);
   display: inline-block;
+  
+  @include mixins.look(primary);
   
   &.accent-dark { @include mixins.look(accent-dark); }
   
@@ -330,9 +332,9 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
 }
 
 .jk-text-stderr {
+  padding: 5px 0;
   @include mixins.font-size(tiny);
   @include mixins.look(error);
-  padding: 5px 0;
 }
 
 .jk-table-inline-header, .jk-table-inline-row {
@@ -353,15 +355,15 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   padding: var(--pad-xt) 0;
   box-sizing: border-box;
   
+  // for buttons
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  
   &:not(button) {
     border-bottom: 1px solid var(--t-color-gray-5);
     border-left: 1px solid var(--t-color-gray-5);
     border-right: 1px solid var(--t-color-gray-5);
   }
-  
-  // for buttons
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
 }
 
 .jk-row-col {
