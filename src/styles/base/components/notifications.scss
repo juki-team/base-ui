@@ -74,11 +74,8 @@
     }
     
     .jk-notification-item {
-      @include mixins.elevation(2);
       padding: var(--pad-xt);
-      @include mixins.sm {
-        padding: 2px 4px;
-      }
+      @include mixins.sm { padding: 2px 4px; }
       
       .jk-notification-message-content {
         justify-content: center;

@@ -37,8 +37,8 @@
         width: min-content;
         text-align: center;
         align-items: center;
-        @include mixins.font-size(small);
         height: 24px;
+        @include mixins.font-size(small);
         
         .tt-se {
           //margin: 0 var(--pad-xt);

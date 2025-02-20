@@ -74,8 +74,8 @@ h1 {
 }
 
 p {
-  @include mixins.font-size(medium);
   margin: unset;
+  @include mixins.font-size(medium);
 }
 
 ul {

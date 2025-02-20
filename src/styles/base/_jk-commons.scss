@@ -127,6 +127,8 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
 
 .jk-pg {
   
+  padding: var(--pad-md);
+  
   &-lg {
     padding: var(--pad-lg);
     
@@ -170,8 +172,6 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   &-b, &-tb, &-rb, &-bl, &-trb, &-rbl, &-trbl { padding-bottom: var(--pad-md); }
   
   &-l, &-tl, &-rl, &-bl, &-trl, &-rbl, &-trbl { padding-left: var(--pad-md); }
-  
-  padding: var(--pad-md);
 }
 
 /*
