@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "1.0.90",
+  "version": "1.0.91",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -162,7 +162,7 @@
     "@types/react-dom": "^19.0.2",
     "@types/uuid": "^10.0.0",
     "i18next": "^24.1.0",
-    "motion": "^11.13.5",
+    "motion": "^12.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.0.2",
