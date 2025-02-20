@@ -40,6 +40,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: center;
+    
     display: block;
     @include mixins.sm { display: none; }
   }

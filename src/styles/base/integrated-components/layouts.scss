@@ -5,6 +5,7 @@
   height: calc(var(--100VH) - var(--top-horizontal-menu-height, 0px) - var(--bottom-horizontal-menu-height, 0px));
   
   &:before {
+    
     content: "";
     width: 100vw;
     height: calc(var(--first-content-section-height) - 1px);
@@ -13,9 +14,10 @@
     top: 0;
     left: 0;
     border-bottom: 1px solid var(--t-color-highlight-light);
+    z-index: 1;
+    
     background-color: var(--t-color-white);
     @include mixins.transition(background-color);
-    z-index: 1;
   }
   
   > #jk-two-content-section-first-panel {
