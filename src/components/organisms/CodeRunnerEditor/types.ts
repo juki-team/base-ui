@@ -1,6 +1,6 @@
 import { CodeEditorTestCasesType, SubmissionTestCaseType } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { OnRefChangeType } from 'react-resize-detector/build/types/types';
+import { UseResizeDetectorReturn } from 'react-resize-detector';
 import { BasicModalProps } from '../../atoms/Modal/types';
 import { CodeEditorPropertiesType } from '../../index';
 
@@ -82,7 +82,7 @@ export interface HeaderProps<T> {
   isRunning: boolean,
   withoutRunCodeButton: boolean,
   readOnly: boolean,
-  headerRef: OnRefChangeType<any>,
+  headerRef: UseResizeDetectorReturn<any>['ref'],
   headerWidthContainer: number,
   twoRows: boolean,
 }

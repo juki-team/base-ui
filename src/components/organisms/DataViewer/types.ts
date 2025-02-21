@@ -1,6 +1,6 @@
 import { DataViewMode, Status } from '@juki-team/commons';
 import { CSSProperties, Dispatch, FC, PropsWithChildren, ReactNode, SetStateAction } from 'react';
-import { OnRefChangeType } from 'react-resize-detector/build/types/types';
+import { UseResizeDetectorReturn } from 'react-resize-detector';
 import { DataViewerRequesterGetUrlType } from '../../../hooks';
 import {
   DateDisplayType,
@@ -354,7 +354,7 @@ export interface TableHeadProps<T> {
   setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   loading: boolean,
   gap: number,
-  headerRef: OnRefChangeType,
+  headerRef: UseResizeDetectorReturn<any>['ref'],
   topHeaders: DataViewerTableHeadersType<T>[],
   rightBorders: number[],
 }

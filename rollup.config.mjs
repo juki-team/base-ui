@@ -4,8 +4,10 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
 import terser from "@rollup/plugin-terser";
+// import postcss from "rollup-plugin-postcss";
+// import scss from "rollup-plugin-scss";
+// import path from "path";
 // import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
-
 // import { visualizer } from 'rollup-plugin-visualizer';
 
 const plugins = [
@@ -14,6 +16,23 @@ const plugins = [
   commonjs(),
   typescript({useTsconfigDeclarationDir: true, tsconfig: './tsconfig.json', exclude: [ '**/*.stories.tsx' ]}),
   // sizeSnapshot(),
+  // postcss({
+  //   modules: true, // 🔥 Usa CSS Modules
+  //   autoModules: true, // Detecta archivos `.module.scss`
+  //   minimize: true,
+  //   sourceMap: true,
+  // }),
+  // scss({
+  //   output: (styles, styleNodes) => {
+  //     // 🔥 Genera un archivo CSS separado para cada .scss importado
+  //     Object.entries(styleNodes).forEach(([ file, content ]) => {
+  //       const fileName = path.basename(file, path.extname(file)) + ".css";
+  //       require("fs").writeFileSync(`dist/${fileName}`, content);
+  //     });
+  //   },
+  //   include: [ 'src/styles/**/*.scss' ],
+  // }),
+  // scss({output: false}), // 🔥 No genera un styles.css global
   terser(),
   copy({
     targets: [
