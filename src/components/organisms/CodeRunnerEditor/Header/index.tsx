@@ -5,11 +5,11 @@ import {
   Status,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import React, { CSSProperties, useEffect, useRef, useState } from 'react';
+import React, { CSSProperties, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
-import { useJukiNotification, useJukiUser } from '../../../../hooks';
+import { useJukiNotification, useJukiWebsocket } from '../../../../hooks';
 import { jukiApiSocketManager } from '../../../../settings';
 import {
   Button,
@@ -53,12 +53,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
-  const [ readyState, setReadyState ] = useState<number>(WebSocket.CLOSED);
-  const { user: { sessionId } } = useJukiUser();
-  const [ timestamp, setTimestamp ] = useState(0);
-  useEffect(() => {
-    setReadyState(jukiApiSocketManager.SOCKET.getReadyState());
-  }, [ sessionId, timestamp ]);
+  const { isConnected, connectionId } = useJukiWebsocket();
   
   useEffect(() => {
     if (isRunning) {
@@ -90,6 +85,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
           inputs: Object.values(testCases).map(testCase => ({ key: testCase.key, source: testCase.in })),
           timeLimit,
           memoryLimit,
+          connectionId,
         },
       });
       const request = cleanRequest<ContentResponseType<{ runId: string }>>(
@@ -147,7 +143,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
           <>
             <ButtonLoader
               data-tooltip-id="jk-tooltip"
-              data-tooltip-content={readyState !== WebSocket.OPEN
+              data-tooltip-content={!isConnected
                 ? 'run the editor is not available yet'
                 : undefined}
               size="tiny"
@@ -156,11 +152,11 @@ export const Header = <T, >(props: HeaderProps<T>) => {
               icon={<PlayArrowIcon />}
               onClick={handleRunCode}
               setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-              disabled={readyState !== WebSocket.OPEN}
+              disabled={!isConnected}
             >
               {(twoRows || withLabels) && <T>run</T>}
             </ButtonLoader>
-            {!(readyState === WebSocket.OPEN) && (
+            {!isConnected && (
               <ButtonLoader
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="offline, click to try to reconnect"
@@ -169,9 +165,8 @@ export const Header = <T, >(props: HeaderProps<T>) => {
                 onClick={async (setLoader) => {
                   setLoader(Status.LOADING);
                   if (jukiApiSocketManager.SOCKET.getReadyState() !== WebSocket.OPEN) {
-                    await jukiApiSocketManager.SOCKET.start();
+                    await jukiApiSocketManager.SOCKET.connect();
                   }
-                  setTimestamp(Date.now());
                   setLoader(Status.NONE);
                 }}
                 icon={<ErrorIcon />}

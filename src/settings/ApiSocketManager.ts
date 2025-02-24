@@ -604,6 +604,7 @@ export class ApiSocketManager {
               inputs: { key: string, source: string }[]
               timeLimit: number,
               memoryLimit: number,
+              connectionId: string,
             }
           },
           HTTPMethod.POST

@@ -2,17 +2,11 @@ import {
   CompanyPingType,
   ContentResponseType,
   DataViewMode,
-  getWebSocketResponseEventKey,
-  isPongWebSocketResponseEventDTO,
   Language,
   MenuViewMode,
-  ObjectIdType,
   PingResponseDTO,
   ProfileSetting,
   Theme,
-  WebSocketActionEvent,
-  WebSocketResponseEvent,
-  WebSocketResponseEventDTO,
 } from '@juki-team/commons';
 import React, {
   Dispatch,
@@ -36,7 +30,6 @@ import {
 } from 'react-device-detect';
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
-import { useJukiPage } from '../../hooks';
 import { useFetcher } from '../../hooks/useFetcher';
 import { jukiApiSocketManager, jukiGlobalStore } from '../../settings';
 import { UserContext } from './context';
@@ -128,47 +121,9 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   
   const { children } = props;
   
-  const token = jukiApiSocketManager.getToken();
-  const lastTokenRef = useRef('');
-  
   const { user, company, setUser, isLoading, mutate } = useUser();
-  const { isPageVisible } = useJukiPage();
-  const intervalRef = useRef<ReturnType<typeof setTimeout>>(null);
   const userConnectionIdRef = useRef(user?.connectionId);
   userConnectionIdRef.current = user?.connectionId;
-  
-  useEffect(() => {
-    
-    const eventKey = getWebSocketResponseEventKey(WebSocketResponseEvent.PONG, user.sessionId, '*');
-    
-    const callback = (data: WebSocketResponseEventDTO) => {
-      if (isPongWebSocketResponseEventDTO(data)) {
-        if (userConnectionIdRef.current !== data.connectionId) {
-          setUser(prevState => ({ ...prevState, connectionId: data.connectionId }));
-        }
-      }
-    };
-    
-    jukiApiSocketManager.SOCKET.subscribe(eventKey, callback);
-    
-    return () => {
-      jukiApiSocketManager.SOCKET.unsubscribe(eventKey, callback);
-    };
-  }, [ setUser, user.sessionId ]);
-  
-  useEffect(() => {
-    if (isPageVisible && token !== lastTokenRef.current) {
-      lastTokenRef.current = token;
-      void jukiApiSocketManager.SOCKET.start();
-      intervalRef.current && clearInterval(intervalRef.current);
-      intervalRef.current = setInterval(() => {
-        jukiApiSocketManager.SOCKET.send({
-          event: WebSocketActionEvent.PING,
-          sessionId: token as ObjectIdType,
-        }, '');
-      }, 60000);
-    }
-  }, [ isPageVisible, setUser, token ]);
   
   const device: DeviceType = useMemo(() => ({
     type: deviceType,

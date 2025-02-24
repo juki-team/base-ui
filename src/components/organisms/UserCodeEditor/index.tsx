@@ -3,6 +3,7 @@ import {
   isStringJson,
   PROGRAMMING_LANGUAGE,
   ProgrammingLanguage,
+  SubmissionRunStatus,
   Theme,
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from 'react';
@@ -109,7 +110,22 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     fontSize: 14,
   });
   const [ language, setLanguage ] = useStableState<T>(initialLanguage ?? editorSettings.lastLanguageUsed as T);
-  const [ testCases, setTestCases ] = useState<CodeEditorTestCasesType>(initialTestCases ?? {});
+  const [ testCases, setTestCases ] = useState<CodeEditorTestCasesType>(initialTestCases ?? {
+    '*': {
+      key: '*',
+      in: '',
+      testOut: '',
+      withPE: false,
+      sample: true,
+      hidden: true,
+      index: -1,
+      messageTimestamp: 0,
+      out: '',
+      err: '',
+      log: '',
+      status: SubmissionRunStatus.NONE,
+    },
+  });
   const initialTestCasesString = JSON.stringify(initialTestCases);
   useEffect(() => {
     if (isStringJson(initialTestCasesString)) {

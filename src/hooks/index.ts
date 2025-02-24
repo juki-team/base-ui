@@ -9,6 +9,7 @@ export * from './useJukiPage';
 export * from './useJukiRouter';
 export * from './useJukiUI';
 export * from './useJukiUser';
+export * from './useJukiWebsocket';
 export * from './useLastPath';
 export * from './useMemoizedArray';
 export * from './useSessionStorage';

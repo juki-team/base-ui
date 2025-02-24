@@ -1,4 +1,5 @@
 import {
+  AuthenticateWebSocketEventDTO,
   consoleError,
   consoleInfo,
   consoleWarn,
@@ -9,6 +10,7 @@ import {
   isSubscribeCodeRunStatusWebSocketEventDTO,
   isSubscribeSubmissionRunStatusWebSocketEventDTO,
   ObjectIdType,
+  ONE_MINUTE,
   PingWebSocketEventDTO,
   WebSocketActionEvent,
   WebSocketEventDTO,
@@ -27,6 +29,9 @@ export class JukiWebSocketManagement {
   private callbacks: { [key: WebSocketResponseEventKey]: ((data: WebSocketResponseEventDTO) => void)[] } = {};
   private _messageQueue: string[] = [];
   private _reconnecting = false;
+  private _attempts = 0;
+  private _eventListeners: Parameters<WebSocket['addEventListener']>[] = [];
+  private readonly _baseDelay = 1000; // 1 segundo
   
   constructor(socketServiceUrl: string) {
     this.socketServiceUrl = socketServiceUrl;
@@ -47,30 +52,17 @@ export class JukiWebSocketManagement {
     return false;
   }
   
-  async _reconnect() {
-    if (this._reconnecting) {
-      return;
-    }
-    this._reconnecting = true;
-    if (!await this._connect()) {
-      consoleInfo('Socket not connected successfully, reconnect will be attempted in 1 second');
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      this._reconnecting = false;
-      await this._reconnect();
-    }
-    this._reconnecting = false;
-  }
-  
   _connect(): Promise<boolean> {
     return new Promise(async (resolve) => {
-      const token = jukiApiSocketManager.getToken();
-      if (!token) {
-        consoleWarn('Juki web socket no connected, token not found');
-        return resolve(false);
-      }
       await this.stop();
       
-      this._socket = new WebSocket(this.socketServiceUrl + `?sessionId=${jukiApiSocketManager.getToken()}`);
+      this._socket = new WebSocket(this.socketServiceUrl);
+      
+      for (const eventListener of this._eventListeners) {
+        this._socket.addEventListener(...eventListener);
+      }
+      // @ts-ignore
+      this._socket._id = crypto.randomUUID();
       
       if (typeof window !== 'undefined') {
         // @ts-ignore
@@ -83,21 +75,23 @@ export class JukiWebSocketManagement {
         // with storybook: document.getElementById('storybook-preview-iframe').contentWindow.__JUKI_WEB_SOCKET__.
       }
       
-      this._socket?.addEventListener('open', () => {
+      this._socket.addEventListener('open', () => {
+        this._attempts = 0;
+        consoleInfo('Juki Websocket connected', this._socket);
         resolve(true);
-        const event: PingWebSocketEventDTO = { event: WebSocketActionEvent.PING, sessionId: token as ObjectIdType };
-        this._send(JSON.stringify(contentResponse('hi', event)), false);
+        // const token = jukiApiSocketManager.getToken();
+        // const event: PingWebSocketEventDTO = { event: WebSocketActionEvent.PING, sessionId: token as ObjectIdType };
+        // this._send(JSON.stringify(contentResponse('hi', event)), false);
         
+        // this.authenticate(jukiApiSocketManager.getToken() as ObjectIdType);
         while (this._messageQueue.length > 0) {
           if (!this._send(this._messageQueue.shift()!, true)) {
             break;
           }
         }
-        
-        consoleInfo('Juki web socket connected');
       });
       
-      this._socket?.addEventListener('message', (event) => {
+      this._socket.addEventListener('message', (event) => {
         const response = cleanRequest<ContentResponseType<WebSocketResponseEventDTO>>(event.data);
         if (response.success) {
           const content = response.content;
@@ -108,35 +102,66 @@ export class JukiWebSocketManagement {
             }
             return true;
           }
-          consoleWarn('no callback for key ', { content });
+          consoleWarn('no callback for key ', { content, callbacks: this.callbacks });
           return false;
         }
         consoleWarn('web socket event data not valid', event);
         return false;
       });
       
-      this._socket?.addEventListener('close', (event) => {
+      this._socket.addEventListener('close', (event) => {
         if (event.reason !== FORCE_CLOSED) {
-          consoleError('Juki web socket closed, reconnecting...', event);
+          consoleError('Juki web socket closed, reconnecting...', event, this._socket);
           this._reconnect();
         }
         resolve(false);
       });
       
-      this._socket?.addEventListener('error', (event) => {
-        consoleError('Juki web socket error, reconnecting...', event);
+      this._socket.addEventListener('error', (event) => {
+        consoleError('Juki web socket error, reconnecting...', event, this._socket);
         this._reconnect();
         resolve(false);
       });
     });
   }
   
-  start() {
-    return this._reconnect();
+  async _reconnect() {
+    if (this._reconnecting) {
+      return;
+    }
+    this._reconnecting = true;
+    this._attempts++;
+    const delay = Math.min(this._baseDelay * Math.pow(2, this._attempts), ONE_MINUTE); // Exponential backoff
+    consoleInfo(`Reconnecting in ${delay / 1000} seconds...`);
+    await new Promise(resolve => setTimeout(resolve, delay));
+    this._reconnecting = false;
+    
+    if (!(await this._connect())) {
+      await this._reconnect();
+    }
+  }
+  
+  async connect() {
+    if (this._socket?.readyState === WebSocket.OPEN) {
+      return;
+    }
+    await this._connect();
+    if (!this._socket || this._socket?.readyState !== WebSocket.OPEN) {
+      return this._reconnect();
+    }
+  }
+  
+  getId() {
+    // @ts-ignore
+    return this._socket?._id || '';
   }
   
   getReadyState() {
     return this._socket?.readyState || WebSocket.CLOSED;
+  }
+  
+  addEventListener(...props: Parameters<WebSocket['addEventListener']>) {
+    this._eventListeners.push(props);
   }
   
   stop() {
@@ -181,43 +206,55 @@ export class JukiWebSocketManagement {
     return '' as WebSocketResponseEventKey;
   }
   
-  subscribe(eventKey: WebSocketResponseEventKey, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
+  subscribe(event: WebSocketEventDTO, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
+    const eventKey = this._getKeyWebSocketEventDTO(event);
     if (!Array.isArray(this.callbacks[eventKey])) {
       this.callbacks[eventKey] = [];
     }
     this.callbacks[eventKey].push(callbackSubscription);
   }
   
-  send(event: WebSocketEventDTO, message?: string, callbackSubscription?: (data: WebSocketResponseEventDTO) => void) {
+  send(event: WebSocketEventDTO, callbackSubscription?: (data: WebSocketResponseEventDTO) => void) {
     if (!event.sessionId) {
-      consoleWarn('session id not valid sending web socket event', { event, message, callbackSubscription });
+      consoleWarn('session id not valid sending web socket event', { event, callbackSubscription });
       return;
     }
     if (callbackSubscription) {
-      const eventKey = this._getKeyWebSocketEventDTO(event);
-      this.subscribe(eventKey, callbackSubscription);
+      this.subscribe(event, callbackSubscription);
     }
     
-    return this._send(JSON.stringify(contentResponse(message || 'sent', event)), true);
+    return this._send(JSON.stringify(contentResponse('sending new message', event)), true);
+  }
+  
+  async authenticate(sessionId: ObjectIdType) {
+    this._messageQueue = [];
+    if (!sessionId) {
+      consoleWarn('Juki web socket no authenticated, no valid sessionId');
+      return;
+    }
+    const event: AuthenticateWebSocketEventDTO = {
+      event: WebSocketActionEvent.AUTHENTICATE,
+      sessionId,
+    };
+    this._send(JSON.stringify(contentResponse('authenticate', event)), true);
   }
   
   unsubscribeAll(event: WebSocketEventDTO) {
     const eventKey = this._getKeyWebSocketEventDTO(event);
-    
     this.callbacks[eventKey] = [];
     
     return this._send(JSON.stringify(contentResponse('sent', event)), true);
   }
   
-  unsubscribe(eventKey: WebSocketResponseEventKey, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
+  unsubscribe(event: WebSocketEventDTO, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
+    const eventKey = this._getKeyWebSocketEventDTO(event);
     this.callbacks[eventKey] = (this.callbacks[eventKey] || []).filter(callback => callback !== callbackSubscription);
   }
   
   unSend(event: WebSocketEventDTO, callbackSubscription?: (data: WebSocketResponseEventDTO) => void) {
     
     if (callbackSubscription) {
-      const eventKey = this._getKeyWebSocketEventDTO(event);
-      this.unsubscribe(eventKey, callbackSubscription);
+      this.unsubscribe(event, callbackSubscription);
     }
     
     return this._send(JSON.stringify(contentResponse('sent', event)), true);

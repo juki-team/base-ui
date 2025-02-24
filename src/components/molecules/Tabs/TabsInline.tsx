@@ -196,7 +196,6 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
 
 const variants = {
   // enter: (direction: number) => {
-  //   console.log('enter', { direction });
   //   return {
   //     x: direction > 0 ? '100%' : '-100%',
   //     // opacity: 0,
@@ -224,7 +223,6 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: TabsInlineBodyProp
   // const prevPrevIndex = Object.keys(tabs).indexOf(prevPrevSelectedTabKey as string);
   const fromLeft = prevIndex < currentIndex;
   // const prevFromLeft = prevPrevIndex < currentIndex;
-  // console.log({ fromLeft, prevFromLeft, prevPrevIndex, prevIndex, currentIndex });
   const direction = fromLeft ? 1 : -1;
   // const [ render, setRender ] = useState(Date.now());
   

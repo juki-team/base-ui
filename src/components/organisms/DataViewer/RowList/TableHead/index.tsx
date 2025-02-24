@@ -147,7 +147,6 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
     // if (fillWidth && headers[nextColumnIndex]) {
     //   if (headers[columnIndex].width + moveX >= headers[columnIndex].minWidth
     //     && headers[nextColumnIndex].width - moveX >= headers[nextColumnIndex].minWidth) {
-    //     console.log('enter 1', { columnIndex, moveX });
     //     const newHeaders = [ ...headers ];
     //     newHeaders[columnIndex] = {
     //       ...newHeaders[columnIndex],

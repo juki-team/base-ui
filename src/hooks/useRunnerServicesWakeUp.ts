@@ -1,10 +1,9 @@
-import { consoleInfo, ContentResponseType } from '@juki-team/commons';
+import { consoleInfo, ContentResponseType, ONE_MINUTE } from '@juki-team/commons';
 import { useEffect } from 'react';
 import { authorizedRequest, cleanRequest } from '../helpers';
 import { jukiApiSocketManager } from '../settings';
 import { useJukiPage } from './useJukiPage';
 
-const ONE_MINUTE = 1000 * 60;
 const intervalRef: {
   current: ReturnType<typeof setInterval> | undefined,
   lastRequested: number

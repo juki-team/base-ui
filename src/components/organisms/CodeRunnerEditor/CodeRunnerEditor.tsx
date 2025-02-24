@@ -68,7 +68,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
       sessionId,
       runId,
     };
-    jukiApiSocketManager.SOCKET.send(event, '', (data) => {
+    jukiApiSocketManager.SOCKET.subscribe(event, (data) => {
       if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
         const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
           onChangeRef.current?.({

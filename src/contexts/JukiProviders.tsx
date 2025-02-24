@@ -5,6 +5,7 @@ import { JukiRouterProvider } from './JukiRouterProvider';
 import { JukiTasksProvider } from './JukiTasksProvider/JukiTasksProvider';
 import { JukiUIProvider } from './JukiUIProvider';
 import { JukiUserProvider } from './JukiUserProvider';
+import { JukiWebsocketProvider } from './JukiWebsocketProvider';
 import { JukiProvidersProps } from './types';
 
 export const JukiProviders = <T extends string | number, >(props: PropsWithChildren<JukiProvidersProps<T>>) => {
@@ -31,13 +32,15 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
         pathname={router.pathname}
       >
         <JukiUserProvider>
-          <JukiUIProvider components={components}>
-            <JukiLastPathProvider initialLastPath={initialLastPath}>
-              <JukiTasksProvider>
-                {children}
-              </JukiTasksProvider>
-            </JukiLastPathProvider>
-          </JukiUIProvider>
+          <JukiWebsocketProvider>
+            <JukiUIProvider components={components}>
+              <JukiLastPathProvider initialLastPath={initialLastPath}>
+                <JukiTasksProvider>
+                  {children}
+                </JukiTasksProvider>
+              </JukiLastPathProvider>
+            </JukiUIProvider>
+          </JukiWebsocketProvider>
         </JukiUserProvider>
       </JukiRouterProvider>
     </JukiPageProvider>

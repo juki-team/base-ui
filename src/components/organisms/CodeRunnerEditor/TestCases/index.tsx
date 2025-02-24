@@ -85,7 +85,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   
   const testCasesValues = Object.values(testCases)
     .sort((a, b) => (a.sample !== b.sample) ? +b.sample - +a.sample : a.index - b.index);
-  const [ testCaseKey, setTestCaseKey ] = useState(testCasesValues[0]?.key || '');
+  const [ testCaseKey, setTestCaseKey ] = useState(testCasesValues[0]?.key || '*');
   useEffect(() => {
     const testCasesValues = Object.values(testCases);
     if (testCasesValues.length) {
