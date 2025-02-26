@@ -6,7 +6,7 @@ import {
   SubmissionRunStatus,
   Theme,
 } from '@juki-team/commons';
-import React, { Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from 'react';
+import React, { Dispatch, ReactNode, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
 import { useJukiUser, useStableState } from '../../../hooks';
 import {
@@ -55,13 +55,11 @@ const useSaveStorage = <T extends Object, >(storeKey: string | undefined, defaul
 
 const useSaveChunkStorage = <T extends Object, >(storeKey: string, initialValue: StorageType<T>, merge: (a: T, b: T | undefined) => T): [ StorageType<T>, Dispatch<SetStateAction<StorageType<T>>> ] => {
   
-  const [ value, setValue ] = useState<StorageType<T>>({});
-  
   const initialValueString = JSON.stringify(initialValue);
   const mergeRef = useRef(merge);
   mergeRef.current = merge;
   
-  useEffect(() => {
+  const mergeState = useCallback(() => {
     let initialValue: StorageType<T> = {};
     if (isStringJson(initialValueString)) {
       initialValue = JSON.parse(initialValueString);
@@ -76,9 +74,14 @@ const useSaveChunkStorage = <T extends Object, >(storeKey: string, initialValue:
         newState[key] = value;
       }
     }
-    
-    setValue(newState);
-  }, [ storeKey, initialValueString ]);
+    return newState;
+  }, [ initialValueString, storeKey ]);
+  
+  const [ value, setValue ] = useState<StorageType<T>>(mergeState());
+  
+  useEffect(() => {
+    setValue(mergeState());
+  }, [ mergeState ]);
   
   useEffect(() => {
     const stringValue = JSON.stringify(value);
