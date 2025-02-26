@@ -81,7 +81,11 @@ export const ProblemNameModalField: DataViewerHeadersType<ProblemSummaryListResp
                   url={jukiApiSocketManager.API_V1.problem.getData({ params: { key } }).url}
                 >
                   {data => (
-                    <ProblemView problem={data.data.content} infoPlacement="name" />
+                    <ProblemView
+                      problem={data.data.content}
+                      infoPlacement="name"
+                      codeEditorStoreKey={data.data.content.key}
+                    />
                   )}
                 </FetcherLayer>
               </Modal>,
