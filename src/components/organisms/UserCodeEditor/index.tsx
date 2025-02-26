@@ -7,7 +7,7 @@ import {
   Theme,
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from 'react';
-import { getEditorSettingsStorageKey, getSourcesStoreKey } from '../../../helpers';
+import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
 import { useJukiUser, useStableState } from '../../../hooks';
 import {
   CodeEditorCenterButtonsPropertiesType,
@@ -17,13 +17,18 @@ import {
   CodeRunnerEditorPropertiesType,
 } from '../CodeRunnerEditor';
 
-const useSaveStorage = <T extends Object, >(storeKey: string | undefined, defaultValue: T): [ T, Dispatch<SetStateAction<T>> ] => {
-  
+const getStoreRecovered = <T, >(storeKey: string | undefined) => {
   let storeRecovered = {};
   const localStorageData = storeKey ? (localStorage.getItem(storeKey) || '{}') : '{}';
   if (isStringJson(localStorageData)) {
     storeRecovered = JSON.parse(localStorageData);
   }
+  return storeRecovered as T;
+};
+
+const useSaveStorage = <T extends Object, >(storeKey: string | undefined, defaultValue: T): [ T, Dispatch<SetStateAction<T>> ] => {
+  
+  const storeRecovered = getStoreRecovered<T>(storeKey);
   const [ value, setValue ] = useState<T>({ ...defaultValue, ...storeRecovered });
   
   const defaultValueRef = useRef(defaultValue);
@@ -48,12 +53,49 @@ const useSaveStorage = <T extends Object, >(storeKey: string | undefined, defaul
   return [ value, setValue ];
 };
 
+const useSaveChunkStorage = <T extends Object, >(storeKey: string, initialValue: StorageType<T>, merge: (a: T, b: T | undefined) => T): [ StorageType<T>, Dispatch<SetStateAction<StorageType<T>>> ] => {
+  
+  const [ value, setValue ] = useState<StorageType<T>>({});
+  
+  const initialValueString = JSON.stringify(initialValue);
+  const mergeRef = useRef(merge);
+  mergeRef.current = merge;
+  
+  useEffect(() => {
+    let initialValue: StorageType<T> = {};
+    if (isStringJson(initialValueString)) {
+      initialValue = JSON.parse(initialValueString);
+    }
+    const newState: StorageType<T> = {};
+    const storeRecovered = Object.entries(getStoreRecovered<StorageType<T>>(storeKey));
+    for (const [ key, value ] of Object.entries(initialValue)) {
+      newState[key] = mergeRef.current(value, storeRecovered.find(([ storeRecoveredKey ]) => storeRecoveredKey === key)?.[1]);
+    }
+    for (const [ key, value ] of storeRecovered) {
+      if (!newState[key]) {
+        newState[key] = value;
+      }
+    }
+    
+    setValue(newState);
+  }, [ storeKey, initialValueString ]);
+  
+  useEffect(() => {
+    const stringValue = JSON.stringify(value);
+    if (localStorage.getItem(storeKey) !== stringValue) {
+      localStorage.setItem(storeKey, stringValue);
+    }
+  }, [ storeKey, value ]);
+  
+  return [ value, setValue ];
+};
+
 export interface UserCodeEditorProps<T> {
   className?: string,
   expandPosition?: CodeEditorExpandPositionType,
   initialTestCases?: CodeEditorTestCasesType,
   initialLanguage?: T,
-  sourceStoreKey?: string,
+  storeKey: string,
   languages: { value: T, label: string }[],
   centerButtons?: CodeEditorCenterButtonsType<T>,
   rightButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode,
@@ -68,8 +110,12 @@ export interface UserCodeEditorProps<T> {
   withoutRunCodeButton?: boolean,
 }
 
-type SourceStorageType = {
-  [key: string]: { [key: string]: string },
+type StorageType<T> = {
+  [key: string]: T
+}
+
+type SourcesStoreType = {
+  [key: string]: string,
 }
 
 export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
@@ -79,7 +125,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     expandPosition,
     initialTestCases,
     initialLanguage,
-    sourceStoreKey = '',
+    storeKey,
     languages,
     centerButtons,
     rightButtons,
@@ -110,29 +156,47 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     fontSize: 14,
   });
   const [ language, setLanguage ] = useStableState<T>(initialLanguage ?? editorSettings.lastLanguageUsed as T);
-  const [ testCases, setTestCases ] = useState<CodeEditorTestCasesType>(initialTestCases ?? {
-    '*': {
-      key: '*',
-      in: '',
-      testOut: '',
-      withPE: false,
-      sample: true,
-      hidden: true,
-      index: -1,
-      messageTimestamp: 0,
-      out: '',
-      err: '',
-      log: '',
-      status: SubmissionRunStatus.NONE,
-    },
-  });
-  const initialTestCasesString = JSON.stringify(initialTestCases);
-  useEffect(() => {
-    if (isStringJson(initialTestCasesString)) {
-      setTestCases(JSON.parse(initialTestCasesString));
+  const mergeTestCases = (a: CodeEditorTestCasesType, b: CodeEditorTestCasesType | undefined): CodeEditorTestCasesType => {
+    const newTestCases: CodeEditorTestCasesType = {};
+    for (const [ key, testCase ] of Object.entries(a)) {
+      newTestCases[key] = {
+        ...testCase,
+        out: b?.[key]?.out ?? testCase?.out ?? '',
+        err: b?.[key]?.err ?? testCase?.err ?? '',
+        log: b?.[key]?.log ?? testCase?.log ?? '',
+        status: b?.[key]?.status ?? testCase?.status ?? SubmissionRunStatus.NONE,
+        messageTimestamp: b?.[key]?.messageTimestamp ?? testCase?.messageTimestamp ?? 0,
+      };
+      if (key === '*') {
+        newTestCases[key].in = b?.[key]?.in ?? testCase?.in ?? '';
+      }
     }
-  }, [ initialTestCasesString ]);
+    
+    for (const [ key, testCase ] of Object.entries(b ?? {})) {
+      if (!newTestCases[key]) {
+        newTestCases[key] = testCase;
+      }
+    }
+    return newTestCases;
+  };
   
+  const newInitialTestCases: StorageType<CodeEditorTestCasesType> = { [storeKey + '_' + language]: { ...initialTestCases } };
+  newInitialTestCases[storeKey + '_' + language]['*'] = {
+    key: '*',
+    in: '',
+    testOut: '',
+    withPE: false,
+    sample: false,
+    hidden: false,
+    index: -1,
+    messageTimestamp: 0,
+    out: '',
+    err: '',
+    log: '',
+    status: SubmissionRunStatus.NONE,
+  };
+  const [ _testCases, setTestCases ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(nickname), newInitialTestCases, mergeTestCases);
+  const testCases = _testCases[storeKey + '_' + language];
   const onLanguageChangeRef = useRef(onLanguageChange);
   onLanguageChangeRef.current = onLanguageChange;
   
@@ -153,28 +217,18 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     onTestCasesChange?.(testCases);
   }, [ onTestCasesChange, testCases ]);
   
-  const [ sourceStore, setSourceStore ] = useSaveStorage<SourceStorageType>(sourceStoreKey ? getSourcesStoreKey(nickname) : undefined, {});
-  
-  const initialSourceString = JSON.stringify(initialSource);
-  useEffect(() => {
-    if (isStringJson(initialSourceString)) {
-      const initialSource = JSON.parse(initialSourceString);
-      const initialSourcePerLanguages: SourceStorageType[string] = {};
-      for (const { value } of JSON.parse(languagesString)) {
-        initialSourcePerLanguages[value as string] = PROGRAMMING_LANGUAGE[value as ProgrammingLanguage]?.templateSourceCode || '';
-      }
-      
-      setSourceStore(prevState => ({
-        ...prevState,
-        [sourceStoreKey]: {
-          ...initialSourcePerLanguages,
-          ...initialSource,
-        },
-      }));
+  const mergeSources: (a: SourcesStoreType, b: SourcesStoreType | undefined) => SourcesStoreType = (a: SourcesStoreType, b: SourcesStoreType | undefined): SourcesStoreType => {
+    return { ...a, ...b };
+  };
+  const newInitialSource: StorageType<SourcesStoreType> = { [storeKey]: { ...initialSource, key: storeKey } };
+  for (const { value } of JSON.parse(languagesString)) {
+    if (!newInitialSource[storeKey][value]) {
+      newInitialSource[storeKey][value] = PROGRAMMING_LANGUAGE[value as ProgrammingLanguage]?.templateSourceCode || '';
     }
-  }, [ initialSourceString, languagesString, setSourceStore, sourceStoreKey ]);
+  }
+  const [ sourceStore, setSourceStore ] = useSaveChunkStorage<SourcesStoreType>(getSourcesStoreKey(nickname), newInitialSource, mergeSources);
   
-  const newSource = sourceStore[sourceStoreKey]?.[language as string] || '';
+  const newSource = sourceStore[storeKey]?.[language as string] || '';
   
   const onChange = ({
                       sourceCode,
@@ -191,8 +245,8 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     if (typeof sourceCode === 'string') {
       setSourceStore(prevState => ({
         ...prevState,
-        [sourceStoreKey]: {
-          ...(prevState[sourceStoreKey] || {}),
+        [storeKey]: {
+          ...(prevState[storeKey] || {}),
           [language as string]: sourceCode,
         },
       }));
@@ -203,7 +257,10 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       setEditorSettings(prevState => ({ ...prevState, lastLanguageUsed: newLanguage }));
     }
     if (onTestCasesChange) {
-      setTestCases(onTestCasesChange);
+      setTestCases(prevState => ({
+        ...prevState,
+        [storeKey + '_' + language]: onTestCasesChange(prevState[storeKey + '_' + language] || {}),
+      }));
     }
     if (theme) {
       setEditorSettings(prevState => ({ ...prevState, theme }));

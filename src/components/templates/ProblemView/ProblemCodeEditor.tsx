@@ -17,13 +17,13 @@ interface ProblemCodeEditorProps<T> {
   problem: ProblemDataResponseDTO,
   codeEditorCenterButtons?: UserCodeEditorProps<T>['centerButtons'],
   codeEditorRightButtons?: UserCodeEditorProps<T>['rightButtons'],
-  codeEditorSourceStoreKey?: string,
+  codeEditorStoreKey: string,
   expandPosition?: CodeEditorExpandPositionType,
 }
 
 export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
   
-  const { problem, codeEditorCenterButtons, codeEditorRightButtons, codeEditorSourceStoreKey, expandPosition } = props;
+  const { problem, codeEditorCenterButtons, codeEditorRightButtons, codeEditorStoreKey, expandPosition } = props;
   const initialTestCases: CodeEditorTestCasesType = {};
   problem.statement.sampleCases?.forEach((sample, index) => {
     const key = 'sample-' + index;
@@ -80,7 +80,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
   return (
     <UserCodeEditor<T>
       languages={languages}
-      sourceStoreKey={codeEditorSourceStoreKey}
+      storeKey={codeEditorStoreKey}
       centerButtons={codeEditorCenterButtons}
       rightButtons={codeEditorRightButtons}
       initialTestCases={!problem.judge.isExternal

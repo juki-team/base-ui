@@ -44,15 +44,22 @@
     
     cursor: pointer;
     z-index: 1;
+    @include mixins.transition(padding);
     
-    @include mixins.look(primary-light);
-    
-    &:hover {
-      background-color: var(--t-color-primary-dark);
+    &.jk-row {
+      padding: 2px 4px;
+      
+      &:hover {
+        padding: 4px 6px;
+      }
     }
     
-    .label {
-      line-height: var(--pad-xs);
+    &.jk-col {
+      padding: 4px 2px;
+      
+      &:hover {
+        padding: 6px 4px;
+      }
     }
   }
   
@@ -80,13 +87,15 @@
       }
       
       > .notch {
-        .jk-icon {
-          margin: 2px 0;
-        }
         
-        > .label {
-          padding-right: 4px;
-        }
+        
+        //.jk-icon {
+        //  margin: 2px 0;
+        //}
+        //
+        //> .label {
+        //  padding-right: 4px;
+        //}
       }
     }
     
@@ -179,13 +188,7 @@
       }
       
       > .notch {
-        .jk-icon {
-          margin: 2px 0;
-        }
-        
-        > .label {
-          padding-bottom: 4px;
-        }
+      
       }
     }
     
@@ -213,7 +216,7 @@
       .jk-split-pane-divider-line {
         height: 100%;
         width: var(--line-size);
-        left: calc(var(--line-size) / 2 * -1);
+        //left: calc(var(--line-size) / 2 * -1);
       }
       
       &:hover {

@@ -165,6 +165,18 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
     &-l, &-tl, &-rl, &-bl, &-trl, &-rbl, &-trbl { padding-left: var(--pad-sm); }
   }
   
+  &-x-sm {
+    padding: calc(var(--pad-sm) / 2);
+    
+    &-t, &-tr, &-tb, &-tl, &-trb, &-trl, &-trbl { padding-top: calc(var(--pad-sm) / 2); }
+    
+    &-r, &-tr, &-rb, &-rl, &-trb, &-trl, &-rbl, &-trbl { padding-right: calc(var(--pad-sm) / 2); }
+    
+    &-b, &-tb, &-rb, &-bl, &-trb, &-rbl, &-trbl { padding-bottom: calc(var(--pad-sm) / 2); }
+    
+    &-l, &-tl, &-rl, &-bl, &-trl, &-rbl, &-trbl { padding-left: calc(var(--pad-sm) / 2); }
+  }
+  
   &-t, &-tr, &-tb, &-tl, &-trb, &-trl, &-trbl { padding-top: var(--pad-md); }
   
   &-r, &-tr, &-rb, &-rl, &-trb, &-trl, &-rbl, &-trbl { padding-right: var(--pad-md); }

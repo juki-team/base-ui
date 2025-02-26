@@ -32,6 +32,7 @@ export const Regular: Story = {
 };
 
 Regular.args = {
+  codeEditorStoreKey: 'testing-P-1000',
   problem: {
     shortname: '',
     state: EntityState.RELEASED,

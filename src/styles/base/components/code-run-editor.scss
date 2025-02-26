@@ -19,32 +19,13 @@
   width: 100%;
   
   > div {
-    height: 100%;
-    width: 100%;
-    position: relative;
+    //height: 100%;
+    //width: 100%;
+    //position: relative;
     
     .test-cases-output-stderr {
       height: 100%;
       width: 100%;
-      
-      > textarea {
-        height: 100%;
-      }
-      
-      .text-case {
-        display: flex;
-        justify-content: center;
-        width: min-content;
-        text-align: center;
-        align-items: center;
-        height: 24px;
-        @include mixins.font-size(small);
-        
-        .tt-se {
-          //margin: 0 var(--pad-xt);
-          white-space: break-spaces;
-        }
-      }
     }
     
     .test-cases-output-stderr {
@@ -55,19 +36,6 @@
           padding: var(--pad-xt);
           box-sizing: border-box;
           overflow: auto;
-        }
-      }
-      
-      .content-log {
-        padding: calc(var(--pad-sm) / 2);
-        
-        + .content-log {
-          border-top: 1px solid var(--t-color-highlight-light);
-          overflow: auto;
-        }
-        
-        .text-log {
-          padding-right: var(--pad-xt);
         }
       }
       

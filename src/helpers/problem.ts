@@ -16,6 +16,8 @@ export const getProblemsStoreKey = (useNickname: string) => `jk-problem-storage/
 
 export const getSourcesStoreKey = (useNickname: string) => `jk-sources-storage/${useNickname}`;
 
+export const getTestCasesStoreKey = (useNickname: string) => `jk-test-cases-storage/${useNickname}`;
+
 export const getStatementData = (t: TFunction,
                                  { statement, settings }: {
                                    statement: ProblemStatementType,

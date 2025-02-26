@@ -12,7 +12,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
   const {
     problem,
     codeEditorCenterButtons,
-    codeEditorSourceStoreKey,
+    codeEditorStoreKey,
     infoPlacement,
     withoutName,
     forPrinting,
@@ -93,7 +93,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
             />
           );
         }}
-        codeEditorSourceStoreKey={codeEditorSourceStoreKey}
+        codeEditorStoreKey={codeEditorStoreKey}
       />
     </SplitPane>
   );

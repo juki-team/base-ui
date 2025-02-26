@@ -191,6 +191,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-select-layout, .jk-multi-select-layout {
+  
+  &:not(.disabled) {
+    cursor: pointer;
+  }
+  
   &:not(:hover):not(:focus):not(:active):not(.focused):not(.open) {
     > .jk-select > .input-icon,
     > .jk-multi-select-selected-icons > .input-icon {
@@ -541,6 +546,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       pointer-events: none;
       cursor: auto;
     }
+    
+    &.selected {
+      background-color: var(--t-color-primary);
+      color: var(--t-color-primary-text);
+    }
   }
 }
 
@@ -729,8 +739,9 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     padding: 2px 6px;
     //border-radius: var(--border-radius-inline);
     
-    &:hover:not(.disabled) {
+    &:hover:not(.disabled):not(.selected) {
       background-color: var(--t-color-highlight-light);
+      cursor: pointer;
     }
   }
 }

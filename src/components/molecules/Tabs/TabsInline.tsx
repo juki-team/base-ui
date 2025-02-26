@@ -54,7 +54,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
       key={key as string}
       onClick={key === selectedTabKey ? undefined : () => setSelectedTabKey(key as (NotUndefined<T> | Func<T>))}
       className={classNames(`jk-tabs-inline-tab jk-row nowrap`, {
-        'selected fw-bd': key === selectedTabKey,
+        'selected': key === selectedTabKey, // no used bold to prevent changes on the width
         'one-tab-view': oneTabView,
         'cr-pt': key === selectedTabKey && tickStyle === 'background',
       })}
@@ -230,7 +230,7 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: TabsInlineBodyProp
     <AnimatePresence
       custom={direction}
       // onExitComplete={() => setRender(Date.now())}
-      mode="wait"
+      // mode="wait"
       // mode="sync"
       // mode="popLayout"
     >

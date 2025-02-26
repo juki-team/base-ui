@@ -144,7 +144,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
             })}
           >
             <div
-              className={classNames('notch', {
+              className={classNames('notch appearance-primary-light', {
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
               })}
@@ -163,8 +163,9 @@ export const SplitPane = memo((props: SplitPaneProps) => {
               }}
             >
               {displaySecondPane
-                ? (direction === 'row' ? <NavigateBeforeIcon size="small" /> : <ExpandMoreIcon size="small" />)
-                : (direction === 'row' ? <NavigateNextIcon size="small" /> : <ExpandLessIcon size="small" />)}
+                ? (direction === 'row' ? <NavigateBeforeIcon size="tiny" /> : <ExpandMoreIcon size="tiny" />)
+                : (direction === 'row' ? <NavigateNextIcon size="tiny" /> : <ExpandLessIcon size="tiny" />)}
+              <span className="label tx-t">&nbsp;</span>
               {displaySecondPane
                 ? (closableSecondPane?.hideLabel ?? <T className="label tx-t">hide</T>)
                 : (closableSecondPane?.expandLabel ?? <T className="label tx-t">expand</T>)}
@@ -186,7 +187,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
             <div className={classNames('extend', { 'jk-row': direction === 'column', 'jk-col': direction === 'row' })}>
               <div
                 className={classNames(
-                  'notch toggle-button  nowrap',
+                  'notch appearance-primary-light toggle-button nowrap',
                   { 'jk-row': direction === 'column', 'jk-col': direction === 'row' },
                 )}
                 onClick={() => {
@@ -194,6 +195,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
                 }}
               >
                 <SideNavigationIcon size="tiny" rotate={direction === 'column' ? 90 : 0} />
+                <span className="label tx-t">&nbsp;</span>
                 <T className="label tx-t">rotate</T>
               </div>
             </div>
@@ -217,7 +219,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
             })}
           >
             <div
-              className={classNames('notch', {
+              className={classNames('notch appearance-primary-light', {
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
               })}
@@ -236,8 +238,9 @@ export const SplitPane = memo((props: SplitPaneProps) => {
               }}
             >
               {displaySecondPane
-                ? (direction === 'row' ? <NavigateBeforeIcon size="small" /> : <ExpandLessIcon size="small" />)
-                : (direction === 'row' ? <NavigateNextIcon size="small" /> : <ExpandMoreIcon size="small" />)}
+                ? (direction === 'row' ? <NavigateBeforeIcon size="tiny" /> : <ExpandLessIcon size="tiny" />)
+                : (direction === 'row' ? <NavigateNextIcon size="tiny" /> : <ExpandMoreIcon size="tiny" />)}
+              <span className="label tx-t">&nbsp;</span>
               {displayFirstPane
                 ? (closableFirstPane?.hideLabel ?? <T className="label tx-t">hide</T>)
                 : (closableFirstPane?.expandLabel ?? <T className="label tx-t">expand</T>)}

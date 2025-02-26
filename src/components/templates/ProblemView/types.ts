@@ -12,7 +12,7 @@ export interface ProblemStatementViewProps {
 
 export interface ProblemViewProps<T> extends ProblemStatementViewProps {
   codeEditorCenterButtons?: UserCodeEditorProps<T>['centerButtons'],
-  codeEditorSourceStoreKey?: string,
+  codeEditorStoreKey: string,
   expandPosition?: CodeEditorExpandPositionType,
 }
 

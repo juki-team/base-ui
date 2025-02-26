@@ -351,16 +351,29 @@
   }
 }
 
-.border-bottom-highlight-light {
+.border-top-highlight {
   position: relative;
   
   &::before {
     position: absolute;
     content: " ";
-    bottom: 0;
+    top: 0;
     height: 1px;
     width: 100%;
-    background-color: var(--t-color-highlight-light);
+    background-color: var(--t-color-highlight);
+  }
+  
+  &-light {
+    position: relative;
+    
+    &::before {
+      position: absolute;
+      content: " ";
+      top: 0;
+      height: 1px;
+      width: 100%;
+      background-color: var(--t-color-highlight-light);
+    }
   }
 }
 
@@ -375,9 +388,50 @@
     width: 100%;
     background-color: var(--t-color-highlight);
   }
+  
+  &-light {
+    position: relative;
+    
+    &::before {
+      position: absolute;
+      content: " ";
+      bottom: 0;
+      height: 1px;
+      width: 100%;
+      background-color: var(--t-color-highlight-light);
+    }
+  }
+}
+
+.border-right-highlight {
+  position: relative;
+  
+  &::before {
+    position: absolute;
+    content: " ";
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background-color: var(--t-color-highlight);
+  }
+  
+  &-light {
+    position: relative;
+    
+    &::before {
+      position: absolute;
+      content: " ";
+      right: 0;
+      width: 1px;
+      height: 100%;
+      background-color: var(--t-color-highlight-light);
+    }
+  }
 }
 
 .hoverable {
+  cursor: pointer;
+  
   &:hover {
     background: var(--t-color-highlight-light);
   }
@@ -405,3 +459,5 @@
 .va-tp { vertical-align: top; }
 
 .ow-ao { overflow: auto; }
+
+.ow-hn { overflow: hidden; }
