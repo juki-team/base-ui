@@ -40,11 +40,6 @@
   justify-content: center;
   align-items: center;
   padding: var(--pad-m) 0;
-  
-  & + * {
-    background: red;
-    display: none !important;
-  }
 }
 
 // https://codepen.io/nzbin/pen/GGrXbp

@@ -1,10 +1,13 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { Status } from '@juki-team/commons';
+import React, { ClipboardEventHandler, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
-import { classNames } from '../../../../helpers';
+import { classNames, handleUploadImage } from '../../../../helpers';
+import { useJukiNotification } from '../../../../hooks';
 import { Button, CloseIcon, EditIcon, InfoIcon, Modal, PreviewIcon, T, TextArea } from '../../../atoms';
 import { SplitPane } from '../../../molecules';
 import { UploadImageButton } from '../../ImageUploader';
+import { NotificationType } from '../../Notifications/types';
 import { SAMPLE_MD_CONTENT } from '../constants';
 import { MdFloatToolbar } from '../MdFloatToolbar';
 import { MdMathViewer } from '../MdMathViewer';
@@ -74,23 +77,77 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [ mdSource, setMdSource ] = useState(source);
   const [ editing, setEditing ] = useState(initEditMode);
+  const [ loader, setLoader ] = useState(Status.NONE);
   const layoutEditorRef = useRef(null);
-  useEffect(() => {
+  const { addNotification } = useJukiNotification();
+  const changeSource = useCallback((newText: string, editing: boolean, view: View) => {
     const fun = () => {
-      if (textareaRef.current) {
-        textareaRef.current.value = source;
-      } else {
-        setTimeout(fun, 200);
+      if (editing && (view === View.ONLY_EDITOR || view === View.EDITOR_VIEWER_VERTICAL || view === View.EDITOR_VIEWER_HORIZONTAL)) {
+        if (textareaRef.current) {
+          textareaRef.current.value = newText;
+        } else {
+          setTimeout(fun, 200);
+        }
       }
     };
-    if (editing && (view === View.ONLY_EDITOR || view === View.EDITOR_VIEWER_VERTICAL || view === View.EDITOR_VIEWER_HORIZONTAL)) {
-      fun();
-    }
-    setMdSource(source);
-  }, [ editing, source, view ]);
+    fun();
+    setMdSource(newText);
+  }, []);
+  
+  useEffect(() => {
+    changeSource(source, editing, view);
+  }, [ changeSource, editing, source, view ]);
   
   const { width = 0 } = useResizeDetector({ targetRef: layoutEditorRef, ...RESIZE_DETECTOR_PROPS });
   const withLabels = width > 600;
+  
+  const insertTextAtCursor = (insertText: string) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+    
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const text = textareaRef.current?.value ?? '';
+    const newText = text.substring(0, start) + insertText + text.substring(end);
+    
+    changeSource(newText, editing, view);
+    
+    setTimeout(() => {
+      textarea.selectionStart = textarea.selectionEnd = start + insertText.length;
+    }, 0);
+  };
+  
+  const handlePaste: ClipboardEventHandler = async (event) => {
+    const items = event.clipboardData?.items;
+    if (items) {
+      const imageFiles: File[] = [];
+      for (const item of items) {
+        if (item.kind === 'file') {
+          const file = item.getAsFile();
+          if (file && file.type.startsWith('image/')) {
+            imageFiles.push(file);
+          }
+        }
+      }
+      if (imageFiles.length > 0) {
+        event.stopPropagation();
+        event.preventDefault();
+        let extraText = '';
+        setLoader(Status.LOADING);
+        for (const imageFile of imageFiles) {
+          const { status, message, content } = await handleUploadImage(imageFile);
+          if (status === Status.SUCCESS) {
+            addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
+            extraText += (extraText ? '\n\n' : '') + `![image alt](${content!.imageUrl})`;
+          } else {
+            addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
+          }
+        }
+        setLoader(Status.NONE);
+        insertTextAtCursor(extraText);
+      }
+    }
+  };
   
   return (
     <div ref={layoutEditorRef} className={classNames('jk-md-math-editor-layout jk-border-radius-inline', { editing })}>
@@ -167,7 +224,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
             className={classNames('content-editor-preview', { 'editor-top-preview-bottom': view === View.EDITOR_VIEWER_VERTICAL })}
           >
             <SplitPane onlyFirstPane={view === View.ONLY_EDITOR} onlySecondPane={view === View.ONLY_VIEWER}>
-              <div className="editor">
+              <div className="editor" onPaste={uploadImageButton ? handlePaste : undefined}>
                 <TextArea
                   ref={textareaRef}
                   onChange={value => {
@@ -188,8 +245,19 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
             onEdit={() => setEditing(true)}
             download={downloadButton}
           />
-          <div className="preview">
+          <div className="preview" onDoubleClick={() => setEditing(true)}>
             <MdMathViewer className="jk-br-ie br-hl" source={mdSource} />
+          </div>
+        </div>
+      )}
+      {loader === Status.LOADING && (
+        <div className="jk-loader-layer pn-ae">
+          <div className="jk-loader-layer pn-ae jk-overlay-backdrop" style={{ opacity: 0.8 }}></div>
+          <div className="jk-row" style={{ zIndex: 1 }}>
+            <div className="jk-row bc-we jk-pg-sm jk-br-ie" style={{ alignItems: 'baseline' }}>
+              <T className="tt-se">uploading images</T> &nbsp;
+              <div className="dot-flashing" />
+            </div>
           </div>
         </div>
       )}

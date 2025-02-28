@@ -1,4 +1,4 @@
-import { cleanRequest, consoleWarn, ContentResponseType } from '@juki-team/commons';
+import { cleanRequest, consoleWarn, ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
 import { jukiApiSocketManager } from '../settings';
 import { authorizedRequest } from './fetch';
 
@@ -37,3 +37,28 @@ export const publishNote = async (source: string) => {
 //     throw new Error('no url generated');
 //   }
 // };
+
+export const handleUploadImage = async (image: Blob) => {
+  try {
+    const { url, ...options } = jukiApiSocketManager.API_V1.image.publish({ body: { contentType: image.type } });
+    const response = cleanRequest<ContentResponseType<{ imageUrl: string, signedUrl: string }>>(
+      await authorizedRequest(url, options),
+    );
+    
+    if (!response.success) {
+      throw response;
+    }
+    
+    await fetch(response.content.signedUrl, {
+      method: HTTPMethod.PUT,
+      headers: {
+        'Content-Type': image.type,
+      },
+      body: image,
+    });
+    return { status: Status.SUCCESS, message: 'image uploaded successfully', content: response.content };
+  } catch (error) {
+    console.error(error);
+    return { status: Status.ERROR, message: 'Ups, please try again', content: null };
+  }
+};
