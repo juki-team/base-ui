@@ -69,7 +69,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
     downloadButton = false,
     // sharedButton = false,
     initEditMode = false,
-    onPickImageUrl,
+    // onPickImageUrl,
   } = props;
   
   // 0 editor-expanded, 1 editor-right-view-left, 2 editor-top-view-bottom, 3 view-expanded
@@ -159,7 +159,6 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
               {uploadImageButton && (
                 <UploadImageButton
                   withLabel={withLabels}
-                  onPickImageUrl={onPickImageUrl}
                   copyButtons
                 />
               )}
