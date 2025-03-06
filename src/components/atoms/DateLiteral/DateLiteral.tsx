@@ -42,8 +42,8 @@ export const DateLiteral = (props: DateLiteralProps) => {
       {showHours && (
         <div className="cr-g3">
           {date.getHours().padStart(2)}
-          {showMinutes && <>&nbsp;:&nbsp;{date.getMinutes().padStart(2)}</>}
-          {showSeconds && <>&nbsp;:&nbsp;{date.getSeconds().padStart(2)}</>}
+          {showMinutes && <>:{date.getMinutes().padStart(2)}</>}
+          {showSeconds && <>:{date.getSeconds().padStart(2)}</>}
           {showMilliseconds && <>&nbsp;.&nbsp;{date.getMilliseconds().padStart(3)}</>}
         </div>
       )}
