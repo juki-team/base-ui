@@ -2,7 +2,7 @@ import { Status } from '@juki-team/commons';
 import React, { memo, useState } from 'react';
 import { handleUploadImage, toBlob } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks';
-import { Button, ContentCopyIcon, CopyToClipboard, T } from '../../../../atoms';
+import { Button, ContentCopyIcon, CopyToClipboard, InputCheckbox, T } from '../../../../atoms';
 import { ButtonLoader, CropImageType, ImageLoaderCropper } from '../../../../molecules';
 import { NotificationType } from '../../../types';
 import { onPickImageUrlType } from '../types';
@@ -16,6 +16,7 @@ export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl }: UploadNe
   
   const [ imagePublicUrl, setImagePublicUrl ] = useState<string>('');
   const [ cropImage, setCropImage ] = useState<CropImageType>();
+  const [ isPublic, setIsPublic ] = useState(false);
   const { addNotification } = useJukiNotification();
   
   return (
@@ -58,13 +59,14 @@ export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl }: UploadNe
           )}
         </div>
       )}
+      <InputCheckbox checked={isPublic} label={isPublic ? <T>public</T> : <T>not public</T>} onChange={setIsPublic} />
       <ButtonLoader
         onClick={async (setLoader) => {
           if (cropImage?.previewCanvasRef.current) {
             const blob = await toBlob(cropImage.previewCanvasRef.current);
             if (blob) {
               setLoader?.(Status.LOADING);
-              const { status, message, content } = await handleUploadImage(blob);
+              const { status, message, content } = await handleUploadImage(blob, isPublic);
               if (status === Status.SUCCESS) {
                 addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
                 setLoader?.(Status.SUCCESS);

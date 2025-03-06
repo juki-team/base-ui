@@ -38,9 +38,14 @@ export const publishNote = async (source: string) => {
 //   }
 // };
 
-export const handleUploadImage = async (image: Blob) => {
+export const handleUploadImage = async (image: Blob, isPublic: boolean) => {
   try {
-    const { url, ...options } = jukiApiSocketManager.API_V1.image.publish({ body: { contentType: image.type } });
+    const { url, ...options } = jukiApiSocketManager.API_V1.image.publish({
+      body: {
+        contentType: image.type,
+        isPublic,
+      },
+    });
     const response = cleanRequest<ContentResponseType<{ imageUrl: string, signedUrl: string }>>(
       await authorizedRequest(url, options),
     );

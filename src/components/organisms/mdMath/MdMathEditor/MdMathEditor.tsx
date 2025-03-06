@@ -135,7 +135,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
         let extraText = '';
         setLoader(Status.LOADING);
         for (const imageFile of imageFiles) {
-          const { status, message, content } = await handleUploadImage(imageFile);
+          const { status, message, content } = await handleUploadImage(imageFile, false);
           if (status === Status.SUCCESS) {
             addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
             extraText += (extraText ? '\n\n' : '') + `![image alt](${content!.imageUrl})`;
