@@ -111,7 +111,11 @@ export interface UserCodeEditorProps<T> {
   enableAddCustomSampleCases?: boolean,
   readOnly?: boolean,
   withoutRunCodeButton?: boolean,
-  onCodeRunStatusChange?: (runStatus: SubmissionRunStatus, props: { testCases: CodeEditorTestCasesType }) => void,
+  onCodeRunStatusChange?: (runStatus: SubmissionRunStatus, props: {
+    sourceCode: string,
+    language: T,
+    testCases: CodeEditorTestCasesType
+  }) => void,
 }
 
 type StorageType<T> = {
@@ -233,10 +237,10 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   }
   const [ sourceStore, setSourceStore ] = useSaveChunkStorage<SourcesStoreType>(getSourcesStoreKey(nickname), newInitialSource, mergeSources);
   
-  const newSource = sourceStore[storeKey]?.[language as string] || '';
+  const sourceCode = sourceStore[storeKey]?.[language as string] || '';
   
   const onChange = ({
-                      sourceCode,
+                      sourceCode: newSourceCode,
                       language: newLanguage,
                       onTestCasesChange,
                       theme,
@@ -246,20 +250,20 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
                       codeRunStatus,
                     }: CodeRunnerEditorPropertiesType<T>) => {
     if (codeRunStatus) {
-      onCodeRunStatusChange?.(codeRunStatus, { testCases });
+      onCodeRunStatusChange?.(codeRunStatus, { language, sourceCode, testCases });
     }
     if (typeof isRunning === 'boolean') {
       onIsRunningChange?.(isRunning);
     }
-    if (typeof sourceCode === 'string') {
+    if (typeof newSourceCode === 'string') {
       setSourceStore(prevState => ({
         ...prevState,
         [storeKey]: {
           ...(prevState[storeKey] || {}),
-          [language as string]: sourceCode,
+          [language as string]: newSourceCode,
         },
       }));
-      onSourceChange?.(sourceCode);
+      onSourceChange?.(newSourceCode);
     }
     if (newLanguage) {
       setLanguage(newLanguage);
@@ -288,7 +292,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       theme={editorSettings.theme}
       tabSize={editorSettings.tabSize}
       fontSize={editorSettings.fontSize}
-      sourceCode={newSource}
+      sourceCode={sourceCode}
       language={language}
       languages={languages}
       readOnly={readOnly}
