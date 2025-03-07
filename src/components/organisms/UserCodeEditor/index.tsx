@@ -111,6 +111,7 @@ export interface UserCodeEditorProps<T> {
   enableAddCustomSampleCases?: boolean,
   readOnly?: boolean,
   withoutRunCodeButton?: boolean,
+  onCodeRunStatusChange?: (runStatus: SubmissionRunStatus, props: { testCases: CodeEditorTestCasesType }) => void,
 }
 
 type StorageType<T> = {
@@ -141,6 +142,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     onIsRunningChange,
     readOnly,
     withoutRunCodeButton,
+    onCodeRunStatusChange,
   } = props;
   
   const { user: { nickname } } = useJukiUser();
@@ -241,7 +243,11 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
                       tabSize,
                       fontSize,
                       isRunning,
+                      codeRunStatus,
                     }: CodeRunnerEditorPropertiesType<T>) => {
+    if (codeRunStatus) {
+      onCodeRunStatusChange?.(codeRunStatus, { testCases });
+    }
     if (typeof isRunning === 'boolean') {
       onIsRunningChange?.(isRunning);
     }

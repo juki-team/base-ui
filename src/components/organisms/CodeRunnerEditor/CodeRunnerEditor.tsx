@@ -147,6 +147,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
             break;
           default:
         }
+        onChangeRef.current?.({ codeRunStatus: status });
       }
     });
     
