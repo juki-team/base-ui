@@ -40,7 +40,7 @@ export const ButtonLoader = (props: ButtonLoaderProps) => {
         success: loader === Status.SUCCESS,
         error: loader === Status.ERROR,
         loading: loader === Status.LOADING,
-        'only-icon': !children && !!icon,
+        'only-icon': typeof children === 'undefined' && !!icon,
       })}
       onClick={event => onClick?.((status) => {
         if (typeof status === 'function') {
