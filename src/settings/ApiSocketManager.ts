@@ -781,6 +781,20 @@ export class ApiSocketManager {
           method: HTTPMethod.POST,
         })),
       },
+      comment: {
+        get: valid<{ params: { key: string } }>(({ params: { key } }) => ({
+          url: injectBaseUrl('comment', `/${key}`),
+          method: HTTPMethod.GET,
+        })),
+        post: valid<{ params: { key: string } }, HTTPMethod.POST>(({ params: { key } }) => ({
+          url: injectBaseUrl('comment', `/${key}`),
+          method: HTTPMethod.POST,
+        })),
+        reply: valid<{ params: { key: string, id: string } }, HTTPMethod.POST>(({ params: { key, id } }) => ({
+          url: injectBaseUrl('comment', `/${key}/reply/${id}`),
+          method: HTTPMethod.POST,
+        })),
+      },
     };
   }
   
