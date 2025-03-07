@@ -786,13 +786,21 @@ export class ApiSocketManager {
           url: injectBaseUrl('comment', `/${key}`),
           method: HTTPMethod.GET,
         })),
-        post: valid<{ params: { key: string } }, HTTPMethod.POST>(({ params: { key } }) => ({
+        post: valid<
+          { params: { key: string }, body: { content: string } },
+          HTTPMethod.POST
+        >(({ params: { key }, body }) => ({
           url: injectBaseUrl('comment', `/${key}`),
           method: HTTPMethod.POST,
+          body: JSON.stringify(body),
         })),
-        reply: valid<{ params: { key: string, id: string } }, HTTPMethod.POST>(({ params: { key, id } }) => ({
+        reply: valid<
+          { params: { key: string, id: string }, body: { content: string } },
+          HTTPMethod.POST
+        >(({ params: { key, id }, body }) => ({
           url: injectBaseUrl('comment', `/${key}/reply/${id}`),
           method: HTTPMethod.POST,
+          body: JSON.stringify(body),
         })),
       },
     };
