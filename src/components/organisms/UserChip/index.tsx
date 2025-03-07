@@ -1,6 +1,7 @@
-import React, { cloneElement, ReactElement } from 'react';
+import React, { cloneElement, ReactElement, useEffect } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiRouter, useJukiUI } from '../../../hooks';
+import { useJukiRouter, useJukiUI, usePreload } from '../../../hooks';
+import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { UserChipProps } from './types';
 
@@ -9,7 +10,15 @@ export const UserChip = (props: UserChipProps) => {
   const { imageUrl, email, familyName, nickname, givenName, className, companyKey, withoutLink } = props;
   
   const { components: { Image } } = useJukiUI();
+  const preload = usePreload();
+  
   const onlyNickname = !givenName && !familyName && !email;
+  
+  useEffect(() => {
+    if (!withoutLink) {
+      void preload(jukiApiSocketManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url);
+    }
+  }, [ companyKey, nickname, preload, withoutLink ]);
   
   return (
     <div className={classNames('jk-row nowrap center', className)}>
@@ -45,6 +54,12 @@ interface UserNicknameLinkProps {
 export const UserNicknameLink = ({ children, nickname, companyKey }: UserNicknameLinkProps) => {
   
   const { setSearchParams } = useJukiRouter();
+  const preload = usePreload();
+  
+  useEffect(() => {
+    void preload(jukiApiSocketManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url);
+  }, [ companyKey, nickname, preload ]);
+  
   return cloneElement(
     children,
     {
