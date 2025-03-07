@@ -11,13 +11,13 @@ interface PublicImagesTabProps {
   onPickImageUrl?: onPickImageUrlType,
 }
 
-export const PublicImagesTab = (props: PublicImagesTabProps) => {
-  
-  return (
-    <FetcherLayer<ContentsResponseType<ImageSummaryResponseDTO>> url={jukiApiSocketManager.API_V1.image.getPublicList().url}>
-      {({ data: { contents }, mutate }) => (
-        <PublicImages {...props} publicImages={contents} mutate={mutate} />
-      )}
-    </FetcherLayer>
-  );
-};
+export const PublicImagesTab = (props: PublicImagesTabProps) => (
+  <FetcherLayer<ContentsResponseType<ImageSummaryResponseDTO>>
+    url={jukiApiSocketManager.API_V1.image.getPublicList().url}
+    triggerFetch={props.trigger}
+  >
+    {({ data: { contents }, mutate }) => (
+      <PublicImages publicImages={contents} copyButtons={props.copyButtons} onPickImageUrl={props.onPickImageUrl} />
+    )}
+  </FetcherLayer>
+);

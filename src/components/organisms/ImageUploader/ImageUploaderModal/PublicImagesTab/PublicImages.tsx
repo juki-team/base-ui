@@ -1,6 +1,5 @@
 import { ImageSummaryResponseDTO } from '@juki-team/commons';
-import React, { useEffect } from 'react';
-import { KeyedMutator } from 'swr';
+import React from 'react';
 import { copy } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks';
 import { CheckIcon, ContentCopyIcon, T } from '../../../../atoms';
@@ -9,25 +8,18 @@ import { NotificationType } from '../../../types';
 import { onPickImageUrlType } from '../types';
 
 interface PublicImagesTabProps {
-  trigger: number,
   copyButtons?: boolean,
   onPickImageUrl?: onPickImageUrlType,
   publicImages: ImageSummaryResponseDTO[],
-  mutate: KeyedMutator<any>,
 }
 
 export const PublicImages = (props: PublicImagesTabProps) => {
   
   const {
-    trigger,
     copyButtons,
     onPickImageUrl,
     publicImages,
-    mutate,
   } = props;
-  useEffect(() => {
-    void mutate();
-  }, [ trigger, mutate ]);
   
   const { addNotification } = useJukiNotification();
   
@@ -35,7 +27,7 @@ export const PublicImages = (props: PublicImagesTabProps) => {
     <div className="public-images-tab jk-row">
       {publicImages.map((publicImage, index) => (
         <div className="thumbnail" key={publicImage.imageUrl}>
-          <img src={publicImage.imageThumbnailUrl} alt={'image ' + index} />
+          <img src={publicImage.imageThumbnailUrl + `?v=${new Date().getTime()}`} alt={'image ' + index} />
           <FloatToolbar
             actionButtons={[
               ...(copyButtons ? [

@@ -10,9 +10,10 @@ import { onPickImageUrlType } from '../types';
 export interface UploadNewImageTabProps {
   copyButtons?: boolean,
   onPickImageUrl?: onPickImageUrlType,
+  onUploadedImage: () => void,
 }
 
-export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl }: UploadNewImageTabProps) => {
+export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl, onUploadedImage }: UploadNewImageTabProps) => {
   
   const [ imagePublicUrl, setImagePublicUrl ] = useState<string>('');
   const [ cropImage, setCropImage ] = useState<CropImageType>();
@@ -71,6 +72,7 @@ export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl }: UploadNe
                 addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
                 setLoader?.(Status.SUCCESS);
                 setImagePublicUrl(content!.imageUrl);
+                onUploadedImage();
               } else {
                 addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
                 setLoader?.(Status.ERROR);

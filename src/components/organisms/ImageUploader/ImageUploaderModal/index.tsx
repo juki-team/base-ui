@@ -16,6 +16,7 @@ export const ImageUploaderModal = (props: ImageUploaderModalProps) => {
   } = props;
   
   const [ count, setCount ] = useState(0);
+  
   const tabHeaders = [];
   if (withPublicImagesTab) {
     tabHeaders.push({
@@ -37,7 +38,14 @@ export const ImageUploaderModal = (props: ImageUploaderModalProps) => {
   tabHeaders.push({
     key: 'upload-new-image',
     header: <T className="tt-se">upload new image</T>,
-    body: <UploadNewImageTab key="upload-new-image-tab" copyButtons={copyButtons} onPickImageUrl={onPickImageUrl} />,
+    body: (
+      <UploadNewImageTab
+        key="upload-new-image-tab"
+        copyButtons={copyButtons}
+        onPickImageUrl={onPickImageUrl}
+        onUploadedImage={() => setCount(count + 1)}
+      />
+    ),
   });
   
   return (
