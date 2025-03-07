@@ -803,7 +803,7 @@ export class ApiSocketManager {
           body: JSON.stringify(body),
         })),
         react: valid<
-          { params: { key: string, id: string }, body: { content: string } },
+          { params: { key: string, id: string }, body: { emoji: string } },
           HTTPMethod.POST
         >(({ params: { key, id }, body }) => ({
           url: injectBaseUrl('comment', `/${key}/react/${id}`),
