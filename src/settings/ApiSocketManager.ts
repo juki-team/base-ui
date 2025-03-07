@@ -802,6 +802,14 @@ export class ApiSocketManager {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
+        react: valid<
+          { params: { key: string, id: string }, body: { content: string } },
+          HTTPMethod.POST
+        >(({ params: { key, id }, body }) => ({
+          url: injectBaseUrl('comment', `/${key}/react/${id}`),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
       },
     };
   }
