@@ -111,6 +111,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
     const newText = text.substring(0, start) + insertText + text.substring(end);
     
     changeSource(newText, editing, view);
+    onChange?.(newText);
     
     setTimeout(() => {
       textarea.selectionStart = textarea.selectionEnd = start + insertText.length;
