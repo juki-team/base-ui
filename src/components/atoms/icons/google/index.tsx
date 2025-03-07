@@ -36,6 +36,11 @@ export const AddIcon = (props: BasicIconProps) => (
   <Suspense fallback={<LoadingIcon size="tiny" />}><LazAddIcon {...props} /> </Suspense>
 );
 
+const LazAddReactionIcon = lazy(() => import('./AddReactionIcon').then(module => ({ default: module.AddReactionIcon })));
+export const AddReactionIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}><LazAddReactionIcon {...props} /> </Suspense>
+);
+
 const LazyAdminPanelSettingsIcon = lazy(() => import('./AdminPanelSettingsIcon').then(module => ({ default: module.AdminPanelSettingsIcon })));
 export const AdminPanelSettingsIcon = (props: BasicIconProps) => (
   <Suspense fallback={<LoadingIcon size="tiny" />}><LazyAdminPanelSettingsIcon {...props} /> </Suspense>
