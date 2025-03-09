@@ -7,17 +7,17 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N
   const { method, body, signal, responseType, headers, cache, next } = options || {};
   
   const requestHeaders = new Headers(headers ?? {});
-  requestHeaders.set('Accept', 'application/json');
-  requestHeaders.set('X-Forwarded-Host', window?.location?.host);
+  requestHeaders.set('accept', 'application/json');
+  requestHeaders.set('x-forwarded-host', window?.location?.host);
   
   if (!(body instanceof FormData)) {
-    requestHeaders.set('Content-Type', 'application/json');
+    requestHeaders.set('content-type', 'application/json');
   }
   
   const token = options?.token || jukiApiSocketManager.getToken();
   
   if (token) {
-    requestHeaders.set('X-Juki-Session-Id', token);
+    requestHeaders.set('x-juki-session-id', token);
   }
   
   try {
