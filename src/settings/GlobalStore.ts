@@ -26,6 +26,7 @@ export class GlobalStore {
     
     this._I18N.addResourceBundle(Language.EN, namespace, dataEN);
     this._I18N.addResourceBundle(Language.ES, namespace, dataES);
+    this._I18N.emit('reloadI18n', { dataEN, dataES });
   }
   
   async setI18n(i18n: i18n) {
