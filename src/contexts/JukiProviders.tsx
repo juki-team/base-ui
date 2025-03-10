@@ -1,4 +1,5 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
+import { useI18nStore } from '../stores';
 import { JukiLastPathProvider } from './JukiLastPathProvider';
 import { JukiPageProvider } from './JukiPageProvider';
 import { JukiRouterProvider } from './JukiRouterProvider';
@@ -16,6 +17,12 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
     router,
     initialLastPath,
   } = props;
+  
+  const i18nLoadResources = useI18nStore(state => state.loadResources);
+  
+  useEffect(() => {
+    void i18nLoadResources();
+  }, [ i18nLoadResources ]);
   
   return (
     <JukiPageProvider>

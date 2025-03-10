@@ -5,8 +5,7 @@ import { TProps } from './types';
 
 export const T = ({ className = '', children, style }: TProps) => {
   
-  const t = useI18nStore(state => state.i18n.t.bind(state.i18n));
-  const language = useI18nStore(state => state.i18n.language);
+  const t = useI18nStore(state => state.i18n.t);
   
-  return <span className={classNames(className)} style={style} key={language}>{t(children)}</span>;
+  return <span className={classNames(className)} style={style}>{t(children)}</span>;
 };

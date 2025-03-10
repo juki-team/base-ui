@@ -31,7 +31,8 @@ import {
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
-import { jukiApiSocketManager, jukiGlobalStore } from '../../settings';
+import { jukiApiSocketManager } from '../../settings';
+import { useI18nStore } from '../../stores';
 import { UserContext } from './context';
 import { DeviceType, JukiUserProviderProps, UserDataType } from './types';
 
@@ -49,20 +50,20 @@ const useUser = () => {
   
   const [ user, _setUser ] = useState<UserDataType>(EMPTY_USER);
   const [ company, setCompany ] = useState<CompanyPingType>(EMPTY_COMPANY);
-  const i18n = jukiGlobalStore.getI18n();
+  const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
   
   const setUser: Dispatch<SetStateAction<UserDataType>> = useCallback((user) => {
     if (typeof user === 'function') {
       _setUser((prevState) => {
         const newUser = user(prevState);
-        void i18n.changeLanguage?.(newUser.settings[ProfileSetting.LANGUAGE]);
+        i18nChangeLanguage(newUser.settings[ProfileSetting.LANGUAGE]);
         return newUser;
       });
     } else {
       _setUser(user);
-      void i18n.changeLanguage?.(user.settings[ProfileSetting.LANGUAGE]);
+      i18nChangeLanguage(user.settings[ProfileSetting.LANGUAGE]);
     }
-  }, [ _setUser, i18n ]);
+  }, [ i18nChangeLanguage ]);
   
   useEffect(() => {
     let preferredLanguage: Language = localStorage.getItem(ProfileSetting.LANGUAGE) as Language;
