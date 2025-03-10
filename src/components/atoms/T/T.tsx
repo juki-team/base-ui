@@ -5,7 +5,7 @@ import { TProps } from './types';
 
 export const T = ({ className = '', children, style }: TProps) => {
   
-  const { t } = jukiGlobalStore.getI18n();
+  const { t, language } = jukiGlobalStore.getI18n();
   
-  return <span className={classNames(className)} style={style}>{t(children)}</span>;
+  return <span className={classNames(className)} style={style} key={language}>{t(children)}</span>;
 };
