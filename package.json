@@ -81,7 +81,8 @@
     "swr": "^2.3.2",
     "ws": "^8.18.0",
     "xlsx": "^0.18.5",
-    "yup": "^1.6.1"
+    "yup": "^1.6.1",
+    "zustand": "^5.0.3"
   },
   "peerDependencies": {
     "@juki-team/commons": ">=0.0.722",
