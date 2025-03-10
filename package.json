@@ -81,8 +81,7 @@
     "swr": "^2.3.2",
     "ws": "^8.18.0",
     "xlsx": "^0.18.5",
-    "yup": "^1.6.1",
-    "zustand": "^5.0.3"
+    "yup": "^1.6.1"
   },
   "peerDependencies": {
     "@juki-team/commons": ">=0.0.722",
@@ -90,7 +89,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sass": "^1.85.0",
-    "xlsx-js-style": "^1.2.0"
+    "xlsx-js-style": "^1.2.0",
+    "zustand": "^5.0.3"
   },
   "scripts": {
     "storybook": "storybook dev -p 6006",
