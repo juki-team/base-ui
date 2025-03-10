@@ -9,7 +9,8 @@ import {
   getStatementData,
 } from '../../../helpers';
 import { useJukiUser } from '../../../hooks';
-import { jukiApiSocketManager, jukiGlobalStore } from '../../../settings';
+import { jukiApiSocketManager } from '../../../settings';
+import { useI18nStore } from '../../../stores';
 import { DownloadIcon, T } from '../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
 import { MdMathViewer } from '../../organisms/mdMath';
@@ -51,7 +52,7 @@ export const ProblemStatementView = ({
       },
     },
   } = useJukiUser();
-  const { t } = jukiGlobalStore.getI18n();
+  const t = useI18nStore(state => state.i18n.t);
   const problemName = contest?.index ? `${contest?.index}. (${problemKey}) ${name}` : `(${problemKey}) ${name}`;
   const {
     statementDescription,

@@ -16,7 +16,8 @@ import { T } from '../components/atoms/T';
 import { EMPTY_USER } from '../constants';
 import { UserContext } from '../contexts/JukiUserProvider/context';
 import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../helpers';
-import { jukiApiSocketManager, jukiGlobalStore } from '../settings';
+import { jukiApiSocketManager } from '../settings';
+import { useI18nStore } from '../stores';
 import {
   AuthorizedRequestType,
   SetStatusType,
@@ -227,7 +228,7 @@ export const useJukiUser = () => {
 
 export const useJukiUserSettings = () => {
   
-  const i18n = jukiGlobalStore.getI18n();
+  const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
   const { updateUserPreferences, setUser, user: { isLogged, settings, nickname }, mutatePing } = useJukiUser();
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
   const setSettings = useCallback(async (settingsToUpdate: { key: ProfileSetting, value: string | boolean }[]) => {
@@ -267,8 +268,8 @@ export const useJukiUserSettings = () => {
       }
       setUser(prevState => ({ ...prevState, settings: newSettings }));
     }
-    void i18n.changeLanguage?.(newSettings[ProfileSetting.LANGUAGE]);
-  }, [ i18n, isLogged, mutatePing, nickname, setUser, settings, updateUserPreferences ]);
+    i18nChangeLanguage(newSettings[ProfileSetting.LANGUAGE]);
+  }, [ i18nChangeLanguage, isLogged, mutatePing, nickname, setUser, settings, updateUserPreferences ]);
   
   const loading = loader === Status.LOADING;
   

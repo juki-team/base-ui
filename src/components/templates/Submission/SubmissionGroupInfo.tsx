@@ -5,7 +5,7 @@ import { ColorSchemeType } from 'diff2html/lib/types';
 import React, { useCallback, useEffect, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useJukiUser } from '../../../hooks';
-import { jukiGlobalStore } from '../../../settings';
+import { useI18nStore } from '../../../stores';
 import { Button, Modal, T, UpIcon, VirtualizedRowsFixed, VisibilityIcon } from '../../atoms';
 import { Collapse } from '../../atoms/Collapse';
 import { VirtualizedRowsFixedProps } from '../../atoms/VirtualizedRowsFixed/types';
@@ -39,7 +39,7 @@ const DiffViewButton = ({ diffInput, croppedDiff, isProblemEditor }: {
   const [ isOpen, setIsOpen ] = useState(false);
   const [ diff, setDiff ] = useState('');
   const { user: { settings: { [ProfileSetting.THEME]: userTheme } } } = useJukiUser();
-  const { t } = jukiGlobalStore.getI18n();
+  const t = useI18nStore(state => state.i18n.t);
   
   useEffect(() => {
     if (isOpen) {

@@ -3,7 +3,7 @@ import { createInstance, i18n } from 'i18next';
 import React, { PropsWithChildren, useEffect } from 'react';
 import { SWRConfig } from 'swr';
 import { JukiProviders } from '../../contexts';
-import { jukiApiSocketManager, jukiGlobalStore } from '../../settings';
+import { jukiApiSocketManager } from '../../settings';
 import { JukiSocketAlert, SubmissionModal, UserPreviewModal } from '../templates';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
@@ -54,7 +54,6 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     jukiApiSocketManager.setSocketSettings(socketServiceUrl);
     jukiApiSocketManager.setApiSettings(serviceUrl, serviceV2Url, 'juki-token');
-    void jukiGlobalStore.setI18n(i18nInstance);
   }, []);
   
   return (

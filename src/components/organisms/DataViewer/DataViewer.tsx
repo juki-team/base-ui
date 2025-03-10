@@ -2,7 +2,7 @@ import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, SEPARATOR_TOKE
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useJukiRouter, useJukiUI, useJukiUser, useSessionStorage } from '../../../hooks';
-import { jukiGlobalStore } from '../../../settings';
+import { useI18nStore } from '../../../stores';
 import { RequestFilterType, RequestSortType } from '../../../types';
 import { OptionType } from '../../molecules/types';
 import {
@@ -103,7 +103,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const { viewPortSize } = useJukiUI();
   const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
   const { searchParams } = useJukiRouter();
-  const { t } = jukiGlobalStore.getI18n();
+  const t = useI18nStore(state => state.i18n.t);
   
   const withPagination = !!initialPageSizeOptions;
   
