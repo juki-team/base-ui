@@ -1,6 +1,6 @@
 import React from 'react';
 import { classNames } from '../../../helpers';
-import { useI18nStore } from '../../../stores';
+import { useI18nStore } from '../../../hooks';
 import { TProps } from './types';
 
 export const T = ({ className = '', children, style }: TProps) => {

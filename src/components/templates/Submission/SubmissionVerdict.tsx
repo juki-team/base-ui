@@ -9,8 +9,7 @@ import {
   Theme,
 } from '@juki-team/commons';
 import React from 'react';
-import { useJukiUser } from '../../../hooks';
-import { useI18nStore } from '../../../stores';
+import { useI18nStore, useJukiUser } from '../../../hooks';
 import { SpinIcon, T } from '../../atoms';
 
 export interface SubmissionVerdictProps {

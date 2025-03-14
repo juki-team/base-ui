@@ -21,3 +21,4 @@ export * from './useStableState';
 export * from './useTriggerWrapper';
 export * from './useWidthResizer';
 export * from '../contexts/JukiTasksProvider/useJukiTask';
+export * from '../stores/i18n/useI18nStore';

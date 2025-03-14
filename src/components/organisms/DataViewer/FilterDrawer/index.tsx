@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
-import { useI18nStore } from '../../../../stores';
+import { useI18nStore } from '../../../../hooks';
 import { ArrowIcon, Button, FilterListIcon, Input, InputToggle, T } from '../../../atoms';
 import { CheckboxList, DrawerView, InputDate } from '../../../molecules';
 import { OptionType } from '../../../molecules/types';

@@ -16,8 +16,8 @@ import { T } from '../components/atoms/T';
 import { EMPTY_USER } from '../constants';
 import { UserContext } from '../contexts/JukiUserProvider/context';
 import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../helpers';
+import { useI18nStore } from '../hooks';
 import { jukiApiSocketManager } from '../settings';
-import { useI18nStore } from '../stores';
 import {
   AuthorizedRequestType,
   SetStatusType,

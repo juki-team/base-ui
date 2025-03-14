@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useEffect } from 'react';
-import { useI18nStore } from '../stores';
+import { useI18nStore } from '../hooks';
 import { JukiLastPathProvider } from './JukiLastPathProvider';
 import { JukiPageProvider } from './JukiPageProvider';
 import { JukiRouterProvider } from './JukiRouterProvider';

@@ -30,9 +30,8 @@ import {
 } from 'react-device-detect';
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
-import { useFetcher } from '../../hooks/useFetcher';
+import { useFetcher, useI18nStore } from '../../hooks';
 import { jukiApiSocketManager } from '../../settings';
-import { useI18nStore } from '../../stores';
 import { UserContext } from './context';
 import { DeviceType, JukiUserProviderProps, UserDataType } from './types';
 
