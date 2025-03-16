@@ -1,6 +1,6 @@
 import React, { ReactNode, useCallback, useEffect, useRef } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState, useJukiRouter, useJukiUI } from '../../../hooks';
+import { useHandleState, useJukiUI, useRouterStore } from '../../../hooks';
 import { NotUndefined, TabsType } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { TabsInline } from '../Tabs';
@@ -25,7 +25,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
   getHrefOnTabChangeRef.current = getHrefOnTabChange;
   const LOADING_TAB = 'loading' as T;
   const { viewPortSize } = useJukiUI();
-  const { pushRoute } = useJukiRouter();
+  const pushRoute = useRouterStore(state => state.pushRoute);
   const tabs: TabsType<T> = !!loading ? {
     [LOADING_TAB as string]: {
       key: LOADING_TAB,

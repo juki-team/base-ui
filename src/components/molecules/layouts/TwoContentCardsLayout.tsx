@@ -1,7 +1,7 @@
 import { MenuViewMode } from '@juki-team/commons';
 import React, { ReactNode, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState, useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
+import { useHandleState, useJukiUI, useJukiUser, useRouterStore } from '../../../hooks';
 import { NotUndefined } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { TabsInline } from '../Tabs';
@@ -22,7 +22,7 @@ export const TwoContentCardsLayout = <T, >(props: TwoContentLayoutProps<T>) => {
   
   const { viewPortSize } = useJukiUI();
   const { user: { settings: { preferredMenuViewMode } } } = useJukiUser();
-  const { pushRoute } = useJukiRouter();
+  const pushRoute = useRouterStore(state => state.pushRoute);
   const tabKeys = Object.keys(tabs);
   const [ tab, setTab ] = useHandleState<T>(tabs[tabKeys[0] as string].key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
   

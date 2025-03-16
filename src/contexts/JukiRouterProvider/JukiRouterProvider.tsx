@@ -1,12 +1,14 @@
-import React, { PropsWithChildren, useCallback, useMemo, useState } from 'react';
+import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
 import { cloneURLSearchParams } from '../../helpers';
-import { RouterContext } from './context';
+import { useRouterStore } from '../../stores/router/useRouterStore';
+import { QueryParamKey } from '../../types';
 import {
   AppendSearchParamsType,
   DeleteSearchParamsType,
   Href,
   JukiRouterProviderProps,
   RouterContextInterface,
+  RouterFn,
   SetSearchParamsType,
 } from './types';
 
@@ -16,7 +18,7 @@ const getHref = (href: Href) => {
   }
   const search = href.searchParams?.toString() || '';
   return `${href.pathname}${search ? '?' + search : ''}`;
-}
+};
 
 export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderProps>) => {
   
@@ -77,7 +79,7 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
   
   const [ loaderCounter, setLoaderCounter ] = useState(0);
   
-  const push = useCallback(async (href: Href) => {
+  const _push = useCallback(async (href: Href) => {
     setLoaderCounter(prevState => prevState + 1);
     const result = await pushRoute(getHref(href));
     setLoaderCounter(prevState => prevState - 1);
@@ -98,39 +100,62 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
     return result;
   }, [ reloadRoute ]);
   
-  const value = useMemo(() => ({
-    ...(
+  const push: RouterFn<Href> = useCallback((url) => {
+    let sp;
+    let pathname;
+    if (typeof url === 'string') {
+      const [ p, s ] = url.split('?');
+      pathname = p;
+      sp = new URLSearchParams(s);
+    } else {
+      pathname = url.pathname;
+      sp = cloneURLSearchParams(url.searchParams ?? new URLSearchParams());
+    }
+    // @ts-ignore
+    const token = (router.searchParams ?? _searchParams).get(QueryParamKey.TOKEN);
+    if (token) {
+      sp.set(QueryParamKey.TOKEN, token);
+    }
+    // @ts-ignore
+    const company = (router.searchParams ?? _searchParams).get(QueryParamKey.COMPANY);
+    if (company) {
+      sp.set(QueryParamKey.COMPANY, company);
+    }
+    _push({ pathname, searchParams: sp });
+    // @ts-ignore
+  }, [ router.searchParams, _searchParams, _push ]);
+  
+  const replaceProps = useRouterStore(state => state.replaceProps);
+  
+  useEffect(() => {
+    replaceProps(
       Object.values(router).filter(Boolean).length ? router as RouterContextInterface : {
         searchParams: _searchParams,
         appendSearchParams,
         deleteSearchParams,
         setSearchParams,
-      }
-    ),
-    routeParams,
-    pushRoute: push,
-    replaceRoute: replace,
-    reloadRoute: reload,
-    isLoadingRoute: isLoadingRoute || !!loaderCounter,
-    pathname,
-  }), [
-    _searchParams,
-    (router as RouterContextInterface).searchParams,
-    (router as RouterContextInterface).appendSearchParams,
-    (router as RouterContextInterface).deleteSearchParams,
-    (router as RouterContextInterface).setSearchParams,
-    routeParams,
-    push,
-    replace,
-    reload,
-    isLoadingRoute,
-    loaderCounter,
-    pathname,
-  ]);
+      });
+  }, [ _searchParams, appendSearchParams, deleteSearchParams, replaceProps, router, setSearchParams ]);
   
-  return (
-    <RouterContext.Provider value={value}>
-      {children}
-    </RouterContext.Provider>
-  );
+  useEffect(() => {
+    replaceProps({ routeParams });
+  }, [ replaceProps, routeParams ]);
+  
+  useEffect(() => {
+    replaceProps({ pathname });
+  }, [ replaceProps, pathname ]);
+  
+  useEffect(() => {
+    replaceProps({ pushRoute: push, replaceRoute: replace, reloadRoute: reload });
+  }, [ push, reload, replace, replaceProps ]);
+  
+  useEffect(() => {
+    replaceProps({ routeParams });
+  }, [ replaceProps, routeParams ]);
+  
+  useEffect(() => {
+    replaceProps({ isLoadingRoute: isLoadingRoute || !!loaderCounter });
+  }, [ isLoadingRoute, loaderCounter, replaceProps, routeParams ]);
+  
+  return children;
 };

@@ -6,7 +6,7 @@ import {
 } from '@juki-team/commons';
 import { PingWebSocketEventDTO } from '@juki-team/commons/dist/types/dto/socket';
 import React, { PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react';
-import { useJukiPage, useJukiUser } from '../../hooks';
+import { useJukiUser, usePageStore } from '../../hooks';
 import { jukiApiSocketManager } from '../../settings';
 import { WebsocketContext } from './context';
 import { JukiWebsocketProviderProps } from './types';
@@ -15,7 +15,7 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
   
   const { children } = props;
   
-  const { isPageVisible } = useJukiPage();
+  const isPageVisible = usePageStore(state => state.isVisible);
   const [ isConnected, setIsConnected ] = useState(false);
   const [ id, setId ] = useState('');
   const { user: { sessionId } } = useJukiUser();

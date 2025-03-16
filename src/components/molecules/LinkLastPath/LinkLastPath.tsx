@@ -1,20 +1,21 @@
 import React, { PropsWithChildren, useMemo } from 'react';
+import { LastPathType } from '../../../contexts/JukiLastPathProvider/types';
 import { cloneURLSearchParams } from '../../../helpers';
-import { useJukiRouter } from '../../../hooks/useJukiRouter';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { useLastPath } from '../../../hooks/useLastPath';
+import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
+import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { QueryParamKey } from '../../../types';
 import { LastPathProps } from './types';
 
-export const LinkLastPath = <T, >(props: PropsWithChildren<LastPathProps<T>>) => {
+export const LinkLastPath = <T extends string | number = string, >(props: PropsWithChildren<LastPathProps<T>>) => {
   
   const { children, lastPathKey, onDoubleClickRoute, overwriteCompanyKey } = props;
   
   const { components: { Link } } = useJukiUI();
   
-  const { lastPath } = useLastPath();
+  const lastPath: LastPathType<T> = useLastPathStore(state => state.lastPath) as LastPathType<T>;
   
-  const { pushRoute } = useJukiRouter();
+  const pushRoute = useRouterStore(state => state.pushRoute);
   
   const searchParams = useMemo(() => {
     if (overwriteCompanyKey) {

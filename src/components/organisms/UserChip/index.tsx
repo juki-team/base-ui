@@ -1,6 +1,6 @@
 import React, { cloneElement, ReactElement, useEffect } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiRouter, useJukiUI, usePreload } from '../../../hooks';
+import { useJukiUI, usePreload, useRouterStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { UserChipProps } from './types';
@@ -53,7 +53,7 @@ interface UserNicknameLinkProps {
 
 export const UserNicknameLink = ({ children, nickname, companyKey }: UserNicknameLinkProps) => {
   
-  const { setSearchParams } = useJukiRouter();
+  const setSearchParams = useRouterStore(state => state.setSearchParams);
   const preload = usePreload();
   
   useEffect(() => {

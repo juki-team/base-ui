@@ -1,7 +1,7 @@
 import { ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification, useJukiRouter, useMutate } from '../../../hooks';
+import { useJukiNotification, useMutate, useRouterStore } from '../../../hooks';
 import { CloseIcon, SaveIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';
@@ -12,7 +12,7 @@ export function UpdateEntityLayout<T, U, V>(props: UpdateEntityLayoutProps<T, U,
   const { Cmp, entity: initialEntity, entityKey, viewRoute, updateApiURL, viewApiURL, toEntityUpsert } = props;
   
   const [ entity ] = useState(initialEntity);
-  const { pushRoute } = useJukiRouter();
+  const pushRoute = useRouterStore(state => state.pushRoute);
   const { notifyResponse } = useJukiNotification();
   const mutate = useMutate();
   const tabButtons = ({ entityData, disableUpdateButton }: { entityData: T, disableUpdateButton?: boolean }) => [

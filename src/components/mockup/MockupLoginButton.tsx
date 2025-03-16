@@ -1,11 +1,11 @@
 import React from 'react';
-import { useJukiRouter } from '../../hooks';
+import { useRouterStore } from '../../hooks';
 import { QueryParamKey } from '../../types';
 import { Button, LoginIcon } from '../atoms';
 import { LoginModal } from '../templates/MainMenu/LoginModal';
 
 export const MockupLoginButton = () => {
-  const { setSearchParams, searchParams, deleteSearchParams, appendSearchParams } = useJukiRouter();
+  const { setSearchParams, searchParams, deleteSearchParams, appendSearchParams } = useRouterStore();
   return (
     <div style={{ position: 'absolute', right: 48, bottom: 10, zIndex: 10000000 }}>
       <LoginModal

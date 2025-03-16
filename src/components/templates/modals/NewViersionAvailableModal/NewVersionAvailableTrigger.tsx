@@ -1,11 +1,11 @@
 import { ContentResponseType } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
-import { useFetcher, useJukiRouter } from '../../../../hooks';
+import { useFetcher, useRouterStore } from '../../../../hooks';
 import { NewVersionAvailableModal } from './NewVersionAvailableModal';
 
 export const NewVersionAvailableTrigger = ({ apiVersionUrl }: { apiVersionUrl: string }) => {
   
-  const { reloadRoute } = useJukiRouter();
+  const reloadRoute = useRouterStore(state => state.reloadRoute);
   const { data } = useFetcher<ContentResponseType<{ version: string }>>(
     apiVersionUrl,
     { revalidateOnFocus: true, revalidateOnReconnect: true, revalidateIfStale: true, revalidateOnMount: true },

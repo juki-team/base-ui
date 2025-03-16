@@ -1,6 +1,6 @@
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames, getTextContent } from '../../../helpers';
-import { useJukiNotification, useJukiPage, useJukiUI } from '../../../hooks';
+import { useJukiNotification, useJukiUI, usePageStore } from '../../../hooks';
 import { CloseIcon } from '../../atoms';
 import { NOTIFICATION_ICON } from './constants';
 import { NotificationProps, NotificationType } from './types';
@@ -37,7 +37,8 @@ export const CardNotification = ({ id, type, message }: NotificationProps) => {
     }
   };
   
-  const { isPageFocus, isPageVisible } = useJukiPage();
+  const isPageFocus = usePageStore(state => state.isFocus);
+  const isPageVisible = usePageStore(state => state.isVisible);
   
   useEffect(() => {
     if (isPageVisible && isPageFocus) {

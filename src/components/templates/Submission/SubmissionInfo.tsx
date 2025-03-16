@@ -1,8 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiRouter } from '../../../hooks';
+import { useRouterStore } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
-
 
 export interface SubmissionInfoProps {
   submitId: string,
@@ -11,7 +10,7 @@ export interface SubmissionInfoProps {
 
 export const SubmissionInfo = ({ submitId, canViewSourceCode, children }: PropsWithChildren<SubmissionInfoProps>) => {
   
-  const { setSearchParams } = useJukiRouter();
+  const setSearchParams = useRouterStore(state => state.setSearchParams);
   
   return (
     <span

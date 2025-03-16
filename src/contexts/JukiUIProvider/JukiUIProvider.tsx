@@ -6,7 +6,7 @@ import { T } from '../../components/atoms/T';
 import { JukiLoadingLayout } from '../../components/molecules/layouts';
 import { SoundProvider } from '../../components/organisms/Notifications/SoundProvider';
 import { classNames } from '../../helpers';
-import { useJukiRouter } from '../../hooks/useJukiRouter';
+import { useRouterStore } from '../../stores/router/useRouterStore';
 import { Duration, QueryParamKey } from '../../types';
 import { UIContext } from './context';
 import { Image } from './Image';
@@ -19,9 +19,9 @@ const ReactTooltip = lazy(() => import('react-tooltip').then(module => ({ defaul
 export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiUIProviderProps>) => {
   
   const { viewPortSize, viewPortHeight, viewPortWidth } = useViewPortSize();
-  const { searchParams } = useJukiRouter();
+  const searchParams = useRouterStore(state => state.searchParams);
   const { Image: ImageCmp = Image, Link: LinkCMP = Link } = components || { Image, Link };
-  const { isLoadingRoute } = useJukiRouter();
+  const isLoadingRoute = useRouterStore(state => state.isLoadingRoute);
   
   const ref = useRef<HTMLDivElement>(null);
   

@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { usePageStore } from '../../stores/page/usePageStore';
 
 export const useOnline = () => {
   
-  const [ isOnline, setIsOnline ] = useState<boolean>(true);
+  const { setOnline } = usePageStore();
+  
   useEffect(() => {
     
-    const offline = () => setIsOnline(false);
-    const online = () => setIsOnline(true);
-    window?.addEventListener('offline', offline);
-    window?.addEventListener('online', online);
+    const updateOnlineStatus = () => setOnline(navigator.onLine);
+    
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
     
     return () => {
-      window?.removeEventListener('offline', offline);
-      window?.removeEventListener('online', online);
+      window.removeEventListener('online', updateOnlineStatus);
+      window.removeEventListener('offline', updateOnlineStatus);
     };
-  }, []);
-  
-  return isOnline;
+  }, [ setOnline ]);
 };

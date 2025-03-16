@@ -1,7 +1,7 @@
 import { ContentResponseType, DocumentCreateResponseDTO, HTTPMethod, Status } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification, useJukiRouter } from '../../../hooks';
+import { useJukiNotification, useRouterStore } from '../../../hooks';
 import { CloseIcon, SaveIcon, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';
@@ -13,7 +13,7 @@ export function CreateEntityLayout<T, U, V>(props: CreateEntityLayoutProps<T, U,
   
   const [ entity ] = useState(newEntity());
   const { notifyResponse } = useJukiNotification();
-  const { pushRoute } = useJukiRouter();
+  const pushRoute = useRouterStore(state => state.pushRoute);
   
   const tabButtons = ({ entityData }: { entityData: T }) => [
     <CheckUnsavedChanges

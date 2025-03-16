@@ -11,7 +11,7 @@ import React, {
   useRef,
 } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
-import { useJukiRouter, useJukiUI, useSessionStorage } from '../../../hooks';
+import { useJukiUI, useRouterStore, useSessionStorage } from '../../../hooks';
 import {
   CalendarViewWeekIcon,
   ContentCopyIcon,
@@ -94,7 +94,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const { viewPortSize } = useJukiUI();
   
-  const { searchParams } = useJukiRouter();
+  const searchParams = useRouterStore(state => state.searchParams);
   
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   

@@ -8,7 +8,7 @@ import {
 } from '@juki-team/commons';
 import React, { useEffect, useMemo, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useFetcher, useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
+import { useFetcher, useJukiUI, useJukiUser, useRouterStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { Popover, Select, SpinIcon, T } from '../../atoms';
@@ -37,7 +37,15 @@ export const MainMenu = (props: MainMenuProps) => {
   
   const { viewPortSize, components: { Link, Image } } = useJukiUI();
   
-  const { searchParams, deleteSearchParams, setSearchParams, appendSearchParams } = useJukiRouter();
+  const { searchParams, deleteSearchParams, setSearchParams, appendSearchParams } = useRouterStore(
+    state => ({
+      searchParams: state.searchParams,
+      deleteSearchParams: state.deleteSearchParams,
+      setSearchParams: state.setSearchParams,
+      appendSearchParams: state.appendSearchParams,
+    }),
+    // shallow,
+  );
   
   const {
     user: {

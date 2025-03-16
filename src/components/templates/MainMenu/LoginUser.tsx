@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiRouter, useJukiUI, useJukiUser } from '../../../hooks';
+import { useJukiUI, useJukiUser, useRouterStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { Button, LoginIcon, LogoutIcon, Popover, SpinIcon, T } from '../../atoms';
@@ -16,7 +16,7 @@ interface LoginUserProps {
 export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profileSelected }: LoginUserProps) => {
   
   const { user, isLoading, logout } = useJukiUser();
-  const { setSearchParams } = useJukiRouter();
+  const setSearchParams = useRouterStore(state => state.setSearchParams);
   const { viewPortSize, components: { Image } } = useJukiUI();
   const [ visible, setVisible ] = useState(false);
   

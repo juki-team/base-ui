@@ -5,7 +5,7 @@ import { LastPathProps } from './types';
 
 const LazyLinkLastPath = lazy(() => import('./LinkLastPath').then(module => ({ default: module.LinkLastPath })));
 
-export const LinkLastPath = <T, >(props: PropsWithChildren<LastPathProps<T>>) => (
+export const LinkLastPath = <T extends string | number = string, >(props: PropsWithChildren<LastPathProps<T>>) => (
   <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     <LazyLinkLastPath {...props} />
   </Suspense>

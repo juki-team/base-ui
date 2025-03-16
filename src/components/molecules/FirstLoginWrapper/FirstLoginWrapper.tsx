@@ -1,11 +1,11 @@
 import React, { cloneElement, PropsWithChildren, ReactElement } from 'react';
-import { useJukiNotification, useJukiRouter, useJukiUser } from '../../../hooks';
+import { useJukiNotification, useJukiUser, useRouterStore } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
 import { T } from '../../atoms';
 
 export const FirstLoginWrapper = ({ children }: PropsWithChildren) => {
   const { user: { isLogged } } = useJukiUser();
-  const { setSearchParams } = useJukiRouter();
+  const setSearchParams = useRouterStore(state => state.setSearchParams);
   const { addWarningNotification } = useJukiNotification();
   if (isLogged) {
     return children;

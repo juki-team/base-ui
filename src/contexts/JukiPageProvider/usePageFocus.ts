@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { usePageStore } from '../../stores/page/usePageStore';
 
 export const usePageFocus = () => {
   
-  const [ isFocus, setIsFocus ] = useState(true);
+  const { setIsFocus } = usePageStore();
   
   useEffect(() => {
     const handlerOnFocus = () => setIsFocus(true);
@@ -15,7 +16,5 @@ export const usePageFocus = () => {
       window?.removeEventListener('focus', handlerOnFocus);
       window?.removeEventListener('blur', handlerOnBlur);
     };
-  }, []);
-  
-  return isFocus;
+  }, [ setIsFocus ]);
 };

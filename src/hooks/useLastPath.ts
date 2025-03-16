@@ -1,36 +1,15 @@
-import { consoleWarn } from '@juki-team/commons';
-import { createContext, useContext, useEffect } from 'react';
-import { LastPathContextRef } from '../contexts/JukiLastPathProvider/context';
-import { LastPathContextInterface, LastPathType } from '../contexts/JukiLastPathProvider/types';
-import { useJukiRouter } from './useJukiRouter';
-
-const defaultContext = <T extends string | number, >() => createContext<LastPathContextInterface<T>>({
-  pushPath: () => null,
-  lastPath: {} as LastPathType<T>,
-});
-
-export const useLastPath = <T extends string | number, >() => {
-  
-  if (!LastPathContextRef.current) {
-    consoleWarn('last path context not initialized');
-  }
-  
-  const { lastPath, pushPath } = useContext(LastPathContextRef.current || defaultContext());
-  
-  return { lastPath, pushPath };
-};
+import { useEffect } from 'react';
+import { useLastPathStore } from '../stores/lastPath/useLastPath';
+import { useRouterStore } from '../stores/router/useRouterStore';
 
 export const useTrackLastPath = (key: string) => {
   
-  if (!LastPathContextRef.current) {
-    consoleWarn('last path context not initialized');
-  }
+  const pushPath = useLastPathStore(state => state.pushPath);
   
-  const { pushPath } = useContext(LastPathContextRef.current || defaultContext());
-  
-  const { pathname, searchParams } = useJukiRouter();
+  const pathname = useRouterStore(state => state.pathname);
+  const searchParams = useRouterStore(state => state.searchParams);
   
   useEffect(() => {
     pushPath({ key, pathname, searchParams });
-  }, [ key, searchParams, pathname ]);
+  }, [ key, searchParams, pathname, pushPath ]);
 };
