@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { DateDisplayType } from '../../../types';
+import { MockupJukiProvider } from '../../mockup';
 
 import { DateLiteral } from './DateLiteral';
 
@@ -19,9 +20,11 @@ type Story = StoryObj<typeof DateLiteral>;
 
 export const Regular: Story = {
   render: (args) => (
-    <div className="jk-col">
-      <DateLiteral {...args} date={new Date()} />
-      <DateLiteral {...args} date={new Date()} twoLines />
-    </div>
+    <MockupJukiProvider>
+      <div className="jk-col">
+        <DateLiteral {...args} date={new Date()} />
+        <DateLiteral {...args} date={new Date()} twoLines />
+      </div>
+    </MockupJukiProvider>
   ),
 };

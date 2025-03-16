@@ -5,28 +5,28 @@ import { NotificationContext } from '../components/organisms/Notifications/conte
 import { NewNotificationType, NotificationAction, NotificationType } from '../components/organisms/Notifications/types';
 import { SetStatusType } from '../types';
 
-export const notifyError = (response: ErrorResponseType, addErrorNotification: (message: ReactNode) => void) => {
-  addErrorNotification(
-    <div className="jk-col stretch" style={{ width: '100%' }}>
-      <span className="tt-se"><T>{response.message}</T></span>
-      {(response.errors[0]?.message !== response.message || response.errors.length > 1) && (
-        <ul>
-          {Children.toArray(response.errors.map((error, index) => (
-            <li key={index + error.message}><T className="tt-se">{error.message}</T></li>
-          )))}
-        </ul>
-      )}
-    </div>,
-  );
-};
-
-export const notifySuccess = (response: ContentResponseType<any> | ContentsResponseType<any>, addSuccessNotification: (message: ReactNode) => void) => {
-  addSuccessNotification(
-    <div className="jk-col stretch" style={{ width: '100%' }}>
-      <span className="tt-se"><T>{response.message}</T></span>
-    </div>,
-  );
-};
+// export const notifyError = (response: ErrorResponseType, addErrorNotification: (message: ReactNode) => void) => {
+//   addErrorNotification(
+//     <div className="jk-col stretch" style={{ width: '100%' }}>
+//       <span className="tt-se"><T>{response.message}</T></span>
+//       {(response.errors[0]?.message !== response.message || response.errors.length > 1) && (
+//         <ul>
+//           {Children.toArray(response.errors.map((error, index) => (
+//             <li key={index + error.message}><T className="tt-se">{error.message}</T></li>
+//           )))}
+//         </ul>
+//       )}
+//     </div>,
+//   );
+// };
+//
+// export const notifySuccess = (response: ContentResponseType<any> | ContentsResponseType<any>, addSuccessNotification: (message: ReactNode) => void) => {
+//   addSuccessNotification(
+//     <div className="jk-col stretch" style={{ width: '100%' }}>
+//       <span className="tt-se"><T>{response.message}</T></span>
+//     </div>,
+//   );
+// };
 
 export const useJukiNotification = () => {
   
@@ -44,11 +44,38 @@ export const useJukiNotification = () => {
     setStatus?: SetStatusType,
   ): response is ContentResponseType<T> | ContentsResponseType<T> => {
     if (response.success === false) {
-      notifyError(response, (message) => addNotification({ type: NotificationType.ERROR, message }));
+      addNotification({
+        type: NotificationType.ERROR,
+        message: (
+          <div className="jk-col stretch" style={{ width: '100%' }}>
+            <span className="tt-se">
+              <T>{response.message}</T>
+            </span>
+            {(response.errors[0]?.message !== response.message || response.errors.length > 1) && (
+              <ul>
+                {Children.toArray(response.errors.map((error, index) => (
+                  <li key={index + error.message}>
+                    <T className="tt-se">{error.message}</T>
+                  </li>
+                )))}
+              </ul>
+            )}
+          </div>
+        ),
+      });
       setStatus?.(Status.ERROR);
     }
     if (response.success === true) {
-      notifySuccess(response, (message) => addNotification({ type: NotificationType.INFO, message }));
+      addNotification({
+        type: NotificationType.INFO,
+        message: (
+          <div className="jk-col stretch" style={{ width: '100%' }}>
+            <span className="tt-se">
+              <T>{response.message}</T>
+            </span>
+          </div>
+        ),
+      });
       setStatus?.(Status.SUCCESS);
     }
     return !!response.success;
