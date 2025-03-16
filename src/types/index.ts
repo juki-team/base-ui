@@ -1,6 +1,8 @@
 import { Status } from '@juki-team/commons';
 import { ReactNode } from 'react';
 
+export type { TFunction } from 'i18next';
+
 export type ReactNodeOrFunctionType = ReactNode | (() => ReactNode);
 
 export type ReactNodeOrFunctionP1Type<T, U = ReactNode> = U | ((prop1: T) => U);
