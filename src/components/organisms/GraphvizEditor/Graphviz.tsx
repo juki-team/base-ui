@@ -1,6 +1,6 @@
 import { graphviz, GraphvizOptions } from 'd3-graphviz';
 import * as React from 'react';
-import { useEffect, useId } from 'react';
+import { useEffect, useRef } from 'react';
 import { IGraphvizProps } from './types';
 
 const defaultOptions: GraphvizOptions = {
@@ -11,14 +11,23 @@ const defaultOptions: GraphvizOptions = {
 };
 
 export const Graphviz = ({ dot, className, options = {} }: IGraphvizProps) => {
-  const id = useId();
+  
+  const containerRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
-    graphviz(`#${id}`, {
-      ...defaultOptions,
-      ...options,
-    }).renderDot(dot);
-  }, [ dot, options ]);
+    if (containerRef.current) {
+      const instance = graphviz(containerRef.current, {
+        ...defaultOptions,
+        ...options,
+      }).renderDot(dot);
+      
+      return () => {
+        instance?.resetZoom();
+      };
+    }
+    return () => {
+    };
+  }, [ dot, options.width, options.height, options.fit, options.zoom, options ]);
   
-  return <div className={className} id={id} />;
+  return <div className={className} ref={containerRef} />;
 };
