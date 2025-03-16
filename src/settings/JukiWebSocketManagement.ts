@@ -8,6 +8,7 @@ import {
   getWebSocketResponseEventKey,
   isPingWebSocketEventDTO,
   isSubscribeCodeRunStatusWebSocketEventDTO,
+  isSubscribeSenDataEcsTaskDefinitionListWebSocketEventDTO,
   isSubscribeSubmissionRunStatusWebSocketEventDTO,
   ObjectIdType,
   ONE_MINUTE,
@@ -201,6 +202,9 @@ export class JukiWebSocketManagement {
     }
     if (isSubscribeSubmissionRunStatusWebSocketEventDTO(event)) {
       return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSION_RUN_STATUS_MESSAGE, event.sessionId, event.submitId);
+    }
+    if (isSubscribeSenDataEcsTaskDefinitionListWebSocketEventDTO(event)) {
+      return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_ECS_TASK_DEFINITION_LIST, event.sessionId, '*');
     }
     
     return '' as WebSocketResponseEventKey;

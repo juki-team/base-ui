@@ -133,7 +133,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^3.2.4",
-    "@juki-team/commons": "^0.0.724",
+    "@juki-team/commons": "^0.0.743",
     "@rollup/plugin-commonjs": "^28.0.2",
     "@rollup/plugin-node-resolve": "^16.0.0",
     "@rollup/plugin-terser": "^0.4.4",
