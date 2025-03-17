@@ -1,3 +1,5 @@
+'use client';
+
 import { ParsedUrlQuery } from 'querystring';
 import { create } from 'zustand/index';
 import {

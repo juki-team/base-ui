@@ -1,3 +1,5 @@
+'use client';
+
 import { Language } from '@juki-team/commons';
 import { createInstance, i18n } from 'i18next';
 import { create } from 'zustand';
