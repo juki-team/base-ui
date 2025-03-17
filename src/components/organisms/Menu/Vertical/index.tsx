@@ -79,8 +79,6 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
     }
   };
   
-  console.log('render vertical menu');
-  
   return viewPortSize === 'sm' ? (
     <HorizontalMenu
       menu={menu}
