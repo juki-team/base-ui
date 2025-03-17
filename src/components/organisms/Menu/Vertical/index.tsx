@@ -1,7 +1,7 @@
 import React, { Children, PropsWithChildren } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useHandleState, useJukiUI } from '../../../../hooks';
-import { NavigateBeforeIcon, NavigateNextIcon, Popover } from '../../../atoms';
+import { NavigateBeforeIcon, NavigateNextIcon } from '../../../atoms';
 import { HorizontalMenu } from '../Horizontal';
 import { VerticalMenuProps } from '../types';
 
@@ -27,7 +27,7 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
   
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
-    const { selected, icon, label, onClick, menuItemWrapper } = menu[i];
+    const { selected, icon, label, tooltipLabel, onClick, menuItemWrapper } = menu[i];
     const menuItemContent = (
       <div
         className={classNames('jk-menu-item', {
@@ -37,21 +37,24 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
         })}
         onClick={() => onClick?.(open)}
         key={i}
+        data-tooltip-id="jk-tooltip"
+        data-tooltip-content={!open ? tooltipLabel : ''}
       >
         <div className="jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>
         <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
       </div>
     );
-    const menuItem = open ? menuItemContent : (
-      <Popover
-        content={<div className="tt-ce jk-pg-sm">{renderReactNodeOrFunction(label)}</div>}
-        placement="right"
-        showPopperArrow
-        key={i}
-      >
-        {menuItemContent}
-      </Popover>
-    );
+    // const menuItem = open ? menuItemContent : (
+    //   <Popover
+    //     content={<div className="tt-ce jk-pg-sm">{renderReactNodeOrFunction(label)}</div>}
+    //     placement="right"
+    //     showPopperArrow
+    //     key={i}
+    //   >
+    //     {menuItemContent}
+    //   </Popover>
+    // );
+    const menuItem = menuItemContent;
     if (menuItemWrapper) {
       menus.push(renderReactNodeOrFunctionP1(menuItemWrapper, {
         selected,
@@ -74,6 +77,8 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
       setOpen(!open);
     }
   };
+  
+  console.log('render vertical menu');
   
   return viewPortSize === 'sm' ? (
     <HorizontalMenu

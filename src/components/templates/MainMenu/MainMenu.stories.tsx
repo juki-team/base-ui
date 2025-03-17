@@ -31,6 +31,7 @@ const menu = [
   {
     label: 'contests',
     icon: <ViewHeadlineIcon />,
+    tooltipLabel: 'contests',
     selected: true,
     onClick: () => action('/contests'),
   },

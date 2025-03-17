@@ -71,6 +71,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
                   // isOpen
                   positionStrategy="fixed"
                   clickable
+                  // disableStyleInjection
                   render={({ content, activeAnchor }) => (
                     content ?
                       activeAnchor?.getAttribute('data-tooltip-t') === 'false'
