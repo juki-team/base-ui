@@ -39,6 +39,7 @@ export const VerticalMenu = (props: PropsWithChildren<VerticalMenuProps>) => {
         key={i}
         data-tooltip-id="jk-tooltip"
         data-tooltip-content={!open ? tooltipLabel : ''}
+        data-tooltip-place="right"
       >
         <div className="jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>
         <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
