@@ -37,15 +37,10 @@ export const MainMenu = (props: MainMenuProps) => {
   
   const { viewPortSize, components: { Link, Image } } = useJukiUI();
   
-  const { searchParams, deleteSearchParams, setSearchParams, appendSearchParams } = useRouterStore(
-    state => ({
-      searchParams: state.searchParams,
-      deleteSearchParams: state.deleteSearchParams,
-      setSearchParams: state.setSearchParams,
-      appendSearchParams: state.appendSearchParams,
-    }),
-    // shallow,
-  );
+  const searchParams = useRouterStore(state => state.searchParams);
+  const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
+  const setSearchParams = useRouterStore(state => state.setSearchParams);
+  const appendSearchParams = useRouterStore(state => state.appendSearchParams);
   
   const {
     user: {
