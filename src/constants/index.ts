@@ -48,7 +48,6 @@ export const EMPTY_USER: UserDataType = {
   permissions: { ...EMPTY_USER_PERMISSIONS },
   isLogged: false,
   sessionId: '' as ObjectIdType,
-  connectionId: '',
 };
 
 export const PAGE_SIZE_OPTIONS = [ 25, 50, 100 ];

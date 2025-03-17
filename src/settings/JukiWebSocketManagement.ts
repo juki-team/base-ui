@@ -216,6 +216,7 @@ export class JukiWebSocketManagement {
   
   subscribe(event: WebSocketEventDTO, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
     const eventKey = this._getKeyWebSocketEventDTO(event);
+    console.log({ event, eventKey });
     if (!Array.isArray(this.callbacks[eventKey])) {
       this.callbacks[eventKey] = [];
     }

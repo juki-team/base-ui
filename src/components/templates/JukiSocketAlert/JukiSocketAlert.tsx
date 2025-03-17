@@ -1,13 +1,13 @@
 import { Status } from '@juki-team/commons';
 import React, { CSSProperties } from 'react';
-import { useJukiWebsocket } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
+import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
 import { ErrorIcon } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 
 export const JukiSocketAlert = () => {
   
-  const { isConnected } = useJukiWebsocket();
+  const isConnected = useWebsocketStore(state => state.isConnected);
   
   return !isConnected && (
     <div

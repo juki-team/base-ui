@@ -3,6 +3,8 @@ export * from '../stores/i18n/useI18nStore';
 export * from '../stores/page/usePageStore';
 export * from '../stores/lastPath/useLastPath';
 export * from '../stores/router/useRouterStore'; // useJukiRouter
+export * from '../stores/websocket/useWebsocketStore';
+
 // rest
 export * from './custom';
 export * from './useDataViewerRequester';
@@ -13,7 +15,6 @@ export * from './useFetcher';
 export * from './useHandleState';
 export * from './useJukiUI';
 export * from './useJukiUser';
-export * from './useJukiWebsocket';
 export * from './useLastPath';
 export * from './useMemoizedArray';
 export * from './useSessionStorage';

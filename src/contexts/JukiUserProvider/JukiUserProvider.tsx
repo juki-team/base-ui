@@ -8,16 +8,7 @@ import {
   ProfileSetting,
   Theme,
 } from '@juki-team/commons';
-import React, {
-  Dispatch,
-  PropsWithChildren,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { Dispatch, PropsWithChildren, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   browserName,
   browserVersion,
@@ -76,7 +67,7 @@ const useUser = () => {
     if (data?.success) {
       setCompany(data.content.company);
       if (data.content.user.isLogged) {
-        setUser({ ...data?.content.user, connectionId: '' });
+        setUser(data.content.user);
       } else {
         setUser({
           ...data?.content.user,
@@ -87,7 +78,6 @@ const useUser = () => {
             [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
             [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
           },
-          connectionId: '',
         });
       }
       localStorageCrossDomains.setItem(jukiApiSocketManager.TOKEN_NAME, data?.content.user.sessionId);
@@ -122,8 +112,6 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const { children } = props;
   
   const { user, company, setUser, isLoading, mutate } = useUser();
-  const userConnectionIdRef = useRef(user?.connectionId);
-  userConnectionIdRef.current = user?.connectionId;
   
   const device: DeviceType = useMemo(() => ({
     type: deviceType,

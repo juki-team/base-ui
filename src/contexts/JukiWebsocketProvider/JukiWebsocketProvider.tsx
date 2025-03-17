@@ -5,10 +5,10 @@ import {
   WebSocketResponseEventDTO,
 } from '@juki-team/commons';
 import { PingWebSocketEventDTO } from '@juki-team/commons/dist/types/dto/socket';
-import React, { PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react';
+import { PropsWithChildren, useEffect, useRef } from 'react';
 import { useJukiUser, usePageStore } from '../../hooks';
 import { jukiApiSocketManager } from '../../settings';
-import { WebsocketContext } from './context';
+import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
 import { JukiWebsocketProviderProps } from './types';
 
 export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProviderProps>) => {
@@ -16,10 +16,12 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
   const { children } = props;
   
   const isPageVisible = usePageStore(state => state.isVisible);
-  const [ isConnected, setIsConnected ] = useState(false);
-  const [ id, setId ] = useState('');
+  const id = useWebsocketStore(state => state.id);
+  const setId = useWebsocketStore(state => state.setId);
+  const setIsConnected = useWebsocketStore(state => state.setIsConnected);
+  const connectionId = useWebsocketStore(state => state.connectionId);
+  const setConnectionId = useWebsocketStore(state => state.setConnectionId);
   const { user: { sessionId } } = useJukiUser();
-  const [ connectionId, setConnectionId ] = useState('');
   const intervalRef = useRef<ReturnType<typeof setTimeout>>(null);
   
   useEffect(() => {
@@ -29,6 +31,7 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
       sessionId,
     };
     const callback = (data: WebSocketResponseEventDTO) => {
+      console.log('data', { data });
       if (isPongWebSocketResponseEventDTO(data)) {
         setConnectionId(data.connectionId);
       }
@@ -39,7 +42,7 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
     return () => {
       jukiApiSocketManager.SOCKET.unsubscribe(event, callback);
     };
-  }, [ sessionId ]);
+  }, [ sessionId, setConnectionId ]);
   
   useEffect(() => {
     void jukiApiSocketManager.SOCKET.connect();
@@ -55,7 +58,7 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
     jukiApiSocketManager.SOCKET.addEventListener('error', (error) => {
       setIsConnected(false);
     });
-  }, []);
+  }, [ setId, setIsConnected ]);
   
   useEffect(() => {
     void jukiApiSocketManager.SOCKET.authenticate(sessionId);
@@ -70,15 +73,5 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
     }, ONE_MINUTE);
   }, [ isPageVisible, connectionId, sessionId, id ]);
   
-  const value = useMemo(() => ({
-    id,
-    isConnected,
-    connectionId,
-  }), [ connectionId, isConnected, id ]);
-  
-  return (
-    <WebsocketContext.Provider value={value}>
-      {children}
-    </WebsocketContext.Provider>
-  );
+  return children;
 };

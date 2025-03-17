@@ -9,8 +9,9 @@ import React, { CSSProperties, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
-import { useJukiNotification, useJukiWebsocket } from '../../../../hooks';
+import { useJukiNotification } from '../../../../hooks';
 import { jukiApiSocketManager } from '../../../../settings';
+import { useWebsocketStore } from '../../../../stores/websocket/useWebsocketStore';
 import {
   Button,
   ErrorIcon,
@@ -53,7 +54,8 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
-  const { isConnected, connectionId } = useJukiWebsocket();
+  const isConnected = useWebsocketStore(state => state.isConnected);
+  const connectionId = useWebsocketStore(state => state.connectionId);
   
   useEffect(() => {
     if (isRunning) {
