@@ -117,12 +117,12 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
       triggerOn="click"
       placement={optionsPlacement}
       popoverClassName="jk-select-options-content"
-      visible={showOptions}
-      onVisibleChange={setShowOptions}
-      marginOfChildren={0}
+      open={showOptions}
+      onOpenChange={setShowOptions}
+      // marginOfChildren={0}
       content={
         <div
-          className={classNames('jk-select-options-virtual jk-border-radius-inline')}
+          className={classNames('jk-select-options-virtual jk-br-ie bc-white elevation-1')}
           style={{
             width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2 /*border*/ : containerWidth - 2, /*border*/
           }}

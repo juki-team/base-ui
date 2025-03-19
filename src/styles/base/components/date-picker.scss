@@ -168,6 +168,13 @@
   }
 }
 
+.jk-date-picker-grid-time, .jk-date-picker- {
+  .jk-select > .input-icon {
+    position: absolute;
+    right: -4px !important;
+  }
+}
+
 .jk-date-picker-grid-time {
   
   > div {

@@ -11,12 +11,10 @@ import {
   Theme,
   UserSettingsType,
 } from '@juki-team/commons';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { T } from '../components/atoms/T';
-import { EMPTY_USER } from '../constants';
-import { UserContext } from '../contexts/JukiUserProvider/context';
 import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../helpers';
-import { useI18nStore } from '../hooks';
+import { useI18nStore, useUserStore } from '../hooks';
 import { jukiApiSocketManager } from '../settings';
 import {
   AuthorizedRequestType,
@@ -27,7 +25,6 @@ import {
   UpdateUserProfileDataPayloadDTO,
 } from '../types';
 import { useJukiNotification } from './useJukiNotification';
-import { useMutate } from './useMutate';
 
 type ApiType<T> = {
   setLoader?: SetStatusType,
@@ -51,13 +48,8 @@ type ApiParamsBodyType<T, U, V> = ApiType<V> & {
 
 export const useJukiUser = () => {
   
-  const { user, isLoading, setUser, mutate, company, device } = useContext(UserContext);
   const { notifyResponse, addErrorNotification } = useJukiNotification();
-  const matchMutate = useMutate();
-  
-  const refreshAllRequest = useCallback(async () => {
-    await matchMutate(new RegExp(`${jukiApiSocketManager.SERVICE_API_V1_URL}`, 'g'));
-  }, [ matchMutate ]);
+  const userMutate = useUserStore(state => state.mutate);
   
   const doRequest = useCallback(async <T, M extends HTTPMethod = HTTPMethod.GET>(
     { url, options, setLoader, onSuccess, onError, onFinally }: ApiType<T> & {
@@ -83,12 +75,12 @@ export const useJukiUser = () => {
     const { url, ...options } = jukiApiSocketManager.API_V1.auth.signIn({ body, params });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
       localStorageCrossDomains.setItem(jukiApiSocketManager.TOKEN_NAME, response.content.user.sessionId);
-      setUser(response.content.user);
-      await refreshAllRequest();
+      // setUser(response.content.user);
+      await userMutate();
       await onSuccess?.(response);
     };
     await doRequest<PingResponseDTO, HTTPMethod.POST>({ url, options, onSuccess: onSuccessWrap, ...props });
-  }, [ doRequest, refreshAllRequest, setUser ]);
+  }, [ doRequest, userMutate ]);
   
   const signUp = useCallback(async (
     { body, onSuccess, ...props }: ApiBodyType<SignUpPayloadDTO & {
@@ -99,12 +91,12 @@ export const useJukiUser = () => {
     const { url, ...options } = jukiApiSocketManager.API_V1.auth.signUp({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
       localStorageCrossDomains.setItem(jukiApiSocketManager.TOKEN_NAME, response.content.user.sessionId);
-      setUser(response.content.user);
-      await refreshAllRequest();
+      // setUser(response.content.user);
+      await userMutate();
       await onSuccess?.(response);
     };
     await doRequest<PingResponseDTO, HTTPMethod.POST>({ url, options, onSuccess: onSuccessWrap, ...props });
-  }, [ doRequest, refreshAllRequest, setUser ]);
+  }, [ doRequest, userMutate ]);
   
   const createUser = useCallback(async (
     { params, body, ...props }: ApiParamsBodyType<{
@@ -150,15 +142,16 @@ export const useJukiUser = () => {
     onFinally?.(response);
   }, [ notifyResponse ]);
   
-  const updatePassword = useCallback(async ({ body, ...props }: ApiBodyType<UpdatePasswordPayloadDTO, string>) => {
+  const updatePassword = useCallback(async ({ body, params, ...props }: ApiParamsBodyType<{
+    companyKey: string,
+    nickname: string,
+  }, UpdatePasswordPayloadDTO, string>) => {
     const { url, ...options } = jukiApiSocketManager.API_V1.auth.updatePassword({
-      params: {
-        nickname: user.nickname,
-        companyKey: company.key,
-      }, body,
+      params,
+      body,
     });
     await doRequest<string, HTTPMethod.POST>({ url, options, ...props });
-  }, [ company.key, doRequest, user.nickname ]);
+  }, [ doRequest ]);
   
   const resetUserPassword = useCallback(async (
     { params: { companyKey, nickname }, ...props }: ApiParamsType<{ companyKey: string, nickname: string }, string>,
@@ -173,8 +166,8 @@ export const useJukiUser = () => {
     
     const onFinallyWrap = async (response: ErrorResponseType | ContentResponseType<string>) => {
       localStorageCrossDomains.removeItem(jukiApiSocketManager.TOKEN_NAME);
-      setUser(EMPTY_USER);
-      await refreshAllRequest();
+      // setUser(EMPTY_USER);
+      await userMutate();
       await onFinally?.(response);
     };
     
@@ -189,7 +182,7 @@ export const useJukiUser = () => {
       onError: onErrorWrap,
       onFinally: onFinallyWrap, ...props,
     });
-  }, [ addErrorNotification, doRequest, refreshAllRequest, setUser ]);
+  }, [ addErrorNotification, doRequest, userMutate ]);
   
   const deleteUserSession = useCallback(async ({ params, ...props }: ApiParamsType<{ sessionId: string }, string>) => {
     const { url, ...options } = jukiApiSocketManager.API_V1.user.deleteSession({ params });
@@ -204,18 +197,10 @@ export const useJukiUser = () => {
   }, [ doRequest ]);
   
   return {
-    company,
-    user,
-    setUser,
-    isLoading,
-    // isValidating,
-    mutatePing: mutate,
-    refreshAllRequest,
     signIn,
     signUp,
     logout,
     updatePassword,
-    device,
     // users
     createUser,
     updateUserProfileData,
@@ -229,7 +214,10 @@ export const useJukiUser = () => {
 export const useJukiUserSettings = () => {
   
   const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
-  const { updateUserPreferences, setUser, user: { isLogged, settings, nickname }, mutatePing } = useJukiUser();
+  const setUser = useUserStore(state => state.setUser);
+  const { isLogged, settings, nickname } = useUserStore(state => state.user);
+  const mutatePing = useUserStore(state => state.mutate);
+  const { updateUserPreferences } = useJukiUser();
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
   const setSettings = useCallback(async (settingsToUpdate: { key: ProfileSetting, value: string | boolean }[]) => {
     const newSettings: UserSettingsType = { ...settings };
@@ -266,7 +254,7 @@ export const useJukiUserSettings = () => {
       for (const { key, value } of settingsToUpdate) {
         localStorageCrossDomains.setItem(key, value + '');
       }
-      setUser(prevState => ({ ...prevState, settings: newSettings }));
+      setUser({ settings: newSettings });
     }
     i18nChangeLanguage(newSettings[ProfileSetting.LANGUAGE]);
   }, [ i18nChangeLanguage, isLogged, mutatePing, nickname, setUser, settings, updateUserPreferences ]);

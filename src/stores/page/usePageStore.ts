@@ -7,16 +7,16 @@ interface PageState {
   isOnline: boolean,
   setOnline: (isOnline: boolean) => void,
   isVisible: boolean,
-  setIsVisible: (isPageVisible: boolean) => void,
+  setIsVisible: (isVisible: boolean) => void,
   isFocus: boolean,
   setIsFocus: (isFocus: boolean) => void,
 }
 
 export const usePageStore = create<PageState>((set) => ({
   isOnline: navigator.onLine,
-  setOnline: (status) => set({ isOnline: status }),
+  setOnline: (isOnline) => set({ isOnline }),
   isVisible: getHandlerArgs()[0],
-  setIsVisible: (status) => set({ isVisible: status }),
+  setIsVisible: (isVisible) => set({ isVisible }),
   isFocus: true,
-  setIsFocus: (status) => set({ isFocus: status }),
+  setIsFocus: (isFocus) => set({ isFocus }),
 }));

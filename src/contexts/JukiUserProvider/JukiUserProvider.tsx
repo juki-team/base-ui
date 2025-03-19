@@ -1,5 +1,4 @@
 import {
-  CompanyPingType,
   ContentResponseType,
   DataViewMode,
   Language,
@@ -8,7 +7,7 @@ import {
   ProfileSetting,
   Theme,
 } from '@juki-team/commons';
-import React, { Dispatch, PropsWithChildren, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react';
+import { PropsWithChildren, useCallback, useEffect } from 'react';
 import {
   browserName,
   browserVersion,
@@ -19,43 +18,55 @@ import {
   osName,
   osVersion,
 } from 'react-device-detect';
-import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
+import { EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
-import { useFetcher, useI18nStore } from '../../hooks';
+import { useFetcher, useI18nStore, useMutate, useUserStore } from '../../hooks';
 import { jukiApiSocketManager } from '../../settings';
-import { UserContext } from './context';
-import { DeviceType, JukiUserProviderProps, UserDataType } from './types';
+import { JukiUserProviderProps } from './types';
 
-const useUser = () => {
+export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>) => {
   
+  const { children } = props;
+  console.log('render JukiUserProvider');
+  
+  const setUser = useUserStore(state => state.setUser);
+  const setCompany = useUserStore(state => state.setCompany);
+  const setDevice = useUserStore(state => state.setDevice);
+  const setMutate = useUserStore(state => state.setMutate);
+  const userNickname = useUserStore(state => state.user.nickname);
+  const companyKey = useUserStore(state => state.company.key);
+  const userSessionId = useUserStore(state => state.user.sessionId);
+  const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
+  const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
+  const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
   const {
     data,
-    isLoading: isLoadingPing,
-    isValidating,
+    // isLoading: isLoadingPing,
+    // isValidating: isValidatingPing,
     mutate,
   } = useFetcher<ContentResponseType<PingResponseDTO>>(
     jukiApiSocketManager.API_V1.auth.ping().url,
     { refreshInterval: 1000 * 60 * 5 },
   );
   
-  const [ user, _setUser ] = useState<UserDataType>(EMPTY_USER);
-  const [ company, setCompany ] = useState<CompanyPingType>(EMPTY_COMPANY);
-  const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
+  const matchMutate = useMutate();
   
-  const setUser: Dispatch<SetStateAction<UserDataType>> = useCallback((user) => {
-    if (typeof user === 'function') {
-      _setUser((prevState) => {
-        const newUser = user(prevState);
-        i18nChangeLanguage(newUser.settings[ProfileSetting.LANGUAGE]);
-        return newUser;
-      });
-    } else {
-      _setUser(user);
-      i18nChangeLanguage(user.settings[ProfileSetting.LANGUAGE]);
-    }
-  }, [ i18nChangeLanguage ]);
+  const refreshAllRequest = useCallback(async () => {
+    await matchMutate(new RegExp(`${jukiApiSocketManager.SERVICE_API_V1_URL}`, 'g'));
+  }, [ matchMutate ]);
   
   useEffect(() => {
+    void refreshAllRequest();
+  }, [ userNickname, companyKey, userSessionId, refreshAllRequest ]);
+  
+  useEffect(() => {
+    i18nChangeLanguage(userPreferredLanguage);
+  }, [ i18nChangeLanguage, userPreferredLanguage ]);
+  
+  useEffect(() => {
+    if (!data) {
+      return;
+    }
     let preferredLanguage: Language = localStorage.getItem(ProfileSetting.LANGUAGE) as Language;
     if (preferredLanguage !== Language.EN && preferredLanguage !== Language.ES) {
       preferredLanguage = Language.EN;
@@ -80,6 +91,7 @@ const useUser = () => {
           },
         });
       }
+      
       localStorageCrossDomains.setItem(jukiApiSocketManager.TOKEN_NAME, data?.content.user.sessionId);
     } else {
       setUser({
@@ -93,60 +105,33 @@ const useUser = () => {
         },
       });
     }
-  }, [ data, setUser ]);
+  }, [ data, setCompany, setUser ]);
   
-  const isLoading = isLoadingPing || company.key === '';
+  // const isLoading = isLoadingPing;
+  // const isValidating = isLoading || isValidatingPing;
   
-  return {
-    user,
-    company,
-    setUser,
-    isLoading,
-    isValidating: isLoading || isValidating,
-    mutate,
-  };
-};
-
-export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>) => {
-  
-  const { children } = props;
-  
-  const { user, company, setUser, isLoading, mutate } = useUser();
-  
-  const device: DeviceType = useMemo(() => ({
-    type: deviceType,
-    isMobile: false,
-    isBrowser: false,
-    label: isMobile ? `${mobileModel} ${mobileVendor}` : `${browserName} ${browserVersion}`,
-    osLabel: `${osName} ${osVersion}`,
-  }), []);
-  
-  const value = useMemo(() => ({
-    user,
-    company,
-    isLoading,
-    device,
-    setUser,
-    mutate,
-  }), [ user, company, isLoading, device, setUser, mutate ]);
-  
-  const userTheme = user.settings?.[ProfileSetting.THEME];
+  useEffect(() => {
+    setDevice({
+      type: deviceType,
+      isMobile: false,
+      isBrowser: false,
+      label: isMobile ? `${mobileModel} ${mobileVendor}` : `${browserName} ${browserVersion}`,
+      osLabel: `${osName} ${osVersion}`,
+    });
+    setMutate(mutate);
+  }, [ mutate, setDevice, setMutate ]);
   
   useEffect(() => {
     if (typeof document !== 'undefined') {
       document.querySelector('body')?.classList.remove('jk-theme-dark');
       document.querySelector('body')?.classList.remove('jk-theme-light');
-      if (userTheme === Theme.DARK) {
+      if (userPreferredTheme === Theme.DARK) {
         document.querySelector('body')?.classList.add('jk-theme-dark');
       } else {
         document.querySelector('body')?.classList.add('jk-theme-light');
       }
     }
-  }, [ userTheme ]);
+  }, [ userPreferredTheme ]);
   
-  return (
-    <UserContext.Provider value={value}>
-      {children}
-    </UserContext.Provider>
-  );
+  return children;
 };

@@ -9,7 +9,7 @@ import {
   Theme,
 } from '@juki-team/commons';
 import React from 'react';
-import { useI18nStore, useJukiUser } from '../../../hooks';
+import { useI18nStore, useUserStore } from '../../../hooks';
 import { SpinIcon, T } from '../../atoms';
 
 export interface SubmissionVerdictProps {
@@ -31,9 +31,10 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
     processedCases,
     shortLabel: _shortLabel,
   } = props;
-  const { user: { settings: { [ProfileSetting.THEME]: userTheme } } } = useJukiUser();
+  
+  const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
   const t = useI18nStore(state => state.i18n.t);
-  const addDark = userTheme === Theme.DARK ? 'CC' : '';
+  const addDark = userPreferredTheme === Theme.DARK ? 'CC' : '';
   
   if (_shortLabel) {
     return (

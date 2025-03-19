@@ -1,7 +1,6 @@
-import React, { ReactNode, useEffect, useRef } from 'react';
+import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
-import { useHandleState } from '../../../hooks/useHandleState';
 import { CloseIcon, ExpandMoreIcon } from '../icons';
 import { InputCheckbox } from '../inputs';
 import { Popover } from '../Popover';
@@ -15,30 +14,27 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
     options,
     selectedOptions: initialOptionsSelected,
     onChange,
-    showOptions: _showOptions,
-    onChangeShowOptions: _onChangeShowOptions,
+    // showOptions: _showOptions,
+    // onChangeShowOptions: _onChangeShowOptions,
     disabled = false,
     optionsPlacement = 'bottom',
     extend = false,
   } = props;
   
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
-  const [ showOptions, setShowOptions ] = useHandleState(false, _showOptions, _onChangeShowOptions);
-  
+  const [ isOpen, setIsOpen ] = useState(false);
   const selectedOptionRef = useRef<HTMLDivElement>(null);
-  
+  const optionRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (showOptions && (optionRef.current?.scrollHeight || 0) > (optionRef.current?.clientHeight || 0)) {
+      if (isOpen && (optionRef.current?.scrollHeight || 0) > (optionRef.current?.clientHeight || 0)) {
         selectedOptionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }, 100);
     return () => {
       clearTimeout(timeout);
     };
-  }, [ showOptions ]);
-  
-  const optionRef = useRef<HTMLDivElement>(null);
+  }, [ isOpen ]);
   
   const optionsSelected: SelectOptionType<T, U, V>[] = initialOptionsSelected.map(initialOptionSelected => {
     const option = options.find(option => JSON.stringify(option.value) === JSON.stringify(initialOptionSelected.value));
@@ -50,22 +46,20 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
   });
   
   const widthLabels = Math.max(...[ ...options, ...optionsSelected ].map(({ label }) => getTextContent(label).length));
-  
   const isDisabled = disabled || !onChange;
   const containerWidth = widthLabels * (12 + 5) + 35;
   
   return (
     <Popover
-      triggerOn="click"
       placement={optionsPlacement}
-      popoverClassName="jk-select-options-content"
-      visible={showOptions}
-      onVisibleChange={value => setShowOptions(value)}
-      marginOfChildren={0}
+      triggerOn="click"
+      // popoverClassName="jk-select-options-content"
+      offset={4}
+      onOpenChange={setIsOpen}
       content={
         <div
           ref={optionRef}
-          className={classNames('jk-select-options jk-border-radius-inline', { disabled: isDisabled })}
+          className={classNames('jk-select-options jk-br-ie bc-we elevation-1', { disabled: isDisabled })}
           style={{
             width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2/*border*/ : containerWidth - 2, /*border*/
           }}
@@ -76,7 +70,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
             const disabled = !!option.disabled;
             return (
               <div
-                className={classNames('jk-select-option jk-row multiselect', {
+                className={classNames('jk-select-option jk-row left multiselect', {
                   selected,
                   disabled: isDisabled || disabled,
                 })}
@@ -106,11 +100,11 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
       }
     >
       <div
-        className={classNames('jk-multi-select-layout', className, { open: showOptions, disabled: isDisabled })}
+        className={classNames('jk-multi-select-layout', className, { open: isOpen, disabled: isDisabled })}
         style={{ width: extend ? '100%' : `${containerWidth}px` }}
       >
         <div
-          className={classNames({ open: showOptions }, 'jk-select jk-border-radius-inline jk-row space-between nowrap')}
+          className={classNames({ open: isOpen }, 'jk-select jk-border-radius-inline jk-row space-between nowrap')}
           ref={selectLayoutRef}
         >
           <div className="jk-row left jk-multi-select-selected-options">

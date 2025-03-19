@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import useSWR, { SWRConfiguration } from 'swr';
 import { authorizedRequest, cleanRequest } from '../helpers';
 import { jukiApiSocketManager } from '../settings';
-import { useJukiUser } from './useJukiUser';
+import { useUserStore } from '../stores/user/useUserStore';
 
 export const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
   return authorizedRequest(url, { token, method: HTTPMethod.GET }, false);
@@ -12,10 +12,10 @@ export const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
 export const useFetcher = <T extends (ContentResponseType<any> | ContentsResponseType<any>)>(url?: string | null, config?: SWRConfiguration) => {
   
   const token = jukiApiSocketManager.getToken();
-  const { user: { sessionId } } = useJukiUser();
+  const userSessionId = useUserStore(state => state.user.sessionId);
   
   const { data, error, mutate, isValidating, isLoading } = useSWR(
-    typeof url === 'string' && url ? [ url, token, sessionId ] : null,
+    typeof url === 'string' && url ? [ url, token, userSessionId ] : null,
     fetcherWithToken,
     config,
   );

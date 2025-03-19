@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI, useJukiUser, useRouterStore } from '../../../hooks';
+import { useJukiUI, useJukiUser, useRouterStore, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { Button, LoginIcon, LogoutIcon, Popover, SpinIcon, T } from '../../atoms';
@@ -8,42 +8,42 @@ import { ButtonLoader } from '../../molecules';
 
 interface LoginUserProps {
   collapsed: boolean,
-  popoverPlacement: 'rightBottom' | 'bottomRight',
+  isVertical?: boolean,
+  isHorizontal?: boolean,
   onSeeMyProfile: (() => Promise<void>) | (() => void),
   profileSelected?: boolean,
 }
 
-export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profileSelected }: LoginUserProps) => {
+export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile, profileSelected }: LoginUserProps) => {
   
-  const { user, isLoading, logout } = useJukiUser();
+  const { logout } = useJukiUser();
+  const userNickname = useUserStore(state => state.user.nickname);
+  const userImageUrl = useUserStore(state => state.user.imageUrl);
+  const userIsLogged = useUserStore(state => state.user.isLogged);
+  const userIsLoading = useUserStore(state => state.isLoading);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
   const { viewPortSize, components: { Image } } = useJukiUI();
   const [ visible, setVisible ] = useState(false);
   
-  if (isLoading) {
+  if (userIsLoading) {
     return <div className="jk-row"><SpinIcon className="cr-we" /></div>;
   }
   
-  if (user.isLogged) {
+  if (userIsLogged) {
     return (
       <Popover
-        visible={visible}
-        onVisibleChange={(visible) => setVisible(visible)}
+        open={visible}
+        onOpenChange={(visible) => setVisible(visible)}
         content={
-          <div
-            className={classNames('jk-col gap user-profile-popup', {
-              'jk-pg-md': viewPortSize === 'sm',
-              'jk-pg-sm': viewPortSize !== 'sm',
-            })}
-          >
+          <div className="jk-col gap user-profile-popup jk-br-ie bc-we elevation-1 jk-pg-sm">
             <Image
-              src={user.imageUrl}
+              src={userImageUrl}
               className="jk-user-profile-img huge elevation-1"
-              alt={user.nickname}
+              alt={userNickname}
               height={50}
               width={50}
             />
-            {user.nickname}
+            {userNickname}
             <div className="jk-col gap">
               <ButtonLoader
                 expand
@@ -72,22 +72,24 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
           </div>
         }
         triggerOn="click"
-        placement={popoverPlacement}
+        offset={4}
+        placement={isVertical ? 'right-end' : 'bottom-end'}
       >
         <div
           className={classNames('user-logged-head nowrap jk-row gap')}
-          style={{ padding: collapsed ? undefined : 'var(--pad-xt)' }}
+          style={{ padding: collapsed ? undefined : '0 var(--pad-xt)' }}
+          onClick={() => setVisible(prevState => !prevState)}
         >
           <img
-            src={user.imageUrl}
-            alt={user.nickname}
+            src={userImageUrl}
+            alt={userNickname}
             className={classNames('jk-user-profile-img large')}
           />
           {viewPortSize !== 'sm' && viewPortSize !== 'md' && !collapsed && (
-            <div className="jk-row nickname">{user.nickname}</div>
+            <div className="jk-row nickname">{userNickname}</div>
           )}
-          {popoverPlacement === 'bottomRight' && profileSelected && <div className="selected horizontal" />}
-          {popoverPlacement === 'rightBottom' && profileSelected && <div className="selected vertical" />}
+          {isHorizontal && profileSelected && <div className="selected horizontal" />}
+          {isVertical && profileSelected && <div className="selected vertical" />}
         </div>
       </Popover>
     );
@@ -106,7 +108,7 @@ export const LoginUser = ({ collapsed, popoverPlacement, onSeeMyProfile, profile
         size={viewPortSize === 'sm' ? 'small' : undefined}
         icon={!collapsed && <LoginIcon />}
         expand
-        style={(popoverPlacement === 'rightBottom' && !collapsed) ? { margin: '0 var(--pad-xt)' } : undefined}
+        style={(isVertical && !collapsed) ? { margin: '0 var(--pad-xt)' } : undefined}
       >
         {viewPortSize !== 'sm' && (!collapsed ? <T className="ws-np ws-np">sign in</T> : <LoginIcon />)}
       </Button>

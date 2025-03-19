@@ -277,7 +277,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                   }
                   triggerOn="click"
                   placement="bottom"
-                  showPopperArrow
+                  // showPopperArrow
                 >
                   <div className="jk-row"><MenuIcon /></div>
                 </Popover>

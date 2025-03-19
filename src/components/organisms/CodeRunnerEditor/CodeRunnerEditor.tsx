@@ -12,9 +12,8 @@ import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { useRunnerServicesWakeUp } from '../../../hooks';
+import { useRunnerServicesWakeUp, useUserStore } from '../../../hooks';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { useJukiUser } from '../../../hooks/useJukiUser';
 import { jukiApiSocketManager } from '../../../settings';
 import { Portal, T } from '../../atoms';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, CodeEditorPropertiesType, SplitPane } from '../../molecules';
@@ -53,7 +52,8 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   onChangeRef.current = readOnly ? undefined : _onChange;
   const [ isRunning, setIsRunning ] = useState(false);
   const [ runId, setRunId ] = useState('');
-  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme }, sessionId } } = useJukiUser();
+  const sessionId = useUserStore(state => state.user.sessionId);
+  const preferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
   const [ showSettings, setShowSettings ] = useState(false);
   const [ direction, setDirection ] = useState<'row' | 'column'>('row');
   const [ expanded, setExpanded ] = useState(false);

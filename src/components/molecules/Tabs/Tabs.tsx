@@ -126,14 +126,14 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => {
         {(!!extraNodes.length && !isExtend) && (
           <Popover
             content={
-              <div className="jk-col gap stretch jk-tab-extra-nodes">
+              <div className="jk-col gap stretch jk-tab-extra-nodes jk-pg-x-sm jk-br-ie bc-we elevation-1">
                 {Children.toArray(extraNodes.map((action, index) => (
                   renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey }, index)
                 )))}
               </div>
             }
             triggerOn="click"
-            placement="bottomRight"
+            placement="bottom-end"
           >
             <div className={classNames('jk-row nowrap left link')}>
               <ViewHeadlineIcon />

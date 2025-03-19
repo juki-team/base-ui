@@ -8,7 +8,7 @@ import {
 } from '@juki-team/commons';
 import React, { useEffect, useMemo, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useFetcher, useJukiUI, useJukiUser, useRouterStore } from '../../../hooks';
+import { useFetcher, useJukiUI, useRouterStore, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { Popover, Select, SpinIcon, T } from '../../atoms';
@@ -41,16 +41,13 @@ export const MainMenu = (props: MainMenuProps) => {
   const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
   const appendSearchParams = useRouterStore(state => state.appendSearchParams);
-  
+  const isLoading = useUserStore(state => state.isLoading);
+  const { imageUrl: companyImageUrl, name } = useUserStore(state => state.company);
   const {
-    user: {
-      isLogged,
-      nickname,
-      settings: { [ProfileSetting.THEME]: preferredTheme, [ProfileSetting.MENU_VIEW_MODE]: userPreferredMenuViewMode },
-    },
-    isLoading,
-    company: { imageUrl: companyImageUrl, name },
-  } = useJukiUser();
+    isLogged,
+    nickname,
+    settings: { [ProfileSetting.THEME]: preferredTheme, [ProfileSetting.MENU_VIEW_MODE]: userPreferredMenuViewMode },
+  } = useUserStore(state => state.user);
   
   const imageUrl = topImageUrl || companyImageUrl;
   
@@ -146,14 +143,12 @@ export const MainMenu = (props: MainMenuProps) => {
   
   const rightMobile = {
     children: (
-      <div className="jk-row">
-        <LoginUser
-          collapsed={false}
-          popoverPlacement="bottomRight"
-          onSeeMyProfile={onSeeMyProfile}
-          profileSelected={profileSelected}
-        />
-      </div>
+      <LoginUser
+        collapsed={false}
+        isHorizontal
+        onSeeMyProfile={onSeeMyProfile}
+        profileSelected={profileSelected}
+      />
     ),
   };
   
@@ -206,7 +201,7 @@ export const MainMenu = (props: MainMenuProps) => {
         />
         <LoginUser
           collapsed={!isOpen}
-          popoverPlacement="rightBottom"
+          isVertical
           onSeeMyProfile={onSeeMyProfile}
           profileSelected={profileSelected}
         />
@@ -246,7 +241,7 @@ export const MainMenu = (props: MainMenuProps) => {
         />
         <LoginUser
           collapsed={false}
-          popoverPlacement="bottomRight"
+          isHorizontal
           onSeeMyProfile={onSeeMyProfile}
           profileSelected={profileSelected}
         />

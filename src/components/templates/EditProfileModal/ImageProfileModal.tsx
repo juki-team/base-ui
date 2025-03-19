@@ -1,7 +1,7 @@
 import { Status } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { toBlob } from '../../../helpers';
-import { useJukiUser, useMutate } from '../../../hooks';
+import { useJukiUser, useMutate, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { Button, Modal, T } from '../../atoms';
 import { BasicModalProps } from '../../atoms/types';
@@ -13,7 +13,8 @@ interface ImageProfileModalProps extends BasicModalProps {
 
 export const ImageProfileModal = ({ isOpen, onClose, nickname }: ImageProfileModalProps) => {
   
-  const { updateUserProfileImage, mutatePing } = useJukiUser();
+  const { updateUserProfileImage } = useJukiUser();
+  const mutateUser = useUserStore(state => state.mutate);
   const mutate = useMutate();
   const [ cropImage, setCropImage ] = useState<CropImageType>();
   
@@ -42,7 +43,7 @@ export const ImageProfileModal = ({ isOpen, onClose, nickname }: ImageProfileMod
                     body: blob,
                     onSuccess: async () => {
                       setLoader?.(Status.LOADING);
-                      await mutatePing();
+                      await mutateUser();
                       await mutate(jukiApiSocketManager.API_V1.user.getProfile({ params: { nickname } }).url);
                       setLoader?.(Status.SUCCESS);
                       onClose();

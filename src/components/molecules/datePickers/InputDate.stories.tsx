@@ -12,7 +12,7 @@ export const DatePicker = () => {
   
   return (
     <MockupJukiProvider>
-      <div className="jk-col gap jk-pg-lg">
+      <div className="jk-col gap nowrap jk-pg-lg" style={{ height: '100%', overflow: 'auto' }}>
         <TimePicker
           date={new Date()}
           onChange={(...props) => console.info(props)}

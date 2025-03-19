@@ -8,7 +8,7 @@ import {
 } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification, useJukiUser } from '../../../hooks';
+import { useJukiNotification, useUserStore } from '../../../hooks';
 import { Button, InfoIcon, Popover, T } from '../../atoms';
 import { DocumentMembersModal } from './DocumentMembersModal';
 
@@ -42,7 +42,7 @@ export const DocumentMembersButton = (props: DocumentMembersButton1Props | Docum
   } = props;
   
   const [ show, setShow ] = useState(false);
-  const { user: { nickname } } = useJukiUser();
+  const nickname = useUserStore(state => state.user.nickname);
   const { notifyResponse } = useJukiNotification();
   
   const onSave = initialOnSave ?? (async (members, close) => {

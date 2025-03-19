@@ -57,14 +57,14 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
       content={<div className="cr-g1"> Settings </div>}
       triggerOn="click"
       placement="bottom"
-      visible={open}
+      open={open}
     >
       <div>
         <Button icon={<SettingsIcon />} type="text" />
       </div>
     </Popover>
     <Popover
-      visible={open}
+      open={open}
       content={
         <div className="jk-col gap more-apps-popover cr-g1">
           <div className="fw-bd tt-se">

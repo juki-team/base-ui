@@ -4,13 +4,11 @@ import { SWRConfiguration } from 'swr';
 import { DataViewerRequestPropsType, ReloadType, SetLoaderStatusType } from '../components/organisms/DataViewer/types';
 import { RequestFilterType, RequestSortType } from '../types';
 import { useFetcher } from './useFetcher';
-import { useJukiUser } from './useJukiUser';
 
 export type DataViewerRequesterGetUrlType = (props: Omit<DataViewerRequestPropsType, 'setLoaderStatus'>) => string | null;
 
 export const useDataViewerRequester = <T extends ContentResponseType<any> | ContentsResponseType<any>, >(getUrl: DataViewerRequesterGetUrlType, options?: SWRConfiguration) => {
   const setLoaderStatusRef = useRef<SetLoaderStatusType>(null);
-  const { user: { nickname, sessionId } } = useJukiUser();
   const [ url, setUrl ] = useState<string | undefined>(undefined);
   const { data, error, isLoading, mutate, isValidating } = useFetcher<T>(url, options);
   const getUrlRef = useRef(getUrl);
@@ -33,7 +31,7 @@ export const useDataViewerRequester = <T extends ContentResponseType<any> | Cont
   
   useEffect(() => {
     void mutate();
-  }, [ mutate, nickname, sessionId ]);
+  }, [ mutate ]);
   
   useEffect(() => {
     if (isLoading || isValidating) {

@@ -25,8 +25,7 @@ export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
           : false;
   return (
     <Popover
-      visible={visible}
-      onVisibleChange={(visible) => setVisible(visible)}
+      onOpenChange={setVisible}
       content={({ isOpen }) => {
         const onReset = () => {
           filter?.onReset();
@@ -98,9 +97,9 @@ export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
         }
       }}
       placement="bottom"
-      triggerOn={[ 'click' ]}
-      triggerOff={[ 'click', 'escape' ]}
-      showPopperArrow
+      triggerOn="click"
+      offset={4}
+      // showPopperArrow
     >
       <div
         className={classNames('tool jk-row jk-br-ie', {

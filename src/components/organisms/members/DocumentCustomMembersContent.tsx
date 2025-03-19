@@ -7,7 +7,7 @@ import {
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUser } from '../../../hooks';
+import { useUserStore } from '../../../hooks';
 import { InfoIcon, InputToggle, Popover, T } from '../../atoms';
 import { UserChip } from '../UserChip';
 import { UsersSelector } from '../UsersSelector';
@@ -51,7 +51,8 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
     guests,
     spectators,
   } = props;
-  const { company: { key: companyKey } } = useJukiUser();
+  
+  const companyKey = useUserStore(state => state.company.key);
   
   useEffect(() => {
     setMembers?.(prevState => {

@@ -143,13 +143,13 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
                     closeOnOutside
                   >
                     {(props: DrawerActionsType): ReactNode => (
-                      <div className="jk-row sides-mobile-padding">
+                      <div className="jk-row sides-mobile-padding stretch">
                         {renderReactNodeOrFunctionP1(rightMobile.children, props)}
                       </div>
                     )}
                   </Drawer>
                 ) : (
-                  <div className="jk-row sides-mobile-padding">
+                  <div className="jk-row sides-mobile-padding stretch">
                     {renderReactNodeOrFunctionP1(rightMobile.children, drawerProps)}
                   </div>
                 )

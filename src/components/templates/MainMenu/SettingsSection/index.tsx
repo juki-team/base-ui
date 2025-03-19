@@ -2,7 +2,8 @@ import { Language, ProfileSetting, Theme } from '@juki-team/commons';
 import React, { Dispatch, ReactNode } from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
-import { useJukiUser, useJukiUserSettings } from '../../../../hooks/useJukiUser';
+import { useJukiUserSettings } from '../../../../hooks/useJukiUser';
+import { useUserStore } from '../../../../stores/user/useUserStore';
 import {
   AppsIcon,
   DarkModeIcon,
@@ -122,10 +123,10 @@ export const SettingsSection = (props: SettingsSectionProps) => {
   
   const { isMobile, isOpen, helpOpen, setHelpOpen, popoverPlacement, moreApps } = props;
   
-  const { user: { settings: { [ProfileSetting.THEME]: preferredTheme } } } = useJukiUser();
+  const userPreferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
   const { viewPortSize, components: { Image } } = useJukiUI();
   
-  const isDark = preferredTheme === Theme.DARK;
+  const isDark = userPreferredTheme === Theme.DARK;
   
   const margin = (popoverPlacement === 'right' && isOpen) || !(viewPortSize === 'md' && popoverPlacement === 'bottom');
   
@@ -142,23 +143,6 @@ export const SettingsSection = (props: SettingsSectionProps) => {
       {isOpen && (
         <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
           <T className="tt-se">help</T>
-        </div>
-      )}
-    </div>
-  );
-  
-  const moreAppsContent = (
-    <div
-      data-tooltip-id="jk-tooltip"
-      data-tooltip-content={isOpen ? '' : 'more apps'}
-      data-tooltip-place={popoverPlacement}
-      data-tooltip-t-class-name="tt-se"
-      className="jk-row center extend"
-    >
-      <AppsIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
-      {isOpen && (
-        <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
-          <T className="tt-se">more apps</T>
         </div>
       )}
     </div>
@@ -199,7 +183,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
       {moreApps && (
         <Popover
           content={
-            <div className="jk-col gap more-apps-popover jk-pg-sm">
+            <div className="jk-col gap more-apps-popover jk-pg-sm jk-br-ie bc-we elevation-1">
               <div className="fw-bd tt-se"><T>more apps</T></div>
               <div className={classNames('jk-col gap stretch', { 'cr-py': !isDark, 'cr-b2': isDark })}>
                 {moreApps}
@@ -207,9 +191,23 @@ export const SettingsSection = (props: SettingsSectionProps) => {
             </div>
           }
           triggerOn="click"
-          placement={popoverPlacement === 'right' ? 'rightBottom' : popoverPlacement}
+          placement={popoverPlacement}
+          offset={4}
         >
-          {moreAppsContent}
+          <div
+            data-tooltip-id="jk-tooltip"
+            data-tooltip-content={isOpen ? '' : 'more apps'}
+            data-tooltip-place={popoverPlacement}
+            data-tooltip-t-class-name="tt-se"
+            className="jk-row center extend"
+          >
+            <AppsIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
+            {isOpen && (
+              <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
+                <T className="tt-se">more apps</T>
+              </div>
+            )}
+          </div>
         </Popover>
       )}
     </>

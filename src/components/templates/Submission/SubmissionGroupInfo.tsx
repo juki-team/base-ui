@@ -4,7 +4,7 @@ import { LineMatchingType } from 'diff2html/lib-esm/types';
 import { ColorSchemeType } from 'diff2html/lib/types';
 import React, { useCallback, useEffect, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useI18nStore, useJukiUI, useJukiUser } from '../../../hooks';
+import { useI18nStore, useJukiUI, useUserStore } from '../../../hooks';
 import { Button, Modal, T, UpIcon, VirtualizedRowsFixed, VisibilityIcon } from '../../atoms';
 import { Collapse } from '../../atoms/Collapse';
 import { VirtualizedRowsFixedProps } from '../../atoms/VirtualizedRowsFixed/types';
@@ -37,7 +37,7 @@ const DiffViewButton = ({ diffInput, croppedDiff, isProblemEditor }: {
   
   const [ isOpen, setIsOpen ] = useState(false);
   const [ diff, setDiff ] = useState('');
-  const { user: { settings: { [ProfileSetting.THEME]: userTheme } } } = useJukiUser();
+  const userPreferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
   const t = useI18nStore(state => state.i18n.t);
   
   useEffect(() => {
@@ -53,7 +53,7 @@ const DiffViewButton = ({ diffInput, croppedDiff, isProblemEditor }: {
             drawFileList: false,
             matching: 'words' as LineMatchingType,
             renderNothingWhenEmpty: false,
-            colorScheme: userTheme === Theme.DARK ? ColorSchemeType.DARK : ColorSchemeType.LIGHT,
+            colorScheme: userPreferredTheme === Theme.DARK ? ColorSchemeType.DARK : ColorSchemeType.LIGHT,
             outputFormat: 'side-by-side',
           },
         );
@@ -62,7 +62,7 @@ const DiffViewButton = ({ diffInput, croppedDiff, isProblemEditor }: {
         setDiff(diffInput);
       }
     }
-  }, [ diffInput, userTheme, isOpen, isProblemEditor ]);
+  }, [ diffInput, userPreferredTheme, isOpen, isProblemEditor ]);
   
   const left = diffInput.length - diffInput.indexOf('No newline at end of file') > 26;
   

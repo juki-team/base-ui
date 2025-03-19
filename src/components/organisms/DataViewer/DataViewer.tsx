@@ -1,7 +1,7 @@
 import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, SEPARATOR_TOKEN, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
-import { useI18nStore, useJukiUI, useJukiUser, useRouterStore, useSessionStorage } from '../../../hooks';
+import { useI18nStore, useJukiUI, useRouterStore, useSessionStorage, useUserStore } from '../../../hooks';
 import { RequestFilterType, RequestSortType } from '../../../types';
 import { OptionType } from '../../molecules/types';
 import {
@@ -100,7 +100,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   } = props;
   
   const { viewPortSize } = useJukiUI();
-  const { user: { settings: { [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode } } } = useJukiUser();
+  const preferredDataViewMode = useUserStore(state => state.user.settings[ProfileSetting.DATA_VIEW_MODE]);
   const searchParams = useRouterStore(state => state.searchParams);
   const t = useI18nStore(state => state.i18n.t);
   

@@ -18,7 +18,7 @@ export const InputColor = ({ color, children, onChange, label }: ColorPickerProp
   return (
     <Popover
       content={({ onClose }) => (
-        <div className="color-picker-layout jk-pg-sm">
+        <div className="color-picker-layout jk-pg-x-sm jk-br-ie bc-we elevation-1">
           <SketchPicker
             color={newColor?.hex}
             onChangeComplete={(colorResult) => setNewColor(colorResult)}
@@ -38,7 +38,7 @@ export const InputColor = ({ color, children, onChange, label }: ColorPickerProp
       )}
       triggerOn="click"
       placement="bottom"
-      showPopperArrow
+      // showPopperArrow
     >
       {children ? children : <span><Input onChange={() => null} value={color?.hex || ''} label={label} /></span>}
     </Popover>

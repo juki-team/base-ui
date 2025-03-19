@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useJukiUser } from '../../../hooks/useJukiUser';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { BasicModalProps, SetLoaderStatusOnClickType } from '../../../types';
 import { LoginModalTemplate } from './LoginModalTemplate';
 import { LoginFormType } from './LoginModalTemplate/types';
@@ -11,7 +12,8 @@ export interface LoginModalProps extends BasicModalProps {
 
 export const LoginModal = ({ isOpen, onClose, onSignUpButton, multiCompanies }: LoginModalProps) => {
   
-  const { signIn, device: { osLabel, label } } = useJukiUser();
+  const { signIn } = useJukiUser();
+  const { osLabel, label } = useUserStore(state => state.device);
   const [ highlightForgotPassword, setHighlightForgotPassword ] = useState(false);
   
   const onError = () => setHighlightForgotPassword(true);

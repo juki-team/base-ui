@@ -8,7 +8,7 @@ import {
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
-import { useJukiUser, useStableState } from '../../../hooks';
+import { useStableState, useUserStore } from '../../../hooks';
 import {
   CodeEditorCenterButtonsPropertiesType,
   CodeEditorCenterButtonsType,
@@ -149,9 +149,9 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     onCodeRunStatusChange,
   } = props;
   
-  const { user: { nickname } } = useJukiUser();
+  const userNickname = useUserStore(state => state.user.nickname);
   
-  const editorSettingsStorageKey = getEditorSettingsStorageKey(nickname);
+  const editorSettingsStorageKey = getEditorSettingsStorageKey(userNickname);
   
   const [ editorSettings, setEditorSettings ] = useSaveStorage<{
     theme: Theme,
@@ -204,7 +204,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     log: '',
     status: SubmissionRunStatus.NONE,
   };
-  const [ _testCases, setTestCases ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(nickname), newInitialTestCases, mergeTestCases);
+  const [ _testCases, setTestCases ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases);
   const testCases = _testCases[storeKey + '_' + language];
   const onLanguageChangeRef = useRef(onLanguageChange);
   onLanguageChangeRef.current = onLanguageChange;
@@ -235,7 +235,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       newInitialSource[storeKey][value] = PROGRAMMING_LANGUAGE[value as ProgrammingLanguage]?.templateSourceCode || '';
     }
   }
-  const [ sourceStore, setSourceStore ] = useSaveChunkStorage<SourcesStoreType>(getSourcesStoreKey(nickname), newInitialSource, mergeSources);
+  const [ sourceStore, setSourceStore ] = useSaveChunkStorage<SourcesStoreType>(getSourcesStoreKey(userNickname), newInitialSource, mergeSources);
   
   const sourceCode = sourceStore[storeKey]?.[language as string] || '';
   

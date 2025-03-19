@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { classNames } from '../../../helpers';
-import { useJukiUI, useJukiUser } from '../../../hooks';
+import { useJukiUI, useJukiUser, useUserStore } from '../../../hooks';
 import { BasicModalProps, ModalButtonLoaderEventType, SetLoaderStatusOnClickType } from '../../../types';
 import { InputPassword, Modal, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
@@ -36,6 +36,8 @@ export const ChangePasswordModal = ({ isOpen, onClose }: BasicModalProps<ModalBu
   });
   
   const { updatePassword } = useJukiUser();
+  const nickname = useUserStore(state => state.user.nickname);
+  const companyKey = useUserStore(state => state.company.key);
   const { viewPortSize } = useJukiUI();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
@@ -51,10 +53,8 @@ export const ChangePasswordModal = ({ isOpen, onClose }: BasicModalProps<ModalBu
         </div>
         <form
           onSubmit={handleSubmit((data: ProfileChangePasswordInput) => updatePassword({
-            body: {
-              newPassword: data.newPassword,
-              oldPassword: data.oldPassword,
-            },
+            params: { nickname, companyKey },
+            body: { newPassword: data.newPassword, oldPassword: data.oldPassword },
             setLoader: setLoaderRef.current!,
             onSuccess: () => onClose(() => () => Status.SUCCESS, Status.SUCCESS, {}),
           }))}

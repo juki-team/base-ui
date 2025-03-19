@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { classNames } from '../../../helpers';
 import { Button, DateLiteral, InputDateProps, PlusIcon, Popover, T } from '../../atoms';
 import { DatePicker } from './DatePicker';
@@ -22,12 +22,11 @@ export const InputDate = (props: InputDateProps) => {
     inputLabel,
     disabled = false,
   } = props;
-  const [ visible, setVisible ] = useState(false);
   
   const input = () => {
     
     if (inputLabel) {
-      return inputLabel(props, () => setVisible(false));
+      return inputLabel(props, () => null);
     }
     
     return date?.isValidDate() ? (
@@ -69,7 +68,7 @@ export const InputDate = (props: InputDateProps) => {
         <DatePicker
           todayButton={todayButton}
           date={date || baseDate}
-          onChange={date => onDatePick(date, () => setVisible(false))}
+          onChange={date => onDatePick(date, () => null)}
           type={type}
           isDisabled={isDisabled}
           isSelected={isSelected}
@@ -82,20 +81,22 @@ export const InputDate = (props: InputDateProps) => {
     <div className={classNames('jk-input-date-layout', { disabled })} style={extend ? { width: '100%' } : {}}>
       <Popover
         content={() => (
-          <DatePicker
-            todayButton={todayButton}
-            date={date || baseDate}
-            onChange={date => onDatePick(date, () => setVisible(false))}
-            type={type}
-            isDisabled={isDisabled}
-            isSelected={isSelected}
-          />
+          <div className="jk-br-ie bc-we elevation-1">
+            <DatePicker
+              todayButton={todayButton}
+              date={date || baseDate}
+              onChange={date => onDatePick(date, () => null)}
+              type={type}
+              isDisabled={isDisabled}
+              isSelected={isSelected}
+            />
+          </div>
         )}
-        marginOfChildren={1}
-        triggerOn="click"
+        offset={4}
         placement="bottom"
-        visible={disabled ? false : visible}
-        onVisibleChange={(visible) => setVisible(visible)}
+        triggerOn="click"
+        open={disabled ? false : undefined}
+        // onOpenChange={(visible) => setVisible(visible)}
       >
         <div>{input()}</div>
       </Popover>

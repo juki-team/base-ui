@@ -1,141 +1,263 @@
-import React from 'react';
-import { ArrowContainer, PopoverAlign, PopoverPosition } from 'react-tiny-popover';
-import { classNames, isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState } from '../../../hooks';
-import { useJukiUI } from '../../../hooks/useJukiUI';
-import { Popover as ReactPopover } from './ReactTinyPopover.Popover';
-import { PlacementType, PopoverProps } from './types';
+import {
+  autoUpdate,
+  flip,
+  FloatingFocusManager,
+  FloatingPortal,
+  offset,
+  Placement,
+  shift,
+  useClick,
+  useDismiss,
+  useFloating,
+  useHover,
+  useInteractions,
+  useRole,
+} from '@floating-ui/react';
+import { AnimatePresence, motion } from 'motion/react';
+import React, { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } from 'react';
+import { isTrigger, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { Duration, TriggerOnActionsType } from '../../../types';
+import { PopoverProps } from './types';
 
-const placementPositionAlign: { [key in PlacementType]: { position: PopoverPosition, align: PopoverAlign } } = {
-  topLeft: { position: 'top', align: 'start' },
-  top: { position: 'top', align: 'center' },
-  topRight: { position: 'top', align: 'end' },
-  rightTop: { position: 'right', align: 'start' },
-  right: { position: 'right', align: 'center' },
-  rightBottom: { position: 'right', align: 'end' },
-  bottomRight: { position: 'bottom', align: 'end' },
-  bottom: { position: 'bottom', align: 'center' },
-  bottomLeft: { position: 'bottom', align: 'start' },
-  leftBottom: { position: 'left', align: 'end' },
-  left: { position: 'left', align: 'center' },
-  leftTop: { position: 'left', align: 'start' },
-  center: { position: 'top', align: 'center' },
-  centerScreen: { position: 'top', align: 'center' },
-};
+interface PopoverOptions {
+  initialOpen?: boolean,
+  placement?: Placement,
+  modal?: boolean,
+  open?: boolean,
+  onOpenChange?: (open: boolean) => void,
+  triggerOn?: TriggerOnActionsType | TriggerOnActionsType[],
+  offset?: number,
+  padding?: number,
+}
 
-const CustomComponent = React.forwardRef<HTMLDivElement, any>((props, ref) => (
-  renderChildrenWithProps(props.children, props.childProps({ props: { ref } }))
-));
-
-export const Popover = (props: PopoverProps) => {
+export function usePopover({
+                             initialOpen = false,
+                             placement = 'bottom',
+                             modal,
+                             open: controlledOpen,
+                             onOpenChange: setControlledOpen,
+                             triggerOn = 'click',
+                             offset: _offset,
+                             padding = 4,
+                           }: PopoverOptions) {
+  const [ uncontrolledOpen, setUncontrolledOpen ] = useState(initialOpen);
   
-  const {
-    children,
-    content,
-    placement = 'top',
-    visible,
-    onVisibleChange,
-    triggerOn = 'hover',
-    triggerOff = triggerOn,
-    showPopperArrow = false,
-    popoverContentClassName,
-    marginOfChildren = 12, // --pad-t: 12px;
-  } = props;
+  const isOpen = controlledOpen ?? uncontrolledOpen;
+  const setIsOpen = setControlledOpen ?? setUncontrolledOpen;
   
-  const [ isOpen, setIsOpen ] = useHandleState(false, visible, onVisibleChange);
-  
-  const { jukiAppDivRef } = useJukiUI();
-  // const isMobileViewPort = viewPortSize === 'sm';
-  
-  const popoverContent = (
-    <div className={classNames('jk-popover-content jk-br-ie bc-we', popoverContentClassName)}>
-      {renderReactNodeOrFunctionP1(content, { isOpen, onClose: () => setIsOpen(false) })}
-    </div>
-  );
-  
-  const childProps = ({
-                        props: {
-                          ref = undefined,
-                          onMouseEnter = undefined,
-                          onMouseLeave = undefined,
-                          onClick = undefined,
-                        } = {},
-                      }: any) => ({
-    ref: (e: any) => {
-      ref?.(e);
-    },
-    onMouseEnter: (e: any) => {
-      if (isTrigger(triggerOn, 'hover')) {
-        setIsOpen(true);
-      }
-      onMouseEnter?.(e);
-    },
-    onMouseLeave: (e: any) => {
-      if (isTrigger(triggerOff, 'hover')) {
-        setIsOpen(false);
-      }
-      onMouseLeave?.(e);
-    },
-    onClick: (e: any) => {
-      if (isTrigger(triggerOn, 'click')) {
-        setIsOpen(prevState => !prevState);
-      }
-      onClick?.(e);
-    },
+  const data = useFloating({
+    placement,
+    open: isOpen,
+    onOpenChange: setIsOpen,
+    whileElementsMounted: autoUpdate,
+    middleware: [
+      offset(_offset),
+      flip({
+        crossAxis: placement.includes('-'),
+        fallbackAxisSideDirection: 'end',
+        padding,
+      }),
+      shift({ padding }),
+    ],
   });
   
-  // if (isMobileViewPort) {
-  //   return (
-  //     <>
-  //       <CustomComponent childProps={childProps}>
-  //         {children}
-  //       </CustomComponent>
-  //       <Modal
-  //         onClose={(() => setIsOpen(false))}
-  //         isOpen={isOpen}
-  //         closeWhenClickOutside
-  //         closeWhenKeyEscape
-  //         className="small-viewport-popover"
-  //       >
-  //         {popoverContent}
-  //       </Modal>
-  //     </>
-  //   );
-  // }
+  const context = data.context;
+  
+  const click = useClick(context, {
+    enabled: controlledOpen === undefined && isTrigger(triggerOn, 'click'),
+  });
+  const hover = useHover(context, {
+    enabled: controlledOpen === undefined && isTrigger(triggerOn, 'hover'),
+  });
+  const dismiss = useDismiss(context);
+  const role = useRole(context);
+  
+  const interactions = useInteractions([ click, dismiss, hover, role ]);
+  
+  return useMemo(
+    () => ({
+      isOpen,
+      setIsOpen,
+      ...interactions,
+      ...data,
+      modal,
+    }),
+    [ isOpen, setIsOpen, interactions, data, modal ],
+  );
+}
+
+const getPlacementVariants = (placement: Placement) => {
+  const common = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: Duration.NORMAL, ease: [ 0.25, 0.1, 0.25, 1 ] },
+    },
+    exit: {
+      opacity: 0,
+      transition: { duration: Duration.FAST, ease: 'easeInOut' },
+    },
+  };
+  
+  switch (placement) {
+    case 'top-start':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleY: 0, scaleX: 0, transformOrigin: 'bottom left' },
+        visible: { ...common.visible, scaleY: 1, scaleX: 1, transformOrigin: 'bottom left' },
+        exit: { ...common.exit, scaleY: 0, scaleX: 0, transformOrigin: 'bottom left' },
+      };
+    case 'top-end':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleY: 0, scaleX: 0, transformOrigin: 'bottom right' },
+        visible: { ...common.visible, scaleY: 1, scaleX: 1, transformOrigin: 'bottom right' },
+        exit: { ...common.exit, scaleY: 0, scaleX: 0, transformOrigin: 'bottom right' },
+      };
+    case 'top':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleY: 0, transformOrigin: 'bottom' },
+        visible: { ...common.visible, scaleY: 1, transformOrigin: 'bottom' },
+        exit: { ...common.exit, scaleY: 0, transformOrigin: 'bottom' },
+      };
+    case 'bottom-start':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleY: 0, scaleX: 0, transformOrigin: 'top left' },
+        visible: { ...common.visible, scaleY: 1, scaleX: 1, transformOrigin: 'top left' },
+        exit: { ...common.exit, scaleY: 0, scaleX: 0, transformOrigin: 'top left' },
+      };
+    case 'bottom-end':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleY: 0, scaleX: 0, transformOrigin: 'top right' },
+        visible: { ...common.visible, scaleY: 1, scaleX: 1, transformOrigin: 'top right' },
+        exit: { ...common.exit, scaleY: 0, scaleX: 0, transformOrigin: 'top right' },
+      };
+    case 'bottom':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleY: 0, transformOrigin: 'top' },
+        visible: { ...common.visible, scaleY: 1, transformOrigin: 'top' },
+        exit: { ...common.exit, scaleY: 0, transformOrigin: 'top' },
+      };
+    case 'left-start':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleX: 0, scaleY: 0, transformOrigin: 'right top' },
+        visible: { ...common.visible, scaleX: 1, scaleY: 1, transformOrigin: 'right top' },
+        exit: { ...common.exit, scaleX: 0, scaleY: 0, transformOrigin: 'right top' },
+      };
+    case 'left-end':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleX: 0, scaleY: 0, transformOrigin: 'right bottom' },
+        visible: { ...common.visible, scaleX: 1, scaleY: 1, transformOrigin: 'right bottom' },
+        exit: { ...common.exit, scaleX: 0, scaleY: 0, transformOrigin: 'right bottom' },
+      };
+    case 'left':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleX: 0, transformOrigin: 'right' },
+        visible: { ...common.visible, scaleX: 1, transformOrigin: 'right' },
+        exit: { ...common.exit, scaleX: 0, transformOrigin: 'right' },
+      };
+    case 'right-start':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleX: 0, scaleY: 0, transformOrigin: 'left top' },
+        visible: { ...common.visible, scaleX: 1, scaleY: 1, transformOrigin: 'left top' },
+        exit: { ...common.exit, scaleX: 0, scaleY: 0, transformOrigin: 'left top' },
+      };
+    case 'right-end':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleX: 0, scaleY: 0, transformOrigin: 'left bottom' },
+        visible: { ...common.visible, scaleX: 1, scaleY: 1, transformOrigin: 'left bottom' },
+        exit: { ...common.exit, scaleX: 0, scaleY: 0, transformOrigin: 'left bottom' },
+      };
+    case 'right':
+      return {
+        ...common,
+        hidden: { ...common.hidden, scaleX: 0, transformOrigin: 'left' },
+        visible: { ...common.visible, scaleX: 1, transformOrigin: 'left' },
+        exit: { ...common.exit, scaleX: 0, transformOrigin: 'left' },
+      };
+    default:
+      return common;
+  }
+};
+
+export function Popover({
+                          children,
+                          triggerOn = 'hover',
+                          open,
+                          onOpenChange,
+                          placement = 'top',
+                          content,
+                          popoverClassName,
+                          offset,
+                        }: PopoverProps) {
+  
+  const {
+    context: floatingContext,
+    refs,
+    floatingStyles,
+    modal,
+    getFloatingProps,
+    isOpen,
+    setIsOpen,
+    getReferenceProps,
+  } = usePopover({
+    open,
+    onOpenChange: typeof open === 'undefined' ? undefined : onOpenChange,
+    modal: false,
+    placement,
+    initialOpen: false,
+    triggerOn,
+    offset,
+  });
+  const onOpenChangeRef = useRef(onOpenChange);
+  
+  onOpenChangeRef.current = onOpenChange;
+  
+  useEffect(() => {
+    if (typeof open === 'undefined') {
+      onOpenChangeRef.current?.(isOpen);
+    }
+  }, [ open, isOpen ]);
   
   return (
-    <ReactPopover
-      boundaryElement={jukiAppDivRef.current ? jukiAppDivRef.current : undefined}
-      padding={marginOfChildren}
-      isOpen={isOpen}
-      positions={[ placementPositionAlign[placement].position, 'top', 'bottom', 'left', 'right' ]} // preferred positions by priority
-      align={placementPositionAlign[placement].align}
-      onClickOutside={() => {
-        if (isTrigger(triggerOff, 'click')) {
-          setIsOpen(false);
-        }
-      }}
-      showPopperArrow={showPopperArrow}
-      content={showPopperArrow ?
-        (({ position, childRect, popoverRect }) => (
-          <ArrowContainer // if you'd like an arrow, you can import the ArrowContainer!
-            position={position}
-            childRect={childRect}
-            popoverRect={popoverRect}
-            arrowColor={'var(--t-color-white)'}
-            arrowSize={8}
-            className="popover-arrow-container jk-br-ie"
-            arrowClassName="popover-arrow"
-            style={{ filter: 'drop-shadow(0 0 2px var(--t-color-shadow-dark))' }}
-          >
-            {popoverContent}
-          </ArrowContainer>
-        )) : popoverContent
-      }
-    >
-      <CustomComponent childProps={childProps}>
-        {children}
-      </CustomComponent>
-    </ReactPopover>
+    <>
+      {isValidElement(children) && cloneElement(children, {
+        // @ts-ignore
+        ref: refs.setReference,
+        ...getReferenceProps(),
+      })}
+      <AnimatePresence>
+        {isOpen && (
+          <FloatingPortal>
+            <FloatingFocusManager context={floatingContext} modal={modal}>
+              <div
+                ref={refs.setFloating}
+                style={{ ...floatingStyles, zIndex: 'var(--z-index-popover)' }}
+                {...getFloatingProps()}
+              >
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  variants={getPlacementVariants(placement)}
+                  className={popoverClassName}
+                >
+                  {renderReactNodeOrFunctionP1(content, { isOpen, onClose: () => setIsOpen(false) })}
+                </motion.div>
+              </div>
+            </FloatingFocusManager>
+          </FloatingPortal>
+        )}
+      </AnimatePresence>
+    </>
   );
-};
+}

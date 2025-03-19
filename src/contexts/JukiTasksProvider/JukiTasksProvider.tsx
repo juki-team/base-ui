@@ -9,7 +9,7 @@ import {
 } from '@juki-team/commons';
 import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
 import { T } from '../../components/atoms/T';
-import { useJukiUser, useMutate } from '../../hooks';
+import { useMutate, useUserStore } from '../../hooks';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { jukiApiSocketManager } from '../../settings';
 import { TasksContext } from './context';
@@ -20,7 +20,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
   const { addErrorNotification, addSuccessNotification } = useJukiNotification();
   const [ submissions, setSubmissions ] = useState<SocketSubmissions>({});
   const [ submissionsToCheck, setSubmissionsToCheck ] = useState<SubmissionToCheck[]>([]);
-  const { user: { sessionId } } = useJukiUser();
+  const userSessionId = useUserStore(state => state.user.sessionId);
   const submissionIdListenerCount = useRef<{ [key: string]: number }>({});
   const mutate = useMutate();
   
@@ -78,13 +78,13 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
     if (!submissionIdListenerCount.current[submissionId]) {
       const event: UnsubscribeSubmissionRunStatusWebSocketEventDTO = {
         event: WebSocketActionEvent.UNSUBSCRIBE_SUBMISSION_RUN_STATUS,
-        sessionId,
+        sessionId: userSessionId,
         submitId: submissionId,
       };
       jukiApiSocketManager.SOCKET.unsubscribeAll(event);
       submissionIdListenerCount.current[submissionId] = 0;
     }
-  }, [ sessionId ]);
+  }, [ userSessionId ]);
   
   const listenSubmission = useCallback((submissionToCheck: SubmissionToCheck, withNotification: boolean) => {
     if (withNotification) {
@@ -92,7 +92,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
     }
     const event: SubscribeSubmissionRunStatusWebSocketEventDTO = {
       event: WebSocketActionEvent.SUBSCRIBE_SUBMISSION_RUN_STATUS,
-      sessionId,
+      sessionId: userSessionId,
       submitId: submissionToCheck.id,
     };
     submissionIdListenerCount.current[submissionToCheck.id] = (submissionIdListenerCount.current[submissionToCheck.id] ?? 0) + 1;
@@ -173,7 +173,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
         });
       }
     });
-  }, [ mutate, sessionId ]);
+  }, [ mutate, userSessionId ]);
   
   return (
     <TasksContext.Provider

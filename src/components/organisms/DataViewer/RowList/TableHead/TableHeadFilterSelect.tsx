@@ -26,7 +26,7 @@ export const TableHeadFilterSelect = (props: TableHeadFilterSelectProps) => {
   }, [ initialSelectedOptions, visible ]);
   
   return (
-    <div className="jk-col gap stretch jk-table-head-cell-filter-select jk-pg-sm">
+    <div className="jk-col gap stretch jk-table-head-cell-filter-select jk-pg-sm jk-br-ie bc-we elevation-1">
       <div className="checkbox-list">
         <CheckboxList options={options} selectedOptions={selectedOptions} onSelectOptions={setSelectedOptions} />
       </div>

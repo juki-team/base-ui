@@ -1,9 +1,9 @@
-import React, { PropsWithChildren, useEffect } from 'react';
-import { useI18nStore } from '../hooks';
+import React, { PropsWithChildren } from 'react';
+import { JukiI18nProvider } from './JukiI18nProvider';
 import { JukiLastPathProvider } from './JukiLastPathProvider';
 import { JukiPageProvider } from './JukiPageProvider';
 import { JukiRouterProvider } from './JukiRouterProvider';
-import { JukiTasksProvider } from './JukiTasksProvider/JukiTasksProvider';
+import { JukiTasksProvider } from './JukiTasksProvider';
 import { JukiUIProvider } from './JukiUIProvider';
 import { JukiUserProvider } from './JukiUserProvider';
 import { JukiWebsocketProvider } from './JukiWebsocketProvider';
@@ -17,12 +17,6 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
     router,
     initialLastPath,
   } = props;
-  
-  const i18nLoadResources = useI18nStore(state => state.loadResources);
-  
-  useEffect(() => {
-    void i18nLoadResources();
-  }, [ i18nLoadResources ]);
   
   return (
     <JukiPageProvider>
@@ -43,7 +37,9 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
             <JukiUIProvider components={components}>
               <JukiLastPathProvider initialLastPath={initialLastPath}>
                 <JukiTasksProvider>
-                  {children}
+                  <JukiI18nProvider>
+                    {children}
+                  </JukiI18nProvider>
                 </JukiTasksProvider>
               </JukiLastPathProvider>
             </JukiUIProvider>

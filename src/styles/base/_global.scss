@@ -40,6 +40,10 @@ body {
     border-radius: 3px;
     background: var(--t-color-highlight);
   }
+  
+  *:focus-visible {
+    outline: none;
+  }
 }
 
 h1, h2, h3 {

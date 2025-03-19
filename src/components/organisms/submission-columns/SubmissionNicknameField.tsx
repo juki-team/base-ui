@@ -1,6 +1,6 @@
 import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
-import { useJukiUI, useJukiUser } from '../../../hooks';
+import { useJukiUI, useUserStore } from '../../../hooks';
 import { OptionType } from '../../molecules/types';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 import { UserNicknameLink } from '../UserChip';
@@ -9,7 +9,7 @@ export const SubmissionNicknameField: DataViewerHeadersType<SubmissionSummaryLis
   = ({ record: { user: { imageUrl, nickname, company: { key: companyKey } } }, isCard }) => {
   
   const { components: { Image } } = useJukiUI();
-  const { company: { key } } = useJukiUser();
+  const key = useUserStore(state => state.company.key);
   
   return (
     <TextField

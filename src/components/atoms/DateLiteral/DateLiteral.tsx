@@ -44,7 +44,7 @@ export const DateLiteral = (props: DateLiteralProps) => {
           {date.getHours().padStart(2)}
           {showMinutes && <>:{date.getMinutes().padStart(2)}</>}
           {showSeconds && <>:{date.getSeconds().padStart(2)}</>}
-          {showMilliseconds && <>&nbsp;.&nbsp;{date.getMilliseconds().padStart(3)}</>}
+          {showMilliseconds && <>.{date.getMilliseconds().padStart(3)}</>}
         </div>
       )}
     </div>

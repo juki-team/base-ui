@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
+import { useSound } from '../../../hooks';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { Duration } from '../../../types';
 import { ButtonProps } from './types';
@@ -31,6 +32,7 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
     responsiveMobile = false,
     ...restProps
   } = props;
+  const sound = useSound();
   
   const { viewPortSize } = useJukiUI();
   
@@ -53,7 +55,14 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
         disabled,
         icon: !!(icon),
       })}
-      onClick={!disabled ? (event => onClick?.({ onClickEvent: event })) : undefined}
+      onClick={!disabled
+        ? (event => {
+          onClick?.({ onClickEvent: event });
+          sound.playClick();
+        })
+        : () => {
+          sound.playError(0.1);
+        }}
       onKeyDown={event => {
         if (event.code === 'Enter' && onClick && !disabled) {
           event.preventDefault();

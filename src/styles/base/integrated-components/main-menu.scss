@@ -9,7 +9,7 @@
 .user-logged-head {
   
   .selected.vertical {
-    width: 6px;
+    width: 4px;
     height: calc(var(--pad-m) + var(--pad-xt) * 4);
     background: var(--t-color-primary-text);
     position: absolute;
@@ -20,7 +20,7 @@
   
   .selected.horizontal {
     content: "";
-    height: 6px;
+    height: 4px;
     width: calc(var(--pad-m) + var(--pad-xt) * 4);
     background: var(--t-color-secondary);
     position: absolute;

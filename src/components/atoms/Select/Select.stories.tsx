@@ -27,14 +27,15 @@ const Cmp = (args: SelectProps<any, any, any>) => {
   const options: { label: string; value: number; disabled: boolean }[] =
     numbers.map((_, option) => ({
       label: 'label ' + option,
-      inputLabel: 'LABEL' + option,
+      inputLabel: 'L',
       value: option,
       disabled: Math.round(Math.random() * 10) > 7,
     }));
   
   return (
     <MockupJukiProvider>
-      <div className="jk-pg-lg">
+      <div className="jk-pg-lg jk-col gap">
+        test:
         <Select
           {...args}
           options={options}

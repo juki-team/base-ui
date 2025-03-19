@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj<typeof Popover>;
 
 const content = (
-  <div className="jk-pg-sm elevation-1">
+  <div className="jk-pg-sm">
     <h3>title</h3>
     <div>Lorem ipsum</div>
   </div>
@@ -26,9 +26,9 @@ export const Regular: Story = {
           <div style={{ background: 'gray', width: '200px' }}>{placement}</div>
         </Popover>
         TEST
-        {/*<Popover {...args} placement={placement} content={content}>*/}
-        {/*  <div style={{ background: 'gray', width: '200px' }}>{placement}</div>*/}
-        {/*</Popover>*/}
+        <Popover {...args} placement={placement} content={content}>
+          <div style={{ background: 'gray', width: '200px' }}>{placement}</div>
+        </Popover>
       </div>
     </MockupJukiProvider>
   ),

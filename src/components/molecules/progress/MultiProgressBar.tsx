@@ -30,7 +30,7 @@ export const MultiProgressBar = ({ progress, label }: MultiProgressBarProps) => 
   );
   
   return !!label ? (
-    <Popover content={label} placement="bottom" showPopperArrow>
+    <Popover content={label} placement="bottom" /*showPopperArrow*/>
       {content}
     </Popover>
   ) : content;

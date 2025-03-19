@@ -63,10 +63,12 @@ const ContentInfo = ({ label, value, children, expand, valueAsList, centered, wi
       {head}
       {children && (
         <Popover
-          content={<div className="">{children}</div>}
+          content={<div>{children}</div>}
           placement="bottom"
         >
-          <div className="jk-row">&nbsp;<ExclamationIcon filledCircle className="cr-py" rotate={180} /></div>
+          <div className="jk-row">
+            &nbsp;<ExclamationIcon filledCircle className="cr-py" rotate={180} />
+          </div>
         </Popover>
       )}
     </div>
@@ -273,7 +275,6 @@ export const ProblemInfo = ({ problem }: ProblemInfoProps) => {
             />
           </div>
         )}
-      triggerOn="click"
       placement="bottom"
     >
       <div className="jk-row link">

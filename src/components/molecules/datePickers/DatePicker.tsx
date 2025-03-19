@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { Button, T } from '../../atoms';
 import { DayPicker } from './DayPicker';
@@ -7,7 +7,7 @@ import { TimePicker } from './TimePicker';
 import { DatePickerProps } from './types';
 import { YearPicker } from './YearPicker';
 
-export const DatePicker = (props: DatePickerProps) => {
+export const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>((props: DatePickerProps, ref) => {
   
   const {
     todayButton = false,
@@ -30,7 +30,7 @@ export const DatePicker = (props: DatePickerProps) => {
   
   return (
     
-    <div className="jk-date-picker-layout jk-col jk-pg-sm">
+    <div className="jk-date-picker-layout jk-col jk-pg-sm" ref={ref}>
       {showYears && !showMonths && !showDays && (
         <YearPicker date={date} onChange={onChange} isSelected={isSelected} isDisabled={isDisabled} />
       )}
@@ -67,4 +67,4 @@ export const DatePicker = (props: DatePickerProps) => {
       )}
     </div>
   );
-};
+});

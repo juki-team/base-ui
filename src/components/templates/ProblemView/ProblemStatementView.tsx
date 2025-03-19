@@ -8,7 +8,7 @@ import {
   downloadUrlAsFile,
   getStatementData,
 } from '../../../helpers';
-import { useI18nStore, useJukiUser } from '../../../hooks';
+import { useI18nStore, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { DownloadIcon, T } from '../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
@@ -43,14 +43,7 @@ export const ProblemStatementView = ({
     statement,
   } = problem;
   
-  const {
-    user: {
-      settings: {
-        [ProfileSetting.LANGUAGE]: preferredLanguage,
-        // [ProfileSetting.THEME]: preferredTheme,
-      },
-    },
-  } = useJukiUser();
+  const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
   const t = useI18nStore(state => state.i18n.t);
   const problemName = contest?.index ? `${contest?.index}. (${problemKey}) ${name}` : `(${problemKey}) ${name}`;
   const {
@@ -59,7 +52,7 @@ export const ProblemStatementView = ({
     statementOutput,
     statementNote,
     mdStatement,
-  } = getStatementData(t, { statement, settings }, preferredLanguage, problemName);
+  } = getStatementData(t, { statement, settings }, userPreferredLanguage, problemName);
   
   if (isExternal) {
     return (
@@ -187,7 +180,7 @@ export const ProblemStatementView = ({
                           : <T className="tt-se">points</T>})
                       </div>
                       <MdMathViewer
-                        source={pointsByGroup.description?.[preferredLanguage] || pointsByGroup.description?.[Language.EN] || pointsByGroup.description?.[Language.ES]}
+                        source={pointsByGroup.description?.[userPreferredLanguage] || pointsByGroup.description?.[Language.ES] || pointsByGroup.description?.[Language.EN]}
                       />
                     </div>
                   </div>

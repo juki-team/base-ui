@@ -1,6 +1,6 @@
 import React, { Children, ReactNode, useState } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
-import { useJukiUI, useJukiUser } from '../../../../hooks';
+import { useJukiUI, useUserStore } from '../../../../hooks';
 import { ArrowBackIcon, CloseIcon, T } from '../../../atoms';
 import { MenuType } from '../../../organisms';
 import { HelpSection } from '../../HelpSection';
@@ -16,9 +16,7 @@ export interface DrawerViewMenuMobileProps {
 export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: DrawerViewMenuMobileProps) => {
   
   const { components: { Image } } = useJukiUI();
-  
-  const { company: { name } } = useJukiUser();
-  
+  const companyName = useUserStore(state => state.company.name);
   const [ helpOpen, setHelpOpen ] = useState(false);
   
   return (
@@ -42,7 +40,7 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
           ) : (
             <Image
               src={logoImageUrl}
-              alt={name}
+              alt={companyName}
               height={45}
               width={90}
             />

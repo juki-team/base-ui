@@ -7,7 +7,7 @@ import {
   UserCompanyBasicInfoResponseDTO,
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction } from 'react';
-import { useJukiUser } from '../../../hooks';
+import { useUserStore } from '../../../hooks';
 import { Button, DeleteIcon, GlobeIcon, LockIcon, LockPersonIcon, PublicIcon, Select, T } from '../../atoms';
 import { UserChip } from '../UserChip';
 import { UsersSelector } from '../UsersSelector';
@@ -20,7 +20,7 @@ export interface DocumentMembersContentProps {
 
 export const DocumentMembersContent = ({ members, setMembers, documentOwner }: DocumentMembersContentProps) => {
   
-  const { company: { key: companyKey } } = useJukiUser();
+  const companyKey = useUserStore(state => state.company.key);
   
   const FileAccessIcons = {
     [EntityAccess.PRIVATE]: <LockIcon />,
