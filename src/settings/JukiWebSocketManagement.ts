@@ -1,5 +1,6 @@
 import {
   AuthenticateWebSocketEventDTO,
+  cleanRequest,
   consoleError,
   consoleInfo,
   consoleWarn,
@@ -20,7 +21,6 @@ import {
   WebSocketResponseEventDTO,
   WebSocketResponseEventKey,
 } from '@juki-team/commons';
-import { cleanRequest } from '../helpers';
 import { jukiApiSocketManager } from './index';
 
 const FORCE_CLOSED = 'FORCE_CLOSED';

@@ -14,8 +14,9 @@ import {
 import React, { useCallback, useState } from 'react';
 import { T } from '../components/atoms/T';
 import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../helpers';
-import { useI18nStore, useUserStore } from '../hooks';
 import { jukiApiSocketManager } from '../settings';
+import { useI18nStore } from '../stores/i18n/useI18nStore';
+import { useUserStore } from '../stores/user/useUserStore';
 import {
   AuthorizedRequestType,
   SetStatusType,
