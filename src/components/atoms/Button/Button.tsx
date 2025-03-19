@@ -1,8 +1,7 @@
 import { motion } from 'motion/react';
 import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
-import { useSound } from '../../../hooks';
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useJukiUI, useSound } from '../../../hooks';
 import { Duration } from '../../../types';
 import { ButtonProps } from './types';
 
