@@ -17,7 +17,6 @@ import {
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
 } from '../types';
-import { jukiApiSocketManager } from './index';
 import { JukiWebSocketManagement } from './JukiWebSocketManagement';
 
 const addQuery = (path: string) => {
@@ -816,7 +815,7 @@ export class ApiSocketManager {
   
   getToken(): string {
     if (typeof localStorage !== 'undefined') {
-      return getQueryToken() || localStorage.getItem(jukiApiSocketManager.TOKEN_NAME) || '';
+      return getQueryToken() || localStorage.getItem(this.TOKEN_NAME) || '';
     }
     return getQueryToken() || '';
   }
