@@ -5,7 +5,7 @@ import { useJukiUI } from '../../../hooks';
 import { jukiApiSocketManager, jukiAppRoutes } from '../../../settings';
 import { Modal, OpenInNewIcon, VoidIcon } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
-import { ProblemView } from '../../templates';
+import { ProblemView } from '../../templates/ProblemView';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 import { ProblemStatus } from './ProblemStatus';
 
