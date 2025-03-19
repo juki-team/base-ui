@@ -31,7 +31,6 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
       sessionId: userSessionId,
     };
     const callback = (data: WebSocketResponseEventDTO) => {
-      console.log('data', { data });
       if (isPongWebSocketResponseEventDTO(data)) {
         setConnectionId(data.connectionId);
       }

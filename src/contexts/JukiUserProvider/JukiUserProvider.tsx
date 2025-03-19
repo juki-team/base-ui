@@ -27,7 +27,6 @@ import { JukiUserProviderProps } from './types';
 export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>) => {
   
   const { children } = props;
-  console.log('render JukiUserProvider');
   
   const setUser = useUserStore(state => state.setUser);
   const setCompany = useUserStore(state => state.setCompany);
