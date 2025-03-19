@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { T } from '../../atoms';
+import { T } from '../../atoms/T';
 import { JukiLoadingLayout } from './PawsLoadingLayout';
 import { TwoContentLayoutProps } from './types';
 
