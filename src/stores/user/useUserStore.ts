@@ -23,7 +23,7 @@ export const useUserStore = create<UserState>((set) => ({
   setUser: (user) => set(state => {
     const newUser = { ...state.user, ...user };
     if (JSON.stringify(state.user) !== JSON.stringify(newUser)) {
-      return { user: newUser, isLoading: !!user?.sessionId };
+      return { user: newUser, isLoading: !user?.sessionId };
     }
     return state;
   }),
