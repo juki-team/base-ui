@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { JukiLoadingLayout } from '../../molecules';
+import { JukiLoadingLayout } from '../../molecules/layouts/PawsLoadingLayout';
 import { T } from '../T';
 import { InputCellPhoneNumberProps } from './types';
 
