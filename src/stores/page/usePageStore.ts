@@ -1,5 +1,3 @@
-'use client';
-
 import { create } from 'zustand';
 import { getHandlerArgs } from '../../helpers/visibility';
 
@@ -13,7 +11,7 @@ interface PageState {
 }
 
 export const usePageStore = create<PageState>((set) => ({
-  isOnline: navigator.onLine,
+  isOnline: typeof navigator !== 'undefined' ? navigator.onLine : false,
   setOnline: (isOnline) => set({ isOnline }),
   isVisible: getHandlerArgs()[0],
   setIsVisible: (isVisible) => set({ isVisible }),

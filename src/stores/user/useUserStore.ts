@@ -1,5 +1,3 @@
-'use client';
-
 import { CompanyPingType, UserPingType } from '@juki-team/commons';
 import { KeyedMutator } from 'swr';
 import { create } from 'zustand/index';
