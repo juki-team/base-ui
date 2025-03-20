@@ -88,6 +88,7 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
   
   const replace = useCallback(async (href: Href) => {
     setLoaderCounter(prevState => prevState + 1);
+    console.log('replacer', { href });
     const result = await replaceRoute(getHref(href));
     setLoaderCounter(prevState => prevState - 1);
     return result;
