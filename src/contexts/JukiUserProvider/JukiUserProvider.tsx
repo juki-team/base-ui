@@ -10,16 +10,6 @@ import {
   Theme,
 } from '@juki-team/commons';
 import { PropsWithChildren, useCallback, useEffect } from 'react';
-import {
-  browserName,
-  browserVersion,
-  deviceType,
-  isMobile,
-  mobileModel,
-  mobileVendor,
-  osName,
-  osVersion,
-} from 'react-device-detect';
 import { EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
 import { useFetcher, useI18nStore, useMutate, useUserStore } from '../../hooks';
@@ -108,17 +98,18 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     }
   }, [ data, setCompany, setUser ]);
   
-  // const isLoading = isLoadingPing;
-  // const isValidating = isLoading || isValidatingPing;
-  
   useEffect(() => {
-    setDevice({
-      type: deviceType,
-      isMobile: false,
-      isBrowser: false,
-      label: isMobile ? `${mobileModel} ${mobileVendor}` : `${browserName} ${browserVersion}`,
-      osLabel: `${osName} ${osVersion}`,
-    });
+    if (typeof window !== 'undefined') {
+      import('react-device-detect').then((mod) => {
+        setDevice({
+          type: mod.deviceType,
+          isMobile: mod.isMobile,
+          isBrowser: mod.isBrowser,
+          label: mod.isMobile ? `${mod.mobileModel} ${mod.mobileVendor}` : `${mod.browserName} ${mod.browserVersion}`,
+          osLabel: `${mod.osName} ${mod.osVersion}`,
+        });
+      });
+    }
     setMutate(mutate);
   }, [ mutate, setDevice, setMutate ]);
   
