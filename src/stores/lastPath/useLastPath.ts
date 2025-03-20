@@ -8,9 +8,12 @@ interface LastPathState {
 }
 
 export const useLastPathStore = create<LastPathState>((set) => ({
-  pushPath: ({ key, pathname, searchParams }) => set({
-    [key]: { pathname, searchParams },
-  }),
+  pushPath: ({ key, pathname, searchParams }) => set(state => ({
+    lastPath: {
+      ...state.lastPath,
+      [key]: { pathname, searchParams },
+    },
+  })),
   lastPath: {},
   setLastPath: (lastPath: LastPathType) => set({ lastPath }),
 }));

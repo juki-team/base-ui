@@ -18,13 +18,12 @@ export const useI18nStore = create<I18nState>((set, getState) => ({
   changeLanguage: async (lng) => {
     if (i18nInstance.language !== lng) {
       await i18nInstance.changeLanguage(lng);
-      set((state) => ({
-        ...state,
+      set({
         i18n: {
           ...i18nInstance,
           t: ((...args: Parameters<i18n['t']>) => i18nInstance.t(...args)) as i18n['t'],
         },
-      }));
+      });
     }
   },
   loadResources: async (namespace = 'translation') => {
@@ -38,12 +37,11 @@ export const useI18nStore = create<I18nState>((set, getState) => ({
     ]);
     i18nInstance.addResourceBundle(Language.EN, namespace, dataEN);
     i18nInstance.addResourceBundle(Language.ES, namespace, dataES);
-    set((state) => ({
-      ...state,
+    set({
       i18n: {
         ...i18nInstance,
         t: ((...args: Parameters<i18n['t']>) => i18nInstance.t(...args)) as i18n['t'],
       },
-    }));
+    });
   },
 }));
