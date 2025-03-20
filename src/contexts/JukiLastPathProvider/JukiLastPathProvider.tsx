@@ -16,8 +16,7 @@ export const JukiLastPathProvider = <T extends string | number, >(props: PropsWi
   
   useEffect(() => {
     setLastPath(initialLastPath);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ userNickname ]);
+  }, [ userNickname, initialLastPath, setLastPath ]);
   
   return children;
 };
