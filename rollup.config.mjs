@@ -70,7 +70,7 @@ export default [
     // external: [ ...Object.keys(pkg.peerDependencies || {}) ],
     plugins,
     preserveEntrySignatures: 'strict',
-    preserveDirectives: true,
+    // preserveDirectives: true, // Unknown input options
   },
   // {
   //   input: 'src/utils/index.ts',
