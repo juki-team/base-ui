@@ -14,7 +14,7 @@ export const LinkLastPath = <T extends string | number = string, >(props: PropsW
   const { components: { Link } } = useJukiUI();
   
   const lastPath: LastPathType<T> = useLastPathStore(state => state.lastPath) as LastPathType<T>;
-  
+  console.log({ lastPath, lastPathKey, overwriteCompanyKey });
   const pushRoute = useRouterStore(state => state.pushRoute);
   
   const searchParams = useMemo(() => {
@@ -24,7 +24,7 @@ export const LinkLastPath = <T extends string | number = string, >(props: PropsW
       return clonedSearchParams;
     }
     
-    return lastPath[lastPathKey]?.searchParams;
+    return lastPath[lastPathKey]?.searchParams || new URLSearchParams();
   }, [ lastPath, lastPathKey, overwriteCompanyKey ]);
   
   return (
