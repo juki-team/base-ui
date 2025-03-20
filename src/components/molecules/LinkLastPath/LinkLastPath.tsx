@@ -19,17 +19,17 @@ export const LinkLastPath = <T extends string | number = string, >(props: PropsW
   
   const searchParams = useMemo(() => {
     if (overwriteCompanyKey) {
-      const clonedSearchParams = cloneURLSearchParams(lastPath[lastPathKey].searchParams);
+      const clonedSearchParams = cloneURLSearchParams(lastPath[lastPathKey]?.searchParams);
       clonedSearchParams.set(QueryParamKey.COMPANY, overwriteCompanyKey || '');
       return clonedSearchParams;
     }
     
-    return lastPath[lastPathKey].searchParams;
+    return lastPath[lastPathKey]?.searchParams;
   }, [ lastPath, lastPathKey, overwriteCompanyKey ]);
   
   return (
     <Link
-      href={{ pathname: lastPath[lastPathKey].pathname, query: searchParams.toString() }}
+      href={{ pathname: lastPath[lastPathKey]?.pathname ?? '#', query: searchParams.toString() }}
       className="link dy-cs"
       onClick={event => {
         if (onDoubleClickRoute && event.detail === 2) {
