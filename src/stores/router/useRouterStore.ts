@@ -33,5 +33,8 @@ export const useRouterStore = create<RouterState>((set) => ({
   reloadRoute: () => null,
   isLoadingRoute: false,
   pathname: '',
-  replaceProps: (props) => set({ ...props }),
+  replaceProps: (props) => {
+    console.log('>>> replaceProps', { props });
+    set({ ...props });
+  },
 }));

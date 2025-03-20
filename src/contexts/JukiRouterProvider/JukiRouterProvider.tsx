@@ -147,6 +147,7 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
   }, [ replaceProps, pathname ]);
   
   useEffect(() => {
+    console.log({ replaceProps, replace });
     replaceProps({ pushRoute: push, replaceRoute: replace, reloadRoute: reload });
   }, [ push, reload, replace, replaceProps ]);
   
