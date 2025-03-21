@@ -15,6 +15,7 @@ import { CodeEditorExpandPositionType, UserCodeEditor, UserCodeEditorProps } fro
 
 interface ProblemCodeEditorProps<T> {
   problem: ProblemDataResponseDTO,
+  codeEditorLeftButtons?: UserCodeEditorProps<T>['leftButtons'],
   codeEditorCenterButtons?: UserCodeEditorProps<T>['centerButtons'],
   codeEditorRightButtons?: UserCodeEditorProps<T>['rightButtons'],
   codeEditorStoreKey: string,
@@ -23,7 +24,15 @@ interface ProblemCodeEditorProps<T> {
 
 export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
   
-  const { problem, codeEditorCenterButtons, codeEditorRightButtons, codeEditorStoreKey, expandPosition } = props;
+  const {
+    problem,
+    codeEditorLeftButtons,
+    codeEditorCenterButtons,
+    codeEditorRightButtons,
+    codeEditorStoreKey,
+    expandPosition,
+  } = props;
+  
   const initialTestCases: CodeEditorTestCasesType = {};
   problem.statement.sampleCases?.forEach((sample, index) => {
     const key = 'sample-' + index;
@@ -81,13 +90,16 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
     <UserCodeEditor<T>
       languages={languages}
       storeKey={codeEditorStoreKey}
+      leftButtons={codeEditorLeftButtons}
       centerButtons={codeEditorCenterButtons}
       rightButtons={codeEditorRightButtons}
       initialTestCases={!problem.judge.isExternal
         ? initialTestCases
         : undefined}
-      enableAddCustomSampleCases
+      enableAddCustomSampleCases={!problem.judge.isExternal}
       expandPosition={expandPosition}
+      withoutRunCodeButton={problem.judge.isExternal}
+      onlyCodeEditor
     />
   );
 };

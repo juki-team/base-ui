@@ -38,6 +38,7 @@ export interface CodeRunnerEditorProps<T> extends CodeEditorPropertiesType<T> {
   languages?: { value: T, label: string }[],
   className?: string,
   testCases?: CodeEditorTestCasesType,
+  leftButtons?: CodeEditorCenterButtonsType<T>,
   centerButtons?: CodeEditorCenterButtonsType<T>,
   rightButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode,
   timeLimit?: number,
@@ -46,6 +47,7 @@ export interface CodeRunnerEditorProps<T> extends CodeEditorPropertiesType<T> {
   enableAddSampleCases?: boolean,
   enableAddCustomSampleCases?: boolean,
   withoutRunCodeButton?: boolean,
+  onlyCodeEditor?: boolean,
 }
 
 export interface SettingsModalProps<T> extends BasicModalProps {
@@ -74,6 +76,7 @@ export interface HeaderProps<T> {
   setShowSettings: Dispatch<SetStateAction<boolean>>,
   runId: string,
   setRunId: Dispatch<SetStateAction<string>>,
+  leftOptions: (props: { widthContainer: number, withLabels: boolean, twoRows: boolean }) => ReactNode,
   centerOptions: (props: { widthContainer: number, withLabels: boolean, twoRows: boolean }) => ReactNode,
   rightOptions: (props: { withLabels: boolean, twoRows: boolean }) => ReactNode,
   timeLimit: number,

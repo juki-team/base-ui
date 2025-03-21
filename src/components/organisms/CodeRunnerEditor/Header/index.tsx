@@ -35,6 +35,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     onChange,
     testCases,
     setShowSettings,
+    leftOptions,
     centerOptions,
     rightOptions,
     setRunId,
@@ -119,7 +120,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       ref={headerRef}
     >
       <div
-        className={classNames('left-options cr-pd jk-row gap', { 'jk-col left gap': twoRows })}
+        className={classNames('cr-pd jk-row gap left', { 'jk-col left gap': twoRows, 'jk-row gap left': !twoRows })}
         ref={refLeftSection}
       >
         {readOnly ? (
@@ -147,7 +148,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
               data-tooltip-id="jk-tooltip"
               data-tooltip-content={!isConnected
                 ? 'run the editor is not available yet'
-                : undefined}
+                : !(twoRows || withLabels) ? 'run' : ''}
               size="tiny"
               type="primary"
               expand={twoRows}
@@ -177,22 +178,36 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             )}
           </>
         )}
+        {leftOptions({ widthContainer: widthCenterContainer, withLabels, twoRows })}
       </div>
-      <div className="center-options flex-1" style={{ width: widthCenterContainer }}>
+      <div className="jk-row flex-1" style={{ width: widthCenterContainer }}>
         {centerOptions({ widthContainer: widthCenterContainer, withLabels, twoRows })}
       </div>
-      <div className={classNames('jk-row gap right-options cr-pd', { 'jk-col gap': twoRows })} ref={refRightSection}>
-        <Button size="tiny" type="light" onClick={() => setShowSettings(true)} icon={<SettingsIcon />}>
+      <div
+        className={classNames('jk-row gap cr-pd', { 'jk-col gap': twoRows, 'jk-row right gap': !twoRows })}
+        ref={refRightSection}
+      >
+        <Button
+          data-tooltip-id="jk-tooltip"
+          data-tooltip-content={!(twoRows || withLabels) ? 'settings' : ''}
+          data-tooltip-place="bottom-end"
+          size="tiny"
+          type="light"
+          onClick={() => setShowSettings(true)} icon={<SettingsIcon />}
+        >
           {(twoRows || withLabels) && <T>settings</T>}
         </Button>
         {expanded !== null && (
           <Button
+            data-tooltip-id="jk-tooltip"
+            data-tooltip-content={!(twoRows || withLabels) ? (expanded ? 'back' : 'expand') : ''}
+            data-tooltip-place="bottom-end"
             size="tiny"
             type="light"
             onClick={() => setExpanded(prevState => !prevState)}
             icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
           >
-            {withLabels && <T>{expanded ? 'back' : 'expand'}</T>}
+            {(twoRows || withLabels) && <T>{expanded ? 'back' : 'expand'}</T>}
           </Button>
         )}
         {rightOptions({ withLabels, twoRows })}

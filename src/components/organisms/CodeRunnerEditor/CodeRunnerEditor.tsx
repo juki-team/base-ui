@@ -33,6 +33,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     })),
     language,
     onChange: _onChange,
+    leftButtons,
     centerButtons,
     rightButtons,
     testCases,
@@ -45,6 +46,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     enableAddCustomSampleCases,
     enableAddSampleCases,
     withoutRunCodeButton,
+    onlyCodeEditor,
   } = props;
   
   useRunnerServicesWakeUp();
@@ -232,6 +234,17 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         languages={languages}
         sourceCode={sourceCode}
         testCases={testCases || {}}
+        leftOptions={({ widthContainer, twoRows, withLabels }) => leftButtons?.({
+          isRunning,
+          readOnly,
+          sourceCode,
+          languages,
+          language,
+          testCases: testCases || {},
+          widthContainer,
+          twoRows,
+          withLabels,
+        })}
         centerOptions={({ widthContainer, twoRows, withLabels }) => centerButtons?.({
           isRunning,
           readOnly,
@@ -266,19 +279,23 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         readOnly={!!readOnly}
       />
       <div className="editor-stdio-content">
-        <SplitPane
-          direction={direction}
-          minSize={80}
-          onlyFirstPane={!testCases}
-          closableSecondPane={closableSecondPane}
-          closableFirstPane={closableFirstPane}
-          toggleable
-          onChangeDirection={setDirection}
-          onePanelAtATime={isMobileViewPort}
-        >
-          {firstChild}
-          {secondChild}
-        </SplitPane>
+        {onlyCodeEditor ? (
+          firstChild
+        ) : (
+          <SplitPane
+            direction={direction}
+            minSize={80}
+            onlyFirstPane={!testCases}
+            closableSecondPane={closableSecondPane}
+            closableFirstPane={closableFirstPane}
+            toggleable
+            onChangeDirection={setDirection}
+            onePanelAtATime={isMobileViewPort}
+          >
+            {firstChild}
+            {secondChild}
+          </SplitPane>
+        )}
       </div>
     </div>
   );

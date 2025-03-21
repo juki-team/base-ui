@@ -100,6 +100,7 @@ export interface UserCodeEditorProps<T> {
   initialLanguage?: T,
   storeKey: string,
   languages: { value: T, label: string }[],
+  leftButtons?: CodeEditorCenterButtonsType<T>,
   centerButtons?: CodeEditorCenterButtonsType<T>,
   rightButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode,
   onSourceChange?: (source: string) => void,
@@ -116,6 +117,7 @@ export interface UserCodeEditorProps<T> {
     language: T,
     testCases: CodeEditorTestCasesType
   }) => void,
+  onlyCodeEditor?: boolean,
 }
 
 type StorageType<T> = {
@@ -135,6 +137,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     initialLanguage,
     storeKey,
     languages,
+    leftButtons,
     centerButtons,
     rightButtons,
     onSourceChange,
@@ -147,6 +150,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     readOnly,
     withoutRunCodeButton,
     onCodeRunStatusChange,
+    onlyCodeEditor,
   } = props;
   
   const userNickname = useUserStore(state => state.user.nickname);
@@ -297,6 +301,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       languages={languages}
       readOnly={readOnly}
       onChange={onChange}
+      leftButtons={leftButtons}
       centerButtons={centerButtons}
       rightButtons={rightButtons}
       testCases={testCases}
@@ -304,6 +309,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       enableAddSampleCases={enableAddSampleCases}
       enableAddCustomSampleCases={enableAddCustomSampleCases}
       withoutRunCodeButton={withoutRunCodeButton}
+      onlyCodeEditor={onlyCodeEditor}
     />
   );
 };

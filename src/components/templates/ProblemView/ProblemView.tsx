@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
-import { Button, FullscreenExitIcon, FullscreenIcon, Portal, T } from '../../atoms';
+import { Button, FullscreenExitIcon, FullscreenIcon, InfoIcon, Portal, T } from '../../atoms';
 import { SplitPane } from '../../molecules';
 import { ProblemCodeEditor } from './ProblemCodeEditor';
 import { ProblemStatementView } from './ProblemStatementView';
@@ -62,35 +62,40 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
       </div>
       <ProblemCodeEditor
         problem={problem}
+        codeEditorLeftButtons={() => {
+          
+          if (problem.judge.isExternal) {
+            
+            return (
+              <InfoIcon
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="the editor is not enabled for external judges to Juki Judge"
+                data-tooltip-place="bottom"
+                size="small"
+                filledCircle
+              />
+            );
+          }
+          
+          return null;
+        }}
         codeEditorCenterButtons={codeEditorCenterButtons}
         codeEditorRightButtons={({ withLabels, twoRows }) => {
           const withText = twoRows || withLabels;
           
-          if (withText) {
-            return (
-              <Button
-                size="tiny"
-                type="light"
-                onClick={() => setExpanded(prevState => !prevState)}
-                icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
-                expand={twoRows}
-              >
-                <T>{expanded ? 'back' : 'expand'}</T>
-              </Button>
-            );
-          }
-          
           return (
             <Button
               data-tooltip-id="jk-tooltip"
-              data-tooltip-content={expanded ? 'back' : 'expand'}
+              data-tooltip-content={!withText ? (expanded ? 'back' : 'expand') : ''}
               data-tooltip-place="bottom-end"
               size="tiny"
               type="light"
               onClick={() => setExpanded(prevState => !prevState)}
               icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
               expand={twoRows}
-            />
+            >
+              {withText && <T>{expanded ? 'back' : 'expand'}</T>}
+            </Button>
           );
         }}
         codeEditorStoreKey={codeEditorStoreKey}
