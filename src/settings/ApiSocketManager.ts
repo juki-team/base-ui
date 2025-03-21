@@ -418,11 +418,12 @@ export class ApiSocketManager {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        reCrawl: valid<
-          { params: { key: string } }, HTTPMethod.POST
-        >(({ params: { key } }) => ({
-          url: injectBaseUrl('problem', `/${key}/re-crawl`),
+        crawlStatement: valid<
+          { body: { judgeKey: Judge, contestId: string, index: string } }, HTTPMethod.POST
+        >(({ body }) => ({
+          url: injectBaseUrl('problem', `/crawl-statement`),
           method: HTTPMethod.POST,
+          body: JSON.stringify(body),
         })),
       },
       contest: {
