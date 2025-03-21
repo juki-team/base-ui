@@ -69,7 +69,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
             return (
               <InfoIcon
                 data-tooltip-id="jk-tooltip"
-                data-tooltip-content="the editor is not enabled for external judges to Juki Judge"
+                data-tooltip-content="run the code in the code editor is not enabled for external judges to Juki Judge"
                 data-tooltip-place="bottom"
                 size="small"
                 filledCircle
