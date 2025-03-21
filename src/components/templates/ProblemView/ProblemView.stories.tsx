@@ -97,7 +97,7 @@ Regular.args = {
       byProgrammingLanguage: {
         C: {
           language: ProgrammingLanguage.C,
-          timeLimit: 10000,
+          timeLimit: 10001,
           memoryLimit: 512000,
         },
       },
