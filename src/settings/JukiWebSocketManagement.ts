@@ -21,6 +21,7 @@ import {
   WebSocketResponseEventDTO,
   WebSocketResponseEventKey,
 } from '@juki-team/commons';
+import { isSubscribeProblemCrawledWebSocketEventDTO } from '@juki-team/commons/dist/types/helpers/socket';
 import { jukiApiSocketManager } from './index';
 
 const FORCE_CLOSED = 'FORCE_CLOSED';
@@ -209,6 +210,9 @@ export class JukiWebSocketManagement {
     }
     if (isSubscribeSenDataEcsTaskListWebSocketEventDTO(event)) {
       return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_ECS_TASK_LIST, event.sessionId, '*');
+    }
+    if (isSubscribeProblemCrawledWebSocketEventDTO(event)) {
+      return getWebSocketResponseEventKey(WebSocketResponseEvent.PROBLEM_CRAWLED, event.sessionId, event.problemKey);
     }
     
     return '' as WebSocketResponseEventKey;
