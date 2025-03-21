@@ -41,7 +41,7 @@ Regular.args = {
       key: Judge.JUKI_JUDGE,
       name: 'juki judge',
       isCustom: false,
-      isExternal: true,
+      isExternal: false,
       isMain: false,
     },
     author: '',

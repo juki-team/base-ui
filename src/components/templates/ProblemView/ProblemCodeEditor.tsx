@@ -99,7 +99,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       enableAddCustomSampleCases={!problem.judge.isExternal}
       expandPosition={expandPosition}
       withoutRunCodeButton={problem.judge.isExternal}
-      onlyCodeEditor
+      onlyCodeEditor={problem.judge.isExternal}
     />
   );
 };
