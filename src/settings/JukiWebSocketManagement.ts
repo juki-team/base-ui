@@ -9,6 +9,7 @@ import {
   getWebSocketResponseEventKey,
   isPingWebSocketEventDTO,
   isSubscribeCodeRunStatusWebSocketEventDTO,
+  isSubscribeProblemCrawledWebSocketEventDTO,
   isSubscribeSenDataEcsTaskDefinitionListWebSocketEventDTO,
   isSubscribeSenDataEcsTaskListWebSocketEventDTO,
   isSubscribeSubmissionRunStatusWebSocketEventDTO,
@@ -21,7 +22,6 @@ import {
   WebSocketResponseEventDTO,
   WebSocketResponseEventKey,
 } from '@juki-team/commons';
-import { isSubscribeProblemCrawledWebSocketEventDTO } from '@juki-team/commons/dist/types/helpers/socket';
 import { jukiApiSocketManager } from './index';
 
 const FORCE_CLOSED = 'FORCE_CLOSED';
