@@ -91,6 +91,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
       placement={optionsPlacement}
       popoverClassName={classNames('jk-select-options-content', popoverClassName)}
       offset={4}
+      open={isOpen}
       onOpenChange={setIsOpen}
       content={
         <div
@@ -130,6 +131,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
           { open: isOpen, disabled: isDisabled },
         )}
         style={{ width: extend ? '100%' : undefined }}
+        onClick={() => setIsOpen(!isOpen)}
       >
         <div
           ref={fakeOptionsRef}
