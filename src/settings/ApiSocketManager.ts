@@ -717,8 +717,8 @@ export class ApiSocketManager {
           url: injectSort(injectFilter(injectBaseUrl('judge', '/system-list'), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
-        crawlLanguages: valid<void, HTTPMethod.POST>(() => ({
-          url: injectBaseUrl('judge', '/crawl-languages'),
+        crawlLanguages: valid<{ params: { key: string } }, HTTPMethod.POST>(({ params: { key } }) => ({
+          url: injectBaseUrl('judge', `/${key}/crawl-languages`),
           method: HTTPMethod.POST,
         })),
         patch: valid<{
