@@ -257,7 +257,7 @@ export const ProblemInfo = ({ problem }: ProblemInfoProps) => {
     <Popover
       content={!problem.judge?.isExternal
         ? (
-          <div className="jk-pg-sm jk-br-ie bc-we elevation-1">
+          <div className="jk-pg-x-sm jk-br-ie bc-we elevation-1">
             <JukiProblemInfo
               author={problem.author}
               tags={problem.tags}
@@ -268,7 +268,7 @@ export const ProblemInfo = ({ problem }: ProblemInfoProps) => {
             />
           </div>
         ) : (
-          <div className="jk-row extend top jk-br-ie bc-we elevation-1">
+          <div className="jk-row extend top jk-pg-x-sm jk-br-ie bc-we elevation-1">
             <div
               className={`${problem.judge?.key}-statement only-info`}
               dangerouslySetInnerHTML={{ __html: problem.statement.html[Language.EN] || problem.statement.html[Language.ES] }}
