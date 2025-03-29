@@ -22,7 +22,8 @@ export const Graphviz = ({ dot, className, options = {} }: IGraphvizProps) => {
       }).renderDot(dot);
       
       return () => {
-        instance?.resetZoom();
+        console.log('Graphviz out', { instance });
+        // instance?.resetZoom();
       };
     }
     return () => {
