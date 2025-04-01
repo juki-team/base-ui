@@ -104,13 +104,21 @@ ${statementNote}
   };
 };
 
+export const isJudgeWindowLocation = () => {
+  return typeof window !== 'undefined' && (
+    window.location.origin === 'https://judge.juki.app'
+    || window.location.origin.endsWith('.jukijudge.com')
+    || window.location.origin === 'http://localhost:3070'
+  );
+};
+
 export const getJudgeOrigin = (companyKey: string) => {
+  if (isJudgeWindowLocation()) {
+    return '';
+  }
   let origin = `https://${companyKey}.jukijudge.com`;
   if (companyKey === JUKI_APP_COMPANY_KEY) {
     origin = 'https://judge.juki.app';
-  }
-  if (typeof window !== 'undefined' && window.location.origin === origin) {
-    return '';
   }
   return origin;
 };

@@ -1,6 +1,6 @@
 import { ContentResponseType, ProblemDataResponseDTO, ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import React, { ReactNode, useState } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames, getJudgeOrigin } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
 import { jukiApiSocketManager, jukiAppRoutes } from '../../../settings';
 import { Modal, OpenInNewIcon, VoidIcon } from '../../atoms';
@@ -11,12 +11,11 @@ import { ProblemStatus } from './ProblemStatus';
 
 export const ProblemNameLinkField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field'] = (props) => {
   
-  const { record: { name, shortname, user, key }, isCard } = props;
+  const { record: { name, shortname, user, key, company: { key: companyKey } }, isCard } = props;
   
   const { components: { Link } } = useJukiUI();
   
-  // const origin = getJudgeOrigin(companyKey); // TODO:
-  const origin = '';
+  const origin = getJudgeOrigin(companyKey);
   
   return (
     <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
