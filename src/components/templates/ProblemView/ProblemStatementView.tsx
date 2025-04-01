@@ -8,7 +8,7 @@ import {
   downloadUrlAsFile,
   getStatementData,
 } from '../../../helpers';
-import { useI18nStore, useUserStore } from '../../../hooks';
+import { useI18nStore, useJukiNotification, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { DownloadIcon, T } from '../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
@@ -53,6 +53,7 @@ export const ProblemStatementView = ({
     statementNote,
     mdStatement,
   } = getStatementData(t, { statement, settings }, userPreferredLanguage, problemName);
+  const { addWarningNotification } = useJukiNotification();
   
   if (isExternal) {
     return (
@@ -90,6 +91,16 @@ export const ProblemStatementView = ({
     );
     
     if (response.success) {
+      if (!response.content.urlExportedPDF) {
+        addWarningNotification(
+          <div className="jk-col stretch" style={{ width: '100%' }}>
+            <span className="tt-se">
+              <T>{response.message}</T>
+            </span>
+          </div>,
+        );
+        return;
+      }
       await downloadUrlAsFile('https://' + response.content.urlExportedPDF, `${judgeName} - ${problemName}`);
     } else {
       throw new Error('error on download pdf');
