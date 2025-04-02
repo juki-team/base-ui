@@ -24,7 +24,8 @@
     .selected-tab-tick-back, .selected-tab-tick-back-hover {
       background-color: var(--t-color-primary-light);
       position: absolute;
-      top: calc(var(--pad-xt) - 0px);
+      //top: calc(var(--pad-xt) - 0px);
+      top: 0;
       //right: calc(var(--pad-t) - 10px);
       //left: 0;
       padding: 1px 10px;
@@ -54,7 +55,7 @@
     }
     
     > div {
-      padding: var(--pad-xt) 0;
+      //padding: var(--pad-xt) 0;
       position: relative;
       
       > *:not(.selected-tab-tick-back) {
@@ -77,7 +78,7 @@
   
   &.tick-style-line {
     .jk-tabs-headers-inline > div {
-      padding: var(--pad-xt);
+      padding: 0;
     }
   }
 }

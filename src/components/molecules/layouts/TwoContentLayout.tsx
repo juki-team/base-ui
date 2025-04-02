@@ -1,6 +1,6 @@
-import React, { ReactNode, useCallback, useEffect, useRef } from 'react';
+import React, { ReactNode, useCallback, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState, useJukiUI, useRouterStore } from '../../../hooks';
+import { useHandleState, useJukiUI } from '../../../hooks';
 import { NotUndefined, TabsType } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs';
 import { TabsInline } from '../Tabs';
@@ -21,11 +21,12 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
     loading,
   } = props;
   
-  const getHrefOnTabChangeRef = useRef(getHrefOnTabChange);
-  getHrefOnTabChangeRef.current = getHrefOnTabChange;
+  const withGetHrefOnTabChange = !!getHrefOnTabChange;
+  // const getHrefOnTabChangeRef = useRef(getHrefOnTabChange);
+  // getHrefOnTabChangeRef.current = getHrefOnTabChange;
   const LOADING_TAB = 'loading' as T;
   const { viewPortSize } = useJukiUI();
-  const pushRoute = useRouterStore(state => state.pushRoute);
+  // const pushRoute = useRouterStore(state => state.pushRoute);
   const tabs: TabsType<T> = !!loading ? {
     [LOADING_TAB as string]: {
       key: LOADING_TAB,
@@ -44,12 +45,12 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
   const tab = loading ? LOADING_TAB : initialTab;
   const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey: tab }) as ReactNode[];
   const pushTab = useCallback((tabKey: T) => {
-    if (getHrefOnTabChangeRef.current) {
-      pushRoute(getHrefOnTabChangeRef.current(tabKey));
+    if (withGetHrefOnTabChange) {
+      // pushRoute(getHrefOnTabChangeRef.current(tabKey));
     } else {
       setTab(tabKey as NotUndefined<T>);
     }
-  }, [ pushRoute, setTab ]);
+  }, [ setTab, withGetHrefOnTabChange ]);
   useEffect(() => {
     if (selectedTabKey) {
       setTab(selectedTabKey as NotUndefined<T>);
@@ -95,6 +96,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
             extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
             tickStyle="background"
             className="jk-pg-sm-t"
+            getHrefOnTabChange={getHrefOnTabChange}
           />
         )}
       </>
@@ -106,6 +108,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
             onChange={pushTab}
             extraNodes={tabButtons}
             extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
+            getHrefOnTabChange={getHrefOnTabChange}
           />
         )}
         <div

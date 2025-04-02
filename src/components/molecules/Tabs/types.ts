@@ -1,4 +1,4 @@
-import { ReactNodeOrFunctionP1Type } from '../../../types';
+import { Href, ReactNodeOrFunctionP1Type } from '../../../types';
 
 export type TabType<T> = {
   header: ReactNodeOrFunctionP1Type<{ selectedTabKey: T }>,
@@ -27,6 +27,7 @@ export interface TabsInlineProps<T = string> {
   extraNodesPlacement?: 'left' | 'right' | 'bottomLeft' | 'bottomCenter' | 'bottomRight',
   className?: string,
   tickStyle?: 'line' | 'background',
+  getHrefOnTabChange?: (selectedTabKey: T) => Href,
 }
 
 export interface TabsInlineBodyProps<T> {

@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import React, { Children, useCallback, useId, useRef, useState } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { Func, useHandleState, useMemoizedArray, usePrevious } from '../../../hooks';
+import { Func, useHandleState, useJukiUI, useMemoizedArray, usePrevious } from '../../../hooks';
 import { useWidthResizer } from '../../../hooks/useWidthResizer';
 import { NotUndefined, TabsInlineBodyProps, TabType } from '../../../types';
 import { NavigateBeforeIcon, NavigateNextIcon, Select } from '../../atoms';
@@ -17,6 +17,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
     extraNodesPlacement = 'right',
     className,
     tickStyle = 'line',
+    getHrefOnTabChange,
   } = props;
   
   const tabsArray = Object.values(tabs);
@@ -26,6 +27,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   const selectedTabIndex = tabsArray.findIndex(({ key }) => key === selectedTabKey);
   const tabKeys = useMemoizedArray(Object.keys(tabs));
   const [ hover, setHover ] = useState('');
+  const { components: { Link } } = useJukiUI();
   
   const refB = useRef<HTMLDivElement>(null);
   const maxWidthWithArrows = useRef(0);
@@ -49,51 +51,54 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   const layoutId = useId();
   const layoutHoverId = useId();
   
-  const renderHeaderTab = ({ key, header }: TabType<T>) => (
-    <div
-      key={key as string}
-      onClick={key === selectedTabKey ? undefined : () => setSelectedTabKey(key as (NotUndefined<T> | Func<T>))}
-      className={classNames(`jk-tabs-inline-tab jk-row nowrap`, {
-        'selected': key === selectedTabKey, // no used bold to prevent changes on the width
-        'one-tab-view': oneTabView,
-        'cr-pt': key === selectedTabKey && tickStyle === 'background',
-      })}
-      onMouseEnter={() => setHover(key as string)}
-      // onMouseLeave={() => setHover('')}
-    >
-      {tickStyle === 'line' && key === selectedTabKey && (
-        <motion.div
-          className="selected-tab-tick"
-          layoutId={layoutId}
-        />
-      )}
-      {tickStyle === 'background' && key === selectedTabKey && (
-        <motion.div
-          className="selected-tab-tick-back jk-br-ie"
-          layoutId={layoutId}
-        >
-          <div className="selected-tab-tick-back-content">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
-        </motion.div>
-      )}
-      {tickStyle === 'background' && key === hover && key !== selectedTabKey && (
-        <motion.div
-          className="selected-tab-tick-back-hover jk-br-ie"
-          layoutId={layoutHoverId}
-        >
-          <div className="selected-tab-tick-back-content">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
-        </motion.div>
-      )}
-      {tickStyle === 'background' ? (
-        <div
-          className="tab-tick-back-hover jk-br-ie"
-        >
-          <div className="selected-tab-tick-back-content">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
-        </div>
-      ) : (
-        renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })
-      )}
-    </div>
-  );
+  const renderHeaderTab = ({ key, header }: TabType<T>) => {
+    const content = (
+      <div
+        key={key as string}
+        onClick={(key === selectedTabKey || !!getHrefOnTabChange) ? undefined : () => setSelectedTabKey(key as (NotUndefined<T> | Func<T>))}
+        className={classNames(`jk-tabs-inline-tab jk-row nowrap`, {
+          'selected': key === selectedTabKey, // no used bold to prevent changes on the width
+          'one-tab-view': oneTabView,
+          'cr-pt': key === selectedTabKey && tickStyle === 'background',
+        })}
+        onMouseEnter={() => setHover(key as string)}
+        // onMouseLeave={() => setHover('')}
+      >
+        {tickStyle === 'line' && key === selectedTabKey && (
+          <motion.div
+            className="selected-tab-tick"
+            layoutId={layoutId}
+          />
+        )}
+        {tickStyle === 'background' && key === selectedTabKey && (
+          <motion.div
+            className="selected-tab-tick-back jk-br-ie"
+            layoutId={layoutId}
+          >
+            <div className="selected-tab-tick-back-content">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
+          </motion.div>
+        )}
+        {tickStyle === 'background' && key === hover && key !== selectedTabKey && (
+          <motion.div
+            className="selected-tab-tick-back-hover jk-br-ie"
+            layoutId={layoutHoverId}
+          >
+            <div className="selected-tab-tick-back-content">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
+          </motion.div>
+        )}
+        {tickStyle === 'background' ? (
+          <div
+            className="tab-tick-back-hover jk-br-ie"
+          >
+            <div className="selected-tab-tick-back-content">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
+          </div>
+        ) : (
+          renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })
+        )}
+      </div>
+    );
+    return getHrefOnTabChange ? <Link href={getHrefOnTabChange(key)}>{content}</Link> : content;
+  };
   
   return (
     <>
@@ -123,7 +128,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
                 label: renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey }),
                 inputLabel: (
                   <div
-                    className={classNames('jk-row left stretch jk-tabs-headers-inline nowrap', {
+                    className={classNames('jk-row left jk-tabs-headers-inline nowrap', {
                       'block flex-1': oneTabView,
                       // 'block extend': extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter',
                     })}
