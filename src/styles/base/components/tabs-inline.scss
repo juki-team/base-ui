@@ -77,8 +77,8 @@
   }
   
   &.tick-style-line {
-    .jk-tabs-headers-inline > div {
-      padding: 0;
+    .jk-tabs-inline-tab {
+      padding: var(--pad-xt) var(--pad-t);
     }
   }
 }

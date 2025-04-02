@@ -134,7 +134,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       key: 'test-output',
       header: (
         <div className="jk-row gap left nowrap">
-          <T className={classNames('tt-se tx-s')} style={{ lineHeight: '18px' }}>
+          <T className={classNames('tt-se tx-s')}>
             expected output
           </T>
           {test?.withPE && (
@@ -166,7 +166,6 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
           'tt-se tx-s',
           { 'cr-er': getDataOfTestCase(test, timeLimit, memoryLimit).failed },
         )}
-        style={{ lineHeight: '18px' }}
       >
         your output
       </T>
@@ -189,7 +188,6 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
           'tt-se tx-s',
           { 'cr-er': getDataOfTestCase(test, timeLimit, memoryLimit).failed },
         )}
-        style={{ lineHeight: '18px' }}
       >
         error
       </T>

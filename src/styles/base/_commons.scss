@@ -461,3 +461,13 @@
 .ow-ao { overflow: auto; }
 
 .ow-hn { overflow: hidden; }
+
+@media print {
+  .page-break {
+    break-before: page;
+  }
+  
+  .avoid-break {
+    break-inside: avoid;
+  }
+}
