@@ -84,6 +84,7 @@ export const ProblemStatementView = ({
       params: {
         key: problemKey,
         token: jukiApiSocketManager.getToken(),
+        language: userPreferredLanguage,
       },
     });
     const response = cleanRequest<ContentResponseType<{ urlExportedPDF: string }>>(

@@ -126,11 +126,12 @@ export class ApiSocketManager {
             params: {
               key: string,
               token: string,
+              language: Language,
             }
-          }, HTTPMethod.POST>(({ params: { key, token } }) => ({
+          }, HTTPMethod.POST>(({ params: { key, token, language } }) => ({
             url: injectBaseUrl('export/problem/statement-to-pdf'),
             method: HTTPMethod.POST,
-            body: JSON.stringify({ key, token }),
+            body: JSON.stringify({ key, token, language }),
           })),
         },
         contest: {
@@ -139,11 +140,12 @@ export class ApiSocketManager {
               params: {
                 key: string,
                 token: string,
+                language: Language,
               }
-            }, HTTPMethod.POST>(({ params: { key, token } }) => ({
+            }, HTTPMethod.POST>(({ params: { key, token, language } }) => ({
               url: injectBaseUrl('export/contest/problems/statements-to-pdf'),
               method: HTTPMethod.POST,
-              body: JSON.stringify({ key, token }),
+              body: JSON.stringify({ key, token, language }),
             })),
           },
         },
