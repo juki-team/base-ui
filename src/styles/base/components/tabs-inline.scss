@@ -58,7 +58,7 @@
       //padding: var(--pad-xt) 0;
       position: relative;
       
-      > *:not(.selected-tab-tick-back) {
+      > * {
         z-index: 1;
       }
       
