@@ -1,4 +1,4 @@
-import { ContestTab, ProfileTab } from '../types';
+import { ContestTab, ProblemTab, ProfileTab } from '../types';
 
 const injectOrigin = (origin: string, path: string) => {
   return `${origin ? origin : ''}${path}`;
@@ -22,8 +22,8 @@ export class AppRoutes {
         list() {
           return injectOrigin(origin, `/problems`);
         },
-        view({ key }: { key: string }) {
-          return injectOrigin(origin, `/problems/${key}`);
+        view({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
+          return injectOrigin(origin, `/problems/${key}?tab=${tab}`);
         },
         edit({ key }: { key: string }) {
           return injectOrigin(origin, `/problems/${key}/edit`);
