@@ -92,14 +92,13 @@ export const ProblemStatementView = ({
     
     if (response.success) {
       if (!response.content.urlExportedPDF) {
-        addWarningNotification(
+        return addWarningNotification(
           <div className="jk-col stretch" style={{ width: '100%' }}>
             <span className="tt-se">
               <T>{response.message}</T>
             </span>
           </div>,
         );
-        return;
       }
       await downloadUrlAsFile('https://' + response.content.urlExportedPDF, `${judgeName} - ${problemName}`);
     } else {

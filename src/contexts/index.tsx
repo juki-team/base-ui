@@ -9,3 +9,5 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
     <LazyJukiProviders {...props} />
   </Suspense>
 );
+
+export * from './JukiI18nProvider';
