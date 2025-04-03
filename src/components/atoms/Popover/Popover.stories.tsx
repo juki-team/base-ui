@@ -11,10 +11,16 @@ export default meta;
 
 type Story = StoryObj<typeof Popover>;
 
+const test = new Array(1000);
+test.fill(1);
+
 const content = (
   <div className="jk-pg-sm elevation-1">
     <h3>title</h3>
     <div>Lorem ipsum</div>
+    {test.map((_, i) => (
+      <div>{1}</div>
+    ))}
   </div>
 );
 

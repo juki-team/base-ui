@@ -252,6 +252,7 @@ export function Popover({
                   exit="exit"
                   variants={getPlacementVariants(placement)}
                   className={popoverClassName}
+                  style={{ maxHeight: '90vh', overflowY: 'auto' }}
                 >
                   {renderReactNodeOrFunctionP1(content, { isOpen, onClose: () => setIsOpen(false) })}
                 </motion.div>
