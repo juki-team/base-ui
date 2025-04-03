@@ -23,12 +23,14 @@
   }
   
   .jk-modal-content {
-    margin: var(--pad-md);
+    //margin: var(--pad-md);
     background-color: var(--t-color-background);
     z-index: 1;
     position: relative;
     max-width: var(--modal-width-lg);
     min-width: var(--modal-width-sm);
+    max-height: calc(var(--vh, 1vh) * 90);
+    overflow: auto;
     
     .jk-modal-close-button {
       z-index: 2;
