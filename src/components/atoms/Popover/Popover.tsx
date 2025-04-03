@@ -5,6 +5,7 @@ import {
   FloatingPortal,
   offset,
   Placement,
+  safePolygon,
   shift,
   useClick,
   useDismiss,
@@ -68,6 +69,7 @@ export function usePopover({
   });
   const hover = useHover(context, {
     enabled: controlledOpen === undefined && isTrigger(triggerOn, 'hover'),
+    handleClose: safePolygon(),
   });
   const dismiss = useDismiss(context);
   const role = useRole(context);

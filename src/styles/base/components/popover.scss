@@ -154,3 +154,7 @@
     content: "";
   }
 }
+
+div[data-floating-ui-focusable]:focus-visible {
+  outline: none;
+}

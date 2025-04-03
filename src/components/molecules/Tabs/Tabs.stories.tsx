@@ -10,13 +10,13 @@ import { MockJkUserTable } from '../../organisms/DataViewer/JkUserTableTest/Mock
 import { TabsInlineBody } from './TabsInline';
 import { TabsInlineProps, TabsType } from './types';
 
-const meta: Meta<typeof TabsInline> = {
-  component: TabsInline,
+const meta: Meta<typeof TabsInline<string>> = {
+  component: TabsInline<string>,
 };
 
 export default meta;
 
-type Story = StoryObj<typeof TabsInline>;
+type Story = StoryObj<typeof TabsInline<string>>;
 
 configureActions({
   depth: 100,
@@ -24,27 +24,27 @@ configureActions({
   limit: 20,
 });
 
-const Component = <T, >(args: TabsInlineProps<T>) => {
-  const tabs = {
-    1: {
+const Component = (args: TabsInlineProps<string>) => {
+  const tabs: TabsType<string> = {
+    '1': {
       key: '1',
       header: <div>1</div>,
       body: <div className="jk-row gap">1</div>,
     },
-    2: {
+    '2': {
       key: '2',
       header: <div>2</div>,
       body: <div className="jk-row gap">2</div>,
     },
-    3: {
+    '3': {
       key: '3',
       header: (
         <div className="ws-np">content 3 content 3 content 3 content 3</div>
       ),
       body: <div> CONTENT 3 CONTENT 3</div>,
     },
-    4: { key: '4', header: <div className="ws-np">tab 4 4 4 4 4 </div> },
-    5: { key: '5', header: <div className="ws-np">tabtabtabtab</div> },
+    '4': { key: '4', header: <div className="ws-np">tab 4 4 4 4 4 </div> },
+    '5': { key: '5', header: <div className="ws-np">tabtabtabtab</div> },
   };
   
   const outputTabs: TabsType<string> = {
@@ -108,7 +108,7 @@ const Component = <T, >(args: TabsInlineProps<T>) => {
             <Button className="ws-np">button button 2</Button>,
           ]}
           onChange={() => null}
-          selectedTabKey={'1'}
+          selectedTabKey="1"
           tickStyle="background"
         />
       </div>
