@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { ReactNodeOrFunctionP1Type } from '../../../types';
+import { ExpandLessIcon } from '../icons';
 
 export interface CollapseProps {
   showContent?: boolean,
@@ -12,6 +13,7 @@ export interface CollapseProps {
     // isFullyClosed: boolean,
     // isFullyOpened: boolean,
     icon: ReactNode,
+    Icon: typeof ExpandLessIcon,
   }>,
   children: ReactNodeOrFunctionP1Type<{
     isOpen: boolean,

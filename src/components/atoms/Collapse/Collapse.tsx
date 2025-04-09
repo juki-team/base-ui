@@ -45,28 +45,29 @@ export const Collapse = (props: CollapseProps) => {
         // isFullyClosed: currentIsFullyClosed,
         // isFullyOpened: currentIsFullyOpened,
         icon: isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />,
+        Icon: isOpen ? ExpandLessIcon : ExpandMoreIcon,
       })}
-        <AnimatePresence initial={false}>
-          {isOpen && (
-            <motion.div
-              key="content"
-              initial={direction === 'row' ? { width: 0 } : { height: 0 }}
-              animate={direction === 'row' ? { width: 'auto' } : { height: 'auto' }}
-              exit={direction === 'row' ? { width: 0 } : { height: 0 }}
-              style={{ overflow: 'hidden' }}
-              className={className}
-            >
-              {renderReactNodeOrFunctionP1(children, {
-                isOpen,
-                close,
-                open,
-                toggle,
-                // isFullyClosed: currentIsFullyClosed,
-                // isFullyOpened: currentIsFullyOpened,
-              })}
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <motion.div
+            key="content"
+            initial={direction === 'row' ? { width: 0 } : { height: 0 }}
+            animate={direction === 'row' ? { width: 'auto' } : { height: 'auto' }}
+            exit={direction === 'row' ? { width: 0 } : { height: 0 }}
+            style={{ overflow: 'hidden' }}
+            className={className}
+          >
+            {renderReactNodeOrFunctionP1(children, {
+              isOpen,
+              close,
+              open,
+              toggle,
+              // isFullyClosed: currentIsFullyClosed,
+              // isFullyOpened: currentIsFullyOpened,
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };
