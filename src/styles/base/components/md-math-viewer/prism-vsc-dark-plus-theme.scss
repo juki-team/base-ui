@@ -269,12 +269,12 @@
   */
   pre[class*="language-"] > code[class*="language-"] {
     position: relative;
-    z-index: 1;
+    //z-index: 1;
   }
   
   .line-highlight.line-highlight {
     background: #F7EBC6;
     box-shadow: inset 5px 0 0 #F7D87C;
-    z-index: 0;
+    //z-index: 0;
   }
 }
