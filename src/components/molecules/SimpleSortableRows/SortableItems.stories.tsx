@@ -1,8 +1,8 @@
 import { configureActions } from '@storybook/addon-actions';
-import React, { forwardRef, useState } from 'react';
+import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { SortableItems as SortableItemsComponent } from './SortableItems';
-import { SortableItem, SortableItemComponentProps } from './types';
+import { SortableItem, SortableItemComponent } from './types';
 
 export default {
   component: SortableItemsComponent,
@@ -23,37 +23,45 @@ configureActions({
 //   );
 // };
 
-const Component = forwardRef<HTMLDivElement, SortableItemComponentProps<string, any>>(
-  ({ style, attributes, listeners, item, props, isOver, isDragging }, ref) => {
-    console.log({ item, attributes, listeners });
-    return (
-      <div
-        // className="jk-row left gap bc-we"
-        // style={{ opacity: isDragging && !isPreview ? 0 : 1 }}
-        ref={ref}
-        style={style}
-        {...attributes}
-        // {...listeners}
-        // style={{ position: undefined}}
-      >
-        hola
-        {item.key}
-        {isOver && 'isOver'}
-        {isDragging && 'isDragging'}
-        {/*{index}*/}
-        <div {...listeners} style={{ cursor: isDragging ? 'grabbing' : 'grab' }}>
-          gra
-        </div>
-        {/*{dragComponent}*/}
-        {/*  {value}*/}
-        {/*  <div className={classNames({ 'bc-er': isDragging })}>isD</div>*/}
-        {/*  <div className={classNames({ 'bc-er': isPreview })}>isP</div>*/}
-        {/*  <div className={classNames({ 'bc-er': isOver })}>isO</div>*/}
-        {/*{rowKey}*/}
-        {/*{JSON.stringify(props)}*/}
+const Component: SortableItemComponent<string, { otherValue: string }> = ({
+                                                                            style,
+                                                                            attributes,
+                                                                            listeners,
+                                                                            item,
+                                                                            props,
+                                                                            isOver,
+                                                                            isDragging,
+                                                                            setNodeRef,
+                                                                          }) => {
+  console.log({ item, attributes, listeners });
+  return (
+    <div
+      // className="jk-row left gap bc-we"
+      // style={{ opacity: isDragging && !isPreview ? 0 : 1 }}
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      // {...listeners}
+      // style={{ position: undefined}}
+    >
+      hola
+      {item.key}
+      {isOver && 'isOver'}
+      {isDragging && 'isDragging'}
+      {/*{index}*/}
+      <div {...listeners} style={{ cursor: isDragging ? 'grabbing' : 'grab' }}>
+        gra
       </div>
-    );
-  });
+      {/*{dragComponent}*/}
+      {/*  {value}*/}
+      {/*  <div className={classNames({ 'bc-er': isDragging })}>isD</div>*/}
+      {/*  <div className={classNames({ 'bc-er': isPreview })}>isP</div>*/}
+      {/*  <div className={classNames({ 'bc-er': isOver })}>isO</div>*/}
+      {/*{rowKey}*/}
+      {/*{JSON.stringify(props)}*/}
+    </div>
+  );
+};
 
 export const SimpleSortableRows = () => {
   const [ items, setItems ] = useState<SortableItem<string>[]>([

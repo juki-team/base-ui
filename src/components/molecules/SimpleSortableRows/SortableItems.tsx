@@ -32,7 +32,7 @@ function SortableItem({ id, Cmp, item, props }: {
   
   return (
     <Cmp
-      ref={setNodeRef}
+      setNodeRef={setNodeRef}
       style={style}
       attributes={attributes}
       listeners={listeners}

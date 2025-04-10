@@ -54,17 +54,19 @@ export interface SortableItemComponentProps<T, U> {
   listeners: SyntheticListenerMap | undefined,
   item: SortableItem<T>,
   props: U,
-  ref: (node: (HTMLElement | null)) => void,
+  setNodeRef: (node: (HTMLElement | null)) => void,
   isDragging: boolean,
   isOver: boolean,
 }
+
+export type SortableItemComponent<T, U> = FC<SortableItemComponentProps<T, U>>;
 
 export interface SortableItemsProps<T, U = undefined> {
   items: SortableItem<T>[],
   onChange?: Dispatch<SetStateAction<SortableItem<T>[]>>,
   // setItems: Dispatch<SetStateAction<SortableItem<T>[]>>,
   className?: string,
-  Cmp: FC<SortableItemComponentProps<T, U>>,
+  Cmp: SortableItemComponent<T, U>,
   props: U,
   onDragStart?: (rowKey: string | null) => void,
   onDragEnd?: (rowKey: string | null) => void,
