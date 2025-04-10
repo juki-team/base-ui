@@ -162,6 +162,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       }
     }
     
+    &.warning {
+      &:hover, &:focus, &:active {
+        --input-border-color: var(--t-color-warning-dark);
+      }
+      
+      &:active, &:focus {
+        --input-background-color: var(--t-color-warning-light);
+      }
+    }
+    
     &.success {
       &:hover, &:focus, &:active {
         --input-border-color: var(--t-color-success-dark);
@@ -183,6 +193,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   &.error {
     --input-border-color: var(--t-color-error-light);
+  }
+  
+  &.warning {
+    --input-border-color: var(--t-color-warning-light);
   }
   
   &.success {
