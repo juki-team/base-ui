@@ -46,7 +46,7 @@ function SortableItem({ id, Cmp, item, props }: {
 
 export const SortableItems = <T, U = undefined>(properties: SortableItemsProps<T, U>) => {
   
-  const { items, onChange, props, Cmp, horizontal } = properties;
+  const { items, setItems, onChange, props, Cmp, horizontal } = properties;
   
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -58,10 +58,11 @@ export const SortableItems = <T, U = undefined>(properties: SortableItemsProps<T
       collisionDetection={closestCenter}
       onDragEnd={({ active, over }) => {
         if (over && active.id !== over.id) {
-          console.log({ over, active });
           const oldIndex = items.findIndex(a => a.key === active.id);
           const newIndex = items.findIndex(a => a.key === over.id);
-          onChange?.(arrayMove(items, oldIndex, newIndex), active.id as string);
+          const newItems = arrayMove(items, oldIndex, newIndex);
+          setItems?.(newItems);
+          onChange?.(newItems, active.id as string);
         }
       }}
     >
