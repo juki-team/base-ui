@@ -1,4 +1,4 @@
-import type { ReactElement, ReactNode } from 'react';
+import type { KeyboardEventHandler, ReactElement, ReactNode } from 'react';
 import type { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import type { DateDisplayType, ReactNodeOrFunctionType } from '../../../types';
 import type { DatePickerDateFunType } from '../../molecules/types';
@@ -31,6 +31,7 @@ export interface InputCommonsProps<T> {
   icon?: ReactNode,
   labelPlacement?: 'top-border' | 'top' | 'left',
   required?: boolean,
+  onKeyDown?: KeyboardEventHandler<HTMLInputElement>,
 }
 
 // export interface InputFileProps<T> extends InputCommonsProps<T> {

@@ -6,6 +6,7 @@ import { InputProps } from './types';
 const BasicInputComponent = <T extends string | number | FileList, >(_props: InputProps<T> & {
   inputId: string
 }, ref: Ref<HTMLInputElement>) => {
+  
   const {
     className,
     onChange,
