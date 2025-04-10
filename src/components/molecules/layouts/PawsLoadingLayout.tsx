@@ -68,7 +68,7 @@ const PathLoadingPaws = memo(function A(props: PropsWithChildren<PathLoadingPaws
 const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PropsWithChildren<PawsLoadingLayoutProps>) {
   
   // const { sec = 0.1, size = 36, trace = 14 } = props;
-  const { sec = 0.15, size = 18, trace = 6, children: childrenCmp } = props; // 1
+  const { sec = 0.15, size = 18, trace = 6, children: childrenCmp, style } = props; // 1
   
   const id = useId().split(':').join('');
   const { width = 0, height = 0, ref } = useResizeDetector();
@@ -102,7 +102,7 @@ const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PropsWithChi
     );
   }
   return (
-    <div className="jk-loader-layout" ref={ref}>
+    <div className="jk-loader-layout" ref={ref} style={style}>
       <style>
         {`
   @keyframes ${animationName} {

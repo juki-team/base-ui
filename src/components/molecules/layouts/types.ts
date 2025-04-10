@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import { CSSProperties, PropsWithChildren, ReactNode } from 'react';
 import { Href } from '../../../contexts/JukiRouterProvider/types';
 import { ReactNodeOrFunctionP1Type } from '../../../types';
 import { TabsType } from '../Tabs/types';
@@ -10,10 +10,11 @@ type Full<T> = {
 export interface PawsLoadingLayoutProps {
   sec?: number,
   size?: number,
-  trace?: number
+  trace?: number,
+  style?: CSSProperties,
 }
 
-export interface PathLoadingPawsProps extends Full<PawsLoadingLayoutProps> {
+export interface PathLoadingPawsProps extends Full<Omit<PawsLoadingLayoutProps, 'style'>> {
   step: number,
   totalSteps: number,
   N: number,
