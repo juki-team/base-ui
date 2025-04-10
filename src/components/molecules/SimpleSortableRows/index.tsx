@@ -20,3 +20,5 @@ export const SortableItems = <T, U = undefined>(props: SimpleSortableRowsProps<T
     <LazySortableItems {...props} />
   </Suspense>
 );
+
+export * from './types';
