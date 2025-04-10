@@ -63,7 +63,7 @@ export type SortableItemComponent<T, U> = FC<SortableItemComponentProps<T, U>>;
 
 export interface SortableItemsProps<T, U = undefined> {
   items: SortableItem<T>[],
-  onChange?: (items: SortableItem<T>[]) => (void | Promise<void>),
+  onChange?: (items: SortableItem<T>[], activeItemKey: string) => (void | Promise<void>),
   // setItems: Dispatch<SetStateAction<SortableItem<T>[]>>,
   className?: string,
   Cmp: SortableItemComponent<T, U>,

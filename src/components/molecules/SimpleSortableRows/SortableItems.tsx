@@ -58,9 +58,10 @@ export const SortableItems = <T, U = undefined>(properties: SortableItemsProps<T
       collisionDetection={closestCenter}
       onDragEnd={({ active, over }) => {
         if (over && active.id !== over.id) {
+          console.log({ over, active });
           const oldIndex = items.findIndex(a => a.key === active.id);
           const newIndex = items.findIndex(a => a.key === over.id);
-          onChange?.(arrayMove(items, oldIndex, newIndex));
+          onChange?.(arrayMove(items, oldIndex, newIndex), active.id as string);
         }
       }}
     >

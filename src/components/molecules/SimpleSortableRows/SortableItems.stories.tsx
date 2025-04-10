@@ -34,7 +34,7 @@ const Component: SortableItemComponent<string, { otherValue: string }> = ({
                                                                             setNodeRef,
                                                                           }) => {
   
-  console.log({ item, attributes, listeners });
+  // console.log({ item, attributes, listeners });
   
   const test = new Array(Math.round(+(item.key) * 5)).fill(0).map((_, i) => i);
   
