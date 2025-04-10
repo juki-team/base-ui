@@ -3,11 +3,20 @@ import { T } from '../../atoms';
 import { JukiLoadingLayout } from '../layouts';
 import { SimpleSortableRowsProps } from './types';
 
-const LazySimpleSortableRows = lazy(() => import('./SimpleSortableRows').then(module => ({ default: module.SimpleSortableRows })));
+const LazySimpleSortableRowsOld = lazy(() => import('./SimpleSortableRowsOld').then(module => ({ default: module.SimpleSortableRows })));
 
-export const SimpleSortableRows = <T, U = undefined>(props: SimpleSortableRowsProps<T, U>) => (
+export const SimpleSortableRowsOld = <T, U = undefined>(props: SimpleSortableRowsProps<T, U>) => (
   <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
     {/*@ts-ignore*/}
-    <LazySimpleSortableRows {...props} />
+    <LazySimpleSortableRowsOld {...props} />
+  </Suspense>
+);
+
+const LazySortableItems = lazy(() => import('./SortableItems').then(module => ({ default: module.SortableItems })));
+
+export const SortableItems = <T, U = undefined>(props: SimpleSortableRowsProps<T, U>) => (
+  <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
+    {/*@ts-ignore*/}
+    <LazySortableItems {...props} />
   </Suspense>
 );

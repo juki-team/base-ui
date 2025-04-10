@@ -8,7 +8,7 @@ import { getEmptyImage, HTML5Backend } from 'react-dnd-html5-backend';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
 import { DragIndicatorIcon } from '../../atoms';
-import { DragItem, RowComponentProps, RowProps, RowSortableItem, SimpleSortableRowsProps } from './types';
+import { DragItem, RowComponentProps, RowProps, SimpleSortableRowsProps, SortableItem } from './types';
 
 const layerStyles: CSSProperties = {
   position: 'fixed',
@@ -177,7 +177,7 @@ const Row = <T, U, >({
     item: () => {
       return { key: rowKey, index, value, props };
     },
-    collect: (monitor: DragSourceMonitor<RowSortableItem<T>>) => ({
+    collect: (monitor: DragSourceMonitor<SortableItem<T>>) => ({
       isDragging: monitor.isDragging(),
       handlerId: monitor.getHandlerId(),
       item: monitor.getItem(),
@@ -230,11 +230,11 @@ export const SimpleSortableRows = <T, U = undefined>(properties: SimpleSortableR
   const { rows, setRows, className, Cmp, props, onDragEnd, onDragStart } = properties;
   
   const moveRow = useCallback((dragIndex: number, hoverIndex: number) => {
-    setRows((prevCards: RowSortableItem<T>[]) =>
+    setRows((prevCards: SortableItem<T>[]) =>
       update(prevCards, {
         $splice: [
           [ dragIndex, 1 ],
-          [ hoverIndex, 0, prevCards[dragIndex] as RowSortableItem<T> ],
+          [ hoverIndex, 0, prevCards[dragIndex] as SortableItem<T> ],
         ],
       }),
     );

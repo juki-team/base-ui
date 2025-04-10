@@ -1,4 +1,6 @@
-import { Dispatch, FC, MutableRefObject, ReactNode, RefObject, SetStateAction } from 'react';
+import { DraggableAttributes } from '@dnd-kit/core';
+import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
+import { CSSProperties, Dispatch, FC, MutableRefObject, ReactNode, RefObject, SetStateAction } from 'react';
 
 export interface RowComponentProps<T, U> {
   rowKey: string,
@@ -13,7 +15,7 @@ export interface RowComponentProps<T, U> {
   isPreview: boolean,
 }
 
-export interface RowSortableItem<T> {
+export interface SortableItem<T> {
   key: string;
   value: T,
 }
@@ -37,11 +39,34 @@ export interface RowProps<T, U> {
 }
 
 export interface SimpleSortableRowsProps<T, U = undefined> {
-  rows: RowSortableItem<T>[],
-  setRows: Dispatch<SetStateAction<RowSortableItem<T>[]>>,
+  rows: SortableItem<T>[],
+  setRows: Dispatch<SetStateAction<SortableItem<T>[]>>,
   className?: string,
   Cmp: FC<RowComponentProps<T, U>>,
   props: U,
   onDragStart?: (rowKey: string | null) => void,
   onDragEnd?: (rowKey: string | null) => void,
+}
+
+export interface SortableItemComponentProps<T, U> {
+  style: CSSProperties,
+  attributes: DraggableAttributes,
+  listeners: SyntheticListenerMap | undefined,
+  item: SortableItem<T>,
+  props: U,
+  ref: (node: (HTMLElement | null)) => void,
+  isDragging: boolean,
+  isOver: boolean,
+}
+
+export interface SortableItemsProps<T, U = undefined> {
+  items: SortableItem<T>[],
+  onChange?: Dispatch<SetStateAction<SortableItem<T>[]>>,
+  // setItems: Dispatch<SetStateAction<SortableItem<T>[]>>,
+  className?: string,
+  Cmp: FC<SortableItemComponentProps<T, U>>,
+  props: U,
+  onDragStart?: (rowKey: string | null) => void,
+  onDragEnd?: (rowKey: string | null) => void,
+  horizontal?: boolean,
 }

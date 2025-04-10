@@ -1,9 +1,9 @@
-import { configureActions } from "@storybook/addon-actions";
-import React, { useState } from "react";
-import { classNames } from "../../../helpers";
-import { MockupJukiProvider } from "../../mockup";
-import { SimpleSortableRows as SimpleSortableRowsComponent } from "./SimpleSortableRows";
-import { RowSortableItem, SimpleSortableRowsProps } from "./types";
+import { configureActions } from '@storybook/addon-actions';
+import React, { useState } from 'react';
+import { classNames } from '../../../helpers';
+import { MockupJukiProvider } from '../../mockup';
+import { SimpleSortableRows as SimpleSortableRowsComponent } from './SimpleSortableRowsOld';
+import { SimpleSortableRowsProps, SortableItem } from './types';
 
 export default {
   component: SimpleSortableRowsComponent,
@@ -27,17 +27,17 @@ configureActions({
 const Component: SimpleSortableRowsProps<
   string,
   { otherValue: string }
->["Cmp"] = ({
-  value,
-  dragComponent,
-  dragComponentRef,
-  isDragging,
-  isPreview,
-  index,
-  isOver,
-  rowKey,
-  props,
-}) => {
+>['Cmp'] = ({
+              value,
+              dragComponent,
+              dragComponentRef,
+              isDragging,
+              isPreview,
+              index,
+              isOver,
+              rowKey,
+              props,
+            }) => {
   return (
     <div
       className="jk-row left gap bc-we"
@@ -47,53 +47,53 @@ const Component: SimpleSortableRowsProps<
       {index}
       {dragComponent}
       {value}
-      <div className={classNames({ "bc-er": isDragging })}>isD</div>
-      <div className={classNames({ "bc-er": isPreview })}>isP</div>
-      <div className={classNames({ "bc-er": isOver })}>isO</div>
+      <div className={classNames({ 'bc-er': isDragging })}>isD</div>
+      <div className={classNames({ 'bc-er': isPreview })}>isP</div>
+      <div className={classNames({ 'bc-er': isOver })}>isO</div>
       {rowKey}
       {JSON.stringify(props)}
     </div>
   );
 };
 export const SimpleSortableRows = () => {
-  const [rows, setRows] = useState<RowSortableItem<string>[]>([
-    { key: "1", value: "111" },
+  const [ rows, setRows ] = useState<SortableItem<string>[]>([
+    { key: '1', value: '111' },
     {
-      key: "2",
-      value: "222",
+      key: '2',
+      value: '222',
     },
     {
-      key: "3",
-
-      value: "333",
+      key: '3',
+      
+      value: '333',
     },
     {
-      key: "3.5",
-      value: "444",
+      key: '3.5',
+      value: '444',
     },
-    { key: "4", value: "555" },
+    { key: '4', value: '555' },
     {
-      key: "5",
-
-      value: "666",
+      key: '5',
+      
+      value: '666',
     },
-    { key: "6", value: "777" },
-    { key: "7", value: "888" },
+    { key: '6', value: '777' },
+    { key: '7', value: '888' },
   ]);
   return (
     <MockupJukiProvider>
-      <div style={{ height: "500px", width: "400px" }}>
+      <div style={{ height: '500px', width: '400px' }}>
         <SimpleSortableRowsComponent<string, { otherValue: string }>
           rows={rows}
           setRows={setRows}
           Cmp={Component}
           // props={undefined}
-          props={{ otherValue: "test" }}
+          props={{ otherValue: 'test' }}
           onDragEnd={(rowKey) => {
-            console.info("onDragEnd", { rowKey });
+            console.info('onDragEnd', { rowKey });
           }}
           onDragStart={(rowKey) => {
-            console.info("onDragStart", { rowKey });
+            console.info('onDragStart', { rowKey });
           }}
         />
       </div>
