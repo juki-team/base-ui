@@ -68,7 +68,7 @@ export interface SortableItemsProps<T, U = undefined> {
   className?: string,
   Cmp: SortableItemComponent<T, U>,
   props: U,
-  onDragStart?: (rowKey: string | null) => void,
-  onDragEnd?: (rowKey: string | null) => void,
+  // onDragStart?: (rowKey: string | null) => void,
+  // onDragEnd?: (rowKey: string | null) => void,
   horizontal?: boolean,
 }

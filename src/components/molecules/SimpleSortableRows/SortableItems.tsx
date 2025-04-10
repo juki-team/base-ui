@@ -7,7 +7,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import React, { CSSProperties, useEffect, useRef, useState } from 'react';
+import React, { CSSProperties } from 'react';
 import { SortableItemsProps } from './types';
 
 function SortableItem({ id, Cmp, item, props }: {
@@ -18,16 +18,7 @@ function SortableItem({ id, Cmp, item, props }: {
 }) {
   
   const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } = useSortable({ id });
-  const [ measuredBox, setMeasuredBox ] = useState({ height: 0, width: 0 });
-  const localRef = useRef<HTMLElement>(null);
-  useEffect(() => {
-    if (isDragging && localRef.current) {
-      // const rect = localRef.current.getBoundingClientRect();
-      // setMeasuredBox({ height: rect.height, width: rect.width });
-    }
-  }, [ isDragging ]);
-  // const transformString = CSS.Transform.toString({ ...transform, scaleX: 1, scaleY: 1 });
-  console.log({ measuredBox, setMeasuredBox, attributes, listeners });
+  
   const style: CSSProperties = {
     transform: CSS.Transform.toString({
       x: transform?.x ?? 0,
@@ -36,23 +27,12 @@ function SortableItem({ id, Cmp, item, props }: {
       scaleY: 1,
     }),
     transition,
-    // padding: '8px',
-    // border: '1px solid #ccc',
-    // marginBottom: '4px',
-    // background: 'white',
-    // position: isDragging ? 'relative' : undefined,
     zIndex: isDragging ? 1 : undefined,
-    // height: isDragging && measuredBox.height ? `${measuredBox.height}px` : undefined,
-    // width: isDragging && measuredBox.width ? `${measuredBox.width}px` : undefined,
   };
   
   return (
     <Cmp
-      setNodeRef={(node) => {
-        setNodeRef(node);
-        localRef.current = node;
-      }}
-      // setNodeRef={setNodeRef}
+      setNodeRef={setNodeRef}
       style={style}
       attributes={attributes}
       listeners={listeners}
@@ -76,7 +56,7 @@ export const SortableItems = <T, U = undefined>(properties: SortableItemsProps<T
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
-      onDragEnd={({ active, over, ...props }) => {
+      onDragEnd={({ active, over }) => {
         if (over && active.id !== over.id) {
           const oldIndex = items.findIndex(a => a.key === active.id);
           const newIndex = items.findIndex(a => a.key === over.id);

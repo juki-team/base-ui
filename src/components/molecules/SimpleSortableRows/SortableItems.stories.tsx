@@ -33,9 +33,11 @@ const Component: SortableItemComponent<string, { otherValue: string }> = ({
                                                                             isDragging,
                                                                             setNodeRef,
                                                                           }) => {
+  
   console.log({ item, attributes, listeners });
   
   const test = new Array(Math.round(+(item.key) * 5)).fill(0).map((_, i) => i);
+  
   return (
     <div
       // className="jk-row left gap bc-we"
