@@ -105,12 +105,12 @@ export const SimpleSortableRows = () => {
           Cmp={Component}
           // props={undefined}
           props={{ otherValue: 'test' }}
-          onDragEnd={(rowKey) => {
-            console.info('onDragEnd', { rowKey });
-          }}
-          onDragStart={(rowKey) => {
-            console.info('onDragStart', { rowKey });
-          }}
+          // onDragEnd={(rowKey) => {
+          //   console.info('onDragEnd', { rowKey });
+          // }}
+          // onDragStart={(rowKey) => {
+          //   console.info('onDragStart', { rowKey });
+          // }}
         />
       </div>
     </MockupJukiProvider>
