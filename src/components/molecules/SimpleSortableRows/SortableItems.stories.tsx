@@ -52,6 +52,7 @@ const Component: SortableItemComponent<string, { otherValue: string }> = ({
       <div {...listeners} style={{ cursor: isDragging ? 'grabbing' : 'grab' }}>
         gra
       </div>
+      {JSON.stringify(style)}
       {/*{dragComponent}*/}
       {/*  {value}*/}
       {/*  <div className={classNames({ 'bc-er': isDragging })}>isD</div>*/}

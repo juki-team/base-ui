@@ -7,7 +7,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { SortableItemsProps } from './types';
 
 function SortableItem({ id, Cmp, item, props }: {
@@ -18,6 +18,14 @@ function SortableItem({ id, Cmp, item, props }: {
 }) {
   
   const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } = useSortable({ id });
+  const [ measuredBox, setMeasuredBox ] = useState({ height: 0, width: 0 });
+  const localRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    if (isDragging && localRef.current) {
+      const rect = localRef.current.getBoundingClientRect();
+      setMeasuredBox({ height: rect.height, width: rect.width });
+    }
+  }, [ isDragging ]);
   
   const style: CSSProperties = {
     transform: CSS.Transform.toString(transform),
@@ -28,11 +36,17 @@ function SortableItem({ id, Cmp, item, props }: {
     background: 'white',
     position: isDragging ? 'relative' : undefined,
     zIndex: isDragging ? 1 : undefined,
+    height: isDragging && measuredBox.height ? `${measuredBox.height}px` : undefined,
+    width: isDragging && measuredBox.width ? `${measuredBox.width}px` : undefined,
   };
   
   return (
     <Cmp
-      setNodeRef={setNodeRef}
+      setNodeRef={(node) => {
+        setNodeRef(node);
+        localRef.current = node;
+      }}
+      // setNodeRef={setNodeRef}
       style={style}
       attributes={attributes}
       listeners={listeners}
@@ -52,14 +66,11 @@ export const SortableItems = <T, U = undefined>(properties: SortableItemsProps<T
     useSensor(PointerSensor),
   );
   
-  console.log({ items });
-  
   return (
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={({ active, over, ...props }) => {
-        console.log({ active, over, props });
         if (over && active.id !== over.id) {
           const oldIndex = items.findIndex(a => a.key === active.id);
           const newIndex = items.findIndex(a => a.key === over.id);
