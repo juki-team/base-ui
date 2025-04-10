@@ -22,22 +22,28 @@ function SortableItem({ id, Cmp, item, props }: {
   const localRef = useRef<HTMLElement>(null);
   useEffect(() => {
     if (isDragging && localRef.current) {
-      const rect = localRef.current.getBoundingClientRect();
-      setMeasuredBox({ height: rect.height, width: rect.width });
+      // const rect = localRef.current.getBoundingClientRect();
+      // setMeasuredBox({ height: rect.height, width: rect.width });
     }
   }, [ isDragging ]);
-  
+  // const transformString = CSS.Transform.toString({ ...transform, scaleX: 1, scaleY: 1 });
+  console.log({ measuredBox, setMeasuredBox, attributes, listeners });
   const style: CSSProperties = {
-    transform: CSS.Transform.toString(transform),
+    transform: CSS.Transform.toString({
+      x: transform?.x ?? 0,
+      y: transform?.y ?? 0,
+      scaleX: 1,
+      scaleY: 1,
+    }),
     transition,
-    padding: '8px',
-    border: '1px solid #ccc',
-    marginBottom: '4px',
-    background: 'white',
-    position: isDragging ? 'relative' : undefined,
+    // padding: '8px',
+    // border: '1px solid #ccc',
+    // marginBottom: '4px',
+    // background: 'white',
+    // position: isDragging ? 'relative' : undefined,
     zIndex: isDragging ? 1 : undefined,
-    height: isDragging && measuredBox.height ? `${measuredBox.height}px` : undefined,
-    width: isDragging && measuredBox.width ? `${measuredBox.width}px` : undefined,
+    // height: isDragging && measuredBox.height ? `${measuredBox.height}px` : undefined,
+    // width: isDragging && measuredBox.width ? `${measuredBox.width}px` : undefined,
   };
   
   return (

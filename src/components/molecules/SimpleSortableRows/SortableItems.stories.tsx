@@ -34,18 +34,23 @@ const Component: SortableItemComponent<string, { otherValue: string }> = ({
                                                                             setNodeRef,
                                                                           }) => {
   console.log({ item, attributes, listeners });
+  
+  const test = new Array(Math.round(+(item.key) * 5)).fill(0).map((_, i) => i);
   return (
     <div
       // className="jk-row left gap bc-we"
       // style={{ opacity: isDragging && !isPreview ? 0 : 1 }}
       ref={setNodeRef}
-      style={style}
+      style={{ ...style, border: '1px solid black' }}
       {...attributes}
       // {...listeners}
       // style={{ position: undefined}}
     >
       hola
       {item.key}
+      {test.map((_, i) => (
+        <div>{i}</div>
+      ))}
       {isOver && 'isOver'}
       {isDragging && 'isDragging'}
       {/*{index}*/}
@@ -91,7 +96,7 @@ export const SimpleSortableRows = () => {
   ]);
   return (
     <MockupJukiProvider>
-      <div style={{ height: '500px', width: '400px' }}>
+      <div style={{ height: '500px', width: '400px', overflow: 'auto' }}>
         <SortableItemsComponent<string, { otherValue: string }>
           items={items}
           onChange={setItems}
