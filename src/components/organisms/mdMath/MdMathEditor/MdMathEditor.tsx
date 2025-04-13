@@ -11,6 +11,7 @@ import { NotificationType } from '../../Notifications/types';
 import { SAMPLE_MD_CONTENT } from '../constants';
 import { MdFloatToolbar } from '../MdFloatToolbar';
 import { MdMathViewer } from '../MdMathViewer';
+import { MemoMdMathViewer } from '../MdMathViewer/MdMathViewer';
 import { MdMathEditorProps } from './types';
 
 export interface InformationButtonProps {
@@ -154,7 +155,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
     <div ref={layoutEditorRef} className={classNames('jk-md-math-editor-layout jk-border-radius-inline', { editing })}>
       {editing ? (
         <>
-          <div className="content-bar-options jk-row space-between bc-hl jk-br-ie">
+          <div className="content-bar-options jk-row space-between bc-hl jk-br-ie jk-pg-x-sm sticky-top">
             <div className={classNames('jk-row gap left', { gap: !withLabels })}>
               {informationButton && <InformationButton withLabel={withLabels} />}
               {uploadImageButton && (
@@ -233,7 +234,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
                   }}
                 />
               </div>
-              <div className="preview"><MdMathViewer className="jk-br-ie br-hl" source={mdSource} /></div>
+              <div className="preview"><MemoMdMathViewer className="jk-br-ie br-hl" source={mdSource} /></div>
             </SplitPane>
           </div>
         </>

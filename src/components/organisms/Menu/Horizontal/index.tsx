@@ -74,7 +74,7 @@ export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) =>
   
   return (
     <div className={classNames('jk-horizontal-menu-layout-container', className)}>
-      <header className="jk-menu jk-top-horizontal-menu">
+      <header className="jk-menu jk-top-horizontal-menu sticky-top">
         {!withBottomMobileNav && (
           <section className="jk-row nowrap jk-menu-content">
             <div className="jk-menu-left-section jk-row stretch left nowrap">

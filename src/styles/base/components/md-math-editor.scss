@@ -14,10 +14,6 @@
   }
   
   .content-bar-options {
-    //display: flex;
-    //border-bottom: 1px solid var(--t-color-gray-4);
-    //justify-content: space-between;
-    padding: calc(var(--gap) / 2);
     
     > div {
       text-transform: capitalize;
@@ -31,7 +27,6 @@
         
         > span {
           display: block;
-          //padding: 4px;
         }
         
         &.box-disabled {
