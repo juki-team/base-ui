@@ -2,14 +2,13 @@ import { MenuViewMode, ProfileSetting } from '@juki-team/commons';
 import React, { ReactNode, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiUI, useRouterStore, useUserStore } from '../../../hooks';
-import { NotUndefined } from '../../../types';
-import { Breadcrumbs } from '../Breadcrumbs';
-import { TabsInline } from '../Tabs';
-import { TabsInlineBody } from '../Tabs/TabsInline';
-import { TwoContentSection } from '../TwoContentSection';
-import { TwoContentLayoutProps } from './types';
+import { NotUndefined, TwoContentCardsLayoutProps } from '../../../types';
+import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
+import { TabsInline } from '../Tabs/TabsInline';
+import { TabsInlineBody } from '../Tabs/TabsInlineBody';
+import { TwoContentSection } from '../TwoContentSection/TwoContentSection';
 
-export const TwoContentCardsLayout = <T, >(props: TwoContentLayoutProps<T>) => {
+export const TwoContentCardsLayout = <T, >(props: TwoContentCardsLayoutProps<T>) => {
   
   const {
     breadcrumbs: initialBreadcrumbs,

@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import { copy } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
-import { T } from '../T';
+import { T } from '../T/T';
 import { CopyToClipboardProps } from './types';
 
 export const CopyToClipboard = ({ children, text }: PropsWithChildren<CopyToClipboardProps>) => {

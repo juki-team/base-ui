@@ -2,11 +2,11 @@ import React, { ReactNode, useCallback, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiUI } from '../../../hooks';
 import { NotUndefined, TabsType } from '../../../types';
-import { Breadcrumbs } from '../Breadcrumbs';
-import { TabsInline } from '../Tabs';
-import { TabsInlineBody } from '../Tabs/TabsInline';
-import { TwoContentSection } from '../TwoContentSection';
-import { JukiLoadingLayout } from './PawsLoadingLayout';
+import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
+import { TabsInline } from '../Tabs/TabsInline';
+import { TabsInlineBody } from '../Tabs/TabsInlineBody';
+import { TwoContentSection } from '../TwoContentSection/TwoContentSection';
+import { JukiLoadingLayout } from './JukiLoadingLayout';
 import { TwoContentLayoutProps } from './types';
 
 export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {

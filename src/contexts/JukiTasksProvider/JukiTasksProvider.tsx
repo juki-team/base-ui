@@ -8,7 +8,7 @@ import {
   WebSocketActionEvent,
 } from '@juki-team/commons';
 import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
-import { T } from '../../components/atoms/T';
+import { T } from '../../components/atoms';
 import { useMutate, useUserStore } from '../../hooks';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { jukiApiSocketManager } from '../../settings';

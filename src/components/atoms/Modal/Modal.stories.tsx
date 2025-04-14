@@ -2,8 +2,8 @@ import { Status } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
-import { Button } from '../Button';
-import { Input } from '../inputs';
+import { Button } from '../Button/Button';
+import { Input } from '../inputs/Input';
 import { Modal } from './Modal';
 import { ModalButtonLoaderEventType, ModalProps } from './types';
 

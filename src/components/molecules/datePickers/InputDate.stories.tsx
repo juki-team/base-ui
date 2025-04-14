@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { DateLiteral } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
-import { InputDate, TimePicker } from './';
+import { InputDate } from './InputDate';
+import { TimePicker } from './TimePicker';
 
 export default {
   component: InputDate,

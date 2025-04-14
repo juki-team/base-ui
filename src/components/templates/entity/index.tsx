@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { T } from '../../atoms';
-import { JukiLoadingLayout } from '../../molecules/layouts';
+import { JukiLoadingLayout } from '../../molecules';
 import { CreateEntityLayoutProps, UpdateEntityLayoutProps } from './types';
 
 const LazyCreateEntityLayout = lazy(() => import('./CreateEntityLayout').then(module => ({ default: module.CreateEntityLayout })));

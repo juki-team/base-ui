@@ -1,4 +1,11 @@
-import { CSSProperties, KeyboardEvent as ReactKeyboardEvent, MouseEvent, ReactNode } from 'react';
+import {
+  ComponentPropsWithRef,
+  CSSProperties,
+  KeyboardEvent as ReactKeyboardEvent,
+  MouseEvent,
+  ReactNode,
+} from 'react';
+import { Button } from './Button';
 
 export type ButtonType = 'primary' | 'secondary' | 'light' | 'text' | 'void'; // 'outline';
 
@@ -24,7 +31,9 @@ export type OnClickButtonEventType = {
   fetcherLayerErrorEvent?: any,
 };
 
-export interface ButtonProps extends ButtonBasicProps {
+export interface ButtonCmpProps extends ButtonBasicProps {
   withIconTransition?: boolean,
   onClick?: (props: OnClickButtonEventType) => void,
 }
+
+export type ButtonProps = ComponentPropsWithRef<typeof Button>;

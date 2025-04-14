@@ -1,8 +1,9 @@
 import React from 'react';
 import { classNames } from '../../../helpers';
-import { Button, DateLiteral, InputDateProps, Popover, T } from '../../atoms';
+import { Button, DateLiteral, Popover, T } from '../../atoms';
 import { PlusIcon } from '../../server';
 import { DatePicker } from './DatePicker';
+import { InputDateProps } from './types';
 
 // Add label
 export const InputDate = (props: InputDateProps) => {

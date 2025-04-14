@@ -1,8 +1,8 @@
 import React from 'react';
 import { classNames } from '../../../helpers';
-import { InputCheckboxProps } from './types';
+import { InputRadioProps } from './types';
 
-export const InputRadio = ({ className, checked, disabled, onChange, label, ...props }: InputCheckboxProps) => {
+export const InputRadio = ({ className, checked, disabled, onChange, label, ...props }: InputRadioProps) => {
   
   const isDisabled = disabled || !onChange;
   

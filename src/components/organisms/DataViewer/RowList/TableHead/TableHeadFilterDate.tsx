@@ -17,7 +17,6 @@ export const TableHeadFilterDate = (props: TableHeadFilterDateProps) => {
   } = props;
   
   const [ value, setValue ] = useState<Date | null>(initialSelectedDate);
-  
   const buttonRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     if (visible) {

@@ -5,7 +5,8 @@ import { useJukiUser, useMutate, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { Button, Modal, T } from '../../atoms';
 import { BasicModalProps } from '../../atoms/types';
-import { ButtonLoader, CropImageType, ImageLoaderCropper } from '../../molecules';
+import { ButtonLoader, ImageLoaderCropper } from '../../molecules';
+import { CropImageType } from '../../molecules/types';
 
 interface ImageProfileModalProps extends BasicModalProps {
   nickname: string,

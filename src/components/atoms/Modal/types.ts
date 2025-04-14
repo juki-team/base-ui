@@ -1,4 +1,4 @@
-import { KeyboardEvent as ReactKeyboardEvent, MouseEvent } from 'react';
+import { KeyboardEvent as ReactKeyboardEvent, MouseEvent, PropsWithChildren } from 'react';
 import { ButtonLoaderOnClickType, LoaderStatusOnClickType, SetLoaderStatusOnClickType } from '../../molecules/types';
 
 export type OnClickModalEventType = {
@@ -15,7 +15,7 @@ export interface BasicModalProps<T extends ModalButtonLoaderEventType = () => vo
   onClose: T,
 }
 
-export type ModalProps<T extends ModalButtonLoaderEventType = () => void> = BasicModalProps<T> & {
+export type ModalProps<T extends ModalButtonLoaderEventType = () => void> = PropsWithChildren<BasicModalProps<T> & {
   className?: string,
   containerClassName?: string,
   closeIcon?: boolean,
@@ -24,4 +24,4 @@ export type ModalProps<T extends ModalButtonLoaderEventType = () => void> = Basi
   closeOnClickOverlay?: boolean,
   setLoaderStatusRef?: (setLoader: SetLoaderStatusOnClickType) => void,
   onLoaderStatusChange?: (status: LoaderStatusOnClickType) => void,
-}
+}>

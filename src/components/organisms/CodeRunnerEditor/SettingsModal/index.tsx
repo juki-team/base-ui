@@ -1,6 +1,6 @@
 import React from 'react';
+import { CODE_EDIT0R_FONT_SIZES, CODE_EDIT0R_TAB_SIZES } from '../../../../constants';
 import { Modal, Select, T } from '../../../atoms';
-import { CODE_EDIT0R_FONT_SIZES, CODE_EDIT0R_TAB_SIZES } from '../../../molecules';
 import { SettingsModalProps } from '../types';
 
 export const SettingsModal = <T, >({ onChange, tabSize, fontSize, ...modalProps }: SettingsModalProps<T>) => {

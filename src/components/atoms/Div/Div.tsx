@@ -1,13 +1,6 @@
-import React, { DetailedHTMLProps, forwardRef, HTMLAttributes, ReactElement, Ref, useEffect, useState } from 'react';
+import React, { forwardRef, ReactElement, Ref, useEffect, useState } from 'react';
 import { classNames } from '../../../helpers';
-
-type DivProps =
-  DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
-  & {
-  onClick?: () => void,
-  transition?: boolean,
-  onKeyDownClick?: boolean | 'Enter'
-};
+import { DivProps } from './types';
 
 const DivComponent = (_props: DivProps, ref: Ref<HTMLDivElement>) => {
   

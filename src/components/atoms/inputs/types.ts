@@ -1,11 +1,11 @@
-import type { KeyboardEventHandler, ReactElement, ReactNode } from 'react';
+import type { ComponentPropsWithRef, KeyboardEventHandler, ReactElement, ReactNode } from 'react';
 import type { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
-import type { DateDisplayType, ReactNodeOrFunctionType } from '../../../types';
-import type { DatePickerDateFunType } from '../../molecules/types';
-import type { ButtonType } from '../Button';
-import type { SelectOption2Type, SelectProps } from '../Select';
-import { T as TCmp } from '../T';
-import { TextAreaProps } from '../TextArea';
+import type { ReactNodeOrFunctionType } from '../../../types';
+import type { ButtonType } from '../Button/types';
+import type { SelectOption2Type, SelectProps } from '../Select/types';
+import { T as TCmp } from '../T/T';
+import { TextAreaProps } from '../TextArea/types';
+import { Input } from './Input';
 
 export interface InputCommonsProps<T> {
   id?: string,
@@ -62,7 +62,9 @@ export interface InputCommonsProps<T> {
 //   step?: never,
 // }
 
-export type InputProps<T> = InputCommonsProps<T>;
+export type CmpInputProps<T> = InputCommonsProps<T>;
+
+export type InputProps<T> = ComponentPropsWithRef<typeof Input<T>>;
 
 export interface InputCheckboxProps {
   name?: string,
@@ -84,33 +86,16 @@ export interface InputToggleProps {
   disabled?: boolean,
 }
 
-export type InputPasswordProps<T> = Omit<InputProps<T>, 'type'>;
+export type InputPasswordProps = Omit<InputProps<string>, 'type'>;
 
 export type InputSelectProps<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> =
   Omit<InputProps<T>, 'type' | 'onChange' | 'value' | 'register'>
   & Omit<SelectProps<T, U, V>, 'selectedOption'> & { selectedOption?: SelectOption2Type<T, U, V>, }
   & { register?: UseFormRegisterReturn & { setValue: UseFormSetValue<any> } };
 
-export type InputCellPhoneNumberProps<T> = Omit<InputProps<T>, 'type'>;
+export type InputCellPhoneNumberProps = Omit<InputProps<string>, 'type'>;
 
 export type InputTextAreaProps = Omit<InputProps<string>, 'type'> & TextAreaProps;
-
-export interface InputDateProps {
-  disabled?: boolean,
-  todayButton?: boolean,
-  date: Date | null,
-  onDatePick: (date: Date, onClose: () => void) => void,
-  onDateClean?: () => void
-  inline?: boolean,
-  type?: DateDisplayType,
-  isDisabled?: DatePickerDateFunType,
-  isSelected?: DatePickerDateFunType,
-  baseDate?: Date,
-  twoLines?: boolean,
-  extend?: boolean,
-  withDayName?: boolean,
-  inputLabel?: (inputDateProps: InputDateProps, onClose: () => void) => ReactNode,
-}
 
 export interface InputSubmitProps {
   name?: string,
@@ -119,4 +104,7 @@ export interface InputSubmitProps {
   type?: ButtonType,
   disabled?: boolean,
   value?: string,
+}
+
+export interface InputRadioProps extends InputCheckboxProps {
 }

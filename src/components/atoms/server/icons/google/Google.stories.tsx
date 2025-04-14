@@ -3,9 +3,11 @@ import React, { FC, useState } from 'react';
 import { ColorResult } from 'react-color';
 import { MockupJukiProvider } from '../../../../mockup';
 import { InputColor } from '../../../../molecules';
-import { Input } from '../../../inputs';
-import { T } from '../../../T';
+import { Input } from '../../../inputs/Input';
+import { T } from '../../../T/T';
+import { LoadingIcon } from '../LoadingIcon';
 import { BasicIconProps } from '../types';
+import { CommentIcon } from './CommentIcon';
 
 import {
   AccountCircleIcon,
@@ -85,7 +87,6 @@ import {
   LightModeIcon,
   LinkIcon,
   ListIcon,
-  LoadingIcon,
   LocationCityIcon,
   LocationOnIcon,
   LockIcon,
@@ -152,7 +153,6 @@ import {
   VoidIcon,
   WarningIcon,
 } from './index';
-import { CommentIcon } from './CommentIcon';
 import { NotificationsActiveIcon } from './NotificationsActiveIcon';
 
 const meta: Meta<typeof AccountCircleIcon> = {

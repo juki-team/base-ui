@@ -2,11 +2,11 @@ import { getTimezone } from 'countries-and-timezones';
 import React, { ReactNode, useId, useMemo, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { countryFlagSvg, countryList } from '../../../modules';
-import { Select } from '../Select';
+import { Select } from '../Select/Select';
 import { BasicInput } from './Input';
 import { InputCellPhoneNumberProps } from './types';
 
-export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps<string>) => {
+export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps) => {
   
   const {
     extend = false,

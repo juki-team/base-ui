@@ -2,8 +2,7 @@ import { motion } from 'motion/react';
 import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useSoundStore } from '../../../hooks';
-import { Duration } from '../../../types';
-import { ButtonProps } from './types';
+import { ButtonCmpProps, Duration } from '../../../types';
 
 const buttonsVariants = (isDisabled: boolean) => ({
   whileHover: isDisabled ? {} : { scale: 1.05, transition: { duration: Duration.FAST } },
@@ -16,7 +15,7 @@ const buttonsVariants = (isDisabled: boolean) => ({
   
 });
 
-const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
+const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => {
   
   const {
     submit = false,
@@ -78,7 +77,6 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
   );
 };
 
-// @ts-ignore
-export const Button = forwardRef(ButtonComponent) as (p: ButtonProps & {
+export const Button = forwardRef(ButtonComponent) as (p: ButtonCmpProps & {
   ref?: Ref<HTMLButtonElement>
 }) => ReactElement;

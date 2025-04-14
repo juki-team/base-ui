@@ -10,13 +10,14 @@ import {
 } from '@juki-team/commons';
 import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { RESIZE_DETECTOR_PROPS } from '../../../constants';
+import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useRunnerServicesWakeUp, useUserStore } from '../../../hooks';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { jukiApiSocketManager } from '../../../settings';
 import { Portal, T } from '../../atoms';
-import { CODE_EDITOR_PROGRAMMING_LANGUAGES, CodeEditor, CodeEditorPropertiesType, SplitPane } from '../../molecules';
+import { CodeEditor, SplitPane } from '../../molecules';
+import { CodeEditorPropertiesType } from '../../molecules/types';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
 import { TestCases } from './TestCases';

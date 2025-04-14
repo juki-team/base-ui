@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { DateDisplayType } from '../../../types';
 
 export interface YearPickerProps {
@@ -49,4 +50,21 @@ export interface DatePickerProps {
   type?: DateDisplayType,
   isDisabled?: DatePickerDateFunType,
   isSelected?: DatePickerDateFunType,
+}
+
+export interface InputDateProps {
+  disabled?: boolean,
+  todayButton?: boolean,
+  date: Date | null,
+  onDatePick: (date: Date, onClose: () => void) => void,
+  onDateClean?: () => void
+  inline?: boolean,
+  type?: DateDisplayType,
+  isDisabled?: DatePickerDateFunType,
+  isSelected?: DatePickerDateFunType,
+  baseDate?: Date,
+  twoLines?: boolean,
+  extend?: boolean,
+  withDayName?: boolean,
+  inputLabel?: (inputDateProps: InputDateProps, onClose: () => void) => ReactNode,
 }

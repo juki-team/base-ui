@@ -1,13 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
-import React, { FC, useState } from "react";
-import {
-  Button,
-  CropImageType,
-  ImageLoaderCropper as ImageLoaderCropperCmp,
-  ImageLoaderCropperProps,
-} from "../../../components";
-import { downloadBlobAsFile, toBlob } from "../../../helpers";
-import { MockupJukiProvider } from "../../mockup";
+import { Meta, StoryObj } from '@storybook/react';
+import React, { FC, useState } from 'react';
+import { Button, ImageLoaderCropper as ImageLoaderCropperCmp } from '../../../components';
+import { CropImageType, ImageLoaderCropperProps } from '../../../components/types';
+import { downloadBlobAsFile, toBlob } from '../../../helpers';
+import { MockupJukiProvider } from '../../mockup';
 // import { COMPONENTS_WRITING_TOOLS } from './constants';
 
 const meta: Meta<typeof ImageLoaderCropperCmp> = {
@@ -19,11 +15,11 @@ export default meta;
 type Story = StoryObj<typeof ImageLoaderCropperCmp>;
 
 const ImageLoaderCropperComponent: FC<ImageLoaderCropperProps> = ({
-  onCropChange,
-  ...props
-}) => {
-  const [cropImage, setCropImage] = useState<CropImageType>();
-
+                                                                    onCropChange,
+                                                                    ...props
+                                                                  }) => {
+  const [ cropImage, setCropImage ] = useState<CropImageType>();
+  
   return (
     <MockupJukiProvider>
       <div className="jk-col gap">
@@ -32,7 +28,7 @@ const ImageLoaderCropperComponent: FC<ImageLoaderCropperProps> = ({
             if (cropImage?.previewCanvasRef.current) {
               const blob = await toBlob(cropImage.previewCanvasRef.current);
               if (blob) {
-                await downloadBlobAsFile(blob, "image");
+                await downloadBlobAsFile(blob, 'image');
               }
             }
           }}
@@ -45,8 +41,8 @@ const ImageLoaderCropperComponent: FC<ImageLoaderCropperProps> = ({
             <canvas
               ref={cropImage.previewCanvasRef}
               style={{
-                border: "1px solid black",
-                objectFit: "contain",
+                border: '1px solid black',
+                objectFit: 'contain',
                 width: cropImage.pixelCrop.width,
                 height: cropImage.pixelCrop.height,
               }}

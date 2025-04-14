@@ -2,7 +2,7 @@ import { CodeEditorTestCasesType, SubmissionRunStatus, SubmissionTestCaseType } 
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { UseResizeDetectorReturn } from 'react-resize-detector';
 import { BasicModalProps } from '../../atoms/Modal/types';
-import { CodeEditorPropertiesType } from '../../index';
+import { CodeEditorPropertiesType } from '../../molecules/types';
 
 export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
   onTestCasesChange?: (testCases: CodeEditorTestCasesType) => CodeEditorTestCasesType,

@@ -7,11 +7,12 @@ import {
   MenuViewMode,
   ObjectIdType,
   ProfileSetting,
+  ProgrammingLanguage,
   Theme,
 } from '@juki-team/commons';
 import { useResizeDetectorProps } from 'react-resize-detector';
 import { UserDataType } from '../contexts/JukiUserProvider';
-import { QueryParamKey } from '../types';
+import { CodeEditorKeyMap, CodeEditorTheme, QueryParamKey } from '../types';
 
 export const DAYS_2 = DAY_NAMES.map(name => name.substring(0, 2));
 
@@ -59,3 +60,10 @@ export const DEFAULT_DATA_VIEWER_PROPS = {
   getFilterQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.FILTER_TABLE,
   getViewModeQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.VIEW_MODE_TABLE,
 };
+
+export const CODE_EDITOR_THEMES = Object.values(CodeEditorTheme);
+export const CODE_EDITOR_KEY_MAPS = Object.values(CodeEditorKeyMap);
+export const CODE_EDIT0R_TAB_SIZES = [ 1, 2, 3, 4, 8 ];
+export const CODE_EDIT0R_FONT_SIZES = [ 8, 10, 12, 14, 16, 18, 20, 22, 24, 28, 30, 32, 34, 36, 38, 40, 42 ];
+
+export const CODE_EDITOR_PROGRAMMING_LANGUAGES = Object.values(ProgrammingLanguage);

@@ -1,13 +1,12 @@
-import React, { PropsWithChildren, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { LastPathType } from '../../../contexts/JukiLastPathProvider/types';
 import { cloneURLSearchParams } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { QueryParamKey } from '../../../types';
-import { LastPathProps } from './types';
+import { LinkLastPathProps, QueryParamKey } from '../../../types';
 
-export const LinkLastPath = <T extends string | number = string, >(props: PropsWithChildren<LastPathProps<T>>) => {
+export const LinkLastPath = <T extends string | number = string, >(props: LinkLastPathProps<T>) => {
   
   const { children, lastPathKey, onDoubleClickRoute, overwriteCompanyKey } = props;
   

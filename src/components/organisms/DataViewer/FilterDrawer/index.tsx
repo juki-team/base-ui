@@ -66,14 +66,9 @@ const RenderFilterTitle = <T, >({
   );
 };
 
-export const FilterDrawer = <T, >({
-                                    headers,
-                                    setHeaders,
-                                    isOpen,
-                                    onClose,
-                                    onFilter,
-                                    onResetFilters,
-                                  }: FilterDrawerProps<T>) => {
+export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
+    
+    const { headers, setHeaders, isOpen, onClose, onFilter, onResetFilters } = props;
     
     const [ initialValues, setInitialValues ] = useState({});
     const [ values, setValues ] = useState<FilterValuesType>({});

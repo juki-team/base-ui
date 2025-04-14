@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { T } from '../../atoms';
-import { JukiLoadingLayout } from '../../molecules/layouts';
+import { JukiLoadingLayout } from '../../molecules';
 import { SubmitViewProps } from './types';
 
 const LazySubmitView = lazy(() => import('./SubmitView').then(module => ({ default: module.SubmitView })));

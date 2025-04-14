@@ -1,7 +1,7 @@
 import React, { forwardRef, ReactElement, Ref, useEffect, useId } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import { classNames } from '../../../helpers';
-import { InputProps } from './types';
+import { CmpInputProps, InputProps } from './types';
 
 const BasicInputComponent = <T extends string | number | FileList, >(_props: InputProps<T> & {
   inputId: string
@@ -68,7 +68,7 @@ export const BasicInput = forwardRef(BasicInputComponent) as <T>(p: InputProps<T
   ref?: Ref<HTMLInputElement>
 }) => ReactElement;
 
-const InputComponent = <T extends string | number | FileList, >(_props: InputProps<T>, ref: Ref<HTMLInputElement>) => {
+const InputComponent = <T extends string | number | FileList, >(_props: CmpInputProps<T>, ref: Ref<HTMLInputElement>) => {
   
   const {
     type = 'text',
@@ -148,7 +148,6 @@ const InputComponent = <T extends string | number | FileList, >(_props: InputPro
 // };
 
 // https://stackoverflow.com/questions/58469229/react-with-typescript-generics-while-using-react-forwardref/58473012
-// @ts-ignore
-export const Input = forwardRef(InputComponent) as <T>(p: InputProps<T> & {
+export const Input = forwardRef(InputComponent) as <T>(p: CmpInputProps<T> & {
   ref?: Ref<HTMLInputElement>
 }) => ReactElement;

@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { T } from '../../atoms';
-import { JukiLoadingLayout } from '../../molecules/layouts';
+import { JukiLoadingLayout } from '../../molecules';
 import { EditProfileModalPros } from './types';
 
 const LazyEditProfileModal = lazy(() => import('./EditProfileModal').then(module => ({ default: module.EditProfileModal })));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popover } from '../../atoms/Popover';
+import { Popover } from '../../atoms';
 import { MultiProgressBarProps } from './types';
 
 export const MultiProgressBar = ({ progress, label }: MultiProgressBarProps) => {

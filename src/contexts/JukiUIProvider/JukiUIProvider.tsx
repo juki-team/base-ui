@@ -1,8 +1,8 @@
 import { MotionConfig } from 'motion/react';
 import React, { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
 import { NotificationProvider } from '../../components';
-import { T } from '../../components/atoms/T';
-import { JukiLoadingLayout } from '../../components/molecules/layouts';
+import { T } from '../../components/atoms';
+import { JukiLoadingLayout } from '../../components/molecules';
 import { SoundProvider } from '../../components/organisms/Notifications/SoundProvider';
 import { LineLoader } from '../../components/server';
 import { classNames } from '../../helpers';

@@ -1,9 +1,10 @@
-import React, { cloneElement, PropsWithChildren, ReactElement } from 'react';
+import React, { cloneElement, ReactElement } from 'react';
 import { useJukiNotification, useRouterStore, useUserStore } from '../../../hooks';
 import { QueryParamKey } from '../../../types';
 import { T } from '../../atoms';
+import { FirstLoginWrapperProps } from './types';
 
-export const FirstLoginWrapper = ({ children }: PropsWithChildren) => {
+export const FirstLoginWrapper = ({ children }: FirstLoginWrapperProps) => {
   const isLogged = useUserStore(state => state.user.isLogged);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
   const { addWarningNotification } = useJukiNotification();

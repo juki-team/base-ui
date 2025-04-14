@@ -1,13 +1,8 @@
-import { Meta, StoryObj } from "@storybook/react";
-import React, { useState } from "react";
-import {
-  Input,
-  InputPassword,
-  InputProps,
-  Select as SelectComponent,
-  TextArea,
-} from "../../atoms";
-import { MockupJukiProvider } from "../../mockup";
+import { Meta, StoryObj } from '@storybook/react';
+import React, { useState } from 'react';
+import { Input, InputPassword, Select as SelectComponent, TextArea } from '../../atoms';
+import { InputProps } from '../../atoms/types';
+import { MockupJukiProvider } from '../../mockup';
 
 const meta: Meta<typeof Input> = {
   component: Input,
@@ -18,11 +13,11 @@ export default meta;
 type Story = StoryObj<typeof Input>;
 
 const Cmp = (props: InputProps<any>) => {
-  const [text, setText] = useState("");
-
+  const [ text, setText ] = useState('');
+  
   return (
     <MockupJukiProvider>
-      <div style={{ width: "90%" }} className="jk-pg-md">
+      <div style={{ width: '90%' }} className="jk-pg-md">
         <div className="jk-form-item">
           <label>
             label input
@@ -91,11 +86,11 @@ const Cmp = (props: InputProps<any>) => {
             Text area input
             <SelectComponent
               options={[
-                { value: "select1", label: "select 1" },
-                { value: "select2", label: "select 2" },
-                { value: "select3", label: "select 3" },
+                { value: 'select1', label: 'select 1' },
+                { value: 'select2', label: 'select 2' },
+                { value: 'select3', label: 'select 3' },
               ]}
-              selectedOption={{ value: "text", label: "text selected" }}
+              selectedOption={{ value: 'text', label: 'text selected' }}
               onChange={() => null}
               extend
               optionsPlacement="top"

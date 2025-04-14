@@ -16,11 +16,11 @@ import {
   FilterSelectAutoOfflineType,
   Popover,
   Select as SelectComponent,
-  SelectOptionType,
   T,
   TextField,
   TextHeadCell,
 } from '../../../';
+import { SelectOptionType } from '../../../atoms/Select/types';
 import { RefreshIcon } from '../../../server';
 import users from './data.json';
 

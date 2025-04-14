@@ -2,9 +2,9 @@ import { PALLETE } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { ColorResult, SketchPicker } from 'react-color';
 import { Button, Input, Popover, T } from '../../atoms';
-import { ColorPickerProps } from './types';
+import { InputColorProps } from './types';
 
-export const InputColor = ({ color, children, onChange, label }: ColorPickerProps) => {
+export const InputColor = ({ color, children, onChange, label }: InputColorProps) => {
   
   const [ newColor, setNewColor ] = useState<ColorResult>(color ? color : {
     hex: '#000000',

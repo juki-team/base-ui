@@ -1,6 +1,7 @@
+import { PropsWithChildren } from 'react';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerOnActionsType } from '../../../types';
 
-export interface DrawerViewProps {
+export interface DrawerViewProps extends PropsWithChildren<{
   position?: 'top' | 'right' | 'bottom' | 'left',
   isOpen: boolean,
   onClose?: (isOpen: boolean) => void,
@@ -8,6 +9,7 @@ export interface DrawerViewProps {
   closeWhenClickOutside?: boolean,
   // closeIcon?: false | ReactNodeOrFunctionType, // no working because true is a ReactNode
   closeIcon?: ReactNodeOrFunctionP1Type<{ isOpen: boolean, close: () => void }>,
+}> {
 }
 
 export type DrawerActionsType = { isOpen: boolean, onOpen: () => void, onClose: () => void, toggle: () => void };

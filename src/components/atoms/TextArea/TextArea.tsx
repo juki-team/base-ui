@@ -1,6 +1,6 @@
 import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
-import { TextAreaProps } from './types';
+import { CmpTextAreaProps } from './types';
 
 export const TextAreaComponent = ({
                                     value,
@@ -11,7 +11,7 @@ export const TextAreaComponent = ({
                                     onBlur,
                                     disabled,
                                     rows,
-                                  }: TextAreaProps, ref: Ref<HTMLTextAreaElement>) => {
+                                  }: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement>) => {
   
   const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
   
@@ -38,6 +38,6 @@ export const TextAreaComponent = ({
   );
 };
 
-export const TextArea = forwardRef(TextAreaComponent) as (p: TextAreaProps & {
+export const TextArea = forwardRef(TextAreaComponent) as (p: CmpTextAreaProps & {
   ref?: Ref<HTMLTextAreaElement>
 }) => ReactElement;

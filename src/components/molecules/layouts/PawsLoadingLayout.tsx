@@ -22,7 +22,7 @@ const Icon = ({ height, width }: { height: number, width: number }) => (
   </svg>
 );
 
-const PathLoadingPaws = memo(function A(props: PropsWithChildren<PathLoadingPawsProps>) {
+const PathLoadingPaws = memo(function A(props: PropsWithChildren<Omit<PathLoadingPawsProps, 'children'>>) {
   
   // const { step, totalSteps, N, H, W, delay, animationName, bottom, sec, size } = props;
   const { totalSteps, N, delay, animationName, bottom, sec, size, trace, children: childrenCmp } = props;
@@ -65,7 +65,7 @@ const PathLoadingPaws = memo(function A(props: PropsWithChildren<PathLoadingPaws
   );
 });
 
-const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PropsWithChildren<PawsLoadingLayoutProps>) {
+export const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PawsLoadingLayoutProps) {
   
   // const { sec = 0.1, size = 36, trace = 14 } = props;
   const { sec = 0.15, size = 18, trace = 6, children: childrenCmp, style } = props; // 1
@@ -121,5 +121,3 @@ const PawsLoadingLayout = memo(function PawsLoadingLayoutCmp(props: PropsWithChi
     </div>
   );
 });
-
-export const JukiLoadingLayout = PawsLoadingLayout;

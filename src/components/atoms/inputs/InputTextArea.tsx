@@ -1,6 +1,6 @@
 import React, { useId } from 'react';
 import { classNames } from '../../../helpers';
-import { TextArea } from '../TextArea';
+import { TextArea } from '../TextArea/TextArea';
 import { InputTextAreaProps } from './types';
 
 export const InputTextArea = (props: InputTextAreaProps) => {

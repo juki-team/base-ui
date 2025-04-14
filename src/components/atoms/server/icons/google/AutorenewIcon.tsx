@@ -1,5 +1,4 @@
 import React from 'react';
-import { classNames } from '../../../../../helpers';
 import { BasicIconProps, RootIconProps } from '../types';
 import { renderBasicIcon } from '../utils';
 
@@ -12,8 +11,4 @@ const Icon = ({ color }: RootIconProps) => (
 
 export const AutorenewIcon = (props: BasicIconProps) => {
   return renderBasicIcon(props, Icon, 'autorenew');
-};
-
-export const LoadingIcon = ({ className, ...props }: BasicIconProps) => {
-  return renderBasicIcon({ ...props, className: classNames('rotating', className) }, Icon);
 };

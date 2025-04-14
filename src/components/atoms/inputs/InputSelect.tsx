@@ -1,8 +1,9 @@
 import React, { ReactNode, useId, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { ReactNodeOrFunctionType } from '../../../types';
-import { Select, SelectProps } from '../Select';
-import { T } from '../T';
+import { Select } from '../Select/Select';
+import { SelectProps } from '../Select/types';
+import { T } from '../T/T';
 import { InputSelectProps } from './types';
 
 export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => {

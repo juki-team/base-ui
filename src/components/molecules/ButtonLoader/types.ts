@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import { ButtonBasicProps, OnClickButtonEventType } from '../../atoms';
+import type { ButtonBasicProps, OnClickButtonEventType } from '../../atoms/types';
 
 export type LoaderStatusOnClickType = Status;
 

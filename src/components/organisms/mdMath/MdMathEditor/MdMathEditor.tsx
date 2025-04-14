@@ -74,7 +74,6 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
     // onPickImageUrl,
   } = props;
   
-  // 0 editor-expanded, 1 editor-right-view-left, 2 editor-top-view-bottom, 3 view-expanded
   const [ view, setView ] = useState<View>(View.EDITOR_VIEWER_HORIZONTAL);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [ mdSource, setMdSource ] = useState(source);

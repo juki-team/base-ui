@@ -7,7 +7,7 @@ import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 import { MockJkContestTable } from '../../organisms/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../organisms/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkUserTable } from '../../organisms/DataViewer/JkUserTableTest/MockJkUserTable';
-import { TabsInlineBody } from './TabsInline';
+import { TabsInlineBody } from './TabsInlineBody';
 import { TabsInlineProps, TabsType } from './types';
 
 const meta: Meta<typeof TabsInline<string>> = {

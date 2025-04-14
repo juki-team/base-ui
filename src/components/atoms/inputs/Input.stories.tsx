@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
-import { InputCellPhoneNumber } from './';
 import { Input } from './Input';
+import { InputCellPhoneNumber } from './InputCellPhoneNumber';
 import { InputPassword } from './InputPassword';
 import { InputSelect } from './InputSelect';
 import { InputTextArea } from './InputTextArea';
@@ -49,7 +49,7 @@ export const Regular: Story = {
           <Input {...args} type="files" />
         </div>
         <div style={{ outline: '1px solid red', padding: 8 }}>
-          <InputPassword {...(args as InputPasswordProps<any>)} />
+          <InputPassword {...(args as InputPasswordProps)} />
         </div>
         <div style={{ outline: '1px solid red', padding: 8 }}>
           <InputSelect
@@ -63,7 +63,7 @@ export const Regular: Story = {
           />
         </div>
         <div style={{ outline: '1px solid red', padding: 8 }}>
-          <InputCellPhoneNumber {...(args as InputCellPhoneNumberProps<any>)} />
+          <InputCellPhoneNumber {...(args as InputCellPhoneNumberProps)} />
         </div>
         <div style={{ outline: '1px solid red', padding: 8 }}>
           <InputTextArea {...(args as InputTextAreaProps)} />

@@ -1,12 +1,12 @@
 import { AnimatePresence, motion } from 'motion/react';
-import React, { memo, PropsWithChildren, useRef } from 'react';
+import React, { memo, useRef } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useKeyPress } from '../../../hooks/custom';
 import { Button, Portal } from '../../atoms';
 import { CloseIcon } from '../../server';
 import { DrawerViewProps } from './types';
 
-export const DrawerView = memo((props: PropsWithChildren<DrawerViewProps>) => {
+export const DrawerView = memo((props: DrawerViewProps) => {
   
   const {
     children,

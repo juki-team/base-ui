@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { LockIcon } from '../server';
-import { T } from '../T';
+import { T } from '../T/T';
 import { Button } from './Button';
 
 // @ts-ignore

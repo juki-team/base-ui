@@ -13,7 +13,6 @@ export const TableHeadFilterText = (props: TableHeadFilterTextProps) => {
   } = props;
   
   const [ value, setValue ] = useState(initialText);
-  
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (visible) {
@@ -31,10 +30,7 @@ export const TableHeadFilterText = (props: TableHeadFilterTextProps) => {
         }
       }}
     >
-      
       <Input onChange={newValue => setValue(newValue)} value={value} extend autoFocus ref={inputRef} />
-      
-      
       <div className="jk-row right gap">
         <Button
           size="tiny"

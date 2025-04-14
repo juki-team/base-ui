@@ -2,7 +2,7 @@ import React, { Children, Fragment, useCallback, useMemo, useRef, useState } fro
 import { useWidthResizer } from '../../../hooks/useWidthResizer';
 import { Popover } from '../../atoms';
 import { NavigateNextIcon } from '../../server';
-import { HomeLink } from '../links';
+import { HomeLink } from '../links/HomeLink';
 import { BreadcrumbsProps } from './types';
 
 export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }: BreadcrumbsProps) => {

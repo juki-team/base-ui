@@ -3,12 +3,13 @@ import React, { FC, useState } from 'react';
 import { ColorResult } from 'react-color';
 import { MockupJukiProvider } from '../../../../mockup';
 import { InputColor } from '../../../../molecules';
+import { Input } from '../../../inputs/Input';
+import { Select } from '../../../Select/Select';
 import { BasicIconProps } from '../types';
-import { Input } from '../../../inputs';
-import { Select } from '../../../Select';
 import { BalloonIcon, GmailIcon, TelegramIcon } from './index';
 import { SortIcon } from './SortIcon';
-import { SpinIcon, SpinIconProps } from './Spin';
+import { SpinIcon } from './SpinIcon';
+import { SpinIconProps } from './SpinIcon/types';
 
 const meta: Meta<typeof GmailIcon> = {
   component: GmailIcon,

@@ -88,5 +88,3 @@ export const JukiSurprisedImage = ({ className, ...props }: ImageProps) => {
     <div {...props} className={classNames('jk-image jk-svg-image', className)}><JukiSurprised /></div>
   );
 };
-
-export * from './types';

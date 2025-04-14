@@ -12,7 +12,7 @@ import {
   UserSettingsType,
 } from '@juki-team/commons';
 import React, { useCallback, useState } from 'react';
-import { T } from '../components/atoms/T';
+import { T } from '../components/atoms/T/T';
 import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../helpers';
 import { jukiApiSocketManager } from '../settings';
 import { useI18nStore } from '../stores/i18n/useI18nStore';

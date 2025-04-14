@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
-import { InputColor as ColorPickerComponent } from './';
+import { InputColor as ColorPickerComponent } from './InputColor';
 import { Color } from './types';
 
 export default {
