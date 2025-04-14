@@ -5,7 +5,6 @@ import { MockupJukiProvider } from '../../../../mockup';
 import { InputColor } from '../../../../molecules';
 import { Input } from '../../../inputs/Input';
 import { T } from '../../../T/T';
-import { LoadingIcon } from '../LoadingIcon';
 import { BasicIconProps } from '../types';
 import { CommentIcon } from './CommentIcon';
 
@@ -87,6 +86,7 @@ import {
   LightModeIcon,
   LinkIcon,
   ListIcon,
+  LoadingIcon,
   LocationCityIcon,
   LocationOnIcon,
   LockIcon,

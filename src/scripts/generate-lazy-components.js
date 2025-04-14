@@ -4,38 +4,38 @@ const path = require('path');
 const componentDirs = [
   {
     dir: path.resolve('./src/components/atoms'),
-    loadingLine: `import { LoadingIcon } from './server';\nimport { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';`,
+    loadingLine: `import { SpinIcon } from './server/icons/SpinIcon';\nimport { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';`,
     withTypes: true,
   },
   {
     dir: path.resolve('./src/components/molecules'),
-    loadingLine: `import { LoadingIcon } from '../atoms/server';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';`,
+    loadingLine: `import { SpinIcon } from '../atoms/server/icons/SpinIcon';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';`,
     withTypes: true,
   },
   {
     dir: path.resolve('./src/components/atoms/server/icons/google'),
     depth: 0,
-    loadingLine: `import { LoadingIcon } from '../LoadingIcon';\nimport { BasicIconProps } from '../types';`,
+    loadingLine: `import { SpinIcon } from '../SpinIcon';\nimport { BasicIconProps } from '../types';`,
     withTypes: false,
     commonProp: 'BasicIconProps',
   },
   {
     dir: path.resolve('./src/components/atoms/server/icons/signs'),
-    loadingLine: `import { LoadingIcon } from '../LoadingIcon';\nimport { SignIconProps } from '../types';`,
+    loadingLine: `import { SpinIcon } from '../SpinIcon';\nimport { SignIconProps } from '../types';`,
     withTypes: false,
     commonProp: 'SignIconProps',
     cmpIndex: true,
   },
   {
     dir: path.resolve('./src/components/atoms/server/icons/specials'),
-    loadingLine: `import { LoadingIcon } from '../LoadingIcon';`,
+    loadingLine: `import { SpinIcon } from '../SpinIcon';`,
     withTypes: false,
     cmpIndex: true,
   },
   {
     dir: path.resolve('./src/components/atoms/server/images'),
     depth: 0,
-    loadingLine: `import { LoadingIcon } from '../icons/LoadingIcon';`,
+    loadingLine: `import { SpinIcon } from '../icons/SpinIcon';`,
     withTypes: false,
     withoutProps: true,
   },
@@ -110,7 +110,7 @@ for (let {dir, loadingLine, withTypes, commonProp, depth, cmpIndex, withoutProps
         exportLine = withGenericity[index][1];
       }
       
-      lines.push(exportLine, `  <Suspense fallback={<LoadingIcon size="tiny" />}>`,);
+      lines.push(exportLine, `  <Suspense fallback={<SpinIcon size="tiny" />}>`,);
       
       if (index !== -1) {
         lines.push(`    {/*@ts-ignore*/}`);

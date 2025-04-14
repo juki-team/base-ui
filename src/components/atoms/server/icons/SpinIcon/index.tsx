@@ -1,6 +1,6 @@
-import { classNames } from '../../../../../../helpers';
-import { BasicIconProps } from '../../types';
-import { renderBasicIcon } from '../../utils';
+import { classNames } from '../../../../../helpers';
+import { BasicIconProps } from '../types';
+import { renderBasicIcon } from '../utils';
 import Spin from './Spin';
 
 export type SpinIconProps = BasicIconProps & {

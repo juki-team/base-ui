@@ -5,11 +5,11 @@ import { MockupJukiProvider } from '../../../../mockup';
 import { InputColor } from '../../../../molecules';
 import { Input } from '../../../inputs/Input';
 import { Select } from '../../../Select/Select';
+import { SpinIcon } from '../SpinIcon';
+import { SpinIconProps } from '../SpinIcon/types';
 import { BasicIconProps } from '../types';
 import { BalloonIcon, GmailIcon, TelegramIcon } from './index';
 import { SortIcon } from './SortIcon';
-import { SpinIcon } from './SpinIcon';
-import { SpinIconProps } from './SpinIcon/types';
 
 const meta: Meta<typeof GmailIcon> = {
   component: GmailIcon,
