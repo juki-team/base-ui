@@ -19,7 +19,7 @@
     "./server-components": {
       "require": "./dist/cjs/server.js",
       "import": "./dist/esm/server.js",
-      "types": "./dist/module-types/server/index.d.ts"
+      "types": "./dist/module-types/components/server/index.d.ts"
     },
     "./helpers": {
       "require": "./dist/cjs/helpers.js",
