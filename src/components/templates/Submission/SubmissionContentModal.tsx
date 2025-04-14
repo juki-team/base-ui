@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { ModalProps } from '../../../types';
-import { ContentCopyIcon, CopyToClipboard, Modal, OpenInNewIcon, RefreshIcon, T } from '../../atoms';
+import { CopyToClipboard, Modal, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
+import { ContentCopyIcon, OpenInNewIcon, RefreshIcon } from '../../server';
 import { SubmitView } from './SubmitView';
 
 export interface SubmissionModalProps extends ModalProps {

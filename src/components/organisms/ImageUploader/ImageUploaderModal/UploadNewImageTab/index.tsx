@@ -2,8 +2,9 @@ import { Status } from '@juki-team/commons';
 import React, { memo, useState } from 'react';
 import { handleUploadImage, toBlob } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks';
-import { Button, ContentCopyIcon, CopyToClipboard, InputCheckbox, T } from '../../../../atoms';
+import { Button, CopyToClipboard, InputCheckbox, T } from '../../../../atoms';
 import { ButtonLoader, CropImageType, ImageLoaderCropper } from '../../../../molecules';
+import { ContentCopyIcon } from '../../../../server';
 import { NotificationType } from '../../../types';
 import { onPickImageUrlType } from '../types';
 

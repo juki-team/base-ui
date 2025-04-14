@@ -1,5 +1,5 @@
 import React from 'react';
-import { CheckIcon, ErrorIcon, InfoIcon, WarningIcon } from '../../atoms';
+import { CheckIcon, ErrorIcon, InfoIcon, WarningIcon } from '../../server';
 import { NotificationType } from './types';
 
 export const LAPS = 200;

@@ -15,13 +15,13 @@ import {
   FilterDateRangeAutoOfflineType,
   FilterSelectAutoOfflineType,
   Popover,
-  RefreshIcon,
   Select as SelectComponent,
   SelectOptionType,
   T,
   TextField,
   TextHeadCell,
 } from '../../../';
+import { RefreshIcon } from '../../../server';
 import users from './data.json';
 
 export interface JkUserTableProps {

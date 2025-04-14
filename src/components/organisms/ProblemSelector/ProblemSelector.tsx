@@ -11,8 +11,9 @@ import React, { useEffect, useState } from 'react';
 import { authorizedRequest, classNames, cleanRequest } from '../../../helpers';
 import { useFetcher, useJukiNotification } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
-import { DownloadIcon, Input, RefreshIcon, Select, SpinIcon, T } from '../../atoms';
+import { Input, Select, T } from '../../atoms';
 import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
+import { DownloadIcon, RefreshIcon, SpinIcon } from '../../server';
 import { JudgeDataType, ProblemSelectorProps } from './types';
 
 export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: ProblemSelectorProps) => {

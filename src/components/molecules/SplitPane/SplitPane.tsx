@@ -3,14 +3,14 @@ import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useHandleState } from '../../../hooks';
+import { T } from '../../atoms';
 import {
   ExpandLessIcon,
   ExpandMoreIcon,
   NavigateBeforeIcon,
   NavigateNextIcon,
   SideNavigationIcon,
-  T,
-} from '../../atoms';
+} from '../../server';
 import { SplitPaneProps } from './types';
 
 export const SplitPane = memo((props: SplitPaneProps) => {

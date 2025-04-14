@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { RootIconProps } from '../../types';
+import { RootIconProps } from '../../../server/icons/types';
 
 const Eye = memo(({ color }: RootIconProps) => (
   <path

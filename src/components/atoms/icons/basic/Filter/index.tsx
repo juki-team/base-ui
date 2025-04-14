@@ -1,5 +1,5 @@
-import { BasicIconProps } from '../../types';
-import { renderBasicIcon } from '../../utils';
+import { BasicIconProps } from '../../../server/icons/types';
+import { renderBasicIcon } from '../../../server/icons/utils';
 import Filter from './Filter';
 
 export const FilterIcon_ = (props: BasicIconProps) => {

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { classNames } from '../../../helpers';
 import { useI18nStore } from '../../../hooks';
-import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, Select, SpinIcon, T } from '../../atoms';
+import { Select, T } from '../../atoms';
+import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../server';
 import { PaginationProps } from './types';
 
 const SIZE_PAGES = 3;

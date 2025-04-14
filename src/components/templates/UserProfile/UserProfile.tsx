@@ -2,7 +2,7 @@ import { Judge, JUDGE } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { LocationOnIcon, MailIcon, SchoolIcon } from '../../atoms';
+import { LocationOnIcon, MailIcon, SchoolIcon } from '../../server';
 import { UserProfileProps } from './types';
 
 export function UserProfile({ user }: UserProfileProps) {

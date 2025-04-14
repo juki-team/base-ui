@@ -9,11 +9,11 @@ import {
 } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
-import { useJukiNotification } from '../../../../hooks/useJukiNotification';
-import { AddIcon, DeleteIcon, InfoIcon, T, TextArea } from '../../../atoms';
-import { SplitPane, TabsInline } from '../../../molecules';
-import { TabsInlineBody } from '../../../molecules/Tabs/TabsInline';
+import { useJukiNotification } from '../../../../hooks';
+import { T, TextArea } from '../../../atoms';
+import { SplitPane, TabsInline, TabsInlineBody } from '../../../molecules';
 import { TabsType } from '../../../molecules/types';
+import { AddIcon, DeleteIcon, InfoIcon } from '../../../server';
 import { ProblemVerdictTag } from '../../ProblemVerdictTag';
 import { NotificationType } from '../../types';
 import { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';

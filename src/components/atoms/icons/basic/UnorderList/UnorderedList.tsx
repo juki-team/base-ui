@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { RootIconProps } from '../../types';
-import { CirclePath, Segment } from '../../utils';
+import { RootIconProps } from '../../../server/icons/types';
+import { CirclePath, Segment } from '../../../server/icons/utils';
 
 const List = memo(({ width, color }: RootIconProps) => (
   <>

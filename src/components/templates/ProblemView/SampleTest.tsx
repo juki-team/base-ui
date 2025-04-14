@@ -1,6 +1,7 @@
 import { ProblemSampleCasesType } from '@juki-team/commons';
 import React from 'react';
-import { ContentCopyIcon, CopyToClipboard, InfoIcon } from '../../atoms';
+import { CopyToClipboard } from '../../atoms';
+import { ContentCopyIcon, InfoIcon } from '../../server';
 
 interface SampleTestProps {
   index: number,

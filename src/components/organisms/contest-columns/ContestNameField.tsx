@@ -3,7 +3,7 @@ import React from 'react';
 import { classNames, getJudgeOrigin } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
-import { CheckIcon, OpenInNewIcon, VoidIcon } from '../../atoms';
+import { CheckIcon, OpenInNewIcon, VoidIcon } from '../../server';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
 export const ContestNameLinkField: DataViewerHeadersType<ContestSummaryListResponseDTO>['Field'] = (props) => {

@@ -8,7 +8,8 @@ import {
 } from '@juki-team/commons';
 import React, { Dispatch, ReactNode, SetStateAction } from 'react';
 import { useUserStore } from '../../../hooks';
-import { Button, DeleteIcon, GlobeIcon, LockIcon, LockPersonIcon, PublicIcon, Select, T } from '../../atoms';
+import { Button, Select, T } from '../../atoms';
+import { DeleteIcon, GlobeIcon, LockIcon, LockPersonIcon, PublicIcon } from '../../server';
 import { UserChip } from '../UserChip';
 import { UsersSelector } from '../UsersSelector';
 

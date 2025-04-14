@@ -3,20 +3,22 @@ import { action, configureActions } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import {
+  MainMenu as MainMenuCmp,
+  MdMathEditor,
+  MdMathViewer,
+  SAMPLE_MD_CONTENT,
+  T,
+  TwoContentLayout as TwoContentLayoutComponent,
+} from '../../../index';
+import { MockupJukiProvider } from '../../mockup';
+import {
   FilterListIcon,
   JukiCouchLogoHorImage,
   JukiUtilsLogoHorImage,
   LoadingIcon,
-  MainMenu as MainMenuCmp,
-  MdMathEditor,
-  MdMathViewer,
   PlusIcon,
-  SAMPLE_MD_CONTENT,
-  T,
-  TwoContentLayout as TwoContentLayoutComponent,
   ViewHeadlineIcon,
-} from '../../../index';
-import { MockupJukiProvider } from '../../mockup';
+} from '../../server';
 
 const meta: Meta<typeof MainMenuCmp> = {
   component: MainMenuCmp,

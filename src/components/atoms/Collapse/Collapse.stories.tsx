@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
-import { UpIcon } from '../icons';
+import { UpIcon } from '../server';
 import { Collapse } from './index';
 
 const meta: Meta<typeof Collapse> = {

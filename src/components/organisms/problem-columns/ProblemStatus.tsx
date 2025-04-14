@@ -1,6 +1,6 @@
 import React from 'react';
-import { CheckIcon, PendingActionsIcon } from '../../atoms';
 import { IconProps } from '../../atoms/types';
+import { CheckIcon, PendingActionsIcon } from '../../server';
 
 export const ProblemStatus = ({ solved, tried, size }: {
   solved: boolean,

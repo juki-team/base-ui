@@ -1,6 +1,7 @@
 import { ContestSummaryListResponseDTO, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ButtonLoader, DataViewer, DataViewerHeadersType, DataViewerProps, RefreshIcon, T } from '../../../';
+import { ButtonLoader, DataViewer, DataViewerHeadersType, DataViewerProps, T } from '../../../';
+import { RefreshIcon } from '../../../server';
 import {
   getContestContestantsHeader,
   getContestDateHeader,

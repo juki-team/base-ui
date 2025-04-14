@@ -12,9 +12,9 @@ import {
   getProblemOwnerHeader,
   getProblemTagsHeader,
   getProblemTypeHeader,
-  RefreshIcon,
   T,
 } from '../../../';
+import { RefreshIcon } from '../../../server';
 import problems from './data.json';
 
 export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data' | 'headers'>) => {

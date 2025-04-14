@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { RootIconProps } from '../../types';
-import { Segment } from '../../utils';
+import { RootIconProps } from '../../../server/icons/types';
+import { Segment } from '../../../server/icons/utils';
 
 const Filter = memo(({ width, color }: RootIconProps) => (
   <>

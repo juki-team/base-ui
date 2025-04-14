@@ -13,7 +13,7 @@ interface I18nState {
   loadResources: () => Promise<void>,
 }
 
-export const useI18nStore = create<I18nState>((set, getState) => ({
+export const useI18nStore = create<I18nState>((set) => ({
   i18n: i18nInstance,
   changeLanguage: async (lng) => {
     if (i18nInstance.language !== lng) {

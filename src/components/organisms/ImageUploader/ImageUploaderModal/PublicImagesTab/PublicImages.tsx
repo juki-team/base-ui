@@ -2,8 +2,9 @@ import { ImageSummaryResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { copy } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks';
-import { CheckIcon, ContentCopyIcon, T } from '../../../../atoms';
+import { T } from '../../../../atoms';
 import { FloatToolbar } from '../../../../molecules';
+import { CheckIcon, ContentCopyIcon } from '../../../../server';
 import { NotificationType } from '../../../types';
 import { onPickImageUrlType } from '../types';
 

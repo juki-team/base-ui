@@ -2,16 +2,8 @@ import React, { ReactNode, useCallback, useEffect, useMemo, useRef, useState } f
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
 import { useHandleState } from '../../../hooks/useHandleState';
-import {
-  CloseIcon,
-  ExpandMoreIcon,
-  Input,
-  InputCheckbox,
-  Popover,
-  SearchIcon,
-  SelectOptionType,
-  VirtualizedRowsFixed,
-} from '../../atoms';
+import { Input, InputCheckbox, Popover, SelectOptionType, VirtualizedRowsFixed } from '../../atoms';
+import { CloseIcon, ExpandMoreIcon, SearchIcon } from '../../server';
 import { SelectSearchableProps } from './types';
 
 export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNode>(props: SelectSearchableProps<T, U, V>) => {

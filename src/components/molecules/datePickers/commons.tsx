@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, NavigateBeforeIcon, NavigateNextIcon } from '../../atoms';
+import { Button } from '../../atoms';
+import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
 
 export const PreviousButton = ({ onClick }: { onClick: (() => void) }) => (
   <Button

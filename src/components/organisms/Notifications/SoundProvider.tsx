@@ -1,11 +1,10 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect } from 'react';
+import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { Sound } from '../../../types';
-import { SoundContext } from './context';
-import { Sounds } from './types';
 
 export function SoundProvider({ children }: PropsWithChildren<{}>) {
   
-  const [ sounds, setSounds ] = useState<Sounds | null>(null);
+  const setSounds = useSoundStore(state => state.setSounds);
   useEffect(() => {
     setSounds({
       [Sound.CLICK]: new Audio('https://files.juki.pub/sounds/click.wav'),
@@ -17,11 +16,7 @@ export function SoundProvider({ children }: PropsWithChildren<{}>) {
       [Sound.POP]: new Audio('https://files.juki.pub/sounds/pop.wav'),
       [Sound.BELL]: new Audio('https://files.juki.pub/sounds/bell.mp3'),
     });
-  }, []);
+  }, [ setSounds ]);
   
-  return (
-    <SoundContext.Provider value={{ sounds }}>
-      {children}
-    </SoundContext.Provider>
-  );
+  return children;
 }

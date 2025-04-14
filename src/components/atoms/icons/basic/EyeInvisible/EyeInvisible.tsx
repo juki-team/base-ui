@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
-import { RootIconProps } from '../../types';
-import { arcS, M, Segment } from '../../utils';
+import { RootIconProps } from '../../../server/icons/types';
+import { arcS, M, Segment } from '../../../server/icons/utils';
 
 const Eye = memo(({ width, color }: RootIconProps) => (
   <>

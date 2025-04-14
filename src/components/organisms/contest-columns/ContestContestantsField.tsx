@@ -1,6 +1,7 @@
 import { ContestSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
-import { GroupIcon, T } from '../../atoms';
+import { T } from '../../atoms';
+import { GroupIcon } from '../../server';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
 export const getContestContestantsHeader = (): DataViewerHeadersType<ContestSummaryListResponseDTO> => ({

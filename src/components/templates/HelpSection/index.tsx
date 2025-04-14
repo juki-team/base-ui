@@ -1,6 +1,7 @@
 import React from 'react';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { ContactPhoneIcon, MailIcon, T, TelegramIcon } from '../../atoms';
+import { T } from '../../atoms';
+import { ContactPhoneIcon, MailIcon, TelegramIcon } from '../../server';
 
 export const HelpSection = () => {
   

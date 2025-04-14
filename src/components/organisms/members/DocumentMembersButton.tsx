@@ -9,7 +9,8 @@ import {
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification, useUserStore } from '../../../hooks';
-import { Button, InfoIcon, Popover, T } from '../../atoms';
+import { Button, Popover, T } from '../../atoms';
+import { InfoIcon } from '../../server';
 import { DocumentMembersModal } from './DocumentMembersModal';
 
 export interface DocumentMembersButton1Props {

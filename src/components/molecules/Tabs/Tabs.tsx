@@ -4,7 +4,8 @@ import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useOutsideAlerter } from '../../../hooks';
 import { NotUndefined } from '../../../types';
-import { Popover, Select, ViewHeadlineIcon } from '../../atoms';
+import { Popover, Select } from '../../atoms';
+import { ViewHeadlineIcon } from '../../server';
 import { TabsProps } from './types';
 
 const hiddenStyle: CSSProperties = {

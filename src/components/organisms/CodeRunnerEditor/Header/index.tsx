@@ -12,18 +12,10 @@ import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers
 import { useJukiNotification } from '../../../../hooks';
 import { jukiApiSocketManager } from '../../../../settings';
 import { useWebsocketStore } from '../../../../stores/websocket/useWebsocketStore';
-import {
-  Button,
-  ErrorIcon,
-  FullscreenExitIcon,
-  FullscreenIcon,
-  PlayArrowIcon,
-  Select,
-  SettingsIcon,
-  T,
-} from '../../../atoms';
+import { Button, Select, T } from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';
 import { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../molecules/types';
+import { ErrorIcon, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, SettingsIcon } from '../../../server';
 import { HeaderProps } from '../types';
 
 export const Header = <T, >(props: HeaderProps<T>) => {

@@ -1,24 +1,19 @@
 import { action, configureActions } from '@storybook/addon-actions';
 import React from 'react';
+import { Button, MdMathEditor, Popover, SAMPLE_MD_CONTENT, T, VerticalMenu as VerticalMenuCmp } from '../../../index';
+import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
+import { DrawerActionsType } from '../../molecules/Drawer/types';
 import {
   AppsIcon,
-  Button,
   FilterListIcon,
   JukiCouchLogoHorImage,
   JukiJudgeLogoHorImage,
   JukiUtilsLogoHorImage,
   ManufacturingIcon,
-  MdMathEditor,
   PlusIcon,
-  Popover,
-  SAMPLE_MD_CONTENT,
   SettingsIcon,
-  T,
-  VerticalMenu as VerticalMenuCmp,
   ViewHeadlineIcon,
-} from '../../../index';
-import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
-import { DrawerActionsType } from '../../molecules/Drawer/types';
+} from '../../server';
 
 export default {
   component: VerticalMenuCmp,

@@ -3,7 +3,7 @@ import React from 'react';
 import { getJudgeOrigin } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
-import { OpenInNewIcon } from '../../atoms';
+import { OpenInNewIcon } from '../../server';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 
 export const SubmissionProblemField: DataViewerHeadersType<SubmissionSummaryListResponseDTO>['Field'] = (props) => {

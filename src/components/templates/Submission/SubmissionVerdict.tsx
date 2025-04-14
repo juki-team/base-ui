@@ -10,7 +10,8 @@ import {
 } from '@juki-team/commons';
 import React from 'react';
 import { useI18nStore, useUserStore } from '../../../hooks';
-import { SpinIcon, T } from '../../atoms';
+import { T } from '../../atoms';
+import { SpinIcon } from '../../server';
 
 export interface SubmissionVerdictProps {
   verdict: ProblemVerdict,

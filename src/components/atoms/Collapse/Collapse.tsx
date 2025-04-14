@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import React from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState } from '../../../hooks/useHandleState';
-import { ExpandLessIcon, ExpandMoreIcon } from '../icons';
+import { ExpandLessIcon, ExpandMoreIcon } from '../server';
 import { CollapseProps } from './types';
 
 export const Collapse = (props: CollapseProps) => {
@@ -18,15 +18,10 @@ export const Collapse = (props: CollapseProps) => {
   } = props;
   
   const [ isOpen, setIsOpen ] = useHandleState(startsShowing, _showContent, _onChangeShowContent);
-  // const [ isFullyClosed, setIsFullyClosed ] = useState(false);
-  // const [ isFullyOpened, setIsFullyOpened ] = useState(false);
   
   const open = () => setIsOpen(true);
   const close = () => setIsOpen(false);
   const toggle = () => setIsOpen(prevState => !prevState);
-  
-  // const currentIsFullyClosed = isOpen ? false : isFullyClosed;
-  // const currentIsFullyOpened = !isOpen ? false : isFullyOpened;
   
   return (
     // <div

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useRouterStore } from '../../hooks';
 import { QueryParamKey } from '../../types';
-import { Button, LoginIcon } from '../atoms';
+import { Button } from '../atoms';
+import { LoginIcon } from '../server';
 import { LoginModal } from '../templates/MainMenu/LoginModal';
 
 export const MockupLoginButton = () => {

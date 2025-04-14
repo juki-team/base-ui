@@ -1,8 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react";
-import React from "react";
-import { DownloadIcon, OpenInNewIcon, T } from "../../atoms";
-import { MockupJukiProvider } from "../../mockup";
-import { FloatToolbar } from "./FloatToolbar";
+import { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import { T } from '../../atoms';
+import { MockupJukiProvider } from '../../mockup';
+import { DownloadIcon, OpenInNewIcon } from '../../server';
+import { FloatToolbar } from './FloatToolbar';
 
 const meta: Meta<typeof FloatToolbar> = {
   component: FloatToolbar,
@@ -46,15 +47,15 @@ export const Regular: Story = {
         ],
       },
     ];
-
+    
     return (
       <MockupJukiProvider>
         <div
           style={{
-            background: "red",
+            background: 'red',
             width: 300,
             height: 300,
-            position: "relative",
+            position: 'relative',
           }}
         >
           <FloatToolbar actionButtons={actionButtons} placement="top" />

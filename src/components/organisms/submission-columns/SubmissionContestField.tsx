@@ -4,7 +4,7 @@ import { getJudgeOrigin } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { ContestTab } from '../../../types';
-import { OpenInNewIcon } from '../../atoms';
+import { OpenInNewIcon } from '../../server';
 import { DataViewerHeadersType, TextField } from '../DataViewer';
 
 export const SubmissionContestField: DataViewerHeadersType<SubmissionSummaryListResponseDTO>['Field'] = (props) => {

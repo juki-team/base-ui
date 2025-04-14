@@ -10,9 +10,10 @@ import {
 } from '../../../helpers';
 import { useI18nStore, useJukiNotification, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
-import { DownloadIcon, T } from '../../atoms';
+import { T } from '../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
 import { MdMathViewer } from '../../organisms/mdMath';
+import { DownloadIcon } from '../../server';
 import {
   JukiProblemInfo,
   ProblemInfo,

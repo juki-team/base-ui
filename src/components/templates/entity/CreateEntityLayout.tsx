@@ -2,9 +2,10 @@ import { ContentResponseType, DocumentCreateResponseDTO, HTTPMethod, Status } fr
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification, useRouterStore } from '../../../hooks';
-import { CloseIcon, SaveIcon, T } from '../../atoms';
+import { T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';
+import { CloseIcon, SaveIcon } from '../../server';
 import { CreateEntityLayoutProps } from './types';
 
 export function CreateEntityLayout<T, U, V>(props: CreateEntityLayoutProps<T, U, V>) {

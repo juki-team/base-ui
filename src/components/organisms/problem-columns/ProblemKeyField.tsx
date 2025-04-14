@@ -1,6 +1,7 @@
 import { ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
-import { ContentCopyIcon, CopyToClipboard } from '../../atoms';
+import { CopyToClipboard } from '../../atoms';
+import { ContentCopyIcon } from '../../server';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
 export const ProblemKeyField: DataViewerHeadersType<ProblemSummaryListResponseDTO>['Field'] = ({ record: { key } }) => (

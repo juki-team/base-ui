@@ -3,8 +3,9 @@ import { action } from '@storybook/addon-actions';
 import { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { ButtonLoaderProps } from '../../../types';
-import { ButtonLoader, EventIcon, VisibilityIcon } from '../../index';
+import { ButtonLoader } from '../../index';
 import { MockupJukiProvider } from '../../mockup';
+import { EventIcon, VisibilityIcon } from '../../server';
 
 const meta: Meta<typeof ButtonLoader> = {
   component: ButtonLoader,

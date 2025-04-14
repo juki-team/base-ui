@@ -4,6 +4,7 @@ import { classNames } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useJukiUserSettings } from '../../../../hooks/useJukiUser';
 import { useUserStore } from '../../../../stores/user/useUserStore';
+import { Modal, Popover, T } from '../../../atoms';
 import {
   AppsIcon,
   DarkModeIcon,
@@ -12,10 +13,7 @@ import {
   HelpIcon,
   LightModeIcon,
   LoadingIcon,
-  Modal,
-  Popover,
-  T,
-} from '../../../atoms';
+} from '../../../server';
 import { HelpSection } from '../../HelpSection';
 
 export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {

@@ -1,7 +1,7 @@
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames, getTextContent } from '../../../helpers';
 import { useJukiNotification, useJukiUI, usePageStore } from '../../../hooks';
-import { CloseIcon } from '../../atoms';
+import { CloseIcon } from '../../server';
 import { NOTIFICATION_ICON } from './constants';
 import { NotificationProps, NotificationType } from './types';
 

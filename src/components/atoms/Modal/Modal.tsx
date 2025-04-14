@@ -4,8 +4,8 @@ import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } fr
 import { classNames } from '../../../helpers';
 import { SetLoaderStatusOnClickType } from '../../molecules/ButtonLoader/types';
 import { useSetLoaderStatus } from '../hooks';
-import { CloseIcon, SpinIcon } from '../icons';
 import { Portal } from '../Portal';
+import { CloseIcon, SpinIcon } from '../server';
 import { ModalButtonLoaderEventType, ModalProps } from './types';
 
 export const Modal = <T extends ModalButtonLoaderEventType, >(props: PropsWithChildren<ModalProps<T>>) => {

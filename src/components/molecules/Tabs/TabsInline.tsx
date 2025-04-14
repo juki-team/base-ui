@@ -4,7 +4,8 @@ import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { Func, useHandleState, useJukiUI, useMemoizedArray, usePrevious } from '../../../hooks';
 import { useWidthResizer } from '../../../hooks/useWidthResizer';
 import { NotUndefined, TabsInlineBodyProps, TabType } from '../../../types';
-import { NavigateBeforeIcon, NavigateNextIcon, Select } from '../../atoms';
+import { Select } from '../../atoms';
+import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
 import { TabsInlineProps } from './types';
 
 export const TabsInline = <T, >(props: TabsInlineProps<T>) => {

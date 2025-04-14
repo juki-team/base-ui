@@ -5,6 +5,7 @@ export * from '../stores/lastPath/useLastPath';
 export * from '../stores/router/useRouterStore'; // useJukiRouter
 export * from '../stores/websocket/useWebsocketStore';
 export * from '../stores/user/useUserStore';
+export * from '../stores/sound/useSoundStore';
 // rest
 export * from './custom';
 export * from './useDataViewerRequester';
@@ -21,7 +22,6 @@ export * from './useSessionStorage';
 export * from './useJukiNotification';
 export * from './useMutate';
 export * from './usePreload';
-export * from './useSound';
 export * from './useStableState';
 export * from './useTriggerWrapper';
 export * from './useWidthResizer';

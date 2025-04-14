@@ -2,8 +2,9 @@ import { ContentsResponseType, UserSummaryListResponseDTO } from '@juki-team/com
 import React, { useEffect, useMemo, useState } from 'react';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { jukiApiSocketManager } from '../../../settings';
-import { Button, GroupsIcon, Modal, RefreshIcon, SpinIcon, T, TextArea } from '../../atoms';
+import { Button, Modal, T, TextArea } from '../../atoms';
 import { MultiSelectSearchable } from '../../molecules';
+import { GroupsIcon, RefreshIcon, SpinIcon } from '../../server';
 import { UserChip } from '../UserChip';
 import { UsersSelectorProps } from './types';
 

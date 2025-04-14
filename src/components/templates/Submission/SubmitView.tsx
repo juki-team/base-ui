@@ -1,8 +1,9 @@
 import { ContentResponseType, SubmissionDataResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { jukiApiSocketManager } from '../../../settings';
-import { JukiSurprisedImage, T } from '../../atoms';
+import { T } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
+import { JukiSurprisedImage } from '../../server';
 import { SubmitViewContent } from './SubmitViewContent';
 import { SubmitViewProps } from './types';
 

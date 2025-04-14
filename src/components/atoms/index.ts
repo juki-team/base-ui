@@ -12,6 +12,4 @@ export * from './T';
 export * from './TextArea';
 export * from './VirtualizedRowsFixed';
 export * from './icons';
-export * from './images';
 export * from './inputs';
-export * from './loaders';

@@ -1,7 +1,7 @@
 import { ProgrammingLanguage } from '@juki-team/commons';
 import { diff } from 'deep-object-diff';
 import React, { cloneElement, ReactElement, ReactNode, useRef, useState } from 'react';
-import { useSound } from '../../../hooks/useSound';
+import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { T } from '../../atoms';
 import { CodeEditor, TwoActionModal } from '../../molecules';
 
@@ -17,14 +17,15 @@ export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChang
   
   const originalValueRef = useRef(value);
   const [ modal, setModal ] = useState<ReactNode>(null);
-  const sound = useSound();
+  const playWarning = useSoundStore(state => state.playWarning);
+  
   const handleOnClick = () => {
     if (JSON.stringify(originalValueRef.current) === JSON.stringify(value)) {
       onClickContinue();
     } else {
       const text = JSON.stringify(diff(originalValueRef.current, value), null, 2);
       const height = text.split('\n').length;
-      sound.playWarning();
+      playWarning();
       setModal(
         <TwoActionModal
           isOpen

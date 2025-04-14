@@ -2,9 +2,10 @@ import { ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification, useMutate, useRouterStore } from '../../../hooks';
-import { CloseIcon, SaveIcon, T } from '../../atoms';
+import { T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';
+import { CloseIcon, SaveIcon } from '../../server';
 import { UpdateEntityLayoutProps } from './types';
 
 export function UpdateEntityLayout<T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) {

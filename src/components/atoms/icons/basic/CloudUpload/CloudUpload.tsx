@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { RootIconProps } from '../../types';
+import { RootIconProps } from '../../../server/icons/types';
 
 const CloudUpload = memo(({ color }: RootIconProps) => ( // width of arrow ~ 2.5
   <path

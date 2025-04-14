@@ -1,10 +1,10 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
-import { CloseIcon, ExpandMoreIcon } from '../icons';
 import { InputCheckbox } from '../inputs';
 import { Popover } from '../Popover';
 import { SelectOptionType } from '../Select';
+import { CloseIcon, ExpandMoreIcon } from '../server';
 import { MultiSelectProps } from './types';
 
 export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: MultiSelectProps<T, U, V>) => {

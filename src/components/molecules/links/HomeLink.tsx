@@ -1,6 +1,7 @@
 import React from 'react';
 import { useJukiUI } from '../../../hooks';
-import { HomeIcon, T } from '../../atoms';
+import { T } from '../../atoms';
+import { HomeIcon } from '../../server';
 
 export const HomeLink = () => {
   const { components: { Link } } = useJukiUI();
@@ -9,4 +10,4 @@ export const HomeLink = () => {
       <HomeIcon size="small" />&nbsp;<T className="tt-se">home</T>
     </Link>
   );
-}
+};

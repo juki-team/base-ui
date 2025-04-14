@@ -50,6 +50,7 @@ export default [
       'types': 'src/types/index.ts',
       'constants': 'src/constants/index.ts',
       'settings': 'src/settings/index.ts',
+      'server': 'src/components/server/index.ts',
     },
     output: [
       {

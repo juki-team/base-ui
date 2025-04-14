@@ -1,10 +1,10 @@
 import { MotionConfig } from 'motion/react';
 import React, { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
 import { NotificationProvider } from '../../components';
-import { LineLoader } from '../../components/atoms/loaders';
 import { T } from '../../components/atoms/T';
 import { JukiLoadingLayout } from '../../components/molecules/layouts';
 import { SoundProvider } from '../../components/organisms/Notifications/SoundProvider';
+import { LineLoader } from '../../components/server';
 import { classNames } from '../../helpers';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { Duration, QueryParamKey } from '../../types';

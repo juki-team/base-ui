@@ -3,8 +3,9 @@ import { classNames } from '../../../helpers';
 import { useJukiUI, useJukiUser, useRouterStore, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
-import { Button, LoginIcon, LogoutIcon, Popover, SpinIcon, T } from '../../atoms';
+import { Button, Popover, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
+import { LoginIcon, LogoutIcon, SpinIcon } from '../../server';
 
 interface LoginUserProps {
   collapsed: boolean,

@@ -2,18 +2,9 @@ import { ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { jukiApiSocketManager } from '../../../settings';
-import {
-  Button,
-  ContentCopyIcon,
-  CopyToClipboard,
-  LocationOnIcon,
-  MailIcon,
-  Modal,
-  OpenInNewIcon,
-  SchoolIcon,
-  T,
-} from '../../atoms';
+import { Button, CopyToClipboard, Modal, T } from '../../atoms';
 import { ButtonLoader, FetcherLayer } from '../../molecules';
+import { ContentCopyIcon, LocationOnIcon, MailIcon, OpenInNewIcon, SchoolIcon } from '../../server';
 import { UserPreviewModalProps } from './types';
 
 export const UserPreviewContentModal = ({ isOpen, nickname, companyKey, onClose, userHref }: UserPreviewModalProps) => {

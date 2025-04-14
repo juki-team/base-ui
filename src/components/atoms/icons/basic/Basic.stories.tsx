@@ -3,8 +3,8 @@ import React, { FC, useState } from 'react';
 import { ColorResult } from 'react-color';
 import { MockupJukiProvider } from '../../../mockup';
 import { InputColor } from '../../../molecules';
-import { GmailIcon, TelegramIcon } from '../specials';
-import { BasicIconProps } from '../types';
+import { GmailIcon, TelegramIcon } from '../../server/icons/specials';
+import { BasicIconProps } from '../../server/icons/types';
 
 import {
   _BuildIcon,

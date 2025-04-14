@@ -1,5 +1,6 @@
 import React, { Dispatch, MutableRefObject, ReactNode, useState } from 'react';
-import { Button, CloudUploadIcon, T } from '../../../atoms';
+import { Button, T } from '../../../atoms';
+import { CloudUploadIcon } from '../../../server';
 import { ImageUploaderModal, onPickImageUrlType } from '../ImageUploaderModal';
 
 type ChildrenProps = { open: boolean, setOpen: Dispatch<boolean>, withLabel: boolean };

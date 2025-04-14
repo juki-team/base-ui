@@ -8,7 +8,8 @@ import {
 import React, { Dispatch, ReactNode, SetStateAction, useEffect } from 'react';
 import { classNames } from '../../../helpers';
 import { useUserStore } from '../../../hooks';
-import { InfoIcon, InputToggle, Popover, T } from '../../atoms';
+import { InputToggle, Popover, T } from '../../atoms';
+import { InfoIcon } from '../../server';
 import { UserChip } from '../UserChip';
 import { UsersSelector } from '../UsersSelector';
 

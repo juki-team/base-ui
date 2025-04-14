@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
-import { useJukiUI } from '../../../hooks/useJukiUI';
-import { Button, HomeIcon, JukiSurprisedImage, T } from '../../atoms';
+import { useJukiUI } from '../../../hooks';
+import { Button, T } from '../../atoms';
+import { HomeIcon, JukiSurprisedImage } from '../../server';
 
 export function PageNotFound({ children }: PropsWithChildren<{}>) {
   

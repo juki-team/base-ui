@@ -12,18 +12,17 @@ import React, {
 } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../helpers';
 import { useJukiUI, useRouterStore, useSessionStorage } from '../../../hooks';
+import { CopyToClipboard, Popover } from '../../atoms';
+import { SetLoaderStatusOnClickType } from '../../molecules/types';
 import {
   CalendarViewWeekIcon,
   ContentCopyIcon,
-  CopyToClipboard,
   FilterListIcon,
   MenuIcon,
-  Popover,
   RefreshIcon,
   SpinIcon,
   ViewModuleIcon,
-} from '../../atoms';
-import { SetLoaderStatusOnClickType } from '../../molecules/types';
+} from '../../server';
 import { FilterDrawer } from './FilterDrawer';
 import { Pagination } from './Pagination';
 import { DataViewerToolbarProps } from './types';

@@ -1,7 +1,7 @@
 import React, { Children, PropsWithChildren } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useHandleState, useJukiUI } from '../../../../hooks';
-import { NavigateBeforeIcon, NavigateNextIcon } from '../../../atoms';
+import { NavigateBeforeIcon, NavigateNextIcon } from '../../../server';
 import { HorizontalMenu } from '../Horizontal';
 import { VerticalMenuProps } from '../types';
 

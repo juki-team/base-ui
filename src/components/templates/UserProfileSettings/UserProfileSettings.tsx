@@ -2,21 +2,18 @@ import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@ju
 import React from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUserSettings } from '../../../hooks/useJukiUser';
+import { Button, InputRadio, InputToggle, T } from '../../atoms';
 import {
-  Button,
   DarkModeIcon,
   FlagEnImage,
   FlagEsImage,
-  InputRadio,
-  InputToggle,
   LightModeIcon,
   LineLoader,
   LockIcon,
-  T,
   VerticalSplitIcon,
   ViewHeadlineIcon,
   ViewModuleIcon,
-} from '../../atoms';
+} from '../../server';
 import { UserProfileSettingsProps } from './types';
 
 export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfileSettingsProps) {

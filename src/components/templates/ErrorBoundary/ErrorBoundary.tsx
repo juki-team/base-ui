@@ -2,7 +2,8 @@ import { consoleError, consoleInfo, ContentsResponseType } from '@juki-team/comm
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { jukiApiSocketManager } from '../../../settings';
-import { Button, JukiSurprisedImage, T } from '../../atoms';
+import { Button, T } from '../../atoms';
+import { JukiSurprisedImage } from '../../server';
 import { HelpSection } from '../HelpSection';
 import { ErrorBoundaryProps } from './types';
 

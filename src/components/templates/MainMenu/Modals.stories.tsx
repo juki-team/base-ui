@@ -1,18 +1,19 @@
-import { action } from "@storybook/addon-actions";
-import React, { useState } from "react";
-import { Button, CalendarMonthIcon, EventIcon } from "../../atoms";
-import { MockupJukiProvider } from "../../mockup";
-import { DrawerViewMenuMobile as DrawerViewMenuMobileCmp } from "./DrawerViewMenuMobile";
-import { ForgotPasswordModal as UserForgotPasswordModalCmp } from "./LoginModalTemplate";
-import { WelcomeModal as WelcomeModalCmp } from "./WelcomeModal";
+import { action } from '@storybook/addon-actions';
+import React, { useState } from 'react';
+import { Button } from '../../atoms';
+import { MockupJukiProvider } from '../../mockup';
+import { CalendarMonthIcon, EventIcon } from '../../server';
+import { DrawerViewMenuMobile as DrawerViewMenuMobileCmp } from './DrawerViewMenuMobile';
+import { ForgotPasswordModal as UserForgotPasswordModalCmp } from './LoginModalTemplate';
+import { WelcomeModal as WelcomeModalCmp } from './WelcomeModal';
 
 export default {
   component: DrawerViewMenuMobileCmp,
 };
 
 export const UserForgotPasswordModal = () => {
-  const [open, setOpen] = useState(false);
-
+  const [ open, setOpen ] = useState(false);
+  
   return (
     <MockupJukiProvider>
       <UserForgotPasswordModalCmp
@@ -25,15 +26,15 @@ export const UserForgotPasswordModal = () => {
 };
 
 export const WelcomeModal = () => {
-  const [open, setOpen] = useState(false);
-
+  const [ open, setOpen ] = useState(false);
+  
   return (
     <MockupJukiProvider>
       <WelcomeModalCmp
         isOpen={open}
         onClose={() => setOpen(false)}
         nickname="OscarGauss"
-        onSeeMyProfile={action("onSeeMyProfile")}
+        onSeeMyProfile={action('onSeeMyProfile')}
       />
       <Button onClick={() => setOpen(true)}>open</Button>
     </MockupJukiProvider>
@@ -41,8 +42,8 @@ export const WelcomeModal = () => {
 };
 
 export const DrawerViewMenuMobile = () => {
-  const [open, setOpen] = useState(false);
-
+  const [ open, setOpen ] = useState(false);
+  
   return (
     <MockupJukiProvider>
       {open && (
@@ -50,13 +51,13 @@ export const DrawerViewMenuMobile = () => {
           menu={[
             {
               icon: <CalendarMonthIcon />,
-              label: "calendar menu",
+              label: 'calendar menu',
               selected: true,
               menuItemWrapper: ({ children }) => <>{children}</>,
             },
             {
               icon: <EventIcon />,
-              label: "calendar menu",
+              label: 'calendar menu',
               selected: false,
               menuItemWrapper: ({ children }) => (
                 <a href="/" target="_blank">

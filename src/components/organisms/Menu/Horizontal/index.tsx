@@ -3,8 +3,9 @@ import React, { PropsWithChildren, ReactNode, useId } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks';
 import { DrawerActionsType, NONE } from '../../../../types';
-import { ArrowBackIcon, Button, ViewHeadlineIcon } from '../../../atoms';
+import { Button } from '../../../atoms';
 import { Drawer } from '../../../molecules';
+import { ArrowBackIcon, ViewHeadlineIcon } from '../../../server';
 import { HorizontalMenuProps } from '../types';
 
 export const HorizontalMenu = (props: PropsWithChildren<HorizontalMenuProps>) => {

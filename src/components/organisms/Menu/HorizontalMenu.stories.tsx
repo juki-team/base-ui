@@ -1,25 +1,27 @@
 import { action, configureActions } from '@storybook/addon-actions';
 import React, { ReactNode } from 'react';
 import {
-  AppsIcon,
   Button,
-  FilterListIcon,
   HorizontalMenu as HorizontalMenuCmp,
+  MdMathEditor,
+  Popover,
+  SAMPLE_MD_CONTENT,
+  T,
+  useJukiNotification,
+  VerticalMenu,
+} from '../../../index';
+import { MockupJukiProvider } from '../../mockup';
+import { DrawerActionsType } from '../../molecules/Drawer/types';
+import {
+  AppsIcon,
+  FilterListIcon,
   JukiCouchLogoHorImage,
   JukiJudgeLogoHorImage,
   JukiUtilsLogoHorImage,
   ManufacturingIcon,
-  MdMathEditor,
-  Popover,
-  SAMPLE_MD_CONTENT,
   SettingsIcon,
-  T,
-  useJukiNotification,
-  VerticalMenu,
   ViewHeadlineIcon,
-} from '../../../index';
-import { MockupJukiProvider } from '../../mockup';
-import { DrawerActionsType } from '../../molecules/Drawer/types';
+} from '../../server';
 
 export default {
   component: VerticalMenu,

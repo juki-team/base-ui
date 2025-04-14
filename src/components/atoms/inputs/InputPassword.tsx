@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { VisibilityIcon, VisibilityOffIcon } from '../icons';
+import { VisibilityIcon, VisibilityOffIcon } from '../server';
 import { Input } from './Input';
 import { InputPasswordProps } from './types';
 

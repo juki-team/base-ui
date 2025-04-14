@@ -3,19 +3,9 @@ import React, { Dispatch, useRef, useState } from 'react';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useEntityDiff, useJukiUI, useJukiUser } from '../../../hooks';
-import {
-  Button,
-  EditIcon,
-  Input,
-  LocationCityIcon,
-  LocationOnIcon,
-  Modal,
-  PersonIcon,
-  SchoolIcon,
-  T,
-  TextArea,
-} from '../../atoms';
+import { Button, Input, Modal, T, TextArea } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
+import { EditIcon, LocationCityIcon, LocationOnIcon, PersonIcon, SchoolIcon } from '../../server';
 import { ImageProfileModal } from './ImageProfileModal';
 import { EditProfileModalPros } from './types';
 

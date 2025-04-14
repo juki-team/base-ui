@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI, useSound } from '../../../hooks';
+import { useJukiUI, useSoundStore } from '../../../hooks';
 import { Duration } from '../../../types';
 import { ButtonProps } from './types';
 
@@ -31,7 +31,8 @@ const ButtonComponent = (props: ButtonProps, ref: Ref<HTMLButtonElement>) => {
     responsiveMobile = false,
     ...restProps
   } = props;
-  const sound = useSound();
+  
+  const sound = useSoundStore();
   
   const { viewPortSize } = useJukiUI();
   

@@ -1,8 +1,9 @@
 import React from 'react';
 import { downloadBlobAsFile } from '../../../helpers';
-import { DownloadIcon, EditIcon, OpenInNewIcon, T } from '../../atoms';
+import { T } from '../../atoms';
 import { FloatToolbar } from '../../molecules';
 import { ButtonActionProps } from '../../molecules/FloatToolbar/types';
+import { DownloadIcon, EditIcon, OpenInNewIcon } from '../../server';
 
 export interface MdFloatToolbarProps {
   source: string,

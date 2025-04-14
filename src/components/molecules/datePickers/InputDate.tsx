@@ -1,6 +1,7 @@
 import React from 'react';
 import { classNames } from '../../../helpers';
-import { Button, DateLiteral, InputDateProps, PlusIcon, Popover, T } from '../../atoms';
+import { Button, DateLiteral, InputDateProps, Popover, T } from '../../atoms';
+import { PlusIcon } from '../../server';
 import { DatePicker } from './DatePicker';
 
 // Add label

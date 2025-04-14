@@ -8,9 +8,10 @@ import React from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification, useMutate } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
-import { RefreshIcon, T } from '../../atoms';
+import { T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { ButtonLoaderOnClickType } from '../../molecules/types';
+import { RefreshIcon } from '../../server';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
 export const SubmissionRejudgeButton = ({ submissionId }: { submissionId: string }) => {

@@ -8,7 +8,8 @@ import {
 } from '@juki-team/commons';
 import React, { Children, Fragment, PropsWithChildren, ReactNode } from 'react';
 import { classNames } from '../../../helpers';
-import { ExclamationIcon, Popover, T } from '../../atoms';
+import { Popover, T } from '../../atoms';
+import { ExclamationIcon } from '../../server';
 import { ProblemInfoProps } from './types';
 
 export interface JukiProblemInfoProps {

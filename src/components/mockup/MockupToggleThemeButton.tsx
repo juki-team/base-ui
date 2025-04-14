@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, InvertColorsIcon } from '../atoms';
+import { Button } from '../atoms';
+import { InvertColorsIcon } from '../server';
 
 export const MockupToggleThemeButton = () => {
   return (

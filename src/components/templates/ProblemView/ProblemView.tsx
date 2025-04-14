@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
-import { Button, FullscreenExitIcon, FullscreenIcon, InfoIcon, Portal, T } from '../../atoms';
+import { Button, Portal, T } from '../../atoms';
 import { SplitPane } from '../../molecules';
+import { FullscreenExitIcon, FullscreenIcon, InfoIcon } from '../../server';
 import { ProblemCodeEditor } from './ProblemCodeEditor';
 import { ProblemStatementView } from './ProblemStatementView';
 import { ProblemViewProps } from './types';

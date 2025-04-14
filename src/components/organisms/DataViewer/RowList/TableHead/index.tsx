@@ -1,6 +1,6 @@
 import React, { Children, memo, ReactElement, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../../helpers';
-import { ArrowIcon, SortIcon } from '../../../../atoms';
+import { ArrowIcon, SortIcon } from '../../../../server';
 import { DataViewerTableHeadersType, TableHeadProps, TableSortType } from '../../types';
 import { fixHeaders, renderHead } from '../../utils';
 import { Filter } from './Filter';

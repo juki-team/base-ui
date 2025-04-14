@@ -1,6 +1,7 @@
 import { ContestSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
-import { DateLiteral, EventIcon, ScheduleIcon, T } from '../../atoms';
+import { DateLiteral, T } from '../../atoms';
+import { EventIcon, ScheduleIcon } from '../../server';
 import { DataViewerHeadersType, Field } from '../DataViewer';
 
 export const getContestDateHeader = (): DataViewerHeadersType<ContestSummaryListResponseDTO> => ({

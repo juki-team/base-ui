@@ -2,7 +2,7 @@ import { consoleError, ContentResponseType, ContentsResponseType, ErrorResponseT
 import React, { useEffect, useMemo, useRef } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useFetcher, useJukiNotification } from '../../../hooks';
-import { JukiSurprisedImage, LineLoader } from '../../atoms';
+import { JukiSurprisedImage, LineLoader } from '../../server';
 import { JukiLoadingLayout } from '../layouts';
 import { FetcherLayerProps } from './types';
 
