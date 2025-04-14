@@ -31,7 +31,14 @@ const componentDirs = [
     loadingLine: `import { LoadingIcon } from '../LoadingIcon';`,
     withTypes: false,
     cmpIndex: true,
-  }
+  },
+  {
+    dir: path.resolve('./src/components/atoms/server/images'),
+    depth: 0,
+    loadingLine: `import { LoadingIcon } from '../icons/LoadingIcon';`,
+    withTypes: false,
+    withoutProps: true,
+  },
 ];
 
 const withGenericity = [
@@ -52,10 +59,9 @@ const withGenericity = [
   [ `export const TabsInlineBody = (props: TabsInlineBodyProps) => (`, `export const TabsInlineBody = <T, >(props: TabsInlineBodyProps<T>) => (` ],
   [ `export const TwoContentCardsLayout = (props: TwoContentCardsLayoutProps) => (`, `export const TwoContentCardsLayout = <T, >(props: TwoContentCardsLayoutProps<T>) => (` ],
   [ `export const TwoContentLayout = (props: TwoContentLayoutProps) => (`, `export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => (` ],
-  []
 ]
 
-for (let {dir, loadingLine, withTypes, commonProp, depth, cmpIndex} of componentDirs) {
+for (let {dir, loadingLine, withTypes, commonProp, depth, cmpIndex, withoutProps} of componentDirs) {
   console.log(`Generating ${dir}`);
   if (!fs.existsSync(dir)) continue;
   
@@ -85,7 +91,7 @@ for (let {dir, loadingLine, withTypes, commonProp, depth, cmpIndex} of component
   const indexContent = [
     `import React, { lazy, Suspense } from 'react';`,
     loadingLine,
-    !commonProp
+    !commonProp && !withoutProps
       ? files.map(({
                      basePath,
                      name
@@ -96,7 +102,7 @@ for (let {dir, loadingLine, withTypes, commonProp, depth, cmpIndex} of component
         `const Lazy${name} = lazy(() => import('${basePath}/${name}').then(module => ({ default: module.${name} })));`,
       ];
       
-      let exportLine = `export const ${name} = (props: ${commonProp ? commonProp : `${name}Props`}) => (`;
+      let exportLine = `export const ${name} = (${withoutProps ? '' : (`props: ${commonProp ? commonProp : `${name}Props`}`)}) => (`;
       const index = withGenericity.findIndex(([ line, newLine ]) => {
         return exportLine === line;
       })
@@ -111,7 +117,7 @@ for (let {dir, loadingLine, withTypes, commonProp, depth, cmpIndex} of component
       }
       
       lines.push(
-        `    <Lazy${name} {...props} />`,
+        `    <Lazy${name} ${withoutProps ? '' : '{...props} '}/>`,
         `  </Suspense>`,
         `);`,
         ``

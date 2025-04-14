@@ -1,29 +1,27 @@
 import React, { lazy, Suspense } from 'react';
+import { LoadingIcon } from './server';
 import { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';
 import { ButtonProps } from './Button/types';
 import { CollapseProps } from './Collapse/types';
 import { CopyToClipboardProps } from './CopyToClipboard/types';
 import { DateLiteralProps } from './DateLiteral/types';
 import { DivProps } from './Div/types';
-import {
-  InputCellPhoneNumberProps,
-  InputCheckboxProps,
-  InputPasswordProps,
-  InputProps,
-  InputRadioProps,
-  InputSelectProps,
-  InputTextAreaProps,
-  InputToggleProps,
-} from './inputs/types';
 import { ModalProps } from './Modal/types';
 import { MultiSelectProps } from './MultiSelect/types';
 import { PopoverProps } from './Popover/types';
 import { PortalProps } from './Portal/types';
 import { SelectProps } from './Select/types';
-import { LoadingIcon } from './server';
 import { TProps } from './T/types';
 import { TextAreaProps } from './TextArea/types';
 import { VirtualizedRowsFixedProps } from './VirtualizedRowsFixed/types';
+import { InputProps } from './inputs/types';
+import { InputCellPhoneNumberProps } from './inputs/types';
+import { InputCheckboxProps } from './inputs/types';
+import { InputPasswordProps } from './inputs/types';
+import { InputRadioProps } from './inputs/types';
+import { InputSelectProps } from './inputs/types';
+import { InputTextAreaProps } from './inputs/types';
+import { InputToggleProps } from './inputs/types';
 
 const LazyButton = lazy(() => import('./Button/Button').then(module => ({ default: module.Button })));
 export const Button = (props: ButtonProps) => (

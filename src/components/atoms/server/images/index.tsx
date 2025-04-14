@@ -1,90 +1,86 @@
-import React from 'react';
-import { classNames } from '../../../../helpers';
-import JukiCompleteLaptop from './JukiCompleteLaptop';
-import JukiCouchLogoHor from './JukiCouchLogoHor';
-import JukiCouchLogoVer from './JukiCouchLogoVer';
-import JukiCourt from './JukiCourt';
-import JukiHead from './JukiHead';
-import JukiJudgeLogoHor from './JukiJudgeLogoHor';
-import JukiJudgeLogoVer from './JukiJudgeLogoVer';
-import JukiLaptop from './JukiLaptop';
-import { JukiSurprised } from './JukiSurprised';
-import JukiUtilsLogoHor from './JukiUtilsLogoHor';
+import React, { lazy, Suspense } from 'react';
+import { LoadingIcon } from '../icons/LoadingIcon';
 
-import { ImageProps } from './types';
+const LazyFlagEnImage = lazy(() => import('./FlagEnImage').then(module => ({ default: module.FlagEnImage })));
+export const FlagEnImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyFlagEnImage />
+  </Suspense>
+);
 
-export const FlagEnImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-bg-image flag-en', className)} />
-  );
-};
+const LazyFlagEsImage = lazy(() => import('./FlagEsImage').then(module => ({ default: module.FlagEsImage })));
+export const FlagEsImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyFlagEsImage />
+  </Suspense>
+);
 
-export const FlagEsImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-bg-image flag-es', className)} />
-  );
-};
+const LazyJukiCompleteLaptopImage = lazy(() => import('./JukiCompleteLaptopImage').then(module => ({ default: module.JukiCompleteLaptopImage })));
+export const JukiCompleteLaptopImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyJukiCompleteLaptopImage />
+  </Suspense>
+);
 
-// LOGO
+const LazyJukiCouchLogoHorImage = lazy(() => import('./JukiCouchLogoHorImage').then(module => ({ default: module.JukiCouchLogoHorImage })));
+export const JukiCouchLogoHorImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyJukiCouchLogoHorImage />
+  </Suspense>
+);
 
-export const JukiJudgeLogoHorImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-svg-image', className)}><JukiJudgeLogoHor /></div>
-  );
-};
+const LazyJukiCouchLogoVerImage = lazy(() => import('./JukiCouchLogoVerImage').then(module => ({ default: module.JukiCouchLogoVerImage })));
+export const JukiCouchLogoVerImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyJukiCouchLogoVerImage />
+  </Suspense>
+);
 
-export const JukiJudgeLogoVerImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-svg-image', className)}><JukiJudgeLogoVer /></div>
-  );
-};
+const LazyJukiCourtImage = lazy(() => import('./JukiCourtImage').then(module => ({ default: module.JukiCourtImage })));
+export const JukiCourtImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyJukiCourtImage />
+  </Suspense>
+);
 
-export const JukiCouchLogoHorImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-svg-image', className)}><JukiCouchLogoHor /></div>
-  );
-};
+const LazyJukiHeadImage = lazy(() => import('./JukiHeadImage').then(module => ({ default: module.JukiHeadImage })));
+export const JukiHeadImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyJukiHeadImage />
+  </Suspense>
+);
 
-export const JukiCouchLogoVerImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-svg-image', className)}><JukiCouchLogoVer /></div>
-  );
-};
+const LazyJukiJudgeLogoHorImage = lazy(() => import('./JukiJudgeLogoHorImage').then(module => ({ default: module.JukiJudgeLogoHorImage })));
+export const JukiJudgeLogoHorImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyJukiJudgeLogoHorImage />
+  </Suspense>
+);
 
-export const JukiCompleteLaptopImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-svg-image', className)}><JukiCompleteLaptop /></div>
-  );
-};
+const LazyJukiJudgeLogoVerImage = lazy(() => import('./JukiJudgeLogoVerImage').then(module => ({ default: module.JukiJudgeLogoVerImage })));
+export const JukiJudgeLogoVerImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyJukiJudgeLogoVerImage />
+  </Suspense>
+);
 
-export const JukiUtilsLogoHorImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-svg-image', className)}><JukiUtilsLogoHor /></div>
-  );
-};
+const LazyJukiLaptopImage = lazy(() => import('./JukiLaptopImage').then(module => ({ default: module.JukiLaptopImage })));
+export const JukiLaptopImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyJukiLaptopImage />
+  </Suspense>
+);
 
-// IMAGES
+const LazyJukiSurprisedImage = lazy(() => import('./JukiSurprisedImage').then(module => ({ default: module.JukiSurprisedImage })));
+export const JukiSurprisedImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyJukiSurprisedImage />
+  </Suspense>
+);
 
-export const JukiHeadImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-svg-image', className)}><JukiHead /></div>
-  );
-};
-
-export const JukiCourtImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-svg-image', className)}><JukiCourt /></div>
-  );
-};
-
-export const JukiLaptopImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-svg-image', className)}><JukiLaptop /></div>
-  );
-};
-
-export const JukiSurprisedImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-svg-image', className)}><JukiSurprised /></div>
-  );
-};
+const LazyJukiUtilsLogoHorImage = lazy(() => import('./JukiUtilsLogoHorImage').then(module => ({ default: module.JukiUtilsLogoHorImage })));
+export const JukiUtilsLogoHorImage = () => (
+  <Suspense fallback={<LoadingIcon size="tiny" />}>
+    <LazyJukiUtilsLogoHorImage />
+  </Suspense>
+);

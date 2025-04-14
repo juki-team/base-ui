@@ -56,7 +56,7 @@ export const Regular: Story = {
             .map(([ iconName, Component ]) => (
               <div className="jk-row nowrap center block">
                 <div style={{ width: '200px', height: '200px' }}>
-                  <Component {...args} />
+                  <Component />
                 </div>
                 <div className="tx-t cr-g1" style={{ width: 140 }}>
                   {iconName}
