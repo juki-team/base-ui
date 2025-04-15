@@ -3,16 +3,19 @@ const path = require('path');
 
 const componentDirs = [
   {
+    chunkName: 'Atoms',
     dir: path.resolve('./src/components/atoms'),
     headerLines: `import { SpinIcon } from './server/icons/SpinIcon';\nimport { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';`,
     withTypes: true,
   },
   {
+    chunkName: 'Molecules',
     dir: path.resolve('./src/components/molecules'),
     headerLines: `import { SpinIcon } from '../atoms/server/icons/SpinIcon';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';`,
     withTypes: true,
   },
   {
+    chunkName: 'AtomsIconsGoogle',
     dir: path.resolve('./src/components/atoms/server/icons/google'),
     depth: 0,
     headerLines: `import { SpinIcon } from '../SpinIcon';\nimport { BasicIconProps } from '../types';`,
@@ -20,6 +23,7 @@ const componentDirs = [
     commonProp: 'BasicIconProps',
   },
   {
+    chunkName: 'AtomsIconsSigns',
     dir: path.resolve('./src/components/atoms/server/icons/signs'),
     headerLines: `import { SpinIcon } from '../SpinIcon';\nimport { SignIconProps } from '../types';`,
     withTypes: false,
@@ -27,12 +31,14 @@ const componentDirs = [
     cmpIndex: true,
   },
   {
+    chunkName: 'AtomsIconsSpecials',
     dir: path.resolve('./src/components/atoms/server/icons/specials'),
     headerLines: `import { SpinIcon } from '../SpinIcon';`,
     withTypes: false,
     cmpIndex: true,
   },
   {
+    chunkName: 'AtomsImages',
     dir: path.resolve('./src/components/atoms/server/images'),
     depth: 0,
     headerLines: `import { SpinIcon } from '../icons/SpinIcon';`,
@@ -40,11 +46,13 @@ const componentDirs = [
     withoutProps: true,
   },
   {
+    chunkName: 'Organisms',
     dir: path.resolve('./src/components/organisms'),
     headerLines: `import { SpinIcon } from '../atoms/server/icons/SpinIcon';`,
     withTypes: true,
   },
   {
+    chunkName: 'Templates',
     dir: path.resolve('./src/components/templates'),
     headerLines: `import { SpinIcon } from '../atoms/server/icons/SpinIcon';`,
     withTypes: true,
@@ -82,7 +90,19 @@ const withGenericity = [
   [ 'export const UpdateEntityLayout = (props: UpdateEntityLayoutProps) => (', 'export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) => (' ],
 ]
 
-for (let {dir, headerLines, withTypes, commonProp, depth, cmpIndex, withoutProps, footerLines} of componentDirs) {
+const preloadNames = [];
+
+for (let {
+  dir,
+  headerLines,
+  withTypes,
+  commonProp,
+  depth,
+  cmpIndex,
+  withoutProps,
+  footerLines,
+  chunkName
+} of componentDirs) {
   console.log(`Generating ${dir}`);
   if (!fs.existsSync(dir)) continue;
   
@@ -93,7 +113,7 @@ for (let {dir, headerLines, withTypes, commonProp, depth, cmpIndex, withoutProps
   if (depth === 0) {
     dir = dir.replace('/' + folders[0], '');
   }
-  console.log({folders})
+  
   const files = (cmpIndex ? folders.map(folder => ({path: '.', file: folder}))
       : (folders
         .map(baseFolder => fs.readdirSync(dir + '/' + baseFolder)
@@ -107,7 +127,7 @@ for (let {dir, headerLines, withTypes, commonProp, depth, cmpIndex, withoutProps
       return {basePath: (depth === 0 || cmpIndex) ? '.' : _path.replace('/' + name + '.tsx', ''), path: _path, name};
     })
   
-  console.log({folders, files})
+  console.log({foldersSize: folders.length, filesSize: files.length});
   
   let indexContent = [
     `import React, { lazy, Suspense } from 'react';`,
@@ -121,7 +141,8 @@ for (let {dir, headerLines, withTypes, commonProp, depth, cmpIndex, withoutProps
     '',
     ...files.map(({basePath, path, name}) => {
       const lines = [
-        `const Lazy${name} = lazy(() => import('${basePath}/${name}').then(module => ({ default: module.${name} })));`,
+        `const ${name}Import = () => import('${basePath}/${name}');`,
+        `const Lazy${name} = lazy(() => ${name}Import().then(module => ({ default: module.${name} })));`,
       ];
       
       let exportLine = `export const ${name} = (${withoutProps ? '' : (`props: ${commonProp ? commonProp : `${name}Props`}`)}) => (`;
@@ -147,6 +168,10 @@ for (let {dir, headerLines, withTypes, commonProp, depth, cmpIndex, withoutProps
       
       return lines.join('\n');
     }),
+    `export const preload${chunkName} = () => {`,
+    ...files.map(({name}) => `  void ${name}Import();`),
+    '};',
+    ''
   ].join('\n');
   
   if (footerLines) {
@@ -162,12 +187,15 @@ for (let {dir, headerLines, withTypes, commonProp, depth, cmpIndex, withoutProps
     if (withTypes) {
       fs.writeFileSync(path.join(dir + '/' + folders[0], 'types.ts'), indexTypesContent);
     }
-    console.log(`✅ Generado: ${path.join(dir + '/' + folders[0], 'index.tsx')}`);
+    console.log(`✅ Generated: ${path.join(dir + '/' + folders[0], 'index.tsx')}`);
   } else {
     fs.writeFileSync(path.join(dir, 'index.tsx'), indexContent);
     if (withTypes) {
       fs.writeFileSync(path.join(dir, 'types.ts'), indexTypesContent);
     }
-    console.log(`✅ Generado: ${path.join(dir, 'index.tsx')}`);
+    console.log(`✅ Generated: ${path.join(dir, 'index.tsx')}`);
   }
+  preloadNames.push(`void preload${chunkName}();`);
 }
+
+console.log(preloadNames.join('\n'));

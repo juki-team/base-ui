@@ -42,84 +42,96 @@ import { SubmissionProblemFieldProps } from './submission/types';
 import { SubmissionTimeFieldProps } from './submission/types';
 import { SubmitViewProps } from './submission/types';
 
-const LazyChangePasswordModal = lazy(() => import('./ChangePasswordModal/ChangePasswordModal').then(module => ({ default: module.ChangePasswordModal })));
+const ChangePasswordModalImport = () => import('./ChangePasswordModal/ChangePasswordModal');
+const LazyChangePasswordModal = lazy(() => ChangePasswordModalImport().then(module => ({ default: module.ChangePasswordModal })));
 export const ChangePasswordModal = (props: ChangePasswordModalProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyChangePasswordModal {...props} />
   </Suspense>
 );
 
-const LazyEditProfileModal = lazy(() => import('./EditProfileModal/EditProfileModal').then(module => ({ default: module.EditProfileModal })));
+const EditProfileModalImport = () => import('./EditProfileModal/EditProfileModal');
+const LazyEditProfileModal = lazy(() => EditProfileModalImport().then(module => ({ default: module.EditProfileModal })));
 export const EditProfileModal = (props: EditProfileModalProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyEditProfileModal {...props} />
   </Suspense>
 );
 
-const LazyImageProfileModal = lazy(() => import('./EditProfileModal/ImageProfileModal').then(module => ({ default: module.ImageProfileModal })));
+const ImageProfileModalImport = () => import('./EditProfileModal/ImageProfileModal');
+const LazyImageProfileModal = lazy(() => ImageProfileModalImport().then(module => ({ default: module.ImageProfileModal })));
 export const ImageProfileModal = (props: ImageProfileModalProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyImageProfileModal {...props} />
   </Suspense>
 );
 
-const LazyEntityLogsModal = lazy(() => import('./EntityLogsModal/EntityLogsModal').then(module => ({ default: module.EntityLogsModal })));
+const EntityLogsModalImport = () => import('./EntityLogsModal/EntityLogsModal');
+const LazyEntityLogsModal = lazy(() => EntityLogsModalImport().then(module => ({ default: module.EntityLogsModal })));
 export const EntityLogsModal = (props: EntityLogsModalProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyEntityLogsModal {...props} />
   </Suspense>
 );
 
-const LazyErrorBoundary = lazy(() => import('./ErrorBoundary/ErrorBoundary').then(module => ({ default: module.ErrorBoundary })));
+const ErrorBoundaryImport = () => import('./ErrorBoundary/ErrorBoundary');
+const LazyErrorBoundary = lazy(() => ErrorBoundaryImport().then(module => ({ default: module.ErrorBoundary })));
 export const ErrorBoundary = (props: ErrorBoundaryProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyErrorBoundary {...props} />
   </Suspense>
 );
 
-const LazyHelpSection = lazy(() => import('./HelpSection/HelpSection').then(module => ({ default: module.HelpSection })));
+const HelpSectionImport = () => import('./HelpSection/HelpSection');
+const LazyHelpSection = lazy(() => HelpSectionImport().then(module => ({ default: module.HelpSection })));
 export const HelpSection = (props: HelpSectionProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyHelpSection {...props} />
   </Suspense>
 );
 
-const LazyJukiSocketAlert = lazy(() => import('./JukiSocketAlert/JukiSocketAlert').then(module => ({ default: module.JukiSocketAlert })));
+const JukiSocketAlertImport = () => import('./JukiSocketAlert/JukiSocketAlert');
+const LazyJukiSocketAlert = lazy(() => JukiSocketAlertImport().then(module => ({ default: module.JukiSocketAlert })));
 export const JukiSocketAlert = (props: JukiSocketAlertProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyJukiSocketAlert {...props} />
   </Suspense>
 );
 
-const LazyMainMenu = lazy(() => import('./MainMenu/MainMenu').then(module => ({ default: module.MainMenu })));
+const MainMenuImport = () => import('./MainMenu/MainMenu');
+const LazyMainMenu = lazy(() => MainMenuImport().then(module => ({ default: module.MainMenu })));
 export const MainMenu = (props: MainMenuProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyMainMenu {...props} />
   </Suspense>
 );
 
-const LazyNewVersionAvailable = lazy(() => import('./NewViersionAvailableModal/NewVersionAvailable').then(module => ({ default: module.NewVersionAvailable })));
+const NewVersionAvailableImport = () => import('./NewViersionAvailableModal/NewVersionAvailable');
+const LazyNewVersionAvailable = lazy(() => NewVersionAvailableImport().then(module => ({ default: module.NewVersionAvailable })));
 export const NewVersionAvailable = (props: NewVersionAvailableProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyNewVersionAvailable {...props} />
   </Suspense>
 );
 
-const LazyPageNotFound = lazy(() => import('./PageNotFound/PageNotFound').then(module => ({ default: module.PageNotFound })));
+const PageNotFoundImport = () => import('./PageNotFound/PageNotFound');
+const LazyPageNotFound = lazy(() => PageNotFoundImport().then(module => ({ default: module.PageNotFound })));
 export const PageNotFound = (props: PageNotFoundProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPageNotFound {...props} />
   </Suspense>
 );
 
-const LazyProblemInfo = lazy(() => import('./ProblemView/ProblemInfo').then(module => ({ default: module.ProblemInfo })));
+const ProblemInfoImport = () => import('./ProblemView/ProblemInfo');
+const LazyProblemInfo = lazy(() => ProblemInfoImport().then(module => ({ default: module.ProblemInfo })));
 export const ProblemInfo = (props: ProblemInfoProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemInfo {...props} />
   </Suspense>
 );
 
-const LazyProblemView = lazy(() => import('./ProblemView/ProblemView').then(module => ({ default: module.ProblemView })));
+const ProblemViewImport = () => import('./ProblemView/ProblemView');
+const LazyProblemView = lazy(() => ProblemViewImport().then(module => ({ default: module.ProblemView })));
 export const ProblemView = <T, >(props: ProblemViewProps<T>) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
@@ -127,42 +139,48 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => (
   </Suspense>
 );
 
-const LazyResetPasswordModal = lazy(() => import('./ResetPasswordModal/ResetPasswordModal').then(module => ({ default: module.ResetPasswordModal })));
+const ResetPasswordModalImport = () => import('./ResetPasswordModal/ResetPasswordModal');
+const LazyResetPasswordModal = lazy(() => ResetPasswordModalImport().then(module => ({ default: module.ResetPasswordModal })));
 export const ResetPasswordModal = (props: ResetPasswordModalProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyResetPasswordModal {...props} />
   </Suspense>
 );
 
-const LazyUserPreviewModal = lazy(() => import('./UserPreviewModal/UserPreviewModal').then(module => ({ default: module.UserPreviewModal })));
+const UserPreviewModalImport = () => import('./UserPreviewModal/UserPreviewModal');
+const LazyUserPreviewModal = lazy(() => UserPreviewModalImport().then(module => ({ default: module.UserPreviewModal })));
 export const UserPreviewModal = (props: UserPreviewModalProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyUserPreviewModal {...props} />
   </Suspense>
 );
 
-const LazyUserProfile = lazy(() => import('./UserProfile/UserProfile').then(module => ({ default: module.UserProfile })));
+const UserProfileImport = () => import('./UserProfile/UserProfile');
+const LazyUserProfile = lazy(() => UserProfileImport().then(module => ({ default: module.UserProfile })));
 export const UserProfile = (props: UserProfileProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyUserProfile {...props} />
   </Suspense>
 );
 
-const LazyUserProfileSettings = lazy(() => import('./UserProfileSettings/UserProfileSettings').then(module => ({ default: module.UserProfileSettings })));
+const UserProfileSettingsImport = () => import('./UserProfileSettings/UserProfileSettings');
+const LazyUserProfileSettings = lazy(() => UserProfileSettingsImport().then(module => ({ default: module.UserProfileSettings })));
 export const UserProfileSettings = (props: UserProfileSettingsProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyUserProfileSettings {...props} />
   </Suspense>
 );
 
-const LazyContestNameLinkField = lazy(() => import('./contest/ContestNameLinkField').then(module => ({ default: module.ContestNameLinkField })));
+const ContestNameLinkFieldImport = () => import('./contest/ContestNameLinkField');
+const LazyContestNameLinkField = lazy(() => ContestNameLinkFieldImport().then(module => ({ default: module.ContestNameLinkField })));
 export const ContestNameLinkField = (props: ContestNameLinkFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyContestNameLinkField {...props} />
   </Suspense>
 );
 
-const LazyCreateEntityLayout = lazy(() => import('./entity/CreateEntityLayout').then(module => ({ default: module.CreateEntityLayout })));
+const CreateEntityLayoutImport = () => import('./entity/CreateEntityLayout');
+const LazyCreateEntityLayout = lazy(() => CreateEntityLayoutImport().then(module => ({ default: module.CreateEntityLayout })));
 export const CreateEntityLayout = <T, U, V>(props: CreateEntityLayoutProps<T, U, V>) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
@@ -170,7 +188,8 @@ export const CreateEntityLayout = <T, U, V>(props: CreateEntityLayoutProps<T, U,
   </Suspense>
 );
 
-const LazyUpdateEntityLayout = lazy(() => import('./entity/UpdateEntityLayout').then(module => ({ default: module.UpdateEntityLayout })));
+const UpdateEntityLayoutImport = () => import('./entity/UpdateEntityLayout');
+const LazyUpdateEntityLayout = lazy(() => UpdateEntityLayoutImport().then(module => ({ default: module.UpdateEntityLayout })));
 export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
@@ -178,158 +197,224 @@ export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U,
   </Suspense>
 );
 
-const LazyDocumentCustomMembersContent = lazy(() => import('./members/DocumentCustomMembersContent').then(module => ({ default: module.DocumentCustomMembersContent })));
+const DocumentCustomMembersContentImport = () => import('./members/DocumentCustomMembersContent');
+const LazyDocumentCustomMembersContent = lazy(() => DocumentCustomMembersContentImport().then(module => ({ default: module.DocumentCustomMembersContent })));
 export const DocumentCustomMembersContent = (props: DocumentCustomMembersContentProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDocumentCustomMembersContent {...props} />
   </Suspense>
 );
 
-const LazyDocumentMembersButton = lazy(() => import('./members/DocumentMembersButton').then(module => ({ default: module.DocumentMembersButton })));
+const DocumentMembersButtonImport = () => import('./members/DocumentMembersButton');
+const LazyDocumentMembersButton = lazy(() => DocumentMembersButtonImport().then(module => ({ default: module.DocumentMembersButton })));
 export const DocumentMembersButton = (props: DocumentMembersButtonProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDocumentMembersButton {...props} />
   </Suspense>
 );
 
-const LazyDocumentMembersContent = lazy(() => import('./members/DocumentMembersContent').then(module => ({ default: module.DocumentMembersContent })));
+const DocumentMembersContentImport = () => import('./members/DocumentMembersContent');
+const LazyDocumentMembersContent = lazy(() => DocumentMembersContentImport().then(module => ({ default: module.DocumentMembersContent })));
 export const DocumentMembersContent = (props: DocumentMembersContentProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDocumentMembersContent {...props} />
   </Suspense>
 );
 
-const LazyProblemAdminActionsField = lazy(() => import('./problem/ProblemAdminActionsField').then(module => ({ default: module.ProblemAdminActionsField })));
+const ProblemAdminActionsFieldImport = () => import('./problem/ProblemAdminActionsField');
+const LazyProblemAdminActionsField = lazy(() => ProblemAdminActionsFieldImport().then(module => ({ default: module.ProblemAdminActionsField })));
 export const ProblemAdminActionsField = (props: ProblemAdminActionsFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemAdminActionsField {...props} />
   </Suspense>
 );
 
-const LazyProblemCrawlerField = lazy(() => import('./problem/ProblemCrawlerField').then(module => ({ default: module.ProblemCrawlerField })));
+const ProblemCrawlerFieldImport = () => import('./problem/ProblemCrawlerField');
+const LazyProblemCrawlerField = lazy(() => ProblemCrawlerFieldImport().then(module => ({ default: module.ProblemCrawlerField })));
 export const ProblemCrawlerField = (props: ProblemCrawlerFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemCrawlerField {...props} />
   </Suspense>
 );
 
-const LazyProblemKeyField = lazy(() => import('./problem/ProblemKeyField').then(module => ({ default: module.ProblemKeyField })));
+const ProblemKeyFieldImport = () => import('./problem/ProblemKeyField');
+const LazyProblemKeyField = lazy(() => ProblemKeyFieldImport().then(module => ({ default: module.ProblemKeyField })));
 export const ProblemKeyField = (props: ProblemKeyFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemKeyField {...props} />
   </Suspense>
 );
 
-const LazyProblemModeField = lazy(() => import('./problem/ProblemModeField').then(module => ({ default: module.ProblemModeField })));
+const ProblemModeFieldImport = () => import('./problem/ProblemModeField');
+const LazyProblemModeField = lazy(() => ProblemModeFieldImport().then(module => ({ default: module.ProblemModeField })));
 export const ProblemModeField = (props: ProblemModeFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemModeField {...props} />
   </Suspense>
 );
 
-const LazyProblemNameLinkField = lazy(() => import('./problem/ProblemNameLinkField').then(module => ({ default: module.ProblemNameLinkField })));
+const ProblemNameLinkFieldImport = () => import('./problem/ProblemNameLinkField');
+const LazyProblemNameLinkField = lazy(() => ProblemNameLinkFieldImport().then(module => ({ default: module.ProblemNameLinkField })));
 export const ProblemNameLinkField = (props: ProblemNameLinkFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemNameLinkField {...props} />
   </Suspense>
 );
 
-const LazyProblemNameModalField = lazy(() => import('./problem/ProblemNameModalField').then(module => ({ default: module.ProblemNameModalField })));
+const ProblemNameModalFieldImport = () => import('./problem/ProblemNameModalField');
+const LazyProblemNameModalField = lazy(() => ProblemNameModalFieldImport().then(module => ({ default: module.ProblemNameModalField })));
 export const ProblemNameModalField = (props: ProblemNameModalFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemNameModalField {...props} />
   </Suspense>
 );
 
-const LazyProblemOwnerField = lazy(() => import('./problem/ProblemOwnerField').then(module => ({ default: module.ProblemOwnerField })));
+const ProblemOwnerFieldImport = () => import('./problem/ProblemOwnerField');
+const LazyProblemOwnerField = lazy(() => ProblemOwnerFieldImport().then(module => ({ default: module.ProblemOwnerField })));
 export const ProblemOwnerField = (props: ProblemOwnerFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemOwnerField {...props} />
   </Suspense>
 );
 
-const LazyProblemStatus = lazy(() => import('./problem/ProblemStatus').then(module => ({ default: module.ProblemStatus })));
+const ProblemStatusImport = () => import('./problem/ProblemStatus');
+const LazyProblemStatus = lazy(() => ProblemStatusImport().then(module => ({ default: module.ProblemStatus })));
 export const ProblemStatus = (props: ProblemStatusProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemStatus {...props} />
   </Suspense>
 );
 
-const LazyProblemTagsField = lazy(() => import('./problem/ProblemTagsField').then(module => ({ default: module.ProblemTagsField })));
+const ProblemTagsFieldImport = () => import('./problem/ProblemTagsField');
+const LazyProblemTagsField = lazy(() => ProblemTagsFieldImport().then(module => ({ default: module.ProblemTagsField })));
 export const ProblemTagsField = (props: ProblemTagsFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemTagsField {...props} />
   </Suspense>
 );
 
-const LazyProblemTypeField = lazy(() => import('./problem/ProblemTypeField').then(module => ({ default: module.ProblemTypeField })));
+const ProblemTypeFieldImport = () => import('./problem/ProblemTypeField');
+const LazyProblemTypeField = lazy(() => ProblemTypeFieldImport().then(module => ({ default: module.ProblemTypeField })));
 export const ProblemTypeField = (props: ProblemTypeFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemTypeField {...props} />
   </Suspense>
 );
 
-const LazySubmissionContestField = lazy(() => import('./submission/SubmissionContestField').then(module => ({ default: module.SubmissionContestField })));
+const SubmissionContestFieldImport = () => import('./submission/SubmissionContestField');
+const LazySubmissionContestField = lazy(() => SubmissionContestFieldImport().then(module => ({ default: module.SubmissionContestField })));
 export const SubmissionContestField = (props: SubmissionContestFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySubmissionContestField {...props} />
   </Suspense>
 );
 
-const LazySubmissionContestProblemField = lazy(() => import('./submission/SubmissionContestProblemField').then(module => ({ default: module.SubmissionContestProblemField })));
+const SubmissionContestProblemFieldImport = () => import('./submission/SubmissionContestProblemField');
+const LazySubmissionContestProblemField = lazy(() => SubmissionContestProblemFieldImport().then(module => ({ default: module.SubmissionContestProblemField })));
 export const SubmissionContestProblemField = (props: SubmissionContestProblemFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySubmissionContestProblemField {...props} />
   </Suspense>
 );
 
-const LazySubmissionDateField = lazy(() => import('./submission/SubmissionDateField').then(module => ({ default: module.SubmissionDateField })));
+const SubmissionDateFieldImport = () => import('./submission/SubmissionDateField');
+const LazySubmissionDateField = lazy(() => SubmissionDateFieldImport().then(module => ({ default: module.SubmissionDateField })));
 export const SubmissionDateField = (props: SubmissionDateFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySubmissionDateField {...props} />
   </Suspense>
 );
 
-const LazySubmissionLanguageField = lazy(() => import('./submission/SubmissionLanguageField').then(module => ({ default: module.SubmissionLanguageField })));
+const SubmissionLanguageFieldImport = () => import('./submission/SubmissionLanguageField');
+const LazySubmissionLanguageField = lazy(() => SubmissionLanguageFieldImport().then(module => ({ default: module.SubmissionLanguageField })));
 export const SubmissionLanguageField = (props: SubmissionLanguageFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySubmissionLanguageField {...props} />
   </Suspense>
 );
 
-const LazySubmissionModal = lazy(() => import('./submission/SubmissionModal').then(module => ({ default: module.SubmissionModal })));
+const SubmissionModalImport = () => import('./submission/SubmissionModal');
+const LazySubmissionModal = lazy(() => SubmissionModalImport().then(module => ({ default: module.SubmissionModal })));
 export const SubmissionModal = (props: SubmissionModalProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySubmissionModal {...props} />
   </Suspense>
 );
 
-const LazySubmissionNicknameField = lazy(() => import('./submission/SubmissionNicknameField').then(module => ({ default: module.SubmissionNicknameField })));
+const SubmissionNicknameFieldImport = () => import('./submission/SubmissionNicknameField');
+const LazySubmissionNicknameField = lazy(() => SubmissionNicknameFieldImport().then(module => ({ default: module.SubmissionNicknameField })));
 export const SubmissionNicknameField = (props: SubmissionNicknameFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySubmissionNicknameField {...props} />
   </Suspense>
 );
 
-const LazySubmissionProblemField = lazy(() => import('./submission/SubmissionProblemField').then(module => ({ default: module.SubmissionProblemField })));
+const SubmissionProblemFieldImport = () => import('./submission/SubmissionProblemField');
+const LazySubmissionProblemField = lazy(() => SubmissionProblemFieldImport().then(module => ({ default: module.SubmissionProblemField })));
 export const SubmissionProblemField = (props: SubmissionProblemFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySubmissionProblemField {...props} />
   </Suspense>
 );
 
-const LazySubmissionTimeField = lazy(() => import('./submission/SubmissionTimeField').then(module => ({ default: module.SubmissionTimeField })));
+const SubmissionTimeFieldImport = () => import('./submission/SubmissionTimeField');
+const LazySubmissionTimeField = lazy(() => SubmissionTimeFieldImport().then(module => ({ default: module.SubmissionTimeField })));
 export const SubmissionTimeField = (props: SubmissionTimeFieldProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySubmissionTimeField {...props} />
   </Suspense>
 );
 
-const LazySubmitView = lazy(() => import('./submission/SubmitView').then(module => ({ default: module.SubmitView })));
+const SubmitViewImport = () => import('./submission/SubmitView');
+const LazySubmitView = lazy(() => SubmitViewImport().then(module => ({ default: module.SubmitView })));
 export const SubmitView = (props: SubmitViewProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySubmitView {...props} />
   </Suspense>
 );
+
+export const preloadTemplates = () => {
+  void ChangePasswordModalImport();
+  void EditProfileModalImport();
+  void ImageProfileModalImport();
+  void EntityLogsModalImport();
+  void ErrorBoundaryImport();
+  void HelpSectionImport();
+  void JukiSocketAlertImport();
+  void MainMenuImport();
+  void NewVersionAvailableImport();
+  void PageNotFoundImport();
+  void ProblemInfoImport();
+  void ProblemViewImport();
+  void ResetPasswordModalImport();
+  void UserPreviewModalImport();
+  void UserProfileImport();
+  void UserProfileSettingsImport();
+  void ContestNameLinkFieldImport();
+  void CreateEntityLayoutImport();
+  void UpdateEntityLayoutImport();
+  void DocumentCustomMembersContentImport();
+  void DocumentMembersButtonImport();
+  void DocumentMembersContentImport();
+  void ProblemAdminActionsFieldImport();
+  void ProblemCrawlerFieldImport();
+  void ProblemKeyFieldImport();
+  void ProblemModeFieldImport();
+  void ProblemNameLinkFieldImport();
+  void ProblemNameModalFieldImport();
+  void ProblemOwnerFieldImport();
+  void ProblemStatusImport();
+  void ProblemTagsFieldImport();
+  void ProblemTypeFieldImport();
+  void SubmissionContestFieldImport();
+  void SubmissionContestProblemFieldImport();
+  void SubmissionDateFieldImport();
+  void SubmissionLanguageFieldImport();
+  void SubmissionModalImport();
+  void SubmissionNicknameFieldImport();
+  void SubmissionProblemFieldImport();
+  void SubmissionTimeFieldImport();
+  void SubmitViewImport();
+};
 
 export * from './helpers';

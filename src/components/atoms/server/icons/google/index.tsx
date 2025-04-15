@@ -2,1017 +2,1310 @@ import React, { lazy, Suspense } from 'react';
 import { SpinIcon } from '../SpinIcon';
 import { BasicIconProps } from '../types';
 
-const LazyAcUnitIcon = lazy(() => import('./AcUnitIcon').then(module => ({ default: module.AcUnitIcon })));
+const AcUnitIconImport = () => import('./AcUnitIcon');
+const LazyAcUnitIcon = lazy(() => AcUnitIconImport().then(module => ({ default: module.AcUnitIcon })));
 export const AcUnitIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAcUnitIcon {...props} />
   </Suspense>
 );
 
-const LazyAccountCircleIcon = lazy(() => import('./AccountCircleIcon').then(module => ({ default: module.AccountCircleIcon })));
+const AccountCircleIconImport = () => import('./AccountCircleIcon');
+const LazyAccountCircleIcon = lazy(() => AccountCircleIconImport().then(module => ({ default: module.AccountCircleIcon })));
 export const AccountCircleIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAccountCircleIcon {...props} />
   </Suspense>
 );
 
-const LazyAcuteIcon = lazy(() => import('./AcuteIcon').then(module => ({ default: module.AcuteIcon })));
+const AcuteIconImport = () => import('./AcuteIcon');
+const LazyAcuteIcon = lazy(() => AcuteIconImport().then(module => ({ default: module.AcuteIcon })));
 export const AcuteIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAcuteIcon {...props} />
   </Suspense>
 );
 
-const LazyAddIcon = lazy(() => import('./AddIcon').then(module => ({ default: module.AddIcon })));
+const AddIconImport = () => import('./AddIcon');
+const LazyAddIcon = lazy(() => AddIconImport().then(module => ({ default: module.AddIcon })));
 export const AddIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAddIcon {...props} />
   </Suspense>
 );
 
-const LazyAddReactionIcon = lazy(() => import('./AddReactionIcon').then(module => ({ default: module.AddReactionIcon })));
+const AddReactionIconImport = () => import('./AddReactionIcon');
+const LazyAddReactionIcon = lazy(() => AddReactionIconImport().then(module => ({ default: module.AddReactionIcon })));
 export const AddReactionIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAddReactionIcon {...props} />
   </Suspense>
 );
 
-const LazyAdminPanelSettingsIcon = lazy(() => import('./AdminPanelSettingsIcon').then(module => ({ default: module.AdminPanelSettingsIcon })));
+const AdminPanelSettingsIconImport = () => import('./AdminPanelSettingsIcon');
+const LazyAdminPanelSettingsIcon = lazy(() => AdminPanelSettingsIconImport().then(module => ({ default: module.AdminPanelSettingsIcon })));
 export const AdminPanelSettingsIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAdminPanelSettingsIcon {...props} />
   </Suspense>
 );
 
-const LazyAlarmIcon = lazy(() => import('./AlarmIcon').then(module => ({ default: module.AlarmIcon })));
+const AlarmIconImport = () => import('./AlarmIcon');
+const LazyAlarmIcon = lazy(() => AlarmIconImport().then(module => ({ default: module.AlarmIcon })));
 export const AlarmIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAlarmIcon {...props} />
   </Suspense>
 );
 
-const LazyAppsIcon = lazy(() => import('./AppsIcon').then(module => ({ default: module.AppsIcon })));
+const AppsIconImport = () => import('./AppsIcon');
+const LazyAppsIcon = lazy(() => AppsIconImport().then(module => ({ default: module.AppsIcon })));
 export const AppsIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAppsIcon {...props} />
   </Suspense>
 );
 
-const LazyArrowBackIcon = lazy(() => import('./ArrowBackIcon').then(module => ({ default: module.ArrowBackIcon })));
+const ArrowBackIconImport = () => import('./ArrowBackIcon');
+const LazyArrowBackIcon = lazy(() => ArrowBackIconImport().then(module => ({ default: module.ArrowBackIcon })));
 export const ArrowBackIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyArrowBackIcon {...props} />
   </Suspense>
 );
 
-const LazyArrowDownwardIcon = lazy(() => import('./ArrowDownwardIcon').then(module => ({ default: module.ArrowDownwardIcon })));
+const ArrowDownwardIconImport = () => import('./ArrowDownwardIcon');
+const LazyArrowDownwardIcon = lazy(() => ArrowDownwardIconImport().then(module => ({ default: module.ArrowDownwardIcon })));
 export const ArrowDownwardIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyArrowDownwardIcon {...props} />
   </Suspense>
 );
 
-const LazyArrowDropDownIcon = lazy(() => import('./ArrowDropDownIcon').then(module => ({ default: module.ArrowDropDownIcon })));
+const ArrowDropDownIconImport = () => import('./ArrowDropDownIcon');
+const LazyArrowDropDownIcon = lazy(() => ArrowDropDownIconImport().then(module => ({ default: module.ArrowDropDownIcon })));
 export const ArrowDropDownIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyArrowDropDownIcon {...props} />
   </Suspense>
 );
 
-const LazyArrowDropUpIcon = lazy(() => import('./ArrowDropUpIcon').then(module => ({ default: module.ArrowDropUpIcon })));
+const ArrowDropUpIconImport = () => import('./ArrowDropUpIcon');
+const LazyArrowDropUpIcon = lazy(() => ArrowDropUpIconImport().then(module => ({ default: module.ArrowDropUpIcon })));
 export const ArrowDropUpIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyArrowDropUpIcon {...props} />
   </Suspense>
 );
 
-const LazyArrowForwardIcon = lazy(() => import('./ArrowForwardIcon').then(module => ({ default: module.ArrowForwardIcon })));
+const ArrowForwardIconImport = () => import('./ArrowForwardIcon');
+const LazyArrowForwardIcon = lazy(() => ArrowForwardIconImport().then(module => ({ default: module.ArrowForwardIcon })));
 export const ArrowForwardIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyArrowForwardIcon {...props} />
   </Suspense>
 );
 
-const LazyArrowLeftIcon = lazy(() => import('./ArrowLeftIcon').then(module => ({ default: module.ArrowLeftIcon })));
+const ArrowLeftIconImport = () => import('./ArrowLeftIcon');
+const LazyArrowLeftIcon = lazy(() => ArrowLeftIconImport().then(module => ({ default: module.ArrowLeftIcon })));
 export const ArrowLeftIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyArrowLeftIcon {...props} />
   </Suspense>
 );
 
-const LazyArrowRightIcon = lazy(() => import('./ArrowRightIcon').then(module => ({ default: module.ArrowRightIcon })));
+const ArrowRightIconImport = () => import('./ArrowRightIcon');
+const LazyArrowRightIcon = lazy(() => ArrowRightIconImport().then(module => ({ default: module.ArrowRightIcon })));
 export const ArrowRightIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyArrowRightIcon {...props} />
   </Suspense>
 );
 
-const LazyArrowUpwardIcon = lazy(() => import('./ArrowUpwardIcon').then(module => ({ default: module.ArrowUpwardIcon })));
+const ArrowUpwardIconImport = () => import('./ArrowUpwardIcon');
+const LazyArrowUpwardIcon = lazy(() => ArrowUpwardIconImport().then(module => ({ default: module.ArrowUpwardIcon })));
 export const ArrowUpwardIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyArrowUpwardIcon {...props} />
   </Suspense>
 );
 
-const LazyArticleIcon = lazy(() => import('./ArticleIcon').then(module => ({ default: module.ArticleIcon })));
+const ArticleIconImport = () => import('./ArticleIcon');
+const LazyArticleIcon = lazy(() => ArticleIconImport().then(module => ({ default: module.ArticleIcon })));
 export const ArticleIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyArticleIcon {...props} />
   </Suspense>
 );
 
-const LazyAssignmentIcon = lazy(() => import('./AssignmentIcon').then(module => ({ default: module.AssignmentIcon })));
+const AssignmentIconImport = () => import('./AssignmentIcon');
+const LazyAssignmentIcon = lazy(() => AssignmentIconImport().then(module => ({ default: module.AssignmentIcon })));
 export const AssignmentIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAssignmentIcon {...props} />
   </Suspense>
 );
 
-const LazyAttachFileIcon = lazy(() => import('./AttachFileIcon').then(module => ({ default: module.AttachFileIcon })));
+const AttachFileIconImport = () => import('./AttachFileIcon');
+const LazyAttachFileIcon = lazy(() => AttachFileIconImport().then(module => ({ default: module.AttachFileIcon })));
 export const AttachFileIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAttachFileIcon {...props} />
   </Suspense>
 );
 
-const LazyAttachmentIcon = lazy(() => import('./AttachmentIcon').then(module => ({ default: module.AttachmentIcon })));
+const AttachmentIconImport = () => import('./AttachmentIcon');
+const LazyAttachmentIcon = lazy(() => AttachmentIconImport().then(module => ({ default: module.AttachmentIcon })));
 export const AttachmentIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAttachmentIcon {...props} />
   </Suspense>
 );
 
-const LazyAutorenewIcon = lazy(() => import('./AutorenewIcon').then(module => ({ default: module.AutorenewIcon })));
+const AutorenewIconImport = () => import('./AutorenewIcon');
+const LazyAutorenewIcon = lazy(() => AutorenewIconImport().then(module => ({ default: module.AutorenewIcon })));
 export const AutorenewIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAutorenewIcon {...props} />
   </Suspense>
 );
 
-const LazyBadgeIcon = lazy(() => import('./BadgeIcon').then(module => ({ default: module.BadgeIcon })));
+const BadgeIconImport = () => import('./BadgeIcon');
+const LazyBadgeIcon = lazy(() => BadgeIconImport().then(module => ({ default: module.BadgeIcon })));
 export const BadgeIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyBadgeIcon {...props} />
   </Suspense>
 );
 
-const LazyBoltIcon = lazy(() => import('./BoltIcon').then(module => ({ default: module.BoltIcon })));
+const BoltIconImport = () => import('./BoltIcon');
+const LazyBoltIcon = lazy(() => BoltIconImport().then(module => ({ default: module.BoltIcon })));
 export const BoltIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyBoltIcon {...props} />
   </Suspense>
 );
 
-const LazyBubbleChartIcon = lazy(() => import('./BubbleChartIcon').then(module => ({ default: module.BubbleChartIcon })));
+const BubbleChartIconImport = () => import('./BubbleChartIcon');
+const LazyBubbleChartIcon = lazy(() => BubbleChartIconImport().then(module => ({ default: module.BubbleChartIcon })));
 export const BubbleChartIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyBubbleChartIcon {...props} />
   </Suspense>
 );
 
-const LazyBuildIcon = lazy(() => import('./BuildIcon').then(module => ({ default: module.BuildIcon })));
+const BuildIconImport = () => import('./BuildIcon');
+const LazyBuildIcon = lazy(() => BuildIconImport().then(module => ({ default: module.BuildIcon })));
 export const BuildIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyBuildIcon {...props} />
   </Suspense>
 );
 
-const LazyCalendarMonthIcon = lazy(() => import('./CalendarMonthIcon').then(module => ({ default: module.CalendarMonthIcon })));
+const CalendarMonthIconImport = () => import('./CalendarMonthIcon');
+const LazyCalendarMonthIcon = lazy(() => CalendarMonthIconImport().then(module => ({ default: module.CalendarMonthIcon })));
 export const CalendarMonthIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCalendarMonthIcon {...props} />
   </Suspense>
 );
 
-const LazyCalendarTodayIcon = lazy(() => import('./CalendarTodayIcon').then(module => ({ default: module.CalendarTodayIcon })));
+const CalendarTodayIconImport = () => import('./CalendarTodayIcon');
+const LazyCalendarTodayIcon = lazy(() => CalendarTodayIconImport().then(module => ({ default: module.CalendarTodayIcon })));
 export const CalendarTodayIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCalendarTodayIcon {...props} />
   </Suspense>
 );
 
-const LazyCalendarViewWeekIcon = lazy(() => import('./CalendarViewWeekIcon').then(module => ({ default: module.CalendarViewWeekIcon })));
+const CalendarViewWeekIconImport = () => import('./CalendarViewWeekIcon');
+const LazyCalendarViewWeekIcon = lazy(() => CalendarViewWeekIconImport().then(module => ({ default: module.CalendarViewWeekIcon })));
 export const CalendarViewWeekIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCalendarViewWeekIcon {...props} />
   </Suspense>
 );
 
-const LazyCheckIcon = lazy(() => import('./CheckIcon').then(module => ({ default: module.CheckIcon })));
+const CheckIconImport = () => import('./CheckIcon');
+const LazyCheckIcon = lazy(() => CheckIconImport().then(module => ({ default: module.CheckIcon })));
 export const CheckIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCheckIcon {...props} />
   </Suspense>
 );
 
-const LazyChecklistIcon = lazy(() => import('./ChecklistIcon').then(module => ({ default: module.ChecklistIcon })));
+const ChecklistIconImport = () => import('./ChecklistIcon');
+const LazyChecklistIcon = lazy(() => ChecklistIconImport().then(module => ({ default: module.ChecklistIcon })));
 export const ChecklistIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyChecklistIcon {...props} />
   </Suspense>
 );
 
-const LazyCloseIcon = lazy(() => import('./CloseIcon').then(module => ({ default: module.CloseIcon })));
+const CloseIconImport = () => import('./CloseIcon');
+const LazyCloseIcon = lazy(() => CloseIconImport().then(module => ({ default: module.CloseIcon })));
 export const CloseIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCloseIcon {...props} />
   </Suspense>
 );
 
-const LazyCloudDownloadIcon = lazy(() => import('./CloudDownloadIcon').then(module => ({ default: module.CloudDownloadIcon })));
+const CloudDownloadIconImport = () => import('./CloudDownloadIcon');
+const LazyCloudDownloadIcon = lazy(() => CloudDownloadIconImport().then(module => ({ default: module.CloudDownloadIcon })));
 export const CloudDownloadIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCloudDownloadIcon {...props} />
   </Suspense>
 );
 
-const LazyCloudUploadIcon = lazy(() => import('./CloudUploadIcon').then(module => ({ default: module.CloudUploadIcon })));
+const CloudUploadIconImport = () => import('./CloudUploadIcon');
+const LazyCloudUploadIcon = lazy(() => CloudUploadIconImport().then(module => ({ default: module.CloudUploadIcon })));
 export const CloudUploadIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCloudUploadIcon {...props} />
   </Suspense>
 );
 
-const LazyCodeIcon = lazy(() => import('./CodeIcon').then(module => ({ default: module.CodeIcon })));
+const CodeIconImport = () => import('./CodeIcon');
+const LazyCodeIcon = lazy(() => CodeIconImport().then(module => ({ default: module.CodeIcon })));
 export const CodeIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCodeIcon {...props} />
   </Suspense>
 );
 
-const LazyCommentIcon = lazy(() => import('./CommentIcon').then(module => ({ default: module.CommentIcon })));
+const CommentIconImport = () => import('./CommentIcon');
+const LazyCommentIcon = lazy(() => CommentIconImport().then(module => ({ default: module.CommentIcon })));
 export const CommentIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCommentIcon {...props} />
   </Suspense>
 );
 
-const LazyContactPhoneIcon = lazy(() => import('./ContactPhoneIcon').then(module => ({ default: module.ContactPhoneIcon })));
+const ContactPhoneIconImport = () => import('./ContactPhoneIcon');
+const LazyContactPhoneIcon = lazy(() => ContactPhoneIconImport().then(module => ({ default: module.ContactPhoneIcon })));
 export const ContactPhoneIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyContactPhoneIcon {...props} />
   </Suspense>
 );
 
-const LazyContactsIcon = lazy(() => import('./ContactsIcon').then(module => ({ default: module.ContactsIcon })));
+const ContactsIconImport = () => import('./ContactsIcon');
+const LazyContactsIcon = lazy(() => ContactsIconImport().then(module => ({ default: module.ContactsIcon })));
 export const ContactsIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyContactsIcon {...props} />
   </Suspense>
 );
 
-const LazyContentCopyIcon = lazy(() => import('./ContentCopyIcon').then(module => ({ default: module.ContentCopyIcon })));
+const ContentCopyIconImport = () => import('./ContentCopyIcon');
+const LazyContentCopyIcon = lazy(() => ContentCopyIconImport().then(module => ({ default: module.ContentCopyIcon })));
 export const ContentCopyIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyContentCopyIcon {...props} />
   </Suspense>
 );
 
-const LazyDarkModeIcon = lazy(() => import('./DarkModeIcon').then(module => ({ default: module.DarkModeIcon })));
+const DarkModeIconImport = () => import('./DarkModeIcon');
+const LazyDarkModeIcon = lazy(() => DarkModeIconImport().then(module => ({ default: module.DarkModeIcon })));
 export const DarkModeIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDarkModeIcon {...props} />
   </Suspense>
 );
 
-const LazyDashboardIcon = lazy(() => import('./DashboardIcon').then(module => ({ default: module.DashboardIcon })));
+const DashboardIconImport = () => import('./DashboardIcon');
+const LazyDashboardIcon = lazy(() => DashboardIconImport().then(module => ({ default: module.DashboardIcon })));
 export const DashboardIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDashboardIcon {...props} />
   </Suspense>
 );
 
-const LazyDeleteIcon = lazy(() => import('./DeleteIcon').then(module => ({ default: module.DeleteIcon })));
+const DeleteIconImport = () => import('./DeleteIcon');
+const LazyDeleteIcon = lazy(() => DeleteIconImport().then(module => ({ default: module.DeleteIcon })));
 export const DeleteIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDeleteIcon {...props} />
   </Suspense>
 );
 
-const LazyDemographyIcon = lazy(() => import('./DemographyIcon').then(module => ({ default: module.DemographyIcon })));
+const DemographyIconImport = () => import('./DemographyIcon');
+const LazyDemographyIcon = lazy(() => DemographyIconImport().then(module => ({ default: module.DemographyIcon })));
 export const DemographyIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDemographyIcon {...props} />
   </Suspense>
 );
 
-const LazyDescriptionIcon = lazy(() => import('./DescriptionIcon').then(module => ({ default: module.DescriptionIcon })));
+const DescriptionIconImport = () => import('./DescriptionIcon');
+const LazyDescriptionIcon = lazy(() => DescriptionIconImport().then(module => ({ default: module.DescriptionIcon })));
 export const DescriptionIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDescriptionIcon {...props} />
   </Suspense>
 );
 
-const LazyDownloadIcon = lazy(() => import('./DownloadIcon').then(module => ({ default: module.DownloadIcon })));
+const DownloadIconImport = () => import('./DownloadIcon');
+const LazyDownloadIcon = lazy(() => DownloadIconImport().then(module => ({ default: module.DownloadIcon })));
 export const DownloadIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDownloadIcon {...props} />
   </Suspense>
 );
 
-const LazyDraftIcon = lazy(() => import('./DraftIcon').then(module => ({ default: module.DraftIcon })));
+const DraftIconImport = () => import('./DraftIcon');
+const LazyDraftIcon = lazy(() => DraftIconImport().then(module => ({ default: module.DraftIcon })));
 export const DraftIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDraftIcon {...props} />
   </Suspense>
 );
 
-const LazyDragIndicatorIcon = lazy(() => import('./DragIndicatorIcon').then(module => ({ default: module.DragIndicatorIcon })));
+const DragIndicatorIconImport = () => import('./DragIndicatorIcon');
+const LazyDragIndicatorIcon = lazy(() => DragIndicatorIconImport().then(module => ({ default: module.DragIndicatorIcon })));
 export const DragIndicatorIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDragIndicatorIcon {...props} />
   </Suspense>
 );
 
-const LazyEditIcon = lazy(() => import('./EditIcon').then(module => ({ default: module.EditIcon })));
+const EditIconImport = () => import('./EditIcon');
+const LazyEditIcon = lazy(() => EditIconImport().then(module => ({ default: module.EditIcon })));
 export const EditIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyEditIcon {...props} />
   </Suspense>
 );
 
-const LazyEditNoteIcon = lazy(() => import('./EditNoteIcon').then(module => ({ default: module.EditNoteIcon })));
+const EditNoteIconImport = () => import('./EditNoteIcon');
+const LazyEditNoteIcon = lazy(() => EditNoteIconImport().then(module => ({ default: module.EditNoteIcon })));
 export const EditNoteIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyEditNoteIcon {...props} />
   </Suspense>
 );
 
-const LazyErrorIcon = lazy(() => import('./ErrorIcon').then(module => ({ default: module.ErrorIcon })));
+const ErrorIconImport = () => import('./ErrorIcon');
+const LazyErrorIcon = lazy(() => ErrorIconImport().then(module => ({ default: module.ErrorIcon })));
 export const ErrorIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyErrorIcon {...props} />
   </Suspense>
 );
 
-const LazyEventIcon = lazy(() => import('./EventIcon').then(module => ({ default: module.EventIcon })));
+const EventIconImport = () => import('./EventIcon');
+const LazyEventIcon = lazy(() => EventIconImport().then(module => ({ default: module.EventIcon })));
 export const EventIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyEventIcon {...props} />
   </Suspense>
 );
 
-const LazyExpandLessIcon = lazy(() => import('./ExpandLessIcon').then(module => ({ default: module.ExpandLessIcon })));
+const ExpandLessIconImport = () => import('./ExpandLessIcon');
+const LazyExpandLessIcon = lazy(() => ExpandLessIconImport().then(module => ({ default: module.ExpandLessIcon })));
 export const ExpandLessIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyExpandLessIcon {...props} />
   </Suspense>
 );
 
-const LazyExpandMoreIcon = lazy(() => import('./ExpandMoreIcon').then(module => ({ default: module.ExpandMoreIcon })));
+const ExpandMoreIconImport = () => import('./ExpandMoreIcon');
+const LazyExpandMoreIcon = lazy(() => ExpandMoreIconImport().then(module => ({ default: module.ExpandMoreIcon })));
 export const ExpandMoreIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyExpandMoreIcon {...props} />
   </Suspense>
 );
 
-const LazyExtensionIcon = lazy(() => import('./ExtensionIcon').then(module => ({ default: module.ExtensionIcon })));
+const ExtensionIconImport = () => import('./ExtensionIcon');
+const LazyExtensionIcon = lazy(() => ExtensionIconImport().then(module => ({ default: module.ExtensionIcon })));
 export const ExtensionIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyExtensionIcon {...props} />
   </Suspense>
 );
 
-const LazyFileOpenIcon = lazy(() => import('./FileOpenIcon').then(module => ({ default: module.FileOpenIcon })));
+const FileOpenIconImport = () => import('./FileOpenIcon');
+const LazyFileOpenIcon = lazy(() => FileOpenIconImport().then(module => ({ default: module.FileOpenIcon })));
 export const FileOpenIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyFileOpenIcon {...props} />
   </Suspense>
 );
 
-const LazyFilterListIcon = lazy(() => import('./FilterListIcon').then(module => ({ default: module.FilterListIcon })));
+const FilterListIconImport = () => import('./FilterListIcon');
+const LazyFilterListIcon = lazy(() => FilterListIconImport().then(module => ({ default: module.FilterListIcon })));
 export const FilterListIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyFilterListIcon {...props} />
   </Suspense>
 );
 
-const LazyFolderIcon = lazy(() => import('./FolderIcon').then(module => ({ default: module.FolderIcon })));
+const FolderIconImport = () => import('./FolderIcon');
+const LazyFolderIcon = lazy(() => FolderIconImport().then(module => ({ default: module.FolderIcon })));
 export const FolderIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyFolderIcon {...props} />
   </Suspense>
 );
 
-const LazyFolderManagedIcon = lazy(() => import('./FolderManagedIcon').then(module => ({ default: module.FolderManagedIcon })));
+const FolderManagedIconImport = () => import('./FolderManagedIcon');
+const LazyFolderManagedIcon = lazy(() => FolderManagedIconImport().then(module => ({ default: module.FolderManagedIcon })));
 export const FolderManagedIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyFolderManagedIcon {...props} />
   </Suspense>
 );
 
-const LazyFolderOpenIcon = lazy(() => import('./FolderOpenIcon').then(module => ({ default: module.FolderOpenIcon })));
+const FolderOpenIconImport = () => import('./FolderOpenIcon');
+const LazyFolderOpenIcon = lazy(() => FolderOpenIconImport().then(module => ({ default: module.FolderOpenIcon })));
 export const FolderOpenIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyFolderOpenIcon {...props} />
   </Suspense>
 );
 
-const LazyForwardIcon = lazy(() => import('./ForwardIcon').then(module => ({ default: module.ForwardIcon })));
+const ForwardIconImport = () => import('./ForwardIcon');
+const LazyForwardIcon = lazy(() => ForwardIconImport().then(module => ({ default: module.ForwardIcon })));
 export const ForwardIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyForwardIcon {...props} />
   </Suspense>
 );
 
-const LazyFullscreenExitIcon = lazy(() => import('./FullscreenExitIcon').then(module => ({ default: module.FullscreenExitIcon })));
+const FullscreenExitIconImport = () => import('./FullscreenExitIcon');
+const LazyFullscreenExitIcon = lazy(() => FullscreenExitIconImport().then(module => ({ default: module.FullscreenExitIcon })));
 export const FullscreenExitIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyFullscreenExitIcon {...props} />
   </Suspense>
 );
 
-const LazyFullscreenIcon = lazy(() => import('./FullscreenIcon').then(module => ({ default: module.FullscreenIcon })));
+const FullscreenIconImport = () => import('./FullscreenIcon');
+const LazyFullscreenIcon = lazy(() => FullscreenIconImport().then(module => ({ default: module.FullscreenIcon })));
 export const FullscreenIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyFullscreenIcon {...props} />
   </Suspense>
 );
 
-const LazyGlobeIcon = lazy(() => import('./GlobeIcon').then(module => ({ default: module.GlobeIcon })));
+const GlobeIconImport = () => import('./GlobeIcon');
+const LazyGlobeIcon = lazy(() => GlobeIconImport().then(module => ({ default: module.GlobeIcon })));
 export const GlobeIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyGlobeIcon {...props} />
   </Suspense>
 );
 
-const LazyGroupAddIcon = lazy(() => import('./GroupAddIcon').then(module => ({ default: module.GroupAddIcon })));
+const GroupAddIconImport = () => import('./GroupAddIcon');
+const LazyGroupAddIcon = lazy(() => GroupAddIconImport().then(module => ({ default: module.GroupAddIcon })));
 export const GroupAddIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyGroupAddIcon {...props} />
   </Suspense>
 );
 
-const LazyGroupIcon = lazy(() => import('./GroupIcon').then(module => ({ default: module.GroupIcon })));
+const GroupIconImport = () => import('./GroupIcon');
+const LazyGroupIcon = lazy(() => GroupIconImport().then(module => ({ default: module.GroupIcon })));
 export const GroupIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyGroupIcon {...props} />
   </Suspense>
 );
 
-const LazyGroupsIcon = lazy(() => import('./GroupsIcon').then(module => ({ default: module.GroupsIcon })));
+const GroupsIconImport = () => import('./GroupsIcon');
+const LazyGroupsIcon = lazy(() => GroupsIconImport().then(module => ({ default: module.GroupsIcon })));
 export const GroupsIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyGroupsIcon {...props} />
   </Suspense>
 );
 
-const LazyHardDriveIcon = lazy(() => import('./HardDriveIcon').then(module => ({ default: module.HardDriveIcon })));
+const HardDriveIconImport = () => import('./HardDriveIcon');
+const LazyHardDriveIcon = lazy(() => HardDriveIconImport().then(module => ({ default: module.HardDriveIcon })));
 export const HardDriveIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyHardDriveIcon {...props} />
   </Suspense>
 );
 
-const LazyHelpIcon = lazy(() => import('./HelpIcon').then(module => ({ default: module.HelpIcon })));
+const HelpIconImport = () => import('./HelpIcon');
+const LazyHelpIcon = lazy(() => HelpIconImport().then(module => ({ default: module.HelpIcon })));
 export const HelpIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyHelpIcon {...props} />
   </Suspense>
 );
 
-const LazyHistoryIcon = lazy(() => import('./HistoryIcon').then(module => ({ default: module.HistoryIcon })));
+const HistoryIconImport = () => import('./HistoryIcon');
+const LazyHistoryIcon = lazy(() => HistoryIconImport().then(module => ({ default: module.HistoryIcon })));
 export const HistoryIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyHistoryIcon {...props} />
   </Suspense>
 );
 
-const LazyHomeIcon = lazy(() => import('./HomeIcon').then(module => ({ default: module.HomeIcon })));
+const HomeIconImport = () => import('./HomeIcon');
+const LazyHomeIcon = lazy(() => HomeIconImport().then(module => ({ default: module.HomeIcon })));
 export const HomeIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyHomeIcon {...props} />
   </Suspense>
 );
 
-const LazyHomeStorageIcon = lazy(() => import('./HomeStorageIcon').then(module => ({ default: module.HomeStorageIcon })));
+const HomeStorageIconImport = () => import('./HomeStorageIcon');
+const LazyHomeStorageIcon = lazy(() => HomeStorageIconImport().then(module => ({ default: module.HomeStorageIcon })));
 export const HomeStorageIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyHomeStorageIcon {...props} />
   </Suspense>
 );
 
-const LazyInfoIcon = lazy(() => import('./InfoIcon').then(module => ({ default: module.InfoIcon })));
+const InfoIconImport = () => import('./InfoIcon');
+const LazyInfoIcon = lazy(() => InfoIconImport().then(module => ({ default: module.InfoIcon })));
 export const InfoIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyInfoIcon {...props} />
   </Suspense>
 );
 
-const LazyInvertColorsIcon = lazy(() => import('./InvertColorsIcon').then(module => ({ default: module.InvertColorsIcon })));
+const InvertColorsIconImport = () => import('./InvertColorsIcon');
+const LazyInvertColorsIcon = lazy(() => InvertColorsIconImport().then(module => ({ default: module.InvertColorsIcon })));
 export const InvertColorsIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyInvertColorsIcon {...props} />
   </Suspense>
 );
 
-const LazyLanguageIcon = lazy(() => import('./LanguageIcon').then(module => ({ default: module.LanguageIcon })));
+const LanguageIconImport = () => import('./LanguageIcon');
+const LazyLanguageIcon = lazy(() => LanguageIconImport().then(module => ({ default: module.LanguageIcon })));
 export const LanguageIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLanguageIcon {...props} />
   </Suspense>
 );
 
-const LazyLeaderboardIcon = lazy(() => import('./LeaderboardIcon').then(module => ({ default: module.LeaderboardIcon })));
+const LeaderboardIconImport = () => import('./LeaderboardIcon');
+const LazyLeaderboardIcon = lazy(() => LeaderboardIconImport().then(module => ({ default: module.LeaderboardIcon })));
 export const LeaderboardIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLeaderboardIcon {...props} />
   </Suspense>
 );
 
-const LazyLibraryBooksIcon = lazy(() => import('./LibraryBooksIcon').then(module => ({ default: module.LibraryBooksIcon })));
+const LibraryBooksIconImport = () => import('./LibraryBooksIcon');
+const LazyLibraryBooksIcon = lazy(() => LibraryBooksIconImport().then(module => ({ default: module.LibraryBooksIcon })));
 export const LibraryBooksIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLibraryBooksIcon {...props} />
   </Suspense>
 );
 
-const LazyLightModeIcon = lazy(() => import('./LightModeIcon').then(module => ({ default: module.LightModeIcon })));
+const LightModeIconImport = () => import('./LightModeIcon');
+const LazyLightModeIcon = lazy(() => LightModeIconImport().then(module => ({ default: module.LightModeIcon })));
 export const LightModeIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLightModeIcon {...props} />
   </Suspense>
 );
 
-const LazyLinkIcon = lazy(() => import('./LinkIcon').then(module => ({ default: module.LinkIcon })));
+const LinkIconImport = () => import('./LinkIcon');
+const LazyLinkIcon = lazy(() => LinkIconImport().then(module => ({ default: module.LinkIcon })));
 export const LinkIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLinkIcon {...props} />
   </Suspense>
 );
 
-const LazyListIcon = lazy(() => import('./ListIcon').then(module => ({ default: module.ListIcon })));
+const ListIconImport = () => import('./ListIcon');
+const LazyListIcon = lazy(() => ListIconImport().then(module => ({ default: module.ListIcon })));
 export const ListIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyListIcon {...props} />
   </Suspense>
 );
 
-const LazyLoadingIcon = lazy(() => import('./LoadingIcon').then(module => ({ default: module.LoadingIcon })));
+const LoadingIconImport = () => import('./LoadingIcon');
+const LazyLoadingIcon = lazy(() => LoadingIconImport().then(module => ({ default: module.LoadingIcon })));
 export const LoadingIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLoadingIcon {...props} />
   </Suspense>
 );
 
-const LazyLocationCityIcon = lazy(() => import('./LocationCityIcon').then(module => ({ default: module.LocationCityIcon })));
+const LocationCityIconImport = () => import('./LocationCityIcon');
+const LazyLocationCityIcon = lazy(() => LocationCityIconImport().then(module => ({ default: module.LocationCityIcon })));
 export const LocationCityIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLocationCityIcon {...props} />
   </Suspense>
 );
 
-const LazyLocationOnIcon = lazy(() => import('./LocationOnIcon').then(module => ({ default: module.LocationOnIcon })));
+const LocationOnIconImport = () => import('./LocationOnIcon');
+const LazyLocationOnIcon = lazy(() => LocationOnIconImport().then(module => ({ default: module.LocationOnIcon })));
 export const LocationOnIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLocationOnIcon {...props} />
   </Suspense>
 );
 
-const LazyLockIcon = lazy(() => import('./LockIcon').then(module => ({ default: module.LockIcon })));
+const LockIconImport = () => import('./LockIcon');
+const LazyLockIcon = lazy(() => LockIconImport().then(module => ({ default: module.LockIcon })));
 export const LockIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLockIcon {...props} />
   </Suspense>
 );
 
-const LazyLockPersonIcon = lazy(() => import('./LockPersonIcon').then(module => ({ default: module.LockPersonIcon })));
+const LockPersonIconImport = () => import('./LockPersonIcon');
+const LazyLockPersonIcon = lazy(() => LockPersonIconImport().then(module => ({ default: module.LockPersonIcon })));
 export const LockPersonIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLockPersonIcon {...props} />
   </Suspense>
 );
 
-const LazyLoginIcon = lazy(() => import('./LoginIcon').then(module => ({ default: module.LoginIcon })));
+const LoginIconImport = () => import('./LoginIcon');
+const LazyLoginIcon = lazy(() => LoginIconImport().then(module => ({ default: module.LoginIcon })));
 export const LoginIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLoginIcon {...props} />
   </Suspense>
 );
 
-const LazyLogoutIcon = lazy(() => import('./LogoutIcon').then(module => ({ default: module.LogoutIcon })));
+const LogoutIconImport = () => import('./LogoutIcon');
+const LazyLogoutIcon = lazy(() => LogoutIconImport().then(module => ({ default: module.LogoutIcon })));
 export const LogoutIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyLogoutIcon {...props} />
   </Suspense>
 );
 
-const LazyMailIcon = lazy(() => import('./MailIcon').then(module => ({ default: module.MailIcon })));
+const MailIconImport = () => import('./MailIcon');
+const LazyMailIcon = lazy(() => MailIconImport().then(module => ({ default: module.MailIcon })));
 export const MailIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyMailIcon {...props} />
   </Suspense>
 );
 
-const LazyManageAccountsIcon = lazy(() => import('./ManageAccountsIcon').then(module => ({ default: module.ManageAccountsIcon })));
+const ManageAccountsIconImport = () => import('./ManageAccountsIcon');
+const LazyManageAccountsIcon = lazy(() => ManageAccountsIconImport().then(module => ({ default: module.ManageAccountsIcon })));
 export const ManageAccountsIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyManageAccountsIcon {...props} />
   </Suspense>
 );
 
-const LazyManageSearchIcon = lazy(() => import('./ManageSearchIcon').then(module => ({ default: module.ManageSearchIcon })));
+const ManageSearchIconImport = () => import('./ManageSearchIcon');
+const LazyManageSearchIcon = lazy(() => ManageSearchIconImport().then(module => ({ default: module.ManageSearchIcon })));
 export const ManageSearchIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyManageSearchIcon {...props} />
   </Suspense>
 );
 
-const LazyManufacturingIcon = lazy(() => import('./ManufacturingIcon').then(module => ({ default: module.ManufacturingIcon })));
+const ManufacturingIconImport = () => import('./ManufacturingIcon');
+const LazyManufacturingIcon = lazy(() => ManufacturingIconImport().then(module => ({ default: module.ManufacturingIcon })));
 export const ManufacturingIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyManufacturingIcon {...props} />
   </Suspense>
 );
 
-const LazyMenuBookIcon = lazy(() => import('./MenuBookIcon').then(module => ({ default: module.MenuBookIcon })));
+const MenuBookIconImport = () => import('./MenuBookIcon');
+const LazyMenuBookIcon = lazy(() => MenuBookIconImport().then(module => ({ default: module.MenuBookIcon })));
 export const MenuBookIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyMenuBookIcon {...props} />
   </Suspense>
 );
 
-const LazyMenuIcon = lazy(() => import('./MenuIcon').then(module => ({ default: module.MenuIcon })));
+const MenuIconImport = () => import('./MenuIcon');
+const LazyMenuIcon = lazy(() => MenuIconImport().then(module => ({ default: module.MenuIcon })));
 export const MenuIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyMenuIcon {...props} />
   </Suspense>
 );
 
-const LazyMoreTimeIcon = lazy(() => import('./MoreTimeIcon').then(module => ({ default: module.MoreTimeIcon })));
+const MoreTimeIconImport = () => import('./MoreTimeIcon');
+const LazyMoreTimeIcon = lazy(() => MoreTimeIconImport().then(module => ({ default: module.MoreTimeIcon })));
 export const MoreTimeIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyMoreTimeIcon {...props} />
   </Suspense>
 );
 
-const LazyNavigateBeforeIcon = lazy(() => import('./NavigateBeforeIcon').then(module => ({ default: module.NavigateBeforeIcon })));
+const NavigateBeforeIconImport = () => import('./NavigateBeforeIcon');
+const LazyNavigateBeforeIcon = lazy(() => NavigateBeforeIconImport().then(module => ({ default: module.NavigateBeforeIcon })));
 export const NavigateBeforeIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyNavigateBeforeIcon {...props} />
   </Suspense>
 );
 
-const LazyNavigateNextIcon = lazy(() => import('./NavigateNextIcon').then(module => ({ default: module.NavigateNextIcon })));
+const NavigateNextIconImport = () => import('./NavigateNextIcon');
+const LazyNavigateNextIcon = lazy(() => NavigateNextIconImport().then(module => ({ default: module.NavigateNextIcon })));
 export const NavigateNextIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyNavigateNextIcon {...props} />
   </Suspense>
 );
 
-const LazyNewReleasesIcon = lazy(() => import('./NewReleasesIcon').then(module => ({ default: module.NewReleasesIcon })));
+const NewReleasesIconImport = () => import('./NewReleasesIcon');
+const LazyNewReleasesIcon = lazy(() => NewReleasesIconImport().then(module => ({ default: module.NewReleasesIcon })));
 export const NewReleasesIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyNewReleasesIcon {...props} />
   </Suspense>
 );
 
-const LazyNoteAddIcon = lazy(() => import('./NoteAddIcon').then(module => ({ default: module.NoteAddIcon })));
+const NoteAddIconImport = () => import('./NoteAddIcon');
+const LazyNoteAddIcon = lazy(() => NoteAddIconImport().then(module => ({ default: module.NoteAddIcon })));
 export const NoteAddIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyNoteAddIcon {...props} />
   </Suspense>
 );
 
-const LazyNoteIcon = lazy(() => import('./NoteIcon').then(module => ({ default: module.NoteIcon })));
+const NoteIconImport = () => import('./NoteIcon');
+const LazyNoteIcon = lazy(() => NoteIconImport().then(module => ({ default: module.NoteIcon })));
 export const NoteIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyNoteIcon {...props} />
   </Suspense>
 );
 
-const LazyNotificationsActiveIcon = lazy(() => import('./NotificationsActiveIcon').then(module => ({ default: module.NotificationsActiveIcon })));
+const NotificationsActiveIconImport = () => import('./NotificationsActiveIcon');
+const LazyNotificationsActiveIcon = lazy(() => NotificationsActiveIconImport().then(module => ({ default: module.NotificationsActiveIcon })));
 export const NotificationsActiveIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyNotificationsActiveIcon {...props} />
   </Suspense>
 );
 
-const LazyOpenInNewIcon = lazy(() => import('./OpenInNewIcon').then(module => ({ default: module.OpenInNewIcon })));
+const OpenInNewIconImport = () => import('./OpenInNewIcon');
+const LazyOpenInNewIcon = lazy(() => OpenInNewIconImport().then(module => ({ default: module.OpenInNewIcon })));
 export const OpenInNewIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyOpenInNewIcon {...props} />
   </Suspense>
 );
 
-const LazyPageInfoIcon = lazy(() => import('./PageInfoIcon').then(module => ({ default: module.PageInfoIcon })));
+const PageInfoIconImport = () => import('./PageInfoIcon');
+const LazyPageInfoIcon = lazy(() => PageInfoIconImport().then(module => ({ default: module.PageInfoIcon })));
 export const PageInfoIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPageInfoIcon {...props} />
   </Suspense>
 );
 
-const LazyPaletteIcon = lazy(() => import('./PaletteIcon').then(module => ({ default: module.PaletteIcon })));
+const PaletteIconImport = () => import('./PaletteIcon');
+const LazyPaletteIcon = lazy(() => PaletteIconImport().then(module => ({ default: module.PaletteIcon })));
 export const PaletteIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPaletteIcon {...props} />
   </Suspense>
 );
 
-const LazyPendingActionsIcon = lazy(() => import('./PendingActionsIcon').then(module => ({ default: module.PendingActionsIcon })));
+const PendingActionsIconImport = () => import('./PendingActionsIcon');
+const LazyPendingActionsIcon = lazy(() => PendingActionsIconImport().then(module => ({ default: module.PendingActionsIcon })));
 export const PendingActionsIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPendingActionsIcon {...props} />
   </Suspense>
 );
 
-const LazyPendingIcon = lazy(() => import('./PendingIcon').then(module => ({ default: module.PendingIcon })));
+const PendingIconImport = () => import('./PendingIcon');
+const LazyPendingIcon = lazy(() => PendingIconImport().then(module => ({ default: module.PendingIcon })));
 export const PendingIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPendingIcon {...props} />
   </Suspense>
 );
 
-const LazyPersonIcon = lazy(() => import('./PersonIcon').then(module => ({ default: module.PersonIcon })));
+const PersonIconImport = () => import('./PersonIcon');
+const LazyPersonIcon = lazy(() => PersonIconImport().then(module => ({ default: module.PersonIcon })));
 export const PersonIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPersonIcon {...props} />
   </Suspense>
 );
 
-const LazyPhotoLibraryIcon = lazy(() => import('./PhotoLibraryIcon').then(module => ({ default: module.PhotoLibraryIcon })));
+const PhotoLibraryIconImport = () => import('./PhotoLibraryIcon');
+const LazyPhotoLibraryIcon = lazy(() => PhotoLibraryIconImport().then(module => ({ default: module.PhotoLibraryIcon })));
 export const PhotoLibraryIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPhotoLibraryIcon {...props} />
   </Suspense>
 );
 
-const LazyPictureAsPdfIcon = lazy(() => import('./PictureAsPdfIcon').then(module => ({ default: module.PictureAsPdfIcon })));
+const PictureAsPdfIconImport = () => import('./PictureAsPdfIcon');
+const LazyPictureAsPdfIcon = lazy(() => PictureAsPdfIconImport().then(module => ({ default: module.PictureAsPdfIcon })));
 export const PictureAsPdfIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPictureAsPdfIcon {...props} />
   </Suspense>
 );
 
-const LazyPlayArrowIcon = lazy(() => import('./PlayArrowIcon').then(module => ({ default: module.PlayArrowIcon })));
+const PlayArrowIconImport = () => import('./PlayArrowIcon');
+const LazyPlayArrowIcon = lazy(() => PlayArrowIconImport().then(module => ({ default: module.PlayArrowIcon })));
 export const PlayArrowIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPlayArrowIcon {...props} />
   </Suspense>
 );
 
-const LazyPlayCircleIcon = lazy(() => import('./PlayCircleIcon').then(module => ({ default: module.PlayCircleIcon })));
+const PlayCircleIconImport = () => import('./PlayCircleIcon');
+const LazyPlayCircleIcon = lazy(() => PlayCircleIconImport().then(module => ({ default: module.PlayCircleIcon })));
 export const PlayCircleIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPlayCircleIcon {...props} />
   </Suspense>
 );
 
-const LazyPostAddIcon = lazy(() => import('./PostAddIcon').then(module => ({ default: module.PostAddIcon })));
+const PostAddIconImport = () => import('./PostAddIcon');
+const LazyPostAddIcon = lazy(() => PostAddIconImport().then(module => ({ default: module.PostAddIcon })));
 export const PostAddIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPostAddIcon {...props} />
   </Suspense>
 );
 
-const LazyPreviewIcon = lazy(() => import('./PreviewIcon').then(module => ({ default: module.PreviewIcon })));
+const PreviewIconImport = () => import('./PreviewIcon');
+const LazyPreviewIcon = lazy(() => PreviewIconImport().then(module => ({ default: module.PreviewIcon })));
 export const PreviewIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPreviewIcon {...props} />
   </Suspense>
 );
 
-const LazyPublicIcon = lazy(() => import('./PublicIcon').then(module => ({ default: module.PublicIcon })));
+const PublicIconImport = () => import('./PublicIcon');
+const LazyPublicIcon = lazy(() => PublicIconImport().then(module => ({ default: module.PublicIcon })));
 export const PublicIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPublicIcon {...props} />
   </Suspense>
 );
 
-const LazyPublishIcon = lazy(() => import('./PublishIcon').then(module => ({ default: module.PublishIcon })));
+const PublishIconImport = () => import('./PublishIcon');
+const LazyPublishIcon = lazy(() => PublishIconImport().then(module => ({ default: module.PublishIcon })));
 export const PublishIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPublishIcon {...props} />
   </Suspense>
 );
 
-const LazyRedoIcon = lazy(() => import('./RedoIcon').then(module => ({ default: module.RedoIcon })));
+const RedoIconImport = () => import('./RedoIcon');
+const LazyRedoIcon = lazy(() => RedoIconImport().then(module => ({ default: module.RedoIcon })));
 export const RedoIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyRedoIcon {...props} />
   </Suspense>
 );
 
-const LazyRefreshIcon = lazy(() => import('./RefreshIcon').then(module => ({ default: module.RefreshIcon })));
+const RefreshIconImport = () => import('./RefreshIcon');
+const LazyRefreshIcon = lazy(() => RefreshIconImport().then(module => ({ default: module.RefreshIcon })));
 export const RefreshIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyRefreshIcon {...props} />
   </Suspense>
 );
 
-const LazyReplyAllIcon = lazy(() => import('./ReplyAllIcon').then(module => ({ default: module.ReplyAllIcon })));
+const ReplyAllIconImport = () => import('./ReplyAllIcon');
+const LazyReplyAllIcon = lazy(() => ReplyAllIconImport().then(module => ({ default: module.ReplyAllIcon })));
 export const ReplyAllIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyReplyAllIcon {...props} />
   </Suspense>
 );
 
-const LazyReplyIcon = lazy(() => import('./ReplyIcon').then(module => ({ default: module.ReplyIcon })));
+const ReplyIconImport = () => import('./ReplyIcon');
+const LazyReplyIcon = lazy(() => ReplyIconImport().then(module => ({ default: module.ReplyIcon })));
 export const ReplyIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyReplyIcon {...props} />
   </Suspense>
 );
 
-const LazySaveIcon = lazy(() => import('./SaveIcon').then(module => ({ default: module.SaveIcon })));
+const SaveIconImport = () => import('./SaveIcon');
+const LazySaveIcon = lazy(() => SaveIconImport().then(module => ({ default: module.SaveIcon })));
 export const SaveIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySaveIcon {...props} />
   </Suspense>
 );
 
-const LazyScheduleIcon = lazy(() => import('./ScheduleIcon').then(module => ({ default: module.ScheduleIcon })));
+const ScheduleIconImport = () => import('./ScheduleIcon');
+const LazyScheduleIcon = lazy(() => ScheduleIconImport().then(module => ({ default: module.ScheduleIcon })));
 export const ScheduleIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyScheduleIcon {...props} />
   </Suspense>
 );
 
-const LazySchoolIcon = lazy(() => import('./SchoolIcon').then(module => ({ default: module.SchoolIcon })));
+const SchoolIconImport = () => import('./SchoolIcon');
+const LazySchoolIcon = lazy(() => SchoolIconImport().then(module => ({ default: module.SchoolIcon })));
 export const SchoolIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySchoolIcon {...props} />
   </Suspense>
 );
 
-const LazySearchIcon = lazy(() => import('./SearchIcon').then(module => ({ default: module.SearchIcon })));
+const SearchIconImport = () => import('./SearchIcon');
+const LazySearchIcon = lazy(() => SearchIconImport().then(module => ({ default: module.SearchIcon })));
 export const SearchIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySearchIcon {...props} />
   </Suspense>
 );
 
-const LazySendIcon = lazy(() => import('./SendIcon').then(module => ({ default: module.SendIcon })));
+const SendIconImport = () => import('./SendIcon');
+const LazySendIcon = lazy(() => SendIconImport().then(module => ({ default: module.SendIcon })));
 export const SendIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySendIcon {...props} />
   </Suspense>
 );
 
-const LazySettingsAlertIcon = lazy(() => import('./SettingsAlertIcon').then(module => ({ default: module.SettingsAlertIcon })));
+const SettingsAlertIconImport = () => import('./SettingsAlertIcon');
+const LazySettingsAlertIcon = lazy(() => SettingsAlertIconImport().then(module => ({ default: module.SettingsAlertIcon })));
 export const SettingsAlertIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySettingsAlertIcon {...props} />
   </Suspense>
 );
 
-const LazySettingsIcon = lazy(() => import('./SettingsIcon').then(module => ({ default: module.SettingsIcon })));
+const SettingsIconImport = () => import('./SettingsIcon');
+const LazySettingsIcon = lazy(() => SettingsIconImport().then(module => ({ default: module.SettingsIcon })));
 export const SettingsIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySettingsIcon {...props} />
   </Suspense>
 );
 
-const LazySettingsSuggestIcon = lazy(() => import('./SettingsSuggestIcon').then(module => ({ default: module.SettingsSuggestIcon })));
+const SettingsSuggestIconImport = () => import('./SettingsSuggestIcon');
+const LazySettingsSuggestIcon = lazy(() => SettingsSuggestIconImport().then(module => ({ default: module.SettingsSuggestIcon })));
 export const SettingsSuggestIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySettingsSuggestIcon {...props} />
   </Suspense>
 );
 
-const LazyShareIcon = lazy(() => import('./ShareIcon').then(module => ({ default: module.ShareIcon })));
+const ShareIconImport = () => import('./ShareIcon');
+const LazyShareIcon = lazy(() => ShareIconImport().then(module => ({ default: module.ShareIcon })));
 export const ShareIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyShareIcon {...props} />
   </Suspense>
 );
 
-const LazySideNavigationIcon = lazy(() => import('./SideNavigationIcon').then(module => ({ default: module.SideNavigationIcon })));
+const SideNavigationIconImport = () => import('./SideNavigationIcon');
+const LazySideNavigationIcon = lazy(() => SideNavigationIconImport().then(module => ({ default: module.SideNavigationIcon })));
 export const SideNavigationIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySideNavigationIcon {...props} />
   </Suspense>
 );
 
-const LazySpeedIcon = lazy(() => import('./SpeedIcon').then(module => ({ default: module.SpeedIcon })));
+const SpeedIconImport = () => import('./SpeedIcon');
+const LazySpeedIcon = lazy(() => SpeedIconImport().then(module => ({ default: module.SpeedIcon })));
 export const SpeedIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySpeedIcon {...props} />
   </Suspense>
 );
 
-const LazyStopCircleIcon = lazy(() => import('./StopCircleIcon').then(module => ({ default: module.StopCircleIcon })));
+const StopCircleIconImport = () => import('./StopCircleIcon');
+const LazyStopCircleIcon = lazy(() => StopCircleIconImport().then(module => ({ default: module.StopCircleIcon })));
 export const StopCircleIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyStopCircleIcon {...props} />
   </Suspense>
 );
 
-const LazyStorageIcon = lazy(() => import('./StorageIcon').then(module => ({ default: module.StorageIcon })));
+const StorageIconImport = () => import('./StorageIcon');
+const LazyStorageIcon = lazy(() => StorageIconImport().then(module => ({ default: module.StorageIcon })));
 export const StorageIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyStorageIcon {...props} />
   </Suspense>
 );
 
-const LazySupportAgentIcon = lazy(() => import('./SupportAgentIcon').then(module => ({ default: module.SupportAgentIcon })));
+const SupportAgentIconImport = () => import('./SupportAgentIcon');
+const LazySupportAgentIcon = lazy(() => SupportAgentIconImport().then(module => ({ default: module.SupportAgentIcon })));
 export const SupportAgentIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySupportAgentIcon {...props} />
   </Suspense>
 );
 
-const LazySyncIcon = lazy(() => import('./SyncIcon').then(module => ({ default: module.SyncIcon })));
+const SyncIconImport = () => import('./SyncIcon');
+const LazySyncIcon = lazy(() => SyncIconImport().then(module => ({ default: module.SyncIcon })));
 export const SyncIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySyncIcon {...props} />
   </Suspense>
 );
 
-const LazyTaskIcon = lazy(() => import('./TaskIcon').then(module => ({ default: module.TaskIcon })));
+const TaskIconImport = () => import('./TaskIcon');
+const LazyTaskIcon = lazy(() => TaskIconImport().then(module => ({ default: module.TaskIcon })));
 export const TaskIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyTaskIcon {...props} />
   </Suspense>
 );
 
-const LazyTimerIcon = lazy(() => import('./TimerIcon').then(module => ({ default: module.TimerIcon })));
+const TimerIconImport = () => import('./TimerIcon');
+const LazyTimerIcon = lazy(() => TimerIconImport().then(module => ({ default: module.TimerIcon })));
 export const TimerIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyTimerIcon {...props} />
   </Suspense>
 );
 
-const LazyTrendingUpIcon = lazy(() => import('./TrendingUpIcon').then(module => ({ default: module.TrendingUpIcon })));
+const TrendingUpIconImport = () => import('./TrendingUpIcon');
+const LazyTrendingUpIcon = lazy(() => TrendingUpIconImport().then(module => ({ default: module.TrendingUpIcon })));
 export const TrendingUpIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyTrendingUpIcon {...props} />
   </Suspense>
 );
 
-const LazyTrophyIcon = lazy(() => import('./TrophyIcon').then(module => ({ default: module.TrophyIcon })));
+const TrophyIconImport = () => import('./TrophyIcon');
+const LazyTrophyIcon = lazy(() => TrophyIconImport().then(module => ({ default: module.TrophyIcon })));
 export const TrophyIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyTrophyIcon {...props} />
   </Suspense>
 );
 
-const LazyUndoIcon = lazy(() => import('./UndoIcon').then(module => ({ default: module.UndoIcon })));
+const UndoIconImport = () => import('./UndoIcon');
+const LazyUndoIcon = lazy(() => UndoIconImport().then(module => ({ default: module.UndoIcon })));
 export const UndoIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyUndoIcon {...props} />
   </Suspense>
 );
 
-const LazyUpdateIcon = lazy(() => import('./UpdateIcon').then(module => ({ default: module.UpdateIcon })));
+const UpdateIconImport = () => import('./UpdateIcon');
+const LazyUpdateIcon = lazy(() => UpdateIconImport().then(module => ({ default: module.UpdateIcon })));
 export const UpdateIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyUpdateIcon {...props} />
   </Suspense>
 );
 
-const LazyVerticalSplitIcon = lazy(() => import('./VerticalSplitIcon').then(module => ({ default: module.VerticalSplitIcon })));
+const VerticalSplitIconImport = () => import('./VerticalSplitIcon');
+const LazyVerticalSplitIcon = lazy(() => VerticalSplitIconImport().then(module => ({ default: module.VerticalSplitIcon })));
 export const VerticalSplitIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyVerticalSplitIcon {...props} />
   </Suspense>
 );
 
-const LazyViewCozyIcon = lazy(() => import('./ViewCozyIcon').then(module => ({ default: module.ViewCozyIcon })));
+const ViewCozyIconImport = () => import('./ViewCozyIcon');
+const LazyViewCozyIcon = lazy(() => ViewCozyIconImport().then(module => ({ default: module.ViewCozyIcon })));
 export const ViewCozyIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyViewCozyIcon {...props} />
   </Suspense>
 );
 
-const LazyViewHeadlineIcon = lazy(() => import('./ViewHeadlineIcon').then(module => ({ default: module.ViewHeadlineIcon })));
+const ViewHeadlineIconImport = () => import('./ViewHeadlineIcon');
+const LazyViewHeadlineIcon = lazy(() => ViewHeadlineIconImport().then(module => ({ default: module.ViewHeadlineIcon })));
 export const ViewHeadlineIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyViewHeadlineIcon {...props} />
   </Suspense>
 );
 
-const LazyViewModuleIcon = lazy(() => import('./ViewModuleIcon').then(module => ({ default: module.ViewModuleIcon })));
+const ViewModuleIconImport = () => import('./ViewModuleIcon');
+const LazyViewModuleIcon = lazy(() => ViewModuleIconImport().then(module => ({ default: module.ViewModuleIcon })));
 export const ViewModuleIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyViewModuleIcon {...props} />
   </Suspense>
 );
 
-const LazyVisibilityIcon = lazy(() => import('./VisibilityIcon').then(module => ({ default: module.VisibilityIcon })));
+const VisibilityIconImport = () => import('./VisibilityIcon');
+const LazyVisibilityIcon = lazy(() => VisibilityIconImport().then(module => ({ default: module.VisibilityIcon })));
 export const VisibilityIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyVisibilityIcon {...props} />
   </Suspense>
 );
 
-const LazyVisibilityOffIcon = lazy(() => import('./VisibilityOffIcon').then(module => ({ default: module.VisibilityOffIcon })));
+const VisibilityOffIconImport = () => import('./VisibilityOffIcon');
+const LazyVisibilityOffIcon = lazy(() => VisibilityOffIconImport().then(module => ({ default: module.VisibilityOffIcon })));
 export const VisibilityOffIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyVisibilityOffIcon {...props} />
   </Suspense>
 );
 
-const LazyVoidIcon = lazy(() => import('./VoidIcon').then(module => ({ default: module.VoidIcon })));
+const VoidIconImport = () => import('./VoidIcon');
+const LazyVoidIcon = lazy(() => VoidIconImport().then(module => ({ default: module.VoidIcon })));
 export const VoidIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyVoidIcon {...props} />
   </Suspense>
 );
 
-const LazyWarningIcon = lazy(() => import('./WarningIcon').then(module => ({ default: module.WarningIcon })));
+const WarningIconImport = () => import('./WarningIcon');
+const LazyWarningIcon = lazy(() => WarningIconImport().then(module => ({ default: module.WarningIcon })));
 export const WarningIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyWarningIcon {...props} />
   </Suspense>
 );
+
+export const preloadAtomsIconsGoogle = () => {
+  void AcUnitIconImport();
+  void AccountCircleIconImport();
+  void AcuteIconImport();
+  void AddIconImport();
+  void AddReactionIconImport();
+  void AdminPanelSettingsIconImport();
+  void AlarmIconImport();
+  void AppsIconImport();
+  void ArrowBackIconImport();
+  void ArrowDownwardIconImport();
+  void ArrowDropDownIconImport();
+  void ArrowDropUpIconImport();
+  void ArrowForwardIconImport();
+  void ArrowLeftIconImport();
+  void ArrowRightIconImport();
+  void ArrowUpwardIconImport();
+  void ArticleIconImport();
+  void AssignmentIconImport();
+  void AttachFileIconImport();
+  void AttachmentIconImport();
+  void AutorenewIconImport();
+  void BadgeIconImport();
+  void BoltIconImport();
+  void BubbleChartIconImport();
+  void BuildIconImport();
+  void CalendarMonthIconImport();
+  void CalendarTodayIconImport();
+  void CalendarViewWeekIconImport();
+  void CheckIconImport();
+  void ChecklistIconImport();
+  void CloseIconImport();
+  void CloudDownloadIconImport();
+  void CloudUploadIconImport();
+  void CodeIconImport();
+  void CommentIconImport();
+  void ContactPhoneIconImport();
+  void ContactsIconImport();
+  void ContentCopyIconImport();
+  void DarkModeIconImport();
+  void DashboardIconImport();
+  void DeleteIconImport();
+  void DemographyIconImport();
+  void DescriptionIconImport();
+  void DownloadIconImport();
+  void DraftIconImport();
+  void DragIndicatorIconImport();
+  void EditIconImport();
+  void EditNoteIconImport();
+  void ErrorIconImport();
+  void EventIconImport();
+  void ExpandLessIconImport();
+  void ExpandMoreIconImport();
+  void ExtensionIconImport();
+  void FileOpenIconImport();
+  void FilterListIconImport();
+  void FolderIconImport();
+  void FolderManagedIconImport();
+  void FolderOpenIconImport();
+  void ForwardIconImport();
+  void FullscreenExitIconImport();
+  void FullscreenIconImport();
+  void GlobeIconImport();
+  void GroupAddIconImport();
+  void GroupIconImport();
+  void GroupsIconImport();
+  void HardDriveIconImport();
+  void HelpIconImport();
+  void HistoryIconImport();
+  void HomeIconImport();
+  void HomeStorageIconImport();
+  void InfoIconImport();
+  void InvertColorsIconImport();
+  void LanguageIconImport();
+  void LeaderboardIconImport();
+  void LibraryBooksIconImport();
+  void LightModeIconImport();
+  void LinkIconImport();
+  void ListIconImport();
+  void LoadingIconImport();
+  void LocationCityIconImport();
+  void LocationOnIconImport();
+  void LockIconImport();
+  void LockPersonIconImport();
+  void LoginIconImport();
+  void LogoutIconImport();
+  void MailIconImport();
+  void ManageAccountsIconImport();
+  void ManageSearchIconImport();
+  void ManufacturingIconImport();
+  void MenuBookIconImport();
+  void MenuIconImport();
+  void MoreTimeIconImport();
+  void NavigateBeforeIconImport();
+  void NavigateNextIconImport();
+  void NewReleasesIconImport();
+  void NoteAddIconImport();
+  void NoteIconImport();
+  void NotificationsActiveIconImport();
+  void OpenInNewIconImport();
+  void PageInfoIconImport();
+  void PaletteIconImport();
+  void PendingActionsIconImport();
+  void PendingIconImport();
+  void PersonIconImport();
+  void PhotoLibraryIconImport();
+  void PictureAsPdfIconImport();
+  void PlayArrowIconImport();
+  void PlayCircleIconImport();
+  void PostAddIconImport();
+  void PreviewIconImport();
+  void PublicIconImport();
+  void PublishIconImport();
+  void RedoIconImport();
+  void RefreshIconImport();
+  void ReplyAllIconImport();
+  void ReplyIconImport();
+  void SaveIconImport();
+  void ScheduleIconImport();
+  void SchoolIconImport();
+  void SearchIconImport();
+  void SendIconImport();
+  void SettingsAlertIconImport();
+  void SettingsIconImport();
+  void SettingsSuggestIconImport();
+  void ShareIconImport();
+  void SideNavigationIconImport();
+  void SpeedIconImport();
+  void StopCircleIconImport();
+  void StorageIconImport();
+  void SupportAgentIconImport();
+  void SyncIconImport();
+  void TaskIconImport();
+  void TimerIconImport();
+  void TrendingUpIconImport();
+  void TrophyIconImport();
+  void UndoIconImport();
+  void UpdateIconImport();
+  void VerticalSplitIconImport();
+  void ViewCozyIconImport();
+  void ViewHeadlineIconImport();
+  void ViewModuleIconImport();
+  void VisibilityIconImport();
+  void VisibilityOffIconImport();
+  void VoidIconImport();
+  void WarningIconImport();
+};
