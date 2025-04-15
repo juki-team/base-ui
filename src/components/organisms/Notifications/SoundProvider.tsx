@@ -1,8 +1,9 @@
-import { PropsWithChildren, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { Sound } from '../../../types';
+import { SoundProviderProps } from './types';
 
-export function SoundProvider({ children }: PropsWithChildren<{}>) {
+export function SoundProvider({ children }: SoundProviderProps) {
   
   const setSounds = useSoundStore(state => state.setSounds);
   useEffect(() => {

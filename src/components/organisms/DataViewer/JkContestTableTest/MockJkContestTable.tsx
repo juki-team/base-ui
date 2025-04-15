@@ -1,13 +1,16 @@
 import { ContestSummaryListResponseDTO, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ButtonLoader, DataViewer, DataViewerHeadersType, DataViewerProps, T } from '../../../';
+import { T } from '../../../atoms';
+import { ButtonLoader } from '../../../molecules';
 import { RefreshIcon } from '../../../server';
 import {
   getContestContestantsHeader,
   getContestDateHeader,
   getContestNameHeader,
   getContestStatusHeader,
-} from '../../contest-columns';
+} from '../../../templates/helpers/contest-columns';
+import { DataViewer } from '../DataViewer';
+import { DataViewerHeadersType, DataViewerProps } from '../types';
 import contests from './data.json';
 
 export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryListResponseDTO>, 'data' | 'headers'>) => {

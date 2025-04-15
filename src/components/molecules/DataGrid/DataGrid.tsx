@@ -29,7 +29,7 @@ export const DataGrid = memo(({ rows, cols, freeze, styles, autofilter, firstRow
     if (firstRowAsHeaders) {
       if (row === 0) {
         (colHeaders as string[]).push(
-          ...(Object.entries(rowData.cells).map(([ j, cellData ]) => cellData.text as string)),
+          ...(Object.entries(rowData.cells).map(([ _, cellData ]) => cellData.text as string)),
         );
         return;
       }

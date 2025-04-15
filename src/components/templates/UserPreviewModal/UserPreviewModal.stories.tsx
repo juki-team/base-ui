@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useRunnerServicesWakeUp } from '../../../hooks';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
-import { UserPreviewContentModal as UserPreviewModalCmp } from './UserPreviewContentModal';
+import { UserPreviewContentModal as UserPreviewModalCmp } from './UserPreviewContentModal/UserPreviewContentModal';
 
 export default {
   component: UserPreviewModalCmp,

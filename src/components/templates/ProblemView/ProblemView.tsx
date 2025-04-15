@@ -4,8 +4,8 @@ import { useJukiUI } from '../../../hooks';
 import { Button, Portal, T } from '../../atoms';
 import { SplitPane } from '../../molecules';
 import { FullscreenExitIcon, FullscreenIcon, InfoIcon } from '../../server';
-import { ProblemCodeEditor } from './ProblemCodeEditor';
-import { ProblemStatementView } from './ProblemStatementView';
+import { ProblemCodeEditor } from './commons/ProblemCodeEditor';
+import { ProblemStatementView } from './commons/ProblemStatementView';
 import { ProblemViewProps } from './types';
 
 export const ProblemView = <T, >(props: ProblemViewProps<T>) => {

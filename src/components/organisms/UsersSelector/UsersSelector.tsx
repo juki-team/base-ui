@@ -1,11 +1,11 @@
 import { ContentsResponseType, UserSummaryListResponseDTO } from '@juki-team/commons';
 import React, { useEffect, useMemo, useState } from 'react';
-import { useFetcher } from '../../../hooks/useFetcher';
+import { useFetcher } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { Button, Modal, T, TextArea } from '../../atoms';
 import { MultiSelectSearchable } from '../../molecules';
 import { GroupsIcon, RefreshIcon, SpinIcon } from '../../server';
-import { UserChip } from '../UserChip';
+import { UserChip } from '../UserChip/UserChip';
 import { UsersSelectorProps } from './types';
 
 export const UsersSelector = (props: UsersSelectorProps) => {

@@ -10,12 +10,12 @@ import {
 import React, { useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks';
+import { NotificationType } from '../../../../types';
 import { T, TextArea } from '../../../atoms';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../molecules';
 import { TabsType } from '../../../molecules/types';
 import { AddIcon, DeleteIcon, InfoIcon } from '../../../server';
-import { ProblemVerdictTag } from '../../ProblemVerdictTag';
-import { NotificationType } from '../../types';
+import { ProblemVerdictTag } from '../../ProblemVerdictTag/ProblemVerdictTag';
 import { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
 import { LogInfo } from './LogInfo';
 

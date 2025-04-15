@@ -72,7 +72,7 @@ ${statementOutput}
 # ${t('subtasks description')}
 
 ${settings.scoringMode === ProblemScoringMode.SUBTASK
-    ? Object.values(settings.pointsByGroups).map((pointsByGroup, index) => (
+    ? Object.values(settings.pointsByGroups).map((pointsByGroup) => (
       `### ${t('group')} ${pointsByGroup.group} (${pointsByGroup.points} ${t('points')})
 
 ${pointsByGroup.description?.[preferredLanguage]}

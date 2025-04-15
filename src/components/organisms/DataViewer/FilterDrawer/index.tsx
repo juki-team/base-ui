@@ -6,13 +6,6 @@ import { CheckboxList, DrawerView, InputDate } from '../../../molecules';
 import { OptionType } from '../../../molecules/types';
 import { ArrowIcon, FilterListIcon } from '../../../server';
 import {
-  DataViewerTableHeadersType,
-  FilterDrawerProps,
-  FilterValuesType,
-  TableSortOnSortType,
-  TableSortOrderType,
-} from '../types';
-import {
   fixHeaders,
   isDisabledEnd,
   isDisabledStart,
@@ -25,7 +18,14 @@ import {
   isSomethingFiltered,
   orDatePickerDateFun,
   renderHead,
-} from '../utils';
+} from '../commons/utils';
+import {
+  DataViewerTableHeadersType,
+  FilterDrawerProps,
+  FilterValuesType,
+  TableSortOnSortType,
+  TableSortOrderType,
+} from '../types';
 
 interface renderFilterTitleProps<T> {
   onSort?: TableSortOnSortType,

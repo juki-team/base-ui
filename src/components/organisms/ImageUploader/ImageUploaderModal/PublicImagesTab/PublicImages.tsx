@@ -2,11 +2,11 @@ import { ImageSummaryResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { copy } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks';
+import { NotificationType } from '../../../../../types';
 import { T } from '../../../../atoms';
 import { FloatToolbar } from '../../../../molecules';
 import { CheckIcon, ContentCopyIcon } from '../../../../server';
-import { NotificationType } from '../../../types';
-import { onPickImageUrlType } from '../types';
+import { onPickImageUrlType } from '../../types';
 
 interface PublicImagesTabProps {
   copyButtons?: boolean,

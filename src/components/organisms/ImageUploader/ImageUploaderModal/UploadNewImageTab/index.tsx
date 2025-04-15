@@ -2,12 +2,12 @@ import { Status } from '@juki-team/commons';
 import React, { memo, useState } from 'react';
 import { handleUploadImage, toBlob } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks';
+import { NotificationType } from '../../../../../types';
 import { Button, CopyToClipboard, InputCheckbox, T } from '../../../../atoms';
 import { ButtonLoader, ImageLoaderCropper } from '../../../../molecules';
 import { CropImageType } from '../../../../molecules/types';
 import { ContentCopyIcon } from '../../../../server';
-import { NotificationType } from '../../../types';
-import { onPickImageUrlType } from '../types';
+import { onPickImageUrlType } from '../../types';
 
 export interface UploadNewImageTabProps {
   copyButtons?: boolean,

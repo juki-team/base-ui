@@ -5,10 +5,10 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useJukiUser, useUserStore } from '../../../hooks';
-import { BasicModalProps, ModalButtonLoaderEventType, SetLoaderStatusOnClickType } from '../../../types';
+import { SetLoaderStatusOnClickType } from '../../../types';
 import { InputPassword, Modal, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
-import { ProfileChangePasswordInput } from './types';
+import { ChangePasswordModalProps, ProfileChangePasswordInput } from './types';
 
 const profileSettingsChangePasswordSchema = yup.object().shape({
   oldPassword: yup.string()
@@ -23,7 +23,7 @@ const profileSettingsChangePasswordSchema = yup.object().shape({
     .oneOf([ yup.ref('newPassword'), '' ], 'both passwords must match'),
 });
 
-export const ChangePasswordModal = ({ isOpen, onClose }: BasicModalProps<ModalButtonLoaderEventType>) => {
+export const ChangePasswordModal = ({ isOpen, onClose }: ChangePasswordModalProps) => {
   
   const {
     register,

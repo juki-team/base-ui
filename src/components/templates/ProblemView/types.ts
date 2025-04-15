@@ -1,5 +1,5 @@
 import { ProblemDataResponseDTO } from '@juki-team/commons';
-import { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../organisms';
+import { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../organisms/types';
 
 export interface ProblemStatementViewProps {
   problem: ProblemDataResponseDTO,

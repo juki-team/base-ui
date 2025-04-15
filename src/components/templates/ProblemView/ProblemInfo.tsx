@@ -215,7 +215,7 @@ export const ProblemMemoryLimitInfo = ({ settings, expand, centered, withoutPadd
 }) => {
   
   const limitsLanguages = Object.values(settings?.byProgrammingLanguage || {})
-    .filter(({ memoryLimit, timeLimit }) => memoryLimit !== settings.memoryLimit);
+    .filter(({ memoryLimit }) => memoryLimit !== settings.memoryLimit);
   
   const body = limitsLanguages.map((language) => (
     <div key={language.language} className="jk-row nowrap left">

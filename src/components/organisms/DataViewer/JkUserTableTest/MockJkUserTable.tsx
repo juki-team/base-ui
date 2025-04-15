@@ -3,17 +3,8 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
   DataViewer,
-  DataViewerHeadersType,
-  DataViewerProps,
   DateField,
   Field,
-  FILTER_DATE_AUTO,
-  FILTER_DATE_RANGE_AUTO,
-  FILTER_SELECT_AUTO,
-  FILTER_TEXT_AUTO,
-  FilterDateAutoOfflineType,
-  FilterDateRangeAutoOfflineType,
-  FilterSelectAutoOfflineType,
   Popover,
   Select as SelectComponent,
   T,
@@ -22,6 +13,14 @@ import {
 } from '../../../';
 import { SelectOptionType } from '../../../atoms/Select/types';
 import { RefreshIcon } from '../../../server';
+import { FILTER_DATE_AUTO, FILTER_DATE_RANGE_AUTO, FILTER_SELECT_AUTO, FILTER_TEXT_AUTO } from '../constants';
+import {
+  DataViewerHeadersType,
+  DataViewerProps,
+  FilterDateAutoOfflineType,
+  FilterDateRangeAutoOfflineType,
+  FilterSelectAutoOfflineType,
+} from '../types';
 import users from './data.json';
 
 export interface JkUserTableProps {
@@ -205,7 +204,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
     {
       head: <TextHeadCell text="Name / Nickname" />,
       index: 'name',
-      Field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
+      Field: ({ record: { nickname } }) => (
         <TextField text={nickname} label={<T>name</T>} />
       ),
       sort: true,

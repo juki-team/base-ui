@@ -1,7 +1,7 @@
 import { action } from '@storybook/addon-actions';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
-import { ProblemSelector as ProblemSelectorComponent } from './index';
+import { ProblemSelector as ProblemSelectorComponent } from './ProblemSelector';
 
 export default {
   component: ProblemSelectorComponent,

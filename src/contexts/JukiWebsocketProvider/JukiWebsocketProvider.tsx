@@ -54,7 +54,7 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
       setIsConnected(false);
     });
     
-    jukiApiSocketManager.SOCKET.addEventListener('error', (error) => {
+    jukiApiSocketManager.SOCKET.addEventListener('error', () => {
       setIsConnected(false);
     });
   }, [ setId, setIsConnected ]);

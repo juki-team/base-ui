@@ -7,7 +7,7 @@ import { Button, Input, Modal, T, TextArea } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { EditIcon, LocationCityIcon, LocationOnIcon, PersonIcon, SchoolIcon } from '../../server';
 import { ImageProfileModal } from './ImageProfileModal';
-import { EditProfileModalPros } from './types';
+import { EditProfileModalProps } from './types';
 
 interface JudgeInputProps {
   judge: { value: Judge, label: string, logo: string, url: string, logoSize: [ number, number ] },
@@ -15,7 +15,7 @@ interface JudgeInputProps {
   setUser: Dispatch<UserProfileResponseDTO>,
 }
 
-const JudgeInput = ({ judge: { value, label, logo, url, logoSize }, user, setUser }: JudgeInputProps) => {
+const JudgeInput = ({ judge: { value, label, logo, logoSize }, user, setUser }: JudgeInputProps) => {
   
   const { components: { Image } } = useJukiUI();
   const height1 = (32 / logoSize[0]) * logoSize[1];
@@ -56,7 +56,7 @@ const JudgeInput = ({ judge: { value, label, logo, url, logoSize }, user, setUse
   );
 };
 
-export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfileModalPros) {
+export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfileModalProps) {
   
   const [ userState, setUserState ] = useState(user);
   const { updateUserProfileData } = useJukiUser();

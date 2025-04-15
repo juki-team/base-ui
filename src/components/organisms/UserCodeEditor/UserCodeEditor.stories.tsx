@@ -1,7 +1,7 @@
 import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
-import { UserCodeEditor as UserCodeEditorCmp } from './index';
+import { UserCodeEditor as UserCodeEditorCmp } from './UserCodeEditor';
 
 export default {
   component: UserCodeEditorCmp,

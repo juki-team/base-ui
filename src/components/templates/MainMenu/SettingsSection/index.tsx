@@ -14,7 +14,7 @@ import {
   LightModeIcon,
   LoadingIcon,
 } from '../../../server';
-import { HelpSection } from '../../HelpSection';
+import { HelpSection } from '../../HelpSection/HelpSection';
 
 export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
   isOpen: boolean,

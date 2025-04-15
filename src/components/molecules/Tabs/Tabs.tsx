@@ -93,7 +93,7 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => {
           style={isExtend ? {} : hiddenStyle}
         >
           <div className="jk-row nowrap" ref={refTabs}>
-            {tabs.map(({ header, clickable = true, key }) => (
+            {tabs.map(({ clickable = true, key }) => (
               <div
                 key={key}
                 className={classNames('jk-tab', { selected: tabKey === key })}
@@ -106,7 +106,7 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => {
         </div>
         {!isExtend && (
           <Select
-            options={tabs.map(({ key, header }) => ({ value: key, label: tabHeaders[key] }))}
+            options={tabs.map(({ key }) => ({ value: key, label: tabHeaders[key] }))}
             selectedOption={{ value: tabKey }}
             onChange={({ value }) => setTabKey(value as NotUndefined<T>)}
             extend

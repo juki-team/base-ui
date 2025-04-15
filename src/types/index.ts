@@ -64,3 +64,5 @@ export * from './components';
 export * from './route';
 export * from './services';
 export * from './duration';
+export * from './editor';
+export * from './notification';

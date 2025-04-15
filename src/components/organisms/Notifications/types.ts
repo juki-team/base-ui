@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { Sound } from '../../../types';
+import { PropsWithChildren, ReactNode } from 'react';
+import { NotificationType, Sound } from '../../../types';
 
 export enum NotificationAction {
   ADD_NOTIFICATION = 'ADD_NOTIFICATION',
@@ -11,7 +11,7 @@ export type NewNotificationType = {
   message: ReactNode,
 }
 
-export interface NotificationProps {
+export interface CardNotificationProps {
   id: string,
   type: NotificationType,
   message: ReactNode,
@@ -19,7 +19,7 @@ export interface NotificationProps {
 
 export type AddNotificationActionType = {
   type: NotificationAction.ADD_NOTIFICATION,
-  payload: NotificationProps,
+  payload: CardNotificationProps,
 };
 
 export type RemoveNotificationActionType = {
@@ -29,12 +29,10 @@ export type RemoveNotificationActionType = {
 
 export type NotificationActionsTypes = AddNotificationActionType | RemoveNotificationActionType;
 
-export enum NotificationType {
-  SUCCESS = 'success',
-  INFO = 'info',
-  WARNING = 'warning',
-  ERROR = 'error',
-  QUIET = 'quiet'
+export type Sounds = { [key in Sound]: HTMLAudioElement };
+
+export interface NotificationProviderProps extends PropsWithChildren {
 }
 
-export type Sounds = { [key in Sound]: HTMLAudioElement };
+export interface SoundProviderProps extends PropsWithChildren {
+}

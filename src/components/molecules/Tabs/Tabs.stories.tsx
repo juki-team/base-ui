@@ -24,7 +24,7 @@ configureActions({
   limit: 20,
 });
 
-const Component = (args: TabsInlineProps<string>) => {
+const Component = (args: TabsInlineProps) => {
   const tabs: TabsType<string> = {
     '1': {
       key: '1',

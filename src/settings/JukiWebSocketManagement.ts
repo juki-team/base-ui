@@ -28,7 +28,7 @@ const FORCE_CLOSED = 'FORCE_CLOSED';
 
 export class JukiWebSocketManagement {
   private _socket: WebSocket | null = null;
-  private socketServiceUrl: string;
+  private readonly socketServiceUrl: string;
   private callbacks: { [key: WebSocketResponseEventKey]: ((data: WebSocketResponseEventDTO) => void)[] } = {};
   private _messageQueue: string[] = [];
   private _reconnecting = false;

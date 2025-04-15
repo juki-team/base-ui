@@ -3,8 +3,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
   DataViewer,
-  DataViewerHeadersType,
-  DataViewerProps,
   getProblemAdminActionsHeader,
   getProblemKeyHeader,
   getProblemModeHeader,
@@ -15,6 +13,7 @@ import {
   T,
 } from '../../../';
 import { RefreshIcon } from '../../../server';
+import { DataViewerHeadersType, DataViewerProps } from '../types';
 import problems from './data.json';
 
 export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data' | 'headers'>) => {
@@ -31,7 +30,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
     getProblemNameHeader(false),
     getProblemModeHeader(),
     getProblemTypeHeader(),
-    getProblemTagsHeader([ '1', '2', '3' ]),
+    getProblemTagsHeader([ { value: '1', label: 1 }, { value: '2', label: 2 }, { value: '3', label: 3 } ]),
     getProblemOwnerHeader(false),
     getProblemAdminActionsHeader(),
   ], []);

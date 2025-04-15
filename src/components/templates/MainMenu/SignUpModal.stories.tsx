@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import React, { useState } from 'react';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
-import { SignUpModal, SignUpModalProps } from './SignUpModal';
+import { SignUpModal, SignUpModalProps } from './signup/SignUpModal';
 
 export default {
   component: SignUpModal,

@@ -2,9 +2,9 @@ import React, { Children, ReactNode, useState } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { useJukiUI, useUserStore } from '../../../../hooks';
 import { T } from '../../../atoms';
-import { MenuType } from '../../../organisms';
+import { MenuType } from '../../../organisms/types';
 import { ArrowBackIcon, CloseIcon } from '../../../server';
-import { HelpSection } from '../../HelpSection';
+import { HelpSection } from '../../HelpSection/HelpSection';
 import { SettingsSection } from '../SettingsSection';
 
 export interface DrawerViewMenuMobileProps {

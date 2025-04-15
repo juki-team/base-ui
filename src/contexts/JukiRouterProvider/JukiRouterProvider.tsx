@@ -121,7 +121,7 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
     if (company) {
       sp.set(QueryParamKey.COMPANY, company);
     }
-    _push({ pathname, searchParams: sp });
+    void _push({ pathname, searchParams: sp });
     // @ts-ignore
   }, [ router.searchParams, _searchParams, _push ]);
   

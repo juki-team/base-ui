@@ -1,7 +1,7 @@
 import { UserSummaryListResponseDTO } from '@juki-team/commons';
 import React, { useState } from 'react';
-import { UsersSelector as UsersSelectorComponent } from '../../index';
 import { MockupJukiProvider } from '../../mockup';
+import { UsersSelector as UsersSelectorComponent } from './UsersSelector';
 
 export default {
   component: UsersSelectorComponent,

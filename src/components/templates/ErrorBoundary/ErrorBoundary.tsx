@@ -4,7 +4,7 @@ import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { jukiApiSocketManager } from '../../../settings';
 import { Button, T } from '../../atoms';
 import { JukiSurprisedImage } from '../../server';
-import { HelpSection } from '../HelpSection';
+import { HelpSection } from '../HelpSection/HelpSection';
 import { ErrorBoundaryProps } from './types';
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boolean, errorPersist: boolean }> {

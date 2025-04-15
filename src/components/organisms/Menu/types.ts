@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { PropsWithChildren, ReactNode } from 'react';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../../types';
 import { DrawerActionsType } from '../../molecules/types';
 
@@ -30,7 +30,7 @@ export interface MenuMobileProps {
   onBack?: () => void,
 }
 
-export interface HorizontalMenuProps extends MenuMobileProps {
+export interface HorizontalMenuProps extends MenuMobileProps, PropsWithChildren {
   className?: string,
   leftSection?: ReactNodeOrFunctionType,
   rightSection?: ReactNodeOrFunctionType,
@@ -38,7 +38,7 @@ export interface HorizontalMenuProps extends MenuMobileProps {
   onBack?: () => void,
 }
 
-export interface VerticalMenuProps extends MenuMobileProps {
+export interface VerticalMenuProps extends MenuMobileProps, PropsWithChildren {
   isOpen?: boolean,
   onToggle?: (isOpen: boolean) => void,
   bottomSection?: ReactNodeOrFunctionP1Type<{ isOpen: boolean }>,

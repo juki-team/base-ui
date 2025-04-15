@@ -2,8 +2,8 @@ import { ContentResponseType, ContentsResponseType, ErrorResponseType, Status } 
 import React, { Children, ReactNode, useCallback, useContext } from 'react';
 import { T } from '../components/atoms/T/T';
 import { NotificationContext } from '../components/organisms/Notifications/context';
-import { NewNotificationType, NotificationAction, NotificationType } from '../components/organisms/Notifications/types';
-import { SetStatusType } from '../types';
+import { NewNotificationType, NotificationAction } from '../components/organisms/Notifications/types';
+import { NotificationType, SetStatusType } from '../types';
 
 // export const notifyError = (response: ErrorResponseType, addErrorNotification: (message: ReactNode) => void) => {
 //   addErrorNotification(

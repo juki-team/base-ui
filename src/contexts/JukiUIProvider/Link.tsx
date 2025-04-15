@@ -11,7 +11,7 @@ export const Link = (props: PropsWithChildren<LinkCmpProps>) => {
     rel,
   } = props;
   
-  let url = '';
+  let url;
   if (typeof href === 'string') {
     url = href;
   } else {

@@ -3,7 +3,7 @@ import { useRouterStore } from '../../hooks';
 import { QueryParamKey } from '../../types';
 import { Button } from '../atoms';
 import { LoginIcon } from '../server';
-import { LoginModal } from '../templates/MainMenu/LoginModal';
+import { LoginModal } from '../templates/MainMenu/login/LoginModal';
 
 export const MockupLoginButton = () => {
   const { setSearchParams, searchParams, deleteSearchParams, appendSearchParams } = useRouterStore();

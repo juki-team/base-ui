@@ -4,18 +4,7 @@ import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useI18nStore, useJukiUI, useRouterStore, useSessionStorage, useUserStore } from '../../../hooks';
 import { RequestFilterType, RequestSortType } from '../../../types';
 import { OptionType } from '../../molecules/types';
-import {
-  FILTER_DATE,
-  FILTER_DATE_AUTO,
-  FILTER_DATE_RANGE,
-  FILTER_DATE_RANGE_AUTO,
-  FILTER_SELECT,
-  FILTER_SELECT_AUTO,
-  FILTER_TEXT,
-  FILTER_TEXT_AUTO,
-} from './constants';
-import { DisplayDataViewer } from './DisplayDataViewer';
-import { DataViewerProps, DataViewerTableHeadersType, FilterValuesType } from './types';
+import { DisplayDataViewer } from './commons/DisplayDataViewer';
 import {
   fixHeaders,
   getFilterKey,
@@ -38,7 +27,18 @@ import {
   isFilterTextOnline,
   isSortOffline,
   isSortOnline,
-} from './utils';
+} from './commons/utils';
+import {
+  FILTER_DATE,
+  FILTER_DATE_AUTO,
+  FILTER_DATE_RANGE,
+  FILTER_DATE_RANGE_AUTO,
+  FILTER_SELECT,
+  FILTER_SELECT_AUTO,
+  FILTER_TEXT,
+  FILTER_TEXT_AUTO,
+} from './constants';
+import { DataViewerProps, DataViewerTableHeadersType, FilterValuesType } from './types';
 
 const DEFAULT_PICKER_TYPE = 'year-month-day-hours-minutes-seconds';
 
@@ -507,7 +507,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       }
     };
     
-    setTableHeaders(prevState => fixHeaders(headers.map(({ sort, filter, ...props }, index) => {
+    setTableHeaders(fixHeaders(headers.map(({ sort, filter, ...props }, index) => {
       const newHead: DataViewerTableHeadersType<T> = {
         ...props,
         minWidth: props.minWidth ?? 0,

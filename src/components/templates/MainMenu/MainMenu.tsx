@@ -13,12 +13,13 @@ import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { Popover, Select, T } from '../../atoms';
 import { JukiLoadingLayout } from '../../molecules';
-import { HorizontalMenu, MenuType, VerticalMenu } from '../../organisms';
+import { HorizontalMenu, VerticalMenu } from '../../organisms';
+import { MenuType } from '../../organisms/types';
 import { SpinIcon } from '../../server';
-import { LoginModal } from './LoginModal';
-import { LoginUser } from './LoginUser';
+import { LoginModal } from './login/LoginModal';
+import { LoginUser } from './login/LoginUser';
 import { SettingsSection } from './SettingsSection';
-import { SignUpModal } from './SignUpModal';
+import { SignUpModal } from './signup/SignUpModal';
 import { MainMenuProps } from './types';
 import { WelcomeModal } from './WelcomeModal';
 
@@ -277,7 +278,7 @@ export const MainMenu = (props: MainMenuProps) => {
         isOpen={searchParams.has(QueryParamKey.WELCOME)}
         nickname={nickname}
         onClose={() => deleteSearchParams({ name: QueryParamKey.WELCOME })}
-        onSeeMyProfile={async (setLoaderStatus, ...props) => {
+        onSeeMyProfile={async (setLoaderStatus) => {
           setLoaderStatus(Status.LOADING);
           await onSeeMyProfile();
           deleteSearchParams({ name: QueryParamKey.WELCOME });

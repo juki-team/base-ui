@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, T } from '../../../../atoms';
 import { InputDate } from '../../../../molecules';
-import { isDisabledEnd, isDisabledStart, isRangeSelected, isSelected, orDatePickerDateFun } from '../../utils';
+import { isDisabledEnd, isDisabledStart, isRangeSelected, isSelected, orDatePickerDateFun } from '../../commons/utils';
 import { TableHeadFilterDateRangeProps } from './types';
 
 export const TableHeadFilterDateRange = (props: TableHeadFilterDateRangeProps) => {

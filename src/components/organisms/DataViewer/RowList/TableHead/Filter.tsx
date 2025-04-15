@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { classNames } from '../../../../../helpers';
 import { Popover } from '../../../../atoms';
 import { FilterListIcon } from '../../../../server';
+import { isFilterDate, isFilterDateRange, isFilterSelect, isFilterText } from '../../commons/utils';
 import { TableHeaderFilterType } from '../../types';
-import { isFilterDate, isFilterDateRange, isFilterSelect, isFilterText } from '../../utils';
 import { TableHeadFilterDate } from './TableHeadFilterDate';
 import { TableHeadFilterDateRange } from './TableHeadFilterDateRange';
 import { TableHeadFilterSelect } from './TableHeadFilterSelect';
@@ -15,7 +15,8 @@ interface FilterProps {
   disabled: boolean,
 }
 
-export const Filter = ({ filter, columnIndex, disabled }: FilterProps) => {
+// TODO: disabled (?)
+export const Filter = ({ filter, columnIndex }: FilterProps) => {
   
   const [ visible, setVisible ] = useState(false);
   

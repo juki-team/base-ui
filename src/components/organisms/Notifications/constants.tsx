@@ -1,6 +1,6 @@
 import React from 'react';
+import { NotificationType } from '../../../types';
 import { CheckIcon, ErrorIcon, InfoIcon, WarningIcon } from '../../server';
-import { NotificationType } from './types';
 
 export const LAPS = 200;
 

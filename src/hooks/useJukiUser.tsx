@@ -116,7 +116,7 @@ export const useJukiUser = () => {
   }, [ doRequest ]);
   
   const updateUserProfileImage = useCallback(async (
-    { params, body, setLoader, onSuccess, onError, onFinally, ...props }: ApiParamsBodyType<{
+    { params, body, setLoader, onSuccess, onError, onFinally }: ApiParamsBodyType<{
       nickname: string
     }, Blob, { signedUrl: string }>,
   ) => {

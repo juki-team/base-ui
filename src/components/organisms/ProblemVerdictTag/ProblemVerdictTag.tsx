@@ -1,8 +1,9 @@
-import { PROBLEM_VERDICT, ProblemVerdict, ProfileSetting, Theme } from '@juki-team/commons';
+import { PROBLEM_VERDICT, ProfileSetting, Theme } from '@juki-team/commons';
 import React from 'react';
 import { useUserStore } from '../../../stores/user/useUserStore';
+import { ProblemVerdictTagProps } from './types';
 
-export const ProblemVerdictTag = ({ verdict, small }: { verdict: ProblemVerdict, small?: boolean }) => {
+export const ProblemVerdictTag = ({ verdict, small }: ProblemVerdictTagProps) => {
   
   const userPreferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
   const addDark = userPreferredTheme === Theme.DARK ? 'CC' : '';

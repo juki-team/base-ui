@@ -4,40 +4,51 @@ const path = require('path');
 const componentDirs = [
   {
     dir: path.resolve('./src/components/atoms'),
-    loadingLine: `import { SpinIcon } from './server/icons/SpinIcon';\nimport { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';`,
+    headerLines: `import { SpinIcon } from './server/icons/SpinIcon';\nimport { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';`,
     withTypes: true,
   },
   {
     dir: path.resolve('./src/components/molecules'),
-    loadingLine: `import { SpinIcon } from '../atoms/server/icons/SpinIcon';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';`,
+    headerLines: `import { SpinIcon } from '../atoms/server/icons/SpinIcon';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';`,
     withTypes: true,
   },
   {
     dir: path.resolve('./src/components/atoms/server/icons/google'),
     depth: 0,
-    loadingLine: `import { SpinIcon } from '../SpinIcon';\nimport { BasicIconProps } from '../types';`,
+    headerLines: `import { SpinIcon } from '../SpinIcon';\nimport { BasicIconProps } from '../types';`,
     withTypes: false,
     commonProp: 'BasicIconProps',
   },
   {
     dir: path.resolve('./src/components/atoms/server/icons/signs'),
-    loadingLine: `import { SpinIcon } from '../SpinIcon';\nimport { SignIconProps } from '../types';`,
+    headerLines: `import { SpinIcon } from '../SpinIcon';\nimport { SignIconProps } from '../types';`,
     withTypes: false,
     commonProp: 'SignIconProps',
     cmpIndex: true,
   },
   {
     dir: path.resolve('./src/components/atoms/server/icons/specials'),
-    loadingLine: `import { SpinIcon } from '../SpinIcon';`,
+    headerLines: `import { SpinIcon } from '../SpinIcon';`,
     withTypes: false,
     cmpIndex: true,
   },
   {
     dir: path.resolve('./src/components/atoms/server/images'),
     depth: 0,
-    loadingLine: `import { SpinIcon } from '../icons/SpinIcon';`,
+    headerLines: `import { SpinIcon } from '../icons/SpinIcon';`,
     withTypes: false,
     withoutProps: true,
+  },
+  {
+    dir: path.resolve('./src/components/organisms'),
+    headerLines: `import { SpinIcon } from '../atoms/server/icons/SpinIcon';`,
+    withTypes: true,
+  },
+  {
+    dir: path.resolve('./src/components/templates'),
+    headerLines: `import { SpinIcon } from '../atoms/server/icons/SpinIcon';`,
+    withTypes: true,
+    footerLines: `export * from './helpers';`,
   },
 ];
 
@@ -59,9 +70,19 @@ const withGenericity = [
   [ `export const TabsInlineBody = (props: TabsInlineBodyProps) => (`, `export const TabsInlineBody = <T, >(props: TabsInlineBodyProps<T>) => (` ],
   [ `export const TwoContentCardsLayout = (props: TwoContentCardsLayoutProps) => (`, `export const TwoContentCardsLayout = <T, >(props: TwoContentCardsLayoutProps<T>) => (` ],
   [ `export const TwoContentLayout = (props: TwoContentLayoutProps) => (`, `export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => (` ],
+  // organisms
+  [ `export const CheckUnsavedChanges = (props: CheckUnsavedChangesProps) => (`, `export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChangesProps<T>) => (` ],
+  [ `export const CodeRunnerEditor = (props: CodeRunnerEditorProps) => (`, `export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => (` ],
+  [ `export const DataViewer = (props: DataViewerProps) => (`, `export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => (` ],
+  [ `export const PagedDataViewer = (props: PagedDataViewerProps) => (`, `export const PagedDataViewer = <T extends { [key: string]: any }, V = "T">(props: PagedDataViewerProps<T, V>) => (` ],
+  [ `export const UserCodeEditor = (props: UserCodeEditorProps) => (`, `export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => (` ],
+  // templates
+  [ 'export const ProblemView = (props: ProblemViewProps) => (', 'export const ProblemView = <T, >(props: ProblemViewProps<T>) => (' ],
+  [ 'export const CreateEntityLayout = (props: CreateEntityLayoutProps) => (', 'export const CreateEntityLayout = <T, U, V>(props: CreateEntityLayoutProps<T, U, V>) => (' ],
+  [ 'export const UpdateEntityLayout = (props: UpdateEntityLayoutProps) => (', 'export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) => (' ],
 ]
 
-for (let {dir, loadingLine, withTypes, commonProp, depth, cmpIndex, withoutProps} of componentDirs) {
+for (let {dir, headerLines, withTypes, commonProp, depth, cmpIndex, withoutProps, footerLines} of componentDirs) {
   console.log(`Generating ${dir}`);
   if (!fs.existsSync(dir)) continue;
   
@@ -88,15 +109,16 @@ for (let {dir, loadingLine, withTypes, commonProp, depth, cmpIndex, withoutProps
   
   console.log({folders, files})
   
-  const indexContent = [
+  let indexContent = [
     `import React, { lazy, Suspense } from 'react';`,
-    loadingLine,
-    !commonProp && !withoutProps
+    headerLines,
+    ...(!commonProp && !withoutProps
       ? files.map(({
                      basePath,
                      name
-                   }) => `import { ${name}Props } from '${cmpIndex ? `./${name}` : basePath}/types';`).join('\n') + '\n'
-      : '',
+                   }) => `import { ${name}Props } from '${cmpIndex ? `./${name}` : basePath}/types';`)
+      : []),
+    '',
     ...files.map(({basePath, path, name}) => {
       const lines = [
         `const Lazy${name} = lazy(() => import('${basePath}/${name}').then(module => ({ default: module.${name} })));`,
@@ -127,8 +149,12 @@ for (let {dir, loadingLine, withTypes, commonProp, depth, cmpIndex, withoutProps
     }),
   ].join('\n');
   
+  if (footerLines) {
+    indexContent += '\n' + footerLines + '\n';
+  }
+  
   const indexTypesContent = [
-    ...files.map(({basePath, name}) => `export * from '${basePath}/types';`),
+    ...files.map(({basePath, name}) => `export type * from '${basePath}/types';`),
   ].join('\n')
   
   if (depth === 0) {

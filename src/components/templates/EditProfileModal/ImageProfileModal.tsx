@@ -4,13 +4,9 @@ import { toBlob } from '../../../helpers';
 import { useJukiUser, useMutate, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { Button, Modal, T } from '../../atoms';
-import { BasicModalProps } from '../../atoms/types';
 import { ButtonLoader, ImageLoaderCropper } from '../../molecules';
 import { CropImageType } from '../../molecules/types';
-
-interface ImageProfileModalProps extends BasicModalProps {
-  nickname: string,
-}
+import { ImageProfileModalProps } from './types';
 
 export const ImageProfileModal = ({ isOpen, onClose, nickname }: ImageProfileModalProps) => {
   

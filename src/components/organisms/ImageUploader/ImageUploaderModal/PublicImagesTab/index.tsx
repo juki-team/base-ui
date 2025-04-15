@@ -2,7 +2,7 @@ import { ContentsResponseType, ImageSummaryResponseDTO } from '@juki-team/common
 import React from 'react';
 import { jukiApiSocketManager } from '../../../../../settings';
 import { FetcherLayer } from '../../../../molecules';
-import { onPickImageUrlType } from '../types';
+import { onPickImageUrlType } from '../../types';
 import { PublicImages } from './PublicImages';
 
 interface PublicImagesTabProps {

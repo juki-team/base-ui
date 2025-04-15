@@ -1,6 +1,6 @@
 import { MenuViewMode } from '@juki-team/commons';
 import { ReactNode } from 'react';
-import { MenuType } from '../../organisms';
+import { MenuType } from '../../organisms/types';
 
 export interface MainMenuProps {
   onSeeMyProfile: () => Promise<any> | void,

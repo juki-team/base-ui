@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 export interface UserChipProps {
   imageUrl: string,
   nickname: string,
@@ -7,4 +9,10 @@ export interface UserChipProps {
   className?: string,
   companyKey?: string,
   withoutLink?: boolean,
+}
+
+export interface UserNicknameLinkProps {
+  nickname: string,
+  companyKey?: string,
+  children: ReactElement,
 }

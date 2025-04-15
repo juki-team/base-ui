@@ -6,11 +6,11 @@ import {
   MainMenu as MainMenuCmp,
   MdMathEditor,
   MdMathViewer,
-  SAMPLE_MD_CONTENT,
   T,
   TwoContentLayout as TwoContentLayoutComponent,
 } from '../../../index';
 import { MockupJukiProvider } from '../../mockup';
+import { SAMPLE_MD_CONTENT } from '../../organisms/mdMath/constants';
 import {
   FilterListIcon,
   JukiCouchLogoHorImage,

@@ -6,7 +6,7 @@ import {
   SubmissionSummaryListResponseDTO,
 } from '@juki-team/commons';
 import React, { useMemo } from 'react';
-import { DataViewerHeadersType, DataViewerProps, LanguagesByJudge } from '../../../';
+import { LanguagesByJudge } from '../../../';
 import { toFilterUrl, toSortUrl } from '../../../../helpers';
 import { useFetcher } from '../../../../hooks';
 import { jukiApiSocketManager } from '../../../../settings';
@@ -20,10 +20,11 @@ import {
   getSubmissionRejudgeHeader,
   getSubmissionTimeHeader,
   getSubmissionVerdictHeader,
-} from '../../submission-columns';
+} from '../../../templates/helpers/submission-columns';
 import { PagedDataViewer } from '../PagedDataViewer';
+import { DataViewerHeadersType, DataViewerProps } from '../types';
 
-export const MockJkSubmissionTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data'>) => {
+export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data'>) => {
   const { data: judgeSystemList } = useFetcher<ContentsResponseType<JudgeSystemSummaryListResponseDTO>>(jukiApiSocketManager.API_V1.judge.getSystemList().url);
   const { data: judgePublicList } = useFetcher<ContentsResponseType<JudgeSummaryListResponseDTO>>(jukiApiSocketManager.API_V1.judge.getSummaryList().url);
   const allJudges = useMemo(() => judgeSystemList?.success ? judgeSystemList.contents : (judgePublicList?.success ? judgePublicList.contents : []), [ judgeSystemList, judgePublicList ]);

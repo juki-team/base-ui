@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouterStore } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { QueryParamKey } from '../../../types';
-import { UserPreviewContentModal } from './UserPreviewContentModal';
+import { UserPreviewContentModal } from './UserPreviewContentModal/UserPreviewContentModal';
 
 export const UserPreviewModal = () => {
   

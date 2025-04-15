@@ -1,8 +1,9 @@
 import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
 import { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
-import { CodeRunnerEditor, CodeRunnerEditorPropertiesType, CodeRunnerEditorProps } from '../../../index';
 import { MockupJukiProvider } from '../../mockup';
+import { CodeRunnerEditor } from './CodeRunnerEditor';
+import { CodeRunnerEditorPropertiesType, CodeRunnerEditorProps } from './types';
 
 const meta: Meta<typeof CodeRunnerEditor> = {
   component: CodeRunnerEditor,

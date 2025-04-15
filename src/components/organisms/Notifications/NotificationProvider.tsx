@@ -1,14 +1,20 @@
-import React, { PropsWithChildren, useReducer } from 'react';
+import React, { useReducer } from 'react';
 import { useJukiUI, useSoundStore } from '../../../hooks';
+import { NotificationType } from '../../../types';
 import { CardNotification } from './CardNotification';
 import { NotificationContext } from './context';
-import { NotificationAction, NotificationActionsTypes, NotificationProps, NotificationType } from './types';
+import {
+  CardNotificationProps,
+  NotificationAction,
+  NotificationActionsTypes,
+  NotificationProviderProps,
+} from './types';
 
-export function NotificationProvider({ children }: PropsWithChildren<{}>) {
+export function NotificationProvider({ children }: NotificationProviderProps) {
   
   const sound = useSoundStore();
   
-  const [ state, dispatch ] = useReducer((state: NotificationProps[], action: NotificationActionsTypes) => {
+  const [ state, dispatch ] = useReducer((state: CardNotificationProps[], action: NotificationActionsTypes) => {
     switch (action.type) {
       case NotificationAction.ADD_NOTIFICATION:
         if (action.payload.type === NotificationType.SUCCESS) {

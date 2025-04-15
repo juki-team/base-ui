@@ -204,7 +204,9 @@ export type TableHeadFieldType<T> =
   ((props: { record: T, columnIndex: string, recordIndex: number, isCard: boolean }) => ReactNode)
   | ReactNode;
 
-export type TableHeadCmpFieldType<T> = FC<{ record: T, columnIndex: string, recordIndex: number, isCard: boolean }>;
+export type TableHeadFieldProps<T> = { record: T, columnIndex: string, recordIndex: number, isCard: boolean };
+
+export type TableHeadCmpFieldType<T> = FC<TableHeadFieldProps<T>>;
 
 export type TableHeadersType<T> = {
   cardPosition?: CardPositionType,
@@ -446,4 +448,9 @@ export interface Scroll {
   right: number,
   top: number,
   bottom: number,
+}
+
+export interface TextHeadCellProps {
+  text: string | ReactNode,
+  className?: string,
 }

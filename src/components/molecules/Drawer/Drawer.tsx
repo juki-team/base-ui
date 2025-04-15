@@ -34,7 +34,7 @@ export const Drawer = (props: DrawerProps) => {
                         props: {
                           ref = undefined,
                           onMouseEnter = undefined,
-                          onMouseLeave = undefined,
+                          // onMouseLeave = undefined,
                           onClick = undefined,
                         } = {},
                       }: any) => ({

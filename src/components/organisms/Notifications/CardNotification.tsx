@@ -1,11 +1,12 @@
 import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames, getTextContent } from '../../../helpers';
 import { useJukiNotification, useJukiUI, usePageStore } from '../../../hooks';
+import { NotificationType } from '../../../types';
 import { CloseIcon } from '../../server';
 import { NOTIFICATION_ICON } from './constants';
-import { NotificationProps, NotificationType } from './types';
+import { CardNotificationProps } from './types';
 
-export const CardNotification = ({ id, type, message }: NotificationProps) => {
+export const CardNotification = ({ id, type, message }: CardNotificationProps) => {
   
   const [ exit, setExit ] = useState(false);
   const [ width, setWidth ] = useState(0);

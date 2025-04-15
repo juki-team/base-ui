@@ -1,14 +1,9 @@
 import React from 'react';
 import { useJukiUser } from '../../../hooks';
 import { Button, Modal, T } from '../../atoms';
-import { BasicModalProps } from '../../atoms/types';
 import { ButtonLoader } from '../../molecules';
 import { UserNicknameLink } from '../../organisms';
-
-interface ResetPasswordModalProps extends BasicModalProps {
-  nickname: string,
-  companyKey: string,
-}
+import { ResetPasswordModalProps } from './types';
 
 export const ResetPasswordModal = ({ nickname, companyKey, ...modalProps }: ResetPasswordModalProps) => {
   

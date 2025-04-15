@@ -5,7 +5,6 @@ import {
   HorizontalMenu as HorizontalMenuCmp,
   MdMathEditor,
   Popover,
-  SAMPLE_MD_CONTENT,
   T,
   useJukiNotification,
   VerticalMenu,
@@ -22,6 +21,7 @@ import {
   SettingsIcon,
   ViewHeadlineIcon,
 } from '../../server';
+import { SAMPLE_MD_CONTENT } from '../mdMath/constants';
 
 export default {
   component: VerticalMenu,
