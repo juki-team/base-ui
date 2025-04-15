@@ -156,7 +156,7 @@ export const MdMath = memo(({ source }: { source: string }) => {
           }
           
           if (href?.startsWith('#')) {
-            const url = new URL(window?.location?.href || '');
+            const url = new URL(typeof window !== 'undefined' ? (window.location?.href || '') : '');
             url.hash = href;
             
             return (
