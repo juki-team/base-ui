@@ -31,7 +31,7 @@ export interface DocumentMembersButton2Props {
   documentOwner: UserCompanyBasicInfoResponseDTO,
   onSave?: never,
   saveUrl: string,
-  reloadDocument: () => Promise<void>,
+  reloadDocument?: () => Promise<void>,
 }
 
 export type DocumentMembersButtonProps = DocumentMembersButton1Props | DocumentMembersButton2Props;
