@@ -65,4 +65,5 @@ export * from './route';
 export * from './services';
 export * from './duration';
 export * from './editor';
+export * from './entity';
 export * from './notification';

@@ -1,11 +1,4 @@
-export enum Period {
-  FUTURE = 'FUTURE',
-  LIVE_START = 'LIVE_START',
-  LIVE_END = 'LIVE_END',
-  PAST = 'PAST',
-  CALC = 'CALC',
-  TIME_OUT = 'TIME_OUT'
-}
+import { Period } from '../../../types';
 
 export interface TimerLabeledProps {
   startDate: Date,

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Period } from '../../../types';
 import { T } from '../../atoms';
 import { Timer } from './Timer';
-import { Period, TimerLabeledProps } from './types';
+import { TimerLabeledProps } from './types';
 import { cutTimeSplit } from './utils';
 
 const DEFAULT_LABELS: { [key in Period]: string } = {
