@@ -16,6 +16,7 @@ export interface SortableItemComponentProps<T, U> {
   setNodeRef: (node: (HTMLElement | null)) => void,
   isDragging: boolean,
   isOver: boolean,
+  index: number,
 }
 
 export type SortableItemComponent<T, U> = FC<SortableItemComponentProps<T, U>>;

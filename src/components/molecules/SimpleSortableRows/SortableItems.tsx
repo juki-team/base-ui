@@ -10,12 +10,15 @@ import { CSS } from '@dnd-kit/utilities';
 import React, { CSSProperties } from 'react';
 import { SortableItemsProps } from './types';
 
-function SortableItem({ id, Cmp, item, props }: {
+interface SortableItemProps {
   id: string,
+  index: number,
   Cmp: SortableItemsProps<any, any>['Cmp'],
   item: SortableItemsProps<any, any>['items'][number],
-  props: SortableItemsProps<any, any>['props']
-}) {
+  props: SortableItemsProps<any, any>['props'],
+}
+
+function SortableItem({ id, Cmp, item, props, index }: SortableItemProps) {
   
   const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } = useSortable({ id });
   
@@ -40,6 +43,7 @@ function SortableItem({ id, Cmp, item, props }: {
       props={props}
       isDragging={isDragging}
       isOver={isOver}
+      index={index}
     />
   );
 }
@@ -70,8 +74,8 @@ export const SortableItems = <T, U = undefined>(properties: SortableItemsProps<T
         items={items.map(({ key }) => key)}
         strategy={horizontal ? horizontalListSortingStrategy : verticalListSortingStrategy}
       >
-        {items.map((item) => (
-          <SortableItem key={item.key} id={item.key} Cmp={Cmp} props={props} item={item} />
+        {items.map((item, index) => (
+          <SortableItem key={item.key} id={item.key} Cmp={Cmp} props={props} item={item} index={index} />
         ))}
       </SortableContext>
     </DndContext>
