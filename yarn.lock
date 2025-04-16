@@ -1954,10 +1954,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@juki-team/commons@^0.0.762":
-  version "0.0.762"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.762/c8db36d9a220d4670aa535a53dfc2846db8c2fbd#c8db36d9a220d4670aa535a53dfc2846db8c2fbd"
-  integrity sha512-s63u2WbosDAE64PU8FlznQwXUbaWk5ax8d/zdCvmRaCZlqd6ybIvqsjwyaVhM5GZ+7CGNKh1dJMeXhaNV8ltGg==
+"@juki-team/commons@^0.0.764":
+  version "0.0.764"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.764/0b365de5cdcd7c82db950ed476c659ed848d2eb2#0b365de5cdcd7c82db950ed476c659ed848d2eb2"
+  integrity sha512-zlUVCeAnCKt+AnzmRiDiej49C62j6rWHoUsBxr5Zc9QOEsZK0SiM+x+P9d+FbhVBcv82E8q9YjaqEpMvMiuL0A==
 
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.5"
@@ -3344,10 +3344,10 @@
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-19.1.2.tgz#bd1fe3b8c28a3a2e942f85314dcfb71f531a242f"
   integrity sha512-XGJkWF41Qq305SKWEILa1O8vzhb3aOo3ogBlSmiqNko/WmRb6QIaweuZCXjKygVDXpzXb5wyxKTSOsmkuqj+Qw==
 
-"@types/react@^19.1.1":
-  version "19.1.1"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.1.1.tgz#f7f2bb4a0a8d22b9ee4b8f6e27f0c78d76eb7f9b"
-  integrity sha512-ePapxDL7qrgqSF67s0h9m412d9DbXyC1n59O2st+9rjuuamWsZuD2w55rqY12CbzsZ7uVXb5Nw0gEp9Z8MMutQ==
+"@types/react@^19.1.2":
+  version "19.1.2"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-19.1.2.tgz#11df86f66f188f212c90ecb537327ec68bfd593f"
+  integrity sha512-oxLPMytKchWGbnQM9O7D67uPa9paTNxO7jVoNMXgkkErULBPhPARCfkKL9ytcIJJRGjbsVwW4ugJzyFFvm/Tiw==
   dependencies:
     csstype "^3.0.2"
 
@@ -6267,9 +6267,9 @@ ejs@^3.1.6:
     jake "^10.8.5"
 
 electron-to-chromium@^1.5.73:
-  version "1.5.136"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.136.tgz#854b45e6a892137762cb026ed6ec77391fc5c07b"
-  integrity sha512-kL4+wUTD7RSA5FHx5YwWtjDnEEkIIikFgWHR4P6fqjw1PPLlqYkxeOb++wAauAssat0YClCy8Y3C5SxgSkjibQ==
+  version "1.5.137"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.137.tgz#53a7fef3ea9f7eb5fcf704454050ff930c43ed92"
+  integrity sha512-/QSJaU2JyIuTbbABAo/crOs+SuAZLS+fVVS10PVrIT9hrRkmZl8Hb0xPSkKRUUWHQtYzXHpQUW3Dy5hwMzGZkA==
 
 elliptic@^6.5.3, elliptic@^6.5.5:
   version "6.6.1"
@@ -7352,13 +7352,13 @@ fragment-cache@^0.2.1:
   dependencies:
     map-cache "^0.2.2"
 
-framer-motion@^12.7.1:
-  version "12.7.1"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.7.1.tgz#6faa3c888067486a66ffa5c44a884e6451868868"
-  integrity sha512-F+6Q9KbZUCnylxzZ0WMN0BoRfbH/2rZ/5sMSA1AfZN7b595BTXlMWj3nq0/2BSzcXG3P5LGv6m7+HPXWKl+8uw==
+framer-motion@^12.7.3:
+  version "12.7.3"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-12.7.3.tgz#06e58221b526ccc49292ced5a439342eb5e58e28"
+  integrity sha512-dNT4l5gEnUo2ytXLUBUf6AI21dZ77TMclDKE3ElaIHZ8m90nJ/NCcExW51zdSIaS0RhAS5iXcF7bEIxZe8XG2g==
   dependencies:
-    motion-dom "^12.7.1"
-    motion-utils "^12.6.5"
+    motion-dom "^12.7.3"
+    motion-utils "^12.7.2"
     tslib "^2.4.0"
 
 fresh@0.5.2:
@@ -8111,10 +8111,10 @@ hyperformula@^3.0.0:
     chevrotain "^6.5.0"
     tiny-emitter "^2.1.0"
 
-i18next@^24.2.3:
-  version "24.2.3"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-24.2.3.tgz#3a05f72615cbd7c00d7e348667e2aabef1df753b"
-  integrity sha512-lfbf80OzkocvX7nmZtu7nSTNbrTYR52sLWxPtlXX1zAhVw8WEnFk4puUkCR4B1dNQwbSpEHHHemcZu//7EcB7A==
+i18next@^25.0.0:
+  version "25.0.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-25.0.0.tgz#ae6b44dea48597e556a126c6f4f10d9c18cc62e2"
+  integrity sha512-POPvwjOPR1GQvRnbikTMPEhQD+ekd186MHE6NtVxl3Lby+gPp0iq60eCqGrY6wfRnp1lejjFNu0EKs1afA322w==
   dependencies:
     "@babel/runtime" "^7.26.10"
 
@@ -10494,24 +10494,24 @@ moment@2.30.1:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.30.1.tgz#f8c91c07b7a786e30c59926df530b4eac96974ae"
   integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
 
-motion-dom@^12.7.1:
-  version "12.7.1"
-  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.7.1.tgz#0af79db216be16db004d444e4324822ee1cdcd70"
-  integrity sha512-fE8/YcI5tQnd3h/oXnfw/wCQ8BgLFPMmdXlL9uu3l6+XLZ1Fe01jrYPPbDhSxV5GLVo22LyerlOQLMFQMVM+6A==
+motion-dom@^12.7.3:
+  version "12.7.3"
+  resolved "https://registry.yarnpkg.com/motion-dom/-/motion-dom-12.7.3.tgz#17885ec7f838e45be12791237f97715008258b64"
+  integrity sha512-IjMt1YJHrvyvruFvmpmd6bGXXGCvmygrnvSb3aZ8KhOzF4H3PulU+cMBzH+U8TBJHjC/mnmJFRIA1Cu4vBfcBA==
   dependencies:
-    motion-utils "^12.6.5"
+    motion-utils "^12.7.2"
 
-motion-utils@^12.6.5:
-  version "12.6.5"
-  resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-12.6.5.tgz#c147d0d6cca727c91e626a5c3ca5d31ca75a2960"
-  integrity sha512-IsOeKsOF+FWBhxQEDFBO6ZYC8/jlidmVbbLpe9/lXSA9j9kzGIMUuIBx2SZY+0reAS0DjZZ1i7dJp4NHrjocPw==
+motion-utils@^12.7.2:
+  version "12.7.2"
+  resolved "https://registry.yarnpkg.com/motion-utils/-/motion-utils-12.7.2.tgz#99b673d8851583b325bd0c8b0f04c5bf42b9b818"
+  integrity sha512-XhZwqctxyJs89oX00zn3OGCuIIpVevbTa+u82usWBC6pSHUd2AoNWiYa7Du8tJxJy9TFbZ82pcn5t7NOm1PHAw==
 
-motion@^12.6.5:
-  version "12.7.1"
-  resolved "https://registry.yarnpkg.com/motion/-/motion-12.7.1.tgz#41eb7fb522999c71791ccc30bd02d8256cd571d5"
-  integrity sha512-qSjhdSnFTr5wzTqhHsSHZi5AfH2+oA30t/uqT7GIK02pj9zo2lznk7Qim8OWjZNGoif8I7BdxFv6pKX0X5mYXA==
+motion@^12.7.3:
+  version "12.7.3"
+  resolved "https://registry.yarnpkg.com/motion/-/motion-12.7.3.tgz#28a8b81cd66c05243b0e7a7f57d5cc5699e1b064"
+  integrity sha512-EGhzIg7vj+USH9SLNLjHRzglldWEletUZTEtBVKW7IJF+1Ig3RI5LnJmHQBNutuOIyeUbcF36MrNFT00etlc3g==
   dependencies:
-    framer-motion "^12.7.1"
+    framer-motion "^12.7.3"
     tslib "^2.4.0"
 
 move-concurrently@^1.0.1:
