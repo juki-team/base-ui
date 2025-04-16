@@ -1,8 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react';
 import React, { FC, useState } from 'react';
 import { Button, ImageLoaderCropper as ImageLoaderCropperCmp } from '../../../components';
-import { CropImageType, ImageLoaderCropperProps } from '../../../components/types';
 import { downloadBlobAsFile, toBlob } from '../../../helpers';
+import { CropImageType, ImageLoaderCropperProps } from '../../../types';
 import { MockupJukiProvider } from '../../mockup';
 // import { COMPONENTS_WRITING_TOOLS } from './constants';
 
