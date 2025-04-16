@@ -4,12 +4,12 @@ import { Button, T } from '../../atoms';
 import { HomeIcon, JukiSurprisedImage } from '../../server';
 import { PageNotFoundProps } from './types';
 
-export function PageNotFound({ children }: PageNotFoundProps) {
+export function PageNotFound({ children, style }: PageNotFoundProps) {
   
   const { components: { Link } } = useJukiUI();
   
   return (
-    <div className="jk-col extend">
+    <div className="jk-col extend" style={style}>
       <div className="jk-col gap center">
         <div className="image-404"><JukiSurprisedImage /></div>
         {children || (
