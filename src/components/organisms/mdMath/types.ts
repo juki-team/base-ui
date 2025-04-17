@@ -16,4 +16,6 @@ export interface MdMathViewerProps {
   // sharedButton?: boolean,
   downloadButton?: boolean,
   className?: string,
+  blur?: boolean,
+  unBlur?: boolean,
 }

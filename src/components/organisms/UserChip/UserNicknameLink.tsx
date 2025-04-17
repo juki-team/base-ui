@@ -1,28 +1,33 @@
-import { cloneElement, ReactElement, useEffect } from 'react';
-import { usePreload, useRouterStore } from '../../../hooks';
+import React, { useEffect, useMemo } from 'react';
+import { cloneURLSearchParams } from '../../../helpers';
+import { useJukiUI, usePreload, useRouterStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { UserNicknameLinkProps } from './types';
 
 export const UserNicknameLink = ({ children, nickname, companyKey }: UserNicknameLinkProps) => {
   
-  const setSearchParams = useRouterStore(state => state.setSearchParams);
-  const preload = usePreload();
+  const currentSearchParams = useRouterStore(state => state.searchParams);
   
+  const preload = usePreload();
+  const { components: { Link } } = useJukiUI();
   useEffect(() => {
     void preload(jukiApiSocketManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url);
   }, [ companyKey, nickname, preload ]);
+  const searchParams = useMemo(() => {
+    const clonedSearchParams = cloneURLSearchParams(currentSearchParams);
+    clonedSearchParams.delete(QueryParamKey.USER_PREVIEW);
+    clonedSearchParams.append(QueryParamKey.USER_PREVIEW, nickname);
+    if (companyKey) {
+      clonedSearchParams.append(QueryParamKey.USER_PREVIEW, companyKey);
+    }
+    return clonedSearchParams;
+    
+  }, [ companyKey, currentSearchParams, nickname ]);
   
-  return cloneElement(
-    children,
-    {
-      onClick: ((event: any) => {
-        event.stopPropagation();
-        setSearchParams({
-          name: QueryParamKey.USER_PREVIEW,
-          value: companyKey ? [ nickname, companyKey ] : nickname,
-        });
-      }),
-    } as ReactElement<{}>['props'],
+  return (
+    <Link href={{ query: searchParams.toString() }}>
+      {children}
+    </Link>
   );
 };

@@ -103,7 +103,8 @@ for (let {
   footerLines,
   chunkName
 } of componentDirs) {
-  console.log(`Generating ${dir}`);
+  
+  console.info(`Generating ${dir}`);
   if (!fs.existsSync(dir)) continue;
   
   const folders = depth === 0 ?
@@ -127,7 +128,7 @@ for (let {
       return {basePath: (depth === 0 || cmpIndex) ? '.' : _path.replace('/' + name + '.tsx', ''), path: _path, name};
     })
   
-  console.log({foldersSize: folders.length, filesSize: files.length});
+  console.info({foldersSize: folders.length, filesSize: files.length});
   
   let indexContent = [
     `import React, { lazy, Suspense } from 'react';`,
@@ -187,15 +188,15 @@ for (let {
     if (withTypes) {
       fs.writeFileSync(path.join(dir + '/' + folders[0], 'types.ts'), indexTypesContent);
     }
-    console.log(`✅ Generated: ${path.join(dir + '/' + folders[0], 'index.tsx')}`);
+    console.info(`✅ Generated: ${path.join(dir + '/' + folders[0], 'index.tsx')}`);
   } else {
     fs.writeFileSync(path.join(dir, 'index.tsx'), indexContent);
     if (withTypes) {
       fs.writeFileSync(path.join(dir, 'types.ts'), indexTypesContent);
     }
-    console.log(`✅ Generated: ${path.join(dir, 'index.tsx')}`);
+    console.info(`✅ Generated: ${path.join(dir, 'index.tsx')}`);
   }
   preloadNames.push(`void preload${chunkName}();`);
 }
 
-console.log(preloadNames.join('\n'));
+console.info(preloadNames.join('\n'));

@@ -15,7 +15,7 @@ type Story = StoryObj<typeof MdMathViewer>;
 export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <div>
+      <div style={{ height: '100%', width: '100%', overflow: 'auto' }}>
         <MdMathViewer {...args} source={SAMPLE_MD_CONTENT} />
       </div>
     </MockupJukiProvider>

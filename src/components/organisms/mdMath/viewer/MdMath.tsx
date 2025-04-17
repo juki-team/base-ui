@@ -6,8 +6,11 @@ import ReactMarkdown, { Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
-import { useFetcher, useJukiUI } from '../../../../hooks';
+import { useFetcher, useJukiUI, useStableState } from '../../../../hooks';
 import { jukiApiSocketManager } from '../../../../settings';
+import { Button } from '../../../atoms/Button/Button';
+import { VisibilityIcon } from '../../../atoms/server/icons/google/VisibilityIcon';
+import { VisibilityOffIcon } from '../../../atoms/server/icons/google/VisibilityOffIcon';
 import { CodeViewer } from '../../../molecules';
 import { ErrorIcon, OpenInNewIcon, SpinIcon } from '../../../server';
 import { GraphvizViewer } from '../../Graphviz/GraphvizViewer';
@@ -62,7 +65,7 @@ const CustomField = ({ commands }: { commands: CommandsObjectType, restText: str
   return <span>--</span>;
 };
 
-export const MdMath = memo(({ source }: { source: string }) => {
+export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, blur?: boolean, unBlur?: boolean, }) => {
   const { components: { Link } } = useJukiUI();
   // const [ rehypePlugins, setRehypePlugins ] = useState<any[]>([]);
   // const [ remarkPlugins, setRemarkPlugins ] = useState<any[]>([]);
@@ -235,9 +238,22 @@ export const MdMath = memo(({ source }: { source: string }) => {
       },
     },
   }), [ Link ]);
+  const [ blur, setBlur ] = useStableState(_blur);
   
   return (
-    <div className="jk-md-math">
+    <div className="jk-md-math pn-re">
+      {_blur && (unBlur ? blur : true) && (
+        <div className="jk-overlay-backdrop jk-br-ie jk-overlay" style={{ position: 'absolute' }} />
+      )}
+      {_blur && unBlur && (
+        <div className="pn-ae jk-pg-sm" style={{ zIndex: 'var(--z-index-overlay)' }}>
+          <Button
+            size="small"
+            onClick={() => setBlur(!blur)}
+            icon={blur ? <VisibilityIcon /> : <VisibilityOffIcon />}
+          />
+        </div>
+      )}
       <ReactMarkdown {...props} >
         {source}
       </ReactMarkdown>

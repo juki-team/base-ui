@@ -16,13 +16,13 @@ export const Graphviz = ({ dot, className, options = {} }: IGraphvizProps) => {
   
   useEffect(() => {
     if (containerRef.current) {
-      const instance = graphviz(containerRef.current, {
+      /*const instance =*/
+      graphviz(containerRef.current, {
         ...defaultOptions,
         ...options,
       }).renderDot(dot);
       
       return () => {
-        console.log('Graphviz out', { instance });
         // instance?.resetZoom();
       };
     }

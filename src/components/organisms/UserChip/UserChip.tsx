@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI, usePreload } from '../../../hooks';
-import { jukiApiSocketManager } from '../../../settings';
+import { useJukiUI } from '../../../hooks';
 import { UserChipProps } from './types';
 import { UserNicknameLink } from './UserNicknameLink';
 
@@ -10,15 +9,8 @@ export const UserChip = (props: UserChipProps) => {
   const { imageUrl, email, familyName, nickname, givenName, className, companyKey, withoutLink } = props;
   
   const { components: { Image } } = useJukiUI();
-  const preload = usePreload();
   
   const onlyNickname = !givenName && !familyName && !email;
-  
-  useEffect(() => {
-    if (!withoutLink) {
-      void preload(jukiApiSocketManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url);
-    }
-  }, [ companyKey, nickname, preload, withoutLink ]);
   
   return (
     <div className={classNames('jk-row nowrap center', className)}>
