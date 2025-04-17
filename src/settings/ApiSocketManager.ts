@@ -800,7 +800,7 @@ export class ApiSocketManager {
           { params: { key: string, id: string }, body: { content: string } },
           HTTPMethod.POST
         >(({ params: { key, id }, body }) => ({
-          url: injectBaseUrl('comment', `/${key}/reply/${id}`),
+          url: injectBaseUrl('comment', `/${key}/${id}/reply`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
@@ -808,9 +808,23 @@ export class ApiSocketManager {
           { params: { key: string, id: string }, body: { emoji: string } },
           HTTPMethod.POST
         >(({ params: { key, id }, body }) => ({
-          url: injectBaseUrl('comment', `/${key}/react/${id}`),
+          url: injectBaseUrl('comment', `/${key}/${id}/react`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
+        })),
+        hide: valid<
+          { params: { key: string, id: string } },
+          HTTPMethod.POST
+        >(({ params: { key, id } }) => ({
+          url: injectBaseUrl('comment', `/${key}/${id}/hide`),
+          method: HTTPMethod.POST,
+        })),
+        unhide: valid<
+          { params: { key: string, id: string } },
+          HTTPMethod.POST
+        >(({ params: { key, id } }) => ({
+          url: injectBaseUrl('comment', `/${key}/${id}/unhide`),
+          method: HTTPMethod.POST,
         })),
       },
     };
