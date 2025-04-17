@@ -243,10 +243,10 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
   return (
     <div className="jk-md-math pn-re">
       {_blur && (unBlur ? blur : true) && (
-        <div className="jk-overlay-backdrop jk-br-ie jk-overlay" style={{ position: 'absolute' }} />
+        <div className="jk-overlay-backdrop jk-br-ie jk-overlay" style={{ position: 'absolute', zIndex: 'unset' }} />
       )}
       {_blur && unBlur && (
-        <div className="pn-ae jk-pg-sm" style={{ zIndex: 'var(--z-index-overlay)' }}>
+        <div className="pn-ae jk-pg-sm">
           <Button
             size="small"
             onClick={() => setBlur(!blur)}
