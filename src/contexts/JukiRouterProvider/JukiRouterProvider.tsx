@@ -36,17 +36,17 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
     }
   }, [ _searchParams ]);
   
-  const appendSearchParams: AppendSearchParamsType = useCallback((...props) => {
+  const appendSearchParams: AppendSearchParamsType = useCallback((entries) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
-    for (const { name, value } of props) {
+    for (const { name, value } of (Array.isArray(entries) ? entries : [ entries ])) {
       newSearchParams.append(name, value);
     }
     updateSearchParams(newSearchParams);
   }, [ _searchParams, updateSearchParams ]);
   
-  const deleteSearchParams: DeleteSearchParamsType = useCallback((...props) => {
+  const deleteSearchParams: DeleteSearchParamsType = useCallback((entries) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
-    for (const { name, value } of props) {
+    for (const { name, value } of (Array.isArray(entries) ? entries : [ entries ])) {
       const values = newSearchParams.getAll(name);
       newSearchParams.delete(name);
       if (value !== undefined) {
@@ -60,9 +60,9 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
     updateSearchParams(newSearchParams);
   }, [ _searchParams, updateSearchParams ]);
   
-  const setSearchParams: SetSearchParamsType = useCallback((...props) => {
+  const setSearchParams: SetSearchParamsType = useCallback((entries) => {
     const newSearchParams = cloneURLSearchParams(_searchParams);
-    for (const { name, value } of props) {
+    for (const { name, value } of (Array.isArray(entries) ? entries : [ entries ])) {
       newSearchParams.delete(name);
       let values = [];
       if (typeof value === 'string') {
