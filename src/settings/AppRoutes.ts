@@ -25,8 +25,8 @@ export class AppRoutes {
         view({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
           return injectOrigin(origin, `/problems/${key}?tab=${tab}`);
         },
-        edit({ key }: { key: string }) {
-          return injectOrigin(origin, `/problems/${key}/edit`);
+        edit({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
+          return injectOrigin(origin, `/problems/${key}/edit?tab=${tab}`);
         },
         new() {
           return injectOrigin(origin, `/problems/new`);
@@ -39,8 +39,8 @@ export class AppRoutes {
         view({ key, tab = ContestTab.OVERVIEW, subTab }: { key: string, tab?: ContestTab, subTab?: string }) {
           return injectOrigin(origin, `/contests/${key}?tab=${tab}${subTab ? '&subTab=' + subTab : ''}`);
         },
-        edit({ key }: { key: string }) {
-          return injectOrigin(origin, `/contests/${key}/edit`);
+        edit({ key, tab = ContestTab.OVERVIEW }: { key: string, tab?: ContestTab }) {
+          return injectOrigin(origin, `/contests/${key}/edit?tab=${tab}`);
         },
         new() {
           return injectOrigin(origin, `/contests/new`);
