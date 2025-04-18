@@ -43,8 +43,8 @@ export const getHref = (href: Href) => {
     pathname = p || '';
     searchParams = new URLSearchParams(s || '');
   } else {
-    pathname = href.pathname;
-    searchParams = href.searchParams || new URLSearchParams();
+    pathname = href?.pathname || '';
+    searchParams = href?.searchParams || new URLSearchParams();
   }
   
   const search = searchParams.toString();
