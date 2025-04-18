@@ -48,7 +48,7 @@ const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => 
         duration: disabled ? Duration.FAST : Duration.NORMAL,
       }}
       type={submit ? 'submit' : 'button'}
-      className={classNames(className, `clickable jk-button ${type} jk-border-radius-inline`, size, {
+      className={classNames(className, `jk-button ${type} jk-border-radius-inline`, size, {
         expand,
         'only-icon': !hasChildren,
         disabled,

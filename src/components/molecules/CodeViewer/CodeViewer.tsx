@@ -2,8 +2,7 @@ import { PROGRAMMING_LANGUAGE, ProgrammingLanguage } from '@juki-team/commons';
 import Prism from 'prismjs';
 import React, { useEffect } from 'react';
 import { classNames } from '../../../helpers';
-import { CopyToClipboard } from '../../atoms';
-import { ContentCopyIcon } from '../../server';
+import { CopyToClipboard } from '../../atoms/CopyToClipboard/CopyToClipboard';
 import { CodeViewerProps } from './types';
 import 'prismjs/components/prism-c';
 import 'prismjs/components/prism-cpp';
@@ -21,14 +20,17 @@ export const CodeViewer = (props: CodeViewerProps) => {
     language,
     lineNumbers,
     height,
-    withCopyButton = false,
-    withLanguageLabel = false,
+    // withCopyButton = true,
+    // withLanguageLabel = true,
     style,
   } = props;
   
   useEffect(() => {
     Prism.highlightAll();
   }, [ language, lineNumbers, code ]);
+  
+  const withLanguageLabel = true;
+  const withCopyButton = true;
   
   return (
     <div
@@ -38,10 +40,10 @@ export const CodeViewer = (props: CodeViewerProps) => {
     >
       <div className="float-top-right pad-xt jk-row gap">
         {withLanguageLabel && !!PROGRAMMING_LANGUAGE[language]?.label && (
-          <div className="tx-t jk-tag">{PROGRAMMING_LANGUAGE[language]?.label}</div>
+          <div className="tx-t jk-tag primary-light jk-pg-x-sm">{PROGRAMMING_LANGUAGE[language]?.label}</div>
         )}
         {withCopyButton && (
-          <CopyToClipboard text={code}><ContentCopyIcon size="small" className="link" /></CopyToClipboard>
+          <CopyToClipboard text={code} size="small" />
         )}
       </div>
       <pre style={height ? { height: height } : undefined} className="jk-border-radius-inline">

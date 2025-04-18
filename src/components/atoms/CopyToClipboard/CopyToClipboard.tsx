@@ -1,27 +1,27 @@
-import React, {
-  cloneElement,
-  isValidElement,
-  MouseEvent,
-  MouseEventHandler,
-  PropsWithChildren,
-  ReactElement,
-} from 'react';
-import { copy } from '../../../helpers';
-import { useJukiNotification } from '../../../hooks/useJukiNotification';
-import { T } from '../T/T';
+import React, { MouseEvent, useState } from 'react';
+import { classNames, copy } from '../../../helpers';
+import { ContentCopyIcon } from '../server';
 import { CopyToClipboardProps } from './types';
 
-export const CopyToClipboard = ({ children, text }: PropsWithChildren<CopyToClipboardProps>) => {
+export const CopyToClipboard = ({ text, size = 'regular', tooltip }: CopyToClipboardProps) => {
   
-  const { addQuietNotification } = useJukiNotification();
+  const [ isOpen, setIsOpen ] = useState(false);
   
   const handleClick = async <T, >(event: MouseEvent<T>) => {
-    if (isValidElement<{ onClick: MouseEventHandler<T> }>(children) && children?.props?.onClick) {
-      children.props.onClick?.(event);
-    }
     await copy(text);
-    addQuietNotification(<T className="tt-se">copied</T>);
+    setIsOpen(true);
+    setTimeout(() => setIsOpen(false), 800);
   };
   
-  return cloneElement(children as ReactElement, { onClick: handleClick } as ReactElement<{}>['props']);
+  return (
+    <div
+      data-tooltip-id="jk-tooltip"
+      data-tooltip-content={isOpen ? 'copied' : tooltip ?? 'copy'}
+      className={classNames('jk-button-light-only-icon jk-row bc-hl link jk-br-ie', size)}
+      style={{ width: 'min-content', height: 'min-content', padding: 'calc(var(--gap) / 3)' }}
+      onClick={handleClick}
+    >
+      <ContentCopyIcon size={size} />
+    </div>
+  );
 };

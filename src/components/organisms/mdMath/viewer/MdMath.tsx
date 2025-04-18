@@ -216,7 +216,6 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
           
           return (
             <CodeViewer
-              // code={children.join('')}
               code={children}
               language={language}
               lineNumbers={commands.lineNumbers}

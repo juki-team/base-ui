@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import React from "react";
-import { MockupToggleThemeButton } from "../../mockup/MockupToggleThemeButton";
-import { CodeViewer } from "./CodeViewer";
+import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
+import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
+import { CodeViewer } from './CodeViewer';
 
 const codeTemplate = `
 #include <bits/stdc++.h>
@@ -30,9 +30,9 @@ type Story = StoryObj<typeof CodeViewer>;
 
 export const Regular: Story = {
   render: ({ code = codeTemplate, ...args }) => (
-    <div>
+    <MockupJukiProvider>
       <CodeViewer code={code} {...args} />
       <MockupToggleThemeButton />
-    </div>
+    </MockupJukiProvider>
   ),
 };

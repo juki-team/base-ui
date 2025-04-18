@@ -1,7 +1,7 @@
 import { ProblemSampleCasesType } from '@juki-team/commons';
 import React from 'react';
 import { CopyToClipboard } from '../../../atoms';
-import { ContentCopyIcon, InfoIcon } from '../../../server';
+import { InfoIcon } from '../../../server';
 
 interface SampleTestProps {
   index: number,
@@ -31,12 +31,7 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
                 </div>
               )}
               {!forPrinting && (
-                <CopyToClipboard text={sample.input}>
-                  <ContentCopyIcon
-                    size="small"
-                    className="jk-button light only-icon"
-                  />
-                </CopyToClipboard>
+                <CopyToClipboard text={sample.input} size="small" />
               )}
             </div>
             <span>{sample.input}</span>
@@ -56,12 +51,7 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
                 </div>
               )}
               {!forPrinting && (
-                <CopyToClipboard text={sample.output}>
-                  <ContentCopyIcon
-                    size="small"
-                    className="jk-button light only-icon br-50-pc copy-test-icon"
-                  />
-                </CopyToClipboard>
+                <CopyToClipboard text={sample.output} size="small" />
               )}
             </div>
             <span>

@@ -6,7 +6,6 @@ import { NotificationType } from '../../../../../types';
 import { Button, CopyToClipboard, InputCheckbox, T } from '../../../../atoms';
 import { ButtonLoader, ImageLoaderCropper } from '../../../../molecules';
 import { CropImageType } from '../../../../molecules/types';
-import { ContentCopyIcon } from '../../../../server';
 import { onPickImageUrlType } from '../../types';
 
 export interface UploadNewImageTabProps {
@@ -30,21 +29,18 @@ export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl, onUploaded
             <>
               <div className="jk-row gap left fw-bd">
                 <T>public url</T>:
-                <CopyToClipboard text={imagePublicUrl}>
-                  <div className="copyable jk-row">
-                    <a href={imagePublicUrl} className="link" target="_blank" rel="noreferrer">{imagePublicUrl}</a>
-                    <ContentCopyIcon size="small" />
-                  </div>
-                </CopyToClipboard>
+                <div className="copyable jk-row">
+                  <a href={imagePublicUrl} className="link" target="_blank" rel="noreferrer">{imagePublicUrl}</a>
+                  <CopyToClipboard text={imagePublicUrl} size="small" />
+                </div>
+              
               </div>
               <div className="jk-row gap left fw-bd">
                 <T>markdown use</T>:
-                <CopyToClipboard text={`![image alt](${imagePublicUrl})`}>
-                  <div className="copyable jk-row">
-                    <span className="tx-t fw-bd">![image alt]({imagePublicUrl})</span>
-                    <ContentCopyIcon size="small" />
-                  </div>
-                </CopyToClipboard>
+                <div className="copyable jk-row">
+                  <span className="tx-t fw-bd">![image alt]({imagePublicUrl})</span>
+                  <CopyToClipboard text={`![image alt](${imagePublicUrl})`} size="small" />
+                </div>
               </div>
             </>
           )}

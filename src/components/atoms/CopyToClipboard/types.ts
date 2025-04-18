@@ -1,6 +1,7 @@
-import { ReactElement } from 'react';
+import { IconProps } from '../server/icons/types';
 
 export interface CopyToClipboardProps {
   text: string,
-  children: ReactElement,
+  size?: IconProps['size'],
+  tooltip?: string,
 }

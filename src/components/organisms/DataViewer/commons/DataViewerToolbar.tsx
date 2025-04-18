@@ -12,11 +12,10 @@ import React, {
 } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../../helpers';
 import { useJukiUI, useRouterStore, useSessionStorage } from '../../../../hooks';
-import { CopyToClipboard, Popover } from '../../../atoms';
+import { Popover } from '../../../atoms';
 import { SetLoaderStatusOnClickType } from '../../../molecules/types';
 import {
   CalendarViewWeekIcon,
-  ContentCopyIcon,
   FilterListIcon,
   MenuIcon,
   RefreshIcon,
@@ -219,22 +218,22 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                   </>
                 )}
               </ToolbarButtonIcon>
-              <div>
-                {filtered ? (
-                  <CopyToClipboard text={url.toString()}>
-                    <ToolbarButtonIcon
-                      Icon={ContentCopyIcon}
-                      tooltipContent="copy the link of the filtered table"
-                    />
-                  </CopyToClipboard>
-                ) : (
-                  <ToolbarButtonIcon
-                    Icon={ContentCopyIcon}
-                    tooltipContent="first filter something so that you can copy the link of the filtered table"
-                    active={filtered}
-                  />
-                )}
-              </div>
+              {/*<div>*/}
+              {/*  {filtered ? (*/}
+              {/*    <CopyToClipboard text={url.toString()}>*/}
+              {/*      <ToolbarButtonIcon*/}
+              {/*        Icon={ContentCopyIcon}*/}
+              {/*        tooltipContent="copy the link of the filtered table"*/}
+              {/*      />*/}
+              {/*    </CopyToClipboard>*/}
+              {/*  ) : (*/}
+              {/*    <ToolbarButtonIcon*/}
+              {/*      Icon={ContentCopyIcon}*/}
+              {/*      tooltipContent="first filter something so that you can copy the link of the filtered table"*/}
+              {/*      active={filtered}*/}
+              {/*    />*/}
+              {/*  )}*/}
+              {/*</div>*/}
             </>
           )}
           {viewViews && (rowsView || cardsView) && (

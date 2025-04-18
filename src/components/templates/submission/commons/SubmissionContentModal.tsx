@@ -5,7 +5,7 @@ import { jukiAppRoutes } from '../../../../settings';
 import { ModalProps } from '../../../../types';
 import { CopyToClipboard, Modal, T } from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';
-import { ContentCopyIcon, OpenInNewIcon, RefreshIcon } from '../../../server';
+import { OpenInNewIcon, RefreshIcon } from '../../../server';
 import { SubmitView } from '../SubmitView';
 
 export interface SubmissionModalProps extends ModalProps {
@@ -32,15 +32,7 @@ export const SubmissionContentModal = ({ submitId, ...modalProps }: SubmissionMo
                 <OpenInNewIcon />
               </div>
             </Link>
-            <CopyToClipboard text={submitId}>
-              <div
-                data-tooltip-id="jk-tooltip"
-                data-tooltip-content="copy id"
-                className="jk-button light only-icon small"
-              >
-                <ContentCopyIcon />
-              </div>
-            </CopyToClipboard>
+            <CopyToClipboard text={submitId} size="small" tooltip="copy id" />
             <ButtonLoader
               data-tooltip-id="jk-tooltip"
               data-tooltip-content="reload"

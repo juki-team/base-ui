@@ -5,7 +5,7 @@ import { jukiApiSocketManager } from '../../../../settings';
 import { Button, CopyToClipboard, Modal, T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/Modal/types';
 import { ButtonLoader, FetcherLayer } from '../../../molecules';
-import { ContentCopyIcon, LocationOnIcon, MailIcon, OpenInNewIcon, SchoolIcon } from '../../../server';
+import { LocationOnIcon, MailIcon, OpenInNewIcon, SchoolIcon } from '../../../server';
 
 export interface UserPreviewContentModalProps extends BasicModalProps {
   nickname: string,
@@ -47,11 +47,7 @@ export const UserPreviewContentModal = ({
                 <div className="jk-col stretch">
                   <div className="jk-row left gap nowrap">
                     <h3 className="fl-tt-il">{data?.content?.nickname}</h3>
-                    <CopyToClipboard text={data?.content?.nickname}>
-                      <div className="jk-button light only-icon small">
-                        <ContentCopyIcon />
-                      </div>
-                    </CopyToClipboard>
+                    <CopyToClipboard text={data?.content?.nickname} size="small" />
                   </div>
                   <div className="cr-g3">{data?.content?.givenName} {data?.content?.familyName}</div>
                 </div>

@@ -97,7 +97,7 @@ const getPlacementVariants = (placement: Placement) => {
     },
     exit: {
       opacity: 0,
-      transition: { duration: Duration.FAST, ease: 'easeInOut' },
+      transition: { duration: Duration.NORMAL, ease: 'easeInOut' },
     },
   };
   
@@ -229,7 +229,7 @@ export function Popover({
       onOpenChangeRef.current?.(isOpen);
     }
   }, [ open, isOpen ]);
-  
+  console.log({ isOpen });
   return (
     <>
       {isValidElement(children) && cloneElement(children, {
