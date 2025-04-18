@@ -1,7 +1,7 @@
-import React, { ReactNode, useCallback, useEffect } from 'react';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState, useJukiUI } from '../../../hooks';
-import { NotUndefined, TabsType } from '../../../types';
+import React, { ReactNode, useEffect, useRef } from 'react';
+import { classNames, getHref, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { useJukiUI, useStableState } from '../../../hooks';
+import { TabsType } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
 import { TabsInline } from '../Tabs/TabsInline';
 import { TabsInlineBody } from '../Tabs/TabsInlineBody';
@@ -9,23 +9,24 @@ import { TwoContentSection } from '../TwoContentSection/TwoContentSection';
 import { JukiLoadingLayout } from './JukiLoadingLayout';
 import { TwoContentLayoutProps } from './types';
 
-export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
+export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) => {
   
   const {
     breadcrumbs: initialBreadcrumbs,
-    tabs: initialTAbs = {},
+    tabs: initialTabs = {},
     tabButtons,
     getHrefOnTabChange,
-    selectedTabKey,
+    selectedTabKey: initialTabKey,
     children,
     loading,
   } = props;
   
-  const withGetHrefOnTabChange = !!getHrefOnTabChange;
+  // const withGetHrefOnTabChange = !!getHrefOnTabChange;
   // const getHrefOnTabChangeRef = useRef(getHrefOnTabChange);
   // getHrefOnTabChangeRef.current = getHrefOnTabChange;
   const LOADING_TAB = 'loading' as T;
   const { viewPortSize } = useJukiUI();
+  const [ _tab, setTab ] = useStableState<T | undefined>(initialTabKey);
   // const pushRoute = useRouterStore(state => state.pushRoute);
   const tabs: TabsType<T> = !!loading ? {
     [LOADING_TAB as string]: {
@@ -37,36 +38,46 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
       ),
       body: <JukiLoadingLayout children={typeof loading === 'boolean' ? undefined : loading} />,
     },
-  } : initialTAbs;
+  } : initialTabs;
   
   const tabKeys = Object.keys(tabs);
-  const firstTabKey = tabKeys[0] as string;
-  const [ initialTab, setTab ] = useHandleState<T>(tabs[firstTabKey]?.key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
-  const tab = loading ? LOADING_TAB : initialTab;
+  
+  // const firstTabKey = tabKeys[0] as string;
+  // const [ initialTab, setTab ] = useHandleState<T>(tabs[firstTabKey]?.key as NotUndefined<T>, selectedTabKey as NotUndefined<T> | undefined);
+  const tab = loading ? LOADING_TAB : _tab;
   const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey: tab }) as ReactNode[];
-  const pushTab = useCallback((tabKey: T) => {
-    if (withGetHrefOnTabChange) {
-      // pushRoute(getHrefOnTabChangeRef.current(tabKey));
-    } else {
-      setTab(tabKey as NotUndefined<T>);
-    }
-  }, [ setTab, withGetHrefOnTabChange ]);
-  useEffect(() => {
-    if (selectedTabKey) {
-      setTab(selectedTabKey as NotUndefined<T>);
-    }
-  }, [ selectedTabKey, setTab ]);
-  const selectedKey = tabs[tab as string]?.key;
-  useEffect(() => {
-    if (!selectedKey && firstTabKey) {
-      pushTab(firstTabKey as NotUndefined<T>);
-    }
-  }, [ firstTabKey, setTab, selectedKey, pushTab ]);
+  
+  // const pushTab = useCallback((tabKey: T) => {
+  //   if (withGetHrefOnTabChange) {
+  //     // pushRoute(getHrefOnTabChangeRef.current(tabKey));
+  //   } else {
+  //     setTab(tabKey as NotUndefined<T>);
+  //   }
+  // }, [ setTab, withGetHrefOnTabChange ]);
+  // useEffect(() => {
+  //   if (selectedTabKey) {
+  //     setTab(selectedTabKey as NotUndefined<T>);
+  //   }
+  // }, [ selectedTabKey, setTab ]);
+  // const selectedKey = tabs[tab as string]?.key;
+  // useEffect(() => {
+  //   if (!selectedKey && firstTabKey) {
+  //     pushTab(firstTabKey as NotUndefined<T>);
+  //   }
+  // }, [ firstTabKey, setTab, selectedKey, pushTab ]);
   const withTabs = tabKeys.length > 1;
   const tabsOnBody = withTabs && false;
   const tabsOnHeader = withTabs && true;
   const isMobile = viewPortSize === 'sm';
   const withBreadcrumbs = !!breadcrumbs?.length && !isMobile;
+  
+  const getHrefOnTabChangeRef = useRef(getHrefOnTabChange);
+  getHrefOnTabChangeRef.current = getHrefOnTabChange;
+  useEffect(() => {
+    if (getHrefOnTabChangeRef.current && typeof window !== 'undefined' && tab) {
+      window.history.replaceState(null, '', getHref(getHrefOnTabChangeRef.current(tab)));
+    }
+  }, [ tab ]);
   
   return (
     <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })}>
@@ -89,14 +100,14 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
         {tabsOnHeader && (
           <TabsInline
             tabs={tabs}
-            selectedTabKey={tab}
-            onChange={pushTab}
+            selectedTabKey={loading ? LOADING_TAB : tab}
+            onChange={setTab}
             extraNodes={tabButtons}
             extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
             tickStyle="background"
             className="jk-pg-x-sm-b"
-            getHrefOnTabChange={getHrefOnTabChange}
-            routerReplace
+            // getHrefOnTabChange={getHrefOnTabChange}
+            // routerReplace
           />
         )}
       </>
@@ -104,12 +115,12 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
         {tabsOnBody && (
           <TabsInline
             tabs={tabs}
-            selectedTabKey={tab}
-            onChange={pushTab}
+            selectedTabKey={loading ? LOADING_TAB : tab}
+            onChange={setTab}
             extraNodes={tabButtons}
             extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
-            getHrefOnTabChange={getHrefOnTabChange}
-            routerReplace
+            // getHrefOnTabChange={getHrefOnTabChange}
+            // routerReplace
           />
         )}
         <div
@@ -118,7 +129,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
         >
           <TabsInlineBody
             tabs={tabs}
-            selectedTabKey={tab}
+            selectedTabKey={loading ? LOADING_TAB : tab}
           />
         </div>
       </>

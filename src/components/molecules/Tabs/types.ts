@@ -1,29 +1,29 @@
 import { Href, ReactNodeOrFunctionP1Type } from '../../../types';
 
-export type TabType<T> = {
-  header: ReactNodeOrFunctionP1Type<{ selectedTabKey: T }>,
+export type TabType<T = string> = {
+  header: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T }>,
   disabled?: boolean,
   clickable?: boolean,
-  body?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T }>,
+  body?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T }>,
   key: T,
 };
 
-export interface TabsProps<T> {
+export interface TabsProps<T = string> {
   tabs: TabType<T>[],
   className?: string,
   selectedTabKey?: T,
   onChange?: (tabKey: T) => void,
-  extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey: string }>[],
+  extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: string }>[],
   extend?: boolean,
 }
 
-export type TabsType<T> = { [key: string]: TabType<T> };
+export type TabsType<T = string> = { [key: string]: TabType<T> };
 
 export interface TabsInlineProps<T = string> {
   tabs: TabsType<T>,
   selectedTabKey?: T,
   onChange?: (tabKey: T) => void,
-  extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T }>[],
+  extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T }>[],
   extraNodesPlacement?: 'left' | 'right' | 'bottomLeft' | 'bottomCenter' | 'bottomRight',
   className?: string,
   tickStyle?: 'line' | 'background',
@@ -31,7 +31,7 @@ export interface TabsInlineProps<T = string> {
   routerReplace?: boolean,
 }
 
-export interface TabsInlineBodyProps<T> {
+export interface TabsInlineBodyProps<T = string> {
   tabs: TabsType<T>,
-  selectedTabKey: T,
+  selectedTabKey?: T,
 }

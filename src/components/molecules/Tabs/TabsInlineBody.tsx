@@ -25,14 +25,16 @@ const variants = {
   },
 };
 
-export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: TabsInlineBodyProps<T>) => {
+export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlineBodyProps<T>) => {
+  
   const prevSelectedTabKey = usePrevious(selectedTabKey);
+  
   const currentIndex = Object.keys(tabs).indexOf(selectedTabKey as string);
   const prevIndex = Object.keys(tabs).indexOf(prevSelectedTabKey as string);
   const fromLeft = prevIndex < currentIndex;
   const direction = fromLeft ? 1 : -1;
-  
   const selectedTab = tabs[selectedTabKey as string];
+  
   return (
     <AnimatePresence custom={direction}>
       {selectedTab && (

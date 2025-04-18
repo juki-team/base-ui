@@ -30,9 +30,9 @@ export interface PathLoadingPawsProps extends Full<Omit<PawsLoadingLayoutProps, 
 }
 
 export interface TwoContentLayoutProps<T> extends PropsWithChildren <{
-  breadcrumbs?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T; }, ReactNode[]>,
+  breadcrumbs?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T; }, ReactNode[]>,
   tabs?: TabsType<T>,
-  tabButtons?: ReactNodeOrFunctionP1Type<{ selectedTabKey: T; }>[],
+  tabButtons?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T; }>[],
   getHrefOnTabChange?: (selectedTabKey: T) => Href,
   selectedTabKey?: T,
   loading?: boolean | ReactNode,

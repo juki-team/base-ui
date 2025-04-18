@@ -1,5 +1,5 @@
 import { SEPARATOR_TOKEN } from '@juki-team/commons';
-import { RequestFilterType, RequestSortType } from '../types';
+import { Href, RequestFilterType, RequestSortType } from '../types';
 
 export const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
   return new URLSearchParams(urlSearchParams.toString());
@@ -32,4 +32,12 @@ export const toSortUrl = (sort: RequestSortType) => {
     }
   });
   return filterUrl ? 'sort=' + filterUrl : '';
+};
+
+export const getHref = (href: Href) => {
+  if (typeof href === 'string') {
+    return href;
+  }
+  const search = href.searchParams?.toString() || '';
+  return `${href.pathname}${search ? '?' + search : ''}`;
 };
