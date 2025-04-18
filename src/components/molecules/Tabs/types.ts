@@ -28,6 +28,7 @@ export interface TabsInlineProps<T = string> {
   className?: string,
   tickStyle?: 'line' | 'background',
   getHrefOnTabChange?: (selectedTabKey: T) => Href,
+  routerReplace?: boolean,
 }
 
 export interface TabsInlineBodyProps<T> {

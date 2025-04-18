@@ -96,6 +96,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
             tickStyle="background"
             className="jk-pg-x-sm-b"
             getHrefOnTabChange={getHrefOnTabChange}
+            routerReplace
           />
         )}
       </>
@@ -108,6 +109,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => {
             extraNodes={tabButtons}
             extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
             getHrefOnTabChange={getHrefOnTabChange}
+            routerReplace
           />
         )}
         <div

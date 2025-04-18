@@ -44,7 +44,7 @@ export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: TabsInlineBodyProp
           animate="center"
           exit="exit"
           style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}
-          key={selectedTab.key as string}
+          key={selectedTabKey as string}
           className="jk-tabs-inline-body-motion-layout"
         >
           {/*{render && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}*/}

@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
-import React, { Children, useCallback, useId, useRef, useState } from 'react';
+import React, { Children, ReactNode, useCallback, useId, useRef, useState } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { Func, useHandleState, useJukiUI, useMemoizedArray } from '../../../hooks';
+import { useHandleState, useJukiUI, useMemoizedArray, useRouterStore } from '../../../hooks';
 import { useWidthResizer } from '../../../hooks/useWidthResizer';
 import { NotUndefined, TabType } from '../../../types';
 import { Select } from '../../atoms';
@@ -19,17 +19,31 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
     className,
     tickStyle = 'line',
     getHrefOnTabChange,
+    routerReplace,
   } = props;
   
   const tabsArray = Object.values(tabs);
-  const [ selectedTabKey, setSelectedTabKey ] = useHandleState<T>((tabsArray[0]?.key || '') as NotUndefined<T>, _selectedTabKey as NotUndefined<T> | undefined, onChange);
+  const [ selectedTabKey, _setSelectedTabKey ] = useHandleState<T>((tabsArray[0]?.key || '') as NotUndefined<T>, _selectedTabKey as NotUndefined<T> | undefined, onChange);
   const tabsLength = tabsArray.length;
   const [ oneTabView, setOneTabView ] = useState(false);
   const selectedTabIndex = tabsArray.findIndex(({ key }) => key === selectedTabKey);
   const tabKeys = useMemoizedArray(Object.keys(tabs));
   const [ hover, setHover ] = useState('');
   const { components: { Link } } = useJukiUI();
+  const replaceRoute = useRouterStore(store => store.replaceRoute);
   
+  const setSelectedTabKey = (key: T | undefined, force = false) => {
+    if (key) {
+      if (getHrefOnTabChange) {
+        if (routerReplace || force) {
+          _setSelectedTabKey(key as NotUndefined<T>);
+          replaceRoute(getHrefOnTabChange(key));
+        }
+      } else {
+        _setSelectedTabKey(key as NotUndefined<T>);
+      }
+    }
+  };
   const refB = useRef<HTMLDivElement>(null);
   const maxWidthWithArrows = useRef(0);
   const onOverflow = useCallback(() => {
@@ -56,7 +70,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
     const content = (
       <div
         key={key as string}
-        onClick={(key === selectedTabKey || !!getHrefOnTabChange) ? undefined : () => setSelectedTabKey(key as (NotUndefined<T> | Func<T>))}
+        onClick={(key === selectedTabKey) ? undefined : () => setSelectedTabKey(key)}
         className={classNames(`jk-tabs-inline-tab jk-row nowrap`, {
           'selected': key === selectedTabKey, // no used bold to prevent changes on the width
           'one-tab-view': oneTabView,
@@ -98,8 +112,14 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
         )}
       </div>
     );
-    return getHrefOnTabChange ? <Link href={getHrefOnTabChange(key)}>{content}</Link> : content;
+    
+    return withLink(key === selectedTabKey ? undefined : key, content);
   };
+  
+  const withLink = (key: T | undefined, content: ReactNode) => (
+    getHrefOnTabChange && !routerReplace && key ?
+      <Link href={getHrefOnTabChange(key)}>{content}</Link> : content
+  );
   
   return (
     <>
@@ -113,14 +133,17 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
         )}
         <div className="jk-row left gap extend" style={{ overflow: 'auto' }} ref={refB}>
           {oneTabView && (
-            <NavigateBeforeIcon
-              className={classNames('br-50-pc', {
-                'appearance-secondary clickable elevation': (selectedTabIndex - 1 >= 0),
-                'appearance-gray-5': !(selectedTabIndex - 1 >= 0),
-              })}
-              style={{ padding: 2 }}
-              onClick={!(selectedTabIndex - 1 >= 0) ? undefined : () => setSelectedTabKey(tabsArray[selectedTabIndex - 1].key as NotUndefined<T>)}
-            />
+            withLink(
+              tabsArray[selectedTabIndex - 1]?.key,
+              <NavigateBeforeIcon
+                className={classNames('br-50-pc', {
+                  'appearance-secondary clickable elevation': (selectedTabIndex - 1 >= 0),
+                  'appearance-gray-5': !(selectedTabIndex - 1 >= 0),
+                })}
+                style={{ padding: 2 }}
+                onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex - 1]?.key)}
+              />,
+            )
           )}
           {oneTabView ? (
             <Select
@@ -146,9 +169,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
               selectedOption={tabsArray[selectedTabIndex]
                 ? { value: tabsArray[selectedTabIndex].key }
                 : { value: undefined as T }}
-              onChange={({ value }) => {
-                setSelectedTabKey(value as (NotUndefined<T> | Func<T>));
-              }}
+              onChange={({ value }) => setSelectedTabKey(value, true)}
             />
           ) : (
             <div
@@ -162,14 +183,17 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
             </div>
           )}
           {oneTabView && (
-            <NavigateNextIcon
-              className={classNames('br-50-pc', {
-                'appearance-secondary clickable elevation': (selectedTabIndex + 1 < tabsLength),
-                'appearance-gray-5': !(selectedTabIndex + 1 < tabsLength),
-              })}
-              style={{ padding: 2 }}
-              onClick={tabsArray[selectedTabIndex + 1] ? () => setSelectedTabKey(tabsArray[selectedTabIndex + 1].key as NotUndefined<T>) : undefined}
-            />
+            withLink(
+              tabsArray[selectedTabIndex + 1]?.key,
+              <NavigateNextIcon
+                className={classNames('br-50-pc', {
+                  'appearance-secondary clickable elevation': (selectedTabIndex + 1 < tabsLength),
+                  'appearance-gray-5': !(selectedTabIndex + 1 < tabsLength),
+                })}
+                style={{ padding: 2 }}
+                onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex + 1]?.key)}
+              />,
+            )
           )}
         </div>
         {extraNodesPlacement === 'right' && !!extraNodes?.length && (
