@@ -1,4 +1,4 @@
-import { create } from 'zustand/index';
+import { create } from 'zustand';
 import { LastPathType } from '../../contexts/JukiLastPathProvider/types';
 
 interface LastPathState {

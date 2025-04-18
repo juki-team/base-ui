@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { LastPathType } from '../../../contexts/JukiLastPathProvider/types';
-import { cloneURLSearchParams } from '../../../helpers';
+import { cloneURLSearchParams, getHref } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
 import { LinkLastPathProps, QueryParamKey } from '../../../types';
@@ -14,18 +14,19 @@ export const LinkLastPath = <T extends string | number = string, >(props: LinkLa
   const lastPath: LastPathType<T> = useLastPathStore(state => state.lastPath) as LastPathType<T>;
   
   const searchParams = useMemo(() => {
+    const { searchParams } = getHref(lastPath[lastPathKey] ?? '');
     if (overwriteCompanyKey) {
-      const clonedSearchParams = cloneURLSearchParams(lastPath[lastPathKey]?.searchParams);
+      const clonedSearchParams = cloneURLSearchParams(searchParams);
       clonedSearchParams.set(QueryParamKey.COMPANY, overwriteCompanyKey || '');
       return clonedSearchParams;
     }
     
-    return lastPath[lastPathKey]?.searchParams || new URLSearchParams();
+    return searchParams;
   }, [ lastPath, lastPathKey, overwriteCompanyKey ]);
   
   return (
     <Link
-      href={{ pathname: lastPath[lastPathKey]?.pathname ?? '#', query: searchParams.toString() }}
+      href={{ pathname: getHref(lastPath[lastPathKey])?.pathname || '#', query: searchParams.toString() }}
       className="link dy-cs"
     >
       {children}

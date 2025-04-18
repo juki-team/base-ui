@@ -73,14 +73,14 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
   
   const _push = useCallback(async (href: Href) => {
     setLoaderCounter(prevState => prevState + 1);
-    const result = await pushRoute(getHref(href));
+    const result = await pushRoute(getHref(href).path);
     setLoaderCounter(prevState => prevState - 1);
     return result;
   }, [ pushRoute ]);
   
   const replace = useCallback(async (href: Href) => {
     setLoaderCounter(prevState => prevState + 1);
-    const result = await replaceRoute(getHref(href));
+    const result = await replaceRoute(getHref(href).path);
     setLoaderCounter(prevState => prevState - 1);
     return result;
   }, [ replaceRoute ]);

@@ -79,7 +79,7 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
       const nextHref = getHrefOnTabChangeRef.current(tab);
       const currentHref = window.location.pathname + window.location.search;
       if (currentHref !== nextHref) {
-        window.history.replaceState(null, '', getHref(nextHref));
+        window.history.replaceState(null, '', getHref(nextHref).path);
       }
     }
   }, [ tab ]);

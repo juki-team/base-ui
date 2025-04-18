@@ -35,11 +35,25 @@ export const toSortUrl = (sort: RequestSortType) => {
 };
 
 export const getHref = (href: Href) => {
+  
+  let pathname;
+  let searchParams;
   if (typeof href === 'string') {
-    return href;
+    const [ p, s ] = href.split('?');
+    pathname = p || '';
+    searchParams = new URLSearchParams(s || '');
+  } else {
+    pathname = href.pathname;
+    searchParams = href.searchParams || new URLSearchParams();
   }
-  const search = href.searchParams?.toString() || '';
-  return `${href.pathname}${search ? '?' + search : ''}`;
+  
+  const search = searchParams.toString();
+  
+  return {
+    pathname,
+    searchParams,
+    path: `${pathname}${search ? '?' + search : ''}`,
+  };
 };
 
 export const persistGlobalURLSearchParams = (searchParams: URLSearchParams) => {
