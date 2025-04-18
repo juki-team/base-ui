@@ -33,10 +33,11 @@ export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
   if (userIsLogged) {
     return (
       <Popover
+        popoverClassName="bc-we jk-br-ie elevation-1"
         open={visible}
         onOpenChange={(visible) => setVisible(visible)}
         content={
-          <div className="jk-col gap user-profile-popup jk-br-ie bc-we elevation-1 jk-pg-sm">
+          <div className="jk-col gap user-profile-popup jk-pg-sm">
             <Image
               src={userImageUrl}
               className="jk-user-profile-img huge elevation-1"

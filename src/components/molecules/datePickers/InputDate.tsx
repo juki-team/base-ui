@@ -82,17 +82,16 @@ export const InputDate = (props: InputDateProps) => {
   return (
     <div className={classNames('jk-input-date-layout', { disabled })} style={extend ? { width: '100%' } : {}}>
       <Popover
+        popoverClassName="bc-we jk-br-ie elevation-1"
         content={() => (
-          <div className="jk-br-ie bc-we elevation-1">
-            <DatePicker
-              todayButton={todayButton}
-              date={date || baseDate}
-              onChange={date => onDatePick(date, () => null)}
-              type={type}
-              isDisabled={isDisabled}
-              isSelected={isSelected}
-            />
-          </div>
+          <DatePicker
+            todayButton={todayButton}
+            date={date || baseDate}
+            onChange={date => onDatePick(date, () => null)}
+            type={type}
+            isDisabled={isDisabled}
+            isSelected={isSelected}
+          />
         )}
         offset={4}
         placement="bottom"

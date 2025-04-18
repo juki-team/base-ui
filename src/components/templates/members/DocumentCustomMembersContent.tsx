@@ -167,7 +167,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{administratorsLabel}</T>
             {!!administrators?.description && (
-              <Popover content={administrators?.description || ''}>
+              <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={administrators?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Popover>
             )}
@@ -229,7 +229,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{managers?.name || 'managers'}</T>
             {!!managers?.description && (
-              <Popover content={managers?.description || ''}>
+              <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={managers?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Popover>
             )}
@@ -291,7 +291,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{participants?.name || 'participants'}</T>
             {!!participants?.description && (
-              <Popover content={participants?.description || ''}>
+              <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={participants?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Popover>
             )}
@@ -353,7 +353,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{guests?.name || 'guests'}</T>
             {!!guests?.description && (
-              <Popover content={guests?.description || ''}>
+              <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={guests?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Popover>
             )}
@@ -415,7 +415,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
           <div className="jk-row left gap">
             <T className="tt-se fw-bd">{spectators?.name || 'spectators'}</T>
             {!!spectators?.description && (
-              <Popover content={spectators?.description || ''}>
+              <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={spectators?.description || ''}>
                 <div className="jk-row"><InfoIcon size="small" /></div>
               </Popover>
             )}

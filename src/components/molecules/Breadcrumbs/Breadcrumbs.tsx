@@ -53,8 +53,9 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
           {/*<div className="separator">/</div>*/}
           <NavigateNextIcon className="cr-g5" />
           <Popover
+            popoverClassName="bc-we jk-br-ie elevation-1"
             content={
-              <div className="jk-pg-x-sm elevation-1 bc-we jk-br-ie">
+              <div className="jk-pg-x-sm">
                 {Children.toArray(middleBreadcrumbs.map((breadcrumb, index) => (
                   <div key={index}>{breadcrumb}</div>
                 )))}

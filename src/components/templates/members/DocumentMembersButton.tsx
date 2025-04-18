@@ -42,6 +42,7 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
   
   const info = (
     <Popover
+      popoverClassName="bc-we jk-br-ie elevation-1"
       content={
         <div style={{ width: 120 }}>
           <div className="fw-bd"><T className="tt-se">{ENTITY_ACCESS[documentMembers.access].label}</T></div>

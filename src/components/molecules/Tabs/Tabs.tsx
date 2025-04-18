@@ -126,8 +126,9 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => {
         </div>
         {(!!extraNodes.length && !isExtend) && (
           <Popover
+            popoverClassName="bc-we jk-br-ie elevation-1"
             content={
-              <div className="jk-col gap stretch jk-tab-extra-nodes jk-pg-x-sm jk-br-ie bc-we elevation-1">
+              <div className="jk-col gap stretch jk-tab-extra-nodes jk-pg-x-sm">
                 {Children.toArray(extraNodes.map((action, index) => (
                   renderReactNodeOrFunctionP1(action, { selectedTabKey: tabKey }, index)
                 )))}

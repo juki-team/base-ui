@@ -6,7 +6,10 @@ import {
   TestCaseResultType,
 } from '@juki-team/commons';
 import React from 'react';
+import { getJudgeOrigin } from '../../../../helpers';
 import { hasTimeHasMemory } from '../../../../helpers/submission';
+import { useJukiUI } from '../../../../hooks';
+import { jukiAppRoutes } from '../../../../settings';
 import { Collapse, DateLiteral, T } from '../../../atoms';
 import { CodeViewer, Timer } from '../../../molecules';
 import { UserChip } from '../../../organisms';
@@ -61,6 +64,9 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
     && verdict !== ProblemVerdict.PENDING
     && compilationResult?.success === false;
   
+  const { components: { Link } } = useJukiUI();
+  const origin = getJudgeOrigin(submit.problem.company.key);
+  
   return (
     <div className="jk-col stretch gap">
       <Collapse
@@ -71,6 +77,14 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
                 <UserChip imageUrl={submit.user.imageUrl} nickname={submit.user.nickname} />
               </div>
               <T className="fw-bd tt-se">nickname</T>
+            </div>
+            <div className="jk-col">
+              <div className="jk-row">
+                <Link className="link" href={jukiAppRoutes.JUDGE(origin).problems.view({ key: submit.problem.key })}>
+                  <div>{submit.problem.key}</div>
+                </Link>
+              </div>
+              <T className="fw-bd tt-se">problem</T>
             </div>
             <div className="jk-col">
               <div className="jk-row">{PROGRAMMING_LANGUAGE[language]?.label || language}</div>

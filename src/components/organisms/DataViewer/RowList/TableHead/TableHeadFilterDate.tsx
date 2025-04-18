@@ -25,7 +25,7 @@ export const TableHeadFilterDate = (props: TableHeadFilterDateProps) => {
   }, [ visible ]);
   
   return (
-    <div className="jk-col gap jk-table-head-cell-filter-date jk-pg-sm jk-br-ie bc-we elevation-1">
+    <div className="jk-col gap jk-table-head-cell-filter-date jk-pg-sm">
       <InputDate
         type={pickerType}
         date={value}

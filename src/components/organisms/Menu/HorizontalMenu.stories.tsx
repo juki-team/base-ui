@@ -36,6 +36,7 @@ configureActions({
 const rightSection = ({ open = undefined }: { open?: boolean }) => (
   <div className="jk-row gap" style={{ width: '240px' }}>
     <Popover
+      popoverClassName="bc-we jk-br-ie elevation-1"
       content={<div className="cr-g1"> Settings </div>}
       triggerOn="click"
       placement="bottom"

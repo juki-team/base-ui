@@ -269,6 +269,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               <div className="jk-divider horizontal" />
               <div>
                 <Popover
+                  popoverClassName="bc-we jk-br-ie elevation-1"
                   content={
                     <div className="jk-pg-sm jk-col stretch gap">
                       {extraNodes.map(renderReactNodeOrFunction)}

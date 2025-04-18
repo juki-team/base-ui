@@ -103,6 +103,7 @@ export const MainMenu = (props: MainMenuProps) => {
                 <div className="jk-menu-item-icon" style={{ height: 48 }}>
                   {company && (
                     <Popover
+                      popoverClassName="bc-we jk-br-ie elevation-1"
                       triggerOn={isOpenVerticalMenu ? [] : 'click'}
                       content={<div style={{ width: 200 }}>{select}</div>}
                       placement="right"

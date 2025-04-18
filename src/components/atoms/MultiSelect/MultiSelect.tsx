@@ -51,15 +51,15 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
   
   return (
     <Popover
+      popoverClassName="bc-we jk-br-ie elevation-1"
       placement={optionsPlacement}
       triggerOn="click"
-      // popoverClassName="jk-select-options-content"
       offset={4}
       onOpenChange={setIsOpen}
       content={
         <div
           ref={optionRef}
-          className={classNames('jk-select-options jk-br-ie bc-we elevation-1', { disabled: isDisabled })}
+          className={classNames('jk-select-options', { disabled: isDisabled })}
           style={{
             width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2/*border*/ : containerWidth - 2, /*border*/
           }}

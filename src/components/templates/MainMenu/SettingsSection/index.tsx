@@ -180,8 +180,9 @@ export const SettingsSection = (props: SettingsSectionProps) => {
       {helpContent}
       {moreApps && (
         <Popover
+          popoverClassName="bc-we jk-br-ie elevation-1"
           content={
-            <div className="jk-col gap more-apps-popover jk-pg-sm jk-br-ie bc-we elevation-1">
+            <div className="jk-col gap more-apps-popover jk-pg-sm">
               <div className="fw-bd tt-se"><T>more apps</T></div>
               <div className={classNames('jk-col gap stretch', { 'cr-py': !isDark, 'cr-b2': isDark })}>
                 {moreApps}

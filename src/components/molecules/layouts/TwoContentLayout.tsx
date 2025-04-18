@@ -89,8 +89,8 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
       <>
         {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
         <div
-          className={classNames('jk-row gap extend jk-pg-x-sm-b', {
-            'jk-pg-x-sm-t': !withBreadcrumbs,
+          className={classNames('jk-row gap extend jk-pg-sm-b', {
+            'jk-pg-sm-t': !withBreadcrumbs,
             'left': !isMobile,
             'center': isMobile,
           })}

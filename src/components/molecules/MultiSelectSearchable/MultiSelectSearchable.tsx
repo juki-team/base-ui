@@ -107,14 +107,14 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   
   return (
     <Popover
+      popoverClassName="jk-select-options-content bc-we jk-br-ie elevation-1"
       triggerOn="click"
       placement={optionsPlacement}
-      popoverClassName="jk-select-options-content"
       onOpenChange={setShowOptions}
       offset={4}
       content={
         <div
-          className={classNames('jk-select-options-virtual jk-br-ie bc-we elevation-1')}
+          className={classNames('jk-select-options-virtual')}
           style={{
             width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2 /*border*/ : containerWidth - 2, /*border*/
           }}

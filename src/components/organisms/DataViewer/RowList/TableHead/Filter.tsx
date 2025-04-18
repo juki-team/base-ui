@@ -27,6 +27,7 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
           : false;
   return (
     <Popover
+      popoverClassName="bc-we jk-br-ie elevation-1"
       onOpenChange={setVisible}
       content={({ isOpen }) => {
         const onReset = () => {

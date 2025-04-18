@@ -22,7 +22,7 @@ export const TableHeadFilterText = (props: TableHeadFilterTextProps) => {
   
   return (
     <div
-      className="jk-col gap stretch jk-table-head-cell-filter-text jk-pg-sm jk-br-ie bc-we elevation-1"
+      className="jk-col gap stretch jk-table-head-cell-filter-text jk-pg-sm"
       onKeyDown={event => {
         if (event.code === 'Enter') {
           event.preventDefault();

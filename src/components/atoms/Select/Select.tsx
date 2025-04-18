@@ -89,14 +89,14 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     <Popover
       triggerOn="click"
       placement={optionsPlacement}
-      popoverClassName={classNames('jk-select-options-content', popoverClassName)}
+      popoverClassName={classNames('jk-select-options-content bc-we jk-br-ie elevation-1', popoverClassName)}
       offset={4}
       open={isOpen}
       onOpenChange={setIsOpen}
       content={
         <div
           ref={optionRef}
-          className={classNames('jk-select-options jk-br-ie bc-we elevation-1', { disabled: isDisabled })}
+          className={classNames('jk-select-options', { disabled: isDisabled })}
           style={{ width: _containerWidth ?? Math.max(widthSelect, widthFakeOptions) }}
         >
           {options.map((option) => (
