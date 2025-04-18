@@ -33,16 +33,14 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   
   const headersStickyWidth = headers.reduce((sum, head) => sum + (head.sticky && head.visible ? head.width : 0), 0);
   const headersWidth = headers.reduce((sum, head) => sum + (head.visible ? head.width : 0), 0);
+  const getItemKey = getRecordKey ? (index: number) => getRecordKey({ data, index }) : undefined;
   
   const rowVirtualizer = useVirtualizer({
     count: data.length,
     estimateSize: useCallback(() => rowHeight + gap * 2, [ rowHeight, gap ]),
     overscan: 2,
     getScrollElement: () => parentRef.current,
-    getItemKey: getRecordKey ? (index) => getRecordKey({
-      data,
-      index,
-    }) : undefined,
+    getItemKey,
   });
   const onRecordRenderRef = useRef(onRecordRender);
   onRecordRenderRef.current = onRecordRender;
@@ -205,47 +203,53 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
             )}
           </div>
         )}
-        {rowVirtualizer.getVirtualItems().map(virtualRow => (
-            <div
-              key={virtualRow.key}
-              style={{
-                ...getRowStyle(virtualRow.index),
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: headersWidth,
-                height: `${virtualRow.size - gap * 2}px`,
-                transform: `translateY(${virtualRow.start + gap}px)`,
-              }}
-              className={classNames('jk-table-row', getRowClassName(virtualRow.index))}
-              onClick={() => onRecordClick?.({ data, index: virtualRow.index, isCard: false })}
-              onMouseEnter={() => onRecordHover?.({ data, index: virtualRow.index, isCard: false })}
-            >
-              {Children.toArray(
-                headers
-                  .filter(({ visible }) => visible)
-                  .map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
-                    <div
-                      key={virtualRow.key + '_' + columnIndex}
-                      style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
-                      className={classNames({
-                        sticky: !!sticky,
-                        'with-right-border': rightBorders.includes(index),
-                      }, 'jk-table-row-field bc-we')}
-                      data-testid={virtualRow.key + '_' + columnIndex}
-                    >
-                      <Field
-                        record={data[virtualRow.index]}
-                        columnIndex={columnIndex}
-                        recordIndex={virtualRow.index}
-                        isCard={false}
-                      />
-                    </div>
-                  )),
-              )}
-            </div>
-          ),
-        )}
+        {(data.length < 100 ? data.map((d, index) => ({
+          key: getItemKey?.(index),
+          index,
+          size: rowHeight,
+          start: null,
+        })) : rowVirtualizer.getVirtualItems())
+          .map(virtualRow => (
+              <div
+                key={virtualRow.key}
+                style={{
+                  ...getRowStyle(virtualRow.index),
+                  position: virtualRow.start !== null ? 'absolute' : undefined,
+                  top: 0,
+                  left: 0,
+                  width: headersWidth,
+                  height: `${virtualRow.size - gap * 2}px`,
+                  transform: virtualRow.start !== null ? `translateY(${virtualRow.start + gap}px)` : undefined,
+                }}
+                className={classNames('jk-table-row', getRowClassName(virtualRow.index))}
+                onClick={() => onRecordClick?.({ data, index: virtualRow.index, isCard: false })}
+                onMouseEnter={() => onRecordHover?.({ data, index: virtualRow.index, isCard: false })}
+              >
+                {Children.toArray(
+                  headers
+                    .filter(({ visible }) => visible)
+                    .map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
+                      <div
+                        key={virtualRow.key + '_' + columnIndex}
+                        style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
+                        className={classNames({
+                          sticky: !!sticky,
+                          'with-right-border': rightBorders.includes(index),
+                        }, 'jk-table-row-field bc-we')}
+                        data-testid={virtualRow.key + '_' + columnIndex}
+                      >
+                        <Field
+                          record={data[virtualRow.index]}
+                          columnIndex={columnIndex}
+                          recordIndex={virtualRow.index}
+                          isCard={false}
+                        />
+                      </div>
+                    )),
+                )}
+              </div>
+            ),
+          )}
       </div>
     </div>
   );
