@@ -64,6 +64,7 @@ export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlin
           initial="enter"
           animate="center"
           exit="exit"
+          transition={{ ease: 'easeInOut' }}
           style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}
           key={selectedTabKey as string}
           className="jk-tabs-inline-body-motion-layout"
