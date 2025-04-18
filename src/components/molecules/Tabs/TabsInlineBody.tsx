@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import React from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { usePrevious } from '../../../hooks';
+import { Duration } from '../../../types';
 import { TabsInlineBodyProps } from './types';
 
 // const variants = {
@@ -54,15 +54,7 @@ import { TabsInlineBodyProps } from './types';
 
 export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlineBodyProps<T>) => {
   
-  const prevSelectedTabKey = usePrevious(selectedTabKey);
-  
-  const currentIndex = Object.keys(tabs).indexOf(selectedTabKey as string);
-  const prevIndex = Object.keys(tabs).indexOf(prevSelectedTabKey as string);
-  const fromLeft = prevIndex < currentIndex;
-  const direction = fromLeft ? 1 : -1;
   const selectedTab = tabs[selectedTabKey as string];
-  
-  console.log({ direction });
   
   return (
     <AnimatePresence mode="wait">
@@ -70,8 +62,8 @@ export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlin
         <motion.div
           layout
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { ease: 'easeOut' } }}
-          exit={{ opacity: 0, transition: { ease: 'easeIn' } }}
+          animate={{ opacity: 1, transition: { duration: Duration.FAST, ease: 'easeOut' } }}
+          exit={{ opacity: 0, transition: { duration: Duration.FAST, ease: 'easeIn' } }}
           transition={{ ease: 'easeInOut' }}
           style={{ width: '100%', height: '100%' }}
           key={selectedTabKey as string}
