@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react';
-import React, { useMemo } from 'react';
+import React, { Children, useMemo } from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { Duration } from '../../../types';
 import { TabsInlineBodyProps } from './types';
@@ -56,14 +56,18 @@ export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey, preload }: 
   
   const selectedTab = tabs[selectedTabKey as string];
   
-  useMemo(() => {
+  const tabsRendered = useMemo(() => {
     if (preload) {
-      Object.values(tabs).map(tab => renderReactNodeOrFunctionP1(tab.body, { selectedTabKey: tab.key }));
+      return Object.values(tabs).map(tab => renderReactNodeOrFunctionP1(tab.body, { selectedTabKey: tab.key }));
     }
+    return [];
   }, [ tabs, preload ]);
   
   return (
     <AnimatePresence mode="wait">
+      <div style={{ display: 'none' }}>
+        {Children.toArray(tabsRendered)}
+      </div>
       {selectedTab && (
         <motion.div
           layout
