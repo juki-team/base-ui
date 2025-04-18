@@ -29,17 +29,17 @@ const slideVariants: Variants = {
   enter: (direction: number) => ({
     x: direction > 0 ? '100%' : '-100%',
     // opacity: 0,
-    position: 'absolute',
+    // position: 'absolute',
   }),
   center: {
     x: 0,
     // opacity: 1,
-    position: 'relative',
+    // position: 'relative',
   },
   exit: (direction: number) => ({
     x: direction > 0 ? '-100%' : '100%',
     // opacity: 0,
-    position: 'absolute',
+    // position: 'absolute',
   }),
 };
 
