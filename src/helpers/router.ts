@@ -70,5 +70,17 @@ export const persistGlobalURLSearchParams = (searchParams: URLSearchParams) => {
   if (company) {
     newSp.set(QueryParamKey.COMPANY, company);
   }
+  const submission = sp.get(QueryParamKey.SUBMISSION);
+  if (submission) {
+    newSp.set(QueryParamKey.SUBMISSION, submission);
+  }
+  const signIn = sp.get(QueryParamKey.SIGN_IN);
+  if (signIn) {
+    newSp.set(QueryParamKey.SIGN_IN, signIn);
+  }
+  const signUp = sp.get(QueryParamKey.SIGN_UP);
+  if (signUp) {
+    newSp.set(QueryParamKey.SIGN_UP, signUp);
+  }
   return newSp.toString();
 };
