@@ -39,7 +39,7 @@ export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlin
     <AnimatePresence custom={direction}>
       {selectedTab && (
         <motion.div
-          layout
+          layoutId="tabs-body-layout"
           initial={{ x: fromLeft ? '100%' : '-100%' }}
           variants={variants}
           // initial="enter"
