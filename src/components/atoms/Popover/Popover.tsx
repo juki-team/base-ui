@@ -229,7 +229,7 @@ export function Popover({
       onOpenChangeRef.current?.(isOpen);
     }
   }, [ open, isOpen ]);
-  console.log({ isOpen });
+  
   return (
     <>
       {isValidElement(children) && cloneElement(children, {
