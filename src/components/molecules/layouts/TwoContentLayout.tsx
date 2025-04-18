@@ -27,6 +27,7 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
   const LOADING_TAB = 'loading' as T;
   const { viewPortSize } = useJukiUI();
   const [ _tab, setTab ] = useStableState<T | undefined>(initialTabKey ?? initialTabs[0]?.key);
+  console.log({ _tab, initialTabKey, b: initialTabs[0]?.key });
   // const pushRoute = useRouterStore(state => state.pushRoute);
   const tabs: TabsType<T> = !!loading ? {
     [LOADING_TAB as string]: {
@@ -130,6 +131,7 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
           <TabsInlineBody
             tabs={tabs}
             selectedTabKey={loading ? LOADING_TAB : tab}
+            preload
           />
         </div>
       </>
