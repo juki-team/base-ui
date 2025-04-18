@@ -1,28 +1,46 @@
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion, Variants } from 'motion/react';
 import React from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { usePrevious } from '../../../hooks';
 import { TabsInlineBodyProps } from './types';
 
-const variants = {
-  // enter: (direction: number) => {
-  //   return {
-  //     x: direction > 0 ? '100%' : '-100%',
-  //     // opacity: 0,
-  //   };
-  // },
+// const variants = {
+//   // enter: (direction: number) => {
+//   //   return {
+//   //     x: direction > 0 ? '100%' : '-100%',
+//   //     // opacity: 0,
+//   //   };
+//   // },
+//   center: {
+//     zIndex: 1,
+//     x: 0,
+//     // opacity: 1,
+//   },
+//   exit: (direction: number) => {
+//     return {
+//       zIndex: 0,
+//       x: direction < 0 ? '100%' : '-100%',
+//       // opacity: 0,
+//     };
+//   },
+// };
+
+const slideVariants: Variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? '100%' : '-100%',
+    // opacity: 0,
+    position: 'absolute',
+  }),
   center: {
-    zIndex: 1,
     x: 0,
     // opacity: 1,
+    position: 'relative',
   },
-  exit: (direction: number) => {
-    return {
-      zIndex: 0,
-      x: direction < 0 ? '100%' : '-100%',
-      // opacity: 0,
-    };
-  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? '-100%' : '100%',
+    // opacity: 0,
+    position: 'absolute',
+  }),
 };
 
 export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlineBodyProps<T>) => {
@@ -36,14 +54,14 @@ export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlin
   const selectedTab = tabs[selectedTabKey as string];
   
   return (
-    <AnimatePresence custom={direction} mode="popLayout">
+    <AnimatePresence initial={false} custom={direction} mode="wait">
       {selectedTab && (
         <motion.div
           layout
           layoutId="tabs-body-layout"
-          initial={{ x: fromLeft ? '100%' : '-100%' }}
-          variants={variants}
-          // initial="enter"
+          // initial={{ x: fromLeft ? '100%' : '-100%' }}
+          variants={slideVariants}
+          initial="enter"
           animate="center"
           exit="exit"
           style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}
