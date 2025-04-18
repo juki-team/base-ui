@@ -54,7 +54,7 @@ export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlin
   const selectedTab = tabs[selectedTabKey as string];
   
   return (
-    <AnimatePresence initial={false} custom={direction} mode="wait">
+    <AnimatePresence initial={false} custom={direction}>
       {selectedTab && (
         <motion.div
           layout
