@@ -49,6 +49,7 @@ export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlin
           key={selectedTabKey as string}
           className="jk-tabs-inline-body-motion-layout"
         >
+          {selectedTabKey}
           {/*{render && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}*/}
           {renderReactNodeOrFunctionP1(selectedTab?.body, { selectedTabKey })}
         </motion.div>
