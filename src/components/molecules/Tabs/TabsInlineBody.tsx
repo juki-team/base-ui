@@ -1,8 +1,7 @@
-import { AnimatePresence, motion, Variants } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 import React from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { usePrevious } from '../../../hooks';
-import { Duration } from '../../../types';
 import { TabsInlineBodyProps } from './types';
 
 // const variants = {
@@ -26,32 +25,32 @@ import { TabsInlineBodyProps } from './types';
 //   },
 // };
 
-const slideVariants: Variants = {
-  enter: (direction: number) => {
-    console.log('enter', { direction });
-    return {
-      x: direction > 0 ? '100%' : '-100%',
-      opacity: 0,
-      position: 'absolute',
-      // display: 'none',
-    };
-  },
-  center: {
-    x: 0,
-    opacity: 1,
-    position: 'relative',
-    // display: 'initial',
-  },
-  exit: (direction: number) => {
-    console.log('exit', { direction });
-    return {
-      x: direction > 0 ? '-100%' : '100%',
-      opacity: 0,
-      position: 'absolute',
-      // display: 'none',
-    };
-  },
-};
+// const slideVariants: Variants = {
+//   enter: (direction: number) => {
+//     console.log('enter', { direction });
+//     return {
+//       x: direction > 0 ? '100%' : '-100%',
+//       opacity: 0.6,
+//       position: 'absolute',
+//       // display: 'none',
+//     };
+//   },
+//   center: {
+//     x: 0,
+//     opacity: 1,
+//     position: 'relative',
+//     // display: 'initial',
+//   },
+//   exit: (direction: number) => {
+//     console.log('exit', { direction });
+//     return {
+//       x: direction > 0 ? '-100%' : '100%',
+//       opacity: 0.6,
+//       position: 'absolute',
+//       // display: 'none',
+//     };
+//   },
+// };
 
 export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlineBodyProps<T>) => {
   
@@ -66,18 +65,15 @@ export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlin
   console.log({ direction });
   
   return (
-    <AnimatePresence initial={false} custom={direction}>
+    <AnimatePresence mode="wait">
       {selectedTab && (
         <motion.div
           layout
-          // layoutId="tabs-body-layout"
-          initial={{ x: fromLeft ? '100%' : '-100%', position: 'absolute' }}
-          variants={slideVariants}
-          // initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{ duration: Duration.LOW, ease: 'easeInOut' }}
-          style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { ease: 'easeOut' } }}
+          exit={{ opacity: 0, transition: { ease: 'easeIn' } }}
+          transition={{ ease: 'easeInOut' }}
+          style={{ width: '100%', height: '100%' }}
           key={selectedTabKey as string}
           className="jk-tabs-inline-body-motion-layout"
         >
