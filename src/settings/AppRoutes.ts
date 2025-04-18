@@ -1,8 +1,21 @@
+import { persistGlobalURLSearchParams } from '../helpers';
 import { ContestTab, ProblemTab, ProfileTab } from '../types';
 
 const injectOrigin = (origin: string, path: string) => {
   return `${origin ? origin : ''}${path}`;
 };
+
+const injectGlobalURLSearchParams = (pathUrl: string) => {
+  const url = new URL('https://juki.app' + pathUrl);
+  
+  const newSp = persistGlobalURLSearchParams(url.searchParams);
+  if (newSp) {
+    return url.pathname + '?' + newSp;
+  }
+  return url.pathname;
+};
+
+const igu = injectGlobalURLSearchParams;
 
 export class AppRoutes {
   public JUDGE(_origin?: string) {
@@ -11,44 +24,44 @@ export class AppRoutes {
     
     return {
       home() {
-        return '/';
+        return igu('/');
       },
       profiles: {
         view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
-          return injectOrigin(origin, `/profiles/${nickname}?tab=${tab}`);
+          return igu(injectOrigin(origin, `/profiles/${nickname}?tab=${tab}`));
         },
       },
       problems: {
         list() {
-          return injectOrigin(origin, `/problems`);
+          return igu(injectOrigin(origin, `/problems`));
         },
         view({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
-          return injectOrigin(origin, `/problems/${key}?tab=${tab}`);
+          return igu(injectOrigin(origin, `/problems/${key}?tab=${tab}`));
         },
         edit({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
-          return injectOrigin(origin, `/problems/${key}/edit?tab=${tab}`);
+          return igu(injectOrigin(origin, `/problems/${key}/edit?tab=${tab}`));
         },
         new() {
-          return injectOrigin(origin, `/problems/new`);
+          return igu(injectOrigin(origin, `/problems/new`));
         },
       },
       contests: {
         list() {
-          return injectOrigin(origin, `/contests`);
+          return igu(injectOrigin(origin, `/contests`));
         },
         view({ key, tab = ContestTab.OVERVIEW, subTab }: { key: string, tab?: ContestTab, subTab?: string }) {
-          return injectOrigin(origin, `/contests/${key}?tab=${tab}${subTab ? '&subTab=' + subTab : ''}`);
+          return igu(injectOrigin(origin, `/contests/${key}?tab=${tab}${subTab ? '&subTab=' + subTab : ''}`));
         },
         edit({ key, tab = ContestTab.OVERVIEW }: { key: string, tab?: ContestTab }) {
-          return injectOrigin(origin, `/contests/${key}/edit?tab=${tab}`);
+          return igu(injectOrigin(origin, `/contests/${key}/edit?tab=${tab}`));
         },
         new() {
-          return injectOrigin(origin, `/contests/new`);
+          return igu(injectOrigin(origin, `/contests/new`));
         },
       },
       submissions: {
         view({ id }: { id: string }) {
-          return injectOrigin(origin, `/submissions/${id}`);
+          return igu(injectOrigin(origin, `/submissions/${id}`));
         },
       },
     };
@@ -60,59 +73,59 @@ export class AppRoutes {
     
     return {
       home() {
-        return '/';
+        return igu('/');
       },
       worksheets: {
         list() {
-          return injectOrigin(origin, `/worksheets`);
+          return igu(injectOrigin(origin, `/worksheets`));
         },
         view({ key, page = 1 }: { key: string, page?: number }) {
-          return injectOrigin(origin, `/worksheets/${key}?page=${page}`);
+          return igu(injectOrigin(origin, `/worksheets/${key}?page=${page}`));
         },
         edit({ key }: { key: string }) {
-          return injectOrigin(origin, `/worksheets/${key}/edit`);
+          return igu(injectOrigin(origin, `/worksheets/${key}/edit`));
         },
         new() {
-          return injectOrigin(origin, `/worksheets/new`);
+          return igu(injectOrigin(origin, `/worksheets/new`));
         },
       },
       classes: {
         list() {
-          return injectOrigin(origin, `/classes`);
+          return igu(injectOrigin(origin, `/classes`));
         },
         view({ key }: { key: string }) {
-          return injectOrigin(origin, `/classes/${key}`);
+          return igu(injectOrigin(origin, `/classes/${key}`));
         },
         cycleView({ key, cycleId }: { key: string, cycleId: string }) {
-          return injectOrigin(origin, `/classes/${key}/cycle/${cycleId}`);
+          return igu(injectOrigin(origin, `/classes/${key}/cycle/${cycleId}`));
         },
         edit({ key }: { key: string }) {
-          return injectOrigin(origin, `/classes/${key}/edit`);
+          return igu(injectOrigin(origin, `/classes/${key}/edit`));
         },
         new() {
-          return injectOrigin(origin, `/classes/new`);
+          return igu(injectOrigin(origin, `/classes/new`));
         },
       },
       courses: {
         list() {
-          return injectOrigin(origin, `/courses`);
+          return igu(injectOrigin(origin, `/courses`));
         },
         view({ key }: { key: string }) {
-          return injectOrigin(origin, `/courses/${key}`);
+          return igu(injectOrigin(origin, `/courses/${key}`));
         },
         lessonView({ key, lessonIndex, lessonPage = 1 }: { key: string, lessonIndex: number, lessonPage?: number }) {
-          return injectOrigin(origin, `/courses/${key}/lessons/${lessonIndex}?page=${lessonPage}`);
+          return igu(injectOrigin(origin, `/courses/${key}/lessons/${lessonIndex}?page=${lessonPage}`));
         },
         edit({ key }: { key: string }) {
-          return injectOrigin(origin, `/courses/${key}/edit`);
+          return igu(injectOrigin(origin, `/courses/${key}/edit`));
         },
         new() {
-          return injectOrigin(origin, `/courses/new`);
+          return igu(injectOrigin(origin, `/courses/new`));
         },
       },
       profiles: {
         view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
-          return injectOrigin(origin, `/profiles/${nickname}?tab=${tab}`);
+          return igu(injectOrigin(origin, `/profiles/${nickname}?tab=${tab}`));
         },
       },
     };

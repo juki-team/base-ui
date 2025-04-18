@@ -1,5 +1,5 @@
 import { SEPARATOR_TOKEN } from '@juki-team/commons';
-import { Href, RequestFilterType, RequestSortType } from '../types';
+import { Href, QueryParamKey, RequestFilterType, RequestSortType } from '../types';
 
 export const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
   return new URLSearchParams(urlSearchParams.toString());
@@ -40,4 +40,21 @@ export const getHref = (href: Href) => {
   }
   const search = href.searchParams?.toString() || '';
   return `${href.pathname}${search ? '?' + search : ''}`;
+};
+
+export const persistGlobalURLSearchParams = (searchParams: URLSearchParams) => {
+  const newSp = cloneURLSearchParams(searchParams);
+  let sp = new URLSearchParams();
+  if (typeof window !== 'undefined') {
+    sp = new URLSearchParams(window.location.search);
+  }
+  const token = sp.get(QueryParamKey.TOKEN);
+  if (token) {
+    newSp.set(QueryParamKey.TOKEN, token);
+  }
+  const company = sp.get(QueryParamKey.COMPANY);
+  if (company) {
+    newSp.set(QueryParamKey.COMPANY, company);
+  }
+  return newSp.toString();
 };

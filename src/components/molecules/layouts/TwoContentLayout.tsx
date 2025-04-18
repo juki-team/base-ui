@@ -76,7 +76,11 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
   getHrefOnTabChangeRef.current = getHrefOnTabChange;
   useEffect(() => {
     if (getHrefOnTabChangeRef.current && typeof window !== 'undefined' && tab) {
-      window.history.replaceState(null, '', getHref(getHrefOnTabChangeRef.current(tab)));
+      const nextHref = getHrefOnTabChangeRef.current(tab);
+      const currentHref = window.location.pathname + window.location.search;
+      if (currentHref !== nextHref) {
+        window.history.replaceState(null, '', getHref(nextHref));
+      }
     }
   }, [ tab ]);
   

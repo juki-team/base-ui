@@ -4,9 +4,9 @@ import { T } from '../../components/atoms';
 import { JukiLoadingLayout } from '../../components/molecules';
 import { NotificationProvider, SoundProvider } from '../../components/organisms';
 import { LineLoader } from '../../components/server';
-import { classNames } from '../../helpers';
+import { classNames, persistGlobalURLSearchParams } from '../../helpers';
 import { useRouterStore } from '../../stores/router/useRouterStore';
-import { Duration, QueryParamKey } from '../../types';
+import { Duration } from '../../types';
 import { UIContext } from './context';
 import { Image } from './Image';
 import { Link } from './Link';
@@ -18,7 +18,6 @@ const ReactTooltip = lazy(() => import('react-tooltip').then(module => ({ defaul
 export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiUIProviderProps>) => {
   
   const { viewPortSize, viewPortHeight, viewPortWidth } = useViewPortSize();
-  const searchParams = useRouterStore(state => state.searchParams);
   const { Image: ImageCmp = Image, Link: LinkCMP = Link } = components || { Image, Link };
   const isLoadingRoute = useRouterStore(state => state.isLoadingRoute);
   
@@ -35,16 +34,11 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
       pathname = href.pathname;
       sp = new URLSearchParams('?' + (href.query || ''));
     }
-    const token = searchParams.get(QueryParamKey.TOKEN);
-    if (token) {
-      sp.set(QueryParamKey.TOKEN, token);
-    }
-    const company = searchParams.get(QueryParamKey.COMPANY);
-    if (company) {
-      sp.set(QueryParamKey.COMPANY, company);
-    }
-    return <LinkCMP href={{ pathname, query: sp.toString() }} {...restProps} />;
-  }, [ LinkCMP, searchParams ]);
+    
+    const query = persistGlobalURLSearchParams(sp);
+    
+    return <LinkCMP href={{ pathname, query }} {...restProps} />;
+  }, [ LinkCMP ]);
   
   const value = useMemo(() => ({
     jukiAppDivRef: ref,
