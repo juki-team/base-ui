@@ -27,41 +27,30 @@ const variants = {
 
 export const TabsInlineBody = <T, >({ tabs, selectedTabKey }: TabsInlineBodyProps<T>) => {
   const prevSelectedTabKey = usePrevious(selectedTabKey);
-  // const prevPrevSelectedTabKey = usePrevious(prevSelectedTabKey);
   const currentIndex = Object.keys(tabs).indexOf(selectedTabKey as string);
   const prevIndex = Object.keys(tabs).indexOf(prevSelectedTabKey as string);
-  // const prevPrevIndex = Object.keys(tabs).indexOf(prevPrevSelectedTabKey as string);
   const fromLeft = prevIndex < currentIndex;
-  // const prevFromLeft = prevPrevIndex < currentIndex;
   const direction = fromLeft ? 1 : -1;
-  // const [ render, setRender ] = useState(Date.now());
   
+  const selectedTab = tabs[selectedTabKey as string];
   return (
-    <AnimatePresence
-      custom={direction}
-      // onExitComplete={() => setRender(Date.now())}
-      // mode="wait"
-      // mode="sync"
-      // mode="popLayout"
-    >
-      {Object.values(tabs).map(tab => (
-        tab.key === selectedTabKey && (
-          <motion.div
-            layout
-            initial={{ x: fromLeft ? '100%' : '-100%' }}
-            variants={variants}
-            // initial="enter"
-            animate="center"
-            exit="exit"
-            style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}
-            key={tab.key as string}
-            className="jk-tabs-inline-body-motion-layout"
-          >
-            {/*{render && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}*/}
-            {renderReactNodeOrFunctionP1(tab?.body, { selectedTabKey })}
-          </motion.div>
-        )
-      ))}
+    <AnimatePresence custom={direction}>
+      {selectedTab && (
+        <motion.div
+          layout
+          initial={{ x: fromLeft ? '100%' : '-100%' }}
+          variants={variants}
+          // initial="enter"
+          animate="center"
+          exit="exit"
+          style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}
+          key={selectedTab.key as string}
+          className="jk-tabs-inline-body-motion-layout"
+        >
+          {/*{render && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}*/}
+          {renderReactNodeOrFunctionP1(selectedTab?.body, { selectedTabKey })}
+        </motion.div>
+      )}
     </AnimatePresence>
   );
 };
