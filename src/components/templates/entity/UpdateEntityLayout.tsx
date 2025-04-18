@@ -1,5 +1,5 @@
 import { ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification, useMutate, useRouterStore } from '../../../hooks';
 import { T } from '../../atoms';
@@ -8,7 +8,7 @@ import { CheckUnsavedChanges } from '../../organisms';
 import { CloseIcon, SaveIcon } from '../../server';
 import { UpdateEntityLayoutProps } from './types';
 
-export function UpdateEntityLayout<T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) {
+export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) => {
   
   const { Cmp, entity: initialEntity, entityKey, viewRoute, updateApiURL, viewApiURL, toEntityUpsert } = props;
   
@@ -16,7 +16,10 @@ export function UpdateEntityLayout<T, U, V>(props: UpdateEntityLayoutProps<T, U,
   const pushRoute = useRouterStore(state => state.pushRoute);
   const { notifyResponse } = useJukiNotification();
   const mutate = useMutate();
-  const tabButtons = ({ entityData, disableUpdateButton }: { entityData: T, disableUpdateButton?: boolean }) => [
+  const tabButtons = useCallback(({ entityData, disableUpdateButton }: {
+    entityData: T,
+    disableUpdateButton?: boolean
+  }) => [
     <CheckUnsavedChanges
       key="cancel"
       onClickContinue={() => pushRoute(viewRoute(entityKey))}
@@ -56,9 +59,9 @@ export function UpdateEntityLayout<T, U, V>(props: UpdateEntityLayoutProps<T, U,
     >
       <T>update</T>
     </ButtonLoader>,
-  ];
+  ], [ entityKey, mutate, notifyResponse, pushRoute, toEntityUpsert, updateApiURL, viewApiURL, viewRoute ]);
   
   return (
     <Cmp entity={entity} entityKey={entityKey} tabButtons={tabButtons} />
   );
-}
+};
