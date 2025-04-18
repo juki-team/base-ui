@@ -2,6 +2,7 @@ import { AnimatePresence, motion, Variants } from 'motion/react';
 import React from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { usePrevious } from '../../../hooks';
+import { Duration } from '../../../types';
 import { TabsInlineBodyProps } from './types';
 
 // const variants = {
@@ -30,21 +31,24 @@ const slideVariants: Variants = {
     console.log('enter', { direction });
     return {
       x: direction > 0 ? '100%' : '-100%',
-      // opacity: 0,
-      // position: 'absolute',
+      opacity: 0,
+      position: 'absolute',
+      // display: 'none',
     };
   },
   center: {
     x: 0,
-    // opacity: 1,
-    // position: 'relative',
+    opacity: 1,
+    position: 'relative',
+    // display: 'initial',
   },
   exit: (direction: number) => {
     console.log('exit', { direction });
     return {
       x: direction > 0 ? '-100%' : '100%',
-      // opacity: 0,
-      // position: 'absolute',
+      opacity: 0,
+      position: 'absolute',
+      // display: 'none',
     };
   },
 };
@@ -67,12 +71,12 @@ export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlin
         <motion.div
           layout
           // layoutId="tabs-body-layout"
-          initial={{ x: fromLeft ? '100%' : '-100%' }}
+          initial={{ x: fromLeft ? '100%' : '-100%', position: 'absolute' }}
           variants={slideVariants}
           // initial="enter"
           animate="center"
           exit="exit"
-          transition={{ duration: 2, ease: 'easeInOut' }}
+          transition={{ duration: Duration.LOW, ease: 'easeInOut' }}
           style={{ position: 'absolute', width: '100%', height: '100%', overflow: 'auto' }}
           key={selectedTabKey as string}
           className="jk-tabs-inline-body-motion-layout"
