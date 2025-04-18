@@ -24,7 +24,6 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
                 <div
                   data-tooltip-id="jk-tooltip"
                   data-tooltip-content={`${sample.input.lastIndexOf('\n') === sample.input.length - 1 ? '' : 'no '}newline at end of file`}
-                  data-tooltip-place="left"
                   className="jk-row"
                 >
                   <InfoIcon size="small" />
@@ -44,7 +43,6 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
                 <div
                   data-tooltip-id="jk-tooltip"
                   data-tooltip-content={`${sample.output.lastIndexOf('\n') === sample.output.length - 1 ? '' : 'no '}newline at end of file`}
-                  data-tooltip-place="left"
                   className="newline-eof"
                 >
                   <InfoIcon size="small" />

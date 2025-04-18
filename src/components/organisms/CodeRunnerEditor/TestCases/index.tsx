@@ -33,7 +33,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = fal
       data-tooltip-t-class-name="ws-np tt-se tx-s"
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={`add ${sample ? 'sample' : 'custom sample'} case`}
-      data-tooltip-place="right"
+      data-tooltip-place="top-start"
       className="jk-button light small only-icon"
     >
       <AddIcon
@@ -213,7 +213,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             key={testCase.key}
             data-tooltip-id="jk-tooltip"
             data-tooltip-content={`${testCase.sample ? 'sample' : 'custom sample'} case`}
-            data-tooltip-place="right"
+            data-tooltip-place="top-start"
             onClick={() => setTestCaseKey(testCase.key)}
             className={classNames('jk-row center hoverable jk-pg-x-sm', { 'bc-hl': testCase.key === testCaseKey })}
           >
