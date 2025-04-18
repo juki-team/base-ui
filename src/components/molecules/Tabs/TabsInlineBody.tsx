@@ -36,9 +36,10 @@ export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlin
   const selectedTab = tabs[selectedTabKey as string];
   
   return (
-    <AnimatePresence custom={direction}>
+    <AnimatePresence custom={direction} mode="popLayout">
       {selectedTab && (
         <motion.div
+          layout
           layoutId="tabs-body-layout"
           initial={{ x: fromLeft ? '100%' : '-100%' }}
           variants={variants}
@@ -49,7 +50,6 @@ export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlin
           key={selectedTabKey as string}
           className="jk-tabs-inline-body-motion-layout"
         >
-          {selectedTabKey}
           {/*{render && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}*/}
           {renderReactNodeOrFunctionP1(selectedTab?.body, { selectedTabKey })}
         </motion.div>
