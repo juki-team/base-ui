@@ -355,7 +355,7 @@ export const Google: FC<BasicIconProps> = (args) => {
           label={<T className="tt-se">filter</T>}
         />
       </div>
-      <div className="jk-row block gap" style={{ color: color.hex }}>
+      <div className="jk-row block gap" style={{ color: color.hex, height: '100%', width: '100%', overflow: 'auto' }}>
         {Object.entries(icons)
           .filter(([ iconName ]) =>
             filter

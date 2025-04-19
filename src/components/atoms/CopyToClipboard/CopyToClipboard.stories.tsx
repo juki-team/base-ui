@@ -18,9 +18,7 @@ const text =
 export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <CopyToClipboard {...args} text={text}>
-        <div>click me!</div>
-      </CopyToClipboard>
+      <CopyToClipboard {...args} text={text} />
     </MockupJukiProvider>
   ),
 };

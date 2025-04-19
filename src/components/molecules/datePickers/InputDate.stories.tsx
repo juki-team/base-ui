@@ -1,3 +1,4 @@
+import { getDays, getHours, getMinutes, getMonths, getYears, ONE_DAY } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { DateLiteral } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
@@ -8,8 +9,13 @@ export default {
   component: InputDate,
 };
 
+const startTimestamp = new Date(Date.now() - ONE_DAY);
+const endTimestamp = new Date();
+
 export const DatePicker = () => {
   const [ date, setDate ] = useState(new Date());
+  
+  console.info({ startTimestamp, endTimestamp });
   
   return (
     <MockupJukiProvider>
@@ -29,7 +35,14 @@ export const DatePicker = () => {
           date={date}
           // onDateClean={() => setValues(prevState => ({ ...prevState, [columnIndex]: '' }))}
           isDisabled={() => ({})}
-          isSelected={() => ({})}
+          // isSelected={() => ({})}
+          isSelected={(date) => ({
+            year: getYears(date) >= getYears(startTimestamp) && getYears(date) <= getYears(endTimestamp),
+            month: getMonths(date) >= getMonths(startTimestamp) && getMonths(date) <= getMonths(endTimestamp),
+            day: getDays(date) >= getDays(startTimestamp) && getDays(date) <= getDays(endTimestamp),
+            hours: getHours(date) >= getHours(startTimestamp) && getHours(date) <= getHours(endTimestamp),
+            minutes: getMinutes(date) >= getMinutes(startTimestamp) && getMinutes(date) <= getMinutes(endTimestamp),
+          })}
           baseDate={date}
           onDatePick={(date) => setDate(date)}
           twoLines

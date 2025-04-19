@@ -223,7 +223,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
         <div className="jk-col stretch wh-100">
           <div className="tx-l fw-bd cr-pd"><T className="tt-se">source code</T></div>
           <div className="submission-info-code-source">
-            <CodeViewer code={sourceCode} language={language} lineNumbers withCopyButton withLanguageLabel />
+            <CodeViewer code={sourceCode} language={language} lineNumbers />
           </div>
         </div>
       )}
