@@ -155,11 +155,13 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   
   &.error {
     --button-background-color: var(--t-color-error);
-    pointer-events: none;
   }
   
   &.success {
     --button-background-color: var(--t-color-success);
+  }
+  
+  &.with-loader-icon {
     pointer-events: none;
   }
   
