@@ -38,7 +38,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
       data-plugin-header="show-language"
       style={style}
     >
-      <div className="float-top-right pad-xt jk-row gap">
+      <div className="float-top-right pad-xt jk-row gap" style={{ zIndex: 'unset' }}>
         {withLanguageLabel && !!PROGRAMMING_LANGUAGE[language]?.label && (
           <div className="tx-t jk-tag primary-light jk-pg-x-sm">{PROGRAMMING_LANGUAGE[language]?.label}</div>
         )}

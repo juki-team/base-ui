@@ -241,11 +241,14 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
   
   return (
     <div className="jk-md-math pn-re">
+      <ReactMarkdown {...props} >
+        {source}
+      </ReactMarkdown>
       {_blur && (unBlur ? blur : true) && (
         <div className="jk-overlay-backdrop jk-br-ie jk-overlay" style={{ position: 'absolute', zIndex: 'unset' }} />
       )}
       {_blur && unBlur && (
-        <div className="pn-ae jk-pg-sm">
+        <div className="pn-ae jk-pg-sm" style={{ top: 0 }}>
           <Button
             size="small"
             onClick={() => setBlur(!blur)}
@@ -253,9 +256,6 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
           />
         </div>
       )}
-      <ReactMarkdown {...props} >
-        {source}
-      </ReactMarkdown>
     </div>
   );
 });
