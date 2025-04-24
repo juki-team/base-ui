@@ -3,7 +3,7 @@ import { classNames, copy } from '../../../helpers';
 import { ContentCopyIcon } from '../server';
 import { CopyToClipboardProps } from './types';
 
-export const CopyToClipboard = ({ text, size = 'regular', tooltip }: CopyToClipboardProps) => {
+export const CopyToClipboard = ({ text, size = 'regular', tooltip, children }: CopyToClipboardProps) => {
   
   const [ isOpen, setIsOpen ] = useState(false);
   
@@ -21,7 +21,7 @@ export const CopyToClipboard = ({ text, size = 'regular', tooltip }: CopyToClipb
       style={{ width: 'min-content', height: 'min-content', padding: 'calc(var(--gap) / 3)' }}
       onClick={handleClick}
     >
-      <ContentCopyIcon size={size} />
+      {children ?? <ContentCopyIcon size={size} />}
     </div>
   );
 };
