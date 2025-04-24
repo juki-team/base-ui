@@ -7,7 +7,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import React, { CSSProperties, useMemo } from 'react';
+import React, { CSSProperties, memo } from 'react';
 import { SortableItemsProps } from './types';
 
 interface SortableItemProps {
@@ -18,11 +18,11 @@ interface SortableItemProps {
   props: SortableItemsProps<any, any>['props'],
 }
 
-function SortableItem({ id, Cmp, item, props, index }: SortableItemProps) {
+function SortableItemCmp({ id, Cmp, item, props, index }: SortableItemProps) {
   
   const { attributes, listeners, setNodeRef, transform, transition, isDragging, isOver } = useSortable({ id });
   
-  const style: CSSProperties = useMemo(() => ({
+  const style: CSSProperties = {
     transform: CSS.Transform.toString({
       x: transform?.x ?? 0,
       y: transform?.y ?? 0,
@@ -31,7 +31,7 @@ function SortableItem({ id, Cmp, item, props, index }: SortableItemProps) {
     }),
     transition,
     zIndex: isDragging ? 1 : undefined,
-  }), [ isDragging, transform?.x, transform?.y, transition ]);
+  };
   
   return (
     <Cmp
@@ -47,6 +47,8 @@ function SortableItem({ id, Cmp, item, props, index }: SortableItemProps) {
     />
   );
 }
+
+const SortableItem = memo(SortableItemCmp);
 
 export const SortableItems = <T, U = undefined>(properties: SortableItemsProps<T, U>) => {
   
