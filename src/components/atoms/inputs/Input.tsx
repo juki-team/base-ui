@@ -19,6 +19,8 @@ const BasicInputComponent = <T extends string | number | FileList, >(_props: Inp
     autoFocus = false,
     required = false,
     inputId: id,
+    onClick,
+    onFocus,
     ...props
   } = _props;
   
@@ -42,6 +44,15 @@ const BasicInputComponent = <T extends string | number | FileList, >(_props: Inp
     <input
       {...props}
       {...restRegister}
+      onWheel={(e) => e.target instanceof HTMLElement && e?.target?.blur()}
+      onClick={(e) => {
+        e.currentTarget?.select();
+        onClick?.();
+      }}
+      onFocus={(e) => {
+        e.currentTarget?.select();
+        onFocus?.();
+      }}
       id={`input-${id}`}
       autoComplete={props.name}
       required={required}
