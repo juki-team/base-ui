@@ -18,6 +18,7 @@ interface RouterState {
   replaceRoute: RouterFn<Href>,
   reloadRoute: RouterFn<void>,
   isLoadingRoute: boolean,
+  origin: string,
   pathname: string,
   replaceProps: (props: Partial<Omit<RouterState, 'replaceProps'>>) => void,
 }
@@ -32,6 +33,7 @@ export const useRouterStore = create<RouterState>((set) => ({
   replaceRoute: () => null,
   reloadRoute: () => null,
   isLoadingRoute: false,
+  origin: '',
   pathname: '',
   replaceProps: (props) => set({ ...props }),
 }));

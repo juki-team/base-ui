@@ -120,6 +120,12 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
   const replaceProps = useRouterStore(state => state.replaceProps);
   
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      replaceProps({ origin: window.location.origin });
+    }
+  }, [ replaceProps ]);
+  
+  useEffect(() => {
     replaceProps(
       Object.values(router).filter(Boolean).length ? router as RouterContextInterface : {
         searchParams: _searchParams,
