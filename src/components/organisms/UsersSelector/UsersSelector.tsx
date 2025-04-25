@@ -1,4 +1,4 @@
-import { ContentsResponseType, UserSummaryListResponseDTO } from '@juki-team/commons';
+import { ContentsResponseType, getUserKey, UserSummaryListResponseDTO } from '@juki-team/commons';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useFetcher } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
@@ -28,7 +28,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
     const users: { [key: string]: UserSummaryListResponseDTO } = {};
     const dataUsers = (data?.success ? data?.contents : []);
     dataUsers.forEach(user => {
-      users[user.nickname] = user;
+      users[getUserKey(user.nickname, user.company.key)] = user;
     });
     return users;
   }, [ data ]);
@@ -38,15 +38,16 @@ export const UsersSelector = (props: UsersSelectorProps) => {
     let error = '';
     const validNicknames: string[] = [];
     nicknames.forEach(nickname => {
-      if (users[nickname]) {
-        validNicknames.push(nickname);
+      const userKey = getUserKey(nickname, companyKey);
+      if (users[userKey]) {
+        validNicknames.push(userKey);
       } else {
         error += `${error ? ', ' : ''}"${nickname}" unknown nickname`;
       }
     });
     setError(error);
     setTextNicknames(validNicknames);
-  }, [ text, users ]);
+  }, [ companyKey, text, users ]);
   
   const resetText = () => {
     setText(selectedUsers.join(','));
@@ -55,8 +56,8 @@ export const UsersSelector = (props: UsersSelectorProps) => {
     return <div><SpinIcon /></div>;
   }
   
-  const onChangeSelectedUsers = (nicknames: string[]) => {
-    const selectedUsers: UserSummaryListResponseDTO[] = nicknames.map(nickname => users[nickname]);
+  const onChangeSelectedUsers = (userKeys: string[]) => {
+    const selectedUsers: UserSummaryListResponseDTO[] = userKeys.map(userKey => users[userKey]);
     if (maxUsersSelection > 0) {
       _onChangeSelectedUsers(selectedUsers.slice(-maxUsersSelection));
     } else {
@@ -103,15 +104,16 @@ export const UsersSelector = (props: UsersSelectorProps) => {
           label: (
             <UserChip
               nickname={user.nickname}
+              companyKey={companyKey}
               imageUrl={user.imageUrl}
               email={user.email}
               familyName={user.familyName}
               givenName={user.givenName}
-              className="flex-1 jk-pg-sm-tb"
+              className="flex-1 jk-pg-x-sm-tb"
             />
           ),
           inputLabel: user.nickname,
-          value: user.nickname,
+          value: getUserKey(user.nickname, user.company.key),
         }))}
         selectedOptions={selectedUsers.map(user => ({ value: user }))}
         onChange={options => onChangeSelectedUsers(options.map(option => option.value))}

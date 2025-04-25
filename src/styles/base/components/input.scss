@@ -565,6 +565,15 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       background-color: var(--t-color-primary);
       color: var(--t-color-primary-text);
     }
+    
+    
+    &.multiselect {
+      .jk-input-checkbox-wrapper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+    }
   }
 }
 

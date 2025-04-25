@@ -1,4 +1,4 @@
-import { UserSummaryListResponseDTO } from '@juki-team/commons';
+import { getUserKey, UserSummaryListResponseDTO } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { UsersSelector as UsersSelectorComponent } from './UsersSelector';
@@ -14,7 +14,7 @@ export const UsersSelector = () => {
     <MockupJukiProvider>
       <div className="jk-pg-lg">
         <UsersSelectorComponent
-          selectedUsers={users.map((user) => user.nickname)}
+          selectedUsers={users.map((user) => getUserKey(user.nickname, user.company.key))}
           onChangeSelectedUsers={(selectedUsers) => {
             setUsers(selectedUsers);
           }}
