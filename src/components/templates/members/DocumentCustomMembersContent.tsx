@@ -1,6 +1,7 @@
 import {
   EntityMembersRank,
   EntityMembersResponseDTO,
+  getUserKey,
   MemberType,
   UserSummaryListResponseDTO,
 } from '@juki-team/commons';
@@ -209,7 +210,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                 onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
                   const administrators: EntityMembersResponseDTO['administrators'] = {};
                   for (const user of selectedUsers) {
-                    administrators[user.nickname] = {
+                    administrators[getUserKey(user.nickname, user.company.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
                       company: { key: user.company?.key },
@@ -271,7 +272,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                 onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
                   const managers: EntityMembersResponseDTO['managers'] = {};
                   for (const user of selectedUsers) {
-                    managers[user.nickname] = {
+                    managers[getUserKey(user.nickname, user.company.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
                       company: { key: user.company?.key },
@@ -333,7 +334,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                 onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
                   const participants: EntityMembersResponseDTO['participants'] = {};
                   for (const user of selectedUsers) {
-                    participants[user.nickname] = {
+                    participants[getUserKey(user.nickname, user.company.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
                       company: { key: user.company?.key },
@@ -395,7 +396,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                 onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
                   const guests: EntityMembersResponseDTO['guests'] = {};
                   for (const user of selectedUsers) {
-                    guests[user.nickname] = {
+                    guests[getUserKey(user.nickname, user.company.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
                       company: { key: user.company?.key },
@@ -457,7 +458,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                 onChangeSelectedUsers={(selectedUsers: UserSummaryListResponseDTO[]) => {
                   const spectators: EntityMembersResponseDTO['spectators'] = {};
                   for (const user of selectedUsers) {
-                    spectators[user.nickname] = {
+                    spectators[getUserKey(user.nickname, user.company.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
                       company: { key: user.company?.key },
