@@ -140,7 +140,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   background-color: var(--input-background-color);
   outline: 1px solid var(--input-border-color);
   outline-color: var(--input-border-color);
-  @include mixins.transition-fast(border-color, box-shadow, outline-color);
+  
+  * {
+    @include mixins.transition(box-shadow, color, background-color, border-color, outline-color);
+  }
   
   &:not(.disabled) {
     &:hover, &:focus, &:active, &.open {
