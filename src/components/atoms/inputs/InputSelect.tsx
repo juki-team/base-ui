@@ -44,17 +44,19 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
         'no-label': !inputLabel,
       })}
     >
-      <input
-        {...register}
-        ref={(ref) => {
-          inputRef.current = ref;
-          if ('ref' in register) {
-            register?.ref?.(ref);
-          }
-        }}
-        value={value as string}
-        style={{ display: 'none' }}
-      />
+      {_register && (
+        <input
+          {...register}
+          ref={(ref) => {
+            inputRef.current = ref;
+            if ('ref' in register) {
+              register?.ref?.(ref);
+            }
+          }}
+          value={value as string}
+          style={{ display: 'none' }}
+        />
+      )}
       <Select
         {...selectProps}
         onChange={myOnChange}
