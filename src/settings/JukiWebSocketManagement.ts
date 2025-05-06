@@ -145,6 +145,10 @@ export class JukiWebSocketManagement {
   }
   
   async connect() {
+    if (!this.socketServiceUrl) {
+      consoleWarn('Websocket Url not setted');
+      return;
+    }
     if (this._socket?.readyState === WebSocket.OPEN) {
       return;
     }
