@@ -1,4 +1,12 @@
-import { consoleWarn, ERROR, ErrorCode, ErrorResponseType, HTTPMethod } from '@juki-team/commons';
+import {
+  consoleWarn,
+  ERROR,
+  ErrorCode,
+  ErrorResponseType,
+  HTTPMethod,
+  JUKI_FORWARDED_HOST,
+  JUKI_SESSION_ID,
+} from '@juki-team/commons';
 import { jukiApiSocketManager } from '../settings';
 import { AuthorizedRequestType } from '../types';
 
@@ -8,7 +16,7 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N
   
   const requestHeaders = new Headers(headers ?? {});
   requestHeaders.set('accept', 'application/json');
-  requestHeaders.set('x-juki-forwarded-host', window?.location?.host);
+  requestHeaders.set(JUKI_FORWARDED_HOST, window?.location?.host);
   
   if (!(body instanceof FormData)) {
     requestHeaders.set('content-type', 'application/json');
@@ -17,7 +25,7 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N
   const token = options?.token || jukiApiSocketManager.getToken();
   
   if (token) {
-    requestHeaders.set('x-juki-session-id', token);
+    requestHeaders.set(JUKI_SESSION_ID, token);
   }
   
   try {
