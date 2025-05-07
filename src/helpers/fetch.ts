@@ -8,7 +8,7 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N
   
   const requestHeaders = new Headers(headers ?? {});
   requestHeaders.set('accept', 'application/json');
-  requestHeaders.set('x-forwarded-host', window?.location?.host);
+  requestHeaders.set('x-juki-forwarded-host', window?.location?.host);
   
   if (!(body instanceof FormData)) {
     requestHeaders.set('content-type', 'application/json');
