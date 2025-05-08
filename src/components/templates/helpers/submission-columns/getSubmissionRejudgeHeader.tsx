@@ -2,7 +2,7 @@ import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { Field } from '../../../organisms/DataViewer/Field';
 import { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
-import { SubmissionRejudgeButton } from '../../submission/commons/SubmissionRejudgeButton';
+import { SubmissionRejudgeButton } from '../../submission/SubmissionRejudgeButton';
 
 export const getSubmissionRejudgeHeader = (): DataViewerHeadersType<SubmissionSummaryListResponseDTO> => ({
   head: 'rejudge',

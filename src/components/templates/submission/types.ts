@@ -29,3 +29,5 @@ export type SubmissionNicknameFieldProps = TableHeadFieldSubmissionSummaryListRe
 export type SubmissionProblemFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;
 
 export type SubmissionTimeFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;
+
+export type SubmissionRejudgeButtonProps = { submissionId: string };

@@ -14,10 +14,10 @@ import { Collapse, DateLiteral, T } from '../../../atoms';
 import { CodeViewer, Timer } from '../../../molecules';
 import { UserChip } from '../../../organisms';
 import { UpIcon } from '../../../server';
+import { SubmissionRejudgeButton } from '../SubmissionRejudgeButton';
 import { SubmissionGroupInfo } from './SubmissionGroupInfo';
 import { SubmissionListenerVerdict } from './SubmissionListenerVerdict';
 import { SubmissionMemory } from './SubmissionMemory';
-import { SubmissionRejudgeButton } from './SubmissionRejudgeButton';
 import { SubmissionTime } from './SubmissionTime';
 
 export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDTO }) => {

@@ -39,6 +39,7 @@ import { SubmissionLanguageFieldProps } from './submission/types';
 import { SubmissionModalProps } from './submission/types';
 import { SubmissionNicknameFieldProps } from './submission/types';
 import { SubmissionProblemFieldProps } from './submission/types';
+import { SubmissionRejudgeButtonProps } from './submission/types';
 import { SubmissionTimeFieldProps } from './submission/types';
 import { SubmitViewProps } from './submission/types';
 
@@ -357,6 +358,14 @@ export const SubmissionProblemField = (props: SubmissionProblemFieldProps) => (
   </Suspense>
 );
 
+const SubmissionRejudgeButtonImport = () => import('./submission/SubmissionRejudgeButton');
+const LazySubmissionRejudgeButton = lazy(() => SubmissionRejudgeButtonImport().then(module => ({ default: module.SubmissionRejudgeButton })));
+export const SubmissionRejudgeButton = (props: SubmissionRejudgeButtonProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazySubmissionRejudgeButton {...props} />
+  </Suspense>
+);
+
 const SubmissionTimeFieldImport = () => import('./submission/SubmissionTimeField');
 const LazySubmissionTimeField = lazy(() => SubmissionTimeFieldImport().then(module => ({ default: module.SubmissionTimeField })));
 export const SubmissionTimeField = (props: SubmissionTimeFieldProps) => (
@@ -413,6 +422,7 @@ export const preloadTemplates = () => {
   void SubmissionModalImport();
   void SubmissionNicknameFieldImport();
   void SubmissionProblemFieldImport();
+  void SubmissionRejudgeButtonImport();
   void SubmissionTimeFieldImport();
   void SubmitViewImport();
 };
