@@ -8,11 +8,9 @@ const buttonsVariants = (isDisabled: boolean) => ({
   whileHover: isDisabled ? {} : { scale: 1.05, transition: { duration: Duration.FAST } },
   whileTap: isDisabled ? {
     x: [ '-1rem', '1rem', 0 ],
-    transitionEnd: {
-      x: 0,
-    },
+    transitionEnd: { x: 0 },
+    transition: { duration: Duration.FAST },
   } : { scale: 0.9, transition: { duration: Duration.FAST } },
-  
 });
 
 const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => {
@@ -44,9 +42,6 @@ const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => 
       variants={buttonsVariants(disabled)}
       whileHover="whileHover"
       whileTap="whileTap"
-      transition={{
-        duration: disabled ? Duration.FAST : Duration.NORMAL,
-      }}
       type={submit ? 'submit' : 'button'}
       className={classNames(className, `jk-button ${type} jk-border-radius-inline`, size, {
         expand,

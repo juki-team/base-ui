@@ -105,9 +105,7 @@ export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
       className="jk-row extend"
     >
       <Button
-        type="secondary"
         onClick={() => setSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' })}
-        size={viewPortSize === 'sm' ? 'small' : undefined}
         icon={!collapsed && <LoginIcon />}
         expand
         style={(isVertical && !collapsed) ? { margin: '0 var(--pad-xt)' } : undefined}

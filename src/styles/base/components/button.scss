@@ -13,32 +13,38 @@
 }
 
 button.jk-button, input.jk-button, div.jk-button, span.jk-button {
-  //--button-border-width: 0px;
-  --button-border-color: transparent;
-  //--button-border-color: var(--button-background-color);
+  //--button-border-color: transparent;
   --button-padding: var(--pad-xs); // 16px
-  --size-button-loader-icon: var(--size-regular-icon);
   --button-border-padding: var(--button-padding);
   --icon-margin-right: 0;
+  --line-height: var(--size-regular-icon); // 24px
   height: auto;
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: none;
-  outline: var(--button-border-width, 0) solid var(--button-border-color);
+  //outline: var(--button-border-width, 0) solid var(--button-border-color);
+  outline: var(--button-border-width, 0) solid transparent;
   outline-offset: -1px;
   //cursor: initial;
   cursor: pointer;
   overflow: hidden;
   //padding: calc(var(--gap) - 2px) var(--button-border-padding);
-  padding: 6px var(--button-border-padding);
+  //padding: calc(var(--pad-sm) / 2) var(--button-border-padding);
+  padding: calc(var(--pad-sm) / 2) var(--pad-sm);
   opacity: 1;
+  line-height: calc(var(--line-height) - 4px);
+  --size-button-loader-icon: var(--line-height);
   @include mixins.transition(opacity, padding, outline-color);
   
+  .jk-icon {
+    --size-icon: calc(var(--line-height) - 4px);
+  }
+  
   &:not(.void) {
-    text-transform: uppercase;
-    font-weight: var(--weight-bold);
+    //text-transform: uppercase;
+    //font-weight: var(--weight-bold);
     background-color: var(--button-background-color, var(--t-color-primary));
   }
   
@@ -52,81 +58,48 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   }
   
   &.tiny {
-    line-height: var(--size-tiny-icon); // 12px;
+    --line-height: var(--size-tiny-icon); // 12px;
     font-size: var(--text-tiny-size); // 12px
     --button-padding: var(--pad-xt); // 8px
-    --size-button-loader-icon: var(--size-tiny-icon);
-    
-    .jk-icon {
-      --size-icon: var(--size-tiny-icon);
-    }
   }
   
   &.small {
-    line-height: var(--size-small-icon); // 18px
+    --line-height: var(--size-small-icon); // 18px
     font-size: var(--text-small-size); // 14px
     --button-padding: var(--pad-t); // 12px
-    --size-button-loader-icon: var(--size-small-icon);
-    
-    .jk-icon {
-      --size-icon: var(--size-small-icon);
-    }
   }
   
   &.regular {
-    line-height: var(--size-regular-icon); // 24px
+    --line-height: var(--size-regular-icon); // 24px
     font-size: var(--text-medium-size);
     --button-padding: var(--pad-xs); // 16px
-    --size-button-loader-icon: var(--size-regular-icon);
-    
-    .jk-icon {
-      --size-icon: var(--size-regular-icon);
-    }
   }
   
   &.large {
-    line-height: var(--size-large-icon); // 36px
+    --line-height: var(--size-large-icon); // 36px
     font-size: var(--text-large-size);
     --button-padding: var(--pad-s); // 20px
-    --size-button-loader-icon: var(--size-large-icon);
-    
-    .jk-icon {
-      --size-icon: var(--size-large-icon);
-    }
   }
   
   &.huge {
-    line-height: var(--size-huge-icon); // 48px
+    --line-height: var(--size-huge-icon); // 48px
     font-size: var(--text-huge-size);
     --button-padding: var(--pad-m); // 24px
-    --size-button-loader-icon: var(--size-huge-icon);
-    
-    .jk-icon {
-      --size-icon: var(--size-huge-icon);
-    }
   }
   
   &.jk-button-loader {
     
-    .button-loader-icon {
-      overflow: hidden;
-      @include mixins.transition(width, min-width, height, min-height, margin-left);
-      
-      .jk-icon {
-        width: inherit;
-        min-width: inherit;
-        height: inherit;
-        min-height: inherit;
-      }
-    }
-    
-    &.with-loader-icon {
-      --button-border-color: var(--button-background-color);
-      
-      .button-loader-icon {
-        @include mixins.box-size(var(--size-button-loader-icon));
-      }
-    }
+    //.button-loader-icon {
+    //  overflow: hidden;
+    //  @include mixins.transition(width, min-width, height, min-height, margin-left);
+    //
+    //  .jk-icon {
+    //    width: inherit;
+    //    min-width: inherit;
+    //    height: inherit;
+    //    min-height: inherit;
+    //  }
+    //}
     
     &.with-loader-icon:not(.only-icon) .button-loader-icon {
       margin-left: var(--gap);
@@ -179,8 +152,8 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
 }
 
 .jk-button.secondary {
-  --button-background-color: var(--t-color-secondary);
-  color: var(--t-color-secondary-text);
+  --button-background-color: var(--t-color-accent);
+  color: var(--t-color-accent-text);
 }
 
 .jk-button.text, .jk-button.void {
@@ -209,13 +182,13 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
 *.jk-row:not(.block), *.jk-col:not(.block), *.jk-row-col:not(.block), *:not(.jk-row):not(.jk-col):not(.jk-row-col) {
   > button.jk-button, > input.jk-button, > div.jk-button, > span.jk-button {
     &:not(.with-loader-icon):not(.only-icon) {
-      --button-border-padding: calc((var(--size-button-loader-icon) / 2) + var(--button-padding) + var(--gap) / 2);
+      //--button-border-padding: calc((var(--size-button-loader-icon) / 2) + var(--button-padding) + var(--gap) / 2);
       
       .button-loader-icon {
-        width: 0;
-        min-width: 0;
-        height: 0;
-        min-height: 0;
+        //width: 0;
+        //min-width: 0;
+        //height: 0;
+        //min-height: 0;
       }
     }
   }

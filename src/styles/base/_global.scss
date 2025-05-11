@@ -44,7 +44,7 @@ body {
 
 h1, h2, h3 {
   &:not([class*=" cr-"]):not([class^="cr-"]) {
-    color: var(--t-color-primary-dark);
+    color: var(--t-color-highlight-text);
   }
 }
 

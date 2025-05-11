@@ -1,116 +1,71 @@
-//@use "../abstracts/mixins";
+@use "../mixins";
 
 // base primary color: #164066
 // https://maketintsandshades.com
 // https://colorffy.com/dark-theme-generator #2874B9 #121212 0.1
 /* ********************************             COLORS             ******************************** */
 .jk-theme-light {
-  --base-white: white;
-  --base-black: black;
-  
-  --t-color-primary: #1F5893;
+  --t-color-primary-dark: #1C4670; //https://uicolors.app/create 800
+  --t-color-primary: #1D5187; // 700
+  --t-color-primary-light: #2365A6; // 600
   --t-color-primary-text: #FFFFFF;
-  --t-color-secondary: #EDB745;
-  --t-color-secondary-text: #FFFFFF;
   
-  --t-color-accent: #F0E04A;
+  --t-color-accent: #F0E04A; // #EDB745;
+  --t-color-accent-text: #FFFFFF;
+  
   --t-color-info: #2F86EB;
   --t-color-success: #43D787;
   --t-color-warning: #F2C94C;
   --t-color-error: #EB5757;
   
-  --t-color-white: #FAFBFC;
+  --t-color-white: #FAFBFC; // 50
   --t-color-gray: #333333;
   --t-color-black: #000102;
   
-  --t-color-highlight-light: #0001021A; // rgba(var(--t-color-black-rgb), 0.10);
-  --t-color-highlight: #00010240; // rgba(var(--t-color-black-rgb), 0.25);
-  --t-color-highlight-dark: #00010266; // rgba(var(--t-color-black-rgb), 0.40);
-  
-  --t-color-shadow-light: #00010280; // rgba(var(--t-color-black-rgb), 0.50);
-  --t-color-shadow: #000102A6; // rgba(var(--t-color-black-rgb), 0.65);
-  --t-color-shadow-dark: #000102CC; // rgba(var(--t-color-black-rgb), 0.80);
-  
-  --t-color-glow: #FAFBFC40; // rgba(var(--t-color-white-rgb), 0.25);
+  --t-color-shadow-: #454545; // 800
+  --t-color-glow: #FAFBFC40;
 }
 
 .jk-theme-dark {
-  --base-white: black;
-  --base-black: white;
-  
-  //--t-color-primary: #27598B;
-  //--t-color-primary: #5A7AAB;
-  //--t-color-primary: #08427A;
-  //--t-color-primary: #315488;
-  //--t-color-primary: #1762a1;
-  //--t-color-primary: #3E72AB;
+  --t-color-primary-dark: #44464C; //https://uicolors.app/create 800
+  --t-color-primary: #565A64; // 600
+  --t-color-primary-light: #656B75; // 500
   --t-color-primary-text: #FCFCFC;
-  --t-color-secondary: #A5A5A5;
-  --t-color-secondary-text: #FFFFFF;
   
-  --t-color-accent: #44464C;
+  --t-color-accent: #1F5893;
+  --t-color-accent-text: #FCFCFC;
+  
   --t-color-info: #4492ED;
   --t-color-success: #56DB93;
   --t-color-warning: #F3CE5E;
   --t-color-error: #ED6868;
   
-  //--t-color-white: #0A1D2E;
-  //--t-color-white: #091A29;
-  //--t-color-white: #081725;
-  //--t-color-white: #0C233B;
-  //--t-color-white: #102D4B;
-  --t-color-white: #12161A;
+  --t-color-white: #202831; // 950, 12161A
   --t-color-gray: #E1E2E3;
-  //--t-color-black: #DCE2E8;
-  //--t-color-black: #D2DEE9;
   --t-color-black: #FEFEFE;
   
-  --t-color-highlight-light: #FEFEFE40; // rgba(var(--t-color-black-rgb), 0.25);
-  --t-color-highlight: #FEFEFE66; // rgba(var(--t-color-black-rgb), 0.40);
-  --t-color-highlight-dark: #FEFEFE8C; // rgba(var(--t-color-black-rgb), 0.55);
-  
-  --t-color-shadow-light: #FEFEFE8C; // rgba(var(--t-color-white-rgb), 0.55);
-  --t-color-shadow: #FEFEFEB3; // rgba(var(--t-color-white-rgb), 0.70);
-  --t-color-shadow-dark: #FEFEFED9; // rgba(var(--t-color-white-rgb), 0.85);
-  
-  --t-color-glow: #FEFEFE40; // rgba(var(--t-color-black-rgb), 0.25);
-}
-
-//https://uicolors.app/create
-.jk-theme-light {
-  --t-color-primary-dark: #1C4670;
-  --t-color-primary-light: #3281C5;
-}
-
-.jk-theme-dark {
-  --t-color-primary-dark: #315E98;
-  --t-color-primary: #4278B5;
-  --t-color-primary-light: #6695CA;
-  //--t-color-primary-dark: #2266A7;
-  //--t-color-primary-light: #1C4670;
+  --t-color-shadow-: #444546; // 800
+  --t-color-glow: #FEFEFE40;
 }
 
 .jk-theme-light, .jk-theme-dark {
-  //--t-color-primary-dark: color-mix(in srgb, var(--t-color-primary) var(--tone), var(--base-black));
-  //--t-color-primary-light: color-mix(in srgb, var(--t-color-primary) var(--tone), var(--base-white));
+  --base-white: white;
+  --base-black: black;
   
-  --t-color-secondary-dark: color-mix(in srgb, var(--t-color-secondary) var(--tone), var(--base-black));
-  --t-color-secondary-light: color-mix(in srgb, var(--t-color-secondary) var(--tone), var(--base-white));
+  --t-color-accent-dark: color-mix(in srgb, var(--t-color-accent) var(--tone), var(--t-color-black));
+  --t-color-accent-light: color-mix(in srgb, var(--t-color-accent) var(--tone), var(--t-color-white));
   
-  --t-color-accent-dark: color-mix(in srgb, var(--t-color-accent) var(--tone), var(--base-black));
-  --t-color-accent-light: color-mix(in srgb, var(--t-color-accent) var(--tone), var(--base-white));
+  --t-color-info-dark: color-mix(in srgb, var(--t-color-info) var(--tone), var(--t-color-black));
+  --t-color-info-light: color-mix(in srgb, var(--t-color-info) var(--tone), var(--t-color-white));
   
-  --t-color-info-dark: color-mix(in srgb, var(--t-color-info) var(--tone), var(--base-black));
-  --t-color-info-light: color-mix(in srgb, var(--t-color-info) var(--tone), var(--base-white));
+  --t-color-success-dark: color-mix(in srgb, var(--t-color-success) var(--tone), var(--t-color-black));
+  --t-color-success-light: color-mix(in srgb, var(--t-color-success) var(--tone), var(--t-color-white));
   
-  --t-color-success-dark: color-mix(in srgb, var(--t-color-success) var(--tone), var(--base-black));
-  --t-color-success-light: color-mix(in srgb, var(--t-color-success) var(--tone), var(--base-white));
+  --t-color-warning-dark: color-mix(in srgb, var(--t-color-warning) var(--tone), var(--t-color-black));
+  --t-color-warning-light: color-mix(in srgb, var(--t-color-warning) var(--tone), var(--t-color-white));
   
-  --t-color-warning-dark: color-mix(in srgb, var(--t-color-warning) var(--tone), var(--base-black));
-  --t-color-warning-light: color-mix(in srgb, var(--t-color-warning) var(--tone), var(--base-white));
-  
-  --t-color-error-dark: color-mix(in srgb, var(--t-color-error) var(--tone), var(--base-black));
-  --t-color-error-light: color-mix(in srgb, var(--t-color-error) var(--tone), var(--base-white));
+  --t-color-error-dark: color-mix(in srgb, var(--t-color-error) var(--tone), var(--t-color-black));
+  --t-color-error-light: color-mix(in srgb, var(--t-color-error) var(--tone), var(--t-color-white));
   
   --t-color-gray-1: color-mix(in srgb, var(--t-color-gray) 100%, var(--t-color-white));
   --t-color-gray-2: color-mix(in srgb, var(--t-color-gray) 83%, var(--t-color-white));
@@ -118,6 +73,16 @@
   --t-color-gray-4: color-mix(in srgb, var(--t-color-gray) 49%, var(--t-color-white));
   --t-color-gray-5: color-mix(in srgb, var(--t-color-gray) 32%, var(--t-color-white));
   --t-color-gray-6: color-mix(in srgb, var(--t-color-gray) 15%, var(--t-color-white));
+  
+  --t-color-highlight-light: color-mix(in srgb, var(--t-color-black) 10%, transparent); // 1A
+  --t-color-highlight: color-mix(in srgb, var(--t-color-black) 25%, transparent); // 40
+  --t-color-highlight-dark: color-mix(in srgb, var(--t-color-black) 40%, transparent); // 66
+  
+  --t-color-shadow-light: color-mix(in srgb, var(--t-color-shadow-) 60%, transparent);
+  --t-color-shadow: color-mix(in srgb, var(--t-color-shadow-) 75%, transparent);
+  --t-color-shadow-dark: color-mix(in srgb, var(--t-color-shadow-) 90%, transparent);
+  
+  --t-color-highlight-text: color-mix(in srgb, var(--t-color-primary-light) 50%, var(--t-color-black) 80%);
 }
 
 .jk-theme-light {
@@ -129,9 +94,9 @@
 }
 
 .jk-theme-dark {
-  --tone: 85%;
+  --tone: 75%;
   --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 86%, var(--base-white));
   --t-color-black-light: color-mix(in srgb, var(--t-color-black) 96%, var(--base-white));
-  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 92%, var(--base-black));
-  --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 80%, var(--base-black));
+  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 80%, var(--base-black));
+  --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 90%, var(--base-black));
 }

@@ -51,21 +51,30 @@ export const ButtonLoader = (props: ButtonLoaderProps) => {
         }
       }, loader, event)}
       disabled={disabled || loader !== Status.NONE}
-      icon={!children && loader !== Status.NONE ? null : icon}
+      // icon={!children && loader !== Status.NONE ? null : icon}
+      icon={
+        loader === Status.ERROR
+          ? <ErrorIcon />
+          : loader === Status.SUCCESS
+            ? <CheckIcon />
+            : loader === Status.LOADING
+              ? <SpinIcon />
+              : icon
+      }
       {...restProps}
     >
       {children}
-      {loader !== Status.NONE && (
-        <div
-          className="jk-row button-loader-icon"
-        >
-          {loader === Status.ERROR
-            ? <ErrorIcon />
-            : loader === Status.SUCCESS
-              ? <CheckIcon />
-              : loader === Status.LOADING && <SpinIcon />}
-        </div>
-      )}
+      {/*{loader !== Status.NONE && (*/}
+      {/*  <div*/}
+      {/*    className="jk-row button-loader-icon"*/}
+      {/*  >*/}
+      {/*    {loader === Status.ERROR*/}
+      {/*      ? <ErrorIcon />*/}
+      {/*      : loader === Status.SUCCESS*/}
+      {/*        ? <CheckIcon />*/}
+      {/*        : loader === Status.LOADING && <SpinIcon />}*/}
+      {/*  </div>*/}
+      {/*)}*/}
     </Button>
   );
 };

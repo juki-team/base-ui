@@ -6,7 +6,7 @@ export const ThemeColorPalette = () => {
       {[ 'light', 'dark' ].map((theme) => (
         <div
           className={'jk-pg-lg jk-col gap jk-theme-' + theme}
-          style={{ backgroundColor: 'var(--t-color-white-dark)' }}
+          style={{ backgroundColor: 'var(--t-color-white)' }}
         >
           <h3>Theme {theme}</h3>
           <div className="jk-row color-cells">
@@ -17,11 +17,6 @@ export const ThemeColorPalette = () => {
             <div className="appearance-primary-light">light</div>
             <div className="appearance-primary">primary</div>
             <div className="appearance-primary-dark">dark</div>
-          </div>
-          <div className="jk-row color-cells">
-            <div className="appearance-secondary-light">light</div>
-            <div className="appearance-secondary">secondary</div>
-            <div className="appearance-secondary-dark">dark</div>
           </div>
           <div className="jk-row color-cells">
             <div className="appearance-accent-light">light</div>

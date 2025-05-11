@@ -249,12 +249,6 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
 
 .appearance-primary-light { @include mixins.look(primary-light); }
 
-.appearance-secondary-dark { @include mixins.look(secondary-dark); }
-
-.appearance-secondary { @include mixins.look(secondary); }
-
-.appearance-secondary-light { @include mixins.look(secondary-light); }
-
 .appearance-gray-1 { @include mixins.look(gray-1); }
 
 .appearance-gray-2 { @include mixins.look(gray-2); }
@@ -404,4 +398,8 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   width: calc(100% - var(--pad-md) * 2);
   height: calc(100% - var(--pad-md) * 2);
   //padding: var(--pad-md);
+}
+
+.opacity-0 {
+  opacity: 0;
 }

@@ -25,7 +25,7 @@
     font-weight: var(--weight-bold);
     text-align: left;
     line-height: 1.5;
-    color: var(--t-color-primary-dark);
+    color: var(--t-color-highlight-text);
   }
   
   h1 { font-size: 23.5px; }
@@ -171,13 +171,7 @@
     background-color: var(--t-color-highlight-light);
     padding: 0 4px;
     border-radius: var(--border-radius-inline);
-    color: var(--t-color-primary);
+    color: var(--t-color-highlight-text);
     white-space: nowrap;
-  }
-}
-
-.jk-theme-dark {
-  h1, h2, h3, h4, h5, h6 {
-    color: var(--t-color-primary);
   }
 }

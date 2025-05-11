@@ -135,9 +135,9 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
     & {
       color: var(--t-color-primary-text);
     }
-  } @else if $look == secondary-dark or $look == secondary or $look == secondary-light {
+  } @else if $look == accent-dark or $look == accent or $look == accent-light {
     & {
-      color: var(--t-color-secondary-text);
+      color: var(--t-color-accent-text);
     }
   } @else if $look == accent-light or $look == success-light or $look == info-light or $look == warning-light or $look == error-light or $look== gray-4 or $look == gray-5 or $look == gray-6 {
     & {
@@ -164,17 +164,21 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
 @mixin elevation($level) {
   @if $level == 1 {
     & {
-      box-shadow: 0 0 2px 0 var(--t-color-highlight-light), 0 1px 3px 1px var(--t-color-highlight-light);
+      box-shadow: 0 0 2px 0 var(--t-color-shadow-light), 0 1px 3px 1px var(--t-color-shadow-light);
     }
   }
   @if $level == 2 {
     & {
-      box-shadow: 0 2px 4px 0 var(--t-color-highlight), 0 1.25px 4px 1px var(--t-color-highlight);
+      box-shadow: 0 1px 3px 0 var(--t-color-shadow), 0 1.25px 4px 1px var(--t-color-shadow);
     }
   }
   @if $level == 3 {
     & {
-      box-shadow: 0 4px 6px 2px var(--t-color-highlight), 0 1.5px 5px 1px var(--t-color-highlight-dark);
+      box-shadow: 0 2px 4px 0 var(--t-color-shadow-dark), 0 1.5px 5px 1px var(--t-color-shadow-dark);
     }
   }
+}
+
+@function invert-color($color) {
+  @return rgba(255 - red($color), 255 - green($color), 255 - blue($color), alpha($color));
 }

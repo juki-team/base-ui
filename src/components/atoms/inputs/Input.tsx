@@ -44,7 +44,11 @@ const BasicInputComponent = <T extends string | number | FileList, >(_props: Inp
     <input
       {...props}
       {...restRegister}
-      onWheel={(e) => e.target instanceof HTMLElement && e?.target?.blur()}
+      onWheel={(e) => {
+        if (e.currentTarget?.type === 'number' && typeof document !== 'undefined' && document.activeElement === e.currentTarget) {
+          e.preventDefault();
+        }
+      }}
       onClick={(e) => {
         e.currentTarget?.select();
         onClick?.();

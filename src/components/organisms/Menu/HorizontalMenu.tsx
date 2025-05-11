@@ -35,20 +35,48 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
           'selected-up': !!menu[i - 1]?.selected,
           'selected-down': !!menu[i + 1]?.selected,
           selected: !!selected,
-          'jk-row gap': !withBottomMobileNav,
+          'jk-row': !withBottomMobileNav,
           'jk-col flex-1 bottom': withBottomMobileNav,
         })}
         onClick={() => onClick?.()}
         key={i}
       >
+        <div
+          className={classNames({
+            'jk-row gap': !withBottomMobileNav,
+            'jk-col flex-1 bottom': withBottomMobileNav,
+            'opacity-0': !!selected,
+          })}
+        >
+          {icon && <div className="jk-row jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>}
+          <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(label)}</div>
+        </div>
         {selected && (
           <motion.div
-            className="selected-tab-tick"
+            className="jk-pg-x-sm jk-br-ie bc-pl"
+            style={{
+              position: 'absolute',
+              zIndex: 1,
+            }}
             layoutId={layoutId}
-          />
+          >
+            <div
+              className={classNames('opacity-00', {
+                'jk-row gap': !withBottomMobileNav,
+                'jk-col flex-1 bottom': withBottomMobileNav,
+              })}
+            >
+              {icon && <div className="jk-row jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>}
+              <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(label)}</div>
+            </div>
+          </motion.div>
         )}
-        {icon && <div className="jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>}
-        <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(label)}</div>
+        {/*{selected && (*/}
+        {/*  <motion.div*/}
+        {/*    className="selected-tab-tick"*/}
+        {/*    layoutId={layoutId}*/}
+        {/*  />*/}
+        {/*)}*/}
       </div>
     );
     if (menuItemWrapper) {
@@ -81,7 +109,7 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
             <div className="jk-menu-left-section jk-row stretch left nowrap">
               {renderReactNodeOrFunction(leftSection)}
             </div>
-            <div className="jk-menu-items jk-row left gap nowrap">
+            <div className="jk-menu-items jk-row left nowrap">
               {React.Children.toArray(menus)}
             </div>
             <div className="jk-menu-right-section jk-row stretch right nowrap">

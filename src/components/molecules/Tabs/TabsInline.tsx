@@ -28,7 +28,6 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   const [ oneTabView, setOneTabView ] = useState(false);
   const selectedTabIndex = tabsArray.findIndex(({ key }) => key === selectedTabKey);
   const tabKeys = useMemoizedArray(Object.keys(tabs));
-  const [ hover, setHover ] = useState('');
   const { components: { Link } } = useJukiUI();
   const replaceRoute = useRouterStore(store => store.replaceRoute);
   
@@ -64,7 +63,6 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
   
   const displayedTabs = oneTabView ? (tabsArray[selectedTabIndex] ? [ tabsArray[selectedTabIndex] ] : []) : tabsArray;
   const layoutId = useId();
-  const layoutHoverId = useId();
   
   const renderHeaderTab = ({ key, header }: TabType<T>) => {
     const content = (
@@ -76,9 +74,16 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
           'one-tab-view': oneTabView,
           'cr-pt': key === selectedTabKey && tickStyle === 'background',
         })}
-        onMouseEnter={() => setHover(key as string)}
-        // onMouseLeave={() => setHover('')}
       >
+        {tickStyle === 'background' ? (
+          <div
+            className={classNames('tab-tick-background jk-br-ie bc-hl', { 'opacity-0': key === selectedTabKey })}
+          >
+            <div className="opacity-000">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
+          </div>
+        ) : (
+          renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })
+        )}
         {tickStyle === 'line' && key === selectedTabKey && (
           <motion.div
             className="selected-tab-tick"
@@ -87,28 +92,13 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
         )}
         {tickStyle === 'background' && key === selectedTabKey && (
           <motion.div
-            className="selected-tab-tick-back jk-br-ie"
+            className="tab-tick-background selected bc-pl jk-br-ie"
             layoutId={layoutId}
+            // transition={{ duration: 10 }}
+            style={{ zIndex: 1 }}
           >
-            <div className="selected-tab-tick-back-content">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
+            <div className="opacity-00">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
           </motion.div>
-        )}
-        {tickStyle === 'background' && key === hover && key !== selectedTabKey && (
-          <motion.div
-            className="selected-tab-tick-back-hover jk-br-ie"
-            layoutId={layoutHoverId}
-          >
-            <div className="selected-tab-tick-back-content">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
-          </motion.div>
-        )}
-        {tickStyle === 'background' ? (
-          <div
-            className="tab-tick-back-hover jk-br-ie"
-          >
-            <div className="selected-tab-tick-back-content">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
-          </div>
-        ) : (
-          renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })
         )}
       </div>
     );

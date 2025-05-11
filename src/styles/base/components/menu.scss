@@ -1,15 +1,7 @@
 @use "../../mixins";
 
-.jk-theme-light {
+.jk-theme-light, .jk-theme-dark {
   --menu-color: var(--t-color-primary-dark);
-}
-
-.jk-theme-dark {
-  //--menu-color: var(--t-color-accent);
-  //--menu-color: var(--t-color-primary-light);
-  //--menu-color: var(--t-color-primary-dark);
-  //--menu-color: var(--t-color-secondary-light);
-  --menu-color: var(--t-color-white-darkest);
 }
 
 .jk-vertical-menu-layout-container, .jk-horizontal-menu-layout-container {
@@ -193,7 +185,7 @@
         .jk-menu-item {
           position: relative;
           height: var(--height-jk-menu-item);
-          align-items: center;
+          //align-items: center;
           cursor: pointer;
           @include mixins.md { padding: 0 var(--pad-xt); }
           @include mixins.lg { padding: 0 var(--pad-xs); }
@@ -206,19 +198,19 @@
           
           &.selected {
             font-weight: var(--weight-bold);
-            @include mixins.sm { background-color: var(--t-color-secondary); }
+            @include mixins.sm { background-color: var(--t-color-accent); }
             
-            &:after {
-              position: absolute;
-              bottom: 0;
-              content: "";
-              width: 100%;
-              height: var(--pad-xt);
-              background-color: var(--t-color-secondary);
-              border-radius: 4px 4px 0 0;
-              
-              @include mixins.sm { content: none; }
-            }
+            //&:after {
+            //  position: absolute;
+            //  bottom: 0;
+            //  content: "";
+            //  width: 100%;
+            //  height: var(--pad-xt);
+            //  background-color: var(--t-color-accent);
+            //  border-radius: 4px 4px 0 0;
+            //
+            //  @include mixins.sm { content: none; }
+            //}
           }
           
           &.extra:last-child {
@@ -272,7 +264,7 @@
           left: 0;
           top: 0;
           padding: 0;
-          background-color: var(--t-color-secondary);
+          background-color: var(--t-color-accent);
           border-radius: 0 0 2px 2px;
         }
         

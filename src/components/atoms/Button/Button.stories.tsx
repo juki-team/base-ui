@@ -30,7 +30,19 @@ export const Regular: Story = {
         <T>description</T>
         <Button {...args}>click me!</Button>
         <Button {...args} icon={<LockIcon />} />
+        <Button {...args} icon={<LockIcon />} size="tiny">
+          click me!
+        </Button>
+        <Button {...args} icon={<LockIcon />} size="small">
+          click me!
+        </Button>
         <Button {...args} icon={<LockIcon />}>
+          click me!
+        </Button>
+        <Button {...args} icon={<LockIcon />} size="large">
+          click me!
+        </Button>
+        <Button {...args} icon={<LockIcon />} size="huge">
           click me!
         </Button>
       </div>
