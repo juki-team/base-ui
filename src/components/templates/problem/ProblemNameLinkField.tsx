@@ -3,7 +3,7 @@ import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { Field } from '../../organisms';
-import { OpenInNewIcon, VoidIcon } from '../../server';
+import { VoidIcon } from '../../server';
 import { ProblemStatus } from './ProblemStatus';
 import { ProblemNameLinkFieldProps } from './types';
 
@@ -28,8 +28,6 @@ export const ProblemNameLinkField = (props: ProblemNameLinkFieldProps) => {
           >
             {(shortname ? `[${shortname}] ` : '') + name}
           </div>
-          &nbsp;
-          {!!origin && <OpenInNewIcon size="small" />}
         </Link>
         {(user.tried || user.solved) && <>&nbsp;</>}
         <ProblemStatus {...user} size="small" />
