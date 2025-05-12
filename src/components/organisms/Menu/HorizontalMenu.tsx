@@ -31,10 +31,10 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
     const { selected, icon, label, onClick, menuItemWrapper } = menu[i];
     const menuItem = (
       <div
-        className={classNames('jk-menu-item jk-pg-sm jk-br-ie nowrap', {
+        className={classNames('jk-menu-item jk-pg-x-sm jk-br-ie nowrap', {
           'selected-up': !!menu[i - 1]?.selected,
           'selected-down': !!menu[i + 1]?.selected,
-          selected: !!selected,
+          'selected cr-pt': !!selected,
           'jk-row gap': !withBottomMobileNav,
           'jk-col flex-1 bottom': withBottomMobileNav,
         })}
@@ -45,7 +45,7 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
         <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(label)}</div>
         {selected && (
           <motion.div
-            className="jk-pg-sm jk-br-ie bc-pl"
+            className="jk-pg-x-sm jk-br-ie bc-pl"
             style={{
               position: 'absolute',
               zIndex: 1,
@@ -53,8 +53,8 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
             layoutId={layoutId}
           >
             <div
-              className={classNames('opacity-00', {
-                'jk-row gap': !withBottomMobileNav,
+              className={classNames({
+                'jk-row gap nowrap': !withBottomMobileNav,
                 'jk-col flex-1 bottom': withBottomMobileNav,
               })}
             >

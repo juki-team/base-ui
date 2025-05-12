@@ -19,7 +19,6 @@ export const ProblemNameLinkField = (props: ProblemNameLinkFieldProps) => {
         <Link
           href={jukiAppRoutes.JUDGE().problems.view({ key })}
           className={classNames('link jk-row nowrap', { 'ta-lt': !isCard })}
-          target={origin ? '_blank' : undefined}
         >
           <div
             style={{
