@@ -652,12 +652,12 @@ export class ApiSocketManager {
           method: HTTPMethod.GET,
         })),
         updateImage: valid<
-          { params?: { companyKey: string }, body: FormData },
+          { params?: { companyKey: string }, body: { logoType: string, contentType: string } },
           HTTPMethod.PUT
         >(({ params: { companyKey } = { companyKey: '' }, body }) => ({
           url: injectCompany(injectBaseUrl('company', `/image`), companyKey),
           method: HTTPMethod.PUT,
-          body,
+          body: JSON.stringify(body),
         })),
         updateData: valid<
           {
