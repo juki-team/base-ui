@@ -82,7 +82,7 @@
   --t-color-shadow: color-mix(in srgb, var(--t-color-shadow-) 75%, transparent);
   --t-color-shadow-dark: color-mix(in srgb, var(--t-color-shadow-) 90%, transparent);
   
-  --t-color-highlight-text: color-mix(in srgb, var(--t-color-primary-light) 50%, var(--t-color-black) 80%);
+  --t-color-highlight-text: color-mix(in srgb, var(--t-color-primary-light) 100%, var(--t-color-black) 80%);
 }
 
 .jk-theme-light {

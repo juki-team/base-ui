@@ -31,29 +31,21 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
     const { selected, icon, label, onClick, menuItemWrapper } = menu[i];
     const menuItem = (
       <div
-        className={classNames('jk-menu-item nowrap', {
+        className={classNames('jk-menu-item jk-pg-sm jk-br-ie nowrap', {
           'selected-up': !!menu[i - 1]?.selected,
           'selected-down': !!menu[i + 1]?.selected,
           selected: !!selected,
-          'jk-row': !withBottomMobileNav,
+          'jk-row gap': !withBottomMobileNav,
           'jk-col flex-1 bottom': withBottomMobileNav,
         })}
         onClick={() => onClick?.()}
         key={i}
       >
-        <div
-          className={classNames({
-            'jk-row gap': !withBottomMobileNav,
-            'jk-col flex-1 bottom': withBottomMobileNav,
-            'opacity-0': !!selected,
-          })}
-        >
-          {icon && <div className="jk-row jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>}
-          <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(label)}</div>
-        </div>
+        {icon && <div className="jk-row jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>}
+        <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(label)}</div>
         {selected && (
           <motion.div
-            className="jk-pg-x-sm jk-br-ie bc-pl"
+            className="jk-pg-sm jk-br-ie bc-pl"
             style={{
               position: 'absolute',
               zIndex: 1,
@@ -109,7 +101,7 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
             <div className="jk-menu-left-section jk-row stretch left nowrap">
               {renderReactNodeOrFunction(leftSection)}
             </div>
-            <div className="jk-menu-items jk-row left nowrap">
+            <div className="jk-menu-items jk-row gap left nowrap">
               {React.Children.toArray(menus)}
             </div>
             <div className="jk-menu-right-section jk-row stretch right nowrap">

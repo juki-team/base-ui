@@ -1,19 +1,11 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
-import React, { Dispatch, ReactNode } from 'react';
+import React, { Dispatch, KeyboardEventHandler, ReactNode } from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useJukiUserSettings } from '../../../../hooks/useJukiUser';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Modal, Popover, T } from '../../../atoms';
-import {
-  AppsIcon,
-  DarkModeIcon,
-  FlagEnImage,
-  FlagEsImage,
-  HelpIcon,
-  LightModeIcon,
-  LoadingIcon,
-} from '../../../server';
+import { AppsIcon, FlagEnImage, FlagEsImage, HelpIcon, LoadingIcon } from '../../../server';
 import { HelpSection } from '../../HelpSection/HelpSection';
 
 export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
@@ -32,14 +24,13 @@ export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
       data-tooltip-content={isOpen ? '' : isEs ? 'english' : 'español'}
       data-tooltip-place={popoverPlacement}
       data-tooltip-t-class-name="tt-se"
-      className="jk-row center extend language-setting"
+      className={classNames('jk-row center extend', { 'cr-pr': !loading })}
       onClick={loading ? undefined : () => setSettings([
         {
           key: ProfileSetting.LANGUAGE,
           value: preferredLanguage === Language.EN ? Language.ES : Language.EN,
         },
       ])}
-      style={{ cursor: loading ? 'initial' : 'pointer' }}
     >
       {loading
         ? <LoadingIcon style={{ margin: '0 var(--pad-xt)' }} />
@@ -77,27 +68,53 @@ export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
   
   const isDark = preferredTheme === Theme.DARK;
   
+  const changeThemeAndToggle = loading ? undefined : () => setSettings([
+    {
+      key: ProfileSetting.THEME,
+      value: preferredTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT,
+    },
+  ]);
+  
+  const handleKeypress: KeyboardEventHandler<HTMLInputElement> = e => {
+    if (e.code === 'Enter') {
+      changeThemeAndToggle?.();
+    }
+  };
+  
   return (
     <div
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isOpen ? '' : isDark ? 'light mode' : 'dark mode'}
       data-tooltip-place={popoverPlacement}
       data-tooltip-t-class-name="tt-se"
-      className="jk-row center extend theme-setting"
-      onClick={loading ? undefined : () => setSettings([
-        {
-          key: ProfileSetting.THEME,
-          value: preferredTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT,
-        },
-      ])}
-      style={{ cursor: loading ? 'initial' : 'pointer' }}
+      className={classNames('jk-row center extend')}
     >
       {loading
         ? <LoadingIcon style={{ margin: '0 var(--pad-xt)' }} />
         : (
-          isDark
-            ? <LightModeIcon style={small ? { margin: '0 var(--pad-xt)' } : undefined} />
-            : <DarkModeIcon style={small ? { margin: '0 var(--pad-xt)' } : undefined} />
+          <div
+            className={classNames('jk-toggle-input container--toggle', { 'cr-pr': !loading })}
+            title="color mode toggle"
+          >
+            <input
+              role="switch"
+              aria-checked={isDark}
+              onKeyDown={handleKeypress}
+              type="checkbox"
+              id="toggle"
+              className="toggle--checkbox"
+              checked={!isDark}
+              onClick={changeThemeAndToggle}
+              readOnly
+            />
+            <label
+              htmlFor="toggle"
+              className={classNames('toggle--label', { 'cr-pr': !loading })}
+              // aria-label={ariaLabel}
+            >
+              <span className="toggle--label-background"></span>
+            </label>
+          </div>
         )}
       {isOpen && (
         <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
@@ -134,7 +151,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
       data-tooltip-content={isOpen ? '' : 'help'}
       data-tooltip-place={popoverPlacement}
       data-tooltip-t-class-name="tt-se"
-      className="jk-row center extend"
+      className="jk-row center extend cr-pr"
       onClick={() => setHelpOpen(true)}
     >
       <HelpIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
@@ -198,7 +215,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
             data-tooltip-content={isOpen ? '' : 'more apps'}
             data-tooltip-place={popoverPlacement}
             data-tooltip-t-class-name="tt-se"
-            className="jk-row center extend"
+            className="jk-row center extend cr-pr"
           >
             <AppsIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
             {isOpen && (

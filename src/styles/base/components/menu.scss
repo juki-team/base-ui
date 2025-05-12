@@ -83,7 +83,6 @@
           position: relative;
           height: var(--height-jk-menu-item);
           align-items: center;
-          cursor: pointer;
           
           &.selected {
             background-color: transparent;
@@ -184,16 +183,12 @@
         
         .jk-menu-item {
           position: relative;
-          height: var(--height-jk-menu-item);
-          //align-items: center;
           cursor: pointer;
-          @include mixins.md { padding: 0 var(--pad-xt); }
-          @include mixins.lg { padding: 0 var(--pad-xs); }
-          @include mixins.hg { padding: 0 var(--pad-m); }
+          
           @include mixins.sm { flex-direction: column; }
           
           &:not(.selected):hover {
-            background: var(--t-color-highlight-light) !important;
+            background: var(--t-color-highlight);
           }
           
           &.selected {

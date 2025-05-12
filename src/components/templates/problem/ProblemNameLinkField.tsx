@@ -1,5 +1,5 @@
 import React from 'react';
-import { classNames, getJudgeOrigin } from '../../../helpers';
+import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { Field } from '../../organisms';
@@ -9,17 +9,15 @@ import { ProblemNameLinkFieldProps } from './types';
 
 export const ProblemNameLinkField = (props: ProblemNameLinkFieldProps) => {
   
-  const { record: { name, shortname, user, key, company: { key: companyKey } }, isCard } = props;
+  const { record: { name, shortname, user, key }, isCard } = props;
   
   const { components: { Link } } = useJukiUI();
-  
-  const origin = getJudgeOrigin(companyKey);
   
   return (
     <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
       <div className="jk-row nowrap">
         <Link
-          href={jukiAppRoutes.JUDGE(origin).problems.view({ key })}
+          href={jukiAppRoutes.JUDGE().problems.view({ key })}
           className={classNames('link jk-row nowrap', { 'ta-lt': !isCard })}
           target={origin ? '_blank' : undefined}
         >
