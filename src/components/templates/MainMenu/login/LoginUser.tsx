@@ -54,7 +54,7 @@ export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
                   setVisible(false);
                 }}
               >
-                <T className="ws-np">my account</T>
+                <T className="ws-np tt-se">my account</T>
               </ButtonLoader>
               <ButtonLoader
                 expand
@@ -63,7 +63,7 @@ export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
                 icon={<LogoutIcon />}
                 disabled={jukiApiSocketManager.isQueryToken()}
               >
-                <T className="ws-np">sign out</T>
+                <T className="ws-np tt-se">sign out</T>
               </ButtonLoader>
             </div>
             {/*<div className="jk-divider tiny" />*/}
@@ -110,7 +110,7 @@ export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
         expand
         style={(isVertical && !collapsed) ? { margin: '0 var(--pad-xt)' } : undefined}
       >
-        {viewPortSize !== 'sm' && (!collapsed ? <T className="ws-np ws-np">sign in</T> : <LoginIcon />)}
+        {viewPortSize !== 'sm' && (!collapsed ? <T className="ws-np tt-se">sign in</T> : <LoginIcon />)}
       </Button>
     </div>
   );

@@ -30,7 +30,7 @@ export const VerticalMenu = (props: VerticalMenuProps) => {
     const { selected, icon, label, tooltipLabel, onClick, menuItemWrapper } = menu[i];
     const menuItemContent = (
       <div
-        className={classNames('jk-menu-item', {
+        className={classNames('jk-menu-item bc-pd cr-pt', {
           'selected-up': !!menu[i - 1]?.selected,
           'selected-down': !!menu[i + 1]?.selected,
           selected: !!selected,
@@ -94,22 +94,22 @@ export const VerticalMenu = (props: VerticalMenuProps) => {
   ) : (
     <div className={classNames('jk-vertical-menu-layout-container', { collapsed: !open })}>
       <header className={classNames('jk-menu')}>
-        <section className="jk-menu-content">
+        <section className="jk-menu-content bc-pd cr-pt">
           {!isAlwaysClosed && (
-            <div className="jk-row right jk-menu-collapse-section">
+            <div className="jk-row right jk-menu-collapse-section bc-pd cr-pt">
               <div className="jk-row jk-menu-collapse" onClick={handleCollapse}>
                 {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
               </div>
             </div>
           )}
-          <div className={classNames('jk-menu-top-section', { 'selected-down': !!menu[0]?.selected })}>
+          <div className={classNames('jk-menu-top-section bc-pd cr-pt', { 'selected-down': !!menu[0]?.selected })}>
             {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
           </div>
           <div className="jk-menu-items">
             {Children.toArray(menus)}
-            <div className={classNames('jk-menu-item extra', { 'selected-up': !!menu[menu.length - 1]?.selected })} />
+            <div className={classNames('jk-menu-item extra bc-pd cr-pt', { 'selected-up': !!menu[menu.length - 1]?.selected })} />
           </div>
-          <div className={classNames('jk-menu-bottom-section')}>
+          <div className={classNames('jk-menu-bottom-section bc-pd cr-pt')}>
             {typeof bottomSection === 'function' ? bottomSection({ isOpen: open }) : bottomSection}
           </div>
         </section>

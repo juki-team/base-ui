@@ -1,9 +1,5 @@
 @use "../../mixins";
 
-.jk-theme-light, .jk-theme-dark {
-  --menu-color: var(--t-color-primary-dark);
-}
-
 .jk-vertical-menu-layout-container, .jk-horizontal-menu-layout-container {
   --border-radius-width: 24px;
   height: 100%;
@@ -59,12 +55,6 @@
       flex-direction: column;
       position: relative;
       
-      .jk-menu-top-section, .jk-menu-item, .jk-menu-bottom-section, .jk-menu-collapse-section {
-        background-color: var(--menu-color);
-        color: var(--t-color-primary-text);
-        @include mixins.transition(background-color, color);
-      }
-      
       .jk-menu-top-section {
         flex: 2;
         
@@ -94,7 +84,7 @@
               top: 0;
               left: -18px;
               content: " ";
-              background: radial-gradient(circle at right, transparent calc(var(--height-jk-menu-item) / 2), var(--menu-color) calc(var(--height-jk-menu-item) / 2)), transparent center/cover;
+              background: radial-gradient(circle at right, transparent calc(var(--height-jk-menu-item) / 2), var(--t-color-primary-dark) calc(var(--height-jk-menu-item) / 2)), transparent center/cover;
               width: var(--height-jk-menu-item);
               height: var(--height-jk-menu-item);
             }
@@ -168,7 +158,6 @@
       width: 100%;
       height: inherit;
       position: relative;
-      background-color: var(--menu-color);
       @include mixins.sm { background-color: var(--t-color-white); }
       
       .jk-menu-left-section, .jk-menu-items, .jk-menu-right-section,

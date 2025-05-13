@@ -35,7 +35,7 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
           'selected-up': !!menu[i - 1]?.selected,
           'selected-down': !!menu[i + 1]?.selected,
           'selected cr-pt': !!selected,
-          'jk-row gap': !withBottomMobileNav,
+          'jk-row gap bc-pd cr-pt': !withBottomMobileNav,
           'jk-col flex-1 bottom': withBottomMobileNav,
         })}
         onClick={() => onClick?.()}
@@ -97,7 +97,7 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
     <div className={classNames('jk-horizontal-menu-layout-container', className)}>
       <header className="jk-menu jk-top-horizontal-menu sticky-top">
         {!withBottomMobileNav && (
-          <section className="jk-row nowrap jk-menu-content">
+          <section className="jk-row nowrap jk-menu-content bc-pd cr-pt">
             <div className="jk-menu-left-section jk-row stretch left nowrap">
               {renderReactNodeOrFunction(leftSection)}
             </div>
@@ -110,7 +110,7 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
           </section>
         )}
         {withBottomMobileNav && (
-          <section className="jk-row nowrap block jk-menu-content space-between elevation-1">
+          <section className="jk-row nowrap block jk-menu-content bc-pd cr-pt space-between elevation-1">
             <div className="jk-horizontal-menu-mobile-left jk-row stretch left">
               {!!drawerMenuMobile ? (
                 <Drawer

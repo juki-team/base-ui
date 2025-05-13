@@ -134,4 +134,8 @@ html body {
   --size-scrollbar: 8px;
   
   --t-color-background: var(--t-color-white-dark);
+  
+  --transition-duration-slow: 0.45s;
+  --transition-duration: 0.3s;
+  --transition-duration-fast: 0.15s;
 }

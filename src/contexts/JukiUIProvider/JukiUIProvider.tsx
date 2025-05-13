@@ -61,7 +61,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
                 <ReactTooltip
                   id="jk-tooltip"
                   opacity={1}
-                  // isOpen
+                  isOpen
                   positionStrategy="fixed"
                   clickable
                   // disableStyleInjection

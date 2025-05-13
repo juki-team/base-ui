@@ -1,6 +1,7 @@
 // import { configureActions } from '@storybook/addon-actions';
 import { type Meta, type StoryObj } from '@storybook/react';
 import React from 'react';
+import { MockupJukiProvider, MockupToggleThemeButton } from '../../components/mockup';
 import { TabsInline as TabsComponent } from '../../components/molecules';
 
 const meta: Meta<typeof TabsComponent> = {
@@ -197,6 +198,9 @@ const tabs = {
             'cr-al',
             'cr-at',
             'cr-ad',
+            'cr-thl',
+            'cr-th',
+            'cr-thd',
           ].map((color) => (
             <div
               className="jk-row gap nowrap elevation-1 jk-pg-md jk-border-radius-inline"
@@ -510,14 +514,15 @@ const tabs = {
 
 export const Regular: Story = {
   render: (args: any) => (
-    // <MockupJukiProvider>
-    <div style={{ height: '500px' }}>
-      <TabsComponent {...args} tabs={tabs} />
-      {/*<MockupToggleThemeButton />*/}
-      <div className="flex-1" style={{ overflow: 'auto' }}>
-      
+    <MockupJukiProvider>
+      <div style={{ height: '500px' }}>
+        <TabsComponent {...args} tabs={tabs} />
+        {/*<MockupToggleThemeButton />*/}
+        <div className="flex-1" style={{ overflow: 'auto' }}>
+        
+        </div>
       </div>
-    </div>
-    // </MockupJukiProvider>
+      <MockupToggleThemeButton />
+    </MockupJukiProvider>
   ),
 };

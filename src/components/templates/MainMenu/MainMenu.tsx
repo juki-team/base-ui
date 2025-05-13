@@ -98,7 +98,7 @@ export const MainMenu = (props: MainMenuProps) => {
             const isSmall = viewPortSize === 'sm';
             return (
               <div
-                className={classNames('jk-menu-item menu-item-company-selector', { 'jk-col gap': isSmall })}
+                className={classNames('jk-menu-item menu-item-company-selector bc-pd cr-pt', { 'jk-col gap': isSmall })}
               >
                 <div className="jk-menu-item-icon" style={{ height: 48 }}>
                   {company && (

@@ -190,7 +190,7 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
       code: ({ children, className = '' }) => {
         const inline = !children?.toString().includes('\n');
         if (inline) {
-          return <code className="inline-code">{children as ReactNode}</code>;
+          return <code className="inline-code cr-th bc-hl jk-br-ie ws-np">{children as ReactNode}</code>;
         }
         
         let text = (className as string).replace('language-', '');

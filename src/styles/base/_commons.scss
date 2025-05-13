@@ -8,7 +8,7 @@
 {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, box-shadow, filter, backdrop-filter, font-weight;
   //transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 250ms;
+  transition-duration: var(--transition-duration);
 }
 
 .cr-bk { color: var(--t-color-black); }
@@ -38,6 +38,12 @@
 .cr-wg { color: var(--t-color-warning); }
 
 .cr-er { color: var(--t-color-error); }
+
+.cr-thl { color: var(--t-color-text-highlight-light); }
+
+.cr-th { color: var(--t-color-text-highlight); }
+
+.cr-thd { color: var(--t-color-text-highlight-dark); }
 
 .cr-pl { color: var(--t-color-primary-light); }
 
@@ -190,7 +196,7 @@
 }
 
 .link:not(.jk-icon) {
-  color: var(--t-color-primary-light);
+  color: var(--t-color-text-highlight-light);
   cursor: pointer;
   
   &:hover {

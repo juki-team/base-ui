@@ -25,7 +25,7 @@
     font-weight: var(--weight-bold);
     text-align: left;
     line-height: 1.5;
-    color: var(--t-color-highlight-text);
+    color: var(--t-color-text-highlight);
   }
   
   h1 { font-size: 23.5px; }
@@ -168,10 +168,6 @@
   }
   
   code.inline-code {
-    background-color: var(--t-color-highlight-light);
     padding: 0 4px;
-    border-radius: var(--border-radius-inline);
-    color: var(--t-color-highlight-text);
-    white-space: nowrap;
   }
 }

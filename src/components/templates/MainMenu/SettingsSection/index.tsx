@@ -1,11 +1,11 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
-import React, { Dispatch, KeyboardEventHandler, ReactNode } from 'react';
+import React, { Dispatch, KeyboardEventHandler, ReactNode, SyntheticEvent } from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useJukiUserSettings } from '../../../../hooks/useJukiUser';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Modal, Popover, T } from '../../../atoms';
-import { AppsIcon, FlagEnImage, FlagEsImage, HelpIcon, LoadingIcon } from '../../../server';
+import { AppsIcon, FlagEnImage, FlagEsImage, HelpIcon, LoadingIcon, SpinIcon } from '../../../server';
 import { HelpSection } from '../../HelpSection/HelpSection';
 
 export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
@@ -68,14 +68,19 @@ export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
   
   const isDark = preferredTheme === Theme.DARK;
   
-  const changeThemeAndToggle = loading ? undefined : () => setSettings([
-    {
-      key: ProfileSetting.THEME,
-      value: preferredTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT,
-    },
-  ]);
+  const changeThemeAndToggle = loading ? undefined : (event?: SyntheticEvent) => {
+    event?.stopPropagation();
+    event?.preventDefault();
+    void setSettings([
+      {
+        key: ProfileSetting.THEME,
+        value: preferredTheme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT,
+      },
+    ]);
+  };
   
   const handleKeypress: KeyboardEventHandler<HTMLInputElement> = e => {
+    console.log('handleKeypress', { e });
     if (e.code === 'Enter') {
       changeThemeAndToggle?.();
     }
@@ -84,16 +89,17 @@ export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
   return (
     <div
       data-tooltip-id="jk-tooltip"
-      data-tooltip-content={isOpen ? '' : isDark ? 'light mode' : 'dark mode'}
+      data-tooltip-content={isOpen ? '' : isDark ? 'switch to light mode' : 'switch to dark mode'}
       data-tooltip-place={popoverPlacement}
       data-tooltip-t-class-name="tt-se"
-      className={classNames('jk-row center extend')}
+      className={classNames('jk-row center extend', { 'cr-pr': !loading })}
+      onClick={changeThemeAndToggle}
     >
       {loading
-        ? <LoadingIcon style={{ margin: '0 var(--pad-xt)' }} />
+        ? <SpinIcon style={{ margin: '0 var(--pad-xt)' }} />
         : (
           <div
-            className={classNames('jk-toggle-input container--toggle', { 'cr-pr': !loading })}
+            className={classNames('jk-theme-toggle-input container--toggle', { 'cr-pr': !loading })}
             title="color mode toggle"
           >
             <input
@@ -104,7 +110,6 @@ export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
               id="toggle"
               className="toggle--checkbox"
               checked={!isDark}
-              onClick={changeThemeAndToggle}
               readOnly
             />
             <label

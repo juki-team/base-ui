@@ -1,32 +1,32 @@
 @keyframes reverse {
   0% {
-    left: calc(var(--toggle-input));
+    left: calc(var(--toggle-width) - var(--toggle-input));
     width: var(--circle-size);
   }
   60% {
-    left: 3px;
-    width: calc(var(--circle-size) * 2);
+    left: var(--border);
+    width: calc(var(--toggle-width) - var(--border) * 2 - 2px);
   }
   100% {
-    left: 3px;
+    left: var(--border);
   }
 }
 
 @keyframes switch {
   0% {
-    left: 3px;
+    left: var(--border);
   }
   60% {
-    left: 3px;
-    width: calc(var(--circle-size) * 2);
+    left: var(--border);
+    width: calc(var(--toggle-width) - var(--border) * 2 - 2px);
   }
   100% {
-    left: calc(var(--toggle-input));
+    left: calc(var(--toggle-width) - var(--toggle-input));
     width: var(--circle-size);
   }
 }
 
-.jk-toggle-input {
+.jk-theme-toggle-input {
   --blue-background: #C2E9F6;
   --blue-border: #108DAD;
   --blue-color: #96DCEE;
@@ -40,7 +40,9 @@
   --gray-dots: #E8E8EA;
   
   --toggle-input: var(--size-regular-icon);
-  --circle-size: calc(var(--size-regular-icon) - 7px);
+  --toggle-width: calc(var(--toggle-input) * 1.6);
+  --circle-size: calc(var(--size-regular-icon) - var(--border) - var(--border) - 2px);
+  --border: 2px;
   
   .toggle--checkbox {
     opacity: 0;
@@ -48,8 +50,8 @@
   }
   
   .toggle--checkbox:focus + .toggle--label {
-    outline: solid 3px var(--button-border);
-    transition: outline 100ms ease-in;
+    outline: solid var(--border) var(--button-border);
+    transition: outline var(--transition-duration-fast) ease-in;
   }
   
   .container--toggle {
@@ -64,14 +66,14 @@
   /* background */
   
   .toggle--label {
-    width: calc(var(--toggle-input) + var(--toggle-input));
-    height: calc(var(--toggle-input) + 2px);
+    width: var(--toggle-width);
+    height: var(--toggle-input);
     background: var(--indigo-color);
     border-radius: 100px;
-    border: 3px solid var(--indigo-border);
+    border: var(--border) solid var(--indigo-border);
     display: flex;
     position: relative;
-    transition: all 350ms ease-in;
+    transition: all var(--transition-duration) ease-in;
     color: var(--indigo-color);
   }
   
@@ -85,23 +87,23 @@
   
   .toggle--checkbox:checked + .toggle--label:before {
     animation-name: reverse;
-    animation-duration: 350ms;
+    animation-duration: var(--transition-duration);
     animation-fill-mode: forwards;
-    transition: all 360ms ease-in;
+    transition: all var(--transition-duration) ease-in;
     background: var(--yellow-background);
     border-color: var(--yellow-border);
   }
   
   .toggle--label:before {
     animation-name: switch;
-    animation-duration: 350ms;
+    animation-duration: var(--transition-duration);
     animation-fill-mode: forwards;
     content: "";
     width: var(--circle-size);
     height: var(--circle-size);
-    border: 3px solid var(--gray-border);
+    border: var(--border) solid var(--gray-border);
     top: 1px;
-    left: 3px;
+    left: var(--border);
     position: absolute;
     border-radius: 40px;
     background: white;
@@ -111,11 +113,11 @@
   
   .toggle--label:after {
     transition-delay: 0ms;
-    transition: all 250ms ease-in;
+    transition: all var(--transition-duration) ease-in;
     position: absolute;
     content: "";
     box-shadow: var(--gray-dots) calc(var(--circle-size) * -0.8) 0 0 1px, var(--gray-dots) calc(var(--circle-size) * -1) calc(var(--circle-size) * 0.5) 0 -0.5px;
-    left: calc(var(--toggle-input) * 2);
+    left: calc(var(--toggle-width));
     top: calc(var(--circle-size) * 0.4);
     width: calc(var(--circle-size) * 0.2);
     height: calc(var(--circle-size) * 0.2);
@@ -132,24 +134,24 @@
   /* clouds */
   
   .toggle--checkbox:checked + .toggle--label .toggle--label-background {
-    top: calc(var(--toggle-input) / 2 - 2px);
-    height: calc(var(--circle-size) * 0.3);
+    top: calc(var(--toggle-input) / 2 - var(--border) / 2);
     width: calc(var(--circle-size) * 0.2);
-    left: calc(var(--toggle-input) + var(--circle-size) * 0.6);
+    height: var(--border);
+    left: calc(var(--toggle-width) - var(--circle-size) * 0.5);
   }
   
   .toggle--checkbox:checked + .toggle--label .toggle--label-background:before {
-    top: calc(var(--circle-size) * -0.2 + 1px);
-    width: calc(var(--circle-size) * 0.7);
-    height: calc(var(--circle-size) * 0.2);
-    left: calc(var(--circle-size) * -0.1);
+    top: calc((var(--border) + 1px) * -1);
+    width: calc((var(--toggle-width) - var(--circle-size)) * 0.4);
+    height: var(--border);
+    left: calc(var(--border) * -0.8);
   }
   
   .toggle--checkbox:checked + .toggle--label .toggle--label-background:after {
-    top: calc(var(--circle-size) * 0.2);
-    width: calc(var(--circle-size) * 0.7);
-    height: calc(var(--circle-size) * 0.2);
-    left: calc(var(--circle-size) * -0.3);
+    top: calc(var(--border) + 1px);
+    width: calc((var(--toggle-width) - var(--circle-size)) * 0.4);
+    height: var(--border);
+    left: calc(var(--border) * -1.6);
   }
   
   /* stars */
@@ -158,21 +160,21 @@
     border-radius: 5px;
     position: relative;
     background: white;
-    width: calc(var(--toggle-input) * 0.1);
-    height: calc(var(--toggle-input) * 0.1);
-    left: calc(var(--toggle-input) * 0.6);
+    width: var(--border);
+    height: var(--border);
+    left: calc(var(--circle-size) - var(--circle-size) / 2);
     top: calc(var(--circle-size) * 0.7);
-    transition: all 150ms ease-in;
+    transition: all var(--transition-duration-fast) ease-in;
   }
   
   .toggle--label-background:before {
     content: "";
     position: absolute;
-    width: calc(var(--toggle-input) * 0.1);
-    height: calc(var(--toggle-input) * 0.1);
-    left: calc(var(--toggle-input) * -0.3);
-    top: calc(var(--toggle-input) * -0.3);
-    transition: all 150ms ease-in;
+    width: var(--border);
+    height: var(--border);
+    left: calc(var(--border) * -1.2);
+    top: calc(var(--circle-size) * -0.3);
+    transition: all var(--transition-duration-fast) ease-in;
     border-radius: 5px;
     background: white;
   }
@@ -180,11 +182,11 @@
   .toggle--label-background:after {
     content: "";
     position: absolute;
-    width: calc(var(--toggle-input) * 0.1);
-    height: calc(var(--toggle-input) * 0.1);
-    left: calc(var(--toggle-input) * -0.4);
-    top: calc(var(--toggle-input) * 0.2);
-    transition: all 150ms ease-in;
+    width: var(--border);
+    height: var(--border);
+    left: calc(var(--border) * -1.4);
+    top: calc(var(--circle-size) * 0.2);
+    transition: all var(--transition-duration-fast) ease-in;
     border-radius: 5px;
     background: white;
     
