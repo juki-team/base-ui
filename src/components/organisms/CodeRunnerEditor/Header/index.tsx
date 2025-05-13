@@ -187,7 +187,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
           type="light"
           onClick={() => setShowSettings(true)} icon={<SettingsIcon />}
         >
-          {(twoRows || withLabels) && <T>settings</T>}
+          {(twoRows || withLabels) && <T className="tt-se">settings</T>}
         </Button>
         {expanded !== null && (
           <Button
@@ -199,7 +199,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             onClick={() => setExpanded(prevState => !prevState)}
             icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
           >
-            {(twoRows || withLabels) && <T>{expanded ? 'back' : 'expand'}</T>}
+            {(twoRows || withLabels) && <T className="tt-se">{expanded ? 'back' : 'expand'}</T>}
           </Button>
         )}
         {rightOptions({ withLabels, twoRows })}
