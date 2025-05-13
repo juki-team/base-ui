@@ -80,7 +80,6 @@ export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
   };
   
   const handleKeypress: KeyboardEventHandler<HTMLInputElement> = e => {
-    console.log('handleKeypress', { e });
     if (e.code === 'Enter') {
       changeThemeAndToggle?.();
     }
