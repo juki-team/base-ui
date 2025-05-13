@@ -281,7 +281,7 @@ export const ProblemInfo = ({ problem }: ProblemInfoProps) => {
       placement="bottom"
     >
       <div className="jk-row link">
-        <ExclamationIcon filledCircle className="cr-py" rotate={180} />
+        <ExclamationIcon filledCircle className="cr-py" rotate={180} color="cr-pt" />
       </div>
     </Popover>
   );

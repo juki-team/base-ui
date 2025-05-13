@@ -10,6 +10,7 @@ export const renderSignIcon = (_props: SignIconProps, Component: ComponentType<R
   
   const {
     size = 'regular',
+    color,
     className = '',
     circle = false,
     square = false,
@@ -32,9 +33,11 @@ export const renderSignIcon = (_props: SignIconProps, Component: ComponentType<R
         {square && <SquareFrame />}
         <Component
           color={
-            (filledCircle || filledSquare)
-              ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)'))
-              : 'currentColor'}
+            color
+              ? color
+              : (filledCircle || filledSquare)
+                ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)'))
+                : 'currentColor'}
           width={2.5}
         />
       </svg>

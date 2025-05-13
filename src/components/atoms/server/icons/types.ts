@@ -13,6 +13,7 @@ export interface IconProps {
   viewBox?: string,
   letter?: string,
   letterColor?: string,
+  color?: string,
 }
 
 type locked = never | false | undefined;

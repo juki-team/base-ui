@@ -112,7 +112,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       ref={headerRef}
     >
       <div
-        className={classNames('cr-pd jk-row gap left', { 'jk-col left gap': twoRows, 'jk-row gap left': !twoRows })}
+        className={classNames('cr-th jk-row gap left', { 'jk-col left gap': twoRows, 'jk-row gap left': !twoRows })}
         ref={refLeftSection}
       >
         {readOnly ? (
@@ -149,7 +149,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
               setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
               disabled={!isConnected}
             >
-              {(twoRows || withLabels) && <T>run</T>}
+              {(twoRows || withLabels) && <T className="tt-se">run</T>}
             </ButtonLoader>
             {!isConnected && (
               <ButtonLoader
@@ -176,7 +176,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
         {centerOptions({ widthContainer: widthCenterContainer, withLabels, twoRows })}
       </div>
       <div
-        className={classNames('jk-row gap cr-pd', { 'jk-col gap': twoRows, 'jk-row right gap': !twoRows })}
+        className={classNames('jk-row gap cr-th', { 'jk-col gap': twoRows, 'jk-row right gap': !twoRows })}
         ref={refRightSection}
       >
         <Button

@@ -204,8 +204,8 @@ export const ProblemStatementView = ({
           <div className="jk-row stretch gap">
             <div className="jk-row stretch gap nowrap flex-1 jk-pg-sm-tb">
               {/*<h3><T>output sample</T></h3>*/}
-              <div className="jk-row"><T className="tt-se tx-h cr-pd fw-bd">input sample</T></div>
-              <div className="jk-row"><T className="tt-se tx-h cr-pd fw-bd">output sample</T></div>
+              <div className="jk-row"><T className="tt-se tx-h cr-th fw-bd">input sample</T></div>
+              <div className="jk-row"><T className="tt-se tx-h cr-th fw-bd">output sample</T></div>
             </div>
           </div>
           <div className="jk-col stretch gap">
