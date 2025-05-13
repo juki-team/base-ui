@@ -79,7 +79,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
   const [ mdSource, setMdSource ] = useState(source);
   const [ editing, setEditing ] = useState(initEditMode);
   const [ loader, setLoader ] = useState(Status.NONE);
-  const layoutEditorRef = useRef(null);
+  const layoutEditorRef = useRef<HTMLDivElement>(null);
   const { addNotification } = useJukiNotification();
   const changeSource = useCallback((newText: string, editing: boolean, view: View) => {
     const fun = () => {
@@ -151,11 +151,31 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
     }
   };
   
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (layoutEditorRef.current && !layoutEditorRef.current.contains(event.target as Node)) {
+        setEditing(false);
+      }
+    };
+    
+    if (typeof document !== 'undefined') {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.removeEventListener('mousedown', handleClickOutside);
+      }
+    };
+  }, []);
+  
   return (
-    <div ref={layoutEditorRef} className={classNames('jk-md-math-editor-layout jk-border-radius-inline', { editing })}>
+    <div
+      ref={layoutEditorRef}
+      className={classNames('jk-md-math-editor-layout jk-border-radius-inline', { editing })}
+    >
       {editing ? (
         <>
-          <div className="content-bar-options jk-row space-between bc-hl jk-br-ie jk-pg-x-sm sticky-top">
+          <div className="content-bar-options jk-row space-between jk-br-ie jk-pg-x-sm sticky-top bc-we">
             <div className={classNames('jk-row gap left', { gap: !withLabels })}>
               {informationButton && <InformationButton withLabel={withLabels} />}
               {uploadImageButton && (
@@ -246,7 +266,13 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
             onEdit={() => setEditing(true)}
             download={downloadButton}
           />
-          <div className="preview" onDoubleClick={() => setEditing(true)}>
+          <div
+            className="preview"
+            onDoubleClick={() => {
+              setEditing(true);
+              setView(View.EDITOR_VIEWER_HORIZONTAL);
+            }}
+          >
             <MdMathViewer className="jk-br-ie br-hl" source={mdSource} />
           </div>
         </div>

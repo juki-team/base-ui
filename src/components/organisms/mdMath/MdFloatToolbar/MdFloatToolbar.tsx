@@ -55,5 +55,5 @@ export const MdFloatToolbar = ({ source, edit, onEdit, download }: MdFloatToolba
     });
   }
   
-  return <FloatToolbar actionButtons={actionButtons} />;
+  return <FloatToolbar actionButtons={actionButtons} placement="rightTop" />;
 };

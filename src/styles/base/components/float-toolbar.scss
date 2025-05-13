@@ -2,7 +2,8 @@
 
 .jk-float-toolbar-layout {
   position: sticky;
-  top: calc(var(--pad-t) + var(--pad-t));
+  //top: calc(var(--pad-t) + var(--pad-t));
+  top: 0;
   z-index: 1;
   width: 100%;
   
@@ -39,6 +40,8 @@
   }
   
   &.rightTop, &.top, &.leftTop {
+    top: var(--pad-t);
+    
     .button-action .buttons-content {
       top: unset;
       bottom: 0;

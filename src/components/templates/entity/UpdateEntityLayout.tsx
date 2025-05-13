@@ -31,7 +31,7 @@ export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U,
         icon={<CloseIcon />}
         responsiveMobile
       >
-        <T>cancel</T>
+        <T className="tt-se">cancel</T>
       </ButtonLoader>
     </CheckUnsavedChanges>,
     <ButtonLoader
@@ -57,7 +57,7 @@ export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U,
       }}
       responsiveMobile
     >
-      <T>update</T>
+      <T className="tt-se">update</T>
     </ButtonLoader>,
   ], [ entityKey, mutate, notifyResponse, pushRoute, toEntityUpsert, updateApiURL, viewApiURL, viewRoute ]);
   

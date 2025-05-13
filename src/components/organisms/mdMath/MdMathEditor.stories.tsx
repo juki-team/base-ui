@@ -24,7 +24,7 @@ const Cmp = ({ props }: { props: MdMathEditorProps }) => {
   const [ text, setText ] = useState(SAMPLE_MD_CONTENT);
   return (
     <MockupJukiProvider>
-      <div style={{ height: '100%', overflow: 'auto' }}>
+      <div style={{ height: '100%', overflow: 'auto' }} className="jk-pg">
         <MdMathEditorComponent
           {...props}
           source={text}

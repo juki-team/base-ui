@@ -28,7 +28,7 @@ export function CreateEntityLayout<T, U, V>(props: CreateEntityLayoutProps<T, U,
         icon={<CloseIcon />}
         responsiveMobile
       >
-        <T>cancel</T>
+        <T className="tt-se">cancel</T>
       </ButtonLoader>
     </CheckUnsavedChanges>,
     <ButtonLoader
@@ -52,7 +52,7 @@ export function CreateEntityLayout<T, U, V>(props: CreateEntityLayoutProps<T, U,
       }}
       responsiveMobile
     >
-      <T>create</T>
+      <T className="tt-se">create</T>
     </ButtonLoader>,
   ];
   
