@@ -9,8 +9,7 @@ interface LastPathState {
 }
 
 export const useLastPathStore = create<LastPathState>()(
-  persist(
-    (set, get) => ({
+  persist((set, get) => ({
       lastPath: {},
       pushPath: ({ key, pathname, searchParams }) => {
         const newLastPath = {

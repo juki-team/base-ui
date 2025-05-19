@@ -24,6 +24,7 @@ export * from './useMutate';
 export * from './usePreload';
 export * from './usePreloadComponents';
 export * from './useStableState';
+export * from './useStore';
 export * from './useTriggerWrapper';
 export * from './useWidthResizer';
 export * from '../contexts/JukiTasksProvider/useJukiTask';
