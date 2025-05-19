@@ -37,7 +37,18 @@ export const useUserStore = create<UserState>()(
     }),
     {
       name: 'jk-user-store',
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => sessionStorage, {
+        replacer: (key, value) => {
+          if (value instanceof URLSearchParams) {
+            return { __urlSearchParams: true, value: value.toString() };
+          }
+          return value;
+        },
+        reviver: (key, value) => {
+          console.log('reviver', { key, value });
+          return value;
+        },
+      }),
       partialize: (state) => ({
         user: state.user,
         company: state.company,
