@@ -31,7 +31,7 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
     const { selected, icon, label, onClick, menuItemWrapper } = menu[i];
     const menuItem = (
       <div
-        className={classNames('jk-menu-item jk-pg-xsm jk-br-ie nowrap', {
+        className={classNames('jk-menu-item jk-pg-xsm jk-br-ie nowrap cr-pr', {
           'selected-up': !!menu[i - 1]?.selected,
           'selected-down': !!menu[i + 1]?.selected,
           'selected cr-pt': !!selected,
@@ -41,8 +41,14 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
         onClick={() => onClick?.()}
         key={i}
       >
-        {icon && <div className="jk-row jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>}
-        <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(label)}</div>
+        {icon && (
+          <div className="jk-menu-item-icon jk-row" style={{ opacity: selected ? 0 : undefined }}>
+            {renderReactNodeOrFunction(icon)}
+          </div>
+        )}
+        <div className="jk-menu-item-label tx-t" style={{ opacity: selected ? 0 : undefined }}>
+          {renderReactNodeOrFunction(label)}
+        </div>
         {selected && (
           <motion.div
             className="jk-pg-xsm jk-br-ie bc-pl"

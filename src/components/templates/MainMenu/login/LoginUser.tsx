@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiUI, useJukiUser, useRouterStore, useUserStore } from '../../../../hooks';
 import { jukiApiSocketManager } from '../../../../settings';
@@ -24,7 +24,6 @@ export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
   const userIsLoading = useUserStore(state => state.isLoading);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
   const { viewPortSize, components: { Image } } = useJukiUI();
-  const [ visible, setVisible ] = useState(false);
   
   if (userIsLoading) {
     return <div className="jk-row"><SpinIcon className="cr-we" /></div>;
@@ -34,8 +33,6 @@ export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
     return (
       <Popover
         popoverClassName="bc-we jk-br-ie elevation-1"
-        open={visible}
-        onOpenChange={(visible) => setVisible(visible)}
         content={
           <div className="jk-col gap user-profile-popup jk-pg-sm">
             <Image
@@ -51,14 +48,13 @@ export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
                 expand
                 onClick={async () => {
                   await onSeeMyProfile();
-                  setVisible(false);
                 }}
               >
                 <T className="ws-np tt-se">my account</T>
               </ButtonLoader>
               <ButtonLoader
                 expand
-                onClick={(setLoader) => logout({ setLoader, onSuccess: () => setVisible(false) })}
+                onClick={(setLoader) => logout({ setLoader })}
                 type="light"
                 icon={<LogoutIcon />}
                 disabled={jukiApiSocketManager.isQueryToken()}
@@ -73,14 +69,12 @@ export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
             {/*</div>*/}
           </div>
         }
-        triggerOn="click"
         offset={4}
         placement={isVertical ? 'right-end' : 'bottom-end'}
       >
         <div
           className={classNames('user-logged-head nowrap jk-row gap')}
           style={{ padding: collapsed ? undefined : '0 var(--pad-xt)' }}
-          onClick={() => setVisible(prevState => !prevState)}
         >
           <img
             src={userImageUrl}
@@ -108,7 +102,6 @@ export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
         onClick={() => setSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' })}
         icon={!collapsed && <LoginIcon />}
         expand
-        style={(isVertical && !collapsed) ? { margin: '0 var(--pad-xt)' } : undefined}
       >
         {viewPortSize !== 'sm' && (!collapsed ? <T className="ws-np tt-se">sign in</T> : <LoginIcon />)}
       </Button>

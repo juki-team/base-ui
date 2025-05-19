@@ -193,7 +193,7 @@ export const MainMenu = (props: MainMenuProps) => {
   
   const bottomSection = ({ isOpen }: { isOpen: boolean }) => {
     return (
-      <div className="jk-col stretch gap settings-apps-login-user-content nowrap jk-pg-tb">
+      <div className="jk-col stretch gap settings-apps-login-user-content nowrap jk-pg-tb jk-pg-xsm-rl">
         <SettingsSection
           isOpen={isOpen}
           isMobile={false}

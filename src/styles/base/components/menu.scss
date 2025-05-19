@@ -65,49 +65,45 @@
       
       .jk-menu-items {
         flex: 8;
-        display: flex;
-        flex-direction: column;
+        //display: flex;
+        //flex-direction: column;
         
         .jk-menu-item {
-          display: flex;
+          //display: flex;
           position: relative;
-          height: var(--height-jk-menu-item);
-          align-items: center;
+          //height: var(--height-jk-menu-item);
+          //align-items: center;
+          
+          &:not(.selected):not(.extra):hover {
+            background: var(--t-color-highlight);
+          }
           
           &.selected {
             background-color: transparent;
             font-weight: var(--weight-bold);
             color: var(--color-primary);
             
-            &:after {
-              position: absolute;
-              top: 0;
-              left: -18px;
-              content: " ";
-              background: radial-gradient(circle at right, transparent calc(var(--height-jk-menu-item) / 2), var(--t-color-primary-dark) calc(var(--height-jk-menu-item) / 2)), transparent center/cover;
-              width: var(--height-jk-menu-item);
-              height: var(--height-jk-menu-item);
-            }
+            //&:after {
+            //  position: absolute;
+            //  top: 0;
+            //  left: -18px;
+            //  content: " ";
+            //  background: radial-gradient(circle at right, transparent calc(var(--height-jk-menu-item) / 2), var(--t-color-primary-dark) calc(var(--height-jk-menu-item) / 2)), transparent center/cover;
+            //  width: var(--height-jk-menu-item);
+            //  height: var(--height-jk-menu-item);
+            //}
           }
           
           &.selected-down {
-            border-radius: 0 0 var(--border-radius-width) 0;
+            //border-radius: 0 0 var(--border-radius-width) 0;
           }
           
           &.selected-up {
-            border-radius: 0 var(--border-radius-width) 0 0;
+            //border-radius: 0 var(--border-radius-width) 0 0;
           }
           
           &.extra:last-child {
             flex: 1;
-          }
-          
-          .jk-menu-item-icon {
-            height: var(--pad-m);
-            margin: 0 var(--pad-m) 0 var(--pad-s);
-            @include mixins.md { margin: 0 var(--pad-xs) 0 var(--pad-s); }
-            @include mixins.sm { margin: 0 var(--pad-xt) 0 var(--pad-s); }
-            @include mixins.transition(margin);
           }
           
           .jk-menu-item-label {
@@ -172,7 +168,6 @@
         
         .jk-menu-item {
           position: relative;
-          cursor: pointer;
           
           @include mixins.sm { flex-direction: column; }
           

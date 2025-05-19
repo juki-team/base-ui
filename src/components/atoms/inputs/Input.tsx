@@ -46,7 +46,7 @@ const BasicInputComponent = <T extends string | number | FileList, >(_props: Inp
       {...restRegister}
       onWheel={(e) => {
         if (e.currentTarget?.type === 'number' && typeof document !== 'undefined' && document.activeElement === e.currentTarget) {
-          e.preventDefault();
+          e.currentTarget?.blur();
         }
       }}
       onClick={(e) => {

@@ -1,4 +1,5 @@
-import React, { Children } from 'react';
+import { motion } from 'motion/react';
+import React, { Children, useId } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState, useJukiUI } from '../../../hooks';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
@@ -24,25 +25,48 @@ export const VerticalMenu = (props: VerticalMenuProps) => {
   const { viewPortSize } = useJukiUI();
   const isAlwaysClosed = viewPortSize === 'md';
   const open = isAlwaysClosed ? false : _open;
+  const layoutId = useId();
   
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
     const { selected, icon, label, tooltipLabel, onClick, menuItemWrapper } = menu[i];
-    const menuItemContent = (
+    const menuItem = (
       <div
-        className={classNames('jk-menu-item bc-pd cr-pt', {
-          'selected-up': !!menu[i - 1]?.selected,
-          'selected-down': !!menu[i + 1]?.selected,
+        className={classNames('jk-menu-item jk-pg-xsm jk-br-ie bc-pd cr-pt cr-pr jk-row gap left', {
           selected: !!selected,
         })}
+        style={{
+          margin: open ? '0 var(--pad-xt)' : undefined,
+        }}
         onClick={() => onClick?.(open)}
         key={i}
         data-tooltip-id="jk-tooltip"
         data-tooltip-content={!open ? tooltipLabel : ''}
         data-tooltip-place="right"
       >
-        <div className="jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>
-        <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
+        <div className="jk-menu-item-icon jk-row" style={{ opacity: selected ? 0 : undefined }}>
+          {renderReactNodeOrFunction(icon)}
+        </div>
+        <div className="jk-menu-item-label" style={{ opacity: selected ? 0 : undefined }}>
+          {renderReactNodeOrFunction(label)}
+        </div>
+        {!!selected && (
+          <motion.div
+            className="jk-pg-xsm jk-br-ie bc-pl wh-100 ht-100"
+            style={{
+              position: 'absolute',
+              zIndex: 1,
+              top: 0,
+              left: 0,
+            }}
+            layoutId={layoutId}
+          >
+            <div className="jk-row gap left">
+              {icon && <div className="jk-menu-item-icon jk-row">{renderReactNodeOrFunction(icon)}</div>}
+              <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
+            </div>
+          </motion.div>
+        )}
       </div>
     );
     // const menuItem = open ? menuItemContent : (
@@ -55,7 +79,6 @@ export const VerticalMenu = (props: VerticalMenuProps) => {
     //     {menuItemContent}
     //   </Popover>
     // );
-    const menuItem = menuItemContent;
     if (menuItemWrapper) {
       menus.push(renderReactNodeOrFunctionP1(menuItemWrapper, {
         selected,
@@ -105,7 +128,7 @@ export const VerticalMenu = (props: VerticalMenuProps) => {
           <div className={classNames('jk-menu-top-section bc-pd cr-pt', { 'selected-down': !!menu[0]?.selected })}>
             {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
           </div>
-          <div className="jk-menu-items">
+          <div className={classNames('jk-menu-items jk-col gap nowrap', { stretch: open })}>
             {Children.toArray(menus)}
             <div className={classNames('jk-menu-item extra bc-pd cr-pt', { 'selected-up': !!menu[menu.length - 1]?.selected })} />
           </div>

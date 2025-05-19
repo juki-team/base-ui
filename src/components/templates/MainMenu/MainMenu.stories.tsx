@@ -118,7 +118,7 @@ export const MainMenu: Story = {
   args: {},
 };
 
-const Cmp = () => {
+const Cmp = ({ menuViewMode }: { menuViewMode?: MenuViewMode }) => {
   const [ index, setIndex ] = useState(0);
   return (
     <MockupJukiProvider>
@@ -126,7 +126,7 @@ const Cmp = () => {
         <MainMenuCmp
           menu={menu.map((item, i) => ({ ...item, selected: i === index }))}
           onSeeMyProfile={() => console.info('onSeeMyProfile')}
-          menuViewMode={MenuViewMode.HORIZONTAL}
+          menuViewMode={menuViewMode}
           multiCompanies
           moreApps={
             <>
@@ -163,6 +163,8 @@ const Cmp = () => {
   );
 };
 
-export const MainMenuLoading = () => (
-  <Cmp />
-);
+export const MainMenuLoading: Story = {
+  render: ({ menuViewMode }) => (
+    <Cmp menuViewMode={menuViewMode} />
+  ),
+};

@@ -24,7 +24,7 @@ export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
       data-tooltip-content={isOpen ? '' : isEs ? 'english' : 'español'}
       data-tooltip-place={popoverPlacement}
       data-tooltip-t-class-name="tt-se"
-      className={classNames('jk-row center extend', { 'cr-pr': !loading })}
+      className={classNames('jk-row gap center extend', { 'cr-pr': !loading })}
       onClick={loading ? undefined : () => setSettings([
         {
           key: ProfileSetting.LANGUAGE,
@@ -33,24 +33,13 @@ export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
       ])}
     >
       {loading
-        ? <LoadingIcon style={{ margin: '0 var(--pad-xt)' }} />
-        : (
-          isEs
-            ? <div
-              className="jk-row"
-              style={{ ...{ width: 24, height: 24 }, ...(small ? { margin: '0 var(--pad-xt)' } : {}) }}
-            >
-              <FlagEnImage />
-            </div>
-            : <div
-              className="jk-row"
-              style={{ ...{ width: 24, height: 24 }, ...(small ? { margin: '0 var(--pad-xt)' } : {}) }}
-            >
-              <FlagEsImage />
-            </div>
+        ? <LoadingIcon />
+        : (isEs
+            ? <div className="jk-row" style={{ width: 24, height: 24 }}><FlagEnImage /></div>
+            : <div className="jk-row" style={{ width: 24, height: 24 }}><FlagEsImage /></div>
         )}
       {isOpen && (
-        <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
+        <div className="flex-1 ta-lt">
           <T className="tt-se">{isEs ? 'english' : 'español'}</T>
         </div>
       )}
@@ -91,11 +80,11 @@ export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
       data-tooltip-content={isOpen ? '' : isDark ? 'switch to light mode' : 'switch to dark mode'}
       data-tooltip-place={popoverPlacement}
       data-tooltip-t-class-name="tt-se"
-      className={classNames('jk-row center extend', { 'cr-pr': !loading })}
+      className={classNames('jk-row gap center extend', { 'cr-pr': !loading })}
       onClick={changeThemeAndToggle}
     >
       {loading
-        ? <SpinIcon style={{ margin: '0 var(--pad-xt)' }} />
+        ? <SpinIcon />
         : (
           <div
             className={classNames('jk-theme-toggle-input container--toggle', { 'cr-pr': !loading })}
@@ -121,7 +110,7 @@ export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
           </div>
         )}
       {isOpen && (
-        <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
+        <div className="flex-1 ta-lt">
           <T className="tt-se">{isDark ? 'light mode' : 'dark mode'}</T>
         </div>
       )}
@@ -155,12 +144,12 @@ export const SettingsSection = (props: SettingsSectionProps) => {
       data-tooltip-content={isOpen ? '' : 'help'}
       data-tooltip-place={popoverPlacement}
       data-tooltip-t-class-name="tt-se"
-      className="jk-row center extend cr-pr"
+      className="jk-row gap center extend cr-pr"
       onClick={() => setHelpOpen(true)}
     >
-      <HelpIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
+      <HelpIcon />
       {isOpen && (
-        <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
+        <div className="flex-1 ta-lt">
           <T className="tt-se">help</T>
         </div>
       )}
@@ -210,20 +199,19 @@ export const SettingsSection = (props: SettingsSectionProps) => {
               </div>
             </div>
           }
-          triggerOn="click"
           placement={popoverPlacement}
           offset={4}
         >
           <div
-            data-tooltip-id="jk-tooltip"
-            data-tooltip-content={isOpen ? '' : 'more apps'}
-            data-tooltip-place={popoverPlacement}
-            data-tooltip-t-class-name="tt-se"
-            className="jk-row center extend cr-pr"
+            // data-tooltip-id="jk-tooltip"
+            // data-tooltip-content={isOpen ? '' : 'more apps'}
+            // data-tooltip-place={popoverPlacement}
+            // data-tooltip-t-class-name="tt-se"
+            className="jk-row gap center extend cr-pr"
           >
-            <AppsIcon style={margin ? { margin: '0 var(--pad-xt)' } : undefined} />
+            <AppsIcon />
             {isOpen && (
-              <div style={{ marginRight: 'var(--pad-xt)' }} className="flex-1 ta-cr">
+              <div className="flex-1 ta-lt">
                 <T className="tt-se">more apps</T>
               </div>
             )}
