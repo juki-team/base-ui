@@ -92,7 +92,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
         )}
         {tickStyle === 'background' && key === selectedTabKey && (
           <motion.div
-            className="tab-tick-background selected bc-pl jk-br-ie"
+            className="tab-tick-background selected bc-pl cr-pt jk-br-ie"
             layoutId={layoutId}
             // transition={{ duration: 10 }}
             style={{ zIndex: 1 }}

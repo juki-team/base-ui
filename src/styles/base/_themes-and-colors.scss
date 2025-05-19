@@ -49,6 +49,7 @@
 }
 
 .jk-theme-light, .jk-theme-dark {
+  --tone: 75%;
   --base-white: white;
   --base-black: black;
   
@@ -82,13 +83,12 @@
   --t-color-shadow: color-mix(in srgb, var(--t-color-shadow-) 75%, transparent);
   --t-color-shadow-dark: color-mix(in srgb, var(--t-color-shadow-) 90%, transparent);
   
-  --t-color-text-highlight-light: color-mix(in srgb, var(--t-color-primary-light) 100%, var(--t-color-black) 40%);
-  --t-color-text-highlight: color-mix(in srgb, var(--t-color-primary-light) 90%, var(--t-color-black) 50%);
-  --t-color-text-highlight-dark: color-mix(in srgb, var(--t-color-primary-light) 80%, var(--t-color-black) 60%);
+  --t-color-text-highlight-light: color-mix(in srgb, var(--t-color-primary-light) 100%, var(--t-color-black) 30%);
+  --t-color-text-highlight: color-mix(in srgb, var(--t-color-primary-light) 90%, var(--t-color-black) 40%);
+  --t-color-text-highlight-dark: color-mix(in srgb, var(--t-color-primary-light) 80%, var(--t-color-black) 50%);
 }
 
 .jk-theme-light {
-  --tone: 75%;
   --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 80%, var(--base-white));
   --t-color-black-light: color-mix(in srgb, var(--t-color-black) 90%, var(--base-white));
   --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 96%, var(--base-black));
@@ -96,7 +96,6 @@
 }
 
 .jk-theme-dark {
-  --tone: 75%;
   --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 86%, var(--base-white));
   --t-color-black-light: color-mix(in srgb, var(--t-color-black) 96%, var(--base-white));
   --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 80%, var(--base-black));

@@ -15,25 +15,26 @@ export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChang
   const playWarning = useSoundStore(state => state.playWarning);
   
   const handleOnClick = () => {
-    if (JSON.stringify(originalValueRef.current) === JSON.stringify(value)) {
+    const diffObj = diff(originalValueRef.current, value);
+    if (JSON.stringify(originalValueRef.current) === JSON.stringify(value) || Object.keys(diffObj).length === 0) {
       onClickContinue();
     } else {
-      const text = JSON.stringify(diff(originalValueRef.current, value), null, 2);
+      const text = JSON.stringify(diffObj, null, 2);
       const height = text.split('\n').length;
       playWarning();
       setModal(
         <TwoActionModal
           isOpen
-          title={<T>attention</T>}
-          primary={{ onClick: () => setModal(null), label: <T>close</T> }}
-          secondary={{ onClick: onClickContinue, label: <T>continue without saving</T> }}
+          title={<T className="tt-se">attention</T>}
+          primary={{ onClick: () => setModal(null), label: <T className="tt-se">close</T> }}
+          secondary={{ onClick: onClickContinue, label: <T className="tt-se">continue without saving</T> }}
           onClose={() => setModal(null)}
         >
           <div>
             <T className="tt-se">there are unsaved changes</T>:
             <div
               className="alert-modal-json-viewer jk-border-radius-inline"
-              style={{ height: `min(${height * 24}px, calc(var(--100VH) - 300px))` }}
+              style={{ height: `min(${height * (14 * 1.4) /*font-size * line-height*/ + 8 /*pdding*/}px, calc(var(--100VH) - 300px))` }}
             >
               <CodeEditor
                 sourceCode={text}
