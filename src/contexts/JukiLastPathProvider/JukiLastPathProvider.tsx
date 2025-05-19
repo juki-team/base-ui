@@ -11,12 +11,12 @@ export const JukiLastPathProvider = <T extends string | number, >(props: PropsWi
   
   const { children, initialLastPath } = props;
   
-  const { setLastPath } = useLastPathStore();
+  const { setInitialLastPath } = useLastPathStore();
   const userNickname = useUserStore(state => state.user.nickname);
   
   useEffect(() => {
-    setLastPath(initialLastPath);
-  }, [ userNickname, initialLastPath, setLastPath ]);
+    setInitialLastPath(initialLastPath);
+  }, [ userNickname, initialLastPath, setInitialLastPath ]);
   
   return children;
 };
