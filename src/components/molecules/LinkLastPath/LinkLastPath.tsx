@@ -24,6 +24,8 @@ export const LinkLastPath = <T extends string | number = string, >(props: LinkLa
     return searchParams;
   }, [ lastPath, lastPathKey, overwriteCompanyKey ]);
   
+  console.log('LinkLastPath', { lastPath });
+  
   return (
     <Link
       href={{ pathname: getHref(lastPath[lastPathKey])?.pathname || '#', query: searchParams.toString() }}

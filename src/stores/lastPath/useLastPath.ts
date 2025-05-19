@@ -21,6 +21,7 @@ export const useLastPathStore = create<LastPathState>()(
       },
       setInitialLastPath: (lastPath, nicknameUpdated) => {
         if (Object.keys(get().lastPath).length === 0 || nicknameUpdated) {
+          console.log('setInitialLastPath', { lastPath, nicknameUpdated });
           set({ lastPath });
         }
       },
