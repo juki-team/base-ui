@@ -17,7 +17,10 @@ export const JukiLastPathProvider = <T extends string | number, >(props: PropsWi
   const userNicknameRef = useRef(userNickname);
   
   useEffect(() => {
-    console.log('JukiLastPathProvider', { userNickname, userNicknameRef: userNicknameRef.current });
+    console.log('JukiLastPathProvider', { userNickname, userNicknameRef: userNicknameRef.current, setInitialLastPath });
+    if (!setInitialLastPath) {
+      return;
+    }
     if (userNicknameRef.current !== userNickname) {
       setInitialLastPath(initialLastPath, true);
       userNicknameRef.current = userNickname;

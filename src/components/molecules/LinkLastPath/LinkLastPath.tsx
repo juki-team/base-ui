@@ -15,7 +15,7 @@ export const LinkLastPath = <T extends string | number = string, >(props: LinkLa
   const lastPath = useStore(useLastPathStore, (state => state.lastPath)) as LastPathType<T>;
   
   const searchParams = useMemo(() => {
-    const { searchParams } = getHref(lastPath[lastPathKey] ?? '');
+    const { searchParams } = getHref(lastPath?.[lastPathKey] ?? '');
     if (overwriteCompanyKey) {
       const clonedSearchParams = cloneURLSearchParams(searchParams);
       clonedSearchParams.set(QueryParamKey.COMPANY, overwriteCompanyKey || '');
@@ -29,7 +29,7 @@ export const LinkLastPath = <T extends string | number = string, >(props: LinkLa
   
   return (
     <Link
-      href={{ pathname: getHref(lastPath[lastPathKey])?.pathname || '#', query: searchParams.toString() }}
+      href={{ pathname: getHref(lastPath?.[lastPathKey])?.pathname || '#', query: searchParams.toString() }}
       className="link dy-cs"
     >
       {children}

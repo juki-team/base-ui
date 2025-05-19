@@ -10,6 +10,6 @@ export const useTrackLastPath = (key: string) => {
   const pathname = useRouterStore(state => state.pathname);
   const searchParams = useRouterStore(state => state.searchParams);
   useEffect(() => {
-    pushPath({ key, pathname, searchParams });
+    pushPath?.({ key, pathname, searchParams });
   }, [ key, searchParams, pathname, pushPath ]);
 };
