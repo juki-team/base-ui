@@ -110,7 +110,7 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
             extraNodes={tabButtons}
             extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
             tickStyle="background"
-            className="jk-pg-x-sm-b"
+            className="jk-pg-xsm-b"
             // getHrefOnTabChange={getHrefOnTabChange}
             // routerReplace
           />

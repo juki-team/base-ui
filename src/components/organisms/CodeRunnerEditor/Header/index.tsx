@@ -108,7 +108,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   
   return (
     <div
-      className={classNames('options-header-content jk-row', { 'two-rows': twoRows })}
+      className={classNames('options-header-content jk-row jk-pg-xsm', { 'two-rows': twoRows })}
       ref={headerRef}
     >
       <div

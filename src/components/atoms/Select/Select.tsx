@@ -170,7 +170,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
               }}
               ref={selectLayoutRef}
             >
-              <div className="jk-pg-x-sm-l">
+              <div className="jk-pg-xsm-l">
                 {optionSelected.inputLabel
                   ? renderReactNodeOrFunction(optionSelected.inputLabel)
                   : renderReactNodeOrFunction(optionSelected.label)}

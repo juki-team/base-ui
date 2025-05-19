@@ -21,7 +21,7 @@ export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
   
   return (
     <div className="border-bottom-highlight-light">
-      <div className="jk-pg-x-sm cr-g2 jk-row gap left tx-t" style={{ lineHeight: 1 }}>
+      <div className="jk-pg-xsm cr-g2 jk-row gap left tx-t" style={{ lineHeight: 1 }}>
         <span className={classNames('tt-se', { 'cr-er': timeLimitExceeded })}>
           {timeLimitExceeded
             ? <><T>time limit exceeded</T> ({time})</>

@@ -8,7 +8,7 @@ import {
   SubscribeCodeRunStatusWebSocketEventDTO,
   WebSocketActionEvent,
 } from '@juki-team/commons';
-import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
@@ -211,12 +211,12 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const body = (
     <div
       className={classNames(
-        'jk-code-mirror-editor-layout jk-border-radius-inline',
+        'jk-code-mirror-editor-layout jk-border-radius-inline jk-col nowrap stretch',
         { 'elevation-1': expanded },
         className,
       )}
       style={{
-        ...(twoRows ? { '--options-header-height': '80px' } as CSSProperties : {}),
+        // ...(twoRows ? { '--options-header-height': '80px' } as CSSProperties : {}),
         overflow: expanded ? 'hidden' : undefined,
       }}
     >
@@ -279,7 +279,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         withoutRunCodeButton={!!withoutRunCodeButton}
         readOnly={!!readOnly}
       />
-      <div className="editor-stdio-content">
+      <div className="editor-stdio-content flex-1">
         {onlyCodeEditor ? (
           firstChild
         ) : (

@@ -175,7 +175,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
     >
       {editing ? (
         <>
-          <div className="content-bar-options jk-row space-between jk-br-ie jk-pg-x-sm sticky-top bc-we">
+          <div className="content-bar-options jk-row space-between jk-br-ie jk-pg-xsm sticky-top bc-we">
             <div className={classNames('jk-row gap left', { gap: !withLabels })}>
               {informationButton && <InformationButton withLabel={withLabels} />}
               {uploadImageButton && (

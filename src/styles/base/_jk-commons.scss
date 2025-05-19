@@ -165,7 +165,7 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
     &-l, &-tl, &-rl, &-bl, &-trl, &-rbl, &-trbl { padding-left: var(--pad-sm); }
   }
   
-  &-x-sm {
+  &-xsm {
     padding: calc(var(--pad-sm) / 2);
     
     &-t, &-tr, &-tb, &-tl, &-trb, &-trl, &-trbl { padding-top: calc(var(--pad-sm) / 2); }

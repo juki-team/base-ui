@@ -151,7 +151,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       body: (
         <div>
           {loaderAndInfo}
-          <div className="jk-pg-x-sm">
+          <div className="jk-pg-xsm">
             <span className="jk-text-stdout">{test?.testOut}</span>
           </div>
         </div>
@@ -173,7 +173,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     body: (
       <div>
         {loaderAndInfo}
-        <div className="jk-pg-x-sm">
+        <div className="jk-pg-xsm">
           <span className="jk-text-stdout">{test?.out}</span>
         </div>
       </div>
@@ -195,7 +195,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     body: (
       <div>
         {loaderAndInfo}
-        <div className="jk-pg-x-sm">
+        <div className="jk-pg-xsm">
           <span className="jk-text-stderr">{test?.err}</span>
         </div>
       </div>
@@ -205,7 +205,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   return (
     <div className="jk-code-mirror-editor-test-cases jk-row stretch nowrap">
       <div className="jk-col nowrap stretch top tx-t border-right-highlight-light ow-ao">
-        <div className="jk-row ta-cr fw-bd jk-pg-x-sm-tb border-bottom-highlight-light">
+        <div className="jk-row ta-cr fw-bd jk-pg-xsm-tb border-bottom-highlight-light">
           <T className="tt-se" style={{ width: 48 }}>test cases</T>
         </div>
         {testCasesValues.map((testCase, idx) => (
@@ -215,7 +215,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             data-tooltip-content={`${testCase.sample ? 'sample' : 'custom sample'} case`}
             data-tooltip-place="top-start"
             onClick={() => setTestCaseKey(testCase.key)}
-            className={classNames('jk-row center hoverable jk-pg-x-sm', { 'bc-hl': testCase.key === testCaseKey })}
+            className={classNames('jk-row center hoverable jk-pg-xsm', { 'bc-hl': testCase.key === testCaseKey })}
           >
             {testCase.key === '*' ? (
               <T style={{ width: 48 }} className="tt-se ta-cr">default</T>
@@ -258,12 +258,12 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
         ))}
         {/*TODO: add character inside de buttons to distinguish the buttons*/}
         {enableAddSampleCases && onChange && (
-          <div className="jk-row jk-pg-x-sm-t border-top-highlight-light">
+          <div className="jk-row jk-pg-xsm-t border-top-highlight-light">
             <AddCaseButton onChange={onChange} testCasesValues={testCasesValues} testCases={testCases} sample />
           </div>
         )}
         {enableAddCustomSampleCases && onChange && (
-          <div className="jk-row jk-pg-x-sm-t border-top-highlight-light">
+          <div className="jk-row jk-pg-xsm-t border-top-highlight-light">
             <AddCaseButton onChange={onChange} testCasesValues={testCasesValues} testCases={testCases} />
           </div>
         )}
@@ -293,7 +293,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                   }),
                 }) : undefined}
               /> : (
-                <div className="flex-1 ow-ao jk-pg-x-sm">
+                <div className="flex-1 ow-ao jk-pg-xsm">
               <span className="jk-text-stdout">
                 {test.in}
               </span>

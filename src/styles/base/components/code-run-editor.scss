@@ -59,13 +59,13 @@
   height: 100%;
   width: 100%;
   position: relative;
-  --options-header-height: 48px; // 80px
+  //--options-header-height: 48px; // 80px
   background-color: var(--t-color-white);
   
   .options-header-content {
-    height: var(--options-header-height);
+    //height: var(--options-header-height);
     box-sizing: border-box;
-    padding: var(--pad-xt);
+    //padding: var(--pad-xt);
     border-bottom: 1px solid var(--t-color-highlight-light);
     
     .left-options, .center-options, .right-options {
@@ -93,7 +93,7 @@
   }
   
   .editor-stdio-content {
-    height: calc(100% - var(--options-header-height));
+    //height: calc(100% - var(--options-header-height));
     
     > div {
       height: 100%;
