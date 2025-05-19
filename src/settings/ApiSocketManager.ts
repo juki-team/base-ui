@@ -133,6 +133,17 @@ export class ApiSocketManager {
             method: HTTPMethod.POST,
             body: JSON.stringify({ key, token, language }),
           })),
+          statementToPng: valid<{
+            params: {
+              key: string,
+              token: string,
+              language: Language,
+            }
+          }, HTTPMethod.POST>(({ params: { key, token, language } }) => ({
+            url: injectBaseUrl('export/problem/statement-to-png'),
+            method: HTTPMethod.POST,
+            body: JSON.stringify({ key, token, language }),
+          })),
         },
         contest: {
           problems: {
