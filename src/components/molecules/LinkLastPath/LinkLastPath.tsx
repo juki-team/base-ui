@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { LastPathType } from '../../../contexts/JukiLastPathProvider/types';
 import { cloneURLSearchParams, getHref } from '../../../helpers';
-import { useStore } from '../../../hooks';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
 import { LinkLastPathProps, QueryParamKey } from '../../../types';
@@ -12,7 +11,7 @@ export const LinkLastPath = <T extends string | number = string, >(props: LinkLa
   
   const { components: { Link } } = useJukiUI();
   
-  const lastPath = useStore(useLastPathStore, (state => state.lastPath)) as LastPathType<T>;
+  const lastPath = useLastPathStore(state => state.lastPath) as LastPathType<T>;
   
   const searchParams = useMemo(() => {
     const { searchParams } = getHref(lastPath?.[lastPathKey] ?? '');
