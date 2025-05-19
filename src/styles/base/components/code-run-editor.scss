@@ -56,16 +56,9 @@
 }
 
 .jk-code-mirror-editor-layout {
-  height: 100%;
-  width: 100%;
-  position: relative;
-  //--options-header-height: 48px; // 80px
-  background-color: var(--t-color-white);
   
   .options-header-content {
-    //height: var(--options-header-height);
     box-sizing: border-box;
-    //padding: var(--pad-xt);
     border-bottom: 1px solid var(--t-color-highlight-light);
     
     .left-options, .center-options, .right-options {
@@ -76,11 +69,6 @@
     
     .left-options {
       justify-content: flex-start;
-      
-      .languages-selector {
-        //width: 128px;
-        //margin-right: var(--pad-t);
-      }
       
       button {
         white-space: nowrap;
@@ -93,7 +81,6 @@
   }
   
   .editor-stdio-content {
-    //height: calc(100% - var(--options-header-height));
     
     > div {
       height: 100%;

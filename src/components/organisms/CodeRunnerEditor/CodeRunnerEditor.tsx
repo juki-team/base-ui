@@ -211,14 +211,11 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const body = (
     <div
       className={classNames(
-        'jk-code-mirror-editor-layout jk-border-radius-inline jk-col nowrap stretch',
+        'jk-code-mirror-editor-layout jk-border-radius-inline jk-col nowrap stretch bc-we ht-100 wh-100 pn-re',
         { 'elevation-1': expanded },
         className,
       )}
-      style={{
-        // ...(twoRows ? { '--options-header-height': '80px' } as CSSProperties : {}),
-        overflow: expanded ? 'hidden' : undefined,
-      }}
+      style={{ overflow: expanded ? 'hidden' : undefined }}
     >
       <SettingsModal
         isOpen={showSettings}
