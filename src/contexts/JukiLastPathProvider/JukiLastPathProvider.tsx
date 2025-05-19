@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect } from 'react';
+import { PropsWithChildren, useEffect, useRef } from 'react';
 import { useLastPathStore } from '../../stores/lastPath/useLastPath';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { LastPathType } from './types';
@@ -13,9 +13,15 @@ export const JukiLastPathProvider = <T extends string | number, >(props: PropsWi
   
   const { setInitialLastPath } = useLastPathStore();
   const userNickname = useUserStore(state => state.user.nickname);
+  const userNicknameRef = useRef('');
   
   useEffect(() => {
-    setInitialLastPath(initialLastPath);
+    if (userNicknameRef.current !== userNickname) {
+      setInitialLastPath(initialLastPath, true);
+      userNicknameRef.current = userNickname;
+    } else {
+      setInitialLastPath(initialLastPath, false);
+    }
   }, [ userNickname, initialLastPath, setInitialLastPath ]);
   
   return children;
