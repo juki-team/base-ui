@@ -1,11 +1,12 @@
 import { MotionConfig } from 'motion/react';
 import React, { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
 import { T } from '../../components/atoms';
-import { NotificationProvider, SoundProvider } from '../../components/organisms';
 import { LineLoader } from '../../components/server';
 import { classNames, persistGlobalURLSearchParams } from '../../helpers';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { Duration } from '../../types';
+import { NotificationProvider } from '../NotificationProvider/NotificationProvider';
+import { SoundProvider } from '../SoundProvider/SoundProvider';
 import { UIContext } from './context';
 import { Image } from './Image';
 import { Link } from './Link';

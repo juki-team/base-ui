@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useSoundStore } from '../../../stores/sound/useSoundStore';
-import { Sound } from '../../../types';
-import { SoundProviderProps } from './types';
+import { SoundProviderProps } from '../../components/organisms/Notifications/types';
+import { useSoundStore } from '../../stores/sound/useSoundStore';
+import { Sound } from '../../types';
 
 export function SoundProvider({ children }: SoundProviderProps) {
   

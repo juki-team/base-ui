@@ -13,8 +13,6 @@ export type * from './ImageUploader/types';
 export type * from './Menu/types';
 export type * from './Menu/types';
 export type * from './Notifications/types';
-export type * from './Notifications/types';
-export type * from './Notifications/types';
 export type * from './ProblemSelector/types';
 export type * from './ProblemVerdictTag/types';
 export type * from './UserChip/types';

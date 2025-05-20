@@ -1,14 +1,14 @@
 import React, { useReducer } from 'react';
-import { useJukiUI, useSoundStore } from '../../../hooks';
-import { NotificationType } from '../../../types';
-import { CardNotification } from './CardNotification';
-import { NotificationContext } from './context';
+import { CardNotification } from '../../components/organisms/Notifications/CardNotification';
+import { NotificationContext } from '../../components/organisms/Notifications/context';
 import {
   CardNotificationProps,
   NotificationAction,
   NotificationActionsTypes,
   NotificationProviderProps,
-} from './types';
+} from '../../components/organisms/Notifications/types';
+import { useJukiUI, useSoundStore } from '../../hooks';
+import { NotificationType } from '../../types';
 
 export function NotificationProvider({ children }: NotificationProviderProps) {
   

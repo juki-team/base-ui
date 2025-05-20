@@ -16,8 +16,6 @@ import { UploadImageButtonProps } from './ImageUploader/types';
 import { HorizontalMenuProps } from './Menu/types';
 import { VerticalMenuProps } from './Menu/types';
 import { CardNotificationProps } from './Notifications/types';
-import { NotificationProviderProps } from './Notifications/types';
-import { SoundProviderProps } from './Notifications/types';
 import { ProblemSelectorProps } from './ProblemSelector/types';
 import { ProblemVerdictTagProps } from './ProblemVerdictTag/types';
 import { UserChipProps } from './UserChip/types';
@@ -151,22 +149,6 @@ export const CardNotification = (props: CardNotificationProps) => (
   </Suspense>
 );
 
-const NotificationProviderImport = () => import('./Notifications/NotificationProvider');
-const LazyNotificationProvider = lazy(() => NotificationProviderImport().then(module => ({ default: module.NotificationProvider })));
-export const NotificationProvider = (props: NotificationProviderProps) => (
-  <Suspense fallback={<SpinIcon size="tiny" />}>
-    <LazyNotificationProvider {...props} />
-  </Suspense>
-);
-
-const SoundProviderImport = () => import('./Notifications/SoundProvider');
-const LazySoundProvider = lazy(() => SoundProviderImport().then(module => ({ default: module.SoundProvider })));
-export const SoundProvider = (props: SoundProviderProps) => (
-  <Suspense fallback={<SpinIcon size="tiny" />}>
-    <LazySoundProvider {...props} />
-  </Suspense>
-);
-
 const ProblemSelectorImport = () => import('./ProblemSelector/ProblemSelector');
 const LazyProblemSelector = lazy(() => ProblemSelectorImport().then(module => ({ default: module.ProblemSelector })));
 export const ProblemSelector = (props: ProblemSelectorProps) => (
@@ -248,8 +230,6 @@ export const preloadOrganisms = async () => {
   await HorizontalMenuImport();
   await VerticalMenuImport();
   await CardNotificationImport();
-  await NotificationProviderImport();
-  await SoundProviderImport();
   await ProblemSelectorImport();
   await ProblemVerdictTagImport();
   await UserChipImport();
