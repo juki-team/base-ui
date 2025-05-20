@@ -2,6 +2,7 @@
 export * from '../stores/i18n/useI18nStore';
 export * from '../stores/page/usePageStore';
 export * from '../stores/lastPath/useLastPath';
+export * from '../stores/lazyLoading/useLazyLoadingStore';
 export * from '../stores/router/useRouterStore'; // useJukiRouter
 export * from '../stores/websocket/useWebsocketStore';
 export * from '../stores/user/useUserStore';

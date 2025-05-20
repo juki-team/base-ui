@@ -5,27 +5,21 @@ const componentDirs = [
   {
     chunkName: 'Atoms',
     dir: path.resolve('./src/components/atoms'),
-    headerLines: `import { SpinIcon } from './server/icons/SpinIcon';\nimport { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';`,
-    withTypes: true,
-  },
-  {
-    chunkName: 'Molecules',
-    dir: path.resolve('./src/components/molecules'),
-    headerLines: `import { SpinIcon } from '../atoms/server/icons/SpinIcon';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';`,
+    headerLines: `import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from './server/icons/SpinIcon';\nimport { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';`,
     withTypes: true,
   },
   {
     chunkName: 'AtomsIconsGoogle',
     dir: path.resolve('./src/components/atoms/server/icons/google'),
     depth: 0,
-    headerLines: `import { SpinIcon } from '../SpinIcon';\nimport { BasicIconProps } from '../types';`,
+    headerLines: `import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\nimport { BasicIconProps } from '../types';`,
     withTypes: false,
     commonProp: 'BasicIconProps',
   },
   {
     chunkName: 'AtomsIconsSigns',
     dir: path.resolve('./src/components/atoms/server/icons/signs'),
-    headerLines: `import { SpinIcon } from '../SpinIcon';\nimport { SignIconProps } from '../types';`,
+    headerLines: `import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\nimport { SignIconProps } from '../types';`,
     withTypes: false,
     commonProp: 'SignIconProps',
     cmpIndex: true,
@@ -33,7 +27,7 @@ const componentDirs = [
   {
     chunkName: 'AtomsIconsSpecials',
     dir: path.resolve('./src/components/atoms/server/icons/specials'),
-    headerLines: `import { SpinIcon } from '../SpinIcon';`,
+    headerLines: `import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';`,
     withTypes: false,
     cmpIndex: true,
   },
@@ -41,20 +35,26 @@ const componentDirs = [
     chunkName: 'AtomsImages',
     dir: path.resolve('./src/components/atoms/server/images'),
     depth: 0,
-    headerLines: `import { SpinIcon } from '../icons/SpinIcon';`,
+    headerLines: `import { SuspenseWithTracking } from '../../../SuspenseWithTracking';\nimport { SpinIcon } from '../icons/SpinIcon';`,
     withTypes: false,
     withoutProps: true,
   },
   {
+    chunkName: 'Molecules',
+    dir: path.resolve('./src/components/molecules'),
+    headerLines: `import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server/icons/SpinIcon';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';`,
+    withTypes: true,
+  },
+  {
     chunkName: 'Organisms',
     dir: path.resolve('./src/components/organisms'),
-    headerLines: `import { SpinIcon } from '../atoms/server/icons/SpinIcon';`,
+    headerLines: `import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server/icons/SpinIcon';`,
     withTypes: true,
   },
   {
     chunkName: 'Templates',
     dir: path.resolve('./src/components/templates'),
-    headerLines: `import { SpinIcon } from '../atoms/server/icons/SpinIcon';`,
+    headerLines: `import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server/icons/SpinIcon';`,
     withTypes: true,
     footerLines: `export * from './helpers';`,
   },
@@ -131,7 +131,7 @@ for (let {
   console.info({foldersSize: folders.length, filesSize: files.length});
   
   let indexContent = [
-    `import React, { lazy, Suspense } from 'react';`,
+    `import React, { lazy } from 'react';`,
     headerLines,
     ...(!commonProp && !withoutProps
       ? files.map(({
@@ -154,7 +154,7 @@ for (let {
         exportLine = withGenericity[index][1];
       }
       
-      lines.push(exportLine, `  <Suspense fallback={<SpinIcon size="tiny" />}>`,);
+      lines.push(exportLine, `  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>`,);
       
       if (index !== -1) {
         lines.push(`    {/*@ts-ignore*/}`);
@@ -162,7 +162,7 @@ for (let {
       
       lines.push(
         `    <Lazy${name} ${withoutProps ? '' : '{...props} '}/>`,
-        `  </Suspense>`,
+        `  </SuspenseWithTracking>`,
         `);`,
         ``
       );
