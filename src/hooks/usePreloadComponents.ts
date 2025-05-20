@@ -9,14 +9,20 @@ import {
 
 export const usePreloadComponents = () => {
   
-  const [ preloaders, setPreloaders ] = useState({});
+  const [ preloaders, setPreloaders ] = useState({
+    atoms: false,
+    atomsIconsGoogle: false,
+    atomsIconsSigns: false,
+    atomsIconsSpecials: false,
+    atomsImages: false,
+    molecules: false,
+    organisms: false,
+    templates: false,
+  });
   
   useEffect(() => {
     preloadAtoms().then(() => {
       setPreloaders(state => ({ ...state, atoms: true }));
-    });
-    preloadMolecules().then(() => {
-      setPreloaders(state => ({ ...state, molecules: true }));
     });
     preloadAtomsIconsGoogle().then(() => {
       setPreloaders(state => ({ ...state, atomsIconsGoogle: true }));
@@ -29,6 +35,9 @@ export const usePreloadComponents = () => {
     });
     preloadAtomsImages().then(() => {
       setPreloaders(state => ({ ...state, atomsImages: true }));
+    });
+    preloadMolecules().then(() => {
+      setPreloaders(state => ({ ...state, molecules: true }));
     });
     preloadOrganisms().then(() => {
       setPreloaders(state => ({ ...state, organisms: true }));
