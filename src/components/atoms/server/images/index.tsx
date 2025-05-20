@@ -5,7 +5,7 @@ import { SpinIcon } from '../icons/SpinIcon';
 const FlagEnImageImport = () => import('./FlagEnImage');
 const LazyFlagEnImage = lazy(() => FlagEnImageImport().then(module => ({ default: module.FlagEnImage })));
 export const FlagEnImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="FlagEnImage">
     <LazyFlagEnImage />
   </SuspenseWithTracking>
 );
@@ -13,7 +13,7 @@ export const FlagEnImage = () => (
 const FlagEsImageImport = () => import('./FlagEsImage');
 const LazyFlagEsImage = lazy(() => FlagEsImageImport().then(module => ({ default: module.FlagEsImage })));
 export const FlagEsImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="FlagEsImage">
     <LazyFlagEsImage />
   </SuspenseWithTracking>
 );
@@ -21,7 +21,7 @@ export const FlagEsImage = () => (
 const JukiCompleteLaptopImageImport = () => import('./JukiCompleteLaptopImage');
 const LazyJukiCompleteLaptopImage = lazy(() => JukiCompleteLaptopImageImport().then(module => ({ default: module.JukiCompleteLaptopImage })));
 export const JukiCompleteLaptopImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiCompleteLaptopImage">
     <LazyJukiCompleteLaptopImage />
   </SuspenseWithTracking>
 );
@@ -29,7 +29,7 @@ export const JukiCompleteLaptopImage = () => (
 const JukiCouchLogoHorImageImport = () => import('./JukiCouchLogoHorImage');
 const LazyJukiCouchLogoHorImage = lazy(() => JukiCouchLogoHorImageImport().then(module => ({ default: module.JukiCouchLogoHorImage })));
 export const JukiCouchLogoHorImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiCouchLogoHorImage">
     <LazyJukiCouchLogoHorImage />
   </SuspenseWithTracking>
 );
@@ -37,7 +37,7 @@ export const JukiCouchLogoHorImage = () => (
 const JukiCouchLogoVerImageImport = () => import('./JukiCouchLogoVerImage');
 const LazyJukiCouchLogoVerImage = lazy(() => JukiCouchLogoVerImageImport().then(module => ({ default: module.JukiCouchLogoVerImage })));
 export const JukiCouchLogoVerImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiCouchLogoVerImage">
     <LazyJukiCouchLogoVerImage />
   </SuspenseWithTracking>
 );
@@ -45,7 +45,7 @@ export const JukiCouchLogoVerImage = () => (
 const JukiCourtImageImport = () => import('./JukiCourtImage');
 const LazyJukiCourtImage = lazy(() => JukiCourtImageImport().then(module => ({ default: module.JukiCourtImage })));
 export const JukiCourtImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiCourtImage">
     <LazyJukiCourtImage />
   </SuspenseWithTracking>
 );
@@ -53,7 +53,7 @@ export const JukiCourtImage = () => (
 const JukiHeadImageImport = () => import('./JukiHeadImage');
 const LazyJukiHeadImage = lazy(() => JukiHeadImageImport().then(module => ({ default: module.JukiHeadImage })));
 export const JukiHeadImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiHeadImage">
     <LazyJukiHeadImage />
   </SuspenseWithTracking>
 );
@@ -61,7 +61,7 @@ export const JukiHeadImage = () => (
 const JukiJudgeLogoHorImageImport = () => import('./JukiJudgeLogoHorImage');
 const LazyJukiJudgeLogoHorImage = lazy(() => JukiJudgeLogoHorImageImport().then(module => ({ default: module.JukiJudgeLogoHorImage })));
 export const JukiJudgeLogoHorImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiJudgeLogoHorImage">
     <LazyJukiJudgeLogoHorImage />
   </SuspenseWithTracking>
 );
@@ -69,7 +69,7 @@ export const JukiJudgeLogoHorImage = () => (
 const JukiJudgeLogoVerImageImport = () => import('./JukiJudgeLogoVerImage');
 const LazyJukiJudgeLogoVerImage = lazy(() => JukiJudgeLogoVerImageImport().then(module => ({ default: module.JukiJudgeLogoVerImage })));
 export const JukiJudgeLogoVerImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiJudgeLogoVerImage">
     <LazyJukiJudgeLogoVerImage />
   </SuspenseWithTracking>
 );
@@ -77,7 +77,7 @@ export const JukiJudgeLogoVerImage = () => (
 const JukiLaptopImageImport = () => import('./JukiLaptopImage');
 const LazyJukiLaptopImage = lazy(() => JukiLaptopImageImport().then(module => ({ default: module.JukiLaptopImage })));
 export const JukiLaptopImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiLaptopImage">
     <LazyJukiLaptopImage />
   </SuspenseWithTracking>
 );
@@ -85,7 +85,7 @@ export const JukiLaptopImage = () => (
 const JukiSurprisedImageImport = () => import('./JukiSurprisedImage');
 const LazyJukiSurprisedImage = lazy(() => JukiSurprisedImageImport().then(module => ({ default: module.JukiSurprisedImage })));
 export const JukiSurprisedImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiSurprisedImage">
     <LazyJukiSurprisedImage />
   </SuspenseWithTracking>
 );
@@ -93,7 +93,7 @@ export const JukiSurprisedImage = () => (
 const JukiUtilsLogoHorImageImport = () => import('./JukiUtilsLogoHorImage');
 const LazyJukiUtilsLogoHorImage = lazy(() => JukiUtilsLogoHorImageImport().then(module => ({ default: module.JukiUtilsLogoHorImage })));
 export const JukiUtilsLogoHorImage = () => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiUtilsLogoHorImage">
     <LazyJukiUtilsLogoHorImage />
   </SuspenseWithTracking>
 );

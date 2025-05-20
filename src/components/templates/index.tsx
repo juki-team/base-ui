@@ -47,7 +47,7 @@ import { SubmitViewProps } from './submission/types';
 const ChangePasswordModalImport = () => import('./ChangePasswordModal/ChangePasswordModal');
 const LazyChangePasswordModal = lazy(() => ChangePasswordModalImport().then(module => ({ default: module.ChangePasswordModal })));
 export const ChangePasswordModal = (props: ChangePasswordModalProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ChangePasswordModal">
     <LazyChangePasswordModal {...props} />
   </SuspenseWithTracking>
 );
@@ -55,7 +55,7 @@ export const ChangePasswordModal = (props: ChangePasswordModalProps) => (
 const EditProfileModalImport = () => import('./EditProfileModal/EditProfileModal');
 const LazyEditProfileModal = lazy(() => EditProfileModalImport().then(module => ({ default: module.EditProfileModal })));
 export const EditProfileModal = (props: EditProfileModalProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="EditProfileModal">
     <LazyEditProfileModal {...props} />
   </SuspenseWithTracking>
 );
@@ -63,7 +63,7 @@ export const EditProfileModal = (props: EditProfileModalProps) => (
 const ImageProfileModalImport = () => import('./EditProfileModal/ImageProfileModal');
 const LazyImageProfileModal = lazy(() => ImageProfileModalImport().then(module => ({ default: module.ImageProfileModal })));
 export const ImageProfileModal = (props: ImageProfileModalProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ImageProfileModal">
     <LazyImageProfileModal {...props} />
   </SuspenseWithTracking>
 );
@@ -71,7 +71,7 @@ export const ImageProfileModal = (props: ImageProfileModalProps) => (
 const EntityLogsModalImport = () => import('./EntityLogsModal/EntityLogsModal');
 const LazyEntityLogsModal = lazy(() => EntityLogsModalImport().then(module => ({ default: module.EntityLogsModal })));
 export const EntityLogsModal = (props: EntityLogsModalProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="EntityLogsModal">
     <LazyEntityLogsModal {...props} />
   </SuspenseWithTracking>
 );
@@ -79,7 +79,7 @@ export const EntityLogsModal = (props: EntityLogsModalProps) => (
 const ErrorBoundaryImport = () => import('./ErrorBoundary/ErrorBoundary');
 const LazyErrorBoundary = lazy(() => ErrorBoundaryImport().then(module => ({ default: module.ErrorBoundary })));
 export const ErrorBoundary = (props: ErrorBoundaryProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ErrorBoundary">
     <LazyErrorBoundary {...props} />
   </SuspenseWithTracking>
 );
@@ -87,7 +87,7 @@ export const ErrorBoundary = (props: ErrorBoundaryProps) => (
 const HelpSectionImport = () => import('./HelpSection/HelpSection');
 const LazyHelpSection = lazy(() => HelpSectionImport().then(module => ({ default: module.HelpSection })));
 export const HelpSection = (props: HelpSectionProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="HelpSection">
     <LazyHelpSection {...props} />
   </SuspenseWithTracking>
 );
@@ -95,7 +95,7 @@ export const HelpSection = (props: HelpSectionProps) => (
 const JukiSocketAlertImport = () => import('./JukiSocketAlert/JukiSocketAlert');
 const LazyJukiSocketAlert = lazy(() => JukiSocketAlertImport().then(module => ({ default: module.JukiSocketAlert })));
 export const JukiSocketAlert = (props: JukiSocketAlertProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiSocketAlert">
     <LazyJukiSocketAlert {...props} />
   </SuspenseWithTracking>
 );
@@ -103,7 +103,7 @@ export const JukiSocketAlert = (props: JukiSocketAlertProps) => (
 const MainMenuImport = () => import('./MainMenu/MainMenu');
 const LazyMainMenu = lazy(() => MainMenuImport().then(module => ({ default: module.MainMenu })));
 export const MainMenu = (props: MainMenuProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="MainMenu">
     <LazyMainMenu {...props} />
   </SuspenseWithTracking>
 );
@@ -111,7 +111,7 @@ export const MainMenu = (props: MainMenuProps) => (
 const NewVersionAvailableImport = () => import('./NewViersionAvailableModal/NewVersionAvailable');
 const LazyNewVersionAvailable = lazy(() => NewVersionAvailableImport().then(module => ({ default: module.NewVersionAvailable })));
 export const NewVersionAvailable = (props: NewVersionAvailableProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="NewVersionAvailable">
     <LazyNewVersionAvailable {...props} />
   </SuspenseWithTracking>
 );
@@ -119,7 +119,7 @@ export const NewVersionAvailable = (props: NewVersionAvailableProps) => (
 const PageNotFoundImport = () => import('./PageNotFound/PageNotFound');
 const LazyPageNotFound = lazy(() => PageNotFoundImport().then(module => ({ default: module.PageNotFound })));
 export const PageNotFound = (props: PageNotFoundProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="PageNotFound">
     <LazyPageNotFound {...props} />
   </SuspenseWithTracking>
 );
@@ -127,7 +127,7 @@ export const PageNotFound = (props: PageNotFoundProps) => (
 const ProblemInfoImport = () => import('./ProblemView/ProblemInfo');
 const LazyProblemInfo = lazy(() => ProblemInfoImport().then(module => ({ default: module.ProblemInfo })));
 export const ProblemInfo = (props: ProblemInfoProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemInfo">
     <LazyProblemInfo {...props} />
   </SuspenseWithTracking>
 );
@@ -135,7 +135,7 @@ export const ProblemInfo = (props: ProblemInfoProps) => (
 const ProblemViewImport = () => import('./ProblemView/ProblemView');
 const LazyProblemView = lazy(() => ProblemViewImport().then(module => ({ default: module.ProblemView })));
 export const ProblemView = <T, >(props: ProblemViewProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemView">
     {/*@ts-ignore*/}
     <LazyProblemView {...props} />
   </SuspenseWithTracking>
@@ -144,7 +144,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => (
 const ResetPasswordModalImport = () => import('./ResetPasswordModal/ResetPasswordModal');
 const LazyResetPasswordModal = lazy(() => ResetPasswordModalImport().then(module => ({ default: module.ResetPasswordModal })));
 export const ResetPasswordModal = (props: ResetPasswordModalProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ResetPasswordModal">
     <LazyResetPasswordModal {...props} />
   </SuspenseWithTracking>
 );
@@ -152,7 +152,7 @@ export const ResetPasswordModal = (props: ResetPasswordModalProps) => (
 const UserPreviewModalImport = () => import('./UserPreviewModal/UserPreviewModal');
 const LazyUserPreviewModal = lazy(() => UserPreviewModalImport().then(module => ({ default: module.UserPreviewModal })));
 export const UserPreviewModal = (props: UserPreviewModalProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="UserPreviewModal">
     <LazyUserPreviewModal {...props} />
   </SuspenseWithTracking>
 );
@@ -160,7 +160,7 @@ export const UserPreviewModal = (props: UserPreviewModalProps) => (
 const UserProfileImport = () => import('./UserProfile/UserProfile');
 const LazyUserProfile = lazy(() => UserProfileImport().then(module => ({ default: module.UserProfile })));
 export const UserProfile = (props: UserProfileProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="UserProfile">
     <LazyUserProfile {...props} />
   </SuspenseWithTracking>
 );
@@ -168,7 +168,7 @@ export const UserProfile = (props: UserProfileProps) => (
 const UserProfileSettingsImport = () => import('./UserProfileSettings/UserProfileSettings');
 const LazyUserProfileSettings = lazy(() => UserProfileSettingsImport().then(module => ({ default: module.UserProfileSettings })));
 export const UserProfileSettings = (props: UserProfileSettingsProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="UserProfileSettings">
     <LazyUserProfileSettings {...props} />
   </SuspenseWithTracking>
 );
@@ -176,7 +176,7 @@ export const UserProfileSettings = (props: UserProfileSettingsProps) => (
 const ContestNameLinkFieldImport = () => import('./contest/ContestNameLinkField');
 const LazyContestNameLinkField = lazy(() => ContestNameLinkFieldImport().then(module => ({ default: module.ContestNameLinkField })));
 export const ContestNameLinkField = (props: ContestNameLinkFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ContestNameLinkField">
     <LazyContestNameLinkField {...props} />
   </SuspenseWithTracking>
 );
@@ -184,7 +184,7 @@ export const ContestNameLinkField = (props: ContestNameLinkFieldProps) => (
 const CreateEntityLayoutImport = () => import('./entity/CreateEntityLayout');
 const LazyCreateEntityLayout = lazy(() => CreateEntityLayoutImport().then(module => ({ default: module.CreateEntityLayout })));
 export const CreateEntityLayout = <T, U, V>(props: CreateEntityLayoutProps<T, U, V>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="CreateEntityLayout">
     {/*@ts-ignore*/}
     <LazyCreateEntityLayout {...props} />
   </SuspenseWithTracking>
@@ -193,7 +193,7 @@ export const CreateEntityLayout = <T, U, V>(props: CreateEntityLayoutProps<T, U,
 const UpdateEntityLayoutImport = () => import('./entity/UpdateEntityLayout');
 const LazyUpdateEntityLayout = lazy(() => UpdateEntityLayoutImport().then(module => ({ default: module.UpdateEntityLayout })));
 export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="UpdateEntityLayout">
     {/*@ts-ignore*/}
     <LazyUpdateEntityLayout {...props} />
   </SuspenseWithTracking>
@@ -202,7 +202,7 @@ export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U,
 const DocumentCustomMembersContentImport = () => import('./members/DocumentCustomMembersContent');
 const LazyDocumentCustomMembersContent = lazy(() => DocumentCustomMembersContentImport().then(module => ({ default: module.DocumentCustomMembersContent })));
 export const DocumentCustomMembersContent = (props: DocumentCustomMembersContentProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="DocumentCustomMembersContent">
     <LazyDocumentCustomMembersContent {...props} />
   </SuspenseWithTracking>
 );
@@ -210,7 +210,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
 const DocumentMembersButtonImport = () => import('./members/DocumentMembersButton');
 const LazyDocumentMembersButton = lazy(() => DocumentMembersButtonImport().then(module => ({ default: module.DocumentMembersButton })));
 export const DocumentMembersButton = (props: DocumentMembersButtonProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="DocumentMembersButton">
     <LazyDocumentMembersButton {...props} />
   </SuspenseWithTracking>
 );
@@ -218,7 +218,7 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => (
 const DocumentMembersContentImport = () => import('./members/DocumentMembersContent');
 const LazyDocumentMembersContent = lazy(() => DocumentMembersContentImport().then(module => ({ default: module.DocumentMembersContent })));
 export const DocumentMembersContent = (props: DocumentMembersContentProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="DocumentMembersContent">
     <LazyDocumentMembersContent {...props} />
   </SuspenseWithTracking>
 );
@@ -226,7 +226,7 @@ export const DocumentMembersContent = (props: DocumentMembersContentProps) => (
 const ProblemAdminActionsFieldImport = () => import('./problem/ProblemAdminActionsField');
 const LazyProblemAdminActionsField = lazy(() => ProblemAdminActionsFieldImport().then(module => ({ default: module.ProblemAdminActionsField })));
 export const ProblemAdminActionsField = (props: ProblemAdminActionsFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemAdminActionsField">
     <LazyProblemAdminActionsField {...props} />
   </SuspenseWithTracking>
 );
@@ -234,7 +234,7 @@ export const ProblemAdminActionsField = (props: ProblemAdminActionsFieldProps) =
 const ProblemCrawlerFieldImport = () => import('./problem/ProblemCrawlerField');
 const LazyProblemCrawlerField = lazy(() => ProblemCrawlerFieldImport().then(module => ({ default: module.ProblemCrawlerField })));
 export const ProblemCrawlerField = (props: ProblemCrawlerFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemCrawlerField">
     <LazyProblemCrawlerField {...props} />
   </SuspenseWithTracking>
 );
@@ -242,7 +242,7 @@ export const ProblemCrawlerField = (props: ProblemCrawlerFieldProps) => (
 const ProblemKeyFieldImport = () => import('./problem/ProblemKeyField');
 const LazyProblemKeyField = lazy(() => ProblemKeyFieldImport().then(module => ({ default: module.ProblemKeyField })));
 export const ProblemKeyField = (props: ProblemKeyFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemKeyField">
     <LazyProblemKeyField {...props} />
   </SuspenseWithTracking>
 );
@@ -250,7 +250,7 @@ export const ProblemKeyField = (props: ProblemKeyFieldProps) => (
 const ProblemModeFieldImport = () => import('./problem/ProblemModeField');
 const LazyProblemModeField = lazy(() => ProblemModeFieldImport().then(module => ({ default: module.ProblemModeField })));
 export const ProblemModeField = (props: ProblemModeFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemModeField">
     <LazyProblemModeField {...props} />
   </SuspenseWithTracking>
 );
@@ -258,7 +258,7 @@ export const ProblemModeField = (props: ProblemModeFieldProps) => (
 const ProblemNameLinkFieldImport = () => import('./problem/ProblemNameLinkField');
 const LazyProblemNameLinkField = lazy(() => ProblemNameLinkFieldImport().then(module => ({ default: module.ProblemNameLinkField })));
 export const ProblemNameLinkField = (props: ProblemNameLinkFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemNameLinkField">
     <LazyProblemNameLinkField {...props} />
   </SuspenseWithTracking>
 );
@@ -266,7 +266,7 @@ export const ProblemNameLinkField = (props: ProblemNameLinkFieldProps) => (
 const ProblemNameModalFieldImport = () => import('./problem/ProblemNameModalField');
 const LazyProblemNameModalField = lazy(() => ProblemNameModalFieldImport().then(module => ({ default: module.ProblemNameModalField })));
 export const ProblemNameModalField = (props: ProblemNameModalFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemNameModalField">
     <LazyProblemNameModalField {...props} />
   </SuspenseWithTracking>
 );
@@ -274,7 +274,7 @@ export const ProblemNameModalField = (props: ProblemNameModalFieldProps) => (
 const ProblemOwnerFieldImport = () => import('./problem/ProblemOwnerField');
 const LazyProblemOwnerField = lazy(() => ProblemOwnerFieldImport().then(module => ({ default: module.ProblemOwnerField })));
 export const ProblemOwnerField = (props: ProblemOwnerFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemOwnerField">
     <LazyProblemOwnerField {...props} />
   </SuspenseWithTracking>
 );
@@ -282,7 +282,7 @@ export const ProblemOwnerField = (props: ProblemOwnerFieldProps) => (
 const ProblemStatusImport = () => import('./problem/ProblemStatus');
 const LazyProblemStatus = lazy(() => ProblemStatusImport().then(module => ({ default: module.ProblemStatus })));
 export const ProblemStatus = (props: ProblemStatusProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemStatus">
     <LazyProblemStatus {...props} />
   </SuspenseWithTracking>
 );
@@ -290,7 +290,7 @@ export const ProblemStatus = (props: ProblemStatusProps) => (
 const ProblemTagsFieldImport = () => import('./problem/ProblemTagsField');
 const LazyProblemTagsField = lazy(() => ProblemTagsFieldImport().then(module => ({ default: module.ProblemTagsField })));
 export const ProblemTagsField = (props: ProblemTagsFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemTagsField">
     <LazyProblemTagsField {...props} />
   </SuspenseWithTracking>
 );
@@ -298,7 +298,7 @@ export const ProblemTagsField = (props: ProblemTagsFieldProps) => (
 const ProblemTypeFieldImport = () => import('./problem/ProblemTypeField');
 const LazyProblemTypeField = lazy(() => ProblemTypeFieldImport().then(module => ({ default: module.ProblemTypeField })));
 export const ProblemTypeField = (props: ProblemTypeFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemTypeField">
     <LazyProblemTypeField {...props} />
   </SuspenseWithTracking>
 );
@@ -306,7 +306,7 @@ export const ProblemTypeField = (props: ProblemTypeFieldProps) => (
 const SubmissionContestFieldImport = () => import('./submission/SubmissionContestField');
 const LazySubmissionContestField = lazy(() => SubmissionContestFieldImport().then(module => ({ default: module.SubmissionContestField })));
 export const SubmissionContestField = (props: SubmissionContestFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SubmissionContestField">
     <LazySubmissionContestField {...props} />
   </SuspenseWithTracking>
 );
@@ -314,7 +314,7 @@ export const SubmissionContestField = (props: SubmissionContestFieldProps) => (
 const SubmissionContestProblemFieldImport = () => import('./submission/SubmissionContestProblemField');
 const LazySubmissionContestProblemField = lazy(() => SubmissionContestProblemFieldImport().then(module => ({ default: module.SubmissionContestProblemField })));
 export const SubmissionContestProblemField = (props: SubmissionContestProblemFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SubmissionContestProblemField">
     <LazySubmissionContestProblemField {...props} />
   </SuspenseWithTracking>
 );
@@ -322,7 +322,7 @@ export const SubmissionContestProblemField = (props: SubmissionContestProblemFie
 const SubmissionDateFieldImport = () => import('./submission/SubmissionDateField');
 const LazySubmissionDateField = lazy(() => SubmissionDateFieldImport().then(module => ({ default: module.SubmissionDateField })));
 export const SubmissionDateField = (props: SubmissionDateFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SubmissionDateField">
     <LazySubmissionDateField {...props} />
   </SuspenseWithTracking>
 );
@@ -330,7 +330,7 @@ export const SubmissionDateField = (props: SubmissionDateFieldProps) => (
 const SubmissionLanguageFieldImport = () => import('./submission/SubmissionLanguageField');
 const LazySubmissionLanguageField = lazy(() => SubmissionLanguageFieldImport().then(module => ({ default: module.SubmissionLanguageField })));
 export const SubmissionLanguageField = (props: SubmissionLanguageFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SubmissionLanguageField">
     <LazySubmissionLanguageField {...props} />
   </SuspenseWithTracking>
 );
@@ -338,7 +338,7 @@ export const SubmissionLanguageField = (props: SubmissionLanguageFieldProps) => 
 const SubmissionModalImport = () => import('./submission/SubmissionModal');
 const LazySubmissionModal = lazy(() => SubmissionModalImport().then(module => ({ default: module.SubmissionModal })));
 export const SubmissionModal = (props: SubmissionModalProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SubmissionModal">
     <LazySubmissionModal {...props} />
   </SuspenseWithTracking>
 );
@@ -346,7 +346,7 @@ export const SubmissionModal = (props: SubmissionModalProps) => (
 const SubmissionNicknameFieldImport = () => import('./submission/SubmissionNicknameField');
 const LazySubmissionNicknameField = lazy(() => SubmissionNicknameFieldImport().then(module => ({ default: module.SubmissionNicknameField })));
 export const SubmissionNicknameField = (props: SubmissionNicknameFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SubmissionNicknameField">
     <LazySubmissionNicknameField {...props} />
   </SuspenseWithTracking>
 );
@@ -354,7 +354,7 @@ export const SubmissionNicknameField = (props: SubmissionNicknameFieldProps) => 
 const SubmissionProblemFieldImport = () => import('./submission/SubmissionProblemField');
 const LazySubmissionProblemField = lazy(() => SubmissionProblemFieldImport().then(module => ({ default: module.SubmissionProblemField })));
 export const SubmissionProblemField = (props: SubmissionProblemFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SubmissionProblemField">
     <LazySubmissionProblemField {...props} />
   </SuspenseWithTracking>
 );
@@ -362,7 +362,7 @@ export const SubmissionProblemField = (props: SubmissionProblemFieldProps) => (
 const SubmissionRejudgeButtonImport = () => import('./submission/SubmissionRejudgeButton');
 const LazySubmissionRejudgeButton = lazy(() => SubmissionRejudgeButtonImport().then(module => ({ default: module.SubmissionRejudgeButton })));
 export const SubmissionRejudgeButton = (props: SubmissionRejudgeButtonProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SubmissionRejudgeButton">
     <LazySubmissionRejudgeButton {...props} />
   </SuspenseWithTracking>
 );
@@ -370,7 +370,7 @@ export const SubmissionRejudgeButton = (props: SubmissionRejudgeButtonProps) => 
 const SubmissionTimeFieldImport = () => import('./submission/SubmissionTimeField');
 const LazySubmissionTimeField = lazy(() => SubmissionTimeFieldImport().then(module => ({ default: module.SubmissionTimeField })));
 export const SubmissionTimeField = (props: SubmissionTimeFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SubmissionTimeField">
     <LazySubmissionTimeField {...props} />
   </SuspenseWithTracking>
 );
@@ -378,7 +378,7 @@ export const SubmissionTimeField = (props: SubmissionTimeFieldProps) => (
 const SubmitViewImport = () => import('./submission/SubmitView');
 const LazySubmitView = lazy(() => SubmitViewImport().then(module => ({ default: module.SubmitView })));
 export const SubmitView = (props: SubmitViewProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SubmitView">
     <LazySubmitView {...props} />
   </SuspenseWithTracking>
 );

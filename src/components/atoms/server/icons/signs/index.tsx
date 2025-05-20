@@ -6,7 +6,7 @@ import { SignIconProps } from '../types';
 const ArrowIconImport = () => import('./ArrowIcon');
 const LazyArrowIcon = lazy(() => ArrowIconImport().then(module => ({ default: module.ArrowIcon })));
 export const ArrowIcon = (props: SignIconProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ArrowIcon">
     <LazyArrowIcon {...props} />
   </SuspenseWithTracking>
 );
@@ -14,7 +14,7 @@ export const ArrowIcon = (props: SignIconProps) => (
 const CheckIcon_Import = () => import('./CheckIcon_');
 const LazyCheckIcon_ = lazy(() => CheckIcon_Import().then(module => ({ default: module.CheckIcon_ })));
 export const CheckIcon_ = (props: SignIconProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="CheckIcon_">
     <LazyCheckIcon_ {...props} />
   </SuspenseWithTracking>
 );
@@ -22,7 +22,7 @@ export const CheckIcon_ = (props: SignIconProps) => (
 const CloseIcon_Import = () => import('./CloseIcon_');
 const LazyCloseIcon_ = lazy(() => CloseIcon_Import().then(module => ({ default: module.CloseIcon_ })));
 export const CloseIcon_ = (props: SignIconProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="CloseIcon_">
     <LazyCloseIcon_ {...props} />
   </SuspenseWithTracking>
 );
@@ -30,7 +30,7 @@ export const CloseIcon_ = (props: SignIconProps) => (
 const DoubleUpIconImport = () => import('./DoubleUpIcon');
 const LazyDoubleUpIcon = lazy(() => DoubleUpIconImport().then(module => ({ default: module.DoubleUpIcon })));
 export const DoubleUpIcon = (props: SignIconProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="DoubleUpIcon">
     <LazyDoubleUpIcon {...props} />
   </SuspenseWithTracking>
 );
@@ -38,7 +38,7 @@ export const DoubleUpIcon = (props: SignIconProps) => (
 const ExclamationIconImport = () => import('./ExclamationIcon');
 const LazyExclamationIcon = lazy(() => ExclamationIconImport().then(module => ({ default: module.ExclamationIcon })));
 export const ExclamationIcon = (props: SignIconProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ExclamationIcon">
     <LazyExclamationIcon {...props} />
   </SuspenseWithTracking>
 );
@@ -46,7 +46,7 @@ export const ExclamationIcon = (props: SignIconProps) => (
 const MinusIconImport = () => import('./MinusIcon');
 const LazyMinusIcon = lazy(() => MinusIconImport().then(module => ({ default: module.MinusIcon })));
 export const MinusIcon = (props: SignIconProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="MinusIcon">
     <LazyMinusIcon {...props} />
   </SuspenseWithTracking>
 );
@@ -54,7 +54,7 @@ export const MinusIcon = (props: SignIconProps) => (
 const PlusIconImport = () => import('./PlusIcon');
 const LazyPlusIcon = lazy(() => PlusIconImport().then(module => ({ default: module.PlusIcon })));
 export const PlusIcon = (props: SignIconProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="PlusIcon">
     <LazyPlusIcon {...props} />
   </SuspenseWithTracking>
 );
@@ -62,7 +62,7 @@ export const PlusIcon = (props: SignIconProps) => (
 const UpIconImport = () => import('./UpIcon');
 const LazyUpIcon = lazy(() => UpIconImport().then(module => ({ default: module.UpIcon })));
 export const UpIcon = (props: SignIconProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="UpIcon">
     <LazyUpIcon {...props} />
   </SuspenseWithTracking>
 );

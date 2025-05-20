@@ -47,7 +47,7 @@ import { TimerLabeledProps } from './timers/types';
 const BreadcrumbsImport = () => import('./Breadcrumbs/Breadcrumbs');
 const LazyBreadcrumbs = lazy(() => BreadcrumbsImport().then(module => ({ default: module.Breadcrumbs })));
 export const Breadcrumbs = (props: BreadcrumbsProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Breadcrumbs">
     <LazyBreadcrumbs {...props} />
   </SuspenseWithTracking>
 );
@@ -55,7 +55,7 @@ export const Breadcrumbs = (props: BreadcrumbsProps) => (
 const ButtonLoaderImport = () => import('./ButtonLoader/ButtonLoader');
 const LazyButtonLoader = lazy(() => ButtonLoaderImport().then(module => ({ default: module.ButtonLoader })));
 export const ButtonLoader = (props: ButtonLoaderProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ButtonLoader">
     <LazyButtonLoader {...props} />
   </SuspenseWithTracking>
 );
@@ -63,7 +63,7 @@ export const ButtonLoader = (props: ButtonLoaderProps) => (
 const CheckboxListImport = () => import('./CheckboxList/CheckboxList');
 const LazyCheckboxList = lazy(() => CheckboxListImport().then(module => ({ default: module.CheckboxList })));
 export const CheckboxList = <T, >(props: CheckboxListProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="CheckboxList">
     {/*@ts-ignore*/}
     <LazyCheckboxList {...props} />
   </SuspenseWithTracking>
@@ -72,7 +72,7 @@ export const CheckboxList = <T, >(props: CheckboxListProps<T>) => (
 const CodeEditorImport = () => import('./CodeEditor/CodeEditor');
 const LazyCodeEditor = lazy(() => CodeEditorImport().then(module => ({ default: module.CodeEditor })));
 export const CodeEditor = <T, >(props: CodeEditorProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="CodeEditor">
     {/*@ts-ignore*/}
     <LazyCodeEditor {...props} />
   </SuspenseWithTracking>
@@ -81,7 +81,7 @@ export const CodeEditor = <T, >(props: CodeEditorProps<T>) => (
 const CodeViewerImport = () => import('./CodeViewer/CodeViewer');
 const LazyCodeViewer = lazy(() => CodeViewerImport().then(module => ({ default: module.CodeViewer })));
 export const CodeViewer = (props: CodeViewerProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="CodeViewer">
     <LazyCodeViewer {...props} />
   </SuspenseWithTracking>
 );
@@ -89,7 +89,7 @@ export const CodeViewer = (props: CodeViewerProps) => (
 const DataGridImport = () => import('./DataGrid/DataGrid');
 const LazyDataGrid = lazy(() => DataGridImport().then(module => ({ default: module.DataGrid })));
 export const DataGrid = (props: DataGridProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="DataGrid">
     <LazyDataGrid {...props} />
   </SuspenseWithTracking>
 );
@@ -97,7 +97,7 @@ export const DataGrid = (props: DataGridProps) => (
 const DrawerImport = () => import('./Drawer/Drawer');
 const LazyDrawer = lazy(() => DrawerImport().then(module => ({ default: module.Drawer })));
 export const Drawer = (props: DrawerProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Drawer">
     <LazyDrawer {...props} />
   </SuspenseWithTracking>
 );
@@ -105,7 +105,7 @@ export const Drawer = (props: DrawerProps) => (
 const DrawerViewImport = () => import('./Drawer/DrawerView');
 const LazyDrawerView = lazy(() => DrawerViewImport().then(module => ({ default: module.DrawerView })));
 export const DrawerView = (props: DrawerViewProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="DrawerView">
     <LazyDrawerView {...props} />
   </SuspenseWithTracking>
 );
@@ -113,7 +113,7 @@ export const DrawerView = (props: DrawerViewProps) => (
 const FetcherLayerImport = () => import('./FetcherLayer/FetcherLayer');
 const LazyFetcherLayer = lazy(() => FetcherLayerImport().then(module => ({ default: module.FetcherLayer })));
 export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>(props: FetcherLayerProps<T, U>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="FetcherLayer">
     {/*@ts-ignore*/}
     <LazyFetcherLayer {...props} />
   </SuspenseWithTracking>
@@ -122,7 +122,7 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
 const FirstLoginWrapperImport = () => import('./FirstLoginWrapper/FirstLoginWrapper');
 const LazyFirstLoginWrapper = lazy(() => FirstLoginWrapperImport().then(module => ({ default: module.FirstLoginWrapper })));
 export const FirstLoginWrapper = (props: FirstLoginWrapperProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="FirstLoginWrapper">
     <LazyFirstLoginWrapper {...props} />
   </SuspenseWithTracking>
 );
@@ -130,7 +130,7 @@ export const FirstLoginWrapper = (props: FirstLoginWrapperProps) => (
 const ButtonActionImport = () => import('./FloatToolbar/ButtonAction');
 const LazyButtonAction = lazy(() => ButtonActionImport().then(module => ({ default: module.ButtonAction })));
 export const ButtonAction = (props: ButtonActionProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ButtonAction">
     <LazyButtonAction {...props} />
   </SuspenseWithTracking>
 );
@@ -138,7 +138,7 @@ export const ButtonAction = (props: ButtonActionProps) => (
 const FloatToolbarImport = () => import('./FloatToolbar/FloatToolbar');
 const LazyFloatToolbar = lazy(() => FloatToolbarImport().then(module => ({ default: module.FloatToolbar })));
 export const FloatToolbar = (props: FloatToolbarProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="FloatToolbar">
     <LazyFloatToolbar {...props} />
   </SuspenseWithTracking>
 );
@@ -146,7 +146,7 @@ export const FloatToolbar = (props: FloatToolbarProps) => (
 const ImageLoaderCropperImport = () => import('./ImageLoaderCropper/ImageLoaderCropper');
 const LazyImageLoaderCropper = lazy(() => ImageLoaderCropperImport().then(module => ({ default: module.ImageLoaderCropper })));
 export const ImageLoaderCropper = (props: ImageLoaderCropperProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ImageLoaderCropper">
     <LazyImageLoaderCropper {...props} />
   </SuspenseWithTracking>
 );
@@ -154,7 +154,7 @@ export const ImageLoaderCropper = (props: ImageLoaderCropperProps) => (
 const InputColorImport = () => import('./InputColor/InputColor');
 const LazyInputColor = lazy(() => InputColorImport().then(module => ({ default: module.InputColor })));
 export const InputColor = (props: InputColorProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="InputColor">
     <LazyInputColor {...props} />
   </SuspenseWithTracking>
 );
@@ -162,7 +162,7 @@ export const InputColor = (props: InputColorProps) => (
 const LinkLastPathImport = () => import('./LinkLastPath/LinkLastPath');
 const LazyLinkLastPath = lazy(() => LinkLastPathImport().then(module => ({ default: module.LinkLastPath })));
 export const LinkLastPath = (props: LinkLastPathProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="LinkLastPath">
     <LazyLinkLastPath {...props} />
   </SuspenseWithTracking>
 );
@@ -170,7 +170,7 @@ export const LinkLastPath = (props: LinkLastPathProps) => (
 const MultiSelectSearchableImport = () => import('./MultiSelectSearchable/MultiSelectSearchable');
 const LazyMultiSelectSearchable = lazy(() => MultiSelectSearchableImport().then(module => ({ default: module.MultiSelectSearchable })));
 export const MultiSelectSearchable = <T, U extends React.ReactNode, V extends React.ReactNode>(props: MultiSelectSearchableProps<T, U, V>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="MultiSelectSearchable">
     {/*@ts-ignore*/}
     <LazyMultiSelectSearchable {...props} />
   </SuspenseWithTracking>
@@ -179,7 +179,7 @@ export const MultiSelectSearchable = <T, U extends React.ReactNode, V extends Re
 const SortableItemsImport = () => import('./SimpleSortableRows/SortableItems');
 const LazySortableItems = lazy(() => SortableItemsImport().then(module => ({ default: module.SortableItems })));
 export const SortableItems = <T, U = undefined>(props: SortableItemsProps<T, U>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SortableItems">
     {/*@ts-ignore*/}
     <LazySortableItems {...props} />
   </SuspenseWithTracking>
@@ -188,7 +188,7 @@ export const SortableItems = <T, U = undefined>(props: SortableItemsProps<T, U>)
 const SplitModalImport = () => import('./SplitModal/SplitModal');
 const LazySplitModal = lazy(() => SplitModalImport().then(module => ({ default: module.SplitModal })));
 export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: SplitModalProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SplitModal">
     {/*@ts-ignore*/}
     <LazySplitModal {...props} />
   </SuspenseWithTracking>
@@ -197,7 +197,7 @@ export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: SplitM
 const SplitPaneImport = () => import('./SplitPane/SplitPane');
 const LazySplitPane = lazy(() => SplitPaneImport().then(module => ({ default: module.SplitPane })));
 export const SplitPane = (props: SplitPaneProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SplitPane">
     <LazySplitPane {...props} />
   </SuspenseWithTracking>
 );
@@ -205,7 +205,7 @@ export const SplitPane = (props: SplitPaneProps) => (
 const TabsImport = () => import('./Tabs/Tabs');
 const LazyTabs = lazy(() => TabsImport().then(module => ({ default: module.Tabs })));
 export const Tabs = <T extends string, >(props: TabsProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Tabs">
     {/*@ts-ignore*/}
     <LazyTabs {...props} />
   </SuspenseWithTracking>
@@ -214,7 +214,7 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => (
 const TabsInlineImport = () => import('./Tabs/TabsInline');
 const LazyTabsInline = lazy(() => TabsInlineImport().then(module => ({ default: module.TabsInline })));
 export const TabsInline = <T, >(props: TabsInlineProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="TabsInline">
     {/*@ts-ignore*/}
     <LazyTabsInline {...props} />
   </SuspenseWithTracking>
@@ -223,7 +223,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => (
 const TabsInlineBodyImport = () => import('./Tabs/TabsInlineBody');
 const LazyTabsInlineBody = lazy(() => TabsInlineBodyImport().then(module => ({ default: module.TabsInlineBody })));
 export const TabsInlineBody = <T, >(props: TabsInlineBodyProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="TabsInlineBody">
     {/*@ts-ignore*/}
     <LazyTabsInlineBody {...props} />
   </SuspenseWithTracking>
@@ -232,7 +232,7 @@ export const TabsInlineBody = <T, >(props: TabsInlineBodyProps<T>) => (
 const ThemeColorPaletteImport = () => import('./ThemeColorPalette/ThemeColorPalette');
 const LazyThemeColorPalette = lazy(() => ThemeColorPaletteImport().then(module => ({ default: module.ThemeColorPalette })));
 export const ThemeColorPalette = (props: ThemeColorPaletteProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ThemeColorPalette">
     <LazyThemeColorPalette {...props} />
   </SuspenseWithTracking>
 );
@@ -240,7 +240,7 @@ export const ThemeColorPalette = (props: ThemeColorPaletteProps) => (
 const TwoActionModalImport = () => import('./TwoActionModal/TwoActionModal');
 const LazyTwoActionModal = lazy(() => TwoActionModalImport().then(module => ({ default: module.TwoActionModal })));
 export const TwoActionModal = (props: TwoActionModalProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="TwoActionModal">
     <LazyTwoActionModal {...props} />
   </SuspenseWithTracking>
 );
@@ -248,7 +248,7 @@ export const TwoActionModal = (props: TwoActionModalProps) => (
 const TwoContentSectionImport = () => import('./TwoContentSection/TwoContentSection');
 const LazyTwoContentSection = lazy(() => TwoContentSectionImport().then(module => ({ default: module.TwoContentSection })));
 export const TwoContentSection = (props: TwoContentSectionProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="TwoContentSection">
     <LazyTwoContentSection {...props} />
   </SuspenseWithTracking>
 );
@@ -256,7 +256,7 @@ export const TwoContentSection = (props: TwoContentSectionProps) => (
 const DatePickerImport = () => import('./datePickers/DatePicker');
 const LazyDatePicker = lazy(() => DatePickerImport().then(module => ({ default: module.DatePicker })));
 export const DatePicker = (props: DatePickerProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="DatePicker">
     <LazyDatePicker {...props} />
   </SuspenseWithTracking>
 );
@@ -264,7 +264,7 @@ export const DatePicker = (props: DatePickerProps) => (
 const DayPickerImport = () => import('./datePickers/DayPicker');
 const LazyDayPicker = lazy(() => DayPickerImport().then(module => ({ default: module.DayPicker })));
 export const DayPicker = (props: DayPickerProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="DayPicker">
     <LazyDayPicker {...props} />
   </SuspenseWithTracking>
 );
@@ -272,7 +272,7 @@ export const DayPicker = (props: DayPickerProps) => (
 const InputDateImport = () => import('./datePickers/InputDate');
 const LazyInputDate = lazy(() => InputDateImport().then(module => ({ default: module.InputDate })));
 export const InputDate = (props: InputDateProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="InputDate">
     <LazyInputDate {...props} />
   </SuspenseWithTracking>
 );
@@ -280,7 +280,7 @@ export const InputDate = (props: InputDateProps) => (
 const MonthPickerImport = () => import('./datePickers/MonthPicker');
 const LazyMonthPicker = lazy(() => MonthPickerImport().then(module => ({ default: module.MonthPicker })));
 export const MonthPicker = (props: MonthPickerProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="MonthPicker">
     <LazyMonthPicker {...props} />
   </SuspenseWithTracking>
 );
@@ -288,7 +288,7 @@ export const MonthPicker = (props: MonthPickerProps) => (
 const TimePickerImport = () => import('./datePickers/TimePicker');
 const LazyTimePicker = lazy(() => TimePickerImport().then(module => ({ default: module.TimePicker })));
 export const TimePicker = (props: TimePickerProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="TimePicker">
     <LazyTimePicker {...props} />
   </SuspenseWithTracking>
 );
@@ -296,7 +296,7 @@ export const TimePicker = (props: TimePickerProps) => (
 const YearPickerImport = () => import('./datePickers/YearPicker');
 const LazyYearPicker = lazy(() => YearPickerImport().then(module => ({ default: module.YearPicker })));
 export const YearPicker = (props: YearPickerProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="YearPicker">
     <LazyYearPicker {...props} />
   </SuspenseWithTracking>
 );
@@ -304,7 +304,7 @@ export const YearPicker = (props: YearPickerProps) => (
 const JukiLoadingLayoutImport = () => import('./layouts/JukiLoadingLayout');
 const LazyJukiLoadingLayout = lazy(() => JukiLoadingLayoutImport().then(module => ({ default: module.JukiLoadingLayout })));
 export const JukiLoadingLayout = (props: JukiLoadingLayoutProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="JukiLoadingLayout">
     <LazyJukiLoadingLayout {...props} />
   </SuspenseWithTracking>
 );
@@ -312,7 +312,7 @@ export const JukiLoadingLayout = (props: JukiLoadingLayoutProps) => (
 const PawsLoadingLayoutImport = () => import('./layouts/PawsLoadingLayout');
 const LazyPawsLoadingLayout = lazy(() => PawsLoadingLayoutImport().then(module => ({ default: module.PawsLoadingLayout })));
 export const PawsLoadingLayout = (props: PawsLoadingLayoutProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="PawsLoadingLayout">
     <LazyPawsLoadingLayout {...props} />
   </SuspenseWithTracking>
 );
@@ -320,7 +320,7 @@ export const PawsLoadingLayout = (props: PawsLoadingLayoutProps) => (
 const TwoContentCardsLayoutImport = () => import('./layouts/TwoContentCardsLayout');
 const LazyTwoContentCardsLayout = lazy(() => TwoContentCardsLayoutImport().then(module => ({ default: module.TwoContentCardsLayout })));
 export const TwoContentCardsLayout = <T, >(props: TwoContentCardsLayoutProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="TwoContentCardsLayout">
     {/*@ts-ignore*/}
     <LazyTwoContentCardsLayout {...props} />
   </SuspenseWithTracking>
@@ -329,7 +329,7 @@ export const TwoContentCardsLayout = <T, >(props: TwoContentCardsLayoutProps<T>)
 const TwoContentLayoutImport = () => import('./layouts/TwoContentLayout');
 const LazyTwoContentLayout = lazy(() => TwoContentLayoutImport().then(module => ({ default: module.TwoContentLayout })));
 export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="TwoContentLayout">
     {/*@ts-ignore*/}
     <LazyTwoContentLayout {...props} />
   </SuspenseWithTracking>
@@ -338,7 +338,7 @@ export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => (
 const HomeLinkImport = () => import('./links/HomeLink');
 const LazyHomeLink = lazy(() => HomeLinkImport().then(module => ({ default: module.HomeLink })));
 export const HomeLink = (props: HomeLinkProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="HomeLink">
     <LazyHomeLink {...props} />
   </SuspenseWithTracking>
 );
@@ -346,7 +346,7 @@ export const HomeLink = (props: HomeLinkProps) => (
 const CircularProgressImport = () => import('./progress/CircularProgress');
 const LazyCircularProgress = lazy(() => CircularProgressImport().then(module => ({ default: module.CircularProgress })));
 export const CircularProgress = (props: CircularProgressProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="CircularProgress">
     <LazyCircularProgress {...props} />
   </SuspenseWithTracking>
 );
@@ -354,7 +354,7 @@ export const CircularProgress = (props: CircularProgressProps) => (
 const MultiProgressBarImport = () => import('./progress/MultiProgressBar');
 const LazyMultiProgressBar = lazy(() => MultiProgressBarImport().then(module => ({ default: module.MultiProgressBar })));
 export const MultiProgressBar = (props: MultiProgressBarProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="MultiProgressBar">
     <LazyMultiProgressBar {...props} />
   </SuspenseWithTracking>
 );
@@ -362,7 +362,7 @@ export const MultiProgressBar = (props: MultiProgressBarProps) => (
 const TimerImport = () => import('./timers/Timer');
 const LazyTimer = lazy(() => TimerImport().then(module => ({ default: module.Timer })));
 export const Timer = (props: TimerProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Timer">
     <LazyTimer {...props} />
   </SuspenseWithTracking>
 );
@@ -370,7 +370,7 @@ export const Timer = (props: TimerProps) => (
 const TimerLabeledImport = () => import('./timers/TimerLabeled');
 const LazyTimerLabeled = lazy(() => TimerLabeledImport().then(module => ({ default: module.TimerLabeled })));
 export const TimerLabeled = (props: TimerLabeledProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>
+  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="TimerLabeled">
     <LazyTimerLabeled {...props} />
   </SuspenseWithTracking>
 );

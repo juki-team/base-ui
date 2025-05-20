@@ -1,17 +1,33 @@
 import { create } from 'zustand';
 
-interface UseLazyLoadingStore {
+interface LazyLoadingStore {
+  loadingIds: Set<string>;
   loadingCount: number;
-  startLoading: () => void;
-  stopLoading: () => void;
-  isLoading: boolean;
+  startLoading: (id: string) => void;
+  stopLoading: (id: string) => void;
 }
 
-export const useLazyLoadingStore = create<UseLazyLoadingStore>((set, get) => ({
+export const useLazyLoadingStore = create<LazyLoadingStore>((set, get) => ({
+  loadingIds: new Set(),
   loadingCount: 0,
-  startLoading: () => set(state => ({ loadingCount: state.loadingCount + 1 })),
-  stopLoading: () => set(state => ({ loadingCount: Math.max(state.loadingCount - 1, 0) })),
-  get isLoading() {
-    return get().loadingCount > 0;
+  startLoading: (id) => {
+    const ids = new Set(get().loadingIds);
+    if (!ids.has(id)) {
+      ids.add(id);
+      set({
+        loadingIds: ids,
+        loadingCount: ids.size,
+      });
+    }
+  },
+  stopLoading: (id) => {
+    const ids = new Set(get().loadingIds);
+    if (ids.has(id)) {
+      ids.delete(id);
+      set({
+        loadingIds: ids,
+        loadingCount: ids.size,
+      });
+    }
   },
 }));

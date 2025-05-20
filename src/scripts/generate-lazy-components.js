@@ -154,7 +154,7 @@ for (let {
         exportLine = withGenericity[index][1];
       }
       
-      lines.push(exportLine, `  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />}>`,);
+      lines.push(exportLine, `  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="${name}">`,);
       
       if (index !== -1) {
         lines.push(`    {/*@ts-ignore*/}`);
