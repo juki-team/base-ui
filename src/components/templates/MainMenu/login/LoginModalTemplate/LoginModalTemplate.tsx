@@ -3,11 +3,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { classNames } from '../../../../helpers';
-import { Input, InputPassword, T } from '../../../atoms';
-import { ButtonLoader, SplitModal } from '../../../molecules';
-import { SetLoaderStatusOnClickType } from '../../../molecules/types';
-import { JukiLaptopImage } from '../../../server';
+import { classNames } from '../../../../../helpers';
+import { Input, InputPassword, T } from '../../../../atoms';
+import { ButtonLoader, SplitModal } from '../../../../molecules';
+import { SetLoaderStatusOnClickType } from '../../../../molecules/types';
+import { JukiLaptopImage } from '../../../../server';
 import { ForgotPasswordModal } from './ForgotPassword';
 import { LoginFormType, LoginModalTemplateProps } from './types';
 

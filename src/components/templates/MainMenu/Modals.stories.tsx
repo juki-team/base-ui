@@ -4,7 +4,7 @@ import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { CalendarMonthIcon, EventIcon } from '../../server';
 import { DrawerViewMenuMobile as DrawerViewMenuMobileCmp } from './DrawerViewMenuMobile';
-import { ForgotPasswordModal as UserForgotPasswordModalCmp } from './LoginModalTemplate';
+import { ForgotPasswordModal as UserForgotPasswordModalCmp } from './login/LoginModalTemplate';
 import { WelcomeModal as WelcomeModalCmp } from './WelcomeModal';
 
 export default {

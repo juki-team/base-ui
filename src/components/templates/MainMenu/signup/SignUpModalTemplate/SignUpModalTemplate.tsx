@@ -3,12 +3,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX, LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX } from '../../../../constants';
-import { classNames } from '../../../../helpers';
-import { Input, InputCheckbox, InputPassword, T } from '../../../atoms';
-import { ButtonLoader, SplitModal } from '../../../molecules';
-import { SetLoaderStatusOnClickType } from '../../../molecules/types';
-import { JukiLaptopImage } from '../../../server';
+import {
+  ALPHANUMERIC_DASH_UNDERSCORE_REGEX,
+  LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX,
+} from '../../../../../constants';
+import { classNames } from '../../../../../helpers';
+import { Input, InputCheckbox, InputPassword, T } from '../../../../atoms';
+import { ButtonLoader, SplitModal } from '../../../../molecules';
+import { SetLoaderStatusOnClickType } from '../../../../molecules/types';
+import { JukiLaptopImage } from '../../../../server';
 import { SignUpFormType, SignUpModalComponentProps } from './types';
 
 const signUpSchema = yup.object().shape({

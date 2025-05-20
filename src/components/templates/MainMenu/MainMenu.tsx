@@ -16,10 +16,10 @@ import { JukiLoadingLayout } from '../../molecules';
 import { HorizontalMenu, VerticalMenu } from '../../organisms';
 import { MenuType } from '../../organisms/types';
 import { SpinIcon } from '../../server';
-import { LoginModal } from './login/LoginModal';
+import { LoginModal } from './login';
 import { LoginUser } from './login/LoginUser';
 import { SettingsSection } from './SettingsSection';
-import { SignUpModal } from './signup/SignUpModal';
+import { SignUpModal } from './signup';
 import { MainMenuProps } from './types';
 import { WelcomeModal } from './WelcomeModal';
 

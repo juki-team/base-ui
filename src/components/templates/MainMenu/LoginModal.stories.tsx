@@ -3,8 +3,9 @@ import { Meta, StoryObj } from '@storybook/react';
 import React, { useState } from 'react';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
-import { LoginModal, LoginModalProps } from './login/LoginModal';
-import { LoginModalTemplate } from './LoginModalTemplate';
+import { LoginModal } from './login/LoginModal';
+import { LoginModalTemplate } from './login/LoginModalTemplate';
+import { LoginModalProps } from './login/types';
 
 const meta: Meta<typeof LoginModalTemplate> = {
   component: LoginModalTemplate,

@@ -129,7 +129,11 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   if (isLoading) {
     return (
       <JukiLoadingLayout>
-        <T>loading user</T>
+        <div className="jk-row">
+          <T>loading user</T>
+          &nbsp;
+          <div className="dot-flashing" />
+        </div>
       </JukiLoadingLayout>
     );
   }

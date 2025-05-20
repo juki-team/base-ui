@@ -1,7 +1,6 @@
 import { MotionConfig } from 'motion/react';
 import React, { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
 import { T } from '../../components/atoms';
-import { JukiLoadingLayout } from '../../components/molecules';
 import { NotificationProvider, SoundProvider } from '../../components/organisms';
 import { LineLoader } from '../../components/server';
 import { classNames, persistGlobalURLSearchParams } from '../../helpers';
@@ -57,7 +56,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
             <div id="juki-app" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
               {/*<div className="loading-route-overlay" />*/}
               {children}
-              <Suspense fallback={<JukiLoadingLayout><T className="tt-se">loading component</T></JukiLoadingLayout>}>
+              <Suspense>
                 <ReactTooltip
                   id="jk-tooltip"
                   opacity={1}

@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { useJukiUser } from '../../../../hooks/useJukiUser';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { BasicModalProps, SetLoaderStatusOnClickType } from '../../../../types';
-import { LoginModalTemplate } from '../LoginModalTemplate';
-import { LoginFormType } from '../LoginModalTemplate/types';
-
-export interface LoginModalProps extends BasicModalProps {
-  onSignUpButton: () => void,
-  multiCompanies?: boolean,
-}
+import { SetLoaderStatusOnClickType } from '../../../../types';
+import { LoginModalTemplate } from './LoginModalTemplate';
+import { LoginFormType } from './LoginModalTemplate/types';
+import { LoginModalProps } from './types';
 
 export const LoginModal = ({ isOpen, onClose, onSignUpButton, multiCompanies }: LoginModalProps) => {
   
