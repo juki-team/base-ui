@@ -44,17 +44,6 @@ export const useUserStore = create<UserState>()(
         isLoading: state.isLoading,
         device: state.device,
       }),
-      onRehydrateStorage: (state) => {
-        console.log('useUserStore, hydration starts', { state });
-        
-        return (state, error) => {
-          if (error) {
-            console.log('useUserStore, an error happened during hydration', error);
-          } else {
-            console.log('useUserStore, hydration finished', { state });
-          }
-        };
-      },
     },
   ),
 );

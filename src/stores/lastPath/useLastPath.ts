@@ -43,17 +43,6 @@ export const useLastPathStore = create<LastPathState>()(
         },
       }),
       partialize: (state) => ({ lastPath: state.lastPath }),
-      onRehydrateStorage: (state) => {
-        console.log('useLastPathStore, hydration starts', { state });
-        
-        return (state, error) => {
-          if (error) {
-            console.log('useLastPathStore, an error happened during hydration', error);
-          } else {
-            console.log('useLastPathStore, hydration finished', { state });
-          }
-        };
-      },
     },
   ),
 );
