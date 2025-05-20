@@ -20,7 +20,6 @@ export const useLastPathStore = create<LastPathState>()(
       },
       setInitialLastPath: (lastPath, nicknameUpdated) => {
         if (Object.keys(get().lastPath).length === 0 || nicknameUpdated) {
-          console.log('setInitialLastPath', { lastPath, nicknameUpdated });
           set({ lastPath });
         }
       },
@@ -35,7 +34,6 @@ export const useLastPathStore = create<LastPathState>()(
           return value;
         },
         reviver: (key, value) => {
-          console.log('reviver', { key, value });
           // @ts-ignore
           if (value && value.__urlSearchParams) {
             // @ts-ignore
@@ -45,6 +43,17 @@ export const useLastPathStore = create<LastPathState>()(
         },
       }),
       partialize: (state) => ({ lastPath: state.lastPath }),
+      onRehydrateStorage: (state) => {
+        console.log('useLastPathStore, hydration starts', { state });
+        
+        return (state, error) => {
+          if (error) {
+            console.log('useLastPathStore, an error happened during hydration', error);
+          } else {
+            console.log('useLastPathStore, hydration finished', { state });
+          }
+        };
+      },
     },
   ),
 );
