@@ -23,7 +23,7 @@ body {
     height: var(--100VH);
     
     &.loading-route {
-      pointer-events: none;
+      //pointer-events: none;
       
       .loading-route-overlay {
         opacity: 1;
