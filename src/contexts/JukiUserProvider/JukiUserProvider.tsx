@@ -7,7 +7,9 @@ import {
   ProfileSetting,
   Theme,
 } from '@juki-team/commons';
-import { PropsWithChildren, useCallback, useEffect } from 'react';
+import React, { PropsWithChildren, useCallback, useEffect } from 'react';
+import { T } from '../../components/atoms/T/T';
+import { JukiLoadingLayout } from '../../components/molecules/layouts/JukiLoadingLayout';
 import { EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
 import { useFetcher, useI18nStore, useMutate, useUserStore } from '../../hooks';
@@ -25,6 +27,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const userNickname = useUserStore(state => state.user.nickname);
   const companyKey = useUserStore(state => state.company.key);
   const userSessionId = useUserStore(state => state.user.sessionId);
+  const isLoading = useUserStore(state => state.isLoading);
   const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
   const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
   const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
@@ -122,6 +125,14 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
       }
     }
   }, [ userPreferredTheme ]);
+  
+  if (isLoading) {
+    return (
+      <JukiLoadingLayout>
+        <T>loading user</T>
+      </JukiLoadingLayout>
+    );
+  }
   
   return children;
 };

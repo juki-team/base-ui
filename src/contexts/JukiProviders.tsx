@@ -20,32 +20,32 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
   
   return (
     <JukiPageProvider>
-      <JukiRouterProvider
-        searchParams={router.searchParams}
-        appendSearchParams={router.appendSearchParams}
-        setSearchParams={router.setSearchParams}
-        deleteSearchParams={router.deleteSearchParams}
-        routeParams={router.routeParams}
-        pushRoute={router.pushRoute}
-        replaceRoute={router.replaceRoute}
-        reloadRoute={router.reloadRoute}
-        isLoadingRoute={router.isLoadingRoute}
-        pathname={router.pathname}
-      >
+      <JukiI18nProvider>
         <JukiUserProvider>
-          <JukiWebsocketProvider>
-            <JukiUIProvider components={components}>
-              <JukiLastPathProvider initialLastPath={initialLastPath}>
-                <JukiTasksProvider>
-                  <JukiI18nProvider>
+          <JukiRouterProvider
+            searchParams={router.searchParams}
+            appendSearchParams={router.appendSearchParams}
+            setSearchParams={router.setSearchParams}
+            deleteSearchParams={router.deleteSearchParams}
+            routeParams={router.routeParams}
+            pushRoute={router.pushRoute}
+            replaceRoute={router.replaceRoute}
+            reloadRoute={router.reloadRoute}
+            isLoadingRoute={router.isLoadingRoute}
+            pathname={router.pathname}
+          >
+            <JukiWebsocketProvider>
+              <JukiUIProvider components={components}>
+                <JukiLastPathProvider initialLastPath={initialLastPath}>
+                  <JukiTasksProvider>
                     {children}
-                  </JukiI18nProvider>
-                </JukiTasksProvider>
-              </JukiLastPathProvider>
-            </JukiUIProvider>
-          </JukiWebsocketProvider>
+                  </JukiTasksProvider>
+                </JukiLastPathProvider>
+              </JukiUIProvider>
+            </JukiWebsocketProvider>
+          </JukiRouterProvider>
         </JukiUserProvider>
-      </JukiRouterProvider>
+      </JukiI18nProvider>
     </JukiPageProvider>
   );
 };
