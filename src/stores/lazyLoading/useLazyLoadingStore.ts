@@ -12,6 +12,7 @@ export const useLazyLoadingStore = create<LazyLoadingStore>((set, get) => ({
   loadingCount: 0,
   startLoading: (id) => {
     const ids = new Set(get().loadingIds);
+    console.log('startLoading', id);
     if (!ids.has(id)) {
       ids.add(id);
       set({
@@ -22,6 +23,7 @@ export const useLazyLoadingStore = create<LazyLoadingStore>((set, get) => ({
   },
   stopLoading: (id) => {
     const ids = new Set(get().loadingIds);
+    console.log('stopLoading', id);
     if (ids.has(id)) {
       ids.delete(id);
       set({
