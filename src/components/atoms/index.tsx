@@ -1,5 +1,5 @@
-import React, { lazy } from 'react';
-import { SuspenseWithTracking } from '../SuspenseWithTracking';
+import React, { lazy, Suspense } from 'react';
+//import { SuspenseWithTracking } from '../SuspenseWithTracking';
 import { SpinIcon } from './server/icons/SpinIcon';
 import { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';
 import { ButtonProps } from './Button/types';
@@ -27,174 +27,174 @@ import { InputToggleProps } from './inputs/types';
 const ButtonImport = () => import('./Button/Button');
 const LazyButton = lazy(() => ButtonImport().then(module => ({ default: module.Button })));
 export const Button = (props: ButtonProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Button">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyButton {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const CollapseImport = () => import('./Collapse/Collapse');
 const LazyCollapse = lazy(() => CollapseImport().then(module => ({ default: module.Collapse })));
 export const Collapse = (props: CollapseProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Collapse">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCollapse {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const CopyToClipboardImport = () => import('./CopyToClipboard/CopyToClipboard');
 const LazyCopyToClipboard = lazy(() => CopyToClipboardImport().then(module => ({ default: module.CopyToClipboard })));
 export const CopyToClipboard = (props: CopyToClipboardProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="CopyToClipboard">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCopyToClipboard {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const DateLiteralImport = () => import('./DateLiteral/DateLiteral');
 const LazyDateLiteral = lazy(() => DateLiteralImport().then(module => ({ default: module.DateLiteral })));
 export const DateLiteral = (props: DateLiteralProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="DateLiteral">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDateLiteral {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const DivImport = () => import('./Div/Div');
 const LazyDiv = lazy(() => DivImport().then(module => ({ default: module.Div })));
 export const Div = (props: DivProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Div">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDiv {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const ModalImport = () => import('./Modal/Modal');
 const LazyModal = lazy(() => ModalImport().then(module => ({ default: module.Modal })));
 export const Modal = <T extends ModalButtonLoaderEventType = () => void>(props: ModalProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Modal">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazyModal {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const MultiSelectImport = () => import('./MultiSelect/MultiSelect');
 const LazyMultiSelect = lazy(() => MultiSelectImport().then(module => ({ default: module.MultiSelect })));
 export const MultiSelect = <T, U extends React.ReactNode, V extends React.ReactNode>(props: MultiSelectProps<T, U, V>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="MultiSelect">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazyMultiSelect {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const PopoverImport = () => import('./Popover/Popover');
 const LazyPopover = lazy(() => PopoverImport().then(module => ({ default: module.Popover })));
 export const Popover = (props: PopoverProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Popover">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPopover {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const PortalImport = () => import('./Portal/Portal');
 const LazyPortal = lazy(() => PortalImport().then(module => ({ default: module.Portal })));
 export const Portal = (props: PortalProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Portal">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPortal {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const SelectImport = () => import('./Select/Select');
 const LazySelect = lazy(() => SelectImport().then(module => ({ default: module.Select })));
 export const Select = <T, U extends React.ReactNode, V extends ReactNodeOrFunctionType>(props: SelectProps<T, U, V>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Select">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazySelect {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const TImport = () => import('./T/T');
 const LazyT = lazy(() => TImport().then(module => ({ default: module.T })));
 export const T = (props: TProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="T">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyT {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const TextAreaImport = () => import('./TextArea/TextArea');
 const LazyTextArea = lazy(() => TextAreaImport().then(module => ({ default: module.TextArea })));
 export const TextArea = (props: TextAreaProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="TextArea">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyTextArea {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const VirtualizedRowsFixedImport = () => import('./VirtualizedRowsFixed/VirtualizedRowsFixed');
 const LazyVirtualizedRowsFixed = lazy(() => VirtualizedRowsFixedImport().then(module => ({ default: module.VirtualizedRowsFixed })));
 export const VirtualizedRowsFixed = (props: VirtualizedRowsFixedProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="VirtualizedRowsFixed">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyVirtualizedRowsFixed {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const InputImport = () => import('./inputs/Input');
 const LazyInput = lazy(() => InputImport().then(module => ({ default: module.Input })));
 export const Input = <T extends string | number | FileList, >(props: InputProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Input">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazyInput {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const InputCellPhoneNumberImport = () => import('./inputs/InputCellPhoneNumber');
 const LazyInputCellPhoneNumber = lazy(() => InputCellPhoneNumberImport().then(module => ({ default: module.InputCellPhoneNumber })));
 export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="InputCellPhoneNumber">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyInputCellPhoneNumber {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const InputCheckboxImport = () => import('./inputs/InputCheckbox');
 const LazyInputCheckbox = lazy(() => InputCheckboxImport().then(module => ({ default: module.InputCheckbox })));
 export const InputCheckbox = (props: InputCheckboxProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="InputCheckbox">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyInputCheckbox {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const InputPasswordImport = () => import('./inputs/InputPassword');
 const LazyInputPassword = lazy(() => InputPasswordImport().then(module => ({ default: module.InputPassword })));
 export const InputPassword = (props: InputPasswordProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="InputPassword">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyInputPassword {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const InputRadioImport = () => import('./inputs/InputRadio');
 const LazyInputRadio = lazy(() => InputRadioImport().then(module => ({ default: module.InputRadio })));
 export const InputRadio = (props: InputRadioProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="InputRadio">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyInputRadio {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const InputSelectImport = () => import('./inputs/InputSelect');
 const LazyInputSelect = lazy(() => InputSelectImport().then(module => ({ default: module.InputSelect })));
 export const InputSelect = <T, U extends React.ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="InputSelect">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazyInputSelect {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const InputTextAreaImport = () => import('./inputs/InputTextArea');
 const LazyInputTextArea = lazy(() => InputTextAreaImport().then(module => ({ default: module.InputTextArea })));
 export const InputTextArea = (props: InputTextAreaProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="InputTextArea">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyInputTextArea {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const InputToggleImport = () => import('./inputs/InputToggle');
 const LazyInputToggle = lazy(() => InputToggleImport().then(module => ({ default: module.InputToggle })));
 export const InputToggle = (props: InputToggleProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="InputToggle">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyInputToggle {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 export const preloadAtoms = async () => {

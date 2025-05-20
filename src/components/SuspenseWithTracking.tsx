@@ -12,7 +12,7 @@ export const SuspenseWithTracking = ({ children, fallback, id }: {
   useEffect(() => {
     startLoading(id);
     return () => stopLoading(id);
-  }, [ startLoading, stopLoading ]);
+  }, [ id, startLoading, stopLoading ]);
   
   return <Suspense fallback={fallback}>{children}</Suspense>;
 };

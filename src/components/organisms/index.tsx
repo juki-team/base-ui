@@ -1,5 +1,5 @@
-import React, { lazy } from 'react';
-import { SuspenseWithTracking } from '../SuspenseWithTracking';
+import React, { lazy, Suspense } from 'react';
+//import { SuspenseWithTracking } from '../SuspenseWithTracking';
 import { SpinIcon } from '../atoms/server/icons/SpinIcon';
 import { CheckUnsavedChangesProps } from './CheckUnsavedChanges/types';
 import { CodeRunnerEditorProps } from './CodeRunnerEditor/types';
@@ -30,206 +30,206 @@ import { MdMathViewerProps } from './mdMath/types';
 const CheckUnsavedChangesImport = () => import('./CheckUnsavedChanges/CheckUnsavedChanges');
 const LazyCheckUnsavedChanges = lazy(() => CheckUnsavedChangesImport().then(module => ({ default: module.CheckUnsavedChanges })));
 export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChangesProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="CheckUnsavedChanges">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazyCheckUnsavedChanges {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const CodeRunnerEditorImport = () => import('./CodeRunnerEditor/CodeRunnerEditor');
 const LazyCodeRunnerEditor = lazy(() => CodeRunnerEditorImport().then(module => ({ default: module.CodeRunnerEditor })));
 export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="CodeRunnerEditor">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazyCodeRunnerEditor {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const DataViewerImport = () => import('./DataViewer/DataViewer');
 const LazyDataViewer = lazy(() => DataViewerImport().then(module => ({ default: module.DataViewer })));
 export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="DataViewer">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazyDataViewer {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const DateFieldImport = () => import('./DataViewer/DateField');
 const LazyDateField = lazy(() => DateFieldImport().then(module => ({ default: module.DateField })));
 export const DateField = (props: DateFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="DateField">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDateField {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const FieldImport = () => import('./DataViewer/Field');
 const LazyField = lazy(() => FieldImport().then(module => ({ default: module.Field })));
 export const Field = (props: FieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="Field">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyField {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const PagedDataViewerImport = () => import('./DataViewer/PagedDataViewer');
 const LazyPagedDataViewer = lazy(() => PagedDataViewerImport().then(module => ({ default: module.PagedDataViewer })));
 export const PagedDataViewer = <T extends { [key: string]: any }, V = "T">(props: PagedDataViewerProps<T, V>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="PagedDataViewer">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazyPagedDataViewer {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const TextFieldImport = () => import('./DataViewer/TextField');
 const LazyTextField = lazy(() => TextFieldImport().then(module => ({ default: module.TextField })));
 export const TextField = (props: TextFieldProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="TextField">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyTextField {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const TextHeadCellImport = () => import('./DataViewer/TextHeadCell');
 const LazyTextHeadCell = lazy(() => TextHeadCellImport().then(module => ({ default: module.TextHeadCell })));
 export const TextHeadCell = (props: TextHeadCellProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="TextHeadCell">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyTextHeadCell {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const GraphvizEditorImport = () => import('./Graphviz/GraphvizEditor');
 const LazyGraphvizEditor = lazy(() => GraphvizEditorImport().then(module => ({ default: module.GraphvizEditor })));
 export const GraphvizEditor = (props: GraphvizEditorProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="GraphvizEditor">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyGraphvizEditor {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const GraphvizViewerImport = () => import('./Graphviz/GraphvizViewer');
 const LazyGraphvizViewer = lazy(() => GraphvizViewerImport().then(module => ({ default: module.GraphvizViewer })));
 export const GraphvizViewer = (props: GraphvizViewerProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="GraphvizViewer">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyGraphvizViewer {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const ImageUploaderModalImport = () => import('./ImageUploader/ImageUploaderModal');
 const LazyImageUploaderModal = lazy(() => ImageUploaderModalImport().then(module => ({ default: module.ImageUploaderModal })));
 export const ImageUploaderModal = (props: ImageUploaderModalProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ImageUploaderModal">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyImageUploaderModal {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const UploadImageButtonImport = () => import('./ImageUploader/UploadImageButton');
 const LazyUploadImageButton = lazy(() => UploadImageButtonImport().then(module => ({ default: module.UploadImageButton })));
 export const UploadImageButton = (props: UploadImageButtonProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="UploadImageButton">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyUploadImageButton {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const HorizontalMenuImport = () => import('./Menu/HorizontalMenu');
 const LazyHorizontalMenu = lazy(() => HorizontalMenuImport().then(module => ({ default: module.HorizontalMenu })));
 export const HorizontalMenu = (props: HorizontalMenuProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="HorizontalMenu">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyHorizontalMenu {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const VerticalMenuImport = () => import('./Menu/VerticalMenu');
 const LazyVerticalMenu = lazy(() => VerticalMenuImport().then(module => ({ default: module.VerticalMenu })));
 export const VerticalMenu = (props: VerticalMenuProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="VerticalMenu">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyVerticalMenu {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const CardNotificationImport = () => import('./Notifications/CardNotification');
 const LazyCardNotification = lazy(() => CardNotificationImport().then(module => ({ default: module.CardNotification })));
 export const CardNotification = (props: CardNotificationProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="CardNotification">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCardNotification {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const NotificationProviderImport = () => import('./Notifications/NotificationProvider');
 const LazyNotificationProvider = lazy(() => NotificationProviderImport().then(module => ({ default: module.NotificationProvider })));
 export const NotificationProvider = (props: NotificationProviderProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="NotificationProvider">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyNotificationProvider {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const SoundProviderImport = () => import('./Notifications/SoundProvider');
 const LazySoundProvider = lazy(() => SoundProviderImport().then(module => ({ default: module.SoundProvider })));
 export const SoundProvider = (props: SoundProviderProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="SoundProvider">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazySoundProvider {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const ProblemSelectorImport = () => import('./ProblemSelector/ProblemSelector');
 const LazyProblemSelector = lazy(() => ProblemSelectorImport().then(module => ({ default: module.ProblemSelector })));
 export const ProblemSelector = (props: ProblemSelectorProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemSelector">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemSelector {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const ProblemVerdictTagImport = () => import('./ProblemVerdictTag/ProblemVerdictTag');
 const LazyProblemVerdictTag = lazy(() => ProblemVerdictTagImport().then(module => ({ default: module.ProblemVerdictTag })));
 export const ProblemVerdictTag = (props: ProblemVerdictTagProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="ProblemVerdictTag">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyProblemVerdictTag {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const UserChipImport = () => import('./UserChip/UserChip');
 const LazyUserChip = lazy(() => UserChipImport().then(module => ({ default: module.UserChip })));
 export const UserChip = (props: UserChipProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="UserChip">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyUserChip {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const UserNicknameLinkImport = () => import('./UserChip/UserNicknameLink');
 const LazyUserNicknameLink = lazy(() => UserNicknameLinkImport().then(module => ({ default: module.UserNicknameLink })));
 export const UserNicknameLink = (props: UserNicknameLinkProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="UserNicknameLink">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyUserNicknameLink {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const UserCodeEditorImport = () => import('./UserCodeEditor/UserCodeEditor');
 const LazyUserCodeEditor = lazy(() => UserCodeEditorImport().then(module => ({ default: module.UserCodeEditor })));
 export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="UserCodeEditor">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazyUserCodeEditor {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const UsersSelectorImport = () => import('./UsersSelector/UsersSelector');
 const LazyUsersSelector = lazy(() => UsersSelectorImport().then(module => ({ default: module.UsersSelector })));
 export const UsersSelector = (props: UsersSelectorProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="UsersSelector">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyUsersSelector {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const MdMathEditorImport = () => import('./mdMath/MdMathEditor');
 const LazyMdMathEditor = lazy(() => MdMathEditorImport().then(module => ({ default: module.MdMathEditor })));
 export const MdMathEditor = (props: MdMathEditorProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="MdMathEditor">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyMdMathEditor {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 const MdMathViewerImport = () => import('./mdMath/MdMathViewer');
 const LazyMdMathViewer = lazy(() => MdMathViewerImport().then(module => ({ default: module.MdMathViewer })));
 export const MdMathViewer = (props: MdMathViewerProps) => (
-  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="MdMathViewer">
+  <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyMdMathViewer {...props} />
-  </SuspenseWithTracking>
+  </Suspense>
 );
 
 export const preloadOrganisms = async () => {
