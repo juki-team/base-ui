@@ -66,13 +66,13 @@ export const UpIcon = (props: SignIconProps) => (
   </Suspense>
 );
 
-export const preloadAtomsIconsSigns = () => {
-  void ArrowIconImport();
-  void CheckIcon_Import();
-  void CloseIcon_Import();
-  void DoubleUpIconImport();
-  void ExclamationIconImport();
-  void MinusIconImport();
-  void PlusIconImport();
-  void UpIconImport();
+export const preloadAtomsIconsSigns = async () => {
+  await ArrowIconImport();
+  await CheckIcon_Import();
+  await CloseIcon_Import();
+  await DoubleUpIconImport();
+  await ExclamationIconImport();
+  await MinusIconImport();
+  await PlusIconImport();
+  await UpIconImport();
 };

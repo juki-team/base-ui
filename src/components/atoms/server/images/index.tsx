@@ -97,17 +97,17 @@ export const JukiUtilsLogoHorImage = () => (
   </Suspense>
 );
 
-export const preloadAtomsImages = () => {
-  void FlagEnImageImport();
-  void FlagEsImageImport();
-  void JukiCompleteLaptopImageImport();
-  void JukiCouchLogoHorImageImport();
-  void JukiCouchLogoVerImageImport();
-  void JukiCourtImageImport();
-  void JukiHeadImageImport();
-  void JukiJudgeLogoHorImageImport();
-  void JukiJudgeLogoVerImageImport();
-  void JukiLaptopImageImport();
-  void JukiSurprisedImageImport();
-  void JukiUtilsLogoHorImageImport();
+export const preloadAtomsImages = async () => {
+  await FlagEnImageImport();
+  await FlagEsImageImport();
+  await JukiCompleteLaptopImageImport();
+  await JukiCouchLogoHorImageImport();
+  await JukiCouchLogoVerImageImport();
+  await JukiCourtImageImport();
+  await JukiHeadImageImport();
+  await JukiJudgeLogoHorImageImport();
+  await JukiJudgeLogoVerImageImport();
+  await JukiLaptopImageImport();
+  await JukiSurprisedImageImport();
+  await JukiUtilsLogoHorImageImport();
 };

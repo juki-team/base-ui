@@ -46,10 +46,10 @@ export const TelegramIcon = (props: TelegramIconProps) => (
   </Suspense>
 );
 
-export const preloadAtomsIconsSpecials = () => {
-  void BalloonIconImport();
-  void FacebookIconImport();
-  void GmailIconImport();
-  void SortIconImport();
-  void TelegramIconImport();
+export const preloadAtomsIconsSpecials = async () => {
+  await BalloonIconImport();
+  await FacebookIconImport();
+  await GmailIconImport();
+  await SortIconImport();
+  await TelegramIconImport();
 };

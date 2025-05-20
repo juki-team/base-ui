@@ -231,30 +231,30 @@ export const MdMathViewer = (props: MdMathViewerProps) => (
   </Suspense>
 );
 
-export const preloadOrganisms = () => {
-  void CheckUnsavedChangesImport();
-  void CodeRunnerEditorImport();
-  void DataViewerImport();
-  void DateFieldImport();
-  void FieldImport();
-  void PagedDataViewerImport();
-  void TextFieldImport();
-  void TextHeadCellImport();
-  void GraphvizEditorImport();
-  void GraphvizViewerImport();
-  void ImageUploaderModalImport();
-  void UploadImageButtonImport();
-  void HorizontalMenuImport();
-  void VerticalMenuImport();
-  void CardNotificationImport();
-  void NotificationProviderImport();
-  void SoundProviderImport();
-  void ProblemSelectorImport();
-  void ProblemVerdictTagImport();
-  void UserChipImport();
-  void UserNicknameLinkImport();
-  void UserCodeEditorImport();
-  void UsersSelectorImport();
-  void MdMathEditorImport();
-  void MdMathViewerImport();
+export const preloadOrganisms = async () => {
+  await CheckUnsavedChangesImport();
+  await CodeRunnerEditorImport();
+  await DataViewerImport();
+  await DateFieldImport();
+  await FieldImport();
+  await PagedDataViewerImport();
+  await TextFieldImport();
+  await TextHeadCellImport();
+  await GraphvizEditorImport();
+  await GraphvizViewerImport();
+  await ImageUploaderModalImport();
+  await UploadImageButtonImport();
+  await HorizontalMenuImport();
+  await VerticalMenuImport();
+  await CardNotificationImport();
+  await NotificationProviderImport();
+  await SoundProviderImport();
+  await ProblemSelectorImport();
+  await ProblemVerdictTagImport();
+  await UserChipImport();
+  await UserNicknameLinkImport();
+  await UserCodeEditorImport();
+  await UsersSelectorImport();
+  await MdMathEditorImport();
+  await MdMathViewerImport();
 };

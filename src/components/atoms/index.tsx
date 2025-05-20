@@ -196,26 +196,26 @@ export const InputToggle = (props: InputToggleProps) => (
   </Suspense>
 );
 
-export const preloadAtoms = () => {
-  void ButtonImport();
-  void CollapseImport();
-  void CopyToClipboardImport();
-  void DateLiteralImport();
-  void DivImport();
-  void ModalImport();
-  void MultiSelectImport();
-  void PopoverImport();
-  void PortalImport();
-  void SelectImport();
-  void TImport();
-  void TextAreaImport();
-  void VirtualizedRowsFixedImport();
-  void InputImport();
-  void InputCellPhoneNumberImport();
-  void InputCheckboxImport();
-  void InputPasswordImport();
-  void InputRadioImport();
-  void InputSelectImport();
-  void InputTextAreaImport();
-  void InputToggleImport();
+export const preloadAtoms = async () => {
+  await ButtonImport();
+  await CollapseImport();
+  await CopyToClipboardImport();
+  await DateLiteralImport();
+  await DivImport();
+  await ModalImport();
+  await MultiSelectImport();
+  await PopoverImport();
+  await PortalImport();
+  await SelectImport();
+  await TImport();
+  await TextAreaImport();
+  await VirtualizedRowsFixedImport();
+  await InputImport();
+  await InputCellPhoneNumberImport();
+  await InputCheckboxImport();
+  await InputPasswordImport();
+  await InputRadioImport();
+  await InputSelectImport();
+  await InputTextAreaImport();
+  await InputToggleImport();
 };

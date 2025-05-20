@@ -169,8 +169,8 @@ for (let {
       
       return lines.join('\n');
     }),
-    `export const preload${chunkName} = () => {`,
-    ...files.map(({name}) => `  void ${name}Import();`),
+    `export const preload${chunkName} = async () => {`,
+    ...files.map(({name}) => `  await ${name}Import();`),
     '};',
     ''
   ].join('\n');
