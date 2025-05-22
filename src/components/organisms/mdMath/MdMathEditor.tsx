@@ -154,7 +154,9 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (layoutEditorRef.current && !layoutEditorRef.current.contains(event.target as Node)) {
-        setEditing(false);
+        setTimeout(() => {
+          setEditing(false);
+        }, 0);
       }
     };
     
