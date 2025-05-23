@@ -2,7 +2,7 @@ import { BodyWorksheetType, NewPageSheetType } from '@juki-team/commons';
 import React, { useRef } from 'react';
 import { Button, Input, T } from '../../atoms';
 import { DeleteIcon } from '../../atoms/server';
-import { ContentsSectionHeader } from './sheets/ContentsSectionHeader';
+import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { WorksheetBodiesProps } from './types';
 import { WorksheetBody } from './WorksheetBody';
 
@@ -39,7 +39,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   } : undefined;
   
   const pages = sheetsInPages.length;
-  console.log({ page, pages });
+  
   return (
     <div className="jk-col gap nowrap top stretch extend worksheet-bodies">
       {(pages > 1 || setSheets) && !withoutContentsHeader && (

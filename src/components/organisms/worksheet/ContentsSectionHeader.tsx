@@ -1,16 +1,9 @@
-import { WorksheetsInPages } from '@juki-team/commons';
-import React, { Dispatch, useState } from 'react';
-import { classNames } from '../../../../helpers';
-import { T } from '../../../atoms';
-import { ArrowBackIcon, ArrowForwardIcon, ViewHeadlineIcon } from '../../../atoms/server';
-import { TableOfContentsModal } from './TableOfContentsModal';
-
-interface ContentsSectionHeaderProps {
-  page: number, // [1, pages]
-  setPage: Dispatch<number>,
-  sheetsInPages: WorksheetsInPages,
-  totalPages?: number,
-}
+import React, { useState } from 'react';
+import { classNames } from '../../../helpers';
+import { T } from '../../atoms';
+import { ArrowBackIcon, ArrowForwardIcon, ViewHeadlineIcon } from '../../atoms/server';
+import { TableOfContentsModal } from './sheets/TableOfContentsModal';
+import { ContentsSectionHeaderProps } from './types';
 
 export const ContentsSectionHeader = ({
                                         page,

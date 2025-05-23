@@ -7,6 +7,13 @@ import {
 import { Dispatch, ReactNode } from 'react';
 import { KeyedMutator } from 'swr';
 
+export interface ContentsSectionHeaderProps {
+  page: number, // [1, pages]
+  setPage: Dispatch<number>,
+  sheetsInPages: WorksheetsInPages,
+  totalPages?: number,
+}
+
 export interface WorksheetBodiesProps {
   sheetsInPages: WorksheetsInPages,
   setSheets?: Dispatch<BodyWorksheetType[]>,
