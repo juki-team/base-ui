@@ -1,10 +1,13 @@
 import {
+  CodeEditorSubmissionDTO,
   CompanyPlan,
   HTTPMethod,
+  JkmdSubmissionDTO,
   Judge,
   JudgeLanguageType,
   Language,
   ProblemVerdict,
+  QuizProblemSubmissionDTO,
   Theme,
   UserSettingsType,
 } from '@juki-team/commons';
@@ -779,6 +782,12 @@ export class ApiSocketManager {
         }),
       },
       worksheet: {
+        getData: valid<
+          { params: { key: string, companyKey?: string } }
+        >(({ params: { key, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('worksheet', `/${key}/data`), companyKey),
+          method: HTTPMethod.GET,
+        })),
         getList: valid<
           {
             params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string }
@@ -786,6 +795,39 @@ export class ApiSocketManager {
         >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('worksheet', '/list'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
+        })),
+        submitJkMd: valid<
+          {
+            params: { worksheetKey: string, },
+            body: JkmdSubmissionDTO
+          },
+          HTTPMethod.POST
+        >(({ params: { worksheetKey }, body }) => ({
+          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/jk-md`),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        submitCodeEditor: valid<
+          {
+            params: { worksheetKey: string, },
+            body: CodeEditorSubmissionDTO
+          },
+          HTTPMethod.POST
+        >(({ params: { worksheetKey }, body }) => ({
+          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/code-editor`),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        submitQuizProblem: valid<
+          {
+            params: { worksheetKey: string, },
+            body: QuizProblemSubmissionDTO
+          },
+          HTTPMethod.POST
+        >(({ params: { worksheetKey }, body }) => ({
+          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/quiz-problem`),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
         })),
       },
       system: {
@@ -836,6 +878,19 @@ export class ApiSocketManager {
         >(({ params: { key, id } }) => ({
           url: injectBaseUrl('comment', `/${key}/${id}/unhide`),
           method: HTTPMethod.POST,
+        })),
+      },
+      class: {
+        viewAssignmentMyWorksheetSubmitCodeEditor: valid<
+          {
+            params: { classKey: string, cycleId: string, sessionId: string, assignmentId: string },
+            body: CodeEditorSubmissionDTO
+          },
+          HTTPMethod.POST
+        >(({ params: { classKey, cycleId, sessionId, assignmentId }, body }) => ({
+          url: injectBaseUrl('class', `/${classKey}/cycle/${cycleId}/session/${sessionId}/assignment/${assignmentId}/worksheet/submit-code-editor`),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
         })),
       },
     };

@@ -24,6 +24,9 @@ import { UserCodeEditorProps } from './UserCodeEditor/types';
 import { UsersSelectorProps } from './UsersSelector/types';
 import { MdMathEditorProps } from './mdMath/types';
 import { MdMathViewerProps } from './mdMath/types';
+import { WorksheetBodiesProps } from './worksheet/types';
+import { WorksheetBodyProps } from './worksheet/types';
+import { WorksheetViewerProps } from './worksheet/types';
 
 const CheckUnsavedChangesImport = () => import('./CheckUnsavedChanges/CheckUnsavedChanges');
 const LazyCheckUnsavedChanges = lazy(() => CheckUnsavedChangesImport().then(module => ({ default: module.CheckUnsavedChanges })));
@@ -214,6 +217,30 @@ export const MdMathViewer = (props: MdMathViewerProps) => (
   </Suspense>
 );
 
+const WorksheetBodiesImport = () => import('./worksheet/WorksheetBodies');
+const LazyWorksheetBodies = lazy(() => WorksheetBodiesImport().then(module => ({ default: module.WorksheetBodies })));
+export const WorksheetBodies = (props: WorksheetBodiesProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyWorksheetBodies {...props} />
+  </Suspense>
+);
+
+const WorksheetBodyImport = () => import('./worksheet/WorksheetBody');
+const LazyWorksheetBody = lazy(() => WorksheetBodyImport().then(module => ({ default: module.WorksheetBody })));
+export const WorksheetBody = (props: WorksheetBodyProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyWorksheetBody {...props} />
+  </Suspense>
+);
+
+const WorksheetViewerImport = () => import('./worksheet/WorksheetViewer');
+const LazyWorksheetViewer = lazy(() => WorksheetViewerImport().then(module => ({ default: module.WorksheetViewer })));
+export const WorksheetViewer = (props: WorksheetViewerProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyWorksheetViewer {...props} />
+  </Suspense>
+);
+
 export const preloadOrganisms = async () => {
   await CheckUnsavedChangesImport();
   await CodeRunnerEditorImport();
@@ -238,4 +265,7 @@ export const preloadOrganisms = async () => {
   await UsersSelectorImport();
   await MdMathEditorImport();
   await MdMathViewerImport();
+  await WorksheetBodiesImport();
+  await WorksheetBodyImport();
+  await WorksheetViewerImport();
 };

@@ -21,3 +21,6 @@ export type * from './UserCodeEditor/types';
 export type * from './UsersSelector/types';
 export type * from './mdMath/types';
 export type * from './mdMath/types';
+export type * from './worksheet/types';
+export type * from './worksheet/types';
+export type * from './worksheet/types';

@@ -15,6 +15,7 @@ export * from './useRunnerServicesWakeUp';
 export * from './useEntityDiff';
 export * from './useFetcher';
 export * from './useHandleState';
+export * from './useHash';
 export * from './useJukiUI';
 export * from './useJukiUser';
 export * from './useLastPath';

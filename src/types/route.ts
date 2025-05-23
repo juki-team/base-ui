@@ -6,6 +6,9 @@ export enum QueryParamKey {
   SIGN_IN = 'sign_in',
   SIGN_UP = 'sign_up',
   SUBMISSION = 'submission',
+  // Worksheet / Class
+  SESSION = 'session',
+  ASSIGNMENT = 'assignment',
   // table queries
   PAGE_TABLE = 'p',
   PAGE_SIZE_TABLE = 'z',

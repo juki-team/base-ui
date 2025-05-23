@@ -9,3 +9,4 @@ export * from './render';
 export * from './router';
 export * from './store';
 export * from './utils';
+export * from './worksheet';

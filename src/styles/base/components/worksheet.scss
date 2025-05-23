@@ -1,0 +1,16 @@
+.worksheet-viewer-container {
+  --worksheet-contents-header-width: 256px;
+  
+  .worksheet-content {
+    width: var(--worksheet-contents-header-width);
+  }
+  
+  .worksheet-bodies {
+    width: calc(100% - var(--worksheet-contents-header-width) - var(--gap));
+    max-width: 720px;
+  }
+  
+  .worksheet-bodies:first-child {
+    width: 100%;
+  }
+}
