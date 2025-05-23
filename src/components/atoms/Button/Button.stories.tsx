@@ -42,7 +42,7 @@ export const Regular: Story = {
         <Button {...args} icon={<LockIcon />} size="large">
           click me!
         </Button>
-        <Button {...args} icon={<LockIcon />} size="huge">
+        <Button {...args} icon={<LockIcon />} size="huge" className="bc-pl">
           click me!
         </Button>
       </div>
