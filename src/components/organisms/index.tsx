@@ -24,6 +24,7 @@ import { UserCodeEditorProps } from './UserCodeEditor/types';
 import { UsersSelectorProps } from './UsersSelector/types';
 import { MdMathEditorProps } from './mdMath/types';
 import { MdMathViewerProps } from './mdMath/types';
+import { ContentsSectionHeaderProps } from './worksheet/types';
 import { WorksheetBodiesProps } from './worksheet/types';
 import { WorksheetBodyProps } from './worksheet/types';
 import { WorksheetViewerProps } from './worksheet/types';
@@ -217,6 +218,14 @@ export const MdMathViewer = (props: MdMathViewerProps) => (
   </Suspense>
 );
 
+const ContentsSectionHeaderImport = () => import('./worksheet/ContentsSectionHeader');
+const LazyContentsSectionHeader = lazy(() => ContentsSectionHeaderImport().then(module => ({ default: module.ContentsSectionHeader })));
+export const ContentsSectionHeader = (props: ContentsSectionHeaderProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyContentsSectionHeader {...props} />
+  </Suspense>
+);
+
 const WorksheetBodiesImport = () => import('./worksheet/WorksheetBodies');
 const LazyWorksheetBodies = lazy(() => WorksheetBodiesImport().then(module => ({ default: module.WorksheetBodies })));
 export const WorksheetBodies = (props: WorksheetBodiesProps) => (
@@ -265,6 +274,7 @@ export const preloadOrganisms = async () => {
   await UsersSelectorImport();
   await MdMathEditorImport();
   await MdMathViewerImport();
+  await ContentsSectionHeaderImport();
   await WorksheetBodiesImport();
   await WorksheetBodyImport();
   await WorksheetViewerImport();
