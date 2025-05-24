@@ -25,8 +25,8 @@ export interface WorksheetBodiesProps {
   worksheetKey: string,
   mutateUserResults?: KeyedMutator<any>,
   withoutContentsHeader?: boolean,
-  page: number, // [1, pages]
-  setPage: (page: number) => void,
+  page?: number, // [1, pages]
+  setPage?: (page: number) => void,
   lastPageChildren?: ReactNode,
   readOnly?: boolean,
 }

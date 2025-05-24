@@ -1,5 +1,6 @@
 import { BodyWorksheetType, NewPageSheetType } from '@juki-team/commons';
 import React, { useRef } from 'react';
+import { useStableState } from '../../../hooks';
 import { Button, Input, T } from '../../atoms';
 import { DeleteIcon } from '../../atoms/server';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
@@ -19,14 +20,24 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
     worksheetKey,
     mutateUserResults,
     withoutContentsHeader,
-    page: _page,
-    setPage,
+    page: initialPage,
+    setPage: initialSetPage,
     lastPageChildren,
     readOnly,
   } = props;
   
-  const page = _page - 1;
   const containerRef = useRef<HTMLDivElement>(null);
+  
+  const [ page, _setPage ] = useStableState(typeof initialPage === 'number' ? initialPage - 1 : 1);
+  const setPage = (index: number) => {
+    (initialSetPage ?? _setPage)(index);
+    console.log(typeof document);
+    if (typeof document !== 'undefined') {
+      console.log({ doc: document.getElementById('jk-two-content-section-second-panel') });
+      document.getElementById('jk-two-content-section-second-panel')?.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('jk-worksheet-body')?.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
   
   const setPageSheets = setSheets ? (newPageHeader: NewPageSheetType, newPageSheetContent: BodyWorksheetType[]) => {
     const newSheetsInPages = [ ...sheetsInPages ];
@@ -93,7 +104,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
                 setSheets(newSheets);
               }
               if (page > 0 && page === pages - 1) {
-                setPage(Math.max(_page - 1, 1));
+                setPage(Math.max(page, 0) + 1);
               }
             }}
             disabled={pages <= 1}
@@ -114,14 +125,11 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         ref={containerRef}
       >
       </WorksheetBody>
-      {_page < pages ? (
+      {page < pages - 1 ? (
         <Button
           className="next-button"
           type="light"
-          onClick={() => {
-            setPage(_page + 1);
-            document.getElementById('jk-worksheet-body')?.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
+          onClick={() => setPage(page + 2)}
           expand
         >
           <T className="tt-se">next page</T>
