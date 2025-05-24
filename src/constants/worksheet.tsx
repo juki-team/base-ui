@@ -11,7 +11,9 @@ import {
   SourceCodeType,
   WorksheetType,
 } from '@juki-team/commons';
+import React, { ReactNode } from 'react';
 import { v4 } from 'uuid';
+import { ArticleIcon, ExtensionIcon } from '../components/atoms/server';
 
 export const WORKSHEET_CODE_EDITOR_MIN_HEIGHT = 320;
 
@@ -72,4 +74,15 @@ export const EMPTY_LIST_SHEET = (): ListSheetType => ({
   header: '# header of list',
   content: [ { id: v4(), type: WorksheetType.JK_MD, title: '', points: 0, content: 'First content of list' } ],
   children: [],
+});
+
+export const LOGO_WORKSHEET_TYPE: () => { [key in WorksheetType]: ReactNode } = () => ({
+  [WorksheetType.JK_MD]: <ArticleIcon />,
+  [WorksheetType.QUIZ_PROBLEM]: <ExtensionIcon />,
+  [WorksheetType.QUIZ_TEXT]: <ExtensionIcon />,
+  [WorksheetType.QUIZ_OPTIONS]: <ExtensionIcon />,
+  [WorksheetType.NEW_PAGE]: <ExtensionIcon />,
+  [WorksheetType.CODE_EDITOR]: <ExtensionIcon />,
+  [WorksheetType.GRAPH]: <ExtensionIcon />,
+  [WorksheetType.LIST]: <ExtensionIcon />,
 });

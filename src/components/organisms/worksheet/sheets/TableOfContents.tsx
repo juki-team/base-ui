@@ -1,7 +1,7 @@
 import { WorksheetsInPages } from '@juki-team/commons';
 import React from 'react';
+import { LOGO_WORKSHEET_TYPE } from '../../../../constants';
 import { classNames } from '../../../../helpers';
-import { LOGO_WORKSHEET_TYPE } from './Logo';
 
 interface TableOfContentsProps {
   sheetsInPages: WorksheetsInPages,
