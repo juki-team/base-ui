@@ -71,7 +71,6 @@ export const WorksheetViewer = ({
               if (setPage) {
                 setPage(index);
                 if (typeof document !== 'undefined') {
-                  console.log({ doc: document.getElementById('jk-two-content-section-second-panel') });
                   document.getElementById('jk-two-content-section-second-panel')
                     ?.scrollTo({ top: 0, behavior: 'smooth' });
                   document.getElementById('jk-worksheet-body')

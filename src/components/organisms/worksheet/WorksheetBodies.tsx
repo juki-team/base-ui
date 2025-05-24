@@ -28,12 +28,10 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   
   const containerRef = useRef<HTMLDivElement>(null);
   
-  const [ page, _setPage ] = useStableState(typeof initialPage === 'number' ? initialPage - 1 : 1);
+  const [ page, _setPage ] = useStableState(typeof initialPage === 'number' ? initialPage : 1);
   const setPage = (index: number) => {
     (initialSetPage ?? _setPage)(index);
-    console.log(typeof document);
     if (typeof document !== 'undefined') {
-      console.log({ doc: document.getElementById('jk-two-content-section-second-panel') });
       document.getElementById('jk-two-content-section-second-panel')?.scrollTo({ top: 0, behavior: 'smooth' });
       document.getElementById('jk-worksheet-body')?.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -41,7 +39,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   
   const setPageSheets = setSheets ? (newPageHeader: NewPageSheetType, newPageSheetContent: BodyWorksheetType[]) => {
     const newSheetsInPages = [ ...sheetsInPages ];
-    newSheetsInPages[page] = { header: newPageHeader, content: newPageSheetContent };
+    newSheetsInPages[page - 1] = { header: newPageHeader, content: newPageSheetContent };
     const newSheets = [];
     for (const { header, content } of newSheetsInPages) {
       newSheets.push(header, ...content);
@@ -62,9 +60,9 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         <div className="jk-row gap extend nowrap" key={`${page}`}>
           <Input
             label={<T className="tt-se">page title</T>}
-            value={sheetsInPages[page]?.header.title}
+            value={sheetsInPages[page - 1]?.header.title}
             onChange={(title) => {
-              setPageSheets?.({ ...sheetsInPages[page].header, title }, sheetsInPages[page].content);
+              setPageSheets?.({ ...sheetsInPages[page - 1].header, title }, sheetsInPages[page - 1].content);
             }}
             extend
           />
@@ -75,10 +73,10 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
             onClick={() => {
               const newSheetsInPages = [ ...sheetsInPages ];
               const newSheets = [];
-              if (page === pages - 1) {
+              if (page === pages) {
                 let i = 0;
                 for (const { header, content } of newSheetsInPages) {
-                  if (i !== page) {
+                  if (i !== page - 1) {
                     newSheets.push(header);
                   }
                   newSheets.push(...content);
@@ -89,7 +87,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
                 let i = 0;
                 let contentDeleted = null;
                 for (const { header, content } of newSheetsInPages) {
-                  if (i === page) {
+                  if (i === page - 1) {
                     contentDeleted = content;
                   } else {
                     newSheets.push(header);
@@ -103,8 +101,8 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
                 }
                 setSheets(newSheets);
               }
-              if (page > 0 && page === pages - 1) {
-                setPage(Math.max(page, 0) + 1);
+              if (page > 1 && page === pages) {
+                setPage(Math.max(page, 1));
               }
             }}
             disabled={pages <= 1}
@@ -112,8 +110,8 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         </div>
       )}
       <WorksheetBody
-        sheets={sheetsInPages[page]?.content ?? []}
-        setSheets={setPageSheets ? (sheets) => setPageSheets(sheetsInPages[page].header, sheets) : undefined}
+        sheets={sheetsInPages[page - 1]?.content ?? []}
+        setSheets={setPageSheets ? (sheets) => setPageSheets(sheetsInPages[page - 1].header, sheets) : undefined}
         results={results}
         resultsIsLoading={resultsIsLoading}
         resultsIsValidating={resultsIsValidating}
@@ -125,11 +123,11 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         ref={containerRef}
       >
       </WorksheetBody>
-      {page < pages - 1 ? (
+      {page < pages ? (
         <Button
           className="next-button"
           type="light"
-          onClick={() => setPage(page + 2)}
+          onClick={() => setPage(page + 1)}
           expand
         >
           <T className="tt-se">next page</T>
