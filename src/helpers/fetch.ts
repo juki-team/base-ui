@@ -5,6 +5,7 @@ import {
   ErrorResponseType,
   HTTPMethod,
   JUKI_FORWARDED_HOST,
+  JUKI_METADATA,
   JUKI_SESSION_ID,
 } from '@juki-team/commons';
 import { jukiApiSocketManager } from '../settings';
@@ -80,3 +81,17 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N
     } as ErrorResponseType) as N;
   }
 };
+
+export const getHeaders = (jukiSessionId: string): HeadersInit => ({
+  origin: 'https://juki.app',
+  referer: 'https://juki.app',
+  [JUKI_SESSION_ID]: jukiSessionId,
+  [JUKI_FORWARDED_HOST]: 'juki.app',
+});
+
+export const getMetaHeaders = (): HeadersInit => ({
+  origin: 'https://juki.app',
+  referer: 'https://juki.app',
+  [JUKI_METADATA]: 'true',
+  [JUKI_FORWARDED_HOST]: 'juki.app',
+});
