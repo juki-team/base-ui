@@ -3,6 +3,10 @@
 .worksheet-viewer-container {
   --worksheet-contents-header-width: 256px;
   --worksheet-results-width: 160px;
+  @include mixins.sm() {
+    --worksheet-contents-header-width: 0px;
+    --worksheet-results-width: 0px;
+  }
   
   .worksheet-content {
     width: var(--worksheet-contents-header-width);
@@ -20,8 +24,10 @@
         width: calc(100% - var(--worksheet-results-width));
       }
       
-      .result-header {
-        width: var(--worksheet-results-width);
+      @include mixins.md-hg() {
+        .result-header {
+          width: var(--worksheet-results-width);
+        }
       }
     }
     

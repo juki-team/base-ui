@@ -1,6 +1,7 @@
 import { getWorksheetsInPages } from '@juki-team/commons';
 import React, { useMemo } from 'react';
-import { useJukiUI, useStableState, useUserStore } from '../../../hooks';
+import { useStableState } from '../../../hooks';
+import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { WorksheetEditorProps } from './types';
 import { WorksheetBodies } from './WorksheetBodies';
 
@@ -18,26 +19,27 @@ export const WorksheetEditor = (props: WorksheetEditorProps) => {
     readOnly = false,
   } = props;
   
-  const { viewPortSize } = useJukiUI();
-  const userIsLogged = useUserStore(state => state.user.isLogged);
-  
   const [ page, _setPage ] = useStableState(initialPage ?? 1);
   const setPage = initialSetPage ?? _setPage;
   
   const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
   
-  const withoutContentsNav = viewPortSize !== 'sm' && !setContent;
+  const pages = sheetsInPages.length;
   
   return (
-    <div className="jk-row gap nowrap worksheet-editor-container center top">
+    <div className="jk-col gap nowrap worksheet-editor-container center top">
+      {(pages > 1) && (
+        <div className="jk-row">
+          <ContentsSectionHeader page={page} setPage={setPage} sheetsInPages={sheetsInPages} />
+        </div>
+      )}
       <WorksheetBodies
         sheetsInPages={sheetsInPages}
         setSheets={setContent}
-        isSolvable={isSolvable && userIsLogged}
+        isSolvable={isSolvable}
         readOnly={readOnly}
         isEditor={isEditor}
         worksheetKey={worksheetKey}
-        withoutContentsHeader={withoutContentsNav}
         page={page}
         setPage={setPage}
         lastPageChildren={lastPageChildren}

@@ -117,7 +117,7 @@ const Cmp = ({ content: initialContent, mutate }: { content: WorksheetDataRespon
         setContent={setContent}
         content={content}
         isEditor
-        isSolvable
+        isSolvable={initialContent.isSolvable}
         // readOnly={false}
         // readOnly={!!user?.nickname}
       />

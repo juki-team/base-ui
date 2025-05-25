@@ -24,7 +24,7 @@ export const QuizProblemSheetSection = (props: QuizProblemSheetSectionProps) => 
     sheetLength,
     setSheet,
     worksheetKey,
-    isSolvable = false,
+    isSolvable,
     userResults,
   } = props;
   
@@ -48,9 +48,18 @@ export const QuizProblemSheetSection = (props: QuizProblemSheetSectionProps) => 
         <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
       )}
       {setContent && edit
-        ? <QuizProblemSheetSectionEditor content={content} setContent={setContent} />
+        ? <QuizProblemSheetSectionEditor content={content} setContent={setContent} isSolvable={isSolvable} />
         : (
-          <div className="jk-col gap stretch center quiz-problem-sheet-section-view wh-100">
+          <div className="jk-col gap stretch center quiz-problem-sheet-section-view wh-100 pn-re">
+            {isSolvable && !setSheet && (
+              <ResultHeader
+                points={content.points}
+                userPoints={lastSubmission?.points ?? 0}
+                isResolved={!!lastSubmission?.isCompleted}
+              >
+                {!!lastSubmission?.isCompleted && <><CheckIcon size="tiny" /> <T className="tt-se">resolved</T></>}
+              </ResultHeader>
+            )}
             {!!content.title && (
               <div className="jk-row left"><p className="tt-se cr-th tx-l fw-bd">{content.title}</p></div>
             )}
@@ -80,15 +89,6 @@ export const QuizProblemSheetSection = (props: QuizProblemSheetSectionProps) => 
           })}
           placement="out rightTop"
         />
-      )}
-      {isSolvable && !setSheet && (
-        <ResultHeader
-          points={content.points}
-          userPoints={lastSubmission?.points ?? 0}
-          isResolved={!!lastSubmission?.isCompleted}
-        >
-          {!!lastSubmission?.isCompleted && <><CheckIcon size="tiny" /> <T className="tt-se">resolved</T></>}
-        </ResultHeader>
       )}
     </div>
   );

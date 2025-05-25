@@ -23,7 +23,6 @@ export interface WorksheetBodiesProps {
   isSolvable: boolean,
   isEditor?: boolean,
   worksheetKey: string,
-  withoutContentsHeader?: boolean,
   page?: number, // [1, pages]
   setPage?: (page: number) => void,
   subPage?: number, // [1, pages]

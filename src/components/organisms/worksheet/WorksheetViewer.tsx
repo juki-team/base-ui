@@ -5,10 +5,12 @@ import {
   WorksheetUserSubmissionsResponseDTO,
 } from '@juki-team/commons';
 import React, { useMemo } from 'react';
+import { classNames } from '../../../helpers';
 import { useFetcher, useJukiUI, useRouterStore, useStableState, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
 import { QueryParamKey } from '../../../types';
 import { T } from '../../atoms';
+import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { TableOfContents } from './sheets/TableOfContents';
 import { UserResultsType, WorksheetViewerProps } from './types';
 import { WorksheetBodies } from './WorksheetBodies';
@@ -59,16 +61,25 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
   }), [ userResultsData, userResultsIsLoading, userResultsIsValidating, userResultsMutate ]);
   const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
   
-  const withoutContentsNav = viewPortSize !== 'sm';
-  
+  const isSmallPortSize = viewPortSize === 'sm';
   const readOnly = initialReadOnly || userNickname !== userResults?.data?.user.nickname;
+  const pages = sheetsInPages.length;
   
   return (
     <div
       id="jk-worksheet-viewer-container"
-      className="jk-row gap nowrap worksheet-viewer-container center top"
+      className={classNames('gap nowrap worksheet-viewer-container center top', {
+        'jk-col': isSmallPortSize,
+        'jk-row': !isSmallPortSize,
+      })}
     >
-      {withoutContentsNav && (
+      {isSmallPortSize ? (
+        (pages > 1) && (
+          <div className="jk-row">
+            <ContentsSectionHeader page={page} setPage={setPage} sheetsInPages={sheetsInPages} />
+          </div>
+        )
+      ) : (
         <div className="jk-col gap bc-we jk-pg-xsm jk-br-ie left worksheet-content sticky-top">
           <T className="tt-se fw-bd cr-py">table of content</T>
           <TableOfContents
@@ -94,7 +105,6 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
         readOnly={readOnly}
         isEditor={isEditor}
         worksheetKey={worksheetKey}
-        withoutContentsHeader={withoutContentsNav}
         page={page}
         setPage={setPage}
         subPage={subPage}

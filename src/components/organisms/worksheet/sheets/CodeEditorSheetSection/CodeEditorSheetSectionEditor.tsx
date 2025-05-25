@@ -14,9 +14,10 @@ import { SetContentType } from '../../types';
 interface RunnerSheetSectionProps {
   content: CodeEditorSheetType,
   setContent: SetContentType<CodeEditorSheetType>,
+  isSolvable: boolean,
 }
 
-export const CodeEditorSheetSectionEditor = ({ content, setContent }: RunnerSheetSectionProps) => {
+export const CodeEditorSheetSectionEditor = ({ content, setContent, isSolvable }: RunnerSheetSectionProps) => {
   
   const [ languageEditor, setLanguageEditor ] = useState(ProgrammingLanguage.CPP17);
   
@@ -31,6 +32,16 @@ export const CodeEditorSheetSectionEditor = ({ content, setContent }: RunnerShee
         onChange={title => setContent(prevState => ({ ...prevState, title }))}
         expand
       />
+      {isSolvable && (
+        <Input
+          type="number"
+          label={<T className="tt-se">points</T>}
+          labelPlacement="top"
+          value={content.points}
+          onChange={points => setContent(prevState => ({ ...prevState, points }))}
+          expand
+        />
+      )}
       <div className="jk-row gap">
         <div className="flex-1">
           <T className="fw-bd tt-se">languages</T>:

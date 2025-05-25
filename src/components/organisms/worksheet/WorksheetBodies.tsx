@@ -5,7 +5,6 @@ import { useStableState } from '../../../hooks';
 import { NotUndefined } from '../../../types';
 import { Button, Input, T } from '../../atoms';
 import { DeleteIcon } from '../../atoms/server';
-import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { WorksheetBodiesProps, WorksheetBodyProps } from './types';
 import { WorksheetBody } from './WorksheetBody';
 
@@ -18,7 +17,6 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
     userResults,
     isSolvable,
     worksheetKey,
-    withoutContentsHeader,
     page: initialPage,
     setPage: initialSetPage,
     lastPageChildren,
@@ -54,11 +52,6 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   
   return (
     <div className={classNames('jk-col gap nowrap top stretch extend worksheet-bodies', { 'is-solvable': isSolvable })}>
-      {(pages > 1 || setSheets) && !withoutContentsHeader && (
-        <div className="jk-row">
-          <ContentsSectionHeader page={page} setPage={setPage} sheetsInPages={sheetsInPages} />
-        </div>
-      )}
       {setSheets && (
         <div className="jk-row gap extend nowrap" key={`${page}`}>
           <Input

@@ -15,9 +15,10 @@ import { ProblemSummary } from './ProblemSummary';
 interface RunnerSheetSectionProps {
   content: QuizProblemSheetType,
   setContent: SetContentType<QuizProblemSheetType>,
+  isSolvable: boolean,
 }
 
-export const QuizProblemSheetSectionEditor = ({ content, setContent }: RunnerSheetSectionProps) => {
+export const QuizProblemSheetSectionEditor = ({ content, setContent, isSolvable }: RunnerSheetSectionProps) => {
   
   return (
     <div className="jk-col stretch left">
@@ -29,14 +30,16 @@ export const QuizProblemSheetSectionEditor = ({ content, setContent }: RunnerShe
           onChange={title => setContent(prevState => ({ ...prevState, title }))}
           expand
         />
-        <Input
-          type="number"
-          label={<T className="tt-se">points</T>}
-          labelPlacement="top"
-          value={content.points}
-          onChange={points => setContent(prevState => ({ ...prevState, points }))}
-          expand
-        />
+        {isSolvable && (
+          <Input
+            type="number"
+            label={<T className="tt-se">points</T>}
+            labelPlacement="top"
+            value={content.points}
+            onChange={points => setContent(prevState => ({ ...prevState, points }))}
+            expand
+          />
+        )}
         <div className="flex-1">
           <T className="fw-bd tt-se">languages</T>:
           <MultiSelect

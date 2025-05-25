@@ -21,6 +21,7 @@ export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
     sheetLength,
     setSheet,
     worksheetKey,
+    isSolvable,
     userResults,
     readOnly,
   } = props;
@@ -45,6 +46,7 @@ export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
         <CodeEditorSheetSectionEditor
           content={content}
           setContent={setContent}
+          isSolvable={isSolvable}
         />
       ) : (
         <div className="jk-col stretch gap nowrap code-editor-sheet-section-view wh-100">

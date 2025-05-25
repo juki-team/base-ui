@@ -11,7 +11,7 @@ import React, { useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks';
 import { NotificationType } from '../../../../types';
-import { T, TextArea } from '../../../atoms';
+import { InputToggle, T, TextArea } from '../../../atoms';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../molecules';
 import { TabsType } from '../../../molecules/types';
 import { AddIcon, DeleteIcon, InfoIcon } from '../../../server';
@@ -98,6 +98,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   }, [ testCaseKey, testCases ]);
   
   const [ outputTab, setOutputTab ] = useState('output');
+  const [ inputTab, setInputTab ] = useState('input');
   const test: CodeEditorTestCaseType | undefined = testCases[testCaseKey];
   const status = test?.status;
   useEffect(() => {
@@ -127,7 +128,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     <LogInfo testCase={test} timeLimit={timeLimit} memoryLimit={memoryLimit} />
   );
   
-  const outputTabs: TabsType<string> = {};
+  const outputTabs: TabsType = {};
   
   if (test?.testOut) {
     outputTabs['test-output'] = {
@@ -202,6 +203,96 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     ),
   };
   
+  const inputTabs: TabsType = {
+    'input': {
+      key: 'input',
+      header: <T className="tt-se tx-s">input</T>,
+      body: (test?.sample ? enableAddSampleCases : enableAddCustomSampleCases) && onChange ?
+        <TextArea
+          style={{
+            height: 'calc(100% - 4px)',
+            overflow: 'auto',
+            width: 'calc(100% - 4px)',
+            margin: 2,
+          }}
+          className="tx-s flex-1"
+          value={test?.in}
+          onChange={value => onChange({
+            onTestCasesChange: (testCases) => ({
+              ...testCases,
+              [test?.key]: { ...test, in: value },
+            }),
+          })}
+        /> : (
+          <div className={classNames('flex-1 ow-ao jk-pg-xsm')}>
+            <span className="jk-text-stdout">{test?.in}</span>
+          </div>
+        ),
+    },
+  };
+  
+  if ((test?.sample && enableAddSampleCases)) {
+    inputTabs['output'] = {
+      key: 'output',
+      header: <T className="tt-se tx-s">output</T>,
+      body: onChange ?
+        <TextArea
+          style={{
+            height: 'calc(100% - 4px)',
+            overflow: 'auto',
+            width: 'calc(100% - 4px)',
+            margin: 2,
+          }}
+          className="tx-s flex-1"
+          value={test?.testOut}
+          onChange={value => onChange({
+            onTestCasesChange: (testCases) => ({
+              ...testCases,
+              [test?.key]: { ...test, testOut: value },
+            }),
+          })}
+        /> : (
+          <div className="flex-1 ow-ao jk-pg-xsm">
+              <span className="jk-text-stdout">
+                {test?.testOut}
+              </span>
+          </div>
+        ),
+    };
+    inputTabs['settings'] = {
+      key: 'settings',
+      header: <T className="tt-se tx-s">settings</T>,
+      body: (
+        <div className="jk-col gap jk-pg-sm">
+          <InputToggle
+            size="small"
+            checked={test?.hidden}
+            leftLabel={<T className="tt-se tx-s">no hidden</T>}
+            rightLabel={<T className="tt-se tx-s">hidden</T>}
+            onChange={onChange ? hidden => onChange({
+              onTestCasesChange: (testCases) => ({
+                ...testCases,
+                [test?.key]: { ...test, hidden },
+              }),
+            }) : undefined}
+          />
+          <InputToggle
+            size="small"
+            checked={test?.withPE}
+            leftLabel={<T className="tt-se tx-s">without PE</T>}
+            rightLabel={<T className="tt-se tx-s">with PE</T>}
+            onChange={onChange ? withPE => onChange({
+              onTestCasesChange: (testCases) => ({
+                ...testCases,
+                [test?.key]: { ...test, withPE },
+              }),
+            }) : undefined}
+          />
+        </div>
+      ),
+    };
+  }
+  
   return (
     <div className="jk-code-mirror-editor-test-cases jk-row stretch nowrap">
       <div className="jk-col nowrap stretch top tx-t border-right-highlight-light ow-ao">
@@ -268,51 +359,36 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
           </div>
         )}
       </div>
-      <SplitPane direction={direction === 'row' ? 'column' : 'row'} className="flex-1">
-        <div className="jk-col extend stretch nowrap">
-          <TabsInline
-            tabs={{ '': { key: '', header: <T className="tt-se tx-s">input</T>, body: '' } }}
-            className="border-bottom-highlight-light"
-          />
-          {test && !test.hidden && (
-            (test?.sample ? enableAddSampleCases : enableAddCustomSampleCases) && onChange ?
-              <TextArea
-                style={{
-                  height: 'calc(100% - 4px)',
-                  overflow: 'auto',
-                  width: 'calc(100% - 4px)',
-                  margin: 2,
-                }}
-                className="tx-s flex-1"
-                key={test.key}
-                value={test.in}
-                onChange={(test.sample ? enableAddSampleCases : enableAddCustomSampleCases) ? value => onChange?.({
-                  onTestCasesChange: (testCases) => ({
-                    ...testCases,
-                    [test.key]: { ...test, in: value },
-                  }),
-                }) : undefined}
-              /> : (
-                <div className="flex-1 ow-ao jk-pg-xsm">
-              <span className="jk-text-stdout">
-                {test.in}
-              </span>
-                </div>
-              )
-          )}
+      {!enableAddSampleCases && test?.hidden ? (
+        <div className="jk-row center ht-100 flex-1">
+          <T className="tt-se jk-tag info-light">test input hidden</T>
         </div>
-        <div className="jk-col stretch test-cases-output-stderr">
-          <TabsInline
-            tabs={outputTabs}
-            selectedTabKey={outputTab}
-            onChange={value => setOutputTab(value)}
-            className="border-bottom-highlight-light"
-          />
-          <div className="flex-1 wh-100 pn-re ow-hn">
-            <TabsInlineBody tabs={outputTabs} selectedTabKey={outputTab} />
+      ) : (
+        <SplitPane direction={direction === 'row' ? 'column' : 'row'} className="flex-1">
+          <div className="jk-col extend stretch nowrap">
+            <TabsInline
+              tabs={inputTabs}
+              selectedTabKey={inputTab}
+              onChange={setInputTab}
+              className="border-bottom-highlight-light"
+            />
+            <div className="flex-1 wh-100 pn-re ow-hn">
+              <TabsInlineBody tabs={inputTabs} selectedTabKey={inputTab} />
+            </div>
           </div>
-        </div>
-      </SplitPane>
+          <div className="jk-col stretch test-cases-output-stderr">
+            <TabsInline
+              tabs={outputTabs}
+              selectedTabKey={outputTab}
+              onChange={setOutputTab}
+              className="border-bottom-highlight-light"
+            />
+            <div className="flex-1 wh-100 pn-re ow-hn">
+              <TabsInlineBody tabs={outputTabs} selectedTabKey={outputTab} />
+            </div>
+          </div>
+        </SplitPane>
+      )}
     </div>
   );
 };
