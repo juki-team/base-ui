@@ -8,11 +8,12 @@ interface RunnerSheetSectionProps {
   content: QuizOptionsSheetType,
   checkedOptions: string[],
   setCheckedOptions: Dispatch<SetStateAction<string[]>>,
+  readOnly: boolean,
 }
 
 export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
   
-  const { content, checkedOptions, setCheckedOptions } = props;
+  const { content, checkedOptions, setCheckedOptions, readOnly } = props;
   
   return (
     <div className="bc-we jk-br-ie jk-pg jk-col stretch gap wh-100">
@@ -23,7 +24,7 @@ export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
           <div
             className="jk-row gap nowrap extend left jk-br-ie option"
             key={option.id}
-            onClick={() => {
+            onClick={readOnly ? undefined : () => {
               if (content.multiple) {
                 if (checkedOptions.includes(option.id)) {
                   setCheckedOptions(checkedOptions.filter(o => o !== option.id));

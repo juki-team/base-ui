@@ -70,6 +70,7 @@ export const WorksheetResultViewer = () => {
                 content={data.content.content}
                 isEditor={data.content.user?.isManager}
                 isSolvable={data.content.isSolvable}
+                resultsUserKey="Fakeuser1234|juki-app"
                 // readOnly={false}
                 // readOnly={!!user?.nickname}
               />,

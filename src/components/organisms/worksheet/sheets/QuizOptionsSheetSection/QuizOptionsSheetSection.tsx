@@ -32,8 +32,9 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
     sheetLength,
     setSheet,
     worksheetKey,
-    isSolvable = false,
+    isSolvable,
     userResults,
+    readOnly,
   } = props;
   
   const { notifyResponse } = useJukiNotification();
@@ -102,6 +103,7 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
             content={content}
             checkedOptions={checkedOptions}
             setCheckedOptions={setCheckedOptions}
+            readOnly={readOnly}
           />
         </div>
       )}
