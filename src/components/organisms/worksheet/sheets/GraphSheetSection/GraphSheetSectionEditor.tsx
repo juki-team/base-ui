@@ -2,7 +2,7 @@ import { GraphSheetType } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { DEFAULT_GRAPH } from '../../../../../constants';
 import { classNames } from '../../../../../helpers';
-import { Button } from '../../../../atoms';
+import { Button, Input, T } from '../../../../atoms';
 import { AddIcon, ArrowBackIcon, ArrowForwardIcon, DeleteIcon } from '../../../../atoms/server';
 import { GraphvizEditor } from '../../../Graphviz/GraphvizEditor';
 import { SetContentType } from '../../types';
@@ -20,7 +20,14 @@ export const GraphSheetSectionEditor = ({
   const [ frame, setFrame ] = useState(0);
   
   return (
-    <div className="jk-col stretch left wh-100">
+    <div className="jk-col stretch left wh-100 jk-pg-sm br-ht jk-br-ie">
+      <Input
+        label={<T className="tt-se">title</T>}
+        labelPlacement="top"
+        value={content.title}
+        onChange={title => setContent(prevState => ({ ...prevState, title }))}
+        expand
+      />
       <GraphvizEditor
         value={content.dots?.[frame]}
         onSave={(dot) => {

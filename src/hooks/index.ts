@@ -23,6 +23,7 @@ export * from './useMemoizedArray';
 export * from './useSessionStorage';
 export * from './useJukiNotification';
 export * from './useMutate';
+export * from './usePageFocus';
 export * from './usePreload';
 export * from './usePreloadComponents';
 export * from './useStableState';

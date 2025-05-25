@@ -48,9 +48,10 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
     _setContent(initialContent);
   };
   
+  const text = content.content.trim();
   return (
     <div
-      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
+      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100 jk-md-sheet-section"
       onDoubleClick={() => setEdit(true)}
     >
       {setContent && (
@@ -58,9 +59,16 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
       )}
       {setContent && edit
         ? <JkmdSheetSectionEditor content={content} setContent={setContent} isSolvable={!!isSolvable} />
-        : <div className="jk-pg bc-we jk-br-ie jk-md-sheet-section-view wh-100">
-          <MdMathViewer source={content.content} />
-        </div>}
+        : (
+          <div className="jk-col gap stretch jk-md-sheet-section-view wh-100">
+            {!!content.title && (
+              <div className="jk-row left"><p className="tt-se cr-th tx-l fw-bd">{content.title}</p></div>
+            )}
+            {!!text && (
+              <div className="bc-we jk-br-ie jk-pg wh-100"><MdMathViewer source={text} /></div>
+            )}
+          </div>
+        )}
       {setSheet && (
         <FloatToolbar
           actionButtons={getActionButtons({
@@ -78,7 +86,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
           placement="out rightTop"
         />
       )}
-      {isSolvable && !setSheet && (
+      {isSolvable && !setSheet && text && (
         <ResultHeader
           points={content.points}
           userPoints={lastSubmission?.points ?? 0}

@@ -34,7 +34,10 @@ export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
   };
   
   return (
-    <div className="jk-row stretch flex-1 jk-br-ie relative">
+    <div
+      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
+      onDoubleClick={() => setEdit(true)}
+    >
       {setContent && (
         <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
       )}
@@ -44,18 +47,23 @@ export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
           setContent={setContent}
         />
       ) : (
-        <CodeEditorSheetSectionView
-          content={content}
-          worksheetKey={worksheetKey}
-          chunkId={chunkId}
-          userResults={userResults}
-          readOnly={readOnly}
-        />
+        <div className="jk-col stretch gap nowrap code-editor-sheet-section-view wh-100">
+          {!!content.title && (
+            <div className="jk-row left"><p className="tt-se cr-th tx-l fw-bd">{content.title}</p></div>
+          )}
+          <CodeEditorSheetSectionView
+            content={content}
+            worksheetKey={worksheetKey}
+            chunkId={chunkId}
+            userResults={userResults}
+            readOnly={readOnly}
+          />
+        </div>
       )}
       {setSheet && (
         <FloatToolbar
           actionButtons={getActionButtons({
-            type: WorksheetType.JK_MD,
+            type: WorksheetType.CODE_EDITOR,
             edit,
             setEdit,
             setModal,

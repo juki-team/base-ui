@@ -5,22 +5,23 @@ import {
   ProgrammingLanguage,
   QuizProblemSheetType,
 } from '@juki-team/commons';
-import React, { Dispatch, useState } from 'react';
+import React, { useState } from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../constants';
 import { Input, InputCheckbox, Modal, MultiSelect, T } from '../../../../atoms';
 import { BasicModalProps } from '../../../../atoms/Modal/types';
 import { ProblemSelector } from '../../../ProblemSelector/ProblemSelector';
+import { SetContentType } from '../../types';
 import { ProblemSummary } from './ProblemSummary';
 
 interface RunnerSheetSectionProps extends BasicModalProps {
-  sheet: QuizProblemSheetType,
-  setSheet: Dispatch<QuizProblemSheetType>,
+  content: QuizProblemSheetType,
+  setContent: SetContentType<QuizProblemSheetType>,
   onClose: () => void,
 }
 
 export const QuizProblemSheetSectionEditorModal = ({
-                                                     sheet: initialSheet,
-                                                     setSheet: _setSheet,
+                                                     content: initialSheet,
+                                                     setContent: _setSheet,
                                                      isOpen,
                                                      onClose,
                                                    }: RunnerSheetSectionProps) => {

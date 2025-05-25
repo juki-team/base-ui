@@ -12,7 +12,11 @@
     width: calc(100% - var(--worksheet-contents-header-width) - var(--gap));
     
     &.is-solvable {
-      .jk-md-sheet-section-view, .quiz-options-sheet-section-view, .graph-sheet-section-view {
+      .jk-md-sheet-section-view,
+      .quiz-options-sheet-section-view,
+      .graph-sheet-section-view,
+      .quiz-problem-sheet-section-view,
+      .code-editor-sheet-section-view {
         width: calc(100% - var(--worksheet-results-width));
       }
       
@@ -42,7 +46,15 @@
     }
   }
   
-  .jk-md-math-editor-layout .jk-md-math-viewer-layout, .jk-md-sheet-section-view {
-    min-height: 110px;
+  .jk-md-sheet-section,
+  .quiz-options-sheet-section-view,
+  .graph-sheet-section-view,
+  .quiz-problem-sheet-section-view,
+  .code-editor-sheet-section-view {
+    min-height: 180px;
+    
+    .jk-md-math-editor-layout .jk-md-math-viewer-layout {
+      min-height: 128px;
+    }
   }
 }

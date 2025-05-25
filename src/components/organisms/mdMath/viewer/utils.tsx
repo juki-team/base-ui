@@ -1,5 +1,7 @@
 import { Theme } from '@juki-team/commons';
 import React, { CSSProperties, ReactNode } from 'react';
+import { SetSearchParamsType } from '../../../../contexts/JukiRouterProvider/types';
+import { QueryParamKey } from '../../../../types';
 import { CommandsFunctionsType, CommandsObjectType } from './types';
 
 const keys: CommandsFunctionsType = {
@@ -68,19 +70,39 @@ export const imgAlignStyle: { [key: string]: CSSProperties } = {
   right: { display: 'block', margin: '0 0 0 auto' },
 };
 
-export const hxRender = (tagName: string, children: ReactNode, style: CSSProperties) => {
+const wrapPageFocus = (children: ReactNode, setSearchParams: SetSearchParamsType) => {
+  if (typeof children === 'string' && !!children.trim()) {
+    const id = encodeURI(`${children.trim().toLowerCase().split(' ').join('-')}`);
+    
+    return (
+      <div
+        className="jk-md-math-link-container jk-row left cr-pr"
+        id={id}
+        onClick={() => setSearchParams({ name: QueryParamKey.PAGE_FOCUS, value: id })}
+      >
+        <div className="jk-md-math-link">
+          {children}
+        </div>
+      </div>
+    );
+  }
+  
+  return children;
+};
+
+export const hxRender = (tagName: string, children: ReactNode, style: CSSProperties, setSearchParams: SetSearchParamsType) => {
   switch (tagName) {
     case 'h1':
-      return <h1 style={style}>{children}</h1>;
+      return <h1 style={style}>{wrapPageFocus(children, setSearchParams)}</h1>;
     case 'h2':
-      return <h2 style={style}>{children}</h2>;
+      return <h2 style={style}>{wrapPageFocus(children, setSearchParams)}</h2>;
     case 'h3':
-      return <h3 style={style}>{children}</h3>;
+      return <h3 style={style}>{wrapPageFocus(children, setSearchParams)}</h3>;
     case 'h4':
-      return <h4 style={style}>{children}</h4>;
+      return <h4 style={style}>{wrapPageFocus(children, setSearchParams)}</h4>;
     case 'h5':
-      return <h5 style={style}>{children}</h5>;
+      return <h5 style={style}>{wrapPageFocus(children, setSearchParams)}</h5>;
     default:
-      return <h6 style={style}>{children}</h6>;
+      return <h6 style={style}>{wrapPageFocus(children, setSearchParams)}</h6>;
   }
 };

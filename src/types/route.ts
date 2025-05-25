@@ -6,6 +6,7 @@ export enum QueryParamKey {
   SIGN_IN = 'sign_in',
   SIGN_UP = 'sign_up',
   SUBMISSION = 'submission',
+  PAGE_FOCUS = 'focus',
   // Worksheet / Class
   SESSION = 'session',
   ASSIGNMENT = 'assignment',

@@ -20,7 +20,7 @@ export const QuizOptionsSheetSectionEditor = ({
                                               }: QuizOptionsSheetSectionEditorProps) => {
   
   return (
-    <div className="jk-col gap stretch left jk-pg wh-100 br-ht jk-br-ie">
+    <div className="jk-col gap stretch left jk-pg-sm wh-100 br-ht jk-br-ie">
       <div className="jk-row-col gap tx-s">
         <div className="jk-col">
           <T className="fw-bd tt-se">options</T>

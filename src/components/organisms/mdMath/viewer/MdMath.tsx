@@ -6,8 +6,9 @@ import ReactMarkdown, { Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
-import { useFetcher, useJukiUI, useStableState } from '../../../../hooks';
+import { useFetcher, useJukiUI, useRouterStore, useStableState } from '../../../../hooks';
 import { jukiApiSocketManager } from '../../../../settings';
+import { QueryParamKey, SetSearchParamsType } from '../../../../types';
 import { Button } from '../../../atoms/Button/Button';
 import { VisibilityIcon } from '../../../atoms/server/icons/google/VisibilityIcon';
 import { VisibilityOffIcon } from '../../../atoms/server/icons/google/VisibilityOffIcon';
@@ -21,17 +22,19 @@ import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 // const ReactMarkdown = lazy(() => import('react-markdown'));
 // const rehypeKatex = lazy(() => import('rehype-katex'));
 
-const hx = ({ children, node: { tagName } }: { children: ReactNode & ReactNode[], node: { tagName: string } }) => {
+type hxProps = { children: ReactNode & ReactNode[], node: { tagName: string } };
+
+const hx = (setSearchParams: SetSearchParamsType) => ({ children, node: { tagName } }: hxProps) => {
   const newChildren = Array.isArray(children) ? [ ...children ] : [ children ];
   if (typeof newChildren[0] === 'string') {
     const [ commands, newText ] = getCommands(newChildren[0]);
     newChildren[0] = newText;
     if (commands.textAlign) {
-      return hxRender(tagName, newText, textAlignStyle[commands.textAlign]);
+      return hxRender(tagName, newText, textAlignStyle[commands.textAlign], setSearchParams);
     }
   }
   
-  return hxRender(tagName, children, {});
+  return hxRender(tagName, children, {}, setSearchParams);
 };
 
 const UserInlineChip = ({ nickname }: { nickname: string }) => {
@@ -66,7 +69,9 @@ const CustomField = ({ commands }: { commands: CommandsObjectType, restText: str
 };
 
 export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, blur?: boolean, unBlur?: boolean, }) => {
+  
   const { components: { Link } } = useJukiUI();
+  const setSearchParams = useRouterStore(state => state.setSearchParams);
   // const [ rehypePlugins, setRehypePlugins ] = useState<any[]>([]);
   // const [ remarkPlugins, setRemarkPlugins ] = useState<any[]>([]);
   // useEffect(() => {
@@ -100,12 +105,12 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
       // h1(...props) {
       //   return null;
       // },
-      h1: hx as any,
-      h2: hx as any,
-      h3: hx as any,
-      h4: hx as any,
-      h5: hx as any,
-      h6: hx as any,
+      h1: hx(setSearchParams) as any,
+      h2: hx(setSearchParams) as any,
+      h3: hx(setSearchParams) as any,
+      h4: hx(setSearchParams) as any,
+      h5: hx(setSearchParams) as any,
+      h6: hx(setSearchParams) as any,
       p({ children = null }) {
         const newChildren = Array.isArray(children) ? [ ...children ] : [ children ];
         if (typeof newChildren[0] === 'string') {
@@ -159,14 +164,16 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
           }
           
           if (href?.startsWith('#')) {
-            const url = new URL(typeof window !== 'undefined' ? (window.location?.href || '') : '');
-            url.hash = href;
-            
+            const id = encodeURI(href.replace('#', ''));
             return (
-              <div className="jk-md-math-link-container jk-row left" id={href.replace('#', '')}>
-                <a href={href} className="jk-md-math-link">
+              <div
+                className="jk-md-math-link-container jk-row left cr-pr"
+                id={id}
+                onClick={() => setSearchParams({ name: QueryParamKey.PAGE_FOCUS, value: id })}
+              >
+                <div className="jk-md-math-link">
                   {children as ReactNode}
-                </a>
+                </div>
               </div>
             );
           }
@@ -236,7 +243,7 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
         );
       },
     },
-  }), [ Link ]);
+  }), [ Link, setSearchParams ]);
   const [ blur, setBlur ] = useStableState(_blur);
   
   return (

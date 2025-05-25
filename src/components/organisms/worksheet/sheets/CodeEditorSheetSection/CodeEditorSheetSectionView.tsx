@@ -101,7 +101,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
           storeKey={content.id + 'view'}
           enableAddCustomSampleCases
           onCodeRunStatusChange={(status, { sourceCode, language, testCases }) => {
-            if (status === SubmissionRunStatus.COMPILED) {
+            if (status === SubmissionRunStatus.COMPLETED) {
               void saveCode(sourceCode, language, testCases);
             }
           }}
@@ -116,7 +116,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
                   onClick={() => saveCode(sourceCode, language, testCases)}
                   setLoaderStatusRef={setLoaderStatus => setLoaderStatusRef.current = setLoaderStatus}
                 >
-                  <T>save</T>
+                  <T className="tt-se">save</T>
                 </ButtonLoader>,
               );
             }

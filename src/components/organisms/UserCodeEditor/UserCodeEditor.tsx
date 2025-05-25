@@ -200,7 +200,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   }, [ onTestCasesChange, testCases ]);
   
   const mergeSources: (a: SourcesStoreType, b: SourcesStoreType | undefined) => SourcesStoreType = (a: SourcesStoreType, b: SourcesStoreType | undefined): SourcesStoreType => {
-    return { ...a, ...b };
+    return { ...b, ...a };
   };
   const newInitialSource: StorageType<SourcesStoreType> = { [storeKey]: { ...initialSource, key: storeKey } };
   for (const { value } of JSON.parse(languagesString)) {

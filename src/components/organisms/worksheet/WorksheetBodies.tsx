@@ -30,10 +30,6 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   const [ page, _setPage ] = useStableState(typeof initialPage === 'number' ? initialPage : 1);
   const setPage = (index: number) => {
     (initialSetPage ?? _setPage)(index);
-    if (typeof document !== 'undefined') {
-      document.getElementById('jk-two-content-section-second-panel')?.scrollTo({ top: 0, behavior: 'smooth' });
-      document.getElementById('jk-worksheet-body')?.scrollTo({ top: 0, behavior: 'smooth' });
-    }
   };
   
   const setPageSheets = useCallback((newPageHeader: NewPageSheetType | null, newPageSheetContent: BodyWorksheetType[]) => {

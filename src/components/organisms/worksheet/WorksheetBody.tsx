@@ -4,6 +4,7 @@ import {
   GraphSheetType,
   JkmdSheetType,
   QuizOptionsSheetType,
+  QuizProblemSheetType,
   WorksheetType,
 } from '@juki-team/commons';
 import React, { Children, forwardRef, Fragment, PropsWithChildren } from 'react';
@@ -13,6 +14,7 @@ import { CodeEditorSheetSection } from './sheets/CodeEditorSheetSection';
 import { GraphSheetSection } from './sheets/GraphSheetSection';
 import { JkmdSheetSection } from './sheets/JkmdSheetSection';
 import { QuizOptionsSheetSection } from './sheets/QuizOptionsSheetSection';
+import { QuizProblemSheetSection } from './sheets/QuizProblemSheetSection';
 import { SheetSection } from './sheets/types';
 import { SetContentType, WorksheetBodyProps } from './types';
 
@@ -59,6 +61,7 @@ export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<Worksh
         return (
           <Fragment key={chunk.id}>
             <div
+              id={chunk.id}
               className={classNames('jk-row nowrap stretch top gap pn-re jk-br-ie wh-100', `${chunk.type}-chunk`, {
                 editing: !!setSheet,
                 'next-jkmd': isNextJkmd,
@@ -78,21 +81,9 @@ export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<Worksh
               {chunk.type === WorksheetType.GRAPH && (
                 <GraphSheetSection {...props as SheetSection<GraphSheetType>} />
               )}
-              {/*{chunk.type === WorksheetType.QUIZ_PROBLEM && (*/}
-              {/*  <QuizProblemSheetSection*/}
-              {/*    sheet={sheet}*/}
-              {/*    setSheet={setSheet}*/}
-              {/*    result={resultQuizProblem}*/}
-              {/*    userResult={userResult}*/}
-              {/*    showingResults={showingResults}*/}
-              {/*    actionButtons={actionButtons}*/}
-              {/*    isSolvable={isSolvable}*/}
-              {/*    isSolving={isSolving}*/}
-              {/*    isEditor={isEditor}*/}
-              {/*    worksheetKey={worksheetKey}*/}
-              {/*    mutateUserResults={mutateUserResults}*/}
-              {/*  />*/}
-              {/*)}*/}
+              {chunk.type === WorksheetType.QUIZ_PROBLEM && (
+                <QuizProblemSheetSection {...props as SheetSection<QuizProblemSheetType>} />
+              )}
               {chunk.type === WorksheetType.QUIZ_OPTIONS && (
                 <QuizOptionsSheetSection {...props as SheetSection<QuizOptionsSheetType>} />
               )}

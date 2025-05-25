@@ -1,80 +1,94 @@
-import { QuizProblemSheetType, QuizProblemSubmissionResponseDTO, UserBasicInterface } from '@juki-team/commons';
-import React, { Dispatch, useState } from 'react';
-import { KeyedMutator } from 'swr';
+import { QuizProblemSheetType, WorksheetType } from '@juki-team/commons';
+import React, { useState } from 'react';
+import { useStableState } from '../../../../../hooks';
 import { T } from '../../../../atoms';
-import { CheckIcon, EditIcon } from '../../../../atoms/server';
+import { CheckIcon } from '../../../../atoms/server';
 import { FloatToolbar } from '../../../../molecules';
-import { ButtonActionProps } from '../../../../molecules/FloatToolbar/types';
+import { EditSheetModal } from '../EditSheetModal';
+import { getActionButtons } from '../getActionButtons';
 import { ResultHeader } from '../ResultHeader';
+import { SheetSection } from '../types';
 import { QuizProblemSheetSectionEditor } from './QuizProblemSheetSectionEditor';
-import { QuizProblemSheetSectionEditorModal } from './QuizProblemSheetSectionEditorModal';
 import { QuizProblemSheetSectionView } from './QuizProblemSheetSectionView';
 
-interface RunnerSheetSectionProps {
-  sheet: QuizProblemSheetType,
-  setSheet?: Dispatch<QuizProblemSheetType>,
-  actionButtons?: ButtonActionProps['buttons'],
-  result?: QuizProblemSubmissionResponseDTO,
-  userResult?: UserBasicInterface,
-  isSolvable?: boolean,
-  showingResults?: boolean,
-  isSolving?: boolean,
-  isEditor?: boolean,
-  worksheetKey: string,
-  mutateUserResults?: KeyedMutator<any>,
+interface QuizProblemSheetSectionProps extends SheetSection<QuizProblemSheetType> {
 }
 
-export const QuizProblemSheetSection = ({
-                                          sheet,
-                                          setSheet,
-                                          result,
-                                          userResult,
-                                          actionButtons = [],
-                                          isSolvable = false,
-                                          showingResults = false,
-                                          isSolving = false,
-                                          isEditor = false,
-                                          worksheetKey,
-                                          mutateUserResults,
-                                        }: RunnerSheetSectionProps) => {
+export const QuizProblemSheetSection = (props: QuizProblemSheetSectionProps) => {
+  
+  const {
+    content: initialContent,
+    setContent: saveContent,
+    index,
+    chunkId,
+    sheetLength,
+    setSheet,
+    worksheetKey,
+    isSolvable = false,
+    userResults,
+  } = props;
   
   const [ edit, setEdit ] = useState(false);
-  
-  const editActionButton = {
-    icon: <EditIcon />,
-    buttons: [ { icon: <EditIcon />, label: <T>edit</T>, onClick: () => setEdit(true) }, ...actionButtons ],
+  const [ modal, setModal ] = useState(false);
+  const [ content, _setContent ] = useStableState(initialContent);
+  const setContent = saveContent ? _setContent : undefined;
+  const reset = () => {
+    _setContent(initialContent);
   };
   
+  const submissions = userResults?.data?.submissions[WorksheetType.QUIZ_PROBLEM]?.[chunkId] ?? [];
+  const lastSubmission = submissions.at(-1);
+  
   return (
-    <div className="jk-row stretch flex-1 sheet-section jk-br-ie relative" style={{ width: '100%' }}>
-      {setSheet && <FloatToolbar actionButtons={[ editActionButton ]} />}
-      {isSolvable && (
-        <ResultHeader points={sheet.points} userPoints={result?.points ?? 0} isResolved={!!result?.isCompleted}>
-          {!!result?.isCompleted && <><CheckIcon size="tiny" /> <T className="tt-se">resolved</T></>}
-        </ResultHeader>
+    <div
+      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
+      onDoubleClick={() => setEdit(true)}
+    >
+      {setContent && (
+        <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
       )}
-      {setSheet
-        ? <QuizProblemSheetSectionEditor sheet={sheet} setSheet={setSheet} />
+      {setContent && edit
+        ? <QuizProblemSheetSectionEditor content={content} setContent={setContent} />
         : (
-          <QuizProblemSheetSectionView
-            sheet={sheet}
-            result={result}
-            userResult={userResult}
-            showingResults={showingResults}
-            isSolvable={isSolvable}
-            isSolving={isSolving}
-            isEditor={isEditor}
-            worksheetKey={worksheetKey}
-          />
+          <div className="jk-col gap stretch center quiz-problem-sheet-section-view wh-100">
+            {!!content.title && (
+              <div className="jk-row left"><p className="tt-se cr-th tx-l fw-bd">{content.title}</p></div>
+            )}
+            {content.problemKey ? (
+              <QuizProblemSheetSectionView
+                content={content}
+                worksheetKey={worksheetKey}
+              />
+            ) : (
+              <div className="jk-row center"><T className="tt-se cr-er">problem not selected</T></div>
+            )}
+          </div>
         )}
-      
       {setSheet && (
-        <QuizProblemSheetSectionEditorModal
-          sheet={sheet}
-          setSheet={setSheet}
-          isOpen={edit}
-          onClose={() => setEdit(false)}
+        <FloatToolbar
+          actionButtons={getActionButtons({
+            type: WorksheetType.QUIZ_PROBLEM,
+            edit,
+            setEdit,
+            setModal,
+            content,
+            saveContent,
+            index,
+            sheetLength,
+            setSheet,
+            reset,
+          })}
+          placement="out rightTop"
         />
+      )}
+      {isSolvable && !setSheet && (
+        <ResultHeader
+          points={content.points}
+          userPoints={lastSubmission?.points ?? 0}
+          isResolved={!!lastSubmission?.isCompleted}
+        >
+          {!!lastSubmission?.isCompleted && <><CheckIcon size="tiny" /> <T className="tt-se">resolved</T></>}
+        </ResultHeader>
       )}
     </div>
   );

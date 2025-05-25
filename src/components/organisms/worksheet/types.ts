@@ -26,6 +26,8 @@ export interface WorksheetBodiesProps {
   withoutContentsHeader?: boolean,
   page?: number, // [1, pages]
   setPage?: (page: number) => void,
+  subPage?: number, // [1, pages]
+  setSubPage?: (page: number) => void,
   lastPageChildren?: ReactNode,
   readOnly: boolean,
 }
@@ -53,6 +55,8 @@ export interface WorksheetViewerProps {
   // withoutContentsHeader?: boolean,
   page?: number,
   setPage?: (newPage: number) => void,
+  subPage?: number,
+  setSubPage?: (newSubPage: number) => void,
   lastPageChildren?: ReactNode,
   readOnly?: boolean,
 }

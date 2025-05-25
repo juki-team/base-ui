@@ -1,27 +1,23 @@
 import {
-  ACCEPTED_PROGRAMMING_LANGUAGES,
   Judge,
   PROGRAMMING_LANGUAGE,
   ProgrammingLanguage,
   QuizProblemSheetType,
+  RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
-import React, { Dispatch, useState } from 'react';
+import React from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../constants';
 import { Input, InputCheckbox, MultiSelect, T } from '../../../../atoms';
 import { ProblemSelector } from '../../../ProblemSelector/ProblemSelector';
+import { SetContentType } from '../../types';
 import { ProblemSummary } from './ProblemSummary';
 
 interface RunnerSheetSectionProps {
-  sheet: QuizProblemSheetType,
-  setSheet: Dispatch<QuizProblemSheetType>,
+  content: QuizProblemSheetType,
+  setContent: SetContentType<QuizProblemSheetType>,
 }
 
-export const QuizProblemSheetSectionEditor = ({
-                                                sheet: initialSheet,
-                                                setSheet: _setSheet,
-                                              }: RunnerSheetSectionProps) => {
-  
-  const [ sheet, setSheet ] = useState(initialSheet);
+export const QuizProblemSheetSectionEditor = ({ content, setContent }: RunnerSheetSectionProps) => {
   
   return (
     <div className="jk-col stretch left">
@@ -29,28 +25,28 @@ export const QuizProblemSheetSectionEditor = ({
         <Input
           label={<T className="tt-se">title</T>}
           labelPlacement="top"
-          value={sheet.title}
-          onChange={title => setSheet(prevState => ({ ...prevState, title }))}
+          value={content.title}
+          onChange={title => setContent(prevState => ({ ...prevState, title }))}
           expand
         />
         <Input
           type="number"
           label={<T className="tt-se">points</T>}
           labelPlacement="top"
-          value={sheet.points}
-          onChange={points => setSheet(prevState => ({ ...prevState, points }))}
+          value={content.points}
+          onChange={points => setContent(prevState => ({ ...prevState, points }))}
           expand
         />
         <div className="flex-1">
           <T className="fw-bd tt-se">languages</T>:
           <MultiSelect
-            options={ACCEPTED_PROGRAMMING_LANGUAGES
+            options={RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES
               .map((key) => ({
                 value: key,
-                label: PROGRAMMING_LANGUAGE[key]?.label,
+                label: PROGRAMMING_LANGUAGE[key]?.label ?? key,
               }))}
-            selectedOptions={sheet.languages?.map(language => ({ value: language }))}
-            onChange={(options) => setSheet(prevState => ({
+            selectedOptions={content.languages?.map(language => ({ value: language }))}
+            onChange={(options) => setContent(prevState => ({
               ...prevState,
               languages: options.map(option => option.value as ProgrammingLanguage),
             }))}
@@ -58,25 +54,25 @@ export const QuizProblemSheetSectionEditor = ({
           />
         </div>
         <div>
-          {(sheet.problemJudge && sheet.problemKey) ? (
-            <ProblemSummary problemJudge={sheet.problemJudge} problemKey={sheet.problemKey} />
+          {(content.problemJudge && content.problemKey) ? (
+            <ProblemSummary problemJudge={content.problemJudge} problemKey={content.problemKey} />
           ) : <T className="tt-se">please select a problem</T>}
         </div>
         <div className="jk-row gap left">
           <div><T className="fw-bd tt-se">height</T>:</div>
           <InputCheckbox
-            checked={sheet.height === 0}
+            checked={content.height === 0}
             label={<T>auto</T>}
-            onChange={(value) => setSheet(prevState => ({
+            onChange={(value) => setContent(prevState => ({
               ...prevState,
               height: value ? 0 : WORKSHEET_CODE_EDITOR_MIN_HEIGHT,
             }))}
           />
           <Input
-            disabled={sheet.height === 0}
+            disabled={content.height === 0}
             type="number"
-            value={sheet.height}
-            onChange={(value) => setSheet(prevState => ({
+            value={content.height}
+            onChange={(value) => setContent(prevState => ({
               ...prevState,
               height: Math.abs(value),
             }))}
@@ -86,7 +82,7 @@ export const QuizProblemSheetSectionEditor = ({
         </div>
         <ProblemSelector
           onSelect={(problem) => {
-            setSheet(prevState => ({
+            setContent(prevState => ({
               ...prevState,
               problemKey: problem.key,
               problemJudge: problem.judge.key as Judge,

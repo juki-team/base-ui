@@ -4,9 +4,10 @@ import {
   getWorksheetsInPages,
   WorksheetUserSubmissionsResponseDTO,
 } from '@juki-team/commons';
-import React, { useEffect, useMemo, useRef } from 'react';
-import { useFetcher, useHash, useJukiUI, useStableState, useUserStore } from '../../../hooks';
+import React, { useMemo } from 'react';
+import { useFetcher, useJukiUI, useRouterStore, useStableState, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
+import { QueryParamKey } from '../../../types';
 import { T } from '../../atoms';
 import { TableOfContents } from './sheets/TableOfContents';
 import { UserResultsType, WorksheetViewerProps } from './types';
@@ -21,48 +22,24 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
     isEditor = false,
     resultsUserKey,
     page: initialPage,
+    subPage: initialSubPage,
     setPage: initialSetPage,
+    setSubPage: initialSetSubPage,
     lastPageChildren,
     readOnly: initialReadOnly = false,
   } = props;
   
-  const locationHash = useHash();
-  const scrolled = useRef(false);
   const { viewPortSize } = useJukiUI();
   const userNickname = useUserStore(state => state.user.nickname);
   const companyKey = useUserStore(state => state.company.key);
   const userIsLogged = useUserStore(state => state.user.isLogged);
-  useEffect(() => {
-    let render = 0;
-    let timeoutId: NodeJS.Timeout | null = null;
-    const go = () => {
-      render++;
-      timeoutId = setTimeout(() => {
-        const element = window?.document?.getElementById(encodeURI(locationHash));
-        if (element) {
-          element?.scrollIntoView({ behavior: 'smooth' });
-          scrolled.current = true;
-        } else {
-          if (render < 50) {
-            go();
-          }
-        }
-      }, 400);
-    };
-    
-    if (!scrolled.current) {
-      go();
-    }
-    
-    return () => {
-      if (timeoutId !== null) {
-        clearTimeout(timeoutId);
-      }
-    };
-  }, [ locationHash, content ]);
+  const setSearchParams = useRouterStore(state => state.setSearchParams);
   
   const [ page, _setPage ] = useStableState(initialPage ?? 1);
+  const [ subPage, _setSubPage ] = useStableState(initialSubPage ?? 1);
   const setPage = initialSetPage ?? _setPage;
+  const setSubPage = initialSetSubPage ?? _setSubPage;
+  
   const {
     data: userResultsData,
     mutate: userResultsMutate,
@@ -87,21 +64,23 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
   const readOnly = initialReadOnly || userNickname !== userResults?.data?.user.nickname;
   
   return (
-    <div className="jk-row gap nowrap worksheet-viewer-container center top">
+    <div
+      id="jk-worksheet-viewer-container"
+      className="jk-row gap nowrap worksheet-viewer-container center top"
+    >
       {withoutContentsNav && (
         <div className="jk-col gap bc-we jk-pg-xsm jk-br-ie left worksheet-content sticky-top">
           <T className="tt-se fw-bd cr-py">table of content</T>
           <TableOfContents
             sheetsInPages={sheetsInPages}
             page={page}
-            onClick={(index) => {
+            onClick={(index, subIndex) => {
               if (setPage) {
                 setPage(index);
-                if (typeof document !== 'undefined') {
-                  document.getElementById('jk-two-content-section-second-panel')
-                    ?.scrollTo({ top: 0, behavior: 'smooth' });
-                  document.getElementById('jk-worksheet-body')
-                    ?.scrollTo({ top: 0, behavior: 'smooth' });
+                setSearchParams({ name: QueryParamKey.PAGE_FOCUS, value: 'jk-worksheet-viewer-container' });
+                if (setSubPage && subIndex) {
+                  setSubPage(subIndex.index);
+                  setSearchParams({ name: QueryParamKey.PAGE_FOCUS, value: subIndex.id });
                 }
               }
             }}
@@ -118,6 +97,8 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
         withoutContentsHeader={withoutContentsNav}
         page={page}
         setPage={setPage}
+        subPage={subPage}
+        setSubPage={setSubPage}
         lastPageChildren={lastPageChildren}
       />
     </div>

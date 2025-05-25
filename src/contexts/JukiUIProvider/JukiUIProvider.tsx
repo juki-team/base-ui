@@ -3,6 +3,7 @@ import React, { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, use
 import { T } from '../../components/atoms';
 import { LineLoader } from '../../components/server';
 import { classNames, persistGlobalURLSearchParams } from '../../helpers';
+import { usePageFocus } from '../../hooks';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { Duration } from '../../types';
 import { NotificationProvider } from '../NotificationProvider/NotificationProvider';
@@ -17,10 +18,10 @@ const ReactTooltip = lazy(() => import('react-tooltip').then(module => ({ defaul
 
 export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiUIProviderProps>) => {
   
+  usePageFocus();
   const { viewPortSize, viewPortHeight, viewPortWidth } = useViewPortSize();
   const { Image: ImageCmp = Image, Link: LinkCMP = Link } = components || { Image, Link };
   const isLoadingRoute = useRouterStore(state => state.isLoadingRoute);
-  
   const ref = useRef<HTMLDivElement>(null);
   
   const LinkCmp: FC<LinkCmpProps> = useCallback(({ href, ...restProps }) => {

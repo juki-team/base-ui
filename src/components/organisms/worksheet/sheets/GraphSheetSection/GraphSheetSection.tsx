@@ -40,7 +40,10 @@ export const GraphSheetSection = (props: GraphSheetSectionProps) => {
       {setContent && edit ? (
         <GraphSheetSectionEditor content={content} setContent={setContent} />
       ) : (
-        <div className="jk-pg bc-we jk-br-ie graph-sheet-section-view wh-100">
+        <div className="jk-col stretch gap nowrap graph-sheet-section-view wh-100">
+          {!!content.title && (
+            <div className="jk-row left"><p className="tt-se cr-th tx-l fw-bd">{content.title}</p></div>
+          )}
           <GraphSheetSectionView content={content} />
         </div>
       )}
