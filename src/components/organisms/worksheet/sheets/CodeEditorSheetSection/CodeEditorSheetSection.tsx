@@ -1,4 +1,4 @@
-import { CodeEditorSheetType, CodeEditorSubmissionResponseDTO, WorksheetType } from '@juki-team/commons';
+import { CodeEditorSheetType, WorksheetType } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { useStableState } from '../../../../../hooks';
 import { FloatToolbar } from '../../../../molecules';
@@ -8,7 +8,7 @@ import { SheetSection } from '../types';
 import { CodeEditorSheetSectionEditor } from './CodeEditorSheetSectionEditor';
 import { CodeEditorSheetSectionView } from './CodeEditorSheetSectionView';
 
-interface RunnerSheetSectionProps extends SheetSection<CodeEditorSheetType, CodeEditorSubmissionResponseDTO> {
+interface RunnerSheetSectionProps extends SheetSection<CodeEditorSheetType> {
 }
 
 export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
@@ -34,7 +34,7 @@ export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
   };
   
   return (
-    <div className="jk-row stretch flex-1 sheet-section jk-br-ie relative">
+    <div className="jk-row stretch flex-1 jk-br-ie relative">
       {setContent && (
         <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
       )}

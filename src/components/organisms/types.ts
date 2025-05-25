@@ -8,6 +8,7 @@ export type * from './DataViewer/types';
 export type * from './DataViewer/types';
 export type * from './Graphviz/types';
 export type * from './Graphviz/types';
+export type * from './Graphviz/types';
 export type * from './ImageUploader/types';
 export type * from './ImageUploader/types';
 export type * from './Menu/types';

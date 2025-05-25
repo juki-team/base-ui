@@ -1,33 +1,65 @@
-import { GraphSheetType } from '@juki-team/commons';
-import React, { Dispatch, useState } from 'react';
-import { T } from '../../../../atoms';
-import { EditIcon } from '../../../../atoms/server';
+import { GraphSheetType, WorksheetType } from '@juki-team/commons';
+import React, { useState } from 'react';
+import { useStableState } from '../../../../../hooks';
 import { FloatToolbar } from '../../../../molecules';
-import { ButtonActionProps } from '../../../../molecules/FloatToolbar/types';
-import { GraphSheetSectionEditorModal } from './GraphSheetSectionEditorModal';
+import { EditSheetModal } from '../EditSheetModal';
+import { getActionButtons } from '../getActionButtons';
+import { SheetSection } from '../types';
+import { GraphSheetSectionEditor } from './GraphSheetSectionEditor';
 import { GraphSheetSectionView } from './GraphSheetSectionView';
 
-interface GraphSheetSectionProps {
-  sheet: GraphSheetType,
-  setSheet?: Dispatch<GraphSheetType>,
-  actionButtons?: ButtonActionProps['buttons'],
+interface GraphSheetSectionProps extends SheetSection<GraphSheetType> {
 }
 
-export const GraphSheetSection = ({ sheet, setSheet, actionButtons = [] }: GraphSheetSectionProps) => {
+export const GraphSheetSection = (props: GraphSheetSectionProps) => {
+  
+  const {
+    content: initialContent,
+    setContent: saveContent,
+    index,
+    sheetLength,
+    setSheet,
+  } = props;
   
   const [ edit, setEdit ] = useState(false);
-  
-  const editActionButton = {
-    icon: <EditIcon />,
-    buttons: [ { icon: <EditIcon />, label: <T>edit</T>, onClick: () => setEdit(true) }, ...actionButtons ],
+  const [ modal, setModal ] = useState(false);
+  const [ content, _setContent ] = useStableState(initialContent);
+  const setContent = saveContent ? _setContent : undefined;
+  const reset = () => {
+    _setContent(initialContent);
   };
   
   return (
-    <div className="jk-row stretch flex-1 sheet-section jk-br-ie relative">
-      {setSheet && <FloatToolbar actionButtons={[ editActionButton ]} />}
-      <GraphSheetSectionView sheet={sheet} />
+    <div
+      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
+      onDoubleClick={() => setEdit(true)}
+    >
+      {setContent && (
+        <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
+      )}
+      {setContent && edit ? (
+        <GraphSheetSectionEditor content={content} setContent={setContent} />
+      ) : (
+        <div className="jk-pg bc-we jk-br-ie graph-sheet-section-view wh-100">
+          <GraphSheetSectionView content={content} />
+        </div>
+      )}
       {setSheet && (
-        <GraphSheetSectionEditorModal sheet={sheet} setSheet={setSheet} isOpen={edit} onClose={() => setEdit(false)} />
+        <FloatToolbar
+          actionButtons={getActionButtons({
+            type: WorksheetType.GRAPH,
+            edit,
+            setEdit,
+            setModal,
+            content,
+            saveContent,
+            index,
+            sheetLength,
+            setSheet,
+            reset,
+          })}
+          placement="out rightTop"
+        />
       )}
     </div>
   );

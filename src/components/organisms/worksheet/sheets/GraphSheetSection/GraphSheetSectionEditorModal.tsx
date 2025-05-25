@@ -49,7 +49,7 @@ export const GraphSheetSectionEditorModal = ({
       <div className="jk-col stretch left jk-pg-md">
         <h3>Juki Graph Editor</h3>
         <div className="jk-col gap flex-1" style={{ width: '100%' }}>
-          <GraphSheetSectionView sheet={sheet} setSheet={setSheet} />
+          <GraphSheetSectionView content={sheet} setSheet={setSheet} />
           <div className="jk-row gap nowrap">
             <Button
               icon={<ArrowBackIcon />}

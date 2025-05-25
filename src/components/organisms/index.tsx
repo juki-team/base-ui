@@ -10,6 +10,7 @@ import { PagedDataViewerProps } from './DataViewer/types';
 import { TextFieldProps } from './DataViewer/types';
 import { TextHeadCellProps } from './DataViewer/types';
 import { GraphvizEditorProps } from './Graphviz/types';
+import { GraphvizEditorModalProps } from './Graphviz/types';
 import { GraphvizViewerProps } from './Graphviz/types';
 import { ImageUploaderModalProps } from './ImageUploader/types';
 import { UploadImageButtonProps } from './ImageUploader/types';
@@ -103,6 +104,14 @@ const LazyGraphvizEditor = lazy(() => GraphvizEditorImport().then(module => ({ d
 export const GraphvizEditor = (props: GraphvizEditorProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyGraphvizEditor {...props} />
+  </Suspense>
+);
+
+const GraphvizEditorModalImport = () => import('./Graphviz/GraphvizEditorModal');
+const LazyGraphvizEditorModal = lazy(() => GraphvizEditorModalImport().then(module => ({ default: module.GraphvizEditorModal })));
+export const GraphvizEditorModal = (props: GraphvizEditorModalProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyGraphvizEditorModal {...props} />
   </Suspense>
 );
 
@@ -269,6 +278,7 @@ export const preloadOrganisms = async () => {
   await TextFieldImport();
   await TextHeadCellImport();
   await GraphvizEditorImport();
+  await GraphvizEditorModalImport();
   await GraphvizViewerImport();
   await ImageUploaderModalImport();
   await UploadImageButtonImport();

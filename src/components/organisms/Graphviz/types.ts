@@ -1,11 +1,16 @@
 import { GraphvizOptions } from 'd3-graphviz';
 
-export interface GraphvizEditorProps {
+export interface GraphvizEditorModalProps {
   value: string,
   onChange?: (newValue: string) => void,
   className?: string,
   width?: number,
   height?: number,
+}
+
+export interface GraphvizEditorProps {
+  value: string,
+  onSave: (newValue: string) => void,
 }
 
 export interface IGraphvizProps {
@@ -24,4 +29,4 @@ export interface IGraphvizProps {
   className?: string;
 }
 
-export type GraphvizViewerProps = Omit<GraphvizEditorProps, 'onChange'>;
+export type GraphvizViewerProps = Omit<GraphvizEditorModalProps, 'onChange'>;

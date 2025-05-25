@@ -1,6 +1,7 @@
 import {
   BodyWorksheetType,
   CodeEditorSheetType,
+  GraphSheetType,
   JkmdSheetType,
   QuizOptionsSheetType,
   WorksheetType,
@@ -9,8 +10,10 @@ import React, { Children, forwardRef, Fragment, PropsWithChildren } from 'react'
 import { classNames } from '../../../helpers';
 import { AddNewChild } from './sheets/AddNewChild';
 import { CodeEditorSheetSection } from './sheets/CodeEditorSheetSection';
+import { GraphSheetSection } from './sheets/GraphSheetSection';
 import { JkmdSheetSection } from './sheets/JkmdSheetSection';
 import { QuizOptionsSheetSection } from './sheets/QuizOptionsSheetSection';
+import { SheetSection } from './sheets/types';
 import { SetContentType, WorksheetBodyProps } from './types';
 
 export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<WorksheetBodyProps>>(function Cmp(props, ref) {
@@ -26,12 +29,6 @@ export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<Worksh
     children,
   } = props;
   
-  // const userNickname = useUserStore(state => state.user.nickname);
-  // const userIsLogged = useUserStore(state => state.user.isLogged);
-  
-  // const showingResults = !!userResults;
-  // const isSolving = !readOnly && userIsLogged && isSolvable && (showingResults ? (userNickname === userResults?.data?.user?.nickname) : true);
-  
   return (
     <div className="jk-col gap center nowrap wh-100" id="jk-worksheet-body" ref={ref}>
       {Children.toArray(sheet.map((chunk, index, array) => {
@@ -46,6 +43,19 @@ export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<Worksh
         
         const isNextJkmd = sheet[index + 1]?.type === WorksheetType.JK_MD;
         
+        const props = {
+          content: chunk,
+          setContent,
+          index,
+          chunkId: chunk.id,
+          sheetLength: sheet.length,
+          setSheet,
+          worksheetKey,
+          isSolvable,
+          userResults,
+          readOnly,
+        };
+        
         return (
           <Fragment key={chunk.id}>
             <div
@@ -57,39 +67,17 @@ export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<Worksh
               // style={{ left: !!setSheets ? -64 : undefined }}
             >
               {chunk.type === WorksheetType.JK_MD && (
-                <JkmdSheetSection
-                  content={chunk}
-                  setContent={setContent as SetContentType<JkmdSheetType>}
-                  index={index}
-                  chunkId={chunk.id}
-                  sheetLength={sheet.length}
-                  setSheet={setSheet}
-                  worksheetKey={worksheetKey}
-                  isSolvable={isSolvable}
-                  userResults={userResults}
-                  readOnly={readOnly}
-                />
+                <JkmdSheetSection {...props as SheetSection<JkmdSheetType>} />
               )}
               {chunk.type === WorksheetType.CODE_EDITOR && (
-                <CodeEditorSheetSection
-                  content={chunk}
-                  setContent={setContent as SetContentType<CodeEditorSheetType>}
-                  index={index}
-                  chunkId={chunk.id}
-                  sheetLength={sheet.length}
-                  setSheet={setSheet}
-                  worksheetKey={worksheetKey}
-                  isSolvable={isSolvable}
-                  userResults={userResults}
-                  readOnly={readOnly}
-                />
+                <CodeEditorSheetSection {...props as SheetSection<CodeEditorSheetType>} />
               )}
               {/*{chunk.type === WorksheetType.LIST && (*/}
               {/*  <ListSheetSection sheet={sheet} setSheet={setSheet} actionButtons={actionButtons} />*/}
               {/*)}*/}
-              {/*{chunk.type === WorksheetType.GRAPH && (*/}
-              {/*  <GraphSheetSection sheet={sheet} setSheet={setSheet} actionButtons={actionButtons} />*/}
-              {/*)}*/}
+              {chunk.type === WorksheetType.GRAPH && (
+                <GraphSheetSection {...props as SheetSection<GraphSheetType>} />
+              )}
               {/*{chunk.type === WorksheetType.QUIZ_PROBLEM && (*/}
               {/*  <QuizProblemSheetSection*/}
               {/*    sheet={sheet}*/}
@@ -106,18 +94,7 @@ export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<Worksh
               {/*  />*/}
               {/*)}*/}
               {chunk.type === WorksheetType.QUIZ_OPTIONS && (
-                <QuizOptionsSheetSection
-                  content={chunk}
-                  setContent={setContent as SetContentType<QuizOptionsSheetType>}
-                  index={index}
-                  chunkId={chunk.id}
-                  sheetLength={sheet.length}
-                  setSheet={setSheet}
-                  worksheetKey={worksheetKey}
-                  isSolvable={isSolvable}
-                  userResults={userResults}
-                  readOnly={readOnly}
-                />
+                <QuizOptionsSheetSection {...props as SheetSection<QuizOptionsSheetType>} />
               )}
             </div>
             {setSheet && (
@@ -132,7 +109,7 @@ export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<Worksh
                   quizOptionsSheetType
                   pageDivider
                   compacted
-                  floatToolbarPlacement={index === 0 ? 'bottom' : index < array.length - 1 ? 'center' : 'top'}
+                  floatToolbarPlacement={index === array.length - 1 ? 'center top' : 'center'}
                 />
               </div>
             )}
@@ -150,7 +127,8 @@ export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<Worksh
             quizProblemSheet
             quizOptionsSheetType
             pageDivider
-            floatToolbarPlacement="top"
+            compacted
+            floatToolbarPlacement="center bottom"
           />
         </div>
       )}

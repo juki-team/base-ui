@@ -3,10 +3,10 @@ import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { classNames } from '../../../../../helpers';
 import { Button } from '../../../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon } from '../../../../atoms/server';
-import { GraphvizEditor } from '../../../Graphviz/GraphvizEditor';
+import { GraphvizViewer } from '../../../Graphviz/GraphvizViewer';
 
 interface GraphSheetSectionProps {
-  sheet: GraphSheetType,
+  content: GraphSheetType,
   setSheet?: Dispatch<SetStateAction<GraphSheetType>>,
 }
 
@@ -19,36 +19,29 @@ const DEFAULT_GRAPH = `digraaph graph_name {
   a -> c;
 }`;
 
-export const GraphSheetSectionView = ({ sheet, setSheet }: GraphSheetSectionProps) => {
+export const GraphSheetSectionView = ({ content, setSheet }: GraphSheetSectionProps) => {
   
   const [ frame, setFrame ] = useState(0);
   
   useEffect(() => {
-    if (!sheet.dots.length) {
+    if (!content.dots.length) {
       setSheet?.(sheet => ({ ...sheet, dots: [ DEFAULT_GRAPH ] }));
     }
-  }, [ frame, setSheet, sheet.dots.length ]);
+  }, [ frame, setSheet, content.dots.length ]);
   
   return (
     <div className="jk-graph-sheet-section jk-col gap">
       <div className="br-g5 jk-br-ie">
-        <GraphvizEditor
-          value={sheet.dots?.[frame]}
-          onChange={setSheet ? (dot) => {
-            const dots = [ ...sheet.dots ];
-            dots.splice(frame, 1, dot);
-            setSheet({ ...sheet, dots });
-          } : undefined}
-        />
+        <GraphvizViewer value={content.dots?.[frame]} />
       </div>
       <div className="jk-row gap center">
         <Button
           icon={<ArrowBackIcon />}
           disabled={frame === 0}
-          onClick={() => setFrame(((frame - 1) + sheet.dots.length) % sheet.dots.length)}
+          onClick={() => setFrame(((frame - 1) + content.dots.length) % content.dots.length)}
           size="small"
         />
-        {new Array(sheet.dots.length).fill(1).map((_, index) => (
+        {new Array(content.dots.length).fill(1).map((_, index) => (
           <div
             className={classNames('jk-tag clickable', { 'gray-5': index !== frame })}
             onClick={() => setFrame(index)}
@@ -59,8 +52,8 @@ export const GraphSheetSectionView = ({ sheet, setSheet }: GraphSheetSectionProp
         ))}
         <Button
           icon={<ArrowForwardIcon />}
-          disabled={frame >= sheet.dots.length - 1}
-          onClick={() => setFrame((frame + 1) % sheet.dots.length)}
+          disabled={frame >= content.dots.length - 1}
+          onClick={() => setFrame((frame + 1) % content.dots.length)}
           size="small"
         />
       </div>

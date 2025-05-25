@@ -5,8 +5,8 @@ import { IGraphvizProps } from '../types';
 
 const defaultOptions: GraphvizOptions = {
   fit: true,
-  height: 500,
-  width: 500,
+  // height: 500,
+  // width: 500,
   zoom: false,
 };
 

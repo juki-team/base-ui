@@ -1,73 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
-import { classNames } from '../../../helpers';
-import { Button, Modal, T, TextArea } from '../../atoms';
-import { BasicModalProps } from '../../atoms/types';
+import { Popover, TextArea } from '../../atoms';
+import { CheckIcon, ErrorIcon } from '../../atoms/server';
 import { SplitPane } from '../../molecules';
-import { EditIcon } from '../../server';
 import { Graphviz } from './Graphviz/Graphviz';
-import { GraphvizViewer } from './GraphvizViewer';
 import { GraphvizEditorProps } from './types';
 import { useDotValue } from './useDotValue';
 
-interface GraphvizEditorModalProps extends BasicModalProps {
-  value: string,
-  onSave: (newValue: string) => void,
-  onClose: () => void,
-}
-
-const GraphvizEditorModal = ({ value, onSave, ...props }: GraphvizEditorModalProps) => {
+export const GraphvizEditor = ({ value, onSave }: GraphvizEditorProps) => {
   
-  const [ input, setInput ] = useState(value);
   const { ref, width = 0 } = useResizeDetector(RESIZE_DETECTOR_PROPS);
-  useEffect(() => setInput(value), [ value ]);
   
-  const { dot, error } = useDotValue(input);
+  const { dot, error } = useDotValue(value);
   
   return (
-    <Modal {...props}>
-      <div className="jk-graph-editor-modal jk-pg-sm jk-col gap stretch">
-        <SplitPane>
-          <div>
-            <div className="bc-eras jk-tag error">{error}</div>
-            <TextArea value={input} onChange={setInput} />
-          </div>
-          <div className="jk-row" style={{ overflow: 'auto' }} ref={ref}>
-            <Graphviz dot={dot} className="jk-graph" options={{ width: width - 20 }} />
-          </div>
-        </SplitPane>
-        <div className="jk-row gap right">
-          <Button type="light" onClick={props.onClose}><T>cancel</T></Button>
-          <Button
-            disabled={!!error}
-            onClick={() => {
-              onSave(dot);
-              props.onClose();
-            }}
-          >
-            <T>save</T>
-          </Button>
+    <div className="jk-graph-editor-modal jk-col nowrap gap stretch wh-100">
+      <SplitPane style={{ height: `calc(${24 * (value?.split('\n').length || 1)}px + var(--pad-sm) * 3 + 24px + 8px)` }}>
+        <div className="jk-col jk-pg-xsm ht-100">
+          {!!error
+            ? <Popover content={<div className="bc-eras jk-tag error" style={{ maxWidth: 128 }}>{error}</div>}>
+              <div className="jk-row">
+                <ErrorIcon className="cr-er" />
+              </div>
+            </Popover>
+            : <div className="jk-row">
+              <CheckIcon className="cr-ss" />
+            </div>}
+          <TextArea
+            value={value}
+            onChange={onSave}
+            className="ws-np flex-1"
+          />
         </div>
-      </div>
-    </Modal>
-  );
-};
-
-export const GraphvizEditor = ({ value, onChange, className, width, height }: GraphvizEditorProps) => {
-  
-  const [ open, setOpen ] = useState(false);
-  
-  return (
-    <div
-      className={classNames('jk-row nowrap center jk-graphviz-editor-container', className)}
-      style={{ position: 'relative' }}
-    >
-      {onChange && (
-        <Button onClick={() => setOpen(true)} style={{}} icon={<EditIcon />} className="float-top-right pad-t" />
-      )}
-      <GraphvizViewer value={value} width={width} height={height} />
-      {onChange && <GraphvizEditorModal value={value} onSave={onChange} isOpen={open} onClose={() => setOpen(false)} />}
+        <div className="jk-row" style={{ overflow: 'auto' }} ref={ref}>
+          <Graphviz dot={dot} className="jk-graph" options={{ width: width - 20 }} />
+        </div>
+      </SplitPane>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { BodyWorksheetType, isObjectJson, isStringJson } from '@juki-team/commons';
 import React, { Dispatch } from 'react';
-import { isJkmdSheetType } from '../../../../helpers';
+import { isJkmdSheetType, isQuizOptionsSheetType } from '../../../../helpers';
 import { useStableState } from '../../../../hooks';
 import { Button, InputTextArea, Modal, T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/Modal/types';
@@ -33,11 +33,17 @@ export const EditSheetModal = <T extends BodyWorksheetType, >(props: EditSheetMo
             <T className="tt-se">close</T>
           </Button>
           <Button
-            disabled={isStringJson(value) ? (!isJkmdSheetType(JSON.parse(value))) : true}
+            disabled={isStringJson(value)
+              ? (!isJkmdSheetType(JSON.parse(value)) && !isQuizOptionsSheetType(JSON.parse(value)))
+              : true}
             onClick={() => {
               if (isStringJson(value)) {
                 const obj = JSON.parse(value);
                 if (isJkmdSheetType(obj)) {
+                  setContent(obj as T);
+                  onClose();
+                }
+                if (isQuizOptionsSheetType(obj)) {
                   setContent(obj as T);
                   onClose();
                 }

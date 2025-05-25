@@ -39,8 +39,8 @@ export const getActionButtons = <T extends BodyWorksheetType, >(props: getAction
     {
       children: (
         <div className="bc-pl jk-pg-xsm jk-row cr-we gap nowrap jk-br-ie tx-t" style={{ opacity: 0.6 }}>
-          {LOGO_WORKSHEET_TYPE('tiny')[type]}
-          <T className="tt-se ws-np">jk md</T>
+          {LOGO_WORKSHEET_TYPE('tiny')[type].icon}
+          {LOGO_WORKSHEET_TYPE('tiny')[type].label}
         </div>
       ),
     },

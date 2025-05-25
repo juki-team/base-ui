@@ -1,5 +1,6 @@
 import { BodyWorksheetType, NewPageSheetType } from '@juki-team/commons';
 import React, { useCallback, useRef } from 'react';
+import { classNames } from '../../../helpers';
 import { useStableState } from '../../../hooks';
 import { NotUndefined } from '../../../types';
 import { Button, Input, T } from '../../atoms';
@@ -56,7 +57,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   const pages = sheetsInPages.length;
   
   return (
-    <div className="jk-col gap nowrap top stretch extend worksheet-bodies">
+    <div className={classNames('jk-col gap nowrap top stretch extend worksheet-bodies', { 'is-solvable': isSolvable })}>
       {(pages > 1 || setSheets) && !withoutContentsHeader && (
         <div className="jk-row">
           <ContentsSectionHeader page={page} setPage={setPage} sheetsInPages={sheetsInPages} />

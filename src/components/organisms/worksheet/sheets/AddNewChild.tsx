@@ -9,8 +9,8 @@ import {
   EMPTY_QUIZ_PROBLEM_SHEET,
   LOGO_WORKSHEET_TYPE,
 } from '../../../../constants';
-import { Button, T } from '../../../atoms';
-import { ExtensionIcon, ListIcon, MenuBookIcon, PlusIcon } from '../../../atoms/server';
+import { Button } from '../../../atoms';
+import { PlusIcon } from '../../../atoms/server';
 import { FloatToolbar } from '../../../molecules';
 import { SetSheetType } from '../types';
 
@@ -25,7 +25,7 @@ interface AddNewChildProps<T extends BodyWorksheetType> {
   quizOptionsSheetType?: boolean,
   pageDivider?: boolean,
   compacted?: boolean,
-  floatToolbarPlacement?: 'center' | 'bottom' | 'top';
+  floatToolbarPlacement?: 'center' | 'center bottom' | 'center top';
 }
 
 export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildProps<T>) => {
@@ -53,7 +53,7 @@ export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildPro
         return newSheet;
       });
     };
-    actionButtons.push({ icon: LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.JK_MD], label: <T>+ jk md</T>, onClick });
+    actionButtons.push({ ...LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.JK_MD], onClick });
   }
   if (codeEditorSheet) {
     const onClick = () => {
@@ -63,11 +63,7 @@ export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildPro
         return newSheet;
       });
     };
-    actionButtons.push({
-      icon: LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.CODE_EDITOR],
-      label: <T>+ code editor</T>,
-      onClick,
-    });
+    actionButtons.push({ ...LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.CODE_EDITOR], onClick });
   }
   if (graphSheet) {
     const onClick = () => {
@@ -77,7 +73,7 @@ export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildPro
         return newSheet;
       });
     };
-    actionButtons.push({ icon: LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.GRAPH], label: <T>+ graph</T>, onClick });
+    actionButtons.push({ ...LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.GRAPH], onClick });
   }
   if (listSheet) {
     const onClick = () => {
@@ -87,7 +83,7 @@ export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildPro
         return newSheet;
       });
     };
-    actionButtons.push({ icon: <ListIcon />, label: <T>+ list</T>, onClick });
+    actionButtons.push({ ...LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.LIST], onClick });
   }
   if (quizProblemSheet) {
     const onClick = () => {
@@ -97,7 +93,7 @@ export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildPro
         return newSheet;
       });
     };
-    actionButtons.push({ icon: <ExtensionIcon />, label: <T>+ quiz problem</T>, onClick });
+    actionButtons.push({ ...LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.QUIZ_PROBLEM], onClick });
   }
   if (quizOptionsSheetType) {
     const onClick = () => {
@@ -107,11 +103,7 @@ export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildPro
         return newSheet;
       });
     };
-    actionButtons.push({
-      icon: LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.QUIZ_OPTIONS],
-      label: <T>+ quiz options</T>,
-      onClick,
-    });
+    actionButtons.push({ ...LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.QUIZ_OPTIONS], onClick });
   }
   if (pageDivider) {
     const onClick = () => {
@@ -121,7 +113,7 @@ export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildPro
         return newSheet;
       });
     };
-    actionButtons.push({ icon: <MenuBookIcon />, label: <T>+ page divider</T>, onClick });
+    actionButtons.push({ ...LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.NEW_PAGE], onClick });
   }
   
   return (

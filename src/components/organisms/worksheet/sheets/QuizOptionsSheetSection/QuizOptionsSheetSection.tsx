@@ -3,7 +3,6 @@ import {
   ContentResponseType,
   QuizOptionsSheetType,
   QuizOptionsSubmissionDTO,
-  QuizOptionsSubmissionResponseDTO,
   Status,
   WorksheetType,
 } from '@juki-team/commons';
@@ -20,7 +19,7 @@ import { SheetSection } from '../types';
 import { QuizOptionsSheetSectionEditor } from './QuizOptionsSheetSectionEditor';
 import { QuizOptionsSheetSectionView } from './QuizOptionsSheetSectionView';
 
-interface QuizOptionsSheetSectionProps extends SheetSection<QuizOptionsSheetType, QuizOptionsSubmissionResponseDTO> {
+interface QuizOptionsSheetSectionProps extends SheetSection<QuizOptionsSheetType> {
 }
 
 export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => {
@@ -48,12 +47,11 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
   
   const submissions = userResults?.data?.submissions[WorksheetType.QUIZ_OPTIONS]?.[chunkId] ?? [];
   const lastSubmission = submissions.at(-1);
-  console.log({ lastSubmission, userResults, submissions });
   const [ checkedOptions, setCheckedOptions ] = useStableState<string[]>(lastSubmission?.checkedOptions ?? []);
   
   return (
     <div
-      className="jk-row top left nowrap stretch sheet-section jk-br-ie pn-re wh-100"
+      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
       onDoubleClick={() => setEdit(true)}
     >
       {setContent && (
@@ -66,10 +64,7 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
           isSolvable={isSolvable}
         />
       ) : (
-        <div
-          className="jk-pg bc-we jk-br-ie jk-quiz-options-section-view"
-          style={{ width: isSolvable && !setContent ? 'calc(100% - 100px)' : '100%' }}
-        >
+        <div className="jk-pg bc-we jk-br-ie quiz-options-sheet-section-view wh-100">
           <QuizOptionsSheetSectionView
             content={content}
             checkedOptions={checkedOptions}
@@ -80,7 +75,7 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
       {setSheet && (
         <FloatToolbar
           actionButtons={getActionButtons({
-            type: WorksheetType.JK_MD,
+            type: WorksheetType.QUIZ_OPTIONS,
             edit,
             setEdit,
             setModal,

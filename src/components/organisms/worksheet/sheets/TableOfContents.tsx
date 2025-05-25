@@ -28,7 +28,7 @@ export const TableOfContents = ({ sheetsInPages, onClick, page, setSheets }: Tab
               key={`${header.title}-${index}`}
               className="jk-row gap nowrap flex-1 left"
             >
-              {LOGO_WORKSHEET_TYPE()[content[0]?.type] || null}
+              {LOGO_WORKSHEET_TYPE()[content[0]?.type]?.icon || null}
               {header.title}
             </div>
           </div>

@@ -105,6 +105,7 @@ const toUpsertWorksheetDTO = (entity: UpsertWorksheetUIDTO): UpsertWorksheetDTO 
   description: entity.description,
   content: entity.content,
   isSolvable: entity.isSolvable,
+  automaticFeedback: entity.automaticFeedback,
 });
 
 const Cmp = ({ content: initialContent, mutate }: { content: WorksheetDataResponseDTO, mutate: any }) => {

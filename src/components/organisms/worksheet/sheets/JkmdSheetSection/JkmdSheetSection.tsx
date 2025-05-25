@@ -3,7 +3,6 @@ import {
   ContentResponseType,
   JkmdSheetType,
   JkmdSubmissionDTO,
-  JkmdSubmissionResponseDTO,
   Status,
   WorksheetType,
 } from '@juki-team/commons';
@@ -20,7 +19,7 @@ import { ResultHeader } from '../ResultHeader';
 import { SheetSection } from '../types';
 import { JkmdSheetSectionEditor } from './JkmdSheetSectionEditor';
 
-interface JkmdSheetSectionProps extends SheetSection<JkmdSheetType, JkmdSubmissionResponseDTO> {
+interface JkmdSheetSectionProps extends SheetSection<JkmdSheetType> {
 }
 
 export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
@@ -51,7 +50,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
   
   return (
     <div
-      className="jk-row top left nowrap stretch sheet-section jk-br-ie pn-re wh-100"
+      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
       onDoubleClick={() => setEdit(true)}
     >
       {setContent && (
@@ -59,10 +58,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
       )}
       {setContent && edit
         ? <JkmdSheetSectionEditor content={content} setContent={setContent} isSolvable={!!isSolvable} />
-        : <div
-          className="jk-pg bc-we jk-br-ie jk-md-sheet-section-view"
-          style={{ width: isSolvable && !setContent ? 'calc(100% - 100px)' : '100%' }}
-        >
+        : <div className="jk-pg bc-we jk-br-ie jk-md-sheet-section-view wh-100">
           <MdMathViewer source={content.content} />
         </div>}
       {setSheet && (

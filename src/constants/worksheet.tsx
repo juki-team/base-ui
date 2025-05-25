@@ -42,7 +42,7 @@ export const EMPTY_GRAPH_SHEET = (): GraphSheetType => ({
   type: WorksheetType.GRAPH,
   title: '',
   points: 0,
-  dots: [],
+  dots: [ DEFAULT_GRAPH ],
 });
 
 export const EMPTY_QUIZ_PROBLEM_SHEET = (): QuizProblemSheetType => ({
@@ -77,13 +77,27 @@ export const EMPTY_LIST_SHEET = (): ListSheetType => ({
   children: [],
 });
 
-export const LOGO_WORKSHEET_TYPE: (size?: BasicIconProps['size']) => { [key in WorksheetType]: ReactNode } = (size) => ({
-  [WorksheetType.JK_MD]: <ArticleIcon size={size} />,
-  [WorksheetType.QUIZ_PROBLEM]: <ExtensionIcon size={size} />,
-  [WorksheetType.QUIZ_TEXT]: <ExtensionIcon size={size} />,
-  [WorksheetType.QUIZ_OPTIONS]: <EventListIcon size={size} rotate={180} />,
-  [WorksheetType.NEW_PAGE]: <ExtensionIcon size={size} />,
-  [WorksheetType.CODE_EDITOR]: <CodeIcon size={size} />,
-  [WorksheetType.GRAPH]: <BubbleChartIcon size={size} />,
-  [WorksheetType.LIST]: <ExtensionIcon size={size} />,
+export const LOGO_WORKSHEET_TYPE: (size?: BasicIconProps['size']) => {
+  [key in WorksheetType]: {
+    icon: ReactNode,
+    label: string
+  }
+} = (size) => ({
+  [WorksheetType.JK_MD]: { icon: <ArticleIcon size={size} />, label: 'jk md' },
+  [WorksheetType.QUIZ_PROBLEM]: { icon: <ExtensionIcon size={size} />, label: 'quiz problem' },
+  [WorksheetType.QUIZ_TEXT]: { icon: <ExtensionIcon size={size} />, label: 'quiz text' },
+  [WorksheetType.QUIZ_OPTIONS]: { icon: <EventListIcon size={size} rotate={180} />, label: 'quiz options' },
+  [WorksheetType.NEW_PAGE]: { icon: <ExtensionIcon size={size} />, label: 'new page' },
+  [WorksheetType.CODE_EDITOR]: { icon: <CodeIcon size={size} />, label: 'code editor' },
+  [WorksheetType.GRAPH]: { icon: <BubbleChartIcon size={size} />, label: 'graph' },
+  [WorksheetType.LIST]: { icon: <ExtensionIcon size={size} />, label: 'list' },
 });
+
+export const DEFAULT_GRAPH = `digraph graph_name {
+  bgcolor="transparent"
+  a -> b;
+  b -> c;
+  a -> d;
+  d -> c;
+  a -> c;
+}`;

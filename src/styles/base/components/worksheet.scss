@@ -11,12 +11,14 @@
   .worksheet-bodies {
     width: calc(100% - var(--worksheet-contents-header-width) - var(--gap));
     
-    .jk-md-sheet-section-view, .jk-quiz-options-section-view {
-      width: calc(100% - var(--worksheet-results-width));
-    }
-    
-    .result-header {
-      width: var(--worksheet-results-width);
+    &.is-solvable {
+      .jk-md-sheet-section-view, .quiz-options-sheet-section-view, .graph-sheet-section-view {
+        width: calc(100% - var(--worksheet-results-width));
+      }
+      
+      .result-header {
+        width: var(--worksheet-results-width);
+      }
     }
     
   }
