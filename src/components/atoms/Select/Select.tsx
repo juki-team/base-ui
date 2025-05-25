@@ -17,7 +17,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     onChange,
     disabled = false,
     optionsPlacement = 'bottom',
-    extend = false,
+    expand = false,
     containerWidth: _containerWidth,
     children,
     onBlur,
@@ -130,7 +130,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
           optionsPlacement,
           { open: isOpen, disabled: isDisabled },
         )}
-        style={{ width: extend ? '100%' : undefined }}
+        style={{ width: expand ? '100%' : undefined }}
         onClick={() => setIsOpen(!isOpen)}
       >
         <div
@@ -165,8 +165,8 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
             <div
               className={classNames({ open: isOpen }, 'jk-select space-between jk-border-radius-inline jk-row gap nowrap')}
               style={{
-                width: _containerWidth ?? (extend ? '100%' : undefined),
-                minWidth: _containerWidth ?? (extend ? undefined : widthFakeOptions),
+                width: _containerWidth ?? (expand ? '100%' : undefined),
+                minWidth: _containerWidth ?? (expand ? undefined : widthFakeOptions),
               }}
               ref={selectLayoutRef}
             >

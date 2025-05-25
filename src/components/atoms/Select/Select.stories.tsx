@@ -58,7 +58,7 @@ const Cmp = (args: SelectProps<any, any, any>) => {
             selectedOption={value}
             onChange={setValue}
             className="jk-br-ie jk-button secondary"
-            extend
+            expand
           />
         </div>
       </div>

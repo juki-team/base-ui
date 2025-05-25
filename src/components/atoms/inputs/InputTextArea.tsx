@@ -6,7 +6,8 @@ import { InputTextAreaProps } from './types';
 export const InputTextArea = (props: InputTextAreaProps) => {
   
   const {
-    extend = false,
+    className,
+    expand = false,
     labelPlacement = 'top-border',
     required = false,
     label: inputLabel,
@@ -18,8 +19,8 @@ export const InputTextArea = (props: InputTextAreaProps) => {
   
   return (
     <div
-      className={classNames('jk-input-text-area-wrapper', {
-        extend,
+      className={classNames('jk-input-text-area-wrapper', className, {
+        expand,
         [`label-${labelPlacement}`]: true,
         required,
         'no-label': !inputLabel,

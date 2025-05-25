@@ -7,7 +7,7 @@ export const SettingsModal = <T, >({ onChange, tabSize, fontSize, ...modalProps 
   return (
     <Modal className="editor-settings-modal jk-pg-lg"      {...modalProps}    >
       <div className="jk-col stretch gap jk-pg-sm-tb">
-        <h3><T>code editor settings</T></h3>
+        <h3><T className="tt-se">code editor settings</T></h3>
         <div className="jk-row left gap">
           <label className="tt-se"><T>choose your tab size</T>: </label>
           <Select

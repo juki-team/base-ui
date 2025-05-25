@@ -1,39 +1,35 @@
 import { JkmdSheetType } from '@juki-team/commons';
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import { Input, T } from '../../../../atoms';
 import { MdMathEditor } from '../../../mdMath/MdMathEditor';
+import { SetContentType } from '../../types';
 
 interface JkmdSheetSectionProps {
-  sheet: JkmdSheetType,
-  setSheet: Dispatch<SetStateAction<JkmdSheetType>>,
+  content: JkmdSheetType,
+  setContent: SetContentType<JkmdSheetType>,
   isSolvable: boolean,
 }
 
-export const JkmdSheetSectionEditor = ({
-                                         sheet,
-                                         setSheet,
-                                         isSolvable,
-                                       }: JkmdSheetSectionProps) => {
+export const JkmdSheetSectionEditor = ({ content, setContent, isSolvable }: JkmdSheetSectionProps) => {
   
   return (
-    <div className="jk-col left gap">
+    <div className="jk-col left gap wh-100">
       {isSolvable && (
         <div className="jk-row extend left">
           <Input
             label={<T className="tt-se">points</T>}
             type="number"
-            value={sheet.points}
-            onChange={points => setSheet(prevState => ({ ...prevState, points }))}
+            value={content.points}
+            onChange={points => setContent(prevState => ({ ...prevState, points }))}
           />
         </div>
       )}
-      <div className="flex-1 jk-md-math-editor-expanded">
+      <div className="flex-1 jk-md-math-editor-expanded wh-100">
         <MdMathEditor
           uploadImageButton
           informationButton
-          source={sheet.content}
-          onChange={content => setSheet(prevState => ({ ...prevState, content }))}
-          initEditMode
+          source={content.content}
+          onChange={content => setContent(prevState => ({ ...prevState, content }))}
         />
       </div>
     </div>

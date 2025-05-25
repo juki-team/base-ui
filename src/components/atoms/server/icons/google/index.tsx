@@ -403,6 +403,14 @@ export const EventIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const EventListIconImport = () => import('./EventListIcon');
+const LazyEventListIcon = lazy(() => EventListIconImport().then(module => ({ default: module.EventListIcon })));
+export const EventListIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyEventListIcon {...props} />
+  </Suspense>
+);
+
 const ExpandLessIconImport = () => import('./ExpandLessIcon');
 const LazyExpandLessIcon = lazy(() => ExpandLessIconImport().then(module => ({ default: module.ExpandLessIcon })));
 export const ExpandLessIcon = (props: BasicIconProps) => (
@@ -1214,6 +1222,7 @@ export const preloadAtomsIconsGoogle = async () => {
   await EditNoteIconImport();
   await ErrorIconImport();
   await EventIconImport();
+  await EventListIconImport();
   await ExpandLessIconImport();
   await ExpandMoreIconImport();
   await ExtensionIconImport();

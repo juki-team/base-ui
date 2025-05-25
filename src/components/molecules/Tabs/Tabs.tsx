@@ -109,7 +109,7 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => {
             options={tabs.map(({ key }) => ({ value: key, label: tabHeaders[key] }))}
             selectedOption={{ value: tabKey }}
             onChange={({ value }) => setTabKey(value as NotUndefined<T>)}
-            extend
+            expand
             popoverClassName="jk-tabs-select"
           />
         )}

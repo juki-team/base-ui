@@ -11,5 +11,5 @@ export interface MultiSelectProps<T, U extends ReactNode, V extends ReactNode> {
   onChangeShowOptions?: (value: boolean) => void,
   disabled?: boolean,
   optionsPlacement?: PlacementType,
-  extend?: boolean,
+  expand?: boolean,
 }

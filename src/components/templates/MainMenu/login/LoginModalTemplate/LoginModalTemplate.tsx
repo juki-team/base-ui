@@ -99,7 +99,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                       error: !!errors?.companyKey?.message,
                       success: !!touchedFields.companyKey && !errors?.companyKey?.message,
                     })}
-                    extend
+                    expand
                     required
                   />
                   <p><T>{(!isValid && errors?.companyKey?.message) || ''}</T></p>
@@ -114,7 +114,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                     error: !!errors?.nickname?.message,
                     success: !!touchedFields.nickname && !errors?.nickname?.message,
                   })}
-                  extend
+                  expand
                   required
                 />
                 <p><T>{(!isValid && errors?.nickname?.message) || ''}</T></p>
@@ -128,7 +128,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                     error: !!errors?.password?.message,
                     success: !!touchedFields.password && !errors?.password?.message,
                   })}
-                  extend
+                  expand
                   required
                 />
                 <p><T>{errors?.password?.message || ''}</T></p>

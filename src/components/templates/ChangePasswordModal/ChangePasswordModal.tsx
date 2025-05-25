@@ -61,7 +61,7 @@ export const ChangePasswordModal = ({ isOpen, onClose }: ChangePasswordModalProp
         >
           <div className="jk-form-item">
             <InputPassword
-              extend
+              expand
               labelPlacement="top"
               label={<T className="tt-se">password</T>}
               register={register('oldPassword')}
@@ -75,7 +75,7 @@ export const ChangePasswordModal = ({ isOpen, onClose }: ChangePasswordModalProp
           </div>
           <div className="jk-form-item">
             <InputPassword
-              extend
+              expand
               labelPlacement="top"
               label={<T className="tt-se">new password</T>}
               register={register('newPassword')}
@@ -89,7 +89,7 @@ export const ChangePasswordModal = ({ isOpen, onClose }: ChangePasswordModalProp
           </div>
           <div className="jk-form-item">
             <InputPassword
-              extend
+              expand
               labelPlacement="top"
               label={<T className="tt-se">confirm new password</T>}
               register={register('newPasswordConfirmation')}

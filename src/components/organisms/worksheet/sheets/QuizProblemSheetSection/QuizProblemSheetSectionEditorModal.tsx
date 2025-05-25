@@ -45,7 +45,7 @@ export const QuizProblemSheetSectionEditorModal = ({
             labelPlacement="top"
             value={sheet.title}
             onChange={title => setSheet(prevState => ({ ...prevState, title }))}
-            extend
+            expand
           />
           <Input
             type="number"
@@ -53,7 +53,7 @@ export const QuizProblemSheetSectionEditorModal = ({
             labelPlacement="top"
             value={sheet.points}
             onChange={points => setSheet(prevState => ({ ...prevState, points }))}
-            extend
+            expand
           />
           <div className="flex-1">
             <T className="fw-bd tt-se">languages</T>:
@@ -68,7 +68,7 @@ export const QuizProblemSheetSectionEditorModal = ({
                 ...prevState,
                 languages: options.map(option => option.value as ProgrammingLanguage),
               }))}
-              extend
+              expand
             />
           </div>
           <div>

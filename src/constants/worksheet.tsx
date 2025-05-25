@@ -13,7 +13,8 @@ import {
 } from '@juki-team/commons';
 import React, { ReactNode } from 'react';
 import { v4 } from 'uuid';
-import { ArticleIcon, ExtensionIcon } from '../components/atoms/server';
+import { ArticleIcon, BubbleChartIcon, CodeIcon, EventListIcon, ExtensionIcon } from '../components/atoms/server';
+import { BasicIconProps } from '../components/atoms/server/icons/types';
 
 export const WORKSHEET_CODE_EDITOR_MIN_HEIGHT = 320;
 
@@ -76,13 +77,13 @@ export const EMPTY_LIST_SHEET = (): ListSheetType => ({
   children: [],
 });
 
-export const LOGO_WORKSHEET_TYPE: () => { [key in WorksheetType]: ReactNode } = () => ({
-  [WorksheetType.JK_MD]: <ArticleIcon />,
-  [WorksheetType.QUIZ_PROBLEM]: <ExtensionIcon />,
-  [WorksheetType.QUIZ_TEXT]: <ExtensionIcon />,
-  [WorksheetType.QUIZ_OPTIONS]: <ExtensionIcon />,
-  [WorksheetType.NEW_PAGE]: <ExtensionIcon />,
-  [WorksheetType.CODE_EDITOR]: <ExtensionIcon />,
-  [WorksheetType.GRAPH]: <ExtensionIcon />,
-  [WorksheetType.LIST]: <ExtensionIcon />,
+export const LOGO_WORKSHEET_TYPE: (size?: BasicIconProps['size']) => { [key in WorksheetType]: ReactNode } = (size) => ({
+  [WorksheetType.JK_MD]: <ArticleIcon size={size} />,
+  [WorksheetType.QUIZ_PROBLEM]: <ExtensionIcon size={size} />,
+  [WorksheetType.QUIZ_TEXT]: <ExtensionIcon size={size} />,
+  [WorksheetType.QUIZ_OPTIONS]: <EventListIcon size={size} rotate={180} />,
+  [WorksheetType.NEW_PAGE]: <ExtensionIcon size={size} />,
+  [WorksheetType.CODE_EDITOR]: <CodeIcon size={size} />,
+  [WorksheetType.GRAPH]: <BubbleChartIcon size={size} />,
+  [WorksheetType.LIST]: <ExtensionIcon size={size} />,
 });

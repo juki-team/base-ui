@@ -114,7 +114,7 @@ export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
                   <Input
                     onChange={newValue => setValues(prevState => ({ ...prevState, [columnIndex]: newValue }))}
                     value={(values[columnIndex] || '') as string}
-                    extend
+                    expand
                     placeholder={t('empty field')}
                   />
                 );

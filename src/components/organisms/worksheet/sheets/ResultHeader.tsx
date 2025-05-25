@@ -10,10 +10,10 @@ interface ResultHeaderProps {
 
 export const ResultHeader = ({ isResolved, points, userPoints, children }: PropsWithChildren<ResultHeaderProps>) => {
   return (
-    <div className="jk-pg-rl jk-pg-sm-tb jk-row extend space-between result-header">
+    <div className="jk-pg-sm jk-col gap stretch space-between result-header sticky-top">
       {!!points && (
-        <div className={classNames('jk-tag', { success: isResolved, 'gray-6': !isResolved })}>
-          {userPoints}{' '}<T>{userPoints === 1 ? 'pt' : 'pts'}</T>
+        <div className={classNames('jk-tag tx-s ws-np', { success: isResolved, 'gray-6': !isResolved })}>
+          {userPoints.toFixed(2)}{' '}<T>{userPoints === 1 ? 'pt' : 'pts'}</T>
           {' / '}
           {points}{' '}<T>{points === 1 ? 'pt' : 'pts'}</T>
         </div>

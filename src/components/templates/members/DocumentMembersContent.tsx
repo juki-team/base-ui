@@ -36,7 +36,7 @@ export const DocumentMembersContent = ({ members, setMembers, documentOwner }: D
               ),
             }))}
             selectedOption={{ value: members.access }}
-            extend
+            expand
             onChange={setMembers ? ({ value }) => {
               setMembers(prevState => ({ ...prevState, access: value }));
             } : undefined}

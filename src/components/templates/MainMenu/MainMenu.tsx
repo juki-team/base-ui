@@ -82,7 +82,7 @@ export const MainMenu = (props: MainMenuProps) => {
           onChange={({ value }) => setSearchParams({ name: QueryParamKey.COMPANY, value })}
           className="jk-br-ie jk-button secondary"
           // containerWidth={1000}
-          extend
+          expand
         />
       );
       

@@ -92,7 +92,7 @@ const Cmp = (props: InputProps<any>) => {
               ]}
               selectedOption={{ value: 'text', label: 'text selected' }}
               onChange={() => null}
-              extend
+              expand
               optionsPlacement="top"
             />
           </label>

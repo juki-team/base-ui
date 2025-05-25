@@ -80,7 +80,7 @@ export const Regular: FC<BasicIconProps> = (args) => {
           <SpinIcon speed={speed} {...args} />
         </div>
       </div>
-      <h3>SpinIcon</h3>
+      <h3>SortIcon</h3>
       <div className="jk-row block gap">
         <div className="jk-row" style={{ color: color.hex }}>
           <SortIcon {...args} />

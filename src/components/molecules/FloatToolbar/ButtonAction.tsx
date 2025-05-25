@@ -7,45 +7,66 @@ import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import { SetLoaderStatusOnClickType } from '../ButtonLoader/types';
 import { ButtonActionProps } from './types';
 
-export const ButtonAction = ({ icon, buttons, disabled }: ButtonActionProps) => {
+export const ButtonAction = ({
+                               children,
+                               icon,
+                               buttons = [],
+                               placement,
+                               disabled,
+                               size = 'small',
+                             }: ButtonActionProps) => {
   
   const { viewPortSize } = useJukiUI();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(null);
   const [ open, setOpen ] = useState(false);
   const ref = useRef(null);
   useOutsideAlerter(() => setOpen(false), ref);
-  const { ref: refButtonsContent, width = 0 } = useResizeDetector();
-  const lastWidthRef = useRef(width);
+  const { ref: refButtonsContent, width = 0, height = 0 } = useResizeDetector();
+  const lastWidthRef = useRef({ width, height });
   if (width) {
-    lastWidthRef.current = width;
+    lastWidthRef.current.width = width;
+  }
+  if (height) {
+    lastWidthRef.current.height = height;
   }
   
   return (
     <div
-      className={classNames('button-action', { open })}
+      className={classNames('button-action jk-row', {
+        open,
+        'right': !!placement?.includes('right') && !placement?.includes('out'),
+        'left': !(!!placement?.includes('right') && !placement?.includes('out')),
+        'no-buttons': !buttons.length,
+      })}
       onClick={viewPortSize === 'sm' ? () => setOpen(true) : undefined}
       ref={ref}
-      style={{ '--buttons-content-width': `${width || lastWidthRef.current}px` } as CSSProperties}
+      style={{
+        '--jk-float-toolbar-button-action-content-width': `${width || lastWidthRef.current.width}px`,
+        '--jk-float-toolbar-button-action-content-height': `${height || lastWidthRef.current.height}px`,
+      } as CSSProperties}
     >
-      <div className="button-trigger">
-        <ButtonLoader
+      <div className="button-trigger jk-row">
+        {children ?? <ButtonLoader
           icon={icon}
           type="primary"
-          size="small"
+          size={size}
           setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
           disabled={disabled}
-        />
+        />}
       </div>
-      <div className="buttons-content" ref={refButtonsContent}>
-        {buttons.map(({ icon, onClick, label, disabled }, index) => (
-          <ButtonLoader
+      <div className="buttons-content jk-col gap stretch" ref={refButtonsContent}>
+        {buttons.map(({ icon, onClick, label, disabled, size = 'small', type = 'primary', children }, index) => (
+          children ?? <ButtonLoader
             key={index}
+            type={type}
             icon={icon}
-            size="small"
+            size={size}
             disabled={disabled}
             onClick={async setLoader => {
-              const result = onClick();
+              const result = onClick?.();
               if (result instanceof Promise) {
+                setLoader(Status.LOADING);
+                setLoaderRef.current?.(Status.LOADING);
                 result
                   .then?.(() => {
                   setLoader(Status.SUCCESS);
@@ -55,8 +76,6 @@ export const ButtonAction = ({ icon, buttons, disabled }: ButtonActionProps) => 
                     setLoader(Status.ERROR);
                     setLoaderRef.current?.(Status.ERROR);
                   });
-                setLoader(Status.LOADING);
-                setLoaderRef.current?.(Status.LOADING);
               }
             }}
           >

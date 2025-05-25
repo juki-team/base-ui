@@ -4,18 +4,22 @@ import { classNames } from '../../../helpers';
 import { ButtonAction } from './ButtonAction';
 import { FloatToolbarProps } from './types';
 
-export const FloatToolbar = ({ actionButtons, placement = 'rightBottom' }: FloatToolbarProps) => {
+export const FloatToolbar = ({ actionButtons, placement = 'rightTop' }: FloatToolbarProps) => {
   
-  const { ref, width = 0 } = useResizeDetector();
+  const { ref, width = 0, height = 0 } = useResizeDetector();
   
   return (
     <div className={classNames('jk-float-toolbar-layout', placement)}>
       <div
-        className="jk-float-toolbar-container"
+        className="jk-float-toolbar-container jk-col gap stretch right"
         ref={ref}
-        style={{ '--container-width': `${width}px` } as CSSProperties}
+        style={{
+          '--jk-float-toolbar-container-width': `${width}px`,
+          '--jk-float-toolbar-container-height': `${height}px`,
+          right: placement === 'out rightTop' ? `calc(-${width}px - var(--gap))` : undefined,
+        } as CSSProperties}
       >
-        {actionButtons.map((props, index) => <ButtonAction {...props} key={index} />)}
+        {actionButtons.map((props, index) => <ButtonAction {...props} placement={placement} key={index} />)}
       </div>
     </div>
   );

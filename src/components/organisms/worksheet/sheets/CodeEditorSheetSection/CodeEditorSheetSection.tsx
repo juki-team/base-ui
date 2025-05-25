@@ -1,61 +1,72 @@
-import { CodeEditorSheetType, CodeEditorSubmissionResponseDTO } from '@juki-team/commons';
-import React, { Dispatch, useState } from 'react';
-import { KeyedMutator } from 'swr';
-import { T } from '../../../../atoms';
-import { EditIcon } from '../../../../atoms/server';
+import { CodeEditorSheetType, CodeEditorSubmissionResponseDTO, WorksheetType } from '@juki-team/commons';
+import React, { useState } from 'react';
+import { useStableState } from '../../../../../hooks';
 import { FloatToolbar } from '../../../../molecules';
-import { ButtonActionProps } from '../../../../molecules/FloatToolbar/types';
-import { CodeEditorSheetSectionEditorModal } from './CodeEditorSheetSectionEditorModal';
+import { EditSheetModal } from '../EditSheetModal';
+import { getActionButtons } from '../getActionButtons';
+import { SheetSection } from '../types';
+import { CodeEditorSheetSectionEditor } from './CodeEditorSheetSectionEditor';
 import { CodeEditorSheetSectionView } from './CodeEditorSheetSectionView';
 
-interface RunnerSheetSectionProps {
-  sheet: CodeEditorSheetType,
-  setSheet?: Dispatch<CodeEditorSheetType>,
-  worksheetKey: string,
-  result: {
-    nickname: string,
-    submissions: CodeEditorSubmissionResponseDTO[],
-    isLoading: boolean,
-    isValidating: boolean,
-  },
-  actionButtons?: ButtonActionProps['buttons'],
-  mutateUserResults?: KeyedMutator<any>,
-  readOnly: boolean,
+interface RunnerSheetSectionProps extends SheetSection<CodeEditorSheetType, CodeEditorSubmissionResponseDTO> {
 }
 
-export const CodeEditorSheetSection = ({
-                                         sheet,
-                                         setSheet,
-                                         actionButtons = [],
-                                         result,
-                                         worksheetKey,
-                                         mutateUserResults,
-                                         readOnly,
-                                       }: RunnerSheetSectionProps) => {
+export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
+  
+  const {
+    content: initialContent,
+    setContent: saveContent,
+    index,
+    chunkId,
+    sheetLength,
+    setSheet,
+    worksheetKey,
+    userResults,
+    readOnly,
+  } = props;
   
   const [ edit, setEdit ] = useState(false);
-  
-  const editActionButton = {
-    icon: <EditIcon />,
-    buttons: [ { icon: <EditIcon />, label: <T>edit</T>, onClick: () => setEdit(true) }, ...actionButtons ],
+  const [ modal, setModal ] = useState(false);
+  const [ content, _setContent ] = useStableState(initialContent);
+  const setContent = saveContent ? _setContent : undefined;
+  const reset = () => {
+    _setContent(initialContent);
   };
   
   return (
     <div className="jk-row stretch flex-1 sheet-section jk-br-ie relative">
-      {setSheet && <FloatToolbar actionButtons={[ editActionButton ]} />}
-      <CodeEditorSheetSectionView
-        sheet={sheet}
-        worksheetKey={worksheetKey}
-        mutateUserResults={mutateUserResults}
-        result={result}
-        readOnly={readOnly}
-      />
+      {setContent && (
+        <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
+      )}
+      {setContent && edit ? (
+        <CodeEditorSheetSectionEditor
+          content={content}
+          setContent={setContent}
+        />
+      ) : (
+        <CodeEditorSheetSectionView
+          content={content}
+          worksheetKey={worksheetKey}
+          chunkId={chunkId}
+          userResults={userResults}
+          readOnly={readOnly}
+        />
+      )}
       {setSheet && (
-        <CodeEditorSheetSectionEditorModal
-          isOpen={edit}
-          sheet={sheet}
-          setSheet={setSheet}
-          onClose={() => setEdit(false)}
+        <FloatToolbar
+          actionButtons={getActionButtons({
+            type: WorksheetType.JK_MD,
+            edit,
+            setEdit,
+            setModal,
+            content,
+            saveContent,
+            index,
+            sheetLength,
+            setSheet,
+            reset,
+          })}
+          placement="out rightTop"
         />
       )}
     </div>

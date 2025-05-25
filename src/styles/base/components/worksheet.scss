@@ -1,5 +1,8 @@
+@use "../../mixins";
+
 .worksheet-viewer-container {
   --worksheet-contents-header-width: 256px;
+  --worksheet-results-width: 160px;
   
   .worksheet-content {
     width: var(--worksheet-contents-header-width);
@@ -7,10 +10,37 @@
   
   .worksheet-bodies {
     width: calc(100% - var(--worksheet-contents-header-width) - var(--gap));
-    max-width: 720px;
+    
+    .jk-md-sheet-section-view, .jk-quiz-options-section-view {
+      width: calc(100% - var(--worksheet-results-width));
+    }
+    
+    .result-header {
+      width: var(--worksheet-results-width);
+    }
+    
   }
   
   .worksheet-bodies:first-child {
     width: 100%;
+  }
+}
+
+.worksheet-viewer-container, .worksheet-editor-container {
+  .worksheet-bodies {
+    max-width: 720px;
+  }
+}
+
+.worksheet-editor-container {
+  .worksheet-bodies {
+    
+    @include mixins.md() {
+      max-width: calc(100% - 256px);
+    }
+  }
+  
+  .jk-md-math-editor-layout .jk-md-math-viewer-layout, .jk-md-sheet-section-view {
+    min-height: 110px;
   }
 }

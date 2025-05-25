@@ -56,7 +56,7 @@ export const CodeEditorSheetSectionEditorModal = ({
                   ...prevState,
                   languages: options.map(option => option.value as ProgrammingLanguage),
                 }))}
-                extend
+                expand
               />
             </div>
             <div>

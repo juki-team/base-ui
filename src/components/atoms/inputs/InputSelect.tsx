@@ -9,7 +9,7 @@ import { InputSelectProps } from './types';
 export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => {
   
   const {
-    extend = false,
+    expand = false,
     labelPlacement = 'top-border',
     required = false,
     label: inputLabel,
@@ -38,7 +38,7 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
   return (
     <div
       className={classNames('jk-input-select-wrapper', {
-        extend,
+        expand,
         [`label-${labelPlacement}`]: true,
         required,
         'no-label': !inputLabel,

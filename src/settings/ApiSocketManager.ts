@@ -7,8 +7,10 @@ import {
   JudgeLanguageType,
   Language,
   ProblemVerdict,
+  QuizOptionsSubmissionDTO,
   QuizProblemSubmissionDTO,
   Theme,
+  UpsertWorksheetDTO,
   UserSettingsType,
 } from '@juki-team/commons';
 import { ErrorInfo } from 'react';
@@ -788,12 +790,26 @@ export class ApiSocketManager {
           url: injectCompany(injectBaseUrl('worksheet', `/${key}/data`), companyKey),
           method: HTTPMethod.GET,
         })),
+        update: valid<
+          { params: { key: string, }, body: UpsertWorksheetDTO },
+          HTTPMethod.PUT
+        >(({ params: { key }, body }) => ({
+          url: injectBaseUrl('worksheet', `/${key}`),
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(body),
+        })),
         getList: valid<
           {
             params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string }
           }
         >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('worksheet', '/list'), page, pageSize), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        getSubmissionsUser: valid<
+          { params: { key: string, userKey: string, assignmentId?: string } }
+        >(({ params: { key, userKey, assignmentId } }) => ({
+          url: injectBaseUrl('worksheet', `/${key}/submissions/user/${userKey}${assignmentId ? `?assignmentId=${assignmentId}` : ''}`),
           method: HTTPMethod.GET,
         })),
         submitJkMd: valid<
@@ -826,6 +842,17 @@ export class ApiSocketManager {
           HTTPMethod.POST
         >(({ params: { worksheetKey }, body }) => ({
           url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/quiz-problem`),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        submitQuizOptions: valid<
+          {
+            params: { worksheetKey: string, },
+            body: QuizOptionsSubmissionDTO
+          },
+          HTTPMethod.POST
+        >(({ params: { worksheetKey }, body }) => ({
+          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/quiz-options`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),

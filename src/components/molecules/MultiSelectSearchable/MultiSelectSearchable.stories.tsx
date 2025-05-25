@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { MultiSelectSearchable } from "../../index";
-import { MockupJukiProvider, mockupUsers } from "../../mockup";
+import React, { useState } from 'react';
+import { MultiSelectSearchable } from '../../index';
+import { MockupJukiProvider, mockupUsers } from '../../mockup';
 
 export default {
   component: MultiSelectSearchable,
 };
 
 export const SelectSearchable = () => {
-  const [values, setValues] = useState<
+  const [ values, setValues ] = useState<
     { label: any; value: { nickname: string } }[]
   >([]);
-
+  
   return (
     <MockupJukiProvider>
       <div className="jk-pg-md">
         Select Searchable
         <br />
-        {"<MultiSelectSearchable onFilter={undefined} ..."}
+        {'<MultiSelectSearchable onFilter={undefined} ...'}
         <MultiSelectSearchable
           options={mockupUsers.map((option) => ({
             label: (
@@ -30,7 +30,7 @@ export const SelectSearchable = () => {
           }))}
           selectedOptions={values}
           onChange={(options) => setValues(options)}
-          extend
+          expand
         />
         Searchable
         <div style={{ width: 100 }}>
@@ -70,7 +70,7 @@ export const SelectSearchable = () => {
           }))}
           selectedOptions={values}
           onChange={(options) => setValues(options)}
-          extend
+          expand
           onFilter={({ search, option }) =>
             option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) >
             -1
@@ -91,7 +91,7 @@ export const SelectSearchable = () => {
           }))}
           selectedOptions={values}
           onChange={(options) => setValues(options)}
-          extend
+          expand
           onFilter={({ search, option }) =>
             option.value.nickname.toLowerCase().indexOf(search.toLowerCase()) >
             -1

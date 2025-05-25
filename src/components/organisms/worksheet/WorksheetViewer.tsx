@@ -1,26 +1,36 @@
-import { getWorksheetsInPages } from '@juki-team/commons';
+import {
+  ContentResponseType,
+  getUserKey,
+  getWorksheetsInPages,
+  WorksheetUserSubmissionsResponseDTO,
+} from '@juki-team/commons';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { useHash, useJukiUI, useStableState, useUserStore } from '../../../hooks';
+import { useFetcher, useHash, useJukiUI, useStableState, useUserStore } from '../../../hooks';
+import { jukiApiSocketManager } from '../../../settings';
 import { T } from '../../atoms';
 import { TableOfContents } from './sheets/TableOfContents';
-import { WorksheetViewerProps } from './types';
+import { UserResultsType, WorksheetViewerProps } from './types';
 import { WorksheetBodies } from './WorksheetBodies';
 
-export const WorksheetViewer = ({
-                                  worksheet,
-                                  results,
-                                  resultsIsLoading,
-                                  resultsIsValidating,
-                                  mutateUserResults,
-                                  page: initialPage,
-                                  setPage: initialSetPage,
-                                  lastPageChildren,
-                                  readOnly = false,
-                                }: WorksheetViewerProps) => {
+export const WorksheetViewer = (props: WorksheetViewerProps) => {
+  
+  const {
+    content,
+    worksheetKey,
+    isSolvable = false,
+    isEditor = false,
+    resultsUserKey,
+    page: initialPage,
+    setPage: initialSetPage,
+    lastPageChildren,
+    readOnly: initialReadOnly = false,
+  } = props;
   
   const locationHash = useHash();
   const scrolled = useRef(false);
   const { viewPortSize } = useJukiUI();
+  const userNickname = useUserStore(state => state.user.nickname);
+  const companyKey = useUserStore(state => state.company.key);
   const userIsLogged = useUserStore(state => state.user.isLogged);
   useEffect(() => {
     let render = 0;
@@ -49,15 +59,32 @@ export const WorksheetViewer = ({
         clearTimeout(timeoutId);
       }
     };
-  }, [ locationHash, worksheet ]);
+  }, [ locationHash, content ]);
   
   const [ page, _setPage ] = useStableState(initialPage ?? 1);
   const setPage = initialSetPage ?? _setPage;
-  
-  const isEditor = worksheet.user?.isManager;
-  const sheetsInPages = useMemo(() => getWorksheetsInPages(worksheet.content), [ worksheet.content ]);
+  const {
+    data: userResultsData,
+    mutate: userResultsMutate,
+    isLoading: userResultsIsLoading,
+    isValidating: userResultsIsValidating,
+  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(jukiApiSocketManager.API_V1.worksheet.getSubmissionsUser({
+    params: {
+      key: worksheetKey,
+      userKey: resultsUserKey || getUserKey(userNickname, companyKey),
+    },
+  }).url);
+  const userResults: UserResultsType = useMemo(() => ({
+    data: userResultsData?.success ? userResultsData.content : undefined,
+    isLoading: userResultsIsLoading,
+    isValidating: userResultsIsValidating,
+    mutate: userResultsMutate,
+  }), [ userResultsData, userResultsIsLoading, userResultsIsValidating, userResultsMutate ]);
+  const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
   
   const withoutContentsNav = viewPortSize !== 'sm';
+  
+  const readOnly = initialReadOnly || userNickname !== userResults?.data?.user.nickname;
   
   return (
     <div className="jk-row gap nowrap worksheet-viewer-container center top">
@@ -83,14 +110,11 @@ export const WorksheetViewer = ({
       )}
       <WorksheetBodies
         sheetsInPages={sheetsInPages}
-        isSolvable={worksheet.isSolvable && userIsLogged}
-        results={results}
-        resultsIsLoading={resultsIsLoading}
-        resultsIsValidating={resultsIsValidating}
+        isSolvable={isSolvable && userIsLogged}
+        userResults={userResults}
         readOnly={readOnly}
         isEditor={isEditor}
-        worksheetKey={worksheet.key}
-        mutateUserResults={mutateUserResults}
+        worksheetKey={worksheetKey}
         withoutContentsHeader={withoutContentsNav}
         page={page}
         setPage={setPage}

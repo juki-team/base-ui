@@ -43,7 +43,7 @@ export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword
             value={email}
             onChange={(value) => setEmail(value)}
             type="email"
-            extend
+            expand
             className={classNames({
               error: touched && disabled,
               success: touched && !disabled,

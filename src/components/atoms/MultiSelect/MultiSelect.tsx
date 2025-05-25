@@ -18,7 +18,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
     // onChangeShowOptions: _onChangeShowOptions,
     disabled = false,
     optionsPlacement = 'bottom',
-    extend = false,
+    expand = false,
   } = props;
   
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
@@ -61,7 +61,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
           ref={optionRef}
           className={classNames('jk-select-options', { disabled: isDisabled })}
           style={{
-            width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2/*border*/ : containerWidth - 2, /*border*/
+            width: expand ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2/*border*/ : containerWidth - 2, /*border*/
           }}
         >
           {options.map((option) => {
@@ -101,7 +101,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
     >
       <div
         className={classNames('jk-multi-select-layout', className, { open: isOpen, disabled: isDisabled })}
-        style={{ width: extend ? '100%' : `${containerWidth}px` }}
+        style={{ width: expand ? '100%' : `${containerWidth}px` }}
       >
         <div
           className={classNames({ open: isOpen }, 'jk-select jk-border-radius-inline jk-row space-between nowrap')}

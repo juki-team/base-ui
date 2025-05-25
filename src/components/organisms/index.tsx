@@ -27,6 +27,7 @@ import { MdMathViewerProps } from './mdMath/types';
 import { ContentsSectionHeaderProps } from './worksheet/types';
 import { WorksheetBodiesProps } from './worksheet/types';
 import { WorksheetBodyProps } from './worksheet/types';
+import { WorksheetEditorProps } from './worksheet/types';
 import { WorksheetViewerProps } from './worksheet/types';
 
 const CheckUnsavedChangesImport = () => import('./CheckUnsavedChanges/CheckUnsavedChanges');
@@ -242,6 +243,14 @@ export const WorksheetBody = (props: WorksheetBodyProps) => (
   </Suspense>
 );
 
+const WorksheetEditorImport = () => import('./worksheet/WorksheetEditor');
+const LazyWorksheetEditor = lazy(() => WorksheetEditorImport().then(module => ({ default: module.WorksheetEditor })));
+export const WorksheetEditor = (props: WorksheetEditorProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyWorksheetEditor {...props} />
+  </Suspense>
+);
+
 const WorksheetViewerImport = () => import('./worksheet/WorksheetViewer');
 const LazyWorksheetViewer = lazy(() => WorksheetViewerImport().then(module => ({ default: module.WorksheetViewer })));
 export const WorksheetViewer = (props: WorksheetViewerProps) => (
@@ -277,5 +286,6 @@ export const preloadOrganisms = async () => {
   await ContentsSectionHeaderImport();
   await WorksheetBodiesImport();
   await WorksheetBodyImport();
+  await WorksheetEditorImport();
   await WorksheetViewerImport();
 };

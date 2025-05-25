@@ -1,10 +1,11 @@
 import { BodyWorksheetType, NewPageSheetType } from '@juki-team/commons';
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { useStableState } from '../../../hooks';
+import { NotUndefined } from '../../../types';
 import { Button, Input, T } from '../../atoms';
 import { DeleteIcon } from '../../atoms/server';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
-import { WorksheetBodiesProps } from './types';
+import { WorksheetBodiesProps, WorksheetBodyProps } from './types';
 import { WorksheetBody } from './WorksheetBody';
 
 export const WorksheetBodies = (props: WorksheetBodiesProps) => {
@@ -13,12 +14,9 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
     sheetsInPages,
     isEditor,
     setSheets,
-    results,
-    resultsIsLoading,
-    resultsIsValidating,
+    userResults,
     isSolvable,
     worksheetKey,
-    mutateUserResults,
     withoutContentsHeader,
     page: initialPage,
     setPage: initialSetPage,
@@ -37,15 +35,23 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
     }
   };
   
-  const setPageSheets = setSheets ? (newPageHeader: NewPageSheetType, newPageSheetContent: BodyWorksheetType[]) => {
+  const setPageSheets = useCallback((newPageHeader: NewPageSheetType | null, newPageSheetContent: BodyWorksheetType[]) => {
     const newSheetsInPages = [ ...sheetsInPages ];
-    newSheetsInPages[page - 1] = { header: newPageHeader, content: newPageSheetContent };
+    newSheetsInPages[page - 1] = {
+      header: newPageHeader ?? newSheetsInPages[page - 1].header,
+      content: newPageSheetContent,
+    };
     const newSheets = [];
     for (const { header, content } of newSheetsInPages) {
       newSheets.push(header, ...content);
     }
-    setSheets(newSheets);
-  } : undefined;
+    setSheets?.(newSheets);
+  }, [ page, setSheets, sheetsInPages ]);
+  
+  const setSheet: NotUndefined<WorksheetBodyProps['setSheet']> = useCallback((value) => {
+    const newPageSheetContent = typeof value === 'function' ? value(sheetsInPages[page - 1].content) : value;
+    setPageSheets(null, newPageSheetContent);
+  }, [ page, setPageSheets, sheetsInPages ]);
   
   const pages = sheetsInPages.length;
   
@@ -62,9 +68,9 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
             label={<T className="tt-se">page title</T>}
             value={sheetsInPages[page - 1]?.header.title}
             onChange={(title) => {
-              setPageSheets?.({ ...sheetsInPages[page - 1].header, title }, sheetsInPages[page - 1].content);
+              setPageSheets({ ...sheetsInPages[page - 1].header, title }, sheetsInPages[page - 1].content);
             }}
-            extend
+            expand
           />
           <Button
             data-tooltip-id="jk-tooltip"
@@ -110,16 +116,13 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         </div>
       )}
       <WorksheetBody
-        sheets={sheetsInPages[page - 1]?.content ?? []}
-        setSheets={setPageSheets ? (sheets) => setPageSheets(sheetsInPages[page - 1].header, sheets) : undefined}
-        results={results}
-        resultsIsLoading={resultsIsLoading}
-        resultsIsValidating={resultsIsValidating}
+        sheet={sheetsInPages[page - 1]?.content}
+        setSheet={setSheets ? setSheet : undefined}
+        userResults={userResults}
         readOnly={!!readOnly}
         isSolvable={isSolvable}
         isEditor={isEditor}
         worksheetKey={worksheetKey}
-        mutateUserResults={mutateUserResults}
         ref={containerRef}
       >
       </WorksheetBody>

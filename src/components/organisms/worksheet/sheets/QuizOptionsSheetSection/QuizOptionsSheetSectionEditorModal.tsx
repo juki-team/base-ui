@@ -59,7 +59,7 @@ export const QuizOptionsSheetSectionEditorModal = ({
                       return { ...prevState, options: newOptions };
                     });
                   }}
-                  extend
+                  expand
                 />
               </div>
             ))}

@@ -1,66 +1,52 @@
-import { QuizOptionsSheetType, QuizOptionsSubmissionResponseDTO, UserBasicInterface } from '@juki-team/commons';
-import React, { useState } from 'react';
+import { QuizOptionsSheetType } from '@juki-team/commons';
+import React, { Dispatch, SetStateAction } from 'react';
+import { classNames } from '../../../../../helpers';
 import { InputCheckbox, InputRadio, T } from '../../../../atoms';
 import { MdMathViewer } from '../../../mdMath/MdMathViewer';
 
 interface RunnerSheetSectionProps {
-  sheet: QuizOptionsSheetType,
-  result?: QuizOptionsSubmissionResponseDTO,
-  userResult?: UserBasicInterface,
-  isSolvable: boolean,
-  showingResults: boolean,
-  isSolving: boolean,
-  isEditor: boolean,
-  noteSheetKey: string,
+  content: QuizOptionsSheetType,
+  checkedOptions: string[],
+  setCheckedOptions: Dispatch<SetStateAction<string[]>>,
 }
 
-export const QuizOptionsSheetSectionView = ({
-                                              sheet,
-                                              result,
-                                              userResult,
-                                              isSolvable,
-                                              isSolving,
-                                              isEditor,
-                                              showingResults,
-                                              noteSheetKey,
-                                            }: RunnerSheetSectionProps) => {
+export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
   
-  const [ checkedOptions, setCheckedOptions ] = useState<number[]>([]);
+  const { content, checkedOptions, setCheckedOptions } = props;
   
   return (
-    <div className="jk-col stretch flex-1 gap jk-pg-sm" style={{ width: '100%' }}>
-      {isSolvable && !!sheet.points && (
-        result?.points ? (
-          <div className="jk-tag success sheet-points">
-            +{result?.points} <T>{result?.points ? 'points' : 'point'}</T> / {sheet.points}
-          </div>
-        ) : (
-          <div className="jk-tag warning sheet-points">{0} <T>points</T> / {sheet.points}</div>
-        )
-      )}
-      <T className="tt-se tx-l fw-bd">description</T>
-      <MdMathViewer source={sheet.description} />
-      <T className="tt-se tx-l fw-bd">{sheet.multiple ? 'select one or more options' : 'select one option'}</T>
+    <div className="jk-col stretch gap wh-100">
+      <p className="tt-se tx-l fw-bd">{content.title}</p>
+      <MdMathViewer source={content.description} />
+      <T className="tt-se tx-l fw-bd">{content.multiple ? 'select one or more options' : 'select one option'}</T>
       <div className="jk-col stretch left gap">
-        {sheet.options.map((option, index) => (
+        {content.options.map((option, index) => (
           <div
             className="jk-row gap nowrap extend left jk-br-ie option"
-            key={`${index}`}
+            key={option.id}
             onClick={() => {
-              if (sheet.multiple) {
-                if (checkedOptions.includes(index)) {
-                  setCheckedOptions(checkedOptions.filter(o => o !== index));
+              if (content.multiple) {
+                if (checkedOptions.includes(option.id)) {
+                  setCheckedOptions(checkedOptions.filter(o => o !== option.id));
                 } else {
-                  setCheckedOptions([ ...checkedOptions, index ]);
+                  setCheckedOptions([ ...checkedOptions, option.id ]);
                 }
               } else {
-                setCheckedOptions([ index ]);
+                setCheckedOptions([ option.id ]);
               }
             }}
           >
-            {sheet.multiple
-              ? <InputCheckbox checked={checkedOptions.includes(index)} onChange={() => null} />
-              : <InputRadio checked={checkedOptions.includes(index)} onChange={() => null} />}
+            {content.multiple
+              ? <InputCheckbox
+                checked={checkedOptions.includes(option.id)}
+                onChange={() => null}
+                className={classNames({ 'bc-sl jk-br-ie': option.correct })}
+              />
+              : <InputRadio
+                checked={checkedOptions.includes(option.id)}
+                onChange={() => null}
+                className={classNames({ 'bc-sl br-50-pc': option.correct })}
+              />}
             <div>{option.label}</div>
           </div>
         ))}

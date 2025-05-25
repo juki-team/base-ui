@@ -18,7 +18,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
     onChangeShowOptions: _onChangeShowOptions,
     disabled,
     optionsPlacement = 'bottom',
-    extend,
+    expand,
     rowHeightOption = 32,
     onFilter,
     multiselect = true,
@@ -116,13 +116,13 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         <div
           className={classNames('jk-select-options-virtual')}
           style={{
-            width: extend ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2 /*border*/ : containerWidth - 2, /*border*/
+            width: expand ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2 /*border*/ : containerWidth - 2, /*border*/
           }}
         >
           {searchable && (
             <div className="jk-row nowrap gap jk-pg-md elevation-1">
               <SearchIcon />
-              <Input value={search} onChange={setSearch} extend />
+              <Input value={search} onChange={setSearch} expand />
             </div>
           )}
           <div style={{ width: '100%', height: Math.ceil(256 / rowHeightOption) * rowHeightOption }}>
@@ -137,7 +137,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
     >
       <div
         className={classNames('jk-multi-select-layout', className, { open: showOptions, disabled: isDisabled })}
-        style={{ width: extend ? '100%' : `${containerWidth}px` }}
+        style={{ width: expand ? '100%' : `${containerWidth}px` }}
       >
         <div
           className={classNames({ open: showOptions }, 'jk-select jk-border-radius-inline jk-row space-between nowrap')}

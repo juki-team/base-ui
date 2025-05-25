@@ -1,10 +1,5 @@
-import {
-  BodyWorksheetType,
-  WorksheetDataResponseDTO,
-  WorksheetsInPages,
-  WorksheetUserSubmissionsResponseDTO,
-} from '@juki-team/commons';
-import { Dispatch, ReactNode } from 'react';
+import { BodyWorksheetType, WorksheetsInPages, WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons';
+import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { KeyedMutator } from 'swr';
 
 export interface ContentsSectionHeaderProps {
@@ -14,42 +9,60 @@ export interface ContentsSectionHeaderProps {
   totalPages?: number,
 }
 
+export type UserResultsType = {
+  data?: WorksheetUserSubmissionsResponseDTO,
+  isLoading?: boolean,
+  validating?: boolean,
+  mutate?: KeyedMutator<any>,
+}
+
 export interface WorksheetBodiesProps {
   sheetsInPages: WorksheetsInPages,
   setSheets?: Dispatch<BodyWorksheetType[]>,
-  results?: WorksheetUserSubmissionsResponseDTO,
-  resultsIsLoading?: boolean,
-  resultsIsValidating?: boolean,
-  isSolvable?: boolean,
+  userResults?: UserResultsType,
+  isSolvable: boolean,
   isEditor?: boolean,
   worksheetKey: string,
-  mutateUserResults?: KeyedMutator<any>,
   withoutContentsHeader?: boolean,
   page?: number, // [1, pages]
   setPage?: (page: number) => void,
   lastPageChildren?: ReactNode,
-  readOnly?: boolean,
+  readOnly: boolean,
 }
 
+export type SetSheetType<T extends BodyWorksheetType> = Dispatch<SetStateAction<T[]>>
+
+export type SetContentType<T extends BodyWorksheetType> = Dispatch<SetStateAction<T>>;
+
 export interface WorksheetBodyProps {
-  sheets: BodyWorksheetType[],
-  setSheets?: Dispatch<BodyWorksheetType[]>,
-  results?: WorksheetUserSubmissionsResponseDTO,
-  resultsIsLoading?: boolean,
-  resultsIsValidating?: boolean,
+  sheet?: BodyWorksheetType[],
+  setSheet?: SetSheetType<BodyWorksheetType>,
+  userResults?: UserResultsType,
   readOnly: boolean,
-  isSolvable?: boolean,
+  isSolvable: boolean,
   isEditor?: boolean,
   worksheetKey: string,
-  mutateUserResults?: KeyedMutator<any>,
 }
 
 export interface WorksheetViewerProps {
-  worksheet: WorksheetDataResponseDTO,
-  results?: WorksheetUserSubmissionsResponseDTO,
-  resultsIsLoading?: boolean,
-  resultsIsValidating?: boolean,
-  mutateUserResults?: KeyedMutator<any>,
+  content: BodyWorksheetType[],
+  worksheetKey: string,
+  isSolvable?: boolean,
+  isEditor?: boolean,
+  resultsUserKey?: string,
+  // withoutContentsHeader?: boolean,
+  page?: number,
+  setPage?: (newPage: number) => void,
+  lastPageChildren?: ReactNode,
+  readOnly?: boolean,
+}
+
+export interface WorksheetEditorProps {
+  content: BodyWorksheetType[],
+  setContent: (content: BodyWorksheetType[]) => void,
+  worksheetKey: string,
+  isSolvable?: boolean,
+  isEditor?: boolean,
   // withoutContentsHeader?: boolean,
   page?: number,
   setPage?: (newPage: number) => void,

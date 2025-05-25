@@ -1,15 +1,16 @@
-import { WorksheetsInPages } from '@juki-team/commons';
-import React from 'react';
+import { BodyWorksheetType, WorksheetsInPages } from '@juki-team/commons';
+import React, { Dispatch } from 'react';
 import { LOGO_WORKSHEET_TYPE } from '../../../../constants';
 import { classNames } from '../../../../helpers';
 
 interface TableOfContentsProps {
   sheetsInPages: WorksheetsInPages,
+  setSheets?: Dispatch<BodyWorksheetType[]>,
   page?: number,
   onClick: ((index: number) => void) | undefined,
 }
 
-export const TableOfContents = ({ sheetsInPages, onClick, page }: TableOfContentsProps) => {
+export const TableOfContents = ({ sheetsInPages, onClick, page, setSheets }: TableOfContentsProps) => {
   return (
     <div className="jk-col gap stretch jk-pg-sm wh-100">
       {sheetsInPages.map(({ header, content }, index) => {

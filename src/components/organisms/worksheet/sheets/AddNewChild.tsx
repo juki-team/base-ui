@@ -1,5 +1,5 @@
-import { BodyWorksheetType, NEW_PAGE_SHEET } from '@juki-team/commons';
-import React, { Dispatch } from 'react';
+import { BodyWorksheetType, NEW_PAGE_SHEET, WorksheetType } from '@juki-team/commons';
+import React from 'react';
 import {
   EMPTY_CODE_EDITOR_SHEET,
   EMPTY_GRAPH_SHEET,
@@ -7,24 +7,16 @@ import {
   EMPTY_LIST_SHEET,
   EMPTY_QUIZ_OPTIONS_SHEET,
   EMPTY_QUIZ_PROBLEM_SHEET,
+  LOGO_WORKSHEET_TYPE,
 } from '../../../../constants';
 import { Button, T } from '../../../atoms';
-import {
-  BubbleChartIcon,
-  CodeIcon,
-  ExtensionIcon,
-  ListIcon,
-  MenuBookIcon,
-  NoteAddIcon,
-  PlusIcon,
-} from '../../../atoms/server';
+import { ExtensionIcon, ListIcon, MenuBookIcon, PlusIcon } from '../../../atoms/server';
 import { FloatToolbar } from '../../../molecules';
-import { FloatToolbarProps } from '../../../molecules/FloatToolbar/types';
+import { SetSheetType } from '../types';
 
 interface AddNewChildProps<T extends BodyWorksheetType> {
   index: number,
-  sheets: T[],
-  setSheets: Dispatch<T[]>,
+  setSheet: SetSheetType<T>,
   mdSheet?: boolean,
   codeEditorSheet?: boolean,
   graphSheet?: boolean,
@@ -33,15 +25,14 @@ interface AddNewChildProps<T extends BodyWorksheetType> {
   quizOptionsSheetType?: boolean,
   pageDivider?: boolean,
   compacted?: boolean,
-  floatToolbarPlacement?: FloatToolbarProps['placement'],
+  floatToolbarPlacement?: 'center' | 'bottom' | 'top';
 }
 
 export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildProps<T>) => {
   
   const {
     index,
-    sheets,
-    setSheets,
+    setSheet,
     mdSheet,
     codeEditorSheet,
     graphSheet,
@@ -50,69 +41,91 @@ export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildPro
     pageDivider,
     compacted,
     quizOptionsSheetType,
-    floatToolbarPlacement = 'top',
+    floatToolbarPlacement,
   } = props;
   
   const actionButtons = [];
   if (mdSheet) {
     const onClick = () => {
-      const newSheets = [ ...sheets ];
-      newSheets.splice(index + 1, 0, EMPTY_JK_MD_SHEET() as T);
-      setSheets(newSheets);
+      setSheet((sheet) => {
+        const newSheet = [ ...sheet ];
+        newSheet.splice(index + 1, 0, EMPTY_JK_MD_SHEET() as T);
+        return newSheet;
+      });
     };
-    actionButtons.push({ icon: <NoteAddIcon />, label: <T>+ jk md</T>, onClick });
+    actionButtons.push({ icon: LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.JK_MD], label: <T>+ jk md</T>, onClick });
   }
   if (codeEditorSheet) {
     const onClick = () => {
-      const newSheets = [ ...sheets ];
-      newSheets.splice(index + 1, 0, EMPTY_CODE_EDITOR_SHEET() as T);
-      setSheets(newSheets);
+      setSheet((sheet) => {
+        const newSheet = [ ...sheet ];
+        newSheet.splice(index + 1, 0, EMPTY_CODE_EDITOR_SHEET() as T);
+        return newSheet;
+      });
     };
-    actionButtons.push({ icon: <CodeIcon />, label: <T>+ code editor</T>, onClick });
+    actionButtons.push({
+      icon: LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.CODE_EDITOR],
+      label: <T>+ code editor</T>,
+      onClick,
+    });
   }
   if (graphSheet) {
     const onClick = () => {
-      const newSheets = [ ...sheets ];
-      newSheets.splice(index + 1, 0, EMPTY_GRAPH_SHEET() as T);
-      setSheets(newSheets);
+      setSheet((sheet) => {
+        const newSheet = [ ...sheet ];
+        newSheet.splice(index + 1, 0, EMPTY_GRAPH_SHEET() as T);
+        return newSheet;
+      });
     };
-    actionButtons.push({ icon: <BubbleChartIcon />, label: <T>+ graph</T>, onClick });
+    actionButtons.push({ icon: LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.GRAPH], label: <T>+ graph</T>, onClick });
   }
   if (listSheet) {
     const onClick = () => {
-      const newSheets = [ ...sheets ];
-      newSheets.splice(index + 1, 0, EMPTY_LIST_SHEET() as T);
-      setSheets(newSheets);
+      setSheet((sheet) => {
+        const newSheet = [ ...sheet ];
+        newSheet.splice(index + 1, 0, EMPTY_LIST_SHEET() as T);
+        return newSheet;
+      });
     };
     actionButtons.push({ icon: <ListIcon />, label: <T>+ list</T>, onClick });
   }
   if (quizProblemSheet) {
     const onClick = () => {
-      const newSheets = [ ...sheets ];
-      newSheets.splice(index + 1, 0, EMPTY_QUIZ_PROBLEM_SHEET() as T);
-      setSheets(newSheets);
+      setSheet((sheet) => {
+        const newSheet = [ ...sheet ];
+        newSheet.splice(index + 1, 0, EMPTY_QUIZ_PROBLEM_SHEET() as T);
+        return newSheet;
+      });
     };
     actionButtons.push({ icon: <ExtensionIcon />, label: <T>+ quiz problem</T>, onClick });
   }
   if (quizOptionsSheetType) {
     const onClick = () => {
-      const newSheets = [ ...sheets ];
-      newSheets.splice(index + 1, 0, EMPTY_QUIZ_OPTIONS_SHEET() as T);
-      setSheets(newSheets);
+      setSheet((sheet) => {
+        const newSheet = [ ...sheet ];
+        newSheet.splice(index + 1, 0, EMPTY_QUIZ_OPTIONS_SHEET() as T);
+        return newSheet;
+      });
     };
-    actionButtons.push({ icon: <ExtensionIcon />, label: <T>+ quiz options</T>, onClick });
+    actionButtons.push({
+      icon: LOGO_WORKSHEET_TYPE('tiny')[WorksheetType.QUIZ_OPTIONS],
+      label: <T>+ quiz options</T>,
+      onClick,
+    });
   }
   if (pageDivider) {
     const onClick = () => {
-      const newSheets = [ ...sheets ];
-      newSheets.splice(index + 1, 0, NEW_PAGE_SHEET() as T);
-      setSheets(newSheets);
+      setSheet((sheet) => {
+        const newSheet = [ ...sheet ];
+        newSheet.splice(index + 1, 0, NEW_PAGE_SHEET() as T);
+        return newSheet;
+      });
     };
     actionButtons.push({ icon: <MenuBookIcon />, label: <T>+ page divider</T>, onClick });
   }
   
   return (
-    <div className="jk-row gap" style={{ maxWidth: 'calc(var(--max-width) - 500px)' }}>
+    <div className="jk-row gap">
       {compacted && (
         <FloatToolbar
           actionButtons={[ {

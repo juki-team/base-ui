@@ -1,65 +1,128 @@
-import { QuizOptionsSheetType, QuizOptionsSubmissionResponseDTO, UserBasicInterface } from '@juki-team/commons';
-import React, { Dispatch, useState } from 'react';
+import {
+  cleanRequest,
+  ContentResponseType,
+  QuizOptionsSheetType,
+  QuizOptionsSubmissionDTO,
+  QuizOptionsSubmissionResponseDTO,
+  Status,
+  WorksheetType,
+} from '@juki-team/commons';
+import React, { useState } from 'react';
+import { authorizedRequest } from '../../../../../helpers';
+import { useJukiNotification, useStableState } from '../../../../../hooks';
+import { jukiApiSocketManager } from '../../../../../settings';
 import { T } from '../../../../atoms';
-import { EditIcon } from '../../../../atoms/server';
-import { FloatToolbar } from '../../../../molecules';
-import { ButtonActionProps } from '../../../../molecules/FloatToolbar/types';
-import { QuizOptionsSheetSectionEditorModal } from './QuizOptionsSheetSectionEditorModal';
+import { ButtonLoader, FloatToolbar } from '../../../../molecules';
+import { EditSheetModal } from '../EditSheetModal';
+import { getActionButtons } from '../getActionButtons';
+import { ResultHeader } from '../ResultHeader';
+import { SheetSection } from '../types';
+import { QuizOptionsSheetSectionEditor } from './QuizOptionsSheetSectionEditor';
 import { QuizOptionsSheetSectionView } from './QuizOptionsSheetSectionView';
 
-interface RunnerSheetSectionProps {
-  sheet: QuizOptionsSheetType,
-  setSheet?: Dispatch<QuizOptionsSheetType>,
-  actionButtons?: ButtonActionProps['buttons'],
-  result?: QuizOptionsSubmissionResponseDTO,
-  userResult?: UserBasicInterface,
-  isSolvable?: boolean,
-  showingResults?: boolean,
-  isSolving?: boolean,
-  isEditor?: boolean,
-  noteSheetKey: string,
+interface QuizOptionsSheetSectionProps extends SheetSection<QuizOptionsSheetType, QuizOptionsSubmissionResponseDTO> {
 }
 
-export const QuizOptionsSheetSection = ({
-                                          sheet,
-                                          setSheet,
-                                          result,
-                                          userResult,
-                                          actionButtons = [],
-                                          isSolvable = false,
-                                          showingResults = false,
-                                          isSolving = false,
-                                          isEditor = false,
-                                          noteSheetKey,
-                                        }: RunnerSheetSectionProps) => {
+export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => {
   
+  const {
+    content: initialContent,
+    setContent: saveContent,
+    index,
+    chunkId,
+    sheetLength,
+    setSheet,
+    worksheetKey,
+    isSolvable = false,
+    userResults,
+  } = props;
+  
+  const { notifyResponse } = useJukiNotification();
   const [ edit, setEdit ] = useState(false);
-  
-  const editActionButton = {
-    icon: <EditIcon />,
-    buttons: [ { icon: <EditIcon />, label: <T>edit</T>, onClick: () => setEdit(true) }, ...actionButtons ],
+  const [ modal, setModal ] = useState(false);
+  const [ content, _setContent ] = useStableState(initialContent);
+  const setContent = saveContent ? _setContent : undefined;
+  const reset = () => {
+    _setContent(initialContent);
   };
   
+  const submissions = userResults?.data?.submissions[WorksheetType.QUIZ_OPTIONS]?.[chunkId] ?? [];
+  const lastSubmission = submissions.at(-1);
+  console.log({ lastSubmission, userResults, submissions });
+  const [ checkedOptions, setCheckedOptions ] = useStableState<string[]>(lastSubmission?.checkedOptions ?? []);
+  
   return (
-    <div className="jk-row stretch flex-1 sheet-section jk-br-ie relative bc-we" style={{ width: '100%' }}>
-      {setSheet && <FloatToolbar actionButtons={[ editActionButton ]} />}
-      <QuizOptionsSheetSectionView
-        sheet={sheet}
-        result={result}
-        userResult={userResult}
-        showingResults={showingResults}
-        isSolvable={isSolvable}
-        isSolving={isSolving}
-        isEditor={isEditor}
-        noteSheetKey={noteSheetKey}
-      />
-      {setSheet && (
-        <QuizOptionsSheetSectionEditorModal
-          sheet={sheet}
-          setSheet={setSheet}
-          isOpen={edit}
-          onClose={() => setEdit(false)}
+    <div
+      className="jk-row top left nowrap stretch sheet-section jk-br-ie pn-re wh-100"
+      onDoubleClick={() => setEdit(true)}
+    >
+      {setContent && (
+        <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
+      )}
+      {setContent && edit ? (
+        <QuizOptionsSheetSectionEditor
+          content={content}
+          setContent={setContent}
+          isSolvable={isSolvable}
         />
+      ) : (
+        <div
+          className="jk-pg bc-we jk-br-ie jk-quiz-options-section-view"
+          style={{ width: isSolvable && !setContent ? 'calc(100% - 100px)' : '100%' }}
+        >
+          <QuizOptionsSheetSectionView
+            content={content}
+            checkedOptions={checkedOptions}
+            setCheckedOptions={setCheckedOptions}
+          />
+        </div>
+      )}
+      {setSheet && (
+        <FloatToolbar
+          actionButtons={getActionButtons({
+            type: WorksheetType.JK_MD,
+            edit,
+            setEdit,
+            setModal,
+            content,
+            saveContent,
+            index,
+            sheetLength,
+            setSheet,
+            reset,
+          })}
+          placement="out rightTop"
+        />
+      )}
+      {isSolvable && !setSheet && (
+        <ResultHeader
+          points={content.points}
+          userPoints={lastSubmission?.points ?? 0}
+          isResolved={!!lastSubmission?.isCompleted}
+        >
+          <ButtonLoader
+            type="light"
+            size="small"
+            expand
+            onClick={async (setLoaderStatus) => {
+              setLoaderStatus(Status.LOADING);
+              const jkMdSubmissionDTO: QuizOptionsSubmissionDTO = {
+                type: WorksheetType.QUIZ_OPTIONS,
+                id: content.id,
+                checkedOptions,
+              };
+              const { url, ...options } = jukiApiSocketManager.API_V1.worksheet.submitQuizOptions({
+                params: { worksheetKey },
+                body: jkMdSubmissionDTO,
+              });
+              const response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
+              await userResults?.mutate?.();
+              notifyResponse(response, setLoaderStatus);
+            }}
+          >
+            <T className="tt-se">save</T>
+          </ButtonLoader>
+        </ResultHeader>
       )}
     </div>
   );

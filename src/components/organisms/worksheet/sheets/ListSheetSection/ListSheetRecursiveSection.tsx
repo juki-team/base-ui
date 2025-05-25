@@ -6,7 +6,6 @@ import {
   QuizOptionsSheetType,
   QuizProblemSheetType,
   QuizTextSheetType,
-  WorksheetType,
 } from '@juki-team/commons';
 import React, { Children, Dispatch } from 'react';
 import { EMPTY_LIST_SHEET } from '../../../../../constants';
@@ -16,9 +15,6 @@ import { UpIcon } from '../../../../atoms/server';
 import { MdMathEditor } from '../../../mdMath/MdMathEditor';
 import { MdMathViewer } from '../../../mdMath/MdMathViewer';
 import { AddNewChild } from '../AddNewChild';
-import { CodeEditorSheetSection } from '../CodeEditorSheetSection';
-import { GraphSheetSection } from '../GraphSheetSection';
-import { upRemoveDownButtons } from '../upRemoveDownActions';
 import { UpRemoveDownButtons } from '../UpRemoveDownButtons';
 
 export interface ListSheetRecursiveSectionProps {
@@ -30,7 +26,7 @@ export interface ListSheetRecursiveSectionProps {
 
 export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps) => {
   
-  const { sheet, setSheet, forceExpanded, onlyText } = props;
+  const { sheet, setSheet, forceExpanded } = props;
   
   const { header, content, children } = sheet;
   
@@ -58,39 +54,39 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
   
   const renderContent = content.map((itemContent, index) => {
     
-    const setSheetCb: Dispatch<JkmdSheetType | CodeEditorSheetType | GraphSheetType | QuizProblemSheetType | QuizTextSheetType | QuizOptionsSheetType> | undefined = setSheet ? (content) => {
-      const newContent = [ ...sheet.content ];
-      newContent.splice(index, 1, content);
-      setSheet({ ...sheet, content: newContent });
-    } : undefined;
-    
-    const actionButtons = upRemoveDownButtons<JkmdSheetType | CodeEditorSheetType | GraphSheetType | QuizProblemSheetType | QuizTextSheetType | QuizOptionsSheetType>({
-      index,
-      length: content.length,
-      onChange: (callback) => setSheet?.({ ...sheet, content: callback(content) }),
-    });
-    
+    // const setSheetCb: SetContentType<JkmdSheetType | CodeEditorSheetType | GraphSheetType | QuizProblemSheetType | QuizTextSheetType | QuizOptionsSheetType> | undefined = setSheet ? (content) => {
+    //   const newContent = [ ...sheet.content ];
+    //   newContent.splice(index, 1, content);
+    //   setSheet({ ...sheet, content: newContent });
+    // } : undefined;
+    //
+    // const actionButtons = upRemoveDownButtons<JkmdSheetType | CodeEditorSheetType | GraphSheetType | QuizProblemSheetType | QuizTextSheetType | QuizOptionsSheetType>({
+    //   index,
+    //   length: content.length,
+    //   onChange: (callback) => setSheet?.({ ...sheet, content: callback(content) }),
+    // });
+    //
     return (
       <div key={itemContent.id} className="jk-row nowrap gap">
         {/*{itemContent.type === SheetType.JK_MD && (*/}
         {/*  <JkmdSheetSection sheet={itemContent} setSheet={setSheetCb} actionButtons={actionButtons} />*/}
         {/*)}*/}
-        {itemContent.type === WorksheetType.CODE_EDITOR && !onlyText && (
-          // TODO: review
-          <CodeEditorSheetSection
-            sheet={itemContent}
-            setSheet={setSheetCb}
-            actionButtons={actionButtons}
-            mutateUserResults={async () => {
-            }}
-            readOnly
-            result={{ nickname: '', submissions: [], isLoading: false, isValidating: false }}
-            worksheetKey=""
-          />
-        )}
-        {itemContent.type === WorksheetType.GRAPH && !onlyText && (
-          <GraphSheetSection sheet={itemContent} setSheet={setSheetCb} actionButtons={actionButtons} />
-        )}
+        {/*{itemContent.type === WorksheetType.CODE_EDITOR && !onlyText && (*/}
+        {/*  // TODO: review*/}
+        {/*  <CodeEditorSheetSection*/}
+        {/*    content={itemContent}*/}
+        {/*    setContent={setSheetCb as SetContentType<CodeEditorSheetType>}*/}
+        {/*    // actionButtons={actionButtons}*/}
+        {/*    // mutateUserResults={async () => {*/}
+        {/*    // }}*/}
+        {/*    readOnly*/}
+        {/*    // result={{ nickname: '', submissions: [], isLoading: false, isValidating: false }}*/}
+        {/*    worksheetKey=""*/}
+        {/*  />*/}
+        {/*)}*/}
+        {/*{itemContent.type === WorksheetType.GRAPH && !onlyText && (*/}
+        {/*  <GraphSheetSection sheet={itemContent} setSheet={setSheetCb} actionButtons={actionButtons} />*/}
+        {/*)}*/}
       </div>
     );
   });
@@ -122,11 +118,11 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
       {setSheet && (
         <AddNewChild<JkmdSheetType | CodeEditorSheetType | GraphSheetType | QuizProblemSheetType | QuizTextSheetType | QuizOptionsSheetType>
           index={sheet.content.length - 1}
-          sheets={sheet.content}
-          setSheets={(sheets) => {
+          setSheet={(value) => {
+            const newContents = typeof value === 'function' ? value(sheet.content) : value;
             setSheet?.({
               ...sheet,
-              content: [ ...sheets ],
+              content: newContents,
             });
           }}
           mdSheet

@@ -131,7 +131,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
               label: (languages.find(lang => lang.value === language)?.label || language) + '',
             }}
             onChange={({ value }) => onChange?.({ language: value })}
-            extend={twoRows}
+            expand={twoRows}
           />
         )}
         {!withoutRunCodeButton && (

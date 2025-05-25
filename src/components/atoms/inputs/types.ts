@@ -17,7 +17,7 @@ export interface InputCommonsProps<T> {
   disabled?: boolean,
   // offline?: boolean
   className?: string,
-  extend?: boolean,
+  expand?: boolean,
   onClick?: () => void,
   autoFocus?: boolean,
   placeholder?: string,

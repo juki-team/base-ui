@@ -256,7 +256,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
                   }}
                 />
               </div>
-              <div className="preview"><MemoMdMathViewer className="jk-br-ie br-hl" source={mdSource} /></div>
+              <div className="preview"><MemoMdMathViewer className="jk-br-ie br-hl jk-pg-xsm" source={mdSource} /></div>
             </SplitPane>
           </div>
         </>
@@ -275,7 +275,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
               setView(View.EDITOR_VIEWER_HORIZONTAL);
             }}
           >
-            <MdMathViewer className="jk-br-ie br-hl" source={mdSource} />
+            <MdMathViewer className="jk-br-ie br-hl jk-pg-xsm" source={mdSource} />
           </div>
         </div>
       )}

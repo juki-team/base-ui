@@ -171,7 +171,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
                 ))}
                 onChange={options => options[0] ? onSelect({ ...options[0].value }) : null}
                 optionsPlacement="bottom"
-                extend
+                expand
                 rowHeightOption={72}
                 onFilter={({ search, option }) => {
                   const text = search.toLowerCase();

@@ -241,7 +241,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-input-textarea {
-  &.extend {
+  &.expand {
     width: 100%;
   }
 }
@@ -267,7 +267,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   position: relative;
   display: inline-block;
   
-  &.extend, &.extend > input {
+  &.expand, &.expand > input {
     width: 100%;
   }
   
@@ -600,7 +600,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
   }
   
-  &.extend {
+  &.expand {
     width: 100%;
   }
   

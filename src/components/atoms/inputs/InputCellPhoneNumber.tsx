@@ -9,7 +9,7 @@ import { InputCellPhoneNumberProps } from './types';
 export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps) => {
   
   const {
-    extend = false,
+    expand = false,
     labelPlacement = 'top-border',
     required = false,
     label: inputLabel,
@@ -46,7 +46,7 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps) => {
   return (
     <div
       className={classNames(`jk-input-cell-phone-number-wrapper`, {
-        extend,
+        expand,
         [`label-${labelPlacement}`]: true,
         required,
         'no-label': !inputLabel,
