@@ -49,7 +49,7 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
     mutate: userResultsMutate,
     isLoading: userResultsIsLoading,
     isValidating: userResultsIsValidating,
-  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && isSolvable ? jukiApiSocketManager.API_V1.worksheet.getSubmissionsUser({
+  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && isSolvable && userIsLogged ? jukiApiSocketManager.API_V1.worksheet.getSubmissionsUser({
     params: {
       key: worksheetKey,
       userKey: resultsUserKey || getUserKey(userNickname, companyKey),
@@ -64,7 +64,7 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
   const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
   
   const isSmallPortSize = viewPortSize === 'sm';
-  const readOnly = initialReadOnly || userNickname !== userResults?.data?.user.nickname;
+  const readOnly = initialReadOnly || (userResults?.data ? userNickname !== userResults.data.user.nickname : false);
   const pages = sheetsInPages.length;
   
   return (
