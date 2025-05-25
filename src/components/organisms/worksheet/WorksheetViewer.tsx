@@ -27,6 +27,7 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
     onPageChange: initialOnPageChange,
     lastPageChildren,
     readOnly: initialReadOnly = false,
+    withoutTableOfContents = false,
   } = props;
   
   const { viewPortSize } = useJukiUI();
@@ -48,12 +49,12 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
     mutate: userResultsMutate,
     isLoading: userResultsIsLoading,
     isValidating: userResultsIsValidating,
-  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(jukiApiSocketManager.API_V1.worksheet.getSubmissionsUser({
+  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && isSolvable ? jukiApiSocketManager.API_V1.worksheet.getSubmissionsUser({
     params: {
       key: worksheetKey,
       userKey: resultsUserKey || getUserKey(userNickname, companyKey),
     },
-  }).url);
+  }).url : null);
   const userResults: UserResultsType = useMemo(() => ({
     data: userResultsData?.success ? userResultsData.content : undefined,
     isLoading: userResultsIsLoading,
@@ -74,27 +75,29 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
         'jk-row': !isSmallPortSize,
       })}
     >
-      {isSmallPortSize ? (
-        (pages > 1) && (
-          <div className="jk-row">
-            <ContentsSectionHeader
+      {!withoutTableOfContents && (
+        isSmallPortSize ? (
+          (pages > 1) && (
+            <div className="jk-row">
+              <ContentsSectionHeader
+                page={page}
+                subPage={subPage}
+                onPageChange={onPageChange}
+                sheetsInPages={sheetsInPages}
+              />
+            </div>
+          )
+        ) : (
+          <div className="jk-col gap bc-we jk-pg-xsm jk-br-ie left worksheet-content sticky-top">
+            <T className="tt-se fw-bd cr-py">table of content</T>
+            <TableOfContents
+              sheetsInPages={sheetsInPages}
               page={page}
               subPage={subPage}
               onPageChange={onPageChange}
-              sheetsInPages={sheetsInPages}
             />
           </div>
         )
-      ) : (
-        <div className="jk-col gap bc-we jk-pg-xsm jk-br-ie left worksheet-content sticky-top">
-          <T className="tt-se fw-bd cr-py">table of content</T>
-          <TableOfContents
-            sheetsInPages={sheetsInPages}
-            page={page}
-            subPage={subPage}
-            onPageChange={onPageChange}
-          />
-        </div>
       )}
       <WorksheetBodies
         sheetsInPages={sheetsInPages}

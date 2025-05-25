@@ -59,6 +59,7 @@ export interface WorksheetViewerProps {
   onPageChange?: OnPageChange,
   lastPageChildren?: ReactNode,
   readOnly?: boolean,
+  withoutTableOfContents?: boolean,
 }
 
 export interface WorksheetEditorProps extends Omit<WorksheetViewerProps, 'resultsUserKey'> {
