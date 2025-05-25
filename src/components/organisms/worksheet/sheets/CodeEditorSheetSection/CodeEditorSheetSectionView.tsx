@@ -27,11 +27,12 @@ interface RunnerSheetSectionProps {
   chunkId: string,
   userResults?: UserResultsType,
   readOnly: boolean,
+  isSolvable: boolean,
 }
 
 export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
   
-  const { content, worksheetKey, chunkId, userResults, readOnly } = props;
+  const { content, worksheetKey, chunkId, userResults, readOnly, isSolvable } = props;
   
   const [ sourceCode, setSourceCode ] = useState('');
   const { notifyResponse } = useJukiNotification();
@@ -101,13 +102,13 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
           storeKey={content.id + 'view'}
           enableAddCustomSampleCases
           onCodeRunStatusChange={(status, { sourceCode, language, testCases }) => {
-            if (status === SubmissionRunStatus.COMPLETED) {
+            if (status === SubmissionRunStatus.COMPLETED && isSolvable) {
               void saveCode(sourceCode, language, testCases);
             }
           }}
           centerButtons={({ sourceCode, language, testCases }) => {
             const buttons = [];
-            if (!readOnly) {
+            if (!readOnly && isSolvable) {
               buttons.push(
                 <ButtonLoader
                   key="save"

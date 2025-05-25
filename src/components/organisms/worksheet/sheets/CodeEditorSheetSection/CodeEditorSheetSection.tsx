@@ -59,6 +59,7 @@ export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
             chunkId={chunkId}
             userResults={userResults}
             readOnly={readOnly}
+            isSolvable={isSolvable}
           />
         </div>
       )}
