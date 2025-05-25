@@ -8,11 +8,10 @@ import React, { useMemo } from 'react';
 import { classNames } from '../../../helpers';
 import { useFetcher, useJukiUI, useRouterStore, useStableState, useUserStore } from '../../../hooks';
 import { jukiApiSocketManager } from '../../../settings';
-import { QueryParamKey } from '../../../types';
 import { T } from '../../atoms';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { TableOfContents } from './sheets/TableOfContents';
-import { UserResultsType, WorksheetViewerProps } from './types';
+import { OnPageChange, UserResultsType, WorksheetViewerProps } from './types';
 import { WorksheetBodies } from './WorksheetBodies';
 
 export const WorksheetViewer = (props: WorksheetViewerProps) => {
@@ -25,8 +24,7 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
     resultsUserKey,
     page: initialPage,
     subPage: initialSubPage,
-    setPage: initialSetPage,
-    setSubPage: initialSetSubPage,
+    onPageChange: initialOnPageChange,
     lastPageChildren,
     readOnly: initialReadOnly = false,
   } = props;
@@ -39,8 +37,11 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
   
   const [ page, _setPage ] = useStableState(initialPage ?? 1);
   const [ subPage, _setSubPage ] = useStableState(initialSubPage ?? 1);
-  const setPage = initialSetPage ?? _setPage;
-  const setSubPage = initialSetSubPage ?? _setSubPage;
+  const onPageChange: OnPageChange = initialOnPageChange ?? ((page, subPage, entries) => {
+    _setPage(page);
+    _setSubPage(subPage);
+    setSearchParams(entries);
+  });
   
   const {
     data: userResultsData,
@@ -76,7 +77,12 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
       {isSmallPortSize ? (
         (pages > 1) && (
           <div className="jk-row">
-            <ContentsSectionHeader page={page} setPage={setPage} sheetsInPages={sheetsInPages} />
+            <ContentsSectionHeader
+              page={page}
+              subPage={subPage}
+              onPageChange={onPageChange}
+              sheetsInPages={sheetsInPages}
+            />
           </div>
         )
       ) : (
@@ -85,16 +91,8 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
           <TableOfContents
             sheetsInPages={sheetsInPages}
             page={page}
-            onClick={(index, subIndex) => {
-              if (setPage) {
-                setPage(index);
-                setSearchParams({ name: QueryParamKey.PAGE_FOCUS, value: 'jk-worksheet-viewer-container' });
-                if (setSubPage && subIndex) {
-                  setSubPage(subIndex.index);
-                  setSearchParams({ name: QueryParamKey.PAGE_FOCUS, value: subIndex.id });
-                }
-              }
-            }}
+            subPage={subPage}
+            onPageChange={onPageChange}
           />
         </div>
       )}
@@ -106,9 +104,8 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
         isEditor={isEditor}
         worksheetKey={worksheetKey}
         page={page}
-        setPage={setPage}
+        onPageChange={onPageChange}
         subPage={subPage}
-        setSubPage={setSubPage}
         lastPageChildren={lastPageChildren}
       />
     </div>

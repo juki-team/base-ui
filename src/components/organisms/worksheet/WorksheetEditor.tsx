@@ -1,8 +1,8 @@
 import { getWorksheetsInPages } from '@juki-team/commons';
 import React, { useMemo } from 'react';
-import { useStableState } from '../../../hooks';
+import { useRouterStore, useStableState } from '../../../hooks';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
-import { WorksheetEditorProps } from './types';
+import { OnPageChange, WorksheetEditorProps } from './types';
 import { WorksheetBodies } from './WorksheetBodies';
 
 export const WorksheetEditor = (props: WorksheetEditorProps) => {
@@ -14,13 +14,20 @@ export const WorksheetEditor = (props: WorksheetEditorProps) => {
     isSolvable = false,
     isEditor = false,
     page: initialPage,
-    setPage: initialSetPage,
+    subPage: initialSubPage,
+    onPageChange: initialOnPageChange,
     lastPageChildren,
     readOnly = false,
   } = props;
   
+  const setSearchParams = useRouterStore(state => state.setSearchParams);
   const [ page, _setPage ] = useStableState(initialPage ?? 1);
-  const setPage = initialSetPage ?? _setPage;
+  const [ subPage, _setSubPage ] = useStableState(initialSubPage ?? 1);
+  const onPageChange: OnPageChange = initialOnPageChange ?? ((page, subPage, entries) => {
+    _setPage(page);
+    _setSubPage(subPage);
+    setSearchParams(entries);
+  });
   
   const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
   
@@ -30,7 +37,12 @@ export const WorksheetEditor = (props: WorksheetEditorProps) => {
     <div className="jk-col gap nowrap worksheet-editor-container center top">
       {(pages > 1) && (
         <div className="jk-row">
-          <ContentsSectionHeader page={page} setPage={setPage} sheetsInPages={sheetsInPages} />
+          <ContentsSectionHeader
+            page={page}
+            subPage={subPage}
+            onPageChange={onPageChange}
+            sheetsInPages={sheetsInPages}
+          />
         </div>
       )}
       <WorksheetBodies
@@ -41,7 +53,8 @@ export const WorksheetEditor = (props: WorksheetEditorProps) => {
         isEditor={isEditor}
         worksheetKey={worksheetKey}
         page={page}
-        setPage={setPage}
+        subPage={subPage}
+        onPageChange={onPageChange}
         lastPageChildren={lastPageChildren}
       />
     </div>

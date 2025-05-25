@@ -1,12 +1,15 @@
 import { BodyWorksheetType, WorksheetsInPages, WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { KeyedMutator } from 'swr';
+import { SetSearchParamsType } from '../../../contexts/JukiRouterProvider/types';
+
+export type OnPageChange = (newPage: number, newSubPage: number, entries: Parameters<SetSearchParamsType>[0]) => void;
 
 export interface ContentsSectionHeaderProps {
   page: number, // [1, pages]
-  setPage: Dispatch<number>,
+  subPage: number,
+  onPageChange: OnPageChange
   sheetsInPages: WorksheetsInPages,
-  totalPages?: number,
 }
 
 export type UserResultsType = {
@@ -21,12 +24,11 @@ export interface WorksheetBodiesProps {
   setSheets?: Dispatch<BodyWorksheetType[]>,
   userResults?: UserResultsType,
   isSolvable: boolean,
-  isEditor?: boolean,
+  isEditor: boolean,
   worksheetKey: string,
-  page?: number, // [1, pages]
-  setPage?: (page: number) => void,
-  subPage?: number, // [1, pages]
-  setSubPage?: (page: number) => void,
+  page: number, // [1, pages]
+  subPage: number, // [1, pages]
+  onPageChange: OnPageChange,
   lastPageChildren?: ReactNode,
   readOnly: boolean,
 }
@@ -46,29 +48,19 @@ export interface WorksheetBodyProps {
 }
 
 export interface WorksheetViewerProps {
+  resultsUserKey?: string,
+  
   content: BodyWorksheetType[],
   worksheetKey: string,
   isSolvable?: boolean,
   isEditor?: boolean,
-  resultsUserKey?: string,
-  // withoutContentsHeader?: boolean,
   page?: number,
-  setPage?: (newPage: number) => void,
   subPage?: number,
-  setSubPage?: (newSubPage: number) => void,
+  onPageChange?: OnPageChange,
   lastPageChildren?: ReactNode,
   readOnly?: boolean,
 }
 
-export interface WorksheetEditorProps {
-  content: BodyWorksheetType[],
+export interface WorksheetEditorProps extends Omit<WorksheetViewerProps, 'resultsUserKey'> {
   setContent: (content: BodyWorksheetType[]) => void,
-  worksheetKey: string,
-  isSolvable?: boolean,
-  isEditor?: boolean,
-  // withoutContentsHeader?: boolean,
-  page?: number,
-  setPage?: (newPage: number) => void,
-  lastPageChildren?: ReactNode,
-  readOnly?: boolean,
 }

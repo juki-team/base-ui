@@ -1,8 +1,7 @@
 import { BodyWorksheetType, NewPageSheetType } from '@juki-team/commons';
 import React, { useCallback, useRef } from 'react';
 import { classNames } from '../../../helpers';
-import { useStableState } from '../../../hooks';
-import { NotUndefined } from '../../../types';
+import { NotUndefined, QueryParamKey } from '../../../types';
 import { Button, Input, T } from '../../atoms';
 import { DeleteIcon } from '../../atoms/server';
 import { WorksheetBodiesProps, WorksheetBodyProps } from './types';
@@ -17,18 +16,13 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
     userResults,
     isSolvable,
     worksheetKey,
-    page: initialPage,
-    setPage: initialSetPage,
+    page,
+    onPageChange,
     lastPageChildren,
     readOnly,
   } = props;
   
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  const [ page, _setPage ] = useStableState(typeof initialPage === 'number' ? initialPage : 1);
-  const setPage = (index: number) => {
-    (initialSetPage ?? _setPage)(index);
-  };
   
   const setPageSheets = useCallback((newPageHeader: NewPageSheetType | null, newPageSheetContent: BodyWorksheetType[]) => {
     const newSheetsInPages = [ ...sheetsInPages ];
@@ -98,7 +92,11 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
                 setSheets(newSheets);
               }
               if (page > 1 && page === pages) {
-                setPage(Math.max(page, 1));
+                onPageChange(
+                  Math.max(page, 1),
+                  1,
+                  { name: QueryParamKey.PAGE_FOCUS, value: 'jk-worksheet-viewer-container' },
+                );
               }
             }}
             disabled={pages <= 1}
@@ -120,7 +118,11 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         <Button
           className="next-button"
           type="light"
-          onClick={() => setPage(page + 1)}
+          onClick={() => onPageChange(
+            page + 1,
+            1,
+            { name: QueryParamKey.PAGE_FOCUS, value: 'jk-worksheet-viewer-container' },
+          )}
           expand
         >
           <T className="tt-se">next page</T>
