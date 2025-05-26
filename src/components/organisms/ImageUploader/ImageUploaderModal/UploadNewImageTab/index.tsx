@@ -1,9 +1,9 @@
 import { Status } from '@juki-team/commons';
 import React, { memo, useState } from 'react';
-import { handleUploadImage, toBlob } from '../../../../../helpers';
+import { classNames, handleUploadImage, toBlob } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks';
 import { NotificationType } from '../../../../../types';
-import { Button, CopyToClipboard, InputCheckbox, T } from '../../../../atoms';
+import { Button, CopyToClipboard, InputToggle, T } from '../../../../atoms';
 import { ButtonLoader, ImageLoaderCropper } from '../../../../molecules';
 import { CropImageType } from '../../../../molecules/types';
 import { onPickImageUrlType } from '../../types';
@@ -58,7 +58,12 @@ export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl, onUploaded
           )}
         </div>
       )}
-      <InputCheckbox checked={isPublic} label={isPublic ? <T>public</T> : <T>not public</T>} onChange={setIsPublic} />
+      <InputToggle
+        checked={isPublic}
+        leftLabel={<T className={classNames('tt-se', { 'fw-bd': !isPublic })}>not public</T>}
+        rightLabel={<T className={classNames('tt-se', { 'fw-bd': isPublic })}>public</T>}
+        onChange={setIsPublic}
+      />
       <ButtonLoader
         onClick={async (setLoader) => {
           if (cropImage?.previewCanvasRef.current) {
