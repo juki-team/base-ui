@@ -12,6 +12,7 @@ import { useJukiNotification, useStableState } from '../../../../../hooks';
 import { jukiApiSocketManager } from '../../../../../settings';
 import { T } from '../../../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../../../molecules';
+import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { ResultHeader } from '../ResultHeader';
@@ -96,9 +97,7 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
               </ButtonLoader>
             </ResultHeader>
           )}
-          {!!content.title && (
-            <div className="jk-row left"><p className="tt-se cr-th tx-l fw-bd">{content.title}</p></div>
-          )}
+          <ChunkTitle content={content} />
           <QuizOptionsSheetSectionView
             content={content}
             checkedOptions={checkedOptions}

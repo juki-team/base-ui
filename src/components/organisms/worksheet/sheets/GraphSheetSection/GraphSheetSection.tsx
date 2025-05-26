@@ -2,6 +2,7 @@ import { GraphSheetType, WorksheetType } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { useStableState } from '../../../../../hooks';
 import { FloatToolbar } from '../../../../molecules';
+import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { SheetSection } from '../types';
@@ -41,9 +42,7 @@ export const GraphSheetSection = (props: GraphSheetSectionProps) => {
         <GraphSheetSectionEditor content={content} setContent={setContent} />
       ) : (
         <div className="jk-col stretch gap nowrap graph-sheet-section-view wh-100">
-          {!!content.title && (
-            <div className="jk-row left"><p className="tt-se cr-th tx-l fw-bd">{content.title}</p></div>
-          )}
+          <ChunkTitle content={content} />
           <GraphSheetSectionView content={content} />
         </div>
       )}

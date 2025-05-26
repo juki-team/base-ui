@@ -4,6 +4,7 @@ import { useStableState } from '../../../../../hooks';
 import { T } from '../../../../atoms';
 import { CheckIcon } from '../../../../atoms/server';
 import { FloatToolbar } from '../../../../molecules';
+import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { ResultHeader } from '../ResultHeader';
@@ -60,9 +61,7 @@ export const QuizProblemSheetSection = (props: QuizProblemSheetSectionProps) => 
                 {!!lastSubmission?.isCompleted && <><CheckIcon size="tiny" /> <T className="tt-se">resolved</T></>}
               </ResultHeader>
             )}
-            {!!content.title && (
-              <div className="jk-row left"><p className="tt-se cr-th tx-l fw-bd">{content.title}</p></div>
-            )}
+            <ChunkTitle content={content} />
             {content.problemKey ? (
               <QuizProblemSheetSectionView
                 content={content}

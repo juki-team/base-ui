@@ -13,6 +13,7 @@ import { jukiApiSocketManager } from '../../../../../settings';
 import { InputCheckbox, T } from '../../../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../../../molecules';
 import { MdMathViewer } from '../../../mdMath/MdMathViewer';
+import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { ResultHeader } from '../ResultHeader';
@@ -94,9 +95,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
                 </ButtonLoader>
               </ResultHeader>
             )}
-            {!!content.title && (
-              <div className="jk-row left"><p className="tt-se cr-th tx-l fw-bd">{content.title}</p></div>
-            )}
+            <ChunkTitle content={content} />
             {!!text && (
               <div className="bc-we jk-br-ie jk-pg wh-100"><MdMathViewer source={text} /></div>
             )}
