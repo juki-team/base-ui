@@ -69,32 +69,35 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
         <div className="jk-col stretch gap quiz-options-sheet-section-view wh-100 pn-re">
           {isSolvable && !setSheet && (
             <ResultHeader
+              submitted={!!lastSubmission}
               points={content.points}
               userPoints={lastSubmission?.points ?? 0}
               isResolved={!!lastSubmission?.isCompleted}
             >
-              <ButtonLoader
-                type="light"
-                size="small"
-                expand
-                onClick={async (setLoaderStatus) => {
-                  setLoaderStatus(Status.LOADING);
-                  const jkMdSubmissionDTO: QuizOptionsSubmissionDTO = {
-                    type: WorksheetType.QUIZ_OPTIONS,
-                    id: content.id,
-                    checkedOptions,
-                  };
-                  const { url, ...options } = jukiApiSocketManager.API_V1.worksheet.submitQuizOptions({
-                    params: { worksheetKey },
-                    body: jkMdSubmissionDTO,
-                  });
-                  const response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
-                  await userResults?.mutate?.();
-                  notifyResponse(response, setLoaderStatus);
-                }}
-              >
-                <T className="tt-se">save</T>
-              </ButtonLoader>
+              {!readOnly && (
+                <ButtonLoader
+                  type="light"
+                  size="small"
+                  expand
+                  onClick={async (setLoaderStatus) => {
+                    setLoaderStatus(Status.LOADING);
+                    const jkMdSubmissionDTO: QuizOptionsSubmissionDTO = {
+                      type: WorksheetType.QUIZ_OPTIONS,
+                      id: content.id,
+                      checkedOptions,
+                    };
+                    const { url, ...options } = jukiApiSocketManager.API_V1.worksheet.submitQuizOptions({
+                      params: { worksheetKey },
+                      body: jkMdSubmissionDTO,
+                    });
+                    const response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
+                    await userResults?.mutate?.();
+                    notifyResponse(response, setLoaderStatus);
+                  }}
+                >
+                  <T className="tt-se">save</T>
+                </ButtonLoader>
+              )}
             </ResultHeader>
           )}
           <ChunkTitle content={content} />

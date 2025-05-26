@@ -34,6 +34,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
     setSheet,
     worksheetKey,
     isSolvable,
+    readOnly,
     userResults,
   } = props;
   
@@ -64,35 +65,38 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
           <div className="jk-col gap stretch jk-md-sheet-section-view wh-100 pn-re">
             {isSolvable && !setSheet && text && (
               <ResultHeader
+                submitted={!!lastSubmission}
                 points={content.points}
                 userPoints={lastSubmission?.points ?? 0}
                 isResolved={!!lastSubmission?.isCompleted}
               >
-                <ButtonLoader
-                  type="light"
-                  expand
-                  size="small"
-                  data-tooltip-id="jk-tooltip"
-                  data-tooltip-content={!!lastSubmission?.read ? 'mark as unread' : 'mark as read'}
-                  onClick={async (setLoaderStatus) => {
-                    setLoaderStatus(Status.LOADING);
-                    const jkMdSubmissionDTO: JkmdSubmissionDTO = {
-                      type: WorksheetType.JK_MD,
-                      id: content.id,
-                      read: !lastSubmission?.read,
-                    };
-                    const { url, ...options } = jukiApiSocketManager.API_V1.worksheet.submitJkMd({
-                      params: { worksheetKey },
-                      body: jkMdSubmissionDTO,
-                    });
-                    const response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
-                    await userResults?.mutate?.();
-                    notifyResponse(response, setLoaderStatus);
-                  }}
-                  icon={<InputCheckbox checked={!!lastSubmission?.read} onChange={() => null} />}
-                >
-                  <T className="tt-se">{!!lastSubmission?.read ? '_read' : 'unread'}</T>
-                </ButtonLoader>
+                {!readOnly && (
+                  <ButtonLoader
+                    type="light"
+                    expand
+                    size="small"
+                    data-tooltip-id="jk-tooltip"
+                    data-tooltip-content={!!lastSubmission?.read ? 'mark as unread' : 'mark as read'}
+                    onClick={async (setLoaderStatus) => {
+                      setLoaderStatus(Status.LOADING);
+                      const jkMdSubmissionDTO: JkmdSubmissionDTO = {
+                        type: WorksheetType.JK_MD,
+                        id: content.id,
+                        read: !lastSubmission?.read,
+                      };
+                      const { url, ...options } = jukiApiSocketManager.API_V1.worksheet.submitJkMd({
+                        params: { worksheetKey },
+                        body: jkMdSubmissionDTO,
+                      });
+                      const response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
+                      await userResults?.mutate?.();
+                      notifyResponse(response, setLoaderStatus);
+                    }}
+                    icon={<InputCheckbox checked={!!lastSubmission?.read} onChange={() => null} />}
+                  >
+                    <T className="tt-se">{!!lastSubmission?.read ? '_read' : 'unread'}</T>
+                  </ButtonLoader>
+                )}
               </ResultHeader>
             )}
             <ChunkTitle content={content} />

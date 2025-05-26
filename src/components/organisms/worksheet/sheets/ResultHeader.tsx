@@ -7,9 +7,12 @@ interface ResultHeaderProps {
   points: number,
   userPoints: number,
   isResolved: boolean,
+  submitted: boolean,
 }
 
-export const ResultHeader = ({ isResolved, points, userPoints, children }: PropsWithChildren<ResultHeaderProps>) => {
+export const ResultHeader = (props: PropsWithChildren<ResultHeaderProps>) => {
+  
+  const { isResolved, submitted, points, userPoints, children } = props;
   
   const { viewPortSize } = useJukiUI();
   const isSmallPortSize = viewPortSize === 'sm';
@@ -26,8 +29,15 @@ export const ResultHeader = ({ isResolved, points, userPoints, children }: Props
     >
       <div className="jk-pg-sm jk-col gap stretch space-between result-header sticky-top">
         {!!points && (
-          <div className={classNames('jk-tag tx-s ws-np', { success: isResolved, 'gray-6': !isResolved })}>
-            {userPoints.toFixed(2)}{' '}<T>{userPoints === 1 ? 'pt' : 'pts'}</T>
+          <div
+            className={classNames('jk-tag tx-s ws-np', {
+              success: isResolved,
+              'gray-6': !submitted,
+              'warning': userPoints > 0 && !isResolved && submitted,
+              'error': userPoints === 0 && !isResolved && submitted,
+            })}
+          >
+            {+userPoints.toFixed(2)}{' '}<T>{userPoints === 1 ? 'pt' : 'pts'}</T>
             {' / '}
             {points}{' '}<T>{points === 1 ? 'pt' : 'pts'}</T>
           </div>

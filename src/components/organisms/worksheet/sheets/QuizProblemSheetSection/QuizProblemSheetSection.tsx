@@ -54,6 +54,7 @@ export const QuizProblemSheetSection = (props: QuizProblemSheetSectionProps) => 
           <div className="jk-col gap stretch center quiz-problem-sheet-section-view wh-100 pn-re">
             {isSolvable && !setSheet && (
               <ResultHeader
+                submitted={!!lastSubmission}
                 points={content.points}
                 userPoints={lastSubmission?.points ?? 0}
                 isResolved={!!lastSubmission?.isCompleted}
