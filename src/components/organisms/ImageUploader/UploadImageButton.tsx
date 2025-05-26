@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, T } from '../../atoms';
 import { CloudUploadIcon } from '../../server';
 import { ImageUploaderModal } from './ImageUploaderModal';
@@ -7,6 +7,8 @@ import { UploadImageButtonChildrenProps, UploadImageButtonProps } from './types'
 export const UploadImageButton = (props: UploadImageButtonProps) => {
   
   const {
+    open,
+    setOpen,
     isOpenRef,
     withLabel = false,
     copyButtons,
@@ -14,7 +16,6 @@ export const UploadImageButton = (props: UploadImageButtonProps) => {
     children: _children,
   } = props;
   
-  const [ open, setOpen ] = useState(false);
   if (isOpenRef) {
     isOpenRef.current = open;
   }

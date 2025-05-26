@@ -1,5 +1,13 @@
 import { Status } from '@juki-team/commons';
-import React, { ClipboardEventHandler, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  ClipboardEventHandler,
+  Dispatch,
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, handleUploadImage } from '../../../helpers';
@@ -16,13 +24,14 @@ import { MdMathEditorProps } from './types';
 import { MemoMdMathViewer } from './viewer/MemoMdMathViewer';
 
 interface InformationButtonProps {
+  open: boolean,
+  setOpen: Dispatch<boolean>,
   isOpenRef?: MutableRefObject<boolean>,
   withLabel: boolean
 }
 
-const InformationButton = ({ isOpenRef, withLabel }: InformationButtonProps) => {
+const InformationButton = ({ open, setOpen, isOpenRef, withLabel }: InformationButtonProps) => {
   
-  const [ open, setOpen ] = useState(false);
   const [ source, setSource ] = useState(SAMPLE_MD_CONTENT);
   useEffect(() => setSource(SAMPLE_MD_CONTENT), [ open ]);
   if (isOpenRef) {
@@ -81,6 +90,8 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
   const [ loader, setLoader ] = useState(Status.NONE);
   const layoutEditorRef = useRef<HTMLDivElement>(null);
   const { addNotification } = useJukiNotification();
+  const [ openUploadModal, setOpenUploadModal ] = useState(false);
+  const [ openInfoModal, setOpenInfoModal ] = useState(false);
   const changeSource = useCallback((newText: string, editing: boolean, view: View) => {
     const fun = () => {
       if (editing && (view === View.ONLY_EDITOR || view === View.EDITOR_VIEWER_VERTICAL || view === View.EDITOR_VIEWER_HORIZONTAL)) {
@@ -153,7 +164,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
   
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (layoutEditorRef.current && !layoutEditorRef.current.contains(event.target as Node)) {
+      if (layoutEditorRef.current && !layoutEditorRef.current.contains(event.target as Node) && !openUploadModal && !openInfoModal) {
         setTimeout(() => {
           setEditing(false);
         }, 0);
@@ -168,7 +179,7 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
         document.removeEventListener('mousedown', handleClickOutside);
       }
     };
-  }, []);
+  }, [ openInfoModal, openUploadModal ]);
   
   return (
     <div
@@ -179,9 +190,17 @@ export const MdMathEditor = (props: MdMathEditorProps) => {
         <>
           <div className="content-bar-options jk-row space-between jk-br-ie jk-pg-xsm sticky-top bc-we">
             <div className={classNames('jk-row gap left', { gap: !withLabels })}>
-              {informationButton && <InformationButton withLabel={withLabels} />}
+              {informationButton && (
+                <InformationButton
+                  open={openInfoModal}
+                  setOpen={setOpenInfoModal}
+                  withLabel={withLabels}
+                />
+              )}
               {uploadImageButton && (
                 <UploadImageButton
+                  open={openUploadModal}
+                  setOpen={setOpenUploadModal}
                   withLabel={withLabels}
                   copyButtons
                 />
