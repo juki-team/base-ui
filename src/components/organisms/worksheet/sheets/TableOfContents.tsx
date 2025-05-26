@@ -21,7 +21,10 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
         const subTitles = content.filter(chunk => !!chunk.title.trim());
         
         return (
-          <div className={classNames('jk-col stretch jk-br-ie', { 'bc-hl': page === index + 1 })}>
+          <div
+            className={classNames('jk-col stretch jk-br-ie', { 'br-hl': page === index + 1 })}
+            style={{ border: page === index + 1 ? undefined : '1px solid transparent' }}
+          >
             <Collapse
               header={({ toggle, icon }) => (
                 <div
@@ -37,13 +40,23 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                   })}
                 >
                   {header.title}
-                  {!!subTitles.length && <div onClick={toggle} className="jk-row">{icon}</div>}
+                  {!!subTitles.length && (
+                    <div
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        toggle();
+                      }}
+                      className="jk-row"
+                    >
+                      {icon}
+                    </div>
+                  )}
                 </div>
               )}
               startsShowing
             >
               {!!subTitles.length && (
-                <div className="jk-pg-sm jk-br-ie">
+                <div className="jk-col stretch gap jk-pg-xsm-trb jk-pg-l jk-br-ie">
                   {subTitles.map((chunk, subIndex) => {
                     return (
                       <div
