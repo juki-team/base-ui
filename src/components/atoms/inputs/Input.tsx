@@ -92,6 +92,9 @@ const InputComponent = <T extends string | number | FileList, >(_props: CmpInput
     icon,
     labelPlacement = 'top-border',
     required = false,
+    className,
+    inputClassName,
+    labelClassName,
     ...props
   } = _props;
   
@@ -99,15 +102,15 @@ const InputComponent = <T extends string | number | FileList, >(_props: CmpInput
   
   return (
     <div
-      className={classNames(`jk-input-${type}-wrapper`, {
+      className={classNames(`jk-input-${type}-wrapper`, className, {
         expand,
         [`label-${labelPlacement}`]: true,
         required,
         'no-label': !inputLabel,
       })}
     >
-      <BasicInput {...props} inputId={id} type={type} required={required} ref={ref} />
-      <label htmlFor={`input-${id}`}>
+      <BasicInput {...props} className={inputClassName} inputId={id} type={type} required={required} ref={ref} />
+      <label htmlFor={`input-${id}`} className={labelClassName}>
         {inputLabel}{labelPlacement === 'left' ? <>:&nbsp;</> : ''}
       </label>
       {icon}
