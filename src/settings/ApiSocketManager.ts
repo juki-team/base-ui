@@ -68,6 +68,8 @@ const getQueryToken = () => {
 };
 
 export class ApiSocketManager {
+  private _eventListeners: { [key: string]: Function[] } = {};
+  
   private _SERVICE_API_V1_URL = '';
   
   get SERVICE_API_V1_URL(): string {
@@ -938,6 +940,12 @@ export class ApiSocketManager {
     this._SERVICE_API_V1_URL = serviceApiUrl;
     this._SERVICE_API_V2_URL = serviceApiV2Url;
     this._TOKEN_NAME = tokenName;
+    
+    this.emit('apiSettingsChanged', {
+      serviceApiUrl,
+      serviceApiV2Url,
+      tokenName,
+    });
   }
   
   setSocketSettings(socketServiceUrl: string) {
@@ -945,5 +953,26 @@ export class ApiSocketManager {
     
     this._SOCKET_SERVICE_URL = socketServiceUrl;
     this._SOCKET = new JukiWebSocketManagement(socketServiceUrl);
+    
+    this.emit('socketSettingsChanged', {
+      socketServiceUrl,
+    });
+  }
+  
+  on(event: string, callback: Function) {
+    if (!this._eventListeners[event]) {
+      this._eventListeners[event] = [];
+    }
+    this._eventListeners[event].push(callback);
+  }
+  
+  off(event: string, callback: Function) {
+    if (this._eventListeners[event]) {
+      this._eventListeners[event] = this._eventListeners[event].filter(cb => cb !== callback);
+    }
+  }
+  
+  private emit(event: string, ...args: any[]) {
+    this._eventListeners[event]?.forEach(cb => cb(...args));
   }
 }
