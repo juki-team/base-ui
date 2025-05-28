@@ -32,7 +32,7 @@ export const SubmissionRejudgeButton = ({ submissionId }: SubmissionRejudgeButto
       icon={<RefreshIcon />}
       type="light"
     >
-      <T>rejudge</T>
+      <T className="tt-se">rejudge</T>
     </ButtonLoader>
   );
 };

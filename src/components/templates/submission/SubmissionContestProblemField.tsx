@@ -1,6 +1,6 @@
 import React from 'react';
 import { getJudgeOrigin } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI, useUserStore } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { ContestTab } from '../../../types';
 import { TextField } from '../../organisms';
@@ -15,8 +15,9 @@ export const SubmissionContestProblemField = (props: SubmissionContestProblemFie
   } = props;
   
   const { components: { Link } } = useJukiUI();
+  const userCompanyKey = useUserStore(state => state.company.key);
   
-  const origin = getJudgeOrigin(contest ? contest.company.key : problemCompanyKey);
+  const origin = getJudgeOrigin(contest ? contest.company.key : problemCompanyKey, userCompanyKey);
   
   return (
     <TextField
