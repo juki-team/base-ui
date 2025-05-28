@@ -61,7 +61,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     }
     let preferredLanguage: Language = localStorage.getItem(ProfileSetting.LANGUAGE) as Language;
     if (preferredLanguage !== Language.EN && preferredLanguage !== Language.ES) {
-      preferredLanguage = Language.EN;
+      preferredLanguage = Language.ES;
     }
     let preferredTheme: Theme = localStorage.getItem(ProfileSetting.THEME) as Theme;
     if (preferredTheme !== Theme.DARK && preferredTheme !== Theme.LIGHT) {

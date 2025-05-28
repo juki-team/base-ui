@@ -17,8 +17,8 @@ enum TestPath {
 const i18nInstance = createInstance() as i18n;
 
 const i18nConfig = {
-  locales: [ Language.EN, Language.ES ],
-  defaultLocale: Language.EN,
+  locales: [ Language.ES, Language.EN ],
+  defaultLocale: Language.ES,
   namespaces: [ 'translation' ],
 };
 
