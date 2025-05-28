@@ -112,8 +112,8 @@ export const isJudgeWindowLocation = () => {
   );
 };
 
-export const getJudgeOrigin = (companyKey: string) => {
-  if (isJudgeWindowLocation()) {
+export const getJudgeOrigin = (companyKey: string, userCompanyKey?: string) => {
+  if (isJudgeWindowLocation() || userCompanyKey === companyKey) {
     return '';
   }
   let origin = `https://${companyKey}.jukijudge.com`;

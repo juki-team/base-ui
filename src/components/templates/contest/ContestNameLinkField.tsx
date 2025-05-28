@@ -1,6 +1,6 @@
 import React from 'react';
 import { classNames, getJudgeOrigin } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI, useUserStore } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { Field } from '../../organisms';
 import { CheckIcon, OpenInNewIcon, VoidIcon } from '../../server';
@@ -11,8 +11,9 @@ export const ContestNameLinkField = (props: ContestNameLinkFieldProps) => {
   const { record: { name, key, user, company: { key: companyKey } }, isCard } = props;
   
   const { components: { Link } } = useJukiUI();
+  const userCompanyKey = useUserStore(state => state.company.key);
   
-  const origin = getJudgeOrigin(companyKey);
+  const origin = getJudgeOrigin(companyKey, userCompanyKey);
   
   return (
     <Field className="jk-row left block">
