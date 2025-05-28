@@ -227,7 +227,7 @@ export class ApiSocketManager {
           body: JSON.stringify(body),
         })),
         createUser: valid<
-          { params?: { companyKey: string }, body: SignUpPayloadDTO },
+          { params?: { companyKey: string }, body: SignUpPayloadDTO & { overwrite: boolean } },
           HTTPMethod.POST
         >(({ params: { companyKey } = {}, body }) => ({
           url: injectCompany(injectBaseUrl('auth', '/sign-up'), companyKey),

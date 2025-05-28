@@ -102,7 +102,7 @@ export const useJukiUser = () => {
   const createUser = useCallback(async (
     { params, body, ...props }: ApiParamsBodyType<{
       companyKey: string
-    } | undefined, SignUpPayloadDTO, PingResponseDTO>,
+    } | undefined, SignUpPayloadDTO & { overwrite: boolean }, PingResponseDTO>,
   ) => {
     const { url, ...options } = jukiApiSocketManager.API_V1.auth.createUser({ params, body });
     await doRequest<PingResponseDTO, HTTPMethod.POST>({ url, options, ...props });
