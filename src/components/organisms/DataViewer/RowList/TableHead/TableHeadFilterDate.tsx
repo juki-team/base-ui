@@ -47,7 +47,7 @@ export const TableHeadFilterDate = (props: TableHeadFilterDateProps) => {
       />
       <div className="jk-row right gap buttons">
         <Button size="tiny" type="light" onClick={onReset} disabled={!initialSelectedDate?.isValidDate()}>
-          <T>reset</T>
+          <T className="tt-se">reset</T>
         </Button>
         <Button
           size="tiny"
@@ -55,7 +55,7 @@ export const TableHeadFilterDate = (props: TableHeadFilterDateProps) => {
           disabled={!value?.isValidDate()}
           ref={buttonRef}
         >
-          <T>filter</T>
+          <T className="tt-se">filter</T>
         </Button>
       </div>
     </div>

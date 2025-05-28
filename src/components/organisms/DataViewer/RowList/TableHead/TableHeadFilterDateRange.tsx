@@ -66,7 +66,7 @@ export const TableHeadFilterDateRange = (props: TableHeadFilterDateRangeProps) =
           size="tiny" type="light" onClick={onReset}
           disabled={!(initialStartSelectedDate && initialEndSelectedDate && initialStartSelectedDate?.isValidDate() && initialEndSelectedDate?.isValidDate())}
         >
-          <T>reset</T>
+          <T className="tt-se">reset</T>
         </Button>
         <Button
           size="tiny"
@@ -78,7 +78,7 @@ export const TableHeadFilterDateRange = (props: TableHeadFilterDateRangeProps) =
           disabled={!(start && end && start?.isValidDate() && end?.isValidDate())}
           ref={buttonRef}
         >
-          <T>filter</T>
+          <T className="tt-se">filter</T>
         </Button>
       </div>
     </div>

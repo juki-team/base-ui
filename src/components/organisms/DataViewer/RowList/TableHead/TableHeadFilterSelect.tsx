@@ -28,7 +28,14 @@ export const TableHeadFilterSelect = (props: TableHeadFilterSelectProps) => {
   return (
     <div className="jk-col gap stretch jk-table-head-cell-filter-select jk-pg-sm">
       <div className="checkbox-list">
-        <CheckboxList options={options} selectedOptions={selectedOptions} onSelectOptions={setSelectedOptions} />
+        <CheckboxList
+          options={options.map(option => ({
+            ...option,
+            label: typeof option.label === 'string' ? <T className="tt-se">{option.label}</T> : option.label,
+          }))}
+          selectedOptions={selectedOptions}
+          onSelectOptions={setSelectedOptions}
+        />
       </div>
       <div className="jk-row right gap">
         <Button
@@ -37,7 +44,7 @@ export const TableHeadFilterSelect = (props: TableHeadFilterSelectProps) => {
           onClick={onReset}
           disabled={!initialSelectedOptions.length}
         >
-          <T>reset</T>
+          <T className="tt-se">reset</T>
         </Button>
         <Button
           size="tiny"
@@ -45,7 +52,7 @@ export const TableHeadFilterSelect = (props: TableHeadFilterSelectProps) => {
           disabled={JSON.stringify(initialSelectedOptions.map(({ value }) => value)) === JSON.stringify(selectedOptions.map(({ value }) => value))}
           ref={buttonRef}
         >
-          <T>filter</T>
+          <T className="tt-se">filter</T>
         </Button>
       </div>
     </div>

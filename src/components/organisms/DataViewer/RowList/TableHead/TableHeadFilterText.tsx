@@ -38,10 +38,10 @@ export const TableHeadFilterText = (props: TableHeadFilterTextProps) => {
           onClick={onReset}
           disabled={initialText === ''}
         >
-          <T>reset</T>
+          <T className="tt-se">reset</T>
         </Button>
         <Button size="tiny" onClick={() => onFilter({ columnIndex, text: value })} disabled={initialText === value}>
-          <T>filter</T>
+          <T className="tt-se">filter</T>
         </Button>
       </div>
     </div>

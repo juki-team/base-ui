@@ -16,9 +16,9 @@ export const NewVersionAvailableModal = (props: NewVersionAvailableModalProps) =
   return (
     <TwoActionModal
       {...restProps}
-      secondary={{ label: <T>cancel</T>, onClick: props.onClose }}
-      primary={{ label: <T>reload</T>, onClick: reload }}
-      title={<div><T>attention</T></div>}
+      secondary={{ label: <T className="tt-se">cancel</T>, onClick: props.onClose }}
+      primary={{ label: <T className="tt-se">reload</T>, onClick: reload }}
+      title={<div><T className="tt-se">attention</T></div>}
       className="jk-pg"
     >
       <div className="jk-col gap left stretch">
