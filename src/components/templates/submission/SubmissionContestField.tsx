@@ -22,7 +22,7 @@ export const SubmissionContestField = (props: SubmissionContestFieldProps) => {
         <Link
           href={jukiAppRoutes.JUDGE(origin).contests.view({
             key: contest.key,
-            tab: ContestTab.PROBLEM,
+            tab: ContestTab.PROBLEMS,
             subTab: contest.problemIndex,
           })}
           target={origin ? '_blank' : undefined}
