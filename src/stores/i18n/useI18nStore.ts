@@ -27,21 +27,25 @@ export const useI18nStore = create<I18nState>((set) => ({
     }
   },
   loadResources: async (namespace = 'translation') => {
-    const [ dataEN, dataES ] = await Promise.all([
-      fetch(jukiApiSocketManager.API_V1.locale.get({
-        params: { locale: Language.EN, namespace },
-      }).url).then(res => res.json()),
-      fetch(jukiApiSocketManager.API_V1.locale.get({
-        params: { locale: Language.ES, namespace },
-      }).url).then(res => res.json()),
-    ]);
-    i18nInstance.addResourceBundle(Language.EN, namespace, dataEN);
-    i18nInstance.addResourceBundle(Language.ES, namespace, dataES);
-    set({
-      i18n: {
-        ...i18nInstance,
-        t: ((...args: Parameters<i18n['t']>) => i18nInstance.t(...args)) as i18n['t'],
-      },
-    });
+    try {
+      const [ dataEN, dataES ] = await Promise.all([
+        fetch(jukiApiSocketManager.API_V1.locale.get({
+          params: { locale: Language.EN, namespace },
+        }).url).then(res => res.json()),
+        fetch(jukiApiSocketManager.API_V1.locale.get({
+          params: { locale: Language.ES, namespace },
+        }).url).then(res => res.json()),
+      ]);
+      i18nInstance.addResourceBundle(Language.EN, namespace, dataEN);
+      i18nInstance.addResourceBundle(Language.ES, namespace, dataES);
+      set({
+        i18n: {
+          ...i18nInstance,
+          t: ((...args: Parameters<i18n['t']>) => i18nInstance.t(...args)) as i18n['t'],
+        },
+      });
+    } catch (error) {
+      console.error('error on load resources', { error });
+    }
   },
 }));
