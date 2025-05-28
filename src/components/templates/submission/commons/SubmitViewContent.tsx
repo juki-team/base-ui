@@ -8,8 +8,9 @@ import {
 import React from 'react';
 import { getJudgeOrigin } from '../../../../helpers';
 import { hasTimeHasMemory } from '../../../../helpers/submission';
-import { useJukiUI } from '../../../../hooks';
+import { useJukiUI, useUserStore } from '../../../../hooks';
 import { jukiAppRoutes } from '../../../../settings';
+import { ContestTab } from '../../../../types';
 import { Collapse, DateLiteral, T } from '../../../atoms';
 import { CodeViewer, Timer } from '../../../molecules';
 import { UserChip } from '../../../organisms';
@@ -43,6 +44,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
     verdictByGroups,
     compilationResult,
     judgmentTime,
+    contest,
   } = submit;
   
   const date = new Date(timestamp);
@@ -65,7 +67,8 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
     && compilationResult?.success === false;
   
   const { components: { Link } } = useJukiUI();
-  const origin = getJudgeOrigin(submit.problem.company.key);
+  const userCompanyKey = useUserStore(state => state.company.key);
+  const origin = getJudgeOrigin(submit.problem.company.key, userCompanyKey);
   
   return (
     <div className="jk-col stretch gap">
@@ -80,9 +83,27 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
             </div>
             <div className="jk-col">
               <div className="jk-row">
-                <Link className="link" href={jukiAppRoutes.JUDGE(origin).problems.view({ key: submit.problem.key })}>
-                  <div>{submit.problem.key}</div>
-                </Link>
+                {contest ? (
+                  <Link
+                    href={jukiAppRoutes.JUDGE(origin).contests.view({
+                      key: contest.key,
+                      tab: ContestTab.PROBLEMS,
+                      subTab: contest.problemIndex,
+                    })}
+                    target={origin ? '_blank' : undefined}
+                    className="link"
+                  >
+                    <div>{submit.problem.key}</div>
+                  </Link>
+                ) : (
+                  <Link
+                    href={jukiAppRoutes.JUDGE(origin).problems.view({ key: submit.problem.key })}
+                    target={origin ? '_blank' : undefined}
+                    className="link"
+                  >
+                    <div>{submit.problem.key}</div>
+                  </Link>
+                )}
               </div>
               <T className="fw-bd tt-se">problem</T>
             </div>
