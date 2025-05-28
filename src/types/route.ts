@@ -16,6 +16,8 @@ export enum QueryParamKey {
   SORT_TABLE = 's',
   FILTER_TABLE = 'f',
   VIEW_MODE_TABLE = 'v',
+  // users table
+  LOGGED_USERS_TABLE = 'lut',
 }
 
 export type RequestSortType = { [key: string]: 1 | -1 };

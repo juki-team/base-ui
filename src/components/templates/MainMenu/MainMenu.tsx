@@ -23,6 +23,14 @@ import { SignUpModal } from './signup';
 import { MainMenuProps } from './types';
 import { WelcomeModal } from './WelcomeModal';
 
+const LOGO_SIZE = {
+  '': 160,
+  'sm': 80,
+  'md': 120,
+  'lg': 160,
+  'hg': 192,
+};
+
 export const MainMenu = (props: MainMenuProps) => {
   
   const {
@@ -183,8 +191,8 @@ export const MainMenu = (props: MainMenuProps) => {
             <Image
               src={isOpen ? logoImageUrl : logoImageUrl.replace('horizontal', 'vertical')}
               alt={name}
-              height={isOpen ? 60 : 80}
-              width={isOpen ? 120 : 40}
+              height={isOpen ? LOGO_SIZE[viewPortSize] / 2 : 80}
+              width={isOpen ? LOGO_SIZE[viewPortSize] : 40}
             />
           )}
       </div>

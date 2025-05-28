@@ -14,9 +14,11 @@ import { PageNotFoundProps } from './PageNotFound/types';
 import { ProblemInfoProps } from './ProblemView/types';
 import { ProblemViewProps } from './ProblemView/types';
 import { ResetPasswordModalProps } from './ResetPasswordModal/types';
+import { UserMyActiveSessionsProps } from './UserActiveSessions/types';
 import { UserPreviewModalProps } from './UserPreviewModal/types';
 import { UserProfileProps } from './UserProfile/types';
 import { UserProfileSettingsProps } from './UserProfileSettings/types';
+import { UserViewLayoutProps } from './UserViewLayout/types';
 import { ContestNameLinkFieldProps } from './contest/types';
 import { CreateEntityLayoutProps } from './entity/types';
 import { UpdateEntityLayoutProps } from './entity/types';
@@ -149,6 +151,14 @@ export const ResetPasswordModal = (props: ResetPasswordModalProps) => (
   </Suspense>
 );
 
+const UserMyActiveSessionsImport = () => import('./UserActiveSessions/UserMyActiveSessions');
+const LazyUserMyActiveSessions = lazy(() => UserMyActiveSessionsImport().then(module => ({ default: module.UserMyActiveSessions })));
+export const UserMyActiveSessions = (props: UserMyActiveSessionsProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyUserMyActiveSessions {...props} />
+  </Suspense>
+);
+
 const UserPreviewModalImport = () => import('./UserPreviewModal/UserPreviewModal');
 const LazyUserPreviewModal = lazy(() => UserPreviewModalImport().then(module => ({ default: module.UserPreviewModal })));
 export const UserPreviewModal = (props: UserPreviewModalProps) => (
@@ -170,6 +180,14 @@ const LazyUserProfileSettings = lazy(() => UserProfileSettingsImport().then(modu
 export const UserProfileSettings = (props: UserProfileSettingsProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyUserProfileSettings {...props} />
+  </Suspense>
+);
+
+const UserViewLayoutImport = () => import('./UserViewLayout/UserViewLayout');
+const LazyUserViewLayout = lazy(() => UserViewLayoutImport().then(module => ({ default: module.UserViewLayout })));
+export const UserViewLayout = (props: UserViewLayoutProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyUserViewLayout {...props} />
   </Suspense>
 );
 
@@ -397,9 +415,11 @@ export const preloadTemplates = async () => {
   await ProblemInfoImport();
   await ProblemViewImport();
   await ResetPasswordModalImport();
+  await UserMyActiveSessionsImport();
   await UserPreviewModalImport();
   await UserProfileImport();
   await UserProfileSettingsImport();
+  await UserViewLayoutImport();
   await ContestNameLinkFieldImport();
   await CreateEntityLayoutImport();
   await UpdateEntityLayoutImport();
