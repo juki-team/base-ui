@@ -295,7 +295,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   
   return (
     <div className="jk-code-mirror-editor-test-cases jk-row stretch nowrap">
-      <div className="jk-col nowrap stretch top tx-t border-right-highlight-light ow-ao">
+      <div className="jk-col nowrap stretch top tx-t border-right-highlight-light test-cases-header ow-ao">
         <div className="jk-row ta-cr fw-bd jk-pg-xsm-tb border-bottom-highlight-light">
           <T className="tt-se" style={{ width: 48 }}>test cases</T>
         </div>
