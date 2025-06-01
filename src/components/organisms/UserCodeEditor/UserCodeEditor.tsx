@@ -200,14 +200,17 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   }, [ onTestCasesChange, testCases ]);
   
   const mergeSources: (a: SourcesStoreType, b: SourcesStoreType | undefined) => SourcesStoreType = (a: SourcesStoreType, b: SourcesStoreType | undefined): SourcesStoreType => {
-    return { ...b, ...a };
-  };
-  const newInitialSource: StorageType<SourcesStoreType> = { [storeKey]: { ...initialSource, key: storeKey } };
-  for (const { value } of JSON.parse(languagesString)) {
-    if (!newInitialSource[storeKey][value]) {
-      newInitialSource[storeKey][value] = PROGRAMMING_LANGUAGE[value as ProgrammingLanguage]?.templateSourceCode || '';
+    const newValue = { ...b, ...a };
+    for (const { value } of JSON.parse(languagesString)) {
+      if (!newValue[value]) {
+        newValue[value] = PROGRAMMING_LANGUAGE[value as ProgrammingLanguage]?.templateSourceCode || '';
+      }
     }
-  }
+    return newValue;
+  };
+  
+  const newInitialSource: StorageType<SourcesStoreType> = { [storeKey]: { ...initialSource, key: storeKey } };
+  
   const [ sourceStore, setSourceStore ] = useSaveChunkStorage<SourcesStoreType>(getSourcesStoreKey(userNickname), newInitialSource, mergeSources);
   
   const sourceCode = sourceStore[storeKey]?.[language as string] || '';
