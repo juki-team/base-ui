@@ -562,7 +562,6 @@ export class ApiSocketManager {
         >(({ params: { page, pageSize, filterUrl, sortUrl, withSourceCodes } }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', `/summary-list-export${withSourceCodes ? '?withSourceCodes=true' : ''}`), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
-          responseType: 'blob',
         })),
         getData: valid<
           { params: { id: string } }
