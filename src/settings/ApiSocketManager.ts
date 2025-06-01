@@ -556,9 +556,11 @@ export class ApiSocketManager {
           method: HTTPMethod.GET,
         })),
         getExportSummaryList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/summary-list-export'), page, pageSize), filterUrl), sortUrl),
+          {
+            params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string, withSourceCodes?: boolean }
+          }
+        >(({ params: { page, pageSize, filterUrl, sortUrl, withSourceCodes } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', `/summary-list-export${withSourceCodes ? '?withSourceCodes=true' : ''}`), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
           responseType: 'blob',
         })),
