@@ -15,7 +15,7 @@ import { ButtonLoader, FloatToolbar } from '../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
-import { ResultHeader } from '../ResultHeader';
+import { ResultHeaders } from '../ResultHeader';
 import { SheetSection } from '../types';
 import { QuizOptionsSheetSectionEditor } from './QuizOptionsSheetSectionEditor';
 import { QuizOptionsSheetSectionView } from './QuizOptionsSheetSectionView';
@@ -48,7 +48,8 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
   };
   
   const submissions = userResults?.data?.submissions[WorksheetType.QUIZ_OPTIONS]?.[chunkId] ?? [];
-  const lastSubmission = submissions.at(-1);
+  const [ selectedIndex, setSelectedIndex ] = useStableState(submissions.length - 1);
+  const lastSubmission = submissions.at(selectedIndex);
   const [ checkedOptions, setCheckedOptions ] = useStableState<string[]>(lastSubmission?.checkedOptions ?? []);
   
   return (
@@ -68,11 +69,11 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
       ) : (
         <div className="jk-col stretch gap quiz-options-sheet-section-view wh-100 pn-re">
           {isSolvable && !setSheet && (
-            <ResultHeader
-              submitted={!!lastSubmission}
+            <ResultHeaders
+              submissions={submissions}
               points={content.points}
-              userPoints={lastSubmission?.points ?? 0}
-              isResolved={!!lastSubmission?.isCompleted}
+              selectedIndex={selectedIndex}
+              setSelectedIndex={setSelectedIndex}
             >
               {!readOnly && (
                 <ButtonLoader
@@ -98,7 +99,7 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
                   <T className="tt-se">save</T>
                 </ButtonLoader>
               )}
-            </ResultHeader>
+            </ResultHeaders>
           )}
           <ChunkTitle content={content} />
           <QuizOptionsSheetSectionView
