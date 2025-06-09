@@ -1,4 +1,4 @@
-import { getDataOfTestCase } from '@juki-team/commons';
+import { getDataOfTestCase, SubmissionRunStatus } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../../helpers';
 import { T } from '../../../atoms';
@@ -19,28 +19,34 @@ export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
   const memory = <div data-tooltip-id="jk-tooltip" data-tooltip-content="memory used">{memoryUsed} <T>KB</T></div>;
   const code = <div data-tooltip-id="jk-tooltip" data-tooltip-content="exit code">{exitCode}</div>;
   
+  if (testCase.status === SubmissionRunStatus.COMPILATION_ERROR) {
+    return (
+      <div className="border-bottom-highlight-light">
+        <div className="jk-pg-xsm cr-g2 jk-row gap left tx-t" style={{ lineHeight: 1 }}>
+          <span className={classNames('tt-se cr-er')}>
+            <T>compilation error</T>
+        </span>
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <div className="border-bottom-highlight-light">
       <div className="jk-pg-xsm cr-g2 jk-row gap left tx-t" style={{ lineHeight: 1 }}>
+        {timeLimitExceeded && <T className="tt-se cr-er">time limit exceeded</T>}
         <span className={classNames('tt-se', { 'cr-er': timeLimitExceeded })}>
-          {timeLimitExceeded
-            ? <><T>time limit exceeded</T> ({time})</>
-            : time
-          }
+          {time}
         </span>
         |
+        {memoryLimitExceeded && <T className="tt-se cr-er">memory limit exceeded</T>}
         <span className={classNames('tt-se', { 'cr-er': memoryLimitExceeded })}>
-          {memoryLimitExceeded
-            ? <><T>memory limit exceeded</T> ({memory})</>
-            : memory
-          }
+          {memory}
         </span>
         |
+        {runtimeError && !timeLimitExceeded && !memoryLimitExceeded && <T className="tt-se cr-er">runtime error</T>}
         <span className={classNames('tt-se', { 'cr-er': runtimeError })}>
-          {runtimeError && !timeLimit && !memoryLimit
-            ? <><T>runtime error</T> ({code})</>
-            : code
-          }
+          {code}
         </span>
       </div>
     </div>
