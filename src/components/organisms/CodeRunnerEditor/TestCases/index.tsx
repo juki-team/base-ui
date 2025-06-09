@@ -364,7 +364,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
           <T className="tt-se jk-tag info-light">test input hidden</T>
         </div>
       ) : (
-        <SplitPane direction={direction === 'row' ? 'column' : 'row'} className="flex-1">
+        <SplitPane direction={direction === 'row' ? 'column' : 'row'} className="flex-1 ow-hn">
           <div className="jk-col extend stretch nowrap">
             <TabsInline
               tabs={inputTabs}
