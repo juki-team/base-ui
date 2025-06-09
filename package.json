@@ -14,32 +14,32 @@
     ".": {
       "require": "./dist/cjs/main.js",
       "import": "./dist/esm/main.js",
-      "types": "./dist/module-types/index.d.ts"
+      "types": "./dist/module-types/src/index.d.ts"
     },
     "./server-components": {
       "require": "./dist/cjs/server.js",
       "import": "./dist/esm/server.js",
-      "types": "./dist/module-types/components/server/index.d.ts"
+      "types": "./dist/module-types/src/components/server/index.d.ts"
     },
     "./helpers": {
       "require": "./dist/cjs/helpers.js",
       "import": "./dist/esm/helpers.js",
-      "types": "./dist/module-types/helpers/index.d.ts"
+      "types": "./dist/module-types/src/helpers/index.d.ts"
     },
     "./types": {
       "require": "./dist/cjs/types.js",
       "import": "./dist/esm/types.js",
-      "types": "./dist/module-types/types/index.d.ts"
+      "types": "./dist/module-types/src/types/index.d.ts"
     },
     "./constants": {
       "require": "./dist/cjs/constants.js",
       "import": "./dist/esm/constants.js",
-      "types": "./dist/module-types/constants/index.d.ts"
+      "types": "./dist/module-types/src/constants/index.d.ts"
     },
     "./settings": {
       "require": "./dist/cjs/settings.js",
       "import": "./dist/esm/settings.js",
-      "types": "./dist/module-types/settings/index.d.ts"
+      "types": "./dist/module-types/src/settings/index.d.ts"
     },
     "./styles/mixins": {
       "sass": "./dist/styles/_mixins.scss"
@@ -94,9 +94,9 @@
   },
   "peerDependencies": {
     "@juki-team/commons": ">=0.0.722",
-    "motion": "^12.5.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "motion": "^12.16.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "sass": "^1.85.0",
     "xlsx-js-style": "^1.2.0"
   },
