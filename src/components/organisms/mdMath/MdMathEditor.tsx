@@ -11,7 +11,7 @@ import React, {
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, handleUploadImage } from '../../../helpers';
-import { useJukiNotification } from '../../../hooks';
+import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { NotificationType } from '../../../types';
 import { Button, Modal, T, TextArea } from '../../atoms';
 import { SplitPane } from '../../molecules';

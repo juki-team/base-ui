@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
 import { classNames, getHref, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useJukiUI, useStableState } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useStableState } from '../../../hooks/useStableState';
 import { TabsType } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
 import { TabsInline } from '../Tabs/TabsInline';

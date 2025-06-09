@@ -1,5 +1,7 @@
 import React, { cloneElement, ReactElement } from 'react';
-import { useJukiNotification, useRouterStore, useUserStore } from '../../../hooks';
+import { useJukiNotification } from '../../../hooks/useJukiNotification';
+import { useRouterStore } from '../../../stores/router/useRouterStore';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { QueryParamKey } from '../../../types';
 import { T } from '../../atoms';
 import { FirstLoginWrapperProps } from './types';

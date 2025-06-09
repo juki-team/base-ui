@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import React, { ReactNode, useId } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { DrawerActionsType, NONE } from '../../../types';
 import { Button } from '../../atoms';
 import { Drawer } from '../../molecules';

@@ -9,7 +9,7 @@ import React, { CSSProperties, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
-import { useJukiNotification } from '../../../../hooks';
+import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { jukiApiSocketManager } from '../../../../settings';
 import { useWebsocketStore } from '../../../../stores/websocket/useWebsocketStore';
 import { Button, Select, T } from '../../../atoms';

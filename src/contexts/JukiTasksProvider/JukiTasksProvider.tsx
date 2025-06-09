@@ -9,9 +9,10 @@ import {
 } from '@juki-team/commons';
 import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
 import { T } from '../../components/atoms';
-import { useMutate, useUserStore } from '../../hooks';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
+import { useMutate } from '../../hooks/useMutate';
 import { jukiApiSocketManager } from '../../settings';
+import { useUserStore } from '../../stores/user/useUserStore';
 import { TasksContext } from './context';
 import { SocketSubmissions, SubmissionToCheck } from './types';
 

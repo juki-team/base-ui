@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRouterStore } from '../../hooks';
+import { useRouterStore } from '../../stores/router/useRouterStore';
 import { QueryParamKey } from '../../types';
 import { Button } from '../atoms';
 import { LoginIcon } from '../server';

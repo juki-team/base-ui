@@ -1,7 +1,8 @@
 import React from 'react';
 import { classNames, getJudgeOrigin } from '../../../helpers';
-import { useJukiUI, useUserStore } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { jukiAppRoutes } from '../../../settings';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { Field } from '../../organisms';
 import { CheckIcon, OpenInNewIcon, VoidIcon } from '../../server';
 import { ContestNameLinkFieldProps } from './types';

@@ -26,6 +26,7 @@ export * from './useMutate';
 export * from './usePageFocus';
 export * from './usePreload';
 export * from './usePreloadComponents';
+export * from './usePrevious';
 export * from './useStableState';
 export * from './useStore';
 export * from './useTriggerWrapper';

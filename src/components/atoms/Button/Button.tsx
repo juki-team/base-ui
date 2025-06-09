@@ -1,7 +1,8 @@
 import { motion } from 'motion/react';
 import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI, useSoundStore } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { ButtonCmpProps, Duration } from '../../../types';
 
 const buttonsVariants = (isDisabled: boolean) => ({

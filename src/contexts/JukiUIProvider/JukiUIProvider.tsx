@@ -3,7 +3,7 @@ import React, { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, use
 import { T } from '../../components/atoms';
 import { LineLoader } from '../../components/server';
 import { classNames, persistGlobalURLSearchParams } from '../../helpers';
-import { usePageFocus } from '../../hooks';
+import { usePageFocus } from '../../hooks/usePageFocus';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { Duration } from '../../types';
 import { NotificationProvider } from '../NotificationProvider/NotificationProvider';

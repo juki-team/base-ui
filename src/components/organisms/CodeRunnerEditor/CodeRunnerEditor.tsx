@@ -12,9 +12,10 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { useRunnerServicesWakeUp, useUserStore } from '../../../hooks';
 import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useRunnerServicesWakeUp } from '../../../hooks/useRunnerServicesWakeUp';
 import { jukiApiSocketManager } from '../../../settings';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { Portal, T } from '../../atoms';
 import { CodeEditor, SplitPane } from '../../molecules';
 import { CodeEditorPropertiesType } from '../../molecules/types';

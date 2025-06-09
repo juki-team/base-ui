@@ -8,7 +8,7 @@ import {
 import React, { useMemo } from 'react';
 import { LanguagesByJudge } from '../../../';
 import { toFilterUrl, toSortUrl } from '../../../../helpers';
-import { useFetcher } from '../../../../hooks';
+import { useFetcher } from '../../../../hooks/useFetcher';
 import { jukiApiSocketManager } from '../../../../settings';
 import {
   getSubmissionContestHeader,

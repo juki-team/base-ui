@@ -1,7 +1,8 @@
 import { ContentResponseType, DocumentMembersDTO, ENTITY_ACCESS, HTTPMethod } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification, useUserStore } from '../../../hooks';
+import { useJukiNotification } from '../../../hooks/useJukiNotification';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Popover, T } from '../../atoms';
 import { InfoIcon } from '../../server';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';

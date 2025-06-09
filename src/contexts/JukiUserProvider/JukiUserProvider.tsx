@@ -13,8 +13,11 @@ import { T } from '../../components/atoms/T/T';
 import { JukiLoadingLayout } from '../../components/molecules/layouts/JukiLoadingLayout';
 import { EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
-import { useFetcher, useI18nStore, useMutate, useUserStore } from '../../hooks';
+import { useFetcher } from '../../hooks/useFetcher';
+import { useMutate } from '../../hooks/useMutate';
 import { jukiApiSocketManager } from '../../settings';
+import { useI18nStore } from '../../stores/i18n/useI18nStore';
+import { useUserStore } from '../../stores/user/useUserStore';
 import { JukiUserProviderProps } from './types';
 
 export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>) => {

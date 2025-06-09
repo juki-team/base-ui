@@ -8,8 +8,9 @@ import {
 import React from 'react';
 import { getJudgeOrigin } from '../../../../helpers';
 import { hasTimeHasMemory } from '../../../../helpers/submission';
-import { useJukiUI, useUserStore } from '../../../../hooks';
+import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { jukiAppRoutes } from '../../../../settings';
+import { useUserStore } from '../../../../stores/user/useUserStore';
 import { ContestTab } from '../../../../types';
 import { Collapse, DateLiteral, T } from '../../../atoms';
 import { CodeViewer, Timer } from '../../../molecules';

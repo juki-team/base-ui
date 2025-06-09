@@ -1,5 +1,5 @@
 import React from 'react';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { T } from '../../atoms';
 import { HomeIcon } from '../../server';
 

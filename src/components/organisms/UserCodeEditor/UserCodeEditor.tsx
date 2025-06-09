@@ -8,7 +8,8 @@ import {
 } from '@juki-team/commons';
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
-import { useStableState, useUserStore } from '../../../hooks';
+import { useStableState } from '../../../hooks/useStableState';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { CodeRunnerEditor } from '../CodeRunnerEditor/CodeRunnerEditor';
 import { CodeRunnerEditorPropertiesType } from '../CodeRunnerEditor/types';
 import { UserCodeEditorProps } from './types';
