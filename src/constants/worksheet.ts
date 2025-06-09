@@ -11,10 +11,7 @@ import {
   SourceCodeType,
   WorksheetType,
 } from '@juki-team/commons';
-import React, { ReactNode } from 'react';
 import { v4 } from 'uuid';
-import { ArticleIcon, BubbleChartIcon, CodeIcon, EventListIcon, ExtensionIcon } from '../components/atoms/server';
-import { BasicIconProps } from '../components/atoms/server/icons/types';
 
 export const WORKSHEET_CODE_EDITOR_MIN_HEIGHT = 320;
 
@@ -75,22 +72,6 @@ export const EMPTY_LIST_SHEET = (): ListSheetType => ({
   header: '# header of list',
   content: [ { id: v4(), type: WorksheetType.JK_MD, title: '', points: 0, content: 'First content of list' } ],
   children: [],
-});
-
-export const LOGO_WORKSHEET_TYPE: (size?: BasicIconProps['size']) => {
-  [key in WorksheetType]: {
-    icon: ReactNode,
-    label: string
-  }
-} = (size) => ({
-  [WorksheetType.JK_MD]: { icon: <ArticleIcon size={size} />, label: 'jk md' },
-  [WorksheetType.QUIZ_PROBLEM]: { icon: <ExtensionIcon size={size} />, label: 'quiz problem' },
-  [WorksheetType.QUIZ_TEXT]: { icon: <ExtensionIcon size={size} />, label: 'quiz text' },
-  [WorksheetType.QUIZ_OPTIONS]: { icon: <EventListIcon size={size} rotate={180} />, label: 'quiz options' },
-  [WorksheetType.NEW_PAGE]: { icon: <ExtensionIcon size={size} />, label: 'new page' },
-  [WorksheetType.CODE_EDITOR]: { icon: <CodeIcon size={size} />, label: 'code editor' },
-  [WorksheetType.GRAPH]: { icon: <BubbleChartIcon size={size} />, label: 'graph' },
-  [WorksheetType.LIST]: { icon: <ExtensionIcon size={size} />, label: 'list' },
 });
 
 export const DEFAULT_GRAPH = `digraph graph_name {

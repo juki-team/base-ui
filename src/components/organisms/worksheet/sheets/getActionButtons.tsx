@@ -1,10 +1,10 @@
 import { BodyWorksheetType, WorksheetType } from '@juki-team/commons';
 import React from 'react';
-import { LOGO_WORKSHEET_TYPE } from '../../../../constants';
 import { Button, T } from '../../../atoms';
 import { ButtonType } from '../../../atoms/Button/types';
 import { CloseIcon, EditIcon, SaveIcon, SettingsIcon, SortIcon, VisibilityIcon } from '../../../atoms/server';
 import { SetContentType, SetSheetType } from '../types';
+import { LOGO_WORKSHEET_TYPE } from './logos';
 import { upRemoveDownButtons } from './upRemoveDownActions';
 
 interface getActionButtonsProps<T extends BodyWorksheetType> {

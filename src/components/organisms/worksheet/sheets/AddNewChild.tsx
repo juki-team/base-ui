@@ -7,12 +7,12 @@ import {
   EMPTY_LIST_SHEET,
   EMPTY_QUIZ_OPTIONS_SHEET,
   EMPTY_QUIZ_PROBLEM_SHEET,
-  LOGO_WORKSHEET_TYPE,
 } from '../../../../constants';
 import { Button } from '../../../atoms';
 import { PlusIcon } from '../../../atoms/server';
 import { FloatToolbar } from '../../../molecules';
 import { SetSheetType } from '../types';
+import { LOGO_WORKSHEET_TYPE } from './logos';
 
 interface AddNewChildProps<T extends BodyWorksheetType> {
   index: number,

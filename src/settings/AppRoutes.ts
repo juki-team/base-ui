@@ -1,4 +1,4 @@
-import { persistGlobalURLSearchParams } from '../helpers';
+import { persistGlobalURLSearchParams } from '../helpers/router';
 import { ContestTab, ProblemTab, ProfileTab } from '../types';
 
 const injectOrigin = (origin: string, path: string) => {

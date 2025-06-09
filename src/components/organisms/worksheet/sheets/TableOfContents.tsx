@@ -1,9 +1,9 @@
 import { WorksheetsInPages } from '@juki-team/commons';
 import React from 'react';
-import { LOGO_WORKSHEET_TYPE } from '../../../../constants';
 import { classNames } from '../../../../helpers';
 import { OnPageChange, QueryParamKey } from '../../../../types';
 import { Collapse } from '../../../atoms/Collapse/Collapse';
+import { LOGO_WORKSHEET_TYPE } from './logos';
 
 interface TableOfContentsProps {
   sheetsInPages: WorksheetsInPages,
