@@ -1,6 +1,7 @@
 import {
   CodeEditorSubmissionDTO,
   CompanyPlan,
+  consoleWarn,
   HTTPMethod,
   JkmdSubmissionDTO,
   Judge,
@@ -938,26 +939,34 @@ export class ApiSocketManager {
   }
   
   setApiSettings(serviceApiUrl: string, serviceApiV2Url: string, tokenName: string) {
-    this._SERVICE_API_V1_URL = serviceApiUrl;
-    this._SERVICE_API_V2_URL = serviceApiV2Url;
-    this._TOKEN_NAME = tokenName;
-    
-    this.emit('apiSettingsChanged', {
-      serviceApiUrl,
-      serviceApiV2Url,
-      tokenName,
-    });
+    if (serviceApiUrl !== this._SERVICE_API_V1_URL && serviceApiV2Url !== this._SERVICE_API_V2_URL && tokenName !== this._TOKEN_NAME) {
+      this._SERVICE_API_V1_URL = serviceApiUrl;
+      this._SERVICE_API_V2_URL = serviceApiV2Url;
+      this._TOKEN_NAME = tokenName;
+      
+      this.emit('apiSettingsChanged', {
+        serviceApiUrl,
+        serviceApiV2Url,
+        tokenName,
+      });
+    } else {
+      consoleWarn('serviceApiUrl, serviceApiV2Url and tokenName already set');
+    }
   }
   
   setSocketSettings(socketServiceUrl: string) {
-    this._SOCKET?.stop();
-    
-    this._SOCKET_SERVICE_URL = socketServiceUrl;
-    this._SOCKET = new JukiWebSocketManagement(socketServiceUrl);
-    
-    this.emit('socketSettingsChanged', {
-      socketServiceUrl,
-    });
+    if (socketServiceUrl !== this._SOCKET_SERVICE_URL) {
+      this._SOCKET?.stop();
+      
+      this._SOCKET_SERVICE_URL = socketServiceUrl;
+      this._SOCKET = new JukiWebSocketManagement(socketServiceUrl);
+      
+      this.emit('socketSettingsChanged', {
+        socketServiceUrl,
+      });
+    } else {
+      consoleWarn('socketServiceUrl already set');
+    }
   }
   
   on(event: string, callback: Function) {

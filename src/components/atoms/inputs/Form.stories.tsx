@@ -1,5 +1,6 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-webpack5';
 import React, { useState } from 'react';
+import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { Input, InputPassword, Select as SelectComponent, TextArea } from '../../atoms';
 import { InputProps } from '../../atoms/types';
 import { MockupJukiProvider } from '../../mockup';
@@ -104,5 +105,6 @@ const Cmp = (props: InputProps<any>) => {
 };
 
 export const Regular: Story = {
+  play: waitForLoadingToDisappear,
   render: (args) => <Cmp {...args} />,
 };

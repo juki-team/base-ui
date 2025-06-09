@@ -1,4 +1,4 @@
-import { action, configureActions } from '@storybook/addon-actions';
+import { action, configureActions } from 'storybook/actions';
 import React from 'react';
 import { Button, MdMathEditor, Popover, T, VerticalMenu as VerticalMenuCmp } from '../../../index';
 import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';

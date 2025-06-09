@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React from 'react';
+import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { MockupJukiProvider } from '../../mockup';
 import { Input } from './Input';
 import { InputCellPhoneNumber } from './InputCellPhoneNumber';
@@ -27,6 +28,7 @@ export default meta;
 type Story = StoryObj<typeof Input>;
 
 export const Regular: Story = {
+  play: waitForLoadingToDisappear,
   render: (args) => (
     <MockupJukiProvider>
       <div className="jk-col gap nowrap jk-pg-md">

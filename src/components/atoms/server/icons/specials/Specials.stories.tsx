@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/react';
+import { Meta } from '@storybook/react-webpack5';
 import React, { FC, useState } from 'react';
 import { ColorResult } from 'react-color';
 import { MockupJukiProvider } from '../../../../mockup';

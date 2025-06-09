@@ -6,7 +6,7 @@ import {
   ProblemType,
   ProgrammingLanguage,
 } from '@juki-team/commons';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { ProblemView } from './ProblemView';

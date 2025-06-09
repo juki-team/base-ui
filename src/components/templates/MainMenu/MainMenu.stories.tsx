@@ -1,6 +1,6 @@
 import { MenuViewMode } from '@juki-team/commons';
-import { action, configureActions } from '@storybook/addon-actions';
-import { Meta, StoryObj } from '@storybook/react';
+import { action, configureActions } from 'storybook/actions';
+import { Meta, StoryObj } from '@storybook/react-webpack5';
 import React, { useState } from 'react';
 import {
   Button,

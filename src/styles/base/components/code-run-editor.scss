@@ -83,19 +83,4 @@
       flex: 1;
     }
   }
-  
-  .editor-stdio-content {
-    
-    > div {
-      height: 100%;
-      
-      .editor-layout {
-        height: 100%;
-        
-        .CodeMirror {
-          border-radius: 0;
-        }
-      }
-    }
-  }
 }

@@ -1,4 +1,4 @@
-import { action, configureActions } from '@storybook/addon-actions';
+import { action, configureActions } from 'storybook/actions';
 import React, { ReactNode } from 'react';
 import {
   Button,

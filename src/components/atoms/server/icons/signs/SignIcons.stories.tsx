@@ -1,4 +1,4 @@
-import { configureActions } from '@storybook/addon-actions';
+import { configureActions } from 'storybook/actions';
 import React, { FC } from 'react';
 import { MockupToggleThemeButton } from '../../../../mockup/MockupToggleThemeButton';
 import { SignIconProps } from '../types';

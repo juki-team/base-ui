@@ -167,7 +167,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const isMobileViewPort = viewPortSize === 'sm';
   
   const firstChild = useMemo(() => (
-    <div className="editor-layout">
+    <div className="editor-layout ht-100">
       <CodeEditor
         theme={preferredTheme}
         onChange={codeEditorOnChange}
@@ -276,7 +276,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         withoutRunCodeButton={!!withoutRunCodeButton}
         readOnly={!!readOnly}
       />
-      <div className="editor-stdio-content flex-1">
+      <div className="flex-1 ow-hn">
         {onlyCodeEditor ? (
           firstChild
         ) : (
@@ -289,6 +289,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
             toggleable
             onChangeDirection={setDirection}
             onePanelAtATime={isMobileViewPort}
+            className="ht-100"
           >
             {firstChild}
             {secondChild}

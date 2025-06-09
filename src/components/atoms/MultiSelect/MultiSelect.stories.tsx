@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { MultiSelect } from './MultiSelect';

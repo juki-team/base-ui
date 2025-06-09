@@ -3,8 +3,21 @@
 <body>
 <style>
     html {
-        height: 100%;
-        width: 100%;
+        /*height: 100%;*/
+        /*width: 100%;*/
+        height: auto;
+        width: auto;
+
+        body {
+            height: auto !important;
+            overflow: visible !important;
+
+            #juki-app {
+                overflow: visible !important;
+                height: auto !important;
+                width: auto !important;
+            }
+        }
     }
 
     .sb-show-main.sb-main-padded {
@@ -14,11 +27,6 @@
     #storybook-root {
         height: 100%;
         width: 100%;
-    }
-
-    #juki-app {
-        /*height: auto !important;*/
-        /*width: auto !important;*/
     }
 </style>
 <!--  <iframe style="display:none;" src="http://localhost:3070/jk-cross.html" class="juki-iframe-cross-domain"></iframe>-->

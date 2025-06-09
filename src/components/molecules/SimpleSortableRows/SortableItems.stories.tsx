@@ -1,4 +1,4 @@
-import { configureActions } from '@storybook/addon-actions';
+import { configureActions } from 'storybook/actions';
 import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { SortableItems as SortableItemsComponent } from './SortableItems';

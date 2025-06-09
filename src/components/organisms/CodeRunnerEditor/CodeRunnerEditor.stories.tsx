@@ -1,5 +1,5 @@
 import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-webpack5';
 import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { CodeRunnerEditor } from './CodeRunnerEditor';

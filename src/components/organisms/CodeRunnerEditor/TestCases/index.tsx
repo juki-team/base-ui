@@ -150,9 +150,9 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
         </div>
       ),
       body: (
-        <div>
+        <div className="ht-100 jk-col stretch nowrap">
           {loaderAndInfo}
-          <div className="jk-pg-xsm">
+          <div className="jk-pg-xsm ow-ao flex-1">
             <span className="jk-text-stdout">{test?.testOut}</span>
           </div>
         </div>
@@ -172,9 +172,9 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       </T>
     ),
     body: (
-      <div>
+      <div className="ht-100 jk-col stretch nowrap">
         {loaderAndInfo}
-        <div className="jk-pg-xsm">
+        <div className="jk-pg-xsm ow-ao flex-1">
           <span className="jk-text-stdout">{test?.out}</span>
         </div>
       </div>
@@ -194,9 +194,9 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       </T>
     ),
     body: (
-      <div>
+      <div className="ht-100 jk-col stretch nowrap">
         {loaderAndInfo}
-        <div className="jk-pg-xsm">
+        <div className="jk-pg-xsm ow-ao flex-1">
           <span className="jk-text-stderr">{test?.err}</span>
         </div>
       </div>

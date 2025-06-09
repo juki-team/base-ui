@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React from 'react';
 import { DataGrid } from './DataGrid';
 
@@ -32,13 +32,13 @@ export const Regular: Story = {
           ...new Array(100).fill(1).map((a, i) => ({
             cells: {
               0: { text: i },
-              1: { text: 'Tesla', style: Math.floor(Math.random() * 6) },
+              1: { text: 'Tesla', style: i % 7 },
               2: { text: 'Volvo' },
               3: { text: 'Toyota' },
               4: { text: 'Ford' },
               5: { text: i % 3 },
-              6: { text: Math.random() },
-              7: { text: Date.now() },
+              6: { text: i },
+              7: { text: new Date(2025, 0, 1).getTime() },
             },
           })),
           0: {

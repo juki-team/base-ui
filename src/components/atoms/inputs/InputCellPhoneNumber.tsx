@@ -19,7 +19,7 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps) => {
   } = props;
   
   const id = useId();
-  const [ countryCode, setCountryCode ] = useState<string>(getTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone)?.countries[0] as string);
+  const [ countryCode, setCountryCode ] = useState<string>(getTimezone(Intl.DateTimeFormat().resolvedOptions().timeZone)?.countries[0] ?? '');
   const options = useMemo(() => {
     const list = countryList.getAll();
     return list.map((country) => ({
