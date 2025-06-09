@@ -50,9 +50,9 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   const serviceV2Url = 'https://api.juki.app/v2';
   // const socketServiceUrl = 'wss://im7lou2on3.execute-api.us-east-1.amazonaws.com/production';
   // const socketServiceUrl = 'wss://im7lou2on3.execute-api.us-east-1.amazonaws.com/v1/';
-  const socketServiceUrl = 'wss://websocket.juki.app';
+  // const socketServiceUrl = 'wss://websocket.juki.app';
   // useEffect(() => {
-  jukiApiSocketManager.setSocketSettings(socketServiceUrl);
+  // jukiApiSocketManager.setSocketSettings(socketServiceUrl); // token fake
   jukiApiSocketManager.setApiSettings(serviceUrl, serviceV2Url, 'juki-token');
   // }, []);
   
