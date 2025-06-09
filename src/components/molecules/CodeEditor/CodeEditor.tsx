@@ -6,7 +6,9 @@ import { javascript } from '@codemirror/lang-javascript';
 import { json } from '@codemirror/lang-json';
 import { markdown } from '@codemirror/lang-markdown';
 import { python } from '@codemirror/lang-python';
+import { search } from '@codemirror/search';
 import { ProgrammingLanguage, Theme } from '@juki-team/commons';
+import { basicSetup } from '@uiw/codemirror-extensions-basic-setup';
 import CodeMirror from '@uiw/react-codemirror';
 import React, { memo } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
@@ -25,7 +27,7 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
     fontSize = 14,
   } = props;
   
-  const extensions = [ autocompletion() ];
+  const extensions = [ basicSetup(), autocompletion(), search() ];
   
   switch (language) {
     case ProgrammingLanguage.ICPC_CPP:

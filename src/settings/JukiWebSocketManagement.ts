@@ -81,7 +81,6 @@ export class JukiWebSocketManagement {
       this._socket.addEventListener('open', () => {
         this._attempts = 0;
         consoleInfo('Juki Websocket connected', this._socket);
-        resolve(true);
         // const token = jukiApiSocketManager.getToken();
         // const event: PingWebSocketEventDTO = { event: WebSocketActionEvent.PING, sessionId: token as ObjectIdType };
         // this._send(JSON.stringify(contentResponse('hi', event)), false);
@@ -92,6 +91,7 @@ export class JukiWebSocketManagement {
             break;
           }
         }
+        resolve(true);
       });
       
       this._socket.addEventListener('message', (event) => {
@@ -147,10 +147,10 @@ export class JukiWebSocketManagement {
   async connect() {
     if (!this.socketServiceUrl) {
       consoleWarn('Websocket Url not setted');
-      return;
+      return false;
     }
     if (this._socket?.readyState === WebSocket.OPEN) {
-      return;
+      return true;
     }
     await this._connect();
     if (!this._socket || this._socket?.readyState !== WebSocket.OPEN) {
