@@ -1,7 +1,8 @@
 import React from 'react';
 import { getJudgeOrigin } from '../../../helpers';
-import { useJukiUI, useUserStore } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { jukiAppRoutes } from '../../../settings';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { ContestTab } from '../../../types';
 import { TextField } from '../../organisms';
 import { OpenInNewIcon } from '../../server';

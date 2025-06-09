@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { jukiAppRoutes } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';

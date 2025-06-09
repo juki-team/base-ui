@@ -9,7 +9,7 @@ import {
 } from '@juki-team/commons';
 import React from 'react';
 import { authorizedRequest, oneTab } from '../../../helpers';
-import { useStableState } from '../../../hooks';
+import { useStableState } from '../../../hooks/useStableState';
 import { jukiApiSocketManager } from '../../../settings';
 import { T } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';

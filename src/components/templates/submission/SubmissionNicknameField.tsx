@@ -1,5 +1,6 @@
 import React from 'react';
-import { useJukiUI, useUserStore } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { TextField } from '../../organisms/DataViewer/TextField';
 import { UserNicknameLink } from '../../organisms/UserChip/UserNicknameLink';
 import { SubmissionNicknameFieldProps } from './types';

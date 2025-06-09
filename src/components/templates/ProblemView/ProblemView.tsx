@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { Button, Portal, T } from '../../atoms';
 import { SplitPane } from '../../molecules';
 import { FullscreenExitIcon, FullscreenIcon, InfoIcon } from '../../server';

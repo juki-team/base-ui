@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { classNames } from '../../../../helpers';
-import { useRouterStore } from '../../../../hooks';
+import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { QueryParamKey } from '../../../../types';
 
 export interface SubmissionInfoProps {

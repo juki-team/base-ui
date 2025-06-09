@@ -6,8 +6,12 @@ import {
 } from '@juki-team/commons';
 import React, { useMemo } from 'react';
 import { classNames } from '../../../helpers';
-import { useFetcher, useJukiUI, useRouterStore, useStableState, useUserStore } from '../../../hooks';
+import { useFetcher } from '../../../hooks/useFetcher';
+import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useStableState } from '../../../hooks/useStableState';
 import { jukiApiSocketManager } from '../../../settings';
+import { useRouterStore } from '../../../stores/router/useRouterStore';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { TableOfContents } from './sheets/TableOfContents';

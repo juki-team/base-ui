@@ -1,7 +1,8 @@
 import { ContentResponseType, Status, SubmissionRunStatus } from '@juki-team/commons';
 import React from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification, useMutate } from '../../../hooks';
+import { useJukiNotification } from '../../../hooks/useJukiNotification';
+import { useMutate } from '../../../hooks/useMutate';
 import { jukiApiSocketManager } from '../../../settings';
 import { T } from '../../atoms';
 import { RefreshIcon } from '../../atoms/server';

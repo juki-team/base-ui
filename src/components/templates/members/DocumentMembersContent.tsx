@@ -1,6 +1,6 @@
 import { ENTITY_ACCESS, EntityAccess, FileMemberRole, MemberType } from '@juki-team/commons';
 import React, { ReactNode } from 'react';
-import { useUserStore } from '../../../hooks';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Select, T } from '../../atoms';
 import { UserChip, UsersSelector } from '../../organisms';
 import { DeleteIcon, GlobeIcon, LockIcon, LockPersonIcon, PublicIcon } from '../../server';

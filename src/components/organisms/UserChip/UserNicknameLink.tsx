@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo } from 'react';
 import { cloneURLSearchParams } from '../../../helpers';
-import { useJukiUI, usePreload, useRouterStore } from '../../../hooks';
+import { useJukiUI } from '../../../hooks/useJukiUI';
+import { usePreload } from '../../../hooks/usePreload';
 import { jukiApiSocketManager } from '../../../settings';
+import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { QueryParamKey } from '../../../types';
 import { UserNicknameLinkProps } from './types';
 

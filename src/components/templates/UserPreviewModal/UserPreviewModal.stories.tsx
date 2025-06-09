@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRunnerServicesWakeUp } from '../../../hooks';
+import { useRunnerServicesWakeUp } from '../../../hooks/useRunnerServicesWakeUp';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { UserPreviewContentModal as UserPreviewModalCmp } from './UserPreviewContentModal/UserPreviewContentModal';

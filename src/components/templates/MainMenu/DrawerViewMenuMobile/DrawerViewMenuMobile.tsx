@@ -1,6 +1,7 @@
 import React, { Children, ReactNode, useState } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
-import { useJukiUI, useUserStore } from '../../../../hooks';
+import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
 import { MenuType } from '../../../organisms/types';
 import { ArrowBackIcon, CloseIcon } from '../../../server';

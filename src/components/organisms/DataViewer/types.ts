@@ -1,8 +1,8 @@
 import { DataViewMode, Status } from '@juki-team/commons';
 import { CSSProperties, Dispatch, FC, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { UseResizeDetectorReturn } from 'react-resize-detector';
-import { DataViewerRequesterGetUrlType } from '../../../hooks';
 import {
+  DataViewerRequesterGetUrlType,
   DateDisplayType,
   ReactNodeOrFunctionP1Type,
   ReactNodeOrFunctionType,

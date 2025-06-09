@@ -1,6 +1,6 @@
 import { QuizProblemSheetType, WorksheetType } from '@juki-team/commons';
 import React, { useState } from 'react';
-import { useStableState } from '../../../../../hooks';
+import { useStableState } from '../../../../../hooks/useStableState';
 import { T } from '../../../../atoms';
 import { CheckIcon } from '../../../../atoms/server';
 import { FloatToolbar } from '../../../../molecules';

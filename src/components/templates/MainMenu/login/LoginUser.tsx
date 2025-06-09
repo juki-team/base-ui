@@ -1,7 +1,10 @@
 import React from 'react';
 import { classNames } from '../../../../helpers';
-import { useJukiUI, useJukiUser, useRouterStore, useUserStore } from '../../../../hooks';
+import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { useJukiUser } from '../../../../hooks/useJukiUser';
 import { jukiApiSocketManager } from '../../../../settings';
+import { useRouterStore } from '../../../../stores/router/useRouterStore';
+import { useUserStore } from '../../../../stores/user/useUserStore';
 import { QueryParamKey } from '../../../../types';
 import { Button, Popover, T } from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';

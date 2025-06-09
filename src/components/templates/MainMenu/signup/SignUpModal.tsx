@@ -1,5 +1,6 @@
 import React from 'react';
-import { useJukiUser, useUserStore } from '../../../../hooks';
+import { useJukiUser } from '../../../../hooks/useJukiUser';
+import { useUserStore } from '../../../../stores/user/useUserStore';
 import { SignUpModalTemplate } from './SignUpModalTemplate';
 import { SignUpModalComponentProps } from './SignUpModalTemplate/types';
 import { SignUpModalProps } from './types';

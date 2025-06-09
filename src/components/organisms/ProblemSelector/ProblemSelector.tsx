@@ -9,7 +9,8 @@ import {
 } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
 import { authorizedRequest, classNames, cleanRequest } from '../../../helpers';
-import { useFetcher, useJukiNotification } from '../../../hooks';
+import { useFetcher } from '../../../hooks/useFetcher';
+import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { jukiApiSocketManager } from '../../../settings';
 import { Input, Select, T } from '../../atoms';
 import { ButtonLoader, MultiSelectSearchable } from '../../molecules';

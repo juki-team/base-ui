@@ -12,8 +12,9 @@ import {
 } from '@juki-team/commons';
 import React, { useEffect, useRef, useState } from 'react';
 import { authorizedRequest, classNames, getHeight } from '../../../../../helpers';
-import { useJukiNotification, useRouterStore } from '../../../../../hooks';
+import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { jukiApiSocketManager } from '../../../../../settings';
+import { useRouterStore } from '../../../../../stores/router/useRouterStore';
 import { QueryParamKey, UserResultsType } from '../../../../../types';
 import { T } from '../../../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, SpinIcon } from '../../../../atoms/server';

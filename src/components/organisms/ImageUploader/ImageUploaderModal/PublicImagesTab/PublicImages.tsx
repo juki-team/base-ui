@@ -1,7 +1,7 @@
 import { ImageSummaryResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { copy } from '../../../../../helpers';
-import { useJukiNotification } from '../../../../../hooks';
+import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { NotificationType } from '../../../../../types';
 import { T } from '../../../../atoms';
 import { FloatToolbar } from '../../../../molecules';

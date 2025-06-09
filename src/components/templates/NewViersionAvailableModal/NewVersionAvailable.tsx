@@ -1,6 +1,7 @@
 import { ContentResponseType } from '@juki-team/commons';
 import React, { useEffect, useState } from 'react';
-import { useFetcher, useRouterStore } from '../../../hooks';
+import { useFetcher } from '../../../hooks/useFetcher';
+import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { NewVersionAvailableModal } from './NewVersionAvailableModal/NewVersionAvailableModal';
 import { NewVersionAvailableProps } from './types';
 

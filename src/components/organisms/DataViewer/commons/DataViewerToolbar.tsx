@@ -11,7 +11,9 @@ import React, {
   useRef,
 } from 'react';
 import { classNames, renderReactNodeOrFunction } from '../../../../helpers';
-import { useJukiUI, useRouterStore, useSessionStorage } from '../../../../hooks';
+import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { useSessionStorage } from '../../../../hooks/useSessionStorage';
+import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { Popover } from '../../../atoms';
 import { SetLoaderStatusOnClickType } from '../../../molecules/types';
 import {

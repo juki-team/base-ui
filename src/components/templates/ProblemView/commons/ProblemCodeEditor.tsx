@@ -9,7 +9,7 @@ import {
   SubmissionRunStatus,
 } from '@juki-team/commons';
 import React, { useMemo } from 'react';
-import { useFetcher } from '../../../../hooks';
+import { useFetcher } from '../../../../hooks/useFetcher';
 import { jukiApiSocketManager } from '../../../../settings';
 import { UserCodeEditor } from '../../../organisms';
 import { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../../organisms/types';

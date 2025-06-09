@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { isTrigger } from '../helpers';
 import { BoundingClientRectType, TriggerOffActionsType, TriggerOnActionsType } from '../types';
-import { useKeyPress, useOutsideAlerterAnd } from './custom';
+import { useKeyPress } from './custom';
+import { useOutsideAlerterAnd } from './useOutsideAlerter';
 
 export type UseTriggerWrapperProps = {
   visible?: boolean,

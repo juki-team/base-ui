@@ -1,5 +1,6 @@
 import { Status } from '@juki-team/commons';
 import { ReactNode } from 'react';
+import { DataViewerRequestPropsType } from '../components/organisms/DataViewer/types';
 
 export type { TFunction } from 'i18next';
 
@@ -58,6 +59,8 @@ export enum Sound {
   POP,
   BELL,
 }
+
+export type DataViewerRequesterGetUrlType = (props: Omit<DataViewerRequestPropsType, 'setLoaderStatus'>) => string | null;
 
 export * from './api';
 export * from './components';

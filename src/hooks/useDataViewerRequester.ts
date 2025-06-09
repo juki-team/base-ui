@@ -1,11 +1,9 @@
 import { ContentResponseType, ContentsResponseType, Status } from '@juki-team/commons';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { SWRConfiguration } from 'swr';
-import { DataViewerRequestPropsType, ReloadType, SetLoaderStatusType } from '../components/organisms/DataViewer/types';
-import { RequestFilterType, RequestSortType } from '../types';
+import { ReloadType, SetLoaderStatusType } from '../components/organisms/DataViewer/types';
+import { DataViewerRequesterGetUrlType, RequestFilterType, RequestSortType } from '../types';
 import { useFetcher } from './useFetcher';
-
-export type DataViewerRequesterGetUrlType = (props: Omit<DataViewerRequestPropsType, 'setLoaderStatus'>) => string | null;
 
 export const useDataViewerRequester = <T extends ContentResponseType<any> | ContentsResponseType<any>, >(getUrl: DataViewerRequesterGetUrlType, options?: SWRConfiguration) => {
   const setLoaderStatusRef = useRef<SetLoaderStatusType>(null);

@@ -1,6 +1,6 @@
 import { GraphSheetType, WorksheetType } from '@juki-team/commons';
 import React, { useState } from 'react';
-import { useStableState } from '../../../../../hooks';
+import { useStableState } from '../../../../../hooks/useStableState';
 import { FloatToolbar } from '../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';

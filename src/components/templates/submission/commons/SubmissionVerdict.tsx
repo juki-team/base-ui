@@ -9,7 +9,8 @@ import {
   Theme,
 } from '@juki-team/commons';
 import React from 'react';
-import { useI18nStore, useUserStore } from '../../../../hooks';
+import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
 import { SpinIcon } from '../../../server';
 

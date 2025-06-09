@@ -10,7 +10,7 @@ import {
 } from '@juki-team/commons';
 import React from 'react';
 import { authorizedRequest } from '../../../../../helpers';
-import { useJukiNotification } from '../../../../../hooks';
+import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { jukiApiSocketManager } from '../../../../../settings';
 import { T } from '../../../../atoms';
 import { ButtonLoader, FetcherLayer, FirstLoginWrapper } from '../../../../molecules';

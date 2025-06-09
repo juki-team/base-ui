@@ -6,8 +6,9 @@ import {
 } from '@juki-team/commons';
 import { PingWebSocketEventDTO } from '@juki-team/commons/dist/types/dto/socket';
 import { PropsWithChildren, useEffect, useRef } from 'react';
-import { usePageStore, useUserStore } from '../../hooks';
 import { jukiApiSocketManager } from '../../settings';
+import { usePageStore } from '../../stores/page/usePageStore';
+import { useUserStore } from '../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
 import { JukiWebsocketProviderProps } from './types';
 

@@ -2,7 +2,9 @@ import { JUDGE, Judge, Status, UserProfileResponseDTO } from '@juki-team/commons
 import React, { Dispatch, useRef, useState } from 'react';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { useEntityDiff, useJukiUI, useJukiUser } from '../../../hooks';
+import { useEntityDiff } from '../../../hooks/useEntityDiff';
+import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useJukiUser } from '../../../hooks/useJukiUser';
 import { Button, Input, Modal, T, TextArea } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { EditIcon, LocationCityIcon, LocationOnIcon, PersonIcon, SchoolIcon } from '../../server';

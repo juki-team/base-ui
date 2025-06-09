@@ -8,8 +8,10 @@ import {
   downloadUrlAsFile,
   getStatementData,
 } from '../../../../helpers';
-import { useI18nStore, useJukiNotification, useUserStore } from '../../../../hooks';
+import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { jukiApiSocketManager } from '../../../../settings';
+import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
 import { MdMathViewer } from '../../../organisms';

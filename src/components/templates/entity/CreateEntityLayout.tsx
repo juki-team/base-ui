@@ -1,7 +1,8 @@
 import { ContentResponseType, DocumentCreateResponseDTO, HTTPMethod, Status } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification, useRouterStore } from '../../../hooks';
+import { useJukiNotification } from '../../../hooks/useJukiNotification';
+import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';

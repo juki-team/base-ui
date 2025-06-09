@@ -1,7 +1,7 @@
 import { SubmissionDataResponseDTO } from '@juki-team/commons';
 import React, { useEffect } from 'react';
 import { useJukiTask } from '../../../../contexts/JukiTasksProvider/useJukiTask';
-import { useRunnerServicesWakeUp } from '../../../../hooks';
+import { useRunnerServicesWakeUp } from '../../../../hooks/useRunnerServicesWakeUp';
 import { SubmissionVerdict, SubmissionVerdictProps } from './SubmissionVerdict';
 
 export interface ListenerVerdictProps extends Omit<SubmissionVerdictProps, 'submissionData'> {
