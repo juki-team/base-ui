@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { preloadAtoms, preloadMolecules, preloadOrganisms, preloadTemplates } from '../components';
-import {
-  preloadAtomsIconsGoogle,
-  preloadAtomsIconsSigns,
-  preloadAtomsIconsSpecials,
-  preloadAtomsImages,
-} from '../components/atoms/server';
+import { preloadAtoms } from '../components/atoms/index';
+import { preloadAtomsIconsGoogle } from '../components/atoms/server/icons/google/index';
+import { preloadAtomsIconsSigns } from '../components/atoms/server/icons/signs/index';
+import { preloadAtomsIconsSpecials } from '../components/atoms/server/icons/specials/index';
+import { preloadAtomsImages } from '../components/atoms/server/images/index';
+import { preloadMolecules } from '../components/molecules/index';
+import { preloadOrganisms } from '../components/organisms/index';
+import { preloadTemplates } from '../components/templates/index';
 
 export const usePreloadComponents = () => {
   
