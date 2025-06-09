@@ -955,18 +955,18 @@ export class ApiSocketManager {
   }
   
   setSocketSettings(socketServiceUrl: string) {
-    if (socketServiceUrl !== this._SOCKET_SERVICE_URL) {
-      this._SOCKET?.stop();
-      
-      this._SOCKET_SERVICE_URL = socketServiceUrl;
-      this._SOCKET = new JukiWebSocketManagement(socketServiceUrl);
-      
-      this.emit('socketSettingsChanged', {
-        socketServiceUrl,
-      });
-    } else {
-      consoleWarn('socketServiceUrl already set');
-    }
+    // if (socketServiceUrl !== this._SOCKET_SERVICE_URL) {
+    this._SOCKET?.stop();
+    
+    this._SOCKET_SERVICE_URL = socketServiceUrl;
+    this._SOCKET = new JukiWebSocketManagement(socketServiceUrl);
+    
+    this.emit('socketSettingsChanged', {
+      socketServiceUrl,
+    });
+    // } else {
+    //   consoleWarn('socketServiceUrl already set');
+    // }
   }
   
   on(event: string, callback: Function) {

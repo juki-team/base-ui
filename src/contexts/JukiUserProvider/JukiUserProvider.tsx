@@ -32,11 +32,10 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
   const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
   const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
-  console.log(`JukiUserProvider, url: "${jukiApiSocketManager.API_V1.auth.ping().url}"`);
   const {
     data,
-    isLoading: isLoadingPing,
-    isValidating: isValidatingPing,
+    // isLoading: isLoadingPing,
+    // isValidating: isValidatingPing,
     mutate,
   } = useFetcher<ContentResponseType<PingResponseDTO>>(
     jukiApiSocketManager.API_V1.auth.ping().url,
@@ -56,7 +55,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   useEffect(() => {
     i18nChangeLanguage(userPreferredLanguage);
   }, [ i18nChangeLanguage, userPreferredLanguage ]);
-  console.log('JukiUserProvider', { data, userNickname, userSessionId, isLoadingPing, isValidatingPing });
+  
   useEffect(() => {
     if (!data) {
       return;
@@ -132,7 +131,6 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     return (
       <JukiLoadingLayout>
         <div className="jk-row" style={{ alignItems: 'baseline' }}>
-          {userSessionId}
           <T className="tt-se">loading user</T>
           &nbsp;
           <div className="dot-flashing" />
