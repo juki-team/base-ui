@@ -59,7 +59,7 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
       extensions.push(markdown());
       break;
     case ProgrammingLanguage.ICPC_PYTHON:
-    case ProgrammingLanguage.PYTHON:
+    case ProgrammingLanguage.PYTHON2:
     case ProgrammingLanguage.PYTHON3:
       extensions.push(python());
       break;
