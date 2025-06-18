@@ -10,8 +10,9 @@ import {
   isPingWebSocketEventDTO,
   isSubscribeCodeRunStatusWebSocketEventDTO,
   isSubscribeProblemCrawledWebSocketEventDTO,
-  isSubscribeSenDataEcsTaskDefinitionListWebSocketEventDTO,
-  isSubscribeSenDataEcsTaskListWebSocketEventDTO,
+  isSubscribeSenDataEc2InstancesListWebSocketEventDTO,
+  isSubscribeSenDataEcsTaskDefinitionsListWebSocketEventDTO,
+  isSubscribeSenDataEcsTasksListWebSocketEventDTO,
   isSubscribeSubmissionRunStatusWebSocketEventDTO,
   ObjectIdType,
   ONE_MINUTE,
@@ -209,11 +210,14 @@ export class JukiWebSocketManagement {
     if (isSubscribeSubmissionRunStatusWebSocketEventDTO(event)) {
       return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSION_RUN_STATUS_MESSAGE, event.sessionId, event.submitId);
     }
-    if (isSubscribeSenDataEcsTaskDefinitionListWebSocketEventDTO(event)) {
-      return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_ECS_TASK_DEFINITION_LIST, event.sessionId, '*');
+    if (isSubscribeSenDataEcsTaskDefinitionsListWebSocketEventDTO(event)) {
+      return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_ECS_TASK_DEFINITIONS_LIST, event.sessionId, '*');
     }
-    if (isSubscribeSenDataEcsTaskListWebSocketEventDTO(event)) {
-      return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_ECS_TASK_LIST, event.sessionId, '*');
+    if (isSubscribeSenDataEcsTasksListWebSocketEventDTO(event)) {
+      return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_ECS_TASKS_LIST, event.sessionId, '*');
+    }
+    if (isSubscribeSenDataEc2InstancesListWebSocketEventDTO(event)) {
+      return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_EC2_INSTANCES_LIST, event.sessionId, '*');
     }
     if (isSubscribeProblemCrawledWebSocketEventDTO(event)) {
       return getWebSocketResponseEventKey(WebSocketResponseEvent.PROBLEM_CRAWLED, event.sessionId, event.problemKey);
