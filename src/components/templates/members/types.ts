@@ -18,7 +18,7 @@ export interface DocumentCustomMembersContentProps {
 
 export interface DocumentMembersButton1Props {
   copyLink?: () => string,
-  documentName: string,
+  documentName: ReactNode,
   documentMembers: DocumentMembersResponseDTO,
   documentOwner: UserCompanyBasicInfoResponseDTO,
   onSave: (members: DocumentMembersResponseDTO, close: () => void) => Promise<void>,
@@ -28,7 +28,7 @@ export interface DocumentMembersButton1Props {
 
 export interface DocumentMembersButton2Props {
   copyLink?: () => string,
-  documentName: string,
+  documentName: ReactNode,
   documentMembers: DocumentMembersResponseDTO,
   documentOwner: UserCompanyBasicInfoResponseDTO,
   onSave?: never,
