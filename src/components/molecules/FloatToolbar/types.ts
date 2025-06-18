@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 import { ButtonProps } from '../../atoms/Button/types';
 
 export type ActionButtonType = {
-  icon: ReactNode,
+  icon?: ReactNode,
   onClick?: (() => Promise<void>) | (() => void),
-  label: ReactNode,
+  label?: ReactNode,
   disabled?: boolean,
   size?: ButtonProps['size'],
   type?: ButtonProps['type'],

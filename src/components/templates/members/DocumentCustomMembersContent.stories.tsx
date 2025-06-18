@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { DocumentCustomMembersContent } from './DocumentCustomMembersContent';
+import { DocumentMembersButton } from './DocumentMembersButton';
 import { DocumentMembersContent } from './DocumentMembersContent';
 
 const meta: Meta<typeof DocumentCustomMembersContent> = {
@@ -16,8 +17,24 @@ type Story = StoryObj<typeof DocumentCustomMembersContent>;
 const Cmp = () => {
   const [ members, setMembers ] = useState(EMPTY_ENTITY_MEMBERS());
   const [ members2, setMembers2 ] = useState(EMPTY_DOCUMENT_MEMBERS());
+  const dummyOwner = { nickname: 'OscarGauss', imageUrl: '', company: { key: 'juki-app' } };
+  
   return (
     <div className="jk-col gap">
+      <DocumentMembersButton
+        documentName="testing"
+        documentMembers={members2}
+        documentOwner={dummyOwner}
+        saveUrl=""
+        copyLink={() => 'asf'}
+      />
+      <DocumentMembersButton
+        documentName="testing"
+        documentMembers={members2}
+        documentOwner={{ ...dummyOwner, nickname: '' }}
+        saveUrl=""
+        copyLink={() => 'asf'}
+      />
       <DocumentCustomMembersContent
         members={members}
         setMembers={setMembers}
@@ -31,7 +48,7 @@ const Cmp = () => {
       <DocumentMembersContent
         members={members2}
         setMembers={setMembers2}
-        documentOwner={{ nickname: 'OscarGauss', imageUrl: '', company: { key: 'juki-app' } }}
+        documentOwner={dummyOwner}
       />
     </div>
   );

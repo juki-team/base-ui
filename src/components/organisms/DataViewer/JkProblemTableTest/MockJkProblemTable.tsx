@@ -12,6 +12,7 @@ import {
   getProblemTypeHeader,
   T,
 } from '../../../';
+import { ButtonAction } from '../../../molecules/FloatToolbar/ButtonAction';
 import { RefreshIcon } from '../../../server';
 import { DataViewerHeadersType, DataViewerProps } from '../types';
 import problems from './data.json';
@@ -65,6 +66,14 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
     >
       <T>download</T>
     </ButtonLoader>,
+    <ButtonAction
+      buttons={[
+        { children: <ButtonLoader>que</ButtonLoader> },
+        { children: <ButtonLoader>tal</ButtonLoader> },
+      ]}
+    >
+      <ButtonLoader>hola</ButtonLoader>
+    </ButtonAction>,
   ], []);
   
   return (

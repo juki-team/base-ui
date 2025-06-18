@@ -1,9 +1,11 @@
-import { ContentResponseType, DocumentMembersDTO, ENTITY_ACCESS, HTTPMethod } from '@juki-team/commons';
+import { ContentResponseType, DocumentMembersDTO, ENTITY_ACCESS, getUserKey, HTTPMethod } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { Button, Popover, T } from '../../atoms';
+import { Button, CopyToClipboard, Popover, T } from '../../atoms';
+import { ContentCopyIcon } from '../../atoms/server';
+import { ButtonAction } from '../../molecules/FloatToolbar/ButtonAction';
 import { InfoIcon } from '../../server';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';
 import { DocumentMembersButtonProps } from './types';
@@ -17,10 +19,12 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
     onSave: initialOnSave,
     saveUrl,
     reloadDocument,
+    copyLink,
   } = props;
   
   const [ show, setShow ] = useState(false);
   const nickname = useUserStore(state => state.user.nickname);
+  const companyKey = useUserStore(state => state.company.key);
   const { notifyResponse } = useJukiNotification();
   
   const onSave = initialOnSave ?? (async (members, close) => {
@@ -44,8 +48,9 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
   const info = (
     <Popover
       popoverClassName="bc-we jk-br-ie elevation-1"
+      offset={4}
       content={
-        <div style={{ width: 120 }}>
+        <div style={{ width: 128 }} className="jk-pg-xsm">
           <div className="fw-bd"><T className="tt-se">{ENTITY_ACCESS[documentMembers.access].label}</T></div>
           <T className="tt-se">{ENTITY_ACCESS[documentMembers.access].description}</T>
         </div>
@@ -57,18 +62,41 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
     </Popover>
   );
   
-  if (nickname !== documentOwner.nickname) {
-    return info;
+  let button = (
+    <Button size="small" onClick={() => setShow(true)}>
+      <div className="jk-row gap nowrap">
+        <T className="tt-se">share</T>
+        {info}
+      </div>
+    </Button>
+  );
+  
+  if (getUserKey(nickname, companyKey) !== getUserKey(documentOwner.nickname, documentOwner.company.key)) {
+    button = info;
   }
+  
+  const actionButtons = [
+    {
+      children: button,
+      buttons: [
+        {
+          children: button,
+        },
+        ...(copyLink ? [ {
+          children: (
+            <CopyToClipboard text={copyLink()} tooltip="" noStyling>
+              <Button size="small" icon={<ContentCopyIcon />} className="light">
+                <T className="tt-se">copy link</T>
+              </Button>
+            </CopyToClipboard>
+          ),
+        } ] : []),
+      ],
+    } ];
   
   return (
     <>
-      <Button size="small" onClick={() => setShow(true)}>
-        <div className="jk-row gap nowrap">
-          <T>share</T>
-          {info}
-        </div>
-      </Button>
+      <ButtonAction {...actionButtons[0]} />
       <DocumentMembersModal
         isOpen={show}
         onClose={() => setShow(false)}

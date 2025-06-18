@@ -17,6 +17,7 @@ export interface DocumentCustomMembersContentProps {
 }
 
 export interface DocumentMembersButton1Props {
+  copyLink?: () => string,
   documentName: string,
   documentMembers: DocumentMembersResponseDTO,
   documentOwner: UserCompanyBasicInfoResponseDTO,
@@ -26,6 +27,7 @@ export interface DocumentMembersButton1Props {
 }
 
 export interface DocumentMembersButton2Props {
+  copyLink?: () => string,
   documentName: string,
   documentMembers: DocumentMembersResponseDTO,
   documentOwner: UserCompanyBasicInfoResponseDTO,

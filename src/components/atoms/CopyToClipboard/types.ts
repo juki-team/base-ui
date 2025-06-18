@@ -6,4 +6,5 @@ export interface CopyToClipboardProps {
   size?: IconProps['size'],
   tooltip?: string,
   children?: ReactNode,
+  noStyling?: boolean,
 }

@@ -1,12 +1,12 @@
 import { DocumentMembersResponseDTO, Status, UserCompanyBasicInfoResponseDTO } from '@juki-team/commons';
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { Modal, T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/Modal/types';
 import { ButtonLoader } from '../../../molecules';
 import { DocumentMembersContent } from '../DocumentMembersContent';
 
 export interface DocumentMembersModalProps extends BasicModalProps {
-  documentName: string,
+  documentName: ReactNode,
   documentMembers: DocumentMembersResponseDTO,
   documentOwner: UserCompanyBasicInfoResponseDTO,
   onSave: (members: DocumentMembersResponseDTO, close: () => void) => Promise<void>,
@@ -31,12 +31,12 @@ export const DocumentMembersModal = (props: DocumentMembersModalProps) => {
     >
       <div className="jk-col stretch gap jk-pg-md">
         <div className="jk-row left extend">
-          <h3><T>share</T>&nbsp;{`"${documentName}"`}</h3>
+          <h3><T className="tt-se">share</T>&nbsp;{documentName}</h3>
         </div>
         <DocumentMembersContent members={members} setMembers={setMembers} documentOwner={documentOwner} />
         <div className="jk-row-col gap block">
           <ButtonLoader type="light" onClick={onClose} disabled={loading}>
-            <T>close</T>
+            <T className="tt-se">close</T>
           </ButtonLoader>
           <ButtonLoader
             disabled={done}
@@ -50,7 +50,7 @@ export const DocumentMembersModal = (props: DocumentMembersModalProps) => {
               setLoaderStatus(Status.SUCCESS);
             }}
           >
-            <T>save</T>
+            <T className="tt-se">save</T>
           </ButtonLoader>
         </div>
       </div>
