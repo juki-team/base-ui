@@ -2,6 +2,7 @@ import {
   CodeEditorTestCasesType,
   CodeEditorTestCaseType,
   isCodeRunStatusMessageWebSocketResponseEventDTO,
+  ONE_SECOND,
   ProfileSetting,
   PROGRAMMING_LANGUAGE,
   SubmissionRunStatus,
@@ -41,8 +42,8 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     testCases,
     tabSize = 4,
     fontSize = 14,
-    timeLimit = 1000,
-    memoryLimit = 512000,
+    timeLimit = ONE_SECOND,
+    memoryLimit = 1048576, // 1GB
     expandPosition,
     className,
     enableAddCustomSampleCases,

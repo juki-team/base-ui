@@ -1,8 +1,10 @@
-import { getDataOfTestCase, SubmissionRunStatus } from '@juki-team/commons';
+import { getDataOfTestCase, ONE_SECOND, SubmissionRunStatus } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../../helpers';
 import { T } from '../../../atoms';
 import { LogInfoProps } from '../types';
+
+const otherLimits = [ SubmissionRunStatus.COMPILING, SubmissionRunStatus.COMPILED, SubmissionRunStatus.COMPILATION_ERROR ];
 
 export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
   
@@ -13,7 +15,11 @@ export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
     memoryLimitExceeded,
     exitCode,
     runtimeError,
-  } = getDataOfTestCase(testCase, timeLimit, memoryLimit);
+  } = getDataOfTestCase(
+    testCase,
+    otherLimits.includes(testCase.status) ? 10 * ONE_SECOND : timeLimit,
+    otherLimits.includes(testCase.status) ? 1048576 : memoryLimit,
+  );
   
   const time = <div data-tooltip-id="jk-tooltip" data-tooltip-content="time used">{timeUsed} <T>ms</T></div>;
   const memory = <div data-tooltip-id="jk-tooltip" data-tooltip-content="memory used">{memoryUsed} <T>KB</T></div>;
