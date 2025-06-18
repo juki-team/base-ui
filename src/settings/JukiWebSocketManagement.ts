@@ -13,6 +13,7 @@ import {
   isSubscribeSenDataEc2InstancesListWebSocketEventDTO,
   isSubscribeSenDataEcsTaskDefinitionsListWebSocketEventDTO,
   isSubscribeSenDataEcsTasksListWebSocketEventDTO,
+  isSubscribeSenDataSsmSessionsListWebSocketEventDTO,
   isSubscribeSubmissionRunStatusWebSocketEventDTO,
   ObjectIdType,
   ONE_MINUTE,
@@ -218,6 +219,9 @@ export class JukiWebSocketManagement {
     }
     if (isSubscribeSenDataEc2InstancesListWebSocketEventDTO(event)) {
       return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_EC2_INSTANCES_LIST, event.sessionId, '*');
+    }
+    if (isSubscribeSenDataSsmSessionsListWebSocketEventDTO(event)) {
+      return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_SSM_SESSIONS_LIST, event.sessionId, '*');
     }
     if (isSubscribeProblemCrawledWebSocketEventDTO(event)) {
       return getWebSocketResponseEventKey(WebSocketResponseEvent.PROBLEM_CRAWLED, event.sessionId, event.problemKey);
