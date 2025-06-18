@@ -85,7 +85,7 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
         ...(copyLink ? [ {
           children: (
             <CopyToClipboard text={copyLink()} tooltip="" noStyling>
-              <Button size="small" icon={<ContentCopyIcon />} className="light">
+              <Button size="small" icon={<ContentCopyIcon />} type="void" className="bc-g6">
                 <T className="tt-se">copy link</T>
               </Button>
             </CopyToClipboard>
@@ -96,7 +96,7 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
   
   return (
     <>
-      <ButtonAction {...actionButtons[0]} />
+      <ButtonAction {...actionButtons[0]} className="top" />
       <DocumentMembersModal
         isOpen={show}
         onClose={() => setShow(false)}

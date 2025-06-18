@@ -28,13 +28,6 @@ const Cmp = () => {
         saveUrl=""
         copyLink={() => 'asf'}
       />
-      <DocumentMembersButton
-        documentName="testing"
-        documentMembers={members2}
-        documentOwner={{ ...dummyOwner, nickname: '' }}
-        saveUrl=""
-        copyLink={() => 'asf'}
-      />
       <DocumentCustomMembersContent
         members={members}
         setMembers={setMembers}
@@ -44,6 +37,13 @@ const Cmp = () => {
         participants={{ closeable: true }}
         guests={{ closeable: true }}
         spectators={{}}
+      />
+      <DocumentMembersButton
+        documentName="testing"
+        documentMembers={members2}
+        documentOwner={{ ...dummyOwner, nickname: '' }}
+        saveUrl=""
+        copyLink={() => 'asf'}
       />
       <DocumentMembersContent
         members={members2}

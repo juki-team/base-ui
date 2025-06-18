@@ -20,6 +20,7 @@ export interface ButtonActionProps {
   children?: ReactNode,
   placement?: FloatToolbarProps['placement'],
   size?: ButtonProps['size'],
+  className?: string,
 }
 
 export interface FloatToolbarProps {

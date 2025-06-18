@@ -156,7 +156,7 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   color: var(--t-color-accent-text);
 }
 
-.jk-button.text, .jk-button.void {
+.jk-button.text, .jk-button.void { // background color by system default
   --button-background-color: transparent;
   color: inherit;
   

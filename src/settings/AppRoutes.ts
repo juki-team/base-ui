@@ -28,40 +28,40 @@ export class AppRoutes {
       },
       profiles: {
         view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
-          return igu(injectOrigin(origin, `/profiles/${nickname}?tab=${tab}`));
+          return injectOrigin(origin, igu(`/profiles/${nickname}?tab=${tab}`));
         },
       },
       problems: {
         list() {
-          return igu(injectOrigin(origin, `/problems`));
+          return injectOrigin(origin, igu(`/problems`));
         },
         view({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
-          return igu(injectOrigin(origin, `/problems/${key}?tab=${tab}`));
+          return injectOrigin(origin, igu(`/problems/${key}?tab=${tab}`));
         },
         edit({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
-          return igu(injectOrigin(origin, `/problems/${key}/edit?tab=${tab}`));
+          return injectOrigin(origin, igu(`/problems/${key}/edit?tab=${tab}`));
         },
         new() {
-          return igu(injectOrigin(origin, `/problems/new`));
+          return injectOrigin(origin, igu(`/problems/new`));
         },
       },
       contests: {
         list() {
-          return igu(injectOrigin(origin, `/contests`));
+          return injectOrigin(origin, igu(`/contests`));
         },
         view({ key, tab = ContestTab.OVERVIEW, subTab }: { key: string, tab?: ContestTab, subTab?: string }) {
-          return igu(injectOrigin(origin, `/contests/${key}?tab=${tab}${subTab ? '&subTab=' + subTab : ''}`));
+          return injectOrigin(origin, igu(`/contests/${key}?tab=${tab}${subTab ? '&subTab=' + subTab : ''}`));
         },
         edit({ key, tab = ContestTab.OVERVIEW }: { key: string, tab?: ContestTab }) {
-          return igu(injectOrigin(origin, `/contests/${key}/edit?tab=${tab}`));
+          return injectOrigin(origin, igu(`/contests/${key}/edit?tab=${tab}`));
         },
         new() {
-          return igu(injectOrigin(origin, `/contests/new`));
+          return injectOrigin(origin, igu(`/contests/new`));
         },
       },
       submissions: {
         view({ id }: { id: string }) {
-          return igu(injectOrigin(origin, `/submissions/${id}`));
+          return injectOrigin(origin, igu(`/submissions/${id}`));
         },
       },
     };
@@ -77,55 +77,55 @@ export class AppRoutes {
       },
       worksheets: {
         list() {
-          return igu(injectOrigin(origin, `/worksheets`));
+          return injectOrigin(origin, igu(`/worksheets`));
         },
         view({ key, page = 1 }: { key: string, page?: number }) {
-          return igu(injectOrigin(origin, `/worksheets/${key}?page=${page}`));
+          return injectOrigin(origin, igu(`/worksheets/${key}?page=${page}`));
         },
         edit({ key }: { key: string }) {
-          return igu(injectOrigin(origin, `/worksheets/${key}/edit`));
+          return injectOrigin(origin, igu(`/worksheets/${key}/edit`));
         },
         new() {
-          return igu(injectOrigin(origin, `/worksheets/new`));
+          return injectOrigin(origin, igu(`/worksheets/new`));
         },
       },
       classes: {
         list() {
-          return igu(injectOrigin(origin, `/classes`));
+          return injectOrigin(origin, igu(`/classes`));
         },
         view({ key }: { key: string }) {
-          return igu(injectOrigin(origin, `/classes/${key}`));
+          return injectOrigin(origin, igu(`/classes/${key}`));
         },
         cycleView({ key, cycleId }: { key: string, cycleId: string }) {
-          return igu(injectOrigin(origin, `/classes/${key}/cycle/${cycleId}`));
+          return injectOrigin(origin, igu(`/classes/${key}/cycle/${cycleId}`));
         },
         edit({ key }: { key: string }) {
-          return igu(injectOrigin(origin, `/classes/${key}/edit`));
+          return injectOrigin(origin, igu(`/classes/${key}/edit`));
         },
         new() {
-          return igu(injectOrigin(origin, `/classes/new`));
+          return injectOrigin(origin, igu(`/classes/new`));
         },
       },
       courses: {
         list() {
-          return igu(injectOrigin(origin, `/courses`));
+          return injectOrigin(origin, igu(`/courses`));
         },
         view({ key }: { key: string }) {
-          return igu(injectOrigin(origin, `/courses/${key}`));
+          return injectOrigin(origin, igu(`/courses/${key}`));
         },
         lessonView({ key, lessonIndex, lessonPage = 1 }: { key: string, lessonIndex: number, lessonPage?: number }) {
-          return igu(injectOrigin(origin, `/courses/${key}/lessons/${lessonIndex}?page=${lessonPage}`));
+          return injectOrigin(origin, igu(`/courses/${key}/lessons/${lessonIndex}?page=${lessonPage}`));
         },
         edit({ key }: { key: string }) {
-          return igu(injectOrigin(origin, `/courses/${key}/edit`));
+          return injectOrigin(origin, igu(`/courses/${key}/edit`));
         },
         new() {
-          return igu(injectOrigin(origin, `/courses/new`));
+          return injectOrigin(origin, igu(`/courses/new`));
         },
       },
       profiles: {
         view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
-          return igu(injectOrigin(origin, `/profiles/${nickname}?tab=${tab}`));
+          return injectOrigin(origin, igu(`/profiles/${nickname}?tab=${tab}`));
         },
       },
     };

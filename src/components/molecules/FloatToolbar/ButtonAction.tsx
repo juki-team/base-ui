@@ -8,14 +8,17 @@ import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import { SetLoaderStatusOnClickType } from '../ButtonLoader/types';
 import { ButtonActionProps } from './types';
 
-export const ButtonAction = ({
-                               children,
-                               icon,
-                               buttons = [],
-                               placement,
-                               disabled,
-                               size = 'small',
-                             }: ButtonActionProps) => {
+export const ButtonAction = (props: ButtonActionProps) => {
+  
+  const {
+    children,
+    icon,
+    buttons = [],
+    placement,
+    disabled,
+    size = 'small',
+    className,
+  } = props;
   
   const { viewPortSize } = useJukiUI();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(null);
@@ -33,7 +36,7 @@ export const ButtonAction = ({
   
   return (
     <div
-      className={classNames('button-action jk-row', {
+      className={classNames('button-action jk-row', className, {
         open,
         'right': !!placement?.includes('right') && !placement?.includes('out'),
         'left': !(!!placement?.includes('right') && !placement?.includes('out')),
