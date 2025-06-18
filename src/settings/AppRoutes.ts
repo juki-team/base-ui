@@ -28,7 +28,7 @@ export class AppRoutes {
       },
       profiles: {
         view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
-          return injectOrigin(origin, igu(`/profiles/${nickname}?tab=${tab}`));
+          return injectOrigin(origin, igu(`/profiles/${nickname}${tab ? `?tab=${tab}` : ''}`));
         },
       },
       problems: {
@@ -36,10 +36,10 @@ export class AppRoutes {
           return injectOrigin(origin, igu(`/problems`));
         },
         view({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
-          return injectOrigin(origin, igu(`/problems/${key}?tab=${tab}`));
+          return injectOrigin(origin, igu(`/problems/${key}${tab ? `?tab=${tab}` : ''}`));
         },
         edit({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
-          return injectOrigin(origin, igu(`/problems/${key}/edit?tab=${tab}`));
+          return injectOrigin(origin, igu(`/problems/${key}/edit${tab ? `?tab=${tab}` : ''}`));
         },
         new() {
           return injectOrigin(origin, igu(`/problems/new`));
@@ -50,10 +50,10 @@ export class AppRoutes {
           return injectOrigin(origin, igu(`/contests`));
         },
         view({ key, tab = ContestTab.OVERVIEW, subTab }: { key: string, tab?: ContestTab, subTab?: string }) {
-          return injectOrigin(origin, igu(`/contests/${key}?tab=${tab}${subTab ? '&subTab=' + subTab : ''}`));
+          return injectOrigin(origin, igu(`/contests/${key}${tab ? `?tab=${tab}` : ''}${subTab ? (tab ? '&' : '?') + `subTab=${subTab}` : ''}`));
         },
         edit({ key, tab = ContestTab.OVERVIEW }: { key: string, tab?: ContestTab }) {
-          return injectOrigin(origin, igu(`/contests/${key}/edit?tab=${tab}`));
+          return injectOrigin(origin, igu(`/contests/${key}/edit${tab ? `?tab=${tab}` : ''}`));
         },
         new() {
           return injectOrigin(origin, igu(`/contests/new`));
@@ -80,7 +80,7 @@ export class AppRoutes {
           return injectOrigin(origin, igu(`/worksheets`));
         },
         view({ key, page = 1 }: { key: string, page?: number }) {
-          return injectOrigin(origin, igu(`/worksheets/${key}?page=${page}`));
+          return injectOrigin(origin, igu(`/worksheets/${key}${page ? `?page=${page}` : ''}`));
         },
         edit({ key }: { key: string }) {
           return injectOrigin(origin, igu(`/worksheets/${key}/edit`));
@@ -113,8 +113,8 @@ export class AppRoutes {
         view({ key }: { key: string }) {
           return injectOrigin(origin, igu(`/courses/${key}`));
         },
-        lessonView({ key, lessonIndex, lessonPage = 1 }: { key: string, lessonIndex: number, lessonPage?: number }) {
-          return injectOrigin(origin, igu(`/courses/${key}/lessons/${lessonIndex}?page=${lessonPage}`));
+        lessonView({ key, lessonIndex, page = 1 }: { key: string, lessonIndex: number, page?: number }) {
+          return injectOrigin(origin, igu(`/courses/${key}/lessons/${lessonIndex}${page ? `?page=${page}` : ''}`));
         },
         edit({ key }: { key: string }) {
           return injectOrigin(origin, igu(`/courses/${key}/edit`));
@@ -125,7 +125,7 @@ export class AppRoutes {
       },
       profiles: {
         view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
-          return injectOrigin(origin, igu(`/profiles/${nickname}?tab=${tab}`));
+          return injectOrigin(origin, igu(`/profiles/${nickname}${tab ? `?tab=${tab}` : ''}`));
         },
       },
     };
