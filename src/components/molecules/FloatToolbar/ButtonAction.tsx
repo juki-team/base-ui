@@ -39,7 +39,7 @@ export const ButtonAction = (props: ButtonActionProps) => {
       className={classNames('button-action jk-row', className, {
         open,
         'right': !!placement?.includes('right') && !placement?.includes('out'),
-        'left': !(!!placement?.includes('right') && !placement?.includes('out')),
+        'left': !(!!placement?.includes('right') && !placement?.includes('out')) && !className?.includes('center'),
         'no-buttons': !buttons.length,
       })}
       onClick={viewPortSize === 'sm' ? () => setOpen(true) : undefined}

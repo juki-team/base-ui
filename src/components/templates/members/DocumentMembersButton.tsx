@@ -50,8 +50,10 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
       popoverClassName="bc-we jk-br-ie elevation-1"
       offset={4}
       content={
-        <div style={{ width: 128 }} className="jk-pg-xsm">
-          <div className="fw-bd"><T className="tt-se">{ENTITY_ACCESS[documentMembers.access].label}</T></div>
+        <div style={{ maxWidth: 256 }} className="jk-pg-xsm tx-s">
+          <div className="fw-bd">
+            <T className="tt-se">access</T>: <T className="tt-se">{ENTITY_ACCESS[documentMembers.access].label}</T>
+          </div>
           <T className="tt-se">{ENTITY_ACCESS[documentMembers.access].description}</T>
         </div>
       }
@@ -96,7 +98,7 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
   
   return (
     <>
-      <ButtonAction {...actionButtons[0]} className="top" />
+      <ButtonAction {...actionButtons[0]} className="top center" placement="top" />
       <DocumentMembersModal
         isOpen={show}
         onClose={() => setShow(false)}
