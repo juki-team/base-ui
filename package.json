@@ -193,7 +193,8 @@
     "xlsx-js-style": "^1.2.0"
   },
   "resolutions": {
-    "jackspeak": "2.1.1"
+    "jackspeak": "2.1.1",
+    "yargs": "^17.7.2"
   },
   "msw": {
     "workerDirectory": [
