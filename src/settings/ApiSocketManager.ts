@@ -920,21 +920,21 @@ export class ApiSocketManager {
       },
       statistics: {
         getCompanyStats: valid<
-          { params: { companyKey: string } } | void
-        >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
-          url: injectCompany(injectBaseUrl('statistics', '/company'), companyKey),
+          { params: { companyKey: string, startTimestamp: number, endTimestamp: number } }
+        >(({ params: { companyKey, startTimestamp, endTimestamp } }) => ({
+          url: injectCompany(injectBaseUrl('statistics', `/company?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}`), companyKey),
           method: HTTPMethod.GET,
         })),
         getProblemStats: valid<
-          { params: { companyKey?: string, problemKey: string } }
-        >(({ params: { companyKey, problemKey } }) => ({
-          url: injectCompany(injectBaseUrl('statistics', `/problem/${problemKey}`), companyKey),
+          { params: { companyKey?: string, problemKey: string, startTimestamp: number, endTimestamp: number } }
+        >(({ params: { companyKey, problemKey, startTimestamp, endTimestamp } }) => ({
+          url: injectCompany(injectBaseUrl('statistics', `/problem/${problemKey}?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}`), companyKey),
           method: HTTPMethod.GET,
         })),
         getUsersTracksStats: valid<
-          { params: { companyKey: string } } | void
-        >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
-          url: injectCompany(injectBaseUrl('statistics', `/users-tracks`), companyKey),
+          { params: { companyKey: string, startTimestamp: number, endTimestamp: number } }
+        >(({ params: { companyKey, startTimestamp, endTimestamp } }) => ({
+          url: injectCompany(injectBaseUrl('statistics', `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}`), companyKey),
           method: HTTPMethod.GET,
         })),
       },
