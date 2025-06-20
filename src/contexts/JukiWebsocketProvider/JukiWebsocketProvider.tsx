@@ -30,6 +30,7 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
     const event: PingWebSocketEventDTO = {
       event: WebSocketActionEvent.PING,
       sessionId: userSessionId,
+      href: window.location.href,
     };
     const callback = (data: WebSocketResponseEventDTO) => {
       if (isPongWebSocketResponseEventDTO(data)) {
@@ -68,6 +69,7 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
         jukiApiSocketManager.SOCKET.send({
           event: WebSocketActionEvent.PING,
           sessionId: userSessionId,
+          href: window.location.href,
         });
       }
     }, ONE_MINUTE);
