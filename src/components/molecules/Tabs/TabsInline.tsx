@@ -72,7 +72,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
       <div
         key={key as string}
         onClick={(key === selectedTabKey) ? undefined : () => setSelectedTabKey(key)}
-        className={classNames(`jk-tabs-inline-tab jk-row nowrap`, {
+        className={classNames(`jk-tabs-inline-tab jk-row nowrap jk-tabs-inline-tab-${key}`, {
           'selected': key === selectedTabKey, // no used bold to prevent changes on the width
           'one-tab-view': oneTabView,
           'cr-pt': key === selectedTabKey && tickStyle === 'background',
