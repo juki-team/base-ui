@@ -920,7 +920,7 @@ export class ApiSocketManager {
       },
       statistics: {
         getCompanyStats: valid<
-          { params: { companyKey: string, startTimestamp: number, endTimestamp: number } }
+          { params: { companyKey?: string, startTimestamp: number, endTimestamp: number } }
         >(({ params: { companyKey, startTimestamp, endTimestamp } }) => ({
           url: injectCompany(injectBaseUrl('statistics', `/company?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}`), companyKey),
           method: HTTPMethod.GET,
@@ -932,7 +932,7 @@ export class ApiSocketManager {
           method: HTTPMethod.GET,
         })),
         getUsersTracksStats: valid<
-          { params: { companyKey: string, startTimestamp: number, endTimestamp: number } }
+          { params: { companyKey?: string, startTimestamp: number, endTimestamp: number } }
         >(({ params: { companyKey, startTimestamp, endTimestamp } }) => ({
           url: injectCompany(injectBaseUrl('statistics', `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}`), companyKey),
           method: HTTPMethod.GET,
