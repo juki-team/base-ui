@@ -23,7 +23,7 @@ export const CopyToClipboard = ({ text, size = 'regular', tooltip, children, noS
       style={noStyling ? {} : { width: 'min-content', height: 'min-content', padding: 'calc(var(--gap) / 3)' }}
       onClick={handleClick}
     >
-      {children ?? <ContentCopyIcon size={size} color="white" className="cr-we" />}
+      {children ?? <ContentCopyIcon size={size} />}
     </div>
   );
 };
