@@ -653,12 +653,6 @@ export class ApiSocketManager {
           url: injectCompany(injectBaseUrl('company', '/judge-list'), companyKey),
           method: HTTPMethod.GET,
         })),
-        getStats: valid<
-          { params: { companyKey: string } } | void
-        >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
-          url: injectCompany(injectBaseUrl('company', '/stats'), companyKey),
-          method: HTTPMethod.GET,
-        })),
         getResourceSpecifications: valid<
           { params: { companyKey: string } } | void
         >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
@@ -922,6 +916,26 @@ export class ApiSocketManager {
           url: injectBaseUrl('class', `/${classKey}/cycle/${cycleId}/session/${sessionId}/assignment/${assignmentId}/worksheet/submit-code-editor`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
+        })),
+      },
+      statistics: {
+        getCompanyStats: valid<
+          { params: { companyKey: string } } | void
+        >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
+          url: injectCompany(injectBaseUrl('statistics', '/company'), companyKey),
+          method: HTTPMethod.GET,
+        })),
+        getProblemStats: valid<
+          { params: { companyKey?: string, problemKey: string } }
+        >(({ params: { companyKey, problemKey } }) => ({
+          url: injectCompany(injectBaseUrl('statistics', `/problem/${problemKey}`), companyKey),
+          method: HTTPMethod.GET,
+        })),
+        getUsersTracksStats: valid<
+          { params: { companyKey: string } } | void
+        >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
+          url: injectCompany(injectBaseUrl('statistics', `/users-tracks`), companyKey),
+          method: HTTPMethod.GET,
         })),
       },
     };
