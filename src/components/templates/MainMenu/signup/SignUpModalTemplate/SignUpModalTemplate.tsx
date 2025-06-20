@@ -62,7 +62,7 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
   
   useEffect(() => {
     reset();
-  }, [ isOpen ]);
+  }, [ isOpen, reset ]);
   
   // const refSetLoading = useRef<SetLoaderStatusOnClickType>();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);

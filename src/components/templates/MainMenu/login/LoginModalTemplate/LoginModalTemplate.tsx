@@ -48,7 +48,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
   
   useEffect(() => {
     reset();
-  }, [ isOpen ]);
+  }, [ isOpen, reset ]);
   
   // const { t } = useT();
   const [ openForgotPasswordModal, setOpenForgotPasswordModal ] = useState(false);

@@ -1,5 +1,5 @@
-import { expect, within } from '@storybook/test';
-import { PlayFunction } from '@storybook/types';
+import { expect, within } from 'storybook/test';
+import { PlayFunction } from 'storybook/internal/types';
 import { waitFor } from 'storybook/test';
 
 export const waitForLoadingToDisappear: PlayFunction = async ({ canvasElement }) => {

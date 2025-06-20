@@ -12,7 +12,7 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
   
   const actionButtons = [];
   
-  if (index != 0) {
+  if (index !== 0) {
     actionButtons.push({
       icon: <ArrowUpwardIcon />,
       label: <T>move up</T>,
@@ -35,7 +35,7 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
     },
   });
   
-  if (index != length - 1) {
+  if (index !== length - 1) {
     actionButtons.push({
       icon: <ArrowDownwardIcon />,
       label: <T>move down</T>,

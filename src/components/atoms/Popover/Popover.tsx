@@ -14,6 +14,8 @@ import {
   useInteractions,
   useRole,
 } from '@floating-ui/react';
+import { Transition } from 'motion';
+import { Variants } from 'motion-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import React, { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } from 'react';
 import { isTrigger, renderReactNodeOrFunctionP1 } from '../../../helpers';
@@ -88,16 +90,16 @@ export function usePopover({
   );
 }
 
-const getPlacementVariants = (placement: Placement) => {
+const getPlacementVariants = (placement: Placement): Variants => {
   const common = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: Duration.FAST, ease: [ 0.25, 0.1, 0.25, 1 ] },
+      transition: { duration: Duration.FAST, ease: [ 0.25, 0.1, 0.25, 1 ] } as Transition,
     },
     exit: {
       opacity: 0,
-      transition: { duration: Duration.NORMAL, ease: 'easeInOut' },
+      transition: { duration: Duration.NORMAL, ease: 'easeInOut' } as Transition,
     },
   };
   

@@ -64,7 +64,7 @@ const DiffViewButton = ({ diffInput, croppedDiff, isProblemEditor }: {
         setDiff(diffInput);
       }
     }
-  }, [ diffInput, userPreferredTheme, isOpen, isProblemEditor ]);
+  }, [ diffInput, userPreferredTheme, isOpen, isProblemEditor, t ]);
   
   const left = diffInput.length - diffInput.indexOf('No newline at end of file') > 26;
   

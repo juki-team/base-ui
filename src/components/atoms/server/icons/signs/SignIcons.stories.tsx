@@ -1,72 +1,65 @@
-import { configureActions } from 'storybook/actions';
-import React, { FC } from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import React from 'react';
 import { MockupToggleThemeButton } from '../../../../mockup/MockupToggleThemeButton';
-import { SignIconProps } from '../types';
-
 import { ArrowIcon, CheckIcon_, CloseIcon_, DoubleUpIcon, ExclamationIcon, MinusIcon, PlusIcon, UpIcon } from './';
 
-export default {
-  title: 'Components/General/Icons',
+const meta = {
+  component: ArrowIcon,
   argTypes: {
-    color: { control: { type: 'color' } },
+    color: { control: 'color' },
     size: {
-      options: [ 'huge', 'large', 'regular', 'small', 'tiny' ],
-      control: {
-        type: 'select',
-        labels: {
-          huge: 'huge (48px)', // 12
-          large: 'large (36px)', // 12
-          regular: 'regular (24px)', // 6
-          small: 'small (18px)', // 6
-          tiny: 'tiny (12px)',
-        },
-      },
+      options: [ 'tiny', 'small', 'regular', 'large', 'huge', 'very-huge' ],
+      control: { type: 'select' },
     },
-    circle: { control: { type: 'boolean' } },
-    square: { control: { type: 'boolean' } },
-    filledCircle: { control: { type: 'boolean' } },
-    filledSquare: { control: { type: 'boolean' } },
-    rotate: { control: { type: 'number', value: 0 } },
-    onClick: {},
-    style: {},
-    className: { control: { type: 'text' } },
+    circle: { control: 'boolean' },
+    square: { control: 'boolean' },
+    filledCircle: { control: 'text' },
+    filledSquare: { control: 'text' },
+    rotate: { control: 'number', defaultValue: 0 },
+    className: { control: 'text' },
   },
-};
+} satisfies Meta<typeof ArrowIcon>;
 
-configureActions({
-  depth: 100,
-  // Limit the number of items logged into the actions panel
-  limit: 20,
-});
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Signs: FC<SignIconProps & { color: string }> = ({
-                                                               color,
-                                                               ...props
-                                                             }) => {
-  const icons = {
-    ArrowIcon,
-    ExclamationIcon,
-    MinusIcon,
-    PlusIcon,
-    UpIcon_: UpIcon,
-    CloseIcon_,
-    DoubleUpIcon,
-    CheckIcon_,
-  };
-  
-  return (
-    <div className="jk-row block gap" style={{ color }}>
-      {Object.entries(icons)
-        .sort(([ iconName1 ], [ iconName2 ]) => iconName1.localeCompare(iconName2))
-        .map(([ iconName, Component ]) => (
-          <div className="jk-row  nowrap center">
-            <Component {...props} />
-            <div className="tx-t cr-g1" style={{ width: 140 }}>
-              {iconName}
+export const Signs = {
+  render: (args) => {
+    const icons = {
+      ArrowIcon,
+      ExclamationIcon,
+      MinusIcon,
+      PlusIcon,
+      UpIcon_: UpIcon,
+      CloseIcon_,
+      DoubleUpIcon,
+      CheckIcon_,
+    };
+    
+    return (
+      <div className="jk-row block gap" style={{ color: args.color }}>
+        {Object.entries(icons)
+          .sort(([ a ], [ b ]) => a.localeCompare(b))
+          .map(([ iconName, Component ]) => (
+            <div className="jk-row nowrap center" key={iconName}>
+              <Component {...args} />
+              <div className="tx-t cr-g1" style={{ width: 140 }}>
+                {iconName}
+              </div>
             </div>
-          </div>
-        ))}
-      <MockupToggleThemeButton />
-    </div>
-  );
-};
+          ))}
+        <MockupToggleThemeButton />
+      </div>
+    );
+  },
+  args: {
+    color: 'red',
+    size: 'regular',
+    circle: true,
+    square: false,
+    filledCircle: false,
+    filledSquare: false,
+    rotate: 0,
+    className: '',
+  },
+} satisfies Story;
