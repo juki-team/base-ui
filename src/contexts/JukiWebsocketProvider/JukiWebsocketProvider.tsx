@@ -6,6 +6,7 @@ import {
 } from '@juki-team/commons';
 import { PingWebSocketEventDTO } from '@juki-team/commons/dist/types/dto/socket';
 import { PropsWithChildren, useEffect, useRef } from 'react';
+import { useMouseInsidePage } from '../../hooks';
 import { jukiApiSocketManager } from '../../settings';
 import { usePageStore } from '../../stores/page/usePageStore';
 import { useUserStore } from '../../stores/user/useUserStore';
@@ -24,6 +25,7 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
   const setConnectionId = useWebsocketStore(state => state.setConnectionId);
   const userSessionId = useUserStore(state => state.user.sessionId);
   const intervalRef = useRef<ReturnType<typeof setTimeout>>(null);
+  const isMouseInside = useMouseInsidePage();
   
   useEffect(() => {
     
@@ -65,15 +67,15 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
     void jukiApiSocketManager.SOCKET.authenticate(userSessionId);
     intervalRef.current && clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
-      if (isPageVisible) {
+      if (isPageVisible && isMouseInside) {
         jukiApiSocketManager.SOCKET.send({
           event: WebSocketActionEvent.PING,
           sessionId: userSessionId,
           href: window.location.href,
         });
       }
-    }, ONE_MINUTE);
-  }, [ isPageVisible, connectionId, userSessionId, id ]);
+    }, ONE_MINUTE / 3);
+  }, [ isPageVisible, connectionId, userSessionId, id, isMouseInside ]);
   
   return children;
 };

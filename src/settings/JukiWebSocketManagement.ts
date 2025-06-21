@@ -185,6 +185,7 @@ export class JukiWebSocketManagement {
         const event: PingWebSocketEventDTO = {
           event: WebSocketActionEvent.PING,
           sessionId: jukiApiSocketManager.getToken() as ObjectIdType,
+          href: typeof window !== 'undefined' ? window.location.href : '',
         };
         this._send(JSON.stringify(contentResponse('bye', event)), false);
       }
