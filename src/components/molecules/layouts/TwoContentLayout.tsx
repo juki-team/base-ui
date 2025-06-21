@@ -22,6 +22,100 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
     loading,
   } = props;
   
+  const LOADING_TAB = 'loading' as T;
+  const { viewPortSize } = useJukiUI();
+  const _tabKeys = Object.keys(initialTabs);
+  
+  const tabs: TabsType<T> = !!loading ? {
+    [LOADING_TAB as string]: {
+      key: LOADING_TAB,
+      header: (
+        <div className="jk-row">
+          <div className="dot-flashing" />
+        </div>
+      ),
+      body: <JukiLoadingLayout children={typeof loading === 'boolean' ? undefined : loading} />,
+    },
+  } : initialTabs;
+  
+  const tabKeys = Object.keys(tabs);
+  
+  const selectedTabKey = loading ? LOADING_TAB : initialTabKey ?? initialTabs[_tabKeys?.[0]]?.key;
+  const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey }) as ReactNode[];
+  
+  const withTabs = tabKeys.length > 1;
+  const tabsOnBody = withTabs && false;
+  const tabsOnHeader = withTabs && true;
+  const isMobile = viewPortSize === 'sm';
+  const withBreadcrumbs = !!breadcrumbs?.length && !isMobile;
+  
+  return (
+    <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })}>
+      <>
+        {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
+        <div
+          className={classNames('jk-row gap extend jk-pg-sm-b', {
+            'jk-pg-sm-t': !withBreadcrumbs,
+            'left': !isMobile,
+            'center': isMobile,
+          })}
+        >
+          {children}
+          {!withTabs && tabButtons && tabButtons.length > 0 && (
+            <div className="jk-row gap extend right">
+              {tabButtons.map(buttonsTab => renderReactNodeOrFunctionP1(buttonsTab, { selectedTabKey }))}
+            </div>
+          )}
+        </div>
+        {tabsOnHeader && (
+          <TabsInline
+            tabs={tabs}
+            selectedTabKey={selectedTabKey}
+            extraNodes={tabButtons}
+            extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
+            tickStyle="background"
+            className="jk-pg-xsm-b"
+            getHrefOnTabChange={getHrefOnTabChange}
+          />
+        )}
+      </>
+      <>
+        {tabsOnBody && (
+          <TabsInline
+            tabs={tabs}
+            selectedTabKey={selectedTabKey}
+            extraNodes={tabButtons}
+            extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
+            getHrefOnTabChange={getHrefOnTabChange}
+          />
+        )}
+        <div
+          className={classNames('two-content-layout-body', { 'pn-re': !!loading })}
+          style={{ height: tabsOnBody ? 'calc(100% - 40px)' : '100%', position: 'relative' }}
+        >
+          <TabsInlineBody
+            tabs={tabs}
+            selectedTabKey={selectedTabKey}
+            preload
+          />
+        </div>
+      </>
+    </TwoContentSection>
+  );
+};
+
+export const TwoContentLayout1 = <T = string, >(props: TwoContentLayoutProps<T>) => {
+  
+  const {
+    breadcrumbs: initialBreadcrumbs,
+    tabs: initialTabs = {},
+    tabButtons,
+    getHrefOnTabChange,
+    selectedTabKey: initialTabKey,
+    children,
+    loading,
+  } = props;
+  
   // const withGetHrefOnTabChange = !!getHrefOnTabChange;
   // const getHrefOnTabChangeRef = useRef(getHrefOnTabChange);
   // getHrefOnTabChangeRef.current = getHrefOnTabChange;
