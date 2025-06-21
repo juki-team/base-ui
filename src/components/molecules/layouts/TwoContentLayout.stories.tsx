@@ -65,6 +65,7 @@ const Component = <T, >(args: TwoContentLayoutProps<T>) => {
         {layout === 2 && (
           <TwoContentLayoutComponent<T>
             {...args}
+            getHrefOnTabChange={() => ''}
             breadcrumbs={[ <div>a</div>, <div>b</div> ]}
             tabs={outputTabs as unknown as TabsType<T>}
           >

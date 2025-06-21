@@ -109,8 +109,9 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
     return withLink(key === selectedTabKey ? undefined : key, content);
   };
   
+  const withLinkCmp = getHrefOnTabChange && !routerReplace;
   const withLink = (key: T | undefined, content: ReactNode) => (
-    getHrefOnTabChange && !routerReplace && key ?
+    withLinkCmp && key ?
       <Link href={getHrefOnTabChange(key)}>{content}</Link> : content
   );
   
@@ -212,7 +213,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
           </div>
         )}
       </div>
-      {!onChange && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}
+      {!withLinkCmp && !onChange && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}
     </>
   );
 };
