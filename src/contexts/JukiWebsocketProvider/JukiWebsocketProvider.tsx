@@ -64,9 +64,7 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
   }, [ setId, setIsConnected ]);
   
   useEffect(() => {
-    void jukiApiSocketManager.SOCKET.authenticate(userSessionId);
-    intervalRef.current && clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
+    const callback = () => {
       if (isPageVisible && isMouseInside) {
         jukiApiSocketManager.SOCKET.send({
           event: WebSocketActionEvent.PING,
@@ -74,8 +72,15 @@ export const JukiWebsocketProvider = (props: PropsWithChildren<JukiWebsocketProv
           href: window.location.href,
         });
       }
-    }, ONE_MINUTE / 3);
+    };
+    callback();
+    intervalRef.current && clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(callback, ONE_MINUTE / 3);
   }, [ isPageVisible, connectionId, userSessionId, id, isMouseInside ]);
+  
+  useEffect(() => {
+    void jukiApiSocketManager.SOCKET.authenticate(userSessionId);
+  }, [ userSessionId, isPageVisible, id, connectionId ]);
   
   return children;
 };
