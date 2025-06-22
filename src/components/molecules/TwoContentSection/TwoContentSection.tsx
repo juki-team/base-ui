@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import React, { CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
+import { Duration } from '../../../types';
 import { TwoContentSectionProps } from './types';
 
 export function TwoContentSection({ children, className }: TwoContentSectionProps) {
@@ -9,11 +10,9 @@ export function TwoContentSection({ children, className }: TwoContentSectionProp
   const { height = 0, ref } = useResizeDetector();
   
   return (
-    <motion.section
+    <section
       className={classNames('jk-two-content-section jk-col nowrap stretch', className)}
       style={{ '--first-content-section-height': height + 'px' } as CSSProperties}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
     >
       <div
         ref={ref}
@@ -22,12 +21,14 @@ export function TwoContentSection({ children, className }: TwoContentSectionProp
       >
         {children[0]}
       </div>
-      <div
+      <motion.div
         id="jk-two-content-section-second-panel"
         className=""
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, transition: { duration: Duration.LOW } }}
       >
         {children[1]}
-      </div>
-    </motion.section>
+      </motion.div>
+    </section>
   );
 }
