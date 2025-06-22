@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 import { MockupToggleThemeButton } from '../../../../mockup/MockupToggleThemeButton';
-import { ArrowIcon, CheckIcon_, CloseIcon_, DoubleUpIcon, ExclamationIcon, MinusIcon, PlusIcon, UpIcon } from './';
+import { ArrowIcon_, CheckIcon_, CloseIcon_, DoubleUpIcon, ExclamationIcon_, MinusIcon, PlusIcon, UpIcon } from './';
 
 const meta = {
-  component: ArrowIcon,
+  component: ArrowIcon_,
   argTypes: {
     color: { control: 'color' },
     size: {
@@ -13,12 +13,12 @@ const meta = {
     },
     circle: { control: 'boolean' },
     square: { control: 'boolean' },
-    filledCircle: { control: 'text' },
-    filledSquare: { control: 'text' },
+    filledCircle: { control: 'boolean' },
+    filledSquare: { control: 'boolean' },
     rotate: { control: 'number', defaultValue: 0 },
     className: { control: 'text' },
   },
-} satisfies Meta<typeof ArrowIcon>;
+} satisfies Meta<typeof ArrowIcon_>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -26,8 +26,8 @@ type Story = StoryObj<typeof meta>;
 export const Signs = {
   render: (args) => {
     const icons = {
-      ArrowIcon,
-      ExclamationIcon,
+      ArrowIcon_,
+      ExclamationIcon_,
       MinusIcon,
       PlusIcon,
       UpIcon_: UpIcon,

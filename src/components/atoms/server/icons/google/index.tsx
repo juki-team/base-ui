@@ -411,6 +411,14 @@ export const EventListIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const ExclamationIconImport = () => import('./ExclamationIcon');
+const LazyExclamationIcon = lazy(() => ExclamationIconImport().then(module => ({ default: module.ExclamationIcon })));
+export const ExclamationIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyExclamationIcon {...props} />
+  </Suspense>
+);
+
 const ExpandLessIconImport = () => import('./ExpandLessIcon');
 const LazyExpandLessIcon = lazy(() => ExpandLessIconImport().then(module => ({ default: module.ExpandLessIcon })));
 export const ExpandLessIcon = (props: BasicIconProps) => (
@@ -568,6 +576,14 @@ const LazyHomeStorageIcon = lazy(() => HomeStorageIconImport().then(module => ({
 export const HomeStorageIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyHomeStorageIcon {...props} />
+  </Suspense>
+);
+
+const InfoIIconImport = () => import('./InfoIIcon');
+const LazyInfoIIcon = lazy(() => InfoIIconImport().then(module => ({ default: module.InfoIIcon })));
+export const InfoIIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyInfoIIcon {...props} />
   </Suspense>
 );
 
@@ -888,6 +904,14 @@ const LazyPreviewIcon = lazy(() => PreviewIconImport().then(module => ({ default
 export const PreviewIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyPreviewIcon {...props} />
+  </Suspense>
+);
+
+const PriorityHighIconImport = () => import('./PriorityHighIcon');
+const LazyPriorityHighIcon = lazy(() => PriorityHighIconImport().then(module => ({ default: module.PriorityHighIcon })));
+export const PriorityHighIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyPriorityHighIcon {...props} />
   </Suspense>
 );
 
@@ -1223,6 +1247,7 @@ export const preloadAtomsIconsGoogle = async () => {
   await ErrorIconImport();
   await EventIconImport();
   await EventListIconImport();
+  await ExclamationIconImport();
   await ExpandLessIconImport();
   await ExpandMoreIconImport();
   await ExtensionIconImport();
@@ -1243,6 +1268,7 @@ export const preloadAtomsIconsGoogle = async () => {
   await HistoryIconImport();
   await HomeIconImport();
   await HomeStorageIconImport();
+  await InfoIIconImport();
   await InfoIconImport();
   await InvertColorsIconImport();
   await LanguageIconImport();
@@ -1283,6 +1309,7 @@ export const preloadAtomsIconsGoogle = async () => {
   await PlayCircleIconImport();
   await PostAddIconImport();
   await PreviewIconImport();
+  await PriorityHighIconImport();
   await PublicIconImport();
   await PublishIconImport();
   await RedoIconImport();

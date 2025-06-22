@@ -31,13 +31,13 @@ export type SignIconProps = (IconProps & { rotate?: number }) & ({
 } | {
   circle?: locked,
   square?: locked,
-  filledCircle: true | string,
+  filledCircle: true,
   filledSquare?: locked,
 } | {
   circle?: locked,
   square?: locked,
   filledCircle?: locked,
-  filledSquare?: true | string,
+  filledSquare?: true,
 });
 
 export type BasicIconProps = (SignIconProps & { strikethrough?: boolean });

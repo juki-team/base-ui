@@ -1,6 +1,6 @@
 import React, { Children, memo, ReactElement, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../../helpers';
-import { ArrowIcon, SortIcon } from '../../../../server';
+import { ArrowDownwardIcon, ArrowUpwardIcon, SortIcon } from '../../../../server';
 import { fixHeaders, renderHead } from '../../commons/utils';
 import { DataViewerTableHeadersType, TableHeadProps, TableSortType } from '../../types';
 import { Filter } from './Filter';
@@ -91,8 +91,9 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
                 })}
                 onClick={() => onSort({ columnIndex })}
               >
+                
                 {order
-                  ? <ArrowIcon size="small" rotate={order < 0 ? 180 : 0} />
+                  ? order > 0 ? <ArrowUpwardIcon size="small" /> : <ArrowDownwardIcon size="small" />
                   : <SortIcon up down size="small" />}
               </div>
             )}

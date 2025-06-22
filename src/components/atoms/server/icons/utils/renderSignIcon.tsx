@@ -1,10 +1,10 @@
 import React, { ComponentType } from 'react';
 import { classNames } from '../../../../../helpers/commons';
 import { RootIconProps, SignIconProps } from '../types';
-import { CircleFilledFrame } from './CircleFilledFrame';
 import { CircleFrame } from './CircleFrame';
-import { SquareFilledFrame } from './SquareFilledFrame';
 import { SquareFrame } from './SquareFrame';
+
+const width = 3;
 
 export const renderSignIcon = (_props: SignIconProps, Component: ComponentType<RootIconProps>, name?: string) => {
   
@@ -27,10 +27,9 @@ export const renderSignIcon = (_props: SignIconProps, Component: ComponentType<R
       style={{ transform: `rotate(${rotate}deg)` }}
     >
       <svg viewBox="0 0 24 24" fill="currentColor">
-        {filledCircle && <CircleFilledFrame />}
-        {filledSquare && <SquareFilledFrame />}
-        {circle && <CircleFrame />}
-        {square && <SquareFrame />}
+        {/*{filledCircle && <CircleFilledFrame strokeWidth={width} />}*/}
+        {(circle || filledCircle) && <CircleFrame strokeWidth={width} filled={filledCircle} />}
+        {(square || filledSquare) && <SquareFrame strokeWidth={width} filled={filledSquare} />}
         <Component
           color={
             color
@@ -38,7 +37,7 @@ export const renderSignIcon = (_props: SignIconProps, Component: ComponentType<R
               : (filledCircle || filledSquare)
                 ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)'))
                 : 'currentColor'}
-          width={2.5}
+          width={width}
         />
       </svg>
     </span>

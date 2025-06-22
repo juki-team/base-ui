@@ -4,7 +4,7 @@ import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { Button, Input, InputToggle, T } from '../../../atoms';
 import { CheckboxList, DrawerView, InputDate } from '../../../molecules';
 import { OptionType } from '../../../molecules/types';
-import { ArrowIcon, FilterListIcon } from '../../../server';
+import { ArrowDownwardIcon, ArrowUpwardIcon, FilterListIcon } from '../../../server';
 import {
   fixHeaders,
   isDisabledEnd,
@@ -59,7 +59,8 @@ const RenderFilterTitle = <T, >({
       </div>
       {onSort ? (
         <div className={classNames('jk-row tool', { active: !!order })} onClick={() => onSort({ columnIndex })}>
-          <T>sort</T><ArrowIcon rotate={order < 0 ? 180 : 0} />
+          <T>sort</T>
+          {order > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
         </div>
       ) : <div />}
     </div>

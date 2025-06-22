@@ -3,11 +3,11 @@ import React, { lazy, Suspense } from 'react';
 import { SpinIcon } from '../SpinIcon';
 import { SignIconProps } from '../types';
 
-const ArrowIconImport = () => import('./ArrowIcon');
-const LazyArrowIcon = lazy(() => ArrowIconImport().then(module => ({ default: module.ArrowIcon })));
-export const ArrowIcon = (props: SignIconProps) => (
+const ArrowIcon_Import = () => import('./ArrowIcon_');
+const LazyArrowIcon_ = lazy(() => ArrowIcon_Import().then(module => ({ default: module.ArrowIcon_ })));
+export const ArrowIcon_ = (props: SignIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
-    <LazyArrowIcon {...props} />
+    <LazyArrowIcon_ {...props} />
   </Suspense>
 );
 
@@ -35,11 +35,11 @@ export const DoubleUpIcon = (props: SignIconProps) => (
   </Suspense>
 );
 
-const ExclamationIconImport = () => import('./ExclamationIcon');
-const LazyExclamationIcon = lazy(() => ExclamationIconImport().then(module => ({ default: module.ExclamationIcon })));
-export const ExclamationIcon = (props: SignIconProps) => (
+const ExclamationIcon_Import = () => import('./ExclamationIcon_');
+const LazyExclamationIcon_ = lazy(() => ExclamationIcon_Import().then(module => ({ default: module.ExclamationIcon_ })));
+export const ExclamationIcon_ = (props: SignIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
-    <LazyExclamationIcon {...props} />
+    <LazyExclamationIcon_ {...props} />
   </Suspense>
 );
 
@@ -68,11 +68,11 @@ export const UpIcon = (props: SignIconProps) => (
 );
 
 export const preloadAtomsIconsSigns = async () => {
-  await ArrowIconImport();
+  await ArrowIcon_Import();
   await CheckIcon_Import();
   await CloseIcon_Import();
   await DoubleUpIconImport();
-  await ExclamationIconImport();
+  await ExclamationIcon_Import();
   await MinusIconImport();
   await PlusIconImport();
   await UpIconImport();

@@ -1,9 +1,9 @@
 import React, { ComponentType } from 'react';
 import { classNames } from '../../../../../helpers/commons';
 import { BasicIconProps, RootIconProps } from '../types';
-import { CirclePath } from './CirclePath';
-import { arcS, H, M, V } from './functions';
+import { CircleFrame } from './CircleFrame';
 import { Segment } from './Segment';
+import { SquareFrame } from './SquareFrame';
 import { Vector } from './Vector';
 
 export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType<RootIconProps>, name?: string) => {
@@ -25,7 +25,7 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
   } = _props;
   
   const isFilled = filledCircle || filledSquare;
-  const scale = circle ? 0.6 : square ? 0.7 : (filledSquare || filledCircle) ? 0.8 : 1;
+  const scale = circle ? 0.8 : square ? 0.8 : (filledSquare || filledCircle) ? 0.8 : 1;
   
   const [ minX, minY, widthBox ] = viewBox.split(' ').map(Number);
   
@@ -36,15 +36,8 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
   const sizeBox = widthBox / 2;
   const lineWidth = 2; // [1,24]
   const scaleLineWidth = (widthBox * lineWidth / 24);
-  const start = 2;
-  const scaleStart = (widthBox * start / 24);
   const centerX = minX + widthBox / 2;
   const centerY = minY + widthBox / 2;
-  
-  // const  k = (2 - Math.sqrt(2)) / Math.sqrt(8);
-  const k = 0.4;
-  const a = widthBox - scaleStart;
-  const b = a - scaleStart;
   
   const color = isFilled ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)')) : 'currentColor';
   
@@ -58,52 +51,17 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
       // exit={{ scale: 0, transition: { duration: 5 } }}
     >
       <svg viewBox={viewBox} fill="currentColor">
-        {filledCircle && (
-          <CirclePath center={{ x: centerX, y: centerY }} radio={sizeBox} />
-        )}
-        {filledSquare && (
-          <path
-            fill="currentColor"
-            strokeWidth="0"
-            stroke="currentColor"
-            d={[
-              M({ x: minX + scaleStart, y: minY + b }),
-              arcS({ x: minX + scaleStart, y: minY + b }, { x: minX + scaleStart * 2, y: minY + a }, k),
-              H(minX + b),
-              arcS({ x: minX + b, y: minY + a }, { x: minX + a, y: minY + b }, k),
-              V(minY + scaleStart * 2),
-              arcS({ x: minX + a, y: minY + scaleStart * 2 }, { x: minX + b, y: minY + scaleStart }, k),
-              H(minX + scaleStart * 2),
-              arcS({ x: minX + scaleStart * 2, y: minY + scaleStart }, {
-                x: minX + scaleStart,
-                y: minY + scaleStart * 2,
-              }, k),
-              'Z',
-            ].join(' ')}
-          />
-        )}
-        {circle && (
-          <circle
+        {(circle || filledCircle) && (
+          <CircleFrame
             cx={centerX}
             cy={centerY}
-            r={sizeBox - scaleLineWidth - scaleLineWidth / 2}
-            fill="none"
+            sizeBox={widthBox}
             strokeWidth={scaleLineWidth}
-            stroke="currentColor"
+            filled={filledCircle}
           />
         )}
-        {square && (
-          <rect
-            x={minX + scaleStart + scaleLineWidth / 2}
-            y={minY + scaleStart + scaleLineWidth / 2}
-            width={widthBox - scaleStart - scaleStart - scaleLineWidth}
-            height={widthBox - scaleStart - scaleStart - scaleLineWidth}
-            fill="none"
-            strokeWidth={scaleLineWidth}
-            stroke="currentColor"
-            rx={scaleLineWidth / 4}
-            ry={scaleLineWidth / 4}
-          />
+        {(square || filledSquare) && (
+          <SquareFrame cx={minX} cy={minY} strokeWidth={scaleLineWidth} sizeBox={widthBox} filled={filledSquare} />
         )}
         <g transform={`translate(${(1 - scale) * (minX + sizeBox)}, ${(1 - scale) * (minY + sizeBox)}) scale(${scale})`}>
           <Component

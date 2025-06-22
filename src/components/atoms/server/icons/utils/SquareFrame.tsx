@@ -1,17 +1,25 @@
 import React from 'react';
 
-export const SquareFrame = ({ width = 2 }: { width?: number }) => {
+interface SquareFrameProps {
+  strokeWidth?: number,
+  cx?: number,
+  cy?: number,
+  sizeBox?: number,
+  filled?: boolean,
+}
+
+export const SquareFrame = ({ strokeWidth = 2, sizeBox = 24, cy = 0, cx = 0, filled }: SquareFrameProps) => {
   return (
     <rect
-      x={2 + width / 2}
-      y={2 + width / 2}
-      width={20 - width}
-      height={20 - width}
-      fill="none"
-      strokeWidth={width}
+      x={cx + strokeWidth / 2}
+      y={cy + strokeWidth / 2}
+      width={sizeBox - strokeWidth}
+      height={sizeBox - strokeWidth}
+      fill={filled ? 'currentColor' : 'none'}
+      strokeWidth={strokeWidth}
       stroke="currentColor"
-      rx={width / 4}
-      ry={width / 4}
+      rx={strokeWidth}
+      ry={strokeWidth}
     />
   );
 };

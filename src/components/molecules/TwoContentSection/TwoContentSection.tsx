@@ -1,8 +1,6 @@
-import { motion } from 'motion/react';
 import React, { CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
-import { Duration } from '../../../types';
 import { TwoContentSectionProps } from './types';
 
 export function TwoContentSection({ children, className }: TwoContentSectionProps) {
@@ -21,14 +19,9 @@ export function TwoContentSection({ children, className }: TwoContentSectionProp
       >
         {children[0]}
       </div>
-      <motion.div
-        id="jk-two-content-section-second-panel"
-        className=""
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { duration: Duration.LOW } }}
-      >
+      <div id="jk-two-content-section-second-panel">
         {children[1]}
-      </motion.div>
+      </div>
     </section>
   );
 }
