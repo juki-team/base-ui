@@ -587,14 +587,6 @@ export const InfoIIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
-const InfoIconImport = () => import('./InfoIcon');
-const LazyInfoIcon = lazy(() => InfoIconImport().then(module => ({ default: module.InfoIcon })));
-export const InfoIcon = (props: BasicIconProps) => (
-  <Suspense fallback={<SpinIcon size="tiny" />}>
-    <LazyInfoIcon {...props} />
-  </Suspense>
-);
-
 const InvertColorsIconImport = () => import('./InvertColorsIcon');
 const LazyInvertColorsIcon = lazy(() => InvertColorsIconImport().then(module => ({ default: module.InvertColorsIcon })));
 export const InvertColorsIcon = (props: BasicIconProps) => (
@@ -1269,7 +1261,6 @@ export const preloadAtomsIconsGoogle = async () => {
   await HomeIconImport();
   await HomeStorageIconImport();
   await InfoIIconImport();
-  await InfoIconImport();
   await InvertColorsIconImport();
   await LanguageIconImport();
   await LeaderboardIconImport();

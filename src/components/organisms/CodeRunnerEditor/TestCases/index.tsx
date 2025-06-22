@@ -14,7 +14,7 @@ import { NotificationType } from '../../../../types';
 import { InputToggle, T, TextArea } from '../../../atoms';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../molecules';
 import { TabsType } from '../../../molecules/types';
-import { AddIcon, DeleteIcon, InfoIcon } from '../../../server';
+import { AddIcon, DeleteIcon, InfoIIcon } from '../../../server';
 import { ProblemVerdictTag } from '../../ProblemVerdictTag/ProblemVerdictTag';
 import { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
 import { LogInfo } from './LogInfo';
@@ -144,7 +144,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
               data-tooltip-content={`${test?.testOut.lastIndexOf('\n') === test?.testOut.length - 1 ? '' : 'no '}newline at end of file`}
               className="jk-row"
             >
-              <InfoIcon size="small" />
+              <InfoIIcon circle size="small" />
             </div>
           )}
         </div>

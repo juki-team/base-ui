@@ -9,7 +9,7 @@ import {
 import React, { Children, Fragment, PropsWithChildren, ReactNode } from 'react';
 import { classNames } from '../../../helpers';
 import { Popover, T } from '../../atoms';
-import { ExclamationIcon } from '../../server';
+import { ExclamationIcon, InfoIIcon } from '../../server';
 import { ProblemInfoProps } from './types';
 
 export interface JukiProblemInfoProps {
@@ -281,7 +281,7 @@ export const ProblemInfo = ({ problem }: ProblemInfoProps) => {
       placement="bottom"
     >
       <div className="jk-row link">
-        <ExclamationIcon filledCircle className="cr-py" rotate={180} color="var(--t-color-primary-text)" />
+        <InfoIIcon filledCircle className="cr-py" color="var(--t-color-primary-text)" />
       </div>
     </Popover>
   );

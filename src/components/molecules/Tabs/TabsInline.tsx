@@ -23,6 +23,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
     tickStyle = 'line',
     getHrefOnTabChange,
     routerReplace,
+    withBody,
   } = props;
   
   const tabsArray = Object.values(tabs);
@@ -213,7 +214,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
           </div>
         )}
       </div>
-      {!withLinkCmp && !onChange && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}
+      {withBody && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}
     </>
   );
 };

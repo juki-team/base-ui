@@ -3,7 +3,7 @@ import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { Button, Portal, T } from '../../atoms';
 import { SplitPane } from '../../molecules';
-import { FullscreenExitIcon, FullscreenIcon, InfoIcon } from '../../server';
+import { FullscreenExitIcon, FullscreenIcon, InfoIIcon } from '../../server';
 import { ProblemCodeEditor } from './commons/ProblemCodeEditor';
 import { ProblemStatementView } from './commons/ProblemStatementView';
 import { ProblemViewProps } from './types';
@@ -68,7 +68,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
           if (problem.judge.isExternal) {
             
             return (
-              <InfoIcon
+              <InfoIIcon
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="run the code in the code editor is not enabled for external judges to Juki Judge"
                 data-tooltip-place="bottom"

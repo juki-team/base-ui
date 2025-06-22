@@ -10,7 +10,7 @@ import { classNames } from '../../../helpers';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { InputToggle, Popover, T } from '../../atoms';
 import { UserChip, UsersSelector } from '../../organisms';
-import { InfoIcon } from '../../server';
+import { InfoIIcon } from '../../server';
 import { DocumentCustomMembersContentProps } from './types';
 
 const PrintUsers = ({ members }: { members?: EntityMembersResponseDTO['spectators'] }) => {
@@ -169,7 +169,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             <T className="tt-se fw-bd">{administratorsLabel}</T>
             {!!administrators?.description && (
               <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={administrators?.description || ''}>
-                <div className="jk-row"><InfoIcon size="small" /></div>
+                <div className="jk-row"><InfoIIcon circle size="small" /></div>
               </Popover>
             )}
             {administrators?.closeable && setMembers && (
@@ -231,7 +231,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             <T className="tt-se fw-bd">{managers?.name || 'managers'}</T>
             {!!managers?.description && (
               <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={managers?.description || ''}>
-                <div className="jk-row"><InfoIcon size="small" /></div>
+                <div className="jk-row"><InfoIIcon circle size="small" /></div>
               </Popover>
             )}
             {managers?.closeable && setMembers && (
@@ -293,7 +293,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             <T className="tt-se fw-bd">{participants?.name || 'participants'}</T>
             {!!participants?.description && (
               <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={participants?.description || ''}>
-                <div className="jk-row"><InfoIcon size="small" /></div>
+                <div className="jk-row"><InfoIIcon circle size="small" /></div>
               </Popover>
             )}
             {participants?.closeable && setMembers && (
@@ -355,7 +355,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             <T className="tt-se fw-bd">{guests?.name || 'guests'}</T>
             {!!guests?.description && (
               <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={guests?.description || ''}>
-                <div className="jk-row"><InfoIcon size="small" /></div>
+                <div className="jk-row"><InfoIIcon circle size="small" /></div>
               </Popover>
             )}
             {guests?.closeable && setMembers && (
@@ -417,7 +417,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
             <T className="tt-se fw-bd">{spectators?.name || 'spectators'}</T>
             {!!spectators?.description && (
               <Popover popoverClassName="bc-we jk-br-ie elevation-1" content={spectators?.description || ''}>
-                <div className="jk-row"><InfoIcon size="small" /></div>
+                <div className="jk-row"><InfoIIcon circle size="small" /></div>
               </Popover>
             )}
             {spectators?.closeable && setMembers && (

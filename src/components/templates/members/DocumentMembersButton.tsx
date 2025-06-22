@@ -4,9 +4,8 @@ import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, CopyToClipboard, Popover, T } from '../../atoms';
-import { ContentCopyIcon } from '../../atoms/server';
+import { ContentCopyIcon, InfoIIcon } from '../../atoms/server';
 import { ButtonAction } from '../../molecules/FloatToolbar/ButtonAction';
-import { InfoIcon } from '../../server';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';
 import { DocumentMembersButtonProps } from './types';
 
@@ -59,7 +58,7 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
       }
     >
       <div className="jk-row">
-        <InfoIcon />
+        <InfoIIcon circle />
       </div>
     </Popover>
   );

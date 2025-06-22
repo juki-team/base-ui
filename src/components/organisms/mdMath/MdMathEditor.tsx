@@ -15,7 +15,7 @@ import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { NotificationType } from '../../../types';
 import { Button, Modal, T, TextArea } from '../../atoms';
 import { SplitPane } from '../../molecules';
-import { CloseIcon, EditIcon, InfoIcon, PreviewIcon } from '../../server';
+import { CloseIcon, EditIcon, InfoIIcon, PreviewIcon } from '../../server';
 import { UploadImageButton } from '../ImageUploader/UploadImageButton';
 import { SAMPLE_MD_CONTENT } from './constants';
 import { MdFloatToolbar } from './MdFloatToolbar/MdFloatToolbar';
@@ -47,7 +47,7 @@ const InformationButton = ({ open, setOpen, isOpenRef, withLabel }: InformationB
         size="small"
         className="bc-we"
         type="void"
-        icon={<InfoIcon />}
+        icon={<InfoIIcon circle />}
         onClick={() => setOpen(true)}
       >
         {withLabel && <T className="tt-se">information</T>}

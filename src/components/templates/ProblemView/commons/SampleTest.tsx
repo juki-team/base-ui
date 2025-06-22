@@ -1,7 +1,7 @@
 import { ProblemSampleCasesType } from '@juki-team/commons';
 import React from 'react';
 import { CopyToClipboard } from '../../../atoms';
-import { InfoIcon } from '../../../server';
+import { InfoIIcon } from '../../../server';
 
 interface SampleTestProps {
   index: number,
@@ -26,7 +26,7 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
                   data-tooltip-content={`${sample.input.lastIndexOf('\n') === sample.input.length - 1 ? '' : 'no '}newline at end of file`}
                   className="jk-row cr-th"
                 >
-                  <InfoIcon size="small" />
+                  <InfoIIcon circle size="small" />
                 </div>
               )}
               {!forPrinting && (
@@ -45,7 +45,7 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
                   data-tooltip-content={`${sample.output.lastIndexOf('\n') === sample.output.length - 1 ? '' : 'no '}newline at end of file`}
                   className="jk-row cr-th"
                 >
-                  <InfoIcon size="small" />
+                  <InfoIIcon circle size="small" />
                 </div>
               )}
               {!forPrinting && (
