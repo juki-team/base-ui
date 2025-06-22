@@ -3,6 +3,8 @@ import React, { lazy, Suspense } from 'react';
 import { SpinIcon } from '../atoms/server/icons/SpinIcon';
 import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
 import { ModalButtonLoaderEventType } from '../atoms/types';
+import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
+import { BarChartProps } from './BarChart/types';
 import { BreadcrumbsProps } from './Breadcrumbs/types';
 import { ButtonLoaderProps } from './ButtonLoader/types';
 import { CheckboxListProps } from './CheckboxList/types';
@@ -17,6 +19,7 @@ import { ButtonActionProps } from './FloatToolbar/types';
 import { FloatToolbarProps } from './FloatToolbar/types';
 import { ImageLoaderCropperProps } from './ImageLoaderCropper/types';
 import { InputColorProps } from './InputColor/types';
+import { LineChartProps } from './LineChart/types';
 import { LinkLastPathProps } from './LinkLastPath/types';
 import { MultiSelectSearchableProps } from './MultiSelectSearchable/types';
 import { SortableItemsProps } from './SimpleSortableRows/types';
@@ -43,6 +46,15 @@ import { CircularProgressProps } from './progress/types';
 import { MultiProgressBarProps } from './progress/types';
 import { TimerProps } from './timers/types';
 import { TimerLabeledProps } from './timers/types';
+
+const BarChartImport = () => import('./BarChart/BarChart');
+const LazyBarChart = lazy(() => BarChartImport().then(module => ({ default: module.BarChart })));
+export const BarChart = <T extends ValueType, U extends NameType>(props: BarChartProps<T, U>) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    {/*@ts-ignore*/}
+    <LazyBarChart {...props} />
+  </Suspense>
+);
 
 const BreadcrumbsImport = () => import('./Breadcrumbs/Breadcrumbs');
 const LazyBreadcrumbs = lazy(() => BreadcrumbsImport().then(module => ({ default: module.Breadcrumbs })));
@@ -156,6 +168,15 @@ const LazyInputColor = lazy(() => InputColorImport().then(module => ({ default: 
 export const InputColor = (props: InputColorProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyInputColor {...props} />
+  </Suspense>
+);
+
+const LineChartImport = () => import('./LineChart/LineChart');
+const LazyLineChart = lazy(() => LineChartImport().then(module => ({ default: module.LineChart })));
+export const LineChart = <T extends ValueType, U extends NameType>(props: LineChartProps<T, U>) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    {/*@ts-ignore*/}
+    <LazyLineChart {...props} />
   </Suspense>
 );
 
@@ -376,6 +397,7 @@ export const TimerLabeled = (props: TimerLabeledProps) => (
 );
 
 export const preloadMolecules = async () => {
+  await BarChartImport();
   await BreadcrumbsImport();
   await ButtonLoaderImport();
   await CheckboxListImport();
@@ -390,6 +412,7 @@ export const preloadMolecules = async () => {
   await FloatToolbarImport();
   await ImageLoaderCropperImport();
   await InputColorImport();
+  await LineChartImport();
   await LinkLastPathImport();
   await MultiSelectSearchableImport();
   await SortableItemsImport();

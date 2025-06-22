@@ -1,3 +1,4 @@
+export type * from './BarChart/types';
 export type * from './Breadcrumbs/types';
 export type * from './ButtonLoader/types';
 export type * from './CheckboxList/types';
@@ -12,6 +13,7 @@ export type * from './FloatToolbar/types';
 export type * from './FloatToolbar/types';
 export type * from './ImageLoaderCropper/types';
 export type * from './InputColor/types';
+export type * from './LineChart/types';
 export type * from './LinkLastPath/types';
 export type * from './MultiSelectSearchable/types';
 export type * from './SimpleSortableRows/types';

@@ -42,7 +42,7 @@ const componentDirs = [
   {
     chunkName: 'Molecules',
     dir: path.resolve('./src/components/molecules'),
-    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server/icons/SpinIcon';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';`,
+    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server/icons/SpinIcon';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';\nimport { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';`,
     withTypes: true,
   },
   {
@@ -78,6 +78,8 @@ const withGenericity = [
   [ `export const TabsInlineBody = (props: TabsInlineBodyProps) => (`, `export const TabsInlineBody = <T, >(props: TabsInlineBodyProps<T>) => (` ],
   [ `export const TwoContentCardsLayout = (props: TwoContentCardsLayoutProps) => (`, `export const TwoContentCardsLayout = <T, >(props: TwoContentCardsLayoutProps<T>) => (` ],
   [ `export const TwoContentLayout = (props: TwoContentLayoutProps) => (`, `export const TwoContentLayout = <T, >(props: TwoContentLayoutProps<T>) => (` ],
+  [ `export const BarChart = (props: BarChartProps) => (`, `export const BarChart = <T extends ValueType, U extends NameType>(props: BarChartProps<T, U>) => (` ],
+  [ `export const LineChart = (props: LineChartProps) => (`, `export const LineChart = <T extends ValueType, U extends NameType>(props: LineChartProps<T, U>) => (` ],
   // organisms
   [ `export const CheckUnsavedChanges = (props: CheckUnsavedChangesProps) => (`, `export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChangesProps<T>) => (` ],
   [ `export const CodeRunnerEditor = (props: CodeRunnerEditorProps) => (`, `export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => (` ],

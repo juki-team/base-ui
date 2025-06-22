@@ -75,6 +75,7 @@
     "handsontable": "^15.3.0",
     "i18next": "^25.2.1",
     "immutability-helper": "^3.1.1",
+    "motion": "^12.18.1",
     "prismjs": "^1.30.0",
     "react-color": "^2.19.3",
     "react-device-detect": "^2.2.3",
@@ -85,20 +86,20 @@
     "react-markdown": "^10.1.0",
     "react-resize-detector": "^12.1.0",
     "react-tooltip": "^5.29.1",
+    "recharts": "^2.15.4",
     "rehype-katex": "^7.0.1",
     "remark-gfm": "^4.0.1",
     "remark-math": "^6.0.0",
     "swr": "^2.3.3",
+    "uuid": "^11.1.0",
     "xlsx": "^0.18.5",
     "yup": "^1.6.1",
     "zustand": "^5.0.5"
   },
   "peerDependencies": {
-    "motion": "^12.16.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "sass": "^1.85.0",
-    "xlsx-js-style": "^1.2.0"
+    "sass": "^1.89.2"
   },
   "scripts": {
     "storybook": "storybook dev -p 6006",
@@ -166,7 +167,6 @@
     "@types/react-dom": "^19.1.6",
     "@types/uuid": "^10.0.0",
     "chromatic": "^13.0.1",
-    "motion": "^12.16.0",
     "msw": "^2.10.2",
     "msw-storybook-addon": "^2.0.5",
     "react": "^19.1.0",

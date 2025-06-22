@@ -8,13 +8,15 @@ import {
   stringToArrayBuffer,
   Theme,
 } from '@juki-team/commons';
-import { Children, cloneElement, isValidElement, MutableRefObject, PropsWithChildren, ReactNode } from 'react';
-import * as XLSX from 'xlsx-js-style';
+import { diff } from 'deep-object-diff';
+import { Children, cloneElement, isValidElement, PropsWithChildren, ReactNode, RefObject } from 'react';
 import { SheetDataType } from '../modules';
 import { jukiApiSocketManager } from '../settings';
 import { TriggerActionsType } from '../types';
 import { authorizedRequest } from './fetch';
 import { getXLSX } from './xlsx';
+
+export const objectDiff = diff;
 
 export { cleanRequest } from '@juki-team/commons';
 
@@ -236,7 +238,8 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
 
 export const downloadSheetDataAsXlsxFile = async (sheets: SheetDataType[], fileName: string = 'file.xlsx') => {
   const workBook = await sheetDataToWorkBook(sheets, fileName);
-  const workBookOut = XLSX.write(workBook, { bookType: 'xlsx', type: 'binary' });
+  const { write } = await getXLSX();
+  const workBookOut = write(workBook, { bookType: 'xlsx', type: 'binary' });
   const blob = new Blob([ stringToArrayBuffer(workBookOut) ], { type: 'application/octet-stream' });
   downloadBlobAsFile(blob, fileName);
 };
@@ -298,6 +301,6 @@ export function toBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
   });
 }
 
-export const isOverflowed = (ref: MutableRefObject<any>) => {
+export const isOverflowed = (ref: RefObject<any>) => {
   return ref.current?.scrollWidth > ref.current?.clientWidth;
 };
