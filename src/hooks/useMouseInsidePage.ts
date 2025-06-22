@@ -5,17 +5,14 @@ export function useMouseInsidePage() {
   
   useEffect(() => {
     const handleMouseOut = (e: MouseEvent) => {
-      // Si el mouse sale completamente del documento (e.g. a otra ventana/pantalla)
       if (!e.relatedTarget || (e.relatedTarget as HTMLElement).nodeName === 'HTML') {
         setIsMouseInside(false);
-        console.log('Mouse salió completamente del documento');
       }
     };
     
     const handleMouseOver = () => {
       if (!isMouseInside) {
         setIsMouseInside(true);
-        console.log('Mouse volvió a entrar al documento');
       }
     };
     
