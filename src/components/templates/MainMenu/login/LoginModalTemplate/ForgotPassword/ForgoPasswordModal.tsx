@@ -22,9 +22,7 @@ export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword
       onClose={onClose}
       className="modal-login"
       title={
-        <>
-          <h3><T className="cr-g1">recover your account</T></h3>
-        </>
+        <h3><T className="cr-pt tt-se">recover your account</T></h3>
       }
       graphic={<JukiLaptopImage />}
       expand
@@ -54,14 +52,14 @@ export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword
           <p><T>{(touched && disabled) ? 'must be a valid email' : ''}</T></p>
         </div>
         <div className="jk-row-col gap block">
-          <ButtonLoader type="light" onClick={onClose}><T>cancel</T></ButtonLoader>
+          <ButtonLoader type="light" onClick={onClose}><T className="tt-se">cancel</T></ButtonLoader>
           <ButtonLoader
             type="primary"
             onClick={(setLoading) => onForgotPassword(email, setLoading!)}
             disabled={disabled}
             submit
           >
-            <T className="ws-np">send me</T>
+            <T className="ws-np tt-se">send me</T>
           </ButtonLoader>
         </div>
       </div>

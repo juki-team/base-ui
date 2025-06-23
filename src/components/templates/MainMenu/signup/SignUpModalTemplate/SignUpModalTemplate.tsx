@@ -75,7 +75,7 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
       className="modal-sign-up"
       title={
         <>
-          <h3><T className="tt-se cr-g1">sign up</T></h3>
+          <h3><T className="tt-se cr-pt">sign up</T></h3>
           <p className="tx-h"><T className="tt-se">happy you join us</T></p>
         </>
       }
@@ -203,7 +203,7 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
             </div>
             <div className="jk-row-col gap block">
               <ButtonLoader type="light" onClick={onClose}>
-                <T>cancel</T>
+                <T className="tt-se">cancel</T>
               </ButtonLoader>
               <ButtonLoader
                 type="primary"
@@ -211,7 +211,7 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
                 disabled={!isValid}
                 submit
               >
-                <T className="ws-np">sign up</T>
+                <T className="ws-np tt-se">sign up</T>
               </ButtonLoader>
             </div>
           </div>

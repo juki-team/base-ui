@@ -151,7 +151,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                 )}
                 <div className="jk-row-col gap block">
                   <ButtonLoader type="light" onClick={onClose}>
-                    <T>cancel</T>
+                    <T className="tt-se">cancel</T>
                   </ButtonLoader>
                   <ButtonLoader
                     type="primary"
@@ -159,7 +159,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                     setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
                     submit
                   >
-                    <T>login</T>
+                    <T className="tt-se">login</T>
                   </ButtonLoader>
                 </div>
               </div>

@@ -21,7 +21,7 @@ export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
   return (
     <div
       data-tooltip-id="jk-tooltip"
-      data-tooltip-content={isOpen ? '' : isEs ? 'english' : 'español'}
+      data-tooltip-content={isEs ? 'switch to english' : 'cambiar a español'}
       data-tooltip-place={popoverPlacement}
       data-tooltip-t-class-name="tt-se"
       className={classNames('jk-row gap center extend', { 'cr-pr': !loading })}
@@ -35,12 +35,12 @@ export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
       {loading
         ? <LoadingIcon />
         : (isEs
-            ? <div className="jk-row" style={{ width: 24, height: 24 }}><FlagEnImage /></div>
-            : <div className="jk-row" style={{ width: 24, height: 24 }}><FlagEsImage /></div>
+            ? <div className="jk-row" style={{ width: 24, height: 24 }}><FlagEsImage /></div>
+            : <div className="jk-row" style={{ width: 24, height: 24 }}><FlagEnImage /></div>
         )}
       {isOpen && (
         <div className="flex-1 ta-lt">
-          <T className="tt-se">{isEs ? 'english' : 'español'}</T>
+          <T className="tt-se">{isEs ? 'español' : 'english'}</T>
         </div>
       )}
     </div>
@@ -77,7 +77,7 @@ export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
   return (
     <div
       data-tooltip-id="jk-tooltip"
-      data-tooltip-content={isOpen ? '' : isDark ? 'switch to light mode' : 'switch to dark mode'}
+      data-tooltip-content={isDark ? 'switch to light mode' : 'switch to dark mode'}
       data-tooltip-place={popoverPlacement}
       data-tooltip-t-class-name="tt-se"
       className={classNames('jk-row gap center extend', { 'cr-pr': !loading })}
@@ -111,7 +111,7 @@ export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
         )}
       {isOpen && (
         <div className="flex-1 ta-lt">
-          <T className="tt-se">{isDark ? 'light mode' : 'dark mode'}</T>
+          <T className="tt-se">{isDark ? 'dark mode' : 'light mode'}</T>
         </div>
       )}
     </div>
