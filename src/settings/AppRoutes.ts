@@ -64,6 +64,16 @@ export class AppRoutes {
           return injectOrigin(origin, igu(`/submissions/${id}`));
         },
       },
+      boards: {
+        page() {
+          return injectOrigin(origin, igu(`/boards`));
+        },
+      },
+      ide: {
+        page() {
+          return injectOrigin(origin, igu(`/ide`));
+        },
+      },
     };
   }
   
