@@ -55,8 +55,8 @@ export class AppRoutes {
         edit({ key, tab = ContestTab.OVERVIEW }: { key: string, tab?: ContestTab }) {
           return injectOrigin(origin, igu(`/contests/${key}/edit${tab ? `?tab=${tab}` : ''}`));
         },
-        new() {
-          return injectOrigin(origin, igu(`/contests/new`));
+        new({ tab }: { tab?: ContestTab } | void = { tab: undefined }) {
+          return injectOrigin(origin, igu(`/contests/new${tab ? `?tab=${tab}` : ''}`));
         },
       },
       submissions: {
