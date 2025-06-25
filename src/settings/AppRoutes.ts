@@ -41,8 +41,8 @@ export class AppRoutes {
         edit({ key, tab = ProblemTab.STATEMENT }: { key: string, tab?: ProblemTab }) {
           return injectOrigin(origin, igu(`/problems/${key}/edit${tab ? `?tab=${tab}` : ''}`));
         },
-        new() {
-          return injectOrigin(origin, igu(`/problems/new`));
+        new({ judge, tab }: { judge: string, tab?: ProblemTab }) {
+          return injectOrigin(origin, igu(`/problems/new?judge=${judge}${tab ? `&tab=${tab}` : ''}`));
         },
       },
       contests: {
