@@ -14,6 +14,7 @@ export const Timer = React.memo((props: TimerProps) => {
     literal,
     ignoreLeadingZeros = false,
     ignoreTrailingZeros = false,
+    abbreviated = false,
   } = props;
   
   const [ counter, setCounter ] = useState({ remaining: currentTimestamp, startTimestamp: 0 });
@@ -53,7 +54,8 @@ export const Timer = React.memo((props: TimerProps) => {
         <Fragment key={remaining.label}>
           <div className="content-stamp">
             <div className="content-number tx-s fw-bd jk-row">{remaining.remaining}</div>
-            <div className="content-label tx-t fw-bd tt-ue jk-row"><T>{remaining.label}</T></div>
+            <div className="content-label tx-t fw-bd tt-ue jk-row">
+              <T>{abbreviated ? remaining.abbreviatedLabel : remaining.label}</T></div>
           </div>
           {(index !== timeSplit.length - 1) && <span className="content-dots tx-l fw-bd">:</span>}
         </Fragment>

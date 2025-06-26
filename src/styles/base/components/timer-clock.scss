@@ -22,14 +22,6 @@
     .content-label {
       //color: var(--t-color-gray-4);
       line-height: var(--pad-t);
-      
-      span {
-        @include mixins.sm {
-          width: 8px;
-          margin: 0 auto;
-          visibility: hidden;
-        }
-      }
     }
     
     .content-label span:first-letter {

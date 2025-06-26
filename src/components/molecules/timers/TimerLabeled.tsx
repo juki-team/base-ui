@@ -17,14 +17,9 @@ const DEFAULT_LABELS: { [key in Period]: string } = {
 
 const MAX_LAPS = 6;
 
-export const TimerLabeled = ({
-                               startDate,
-                               endDate,
-                               currentDate,
-                               labels,
-                               laps: _laps = 3,
-                               literal,
-                             }: TimerLabeledProps) => {
+export const TimerLabeled = (props: TimerLabeledProps) => {
+  
+  const { startDate, endDate, currentDate, labels, laps: _laps = 3, literal, abbreviated } = props;
   
   const [ time, setTime ] = useState({ period: Period.CALC, remaining: 0, interval: 0 });
   
@@ -80,7 +75,13 @@ export const TimerLabeled = ({
       <div className="fw-bd">
         <T className="tt-se">{myLabels[time.period]}</T>
       </div>
-      <Timer laps={laps} currentTimestamp={time.remaining} interval={time.interval * timeInterval} literal={literal} />
+      <Timer
+        laps={laps}
+        currentTimestamp={time.remaining}
+        interval={time.interval * timeInterval}
+        literal={literal}
+        abbreviated={abbreviated}
+      />
     </div>
   );
 };

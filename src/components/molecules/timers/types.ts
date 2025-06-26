@@ -7,6 +7,7 @@ export interface TimerLabeledProps {
   labels?: { [key in Period]?: string },
   laps?: number,
   literal?: boolean,
+  abbreviated?: boolean,
 }
 
 export interface TimerProps {
@@ -16,4 +17,5 @@ export interface TimerProps {
   literal?: boolean,
   ignoreLeadingZeros?: boolean,
   ignoreTrailingZeros?: boolean,
+  abbreviated?: boolean,
 }
