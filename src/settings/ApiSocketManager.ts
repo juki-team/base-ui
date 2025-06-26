@@ -856,10 +856,12 @@ export class ApiSocketManager {
         })),
       },
       system: {
-        runnerServicesWakeUp: valid<void, HTTPMethod.POST>(() => ({
-          url: injectBaseUrl('sys', '/runner-services-wake-up'),
-          method: HTTPMethod.POST,
-        })),
+        services: {
+          checkAndStart: valid<void, HTTPMethod.POST>(() => ({
+            url: injectBaseUrl('sys', '/services/check-and-start'),
+            method: HTTPMethod.POST,
+          })),
+        },
       },
       comment: {
         get: valid<{ params: { key: string } }>(({ params: { key } }) => ({

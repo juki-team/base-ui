@@ -13,8 +13,8 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
+import { useCheckAndStartServices } from '../../../hooks/useCheckAndStartServices';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { useRunnerServicesWakeUp } from '../../../hooks/useRunnerServicesWakeUp';
 import { jukiApiSocketManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Portal, T } from '../../atoms';
@@ -52,7 +52,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     onlyCodeEditor,
   } = props;
   
-  useRunnerServicesWakeUp();
+  useCheckAndStartServices();
   const onChangeRef = useRef(_onChange);
   onChangeRef.current = readOnly ? undefined : _onChange;
   const [ isRunning, setIsRunning ] = useState(false);

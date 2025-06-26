@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRunnerServicesWakeUp } from '../../../hooks/useRunnerServicesWakeUp';
+import { useCheckAndStartServices } from '../../../hooks/useCheckAndStartServices';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { UserPreviewContentModal as UserPreviewModalCmp } from './UserPreviewContentModal/UserPreviewContentModal';
@@ -10,7 +10,7 @@ export default {
 
 export const UserPreviewModal = () => {
   const [ open, setOpen ] = useState(false);
-  useRunnerServicesWakeUp();
+  useCheckAndStartServices();
   
   return (
     <MockupJukiProvider>

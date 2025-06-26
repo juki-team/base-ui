@@ -9,7 +9,7 @@ const intervalRef: {
   lastRequested: number
 } = { current: undefined, lastRequested: 0 };
 
-export const useRunnerServicesWakeUp = () => {
+export const useCheckAndStartServices = () => {
   
   const { isOnline: isPageOnline, isFocus: isPageFocus, isVisible: isPageVisible } = usePageStore();
   
@@ -17,7 +17,7 @@ export const useRunnerServicesWakeUp = () => {
     const fun = async (isPageVisible: boolean, isOnline: boolean) => {
       if (isPageVisible && isOnline && (Date.now() - intervalRef.lastRequested) >= ONE_MINUTE) {
         intervalRef.lastRequested = Date.now();
-        const { url, ...options } = jukiApiSocketManager.API_V1.system.runnerServicesWakeUp();
+        const { url, ...options } = jukiApiSocketManager.API_V1.system.services.checkAndStart();
         const response = cleanRequest<ContentResponseType<string>>(await authorizedRequest(url, options));
         consoleInfo('runner services wake up requested', response);
         intervalRef.lastRequested = Date.now();

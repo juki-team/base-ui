@@ -11,7 +11,7 @@ export * from '../stores/sound/useSoundStore';
 export * from './custom';
 export * from './useDataViewerRequester';
 export * from './useDebounceEffect';
-export * from './useRunnerServicesWakeUp';
+export * from './useCheckAndStartServices';
 export * from './useEntityDiff';
 export * from './useFetcher';
 export * from './useHandleState';
