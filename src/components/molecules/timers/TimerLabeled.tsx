@@ -72,12 +72,12 @@ export const TimerLabeled = ({
   
   return (
     <div
-      className={classNames(`layout-timer-clock period-${time.period.toLowerCase()}`, {
+      className={classNames(`jk-timer-labeled-container period-${time.period.toLowerCase()}`, {
         'jk-row center gap': !!literal,
         'jk-col': !literal,
       })}
     >
-      <div className="label-period tx-s fw-bd">
+      <div className="fw-bd">
         <T className="tt-se">{myLabels[time.period]}</T>
       </div>
       <Timer laps={laps} currentTimestamp={time.remaining} interval={time.interval * timeInterval} literal={literal} />
