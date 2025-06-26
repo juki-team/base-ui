@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { classNames } from '../../../helpers';
 import { Period } from '../../../types';
 import { T } from '../../atoms';
 import { Timer } from './Timer';
@@ -16,7 +17,14 @@ const DEFAULT_LABELS: { [key in Period]: string } = {
 
 const MAX_LAPS = 6;
 
-export const TimerLabeled = ({ startDate, endDate, currentDate, labels, laps: _laps = 3 }: TimerLabeledProps) => {
+export const TimerLabeled = ({
+                               startDate,
+                               endDate,
+                               currentDate,
+                               labels,
+                               laps: _laps = 3,
+                               literal,
+                             }: TimerLabeledProps) => {
   
   const [ time, setTime ] = useState({ period: Period.CALC, remaining: 0, interval: 0 });
   
@@ -63,11 +71,16 @@ export const TimerLabeled = ({ startDate, endDate, currentDate, labels, laps: _l
   const timeInterval = Math.max(timeSplit[timeSplit.length - 1].milliseconds, 1);
   
   return (
-    <div className="layout-timer-clock">
+    <div
+      className={classNames(`layout-timer-clock period-${time.period.toLowerCase()}`, {
+        'jk-row center gap': !!literal,
+        'jk-col': !literal,
+      })}
+    >
       <div className="label-period tx-s fw-bd">
-        <T>{myLabels[time.period]}</T>
+        <T className="tt-se">{myLabels[time.period]}</T>
       </div>
-      <Timer laps={laps} currentTimestamp={time.remaining} interval={time.interval * timeInterval} />
+      <Timer laps={laps} currentTimestamp={time.remaining} interval={time.interval * timeInterval} literal={literal} />
     </div>
   );
 };

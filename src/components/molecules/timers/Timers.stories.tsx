@@ -34,6 +34,7 @@ export const Regular: Story = {
           startDate={new Date(Date.now() + startTimestamp)}
           endDate={new Date(Date.now() + startTimestamp + 15 * 1000)}
           laps={4}
+          literal
         />
       ))}
       <TimerLabeled

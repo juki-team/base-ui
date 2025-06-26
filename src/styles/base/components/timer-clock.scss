@@ -3,7 +3,6 @@
 .jk-timer-layout {
   width: min-content;
   height: 40px;
-  margin: 0 auto;
   
   &.literal {
     height: auto;
@@ -41,10 +40,10 @@
   }
   
   .content-dots {
-    padding: 0 0 var(--pad-t) 0;
+    //padding: 0 0 var(--pad-t) 0;
     @include mixins.sm {
-      top: 0;
-      line-height: var(--pad-t);
+      //top: 0;
+      //line-height: var(--pad-t);
     }
   }
 }
@@ -54,7 +53,7 @@
   text-align: center;
   
   .label-period {
-    color: var(--t-color-gray-4);
-    text-transform: uppercase;
+    //color: var(--t-color-gray-4);
+    //text-transform: uppercase;
   }
 }

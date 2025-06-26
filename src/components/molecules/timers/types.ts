@@ -6,6 +6,7 @@ export interface TimerLabeledProps {
   currentDate?: Date,
   labels?: { [key in Period]: string },
   laps?: number,
+  literal?: boolean,
 }
 
 export interface TimerProps {
