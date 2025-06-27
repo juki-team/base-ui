@@ -48,7 +48,7 @@ export const Timer = React.memo((props: TimerProps) => {
         <Fragment key={remaining.label}>
           {(index > 0) && <T>and</T>}
           <span>{remaining.remaining}</span>
-          <T>{remaining.label}</T>
+          <T>{abbreviated ? remaining.abbreviatedLabel : remaining.label}</T>
         </Fragment>
       )) : timeSplit.map((remaining, index) => (
         <Fragment key={remaining.label}>
