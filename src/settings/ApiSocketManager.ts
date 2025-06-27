@@ -934,9 +934,9 @@ export class ApiSocketManager {
           method: HTTPMethod.GET,
         })),
         getUsersTracksStats: valid<
-          { params: { companyKey?: string, startTimestamp: number, endTimestamp: number } }
-        >(({ params: { companyKey, startTimestamp, endTimestamp } }) => ({
-          url: injectCompany(injectBaseUrl('statistics', `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}`), companyKey),
+          { params: { companyKeys: string, startTimestamp: number, endTimestamp: number } }
+        >(({ params: { companyKeys, startTimestamp, endTimestamp } }) => ({
+          url: injectBaseUrl('statistics', `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&companyKeys=${companyKeys}`),
           method: HTTPMethod.GET,
         })),
       },
