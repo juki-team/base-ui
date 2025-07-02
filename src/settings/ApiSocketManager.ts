@@ -861,6 +861,14 @@ export class ApiSocketManager {
             url: injectBaseUrl('sys', '/services/check-and-start'),
             method: HTTPMethod.POST,
           })),
+          check: valid<void, HTTPMethod.POST>(() => ({
+            url: injectBaseUrl('sys', '/services/check'),
+            method: HTTPMethod.POST,
+          })),
+          clean: valid<void, HTTPMethod.POST>(() => ({
+            url: injectBaseUrl('sys', '/services/clean'),
+            method: HTTPMethod.POST,
+          })),
         },
       },
       comment: {
