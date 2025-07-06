@@ -19,15 +19,21 @@ TEMP_PKG_JSON="$TEMP_DIR/package.json"
 echo "📝 Filtrando package.json..."
 
 # Filtra devDependencies con jq
-jq 'del(.devDependencies | with_entries(
+jq 'if has("devDependencies") then
+  .devDependencies |= with_entries(
     select(
-      .key | test("^(rollup|rollup-plugin-|storybook|@storybook/|chromatic|eslint|prettier|husky|lint-staged|webpack|babel|jest|ts-jest|typescript)")
+      .key | test("^(?!(@storybook|storybook|chromatic|@chromatic-com|@testing-library|msw|sass|react-scripts))")
     )
-  ))' "$PACKAGE_JSON_PATH" > "$TEMP_PKG_JSON"
+  )
+else
+  .
+end' "$PACKAGE_JSON_PATH" > "$TEMP_PKG_JSON"
 
 # 4) Copiar tsconfig si lo necesitas (opcional)
-# echo "📄 Copiando tsconfig..."
-# cp "$(dirname "$0")/../tsconfig.json" "$TEMP_DIR/tsconfig.json"
+echo "📄 Copiando tsconfig..."
+cp "$(dirname "$0")/../tsconfig.json" "$TEMP_DIR/tsconfig.json"
+cp "$(dirname "$0")/../rollup.config.mjs" "$TEMP_DIR/rollup.config.mjs"
+cp "$(dirname "$0")/../.npmrc" "$TEMP_DIR/.npmrc"
 
 # 5) Ejecutar yarn install dentro de la carpeta temporal
 echo "📦 Instalando dependencias en temporal..."

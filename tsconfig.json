@@ -27,14 +27,14 @@
     "declarationDir": "dist/module-types",
     "outDir": "dist",
     "jsx": "react",
-    "noUnusedLocals": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "noUnusedLocals": true
+    //    "experimentalDecorators": true,
+    //    "emitDecoratorMetadata": true
     //    "types": [],
-    "types": [
-      "node",
-      "minimatch"
-    ]
+    //    "types": [
+    //      "node",
+    //      "minimatch"
+    //    ]
     //    "typeRoots": [
     //      "src/types",
     //      "node_modules/@types"
