@@ -70,6 +70,14 @@ Heading with code and link
 
   Lorem ***some ITALIC BOLD text*** ipsum.
 
+- Highlight text \`==some HIGHLIGHETD text==\`
+
+  Lorem ==some HIGHLIGHETD text== ipsum.
+
+- Strike text \`~~some STRIKED text~~\`
+
+  Lorem ~~some STRIKED text~~ ipsum.
+
 - Code inline text \`\` \`some CODE INLINE text\` \`\`
 
   Lorem \`some CODE INLINE text\` ipsum.

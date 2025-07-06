@@ -1,10 +1,10 @@
 import {
+  CODE_LANGUAGE,
   CodeEditorTestCasesType,
   CodeEditorTestCaseType,
   isCodeRunStatusMessageWebSocketResponseEventDTO,
   ONE_SECOND,
   ProfileSetting,
-  PROGRAMMING_LANGUAGE,
   SubmissionRunStatus,
   SubscribeCodeRunStatusWebSocketEventDTO,
   WebSocketActionEvent,
@@ -32,7 +32,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     sourceCode,
     languages = CODE_EDITOR_PROGRAMMING_LANGUAGES.map(lang => ({
       value: lang as T,
-      label: PROGRAMMING_LANGUAGE[lang]?.label || lang,
+      label: CODE_LANGUAGE[lang]?.label || lang,
     })),
     language,
     onChange: _onChange,

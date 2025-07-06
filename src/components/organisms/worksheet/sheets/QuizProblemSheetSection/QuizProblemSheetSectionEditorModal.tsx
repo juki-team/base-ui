@@ -1,8 +1,8 @@
 import {
   ACCEPTED_PROGRAMMING_LANGUAGES,
+  CODE_LANGUAGE,
+  CodeLanguage,
   Judge,
-  PROGRAMMING_LANGUAGE,
-  ProgrammingLanguage,
   QuizProblemSheetType,
 } from '@juki-team/commons';
 import React, { useState } from 'react';
@@ -62,12 +62,12 @@ export const QuizProblemSheetSectionEditorModal = ({
               options={ACCEPTED_PROGRAMMING_LANGUAGES
                 .map((key) => ({
                   value: key,
-                  label: PROGRAMMING_LANGUAGE[key]?.label,
+                  label: CODE_LANGUAGE[key]?.label,
                 }))}
               selectedOptions={sheet.languages?.map(language => ({ value: language }))}
               onChange={(options) => setSheet(prevState => ({
                 ...prevState,
-                languages: options.map(option => option.value as ProgrammingLanguage),
+                languages: options.map(option => option.value as CodeLanguage),
               }))}
               expand
             />

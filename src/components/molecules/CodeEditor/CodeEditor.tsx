@@ -8,7 +8,7 @@ import { markdown } from '@codemirror/lang-markdown';
 import { python } from '@codemirror/lang-python';
 import { search } from '@codemirror/search';
 // import { oneDark } from '@codemirror/theme-one-dark';
-import { ProgrammingLanguage, Theme } from '@juki-team/commons';
+import { CodeLanguage, Theme } from '@juki-team/commons';
 // import { basicSetup } from '@uiw/codemirror-extensions-basic-setup';
 import CodeMirror from '@uiw/react-codemirror';
 import React, { memo } from 'react';
@@ -36,37 +36,37 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
   ];
   
   switch (language) {
-    case ProgrammingLanguage.ICPC_CPP:
-    case ProgrammingLanguage.CPP:
-    case ProgrammingLanguage.CPP11:
-    case ProgrammingLanguage.CPP14:
-    case ProgrammingLanguage.CPP17:
-    case ProgrammingLanguage.ICPC_C:
-    case ProgrammingLanguage.C:
-    case ProgrammingLanguage.ARDUINO:
+    case CodeLanguage.ICPC_CPP:
+    case CodeLanguage.CPP:
+    case CodeLanguage.CPP11:
+    case CodeLanguage.CPP14:
+    case CodeLanguage.CPP17:
+    case CodeLanguage.ICPC_C:
+    case CodeLanguage.C:
+    case CodeLanguage.ARDUINO:
       extensions.push(cpp());
       break;
-    case ProgrammingLanguage.JAVA:
+    case CodeLanguage.JAVA:
       extensions.push(java());
       break;
-    case ProgrammingLanguage.JAVASCRIPT:
+    case CodeLanguage.JAVASCRIPT:
       extensions.push(javascript());
       break;
-    case ProgrammingLanguage.JSON:
+    case CodeLanguage.JSON:
       extensions.push(json());
       break;
-    case ProgrammingLanguage.MARKDOWN:
+    case CodeLanguage.MARKDOWN:
       extensions.push(markdown());
       break;
-    case ProgrammingLanguage.ICPC_PYTHON:
-    case ProgrammingLanguage.PYTHON2:
-    case ProgrammingLanguage.PYTHON3:
+    case CodeLanguage.ICPC_PYTHON:
+    case CodeLanguage.PYTHON2:
+    case CodeLanguage.PYTHON3:
       extensions.push(python());
       break;
-    case ProgrammingLanguage.HTML:
+    case CodeLanguage.HTML:
       extensions.push(html({ autoCloseTags: true, matchClosingTags: true }));
       break;
-    case ProgrammingLanguage.TEXT:
+    case CodeLanguage.TEXT:
     default:
       break;
   }

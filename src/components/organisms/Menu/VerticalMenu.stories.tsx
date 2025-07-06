@@ -1,5 +1,5 @@
-import { action, configureActions } from 'storybook/actions';
 import React from 'react';
+import { action, configureActions } from 'storybook/actions';
 import { Button, MdMathEditor, Popover, T, VerticalMenu as VerticalMenuCmp } from '../../../index';
 import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 import { DrawerActionsType } from '../../molecules/Drawer/types';
@@ -146,7 +146,7 @@ export const VerticalMenu = () => (
     >
       <div>
         <MdMathEditor
-          source={SAMPLE_MD_CONTENT}
+          initialMd={SAMPLE_MD_CONTENT}
           uploadImageButton
           informationButton
         />

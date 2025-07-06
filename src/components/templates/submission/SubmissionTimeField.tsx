@@ -1,4 +1,4 @@
-import { PROGRAMMING_LANGUAGE } from '@juki-team/commons';
+import { CODE_LANGUAGE } from '@juki-team/commons';
 import React from 'react';
 import { Field } from '../../organisms/DataViewer/Field';
 import { TextField } from '../../organisms/DataViewer/TextField';
@@ -21,7 +21,7 @@ export const SubmissionTimeField = ({
       <SubmissionInfo submitId={submitId} canViewSourceCode={canViewSourceCode}>
         <Field className="jk-row gap nowrap cr-g1">
           <TextField
-            text={<div className="jk-col extend">{PROGRAMMING_LANGUAGE[language]?.label || language}</div>}
+            text={<div className="jk-col extend">{CODE_LANGUAGE[language]?.label || language}</div>}
             label="language"
           />
           <TextField

@@ -120,8 +120,9 @@ button.jk-button, input.jk-button, div.jk-button, span.jk-button {
   }
   
   &.disabled:not(.with-loader-icon) {
-    opacity: 0.8;
+    opacity: 0.5;
     //cursor: not-allowed;
+    //filter: grayscale(1);
   }
   
   &.expand { width: 100%; }

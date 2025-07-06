@@ -1,5 +1,5 @@
 // https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119
-import { ContentResponseType, ProgrammingLanguage, UserBasicResponseDTO } from '@juki-team/commons';
+import { CodeLanguage, ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 import React, { CSSProperties, memo, ReactNode, useMemo } from 'react';
 import ReactMarkdown, { Options as ReactMarkdownOptions } from 'react-markdown';
@@ -204,7 +204,7 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
         }
         
         let text = (className as string).replace('language-', '');
-        for (const a of Object.keys(ProgrammingLanguage)) {
+        for (const a of Object.keys(CodeLanguage)) {
           if (text.startsWith(a)) {
             text = `\\lang=${text}`;
             break;
@@ -214,11 +214,11 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
         const language = (commands.lang
           || commands.rest
           || newClassName
-          || ProgrammingLanguage.TEXT) as ProgrammingLanguage;
+          || CodeLanguage.TEXT) as CodeLanguage;
         
         if (typeof children === 'string') {
           
-          if (language === ProgrammingLanguage.DOT && commands.asImage) {
+          if (language === CodeLanguage.DOT && commands.asImage) {
             return (
               <GraphvizViewer value={children} className={`jk-row ${commands.imgAlign || ''}`} />
             );

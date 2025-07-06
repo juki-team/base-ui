@@ -1,4 +1,4 @@
-import { ProgrammingLanguage } from '@juki-team/commons';
+import { CodeLanguage } from '@juki-team/commons';
 import { diff } from 'deep-object-diff';
 import React, { cloneElement, ReactElement, ReactNode, useRef, useState } from 'react';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
@@ -38,7 +38,7 @@ export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChang
             >
               <CodeEditor
                 sourceCode={text}
-                language={ProgrammingLanguage.JSON}
+                language={CodeLanguage.JSON}
                 readOnly
               />
             </div>

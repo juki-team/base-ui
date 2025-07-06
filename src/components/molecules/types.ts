@@ -4,6 +4,7 @@ export type * from './ButtonLoader/types';
 export type * from './CheckboxList/types';
 export type * from './CodeEditor/types';
 export type * from './CodeViewer/types';
+export type * from './CodeViewer/types';
 export type * from './DataGrid/types';
 export type * from './Drawer/types';
 export type * from './Drawer/types';

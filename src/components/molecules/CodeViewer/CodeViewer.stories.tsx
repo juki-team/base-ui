@@ -1,3 +1,4 @@
+import { CodeLanguage } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React from 'react';
 import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
@@ -21,6 +22,16 @@ const meta: Meta<typeof CodeViewer> = {
   component: CodeViewer,
   args: {
     code: codeTemplate,
+    language: CodeLanguage.CPP,
+  },
+  argTypes: {
+    language: {
+      options: Object.values(CodeLanguage),   // convierte el enum en array de valores
+      control: { type: 'select' },
+    },
+    code: {
+      control: { type: 'text' },
+    },
   },
 };
 
@@ -31,7 +42,9 @@ type Story = StoryObj<typeof CodeViewer>;
 export const Regular: Story = {
   render: ({ code = codeTemplate, ...args }) => (
     <MockupJukiProvider>
-      <CodeViewer code={code} {...args} />
+      <div className="jk-pg">
+        <CodeViewer code={code} {...args} />
+      </div>
       <MockupToggleThemeButton />
     </MockupJukiProvider>
   ),

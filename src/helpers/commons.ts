@@ -10,9 +10,8 @@ import {
 } from '@juki-team/commons';
 import { diff } from 'deep-object-diff';
 import { Children, cloneElement, isValidElement, PropsWithChildren, ReactNode, RefObject } from 'react';
-import { SheetDataType } from '../modules';
 import { jukiApiSocketManager } from '../settings';
-import { TriggerActionsType } from '../types';
+import { SheetDataType, TriggerActionsType } from '../types';
 import { authorizedRequest } from './fetch';
 import { getXLSX } from './xlsx';
 

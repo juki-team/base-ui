@@ -1,4 +1,4 @@
-import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
+import { CodeLanguage, SubmissionRunStatus } from '@juki-team/commons';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { UserCodeEditor as UserCodeEditorCmp } from './UserCodeEditor';
@@ -84,11 +84,11 @@ export const UserCodeEditor = () => {
   return (
     <MockupJukiProvider>
       <div style={{ height: '500px', padding: 20 }}>
-        <UserCodeEditorCmp<ProgrammingLanguage>
+        <UserCodeEditorCmp<CodeLanguage>
           // languages={[{ value: "A", label: "A" }]}
           initialTestCases={initialTestCases}
-          languages={[ { value: ProgrammingLanguage.CPP17, label: ProgrammingLanguage.CPP17 as string },
-            { value: ProgrammingLanguage.JAVASCRIPT, label: ProgrammingLanguage.JAVASCRIPT as string } ]}
+          languages={[ { value: CodeLanguage.CPP17, label: CodeLanguage.CPP17 as string },
+            { value: CodeLanguage.JAVASCRIPT, label: CodeLanguage.JAVASCRIPT as string } ]}
           storeKey={'testing'}
           enableAddCustomSampleCases
         />

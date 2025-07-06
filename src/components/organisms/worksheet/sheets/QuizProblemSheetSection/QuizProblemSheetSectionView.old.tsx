@@ -14,7 +14,7 @@ import {
   Tooltip,
   InfoIcon,
 } from 'components';
-import { JUDGE_API_V1, PROGRAMMING_LANGUAGE } from 'config/constants';
+import { JUDGE_API_V1, CODE_LANGUAGE } from 'config/constants';
 import { authorizedRequest, cleanRequest, getHeight, getVerdictFromTestCase } from 'helpers';
 import { useJukiRouter, useNotification, useStableState, useSWR, useState, useCallback } from 'hooks';
 import { ReactNode } from 'react';
@@ -22,7 +22,7 @@ import {
   CodeEditorTestCaseType,
   ContentResponseType,
   HTTPMethod,
-  ProgrammingLanguage,
+  CodeLanguage,
   QuizProblemSheetStatusProcessedType,
   QuizProblemSheetStatusType,
   QuizProblemSheetType,
@@ -58,7 +58,7 @@ export const QuizProblemSheetSectionView = ({
   const { routeParams } = useJukiRouter();
   const { mutate } = useSWR();
   const sheetId = routeParams.sheetId as string;
-  const [ languageEditor, setLanguageEditor ] = useState(ProgrammingLanguage.TEXT);
+  const [ languageEditor, setLanguageEditor ] = useState(CodeLanguage.TEXT);
   const [ sourceCodes, setSourceCodes ] = useStableState<SourceCodeType>(result?.sourceCode ?? {} as SourceCodeType);
   const { notifyResponse } = useNotification();
   const onSourceChange = useCallback((sourceCode: string) => setSourceCodes(sourceCodes => ({
@@ -130,7 +130,7 @@ export const QuizProblemSheetSectionView = ({
       in: sheetTestCases[key]?.in ?? initialTestCases[key].in ?? '',
     };
   }
-  const languages = Object.keys(result?.sourceCode || {}) as ProgrammingLanguage[];
+  const languages = Object.keys(result?.sourceCode || {}) as CodeLanguage[];
   const points = <> / {sheet?.points} <T>{sheet?.points ? 'points' : 'point'}</T></>;
   
   return (
@@ -169,7 +169,7 @@ export const QuizProblemSheetSectionView = ({
             initialTestCases={result?.testCases || sheetTestCases}
             languages={sheet.languages.filter(language => showingResults ? languages.includes(language) : true).map(lang => ({
               value: lang,
-              label: PROGRAMMING_LANGUAGE[lang]?.label || lang,
+              label: CODE_LANGUAGE[lang]?.label || lang,
             }))}
             onSourceChange={onSourceChange}
             onLanguageChange={setLanguageEditor}

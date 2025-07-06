@@ -353,19 +353,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     height: 24px;
     
     .jk-select {
-      width: 64px;
+      width: 64px !important;
+      min-width: 64px !important;
+      max-width: 64px !important;
       padding: 0 4px;
       box-shadow: none;
       height: 24px;
-      
-      img {
-        min-height: 24px;
-        max-height: 24px;
-      }
-      
-      .input-icon {
-        //top: 4px;
-      }
     }
   }
   
@@ -377,17 +370,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     position: absolute;
     left: 64px;
     padding: 0 4px;
-  }
-}
-
-.popover-select-cell-phone-number-wrapper {
-  .jk-select-options {
-    //width: 100px !important;
-  }
-  
-  .jk-select-option {
-    padding: 4px var(--pad-xt) !important;
-    display: flex;
   }
 }
 

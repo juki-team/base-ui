@@ -10,6 +10,7 @@ import { ButtonLoaderProps } from './ButtonLoader/types';
 import { CheckboxListProps } from './CheckboxList/types';
 import { CodeEditorProps } from './CodeEditor/types';
 import { CodeViewerProps } from './CodeViewer/types';
+import { CodeViewerDeprecatedProps } from './CodeViewer/types';
 import { DataGridProps } from './DataGrid/types';
 import { DrawerProps } from './Drawer/types';
 import { DrawerViewProps } from './Drawer/types';
@@ -95,6 +96,14 @@ const LazyCodeViewer = lazy(() => CodeViewerImport().then(module => ({ default: 
 export const CodeViewer = (props: CodeViewerProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyCodeViewer {...props} />
+  </Suspense>
+);
+
+const CodeViewerDeprecatedImport = () => import('./CodeViewer/CodeViewerDeprecated');
+const LazyCodeViewerDeprecated = lazy(() => CodeViewerDeprecatedImport().then(module => ({ default: module.CodeViewerDeprecated })));
+export const CodeViewerDeprecated = (props: CodeViewerDeprecatedProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyCodeViewerDeprecated {...props} />
   </Suspense>
 );
 
@@ -403,6 +412,7 @@ export const preloadMolecules = async () => {
   await CheckboxListImport();
   await CodeEditorImport();
   await CodeViewerImport();
+  await CodeViewerDeprecatedImport();
   await DataGridImport();
   await DrawerImport();
   await DrawerViewImport();

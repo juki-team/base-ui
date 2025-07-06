@@ -1,4 +1,4 @@
-import { ProgrammingLanguage } from '@juki-team/commons';
+import { CodeLanguage } from '@juki-team/commons';
 import { diff } from 'deep-object-diff';
 import React, { useEffect, useRef } from 'react';
 import { T } from '../components/atoms/T/T';
@@ -28,7 +28,7 @@ export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {
           <div style={{ height: (height * 24 + 8) + 'px', color: 'initial' }}>
             <CodeEditor
               sourceCode={text}
-              language={ProgrammingLanguage.JSON}
+              language={CodeLanguage.JSON}
               readOnly
             />
           </div>

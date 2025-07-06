@@ -1,9 +1,4 @@
-import {
-  ACCEPTED_PROGRAMMING_LANGUAGES,
-  CodeEditorSheetType,
-  PROGRAMMING_LANGUAGE,
-  ProgrammingLanguage,
-} from '@juki-team/commons';
+import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE, CodeEditorSheetType, CodeLanguage } from '@juki-team/commons';
 import React, { Dispatch, useState } from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../constants';
 import { getHeight } from '../../../../../helpers';
@@ -25,7 +20,7 @@ export const CodeEditorSheetSectionEditorModal = ({
                                                   }: RunnerSheetSectionProps) => {
   
   const [ sheet, setSheet ] = useState(initialSheet);
-  const [ languageEditor, setLanguageEditor ] = useState(ProgrammingLanguage.CPP17);
+  const [ languageEditor, setLanguageEditor ] = useState(CodeLanguage.CPP17);
   
   const sourceCode = sheet.sourceCode?.[languageEditor] || '';
   
@@ -49,12 +44,12 @@ export const CodeEditorSheetSectionEditorModal = ({
                 options={ACCEPTED_PROGRAMMING_LANGUAGES
                   .map((key) => ({
                     value: key,
-                    label: PROGRAMMING_LANGUAGE[key].label,
+                    label: CODE_LANGUAGE[key].label,
                   }))}
                 selectedOptions={sheet.languages?.map(language => ({ value: language }))}
                 onChange={(options) => setSheet(prevState => ({
                   ...prevState,
-                  languages: options.map(option => option.value as ProgrammingLanguage),
+                  languages: options.map(option => option.value as CodeLanguage),
                 }))}
                 expand
               />
@@ -108,7 +103,7 @@ export const CodeEditorSheetSectionEditorModal = ({
               testCases={sheet.testCases}
               languages={sheet.languages.map(lang => ({
                 value: lang,
-                label: PROGRAMMING_LANGUAGE[lang]?.label || lang,
+                label: CODE_LANGUAGE[lang]?.label || lang,
               }))}
               enableAddSampleCases
             />

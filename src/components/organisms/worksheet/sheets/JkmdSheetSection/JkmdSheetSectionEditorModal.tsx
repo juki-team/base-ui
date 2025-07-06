@@ -44,9 +44,8 @@ export const JkmdSheetSectionEditorModal = ({
           <MdMathEditor
             uploadImageButton
             informationButton
-            source={sheet.content}
+            initialMd={sheet.content}
             onChange={content => setSheet(prevState => ({ ...prevState, content }))}
-            initEditMode
           />
         </div>
       </div>

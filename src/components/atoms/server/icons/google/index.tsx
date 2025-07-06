@@ -35,6 +35,14 @@ export const AddIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const AddPhotoAlternateIconImport = () => import('./AddPhotoAlternateIcon');
+const LazyAddPhotoAlternateIcon = lazy(() => AddPhotoAlternateIconImport().then(module => ({ default: module.AddPhotoAlternateIcon })));
+export const AddPhotoAlternateIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyAddPhotoAlternateIcon {...props} />
+  </Suspense>
+);
+
 const AddReactionIconImport = () => import('./AddReactionIcon');
 const LazyAddReactionIcon = lazy(() => AddReactionIconImport().then(module => ({ default: module.AddReactionIcon })));
 export const AddReactionIcon = (props: BasicIconProps) => (
@@ -267,6 +275,14 @@ export const CloudUploadIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const CodeBlocksIconImport = () => import('./CodeBlocksIcon');
+const LazyCodeBlocksIcon = lazy(() => CodeBlocksIconImport().then(module => ({ default: module.CodeBlocksIcon })));
+export const CodeBlocksIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyCodeBlocksIcon {...props} />
+  </Suspense>
+);
+
 const CodeIconImport = () => import('./CodeIcon');
 const LazyCodeIcon = lazy(() => CodeIconImport().then(module => ({ default: module.CodeIcon })));
 export const CodeIcon = (props: BasicIconProps) => (
@@ -483,6 +499,110 @@ export const FolderOpenIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const FormatBoldIconImport = () => import('./FormatBoldIcon');
+const LazyFormatBoldIcon = lazy(() => FormatBoldIconImport().then(module => ({ default: module.FormatBoldIcon })));
+export const FormatBoldIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatBoldIcon {...props} />
+  </Suspense>
+);
+
+const FormatH1IconImport = () => import('./FormatH1Icon');
+const LazyFormatH1Icon = lazy(() => FormatH1IconImport().then(module => ({ default: module.FormatH1Icon })));
+export const FormatH1Icon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatH1Icon {...props} />
+  </Suspense>
+);
+
+const FormatH2IconImport = () => import('./FormatH2Icon');
+const LazyFormatH2Icon = lazy(() => FormatH2IconImport().then(module => ({ default: module.FormatH2Icon })));
+export const FormatH2Icon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatH2Icon {...props} />
+  </Suspense>
+);
+
+const FormatH3IconImport = () => import('./FormatH3Icon');
+const LazyFormatH3Icon = lazy(() => FormatH3IconImport().then(module => ({ default: module.FormatH3Icon })));
+export const FormatH3Icon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatH3Icon {...props} />
+  </Suspense>
+);
+
+const FormatH4IconImport = () => import('./FormatH4Icon');
+const LazyFormatH4Icon = lazy(() => FormatH4IconImport().then(module => ({ default: module.FormatH4Icon })));
+export const FormatH4Icon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatH4Icon {...props} />
+  </Suspense>
+);
+
+const FormatH5IconImport = () => import('./FormatH5Icon');
+const LazyFormatH5Icon = lazy(() => FormatH5IconImport().then(module => ({ default: module.FormatH5Icon })));
+export const FormatH5Icon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatH5Icon {...props} />
+  </Suspense>
+);
+
+const FormatH6IconImport = () => import('./FormatH6Icon');
+const LazyFormatH6Icon = lazy(() => FormatH6IconImport().then(module => ({ default: module.FormatH6Icon })));
+export const FormatH6Icon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatH6Icon {...props} />
+  </Suspense>
+);
+
+const FormatInkHighlighterIconImport = () => import('./FormatInkHighlighterIcon');
+const LazyFormatInkHighlighterIcon = lazy(() => FormatInkHighlighterIconImport().then(module => ({ default: module.FormatInkHighlighterIcon })));
+export const FormatInkHighlighterIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatInkHighlighterIcon {...props} />
+  </Suspense>
+);
+
+const FormatItalicIconImport = () => import('./FormatItalicIcon');
+const LazyFormatItalicIcon = lazy(() => FormatItalicIconImport().then(module => ({ default: module.FormatItalicIcon })));
+export const FormatItalicIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatItalicIcon {...props} />
+  </Suspense>
+);
+
+const FormatListBulletedIconImport = () => import('./FormatListBulletedIcon');
+const LazyFormatListBulletedIcon = lazy(() => FormatListBulletedIconImport().then(module => ({ default: module.FormatListBulletedIcon })));
+export const FormatListBulletedIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatListBulletedIcon {...props} />
+  </Suspense>
+);
+
+const FormatListNumberedIconImport = () => import('./FormatListNumberedIcon');
+const LazyFormatListNumberedIcon = lazy(() => FormatListNumberedIconImport().then(module => ({ default: module.FormatListNumberedIcon })));
+export const FormatListNumberedIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatListNumberedIcon {...props} />
+  </Suspense>
+);
+
+const FormatQuoteIconImport = () => import('./FormatQuoteIcon');
+const LazyFormatQuoteIcon = lazy(() => FormatQuoteIconImport().then(module => ({ default: module.FormatQuoteIcon })));
+export const FormatQuoteIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatQuoteIcon {...props} />
+  </Suspense>
+);
+
+const FormatStrikethroughIconImport = () => import('./FormatStrikethroughIcon');
+const LazyFormatStrikethroughIcon = lazy(() => FormatStrikethroughIconImport().then(module => ({ default: module.FormatStrikethroughIcon })));
+export const FormatStrikethroughIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyFormatStrikethroughIcon {...props} />
+  </Suspense>
+);
+
 const ForwardIconImport = () => import('./ForwardIcon');
 const LazyForwardIcon = lazy(() => ForwardIconImport().then(module => ({ default: module.ForwardIcon })));
 export const ForwardIcon = (props: BasicIconProps) => (
@@ -635,6 +755,14 @@ export const LinkIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const LinkOffIconImport = () => import('./LinkOffIcon');
+const LazyLinkOffIcon = lazy(() => LinkOffIconImport().then(module => ({ default: module.LinkOffIcon })));
+export const LinkOffIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyLinkOffIcon {...props} />
+  </Suspense>
+);
+
 const ListIconImport = () => import('./ListIcon');
 const LazyListIcon = lazy(() => ListIconImport().then(module => ({ default: module.ListIcon })));
 export const ListIcon = (props: BasicIconProps) => (
@@ -752,6 +880,14 @@ const LazyMoreTimeIcon = lazy(() => MoreTimeIconImport().then(module => ({ defau
 export const MoreTimeIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyMoreTimeIcon {...props} />
+  </Suspense>
+);
+
+const MoreVertIconImport = () => import('./MoreVertIcon');
+const LazyMoreVertIcon = lazy(() => MoreVertIconImport().then(module => ({ default: module.MoreVertIcon })));
+export const MoreVertIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyMoreVertIcon {...props} />
   </Suspense>
 );
 
@@ -1043,6 +1179,22 @@ export const SpeedIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const StepIntoIconImport = () => import('./StepIntoIcon');
+const LazyStepIntoIcon = lazy(() => StepIntoIconImport().then(module => ({ default: module.StepIntoIcon })));
+export const StepIntoIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyStepIntoIcon {...props} />
+  </Suspense>
+);
+
+const StepOutIconImport = () => import('./StepOutIcon');
+const LazyStepOutIcon = lazy(() => StepOutIconImport().then(module => ({ default: module.StepOutIcon })));
+export const StepOutIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyStepOutIcon {...props} />
+  </Suspense>
+);
+
 const StopCircleIconImport = () => import('./StopCircleIcon');
 const LazyStopCircleIcon = lazy(() => StopCircleIconImport().then(module => ({ default: module.StopCircleIcon })));
 export const StopCircleIcon = (props: BasicIconProps) => (
@@ -1192,6 +1344,7 @@ export const preloadAtomsIconsGoogle = async () => {
   await AccountCircleIconImport();
   await AcuteIconImport();
   await AddIconImport();
+  await AddPhotoAlternateIconImport();
   await AddReactionIconImport();
   await AdminPanelSettingsIconImport();
   await AlarmIconImport();
@@ -1221,6 +1374,7 @@ export const preloadAtomsIconsGoogle = async () => {
   await CloseIconImport();
   await CloudDownloadIconImport();
   await CloudUploadIconImport();
+  await CodeBlocksIconImport();
   await CodeIconImport();
   await CommentIconImport();
   await ContactPhoneIconImport();
@@ -1248,6 +1402,19 @@ export const preloadAtomsIconsGoogle = async () => {
   await FolderIconImport();
   await FolderManagedIconImport();
   await FolderOpenIconImport();
+  await FormatBoldIconImport();
+  await FormatH1IconImport();
+  await FormatH2IconImport();
+  await FormatH3IconImport();
+  await FormatH4IconImport();
+  await FormatH5IconImport();
+  await FormatH6IconImport();
+  await FormatInkHighlighterIconImport();
+  await FormatItalicIconImport();
+  await FormatListBulletedIconImport();
+  await FormatListNumberedIconImport();
+  await FormatQuoteIconImport();
+  await FormatStrikethroughIconImport();
   await ForwardIconImport();
   await FullscreenExitIconImport();
   await FullscreenIconImport();
@@ -1267,6 +1434,7 @@ export const preloadAtomsIconsGoogle = async () => {
   await LibraryBooksIconImport();
   await LightModeIconImport();
   await LinkIconImport();
+  await LinkOffIconImport();
   await ListIconImport();
   await LoadingIconImport();
   await LocationCityIconImport();
@@ -1282,6 +1450,7 @@ export const preloadAtomsIconsGoogle = async () => {
   await MenuBookIconImport();
   await MenuIconImport();
   await MoreTimeIconImport();
+  await MoreVertIconImport();
   await NavigateBeforeIconImport();
   await NavigateNextIconImport();
   await NewReleasesIconImport();
@@ -1318,6 +1487,8 @@ export const preloadAtomsIconsGoogle = async () => {
   await ShareIconImport();
   await SideNavigationIconImport();
   await SpeedIconImport();
+  await StepIntoIconImport();
+  await StepOutIconImport();
   await StopCircleIconImport();
   await StorageIconImport();
   await SupportAgentIconImport();

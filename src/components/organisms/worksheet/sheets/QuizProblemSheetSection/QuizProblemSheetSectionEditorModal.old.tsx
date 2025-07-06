@@ -12,10 +12,10 @@ import {
   TabsInline,
   TextArea,
 } from 'components';
-import { PROGRAMMING_LANGUAGE, WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from 'config/constants';
+import { CODE_LANGUAGE, WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from 'config/constants';
 import { getHeight } from 'helpers';
 import React, { Dispatch, useState } from 'react';
-import { BasicModalProps, ProgrammingLanguage, QuizProblemSheetType, TabsType } from 'types';
+import { BasicModalProps, CodeLanguage, QuizProblemSheetType, TabsType } from 'types';
 
 interface RunnerSheetSectionProps extends BasicModalProps {
   sheet: QuizProblemSheetType,
@@ -31,7 +31,7 @@ export const QuizProblemSheetSectionEditorModal = ({
                                                    }: RunnerSheetSectionProps) => {
   
   const [ sheet, setSheet ] = useState(initialSheet);
-  const [ languageEditor, setLanguageEditor ] = useState(ProgrammingLanguage.CPP17);
+  const [ languageEditor, setLanguageEditor ] = useState(CodeLanguage.CPP17);
   const [ selectedTabKey, setSelectedTabKey ] = useState('');
   
   const sourceCode = sheet.solutionSourceCode?.[languageEditor] || '';
@@ -91,15 +91,15 @@ export const QuizProblemSheetSectionEditorModal = ({
             <div className="flex-1">
               <div className="fw-bd"><T className="tt-se">languages</T>:</div>
               <MultiSelect
-                options={Object.keys(PROGRAMMING_LANGUAGE)
+                options={Object.keys(CODE_LANGUAGE)
                   .map((key) => ({
-                    value: key as ProgrammingLanguage,
-                    label: PROGRAMMING_LANGUAGE[key as ProgrammingLanguage].label,
+                    value: key as CodeLanguage,
+                    label: CODE_LANGUAGE[key as CodeLanguage].label,
                   }))}
                 selectedOptions={sheet.languages?.map(language => ({ value: language }))}
                 onChange={(options) => setSheet({
                   ...sheet,
-                  languages: options.map(option => option.value as ProgrammingLanguage),
+                  languages: options.map(option => option.value as CodeLanguage),
                 })}
                 extend
               />
@@ -230,7 +230,7 @@ export const QuizProblemSheetSectionEditorModal = ({
               testCases={sheet.testCases}
               languages={sheet.languages.map(lang => ({
                 value: lang,
-                label: PROGRAMMING_LANGUAGE[lang]?.label || lang,
+                label: CODE_LANGUAGE[lang]?.label || lang,
               }))}
               enableAddSampleCases
             />

@@ -1,10 +1,10 @@
 import {
+  CODE_LANGUAGE,
   Language,
   PROBLEM_MODE,
   PROBLEM_TYPE,
   ProblemScoringMode,
   ProblemSettingsType,
-  PROGRAMMING_LANGUAGE,
 } from '@juki-team/commons';
 import React, { Children, Fragment, PropsWithChildren, ReactNode } from 'react';
 import { classNames } from '../../../helpers';
@@ -180,7 +180,7 @@ export const ProblemTimeLimitInfo = ({ settings, expand, centered, withoutPaddin
   
   const body = limitsLanguages.map((language) => (
     <div key={language.language} className="jk-row nowrap left">
-      <span className="fw-bd">{PROGRAMMING_LANGUAGE[language.language]?.label}:</span>
+      <span className="fw-bd">{CODE_LANGUAGE[language.language]?.label}:</span>
       {timeFixed(language?.timeLimit)}
     </div>
   ));
@@ -220,7 +220,7 @@ export const ProblemMemoryLimitInfo = ({ settings, expand, centered, withoutPadd
   
   const body = limitsLanguages.map((language) => (
     <div key={language.language} className="jk-row nowrap left">
-      <span className="fw-bd">{PROGRAMMING_LANGUAGE[language.language]?.label}:</span>
+      <span className="fw-bd">{CODE_LANGUAGE[language.language]?.label}:</span>
       {memoryFixed(language?.memoryLimit)}
     </div>
   ));

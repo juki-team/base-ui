@@ -1,19 +1,21 @@
 @use "../../../mixins";
 @use "katex";
+@use "./jk-md-math-editor";
 //@import "vs-code-theme";
 //@import "prism-default-theme";
 //@import "prism-dark";
 //@import "prism-okaidia";
-@use "prism-vs-theme";
+//@use "prism-vs-theme";
 //@import "prism-nord-theme";
-@use "prism-vsc-dark-plus-theme";
-@use "prism-line-numbers";
+//@use "prism-vsc-dark-plus-theme";
+//@use "prism-line-numbers";
 
 .jk-md-math {
   padding: 0;
   
   p {
-    margin: var(--pad-xt) 0;
+    padding: var(--pad-xt) 0;
+    margin: 0;
     font-family: inherit;
     font-size: var(--text-medium-size);
     word-break: break-word;
@@ -21,7 +23,8 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    margin: var(--pad-xt) 0;
+    padding: var(--pad-xt) 0;
+    margin: 0;
     font-weight: var(--weight-bold);
     text-align: left;
     line-height: 1.5;

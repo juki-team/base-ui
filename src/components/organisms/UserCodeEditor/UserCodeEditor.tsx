@@ -1,8 +1,8 @@
 import {
+  CODE_LANGUAGE,
   CodeEditorTestCasesType,
+  CodeLanguage,
   isStringJson,
-  PROGRAMMING_LANGUAGE,
-  ProgrammingLanguage,
   SubmissionRunStatus,
   Theme,
 } from '@juki-team/commons';
@@ -134,7 +134,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     fontSize: number,
   }>(editorSettingsStorageKey, {
     theme: Theme.LIGHT,
-    lastLanguageUsed: ProgrammingLanguage.CPP as T,
+    lastLanguageUsed: CodeLanguage.CPP as T,
     tabSize: 2,
     fontSize: 14,
   });
@@ -204,7 +204,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     const newValue = { ...b, ...a };
     for (const { value } of JSON.parse(languagesString)) {
       if (!newValue[value]) {
-        newValue[value] = PROGRAMMING_LANGUAGE[value as ProgrammingLanguage]?.templateSourceCode || '';
+        newValue[value] = CODE_LANGUAGE[value as CodeLanguage]?.templateSourceCode || '';
       }
     }
     return newValue;

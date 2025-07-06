@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
 import terser from "@rollup/plugin-terser";
+import json from '@rollup/plugin-json';
 // import postcss from "rollup-plugin-postcss";
 // import scss from "rollup-plugin-scss";
 // import path from "path";
@@ -14,7 +15,12 @@ const plugins = [
   peerDepsExternal(),
   resolve(),
   commonjs(),
-  typescript({useTsconfigDeclarationDir: true, tsconfig: './tsconfig.json', exclude: [ '**/*.stories.tsx' ]}),
+  typescript({
+    useTsconfigDeclarationDir: true,
+    tsconfig: './tsconfig.json',
+    exclude: [ '**/*.stories.tsx' ],
+    // check: false,
+  }),
   // sizeSnapshot(),
   // postcss({
   //   modules: true, // 🔥 Usa CSS Modules
@@ -33,6 +39,7 @@ const plugins = [
   //   include: [ 'src/styles/**/*.scss' ],
   // }),
   // scss({output: false}), // 🔥 No genera un styles.css global
+  json(),
   terser(),
   copy({
     targets: [

@@ -69,8 +69,8 @@ export interface TestCasesProps<T> {
 
 export interface HeaderProps<T> {
   sourceCode: string,
-  languages: { value: T, label: string }[],//ProgrammingLanguage[],
-  language: T,//ProgrammingLanguage,
+  languages: { value: T, label: string }[],
+  language: T,
   onChange?: CodeRunnerEditorOnChangeType<T>,
   testCases: CodeEditorTestCasesType,
   setShowSettings: Dispatch<SetStateAction<boolean>>,

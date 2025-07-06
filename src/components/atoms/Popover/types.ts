@@ -13,6 +13,7 @@ export interface PopoverProps {
   children: ReactNode,
   // marginOfChildren?: number,
   offset?: number,
+  modal?: boolean,
 }
 
 export type PlacementType = Placement;

@@ -4,6 +4,7 @@ import type { PlacementType } from '../Popover/types';
 
 export type SelectOptionType<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> = {
   value: T,
+  key?: string,
   label: U,
   inputLabel?: V,
   disabled?: boolean

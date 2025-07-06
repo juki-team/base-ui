@@ -4,8 +4,7 @@ import { registerRenderer, textRenderer } from 'handsontable/renderers';
 import React, { memo } from 'react';
 import { utils } from 'xlsx';
 import { classNames } from '../../../helpers';
-import { CellStyleType } from '../../../modules';
-import { DataGridProps } from './types';
+import { CellStyleType, DataGridProps } from './types';
 
 registerAllModules();
 

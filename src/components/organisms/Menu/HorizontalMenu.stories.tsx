@@ -1,5 +1,5 @@
-import { action, configureActions } from 'storybook/actions';
 import React, { ReactNode } from 'react';
+import { action, configureActions } from 'storybook/actions';
 import {
   Button,
   HorizontalMenu as HorizontalMenuCmp,
@@ -174,7 +174,7 @@ export const HorizontalMenu = () => (
       >
         <div>
           <MdMathEditor
-            source={SAMPLE_MD_CONTENT}
+            initialMd={SAMPLE_MD_CONTENT}
             uploadImageButton
             informationButton
           />

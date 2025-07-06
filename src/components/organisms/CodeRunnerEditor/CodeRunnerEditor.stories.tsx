@@ -1,4 +1,4 @@
-import { ProgrammingLanguage, SubmissionRunStatus } from '@juki-team/commons';
+import { CodeLanguage, SubmissionRunStatus } from '@juki-team/commons';
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
@@ -41,12 +41,12 @@ int main() {
 
 const Template = (args: CodeRunnerEditorProps<string>) => {
   const [ props, setProps ] = useState<
-    CodeRunnerEditorPropertiesType<ProgrammingLanguage> & {
+    CodeRunnerEditorPropertiesType<CodeLanguage> & {
     language: string;
     sourceCode: string;
   }
   >({
-    language: ProgrammingLanguage.JAVASCRIPT,
+    language: CodeLanguage.JAVASCRIPT,
     sourceCode: sourceCode,
   });
   
@@ -84,7 +84,7 @@ export const CodeRunnerEditorNormal: Story = {
 
 CodeRunnerEditorNormal.args = {
   readOnly: false, // op
-  // languages?: ProgrammingLanguage[],
+  // languages?: CodeLanguage[],
   // className?: string,
   // middleButtons?: (props: Omit<CodeRunnerEditorProps, 'onChange' | 'className' | 'middleButtons'>) => ReactNode,
 };

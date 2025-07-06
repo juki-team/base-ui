@@ -1,10 +1,10 @@
 import {
+  CODE_LANGUAGE,
   CodeEditorTestCasesType,
+  CodeLanguage,
   ContentResponseType,
   JudgeDataResponseDTO,
   ProblemDataResponseDTO,
-  PROGRAMMING_LANGUAGE,
-  ProgrammingLanguage,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
   SubmissionRunStatus,
 } from '@juki-team/commons';
@@ -61,7 +61,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
   );
   const languages = useMemo(
     () => {
-      let languages: { value: ProgrammingLanguage | string, label: string }[];
+      let languages: { value: CodeLanguage | string, label: string }[];
       if (problem.judge.isExternal) {
         languages = ((virtualJudgeData?.success && virtualJudgeData.content.languages) || [])
           .filter(lang => lang.enabled)
@@ -73,13 +73,13 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
         languages = RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES
           .map((language) => ({
             value: language,
-            label: PROGRAMMING_LANGUAGE[language]?.label || language,
+            label: CODE_LANGUAGE[language]?.label || language,
           }));
       }
       if (!languages.length) {
         languages = [ {
-          value: ProgrammingLanguage.TEXT,
-          label: PROGRAMMING_LANGUAGE[ProgrammingLanguage.TEXT]?.label,
+          value: CodeLanguage.TEXT,
+          label: CODE_LANGUAGE[CodeLanguage.TEXT]?.label,
         } ];
       }
       return languages as { value: T, label: string }[];

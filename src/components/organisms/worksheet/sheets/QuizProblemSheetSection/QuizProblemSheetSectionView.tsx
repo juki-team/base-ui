@@ -1,8 +1,8 @@
 import {
   cleanRequest,
+  CodeLanguage,
   ContentResponseType,
   ProblemDataResponseDTO,
-  ProgrammingLanguage,
   QuizProblemSheetType,
   QuizProblemSubmissionDTO,
   Status,
@@ -48,7 +48,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
         >
           {({ data }) => {
             return (
-              <ProblemView<ProgrammingLanguage>
+              <ProblemView<CodeLanguage>
                 problem={data.content}
                 infoPlacement="name"
                 codeEditorStoreKey={`${worksheetKey}/${content.id}`}

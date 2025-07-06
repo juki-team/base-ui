@@ -32,7 +32,7 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
   
   const renderHeader = !!setSheet ? (
     <MdMathEditor
-      source={header}
+      initialMd={header}
       onChange={(header) => setSheet({ ...sheet, header })}
       informationButton
       uploadImageButton

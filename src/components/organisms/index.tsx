@@ -24,6 +24,7 @@ import { UserNicknameLinkProps } from './UserChip/types';
 import { UserCodeEditorProps } from './UserCodeEditor/types';
 import { UsersSelectorProps } from './UsersSelector/types';
 import { MdMathEditorProps } from './mdMath/types';
+import { MdMathEditorDeprecatedProps } from './mdMath/types';
 import { MdMathViewerProps } from './mdMath/types';
 import { ContentsSectionHeaderProps } from './worksheet/types';
 import { WorksheetBodiesProps } from './worksheet/types';
@@ -220,6 +221,14 @@ export const MdMathEditor = (props: MdMathEditorProps) => (
   </Suspense>
 );
 
+const MdMathEditorDeprecatedImport = () => import('./mdMath/MdMathEditorDeprecated');
+const LazyMdMathEditorDeprecated = lazy(() => MdMathEditorDeprecatedImport().then(module => ({ default: module.MdMathEditorDeprecated })));
+export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyMdMathEditorDeprecated {...props} />
+  </Suspense>
+);
+
 const MdMathViewerImport = () => import('./mdMath/MdMathViewer');
 const LazyMdMathViewer = lazy(() => MdMathViewerImport().then(module => ({ default: module.MdMathViewer })));
 export const MdMathViewer = (props: MdMathViewerProps) => (
@@ -292,6 +301,7 @@ export const preloadOrganisms = async () => {
   await UserCodeEditorImport();
   await UsersSelectorImport();
   await MdMathEditorImport();
+  await MdMathEditorDeprecatedImport();
   await MdMathViewerImport();
   await ContentsSectionHeaderImport();
   await WorksheetBodiesImport();

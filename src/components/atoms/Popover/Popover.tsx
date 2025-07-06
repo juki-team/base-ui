@@ -202,6 +202,7 @@ export function Popover({
                           content,
                           popoverClassName,
                           offset,
+                          modal: _modal = false,
                         }: PopoverProps) {
   
   const {
@@ -216,7 +217,7 @@ export function Popover({
   } = usePopover({
     open,
     onOpenChange: typeof open === 'undefined' ? undefined : onOpenChange,
-    modal: false,
+    modal: _modal,
     placement,
     initialOpen: false,
     triggerOn,

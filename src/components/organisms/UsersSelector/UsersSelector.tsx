@@ -135,7 +135,6 @@ export const UsersSelector = (props: UsersSelectorProps) => {
       <div
         data-tooltip-id="jk-tooltip"
         data-tooltip-content="reload"
-        data-tooltip-t-class-name="tt-se"
         className="jk-button light only-icon"
       >
         <RefreshIcon onClick={() => mutate()} />

@@ -1,7 +1,7 @@
 import {
+  CODE_LANGUAGE,
   ProblemScoringMode,
   ProblemVerdict,
-  PROGRAMMING_LANGUAGE,
   SubmissionDataResponseDTO,
   TestCaseResultType,
 } from '@juki-team/commons';
@@ -109,7 +109,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
               <T className="fw-bd tt-se">problem</T>
             </div>
             <div className="jk-col">
-              <div className="jk-row">{PROGRAMMING_LANGUAGE[language]?.label || language}</div>
+              <div className="jk-row">{CODE_LANGUAGE[language]?.label || language}</div>
               <T className="fw-bd tt-se">language</T>
             </div>
             <div className="jk-col">

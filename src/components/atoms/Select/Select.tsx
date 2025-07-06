@@ -110,7 +110,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
                 setIsOpen(false);
                 event.stopPropagation();
               } : undefined}
-              key={JSON.stringify(option.value)}
+              key={option.key ?? JSON.stringify(option.value)}
               ref={(e) => {
                 if (JSON.stringify(option.value) === JSON.stringify(optionSelected.value)) {
                   selectedOptionRef.current = e;
@@ -146,12 +146,12 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
           }}
         >
           {options.map((option) => (
-            <div className="jk-select-option" key={JSON.stringify(option.value)}>
+            <div className="jk-select-option" key={option.key ?? JSON.stringify(option.value)}>
               {renderReactNodeOrFunction(option.label)}
             </div>
           ))}
           {options.map((option) => (
-            <div className="jk-select-option" key={JSON.stringify(option.value)}>
+            <div className="jk-select-option" key={option.key ?? JSON.stringify(option.value)}>
               {renderReactNodeOrFunction(option.inputLabel)}
             </div>
           ))}

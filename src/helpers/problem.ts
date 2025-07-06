@@ -1,4 +1,5 @@
 import {
+  CODE_LANGUAGE,
   JUKI_APP_COMPANY_KEY,
   Language,
   PROBLEM_MODE,
@@ -6,7 +7,6 @@ import {
   ProblemScoringMode,
   ProblemSettingsType,
   ProblemStatementType,
-  PROGRAMMING_LANGUAGE,
 } from '@juki-team/commons';
 import { TFunction } from 'i18next';
 
@@ -53,7 +53,7 @@ export const getStatementData = (t: TFunction,
 | ${t('general')} | ${(settings?.timeLimit / 1000).toFixed(1)} ${t('seconds')} | ${(settings?.memoryLimit /
     1000).toFixed(1)} ${t('MB')} |
 ${languages.map((language) => (
-    `| ${PROGRAMMING_LANGUAGE[language.language]?.label} | ${(language?.timeLimit /
+    `| ${CODE_LANGUAGE[language.language]?.label} | ${(language?.timeLimit /
       1000).toFixed(1)} ${t('seconds')} | ${(language?.memoryLimit / 1000).toFixed(1)} ${t('MB')}|`
   )).join('\n')}
 

@@ -1,11 +1,11 @@
 import {
   cleanRequest,
+  CODE_LANGUAGE,
   CodeEditorSheetType,
   CodeEditorSubmissionDTO,
   CodeEditorTestCasesType,
+  CodeLanguage,
   ContentResponseType,
-  PROGRAMMING_LANGUAGE,
-  ProgrammingLanguage,
   Status,
   SubmissionRunStatus,
   WorksheetType,
@@ -57,7 +57,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
   
   const setLoaderStatusRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
-  const saveCode = async (sourceCode: string, language: ProgrammingLanguage, testCases: CodeEditorTestCasesType) => {
+  const saveCode = async (sourceCode: string, language: CodeLanguage, testCases: CodeEditorTestCasesType) => {
     setLoaderStatusRef.current?.(Status.LOADING);
     setSubmissionIndex(0);
     const codeEditorSubmissionDTO: CodeEditorSubmissionDTO = {
@@ -92,14 +92,14 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
   return (
     <div className="jk-col stretch flex-1 gap">
       <div style={{ height: getHeight(content.height, sourceCode), minWidth: 200, width: '100%' }} className="jk-row">
-        <UserCodeEditor<ProgrammingLanguage>
+        <UserCodeEditor<CodeLanguage>
           withoutRunCodeButton={readOnly}
           initialLanguage={submissions[submissionIndex]?.language}
           readOnly={readOnly}
           initialSource={initialSource}
           onSourceChange={setSourceCode}
           initialTestCases={submissions[submissionIndex]?.testCases ?? content.testCases}
-          languages={content.languages.map(lang => ({ value: lang, label: PROGRAMMING_LANGUAGE[lang]?.label || lang }))}
+          languages={content.languages.map(lang => ({ value: lang, label: CODE_LANGUAGE[lang]?.label || lang }))}
           storeKey={content.id + 'view'}
           enableAddCustomSampleCases
           onCodeRunStatusChange={(status, { sourceCode, language, testCases }) => {

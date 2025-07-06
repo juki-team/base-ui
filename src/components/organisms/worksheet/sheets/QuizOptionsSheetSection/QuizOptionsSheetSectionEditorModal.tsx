@@ -42,9 +42,8 @@ export const QuizOptionsSheetSectionEditorModal = ({
           />
           <T className="tt-se fw-bd">description</T>
           <MdMathEditor
-            source={sheet.description}
+            initialMd={sheet.description}
             onChange={(description) => setSheet(prevState => ({ ...prevState, description }))}
-            initEditMode
           />
           <div className="jk-col stretch left gap">
             {sheet.options.map((option, index) => (

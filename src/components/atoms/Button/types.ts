@@ -34,6 +34,7 @@ export type OnClickButtonEventType = {
 export interface ButtonCmpProps extends ButtonBasicProps {
   withIconTransition?: boolean,
   onClick?: (props: OnClickButtonEventType) => void,
+  tooltipContent?: string,
 }
 
 export type ButtonProps = ComponentPropsWithRef<typeof Button>;

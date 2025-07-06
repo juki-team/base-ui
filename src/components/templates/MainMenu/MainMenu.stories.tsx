@@ -1,7 +1,7 @@
 import { MenuViewMode } from '@juki-team/commons';
-import { action, configureActions } from 'storybook/actions';
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import React, { useState } from 'react';
+import { action, configureActions } from 'storybook/actions';
 import {
   Button,
   MainMenu as MainMenuCmp,
@@ -64,7 +64,7 @@ const meta: Meta<typeof MainMenuCmp> = {
             </div>
             <div className="bc-we">
               <MdMathEditor
-                source={SAMPLE_MD_CONTENT}
+                initialMd={SAMPLE_MD_CONTENT}
                 uploadImageButton
                 informationButton
               />

@@ -1,7 +1,7 @@
 import {
+  CODE_LANGUAGE,
+  CodeLanguage,
   Judge,
-  PROGRAMMING_LANGUAGE,
-  ProgrammingLanguage,
   QuizProblemSheetType,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
@@ -46,12 +46,12 @@ export const QuizProblemSheetSectionEditor = ({ content, setContent, isSolvable 
             options={RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES
               .map((key) => ({
                 value: key,
-                label: PROGRAMMING_LANGUAGE[key]?.label ?? key,
+                label: CODE_LANGUAGE[key]?.label ?? key,
               }))}
             selectedOptions={content.languages?.map(language => ({ value: language }))}
             onChange={(options) => setContent(prevState => ({
               ...prevState,
-              languages: options.map(option => option.value as ProgrammingLanguage),
+              languages: options.map(option => option.value as CodeLanguage),
             }))}
             expand
           />

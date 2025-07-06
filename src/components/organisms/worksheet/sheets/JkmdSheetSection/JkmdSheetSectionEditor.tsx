@@ -35,7 +35,7 @@ export const JkmdSheetSectionEditor = ({ content, setContent, isSolvable }: Jkmd
         <MdMathEditor
           uploadImageButton
           informationButton
-          source={content.content}
+          initialMd={content.content}
           onChange={content => setContent(prevState => ({ ...prevState, content }))}
         />
       </div>

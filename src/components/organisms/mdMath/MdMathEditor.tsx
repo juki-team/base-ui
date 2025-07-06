@@ -1,314 +1,652 @@
-import { Status } from '@juki-team/commons';
-import React, {
-  ClipboardEventHandler,
-  Dispatch,
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
-import { useResizeDetector } from 'react-resize-detector';
-import { RESIZE_DETECTOR_PROPS } from '../../../constants';
-import { classNames, handleUploadImage } from '../../../helpers';
-import { useJukiNotification } from '../../../hooks/useJukiNotification';
+import { CODE_LANGUAGE, CodeLanguage, Status } from '@juki-team/commons';
+import Blockquote from '@tiptap/extension-blockquote';
+import Bold from '@tiptap/extension-bold';
+import BulletList from '@tiptap/extension-bullet-list';
+import Code from '@tiptap/extension-code';
+import CodeBlock from '@tiptap/extension-code-block';
+import Document from '@tiptap/extension-document'; // The Document extension is required, no matter what you build with Tiptap.
+import Dropcursor from '@tiptap/extension-dropcursor';
+import Gapcursor from '@tiptap/extension-gapcursor';
+import Heading from '@tiptap/extension-heading';
+import Highlight from '@tiptap/extension-highlight';
+import History from '@tiptap/extension-history';
+import Image from '@tiptap/extension-image';
+import Italic from '@tiptap/extension-italic';
+import ListItem from '@tiptap/extension-list-item';
+import { Mathematics } from '@tiptap/extension-mathematics';
+// import 'katex/dist/katex.min.css';
+import OrderedList from '@tiptap/extension-ordered-list';
+import Paragraph from '@tiptap/extension-paragraph';
+import Strike from '@tiptap/extension-strike';
+import Text from '@tiptap/extension-text';
+import { BubbleMenu, FloatingMenu, useEditor } from '@tiptap/react';
+import c from 'highlight.js/lib/languages/c';
+import cpp from 'highlight.js/lib/languages/cpp';
+import java from 'highlight.js/lib/languages/java';
+import javascript from 'highlight.js/lib/languages/javascript';
+import json from 'highlight.js/lib/languages/json';
+import markdown from 'highlight.js/lib/languages/markdown';
+import python from 'highlight.js/lib/languages/python';
+import html from 'highlight.js/lib/languages/xml';
+import { all, createLowlight } from 'lowlight';
+import React, { CSSProperties, memo, useCallback, useEffect, useRef, useState } from 'react';
+import { Markdown } from 'tiptap-markdown';
+import { classNames, downloadBlobAsFile } from '../../../helpers';
+import { useJukiNotification } from '../../../hooks';
 import { NotificationType } from '../../../types';
-import { Button, Modal, T, TextArea } from '../../atoms';
-import { SplitPane } from '../../molecules';
-import { CloseIcon, EditIcon, InfoIIcon, PreviewIcon } from '../../server';
-import { UploadImageButton } from '../ImageUploader/UploadImageButton';
-import { SAMPLE_MD_CONTENT } from './constants';
-import { MdFloatToolbar } from './MdFloatToolbar/MdFloatToolbar';
-import { MdMathViewer } from './MdMathViewer';
+import { Button, T } from '../../atoms';
+import {
+  AddPhotoAlternateIcon,
+  CodeBlocksIcon,
+  CodeIcon,
+  DownloadIcon,
+  FormatBoldIcon,
+  FormatH1Icon,
+  FormatH2Icon,
+  FormatH3Icon,
+  FormatH4Icon,
+  FormatH5Icon,
+  FormatH6Icon,
+  FormatItalicIcon,
+  FormatListBulletedIcon,
+  FormatListNumberedIcon,
+  LineLoader,
+  LinkIcon,
+  MoreVertIcon,
+  OpenInNewIcon,
+  SpinIcon,
+  StepIntoIcon,
+  StepOutIcon,
+} from '../../atoms/server';
+import { FormatInkHighlighterIcon } from '../../atoms/server/icons/google/FormatInkHighlighterIcon';
+import { FormatQuoteIcon } from '../../atoms/server/icons/google/FormatQuoteIcon';
+import { FormatStrikethroughIcon } from '../../atoms/server/icons/google/FormatStrikethroughIcon';
+import { LinkOffIcon } from '../../atoms/server/icons/google/LinkOffIcon';
+import { FloatToolbar } from '../../molecules';
+import { ImageUploaderModal } from '../ImageUploader/ImageUploaderModal';
+import { TiptapEditorContent } from './editor';
+import {
+  CurrentNodeHighlighter,
+  CustomCodeBlockLowlight,
+  CustomLink,
+  markdownIt,
+  SmartHeadingBackspace,
+  SmartPasteMarkdown,
+} from './extensions';
 import { MdMathEditorProps } from './types';
-import { MemoMdMathViewer } from './viewer/MemoMdMathViewer';
 
-interface InformationButtonProps {
-  open: boolean,
-  setOpen: Dispatch<boolean>,
-  isOpenRef?: MutableRefObject<boolean>,
-  withLabel: boolean
-}
+const lowlight = createLowlight(all);
 
-const InformationButton = ({ open, setOpen, isOpenRef, withLabel }: InformationButtonProps) => {
-  
-  const [ source, setSource ] = useState(SAMPLE_MD_CONTENT);
-  useEffect(() => setSource(SAMPLE_MD_CONTENT), [ open ]);
-  if (isOpenRef) {
-    isOpenRef.current = open;
-  }
-  
-  return (
-    <>
-      <Button
-        data-tooltip-id="jk-tooltip"
-        data-tooltip-content={withLabel ? '' : 'information'}
-        data-tooltip-t-class-name="ws-np tt-se"
-        size="small"
-        className="bc-we"
-        type="void"
-        icon={<InfoIIcon circle />}
-        onClick={() => setOpen(true)}
-      >
-        {withLabel && <T className="tt-se">information</T>}
-      </Button>
-      <Modal
-        isOpen={open}
-        onClose={() => setOpen(false)}
-        className="modal-info-markdown"
-      >
-        <MdMathEditor source={source} onChange={setSource} />
-      </Modal>
-    </>
-  );
-};
+lowlight.register('c', c);
+lowlight.register('cpp', cpp);
+lowlight.register('java', java);
+lowlight.register('python', python);
+lowlight.register('javascript', javascript);
+lowlight.register('html', html);
+lowlight.register('json', json);
+lowlight.register('markdown', markdown);
 
-enum View {
-  ONLY_EDITOR = 'ONLY_EDITOR',
-  EDITOR_VIEWER_HORIZONTAL = 'EDITOR_VIEWER_HORIZONTAL',
-  EDITOR_VIEWER_VERTICAL = 'EDITOR_VIEWER_VERTICAL',
-  ONLY_VIEWER = 'ONLY_VIEWER',
-}
+const CODE_LANGUAGES = [
+  CodeLanguage.C,
+  CodeLanguage.CPP,
+  CodeLanguage.JAVA,
+  CodeLanguage.PYTHON,
+  CodeLanguage.JAVASCRIPT,
+  CodeLanguage.HTML,
+  CodeLanguage.JSON,
+  CodeLanguage.MARKDOWN,
+  CodeLanguage.TEXT,
+];
 
-export const MdMathEditor = (props: MdMathEditorProps) => {
+export const MdMathEditor = memo(({
+                                    initialMd = '',
+                                    onChange,
+                                    className,
+                                    downloadButton,
+                                  }: MdMathEditorProps) => {
   
-  const {
-    source,
-    onChange,
-    informationButton = false,
-    uploadImageButton = false,
-    downloadButton = false,
-    // sharedButton = false,
-    initEditMode = false,
-    // onPickImageUrl,
-  } = props;
-  
-  const [ view, setView ] = useState<View>(View.EDITOR_VIEWER_HORIZONTAL);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [ mdSource, setMdSource ] = useState(source);
-  const [ editing, setEditing ] = useState(initEditMode);
+  const [ position, setPosition ] = useState<{ height: number, top: number }>({ height: 0, top: 0 });
+  const editorRef = useRef<HTMLDivElement | null>(null);
+  const [ open, setOpen ] = useState(false);
+  const [ openImageModal, setOpenImageModal ] = useState(false);
   const [ loader, setLoader ] = useState(Status.NONE);
-  const layoutEditorRef = useRef<HTMLDivElement>(null);
   const { addNotification } = useJukiNotification();
-  const [ openUploadModal, setOpenUploadModal ] = useState(false);
-  const [ openInfoModal, setOpenInfoModal ] = useState(false);
-  const changeSource = useCallback((newText: string, editing: boolean, view: View) => {
-    const fun = () => {
-      if (editing && (view === View.ONLY_EDITOR || view === View.EDITOR_VIEWER_VERTICAL || view === View.EDITOR_VIEWER_HORIZONTAL)) {
-        if (textareaRef.current) {
-          textareaRef.current.value = newText;
-        } else {
-          setTimeout(fun, 200);
+  const editor = useEditor({
+    extensions: [
+      Document,
+      Gapcursor,
+      Markdown,
+      SmartPasteMarkdown.configure({
+        addNotification: ({ type, message }: { type: NotificationType, message: string }) => {
+          addNotification({ type, message: <T>{message}</T> });
+        },
+        setLoader,
+      }),
+      CurrentNodeHighlighter,
+      //
+      Paragraph,
+      Text,
+      Blockquote,
+      BulletList,
+      OrderedList,
+      ListItem,
+      CodeBlock,
+      CustomCodeBlockLowlight.configure({
+        lowlight,
+      }),
+      // CustomHeading,
+      Heading, SmartHeadingBackspace,
+      Image,
+      Dropcursor,
+      Mathematics,
+      History,
+      // Marks
+      Italic,
+      Bold,
+      Highlight,
+      Strike,
+      Code.configure({
+        HTMLAttributes: {
+          class: 'inline-code cr-th bc-hl jk-br-ie ws-np',
+        },
+      }),
+      // Link,
+      CustomLink,
+      // Underline,
+    ],
+    shouldRerenderOnTransaction: false,
+    immediatelyRender: true,
+    content: '',
+    injectCSS: false,
+    //
+    onUpdate({ editor }) {
+      const textMd = editor?.storage.markdown.getMarkdown() as string ?? '';
+      onChange?.(textMd);
+    },
+    onSelectionUpdate({ editor }) {
+      const el = editorRef.current?.querySelector('.current-node-highlight') as HTMLElement
+        || editorRef.current?.querySelector('img.ProseMirror-selectednode')
+        || null;
+      const height = el?.offsetHeight ?? 0;
+      if (height !== position.height) {
+        setPosition(prevState => ({ ...prevState, height }));
+      }
+      if (el && editorRef.current) {
+        const elRect = el.getBoundingClientRect();
+        const parentRect = editorRef.current.getBoundingClientRect();
+        const top = elRect.top - parentRect.top;
+        if (top !== position.top) {
+          setPosition(prevState => ({ ...prevState, top }));
+          setOpen(false);
         }
       }
-    };
-    fun();
-    setMdSource(newText);
-  }, []);
-  
+    },
+  });
   useEffect(() => {
-    changeSource(source, editing, view);
-  }, [ changeSource, editing, source, view ]);
-  
-  const { width = 0 } = useResizeDetector({ targetRef: layoutEditorRef, ...RESIZE_DETECTOR_PROPS });
-  const withLabels = width > 600;
-  
-  const insertTextAtCursor = (insertText: string) => {
-    const textarea = textareaRef.current;
-    if (!textarea) return;
-    
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const text = textareaRef.current?.value ?? '';
-    const newText = text.substring(0, start) + insertText + text.substring(end);
-    
-    changeSource(newText, editing, view);
-    onChange?.(newText);
-    
-    setTimeout(() => {
-      textarea.selectionStart = textarea.selectionEnd = start + insertText.length;
-    }, 0);
-  };
-  
-  const handlePaste: ClipboardEventHandler = async (event) => {
-    const items = event.clipboardData?.items;
-    if (items) {
-      const imageFiles: File[] = [];
-      for (const item of items) {
-        if (item.kind === 'file') {
-          const file = item.getAsFile();
-          if (file && file.type.startsWith('image/')) {
-            imageFiles.push(file);
-          }
-        }
-      }
-      if (imageFiles.length > 0) {
-        event.stopPropagation();
-        event.preventDefault();
-        let extraText = '';
-        setLoader(Status.LOADING);
-        for (const imageFile of imageFiles) {
-          const { status, message, content } = await handleUploadImage(imageFile, false);
-          if (status === Status.SUCCESS) {
-            addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
-            extraText += (extraText ? '\n\n' : '') + `![image alt](${content!.imageUrl})`;
-          } else {
-            addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
-          }
-        }
-        setLoader(Status.NONE);
-        insertTextAtCursor(extraText);
-      }
+    if (editor && initialMd) {
+      const html = markdownIt.render(initialMd);
+      editor.commands.setContent(html);
     }
-  };
+  }, [ editor, initialMd ]);
   
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (layoutEditorRef.current && !layoutEditorRef.current.contains(event.target as Node) && !openUploadModal && !openInfoModal) {
-        setTimeout(() => {
-          setEditing(false);
-        }, 0);
-      }
-    };
+  const setLink = useCallback(() => {
+    const previousUrl = editor?.getAttributes('link').href;
+    const url = window.prompt('URL', previousUrl);
     
-    if (typeof document !== 'undefined') {
-      document.addEventListener('mousedown', handleClickOutside);
+    if (url === null) {
+      return;
     }
-    return () => {
-      if (typeof document !== 'undefined') {
-        document.removeEventListener('mousedown', handleClickOutside);
-      }
-    };
-  }, [ openInfoModal, openUploadModal ]);
+    
+    if (url === '') {
+      editor?.chain().focus().extendMarkRange('link').unsetLink()
+        .run();
+      
+      return;
+    }
+    
+    try {
+      editor?.chain().focus().extendMarkRange('link').setLink({ href: url })
+        .run();
+    } catch (e: any) {
+      alert(e?.message);
+    }
+  }, [ editor ]);
   
   return (
     <div
-      ref={layoutEditorRef}
-      className={classNames('jk-md-math-editor-layout jk-border-radius-inline', { editing })}
+      ref={editorRef}
+      className={classNames('jk-row pn-re', className)}
+      style={{
+        '--cursor-coordinate-y': `${position.top}px`,
+        '--selected-node-height': `${position.height}px`,
+      } as CSSProperties}
     >
-      {editing ? (
+      {loader === Status.LOADING && <LineLoader />}
+      {editor ? <TiptapEditorContent editor={editor} readOnly={loader === Status.LOADING} /> : <SpinIcon />}
+      {editor && (
         <>
-          <div className="content-bar-options jk-row space-between jk-br-ie jk-pg-xsm sticky-top bc-we">
-            <div className={classNames('jk-row gap left', { gap: !withLabels })}>
-              {informationButton && (
-                <InformationButton
-                  open={openInfoModal}
-                  setOpen={setOpenInfoModal}
-                  withLabel={withLabels}
-                />
-              )}
-              {uploadImageButton && (
-                <UploadImageButton
-                  open={openUploadModal}
-                  setOpen={setOpenUploadModal}
-                  withLabel={withLabels}
-                  copyButtons
-                />
-              )}
-              {view === View.ONLY_EDITOR && (
-                <Button
-                  data-tooltip-id="jk-tooltip"
-                  data-tooltip-content={withLabels ? '' : 'editor | preview'}
-                  data-tooltip-t-class-name="ws-np"
-                  type="void"
-                  size="small"
-                  className="bc-we"
-                  onClick={() => setView(View.EDITOR_VIEWER_HORIZONTAL)}
-                >
-                  <div className="jk-row">
-                    {withLabels && (
-                      <>
-                        <T>editor</T>&nbsp;<EditIcon />&nbsp;
-                        |&nbsp;<PreviewIcon />&nbsp;<T>preview</T>
-                      </>
-                    )}
-                  </div>
-                </Button>
-              )}
-              {view === View.EDITOR_VIEWER_HORIZONTAL && (
-                <Button
-                  data-tooltip-id="jk-tooltip"
-                  data-tooltip-content={withLabels ? '' : 'preview'}
-                  data-tooltip-t-class-name="ws-np"
-                  type="void"
-                  size="small"
-                  className="bc-we"
-                  icon={<PreviewIcon />}
-                  onClick={() => setView(View.ONLY_VIEWER)}
-                >
-                  {withLabels && <T>preview</T>}
-                </Button>
-              )}
-              {view === View.ONLY_VIEWER && (
-                <Button
-                  data-tooltip-id="jk-tooltip"
-                  data-tooltip-content={withLabels ? '' : 'editor'}
-                  data-tooltip-t-class-name="ws-np"
-                  type="void"
-                  size="small"
-                  className="bc-we"
-                  icon={<EditIcon />}
-                  onClick={() => setView(View.ONLY_EDITOR)}
-                >
-                  {withLabels && <T>editor</T>}
-                </Button>
-              )}
-            </div>
-            <Button
-              icon={<CloseIcon />}
-              type="void"
-              size="small"
-              className="bc-we"
-              onClick={() => setEditing(false)}
+          {downloadButton && (
+            <FloatToolbar
+              actionButtons={[ {
+                icon: <DownloadIcon />,
+                buttons: [
+                  // TODO:
+                  // {
+                  //   icon: <DownloadIcon />,
+                  //   label: <T>pdf</T>,
+                  //   onClick: handleShareMdPdf('pdf', source, sourceUrl, setSourceUrl, userTheme),
+                  // },
+                  {
+                    icon: <OpenInNewIcon />,
+                    label: <T>md</T>,
+                    onClick: () => downloadBlobAsFile(new Blob([ editor.storage.markdown.getMarkdown() as string ?? '' ], { type: 'text/plain' }), 'file.md'),
+                  },
+                ],
+              } ]} placement="rightTop"
             />
-          </div>
-          <div
-            className={classNames('content-editor-preview', { 'editor-top-preview-bottom': view === View.EDITOR_VIEWER_VERTICAL })}
-          >
-            <SplitPane onlyFirstPane={view === View.ONLY_EDITOR} onlySecondPane={view === View.ONLY_VIEWER}>
-              <div className="editor" onPaste={uploadImageButton ? handlePaste : undefined}>
-                <TextArea
-                  ref={textareaRef}
-                  onChange={value => {
-                    onChange?.(value);
-                    setMdSource(value);
-                  }}
-                />
-              </div>
-              <div className="preview"><MemoMdMathViewer className="jk-br-ie br-hl jk-pg-xsm" source={mdSource} /></div>
-            </SplitPane>
-          </div>
-        </>
-      ) : (
-        <div className="content-preview">
-          <MdFloatToolbar
-            source={mdSource}
-            edit
-            onEdit={() => setEditing(true)}
-            download={downloadButton}
-          />
-          <div
-            className="preview"
-            onDoubleClick={() => {
-              setEditing(true);
-              setView(View.EDITOR_VIEWER_HORIZONTAL);
+          )}
+          <ImageUploaderModal
+            isOpen={openImageModal}
+            onClose={() => setOpenImageModal(false)}
+            copyButtons
+            onPickImageUrl={({ imageUrl }) => {
+              editor?.chain().focus().setImage({ src: imageUrl }).run();
+              setOpenImageModal(false);
             }}
-          >
-            <MdMathViewer className="jk-br-ie br-hl jk-pg-xsm" source={mdSource} />
-          </div>
-        </div>
-      )}
-      {loader === Status.LOADING && (
-        <div className="jk-loader-layer pn-ae">
-          <div className="jk-loader-layer pn-ae jk-overlay-backdrop" style={{ opacity: 0.8 }}></div>
-          <div className="jk-row" style={{ zIndex: 1 }}>
-            <div className="jk-row bc-we jk-pg-sm jk-br-ie" style={{ alignItems: 'baseline' }}>
-              <T className="tt-se">uploading images</T> &nbsp;
-              <div className="dot-flashing" />
+          />
+          <div className={classNames('jk-md-math-left-menu', { open })}>
+            <div className="jk-col" onMouseDown={(event) => event.preventDefault()}>
+              <div className="content jk-row gap nowrap left jk-pg-xsm bc-we jk-br-ie">
+                <div className="jk-row group jk-br-ie bc-hl">
+                  <Button
+                    tooltipContent={editor.isActive('heading', { level: 1 }) ? 'unset heading #1' : 'set heading #1'}
+                    icon={<FormatH1Icon />}
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+                    disabled={!editor.can().toggleHeading({ level: 1 }) || editor.isActive('codeBlock')}
+                    type={editor.isActive('heading', { level: 1 }) ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent={editor.isActive('heading', { level: 2 }) ? 'unset heading #2' : 'set heading #2'}
+                    icon={<FormatH2Icon />}
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                    disabled={!editor.can().toggleHeading({ level: 2 }) || editor.isActive('codeBlock')}
+                    type={editor.isActive('heading', { level: 2 }) ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent={editor.isActive('heading', { level: 3 }) ? 'unset heading #3' : 'set heading #3'}
+                    icon={<FormatH3Icon />}
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+                    disabled={!editor.can().toggleHeading({ level: 3 }) || editor.isActive('codeBlock')}
+                    type={editor.isActive('heading', { level: 3 }) ? 'primary' : 'light'}
+                  />
+                  <br />
+                  <Button
+                    tooltipContent={editor.isActive('heading', { level: 4 }) ? 'unset heading #4' : 'set heading #4'}
+                    data-tooltip-place="bottom"
+                    icon={<FormatH4Icon />}
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+                    disabled={!editor.can().toggleHeading({ level: 4 }) || editor.isActive('codeBlock')}
+                    type={editor.isActive('heading', { level: 4 }) ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent={editor.isActive('heading', { level: 5 }) ? 'unset heading #5' : 'set heading #5'}
+                    data-tooltip-place="bottom"
+                    icon={<FormatH5Icon />}
+                    disabled={!editor.can().toggleHeading({ level: 5 }) || editor.isActive('codeBlock')}
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
+                    type={editor.isActive('heading', { level: 5 }) ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent={editor.isActive('heading', { level: 6 }) ? 'unset heading #6' : 'set heading #6'}
+                    data-tooltip-place="bottom"
+                    icon={<FormatH6Icon />}
+                    disabled={!editor.can().toggleHeading({ level: 6 }) || editor.isActive('codeBlock')}
+                    onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
+                    type={editor.isActive('heading', { level: 6 }) ? 'primary' : 'light'}
+                  />
+                </div>
+                <div className="jk-row group jk-br-ie bc-hl">
+                  <Button
+                    tooltipContent={editor.isActive('blockquote') ? 'unset blockquote' : 'set blockquote'}
+                    icon={<FormatQuoteIcon />}
+                    onClick={() => editor.chain().focus().toggleBlockquote().run()}
+                    disabled={!editor.can().toggleBlockquote() || editor.isActive('codeBlock')}
+                    type={editor.isActive('blockquote') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent={editor.isActive('codeBlock') ? 'unset code block' : 'set code block'}
+                    icon={<CodeBlocksIcon />}
+                    onClick={() => editor?.chain().focus().unsetBlockquote().toggleCodeBlock({ language: CODE_LANGUAGE[CodeLanguage.TEXT].highlightJsKey }).run()}
+                    type={editor.isActive('codeBlock') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent="add image"
+                    icon={<AddPhotoAlternateIcon />}
+                    onClick={() => setOpenImageModal(true)}
+                    type="light"
+                  />
+                  <Button
+                    tooltipContent={editor.isActive('orderedList') ? 'toggle bullet list' : editor.isActive('bulletList') ? 'toggle ordered list' : 'set bullet list'}
+                    data-tooltip-place="bottom"
+                    icon={editor.isActive('orderedList') ? <FormatListBulletedIcon /> : <FormatListNumberedIcon />}
+                    onClick={() => {
+                      if (editor.isActive('bulletList')) {
+                        editor.chain().focus().toggleOrderedList().run();
+                      } else {
+                        editor.chain().focus().toggleBulletList().run();
+                      }
+                    }}
+                    type={editor.isActive('orderedList') || editor.isActive('bulletList') ? 'primary' : 'light'}
+                    disabled={false}
+                  />
+                  <Button
+                    tooltipContent="sink list item"
+                    data-tooltip-place="bottom"
+                    icon={<StepOutIcon rotate={90} />}
+                    onClick={() => editor.chain().focus().sinkListItem('listItem').run()}
+                    disabled={!editor.can().sinkListItem('listItem')}
+                    type="light"
+                  />
+                  <Button
+                    tooltipContent="lift list item"
+                    data-tooltip-place="bottom"
+                    icon={<StepIntoIcon rotate={90} />}
+                    onClick={() => editor.chain().focus().liftListItem('listItem').run()}
+                    disabled={!editor.can().liftListItem('listItem')}
+                    type="light"
+                  />
+                </div>
+                <div className="jk-row group jk-br-ie bc-hl">
+                  <Button
+                    tooltipContent="unset bold"
+                    icon={<FormatBoldIcon />}
+                    disabled={!editor.isActive('bold')}
+                    onClick={() => editor?.commands.unsetMark('bold', { extendEmptyMarkRange: true })}
+                    type={editor.isActive('bold') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent="unset italic"
+                    icon={<FormatItalicIcon />}
+                    disabled={!editor.isActive('italic')}
+                    onClick={() => editor?.commands.unsetMark('italic', { extendEmptyMarkRange: true })}
+                    type={editor.isActive('italic') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent="unset strike"
+                    icon={<FormatStrikethroughIcon />}
+                    disabled={!editor.isActive('strike')}
+                    onClick={() => editor?.commands.unsetMark('strike', { extendEmptyMarkRange: true })}
+                    type={editor.isActive('strike') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent="unhighlight"
+                    data-tooltip-place="bottom"
+                    icon={<FormatInkHighlighterIcon />}
+                    disabled={!editor.isActive('highlight')}
+                    onClick={() => editor?.commands.unsetMark('highlight', { extendEmptyMarkRange: true })}
+                    type={editor.isActive('highlight') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent="unset code inline"
+                    data-tooltip-place="bottom"
+                    icon={<CodeIcon />}
+                    disabled={!editor.isActive('code')}
+                    onClick={() => editor?.commands.unsetMark('code', { extendEmptyMarkRange: true })}
+                    type={editor.isActive('code') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent="unset link"
+                    data-tooltip-place="bottom"
+                    icon={<LinkOffIcon />}
+                    disabled={!editor.isActive('link')}
+                    onClick={() => editor.chain().focus().unsetLink().run()}
+                    type={editor.isActive('link') ? 'primary' : 'light'}
+                  />
+                </div>
+              </div>
+              <div className="jk-row trigger stretch center bc-we jk-br-ie" onClick={() => setOpen(!open)}>
+                <div className="jk-row"><MoreVertIcon /></div>
+              </div>
             </div>
           </div>
-        </div>
+          <FloatingMenu
+            editor={editor}
+            className="bc-we jk-br-ie"
+          >
+            <div
+              className="jk-row left jk-pg-xsm"
+              onMouseDown={(event) => event.preventDefault()}
+            >
+              <Button
+                tooltipContent={editor.isActive('heading', { level: 1 }) ? 'unset heading #1' : 'set heading #1'}
+                size="small"
+                icon={<FormatH1Icon />}
+                onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+                disabled={!editor.can().toggleHeading({ level: 1 }) || editor.isActive('codeBlock')}
+                type={editor.isActive('heading', { level: 1 }) ? 'primary' : 'light'}
+              />
+              <Button
+                tooltipContent={editor.isActive('heading', { level: 2 }) ? 'unset heading #2' : 'set heading #2'}
+                size="small"
+                icon={<FormatH2Icon />}
+                onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                disabled={!editor.can().toggleHeading({ level: 2 }) || editor.isActive('codeBlock')}
+                type={editor.isActive('heading', { level: 2 }) ? 'primary' : 'light'}
+              />
+              <Button
+                tooltipContent={editor.isActive('heading', { level: 3 }) ? 'unset heading #3' : 'set heading #3'}
+                size="small"
+                icon={<FormatH3Icon />}
+                onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+                disabled={!editor.can().toggleHeading({ level: 3 }) || editor.isActive('codeBlock')}
+                type={editor.isActive('heading', { level: 3 }) ? 'primary' : 'light'}
+              />
+              <Button
+                tooltipContent={editor.isActive('heading', { level: 4 }) ? 'unset heading #4' : 'set heading #4'}
+                size="small"
+                icon={<FormatH4Icon />}
+                onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+                disabled={!editor.can().toggleHeading({ level: 4 }) || editor.isActive('codeBlock')}
+                type={editor.isActive('heading', { level: 4 }) ? 'primary' : 'light'}
+              />
+              <Button
+                tooltipContent={editor.isActive('heading', { level: 5 }) ? 'unset heading #5' : 'set heading #5'}
+                size="small"
+                icon={<FormatH5Icon />}
+                disabled={!editor.can().toggleHeading({ level: 5 }) || editor.isActive('codeBlock')}
+                onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
+                type={editor.isActive('heading', { level: 5 }) ? 'primary' : 'light'}
+              />
+              <Button
+                tooltipContent={editor.isActive('heading', { level: 6 }) ? 'unset heading #6' : 'set heading #6'}
+                size="small"
+                icon={<FormatH6Icon />}
+                disabled={!editor.can().toggleHeading({ level: 6 }) || editor.isActive('codeBlock')}
+                onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
+                type={editor.isActive('heading', { level: 6 }) ? 'primary' : 'light'}
+              />
+              <Button
+                tooltipContent="add image"
+                size="small"
+                icon={<AddPhotoAlternateIcon />}
+                onClick={() => setOpenImageModal(true)}
+                type="light"
+              />
+              {/*<Button*/}
+              {/*  data-tooltip-id="jk-tooltip"*/}
+              {/*  tooltipContent={editor.isActive('bold') ? 'unset bold' : 'set bold'}*/}
+              {/*  size="small"*/}
+              {/*  icon={<FormatBoldIcon />}*/}
+              {/*  onClick={() => editor?.commands.toggleBold()}*/}
+              {/*  type={editor.isActive('bold') ? 'primary' : 'light'}*/}
+              {/*/>*/}
+              {/*<Button*/}
+              {/*  data-tooltip-id="jk-tooltip"*/}
+              {/*  tooltipContent={editor.isActive('code') ? 'unset code inline' : 'set code inline'}*/}
+              {/*  size="small"*/}
+              {/*  icon={<CodeIcon />}*/}
+              {/*  onClick={() => editor?.commands.toggleCode()}*/}
+              {/*  type={editor.isActive('code') ? 'primary' : 'light'}*/}
+              {/*/>*/}
+              {/*<Button*/}
+              {/*  data-tooltip-id="jk-tooltip"*/}
+              {/*  tooltipContent={editor.isActive('italic') ? 'unset italic' : 'set italic'}*/}
+              {/*  size="small"*/}
+              {/*  icon={<FormatItalicIcon />}*/}
+              {/*  onClick={() => editor?.commands.toggleItalic()}*/}
+              {/*  type={editor.isActive('italic') ? 'primary' : 'light'}*/}
+              {/*/>*/}
+              {/*<Button*/}
+              {/*  data-tooltip-id="jk-tooltip"*/}
+              {/*  tooltipContent={editor.isActive('highlight') ? 'unhighlight' : 'highlight'}*/}
+              {/*  size="small"*/}
+              {/*  icon={<FormatInkHighlighterIcon />}*/}
+              {/*  onClick={() => editor?.commands.toggleHighlight()}*/}
+              {/*  type={editor.isActive('highlight') ? 'primary' : 'light'}*/}
+              {/*/>*/}
+              {/*<Button*/}
+              {/*  data-tooltip-id="jk-tooltip"*/}
+              {/*  tooltipContent={editor.isActive('strike') ? 'unset strike' : 'set strike'}*/}
+              {/*  size="small"*/}
+              {/*  icon={<FormatStrikethroughIcon />}*/}
+              {/*  onClick={() => editor?.commands.toggleStrike()}*/}
+              {/*  type={editor.isActive('strike') ? 'primary' : 'light'}*/}
+              {/*/>*/}
+              <Button
+                tooltipContent={editor.isActive('codeBlock') ? 'unset code block' : 'set code block'}
+                size="small"
+                icon={<CodeBlocksIcon />}
+                onClick={() => editor?.commands.setCodeBlock()}
+                type="light"
+              />
+              <Button
+                tooltipContent={editor.isActive('blockquote') ? 'unset blockquote' : 'set blockquote'}
+                size="small"
+                icon={<FormatQuoteIcon />}
+                onClick={() => editor.chain().focus().toggleBlockquote().run()}
+                disabled={!editor.can().toggleBlockquote() || editor.isActive('heading') || editor.isActive('codeBlock')}
+                type={editor.isActive('blockquote') ? 'primary' : 'light'}
+              />
+            </div>
+          </FloatingMenu>
+          <BubbleMenu
+            editor={editor}
+            className="bc-we jk-br-ie"
+            shouldShow={() => (
+              (editor.isFocused && editor.isActive('image'))
+              || (editor.isFocused && editor.isActive('codeBlock'))
+              || (editor.isFocused && !editor.state.selection.empty && !editor.isActive('codeBlock'))
+            )}
+          >
+            <div
+              className="jk-col left jk-pg-xsm"
+              onMouseDown={(event) => event.preventDefault()}
+            >
+              {editor.isFocused && editor.isActive('image') ? (
+                <div className="jk-row">
+                  <Button
+                    tooltipContent="delete image"
+                    icon={<AddPhotoAlternateIcon strikethrough />}
+                    onClick={() => editor.commands.deleteSelection()}
+                    type="light"
+                  />
+                </div>
+              ) : editor.isFocused && editor.isActive('codeBlock') ? (
+                <div className="jk-row jk-pg-xsm">
+                  <Button
+                    tooltipContent="unset code block"
+                    icon={<CodeBlocksIcon />}
+                    onClick={() => editor?.commands.toggleCodeBlock()}
+                    type="light"
+                  />
+                  {CODE_LANGUAGES.map(codeLanguage => (
+                    <Button
+                      size="tiny"
+                      key={codeLanguage}
+                      onClick={() => {
+                        editor.chain().focus().setCodeBlock({ language: CODE_LANGUAGE[codeLanguage].highlightJsKey }).run();
+                      }}
+                      type={editor.getAttributes('codeBlock').language === CODE_LANGUAGE[codeLanguage].highlightJsKey ? 'primary' : 'light'}
+                    >
+                      <T className="tt-se">{CODE_LANGUAGE[codeLanguage]?.label}</T>
+                    </Button>
+                  ))}
+                </div>
+              ) : editor.isFocused && !editor.state.selection.empty && !editor.isActive('codeBlock') && (
+                <div className="jk-row">
+                  <Button
+                    tooltipContent={editor.isActive('bold') ? 'unset bold' : 'set bold'}
+                    icon={<FormatBoldIcon />}
+                    onClick={() => editor.chain().focus().toggleBold().run()}
+                    type={editor.isActive('bold') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent={editor.isActive('italic') ? 'unset italic' : 'set italic'}
+                    icon={<FormatItalicIcon />}
+                    onClick={() => editor.chain().focus().toggleItalic().run()}
+                    type={editor.isActive('italic') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent={editor.isActive('strike') ? 'unset strike' : 'set strike'}
+                    icon={<FormatStrikethroughIcon />}
+                    onClick={() => editor.chain().focus().toggleStrike().run()}
+                    type={editor.isActive('strike') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent={editor.isActive('highlight') ? 'unhighlight' : 'highlight'}
+                    icon={<FormatInkHighlighterIcon />}
+                    onClick={() => editor.chain().focus().toggleHighlight().run()}
+                    type={editor.isActive('highlight') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent={editor.isActive('code') ? 'unset code inline' : 'set code inline'}
+                    icon={<CodeIcon />}
+                    onClick={() => editor.chain().focus().toggleCode().run()}
+                    type={editor.isActive('code') ? 'primary' : 'light'}
+                  />
+                  <Button
+                    tooltipContent="set code block"
+                    icon={<CodeBlocksIcon />}
+                    onClick={() => {
+                      const { from, to } = editor.state.selection;
+                      const selectedText = editor.state.doc.textBetween(from, to, '\n');
+                      editor.chain()
+                        .focus()
+                        .insertContentAt({ from, to }, [
+                          {
+                            type: 'codeBlock',
+                            attrs: { language: CODE_LANGUAGE[CodeLanguage.TEXT].highlightJsKey }, // o el lenguaje que prefieras
+                            content: [
+                              {
+                                type: 'text',
+                                text: selectedText,
+                              },
+                            ],
+                          },
+                        ])
+                        .run();
+                    }}
+                    type="light"
+                  />
+                  <Button
+                    tooltipContent="set link"
+                    icon={<LinkIcon />}
+                    onClick={setLink}
+                    type="light"
+                  />
+                </div>
+              )}
+            </div>
+          </BubbleMenu>
+        </>
       )}
     </div>
   );
-};
+}, (prevProps, nextProps) => {
+  return (
+    prevProps.initialMd === nextProps.initialMd &&
+    prevProps.uploadImageButton === nextProps.uploadImageButton &&
+    prevProps.downloadButton === nextProps.downloadButton &&
+    prevProps.className === nextProps.className
+  );
+});

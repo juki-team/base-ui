@@ -1,0 +1,133 @@
+.jk-tiptap-editor {
+  --input-border-color: var(--t-color-highlight-light);
+  
+  .tiptap.ProseMirror {
+    padding: var(--pad-sm);
+    outline: 1px solid var(--input-border-color);
+    border-radius: var(--border-radius-inline);
+  }
+  
+  .tiptap.ProseMirror.ProseMirror-focused {
+    outline-width: 2px;
+    --input-border-color: var(--t-color-highlight-dark);
+    background-color: var(--t-color-highlight-light);
+    padding: var(--pad-sm);
+    
+    h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
+      margin-right: 1ch;
+      user-select: none;
+    }
+    
+    h1::before {
+      content: "#";
+    }
+    
+    h2::before {
+      content: "##";
+    }
+    
+    h3::before {
+      content: "###";
+    }
+    
+    h4::before {
+      content: "####";
+    }
+    
+    h5::before {
+      content: "#####";
+    }
+    
+    h6::before {
+      content: "######";
+    }
+    
+    blockquote {
+      padding-left: 0;
+      border-left: none;
+      
+      p::before {
+        content: "> ";
+        opacity: 0.6;
+        user-select: none;
+        margin-right: 0.25em;
+      }
+      
+      h1::before {
+        content: "> #";
+      }
+      
+      h2::before {
+        content: "> ##";
+      }
+      
+      h3::before {
+        content: "> ###";
+      }
+      
+      h4::before {
+        content: "> ####";
+      }
+      
+      h5::before {
+        content: "> #####";
+      }
+      
+      h6::before {
+        content: "> ######";
+      }
+    }
+    
+    a {
+      pointer-events: none;
+    }
+  }
+}
+
+div[data-tippy-root] {
+  z-index: var(--z-index-popover) !important;
+}
+
+.current-node-highlight, img.ProseMirror-selectednode {
+  background: var(--t-color-highlight-light);
+}
+
+.jk-md-math-left-menu {
+  position: absolute;
+  left: -6px;
+  top: calc(var(--cursor-coordinate-y, 0px));
+  pointer-events: none;
+  
+  .content {
+    display: none;
+    
+    .group {
+      max-width: 100px;
+      padding: 2px;
+    }
+  }
+  
+  &:hover, &.open {
+    left: -10px;
+    top: calc(var(--cursor-coordinate-y, 0px) - (((var(--button-padding, var(--pad-xs)) / 2) + 20px) * 2) - 4px - var(--pad-sm));
+    
+    .content {
+      pointer-events: auto;
+      display: flex;
+      border-bottom-left-radius: 0;
+    }
+    
+    .trigger {
+      width: 20px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
+  
+  .trigger {
+    pointer-events: auto;
+    min-height: var(--selected-node-height, 0px);
+    align-self: flex-start;
+    width: 12px;
+  }
+}

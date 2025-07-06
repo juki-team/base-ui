@@ -5,8 +5,8 @@ import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { ButtonCmpProps, Duration } from '../../../types';
 
-const buttonsVariants = (isDisabled: boolean) => ({
-  whileHover: isDisabled ? {} : { scale: 1.05, transition: { duration: Duration.FAST } },
+const buttonsVariants = (isDisabled: boolean, hasChildren: boolean) => ({
+  whileHover: isDisabled ? {} : { scale: hasChildren ? 1.2 : 1.10, transition: { duration: Duration.FAST } },
   whileTap: isDisabled ? {
     x: [ '-1rem', '1rem', 0 ],
     transitionEnd: { x: 0 },
@@ -27,6 +27,7 @@ const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => 
     onClick,
     disabled = false,
     responsiveMobile = false,
+    tooltipContent,
     ...restProps
   } = props;
   
@@ -39,8 +40,10 @@ const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => 
   
   return (
     <motion.button
+      data-tooltip-id={!!tooltipContent ? 'jk-tooltip' : ''}
+      data-tooltip-content={tooltipContent}
       ref={ref}
-      variants={buttonsVariants(disabled)}
+      variants={buttonsVariants(disabled, hasChildren)}
       whileHover="whileHover"
       whileTap="whileTap"
       type={submit ? 'submit' : 'button'}

@@ -1,11 +1,4 @@
-import {
-  EntityAccess,
-  EntityState,
-  Judge,
-  ProblemScoringMode,
-  ProblemType,
-  ProgrammingLanguage,
-} from '@juki-team/commons';
+import { CodeLanguage, EntityAccess, EntityState, Judge, ProblemScoringMode, ProblemType } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
@@ -96,7 +89,7 @@ Regular.args = {
       scoringMode: ProblemScoringMode.TOTAL,
       byProgrammingLanguage: {
         C: {
-          language: ProgrammingLanguage.C,
+          language: CodeLanguage.C,
           timeLimit: 10001,
           memoryLimit: 512000,
         },
