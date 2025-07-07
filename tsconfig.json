@@ -27,7 +27,7 @@
     "declarationDir": "dist/module-types",
     "outDir": "dist",
     "jsx": "react",
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
     //    "experimentalDecorators": true,
     //    "emitDecoratorMetadata": true
     //    "types": [],
@@ -39,6 +39,12 @@
     //      "src/types",
     //      "node_modules/@types"
     //    ]
+    "baseUrl": "src",
+    "paths": {
+      "@assets/*": [
+        "assets/*"
+      ]
+    }
   },
   "include": [
     "src/**/*.ts*"

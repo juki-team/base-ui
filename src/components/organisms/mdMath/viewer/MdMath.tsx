@@ -87,11 +87,7 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
     rehypePlugins: [ rehypeKatex ],
     components: {
       img({ alt = '', src }) {
-        let style: CSSProperties = {
-          maxWidth: '100%',
-          display: 'block',
-          margin: '0 auto',
-        };
+        let style: CSSProperties = {};
         const [ commands, newAlt ] = getCommands(alt);
         if (commands.imgAlign) {
           style = {

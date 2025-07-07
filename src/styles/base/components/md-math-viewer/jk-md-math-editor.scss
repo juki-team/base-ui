@@ -108,7 +108,7 @@ div[data-tippy-root] {
   }
   
   &:hover, &.open {
-    left: -10px;
+    //left: -12px;
     top: calc(var(--cursor-coordinate-y, 0px) - (((var(--button-padding, var(--pad-xs)) / 2) + 20px) * 2) - 4px - var(--pad-sm));
     
     .content {
@@ -118,16 +118,28 @@ div[data-tippy-root] {
     }
     
     .trigger {
-      width: 20px;
+      //width: 24px;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
     }
+    
+    .div-gap {
+      pointer-events: auto;
+    }
   }
   
-  .trigger {
-    pointer-events: auto;
-    min-height: var(--selected-node-height, 0px);
+  .trigger-content {
+    //min-height: var(--selected-node-height, 0px);
     align-self: flex-start;
-    width: 12px;
+    
+    .trigger {
+      pointer-events: auto;
+      width: 12px;
+    }
+    
+    .div-gap {
+      width: 48px;
+      height: 24px;
+    }
   }
 }

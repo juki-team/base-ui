@@ -1,4 +1,4 @@
-import '../src/styles/base/_index.scss';
+// import '../src/styles/base/_index.scss';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import { http, HttpResponse } from "msw";
 import { allModes } from "../.storybook/modes";

@@ -13,6 +13,7 @@ export type MdMathEditorDeprecatedProps = {
 }
 
 export interface MdMathEditorProps {
+  md?: string,
   initialMd?: string,
   onChange?: (value: string) => void,
   informationButton?: boolean,

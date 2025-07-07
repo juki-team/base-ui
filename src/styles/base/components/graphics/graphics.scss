@@ -84,10 +84,10 @@
   background-position: center;
   
   &.flag-en {
-    background-image: url("flag-en.png");
+    background-image: url("~@assets/images/flag-en.png");
   }
   
   &.flag-es {
-    background-image: url("flag-es.png");
+    background-image: url("~@assets/images/flag-es.png");
   }
 }

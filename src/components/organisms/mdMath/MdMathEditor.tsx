@@ -99,6 +99,7 @@ const CODE_LANGUAGES = [
 ];
 
 export const MdMathEditor = memo(({
+                                    md,
                                     initialMd = '',
                                     onChange,
                                     className,
@@ -167,10 +168,10 @@ export const MdMathEditor = memo(({
       const el = editorRef.current?.querySelector('.current-node-highlight') as HTMLElement
         || editorRef.current?.querySelector('img.ProseMirror-selectednode')
         || null;
-      const height = el?.offsetHeight ?? 0;
-      if (height !== position.height) {
-        setPosition(prevState => ({ ...prevState, height }));
-      }
+      // const height = el?.offsetHeight ?? 0;
+      // if (height !== position.height) {
+      // setPosition(prevState => ({ ...prevState, height }));
+      // }
       if (el && editorRef.current) {
         const elRect = el.getBoundingClientRect();
         const parentRect = editorRef.current.getBoundingClientRect();
@@ -182,12 +183,20 @@ export const MdMathEditor = memo(({
       }
     },
   });
+  
   useEffect(() => {
     if (editor && initialMd) {
       const html = markdownIt.render(initialMd);
       editor.commands.setContent(html);
     }
-  }, [ editor, initialMd ]);
+  }, [ editor ]);
+  
+  useEffect(() => {
+    if (editor && typeof md === 'string') {
+      const html = markdownIt.render(md);
+      editor.commands.setContent(html);
+    }
+  }, [ editor, md ]);
   
   const setLink = useCallback(() => {
     const previousUrl = editor?.getAttributes('link').href;
@@ -257,155 +266,181 @@ export const MdMathEditor = memo(({
           <div className={classNames('jk-md-math-left-menu', { open })}>
             <div className="jk-col" onMouseDown={(event) => event.preventDefault()}>
               <div className="content jk-row gap nowrap left jk-pg-xsm bc-we jk-br-ie">
-                <div className="jk-row group jk-br-ie bc-hl">
-                  <Button
-                    tooltipContent={editor.isActive('heading', { level: 1 }) ? 'unset heading #1' : 'set heading #1'}
-                    icon={<FormatH1Icon />}
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                    disabled={!editor.can().toggleHeading({ level: 1 }) || editor.isActive('codeBlock')}
-                    type={editor.isActive('heading', { level: 1 }) ? 'primary' : 'light'}
-                  />
-                  <Button
-                    tooltipContent={editor.isActive('heading', { level: 2 }) ? 'unset heading #2' : 'set heading #2'}
-                    icon={<FormatH2Icon />}
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                    disabled={!editor.can().toggleHeading({ level: 2 }) || editor.isActive('codeBlock')}
-                    type={editor.isActive('heading', { level: 2 }) ? 'primary' : 'light'}
-                  />
-                  <Button
-                    tooltipContent={editor.isActive('heading', { level: 3 }) ? 'unset heading #3' : 'set heading #3'}
-                    icon={<FormatH3Icon />}
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                    disabled={!editor.can().toggleHeading({ level: 3 }) || editor.isActive('codeBlock')}
-                    type={editor.isActive('heading', { level: 3 }) ? 'primary' : 'light'}
-                  />
-                  <br />
-                  <Button
-                    tooltipContent={editor.isActive('heading', { level: 4 }) ? 'unset heading #4' : 'set heading #4'}
-                    data-tooltip-place="bottom"
-                    icon={<FormatH4Icon />}
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-                    disabled={!editor.can().toggleHeading({ level: 4 }) || editor.isActive('codeBlock')}
-                    type={editor.isActive('heading', { level: 4 }) ? 'primary' : 'light'}
-                  />
-                  <Button
-                    tooltipContent={editor.isActive('heading', { level: 5 }) ? 'unset heading #5' : 'set heading #5'}
-                    data-tooltip-place="bottom"
-                    icon={<FormatH5Icon />}
-                    disabled={!editor.can().toggleHeading({ level: 5 }) || editor.isActive('codeBlock')}
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-                    type={editor.isActive('heading', { level: 5 }) ? 'primary' : 'light'}
-                  />
-                  <Button
-                    tooltipContent={editor.isActive('heading', { level: 6 }) ? 'unset heading #6' : 'set heading #6'}
-                    data-tooltip-place="bottom"
-                    icon={<FormatH6Icon />}
-                    disabled={!editor.can().toggleHeading({ level: 6 }) || editor.isActive('codeBlock')}
-                    onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-                    type={editor.isActive('heading', { level: 6 }) ? 'primary' : 'light'}
-                  />
-                </div>
-                <div className="jk-row group jk-br-ie bc-hl">
-                  <Button
-                    tooltipContent={editor.isActive('blockquote') ? 'unset blockquote' : 'set blockquote'}
-                    icon={<FormatQuoteIcon />}
-                    onClick={() => editor.chain().focus().toggleBlockquote().run()}
-                    disabled={!editor.can().toggleBlockquote() || editor.isActive('codeBlock')}
-                    type={editor.isActive('blockquote') ? 'primary' : 'light'}
-                  />
-                  <Button
-                    tooltipContent={editor.isActive('codeBlock') ? 'unset code block' : 'set code block'}
-                    icon={<CodeBlocksIcon />}
-                    onClick={() => editor?.chain().focus().unsetBlockquote().toggleCodeBlock({ language: CODE_LANGUAGE[CodeLanguage.TEXT].highlightJsKey }).run()}
-                    type={editor.isActive('codeBlock') ? 'primary' : 'light'}
-                  />
-                  <Button
-                    tooltipContent="add image"
-                    icon={<AddPhotoAlternateIcon />}
-                    onClick={() => setOpenImageModal(true)}
-                    type="light"
-                  />
-                  <Button
-                    tooltipContent={editor.isActive('orderedList') ? 'toggle bullet list' : editor.isActive('bulletList') ? 'toggle ordered list' : 'set bullet list'}
-                    data-tooltip-place="bottom"
-                    icon={editor.isActive('orderedList') ? <FormatListBulletedIcon /> : <FormatListNumberedIcon />}
-                    onClick={() => {
-                      if (editor.isActive('bulletList')) {
-                        editor.chain().focus().toggleOrderedList().run();
-                      } else {
-                        editor.chain().focus().toggleBulletList().run();
-                      }
-                    }}
-                    type={editor.isActive('orderedList') || editor.isActive('bulletList') ? 'primary' : 'light'}
-                    disabled={false}
-                  />
-                  <Button
-                    tooltipContent="sink list item"
-                    data-tooltip-place="bottom"
-                    icon={<StepOutIcon rotate={90} />}
-                    onClick={() => editor.chain().focus().sinkListItem('listItem').run()}
-                    disabled={!editor.can().sinkListItem('listItem')}
-                    type="light"
-                  />
-                  <Button
-                    tooltipContent="lift list item"
-                    data-tooltip-place="bottom"
-                    icon={<StepIntoIcon rotate={90} />}
-                    onClick={() => editor.chain().focus().liftListItem('listItem').run()}
-                    disabled={!editor.can().liftListItem('listItem')}
-                    type="light"
-                  />
-                </div>
-                <div className="jk-row group jk-br-ie bc-hl">
-                  <Button
-                    tooltipContent="unset bold"
-                    icon={<FormatBoldIcon />}
-                    disabled={!editor.isActive('bold')}
-                    onClick={() => editor?.commands.unsetMark('bold', { extendEmptyMarkRange: true })}
-                    type={editor.isActive('bold') ? 'primary' : 'light'}
-                  />
-                  <Button
-                    tooltipContent="unset italic"
-                    icon={<FormatItalicIcon />}
-                    disabled={!editor.isActive('italic')}
-                    onClick={() => editor?.commands.unsetMark('italic', { extendEmptyMarkRange: true })}
-                    type={editor.isActive('italic') ? 'primary' : 'light'}
-                  />
-                  <Button
-                    tooltipContent="unset strike"
-                    icon={<FormatStrikethroughIcon />}
-                    disabled={!editor.isActive('strike')}
-                    onClick={() => editor?.commands.unsetMark('strike', { extendEmptyMarkRange: true })}
-                    type={editor.isActive('strike') ? 'primary' : 'light'}
-                  />
-                  <Button
-                    tooltipContent="unhighlight"
-                    data-tooltip-place="bottom"
-                    icon={<FormatInkHighlighterIcon />}
-                    disabled={!editor.isActive('highlight')}
-                    onClick={() => editor?.commands.unsetMark('highlight', { extendEmptyMarkRange: true })}
-                    type={editor.isActive('highlight') ? 'primary' : 'light'}
-                  />
-                  <Button
-                    tooltipContent="unset code inline"
-                    data-tooltip-place="bottom"
-                    icon={<CodeIcon />}
-                    disabled={!editor.isActive('code')}
-                    onClick={() => editor?.commands.unsetMark('code', { extendEmptyMarkRange: true })}
-                    type={editor.isActive('code') ? 'primary' : 'light'}
-                  />
-                  <Button
-                    tooltipContent="unset link"
-                    data-tooltip-place="bottom"
-                    icon={<LinkOffIcon />}
-                    disabled={!editor.isActive('link')}
-                    onClick={() => editor.chain().focus().unsetLink().run()}
-                    type={editor.isActive('link') ? 'primary' : 'light'}
-                  />
-                </div>
+                {editor.isFocused && editor.isActive('codeBlock') ? (
+                  <>
+                    <div className="jk-row group jk-br-ie bc-hl">
+                      <Button
+                        tooltipContent="unset code block"
+                        icon={<CodeBlocksIcon />}
+                        onClick={() => editor?.commands.toggleCodeBlock()}
+                        type="light"
+                      />
+                    </div>
+                    <div className="jk-row group jk-br-ie bc-hl" style={{ maxWidth: 300, height: 28 + 28 }}>
+                      {CODE_LANGUAGES.map(codeLanguage => (
+                        <Button
+                          size="tiny"
+                          key={codeLanguage}
+                          onClick={() => {
+                            editor.chain().focus().setCodeBlock({ language: CODE_LANGUAGE[codeLanguage].highlightJsKey }).run();
+                          }}
+                          type={editor.getAttributes('codeBlock').language === CODE_LANGUAGE[codeLanguage].highlightJsKey ? 'primary' : 'light'}
+                        >
+                          <T className="tt-se">{CODE_LANGUAGE[codeLanguage]?.label}</T>
+                        </Button>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="jk-row group jk-br-ie bc-hl">
+                      <Button
+                        tooltipContent={editor.isActive('heading', { level: 1 }) ? 'unset heading #1' : 'set heading #1'}
+                        icon={<FormatH1Icon />}
+                        onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+                        disabled={!editor.can().toggleHeading({ level: 1 }) || editor.isActive('codeBlock')}
+                        type={editor.isActive('heading', { level: 1 }) ? 'primary' : 'light'}
+                      />
+                      <Button
+                        tooltipContent={editor.isActive('heading', { level: 2 }) ? 'unset heading #2' : 'set heading #2'}
+                        icon={<FormatH2Icon />}
+                        onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+                        disabled={!editor.can().toggleHeading({ level: 2 }) || editor.isActive('codeBlock')}
+                        type={editor.isActive('heading', { level: 2 }) ? 'primary' : 'light'}
+                      />
+                      <Button
+                        tooltipContent={editor.isActive('heading', { level: 3 }) ? 'unset heading #3' : 'set heading #3'}
+                        icon={<FormatH3Icon />}
+                        onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
+                        disabled={!editor.can().toggleHeading({ level: 3 }) || editor.isActive('codeBlock')}
+                        type={editor.isActive('heading', { level: 3 }) ? 'primary' : 'light'}
+                      />
+                      <br />
+                      <Button
+                        tooltipContent={editor.isActive('heading', { level: 4 }) ? 'unset heading #4' : 'set heading #4'}
+                        icon={<FormatH4Icon />}
+                        onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
+                        disabled={!editor.can().toggleHeading({ level: 4 }) || editor.isActive('codeBlock')}
+                        type={editor.isActive('heading', { level: 4 }) ? 'primary' : 'light'}
+                      />
+                      <Button
+                        tooltipContent={editor.isActive('heading', { level: 5 }) ? 'unset heading #5' : 'set heading #5'}
+                        icon={<FormatH5Icon />}
+                        disabled={!editor.can().toggleHeading({ level: 5 }) || editor.isActive('codeBlock')}
+                        onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
+                        type={editor.isActive('heading', { level: 5 }) ? 'primary' : 'light'}
+                      />
+                      <Button
+                        tooltipContent={editor.isActive('heading', { level: 6 }) ? 'unset heading #6' : 'set heading #6'}
+                        icon={<FormatH6Icon />}
+                        disabled={!editor.can().toggleHeading({ level: 6 }) || editor.isActive('codeBlock')}
+                        onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
+                        type={editor.isActive('heading', { level: 6 }) ? 'primary' : 'light'}
+                      />
+                    </div>
+                    <div className="jk-row group jk-br-ie bc-hl">
+                      <Button
+                        tooltipContent={editor.isActive('blockquote') ? 'unset blockquote' : 'set blockquote'}
+                        icon={<FormatQuoteIcon />}
+                        onClick={() => editor.chain().focus().toggleBlockquote().run()}
+                        disabled={!editor.can().toggleBlockquote() || editor.isActive('codeBlock')}
+                        type={editor.isActive('blockquote') ? 'primary' : 'light'}
+                      />
+                      <Button
+                        tooltipContent={editor.isActive('codeBlock') ? 'unset code block' : 'set code block'}
+                        icon={<CodeBlocksIcon />}
+                        onClick={() => editor?.chain().focus().unsetBlockquote().toggleCodeBlock({ language: CODE_LANGUAGE[CodeLanguage.TEXT].highlightJsKey }).run()}
+                        type={editor.isActive('codeBlock') ? 'primary' : 'light'}
+                      />
+                      <Button
+                        tooltipContent="add image"
+                        icon={<AddPhotoAlternateIcon />}
+                        onClick={() => setOpenImageModal(true)}
+                        type="light"
+                      />
+                      <Button
+                        tooltipContent={editor.isActive('orderedList') ? 'toggle bullet list' : editor.isActive('bulletList') ? 'toggle ordered list' : 'set bullet list'}
+                        icon={editor.isActive('orderedList') ? <FormatListBulletedIcon /> : <FormatListNumberedIcon />}
+                        onClick={() => {
+                          if (editor.isActive('bulletList')) {
+                            editor.chain().focus().toggleOrderedList().run();
+                          } else {
+                            editor.chain().focus().toggleBulletList().run();
+                          }
+                        }}
+                        type={editor.isActive('orderedList') || editor.isActive('bulletList') ? 'primary' : 'light'}
+                        disabled={false}
+                      />
+                      <Button
+                        tooltipContent="sink list item"
+                        icon={<StepOutIcon rotate={90} />}
+                        onClick={() => editor.chain().focus().sinkListItem('listItem').run()}
+                        disabled={!editor.can().sinkListItem('listItem')}
+                        type="light"
+                      />
+                      <Button
+                        tooltipContent="lift list item"
+                        icon={<StepIntoIcon rotate={90} />}
+                        onClick={() => editor.chain().focus().liftListItem('listItem').run()}
+                        disabled={!editor.can().liftListItem('listItem')}
+                        type="light"
+                      />
+                    </div>
+                    <div className="jk-row group jk-br-ie bc-hl">
+                      <Button
+                        tooltipContent="unset bold"
+                        icon={<FormatBoldIcon />}
+                        disabled={!editor.isActive('bold')}
+                        onClick={() => editor?.commands.unsetMark('bold', { extendEmptyMarkRange: true })}
+                        type={editor.isActive('bold') ? 'primary' : 'light'}
+                      />
+                      <Button
+                        tooltipContent="unset italic"
+                        icon={<FormatItalicIcon />}
+                        disabled={!editor.isActive('italic')}
+                        onClick={() => editor?.commands.unsetMark('italic', { extendEmptyMarkRange: true })}
+                        type={editor.isActive('italic') ? 'primary' : 'light'}
+                      />
+                      <Button
+                        tooltipContent="unset strike"
+                        icon={<FormatStrikethroughIcon />}
+                        disabled={!editor.isActive('strike')}
+                        onClick={() => editor?.commands.unsetMark('strike', { extendEmptyMarkRange: true })}
+                        type={editor.isActive('strike') ? 'primary' : 'light'}
+                      />
+                      <Button
+                        tooltipContent="unhighlight"
+                        icon={<FormatInkHighlighterIcon />}
+                        disabled={!editor.isActive('highlight')}
+                        onClick={() => editor?.commands.unsetMark('highlight', { extendEmptyMarkRange: true })}
+                        type={editor.isActive('highlight') ? 'primary' : 'light'}
+                      />
+                      <Button
+                        tooltipContent="unset code inline"
+                        icon={<CodeIcon />}
+                        disabled={!editor.isActive('code')}
+                        onClick={() => editor?.commands.unsetMark('code', { extendEmptyMarkRange: true })}
+                        type={editor.isActive('code') ? 'primary' : 'light'}
+                      />
+                      <Button
+                        tooltipContent="unset link"
+                        icon={<LinkOffIcon />}
+                        disabled={!editor.isActive('link')}
+                        onClick={() => editor.chain().focus().unsetLink().run()}
+                        type={editor.isActive('link') ? 'primary' : 'light'}
+                      />
+                    </div>
+                  </>
+                )}
               </div>
-              <div className="jk-row trigger stretch center bc-we jk-br-ie" onClick={() => setOpen(!open)}>
-                <div className="jk-row"><MoreVertIcon /></div>
+              <div
+                className="jk-row trigger-content nowrap stretch center"
+                onClick={() => setOpen(!open)}
+              >
+                <div className="jk-row center trigger bc-we jk-br-ie ow-hn">
+                  <div className="jk-row"><MoreVertIcon /></div>
+                </div>
+                <div className="div-gap" />
               </div>
             </div>
           </div>
@@ -534,7 +569,6 @@ export const MdMathEditor = memo(({
             className="bc-we jk-br-ie"
             shouldShow={() => (
               (editor.isFocused && editor.isActive('image'))
-              || (editor.isFocused && editor.isActive('codeBlock'))
               || (editor.isFocused && !editor.state.selection.empty && !editor.isActive('codeBlock'))
             )}
           >
@@ -545,32 +579,12 @@ export const MdMathEditor = memo(({
               {editor.isFocused && editor.isActive('image') ? (
                 <div className="jk-row">
                   <Button
-                    tooltipContent="delete image"
                     icon={<AddPhotoAlternateIcon strikethrough />}
                     onClick={() => editor.commands.deleteSelection()}
                     type="light"
-                  />
-                </div>
-              ) : editor.isFocused && editor.isActive('codeBlock') ? (
-                <div className="jk-row jk-pg-xsm">
-                  <Button
-                    tooltipContent="unset code block"
-                    icon={<CodeBlocksIcon />}
-                    onClick={() => editor?.commands.toggleCodeBlock()}
-                    type="light"
-                  />
-                  {CODE_LANGUAGES.map(codeLanguage => (
-                    <Button
-                      size="tiny"
-                      key={codeLanguage}
-                      onClick={() => {
-                        editor.chain().focus().setCodeBlock({ language: CODE_LANGUAGE[codeLanguage].highlightJsKey }).run();
-                      }}
-                      type={editor.getAttributes('codeBlock').language === CODE_LANGUAGE[codeLanguage].highlightJsKey ? 'primary' : 'light'}
-                    >
-                      <T className="tt-se">{CODE_LANGUAGE[codeLanguage]?.label}</T>
-                    </Button>
-                  ))}
+                  >
+                    <T>delete image</T>
+                  </Button>
                 </div>
               ) : editor.isFocused && !editor.state.selection.empty && !editor.isActive('codeBlock') && (
                 <div className="jk-row">

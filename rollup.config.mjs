@@ -43,7 +43,8 @@ const plugins = [
   terser(),
   copy({
     targets: [
-      {src: './src/styles', dest: 'dist'},
+      { src: './src/styles', dest: 'dist' },
+      { src: './src/assets', dest: 'dist' },
     ],
   }),
   // visualizer(),
