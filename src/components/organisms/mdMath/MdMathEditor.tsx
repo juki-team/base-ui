@@ -155,8 +155,8 @@ export const MdMathEditor = memo(({
       CustomLink,
       // Underline,
     ],
-    shouldRerenderOnTransaction: false,
-    immediatelyRender: true,
+    // shouldRerenderOnTransaction: false,
+    // immediatelyRender: true,
     content: '',
     injectCSS: false,
     //
@@ -586,7 +586,7 @@ export const MdMathEditor = memo(({
                     <T>delete image</T>
                   </Button>
                 </div>
-              ) : editor.isFocused && !editor.state.selection.empty && !editor.isActive('codeBlock') && (
+              ) : (editor.isFocused && !editor.state.selection.empty && !editor.isActive('codeBlock')) && (
                 <div className="jk-row">
                   <Button
                     tooltipContent={editor.isActive('bold') ? 'unset bold' : 'set bold'}
