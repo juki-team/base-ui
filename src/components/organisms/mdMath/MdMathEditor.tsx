@@ -19,7 +19,7 @@ import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
 import Strike from '@tiptap/extension-strike';
 import Text from '@tiptap/extension-text';
-import { BubbleMenu, FloatingMenu, useEditor } from '@tiptap/react';
+import { BubbleMenu, useEditor } from '@tiptap/react';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
 import java from 'highlight.js/lib/languages/java';
@@ -276,7 +276,7 @@ export const MdMathEditor = memo(({
                         type="light"
                       />
                     </div>
-                    <div className="jk-row group jk-br-ie bc-hl" style={{ maxWidth: 320, height: 28 + 28 }}>
+                    <div className="jk-row group jk-br-ie bc-hl" style={{ maxWidth: 384, height: 28 + 28 }}>
                       {CODE_LANGUAGES.map(codeLanguage => (
                         <Button
                           size="tiny"
@@ -444,126 +444,86 @@ export const MdMathEditor = memo(({
               </div>
             </div>
           </div>
-          <FloatingMenu
-            editor={editor}
-            className="bc-we jk-br-ie"
-          >
-            <div
-              className="jk-row left jk-pg-xsm"
-              onMouseDown={(event) => event.preventDefault()}
-            >
-              <Button
-                tooltipContent={editor.isActive('heading', { level: 1 }) ? 'unset heading #1' : 'set heading #1'}
-                size="small"
-                icon={<FormatH1Icon />}
-                onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-                disabled={!editor.can().toggleHeading({ level: 1 }) || editor.isActive('codeBlock')}
-                type={editor.isActive('heading', { level: 1 }) ? 'primary' : 'light'}
-              />
-              <Button
-                tooltipContent={editor.isActive('heading', { level: 2 }) ? 'unset heading #2' : 'set heading #2'}
-                size="small"
-                icon={<FormatH2Icon />}
-                onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-                disabled={!editor.can().toggleHeading({ level: 2 }) || editor.isActive('codeBlock')}
-                type={editor.isActive('heading', { level: 2 }) ? 'primary' : 'light'}
-              />
-              <Button
-                tooltipContent={editor.isActive('heading', { level: 3 }) ? 'unset heading #3' : 'set heading #3'}
-                size="small"
-                icon={<FormatH3Icon />}
-                onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-                disabled={!editor.can().toggleHeading({ level: 3 }) || editor.isActive('codeBlock')}
-                type={editor.isActive('heading', { level: 3 }) ? 'primary' : 'light'}
-              />
-              <Button
-                tooltipContent={editor.isActive('heading', { level: 4 }) ? 'unset heading #4' : 'set heading #4'}
-                size="small"
-                icon={<FormatH4Icon />}
-                onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
-                disabled={!editor.can().toggleHeading({ level: 4 }) || editor.isActive('codeBlock')}
-                type={editor.isActive('heading', { level: 4 }) ? 'primary' : 'light'}
-              />
-              <Button
-                tooltipContent={editor.isActive('heading', { level: 5 }) ? 'unset heading #5' : 'set heading #5'}
-                size="small"
-                icon={<FormatH5Icon />}
-                disabled={!editor.can().toggleHeading({ level: 5 }) || editor.isActive('codeBlock')}
-                onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
-                type={editor.isActive('heading', { level: 5 }) ? 'primary' : 'light'}
-              />
-              <Button
-                tooltipContent={editor.isActive('heading', { level: 6 }) ? 'unset heading #6' : 'set heading #6'}
-                size="small"
-                icon={<FormatH6Icon />}
-                disabled={!editor.can().toggleHeading({ level: 6 }) || editor.isActive('codeBlock')}
-                onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
-                type={editor.isActive('heading', { level: 6 }) ? 'primary' : 'light'}
-              />
-              <Button
-                tooltipContent="add image"
-                size="small"
-                icon={<AddPhotoAlternateIcon />}
-                onClick={() => setOpenImageModal(true)}
-                type="light"
-              />
-              {/*<Button*/}
-              {/*  data-tooltip-id="jk-tooltip"*/}
-              {/*  tooltipContent={editor.isActive('bold') ? 'unset bold' : 'set bold'}*/}
-              {/*  size="small"*/}
-              {/*  icon={<FormatBoldIcon />}*/}
-              {/*  onClick={() => editor?.commands.toggleBold()}*/}
-              {/*  type={editor.isActive('bold') ? 'primary' : 'light'}*/}
-              {/*/>*/}
-              {/*<Button*/}
-              {/*  data-tooltip-id="jk-tooltip"*/}
-              {/*  tooltipContent={editor.isActive('code') ? 'unset code inline' : 'set code inline'}*/}
-              {/*  size="small"*/}
-              {/*  icon={<CodeIcon />}*/}
-              {/*  onClick={() => editor?.commands.toggleCode()}*/}
-              {/*  type={editor.isActive('code') ? 'primary' : 'light'}*/}
-              {/*/>*/}
-              {/*<Button*/}
-              {/*  data-tooltip-id="jk-tooltip"*/}
-              {/*  tooltipContent={editor.isActive('italic') ? 'unset italic' : 'set italic'}*/}
-              {/*  size="small"*/}
-              {/*  icon={<FormatItalicIcon />}*/}
-              {/*  onClick={() => editor?.commands.toggleItalic()}*/}
-              {/*  type={editor.isActive('italic') ? 'primary' : 'light'}*/}
-              {/*/>*/}
-              {/*<Button*/}
-              {/*  data-tooltip-id="jk-tooltip"*/}
-              {/*  tooltipContent={editor.isActive('highlight') ? 'unhighlight' : 'highlight'}*/}
-              {/*  size="small"*/}
-              {/*  icon={<FormatInkHighlighterIcon />}*/}
-              {/*  onClick={() => editor?.commands.toggleHighlight()}*/}
-              {/*  type={editor.isActive('highlight') ? 'primary' : 'light'}*/}
-              {/*/>*/}
-              {/*<Button*/}
-              {/*  data-tooltip-id="jk-tooltip"*/}
-              {/*  tooltipContent={editor.isActive('strike') ? 'unset strike' : 'set strike'}*/}
-              {/*  size="small"*/}
-              {/*  icon={<FormatStrikethroughIcon />}*/}
-              {/*  onClick={() => editor?.commands.toggleStrike()}*/}
-              {/*  type={editor.isActive('strike') ? 'primary' : 'light'}*/}
-              {/*/>*/}
-              <Button
-                tooltipContent={editor.isActive('codeBlock') ? 'unset code block' : 'set code block'}
-                size="small"
-                icon={<CodeBlocksIcon />}
-                onClick={() => editor?.commands.setCodeBlock()}
-                type="light"
-              />
-              <Button
-                tooltipContent={editor.isActive('blockquote') ? 'unset blockquote' : 'set blockquote'}
-                size="small"
-                icon={<FormatQuoteIcon />}
-                onClick={() => editor.chain().focus().toggleBlockquote().run()}
-                disabled={!editor.can().toggleBlockquote() || editor.isActive('heading') || editor.isActive('codeBlock')}
-                type={editor.isActive('blockquote') ? 'primary' : 'light'}
-              />
-            </div>
-          </FloatingMenu>
+          {/*<FloatingMenu*/}
+          {/*  editor={editor}*/}
+          {/*  className="bc-we jk-br-ie"*/}
+          {/*>*/}
+          {/*  <div*/}
+          {/*    className="jk-row left jk-pg-xsm"*/}
+          {/*    onMouseDown={(event) => event.preventDefault()}*/}
+          {/*  >*/}
+          {/*    <Button*/}
+          {/*      tooltipContent={editor.isActive('heading', { level: 1 }) ? 'unset heading #1' : 'set heading #1'}*/}
+          {/*      size="small"*/}
+          {/*      icon={<FormatH1Icon />}*/}
+          {/*      onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}*/}
+          {/*      disabled={!editor.can().toggleHeading({ level: 1 }) || editor.isActive('codeBlock')}*/}
+          {/*      type={editor.isActive('heading', { level: 1 }) ? 'primary' : 'light'}*/}
+          {/*    />*/}
+          {/*    <Button*/}
+          {/*      tooltipContent={editor.isActive('heading', { level: 2 }) ? 'unset heading #2' : 'set heading #2'}*/}
+          {/*      size="small"*/}
+          {/*      icon={<FormatH2Icon />}*/}
+          {/*      onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}*/}
+          {/*      disabled={!editor.can().toggleHeading({ level: 2 }) || editor.isActive('codeBlock')}*/}
+          {/*      type={editor.isActive('heading', { level: 2 }) ? 'primary' : 'light'}*/}
+          {/*    />*/}
+          {/*    <Button*/}
+          {/*      tooltipContent={editor.isActive('heading', { level: 3 }) ? 'unset heading #3' : 'set heading #3'}*/}
+          {/*      size="small"*/}
+          {/*      icon={<FormatH3Icon />}*/}
+          {/*      onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}*/}
+          {/*      disabled={!editor.can().toggleHeading({ level: 3 }) || editor.isActive('codeBlock')}*/}
+          {/*      type={editor.isActive('heading', { level: 3 }) ? 'primary' : 'light'}*/}
+          {/*    />*/}
+          {/*    <Button*/}
+          {/*      tooltipContent={editor.isActive('heading', { level: 4 }) ? 'unset heading #4' : 'set heading #4'}*/}
+          {/*      size="small"*/}
+          {/*      icon={<FormatH4Icon />}*/}
+          {/*      onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}*/}
+          {/*      disabled={!editor.can().toggleHeading({ level: 4 }) || editor.isActive('codeBlock')}*/}
+          {/*      type={editor.isActive('heading', { level: 4 }) ? 'primary' : 'light'}*/}
+          {/*    />*/}
+          {/*    <Button*/}
+          {/*      tooltipContent={editor.isActive('heading', { level: 5 }) ? 'unset heading #5' : 'set heading #5'}*/}
+          {/*      size="small"*/}
+          {/*      icon={<FormatH5Icon />}*/}
+          {/*      disabled={!editor.can().toggleHeading({ level: 5 }) || editor.isActive('codeBlock')}*/}
+          {/*      onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}*/}
+          {/*      type={editor.isActive('heading', { level: 5 }) ? 'primary' : 'light'}*/}
+          {/*    />*/}
+          {/*    <Button*/}
+          {/*      tooltipContent={editor.isActive('heading', { level: 6 }) ? 'unset heading #6' : 'set heading #6'}*/}
+          {/*      size="small"*/}
+          {/*      icon={<FormatH6Icon />}*/}
+          {/*      disabled={!editor.can().toggleHeading({ level: 6 }) || editor.isActive('codeBlock')}*/}
+          {/*      onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}*/}
+          {/*      type={editor.isActive('heading', { level: 6 }) ? 'primary' : 'light'}*/}
+          {/*    />*/}
+          {/*    <Button*/}
+          {/*      tooltipContent="add image"*/}
+          {/*      size="small"*/}
+          {/*      icon={<AddPhotoAlternateIcon />}*/}
+          {/*      onClick={() => setOpenImageModal(true)}*/}
+          {/*      type="light"*/}
+          {/*    />*/}
+          {/*    <Button*/}
+          {/*      tooltipContent={editor.isActive('codeBlock') ? 'unset code block' : 'set code block'}*/}
+          {/*      size="small"*/}
+          {/*      icon={<CodeBlocksIcon />}*/}
+          {/*      onClick={() => editor?.commands.setCodeBlock()}*/}
+          {/*      type="light"*/}
+          {/*    />*/}
+          {/*    <Button*/}
+          {/*      tooltipContent={editor.isActive('blockquote') ? 'unset blockquote' : 'set blockquote'}*/}
+          {/*      size="small"*/}
+          {/*      icon={<FormatQuoteIcon />}*/}
+          {/*      onClick={() => editor.chain().focus().toggleBlockquote().run()}*/}
+          {/*      disabled={!editor.can().toggleBlockquote() || editor.isActive('heading') || editor.isActive('codeBlock')}*/}
+          {/*      type={editor.isActive('blockquote') ? 'primary' : 'light'}*/}
+          {/*    />*/}
+          {/*  </div>*/}
+          {/*</FloatingMenu>*/}
           <BubbleMenu
             editor={editor}
             className="bc-we jk-br-ie"
