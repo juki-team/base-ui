@@ -276,7 +276,7 @@ export const MdMathEditor = memo(({
                         type="light"
                       />
                     </div>
-                    <div className="jk-row group jk-br-ie bc-hl" style={{ maxWidth: 300, height: 28 + 28 }}>
+                    <div className="jk-row group jk-br-ie bc-hl" style={{ maxWidth: 320, height: 28 + 28 }}>
                       {CODE_LANGUAGES.map(codeLanguage => (
                         <Button
                           size="tiny"
