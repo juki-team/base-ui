@@ -1,7 +1,7 @@
 @use "../../mixins";
 
 @mixin jk-select-layout-for-datepicker {
-  .jk-select {
+  .jk-input-select {
     color: var(--t-color-primary-light);
     font-weight: var(--weight-bold);
     text-align: center;
@@ -169,7 +169,7 @@
 }
 
 .jk-date-picker-grid-time, .jk-date-picker- {
-  .jk-select > .input-icon {
+  .jk-input-select > .input-icon {
     position: absolute;
     right: -4px !important;
   }
@@ -185,7 +185,7 @@
     width: initial !important;
     @include jk-select-layout-for-datepicker;
     
-    .jk-select {
+    .jk-input-select {
       width: 42px;
       padding: 0;
       text-align: center;
@@ -200,14 +200,14 @@
     }
     
     &:hover {
-      .jk-select {
+      .jk-input-select {
         padding: 0 16px 0 0;
       }
     }
   }
   
   .jk-select-layout:last-child {
-    .jk-select {
+    .jk-input-select {
       width: 52px;
     }
   }

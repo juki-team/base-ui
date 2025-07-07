@@ -39,12 +39,7 @@
     //      "src/types",
     //      "node_modules/@types"
     //    ]
-    "baseUrl": "src",
-    "paths": {
-      "@assets/*": [
-        "assets/*"
-      ]
-    }
+    "baseUrl": "src"
   },
   "include": [
     "src/**/*.ts*"

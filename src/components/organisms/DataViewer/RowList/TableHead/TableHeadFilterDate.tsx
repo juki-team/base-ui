@@ -45,7 +45,7 @@ export const TableHeadFilterDate = (props: TableHeadFilterDateProps) => {
         baseDate={baseDate}
         twoLines={pickerType === 'year-month-day-hours-minutes-seconds-milliseconds' || pickerType === 'year-month-day-hours-minutes-seconds' || pickerType === 'year-month-day-hours-minutes' || pickerType === 'year-month-day-hours'}
       />
-      <div className="jk-row right gap buttons">
+      <div className="jk-row right gap buttons wh-100">
         <Button size="tiny" type="light" onClick={onReset} disabled={!initialSelectedDate?.isValidDate()}>
           <T className="tt-se">reset</T>
         </Button>

@@ -19,7 +19,7 @@ export const InputTextArea = (props: InputTextAreaProps) => {
   
   return (
     <div
-      className={classNames('jk-input-text-area-wrapper', className, {
+      className={classNames('jk-wrapper-input jk-wrapper-input-text-area', className, {
         expand,
         [`label-${labelPlacement}`]: true,
         required,

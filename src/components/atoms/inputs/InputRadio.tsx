@@ -7,14 +7,15 @@ export const InputRadio = ({ className, checked, disabled, onChange, label, ...p
   const isDisabled = disabled || !onChange;
   
   return (
-    <label className={classNames('jk-input-radio-wrapper', className, { disabled: isDisabled })}>
+    <label className={classNames('jk-wrapper-input jk-wrapper-input-radio', className, { disabled: isDisabled })}>
       <input
         type="radio"
-        className="jk-input-radio"
-        onChange={({ target: { checked, ...restTarget } }) => {
+        className={classNames('jk-input-radio', { disabled: isDisabled })}
+        onChange={isDisabled ? undefined : ({ target: { checked, ...restTarget } }) => {
           onChange?.(checked);
         }}
         checked={checked}
+        disabled={isDisabled}
         {...props}
       />
       {label}

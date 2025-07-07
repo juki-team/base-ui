@@ -92,6 +92,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
                   } : undefined}
                   disabled={isDisabled || disabled}
                   label={renderReactNodeOrFunction(option.label)}
+                  className="wh-100"
                 />
               </div>
             );
@@ -104,7 +105,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
         style={{ width: expand ? '100%' : `${containerWidth}px` }}
       >
         <div
-          className={classNames({ open: isOpen }, 'jk-select jk-border-radius-inline jk-row space-between nowrap')}
+          className={classNames({ open: isOpen }, 'jk-input-select jk-border-radius-inline jk-row space-between nowrap')}
           ref={selectLayoutRef}
         >
           <div className="jk-row left jk-multi-select-selected-options">

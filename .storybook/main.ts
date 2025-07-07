@@ -82,7 +82,7 @@ const config: StorybookConfig = {
     config.resolve.extensions.push('.ts', '.tsx');
     
     config.resolve.alias = config.resolve.alias || {};
-    (config.resolve.alias as Record<string, string>)['@assets'] = path.resolve(__dirname, '../src/assets');
+    (config.resolve.alias as Record<string, string>)['assets'] = path.resolve(__dirname, '../src/assets');
     
     config.experiments = {
       ...config.experiments,

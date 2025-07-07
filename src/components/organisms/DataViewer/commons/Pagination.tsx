@@ -72,7 +72,7 @@ export const Pagination = (props: PaginationProps) => {
       <div className="jk-row center nowrap">
         {isOnToolbar ? (
           <div className="jk-row gap nowrap">
-            <div className="jk-row nowrap jk-br-ie tx-s ws-np jk-data-viewer-pagination-toolbar-content ">
+            <div className="jk-row nowrap jk-br-ie tx-s ws-np jk-data-viewer-pagination-toolbar-content bc-we">
               <div
                 style={{
                   borderRight: '1px solid var(--t-color-highlight-light)',
@@ -85,7 +85,7 @@ export const Pagination = (props: PaginationProps) => {
               <div
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="previous"
-                className={classNames('page-item jk-row jk-br-ie', { disabled: page === startPage || initializing })}
+                className={classNames('page-item cr-pr jk-row jk-br-ie', { disabled: page === startPage || initializing })}
                 onClick={prev}
               >
                 <NavigateBeforeIcon />
@@ -93,7 +93,7 @@ export const Pagination = (props: PaginationProps) => {
               <div
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="next"
-                className={classNames('page-item jk-row jk-br-ie', { disabled: page === endPage || initializing })}
+                className={classNames('page-item cr-pr jk-row jk-br-ie', { disabled: page === endPage || initializing })}
                 onClick={next}
               >
                 <NavigateNextIcon />
@@ -108,13 +108,14 @@ export const Pagination = (props: PaginationProps) => {
                 selectedOption={{ value: pageSize }}
                 onChange={initializing ? undefined : ({ value }) => onPageSizeChange(value)}
                 optionsPlacement="bottom"
+                className="bc-we jk-br-ie"
               />
             )}
           </div>
         ) : (
           <>
             <div
-              className={classNames('page-item jk-row jk-border-radius screen md lg hg', { disabled: page === startPage })}
+              className={classNames('page-item cr-pr jk-row jk-border-radius screen md lg hg', { disabled: page === startPage })}
               onClick={prev}
             >
               <NavigateBeforeIcon />
@@ -123,7 +124,7 @@ export const Pagination = (props: PaginationProps) => {
               {startPage < pages[0] && (
                 <>
                   <div
-                    className={classNames('page-item jk-row jk-border-radius cr-g3', { selected: startPage === page })}
+                    className={classNames('page-item cr-pr jk-row jk-border-radius cr-g3', { selected: startPage === page })}
                     onClick={() => jumpToPage(startPage)}
                   >
                     {loading && startPage === page ? <SpinIcon /> : startPage}
@@ -138,7 +139,7 @@ export const Pagination = (props: PaginationProps) => {
               {pages.map(index => (
                 <div
                   key={index}
-                  className={classNames('page-item jk-row jk-border-radius fw-bd', {
+                  className={classNames('page-item cr-pr jk-row jk-border-radius fw-bd', {
                     selected: index === page,
                     'fw-br': index === page,
                   })}
@@ -155,7 +156,7 @@ export const Pagination = (props: PaginationProps) => {
                     </div>
                   )}
                   <div
-                    className={classNames('page-item jk-row jk-border-radius cr-g3', { selected: endPage === page })}
+                    className={classNames('page-item cr-pr jk-row jk-border-radius cr-g3', { selected: endPage === page })}
                     onClick={() => jumpToPage(endPage)}
                   >
                     {loading && endPage === page ? <SpinIcon /> : endPage}
@@ -164,7 +165,7 @@ export const Pagination = (props: PaginationProps) => {
               )}
             </div>
             <div
-              className={classNames('page-item jk-row jk-border-radius screen md lg hg', { disabled: page === endPage })}
+              className={classNames('page-item cr-pr jk-row jk-border-radius screen md lg hg', { disabled: page === endPage })}
               onClick={next}
             >
               <NavigateNextIcon />

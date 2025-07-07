@@ -31,7 +31,7 @@ export const TableHeadFilterDateRange = (props: TableHeadFilterDateRangeProps) =
   
   return (
     <div className="jk-col gap jk-table-head-cell-filter-date-range jk-pg-sm">
-      <div className="jk-row gap date-range">
+      <div className="jk-row gap date-range nowrap">
         <div>
           <div className="jk-row center fw-bd"><T className="tt-se">from</T>&nbsp;:</div>
           <InputDate
@@ -61,7 +61,7 @@ export const TableHeadFilterDateRange = (props: TableHeadFilterDateRangeProps) =
           />
         </div>
       </div>
-      <div className="jk-row gap right buttons">
+      <div className="jk-row gap right buttons wh-100">
         <Button
           size="tiny" type="light" onClick={onReset}
           disabled={!(initialStartSelectedDate && initialEndSelectedDate && initialStartSelectedDate?.isValidDate() && initialEndSelectedDate?.isValidDate())}

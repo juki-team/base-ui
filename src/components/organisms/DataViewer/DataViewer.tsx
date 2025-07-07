@@ -699,7 +699,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const extraNodes = useMemo(() => (initialExtraNodes || []).filter(extraNode => !!extraNode), [ initialExtraNodes ]);
   
   return (
-    <div className={classNames(className, 'jk-data-viewer-layout', { 'with-pagination': withPagination })}>
+    <div className={classNames(className, 'jk-data-viewer-layout ht-100', { 'with-pagination': withPagination })}>
       <DisplayDataViewer<T>
         viewPortSize={viewPortSize}
         cards={cards}

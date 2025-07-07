@@ -1,0 +1,30 @@
+.jk-code-viewer {
+  position: relative;
+  display: flex;
+  width: 100%;
+  
+  > .jk-code-viewer-line-numbers {
+    padding: var(--pad-sm) calc(var(--pad-sm) / 2);
+    text-align: right;
+    user-select: none;
+    border-right: 1px solid var(--t-color-highlight);
+  }
+  
+  > pre {
+    flex: 1;
+    background-color: var(--t-color-highlight-light);
+    border-color: transparent !important;
+    margin: 0 !important;
+    overflow: auto;
+    
+    code {
+      display: block;
+      overflow-x: auto;
+      padding: var(--pad-sm) var(--pad-sm) var(--pad-sm) calc(var(--pad-sm) / 2);
+    }
+  }
+  
+  > .float-top-right {
+    z-index: unset;
+  }
+}

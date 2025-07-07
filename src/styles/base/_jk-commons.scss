@@ -8,7 +8,7 @@ span.jk-row, span.jk-col {
   display: inline-flex;
 }
 
-@mixin jk-row-col {
+.jk-row, .jk-col, .jk-row-col {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -33,11 +33,6 @@ span.jk-row, span.jk-col {
   &.stretch { align-items: stretch; }
 }
 
-div.jk-row, section.jk-row, span.jk-row, a.jk-row, fieldset.jk-row, form.jk-row, label.jk-row,
-div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col, label.jk-col {
-  @include jk-row-col;
-}
-
 @mixin jk-row {
   &.extend { width: 100% !important; }
   
@@ -50,7 +45,7 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
   &.bottom { align-items: end; }
 }
 
-div.jk-row, section.jk-row, span.jk-row, a.jk-row, fieldset.jk-row, form.jk-row, label.jk-row {
+.jk-row {
   @include jk-row;
 }
 
@@ -68,7 +63,7 @@ div.jk-row, section.jk-row, span.jk-row, a.jk-row, fieldset.jk-row, form.jk-row,
   &.right { align-content: end; }
 }
 
-div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col, label.jk-col {
+.jk-col {
   @include jk-col;
 }
 
@@ -373,8 +368,6 @@ div.jk-col, section.jk-col, span.jk-col, a.jk-col, fieldset.jk-col, form.jk-col,
 }
 
 .jk-row-col {
-  @include jk-row-col;
-  
   @include mixins.sm {
     @include jk-col;
     align-items: stretch !important;

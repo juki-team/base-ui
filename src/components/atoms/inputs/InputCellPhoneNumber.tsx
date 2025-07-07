@@ -112,7 +112,7 @@ export const InputCellPhoneNumber = (props: InputCellPhoneNumberProps) => {
   
   return (
     <div
-      className={classNames(`jk-input-cell-phone-number-wrapper`, {
+      className={classNames(`jk-wrapper-input jk-wrapper-input-cell-phone-number`, {
         expand,
         [`label-${labelPlacement}`]: true,
         required,

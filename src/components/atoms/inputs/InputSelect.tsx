@@ -37,7 +37,7 @@ export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctio
   
   return (
     <div
-      className={classNames('jk-input-select-wrapper', {
+      className={classNames('jk-wrapper-input jk-wrapper-input-select', {
         expand,
         [`label-${labelPlacement}`]: true,
         required,

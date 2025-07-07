@@ -45,7 +45,13 @@
       "sass": "./dist/styles/_mixins.scss"
     },
     "./styles/base": {
-      "sass": "./dist/styles/base/_index.scss"
+      "sass": "./dist/styles/base/index.scss"
+    },
+    "./styles/components": {
+      "sass": "./dist/styles/components/index.scss"
+    },
+    "./styles/libs": {
+      "sass": "./dist/styles/libs/index.scss"
     }
   },
   "scripts": {
@@ -60,7 +66,9 @@
     "push": "f() { yarn build && yarn git-push \"${1}\"; }; f",
     "push:deploy": "f() { yarn build:deploy && yarn git-push \"${1}\"; }; f",
     "chromatic": "npx chromatic --project-token=chpt_2acf11f761221d1",
-    "clean-and-reset": "rm -rf node_modules yarn.lock && yarn cache clean && yarn install"
+    "clean-and-reset": "rm -rf node_modules yarn.lock && yarn cache clean && yarn install",
+    "check-style-files": "find src/styles -type f -name \"*.scss\" -exec stat -f \"%z %N\" {} + | awk '{printf \"%.1f KB %s\\n\", $1/1024, $2}' | sort -nr",
+    "sass:build": "sass src/styles:dist/styles-folder --no-source-map --style=compressed"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.18.6",
@@ -78,31 +86,31 @@
     "@hookform/resolvers": "^5.1.1",
     "@juki-team/commons": "^0.0.829",
     "@tanstack/react-virtual": "^3.13.10",
-    "@tiptap/core": "^2.24.2",
-    "@tiptap/extension-blockquote": "^2.24.2",
-    "@tiptap/extension-bold": "^2.24.2",
-    "@tiptap/extension-bullet-list": "^2.24.2",
-    "@tiptap/extension-code": "^2.24.2",
-    "@tiptap/extension-code-block": "^2.24.2",
-    "@tiptap/extension-code-block-lowlight": "^2.24.2",
-    "@tiptap/extension-document": "^2.24.2",
-    "@tiptap/extension-dropcursor": "^2.24.2",
-    "@tiptap/extension-gapcursor": "^2.24.2",
-    "@tiptap/extension-heading": "^2.24.2",
-    "@tiptap/extension-highlight": "^2.24.2",
-    "@tiptap/extension-history": "^2.24.2",
-    "@tiptap/extension-image": "^2.24.2",
-    "@tiptap/extension-italic": "^2.24.2",
-    "@tiptap/extension-link": "^2.24.2",
-    "@tiptap/extension-list-item": "^2.24.2",
-    "@tiptap/extension-mathematics": "^2.24.2",
-    "@tiptap/extension-ordered-list": "^2.24.2",
-    "@tiptap/extension-paragraph": "^2.24.2",
-    "@tiptap/extension-strike": "^2.24.2",
-    "@tiptap/extension-text": "^2.24.2",
-    "@tiptap/extension-underline": "^2.24.2",
-    "@tiptap/pm": "^2.24.2",
-    "@tiptap/react": "^2.24.2",
+    "@tiptap/core": "^2.25.0",
+    "@tiptap/extension-blockquote": "^2.25.0",
+    "@tiptap/extension-bold": "^2.25.0",
+    "@tiptap/extension-bullet-list": "^2.25.0",
+    "@tiptap/extension-code": "^2.25.0",
+    "@tiptap/extension-code-block": "^2.25.0",
+    "@tiptap/extension-code-block-lowlight": "^2.25.0",
+    "@tiptap/extension-document": "^2.25.0",
+    "@tiptap/extension-dropcursor": "^2.25.0",
+    "@tiptap/extension-gapcursor": "^2.25.0",
+    "@tiptap/extension-heading": "^2.25.0",
+    "@tiptap/extension-highlight": "^2.25.0",
+    "@tiptap/extension-history": "^2.25.0",
+    "@tiptap/extension-image": "^2.25.0",
+    "@tiptap/extension-italic": "^2.25.0",
+    "@tiptap/extension-link": "^2.25.0",
+    "@tiptap/extension-list-item": "^2.25.0",
+    "@tiptap/extension-mathematics": "^2.25.0",
+    "@tiptap/extension-ordered-list": "^2.25.0",
+    "@tiptap/extension-paragraph": "^2.25.0",
+    "@tiptap/extension-strike": "^2.25.0",
+    "@tiptap/extension-text": "^2.25.0",
+    "@tiptap/extension-underline": "^2.25.0",
+    "@tiptap/pm": "^2.25.0",
+    "@tiptap/react": "^2.25.0",
     "@uiw/react-codemirror": "^4.24.0",
     "codemirror": "^6.0.2",
     "countries-and-timezones": "^3.8.0",

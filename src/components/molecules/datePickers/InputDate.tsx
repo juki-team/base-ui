@@ -35,7 +35,7 @@ export const InputDate = (props: InputDateProps) => {
       <>
         <DateLiteral
           date={date}
-          className={classNames('date-literal-label cr-pd')}
+          className={classNames('jk-input-date cr-pd')}
           show={type}
           twoLines={twoLines}
           withDayName={withDayName}
@@ -56,7 +56,7 @@ export const InputDate = (props: InputDateProps) => {
       </>
     ) : (
       <div
-        className={classNames('jk-row date-literal-label jk-border-radius-inline cr-pd placeholder', { 'two-lines': twoLines })}
+        className={classNames('jk-row jk-input-date jk-border-radius-inline cr-pd placeholder', { 'two-lines': twoLines })}
       >
         <T>no date selected</T>
       </div>
@@ -65,7 +65,7 @@ export const InputDate = (props: InputDateProps) => {
   
   if (inline) {
     return (
-      <div className="jk-input-date-layout">
+      <div className="jk-date-picker-layout">
         {input()}
         <DatePicker
           todayButton={todayButton}
@@ -80,7 +80,7 @@ export const InputDate = (props: InputDateProps) => {
   }
   
   return (
-    <div className={classNames('jk-input-date-layout', { disabled })} style={extend ? { width: '100%' } : {}}>
+    <div className={classNames('jk-date-picker-layout', { disabled })} style={extend ? { width: '100%' } : {}}>
       <Popover
         popoverClassName="bc-we jk-br-ie elevation-1"
         content={() => (

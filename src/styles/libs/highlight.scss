@@ -1,40 +1,9 @@
-.jk-code-viewer {
-  position: relative;
-  display: flex;
-  width: 100%;
-  
-  > .jk-code-viewer-line-numbers {
-    padding: var(--pad-sm) calc(var(--pad-sm) / 2);
-    text-align: right;
-    user-select: none;
-    border-right: 1px solid var(--t-color-highlight);
-  }
-  
-  > pre {
-    flex: 1;
-    background-color: var(--t-color-highlight-light);
-    border-color: transparent !important;
-    margin: 0 !important;
-    overflow: auto;
-    
-    code {
-      display: block;
-      overflow-x: auto;
-      padding: var(--pad-sm) var(--pad-sm) var(--pad-sm) calc(var(--pad-sm) / 2);
-    }
-  }
-  
-  > .float-top-right {
-    z-index: unset;
-  }
-}
-
 .jk-theme-light { // import 'highlight.js/styles/github.min.css';
   //pre code.hljs {display: block;overflow-x: auto;padding: 1em}
   
   //code.hljs {padding: 3px 5px}
   
-  /*!
+  /*
     Theme: GitHub
     Description: Light theme as seen on github.com
     Author: github.com
@@ -80,7 +49,7 @@
   
   //code.hljs {padding: 3px 5px}
   
-  /*!
+  /*
     Theme: GitHub Dark
     Description: Dark theme as seen on github.com
     Author: github.com

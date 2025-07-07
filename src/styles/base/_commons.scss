@@ -464,6 +464,11 @@
 
 .ow-hn { overflow: hidden; }
 
+.disabled:not(.with-loader-icon):not(.jk-wrapper-input):not(.jk-select-options):not(.jk-select-option) {
+  opacity: 0.5;
+  cursor: auto !important;
+}
+
 @media print {
   .page-break {
     break-before: page;

@@ -8,7 +8,7 @@ import { SubmissionModal, UserPreviewModal } from '../templates';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
 import './styles.scss';
-import '../../styles/base/_index.scss';
+import '../../styles/index.scss';
 
 enum TestPath {
   USER = 'USER',

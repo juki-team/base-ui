@@ -102,7 +102,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
   }
   
-  input, > .jk-input-select-wrapper > .jk-select-layout, .jk-input-password-wrapper {
+  input, > .jk-wrapper-input-select > .jk-select-layout, .jk-input-password-wrapper {
     width: 100% !important;
   }
 }
@@ -110,25 +110,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 @mixin disabled-input {
   --input-border-color: var(--t-color-highlight-light);
   background-color: var(--t-color-highlight-light);
-  box-shadow: inset 0 0 0 1px var(--input-border-color);
-}
-
-.activated {
-  box-shadow: inset 0 0 0 1px var(--input-border-color);
-  //box-shadow: inset 0 0 0 2px var(--t-color-gray-4);
+  //box-shadow: inset 0 0 0 1px var(--input-border-color);
+  //outline-width: 2px;
 }
 
 // input textarea
-.jk-input-text,
-.jk-input-email,
-.jk-input-number,
-.jk-input-password,
-.jk-input-textarea,
-.jk-input-file,
-.jk-input-files,
-.jk-select-layout .jk-select,
-.jk-multi-select-layout .jk-select,
-.jk-input-date-layout .date-literal-label {
+[class^="jk-input-"], [class*=" jk-input-"] {
   color: inherit;
   border: none;
   box-sizing: border-box;
@@ -141,8 +128,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   outline: 1px solid var(--input-border-color);
   outline-color: var(--input-border-color);
   
-  * {
-    @include mixins.transition(box-shadow, color, background-color, border-color, outline-color);
+  &::placeholder {
+    color: var(--t-color-gray-4);
+    font-weight: var(--weight-regular);
+    @include mixins.font-size(small);
   }
   
   &:not(.disabled) {
@@ -186,10 +175,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
   }
   
-  &::-webkit-file-upload-button {
-    //visibility: hidden;
-  }
-  
   &.disabled {
     @include disabled-input;
   }
@@ -205,6 +190,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   &.success {
     --input-border-color: var(--t-color-success-light);
   }
+  
+  .input-icon {
+    color: var(--input-border-color);
+  }
 }
 
 .jk-select-layout, .jk-multi-select-layout {
@@ -213,36 +202,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     cursor: pointer;
   }
   
-  &:not(:hover):not(:focus):not(:active):not(.focused):not(.open) {
-    > .jk-select > .input-icon,
-    > .jk-multi-select-selected-icons > .input-icon {
-      color: var(--t-color-highlight-dark);
-    }
-  }
-  
-  &:not(.disabled) {
-    > .jk-select > .jk-multi-select-selected-searchable-icons > .input-icon,
-    > .jk-multi-select-selected-icons > .input-icon {
-      cursor: pointer;
-    }
-  }
-  
-  > .jk-select {
+  > .jk-input-select {
     > .jk-multi-select-selected-searchable-icons > .input-icon, > .jk-multi-select-selected-icons > .input-icon {
       padding: 2px;
       margin: 2px 0;
       border-radius: 50%;
     }
-  }
-}
-
-.jk-select-options.disabled {
-  @include disabled-input;
-}
-
-.jk-input-textarea {
-  &.expand {
-    width: 100%;
   }
 }
 
@@ -255,17 +220,19 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   padding: 0 4px 0 var(--pad-xt);
 }
 
-.jk-input-text-wrapper,
-.jk-input-number-wrapper,
-.jk-input-password-wrapper,
-.jk-input-email-wrapper,
-.jk-input-file-wrapper,
-.jk-input-files-wrapper,
-.jk-input-select-wrapper,
-.jk-input-cell-phone-number-wrapper,
-.jk-input-text-area-wrapper {
+.jk-wrapper-input:has(> .disabled) {
+  opacity: 0.5;
+  cursor: auto !important;
+}
+
+.jk-wrapper-input {
+  
   position: relative;
   display: inline-block;
+  
+  &, * {
+    @include mixins.transition(box-shadow, color, background-color, border-color, outline-color, opacity);
+  }
   
   &.expand, &.expand > input {
     width: 100%;
@@ -346,13 +313,13 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.jk-input-cell-phone-number-wrapper {
+.jk-wrapper-input-cell-phone-number {
   .jk-select-layout {
     position: absolute;
     bottom: 0;
     height: 24px;
     
-    .jk-select {
+    .jk-input-select {
       width: 64px !important;
       min-width: 64px !important;
       max-width: 64px !important;
@@ -373,20 +340,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.jk-input-text, .jk-input-number, .jk-input-password, .jk-input-email {
-  &::placeholder {
-    color: var(--t-color-gray-4);
-    font-weight: var(--weight-regular);
-    @include mixins.font-size(small);
-  }
-}
-
-.jk-input-checkbox-wrapper, .jk-input-radio-wrapper {
+.jk-wrapper-input-checkbox, .jk-wrapper-input-radio {
   display: inline-flex;
   cursor: pointer;
   
   input.jk-input-checkbox, input.jk-input-radio {
-    border: 2px solid var(--t-color-primary);
+    --input-border-color: var(--t-color-primary) !important;
     left: 0;
     -webkit-appearance: none;
     position: relative;
@@ -397,15 +356,9 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     min-height: var(--pad-s) !important;
     min-width: var(--pad-s) !important;
     
-    background-color: transparent;
-    @include mixins.transition(background-color);
-    
     &:after {
       position: absolute;
-      opacity: 1;
-      top: 0;
       color: var(--t-color-primary-text);
-      transform: rotate(45deg);
       box-sizing: content-box;
     }
     
@@ -427,8 +380,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     &:after {
       border: solid var(--t-color-primary-text);
+      transform: rotate(45deg);
       border-width: 0 3px 3px 0;
-      left: 5px;
+      top: 1px;
+      left: 6px;
       width: 4px;
       height: 10px;
     }
@@ -438,36 +393,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     border-radius: 50%;
     
     &:after {
-      position: absolute;
-      opacity: 1;
-      color: var(--t-color-primary-text);
-      box-sizing: content-box;
-      top: 3px;
-      left: 3px;
+      top: 4px;
+      left: 4px;
       width: 10px;
       height: 10px;
       border-radius: 50%;
       background-color: var(--t-color-primary);
-    }
-  }
-  
-  &.disabled {
-    color: var(--t-color-gray-4);
-    
-    input.jk-input-checkbox, input.jk-input-radio {
-      border-color: var(--t-color-gray-4);
-    }
-    
-    input.jk-input-checkbox {
-      &:checked {
-        background-color: var(--t-color-gray-4);
-      }
-    }
-    
-    input.jk-input-radio {
-      &:after {
-        background-color: var(--t-color-gray-4);
-      }
     }
   }
 }
@@ -482,41 +413,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-input-textarea {
-  width: 100%;
   resize: none;
-}
-
-.jk-popover-layout {
-  
-  &:not(.top) {
-    .jk-select-options-content {
-      > div.jk-popover-content {
-        padding: 0;
-        border-top-left-radius: 0 !important;
-        border-top-right-radius: 0 !important;
-        
-        .jk-select-options {
-          border-top-left-radius: 0 !important;
-          border-top-right-radius: 0 !important;
-        }
-      }
-    }
-  }
-  
-  &.top {
-    .jk-select-options-content {
-      > div.jk-popover-content {
-        padding: 0;
-        border-bottom-left-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
-        
-        .jk-select-options {
-          border-bottom-left-radius: 0 !important;
-          border-bottom-right-radius: 0 !important;
-        }
-      }
-    }
-  }
 }
 
 .jk-select-options, .jk-select-options-virtual {
@@ -530,21 +427,13 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   .jk-select-option {
     
-    &.disabled {
-      color: var(--t-color-gray-4);
-      pointer-events: none;
-      cursor: auto;
-    }
-    
     &.selected {
       background-color: var(--t-color-primary);
       color: var(--t-color-primary-text);
     }
     
-    
     &.multiselect {
-      .jk-input-checkbox-wrapper {
-        width: 100%;
+      .jk-wrapper-input-checkbox {
         display: flex;
         align-items: center;
       }
@@ -554,16 +443,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-select-options {
   max-height: 256px;
-  
-  .jk-select-option.multiselect {
-    .jk-input-checkbox-wrapper {
-      width: 100%;
-    }
-  }
 }
 
 .jk-multi-select-layout {
-  .jk-select {
+  .jk-input-select {
     padding: 4px 4px 4px var(--pad-xt) !important;
   }
 }
@@ -572,7 +455,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   position: relative;
   
   &.jk-select-void {
-    .jk-select {
+    .jk-input-select {
       padding: 0;
       outline: none;
       
@@ -586,24 +469,17 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     width: 100%;
   }
   
-  &.error .jk-select {
+  &.error .jk-input-select {
     --input-border-color: var(--t-color-error);
   }
   
-  &.success .jk-select {
+  &.success .jk-input-select {
     --input-border-color: var(--t-color-success);
   }
   
-  .jk-select {
-    //padding: 0 4px 0 var(--pad-xt);
+  .jk-input-select {
     position: relative;
     text-align: start;
-    
-    > .jk-icon {
-      //position: absolute;
-      //right: 2px;
-      //top: 0;
-    }
     
     .jk-multi-select-selected-options {
       gap: 4px;
@@ -622,14 +498,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
   
   &.open {
-    .jk-select {
+    .jk-input-select {
       border-color: var(--t-color-gray-4);
     }
   }
-}
-
-.jk-multi-select-layout .jk-select {
-  //min-height: 34px;
 }
 
 .jk-input-toggle-wrapper {
@@ -640,10 +512,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   height: var(--input-toggle-height);
   display: flex;
   align-items: center;
-  
-  &.disabled {
-    --input-toggle-color: var(--t-color-gray-6);
-  }
   
   > p {
     display: inline-block;
@@ -712,21 +580,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.jk-input-date-layout {
+.jk-date-picker-layout {
   position: relative;
   
-  .date-literal-label {
+  .jk-input-date {
     padding: 0 var(--pad-t);
-    //height: var(--pad-xl);
     
     &.placeholder {
       color: var(--t-color-gray-4);
       font-weight: var(--weight-regular);
       @include mixins.font-size(small);
-    }
-    
-    &.two-lines {
-      //height: 58px;
     }
   }
   
@@ -738,10 +601,8 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-checkbox-list, .jk-select-options, .jk-select-options-virtual {
-  .jk-input-checkbox-wrapper, .jk-select-option:not(.multiselect) {
-    //width: calc(100% - 12px);
+  .jk-wrapper-input-checkbox, .jk-select-option:not(.multiselect) {
     padding: 2px 6px;
-    //border-radius: var(--border-radius-inline);
     
     &:hover:not(.disabled):not(.selected) {
       background-color: var(--t-color-highlight-light);
@@ -750,18 +611,8 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.jk-checkbox-list, .jk-select-options, .jk-select-options-virtual {
-  .jk-select-option {
-  
-  }
-}
-
-.date-literal.jk-col.nowrap {
-  //height: 58px;
-}
-
 .jk-select-layout.jk-button {
-  .jk-select {
+  .jk-input-select {
     outline: none;
   }
   
@@ -772,7 +623,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       min-height: 64px;
       font-size: var(--text-xl-size);
       
-      > .jk-select {
+      > .jk-input-select {
         gap: var(--pad-s);
         padding: 0 var(--pad-m);
       }
@@ -782,7 +633,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       min-height: var(--pad-xH);
       font-size: var(--text-large-size);
       
-      > .jk-select {
+      > .jk-input-select {
         gap: var(--pad-xs);
         padding: 0 var(--pad-s);
       }
@@ -792,7 +643,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     font-size: var(--text-medium-size);
     padding: 0 !important;
     
-    > .jk-select {
+    > .jk-input-select {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -812,7 +663,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       min-height: var(--pad-xl);
       font-size: var(--text-small-size);
       
-      > .jk-select {
+      > .jk-input-select {
         gap: var(--pad-xt);
         padding: 0 var(--pad-t);
       }
@@ -822,7 +673,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       min-height: 26px;
       font-size: var(--text-tiny-size);
       
-      > .jk-select {
+      > .jk-input-select {
         padding: 0 var(--pad-xt);
         gap: 4px;
       }

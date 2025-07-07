@@ -102,7 +102,7 @@ const InputComponent = <T extends string | number | FileList, >(_props: CmpInput
   
   return (
     <div
-      className={classNames(`jk-input-${type}-wrapper`, className, {
+      className={classNames(`jk-wrapper-input jk-wrapper-input-${type}`, className, {
         expand,
         [`label-${labelPlacement}`]: true,
         required,

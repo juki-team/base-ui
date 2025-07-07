@@ -78,7 +78,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
         key={columnIndex}
         style={{ width: width + 'px' }}
       >
-        <div className="jk-table-head-field">
+        <div className="jk-table-head-field flex-1 ht-100">
           {renderHead({ header, columnIndex, className: headClassName })}
         </div>
         {withTools && (

@@ -16,11 +16,7 @@
     width: calc(100% - var(--worksheet-contents-header-width) - var(--gap));
     
     &.is-solvable {
-      .jk-md-sheet-section-view,
-      .quiz-options-sheet-section-view,
-      .graph-sheet-section-view,
-      .quiz-problem-sheet-section-view,
-      .code-editor-sheet-section-view {
+      [class$="-sheet-section-view"], [class*="-sheet-section-view "] {
         width: calc(100% - var(--worksheet-results-width));
       }
       
