@@ -52,7 +52,8 @@
     },
     "./styles/libs": {
       "sass": "./dist/styles/libs/index.scss"
-    }
+    },
+    "./assets/*": "./dist/assets/*"
   },
   "scripts": {
     "storybook": "storybook dev -p 6006",
