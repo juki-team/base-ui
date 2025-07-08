@@ -1,5 +1,12 @@
-@use "diff2html";
-@use "handsontable";
 @use "highlight";
-@use "katex";
 @use "react-crop";
+
+//@use "diff2html";
+@import "diff2html/bundles/css/diff2html.min.css";
+
+//@use "handsontable";
+@import "~handsontable/styles/handsontable.min.css";
+@import "~handsontable/styles/ht-theme-main.min.css";
+
+//@use "katex";
+@import "katex/dist/katex.min.css";

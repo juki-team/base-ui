@@ -44,14 +44,14 @@
     "./styles/mixins": {
       "sass": "./dist/styles/_mixins.scss"
     },
-    "./styles/base": {
-      "sass": "./dist/styles/base/index.scss"
+    "./styles/base.css": {
+      "default": "./dist/styles/base/index.css"
     },
-    "./styles/components": {
-      "sass": "./dist/styles/components/index.scss"
+    "./styles/components.css": {
+      "default": "./dist/styles/components/index.css"
     },
-    "./styles/libs": {
-      "sass": "./dist/styles/libs/index.scss"
+    "./styles/libs.css": {
+      "default": "./dist/styles/libs/index.css"
     },
     "./assets/*": "./dist/assets/*"
   },
@@ -64,12 +64,12 @@
     "build": "yarn rollup:build",
     "build:deploy": "yarn storybook:build && yarn build",
     "git-push": "f() { param=${1}; message=${param:-chore}; echo ${message}; git add .; echo $message | git commit -F -; yarn publish --patch --no-git-tag-version; version=\"v$(node -p \"require('./package.json').version\")\"; git add .; echo $version | git commit -F -; git push origin main; echo $version | git tag -a $(echo $version) -F -; git push origin --tags; }; f",
-    "push": "f() { yarn build && yarn git-push \"${1}\"; }; f",
+    "push": "f() { yarn build && yarn sass:build && yarn git-push \"${1}\"; }; f",
     "push:deploy": "f() { yarn build:deploy && yarn git-push \"${1}\"; }; f",
     "chromatic": "npx chromatic --project-token=chpt_2acf11f761221d1",
     "clean-and-reset": "rm -rf node_modules yarn.lock && yarn cache clean && yarn install",
     "check-style-files": "find src/styles -type f -name \"*.scss\" -exec stat -f \"%z %N\" {} + | awk '{printf \"%.1f KB %s\\n\", $1/1024, $2}' | sort -nr",
-    "sass:build": "sass src/styles:dist/styles-folder --no-source-map --style=compressed"
+    "sass:build": "rm -rf dist/css-styles && sass src/styles:dist/styles --no-source-map --style=compressed"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.18.6",
