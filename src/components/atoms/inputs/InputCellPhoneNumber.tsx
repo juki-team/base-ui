@@ -1,6 +1,8 @@
 import { ProfileSetting } from '@juki-team/commons';
 import { getTimezone } from 'countries-and-timezones';
 import i18nIsoCountries from 'i18n-iso-countries';
+import enLocale from 'i18n-iso-countries/langs/en.json';
+import esLocale from 'i18n-iso-countries/langs/es.json';
 import {
   CountryCallingCode,
   CountryCode,
@@ -59,8 +61,8 @@ Códigos en 'countries' que NO están en 'list': (2)['AC', 'TA']
 
  */
 
-i18nIsoCountries.registerLocale(require('i18n-iso-countries/langs/en.json'));
-i18nIsoCountries.registerLocale(require('i18n-iso-countries/langs/es.json'));
+i18nIsoCountries.registerLocale(enLocale);
+i18nIsoCountries.registerLocale(esLocale);
 
 function getCountryCallingCode(countryCode: CountryCode) {
   try {
