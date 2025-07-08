@@ -168,7 +168,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
         className="wh-100"
       >
         {!!compilationResult?.err && (
-          <div className="submission-stderr-content jk-text-stderr">
+          <div className="submission-stderr-content jk-text-stderr tx-t bc-er cr-we jk-pg-xsm">
             {compilationResult?.err}
           </div>
         )}

@@ -90,8 +90,8 @@ const DiffViewButton = ({ diffInput, croppedDiff, isProblemEditor }: {
           <div className="wh-100" dangerouslySetInnerHTML={{ __html: diff }} />
           {diffInput.includes('No newline at end of file') && (
             <div className="jk-row block center">
-              <div className="appearance-error">{left && <T>no newline at end of file</T>}</div>
-              <div className="appearance-error">{!left && <T>no newline at end of file</T>}</div>
+              <div className="bc-er cr-we">{left && <T>no newline at end of file</T>}</div>
+              <div className="bc-er cr-we">{!left && <T>no newline at end of file</T>}</div>
             </div>
           )}
         </div>

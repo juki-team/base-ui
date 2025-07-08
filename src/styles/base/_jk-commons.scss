@@ -100,19 +100,11 @@ span.jk-row, span.jk-col {
 /*
  BORDER RADIUS
  */
-.jk-border-radius {
+.jk-border-radius, .jk-br {
   border-radius: var(--border-radius); // responsive variable
 }
 
-.jk-br {
-  border-radius: var(--border-radius); // responsive variable
-}
-
-.jk-border-radius-inline {
-  border-radius: var(--border-radius-inline); // responsive variable
-}
-
-.jk-br-ie {
+.jk-border-radius-inline, .jk-br-ie {
   border-radius: var(--border-radius-inline); // responsive variable
 }
 
@@ -208,117 +200,15 @@ span.jk-row, span.jk-col {
   backdrop-filter: blur(2px);
 }
 
-.appearance-accent-dark { @include mixins.look(accent-dark); }
-
-.appearance-accent { @include mixins.look(accent); }
-
-.appearance-accent-light { @include mixins.look(accent-light); }
-
-.appearance-success-dark { @include mixins.look(success-dark); }
-
-.appearance-success { @include mixins.look(success); }
-
-.appearance-success-light { @include mixins.look(success-light); }
-
-.appearance-info-dark { @include mixins.look(info-dark); }
-
-.appearance-info { @include mixins.look(info); }
-
-.appearance-info-light { @include mixins.look(info-light); }
-
-.appearance-warning-dark { @include mixins.look(warning-dark); }
-
-.appearance-warning { @include mixins.look(warning); }
-
-.appearance-warning-light { @include mixins.look(warning-light); }
-
-.appearance-error-dark { @include mixins.look(error-dark); }
-
-.appearance-error { @include mixins.look(error); }
-
-.appearance-error-light { @include mixins.look(error-light); }
-
-.appearance-primary-dark { @include mixins.look(primary-dark); }
-
-.appearance-primary { @include mixins.look(primary); }
-
-.appearance-primary-light { @include mixins.look(primary-light); }
-
-.appearance-gray-1 { @include mixins.look(gray-1); }
-
-.appearance-gray-2 { @include mixins.look(gray-2); }
-
-.appearance-gray-3 { @include mixins.look(gray-3); }
-
-.appearance-gray-4 { @include mixins.look(gray-4); }
-
-.appearance-gray-5 { @include mixins.look(gray-5); }
-
-.appearance-gray-6 { @include mixins.look(gray-6); }
-
 .jk-tag {
-  
   padding: 2px var(--pad-xt);
   border-radius: var(--border-radius-inline);
   display: inline-block;
   
-  @include mixins.look(primary);
-  
-  &.accent-dark { @include mixins.look(accent-dark); }
-  
-  &.accent { @include mixins.look(accent); }
-  
-  &.accent-light { @include mixins.look(accent-light); }
-  
-  &.success-dark { @include mixins.look(success-dark); }
-  
-  &.success { @include mixins.look(success); }
-  
-  &.success-light { @include mixins.look(success-light); }
-  
-  &.info-dark { @include mixins.look(info-dark); }
-  
-  &.info { @include mixins.look(info); }
-  
-  &.info-light { @include mixins.look(info-light); }
-  
-  &.warning-dark { @include mixins.look(warning-dark); }
-  
-  &.warning { @include mixins.look(warning); }
-  
-  &.warning-light { @include mixins.look(warning-light); }
-  
-  &.error-dark { @include mixins.look(error-dark); }
-  
-  &.error { @include mixins.look(error); }
-  
-  &.error-light { @include mixins.look(error-light); }
-  
-  &.primary-light { @include mixins.look(primary-light); }
-  
-  &.primary-dark { @include mixins.look(primary-dark); }
-  
-  &.secondary-dark { @include mixins.look(secondary-dark); }
-  
-  &.secondary { @include mixins.look(secondary); }
-  
-  &.secondary-light { @include mixins.look(secondary-light); }
-  
-  &.gray-1 { @include mixins.look(gray-1); }
-  
-  &.gray-2 { @include mixins.look(gray-2); }
-  
-  &.gray-3 { @include mixins.look(gray-3); }
-  
-  &.gray-4 { @include mixins.look(gray-4); }
-  
-  &.gray-5 { @include mixins.look(gray-5); }
-  
-  &.gray-6 { @include mixins.look(gray-6); }
-  
-  &.white { @include mixins.look(white); }
-  
-  &.bc-hl, &.bc-hd, &.bc-ht { color: inherit; }
+  &:not([class^="cr-"]):not([class*=" cr-"]):not([class^="br-"]):not([class*=" br-"]) {
+    color: var(--t-color-primary-text);
+    background-color: var(--t-color-primary);
+  }
 }
 
 .jk-text-stdout, .jk-text-stderr {
@@ -330,12 +220,6 @@ span.jk-row, span.jk-col {
 .jk-text-stdout {
   background: var(--t-color-highlight-light) !important;
   padding: 3px 0;
-}
-
-.jk-text-stderr {
-  padding: 5px 0;
-  @include mixins.font-size(tiny);
-  @include mixins.look(error);
 }
 
 .jk-table-inline-header, .jk-table-inline-row {

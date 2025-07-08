@@ -165,16 +165,14 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
             <div
               className={classNames({ open: isOpen }, 'jk-input-select space-between jk-border-radius-inline jk-row gap nowrap')}
               style={{
-                width: _containerWidth ?? (expand ? '100%' : undefined),
-                minWidth: _containerWidth ?? (expand ? undefined : widthFakeOptions),
+                width: _containerWidth ? `min(${_containerWidth}, 100%)` : (expand ? '100%' : undefined),
+                minWidth: _containerWidth ? `min(${_containerWidth}, 100%)` : (expand ? undefined : `min(${widthFakeOptions}, 100%)`),
               }}
               ref={selectLayoutRef}
             >
-              <div className="jk-pg-xsm-l">
-                {optionSelected.inputLabel
-                  ? renderReactNodeOrFunction(optionSelected.inputLabel)
-                  : renderReactNodeOrFunction(optionSelected.label)}
-              </div>
+              {optionSelected.inputLabel
+                ? renderReactNodeOrFunction(optionSelected.inputLabel)
+                : renderReactNodeOrFunction(optionSelected.label)}
               {expandIcon}
             </div>
           )

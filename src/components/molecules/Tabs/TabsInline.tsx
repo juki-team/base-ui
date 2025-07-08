@@ -126,14 +126,14 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
             )))}
           </div>
         )}
-        <div className="jk-row left gap extend" style={{ overflow: 'auto' }} ref={refB}>
+        <div className="jk-row left gap extend nowrap" style={{ overflow: 'auto' }} ref={refB}>
           {oneTabView && (
             withLink(
               tabsArray[selectedTabIndex - 1]?.key,
               <NavigateBeforeIcon
-                className={classNames('br-50-pc', {
-                  'appearance-secondary clickable elevation': (selectedTabIndex - 1 >= 0),
-                  'appearance-gray-5': !(selectedTabIndex - 1 >= 0),
+                className={classNames('br-50-pc bc-pl cr-we cr-pr elevation-1', {
+                  'activated': (selectedTabIndex - 1 >= 0),
+                  'disabled': !(selectedTabIndex - 1 >= 0),
                 })}
                 style={{ padding: 2 }}
                 onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex - 1]?.key)}
@@ -181,9 +181,9 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
             withLink(
               tabsArray[selectedTabIndex + 1]?.key,
               <NavigateNextIcon
-                className={classNames('br-50-pc', {
-                  'appearance-secondary clickable elevation': (selectedTabIndex + 1 < tabsLength),
-                  'appearance-gray-5': !(selectedTabIndex + 1 < tabsLength),
+                className={classNames('br-50-pc bc-pl cr-we cr-pr elevation-1', {
+                  'activated': (selectedTabIndex + 1 < tabsLength),
+                  'disabled': !(selectedTabIndex + 1 < tabsLength),
                 })}
                 style={{ padding: 2 }}
                 onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex + 1]?.key)}

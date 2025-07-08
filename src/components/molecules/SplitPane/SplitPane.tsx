@@ -144,7 +144,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
             })}
           >
             <div
-              className={classNames('notch appearance-primary-light', {
+              className={classNames('notch cr-we bc-pl', {
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
               })}
@@ -187,7 +187,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
             <div className={classNames('extend', { 'jk-row': direction === 'column', 'jk-col': direction === 'row' })}>
               <div
                 className={classNames(
-                  'notch appearance-primary-light toggle-button nowrap',
+                  'notch cr-we bc-pl toggle-button nowrap',
                   { 'jk-row': direction === 'column', 'jk-col': direction === 'row' },
                 )}
                 onClick={() => {
@@ -219,7 +219,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
             })}
           >
             <div
-              className={classNames('notch appearance-primary-light', {
+              className={classNames('notch cr-we bc-pl', {
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
               })}

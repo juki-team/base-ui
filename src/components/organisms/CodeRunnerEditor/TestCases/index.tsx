@@ -197,7 +197,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       <div className="ht-100 jk-col stretch nowrap">
         {loaderAndInfo}
         <div className="jk-pg-xsm ow-ao flex-1">
-          <span className="jk-text-stderr">{test?.err}</span>
+          <span className="jk-text-stderr tx-t bc-er cr-we jk-pg-xsm">{test?.err}</span>
         </div>
       </div>
     ),
