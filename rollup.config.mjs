@@ -14,7 +14,11 @@ import json from '@rollup/plugin-json';
 const plugins = [
   peerDepsExternal(),
   resolve(),
-  commonjs(),
+  commonjs({
+    dynamicRequireTargets: [
+      'node_modules/i18n-iso-countries/langs/*.json'
+    ]
+  }),
   typescript({
     useTsconfigDeclarationDir: true,
     tsconfig: './tsconfig.json',
