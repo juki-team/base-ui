@@ -55,8 +55,8 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
           <CircleFrame
             cx={centerX}
             cy={centerY}
-            sizeBox={widthBox}
-            strokeWidth={scaleLineWidth}
+            sizeBox={widthBox + (filledSquare ? scaleLineWidth * 2 : 0)}
+            strokeWidth={filledCircle ? 0 : scaleLineWidth}
             filled={filledCircle}
           />
         )}
