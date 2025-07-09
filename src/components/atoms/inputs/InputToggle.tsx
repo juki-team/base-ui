@@ -25,7 +25,7 @@ export const InputToggle = (props: InputToggleProps) => {
   };
   
   return (
-    <label className={classNames('jk-input-toggle-wrapper', type, className, size, { disabled: isDisabled })} {...restProps}>
+    <label className={classNames('jk-wrapper-input-toggle', type, className, size, { disabled: isDisabled })} {...restProps}>
       <p onClick={handleClick(false)}>{leftLabel}</p>
       <input
         className="jk-input-toggle" type="checkbox" checked={checked}

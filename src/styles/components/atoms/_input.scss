@@ -428,8 +428,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   .jk-select-option {
     
     &.selected {
-      background-color: var(--t-color-primary);
-      color: var(--t-color-primary-text);
+      background-color: var(--t-color-highlight-light);
     }
     
     &.multiselect {
@@ -504,7 +503,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.jk-input-toggle-wrapper {
+.jk-wrapper-input-toggle {
   --input-toggle-height: calc(var(--pad-m) - 2px);
   --input-toggle-color: var(--t-color-primary);
   --input-toggle-text-color: var(--t-color-primary-text);
@@ -600,15 +599,24 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
 }
 
-.jk-checkbox-list, .jk-select-options, .jk-select-options-virtual {
-  .jk-wrapper-input-checkbox, .jk-select-option:not(.multiselect) {
-    padding: 2px 6px;
-    
-    &:hover:not(.disabled):not(.selected) {
-      background-color: var(--t-color-highlight-light);
-      cursor: pointer;
-    }
+.jk-checkbox-list .jk-wrapper-input-checkbox,
+.jk-select-options .jk-select-option,
+.jk-select-options-virtual .jk-select-option {
+  padding: 0 var(--gap);
+  
+  &:hover:not(.disabled):not(.selected) {
+    background-color: var(--t-color-highlight-light);
+    cursor: pointer;
   }
+  
+  &.selected:hover:not(.disabled) {
+    background-color: var(--t-color-highlight);
+    cursor: pointer;
+  }
+}
+
+.jk-select-options-virtual .jk-select-option {
+  height: 100%;
 }
 
 .jk-select-layout.jk-button {

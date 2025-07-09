@@ -7,6 +7,23 @@ import { PlacementType } from '../Popover/types';
 import { ArrowDropDownIcon, ArrowDropUpIcon, ArrowLeftIcon, ArrowRightIcon } from '../server';
 import { SelectOptionType, SelectProps } from './types';
 
+const expandIcons: { [key in PlacementType]: ReactNode } = {
+  'top-start': <ArrowDropUpIcon className="input-icon" />,
+  top: <ArrowDropUpIcon className="input-icon" />,
+  'top-end': <ArrowDropUpIcon className="input-icon" />,
+  'right-start': <ArrowRightIcon className="input-icon" />,
+  right: <ArrowRightIcon className="input-icon" />,
+  'right-end': <ArrowRightIcon className="input-icon" />,
+  'bottom-end': <ArrowDropDownIcon className="input-icon" />,
+  bottom: <ArrowDropDownIcon className="input-icon" />,
+  'bottom-start': <ArrowDropDownIcon className="input-icon" />,
+  'left-start': <ArrowLeftIcon className="input-icon" />,
+  left: <ArrowLeftIcon className="input-icon" />,
+  'left-end': <ArrowLeftIcon className="input-icon" />,
+  // center: <ArrowDropUpIcon className="input-icon" />,
+  // centerScreen: <ArrowDropUpIcon className="input-icon" />,
+};
+
 export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: SelectProps<T, U, V>) => {
   
   const {
@@ -65,23 +82,6 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   };
   
   const isDisabled = disabled || !onChange;
-  
-  const expandIcons: { [key in PlacementType]: ReactNode } = {
-    'top-start': <ArrowDropUpIcon className="input-icon" />,
-    top: <ArrowDropUpIcon className="input-icon" />,
-    'top-end': <ArrowDropUpIcon className="input-icon" />,
-    'right-start': <ArrowRightIcon className="input-icon" />,
-    right: <ArrowRightIcon className="input-icon" />,
-    'right-end': <ArrowRightIcon className="input-icon" />,
-    'bottom-end': <ArrowDropDownIcon className="input-icon" />,
-    bottom: <ArrowDropDownIcon className="input-icon" />,
-    'bottom-start': <ArrowDropDownIcon className="input-icon" />,
-    'left-start': <ArrowLeftIcon className="input-icon" />,
-    left: <ArrowLeftIcon className="input-icon" />,
-    'left-end': <ArrowLeftIcon className="input-icon" />,
-    // center: <ArrowDropUpIcon className="input-icon" />,
-    // centerScreen: <ArrowDropUpIcon className="input-icon" />,
-  };
   
   const expandIcon = expandIcons[optionsPlacement];
   
@@ -170,6 +170,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
               }}
               ref={selectLayoutRef}
             >
+              <span className="fake-gap" />
               {optionSelected.inputLabel
                 ? renderReactNodeOrFunction(optionSelected.inputLabel)
                 : renderReactNodeOrFunction(optionSelected.label)}

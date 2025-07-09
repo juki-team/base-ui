@@ -11,7 +11,7 @@ export const getContestStatusHeader = (): DataViewerHeadersType<ContestSummaryLi
   Field: ({ record: contest }) => (
     <Field className="jk-row pad">
       <div
-        className={`jk-tag ${contestStateMap[[
+        className={`jk-tag cr-we ${contestStateMap[[
           contest.isPast,
           contest.isLive,
           contest.isFuture,

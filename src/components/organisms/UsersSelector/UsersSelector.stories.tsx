@@ -18,9 +18,16 @@ export const UsersSelector = () => {
           onChangeSelectedUsers={(selectedUsers) => {
             setUsers(selectedUsers);
           }}
-          companyKey="juki-judge-dev"
+          // companyKey="juki-judge-dev"
+          companyKey="juki-app"
         />
       </div>
     </MockupJukiProvider>
   );
+};
+
+UsersSelector.parameters = {
+  msw: {
+    handlers: [],
+  },
 };

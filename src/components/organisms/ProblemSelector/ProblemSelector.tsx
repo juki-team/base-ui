@@ -3,6 +3,7 @@ import {
   ContentsResponseType,
   Judge,
   JudgeDataResponseDTO,
+  PROBLEM_TYPE,
   ProblemBasicSummaryListResponseDTO,
   ProblemSummaryListResponseDTO,
   Status,
@@ -145,12 +146,18 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
                 ).map(problem => (
                   {
                     label: (
-                      <div className="jk-row gap nowrap jk-pg-sm">
-                        <div><span className="fw-br cr-py">{problem.key}</span></div>
+                      <div className="jk-row stretch gap nowrap jk-pg-xsm-tb left ht-100">
+                        <div className="jk-col gap">
+                          <span className="fw-br cr-py">{problem.key}</span>
+                          <span style={{ fontFamily: 'monospace' }} className="tx-t">{problem.shortname}</span>
+                        </div>
                         <div className="jk-col stretch">
-                          {problem.name}
-                          <div className="jk-row left gap">
-                            {problem.tags?.map(tag => <div className="jk-tag bc-g5" key={tag}>{tag}</div>)}
+                          <div className="jk-row gap left">
+                            {problem.name}
+                            <div className="jk-tag bc-il cr-we tx-t">{PROBLEM_TYPE[problem.settings.type].label}</div>
+                          </div>
+                          <div className="jk-row left gap tx-s">
+                            {problem.tags?.map(tag => <div className="jk-tag bc-hl" key={tag}>{tag}</div>)}
                           </div>
                         </div>
                       

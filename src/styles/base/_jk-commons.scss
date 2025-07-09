@@ -203,9 +203,12 @@ span.jk-row, span.jk-col {
 .jk-tag {
   padding: 2px var(--pad-xt);
   border-radius: var(--border-radius-inline);
-  display: inline-block;
   
-  &:not([class^="cr-"]):not([class*=" cr-"]):not([class^="br-"]):not([class*=" br-"]) {
+  &:not(.jk-row):not(.jk-col) {
+    display: inline-block;
+  }
+  
+  &:not([class^="cr-"]):not([class*=" cr-"]):not([class^="bc-"]):not([class*=" bc-"]) {
     color: var(--t-color-primary-text);
     background-color: var(--t-color-primary);
   }
