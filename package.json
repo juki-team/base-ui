@@ -45,7 +45,7 @@
       "sass": "./dist/styles/_mixins.scss"
     },
     "./styles.css": {
-      "default": "./dist/styles/base/index.css"
+      "default": "./dist/styles/index.css"
     },
     "./assets/*": "./dist/assets/*"
   },
