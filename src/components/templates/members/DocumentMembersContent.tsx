@@ -45,8 +45,8 @@ export const DocumentMembersContent = ({ members, setMembers, documentOwner }: D
       </div>
       {(members.access === EntityAccess.RESTRICTED || members.access === EntityAccess.PUBLIC) && (
         <>
-          <div className="jk-col stretch extend">
-            <T className="fw-bd tt-se">People with access</T>
+          <div className="jk-col stretch extend gap">
+            <T className="fw-bd tt-se">people with access</T>
             <div className="jk-row gap space-between extend hover-highlight gap-full-borders jk-br-ie">
               <UserChip
                 imageUrl={documentOwner.imageUrl}
