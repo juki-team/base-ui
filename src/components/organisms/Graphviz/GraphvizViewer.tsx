@@ -11,7 +11,7 @@ export const GraphvizViewer = memo(({ value, className, width, height }: Graphvi
   return (
     <div className={classNames('jk-graphviz-viewer-container', className)}>
       {error
-        ? <div className="bc-eras jk-tag error">{error}</div>
+        ? <div className="jk-tag bc-er">{error}</div>
         : <Graphviz dot={dot} className="jk-graphviz-viewer" options={{ width, height }} />}
     </div>
   );

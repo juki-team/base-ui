@@ -26,7 +26,7 @@ export const ProblemSummary = ({ problemJudge, problemKey }: { problemJudge: Jud
           return (
             <div className="jk-col">
               <div className="fw-bd">{data.content.name}</div>
-              <div className="jk-tag info">{data.content.judge.key}</div>
+              <div className="jk-tag bc-io">{data.content.judge.key}</div>
               <div><T className="tt-se fw-bd">type</T>: {PROBLEM_TYPE[data.content.settings.type].label}</div>
               <div><T className="tt-se fw-bd">scoring mode</T>: {PROBLEM_MODE[data.content.settings.scoringMode].label}
               </div>

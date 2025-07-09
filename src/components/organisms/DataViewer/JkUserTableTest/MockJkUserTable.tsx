@@ -169,7 +169,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
             // showPopperArrow
             content={<div>The content</div>}
           >
-            <div className="gray-4 jk-tag">{status}</div>
+            <div className="jk-tag bc-g4">{status}</div>
           </Popover>
           <div
             className="Row"

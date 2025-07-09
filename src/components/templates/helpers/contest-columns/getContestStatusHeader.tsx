@@ -16,7 +16,7 @@ export const getContestStatusHeader = (): DataViewerHeadersType<ContestSummaryLi
           contest.isLive,
           contest.isFuture,
           contest.isEndless,
-        ].toString()]?.color}`}
+        ].toString()]?.bc}`}
       >
         <T className="tt-ue tx-s">{contestStateMap[[
           contest.isPast,

@@ -116,7 +116,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
         ref={refLeftSection}
       >
         {readOnly ? (
-          <div className="jk-tag info">
+          <div className="jk-tag bc-io">
             {(languages.find(lang => lang.value === language)?.label || language) + ''}
           </div>
         ) : (

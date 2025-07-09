@@ -35,7 +35,7 @@ export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
           <div className="fw-bd">{deviceName}</div>
           <div>{osName}</div>
           <DateLiteral date={new Date(updateTimestamp)} />
-          {userSessionId === id && <div className="jk-tag info"><T className="tt-se">this device</T></div>}
+          {userSessionId === id && <div className="jk-tag bc-io"><T className="tt-se">this device</T></div>}
         </Field>
       ),
       cardPosition: 'top',

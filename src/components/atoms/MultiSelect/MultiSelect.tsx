@@ -110,7 +110,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
         >
           <div className="jk-row left jk-multi-select-selected-options">
             {optionsSelected.map(optionSelected => (
-              <div className="jk-tag gray-6 jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
+              <div className="jk-tag bc-g6 jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
                 {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(
                   optionSelected.label)}
                 {!isDisabled && (

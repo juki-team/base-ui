@@ -85,7 +85,7 @@ const ExtraProblemInfo = ({ tags, author, centered, withoutPadding }: JukiProble
         <ContentInfo
           label="tags"
           value={Children.toArray(tags.filter(tag => !!tag.trim()).map(tag => (
-            <Fragment key={tag}><span className="jk-tag gray-6"><T>{tag}</T></span>&nbsp;</Fragment>
+            <Fragment key={tag}><span className="jk-tag bc-g6"><T>{tag}</T></span>&nbsp;</Fragment>
           )))}
           valueAsList
           centered={centered}

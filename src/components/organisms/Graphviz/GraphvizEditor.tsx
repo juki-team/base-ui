@@ -19,7 +19,7 @@ export const GraphvizEditor = ({ value, onSave }: GraphvizEditorProps) => {
       <SplitPane style={{ height: `calc(${24 * (value?.split('\n').length || 1)}px + var(--pad-sm) * 3 + 24px + 8px)` }}>
         <div className="jk-col jk-pg-xsm ht-100">
           {!!error
-            ? <Popover content={<div className="bc-eras jk-tag error" style={{ maxWidth: 128 }}>{error}</div>}>
+            ? <Popover content={<div className="jk-tag bc-er" style={{ maxWidth: 128 }}>{error}</div>}>
               <div className="jk-row">
                 <ErrorIcon className="cr-er" />
               </div>

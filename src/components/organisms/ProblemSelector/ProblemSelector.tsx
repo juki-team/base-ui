@@ -150,7 +150,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
                         <div className="jk-col stretch">
                           {problem.name}
                           <div className="jk-row left gap">
-                            {problem.tags?.map(tag => <div className="jk-tag gray-5" key={tag}>{tag}</div>)}
+                            {problem.tags?.map(tag => <div className="jk-tag bc-g5" key={tag}>{tag}</div>)}
                           </div>
                         </div>
                       
@@ -159,7 +159,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
                     inputLabel: (
                       <div>
                         {problem.key} {problem.name} {problem.tags?.map(tag => <div
-                        className="jk-tag gray-6"
+                        className="jk-tag bc-g6"
                         key={tag}
                       >{tag}</div>)}
                       </div>

@@ -138,11 +138,11 @@ export const QuizProblemSheetSectionView = ({
       {modal}
       {isSolvable && sheet.points && (
         result?.points ? (
-          <div className="jk-tag success sheet-points">
+          <div className="jk-tag bc-ss sheet-points">
             +{result?.points} <T>{result?.points ? 'points' : 'point'}</T>{points}
           </div>
         ) : (
-          <div className="jk-tag warning sheet-points">{0} <T>points</T>{points}</div>
+          <div className="jk-tag bc-wg sheet-points">{0} <T>points</T>{points}</div>
         )
       )}
       <MdMathViewer source={sheet.title} />
@@ -155,9 +155,9 @@ export const QuizProblemSheetSectionView = ({
         {showingResults && (
           <div className="jk-row gap left">
             {!result?.sourceCode?.[languageEditor] && (
-              <div className="jk-tag error tx-s"><T className="tt-se">no source code</T></div>
+              <div className="jk-tag bc-er tx-s"><T className="tt-se">no source code</T></div>
             )}
-            {!result?.testCases && <div className="jk-tag error tx-s"><T className="tt-se">no test cases</T></div>}
+            {!result?.testCases && <div className="jk-tag bc-er tx-s"><T className="tt-se">no test cases</T></div>}
           </div>
         )}
         <div

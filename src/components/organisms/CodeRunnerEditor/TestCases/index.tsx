@@ -361,7 +361,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       </div>
       {!enableAddSampleCases && test?.hidden ? (
         <div className="jk-row center ht-100 flex-1">
-          <T className="tt-se jk-tag info-light">test input hidden</T>
+          <T className="tt-se jk-tag bc-il">test input hidden</T>
         </div>
       ) : (
         <SplitPane direction={direction === 'row' ? 'column' : 'row'} className="flex-1 ow-hn">

@@ -28,7 +28,7 @@ export const SubmissionNicknameField = ({
             <div className="jk-col">
               <div className="link">{nickname}</div>
               {key !== companyKey && (
-                <div className="jk-tag info tx-t" style={{ padding: '1px 2px' }}>{companyKey}</div>
+                <div className="jk-tag bc-io tx-t" style={{ padding: '1px 2px' }}>{companyKey}</div>
               )}
             </div>
           </UserNicknameLink>

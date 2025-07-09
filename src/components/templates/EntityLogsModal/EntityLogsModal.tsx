@@ -33,8 +33,8 @@ export const EntityLogsModal = ({ url, ...restProps }: EntityLogsModalProps) => 
                         >
                           {type === 'ADD' ? '+' : type === 'REMOVE' ? '-' : '*'}
                         </div>
-                        <div className="tx-t jk-tag gray-6">{valueType}</div>
-                        <div className="tx-t jk-tag info">{path}</div>
+                        <div className="tx-t jk-tag bc-g6">{valueType}</div>
+                        <div className="tx-t jk-tag bc-io">{path}</div>
                         <div className="jk-row gap nowrap">
                           <div className="tx-t">
                             {isObjectJson(oldValue) ? JSON.stringify(oldValue) : ''}

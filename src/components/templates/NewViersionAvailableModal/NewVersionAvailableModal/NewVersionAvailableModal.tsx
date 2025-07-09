@@ -29,9 +29,9 @@ export const NewVersionAvailableModal = (props: NewVersionAvailableModalProps) =
         </div>
         <div>
           <T className="tt-se">your UI version is</T>&nbsp;
-          <span className="jk-tag gray-6">{previousVersion}</span>&nbsp;
+          <span className="jk-tag bc-g6">{previousVersion}</span>&nbsp;
           <T>and the new UI version available is</T>&nbsp;
-          <span className="jk-tag gray-6">{newVersion}</span>.
+          <span className="jk-tag bc-g6">{newVersion}</span>.
         </div>
         <div>
           <T className="tt-se">

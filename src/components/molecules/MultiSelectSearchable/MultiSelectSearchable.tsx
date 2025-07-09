@@ -146,7 +146,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
           <div className="jk-row left jk-multi-select-selected-options">
             {selectedOptions.map(optionSelected => (
               <div
-                className={classNames('jk-row nowrap', { 'jk-tag gray-6': multiselect })}
+                className={classNames('jk-row nowrap', { 'jk-tag bc-g6': multiselect })}
                 key={JSON.stringify(optionSelected.value)}
               >
                 {optionSelected?.inputLabel
