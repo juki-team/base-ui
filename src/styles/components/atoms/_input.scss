@@ -418,12 +418,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-select-options, .jk-select-options-virtual {
   max-width: calc(100vw - var(--pad-m));
-  position: relative;
-  //background-color: var(--t-color-white);
-  width: 100%;
-  overflow: auto;
-  box-sizing: border-box;
-  display: block;
   
   .jk-select-option {
     

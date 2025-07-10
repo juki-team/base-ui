@@ -34,7 +34,7 @@ const Cmp = (args: SelectProps<any, any, any>) => {
   
   return (
     <MockupJukiProvider>
-      <div className="jk-pg-lg jk-col gap">
+      <div className="jk-pg-lg jk-col gap stretch">
         test:
         <Select
           {...args}
@@ -42,6 +42,14 @@ const Cmp = (args: SelectProps<any, any, any>) => {
           selectedOption={value}
           onChange={setValue}
         />
+        <div className="jk-row">
+          <Select
+            {...args}
+            options={options}
+            selectedOption={value}
+            onChange={setValue}
+          />
+        </div>
         as button:
         <Select
           {...args}

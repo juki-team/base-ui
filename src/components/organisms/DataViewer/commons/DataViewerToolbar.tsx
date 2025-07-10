@@ -10,6 +10,7 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
+import { SCROLL_WIDTH } from '../../../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useSessionStorage } from '../../../../hooks/useSessionStorage';
@@ -88,6 +89,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     showFilterDrawerKey,
     filterKey,
     filters,
+    withVerticalScroll,
   } = props;
   
   const { filtered, values } = isSomethingFiltered(headers);
@@ -159,9 +161,11 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   return (
     <div
       className={classNames(
-        'jk-data-viewer-toolbar jk-row space-between nowrap',
+        'jk-data-viewer-toolbar pn-re jk-row space-between nowrap bc-wdt jk-br-ie jk-pg-xsm-rl',
         viewMode.toLowerCase(),
+        // { 'with-vertical-scroll': withVerticalScroll },
       )}
+      style={withVerticalScroll && viewMode === DataViewMode.ROWS ? { marginRight: SCROLL_WIDTH } : {}}
     >
       <FilterDrawer
         isOpen={showFilterDrawer === 'open'}
@@ -175,7 +179,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
         {extraNodes.map(renderReactNodeOrFunction)}
       </div>
       <div
-        className={classNames('jk-table-view-tools jk-br-ie bc-hl', {
+        className={classNames('jk-table-view-tools jk-br-ie bc-hl-none', {
           'jk-row nowrap': onColumn,
           'jk-col stretch': !onColumn,
           gap: onColumn || isMobileViewPort,

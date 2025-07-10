@@ -28,7 +28,7 @@ export const CustomCodeBlockLowlight = CodeBlockLowlight.extend({
       floatTopRight.style.cssText = '';
       
       const langTag = document.createElement('div');
-      langTag.className = 'tx-t jk-tag bc-pl jk-pg-xsm';
+      langTag.className = 'tx-t jk-tag bc-pl cr-we jk-pg-xsm';
       langTag.textContent = (node.attrs.language || CODE_LANGUAGE[CodeLanguage.TEXT].highlightJsKey).toUpperCase();
       floatTopRight.appendChild(langTag);
       const copyButton = document.createElement('div');

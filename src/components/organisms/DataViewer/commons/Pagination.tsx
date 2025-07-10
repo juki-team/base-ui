@@ -100,16 +100,18 @@ export const Pagination = (props: PaginationProps) => {
               </div>
             </div>
             {pageSizeOptions.length > 1 && (
-              <Select
-                options={pageSizeOptions.map(option => ({
-                  value: option,
-                  label: <>{option}&nbsp;<T>per page</T></>,
-                }))}
-                selectedOption={{ value: pageSize }}
-                onChange={initializing ? undefined : ({ value }) => onPageSizeChange(value)}
-                optionsPlacement="bottom"
-                className="bc-we jk-br-ie"
-              />
+              <div className="jk-row">
+                <Select
+                  options={pageSizeOptions.map(option => ({
+                    value: option,
+                    label: <>{option}&nbsp;<T>per page</T></>,
+                  }))}
+                  selectedOption={{ value: pageSize }}
+                  onChange={initializing ? undefined : ({ value }) => onPageSizeChange(value)}
+                  optionsPlacement="bottom"
+                  className="bc-we jk-br-ie"
+                />
+              </div>
             )}
           </div>
         ) : (

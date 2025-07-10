@@ -87,7 +87,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
               <div
                 className={classNames('tool jk-row jk-br-ie', {
                   'cr-we bc-pl active': !!order,
-                  'cr-hd bc-hl': !order,
+                  'cr-hd': !order,
                 })}
                 onClick={() => onSort({ columnIndex })}
               >
@@ -121,7 +121,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
 
 const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
   
-  const { headers, setHeaders, loading, gap, headerRef, topHeaders, rightBorders } = props;
+  const { headers, setHeaders, loading, gap, headerRef, topHeaders, rightBorders, hasScrollTop } = props;
   
   const [ dragging, setDragging ] = useState(-1);
   
@@ -181,7 +181,7 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
     >
       {displayTopHeader && (
         <div
-          className="jk-table-head"
+          className={classNames('jk-table-head', { 'elevation-1': hasScrollTop })}
           style={{ width: headersWidth }}
         >
           {Children.toArray(
@@ -205,7 +205,7 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
         </div>
       )}
       <div
-        className="jk-table-head"
+        className={classNames('jk-table-head jk-br-ie', { 'elevation-1': hasScrollTop })}
         onMouseLeave={onMouseHoldUp}
         style={{ width: headersWidth }}
       >

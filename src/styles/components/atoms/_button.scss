@@ -12,6 +12,35 @@
   }
 }
 
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.1s ease;
+}
+
+@keyframes clickShrink {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.shrink-click {
+  animation: clickShrink 0.1s ease;
+}
+
 .jk-button {
   //--button-border-color: transparent;
   --button-padding: var(--pad-xs); // 16px
@@ -24,37 +53,27 @@
   align-items: center;
   justify-content: center;
   border: none;
-  //outline: var(--button-border-width, 0) solid var(--button-border-color);
-  outline: var(--button-border-width, 0) solid transparent;
+  outline: 0 solid var(--button-background-color);
   outline-offset: -1px;
-  //cursor: initial;
   cursor: pointer;
   overflow: hidden;
-  //padding: calc(var(--gap) - 2px) var(--button-border-padding);
-  //padding: calc(var(--pad-sm) / 2) var(--button-border-padding);
   padding: calc(var(--pad-sm) / 2) var(--pad-sm);
   opacity: 1;
   line-height: calc(var(--line-height) - 4px);
   --size-button-loader-icon: var(--line-height);
-  @include mixins.transition(opacity, padding, outline-color);
+  @include mixins.transition-fast(opacity, padding, outline-color, outline-width);
   
   .jk-icon {
     --size-icon: calc(var(--line-height) - 4px);
   }
   
   &:not(.void):not([class*=" bc-"]):not([class^="bc-"]) {
-    //text-transform: uppercase;
-    //font-weight: var(--weight-bold);
     background-color: var(--button-background-color, var(--t-color-primary));
   }
   
-  &:not(.disabled) {
-    //cursor: pointer;
-    
-    //&:hover {
-    //  --button-border-color: var(--button-background-color);
-    //  --button-border-width: 3px;
-    //}
+  &:not(.disabled):hover {
+    --button-border-width: 3px;
+    outline: var(--button-border-width, 0) solid var(--button-background-color);
   }
   
   &.tiny {
@@ -87,23 +106,8 @@
     --button-padding: var(--pad-m); // 24px
   }
   
-  &.jk-button-loader {
-    
-    //.button-loader-icon {
-    //  overflow: hidden;
-    //  @include mixins.transition(width, min-width, height, min-height, margin-left);
-    //
-    //  .jk-icon {
-    //    width: inherit;
-    //    min-width: inherit;
-    //    height: inherit;
-    //    min-height: inherit;
-    //  }
-    //}
-    
-    &.with-loader-icon:not(.only-icon) .button-loader-icon {
-      margin-left: var(--gap);
-    }
+  &.jk-button-loader.with-loader-icon:not(.only-icon) {
+    margin-left: var(--gap);
   }
   
   &:not(.jk-button-loader) {
@@ -169,7 +173,7 @@
 
 .jk-button.light {
   --button-background-color: var(--t-color-highlight-light);
-  --button-border-width: 2px !important;
+  --button-border-width: 2px;
   outline-offset: 0 !important;
   color: inherit;
 }

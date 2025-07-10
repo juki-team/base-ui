@@ -50,8 +50,8 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     },
     targetRef: selectLayoutRef,
   });
-  const { width: _widthFakeOptions = 0, ref: fakeOptionsRef } = useResizeDetector();
-  const widthFakeOptions = _widthFakeOptions + 8;
+  const { width: widthFakeOptions = 0, ref: fakeOptionsRef } = useResizeDetector();
+  const optimeWidth = `(var(--gap) * 2 + ${widthFakeOptions}px + var(--size-regular-icon))`;
   const [ isOpen, setIsOpen ] = useState(false);
   
   const selectedOptionRef = useRef<HTMLDivElement>(null);
@@ -96,8 +96,8 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
       content={
         <div
           ref={optionRef}
-          className={classNames('jk-select-options', { disabled: isDisabled })}
-          style={{ width: _containerWidth ?? Math.max(widthSelect, widthFakeOptions) }}
+          className={classNames('jk-select-options jk-col stretch nowrap wh-100 pn-re ow-ao', { disabled: isDisabled })}
+          style={{ width: _containerWidth ?? `max(${widthSelect}px, ${optimeWidth}` }}
         >
           {options.map((option) => (
             <div
@@ -130,12 +130,16 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
           optionsPlacement,
           { open: isOpen, disabled: isDisabled },
         )}
-        style={{ width: expand ? '100%' : undefined }}
+        style={{
+          background: 'red',
+          width: _containerWidth ? `min(${_containerWidth}px, 100%)` : (expand ? '100%' : `min(${optimeWidth}, 100%)`),
+          minWidth: _containerWidth ? `min(${_containerWidth}px, 100%)` : (expand ? undefined : `min(${optimeWidth}, 100%)`),
+        }}
         onClick={() => setIsOpen(!isOpen)}
       >
         <div
           ref={fakeOptionsRef}
-          className="jk-select-options jk-border-radius-inline"
+          className="jk-select-options jk-col stretch nowrap wh-100 pn-re ow-ao"
           style={{
             position: 'fixed',
             width: 'auto',
@@ -164,10 +168,6 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
           : (
             <div
               className={classNames({ open: isOpen }, 'jk-input-select space-between jk-border-radius-inline jk-row gap nowrap')}
-              style={{
-                width: _containerWidth ? `min(${_containerWidth}, 100%)` : (expand ? '100%' : undefined),
-                minWidth: _containerWidth ? `min(${_containerWidth}, 100%)` : (expand ? undefined : `min(${widthFakeOptions}, 100%)`),
-              }}
               ref={selectLayoutRef}
             >
               <span className="fake-gap" />

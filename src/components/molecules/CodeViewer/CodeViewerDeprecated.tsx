@@ -47,7 +47,7 @@ export const CodeViewerDeprecated = (props: CodeViewerDeprecatedProps) => {
       </pre>
       <div className="float-top-right pad-xt jk-row gap" style={{ zIndex: 'unset' }}>
         {withLanguageLabel && !!CODE_LANGUAGE[language]?.label && (
-          <div className="tx-t jk-tag bc-pl jk-pg-xsm">{CODE_LANGUAGE[language]?.label}</div>
+          <div className="tx-t jk-tag bc-pl cr-we jk-pg-xsm">{CODE_LANGUAGE[language]?.label}</div>
         )}
         {withCopyButton && (
           <CopyToClipboard text={code} size="small" />

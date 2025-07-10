@@ -1,5 +1,5 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import React, { Children, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { Children, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../../helpers';
 import { DataViewerTableHeadersType, RowVirtualizerFixedProps } from '../types';
@@ -21,26 +21,17 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     loading,
     setHeaders,
     groups,
+    setWithVerticalScroll,
   } = props;
   
   const parentRef = useRef<HTMLDivElement>(null);
-  
-  const [ borderRight, setBorderRight ] = useState(false);
-  const [ borderLeft, setBorderLeft ] = useState(false);
-  const [ borderBottom, setBorderBottom ] = useState(false);
-  const [ borderTop, setBorderTop ] = useState(false);
   const { height: headerHeight = 0, ref: headerRef } = useResizeDetector();
-  
-  const headersStickyWidth = headers.reduce((sum, head) => sum + (head.sticky && head.visible ? head.width : 0), 0);
-  const headersWidth = headers.reduce((sum, head) => sum + (head.visible ? head.width : 0), 0);
-  const getItemKey = getRecordKey ? (index: number) => getRecordKey({ data, index }) : undefined;
-  
   const rowVirtualizer = useVirtualizer({
     count: data.length,
     estimateSize: useCallback(() => rowHeight + gap * 2, [ rowHeight, gap ]),
     overscan: 10,
     getScrollElement: () => parentRef.current,
-    getItemKey,
+    getItemKey: getRecordKey ? (index: number) => getRecordKey({ data, index }) : undefined,
   });
   const onRecordRenderRef = useRef(onRecordRender);
   onRecordRenderRef.current = onRecordRender;
@@ -50,71 +41,61 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     ));
   }, [ data, rowVirtualizer ]);
   
-  const getRowClassName = (index: number) => getRecordClassName?.({
-    data,
-    index,
-    isCard: false,
-    isStickySection: true,
-  }) || '';
+  const totalSize = rowVirtualizer.getTotalSize();
+  const scrollEl = rowVirtualizer.scrollElement;
+  const scrollOffset = rowVirtualizer.scrollOffset ?? 0;
   
-  const getRowStyle = (index: number) => getRecordStyle?.({
-    data,
-    index,
-    isCard: false,
-    isStickySection: false,
-  }) || {};
+  const hasScrollTop = scrollOffset > 0;
+  const hasScrollBottom = scrollEl
+    ? scrollOffset + scrollEl.clientHeight < (totalSize + headerHeight + gap /*border bottom header*/)
+    : false;
+  const hasScrollLeft = scrollEl ? scrollEl.scrollLeft > 0 : false;
+  const hasScrollRight = scrollEl
+    ? scrollEl.scrollWidth - scrollEl.clientWidth - scrollEl.scrollLeft > 1
+    : false;
   
-  const topHeaders: DataViewerTableHeadersType<T>[] = [];
-  const rightBorders: number[] = [];
-  let index = 0;
-  for (const header of headers) {
-    if (header.visible) {
-      const group = groups.find(group => group.key === header.group);
-      if (group) {
-        if (topHeaders[topHeaders.length - 1]?.group === group.key) {
-          topHeaders[topHeaders.length - 1].width += header.width;
-          topHeaders[topHeaders.length - 1].sticky &&= header.sticky;
-        } else {
-          if (!rightBorders.length || topHeaders[topHeaders.length - 1]?.head === '') {
-            rightBorders.push(index - 1);
+  const virtualItems = rowVirtualizer.getVirtualItems();
+  const withVerticalScroll = hasScrollTop || hasScrollBottom;
+  
+  useEffect(() => {
+    setWithVerticalScroll(withVerticalScroll);
+  }, [ withVerticalScroll ]);
+  
+  const { topHeaders, rightBorders, headersWidth, headersStickyWidth } = useMemo(() => {
+    const topHeaders: DataViewerTableHeadersType<T>[] = [];
+    const rightBorders: number[] = [];
+    let index = 0;
+    for (const header of headers) {
+      if (header.visible) {
+        const group = groups.find(group => group.key === header.group);
+        if (group) {
+          if (topHeaders[topHeaders.length - 1]?.group === group.key) {
+            topHeaders[topHeaders.length - 1].width += header.width;
+            topHeaders[topHeaders.length - 1].sticky &&= header.sticky;
+          } else {
+            if (!rightBorders.length || topHeaders[topHeaders.length - 1]?.head === '') {
+              rightBorders.push(index - 1);
+            }
+            rightBorders.push(index);
+            topHeaders.push({ ...header });
           }
-          rightBorders.push(index);
-          topHeaders.push({ ...header });
+          rightBorders[rightBorders.length - 1] = index;
+          topHeaders[topHeaders.length - 1].head = group.label;
+        } else {
+          topHeaders.push({ ...header, head: '' });
         }
-        rightBorders[rightBorders.length - 1] = index;
-        topHeaders[topHeaders.length - 1].head = group.label;
-      } else {
-        topHeaders.push({ ...header, head: '' });
+        index++;
       }
-      index++;
     }
-  }
+    
+    const headersStickyWidth = headers.reduce((sum, head) => sum + (head.sticky && head.visible ? head.width : 0), 0);
+    const headersWidth = headers.reduce((sum, head) => sum + (head.visible ? head.width : 0), 0);
+    
+    return { topHeaders, rightBorders, headersWidth, headersStickyWidth };
+  }, [ headers, groups ]);
   
   return (
-    <div
-      ref={parentRef}
-      style={{ height: '100%', overflow: 'auto' }}
-      className={classNames('jk-table-rows-container')}
-      onScroll={({ currentTarget }: SyntheticEvent<HTMLDivElement>) => {
-        const scrollLeft = currentTarget.scrollLeft || 0;
-        const scrollTop = currentTarget.scrollTop || 0;
-        const scrollRight = !!(currentTarget.scrollWidth - currentTarget.clientWidth - scrollLeft);
-        const scrollBottom = !!(currentTarget.scrollHeight - currentTarget.clientHeight - scrollTop);
-        if (scrollRight !== borderRight) {
-          setBorderRight(scrollRight);
-        }
-        if (scrollBottom !== borderBottom) {
-          setBorderBottom(scrollBottom);
-        }
-        if (!!scrollTop !== borderTop) {
-          setBorderTop(!!scrollTop);
-        }
-        if (!!scrollLeft !== borderLeft) {
-          setBorderLeft(!!scrollLeft);
-        }
-        // setScrollLeft(scrollLeft);
-      }}
-    >
+    <div ref={parentRef} style={{ height: '100%', overflow: 'auto' }} className={classNames('jk-table-rows-container')}>
       <TableHead
         headers={headers}
         setHeaders={setHeaders}
@@ -123,20 +104,22 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
         headerRef={headerRef}
         topHeaders={topHeaders}
         rightBorders={rightBorders}
+        hasScrollTop={hasScrollTop}
       />
-      {borderTop && (
-        <div
-          className="expand-absolute"
-          style={{
-            height: headerHeight,
-            zIndex: 3,
-            width: 'calc(100% - 8px)',
-            background: 'transparent',
-            boxShadow: '0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight)',
-          }}
-        />
-      )}
-      {borderLeft && (
+      {/*{hasScrollTop && (*/}
+      {/*  <div*/}
+      {/*    className="expand-absolute jk-br-ie-none"*/}
+      {/*    style={{*/}
+      {/*      height: headerHeight,*/}
+      {/*      zIndex: 3,*/}
+      {/*      // width: 'calc(100% - 8px)',*/}
+      {/*      widows: '100%',*/}
+      {/*      background: 'transparent',*/}
+      {/*      boxShadow: '0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight)',*/}
+      {/*    }}*/}
+      {/*  />*/}
+      {/*)}*/}
+      {hasScrollLeft && (
         <div
           className="expand-absolute"
           style={{
@@ -147,20 +130,20 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
           }}
         />
       )}
-      {borderRight && (
+      {hasScrollRight && (
         <div
           className="expand-absolute"
           style={{
-            width: 1,
+            width: withVerticalScroll ? 16 : 2,
             left: 'unset',
-            right: -1,
+            right: withVerticalScroll ? -8 : -1,
             zIndex: 3,
             background: 'transparent',
             boxShadow: '0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight)',
           }}
         />
       )}
-      {borderBottom && (
+      {hasScrollBottom && (
         <div
           className="expand-absolute"
           style={{
@@ -173,10 +156,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
           }}
         />
       )}
-      <div
-        className={classNames('jk-table-rows-box')}
-        style={{ height: `${rowVirtualizer.getTotalSize()}px` /* ...style*/ }}
-      >
+      <div className="jk-table-rows-box" style={{ height: totalSize }}>
         {!data.length && (
           <div
             style={{
@@ -187,7 +167,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
               height: `${1}px`,
               transform: `translateY(${0}px)`,
             }}
-            className={classNames('jk-table-row')}
+            className="jk-table-row"
           >
             {Children.toArray(
               headers
@@ -211,11 +191,11 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
           start: null,
         })) : rowVirtualizer.getVirtualItems())
         */}
-        {rowVirtualizer.getVirtualItems().map(virtualRow => (
+        {virtualItems.map(virtualRow => (
           <div
             key={virtualRow.key}
             style={{
-              ...getRowStyle(virtualRow.index),
+              ...(getRecordStyle?.({ data, index: virtualRow.index, isCard: false, isStickySection: false }) || {}),
               position: virtualRow.start !== null ? 'absolute' : undefined,
               top: 0,
               left: 0,
@@ -223,31 +203,33 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
               height: `${virtualRow.size - gap * 2}px`,
               transform: virtualRow.start !== null ? `translateY(${virtualRow.start + gap}px)` : undefined,
             }}
-            className={classNames('jk-table-row', getRowClassName(virtualRow.index))}
+            className={classNames(
+              'jk-table-row',
+              getRecordClassName?.({ data, index: virtualRow.index, isCard: false, isStickySection: true }) || '',
+            )}
             onClick={() => onRecordClick?.({ data, index: virtualRow.index, isCard: false })}
             onMouseEnter={() => onRecordHover?.({ data, index: virtualRow.index, isCard: false })}
           >
-            {Children.toArray(
-              headers
-                .filter(({ visible }) => visible)
-                .map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
-                  <div
-                    key={virtualRow.key + '_' + columnIndex}
-                    style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
-                    className={classNames({
-                      sticky: !!sticky,
-                      'with-right-border': rightBorders.includes(index),
-                    }, 'jk-table-row-field bc-we')}
-                    data-testid={virtualRow.key + '_' + columnIndex}
-                  >
-                    <Field
-                      record={data[virtualRow.index]}
-                      columnIndex={columnIndex}
-                      recordIndex={virtualRow.index}
-                      isCard={false}
-                    />
-                  </div>
-                )),
+            {Children.toArray(headers
+              .filter(({ visible }) => visible)
+              .map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
+                <div
+                  key={virtualRow.key + '_' + columnIndex}
+                  style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
+                  className={classNames({
+                    sticky: !!sticky,
+                    'with-right-border': rightBorders.includes(index),
+                  }, 'jk-table-row-field bc-we')}
+                  data-testid={virtualRow.key + '_' + columnIndex}
+                >
+                  <Field
+                    record={data[virtualRow.index]}
+                    columnIndex={columnIndex}
+                    recordIndex={virtualRow.index}
+                    isCard={false}
+                  />
+                </div>
+              )),
             )}
           </div>
         ))}

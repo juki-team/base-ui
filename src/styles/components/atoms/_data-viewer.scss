@@ -43,15 +43,23 @@
 }
 
 .jk-data-viewer-toolbar {
-  position: relative;
-  box-sizing: border-box;
+  
+  &.with-vertical-scroll {
+    margin-right: 8px;
+  }
+  
+  &.rows {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom: 1px solid var(--t-color-highlight-light)
+  }
   
   &.cards {
     z-index: 1;
   }
   
   .jk-table-view-tools {
-    padding: calc(var(--gap) / 2);
+    //padding: calc(var(--gap) / 2);
     
     .jk-divider {
       margin: 0;
@@ -105,6 +113,11 @@
   &.rows {
     .layout-line-loader {
       position: relative;
+    }
+    
+    .jk-table-row-head {
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important;
     }
   }
   
@@ -410,7 +423,7 @@
     cursor: pointer;
     
     &:hover {
-      background-color: var(--t-color-highlight);
+      background-color: var(--t-color-highlight-light);
     }
     
     &.active {

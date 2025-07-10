@@ -107,7 +107,7 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
       <div
         className={classNames('tool jk-row jk-br-ie', {
           'cr-we bc-pl active': filtered,
-          'cr-hd bc-hl': !filtered,
+          'cr-hd': !filtered,
           visible,
           // disabled,
         })}

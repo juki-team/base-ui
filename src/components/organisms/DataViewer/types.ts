@@ -55,6 +55,7 @@ export interface RowVirtualizerFixedProps<T> {
   loading: boolean,
   setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   groups: DataViewerGroupsType<T>[],
+  setWithVerticalScroll: Dispatch<SetStateAction<boolean>>,
 }
 
 export type FilterTextOnlineType = { type: typeof FILTER_TEXT };
@@ -359,6 +360,7 @@ export interface TableHeadProps<T> {
   headerRef: UseResizeDetectorReturn<any>['ref'],
   topHeaders: DataViewerTableHeadersType<T>[],
   rightBorders: number[],
+  hasScrollTop: boolean,
 }
 
 export interface FilterDrawerProps<T> {
@@ -411,6 +413,7 @@ export interface DataViewerToolbarProps<T> {
   showFilterDrawerKey: string,
   filterKey: string,
   filters: RequestFilterType,
+  withVerticalScroll: boolean,
 }
 
 export interface PaginationProps {

@@ -1,18 +1,17 @@
-import { motion } from 'motion/react';
 import React, { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
-import { ButtonCmpProps, Duration } from '../../../types';
+import { ButtonCmpProps } from '../../../types';
 
-const buttonsVariants = (isDisabled: boolean, hasChildren: boolean) => ({
-  whileHover: isDisabled ? {} : { scale: hasChildren ? 1.2 : 1.10, transition: { duration: Duration.FAST } },
-  whileTap: isDisabled ? {
-    x: [ '-1rem', '1rem', 0 ],
-    transitionEnd: { x: 0 },
-    transition: { duration: Duration.FAST },
-  } : { scale: 0.9, transition: { duration: Duration.FAST } },
-});
+// const buttonsVariants = (isDisabled: boolean, hasChildren: boolean) => ({
+//   whileHover: isDisabled ? {} : { scale: hasChildren ? 1.2 : 1.10, transition: { duration: Duration.FAST } },
+//   whileTap: isDisabled ? {
+//     x: [ '-1rem', '1rem', 0 ],
+//     transitionEnd: { x: 0 },
+//     transition: { duration: Duration.FAST },
+//   } : { scale: 0.9, transition: { duration: Duration.FAST } },
+// });
 
 const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => {
   
@@ -39,13 +38,13 @@ const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => 
   const hasChildren = !!children && (responsiveMobile ? viewPortSize !== 'sm' : true);
   
   return (
-    <motion.button
+    <button
       data-tooltip-id={!!tooltipContent ? 'jk-tooltip' : ''}
       data-tooltip-content={tooltipContent}
       ref={ref}
-      variants={buttonsVariants(disabled, hasChildren)}
-      whileHover="whileHover"
-      whileTap="whileTap"
+      // variants={buttonsVariants(disabled, hasChildren)}
+      // whileHover="whileHover"
+      // whileTap="whileTap"
       type={submit ? 'submit' : 'button'}
       className={classNames(className, `jk-button ${type} jk-border-radius-inline`, size, {
         expand,
@@ -53,14 +52,29 @@ const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => 
         disabled,
         icon: !!(icon),
       })}
-      onClick={!disabled
-        ? (event => {
+      onClick={disabled
+        ? (event) => {
+          const button = event.currentTarget;
+          
+          // animation
+          button.classList.remove('shake');
+          void button.offsetWidth;
+          button.classList.add('shake');
+          
+          sound.playError(0.1);
+        }
+        : (event => {
+          const button = event.currentTarget;
+          
+          // animation
+          button.classList.remove('shrink-click');
+          void button.offsetWidth;
+          button.classList.add('shrink-click');
+          
           onClick?.({ onClickEvent: event });
           sound.playClick();
         })
-        : () => {
-          sound.playError(0.1);
-        }}
+      }
       onKeyDown={event => {
         if (event.code === 'Enter' && onClick && !disabled) {
           event.preventDefault();
@@ -72,7 +86,7 @@ const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => 
     >
       {icon}
       {hasChildren && children}
-    </motion.button>
+    </button>
   );
 };
 
