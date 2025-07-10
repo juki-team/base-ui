@@ -594,7 +594,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 .jk-checkbox-list .jk-wrapper-input-checkbox,
-.jk-select-options .jk-select-option,
+.jk-select-options:not(.fake) .jk-select-option,
 .jk-select-options-virtual .jk-select-option {
   padding: 0 var(--gap);
   

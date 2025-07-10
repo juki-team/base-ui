@@ -51,7 +51,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     targetRef: selectLayoutRef,
   });
   const { width: widthFakeOptions = 0, ref: fakeOptionsRef } = useResizeDetector();
-  const optimeWidth = `(var(--gap) * 2 + ${widthFakeOptions}px + var(--size-regular-icon))`;
+  const optimeWidth = `calc(var(--gap) * 2 + ${widthFakeOptions}px + var(--size-regular-icon))`;
   const [ isOpen, setIsOpen ] = useState(false);
   
   const selectedOptionRef = useRef<HTMLDivElement>(null);
@@ -138,7 +138,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
       >
         <div
           ref={fakeOptionsRef}
-          className="jk-select-options jk-col stretch nowrap wh-100 pn-re ow-ao"
+          className="jk-select-options fake jk-col stretch nowrap wh-100 pn-re ow-ao"
           style={{
             position: 'fixed',
             width: 'auto',
@@ -169,10 +169,12 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
               className={classNames({ open: isOpen }, 'jk-input-select space-between jk-border-radius-inline jk-row gap nowrap')}
               ref={selectLayoutRef}
             >
-              <span className="fake-gap" />
-              {optionSelected.inputLabel
-                ? renderReactNodeOrFunction(optionSelected.inputLabel)
-                : renderReactNodeOrFunction(optionSelected.label)}
+              <div className="jk-row gap">
+                <span className="fake-gap" />
+                {optionSelected.inputLabel
+                  ? renderReactNodeOrFunction(optionSelected.inputLabel)
+                  : renderReactNodeOrFunction(optionSelected.label)}
+              </div>
               {expandIcon}
             </div>
           )
