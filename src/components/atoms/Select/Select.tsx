@@ -131,9 +131,8 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
           { open: isOpen, disabled: isDisabled },
         )}
         style={{
-          background: 'red',
-          width: _containerWidth ? `min(${_containerWidth}px, 100%)` : (expand ? '100%' : `min(${optimeWidth}, 100%)`),
-          minWidth: _containerWidth ? `min(${_containerWidth}px, 100%)` : (expand ? undefined : `min(${optimeWidth}, 100%)`),
+          width: _containerWidth ? `min(${_containerWidth}px, 100%)` : (expand ? '100%' : `${optimeWidth}`),
+          minWidth: _containerWidth ? `min(${_containerWidth}px, 100%)` : (expand ? undefined : `${optimeWidth}`),
         }}
         onClick={() => setIsOpen(!isOpen)}
       >

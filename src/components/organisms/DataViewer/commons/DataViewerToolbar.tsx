@@ -161,7 +161,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   return (
     <div
       className={classNames(
-        'jk-data-viewer-toolbar pn-re jk-row space-between nowrap bc-wdt jk-br-ie jk-pg-xsm-rl',
+        'jk-data-viewer-toolbar pn-re jk-row space-between nowrap jk-br-ie jk-pg-xsm-rl',
         viewMode.toLowerCase(),
         // { 'with-vertical-scroll': withVerticalScroll },
       )}
