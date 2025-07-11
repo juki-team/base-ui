@@ -31,7 +31,7 @@ interface ViewContainerRowsProps<T> {
   onRecordHover: OnRecordClickType<T> | undefined,
   onRecordRender: OnRecordClickType<T> | undefined,
   groups: DataViewerGroupsType<T>[],
-  setWithVerticalScroll: Dispatch<SetStateAction<boolean>>,
+  // setWithVerticalScroll: Dispatch<SetStateAction<boolean>>,
 }
 
 const gap = 4;
@@ -52,7 +52,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
     onRecordHover,
     onRecordRender,
     groups,
-    setWithVerticalScroll,
+    // setWithVerticalScroll,
   } = props;
   
   const prevSizeWidth = usePrevious(viewContainerWidth);
@@ -105,7 +105,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
       loading={loading}
       setHeaders={setHeaders}
       groups={groups}
-      setWithVerticalScroll={setWithVerticalScroll}
+      // setWithVerticalScroll={setWithVerticalScroll}
     />
   );
 };

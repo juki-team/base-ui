@@ -28,7 +28,7 @@ export interface SelectProps<T, U extends ReactNodeOrFunctionType, V extends Rea
   disabled?: boolean,
   optionsPlacement?: PlacementType,
   expand?: boolean,
-  containerWidth?: number,
+  containerWidth?: number | 'child',
   children?: ReactNodeOrFunctionP1Type<{
     options: SelectOptionType<T, U, V>[],
     isOpen: boolean,

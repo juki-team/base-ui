@@ -1,5 +1,6 @@
 import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, SEPARATOR_TOKEN, Status } from '@juki-team/commons';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { EMPTY_ARRAY } from '../../../constants';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useSessionStorage } from '../../../hooks/useSessionStorage';
@@ -100,6 +101,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     extraNodesFloating,
     setDataTableRef: _setDataTableRef,
     initializing: initialInitializing = false,
+    downloads,
     groups,
   } = props;
   
@@ -181,34 +183,33 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     });
   }, [ setLoaderStatusRef ]);
   useEffect(() => reloadRef?.(() => setReloadCount(prevRefreshCount => prevRefreshCount + 1)), [ reloadRef ]);
-  useEffect(() => {
+  
+  const requestProps = useMemo(() => {
     const sort: RequestSortType = {};
     const headSort = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
     if (headSort?.sort) {
       sort[headSort.index] = headSort.index === searchSorts ? 1 : -1;
     }
-    
+    return {
+      sort,
+      filter: filters,
+      setLoaderStatus,
+      pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
+    };
+  }, [ headers, searchSorts, filters, setLoaderStatus, withPagination, page, pageSize ]);
+  
+  useEffect(() => {
     if (firstRender.current) { // First render
-      request?.({
-        sort,
-        filter: filters,
-        setLoaderStatus,
-        pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
-      });
+      request?.(requestProps);
       firstRender.current = false;
     } else if (prevSearchSorts.current !== searchSorts) { // Search change
       const head = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
-      const prevHead = headers.find(({ index }) => index === prevSearchSorts.current
-        || '-' + index === prevSearchSorts.current);
+      const prevHead = headers.find(({ index }) => index === prevSearchSorts.current || '-' + index === prevSearchSorts.current);
       if (isSortOnline(head?.sort) || isSortOnline(prevHead?.sort)) {
-        request?.({
-          sort,
-          filter: filters,
-          setLoaderStatus,
-          pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
-        });
+        request?.(requestProps);
       }
     } else if (JSON.stringify(prevSearchFilter.current) !== JSON.stringify(filters)) { // Filter change
+      let withChanges = false;
       for (const head of headers) {
         if (
           (filters[head.index] || prevSearchFilter.current?.[head.index]) &&
@@ -219,37 +220,20 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
             isFilterDateRangeOnline(head.filter)
           )
         ) {
-          request?.({
-            sort,
-            filter: filters,
-            setLoaderStatus,
-            pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
-          });
+          withChanges = true;
         }
       }
+      if (withChanges) {
+        request?.(requestProps);
+      }
     } else if (withPagination && prevPage.current !== page) {
-      request?.({
-        sort,
-        filter: filters,
-        setLoaderStatus,
-        pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
-      });
+      request?.(requestProps);
     } else if (withPagination && prevPageSize.current !== pageSize) {
-      request?.({
-        sort,
-        filter: filters,
-        setLoaderStatus,
-        pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
-      });
+      request?.(requestProps);
     } else if (prevRefreshCount.current !== reloadCount) {
-      request?.({
-        sort,
-        filter: filters,
-        setLoaderStatus,
-        pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
-      });
+      request?.(requestProps);
     }
-  }, [ request, searchSorts, headers, reloadCount, filters, withPagination, page, pageSize ]);
+  }, [ request, searchSorts, headers, reloadCount, filters, withPagination, page, pageSize, requestProps ]);
   const setDataTableRef = useRef<(data: T[]) => void>(undefined);
   setDataTableRef.current = _setDataTableRef;
   useEffect(() => { // Offline filter & Offline sort
@@ -728,6 +712,8 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         pagination={paginationData}
         filterKey={filterKey}
         filters={filters}
+        downloads={downloads ?? EMPTY_ARRAY}
+        requestProps={requestProps}
       />
       {/*{withPagination && (*/}
       {/*  <Pagination*/}

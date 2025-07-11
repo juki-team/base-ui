@@ -21,7 +21,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     loading,
     setHeaders,
     groups,
-    setWithVerticalScroll,
+    // setWithVerticalScroll,
   } = props;
   
   const parentRef = useRef<HTMLDivElement>(null);
@@ -57,9 +57,9 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   const virtualItems = rowVirtualizer.getVirtualItems();
   const withVerticalScroll = hasScrollTop || hasScrollBottom;
   
-  useEffect(() => {
-    setWithVerticalScroll(withVerticalScroll);
-  }, [ withVerticalScroll ]);
+  // useEffect(() => {
+  //   setWithVerticalScroll(withVerticalScroll);
+  // }, [ withVerticalScroll ]);
   
   const { topHeaders, rightBorders, headersWidth, headersStickyWidth } = useMemo(() => {
     const topHeaders: DataViewerTableHeadersType<T>[] = [];
@@ -95,7 +95,11 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   }, [ headers, groups ]);
   
   return (
-    <div ref={parentRef} style={{ height: '100%', overflow: 'auto' }} className={classNames('jk-table-rows-container')}>
+    <div
+      ref={parentRef}
+      style={{ height: '100%', overflow: 'scroll' }}
+      className="jk-table-rows-container"
+    >
       <TableHead
         headers={headers}
         setHeaders={setHeaders}

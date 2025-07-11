@@ -45,7 +45,7 @@
 .jk-data-viewer-toolbar {
   
   &.with-vertical-scroll {
-    margin-right: 8px;
+    margin-right: var(--size-scrollbar);
   }
   
   &.rows {
@@ -58,8 +58,6 @@
   }
   
   .jk-table-view-tools {
-    //padding: calc(var(--gap) / 2);
-    
     .jk-divider {
       margin: 0;
     }

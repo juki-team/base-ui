@@ -12,7 +12,7 @@ export const useCheckAndStartServices = () => {
   
   useEffect(() => {
     const fun = async (isPageVisible: boolean, isOnline: boolean) => {
-      const lastRequested = +(localStorage.getItem('lastRequestedServicesCheck') || '0', 10);
+      const lastRequested = +(localStorage.getItem('lastRequestedServicesCheck') || '0');
       if (isPageVisible && isOnline && (Date.now() - lastRequested) >= ONE_MINUTE) {
         localStorage.setItem('lastRequestedServicesCheck', Date.now().toString());
         const { url, ...options } = jukiApiSocketManager.API_V1.system.services.checkAndStart();

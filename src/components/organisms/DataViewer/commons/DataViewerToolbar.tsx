@@ -1,4 +1,4 @@
-import { DataViewMode, Status } from '@juki-team/commons';
+import { cleanRequest, ContentResponseType, DataViewMode, Status } from '@juki-team/commons';
 import React, {
   Children,
   ElementType,
@@ -9,16 +9,19 @@ import React, {
   useCallback,
   useEffect,
   useRef,
+  useState,
 } from 'react';
-import { SCROLL_WIDTH } from '../../../../constants';
-import { classNames, renderReactNodeOrFunction } from '../../../../helpers';
+import { authorizedRequest, classNames, downloadUrlAsFile, renderReactNodeOrFunction } from '../../../../helpers';
+import { useJukiNotification } from '../../../../hooks';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useSessionStorage } from '../../../../hooks/useSessionStorage';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
-import { Popover } from '../../../atoms';
+import { Popover, Select } from '../../../atoms';
+import { TableEyeIcon } from '../../../atoms/server/icons/google/TableEyeIcon';
 import { SetLoaderStatusOnClickType } from '../../../molecules/types';
 import {
   CalendarViewWeekIcon,
+  DownloadIcon,
   FilterListIcon,
   MenuIcon,
   RefreshIcon,
@@ -89,12 +92,15 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     showFilterDrawerKey,
     filterKey,
     filters,
-    withVerticalScroll,
+    downloads,
+    requestProps,
+    // withVerticalScroll,
   } = props;
   
   const { filtered, values } = isSomethingFiltered(headers);
-  
+  const [ downloading, setDownloading ] = useState(false);
   const { viewPortSize } = useJukiUI();
+  const { notifyResponse } = useJukiNotification();
   
   const searchParams = useRouterStore(state => state.searchParams);
   
@@ -161,11 +167,11 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   return (
     <div
       className={classNames(
-        'jk-data-viewer-toolbar pn-re jk-row space-between nowrap jk-br-ie jk-pg-xsm-rl',
+        'jk-data-viewer-toolbar with-vertical-scroll pn-re jk-row space-between nowrap jk-br-ie jk-pg-xsm-rl',
         viewMode.toLowerCase(),
         // { 'with-vertical-scroll': withVerticalScroll },
       )}
-      style={withVerticalScroll && viewMode === DataViewMode.ROWS ? { marginRight: SCROLL_WIDTH } : {}}
+      // style={withVerticalScroll && viewMode === DataViewMode.ROWS ? { marginRight: SCROLL_WIDTH } : {}}
     >
       <FilterDrawer
         isOpen={showFilterDrawer === 'open'}
@@ -209,10 +215,58 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                 <div className="jk-divider horizontal" />
               )}
               <ToolbarButtonIcon
-                Icon={FilterListIcon}
+                Icon={downloading ? SpinIcon : FilterListIcon}
                 tooltipContent="open filters"
                 onClick={() => setShowFilterDrawer(true)}
                 active={filtered}
+              >
+                {!!Object.values(values).length && (
+                  <>
+                    &nbsp;
+                    <span className="bc-hl jk-br-ie" style={{ lineHeight: 1, padding: '0 4px' }}>
+                      {Object.values(values).length}
+                    </span>
+                    &nbsp;
+                  </>
+                )}
+              </ToolbarButtonIcon>
+              <Select
+                options={downloads}
+                onChange={async ({ value }) => {
+                  setDownloading(true);
+                  const downloadItem = downloads.find(download => value === download.value);
+                  const url = downloadItem?.getUrl(requestProps) ?? '';
+                  const filename = downloadItem?.getFilename(requestProps) ?? '';
+                  const result = cleanRequest<ContentResponseType<{ urlExportedFile: string }>>(
+                    await authorizedRequest(url),
+                  );
+                  if (result.success) {
+                    await downloadUrlAsFile(result.content.urlExportedFile, filename);
+                    notifyResponse(result);
+                  }
+                  setDownloading(false);
+                }}
+                selectedOption={{ value: '' }}
+                containerWidth="child"
+              >
+                <ToolbarButtonIcon
+                  Icon={DownloadIcon}
+                  tooltipContent="download"
+                >
+                  {!!Object.values(values).length && (
+                    <>
+                      &nbsp;
+                      <span className="bc-hl jk-br-ie" style={{ lineHeight: 1, padding: '0 4px' }}>
+                      {Object.values(values).length}
+                    </span>
+                      &nbsp;
+                    </>
+                  )}
+                </ToolbarButtonIcon>
+              </Select>
+              <ToolbarButtonIcon
+                Icon={TableEyeIcon}
+                tooltipContent="visibility of columns"
               >
                 {!!Object.values(values).length && (
                   <>

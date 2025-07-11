@@ -55,7 +55,7 @@ export interface RowVirtualizerFixedProps<T> {
   loading: boolean,
   setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   groups: DataViewerGroupsType<T>[],
-  setWithVerticalScroll: Dispatch<SetStateAction<boolean>>,
+  // setWithVerticalScroll: Dispatch<SetStateAction<boolean>>,
 }
 
 export type FilterTextOnlineType = { type: typeof FILTER_TEXT };
@@ -272,6 +272,8 @@ export interface DisplayDataViewerProps<T> {
   onRecordClick?: OnRecordClickType<T>,
   onRecordHover?: OnRecordClickType<T>,
   onRecordRender?: OnRecordClickType<T>,
+  downloads: DataViewerDownloadType<string>[],
+  requestProps: DataViewerRequestPropsType,
 }
 
 export type DataViewerHeaderSortOnlineType = true;
@@ -309,6 +311,13 @@ export type DataViewerRequestPropsType = {
 
 export type DataViewerRequestType = (props: DataViewerRequestPropsType) => void;
 
+export type DataViewerDownloadType<T> = {
+  value: T,
+  label: ReactNode,
+  getUrl: (props: DataViewerRequestPropsType) => string,
+  getFilename: (props: DataViewerRequestPropsType) => string,
+};
+
 export type DataViewerGroupsType<T> = {
   key: string,
   label?: TableHeadType<T>,
@@ -322,6 +331,7 @@ export interface DataViewerProps<T> {
   extraNodes?: ReactNodeOrFunctionType[],
   extraNodesFloating?: boolean,
   headers: DataViewerHeadersType<T>[],
+  downloads?: DataViewerDownloadType<string>[],
   groups?: DataViewerGroupsType<T>[],
   initialViewMode?: DataViewMode,
   name?: string,
@@ -413,7 +423,9 @@ export interface DataViewerToolbarProps<T> {
   showFilterDrawerKey: string,
   filterKey: string,
   filters: RequestFilterType,
-  withVerticalScroll: boolean,
+  requestProps: DataViewerRequestPropsType,
+  downloads: DataViewerDownloadType<string>[],
+  // withVerticalScroll: boolean,
 }
 
 export interface PaginationProps {

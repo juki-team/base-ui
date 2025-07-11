@@ -1,5 +1,5 @@
 import { DataViewMode } from '@juki-team/commons';
-import React, { Children, CSSProperties, useState } from 'react';
+import React, { Children, CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../../../helpers';
@@ -44,10 +44,12 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     filterKey,
     filters,
     groups,
+    downloads,
+    requestProps,
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
-  const [ withVerticalScroll, setWithVerticalScroll ] = useState(false);
+  // const [ withVerticalScroll, setWithVerticalScroll ] = useState(false);
   
   const isMobileViewPort = viewPortSize === 'sm';
   const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
@@ -84,7 +86,9 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         showFilterDrawerKey={showFilterDrawerKey}
         filterKey={filterKey}
         filters={filters}
-        withVerticalScroll={withVerticalScroll}
+        downloads={downloads}
+        requestProps={requestProps}
+        // withVerticalScroll={withVerticalScroll}
       />
       {extraNodesFloating && isMobileViewPort && (
         <div
@@ -127,7 +131,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
               onRecordHover={onRecordHover}
               onRecordRender={onRecordRender}
               groups={groups}
-              setWithVerticalScroll={setWithVerticalScroll}
+              // setWithVerticalScroll={setWithVerticalScroll}
             />
           ) : (
             <CardRowVirtualizerFixed

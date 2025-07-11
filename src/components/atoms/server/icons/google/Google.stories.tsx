@@ -160,6 +160,7 @@ import {
   StorageIcon,
   SupportAgentIcon,
   SyncIcon,
+  TableEyeIcon,
   TaskIcon,
   TimerIcon,
   TrendingUpIcon,
@@ -209,6 +210,7 @@ export default meta;
 
 export const Google: FC<BasicIconProps> = (args) => {
   const icons = {
+    TableEyeIcon,
     FormatListBulletedIcon,
     FormatListNumberedIcon,
     StepOutIcon,

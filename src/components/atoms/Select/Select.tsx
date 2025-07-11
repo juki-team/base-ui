@@ -35,21 +35,12 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
     disabled = false,
     optionsPlacement = 'bottom',
     expand = false,
-    containerWidth: _containerWidth,
+    containerWidth,
     children,
     onBlur,
   } = props;
   
-  const [ widthSelect, setWidthSelect ] = useState(0);
-  const selectLayoutRef = useRef<HTMLDivElement>(null);
-  useResizeDetector({
-    onResize: () => {
-      if (selectLayoutRef.current) {
-        setWidthSelect(selectLayoutRef.current?.getBoundingClientRect().width);
-      }
-    },
-    targetRef: selectLayoutRef,
-  });
+  const { width: widthSelectLayout = 0, ref: selectLayoutRef } = useResizeDetector();
   const { width: widthFakeOptions = 0, ref: fakeOptionsRef } = useResizeDetector();
   const optimeWidth = `calc(var(--gap) * 2 + ${widthFakeOptions}px + var(--size-regular-icon))`;
   const [ isOpen, setIsOpen ] = useState(false);
@@ -97,7 +88,14 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
         <div
           ref={optionRef}
           className={classNames('jk-select-options jk-col stretch nowrap wh-100 pn-re ow-ao', { disabled: isDisabled })}
-          style={{ width: _containerWidth ?? `max(${widthSelect}px, ${optimeWidth}` }}
+          style={{
+            width: containerWidth === 'child'
+              ? 'auto'
+              : typeof containerWidth === 'number'
+                ? widthSelectLayout
+                : expand
+                  ? widthSelectLayout : `${optimeWidth}`,
+          }}
         >
           {options.map((option) => (
             <div
@@ -130,9 +128,20 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
           optionsPlacement,
           { open: isOpen, disabled: isDisabled },
         )}
+        ref={selectLayoutRef}
         style={{
-          width: _containerWidth ? `min(${_containerWidth}px, 100%)` : (expand ? '100%' : `${optimeWidth}`),
-          minWidth: _containerWidth ? `min(${_containerWidth}px, 100%)` : (expand ? undefined : `${optimeWidth}`),
+          width: containerWidth === 'child'
+            ? 'auto'
+            : typeof containerWidth === 'number'
+              ? `min(${containerWidth}px, 100%)`
+              : expand
+                ? '100%' : `${optimeWidth}`,
+          minWidth: containerWidth === 'child'
+            ? 'auto'
+            : typeof containerWidth === 'number'
+              ? `min(${containerWidth}px, 100%)`
+              : expand
+                ? undefined : `${optimeWidth}`,
         }}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -165,10 +174,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
             { options, isOpen, disabled: isDisabled, optionSelected, expandIcon },
           )
           : (
-            <div
-              className={classNames({ open: isOpen }, 'jk-input-select space-between jk-border-radius-inline jk-row gap nowrap')}
-              ref={selectLayoutRef}
-            >
+            <div className={classNames({ open: isOpen }, 'jk-input-select space-between jk-border-radius-inline jk-row gap nowrap')}>
               <div className="jk-row gap">
                 <span className="fake-gap" />
                 {optionSelected.inputLabel

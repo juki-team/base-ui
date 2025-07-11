@@ -1227,6 +1227,14 @@ export const SyncIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const TableEyeIconImport = () => import('./TableEyeIcon');
+const LazyTableEyeIcon = lazy(() => TableEyeIconImport().then(module => ({ default: module.TableEyeIcon })));
+export const TableEyeIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyTableEyeIcon {...props} />
+  </Suspense>
+);
+
 const TaskIconImport = () => import('./TaskIcon');
 const LazyTaskIcon = lazy(() => TaskIconImport().then(module => ({ default: module.TaskIcon })));
 export const TaskIcon = (props: BasicIconProps) => (
@@ -1493,6 +1501,7 @@ export const preloadAtomsIconsGoogle = async () => {
   await StorageIconImport();
   await SupportAgentIconImport();
   await SyncIconImport();
+  await TableEyeIconImport();
   await TaskIconImport();
   await TimerIconImport();
   await TrendingUpIconImport();

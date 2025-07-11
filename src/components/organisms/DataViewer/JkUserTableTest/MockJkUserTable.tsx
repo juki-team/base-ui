@@ -282,6 +282,9 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
         //getRecordStyle={({ index }) => ({ zIndex: index })}
         onRecordClick={(props) => console.info('click', props)}
         // pagination={{ total: data.length }}
+        downloads={[
+          { value: 'test', label: 'download csv', getUrl: () => '', getFilename: () => '' },
+        ]}
       />
     </div>
   );
