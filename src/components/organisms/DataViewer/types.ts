@@ -462,6 +462,7 @@ export interface PagedDataViewerProps<T, V = T> {
   onRecordRender?: OnRecordClickType<T>,
   getRecordStyle?: GetRecordStyleType<T>;
   dependencies?: any[],
+  downloads?: DataViewerProps<T>['downloads'],
 }
 
 export interface Scroll {

@@ -23,6 +23,7 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
     onRecordRender,
     dependencies = [],
     getRecordStyle,
+    downloads,
   } = props;
   
   const { viewPortSize } = useJukiUI();
@@ -71,6 +72,7 @@ export const PagedDataViewer = <T extends { [key: string]: any }, V = T>(props: 
       reloadRef={reloadRef}
       pageSizeOptions={PAGE_SIZE_OPTIONS}
       initializing={lastTotalRef.current === -1}
+      downloads={downloads}
       {...DEFAULT_DATA_VIEWER_PROPS}
     />
   );
