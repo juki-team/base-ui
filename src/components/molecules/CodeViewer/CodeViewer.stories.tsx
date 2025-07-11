@@ -6,17 +6,39 @@ import { CodeViewer } from './CodeViewer';
 
 const codeTemplate = `
 #include <bits/stdc++.h>
-
 using namespace std;
 
-int main() {
+int main()
+{
   
-  int l,r;
-  cin >> l >> r;
-  
-  cout << (l == 1 ? 1 : 0) << "\\\\n";
+  int a,b,c=0,x=0,f=0;
+  cin>>a;
+  vector<int>d;
+    for(int i=0;i<a;i++)
+    {
+        cin>>b;
+        d.push_back(b);
+    }
+    c=d[0];
+    for(int i=0;i<d.size();i++)
+    {
+        if(d[i]<c)
+        {
+            c=d[i];
+            f=i;
+            break;
+        }
+    }
+    for(int i=f;i<d.size();i++)
+    {
+        if(d[i]>c && d[i]!=d[i-1])
+        {
+            x++;
+        }
+    }
+    cout<<x;
   return 0;
-}`;
+`;
 
 const meta: Meta<typeof CodeViewer> = {
   component: CodeViewer,

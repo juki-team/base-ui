@@ -1,5 +1,5 @@
 import React, { ReactNode, useState } from 'react';
-import { jukiApiSocketManager } from '../../../settings';
+import { jukiApiManager } from '../../../settings';
 import { Button, T } from '../../atoms';
 import { Field } from '../../organisms';
 import { EntityLogsModal } from '../EntityLogsModal/EntityLogsModal';
@@ -18,7 +18,7 @@ export const ProblemAdminActionsField = ({ record: { key } }: ProblemAdminAction
         onClick={() => {
           setModal(
             <EntityLogsModal
-              url={jukiApiSocketManager.API_V1.problem.getLogs({ params: { key } }).url}
+              url={jukiApiManager.API_V1.problem.getLogs({ params: { key } }).url}
               isOpen
               onClose={() => setModal(null)}
             />,

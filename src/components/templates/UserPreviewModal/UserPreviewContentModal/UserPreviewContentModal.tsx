@@ -1,7 +1,7 @@
 import { ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
-import { jukiApiSocketManager } from '../../../../settings';
+import { jukiApiManager } from '../../../../settings';
 import { Button, CopyToClipboard, Modal, T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/Modal/types';
 import { ButtonLoader, FetcherLayer } from '../../../molecules';
@@ -30,7 +30,7 @@ export const UserPreviewContentModal = ({
       className="modal-user-preview"
     >
       <FetcherLayer<ContentResponseType<UserBasicResponseDTO>>
-        url={jukiApiSocketManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url}
+        url={jukiApiManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url}
         onError={onClose}
       >
         {({ data }) => (

@@ -9,7 +9,7 @@ import React, { useMemo } from 'react';
 import { LanguagesByJudge } from '../../../';
 import { toFilterUrl, toSortUrl } from '../../../../helpers';
 import { useFetcher } from '../../../../hooks/useFetcher';
-import { jukiApiSocketManager } from '../../../../settings';
+import { jukiApiManager } from '../../../../settings';
 import {
   getSubmissionContestHeader,
   getSubmissionContestProblemHeader,
@@ -25,8 +25,8 @@ import { PagedDataViewer } from '../PagedDataViewer';
 import { DataViewerHeadersType, DataViewerProps } from '../types';
 
 export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data'>) => {
-  const { data: judgeSystemList } = useFetcher<ContentsResponseType<JudgeSystemSummaryListResponseDTO>>(jukiApiSocketManager.API_V1.judge.getSystemList().url);
-  const { data: judgePublicList } = useFetcher<ContentsResponseType<JudgeSummaryListResponseDTO>>(jukiApiSocketManager.API_V1.judge.getSummaryList().url);
+  const { data: judgeSystemList } = useFetcher<ContentsResponseType<JudgeSystemSummaryListResponseDTO>>(jukiApiManager.API_V1.judge.getSystemList().url);
+  const { data: judgePublicList } = useFetcher<ContentsResponseType<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V1.judge.getSummaryList().url);
   const allJudges = useMemo(() => judgeSystemList?.success ? judgeSystemList.contents : (judgePublicList?.success ? judgePublicList.contents : []), [ judgeSystemList, judgePublicList ]);
   const languages = useMemo(() => {
     const result: LanguagesByJudge = {};
@@ -60,7 +60,7 @@ export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryList
         cards={{ expanded: true }}
         headers={columns}
         getUrl={({ pagination: { page, pageSize }, filter, sort }) => (
-          jukiApiSocketManager.API_V1.submission.getSystemList({
+          jukiApiManager.API_V1.submission.getSystemList({
             params: {
               page,
               pageSize,

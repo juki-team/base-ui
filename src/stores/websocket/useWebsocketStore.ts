@@ -1,22 +1,22 @@
 import { create } from 'zustand';
+import { JukiWebSocketManagement } from './JukiWebSocketManagement';
 
 interface WebsocketState {
-  id: string,
-  setId: (id: string) => void,
   isConnected: boolean,
   setIsConnected: (isConnected: boolean) => void,
   connectionId: string,
   setConnectionId: (connectionId: string) => void,
+  websocket: JukiWebSocketManagement;
+  setUrl: (url: string) => void;
 }
 
-export const useWebsocketStore = create<WebsocketState>((set) => ({
-  id: '',
-  setId: (id) => set({ id }),
+export const useWebsocketStore = create<WebsocketState>((set, get) => ({
   isConnected: false,
   setIsConnected: (isConnected: boolean) => set({ isConnected }),
   connectionId: '',
   setConnectionId: (connectionId: string) => {
-    console.log('setConnectionId', { connectionId });
     set({ connectionId });
   },
+  websocket: new JukiWebSocketManagement(),
+  setUrl: (url) => get().websocket.setSocketServiceUrl(url),
 }));

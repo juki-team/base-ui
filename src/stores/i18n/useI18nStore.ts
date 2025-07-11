@@ -1,7 +1,7 @@
 import { consoleWarn, Language } from '@juki-team/commons';
 import { createInstance, i18n } from 'i18next';
 import { create } from 'zustand';
-import { jukiApiSocketManager } from '../../settings';
+import { jukiApiManager } from '../../settings';
 import initTranslations from './i18n';
 
 const i18nInstance = createInstance() as i18n;
@@ -27,16 +27,16 @@ export const useI18nStore = create<I18nState>((set) => ({
     }
   },
   loadResources: async (namespace = 'translation') => {
-    if (!jukiApiSocketManager.SERVICE_API_V1_URL) {
+    if (!jukiApiManager.SERVICE_API_V1_URL) {
       consoleWarn('service api v1 url not set');
       return;
     }
     try {
       const [ dataEN, dataES ] = await Promise.all([
-        fetch(jukiApiSocketManager.API_V1.locale.get({
+        fetch(jukiApiManager.API_V1.locale.get({
           params: { locale: Language.EN, namespace },
         }).url).then(res => res.json()),
-        fetch(jukiApiSocketManager.API_V1.locale.get({
+        fetch(jukiApiManager.API_V1.locale.get({
           params: { locale: Language.ES, namespace },
         }).url).then(res => res.json()),
       ]);

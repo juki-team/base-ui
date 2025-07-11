@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { authorizedRequest } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useStableState } from '../../../../../hooks/useStableState';
-import { jukiApiSocketManager } from '../../../../../settings';
+import { jukiApiManager } from '../../../../../settings';
 import { InputCheckbox, T } from '../../../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../../../molecules';
 import { MdMathViewer } from '../../../mdMath/MdMathViewer';
@@ -85,7 +85,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
                         id: content.id,
                         read: !lastSubmission?.read,
                       };
-                      const { url, ...options } = jukiApiSocketManager.API_V1.worksheet.submitJkMd({
+                      const { url, ...options } = jukiApiManager.API_V1.worksheet.submitJkMd({
                         params: { worksheetKey },
                         body: jkMdSubmissionDTO,
                       });

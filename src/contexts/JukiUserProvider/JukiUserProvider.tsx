@@ -15,7 +15,7 @@ import { EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useMutate } from '../../hooks/useMutate';
-import { jukiApiSocketManager } from '../../settings';
+import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { JukiUserProviderProps } from './types';
@@ -41,14 +41,14 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     // isValidating: isValidatingPing,
     mutate,
   } = useFetcher<ContentResponseType<PingResponseDTO>>(
-    jukiApiSocketManager.API_V1.auth.ping().url,
+    jukiApiManager.API_V1.auth.ping().url,
     { refreshInterval: ONE_MINUTE * 5 },
   );
   
   const matchMutate = useMutate();
   
   const refreshAllRequest = useCallback(async () => {
-    await matchMutate(new RegExp(`${jukiApiSocketManager.SERVICE_API_V1_URL}`, 'g'));
+    await matchMutate(new RegExp(`${jukiApiManager.SERVICE_API_V1_URL}`, 'g'));
   }, [ matchMutate ]);
   
   useEffect(() => {
@@ -88,7 +88,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
         });
       }
       
-      localStorageCrossDomains.setItem(jukiApiSocketManager.TOKEN_NAME, data?.content.user.sessionId);
+      localStorageCrossDomains.setItem(jukiApiManager.TOKEN_NAME, data?.content.user.sessionId);
     } else {
       setUser({
         ...EMPTY_USER,

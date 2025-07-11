@@ -1,6 +1,5 @@
 import { Status } from '@juki-team/commons';
 import React, { CSSProperties } from 'react';
-import { jukiApiSocketManager } from '../../../settings';
 import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
 import { ButtonLoader } from '../../molecules';
 import { ErrorIcon } from '../../server';
@@ -8,6 +7,7 @@ import { ErrorIcon } from '../../server';
 export const JukiSocketAlert = () => {
   
   const isConnected = useWebsocketStore(state => state.isConnected);
+  const websocket = useWebsocketStore(store => store.websocket);
   
   return !isConnected && (
     <div
@@ -20,8 +20,8 @@ export const JukiSocketAlert = () => {
         style={{ '--button-background-color': 'var(--t-color-error)' } as CSSProperties}
         onClick={async (setLoader) => {
           setLoader(Status.LOADING);
-          if (jukiApiSocketManager.SOCKET.getReadyState() !== WebSocket.OPEN) {
-            await jukiApiSocketManager.SOCKET.connect();
+          if (websocket.getReadyState() !== WebSocket.OPEN) {
+            await websocket.reconnect();
           }
           setLoader(Status.NONE);
         }}

@@ -83,7 +83,7 @@
             font-weight: var(--weight-bold);
             color: var(--color-primary);
             
-            //&:after {
+            //&::after {
             //  position: absolute;
             //  top: 0;
             //  left: -18px;
@@ -179,7 +179,7 @@
             font-weight: var(--weight-bold);
             @include mixins.sm { background-color: var(--t-color-accent); }
             
-            //&:after {
+            //&::after {
             //  position: absolute;
             //  bottom: 0;
             //  content: "";

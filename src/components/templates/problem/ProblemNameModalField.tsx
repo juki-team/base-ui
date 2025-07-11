@@ -1,7 +1,7 @@
 import { ContentResponseType, ProblemDataResponseDTO } from '@juki-team/commons';
 import React, { ReactNode, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { jukiApiSocketManager } from '../../../settings';
+import { jukiApiManager } from '../../../settings';
 import { Modal } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { Field } from '../../organisms';
@@ -30,7 +30,7 @@ export const ProblemNameModalField = (props: ProblemNameModalFieldProps) => {
                 // portalClassName="jk-modal-bc-wd jk-modal-height-expanded" // TODO:
               >
                 <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
-                  url={jukiApiSocketManager.API_V1.problem.getData({ params: { key } }).url}
+                  url={jukiApiManager.API_V1.problem.getData({ params: { key } }).url}
                 >
                   {data => (
                     <ProblemView

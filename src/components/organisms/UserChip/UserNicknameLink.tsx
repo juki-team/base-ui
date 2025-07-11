@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { cloneURLSearchParams } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { usePreload } from '../../../hooks/usePreload';
-import { jukiApiSocketManager } from '../../../settings';
+import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { QueryParamKey } from '../../../types';
 import { UserNicknameLinkProps } from './types';
@@ -14,7 +14,7 @@ export const UserNicknameLink = ({ children, nickname, companyKey }: UserNicknam
   const preload = usePreload();
   const { components: { Link } } = useJukiUI();
   useEffect(() => {
-    void preload(jukiApiSocketManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url);
+    void preload(jukiApiManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url);
   }, [ companyKey, nickname, preload ]);
   const searchParams = useMemo(() => {
     const clonedSearchParams = cloneURLSearchParams(currentSearchParams);

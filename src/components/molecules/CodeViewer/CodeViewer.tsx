@@ -7,7 +7,7 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import json from 'highlight.js/lib/languages/json';
 import markdown from 'highlight.js/lib/languages/markdown';
 import python from 'highlight.js/lib/languages/python';
-import React, { useEffect, useRef } from 'react';
+import React, { CSSProperties, useEffect, useRef } from 'react';
 import { classNames } from '../../../helpers';
 import { CopyToClipboard } from '../../atoms';
 import { CodeViewerProps } from './types'; // o el tema que prefieras
@@ -37,7 +37,8 @@ export const CodeViewer = (props: CodeViewerProps) => {
       const el = codeRef.current;
       el.removeAttribute('data-highlighted');
       el.classList.remove(...Array.from(el.classList).filter(c => c.startsWith('hljs')));
-      el.innerHTML = code;
+      // el.innerHTML = code; // issues with '<' '>'
+      // el.textContent = code;
       hljs.highlightElement(el);
     }
   }, [ language, code ]);
@@ -52,7 +53,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
     >
       {lineNumbers && (
         <div className="jk-code-viewer-line-numbers">
-          {code.split('\n').map((line, i) => (<div>{i + 1}</div>))}
+          {code.split('\n').map((line, i) => <div style={{ '--line-index': i } as CSSProperties}>{i + 1}</div>)}
         </div>
       )}
       <pre
@@ -61,6 +62,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
       >
         <code
           ref={codeRef}
+          key={language}
           className={`language-${CODE_LANGUAGE[language]?.codeMirrorKey || 'plaintext'}`}
         >
           {code}

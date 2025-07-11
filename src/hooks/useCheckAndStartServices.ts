@@ -1,7 +1,7 @@
 import { consoleInfo, ContentResponseType, ONE_MINUTE } from '@juki-team/commons';
 import { useEffect, useRef } from 'react';
 import { authorizedRequest, cleanRequest } from '../helpers';
-import { jukiApiSocketManager } from '../settings';
+import { jukiApiManager } from '../settings';
 import { usePageStore } from '../stores/page/usePageStore';
 
 export const useCheckAndStartServices = () => {
@@ -15,7 +15,7 @@ export const useCheckAndStartServices = () => {
       const lastRequested = +(localStorage.getItem('lastRequestedServicesCheck') || '0');
       if (isPageVisible && isOnline && (Date.now() - lastRequested) >= ONE_MINUTE) {
         localStorage.setItem('lastRequestedServicesCheck', Date.now().toString());
-        const { url, ...options } = jukiApiSocketManager.API_V1.system.services.checkAndStart();
+        const { url, ...options } = jukiApiManager.API_V1.system.services.checkAndStart();
         const response = cleanRequest<ContentResponseType<string>>(await authorizedRequest(url, options));
         consoleInfo('runner services wake up requested', response);
         localStorage.setItem('lastRequestedServicesCheck', Date.now().toString());

@@ -6,7 +6,7 @@ import {
   ProblemSummaryListResponseDTO,
 } from '@juki-team/commons';
 import React from 'react';
-import { jukiApiSocketManager } from '../../../../../settings';
+import { jukiApiManager } from '../../../../../settings';
 import { T } from '../../../../atoms';
 import { FetcherLayer } from '../../../../molecules';
 import { PageNotFound } from '../../../../templates/PageNotFound/PageNotFound';
@@ -15,7 +15,7 @@ export const ProblemSummary = ({ problemJudge, problemKey }: { problemJudge: Jud
   return (
     <div style={{}}>
       <FetcherLayer<ContentResponseType<ProblemSummaryListResponseDTO>>
-        url={jukiApiSocketManager.API_V1.problem.getSummary({
+        url={jukiApiManager.API_V1.problem.getSummary({
           params: {
             key: problemKey,
           },

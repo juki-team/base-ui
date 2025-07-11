@@ -34,7 +34,7 @@
     margin: 0;
   }
   
-  &:before, &:after {
+  &::before, &::after {
     content: " ";
     display: block;
     width: 100%;
@@ -47,7 +47,7 @@
       margin-right: var(--pad-xs);
     }
     
-    &:after {
+    &::after {
       margin-left: var(--pad-xs);
     }
   }
@@ -60,7 +60,7 @@
     border-left: 1px solid var(--divider-background-color);
     background-color: var(--divider-background-color);
     
-    &:before, &:after {
+    &::before, &::after {
       content: none;
     }
   }
@@ -240,7 +240,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   &.required > label {
     > span:first-child {
-      &:after {
+      &::after {
         content: " *";
         color: var(--t-color-error);
       }
@@ -356,13 +356,13 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     min-height: var(--pad-s) !important;
     min-width: var(--pad-s) !important;
     
-    &:after {
+    &::after {
       position: absolute;
       color: var(--t-color-primary-text);
       box-sizing: content-box;
     }
     
-    &:checked:after {
+    &:checked::after {
       //content: '✓'; // (U+2713)
       //content: '✔'; // '\2714' // (U+2714)
       content: " ";
@@ -378,7 +378,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       background-color: var(--t-color-primary);
     }
     
-    &:after {
+    &::after {
       border: solid var(--t-color-primary-text);
       transform: rotate(45deg);
       border-width: 0 3px 3px 0;
@@ -392,7 +392,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   input.jk-input-radio {
     border-radius: 50%;
     
-    &:after {
+    &::after {
       top: 4px;
       left: 4px;
       width: 10px;

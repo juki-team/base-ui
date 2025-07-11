@@ -10,7 +10,7 @@ import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
-import { jukiApiSocketManager } from '../../../../settings';
+import { jukiApiManager } from '../../../../settings';
 import { useWebsocketStore } from '../../../../stores/websocket/useWebsocketStore';
 import { Button, Select, T } from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';
@@ -49,7 +49,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   const isConnected = useWebsocketStore(state => state.isConnected);
   const connectionId = useWebsocketStore(state => state.connectionId);
-  console.log({ connectionId });
+  const websocket = useWebsocketStore(state => state.websocket);
   
   useEffect(() => {
     if (isRunning) {
@@ -74,7 +74,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     setStatus(Status.LOADING);
     clean(SubmissionRunStatus.RECEIVED);
     try {
-      const { url, ...options } = jukiApiSocketManager.API_V1.code.run({
+      const { url, ...options } = jukiApiManager.API_V1.code.run({
         body: {
           language: language as string,
           source: sourceCode,
@@ -160,8 +160,8 @@ export const Header = <T, >(props: HeaderProps<T>) => {
                 style={{ '--button-background-color': 'var(--t-color-error)' } as CSSProperties}
                 onClick={async (setLoader) => {
                   setLoader(Status.LOADING);
-                  if (jukiApiSocketManager.SOCKET.getReadyState() !== WebSocket.OPEN) {
-                    await jukiApiSocketManager.SOCKET.connect();
+                  if (websocket.getReadyState() !== WebSocket.OPEN) {
+                    await websocket.reconnect();
                   }
                   setLoader(Status.NONE);
                 }}

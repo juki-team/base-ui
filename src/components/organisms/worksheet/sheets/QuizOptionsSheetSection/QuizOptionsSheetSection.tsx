@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { authorizedRequest } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useStableState } from '../../../../../hooks/useStableState';
-import { jukiApiSocketManager } from '../../../../../settings';
+import { jukiApiManager } from '../../../../../settings';
 import { T } from '../../../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';
@@ -88,7 +88,7 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
                       id: content.id,
                       checkedOptions,
                     };
-                    const { url, ...options } = jukiApiSocketManager.API_V1.worksheet.submitQuizOptions({
+                    const { url, ...options } = jukiApiManager.API_V1.worksheet.submitQuizOptions({
                       params: { worksheetKey },
                       body: jkMdSubmissionDTO,
                     });

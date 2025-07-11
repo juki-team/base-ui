@@ -15,8 +15,8 @@ import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../
 import { classNames } from '../../../helpers';
 import { useCheckAndStartServices } from '../../../hooks/useCheckAndStartServices';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { jukiApiSocketManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
+import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
 import { Portal, T } from '../../atoms';
 import { CodeEditor, SplitPane } from '../../molecules';
 import { CodeEditorPropertiesType } from '../../molecules/types';
@@ -64,6 +64,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const [ expanded, setExpanded ] = useState(false);
   const { viewPortSize } = useJukiUI();
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const websocket = useWebsocketStore(store => store.websocket);
   useEffect(() => {
     if (!runId) {
       return;
@@ -73,7 +74,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
       sessionId,
       runId,
     };
-    jukiApiSocketManager.SOCKET.subscribe(event, (data) => {
+    websocket.subscribe(event, (data) => {
       if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
         const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
           onChangeRef.current?.({
@@ -157,7 +158,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     });
     
     return () => {
-      jukiApiSocketManager.SOCKET.unsubscribeAll(event);
+      websocket.unsubscribeAll(event);
     };
   }, [ runId, sessionId ]);
   

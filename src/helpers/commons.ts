@@ -10,7 +10,7 @@ import {
 } from '@juki-team/commons';
 import { diff } from 'deep-object-diff';
 import { Children, cloneElement, isValidElement, PropsWithChildren, ReactNode, RefObject } from 'react';
-import { jukiApiSocketManager } from '../settings';
+import { jukiApiManager } from '../settings';
 import { SheetDataType, TriggerActionsType } from '../types';
 import { authorizedRequest } from './fetch';
 import { getXLSX } from './xlsx';
@@ -79,7 +79,7 @@ export const downloadWebsiteAsPdf = async (websiteUrl: string, name: string, exp
   margin?: { top: string, bottom: string, left: string, right: string }
   format?: string,
 }) => {
-  const { url, ...options } = jukiApiSocketManager.API_V2.export.websiteToPdf({
+  const { url, ...options } = jukiApiManager.API_V2.export.websiteToPdf({
     params: {
       url: websiteUrl,
       footerTemplate: exportOptions?.footerTemplate?.split('\n').join(''),
@@ -244,7 +244,7 @@ export const downloadSheetDataAsXlsxFile = async (sheets: SheetDataType[], fileN
 };
 
 export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fileName: string) => {
-  const { url, ...options } = jukiApiSocketManager.API_V1.note.createPdf({ body: { source, theme } });
+  const { url, ...options } = jukiApiManager.API_V1.note.createPdf({ body: { source, theme } });
   const result = await authorizedRequest(
     url, { responseType: 'blob', ...options },
   );

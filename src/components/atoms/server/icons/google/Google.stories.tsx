@@ -11,8 +11,12 @@ import {
   AccountCircleIcon,
   AcUnitIcon,
   AcuteIcon,
+  AddColumnLeftIcon,
+  AddColumnRightIcon,
   AddIcon,
   AddReactionIcon,
+  AddRowAboveIcon,
+  AddRowBelowIcon,
   AdminPanelSettingsIcon,
   AlarmIcon,
   AppsIcon,
@@ -161,6 +165,7 @@ import {
   SupportAgentIcon,
   SyncIcon,
   TableEyeIcon,
+  TableIcon,
   TaskIcon,
   TimerIcon,
   TrendingUpIcon,
@@ -210,6 +215,11 @@ export default meta;
 
 export const Google: FC<BasicIconProps> = (args) => {
   const icons = {
+    AddRowBelowIcon,
+    AddRowAboveIcon,
+    AddColumnRightIcon,
+    AddColumnLeftIcon,
+    TableIcon,
     TableEyeIcon,
     FormatListBulletedIcon,
     FormatListNumberedIcon,

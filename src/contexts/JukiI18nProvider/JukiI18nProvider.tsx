@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect } from 'react';
-import { jukiApiSocketManager } from '../../settings';
+import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { usePageStore } from '../../stores/page/usePageStore';
 
@@ -21,10 +21,10 @@ export const JukiI18nProvider = (props: PropsWithChildren<{}>) => {
       void i18nLoadResources();
     };
     
-    jukiApiSocketManager.on('apiSettingsChanged', reload);
+    jukiApiManager.on('apiSettingsChanged', reload);
     
     return () => {
-      jukiApiSocketManager.off('apiSettingsChanged', reload);
+      jukiApiManager.off('apiSettingsChanged', reload);
     };
   }, [ i18nLoadResources, isPageVisible ]);
   

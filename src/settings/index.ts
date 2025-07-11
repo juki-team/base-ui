@@ -1,6 +1,6 @@
-import { ApiSocketManager } from './ApiSocketManager';
+import { ApiManager } from './ApiManager';
 import { AppRoutes } from './AppRoutes';
 
-export const jukiApiSocketManager = new ApiSocketManager();
+export const jukiApiManager = new ApiManager();
 export const jukiAppRoutes = new AppRoutes();
 // export const jukiGlobalStore = new GlobalStore();

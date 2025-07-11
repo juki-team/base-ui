@@ -10,7 +10,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useJukiUI } from '../../../hooks/useJukiUI';
-import { jukiApiSocketManager } from '../../../settings';
+import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { QueryParamKey } from '../../../types';
@@ -64,7 +64,7 @@ export const MainMenu = (props: MainMenuProps) => {
   
   const imageUrl = topImageUrl || companyImageUrl;
   
-  const { data } = useFetcher<ContentsResponseType<CompanyUserPermissionsResponseDTO>>((multiCompanies && isLogged) ? jukiApiSocketManager.API_V1.company.getPermissionList().url : null);
+  const { data } = useFetcher<ContentsResponseType<CompanyUserPermissionsResponseDTO>>((multiCompanies && isLogged) ? jukiApiManager.API_V1.company.getPermissionList().url : null);
   const companyKey = searchParams.get(QueryParamKey.COMPANY) as string;
   const companies = useMemo(() => data?.success ? data.contents : [], [ data ]);
   const company = useMemo(() => companies.find((company) => company.key === companyKey), [ companyKey, companies ]);

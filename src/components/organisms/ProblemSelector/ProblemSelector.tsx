@@ -12,7 +12,7 @@ import React, { useEffect, useState } from 'react';
 import { authorizedRequest, classNames, cleanRequest } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
-import { jukiApiSocketManager } from '../../../settings';
+import { jukiApiManager } from '../../../settings';
 import { Input, Select, T } from '../../atoms';
 import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { DownloadIcon, RefreshIcon, SpinIcon } from '../../server';
@@ -25,7 +25,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
   const [ data, setData ] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useJukiNotification();
   const [ timestampTrigger, setTimestampTrigger ] = useState(0);
-  const { data: judgesData } = useFetcher<ContentResponseType<JudgeDataResponseDTO[]>>(jukiApiSocketManager.API_V1.company.getJudgeList({ params: { companyKey } }).url);
+  const { data: judgesData } = useFetcher<ContentResponseType<JudgeDataResponseDTO[]>>(jukiApiManager.API_V1.company.getJudgeList({ params: { companyKey } }).url);
   const judges = judgesData?.success ? judgesData.content : [];
   const firstJudgeKey = judges[0]?.key;
   
@@ -40,7 +40,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
       setData(prevState => (
         { ...prevState, [judge]: { problems: prevState[judge]?.problems || [], loading: true } }
       ));
-      const { url } = jukiApiSocketManager.API_V1
+      const { url } = jukiApiManager.API_V1
         .problem
         .getBasicSummaryList({
           params: {
@@ -113,7 +113,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
           <ButtonLoader
             onClick={async (setLoaderStatus) => {
               setLoaderStatus(Status.LOADING);
-              const { url } = jukiApiSocketManager.API_V1
+              const { url } = jukiApiManager.API_V1
                 .problem
                 .getSummary({ params: { key } });
               const response = cleanRequest<ContentResponseType<ProblemSummaryListResponseDTO>>(

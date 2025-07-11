@@ -9,7 +9,7 @@ import {
   getStatementData,
 } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
-import { jukiApiSocketManager } from '../../../../settings';
+import { jukiApiManager } from '../../../../settings';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
@@ -83,10 +83,10 @@ export const ProblemStatementView = ({
   
   const handleDownloadPdf = async () => {
     
-    const { url, ...options } = jukiApiSocketManager.API_V2.export.problem.statementToPdf({
+    const { url, ...options } = jukiApiManager.API_V2.export.problem.statementToPdf({
       params: {
         key: problemKey,
-        token: jukiApiSocketManager.getToken(),
+        token: jukiApiManager.getToken(),
         language: userPreferredLanguage,
       },
     });

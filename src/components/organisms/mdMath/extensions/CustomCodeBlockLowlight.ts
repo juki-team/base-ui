@@ -55,9 +55,10 @@ export const CustomCodeBlockLowlight = CodeBlockLowlight.extend({
         lineNumbers.innerHTML = '';
         langTag.textContent = (node.attrs.language || CODE_LANGUAGE[CodeLanguage.TEXT].highlightJsKey).toUpperCase();
         const lines = node.textContent.split('\n').length;
-        for (let i = 1; i <= lines; i++) {
+        for (let i = 0; i < lines; i++) {
           const number = document.createElement('div');
-          number.textContent = i + '';
+          number.style.cssText = `--line-index: ${i};`;
+          number.textContent = (i + 1) + '';
           lineNumbers.appendChild(number);
         }
       };

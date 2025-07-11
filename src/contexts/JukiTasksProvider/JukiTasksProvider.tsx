@@ -11,8 +11,9 @@ import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } fr
 import { T } from '../../components/atoms';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { useMutate } from '../../hooks/useMutate';
-import { jukiApiSocketManager } from '../../settings';
+import { jukiApiManager } from '../../settings';
 import { useUserStore } from '../../stores/user/useUserStore';
+import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
 import { TasksContext } from './context';
 import { SocketSubmissions, SubmissionToCheck } from './types';
 
@@ -43,6 +44,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
   const [ submissions, setSubmissions ] = useState<SocketSubmissions>({});
   const [ submissionsToCheck, setSubmissionsToCheck ] = useState<SubmissionToCheck[]>([]);
   const userSessionId = useUserStore(state => state.user.sessionId);
+  const websocket = useWebsocketStore(store => store.websocket);
   const submissionIdListenerCount = useRef<{ [key: string]: number }>({});
   const mutate = useMutate();
   
@@ -103,7 +105,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
         sessionId: userSessionId,
         submitId: submissionId,
       };
-      jukiApiSocketManager.SOCKET.unsubscribeAll(event);
+      websocket.unsubscribeAll(event);
       submissionIdListenerCount.current[submissionId] = 0;
     }
   }, [ userSessionId ]);
@@ -118,10 +120,10 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
       submitId: submissionToCheck.id,
     };
     submissionIdListenerCount.current[submissionToCheck.id] = (submissionIdListenerCount.current[submissionToCheck.id] ?? 0) + 1;
-    jukiApiSocketManager.SOCKET.send(event, (data) => {
+    websocket.send(event, (data) => {
       if (isSubmissionRunStatusMessageWebSocketResponseEventDTO(data)) {
         if (data.status === SubmissionRunStatus.COMPLETED || data.status === SubmissionRunStatus.RECEIVED) {
-          void mutate(new RegExp(`${jukiApiSocketManager.SERVICE_API_V1_URL}/submission`, 'g'));
+          void mutate(new RegExp(`${jukiApiManager.SERVICE_API_V1_URL}/submission`, 'g'));
         }
         const nextStatus = data.status;
         const nextSampleCase = !!data.testInfo?.sampleCase;

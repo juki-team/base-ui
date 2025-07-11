@@ -1,5 +1,5 @@
 import { cleanRequest, consoleWarn, ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
-import { jukiApiSocketManager } from '../settings';
+import { jukiApiManager } from '../settings';
 import { authorizedRequest } from './fetch';
 
 export const openNewTab = (url: string) => {
@@ -10,7 +10,7 @@ export const openNewTab = (url: string) => {
 };
 
 export const publishNote = async (source: string) => {
-  const { url, ...options } = jukiApiSocketManager.API_V1.note.publish({ body: { source: source.trim() } });
+  const { url, ...options } = jukiApiManager.API_V1.note.publish({ body: { source: source.trim() } });
   const request = cleanRequest<ContentResponseType<{ sourceUrl: string }>>(
     await authorizedRequest(url, options),
   );
@@ -48,7 +48,7 @@ export const handleUploadImage = async (image: Blob, isPublic: boolean): Promise
   content: { imageUrl: string, signedUrl: string }
 }> => {
   try {
-    const { url, ...options } = jukiApiSocketManager.API_V1.image.publish({
+    const { url, ...options } = jukiApiManager.API_V1.image.publish({
       body: {
         contentType: image.type,
         isPublic,

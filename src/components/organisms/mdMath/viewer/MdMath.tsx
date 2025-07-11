@@ -9,7 +9,7 @@ import RemarkMathPlugin from 'remark-math';
 import { useFetcher } from '../../../../hooks/useFetcher';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useStableState } from '../../../../hooks/useStableState';
-import { jukiApiSocketManager } from '../../../../settings';
+import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { QueryParamKey, SetSearchParamsType } from '../../../../types';
 import { Button } from '../../../atoms/Button/Button';
@@ -45,7 +45,7 @@ const UserInlineChip = ({ nickname }: { nickname: string }) => {
   const {
     isLoading,
     data,
-  } = useFetcher<ContentResponseType<UserBasicResponseDTO>>(jukiApiSocketManager.API_V1.user.getSummary({ params: { nickname } }).url);
+  } = useFetcher<ContentResponseType<UserBasicResponseDTO>>(jukiApiManager.API_V1.user.getSummary({ params: { nickname } }).url);
   
   if (isLoading) {
     return <SpinIcon size="tiny" />;

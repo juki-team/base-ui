@@ -2,7 +2,7 @@ import React from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useJukiUser } from '../../../../hooks/useJukiUser';
-import { jukiApiSocketManager } from '../../../../settings';
+import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { QueryParamKey } from '../../../../types';
@@ -60,7 +60,7 @@ export const LoginUser = ({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
                 onClick={(setLoader) => logout({ setLoader })}
                 type="light"
                 icon={<LogoutIcon />}
-                disabled={jukiApiSocketManager.isQueryToken()}
+                disabled={jukiApiManager.isQueryToken()}
               >
                 <T className="ws-np tt-se">sign out</T>
               </ButtonLoader>

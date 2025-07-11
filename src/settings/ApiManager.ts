@@ -23,7 +23,6 @@ import {
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
 } from '../types';
-import { JukiWebSocketManagement } from './JukiWebSocketManagement';
 
 const addQuery = (path: string) => {
   return !path.includes('?') ? path + '?' : path;
@@ -68,7 +67,7 @@ const getQueryToken = () => {
   return validate(queryToken) ? queryToken : null;
 };
 
-export class ApiSocketManager {
+export class ApiManager {
   private _eventListeners: { [key: string]: Function[] } = {};
   
   private _SERVICE_API_V1_URL = '';
@@ -87,18 +86,6 @@ export class ApiSocketManager {
   
   get TOKEN_NAME(): string {
     return this._TOKEN_NAME;
-  }
-  
-  private _SOCKET_SERVICE_URL = '';
-  
-  get SOCKET_SERVICE_URL(): string {
-    return this._SOCKET_SERVICE_URL;
-  }
-  
-  private _SOCKET = new JukiWebSocketManagement('');
-  
-  get SOCKET(): JukiWebSocketManagement {
-    return this._SOCKET;
   }
   
   get API_V2() {
@@ -975,16 +962,6 @@ export class ApiSocketManager {
       });
     } else {
       consoleWarn('serviceApiUrl, serviceApiV2Url and tokenName already set');
-    }
-  }
-  
-  setSocketSettings(socketServiceUrl: string) {
-    if (socketServiceUrl !== this._SOCKET_SERVICE_URL) {
-      this._SOCKET_SERVICE_URL = socketServiceUrl;
-      void this._SOCKET.setSocketServiceUrl(socketServiceUrl);
-      this.emit('socketSettingsChanged', { socketServiceUrl });
-    } else {
-      consoleWarn('socketServiceUrl already set');
     }
   }
   

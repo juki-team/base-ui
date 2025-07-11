@@ -10,7 +10,7 @@ import {
 } from '@juki-team/commons';
 import React, { useMemo } from 'react';
 import { useFetcher } from '../../../../hooks/useFetcher';
-import { jukiApiSocketManager } from '../../../../settings';
+import { jukiApiManager } from '../../../../settings';
 import { UserCodeEditor } from '../../../organisms';
 import { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../../organisms/types';
 
@@ -53,7 +53,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
     };
   });
   const { data: virtualJudgeData } = useFetcher<ContentResponseType<JudgeDataResponseDTO>>(
-    problem.judge.isExternal ? jukiApiSocketManager.API_V1.judge.getData({
+    problem.judge.isExternal ? jukiApiManager.API_V1.judge.getData({
       params: {
         key: problem.judge.key,
       },

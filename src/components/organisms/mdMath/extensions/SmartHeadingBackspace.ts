@@ -22,6 +22,9 @@ export const SmartHeadingBackspace = Extension.create({
               // Baja un nivel al heading (h4 ➔ h3, etc.)
               commands.setNode('heading', { level: currentLevel - 1 });
               return true; // Evita el comportamiento por defecto (borrar)
+            } else {
+              commands.setNode('paragraph');
+              return true;
             }
           }
         }

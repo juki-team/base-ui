@@ -10,7 +10,6 @@ import Gapcursor from '@tiptap/extension-gapcursor';
 import Heading from '@tiptap/extension-heading';
 import Highlight from '@tiptap/extension-highlight';
 import History from '@tiptap/extension-history';
-import Image from '@tiptap/extension-image';
 import Italic from '@tiptap/extension-italic';
 import ListItem from '@tiptap/extension-list-item';
 import { Mathematics } from '@tiptap/extension-mathematics';
@@ -18,6 +17,10 @@ import { Mathematics } from '@tiptap/extension-mathematics';
 import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
 import Strike from '@tiptap/extension-strike';
+import Table from '@tiptap/extension-table';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TableRow from '@tiptap/extension-table-row';
 import Text from '@tiptap/extension-text';
 import { BubbleMenu, useEditor } from '@tiptap/react';
 import c from 'highlight.js/lib/languages/c';
@@ -36,7 +39,13 @@ import { useJukiNotification } from '../../../hooks';
 import { NotificationType } from '../../../types';
 import { Button, T } from '../../atoms';
 import {
+  AddColumnLeftIcon,
+  AddColumnRightIcon,
   AddPhotoAlternateIcon,
+  AddRowAboveIcon,
+  AddRowBelowIcon,
+  ArrowForwardIcon,
+  ArrowUpwardIcon,
   CodeBlocksIcon,
   CodeIcon,
   DownloadIcon,
@@ -62,10 +71,12 @@ import { FormatInkHighlighterIcon } from '../../atoms/server/icons/google/Format
 import { FormatQuoteIcon } from '../../atoms/server/icons/google/FormatQuoteIcon';
 import { FormatStrikethroughIcon } from '../../atoms/server/icons/google/FormatStrikethroughIcon';
 import { LinkOffIcon } from '../../atoms/server/icons/google/LinkOffIcon';
+import { TableIcon } from '../../atoms/server/icons/google/TableIcon';
 import { FloatToolbar } from '../../molecules';
 import { ImageUploaderModal } from '../ImageUploader/ImageUploaderModal';
 import { TiptapEditorContent } from './editor';
 import {
+  BlockImage,
   CurrentNodeHighlighter,
   CustomCodeBlockLowlight,
   CustomLink,
@@ -116,6 +127,7 @@ export const MdMathEditor = memo(({
     extensions: [
       Document,
       Gapcursor,
+      History,
       Markdown,
       SmartPasteMarkdown.configure({
         addNotification: ({ type, message }: { type: NotificationType, message: string }) => {
@@ -137,10 +149,13 @@ export const MdMathEditor = memo(({
       }),
       // CustomHeading,
       Heading, SmartHeadingBackspace,
-      Image,
+      BlockImage.configure({ inline: false }),
       Dropcursor,
       Mathematics,
-      History,
+      Table.configure({ resizable: true }),
+      TableRow,
+      TableCell,
+      TableHeader,
       // Marks
       Italic,
       Bold,
@@ -161,8 +176,9 @@ export const MdMathEditor = memo(({
     injectCSS: false,
     //
     onUpdate({ editor }) {
-      const textMd = editor?.storage.markdown.getMarkdown() as string ?? '';
-      onChange?.(textMd);
+      const rawMd = editor?.storage.markdown.getMarkdown() as string ?? '';
+      const cleanedMd = rawMd.replace(/!\[.*?\]\(.*?\)(?=\S)/g, match => `${match}\n\n`);
+      onChange?.(cleanedMd);
     },
     onSelectionUpdate({ editor }) {
       const el = editorRef.current?.querySelector('.current-node-highlight') as HTMLElement
@@ -360,7 +376,9 @@ export const MdMathEditor = memo(({
                       />
                       <Button
                         tooltipContent={editor.isActive('orderedList') ? 'toggle bullet list' : editor.isActive('bulletList') ? 'toggle ordered list' : 'set bullet list'}
-                        icon={editor.isActive('orderedList') ? <FormatListBulletedIcon /> : <FormatListNumberedIcon />}
+                        icon={editor.isActive('orderedList')
+                          ? <FormatListBulletedIcon />
+                          : <FormatListNumberedIcon />}
                         onClick={() => {
                           if (editor.isActive('bulletList')) {
                             editor.chain().focus().toggleOrderedList().run();
@@ -372,19 +390,36 @@ export const MdMathEditor = memo(({
                         disabled={false}
                       />
                       <Button
-                        tooltipContent="sink list item"
-                        icon={<StepOutIcon rotate={90} />}
-                        onClick={() => editor.chain().focus().sinkListItem('listItem').run()}
-                        disabled={!editor.can().sinkListItem('listItem')}
-                        type="light"
+                        tooltipContent={editor.isActive('table') ? 'delete table' : 'insert table'}
+                        icon={editor.isActive('table') ? <TableIcon strikethrough /> : <TableIcon />}
+                        onClick={() => {
+                          if (editor?.isActive('table')) {
+                            editor.chain().focus().deleteTable().run();
+                          } else {
+                            editor.chain().focus().insertTable({
+                              rows: 3,
+                              cols: 2,
+                              withHeaderRow: true,
+                            }).run();
+                          }
+                        }}
+                        disabled={editor.isActive('table') ? false : !editor.can().insertTable()}
+                        type={editor.isActive('table') ? 'primary' : 'light'}
                       />
-                      <Button
-                        tooltipContent="lift list item"
-                        icon={<StepIntoIcon rotate={90} />}
-                        onClick={() => editor.chain().focus().liftListItem('listItem').run()}
-                        disabled={!editor.can().liftListItem('listItem')}
-                        type="light"
-                      />
+                      {/*<Button*/}
+                      {/*  tooltipContent="sink list item"*/}
+                      {/*  icon={<StepOutIcon rotate={90} />}*/}
+                      {/*  onClick={() => editor.chain().focus().sinkListItem('listItem').run()}*/}
+                      {/*  disabled={!editor.can().sinkListItem('listItem')}*/}
+                      {/*  type="light"*/}
+                      {/*/>*/}
+                      {/*<Button*/}
+                      {/*  tooltipContent="lift list item"*/}
+                      {/*  icon={<StepIntoIcon rotate={90} />}*/}
+                      {/*  onClick={() => editor.chain().focus().liftListItem('listItem').run()}*/}
+                      {/*  disabled={!editor.can().liftListItem('listItem')}*/}
+                      {/*  type="light"*/}
+                      {/*/>*/}
                     </div>
                     <div className="jk-row group jk-br-ie bc-hl">
                       <Button
@@ -529,6 +564,8 @@ export const MdMathEditor = memo(({
             className="bc-we jk-br-ie"
             shouldShow={() => (
               (editor.isFocused && editor.isActive('image'))
+              || (editor?.isFocused && editor.state.selection.empty && (editor.isActive('orderedList') || editor.isActive('bulletList')) && !editor.isActive('table'))
+              || (editor?.isFocused && editor.state.selection.empty && (editor.isActive('table')))
               || (editor.isFocused && !editor.state.selection.empty && !editor.isActive('codeBlock'))
             )}
           >
@@ -546,6 +583,91 @@ export const MdMathEditor = memo(({
                     <T>delete image</T>
                   </Button>
                 </div>
+              ) : editor?.isFocused && editor.state.selection.empty && (editor.isActive('orderedList') || editor.isActive('bulletList')) && !editor.isActive('table') ? (
+                <div className="jk-row">
+                  <Button
+                    tooltipContent={editor.isActive('orderedList') ? 'toggle bullet list' : editor.isActive('bulletList') ? 'toggle ordered list' : 'set bullet list'}
+                    icon={editor.isActive('orderedList') ? <FormatListBulletedIcon /> : <FormatListNumberedIcon />}
+                    onClick={() => {
+                      if (editor.isActive('bulletList')) {
+                        editor.chain().focus().toggleOrderedList().run();
+                      } else {
+                        editor.chain().focus().toggleBulletList().run();
+                      }
+                    }}
+                    type={editor.isActive('orderedList') || editor.isActive('bulletList') ? 'primary' : 'light'}
+                    disabled={false}
+                    size="small"
+                  />
+                  <Button
+                    tooltipContent="sink list item"
+                    icon={<StepOutIcon rotate={90} />}
+                    onClick={() => editor.chain().focus().sinkListItem('listItem').run()}
+                    disabled={!editor.can().sinkListItem('listItem')}
+                    type="light"
+                    size="small"
+                  />
+                  <Button
+                    tooltipContent="lift list item"
+                    icon={<StepIntoIcon rotate={90} />}
+                    onClick={() => editor.chain().focus().liftListItem('listItem').run()}
+                    disabled={!editor.can().liftListItem('listItem')}
+                    type="light"
+                    size="small"
+                  />
+                </div>
+              ) : (editor?.isFocused && editor.state.selection.empty && (editor.isActive('table'))) ? (
+                <div className="jk-row with-trigger">
+                  <div className="jk-row trigger"><MoreVertIcon size="tiny" /></div>
+                  <Button
+                    tooltipContent="add column before"
+                    icon={<AddColumnRightIcon />}
+                    onClick={() => editor.chain().focus().addColumnBefore().run()}
+                    disabled={!editor.can().addColumnBefore()}
+                    type="light"
+                    size="small"
+                  />
+                  <Button
+                    tooltipContent="Add column after"
+                    icon={<AddColumnLeftIcon />}
+                    onClick={() => editor.chain().focus().addColumnAfter().run()}
+                    disabled={!editor.can().addColumnAfter()}
+                    type="light"
+                    size="small"
+                  />
+                  <Button
+                    tooltipContent="add row before"
+                    icon={<AddRowAboveIcon />}
+                    onClick={() => editor.chain().focus().addRowBefore().run()}
+                    disabled={!editor.can().addRowBefore()}
+                    type="light"
+                    size="small"
+                  />
+                  <Button
+                    tooltipContent="Add row after"
+                    icon={<AddRowBelowIcon />}
+                    onClick={() => editor.chain().focus().addRowAfter().run()}
+                    disabled={!editor.can().addRowAfter()}
+                    type="light"
+                    size="small"
+                  />
+                  <Button
+                    tooltipContent="delete column"
+                    icon={<ArrowUpwardIcon strikethrough />}
+                    onClick={() => editor.chain().focus().deleteColumn().run()}
+                    disabled={!editor.can().deleteColumn()}
+                    type="light"
+                    size="small"
+                  />
+                  <Button
+                    tooltipContent="delete row"
+                    icon={<ArrowForwardIcon strikethrough />}
+                    onClick={() => editor.chain().focus().deleteRow().run()}
+                    disabled={!editor.can().deleteRow()}
+                    type="light"
+                    size="small"
+                  />
+                </div>
               ) : (editor.isFocused && !editor.state.selection.empty && !editor.isActive('codeBlock')) && (
                 <div className="jk-row">
                   <Button
@@ -553,30 +675,35 @@ export const MdMathEditor = memo(({
                     icon={<FormatBoldIcon />}
                     onClick={() => editor.chain().focus().toggleBold().run()}
                     type={editor.isActive('bold') ? 'primary' : 'light'}
+                    size="small"
                   />
                   <Button
                     tooltipContent={editor.isActive('italic') ? 'unset italic' : 'set italic'}
                     icon={<FormatItalicIcon />}
                     onClick={() => editor.chain().focus().toggleItalic().run()}
                     type={editor.isActive('italic') ? 'primary' : 'light'}
+                    size="small"
                   />
                   <Button
                     tooltipContent={editor.isActive('strike') ? 'unset strike' : 'set strike'}
                     icon={<FormatStrikethroughIcon />}
                     onClick={() => editor.chain().focus().toggleStrike().run()}
                     type={editor.isActive('strike') ? 'primary' : 'light'}
+                    size="small"
                   />
                   <Button
                     tooltipContent={editor.isActive('highlight') ? 'unhighlight' : 'highlight'}
                     icon={<FormatInkHighlighterIcon />}
                     onClick={() => editor.chain().focus().toggleHighlight().run()}
                     type={editor.isActive('highlight') ? 'primary' : 'light'}
+                    size="small"
                   />
                   <Button
                     tooltipContent={editor.isActive('code') ? 'unset code inline' : 'set code inline'}
                     icon={<CodeIcon />}
                     onClick={() => editor.chain().focus().toggleCode().run()}
                     type={editor.isActive('code') ? 'primary' : 'light'}
+                    size="small"
                   />
                   <Button
                     tooltipContent="set code block"
@@ -601,12 +728,14 @@ export const MdMathEditor = memo(({
                         .run();
                     }}
                     type="light"
+                    size="small"
                   />
                   <Button
                     tooltipContent="set link"
                     icon={<LinkIcon />}
                     onClick={setLink}
                     type="light"
+                    size="small"
                   />
                 </div>
               )}

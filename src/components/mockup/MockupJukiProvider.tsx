@@ -3,7 +3,8 @@ import { createInstance, i18n } from 'i18next';
 import React, { PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
 import { JukiProviders } from '../../contexts';
-import { jukiApiSocketManager } from '../../settings';
+import { jukiApiManager } from '../../settings';
+import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
 import { SubmissionModal, UserPreviewModal } from '../templates';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
@@ -51,11 +52,14 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   const serviceV2Url = 'https://api.juki.app/v2';
   // const socketServiceUrl = 'wss://im7lou2on3.execute-api.us-east-1.amazonaws.com/production';
   // const socketServiceUrl = 'wss://im7lou2on3.execute-api.us-east-1.amazonaws.com/v1/';
-  // const socketServiceUrl = 'wss://websocket.juki.app';
+  const socketServiceUrl = 'wss://websocket.juki.app';
   // useEffect(() => {
-  // jukiApiSocketManager.setSocketSettings(socketServiceUrl); // token fake
-  jukiApiSocketManager.setApiSettings(serviceUrl, serviceV2Url, 'juki-token');
+  // jukiApiManager.setSocketSettings(socketServiceUrl); // token fake
+  jukiApiManager.setApiSettings(serviceUrl, serviceV2Url, 'juki-token');
   // }, []);
+  
+  const websocket = useWebsocketStore(store => store.websocket);
+  void websocket.setSocketServiceUrl(socketServiceUrl);
   
   return (
     <JukiProviders<TestPath>

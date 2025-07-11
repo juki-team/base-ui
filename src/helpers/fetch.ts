@@ -8,7 +8,7 @@ import {
   JUKI_METADATA,
   JUKI_SESSION_ID,
 } from '@juki-team/commons';
-import { jukiApiSocketManager } from '../settings';
+import { jukiApiManager } from '../settings';
 import { AuthorizedRequestType } from '../types';
 
 export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N extends Blob | string = string>(url: string, options?: AuthorizedRequestType<M>, safe?: boolean): Promise<N> => {
@@ -23,7 +23,7 @@ export const authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N
     requestHeaders.set('content-type', 'application/json');
   }
   
-  const token = options?.token || jukiApiSocketManager.getToken();
+  const token = options?.token || jukiApiManager.getToken();
   
   if (token) {
     requestHeaders.set(JUKI_SESSION_ID, token);

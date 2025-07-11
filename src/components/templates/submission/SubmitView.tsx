@@ -1,6 +1,6 @@
 import { ContentResponseType, SubmissionDataResponseDTO } from '@juki-team/commons';
 import React from 'react';
-import { jukiApiSocketManager } from '../../../settings';
+import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { JukiSurprisedImage } from '../../server';
@@ -9,7 +9,7 @@ import { SubmitViewProps } from './types';
 
 export const SubmitView = ({ submitId, triggerFetch }: SubmitViewProps) => (
   <FetcherLayer<ContentResponseType<SubmissionDataResponseDTO>>
-    url={jukiApiSocketManager.API_V1.submission.getData({ params: { id: submitId } }).url}
+    url={jukiApiManager.API_V1.submission.getData({ params: { id: submitId } }).url}
     errorView={() => {
       return (
         <div className="jk-col extend jk-pg-md">

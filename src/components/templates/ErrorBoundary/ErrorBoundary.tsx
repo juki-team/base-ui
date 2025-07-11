@@ -1,7 +1,7 @@
 import { consoleError, consoleInfo, ContentsResponseType } from '@juki-team/commons';
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { jukiApiSocketManager } from '../../../settings';
+import { jukiApiManager } from '../../../settings';
 import { Button, T } from '../../atoms';
 import { JukiSurprisedImage } from '../../server';
 import { HelpSection } from '../HelpSection/HelpSection';
@@ -23,10 +23,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
   
   async componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // You can use your own error logging service here
-    const token = jukiApiSocketManager.getToken();
+    const token = jukiApiManager.getToken();
     const location = window?.location;
     try {
-      const { url, ...options } = jukiApiSocketManager.API_V1.log({
+      const { url, ...options } = jukiApiManager.API_V1.log({
         body: {
           location,
           token,

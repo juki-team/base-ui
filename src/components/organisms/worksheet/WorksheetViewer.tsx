@@ -9,7 +9,7 @@ import { classNames } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useStableState } from '../../../hooks/useStableState';
-import { jukiApiSocketManager } from '../../../settings';
+import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
@@ -53,7 +53,7 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
     mutate: userResultsMutate,
     isLoading: userResultsIsLoading,
     isValidating: userResultsIsValidating,
-  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && isSolvable && userIsLogged ? jukiApiSocketManager.API_V1.worksheet.getSubmissionsUser({
+  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && isSolvable && userIsLogged ? jukiApiManager.API_V1.worksheet.getSubmissionsUser({
     params: {
       key: worksheetKey,
       userKey: resultsUserKey || getUserKey(userNickname, companyKey),

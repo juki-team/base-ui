@@ -4,7 +4,7 @@ import { DEFAULT_DATA_VIEWER_PROPS } from '../../../constants';
 import { useDataViewerRequester } from '../../../hooks/useDataViewerRequester';
 import { useJukiUser } from '../../../hooks/useJukiUser';
 import { useMutate } from '../../../hooks/useMutate';
-import { jukiApiSocketManager } from '../../../settings';
+import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { QueryParamKey } from '../../../types';
 import { DateLiteral, T } from '../../atoms';
@@ -22,7 +22,7 @@ export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
     data: response,
     request,
     setLoaderStatusRef,
-  } = useDataViewerRequester<ContentsResponseType<SessionBasicResponseDTO>>(() => jukiApiSocketManager.API_V1.user.getMySessions().url);
+  } = useDataViewerRequester<ContentsResponseType<SessionBasicResponseDTO>>(() => jukiApiManager.API_V1.user.getMySessions().url);
   
   const mutate = useMutate();
   
@@ -58,7 +58,7 @@ export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
                   setLoader,
                   onSuccess: async () => {
                     setLoader(Status.LOADING);
-                    await mutate(jukiApiSocketManager.API_V1.user.getMySessions().url);
+                    await mutate(jukiApiManager.API_V1.user.getMySessions().url);
                     setLoader(Status.SUCCESS);
                   },
                 })}

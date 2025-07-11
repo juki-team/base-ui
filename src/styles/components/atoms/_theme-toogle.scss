@@ -111,7 +111,7 @@
   
   /* moon dimples */
   
-  .toggle--label:after {
+  .toggle--label::after {
     transition-delay: 0ms;
     transition: all var(--transition-duration) ease-in;
     position: absolute;
@@ -126,7 +126,7 @@
     opacity: 1;
   }
   
-  .toggle--checkbox:checked + .toggle--label:after {
+  .toggle--checkbox:checked + .toggle--label::after {
     transition-delay: 50ms;
     opacity: 0;
   }
@@ -147,7 +147,7 @@
     left: calc(var(--border) * -0.8);
   }
   
-  .toggle--checkbox:checked + .toggle--label .toggle--label-background:after {
+  .toggle--checkbox:checked + .toggle--label .toggle--label-background::after {
     top: calc(var(--border) + 1px);
     width: calc((var(--toggle-width) - var(--circle-size)) * 0.4);
     height: var(--border);
@@ -179,7 +179,7 @@
     background: white;
   }
   
-  .toggle--label-background:after {
+  .toggle--label-background::after {
     content: "";
     position: absolute;
     width: var(--border);

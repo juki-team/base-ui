@@ -2,7 +2,7 @@ import { ContentResponseType, ContentsResponseType, HTTPMethod } from '@juki-tea
 import { useMemo } from 'react';
 import useSWR, { SWRConfiguration } from 'swr';
 import { authorizedRequest, cleanRequest } from '../helpers';
-import { jukiApiSocketManager } from '../settings';
+import { jukiApiManager } from '../settings';
 import { useUserStore } from '../stores/user/useUserStore';
 
 export const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
@@ -11,7 +11,7 @@ export const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
 
 export const useFetcher = <T extends (ContentResponseType<any> | ContentsResponseType<any>)>(url?: string | null, config?: SWRConfiguration) => {
   
-  const token = jukiApiSocketManager.getToken();
+  const token = jukiApiManager.getToken();
   const userSessionId = useUserStore(state => state.user.sessionId);
   
   const { data, error, mutate, isValidating, isLoading } = useSWR(

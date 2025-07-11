@@ -14,7 +14,7 @@ import {
 import React, { useCallback, useState } from 'react';
 import { T } from '../components/atoms/T/T';
 import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../helpers';
-import { jukiApiSocketManager } from '../settings';
+import { jukiApiManager } from '../settings';
 import { useI18nStore } from '../stores/i18n/useI18nStore';
 import { useUserStore } from '../stores/user/useUserStore';
 import {
@@ -73,9 +73,9 @@ export const useJukiUser = () => {
       companyKey: string
     } | undefined, SignInPayloadDTO, PingResponseDTO>,
   ) => {
-    const { url, ...options } = jukiApiSocketManager.API_V1.auth.signIn({ body, params });
+    const { url, ...options } = jukiApiManager.API_V1.auth.signIn({ body, params });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
-      localStorageCrossDomains.setItem(jukiApiSocketManager.TOKEN_NAME, response.content.user.sessionId);
+      localStorageCrossDomains.setItem(jukiApiManager.TOKEN_NAME, response.content.user.sessionId);
       // setUser(response.content.user);
       await userMutate();
       await onSuccess?.(response);
@@ -89,9 +89,9 @@ export const useJukiUser = () => {
       deviceName: string
     }, PingResponseDTO>,
   ) => {
-    const { url, ...options } = jukiApiSocketManager.API_V1.auth.signUp({ body });
+    const { url, ...options } = jukiApiManager.API_V1.auth.signUp({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
-      localStorageCrossDomains.setItem(jukiApiSocketManager.TOKEN_NAME, response.content.user.sessionId);
+      localStorageCrossDomains.setItem(jukiApiManager.TOKEN_NAME, response.content.user.sessionId);
       // setUser(response.content.user);
       await userMutate();
       await onSuccess?.(response);
@@ -104,14 +104,14 @@ export const useJukiUser = () => {
       companyKey: string
     } | undefined, SignUpPayloadDTO & { overwrite: boolean }, PingResponseDTO>,
   ) => {
-    const { url, ...options } = jukiApiSocketManager.API_V1.auth.createUser({ params, body });
+    const { url, ...options } = jukiApiManager.API_V1.auth.createUser({ params, body });
     await doRequest<PingResponseDTO, HTTPMethod.POST>({ url, options, ...props });
   }, [ doRequest ]);
   
   const updateUserProfileData = useCallback(async (
     { params, body, ...props }: ApiParamsBodyType<{ nickname: string }, UpdateUserProfileDataPayloadDTO, string>,
   ) => {
-    const { url, ...options } = jukiApiSocketManager.API_V1.user.updateProfileData({ params, body });
+    const { url, ...options } = jukiApiManager.API_V1.user.updateProfileData({ params, body });
     await doRequest<string, HTTPMethod.PUT>({ url, options, ...props });
   }, [ doRequest ]);
   
@@ -120,7 +120,7 @@ export const useJukiUser = () => {
       nickname: string
     }, Blob, { signedUrl: string }>,
   ) => {
-    const { url, ...options } = jukiApiSocketManager.API_V1.user.updateProfileImage({
+    const { url, ...options } = jukiApiManager.API_V1.user.updateProfileImage({
       params,
       body: { contentType: body.type },
     });
@@ -147,7 +147,7 @@ export const useJukiUser = () => {
     companyKey: string,
     nickname: string,
   }, UpdatePasswordPayloadDTO, string>) => {
-    const { url, ...options } = jukiApiSocketManager.API_V1.auth.updatePassword({
+    const { url, ...options } = jukiApiManager.API_V1.auth.updatePassword({
       params,
       body,
     });
@@ -157,16 +157,16 @@ export const useJukiUser = () => {
   const resetUserPassword = useCallback(async (
     { params: { companyKey, nickname }, ...props }: ApiParamsType<{ companyKey: string, nickname: string }, string>,
   ) => {
-    const { url, ...options } = jukiApiSocketManager.API_V1.auth.resetPassword({ params: { companyKey, nickname } });
+    const { url, ...options } = jukiApiManager.API_V1.auth.resetPassword({ params: { companyKey, nickname } });
     await doRequest<string, HTTPMethod.POST>({ url, options, ...props });
   }, [ doRequest ]);
   
   const logout = useCallback(async ({ onError, onFinally, ...props }: ApiType<string>) => {
     
-    const { url, ...options } = jukiApiSocketManager.API_V1.auth.signOut();
+    const { url, ...options } = jukiApiManager.API_V1.auth.signOut();
     
     const onFinallyWrap = async (response: ErrorResponseType | ContentResponseType<string>) => {
-      localStorageCrossDomains.removeItem(jukiApiSocketManager.TOKEN_NAME);
+      localStorageCrossDomains.removeItem(jukiApiManager.TOKEN_NAME);
       // setUser(EMPTY_USER);
       await userMutate();
       await onFinally?.(response);
@@ -186,14 +186,14 @@ export const useJukiUser = () => {
   }, [ addErrorNotification, doRequest, userMutate ]);
   
   const deleteUserSession = useCallback(async ({ params, ...props }: ApiParamsType<{ sessionId: string }, string>) => {
-    const { url, ...options } = jukiApiSocketManager.API_V1.user.deleteSession({ params });
+    const { url, ...options } = jukiApiManager.API_V1.user.deleteSession({ params });
     await doRequest<string, HTTPMethod.DELETE>({ url, options, ...props });
   }, [ doRequest ]);
   
   const updateUserPreferences = useCallback(async (
     { params, body, ...props }: ApiParamsBodyType<{ nickname: string }, UserSettingsType, string>,
   ) => {
-    const { url, ...options } = jukiApiSocketManager.API_V1.user.updatePreferences({ params, body });
+    const { url, ...options } = jukiApiManager.API_V1.user.updatePreferences({ params, body });
     await doRequest<string, HTTPMethod.PUT>({ url, options, ...props });
   }, [ doRequest ]);
   

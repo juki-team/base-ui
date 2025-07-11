@@ -80,7 +80,7 @@
           margin: 0 var(--pad-xt);
         }
         
-        &:after {
+        &::after {
           background-color: var(--t-color-accent);
           height: 6px;
           width: 100%;

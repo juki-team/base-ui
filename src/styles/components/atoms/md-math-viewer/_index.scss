@@ -46,8 +46,10 @@
     margin: auto;
     border-spacing: 0;
     
-    thead tr {
-      @include mixins.look(primary);
+    thead tr, tr {
+      th {
+        @include mixins.look(primary);
+      }
       
       th:first-child {
         border-radius: var(--border-radius-inline) 0 0 0;
@@ -65,7 +67,7 @@
     tbody tr {
       position: relative;
       
-      &:after {
+      &::after {
         content: " ";
         position: absolute;
         width: 100%;
@@ -84,7 +86,7 @@
       }
       
       &:last-child {
-        &:after {
+        &::after {
           left: calc(var(--border-radius-inline) - 4px);
           width: calc(100% - var(--border-radius-inline) - var(--border-radius-inline) + 8px);
         }

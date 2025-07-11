@@ -1,6 +1,5 @@
 // import '../src/styles/base/_index.scss';
-import { initialize, mswLoader } from 'msw-storybook-addon';
-import { http, HttpResponse } from "msw";
+import { initialize } from 'msw-storybook-addon';
 import { allModes } from "../.storybook/modes";
 
 initialize({
@@ -94,19 +93,20 @@ const PING = {
 
 export const parameters = {
   // actions: { argTypesRegex: '^on[A-Z].*' },
-  msw: {
-    handlers: [
-      http.get('https://api.juki.app/v2/auth/ping', () => {
-        return HttpResponse.json(PING);
-      }),
-      http.get('https://api.juki.app/v2/locale/EN/translation', () => {
-        return HttpResponse.json({});
-      }),
-      http.get('https://api.juki.app/v2/locale/ES/translation', () => {
-        return HttpResponse.json({});
-      }),
-    ],
-  },
+  // msw: {
+  //   handlers: [
+  //     // no working with WS, because juki websocket needs a valid session
+  //     // http.get('https://api.juki.app/v2/auth/ping', () => {
+  //     //   return HttpResponse.json(PING);
+  //     // }),
+  //     // http.get('https://api.juki.app/v2/locale/EN/translation', () => {
+  //     //   return HttpResponse.json({});
+  //     // }),
+  //     // http.get('https://api.juki.app/v2/locale/ES/translation', () => {
+  //     //   return HttpResponse.json({});
+  //     // }),
+  //   ],
+  // },
   controls: {
     matchers: {
       color: /(background|color)$/i,
@@ -128,4 +128,4 @@ export const parameters = {
 
 export const tags = [ 'autodocs' ];
 
-export const loaders = [ mswLoader ];
+// export const loaders = [ mswLoader ];

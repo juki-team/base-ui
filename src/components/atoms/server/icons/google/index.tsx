@@ -27,6 +27,22 @@ export const AcuteIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const AddColumnLeftIconImport = () => import('./AddColumnLeftIcon');
+const LazyAddColumnLeftIcon = lazy(() => AddColumnLeftIconImport().then(module => ({ default: module.AddColumnLeftIcon })));
+export const AddColumnLeftIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyAddColumnLeftIcon {...props} />
+  </Suspense>
+);
+
+const AddColumnRightIconImport = () => import('./AddColumnRightIcon');
+const LazyAddColumnRightIcon = lazy(() => AddColumnRightIconImport().then(module => ({ default: module.AddColumnRightIcon })));
+export const AddColumnRightIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyAddColumnRightIcon {...props} />
+  </Suspense>
+);
+
 const AddIconImport = () => import('./AddIcon');
 const LazyAddIcon = lazy(() => AddIconImport().then(module => ({ default: module.AddIcon })));
 export const AddIcon = (props: BasicIconProps) => (
@@ -48,6 +64,22 @@ const LazyAddReactionIcon = lazy(() => AddReactionIconImport().then(module => ({
 export const AddReactionIcon = (props: BasicIconProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyAddReactionIcon {...props} />
+  </Suspense>
+);
+
+const AddRowAboveIconImport = () => import('./AddRowAboveIcon');
+const LazyAddRowAboveIcon = lazy(() => AddRowAboveIconImport().then(module => ({ default: module.AddRowAboveIcon })));
+export const AddRowAboveIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyAddRowAboveIcon {...props} />
+  </Suspense>
+);
+
+const AddRowBelowIconImport = () => import('./AddRowBelowIcon');
+const LazyAddRowBelowIcon = lazy(() => AddRowBelowIconImport().then(module => ({ default: module.AddRowBelowIcon })));
+export const AddRowBelowIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyAddRowBelowIcon {...props} />
   </Suspense>
 );
 
@@ -1235,6 +1267,14 @@ export const TableEyeIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const TableIconImport = () => import('./TableIcon');
+const LazyTableIcon = lazy(() => TableIconImport().then(module => ({ default: module.TableIcon })));
+export const TableIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyTableIcon {...props} />
+  </Suspense>
+);
+
 const TaskIconImport = () => import('./TaskIcon');
 const LazyTaskIcon = lazy(() => TaskIconImport().then(module => ({ default: module.TaskIcon })));
 export const TaskIcon = (props: BasicIconProps) => (
@@ -1351,9 +1391,13 @@ export const preloadAtomsIconsGoogle = async () => {
   await AcUnitIconImport();
   await AccountCircleIconImport();
   await AcuteIconImport();
+  await AddColumnLeftIconImport();
+  await AddColumnRightIconImport();
   await AddIconImport();
   await AddPhotoAlternateIconImport();
   await AddReactionIconImport();
+  await AddRowAboveIconImport();
+  await AddRowBelowIconImport();
   await AdminPanelSettingsIconImport();
   await AlarmIconImport();
   await AppsIconImport();
@@ -1502,6 +1546,7 @@ export const preloadAtomsIconsGoogle = async () => {
   await SupportAgentIconImport();
   await SyncIconImport();
   await TableEyeIconImport();
+  await TableIconImport();
   await TaskIconImport();
   await TimerIconImport();
   await TrendingUpIconImport();

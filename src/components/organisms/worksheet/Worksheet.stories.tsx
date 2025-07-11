@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import { authorizedRequest, oneTab } from '../../../helpers';
 import { useStableState } from '../../../hooks/useStableState';
-import { jukiApiSocketManager } from '../../../settings';
+import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { ButtonLoader, FetcherLayer, TwoContentLayout } from '../../molecules';
@@ -26,7 +26,7 @@ export const WorksheetViewer = () => {
   return (
     <MockupJukiProvider>
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
-        url={jukiApiSocketManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
+        url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
         {({ data, mutate }) => (
           <TwoContentLayout
@@ -60,7 +60,7 @@ export const WorksheetResultViewer = () => {
   return (
     <MockupJukiProvider>
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
-        url={jukiApiSocketManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
+        url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
         {({ data, mutate }) => (
           <TwoContentLayout
@@ -128,7 +128,7 @@ const Cmp = ({ content: initialContent, mutate }: { content: WorksheetDataRespon
           const {
             url,
             ...options
-          } = jukiApiSocketManager.API_V1.worksheet.update({
+          } = jukiApiManager.API_V1.worksheet.update({
             params: { key: initialContent.key },
             body: toUpsertWorksheetDTO({ ...initialContent, content }),
           });
@@ -148,7 +148,7 @@ export const WorksheetEditor = () => {
   return (
     <MockupJukiProvider>
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
-        url={jukiApiSocketManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
+        url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
         {({ data, mutate }) => (
           <TwoContentLayout

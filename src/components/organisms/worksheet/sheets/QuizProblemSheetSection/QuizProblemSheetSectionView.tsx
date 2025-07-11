@@ -11,7 +11,7 @@ import {
 import React from 'react';
 import { authorizedRequest } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
-import { jukiApiSocketManager } from '../../../../../settings';
+import { jukiApiManager } from '../../../../../settings';
 import { T } from '../../../../atoms';
 import { ButtonLoader, FetcherLayer, FirstLoginWrapper } from '../../../../molecules';
 import { ProblemView } from '../../../../templates/ProblemView/ProblemView';
@@ -44,7 +44,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
         }}
       >
         <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
-          url={content.problemKey ? jukiApiSocketManager.API_V1.problem.getData({ params: { key: content.problemKey } }).url : null}
+          url={content.problemKey ? jukiApiManager.API_V1.problem.getData({ params: { key: content.problemKey } }).url : null}
         >
           {({ data }) => {
             return (
@@ -68,7 +68,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
                           const {
                             url,
                             ...options
-                          } = jukiApiSocketManager.API_V1.worksheet.submitQuizProblem({
+                          } = jukiApiManager.API_V1.worksheet.submitQuizProblem({
                             params: { worksheetKey },
                             body: quizProblem,
                           });

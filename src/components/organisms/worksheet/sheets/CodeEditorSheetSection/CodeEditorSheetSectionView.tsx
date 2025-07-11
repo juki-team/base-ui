@@ -13,7 +13,7 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { authorizedRequest, classNames, getHeight } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
-import { jukiApiSocketManager } from '../../../../../settings';
+import { jukiApiManager } from '../../../../../settings';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
 import { QueryParamKey, UserResultsType } from '../../../../../types';
 import { T } from '../../../../atoms';
@@ -73,13 +73,13 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
     const sessionId = searchParams.get(QueryParamKey.SESSION);
     const assignmentId = searchParams.get(QueryParamKey.ASSIGNMENT);
     if (classKey && cycleId && sessionId && assignmentId) {
-      const { url, ...options } = jukiApiSocketManager.API_V1.class.viewAssignmentMyWorksheetSubmitCodeEditor({
+      const { url, ...options } = jukiApiManager.API_V1.class.viewAssignmentMyWorksheetSubmitCodeEditor({
         params: { classKey, cycleId, sessionId, assignmentId },
         body: codeEditorSubmissionDTO,
       });
       response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
     } else {
-      const { url, ...options } = jukiApiSocketManager.API_V1.worksheet.submitCodeEditor({
+      const { url, ...options } = jukiApiManager.API_V1.worksheet.submitCodeEditor({
         params: { worksheetKey },
         body: codeEditorSubmissionDTO,
       });
