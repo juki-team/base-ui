@@ -26,7 +26,10 @@ export const LinkLastPath = <T extends string | number = string, >(props: LinkLa
   
   return (
     <Link
-      href={{ pathname: getHref(lastPath?.[lastPathKey])?.pathname || '#', query: searchParams.toString() }}
+      href={getHref(lastPath?.[lastPathKey])?.pathname ? {
+        pathname: getHref(lastPath?.[lastPathKey])?.pathname,
+        query: searchParams.toString(),
+      } : '#'}
       className="link dy-cs"
     >
       {children}
