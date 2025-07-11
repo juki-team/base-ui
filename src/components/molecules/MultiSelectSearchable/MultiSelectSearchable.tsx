@@ -75,11 +75,11 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
     const disabled = !!option.disabled;
     
     const onChange = !option.disabled ? () => {
-      onChangeRef.current?.(selected ? selectedOptions.filter(optionSelected => JSON.stringify(option.value)
-        !== JSON.stringify(optionSelected.value)) : [
-        ...(multiselect ? selectedOptions : []),
+      onChangeRef.current?.(selected
+          ? selectedOptions.filter(optionSelected => JSON.stringify(option.value) !== JSON.stringify(optionSelected.value))
+          : [ ...(multiselect ? selectedOptions : []), option ],
         option,
-      ]);
+      );
     } : undefined;
     
     return (
@@ -157,8 +157,10 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
                     size="small"
                     filledCircle
                     onClick={event => {
-                      onChangeRef.current?.(selectedOptions.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(
-                        option.value)));
+                      onChangeRef.current?.(
+                        selectedOptions.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(option.value)),
+                        optionSelected,
+                      );
                       event.stopPropagation();
                     }}
                     className="cr-ht"
@@ -172,7 +174,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
               <CloseIcon
                 className="input-icon"
                 onClick={event => {
-                  onChangeRef.current?.([]);
+                  onChangeRef.current?.([], undefined);
                   event.stopPropagation();
                 }}
               />

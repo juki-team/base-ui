@@ -201,6 +201,11 @@ export type TableSortType = {
   online: boolean,
 }
 
+export type TableVisibleType = {
+  onToggle: () => void,
+  getVisible: () => boolean,
+}
+
 export type TableHeadFieldType<T> =
   ((props: { record: T, columnIndex: string, recordIndex: number, isCard: boolean }) => ReactNode)
   | ReactNode;
@@ -217,6 +222,7 @@ export type TableHeadersType<T> = {
   index: string,
   minWidth?: number,
   sort?: TableSortType,
+  visible: TableVisibleType,
   sticky?: boolean,
   headClassName?: string,
   group?: string,
@@ -226,7 +232,6 @@ export type DataViewerTableHeadersType<T> = TableHeadersType<T> & {
   minWidth: number,
   width: number,
   accumulatedWidth: number,
-  visible: boolean,
   headIndex: number,
 };
 type RowsType = { height?: number };
@@ -349,6 +354,7 @@ export interface DataViewerProps<T> {
   getFilterQueryParam?: (name: string) => string,
   getViewModeQueryParam?: (name: string) => string,
   getShowFilterDrawerQueryParam?: (name: string) => string,
+  getVisiblesQueryParam?: (name: string) => string,
   getRecordStyle?: GetRecordStyleType<T>,
   getRecordClassName?: GetRecordClassNameType<T>,
   onRecordClick?: OnRecordClickType<T>,
@@ -375,7 +381,7 @@ export interface TableHeadProps<T> {
 
 export interface FilterDrawerProps<T> {
   headers: DataViewerTableHeadersType<T>[],
-  setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
+  // setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   isOpen: boolean,
   onClose: () => void,
   onFilter: (values: FilterValuesType) => void,
@@ -409,7 +415,7 @@ export interface DataViewerToolbarProps<T> {
   extraNodes: ReactNodeOrFunctionType[],
   extraNodesFloating: boolean,
   headers: DataViewerTableHeadersType<T>[],
-  setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
+  // setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   loading: boolean,
   initializing: boolean,
   onAllFilters: (values: FilterValuesType) => void,

@@ -247,6 +247,8 @@ export const getViewModeKey = (name: string) => name ? name + '.viewMode' : 'vie
 
 export const getShowFilterDrawerKey = (name: string) => name ? name + '.showFilterDrawer' : 'showFilterDrawer';
 
+export const getVisiblesKey = (name: string) => name ? name + '.visibles' : 'visibles';
+
 export const fixHeaders = <T, >(headers: DataViewerTableHeadersType<T>[]) => {
   let accumulatedWidth = 0;
   const newHeaderWidths = [ ...headers ];

@@ -2,6 +2,7 @@ import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, SEPARATOR_TOKE
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EMPTY_ARRAY } from '../../../constants';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
+import { useStableRef } from '../../../hooks';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useSessionStorage } from '../../../hooks/useSessionStorage';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
@@ -18,6 +19,7 @@ import {
   getShowFilterDrawerKey,
   getSortKey,
   getViewModeKey,
+  getVisiblesKey,
   isFilterDateAutoOffline,
   isFilterDateOffline,
   isFilterDateOnline,
@@ -93,6 +95,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     getFilterQueryParam = getFilterKey,
     getViewModeQueryParam = getViewModeKey,
     getShowFilterDrawerQueryParam = getShowFilterDrawerKey,
+    getVisiblesQueryParam = getVisiblesKey,
     getRecordStyle,
     getRecordClassName,
     onRecordClick,
@@ -125,9 +128,14 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
   const initializing = _initializing || initialInitializing;
   
   const sortKey = getSortQueryParam(name);
-  const [ searchSorts, setSort, deleteSort ] = useSessionStorage(sortKey, searchParams.get(sortKey));
-  const searchSortsRef = useRef(searchSorts);
-  searchSortsRef.current = searchSorts;
+  const iniSort = searchParams.get(sortKey);
+  const [ searchSorts, setSort, deleteSort ] = useSessionStorage(sortKey, iniSort);
+  const searchSortsRef = useStableRef(searchSorts);
+  
+  const visiblesKey = getVisiblesQueryParam(name);
+  const iniVisibles = searchParams.get(sortKey) ?? headers.map(({ index }) => index).join(SEPARATOR_TOKEN);
+  const [ searchVisibles, setVisibles ] = useSessionStorage(visiblesKey, iniVisibles);
+  const searchVisiblesRef = useStableRef(searchVisibles);
   
   const filterKey = getFilterQueryParam(name);
   const iniFilters = searchParams.get(filterKey) || '';
@@ -141,8 +149,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     return result;
   }, [ _searchFilter, headers ]);
   
-  const filtersRef = useRef(filters);
-  filtersRef.current = filters;
+  const filtersRef = useStableRef(filters);
   
   const [ dataTable, setDataTable ] = useState(data);
   
@@ -496,13 +503,24 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
     };
     
     setTableHeaders(fixHeaders(headers.map(({ sort, filter, ...props }, index) => {
+      const getVisible = () => split(searchVisiblesRef.current).includes(props.index);
       const newHead: DataViewerTableHeadersType<T> = {
         ...props,
         minWidth: props.minWidth ?? 0,
         width: 0,
         accumulatedWidth: 0,
-        visible: true,
         headIndex: index,
+        visible: {
+          getVisible,
+          onToggle() {
+            const isVisible = getVisible();
+            if (isVisible) {
+              setVisibles(split(searchVisiblesRef.current).filter(i => i !== props.index).join(SEPARATOR_TOKEN));
+            } else {
+              setVisibles([ ...split(searchVisiblesRef.current), props.index ].join(SEPARATOR_TOKEN));
+            }
+          },
+        },
       };
       const headIndex = props.index;
       // let iconsWidth = filter ? 34 : 0;
@@ -512,10 +530,11 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
         iconsWidth += 26 + 2; // size of icon // 2px separation
         const up = props.index;
         const down = '-' + props.index;
+        const getOrder = () => split(searchSortsRef.current).includes(up) ? 1 : split(searchSortsRef.current).includes(down) ? -1 : 0;
         newHead.sort = {
-          getOrder: () => split(searchSortsRef.current).includes(up) ? 1 : split(searchSortsRef.current).includes(down) ? -1 : 0,
+          getOrder,
           onSort: () => {
-            const newSort = newHead.sort?.getOrder() === 1 ? down : newHead.sort?.getOrder() === -1 ? '' : up;
+            const newSort = getOrder() === 1 ? down : getOrder() === -1 ? '' : up;
             if (newSort) {
               setSort(newSort);
             } else {
@@ -525,7 +544,6 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
           online: isSortOnline(sort),
         };
       }
-      
       if (filter?.type === FILTER_TEXT || filter?.type === FILTER_TEXT_AUTO) {
         newHead.filter = {
           type: FILTER_TEXT,
@@ -605,7 +623,7 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       
       return newHead;
     })));
-  }, [ deleteFilter, deleteSort, headers, setFilter, setSort, t ]);
+  }, [ deleteFilter, deleteSort, headers, setFilter, setSort, t, searchVisibles /*to trigger render of headers*/ ]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
     const newSearchFilter = { ...filters };

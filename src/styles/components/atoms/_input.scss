@@ -440,7 +440,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-multi-select-layout {
   .jk-input-select {
-    padding: 4px 4px 4px var(--pad-xt) !important;
+    //padding: 4px 4px 4px var(--pad-xt) !important;
   }
 }
 
@@ -476,11 +476,9 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     .jk-multi-select-selected-options {
       gap: 4px;
-      padding: 0 4px;
       
       .jk-tag {
         gap: 4px;
-        background-color: var(--t-color-highlight-light);
         
         .jk-icon:hover {
           color: var(--t-color-highlight-dark);
@@ -584,12 +582,6 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       font-weight: var(--weight-regular);
       @include mixins.font-size(small);
     }
-  }
-  
-  .clear-button {
-    position: absolute;
-    top: 0;
-    right: 0;
   }
 }
 

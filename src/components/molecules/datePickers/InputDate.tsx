@@ -32,10 +32,10 @@ export const InputDate = (props: InputDateProps) => {
     }
     
     return date?.isValidDate() ? (
-      <>
+      <div className="jk-row gap jk-input-date">
         <DateLiteral
           date={date}
-          className={classNames('jk-input-date cr-pd')}
+          className="flex-1 cr-pd"
           show={type}
           twoLines={twoLines}
           withDayName={withDayName}
@@ -53,12 +53,13 @@ export const InputDate = (props: InputDateProps) => {
             }}
           />
         )}
-      </>
+      </div>
     ) : (
       <div
         className={classNames('jk-row jk-input-date jk-border-radius-inline cr-pd placeholder', { 'two-lines': twoLines })}
+        style={{ height: 24 }}
       >
-        <T>no date selected</T>
+        <T className="tt-se">no date selected</T>
       </div>
     );
   };

@@ -61,6 +61,8 @@ export const DEFAULT_DATA_VIEWER_PROPS = {
   getSortQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.SORT_TABLE,
   getFilterQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.FILTER_TABLE,
   getViewModeQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.VIEW_MODE_TABLE,
+  getShowFilterDrawerQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.SHOW_FILTER_DRAWER,
+  getVisiblesQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.VISIBLES,
 };
 
 export const CODE_EDITOR_THEMES = Object.values(CodeEditorTheme);

@@ -283,7 +283,12 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
         onRecordClick={(props) => console.info('click', props)}
         // pagination={{ total: data.length }}
         downloads={[
-          { value: 'test', label: 'download csv', getUrl: () => '', getFilename: () => '' },
+          {
+            value: 'test',
+            label: 'download csv',
+            getUrl: () => 'https://api.juki.app/v2/submission/summary-list-export?page=1&pageSize=1000000&contestKeys=T-UtS',
+            getFilename: () => 'test.zip',
+          },
         ]}
       />
     </div>

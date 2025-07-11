@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { classNames } from '../../../../helpers';
+import { classNames, upperFirst } from '../../../../helpers';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
-import { Button, Input, InputToggle, T } from '../../../atoms';
+import { Button, Input, T } from '../../../atoms';
 import { CheckboxList, DrawerView, InputDate } from '../../../molecules';
 import { OptionType } from '../../../molecules/types';
-import { ArrowDownwardIcon, ArrowUpwardIcon, FilterListIcon } from '../../../server';
+import { ArrowDownwardIcon, ArrowUpwardIcon, FilterListIcon, SortIcon } from '../../../server';
 import {
-  fixHeaders,
   isDisabledEnd,
   isDisabledStart,
   isFilterDate,
@@ -32,13 +31,13 @@ interface renderFilterTitleProps<T> {
   order: TableSortOrderType,
   columnIndex: string,
   header: DataViewerTableHeadersType<T>,
-  visibility: boolean,
-  onToggleVisibility: () => void,
+  // visibility: boolean,
+  // onToggleVisibility: () => void,
 }
 
 const RenderFilterTitle = <T, >({
-                                  visibility,
-                                  onToggleVisibility,
+                                  // visibility,
+                                  // onToggleVisibility,
                                   header,
                                   columnIndex,
                                   onSort,
@@ -47,20 +46,24 @@ const RenderFilterTitle = <T, >({
   return (
     <div className="jk-row space-between">
       <div className="jk-row gap">
-        <InputToggle
-          data-tooltip-id="jk-tooltip"
-          data-tooltip-content={visibility ? 'hide column' : 'enable column'}
-          data-tooltip-t-class-name="tt-se"
-          data-tooltip-place="left"
-          checked={visibility}
-          onChange={onToggleVisibility}
-        />
+        {/*<InputToggle*/}
+        {/*  data-tooltip-id="jk-tooltip"*/}
+        {/*  data-tooltip-content={visibility ? 'hide column' : 'enable column'}*/}
+        {/*  data-tooltip-t-class-name="tt-se"*/}
+        {/*  data-tooltip-place="left"*/}
+        {/*  checked={visibility}*/}
+        {/*  onChange={onToggleVisibility}*/}
+        {/*/>*/}
         <div className="fw-bd">{renderHead({ header, columnIndex })}</div>
       </div>
       {onSort ? (
-        <div className={classNames('jk-row tool', { active: !!order })} onClick={() => onSort({ columnIndex })}>
-          <T>sort</T>
-          {order > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+        <div
+          className={classNames('jk-row nowrap jk-tag tx-s cr-pr', { 'bc-pl cr-we': !!order, 'bc-hl': !order })}
+          onClick={() => onSort({ columnIndex })}
+        >
+          <T className="tt-se">sort</T>
+          &nbsp;
+          {order === 0 ? <SortIcon /> : order > 0 ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
         </div>
       ) : <div />}
     </div>
@@ -69,7 +72,7 @@ const RenderFilterTitle = <T, >({
 
 export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
     
-    const { headers, setHeaders, isOpen, onClose, onFilter, onResetFilters } = props;
+    const { headers, /*setHeaders,*/ isOpen, onClose, onFilter, onResetFilters } = props;
     
     const [ initialValues, setInitialValues ] = useState({});
     const [ values, setValues ] = useState<FilterValuesType>({});
@@ -104,7 +107,7 @@ export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
             {headers.map((header, index) => {
               const {
                 index: columnIndex,
-                visible,
+                // visible,
                 filter,
                 sort: { onSort, getOrder = () => (0 as TableSortOrderType) } = {},
               } = header;
@@ -116,7 +119,7 @@ export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
                     onChange={newValue => setValues(prevState => ({ ...prevState, [columnIndex]: newValue }))}
                     value={(values[columnIndex] || '') as string}
                     expand
-                    placeholder={t('empty field')}
+                    placeholder={upperFirst(t('search...'))}
                   />
                 );
               } else if (isFilterSelect(filter)) {
@@ -204,7 +207,7 @@ export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
               
               return (
                 <div
-                  className="jk-col stretch jk-pg-sm-trl jk-pg-b"
+                  className="jk-col gap stretch jk-pg-sm-trl jk-pg-b"
                   style={index ? { borderTop: '1px solid var(--t-color-highlight)' } : {}}
                   key={columnIndex}
                 >
@@ -213,15 +216,15 @@ export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
                     columnIndex={columnIndex}
                     onSort={onSort}
                     order={getOrder()}
-                    visibility={visible}
-                    onToggleVisibility={() => {
-                      const newHeaders = [ ...headers ];
-                      newHeaders[index] = {
-                        ...newHeaders[index],
-                        visible: !newHeaders[index].visible,
-                      };
-                      setHeaders(fixHeaders(newHeaders));
-                    }}
+                    // visibility={visible}
+                    // onToggleVisibility={() => {
+                    //   const newHeaders = [ ...headers ];
+                    //   newHeaders[index] = {
+                    //     ...newHeaders[index],
+                    //     visible: !newHeaders[index].visible,
+                    //   };
+                    //   setHeaders(fixHeaders(newHeaders));
+                    // }}
                   />
                   {filterCmp}
                 </div>
@@ -238,7 +241,7 @@ export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
               }}
               disabled={!isFiltered}
             >
-              <T>reset all filters</T>
+              <T className="tt-se">reset all filters</T>
             </Button>
             <Button
               size="small"
@@ -248,7 +251,7 @@ export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
               }}
               disabled={JSON.stringify(onlyValues(values)) === JSON.stringify(initialValues)}
             >
-              <T>apply filters</T>
+              <T className="tt-se">apply filters</T>
             </Button>
           </div>
         </div>

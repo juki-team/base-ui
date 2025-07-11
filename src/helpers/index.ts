@@ -8,5 +8,6 @@ export * from './problem';
 export * from './render';
 export * from './router';
 export * from './store';
+export * from './text';
 export * from './utils';
 export * from './worksheet';

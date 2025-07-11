@@ -72,10 +72,18 @@ export const Pagination = (props: PaginationProps) => {
       <div className="jk-row center nowrap">
         {isOnToolbar ? (
           <div className="jk-row gap nowrap">
-            <div className="jk-row nowrap jk-br-ie tx-s ws-np jk-data-viewer-pagination-toolbar-content bc-we">
+            <div className="jk-row nowrap jk-br-ie tx-s ws-np bc-we">
+              <div
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content="previous"
+                className={classNames('cr-pr jk-row jk-br-ie jk-input-', { disabled: page === startPage || initializing })}
+                onClick={prev}
+              >
+                <NavigateBeforeIcon />
+              </div>
               <div
                 style={{
-                  borderRight: '1px solid var(--t-color-highlight-light)',
+                  // borderRight: '1px solid var(--t-color-highlight-light)',
                   padding: '0 4px',
                 }}
                 className="ws-np"
@@ -84,16 +92,8 @@ export const Pagination = (props: PaginationProps) => {
               </div>
               <div
                 data-tooltip-id="jk-tooltip"
-                data-tooltip-content="previous"
-                className={classNames('page-item cr-pr jk-row jk-br-ie', { disabled: page === startPage || initializing })}
-                onClick={prev}
-              >
-                <NavigateBeforeIcon />
-              </div>
-              <div
-                data-tooltip-id="jk-tooltip"
                 data-tooltip-content="next"
-                className={classNames('page-item cr-pr jk-row jk-br-ie', { disabled: page === endPage || initializing })}
+                className={classNames('cr-pr jk-row jk-br-ie jk-input-', { disabled: page === endPage || initializing })}
                 onClick={next}
               >
                 <NavigateNextIcon />
@@ -103,7 +103,7 @@ export const Pagination = (props: PaginationProps) => {
               <Select
                 options={pageSizeOptions.map(option => ({
                   value: option,
-                  label: <div className="jk-row left">{option}&nbsp;<T>per page</T></div>,
+                  label: <div className="jk-row left nowrap">{option}&nbsp;<T>per page</T></div>,
                 }))}
                 selectedOption={{ value: pageSize }}
                 onChange={initializing ? undefined : ({ value }) => onPageSizeChange(value)}

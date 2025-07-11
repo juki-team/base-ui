@@ -70,7 +70,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         setViewMode={setViewMode}
         extraNodes={extraNodes}
         headers={headers}
-        setHeaders={setHeaders}
+        // setHeaders={setHeaders}
         dataLength={data.length}
         viewMode={viewMode}
         rowsView={rowsView}

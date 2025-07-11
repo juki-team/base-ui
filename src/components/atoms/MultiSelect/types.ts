@@ -6,10 +6,12 @@ export interface MultiSelectProps<T, U extends ReactNode, V extends ReactNode> {
   className?: string,
   options: SelectOptionType<T, U, V>[],
   selectedOptions: SelectOption2Type<T, U, V>[],
-  onChange?: (options: SelectOptionType<T, U, V>[]) => void,
+  onChange?: (options: SelectOptionType<T, U, V>[], lastOptionChanged: SelectOptionType<T, U, V> | undefined) => void,
   showOptions?: boolean,
   onChangeShowOptions?: (value: boolean) => void,
   disabled?: boolean,
   optionsPlacement?: PlacementType,
   expand?: boolean,
+  children?: ReactNode,
+  containerWidth?: number | 'child',
 }

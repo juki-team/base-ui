@@ -16,6 +16,8 @@ export enum QueryParamKey {
   SORT_TABLE = 's',
   FILTER_TABLE = 'f',
   VIEW_MODE_TABLE = 'v',
+  SHOW_FILTER_DRAWER = 'd',
+  VISIBLES = 'b',
   // users table
   LOGGED_USERS_TABLE = 'lut',
 }

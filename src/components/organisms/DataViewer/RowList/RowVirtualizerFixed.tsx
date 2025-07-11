@@ -66,7 +66,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     const rightBorders: number[] = [];
     let index = 0;
     for (const header of headers) {
-      if (header.visible) {
+      if (header.visible?.getVisible?.()) {
         const group = groups.find(group => group.key === header.group);
         if (group) {
           if (topHeaders[topHeaders.length - 1]?.group === group.key) {
@@ -175,7 +175,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
           >
             {Children.toArray(
               headers
-                .filter(({ visible }) => visible)
+                .filter(({ visible }) => visible?.getVisible?.())
                 .map(({ index: columnIndex, width, sticky }) => (
                   <div
                     key={columnIndex}
@@ -215,7 +215,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
             onMouseEnter={() => onRecordHover?.({ data, index: virtualRow.index, isCard: false })}
           >
             {Children.toArray(headers
-              .filter(({ visible }) => visible)
+              .filter(({ visible }) => visible?.getVisible?.())
               .map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
                 <div
                   key={virtualRow.key + '_' + columnIndex}

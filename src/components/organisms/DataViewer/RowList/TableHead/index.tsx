@@ -170,7 +170,7 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
   };
   
   const displayTopHeader = !!rightBorders.length;
-  const headersWidth = headers.reduce((sum, head) => sum + (head.visible ? head.width : 0), 0);
+  const headersWidth = headers.reduce((sum, head) => sum + (head.visible?.getVisible?.() ? head.width : 0), 0);
   
   return (
     <div
@@ -211,7 +211,7 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
       >
         {Children.toArray(
           headers
-            .filter(({ visible }) => visible)
+            .filter(({ visible }) => visible?.getVisible?.())
             .map((header, index, data) => (
               <RenderHeader
                 key={header.headIndex}

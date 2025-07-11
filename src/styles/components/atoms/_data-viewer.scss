@@ -43,6 +43,16 @@
 }
 
 .jk-data-viewer-toolbar {
+  .jk-input-select {
+    &:not(.bc-pl) {
+      background-color: var(--t-color-white);
+    }
+    
+    &.bc-pl {
+      background-color: var(--t-color-primary-light);
+      color: var(--t-color-white);
+    }
+  }
   
   &.with-vertical-scroll {
     margin-right: var(--size-scrollbar);
@@ -399,10 +409,6 @@
         }
       }
     }
-  }
-  
-  .jk-input-select {
-    background-color: var(--t-color-white);
   }
 }
 

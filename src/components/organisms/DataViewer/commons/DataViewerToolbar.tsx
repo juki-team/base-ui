@@ -4,6 +4,7 @@ import React, {
   ElementType,
   Fragment,
   memo,
+  MouseEventHandler,
   PropsWithChildren,
   ReactNode,
   useCallback,
@@ -16,7 +17,7 @@ import { useJukiNotification } from '../../../../hooks';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useSessionStorage } from '../../../../hooks/useSessionStorage';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
-import { Popover, Select } from '../../../atoms';
+import { MultiSelect, Popover, Select } from '../../../atoms';
 import { TableEyeIcon } from '../../../atoms/server/icons/google/TableEyeIcon';
 import { SetLoaderStatusOnClickType } from '../../../molecules/types';
 import {
@@ -31,7 +32,7 @@ import {
 import { FilterDrawer } from '../FilterDrawer';
 import { DataViewerToolbarProps } from '../types';
 import { Pagination } from './Pagination';
-import { isSomethingFiltered } from './utils';
+import { isSomethingFiltered, renderHead } from './utils';
 
 const buttonFilterStyles = (active: boolean) => classNames(
   {
@@ -39,16 +40,17 @@ const buttonFilterStyles = (active: boolean) => classNames(
     'bc-we': !active,
     active,
   },
-  'jk-row jk-data-viewer-tools-filter jk-br-ie cursor-pointer jk-row nowrap',
+  'jk-row jk-data-viewer-tools-filter jk-br-ie cr-pr jk-row nowrap',
 );
 
 interface ToolbarButtonIconProps {
   Icon: ElementType,
-  onClick?: () => void,
+  onClick?: MouseEventHandler<HTMLDivElement>,
   active?: boolean,
   tooltipContent: string,
   className?: string,
   rotate?: number,
+  disabled?: boolean,
 }
 
 const ToolbarButtonIcon = ({
@@ -59,11 +61,12 @@ const ToolbarButtonIcon = ({
                              className = '',
                              children,
                              rotate,
+                             disabled = false,
                            }: PropsWithChildren<ToolbarButtonIconProps>) => (
   <div
     data-tooltip-id="jk-tooltip"
     data-tooltip-content={tooltipContent}
-    className={buttonFilterStyles(!!active) + ' ' + className}
+    className={classNames(buttonFilterStyles(!!active), className, { disabled })}
     onClick={onClick}
   >
     <Icon className="jk-br-ie" size="small" rotate={rotate} />{children}
@@ -76,7 +79,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     extraNodes,
     setViewMode,
     headers,
-    setHeaders,
+    // setHeaders,
     viewMode,
     dataLength,
     rowsView,
@@ -128,6 +131,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
       tooltipContent={loading ? 'reloading data' : 'reload data'}
       active={loading}
       onClick={onReload}
+      className="jk-input-select"
       key="reload-button-icon"
     />
   );
@@ -164,6 +168,8 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     );
   }
   
+  const visibles = headers.filter(filter => filter.visible?.getVisible()).length;
+  
   return (
     <div
       className={classNames(
@@ -176,7 +182,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
       <FilterDrawer
         isOpen={showFilterDrawer === 'open'}
         headers={headers}
-        setHeaders={setHeaders}
+        // setHeaders={setHeaders}
         onClose={() => setShowFilterDrawer(false)}
         onFilter={values => onAllFilters(values)}
         onResetFilters={() => onAllFilters({})}
@@ -215,10 +221,11 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                 <div className="jk-divider horizontal" />
               )}
               <ToolbarButtonIcon
-                Icon={downloading ? SpinIcon : FilterListIcon}
+                Icon={FilterListIcon}
                 tooltipContent="open filters"
                 onClick={() => setShowFilterDrawer(true)}
                 active={filtered}
+                className="jk-input-select"
               >
                 {!!Object.values(values).length && (
                   <>
@@ -230,54 +237,63 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                   </>
                 )}
               </ToolbarButtonIcon>
-              <Select
-                options={downloads}
-                onChange={async ({ value }) => {
-                  setDownloading(true);
-                  const downloadItem = downloads.find(download => value === download.value);
-                  const url = downloadItem?.getUrl(requestProps) ?? '';
-                  const filename = downloadItem?.getFilename(requestProps) ?? '';
-                  const result = cleanRequest<ContentResponseType<{ urlExportedFile: string }>>(
-                    await authorizedRequest(url),
-                  );
-                  if (result.success) {
-                    await downloadUrlAsFile(result.content.urlExportedFile, filename);
-                    notifyResponse(result);
-                  }
-                  setDownloading(false);
-                }}
-                selectedOption={{ value: '' }}
+              {!!downloads.length && (
+                <Select
+                  options={downloads}
+                  onChange={async ({ value }) => {
+                    setDownloading(true);
+                    const downloadItem = downloads.find(download => value === download.value);
+                    const url = downloadItem?.getUrl(requestProps) ?? '';
+                    const filename = downloadItem?.getFilename(requestProps) ?? '';
+                    const result = cleanRequest<ContentResponseType<{ urlExportedFile: string }>>(
+                      await authorizedRequest(url),
+                    );
+                    if (result.success) {
+                      await downloadUrlAsFile(result.content.urlExportedFile, filename);
+                      notifyResponse(result);
+                    }
+                    setDownloading(false);
+                  }}
+                  selectedOption={{ value: '' }}
+                  containerWidth="child"
+                >
+                  <ToolbarButtonIcon
+                    Icon={downloading ? SpinIcon : DownloadIcon}
+                    tooltipContent={downloading ? 'downloading' : 'download'}
+                    className="jk-input-select"
+                    onClick={downloading
+                      ? ((event) => event.stopPropagation())
+                      : undefined}
+                  />
+                </Select>
+              )}
+              <MultiSelect
+                options={headers.map((header) => ({
+                  label: renderHead({ header, columnIndex: header.index }),
+                  value: header.index,
+                }))}
+                selectedOptions={headers.filter(({ visible }) => visible?.getVisible?.()).map(({ index }) => ({ value: index }))}
                 containerWidth="child"
+                onChange={(_, lastOptionChanged) => {
+                  const header = headers.find(head => head.index === lastOptionChanged?.value);
+                  header?.visible.onToggle();
+                }}
               >
                 <ToolbarButtonIcon
-                  Icon={DownloadIcon}
-                  tooltipContent="download"
+                  Icon={TableEyeIcon}
+                  tooltipContent="visibility of columns"
+                  className="jk-input-select"
+                  active={visibles !== headers.length}
                 >
-                  {!!Object.values(values).length && (
-                    <>
-                      &nbsp;
-                      <span className="bc-hl jk-br-ie" style={{ lineHeight: 1, padding: '0 4px' }}>
-                      {Object.values(values).length}
-                    </span>
-                      &nbsp;
-                    </>
-                  )}
-                </ToolbarButtonIcon>
-              </Select>
-              <ToolbarButtonIcon
-                Icon={TableEyeIcon}
-                tooltipContent="visibility of columns"
-              >
-                {!!Object.values(values).length && (
                   <>
                     &nbsp;
-                    <span className="bc-hl jk-br-ie" style={{ lineHeight: 1, padding: '0 4px' }}>
-                      {Object.values(values).length}
+                    <span className="bc-hl jk-br-ie ws-np" style={{ lineHeight: 1, padding: '0 4px' }}>
+                      {visibles} / {headers.length}
                     </span>
                     &nbsp;
                   </>
-                )}
-              </ToolbarButtonIcon>
+                </ToolbarButtonIcon>
+              </MultiSelect>
               {/*<div>*/}
               {/*  {filtered ? (*/}
               {/*    <CopyToClipboard text={url.toString()}>*/}
