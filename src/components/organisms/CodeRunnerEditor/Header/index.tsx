@@ -49,6 +49,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   const isConnected = useWebsocketStore(state => state.isConnected);
   const connectionId = useWebsocketStore(state => state.connectionId);
+  console.log({ connectionId });
   
   useEffect(() => {
     if (isRunning) {

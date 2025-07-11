@@ -15,5 +15,8 @@ export const useWebsocketStore = create<WebsocketState>((set) => ({
   isConnected: false,
   setIsConnected: (isConnected: boolean) => set({ isConnected }),
   connectionId: '',
-  setConnectionId: (connectionId: string) => set({ connectionId }),
+  setConnectionId: (connectionId: string) => {
+    console.log('setConnectionId', { connectionId });
+    set({ connectionId });
+  },
 }));
