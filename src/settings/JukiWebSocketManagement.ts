@@ -30,7 +30,7 @@ const FORCE_CLOSED = 'FORCE_CLOSED';
 
 export class JukiWebSocketManagement {
   private _socket: WebSocket | null = null;
-  private readonly socketServiceUrl: string;
+  private socketServiceUrl: string;
   private callbacks: { [key: WebSocketResponseEventKey]: ((data: WebSocketResponseEventDTO) => void)[] } = {};
   private _messageQueue: string[] = [];
   private _reconnecting = false;
@@ -40,6 +40,12 @@ export class JukiWebSocketManagement {
   
   constructor(socketServiceUrl: string) {
     this.socketServiceUrl = socketServiceUrl;
+  }
+  
+  async setSocketServiceUrl(socketServiceUrl: string) {
+    await this.stop();
+    this.socketServiceUrl = socketServiceUrl;
+    await this._connect();
   }
   
   _send(message: string, persist: boolean) {
