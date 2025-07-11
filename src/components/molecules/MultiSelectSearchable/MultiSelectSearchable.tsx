@@ -143,7 +143,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
           className={classNames({ open: showOptions }, 'jk-input-select jk-border-radius-inline jk-row space-between nowrap')}
           ref={selectLayoutRef}
         >
-          <div className="jk-row left jk-multi-select-selected-options">
+          <div className="jk-row left jk-multi-select-selected-options jk-pg-xsm">
             {selectedOptions.map(optionSelected => (
               <div
                 className={classNames('jk-row nowrap', { 'jk-tag bc-g6': multiselect })}

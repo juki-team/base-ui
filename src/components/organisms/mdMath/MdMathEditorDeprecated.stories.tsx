@@ -27,7 +27,7 @@ const Cmp = ({ props }: { props: MdMathEditorDeprecatedProps }) => {
       <div style={{ height: '100%', overflow: 'auto' }} className="jk-pg">
         <MdMathEditorComponent
           {...props}
-          source={text}
+          initialMd={text}
           onChange={(value) => setText(value)}
         />
         <p>{text}</p>

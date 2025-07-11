@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 
 export type MdMathEditorDeprecatedProps = {
-  source: string,
+  initialMd: string,
   onChange?: (value: string) => void,
   informationButton?: boolean,
   uploadImageButton?: boolean,

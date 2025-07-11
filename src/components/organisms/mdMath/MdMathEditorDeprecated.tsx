@@ -57,7 +57,7 @@ const InformationButton = ({ open, setOpen, isOpenRef, withLabel }: InformationB
         onClose={() => setOpen(false)}
         className="modal-info-markdown"
       >
-        <MdMathEditorDeprecated source={source} onChange={setSource} />
+        <MdMathEditorDeprecated initialMd={source} onChange={setSource} />
       </Modal>
     </>
   );
@@ -73,7 +73,7 @@ enum View {
 export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
   
   const {
-    source,
+    initialMd: source,
     onChange,
     informationButton = false,
     uploadImageButton = false,

@@ -31,7 +31,7 @@ export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) =>
             {title}
           </h3>
         </div>
-        <div className="modal-alert-content">
+        <div className="modal-alert-content wh-100">
           {children}
         </div>
         <div className={classNames('modal-alert-actions jk-row-col gap right', { nowrap: viewPortSize !== 'sm' })}>
