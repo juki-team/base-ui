@@ -21,10 +21,6 @@ export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
     otherLimits.includes(testCase.status) ? 1048576 : memoryLimit,
   );
   
-  const time = <div data-tooltip-id="jk-tooltip" data-tooltip-content="time used">{timeUsed} <T>ms</T></div>;
-  const memory = <div data-tooltip-id="jk-tooltip" data-tooltip-content="memory used">{memoryUsed} <T>KB</T></div>;
-  const code = <div data-tooltip-id="jk-tooltip" data-tooltip-content="exit code">{exitCode}</div>;
-  
   if (testCase.status === SubmissionRunStatus.COMPILATION_ERROR) {
     return (
       <div className="border-bottom-highlight-light">
@@ -37,23 +33,32 @@ export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
     );
   }
   
+  const re = runtimeError && !timeLimitExceeded && !memoryLimitExceeded;
+  
   return (
     <div className="border-bottom-highlight-light">
-      <div className="jk-pg-xsm cr-g2 jk-row gap left tx-t" style={{ lineHeight: 1 }}>
-        {timeLimitExceeded && <T className="tt-se cr-er">time limit exceeded</T>}
-        <span className={classNames('tt-se', { 'cr-er': timeLimitExceeded })}>
-          {time}
-        </span>
-        |
-        {memoryLimitExceeded && <T className="tt-se cr-er">memory limit exceeded</T>}
-        <span className={classNames('tt-se', { 'cr-er': memoryLimitExceeded })}>
-          {memory}
-        </span>
-        |
-        {runtimeError && !timeLimitExceeded && !memoryLimitExceeded && <T className="tt-se cr-er">runtime error</T>}
-        <span className={classNames('tt-se', { 'cr-er': runtimeError })}>
-          {code}
-        </span>
+      <div className="jk-pg-xsm cr-g2 jk-row-col gap left tx-t" style={{ lineHeight: 1 }}>
+        <div
+          className={classNames('jk-br-ie', { 'cr-we bc-el': timeLimitExceeded, 'bc-hl': !timeLimitExceeded })}
+          style={{ padding: '1px 2px' }}
+        >
+          {timeLimitExceeded ? <T className="tt-se">time limit exceeded</T> : <T className="tt-se">time used</T>}
+          &nbsp;{timeUsed}&nbsp;<T>ms</T>
+        </div>
+        <div
+          className={classNames('jk-br-ie', { 'cr-we bc-el': memoryLimitExceeded, 'bc-hl': !memoryLimitExceeded })}
+          style={{ padding: '1px 2px' }}
+        >
+          {memoryLimitExceeded ? <T className="tt-se">memory limit exceeded</T> : <T className="tt-se">memory used</T>}
+          &nbsp;{memoryUsed}&nbsp;<T>KB</T>
+        </div>
+        <div
+          className={classNames('jk-br-ie', { 'cr-we bc-el': re, 'bc-hl': !re })}
+          style={{ padding: '1px 2px' }}
+        >
+          {re ? <T className="tt-se">runtime error</T> : <T className="tt-se">exit code</T>}
+          &nbsp;{exitCode}
+        </div>
       </div>
     </div>
   );

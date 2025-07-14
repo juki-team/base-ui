@@ -22,7 +22,6 @@ export * from './useJukiUI';
 export * from './useJukiUser';
 export * from './useLastPath';
 export * from './useMemoizedArray';
-export * from './useMouseInsidePage';
 export * from './useMutate';
 export * from './useOutsideAlerter';
 export * from './usePageFocus';

@@ -28,8 +28,8 @@ export const renderSignIcon = (_props: SignIconProps, Component: ComponentType<R
     >
       <svg viewBox="0 0 24 24" fill="currentColor">
         {/*{filledCircle && <CircleFilledFrame strokeWidth={width} />}*/}
-        {(circle || filledCircle) && <CircleFrame strokeWidth={width} filled={filledCircle} />}
-        {(square || filledSquare) && <SquareFrame strokeWidth={width} filled={filledSquare} />}
+        {(circle || filledCircle) && <CircleFrame strokeWidth={width} filled={!!filledCircle} />}
+        {(square || filledSquare) && <SquareFrame strokeWidth={width} filled={!!filledSquare} />}
         <Component
           color={
             color

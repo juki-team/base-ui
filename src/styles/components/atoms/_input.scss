@@ -134,6 +134,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     @include mixins.font-size(small);
   }
   
+  &.jk-input-checkbox {
+    outline-offset: -1px;
+    
+    &:not(.disabled) {
+      &:hover, &:focus, &:active, &.open {
+        outline-width: 3px;
+      }
+    }
+  }
+  
   &:not(.disabled) {
     &:hover, &:focus, &:active, &.open {
       outline-width: 2px;

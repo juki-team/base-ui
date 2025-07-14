@@ -7,21 +7,25 @@ import { CodeEditorPropertiesType } from '../../molecules/types';
 export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
   onTestCasesChange?: (testCases: CodeEditorTestCasesType) => CodeEditorTestCasesType,
   codeRunStatus?: SubmissionRunStatus,
+  fileName?: string,
+  newFileName?: true,
+  fileNameEdited?: [ string, string ],
+  fileNameDeleted?: string,
 };
 
 export type CodeRunnerEditorOnChangeType<T> = (props: CodeRunnerEditorPropertiesType<T>) => void;
 
-export type CodeEditorCenterButtonsPropertiesType<T> =
-  Omit<CodeRunnerEditorProps<T>, 'onChange' | 'className' | 'centerButtons' | 'rightButtons'>
-  & {
+export type CodeEditorCenterButtonsPropertiesType<T> = {
   widthContainer: number
   isRunning: boolean,
   testCases: CodeEditorTestCasesType,
   withLabels: boolean,
   twoRows: boolean,
+  files: CodeRunnerEditorFiles<T>,
+  currentFileName: string,
 }
 
-export type CodeEditorCenterButtonsType<T> = (props: CodeEditorCenterButtonsPropertiesType<T>) => ReactNode;
+export type CodeEditorButtonsType<T> = (props: CodeEditorCenterButtonsPropertiesType<T>) => ReactNode;
 
 export type CodeEditorExpandPositionType = {
   top: string | number,
@@ -30,16 +34,21 @@ export type CodeEditorExpandPositionType = {
   height: string | number,
 };
 
-export interface CodeRunnerEditorProps<T> extends CodeEditorPropertiesType<T> {
-  sourceCode: string,
-  language: T,
+export type CodeRunnerEditorFiles<T> = { [key: string /*name*/]: { source: string, language: T, index: number } };
+
+export interface CodeRunnerEditorProps<T> extends Omit<CodeEditorPropertiesType<T>, 'sourceCode' | 'language'> {
+  triggerFocus?: number,
+  files: CodeRunnerEditorFiles<T>,
+  currentFileName: string,
+  // sourceCode: string,
+  // language: T,
   readOnly?: boolean,
   onChange?: CodeRunnerEditorOnChangeType<T>,
   languages?: { value: T, label: string }[],
   className?: string,
   testCases?: CodeEditorTestCasesType,
-  leftButtons?: CodeEditorCenterButtonsType<T>,
-  centerButtons?: CodeEditorCenterButtonsType<T>,
+  leftButtons?: CodeEditorButtonsType<T>,
+  centerButtons?: CodeEditorButtonsType<T>,
   rightButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode,
   timeLimit?: number,
   memoryLimit?: number,

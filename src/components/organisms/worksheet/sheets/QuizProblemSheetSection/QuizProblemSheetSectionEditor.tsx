@@ -57,9 +57,9 @@ export const QuizProblemSheetSectionEditor = ({ content, setContent, isSolvable 
           />
         </div>
         <div>
-          {(content.problemJudge && content.problemKey) ? (
-            <ProblemSummary problemJudge={content.problemJudge} problemKey={content.problemKey} />
-          ) : <T className="tt-se">please select a problem</T>}
+          {(content.problemKey)
+            ? <ProblemSummary problemKey={content.problemKey} />
+            : <T className="tt-se">please select a problem</T>}
         </div>
         <div className="jk-row gap left">
           <div><T className="fw-bd tt-se">height</T>:</div>

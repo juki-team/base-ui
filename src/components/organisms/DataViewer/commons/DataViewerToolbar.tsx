@@ -12,7 +12,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { authorizedRequest, classNames, downloadUrlAsFile, renderReactNodeOrFunction } from '../../../../helpers';
+import { classNames, downloadUrlAsFile, getAuthorizedRequest, renderReactNodeOrFunction } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useSessionStorage } from '../../../../hooks/useSessionStorage';
@@ -246,7 +246,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                     const url = downloadItem?.getUrl(requestProps) ?? '';
                     const filename = downloadItem?.getFilename(requestProps) ?? '';
                     const result = cleanRequest<ContentResponseType<{ urlExportedFile: string }>>(
-                      await authorizedRequest(url),
+                      await getAuthorizedRequest(url),
                     );
                     if (result.success) {
                       await downloadUrlAsFile(result.content.urlExportedFile, filename);

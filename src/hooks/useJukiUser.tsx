@@ -52,7 +52,7 @@ export const useJukiUser = () => {
   const { notifyResponse, addErrorNotification } = useJukiNotification();
   const userMutate = useUserStore(state => state.mutate);
   
-  const doRequest = useCallback(async <T, M extends HTTPMethod = HTTPMethod.GET>(
+  const doRequest = useCallback(async <T, M extends Exclude<HTTPMethod, HTTPMethod.GET>>(
     { url, options, setLoader, onSuccess, onError, onFinally }: ApiType<T> & {
       url: string,
       options?: AuthorizedRequestType<M>

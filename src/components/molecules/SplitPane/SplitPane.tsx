@@ -36,8 +36,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
   const dividerRef = useRef<HTMLDivElement>(null);
   const firstChildRef = useRef<HTMLDivElement>(null);
   const firstChildSizeRef = useRef<string>('');
-  const paneRef = useRef<HTMLDivElement>(null);
-  const { height = 0, width = 0 } = useResizeDetector({ targetRef: paneRef, ...RESIZE_DETECTOR_PROPS });
+  const { height = 0, width = 0, ref: paneRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ displaySecondPane, setDisplaySecondPane ] = useState(true);
   const [ displayFirstPane, setDisplayFirstPane ] = useState(true);
   const [ direction, setDirection ] = useHandleState('row', initialDirection, onChangeDirection);

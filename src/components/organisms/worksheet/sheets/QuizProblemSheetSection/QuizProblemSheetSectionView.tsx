@@ -52,7 +52,10 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
                 problem={data.content}
                 infoPlacement="name"
                 codeEditorStoreKey={`${worksheetKey}/${content.id}`}
-                codeEditorCenterButtons={({ sourceCode, language }) => {
+                codeEditorCenterButtons={({ files, currentFileName }) => {
+                  
+                  const { source = '', language = CodeLanguage.TEXT } = files[currentFileName] || {};
+                  
                   return [
                     <FirstLoginWrapper key="submit">
                       <ButtonLoader
@@ -63,7 +66,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
                             id: content.id,
                             type: WorksheetType.QUIZ_PROBLEM,
                             language,
-                            source: sourceCode,
+                            source,
                           };
                           const {
                             url,

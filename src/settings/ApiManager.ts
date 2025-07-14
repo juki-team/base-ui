@@ -1,5 +1,6 @@
 import {
   CodeEditorSubmissionDTO,
+  CodeRunDTO,
   CompanyPlan,
   consoleWarn,
   HTTPMethod,
@@ -605,18 +606,7 @@ export class ApiManager {
         })),
       },
       code: {
-        run: valid<
-          {
-            body: {
-              language: string,
-              source: string,
-              inputs: { key: string, source: string }[]
-              timeLimit: number,
-              memoryLimit: number,
-              connectionId: string,
-            }
-          },
-          HTTPMethod.POST
+        run: valid<{ body: CodeRunDTO }, HTTPMethod.POST
         >(({ body }) => ({
           url: injectBaseUrl('code', '/run'),
           method: HTTPMethod.POST,

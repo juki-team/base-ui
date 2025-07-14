@@ -37,7 +37,7 @@ export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChang
               style={{ height: `min(${height * (14 * 1.4) /*font-size * line-height*/ + 8 /*pdding*/}px, calc(var(--100VH) - 300px))` }}
             >
               <CodeEditor
-                sourceCode={text}
+                source={text}
                 language={CodeLanguage.JSON}
                 readOnly
               />

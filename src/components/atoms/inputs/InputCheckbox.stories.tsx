@@ -17,7 +17,7 @@ export const Regular: Story = {
   play: waitForLoadingToDisappear,
   render: ({ label = 'checkbox label', ...args }) => (
     <MockupJukiProvider>
-      <InputCheckbox label={label} {...args} />
+      <InputCheckbox label={label} onChange={() => null} {...args} />
     </MockupJukiProvider>
   ),
 };

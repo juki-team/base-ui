@@ -6,7 +6,12 @@ import { LoginIcon } from '../server';
 import { LoginModal } from '../templates/MainMenu/login/LoginModal';
 
 export const MockupLoginButton = () => {
-  const { setSearchParams, searchParams, deleteSearchParams, appendSearchParams } = useRouterStore();
+  
+  const setSearchParams = useRouterStore(store => store.setSearchParams);
+  const searchParams = useRouterStore(store => store.searchParams);
+  const deleteSearchParams = useRouterStore(store => store.deleteSearchParams);
+  const appendSearchParams = useRouterStore(store => store.appendSearchParams);
+  
   return (
     <div className="jk-pg" style={{ position: 'absolute', right: 48, bottom: 10, zIndex: 10000000 }}>
       <LoginModal

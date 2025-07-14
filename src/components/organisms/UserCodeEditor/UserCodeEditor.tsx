@@ -3,29 +3,31 @@ import {
   CodeEditorTestCasesType,
   CodeLanguage,
   isStringJson,
+  removeExtension,
   SubmissionRunStatus,
   Theme,
 } from '@juki-team/commons';
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
-import { useStableState } from '../../../hooks/useStableState';
+import { useJukiNotification, useStableRef } from '../../../hooks';
 import { useUserStore } from '../../../stores/user/useUserStore';
+import { T } from '../../atoms';
 import { CodeRunnerEditor } from '../CodeRunnerEditor/CodeRunnerEditor';
-import { CodeRunnerEditorPropertiesType } from '../CodeRunnerEditor/types';
+import { CodeRunnerEditorFiles, CodeRunnerEditorPropertiesType } from '../CodeRunnerEditor/types';
 import { UserCodeEditorProps } from './types';
 
-const getStoreRecovered = <T, >(storeKey: string | undefined) => {
+const getStoreRecovered = (storeKey: string | undefined) => {
   let storeRecovered = {};
   const localStorageData = storeKey ? (localStorage.getItem(storeKey) || '{}') : '{}';
   if (isStringJson(localStorageData)) {
     storeRecovered = JSON.parse(localStorageData);
   }
-  return storeRecovered as T;
+  return storeRecovered;
 };
 
 const useSaveStorage = <T extends Object, >(storeKey: string | undefined, defaultValue: T): [ T, Dispatch<SetStateAction<T>> ] => {
   
-  const storeRecovered = getStoreRecovered<T>(storeKey);
+  const storeRecovered = getStoreRecovered(storeKey);
   const [ value, setValue ] = useState<T>({ ...defaultValue, ...storeRecovered });
   
   const defaultValueRef = useRef(defaultValue);
@@ -50,11 +52,11 @@ const useSaveStorage = <T extends Object, >(storeKey: string | undefined, defaul
   return [ value, setValue ];
 };
 
-const useSaveChunkStorage = <T extends Object, >(storeKey: string, initialValue: StorageType<T>, merge: (a: T, b: T | undefined) => T): [ StorageType<T>, Dispatch<SetStateAction<StorageType<T>>> ] => {
+const useSaveChunkStorage = <T extends Object, >(storeKey: string, initialValue: StorageType<T>, merge: (a: T, b: T | undefined) => T, formatStoreRecovered: (recovered: any) => StorageType<T>): [ StorageType<T>, Dispatch<SetStateAction<StorageType<T>>> ] => {
   
   const initialValueString = JSON.stringify(initialValue);
-  const mergeRef = useRef(merge);
-  mergeRef.current = merge;
+  const mergeRef = useStableRef(merge);
+  const formatStoreRecoveredRef = useStableRef(formatStoreRecovered);
   
   const mergeState = useCallback(() => {
     let initialValue: StorageType<T> = {};
@@ -62,7 +64,7 @@ const useSaveChunkStorage = <T extends Object, >(storeKey: string, initialValue:
       initialValue = JSON.parse(initialValueString);
     }
     const newState: StorageType<T> = {};
-    const storeRecovered = Object.entries(getStoreRecovered<StorageType<T>>(storeKey));
+    const storeRecovered = Object.entries(formatStoreRecoveredRef.current(getStoreRecovered(storeKey)));
     for (const [ key, value ] of Object.entries(initialValue)) {
       newState[key] = mergeRef.current(value, storeRecovered.find(([ storeRecoveredKey ]) => storeRecoveredKey === key)?.[1]);
     }
@@ -90,13 +92,41 @@ const useSaveChunkStorage = <T extends Object, >(storeKey: string, initialValue:
   return [ value, setValue ];
 };
 
-type StorageType<T> = {
-  [key: string]: T
+type StorageType<T extends Object> = {
+  [key: string]: T,
 }
 
-type SourcesStoreType = {
-  [key: string]: string,
-}
+const getDefaultFileName = (codeLanguage: CodeLanguage) => CODE_LANGUAGE[codeLanguage]?.mainFilename ?? 'main.source';
+
+const getExtension = (codeLanguage: any) => CODE_LANGUAGE[codeLanguage as CodeLanguage]?.fileExtension[0] ?? 'source';
+
+const mergeTestCases = (a: CodeEditorTestCasesType, b: CodeEditorTestCasesType | undefined): CodeEditorTestCasesType => {
+  const newTestCases: CodeEditorTestCasesType = {};
+  for (const [ key, testCase ] of Object.entries(a)) {
+    newTestCases[key] = {
+      ...testCase,
+      out: b?.[key]?.out ?? testCase?.out ?? '',
+      err: b?.[key]?.err ?? testCase?.err ?? '',
+      log: b?.[key]?.log ?? testCase?.log ?? '',
+      status: b?.[key]?.status ?? testCase?.status ?? SubmissionRunStatus.NONE,
+      messageTimestamp: b?.[key]?.messageTimestamp ?? testCase?.messageTimestamp ?? 0,
+    };
+    if (key === '*') {
+      newTestCases[key].in = b?.[key]?.in ?? testCase?.in ?? '';
+    }
+  }
+  
+  for (const [ key, testCase ] of Object.entries(b ?? {})) {
+    if (!newTestCases[key]) {
+      newTestCases[key] = testCase;
+    }
+  }
+  return newTestCases;
+};
+
+const mergeSources = <T, >(a: CodeRunnerEditorFiles<T>, b: CodeRunnerEditorFiles<T> | undefined): CodeRunnerEditorFiles<T> => {
+  return { ...b, ...a };
+};
 
 export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   
@@ -104,16 +134,17 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     className,
     expandPosition,
     initialTestCases,
-    initialLanguage,
+    // initialLanguage,
+    initialFileName,
     storeKey,
     languages,
     leftButtons,
     centerButtons,
     rightButtons,
-    onSourceChange,
-    onLanguageChange,
+    // onSourceChange,
+    // onLanguageChange,
     onTestCasesChange,
-    initialSource,
+    initialFiles,
     enableAddSampleCases,
     enableAddCustomSampleCases,
     onIsRunningChange,
@@ -124,6 +155,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   } = props;
   
   const userNickname = useUserStore(state => state.user.nickname);
+  const { addErrorNotification } = useJukiNotification();
   
   const editorSettingsStorageKey = getEditorSettingsStorageKey(userNickname);
   
@@ -138,33 +170,42 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     tabSize: 2,
     fontSize: 14,
   });
-  const [ language, setLanguage ] = useStableState<T>(initialLanguage ?? editorSettings.lastLanguageUsed as T);
-  const mergeTestCases = (a: CodeEditorTestCasesType, b: CodeEditorTestCasesType | undefined): CodeEditorTestCasesType => {
-    const newTestCases: CodeEditorTestCasesType = {};
-    for (const [ key, testCase ] of Object.entries(a)) {
-      newTestCases[key] = {
-        ...testCase,
-        out: b?.[key]?.out ?? testCase?.out ?? '',
-        err: b?.[key]?.err ?? testCase?.err ?? '',
-        log: b?.[key]?.log ?? testCase?.log ?? '',
-        status: b?.[key]?.status ?? testCase?.status ?? SubmissionRunStatus.NONE,
-        messageTimestamp: b?.[key]?.messageTimestamp ?? testCase?.messageTimestamp ?? 0,
-      };
-      if (key === '*') {
-        newTestCases[key].in = b?.[key]?.in ?? testCase?.in ?? '';
+  
+  let defaultLanguage = editorSettings.lastLanguageUsed;
+  if (languages.length && !languages.some(lang => lang.value === defaultLanguage)) {
+    defaultLanguage = languages[0].value;
+  }
+  
+  const formatStoreRecovered = (recovered: any): StorageType<CodeRunnerEditorFiles<T>> => {
+    const state: StorageType<CodeRunnerEditorFiles<T>> = {};
+    for (const [ key, value ] of Object.entries(recovered)) {
+      state[key] = {};
+      let index = 1;
+      for (const [ lang, source ] of Object.entries(value as {})) {
+        if (typeof source === 'string') {
+          state[key][`source-${index}.${getExtension(lang as CodeLanguage)}`] = { source, language: lang as T, index };
+          index++;
+        } else if (typeof source === 'object' && source !== null) {
+          state[key][lang] = {
+            source: ('source' in source ? source?.source as string : '') || '',
+            language: (('language' in source ? source?.language : '') || CodeLanguage.TEXT) as T,
+            index: ('index' in source ? source?.index as number : 0) || 0,
+          };
+        }
       }
     }
-    
-    for (const [ key, testCase ] of Object.entries(b ?? {})) {
-      if (!newTestCases[key]) {
-        newTestCases[key] = testCase;
-      }
-    }
-    return newTestCases;
+    return state;
   };
   
-  const newInitialTestCases: StorageType<CodeEditorTestCasesType> = { [storeKey + '_' + language]: { ...initialTestCases } };
-  newInitialTestCases[storeKey + '_' + language]['*'] = {
+  const newInitialSource: StorageType<CodeRunnerEditorFiles<T>> = { [storeKey]: { ...initialFiles } };
+  const [ filesStore, setFilesStore ] = useSaveChunkStorage<CodeRunnerEditorFiles<T>>(getSourcesStoreKey(userNickname), newInitialSource, mergeSources, formatStoreRecovered);
+  
+  const defaultFileName = getDefaultFileName(defaultLanguage as CodeLanguage);
+  const [ currentFileName, setCurrentFileName ] = useState(initialFileName ?? Object.keys(filesStore[storeKey])[0] ?? defaultFileName);
+  
+  const testCaseStoreKey = storeKey;
+  const newInitialTestCases: StorageType<CodeEditorTestCasesType> = { [testCaseStoreKey]: { ...initialTestCases } };
+  newInitialTestCases[testCaseStoreKey]['*'] = {
     key: '*',
     in: '',
     testOut: '',
@@ -178,46 +219,30 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     log: '',
     status: SubmissionRunStatus.NONE,
   };
-  const [ _testCases, setTestCases ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases);
-  const testCases = _testCases[storeKey + '_' + language];
-  const onLanguageChangeRef = useRef(onLanguageChange);
-  onLanguageChangeRef.current = onLanguageChange;
+  const [ _testCases, setTestCases ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, (recovered) => recovered);
   
-  useEffect(() => {
-    onLanguageChangeRef.current?.(language);
-  }, [ language ]);
-  
-  const languagesString = JSON.stringify(languages);
-  useEffect(() => {
-    const languages: UserCodeEditorProps<T>['languages'] = JSON.parse(languagesString);
-    if (languages.length && !languages.some(lang => lang.value === language)) {
-      const newLanguage = languages[0].value;
-      setLanguage(newLanguage);
-    }
-  }, [ language, languagesString, setLanguage ]);
+  const testCases = _testCases[testCaseStoreKey];
   
   useEffect(() => {
     onTestCasesChange?.(testCases);
   }, [ onTestCasesChange, testCases ]);
   
-  const mergeSources: (a: SourcesStoreType, b: SourcesStoreType | undefined) => SourcesStoreType = (a: SourcesStoreType, b: SourcesStoreType | undefined): SourcesStoreType => {
-    const newValue = { ...b, ...a };
-    for (const { value } of JSON.parse(languagesString)) {
-      if (!newValue[value]) {
-        newValue[value] = CODE_LANGUAGE[value as CodeLanguage]?.templateSourceCode || '';
-      }
-    }
-    return newValue;
+  const [ editorTriggerFocus, setEditorTriggerFocus ] = useState(0);
+  
+  const changeFileName = (prevState: StorageType<CodeRunnerEditorFiles<T>>, oldName: string, newName: string) => {
+    const files = prevState[storeKey] || {};
+    const oldFile = { ...files[oldName] };
+    const { [oldName]: _, ...newFiles } = { ...files };
+    newFiles[newName] = oldFile;
+    
+    return {
+      ...prevState,
+      [storeKey]: newFiles,
+    };
   };
   
-  const newInitialSource: StorageType<SourcesStoreType> = { [storeKey]: { ...initialSource, key: storeKey } };
-  
-  const [ sourceStore, setSourceStore ] = useSaveChunkStorage<SourcesStoreType>(getSourcesStoreKey(userNickname), newInitialSource, mergeSources);
-  
-  const sourceCode = sourceStore[storeKey]?.[language as string] || '';
-  
   const onChange = ({
-                      sourceCode: newSourceCode,
+                      source: newSourceCode,
                       language: newLanguage,
                       onTestCasesChange,
                       theme,
@@ -225,52 +250,124 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
                       fontSize,
                       isRunning,
                       codeRunStatus,
+                      newFileName,
+                      fileName,
+                      fileNameEdited,
+                      fileNameDeleted,
                     }: CodeRunnerEditorPropertiesType<T>) => {
+    
     if (codeRunStatus) {
-      onCodeRunStatusChange?.(codeRunStatus, { language, sourceCode, testCases });
+      onCodeRunStatusChange?.(codeRunStatus, { files: filesStore[storeKey], currentFileName, testCases });
     }
     if (typeof isRunning === 'boolean') {
       onIsRunningChange?.(isRunning);
     }
     if (typeof newSourceCode === 'string') {
-      setSourceStore(prevState => ({
+      setFilesStore(prevState => ({
         ...prevState,
         [storeKey]: {
           ...(prevState[storeKey] || {}),
-          [language as string]: newSourceCode,
+          [currentFileName]: {
+            ...(prevState[storeKey]?.[currentFileName] || {}),
+            source: newSourceCode,
+          },
         },
       }));
-      onSourceChange?.(newSourceCode);
+      // onSourceChange?.(newSourceCode);
     }
     if (newLanguage) {
-      setLanguage(newLanguage);
+      // setLanguage(newLanguage);
       setEditorSettings(prevState => ({ ...prevState, lastLanguageUsed: newLanguage }));
+      const newRenamedFile = `${removeExtension(currentFileName)}.${getExtension(newLanguage)}`;
+      setFilesStore(prevState => {
+        const newState: StorageType<CodeRunnerEditorFiles<T>> = {
+          ...prevState,
+          [storeKey]: {
+            ...(prevState[storeKey] || {}),
+            [currentFileName]: {
+              ...(prevState[storeKey]?.[currentFileName] || {}),
+              language: newLanguage,
+            },
+          },
+        };
+        return changeFileName(newState, currentFileName, newRenamedFile);
+      });
+      setCurrentFileName(newRenamedFile);
+      setEditorTriggerFocus(Date.now());
     }
     if (onTestCasesChange) {
       setTestCases(prevState => ({
         ...prevState,
-        [storeKey + '_' + language]: onTestCasesChange(prevState[storeKey + '_' + language] || {}),
+        [testCaseStoreKey]: onTestCasesChange(prevState[testCaseStoreKey] || {}),
       }));
     }
     if (theme) {
       setEditorSettings(prevState => ({ ...prevState, theme }));
+      setEditorTriggerFocus(Date.now());
     }
     if (tabSize) {
       setEditorSettings(prevState => ({ ...prevState, tabSize }));
+      setEditorTriggerFocus(Date.now());
     }
     if (fontSize) {
       setEditorSettings(prevState => ({ ...prevState, fontSize }));
+      setEditorTriggerFocus(Date.now());
+    }
+    if (newFileName) {
+      setFilesStore(prevState => {
+        const files = { ...(prevState[storeKey] || {}) };
+        let newFile = `new.${getExtension(editorSettings.lastLanguageUsed)}`;
+        let i = 1;
+        while (files[newFile]) {
+          newFile = `new${i}.${getExtension(editorSettings.lastLanguageUsed)}`;
+          i++;
+        }
+        setCurrentFileName(newFile);
+        const maxIndex = Object.values(files).reduce((accum, { index }) => Math.max(accum, index || 0), 0);
+        files[newFile] = {
+          source: CODE_LANGUAGE[editorSettings.lastLanguageUsed as CodeLanguage]?.templateSourceCode || '',
+          language: editorSettings.lastLanguageUsed,
+          index: maxIndex + 1,
+        };
+        return { ...prevState, [storeKey]: files };
+      });
+      setEditorTriggerFocus(Date.now());
+    }
+    if (fileName) {
+      setCurrentFileName(fileName);
+      setEditorTriggerFocus(Date.now());
+    }
+    if (typeof fileNameEdited?.[0] === 'string' && typeof fileNameEdited?.[1] === 'string') {
+      const newName = fileNameEdited[1];
+      if (filesStore[newName]) {
+        addErrorNotification(<T className="tt-se">file name already exists</T>);
+      } else {
+        const oldName = fileNameEdited[0];
+        setFilesStore(prevState => changeFileName(prevState, oldName, newName));
+        setCurrentFileName(newName);
+        setEditorTriggerFocus(Date.now());
+      }
+    }
+    if (fileNameDeleted) {
+      setFilesStore(prevState => {
+        const files = prevState[storeKey] || {};
+        const { [fileNameDeleted]: _, ...newFiles } = { ...files };
+        setCurrentFileName(Object.keys(files)[0] ?? '');
+        return { ...prevState, [storeKey]: newFiles };
+      });
+      setEditorTriggerFocus(Date.now());
     }
   };
   
   return (
-    <CodeRunnerEditor
+    <CodeRunnerEditor<T>
+      triggerFocus={editorTriggerFocus}
+      files={filesStore[storeKey]}
+      currentFileName={currentFileName}
       className={className}
       theme={editorSettings.theme}
       tabSize={editorSettings.tabSize}
       fontSize={editorSettings.fontSize}
-      sourceCode={sourceCode}
-      language={language}
       languages={languages}
       readOnly={readOnly}
       onChange={onChange}

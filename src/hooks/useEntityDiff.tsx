@@ -27,7 +27,7 @@ export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {
           &nbsp;<T className="tt-se">differences_colon</T>
           <div style={{ height: (height * 24 + 8) + 'px', color: 'initial' }}>
             <CodeEditor
-              sourceCode={text}
+              source={text}
               language={CodeLanguage.JSON}
               readOnly
             />

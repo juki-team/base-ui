@@ -3,7 +3,7 @@ import { usePageStore } from '../../stores/page/usePageStore';
 
 export const useOnline = () => {
   
-  const { setOnline } = usePageStore();
+  const setOnline = usePageStore(store => store.setOnline);
   
   useEffect(() => {
     
@@ -17,4 +17,5 @@ export const useOnline = () => {
       window.removeEventListener('offline', updateOnlineStatus);
     };
   }, [ setOnline ]);
+  
 };

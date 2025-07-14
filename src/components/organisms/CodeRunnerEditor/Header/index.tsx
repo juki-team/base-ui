@@ -1,5 +1,6 @@
 import {
   CodeEditorTestCasesType,
+  CodeLanguage,
   consoleWarn,
   ContentResponseType,
   Status,
@@ -12,7 +13,7 @@ import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { jukiApiManager } from '../../../../settings';
 import { useWebsocketStore } from '../../../../stores/websocket/useWebsocketStore';
-import { Button, Select, T } from '../../../atoms';
+import { Button, T } from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';
 import { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../molecules/types';
 import { ErrorIcon, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, SettingsIcon } from '../../../server';
@@ -21,7 +22,7 @@ import { HeaderProps } from '../types';
 export const Header = <T, >(props: HeaderProps<T>) => {
   
   const {
-    languages,
+    // languages,
     sourceCode,
     language,
     onChange,
@@ -37,7 +38,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     setExpanded,
     isRunning,
     withoutRunCodeButton,
-    readOnly,
+    // readOnly,
     headerRef,
     headerWidthContainer,
     twoRows,
@@ -76,9 +77,24 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     try {
       const { url, ...options } = jukiApiManager.API_V1.code.run({
         body: {
-          language: language as string,
-          source: sourceCode,
-          inputs: Object.values(testCases).map(testCase => ({ key: testCase.key, source: testCase.in })),
+          files: [
+            {
+              language: language as CodeLanguage,
+              source: sourceCode,
+              fullFileName: 'main.cpp',
+              isInput: false,
+              isEntryPoint: true,
+              toCompile: true,
+            },
+            ...(Object.values(testCases).map(testCase => ({
+              fullFileName: `${testCase.key}.in`,
+              language: CodeLanguage.TEXT,
+              source: testCase.in,
+              isInput: true,
+              isEntryPoint: false,
+              toCompile: false,
+            }))),
+          ],
           timeLimit,
           memoryLimit,
           connectionId,
@@ -116,25 +132,6 @@ export const Header = <T, >(props: HeaderProps<T>) => {
         className={classNames('cr-th jk-row gap left', { 'jk-col left gap': twoRows, 'jk-row gap left': !twoRows })}
         ref={refLeftSection}
       >
-        {readOnly ? (
-          <div className="jk-tag bc-io">
-            {(languages.find(lang => lang.value === language)?.label || language) + ''}
-          </div>
-        ) : (
-          <Select
-            className="languages-selector"
-            options={languages.map(language => ({
-              value: language.value,
-              label: (language.label || language.value) + '',
-            }))}
-            selectedOption={{
-              value: language,
-              label: (languages.find(lang => lang.value === language)?.label || language) + '',
-            }}
-            onChange={({ value }) => onChange?.({ language: value })}
-            expand={twoRows}
-          />
-        )}
         {!withoutRunCodeButton && (
           <>
             <ButtonLoader
@@ -142,7 +139,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
               data-tooltip-content={!isConnected
                 ? 'run the editor is not available yet'
                 : !(twoRows || withLabels) ? 'run' : ''}
-              size="tiny"
+              size={(twoRows || withLabels) ? 'tiny' : 'small'}
               type="primary"
               expand={twoRows}
               icon={<PlayArrowIcon />}
@@ -184,7 +181,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
           data-tooltip-id="jk-tooltip"
           data-tooltip-content={!(twoRows || withLabels) ? 'settings' : ''}
           data-tooltip-place="bottom-end"
-          size="tiny"
+          size={(twoRows || withLabels) ? 'tiny' : 'small'}
           type="light"
           onClick={() => setShowSettings(true)} icon={<SettingsIcon />}
         >

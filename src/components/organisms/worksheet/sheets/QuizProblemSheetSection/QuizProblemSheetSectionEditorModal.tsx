@@ -73,9 +73,9 @@ export const QuizProblemSheetSectionEditorModal = ({
             />
           </div>
           <div>
-            {(sheet.problemJudge && sheet.problemKey) ? (
-              <ProblemSummary problemJudge={sheet.problemJudge} problemKey={sheet.problemKey} />
-            ) : <T className="tt-se">please select a problem</T>}
+            {(sheet.problemKey)
+              ? <ProblemSummary problemKey={sheet.problemKey} />
+              : <T className="tt-se">please select a problem</T>}
           </div>
           <div className="jk-row gap left">
             <div><T className="fw-bd tt-se">height</T>:</div>

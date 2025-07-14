@@ -8,13 +8,12 @@ const isSupportedLocal = isSupported && visibility;
 
 export const usePageVisibility = () => {
   
-  const { setIsVisible } = usePageStore();
+  const setIsVisible = usePageStore(store => store.setIsVisible);
   
   useEffect(() => {
     if (isSupportedLocal) {
       const handler = () => {
         const [ currentlyVisible ] = getHandlerArgs();
-        
         setIsVisible(currentlyVisible);
       };
       
@@ -26,4 +25,5 @@ export const usePageVisibility = () => {
     }
     return () => null;
   }, [ setIsVisible ]);
+  
 };

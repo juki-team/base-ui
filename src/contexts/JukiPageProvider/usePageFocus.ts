@@ -3,7 +3,7 @@ import { usePageStore } from '../../stores/page/usePageStore';
 
 export const usePageFocus = () => {
   
-  const { setIsFocus } = usePageStore();
+  const setIsFocus = usePageStore(store => store.setIsFocus);
   
   useEffect(() => {
     const handlerOnFocus = () => setIsFocus(true);
@@ -17,4 +17,5 @@ export const usePageFocus = () => {
       window?.removeEventListener('blur', handlerOnBlur);
     };
   }, [ setIsFocus ]);
+  
 };

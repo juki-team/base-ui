@@ -115,8 +115,8 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     || test?.status === SubmissionRunStatus.RUNNING_TEST_CASE
   ) ? (
     <div
-      className="jk-overlay jk-overlay-backdrop jk-row center"
-      style={{ position: 'absolute', background: 'transparent' }}
+      className="jk-overlay jk-overlay-backdrop jk-row center pn-ae"
+      style={{ background: 'transparent', position: 'absolute' }}
     >
       <div className="jk-row" style={{ alignItems: 'baseline' }}>
         <T>{SUBMISSION_RUN_STATUS[test?.status].label}</T>&nbsp;
@@ -151,7 +151,6 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       ),
       body: (
         <div className="ht-100 jk-col stretch nowrap">
-          {loaderAndInfo}
           <div className="jk-pg-xsm ow-ao flex-1">
             <span className="jk-text-stdout">{test?.testOut}</span>
           </div>
@@ -172,7 +171,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       </T>
     ),
     body: (
-      <div className="ht-100 jk-col stretch nowrap">
+      <div className="ht-100 jk-col stretch nowrap pn-re">
         {loaderAndInfo}
         <div className="jk-pg-xsm ow-ao flex-1">
           <span className="jk-text-stdout">{test?.out}</span>
@@ -194,7 +193,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       </T>
     ),
     body: (
-      <div className="ht-100 jk-col stretch nowrap">
+      <div className="ht-100 jk-col stretch nowrap pn-re">
         {loaderAndInfo}
         <div className="jk-pg-xsm ow-ao flex-1">
           <span className="jk-text-stderr tx-t bc-er cr-we jk-pg-xsm">{test?.err}</span>

@@ -20,15 +20,20 @@ interface UserState {
 export const useUserStore = create<UserState>()(
   persist((set, get) => ({
       user: EMPTY_USER,
-      setUser: (user) => set(state => {
-        const newUser = { ...state.user, ...user };
-        if (JSON.stringify(state.user) !== JSON.stringify(newUser)) {
-          return { user: newUser, isLoading: !newUser?.sessionId };
+      setUser: (user) => {
+        const current = get().user;
+        const newUser = { ...current, ...user };
+        if (JSON.stringify(current) !== JSON.stringify(newUser)) {
+          return set({ user: newUser, isLoading: !newUser?.sessionId });
         }
-        return state;
-      }),
+      },
       company: EMPTY_COMPANY,
-      setCompany: (company) => set({ company }),
+      setCompany: (company) => {
+        const current = get().company;
+        if (JSON.stringify(current) !== JSON.stringify(company)) {
+          set({ company });
+        }
+      },
       isLoading: true,
       mutate: null as unknown as KeyedMutator<any>,
       setMutate: (mutate) => set({ mutate }),

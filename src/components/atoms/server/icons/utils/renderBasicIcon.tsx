@@ -21,6 +21,7 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
     viewBox = '0 0 24 24',
     letter,
     letterColor,
+    letterSize,
     ...props
   } = _props;
   
@@ -57,11 +58,11 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
             cy={centerY}
             sizeBox={widthBox + (filledSquare ? scaleLineWidth * 2 : 0)}
             strokeWidth={filledCircle ? 0 : scaleLineWidth}
-            filled={filledCircle}
+            filled={!!filledCircle}
           />
         )}
         {(square || filledSquare) && (
-          <SquareFrame cx={minX} cy={minY} strokeWidth={scaleLineWidth} sizeBox={widthBox} filled={filledSquare} />
+          <SquareFrame cx={minX} cy={minY} strokeWidth={scaleLineWidth} sizeBox={widthBox} filled={!!filledSquare} />
         )}
         <g transform={`translate(${(1 - scale) * (minX + sizeBox)}, ${(1 - scale) * (minY + sizeBox)}) scale(${scale})`}>
           <Component
@@ -76,7 +77,7 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
             style={{
               alignmentBaseline: 'central',
               textAnchor: 'middle',
-              fontSize: widthBox * (circle ? 0.6 : square ? 0.7 : (filledCircle || filledSquare) ? 0.80 : 0.9),
+              fontSize: letterSize ?? (widthBox * (circle ? 0.6 : square ? 0.7 : (filledCircle || filledSquare) ? 0.80 : 0.9)),
               color: letterColor ?? color,
               fontWeight: 800,
             }}

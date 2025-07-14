@@ -13,6 +13,7 @@ export interface IconProps {
   viewBox?: string,
   letter?: string,
   letterColor?: string,
+  letterSize?: number,
   color?: string,
 }
 
@@ -31,13 +32,13 @@ export type SignIconProps = (IconProps & { rotate?: number }) & ({
 } | {
   circle?: locked,
   square?: locked,
-  filledCircle: true,
+  filledCircle: true | string,
   filledSquare?: locked,
 } | {
   circle?: locked,
   square?: locked,
   filledCircle?: locked,
-  filledSquare?: true,
+  filledSquare?: true | string,
 });
 
 export type BasicIconProps = (SignIconProps & { strikethrough?: boolean });

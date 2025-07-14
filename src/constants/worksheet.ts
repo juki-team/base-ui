@@ -2,11 +2,10 @@ import {
   CodeEditorSheetType,
   GraphSheetType,
   JkmdSheetType,
-  Judge,
   ListSheetType,
-  ProblemScoringMode,
   QuizOptionsSheetType,
   QuizProblemSheetType,
+  QuizScoringMode,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
   SourceCodeType,
   WorksheetType,
@@ -47,7 +46,6 @@ export const EMPTY_QUIZ_PROBLEM_SHEET = (): QuizProblemSheetType => ({
   type: WorksheetType.QUIZ_PROBLEM,
   title: '',
   points: 0,
-  problemJudge: Judge.JUKI_JUDGE,
   problemKey: '',
   height: 0,
   languages: RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
@@ -61,7 +59,7 @@ export const EMPTY_QUIZ_OPTIONS_SHEET = (): QuizOptionsSheetType => ({
   description: '',
   options: [],
   multiple: false,
-  scoringMode: ProblemScoringMode.TOTAL,
+  scoringMode: QuizScoringMode.TOTAL,
 });
 
 export const EMPTY_LIST_SHEET = (): ListSheetType => ({

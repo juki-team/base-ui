@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { usePageStore } from '../../stores/page/usePageStore';
 
 export function useMouseInsidePage() {
-  const [ isMouseInside, setIsMouseInside ] = useState(true);
+  
+  const setIsMouseInside = usePageStore(store => store.setIsMouseInside);
   
   useEffect(() => {
     const handleMouseOut = (e: MouseEvent) => {
@@ -10,11 +12,7 @@ export function useMouseInsidePage() {
       }
     };
     
-    const handleMouseOver = () => {
-      if (!isMouseInside) {
-        setIsMouseInside(true);
-      }
-    };
+    const handleMouseOver = () => setIsMouseInside(true);
     
     document.addEventListener('mouseout', handleMouseOut);
     document.addEventListener('mouseover', handleMouseOver);
@@ -23,7 +21,6 @@ export function useMouseInsidePage() {
       document.removeEventListener('mouseout', handleMouseOut);
       document.removeEventListener('mouseover', handleMouseOver);
     };
-  }, [ isMouseInside ]);
+  }, [ setIsMouseInside ]);
   
-  return isMouseInside;
 }

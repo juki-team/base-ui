@@ -6,7 +6,9 @@ import { usePageStore } from '../stores/page/usePageStore';
 
 export const useCheckAndStartServices = () => {
   
-  const { isOnline: isPageOnline, isFocus: isPageFocus, isVisible: isPageVisible } = usePageStore();
+  const isPageOnline = usePageStore(store => store.isOnline);
+  const isPageFocus = usePageStore(store => store.isFocus);
+  const isPageVisible = usePageStore(store => store.isVisible);
   
   const intervalRef = useRef<ReturnType<typeof setInterval>>(null);
   

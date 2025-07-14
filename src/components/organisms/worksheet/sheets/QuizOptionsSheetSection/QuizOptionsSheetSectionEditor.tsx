@@ -1,4 +1,4 @@
-import { QuizOptionsSheetType } from '@juki-team/commons';
+import { QuizOptionsSheetType, QuizScoringMode } from '@juki-team/commons';
 import React from 'react';
 import { v4 } from 'uuid';
 import { classNames } from '../../../../../helpers';
@@ -52,10 +52,10 @@ export const QuizOptionsSheetSectionEditor = ({
               <T className="fw-bd tt-se">scoring mode</T>
               <InputToggle
                 size="small"
-                checked={content.scoringMode === 'TOTAL'}
+                checked={content.scoringMode === QuizScoringMode.TOTAL}
                 onChange={(newValue) => setContent(prevState => ({
                   ...prevState,
-                  scoringMode: newValue ? 'TOTAL' : 'PARTIAL',
+                  scoringMode: newValue ? QuizScoringMode.TOTAL : QuizScoringMode.PARTIAL,
                 }))}
                 leftLabel={
                   <T className={classNames('tt-se', { 'fw-bd': content.scoringMode === 'PARTIAL' })}>partial</T>}

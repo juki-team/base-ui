@@ -30,15 +30,31 @@ const FORCE_CLOSED = 'FORCE_CLOSED';
 
 export class JukiWebSocketManagement {
   private socket: WebSocket | null = null;
-  private socketServiceUrl: string = '';
+  private socketServiceUrl = '';
   private callbacks: Record<WebSocketResponseEventKey, Set<(data: WebSocketResponseEventDTO) => void>> = {};
   private messageQueue: string[] = [];
   private reconnecting = false;
   private attempts = 0;
   private eventListeners: Parameters<WebSocket['addEventListener']>[] = [];
   private readonly baseDelay = 1000;
+  private isOnline = false;
+  private listeners: { [key: string]: Function[] } = {};
+  private socketId = '';
+  private sessionId = '' as ObjectIdType;
+  private connectionId = '';
+  private pingInterval: ReturnType<typeof setInterval> | null = null;
+  private isPageVisible = true;
+  private isMouseInsidePage = true;
   
   constructor() {
+  }
+  
+  getIsOnline() {
+    return this.isOnline;
+  }
+  
+  getSocketId() {
+    return this.socketId;
   }
   
   async setSocketServiceUrl(socketServiceUrl: string) {
@@ -55,11 +71,12 @@ export class JukiWebSocketManagement {
     return this.socket?.readyState || WebSocket.CLOSED;
   }
   
-  addEventListener(...props: Parameters<WebSocket['addEventListener']>) {
-    this.eventListeners.push(props);
-  }
-  
   async stop(withClean: boolean) {
+    this.eventListeners.forEach(listener => this.socket?.removeEventListener(...listener));
+    if (withClean) {
+      this.clean();
+      this.callbacks = {};
+    }
     return new Promise<boolean>((resolve) => {
       if (!this.socket || this.socket.readyState === WebSocket.CLOSED) {
         consoleInfo('WebSocket is already closed');
@@ -76,19 +93,23 @@ export class JukiWebSocketManagement {
         this.sendRaw(JSON.stringify(contentResponse('bye', event)), false);
       }
       
-      this.socket.addEventListener('close', (e) => {
-        consoleInfo('WebSocket closed');
-        this.socket = null;
-        if (withClean) {
-          this.messageQueue = [];
-          this.callbacks = {};
-        }
-        
-        resolve(true);
-      });
+      this.socket.addEventListener('close', () => resolve(true));
       
       this.socket.close(3001, FORCE_CLOSED);
     });
+  }
+  
+  on(event: string, callback: Function) {
+    if (!this.listeners[event]) {
+      this.listeners[event] = [];
+    }
+    this.listeners[event].push(callback);
+  }
+  
+  off(event: string, callback: Function) {
+    if (this.listeners[event]) {
+      this.listeners[event] = this.listeners[event].filter(cb => cb !== callback);
+    }
   }
   
   subscribe(event: WebSocketEventDTO, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
@@ -112,17 +133,21 @@ export class JukiWebSocketManagement {
   }
   
   async authenticate(sessionId: ObjectIdType) {
-    this.messageQueue = [];
-    this.callbacks = {};
-    if (!sessionId) {
-      consoleWarn('Authentication failed: invalid session ID');
-      return false;
+    if (this.sessionId !== sessionId) {
+      if (!sessionId) {
+        consoleWarn('Authentication failed: invalid session ID');
+        return false;
+      }
+      this.clean();
+      this.sessionId = sessionId;
     }
     const event: AuthenticateWebSocketEventDTO = {
       event: WebSocketActionEvent.AUTHENTICATE,
       sessionId,
     };
-    return this.sendRaw(JSON.stringify(contentResponse('sending authenticate', event)), false);
+    this.sendRaw(JSON.stringify(contentResponse('sending authenticate', event)), false);
+    this.startPingInterval();
+    return true;
   }
   
   unsubscribeAll(event: WebSocketEventDTO) {
@@ -153,6 +178,28 @@ export class JukiWebSocketManagement {
     } else {
       return await this.reconnect();
     }
+  }
+  
+  setPageVisibilityState(isVisible: boolean) {
+    this.isPageVisible = isVisible;
+  }
+  
+  setMouseInsidePageState(isInside: boolean) {
+    this.isMouseInsidePage = isInside;
+  }
+  
+  private clean() {
+    consoleInfo(`cleaned ${this.messageQueue.length} queued message and ${Object.keys(this.callbacks).length} callbacks`);
+    this.messageQueue = [];
+    this.callbacks = {};
+  }
+  
+  private addEventListener(...props: Parameters<WebSocket['addEventListener']>) {
+    this.eventListeners.push(props);
+  }
+  
+  private emit(event: string, ...args: any[]) {
+    this.listeners[event]?.forEach(cb => cb(...args));
   }
   
   private getKeyWebSocketEventDTO(event: WebSocketEventDTO) {
@@ -212,35 +259,26 @@ export class JukiWebSocketManagement {
     await new Promise(async (resolve) => {
       await this.stop(withClean);
       
-      this.socket = new WebSocket(this.socketServiceUrl);
-      this.eventListeners.forEach(listener => this.socket!.addEventListener(...listener));
-      
-      // @ts-ignore
-      this.socket._id = crypto.randomUUID();
-      
-      if (typeof window !== 'undefined') {
-        // @ts-ignore
-        window.__JUKI_WEB_SOCKET__ = window.__JUKI_WEB_SOCKET__ || [];
-        // @ts-ignore
-        window.__JUKI_WEB_SOCKET__.push(this._socket);
-        // with storybook: document.getElementById('storybook-preview-iframe').contentWindow.__JUKI_WEB_SOCKET__.
-      }
-      
-      this.socket.addEventListener('open', () => {
+      this.addEventListener('open', () => {
         this.attempts = 0;
-        consoleInfo('Juki Websocket connected');
+        this.updateIsOnline(true);
+        const messageQueueLength = this.messageQueue.length;
+        let sending = 0;
         while (this.messageQueue.length > 0) {
           if (!this.sendRaw(this.messageQueue.shift()!, true)) {
             break;
           }
+          sending++;
         }
+        consoleInfo(`Juki Websocket connected, sent ${sending} queued messages of ${messageQueueLength}, remaining ${this.messageQueue.length} queued messages`);
         resolve(true);
       });
       
-      this.socket.addEventListener('message', (event) => {
-        const response = cleanRequest<ContentResponseType<WebSocketResponseEventDTO>>(event.data);
+      this.addEventListener('message', (event) => {
+        const response = cleanRequest<ContentResponseType<WebSocketResponseEventDTO>>((event as MessageEvent).data);
         if (response.success) {
           const content = response.content;
+          this.updateConnectionId(content.connectionId);
           const listeners = this.callbacks[content.key];
           if (listeners && listeners.size) {
             listeners.forEach(cb => cb(content));
@@ -252,24 +290,77 @@ export class JukiWebSocketManagement {
         }
       });
       
-      this.socket.addEventListener('close', (event) => {
-        if (event.reason !== FORCE_CLOSED) {
+      this.addEventListener('close', (event) => {
+        this.updateIsOnline(false);
+        if ((event as CloseEvent).reason !== FORCE_CLOSED) {
           consoleError('Juki WebSocket closed unexpectedly, reconnecting...', event);
           this.reconnect();
         }
         resolve(false);
       });
       
-      this.socket.addEventListener('error', (event) => {
+      this.addEventListener('error', (event) => {
+        this.updateIsOnline(false);
         consoleError('Juki WebSocket error, reconnecting...', event);
         this.reconnect();
         resolve(false);
       });
+      
+      this.socket = new WebSocket(this.socketServiceUrl);
+      this.eventListeners.forEach(listener => this.socket!.addEventListener(...listener));
+      this.socketId = crypto.randomUUID();
+      
+      if (typeof window !== 'undefined') {
+        // @ts-ignore
+        window.__JUKI_WEB_SOCKET__ = this;
+      }
     });
     
     if (this.socket?.readyState === WebSocket.OPEN) {
       return true;
     }
     return this.reconnect();
+  }
+  
+  private updateIsOnline(isOnline: boolean) {
+    if (this.isOnline !== isOnline) {
+      this.isOnline = isOnline;
+      this.emit('isOnlineChanged', { isOnline: this.isOnline });
+      if (isOnline) {
+        this.startPingInterval();
+      } else {
+        this.stopPingInterval();
+      }
+    }
+  }
+  
+  private updateConnectionId(connectionId: string): void {
+    if (this.connectionId !== connectionId) {
+      this.connectionId = connectionId;
+      this.emit('connectionIdChanged', { connectionId: this.connectionId });
+    }
+  }
+  
+  private startPingInterval() {
+    this.stopPingInterval();
+    const callback = () => {
+      if (this.isPageVisible && this.isMouseInsidePage && this.sessionId) {
+        const event: PingWebSocketEventDTO = {
+          event: WebSocketActionEvent.PING,
+          sessionId: this.sessionId,
+          href: typeof window !== 'undefined' ? window.location.href : '',
+        };
+        this.send(event, () => null);
+      }
+    };
+    callback();
+    this.pingInterval = setInterval(callback, ONE_MINUTE);
+  }
+  
+  private stopPingInterval() {
+    if (this.pingInterval) {
+      clearInterval(this.pingInterval);
+      this.pingInterval = null;
+    }
   }
 }

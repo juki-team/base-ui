@@ -133,7 +133,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   if (isLoading) {
     return (
       <JukiLoadingLayout>
-        <div className="jk-row" style={{ alignItems: 'baseline' }}>
+        <div className="jk-row tx-l bc-wd cr-pl" style={{ alignItems: 'baseline' }}>
           <T className="tt-se">loading user</T>
           &nbsp;
           <div className="dot-flashing" />

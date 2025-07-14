@@ -56,6 +56,7 @@ const Template = (args: CodeRunnerEditorProps<string>) => {
         <CodeRunnerEditor
           {...args}
           {...props}
+          files={{}}
           onChange={(props: any) => {
             setProps((prevState) => ({ ...prevState, ...props }));
           }}

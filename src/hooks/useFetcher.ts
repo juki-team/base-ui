@@ -1,12 +1,12 @@
 import { ContentResponseType, ContentsResponseType, HTTPMethod } from '@juki-team/commons';
 import { useMemo } from 'react';
 import useSWR, { SWRConfiguration } from 'swr';
-import { authorizedRequest, cleanRequest } from '../helpers';
+import { cleanRequest, getAuthorizedRequest } from '../helpers';
 import { jukiApiManager } from '../settings';
 import { useUserStore } from '../stores/user/useUserStore';
 
 export const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
-  return authorizedRequest(url, { token, method: HTTPMethod.GET }, false);
+  return getAuthorizedRequest(url, { token, method: HTTPMethod.GET }, false);
 };
 
 export const useFetcher = <T extends (ContentResponseType<any> | ContentsResponseType<any>)>(url?: string | null, config?: SWRConfiguration) => {

@@ -2,6 +2,7 @@ import {
   CODE_LANGUAGE,
   CodeEditorTestCasesType,
   CodeEditorTestCaseType,
+  CodeLanguage,
   isCodeRunStatusMessageWebSocketResponseEventDTO,
   ONE_SECOND,
   ProfileSetting,
@@ -13,13 +14,12 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { useCheckAndStartServices } from '../../../hooks/useCheckAndStartServices';
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useCheckAndStartServices, useJukiUI, useWebsocketStore } from '../../../hooks';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
-import { Portal, T } from '../../atoms';
-import { CodeEditor, SplitPane } from '../../molecules';
-import { CodeEditorPropertiesType } from '../../molecules/types';
+import { Button, Input, Modal, Portal, Select, T } from '../../atoms';
+import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon } from '../../atoms/server';
+import { CodeEditor, SplitPane, TwoActionModal } from '../../molecules';
+import { CodeEditorPropertiesType } from '../../molecules/CodeEditor/types';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
 import { TestCases } from './TestCases';
@@ -29,12 +29,12 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   
   const {
     readOnly,
-    sourceCode,
+    // sourceCode,
     languages = CODE_EDITOR_PROGRAMMING_LANGUAGES.map(lang => ({
       value: lang as T,
       label: CODE_LANGUAGE[lang]?.label || lang,
     })),
-    language,
+    // language,
     onChange: _onChange,
     leftButtons,
     centerButtons,
@@ -50,11 +50,17 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     enableAddSampleCases,
     withoutRunCodeButton,
     onlyCodeEditor,
+    files,
+    currentFileName,
+    triggerFocus,
   } = props;
+  
+  const { source = '', language = CodeLanguage.TEXT as T } = files?.[currentFileName] ?? {};
   
   useCheckAndStartServices();
   const onChangeRef = useRef(_onChange);
   onChangeRef.current = readOnly ? undefined : _onChange;
+  
   const [ isRunning, setIsRunning ] = useState(false);
   const [ runId, setRunId ] = useState('');
   const sessionId = useUserStore(state => state.user.sessionId);
@@ -62,8 +68,12 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const [ showSettings, setShowSettings ] = useState(false);
   const [ direction, setDirection ] = useState<'row' | 'column'>('row');
   const [ expanded, setExpanded ] = useState(false);
+  const [ openFileName, setOpenFileName ] = useState('');
+  const [ fileNameEdit, setFileNameEdit ] = useState('');
+  const [ fileNameDelete, setFileNameDelete ] = useState('');
   const { viewPortSize } = useJukiUI();
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
+  const [ viewFiles, setViewFiles ] = useState<boolean>(false);
   const websocket = useWebsocketStore(store => store.websocket);
   useEffect(() => {
     if (!runId) {
@@ -160,7 +170,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     return () => {
       websocket.unsubscribeAll(event);
     };
-  }, [ runId, sessionId ]);
+  }, [ runId, sessionId, websocket ]);
   
   const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
     onChangeRef.current?.({ ...props, isRunning: false });
@@ -170,18 +180,41 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const isMobileViewPort = viewPortSize === 'sm';
   
   const firstChild = useMemo(() => (
-    <div className="editor-layout ht-100">
-      <CodeEditor
-        theme={preferredTheme}
-        onChange={codeEditorOnChange}
-        language={language}
-        readOnly={readOnly}
-        sourceCode={sourceCode}
-        tabSize={tabSize}
-        fontSize={fontSize}
-      />
+    <div className="jk-col nowrap left stretch ht-100">
+      <div className="jk-row stretch jk-pg-xsm left">
+        {readOnly ? (
+          <div className="jk-tag bc-io">
+            {(languages.find(lang => lang.value === language)?.label || language) + ''}
+          </div>
+        ) : (
+          <Select
+            className="languages-selector tx-s"
+            options={languages.map(language => ({
+              value: language.value,
+              label: (language.label || language.value) + '',
+            }))}
+            selectedOption={{
+              value: language,
+              label: (languages.find(lang => lang.value === language)?.label || language) + '',
+            }}
+            onChange={({ value }) => codeEditorOnChange({ language: value })}
+          />
+        )}
+      </div>
+      <div className="editor-layout flex-1">
+        <CodeEditor
+          theme={preferredTheme}
+          onChange={codeEditorOnChange}
+          language={language}
+          readOnly={readOnly}
+          source={source}
+          tabSize={tabSize}
+          fontSize={fontSize}
+          triggerFocus={triggerFocus}
+        />
+      </div>
     </div>
-  ), [ preferredTheme, codeEditorOnChange, language, readOnly, sourceCode, tabSize, fontSize ]);
+  ), [ preferredTheme, codeEditorOnChange, language, readOnly, source, tabSize, fontSize, languages ]);
   
   const withTestCases = !!testCases;
   const twoRows = headerWidthContainer < (withoutRunCodeButton ? 340 : 420);
@@ -220,6 +253,51 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
       )}
       style={{ overflow: expanded ? 'hidden' : undefined }}
     >
+      <TwoActionModal
+        primary={{
+          label: <T className="tt-se">delete</T>,
+          onClick: () => {
+            onChangeRef.current?.({ fileNameDeleted: fileNameDelete });
+            setFileNameDelete('');
+          },
+        }}
+        title={<T className="tt-se">warning</T>}
+        isOpen={!!fileNameDelete}
+        onClose={() => setFileNameDelete('')}
+      >
+        <div className="jk-col gap">
+          <T className="tt-se">are you sure you want to delete the file?</T>
+          <div className="jk-tag bc-hl">{fileNameDelete}</div>
+          <T className="tt-se">it can't be undone</T>
+        </div>
+      </TwoActionModal>
+      <Modal
+        isOpen={!!openFileName}
+        onClose={() => setOpenFileName('')}
+      >
+        <div className="jk-pg jk-col gap stretch">
+          <Input
+            label={<T className="tt-se">new name</T>}
+            labelPlacement="top"
+            value={fileNameEdit}
+            onChange={setFileNameEdit}
+            expand
+          />
+          <div className="jk-row gap right">
+            <Button type="light" onClick={() => setOpenFileName('')}>
+              <T className="tt-se">cancel</T>
+            </Button>
+            <Button
+              onClick={() => {
+                onChangeRef.current?.({ fileNameEdited: [ openFileName, fileNameEdit ] });
+                setOpenFileName('');
+              }}
+            >
+              <T className="tt-se">change</T>
+            </Button>
+          </div>
+        </div>
+      </Modal>
       <SettingsModal
         isOpen={showSettings}
         onClose={() => setShowSettings(false)}
@@ -233,39 +311,39 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         twoRows={twoRows}
         language={language}
         languages={languages}
-        sourceCode={sourceCode}
+        sourceCode={source}
         testCases={testCases || {}}
         leftOptions={({ widthContainer, twoRows, withLabels }) => leftButtons?.({
           isRunning,
-          readOnly,
-          sourceCode,
-          languages,
-          language,
+          // source,
+          // language,
           testCases: testCases || {},
           widthContainer,
           twoRows,
           withLabels,
+          files,
+          currentFileName,
         })}
         centerOptions={({ widthContainer, twoRows, withLabels }) => centerButtons?.({
           isRunning,
-          readOnly,
-          sourceCode,
-          languages,
-          language,
+          // source,
+          // language,
           testCases: testCases || {},
           widthContainer,
           twoRows,
           withLabels,
+          files,
+          currentFileName,
         })}
         rightOptions={({ twoRows, withLabels }) => rightButtons?.({
           isRunning,
-          readOnly,
-          sourceCode,
-          languages,
-          language,
+          // source,
+          // language,
           testCases: testCases || {},
           twoRows,
           withLabels,
+          files,
+          currentFileName,
         })}
         setShowSettings={setShowSettings}
         runId={runId}
@@ -279,25 +357,87 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         withoutRunCodeButton={!!withoutRunCodeButton}
         readOnly={!!readOnly}
       />
-      <div className="flex-1 ow-hn">
-        {onlyCodeEditor ? (
-          firstChild
-        ) : (
-          <SplitPane
-            direction={direction}
-            minSize={80}
-            onlyFirstPane={!testCases}
-            closableSecondPane={closableSecondPane}
-            closableFirstPane={closableFirstPane}
-            toggleable
-            onChangeDirection={setDirection}
-            onePanelAtATime={isMobileViewPort}
-            className="ht-100"
+      <div className="flex-1 ow-hn jk-row nowrap stretch">
+        <div
+          className="jk-col top stretch nowrap"
+          style={{ width: viewFiles ? 128 : 32, minWidth: viewFiles ? 128 : 32, maxWidth: viewFiles ? 128 : 32 }}
+        >
+          <div
+            className="jk-row fw-bd jk-pg-xsm-tb bc-hl left hoverable"
+            onClick={() => setViewFiles(!viewFiles)}
+            style={{ paddingLeft: 4 }}
           >
-            {firstChild}
-            {secondChild}
-          </SplitPane>
-        )}
+            {viewFiles ? <ArrowLeftIcon /> : <ArrowRightIcon />}
+            {viewFiles && <T className="tt-se">files</T>}
+          </div>
+          <div className="jk-divider vertical tiny" style={{ height: 1 }} />
+          <div className="jk-col top stretch gap nowrap ow-ao">
+            {Object.entries(files)
+              .sort(([ _, a ], [ __, b ]) => a.index - b.index)
+              .map(([ name ], index) => (
+                <div
+                  className={classNames('tx-s jk-pg-xsm jk-col nowrap left stretch', {
+                    'bc-pl cr-we': name === currentFileName,
+                    'hoverable': name !== currentFileName,
+                  })}
+                  onClick={name !== currentFileName ? (() => onChangeRef.current?.({ fileName: name })) : undefined}
+                >
+                  {viewFiles ? (
+                    <>
+                      {name}
+                      <div className="jk-row gap right">
+                        <EditIcon
+                          className={classNames({ 'cr-pl': name !== currentFileName })}
+                          size="tiny"
+                          filledCircle={name !== currentFileName ? 'var(--t-color-white)' : 'var(--t-color-primary)'}
+                          onClick={() => {
+                            setOpenFileName(name);
+                            setFileNameEdit(name);
+                          }}
+                        />
+                        <DeleteIcon
+                          className={classNames({ 'cr-pl': name !== currentFileName })}
+                          size="tiny"
+                          filledCircle={name !== currentFileName ? 'var(--t-color-white)' : 'var(--t-color-primary)'}
+                          onClick={() => setFileNameDelete(name)}
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <DraftIcon letter={((index + 1) % 10) + ''} letterSize={12} size="small" />
+                  )}
+                </div>
+              ))}
+            <div className="jk-row">
+              <Button
+                size="small"
+                icon={<AddIcon />}
+                disabled={readOnly}
+                onClick={() => onChangeRef.current?.({ newFileName: true })}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="jk-row flex-1">
+          {onlyCodeEditor ? (
+            firstChild
+          ) : (
+            <SplitPane
+              direction={direction}
+              minSize={80}
+              onlyFirstPane={!testCases}
+              closableSecondPane={closableSecondPane}
+              closableFirstPane={closableFirstPane}
+              toggleable
+              onChangeDirection={setDirection}
+              onePanelAtATime={isMobileViewPort}
+              className="ht-100"
+            >
+              {firstChild}
+              {secondChild}
+            </SplitPane>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ import { authorizedRequest, classNames, getHeight } from '../../../../../helpers
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { jukiApiManager } from '../../../../../settings';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
-import { QueryParamKey, UserResultsType } from '../../../../../types';
+import { QueryParamKey, UserCodeEditorProps, UserResultsType } from '../../../../../types';
 import { T } from '../../../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, SpinIcon } from '../../../../atoms/server';
 import { ButtonLoader } from '../../../../molecules';
@@ -35,7 +35,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
   
   const { content, worksheetKey, chunkId, userResults, readOnly, isSolvable } = props;
   
-  const [ sourceCode, setSourceCode ] = useState('');
+  // const [ sourceCode, setSourceCode ] = useState('');
   const { notifyResponse } = useJukiNotification();
   const searchParams = useRouterStore(state => state.searchParams);
   const routeParams = useRouterStore(state => state.routeParams);
@@ -47,12 +47,17 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
   
   const totalSubmissions = submissions.length;
   const submissionIndex = totalSubmissions - _submissionIndex - 1;
-  const initialSource: { [key: string]: string } = {};
+  const initialSource: UserCodeEditorProps<CodeLanguage>['initialFiles'] = {};
+  // TODO:
   for (const [ langKey, source ] of Object.entries(content.sourceCode)) {
-    initialSource[langKey] = source;
+    initialSource['TODO_' + langKey] = { source, language: langKey as CodeLanguage, index: 0 };
   }
   if (submissions[submissionIndex]?.language && submissions[submissionIndex]?.sourceCode) {
-    initialSource[submissions[submissionIndex]?.language] = submissions[submissionIndex]?.sourceCode;
+    initialSource[submissions[submissionIndex]?.language] = {
+      source: submissions[submissionIndex]?.sourceCode,
+      language: submissions[submissionIndex]?.language as CodeLanguage,
+      index: 0,
+    };
   }
   
   const setLoaderStatusRef = useRef<SetLoaderStatusOnClickType>(undefined);
@@ -89,25 +94,31 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
     notifyResponse(response, setLoaderStatusRef.current);
   };
   
+  // TODO:
   return (
     <div className="jk-col stretch flex-1 gap">
-      <div style={{ height: getHeight(content.height, sourceCode), minWidth: 200, width: '100%' }} className="jk-row">
+      <div
+        style={{ height: getHeight(content.height, '' /*sourceCode*/), minWidth: 200, width: '100%' }}
+        className="jk-row"
+      >
         <UserCodeEditor<CodeLanguage>
           withoutRunCodeButton={readOnly}
           initialLanguage={submissions[submissionIndex]?.language}
           readOnly={readOnly}
-          initialSource={initialSource}
-          onSourceChange={setSourceCode}
+          initialFiles={initialSource}
+          // onSourceChange={setSourceCode}
           initialTestCases={submissions[submissionIndex]?.testCases ?? content.testCases}
           languages={content.languages.map(lang => ({ value: lang, label: CODE_LANGUAGE[lang]?.label || lang }))}
           storeKey={content.id + 'view'}
           enableAddCustomSampleCases
-          onCodeRunStatusChange={(status, { sourceCode, language, testCases }) => {
+          onCodeRunStatusChange={(status, { files, currentFileName, testCases }) => {
+            const { source, language } = files[currentFileName];
             if (status === SubmissionRunStatus.COMPLETED && isSolvable) {
-              void saveCode(sourceCode, language, testCases);
+              void saveCode(source, language, testCases);
             }
           }}
-          centerButtons={({ sourceCode, language, testCases }) => {
+          centerButtons={({ testCases, files, currentFileName }) => {
+            const { source, language } = files[currentFileName];
             const buttons = [];
             if (!readOnly && isSolvable) {
               buttons.push(
@@ -115,7 +126,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
                   key="save"
                   size="tiny"
                   type="secondary"
-                  onClick={() => saveCode(sourceCode, language, testCases)}
+                  onClick={() => saveCode(source, language, testCases)}
                   setLoaderStatusRef={setLoaderStatus => setLoaderStatusRef.current = setLoaderStatus}
                 >
                   <T className="tt-se">save</T>

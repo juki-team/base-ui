@@ -8,6 +8,8 @@ interface PageState {
   setIsVisible: (isVisible: boolean) => void,
   isFocus: boolean,
   setIsFocus: (isFocus: boolean) => void,
+  isMouseInside: boolean,
+  setIsMouseInside: (isMouseInside: boolean) => void,
 }
 
 export const usePageStore = create<PageState>((set) => ({
@@ -17,4 +19,6 @@ export const usePageStore = create<PageState>((set) => ({
   setIsVisible: (isVisible) => set({ isVisible }),
   isFocus: true,
   setIsFocus: (isFocus) => set({ isFocus }),
+  isMouseInside: true,
+  setIsMouseInside: (isMouseInside) => set({ isMouseInside }),
 }));

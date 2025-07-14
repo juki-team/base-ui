@@ -7,11 +7,12 @@ import { json } from '@codemirror/lang-json';
 import { markdown } from '@codemirror/lang-markdown';
 import { python } from '@codemirror/lang-python';
 import { search } from '@codemirror/search';
+import type { EditorView } from '@codemirror/view';
 // import { oneDark } from '@codemirror/theme-one-dark';
 import { CodeLanguage, Theme } from '@juki-team/commons';
 // import { basicSetup } from '@uiw/codemirror-extensions-basic-setup';
 import CodeMirror from '@uiw/react-codemirror';
-import React, { memo } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { CodeEditorProps } from './types';
@@ -19,14 +20,23 @@ import { CodeEditorProps } from './types';
 const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
   
   const {
-    sourceCode,
+    source,
     language,
     theme,
     readOnly = false,
     onChange,
     tabSize = 4,
     fontSize = 14,
+    triggerFocus = 0,
   } = props;
+  
+  const editorRef = useRef<EditorView | null>(null);
+  
+  useEffect(() => {
+    if (editorRef.current) {
+      editorRef.current.focus();
+    }
+  }, [ triggerFocus ]);
   
   const extensions = [
     // basicSetup(),
@@ -77,12 +87,15 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
     <div style={{ fontSize: `${fontSize}px`, width: '100%', height: '100%' }} ref={ref}>
       <CodeMirror
         readOnly={readOnly}
-        value={sourceCode}
+        value={source}
         height={height + 'px'}
         extensions={extensions}
-        onChange={(value) => onChange?.({ sourceCode: value })}
+        onChange={(value) => onChange?.({ source: value })}
         theme={theme === Theme.DARK ? 'dark' : 'light'}
         basicSetup={{ tabSize }}
+        onCreateEditor={(view) => {
+          editorRef.current = view;
+        }}
       />
       {/*<CodeMirrorEditor*/}
       {/*  readOnly={readOnly}*/}

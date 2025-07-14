@@ -83,13 +83,16 @@ export const CodeEditorSheetSectionEditor = ({ content, setContent, isSolvable }
         </div>
       </div>
       <div style={{ height: getHeight(content.height, sourceCode) }} className="jk-row">
+        {/*TODO:*/}
         <CodeRunnerEditor
-          sourceCode={sourceCode}
-          onChange={({ sourceCode, language, onTestCasesChange }) => {
-            if (sourceCode !== undefined) {
+          files={{}}
+          currentFileName=""
+          // sourceCode={sourceCode}
+          onChange={({ source, language, onTestCasesChange }) => {
+            if (source !== undefined) {
               setContent(prevState => ({
                 ...prevState,
-                sourceCode: { ...prevState.sourceCode, [languageEditor]: sourceCode },
+                sourceCode: { ...prevState.sourceCode, [languageEditor]: source },
               }));
             }
             if (language) {
@@ -99,7 +102,7 @@ export const CodeEditorSheetSectionEditor = ({ content, setContent, isSolvable }
               setContent(prevState => ({ ...prevState, testCases: onTestCasesChange(prevState.testCases) }));
             }
           }}
-          language={languageEditor}
+          // language={languageEditor}
           testCases={content.testCases}
           languages={content.languages.map(lang => ({
             value: lang,

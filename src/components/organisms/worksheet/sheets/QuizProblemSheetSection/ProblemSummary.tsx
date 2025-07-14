@@ -1,17 +1,11 @@
-import {
-  ContentResponseType,
-  Judge,
-  PROBLEM_MODE,
-  PROBLEM_TYPE,
-  ProblemSummaryListResponseDTO,
-} from '@juki-team/commons';
+import { ContentResponseType, PROBLEM_MODE, PROBLEM_TYPE, ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { jukiApiManager } from '../../../../../settings';
 import { T } from '../../../../atoms';
 import { FetcherLayer } from '../../../../molecules';
 import { PageNotFound } from '../../../../templates/PageNotFound/PageNotFound';
 
-export const ProblemSummary = ({ problemJudge, problemKey }: { problemJudge: Judge, problemKey: string }) => {
+export const ProblemSummary = ({ problemKey }: { problemKey: string }) => {
   return (
     <div style={{}}>
       <FetcherLayer<ContentResponseType<ProblemSummaryListResponseDTO>>

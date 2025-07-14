@@ -5,7 +5,7 @@ const getHash = () => (typeof window !== 'undefined' ? decodeURIComponent(window
 
 export const useHash = () => {
   const [ hash, setHash ] = useState(getHash() ?? '');
-  const { routeParams } = useRouterStore();
+  const routeParams = useRouterStore(store => store.routeParams);
   
   useEffect(() => {
     const handleHashChange = () => {
