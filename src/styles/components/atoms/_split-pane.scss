@@ -176,6 +176,7 @@
       position: absolute;
       height: 100%;
       top: 0;
+      pointer-events: none;
       
       &.top, &.bottom {
         top: var(--pad-m);
@@ -188,7 +189,7 @@
       }
       
       > .notch {
-      
+        pointer-events: auto;
       }
     }
     
