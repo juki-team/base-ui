@@ -9,7 +9,6 @@
     "allowJs": true,
     "skipLibCheck": true,
     "noImplicitReturns": true,
-    //    "suppressImplicitAnyIndexErrors": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -28,17 +27,7 @@
     "outDir": "dist",
     "jsx": "react",
     "noUnusedLocals": true,
-    //    "experimentalDecorators": true,
-    //    "emitDecoratorMetadata": true
-    //    "types": [],
-    //    "types": [
-    //      "node",
-    //      "minimatch"
-    //    ]
-    //    "typeRoots": [
-    //      "src/types",
-    //      "node_modules/@types"
-    //    ]
+    "noUnusedParameters": true,
     "baseUrl": "src"
   },
   "include": [

@@ -62,6 +62,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   // }, [ withVerticalScroll ]);
   
   const { topHeaders, rightBorders, headersWidth, headersStickyWidth } = useMemo(() => {
+    console.log('memo', { headers });
     const topHeaders: DataViewerTableHeadersType<T>[] = [];
     const rightBorders: number[] = [];
     let index = 0;
@@ -88,8 +89,8 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       }
     }
     
-    const headersStickyWidth = headers.reduce((sum, head) => sum + (head.sticky && head.visible ? head.width : 0), 0);
-    const headersWidth = headers.reduce((sum, head) => sum + (head.visible ? head.width : 0), 0);
+    const headersStickyWidth = headers.reduce((sum, head) => sum + (head.sticky && head.visible?.getVisible() ? head.width : 0), 0);
+    const headersWidth = headers.reduce((sum, head) => sum + (head.visible?.getVisible() ? head.width : 0), 0);
     
     return { topHeaders, rightBorders, headersWidth, headersStickyWidth };
   }, [ headers, groups ]);

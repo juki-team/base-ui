@@ -1,28 +1,22 @@
 import { CODE_LANGUAGE, CodeLanguage, Status } from '@juki-team/commons';
 import Blockquote from '@tiptap/extension-blockquote';
 import Bold from '@tiptap/extension-bold';
-import BulletList from '@tiptap/extension-bullet-list';
 import Code from '@tiptap/extension-code';
 import CodeBlock from '@tiptap/extension-code-block';
 import Document from '@tiptap/extension-document'; // The Document extension is required, no matter what you build with Tiptap.
-import Dropcursor from '@tiptap/extension-dropcursor';
-import Gapcursor from '@tiptap/extension-gapcursor';
 import Heading from '@tiptap/extension-heading';
 import Highlight from '@tiptap/extension-highlight';
-import History from '@tiptap/extension-history';
 import Italic from '@tiptap/extension-italic';
-import ListItem from '@tiptap/extension-list-item';
+import { BulletList, ListItem, OrderedList } from '@tiptap/extension-list';
 import { Mathematics } from '@tiptap/extension-mathematics';
 // import 'katex/dist/katex.min.css';
-import OrderedList from '@tiptap/extension-ordered-list';
 import Paragraph from '@tiptap/extension-paragraph';
 import Strike from '@tiptap/extension-strike';
-import Table from '@tiptap/extension-table';
-import TableCell from '@tiptap/extension-table-cell';
-import TableHeader from '@tiptap/extension-table-header';
-import TableRow from '@tiptap/extension-table-row';
+import { Table, TableCell, TableHeader, TableRow } from '@tiptap/extension-table';
 import Text from '@tiptap/extension-text';
-import { BubbleMenu, useEditor } from '@tiptap/react';
+import { Dropcursor, Gapcursor, UndoRedo } from '@tiptap/extensions';
+import { useEditor, useEditorState } from '@tiptap/react';
+import { BubbleMenu } from '@tiptap/react/menus';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
 import java from 'highlight.js/lib/languages/java';
@@ -77,6 +71,7 @@ import { ImageUploaderModal } from '../ImageUploader/ImageUploaderModal';
 import { TiptapEditorContent } from './editor';
 import {
   BlockImage,
+  ClearMarksOnEnter,
   CurrentNodeHighlighter,
   CustomCodeBlockLowlight,
   CustomLink,
@@ -123,11 +118,13 @@ export const MdMathEditor = memo(({
   const [ openImageModal, setOpenImageModal ] = useState(false);
   const [ loader, setLoader ] = useState(Status.NONE);
   const { addNotification } = useJukiNotification();
+  
   const editor = useEditor({
     extensions: [
+      ClearMarksOnEnter,
       Document,
       Gapcursor,
-      History,
+      UndoRedo,
       Markdown,
       SmartPasteMarkdown.configure({
         addNotification: ({ type, message }: { type: NotificationType, message: string }) => {
@@ -176,11 +173,12 @@ export const MdMathEditor = memo(({
     injectCSS: false,
     //
     onUpdate({ editor }) {
+      // @ts-ignore
       const rawMd = editor?.storage.markdown.getMarkdown() as string ?? '';
       const cleanedMd = rawMd.replace(/!\[.*?\]\(.*?\)(?=\S)/g, match => `${match}\n\n`);
       onChange?.(cleanedMd);
     },
-    onSelectionUpdate({ editor }) {
+    onSelectionUpdate() {
       const el = editorRef.current?.querySelector('.current-node-highlight') as HTMLElement
         || editorRef.current?.querySelector('img.ProseMirror-selectednode')
         || null;
@@ -197,6 +195,17 @@ export const MdMathEditor = memo(({
           setOpen(false);
         }
       }
+    },
+  });
+  const { selectionIsEmpty, selectionTo, selectionFrom, currentDoc } = useEditorState({
+    editor,
+    selector: (snapshot) => {
+      return {
+        selectionIsEmpty: snapshot.editor.state.selection.empty,
+        selectionTo: snapshot.editor.state.selection.to,
+        selectionFrom: snapshot.editor.state.selection.from,
+        currentDoc: snapshot.editor.state.doc,
+      };
     },
   });
   
@@ -264,6 +273,7 @@ export const MdMathEditor = memo(({
                   {
                     icon: <OpenInNewIcon />,
                     label: <T>md</T>,
+                    // @ts-ignore
                     onClick: () => downloadBlobAsFile(new Blob([ editor.storage.markdown.getMarkdown() as string ?? '' ], { type: 'text/plain' }), 'file.md'),
                   },
                 ],
@@ -562,11 +572,11 @@ export const MdMathEditor = memo(({
           <BubbleMenu
             editor={editor}
             className="bc-we jk-br-ie"
-            shouldShow={() => (
+            shouldShow={({ editor, state }) => (
               (editor.isFocused && editor.isActive('image'))
-              || (editor?.isFocused && editor.state.selection.empty && (editor.isActive('orderedList') || editor.isActive('bulletList')) && !editor.isActive('table'))
-              || (editor?.isFocused && editor.state.selection.empty && (editor.isActive('table')))
-              || (editor.isFocused && !editor.state.selection.empty && !editor.isActive('codeBlock'))
+              || (editor?.isFocused && state.selection.empty && (editor.isActive('orderedList') || editor.isActive('bulletList')) && !editor.isActive('table'))
+              || (editor?.isFocused && state.selection.empty && (editor.isActive('table')))
+              || (editor?.isFocused && !state.selection.empty && !editor.isActive('codeBlock'))
             )}
           >
             <div
@@ -583,7 +593,7 @@ export const MdMathEditor = memo(({
                     <T>delete image</T>
                   </Button>
                 </div>
-              ) : editor?.isFocused && editor.state.selection.empty && (editor.isActive('orderedList') || editor.isActive('bulletList')) && !editor.isActive('table') ? (
+              ) : editor?.isFocused && selectionIsEmpty && (editor.isActive('orderedList') || editor.isActive('bulletList')) && !editor.isActive('table') ? (
                 <div className="jk-row">
                   <Button
                     tooltipContent={editor.isActive('orderedList') ? 'toggle bullet list' : editor.isActive('bulletList') ? 'toggle ordered list' : 'set bullet list'}
@@ -616,7 +626,7 @@ export const MdMathEditor = memo(({
                     size="small"
                   />
                 </div>
-              ) : (editor?.isFocused && editor.state.selection.empty && (editor.isActive('table'))) ? (
+              ) : (editor?.isFocused && selectionIsEmpty && (editor.isActive('table'))) ? (
                 <div className="jk-row with-trigger">
                   <div className="jk-row trigger"><MoreVertIcon size="tiny" /></div>
                   <Button
@@ -668,7 +678,7 @@ export const MdMathEditor = memo(({
                     size="small"
                   />
                 </div>
-              ) : (editor.isFocused && !editor.state.selection.empty && !editor.isActive('codeBlock')) && (
+              ) : (editor.isFocused && !selectionIsEmpty && !editor.isActive('codeBlock')) && (
                 <div className="jk-row">
                   <Button
                     tooltipContent={editor.isActive('bold') ? 'unset bold' : 'set bold'}
@@ -709,11 +719,10 @@ export const MdMathEditor = memo(({
                     tooltipContent="set code block"
                     icon={<CodeBlocksIcon />}
                     onClick={() => {
-                      const { from, to } = editor.state.selection;
-                      const selectedText = editor.state.doc.textBetween(from, to, '\n');
+                      const selectedText = currentDoc.textBetween(selectionFrom, selectionTo, '\n');
                       editor.chain()
                         .focus()
-                        .insertContentAt({ from, to }, [
+                        .insertContentAt({ from: selectionFrom, to: selectionTo }, [
                           {
                             type: 'codeBlock',
                             attrs: { language: CODE_LANGUAGE[CodeLanguage.TEXT].highlightJsKey }, // o el lenguaje que prefieras

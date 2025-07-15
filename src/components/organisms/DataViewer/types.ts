@@ -1,5 +1,5 @@
 import { DataViewMode, Status } from '@juki-team/commons';
-import { CSSProperties, Dispatch, FC, PropsWithChildren, ReactNode, SetStateAction } from 'react';
+import { CSSProperties, Dispatch, FC, PropsWithChildren, ReactNode, RefObject, SetStateAction } from 'react';
 import { UseResizeDetectorReturn } from 'react-resize-detector';
 import {
   DataViewerRequesterGetUrlType,
@@ -415,6 +415,7 @@ export interface DataViewerToolbarProps<T> {
   extraNodes: ReactNodeOrFunctionType[],
   extraNodesFloating: boolean,
   headers: DataViewerTableHeadersType<T>[],
+  toolbarRef: RefObject<HTMLDivElement | null>,
   // setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   loading: boolean,
   initializing: boolean,
@@ -424,8 +425,6 @@ export interface DataViewerToolbarProps<T> {
   setViewMode: (viewMode: DataViewMode, replace?: boolean) => void,
   viewMode: DataViewMode,
   pagination: PaginationDataType,
-  onColumn: boolean,
-  viewViews: boolean,
   showFilterDrawerKey: string,
   filterKey: string,
   filters: RequestFilterType,

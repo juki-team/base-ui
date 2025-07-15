@@ -16,7 +16,7 @@ export const PublicImagesTab = (props: PublicImagesTabProps) => (
     url={jukiApiManager.API_V1.image.getPublicList().url}
     triggerFetch={props.trigger}
   >
-    {({ data: { contents }, mutate }) => (
+    {({ data: { contents } }) => (
       <PublicImages publicImages={contents} copyButtons={props.copyButtons} onPickImageUrl={props.onPickImageUrl} />
     )}
   </FetcherLayer>

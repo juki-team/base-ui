@@ -31,11 +31,11 @@
   height: 100%;
   box-sizing: border-box;
   
-  --jk-table-toolbar-height: 50px; // 48 + 2 (border)
+  //--jk-table-toolbar-height: 50px; // 48 + 2 (border)
   
-  .jk-data-viewer-toolbar {
-    height: var(--jk-table-toolbar-height);
-  }
+  //.jk-data-viewer-toolbar {
+  //  height: var(--jk-table-toolbar-height);
+  //}
   
   .jk-view-container {
     height: calc(100% - var(--jk-table-toolbar-height));

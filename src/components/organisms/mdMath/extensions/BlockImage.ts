@@ -6,7 +6,7 @@ export const BlockImage = Image.extend({
     return [
       {
         tag: 'img[src]',
-        getAttrs: node => ({ src: (node as HTMLImageElement).getAttribute('src') }),
+        getAttrs: (node: HTMLImageElement) => ({ src: node.getAttribute('src') }),
       },
     ];
   },

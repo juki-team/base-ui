@@ -20,7 +20,7 @@ export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
       <MdMathViewer source={content.description} className="bc-hl jk-pg-xsm jk-br-ie" />
       <T className="tt-se fw-bd cr-th">{content.multiple ? 'select one or more options' : 'select one option'}</T>
       <div className="jk-col stretch left gap">
-        {content.options.map((option, index) => (
+        {content.options.map((option) => (
           <div
             className="jk-row gap nowrap extend left jk-br-ie option"
             key={option.id}

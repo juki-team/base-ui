@@ -52,7 +52,7 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
     </Button>
   );
   
-  const renderContent = content.map((itemContent, index) => {
+  const renderContent = content.map((itemContent) => {
     
     // const setSheetCb: SetContentType<JkmdSheetType | CodeEditorSheetType | GraphSheetType | QuizProblemSheetType | QuizTextSheetType | QuizOptionsSheetType> | undefined = setSheet ? (content) => {
     //   const newContent = [ ...sheet.content ];

@@ -13,14 +13,7 @@ import {
 } from '../../../';
 import { SelectOptionType } from '../../../atoms/Select/types';
 import { RefreshIcon } from '../../../server';
-import { FILTER_DATE_AUTO, FILTER_DATE_RANGE_AUTO, FILTER_SELECT_AUTO, FILTER_TEXT_AUTO } from '../constants';
-import {
-  DataViewerHeadersType,
-  DataViewerProps,
-  FilterDateAutoOfflineType,
-  FilterDateRangeAutoOfflineType,
-  FilterSelectAutoOfflineType,
-} from '../types';
+import { DataViewerHeadersType, DataViewerProps } from '../types';
 import users from './data.json';
 
 export interface JkUserTableProps {
@@ -66,8 +59,8 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       Field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
         <TextField text={nickname + givenName + familyName + imageUrl} label={<T>name</T>} />
       ),
-      sort: true,
-      filter: { type: 'text' },
+      // sort: true,
+      // filter: { type: 'text' },
       cardPosition: 'top',
       minWidth: 300,
       sticky: true,
@@ -78,9 +71,9 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       headClassName: 'left',
       minWidth: 200,
       Field: ({ record: { email } }) => <TextField text={email} label={<T>email</T>} />,
-      sort: { compareFn: () => (rowA, rowB) => rowA.email.localeCompare(rowB.email) },
+      // sort: { compareFn: () => (rowA, rowB) => rowA.email.localeCompare(rowB.email) },
       // filter: { type: 'text', callbackFn: ({ text }) => (row) => row.email === text } as FilterTextOffline<UserTable>,
-      filter: { type: FILTER_TEXT_AUTO },
+      // filter: { type: FILTER_TEXT_AUTO },
       cardPosition: 'center',
       sticky: true,
       group: '_',
@@ -99,12 +92,12 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       //     Math.random()
       //   ),
       // },
-      filter: {
-        type: FILTER_DATE_RANGE_AUTO,
-        pickerType: 'year-month-day-hours-minutes-seconds-milliseconds',
-        getValue: () => new Date(),
-        baseStartDate: new Date(0),
-      } as FilterDateRangeAutoOfflineType<UserTable>,
+      // filter: {
+      //   type: FILTER_DATE_RANGE_AUTO,
+      //   pickerType: 'year-month-day-hours-minutes-seconds-milliseconds',
+      //   getValue: () => new Date(),
+      //   baseStartDate: new Date(0),
+      // } as FilterDateRangeAutoOfflineType<UserTable>,
       group: 'group2',
     },
     {
@@ -128,11 +121,11 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
     {
       index: 'dateTest',
       Field: ({ record: { dateTest } }) => <DateField date={dateTest} label="fecha" />,
-      sort: {
-        compareFn: () => (rowA, rowB) => (
-          rowB.dateTest.getTime() - rowA.dateTest.getTime()
-        ),
-      },
+      // sort: {
+      //   compareFn: () => (rowA, rowB) => (
+      //     rowB.dateTest.getTime() - rowA.dateTest.getTime()
+      //   ),
+      // },
       // filter: {
       //   type: 'date',
       //   pickerType: 'year-month',
@@ -144,21 +137,21 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       //   pickerType: 'year-month-day',
       //   isDisabled: () => ({ year: false }),
       // } as FilterDateMatchOffline,
-      filter: {
-        type: FILTER_DATE_AUTO,
-        pickerType: 'year-month-day',
-        isDisabled: () => ({ year: false }),
-      } as FilterDateAutoOfflineType<UserTable>,
+      // filter: {
+      //   type: FILTER_DATE_AUTO,
+      //   pickerType: 'year-month-day',
+      //   isDisabled: () => ({ year: false }),
+      // } as FilterDateAutoOfflineType<UserTable>,
       group: 'group1',
     },
     {
       index: 'dateTestRange',
       Field: ({ record: { dateTestRange } }) => <DateField date={dateTestRange} label="fecha" />,
-      filter: {
-        type: FILTER_DATE_RANGE_AUTO,
-        pickerType: 'year-month-day-hours-minutes-seconds',
-        isDisabled: () => ({ year: false }),
-      } as FilterDateRangeAutoOfflineType<UserTable>,
+      // filter: {
+      //   type: FILTER_DATE_RANGE_AUTO,
+      //   pickerType: 'year-month-day-hours-minutes-seconds',
+      //   isDisabled: () => ({ year: false }),
+      // } as FilterDateRangeAutoOfflineType<UserTable>,
       group: 'group1',
     },
     {
@@ -177,26 +170,26 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
           />
         </Field>
       ),
-      sort: { compareFn: () => (rowA, rowB) => rowA.status.localeCompare(rowB.status) },
-      Filter: {
-        type: FILTER_SELECT_AUTO,
-        options: [
-          { value: 'ARCHIVED', label: 'Archived :(' },
-          { value: 'ACTIVE', label: 'Active :)' },
-          { value: 'aa', label: 'aaaaaaaaaaaaaaa aaaaaaaaaaaaa' },
-          { value: 'a1', label: <T>as</T> },
-          { value: 'a2', label: 'a' },
-          { value: 'a3', label: 'a' },
-          { value: 'a4', label: 'a' },
-          { value: 'a5', label: 'a' },
-          { value: 'a6', label: 'a' },
-          { value: 'a7', label: 'a' },
-          { value: 'a8', label: 'a' },
-          { value: 'a9', label: 'a' },
-          { value: 'a0', label: 'a' },
-        ],
-        // callbackFn: ({ columnIndex, selectedOptions }) => (row) => !!selectedOptions.find(({ value }) => value === row.status),
-      } as FilterSelectAutoOfflineType<UserTable>,
+      // sort: { compareFn: () => (rowA, rowB) => rowA.status.localeCompare(rowB.status) },
+      // Filter: {
+      //   type: FILTER_SELECT_AUTO,
+      //   options: [
+      //     { value: 'ARCHIVED', label: 'Archived :(' },
+      //     { value: 'ACTIVE', label: 'Active :)' },
+      //     { value: 'aa', label: 'aaaaaaaaaaaaaaa aaaaaaaaaaaaa' },
+      //     { value: 'a1', label: <T>as</T> },
+      //     { value: 'a2', label: 'a' },
+      //     { value: 'a3', label: 'a' },
+      //     { value: 'a4', label: 'a' },
+      //     { value: 'a5', label: 'a' },
+      //     { value: 'a6', label: 'a' },
+      //     { value: 'a7', label: 'a' },
+      //     { value: 'a8', label: 'a' },
+      //     { value: 'a9', label: 'a' },
+      //     { value: 'a0', label: 'a' },
+      //   ],
+      //   // callbackFn: ({ columnIndex, selectedOptions }) => (row) => !!selectedOptions.find(({ value }) => value === row.status),
+      // } as FilterSelectAutoOfflineType<UserTable>,
       cardPosition: 'topRight',
     },
   ], []);
@@ -215,7 +208,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
     {
       head: <TextHeadCell text="Name / Nickname" />,
       index: 'name-2',
-      Field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
+      Field: ({ record: { givenName } }) => (
         <TextField text={givenName} label="test" />
       ),
       // sort: true,

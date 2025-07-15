@@ -11,7 +11,7 @@ export const InputRadio = ({ className, checked, disabled, onChange, label, ...p
       <input
         type="radio"
         className={classNames('jk-input-radio', { disabled: isDisabled })}
-        onChange={isDisabled ? undefined : ({ target: { checked, ...restTarget } }) => {
+        onChange={isDisabled ? undefined : ({ target: { checked } }) => {
           onChange?.(checked);
         }}
         checked={checked}

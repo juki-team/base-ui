@@ -45,7 +45,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
   
   const withLanguageLabel = true;
   const withCopyButton = true;
-  
+  const lines = code.split('\n');
   return (
     <div
       className={classNames('jk-code-viewer jk-border-radius-inline br-g6', { 'line-numbers': lineNumbers })}
@@ -53,7 +53,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
     >
       {lineNumbers && (
         <div className="jk-code-viewer-line-numbers">
-          {code.split('\n').map((line, i) => <div style={{ '--line-index': i } as CSSProperties}>{i + 1}</div>)}
+          {lines.map((_, i) => <div style={{ '--line-index': i } as CSSProperties}>{i + 1}</div>)}
         </div>
       )}
       <pre
@@ -64,6 +64,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
           ref={codeRef}
           key={language}
           className={`language-${CODE_LANGUAGE[language]?.codeMirrorKey || 'plaintext'}`}
+          style={{ minHeight: lines.length * 24 }}
         >
           {code}
         </code>

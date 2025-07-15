@@ -1,5 +1,5 @@
 import { DataViewMode } from '@juki-team/commons';
-import React, { Children, CSSProperties } from 'react';
+import React, { Children, CSSProperties, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../../../helpers';
@@ -49,19 +49,16 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
-  // const [ withVerticalScroll, setWithVerticalScroll ] = useState(false);
+  const toolbarRef = useRef<HTMLDivElement>(null);
+  const { height: toolbarHeight = 0 } = useResizeDetector({ targetRef: toolbarRef });
   
   const isMobileViewPort = viewPortSize === 'sm';
-  const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
-  const onColumn = !isMobileViewPort
-    || (isMobileViewPort && (extraNodes.length === 0 ? true : extraNodesFloating) && !viewViews)
-    || (isMobileViewPort && (!(onReload && !isMobileViewPort) && !(pagination.withPagination)));
-  
+  console.log({ toolbarHeight });
   return (
     <div
       className="jk-data-viewer-content jk-br-ie"
       style={{
-        '--jk-table-toolbar-height': (onColumn ? 50 : 82) + 'px',
+        '--jk-table-toolbar-height': toolbarHeight + 'px',
         position: 'relative',
         // '--jk-data-viewer-header-table-height': height + 1 + 'px',
       } as CSSProperties}
@@ -70,6 +67,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         setViewMode={setViewMode}
         extraNodes={extraNodes}
         headers={headers}
+        toolbarRef={toolbarRef}
         // setHeaders={setHeaders}
         dataLength={data.length}
         viewMode={viewMode}
@@ -81,8 +79,6 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         onAllFilters={onAllFilters}
         pagination={pagination}
         extraNodesFloating={extraNodesFloating}
-        onColumn={onColumn}
-        viewViews={viewViews}
         showFilterDrawerKey={showFilterDrawerKey}
         filterKey={filterKey}
         filters={filters}

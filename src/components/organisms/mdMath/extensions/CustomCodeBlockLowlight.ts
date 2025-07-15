@@ -3,7 +3,7 @@ import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 
 export const CustomCodeBlockLowlight = CodeBlockLowlight.extend({
   addNodeView() {
-    return ({ node, editor }) => {
+    return ({ node }) => {
       // Contenedor principal
       const container = document.createElement('div');
       container.className = 'jk-code-viewer jk-border-radius-inline br-g6 line-numbers';
@@ -34,7 +34,7 @@ export const CustomCodeBlockLowlight = CodeBlockLowlight.extend({
       const copyButton = document.createElement('div');
       copyButton.setAttribute('data-tooltip-id', 'jk-tooltip');
       copyButton.setAttribute('data-tooltip-content', 'copy');
-      copyButton.className = 'jk-button-light-only-icon jk-row small bc-hl link jk-br-ie cr-we';
+      copyButton.className = 'jk-button light jk-row small bc-hl link jk-br-ie cr-we';
       copyButton.style.cssText = 'width: min-content; height: min-content; padding: calc(var(--gap) / 3);';
       copyButton.innerHTML = `
         <span class="jk-icon small jk-icon-content-copy" style="transform: rotate(0deg);">

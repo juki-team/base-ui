@@ -73,7 +73,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
       const newHeaders = [ ...headers ];
       let accumulatedWidth = 0;
       headers.forEach(({ minWidth = minCellWidth, ...restProps }, index) => {
-        if (restProps.visible) {
+        if (restProps.visible?.getVisible()) {
           const percentage = minWidth / totalMinUsedWidth;
           newHeaders[index] = {
             ...restProps,

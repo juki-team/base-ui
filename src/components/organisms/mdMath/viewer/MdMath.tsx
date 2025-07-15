@@ -232,7 +232,7 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
         
         return null;
       },
-      table: ({ children, className = '' }) => {
+      table: ({ children }) => {
         return (
           <div style={{ overflowX: 'auto' }}>
             <table>

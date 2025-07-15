@@ -1,4 +1,5 @@
 export * from './BlockImage';
+export * from './ClearMarksOnEnter';
 export * from './CurrentNodeHighlighter';
 export * from './CustomCodeBlockLowlight';
 export * from './CustomLink';

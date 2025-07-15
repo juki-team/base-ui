@@ -15,9 +15,9 @@ export const SmartPasteMarkdown = Extension.create({
   name: 'smartPasteMarkdown',
   addOptions() {
     return {
-      addNotification: (notification: { type: NotificationType; message: string }) => {
+      addNotification: (_: { type: NotificationType; message: string }) => {
       },
-      setLoader: (loader: Status) => {
+      setLoader: (_: Status) => {
       },
     };
   },

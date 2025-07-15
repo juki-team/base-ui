@@ -8,7 +8,7 @@ import { Modal, Popover, T } from '../../../atoms';
 import { AppsIcon, FlagEnImage, FlagEsImage, HelpIcon, LoadingIcon, SpinIcon } from '../../../server';
 import { HelpSection } from '../../HelpSection/HelpSection';
 
-export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
+export const LanguageSetting = ({ isOpen, popoverPlacement }: {
   isOpen: boolean,
   small: boolean,
   popoverPlacement: 'top' | 'bottom' | 'right',
@@ -47,7 +47,7 @@ export const LanguageSetting = ({ isOpen, small, popoverPlacement }: {
   );
 };
 
-export const ThemeSetting = ({ isOpen, small, popoverPlacement }: {
+export const ThemeSetting = ({ isOpen, popoverPlacement }: {
   isOpen: boolean,
   small: boolean,
   popoverPlacement: 'top' | 'bottom' | 'right',

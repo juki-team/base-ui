@@ -27,13 +27,13 @@ export const useLastPathStore = create<LastPathState>()(
     {
       name: 'jk-last-path-store',
       storage: createJSONStorage(() => sessionStorage, {
-        replacer: (key, value) => {
+        replacer: (_, value) => {
           if (value instanceof URLSearchParams) {
             return { __urlSearchParams: true, value: value.toString() };
           }
           return value;
         },
-        reviver: (key, value) => {
+        reviver: (_, value) => {
           // @ts-ignore
           if (value && value.__urlSearchParams) {
             // @ts-ignore

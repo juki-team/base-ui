@@ -19,7 +19,7 @@ import { ProblemVerdictTag } from '../../ProblemVerdictTag/ProblemVerdictTag';
 import { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
 import { LogInfo } from './LogInfo';
 
-const AddCaseButton = <T, >({ onChange, testCasesValues, testCases, sample = false }: {
+const AddCaseButton = <T, >({ onChange, testCasesValues, sample = false }: {
   onChange: CodeRunnerEditorOnChangeType<T>,
   testCasesValues: CodeEditorTestCaseType[],
   testCases: CodeEditorTestCasesType,
@@ -298,7 +298,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
         <div className="jk-row ta-cr fw-bd jk-pg-xsm-tb border-bottom-highlight-light">
           <T className="tt-se" style={{ width: 48 }}>test cases</T>
         </div>
-        {testCasesValues.map((testCase, idx) => (
+        {testCasesValues.map((testCase) => (
           <div
             key={testCase.key}
             data-tooltip-id="jk-tooltip"

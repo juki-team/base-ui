@@ -211,7 +211,7 @@ export const ProblemStatementView = ({
             </div>
           </div>
           <div className="jk-col stretch gap">
-            {(statement.sampleCases || [ { input: '', output: '' } ]).map((sample, index) => (
+            {(statement.sampleCases || [ { input: '', output: '' } ]).map((_, index) => (
               <SampleTest
                 index={index}
                 sampleCases={statement.sampleCases}

@@ -31,6 +31,8 @@
     border-color: transparent !important;
     margin: 0 !important;
     overflow: auto;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
     
     code {
       display: block;

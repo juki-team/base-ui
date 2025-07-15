@@ -87,7 +87,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
                 <Input
                   size={6}
                   value={key.split('-')[0] || ''}
-                  onChange={(value) => setKey(prevState => `${value}-${key.split('-')[1] || ''}`)}
+                  onChange={(value) => setKey(`${value}-${key.split('-')[1] || ''}`)}
                 />
               </label>
               <label className="jk-row nowrap">
@@ -95,7 +95,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
                 <Input
                   size="auto"
                   value={key.split('-')[1] || ''}
-                  onChange={(value) => setKey(prevState => `${key.split('-')[0] || ''}-${value}`)}
+                  onChange={(value) => setKey(`${key.split('-')[0] || ''}-${value}`)}
                 />
               </label>
             </>

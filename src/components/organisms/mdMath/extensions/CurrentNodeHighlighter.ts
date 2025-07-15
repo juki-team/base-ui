@@ -11,7 +11,7 @@ export const CurrentNodeHighlighter = Extension.create({
         key: new PluginKey('currentNodeHighlighter'),
         state: {
           init: () => DecorationSet.empty,
-          apply: (tr, old) => {
+          apply: (tr) => {
             if (!tr.selection.empty) return DecorationSet.empty;
             const { $from } = tr.selection;
             const node = $from.node();

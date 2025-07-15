@@ -4,12 +4,12 @@
   
   .jk-code-viewer {
     > pre {
-      min-height: 200px;
-      max-height: calc(var(--100VH) - 400px);
+      //min-height: 200px;
+      //max-height: calc(var(--100VH) - 400px);
       //max-width: calc(100% - var(--pad-md) - var(--pad-md));
       max-width: 100%;
       box-sizing: border-box;
-      overflow: auto;
+      //overflow: auto;
     }
   }
 }

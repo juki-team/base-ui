@@ -9,7 +9,7 @@ interface WebsocketState {
   websocket: JukiWebSocketManagement;
 }
 
-export const useWebsocketStore = create<WebsocketState>((set, get) => ({
+export const useWebsocketStore = create<WebsocketState>((set) => ({
   isConnected: false,
   setIsConnected: (isConnected: boolean) => set({ isConnected }),
   connectionId: '',

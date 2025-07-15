@@ -253,7 +253,7 @@ export const fixHeaders = <T, >(headers: DataViewerTableHeadersType<T>[]) => {
   let accumulatedWidth = 0;
   const newHeaderWidths = [ ...headers ];
   headers.forEach((head, index) => {
-    if (head.visible) {
+    if (head.visible?.getVisible()) {
       newHeaderWidths[index] = { ...head, accumulatedWidth };
       accumulatedWidth += head.width;
     }
