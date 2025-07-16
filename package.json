@@ -189,6 +189,10 @@
     "typescript": "^5.8.3",
     "webpack": "^5.100.2"
   },
+  "peerDependencies": {
+    "react": "^19",
+    "react-dom": "^19"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
