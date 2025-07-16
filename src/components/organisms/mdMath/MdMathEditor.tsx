@@ -175,7 +175,12 @@ export const MdMathEditor = memo(({
     onUpdate({ editor }) {
       // @ts-ignore
       const rawMd = editor?.storage.markdown.getMarkdown() as string ?? '';
-      const cleanedMd = rawMd.replace(/!\[.*?\]\(.*?\)(?=\S)/g, match => `${match}\n\n`);
+      const cleanedMd = rawMd
+        .replace(/!\[.*?\]\(.*?\)(?=\S)/g, match => `${match}\n\n`)
+        .replace(/\$([^$]+?)\$/g, (_, content) => {
+          const unescaped = content.replace(/\\\\/g, '\\');
+          return `$${unescaped}$`;
+        });
       onChange?.(cleanedMd);
     },
     onSelectionUpdate() {
