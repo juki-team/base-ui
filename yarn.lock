@@ -2148,10 +2148,10 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-list/-/extension-list-3.0.6.tgz#4ff396b403d9ddbca71d2acbcade068c73c7250f"
   integrity sha512-pg4R8cjUSMKuMjfOJexFt961U0UDUXfChXQh7PI7BCRCxLAtUvm2l0kGg4OMXiM1PM/ylTApdtUDal0gdOuSrQ==
 
-"@tiptap/extension-mathematics@^3.0.6":
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/@tiptap/extension-mathematics/-/extension-mathematics-3.0.6.tgz#9fb4cd1a3f918d8832a270eb7f0446407153acfc"
-  integrity sha512-0rJcEyMWS3B2GWFBQcBTOad7c2o/9VDLVD0QpLwISLsoh2EhI8fLmTHwrLAB/B5vCWR+d8Otpw0S/EitkqoGHA==
+"@tiptap/extension-mathematics@2.25.0":
+  version "2.25.0"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-mathematics/-/extension-mathematics-2.25.0.tgz#e3c8de6ff7e46f276994158aca15b57652b08d7f"
+  integrity sha512-p/S5UE9MWIqgpCrFQbV4bXBWxBGE9hbuSxEqXrS1CnuQ0EvZ7ZiQs0OfN8tcUW6KpOnrKyCcKR7/WdVqSO3EeQ==
 
 "@tiptap/extension-paragraph@^3.0.6":
   version "3.0.6"

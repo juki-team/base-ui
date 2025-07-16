@@ -95,7 +95,7 @@
     "@tiptap/extension-italic": "^3.0.6",
     "@tiptap/extension-link": "^3.0.6",
     "@tiptap/extension-list": "^3.0.6",
-    "@tiptap/extension-mathematics": "^3.0.6",
+    "@tiptap/extension-mathematics": "2.25.0",
     "@tiptap/extension-paragraph": "^3.0.6",
     "@tiptap/extension-strike": "^3.0.6",
     "@tiptap/extension-table": "^3.0.6",
