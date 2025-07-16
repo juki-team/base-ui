@@ -168,7 +168,7 @@ export const MdMathEditor = memo(({
       // Underline,
     ],
     // shouldRerenderOnTransaction: false,
-    // immediatelyRender: true,
+    immediatelyRender: false,
     content: '',
     injectCSS: false,
     //
@@ -197,17 +197,19 @@ export const MdMathEditor = memo(({
       }
     },
   });
-  const { selectionIsEmpty, selectionTo, selectionFrom, currentDoc } = useEditorState({
+  const state = useEditorState({
     editor,
     selector: (snapshot) => {
       return {
-        selectionIsEmpty: snapshot.editor.state.selection.empty,
-        selectionTo: snapshot.editor.state.selection.to,
-        selectionFrom: snapshot.editor.state.selection.from,
-        currentDoc: snapshot.editor.state.doc,
+        selectionIsEmpty: snapshot.editor?.state.selection.empty,
+        selectionTo: snapshot.editor?.state.selection.to,
+        selectionFrom: snapshot.editor?.state.selection.from,
+        currentDoc: snapshot.editor?.state.doc,
       };
     },
   });
+  
+  const { selectionIsEmpty = true, selectionTo = 0, selectionFrom = 0, currentDoc } = state || {};
   
   useEffect(() => {
     if (editor && initialMd) {
@@ -719,7 +721,7 @@ export const MdMathEditor = memo(({
                     tooltipContent="set code block"
                     icon={<CodeBlocksIcon />}
                     onClick={() => {
-                      const selectedText = currentDoc.textBetween(selectionFrom, selectionTo, '\n');
+                      const selectedText = currentDoc?.textBetween(selectionFrom, selectionTo, '\n');
                       editor.chain()
                         .focus()
                         .insertContentAt({ from: selectionFrom, to: selectionTo }, [
