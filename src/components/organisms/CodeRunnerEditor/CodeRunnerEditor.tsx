@@ -420,7 +420,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
             </div>
           </div>
         </div>
-        <div className="jk-row flex-1">
+        <div className="jk-row" style={{ width: `calc(100% - ${viewFiles ? 128 : 32}px)` }}>
           {onlyCodeEditor ? (
             firstChild
           ) : (
