@@ -104,6 +104,12 @@ export class JukiWebSocketManagement {
       this.listeners[event] = [];
     }
     this.listeners[event].push(callback);
+    if (event === 'isOnlineChanged') {
+      this.emit('isOnlineChanged', { isOnline: this.isOnline });
+    }
+    if (event === 'connectionIdChanged') {
+      this.emit('connectionIdChanged', { connectionId: this.connectionId });
+    }
   }
   
   off(event: string, callback: Function) {
