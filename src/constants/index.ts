@@ -38,6 +38,8 @@ export const EMPTY_COMPANY: CompanyPingType = {
 
 export const RESIZE_DETECTOR_PROPS: useResizeDetectorProps<any> = { refreshRate: 200, refreshMode: 'debounce' };
 
+export const DEFAULT_TIME_ZONE = 'America/La_Paz';
+
 export const EMPTY_USER: UserDataType = {
   nickname: '',
   imageUrl: 'https://images.juki.pub/c/juki-image-profile.svg',
@@ -47,6 +49,8 @@ export const EMPTY_USER: UserDataType = {
     [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.ROWS,
     [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
     [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
+    [ProfileSetting.TIME_ZONE]: DEFAULT_TIME_ZONE,
+    [ProfileSetting.FONT_SIZE]: 16,
   },
   permissions: { ...EMPTY_USER_PERMISSIONS },
   isLogged: false,
