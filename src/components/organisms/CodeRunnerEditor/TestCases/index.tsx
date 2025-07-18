@@ -186,7 +186,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       <T
         className={classNames(
           'tt-se tx-s',
-          { 'cr-er': getDataOfTestCase(test, timeLimit, memoryLimit).failed },
+          { 'cr-er': getDataOfTestCase(test, timeLimit, memoryLimit).failed || !!test.err },
         )}
       >
         error
@@ -303,7 +303,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             key={testCase.key}
             data-tooltip-id="jk-tooltip"
             data-tooltip-content={`${testCase.sample ? 'sample' : 'custom sample'} case`}
-            data-tooltip-place="top-start"
+            data-tooltip-place="left"
             onClick={() => setTestCaseKey(testCase.key)}
             className={classNames('jk-row center hoverable jk-pg-xsm', { 'bc-hl': testCase.key === testCaseKey })}
           >

@@ -183,13 +183,15 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       let index = 1;
       for (const [ lang, source ] of Object.entries(value as {})) {
         if (typeof source === 'string') {
-          state[key][`source-${index}.${getExtension(lang as CodeLanguage)}`] = { source, language: lang as T, index };
+          const name = `source-${index}.${getExtension(lang as CodeLanguage)}`;
+          state[key][name] = { source, language: lang as T, index, name };
           index++;
         } else if (typeof source === 'object' && source !== null) {
           state[key][lang] = {
             source: ('source' in source ? source?.source as string : '') || '',
             language: (('language' in source ? source?.language : '') || CodeLanguage.TEXT) as T,
             index: ('index' in source ? source?.index as number : 0) || 0,
+            name: lang,
           };
         }
       }
@@ -222,7 +224,6 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   const [ _testCases, setTestCases ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, (recovered) => recovered);
   
   const testCases = _testCases[testCaseStoreKey];
-  
   useEffect(() => {
     onTestCasesChange?.(testCases);
   }, [ onTestCasesChange, testCases ]);
@@ -328,6 +329,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
           source: CODE_LANGUAGE[editorSettings.lastLanguageUsed as CodeLanguage]?.templateSourceCode || '',
           language: editorSettings.lastLanguageUsed,
           index: maxIndex + 1,
+          name: newFile,
         };
         return { ...prevState, [storeKey]: files };
       });

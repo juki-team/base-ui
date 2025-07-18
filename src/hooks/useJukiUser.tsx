@@ -220,7 +220,10 @@ export const useJukiUserSettings = () => {
   const mutatePing = useUserStore(state => state.mutate);
   const { updateUserPreferences } = useJukiUser();
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
-  const setSettings = useCallback(async (settingsToUpdate: { key: ProfileSetting, value: string | boolean }[]) => {
+  const setSettings = useCallback(async (settingsToUpdate: {
+    key: ProfileSetting,
+    value: string | boolean | number
+  }[]) => {
     const newSettings: UserSettingsType = { ...settings };
     for (const { key, value } of settingsToUpdate) {
       if (key === ProfileSetting.LANGUAGE) {
@@ -237,6 +240,12 @@ export const useJukiUserSettings = () => {
       }
       if (key === ProfileSetting.NEWSLETTER_SUBSCRIPTION) {
         newSettings[ProfileSetting.NEWSLETTER_SUBSCRIPTION] = value as boolean;
+      }
+      if (key === ProfileSetting.TIME_ZONE) {
+        newSettings[ProfileSetting.TIME_ZONE] = value as string;
+      }
+      if (key === ProfileSetting.FONT_SIZE) {
+        newSettings[ProfileSetting.FONT_SIZE] = value as number;
       }
     }
     

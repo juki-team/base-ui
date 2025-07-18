@@ -34,7 +34,9 @@ export type CodeEditorExpandPositionType = {
   height: string | number,
 };
 
-export type CodeRunnerEditorFiles<T> = { [key: string /*name*/]: { source: string, language: T, index: number } };
+export type CodeRunnerEditorFile<T> = { source: string, language: T, index: number, name: string };
+
+export type CodeRunnerEditorFiles<T> = { [key: string /*name*/]: CodeRunnerEditorFile<T> };
 
 export interface CodeRunnerEditorProps<T> extends Omit<CodeEditorPropertiesType<T>, 'sourceCode' | 'language'> {
   triggerFocus?: number,
@@ -77,9 +79,7 @@ export interface TestCasesProps<T> {
 }
 
 export interface HeaderProps<T> {
-  sourceCode: string,
   languages: { value: T, label: string }[],
-  language: T,
   onChange?: CodeRunnerEditorOnChangeType<T>,
   testCases: CodeEditorTestCasesType,
   setShowSettings: Dispatch<SetStateAction<boolean>>,
@@ -98,6 +98,8 @@ export interface HeaderProps<T> {
   headerRef: UseResizeDetectorReturn<any>['ref'],
   headerWidthContainer: number,
   twoRows: boolean,
+  files: CodeRunnerEditorFiles<T>,
+  currentFileName: string,
 }
 
 export interface LogInfoProps {

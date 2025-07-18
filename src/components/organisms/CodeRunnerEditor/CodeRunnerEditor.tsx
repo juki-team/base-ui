@@ -74,6 +74,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const { viewPortSize } = useJukiUI();
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ viewFiles, setViewFiles ] = useState<boolean>(false);
+  
   const websocket = useWebsocketStore(store => store.websocket);
   useEffect(() => {
     if (!runId) {
@@ -111,6 +112,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         const inputKey = data?.log?.inputKey;
         
         switch (status) {
+          case SubmissionRunStatus.RECEIVED:
           case SubmissionRunStatus.FAILED:
           case SubmissionRunStatus.COMPILING:
           // case SubmissionRunStatus.RUNNING_TEST_CASES:
@@ -309,9 +311,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         headerRef={headerRef}
         headerWidthContainer={headerWidthContainer}
         twoRows={twoRows}
-        language={language}
         languages={languages}
-        sourceCode={source}
         testCases={testCases || {}}
         leftOptions={({ widthContainer, twoRows, withLabels }) => leftButtons?.({
           isRunning,
@@ -356,6 +356,8 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         isRunning={isRunning}
         withoutRunCodeButton={!!withoutRunCodeButton}
         readOnly={!!readOnly}
+        files={files}
+        currentFileName={currentFileName}
       />
       <div className="flex-1 ow-hn jk-row nowrap stretch">
         <div

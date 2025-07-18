@@ -57,7 +57,7 @@
   outline-offset: -1px;
   cursor: pointer;
   overflow: hidden;
-  padding: calc(var(--pad-sm) / 2) var(--pad-sm);
+  padding: calc(var(--text-medium-height) / 4) calc(var(--text-medium-height) / 2);
   opacity: 1;
   line-height: calc(var(--line-height) - 4px);
   --size-button-loader-icon: var(--line-height);
@@ -77,33 +77,33 @@
   }
   
   &.tiny {
-    --line-height: var(--size-tiny-icon); // 12px;
+    --line-height: var(--text-tiny-height); // 12px;
     font-size: var(--text-tiny-size); // 12px
-    --button-padding: var(--pad-xt); // 8px
+    --button-padding: calc(var(--pad-xt) / 2 + var(--base-diff-text-size) * 2); // 8px
   }
   
   &.small {
-    --line-height: var(--size-small-icon); // 18px
+    --line-height: var(--text-small-height); // 18px
     font-size: var(--text-small-size); // 14px
-    --button-padding: var(--pad-t); // 12px
+    --button-padding: calc(var(--pad-t) / 2 + var(--base-diff-text-size) * 2); // var(--pad-t); // 12px
   }
   
   &.regular {
-    --line-height: var(--size-regular-icon); // 24px
+    --line-height: var(--text-medium-height); // 24px
     font-size: var(--text-medium-size);
-    --button-padding: var(--pad-xs); // 16px
+    --button-padding: calc(var(--pad-xs) / 2 + var(--base-diff-text-size) * 2); // var(--pad-xs); // 16px
   }
   
   &.large {
-    --line-height: var(--size-large-icon); // 36px
+    --line-height: var(--text-large-height); // 36px
     font-size: var(--text-large-size);
-    --button-padding: var(--pad-s); // 20px
+    --button-padding: calc(var(--pad-s) / 2 + var(--base-diff-text-size) * 2); // var(--pad-s); // 20px
   }
   
   &.huge {
-    --line-height: var(--size-huge-icon); // 48px
+    --line-height: var(--text-huge-height); // 48px
     font-size: var(--text-huge-size);
-    --button-padding: var(--pad-m); // 24px
+    --button-padding: calc(var(--pad-m) / 2 + var(--base-diff-text-size) * 2); // var(--pad-m); // 24px
   }
   
   &.jk-button-loader.with-loader-icon:not(.only-icon) {

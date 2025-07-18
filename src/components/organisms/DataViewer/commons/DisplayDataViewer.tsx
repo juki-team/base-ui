@@ -53,7 +53,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   const { height: toolbarHeight = 0 } = useResizeDetector({ targetRef: toolbarRef });
   
   const isMobileViewPort = viewPortSize === 'sm';
-  console.log({ toolbarHeight });
+  
   return (
     <div
       className="jk-data-viewer-content jk-br-ie"

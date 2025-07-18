@@ -19,7 +19,6 @@ export const ClearMarksOnEnter = Extension.create({
             .unsetCode()
             .unsetLink()
             .run();
-          console.log('empty');
           return true;
         }
         

@@ -62,7 +62,6 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   // }, [ withVerticalScroll ]);
   
   const { topHeaders, rightBorders, headersWidth, headersStickyWidth } = useMemo(() => {
-    console.log('memo', { headers });
     const topHeaders: DataViewerTableHeadersType<T>[] = [];
     const rightBorders: number[] = [];
     let index = 0;

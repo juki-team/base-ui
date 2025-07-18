@@ -34,6 +34,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const isLoading = useUserStore(state => state.isLoading);
   const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
   const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
+  const userPreferredFontSize = useUserStore(state => state.user.settings?.[ProfileSetting.FONT_SIZE]);
   const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
   const {
     data,
@@ -84,6 +85,8 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
             [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.ROWS,
             [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
             [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
+            [ProfileSetting.TIME_ZONE]: 'America/La_Paz',
+            [ProfileSetting.FONT_SIZE]: 16,
           },
         });
       }
@@ -98,6 +101,8 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
           [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.ROWS,
           [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
           [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
+          [ProfileSetting.TIME_ZONE]: 'America/La_Paz',
+          [ProfileSetting.FONT_SIZE]: 16,
         },
       });
     }
@@ -129,6 +134,13 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
       }
     }
   }, [ userPreferredTheme ]);
+  
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.querySelector('body')?.style.removeProperty('--base-text-size');
+      document.querySelector('body')?.style.setProperty('--base-text-size', `${userPreferredFontSize}px`);
+    }
+  }, [ userPreferredFontSize ]);
   
   if (isLoading) {
     return (

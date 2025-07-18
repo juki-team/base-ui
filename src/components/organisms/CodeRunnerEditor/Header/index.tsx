@@ -22,9 +22,6 @@ import { HeaderProps } from '../types';
 export const Header = <T, >(props: HeaderProps<T>) => {
   
   const {
-    // languages,
-    sourceCode,
-    language,
     onChange,
     testCases,
     setShowSettings,
@@ -38,10 +35,11 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     setExpanded,
     isRunning,
     withoutRunCodeButton,
-    // readOnly,
     headerRef,
     headerWidthContainer,
     twoRows,
+    files,
+    currentFileName,
   } = props;
   
   const { addErrorNotification } = useJukiNotification();
@@ -51,6 +49,8 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const isConnected = useWebsocketStore(state => state.isConnected);
   const connectionId = useWebsocketStore(state => state.connectionId);
   const websocket = useWebsocketStore(state => state.websocket);
+  
+  const currentFile = files[currentFileName];
   
   useEffect(() => {
     if (isRunning) {
@@ -66,6 +66,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       const newTestCases: CodeEditorTestCasesType = {};
       for (const testKey in testCases) {
         newTestCases[testKey] = { ...testCases[testKey] };
+        newTestCases[testKey].log = '0\n0\n0\n';
         newTestCases[testKey].out = '';
         newTestCases[testKey].err = '';
         newTestCases[testKey].status = status;
@@ -78,14 +79,14 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       const { url, ...options } = jukiApiManager.API_V1.code.run({
         body: {
           files: [
-            {
+            ...Object.values(files).map(({ language, source, name }) => ({
               language: language as CodeLanguage,
-              source: sourceCode,
-              fullFileName: 'main.cpp',
+              source,
+              fullFileName: name,
               isInput: false,
-              isEntryPoint: true,
-              toCompile: true,
-            },
+              isEntryPoint: name === currentFileName,
+              toCompile: name === currentFileName,
+            })),
             ...(Object.values(testCases).map(testCase => ({
               fullFileName: `${testCase.key}.in`,
               language: CodeLanguage.TEXT,
@@ -145,7 +146,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
               icon={<PlayArrowIcon />}
               onClick={handleRunCode}
               setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-              disabled={!isConnected}
+              disabled={!isConnected || !currentFile}
             >
               {(twoRows || withLabels) && <T className="tt-se">run</T>}
             </ButtonLoader>

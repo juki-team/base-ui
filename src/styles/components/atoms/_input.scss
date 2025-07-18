@@ -298,11 +298,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     cursor: pointer;
   }
   
-  &:has(.jk-icon) {
-    > input {
-      padding-right: var(--pad-xl);
-    }
-  }
+  //&:has(.jk-icon) {
+  //  > input {
+  //    padding-right: var(--pad-xl);
+  //  }
+  //}
   
   input:not(.disabled):hover + label, input:not(.disabled):focus + label, input:not(.disabled):active + label {
     font-weight: var(--weight-bold);

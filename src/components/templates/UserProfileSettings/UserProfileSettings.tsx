@@ -2,7 +2,7 @@ import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@ju
 import React from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUserSettings } from '../../../hooks/useJukiUser';
-import { Button, InputRadio, InputToggle, T } from '../../atoms';
+import { Button, InputRadio, InputToggle, Select, T } from '../../atoms';
 import {
   DarkModeIcon,
   FlagEnImage,
@@ -26,16 +26,15 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
     [ProfileSetting.DATA_VIEW_MODE]: preferredDataViewMode,
     [ProfileSetting.MENU_VIEW_MODE]: preferredMenuViewMode,
     [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: newsletterSubscription,
+    [ProfileSetting.TIME_ZONE]: preferredTimeZone,
+    [ProfileSetting.FONT_SIZE]: preferredFontSize,
   } = useJukiUserSettings();
   
   return (
     <div className="jk-row gap top stretch">
       <div className="jk-col top extend">
-        <h3><T>preferences</T></h3>
-        <div
-          className="jk-col stretch gap bc-we jk-border-radius-inline jk-pg-md br-g6 pn-re"
-          style={{ width: 300 }}
-        >
+        <h3><T className="tt-se">preferences</T></h3>
+        <div className="jk-col stretch gap bc-we jk-border-radius-inline jk-pg-md br-g6 pn-re">
           {loading && <LineLoader />}
           <div className="jk-col gap left stretch">
             {[
@@ -120,7 +119,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
                 <div className="jk-row left extend">
                   <T className="tt-se tx-l fw-bd ta-ed ws-np">{title}</T>:&nbsp;
                 </div>
-                <div className="jk-row stretch gap space-between block extend">
+                <div className="jk-col stretch gap space-between">
                   <div className="jk-row gap left nowrap">
                     <InputRadio
                       disabled={loading}
@@ -140,6 +139,45 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
                 </div>
               </div>
             ))}
+            <div className="jk-col stretch left gap" style={{ width: '100%' }}>
+              <div className="jk-row left extend">
+                <T className="tt-se tx-l fw-bd ta-ed ws-np">time zone</T>:&nbsp;
+              </div>
+              <div className="jk-col stretch gap space-between">
+                <Select
+                  disabled={loading}
+                  options={Intl.supportedValuesOf('timeZone')
+                    .map((timeZone) => ({
+                      value: timeZone,
+                      label: <div className="jk-row left">
+                        {timeZone}&nbsp;
+                        ({Intl.DateTimeFormat('en-US', {
+                        timeZone: timeZone,
+                        timeZoneName: 'short',
+                      }).formatToParts(new Date()).find(p => p.type === 'timeZoneName')?.value})
+                      </div>,
+                    }))}
+                  selectedOption={{ value: preferredTimeZone }}
+                  onChange={({ value }) => setSettings([ { key: ProfileSetting.TIME_ZONE, value } ])}
+                />
+              </div>
+            </div>
+            <div className="jk-col stretch left gap" style={{ width: '100%' }}>
+              <div className="jk-row left extend">
+                <T className="tt-se tx-l fw-bd ta-ed ws-np">font size</T>:&nbsp;
+              </div>
+              <div className="jk-col stretch gap space-between">
+                <Select
+                  disabled={loading}
+                  options={[ 14, 16, 18, 20, 24, 28, 32 ].map((value) => ({
+                    value,
+                    label: <div>{value} <T>pixels</T></div>,
+                  }))}
+                  selectedOption={{ value: preferredFontSize }}
+                  onChange={({ value }) => setSettings([ { key: ProfileSetting.FONT_SIZE, value } ])}
+                />
+              </div>
+            </div>
             
             <div className="jk-col left gap nowrap jk-pg-sm" style={{ width: '100%' }}>
               <Button
@@ -152,7 +190,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
                   { key: ProfileSetting.MENU_VIEW_MODE, value: MenuViewMode.VERTICAL },
                 ])}
               >
-                <T>restore default preferences</T>
+                <T className="tt-se">restore default preferences</T>
               </Button>
             </div>
             {/*<div className="jk-divider" />*/}
@@ -161,8 +199,8 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
         </div>
       </div>
       <div className="jk-col top extend">
-        <h3><T>actions</T></h3>
-        <div className="jk-col stretch gap bc-we jk-border-radius-inline jk-pg-md br-g6" style={{ width: 300 }}>
+        <h3><T className="tt-se">actions</T></h3>
+        <div className="jk-col stretch gap bc-we jk-border-radius-inline jk-pg-md br-g6">
           {user?.canUpdatePassword && (
             <Button size="small" icon={<LockIcon />} onClick={onClickUpdatePassword} expand>
               <T className="ws-np">update password</T>

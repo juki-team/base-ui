@@ -12,10 +12,10 @@
     > div::after {
       content: "";
       position: absolute;
-      top: calc(var(--line-index, 0) * 24px + var(--pad-sm));
+      top: calc(var(--line-index, 0) * var(--line-height) + var(--pad-sm));
       left: 0;
       width: 100%;
-      height: 24px;
+      height: var(--line-height);
       pointer-events: none;
       //background: red;
     }

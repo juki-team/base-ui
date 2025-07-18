@@ -80,7 +80,7 @@
     "@floating-ui/react": "^0.27.12",
     "@handsontable/react": "^16.0.1",
     "@hookform/resolvers": "^5.1.1",
-    "@juki-team/commons": "^0.0.857",
+    "@juki-team/commons": "^0.0.858",
     "@tanstack/react-virtual": "^3.13.10",
     "@tiptap/core": "^3.0.6",
     "@tiptap/extension-blockquote": "^3.0.6",
