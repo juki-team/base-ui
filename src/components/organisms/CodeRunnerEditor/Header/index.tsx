@@ -193,7 +193,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             data-tooltip-id="jk-tooltip"
             data-tooltip-content={!(twoRows || withLabels) ? (expanded ? 'back' : 'expand') : ''}
             data-tooltip-place="bottom-end"
-            size="tiny"
+            size={(twoRows || withLabels) ? 'tiny' : 'small'}
             type="light"
             onClick={() => setExpanded(prevState => !prevState)}
             icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
