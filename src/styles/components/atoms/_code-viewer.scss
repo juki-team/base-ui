@@ -2,42 +2,52 @@
   position: relative;
   display: flex;
   width: 100%;
+  height: 100%;
   
-  > .jk-code-viewer-line-numbers {
-    padding: var(--pad-sm) calc(var(--pad-sm) / 2);
-    text-align: right;
-    user-select: none;
-    border-right: 1px solid var(--t-color-highlight);
-    
-    > div::after {
-      content: "";
-      position: absolute;
-      top: calc(var(--line-index, 0) * var(--line-height) + var(--pad-sm));
-      left: 0;
-      width: 100%;
-      height: var(--line-height);
-      pointer-events: none;
-      //background: red;
-    }
-    
-    > div:hover::after {
-      background: var(--t-color-highlight-light);
-    }
-  }
-  
-  > pre {
-    flex: 1;
-    background-color: var(--t-color-highlight-light);
-    border-color: transparent !important;
-    margin: 0 !important;
+  .jk-code-viewer-content {
     overflow: auto;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
+    width: 100%;
+    height: 100%;
     
-    code {
-      display: block;
-      overflow-x: auto;
-      padding: var(--pad-sm) var(--pad-sm) var(--pad-sm) calc(var(--pad-sm) / 2);
+    > .jk-code-viewer-line-numbers {
+      position: sticky;
+      left: 0;
+      padding: var(--pad-sm) calc(var(--pad-sm) / 2);
+      text-align: right;
+      user-select: none;
+      border-right: 1px solid var(--t-color-highlight);
+      background: var(--t-color-white-darkest);
+      
+      //> div::after {
+      //  content: "";
+      //  position: absolute;
+      //  top: calc(var(--line-index, 0) * var(--line-height) + var(--pad-sm));
+      //  left: 0;
+      //  width: 100%;
+      //  height: var(--line-height);
+      //  pointer-events: none;
+      //  //background: red;
+      //}
+      //
+      //> div:hover::after {
+      //  background: var(--t-color-highlight-light);
+      //}
+    }
+    
+    > pre {
+      flex: 1;
+      background-color: var(--t-color-highlight-light);
+      border-color: transparent !important;
+      margin: 0 !important;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      height: min-content;
+      
+      code {
+        display: block;
+        //overflow-x: auto;
+        padding: var(--pad-sm) var(--pad-sm) var(--pad-sm) calc(var(--pad-sm) / 2);
+      }
     }
   }
   

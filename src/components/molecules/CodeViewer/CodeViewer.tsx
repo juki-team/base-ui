@@ -51,24 +51,26 @@ export const CodeViewer = (props: CodeViewerProps) => {
       className={classNames('jk-code-viewer jk-border-radius-inline br-g6', { 'line-numbers': lineNumbers })}
       style={style}
     >
-      {lineNumbers && (
-        <div className="jk-code-viewer-line-numbers">
-          {lines.map((_, i) => <div style={{ '--line-index': i } as CSSProperties}>{i + 1}</div>)}
-        </div>
-      )}
-      <pre
-        style={height ? { height } : undefined}
-        className="jk-border-radius-inline"
-      >
-        <code
-          ref={codeRef}
-          key={language}
-          className={`language-${CODE_LANGUAGE[language]?.codeMirrorKey || 'plaintext'}`}
-          style={{ minHeight: lines.length * 24 }}
+      <div className="jk-code-viewer-content jk-row nowrap top">
+        {lineNumbers && (
+          <div className="jk-code-viewer-line-numbers">
+            {lines.map((_, i) => <div style={{ '--line-index': i } as CSSProperties}>{i + 1}</div>)}
+          </div>
+        )}
+        <pre
+          style={height ? { height } : undefined}
+          className="jk-border-radius-inline"
         >
-          {code}
-        </code>
-      </pre>
+          <code
+            ref={codeRef}
+            key={language}
+            className={`language-${CODE_LANGUAGE[language]?.codeMirrorKey || 'plaintext'}`}
+            style={{ minHeight: lines.length * 24 }}
+          >
+            {code}
+          </code>
+        </pre>
+      </div>
       <div className="float-top-right pad-xt jk-row gap">
         {withLanguageLabel && !!CODE_LANGUAGE[language]?.label && (
           <div className="tx-t jk-tag bc-pl cr-we jk-pg-xsm">{CODE_LANGUAGE[language]?.label}</div>

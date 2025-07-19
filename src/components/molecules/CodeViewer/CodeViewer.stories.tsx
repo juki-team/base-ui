@@ -14,6 +14,7 @@ int main()
   int a,b,c=0,x=0,f=0;
   cin>>a;
   vector<int>d;
+    // int i=0;i<a;i++)int i=0;i<a;i++)int i=0;i<a;i++)int i=0;i<a;i++)int i=0;i<a;i++)int i=0;i<a;i++)
     for(int i=0;i<a;i++)
     {
         cin>>b;
@@ -65,6 +66,9 @@ export const Regular: Story = {
   render: ({ code = codeTemplate, ...args }) => (
     <MockupJukiProvider>
       <div className="jk-pg">
+        <CodeViewer code={code} {...args} />
+      </div>
+      <div className="jk-pg" style={{ width: 400, height: 400 }}>
         <CodeViewer code={code} {...args} />
       </div>
       <MockupToggleThemeButton />

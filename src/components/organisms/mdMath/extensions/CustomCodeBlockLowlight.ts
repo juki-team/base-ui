@@ -5,8 +5,12 @@ export const CustomCodeBlockLowlight = CodeBlockLowlight.extend({
   addNodeView() {
     return ({ node }) => {
       // Contenedor principal
+      const layoutContainer = document.createElement('div');
+      layoutContainer.className = 'jk-code-viewer jk-border-radius-inline br-g6 line-numbers';
+      
       const container = document.createElement('div');
-      container.className = 'jk-code-viewer jk-border-radius-inline br-g6 line-numbers';
+      container.className = 'jk-code-viewer-content jk-row nowrap top';
+      layoutContainer.appendChild(container);
       
       // Line numbers a la izquierda
       const lineNumbers = document.createElement('div');
@@ -49,7 +53,7 @@ export const CustomCodeBlockLowlight = CodeBlockLowlight.extend({
       });
       floatTopRight.appendChild(copyButton);
       
-      container.appendChild(floatTopRight);
+      layoutContainer.appendChild(floatTopRight);
       
       const updateLineNumbers = () => {
         lineNumbers.innerHTML = '';
@@ -66,7 +70,7 @@ export const CustomCodeBlockLowlight = CodeBlockLowlight.extend({
       updateLineNumbers();
       
       return {
-        dom: container,
+        dom: layoutContainer,
         contentDOM: code,
         update(updatedNode) {
           if (updatedNode.type !== node.type) return false;
