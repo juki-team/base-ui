@@ -486,7 +486,8 @@ export class ApiManager {
           {
             params: { key: string, companyKey?: string },
             body: {
-              name: string, problems: {
+              name: string,
+              problems: {
                 [key: string]: {
                   key: string,
                   index: string,
@@ -496,6 +497,7 @@ export class ApiManager {
                   endTimestamp: number
                 }
               }
+              tags: string[],
             }
           }, HTTPMethod.PUT
         >(({ params: { key, companyKey }, body }) => ({
@@ -507,7 +509,8 @@ export class ApiManager {
           {
             params: { companyKey?: string },
             body: {
-              name: string, problems: {
+              name: string,
+              problems: {
                 [key: string]: {
                   key: string,
                   index: string,
@@ -517,6 +520,7 @@ export class ApiManager {
                   endTimestamp: number
                 }
               }
+              tags: string[],
             }
           }, HTTPMethod.POST
         >(({ params: { companyKey }, body }) => ({
