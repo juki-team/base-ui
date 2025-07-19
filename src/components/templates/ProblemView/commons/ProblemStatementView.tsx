@@ -60,23 +60,21 @@ export const ProblemStatementView = ({
   
   if (isExternal) {
     return (
-      <div className="jk-row extend top" style={{ overflow: 'auto', height: '100%', width: '100%' }}>
+      <div
+        className="jk-row extend top gap nowrap stretch left"
+        style={{ position: 'relative' }}
+      >
+        {/*{contest && (*/}
+        {/*  <ProblemLetter*/}
+        {/*    index={contest.index}*/}
+        {/*    color={contest.color}*/}
+        {/*    style={{ position: 'absolute', top: 'var(--pad-m)', left: 'var(--pad-m)' }}*/}
+        {/*  />*/}
+        {/*)}*/}
         <div
-          className="jk-row extend top gap nowrap stretch left"
-          style={{ position: 'relative' }}
-        >
-          {/*{contest && (*/}
-          {/*  <ProblemLetter*/}
-          {/*    index={contest.index}*/}
-          {/*    color={contest.color}*/}
-          {/*    style={{ position: 'absolute', top: 'var(--pad-m)', left: 'var(--pad-m)' }}*/}
-          {/*  />*/}
-          {/*)}*/}
-          <div
-            className={`${judgeKey}-statement`}
-            dangerouslySetInnerHTML={{ __html: statement.html[Language.EN] || statement.html[Language.ES] }}
-          />
-        </div>
+          className={`${judgeKey}-statement`}
+          dangerouslySetInnerHTML={{ __html: statement.html[Language.EN] || statement.html[Language.ES] }}
+        />
       </div>
     );
   }

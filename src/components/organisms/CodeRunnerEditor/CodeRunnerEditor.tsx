@@ -182,7 +182,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const isMobileViewPort = viewPortSize === 'sm';
   
   const firstChild = useMemo(() => (
-    <div className="jk-col nowrap left stretch ht-100">
+    <div className={classNames('jk-col nowrap left stretch ht-100', { 'wh-100': !!onlyCodeEditor })}>
       <div className="jk-row stretch jk-pg-xsm left">
         {readOnly ? (
           <div className="jk-tag bc-io">
@@ -216,7 +216,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
         />
       </div>
     </div>
-  ), [ preferredTheme, codeEditorOnChange, language, readOnly, source, tabSize, fontSize, languages ]);
+  ), [ preferredTheme, codeEditorOnChange, language, readOnly, source, tabSize, fontSize, languages, onlyCodeEditor ]);
   
   const withTestCases = !!testCases;
   const twoRows = headerWidthContainer < (withoutRunCodeButton ? 340 : 420);
