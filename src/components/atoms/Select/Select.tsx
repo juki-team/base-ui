@@ -75,7 +75,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   const isDisabled = disabled || !onChange;
   
   const expandIcon = expandIcons[optionsPlacement];
-  
+  console.log({ widthSelectLayout, expand });
   return (
     <Popover
       triggerOn="click"
@@ -128,20 +128,20 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
           optionsPlacement,
           { open: isOpen, disabled: isDisabled },
         )}
-        ref={selectLayoutRef}
         style={{
           width: containerWidth === 'child'
-            ? 'auto'
+            ? 'fit-content'
             : typeof containerWidth === 'number'
               ? `min(${containerWidth}px, 100%)`
               : expand
                 ? '100%' : `${optimeWidth}`,
           minWidth: containerWidth === 'child'
-            ? 'auto'
+            ? 'fit-content'
             : typeof containerWidth === 'number'
               ? `min(${containerWidth}px, 100%)`
               : expand
                 ? undefined : `${optimeWidth}`,
+          height: 'fit-content',
         }}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -168,23 +168,42 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
             </div>
           ))}
         </div>
-        {children
-          ? renderReactNodeOrFunctionP1(
-            children,
-            { options, isOpen, disabled: isDisabled, optionSelected, expandIcon },
-          )
-          : (
-            <div className={classNames({ open: isOpen }, 'jk-input-select space-between jk-border-radius-inline jk-row gap nowrap')}>
-              <div className="jk-row left gap nowrap">
-                <span className="fake-gap" />
-                {optionSelected.inputLabel
-                  ? renderReactNodeOrFunction(optionSelected.inputLabel)
-                  : renderReactNodeOrFunction(optionSelected.label)}
+        <div
+          className="jk-select-container"
+          ref={selectLayoutRef}
+          style={{
+            width: containerWidth === 'child'
+              ? 'auto'
+              : typeof containerWidth === 'number'
+                ? `min(${containerWidth}px, 100%)`
+                : expand
+                  ? '100%' : `${optimeWidth}`,
+            minWidth: containerWidth === 'child'
+              ? 'auto'
+              : typeof containerWidth === 'number'
+                ? `min(${containerWidth}px, 100%)`
+                : expand
+                  ? undefined : `${optimeWidth}`,
+          }}
+        >
+          {children
+            ? renderReactNodeOrFunctionP1(
+              children,
+              { options, isOpen, disabled: isDisabled, optionSelected, expandIcon },
+            )
+            : (
+              <div className={classNames({ open: isOpen }, 'jk-input-select space-between jk-border-radius-inline jk-row gap nowrap')}>
+                <div className="jk-row left gap nowrap">
+                  <span className="fake-gap" />
+                  {optionSelected.inputLabel
+                    ? renderReactNodeOrFunction(optionSelected.inputLabel)
+                    : renderReactNodeOrFunction(optionSelected.label)}
+                </div>
+                {expandIcon}
               </div>
-              {expandIcon}
-            </div>
-          )
-        }
+            )
+          }
+        </div>
       </div>
     </Popover>
   );
