@@ -81,14 +81,16 @@ export const ProblemStatementView = ({
     );
   }
   
-  if (statementDescription.trim() === ''
+  if (
+    statementDescription.trim() === ''
     && statementInput.trim() === ''
     && statementOutput.trim() === ''
-    && statementNote.trim() === '' && !!problem.statement.pdfUrl[userPreferredLanguage]) {
+    && statementNote.trim() === '' && (!!problem.statement.pdfUrl[Language.ES] || !!problem.statement.pdfUrl[Language.EN])
+  ) {
     return (
       <div className="wh-100 ht-100">
         <iframe
-          src={problem.statement.pdfUrl[userPreferredLanguage]}
+          src={problem.statement.pdfUrl[userPreferredLanguage] || problem.statement.pdfUrl[Language.ES] || problem.statement.pdfUrl[Language.EN]}
           width="100%"
           height="100%"
           style={{ border: 'none' }}
