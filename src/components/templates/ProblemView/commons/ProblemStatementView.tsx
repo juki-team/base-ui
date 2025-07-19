@@ -81,6 +81,23 @@ export const ProblemStatementView = ({
     );
   }
   
+  if (statementDescription.trim() === ''
+    && statementInput.trim() === ''
+    && statementOutput.trim() === ''
+    && statementNote.trim() === '' && !!problem.statement.pdfUrl[userPreferredLanguage]) {
+    return (
+      <div className="wh-100 ht-100">
+        <iframe
+          src={problem.statement.pdfUrl[userPreferredLanguage]}
+          width="100%"
+          height="100%"
+          style={{ border: 'none' }}
+          title="PDF Viewer"
+        />
+      </div>
+    );
+  }
+  
   const handleDownloadPdf = async () => {
     
     const { url, ...options } = jukiApiManager.API_V2.export.problem.statementToPdf({

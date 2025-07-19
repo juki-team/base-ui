@@ -41,6 +41,34 @@ Regular.args = {
     key: 'P-1000',
     ownerNickname: 'OscarGauss',
     statement: {
+      'description': {
+        'ES': '',
+        'EN': '',
+      },
+      'input': {
+        'ES': '',
+        'EN': '',
+      },
+      'output': {
+        'ES': '',
+        'EN': '',
+      },
+      'sampleCases': [],
+      'note': {
+        'ES': '',
+        'EN': '',
+      },
+      'html': {
+        'ES': '',
+        'EN': '',
+      },
+      'pdfUrl': {
+        'ES': 'https://files.juki.pub/shared//statements/36ced12c-6c03-4444-9f82-ae5d1c2f9b77.pdf',
+        'EN': '',
+      },
+    },
+    // @ts-ignore
+    statement1: {
       description: {
         ES: 'La tarea es sumar dos números.',
         EN: '',
