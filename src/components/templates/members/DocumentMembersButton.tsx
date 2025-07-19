@@ -93,7 +93,8 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
           ),
         } ] : []),
       ],
-    } ];
+    },
+  ];
   
   return (
     <>

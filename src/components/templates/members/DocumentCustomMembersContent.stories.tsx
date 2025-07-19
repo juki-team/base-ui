@@ -5,6 +5,7 @@ import { MockupJukiProvider } from '../../mockup';
 import { DocumentCustomMembersContent } from './DocumentCustomMembersContent';
 import { DocumentMembersButton } from './DocumentMembersButton';
 import { DocumentMembersContent } from './DocumentMembersContent';
+import { DocumentCustomMembersContentProps } from './types';
 
 const meta: Meta<typeof DocumentCustomMembersContent> = {
   component: DocumentCustomMembersContent,
@@ -14,11 +15,11 @@ export default meta;
 
 type Story = StoryObj<typeof DocumentCustomMembersContent>;
 
-const Cmp = () => {
+const Cmp = (args: DocumentCustomMembersContentProps) => {
   const [ members, setMembers ] = useState(EMPTY_ENTITY_MEMBERS());
   const [ members2, setMembers2 ] = useState(EMPTY_DOCUMENT_MEMBERS());
   const dummyOwner = { nickname: 'OscarGauss', imageUrl: '', company: { key: 'juki-app' } };
-  
+  console.info({ args });
   return (
     <div className="jk-col gap">
       <DocumentMembersButton
@@ -57,7 +58,7 @@ const Cmp = () => {
 export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <Cmp />
+      <Cmp  {...args} />
     </MockupJukiProvider>
   ),
 };

@@ -19,7 +19,7 @@ export const CopyToClipboard = ({ text, size = 'regular', tooltip, children, noS
     <div
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isOpen ? 'copied' : tooltip ?? 'copy'}
-      className={classNames('jk-button light jk-row', size, { 'bc-hl link jk-br-ie cr-we': !noStyling })}
+      className={classNames('jk-row', size, { 'bc-hl link jk-br-ie cr-we jk-button light': !noStyling })}
       style={noStyling ? {} : { width: 'min-content', height: 'min-content', padding: 'calc(var(--gap) / 3)' }}
       onClick={handleClick}
     >
