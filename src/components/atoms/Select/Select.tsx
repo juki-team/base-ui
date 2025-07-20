@@ -75,7 +75,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   const isDisabled = disabled || !onChange;
   
   const expandIcon = expandIcons[optionsPlacement];
-  console.log({ widthSelectLayout, expand });
+  
   return (
     <Popover
       triggerOn="click"
