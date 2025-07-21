@@ -6,7 +6,7 @@ import {
   Status,
   WorksheetType,
 } from '@juki-team/commons';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { authorizedRequest } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useStableState } from '../../../../../hooks/useStableState';
@@ -19,6 +19,7 @@ import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { ResultHeader } from '../ResultHeader';
 import { SheetSection } from '../types';
+import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { JkmdSheetSectionEditor } from './JkmdSheetSectionEditor';
 
 interface JkmdSheetSectionProps extends SheetSection<JkmdSheetType> {
@@ -43,18 +44,22 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
   const [ edit, setEdit ] = useState(false);
   const [ modal, setModal ] = useState(false);
   const [ content, _setContent ] = useStableState(initialContent);
-  const setContent = saveContent ? _setContent : undefined;
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const onSaveEdit = () => {
+    setEdit(!edit);
+    saveContent?.(content);
+  };
+  useOnSaveSheetSection(sectionRef, edit, onSaveEdit);
   
+  const setContent = saveContent ? _setContent : undefined;
   const submissions = userResults?.data?.submissions[WorksheetType.JK_MD]?.[chunkId] ?? [];
   const lastSubmission = submissions.at(-1);
-  const reset = () => {
-    _setContent(initialContent);
-  };
-  
   const text = content.content.trim();
+  
   return (
     <div
-      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100 jk-md-sheet-section"
+      ref={sectionRef}
+      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100 jk-md-sheet-section hr-e1"
       onDoubleClick={() => setEdit(true)}
     >
       {setContent && (
@@ -111,14 +116,15 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
           actionButtons={getActionButtons({
             type: WorksheetType.JK_MD,
             edit,
-            setEdit,
             setModal,
-            content,
-            saveContent,
             index,
             sheetLength,
             setSheet,
-            reset,
+            onSaveEdit,
+            onCancel: () => {
+              setEdit(false);
+              _setContent(initialContent);
+            },
           })}
           placement="out rightTop"
         />

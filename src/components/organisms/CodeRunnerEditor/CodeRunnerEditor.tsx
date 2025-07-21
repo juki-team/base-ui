@@ -362,7 +362,12 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
       <div className="flex-1 ow-hn jk-row nowrap stretch">
         <div
           className="jk-col top stretch nowrap"
-          style={{ width: viewFiles ? 128 : 32, minWidth: viewFiles ? 128 : 32, maxWidth: viewFiles ? 128 : 32 }}
+          style={{
+            width: viewFiles ? 128 : 32,
+            minWidth: viewFiles ? 128 : 32,
+            maxWidth: viewFiles ? 128 : 32,
+            borderRight: '1px solid var(--t-color-highlight-light)',
+          }}
         >
           <div
             className="jk-row fw-bd jk-pg-xsm-tb bc-hl left hoverable"
@@ -421,23 +426,32 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           </div>
         </div>
         <div className="jk-row" style={{ width: `calc(100% - ${viewFiles ? 128 : 32}px)` }}>
-          {onlyCodeEditor ? (
-            firstChild
+          {Object.keys(files).length === 0 ? (
+            <div className="jk-col gap jk-pg">
+              <T className="tt-se">there are no files in the editor, create a new file to start using the editor</T>
+              <Button onClick={() => onChangeRef.current?.({ newFileName: true })}>
+                <T>create a new file</T>
+              </Button>
+            </div>
           ) : (
-            <SplitPane
-              direction={direction}
-              minSize={80}
-              onlyFirstPane={!testCases}
-              closableSecondPane={closableSecondPane}
-              closableFirstPane={closableFirstPane}
-              toggleable
-              onChangeDirection={setDirection}
-              onePanelAtATime={isMobileViewPort}
-              className="ht-100"
-            >
-              {firstChild}
-              {secondChild}
-            </SplitPane>
+            onlyCodeEditor ? (
+              firstChild
+            ) : (
+              <SplitPane
+                direction={direction}
+                minSize={80}
+                onlyFirstPane={!testCases}
+                closableSecondPane={closableSecondPane}
+                closableFirstPane={closableFirstPane}
+                toggleable
+                onChangeDirection={setDirection}
+                onePanelAtATime={isMobileViewPort}
+                className="ht-100"
+              >
+                {firstChild}
+                {secondChild}
+              </SplitPane>
+            )
           )}
         </div>
       </div>

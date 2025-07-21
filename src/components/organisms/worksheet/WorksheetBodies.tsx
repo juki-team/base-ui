@@ -45,7 +45,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   const pages = sheetsInPages.length;
   
   return (
-    <div className={classNames('jk-col gap nowrap top stretch extend worksheet-bodies', { 'is-solvable': isSolvable })}>
+    <div className={classNames('jk-col gap nowrap top stretch extend worksheet-bodies wh-100', { 'is-solvable': isSolvable })}>
       {setSheets && (
         <div className="jk-row gap extend nowrap" key={`${page}`}>
           <Input

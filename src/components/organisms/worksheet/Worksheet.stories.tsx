@@ -28,7 +28,7 @@ export const WorksheetViewer = () => {
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
         url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
-        {({ data, mutate }) => (
+        {({ data }) => (
           <TwoContentLayout
             tabs={oneTab(
               <WorksheetViewerCmp
@@ -62,7 +62,7 @@ export const WorksheetResultViewer = () => {
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
         url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
-        {({ data, mutate }) => (
+        {({ data }) => (
           <TwoContentLayout
             tabs={oneTab(
               <WorksheetViewerCmp
@@ -109,12 +109,12 @@ const toUpsertWorksheetDTO = (entity: UpsertWorksheetUIDTO): UpsertWorksheetDTO 
   automaticFeedback: entity.automaticFeedback,
 });
 
-const Cmp = ({ content: initialContent, mutate }: { content: WorksheetDataResponseDTO, mutate: any }) => {
+const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, mutate: any }) => {
   const [ content, setContent ] = useStableState(initialContent.content);
   return (
     <>
       <WorksheetEditorCmp
-        worksheetKey={''}
+        worksheetKey={initialContent.key}
         setContent={setContent}
         content={content}
         isEditor

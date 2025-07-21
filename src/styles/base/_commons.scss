@@ -441,6 +441,14 @@
   }
 }
 
+.hr-e1 {
+  cursor: pointer;
+  
+  &:hover {
+    @include mixins.elevation(1);
+  }
+}
+
 .expand-absolute {
   position: absolute;
   height: 100%;

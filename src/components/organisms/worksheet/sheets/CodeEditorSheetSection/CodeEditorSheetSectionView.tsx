@@ -1,6 +1,7 @@
 import {
   cleanRequest,
   CODE_LANGUAGE,
+  CodeEditorFiles,
   CodeEditorSheetType,
   CodeEditorSubmissionDTO,
   CodeEditorTestCasesType,
@@ -15,7 +16,7 @@ import { authorizedRequest, classNames, getHeight } from '../../../../../helpers
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { jukiApiManager } from '../../../../../settings';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
-import { QueryParamKey, UserCodeEditorProps, UserResultsType } from '../../../../../types';
+import { QueryParamKey, UserResultsType } from '../../../../../types';
 import { T } from '../../../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, SpinIcon } from '../../../../atoms/server';
 import { ButtonLoader } from '../../../../molecules';
@@ -35,10 +36,8 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
   
   const { content, worksheetKey, chunkId, userResults, readOnly, isSolvable } = props;
   
-  // const [ sourceCode, setSourceCode ] = useState('');
   const { notifyResponse } = useJukiNotification();
   const searchParams = useRouterStore(state => state.searchParams);
-  const routeParams = useRouterStore(state => state.routeParams);
   const [ _submissionIndex, setSubmissionIndex ] = useState(0);
   const submissions = userResults?.data?.submissions[WorksheetType.CODE_EDITOR]?.[chunkId] ?? [];
   useEffect(() => {
@@ -47,54 +46,30 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
   
   const totalSubmissions = submissions.length;
   const submissionIndex = totalSubmissions - _submissionIndex - 1;
-  const initialSource: UserCodeEditorProps<CodeLanguage>['initialFiles'] = {};
-  // TODO:
-  for (const [ langKey, source ] of Object.entries(content.sourceCode)) {
-    initialSource['TODO_' + langKey] = { source, language: langKey as CodeLanguage, index: 0 };
-  }
-  if (submissions[submissionIndex]?.language && submissions[submissionIndex]?.sourceCode) {
-    initialSource[submissions[submissionIndex]?.language] = {
-      source: submissions[submissionIndex]?.sourceCode,
-      language: submissions[submissionIndex]?.language as CodeLanguage,
-      index: 0,
-    };
-  }
+  let initialFiles = submissions[submissionIndex]?.files ?? content.files;
   
   const setLoaderStatusRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
-  const saveCode = async (sourceCode: string, language: CodeLanguage, testCases: CodeEditorTestCasesType) => {
+  const saveCode = async (files: CodeEditorFiles<CodeLanguage>, testCases: CodeEditorTestCasesType) => {
     setLoaderStatusRef.current?.(Status.LOADING);
     setSubmissionIndex(0);
     const codeEditorSubmissionDTO: CodeEditorSubmissionDTO = {
       type: WorksheetType.CODE_EDITOR,
       id: content.id,
-      language,
-      sourceCode,
+      files,
       testCases,
     };
     let response;
-    const classKey = routeParams.classKey as string;
-    const cycleId = routeParams.cycleId as string;
-    const sessionId = searchParams.get(QueryParamKey.SESSION);
     const assignmentId = searchParams.get(QueryParamKey.ASSIGNMENT);
-    if (classKey && cycleId && sessionId && assignmentId) {
-      const { url, ...options } = jukiApiManager.API_V1.class.viewAssignmentMyWorksheetSubmitCodeEditor({
-        params: { classKey, cycleId, sessionId, assignmentId },
-        body: codeEditorSubmissionDTO,
-      });
-      response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
-    } else {
-      const { url, ...options } = jukiApiManager.API_V1.worksheet.submitCodeEditor({
-        params: { worksheetKey },
-        body: codeEditorSubmissionDTO,
-      });
-      response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
-    }
+    const { url, ...options } = jukiApiManager.API_V1.worksheet.submitCodeEditor({
+      params: { worksheetKey, secondaryKey: assignmentId ?? '' },
+      body: codeEditorSubmissionDTO,
+    });
+    response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
     await userResults?.mutate?.();
     notifyResponse(response, setLoaderStatusRef.current);
   };
   
-  // TODO:
   return (
     <div className="jk-col stretch flex-1 gap">
       <div
@@ -103,22 +78,19 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
       >
         <UserCodeEditor<CodeLanguage>
           withoutRunCodeButton={readOnly}
-          initialLanguage={submissions[submissionIndex]?.language}
           readOnly={readOnly}
-          initialFiles={initialSource}
+          initialFiles={initialFiles}
           // onSourceChange={setSourceCode}
           initialTestCases={submissions[submissionIndex]?.testCases ?? content.testCases}
           languages={content.languages.map(lang => ({ value: lang, label: CODE_LANGUAGE[lang]?.label || lang }))}
-          storeKey={content.id + 'view'}
+          storeKey={content.id + '_view'}
           enableAddCustomSampleCases
-          onCodeRunStatusChange={(status, { files, currentFileName, testCases }) => {
-            const { source, language } = files[currentFileName];
+          onCodeRunStatusChange={(status, { files, testCases }) => {
             if (status === SubmissionRunStatus.COMPLETED && isSolvable) {
-              void saveCode(source, language, testCases);
+              void saveCode(files, testCases);
             }
           }}
-          centerButtons={({ testCases, files, currentFileName }) => {
-            const { source, language } = files[currentFileName];
+          centerButtons={({ testCases, files }) => {
             const buttons = [];
             if (!readOnly && isSolvable) {
               buttons.push(
@@ -126,7 +98,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
                   key="save"
                   size="tiny"
                   type="secondary"
-                  onClick={() => saveCode(source, language, testCases)}
+                  onClick={() => saveCode(files, testCases)}
                   setLoaderStatusRef={setLoaderStatus => setLoaderStatusRef.current = setLoaderStatus}
                 >
                   <T className="tt-se">save</T>

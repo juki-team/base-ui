@@ -6,7 +6,7 @@ import {
   Status,
   WorksheetType,
 } from '@juki-team/commons';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { authorizedRequest } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useStableState } from '../../../../../hooks/useStableState';
@@ -18,6 +18,7 @@ import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { ResultHeaders } from '../ResultHeader';
 import { SheetSection } from '../types';
+import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { QuizOptionsSheetSectionEditor } from './QuizOptionsSheetSectionEditor';
 import { QuizOptionsSheetSectionView } from './QuizOptionsSheetSectionView';
 
@@ -44,9 +45,12 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
   const [ modal, setModal ] = useState(false);
   const [ content, _setContent ] = useStableState(initialContent);
   const setContent = saveContent ? _setContent : undefined;
-  const reset = () => {
-    _setContent(initialContent);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const onSaveEdit = () => {
+    setEdit(!edit);
+    saveContent?.(content);
   };
+  useOnSaveSheetSection(sectionRef, edit, onSaveEdit);
   
   const submissions = userResults?.data?.submissions[WorksheetType.QUIZ_OPTIONS]?.[chunkId] ?? [];
   const [ selectedIndex, setSelectedIndex ] = useStableState(submissions.length - 1);
@@ -55,6 +59,7 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
   
   return (
     <div
+      ref={sectionRef}
       className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
       onDoubleClick={() => setEdit(true)}
     >
@@ -116,14 +121,15 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
           actionButtons={getActionButtons({
             type: WorksheetType.QUIZ_OPTIONS,
             edit,
-            setEdit,
             setModal,
-            content,
-            saveContent,
             index,
             sheetLength,
             setSheet,
-            reset,
+            onSaveEdit,
+            onCancel: () => {
+              setEdit(false);
+              _setContent(initialContent);
+            },
           })}
           placement="out rightTop"
         />

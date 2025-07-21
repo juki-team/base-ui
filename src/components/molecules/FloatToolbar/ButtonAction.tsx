@@ -26,6 +26,7 @@ export const ButtonAction = (props: ButtonActionProps) => {
   const ref = useRef(null);
   useOutsideAlerter(() => setOpen(false), ref);
   const { ref: refButtonsContent, width = 0, height = 0 } = useResizeDetector();
+  const { ref: refButtonTrigger, width: buttonTriggerWidth = 0, height: buttonTriggerHeight = 0 } = useResizeDetector();
   const lastWidthRef = useRef({ width, height });
   if (width) {
     lastWidthRef.current.width = width;
@@ -45,11 +46,13 @@ export const ButtonAction = (props: ButtonActionProps) => {
       onClick={viewPortSize === 'sm' ? () => setOpen(true) : undefined}
       ref={ref}
       style={{
-        '--jk-float-toolbar-button-action-content-width': `${width || lastWidthRef.current.width}px`,
-        '--jk-float-toolbar-button-action-content-height': `${height || lastWidthRef.current.height}px`,
+        '--jk-float-toolbar-buttons-content-width': `${width || lastWidthRef.current.width}px`,
+        '--jk-float-toolbar-buttons-content-height': `${height || lastWidthRef.current.height}px`,
+        '--jk-float-toolbar-button-trigger-width': `${buttonTriggerWidth}px`,
+        '--jk-float-toolbar-button-trigger-height': `${buttonTriggerHeight}px`,
       } as CSSProperties}
     >
-      <div className="button-trigger jk-row">
+      <div className="button-trigger jk-row" ref={refButtonTrigger}>
         {children ?? <ButtonLoader
           icon={icon}
           type="primary"
@@ -58,7 +61,10 @@ export const ButtonAction = (props: ButtonActionProps) => {
           disabled={disabled}
         />}
       </div>
-      <div className="buttons-content jk-col gap stretch" ref={refButtonsContent}>
+      <div
+        className={classNames('buttons-content jk-col gap stretch nowrap', { 'jk-pg-sm': !!placement?.includes('center') })}
+        ref={refButtonsContent}
+      >
         {buttons.map(({ icon, onClick, label, disabled, size = 'small', type = 'primary', children }, index) => (
           children ?? <ButtonLoader
             key={index}

@@ -13,7 +13,7 @@ interface JkmdSheetSectionProps {
 export const JkmdSheetSectionEditor = ({ content, setContent, isSolvable }: JkmdSheetSectionProps) => {
   
   return (
-    <div className="jk-col left gap wh-100">
+    <div className="jk-col left gap wh-100 jk-pg-sm">
       <Input
         label={<T className="tt-se">title</T>}
         labelPlacement="top"

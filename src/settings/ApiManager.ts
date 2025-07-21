@@ -57,7 +57,7 @@ const checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
 
 const validate = (representation: string) => {
   return representation.length === 24 && checkForHexRegExp.test(representation);
-  // return UUID_WITHOUT_DASHES.test(representation) || UUID_WITH_DASHES.test(representation)
+// return UUID_WITHOUT_DASHES.test(representation) || UUID_WITH_DASHES.test(representation)
 };
 
 const getQueryToken = () => {
@@ -786,52 +786,52 @@ export class ApiManager {
           method: HTTPMethod.GET,
         })),
         getSubmissionsUser: valid<
-          { params: { key: string, userKey: string, assignmentId?: string } }
-        >(({ params: { key, userKey, assignmentId } }) => ({
-          url: injectBaseUrl('worksheet', `/${key}/submissions/user/${userKey}${assignmentId ? `?assignmentId=${assignmentId}` : ''}`),
+          { params: { key: string, userKey: string, secondaryKey?: string } }
+        >(({ params: { key, userKey, secondaryKey } }) => ({
+          url: injectBaseUrl('worksheet', `/${key}/submissions/user/${userKey}${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`),
           method: HTTPMethod.GET,
         })),
         submitJkMd: valid<
           {
-            params: { worksheetKey: string, },
+            params: { worksheetKey: string, secondaryKey?: string },
             body: JkmdSubmissionDTO
           },
           HTTPMethod.POST
-        >(({ params: { worksheetKey }, body }) => ({
-          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/jk-md`),
+        >(({ params: { worksheetKey, secondaryKey }, body }) => ({
+          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/jk-md${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
         submitCodeEditor: valid<
           {
-            params: { worksheetKey: string, },
+            params: { worksheetKey: string, secondaryKey?: string },
             body: CodeEditorSubmissionDTO
           },
           HTTPMethod.POST
-        >(({ params: { worksheetKey }, body }) => ({
-          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/code-editor`),
+        >(({ params: { worksheetKey, secondaryKey }, body }) => ({
+          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/code-editor${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
         submitQuizProblem: valid<
           {
-            params: { worksheetKey: string, },
+            params: { worksheetKey: string, secondaryKey?: string },
             body: QuizProblemSubmissionDTO
           },
           HTTPMethod.POST
-        >(({ params: { worksheetKey }, body }) => ({
-          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/quiz-problem`),
+        >(({ params: { worksheetKey, secondaryKey }, body }) => ({
+          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/quiz-problem${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
         submitQuizOptions: valid<
           {
-            params: { worksheetKey: string, },
+            params: { worksheetKey: string, secondaryKey?: string },
             body: QuizOptionsSubmissionDTO
           },
           HTTPMethod.POST
-        >(({ params: { worksheetKey }, body }) => ({
-          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/quiz-options`),
+        >(({ params: { worksheetKey, secondaryKey }, body }) => ({
+          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/quiz-options${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),

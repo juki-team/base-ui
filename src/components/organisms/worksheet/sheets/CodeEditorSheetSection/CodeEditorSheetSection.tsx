@@ -1,11 +1,12 @@
 import { CodeEditorSheetType, WorksheetType } from '@juki-team/commons';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useStableState } from '../../../../../hooks/useStableState';
 import { FloatToolbar } from '../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { SheetSection } from '../types';
+import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { CodeEditorSheetSectionEditor } from './CodeEditorSheetSectionEditor';
 import { CodeEditorSheetSectionView } from './CodeEditorSheetSectionView';
 
@@ -30,13 +31,18 @@ export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
   const [ edit, setEdit ] = useState(false);
   const [ modal, setModal ] = useState(false);
   const [ content, _setContent ] = useStableState(initialContent);
-  const setContent = saveContent ? _setContent : undefined;
-  const reset = () => {
-    _setContent(initialContent);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const onSaveEdit = () => {
+    setEdit(!edit);
+    saveContent?.(content);
   };
+  useOnSaveSheetSection(sectionRef, edit, onSaveEdit);
+  
+  const setContent = saveContent ? _setContent : undefined;
   
   return (
     <div
+      ref={sectionRef}
       className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
       onDoubleClick={() => setEdit(true)}
     >
@@ -67,14 +73,15 @@ export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
           actionButtons={getActionButtons({
             type: WorksheetType.CODE_EDITOR,
             edit,
-            setEdit,
             setModal,
-            content,
-            saveContent,
             index,
             sheetLength,
             setSheet,
-            reset,
+            onSaveEdit,
+            onCancel: () => {
+              setEdit(false);
+              _setContent(initialContent);
+            },
           })}
           placement="out rightTop"
         />

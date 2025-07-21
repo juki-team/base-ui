@@ -4,7 +4,7 @@ import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../constants';
 import { getHeight } from '../../../../../helpers';
 import { Input, InputCheckbox, Modal, MultiSelect, T } from '../../../../atoms';
 import { BasicModalProps } from '../../../../atoms/Modal/types';
-import { CodeRunnerEditor } from '../../../CodeRunnerEditor/CodeRunnerEditor';
+import { UserCodeEditor } from '../../../UserCodeEditor/UserCodeEditor';
 
 interface RunnerSheetSectionProps extends BasicModalProps {
   sheet: CodeEditorSheetType,
@@ -20,9 +20,6 @@ export const CodeEditorSheetSectionEditorModal = ({
                                                   }: RunnerSheetSectionProps) => {
   
   const [ sheet, setSheet ] = useState(initialSheet);
-  const [ languageEditor, setLanguageEditor ] = useState(CodeLanguage.CPP17);
-  
-  const sourceCode = sheet.sourceCode?.[languageEditor] || '';
   
   return (
     <Modal
@@ -82,28 +79,20 @@ export const CodeEditorSheetSectionEditorModal = ({
               )}
             </div>
           </div>
-          <div style={{ height: getHeight(sheet.height, sourceCode) }} className="jk-row">
-            {/*TODO:*/}
-            <CodeRunnerEditor
-              files={{}}
-              currentFileName=""
-              source={sourceCode}
-              onChange={({ source, language, onTestCasesChange }) => {
-                if (source !== undefined) {
-                  setSheet(prevState => ({
-                    ...prevState,
-                    sourceCode: { ...prevState.sourceCode, [languageEditor]: source },
-                  }));
-                }
-                if (language) {
-                  setLanguageEditor(language);
-                }
-                if (onTestCasesChange) {
-                  setSheet(prevState => ({ ...prevState, testCases: onTestCasesChange(prevState.testCases) }));
-                }
-              }}
-              // language={languageEditor}
-              testCases={sheet.testCases}
+          <div style={{ height: getHeight(sheet.height, '') }} className="jk-row">
+            <UserCodeEditor<CodeLanguage>
+              storeKey={sheet.id + '_edit'}
+              initialFiles={sheet.files}
+              onTestCasesChange={(testCases) =>
+                setSheet(prevState => ({ ...prevState, testCases }))
+              }
+              onFilesChange={(files) =>
+                setSheet(prevState => ({
+                  ...prevState,
+                  files,
+                }))
+              }
+              initialTestCases={sheet.testCases}
               languages={sheet.languages.map(lang => ({
                 value: lang,
                 label: CODE_LANGUAGE[lang]?.label || lang,

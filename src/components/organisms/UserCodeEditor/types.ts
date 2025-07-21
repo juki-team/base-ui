@@ -1,17 +1,15 @@
-import { CodeEditorTestCasesType, SubmissionRunStatus } from '@juki-team/commons';
+import { CodeEditorFiles, CodeEditorTestCasesType, SubmissionRunStatus } from '@juki-team/commons';
 import { ReactNode } from 'react';
 import {
   CodeEditorButtonsType,
   CodeEditorCenterButtonsPropertiesType,
   CodeEditorExpandPositionType,
-  CodeRunnerEditorFiles,
 } from '../CodeRunnerEditor/types';
 
 export interface UserCodeEditorProps<T> {
   className?: string,
   expandPosition?: CodeEditorExpandPositionType,
   initialTestCases?: CodeEditorTestCasesType,
-  initialLanguage?: T,
   initialFileName?: string,
   storeKey: string,
   languages: { value: T, label: string }[],
@@ -20,15 +18,16 @@ export interface UserCodeEditorProps<T> {
   rightButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode,
   // onSourceChange?: (source: string) => void,
   // onLanguageChange?: (language: T) => void,
+  onFilesChange?: (files: CodeEditorFiles<T>) => void,
   onTestCasesChange?: (testCases: CodeEditorTestCasesType) => void,
   onIsRunningChange?: (isRunning: boolean) => void,
-  initialFiles?: CodeRunnerEditorFiles<T>,
+  initialFiles?: CodeEditorFiles<T>,
   enableAddSampleCases?: boolean,
   enableAddCustomSampleCases?: boolean,
   readOnly?: boolean,
   withoutRunCodeButton?: boolean,
   onCodeRunStatusChange?: (runStatus: SubmissionRunStatus, props: {
-    files: CodeRunnerEditorFiles<T>,
+    files: CodeEditorFiles<T>,
     currentFileName: string,
     testCases: CodeEditorTestCasesType
   }) => void,

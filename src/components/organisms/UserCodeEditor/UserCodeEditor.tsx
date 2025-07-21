@@ -1,5 +1,6 @@
 import {
   CODE_LANGUAGE,
+  CodeEditorFiles,
   CodeEditorTestCasesType,
   CodeLanguage,
   isStringJson,
@@ -13,7 +14,7 @@ import { useJukiNotification, useStableRef } from '../../../hooks';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
 import { CodeRunnerEditor } from '../CodeRunnerEditor/CodeRunnerEditor';
-import { CodeRunnerEditorFiles, CodeRunnerEditorPropertiesType } from '../CodeRunnerEditor/types';
+import { CodeRunnerEditorPropertiesType } from '../CodeRunnerEditor/types';
 import { UserCodeEditorProps } from './types';
 
 const getStoreRecovered = (storeKey: string | undefined) => {
@@ -54,15 +55,15 @@ const useSaveStorage = <T extends Object, >(storeKey: string | undefined, defaul
 
 const useSaveChunkStorage = <T extends Object, >(storeKey: string, initialValue: StorageType<T>, merge: (a: T, b: T | undefined) => T, formatStoreRecovered: (recovered: any) => StorageType<T>): [ StorageType<T>, Dispatch<SetStateAction<StorageType<T>>> ] => {
   
-  const initialValueString = JSON.stringify(initialValue);
+  // const initialValueString = JSON.stringify(initialValue);
   const mergeRef = useStableRef(merge);
   const formatStoreRecoveredRef = useStableRef(formatStoreRecovered);
   
   const mergeState = useCallback(() => {
-    let initialValue: StorageType<T> = {};
-    if (isStringJson(initialValueString)) {
-      initialValue = JSON.parse(initialValueString);
-    }
+    // let initialValue: StorageType<T> = {};
+    // if (isStringJson(initialValueString)) {
+    //   initialValue = JSON.parse(initialValueString);
+    // }
     const newState: StorageType<T> = {};
     const storeRecovered = Object.entries(formatStoreRecoveredRef.current(getStoreRecovered(storeKey)));
     for (const [ key, value ] of Object.entries(initialValue)) {
@@ -74,7 +75,7 @@ const useSaveChunkStorage = <T extends Object, >(storeKey: string, initialValue:
       }
     }
     return newState;
-  }, [ initialValueString, storeKey ]);
+  }, [ storeKey ]);
   
   const [ value, setValue ] = useState<StorageType<T>>(mergeState());
   
@@ -124,7 +125,7 @@ const mergeTestCases = (a: CodeEditorTestCasesType, b: CodeEditorTestCasesType |
   return newTestCases;
 };
 
-const mergeSources = <T, >(a: CodeRunnerEditorFiles<T>, b: CodeRunnerEditorFiles<T> | undefined): CodeRunnerEditorFiles<T> => {
+const mergeSources = <T, >(a: CodeEditorFiles<T>, b: CodeEditorFiles<T> | undefined): CodeEditorFiles<T> => {
   return { ...b, ...a };
 };
 
@@ -134,15 +135,13 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     className,
     expandPosition,
     initialTestCases,
-    // initialLanguage,
     initialFileName,
     storeKey,
     languages,
     leftButtons,
     centerButtons,
     rightButtons,
-    // onSourceChange,
-    // onLanguageChange,
+    onFilesChange,
     onTestCasesChange,
     initialFiles,
     enableAddSampleCases,
@@ -176,22 +175,33 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     defaultLanguage = languages[0].value;
   }
   
-  const formatStoreRecovered = (recovered: any): StorageType<CodeRunnerEditorFiles<T>> => {
-    const state: StorageType<CodeRunnerEditorFiles<T>> = {};
+  const formatStoreRecovered = (recovered: any): StorageType<CodeEditorFiles<T>> => {
+    const state: StorageType<CodeEditorFiles<T>> = {};
     for (const [ key, value ] of Object.entries(recovered)) {
       state[key] = {};
       let index = 1;
       for (const [ lang, source ] of Object.entries(value as {})) {
         if (typeof source === 'string') {
           const name = `source-${index}.${getExtension(lang as CodeLanguage)}`;
-          state[key][name] = { source, language: lang as T, index, name };
+          state[key][name] = {
+            source,
+            language: languages.some(({ value }) => value === lang) ? lang as T : CodeLanguage.TEXT as T,
+            index,
+            name,
+            hidden: false,
+            protected: false,
+            readonly: false,
+          };
           index++;
         } else if (typeof source === 'object' && source !== null) {
           state[key][lang] = {
-            source: ('source' in source ? source?.source as string : '') || '',
-            language: (('language' in source ? source?.language : '') || CodeLanguage.TEXT) as T,
-            index: ('index' in source ? source?.index as number : 0) || 0,
+            source: 'source' in source && typeof source?.source === 'string' ? source?.source : '',
+            language: (('language' in source && typeof source?.language === 'string' ? (languages.some(({ value }) => value === source?.language) ? source?.language as T : CodeLanguage.TEXT as T) : '') || CodeLanguage.TEXT) as T,
+            index: 'index' in source && typeof source?.index === 'number' ? source?.index : 0,
             name: lang,
+            hidden: 'hidden' in source && typeof source?.hidden === 'boolean' ? source.hidden : false,
+            protected: 'protected' in source && typeof source?.protected === 'boolean' ? source.protected : false,
+            readonly: 'readonly' in source && typeof source?.readonly === 'boolean' ? source.readonly : false,
           };
         }
       }
@@ -199,11 +209,15 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     return state;
   };
   
-  const newInitialSource: StorageType<CodeRunnerEditorFiles<T>> = { [storeKey]: { ...initialFiles } };
-  const [ filesStore, setFilesStore ] = useSaveChunkStorage<CodeRunnerEditorFiles<T>>(getSourcesStoreKey(userNickname), newInitialSource, mergeSources, formatStoreRecovered);
-  
+  const newInitialFiles: StorageType<CodeEditorFiles<T>> = { [storeKey]: { ...initialFiles } };
+  const [ filesStore, setFilesStore ] = useSaveChunkStorage<CodeEditorFiles<T>>(getSourcesStoreKey(userNickname), newInitialFiles, mergeSources, formatStoreRecovered);
+  const onFilesChangeRef = useStableRef(onFilesChange);
+  const files = filesStore[storeKey];
+  useEffect(() => {
+    onFilesChangeRef.current?.(files);
+  }, [ files ]);
   const defaultFileName = getDefaultFileName(defaultLanguage as CodeLanguage);
-  const [ currentFileName, setCurrentFileName ] = useState(initialFileName ?? Object.keys(filesStore[storeKey])[0] ?? defaultFileName);
+  const [ currentFileName, setCurrentFileName ] = useState(initialFileName ?? Object.keys(files)[0] ?? defaultFileName);
   
   const testCaseStoreKey = storeKey;
   const newInitialTestCases: StorageType<CodeEditorTestCasesType> = { [testCaseStoreKey]: { ...initialTestCases } };
@@ -221,16 +235,16 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     log: '',
     status: SubmissionRunStatus.NONE,
   };
-  const [ _testCases, setTestCases ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, (recovered) => recovered);
-  
-  const testCases = _testCases[testCaseStoreKey];
+  const [ testCasesStore, setTestCasesStore ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, (recovered) => recovered);
+  const onTestCasesChangeRef = useStableRef(onTestCasesChange);
+  const testCases = testCasesStore[testCaseStoreKey];
   useEffect(() => {
-    onTestCasesChange?.(testCases);
-  }, [ onTestCasesChange, testCases ]);
+    onTestCasesChangeRef.current?.(testCases);
+  }, [ testCases ]);
   
   const [ editorTriggerFocus, setEditorTriggerFocus ] = useState(0);
   
-  const changeFileName = (prevState: StorageType<CodeRunnerEditorFiles<T>>, oldName: string, newName: string) => {
+  const changeFileName = (prevState: StorageType<CodeEditorFiles<T>>, oldName: string, newName: string) => {
     const files = prevState[storeKey] || {};
     const oldFile = { ...files[oldName] };
     const { [oldName]: _, ...newFiles } = { ...files };
@@ -258,7 +272,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
                     }: CodeRunnerEditorPropertiesType<T>) => {
     
     if (codeRunStatus) {
-      onCodeRunStatusChange?.(codeRunStatus, { files: filesStore[storeKey], currentFileName, testCases });
+      onCodeRunStatusChange?.(codeRunStatus, { files, currentFileName, testCases });
     }
     if (typeof isRunning === 'boolean') {
       onIsRunningChange?.(isRunning);
@@ -281,7 +295,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       setEditorSettings(prevState => ({ ...prevState, lastLanguageUsed: newLanguage }));
       const newRenamedFile = `${removeExtension(currentFileName)}.${getExtension(newLanguage)}`;
       setFilesStore(prevState => {
-        const newState: StorageType<CodeRunnerEditorFiles<T>> = {
+        const newState: StorageType<CodeEditorFiles<T>> = {
           ...prevState,
           [storeKey]: {
             ...(prevState[storeKey] || {}),
@@ -297,7 +311,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       setEditorTriggerFocus(Date.now());
     }
     if (onTestCasesChange) {
-      setTestCases(prevState => ({
+      setTestCasesStore(prevState => ({
         ...prevState,
         [testCaseStoreKey]: onTestCasesChange(prevState[testCaseStoreKey] || {}),
       }));
@@ -330,6 +344,9 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
           language: editorSettings.lastLanguageUsed,
           index: maxIndex + 1,
           name: newFile,
+          hidden: false,
+          protected: false,
+          readonly: false,
         };
         return { ...prevState, [storeKey]: files };
       });
@@ -364,7 +381,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   return (
     <CodeRunnerEditor<T>
       triggerFocus={editorTriggerFocus}
-      files={filesStore[storeKey]}
+      files={files}
       currentFileName={currentFileName}
       className={className}
       theme={editorSettings.theme}

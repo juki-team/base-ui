@@ -1,9 +1,8 @@
 import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE, CodeEditorSheetType, CodeLanguage } from '@juki-team/commons';
-import React, { useState } from 'react';
+import React from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../constants';
-import { getHeight } from '../../../../../helpers';
 import { Input, InputCheckbox, MultiSelect, T } from '../../../../atoms';
-import { CodeRunnerEditor } from '../../../CodeRunnerEditor/CodeRunnerEditor';
+import { UserCodeEditor } from '../../../UserCodeEditor/UserCodeEditor';
 import { SetContentType } from '../../types';
 
 interface RunnerSheetSectionProps {
@@ -14,12 +13,8 @@ interface RunnerSheetSectionProps {
 
 export const CodeEditorSheetSectionEditor = ({ content, setContent, isSolvable }: RunnerSheetSectionProps) => {
   
-  const [ languageEditor, setLanguageEditor ] = useState(CodeLanguage.CPP17);
-  
-  const sourceCode = content.sourceCode?.[languageEditor] || '';
-  
   return (
-    <div className="jk-col gap stretch left jk-pg-sm br-ht jk-br-ie">
+    <div className="jk-col gap stretch left jk-pg-sm br-ht jk-br-ie wh-100">
       <Input
         label={<T className="tt-se">title</T>}
         labelPlacement="top"
@@ -37,7 +32,7 @@ export const CodeEditorSheetSectionEditor = ({ content, setContent, isSolvable }
           expand
         />
       )}
-      <div className="jk-row gap">
+      <div className="jk-row gap wh-100">
         <div className="flex-1">
           <T className="fw-bd tt-se">languages</T>:
           <MultiSelect
@@ -82,28 +77,23 @@ export const CodeEditorSheetSectionEditor = ({ content, setContent, isSolvable }
           )}
         </div>
       </div>
-      <div style={{ height: getHeight(content.height, sourceCode) }} className="jk-row">
-        {/*TODO:*/}
-        <CodeRunnerEditor
-          files={{}}
-          currentFileName=""
-          // sourceCode={sourceCode}
-          onChange={({ source, language, onTestCasesChange }) => {
-            if (source !== undefined) {
-              setContent(prevState => ({
-                ...prevState,
-                sourceCode: { ...prevState.sourceCode, [languageEditor]: source },
-              }));
-            }
-            if (language) {
-              setLanguageEditor(language);
-            }
-            if (onTestCasesChange) {
-              setContent(prevState => ({ ...prevState, testCases: onTestCasesChange(prevState.testCases) }));
-            }
-          }}
-          // language={languageEditor}
-          testCases={content.testCases}
+      <div
+        style={{ height: WORKSHEET_CODE_EDITOR_MIN_HEIGHT /* getHeight(content.height, ''  )*/ }}
+        className="jk-row wh-100"
+      >
+        <UserCodeEditor<CodeLanguage>
+          storeKey={content.id + '_edit'}
+          initialFiles={content.files}
+          onTestCasesChange={(testCases) =>
+            setContent(prevState => ({ ...prevState, testCases }))
+          }
+          onFilesChange={(files) =>
+            setContent(prevState => ({
+              ...prevState,
+              files,
+            }))
+          }
+          initialTestCases={content.testCases}
           languages={content.languages.map(lang => ({
             value: lang,
             label: CODE_LANGUAGE[lang]?.label || lang,

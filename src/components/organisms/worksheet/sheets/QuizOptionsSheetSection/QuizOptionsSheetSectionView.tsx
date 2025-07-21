@@ -22,7 +22,7 @@ export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
       <div className="jk-col stretch left gap">
         {content.options.map((option) => (
           <div
-            className="jk-row gap nowrap extend left jk-br-ie option"
+            className={classNames('jk-row gap nowrap extend left jk-br-ie option jk-br-ie jk-pg-xsm-rl', { 'bc-hl': checkedOptions.includes(option.id) })}
             key={option.id}
             onClick={readOnly ? undefined : () => {
               if (content.multiple) {
@@ -47,7 +47,9 @@ export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
                 onChange={() => null}
                 className={classNames({ 'bc-sl br-50-pc': option.correct })}
               />}
-            <div>{option.label}</div>
+            <div>
+              <MdMathViewer source={option.label} />
+            </div>
           </div>
         ))}
       </div>

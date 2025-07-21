@@ -3,36 +3,32 @@ import React from 'react';
 import { Button, T } from '../../../atoms';
 import { ButtonType } from '../../../atoms/Button/types';
 import { CloseIcon, EditIcon, SaveIcon, SettingsIcon, SortIcon, VisibilityIcon } from '../../../atoms/server';
-import { SetContentType, SetSheetType } from '../types';
+import { SetSheetType } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 import { upRemoveDownButtons } from './upRemoveDownActions';
 
-interface getActionButtonsProps<T extends BodyWorksheetType> {
+interface getActionButtonsProps {
   type: WorksheetType,
   edit: boolean,
-  setEdit: (edit: boolean) => void,
   setModal: (modal: boolean) => void,
-  content: T,
-  saveContent?: SetContentType<T>,
   index: number,
   sheetLength: number,
   setSheet?: SetSheetType<BodyWorksheetType>,
-  reset: () => void,
+  onSaveEdit: () => void,
+  onCancel: () => void,
 }
 
-export const getActionButtons = <T extends BodyWorksheetType, >(props: getActionButtonsProps<T>) => {
+export const getActionButtons = (props: getActionButtonsProps) => {
   
   const {
     type,
     edit,
-    setEdit,
-    saveContent,
-    content,
     index,
     sheetLength,
     setSheet,
     setModal,
-    reset,
+    onSaveEdit,
+    onCancel,
   } = props;
   
   return [
@@ -56,20 +52,14 @@ export const getActionButtons = <T extends BodyWorksheetType, >(props: getAction
         {
           icon: edit ? <SaveIcon /> : <EditIcon />,
           label: <T className="tt-se">{edit ? 'save' : 'edit'}</T>,
-          onClick: () => {
-            setEdit(!edit);
-            saveContent?.(content);
-          },
+          onClick: onSaveEdit,
         },
         ...(edit ? [
           {
             type: 'light' as ButtonType,
             icon: <CloseIcon />,
             label: <T className="tt-se">cancel</T>,
-            onClick: () => {
-              setEdit(!edit);
-              reset();
-            },
+            onClick: onCancel,
           },
         ] : []),
       ],

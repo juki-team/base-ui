@@ -1,5 +1,5 @@
 import { QuizProblemSheetType, WorksheetType } from '@juki-team/commons';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useStableState } from '../../../../../hooks/useStableState';
 import { T } from '../../../../atoms';
 import { CheckIcon } from '../../../../atoms/server';
@@ -9,6 +9,7 @@ import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { ResultHeader } from '../ResultHeader';
 import { SheetSection } from '../types';
+import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { QuizProblemSheetSectionEditor } from './QuizProblemSheetSectionEditor';
 import { QuizProblemSheetSectionView } from './QuizProblemSheetSectionView';
 
@@ -32,11 +33,14 @@ export const QuizProblemSheetSection = (props: QuizProblemSheetSectionProps) => 
   const [ edit, setEdit ] = useState(false);
   const [ modal, setModal ] = useState(false);
   const [ content, _setContent ] = useStableState(initialContent);
-  const setContent = saveContent ? _setContent : undefined;
-  const reset = () => {
-    _setContent(initialContent);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const onSaveEdit = () => {
+    setEdit(!edit);
+    saveContent?.(content);
   };
+  useOnSaveSheetSection(sectionRef, edit, onSaveEdit);
   
+  const setContent = saveContent ? _setContent : undefined;
   const submissions = userResults?.data?.submissions[WorksheetType.QUIZ_PROBLEM]?.[chunkId] ?? [];
   const lastSubmission = submissions.at(-1);
   
@@ -78,14 +82,15 @@ export const QuizProblemSheetSection = (props: QuizProblemSheetSectionProps) => 
           actionButtons={getActionButtons({
             type: WorksheetType.QUIZ_PROBLEM,
             edit,
-            setEdit,
             setModal,
-            content,
-            saveContent,
             index,
             sheetLength,
             setSheet,
-            reset,
+            onSaveEdit,
+            onCancel: () => {
+              setEdit(false);
+              _setContent(initialContent);
+            },
           })}
           placement="out rightTop"
         />

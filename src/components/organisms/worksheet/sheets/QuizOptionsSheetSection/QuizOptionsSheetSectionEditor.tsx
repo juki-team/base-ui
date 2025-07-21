@@ -2,7 +2,7 @@ import { QuizOptionsSheetType, QuizScoringMode } from '@juki-team/commons';
 import React from 'react';
 import { v4 } from 'uuid';
 import { classNames } from '../../../../../helpers';
-import { Button, Input, InputCheckbox, InputRadio, InputTextArea, InputToggle, T } from '../../../../atoms';
+import { Button, Input, InputCheckbox, InputRadio, InputToggle, T } from '../../../../atoms';
 import { AddIcon } from '../../../../atoms/server';
 import { MdMathEditor } from '../../../mdMath/MdMathEditor';
 import { SetContentType } from '../../types';
@@ -112,8 +112,9 @@ export const QuizOptionsSheetSectionEditor = ({
                   });
                 }}
               />}
-            <InputTextArea
-              value={option.label}
+            <MdMathEditor
+              className="wh-100"
+              initialMd={option.label}
               onChange={(label) => {
                 setContent((prevState) => {
                   const newOptions = [ ...prevState.options ];
@@ -124,7 +125,6 @@ export const QuizOptionsSheetSectionEditor = ({
                   return { ...prevState, options: newOptions };
                 });
               }}
-              expand
             />
           </div>
         ))}

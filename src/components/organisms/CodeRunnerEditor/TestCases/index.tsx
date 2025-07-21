@@ -99,11 +99,11 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   
   const [ outputTab, setOutputTab ] = useState('output');
   const [ inputTab, setInputTab ] = useState('input');
-  const test: CodeEditorTestCaseType | undefined = testCases[testCaseKey];
+  const test = testCases[testCaseKey] as CodeEditorTestCaseType | undefined;
   const status = test?.status;
   useEffect(() => {
     setOutputTab(
-      [ SubmissionRunStatus.FAILED, SubmissionRunStatus.COMPILATION_ERROR, SubmissionRunStatus.FAILED_TEST_CASE ].includes(status)
+      status && [ SubmissionRunStatus.FAILED, SubmissionRunStatus.COMPILATION_ERROR, SubmissionRunStatus.FAILED_TEST_CASE ].includes(status)
         ? 'error' : 'output',
     );
   }, [ status ]);
@@ -164,7 +164,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       <T
         className={classNames(
           'tt-se tx-s',
-          { 'cr-er': getDataOfTestCase(test, timeLimit, memoryLimit).failed },
+          { 'cr-er': !!test && getDataOfTestCase(test, timeLimit, memoryLimit).failed },
         )}
       >
         your output
@@ -186,7 +186,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       <T
         className={classNames(
           'tt-se tx-s',
-          { 'cr-er': getDataOfTestCase(test, timeLimit, memoryLimit).failed || !!test.err },
+          { 'cr-er': (!!test && getDataOfTestCase(test, timeLimit, memoryLimit).failed) || !!test?.err },
         )}
       >
         error
@@ -216,12 +216,13 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
           }}
           className="tx-s flex-1"
           value={test?.in}
-          onChange={value => onChange({
+          disabled={!test}
+          onChange={test ? value => onChange({
             onTestCasesChange: (testCases) => ({
               ...testCases,
               [test?.key]: { ...test, in: value },
             }),
-          })}
+          }) : undefined}
         /> : (
           <div className={classNames('flex-1 ow-ao jk-pg-xsm')}>
             <span className="jk-text-stdout">{test?.in}</span>

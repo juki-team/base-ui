@@ -7,7 +7,6 @@ import {
   QuizProblemSheetType,
   QuizScoringMode,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
-  SourceCodeType,
   WorksheetType,
 } from '@juki-team/commons';
 import { v4 } from 'uuid';
@@ -29,7 +28,7 @@ export const EMPTY_CODE_EDITOR_SHEET = (): CodeEditorSheetType => ({
   type: WorksheetType.CODE_EDITOR,
   title: '',
   points: 0,
-  sourceCode: {} as SourceCodeType,
+  files: {},
   testCases: {},
   languages: RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
   height: 0,

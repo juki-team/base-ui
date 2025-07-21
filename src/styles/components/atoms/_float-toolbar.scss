@@ -23,27 +23,23 @@
     
     &:not(.top):not(.bottom) {
       .buttons-content {
-        top: calc(var(--jk-float-toolbar-button-action-content-width) / -2);
+        top: calc(var(--jk-float-toolbar-buttons-content-height) / -2 + var(--jk-float-toolbar-button-trigger-height) / 2 - var(--pad-sm));
       }
     }
     
     &:not(.left):not(.right) {
       .buttons-content {
-        left: calc(var(--jk-float-toolbar-button-action-content-width) / -2);
+        left: calc(var(--jk-float-toolbar-buttons-content-width) / -2 + var(--jk-float-toolbar-button-trigger-width) / 2 - var(--pad-sm));
       }
     }
   }
   
-  &.center.top {
-    .buttons-content {
-      bottom: var(--jk-float-toolbar-container-height);
-    }
+  &.center.top .buttons-content {
+    bottom: var(--jk-float-toolbar-container-height);
   }
   
-  &.center.bottom {
-    .buttons-content {
-      top: var(--jk-float-toolbar-container-height);
-    }
+  &.center.bottom .buttons-content {
+    top: var(--jk-float-toolbar-container-height);
   }
   
   &.rightBottom, &.rightTop {
@@ -59,7 +55,7 @@
       //right: calc(50% - var(--jk-float-toolbar-container-width) / 2);
       
       .buttons-content {
-        //right: calc(50% - var(--jk-float-toolbar-button-action-content-width) / 2);
+        //right: calc(50% - var(--jk-float-toolbar-buttons-content-width) / 2);
         @include mixins.transition-fast(right);
       }
     }
@@ -75,15 +71,6 @@
         right: unset;
         left: 0;
       }
-    }
-  }
-  
-  &.rightTop, &.top, &.leftTop {
-    width: 100%;
-    height: 0;
-    
-    .buttons-content {
-      top: 0;
     }
   }
   
@@ -105,6 +92,14 @@
 .button-action {
   position: relative;
   z-index: 2;
+  
+  &:hover {
+    z-index: 3;
+    
+    .button-trigger {
+      z-index: 1;
+    }
+  }
   
   .buttons-content {
     display: none;
@@ -139,7 +134,7 @@
       }
       
       .button-trigger {
-        opacity: 0;
+        //opacity: 0;
       }
     }
   }

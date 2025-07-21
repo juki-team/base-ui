@@ -1,4 +1,9 @@
-import { CodeEditorTestCasesType, SubmissionRunStatus, SubmissionTestCaseType } from '@juki-team/commons';
+import {
+  CodeEditorFiles,
+  CodeEditorTestCasesType,
+  SubmissionRunStatus,
+  SubmissionTestCaseType,
+} from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { UseResizeDetectorReturn } from 'react-resize-detector';
 import { BasicModalProps } from '../../atoms/Modal/types';
@@ -21,7 +26,7 @@ export type CodeEditorCenterButtonsPropertiesType<T> = {
   testCases: CodeEditorTestCasesType,
   withLabels: boolean,
   twoRows: boolean,
-  files: CodeRunnerEditorFiles<T>,
+  files: CodeEditorFiles<T>,
   currentFileName: string,
 }
 
@@ -34,13 +39,9 @@ export type CodeEditorExpandPositionType = {
   height: string | number,
 };
 
-export type CodeRunnerEditorFile<T> = { source: string, language: T, index: number, name: string };
-
-export type CodeRunnerEditorFiles<T> = { [key: string /*name*/]: CodeRunnerEditorFile<T> };
-
 export interface CodeRunnerEditorProps<T> extends Omit<CodeEditorPropertiesType<T>, 'sourceCode' | 'language'> {
   triggerFocus?: number,
-  files: CodeRunnerEditorFiles<T>,
+  files: CodeEditorFiles<T>,
   currentFileName: string,
   // sourceCode: string,
   // language: T,
@@ -98,7 +99,7 @@ export interface HeaderProps<T> {
   headerRef: UseResizeDetectorReturn<any>['ref'],
   headerWidthContainer: number,
   twoRows: boolean,
-  files: CodeRunnerEditorFiles<T>,
+  files: CodeEditorFiles<T>,
   currentFileName: string,
 }
 
