@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { SAMPLE_MD_CONTENT } from './constants';
 import { MdMathEditor } from './MdMathEditor';
+import { MdMathViewer } from './MdMathViewer';
+import { MdMathEditorProps } from './types';
 import { MemoMdMathViewer } from './viewer/MemoMdMathViewer';
 
 const meta: Meta<typeof MdMathEditor> = {
@@ -15,23 +17,24 @@ type Story = StoryObj<typeof MdMathEditor>;
 
 console.info({ MemoMdMathViewer });
 
-const Cmp = (props: any) => {
+const Cmp = (props: MdMathEditorProps) => {
   
   const [ md, setMd ] = useState(SAMPLE_MD_CONTENT);
-  
   return (
     <MockupJukiProvider>
-      <div style={{ padding: '50px' }} className="jk-row gap nowrap wh-100 ht-100">
-        <MdMathEditor initialMd={SAMPLE_MD_CONTENT} onChange={setMd} className="ow-ao flex-2" />
-        {/*<MemoMdMathViewer source={md} style={{ flex: 1, overflow: 'auto' }} />*/}
-        {/*<MdMathEditor initialMd={md} className="ow-ao flex-2" />*/}
-        <div style={{ flex: 1, overflow: 'auto' }}>
-          <pre>
-            <code>
-              {md}
-            </code>
-          </pre>
+      <div style={{ padding: '50px' }} className="jk-row gap nowrap top wh-100 ht-100">
+        <div style={{ width: '45%', border: '1pxsolid red' }}>
+          <MdMathEditor {...props} initialMd={md} onChange={setMd} />
         </div>
+        <MdMathViewer source={md} style={{ overflow: 'auto', width: '45%', border: '1pxsolid red' }} />
+        {/*<MdMathEditor initialMd={md} className="ow-ao flex-2" />*/}
+        {/*<div style={{ flex: 1, overflow: 'auto' }}>*/}
+        {/*  <pre>*/}
+        {/*    <code>*/}
+        {/*      {md}*/}
+        {/*    </code>*/}
+        {/*  </pre>*/}
+        {/*</div>*/}
       </div>
     </MockupJukiProvider>
   );

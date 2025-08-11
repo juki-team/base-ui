@@ -46,7 +46,7 @@ const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => 
       // whileHover="whileHover"
       // whileTap="whileTap"
       type={submit ? 'submit' : 'button'}
-      className={classNames(className, `jk-button ${type} jk-border-radius-inline`, size, {
+      className={classNames(className, `jk-button ${type} jk-br-ie`, size, {
         expand,
         'only-icon': !hasChildren,
         disabled,

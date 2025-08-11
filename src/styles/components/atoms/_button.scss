@@ -53,7 +53,8 @@
   align-items: center;
   justify-content: center;
   border: none;
-  outline: 0 solid var(--button-background-color);
+  outline: 0 solid var(--background-color);
+  background-color: var(--background-color);
   outline-offset: -1px;
   cursor: pointer;
   overflow: hidden;
@@ -68,42 +69,42 @@
   }
   
   &:not(.void):not([class*=" bc-"]):not([class^="bc-"]) {
-    background-color: var(--button-background-color, var(--t-color-primary));
+    //background-color: var(--background-color, var(--t-color-primary));
   }
   
   &:not(.disabled):hover {
     --button-border-width: 3px;
-    outline: var(--button-border-width, 0) solid var(--button-background-color);
+    outline: var(--button-border-width, 0) solid var(--background-color);
   }
   
   &.tiny {
     --line-height: var(--text-tiny-height); // 12px;
     font-size: var(--text-tiny-size); // 12px
-    --button-padding: calc(var(--pad-xt) / 2 + var(--base-diff-text-size) * 2); // 8px
+    //--button-padding: calc(var(--pad-xt) / 2 + var(--base-diff-text-size) * 2); // 8px
   }
   
   &.small {
     --line-height: var(--text-small-height); // 18px
     font-size: var(--text-small-size); // 14px
-    --button-padding: calc(var(--pad-t) / 2 + var(--base-diff-text-size) * 2); // var(--pad-t); // 12px
+    //--button-padding: calc(var(--pad-t) / 2 + var(--base-diff-text-size) * 2); // var(--pad-t); // 12px
   }
   
   &.regular {
     --line-height: var(--text-medium-height); // 24px
     font-size: var(--text-medium-size);
-    --button-padding: calc(var(--pad-xs) / 2 + var(--base-diff-text-size) * 2); // var(--pad-xs); // 16px
+    //--button-padding: calc(var(--pad-xs) / 2 + var(--base-diff-text-size) * 2); // var(--pad-xs); // 16px
   }
   
   &.large {
     --line-height: var(--text-large-height); // 36px
     font-size: var(--text-large-size);
-    --button-padding: calc(var(--pad-s) / 2 + var(--base-diff-text-size) * 2); // var(--pad-s); // 20px
+    //--button-padding: calc(var(--pad-s) / 2 + var(--base-diff-text-size) * 2); // var(--pad-s); // 20px
   }
   
   &.huge {
     --line-height: var(--text-huge-height); // 48px
     font-size: var(--text-huge-size);
-    --button-padding: calc(var(--pad-m) / 2 + var(--base-diff-text-size) * 2); // var(--pad-m); // 24px
+    //--button-padding: calc(var(--pad-m) / 2 + var(--base-diff-text-size) * 2); // var(--pad-m); // 24px
   }
   
   &.jk-button-loader.with-loader-icon:not(.only-icon) {
@@ -115,8 +116,8 @@
   }
   
   &.only-icon {
-    border-radius: 50%;
-    padding: calc(var(--button-padding) / 4);
+    //border-radius: 50%;
+    padding: calc(var(--text-medium-height) / 4);
     
     .jk-icon {
       margin: auto;
@@ -126,11 +127,11 @@
   &.expand { width: 100%; }
   
   &.error {
-    --button-background-color: var(--t-color-error);
+    --background-color: var(--t-color-error);
   }
   
   &.success {
-    --button-background-color: var(--t-color-success);
+    --background-color: var(--t-color-success);
   }
   
   &.with-loader-icon {
@@ -146,18 +147,27 @@
 }
 
 .jk-button.primary {
-  --button-background-color: var(--t-color-primary);
   color: var(--t-color-primary-text);
+  
+  &:not([class*=" bc-"]):not([class^="bc-"]) {
+    --background-color: var(--t-color-primary);
+  }
 }
 
 .jk-button.secondary {
-  --button-background-color: var(--t-color-accent);
   color: var(--t-color-accent-text);
+  
+  &:not([class*=" bc-"]):not([class^="bc-"]) {
+    --background-color: var(--t-color-accent);
+  }
 }
 
 .jk-button.text, .jk-button.void { // background color by system default
-  --button-background-color: transparent;
   color: inherit;
+  
+  &:not([class*=" bc-"]):not([class^="bc-"]) {
+    --background-color: transparent;
+  }
   
   * {
     color: inherit;
@@ -165,15 +175,21 @@
 }
 
 .jk-button.outline {
-  --button-background-color: transparent;
   outline: 1px solid var(--t-color-primary) !important;
   color: var(--t-color-primary);
   font-weight: var(--weight-bolder) !important;
+  
+  &:not([class*=" bc-"]):not([class^="bc-"]) {
+    --background-color: transparent;
+  }
 }
 
 .jk-button.light {
-  --button-background-color: var(--t-color-highlight-light);
   --button-border-width: 2px;
   outline-offset: 0 !important;
   color: inherit;
+  
+  &:not([class*=" bc-"]):not([class^="bc-"]) {
+    --background-color: var(--t-color-highlight-light);
+  }
 }

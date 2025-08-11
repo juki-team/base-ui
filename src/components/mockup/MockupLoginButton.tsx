@@ -13,7 +13,7 @@ export const MockupLoginButton = () => {
   const appendSearchParams = useRouterStore(store => store.appendSearchParams);
   
   return (
-    <div className="jk-pg" style={{ position: 'absolute', right: 48, bottom: 10, zIndex: 10000000 }}>
+    <div className="jk-pg" style={{ position: 'fixed', right: 48, bottom: 10, zIndex: 10000000 }}>
       <LoginModal
         isOpen={searchParams.has(QueryParamKey.SIGN_IN)}
         onClose={() => deleteSearchParams({ name: QueryParamKey.SIGN_IN })}

@@ -6,7 +6,7 @@ import {
   Status,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import React, { CSSProperties, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
@@ -155,7 +155,6 @@ export const Header = <T, >(props: HeaderProps<T>) => {
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="offline, click to try to reconnect"
                 className="jk-row bc-er"
-                style={{ '--button-background-color': 'var(--t-color-error)' } as CSSProperties}
                 onClick={async (setLoader) => {
                   setLoader(Status.LOADING);
                   if (websocket.getReadyState() !== WebSocket.OPEN) {

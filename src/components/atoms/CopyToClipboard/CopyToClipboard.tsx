@@ -1,6 +1,6 @@
 import React, { MouseEvent, useState } from 'react';
 import { classNames, copy } from '../../../helpers';
-import { ContentCopyIcon } from '../server';
+import { CheckIcon, ContentCopyIcon } from '../server';
 import { CopyToClipboardProps } from './types';
 
 export const CopyToClipboard = ({ text, size = 'regular', tooltip, children, noStyling }: CopyToClipboardProps) => {
@@ -12,18 +12,25 @@ export const CopyToClipboard = ({ text, size = 'regular', tooltip, children, noS
     event.stopPropagation();
     await copy(text);
     setIsOpen(true);
-    setTimeout(() => setIsOpen(false), 800);
+    setTimeout(() => setIsOpen(false), 600);
   };
   
   return (
     <div
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isOpen ? 'copied' : tooltip ?? 'copy'}
-      className={classNames('jk-row', size, { 'bc-hl link jk-br-ie cr-we jk-button light': !noStyling })}
-      style={noStyling ? {} : { width: 'min-content', height: 'min-content', padding: 'calc(var(--gap) / 3)' }}
+      className={classNames('jk-row', size, {
+        'bc-hl link jk-br-ie cr-we jk-button light': !noStyling,
+        'only-icon': !children,
+      })}
+      style={noStyling || !children ? {} : {
+        width: 'min-content',
+        height: 'min-content',
+        padding: 'calc(var(--gap) / 3)',
+      }}
       onClick={handleClick}
     >
-      {children ?? <ContentCopyIcon size={size} />}
+      {children ?? (isOpen ? <CheckIcon size={size} /> : <ContentCopyIcon size={size} />)}
     </div>
   );
 };

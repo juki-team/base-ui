@@ -114,9 +114,7 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
     isProblemEditor,
   } = props;
   const { viewPortSize } = useJukiUI();
-  const isSmall = viewPortSize === 'sm';
-  const rowHeight = isSmall ? 54 + 8 + 8 : 24 + 8 + 8;
-  
+  const rowHeight = viewPortSize === 'sm' || viewPortSize === 'md' ? 54 + 8 + 8 : 24 + 8 + 8;
   const testCasesString = JSON.stringify(testCases);
   const renderRow: VirtualizedRowsFixedProps['renderRow'] = useCallback((index) => {
     const testCases: TestCaseResultType[] = JSON.parse(testCasesString);

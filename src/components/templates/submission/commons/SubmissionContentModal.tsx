@@ -19,15 +19,15 @@ export const SubmissionContentModal = ({ submitId, ...modalProps }: SubmissionMo
   
   return (
     <Modal closeIcon expand className="submission-modal" {...modalProps}>
-      <section className="jk-pg-md">
-        <div className="fw-bd tx-l jk-row-col left gap">
+      <section className="jk-pg-md jk-col gap stretch wh-100">
+        <div className="fw-bd tx-l jk-row-col left gap wh-100">
           <h3><T className="tt-se">submission</T></h3>
           <div className="jk-row gap">
-            <Link href={jukiAppRoutes.JUDGE().submissions.view({ id: submitId })} target="_blank">
+            <Link href={jukiAppRoutes.JUDGE().submissions.view({ id: submitId })} target="_blank" className="jk-row">
               <div
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content="open submission in new tab"
-                className="jk-button light only-icon small link"
+                className="jk-button light only-icon small jk-br-ie"
               >
                 <OpenInNewIcon />
               </div>

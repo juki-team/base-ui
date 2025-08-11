@@ -4,6 +4,16 @@
   width: 100%;
   height: 100%;
   
+  &:hover {
+    .float-top-right {
+      opacity: unset;
+    }
+  }
+  
+  .float-top-right {
+    opacity: 0;
+  }
+  
   .jk-code-viewer-content {
     overflow: auto;
     width: 100%;

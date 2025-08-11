@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
 import { ButtonLoader } from '../../molecules';
 import { ErrorIcon } from '../../server';
@@ -17,7 +17,6 @@ export const JukiSocketAlert = () => {
         data-tooltip-id="jk-tooltip"
         data-tooltip-content="offline, click to try to reconnect"
         className="jk-row bc-er"
-        style={{ '--button-background-color': 'var(--t-color-error)' } as CSSProperties}
         onClick={async (setLoader) => {
           setLoader(Status.LOADING);
           if (websocket.getReadyState() !== WebSocket.OPEN) {

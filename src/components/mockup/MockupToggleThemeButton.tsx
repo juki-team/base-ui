@@ -4,7 +4,7 @@ import { InvertColorsIcon } from '../server';
 
 export const MockupToggleThemeButton = () => {
   return (
-    <div className="jk-pg" style={{ position: 'absolute', right: 0, bottom: 10, zIndex: 10000000 }}>
+    <div className="jk-pg" style={{ position: 'fixed', right: 0, bottom: 10, zIndex: 10000000 }}>
       <Button
         onClick={() => {
           if (document.body.classList.contains(`jk-theme-dark`)) {

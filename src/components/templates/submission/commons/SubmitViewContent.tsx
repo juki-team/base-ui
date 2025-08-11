@@ -5,7 +5,7 @@ import {
   SubmissionDataResponseDTO,
   TestCaseResultType,
 } from '@juki-team/commons';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { getJudgeOrigin } from '../../../../helpers';
 import { hasTimeHasMemory } from '../../../../helpers/submission';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
@@ -21,6 +21,23 @@ import { SubmissionGroupInfo } from './SubmissionGroupInfo';
 import { SubmissionListenerVerdict } from './SubmissionListenerVerdict';
 import { SubmissionMemory } from './SubmissionMemory';
 import { SubmissionTime } from './SubmissionTime';
+
+const DisplayGridData = ({ data }: { data: { title: ReactNode, content: ReactNode }[] }) => {
+  return (
+    <div className="jk-table-grid wh-100">
+      {data.map(({ title, content }) => (
+        <div className="jk-col bc-we jk-pg-xsm jk-br-ie">
+          <div>
+            {title}
+          </div>
+          <div>
+            {content}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDTO }) => {
   
@@ -72,19 +89,18 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
   const origin = getJudgeOrigin(submit.problem.company.key, userCompanyKey);
   
   return (
-    <div className="jk-col stretch gap">
+    <div className="jk-col stretch gap wh-100">
       <Collapse
         header={({ isOpen, toggle }) => (
-          <div className="jk-row-col gap tx-s bottom">
-            <div className="jk-col">
-              <div className="jk-row">
-                <UserChip imageUrl={submit.user.imageUrl} nickname={submit.user.nickname} />
-              </div>
-              <T className="fw-bd tt-se">nickname</T>
-            </div>
-            <div className="jk-col">
-              <div className="jk-row">
-                {contest ? (
+          <DisplayGridData
+            data={[
+              {
+                title: <T className="fw-bd tt-se">nickname</T>,
+                content: <UserChip imageUrl={submit.user.imageUrl} nickname={submit.user.nickname} />,
+              },
+              {
+                title: <T className="fw-bd tt-se">problem</T>,
+                content: contest ? (
                   <Link
                     href={jukiAppRoutes.JUDGE(origin).contests.view({
                       key: contest.key,
@@ -104,65 +120,62 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
                   >
                     <div>{submit.problem.key}</div>
                   </Link>
-                )}
-              </div>
-              <T className="fw-bd tt-se">problem</T>
-            </div>
-            <div className="jk-col">
-              <div className="jk-row">{CODE_LANGUAGE[language]?.label || language}</div>
-              <T className="fw-bd tt-se">language</T>
-            </div>
-            <div className="jk-col">
-              <div className="jk-row gap center">
-                <SubmissionListenerVerdict verdict={verdict} points={points} status={status} submitId={submitId} />
-                {compilationFailed && <UpIcon onClick={toggle} rotate={isOpen ? 0 : 180} className="link" />}
-              </div>
-              <T className="fw-bd tt-se">verdict</T>
-            </div>
-            {hasTimeHasMemory(verdict) && (
-              <div className="jk-col">
-                <div className="jk-row"><SubmissionTime timeUsed={timeUsed} verdict={verdict} />
-                </div>
-                <T className="fw-bd tt-se">time used</T>
-              </div>
-            )}
-            {hasTimeHasMemory(verdict) && (
-              <div className="jk-col">
-                <div className="jk-row"><SubmissionMemory
-                  memoryUsed={memoryUsed}
-                  verdict={verdict}
-                /></div>
-                <T className="fw-bd tt-se">memory used</T>
-              </div>
-            )}
-            <div className="jk-col">
-              <DateLiteral date={date} twoLines />
-              <T className="fw-bd tt-se">date</T>
-            </div>
-            {isProblemEditor && (
-              <>
-                <div className="jk-col">
-                  <div className="jk-row">
-                    ~&nbsp;
-                    {judgmentTime > 0
-                      ? <Timer currentTimestamp={judgmentTime} interval={0} literal laps={1} />
-                      : (
-                        <>
-                          <Timer currentTimestamp={Date.now() - -judgmentTime} interval={1000} literal laps={1} />
-                        </>
-                      )}
+                ),
+              },
+              {
+                title: <T className="fw-bd tt-se">language</T>,
+                content: <div className="jk-row">{CODE_LANGUAGE[language]?.label || language}</div>,
+              },
+              {
+                title: <T className="fw-bd tt-se">verdict</T>,
+                content: (
+                  <div className="jk-row gap center">
+                    <SubmissionListenerVerdict
+                      verdict={verdict}
+                      points={points}
+                      status={status}
+                      submitId={submitId}
+                    />
+                    {compilationFailed && <UpIcon onClick={toggle} rotate={isOpen ? 0 : 180} className="link" />}
                   </div>
-                  <T className="fw-bd tt-se">{judgmentTime > 0 ? 'judgment time' : 'judging'}</T>
-                </div>
-                <div className="jk-col">
-                  <div className="jk-row">
-                    <SubmissionRejudgeButton submissionId={submit.submitId} />
-                  </div>
-                  <T className="fw-bd tt-se">actions</T>
-                </div>
-              </>
-            )}
-          </div>
+                ),
+              },
+              ...(hasTimeHasMemory(verdict) ? [
+                {
+                  title: <T className="fw-bd tt-se">time used</T>,
+                  content: <SubmissionTime timeUsed={timeUsed} verdict={verdict} />,
+                }, {
+                  title: <T className="fw-bd tt-se">memory used</T>,
+                  content: <SubmissionMemory memoryUsed={memoryUsed} verdict={verdict} />,
+                },
+              ] : []),
+              {
+                title: <T className="fw-bd tt-se">date</T>,
+                content: <DateLiteral date={date} twoLines />,
+              },
+              ...(isProblemEditor ? [
+                {
+                  title: <T className="fw-bd tt-se">{judgmentTime > 0 ? 'judgment time' : 'judging'}</T>,
+                  content: (
+                    <div className="jk-row">
+                      ~&nbsp;
+                      {judgmentTime > 0
+                        ? <Timer currentTimestamp={judgmentTime} interval={0} literal laps={1} />
+                        : (
+                          <>
+                            <Timer currentTimestamp={Date.now() - -judgmentTime} interval={1000} literal laps={1} />
+                          </>
+                        )}
+                    </div>
+                  ),
+                },
+                {
+                  title: <T className="fw-bd tt-se">actions</T>,
+                  content: <SubmissionRejudgeButton submissionId={submit.submitId} />,
+                },
+              ] : []),
+            ]}
+          />
         )}
         startsShowing={compilationFailed}
         className="wh-100"

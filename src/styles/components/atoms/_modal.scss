@@ -33,11 +33,15 @@
     overflow: auto;
     
     .jk-modal-close-button {
-      z-index: 2;
-      position: absolute;
+      position: sticky;
       top: 0;
-      right: 0;
-      margin: var(--border-radius);
+      z-index: 2;
+      
+      > div {
+        position: absolute;
+        margin: var(--border-radius);
+        right: 0;
+      }
     }
   }
 }

@@ -283,3 +283,10 @@ span.jk-row, span.jk-col {
 .opacity-0 {
   opacity: 0;
 }
+
+.jk-table-grid {
+  display: grid;
+  gap: var(--gap);
+  //grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}

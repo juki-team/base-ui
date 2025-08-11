@@ -8,10 +8,109 @@
   }
 }
 
+.jk-milkdown-editor {
+  //padding: var(--pad-sm);
+  
+  .milkdown {
+    /* Font Families */
+    --crepe-font-title: var(--font-primary), Georgia, Cambria, "Times New Roman", Times, serif;
+    --crepe-font-default: var(--font-primary), "Open Sans", Arial, Helvetica, sans-serif;
+    --crepe-font-code: var(--font-code), Fira Code, Menlo, Monaco, "Courier New", Courier, monospace;
+    
+    /* Background Colors */
+    --crepe-color-background: var(--t-color-white); /* Main background color */
+    --crepe-color-surface: var(--t-color-white-darkest); /* Surface color for cards/panels */
+    --crepe-color-surface-low: var(--t-color-white-dark); /* Lower surface color for depth */
+    
+    /* Text Colors */
+    --crepe-color-on-background: var(--t-color-black-light); /* Text color on background */
+    --crepe-color-on-surface: var(--t-color-black-light); /* Text color on surface */
+    --crepe-color-on-surface-variant: var(--t-color-black-light); /* Secondary text color */
+    
+    /* Accent Colors */
+    --crepe-color-primary: var(--t-color-primary-light); /* Primary brand color */
+    --crepe-color-secondary: var(--t-color-highlight-light); /* Secondary accent color */
+    --crepe-color-on-secondary: var(--t-color-text-highlight-light); /* Text color on secondary */
+    
+    /* UI Colors */
+    --crepe-color-outline: var(--t-color-primary-dark); /* Border/outline color */
+    --crepe-color-inverse: #362F27; /* Inverse color for contrast */
+    --crepe-color-on-inverse: #FCEFE2; /* Text color on inverse */
+    --crepe-color-inline-code: #BA1A1A; /* Inline code color */
+    --crepe-color-error: #BA1A1A; /* Error state color */
+    
+    /* Interactive Colors */
+    --crepe-color-hover: var(--t-color-highlight-light); /* Hover state color */
+    --crepe-color-selected: var(--t-color-highlight); /* Selected state color */
+    --crepe-color-inline-area: #E4D8CC; /* Inline editing area color */
+    
+    .ProseMirror {
+      //padding: var(--pad-sm);
+      padding: 0;
+    }
+    
+    .milkdown-block-handle {
+      background: var(--t-color-white);
+      z-index: 1;
+    }
+    
+    .milkdown-toolbar {
+      border-radius: var(--border-radius-inline);
+    }
+    
+    .milkdown-code-block {
+      padding: 0;
+      margin: 0;
+      
+      .tools {
+        padding: 0 var(--pad-sm);
+        
+        button {
+          margin-bottom: 0;
+        }
+      }
+    }
+    
+    blockquote::before {
+      content: unset !important;
+    }
+    
+    code {
+      padding: 0 4px !important;
+      font-family: var(--font-code), monospace !important;
+      background: var(--t-color-highlight-light) !important;
+      color: var(--t-color-text-highlight) !important;
+      border-radius: var(--border-radius-inline) !important;
+    }
+    
+    p {
+      a {
+        
+        color: var(--t-color-primary-light);
+        
+        &:hover {
+          color: var(--t-color-primary);
+          text-decoration: underline;
+        }
+      }
+      
+      &:hover {
+        a {
+          color: var(--t-color-primary);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
 .ProseMirror-focused {
+}
+
+.ProseMirror {
   outline-width: 2px;
   --input-border-color: var(--t-color-highlight-dark);
-  background-color: var(--t-color-highlight-light);
+  //background-color: var(--t-color-highlight-light);
   padding: var(--pad-sm);
   
   h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {

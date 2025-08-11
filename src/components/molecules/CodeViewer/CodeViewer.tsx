@@ -1,5 +1,5 @@
 import { CODE_LANGUAGE } from '@juki-team/commons';
-import hljs from 'highlight.js/lib/core';
+import hljs from 'highlight.js';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
 import java from 'highlight.js/lib/languages/java';
@@ -46,12 +46,16 @@ export const CodeViewer = (props: CodeViewerProps) => {
   const withLanguageLabel = true;
   const withCopyButton = true;
   const lines = code.split('\n');
+  if (code[code.length - 1] === '\n') {
+    lines.pop();
+  }
+  
   return (
     <div
-      className={classNames('jk-code-viewer jk-border-radius-inline br-g6', { 'line-numbers': lineNumbers })}
+      className={classNames('jk-code-viewer jk-br-ie br-g6', { 'line-numbers': lineNumbers })}
       style={style}
     >
-      <div className="jk-code-viewer-content jk-row nowrap top">
+      <div className="jk-code-viewer-content jk-row nowrap top jk-br-ie">
         {lineNumbers && (
           <div className="jk-code-viewer-line-numbers">
             {lines.map((_, i) => <div style={{ '--line-index': i } as CSSProperties}>{i + 1}</div>)}

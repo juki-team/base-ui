@@ -70,12 +70,14 @@ export const Modal = <T extends ModalButtonLoaderEventType, >(props: ModalProps<
             >
               {closeIcon && (
                 <div
-                  className="jk-modal-close-button jk-button light only-icon"
+                  className="jk-modal-close-button wh-100"
                   onClick={loader !== Status.LOADING
                     ? (event) => onCloseRef.current?.(setLoaderStatusOnClick, loader, { closeButtonOnClickEvent: event })
                     : undefined}
                 >
-                  {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon />}
+                  <div className="jk-button light only-icon jk-br-ie">
+                    {loader === Status.LOADING ? <SpinIcon /> : <CloseIcon />}
+                  </div>
                 </div>
               )}
               {children}

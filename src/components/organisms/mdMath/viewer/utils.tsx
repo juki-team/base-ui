@@ -28,13 +28,13 @@ export const getCommands = (text: string): [ CommandsObjectType, string ] => {
       const command = commands[i];
       const [ key = '', value = '' ] = command.trim().split('=');
       if (key === 'textAlign') {
-        commandsObject[key] = keys[key](value);
+        // commandsObject[key] = keys[key](value);
       } else if (key === 'imgAlign') {
         commandsObject[key] = keys[key](value);
       } else if (key === 'size') {
-        commandsObject[key] = keys[key](value);
+        // commandsObject[key] = keys[key](value);
       } else if (key === 'height') {
-        commandsObject[key] = keys[key](value);
+        // commandsObject[key] = keys[key](value);
       } else if (key === 'theme') {
         commandsObject[key] = keys[key](value);
       } else if (key === 'lang') {

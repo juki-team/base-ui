@@ -1,1 +1,1 @@
-export * from './TiptapEditorContent';
+export * from './MilkdownEditorContent';

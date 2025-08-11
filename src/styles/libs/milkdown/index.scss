@@ -1,0 +1,16 @@
+//use '@milkdown/crepe/theme/common/style.css';
+@use "./prosemirror.css";
+@use "./reset.css";
+@use "./block-edit.css";
+@use "./code-mirror.css";
+@use "./cursor.css";
+@use "./image-block.css";
+@use "./link-tooltip.css";
+@use "./list-item.css";
+@use "./placeholder.css";
+@use "./toolbar.css";
+@use "./table.css";
+@use "./latex.css";
+
+// use '@milkdown/crepe/theme/frame.css';
+@import "~@milkdown/crepe/theme/frame.css";

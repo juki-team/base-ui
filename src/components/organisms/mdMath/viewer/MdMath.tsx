@@ -86,7 +86,7 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
     remarkPlugins: [ RemarkMathPlugin, RemarkGfmPlugin ],
     rehypePlugins: [ rehypeKatex ],
     components: {
-      img({ alt = '', src }) {
+      img({ alt = '', src, title }) {
         let style: CSSProperties = {};
         const [ commands, newAlt ] = getCommands(alt);
         if (commands.imgAlign) {
@@ -99,7 +99,7 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
           style.width = commands.size.width + 'px';
           style.height = commands.size.height + 'px';
         }
-        return <img alt={newAlt} src={src} style={style} />;
+        return <img alt={newAlt} src={src} style={style} title={title} />;
       },
       // h1(...props) {
       //   return null;
@@ -196,7 +196,7 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
       code: ({ children, className = '' }) => {
         const inline = !children?.toString().includes('\n');
         if (inline) {
-          return <code className="inline-code cr-th bc-hl jk-br-ie ws-np">{children as ReactNode}</code>;
+          return <code className="inline-code cr-th bc-hl jk-br-ie">{children as ReactNode}</code>;
         }
         
         let text = (className as string).replace('language-', '');
