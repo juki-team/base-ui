@@ -5,6 +5,8 @@ import typescript from 'rollup-plugin-typescript2';
 import copy from 'rollup-plugin-copy';
 import terser from "@rollup/plugin-terser";
 import json from '@rollup/plugin-json';
+import alias from '@rollup/plugin-alias';
+import path from 'path';
 // import postcss from "rollup-plugin-postcss";
 // import scss from "rollup-plugin-scss";
 // import path from "path";
@@ -13,6 +15,12 @@ import json from '@rollup/plugin-json';
 
 const plugins = [
   peerDepsExternal(),
+  alias({
+    entries: [
+      { find: 'node:crypto', replacement: path.resolve('./src/shims/crypto.js') },
+      { find: 'crypto', replacement: path.resolve('./src/shims/crypto.js') },
+    ]
+  }),
   resolve(),
   commonjs({
     dynamicRequireTargets: [
