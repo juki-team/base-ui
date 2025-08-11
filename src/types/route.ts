@@ -60,3 +60,9 @@ export enum ProfileTab {
   SUBMISSIONS = 'submissions',
   MY_SESSIONS = 'my-sessions',
 }
+
+export enum WorksheetTab {
+  CONTENT = 'content',
+  SETUP = 'setup',
+  DELETE = 'delete',
+}

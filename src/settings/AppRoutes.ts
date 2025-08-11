@@ -1,5 +1,5 @@
 import { persistGlobalURLSearchParams } from '../helpers/router';
-import { ContestTab, ProblemTab, ProfileTab } from '../types';
+import { ContestTab, ProblemTab, ProfileTab, WorksheetTab } from '../types';
 
 const injectOrigin = (origin: string, path: string) => {
   return `${origin ? origin : ''}${path}`;
@@ -92,8 +92,8 @@ export class AppRoutes {
         view({ key, page = 1 }: { key: string, page?: number }) {
           return injectOrigin(origin, igu(`/worksheets/${key}${page ? `?page=${page}` : ''}`));
         },
-        edit({ key }: { key: string }) {
-          return injectOrigin(origin, igu(`/worksheets/${key}/edit`));
+        edit({ key, tab }: { key: string, tab: WorksheetTab, }) {
+          return injectOrigin(origin, igu(`/worksheets/${key}/edit?tab=${tab}`));
         },
         new() {
           return injectOrigin(origin, igu(`/worksheets/new`));
