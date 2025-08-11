@@ -198,6 +198,7 @@
     padding: var(--pad-sm);
     background: var(--t-color-white-light);
     border: none;
+    box-sizing: border-box;
     
     .jk-code-viewer-line-numbers {
       background: var(--t-color-white-light) !important;

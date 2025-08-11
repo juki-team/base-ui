@@ -91,7 +91,7 @@
 .jk-theme-light {
   --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 80%, var(--base-white));
   --t-color-black-light: color-mix(in srgb, var(--t-color-black) 90%, var(--base-white));
-  --t-color-white-light: color-mix(in srgb, var(--t-color-white) 60%, var(--base-white));
+  --t-color-white-light: color-mix(in srgb, var(--t-color-white) 10%, var(--base-white));
   --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 96%, var(--base-black));
   --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 92%, var(--base-black));
 }
