@@ -60,27 +60,50 @@
     
     .milkdown-code-block {
       padding: 0;
-      margin: 0;
+      margin: 0 0 calc(var(--text-medium-height) / 4) 0;
+      background: none;
       
       .tools {
         padding: 0 var(--pad-sm);
+        justify-content: right;
         
         button {
           margin-bottom: 0;
         }
+        
+        > .tools-button-group {
+          display: none;
+        }
+      }
+      
+      &:hover {
+        &::before, &::after {
+          opacity: 0.5;
+        }
+      }
+      
+      &::before, &::after {
+        content: "```";
+        position: absolute;
+        color: var(--t-color-primary-dark);
+        font-weight: bold;
+        opacity: 0;
+        height: 0;
+        font-family: var(--font-code), monospace !important;
+      }
+      
+      &::before {
+        //top: calc(var(--text-medium-height) / -2);
+        top: 0;
+      }
+      
+      &::after {
+        bottom: 0;
       }
     }
     
     blockquote::before {
       content: unset !important;
-    }
-    
-    code {
-      padding: 0 4px !important;
-      font-family: var(--font-code), monospace !important;
-      background: var(--t-color-highlight-light) !important;
-      color: var(--t-color-text-highlight) !important;
-      border-radius: var(--border-radius-inline) !important;
     }
     
     p {
@@ -101,10 +124,23 @@
         }
       }
     }
+    
+    span[data-type="math_inline"] {
+      &:hover {
+        &::before, &::after {
+          opacity: 0.5;
+        }
+      }
+      
+      &::before, &::after {
+        content: "$";
+        font-family: var(--font-code), monospace !important;
+        color: var(--t-color-primary-dark);
+        opacity: 0;
+        font-weight: var(--weight-bolder);
+      }
+    }
   }
-}
-
-.ProseMirror-focused {
 }
 
 .ProseMirror {
@@ -113,9 +149,22 @@
   //background-color: var(--t-color-highlight-light);
   padding: var(--pad-sm);
   
-  h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
-    margin-right: 1ch;
-    user-select: none;
+  h1, h2, h3, h4, h5, h6 {
+    
+    &::before {
+      margin-right: 0.2ch;
+      user-select: none;
+      font-family: var(--font-code), monospace !important;
+      color: var(--t-color-primary-dark);
+      opacity: 0;
+      font-weight: var(--weight-bolder);
+    }
+    
+    &:hover {
+      &::before, &::after {
+        opacity: 0.5;
+      }
+    }
   }
   
   h1::before {
@@ -146,11 +195,20 @@
     padding-left: 0;
     border-left: none;
     
+    &:hover {
+      p::before {
+        opacity: 0.5;
+      }
+    }
+    
     p::before {
       content: "> ";
-      opacity: 0.6;
       user-select: none;
       margin-right: 0.25em;
+      font-family: var(--font-code), monospace !important;
+      color: var(--t-color-primary-dark);
+      opacity: 0;
+      font-weight: var(--weight-bolder);
     }
     
     h1::before {
@@ -180,6 +238,78 @@
   
   a {
     pointer-events: none;
+  }
+  
+  em {
+    &:hover {
+      &::after, &::before {
+        opacity: 0.5;
+      }
+    }
+    
+    &::after, &::before {
+      content: "*";
+      font-family: var(--font-code), monospace !important;
+      color: var(--t-color-primary-dark);
+      opacity: 0;
+      font-weight: var(--weight-bolder);
+    }
+  }
+  
+  strong {
+    &:hover {
+      &::after, &::before {
+        opacity: 0.5;
+      }
+    }
+    
+    &::after, &::before {
+      content: "**";
+      font-family: var(--font-code), monospace !important;
+      color: var(--t-color-primary-dark);
+      opacity: 0;
+      font-weight: var(--weight-bolder);
+    }
+  }
+  
+  del {
+    &:hover {
+      &::after, &::before {
+        opacity: 0.5;
+      }
+    }
+    
+    &::after, &::before {
+      text-decoration: none !important;
+      content: "~~";
+      font-family: var(--font-code), monospace !important;
+      color: var(--t-color-primary-dark);
+      opacity: 0;
+      font-weight: var(--weight-bolder);
+    }
+  }
+  
+  code {
+    padding: 0 4px !important;
+    font-family: var(--font-code), monospace !important;
+    background: var(--t-color-highlight-light) !important;
+    color: var(--t-color-text-highlight) !important;
+    border-radius: var(--border-radius-inline) !important;
+    
+    &:hover {
+      &::after, &::before {
+        opacity: 0.5;
+      }
+    }
+    
+    
+    &::after, &::before {
+      content: "`";
+      font-family: var(--font-code), monospace !important;
+      color: var(--t-color-primary-dark);
+      opacity: 0;
+      font-weight: var(--weight-bolder);
+    }
   }
 }
 

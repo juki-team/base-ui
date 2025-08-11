@@ -2,7 +2,7 @@ import { LanguageDescription, LanguageSupport, StreamLanguage } from '@codemirro
 import { languages } from '@codemirror/language-data';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView } from '@codemirror/view';
-import { CodeLanguage, ProfileSetting, Status, Theme } from '@juki-team/commons';
+import { CODE_LANGUAGE, CodeLanguage, ProfileSetting, Status, Theme } from '@juki-team/commons';
 import { codeBlockConfig } from '@milkdown/components/code-block';
 import { Crepe } from '@milkdown/crepe';
 import { cursor } from '@milkdown/kit/plugin/cursor';
@@ -149,6 +149,11 @@ const Editor = ({ value, onChange, setLoader }: EditorProps) => {
       root,
       defaultValue: value,
       featureConfigs: {
+        [Crepe.Feature.CodeMirror]: {
+          renderLanguage(language) {
+            return CODE_LANGUAGE[language as CodeLanguage]?.label ?? language;
+          },
+        },
         [Crepe.Feature.ImageBlock]: {
           async onUpload(file: File) {
             setLoader(Status.LOADING);

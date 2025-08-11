@@ -10,10 +10,11 @@
 //@use "prism-line-numbers";
 
 .jk-md-math {
-  padding: 0;
+  > p {
+    //padding: var(--pad-xt) 0;
+  }
   
   p {
-    padding: var(--pad-xt) 0;
     margin: 0;
     font-family: inherit;
     font-size: var(--text-medium-size);
@@ -119,7 +120,9 @@
       position: absolute;
       left: -0.7em;
       top: 0;
-      color: var(--t-color-primary-light);
+      font-family: var(--font-code), monospace !important;
+      color: var(--t-color-primary-dark);
+      font-weight: var(--weight-bolder);
     }
     
     &:hover {
@@ -189,5 +192,19 @@
     //  background-color: var(--t-color-highlight);
     //  pointer-events: none;
     //}
+  }
+  
+  .jk-code-viewer {
+    padding: var(--pad-sm);
+    background: var(--t-color-white-light);
+    border: none;
+    
+    .jk-code-viewer-line-numbers {
+      background: var(--t-color-white-light) !important;
+    }
+    
+    code.hljs {
+      background: var(--t-color-white-light);
+    }
   }
 }

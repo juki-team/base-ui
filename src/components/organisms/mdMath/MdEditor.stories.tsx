@@ -26,7 +26,7 @@ const Cmp = (props: MdMathEditorProps) => {
         <div style={{ width: '45%', border: '1pxsolid red' }}>
           <MdMathEditor {...props} initialMd={md} onChange={setMd} />
         </div>
-        <MdMathViewer source={md} style={{ overflow: 'auto', width: '45%', border: '1pxsolid red' }} />
+        <MdMathViewer source={md} style={{ width: '45%', border: '1pxsolid red' }} />
         {/*<MdMathEditor initialMd={md} className="ow-ao flex-2" />*/}
         {/*<div style={{ flex: 1, overflow: 'auto' }}>*/}
         {/*  <pre>*/}
