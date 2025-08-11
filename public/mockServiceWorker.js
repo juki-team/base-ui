@@ -22,21 +22,21 @@ addEventListener('activate', function (event) {
 
 addEventListener('message', async function (event) {
   const clientId = Reflect.get(event.source || {}, 'id')
-
+  
   if (!clientId || !self.clients) {
     return
   }
-
+  
   const client = await self.clients.get(clientId)
-
+  
   if (!client) {
     return
   }
-
+  
   const allClients = await self.clients.matchAll({
     type: 'window',
   })
-
+  
   switch (event.data) {
     case 'KEEPALIVE_REQUEST': {
       sendToClient(client, {
@@ -44,7 +44,7 @@ addEventListener('message', async function (event) {
       })
       break
     }
-
+    
     case 'INTEGRITY_CHECK_REQUEST': {
       sendToClient(client, {
         type: 'INTEGRITY_CHECK_RESPONSE',
@@ -55,10 +55,10 @@ addEventListener('message', async function (event) {
       })
       break
     }
-
+    
     case 'MOCK_ACTIVATE': {
       activeClientIds.add(clientId)
-
+      
       sendToClient(client, {
         type: 'MOCKING_ENABLED',
         payload: {
@@ -70,24 +70,24 @@ addEventListener('message', async function (event) {
       })
       break
     }
-
+    
     case 'MOCK_DEACTIVATE': {
       activeClientIds.delete(clientId)
       break
     }
-
+    
     case 'CLIENT_CLOSED': {
       activeClientIds.delete(clientId)
-
+      
       const remainingClients = allClients.filter((client) => {
         return client.id !== clientId
       })
-
+      
       // Unregister itself when there are no more clients
       if (remainingClients.length === 0) {
         self.registration.unregister()
       }
-
+      
       break
     }
   }
@@ -98,7 +98,7 @@ addEventListener('fetch', function (event) {
   if (event.request.mode === 'navigate') {
     return
   }
-
+  
   // Opening the DevTools triggers the "only-if-cached" request
   // that cannot be handled by the worker. Bypass such requests.
   if (
@@ -107,15 +107,15 @@ addEventListener('fetch', function (event) {
   ) {
     return
   }
-
+  
   // Bypass all requests when there are no active clients.
   // Prevents the self-unregistered worked from handling requests
   // after it's been deleted (still remains active until the next reload).
   if (activeClientIds.size === 0) {
     return
   }
-
-  const requestId = crypto.randomUUID()
+  
+  const requestId = globalThis.crypto.randomUUID()
   event.respondWith(handleRequest(event, requestId))
 })
 
@@ -127,16 +127,16 @@ async function handleRequest(event, requestId) {
   const client = await resolveMainClient(event)
   const requestCloneForEvents = event.request.clone()
   const response = await getResponse(event, client, requestId)
-
+  
   // Send back the response clone for the "response:*" life-cycle events.
   // Ensure MSW is active and ready to handle the message, otherwise
   // this message will pend indefinitely.
   if (client && activeClientIds.has(client.id)) {
     const serializedRequest = await serializeRequest(requestCloneForEvents)
-
+    
     // Clone the response so both the client and the library could consume it.
     const responseClone = response.clone()
-
+    
     sendToClient(
       client,
       {
@@ -156,10 +156,10 @@ async function handleRequest(event, requestId) {
           },
         },
       },
-      responseClone.body ? [serializedRequest.body, responseClone.body] : [],
+      responseClone.body ? [ serializedRequest.body, responseClone.body ] : [],
     )
   }
-
+  
   return response
 }
 
@@ -173,19 +173,19 @@ async function handleRequest(event, requestId) {
  */
 async function resolveMainClient(event) {
   const client = await self.clients.get(event.clientId)
-
+  
   if (activeClientIds.has(event.clientId)) {
     return client
   }
-
+  
   if (client?.frameType === 'top-level') {
     return client
   }
-
+  
   const allClients = await self.clients.matchAll({
     type: 'window',
   })
-
+  
   return allClients
     .filter((client) => {
       // Get only those clients that are currently visible.
@@ -208,12 +208,12 @@ async function getResponse(event, client, requestId) {
   // Clone the request because it might've been already used
   // (i.e. its body has been read and sent to the client).
   const requestClone = event.request.clone()
-
+  
   function passthrough() {
     // Cast the request headers to a new Headers instance
     // so the headers can be manipulated with.
     const headers = new Headers(requestClone.headers)
-
+    
     // Remove the "accept" header value that marked this request as passthrough.
     // This prevents request alteration and also keeps it compliant with the
     // user-defined CORS policies.
@@ -223,22 +223,22 @@ async function getResponse(event, client, requestId) {
       const filteredValues = values.filter(
         (value) => value !== 'msw/passthrough',
       )
-
+      
       if (filteredValues.length > 0) {
         headers.set('accept', filteredValues.join(', '))
       } else {
         headers.delete('accept')
       }
     }
-
+    
     return fetch(requestClone, { headers })
   }
-
+  
   // Bypass mocking when the client is not active.
   if (!client) {
     return passthrough()
   }
-
+  
   // Bypass initial page load requests (i.e. static assets).
   // The absence of the immediate/parent client in the map of the active clients
   // means that MSW hasn't dispatched the "MOCK_ACTIVATE" event yet
@@ -246,7 +246,7 @@ async function getResponse(event, client, requestId) {
   if (!activeClientIds.has(client.id)) {
     return passthrough()
   }
-
+  
   // Notify the client that a request has been intercepted.
   const serializedRequest = await serializeRequest(event.request)
   const clientMessage = await sendToClient(
@@ -258,19 +258,19 @@ async function getResponse(event, client, requestId) {
         ...serializedRequest,
       },
     },
-    [serializedRequest.body],
+    [ serializedRequest.body ],
   )
-
+  
   switch (clientMessage.type) {
     case 'MOCK_RESPONSE': {
       return respondWithMock(clientMessage.data)
     }
-
+    
     case 'PASSTHROUGH': {
       return passthrough()
     }
   }
-
+  
   return passthrough()
 }
 
@@ -283,15 +283,15 @@ async function getResponse(event, client, requestId) {
 function sendToClient(client, message, transferrables = []) {
   return new Promise((resolve, reject) => {
     const channel = new MessageChannel()
-
+    
     channel.port1.onmessage = (event) => {
       if (event.data && event.data.error) {
         return reject(event.data.error)
       }
-
+      
       resolve(event.data)
     }
-
+    
     client.postMessage(message, [
       channel.port2,
       ...transferrables.filter(Boolean),
@@ -311,14 +311,14 @@ function respondWithMock(response) {
   if (response.status === 0) {
     return Response.error()
   }
-
+  
   const mockedResponse = new Response(response.body, response)
-
+  
   Reflect.defineProperty(mockedResponse, IS_MOCKED_RESPONSE, {
     value: true,
     enumerable: true,
   })
-
+  
   return mockedResponse
 }
 

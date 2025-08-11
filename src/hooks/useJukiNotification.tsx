@@ -34,7 +34,7 @@ export const useJukiNotification = () => {
   const addNotification = useCallback((props: NewNotificationType) => dispatch({
     type: NotificationAction.ADD_NOTIFICATION,
     payload: {
-      id: crypto.randomUUID(),
+      id: globalThis.crypto.randomUUID(),
       ...props,
     },
   }), [ dispatch ]);

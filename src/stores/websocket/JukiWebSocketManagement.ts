@@ -314,7 +314,7 @@ export class JukiWebSocketManagement {
       
       this.socket = new WebSocket(this.socketServiceUrl);
       this.eventListeners.forEach(listener => this.socket!.addEventListener(...listener));
-      this.socketId = crypto.randomUUID();
+      this.socketId = globalThis.crypto.randomUUID();
       
       if (typeof window !== 'undefined') {
         // @ts-ignore

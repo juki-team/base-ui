@@ -43,7 +43,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, sample = false }: {
           const noCustomCases = testCasesValues.filter(testCaseValue => testCaseValue.sample);
           const cases = sample ? noCustomCases : customCases;
           if (cases.length < (sample ? 30 : 16)) {
-            const key = crypto.randomUUID();
+            const key = globalThis.crypto.randomUUID();
             const index = mex(cases.map(testCaseValue => testCaseValue.index));
             onChange?.({
               onTestCasesChange: (testCases) => ({
