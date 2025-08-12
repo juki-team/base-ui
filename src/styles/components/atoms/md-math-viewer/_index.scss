@@ -202,10 +202,12 @@
     
     .jk-code-viewer-line-numbers {
       background: var(--t-color-white-light) !important;
+      padding: 0 calc(var(--pad-sm) / 2) 0 0 !important;
     }
     
     code.hljs {
       background: var(--t-color-white-light);
+      padding: 0 0 0 calc(var(--pad-sm) / 2);
     }
   }
 }

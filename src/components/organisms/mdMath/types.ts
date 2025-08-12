@@ -1,4 +1,12 @@
-import { CSSProperties } from 'react';
+import { Status } from '@juki-team/commons';
+import { CSSProperties, Dispatch, SetStateAction } from 'react';
+
+export type TextPlainEditorContentProps = {
+  value: string,
+  onChange: (value: string) => void,
+  setLoader: Dispatch<SetStateAction<Status>>,
+  enableImageUpload: boolean,
+}
 
 export type MdMathEditorDeprecatedProps = {
   initialMd: string,
@@ -13,12 +21,12 @@ export type MdMathEditorDeprecatedProps = {
 }
 
 export interface MdMathEditorProps {
-  md?: string,
-  initialMd?: string,
-  onChange?: (value: string) => void,
+  value: string,
+  onChange: (value: string) => void,
   informationButton?: boolean,
-  uploadImageButton?: boolean,
-  downloadButton?: boolean,
+  enableImageUpload?: boolean,
+  enableDownload?: boolean,
+  enableIA?: boolean,
   className?: string,
 }
 

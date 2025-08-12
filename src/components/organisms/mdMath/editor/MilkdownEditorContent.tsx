@@ -1,5 +1,6 @@
 import { LanguageDescription, LanguageSupport, StreamLanguage } from '@codemirror/language';
 import { languages } from '@codemirror/language-data';
+import { stex } from '@codemirror/legacy-modes/mode/stex';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView } from '@codemirror/view';
 import { CODE_LANGUAGE, CodeLanguage, ProfileSetting, Status, Theme } from '@juki-team/commons';
@@ -10,26 +11,27 @@ import { listener, listenerCtx } from '@milkdown/kit/plugin/listener';
 import { trailing } from '@milkdown/kit/plugin/trailing';
 import { upload, uploadConfig, Uploader } from '@milkdown/kit/plugin/upload';
 import type { Node } from '@milkdown/kit/prose/model';
-import { insert } from '@milkdown/kit/utils';
-import { Milkdown, useEditor, useInstance } from '@milkdown/react';
-import { getMarkdown } from '@milkdown/utils';
+import { Milkdown, useEditor } from '@milkdown/react';
 import { basicSetup } from '@uiw/react-codemirror';
+import * as Viz from '@viz-js/viz';
+import { TFunction } from 'i18next';
+import katex from 'katex';
+import mermaid from 'mermaid';
 import { Decoration } from 'prosemirror-view';
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import { classNames, downloadBlobAsFile, handleUploadImage } from '../../../../helpers';
-import { useJukiNotification, useStableRef, useUserStore } from '../../../../hooks';
+import React, { Dispatch, SetStateAction, useMemo, useRef } from 'react';
+import { v4 } from 'uuid';
+import { handleUploadImage } from '../../../../helpers';
+import { useI18nStore, useJukiNotification, useStableRef, useUserStore } from '../../../../hooks';
 import { NewNotificationType, NotificationType } from '../../../../types';
 import { T } from '../../../atoms';
-import { DownloadIcon, LineLoader } from '../../../atoms/server';
-import { FloatToolbar } from '../../../molecules';
-import { ImageUploaderModal } from '../../ImageUploader/ImageUploaderModal';
 // import '@milkdown/crepe/theme/common/style.css';
 // import '@milkdown/crepe/theme/frame.css';
 
-interface EditorProps {
+interface MilkdownEditorContentProps {
   onChange?: (md: string) => void,
   value: string,
   setLoader: Dispatch<SetStateAction<Status>>,
+  enableImageUpload: boolean,
 }
 
 export const defaultLightThemeOption = EditorView.theme(
@@ -131,6 +133,23 @@ const myLanguages = [
     load: () => import('@codemirror/lang-markdown').then((m) => m.markdown()),
   }),
   LanguageDescription.of({
+    ...languages.find((language) => language.name === 'LaTeX'),
+    name: CodeLanguage.LATEX,
+    support: new LanguageSupport(StreamLanguage.define(stex)),
+  }),
+  LanguageDescription.of({
+    name: CodeLanguage.MERMAID,
+    alias: [ 'mermaid' ],
+    extensions: [ 'mmd', 'mermaid' ],
+    support: plainTextSupport,
+  }),
+  LanguageDescription.of({
+    name: CodeLanguage.DOT,
+    alias: [ 'dot' ],
+    extensions: [ 'dot' ],
+    load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
+  }),
+  LanguageDescription.of({
     name: CodeLanguage.TEXT,
     alias: [ 'plaintext' ],
     extensions: [ 'txt', 'text' ],
@@ -138,11 +157,80 @@ const myLanguages = [
   }),
 ];
 
-const Editor = ({ value, onChange, setLoader }: EditorProps) => {
+function renderLatex(content: string, options: {}) {
+  const html = katex.renderToString(content, {
+    ...options,
+    throwOnError: false,
+    displayMode: true,
+  });
+  return html;
+}
+
+function renderMermaid(content: string): HTMLElement {
+  const container = document.createElement('div');
+  container.className = 'mermaid';
+  container.innerHTML = content;
+  
+  setTimeout(() => mermaid.run({ querySelector: '.mermaid' }), 0);
+  
+  return container;
+}
+
+function renderDot(content: string, t: TFunction): HTMLElement {
+  
+  const container = document.createElement('div');
+  const newId = v4();
+  container.id = newId;
+  
+  const loader = document.createElement('div');
+  loader.textContent = t('loading graph');
+  loader.style.fontStyle = 'italic';
+  container.appendChild(loader);
+  
+  Viz
+    .instance()
+    .then(viz => {
+      try {
+        const svg = viz.renderSVGElement(content, {});
+        const container = document.getElementById(newId);
+        if (container) {
+          container.innerHTML = '';
+          container.appendChild(svg);
+        }
+      } catch (error) {
+        const container = document.getElementById(newId);
+        if (container) {
+          container.innerHTML = '';
+          const errorDiv = document.createElement('div');
+          errorDiv.textContent = `${t('error rendering graph')}: ${(error as Error)?.message || error}`;
+          errorDiv.style.color = 'red';
+          errorDiv.style.whiteSpace = 'pre-wrap';
+          container.appendChild(errorDiv);
+        }
+      }
+    })
+    .catch(error => {
+      const container = document.getElementById(newId);
+      if (container) {
+        container.innerHTML = '';
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = `${t('error initializing Viz.js')}: ${error?.message || error}`;
+        errorDiv.style.color = 'red';
+        container.appendChild(errorDiv);
+      }
+    });
+  
+  return container;
+}
+
+export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEditorContentProps) => {
   
   const onChangeRef = useStableRef(onChange);
   const { addNotification } = useJukiNotification();
   const theme = useUserStore(store => store.user.settings[ProfileSetting.THEME]);
+  const currentMd = useRef(value);
+  const triggerRender = useMemo(() => value === currentMd.current ? 0 : Date.now(), [ value ]);
+  const t = useI18nStore(store => store.i18n.t);
   
   useEditor((root) => {
     return new Crepe({
@@ -178,13 +266,12 @@ const Editor = ({ value, onChange, setLoader }: EditorProps) => {
       .use(cursor)
       .config((ctx) => {
         const listener = ctx.get(listenerCtx);
-        
         listener.markdownUpdated((_, markdown, prevMarkdown) => {
           if (markdown !== prevMarkdown) {
             onChangeRef.current?.(markdown);
+            currentMd.current = markdown;
           }
         });
-        
         ctx.update(uploadConfig.key, (prev) => ({
           ...prev,
           uploader: uploader(setLoader, addNotification),
@@ -200,99 +287,26 @@ const Editor = ({ value, onChange, setLoader }: EditorProps) => {
             basicSetup(),
             ...(theme === Theme.DARK ? [ oneDark ] : [ defaultLightThemeOption ]),
           ],
+          previewToggleButton: () => 'edit',
+          renderPreview: (language, content) => {
+            if (language.toLowerCase() === 'latex' && content.length > 0) {
+              return renderLatex(content, {}/*config == null ? void 0 : ctx.katexOptions*/);
+            }
+            if (language.toLowerCase() === 'mermaid' && content.length > 0) {
+              return renderMermaid(content);
+            }
+            if (language.toLowerCase() === 'dot' && content.length > 0) {
+              return renderDot(content, t);
+            }
+            return null;
+          },
         }));
       });
-  }, [ value, theme ]);
-  
-  return <Milkdown />;
-};
-
-const ImageUploader = () => {
-  
-  const [ isLoading, getInstance ] = useInstance();
-  const [ openImageModal, setOpenImageModal ] = useState(false);
+  }, [ triggerRender, theme ]);
   
   return (
-    <ImageUploaderModal
-      isOpen={openImageModal}
-      onClose={() => setOpenImageModal(false)}
-      copyButtons
-      onPickImageUrl={({ imageUrl }) => {
-        if (isLoading) return;
-        
-        const editor = getInstance();
-        if (!editor) return;
-        
-        editor.action(insert(`![image](${imageUrl})`));
-        setOpenImageModal(false);
-      }}
-    />
-  );
-};
-
-const DownloadToolbar = () => {
-  
-  const [ _, getInstance ] = useInstance();
-  
-  return (
-    <FloatToolbar
-      actionButtons={[ {
-        icon: <DownloadIcon />,
-        buttons: [
-          // TODO:
-          // {
-          //   icon: <DownloadIcon />,
-          //   label: <T>pdf</T>,
-          //   onClick: handleShareMdPdf('pdf', source, sourceUrl, setSourceUrl, userTheme),
-          // },
-          {
-            icon: <DownloadIcon />,
-            label: <T>md</T>,
-            onClick: () => downloadBlobAsFile(new Blob([ getInstance()?.action(getMarkdown()) ?? '' ], { type: 'text/plain' }), 'file.md'),
-          },
-        ],
-      } ]}
-      placement="rightTop"
-    />
-  );
-};
-
-interface MilkdownEditorContentProps extends Omit<EditorProps, 'setLoader'> {
-  className?: string,
-  downloadButton?: boolean,
-}
-
-export const MilkdownEditorContent = ({ value, onChange, className, downloadButton }: MilkdownEditorContentProps) => {
-  
-  const [ loader, setLoader ] = useState(Status.NONE);
-  
-  return (
-    <div className={classNames('jk-milkdown-editor jk-md-math wh-100 pn-re', className)}>
-      {loader === Status.LOADING && <LineLoader />}
-      {loader === Status.LOADING && (
-        <div className="jk-loader-layer pn-ae jk-col">
-          <div className="jk-loader-layer pn-ae jk-overlay-backdrop" style={{ opacity: 0.8, zIndex: 1 }}></div>
-          <div
-            className="jk-row"
-            style={{
-              zIndex: 1,
-              position: 'sticky',
-              margin: '0 auto',
-              top: 0,
-              bottom: '50%',
-              transform: 'translate(0, 100%)',
-            }}
-          >
-            <div className="jk-row bc-we jk-pg-sm jk-br-ie" style={{ alignItems: 'baseline' }}>
-              <T className="tt-se">uploading images</T> &nbsp;
-              <div className="dot-flashing" />
-            </div>
-          </div>
-        </div>
-      )}
-      {downloadButton && <DownloadToolbar />}
-      <ImageUploader />
-      <Editor value={value} onChange={onChange} setLoader={setLoader} />
+    <div className="jk-input-milkdown jk-md-math-milkdown-editor jk-md-math wh-100 pn-re jk-br-ie">
+      <Milkdown />
     </div>
   );
 };

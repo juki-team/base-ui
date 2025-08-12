@@ -174,8 +174,9 @@ export const HorizontalMenu = () => (
       >
         <div>
           <MdMathEditor
-            initialMd={SAMPLE_MD_CONTENT}
-            uploadImageButton
+            value={SAMPLE_MD_CONTENT}
+            onChange={() => {
+            }}
             informationButton
           />
           <ButtonN />

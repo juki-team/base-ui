@@ -8,17 +8,27 @@
   }
 }
 
-.jk-milkdown-editor {
-  //padding: var(--pad-sm);
+.jk-md-math-milkdown-editor {
+  //background: none !important;
+  
+  &:hover, &:active, &:focus {
+    --input-background-color: var(--t-color-highlight-light);
+    
+    .milkdown {
+      //--crepe-color-background: var(--t-color-highlight-light);
+    }
+  }
   
   .milkdown {
+    padding: var(--pad-sm);
     /* Font Families */
     --crepe-font-title: var(--font-primary), Georgia, Cambria, "Times New Roman", Times, serif;
     --crepe-font-default: var(--font-primary), "Open Sans", Arial, Helvetica, sans-serif;
     --crepe-font-code: var(--font-code), Fira Code, Menlo, Monaco, "Courier New", Courier, monospace;
     
     /* Background Colors */
-    --crepe-color-background: var(--t-color-white); /* Main background color */
+    //--crepe-color-background: var(--t-color-white); /* Main background color */
+    --crepe-color-background: transparent; /* Main background color */
     --crepe-color-surface: var(--t-color-white-darkest); /* Surface color for cards/panels */
     --crepe-color-surface-low: var(--t-color-white-dark); /* Lower surface color for depth */
     
@@ -33,7 +43,7 @@
     --crepe-color-on-secondary: var(--t-color-text-highlight-light); /* Text color on secondary */
     
     /* UI Colors */
-    --crepe-color-outline: var(--t-color-primary-dark); /* Border/outline color */
+    --crepe-color-outline: var(--t-color-highlight); /* Border/outline color */
     --crepe-color-inverse: #362F27; /* Inverse color for contrast */
     --crepe-color-on-inverse: #FCEFE2; /* Text color on inverse */
     --crepe-color-inline-code: #BA1A1A; /* Inline code color */

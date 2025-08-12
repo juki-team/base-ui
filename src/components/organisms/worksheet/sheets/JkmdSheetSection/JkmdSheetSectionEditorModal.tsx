@@ -42,9 +42,8 @@ export const JkmdSheetSectionEditorModal = ({
         </div>
         <div className="flex-1 jk-md-math-editor-expanded">
           <MdMathEditor
-            uploadImageButton
             informationButton
-            initialMd={sheet.content}
+            value={sheet.content}
             onChange={content => setSheet(prevState => ({ ...prevState, content }))}
           />
         </div>

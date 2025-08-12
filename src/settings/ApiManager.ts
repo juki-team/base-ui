@@ -617,6 +617,14 @@ export class ApiManager {
           body: JSON.stringify(body),
         })),
       },
+      ia: {
+        chatCompletions: valid<{ body: { content: string, connectionId: string } }, HTTPMethod.POST
+        >(({ body }) => ({
+          url: injectBaseUrl('ia', '/chat/completions'),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+      },
       company: {
         get: valid<
           { params: { companyKey: string } } | void

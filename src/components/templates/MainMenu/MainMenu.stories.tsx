@@ -64,8 +64,9 @@ const meta: Meta<typeof MainMenuCmp> = {
             </div>
             <div className="bc-we">
               <MdMathEditor
-                initialMd={SAMPLE_MD_CONTENT}
-                uploadImageButton
+                value={SAMPLE_MD_CONTENT}
+                onChange={() => {
+                }}
                 informationButton
               />
             </div>

@@ -76,7 +76,7 @@ export const QuizOptionsSheetSectionEditor = ({
       <div className="jk-col stretch">
         <T className="tt-se fw-bd">description</T>
         <MdMathEditor
-          initialMd={content.description}
+          value={content.description}
           onChange={(description) => setContent(prevState => ({ ...prevState, description }))}
         />
       </div>
@@ -114,7 +114,7 @@ export const QuizOptionsSheetSectionEditor = ({
               />}
             <MdMathEditor
               className="wh-100"
-              initialMd={option.label}
+              value={option.label}
               onChange={(label) => {
                 setContent((prevState) => {
                   const newOptions = [ ...prevState.options ];

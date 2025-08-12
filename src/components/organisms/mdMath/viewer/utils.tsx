@@ -34,7 +34,7 @@ export const getCommands = (text: string): [ CommandsObjectType, string ] => {
       } else if (key === 'size') {
         // commandsObject[key] = keys[key](value);
       } else if (key === 'height') {
-        // commandsObject[key] = keys[key](value);
+        commandsObject[key] = keys[key](value);
       } else if (key === 'theme') {
         commandsObject[key] = keys[key](value);
       } else if (key === 'lang') {

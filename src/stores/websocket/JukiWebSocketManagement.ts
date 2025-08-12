@@ -8,6 +8,7 @@ import {
   ContentResponseType,
   getWebSocketResponseEventKey,
   isPingWebSocketEventDTO,
+  isSubscribeChatCompletionsDataWebSocketEventDTO,
   isSubscribeCodeRunStatusWebSocketEventDTO,
   isSubscribeProblemCrawledWebSocketEventDTO,
   isSubscribeSenDataEc2InstancesListWebSocketEventDTO,
@@ -232,6 +233,9 @@ export class JukiWebSocketManagement {
     }
     if (isSubscribeProblemCrawledWebSocketEventDTO(event)) {
       return getWebSocketResponseEventKey(WebSocketResponseEvent.PROBLEM_CRAWLED, event.sessionId, event.problemKey);
+    }
+    if (isSubscribeChatCompletionsDataWebSocketEventDTO(event)) {
+      return getWebSocketResponseEventKey(WebSocketResponseEvent.CHAT_COMPLETIONS_RESPONSE, event.sessionId, '*');
     }
     
     return '' as WebSocketResponseEventKey;

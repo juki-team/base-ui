@@ -146,8 +146,10 @@ export const VerticalMenu = () => (
     >
       <div>
         <MdMathEditor
-          initialMd={SAMPLE_MD_CONTENT}
-          uploadImageButton
+          value={SAMPLE_MD_CONTENT}
+          onChange={() => {
+          }}
+          enableDownload
           informationButton
         />
       </div>

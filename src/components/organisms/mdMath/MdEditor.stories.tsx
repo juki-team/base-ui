@@ -24,7 +24,7 @@ const Cmp = (props: MdMathEditorProps) => {
     <MockupJukiProvider>
       <div style={{ padding: '50px' }} className="jk-row gap nowrap top wh-100 ht-100">
         <div style={{ width: '45%', border: '1pxsolid red' }}>
-          <MdMathEditor {...props} initialMd={md} onChange={setMd} />
+          <MdMathEditor {...props} value={md} onChange={setMd} />
         </div>
         <MdMathViewer source={md} style={{ width: '45%', border: '1pxsolid red' }} />
         {/*<MdMathEditor initialMd={md} className="ow-ao flex-2" />*/}
