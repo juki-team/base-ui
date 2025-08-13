@@ -92,8 +92,8 @@ export class AppRoutes {
         view({ key, page = 1 }: { key: string, page?: number }) {
           return injectOrigin(origin, igu(`/worksheets/${key}${page ? `?page=${page}` : ''}`));
         },
-        edit({ key, tab }: { key: string, tab: WorksheetTab, }) {
-          return injectOrigin(origin, igu(`/worksheets/${key}/edit?tab=${tab}`));
+        edit({ key, tab, from }: { key: string, tab: WorksheetTab, from?: string }) {
+          return injectOrigin(origin, igu(`/worksheets/${key}/edit?tab=${tab}${from ? `&from=${from}` : ''}`));
         },
         new() {
           return injectOrigin(origin, igu(`/worksheets/new`));
