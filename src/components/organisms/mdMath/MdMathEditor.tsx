@@ -10,13 +10,12 @@ import { insert } from '@milkdown/kit/utils';
 import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { authorizedRequest, classNames, cleanRequest, downloadBlobAsFile } from '../../../helpers';
+import { authorizedRequest, classNames, cleanRequest, downloadBlobAsFile, upperFirst } from '../../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
 import { Modal, T, TextArea } from '../../atoms';
-import { BasicModalProps } from '../../atoms/Modal/types';
 import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon } from '../../atoms/server';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
 import { ImageUploaderModal } from '../ImageUploader/ImageUploaderModal';
@@ -41,7 +40,7 @@ enum ChatRole {
   USER = 'USER',
 }
 
-const IAModal = ({ ...rest }: BasicModalProps) => {
+const IAModalContent = () => {
   
   const [ value, setValue ] = useState('');
   const [ chat, setChat ] = useState<{ content: string, user: ChatRole }[]>([]);
@@ -70,56 +69,54 @@ const IAModal = ({ ...rest }: BasicModalProps) => {
   }, [ sessionId, websocket ]);
   
   return (
-    <Modal {...rest} closeIcon>
-      <div className="jk-pg jk-col gap stretch">
-        <h3><T>Juki Redactor Agent</T></h3>
-        <div className="jk-col gap">
-          {chat.map((chat) => (
-            <div
-              className="jk-pg-sm bc-hl jk-br-ie"
-              style={{
-                maxWidth: '60%',
-                whiteSpace: 'break-spaces',
-                alignSelf: chat.user === ChatRole.IA ? 'start' : 'end',
-              }}
-            >
-              {chat.content}
-            </div>
-          ))}
-        </div>
-        <div className="jk-row gap nowrap wh-100 sticky-bottom jk-pg-sm bc-we jk-br-ie stretch">
-          <TextArea value={value} onChange={setValue} placeholder={t('ask something')} />
-          <ButtonLoader
-            icon={<SendIcon />}
-            onClick={async (setLoader) => {
-              setLoader(Status.LOADING);
-              try {
-                const { url, ...options } = jukiApiManager.API_V1.ia.chatCompletions({
-                  body: {
-                    content: value,
-                    connectionId,
-                  },
-                });
-                const request = cleanRequest<ContentResponseType<{}>>(
-                  await authorizedRequest(url, options),
-                );
-                if (request?.success) {
-                  setChat(prevState => [ ...prevState, { content: value, user: ChatRole.USER } ]);
-                  setValue('');
-                  setLoader(Status.SUCCESS);
-                } else {
-                  consoleWarn('run code request failed', { request });
-                  setLoader(Status.ERROR);
-                }
-              } catch (error) {
-                consoleWarn('error on run code', { error });
+    <div className="jk-pg jk-col gap stretch">
+      <h3><T>Juki Redactor Agent</T></h3>
+      <div className="jk-col gap">
+        {chat.map((chat) => (
+          <div
+            className="jk-pg-sm bc-hl jk-br-ie"
+            style={{
+              maxWidth: '60%',
+              whiteSpace: 'break-spaces',
+              alignSelf: chat.user === ChatRole.IA ? 'start' : 'end',
+            }}
+          >
+            {chat.content}
+          </div>
+        ))}
+      </div>
+      <div className="jk-row gap nowrap wh-100 sticky-bottom jk-pg-sm bc-we jk-br-ie stretch">
+        <TextArea value={value} onChange={setValue} placeholder={upperFirst(t('ask something'))} />
+        <ButtonLoader
+          icon={<SendIcon />}
+          onClick={async (setLoader) => {
+            setLoader(Status.LOADING);
+            try {
+              const { url, ...options } = jukiApiManager.API_V1.ia.chatCompletions({
+                body: {
+                  content: value,
+                  connectionId,
+                },
+              });
+              const request = cleanRequest<ContentResponseType<{}>>(
+                await authorizedRequest(url, options),
+              );
+              if (request?.success) {
+                setChat(prevState => [ ...prevState, { content: value, user: ChatRole.USER } ]);
+                setValue('');
+                setLoader(Status.SUCCESS);
+              } else {
+                consoleWarn('run code request failed', { request });
                 setLoader(Status.ERROR);
               }
-            }}
-          />
-        </div>
+            } catch (error) {
+              consoleWarn('error on run code', { error });
+              setLoader(Status.ERROR);
+            }
+          }}
+        />
       </div>
-    </Modal>
+    </div>
   );
 };
 
@@ -130,7 +127,9 @@ const Toolbar = ({ enableDownload, enableTextPlain, setMode, mode, enableIA }: T
   
   return (
     <>
-      <IAModal isOpen={openModalIA} onClose={() => setOpenModalIA(false)} />
+      <Modal isOpen={openModalIA} onClose={() => setOpenModalIA(false)} closeIcon>
+        <IAModalContent />
+      </Modal>
       <FloatToolbar
         actionButtons={[
           ...(enableTextPlain ? [ {
