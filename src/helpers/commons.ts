@@ -8,14 +8,11 @@ import {
   stringToArrayBuffer,
   Theme,
 } from '@juki-team/commons';
-import { diff } from 'deep-object-diff';
 import { Children, cloneElement, isValidElement, PropsWithChildren, ReactNode, RefObject } from 'react';
 import { jukiApiManager } from '../settings';
 import { SheetDataType, TriggerActionsType } from '../types';
 import { authorizedRequest } from './fetch';
 import { getXLSX } from './xlsx';
-
-export const objectDiff = diff;
 
 export { cleanRequest } from '@juki-team/commons';
 

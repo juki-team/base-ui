@@ -1,5 +1,5 @@
 import { CodeLanguage } from '@juki-team/commons';
-import { diff } from 'deep-object-diff';
+import microDiff from 'microdiff';
 import React, { useEffect, useRef } from 'react';
 import { T } from '../components/atoms/T/T';
 import { CodeEditor } from '../components/molecules/CodeEditor/CodeEditor';
@@ -19,7 +19,7 @@ export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {
   useEffect(() => {
     if (enable && initialEntityString !== JSON.stringify(lastEntity.current)) {
       const initialEntity = JSON.parse(initialEntityString);
-      const text = JSON.stringify(diff(lastEntity.current as object, initialEntity), null, 2);
+      const text = JSON.stringify(microDiff(lastEntity.current as object, initialEntity), null, 2);
       const height = text.split('\n').length;
       addWarningNotification(
         <div className="jk-notification-message-body">

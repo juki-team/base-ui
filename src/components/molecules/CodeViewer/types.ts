@@ -9,6 +9,7 @@ export interface CodeViewerProps {
   // withCopyButton?: boolean,
   // withLanguageLabel?: boolean,
   style?: CSSProperties,
+  maxHeight?: string | number,
 }
 
 export type CodeViewerDeprecatedProps = CodeViewerProps;

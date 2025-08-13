@@ -1734,10 +1734,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@juki-team/commons@^0.0.871":
-  version "0.0.871"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.871/a9882b2460d37c2b4979ba90fe2f55babb6a34f0#a9882b2460d37c2b4979ba90fe2f55babb6a34f0"
-  integrity sha512-fEP9GnYZoFc9+AgetRKdjkLzOcYqN6rzFhSOmbB94zdDdmQ/PgdaOuExuu96S0HpSGSjOUhAxbwMx3EV1uls1g==
+"@juki-team/commons@^0.0.873":
+  version "0.0.873"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.873/495718eb61340e9e8750c47524feaf8aa055985f#495718eb61340e9e8750c47524feaf8aa055985f"
+  integrity sha512-QFhA5mNpCfAp6epjBhu3//ZyaBSh9BkrErUPNQMyr/7UQxTb8J4msnKbg1C1XgUSH33GQXNxRQTz5lTL/xQgUQ==
 
 "@lezer/common@^0.15.0", "@lezer/common@^0.15.5":
   version "0.15.12"
@@ -5384,11 +5384,6 @@ deep-equal@^2.0.5:
     which-collection "^1.0.1"
     which-typed-array "^1.1.13"
 
-deep-object-diff@^1.1.9:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/deep-object-diff/-/deep-object-diff-1.1.9.tgz#6df7ef035ad6a0caa44479c536ed7b02570f4595"
-  integrity sha512-Rn+RuwkmkDwCi2/oXOFS9Gsr5lJZu/yTGpK7wAaAIE75CC+LCGEZHpY6VQJa/RoJcrmaA/docWJZvYohlNkWPA==
-
 deepmerge@^4.2.2:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.3.1.tgz#44b5f2147cd3b00d4b56137685966f26fd25dd4a"
@@ -5495,6 +5490,11 @@ diff@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-7.0.0.tgz#3fb34d387cd76d803f6eebea67b921dab0182a9a"
   integrity sha512-PJWHUb1RFevKCwaFA9RlG5tCd+FO5iRh9A8HEtkmBH2Li03iJriB6m6JIN4rGz3K3JLawI7/veA1xzRKP6ISBw==
+
+diff@^8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/diff/-/diff-8.0.2.tgz#712156a6dd288e66ebb986864e190c2fc9eddfae"
+  integrity sha512-sSuxWU5j5SR9QQji/o2qMvqRNYRDOcBTgsJ/DeCf4iSN4gW+gNMXM7wFIP+fdXZxoNiAnHUTGjCr+TSWXdRDKg==
 
 diffie-hellman@^5.0.3:
   version "5.0.3"
@@ -7845,6 +7845,11 @@ mermaid@^11.9.0:
     stylis "^4.3.6"
     ts-dedent "^2.2.0"
     uuid "^11.1.0"
+
+microdiff@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/microdiff/-/microdiff-1.5.0.tgz#d16219b223396f11ffcf441da26a43d3e6bd06f8"
+  integrity sha512-Drq+/THMvDdzRYrK0oxJmOKiC24ayUV8ahrt8l3oRK51PWt6gdtrIGrlIH3pT/lFh1z93FbAcidtsHcWbnRz8Q==
 
 micromark-core-commonmark@^2.0.0:
   version "2.0.3"

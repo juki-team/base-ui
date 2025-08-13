@@ -2,6 +2,7 @@ import { CODE_LANGUAGE } from '@juki-team/commons';
 import hljs from 'highlight.js';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
+import diff from 'highlight.js/lib/languages/diff';
 import java from 'highlight.js/lib/languages/java';
 import javascript from 'highlight.js/lib/languages/javascript';
 import json from 'highlight.js/lib/languages/json';
@@ -19,6 +20,7 @@ hljs.registerLanguage('json', json);
 hljs.registerLanguage('java', java);
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('python', python);
+hljs.registerLanguage('diff', diff);
 
 export const CodeViewer = (props: CodeViewerProps) => {
   
@@ -28,6 +30,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
     lineNumbers = true,
     height,
     style,
+    maxHeight,
   } = props;
   
   const codeRef = useRef<HTMLElement>(null);
@@ -55,7 +58,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
       className={classNames('jk-code-viewer jk-br-ie br-g6', { 'line-numbers': lineNumbers })}
       style={style}
     >
-      <div className="jk-code-viewer-content jk-row nowrap top jk-br-ie">
+      <div className="jk-code-viewer-content jk-row nowrap top jk-br-ie" style={{ maxHeight }}>
         {lineNumbers && (
           <div className="jk-code-viewer-line-numbers">
             {lines.map((_, i) => <div style={{ '--line-index': i } as CSSProperties}>{i + 1}</div>)}
@@ -68,7 +71,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
           <code
             ref={codeRef}
             key={language}
-            className={`language-${CODE_LANGUAGE[language]?.codeMirrorKey || 'plaintext'}`}
+            className={`language-${CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext'}`}
             style={{ minHeight: lines.length * 24 }}
           >
             {code}

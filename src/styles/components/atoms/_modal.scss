@@ -29,7 +29,7 @@
     position: relative;
     max-width: var(--modal-width-lg);
     min-width: var(--modal-width-sm);
-    max-height: calc(var(--vh, 1vh) * 90);
+    max-height: var(--modal-max-height);
     overflow: auto;
     
     .jk-modal-close-button {

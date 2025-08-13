@@ -25,7 +25,7 @@ export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) =>
       {...rest}
     >
       <div className="jk-col stretch jk-pg gap">
-        <div className="modal-alert-title cr-py jk-col">
+        <div className="modal-alert-title cr-py jk-col gap">
           <ExclamationIcon filledCircle className="cr-er" size="large" />
           <h3 className="cr-er">
             {title}
@@ -34,7 +34,7 @@ export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) =>
         <div className="modal-alert-content wh-100">
           {children}
         </div>
-        <div className={classNames('modal-alert-actions jk-row-col gap right', { nowrap: viewPortSize !== 'sm' })}>
+        <div className={classNames('jk-row-col gap right wh-100', { nowrap: viewPortSize !== 'sm' })}>
           {secondary && (
             <ButtonLoader
               onClick={secondary.onClick}
