@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { SAMPLE_MD_CONTENT } from './constants';
-import { MdMathEditorDeprecated as MdMathEditorComponent } from './MdMathEditorDeprecated';
+import { MdMathEditorDeprecated as MdMathEditorComponent } from './MdMathEditor.deprecated';
 import { MdMathEditorDeprecatedProps } from './types';
 
 const meta: Meta<typeof MdMathEditorComponent> = {

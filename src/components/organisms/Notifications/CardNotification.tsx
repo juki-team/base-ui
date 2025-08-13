@@ -3,12 +3,11 @@ import { classNames, getTextContent } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { usePageStore } from '../../../stores/page/usePageStore';
-import { NotificationType } from '../../../types';
+import { CardNotificationProps, NotificationType } from '../../../types';
 import { CloseIcon } from '../../server';
 import { NOTIFICATION_ICON } from './constants';
-import { CardNotificationProps } from './types';
 
-export const CardNotification = ({ id, type, message }: CardNotificationProps) => {
+export const CardNotification = ({ ids, type, message }: CardNotificationProps) => {
   
   const [ exit, setExit ] = useState(false);
   const [ width, setWidth ] = useState(0);
@@ -27,7 +26,7 @@ export const CardNotification = ({ id, type, message }: CardNotificationProps) =
         setExit(true);
         return prev;
       });
-    }, 50);
+    }, 100);
     if (intervalIDRef.current) {
       clearInterval(intervalIDRef.current);
     }
@@ -57,11 +56,16 @@ export const CardNotification = ({ id, type, message }: CardNotificationProps) =
     };
   }, [ handleStartTimer, isPageVisible, isPageFocus ]);
   
+  const idsString = JSON.stringify(ids);
   useEffect(() => {
     if (exit) {
-      setTimeout(() => removeNotification(id), 400);
+      setTimeout(() => {
+        for (const id of JSON.parse(idsString)) {
+          removeNotification(id);
+        }
+      }, 400);
     }
-  }, [ exit, id, removeNotification ]);
+  }, [ exit, idsString, removeNotification ]);
   
   return (
     <div
@@ -72,7 +76,7 @@ export const CardNotification = ({ id, type, message }: CardNotificationProps) =
       className={classNames('jk-notification-item-container', type, { exit })}
       style={type === NotificationType.QUIET && viewPortSize !== 'sm' ? { '--width-notification': `${getTextContent(message).length * 8 + 26}px` } as CSSProperties : {}}
     >
-      <div className={classNames('jk-notification-item elevation-2 jk-br-ie')}>
+      <div className={classNames('jk-notification-item jk-pg-xsm elevation-2 jk-br-ie')}>
         {NOTIFICATION_ICON[type]}
         <div className="jk-row stretch space-between nowrap flex-1">
           <div
@@ -84,12 +88,12 @@ export const CardNotification = ({ id, type, message }: CardNotificationProps) =
             {typeof message === 'string' ? <span className="tt-se">{message}</span> : message}
           </div>
           <div className="jk-col">
-            <div className={classNames('jk-button light only-icon', { tiny: type === 'quiet' })}>
+            <div className={classNames('jk-button light only-icon jk-br-ie', { tiny: type === 'quiet' })}>
               <CloseIcon onClick={() => setExit(true)} />
             </div>
           </div>
         </div>
-        <div className="bar" style={{ width: `${width}%` }} />
+        <div className="bar jk-br-ie" style={{ width: `${width}%` }} />
       </div>
     </div>
   );

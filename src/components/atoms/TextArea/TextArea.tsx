@@ -11,12 +11,14 @@ export const TextAreaComponent = ({
                                     onBlur,
                                     disabled,
                                     rows,
+                                    ...rest
                                   }: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement>) => {
   
   const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
   
   return (
     <textarea
+      {...rest}
       {...restRegister}
       ref={registerRef ?? ref}
       className={classNames('jk-pg-sm jk-input-textarea jk-border-radius-inline wh-100', className, { disabled: !!disabled })}

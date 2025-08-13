@@ -38,7 +38,7 @@ export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<Worksh
           setSheet((sheet) => {
             const newSheet = [ ...sheet ];
             const newContent = typeof value === 'function' ? value(newSheet[index]) : value;
-            newSheet.splice(index, 1, newContent);
+            newSheet.splice(index, 1, structuredClone(newContent));
             return newSheet;
           });
         } : undefined;

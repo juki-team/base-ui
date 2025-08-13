@@ -11,6 +11,7 @@ export interface CmpTextAreaProps {
   onBlur?: () => void,
   disabled?: boolean,
   rows?: number,
+  placeholder?: string,
 }
 
 export type TextAreaProps = ComponentPropsWithRef<typeof TextArea>;

@@ -9,12 +9,13 @@ import { SubscribeChatCompletionsDataWebSocketEventDTO } from '@juki-team/common
 import { insert } from '@milkdown/kit/utils';
 import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
-import React, { Dispatch, memo, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { authorizedRequest, classNames, cleanRequest, downloadBlobAsFile } from '../../../helpers';
 import { jukiApiManager } from '../../../settings';
+import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
-import { InputTextArea, Modal, T } from '../../atoms';
+import { Modal, T, TextArea } from '../../atoms';
 import { BasicModalProps } from '../../atoms/Modal/types';
 import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon } from '../../atoms/server';
 import { ButtonLoader, FloatToolbar } from '../../molecules';
@@ -46,6 +47,7 @@ const IAModal = ({ ...rest }: BasicModalProps) => {
   const websocket = useWebsocketStore(store => store.websocket);
   const connectionId = useWebsocketStore(store => store.connectionId);
   const sessionId = useUserStore(store => store.user.sessionId);
+  const t = useI18nStore(store => store.i18n.t);
   
   useEffect(() => {
     const event: SubscribeChatCompletionsDataWebSocketEventDTO = {
@@ -67,7 +69,7 @@ const IAModal = ({ ...rest }: BasicModalProps) => {
   }, [ sessionId, websocket ]);
   
   return (
-    <Modal {...rest}>
+    <Modal {...rest} closeIcon>
       <div className="jk-pg jk-col gap stretch">
         <h3><T>Juki Redactor Agent</T></h3>
         <div className="jk-col gap">
@@ -84,8 +86,8 @@ const IAModal = ({ ...rest }: BasicModalProps) => {
             </div>
           ))}
         </div>
-        <div className="jk-row gap nowrap wh-100">
-          <InputTextArea value={value} onChange={setValue} expand />
+        <div className="jk-row gap nowrap wh-100 sticky-bottom jk-pg-sm bc-we jk-br-ie stretch">
+          <TextArea value={value} onChange={setValue} placeholder={t('ask something')} />
           <ButtonLoader
             icon={<SendIcon />}
             onClick={async (setLoader) => {
@@ -199,14 +201,14 @@ const ImageUploader = ({ mode }: { mode: Mode }) => {
   );
 };
 
-export const MdMathEditor = memo(({
-                                    value,
-                                    onChange,
-                                    className,
-                                    enableDownload = false,
-                                    enableImageUpload = true,
-                                    enableIA = true,
-                                  }: MdMathEditorProps) => {
+export const MdMathEditor = ({
+                               value,
+                               onChange,
+                               className,
+                               enableDownload = false,
+                               enableImageUpload = true,
+                               enableIA = true,
+                             }: MdMathEditorProps) => {
   
   const [ loader, setLoader ] = useState(Status.NONE);
   const [ mode, setMode ] = useState(Mode.WYSIWYG);
@@ -257,11 +259,4 @@ export const MdMathEditor = memo(({
       </div>
     </MilkdownProvider>
   );
-}, (prevProps, nextProps) => {
-  return (
-    prevProps.value === nextProps.value &&
-    prevProps.enableImageUpload === nextProps.enableImageUpload &&
-    prevProps.enableDownload === nextProps.enableDownload &&
-    prevProps.className === nextProps.className
-  );
-});
+};

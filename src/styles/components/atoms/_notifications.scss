@@ -74,12 +74,12 @@
     }
     
     .jk-notification-item {
-      padding: var(--pad-xt);
-      @include mixins.sm { padding: 2px 4px; }
+      //padding: var(--pad-xt);
+      //@include mixins.sm { padding: 2px 4px; }
       
       .jk-notification-message-content {
         justify-content: center;
-        padding: var(--pad-xt);
+        //padding: var(--pad-xt);
         
         .jk-notification-message-body {
           width: calc(var(--width-notification) - var(--pad-xt) * 6 - var(--size-regular-icon) - 32px);

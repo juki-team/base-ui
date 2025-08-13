@@ -112,25 +112,26 @@ for (let {
   const folders = depth === 0 ?
     [ dir.split('/').slice(-1) ] :
     fs.readdirSync(dir)
-      .filter(name => fs.statSync(path.join(dir, name)).isDirectory());
+      .filter(name => fs.statSync(path.join(dir, name)).isDirectory())
+      .filter(name => !name.includes('.deprecated.'));
   if (depth === 0) {
     dir = dir.replace('/' + folders[0], '');
   }
   
-  const files = (cmpIndex ? folders.map(folder => ({path: '.', file: folder}))
+  const files = (cmpIndex ? folders.map(folder => ({ path: '.', file: folder }))
       : (folders
         .map(baseFolder => fs.readdirSync(dir + '/' + baseFolder)
-          .map(folder => ({path: `./${baseFolder}/${folder}`, file: folder}))
+          .map(folder => ({ path: `./${baseFolder}/${folder}`, file: folder }))
         )
         .flat()
-        .filter(({file}) => /^[A-Z]/.test(file) && file.endsWith('.tsx') && !file.endsWith('.stories.tsx')))
+        .filter(({ file }) => /^[A-Z]/.test(file) && file.endsWith('.tsx') && !file.endsWith('.stories.tsx') && !file.includes('.deprecated.')))
   )
-    .map(({path: _path, file}) => {
+    .map(({ path: _path, file }) => {
       const name = path.basename(file, path.extname(file));
-      return {basePath: (depth === 0 || cmpIndex) ? '.' : _path.replace('/' + name + '.tsx', ''), path: _path, name};
+      return { basePath: (depth === 0 || cmpIndex) ? '.' : _path.replace('/' + name + '.tsx', ''), path: _path, name };
     })
   
-  console.info({foldersSize: folders.length, filesSize: files.length});
+  console.info({ foldersSize: folders.length, filesSize: files.length });
   
   let indexContent = [
     `import React, { lazy, Suspense } from 'react';`,
@@ -142,7 +143,7 @@ for (let {
                    }) => `import { ${name}Props } from '${cmpIndex ? `./${name}` : basePath}/types';`)
       : []),
     '',
-    ...files.map(({basePath, path, name}) => {
+    ...files.map(({ basePath, path, name }) => {
       const lines = [
         `const ${name}Import = () => import('${basePath}/${name}');`,
         `const Lazy${name} = lazy(() => ${name}Import().then(module => ({ default: module.${name} })));`,
@@ -174,7 +175,7 @@ for (let {
       return lines.join('\n');
     }),
     `export const preload${chunkName} = async () => {`,
-    ...files.map(({name}) => `  await ${name}Import();`),
+    ...files.map(({ name }) => `  await ${name}Import();`),
     '};',
     ''
   ].join('\n');
@@ -184,7 +185,7 @@ for (let {
   }
   
   const indexTypesContent = [
-    ...files.map(({basePath, name}) => `export type * from '${basePath}/types';`),
+    ...files.map(({ basePath, name }) => `export type * from '${basePath}/types';`),
   ].join('\n')
   
   if (depth === 0) {

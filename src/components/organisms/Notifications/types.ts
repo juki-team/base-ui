@@ -12,6 +12,12 @@ export type NewNotificationType = {
 }
 
 export interface CardNotificationProps {
+  ids: string[],
+  type: NotificationType,
+  message: ReactNode,
+}
+
+export interface NotificationProps {
   id: string,
   type: NotificationType,
   message: ReactNode,
@@ -19,7 +25,7 @@ export interface CardNotificationProps {
 
 export type AddNotificationActionType = {
   type: NotificationAction.ADD_NOTIFICATION,
-  payload: CardNotificationProps,
+  payload: NotificationProps,
 };
 
 export type RemoveNotificationActionType = {
