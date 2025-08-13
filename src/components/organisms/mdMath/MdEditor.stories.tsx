@@ -28,13 +28,13 @@ const Cmp = (props: MdMathEditorProps) => {
         </div>
         <MdMathViewer source={md} style={{ width: '45%', border: '1pxsolid red' }} />
         {/*<MdMathEditor initialMd={md} className="ow-ao flex-2" />*/}
-        {/*<div style={{ flex: 1, overflow: 'auto' }}>*/}
-        {/*  <pre>*/}
-        {/*    <code>*/}
-        {/*      {md}*/}
-        {/*    </code>*/}
-        {/*  </pre>*/}
-        {/*</div>*/}
+        <div style={{ flex: 1 }}>
+          <pre>
+            <code>
+              {md}
+            </code>
+          </pre>
+        </div>
       </div>
     </MockupJukiProvider>
   );

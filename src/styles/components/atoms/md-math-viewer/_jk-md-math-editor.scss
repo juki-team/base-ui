@@ -136,6 +136,8 @@
     }
     
     span[data-type="math_inline"] {
+      color: inherit !important;
+      
       &:hover {
         &::before, &::after {
           opacity: 0.5;

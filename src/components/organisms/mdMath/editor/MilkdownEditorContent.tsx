@@ -6,6 +6,7 @@ import { EditorView } from '@codemirror/view';
 import { CODE_LANGUAGE, CodeLanguage, ProfileSetting, Status, Theme } from '@juki-team/commons';
 import { codeBlockConfig } from '@milkdown/components/code-block';
 import { Crepe } from '@milkdown/crepe';
+import { remarkStringifyOptionsCtx } from '@milkdown/kit/core';
 import { cursor } from '@milkdown/kit/plugin/cursor';
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener';
 import { upload, uploadConfig, Uploader } from '@milkdown/kit/plugin/upload';
@@ -23,6 +24,7 @@ import { handleUploadImage } from '../../../../helpers';
 import { useI18nStore, useJukiNotification, useStableRef, useUserStore } from '../../../../hooks';
 import { NewNotificationType, NotificationType } from '../../../../types';
 import { T } from '../../../atoms';
+
 // import '@milkdown/crepe/theme/common/style.css';
 // import '@milkdown/crepe/theme/frame.css';
 
@@ -299,6 +301,12 @@ export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEd
             return null;
           },
         }));
+        ctx.set(remarkStringifyOptionsCtx, {
+          bullet: '-',
+          // fences: true,
+          // incrementListMarker: false,
+        });
+        
       });
   }, [ triggerRender, theme ]);
   
