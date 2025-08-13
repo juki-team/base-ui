@@ -3,7 +3,6 @@ import React, { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'r
 import { classNames } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { T } from '../../../atoms';
-import { ArrowBackIcon, ArrowForwardIcon } from '../../../atoms/server';
 
 interface ResultHeaderProps {
   points: number,
@@ -35,14 +34,14 @@ export const ResultHeader = (props: PropsWithChildren<ResultHeaderProps>) => {
         {!!points && (
           <div
             className={classNames('jk-row center jk-tag tx-s ws-np', {
-              success: isResolved,
-              'gray-6': !submitted,
-              'warning': userPoints > 0 && !isResolved && submitted,
-              'error': userPoints === 0 && !isResolved && submitted,
+              'bc-ss cr-we': isResolved,
+              'bc-g6': !submitted,
+              'bc-wg cr-we': userPoints > 0 && !isResolved && submitted,
+              'bc-er cr-we': userPoints === 0 && !isResolved && submitted,
             })}
           >
             {+userPoints.toFixed(2)}&nbsp;<T>{userPoints === 1 ? 'pt' : 'pts'}</T>
-            &nbsp;/&nbsp;
+            <div className="jk-divider tiny" style={{ height: 1 }} />
             {points}&nbsp;<T>{points === 1 ? 'pt' : 'pts'}</T>
           </div>
         )}
@@ -74,14 +73,14 @@ export const ResultHeaders = (props: PropsWithChildren<ResultHeadersProps>) => {
       userPoints={lastSubmission?.points ?? 0}
       isResolved={!!lastSubmission?.isCompleted}
       childrenTop={
-        <div className="jk-row gap">
+        <div className="jk-row tx-s">
           <div
             className="jk-row jk-br-ie hoverable"
             onClick={() => {
               setSelectedIndex(prevState => (prevState - 1 + submissions.length) % submissions.length);
             }}
           >
-            <ArrowBackIcon />
+            ←
           </div>
           <div className="jk-row">
             {selectedIndex + 1} (
@@ -100,7 +99,7 @@ export const ResultHeaders = (props: PropsWithChildren<ResultHeadersProps>) => {
               setSelectedIndex(prevState => (prevState + 1) % submissions.length);
             }}
           >
-            <ArrowForwardIcon />
+            →
           </div>
         </div>
       }

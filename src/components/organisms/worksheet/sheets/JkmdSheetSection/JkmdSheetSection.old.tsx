@@ -9,6 +9,7 @@ import {
 import React, { useRef, useState } from 'react';
 import { authorizedRequest } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
+import { useStableState } from '../../../../../hooks/useStableState';
 import { jukiApiManager } from '../../../../../settings';
 import { InputCheckbox, T } from '../../../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../../../molecules';
@@ -18,6 +19,7 @@ import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { ResultHeader } from '../ResultHeader';
 import { SheetSection } from '../types';
+import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { JkmdSheetSectionEditor } from './JkmdSheetSectionEditor';
 
 interface JkmdSheetSectionProps extends SheetSection<JkmdSheetType> {
@@ -26,8 +28,8 @@ interface JkmdSheetSectionProps extends SheetSection<JkmdSheetType> {
 export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
   
   const {
-    content,
-    setContent,
+    content: initialContent,
+    setContent: saveContent,
     index,
     chunkId,
     sheetLength,
@@ -39,10 +41,17 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
   } = props;
   
   const { notifyResponse } = useJukiNotification();
-  const edit = true;
+  const [ edit, setEdit ] = useState(false);
   const [ modal, setModal ] = useState(false);
+  const [ content, _setContent ] = useStableState(initialContent);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const onSaveEdit = () => {
+    setEdit(!edit);
+    saveContent?.(content);
+  };
+  useOnSaveSheetSection(sectionRef, edit, onSaveEdit);
   
+  const setContent = saveContent ? _setContent : undefined;
   const submissions = userResults?.data?.submissions[WorksheetType.JK_MD]?.[chunkId] ?? [];
   const lastSubmission = submissions.at(-1);
   const text = content.content.trim();
@@ -50,7 +59,8 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
   return (
     <div
       ref={sectionRef}
-      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100 jk-md-sheet-section"
+      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100 jk-md-sheet-section hr-e1"
+      onDoubleClick={() => setEdit(true)}
     >
       {setContent && (
         <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
@@ -110,6 +120,11 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
             index,
             sheetLength,
             setSheet,
+            onSaveEdit,
+            onCancel: () => {
+              setEdit(false);
+              _setContent(initialContent);
+            },
           })}
           placement="out rightTop"
         />

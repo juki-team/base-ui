@@ -15,7 +15,7 @@ export const JkmdSheetSectionEditor = ({ content, setContent, isSolvable }: Jkmd
   return (
     <div className="jk-col left gap wh-100 jk-pg-sm">
       <Input
-        label={<T className="tt-se">title</T>}
+        label={<T className="tt-se tx-s">title</T>}
         labelPlacement="top"
         value={content.title}
         onChange={title => setContent(prevState => ({ ...prevState, title }))}
@@ -24,7 +24,7 @@ export const JkmdSheetSectionEditor = ({ content, setContent, isSolvable }: Jkmd
       {isSolvable && (
         <div className="jk-row extend left">
           <Input
-            label={<T className="tt-se">points</T>}
+            label={<T className="tt-se tx-s">points</T>}
             type="number"
             value={content.points}
             onChange={points => setContent(prevState => ({ ...prevState, points }))}

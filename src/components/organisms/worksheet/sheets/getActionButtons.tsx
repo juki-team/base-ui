@@ -14,8 +14,8 @@ interface getActionButtonsProps {
   index: number,
   sheetLength: number,
   setSheet?: SetSheetType<BodyWorksheetType>,
-  onSaveEdit: () => void,
-  onCancel: () => void,
+  onSaveEdit?: () => void,
+  onCancel?: () => void,
 }
 
 export const getActionButtons = (props: getActionButtonsProps) => {
@@ -40,7 +40,7 @@ export const getActionButtons = (props: getActionButtonsProps) => {
         </div>
       ),
     },
-    {
+    ...(onSaveEdit && onCancel ? [ {
       icon: edit ? <VisibilityIcon size="small" /> : <EditIcon size="small" />,
       children: edit ? (
         <div className=" jk-col gap stretch">
@@ -63,7 +63,7 @@ export const getActionButtons = (props: getActionButtonsProps) => {
           },
         ] : []),
       ],
-    },
+    } ] : []),
     {
       icon: <SortIcon className="cr-we" up down />,
       buttons: upRemoveDownButtons<BodyWorksheetType>({
