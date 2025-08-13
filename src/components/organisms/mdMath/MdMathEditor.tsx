@@ -31,6 +31,7 @@ enum Mode {
 interface ToolbarProps {
   enableDownload: boolean,
   enableIA: boolean,
+  enableTextPlain: boolean,
   mode: Mode,
   setMode: Dispatch<SetStateAction<Mode>>,
 }
@@ -121,7 +122,8 @@ const IAModal = ({ ...rest }: BasicModalProps) => {
     </Modal>
   );
 };
-const Toolbar = ({ enableDownload, setMode, mode, enableIA }: ToolbarProps) => {
+
+const Toolbar = ({ enableDownload, enableTextPlain, setMode, mode, enableIA }: ToolbarProps) => {
   
   const [ _, getInstance ] = useInstance();
   const [ openModalIA, setOpenModalIA ] = useState(false);
@@ -131,7 +133,7 @@ const Toolbar = ({ enableDownload, setMode, mode, enableIA }: ToolbarProps) => {
       <IAModal isOpen={openModalIA} onClose={() => setOpenModalIA(false)} />
       <FloatToolbar
         actionButtons={[
-          {
+          ...(enableTextPlain ? [ {
             icon: mode === Mode.TEXT_PLAIN ? <ArticleIcon /> : <CodeIcon />,
             buttons: [
               {
@@ -140,7 +142,7 @@ const Toolbar = ({ enableDownload, setMode, mode, enableIA }: ToolbarProps) => {
                 onClick: () => setMode(mode === Mode.TEXT_PLAIN ? Mode.WYSIWYG : Mode.TEXT_PLAIN),
               },
             ],
-          },
+          } ] : []),
           ...(enableDownload ? [ {
             icon: <DownloadIcon />,
             buttons: [
@@ -205,9 +207,10 @@ export const MdMathEditor = ({
                                value,
                                onChange,
                                className,
+                               enableTextPlain = false,
                                enableDownload = false,
-                               enableImageUpload = true,
-                               enableIA = true,
+                               enableImageUpload = false,
+                               enableIA = false,
                              }: MdMathEditorProps) => {
   
   const [ loader, setLoader ] = useState(Status.NONE);
@@ -238,7 +241,13 @@ export const MdMathEditor = ({
             </div>
           </div>
         )}
-        <Toolbar enableDownload={enableDownload} enableIA={enableIA} setMode={setMode} mode={mode} />
+        <Toolbar
+          enableTextPlain={enableTextPlain}
+          enableDownload={enableDownload}
+          enableIA={enableIA}
+          setMode={setMode}
+          mode={mode}
+        />
         <ImageUploader mode={mode} />
         {mode === Mode.WYSIWYG && (
           <MilkdownEditorContent

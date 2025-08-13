@@ -78,6 +78,9 @@ export const QuizOptionsSheetSectionEditor = ({
         <MdMathEditor
           value={content.description}
           onChange={(description) => setContent(prevState => ({ ...prevState, description }))}
+          enableTextPlain
+          enableIA
+          enableImageUpload
         />
       </div>
       <div className="jk-col stretch left gap">
@@ -125,6 +128,9 @@ export const QuizOptionsSheetSectionEditor = ({
                   return { ...prevState, options: newOptions };
                 });
               }}
+              enableTextPlain
+              enableIA
+              enableImageUpload
             />
           </div>
         ))}

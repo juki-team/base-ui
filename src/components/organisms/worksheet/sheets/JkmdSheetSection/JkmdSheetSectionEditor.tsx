@@ -36,6 +36,9 @@ export const JkmdSheetSectionEditor = ({ content, setContent, isSolvable }: Jkmd
           informationButton
           value={content.content}
           onChange={content => setContent(prevState => ({ ...prevState, content }))}
+          enableTextPlain
+          enableIA
+          enableImageUpload
         />
       </div>
     </div>
