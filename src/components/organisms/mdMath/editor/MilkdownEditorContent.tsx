@@ -9,6 +9,7 @@ import { Crepe } from '@milkdown/crepe';
 import { remarkStringifyOptionsCtx } from '@milkdown/kit/core';
 import { cursor } from '@milkdown/kit/plugin/cursor';
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener';
+import { trailing, trailingConfig } from '@milkdown/kit/plugin/trailing';
 import { upload, uploadConfig, Uploader } from '@milkdown/kit/plugin/upload';
 import type { Node } from '@milkdown/kit/prose/model';
 import { Milkdown, useEditor } from '@milkdown/react';
@@ -269,6 +270,7 @@ export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEd
       .use(listener)
       .use(upload)
       .use(cursor)
+      .use(trailing)
       .config((ctx) => {
         const listener = ctx.get(listenerCtx);
         listener.markdownUpdated((_, markdown, prevMarkdown) => {
@@ -312,7 +314,10 @@ export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEd
           // fences: true,
           // incrementListMarker: false,
         });
-        
+        ctx.update(trailingConfig.key, (prev) => ({
+          ...prev,
+          shouldAppend: () => false,
+        }));
       });
   }, [ triggerRender, theme ]);
   
