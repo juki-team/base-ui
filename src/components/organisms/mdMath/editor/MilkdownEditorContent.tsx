@@ -8,7 +8,6 @@ import { codeBlockConfig } from '@milkdown/components/code-block';
 import { Crepe } from '@milkdown/crepe';
 import { cursor } from '@milkdown/kit/plugin/cursor';
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener';
-import { trailing } from '@milkdown/kit/plugin/trailing';
 import { upload, uploadConfig, Uploader } from '@milkdown/kit/plugin/upload';
 import type { Node } from '@milkdown/kit/prose/model';
 import { Milkdown, useEditor } from '@milkdown/react';
@@ -262,7 +261,6 @@ export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEd
     }).editor
       .use(listener)
       .use(upload)
-      .use(trailing)
       .use(cursor)
       .config((ctx) => {
         const listener = ctx.get(listenerCtx);
