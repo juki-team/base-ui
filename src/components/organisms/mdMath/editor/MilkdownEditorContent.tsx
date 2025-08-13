@@ -224,6 +224,11 @@ function renderDot(content: string, t: TFunction): HTMLElement {
   return container;
 }
 
+function normalizeNewlines(text: string): string {
+  const normalized = text.replace(/\n{3,}/g, '\n\n');
+  return normalized.replace(/\n+$/g, '') + '\n';
+}
+
 export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEditorContentProps) => {
   
   const onChangeRef = useStableRef(onChange);
@@ -267,9 +272,10 @@ export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEd
       .config((ctx) => {
         const listener = ctx.get(listenerCtx);
         listener.markdownUpdated((_, markdown, prevMarkdown) => {
-          if (markdown !== prevMarkdown) {
+          const fixedMarkdown = normalizeNewlines(markdown);
+          if (fixedMarkdown !== normalizeNewlines(prevMarkdown)) {
             onChangeRef.current?.(markdown);
-            currentMd.current = markdown;
+            currentMd.current = fixedMarkdown;
           }
         });
         ctx.update(uploadConfig.key, (prev) => ({
