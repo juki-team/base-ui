@@ -101,6 +101,10 @@ ${statementNote}
     statementOutput,
     statementNote,
     mdStatement,
+    shouldViewPDF: statementDescription.trim() === ''
+      && statementInput.trim() === ''
+      && statementOutput.trim() === ''
+      && statementNote.trim() === '' && (!!statement.pdfUrl[Language.ES] || !!statement.pdfUrl[Language.EN]),
   };
 };
 

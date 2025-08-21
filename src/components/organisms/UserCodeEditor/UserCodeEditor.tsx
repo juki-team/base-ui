@@ -235,7 +235,32 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     log: '',
     status: SubmissionRunStatus.NONE,
   };
-  const [ testCasesStore, setTestCasesStore ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, (recovered) => recovered);
+  const formatTestCasesStoreRecover = (recovered: any): StorageType<CodeEditorTestCasesType> => {
+    const state: StorageType<CodeEditorTestCasesType> = {};
+    for (const [ key, value ] of Object.entries(recovered)) {
+      state[key] = {};
+      for (const [ caseKey, caseValue ] of Object.entries(value as object)) {
+        if (caseValue?.sample === false) {
+          state[key][caseKey] = {
+            key: caseKey,
+            in: caseValue?.in || '',
+            testOut: caseValue?.testOut || '',
+            withPE: caseValue?.withPE || false,
+            sample: false,
+            hidden: caseValue?.hidden || false,
+            index: caseValue?.index ?? -1,
+            messageTimestamp: caseValue?.messageTimestamp ?? 0,
+            out: caseValue?.out || '',
+            err: caseValue?.err || '',
+            log: caseValue?.log || '',
+            status: caseValue?.status || SubmissionRunStatus.NONE,
+          };
+        }
+      }
+    }
+    return state;
+  };
+  const [ testCasesStore, setTestCasesStore ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, formatTestCasesStoreRecover);
   const onTestCasesChangeRef = useStableRef(onTestCasesChange);
   const testCases = testCasesStore[testCaseStoreKey];
   useEffect(() => {

@@ -55,6 +55,7 @@ export const ProblemStatementView = ({
     statementOutput,
     statementNote,
     mdStatement,
+    shouldViewPDF,
   } = getStatementData(t, { statement, settings }, userPreferredLanguage, problemName);
   const { addWarningNotification } = useJukiNotification();
   
@@ -79,12 +80,7 @@ export const ProblemStatementView = ({
     );
   }
   
-  if (
-    statementDescription.trim() === ''
-    && statementInput.trim() === ''
-    && statementOutput.trim() === ''
-    && statementNote.trim() === '' && (!!problem.statement.pdfUrl[Language.ES] || !!problem.statement.pdfUrl[Language.EN])
-  ) {
+  if (shouldViewPDF) {
     return (
       <div className="wh-100 ht-100">
         <iframe

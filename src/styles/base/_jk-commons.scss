@@ -275,8 +275,8 @@ span.jk-row, span.jk-col {
   top: var(--pad-md);
   left: var(--pad-md);
   z-index: var(--z-index-popover);
-  width: calc(100% - var(--pad-md) * 2);
-  height: calc(100% - var(--pad-md) * 2);
+  width: calc(100% - var(--pad-md) * 2) !important;
+  height: calc(100% - var(--pad-md) * 2) !important;
   //padding: var(--pad-md);
 }
 

@@ -1,6 +1,9 @@
+import { ProfileSetting } from '@juki-team/commons';
 import React, { useState } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames, getStatementData } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useI18nStore } from '../../../stores/i18n/useI18nStore';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Portal, T } from '../../atoms';
 import { SplitPane } from '../../molecules';
 import { FullscreenExitIcon, FullscreenIcon, InfoIIcon } from '../../server';
@@ -23,6 +26,8 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
   
   const { viewPortSize } = useJukiUI();
   const [ expanded, setExpanded ] = useState(false);
+  const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
+  const t = useI18nStore(state => state.i18n.t);
   
   if (forPrinting) {
     return (
@@ -36,6 +41,13 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
       />
     );
   }
+  
+  const { shouldViewPDF } = getStatementData(
+    t,
+    { statement: problem.statement, settings: problem.settings },
+    userPreferredLanguage,
+    problem.name,
+  );
   
   const body = (
     <SplitPane
@@ -52,7 +64,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
       }}
       onePanelAtATime={viewPortSize === 'sm'}
     >
-      <div className="jk-problem-view-statement jk-pg-sm">
+      <div className={classNames('jk-problem-view-statement', { 'jk-pg-sm': !shouldViewPDF, 'ow-ve': shouldViewPDF })}>
         <ProblemStatementView
           problem={problem}
           withoutName={expanded ? false : withoutName}

@@ -478,6 +478,8 @@
 
 .ow-hn { overflow: hidden; }
 
+.ow-ve { overflow: visible !important; }
+
 .disabled:not(.with-loader-icon):not(.jk-wrapper-input):not(.jk-select-options):not(.jk-select-option) {
   opacity: 0.5;
   cursor: auto !important;
