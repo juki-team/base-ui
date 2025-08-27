@@ -427,10 +427,10 @@ export class ApiManager {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        crawlStatement: valid<
-          { body: { judgeKey: Judge, contestId: string, index: string } }, HTTPMethod.POST
+        crawl: valid<
+          { body: { judgeKey: Judge, key: string } }, HTTPMethod.POST
         >(({ body }) => ({
-          url: injectBaseUrl('problem', `/crawl-statement`),
+          url: injectBaseUrl('problem', `/crawl`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
