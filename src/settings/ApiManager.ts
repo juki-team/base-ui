@@ -733,13 +733,23 @@ export class ApiManager {
             problemTags?: string[],
             name?: string,
             isExternal?: boolean,
+            isSubmitSupported?: boolean,
             url?: string,
             logo?: string,
             logoSize?: [ number, number ]
           }
         }, HTTPMethod.PATCH>(({
                                 params: { key },
-                                body: { languages, name, problemTags, isExternal, url, logo, logoSize },
+                                body: {
+                                  languages,
+                                  name,
+                                  problemTags,
+                                  isExternal,
+                                  isSubmitSupported,
+                                  url,
+                                  logo,
+                                  logoSize,
+                                },
                               }) => {
           const body: any = {};
           if (languages) {
@@ -753,6 +763,9 @@ export class ApiManager {
           }
           if (typeof isExternal === 'boolean') {
             body.isExternal = isExternal;
+          }
+          if (typeof isSubmitSupported === 'boolean') {
+            body.isSubmitSupported = isSubmitSupported;
           }
           if (typeof url === 'string') {
             body.url = url;
