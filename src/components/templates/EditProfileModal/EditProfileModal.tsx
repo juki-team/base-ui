@@ -167,7 +167,12 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
             />
           </div>
           <div className="fw-bd"><T className="tt-se">nicknames from other judges</T></div>
-          {[ [ Judge.CODEFORCES, Judge.CODEFORCES_GYM ], [ Judge.UVA_ONLINE_JUDGE, Judge.CODECHEF ], [ Judge.AT_CODER, Judge.TOPCODER ], [ Judge.JV_UMSA, Judge.JUKI_JUDGE ] ]
+          {[
+            [ Judge.CODEFORCES, Judge.CODEFORCES_GYM ],
+            [ Judge.UVA_ONLINE_JUDGE, Judge.CODECHEF ],
+            [ Judge.AT_CODER, Judge.TOPCODER ], [ Judge.JV_UMSA, Judge.JUKI_JUDGE ],
+            [ Judge.LEETCODE ],
+          ]
             .map(([ judge1, judge2 ]) => (
               <div className="jk-row gap block" key={`${judge1}-${judge2}`}>
                 <JudgeInput judge={JUDGE[judge1]} user={userState} setUser={setUserState} />
