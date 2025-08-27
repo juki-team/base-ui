@@ -1,5 +1,6 @@
 import {
   CODE_LANGUAGE,
+  Judge,
   Language,
   PROBLEM_MODE,
   PROBLEM_TYPE,
@@ -255,6 +256,11 @@ export const JukiProblemInfo = (props: PropsWithChildren<JukiProblemInfoProps>) 
 };
 
 export const ProblemInfo = ({ problem }: ProblemInfoProps) => {
+  
+  if (problem.judge.key === Judge.LEETCODE) {
+    return null;
+  }
+  
   return (
     <Popover
       popoverClassName="bc-we jk-br-ie elevation-1"

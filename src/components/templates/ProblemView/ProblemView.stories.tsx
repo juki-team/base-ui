@@ -1,7 +1,18 @@
-import { CodeLanguage, EntityAccess, EntityState, Judge, ProblemScoringMode, ProblemType } from '@juki-team/commons';
+import {
+  CodeLanguage,
+  ContentResponseType,
+  EntityAccess,
+  EntityState,
+  Judge,
+  ProblemDataResponseDTO,
+  ProblemScoringMode,
+  ProblemType,
+} from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React from 'react';
+import { jukiApiManager } from '../../../settings';
 import { MockupJukiProvider } from '../../mockup';
+import { FetcherLayer } from '../../molecules';
 import { ProblemView } from './ProblemView';
 
 const meta: Meta<typeof ProblemView> = {
@@ -157,4 +168,27 @@ Regular.args = {
     },
     
   },
+};
+
+export const RegularCustom: Story = {
+  render: (args) => (
+    <MockupJukiProvider>
+      <div className="jk-col gap">
+        <div style={{ width: '100%', height: 600 }}>
+          <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
+            url={jukiApiManager.API_V1.problem.getData({ params: { key: 'PL-two-sum' } }).url}
+          >
+            {data => (
+              <ProblemView
+                {...args}
+                problem={data.data.content}
+                infoPlacement="name"
+                codeEditorStoreKey={data.data.content.key}
+              />
+            )}
+          </FetcherLayer>
+        </div>
+      </div>
+    </MockupJukiProvider>
+  ),
 };

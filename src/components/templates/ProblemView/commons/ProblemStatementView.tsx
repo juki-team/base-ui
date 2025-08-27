@@ -1,4 +1,4 @@
-import { ContentResponseType, Language, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
+import { ContentResponseType, Judge, Language, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
 import React from 'react';
 import {
   authorizedRequest,
@@ -8,11 +8,12 @@ import {
   downloadUrlAsFile,
   getStatementData,
 } from '../../../../helpers';
+import { useJukiUI } from '../../../../hooks';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { jukiApiManager } from '../../../../settings';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { T } from '../../../atoms';
+import { Button, T } from '../../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
 import { MdMathViewer } from '../../../organisms';
 import { DownloadIcon } from '../../../server';
@@ -58,11 +59,18 @@ export const ProblemStatementView = ({
     shouldViewPDF,
   } = getStatementData(t, { statement, settings }, userPreferredLanguage, problemName);
   const { addWarningNotification } = useJukiNotification();
+  const { components: { Link } } = useJukiUI();
   
   if (isExternal) {
+    let content = statement.html[Language.EN] || statement.html[Language.ES];
+    const isPrivate = judgeKey === Judge.LEETCODE;
+    if (isPrivate) {
+      content = content.substring(0, 200) + '...';
+    }
+    
     return (
       <div
-        className="jk-row extend top gap nowrap stretch left"
+        className="jk-col wh-100 extend top gap nowrap stretch left"
         style={{ position: 'relative' }}
       >
         {/*{contest && (*/}
@@ -74,8 +82,15 @@ export const ProblemStatementView = ({
         {/*)}*/}
         <div
           className={`${judgeKey}-statement`}
-          dangerouslySetInnerHTML={{ __html: statement.html[Language.EN] || statement.html[Language.ES] }}
+          dangerouslySetInnerHTML={{ __html: content }}
         />
+        {isPrivate && (
+          <Link href={problem.externalUrl} target="_blank" rel="noopener noreferrer">
+            <Button type="light">
+              <T className="tt-se">click to see the statement complete</T>
+            </Button>
+          </Link>
+        )}
       </div>
     );
   }

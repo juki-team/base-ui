@@ -17,6 +17,7 @@ export * from './useEntityDiff';
 export * from './useFetcher';
 export * from './useHandleState';
 export * from './useHash';
+export * from './useJudge';
 export * from './useJukiNotification';
 export * from './useJukiUI';
 export * from './useJukiUser';

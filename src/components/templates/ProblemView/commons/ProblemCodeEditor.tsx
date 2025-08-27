@@ -1,16 +1,6 @@
-import {
-  CODE_LANGUAGE,
-  CodeEditorTestCasesType,
-  CodeLanguage,
-  ContentResponseType,
-  JudgeDataResponseDTO,
-  ProblemDataResponseDTO,
-  RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
-  SubmissionRunStatus,
-} from '@juki-team/commons';
-import React, { useMemo } from 'react';
-import { useFetcher } from '../../../../hooks/useFetcher';
-import { jukiApiManager } from '../../../../settings';
+import { CodeEditorTestCasesType, ProblemDataResponseDTO, SubmissionRunStatus } from '@juki-team/commons';
+import React from 'react';
+import { useJudge } from '../../../../hooks';
 import { UserCodeEditor } from '../../../organisms';
 import { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../../organisms/types';
 
@@ -52,40 +42,8 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
       messageTimestamp: 0,
     };
   });
-  const { data: virtualJudgeData } = useFetcher<ContentResponseType<JudgeDataResponseDTO>>(
-    problem.judge.isExternal ? jukiApiManager.API_V1.judge.getData({
-      params: {
-        key: problem.judge.key,
-      },
-    }).url : null,
-  );
-  const languages = useMemo(
-    () => {
-      let languages: { value: CodeLanguage | string, label: string }[];
-      if (problem.judge.isExternal) {
-        languages = ((virtualJudgeData?.success && virtualJudgeData.content.languages) || [])
-          .filter(lang => lang.enabled)
-          .map(lang => ({
-            value: lang.value,
-            label: lang.label || lang.value,
-          }));
-      } else {
-        languages = RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES
-          .map((language) => ({
-            value: language,
-            label: CODE_LANGUAGE[language]?.label || language,
-          }));
-      }
-      if (!languages.length) {
-        languages = [ {
-          value: CodeLanguage.TEXT,
-          label: CODE_LANGUAGE[CodeLanguage.TEXT]?.label,
-        } ];
-      }
-      return languages as { value: T, label: string }[];
-    },
-    [ virtualJudgeData, problem.judge.isExternal ],
-  );
+  
+  const { languages } = useJudge<T>({ key: problem.judge.key, isExternal: problem.judge.isExternal });
   
   return (
     <UserCodeEditor<T>
