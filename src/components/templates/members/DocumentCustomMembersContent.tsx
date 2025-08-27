@@ -182,13 +182,13 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                     rankAdministrators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
                   }))}
                   leftLabel={
-                    <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.CLOSE })}>
-                      open
+                    <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.OPEN })}>
+                      {members.rankAdministrators === EntityMembersRank.OPEN ? 'opened' : 'open'}
                     </T>
                   }
                   rightLabel={
-                    <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.OPEN })}>
-                      close
+                    <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.CLOSE })}>
+                      {members.rankAdministrators === EntityMembersRank.CLOSE ? 'closed' : 'close'}
                     </T>
                   }
                   size="small"
@@ -244,13 +244,13 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                     rankManagers: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
                   }))}
                   leftLabel={
-                    <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.CLOSE })}>
-                      open
+                    <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.OPEN })}>
+                      {members.rankManagers === EntityMembersRank.OPEN ? 'opened' : 'open'}
                     </T>
                   }
                   rightLabel={
-                    <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.OPEN })}>
-                      close
+                    <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.CLOSE })}>
+                      {members.rankManagers === EntityMembersRank.CLOSE ? 'closed' : 'close'}
                     </T>
                   }
                   size="small"
@@ -306,13 +306,13 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                     rankParticipants: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
                   }))}
                   leftLabel={
-                    <T className={classNames({ 'fw-bd': members.rankParticipants === EntityMembersRank.CLOSE })}>
-                      open
+                    <T className={classNames({ 'fw-bd': members.rankParticipants === EntityMembersRank.OPEN })}>
+                      {members.rankParticipants === EntityMembersRank.OPEN ? 'opened' : 'open'}
                     </T>
                   }
                   rightLabel={
-                    <T className={classNames({ 'fw-bd': members.rankParticipants === EntityMembersRank.OPEN })}>
-                      close
+                    <T className={classNames({ 'fw-bd': members.rankParticipants === EntityMembersRank.CLOSE })}>
+                      {members.rankParticipants === EntityMembersRank.CLOSE ? 'closed' : 'close'}
                     </T>
                   }
                   size="small"
@@ -368,13 +368,13 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                     rankGuests: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
                   }))}
                   leftLabel={
-                    <T className={classNames({ 'fw-bd': members.rankGuests === EntityMembersRank.CLOSE })}>
-                      open
+                    <T className={classNames({ 'fw-bd': members.rankGuests === EntityMembersRank.OPEN })}>
+                      {members.rankGuests === EntityMembersRank.OPEN ? 'opened' : 'open'}
                     </T>
                   }
                   rightLabel={
-                    <T className={classNames({ 'fw-bd': members.rankGuests === EntityMembersRank.OPEN })}>
-                      close
+                    <T className={classNames({ 'fw-bd': members.rankGuests === EntityMembersRank.CLOSE })}>
+                      {members.rankGuests === EntityMembersRank.CLOSE ? 'closed' : 'close'}
                     </T>
                   }
                   size="small"
@@ -430,13 +430,13 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                     rankSpectators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
                   }))}
                   leftLabel={
-                    <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.CLOSE })}>
-                      open
+                    <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.OPEN })}>
+                      {members.rankSpectators === EntityMembersRank.OPEN ? 'opened' : 'open'}
                     </T>
                   }
                   rightLabel={
-                    <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.OPEN })}>
-                      close
+                    <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.CLOSE })}>
+                      {members.rankSpectators === EntityMembersRank.CLOSE ? 'closed' : 'close'}
                     </T>
                   }
                   size="small"
