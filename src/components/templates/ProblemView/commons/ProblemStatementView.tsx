@@ -85,11 +85,13 @@ export const ProblemStatementView = ({
           dangerouslySetInnerHTML={{ __html: content }}
         />
         {isPrivate && (
-          <Link href={problem.externalUrl} target="_blank" rel="noopener noreferrer">
-            <Button type="light">
-              <T className="tt-se">click to see the statement complete</T>
-            </Button>
-          </Link>
+          <div className="jk-row">
+            <Link href={problem.externalUrl} target="_blank" rel="noopener noreferrer">
+              <Button type="light">
+                <T className="tt-se">click to view the full problem</T>
+              </Button>
+            </Link>
+          </div>
         )}
       </div>
     );
