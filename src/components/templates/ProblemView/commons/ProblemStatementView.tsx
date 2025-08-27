@@ -65,7 +65,7 @@ export const ProblemStatementView = ({
     let content = statement.html[Language.EN] || statement.html[Language.ES];
     const isPrivate = judgeKey === Judge.LEETCODE;
     if (isPrivate) {
-      content = content.substring(0, 200) + '...';
+      content = ''; // content.substring(0, 200) + '...';
     }
     
     return (
