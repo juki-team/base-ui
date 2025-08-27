@@ -1,7 +1,6 @@
 import { ProfileSetting } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { classNames, getStatementData } from '../../../helpers';
-import { useJudge } from '../../../hooks';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
@@ -29,7 +28,6 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
   const [ expanded, setExpanded ] = useState(false);
   const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
   const t = useI18nStore(state => state.i18n.t);
-  const { judgeLanguages } = useJudge<T>({ key: problem.judge.key, isExternal: problem.judge.isExternal });
   
   if (forPrinting) {
     return (
@@ -69,7 +67,7 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
   );
   
   let body;
-  if (judgeLanguages.length) {
+  if (problem.judge.isSubmitSupported) {
     body = (
       <SplitPane
         minSize={400}
