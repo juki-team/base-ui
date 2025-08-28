@@ -272,11 +272,11 @@ span.jk-row, span.jk-col {
 .jk-full-screen-overlay {
   background: var(--t-color-white-dark);
   position: fixed;
-  top: var(--pad-md);
-  left: var(--pad-md);
+  top: var(--pad-sm);
+  left: var(--pad-sm);
   z-index: var(--z-index-popover);
-  width: calc(100% - var(--pad-md) * 2) !important;
-  height: calc(100% - var(--pad-md) * 2) !important;
+  width: calc(100% - var(--pad-sm) * 2) !important;
+  height: calc(100% - var(--pad-sm) * 2) !important;
   //padding: var(--pad-md);
 }
 
