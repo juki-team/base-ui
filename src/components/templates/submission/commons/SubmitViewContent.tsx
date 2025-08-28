@@ -1,5 +1,6 @@
 import {
   CODE_LANGUAGE,
+  Judge,
   ProblemScoringMode,
   ProblemVerdict,
   SubmissionDataResponseDTO,
@@ -12,10 +13,10 @@ import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { jukiAppRoutes } from '../../../../settings';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { ContestTab } from '../../../../types';
-import { Collapse, DateLiteral, T } from '../../../atoms';
+import { Button, Collapse, DateLiteral, T } from '../../../atoms';
 import { CodeViewer, Timer } from '../../../molecules';
 import { UserChip } from '../../../organisms';
-import { UpIcon } from '../../../server';
+import { OpenInNewIcon, UpIcon } from '../../../server';
 import { SubmissionRejudgeButton } from '../SubmissionRejudgeButton';
 import { SubmissionGroupInfo } from './SubmissionGroupInfo';
 import { SubmissionListenerVerdict } from './SubmissionListenerVerdict';
@@ -87,6 +88,8 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
   const { components: { Link } } = useJukiUI();
   const userCompanyKey = useUserStore(state => state.company.key);
   const origin = getJudgeOrigin(submit.problem.company.key, userCompanyKey);
+  
+  const isLeetCode = submit.problem.judgeKey === Judge.LEETCODE;
   
   return (
     <div className="jk-col stretch gap wh-100">
@@ -254,12 +257,24 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
           )}
         </div>
       )}
-      {!!canViewSourceCode && (
+      {!!canViewSourceCode && !isLeetCode && (
         <div className="jk-col stretch wh-100">
           <div className="tx-l fw-bd cr-pd"><T className="tt-se">source code</T></div>
           <div className="submission-info-code-source">
             <CodeViewer code={sourceCode} language={language} lineNumbers />
           </div>
+        </div>
+      )}
+      {isLeetCode && (
+        <div className="jk-row wh-100">
+          <Link
+            href={`https://leetcode.com/problems/${submit.problem.key.replace('PL-', '')}/submissions/${submit.runId}`}
+            target="_blank"
+          >
+            <Button>
+              <T className="tt-se">view submission on LeetCode</T><OpenInNewIcon />
+            </Button>
+          </Link>
         </div>
       )}
     </div>
