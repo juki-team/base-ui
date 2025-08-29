@@ -25,7 +25,7 @@ export interface InputCommonsProps<T> {
   placeholder?: string,
   register?: UseFormRegisterReturn | ((setValueAs: (value: T) => void) => UseFormRegisterReturn),  //{ name: string, onBlur: ChangeHandler, onChange: ChangeHandler, ref: any },
   // types
-  type?: 'text' | 'number' | 'password' | 'email' | 'file' | 'files',
+  type?: 'text' | 'number' | 'password' | 'email' | 'file' | 'files' | 'range',
   accept?: string,
   size?: number | 'auto',
   step?: number | 'auto',
@@ -35,6 +35,9 @@ export interface InputCommonsProps<T> {
   required?: boolean,
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>,
   onEnter?: KeyboardEventHandler<HTMLInputElement>,
+  min?: number,
+  max?: number,
+  children?: ReactNode,
 }
 
 // export interface InputFileProps<T> extends InputCommonsProps<T> {

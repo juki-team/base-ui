@@ -8,6 +8,18 @@
   }
 }
 
+.jk-md-math-editor {
+  .jk-float-toolbar-layout {
+    opacity: 0;
+  }
+  
+  &:hover {
+    .jk-float-toolbar-layout {
+      opacity: 1;
+    }
+  }
+}
+
 .jk-md-math-milkdown-editor {
   //background: none !important;
   
@@ -72,6 +84,10 @@
       padding: 0;
       margin: 0 0 calc(var(--text-medium-height) / 4) 0;
       background: none;
+      
+      .language-list {
+        max-height: 256px;
+      }
       
       .tools {
         padding: 0 var(--pad-sm);

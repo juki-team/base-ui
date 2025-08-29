@@ -21,3 +21,9 @@
     max-height: calc(var(--100VH) - 100px);
   }
 }
+
+.jk-graphviz-viewers-container {
+  &:hover {
+    outline: 1px solid var(--t-color-highlight-light);
+  }
+}

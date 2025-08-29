@@ -43,10 +43,17 @@
   }
   
   &.rightBottom, &.rightTop {
+    width: 100%;
     right: var(--pad-t);
     
     .jk-float-toolbar-container {
       right: var(--pad-t);
+    }
+  }
+  
+  &.rightTop {
+    .jk-float-toolbar-container {
+      top: var(--pad-t);
     }
   }
   

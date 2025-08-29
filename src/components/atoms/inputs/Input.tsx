@@ -103,6 +103,7 @@ const InputComponent = <T extends string | number | FileList, >(_props: CmpInput
     className,
     inputClassName,
     labelClassName,
+    children,
     ...props
   } = _props;
   
@@ -117,6 +118,7 @@ const InputComponent = <T extends string | number | FileList, >(_props: CmpInput
         'no-label': !inputLabel,
       })}
     >
+      {children}
       <BasicInput {...props} className={inputClassName} inputId={id} type={type} required={required} ref={ref} />
       <label htmlFor={`input-${id}`} className={labelClassName}>
         {inputLabel}{labelPlacement === 'left' ? <>:&nbsp;</> : ''}

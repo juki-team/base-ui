@@ -210,4 +210,8 @@
       padding: 0 0 0 calc(var(--pad-sm) / 2);
     }
   }
+  
+  .jk-code-mirror-editor-layout {
+    min-height: 256px;
+  }
 }

@@ -100,8 +100,18 @@ const myLanguages = [
     load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
   }),
   LanguageDescription.of({
+    ...languages.find((language) => language.name === 'C'),
+    name: CodeLanguage.C + ' asCodeEditor',
+    load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
+  }),
+  LanguageDescription.of({
     ...languages.find((language) => language.name === 'C++'),
     name: CodeLanguage.CPP,
+    load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
+  }),
+  LanguageDescription.of({
+    ...languages.find((language) => language.name === 'C++'),
+    name: CodeLanguage.CPP + ' asCodeEditor',
     load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
   }),
   LanguageDescription.of({
@@ -110,13 +120,28 @@ const myLanguages = [
     load: () => import('@codemirror/lang-java').then((m) => m.java()),
   }),
   LanguageDescription.of({
+    ...languages.find((language) => language.name === 'Java'),
+    name: CodeLanguage.JAVA + ' asCodeEditor',
+    load: () => import('@codemirror/lang-java').then((m) => m.java()),
+  }),
+  LanguageDescription.of({
     ...languages.find((language) => language.name === 'Python'),
     name: CodeLanguage.PYTHON,
     load: () => import('@codemirror/lang-python').then((m) => m.python()),
   }),
   LanguageDescription.of({
+    ...languages.find((language) => language.name === 'Python'),
+    name: CodeLanguage.PYTHON + ' asCodeEditor',
+    load: () => import('@codemirror/lang-python').then((m) => m.python()),
+  }),
+  LanguageDescription.of({
     ...languages.find((language) => language.name === 'JavaScript'),
     name: CodeLanguage.JAVASCRIPT,
+    load: () => import('@codemirror/lang-javascript').then((m) => m.javascript()),
+  }),
+  LanguageDescription.of({
+    ...languages.find((language) => language.name === 'JavaScript'),
+    name: CodeLanguage.JAVASCRIPT + ' asCodeEditor',
     load: () => import('@codemirror/lang-javascript').then((m) => m.javascript()),
   }),
   LanguageDescription.of({
@@ -146,7 +171,19 @@ const myLanguages = [
     support: plainTextSupport,
   }),
   LanguageDescription.of({
+    name: CodeLanguage.MERMAID + ' asImage',
+    alias: [ 'mermaid' ],
+    extensions: [ 'mmd', 'mermaid' ],
+    support: plainTextSupport,
+  }),
+  LanguageDescription.of({
     name: CodeLanguage.DOT,
+    alias: [ 'dot' ],
+    extensions: [ 'dot' ],
+    load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
+  }),
+  LanguageDescription.of({
+    name: CodeLanguage.DOT + ' asImage',
     alias: [ 'dot' ],
     extensions: [ 'dot' ],
     load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
@@ -193,11 +230,13 @@ function renderDot(content: string, t: TFunction): HTMLElement {
     .instance()
     .then(viz => {
       try {
-        const svg = viz.renderSVGElement(content, {});
         const container = document.getElementById(newId);
         if (container) {
           container.innerHTML = '';
-          container.appendChild(svg);
+          content.split('---').map((content) => {
+            const svg = viz.renderSVGElement(content, {});
+            container.appendChild(svg);
+          });
         }
       } catch (error) {
         const container = document.getElementById(newId);
@@ -226,7 +265,8 @@ function renderDot(content: string, t: TFunction): HTMLElement {
 }
 
 function normalizeNewlines(text: string): string {
-  const normalized = text.replace(/\n{3,}/g, '\n\n');
+  let normalized = text.replace(/\n{3,}/g, '\n\n');
+  normalized = normalized.replace(/&#x20;/gi, ' ');
   return normalized.replace(/\n+$/g, '') + '\n';
 }
 
@@ -242,12 +282,22 @@ export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEd
   useEditor((root) => {
     return new Crepe({
       root,
-      defaultValue: value,
+      defaultValue: value
+        .replace(/```C asCodeEditor/g, '```C&#x20;asCodeEditor')
+        .replace(/```CPP asCodeEditor/g, '```CPP&#x20;asCodeEditor')
+        .replace(/```JAVA asCodeEditor/g, '```JAVA&#x20;asCodeEditor')
+        .replace(/```PYTHON asCodeEditor/g, '```PYTHON&#x20;asCodeEditor')
+        .replace(/```JAVASCRIPT asCodeEditor/g, '```JAVASCRIPT&#x20;asCodeEditor')
+        .replace(/```MERMAID asImage/g, '```MERMAID&#x20;asImage')
+        .replace(/```DOT asImage/g, '```DOT&#x20;asImage'),
       featureConfigs: {
         [Crepe.Feature.CodeMirror]: {
-          renderLanguage(language) {
-            return CODE_LANGUAGE[language as CodeLanguage]?.label ?? language;
+          renderLanguage(lang, selected) {
+            const [ language, as ] = lang.split(' ');
+            return (selected ? '✔ ' : '') + (CODE_LANGUAGE[language as CodeLanguage]?.label ?? language) + t(as === 'asCodeEditor' ? ' (render as code editor)' : as === 'asImage' ? ' (render as image)' : '');
           },
+          searchPlaceholder: 'Find a language...',
+          noResultText: 'No language found',
         },
         [Crepe.Feature.ImageBlock]: {
           async onUpload(file: File) {
@@ -276,7 +326,7 @@ export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEd
         listener.markdownUpdated((_, markdown, prevMarkdown) => {
           const fixedMarkdown = normalizeNewlines(markdown);
           if (fixedMarkdown !== normalizeNewlines(prevMarkdown)) {
-            onChangeRef.current?.(markdown);
+            onChangeRef.current?.(fixedMarkdown);
             currentMd.current = fixedMarkdown;
           }
         });
@@ -300,10 +350,10 @@ export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEd
             if (language.toLowerCase() === 'latex' && content.length > 0) {
               return renderLatex(content, {}/*config == null ? void 0 : ctx.katexOptions*/);
             }
-            if (language.toLowerCase() === 'mermaid' && content.length > 0) {
+            if (language.toLowerCase() === 'mermaid asimage' && content.length > 0) {
               return renderMermaid(content);
             }
-            if (language.toLowerCase() === 'dot' && content.length > 0) {
+            if (language.toLowerCase() === 'dot asimage' && content.length > 0) {
               return renderDot(content, t);
             }
             return null;
@@ -319,7 +369,7 @@ export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEd
           shouldAppend: () => false,
         }));
       });
-  }, [ triggerRender, theme ]);
+  }, [ triggerRender, theme, t ]);
   
   return (
     <div className="jk-input-milkdown jk-md-math-milkdown-editor jk-md-math wh-100 pn-re jk-br-ie">

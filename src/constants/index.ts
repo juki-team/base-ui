@@ -19,6 +19,7 @@ export const DAYS_2 = DAY_NAMES.map(name => name.substring(0, 2));
 export const SCROLL_WIDTH = 8;
 
 export const EMPTY_ARRAY = [];
+export const EMPTY_OBJECT = {};
 
 export const ALPHANUMERIC_REGEX = /^[a-z0-9]+$/i;
 

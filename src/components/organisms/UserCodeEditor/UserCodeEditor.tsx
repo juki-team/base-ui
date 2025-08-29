@@ -9,6 +9,7 @@ import {
   Theme,
 } from '@juki-team/commons';
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { EMPTY_OBJECT } from '../../../constants';
 import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
 import { useJukiNotification, useStableRef } from '../../../hooks';
 import { useUserStore } from '../../../stores/user/useUserStore';
@@ -222,7 +223,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   const newInitialFiles: StorageType<CodeEditorFiles<T>> = { [storeKey]: { ...initialFiles } };
   const [ filesStore, setFilesStore ] = useSaveChunkStorage<CodeEditorFiles<T>>(getSourcesStoreKey(userNickname), newInitialFiles, mergeSources, formatStoreRecovered);
   const onFilesChangeRef = useStableRef(onFilesChange);
-  const files = filesStore[storeKey];
+  const files = filesStore[storeKey] || EMPTY_OBJECT;
   useEffect(() => {
     onFilesChangeRef.current?.(files);
   }, [ files ]);

@@ -1,5 +1,5 @@
 // https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119
-import { CodeLanguage, ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
+import { CODE_LANGUAGE, CodeLanguage, ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 import React, { CSSProperties, memo, ReactNode, useMemo } from 'react';
 import ReactMarkdown, { Options as ReactMarkdownOptions } from 'react-markdown';
@@ -17,8 +17,9 @@ import { VisibilityIcon } from '../../../atoms/server/icons/google/VisibilityIco
 import { VisibilityOffIcon } from '../../../atoms/server/icons/google/VisibilityOffIcon';
 import { CodeViewer } from '../../../molecules';
 import { ErrorIcon, OpenInNewIcon, SpinIcon } from '../../../server';
-import { GraphvizViewer } from '../../Graphviz/GraphvizViewer';
+import { GraphvizViewers } from '../../Graphviz/GraphvizViewer';
 import { UserChip } from '../../UserChip/UserChip';
+import { UserCodeEditor } from '../../UserCodeEditor/UserCodeEditor';
 import { CommandsObjectType } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
@@ -193,7 +194,7 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
       // input(...props) {
       //   return <pre>holiwi input</pre>;
       // },
-      code: ({ children, className = '' }) => {
+      code: ({ children, className = '', node }) => {
         const inline = !children?.toString().includes('\n');
         if (inline) {
           return <code className="inline-code cr-th bc-hl jk-br-ie">{children as ReactNode}</code>;
@@ -213,10 +214,33 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
           || CodeLanguage.TEXT) as CodeLanguage;
         
         if (typeof children === 'string') {
-          
-          if (language === CodeLanguage.DOT && commands.asImage) {
+          const meta = node?.data?.meta;
+          if (language === CodeLanguage.DOT && meta === 'asImage') {
             return (
-              <GraphvizViewer value={children} className={`jk-row ${commands.imgAlign || ''}`} />
+              <GraphvizViewers value={children} />
+            );
+          }
+          
+          if (meta === 'asCodeEditor') {
+            const storeKey = language + JSON.stringify(node?.position ?? '-');
+            const fileName = `source.${CODE_LANGUAGE[language]?.fileExtension?.[0] || 'txt'}`;
+            return (
+              <UserCodeEditor
+                storeKey={storeKey}
+                key={storeKey}
+                languages={[ { value: language, label: CODE_LANGUAGE[language]?.label ?? language } ]}
+                initialFiles={{
+                  [fileName]: {
+                    source: children,
+                    language: language,
+                    index: 0,
+                    name: fileName,
+                    hidden: false,
+                    readonly: false,
+                    protected: false,
+                  },
+                }}
+              />
             );
           }
           
