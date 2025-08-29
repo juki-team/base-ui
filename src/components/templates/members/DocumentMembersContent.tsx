@@ -38,7 +38,7 @@ export const DocumentMembersContent = (props: DocumentMembersContentProps) => {
               value: fileAccess.value,
               label: (
                 <div className="jk-row gap left jk-pg-sm">
-                  <div className="jk-col left stretch" style={{ maxWidth: 300 }}>
+                  <div className="jk-col left stretch">
                     <div className="jk-row gap left">
                       {FileAccessIcons[fileAccess.value]}<T className="tt-se fw-bd">{entityAccess?.[fileAccess.value]?.name ?? fileAccess.label}</T>
                     </div>
