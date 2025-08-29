@@ -1,5 +1,6 @@
 import { CodeLanguage } from '@juki-team/commons';
-import React, { memo, useEffect, useState } from 'react';
+import { graphviz, GraphvizOptions } from 'd3-graphviz';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { Button, Modal } from '../../atoms';
 import { Input } from '../../atoms/inputs/Input';
@@ -9,17 +10,52 @@ import { FloatToolbar } from '../../molecules';
 import { CodeViewer } from '../../molecules/CodeViewer/CodeViewer';
 import { Graphviz } from './Graphviz/Graphviz';
 import { GraphvizViewerProps } from './types';
-import { useDotValue } from './useDotValue';
+
+const defaultOptions: GraphvizOptions = {
+  fit: true,
+  // height: 500,
+  // width: 500,
+  zoom: false,
+  useWorker: false as any,
+};
 
 export const GraphvizViewer = memo(({ value, className, width, height }: GraphvizViewerProps) => {
   
-  const { dot, error } = useDotValue(value);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [ error, setError ] = useState<string>('');
+  
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    
+    el.innerHTML = '';
+    setError('');
+    const options = { width, height };
+    // crea instancia y conecta handler de errores
+    const gv = graphviz(el, { ...defaultOptions, ...options })
+      .onerror?.((e: any) => {
+        // algunos builds exponen onerror; si no, ignora esta línea
+        setError(e?.message || String(e));
+      });
+    
+    try {
+      gv.renderDot(value); // si hay error sintáctico y useWorker=false, lanza excepción
+    } catch (e: any) {
+      setError(e?.message || String(e));
+    }
+    
+    return () => {
+      try {
+        el.innerHTML = '';
+      } catch {
+      }
+    };
+  }, [ value, width, height ]);
   
   return (
     <div className={classNames('jk-graphviz-viewer-container', className)}>
-      {error
-        ? <div className="jk-tag bc-er">{error}</div>
-        : <Graphviz dot={dot} className="jk-graphviz-viewer" options={{ width, height }} />}
+      {error && <div className="jk-tag bc-er">{error}</div>}
+      <Graphviz dot={value} className="jk-graphviz-viewer" options={{ width, height }} ref={containerRef} />
     </div>
   );
 });
@@ -80,7 +116,6 @@ export const GraphvizViewers = ({ value, className, width, height }: GraphvizVie
         ]}
         placement="rightTop"
       />
-      <GraphvizViewer value={graphs[index]} width={width} height={height} />
       <div className="jk-row tx-s gap">
         <Button
           size="tiny"
@@ -124,6 +159,7 @@ export const GraphvizViewers = ({ value, className, width, height }: GraphvizVie
       >
         &nbsp;{delay} ms
       </Input>
+      <GraphvizViewer value={graphs[index]} width={width} height={height} />
     </div>
   );
 };
