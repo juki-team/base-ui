@@ -1,4 +1,4 @@
-import { EntityMembersResponseDTO, UserCompanyBasicInfoResponseDTO } from '@juki-team/commons';
+import { EntityAccess, EntityMembersResponseDTO, UserCompanyBasicInfoResponseDTO } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 
 export interface DocumentCustomMembersContentProps {
@@ -6,10 +6,16 @@ export interface DocumentCustomMembersContentProps {
   setMembers?: Dispatch<SetStateAction<EntityMembersResponseDTO>>,
   documentOwner: UserCompanyBasicInfoResponseDTO,
   administrators?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
-  managers?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
+  managers?: { name?: string, description?: ReactNode, readOnly?: boolean },
   participants?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
   guests?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
-  spectators?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
+  spectators?: { name?: string, description?: ReactNode, readOnly?: boolean },
+  entityAccess?: {
+    [EntityAccess.PRIVATE]?: { name?: string, description?: string },
+    [EntityAccess.RESTRICTED]?: { name?: string, description?: string },
+    [EntityAccess.PUBLIC]?: { name?: string, description?: string },
+    [EntityAccess.EXPOSED]?: { name?: string, description?: string },
+  }
 }
 
 export interface DocumentMembersButton1Props {

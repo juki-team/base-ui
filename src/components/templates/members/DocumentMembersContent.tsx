@@ -14,7 +14,17 @@ const FileAccessIcons = {
 
 export const DocumentMembersContent = (props: DocumentMembersContentProps) => {
   
-  const { members, setMembers, documentOwner, administrators, managers, participants, guests, spectators } = props;
+  const {
+    members,
+    setMembers,
+    documentOwner,
+    administrators,
+    managers,
+    participants,
+    guests,
+    spectators,
+    entityAccess,
+  } = props;
   
   const documentAccess = getDocumentAccess({ members });
   
@@ -29,9 +39,10 @@ export const DocumentMembersContent = (props: DocumentMembersContentProps) => {
               label: (
                 <div className="jk-row gap left jk-pg-sm">
                   <div className="jk-col left stretch" style={{ maxWidth: 300 }}>
-                    <div className="jk-row gap left">{FileAccessIcons[fileAccess.value]}<T className="tt-se fw-bd">{fileAccess.label}</T>
+                    <div className="jk-row gap left">
+                      {FileAccessIcons[fileAccess.value]}<T className="tt-se fw-bd">{entityAccess?.[fileAccess.value]?.name ?? fileAccess.label}</T>
                     </div>
-                    <T className="tt-se">{fileAccess.description}</T>
+                    <T className="tt-se">{entityAccess?.[fileAccess.value]?.description ?? fileAccess.description}</T>
                   </div>
                 </div>
               ),
