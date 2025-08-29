@@ -93,7 +93,7 @@
   position: relative;
   z-index: 2;
   
-  &:hover {
+  &:hover, &.open {
     z-index: 3;
     
     .button-trigger {

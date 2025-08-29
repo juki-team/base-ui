@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { Button, CopyToClipboard, Popover, T } from '../../atoms';
-import { ContentCopyIcon, InfoIIcon } from '../../atoms/server';
+import { ContentCopyIcon, EditIcon, InfoIIcon } from '../../atoms/server';
 import { ButtonAction } from '../../molecules/FloatToolbar/ButtonAction';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';
 import { DocumentMembersButtonProps } from './types';
@@ -84,7 +84,7 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
   );
   
   let button = (
-    <Button size="small" onClick={isAdministrator ? () => setShow(true) : undefined}>
+    <Button size="small">
       <div className="jk-row gap nowrap">
         <T className="tt-se">share</T>
         {info}
@@ -106,6 +106,13 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
                 <T className="tt-se">copy link</T>
               </Button>
             </CopyToClipboard>
+          ),
+        } ] : []),
+        ...(isAdministrator ? [ {
+          children: (
+            <Button size="small" icon={<EditIcon />} onClick={() => setShow(true)}>
+              <T className="tt-se">edit</T>
+            </Button>
           ),
         } ] : []),
       ],
