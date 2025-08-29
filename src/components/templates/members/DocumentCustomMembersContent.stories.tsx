@@ -23,6 +23,7 @@ const Cmp = (args: DocumentCustomMembersContentProps) => {
   return (
     <div className="jk-col gap">
       <DocumentMembersButton
+        isAdministrator
         documentName="testing"
         members={members}
         documentOwner={dummyOwner}
@@ -40,6 +41,7 @@ const Cmp = (args: DocumentCustomMembersContentProps) => {
       {/*  spectators={{}}*/}
       {/*/>*/}
       <DocumentMembersButton
+        isAdministrator={false}
         documentName="testing"
         members={members}
         documentOwner={{ ...dummyOwner, nickname: '' }}

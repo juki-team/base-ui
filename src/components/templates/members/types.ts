@@ -18,7 +18,8 @@ export interface DocumentCustomMembersContentProps {
   }
 }
 
-export interface DocumentMembersButton1Props {
+export interface DocumentMembersButton1Props extends Pick<DocumentCustomMembersContentProps, 'entityAccess'> {
+  isAdministrator: boolean,
   copyLink?: () => string,
   documentName: ReactNode,
   members: EntityMembersResponseDTO,
@@ -28,7 +29,8 @@ export interface DocumentMembersButton1Props {
   reloadDocument?: never,
 }
 
-export interface DocumentMembersButton2Props {
+export interface DocumentMembersButton2Props extends Pick<DocumentCustomMembersContentProps, 'entityAccess'> {
+  isAdministrator: boolean,
   copyLink?: () => string,
   documentName: ReactNode,
   members: EntityMembersResponseDTO,

@@ -1,15 +1,13 @@
 import {
   ContentResponseType,
-  DocumentMembersDTO,
   ENTITY_ACCESS,
+  EntityMembersDTO,
   getDocumentAccess,
-  getUserKey,
   HTTPMethod,
 } from '@juki-team/commons';
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
-import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, CopyToClipboard, Popover, T } from '../../atoms';
 import { ContentCopyIcon, InfoIIcon } from '../../atoms/server';
 import { ButtonAction } from '../../molecules/FloatToolbar/ButtonAction';
@@ -19,6 +17,7 @@ import { DocumentMembersButtonProps } from './types';
 export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
   
   const {
+    isAdministrator,
     members,
     documentOwner,
     documentName,
@@ -26,21 +25,26 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
     saveUrl,
     reloadDocument,
     copyLink,
+    entityAccess,
   } = props;
   
   const [ show, setShow ] = useState(false);
-  const nickname = useUserStore(state => state.user.nickname);
-  const companyKey = useUserStore(state => state.company.key);
   const { notifyResponse } = useJukiNotification();
   const documentAccess = getDocumentAccess({ members });
   
   const onSave = initialOnSave ?? (async (members, close) => {
-    const documentAccess = getDocumentAccess({ members });
-    const worksheetToPatch: { members: DocumentMembersDTO } = {
+    const worksheetToPatch: { members: EntityMembersDTO } = {
       members: {
-        access: documentAccess,
+        rankAdministrators: members.rankAdministrators,
+        administrators: Object.keys(members.administrators),
+        rankManagers: members.rankManagers,
         managers: Object.keys(members.managers),
+        rankGuests: members.rankGuests,
+        guests: Object.keys(members.guests),
+        rankSpectators: members.rankSpectators,
         spectators: Object.keys(members.spectators),
+        rankParticipants: members.rankParticipants,
+        participants: Object.keys(members.participants),
       },
     };
     const response = cleanRequest<ContentResponseType<string>>(
@@ -60,9 +64,11 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
       content={
         <div style={{ maxWidth: 256 }} className="jk-pg-xsm tx-s">
           <div className="fw-bd">
-            <T className="tt-se">access</T>: <T className="tt-se">{ENTITY_ACCESS[documentAccess]?.label}</T>
+            <T className="tt-se">access</T>: <T className="tt-se">{entityAccess?.[documentAccess]?.name ?? ENTITY_ACCESS[documentAccess]?.label}</T>
           </div>
-          <T className="tt-se">{ENTITY_ACCESS[documentAccess]?.description}</T>
+          <T className="tt-se">
+            {entityAccess?.[documentAccess]?.description ?? ENTITY_ACCESS[documentAccess]?.description}
+          </T>
         </div>
       }
     >
@@ -81,7 +87,7 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
     </Button>
   );
   
-  if (getUserKey(nickname, companyKey) !== getUserKey(documentOwner.nickname, documentOwner.company.key)) {
+  if (!isAdministrator) {
     button = info;
   }
   
