@@ -84,17 +84,13 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
   );
   
   let button = (
-    <Button size="small" onClick={() => setShow(true)}>
+    <Button size="small" onClick={isAdministrator ? () => setShow(true) : undefined}>
       <div className="jk-row gap nowrap">
         <T className="tt-se">share</T>
         {info}
       </div>
     </Button>
   );
-  
-  if (!isAdministrator) {
-    button = info;
-  }
   
   const actionButtons = [
     {
