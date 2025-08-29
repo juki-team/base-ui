@@ -18,23 +18,19 @@ export interface DocumentCustomMembersContentProps {
   }
 }
 
-export interface DocumentMembersButton1Props extends Pick<DocumentCustomMembersContentProps, 'entityAccess'> {
+interface DocCommon extends Pick<DocumentCustomMembersContentProps, 'entityAccess' | 'documentOwner' | 'members' | 'administrators' | 'managers' | 'participants' | 'guests' | 'spectators'> {
   isAdministrator: boolean,
-  copyLink?: () => string,
   documentName: ReactNode,
-  members: EntityMembersResponseDTO,
-  documentOwner: UserCompanyBasicInfoResponseDTO,
+  copyLink?: () => string,
+}
+
+export interface DocumentMembersButton1Props extends DocCommon {
   onSave: (members: EntityMembersResponseDTO, close: () => void) => Promise<void>,
   saveUrl?: never,
   reloadDocument?: never,
 }
 
-export interface DocumentMembersButton2Props extends Pick<DocumentCustomMembersContentProps, 'entityAccess'> {
-  isAdministrator: boolean,
-  copyLink?: () => string,
-  documentName: ReactNode,
-  members: EntityMembersResponseDTO,
-  documentOwner: UserCompanyBasicInfoResponseDTO,
+export interface DocumentMembersButton2Props extends DocCommon {
   onSave?: never,
   saveUrl: string,
   reloadDocument?: () => Promise<void>,

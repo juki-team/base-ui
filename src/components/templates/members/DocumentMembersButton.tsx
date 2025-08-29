@@ -26,6 +26,11 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
     reloadDocument,
     copyLink,
     entityAccess,
+    administrators,
+    managers,
+    participants,
+    spectators,
+    guests,
   } = props;
   
   const [ show, setShow ] = useState(false);
@@ -121,6 +126,11 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
         documentName={documentName}
         documentOwner={documentOwner}
         onSave={onSave}
+        administrators={administrators}
+        managers={managers}
+        participants={participants}
+        spectators={spectators}
+        guests={guests}
       />
     </>
   );
