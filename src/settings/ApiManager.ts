@@ -946,7 +946,7 @@ export class ApiManager {
         getUsersTracksStats: valid<
           { params: { companyKeys: string, startTimestamp: number, endTimestamp: number } }
         >(({ params: { companyKeys, startTimestamp, endTimestamp } }) => ({
-          url: injectBaseUrl('statistics', `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&companyKeys=${companyKeys}`),
+          url: injectBaseUrl('statistics', `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}${companyKeys ? `&companyKeys=${companyKeys}` : ''}`),
           method: HTTPMethod.GET,
         })),
       },
