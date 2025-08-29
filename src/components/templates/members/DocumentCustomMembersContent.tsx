@@ -225,7 +225,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                 }}
                 companyKey={companyKey}
               />
-            ) : <PrintUsers members={members.managers} />
+            ) : <PrintUsers members={members.administrators} />
           )}
         </div>
       )}
