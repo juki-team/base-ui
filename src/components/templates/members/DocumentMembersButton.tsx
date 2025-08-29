@@ -1,4 +1,11 @@
-import { ContentResponseType, DocumentMembersDTO, ENTITY_ACCESS, getUserKey, HTTPMethod } from '@juki-team/commons';
+import {
+  ContentResponseType,
+  DocumentMembersDTO,
+  ENTITY_ACCESS,
+  getDocumentAccess,
+  getUserKey,
+  HTTPMethod,
+} from '@juki-team/commons';
 import React, { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
@@ -12,7 +19,7 @@ import { DocumentMembersButtonProps } from './types';
 export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
   
   const {
-    documentMembers,
+    members,
     documentOwner,
     documentName,
     onSave: initialOnSave,
@@ -25,11 +32,13 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
   const nickname = useUserStore(state => state.user.nickname);
   const companyKey = useUserStore(state => state.company.key);
   const { notifyResponse } = useJukiNotification();
+  const documentAccess = getDocumentAccess({ members });
   
   const onSave = initialOnSave ?? (async (members, close) => {
+    const documentAccess = getDocumentAccess({ members });
     const worksheetToPatch: { members: DocumentMembersDTO } = {
       members: {
-        access: members.access,
+        access: documentAccess,
         managers: Object.keys(members.managers),
         spectators: Object.keys(members.spectators),
       },
@@ -51,9 +60,9 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
       content={
         <div style={{ maxWidth: 256 }} className="jk-pg-xsm tx-s">
           <div className="fw-bd">
-            <T className="tt-se">access</T>: <T className="tt-se">{ENTITY_ACCESS[documentMembers.access].label}</T>
+            <T className="tt-se">access</T>: <T className="tt-se">{ENTITY_ACCESS[documentAccess]?.label}</T>
           </div>
-          <T className="tt-se">{ENTITY_ACCESS[documentMembers.access].description}</T>
+          <T className="tt-se">{ENTITY_ACCESS[documentAccess]?.description}</T>
         </div>
       }
     >
@@ -102,7 +111,7 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
       <DocumentMembersModal
         isOpen={show}
         onClose={() => setShow(false)}
-        documentMembers={documentMembers}
+        members={members}
         documentName={documentName}
         documentOwner={documentOwner}
         onSave={onSave}

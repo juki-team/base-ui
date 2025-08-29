@@ -47,7 +47,6 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
     <ButtonLoader
       data-tooltip-id="jk-tooltip"
       data-tooltip-content="tooltip testing"
-      data-tooltip-t-class-name="tt-se"
       data-tooltip-place="left"
       size="small"
       type="light"

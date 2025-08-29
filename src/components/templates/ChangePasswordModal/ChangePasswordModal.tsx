@@ -119,7 +119,7 @@ export const ChangePasswordModal = ({ isOpen, onClose }: ChangePasswordModalProp
               submit
               expand
             >
-              <T className="ws-np">update</T>
+              <T className="tt-se">update</T>
             </ButtonLoader>
           </div>
         </form>

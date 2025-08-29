@@ -1,4 +1,4 @@
-import { EMPTY_DOCUMENT_MEMBERS, EMPTY_ENTITY_MEMBERS } from '@juki-team/commons';
+import { EMPTY_ENTITY_MEMBERS, getDocumentAccess } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
@@ -17,39 +17,44 @@ type Story = StoryObj<typeof DocumentCustomMembersContent>;
 
 const Cmp = (args: DocumentCustomMembersContentProps) => {
   const [ members, setMembers ] = useState(EMPTY_ENTITY_MEMBERS());
-  const [ members2, setMembers2 ] = useState(EMPTY_DOCUMENT_MEMBERS());
   const dummyOwner = { nickname: 'OscarGauss', imageUrl: '', company: { key: 'juki-app' } };
-  console.info({ args });
+  const documentAccess = getDocumentAccess({ members });
+  console.info({ args, members, documentAccess });
   return (
     <div className="jk-col gap">
       <DocumentMembersButton
         documentName="testing"
-        documentMembers={members2}
+        members={members}
         documentOwner={dummyOwner}
         saveUrl=""
         copyLink={() => 'asf'}
       />
-      <DocumentCustomMembersContent
-        members={members}
-        setMembers={setMembers}
-        documentOwner={{ nickname: 'OscarGauss', imageUrl: '', company: { key: 'juki-app' } }}
-        administrators={{}}
-        managers={{}}
-        participants={{ closeable: true }}
-        guests={{ closeable: true }}
-        spectators={{}}
-      />
+      {/*<DocumentCustomMembersContent*/}
+      {/*  members={members}*/}
+      {/*  setMembers={setMembers}*/}
+      {/*  documentOwner={{ nickname: 'OscarGauss', imageUrl: '', company: { key: 'juki-app' } }}*/}
+      {/*  administrators={{}}*/}
+      {/*  managers={{}}*/}
+      {/*  participants={{ closeable: true }}*/}
+      {/*  guests={{ closeable: true }}*/}
+      {/*  spectators={{}}*/}
+      {/*/>*/}
       <DocumentMembersButton
         documentName="testing"
-        documentMembers={members2}
+        members={members}
         documentOwner={{ ...dummyOwner, nickname: '' }}
         saveUrl=""
         copyLink={() => 'asf'}
       />
       <DocumentMembersContent
-        members={members2}
-        setMembers={setMembers2}
+        members={members}
+        setMembers={setMembers}
         documentOwner={dummyOwner}
+        administrators={{}}
+        managers={{}}
+        guests={{ closeable: true }}
+        spectators={{}}
+        participants={{ closeable: true }}
       />
     </div>
   );

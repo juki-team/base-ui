@@ -1,4 +1,4 @@
-import { DocumentMembersResponseDTO, Status, UserCompanyBasicInfoResponseDTO } from '@juki-team/commons';
+import { EntityMembersResponseDTO, Status, UserCompanyBasicInfoResponseDTO } from '@juki-team/commons';
 import React, { ReactNode, useState } from 'react';
 import { Modal, T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/Modal/types';
@@ -7,19 +7,19 @@ import { DocumentMembersContent } from '../DocumentMembersContent';
 
 export interface DocumentMembersModalProps extends BasicModalProps {
   documentName: ReactNode,
-  documentMembers: DocumentMembersResponseDTO,
+  members: EntityMembersResponseDTO,
   documentOwner: UserCompanyBasicInfoResponseDTO,
-  onSave: (members: DocumentMembersResponseDTO, close: () => void) => Promise<void>,
+  onSave: (members: EntityMembersResponseDTO, close: () => void) => Promise<void>,
 }
 
 export const DocumentMembersModal = (props: DocumentMembersModalProps) => {
   
-  const { documentName, documentMembers, documentOwner, onClose, onSave, isOpen } = props;
+  const { documentName, members: initialMembers, documentOwner, onClose, onSave, isOpen } = props;
   
-  const [ members, setMembers ] = useState(documentMembers);
+  const [ members, setMembers ] = useState(initialMembers);
   
   const [ loading, setLoading ] = useState(false);
-  const done = JSON.stringify(documentMembers) === JSON.stringify(members);
+  const done = JSON.stringify(members) === JSON.stringify(members);
   
   return (
     <Modal

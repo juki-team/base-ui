@@ -1,6 +1,8 @@
 import {
+  EntityAccess,
   EntityMembersRank,
   EntityMembersResponseDTO,
+  getDocumentAccess,
   getUserKey,
   MemberType,
   UserSummaryListResponseDTO,
@@ -43,8 +45,10 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
   } = props;
   
   const companyKey = useUserStore(state => state.company.key);
+  const documentAccess = getDocumentAccess({ members });
   
   useEffect(() => {
+    return;
     setMembers?.(prevState => {
       let rankAdministrators;
       let newAdministrators;
@@ -172,29 +176,29 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                 <div className="jk-row"><InfoIIcon circle size="small" /></div>
               </Popover>
             )}
-            {administrators?.closeable && setMembers && (
-              <>
-                <div className="jk-divider horizontal tiny" />
-                <InputToggle
-                  checked={members.rankAdministrators === EntityMembersRank.CLOSE}
-                  onChange={(value) => setMembers(prevState => ({
-                    ...prevState,
-                    rankAdministrators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
-                  }))}
-                  leftLabel={
-                    <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.OPEN })}>
-                      {members.rankAdministrators === EntityMembersRank.OPEN ? 'opened' : 'open'}
-                    </T>
-                  }
-                  rightLabel={
-                    <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.CLOSE })}>
-                      {members.rankAdministrators === EntityMembersRank.CLOSE ? 'closed' : 'close'}
-                    </T>
-                  }
-                  size="small"
-                />
-              </>
-            )}
+            {/*{administrators?.closeable && setMembers && (*/}
+            {/*  <>*/}
+            {/*    <div className="jk-divider horizontal tiny" />*/}
+            {/*    <InputToggle*/}
+            {/*      checked={members.rankAdministrators === EntityMembersRank.CLOSE}*/}
+            {/*      onChange={(value) => setMembers(prevState => ({*/}
+            {/*        ...prevState,*/}
+            {/*        rankAdministrators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,*/}
+            {/*      }))}*/}
+            {/*      leftLabel={*/}
+            {/*        <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.OPEN })}>*/}
+            {/*          {members.rankAdministrators === EntityMembersRank.OPEN ? 'opened' : 'open'}*/}
+            {/*        </T>*/}
+            {/*      }*/}
+            {/*      rightLabel={*/}
+            {/*        <T className={classNames({ 'fw-bd': members.rankAdministrators === EntityMembersRank.CLOSE })}>*/}
+            {/*          {members.rankAdministrators === EntityMembersRank.CLOSE ? 'closed' : 'close'}*/}
+            {/*        </T>*/}
+            {/*      }*/}
+            {/*      size="small"*/}
+            {/*    />*/}
+            {/*  </>*/}
+            {/*)}*/}
           </div>
           {members.rankAdministrators === EntityMembersRank.NONE ? (
             <T className="tt-se">not selectable</T>
@@ -234,29 +238,29 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                 <div className="jk-row"><InfoIIcon circle size="small" /></div>
               </Popover>
             )}
-            {managers?.closeable && setMembers && (
-              <>
-                <div className="jk-divider horizontal tiny" />
-                <InputToggle
-                  checked={members.rankManagers === EntityMembersRank.CLOSE}
-                  onChange={(value) => setMembers(prevState => ({
-                    ...prevState,
-                    rankManagers: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
-                  }))}
-                  leftLabel={
-                    <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.OPEN })}>
-                      {members.rankManagers === EntityMembersRank.OPEN ? 'opened' : 'open'}
-                    </T>
-                  }
-                  rightLabel={
-                    <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.CLOSE })}>
-                      {members.rankManagers === EntityMembersRank.CLOSE ? 'closed' : 'close'}
-                    </T>
-                  }
-                  size="small"
-                />
-              </>
-            )}
+            {/*{managers?.closeable && setMembers && (*/}
+            {/*  <>*/}
+            {/*    <div className="jk-divider horizontal tiny" />*/}
+            {/*    <InputToggle*/}
+            {/*      checked={members.rankManagers === EntityMembersRank.CLOSE}*/}
+            {/*      onChange={(value) => setMembers(prevState => ({*/}
+            {/*        ...prevState,*/}
+            {/*        rankManagers: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,*/}
+            {/*      }))}*/}
+            {/*      leftLabel={*/}
+            {/*        <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.OPEN })}>*/}
+            {/*          {members.rankManagers === EntityMembersRank.OPEN ? 'opened' : 'open'}*/}
+            {/*        </T>*/}
+            {/*      }*/}
+            {/*      rightLabel={*/}
+            {/*        <T className={classNames({ 'fw-bd': members.rankManagers === EntityMembersRank.CLOSE })}>*/}
+            {/*          {members.rankManagers === EntityMembersRank.CLOSE ? 'closed' : 'close'}*/}
+            {/*        </T>*/}
+            {/*      }*/}
+            {/*      size="small"*/}
+            {/*    />*/}
+            {/*  </>*/}
+            {/*)}*/}
           </div>
           {members.rankManagers === EntityMembersRank.NONE ? (
             <T className="tt-se">not selectable</T>
@@ -296,7 +300,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                 <div className="jk-row"><InfoIIcon circle size="small" /></div>
               </Popover>
             )}
-            {participants?.closeable && setMembers && (
+            {participants?.closeable && setMembers && documentAccess !== EntityAccess.PRIVATE && (
               <>
                 <div className="jk-divider horizontal tiny" />
                 <InputToggle
@@ -358,7 +362,7 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                 <div className="jk-row"><InfoIIcon circle size="small" /></div>
               </Popover>
             )}
-            {guests?.closeable && setMembers && (
+            {guests?.closeable && setMembers && documentAccess !== EntityAccess.PRIVATE && (
               <>
                 <div className="jk-divider horizontal tiny" />
                 <InputToggle
@@ -420,29 +424,29 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
                 <div className="jk-row"><InfoIIcon circle size="small" /></div>
               </Popover>
             )}
-            {spectators?.closeable && setMembers && (
-              <>
-                <div className="jk-divider horizontal tiny" />
-                <InputToggle
-                  checked={members.rankSpectators === EntityMembersRank.CLOSE}
-                  onChange={(value) => setMembers(prevState => ({
-                    ...prevState,
-                    rankSpectators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,
-                  }))}
-                  leftLabel={
-                    <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.OPEN })}>
-                      {members.rankSpectators === EntityMembersRank.OPEN ? 'opened' : 'open'}
-                    </T>
-                  }
-                  rightLabel={
-                    <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.CLOSE })}>
-                      {members.rankSpectators === EntityMembersRank.CLOSE ? 'closed' : 'close'}
-                    </T>
-                  }
-                  size="small"
-                />
-              </>
-            )}
+            {/*{spectators?.closeable && setMembers && (*/}
+            {/*  <>*/}
+            {/*    <div className="jk-divider horizontal tiny" />*/}
+            {/*    <InputToggle*/}
+            {/*      checked={members.rankSpectators === EntityMembersRank.CLOSE}*/}
+            {/*      onChange={(value) => setMembers(prevState => ({*/}
+            {/*        ...prevState,*/}
+            {/*        rankSpectators: value ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN,*/}
+            {/*      }))}*/}
+            {/*      leftLabel={*/}
+            {/*        <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.OPEN })}>*/}
+            {/*          {members.rankSpectators === EntityMembersRank.OPEN ? 'opened' : 'open'}*/}
+            {/*        </T>*/}
+            {/*      }*/}
+            {/*      rightLabel={*/}
+            {/*        <T className={classNames({ 'fw-bd': members.rankSpectators === EntityMembersRank.CLOSE })}>*/}
+            {/*          {members.rankSpectators === EntityMembersRank.CLOSE ? 'closed' : 'close'}*/}
+            {/*        </T>*/}
+            {/*      }*/}
+            {/*      size="small"*/}
+            {/*    />*/}
+            {/*  </>*/}
+            {/*)}*/}
           </div>
           {members.rankSpectators === EntityMembersRank.NONE ? (
             <T className="tt-se">not selectable</T>

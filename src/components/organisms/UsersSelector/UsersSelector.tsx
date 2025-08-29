@@ -132,27 +132,26 @@ export const UsersSelector = (props: UsersSelectorProps) => {
         }}
         multiselect={maxUsersSelection !== 1}
       />
-      <div
+      <Button
+        icon={<RefreshIcon />}
         data-tooltip-id="jk-tooltip"
         data-tooltip-content="reload"
-        className="jk-button light only-icon"
-      >
-        <RefreshIcon onClick={() => mutate()} />
-      </div>
+        type="light"
+        size="small"
+        onClick={() => mutate()}
+      />
       {maxUsersSelection !== 1 && (
-        <div
+        <Button
+          icon={<GroupsIcon />}
           data-tooltip-id="jk-tooltip"
           data-tooltip-content="add users by nicknames in batches"
-          data-tooltip-t-class-name="tt-se"
-          className="jk-button light only-icon"
-        >
-          <GroupsIcon
-            onClick={() => {
-              resetText();
-              setShow(true);
-            }}
-          />
-        </div>
+          type="light"
+          size="small"
+          onClick={() => {
+            resetText();
+            setShow(true);
+          }}
+        />
       )}
     </div>
   );

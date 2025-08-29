@@ -21,6 +21,8 @@ const BasicInputComponent = <T extends string | number | FileList, >(_props: Inp
     inputId: id,
     onClick,
     onFocus,
+    onKeyDown,
+    onEnter,
     ...props
   } = _props;
   
@@ -50,8 +52,8 @@ const BasicInputComponent = <T extends string | number | FileList, >(_props: Inp
         }
       }}
       onClick={(e) => {
-        e.currentTarget?.select();
-        onClick?.();
+        // e.currentTarget?.select();
+        onClick?.(e);
       }}
       onFocus={(e) => {
         e.currentTarget?.select();
@@ -73,6 +75,12 @@ const BasicInputComponent = <T extends string | number | FileList, >(_props: Inp
       onBlur={registerOnBlur ? registerOnBlur : onBlur}
       style={size === 'auto' && type === 'number' ? { width: `${length + 1}em` } : {}}
       multiple={type === 'files'}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') {
+          onEnter?.(e);
+        }
+        onKeyDown?.(e);
+      }}
     />
   );
 };

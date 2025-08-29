@@ -12,7 +12,6 @@ export const ProblemVerdictTag = ({ verdict, small }: ProblemVerdictTagProps) =>
     <div
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={PROBLEM_VERDICT[verdict]?.label}
-      data-tooltip-t-class-name="tt-se"
       className="jk-tag tx-t"
       style={{
         backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark,

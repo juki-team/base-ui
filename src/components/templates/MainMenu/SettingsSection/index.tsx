@@ -23,7 +23,6 @@ export const LanguageSetting = ({ isOpen, popoverPlacement }: {
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isEs ? 'switch to english' : 'cambiar a español'}
       data-tooltip-place={popoverPlacement}
-      data-tooltip-t-class-name="tt-se"
       className={classNames('jk-row gap center extend', { 'cr-pr': !loading })}
       onClick={loading ? undefined : () => setSettings([
         {
@@ -79,7 +78,6 @@ export const ThemeSetting = ({ isOpen, popoverPlacement }: {
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isDark ? 'switch to light mode' : 'switch to dark mode'}
       data-tooltip-place={popoverPlacement}
-      data-tooltip-t-class-name="tt-se"
       className={classNames('jk-row gap center extend', { 'cr-pr': !loading })}
       onClick={changeThemeAndToggle}
     >
@@ -143,7 +141,6 @@ export const SettingsSection = (props: SettingsSectionProps) => {
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isOpen ? '' : 'help'}
       data-tooltip-place={popoverPlacement}
-      data-tooltip-t-class-name="tt-se"
       className="jk-row gap center extend cr-pr"
       onClick={() => setHelpOpen(true)}
     >

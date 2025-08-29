@@ -183,7 +183,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
             ))}
         </div>
         <div className="jk-row gap extend right">
-          <Button type="light" onClick={onClose}><T>cancel</T></Button>
+          <Button type="light" onClick={onClose}><T className="tt-se">cancel</T></Button>
           <ButtonLoader
             disabled={!validLengthNickname || !validCharNickname}
             onClick={(setLoader) => {
@@ -212,7 +212,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
               });
             }}
           >
-            <T>update</T>
+            <T className="tt-se">update</T>
           </ButtonLoader>
         </div>
       </div>

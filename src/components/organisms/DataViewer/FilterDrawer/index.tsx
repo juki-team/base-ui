@@ -49,7 +49,6 @@ const RenderFilterTitle = <T, >({
         {/*<InputToggle*/}
         {/*  data-tooltip-id="jk-tooltip"*/}
         {/*  data-tooltip-content={visibility ? 'hide column' : 'enable column'}*/}
-        {/*  data-tooltip-t-class-name="tt-se"*/}
         {/*  data-tooltip-place="left"*/}
         {/*  checked={visibility}*/}
         {/*  onChange={onToggleVisibility}*/}

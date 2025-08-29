@@ -23,6 +23,7 @@ export const Regular: Story = {
             data-tooltip-content="it is not possible to submit to external judges at this time, we apologize for the inconvenience"
             data-tooltip-t-class-name="class"
             data-tooltip-place="bottom"
+            {...args}
             // to add class names to <T>
           >
             hover me

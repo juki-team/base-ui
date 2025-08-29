@@ -1,4 +1,4 @@
-import type { ComponentPropsWithRef, KeyboardEventHandler, ReactElement, ReactNode } from 'react';
+import type { ComponentPropsWithRef, KeyboardEventHandler, MouseEventHandler, ReactElement, ReactNode } from 'react';
 import type { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import type { ReactNodeOrFunctionType } from '../../../types';
 import type { ButtonType } from '../Button/types';
@@ -20,7 +20,7 @@ export interface InputCommonsProps<T> {
   inputClassName?: string,
   labelClassName?: string,
   expand?: boolean,
-  onClick?: () => void,
+  onClick?: MouseEventHandler<HTMLInputElement>,
   autoFocus?: boolean,
   placeholder?: string,
   register?: UseFormRegisterReturn | ((setValueAs: (value: T) => void) => UseFormRegisterReturn),  //{ name: string, onBlur: ChangeHandler, onChange: ChangeHandler, ref: any },
@@ -34,6 +34,7 @@ export interface InputCommonsProps<T> {
   labelPlacement?: 'top-border' | 'top' | 'left',
   required?: boolean,
   onKeyDown?: KeyboardEventHandler<HTMLInputElement>,
+  onEnter?: KeyboardEventHandler<HTMLInputElement>,
 }
 
 // export interface InputFileProps<T> extends InputCommonsProps<T> {

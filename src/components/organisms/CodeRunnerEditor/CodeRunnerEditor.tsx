@@ -246,6 +246,11 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
     />
   ), [ testCases, timeLimit, memoryLimit, direction, readOnly, enableAddSampleCases, enableAddCustomSampleCases, isRunning ]);
   
+  const onChange = () => {
+    onChangeRef.current?.({ fileNameEdited: [ openFileName, fileNameEdit ] });
+    setOpenFileName('');
+  };
+  
   const body = (
     <div
       className={classNames(
@@ -283,18 +288,14 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
             labelPlacement="top"
             value={fileNameEdit}
             onChange={setFileNameEdit}
+            onEnter={onChange}
             expand
           />
           <div className="jk-row gap right">
             <Button type="light" onClick={() => setOpenFileName('')}>
               <T className="tt-se">cancel</T>
             </Button>
-            <Button
-              onClick={() => {
-                onChangeRef.current?.({ fileNameEdited: [ openFileName, fileNameEdit ] });
-                setOpenFileName('');
-              }}
-            >
+            <Button onClick={onChange}>
               <T className="tt-se">change</T>
             </Button>
           </div>
@@ -379,42 +380,47 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
           </div>
           <div className="jk-divider vertical tiny" style={{ height: 1 }} />
           <div className="jk-col top stretch gap nowrap ow-ao">
-            {Object.entries(files)
-              .sort(([ _, a ], [ __, b ]) => a.index - b.index)
-              .map(([ name ], index) => (
-                <div
-                  className={classNames('tx-s jk-pg-xsm jk-col nowrap left stretch', {
-                    'bc-pl cr-we': name === currentFileName,
-                    'hoverable': name !== currentFileName,
-                  })}
-                  onClick={name !== currentFileName ? (() => onChangeRef.current?.({ fileName: name })) : undefined}
-                >
-                  {viewFiles ? (
-                    <>
-                      {name}
-                      <div className="jk-row gap right">
-                        <EditIcon
-                          className={classNames({ 'cr-pl': name !== currentFileName })}
-                          size="tiny"
-                          filledCircle={name !== currentFileName ? 'var(--t-color-white)' : 'var(--t-color-primary)'}
-                          onClick={() => {
-                            setOpenFileName(name);
-                            setFileNameEdit(name);
-                          }}
-                        />
-                        <DeleteIcon
-                          className={classNames({ 'cr-pl': name !== currentFileName })}
-                          size="tiny"
-                          filledCircle={name !== currentFileName ? 'var(--t-color-white)' : 'var(--t-color-primary)'}
-                          onClick={() => setFileNameDelete(name)}
-                        />
-                      </div>
-                    </>
-                  ) : (
-                    <DraftIcon letter={((index + 1) % 10) + ''} letterSize={12} size="small" />
-                  )}
-                </div>
-              ))}
+            <div className="jk-col stretch">
+              {Object.entries(files)
+                .sort(([ _, a ], [ __, b ]) => a.index - b.index)
+                .map(([ name ], index) => (
+                  <div
+                    className={classNames('tx-t jk-pg-xsm jk-col nowrap left stretch', {
+                      'bc-pl cr-we': name === currentFileName,
+                      'hoverable': name !== currentFileName,
+                    })}
+                    onClick={name !== currentFileName ? (() => onChangeRef.current?.({ fileName: name })) : undefined}
+                  >
+                    {viewFiles ? (
+                      <>
+                        {name}
+                        <div className="jk-row gap space-between">
+                          <DraftIcon letter={((index + 1) % 10) + ''} letterSize={12} size="tiny" />
+                          <div className="jk-row gap">
+                            <EditIcon
+                              className={classNames({ 'cr-pl': name !== currentFileName })}
+                              size="tiny"
+                              filledCircle={name !== currentFileName ? 'var(--t-color-white)' : 'var(--t-color-primary)'}
+                              onClick={() => {
+                                setOpenFileName(name);
+                                setFileNameEdit(name);
+                              }}
+                            />
+                            <DeleteIcon
+                              className={classNames({ 'cr-pl': name !== currentFileName })}
+                              size="tiny"
+                              filledCircle={name !== currentFileName ? 'var(--t-color-white)' : 'var(--t-color-primary)'}
+                              onClick={() => setFileNameDelete(name)}
+                            />
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <DraftIcon letter={((index + 1) % 10) + ''} letterSize={12} size="small" />
+                    )}
+                  </div>
+                ))}
+            </div>
             <div className="jk-row">
               <Button
                 size="small"

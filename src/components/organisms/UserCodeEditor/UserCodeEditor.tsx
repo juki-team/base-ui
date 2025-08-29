@@ -129,6 +129,16 @@ const mergeSources = <T, >(a: CodeEditorFiles<T>, b: CodeEditorFiles<T> | undefi
   return { ...b, ...a };
 };
 
+const getNewFileName = (prefix: string, suffix: string, exist: (name: string) => boolean) => {
+  let newFile = `${prefix}${suffix}`;
+  let i = 1;
+  while (exist(newFile)) {
+    newFile = `${prefix}(${i})${suffix}`;
+    i++;
+  }
+  return newFile;
+};
+
 export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   
   const {
@@ -271,7 +281,10 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   
   const changeFileName = (prevState: StorageType<CodeEditorFiles<T>>, oldName: string, newName: string) => {
     const files = prevState[storeKey] || {};
-    const oldFile = { ...files[oldName] };
+    const oldFile = {
+      ...files[oldName],
+      name: newName,
+    };
     const { [oldName]: _, ...newFiles } = { ...files };
     newFiles[newName] = oldFile;
     
@@ -318,8 +331,9 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     if (newLanguage) {
       // setLanguage(newLanguage);
       setEditorSettings(prevState => ({ ...prevState, lastLanguageUsed: newLanguage }));
-      const newRenamedFile = `${removeExtension(currentFileName)}.${getExtension(newLanguage)}`;
       setFilesStore(prevState => {
+        const files = { ...(prevState[storeKey] || {}) };
+        const newRenamedFile = getNewFileName(removeExtension(currentFileName), `.${getExtension(newLanguage)}`, (name) => !!files[name]);
         const newState: StorageType<CodeEditorFiles<T>> = {
           ...prevState,
           [storeKey]: {
@@ -330,9 +344,9 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
             },
           },
         };
+        setCurrentFileName(newRenamedFile);
         return changeFileName(newState, currentFileName, newRenamedFile);
       });
-      setCurrentFileName(newRenamedFile);
       setEditorTriggerFocus(Date.now());
     }
     if (onTestCasesChange) {
@@ -356,12 +370,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
     if (newFileName) {
       setFilesStore(prevState => {
         const files = { ...(prevState[storeKey] || {}) };
-        let newFile = `new.${getExtension(editorSettings.lastLanguageUsed)}`;
-        let i = 1;
-        while (files[newFile]) {
-          newFile = `new${i}.${getExtension(editorSettings.lastLanguageUsed)}`;
-          i++;
-        }
+        const newFile = getNewFileName('new', `.${getExtension(editorSettings.lastLanguageUsed)}`, (name) => !!files[name]);
         setCurrentFileName(newFile);
         const maxIndex = Object.values(files).reduce((accum, { index }) => Math.max(accum, index || 0), 0);
         files[newFile] = {
