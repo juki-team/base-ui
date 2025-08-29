@@ -32,7 +32,7 @@ export const DocumentMembersModal = (props: DocumentMembersModalProps) => {
   const [ members, setMembers ] = useStableState(initialMembers);
   const [ loading, setLoading ] = useState(false);
   
-  const done = JSON.stringify(members) === JSON.stringify(members);
+  const done = JSON.stringify(members) === JSON.stringify(initialMembers);
   
   return (
     <Modal
