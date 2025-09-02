@@ -2,6 +2,7 @@ import React, { PropsWithChildren } from 'react';
 import { LinkCmpProps } from './types';
 
 export const Link = (props: PropsWithChildren<LinkCmpProps>) => {
+  
   const {
     href,
     children,
@@ -15,7 +16,7 @@ export const Link = (props: PropsWithChildren<LinkCmpProps>) => {
   if (typeof href === 'string') {
     url = href;
   } else {
-    url = href.href || '';
+    url = href.href || (href.pathname + '?' + href.query) || '';
   }
   
   return (

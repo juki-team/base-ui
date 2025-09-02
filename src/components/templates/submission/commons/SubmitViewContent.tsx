@@ -1,6 +1,8 @@
 import {
   CODE_LANGUAGE,
+  ContentsResponseType,
   Judge,
+  JudgeDataResponseDTO,
   ProblemScoringMode,
   ProblemVerdict,
   SubmissionDataResponseDTO,
@@ -9,8 +11,9 @@ import {
 import React, { ReactNode } from 'react';
 import { getJudgeOrigin } from '../../../../helpers';
 import { hasTimeHasMemory } from '../../../../helpers/submission';
+import { useFetcher } from '../../../../hooks';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
-import { jukiAppRoutes } from '../../../../settings';
+import { jukiApiManager, jukiAppRoutes } from '../../../../settings';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { ContestTab } from '../../../../types';
 import { Button, Collapse, DateLiteral, T } from '../../../atoms';
@@ -43,12 +46,16 @@ const DisplayGridData = ({ data }: { data: { title: ReactNode, content: ReactNod
 export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDTO }) => {
   
   const {
+    runId,
     submitId,
     problem: {
-      isEditor: isProblemEditor,
+      isManager,
+      isAdministrator,
       scoringMode: problemScoringMode,
+      key: problemKey,
     },
     user: {
+      nickname,
       canViewSourceCode,
     },
     language,
@@ -66,6 +73,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
     contest,
   } = submit;
   
+  const isProblemEditor = isManager || isAdministrator;
   const date = new Date(timestamp);
   const testCasesByGroup: { [key: number]: TestCaseResultType[] } = {};
   (
@@ -90,6 +98,12 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
   const origin = getJudgeOrigin(submit.problem.company.key, userCompanyKey);
   
   const isLeetCode = submit.problem.judgeKey === Judge.LEETCODE;
+  const { data } = useFetcher<ContentsResponseType<JudgeDataResponseDTO>>(
+    jukiApiManager.API_V1.judge.getSummaryList().url,
+  );
+  const getSubmissionUrl = data?.success ? data.contents.find(({ key }) => key === Judge.LEETCODE)?.getSubmissionUrl : '';
+  const getSubmissionUrlFn = new Function('problemKey', 'submissionId', 'username', 'submissionRunId', getSubmissionUrl || 'return \'\'');
+  const externalUrl = getSubmissionUrlFn(problemKey, submitId, nickname, runId) as string;
   
   return (
     <div className="jk-col stretch gap wh-100">
@@ -267,10 +281,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
       )}
       {isLeetCode && (
         <div className="jk-row wh-100">
-          <Link
-            href={`https://leetcode.com/problems/${submit.problem.key.replace('PL-', '')}/submissions/${submit.runId}`}
-            target="_blank"
-          >
+          <Link href={externalUrl} target="_blank">
             <Button>
               <T className="tt-se">view submission on LeetCode</T><OpenInNewIcon />
             </Button>

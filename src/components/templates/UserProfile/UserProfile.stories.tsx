@@ -37,6 +37,7 @@ Regular.args = {
     institution: 'UMSA',
     handles: {
       [Judge.CODEFORCES]: 'OscarGauss',
+      [Judge.LEETCODE]: 'o___g',
     },
     canEditProfileData: true,
     canEditSettingsData: true,

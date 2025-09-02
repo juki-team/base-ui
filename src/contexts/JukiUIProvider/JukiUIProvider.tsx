@@ -32,8 +32,8 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
       pathname = p;
       sp = new URLSearchParams(s);
     } else {
-      pathname = href.pathname;
-      sp = new URLSearchParams('?' + (href.query || ''));
+      pathname = href?.pathname ?? '';
+      sp = new URLSearchParams('?' + (href?.query || ''));
     }
     
     const query = persistGlobalURLSearchParams(sp);
