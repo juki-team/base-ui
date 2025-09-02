@@ -24,7 +24,7 @@ export const useUserStore = create<UserState>()(
         const current = get().user;
         const newUser = { ...current, ...user };
         if (JSON.stringify(current) !== JSON.stringify(newUser)) {
-          return set({ user: newUser, isLoading: !newUser?.sessionId });
+          set({ user: newUser, isLoading: !newUser?.sessionId });
         }
       },
       company: EMPTY_COMPANY,
