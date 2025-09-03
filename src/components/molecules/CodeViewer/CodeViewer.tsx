@@ -71,7 +71,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
           <code
             ref={codeRef}
             key={language}
-            className={`language-${CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext'}`}
+            className={`ta-lt language-${CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext'}`}
             style={{ minHeight: lines.length * 24 }}
           >
             {code}

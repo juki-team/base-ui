@@ -45,6 +45,8 @@ export interface WorksheetBodyProps {
   isSolvable: boolean,
   isEditor?: boolean,
   worksheetKey: string,
+  asSlides?: boolean,
+  onSlidesExit?: () => void,
 }
 
 export interface WorksheetViewerProps {

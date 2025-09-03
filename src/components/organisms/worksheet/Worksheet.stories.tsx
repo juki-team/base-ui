@@ -1,8 +1,9 @@
 import {
   cleanRequest,
   ContentResponseType,
-  DocumentMembersResponseDTO,
+  EntityMembersResponseDTO,
   Status,
+  toEntityMembersDTO,
   UpsertWorksheetDTO,
   UserCompanyBasicInfoResponseDTO,
   WorksheetDataResponseDTO,
@@ -26,7 +27,8 @@ export const WorksheetViewer = () => {
   return (
     <MockupJukiProvider>
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
-        url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
+        // url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
+        url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-g4Y' } }).url}
       >
         {({ data }) => (
           <TwoContentLayout
@@ -48,7 +50,6 @@ export const WorksheetViewer = () => {
             {/*  <DateLiteral date={new Date(noteSheet.updatedAt)} show="year-month-day-hours-minutes" />*/}
             {/*</div>*/}
           </TwoContentLayout>
-        
         )}
       </FetcherLayer>
     </MockupJukiProvider>
@@ -91,16 +92,12 @@ export const WorksheetResultViewer = () => {
 };
 
 interface UpsertWorksheetUIDTO extends Omit<UpsertWorksheetDTO, 'members'> {
-  members: DocumentMembersResponseDTO,
+  members: EntityMembersResponseDTO,
   owner: UserCompanyBasicInfoResponseDTO,
 }
 
 const toUpsertWorksheetDTO = (entity: UpsertWorksheetUIDTO): UpsertWorksheetDTO => ({
-  members: {
-    access: entity.members.access,
-    managers: Object.keys(entity.members.managers),
-    spectators: Object.keys(entity.members.spectators),
-  },
+  members: toEntityMembersDTO(entity.members),
   folderId: entity.folderId,
   name: entity.name,
   description: entity.description,

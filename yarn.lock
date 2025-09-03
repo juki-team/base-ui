@@ -1742,10 +1742,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@juki-team/commons@^0.0.903":
-  version "0.0.903"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.903/c7cac364ed86789b61ded3981c4dd6d2dfa21326#c7cac364ed86789b61ded3981c4dd6d2dfa21326"
-  integrity sha512-+RkGPwLFA8EzOa7Q2nsaH8kufuiEcZd3ZObHCOT73XNNIZFUOONmndNMElxfv6jzsQifi+yocQj6yJj7qA5dTw==
+"@juki-team/commons@^0.0.906":
+  version "0.0.906"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.906/5776d693edc23ed488462d890cb8102a950c903d#5776d693edc23ed488462d890cb8102a950c903d"
+  integrity sha512-RQVvQ5nxwpPF+mT4F+HnvqKJieED+Y1dYj2DxEy2kQ3qra4DAB8QlvnGK2rA+P7eHA88SfKzGsrkPdg3EU04RA==
 
 "@lezer/common@^0.15.0", "@lezer/common@^0.15.5":
   version "0.15.12"
@@ -3320,6 +3320,11 @@
   version "1.20.6"
   resolved "https://registry.yarnpkg.com/@types/resolve/-/resolve-1.20.6.tgz#e6e60dad29c2c8c206c026e6dd8d6d1bdda850b8"
   integrity sha512-A4STmOXPhMUtHH+S6ymgE2GiBSMqf4oTvcQZMcHzokuTLVYzXTB8ttjcgxOVaAp2lGwEdzZ0J+cRbbeevQj1UQ==
+
+"@types/reveal.js@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@types/reveal.js/-/reveal.js-5.2.0.tgz#d000dcdb9457e387b5d0c2773662ce5092cc35cc"
+  integrity sha512-IHO3Nc0YjI4CKQHeK/2U+6SinAJCC8/xiKCIDQnlFCiq02GMag+WrveIszll033zyv/mtXoCnWmYZITUngE2pA==
 
 "@types/semver@^7.3.4":
   version "7.7.0"
@@ -9943,6 +9948,11 @@ reusify@^1.0.4:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/reusify/-/reusify-1.1.0.tgz#0fe13b9522e1473f51b558ee796e08f11f9b489f"
   integrity sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==
+
+reveal.js@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/reveal.js/-/reveal.js-5.2.1.tgz#22e5f4aca16b2b9efc0fef7b8b62455861fef39c"
+  integrity sha512-r7//6mIM5p34hFiDMvYfXgyjXqGRta+/psd9YtytsgRlrpRzFv4RbH76TXd2qD+7ZPZEbpBDhdRhJaFgfQ7zNQ==
 
 rimraf@^2.5.4, rimraf@^2.6.3:
   version "2.7.1"

@@ -1,5 +1,5 @@
 import { BodyWorksheetType, NewPageSheetType } from '@juki-team/commons';
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { NotUndefined, QueryParamKey } from '../../../types';
 import { Button, Input, T } from '../../atoms';
@@ -43,9 +43,12 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   }, [ page, setPageSheets, sheetsInPages ]);
   
   const pages = sheetsInPages.length;
-  
+  const [ asSlides, setAsSlides ] = useState(false);
   return (
     <div className={classNames('jk-col gap nowrap top stretch extend worksheet-bodies wh-100', { 'is-solvable': isSolvable })}>
+      <Button onClick={() => setAsSlides(true)}>
+        <T>as slides</T>
+      </Button>
       {setSheets && (
         <div className="jk-row gap extend nowrap" key={`${page}`}>
           <Input
@@ -112,6 +115,8 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         isEditor={isEditor}
         worksheetKey={worksheetKey}
         ref={containerRef}
+        asSlides={asSlides}
+        onSlidesExit={() => setAsSlides(false)}
       >
       </WorksheetBody>
       {page < pages ? (

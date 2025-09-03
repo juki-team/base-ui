@@ -32,20 +32,16 @@ export const WorksheetEditor = (props: WorksheetEditorProps) => {
   
   const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
   
-  const pages = sheetsInPages.length;
-  
   return (
     <div className="jk-col gap nowrap worksheet-editor-container center top">
-      {(pages > 1) && (
-        <div className="jk-row">
-          <ContentsSectionHeader
-            page={page}
-            subPage={subPage}
-            onPageChange={onPageChange}
-            sheetsInPages={sheetsInPages}
-          />
-        </div>
-      )}
+      <div className="jk-row">
+        <ContentsSectionHeader
+          page={page}
+          subPage={subPage}
+          onPageChange={onPageChange}
+          sheetsInPages={sheetsInPages}
+        />
+      </div>
       <WorksheetBodies
         sheetsInPages={sheetsInPages}
         setSheets={setContent}
