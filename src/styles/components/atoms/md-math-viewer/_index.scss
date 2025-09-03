@@ -92,7 +92,7 @@
   
   blockquote {
     padding-left: var(--pad-s);
-    border-left: 4px solid var(--t-color-primary-light);
+    border-left: 4px solid var(--t-color-text-highlight-light);
     margin: var(--pad-xt) 0;
     font-weight: lighter;
     text-align: justify;
@@ -100,7 +100,7 @@
   
   ul, ol {
     li::marker {
-      color: var(--t-color-primary-dark);
+      color: var(--t-color-text-highlight-light);
     }
     
     margin: 0;
@@ -121,7 +121,7 @@
       left: -0.7em;
       top: 0;
       font-family: var(--font-code), monospace !important;
-      color: var(--t-color-primary-dark);
+      color: var(--t-color-text-highlight);
       font-weight: var(--weight-bolder);
     }
     
@@ -148,7 +148,7 @@
   }
   
   a.jk-md-math-link {
-    color: var(--t-color-primary-light);
+    color: var(--t-color-text-highlight-light);
     text-decoration: none;
     position: relative;
     
@@ -162,7 +162,7 @@
     }
     
     &:hover {
-      color: var(--t-color-primary);
+      color: var(--t-color-text-highlight);
       text-decoration: underline;
     }
   }
