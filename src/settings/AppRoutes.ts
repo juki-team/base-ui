@@ -95,8 +95,8 @@ export class AppRoutes {
         edit({ key, tab, from }: { key: string, tab: WorksheetTab, from?: string }) {
           return injectOrigin(origin, igu(`/worksheets/${key}/edit?tab=${tab}${from ? `&from=${from}` : ''}`));
         },
-        new() {
-          return injectOrigin(origin, igu(`/worksheets/new`));
+        new({ tab }: { tab: WorksheetTab, }) {
+          return injectOrigin(origin, igu(`/worksheets/new?tab=${tab}`));
         },
       },
       classes: {
