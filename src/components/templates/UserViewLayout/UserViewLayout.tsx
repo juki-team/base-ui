@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { isJudgeWindowLocation } from '../../../helpers';
+import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
@@ -13,6 +14,7 @@ import { ResetPasswordModal } from '../ResetPasswordModal/ResetPasswordModal';
 import { UserMyActiveSessions } from '../UserActiveSessions/UserMyActiveSessions';
 import { UserProfile } from '../UserProfile/UserProfile';
 import { UserProfileSettings } from '../UserProfileSettings/UserProfileSettings';
+import { ProfileSubmissions } from './ProfileSubmissions';
 import { UserViewLayoutProps } from './types';
 
 export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutProps) {
@@ -51,6 +53,16 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
       key: ProfileTab.MY_SESSIONS,
       header: <T className="tt-ce ws-np">active sessions</T>,
       body: <UserMyActiveSessions />,
+    };
+  }
+  
+  if (isJudgeWindowLocation()) {
+    tabHeaders[ProfileTab.SUBMISSIONS] = {
+      key: ProfileTab.SUBMISSIONS,
+      header: userNickname === user.nickname
+        ? <T className="tt-ce ws-np">my submissions</T>
+        : <T className="tt-ce ws-np">submissions</T>,
+      body: <ProfileSubmissions />,
     };
   }
   

@@ -20,6 +20,7 @@ export enum QueryParamKey {
   VISIBLES = 'b',
   // users table
   LOGGED_USERS_TABLE = 'lut',
+  PROFILE_SUBMISSIONS_TABLE = 'pst',
 }
 
 export type RequestSortType = { [key: string]: 1 | -1 };
