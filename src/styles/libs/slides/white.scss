@@ -41,6 +41,12 @@
     --r-selection-color: #FFFFFF;
     --r-overlay-element-bg-color: 0, 0, 0;
     --r-overlay-element-fg-color: 240, 240, 240;
+    
+    //--base-text-size: 48px !important;
+  }
+  
+  .reveal {
+    --base-text-size: 48px !important;
   }
   
   .reveal-viewport {
@@ -48,10 +54,10 @@
     background-color: var(--r-background-color);
   }
   
-  .reveal, .reveal p {
-    font-family: var(--r-main-font) !important;
-    font-size: var(--r-main-font-size) !important;
-    font-weight: normal;
+  .reveal--, .reveal p {
+    //font-family: var(--r-main-font) !important;
+    //font-size: var(--r-main-font-size) !important;
+    //font-weight: normal;
     color: var(--r-main-color);
   }
   
@@ -82,30 +88,30 @@
   .reveal h4,
   .reveal h5,
   .reveal h6 {
-    margin: var(--r-heading-margin);
-    color: var(--r-heading-color);
-    font-family: var(--r-heading-font);
-    font-weight: var(--r-heading-font-weight);
-    line-height: var(--r-heading-line-height);
+    //margin: var(--r-heading-margin);
+    //color: var(--r-heading-color);
+    //font-family: var(--r-heading-font);
+    //font-weight: var(--r-heading-font-weight);
+    //line-height: var(--r-heading-line-height);
     letter-spacing: var(--r-heading-letter-spacing);
     text-transform: var(--r-heading-text-transform);
     text-shadow: var(--r-heading-text-shadow);
     word-wrap: break-word;
   }
   
-  .reveal h1 {
+  .reveal-- h1 {
     font-size: var(--r-heading1-size) !important;
   }
   
-  .reveal h2 {
+  .reveal-- h2 {
     font-size: var(--r-heading2-size) !important;
   }
   
-  .reveal h3 {
+  .reveal-- h3 {
     font-size: var(--r-heading3-size) !important;
   }
   
-  .reveal h4 {
+  .reveal-- h4 {
     font-size: var(--r-heading4-size) !important;
   }
   
@@ -117,7 +123,7 @@
    * OTHER
    *********************************************/
   .reveal p {
-    margin: var(--r-block-margin) 0;
+    //margin: var(--r-block-margin) 0;
     line-height: 1.3;
   }
   
@@ -141,11 +147,11 @@
   
   .reveal strong,
   .reveal b {
-    font-weight: bold;
+    //font-weight: bold;
   }
   
   .reveal em {
-    font-style: italic;
+    //font-style: italic;
   }
   
   .reveal ol,
@@ -188,7 +194,7 @@
     margin-left: 40px;
   }
   
-  .reveal blockquote {
+  .reveal-- blockquote {
     display: block;
     position: relative;
     width: 70%;
@@ -243,35 +249,35 @@
     white-space: pre;
   }
   
-  .reveal table {
+  .reveal-- table {
     margin: auto;
     border-collapse: collapse;
     border-spacing: 0;
   }
   
-  .reveal table th {
+  .reveal-- table th {
     font-weight: bold;
   }
   
-  .reveal table th,
-  .reveal table td {
+  .reveal-- table th,
+  .reveal-- table td {
     text-align: left;
     padding: 0.2em 0.5em 0.2em 0.5em;
     border-bottom: 1px solid;
   }
   
-  .reveal table th[align=center],
-  .reveal table td[align=center] {
+  .reveal-- table th[align=center],
+  .reveal-- table td[align=center] {
     text-align: center;
   }
   
-  .reveal table th[align=right],
-  .reveal table td[align=right] {
+  .reveal-- table th[align=right],
+  .reveal-- table td[align=right] {
     text-align: right;
   }
   
-  .reveal table tbody tr:last-child th,
-  .reveal table tbody tr:last-child td {
+  .reveal-- table tbody tr:last-child th,
+  .reveal-- table tbody tr:last-child td {
     border-bottom: none;
   }
   
