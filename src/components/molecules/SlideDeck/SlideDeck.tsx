@@ -46,20 +46,22 @@ export const SlideDeck = ({
     });
     
     deckRef.current.initialize({ plugins: [ RevealZoom, RevealNotes, RevealSearch ] }).then(() => {
-      const slides = document.querySelector('.slides');
-      const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
-      for (let i = 0; i < parents.length; i++) {
-        let fragmentAdded = false;
-        for (let j = 0; j < parents[i].length; j++) {
-          if (parents[i][j].tagName === 'OL' || parents[i][j].tagName === 'UL') {
-            for (const li of Array.from(parents[i][j].children)) {
-              li.classList.add('fragment');
+      if (typeof document !== 'undefined') {
+        const slides = document.querySelector('.slides');
+        const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
+        for (let i = 0; i < parents.length; i++) {
+          let fragmentAdded = false;
+          for (let j = 0; j < parents[i].length; j++) {
+            if (parents[i][j].tagName === 'OL' || parents[i][j].tagName === 'UL') {
+              for (const li of Array.from(parents[i][j].children)) {
+                li.classList.add('fragment');
+                fragmentAdded = true;
+              }
+            }
+            if (fragmentAdded || parents[i][j].textContent !== parents[i - 1]?.[j]?.textContent) {
+              parents[i][j].classList.add('fragment');
               fragmentAdded = true;
             }
-          }
-          if (fragmentAdded || parents[i][j].textContent !== parents[i - 1]?.[j]?.textContent) {
-            parents[i][j].classList.add('fragment');
-            fragmentAdded = true;
           }
         }
       }
