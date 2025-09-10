@@ -54,7 +54,7 @@
     "storybook": "storybook dev -p 6006",
     "storybook:build": "rm -rf docs && storybook build -o docs",
     "build-storybook": "rm -rf docs && storybook build -o docs",
-    "rollup:build": "rm -rf dist && rollup -c --no-cache --strictDeprecations --environment NODE_ENV:production",
+    "rollup:build": "rm -rf dist && rm -rf node_modules/.cache/rollup-plugin-typescript2 && rollup -c --no-cache --strictDeprecations --environment NODE_ENV:production",
     "pull": "yarn add @juki-team/commons",
     "build": "yarn rollup:build",
     "build:deploy": "yarn storybook:build && yarn build",
