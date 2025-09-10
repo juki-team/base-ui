@@ -45,7 +45,11 @@ export const SlideDeck = ({
       
     });
     
-    deckRef.current.initialize({ plugins: [ RevealZoom, RevealNotes, RevealSearch ] }).then(() => {
+    deckRef.current.initialize({
+      plugins:
+        typeof document !== 'undefined' ? [ RevealZoom, RevealNotes, RevealSearch ] : [],
+    }).then(() => {
+      
       if (typeof document !== 'undefined') {
         const slides = document.querySelector('.slides');
         const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
