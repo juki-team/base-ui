@@ -26,6 +26,10 @@ export const SlideDeck = ({
   const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
   
   useEffect(() => {
+    const renderGraphviz = () => {
+      console.info('renderGraphviz');
+      useGraphvizStore.getState().triggerRerender();
+    };
     if (!deckRef.current) {
       (async () => {
         const Reveal = (await import('reveal.js')).default;
@@ -74,7 +78,13 @@ export const SlideDeck = ({
         deckRef.current.on('slidechanged', () => {
           useGraphvizStore.getState().triggerRerender();
         });
+        deckRef.current.on('ready', () => {
+          useGraphvizStore.getState().triggerRerender();
+        });
         
+        if (typeof document !== 'undefined') {
+          document.addEventListener('pdf-ready', renderGraphviz);
+        }
         deckRef.current.on('fragmentshown', (event: any) => {
           const fragmentEl: HTMLElement = event.fragment;
           const parent = fragmentEl?.parentElement?.parentElement;
@@ -91,6 +101,9 @@ export const SlideDeck = ({
     
     return () => {
       try {
+        if (typeof document !== 'undefined') {
+          document.removeEventListener('pdf-ready', renderGraphviz);
+        }
         if (deckRef.current) {
           deckRef.current.destroy();
           deckRef.current = null;

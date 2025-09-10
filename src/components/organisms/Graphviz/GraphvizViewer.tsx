@@ -44,16 +44,14 @@ export const GraphvizViewer = memo(({ value, className, width, height }: Graphvi
     el.innerHTML = '';
     setError('');
     const options = { width, height };
-    // crea instancia y conecta handler de errores
-    const gv = graphviz(el, { ...defaultOptions, ...options })
-      .fit(false)
-      .onerror?.((e: any) => {
-        // algunos builds exponen onerror; si no, ignora esta línea
-        setError(e?.message || String(e));
-      });
     
     try {
-      gv?.fit(false).renderDot(value); // si hay error sintáctico y useWorker=false, lanza excepción
+      graphviz(el, { ...defaultOptions, ...options })
+        .fit(false)
+        .renderDot(value)
+        .onerror?.((e: any) => {
+        setError(e?.message || String(e));
+      });
     } catch (e: any) {
       setError(e?.message || String(e));
     }
