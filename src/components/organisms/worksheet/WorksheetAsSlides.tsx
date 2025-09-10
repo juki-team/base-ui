@@ -15,7 +15,7 @@ import { UserResultsType, WorksheetAsSlidesProps } from './types';
 export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
   
   const {
-    worksheet: { content, quiz: { enable: quizEnable }, key: worksheetKey },
+    worksheet: { content, quiz: { enable: quizEnable }, key: worksheetKey, slides },
     resultsUserKey,
     readOnly = false,
   } = props;
@@ -50,7 +50,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
         <section
           data-auto-animate
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
-          data-background-image={'https://images.juki.pub/posters/ada-slide-title.jpg'}
+          data-background-image={slides.titleBackgroundImage}
         >
           <MdMath source={sheet.header.title} />
         </section>,
@@ -59,7 +59,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
         <section
           data-auto-animate
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
-          data-background-image={'https://images.juki.pub/posters/ada-slide-cover.jpg'}
+          data-background-image={slides.backgroundImage}
         >
           <WorksheetNode
             key={chunk.id}
