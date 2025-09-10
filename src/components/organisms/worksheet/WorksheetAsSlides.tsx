@@ -18,6 +18,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
     worksheet: { content, quiz: { enable: quizEnable }, key: worksheetKey, slides },
     resultsUserKey,
     readOnly = false,
+    page,
   } = props;
   
   const userNickname = useUserStore(state => state.user.nickname);
@@ -43,6 +44,39 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
   }), [ userResultsData, userResultsIsLoading, userResultsIsValidating, userResultsMutate ]);
   
   const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
+  if (typeof page === 'number' && page >= 0 && page < sheetsInPages.length) {
+    const sheet = sheetsInPages[page];
+    return [
+      [
+        <section
+          data-auto-animate
+          style={{ overflow: 'hidden auto', maxHeight: '100%' }}
+          data-background-image={slides.titleBackgroundImage}
+        >
+          <MdMath source={sheet.header.title} />
+        </section>,
+      ],
+      sheet.content.map((chunk, index) => (
+        <section
+          data-auto-animate
+          style={{ overflow: 'hidden auto', maxHeight: '100%' }}
+          data-background-image={slides.backgroundImage}
+        >
+          <WorksheetNode
+            key={chunk.id}
+            sheet={sheet.content}
+            userResults={userResults}
+            readOnly={readOnly}
+            isSolvable={quizEnable}
+            worksheetKey={worksheetKey}
+            asSlides
+            index={index}
+            length={sheet.content.length}
+          />
+        </section>
+      )),
+    ].flat();
+  }
   
   return sheetsInPages.map((sheet) => (
     [

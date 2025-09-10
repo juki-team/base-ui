@@ -12,13 +12,9 @@ function hasScroll(el: HTMLElement) {
   return el?.scrollHeight > el?.clientHeight || el?.scrollWidth > el?.clientWidth;
 }
 
-export const SlideDeck = ({
-                            children,
-                            onClose,
-                            fontSize = 32,
-                            theme = Theme.LIGHT,
-                            colorTextHighlight,
-                          }: SlideDeckProps) => {
+export const SlideDeck = (props: SlideDeckProps) => {
+  
+  const { children, onClose, fontSize = 32, theme = Theme.LIGHT, colorTextHighlight, fragmented = false } = props;
   
   const deckDivRef = useRef<HTMLDivElement>(null); // reference to deck container div
   const deckRef = useRef<Reveal.Api | null>(null); // reference to deck reveal instance
@@ -27,7 +23,6 @@ export const SlideDeck = ({
   
   useEffect(() => {
     const renderGraphviz = () => {
-      console.info('renderGraphviz');
       useGraphvizStore.getState().triggerRerender();
     };
     if (!deckRef.current) {
@@ -40,7 +35,7 @@ export const SlideDeck = ({
         deckRef.current = new Reveal(deckDivRef.current!, { transition: 'fade' });
         
         deckRef.current.initialize({ plugins: [ RevealZoom, RevealNotes, RevealSearch ] }).then(() => {
-          if (typeof document !== 'undefined') {
+          if (typeof document !== 'undefined' && fragmented) {
             const slides = document.querySelector('.slides');
             const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
             for (let i = 0; i < parents.length; i++) {
@@ -112,7 +107,7 @@ export const SlideDeck = ({
         console.warn('Reveal.js destroy call failed.');
       }
     };
-  }, []);
+  }, [ fragmented ]);
   
   useEffect(() => {
     if (typeof document !== 'undefined') {
