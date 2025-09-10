@@ -1,9 +1,6 @@
 import { ProfileSetting, Theme } from '@juki-team/commons';
 import React, { Children, useEffect, useRef } from 'react';
-import Reveal from 'reveal.js';
-import RevealNotes from 'reveal.js/plugin/notes/notes';
-import RevealSearch from 'reveal.js/plugin/search/search';
-import RevealZoom from 'reveal.js/plugin/zoom/zoom';
+import type Reveal from 'reveal.js';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useGraphvizStore } from '../../organisms/Graphviz/GraphvizViewer';
 import { SlideDeckProps } from './types';
@@ -29,63 +26,68 @@ export const SlideDeck = ({
   const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
   
   useEffect(() => {
-    if (deckRef.current) return;
-    
-    deckRef.current = new Reveal(deckDivRef.current!, {
-      // disableLayout: false,
-      // embedded: true,
-      // overview: false,
-      transition: 'fade',
-      // @ts-ignore
-      keyboard: {
-        27: function () {
-          onClose?.();
-        },
-      },
-      
-    });
-    
-    deckRef.current.initialize({
-      plugins:
-        typeof document !== 'undefined' ? [ RevealZoom, RevealNotes, RevealSearch ] : [],
-    }).then(() => {
-      
-      if (typeof document !== 'undefined') {
-        const slides = document.querySelector('.slides');
-        const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
-        for (let i = 0; i < parents.length; i++) {
-          let fragmentAdded = false;
-          for (let j = 0; j < parents[i].length; j++) {
-            if (parents[i][j].tagName === 'OL' || parents[i][j].tagName === 'UL') {
-              for (const li of Array.from(parents[i][j].children)) {
-                li.classList.add('fragment');
-                fragmentAdded = true;
+    if (!deckRef.current) {
+      (async () => {
+        const Reveal = (await import('reveal.js')).default;
+        const RevealNotes = (await import('reveal.js/plugin/notes/notes')).default;
+        const RevealSearch = (await import('reveal.js/plugin/search/search')).default;
+        const RevealZoom = (await import('reveal.js/plugin/zoom/zoom')).default;
+        
+        deckRef.current = new Reveal(deckDivRef.current!, { transition: 'fade' });
+        
+        deckRef.current.initialize({ plugins: [ RevealZoom, RevealNotes, RevealSearch ] }).then(() => {
+          if (typeof document !== 'undefined') {
+            const slides = document.querySelector('.slides');
+            const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
+            for (let i = 0; i < parents.length; i++) {
+              let fragmentAdded = false;
+              for (let j = 0; j < parents[i].length; j++) {
+                if (parents[i][j].tagName === 'OL' || parents[i][j].tagName === 'UL') {
+                  for (const li of Array.from(parents[i][j].children)) {
+                    li.classList.add('fragment');
+                    fragmentAdded = true;
+                  }
+                }
+                if (fragmentAdded || parents[i][j].textContent !== parents[i - 1]?.[j]?.textContent) {
+                  parents[i][j].classList.add('fragment');
+                  fragmentAdded = true;
+                }
               }
             }
-            if (fragmentAdded || parents[i][j].textContent !== parents[i - 1]?.[j]?.textContent) {
-              parents[i][j].classList.add('fragment');
-              fragmentAdded = true;
-            }
           }
-        }
-      }
-    });
-    
-    deckRef.current.on('slidechanged', () => {
-      useGraphvizStore.getState().triggerRerender();
-    });
-    
-    deckRef.current.on('fragmentshown', (event: any) => {
-      const fragmentEl: HTMLElement = event.fragment;
-      const parent = fragmentEl?.parentElement?.parentElement;
-      if (parent && hasScroll(parent)) {
-        fragmentEl.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'nearest',
         });
-      }
-    });
+        
+        deckRef.current = new Reveal(deckDivRef.current!, {
+          // disableLayout: false,
+          // embedded: true,
+          // overview: false,
+          transition: 'fade',
+          // @ts-ignore
+          keyboard: {
+            27: function () {
+              onClose?.();
+            },
+          },
+          
+        });
+        
+        deckRef.current.on('slidechanged', () => {
+          useGraphvizStore.getState().triggerRerender();
+        });
+        
+        deckRef.current.on('fragmentshown', (event: any) => {
+          const fragmentEl: HTMLElement = event.fragment;
+          const parent = fragmentEl?.parentElement?.parentElement;
+          if (parent && hasScroll(parent)) {
+            fragmentEl.scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'nearest',
+            });
+          }
+        });
+      })();
+    }
     
     return () => {
       try {
