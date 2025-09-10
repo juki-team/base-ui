@@ -59,7 +59,7 @@ export interface WorksheetNodeProps extends Pick<WorksheetBodyProps, 'sheet' | '
 }
 
 export interface WorksheetViewerProps {
-  worksheet: Pick<WorksheetDataResponseDTO, 'content' | 'user' | 'isSolvable' | 'key'>,
+  worksheet: Pick<WorksheetDataResponseDTO, 'content' | 'user' | 'key' | 'quiz'>,
   resultsUserKey?: string,
   page?: number,
   subPage?: number,

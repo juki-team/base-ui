@@ -21,7 +21,7 @@ import { OnPageChange, UserResultsType, WorksheetViewerProps } from './types';
 export const WorksheetViewer = (props: WorksheetViewerProps) => {
   
   const {
-    worksheet: { content, isSolvable = false, key: worksheetKey, user: { isManager } },
+    worksheet: { content, quiz: { enable: quizEnable }, key: worksheetKey, user: { isManager } },
     resultsUserKey,
     page: initialPage,
     subPage: initialSubPage,
@@ -50,7 +50,7 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
     mutate: userResultsMutate,
     isLoading: userResultsIsLoading,
     isValidating: userResultsIsValidating,
-  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && isSolvable && userIsLogged ? jukiApiManager.API_V1.worksheet.getSubmissionsUser({
+  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && quizEnable && userIsLogged ? jukiApiManager.API_V1.worksheet.getSubmissionsUser({
     params: {
       key: worksheetKey,
       userKey: resultsUserKey || getUserKey(userNickname, companyKey),
@@ -102,7 +102,7 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
       )}
       <WorksheetBodies
         sheetsInPages={sheetsInPages}
-        isSolvable={isSolvable && userIsLogged}
+        isSolvable={quizEnable && userIsLogged}
         userResults={userResults}
         readOnly={readOnly}
         isEditor={isManager}
