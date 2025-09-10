@@ -3,16 +3,14 @@ import React, { useMemo } from 'react';
 import { useStableState } from '../../../hooks/useStableState';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
+import { WorksheetBodies } from './sheets/WorksheetBodies';
 import { OnPageChange, WorksheetEditorProps } from './types';
-import { WorksheetBodies } from './WorksheetBodies';
 
 export const WorksheetEditor = (props: WorksheetEditorProps) => {
   
   const {
-    content,
+    worksheet: { content, isSolvable = false, key: worksheetKey },
     setContent,
-    worksheetKey,
-    isSolvable = false,
     isEditor = false,
     page: initialPage,
     subPage: initialSubPage,

@@ -17,7 +17,9 @@ import { ResetPasswordModalProps } from './ResetPasswordModal/types';
 import { UserMyActiveSessionsProps } from './UserActiveSessions/types';
 import { UserPreviewModalProps } from './UserPreviewModal/types';
 import { UserProfileProps } from './UserProfile/types';
+import { UserProfileDataContentProps } from './UserProfile/types';
 import { UserProfileSettingsProps } from './UserProfileSettings/types';
+import { ProfileSubmissionsProps } from './UserViewLayout/types';
 import { UserViewLayoutProps } from './UserViewLayout/types';
 import { ContestNameLinkFieldProps } from './contest/types';
 import { CreateEntityLayoutProps } from './entity/types';
@@ -175,11 +177,27 @@ export const UserProfile = (props: UserProfileProps) => (
   </Suspense>
 );
 
+const UserProfileDataContentImport = () => import('./UserProfile/UserProfileDataContent');
+const LazyUserProfileDataContent = lazy(() => UserProfileDataContentImport().then(module => ({ default: module.UserProfileDataContent })));
+export const UserProfileDataContent = (props: UserProfileDataContentProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyUserProfileDataContent {...props} />
+  </Suspense>
+);
+
 const UserProfileSettingsImport = () => import('./UserProfileSettings/UserProfileSettings');
 const LazyUserProfileSettings = lazy(() => UserProfileSettingsImport().then(module => ({ default: module.UserProfileSettings })));
 export const UserProfileSettings = (props: UserProfileSettingsProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyUserProfileSettings {...props} />
+  </Suspense>
+);
+
+const ProfileSubmissionsImport = () => import('./UserViewLayout/ProfileSubmissions');
+const LazyProfileSubmissions = lazy(() => ProfileSubmissionsImport().then(module => ({ default: module.ProfileSubmissions })));
+export const ProfileSubmissions = (props: ProfileSubmissionsProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyProfileSubmissions {...props} />
   </Suspense>
 );
 
@@ -418,7 +436,9 @@ export const preloadTemplates = async () => {
   await UserMyActiveSessionsImport();
   await UserPreviewModalImport();
   await UserProfileImport();
+  await UserProfileDataContentImport();
   await UserProfileSettingsImport();
+  await ProfileSubmissionsImport();
   await UserViewLayoutImport();
   await ContestNameLinkFieldImport();
   await CreateEntityLayoutImport();

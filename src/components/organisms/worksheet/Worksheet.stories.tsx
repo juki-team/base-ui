@@ -3,11 +3,13 @@ import {
   ContentResponseType,
   EntityMembersResponseDTO,
   Status,
+  Theme,
   toEntityMembersDTO,
   UpsertWorksheetDTO,
   UserCompanyBasicInfoResponseDTO,
   WorksheetDataResponseDTO,
 } from '@juki-team/commons';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React from 'react';
 import { authorizedRequest, oneTab } from '../../../helpers';
 import { useStableState } from '../../../hooks/useStableState';
@@ -15,16 +17,21 @@ import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { ButtonLoader, FetcherLayer, TwoContentLayout } from '../../molecules';
+import { SlideDeck } from '../../molecules/SlideDeck/SlideDeck';
+import { WorksheetAsSlides } from './WorksheetAsSlides';
 import { WorksheetEditor as WorksheetEditorCmp } from './WorksheetEditor';
 import { WorksheetViewer as WorksheetViewerCmp } from './WorksheetViewer';
 
-export default {
+const meta: Meta<typeof WorksheetViewerCmp> = {
   component: WorksheetViewerCmp,
 };
 
-export const WorksheetViewer = () => {
-  
-  return (
+export default meta;
+
+type Story = StoryObj<typeof WorksheetViewerCmp>;
+
+export const WorksheetViewer: Story = {
+  render: (args) => (
     <MockupJukiProvider>
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
         // url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
@@ -34,10 +41,9 @@ export const WorksheetViewer = () => {
           <TwoContentLayout
             tabs={oneTab(
               <WorksheetViewerCmp
-                worksheetKey={data.content.key}
-                content={data.content.content}
+                {...args}
+                worksheet={data.content}
                 isEditor={data.content.user?.isManager}
-                isSolvable={data.content.isSolvable}
                 // readOnly={false}
                 // readOnly={!!user?.nickname}
               />,
@@ -53,12 +59,11 @@ export const WorksheetViewer = () => {
         )}
       </FetcherLayer>
     </MockupJukiProvider>
-  );
+  ),
 };
 
-export const WorksheetResultViewer = () => {
-  
-  return (
+export const WorksheetResultViewer: Story = {
+  render: (args) => (
     <MockupJukiProvider>
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
         url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
@@ -67,10 +72,9 @@ export const WorksheetResultViewer = () => {
           <TwoContentLayout
             tabs={oneTab(
               <WorksheetViewerCmp
-                worksheetKey={data.content.key}
-                content={data.content.content}
+                {...args}
+                worksheet={data.content}
                 isEditor={data.content.user?.isManager}
-                isSolvable={data.content.isSolvable}
                 resultsUserKey="Fakeuser1234|juki-app"
                 // readOnly={false}
                 // readOnly={!!user?.nickname}
@@ -88,7 +92,7 @@ export const WorksheetResultViewer = () => {
         )}
       </FetcherLayer>
     </MockupJukiProvider>
-  );
+  ),
 };
 
 interface UpsertWorksheetUIDTO extends Omit<UpsertWorksheetDTO, 'members'> {
@@ -111,11 +115,9 @@ const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, m
   return (
     <>
       <WorksheetEditorCmp
-        worksheetKey={initialContent.key}
+        worksheet={initialContent}
         setContent={setContent}
-        content={content}
         isEditor
-        isSolvable={initialContent.isSolvable}
         // readOnly={false}
         // readOnly={!!user?.nickname}
       />
@@ -140,16 +142,15 @@ const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, m
   );
 };
 
-export const WorksheetEditor = () => {
-  
-  return (
+export const WorksheetEditor: Story = {
+  render: (args) => (
     <MockupJukiProvider>
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
         url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
         {({ data, mutate }) => (
           <TwoContentLayout
-            tabs={oneTab(<Cmp content={data.content} mutate={mutate} />)}
+            tabs={oneTab(<Cmp content={data.content} mutate={mutate} {...args} />)}
             // tabButtons={buttons}
             // breadcrumbs={breadcrumbs}
           >
@@ -162,5 +163,36 @@ export const WorksheetEditor = () => {
         )}
       </FetcherLayer>
     </MockupJukiProvider>
-  );
+  ),
+};
+
+export const WorksheetViewerAsSlides: Story = {
+  render: (args) => (
+    <MockupJukiProvider>
+      <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
+        // url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
+        url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-g4Y' } }).url}
+      >
+        {({ data }) => (
+          <TwoContentLayout
+            tabs={oneTab(
+              <SlideDeck colorTextHighlight="#A6F750" theme={Theme.DARK}>
+                <WorksheetAsSlides
+                  {...args}
+                  worksheet={data.content}
+                />
+              </SlideDeck>,
+            )}
+            // tabButtons={buttons}
+            // breadcrumbs={breadcrumbs}
+          >
+            TITLE
+            {/*<div className="jk-row right tx-s fw-lr">*/}
+            {/*  <DateLiteral date={new Date(noteSheet.updatedAt)} show="year-month-day-hours-minutes" />*/}
+            {/*</div>*/}
+          </TwoContentLayout>
+        )}
+      </FetcherLayer>
+    </MockupJukiProvider>
+  ),
 };

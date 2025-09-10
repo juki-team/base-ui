@@ -24,6 +24,7 @@ import { LineChartProps } from './LineChart/types';
 import { LinkLastPathProps } from './LinkLastPath/types';
 import { MultiSelectSearchableProps } from './MultiSelectSearchable/types';
 import { SortableItemsProps } from './SimpleSortableRows/types';
+import { SlideDeckProps } from './SlideDeck/types';
 import { SplitModalProps } from './SplitModal/types';
 import { SplitPaneProps } from './SplitPane/types';
 import { TabsProps } from './Tabs/types';
@@ -212,6 +213,14 @@ export const SortableItems = <T, U = undefined>(props: SortableItemsProps<T, U>)
   <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazySortableItems {...props} />
+  </Suspense>
+);
+
+const SlideDeckImport = () => import('./SlideDeck/SlideDeck');
+const LazySlideDeck = lazy(() => SlideDeckImport().then(module => ({ default: module.SlideDeck })));
+export const SlideDeck = (props: SlideDeckProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazySlideDeck {...props} />
   </Suspense>
 );
 
@@ -426,6 +435,7 @@ export const preloadMolecules = async () => {
   await LinkLastPathImport();
   await MultiSelectSearchableImport();
   await SortableItemsImport();
+  await SlideDeckImport();
   await SplitModalImport();
   await SplitPaneImport();
   await TabsImport();

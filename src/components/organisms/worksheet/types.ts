@@ -1,4 +1,9 @@
-import { BodyWorksheetType, WorksheetsInPages, WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons';
+import {
+  BodyWorksheetType,
+  WorksheetDataResponseDTO,
+  WorksheetsInPages,
+  WorksheetUserSubmissionsResponseDTO,
+} from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { KeyedMutator } from 'swr';
 import { SetSearchParamsType } from '../../../contexts/JukiRouterProvider/types';
@@ -38,7 +43,7 @@ export type SetSheetType<T extends BodyWorksheetType> = Dispatch<SetStateAction<
 export type SetContentType<T extends BodyWorksheetType> = Dispatch<SetStateAction<T>>;
 
 export interface WorksheetBodyProps {
-  sheet?: BodyWorksheetType[],
+  sheet: BodyWorksheetType[],
   setSheet?: SetSheetType<BodyWorksheetType>,
   userResults?: UserResultsType,
   readOnly: boolean,
@@ -46,15 +51,16 @@ export interface WorksheetBodyProps {
   isEditor?: boolean,
   worksheetKey: string,
   asSlides?: boolean,
-  onSlidesExit?: () => void,
+}
+
+export interface WorksheetNodeProps extends Pick<WorksheetBodyProps, 'sheet' | 'setSheet' | 'userResults' | 'readOnly' | 'isSolvable' | 'worksheetKey' | 'asSlides'> {
+  index: number,
+  length: number,
 }
 
 export interface WorksheetViewerProps {
+  worksheet: WorksheetDataResponseDTO,
   resultsUserKey?: string,
-  
-  content: BodyWorksheetType[],
-  worksheetKey: string,
-  isSolvable?: boolean,
   isEditor?: boolean,
   page?: number,
   subPage?: number,
@@ -64,6 +70,12 @@ export interface WorksheetViewerProps {
   withoutTableOfContents?: boolean,
 }
 
-export interface WorksheetEditorProps extends Omit<WorksheetViewerProps, 'resultsUserKey'> {
+export interface WorksheetAsSlidesProps {
+  worksheet: WorksheetDataResponseDTO,
+  resultsUserKey?: string,
+  readOnly?: boolean,
+}
+
+export interface WorksheetEditorProps extends Omit<WorksheetViewerProps, 'resultsUserKey' | 'withoutTableOfContents'> {
   setContent: (content: BodyWorksheetType[]) => void,
 }

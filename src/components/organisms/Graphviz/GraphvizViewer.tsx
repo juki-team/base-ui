@@ -1,6 +1,7 @@
 import { CodeLanguage } from '@juki-team/commons';
 import { graphviz, GraphvizOptions } from 'd3-graphviz';
 import React, { memo, useEffect, useRef, useState } from 'react';
+import { create } from 'zustand';
 import { classNames } from '../../../helpers';
 import { Button, Modal } from '../../atoms';
 import { Input } from '../../atoms/inputs/Input';
@@ -19,10 +20,22 @@ const defaultOptions: GraphvizOptions = {
   useWorker: false as any,
 };
 
+interface GraphvizState {
+  shouldRerender: number;
+  triggerRerender: () => void;
+}
+
+export const useGraphvizStore = create<GraphvizState>((set) => ({
+  shouldRerender: 0,
+  triggerRerender: () =>
+    set(() => ({ shouldRerender: Date.now() })),
+}));
+
 export const GraphvizViewer = memo(({ value, className, width, height }: GraphvizViewerProps) => {
   
   const containerRef = useRef<HTMLDivElement>(null);
   const [ error, setError ] = useState<string>('');
+  const shouldRerender = useGraphvizStore((s) => s.shouldRerender);
   
   useEffect(() => {
     const el = containerRef.current;
@@ -33,13 +46,14 @@ export const GraphvizViewer = memo(({ value, className, width, height }: Graphvi
     const options = { width, height };
     // crea instancia y conecta handler de errores
     const gv = graphviz(el, { ...defaultOptions, ...options })
+      .fit(false)
       .onerror?.((e: any) => {
         // algunos builds exponen onerror; si no, ignora esta línea
         setError(e?.message || String(e));
       });
     
     try {
-      gv.renderDot(value); // si hay error sintáctico y useWorker=false, lanza excepción
+      gv?.fit(false).renderDot(value); // si hay error sintáctico y useWorker=false, lanza excepción
     } catch (e: any) {
       setError(e?.message || String(e));
     }
@@ -50,7 +64,7 @@ export const GraphvizViewer = memo(({ value, className, width, height }: Graphvi
       } catch {
       }
     };
-  }, [ value, width, height ]);
+  }, [ value, width, height, shouldRerender ]);
   
   return (
     <div className={classNames('jk-graphviz-viewer-container', className)}>
@@ -60,7 +74,11 @@ export const GraphvizViewer = memo(({ value, className, width, height }: Graphvi
   );
 });
 
-export const GraphvizViewers = ({ value, className, width, height }: GraphvizViewerProps) => {
+interface GraphvizViewersProps extends GraphvizViewerProps {
+  viewSourceButton?: boolean,
+}
+
+export const GraphvizViewers = ({ value, className, width, height, viewSourceButton = true }: GraphvizViewersProps) => {
   
   const graphs = value.split('---');
   const [ index, setIndex ] = useState(0);
@@ -101,21 +119,23 @@ export const GraphvizViewers = ({ value, className, width, height }: GraphvizVie
           <CodeViewer code={value} language={CodeLanguage.DOT} />
         </div>
       </Modal>
-      <FloatToolbar
-        actionButtons={[
-          {
-            icon: <CodeIcon />,
-            buttons: [
-              {
-                icon: <CodeIcon />,
-                label: <T>view source</T>,
-                onClick: () => setIsOpen(true),
-              },
-            ],
-          },
-        ]}
-        placement="rightTop"
-      />
+      {viewSourceButton && (
+        <FloatToolbar
+          actionButtons={[
+            {
+              icon: <CodeIcon />,
+              buttons: [
+                {
+                  icon: <CodeIcon />,
+                  label: <T>view source</T>,
+                  onClick: () => setIsOpen(true),
+                },
+              ],
+            },
+          ]}
+          placement="rightTop"
+        />
+      )}
       {graphs.length > 1 && (
         <>
           <div className="jk-row tx-s gap">

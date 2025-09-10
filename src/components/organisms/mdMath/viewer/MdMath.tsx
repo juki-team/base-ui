@@ -1,11 +1,13 @@
 // https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119
 import { CODE_LANGUAGE, CodeLanguage, ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
+import type { Element } from 'hast';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 import React, { CSSProperties, memo, ReactNode, useMemo } from 'react';
 import ReactMarkdown, { Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
+import { classNames } from '../../../../helpers';
 import { useFetcher } from '../../../../hooks/useFetcher';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useStableState } from '../../../../hooks/useStableState';
@@ -26,19 +28,20 @@ import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 // const ReactMarkdown = lazy(() => import('react-markdown'));
 // const rehypeKatex = lazy(() => import('rehype-katex'));
 
-type hxProps = { children: ReactNode & ReactNode[], node: { tagName: string } };
+type hxProps = { children: ReactNode & ReactNode[], node: Element };
 
-const hx = (setSearchParams: SetSearchParamsType) => ({ children, node: { tagName } }: hxProps) => {
+const hx = (setSearchParams: SetSearchParamsType, noHLinks: boolean) => ({ children, node }: hxProps) => {
+  
   const newChildren = Array.isArray(children) ? [ ...children ] : [ children ];
   if (typeof newChildren[0] === 'string') {
     const [ commands, newText ] = getCommands(newChildren[0]);
     newChildren[0] = newText;
     if (commands.textAlign) {
-      return hxRender(tagName, newText, textAlignStyle[commands.textAlign], setSearchParams);
+      return hxRender(node, newText, textAlignStyle[commands.textAlign], setSearchParams, noHLinks);
     }
   }
   
-  return hxRender(tagName, children, {}, setSearchParams);
+  return hxRender(node, children, {}, setSearchParams, noHLinks);
 };
 
 const UserInlineChip = ({ nickname }: { nickname: string }) => {
@@ -72,7 +75,14 @@ const CustomField = ({ commands }: { commands: CommandsObjectType, restText: str
   return <span>--</span>;
 };
 
-export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, blur?: boolean, unBlur?: boolean, }) => {
+interface MdMathProps {
+  source: string,
+  blur?: boolean,
+  unBlur?: boolean,
+  slideView?: boolean
+}
+
+export const MdMath = memo(({ source, blur: _blur, unBlur, slideView = false }: MdMathProps) => {
   
   const { components: { Link } } = useJukiUI();
   const setSearchParams = useRouterStore(state => state.setSearchParams);
@@ -105,14 +115,15 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
       // h1(...props) {
       //   return null;
       // },
-      h1: hx(setSearchParams) as any,
-      h2: hx(setSearchParams) as any,
-      h3: hx(setSearchParams) as any,
-      h4: hx(setSearchParams) as any,
-      h5: hx(setSearchParams) as any,
-      h6: hx(setSearchParams) as any,
-      p({ children = null }) {
+      h1: hx(setSearchParams, slideView) as any,
+      h2: hx(setSearchParams, slideView) as any,
+      h3: hx(setSearchParams, slideView) as any,
+      h4: hx(setSearchParams, slideView) as any,
+      h5: hx(setSearchParams, slideView) as any,
+      h6: hx(setSearchParams, slideView) as any,
+      p({ children = null, node }) {
         const newChildren = Array.isArray(children) ? [ ...children ] : [ children ];
+        const isRoot = node?.position?.start?.column === 111111;
         if (typeof newChildren[0] === 'string') {
           const [ commands, newText ] = getCommands(newChildren[0]);
           let style: CSSProperties = {
@@ -125,9 +136,9 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
             };
           }
           newChildren[0] = newText;
-          return <p style={style}>{newChildren}</p>;
+          return <p className={classNames({ 'fragment': isRoot })} style={style}>{newChildren}</p>;
         }
-        return <p>{children as ReactNode}</p>;
+        return <p className={classNames({ 'fragment': isRoot })}>{children as ReactNode}</p>;
       },
       a({ children, href = '' }) {
         const firstChildrenString = typeof children === 'string'
@@ -195,9 +206,10 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
       //   return <pre>holiwi input</pre>;
       // },
       code: ({ children, className = '', node }) => {
+        const isRoot = node?.position?.start?.column === 11111;
         const inline = !children?.toString().includes('\n');
         if (inline) {
-          return <code className="inline-code cr-th bc-hl jk-br-ie">{children as ReactNode}</code>;
+          return <code className={classNames('inline-code cr-th bc-hl jk-br-ie', { 'fragment': isRoot })}>{children as ReactNode}</code>;
         }
         
         let text = (className as string).replace('language-', '');
@@ -217,7 +229,11 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
           const meta = node?.data?.meta;
           if (language === CodeLanguage.DOT && meta === 'asImage') {
             return (
-              <GraphvizViewers value={children} />
+              <GraphvizViewers
+                value={children}
+                className={classNames({ 'fragment': isRoot })}
+                viewSourceButton={!slideView}
+              />
             );
           }
           
@@ -246,10 +262,12 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
           
           return (
             <CodeViewer
+              className={classNames({ 'fragment': isRoot })}
               code={children}
               language={language}
               lineNumbers={commands.lineNumbers}
               height={Number.isNaN(+(commands.height || '_')) ? commands.height : commands.height + 'px'}
+              fontSize={slideView ? 12 : undefined}
             />
           );
         }
@@ -264,6 +282,9 @@ export const MdMath = memo(({ source, blur: _blur, unBlur }: { source: string, b
             </table>
           </div>
         );
+      },
+      pre: ({ children }) => {
+        return children;
       },
     },
   }), [ Link, setSearchParams ]);

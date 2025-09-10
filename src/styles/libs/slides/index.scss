@@ -1,5 +1,20 @@
-@use "black";
-@use "white";
+//@use "black";
+//@use "white";
+@use "reveal";
 
-@import "reveal.js/dist/theme/fonts/source-sans-pro/source-sans-pro.css";
-@import "reveal.js/dist/reveal.css";
+//@import "reveal.js/dist/theme/fonts/source-sans-pro/source-sans-pro.css";
+//@import "reveal.js/dist/reveal.css";
+
+.reveal {
+  //--t-color-primary-dark: #A6F750;
+  
+  .jk-md-sheet-section-view {
+    > div {
+      background: none;
+    }
+  }
+  
+  .controls {
+    color: var(--t-color-text-highlight) !important;
+  }
+}

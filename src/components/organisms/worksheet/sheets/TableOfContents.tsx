@@ -3,6 +3,7 @@ import React from 'react';
 import { classNames } from '../../../../helpers';
 import { OnPageChange, QueryParamKey } from '../../../../types';
 import { Collapse } from '../../../atoms/Collapse/Collapse';
+import { MdMath } from '../../mdMath/viewer/MdMath';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 
 interface TableOfContentsProps {
@@ -39,7 +40,7 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                     value: 'jk-worksheet-viewer-container',
                   })}
                 >
-                  {header.title}
+                  <MdMath source={header.title} />
                   {!!subTitles.length && (
                     <div
                       onClick={(event) => {
@@ -72,7 +73,7 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                         })}
                       >
                         {LOGO_WORKSHEET_TYPE()[chunk?.type]?.icon || null}
-                        {chunk.title}
+                        <MdMath source={chunk.title} />
                       </div>
                     );
                   })}

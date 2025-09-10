@@ -18,6 +18,8 @@
     overflow: auto;
     width: 100%;
     height: 100%;
+    font-size: var(--font-size);
+    line-height: 1.5;
     
     > .jk-code-viewer-line-numbers {
       position: sticky;

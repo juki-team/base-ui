@@ -18,6 +18,7 @@ export type * from './LineChart/types';
 export type * from './LinkLastPath/types';
 export type * from './MultiSelectSearchable/types';
 export type * from './SimpleSortableRows/types';
+export type * from './SlideDeck/types';
 export type * from './SplitModal/types';
 export type * from './SplitPane/types';
 export type * from './Tabs/types';

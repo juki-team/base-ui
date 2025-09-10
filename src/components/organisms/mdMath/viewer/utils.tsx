@@ -1,6 +1,8 @@
 import { Theme } from '@juki-team/commons';
+import type { Element } from 'hast';
 import React, { CSSProperties, ReactNode } from 'react';
 import { SetSearchParamsType } from '../../../../contexts/JukiRouterProvider/types';
+import { classNames } from '../../../../helpers';
 import { QueryParamKey } from '../../../../types';
 import { CommandsFunctionsType, CommandsObjectType } from './types';
 
@@ -90,19 +92,40 @@ const wrapPageFocus = (children: ReactNode, setSearchParams: SetSearchParamsType
   return children;
 };
 
-export const hxRender = (tagName: string, children: ReactNode, style: CSSProperties, setSearchParams: SetSearchParamsType) => {
-  switch (tagName) {
+export const hxRender = (node: Element, children: ReactNode, style: CSSProperties, setSearchParams: SetSearchParamsType, noHLinks: boolean) => {
+  
+  const isRoot = node?.position?.start?.column === 11111;
+  
+  switch (node?.tagName) {
     case 'h1':
-      return <h1 style={style}>{wrapPageFocus(children, setSearchParams)}</h1>;
+      return <h1
+        className={classNames({ 'fragment': isRoot })}
+        style={style}
+      >{noHLinks ? children : wrapPageFocus(children, setSearchParams)}</h1>;
     case 'h2':
-      return <h2 style={style}>{wrapPageFocus(children, setSearchParams)}</h2>;
+      return <h2
+        className={classNames({ 'fragment': isRoot })}
+        style={style}
+      >{noHLinks ? children : wrapPageFocus(children, setSearchParams)}</h2>;
     case 'h3':
-      return <h3 style={style}>{wrapPageFocus(children, setSearchParams)}</h3>;
+      return <h3
+        className={classNames({ 'fragment': isRoot })}
+        style={style}
+      >{noHLinks ? children : wrapPageFocus(children, setSearchParams)}</h3>;
     case 'h4':
-      return <h4 style={style}>{wrapPageFocus(children, setSearchParams)}</h4>;
+      return <h4
+        className={classNames({ 'fragment': isRoot })}
+        style={style}
+      >{noHLinks ? children : wrapPageFocus(children, setSearchParams)}</h4>;
     case 'h5':
-      return <h5 style={style}>{wrapPageFocus(children, setSearchParams)}</h5>;
+      return <h5
+        className={classNames({ 'fragment': isRoot })}
+        style={style}
+      >{noHLinks ? children : wrapPageFocus(children, setSearchParams)}</h5>;
     default:
-      return <h6 style={style}>{wrapPageFocus(children, setSearchParams)}</h6>;
+      return <h6
+        className={classNames({ 'fragment': isRoot })}
+        style={style}
+      >{noHLinks ? children : wrapPageFocus(children, setSearchParams)}</h6>;
   }
 };

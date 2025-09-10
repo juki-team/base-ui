@@ -10,6 +10,8 @@ export interface CodeViewerProps {
   // withLanguageLabel?: boolean,
   style?: CSSProperties,
   maxHeight?: string | number,
+  className?: string,
+  fontSize?: number,
 }
 
 export type CodeViewerDeprecatedProps = CodeViewerProps;

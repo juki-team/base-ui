@@ -9,6 +9,12 @@
 //@use "prism-vsc-dark-plus-theme";
 //@use "prism-line-numbers";
 
+.slides {
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.1 !important;
+  }
+}
+
 .jk-md-math {
   > p {
     //padding: var(--pad-xt) 0;
@@ -92,7 +98,8 @@
   
   blockquote {
     padding-left: var(--pad-s);
-    border-left: 4px solid var(--t-color-text-highlight-light);
+    //border-left: 4px solid var(--t-color-text-highlight-light);
+    border-left: 4px solid var(--t-color-text-highlight);
     margin: var(--pad-xt) 0;
     font-weight: lighter;
     text-align: justify;
@@ -100,7 +107,8 @@
   
   ul, ol {
     li::marker {
-      color: var(--t-color-text-highlight-light);
+      //color: var(--t-color-text-highlight-light);
+      color: var(--t-color-text-highlight);
     }
     
     margin: 0;

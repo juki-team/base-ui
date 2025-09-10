@@ -15,15 +15,13 @@ import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { TableOfContents } from './sheets/TableOfContents';
+import { WorksheetBodies } from './sheets/WorksheetBodies';
 import { OnPageChange, UserResultsType, WorksheetViewerProps } from './types';
-import { WorksheetBodies } from './WorksheetBodies';
 
 export const WorksheetViewer = (props: WorksheetViewerProps) => {
   
   const {
-    content,
-    worksheetKey,
-    isSolvable = false,
+    worksheet: { content, isSolvable = false, key: worksheetKey },
     isEditor = false,
     resultsUserKey,
     page: initialPage,

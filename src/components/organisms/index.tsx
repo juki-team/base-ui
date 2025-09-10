@@ -26,8 +26,7 @@ import { UsersSelectorProps } from './UsersSelector/types';
 import { MdMathEditorProps } from './mdMath/types';
 import { MdMathViewerProps } from './mdMath/types';
 import { ContentsSectionHeaderProps } from './worksheet/types';
-import { WorksheetBodiesProps } from './worksheet/types';
-import { WorksheetBodyProps } from './worksheet/types';
+import { WorksheetAsSlidesProps } from './worksheet/types';
 import { WorksheetEditorProps } from './worksheet/types';
 import { WorksheetViewerProps } from './worksheet/types';
 
@@ -236,19 +235,11 @@ export const ContentsSectionHeader = (props: ContentsSectionHeaderProps) => (
   </Suspense>
 );
 
-const WorksheetBodiesImport = () => import('./worksheet/WorksheetBodies');
-const LazyWorksheetBodies = lazy(() => WorksheetBodiesImport().then(module => ({ default: module.WorksheetBodies })));
-export const WorksheetBodies = (props: WorksheetBodiesProps) => (
+const WorksheetAsSlidesImport = () => import('./worksheet/WorksheetAsSlides');
+const LazyWorksheetAsSlides = lazy(() => WorksheetAsSlidesImport().then(module => ({ default: module.WorksheetAsSlides })));
+export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
-    <LazyWorksheetBodies {...props} />
-  </Suspense>
-);
-
-const WorksheetBodyImport = () => import('./worksheet/WorksheetBody');
-const LazyWorksheetBody = lazy(() => WorksheetBodyImport().then(module => ({ default: module.WorksheetBody })));
-export const WorksheetBody = (props: WorksheetBodyProps) => (
-  <Suspense fallback={<SpinIcon size="tiny" />}>
-    <LazyWorksheetBody {...props} />
+    <LazyWorksheetAsSlides {...props} />
   </Suspense>
 );
 
@@ -294,8 +285,7 @@ export const preloadOrganisms = async () => {
   await MdMathEditorImport();
   await MdMathViewerImport();
   await ContentsSectionHeaderImport();
-  await WorksheetBodiesImport();
-  await WorksheetBodyImport();
+  await WorksheetAsSlidesImport();
   await WorksheetEditorImport();
   await WorksheetViewerImport();
 };

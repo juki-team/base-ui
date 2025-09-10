@@ -13,6 +13,40 @@
     *[stroke="#000000"] {
       stroke: var(--t-color-black-light);
     }
+    
+    text {
+      font-family: Helvetica, Arial, sans-serif !important;
+    }
+    
+    .edge {
+      path, polygon {
+        stroke: var(--t-color-black-light);
+      }
+      
+      polygon, text {
+        fill: var(--t-color-black-light);
+      }
+    }
+    
+    .node {
+      polygon, ellipse {
+        stroke: var(--t-color-black-light);
+      }
+      
+      ellipse {
+        fill: var(--t-color-highlight-light);
+      }
+      
+      text {
+        fill: var(--t-color-black-light);
+      }
+    }
+    
+    .cluster {
+      text {
+        fill: var(--t-color-black-light);
+      }
+    }
   }
 }
 
@@ -22,8 +56,22 @@
   }
 }
 
+.jk-graphviz-viewers-container:not(.slides *):hover {
+  outline: 1px solid var(--t-color-highlight-light);
+}
+
+.slides .jk-graphviz-viewer svg {
+  transform: none !important;
+}
+
 .jk-graphviz-viewers-container {
+  .jk-float-toolbar-container {
+    opacity: 0;
+  }
+  
   &:hover {
-    outline: 1px solid var(--t-color-highlight-light);
+    .jk-float-toolbar-container {
+      opacity: 1;
+    }
   }
 }

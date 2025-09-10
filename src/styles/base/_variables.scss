@@ -90,9 +90,6 @@ html body {
   --base-text-size: 16px;
   --base-text-height: calc(var(--base-text-size) * 1.5);
   
-  --font-size: var(--base-text-size);
-  --line-height: var(--base-text-height);
-  
   --base-diff-text-size: calc(var(--base-text-size) * 0.125);
   
   --text-huge-size: calc(var(--base-text-size) + var(--base-diff-text-size) + var(--base-diff-text-size));

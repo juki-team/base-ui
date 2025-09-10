@@ -20,8 +20,9 @@ import {
   getSubmissionVerdictHeader,
   LanguagesByJudge,
 } from '../helpers';
+import { ProfileSubmissionsProps } from './types';
 
-export function ProfileSubmissions() {
+export function ProfileSubmissions(_: ProfileSubmissionsProps) {
   
   const nickname = useRouterStore(state => state.routeParams.nickname);
   const { data: judgePublicList } = useFetcher<ContentsResponseType<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V1.judge.getSummaryList().url);

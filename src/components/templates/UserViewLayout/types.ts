@@ -8,3 +8,6 @@ export interface UserViewLayoutProps {
   reloadUser: KeyedMutator<any>,
   extraTabs?: TabsType<ProfileTab>
 }
+
+export interface ProfileSubmissionsProps {
+}

@@ -1,12 +1,13 @@
-import { ContentsResponseType, Judge, JUDGE, JudgeDataResponseDTO, UserBasicResponseDTO } from '@juki-team/commons';
+import { ContentsResponseType, Judge, JUDGE, JudgeDataResponseDTO } from '@juki-team/commons';
 import React from 'react';
 import { classNames } from '../../../helpers';
 import { useFetcher, useJukiUI } from '../../../hooks';
 import { jukiApiManager } from '../../../settings';
 import { CopyToClipboard } from '../../atoms';
 import { LocationOnIcon, MailIcon, SchoolIcon } from '../../atoms/server';
+import { UserProfileDataContentProps } from './types';
 
-export const UserProfileDataContent = ({ user, className }: { user: UserBasicResponseDTO, className?: string }) => {
+export const UserProfileDataContent = ({ user, className }: UserProfileDataContentProps) => {
   
   const { components: { Image, Link } } = useJukiUI();
   const { data } = useFetcher<ContentsResponseType<JudgeDataResponseDTO>>(
