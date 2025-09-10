@@ -9,9 +9,8 @@ import { OnPageChange, WorksheetEditorProps } from './types';
 export const WorksheetEditor = (props: WorksheetEditorProps) => {
   
   const {
-    worksheet: { content, isSolvable = false, key: worksheetKey },
+    worksheet: { content, isSolvable = false, key: worksheetKey, user: { isManager } },
     setContent,
-    isEditor = false,
     page: initialPage,
     subPage: initialSubPage,
     onPageChange: initialOnPageChange,
@@ -45,7 +44,7 @@ export const WorksheetEditor = (props: WorksheetEditorProps) => {
         setSheets={setContent}
         isSolvable={isSolvable}
         readOnly={readOnly}
-        isEditor={isEditor}
+        isEditor={isManager}
         worksheetKey={worksheetKey}
         page={page}
         subPage={subPage}

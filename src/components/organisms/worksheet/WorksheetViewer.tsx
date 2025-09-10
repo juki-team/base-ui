@@ -21,8 +21,7 @@ import { OnPageChange, UserResultsType, WorksheetViewerProps } from './types';
 export const WorksheetViewer = (props: WorksheetViewerProps) => {
   
   const {
-    worksheet: { content, isSolvable = false, key: worksheetKey },
-    isEditor = false,
+    worksheet: { content, isSolvable = false, key: worksheetKey, user: { isManager } },
     resultsUserKey,
     page: initialPage,
     subPage: initialSubPage,
@@ -106,7 +105,7 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
         isSolvable={isSolvable && userIsLogged}
         userResults={userResults}
         readOnly={readOnly}
-        isEditor={isEditor}
+        isEditor={isManager}
         worksheetKey={worksheetKey}
         page={page}
         onPageChange={onPageChange}

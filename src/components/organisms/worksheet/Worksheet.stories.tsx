@@ -43,7 +43,6 @@ export const WorksheetViewer: Story = {
               <WorksheetViewerCmp
                 {...args}
                 worksheet={data.content}
-                isEditor={data.content.user?.isManager}
                 // readOnly={false}
                 // readOnly={!!user?.nickname}
               />,
@@ -74,7 +73,6 @@ export const WorksheetResultViewer: Story = {
               <WorksheetViewerCmp
                 {...args}
                 worksheet={data.content}
-                isEditor={data.content.user?.isManager}
                 resultsUserKey="Fakeuser1234|juki-app"
                 // readOnly={false}
                 // readOnly={!!user?.nickname}
@@ -117,7 +115,6 @@ const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, m
       <WorksheetEditorCmp
         worksheet={initialContent}
         setContent={setContent}
-        isEditor
         // readOnly={false}
         // readOnly={!!user?.nickname}
       />
