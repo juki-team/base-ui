@@ -598,6 +598,10 @@ export class ApiManager {
           url: injectBaseUrl('submission', `/${id}/archive`),
           method: HTTPMethod.POST,
         })),
+        release: valid<{ params: { id: string } }, HTTPMethod.POST>(({ params: { id } }) => ({
+          url: injectBaseUrl('submission', `/${id}/release`),
+          method: HTTPMethod.POST,
+        })),
       },
       image: {
         getPublicList: valid<void>(() => ({
