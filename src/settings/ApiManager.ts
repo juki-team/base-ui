@@ -594,6 +594,10 @@ export class ApiManager {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
+        archive: valid<{ params: { id: string } }, HTTPMethod.POST>(({ params: { id } }) => ({
+          url: injectBaseUrl('submission', `/${id}/archive`),
+          method: HTTPMethod.POST,
+        })),
       },
       image: {
         getPublicList: valid<void>(() => ({
