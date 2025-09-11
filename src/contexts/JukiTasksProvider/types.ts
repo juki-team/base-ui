@@ -1,6 +1,6 @@
-import { SubmissionRunStatusMessageWebSocketResponseEventDTO } from '@juki-team/commons';
+import { SubmissionRunStatusWebSocketResponseEventDTO } from '@juki-team/commons';
 
-export type SocketSubmissions = { [key: string]: SubmissionRunStatusMessageWebSocketResponseEventDTO };
+export type SocketSubmissions = { [key: string]: SubmissionRunStatusWebSocketResponseEventDTO };
 
 export type SubmissionToCheck = {
   id: string,

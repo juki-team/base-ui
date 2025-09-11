@@ -482,6 +482,20 @@ export class ApiManager {
           url: injectCompany(injectBaseUrl('contest', `/${key}/recalculate-scoreboard`), companyKey),
           method: HTTPMethod.POST,
         })),
+        problem: {
+          rejudge: valid<
+            { params: { key: string, problemKey: string, companyKey?: string, }, }, HTTPMethod.POST
+          >(({ params: { key, problemKey, companyKey } }) => ({
+            url: injectCompany(injectBaseUrl('contest', `/${key}/problem/${problemKey}/rejudge`), companyKey),
+            method: HTTPMethod.POST,
+          })),
+          retrieve: valid<
+            { params: { key: string, problemKey: string, companyKey?: string, }, }, HTTPMethod.POST
+          >(({ params: { key, problemKey, companyKey } }) => ({
+            url: injectCompany(injectBaseUrl('contest', `/${key}/problem/${problemKey}/retrieve`), companyKey),
+            method: HTTPMethod.POST,
+          })),
+        },
         editGlobal: valid<
           {
             params: { key: string, companyKey?: string },

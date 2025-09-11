@@ -5,7 +5,7 @@ import {
   SUBMISSION_RUN_STATUS,
   SubmissionDataResponseDTO,
   SubmissionRunStatus,
-  SubmissionRunStatusMessageWebSocketResponseEventDTO,
+  SubmissionRunStatusWebSocketResponseEventDTO,
   Theme,
 } from '@juki-team/commons';
 import React from 'react';
@@ -19,7 +19,7 @@ export interface SubmissionVerdictProps {
   points?: number,
   status?: SubmissionRunStatus,
   submitId: string,
-  submissionData?: SubmissionRunStatusMessageWebSocketResponseEventDTO,
+  submissionData?: SubmissionRunStatusWebSocketResponseEventDTO,
   processedCases?: SubmissionDataResponseDTO['processedCases'],
   shortLabel?: boolean,
 }

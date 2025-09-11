@@ -16,9 +16,11 @@ import {
   isSubscribeSenDataEcsTasksListWebSocketEventDTO,
   isSubscribeSenDataSsmSessionsListWebSocketEventDTO,
   isSubscribeSubmissionRunStatusWebSocketEventDTO,
+  isSubscribeSubmissionsCrawlWebSocketEventDTO,
   ObjectIdType,
   ONE_MINUTE,
   PingWebSocketEventDTO,
+  SEPARATOR_TOKEN,
   WebSocketActionEvent,
   WebSocketEventDTO,
   WebSocketResponseEvent,
@@ -236,6 +238,9 @@ export class JukiWebSocketManagement {
     }
     if (isSubscribeChatCompletionsDataWebSocketEventDTO(event)) {
       return getWebSocketResponseEventKey(WebSocketResponseEvent.CHAT_COMPLETIONS_RESPONSE, event.sessionId, '*');
+    }
+    if (isSubscribeSubmissionsCrawlWebSocketEventDTO(event)) {
+      return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSIONS_CRAWL, event.sessionId, event.contestKey + SEPARATOR_TOKEN + event.problemKey);
     }
     
     return '' as WebSocketResponseEventKey;
