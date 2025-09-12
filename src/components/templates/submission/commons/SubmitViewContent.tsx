@@ -97,7 +97,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
   const userCompanyKey = useUserStore(state => state.company.key);
   const origin = getJudgeOrigin(submit.problem.company.key, userCompanyKey);
   
-  const isLeetCode = submit.problem.judgeKey === Judge.LEETCODE;
+  const isLeetCode = submit.problem.judge.key === Judge.LEETCODE;
   const { data } = useFetcher<ContentsResponseType<JudgeDataResponseDTO>>(
     jukiApiManager.API_V1.judge.getSummaryList().url,
   );

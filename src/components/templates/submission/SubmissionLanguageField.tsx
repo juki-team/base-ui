@@ -8,7 +8,7 @@ export const SubmissionLanguageField = ({
                                             submitId,
                                             user: { canViewSourceCode },
                                             language,
-                                            problem: { judgeKey },
+                                            problem: { judge: { key: judgeKey } },
                                           },
                                           isCard,
                                           languagesByJudge,

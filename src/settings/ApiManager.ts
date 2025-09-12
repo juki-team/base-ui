@@ -594,6 +594,10 @@ export class ApiManager {
           url: injectBaseUrl('submission', `/${id}/rejudge`),
           method: HTTPMethod.POST,
         })),
+        retrieve: valid<{ params: { id: string } }, HTTPMethod.POST>(({ params: { id } }) => ({
+          url: injectBaseUrl('submission', `/${id}/retrieve`),
+          method: HTTPMethod.POST,
+        })),
         judge: valid<
           { params: { id: string }, body: { verdict: ProblemVerdict } }, HTTPMethod.POST
         >(({ params: { id }, body }) => ({
