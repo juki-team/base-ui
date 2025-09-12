@@ -240,7 +240,7 @@ export class JukiWebSocketManagement {
       return getWebSocketResponseEventKey(WebSocketResponseEvent.CHAT_COMPLETIONS_RESPONSE, event.sessionId, '*');
     }
     if (isSubscribeSubmissionsCrawlWebSocketEventDTO(event)) {
-      return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSIONS_CRAWL, event.sessionId, event.contestKey + SEPARATOR_TOKEN + event.problemKey);
+      return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSIONS_CRAWL, event.sessionId, event.contestKey + SEPARATOR_TOKEN + event.problemKeys);
     }
     
     return '' as WebSocketResponseEventKey;

@@ -82,7 +82,7 @@
     "@floating-ui/react": "^0.27.16",
     "@handsontable/react": "^16.0.1",
     "@hookform/resolvers": "^5.2.1",
-    "@juki-team/commons": "^0.0.917",
+    "@juki-team/commons": "^0.0.918",
     "@milkdown/crepe": "^7.15.5",
     "@milkdown/kit": "^7.15.5",
     "@milkdown/plugin-prism": "^7.15.5",
