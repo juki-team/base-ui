@@ -504,6 +504,12 @@ export class ApiManager {
             method: HTTPMethod.POST,
           })),
         },
+        retrieve: valid<
+          { params: { key: string, companyKey?: string, }, }, HTTPMethod.POST
+        >(({ params: { key, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/retrieve`), companyKey),
+          method: HTTPMethod.POST,
+        })),
         editGlobal: valid<
           {
             params: { key: string, companyKey?: string },
