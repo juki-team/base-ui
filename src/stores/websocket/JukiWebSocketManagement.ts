@@ -299,7 +299,9 @@ export class JukiWebSocketManagement {
             listeners.forEach(cb => cb(content));
             return;
           }
-          consoleWarn('No callbacks for event key', { content, callbacks: this.callbacks });
+          if (content.key !== getWebSocketResponseEventKey(WebSocketResponseEvent.RESPONSE, this.sessionId, '*')) {
+            consoleWarn('No callbacks for event key', { content, callbacks: this.callbacks });
+          }
         } else {
           consoleWarn('Invalid WebSocket message format', event);
         }

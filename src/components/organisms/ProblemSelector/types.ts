@@ -1,7 +1,7 @@
 import { ProblemBasicSummaryListResponseDTO } from '@juki-team/commons';
 
 export type JudgeDataType = {
-  [key: string]: { problems: ProblemBasicSummaryListResponseDTO[], loading: true }
+  [key: string]: { problems: ProblemBasicSummaryListResponseDTO[], loading: boolean }
 };
 
 export interface ProblemSelectorProps {

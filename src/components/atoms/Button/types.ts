@@ -23,6 +23,7 @@ export type ButtonBasicProps = {
   size?: ButtonSizeType,
   style?: CSSProperties,
   responsiveMobile?: boolean,
+  tooltipContent?: string,
 }
 
 export type OnClickButtonEventType = {
@@ -34,7 +35,6 @@ export type OnClickButtonEventType = {
 export interface ButtonCmpProps extends ButtonBasicProps {
   withIconTransition?: boolean,
   onClick?: (props: OnClickButtonEventType) => void,
-  tooltipContent?: string,
 }
 
 export type ButtonProps = ComponentPropsWithRef<typeof Button>;

@@ -586,10 +586,9 @@ export class ApiManager {
           url: injectBaseUrl('submission', `/${id}/rejudge`),
           method: HTTPMethod.POST,
         })),
-        judge: valid<{ params: { id: string }, body: { verdict: ProblemVerdict } }, HTTPMethod.POST>(({
-                                                                                                        params: { id },
-                                                                                                        body,
-                                                                                                      }) => ({
+        judge: valid<
+          { params: { id: string }, body: { verdict: ProblemVerdict } }, HTTPMethod.POST
+        >(({ params: { id }, body }) => ({
           url: injectBaseUrl('submission', `/${id}/judge`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
