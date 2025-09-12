@@ -249,6 +249,14 @@ export class ApiManager {
           url: injectCompany(injectBaseUrl('auth', `/nickname/${nickname}/reset-password`), companyKey),
           method: HTTPMethod.POST,
         })),
+        createSession: valid<
+          { params?: { companyKey: string }, body: { nickname: string } },
+          HTTPMethod.POST
+        >(({ params: { companyKey } = {}, body }) => ({
+          url: injectCompany(injectBaseUrl('auth', '/create-session'), companyKey),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
       },
       log: valid<
         {
