@@ -1,26 +1,18 @@
-import {
-  BodyWorksheetType,
-  isCodeEditorSheetType,
-  isJkmdSheetType,
-  isObjectJson,
-  isQuizOptionsSheetType,
-  isQuizProblemSheetType,
-  isQuizTextSheetType,
-  isStringJson,
-} from '@juki-team/commons';
+import { isObjectJson } from '@juki-team/commons';
 import React, { Dispatch } from 'react';
 import { useStableState } from '../../../../hooks/useStableState';
 import { Button, InputTextArea, Modal, T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/Modal/types';
 
-interface EditSheetModalProps<T extends BodyWorksheetType> extends BasicModalProps {
+interface EditSheetModalProps<T> extends BasicModalProps {
   content: T,
   setContent: Dispatch<T>,
+  isValid: (value: string) => boolean,
 }
 
-export const EditSheetModal = <T extends BodyWorksheetType, >(props: EditSheetModalProps<T>) => {
+export const EditSheetModal = <T, >(props: EditSheetModalProps<T>) => {
   
-  const { isOpen, onClose, content, setContent } = props;
+  const { isOpen, onClose, content, setContent, isValid } = props;
   
   const [ value, setValue ] = useStableState(isOpen && isObjectJson(content) ? JSON.stringify(content, null, 2) : '');
   
@@ -41,28 +33,12 @@ export const EditSheetModal = <T extends BodyWorksheetType, >(props: EditSheetMo
             <T className="tt-se">close</T>
           </Button>
           <Button
-            disabled={isStringJson(value)
-              ? (
-                !isJkmdSheetType(JSON.parse(value))
-                && !isCodeEditorSheetType(JSON.parse(value))
-                && !isQuizProblemSheetType(JSON.parse(value))
-                && !isQuizOptionsSheetType(JSON.parse(value))
-                && !isQuizTextSheetType(JSON.parse(value))
-              )
-              : true}
+            disabled={!isValid(value)}
             onClick={() => {
-              if (isStringJson(value)) {
+              if (isValid(value)) {
                 const obj = JSON.parse(value);
-                if (
-                  isJkmdSheetType(obj)
-                  || isCodeEditorSheetType(obj)
-                  || isQuizProblemSheetType(obj)
-                  || isQuizOptionsSheetType(obj)
-                  || isQuizTextSheetType(obj)
-                ) {
-                  setContent(obj as T);
-                  onClose();
-                }
+                setContent(obj as T);
+                onClose();
               }
             }}
           >

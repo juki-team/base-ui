@@ -1726,10 +1726,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@juki-team/commons@^0.0.918":
-  version "0.0.918"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.918/d96ac0ecd26ea501c66e961b7288470901ff8a60#d96ac0ecd26ea501c66e961b7288470901ff8a60"
-  integrity sha512-Q/Z60ju1+/IwlHnpifenBZHqEEdEl8JIzOfHM6SB1ToqIhlGfkRwcK0lPh21whzyOF4igeRT7aK09TUqNsGV5w==
+"@juki-team/commons@^0.0.919":
+  version "0.0.919"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.919/5af85db605b24c236b63ff94a79a6da798efb4dc#5af85db605b24c236b63ff94a79a6da798efb4dc"
+  integrity sha512-XqZsjPldXgCny8Zq59MgPE2CxrgstoMBMlfTAhSoBSllHDEwBvcZU7FP7fw1zvD0pes390pMEvKBTsxu8mgtsA==
 
 "@lezer/common@^0.15.0", "@lezer/common@^0.15.5":
   version "0.15.12"

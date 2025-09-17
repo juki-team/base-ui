@@ -1,4 +1,4 @@
-import { GraphSheetType, WorksheetType } from '@juki-team/commons';
+import { GraphSheetType, isStringJson, WorksheetType } from '@juki-team/commons';
 import React, { useRef, useState } from 'react';
 import { useStableState } from '../../../../../hooks/useStableState';
 import { FloatToolbar } from '../../../../molecules';
@@ -42,7 +42,13 @@ export const GraphSheetSection = (props: GraphSheetSectionProps) => {
       onDoubleClick={() => setEdit(true)}
     >
       {setContent && (
-        <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
+        <EditSheetModal
+          isOpen={modal}
+          onClose={() => setModal(false)}
+          content={content}
+          setContent={setContent}
+          isValid={(value) => isStringJson(value) /*&& isGraphSheetType(JSON.parse(value))*/}
+        />
       )}
       {setContent && edit ? (
         <GraphSheetSectionEditor content={content} setContent={setContent} />

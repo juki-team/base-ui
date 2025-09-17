@@ -1,6 +1,8 @@
 import {
   cleanRequest,
   ContentResponseType,
+  isQuizOptionsSheetType,
+  isStringJson,
   QuizOptionsSheetType,
   QuizOptionsSubmissionDTO,
   Status,
@@ -64,7 +66,13 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
       onDoubleClick={() => setEdit(true)}
     >
       {setContent && (
-        <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
+        <EditSheetModal
+          isOpen={modal}
+          onClose={() => setModal(false)}
+          content={content}
+          setContent={setContent}
+          isValid={(value) => isStringJson(value) && isQuizOptionsSheetType(JSON.parse(value))}
+        />
       )}
       {setContent && edit ? (
         <QuizOptionsSheetSectionEditor

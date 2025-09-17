@@ -1,7 +1,7 @@
 import { BodyWorksheetType, WorksheetType } from '@juki-team/commons';
 import React from 'react';
 import { Button, T } from '../../../atoms';
-import { ButtonType } from '../../../atoms/Button/types';
+import { ButtonSizeType, ButtonType } from '../../../atoms/Button/types';
 import { CloseIcon, EditIcon, SaveIcon, SettingsIcon, SortIcon, VisibilityIcon } from '../../../atoms/server';
 import { SetSheetType } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
@@ -66,6 +66,7 @@ export const getActionButtons = (props: getActionButtonsProps) => {
     } ] : []),
     {
       icon: <SortIcon className="cr-we" up down />,
+      size: 'tiny' as ButtonSizeType,
       buttons: upRemoveDownButtons<BodyWorksheetType>({
         index,
         length: sheetLength,
@@ -74,9 +75,11 @@ export const getActionButtons = (props: getActionButtonsProps) => {
     },
     {
       icon: <SettingsIcon />,
+      size: 'tiny' as ButtonSizeType,
       buttons: [
         {
           icon: <SettingsIcon />,
+          size: 'tiny' as ButtonSizeType,
           label: <T className="tt-se">view settings</T>,
           onClick: () => setModal(true),
         },

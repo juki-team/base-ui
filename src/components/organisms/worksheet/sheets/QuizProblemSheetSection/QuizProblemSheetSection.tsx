@@ -1,4 +1,4 @@
-import { QuizProblemSheetType, WorksheetType } from '@juki-team/commons';
+import { isQuizProblemSheetType, isStringJson, QuizProblemSheetType, WorksheetType } from '@juki-team/commons';
 import React, { useRef, useState } from 'react';
 import { useStableState } from '../../../../../hooks/useStableState';
 import { T } from '../../../../atoms';
@@ -50,7 +50,13 @@ export const QuizProblemSheetSection = (props: QuizProblemSheetSectionProps) => 
       onDoubleClick={() => setEdit(true)}
     >
       {setContent && (
-        <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
+        <EditSheetModal
+          isOpen={modal}
+          onClose={() => setModal(false)}
+          content={content}
+          setContent={setContent}
+          isValid={(value) => isStringJson(value) && isQuizProblemSheetType(JSON.parse(value))}
+        />
       )}
       {setContent && edit
         ? <QuizProblemSheetSectionEditor content={content} setContent={setContent} isSolvable={isSolvable} />

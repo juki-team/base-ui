@@ -1,5 +1,6 @@
 import React from 'react';
 import { T } from '../../../atoms';
+import { ButtonSizeType } from '../../../atoms/Button/types';
 import { ArrowDownwardIcon, ArrowUpwardIcon, DeleteIcon } from '../../../atoms/server';
 
 interface UpRemoveDownButtonsProps<T> {
@@ -15,7 +16,8 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
   if (index !== 0) {
     actionButtons.push({
       icon: <ArrowUpwardIcon />,
-      label: <T>move up</T>,
+      size: 'tiny' as ButtonSizeType,
+      label: <T className="tt-se">move up</T>,
       onClick: () => {
         onChange((list) => {
           const newSheets = [ ...list ];
@@ -29,7 +31,8 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
   
   actionButtons.push({
     icon: <DeleteIcon />,
-    label: <T>remove</T>,
+    size: 'tiny' as ButtonSizeType,
+    label: <T className="tt-se">remove</T>,
     onClick: () => {
       onChange((list) => list.filter((_, i) => i !== index));
     },
@@ -38,7 +41,8 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
   if (index !== length - 1) {
     actionButtons.push({
       icon: <ArrowDownwardIcon />,
-      label: <T>move down</T>,
+      size: 'tiny' as ButtonSizeType,
+      label: <T className="tt-se">move down</T>,
       onClick: () => {
         onChange((list) => {
           const newSheets = [ ...list ];

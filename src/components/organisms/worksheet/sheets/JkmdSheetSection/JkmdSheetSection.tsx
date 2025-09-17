@@ -1,6 +1,8 @@
 import {
   cleanRequest,
   ContentResponseType,
+  isJkmdSheetType,
+  isStringJson,
   JkmdSheetType,
   JkmdSubmissionDTO,
   Status,
@@ -58,7 +60,13 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
       className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100 jk-md-sheet-section"
     >
       {setContent && (
-        <EditSheetModal isOpen={modal} onClose={() => setModal(false)} content={content} setContent={setContent} />
+        <EditSheetModal
+          isOpen={modal}
+          onClose={() => setModal(false)}
+          content={content}
+          setContent={setContent}
+          isValid={(value) => isStringJson(value) && isJkmdSheetType(JSON.parse(value))}
+        />
       )}
       {setContent && edit
         ? <JkmdSheetSectionEditor content={content} setContent={setContent} isSolvable={!!isSolvable} />

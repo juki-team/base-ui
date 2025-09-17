@@ -104,17 +104,27 @@ const toUpsertWorksheetDTO = (entity: UpsertWorksheetUIDTO): UpsertWorksheetDTO 
   name: entity.name,
   description: entity.description,
   content: entity.content,
-  isSolvable: entity.isSolvable,
-  automaticFeedback: entity.automaticFeedback,
+  quiz: {
+    enable: false,
+    automaticFeedback: false,
+  },
+  slides: {
+    enable: false,
+    titleBackgroundImage: '',
+    backgroundImage: '',
+    fontSize: 0,
+    theme: Theme.LIGHT,
+    colorTextHighlight: '',
+  },
 });
 
 const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, mutate: any }) => {
-  const [ content, setContent ] = useStableState(initialContent.content);
+  const [ content, setContent ] = useStableState(initialContent);
   return (
     <>
       <WorksheetEditorCmp
-        worksheet={initialContent}
-        setContent={setContent}
+        worksheet={content}
+        setContent={(content) => setContent(prevState => ({ ...prevState, content }))}
         // readOnly={false}
         // readOnly={!!user?.nickname}
       />
@@ -126,7 +136,7 @@ const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, m
             ...options
           } = jukiApiManager.API_V1.worksheet.update({
             params: { key: initialContent.key },
-            body: toUpsertWorksheetDTO({ ...initialContent, content }),
+            body: toUpsertWorksheetDTO({ ...initialContent }),
           });
           const request = cleanRequest(await authorizedRequest(url, options));
           console.info({ request });

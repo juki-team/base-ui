@@ -1,10 +1,19 @@
-import { BodyWorksheetType, NewPageSheetType } from '@juki-team/commons';
-import React, { useCallback, useRef } from 'react';
+import {
+  BodyWorksheetType,
+  isCodeEditorSheetType,
+  isJkmdSheetType,
+  isQuizOptionsSheetType,
+  isQuizProblemSheetType,
+  isStringJson,
+  NewPageSheetType,
+} from '@juki-team/commons';
+import React, { useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { NotUndefined, QueryParamKey } from '../../../../types';
 import { Button, Input, T } from '../../../atoms';
-import { DeleteIcon } from '../../../atoms/server';
+import { DeleteIcon, SettingsIcon } from '../../../atoms/server';
 import { WorksheetBodiesProps, WorksheetBodyProps } from '../types';
+import { EditSheetModal } from './EditSheetModal';
 import { WorksheetBody } from './WorksheetBody';
 
 export const WorksheetBodies = (props: WorksheetBodiesProps) => {
@@ -23,7 +32,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   } = props;
   
   const containerRef = useRef<HTMLDivElement>(null);
-  
+  const [ modal, setModal ] = useState(false);
   const setPageSheets = useCallback((newPageHeader: NewPageSheetType | null, newPageSheetContent: BodyWorksheetType[]) => {
     const newSheetsInPages = [ ...sheetsInPages ];
     newSheetsInPages[page - 1] = {
@@ -101,7 +110,30 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
             }}
             disabled={pages <= 1}
           />
+          <Button
+            icon={<SettingsIcon size="small" />}
+            onClick={() => setModal(true)}
+          >
+          
+          </Button>
         </div>
+      )}
+      {setSheets && (
+        <EditSheetModal<BodyWorksheetType[]>
+          isOpen={modal}
+          onClose={() => setModal(false)}
+          content={sheetsInPages[page - 1].content}
+          setContent={setSheet}
+          isValid={(value) => {
+            if (isStringJson(value)) {
+              const values = JSON.parse(value);
+              if (Array.isArray(values)) {
+                return values.every(value => isCodeEditorSheetType(value) || isJkmdSheetType(value) || isQuizOptionsSheetType(value) || isQuizProblemSheetType(value));
+              }
+            }
+            return false;
+          }}
+        />
       )}
       <WorksheetBody
         sheet={sheetsInPages[page - 1]?.content}
