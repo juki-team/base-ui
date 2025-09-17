@@ -10,8 +10,9 @@ import {
 import React, { useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { NotUndefined, QueryParamKey } from '../../../../types';
-import { Button, Input, T } from '../../../atoms';
+import { Button, T } from '../../../atoms';
 import { DeleteIcon, SettingsIcon } from '../../../atoms/server';
+import { MdMathEditor } from '../../mdMath/MdMathEditor';
 import { WorksheetBodiesProps, WorksheetBodyProps } from '../types';
 import { EditSheetModal } from './EditSheetModal';
 import { WorksheetBody } from './WorksheetBody';
@@ -57,13 +58,12 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
     <div className={classNames('jk-col gap nowrap top stretch extend worksheet-bodies wh-100', { 'is-solvable': isSolvable })}>
       {setSheets && (
         <div className="jk-row gap extend nowrap" key={`${page}`}>
-          <Input
-            label={<T className="tt-se">page title</T>}
+          <T className="tt-se">page title</T>
+          <MdMathEditor
             value={sheetsInPages[page - 1]?.header.title}
             onChange={(title) => {
               setPageSheets({ ...sheetsInPages[page - 1].header, title }, sheetsInPages[page - 1].content);
             }}
-            expand
           />
           <Button
             data-tooltip-id="jk-tooltip"
