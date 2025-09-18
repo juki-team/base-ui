@@ -25,6 +25,7 @@ import { UserCodeEditorProps } from './UserCodeEditor/types';
 import { UsersSelectorProps } from './UsersSelector/types';
 import { MdMathEditorProps } from './mdMath/types';
 import { MdMathViewerProps } from './mdMath/types';
+import { PresentationToolButtonsProps } from './presentation-buttons/types';
 import { ContentsSectionHeaderProps } from './worksheet/types';
 import { WorksheetAsSlidesProps } from './worksheet/types';
 import { WorksheetEditorProps } from './worksheet/types';
@@ -227,6 +228,14 @@ export const MdMathViewer = (props: MdMathViewerProps) => (
   </Suspense>
 );
 
+const PresentationToolButtonsImport = () => import('./presentation-buttons/PresentationToolButtons');
+const LazyPresentationToolButtons = lazy(() => PresentationToolButtonsImport().then(module => ({ default: module.PresentationToolButtons })));
+export const PresentationToolButtons = (props: PresentationToolButtonsProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyPresentationToolButtons {...props} />
+  </Suspense>
+);
+
 const ContentsSectionHeaderImport = () => import('./worksheet/ContentsSectionHeader');
 const LazyContentsSectionHeader = lazy(() => ContentsSectionHeaderImport().then(module => ({ default: module.ContentsSectionHeader })));
 export const ContentsSectionHeader = (props: ContentsSectionHeaderProps) => (
@@ -284,6 +293,7 @@ export const preloadOrganisms = async () => {
   await UsersSelectorImport();
   await MdMathEditorImport();
   await MdMathViewerImport();
+  await PresentationToolButtonsImport();
   await ContentsSectionHeaderImport();
   await WorksheetAsSlidesImport();
   await WorksheetEditorImport();

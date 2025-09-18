@@ -2,11 +2,12 @@
 
 .jk-timer-layout {
   width: min-content;
-  height: 40px;
+  
+  &:not(.inline):not(.literal) {
+    height: 40px;
+  }
   
   &.literal {
-    height: auto;
-    
     span + span {
       margin-left: 4px;
     }

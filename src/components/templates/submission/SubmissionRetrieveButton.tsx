@@ -8,9 +8,9 @@ import { T } from '../../atoms';
 import { RefreshIcon } from '../../atoms/server';
 import { ButtonLoader } from '../../molecules';
 import { ButtonLoaderOnClickType } from '../../molecules/ButtonLoader/types';
-import { SubmissionRejudgeButtonProps } from './types';
+import { SubmissionRetrieveButtonProps } from './types';
 
-export const SubmissionRetrieveButton = ({ submissionId }: SubmissionRejudgeButtonProps) => {
+export const SubmissionRetrieveButton = ({ submissionId }: SubmissionRetrieveButtonProps) => {
   
   const { notifyResponse } = useJukiNotification();
   const mutate = useMutate();

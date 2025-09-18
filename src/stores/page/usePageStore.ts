@@ -10,6 +10,8 @@ interface PageState {
   setIsFocus: (isFocus: boolean) => void,
   isMouseInside: boolean,
   setIsMouseInside: (isMouseInside: boolean) => void,
+  isFullscreen: boolean,
+  setIsFullscreen: (isFullscreen: boolean) => void,
 }
 
 export const usePageStore = create<PageState>((set) => ({
@@ -21,4 +23,6 @@ export const usePageStore = create<PageState>((set) => ({
   setIsFocus: (isFocus) => set({ isFocus }),
   isMouseInside: true,
   setIsMouseInside: (isMouseInside) => set({ isMouseInside }),
+  isFullscreen: false,
+  setIsFullscreen: (isFullscreen) => set({ isFullscreen }),
 }));

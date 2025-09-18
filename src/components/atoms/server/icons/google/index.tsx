@@ -739,6 +739,14 @@ export const InfoIIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const InkEraserIconImport = () => import('./InkEraserIcon');
+const LazyInkEraserIcon = lazy(() => InkEraserIconImport().then(module => ({ default: module.InkEraserIcon })));
+export const InkEraserIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyInkEraserIcon {...props} />
+  </Suspense>
+);
+
 const InvertColorsIconImport = () => import('./InvertColorsIcon');
 const LazyInvertColorsIcon = lazy(() => InvertColorsIconImport().then(module => ({ default: module.InvertColorsIcon })));
 export const InvertColorsIcon = (props: BasicIconProps) => (
@@ -995,6 +1003,22 @@ export const PaletteIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const PanToolIconImport = () => import('./PanToolIcon');
+const LazyPanToolIcon = lazy(() => PanToolIconImport().then(module => ({ default: module.PanToolIcon })));
+export const PanToolIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyPanToolIcon {...props} />
+  </Suspense>
+);
+
+const PauseCircleIconImport = () => import('./PauseCircleIcon');
+const LazyPauseCircleIcon = lazy(() => PauseCircleIconImport().then(module => ({ default: module.PauseCircleIcon })));
+export const PauseCircleIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyPauseCircleIcon {...props} />
+  </Suspense>
+);
+
 const PendingActionsIconImport = () => import('./PendingActionsIcon');
 const LazyPendingActionsIcon = lazy(() => PendingActionsIconImport().then(module => ({ default: module.PendingActionsIcon })));
 export const PendingActionsIcon = (props: BasicIconProps) => (
@@ -1243,6 +1267,22 @@ export const StorageIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const StylusLaserPointerIconImport = () => import('./StylusLaserPointerIcon');
+const LazyStylusLaserPointerIcon = lazy(() => StylusLaserPointerIconImport().then(module => ({ default: module.StylusLaserPointerIcon })));
+export const StylusLaserPointerIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyStylusLaserPointerIcon {...props} />
+  </Suspense>
+);
+
+const StylusNoteIconImport = () => import('./StylusNoteIcon');
+const LazyStylusNoteIcon = lazy(() => StylusNoteIconImport().then(module => ({ default: module.StylusNoteIcon })));
+export const StylusNoteIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyStylusNoteIcon {...props} />
+  </Suspense>
+);
+
 const SupportAgentIconImport = () => import('./SupportAgentIcon');
 const LazySupportAgentIcon = lazy(() => SupportAgentIconImport().then(module => ({ default: module.SupportAgentIcon })));
 export const SupportAgentIcon = (props: BasicIconProps) => (
@@ -1387,6 +1427,14 @@ export const WarningIcon = (props: BasicIconProps) => (
   </Suspense>
 );
 
+const WidgetsIconImport = () => import('./WidgetsIcon');
+const LazyWidgetsIcon = lazy(() => WidgetsIconImport().then(module => ({ default: module.WidgetsIcon })));
+export const WidgetsIcon = (props: BasicIconProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyWidgetsIcon {...props} />
+  </Suspense>
+);
+
 export const preloadAtomsIconsGoogle = async () => {
   await AcUnitIconImport();
   await AccountCircleIconImport();
@@ -1480,6 +1528,7 @@ export const preloadAtomsIconsGoogle = async () => {
   await HomeIconImport();
   await HomeStorageIconImport();
   await InfoIIconImport();
+  await InkEraserIconImport();
   await InvertColorsIconImport();
   await LanguageIconImport();
   await LeaderboardIconImport();
@@ -1512,6 +1561,8 @@ export const preloadAtomsIconsGoogle = async () => {
   await OpenInNewIconImport();
   await PageInfoIconImport();
   await PaletteIconImport();
+  await PanToolIconImport();
+  await PauseCircleIconImport();
   await PendingActionsIconImport();
   await PendingIconImport();
   await PersonIconImport();
@@ -1543,6 +1594,8 @@ export const preloadAtomsIconsGoogle = async () => {
   await StepOutIconImport();
   await StopCircleIconImport();
   await StorageIconImport();
+  await StylusLaserPointerIconImport();
+  await StylusNoteIconImport();
   await SupportAgentIconImport();
   await SyncIconImport();
   await TableEyeIconImport();
@@ -1561,4 +1614,5 @@ export const preloadAtomsIconsGoogle = async () => {
   await VisibilityOffIconImport();
   await VoidIconImport();
   await WarningIconImport();
+  await WidgetsIconImport();
 };

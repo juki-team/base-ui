@@ -19,25 +19,28 @@
     }
     
     .edge {
-      path, polygon {
+      path:not([stroke]), path[stroke="black"],
+      polygon:not([stroke]), polygon[stroke="black"], {
         stroke: var(--t-color-black-light);
       }
       
-      polygon, text {
+      polygon:not([fill]), polygon[fill="black"],
+      text:not([fill]) {
         fill: var(--t-color-black-light);
       }
     }
     
     .node {
-      polygon, ellipse {
+      polygon:not([stroke]), polygon[stroke="black"],
+      ellipse:not([stroke]), ellipse[stroke="black"] {
         stroke: var(--t-color-black-light);
       }
       
-      ellipse {
+      ellipse:not([fill]), ellipse[fill="none"] {
         fill: var(--t-color-highlight-light);
       }
       
-      text {
+      text:not([fill]) {
         fill: var(--t-color-black-light);
       }
     }

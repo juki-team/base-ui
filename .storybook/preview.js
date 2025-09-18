@@ -1,10 +1,16 @@
 // import '../src/styles/base/_index.scss';
-import { initialize } from 'msw-storybook-addon';
 import { allModes } from "../.storybook/modes";
 
-initialize({
-  onUnhandledRequest: 'bypass',
-});
+if (typeof global.process === 'undefined') {
+  // Estamos en el navegador (probablemente producción)
+  console.log('[MSW] MSW no se inicializa en producción');
+} else {
+  const { initialize } = require('msw-storybook-addon');
+  initialize({
+    onUnhandledRequest: 'bypass',
+  });
+  // export const decorators = [mswDecorator];
+}
 
 const customViewports = {
   small: {

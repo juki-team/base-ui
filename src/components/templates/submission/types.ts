@@ -30,4 +30,10 @@ export type SubmissionProblemFieldProps = TableHeadFieldSubmissionSummaryListRes
 
 export type SubmissionTimeFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;
 
-export type SubmissionRejudgeButtonProps = { submissionId: string };
+export interface SubmissionRejudgeButtonProps {
+  submissionId: string;
+}
+
+export interface SubmissionRetrieveButtonProps {
+  submissionId: string;
+}

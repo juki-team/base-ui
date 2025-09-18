@@ -15,6 +15,7 @@ export type ActionButtonsType = ActionButtonType[];
 
 export interface ButtonActionProps {
   icon?: ReactNode,
+  type?: ButtonProps['type'],
   buttons?: ActionButtonsType,
   disabled?: boolean,
   children?: ReactNode,

@@ -8,5 +8,6 @@ export interface InputColorProps {
   color?: Color,
   onChange?: (newColor: Color) => void,
   label?: InputProps<any>['label'],
+  labelPlacement?: InputProps<any>['labelPlacement'],
   children?: ReactElement,
 }

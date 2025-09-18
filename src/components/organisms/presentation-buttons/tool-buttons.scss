@@ -1,0 +1,49 @@
+.laser-pointer {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: red;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 12px 6px rgba(255, 0, 0, 0.6);
+  //transition: transform 0.05s linear;
+  animation: pulse 0.8s infinite ease-in-out;
+  opacity: 0.6;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 6px 2px rgba(255, 0, 0, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 8px 4px rgba(255, 0, 0, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 6px 2px rgba(255, 0, 0, 0.4);
+  }
+}
+
+.excalidraw.excalidraw-container {
+  .layer-ui__wrapper__top-right.zen-mode-transition {
+    display: none !important;
+  }
+  
+  .mobile-misc-tools-container > label[title="Library"] {
+    display: none !important;
+  }
+  
+  .Stack.Stack_vertical.App-menu_top__left {
+    display: none !important;
+  }
+  
+  .App-toolbar-content > button[data-testid="main-menu-trigger"] {
+    display: none !important;
+  }
+}
+
+.huge-text {
+  font-size: min(40vh, 15vw);
+  line-height: 1;
+}

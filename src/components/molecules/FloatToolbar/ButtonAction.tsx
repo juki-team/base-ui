@@ -13,6 +13,7 @@ export const ButtonAction = (props: ButtonActionProps) => {
   const {
     children,
     icon,
+    type = 'primary',
     buttons = [],
     placement,
     disabled,
@@ -37,7 +38,7 @@ export const ButtonAction = (props: ButtonActionProps) => {
   
   return (
     <div
-      className={classNames('button-action jk-row', className, {
+      className={classNames('button-action jk-row', className, placement, {
         open,
         'right': !!placement?.includes('right') && !placement?.includes('out'),
         'left': !(!!placement?.includes('right') && !placement?.includes('out')) && !className?.includes('center'),
@@ -55,7 +56,7 @@ export const ButtonAction = (props: ButtonActionProps) => {
       <div className="button-trigger jk-row" ref={refButtonTrigger}>
         {children ?? <ButtonLoader
           icon={icon}
-          type="primary"
+          type={type}
           size={size}
           setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
           disabled={disabled}

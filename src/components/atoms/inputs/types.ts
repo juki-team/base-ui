@@ -25,7 +25,7 @@ export interface InputCommonsProps<T> {
   placeholder?: string,
   register?: UseFormRegisterReturn | ((setValueAs: (value: T) => void) => UseFormRegisterReturn),  //{ name: string, onBlur: ChangeHandler, onChange: ChangeHandler, ref: any },
   // types
-  type?: 'text' | 'number' | 'password' | 'email' | 'file' | 'files' | 'range',
+  type?: 'text' | 'number' | 'password' | 'email' | 'file' | 'files' | 'range' | 'color',
   accept?: string,
   size?: number | 'auto',
   step?: number | 'auto',

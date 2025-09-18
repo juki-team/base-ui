@@ -18,6 +18,7 @@ import { T } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { ButtonLoader, FetcherLayer, TwoContentLayout } from '../../molecules';
 import { SlideDeck } from '../../molecules/SlideDeck/SlideDeck';
+import { PresentationToolButtons } from '../presentation-buttons/PresentationToolButtons';
 import { WorksheetAsSlides } from './WorksheetAsSlides';
 import { WorksheetEditor as WorksheetEditorCmp } from './WorksheetEditor';
 import { WorksheetViewer as WorksheetViewerCmp } from './WorksheetViewer';
@@ -51,6 +52,7 @@ export const WorksheetViewer: Story = {
             // breadcrumbs={breadcrumbs}
           >
             TITLE
+            <PresentationToolButtons />
             {/*<div className="jk-row right tx-s fw-lr">*/}
             {/*  <DateLiteral date={new Date(noteSheet.updatedAt)} show="year-month-day-hours-minutes" />*/}
             {/*</div>*/}

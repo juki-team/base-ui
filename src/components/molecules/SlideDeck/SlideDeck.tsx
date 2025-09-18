@@ -1,6 +1,7 @@
 import { ProfileSetting, Theme } from '@juki-team/commons';
 import React, { Children, useEffect, useRef } from 'react';
 import type Reveal from 'reveal.js';
+import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useGraphvizStore } from '../../organisms/Graphviz/GraphvizViewer';
 import { SlideDeckProps } from './types';
@@ -14,12 +15,13 @@ function hasScroll(el: HTMLElement) {
 
 export const SlideDeck = (props: SlideDeckProps) => {
   
-  const { children, onClose, fontSize = 32, theme = Theme.LIGHT, colorTextHighlight, fragmented = false } = props;
+  const { children, fontSize = 32, theme = Theme.LIGHT, colorTextHighlight, fragmented = false } = props;
   
   const deckDivRef = useRef<HTMLDivElement>(null); // reference to deck container div
   const deckRef = useRef<Reveal.Api | null>(null); // reference to deck reveal instance
   const userPreferredFontSize = useUserStore(state => state.user.settings?.[ProfileSetting.FONT_SIZE]);
   const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
+  const t = useI18nStore(store => store.i18n.t);
   
   useEffect(() => {
     const renderGraphviz = () => {
@@ -31,8 +33,32 @@ export const SlideDeck = (props: SlideDeckProps) => {
         const RevealNotes = (await import('reveal.js/plugin/notes/notes')).default;
         const RevealSearch = (await import('reveal.js/plugin/search/search')).default;
         const RevealZoom = (await import('reveal.js/plugin/zoom/zoom')).default;
+        deckRef.current = new Reveal(deckDivRef.current!, {
+          // disableLayout: false,
+          // embedded: true,
+          // overview: false,
+          transition: 'fade',
+          // @ts-ignore
+          keyboard: {
+            // 27: function () {
+            //   onClose?.();
+            // },
+          },
+        });
         
-        deckRef.current = new Reveal(deckDivRef.current!, { transition: 'fade' });
+        deckRef.current.addKeyBinding(
+          { keyCode: 72, key: 'H', description: t('open help overlay') },
+          () => {
+            deckRef.current?.toggleHelp();
+          },
+        );
+        
+        deckRef.current.addKeyBinding(
+          { keyCode: 72, key: 'h', description: t('open help overlay') },
+          () => {
+            deckRef.current?.toggleHelp();
+          },
+        );
         
         deckRef.current.initialize({ plugins: [ RevealZoom, RevealNotes, RevealSearch ] }).then(() => {
           if (typeof document !== 'undefined' && fragmented) {
@@ -55,21 +81,6 @@ export const SlideDeck = (props: SlideDeckProps) => {
             }
           }
         });
-        
-        deckRef.current = new Reveal(deckDivRef.current!, {
-          // disableLayout: false,
-          // embedded: true,
-          // overview: false,
-          transition: 'fade',
-          // @ts-ignore
-          keyboard: {
-            27: function () {
-              onClose?.();
-            },
-          },
-          
-        });
-        
         deckRef.current.on('slidechanged', () => {
           useGraphvizStore.getState().triggerRerender();
         });
@@ -91,6 +102,7 @@ export const SlideDeck = (props: SlideDeckProps) => {
             });
           }
         });
+        deckRef.current?.toggleHelp();
       })();
     }
     
@@ -107,7 +119,7 @@ export const SlideDeck = (props: SlideDeckProps) => {
         console.warn('Reveal.js destroy call failed.');
       }
     };
-  }, [ fragmented ]);
+  }, [ fragmented, t ]);
   
   useEffect(() => {
     if (typeof document !== 'undefined') {

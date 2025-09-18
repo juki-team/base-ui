@@ -55,6 +55,10 @@
     .jk-float-toolbar-container {
       top: var(--pad-t);
     }
+    
+    .buttons-content {
+      top: 0;
+    }
   }
   
   &.bottom, &.top {
@@ -105,6 +109,12 @@
     
     .button-trigger {
       z-index: 1;
+    }
+  }
+  
+  &.rightTop {
+    > .buttons-content {
+      top: 0;
     }
   }
   

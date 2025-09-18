@@ -15,11 +15,18 @@ const DEFAULT_LABELS: { [key in Period]: string } = {
   [Period.CALC]: '...',
 };
 
-const MAX_LAPS = 6;
-
 export const TimerLabeled = (props: TimerLabeledProps) => {
   
-  const { startDate, endDate, currentDate, labels, laps: _laps = 3, literal, abbreviated } = props;
+  const {
+    startDate,
+    endDate,
+    currentDate,
+    labels,
+    type = 'hours-minutes-seconds',
+    literal,
+    inline,
+    abbreviated,
+  } = props;
   
   const [ time, setTime ] = useState({ period: Period.CALC, remaining: 0, interval: 0 });
   
@@ -60,9 +67,8 @@ export const TimerLabeled = (props: TimerLabeledProps) => {
     };
   }, [ currentDate, endDate, startDate ]);
   
-  const laps = Math.min(Math.max(0, _laps), MAX_LAPS);
   const myLabels = { ...DEFAULT_LABELS, ...labels };
-  const timeSplit = cutTimeSplit(Math.max(time.remaining, 0), laps, false, false);
+  const timeSplit = cutTimeSplit(Math.max(time.remaining, 0), type, false, false);
   const timeInterval = Math.max(timeSplit[timeSplit.length - 1].milliseconds, 1);
   
   return (
@@ -76,10 +82,11 @@ export const TimerLabeled = (props: TimerLabeledProps) => {
         <T className="tt-se">{myLabels[time.period]}</T>
       </div>
       <Timer
-        laps={laps}
+        type={type}
         currentTimestamp={time.remaining}
         interval={time.interval * timeInterval}
         literal={literal}
+        inline={inline}
         abbreviated={abbreviated}
       />
     </div>

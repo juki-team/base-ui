@@ -4,7 +4,7 @@ import { ColorResult, SketchPicker } from 'react-color';
 import { Button, Input, Popover, T } from '../../atoms';
 import { InputColorProps } from './types';
 
-export const InputColor = ({ color, children, onChange, label }: InputColorProps) => {
+export const InputColor = ({ color, children, onChange, label, labelPlacement }: InputColorProps) => {
   
   const [ newColor, setNewColor ] = useState<ColorResult>(color ? color : {
     hex: '#000000',
@@ -41,7 +41,16 @@ export const InputColor = ({ color, children, onChange, label }: InputColorProps
       placement="bottom"
       // showPopperArrow
     >
-      {children ? children : <span><Input onChange={() => null} value={color?.hex || ''} label={label} /></span>}
+      {children
+        ? children
+        : <span><Input
+          type="color"
+          onChange={() => null}
+          value={color?.hex || ''}
+          label={label}
+          labelPlacement={labelPlacement}
+          onClick={(e) => e.preventDefault()}
+        /></span>}
     </Popover>
   );
 };

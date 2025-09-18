@@ -99,6 +99,7 @@ import {
   HomeIcon,
   HomeStorageIcon,
   InfoIIcon,
+  InkEraserIcon,
   InvertColorsIcon,
   LanguageIcon,
   LeaderboardIcon,
@@ -131,6 +132,8 @@ import {
   OpenInNewIcon,
   PageInfoIcon,
   PaletteIcon,
+  PanToolIcon,
+  PauseCircleIcon,
   PendingActionsIcon,
   PendingIcon,
   PersonIcon,
@@ -162,6 +165,8 @@ import {
   StepOutIcon,
   StopCircleIcon,
   StorageIcon,
+  StylusLaserPointerIcon,
+  StylusNoteIcon,
   SupportAgentIcon,
   SyncIcon,
   TableEyeIcon,
@@ -180,6 +185,7 @@ import {
   VisibilityOffIcon,
   VoidIcon,
   WarningIcon,
+  WidgetsIcon,
 } from './index';
 
 const meta: Meta<typeof AccountCircleIcon> = {
@@ -313,6 +319,7 @@ export const Google: FC<BasicIconProps> = (args) => {
     HomeIcon,
     HomeStorageIcon,
     InfoIIcon,
+    InkEraserIcon,
     InvertColorsIcon,
     LanguageIcon,
     LeaderboardIcon,
@@ -343,6 +350,8 @@ export const Google: FC<BasicIconProps> = (args) => {
     OpenInNewIcon,
     PageInfoIcon,
     PaletteIcon,
+    PanToolIcon,
+    PauseCircleIcon,
     PendingActionsIcon,
     PendingIcon,
     PersonIcon,
@@ -372,6 +381,8 @@ export const Google: FC<BasicIconProps> = (args) => {
     SpeedIcon,
     StopCircleIcon,
     StorageIcon,
+    StylusLaserPointerIcon,
+    StylusNoteIcon,
     SupportAgentIcon,
     SyncIcon,
     TaskIcon,
@@ -388,6 +399,7 @@ export const Google: FC<BasicIconProps> = (args) => {
     VisibilityOffIcon,
     VoidIcon,
     WarningIcon,
+    WidgetsIcon,
   };
   
   const [ color, setColor ] = useState<ColorResult>({

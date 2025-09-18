@@ -11,8 +11,7 @@ import {
 import React, { ReactNode } from 'react';
 import { getJudgeOrigin } from '../../../../helpers';
 import { hasTimeHasMemory } from '../../../../helpers/submission';
-import { useFetcher } from '../../../../hooks';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { useFetcher, useJukiUI } from '../../../../hooks';
 import { jukiApiManager, jukiAppRoutes } from '../../../../settings';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { ContestTab } from '../../../../types';
@@ -177,12 +176,9 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
                     <div className="jk-row">
                       ~&nbsp;
                       {judgmentTime > 0
-                        ? <Timer currentTimestamp={judgmentTime} interval={0} literal laps={1} />
-                        : (
-                          <>
-                            <Timer currentTimestamp={Date.now() - -judgmentTime} interval={1000} literal laps={1} />
-                          </>
-                        )}
+                        ? <Timer currentTimestamp={judgmentTime} interval={0} literal type="seconds" />
+                        : <Timer currentTimestamp={Date.now() - -judgmentTime} interval={1000} literal type="seconds" />
+                      }
                     </div>
                   ),
                 },

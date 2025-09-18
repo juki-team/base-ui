@@ -290,3 +290,15 @@ span.jk-row, span.jk-col {
   //grid-template-columns: 1fr 1fr 1fr;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
+
+.opacity–hover {
+  opacity: 0.3;
+  
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.ff-me {
+  font-family: monospace;
+}
