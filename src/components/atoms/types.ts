@@ -1,4 +1,5 @@
 export type * from './Button/types';
+export type * from './Client/types';
 export type * from './Collapse/types';
 export type * from './CopyToClipboard/types';
 export type * from './DateLiteral/types';

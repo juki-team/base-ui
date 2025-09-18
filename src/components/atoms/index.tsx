@@ -3,6 +3,7 @@ import React, { lazy, Suspense } from 'react';
 import { SpinIcon } from './server/icons/SpinIcon';
 import { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';
 import { ButtonProps } from './Button/types';
+import { ClientProps } from './Client/types';
 import { CollapseProps } from './Collapse/types';
 import { CopyToClipboardProps } from './CopyToClipboard/types';
 import { DateLiteralProps } from './DateLiteral/types';
@@ -29,6 +30,14 @@ const LazyButton = lazy(() => ButtonImport().then(module => ({ default: module.B
 export const Button = (props: ButtonProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyButton {...props} />
+  </Suspense>
+);
+
+const ClientImport = () => import('./Client/Client');
+const LazyClient = lazy(() => ClientImport().then(module => ({ default: module.Client })));
+export const Client = (props: ClientProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyClient {...props} />
   </Suspense>
 );
 
@@ -199,6 +208,7 @@ export const InputToggle = (props: InputToggleProps) => (
 
 export const preloadAtoms = async () => {
   await ButtonImport();
+  await ClientImport();
   await CollapseImport();
   await CopyToClipboardImport();
   await DateLiteralImport();
