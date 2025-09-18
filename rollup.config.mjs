@@ -18,12 +18,15 @@ const plugins = [
   peerDepsExternal(),
   alias({
     entries: [
-      { find: 'node:crypto', replacement: path.resolve('./src/shims/crypto.js') },
-      { find: 'crypto', replacement: path.resolve('./src/shims/crypto.js') },
+      // { find: 'node:crypto', replacement: path.resolve('./src/shims/crypto.js') },
+      // { find: 'crypto', replacement: path.resolve('./src/shims/crypto.js') },
       { find: '@excalidraw/mermaid-to-excalidraw', replacement: path.resolve('./src/shims/emptyModule.js') },
     ]
   }),
-  resolve(),
+  resolve({
+    preferBuiltins: false,
+    browser: true,
+  }),
   commonjs({
     dynamicRequireTargets: [
       'node_modules/i18n-iso-countries/langs/*.json'
