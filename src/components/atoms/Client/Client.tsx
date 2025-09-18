@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { SpinIcon } from '../server';
 import { ClientProps } from './types';
 
 export const Client = ({ children }: ClientProps) => {
@@ -8,5 +9,5 @@ export const Client = ({ children }: ClientProps) => {
     setRendered(true);
   }, []);
   
-  return rendered ? children : null;
+  return rendered ? children : <div className="jk-loader-layer"><SpinIcon /></div>;
 };
