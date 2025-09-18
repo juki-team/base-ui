@@ -26,7 +26,7 @@ export const InputToggle = (props: InputToggleProps) => {
   
   return (
     <label className={classNames('jk-wrapper-input-toggle', type, className, size, { disabled: isDisabled })} {...restProps}>
-      <p onClick={handleClick(false)}>{leftLabel}</p>
+      <div onClick={handleClick(false)}>{leftLabel}</div>
       <input
         className="jk-input-toggle" type="checkbox" checked={checked}
         onChange={({ target: { checked } }) => isDisabled ? null : onChange?.(checked)}
@@ -38,7 +38,7 @@ export const InputToggle = (props: InputToggleProps) => {
           marginRight: !!rightLabel ? 'var(--pad-xt)' : undefined,
         }}
       />
-      <p onClick={handleClick(true)}>{rightLabel}</p>
+      <div onClick={handleClick(true)}>{rightLabel}</div>
     </label>
   );
 };
