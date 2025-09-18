@@ -1,4 +1,4 @@
-import { Excalidraw as ExcalidrawCmp } from '@excalidraw/excalidraw';
+import { Excalidraw as ExcalidrawCmp, MainMenu } from '@excalidraw/excalidraw';
 import { OrderedExcalidrawElement } from '@excalidraw/excalidraw/element/types';
 import { AppState, ExcalidrawImperativeAPI } from '@excalidraw/excalidraw/types';
 import React, { useEffect, useState } from 'react';
@@ -145,30 +145,36 @@ export const Excalidraw = () => {
           />
         </div>
       )}
-      <Portal>
-        {isActive && (
-          <div
-            style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              pointerEvents: isActive ? undefined : 'none',
-              opacity: isActive ? 1 : 0,
-            }}
-          >
-            <ExcalidrawCmp
-              excalidrawAPI={(api) => setExcalidrawAPI(api)}
-              initialData={excalidrawData}
-              onChange={(elements, appState) => {
-                const data = { elements, appState, viewBackgroundColor };
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+        <Portal>
+          {isActive && (
+            <div
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                pointerEvents: isActive ? undefined : 'none',
+                opacity: isActive ? 1 : 0,
               }}
-            />
-          </div>
-        )}
-      </Portal>
+            >
+              <ExcalidrawCmp
+                excalidrawAPI={(api) => setExcalidrawAPI(api)}
+                initialData={excalidrawData}
+                onChange={(elements, appState) => {
+                  const data = { elements, appState, viewBackgroundColor };
+                  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+                }}
+              >
+                <MainMenu>
+                  <MainMenu.DefaultItems.Export />
+                  <MainMenu.DefaultItems.SaveAsImage />
+                  <MainMenu.DefaultItems.ToggleTheme />
+                </MainMenu>
+              </ExcalidrawCmp>
+            </div>
+          )}
+        </Portal>
     </>
   );
 };

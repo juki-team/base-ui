@@ -3,7 +3,7 @@ import { allModes } from "../.storybook/modes";
 
 if (typeof global.process === 'undefined') {
   // Estamos en el navegador (probablemente producción)
-  console.log('[MSW] MSW no se inicializa en producción');
+  console.info('[MSW] MSW no se inicializa en producción');
 } else {
   const { initialize } = require('msw-storybook-addon');
   initialize({

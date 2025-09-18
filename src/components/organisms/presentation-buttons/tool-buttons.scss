@@ -35,11 +35,18 @@
   }
   
   .Stack.Stack_vertical.App-menu_top__left {
-    display: none !important;
+    > div > button {
+      //display: none !important;
+    }
+    
+    .selected-shape-actions {
+      transform: scale(0.7);
+      transform-origin: top left;
+    }
   }
   
   .App-toolbar-content > button[data-testid="main-menu-trigger"] {
-    display: none !important;
+    //display: none !important;
   }
 }
 
