@@ -2,6 +2,7 @@
 @use "react-crop";
 @use "milkdown";
 @use "slides";
+@use "excalidraw";
 
 //@use "diff2html";
 @import "diff2html/bundles/css/diff2html.min.css";
@@ -12,5 +13,3 @@
 
 //@use "katex";
 @import "katex/dist/katex.min.css";
-
-@import "@excalidraw/excalidraw/index.css";
