@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '../../../atoms/Button/Button';
-import { StylusLaserPointerIcon } from '../../../atoms/server/icons/google/StylusLaserPointerIcon';
+import { StylusLaserPointerIcon } from '../../../atoms/server';
 
 export const Pointer = () => {
   
@@ -37,7 +37,7 @@ export const Pointer = () => {
   }, [ isActive ]);
   
   return (
-    <div className="jk-row right opacity–hover">
+    <div className="jk-row right opacity–hover" style={{ zIndex: 1 }}>
       <Button
         tooltipContent={isActive ? 'exit laser pointer' : 'active laser pointer'}
         type={isActive ? 'secondary' : 'light'}

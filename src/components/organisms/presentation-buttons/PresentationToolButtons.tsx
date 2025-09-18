@@ -4,13 +4,13 @@ import { FullscreenTimer } from './buttons/FullscreenTimer';
 import { Pointer } from './buttons/Pointer';
 
 export const PresentationToolButtons = () => {
-  
   return (
     <div
       style={{
         position: 'fixed',
         top: 'var(--pad-sm)',
         right: 'var(--pad-sm)',
+        zIndex: 1,
       }}
       className="jk-col gap stretch right"
     >

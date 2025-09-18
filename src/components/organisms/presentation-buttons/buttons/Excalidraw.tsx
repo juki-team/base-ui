@@ -21,6 +21,7 @@ const getSafeBgColor = () => {
   }
   return 'transparent';
 };
+
 export const Excalidraw = () => {
   
   const [ isActive, setIsActive ] = useState(false);

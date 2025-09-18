@@ -6,11 +6,11 @@ import {
   AlarmIcon,
   FullscreenExitIcon,
   FullscreenIcon,
+  PauseCircleIcon,
   PlayCircleIcon,
   TimerIcon,
   UndoIcon,
 } from '../../../atoms/server';
-import { PauseCircleIcon } from '../../../atoms/server/icons/google/PauseCircleIcon';
 import { ButtonAction } from '../../../molecules/FloatToolbar/ButtonAction';
 import { Timer } from '../../../molecules/timers/Timer';
 
