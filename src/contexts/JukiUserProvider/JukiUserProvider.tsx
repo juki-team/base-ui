@@ -13,6 +13,7 @@ import { T } from '../../components/atoms/T/T';
 import { JukiLoadingLayout } from '../../components/molecules/layouts/JukiLoadingLayout';
 import { EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
+import { useInjectFontSize, useInjectTheme } from '../../hooks';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useMutate } from '../../hooks/useMutate';
 import { jukiApiManager } from '../../settings';
@@ -32,9 +33,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const companyKey = useUserStore(state => state.company.key);
   const userSessionId = useUserStore(state => state.user.sessionId);
   const isLoading = useUserStore(state => state.isLoading);
-  const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
   const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
-  const userPreferredFontSize = useUserStore(state => state.user.settings?.[ProfileSetting.FONT_SIZE]);
   const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
   const {
     data,
@@ -123,24 +122,8 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     setMutate(mutate);
   }, [ mutate, setDevice, setMutate ]);
   
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.querySelector('body')?.classList.remove('jk-theme-dark');
-      document.querySelector('body')?.classList.remove('jk-theme-light');
-      if (userPreferredTheme === Theme.DARK) {
-        document.querySelector('body')?.classList.add('jk-theme-dark');
-      } else {
-        document.querySelector('body')?.classList.add('jk-theme-light');
-      }
-    }
-  }, [ userPreferredTheme ]);
-  
-  useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.querySelector('body')?.style.removeProperty('--base-text-size');
-      document.querySelector('body')?.style.setProperty('--base-text-size', `${userPreferredFontSize}px`);
-    }
-  }, [ userPreferredFontSize ]);
+  useInjectTheme();
+  useInjectFontSize();
   
   if (isLoading) {
     return (

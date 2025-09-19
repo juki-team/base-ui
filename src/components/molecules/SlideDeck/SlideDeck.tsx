@@ -1,11 +1,11 @@
-import { ProfileSetting, Theme } from '@juki-team/commons';
+import { Theme } from '@juki-team/commons';
 import React, { Children, useEffect, useRef, useState } from 'react';
 import Reveal from 'reveal.js';
 import RevealNotes from 'reveal.js/plugin/notes/notes';
 import RevealSearch from 'reveal.js/plugin/search/search';
 import RevealZoom from 'reveal.js/plugin/zoom/zoom';
+import { useInjectColorTextHighlight, useInjectFontSize, useInjectTheme } from '../../../hooks';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
-import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Client, T } from '../../atoms';
 import { useGraphvizStore } from '../../organisms/Graphviz/GraphvizViewer';
 import { PdfExport } from './pdfexport';
@@ -24,11 +24,8 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   
   const deckDivRef = useRef<HTMLDivElement>(null); // reference to deck container div
   const deckRef = useRef<Reveal.Api | null>(null); // reference to deck reveal instance
-  const userPreferredFontSize = useUserStore(state => state.user.settings?.[ProfileSetting.FONT_SIZE]);
-  const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
   const t = useI18nStore(store => store.i18n.t);
   const [ loading, setLoading ] = useState(false);
-  const slidesCount = Children.count(children) || 0;
   
   useEffect(() => {
     const renderGraphviz = () => {
@@ -127,50 +124,9 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
     };
   }, [ fragmented, t, children ]);
   
-  useEffect(() => {
-    document.querySelector('body')?.style.removeProperty('--base-text-size');
-    document.querySelector('body')?.style.setProperty('--base-text-size', `${fontSize}px`);
-    
-    return () => {
-      document.querySelector('body')?.style.removeProperty('--base-text-size');
-      document.querySelector('body')?.style.setProperty('--base-text-size', `${userPreferredFontSize}px`);
-    };
-  }, [ userPreferredFontSize, fontSize ]);
-  
-  useEffect(() => {
-    document.querySelector('body')?.classList.remove('jk-theme-dark');
-    document.querySelector('body')?.classList.remove('jk-theme-light');
-    if (theme === Theme.DARK) {
-      document.querySelector('body')?.classList.add('jk-theme-dark');
-    } else {
-      document.querySelector('body')?.classList.add('jk-theme-light');
-    }
-    return () => {
-      document.querySelector('body')?.classList.remove('jk-theme-dark');
-      document.querySelector('body')?.classList.remove('jk-theme-light');
-      if (userPreferredTheme === Theme.DARK) {
-        document.querySelector('body')?.classList.add('jk-theme-dark');
-      } else {
-        document.querySelector('body')?.classList.add('jk-theme-light');
-      }
-    };
-  }, [ userPreferredTheme, theme ]);
-  
-  useEffect(() => {
-    if (colorTextHighlight) {
-      document.querySelector('body')?.style.removeProperty('--t-color-text-highlight');
-      document.querySelector('body')?.style.setProperty('--t-color-text-highlight', colorTextHighlight);
-    }
-    
-    return () => {
-      document.querySelector('body')?.style.removeProperty('--t-color-text-highlight');
-      // document.querySelector('body')?.style.setProperty('--base-text-size', `${userPreferredFontSize}px`);
-    };
-  }, [ userPreferredFontSize, fontSize ]);
-  
-  if (!slidesCount) {
-    return null;
-  }
+  useInjectTheme(theme);
+  useInjectFontSize(fontSize);
+  useInjectColorTextHighlight(colorTextHighlight);
   
   return (
     <>

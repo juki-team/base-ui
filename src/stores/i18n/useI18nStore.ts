@@ -40,14 +40,26 @@ export const useI18nStore = create<I18nState>((set) => ({
           params: { locale: Language.ES, namespace },
         }).url).then(res => res.json()),
       ]);
-      i18nInstance.addResourceBundle(Language.EN, namespace, dataEN);
-      i18nInstance.addResourceBundle(Language.ES, namespace, dataES);
-      set({
-        i18n: {
-          ...i18nInstance,
-          t: ((...args: Parameters<i18n['t']>) => i18nInstance.t(...args)) as i18n['t'],
-        },
-      });
+      const currentEN = i18nInstance.getResourceBundle(Language.EN, namespace);
+      const currentES = i18nInstance.getResourceBundle(Language.ES, namespace);
+      const hasChangedEN = JSON.stringify(currentEN) !== JSON.stringify(dataEN);
+      const hasChangedES = JSON.stringify(currentES) !== JSON.stringify(dataES);
+      
+      if (hasChangedEN) {
+        i18nInstance.addResourceBundle(Language.EN, namespace, dataEN);
+      }
+      if (hasChangedES) {
+        i18nInstance.addResourceBundle(Language.ES, namespace, dataES);
+      }
+      
+      if (hasChangedEN || hasChangedES) {
+        set({
+          i18n: {
+            ...i18nInstance,
+            t: ((...args: Parameters<i18n['t']>) => i18nInstance.t(...args)) as i18n['t'],
+          },
+        });
+      }
     } catch (error) {
       console.error('error on load resources', { error });
     }
