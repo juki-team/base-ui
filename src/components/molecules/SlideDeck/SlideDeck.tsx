@@ -34,6 +34,7 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
     const renderGraphviz = () => {
       useGraphvizStore.getState().triggerRerender();
     };
+    console.info('Reveal init');
     deckRef.current = new Reveal(deckDivRef.current!, {
       // disableLayout: false,
       // embedded: true,
