@@ -49,7 +49,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
     return [
       [
         <section
-          key={sheet.header.id}
+          key={sheet.header.id + sheet.header.title}
           data-auto-animate
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
           data-background-image={slides.titleBackgroundImage}
@@ -59,7 +59,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
       ],
       sheet.content.map((chunk, index) => (
         <section
-          key={chunk.id}
+          key={chunk.id + index}
           data-auto-animate
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
           data-background-image={slides.backgroundImage}
@@ -83,7 +83,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
     [
       [
         <section
-          key={sheet.header.id}
+          key={sheet.header.id + sheet.header.title}
           data-auto-animate
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
           data-background-image={slides.titleBackgroundImage}
@@ -93,7 +93,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
       ],
       sheet.content.map((chunk, index) => (
         <section
-          key={chunk.id}
+          key={chunk.id + index}
           data-auto-animate
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
           data-background-image={slides.backgroundImage}

@@ -102,7 +102,7 @@ export const SlideDeck = (props: SlideDeckProps) => {
             });
           }
         });
-        deckRef.current?.toggleHelp();
+        // deckRef.current?.toggleHelp();
       })();
     }
     
