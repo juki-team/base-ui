@@ -176,17 +176,18 @@ export const SlideDeck = (props: SlideDeckProps) => {
         </div>
       </div>
       {loading && (
-        <div className="jk-loader-layer">
+        <div className="jk-loader-layer pn-fd bc-we" style={{ top: 0, left: 0, zIndex: 1 }}>
           <Button
             onClick={() => {
               if (deckRef.current) {
-                deckRef.current.layout();
                 deckRef.current.sync();
+                deckRef.current.layout();
+                deckRef.current.slide(0, 0);
                 setLoading(false);
               }
             }}
           >
-            <T>start</T>
+            <T className="tt-se">_start</T>
           </Button>
         </div>
       )}
