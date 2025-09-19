@@ -156,6 +156,7 @@ export const Excalidraw = () => {
                 height: '100%',
                 pointerEvents: isActive ? undefined : 'none',
                 opacity: isActive ? 1 : 0,
+                zIndex: 'var(--z-index-excalidraw)',
               }}
             >
               <ExcalidrawCmp
