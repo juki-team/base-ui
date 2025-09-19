@@ -1,8 +1,9 @@
 import { ProfileSetting, Theme } from '@juki-team/commons';
-import React, { Children, useEffect, useRef } from 'react';
+import React, { Children, useEffect, useRef, useState } from 'react';
 import type Reveal from 'reveal.js';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
+import { T } from '../../atoms';
 import { useGraphvizStore } from '../../organisms/Graphviz/GraphvizViewer';
 import { SlideDeckProps } from './types';
 // import 'reveal.js/dist/reveal.css';
@@ -22,6 +23,7 @@ export const SlideDeck = (props: SlideDeckProps) => {
   const userPreferredFontSize = useUserStore(state => state.user.settings?.[ProfileSetting.FONT_SIZE]);
   const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
   const t = useI18nStore(store => store.i18n.t);
+  const [ loading, setLoading ] = useState(true);
   
   useEffect(() => {
     const renderGraphviz = () => {
@@ -122,6 +124,16 @@ export const SlideDeck = (props: SlideDeckProps) => {
   }, [ fragmented, t ]);
   
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setTimeout(() => {
+        deckRef.current?.layout();
+        deckRef.current?.sync();
+        setLoading(false);
+      }, 1000);
+    }
+  }, []);
+  
+  useEffect(() => {
     if (typeof document !== 'undefined') {
       document.querySelector('body')?.style.removeProperty('--base-text-size');
       document.querySelector('body')?.style.setProperty('--base-text-size', `${fontSize}px`);
@@ -173,10 +185,17 @@ export const SlideDeck = (props: SlideDeckProps) => {
   }, [ userPreferredFontSize, fontSize ]);
   
   return (
-    <div className="reveal" ref={deckDivRef}>
-      <div className="slides">
-        {Children.toArray(children)}
+    <>
+      <div className="reveal" ref={deckDivRef}>
+        <div className="slides">
+          {Children.toArray(children)}
+        </div>
       </div>
-    </div>
+      {loading && (
+        <div className="jk-loader-layer">
+          <T>loading</T>
+        </div>
+      )}
+    </>
   );
 };
