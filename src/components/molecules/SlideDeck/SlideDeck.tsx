@@ -47,6 +47,8 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       // },
       // },
     });
+    // @ts-ignore
+    document.__deckRef = deckRef.current;
     
     // deckRef.current.addKeyBinding(
     //   { keyCode: 72, key: 'H', description: t('open help overlay') },

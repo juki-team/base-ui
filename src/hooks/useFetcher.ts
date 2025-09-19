@@ -14,8 +14,12 @@ export const useFetcher = <T extends (ContentResponseType<any> | ContentsRespons
   const token = jukiApiManager.getToken();
   const userSessionId = useUserStore(state => state.user.sessionId);
   
+  const swrKey = useMemo(() => {
+    return typeof url === 'string' && url ? [ url, token, userSessionId ] : null;
+  }, [ url, token, userSessionId ]);
+  
   const { data, error, mutate, isValidating, isLoading } = useSWR(
-    typeof url === 'string' && url ? [ url, token, userSessionId ] : null,
+    swrKey,
     fetcherWithToken,
     config,
   );
