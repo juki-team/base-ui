@@ -3,7 +3,7 @@ import React, { Children, useEffect, useRef, useState } from 'react';
 import type Reveal from 'reveal.js';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { T } from '../../atoms';
+import { Button, T } from '../../atoms';
 import { useGraphvizStore } from '../../organisms/Graphviz/GraphvizViewer';
 import { SlideDeckProps } from './types';
 // import 'reveal.js/dist/reveal.css';
@@ -48,19 +48,19 @@ export const SlideDeck = (props: SlideDeckProps) => {
           },
         });
         
-        deckRef.current.addKeyBinding(
-          { keyCode: 72, key: 'H', description: t('open help overlay') },
-          () => {
-            deckRef.current?.toggleHelp();
-          },
-        );
-        
-        deckRef.current.addKeyBinding(
-          { keyCode: 72, key: 'h', description: t('open help overlay') },
-          () => {
-            deckRef.current?.toggleHelp();
-          },
-        );
+        // deckRef.current.addKeyBinding(
+        //   { keyCode: 72, key: 'H', description: t('open help overlay') },
+        //   () => {
+        //     deckRef.current?.toggleHelp();
+        //   },
+        // );
+        //
+        // deckRef.current.addKeyBinding(
+        //   { keyCode: 72, key: 'h', description: t('open help overlay') },
+        //   () => {
+        //     deckRef.current?.toggleHelp();
+        //   },
+        // );
         
         deckRef.current.initialize({ plugins: [ RevealZoom, RevealNotes, RevealSearch ] }).then(() => {
           if (typeof document !== 'undefined' && fragmented) {
@@ -90,9 +90,7 @@ export const SlideDeck = (props: SlideDeckProps) => {
           useGraphvizStore.getState().triggerRerender();
         });
         
-        if (typeof document !== 'undefined') {
-          document.addEventListener('pdf-ready', renderGraphviz);
-        }
+        document.addEventListener('pdf-ready', renderGraphviz);
         deckRef.current.on('fragmentshown', (event: any) => {
           const fragmentEl: HTMLElement = event.fragment;
           const parent = fragmentEl?.parentElement?.parentElement;
@@ -110,28 +108,14 @@ export const SlideDeck = (props: SlideDeckProps) => {
     
     return () => {
       try {
-        if (typeof document !== 'undefined') {
-          document.removeEventListener('pdf-ready', renderGraphviz);
-        }
-        if (deckRef.current) {
-          deckRef.current.destroy();
-          deckRef.current = null;
-        }
+        document.removeEventListener('pdf-ready', renderGraphviz);
+        deckRef.current?.destroy();
+        deckRef.current = null;
       } catch (e) {
         console.warn('Reveal.js destroy call failed.');
       }
     };
   }, [ fragmented, t ]);
-  
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setTimeout(() => {
-        deckRef.current?.layout();
-        deckRef.current?.sync();
-        setLoading(false);
-      }, 1000);
-    }
-  }, []);
   
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -193,7 +177,17 @@ export const SlideDeck = (props: SlideDeckProps) => {
       </div>
       {loading && (
         <div className="jk-loader-layer">
-          <T>loading</T>
+          <Button
+            onClick={() => {
+              if (deckRef.current) {
+                deckRef.current.layout();
+                deckRef.current.sync();
+                setLoading(false);
+              }
+            }}
+          >
+            <T>start</T>
+          </Button>
         </div>
       )}
     </>
