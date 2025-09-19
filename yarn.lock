@@ -1802,10 +1802,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@juki-team/commons@^0.0.921":
-  version "0.0.921"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.921/9cc3e605ad42ba70e9f811fd564753eeff1af24c#9cc3e605ad42ba70e9f811fd564753eeff1af24c"
-  integrity sha512-GnE8ILGRqdBZJ9zdMRaF8dKZQpDki9OzYhupumUw53orkpVEARv+sqrLR93xGImSmN3P8Zs0R7+LzncoLxdEuQ==
+"@juki-team/commons@^0.0.922":
+  version "0.0.922"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.922/44a9e0a38e46b5bb39f2b4d4607fe13e23ec7701#44a9e0a38e46b5bb39f2b4d4607fe13e23ec7701"
+  integrity sha512-aGkjJYDlQPvxajvrwXiDsww85GwxvtBmLBJOdxv6qX7igg/O1GPvodf6MxE+zHQB3VZeCYwsmP6LpD65iop3zQ==
 
 "@lezer/common@^0.15.0", "@lezer/common@^0.15.5":
   version "0.15.12"
@@ -10780,16 +10780,6 @@ reusify@^1.0.4:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/reusify/-/reusify-1.1.0.tgz#0fe13b9522e1473f51b558ee796e08f11f9b489f"
   integrity sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==
-
-reveal.js-menu@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/reveal.js-menu/-/reveal.js-menu-2.1.0.tgz#c9e2f6998a00e1f403015ee4210cde294dab271b"
-  integrity sha512-35zp4fHSMyWd15+3CvQ8LrpS+4Gj2qvlkxX3lo5LpITDe6ZkA4A9y1E5fE63YlQl5fp7W1mNgNJr4kCU0s14lA==
-
-reveal.js-toolbar@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/reveal.js-toolbar/-/reveal.js-toolbar-0.2.1.tgz#d9de7c18336d43ecf2e73e1f0d79e51245f11c9c"
-  integrity sha512-5XGyfs7aTWHCzl8CxicX6CAIArNhSI9v6jFpprymGQQk/jj7RsGvaNaTs9zyRdeiGF2j7fxQUKwwM1+R9EMiEA==
 
 reveal.js@^5.2.1:
   version "5.2.1"

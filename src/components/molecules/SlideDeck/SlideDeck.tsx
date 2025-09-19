@@ -1,12 +1,12 @@
-import { Theme } from '@juki-team/commons';
-import React, { Children, useEffect, useRef, useState } from 'react';
+import { isStringJson, Theme } from '@juki-team/commons';
+import React, { Children, useEffect, useRef } from 'react';
 import Reveal from 'reveal.js';
 import RevealNotes from 'reveal.js/plugin/notes/notes';
 import RevealSearch from 'reveal.js/plugin/search/search';
 import RevealZoom from 'reveal.js/plugin/zoom/zoom';
 import { useInjectColorTextHighlight, useInjectFontSize, useInjectTheme } from '../../../hooks';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
-import { Button, Client, T } from '../../atoms';
+import { Client } from '../../atoms';
 import { useGraphvizStore } from '../../organisms/Graphviz/GraphvizViewer';
 import { PdfExport } from './pdfexport';
 import { SlideDeckProps } from './types';
@@ -18,6 +18,8 @@ function hasScroll(el: HTMLElement) {
   return el?.scrollHeight > el?.clientHeight || el?.scrollWidth > el?.clientWidth;
 }
 
+const SESSION_STORAGE_KEY = 'jk-reveal-slide-state';
+
 const SlideDeckCmp = (props: SlideDeckProps) => {
   
   const { children, fontSize = 32, theme = Theme.LIGHT, colorTextHighlight, fragmented = false } = props;
@@ -25,7 +27,6 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   const deckDivRef = useRef<HTMLDivElement>(null); // reference to deck container div
   const deckRef = useRef<Reveal.Api | null>(null); // reference to deck reveal instance
   const t = useI18nStore(store => store.i18n.t);
-  const [ loading, setLoading ] = useState(false);
   
   useEffect(() => {
     const renderGraphviz = () => {
@@ -46,20 +47,6 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
     });
     // @ts-ignore
     document.__deckRef = deckRef.current;
-    
-    // deckRef.current.addKeyBinding(
-    //   { keyCode: 72, key: 'H', description: t('open help overlay') },
-    //   () => {
-    //     deckRef.current?.toggleHelp();
-    //   },
-    // );
-    //
-    // deckRef.current.addKeyBinding(
-    //   { keyCode: 72, key: 'h', description: t('open help overlay') },
-    //   () => {
-    //     deckRef.current?.toggleHelp();
-    //   },
-    // );
     
     deckRef.current?.addKeyBinding(
       {
@@ -94,7 +81,17 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
           }
         }
       }
-    }).then(() => {
+      const savedState = sessionStorage.getItem(SESSION_STORAGE_KEY);
+      if (isStringJson(savedState)) {
+        try {
+          const parsedState = JSON.parse(savedState);
+          deckRef.current?.setState(parsedState);
+        } catch (e) {
+          console.warn('Error parsing saved slide state', e);
+        }
+      }
+      deckRef.current?.layout();
+      deckRef.current?.sync();
       deckRef.current?.toggleHelp();
     });
     deckRef.current.on('slidechanged', renderGraphviz);
@@ -111,6 +108,10 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
           inline: 'nearest',
         });
       }
+    });
+    deckRef.current.on('slidechanged', () => {
+      const state = deckRef.current?.getState();
+      sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
     });
     
     return () => {
@@ -129,29 +130,11 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   useInjectColorTextHighlight(colorTextHighlight);
   
   return (
-    <>
-      <div className="reveal" ref={deckDivRef}>
-        <div className="slides">
-          {Children.toArray(children)}
-        </div>
+    <div className="reveal" ref={deckDivRef}>
+      <div className="slides">
+        {Children.toArray(children)}
       </div>
-      {loading && (
-        <div className="jk-loader-layer pn-fd bc-we" style={{ top: 0, left: 0, zIndex: 1 }}>
-          <Button
-            onClick={() => {
-              if (deckRef.current) {
-                deckRef.current.sync();
-                deckRef.current.layout();
-                deckRef.current.slide(0, 0);
-                setLoading(false);
-              }
-            }}
-          >
-            <T className="tt-se">_start</T>
-          </Button>
-        </div>
-      )}
-    </>
+    </div>
   );
 };
 
