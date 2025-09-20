@@ -39,6 +39,7 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       // embedded: true,
       // overview: false,
       transition: 'fade',
+      hash: true,
       // @ts-ignore
       // keyboard: {
       // 27: function () {
@@ -102,7 +103,7 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
             indexv: Math.max(parsedState.indexv || 0, 0),
           };
           console.log({ state });
-          deckRef.current?.setState(state);
+          // deckRef.current?.setState(state);
         } catch (e) {
           console.warn('Error parsing saved slide state', e);
         }
