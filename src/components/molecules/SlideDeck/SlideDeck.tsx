@@ -155,8 +155,16 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
           }
         }
       }
-      deckRef.current.layout();
-      deckRef.current.sync();
+      try {
+        deckRef.current.layout();
+      } catch (error) {
+        console.warn('error on layout', error);
+      }
+      try {
+        deckRef.current.sync();
+      } catch (error) {
+        console.warn('error on sync', error);
+      }
       if (!isPrintingPDF()) {
         const savedState = sessionStorage.getItem(SESSION_STORAGE_KEY);
         let state: Reveal.RevealState = {
