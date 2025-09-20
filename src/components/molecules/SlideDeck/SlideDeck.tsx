@@ -64,6 +64,19 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
     deckRef.current.initialize({
       plugins: [ RevealZoom, RevealNotes, RevealSearch, PdfExport ],
     }).then(() => {
+    
+    });
+    deckRef.current.on('slidechanged', () => {
+      renderGraphviz();
+      const state = deckRef.current?.getState();
+      console.log('setstate', { state });
+      if (state) {
+        console.log('setstate>', { state });
+        sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
+      }
+    });
+    deckRef.current.on('ready', () => {
+      renderGraphviz();
       console.log('init initialize', { document, fragmented });
       if (typeof document !== 'undefined' && fragmented) {
         const slides = document.querySelector('.slides');
@@ -113,16 +126,6 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       }
       console.log('loaded slides');
     });
-    deckRef.current.on('slidechanged', () => {
-      renderGraphviz();
-      const state = deckRef.current?.getState();
-      console.log('setstate', { state });
-      if (state) {
-        console.log('setstate>', { state });
-        sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
-      }
-    });
-    deckRef.current.on('ready', renderGraphviz);
     document.addEventListener('pdf-ready', renderGraphviz);
     
     deckRef.current.on('fragmentshown', (event: any) => {
