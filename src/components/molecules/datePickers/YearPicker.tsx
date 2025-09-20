@@ -16,7 +16,7 @@ export const YearPicker = ({ date, onChange, isDisabled, isSelected }: YearPicke
   for (let i = 0; i < 4; i++) {
     gridYears.push([]);
     for (let j = 0; j < 3; j++) {
-      gridYears[i].push(new Date(dateCursor));
+      gridYears[i]!.push(new Date(dateCursor));
       dateCursor = dateCursor.increaseYear();
     }
   }
@@ -26,9 +26,9 @@ export const YearPicker = ({ date, onChange, isDisabled, isSelected }: YearPicke
       <div className="jk-row jk-year-picker-header">
         <PreviousButton onClick={() => setViewDate(viewDate.decreaseYear(12))} />
         <div className="jk-row space-between years-label">
-          <div>{gridYears[0][0].getFullYear()}</div>
+          <div>{gridYears[0]![0]!.getFullYear()}</div>
           &nbsp;-&nbsp;
-          <div>{gridYears[3][2].getFullYear()}</div>
+          <div>{gridYears[3]![2]!.getFullYear()}</div>
         </div>
         <NextButton onClick={() => setViewDate(viewDate.increaseYear(12))} />
       </div>

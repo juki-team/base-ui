@@ -28,7 +28,7 @@ export const NewVersionAvailable = ({ apiVersionUrl }: NewVersionAvailableProps)
     <NewVersionAvailableModal
       isOpen={modal}
       onClose={() => setModal(false)}
-      previousVersion={versions[1]}
+      previousVersion={versions[1] ?? '0.0.0'}
       newVersion={version}
       reload={reloadRoute}
     />

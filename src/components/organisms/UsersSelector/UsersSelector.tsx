@@ -57,7 +57,7 @@ export const UsersSelector = (props: UsersSelectorProps) => {
   }
   
   const onChangeSelectedUsers = (userKeys: string[]) => {
-    const selectedUsers: UserSummaryListResponseDTO[] = userKeys.map(userKey => users[userKey]);
+    const selectedUsers: UserSummaryListResponseDTO[] = userKeys.map(userKey => users[userKey]).filter(user => !!user);
     if (maxUsersSelection > 0) {
       _onChangeSelectedUsers(selectedUsers.slice(-maxUsersSelection));
     } else {
@@ -124,10 +124,13 @@ export const UsersSelector = (props: UsersSelectorProps) => {
           const text = search.toLowerCase();
           const user = users[option.value];
           return (
-            user.nickname.toLowerCase().indexOf(text) > -1 ||
-            user.familyName.toLowerCase().indexOf(text) > -1 ||
-            user.givenName.toLowerCase().indexOf(text) > -1 ||
-            user.email.toLowerCase().indexOf(text) > -1
+            !!user &&
+            (
+              user.nickname.toLowerCase().indexOf(text) > -1 ||
+              user.familyName.toLowerCase().indexOf(text) > -1 ||
+              user.givenName.toLowerCase().indexOf(text) > -1 ||
+              user.email.toLowerCase().indexOf(text) > -1
+            )
           );
         }}
         multiselect={maxUsersSelection !== 1}

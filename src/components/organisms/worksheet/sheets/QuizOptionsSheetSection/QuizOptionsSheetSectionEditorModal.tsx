@@ -54,7 +54,9 @@ export const QuizOptionsSheetSectionEditorModal = ({
                   onChange={(label) => {
                     setSheet((prevState) => {
                       const newOptions = [ ...prevState.options ];
-                      newOptions[index].label = label;
+                      if (newOptions[index]) {
+                        newOptions[index].label = label;
+                      }
                       return { ...prevState, options: newOptions };
                     });
                   }}

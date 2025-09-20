@@ -156,7 +156,7 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
               : <div className="jk-row flex-1">
                 <MultiSelectSearchable
                   options={(
-                    data[judge.key].problems
+                    data[judge.key]?.problems ?? []
                   ).map(problem => (
                     {
                       label: (

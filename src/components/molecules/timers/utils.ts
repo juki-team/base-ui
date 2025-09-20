@@ -50,7 +50,7 @@ export const cutTimeSplit = (remaining: number, type: TimeDisplayType, ignoreLea
   while (ignoreLeadingZeros && timeSplit.length && timeSplit[0].remaining === 0) {
     timeSplit.shift();
   }
-  while (ignoreTrailingZeros && timeSplit.length && timeSplit[timeSplit.length - 1].remaining === 0) {
+  while (ignoreTrailingZeros && timeSplit.length && timeSplit[timeSplit.length - 1]?.remaining === 0) {
     timeSplit.pop();
   }
   return timeSplit;

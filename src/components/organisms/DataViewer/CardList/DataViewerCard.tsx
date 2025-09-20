@@ -44,15 +44,16 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
   }
   const positionsList: { [key: string]: TableHeadersType<T>[] } = {};
   for (const head of headers) {
-    if (!positionsList[head.cardPosition || 'center']) {
-      positionsList[head.cardPosition || 'center'] = [];
+    const key = head.cardPosition || 'center';
+    if (!positionsList[key]) {
+      positionsList[key] = [];
     }
-    positionsList[head.cardPosition || 'center'].push(head);
+    positionsList[key].push(head);
   }
   
   const renderField = ({ index: columnIndex, Field }: TableHeadersType<T>) => (
     <div key={columnIndex}>
-      <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />
+      {data[index] && <Field record={data[index]} columnIndex={columnIndex} recordIndex={index} isCard />}
     </div>
   );
   

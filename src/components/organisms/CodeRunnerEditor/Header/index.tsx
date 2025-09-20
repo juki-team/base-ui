@@ -65,11 +65,13 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     const clean = (status: SubmissionRunStatus) => {
       const newTestCases: CodeEditorTestCasesType = {};
       for (const testKey in testCases) {
-        newTestCases[testKey] = { ...testCases[testKey] };
-        newTestCases[testKey].log = '0\n0\n0\n';
-        newTestCases[testKey].out = '';
-        newTestCases[testKey].err = '';
-        newTestCases[testKey].status = status;
+        if (testCases[testKey]) {
+          newTestCases[testKey] = { ...testCases[testKey] };
+          newTestCases[testKey].log = '0\n0\n0\n';
+          newTestCases[testKey].out = '';
+          newTestCases[testKey].err = '';
+          newTestCases[testKey].status = status;
+        }
       }
       onChange?.({ onTestCasesChange: () => newTestCases });
     };

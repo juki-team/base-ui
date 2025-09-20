@@ -21,7 +21,10 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
       onClick: () => {
         onChange((list) => {
           const newSheets = [ ...list ];
-          [ newSheets[index], newSheets[index - 1] ] = [ newSheets[index - 1], newSheets[index] ];
+          const next = newSheets[index - 1];
+          if (newSheets[index] && next) {
+            [ newSheets[index], newSheets[index - 1] ] = [ next, newSheets[index] ];
+          }
           return newSheets;
         });
       },
@@ -46,7 +49,10 @@ export const upRemoveDownButtons = <T, >({ index, length, onChange }: UpRemoveDo
       onClick: () => {
         onChange((list) => {
           const newSheets = [ ...list ];
-          [ newSheets[index], newSheets[index + 1] ] = [ newSheets[index + 1], newSheets[index] ];
+          const next = newSheets[index + 1];
+          if (newSheets[index] && next) {
+            [ newSheets[index], newSheets[index + 1] ] = [ next, newSheets[index] ];
+          }
           return newSheets;
         });
       },

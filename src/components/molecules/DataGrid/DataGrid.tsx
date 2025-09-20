@@ -37,17 +37,17 @@ export const DataGrid = memo(({ rows, cols, freeze, styles, autofilter, firstRow
     data[row] = [] as string[];
     Object.entries(rowData.cells).forEach(([ j, cellData ]) => {
       const col = +j;
-      data[row][col] = cellData.text as string;
+      data[row]![col] = cellData.text as string;
       if (typeof cellData.style === 'number' && styles?.[cellData.style]) {
         if (!dataStyles[row]) {
           dataStyles[row] = [];
         }
-        dataStyles[row][col] = styles?.[cellData.style];
+        dataStyles[row]![col] = styles[cellData.style]!;
         cell.push({
           row,
           col,
           renderer: 'customStylesRenderer',
-          className: classNames(alignment[`h${styles?.[cellData.style].align}`], alignment[`v${styles?.[cellData.style].valign}`]),
+          className: classNames(alignment[`h${styles[cellData.style]!.align}`], alignment[`v${styles[cellData.style]!.valign}`]),
         });
       }
     });

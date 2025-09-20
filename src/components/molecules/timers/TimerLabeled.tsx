@@ -69,7 +69,7 @@ export const TimerLabeled = (props: TimerLabeledProps) => {
   
   const myLabels = { ...DEFAULT_LABELS, ...labels };
   const timeSplit = cutTimeSplit(Math.max(time.remaining, 0), type, false, false);
-  const timeInterval = Math.max(timeSplit[timeSplit.length - 1].milliseconds, 1);
+  const timeInterval = Math.max(timeSplit[timeSplit.length - 1]?.milliseconds ?? 0, 1);
   
   return (
     <div

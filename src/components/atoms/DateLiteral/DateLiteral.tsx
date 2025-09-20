@@ -34,9 +34,9 @@ export const DateLiteral = (props: DateLiteralProps) => {
       style={style}
     >
       <div>
-        {withDayName && <><T>{DAY_NAMES[date.getDay()]}</T>,&nbsp;</>}
+        {withDayName && <><T>{DAY_NAMES[date.getDay()] ?? date.getDay().toString()}</T>,&nbsp;</>}
         {showDays && <>{date.getDate()}&nbsp;</>}
-        {showMonths && <><T>{MONTH_NAMES[date.getMonth()]}</T>&nbsp;</>}
+        {showMonths && <><T>{MONTH_NAMES[date.getMonth()] ?? date.getMonth().toString()}</T>&nbsp;</>}
         {showYears && date.getFullYear()}
       </div>
       {showHours && (

@@ -14,7 +14,7 @@ export const DayPicker = ({ date, onChange, isDisabled, isSelected }: DayPickerP
   for (let i = 0; i < 6; i++) {
     gridDays.push([]);
     for (let j = 0; j < 7; j++) {
-      gridDays[i].push(new Date(dateCursor));
+      gridDays[i]!.push(new Date(dateCursor));
       dateCursor = dateCursor.increaseDay();
     }
   }
@@ -38,7 +38,10 @@ export const DayPicker = ({ date, onChange, isDisabled, isSelected }: DayPickerP
             label: <T>{month}</T>,
             disabled: !!(isDisabled?.(viewDate.changeMonth(index)).month),
           }))}
-          selectedOption={{ value: viewDate.getMonth(), label: <T>{MONTH_NAMES[viewDate.getMonth()]}</T> }}
+          selectedOption={{
+            value: viewDate.getMonth(),
+            label: <T>{MONTH_NAMES[viewDate.getMonth()] ?? viewDate.getMonth().toString()}</T>,
+          }}
           onChange={({ value }) => setViewDate(viewDate.changeMonth(value))}
         />
         <NextButton onClick={() => setViewDate(viewDate.increaseMonth())} />

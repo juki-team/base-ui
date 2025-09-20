@@ -1,8 +1,9 @@
 import { Status } from '@juki-team/commons';
+import type { TFunction } from 'i18next';
 import { ReactNode } from 'react';
 import { DataViewerRequestPropsType } from '../components/organisms/DataViewer/types';
 
-export type { TFunction } from 'i18next';
+export type { TFunction };
 
 export type ReactNodeOrFunctionType = ReactNode | (() => ReactNode);
 

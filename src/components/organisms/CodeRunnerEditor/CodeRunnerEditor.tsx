@@ -95,14 +95,16 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
                 if (prevState[testKey]?.messageTimestamp && prevState[testKey].messageTimestamp > data.messageTimestamp) {
                   continue;
                 }
-                newTestCases[testKey] = {
-                  ...newTestCases[testKey],
-                  status,
-                  err,
-                  out,
-                  log,
-                  messageTimestamp: data.messageTimestamp,
-                };
+                if (newTestCases[testKey]) {
+                  newTestCases[testKey] = {
+                    ...newTestCases[testKey],
+                    status,
+                    err,
+                    out,
+                    log,
+                    messageTimestamp: data.messageTimestamp,
+                  };
+                }
               }
               return newTestCases;
             },
@@ -140,8 +142,8 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
                     err: data.log?.err || '',
                     messageTimestamp: data.messageTimestamp,
                   };
-                  
-                  if (prevState[testCase.key]?.messageTimestamp && prevState[testCase.key].messageTimestamp > testCase.messageTimestamp) {
+                  const prev = prevState[testCase.key];
+                  if (prev && prev.messageTimestamp > testCase.messageTimestamp) {
                     return prevState;
                   }
                   return { ...prevState, [testCase.key]: testCase };

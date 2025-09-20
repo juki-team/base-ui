@@ -32,7 +32,7 @@ export const GraphSheetSectionView = ({ content, setSheet }: GraphSheetSectionPr
   return (
     <div className="jk-col gap">
       <div className="br-g5 jk-br-ie bc-we">
-        <GraphvizViewer value={content.dots?.[frame]} />
+        {content.dots?.[frame] && <GraphvizViewer value={content.dots[frame]} />}
       </div>
       <div className="jk-row gap center">
         <Button

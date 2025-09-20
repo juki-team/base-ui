@@ -69,14 +69,12 @@ const uploader =
       const nodes: Node[] = (await Promise.all(
         images.map(async (image) => {
           const { status, message, content } = await handleUploadImage(image, false);
-          if (status === Status.SUCCESS) {
+          if (status === Status.SUCCESS && schema?.nodes?.image) {
             addNotification({ type: NotificationType.SUCCESS, message: <T>{message}</T> });
-            const alt = image.name;
-            return schema.nodes.image.createAndFill({ src: content!.imageUrl, alt }) as Node;
-          } else {
-            addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
-            return null as unknown as Node;
+            return schema.nodes.image.createAndFill({ src: content!.imageUrl, alt: image.name }) as Node;
           }
+          addNotification({ type: NotificationType.ERROR, message: <T>{message}</T> });
+          return null as unknown as Node;
         }),
       ));
       setLoader(Status.SUCCESS);

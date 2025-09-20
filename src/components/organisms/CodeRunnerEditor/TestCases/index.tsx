@@ -89,7 +89,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   const [ testCaseKey, setTestCaseKey ] = useState(testCasesValues[0]?.key || '*');
   useEffect(() => {
     const testCasesValues = Object.values(testCases);
-    if (testCasesValues.length) {
+    if (testCasesValues.length && testCasesValues[0]) {
       if (!testCasesValues.some(testCase => testCase.key === testCaseKey)) {
         setTestCaseKey(testCasesValues[0].key);
       }

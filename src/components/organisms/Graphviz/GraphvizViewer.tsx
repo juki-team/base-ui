@@ -181,7 +181,7 @@ export const GraphvizViewers = ({ value, className, width, height, viewSourceBut
           </Input>
         </>
       )}
-      <GraphvizViewer value={graphs[index]} width={width} height={height} />
+      {graphs[index] && <GraphvizViewer value={graphs[index]} width={width} height={height} />}
     </div>
   );
 };

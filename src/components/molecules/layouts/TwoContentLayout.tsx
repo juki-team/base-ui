@@ -40,7 +40,7 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
   
   const tabKeys = Object.keys(tabs);
   
-  const selectedTabKey = loading ? LOADING_TAB : initialTabKey ?? initialTabs[_tabKeys?.[0]]?.key;
+  const selectedTabKey = loading ? LOADING_TAB : initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T;
   const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey }) as ReactNode[];
   
   const withTabs = tabKeys.length > 1;
@@ -122,7 +122,7 @@ export const TwoContentLayout1 = <T = string, >(props: TwoContentLayoutProps<T>)
   const LOADING_TAB = 'loading' as T;
   const { viewPortSize } = useJukiUI();
   const _tabKeys = Object.keys(initialTabs);
-  const [ _tab, setTab ] = useStableState<T | undefined>(initialTabKey ?? initialTabs[_tabKeys?.[0]]?.key);
+  const [ _tab, setTab ] = useStableState<T | undefined>(initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T);
   
   const tabs: TabsType<T> = !!loading ? {
     [LOADING_TAB as string]: {

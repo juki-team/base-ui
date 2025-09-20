@@ -138,8 +138,11 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
           }
           
           if (
-            priority(nextSampleCase)[nextStatus] > priority(currentSampleCase)[currentStatus]
-            || (priority(nextSampleCase)[nextStatus] === priority(currentSampleCase)[currentStatus] && data.messageTimestamp > submissionData.messageTimestamp)
+            currentStatus &&
+            (
+              priority(nextSampleCase)[nextStatus] > priority(currentSampleCase)[currentStatus]
+              || (priority(nextSampleCase)[nextStatus] === priority(currentSampleCase)[currentStatus] && data.messageTimestamp > submissionData.messageTimestamp)
+            )
           ) {
             return { ...prevState, [submitId]: data };
           }

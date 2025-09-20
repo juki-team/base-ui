@@ -44,7 +44,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
   }), [ userResultsData, userResultsIsLoading, userResultsIsValidating, userResultsMutate ]);
   
   const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
-  if (typeof page === 'number' && page >= 0 && page < sheetsInPages.length) {
+  if (typeof page === 'number' && page >= 0 && page < sheetsInPages.length && sheetsInPages[page]) {
     const sheet = sheetsInPages[page];
     return [
       [

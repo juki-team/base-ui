@@ -28,14 +28,16 @@ export const GraphSheetSectionEditor = ({
         onChange={title => setContent(prevState => ({ ...prevState, title }))}
         expand
       />
-      <GraphvizEditor
-        value={content.dots?.[frame]}
-        onSave={(dot) => {
-          const dots = [ ...content.dots ];
-          dots.splice(frame, 1, dot);
-          setContent({ ...content, dots });
-        }}
-      />
+      {content.dots?.[frame] && (
+        <GraphvizEditor
+          value={content.dots[frame]}
+          onSave={(dot) => {
+            const dots = [ ...content.dots ];
+            dots.splice(frame, 1, dot);
+            setContent({ ...content, dots });
+          }}
+        />
+      )}
       <div className="jk-row gap center">
         <Button
           icon={<ArrowBackIcon />}

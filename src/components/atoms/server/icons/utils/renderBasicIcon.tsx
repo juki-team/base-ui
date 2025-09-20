@@ -28,7 +28,7 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
   const isFilled = filledCircle || filledSquare;
   const scale = circle ? 0.8 : square ? 0.8 : (filledSquare || filledCircle) ? 0.8 : 1;
   
-  const [ minX, minY, widthBox ] = viewBox.split(' ').map(Number);
+  const [ minX = 0, minY = 0, widthBox = 0 ] = viewBox.split(' ').map(Number);
   
   const A1 = (new Vector(widthBox * 21.5 / 24, widthBox * 19.5 / 24)).add(new Vector(minX, minY));
   const A2 = (new Vector(widthBox * 19.5 / 24, widthBox * 21.5 / 24)).add(new Vector(minX, minY));

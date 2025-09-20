@@ -73,7 +73,7 @@ export const ImageLoaderCropper = (props: ImageLoaderCropperProps) => {
   useEffect(() => updateAspect(aspect), [ aspect ]);
   
   function onSelectFile(files: FileList) {
-    if (files?.length > 0) {
+    if (files?.length > 0 && files[0]) {
       setCrop(undefined); // Makes crop preview update between images.
       const reader = new FileReader();
       reader.addEventListener('load', () =>
@@ -163,7 +163,7 @@ export const ImageLoaderCropper = (props: ImageLoaderCropperProps) => {
             onChange={value => {
               setAspectText(value);
               const values = value?.split('/');
-              const aspect = +values[0] / +(values[1] || 1);
+              const aspect = +(values[0] ?? 0) / +(values[1] ?? 1);
               if (!Number.isNaN(aspect)) {
                 setAspect(aspect);
               }

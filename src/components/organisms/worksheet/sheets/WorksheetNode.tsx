@@ -36,11 +36,18 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
   } = props;
   
   const chunk = sheet[index];
+  
+  if (!chunk) {
+    return null;
+  }
+  
   const setContent: SetContentType<BodyWorksheetType> | undefined = setSheet ? (value) => {
     setSheet((sheet) => {
       const newSheet = [ ...sheet ];
-      const newContent = typeof value === 'function' ? value(newSheet[index]) : value;
-      newSheet.splice(index, 1, structuredClone(newContent));
+      if (newSheet[index]) {
+        const newContent = typeof value === 'function' ? value(newSheet[index]) : value;
+        newSheet.splice(index, 1, structuredClone(newContent));
+      }
       return newSheet;
     });
   } : undefined;

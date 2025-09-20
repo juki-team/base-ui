@@ -68,10 +68,11 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     for (const header of headers) {
       if (header.visible?.getVisible?.()) {
         const group = groups.find(group => group.key === header.group);
+        const previous = topHeaders[topHeaders.length - 1];
         if (group) {
-          if (topHeaders[topHeaders.length - 1]?.group === group.key) {
-            topHeaders[topHeaders.length - 1].width += header.width;
-            topHeaders[topHeaders.length - 1].sticky &&= header.sticky;
+          if (previous?.group === group.key) {
+            previous.width += header.width;
+            previous.sticky &&= header.sticky;
           } else {
             if (!rightBorders.length || topHeaders[topHeaders.length - 1]?.head === '') {
               rightBorders.push(index - 1);
@@ -80,7 +81,9 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
             topHeaders.push({ ...header });
           }
           rightBorders[rightBorders.length - 1] = index;
-          topHeaders[topHeaders.length - 1].head = group.label;
+          if (previous) {
+            previous.head = group.label;
+          }
         } else {
           topHeaders.push({ ...header, head: '' });
         }
@@ -226,12 +229,14 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
                   }, 'jk-table-row-field bc-we')}
                   data-testid={virtualRow.key + '_' + columnIndex}
                 >
-                  <Field
-                    record={data[virtualRow.index]}
-                    columnIndex={columnIndex}
-                    recordIndex={virtualRow.index}
-                    isCard={false}
-                  />
+                  {data[virtualRow.index] && (
+                    <Field
+                      record={data[virtualRow.index]!}
+                      columnIndex={columnIndex}
+                      recordIndex={virtualRow.index}
+                      isCard={false}
+                    />
+                  )}
                 </div>
               )),
             )}

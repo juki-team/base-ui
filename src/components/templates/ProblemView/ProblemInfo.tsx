@@ -134,7 +134,7 @@ export const ProblemModeInfo = ({ settings, expand, centered, withoutPadding }: 
             {key === '0'
               ? <span className="label tt-ce fw-bd"><T className="ws-np">sample cases</T>: </span>
               : <span className="label tt-ce fw-bd"><T>subtask</T> {key}: </span>}
-            &nbsp;{settings?.pointsByGroups[+key].points}&nbsp;<T>points</T>
+            &nbsp;{settings?.pointsByGroups[+key]!.points}&nbsp;<T>points</T>
           </div>
       ))}
       <div className="jk-divider tiny" style={{ height: '2px' }} />

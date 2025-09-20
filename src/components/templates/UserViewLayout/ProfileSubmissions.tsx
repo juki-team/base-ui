@@ -68,11 +68,13 @@ export function ProfileSubmissions(_: ProfileSubmissionsProps) {
       toRow={submission => submission}
       refreshInterval={60000}
       onRecordRender={({ data, index }) => {
-        void preload(jukiApiManager.API_V1.submission.getData({ params: { id: data[index].submitId } }).url);
-        if (data[index].contest) {
-          void preload(jukiApiManager.API_V1.contest.getData({ params: { key: data[index].contest.key } }).url);
-        } else {
-          void preload(jukiApiManager.API_V1.problem.getData({ params: { key: data[index].problem.key } }).url);
+        if (data[index]) {
+          void preload(jukiApiManager.API_V1.submission.getData({ params: { id: data[index].submitId } }).url);
+          if (data[index].contest) {
+            void preload(jukiApiManager.API_V1.contest.getData({ params: { key: data[index].contest.key } }).url);
+          } else {
+            void preload(jukiApiManager.API_V1.problem.getData({ params: { key: data[index].problem.key } }).url);
+          }
         }
       }}
     />

@@ -44,12 +44,12 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
   
   const notifications = viewPortSize === 'sm' ? [ ...notificationsFiltered ].reverse() : notificationsFiltered;
   
-  const chunkStates = notifications.length ? [ [ notifications[0] ] ] : [];
+  const chunkStates = notifications.length ? [ [ notifications[0]! ] ] : [];
   for (let i = 1; i < notifications.length; i++) {
-    if (chunkStates[chunkStates.length - 1][0].type === notifications[i].type) {
-      chunkStates[chunkStates.length - 1].push(notifications[i]);
+    if (chunkStates[chunkStates.length - 1]![0]?.type === notifications[i]!.type) {
+      chunkStates[chunkStates.length - 1]!.push(notifications[i]!);
     } else {
-      chunkStates.push([ notifications[i] ]);
+      chunkStates.push([ notifications[i]! ]);
     }
   }
   
@@ -59,14 +59,14 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
         {chunkStates
           .map((chunk) => (
             <CardNotification
-              key={chunk[0].id}
+              key={chunk[0]!.id}
               ids={chunk.map(({ id }) => id)}
               message={
                 <div className="jk-col gap">
                   {chunk.map((note) => <div>{note.message}</div>)}
                 </div>
               }
-              type={chunk[0].type}
+              type={chunk[0]!.type}
             />
           ))}
       </div>

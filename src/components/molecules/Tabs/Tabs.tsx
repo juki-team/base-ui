@@ -45,12 +45,18 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => {
   
   useEffect(() => {
     const handleEsc = ({ keyCode }: { keyCode: number }) => {
-      if (tabsHeaderFocus.current) {
+      if (tabsHeaderFocus.current && typeof indexes[tabKey] === 'number') {
         if (keyCode === 39) { // ArrowRight
-          setTabKey(tabs[(indexes[tabKey] + 1) % tabs.length].key as NotUndefined<T>);
+          const right = tabs[(indexes[tabKey] + 1) % tabs.length];
+          if (right) {
+            setTabKey(right.key as NotUndefined<T>);
+          }
         }
         if (keyCode === 37) { // ArrowLeft
-          setTabKey(tabs[(indexes[tabKey] - 1 + tabs.length) % tabs.length].key as NotUndefined<T>);
+          const left = tabs[(indexes[tabKey] - 1 + tabs.length) % tabs.length];
+          if (left) {
+            setTabKey(left.key as NotUndefined<T>);
+          }
         }
       }
     };

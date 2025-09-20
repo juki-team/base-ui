@@ -28,7 +28,7 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
   
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
-    const { selected, icon, label, onClick, menuItemWrapper } = menu[i];
+    const { selected, icon, label, onClick, menuItemWrapper } = menu[i]!;
     const menuItem = (
       <div
         className={classNames('jk-menu-item jk-pg-xsm jk-br-ie nowrap cr-pr', {

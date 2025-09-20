@@ -11,7 +11,7 @@ const keys: CommandsFunctionsType = {
   imgAlign: (value = '') => value,
   size: (value = '') => {
     const [ width, height ] = value.trim().split('x');
-    return { width: +width || 'auto', height: +height || 'auto' };
+    return { width: width ? (+width || 'auto') : 'auto', height: height ? (+height || 'auto') : 'auto' };
   },
   height: (value = '') => value,
   theme: (value = '') => value === Theme.DARK ? Theme.DARK : Theme.LIGHT,
@@ -21,13 +21,13 @@ const keys: CommandsFunctionsType = {
 
 export const getCommands = (text: string): [ CommandsObjectType, string ] => {
   const X = text.split('\n');
-  const Y = X[0].split(' ');
-  const commands = Y[0].split('\\');
+  const Y = X[0]?.split(' ') ?? [];
+  const commands = Y[0]?.split('\\') ?? [];
   const commandsObject: CommandsObjectType = {};
   let i = 0;
   if (commands[0] === '') {
     for (i++; i < commands.length; i++) {
-      const command = commands[i];
+      const command = commands[i]!;
       const [ key = '', value = '' ] = command.trim().split('=');
       if (key === 'textAlign') {
         // commandsObject[key] = keys[key](value);

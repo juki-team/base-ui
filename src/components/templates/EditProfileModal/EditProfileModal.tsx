@@ -175,8 +175,10 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
           ]
             .map(([ judge1, judge2 ]) => (
               <div className="jk-row gap block" key={`${judge1}-${judge2}`}>
-                <JudgeInput judge={JUDGE[judge1]} user={userState} setUser={setUserState} />
-                {JUDGE[judge2]
+                {judge1 && JUDGE[judge1]
+                  ? <JudgeInput judge={JUDGE[judge1]} user={userState} setUser={setUserState} />
+                  : <div className="jk-form-item" />}
+                {judge2 && JUDGE[judge2]
                   ? <JudgeInput judge={JUDGE[judge2]} user={userState} setUser={setUserState} />
                   : <div className="jk-form-item" />}
               </div>

@@ -16,14 +16,14 @@ export const getContestStatusHeader = (): DataViewerHeadersType<ContestSummaryLi
           contest.isLive,
           contest.isFuture,
           contest.isEndless,
-        ].toString()]?.bc}`}
+        ].toString()]?.bc ?? ''}`}
       >
         <T className="tt-ue tx-s">{contestStateMap[[
           contest.isPast,
           contest.isLive,
           contest.isFuture,
           contest.isEndless,
-        ].toString()]?.label}</T>
+        ].toString()]?.label ?? ''}</T>
       </div>
     </Field>
   ),

@@ -96,11 +96,11 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
     let sp;
     let pathname;
     if (typeof url === 'string') {
-      const [ p, s ] = url.split('?');
+      const [ p = '', s ] = url.split('?');
       pathname = p;
       sp = new URLSearchParams(s);
     } else {
-      pathname = url.pathname;
+      pathname = url.pathname ?? '';
       sp = cloneURLSearchParams(url.searchParams ?? new URLSearchParams());
     }
     // @ts-ignore

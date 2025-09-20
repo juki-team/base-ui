@@ -30,7 +30,7 @@ export const VerticalMenu = (props: VerticalMenuProps) => {
   
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
-    const { selected, icon, label, tooltipLabel, onClick, menuItemWrapper } = menu[i];
+    const { selected, icon, label, tooltipLabel, onClick, menuItemWrapper } = menu[i]!;
     const menuItem = (
       <div
         className={classNames('jk-menu-item jk-pg-xsm jk-br-ie bc-pd cr-pt cr-pr jk-row gap left', {

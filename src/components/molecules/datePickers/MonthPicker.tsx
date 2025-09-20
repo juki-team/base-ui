@@ -14,7 +14,7 @@ export const MonthPicker = ({ date, onChange, isDisabled, isSelected }: MonthPic
   for (let i = 0; i < 4; i++) {
     gridMonths.push([]);
     for (let j = 0; j < 3; j++) {
-      gridMonths[i].push(new Date(dateCursor));
+      gridMonths[i]!.push(new Date(dateCursor));
       dateCursor = dateCursor.increaseMonth();
     }
   }
@@ -47,7 +47,7 @@ export const MonthPicker = ({ date, onChange, isDisabled, isSelected }: MonthPic
                   onClick={() => !disabled && onChange(date.changeYear(date.getFullYear()).changeMonth(date.getMonth()))}
                   onKeyDownClick
                 >
-                  <div><T>{MONTH_NAMES[date.getMonth()]}</T></div>
+                  <div><T>{MONTH_NAMES[date.getMonth()] ?? date.getMonth().toString()}</T></div>
                 </Div>
               );
             })}

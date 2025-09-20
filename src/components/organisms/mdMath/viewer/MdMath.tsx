@@ -37,7 +37,7 @@ const hx = (setSearchParams: SetSearchParamsType, noHLinks: boolean) => ({ child
     const [ commands, newText ] = getCommands(newChildren[0]);
     newChildren[0] = newText;
     if (commands.textAlign) {
-      return hxRender(node, newText, textAlignStyle[commands.textAlign], setSearchParams, noHLinks);
+      return hxRender(node, newText, textAlignStyle[commands.textAlign] ?? {}, setSearchParams, noHLinks);
     }
   }
   

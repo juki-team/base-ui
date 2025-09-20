@@ -140,7 +140,7 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
     Object.entries(rows).forEach(([ i, rowData ]) => {
       const R = +i;
       if (rowData.height) {
-        workBook.Sheets[name]['!rows']![R] = { hpx: rowData.height };
+        workBook.Sheets[name]!['!rows']![R] = { hpx: rowData.height };
       }
       Object.entries(rowData.cells).forEach(([ i, cellData ]) => {
         const C = +i;
@@ -172,31 +172,31 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
         }
         
         if (typeof cellData.style === 'number' && styles?.[cellData.style]) {
-          const bgcolor = styles[cellData.style].bgcolor;
+          const bgcolor = styles[cellData.style]!.bgcolor;
           if (typeof bgcolor === 'string') {
             cell.s.fill = { fgColor: { rgb: bgcolor.replace('#', '') } };
           }
-          const color = styles[cellData.style].color;
+          const color = styles[cellData.style]!.color;
           if (typeof color === 'string') {
             if (!cell.s.font) {
               cell.s.font = {};
             }
             cell.s.font.color = { rgb: color.replace('#', '') };
           }
-          if (styles[cellData.style].font?.bold) {
+          if (styles[cellData.style]!.font?.bold) {
             if (!cell.s.font) {
               cell.s.font = {};
             }
             cell.s.font.bold = true;
           }
-          const alignment = styles[cellData.style].align;
+          const alignment = styles[cellData.style]!.align;
           if (typeof alignment === 'string') {
             if (!cell.s.alignment) {
               cell.s.alignment = {};
             }
             cell.s.alignment.horizontal = alignment;
           }
-          const alignmentVertical = styles[cellData.style].valign;
+          const alignmentVertical = styles[cellData.style]!.valign;
           if (typeof alignmentVertical === 'string') {
             if (!cell.s.alignment) {
               cell.s.alignment = {};
@@ -204,7 +204,7 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
             cell.s.alignment.vertical = alignmentVertical;
           }
         }
-        workBook.Sheets[name][cellRef] = cell;
+        workBook.Sheets[name]![cellRef] = cell;
       });
     });
     if (range.s.c < 10000000) {
@@ -221,11 +221,11 @@ export const sheetDataToWorkBook = async (sheets: SheetDataType[], fileName: str
     // const { .columns } = c;
     Object.entries(cols || {}).forEach(([ i, property ]) => {
       const index = +i;
-      if (!workBook.Sheets[name]['!cols']![index]) {
-        workBook.Sheets[name]['!cols']![index] = {};
+      if (!workBook.Sheets[name]!['!cols']![index]) {
+        workBook.Sheets[name]!['!cols']![index] = {};
       }
       if (property.width) {
-        workBook.Sheets[name]['!cols']![index].wpx = property.width;
+        workBook.Sheets[name]!['!cols']![index].wpx = property.width;
       }
     });
   }
@@ -249,7 +249,7 @@ export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fi
     if (isObjectJson(result)) {
       const response = JSON.parse(result) as ErrorResponseType;
       if (response.errors.length) {
-        throw new JkError(response.errors[0].code, { message: response.errors[0].detail });
+        throw new JkError(response.errors[0]!.code, { message: response.errors[0]!.detail });
       }
     }
     throw new JkError(ErrorCode.ERR9997, { message: 'error generating the pdf' });

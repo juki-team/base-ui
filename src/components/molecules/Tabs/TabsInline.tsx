@@ -156,7 +156,7 @@ export const TabsInline = <T, >(props: TabsInlineProps<T>) => {
                       overflow: 'visible',
                     }}
                   >
-                    {renderHeaderTab(tabsArray[selectedTabIndex])}
+                    {tabsArray[selectedTabIndex] && renderHeaderTab(tabsArray[selectedTabIndex])}
                   </div>
                 ),
               }))}

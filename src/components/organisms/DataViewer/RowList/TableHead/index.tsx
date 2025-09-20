@@ -161,11 +161,13 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
     //   }
     // } else {
     const newHeaders = [ ...headers ];
-    newHeaders[columnIndex] = {
-      ...newHeaders[columnIndex],
-      width: Math.max(newHeaders[columnIndex].width + moveX, newHeaders[columnIndex].minWidth),
-    };
-    setHeaders(fixHeaders(newHeaders));
+    if (newHeaders[columnIndex]) {
+      newHeaders[columnIndex] = {
+        ...newHeaders[columnIndex],
+        width: Math.max(newHeaders[columnIndex].width + moveX, newHeaders[columnIndex].minWidth),
+      };
+      setHeaders(fixHeaders(newHeaders));
+    }
     // }
   };
   

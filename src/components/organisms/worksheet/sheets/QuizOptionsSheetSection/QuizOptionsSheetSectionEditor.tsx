@@ -93,10 +93,12 @@ export const QuizOptionsSheetSectionEditor = ({
                 onChange={(newValue) => {
                   setContent((prevState) => {
                     const newOptions = [ ...prevState.options ];
-                    newOptions[index] = {
-                      ...newOptions[index],
-                      correct: newValue,
-                    };
+                    if (newOptions[index]) {
+                      newOptions[index] = {
+                        ...newOptions[index],
+                        correct: newValue,
+                      };
+                    }
                     return { ...prevState, options: newOptions };
                   });
                 }}
@@ -107,10 +109,12 @@ export const QuizOptionsSheetSectionEditor = ({
                 onChange={(newValue) => {
                   setContent((prevState) => {
                     const newOptions = [ ...prevState.options ].map(option => ({ ...option, correct: false }));
-                    newOptions[index] = {
-                      ...newOptions[index],
-                      correct: newValue,
-                    };
+                    if (newOptions[index]) {
+                      newOptions[index] = {
+                        ...newOptions[index],
+                        correct: newValue,
+                      };
+                    }
                     return { ...prevState, options: newOptions };
                   });
                 }}
@@ -121,10 +125,12 @@ export const QuizOptionsSheetSectionEditor = ({
               onChange={(label) => {
                 setContent((prevState) => {
                   const newOptions = [ ...prevState.options ];
-                  newOptions[index] = {
-                    ...newOptions[index],
-                    label,
-                  };
+                  if (newOptions[index]) {
+                    newOptions[index] = {
+                      ...newOptions[index],
+                      label,
+                    };
+                  }
                   return { ...prevState, options: newOptions };
                 });
               }}

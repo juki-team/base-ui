@@ -119,6 +119,9 @@ export const SubmissionGroupInfo = (props: GroupInfoProps) => {
   const renderRow: VirtualizedRowsFixedProps['renderRow'] = useCallback((index) => {
     const testCases: TestCaseResultType[] = JSON.parse(testCasesString);
     const testCase = testCases[index];
+    if (!testCase) {
+      return null;
+    }
     return (
       <div
         className="jk-row extend block gap jk-table-inline-row"

@@ -67,32 +67,40 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
         const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
         for (let i = 0; i < parents.length; i++) {
           let fragmentAdded = false;
-          for (let j = 0; j < parents[i].length; j++) {
-            if (parents[i][j].tagName === 'OL' || parents[i][j].tagName === 'UL') {
-              for (const li of Array.from(parents[i][j].children)) {
-                li.classList.add('fragment');
-                fragmentAdded = true;
+          for (let j = 0; j < parents[i]!.length; j++) {
+            if (parents[i]![j]!.tagName === 'OL' || parents[i]![j]!.tagName === 'UL') {
+              for (const li of Array.from(parents[i]![j]!.children)) {
+                if (li.classList?.add) {
+                  li.classList.add('fragment');
+                  fragmentAdded = true;
+                }
               }
             }
-            if (fragmentAdded || parents[i][j].textContent !== parents[i - 1]?.[j]?.textContent) {
-              parents[i][j].classList.add('fragment');
-              fragmentAdded = true;
+            if (fragmentAdded || parents[i]![j]!.textContent !== parents[i - 1]?.[j]?.textContent) {
+              if (!!parents[i]![j]?.classList?.add) {
+                parents[i]![j]!.classList.add('fragment');
+                fragmentAdded = true;
+              }
             }
           }
         }
       }
+      deckRef.current?.layout();
+      deckRef.current?.sync();
+      
       const savedState = sessionStorage.getItem(SESSION_STORAGE_KEY);
       if (isStringJson(savedState)) {
         try {
           const parsedState = JSON.parse(savedState);
+          console.log({ parsedState });
           deckRef.current?.setState(parsedState);
         } catch (e) {
           console.warn('Error parsing saved slide state', e);
         }
       }
-      deckRef.current?.layout();
-      deckRef.current?.sync();
+      
       deckRef.current?.toggleHelp();
+      console.log('loaded slides');
     });
     deckRef.current.on('slidechanged', renderGraphviz);
     deckRef.current.on('ready', renderGraphviz);

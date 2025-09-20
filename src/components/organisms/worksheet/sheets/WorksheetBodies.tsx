@@ -5,6 +5,7 @@ import {
   isQuizOptionsSheetType,
   isQuizProblemSheetType,
   isStringJson,
+  NEW_PAGE_SHEET,
   NewPageSheetType,
 } from '@juki-team/commons';
 import React, { useCallback, useRef, useState } from 'react';
@@ -37,7 +38,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   const setPageSheets = useCallback((newPageHeader: NewPageSheetType | null, newPageSheetContent: BodyWorksheetType[]) => {
     const newSheetsInPages = [ ...sheetsInPages ];
     newSheetsInPages[page - 1] = {
-      header: newPageHeader ?? newSheetsInPages[page - 1].header,
+      header: newPageHeader ?? newSheetsInPages[page - 1]?.header ?? NEW_PAGE_SHEET(),
       content: newPageSheetContent,
     };
     const newSheets = [];
@@ -48,11 +49,16 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   }, [ page, setSheets, sheetsInPages ]);
   
   const setSheet: NotUndefined<WorksheetBodyProps['setSheet']> = useCallback((value) => {
-    const newPageSheetContent = typeof value === 'function' ? value(sheetsInPages[page - 1].content) : value;
+    const newPageSheetContent = typeof value === 'function' ? value(sheetsInPages[page - 1]?.content ?? []) : value;
     setPageSheets(null, newPageSheetContent);
   }, [ page, setPageSheets, sheetsInPages ]);
   
   const pages = sheetsInPages.length;
+  
+  const sheetPage = sheetsInPages[page - 1];
+  if (!sheetPage) {
+    return null;
+  }
   
   return (
     <div className={classNames('jk-col gap nowrap top stretch extend worksheet-bodies wh-100', { 'is-solvable': isSolvable })}>
@@ -60,9 +66,9 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         <div className="jk-row gap extend nowrap" key={`${page}`}>
           <T className="tt-se">page title</T>
           <MdMathEditor
-            value={sheetsInPages[page - 1]?.header.title}
+            value={sheetPage.header.title}
             onChange={(title) => {
-              setPageSheets({ ...sheetsInPages[page - 1].header, title }, sheetsInPages[page - 1].content);
+              setPageSheets({ ...sheetPage.header, title }, sheetPage.content);
             }}
           />
           <Button
@@ -122,7 +128,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         <EditSheetModal<BodyWorksheetType[]>
           isOpen={modal}
           onClose={() => setModal(false)}
-          content={sheetsInPages[page - 1].content}
+          content={sheetPage.content}
           setContent={setSheet}
           isValid={(value) => {
             if (isStringJson(value)) {
@@ -136,7 +142,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         />
       )}
       <WorksheetBody
-        sheet={sheetsInPages[page - 1]?.content}
+        sheet={sheetPage.content}
         setSheet={setSheets ? setSheet : undefined}
         userResults={userResults}
         readOnly={!!readOnly}

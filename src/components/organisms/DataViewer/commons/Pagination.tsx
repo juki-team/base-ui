@@ -33,7 +33,7 @@ export const Pagination = (props: PaginationProps) => {
   }, [ endPage, initializing, jumpToPage, page ]);
   
   useEffect(() => {
-    if (!pageSizeOptions.includes(pageSize)) {
+    if (!pageSizeOptions.includes(pageSize) && pageSizeOptions[0]) {
       onPageSizeChange(pageSizeOptions[0]);
       // setSearchParams(
       // { name: pageKey, value: '1', replace: true },
@@ -121,7 +121,7 @@ export const Pagination = (props: PaginationProps) => {
               <NavigateBeforeIcon />
             </div>
             <div className="jk-row jk-border-radius center page-items">
-              {startPage < pages[0] && (
+              {startPage < (pages[0] ?? 0) && (
                 <>
                   <div
                     className={classNames('page-item cr-pr jk-row jk-border-radius cr-g3', { selected: startPage === page })}
@@ -129,7 +129,7 @@ export const Pagination = (props: PaginationProps) => {
                   >
                     {loading && startPage === page ? <SpinIcon /> : startPage}
                   </div>
-                  {startPage + 1 < pages[0] && (
+                  {startPage + 1 < (pages[0] ?? 0) && (
                     <div className="jk-row" onClick={() => jumpToPage(Math.max(page - SIZE_PAGES, startPage))}>
                       <DoubleUpIcon rotate={-90} />
                     </div>
@@ -148,9 +148,9 @@ export const Pagination = (props: PaginationProps) => {
                   {loading && index === page ? <SpinIcon /> : index}
                 </div>
               ))}
-              {pages[pages.length - 1] < endPage && (
+              {(pages[pages.length - 1] ?? 0) < endPage && (
                 <>
-                  {endPage - 1 > pages[pages.length - 1] && (
+                  {endPage - 1 > (pages[pages.length - 1] ?? 0) && (
                     <div className="jk-row" onClick={() => jumpToPage(Math.min(page + SIZE_PAGES, endPage))}>
                       <DoubleUpIcon rotate={90} />
                     </div>

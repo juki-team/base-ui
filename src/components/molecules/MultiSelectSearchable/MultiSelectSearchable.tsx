@@ -70,6 +70,10 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   
   const renderRow = useCallback((index: number) => {
     const option = filteredOptions[index];
+    if (!option) {
+      return null;
+    }
+    
     const value = JSON.stringify(option.value);
     const selected = selectedOptions.some(optionSelected => value === JSON.stringify(optionSelected.value));
     const disabled = !!option.disabled;

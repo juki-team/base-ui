@@ -182,7 +182,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   });
   
   let defaultLanguage = editorSettings.lastLanguageUsed;
-  if (languages.length && !languages.some(lang => lang.value === defaultLanguage)) {
+  if (languages.length && !languages.some(lang => lang.value === defaultLanguage) && languages[0]) {
     defaultLanguage = languages[0].value;
   }
   
@@ -232,7 +232,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   
   const testCaseStoreKey = storeKey;
   const newInitialTestCases: StorageType<CodeEditorTestCasesType> = { [testCaseStoreKey]: { ...initialTestCases } };
-  newInitialTestCases[testCaseStoreKey]['*'] = {
+  newInitialTestCases[testCaseStoreKey]!['*'] = {
     key: '*',
     in: '',
     testOut: '',
@@ -273,7 +273,7 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   };
   const [ testCasesStore, setTestCasesStore ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, formatTestCasesStoreRecover);
   const onTestCasesChangeRef = useStableRef(onTestCasesChange);
-  const testCases = testCasesStore[testCaseStoreKey];
+  const testCases = testCasesStore[testCaseStoreKey]!;
   useEffect(() => {
     onTestCasesChangeRef.current?.(testCases);
   }, [ testCases ]);
@@ -282,17 +282,19 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
   
   const changeFileName = (prevState: StorageType<CodeEditorFiles<T>>, oldName: string, newName: string) => {
     const files = prevState[storeKey] || {};
-    const oldFile = {
-      ...files[oldName],
-      name: newName,
-    };
-    const { [oldName]: _, ...newFiles } = { ...files };
-    newFiles[newName] = oldFile;
-    
-    return {
-      ...prevState,
-      [storeKey]: newFiles,
-    };
+    if (files[oldName]) {
+      const oldFile = {
+        ...files[oldName],
+        name: newName,
+      };
+      const { [oldName]: _, ...newFiles } = { ...files };
+      newFiles[newName] = oldFile;
+      return {
+        ...prevState,
+        [storeKey]: newFiles,
+      };
+    }
+    return prevState;
   };
   
   const onChange = ({
@@ -317,16 +319,21 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       onIsRunningChange?.(isRunning);
     }
     if (typeof newSourceCode === 'string') {
-      setFilesStore(prevState => ({
-        ...prevState,
-        [storeKey]: {
-          ...(prevState[storeKey] || {}),
-          [currentFileName]: {
-            ...(prevState[storeKey]?.[currentFileName] || {}),
-            source: newSourceCode,
-          },
-        },
-      }));
+      setFilesStore(prevState => {
+        if (prevState[storeKey] && prevState[storeKey][currentFileName]) {
+          return {
+            ...prevState,
+            [storeKey]: {
+              ...prevState[storeKey],
+              [currentFileName]: {
+                ...prevState[storeKey][currentFileName],
+                source: newSourceCode,
+              },
+            },
+          };
+        }
+        return prevState;
+      });
       // onSourceChange?.(newSourceCode);
     }
     if (newLanguage) {
@@ -335,18 +342,21 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       setFilesStore(prevState => {
         const files = { ...(prevState[storeKey] || {}) };
         const newRenamedFile = getNewFileName(removeExtension(currentFileName), `.${getExtension(newLanguage)}`, (name) => !!files[name]);
-        const newState: StorageType<CodeEditorFiles<T>> = {
-          ...prevState,
-          [storeKey]: {
-            ...(prevState[storeKey] || {}),
-            [currentFileName]: {
-              ...(prevState[storeKey]?.[currentFileName] || {}),
-              language: newLanguage,
+        if (prevState[storeKey] && prevState[storeKey][currentFileName]) {
+          const newState: StorageType<CodeEditorFiles<T>> = {
+            ...prevState,
+            [storeKey]: {
+              ...prevState[storeKey],
+              [currentFileName]: {
+                ...prevState[storeKey]?.[currentFileName],
+                language: newLanguage,
+              },
             },
-          },
-        };
-        setCurrentFileName(newRenamedFile);
-        return changeFileName(newState, currentFileName, newRenamedFile);
+          };
+          setCurrentFileName(newRenamedFile);
+          return changeFileName(newState, currentFileName, newRenamedFile);
+        }
+        return prevState;
       });
       setEditorTriggerFocus(Date.now());
     }

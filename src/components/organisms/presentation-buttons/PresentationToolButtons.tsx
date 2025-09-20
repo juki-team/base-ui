@@ -57,7 +57,8 @@ export const PresentationToolButtons = () => {
       <div
         style={{
           position: 'fixed',
-          top: 'var(--pad-sm)',
+          transform: 'translateY(-50%)',
+          top: '50%',
           right: 'var(--pad-sm)',
           zIndex: 'var(--z-index-tool-buttons)',
         }}
