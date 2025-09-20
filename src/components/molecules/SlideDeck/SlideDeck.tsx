@@ -102,7 +102,15 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       deckRef.current?.toggleHelp();
       console.log('loaded slides');
     });
-    deckRef.current.on('slidechanged', renderGraphviz);
+    deckRef.current.on('slidechanged', () => {
+      renderGraphviz();
+      const state = deckRef.current?.getState();
+      console.log('setstate', { state });
+      if (state && state?.indexf > 0 && state?.indexh > 0 && state?.indexv > 0) {
+        console.log('setstate>', { state });
+        sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
+      }
+    });
     deckRef.current.on('ready', renderGraphviz);
     document.addEventListener('pdf-ready', renderGraphviz);
     
@@ -116,10 +124,6 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
           inline: 'nearest',
         });
       }
-    });
-    deckRef.current.on('slidechanged', () => {
-      const state = deckRef.current?.getState();
-      sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
     });
     
     return () => {
