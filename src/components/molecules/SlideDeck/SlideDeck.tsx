@@ -44,7 +44,7 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
         // embedded: true,
         // overview: false,
         transition: 'fade',
-        hash: true,
+        // hash: true,
         // @ts-ignore
         // keyboard: {
         // 27: function () {
@@ -79,12 +79,15 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
         const now = Date.now();
         loadingRef.current = now;
         setLoading(true);
-        setReady(now);
+        
         renderGraphviz();
         console.info('ready');
         if (!isPrinting) {
           deckRef.current?.toggleHelp();
         }
+        setTimeout(() => {
+          setReady(now);
+        }, 5000);
       });
       document.addEventListener('pdf-ready', renderGraphviz);
       
