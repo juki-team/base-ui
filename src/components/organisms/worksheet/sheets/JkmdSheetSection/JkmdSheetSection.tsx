@@ -13,6 +13,7 @@ import { authorizedRequest, classNames } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { jukiApiManager } from '../../../../../settings';
 import { InputCheckbox, T } from '../../../../atoms';
+import { DetectRequestAnimationFrame } from '../../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 import { ButtonLoader, FloatToolbar } from '../../../../molecules';
 import { MdMathViewer } from '../../../mdMath/MdMathViewer';
 import { ChunkTitle } from '../ChunkTitle';
@@ -51,7 +52,12 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
   const text = content.content.trim();
   
   if (asSlides) {
-    return <MdMathViewer source={text} slideView />;
+    return (
+      <>
+        <DetectRequestAnimationFrame />
+        <MdMathViewer source={text} slideView />
+      </>
+    );
   }
   
   return (
