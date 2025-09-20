@@ -7,6 +7,7 @@ import { ClientProps } from './Client/types';
 import { CollapseProps } from './Collapse/types';
 import { CopyToClipboardProps } from './CopyToClipboard/types';
 import { DateLiteralProps } from './DateLiteral/types';
+import { DetectRequestAnimationFrameProps } from './DetectRequestAnimationFrame/types';
 import { DivProps } from './Div/types';
 import { ModalProps } from './Modal/types';
 import { MultiSelectProps } from './MultiSelect/types';
@@ -62,6 +63,14 @@ const LazyDateLiteral = lazy(() => DateLiteralImport().then(module => ({ default
 export const DateLiteral = (props: DateLiteralProps) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     <LazyDateLiteral {...props} />
+  </Suspense>
+);
+
+const DetectRequestAnimationFrameImport = () => import('./DetectRequestAnimationFrame/DetectRequestAnimationFrame');
+const LazyDetectRequestAnimationFrame = lazy(() => DetectRequestAnimationFrameImport().then(module => ({ default: module.DetectRequestAnimationFrame })));
+export const DetectRequestAnimationFrame = (props: DetectRequestAnimationFrameProps) => (
+  <Suspense fallback={<SpinIcon size="tiny" />}>
+    <LazyDetectRequestAnimationFrame {...props} />
   </Suspense>
 );
 
@@ -212,6 +221,7 @@ export const preloadAtoms = async () => {
   await CollapseImport();
   await CopyToClipboardImport();
   await DateLiteralImport();
+  await DetectRequestAnimationFrameImport();
   await DivImport();
   await ModalImport();
   await MultiSelectImport();

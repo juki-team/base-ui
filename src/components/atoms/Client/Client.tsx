@@ -9,5 +9,5 @@ export const Client = ({ children }: ClientProps) => {
     setRendered(true);
   }, []);
   
-  return rendered ? children : <div className="jk-loader-layer"><SpinIcon /></div>;
+  return rendered ? children : <div className="jk-loader-layer jk-overlay"><SpinIcon /></div>;
 };

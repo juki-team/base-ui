@@ -3,6 +3,7 @@ export type * from './Client/types';
 export type * from './Collapse/types';
 export type * from './CopyToClipboard/types';
 export type * from './DateLiteral/types';
+export type * from './DetectRequestAnimationFrame/types';
 export type * from './Div/types';
 export type * from './Modal/types';
 export type * from './MultiSelect/types';

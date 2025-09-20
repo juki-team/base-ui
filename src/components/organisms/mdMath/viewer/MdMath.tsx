@@ -2,21 +2,20 @@
 import { CODE_LANGUAGE, CodeLanguage, ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
 import type { Element } from 'hast';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
-import React, { CSSProperties, memo, ReactNode, useEffect, useMemo, useRef } from 'react';
+import React, { CSSProperties, memo, ReactNode, useMemo } from 'react';
 import ReactMarkdown, { Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
-import { v4 } from 'uuid';
 import { classNames } from '../../../../helpers';
 import { useFetcher } from '../../../../hooks/useFetcher';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useStableState } from '../../../../hooks/useStableState';
 import { jukiApiManager } from '../../../../settings';
-import { useAnimationFrameStore } from '../../../../stores/animationFrame/usePageStore';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { QueryParamKey, SetSearchParamsType } from '../../../../types';
 import { Button } from '../../../atoms/Button/Button';
+import { DetectRequestAnimationFrame } from '../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 import { VisibilityIcon } from '../../../atoms/server/icons/google/VisibilityIcon';
 import { VisibilityOffIcon } from '../../../atoms/server/icons/google/VisibilityOffIcon';
 import { CodeViewer } from '../../../molecules';
@@ -84,21 +83,6 @@ interface MdMathProps {
   slideView?: boolean,
   detectRequestAnimationFrame?: boolean,
 }
-
-const DetectRequestAnimationFrame = () => {
-  const refId = useRef(v4());
-  const addFrame = useAnimationFrameStore(store => store.addFrame);
-  const subFrame = useAnimationFrameStore(store => store.subFrame);
-  
-  useEffect(() => {
-    addFrame(refId.current);
-    requestAnimationFrame(() => {
-      subFrame(refId.current);
-    });
-  });
-  
-  return null;
-};
 
 export const MdMath = memo(({
                               source,

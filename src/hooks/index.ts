@@ -7,6 +7,7 @@ export * from '../stores/router/useRouterStore'; // useJukiRouter
 export * from '../stores/sound/useSoundStore';
 export * from '../stores/user/useUserStore';
 export * from '../stores/websocket/useWebsocketStore';
+export * from '../stores/animationFrame/useAnimationFrameStore';
 // rest
 export * from '../contexts/JukiTasksProvider/useJukiTask';
 export * from './custom';

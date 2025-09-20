@@ -1,13 +1,13 @@
 import { Theme } from '@juki-team/commons';
-import React, { Children, useEffect, useRef } from 'react';
+import React, { Children, useEffect, useRef, useState } from 'react';
 import Reveal from 'reveal.js';
 import RevealNotes from 'reveal.js/plugin/notes/notes';
 import RevealSearch from 'reveal.js/plugin/search/search';
 import RevealZoom from 'reveal.js/plugin/zoom/zoom';
 import { useInjectColorTextHighlight, useInjectFontSize, useInjectTheme } from '../../../hooks';
-import { useAnimationFrameStore } from '../../../stores/animationFrame/usePageStore';
+import { useAnimationFrameStore } from '../../../stores/animationFrame/useAnimationFrameStore';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
-import { Client } from '../../atoms';
+import { Client, T } from '../../atoms';
 import { useGraphvizStore } from '../../organisms/Graphviz/GraphvizViewer';
 import { isPrintingPDF, PdfExport } from './pdfexport';
 import { SlideDeckProps } from './types';
@@ -27,12 +27,18 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   const deckRef = useRef<Reveal.Api | null>(null);
   const t = useI18nStore(store => store.i18n.t);
   const isPrinting = isPrintingPDF();
+  const [ loading, setLoading ] = useState(true);
+  const [ ready, setReady ] = useState(0);
+  const loadingRef = useRef(0);
+  const helpDescription = t('Open help overlay');
   
   useEffect(() => {
     const renderGraphviz = () => {
       useGraphvizStore.getState().triggerRerender();
     };
     if (deckDivRef.current) {
+      loadingRef.current = 0;
+      setLoading(true);
       if (!deckRef.current) {
         deckRef.current = new Reveal(deckDivRef.current, {
           // disableLayout: false,
@@ -63,7 +69,7 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
         {
           keyCode: 191, key: '?', keyDescription: '?',
           shiftKey: true,
-          description: t('Open help overlay') + ` (?)`,
+          description: helpDescription,
         } as any,
         () => {
           deckRef.current?.toggleHelp();
@@ -73,11 +79,16 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       deckRef.current.on('slidechanged', renderGraphviz);
       
       deckRef.current.on('ready', () => {
+        const now = Date.now();
+        loadingRef.current = now;
+        setLoading(true);
+        setReady(now);
         renderGraphviz();
         console.info('ready');
         if (!isPrinting) {
           deckRef.current?.toggleHelp();
         }
+        
       });
       document.addEventListener('pdf-ready', renderGraphviz);
       
@@ -102,12 +113,12 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
         console.warn('Reveal.js destroy call failed.');
       }
     };
-  }, [ fragmented, t, isPrinting ]);
+  }, [ fragmented, helpDescription, isPrinting ]);
   
   const framePending = useAnimationFrameStore(store => store.framePending);
-  console.log({ framePending });
+  console.log({ framePending, loading, ready: ready === loadingRef.current, helpDescription, isPrinting });
   useEffect(() => {
-    if (!framePending && deckRef.current && deckRef.current.isReady()) {
+    if (!framePending && deckRef.current && deckRef.current.isReady() && loadingRef.current && ready === loadingRef.current) {
       if (typeof document !== 'undefined' && fragmented) {
         const slides = document.querySelector('.slides');
         const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
@@ -134,8 +145,10 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       }
       deckRef.current.layout();
       deckRef.current.sync();
+      setLoading(false);
+      loadingRef.current = 0;
     }
-  }, [ framePending, fragmented ]);
+  }, [ framePending, fragmented, ready ]);
   useInjectTheme(theme);
   useInjectFontSize(fontSize);
   useInjectColorTextHighlight(colorTextHighlight);
@@ -147,6 +160,14 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
           {Children.toArray(children)}
         </div>
       </div>
+      {(loading || loadingRef.current > 0) && (
+        <div className="jk-loader-layer jk-overlay bc-we">
+          <div className="jk-row ai-be">
+            <T className="tt-se">loading</T>&nbsp;
+            <div className="dot-flashing" />
+          </div>
+        </div>
+      )}
     </>
   );
 };

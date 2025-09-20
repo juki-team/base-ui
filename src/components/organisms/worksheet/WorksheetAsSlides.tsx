@@ -8,6 +8,7 @@ import React, { useMemo } from 'react';
 import { useFetcher } from '../../../hooks';
 import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
+import { DetectRequestAnimationFrame } from '../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 import { MdMath } from '../mdMath/viewer/MdMath';
 import { WorksheetNode } from './sheets/WorksheetNode';
 import { UserResultsType, WorksheetAsSlidesProps } from './types';
@@ -54,6 +55,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
           data-background-image={slides.titleBackgroundImage}
         >
+          <DetectRequestAnimationFrame />
           <MdMath source={sheet.header.title} detectRequestAnimationFrame />
         </section>,
       ],
@@ -88,6 +90,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
           data-background-image={slides.titleBackgroundImage}
         >
+          <DetectRequestAnimationFrame />
           <MdMath source={sheet.header.title} detectRequestAnimationFrame />
         </section>,
       ],
