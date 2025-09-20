@@ -63,9 +63,11 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
     deckRef.current.initialize({
       plugins: [ RevealZoom, RevealNotes, RevealSearch, PdfExport ],
     }).then(() => {
+      console.log('init initialize', { document, fragmented });
       if (typeof document !== 'undefined' && fragmented) {
         const slides = document.querySelector('.slides');
         const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
+        console.log({ slides, parents });
         for (let i = 0; i < parents.length; i++) {
           let fragmentAdded = false;
           for (let j = 0; j < parents[i]!.length; j++) {

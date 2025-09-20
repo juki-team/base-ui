@@ -185,7 +185,7 @@ export const WorksheetViewerAsSlides: Story = {
         {({ data }) => (
           <TwoContentLayout
             tabs={oneTab(
-              <SlideDeck colorTextHighlight="#A6F750" theme={Theme.DARK}>
+              <SlideDeck colorTextHighlight="#A6F750" theme={Theme.DARK} fragmented>
                 <WorksheetAsSlides
                   {...args}
                   worksheet={data.content}
