@@ -9,11 +9,10 @@ import {
   WorksheetType,
 } from '@juki-team/commons';
 import React, { useRef, useState } from 'react';
-import { authorizedRequest, classNames } from '../../../../../helpers';
+import { authorizedRequest } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { jukiApiManager } from '../../../../../settings';
 import { InputCheckbox, T } from '../../../../atoms';
-import { DetectRequestAnimationFrame } from '../../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 import { ButtonLoader, FloatToolbar } from '../../../../molecules';
 import { MdMathViewer } from '../../../mdMath/MdMathViewer';
 import { ChunkTitle } from '../ChunkTitle';
@@ -39,7 +38,6 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
     isSolvable,
     readOnly,
     userResults,
-    asSlides = false,
   } = props;
   
   const { notifyResponse } = useJukiNotification();
@@ -50,15 +48,6 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
   const submissions = userResults?.data?.submissions[WorksheetType.JK_MD]?.[chunkId] ?? [];
   const lastSubmission = submissions.at(-1);
   const text = content.content.trim();
-  
-  if (asSlides) {
-    return (
-      <>
-        <DetectRequestAnimationFrame name="JkmdSheetSection" />
-        <MdMathViewer source={text} slideView />
-      </>
-    );
-  }
   
   return (
     <div
@@ -116,7 +105,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
             )}
             <ChunkTitle content={content} />
             {!!text && (
-              <div className={classNames('jk-br-ie jk-pg wh-100', { 'bc-we': !asSlides })}>
+              <div className="jk-br-ie jk-pg wh-100 bc-we">
                 <MdMathViewer source={text} />
               </div>
             )}

@@ -12,5 +12,4 @@ export interface SheetSection<T extends BodyWorksheetType> {
   isSolvable: boolean,
   readOnly: boolean,
   userResults?: UserResultsType,
-  asSlides: boolean,
 }

@@ -13,6 +13,7 @@ import React, { Fragment } from 'react';
 // import 'reveal.js/dist/theme/white.css';
 import { classNames } from '../../../../helpers';
 import { DetectRequestAnimationFrame } from '../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
+import { MdMathViewer } from '../../mdMath/MdMathViewer';
 import { SetContentType, WorksheetNodeProps } from '../types';
 import { AddNewChild } from './AddNewChild';
 import { CodeEditorSheetSection } from './CodeEditorSheetSection';
@@ -66,14 +67,13 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
     isSolvable,
     userResults,
     readOnly,
-    asSlides: !!asSlides,
   };
   
   if (asSlides && chunk.type === WorksheetType.JK_MD) {
     return (
       <>
         <DetectRequestAnimationFrame name="WorksheetNode" />
-        <JkmdSheetSection {...sectionProps as SheetSection<JkmdSheetType>} />
+        <MdMathViewer source={chunk.content.trim()} slideView />
       </>
     );
   }
