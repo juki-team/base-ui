@@ -1,6 +1,6 @@
 import { ONE_MINUTE } from '@juki-team/commons';
 import React, { useMemo, useState } from 'react';
-import { InputToggle, T } from '../../../atoms';
+import { InputToggle, Portal, T } from '../../../atoms';
 import { Button } from '../../../atoms/Button/Button';
 import {
   AlarmIcon,
@@ -287,51 +287,53 @@ export const FullscreenTimer = () => {
         </div>
       )}
       {fullscreen && (
-        <div
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            pointerEvents: isActive ? undefined : 'none',
-            opacity: isActive ? 1 : 0,
-          }}
-          className="bc-we jk-col stretch"
-        >
-          <div className="jk-col gap huge-text">
-            {timer}
-            {/*<div className="jk-row gap block">*/}
-            {/*  <Button*/}
-            {/*    onClick={() => {*/}
-            {/*      if (isRunning === 1) {*/}
-            {/*        setIsRunning(2);*/}
-            {/*      }*/}
-            {/*      if (isRunning === 2) {*/}
-            {/*        setIsRunning(1);*/}
-            {/*      }*/}
-            {/*      if (isRunning === 0) {*/}
-            {/*        setIsRunning(1);*/}
-            {/*      }*/}
-            {/*    }}*/}
-            {/*    type={isRunning ? 'light' : 'primary'}*/}
-            {/*    className={isRunning ? '' : 'bc-ss cr-we'}*/}
-            {/*  >*/}
-            {/*    <T className="tt-se">{isRunning === 1 ? 'pause' : isRunning === 2 ? 'resume' : 'start'}</T>*/}
-            {/*  </Button>*/}
-            {/*  <Button*/}
-            {/*    disabled={isRunning === 0}*/}
-            {/*    className="bc-er cr-we"*/}
-            {/*    onClick={() => {*/}
-            {/*      setIsRunning(0);*/}
-            {/*      setResetTrigger(Date.now());*/}
-            {/*    }}*/}
-            {/*  >*/}
-            {/*    <T className="tt-se">restart</T>*/}
-            {/*  </Button>*/}
-            {/*</div>*/}
+        <Portal>
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              pointerEvents: isActive ? undefined : 'none',
+              opacity: isActive ? 1 : 0,
+            }}
+            className="bc-we jk-col stretch"
+          >
+            <div className="jk-col gap huge-text">
+              {timer}
+              {/*<div className="jk-row gap block">*/}
+              {/*  <Button*/}
+              {/*    onClick={() => {*/}
+              {/*      if (isRunning === 1) {*/}
+              {/*        setIsRunning(2);*/}
+              {/*      }*/}
+              {/*      if (isRunning === 2) {*/}
+              {/*        setIsRunning(1);*/}
+              {/*      }*/}
+              {/*      if (isRunning === 0) {*/}
+              {/*        setIsRunning(1);*/}
+              {/*      }*/}
+              {/*    }}*/}
+              {/*    type={isRunning ? 'light' : 'primary'}*/}
+              {/*    className={isRunning ? '' : 'bc-ss cr-we'}*/}
+              {/*  >*/}
+              {/*    <T className="tt-se">{isRunning === 1 ? 'pause' : isRunning === 2 ? 'resume' : 'start'}</T>*/}
+              {/*  </Button>*/}
+              {/*  <Button*/}
+              {/*    disabled={isRunning === 0}*/}
+              {/*    className="bc-er cr-we"*/}
+              {/*    onClick={() => {*/}
+              {/*      setIsRunning(0);*/}
+              {/*      setResetTrigger(Date.now());*/}
+              {/*    }}*/}
+              {/*  >*/}
+              {/*    <T className="tt-se">restart</T>*/}
+              {/*  </Button>*/}
+              {/*</div>*/}
+            </div>
           </div>
-        </div>
+        </Portal>
       )}
     </>
   );
