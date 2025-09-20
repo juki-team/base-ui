@@ -60,7 +60,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
           data-background-image={slides.titleBackgroundImage}
         >
-          <DetectRequestAnimationFrame />
+          <DetectRequestAnimationFrame name="WorksheetAsSlides" />
           <MdMath source={sheet.header.title} detectRequestAnimationFrame />
         </section>,
       ],

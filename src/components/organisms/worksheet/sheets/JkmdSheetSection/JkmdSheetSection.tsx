@@ -54,7 +54,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
   if (asSlides) {
     return (
       <>
-        <DetectRequestAnimationFrame />
+        <DetectRequestAnimationFrame name="JkmdSheetSection" />
         <MdMathViewer source={text} slideView />
       </>
     );

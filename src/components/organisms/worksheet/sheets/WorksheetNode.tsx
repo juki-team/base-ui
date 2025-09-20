@@ -72,7 +72,7 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
   if (asSlides && chunk.type === WorksheetType.JK_MD) {
     return (
       <>
-        <DetectRequestAnimationFrame />
+        <DetectRequestAnimationFrame name="WorksheetNode" />
         <JkmdSheetSection {...sectionProps as SheetSection<JkmdSheetType>} />
       </>
     );

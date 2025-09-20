@@ -118,12 +118,15 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   }, []);
   
   const framePending = useAnimationFrameStore(store => store.framePending);
+  const frames = useAnimationFrameStore(store => store.frames);
+  
   console.log({
     framePending,
     loading,
     ready,
     helpDescription,
     isPrinting: isPrintingPDF(),
+    frames,
   });
   useEffect(() => {
     if (!framePending && deckRef.current && deckRef.current.isReady()) {

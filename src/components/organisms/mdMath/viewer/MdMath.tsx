@@ -300,7 +300,7 @@ export const MdMath = memo(({
   
   return (
     <div className="jk-md-math pn-re">
-      {detectRequestAnimationFrame && <DetectRequestAnimationFrame />}
+      {detectRequestAnimationFrame && <DetectRequestAnimationFrame name="MdMath" />}
       <ReactMarkdown {...props} >
         {source}
       </ReactMarkdown>
