@@ -1,7 +1,10 @@
 // https://github.com/McShelby/reveal-pdfexport/tree/master
 import Reveal from 'reveal.js';
 
-function isPrintingPDF() {
+export function isPrintingPDF() {
+  if (typeof window === 'undefined') {
+    return false;
+  }
   return (/print-pdf/gi).test(window.location.search);
 }
 

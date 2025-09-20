@@ -8,7 +8,7 @@ import { useInjectColorTextHighlight, useInjectFontSize, useInjectTheme } from '
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { Client } from '../../atoms';
 import { useGraphvizStore } from '../../organisms/Graphviz/GraphvizViewer';
-import { PdfExport } from './pdfexport';
+import { isPrintingPDF, PdfExport } from './pdfexport';
 import { SlideDeckProps } from './types';
 // import 'reveal.js/dist/reveal.css';
 // import 'reveal.js/dist/theme/black.css';
@@ -27,6 +27,7 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   const deckDivRef = useRef<HTMLDivElement>(null); // reference to deck container div
   const deckRef = useRef<Reveal.Api | null>(null); // reference to deck reveal instance
   const t = useI18nStore(store => store.i18n.t);
+  const isPrinting = isPrintingPDF();
   
   useEffect(() => {
     const renderGraphviz = () => {
@@ -89,24 +90,31 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       deckRef.current?.sync();
       
       const savedState = sessionStorage.getItem(SESSION_STORAGE_KEY);
-      if (isStringJson(savedState)) {
+      if (isStringJson(savedState) && !isPrinting) {
         try {
           const parsedState = JSON.parse(savedState);
-          console.log({ parsedState });
-          deckRef.current?.setState(parsedState);
+          const state = {
+            ...parsedState,
+            indexf: Math.max(parsedState.indexf || 0, 0),
+            indexh: Math.max(parsedState.indexh || 0, 0),
+            indexv: Math.max(parsedState.indexv || 0, 0),
+          };
+          console.log({ state });
+          deckRef.current?.setState(state);
         } catch (e) {
           console.warn('Error parsing saved slide state', e);
         }
       }
-      
-      deckRef.current?.toggleHelp();
+      if (!isPrinting) {
+        deckRef.current?.toggleHelp();
+      }
       console.log('loaded slides');
     });
     deckRef.current.on('slidechanged', () => {
       renderGraphviz();
       const state = deckRef.current?.getState();
       console.log('setstate', { state });
-      if (state && state?.indexf > 0 && state?.indexh > 0 && state?.indexv > 0) {
+      if (state) {
         console.log('setstate>', { state });
         sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
       }
@@ -135,7 +143,7 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
         console.warn('Reveal.js destroy call failed.');
       }
     };
-  }, [ fragmented, t, children ]);
+  }, [ fragmented, t, children, isPrinting ]);
   
   useInjectTheme(theme);
   useInjectFontSize(fontSize);
