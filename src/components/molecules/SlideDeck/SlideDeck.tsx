@@ -30,7 +30,6 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   const t = useI18nStore(store => store.i18n.t);
   const [ loading, setLoading ] = useState(true);
   const [ ready, setReady ] = useState(0);
-  const helpDescription = t('Open help overlay');
   
   useEffect(() => {
     const renderGraphviz = () => {
@@ -54,30 +53,14 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       });
       deckRef.current.initialize({
         plugins: isPrinting ? [ PdfExport ] : [ RevealZoom, RevealNotes, RevealSearch, PdfExport ],
-      }).then(() => {
-        console.info('initialized');
       });
-      console.info('Reveal init');
       // @ts-ignore
       document.__deckRef = deckRef.current;
-      
-      deckRef.current?.addKeyBinding(
-        {
-          keyCode: 191, key: '?',
-          keyDescription: '?',
-          shiftKey: true,
-          description: 'Open help overlay',
-        } as any,
-        () => {
-          deckRef.current?.toggleHelp();
-        },
-      );
       
       deckRef.current.on('slidechanged', () => {
         renderGraphviz();
         const state = deckRef.current?.getState();
         if (state) {
-          console.log('setstate>', { state });
           sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
         }
       });
@@ -85,7 +68,6 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       deckRef.current.on('ready', () => {
         const now = Date.now();
         renderGraphviz();
-        console.info('ready');
         if (!isPrinting) {
           deckRef.current?.toggleHelp();
         }
@@ -117,24 +99,29 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
     };
   }, []);
   
-  const framePending = useAnimationFrameStore(store => store.framePending);
-  const frames = useAnimationFrameStore(store => store.frames);
+  useEffect(() => {
+    deckRef.current?.addKeyBinding(
+      {
+        keyCode: 191,
+        key: '?',
+        keyDescription: '?',
+        shiftKey: true,
+        description: t('Open help overlay'),
+      } as any,
+      () => {
+        deckRef.current?.toggleHelp();
+      },
+    );
+  }, [ t ]);
   
-  console.log({
-    framePending,
-    loading,
-    ready,
-    helpDescription,
-    isPrinting: isPrintingPDF(),
-    frames,
-  });
+  const framePending = useAnimationFrameStore(store => store.framePending);
+  
   useEffect(() => {
     if (!framePending && deckRef.current && deckRef.current.isReady()) {
       setLoading(true);
       if (typeof document !== 'undefined' && fragmented) {
         const slides = document.querySelector('.slides');
         const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
-        console.log('>>>', { slides, parents });
         for (let i = 0; i < parents.length; i++) {
           let fragmentAdded = false;
           for (let j = 0; j < parents[i]!.length; j++) {
@@ -158,12 +145,12 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       try {
         deckRef.current.layout();
       } catch (error) {
-        console.warn('error on layout', error);
+        console.warn('error on Reveal.layout', error);
       }
       try {
         deckRef.current.sync();
       } catch (error) {
-        console.warn('error on sync', error);
+        console.warn('error on Reveal.sync', error);
       }
       if (!isPrintingPDF()) {
         const savedState = sessionStorage.getItem(SESSION_STORAGE_KEY);
@@ -185,10 +172,9 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
           };
         }
         try {
-          console.log({ state });
-          deckRef.current?.setState(state);
+          deckRef.current.setState(state);
         } catch (e) {
-          console.warn('Error parsing saved slide state', e);
+          console.warn('error on Reveal.setState', e);
         }
       }
       setTimeout(() => {
