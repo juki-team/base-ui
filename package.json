@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "1.1.162",
+  "version": "1.1.163",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -58,7 +58,7 @@
     "pull": "yarn add @juki-team/commons",
     "build": "yarn rollup:build",
     "build:deploy": "yarn storybook:build && yarn build",
-    "git-push": "f() { param=${1}; message=${param:-chore}; echo ${message}; git add .; echo $message | git commit -F -; yarn publish --patch --no-git-tag-version && version=\"v$(node -p \"require('./package.json').version\")\"; git add .; echo $version | git commit -F -; git push origin main; echo $version | git tag -a $(echo $version) -F -; git push origin --tags; }; f",
+    "git-push": "f() { param=${1}; message=${param:-chore}; echo ${message}; git add .; echo $message | git commit -F -; yarn publish --patch --no-git-tag-version && ( version=\"v$(node -p \"require('./package.json').version\")\"; git add .; echo $version | git commit -F -; git push origin main; echo $version | git tag -a $(echo $version) -F -; git push origin --tags; ) }; f",
     "push": "f() { yarn build && yarn sass:build && yarn git-push \"${1}\"; }; f",
     "push:deploy": "f() { yarn build:deploy && yarn git-push \"${1}\"; }; f",
     "chromatic": "npx chromatic --project-token=chpt_2acf11f761221d1",

@@ -157,17 +157,26 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       }
       deckRef.current.layout();
       deckRef.current.sync();
-      
-      const savedState = sessionStorage.getItem(SESSION_STORAGE_KEY);
-      if (isStringJson(savedState) && !isPrintingPDF()) {
-        try {
+      if (!isPrintingPDF()) {
+        const savedState = sessionStorage.getItem(SESSION_STORAGE_KEY);
+        let state: Reveal.RevealState = {
+          paused: false,
+          overview: false,
+          indexf: 0,
+          indexh: 0,
+          indexv: 0,
+        };
+        if (isStringJson(savedState)) {
           const parsedState = JSON.parse(savedState);
-          const state = {
-            ...parsedState,
+          state = {
+            paused: parsedState.paused ?? false,
+            overview: parsedState.overview ?? false,
             indexf: Math.max(parsedState.indexf || 0, 0),
             indexh: Math.max(parsedState.indexh || 0, 0),
             indexv: Math.max(parsedState.indexv || 0, 0),
           };
+        }
+        try {
           console.log({ state });
           deckRef.current?.setState(state);
         } catch (e) {
