@@ -1,4 +1,4 @@
-import { Theme } from '@juki-team/commons';
+import { isStringJson, Theme } from '@juki-team/commons';
 import React, { Children, useEffect, useRef, useState } from 'react';
 import Reveal from 'reveal.js';
 import RevealNotes from 'reveal.js/plugin/notes/notes';
@@ -19,6 +19,8 @@ function hasScroll(el: HTMLElement) {
   return el?.scrollHeight > el?.clientHeight || el?.scrollWidth > el?.clientWidth;
 }
 
+const SESSION_STORAGE_KEY = 'jk-reveal-slide-state';
+
 const SlideDeckCmp = (props: SlideDeckProps) => {
   
   const { children, fontSize = 32, theme = Theme.LIGHT, colorTextHighlight, fragmented = false } = props;
@@ -28,7 +30,6 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   const t = useI18nStore(store => store.i18n.t);
   const [ loading, setLoading ] = useState(true);
   const [ ready, setReady ] = useState(0);
-  const loadingRef = useRef(0);
   const helpDescription = t('Open help overlay');
   
   useEffect(() => {
@@ -37,7 +38,6 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
     };
     if (deckDivRef.current && !deckRef.current) {
       const isPrinting = isPrintingPDF();
-      loadingRef.current = 1;
       setLoading(true);
       deckRef.current = new Reveal(deckDivRef.current, {
         // disableLayout: false,
@@ -73,13 +73,17 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
         },
       );
       
-      deckRef.current.on('slidechanged', renderGraphviz);
+      deckRef.current.on('slidechanged', () => {
+        renderGraphviz();
+        const state = deckRef.current?.getState();
+        if (state) {
+          console.log('setstate>', { state });
+          sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
+        }
+      });
       
       deckRef.current.on('ready', () => {
         const now = Date.now();
-        loadingRef.current = now;
-        setLoading(true);
-        
         renderGraphviz();
         console.info('ready');
         if (!isPrinting) {
@@ -87,7 +91,7 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
         }
         setTimeout(() => {
           setReady(now);
-        }, 5000);
+        }, 400);
       });
       document.addEventListener('pdf-ready', renderGraphviz);
       
@@ -117,12 +121,13 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   console.log({
     framePending,
     loading,
-    ready: ready === loadingRef.current,
+    ready,
     helpDescription,
     isPrinting: isPrintingPDF(),
   });
   useEffect(() => {
-    if (!framePending && deckRef.current && deckRef.current.isReady() && loadingRef.current && ready === loadingRef.current) {
+    if (!framePending && deckRef.current && deckRef.current.isReady()) {
+      setLoading(true);
       if (typeof document !== 'undefined' && fragmented) {
         const slides = document.querySelector('.slides');
         const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
@@ -149,10 +154,28 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       }
       deckRef.current.layout();
       deckRef.current.sync();
-      setLoading(false);
-      loadingRef.current = 0;
+      
+      const savedState = sessionStorage.getItem(SESSION_STORAGE_KEY);
+      if (isStringJson(savedState) && !isPrintingPDF()) {
+        try {
+          const parsedState = JSON.parse(savedState);
+          const state = {
+            ...parsedState,
+            indexf: Math.max(parsedState.indexf || 0, 0),
+            indexh: Math.max(parsedState.indexh || 0, 0),
+            indexv: Math.max(parsedState.indexv || 0, 0),
+          };
+          console.log({ state });
+          deckRef.current?.setState(state);
+        } catch (e) {
+          console.warn('Error parsing saved slide state', e);
+        }
+      }
+      setTimeout(() => {
+        setLoading(false);
+      }, 100);
     }
-  }, [ framePending, fragmented, ready ]);
+  }, [ framePending, fragmented, ready, children ]);
   useInjectTheme(theme);
   useInjectFontSize(fontSize);
   useInjectColorTextHighlight(colorTextHighlight);
@@ -164,7 +187,7 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
           {Children.toArray(children)}
         </div>
       </div>
-      {(loading || loadingRef.current > 0) && (
+      {loading && (
         <div className="jk-loader-layer jk-overlay bc-we">
           <div className="jk-row ai-be">
             <T className="tt-se">loading</T>&nbsp;
