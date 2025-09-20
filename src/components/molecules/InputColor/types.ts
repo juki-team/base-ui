@@ -1,13 +1,11 @@
 import type { ReactElement } from 'react';
 import type { ColorResult } from 'react-color';
-import type { InputProps } from '../../atoms/types';
+import { InputCommonsProps } from '../../atoms/types';
 
 export type Color = ColorResult;
 
-export interface InputColorProps {
+export interface InputColorProps extends InputCommonsProps<any> {
   color?: Color,
   onChange?: (newColor: Color) => void,
-  label?: InputProps<any>['label'],
-  labelPlacement?: InputProps<any>['labelPlacement'],
   children?: ReactElement,
 }

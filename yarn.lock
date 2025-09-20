@@ -1802,10 +1802,10 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@juki-team/commons@^0.0.922":
-  version "0.0.922"
-  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.922/44a9e0a38e46b5bb39f2b4d4607fe13e23ec7701#44a9e0a38e46b5bb39f2b4d4607fe13e23ec7701"
-  integrity sha512-aGkjJYDlQPvxajvrwXiDsww85GwxvtBmLBJOdxv6qX7igg/O1GPvodf6MxE+zHQB3VZeCYwsmP6LpD65iop3zQ==
+"@juki-team/commons@^0.0.923":
+  version "0.0.923"
+  resolved "https://npm.pkg.github.com/download/@juki-team/commons/0.0.923/34d977d4ce423381a1f88949091dd703c1ff8665#34d977d4ce423381a1f88949091dd703c1ff8665"
+  integrity sha512-Fzm6e9USQW3vlMLmwZUz/UGGumeW3FNo5UoBuRwTTjPiYGxA1zKv8JTu3iT/EV2IJtWpMdXKOmKNI+j/NYKD+Q==
 
 "@lezer/common@^0.15.0", "@lezer/common@^0.15.5":
   version "0.15.12"
@@ -2809,14 +2809,6 @@
     serialize-javascript "^6.0.1"
     smob "^1.0.0"
     terser "^5.17.4"
-
-"@rollup/plugin-typescript@^12.1.4":
-  version "12.1.4"
-  resolved "https://registry.yarnpkg.com/@rollup/plugin-typescript/-/plugin-typescript-12.1.4.tgz#9a58433e8b13906198953d79faf3b16f67ee0424"
-  integrity sha512-s5Hx+EtN60LMlDBvl5f04bEiFZmAepk27Q+mr85L/00zPDn1jtzlTV6FWn81MaIwqfWzKxmOJrBWHU6vtQyedQ==
-  dependencies:
-    "@rollup/pluginutils" "^5.1.0"
-    resolve "^1.22.1"
 
 "@rollup/pluginutils@^3.1.0":
   version "3.1.0"

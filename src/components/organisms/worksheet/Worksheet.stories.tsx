@@ -1,17 +1,7 @@
-import {
-  cleanRequest,
-  ContentResponseType,
-  EntityMembersResponseDTO,
-  Status,
-  Theme,
-  toEntityMembersDTO,
-  UpsertWorksheetDTO,
-  UserCompanyBasicInfoResponseDTO,
-  WorksheetDataResponseDTO,
-} from '@juki-team/commons';
+import { ContentResponseType, Status, Theme, WorksheetDataResponseDTO } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import React from 'react';
-import { authorizedRequest, oneTab } from '../../../helpers';
+import { oneTab } from '../../../helpers';
 import { useStableState } from '../../../hooks/useStableState';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
@@ -95,30 +85,31 @@ export const WorksheetResultViewer: Story = {
   ),
 };
 
-interface UpsertWorksheetUIDTO extends Omit<UpsertWorksheetDTO, 'members'> {
-  members: EntityMembersResponseDTO,
-  owner: UserCompanyBasicInfoResponseDTO,
-}
+// interface UpsertWorksheetUIDTO extends Omit<UpsertWorksheetDTO, 'members'> {
+//   members: EntityMembersResponseDTO,
+//   owner: UserCompanyBasicInfoResponseDTO,
+// }
 
-const toUpsertWorksheetDTO = (entity: UpsertWorksheetUIDTO): UpsertWorksheetDTO => ({
-  members: toEntityMembersDTO(entity.members),
-  folderId: entity.folderId,
-  name: entity.name,
-  description: entity.description,
-  content: entity.content,
-  quiz: {
-    enable: false,
-    automaticFeedback: false,
-  },
-  slides: {
-    enable: false,
-    titleBackgroundImage: '',
-    backgroundImage: '',
-    fontSize: 0,
-    theme: Theme.LIGHT,
-    colorTextHighlight: '',
-  },
-});
+// const toUpsertWorksheetDTO = (entity: UpsertWorksheetUIDTO): UpsertWorksheetDTO => ({
+//   members: toEntityMembersDTO(entity.members),
+//   folderId: entity.folderId,
+//   name: entity.name,
+//   description: entity.description,
+//   content: entity.content,
+//   quiz: {
+//     enable: false,
+//     automaticFeedback: false,
+//   },
+//   slides: {
+//     enable: false,
+//     titleBackgroundImage: '',
+//     backgroundImage: '',
+//     fontSize: 0,
+//     theme: Theme.LIGHT,
+//     colorTextHighlight: '',
+//     aspectRatio: AspectRatio.RATIO_4_3,
+//   },
+// });
 
 const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, mutate: any }) => {
   const [ content, setContent ] = useStableState(initialContent);
@@ -133,15 +124,15 @@ const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, m
       <ButtonLoader
         onClick={async (setLoader) => {
           setLoader(Status.LOADING);
-          const {
-            url,
-            ...options
-          } = jukiApiManager.API_V1.worksheet.update({
-            params: { key: initialContent.key },
-            body: toUpsertWorksheetDTO({ ...initialContent }),
-          });
-          const request = cleanRequest(await authorizedRequest(url, options));
-          console.info({ request });
+          // const {
+          //   url,
+          //   ...options
+          // } = jukiApiManager.API_V1.worksheet.update({
+          //   params: { key: initialContent.key },
+          //   body: toUpsertWorksheetDTO({ ...initialContent }),
+          // });
+          // const request = cleanRequest(await authorizedRequest(url, options));
+          // console.info({ request });
           setLoader(Status.NONE);
         }}
       >
@@ -185,7 +176,12 @@ export const WorksheetViewerAsSlides: Story = {
         {({ data }) => (
           <TwoContentLayout
             tabs={oneTab(
-              <SlideDeck colorTextHighlight="#A6F750" theme={Theme.DARK} fragmented>
+              <SlideDeck
+                colorTextHighlight="#A6F750"
+                theme={Theme.DARK}
+                aspectRatio={data.content.slides.aspectRatio}
+                fragmented
+              >
                 <WorksheetAsSlides
                   {...args}
                   worksheet={data.content}

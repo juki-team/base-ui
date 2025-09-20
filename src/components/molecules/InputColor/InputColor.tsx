@@ -4,13 +4,14 @@ import { ColorResult, SketchPicker } from 'react-color';
 import { Button, Input, Popover, T } from '../../atoms';
 import { InputColorProps } from './types';
 
-export const InputColor = ({ color, children, onChange, label, labelPlacement }: InputColorProps) => {
+export const InputColor = ({ color, children, onChange, ...inputProps }: InputColorProps) => {
   
   const [ newColor, setNewColor ] = useState<ColorResult>(color ? color : {
     hex: '#000000',
     rgb: { a: 1, b: 0, g: 0, r: 0 },
     hsl: { a: 1, h: 240, l: 0, s: 0 },
   });
+  
   const handlePick = () => { // color ? color : '#FFFFFF'
     newColor && onChange?.(newColor);
   };
@@ -33,7 +34,7 @@ export const InputColor = ({ color, children, onChange, label, labelPlacement }:
             expand
             size="small"
           >
-            <T>pick</T>
+            <T className="tt-se">pick</T>
           </Button>
         </div>
       )}
@@ -43,14 +44,17 @@ export const InputColor = ({ color, children, onChange, label, labelPlacement }:
     >
       {children
         ? children
-        : <span><Input
-          type="color"
-          onChange={() => null}
-          value={color?.hex || ''}
-          label={label}
-          labelPlacement={labelPlacement}
-          onClick={(e) => e.preventDefault()}
-        /></span>}
+        : (
+          <span>
+            <Input
+              {...inputProps}
+              type="color"
+              onChange={() => null}
+              value={color?.hex || ''}
+              onClick={(e) => e.preventDefault()}
+            />
+          </span>
+        )}
     </Popover>
   );
 };

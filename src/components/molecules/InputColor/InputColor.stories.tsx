@@ -12,8 +12,10 @@ export const InputColor = () => {
   
   return (
     <MockupJukiProvider>
-      <div>
+      <div className="jk-row">
         <ColorPickerComponent
+          label="color"
+          labelPlacement="left"
           color={color}
           onChange={(color) => {
             console.info(color);

@@ -1,4 +1,4 @@
-import { isStringJson, Theme } from '@juki-team/commons';
+import { ASPECT_RATIO, isStringJson, Theme } from '@juki-team/commons';
 import React, { Children, useEffect, useRef, useState } from 'react';
 import Reveal from 'reveal.js';
 import RevealNotes from 'reveal.js/plugin/notes/notes';
@@ -23,7 +23,7 @@ const SESSION_STORAGE_KEY = 'jk-reveal-slide-state';
 
 const SlideDeckCmp = (props: SlideDeckProps) => {
   
-  const { children, fontSize = 32, theme = Theme.LIGHT, colorTextHighlight, fragmented = false } = props;
+  const { children, fontSize = 32, theme = Theme.LIGHT, colorTextHighlight, fragmented = false, aspectRatio } = props;
   
   const deckDivRef = useRef<HTMLDivElement>(null);
   const deckRef = useRef<Reveal.Api | null>(null);
@@ -52,6 +52,8 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
         // },
       });
       deckRef.current.initialize({
+        width: ASPECT_RATIO[aspectRatio]?.width,
+        height: ASPECT_RATIO[aspectRatio]?.height,
         plugins: isPrinting ? [ PdfExport ] : [ RevealZoom, RevealNotes, RevealSearch, PdfExport ],
       });
       // @ts-ignore
@@ -205,8 +207,8 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   );
 };
 
-export const SlideDeck = (props: SlideDeckProps) => (
+export const SlideDeck = ({ children, onClose, ...rest }: SlideDeckProps) => (
   <Client>
-    <SlideDeckCmp {...props} />
+    <SlideDeckCmp key={JSON.stringify(rest)} {...rest} children={children} onClose={onClose} />
   </Client>
 );
