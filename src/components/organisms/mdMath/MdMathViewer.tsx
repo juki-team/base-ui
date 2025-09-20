@@ -14,7 +14,7 @@ export const MdMathViewer = ({
                                slideView,
                              }: MdMathViewerProps) => (
   slideView
-    ? <MdMath source={source} blur={blur} unBlur={unBlur} slideView={slideView} />
+    ? <MdMath source={source} blur={blur} unBlur={unBlur} slideView={slideView} detectRequestAnimationFrame />
     :
     <div className={classNames('jk-md-math-viewer-layout', className)} style={style}>
       <MdFloatToolbar source={source} /*share={sharedButton}*/ download={downloadButton} />

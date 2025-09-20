@@ -54,7 +54,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
           data-background-image={slides.titleBackgroundImage}
         >
-          <MdMath source={sheet.header.title} />
+          <MdMath source={sheet.header.title} detectRequestAnimationFrame />
         </section>,
       ],
       sheet.content.map((chunk, index) => (
@@ -88,7 +88,7 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
           style={{ overflow: 'hidden auto', maxHeight: '100%' }}
           data-background-image={slides.titleBackgroundImage}
         >
-          <MdMath source={sheet.header.title} />
+          <MdMath source={sheet.header.title} detectRequestAnimationFrame />
         </section>,
       ],
       sheet.content.map((chunk, index) => (

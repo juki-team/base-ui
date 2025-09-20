@@ -2,16 +2,18 @@
 import { CODE_LANGUAGE, CodeLanguage, ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
 import type { Element } from 'hast';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
-import React, { CSSProperties, memo, ReactNode, useMemo } from 'react';
+import React, { CSSProperties, memo, ReactNode, useEffect, useMemo, useRef } from 'react';
 import ReactMarkdown, { Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
+import { v4 } from 'uuid';
 import { classNames } from '../../../../helpers';
 import { useFetcher } from '../../../../hooks/useFetcher';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useStableState } from '../../../../hooks/useStableState';
 import { jukiApiManager } from '../../../../settings';
+import { useAnimationFrameStore } from '../../../../stores/animationFrame/usePageStore';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { QueryParamKey, SetSearchParamsType } from '../../../../types';
 import { Button } from '../../../atoms/Button/Button';
@@ -79,10 +81,32 @@ interface MdMathProps {
   source: string,
   blur?: boolean,
   unBlur?: boolean,
-  slideView?: boolean
+  slideView?: boolean,
+  detectRequestAnimationFrame?: boolean,
 }
 
-export const MdMath = memo(({ source, blur: _blur, unBlur, slideView = false }: MdMathProps) => {
+const DetectRequestAnimationFrame = () => {
+  const refId = useRef(v4());
+  const addFrame = useAnimationFrameStore(store => store.addFrame);
+  const subFrame = useAnimationFrameStore(store => store.subFrame);
+  
+  useEffect(() => {
+    addFrame(refId.current);
+    requestAnimationFrame(() => {
+      subFrame(refId.current);
+    });
+  });
+  
+  return null;
+};
+
+export const MdMath = memo(({
+                              source,
+                              blur: _blur,
+                              unBlur,
+                              slideView = false,
+                              detectRequestAnimationFrame,
+                            }: MdMathProps) => {
   
   const { components: { Link } } = useJukiUI();
   const setSearchParams = useRouterStore(state => state.setSearchParams);
@@ -292,6 +316,7 @@ export const MdMath = memo(({ source, blur: _blur, unBlur, slideView = false }: 
   
   return (
     <div className="jk-md-math pn-re">
+      {detectRequestAnimationFrame && <DetectRequestAnimationFrame />}
       <ReactMarkdown {...props} >
         {source}
       </ReactMarkdown>
