@@ -12,6 +12,7 @@ import React, { Fragment } from 'react';
 // import 'reveal.js/dist/theme/black.css';
 // import 'reveal.js/dist/theme/white.css';
 import { classNames } from '../../../../helpers';
+import { DetectRequestAnimationFrame } from '../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 import { SetContentType, WorksheetNodeProps } from '../types';
 import { AddNewChild } from './AddNewChild';
 import { CodeEditorSheetSection } from './CodeEditorSheetSection';
@@ -69,7 +70,12 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
   };
   
   if (asSlides && chunk.type === WorksheetType.JK_MD) {
-    return <JkmdSheetSection {...sectionProps as SheetSection<JkmdSheetType>} />;
+    return (
+      <>
+        <DetectRequestAnimationFrame />
+        <JkmdSheetSection {...sectionProps as SheetSection<JkmdSheetType>} />
+      </>
+    );
   }
   
   return (
