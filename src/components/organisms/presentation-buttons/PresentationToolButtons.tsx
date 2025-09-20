@@ -62,7 +62,7 @@ export const PresentationToolButtons = () => {
           right: 'var(--pad-sm)',
           zIndex: 'var(--z-index-tool-buttons)',
         }}
-        className="jk-col gap stretch right"
+        className="jk-col gap stretch right presentation-tool-buttons"
       >
         {isFullscreen ? (
           <>
