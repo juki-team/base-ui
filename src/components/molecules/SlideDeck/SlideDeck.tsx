@@ -26,7 +26,6 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   const deckDivRef = useRef<HTMLDivElement>(null);
   const deckRef = useRef<Reveal.Api | null>(null);
   const t = useI18nStore(store => store.i18n.t);
-  const isPrinting = isPrintingPDF();
   const [ loading, setLoading ] = useState(true);
   const [ ready, setReady ] = useState(0);
   const loadingRef = useRef(0);
@@ -36,40 +35,38 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
     const renderGraphviz = () => {
       useGraphvizStore.getState().triggerRerender();
     };
-    if (deckDivRef.current) {
-      loadingRef.current = 0;
+    if (deckDivRef.current && !deckRef.current) {
+      const isPrinting = isPrintingPDF();
+      loadingRef.current = 1;
       setLoading(true);
-      if (!deckRef.current) {
-        deckRef.current = new Reveal(deckDivRef.current, {
-          // disableLayout: false,
-          // embedded: true,
-          // overview: false,
-          transition: 'fade',
-          hash: true,
-          // @ts-ignore
-          // keyboard: {
-          // 27: function () {
-          //   onClose?.();
-          // },
-          // },
-        });
-      }
-      console.info('Reveal init');
-      deckRef.current.destroy();
-      // @ts-ignore
-      document.__deckRef = deckRef.current;
-      
+      deckRef.current = new Reveal(deckDivRef.current, {
+        // disableLayout: false,
+        // embedded: true,
+        // overview: false,
+        transition: 'fade',
+        hash: true,
+        // @ts-ignore
+        // keyboard: {
+        // 27: function () {
+        //   onClose?.();
+        // },
+        // },
+      });
       deckRef.current.initialize({
         plugins: isPrinting ? [ PdfExport ] : [ RevealZoom, RevealNotes, RevealSearch, PdfExport ],
       }).then(() => {
         console.info('initialized');
       });
+      console.info('Reveal init');
+      // @ts-ignore
+      document.__deckRef = deckRef.current;
       
       deckRef.current?.addKeyBinding(
         {
-          keyCode: 191, key: '?', keyDescription: '?',
+          keyCode: 191, key: '?',
+          keyDescription: '?',
           shiftKey: true,
-          description: helpDescription,
+          description: 'Open help overlay',
         } as any,
         () => {
           deckRef.current?.toggleHelp();
@@ -88,7 +85,6 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
         if (!isPrinting) {
           deckRef.current?.toggleHelp();
         }
-        
       });
       document.addEventListener('pdf-ready', renderGraphviz);
       
@@ -108,15 +104,20 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
     return () => {
       try {
         document.removeEventListener('pdf-ready', renderGraphviz);
-        deckRef.current?.destroy();
       } catch (e) {
         console.warn('Reveal.js destroy call failed.');
       }
     };
-  }, [ fragmented, helpDescription, isPrinting ]);
+  }, []);
   
   const framePending = useAnimationFrameStore(store => store.framePending);
-  console.log({ framePending, loading, ready: ready === loadingRef.current, helpDescription, isPrinting });
+  console.log({
+    framePending,
+    loading,
+    ready: ready === loadingRef.current,
+    helpDescription,
+    isPrinting: isPrintingPDF(),
+  });
   useEffect(() => {
     if (!framePending && deckRef.current && deckRef.current.isReady() && loadingRef.current && ready === loadingRef.current) {
       if (typeof document !== 'undefined' && fragmented) {
