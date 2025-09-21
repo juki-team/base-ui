@@ -6,11 +6,20 @@ import { InputColorProps } from './types';
 
 export const InputColor = ({ color, children, onChange, ...inputProps }: InputColorProps) => {
   
-  const [ newColor, setNewColor ] = useState<ColorResult>(color ? color : {
-    hex: '#000000',
-    rgb: { a: 1, b: 0, g: 0, r: 0 },
-    hsl: { a: 1, h: 240, l: 0, s: 0 },
-  });
+  const [ newColor, setNewColor ] = useState<ColorResult>(color
+    ? (
+      typeof color === 'string'
+        ? {
+          hex: color,
+          rgb: { a: 1, b: 0, g: 0, r: 0 },
+          hsl: { a: 1, h: 240, l: 0, s: 0 },
+        } : color
+    )
+    : {
+      hex: '#000000',
+      rgb: { a: 1, b: 0, g: 0, r: 0 },
+      hsl: { a: 1, h: 240, l: 0, s: 0 },
+    });
   
   const handlePick = () => { // color ? color : '#FFFFFF'
     newColor && onChange?.(newColor);
@@ -50,7 +59,7 @@ export const InputColor = ({ color, children, onChange, ...inputProps }: InputCo
               {...inputProps}
               type="color"
               onChange={() => null}
-              value={color?.hex || ''}
+              value={typeof color === 'string' ? color : (color?.hex || '')}
               onClick={(e) => e.preventDefault()}
             />
           </span>

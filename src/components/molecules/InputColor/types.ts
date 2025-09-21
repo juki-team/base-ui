@@ -5,7 +5,7 @@ import { InputCommonsProps } from '../../atoms/types';
 export type Color = ColorResult;
 
 export interface InputColorProps extends InputCommonsProps<any> {
-  color?: Color,
+  color?: Color | string,
   onChange?: (newColor: Color) => void,
   children?: ReactElement,
 }
