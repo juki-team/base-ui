@@ -41,14 +41,10 @@ export const FullscreenTimer = () => {
       {isActive ? (
         <ButtonAction
           placement="rightTop"
-          className={classNames({
-            'opacity–hover': times.state === 0,
-            'jk-overlay-backdrop jk-br-ie cr-sl': times.state !== 0 && !fullscreen,
-            'jk-pg-xsm-rl': times.state !== 0 && !fullscreen,
-          })}
+          className={classNames({ 'opacity–hover': times.state === 0 })}
           icon={<TimerIcon />}
           children={isActive && !fullscreen ? (
-            <div>
+            <div className={classNames({ 'jk-overlay-backdrop jk-br-ie cr-sl jk-pg-xsm-rl': times.state !== 0 && !fullscreen })}>
               {timer}
             </div>
           ) : undefined}
