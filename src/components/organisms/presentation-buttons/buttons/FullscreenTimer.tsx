@@ -1,5 +1,6 @@
 import { ONE_MINUTE } from '@juki-team/commons';
 import React, { useMemo, useState } from 'react';
+import { classNames } from '../../../../helpers';
 import { InputToggle, Portal, T } from '../../../atoms';
 import { Button } from '../../../atoms/Button/Button';
 import {
@@ -40,7 +41,11 @@ export const FullscreenTimer = () => {
       {isActive ? (
         <ButtonAction
           placement="rightTop"
-          className="opacity–hover"
+          className={classNames({
+            'opacity–hover': times.state === 0,
+            'jk-overlay-backdrop jk-br-ie cr-sl': times.state !== 0 && !fullscreen,
+            'jk-pg-xsm-rl': times.state !== 0 && !fullscreen,
+          })}
           icon={<TimerIcon />}
           children={isActive && !fullscreen ? (
             <div>
@@ -297,8 +302,9 @@ export const FullscreenTimer = () => {
               height: '100%',
               pointerEvents: isActive ? undefined : 'none',
               opacity: isActive ? 1 : 0,
+              zIndex: 1,
             }}
-            className="bc-we jk-col stretch"
+            className="bc-we jk-col stretch jk-overlay-backdrop"
           >
             <div className="jk-col gap huge-text">
               {timer}

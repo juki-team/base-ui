@@ -8,6 +8,5 @@ export interface SlideDeckProps {
   fontSize?: number,
   theme?: Theme,
   colorTextHighlight?: string,
-  fragmented?: boolean,
   aspectRatio: AspectRatio,
 }

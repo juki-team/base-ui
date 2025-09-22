@@ -23,74 +23,83 @@ const SESSION_STORAGE_KEY = 'jk-reveal-slide-state';
 
 const SlideDeckCmp = (props: SlideDeckProps) => {
   
-  const { children, fontSize = 32, theme = Theme.LIGHT, colorTextHighlight, fragmented = false, aspectRatio } = props;
+  const { children, fontSize = 32, theme = Theme.LIGHT, colorTextHighlight, aspectRatio } = props;
   
   const deckDivRef = useRef<HTMLDivElement>(null);
   const deckRef = useRef<Reveal.Api | null>(null);
   const t = useI18nStore(store => store.i18n.t);
   const [ loading, setLoading ] = useState(true);
   const [ ready, setReady ] = useState(0);
+  console.info('render SlideDeckCmp');
   
   useEffect(() => {
     const renderGraphviz = () => {
       useGraphvizStore.getState().triggerRerender();
     };
-    if (deckDivRef.current && !deckRef.current) {
-      const isPrinting = isPrintingPDF();
-      setLoading(true);
-      deckRef.current = new Reveal(deckDivRef.current, {
-        // disableLayout: false,
-        // embedded: true,
-        // overview: false,
-        transition: 'fade',
-        // hash: true,
+    setTimeout(() => {
+      if (deckDivRef.current && !deckRef.current) {
+        const isPrinting = isPrintingPDF();
+        console.info('new Reveal');
+        deckRef.current = new Reveal(deckDivRef.current, {
+          // disableLayout: false,
+          // embedded: true,
+          // overview: false,
+          transition: 'fade',
+          help: true,
+          previewLinks: true,
+          transitionSpeed: 'fast',
+          pdfSeparateFragments: false,
+          // hash: true,
+          // @ts-ignore
+          // keyboard: {
+          // 27: function () {
+          //   onClose?.();
+          // },
+          // },
+          margin: 0.1,
+          width: ASPECT_RATIO[aspectRatio]?.width,
+          height: ASPECT_RATIO[aspectRatio]?.height,
+          plugins: isPrinting ? [ PdfExport ] : [ RevealZoom, RevealNotes, RevealSearch, PdfExport ],
+        });
+        deckRef.current?.initialize();
+        
         // @ts-ignore
-        // keyboard: {
-        // 27: function () {
-        //   onClose?.();
-        // },
-        // },
-      });
-      deckRef.current.initialize({
-        width: ASPECT_RATIO[aspectRatio]?.width,
-        height: ASPECT_RATIO[aspectRatio]?.height,
-        plugins: isPrinting ? [ PdfExport ] : [ RevealZoom, RevealNotes, RevealSearch, PdfExport ],
-      });
-      // @ts-ignore
-      document.__deckRef = deckRef.current;
-      
-      deckRef.current.on('slidechanged', () => {
-        renderGraphviz();
-        const state = deckRef.current?.getState();
-        if (state) {
-          sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
-        }
-      });
-      
-      deckRef.current.on('ready', () => {
-        const now = Date.now();
-        renderGraphviz();
-        if (!isPrinting) {
-          deckRef.current?.toggleHelp();
-        }
-        setTimeout(() => {
-          setReady(now);
-        }, 400);
-      });
-      document.addEventListener('pdf-ready', renderGraphviz);
-      
-      deckRef.current.on('fragmentshown', (event: any) => {
-        const fragmentEl: HTMLElement = event?.fragment;
-        const parent = fragmentEl?.parentElement?.parentElement;
-        if (parent && hasScroll(parent)) {
-          fragmentEl.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'nearest',
-          });
-        }
-      });
-    }
+        document.__deckRef = deckRef.current;
+        
+        deckRef.current.on('slidechanged', () => {
+          renderGraphviz();
+          const state = deckRef.current?.getState();
+          if (state) {
+            sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(state));
+          }
+        });
+        
+        deckRef.current.on('ready', () => {
+          const now = Date.now();
+          renderGraphviz();
+          if (!isPrinting) {
+            deckRef.current?.toggleHelp();
+          }
+          console.info('deckRef.current.on(\'ready\')');
+          setTimeout(() => {
+            setReady(now);
+          }, 1000);
+        });
+        document.addEventListener('pdf-ready', renderGraphviz);
+        
+        deckRef.current.on('fragmentshown', (event: any) => {
+          const fragmentEl: HTMLElement = event?.fragment;
+          const parent = fragmentEl?.parentElement?.parentElement;
+          if (parent && hasScroll(parent)) {
+            fragmentEl.scrollIntoView({
+              behavior: 'smooth',
+              block: 'nearest',
+              inline: 'nearest',
+            });
+          }
+        });
+      }
+    }, 1000);
     
     return () => {
       try {
@@ -119,9 +128,10 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
   const framePending = useAnimationFrameStore(store => store.framePending);
   
   useEffect(() => {
+    setLoading(true);
     if (!framePending && deckRef.current && deckRef.current.isReady()) {
-      setLoading(true);
-      if (typeof document !== 'undefined' && fragmented) {
+      const isPrinting = isPrintingPDF();
+      if (typeof document !== 'undefined' && !isPrinting) {
         const slides = document.querySelector('.slides');
         const parents = Array.from(slides?.getElementsByClassName('jk-md-math') ?? []).map(({ children }) => Array.from(children));
         for (let i = 0; i < parents.length; i++) {
@@ -144,6 +154,7 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
           }
         }
       }
+      
       try {
         deckRef.current.layout();
       } catch (error) {
@@ -154,7 +165,7 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
       } catch (error) {
         console.warn('error on Reveal.sync', error);
       }
-      if (!isPrintingPDF()) {
+      if (!isPrinting) {
         const savedState = sessionStorage.getItem(SESSION_STORAGE_KEY);
         let state: Reveal.RevealState = {
           paused: false,
@@ -179,11 +190,9 @@ const SlideDeckCmp = (props: SlideDeckProps) => {
           console.warn('error on Reveal.setState', e);
         }
       }
-      setTimeout(() => {
-        setLoading(false);
-      }, 100);
     }
-  }, [ framePending, fragmented, ready, children ]);
+    setLoading(false);
+  }, [ framePending, ready, children, aspectRatio ]);
   useInjectTheme(theme);
   useInjectFontSize(fontSize);
   useInjectColorTextHighlight(colorTextHighlight);
