@@ -142,3 +142,11 @@
 .jk-tabs-inline-body-motion-layout:has(.jk-data-viewer-toolbar > .jk-table-view-extra-nodes:not(:empty)) {
   overflow: visible !important; // this is so that the buttons do not get cut off when they grow.
 }
+
+.jk-tabs-inline-layout {
+  .jk-tabs-inline-body-content {
+    @include mixins.transition(opacity, left, width, height);
+    top: 0;
+    position: absolute;
+  }
+}

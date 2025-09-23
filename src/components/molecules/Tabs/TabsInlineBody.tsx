@@ -1,47 +1,51 @@
-import { AnimatePresence, motion } from 'motion/react';
-import React, { Children, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { Duration } from '../../../types';
 import { TabsInlineBodyProps } from './types';
 
-export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey, preload }: TabsInlineBodyProps<T>) => {
+export const TabsInlineBody = <T = string, >({ tabs, selectedTabKey }: TabsInlineBodyProps<T>) => {
+  const tabKeys = Object.keys(tabs);
+  const selectedIndex = tabKeys.findIndex(key => key === selectedTabKey) ?? 0;
+  const [ { width, height }, setSize ] = useState({ width: 0, height: 0 });
+  const observerRef = useRef<ResizeObserver>(null);
   
-  const selectedTab = tabs[selectedTabKey as string];
-  const [ loadPreload, setLoadPreload ] = useState(true);
-  const tabsRendered = useMemo(() => {
-    if (preload && loadPreload) {
-      return Object.values(tabs).map(tab => renderReactNodeOrFunctionP1(tab.body, { selectedTabKey: tab.key }));
+  const measuredRef = useCallback((node: HTMLDivElement | null) => {
+    observerRef.current?.disconnect();
+    if (node) {
+      observerRef.current = new ResizeObserver(entries => {
+        for (let entry of entries) {
+          const { width, height } = entry.contentRect;
+          setSize(prev => {
+            if (prev.width !== width || prev.height !== height) {
+              return { width, height };
+            }
+            return prev;
+          });
+        }
+      });
+      observerRef.current.observe(node);
     }
-    return [];
-  }, [ preload, loadPreload, tabs ]);
-  
-  useEffect(() => {
-    setTimeout(() => {
-      setLoadPreload(false);
-    }, 1000);
   }, []);
   
   return (
-    <AnimatePresence mode="wait">
-      {tabsRendered.length && (
-        <div style={{ display: 'none' }}>
-          {Children.toArray(tabsRendered)}
-        </div>
-      )}
-      {selectedTab && (
-        <motion.div
-          layout
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: Duration.FAST, ease: 'easeOut' } }}
-          exit={{ opacity: 0, transition: { duration: Duration.FAST, ease: 'easeIn' } }}
-          transition={{ ease: 'easeInOut' }}
-          style={{ width: '100%', height: '100%' }}
-          key={selectedTabKey as string}
-          className="jk-tabs-inline-body-motion-layout"
-        >
-          {renderReactNodeOrFunctionP1(selectedTab?.body, { selectedTabKey })}
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <div className="ow-hn jk-row nowrap wh-100 ht-100 jk-tabs-inline-layout" ref={measuredRef}>
+      {tabKeys.map((key, index) => {
+        const tab = tabs[key];
+        const isVisible = Math.abs(selectedIndex - index) <= 0;
+        return (
+          <div
+            key={key}
+            className="jk-tabs-inline-body-content"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              width,
+              height,
+              left: -selectedIndex * width + index * width,
+            }}
+          >
+            {renderReactNodeOrFunctionP1(tab?.body, { selectedTabKey })}
+          </div>
+        );
+      })}
+    </div>
   );
 };

@@ -1,13 +1,10 @@
-import { configureActions } from 'storybook/actions';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React, { useState } from 'react';
+import React from 'react';
+import { configureActions } from 'storybook/actions';
 import { Button, T, TabsInline } from '../../../index';
 import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
 import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
-import { MockJkContestTable } from '../../organisms/DataViewer/JkContestTableTest/MockJkContestTable';
-import { MockJkProblemTable } from '../../organisms/DataViewer/JkProblemTableTest/MockJkProblemTable';
-import { MockJkUserTable } from '../../organisms/DataViewer/JkUserTableTest/MockJkUserTable';
-import { TabsInlineBody } from './TabsInlineBody';
+import { JudgeTabs } from './mocks/JudgeTabs';
 import { TabsInlineProps, TabsType } from './types';
 
 const meta: Meta<typeof TabsInline<string>> = {
@@ -46,45 +43,6 @@ const Component = (args: TabsInlineProps) => {
     '4': { key: '4', header: <div className="ws-np">tab 4 4 4 4 4 </div> },
     '5': { key: '5', header: <div className="ws-np">tabtabtabtab</div> },
   };
-  
-  const outputTabs: TabsType<string> = {
-    ['problems']: {
-      key: 'problems',
-      header: <div>problems</div>,
-      body: (
-        <div className="jk-row gap">
-          <MockJkProblemTable />
-        </div>
-      ),
-    },
-    contests: {
-      key: 'contests',
-      header: <div>contests</div>,
-      body: (
-        <div className="jk-row gap">
-          <MockJkContestTable />
-        </div>
-      ),
-    },
-    users: {
-      key: 'users',
-      header: <div>users</div>,
-      body: (
-        <div className="jk-row gap">
-          <MockJkUserTable />
-        </div>
-      ),
-    },
-    test: {
-      key: 'test',
-      header: <div>'test'</div>,
-      body: (
-        <div>test</div>
-      ),
-    },
-  };
-  
-  const [ outputTab, setOutputTab ] = useState('problems');
   
   return (
     <MockupJukiProvider>
@@ -132,12 +90,7 @@ const Component = (args: TabsInlineProps) => {
           extraNodesPlacement="bottomLeft"
         />
       </div>
-      <div className="jk-col gap nowrap bc-wd" style={{ height: 400 }}>
-        <TabsInline tabs={outputTabs} onChange={setOutputTab} selectedTabKey={outputTab} tickStyle="background" />
-        <div className="flex-1" style={{ overflow: 'auto', width: '100%', height: '300px', position: 'relative' }}>
-          <TabsInlineBody tabs={outputTabs} selectedTabKey={outputTab} />
-        </div>
-      </div>
+      <JudgeTabs />
       {/*<div style={{ height: '200px' }}>*/}
       {/*  <TabsComponent*/}
       {/*    tabs={Object.values(tabs)}*/}

@@ -2,8 +2,8 @@
 
 .jk-split-pane {
   --size: 6px;
-  --line-size: 3px;
-  --line-notch-size: 6px;
+  --line-size: 2px;
+  --line-notch-size: 8px;
   display: flex;
   width: 100%;
   height: 100%;
@@ -40,11 +40,25 @@
     -ms-user-select: none;
   }
   
+  .closable-tab {
+    pointer-events: none;
+    position: absolute;
+  }
+  
   .notch {
-    
+    pointer-events: auto;
     cursor: pointer;
-    z-index: 1;
     @include mixins.transition(padding);
+    
+    .label {
+      display: none;
+    }
+    
+    &:hover {
+      .label {
+        display: initial;
+      }
+    }
     
     &.jk-row {
       padding: 2px 4px;
@@ -69,11 +83,24 @@
     }
   }
   
+  .jk-split-pane-divider {
+    &:hover {
+      --line-notch-size: 10px;
+    }
+    
+    &::after {
+      z-index: 1;
+      content: " ";
+      position: absolute;
+      border-radius: 3px;
+      opacity: 0.6;
+    }
+  }
+  
   &.column {
     flex-direction: column;
     
     > .jk-split-first-pane > .closable-tab, > .jk-split-second-pane > .closable-tab {
-      position: absolute;
       width: 100%;
       left: 0;
       
@@ -84,18 +111,6 @@
       
       .label {
         text-orientation: sideways;
-      }
-      
-      > .notch {
-        
-        
-        //.jk-icon {
-        //  margin: 2px 0;
-        //}
-        //
-        //> .label {
-        //  padding-right: 4px;
-        //}
       }
     }
     
@@ -134,22 +149,17 @@
         top: calc(var(--line-size) / 2 * -1);
       }
       
-      &:hover {
-        &::after {
-          --line-notch-size: 8px;
-        }
+      &:hover::after {
+        width: 100%;
+        left: 0;
       }
       
       &::after {
-        z-index: 1;
-        content: " ";
-        position: absolute;
         top: calc(var(--line-notch-size) / 2 * -1);
         left: calc(50% - 32px);
         width: 64px;
         height: var(--line-notch-size);
         background: linear-gradient(to bottom, var(--t-color-gray-4) 20%, var(--t-color-white) 20% 40%, var(--t-color-gray-4) 40% 60%, var(--t-color-white) 60% 80%, var(--t-color-gray-4) 80%);
-        border-radius: 2px;
       }
     }
     
@@ -173,10 +183,8 @@
     }
     
     > .jk-split-first-pane > .closable-tab, > .jk-split-second-pane > .closable-tab {
-      position: absolute;
       height: 100%;
       top: 0;
-      pointer-events: none;
       
       &.top, &.bottom {
         top: var(--pad-m);
@@ -186,10 +194,6 @@
       .label {
         writing-mode: vertical-lr;
         text-orientation: sideways;
-      }
-      
-      > .notch {
-        pointer-events: auto;
       }
     }
     
@@ -220,22 +224,17 @@
         //left: calc(var(--line-size) / 2 * -1);
       }
       
-      &:hover {
-        &::after {
-          --line-notch-size: 8px;
-        }
+      &:hover::after {
+        height: 100%;
+        top: 0;
       }
       
       &::after {
-        //z-index: 1;
-        content: " ";
-        position: absolute;
         top: calc(50% - 32px);
         left: calc(var(--line-notch-size) / 2 * -1);
         width: var(--line-notch-size);
         height: 64px;
-        background: linear-gradient(to right, var(--t-color-gray-4) 20%, var(--t-color-white) 20% 40%, var(--t-color-gray-4) 40% 60%, var(--t-color-white) 60% 80%, var(--t-color-gray-4) 80%);
-        border-radius: 2px;
+        background: linear-gradient(to right, var(--t-color-gray-4) 0% 20%, var(--t-color-white) 20% 40%, var(--t-color-gray-4) 40% 60%, var(--t-color-white) 60% 80%, var(--t-color-gray-4) 80% 100%);
       }
     }
     

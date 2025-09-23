@@ -93,11 +93,7 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
           className={classNames('two-content-layout-body', { 'pn-re': !!loading })}
           style={{ height: tabsOnBody ? 'calc(100% - 40px)' : '100%', position: 'relative' }}
         >
-          <TabsInlineBody
-            tabs={tabs}
-            selectedTabKey={selectedTabKey}
-            preload
-          />
+          <TabsInlineBody tabs={tabs} selectedTabKey={selectedTabKey} />
         </div>
       </>
     </TwoContentSection>
@@ -230,7 +226,6 @@ export const TwoContentLayout1 = <T = string, >(props: TwoContentLayoutProps<T>)
           <TabsInlineBody
             tabs={tabs}
             selectedTabKey={loading ? LOADING_TAB : tab}
-            preload
           />
         </div>
       </>

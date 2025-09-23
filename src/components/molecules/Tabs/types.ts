@@ -35,5 +35,4 @@ export interface TabsInlineProps<T = string> {
 export interface TabsInlineBodyProps<T = string> {
   tabs: TabsType<T>,
   selectedTabKey?: T,
-  preload?: boolean,
 }
