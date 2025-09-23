@@ -1,4 +1,4 @@
-import { CODE_LANGUAGE, ProfileSetting } from '@juki-team/commons';
+import { CODE_LANGUAGE } from '@juki-team/commons';
 import hljs from 'highlight.js';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
@@ -10,7 +10,6 @@ import markdown from 'highlight.js/lib/languages/markdown';
 import python from 'highlight.js/lib/languages/python';
 import React, { CSSProperties, useEffect, useRef } from 'react';
 import { classNames } from '../../../helpers';
-import { useUserStore } from '../../../stores/user/useUserStore';
 import { CopyToClipboard } from '../../atoms';
 import { CodeViewerProps } from './types'; // o el tema que prefieras
 
@@ -33,13 +32,9 @@ export const CodeViewer = (props: CodeViewerProps) => {
     style,
     maxHeight,
     className,
-    fontSize,
   } = props;
   
   const codeRef = useRef<HTMLElement>(null);
-  const userPreferredFontSize = useUserStore(state => state.user.settings?.[ProfileSetting.FONT_SIZE]);
-  
-  const userFontSize = fontSize || userPreferredFontSize;
   
   useEffect(() => {
     if (codeRef.current) {
@@ -59,14 +54,10 @@ export const CodeViewer = (props: CodeViewerProps) => {
     lines.pop();
   }
   
-  const fontSizeCSS = typeof userFontSize === 'string' ? userFontSize : (userFontSize + 'px');
   return (
     <div
       className={classNames('jk-code-viewer jk-br-ie br-g6', className, { 'line-numbers': lineNumbers })}
-      style={{
-        ...style,
-        '--font-size': fontSizeCSS,
-      } as CSSProperties}
+      style={style}
     >
       <div className="jk-code-viewer-content jk-row nowrap top jk-br-ie" style={{ maxHeight }}>
         {lineNumbers && (
@@ -82,7 +73,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
             ref={codeRef}
             key={language}
             className={`ta-lt language-${CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext'}`}
-            style={{ minHeight: `calc(${lines.length} * (${fontSizeCSS} * 1.5))` }}
+            style={{ minHeight: `calc(${lines.length} * (var(--text-medium-size) * 1.5))` }}
           >
             {code}
           </code>
