@@ -11,7 +11,7 @@ export interface CodeViewerProps {
   style?: CSSProperties,
   maxHeight?: string | number,
   className?: string,
-  fontSize?: number,
+  fontSize?: string | number,
 }
 
 export type CodeViewerDeprecatedProps = CodeViewerProps;

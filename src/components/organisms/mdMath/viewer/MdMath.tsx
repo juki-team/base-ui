@@ -275,7 +275,7 @@ export const MdMath = memo(({
               language={language}
               lineNumbers={commands.lineNumbers}
               height={Number.isNaN(+(commands.height || '_')) ? commands.height : commands.height + 'px'}
-              fontSize={slideView ? 12 : undefined}
+              fontSize={slideView ? '--base-text-size' : undefined}
             />
           );
         }

@@ -59,10 +59,14 @@ export const CodeViewer = (props: CodeViewerProps) => {
     lines.pop();
   }
   
+  const fontSizeCSS = typeof userFontSize === 'string' ? userFontSize : (userFontSize + 'px');
   return (
     <div
       className={classNames('jk-code-viewer jk-br-ie br-g6', className, { 'line-numbers': lineNumbers })}
-      style={{ ...style, '--font-size': userFontSize + 'px' } as CSSProperties}
+      style={{
+        ...style,
+        '--font-size': fontSizeCSS,
+      } as CSSProperties}
     >
       <div className="jk-code-viewer-content jk-row nowrap top jk-br-ie" style={{ maxHeight }}>
         {lineNumbers && (
@@ -78,7 +82,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
             ref={codeRef}
             key={language}
             className={`ta-lt language-${CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext'}`}
-            style={{ minHeight: lines.length * (userFontSize * 1.5) }}
+            style={{ minHeight: `calc(${lines.length} * (${fontSizeCSS} * 1.5))` }}
           >
             {code}
           </code>
