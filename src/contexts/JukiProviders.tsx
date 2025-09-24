@@ -1,5 +1,4 @@
 import { PropsWithChildren } from 'react';
-import { AliveScope } from 'react-activation';
 import { JukiI18nProvider } from './JukiI18nProvider';
 import { JukiLastPathProvider } from './JukiLastPathProvider';
 import { JukiPageProvider } from './JukiPageProvider';
@@ -20,35 +19,33 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
   } = props;
   
   return (
-    <AliveScope>
-      <JukiPageProvider>
-        <JukiI18nProvider>
-          <JukiUserProvider>
-            <JukiRouterProvider
-              searchParams={router.searchParams}
-              appendSearchParams={router.appendSearchParams}
-              setSearchParams={router.setSearchParams}
-              deleteSearchParams={router.deleteSearchParams}
-              routeParams={router.routeParams}
-              pushRoute={router.pushRoute}
-              replaceRoute={router.replaceRoute}
-              reloadRoute={router.reloadRoute}
-              isLoadingRoute={router.isLoadingRoute}
-              pathname={router.pathname}
-            >
-              <JukiWebsocketProvider>
-                <JukiUIProvider components={components}>
-                  <JukiLastPathProvider initialLastPath={initialLastPath}>
-                    <JukiTasksProvider>
-                      {children}
-                    </JukiTasksProvider>
-                  </JukiLastPathProvider>
-                </JukiUIProvider>
-              </JukiWebsocketProvider>
-            </JukiRouterProvider>
-          </JukiUserProvider>
-        </JukiI18nProvider>
-      </JukiPageProvider>
-    </AliveScope>
+    <JukiPageProvider>
+      <JukiI18nProvider>
+        <JukiUserProvider>
+          <JukiRouterProvider
+            searchParams={router.searchParams}
+            appendSearchParams={router.appendSearchParams}
+            setSearchParams={router.setSearchParams}
+            deleteSearchParams={router.deleteSearchParams}
+            routeParams={router.routeParams}
+            pushRoute={router.pushRoute}
+            replaceRoute={router.replaceRoute}
+            reloadRoute={router.reloadRoute}
+            isLoadingRoute={router.isLoadingRoute}
+            pathname={router.pathname}
+          >
+            <JukiWebsocketProvider>
+              <JukiUIProvider components={components}>
+                <JukiLastPathProvider initialLastPath={initialLastPath}>
+                  <JukiTasksProvider>
+                    {children}
+                  </JukiTasksProvider>
+                </JukiLastPathProvider>
+              </JukiUIProvider>
+            </JukiWebsocketProvider>
+          </JukiRouterProvider>
+        </JukiUserProvider>
+      </JukiI18nProvider>
+    </JukiPageProvider>
   );
 };
