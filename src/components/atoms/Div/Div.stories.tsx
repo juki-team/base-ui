@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
+// import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { MockupJukiProvider } from '../../mockup';
 import { Div } from './Div';
 
@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj<typeof Div>;
 
 export const Regular: Story = {
-  play: waitForLoadingToDisappear,
+  // play: waitForLoadingToDisappear,
   render: (args) => (
     <MockupJukiProvider>
       <Div {...args}>click me!</Div>

@@ -179,7 +179,6 @@ export const WorksheetViewerAsSlides: Story = {
                 colorTextHighlight="#A6F750"
                 theme={Theme.DARK}
                 aspectRatio={data.content.slides.aspectRatio}
-                fragmented
               >
                 <WorksheetAsSlides
                   {...args}

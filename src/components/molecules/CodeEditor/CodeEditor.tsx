@@ -10,11 +10,11 @@ import { search } from '@codemirror/search';
 import type { EditorView } from '@codemirror/view';
 // import { oneDark } from '@codemirror/theme-one-dark';
 import { CodeLanguage, Theme } from '@juki-team/commons';
-// import { basicSetup } from '@uiw/codemirror-extensions-basic-setup';
-import CodeMirror from '@uiw/react-codemirror';
 import { memo, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
+// import { basicSetup } from '@uiw/codemirror-extensions-basic-setup';
+import ReactCodeMirror from './codemirror/ReactCodeMirror';
 import { CodeEditorProps } from './types';
 
 const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
@@ -85,7 +85,7 @@ const CodeEditorCmp = <T, >(props: CodeEditorProps<T>) => {
   
   return (
     <div style={{ fontSize: `${fontSize}px`, width: '100%', height: '100%' }} ref={ref}>
-      <CodeMirror
+      <ReactCodeMirror
         readOnly={readOnly}
         value={source}
         height={height + 'px'}

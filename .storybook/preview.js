@@ -1,16 +1,15 @@
 // import '../src/styles/base/_index.scss';
-import { allModes } from "../.storybook/modes";
 
-if (typeof global.process === 'undefined') {
-  // Estamos en el navegador (probablemente producción)
-  console.info('[MSW] MSW no se inicializa en producción');
-} else {
-  const { initialize } = require('msw-storybook-addon');
-  initialize({
-    onUnhandledRequest: 'bypass',
-  });
-  // export const decorators = [mswDecorator];
-}
+// if (typeof global.process === 'undefined') {
+//   // Estamos en el navegador (probablemente producción)
+//   console.info('[MSW] MSW no se inicializa en producción');
+// } else {
+//   const { initialize } = require('msw-storybook-addon');
+//   initialize({
+//     onUnhandledRequest: 'bypass',
+//   });
+//   // export const decorators = [mswDecorator];
+// }
 
 const customViewports = {
   small: {
@@ -122,14 +121,14 @@ export const parameters = {
   viewport: {
     viewports: customViewports,
   },
-  chromatic: {
-    modes: {
-      mobile: allModes["mobile"],
-      tablet: allModes["tablet"],
-      desktop: allModes["desktop"],
-      bigscreen: allModes["bigscreen"],
-    },
-  },
+  // chromatic: {
+  //   modes: {
+  //     mobile: allModes["mobile"],
+  //     tablet: allModes["tablet"],
+  //     desktop: allModes["desktop"],
+  //     bigscreen: allModes["bigscreen"],
+  //   },
+  // },
 };
 
 export const tags = [ 'autodocs' ];

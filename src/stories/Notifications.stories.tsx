@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Button } from '../components';
 import { MockupJukiProvider } from '../components/mockup';
 import { NotificationProvider } from '../contexts/NotificationProvider/NotificationProvider';

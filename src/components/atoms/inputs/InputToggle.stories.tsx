@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
+// import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { MockupJukiProvider } from '../../mockup';
 import { InputToggle } from './InputToggle';
 import { InputToggleProps } from './types';
@@ -20,7 +20,7 @@ export default meta;
 type Story = StoryObj<typeof InputToggle>;
 
 export const Regular: Story = {
-  play: waitForLoadingToDisappear,
+  // play: waitForLoadingToDisappear,
   render: ({ leftLabel = 'left label', rightLabel = 'right label', ...args }) => (
     <MockupJukiProvider>
       <InputToggle leftLabel={leftLabel} rightLabel={rightLabel} {...args} />

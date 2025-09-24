@@ -13,7 +13,6 @@ import { trailing, trailingConfig } from '@milkdown/kit/plugin/trailing';
 import { upload, uploadConfig, Uploader } from '@milkdown/kit/plugin/upload';
 import type { Node } from '@milkdown/kit/prose/model';
 import { Milkdown, useEditor } from '@milkdown/react';
-import { basicSetup } from '@uiw/react-codemirror';
 import * as Viz from '@viz-js/viz';
 import { TFunction } from 'i18next';
 import katex from 'katex';
@@ -25,6 +24,8 @@ import { handleUploadImage } from '../../../../helpers';
 import { useI18nStore, useJukiNotification, useStableRef, useUserStore } from '../../../../hooks';
 import { NewNotificationType, NotificationType } from '../../../../types';
 import { T } from '../../../atoms';
+// import { basicSetup } from '@uiw/react-codemirror';
+import { basicSetup } from '../../../molecules/CodeEditor/codemirror/extensions/basic-setup';
 
 // import '@milkdown/crepe/theme/common/style.css';
 // import '@milkdown/crepe/theme/frame.css';

@@ -11,7 +11,7 @@ export default meta;
 type Story = StoryObj<typeof ThemeColorPalette>;
 
 export const Regular: Story = {
-  render: (args) => (
+  render: (_) => (
     <MockupJukiProvider>
       <div className="jk-col gap">
         <ThemeColorPalette />

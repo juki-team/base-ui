@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
+// import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { MockupJukiProvider } from '../../mockup';
 
 import { InputCheckbox } from './InputCheckbox';
@@ -13,7 +13,7 @@ export default meta;
 type Story = StoryObj<typeof InputCheckbox>;
 
 export const Regular: Story = {
-  play: waitForLoadingToDisappear,
+  // play: waitForLoadingToDisappear,
   render: ({ label = 'checkbox label', ...args }) => (
     <MockupJukiProvider>
       <InputCheckbox label={label} onChange={() => null} {...args} />

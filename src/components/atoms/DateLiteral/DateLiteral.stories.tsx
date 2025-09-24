@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
+// import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { DateDisplayType } from '../../../types';
 import { MockupJukiProvider } from '../../mockup';
 
@@ -19,7 +19,7 @@ export default meta;
 type Story = StoryObj<typeof DateLiteral>;
 
 export const Regular: Story = {
-  play: waitForLoadingToDisappear,
+  // play: waitForLoadingToDisappear,
   render: (args) => (
     <MockupJukiProvider>
       <div className="jk-col">

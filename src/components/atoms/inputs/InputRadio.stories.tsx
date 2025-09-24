@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
+// import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { MockupJukiProvider } from '../../mockup';
 import { InputRadio } from './InputRadio';
 
@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj<typeof InputRadio>;
 
 export const Regular: Story = {
-  play: waitForLoadingToDisappear,
+  // play: waitForLoadingToDisappear,
   render: ({ label = 'radio label', ...args }) => (
     <MockupJukiProvider>
       <InputRadio label={label} {...args} />

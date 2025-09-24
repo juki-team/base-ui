@@ -1,4 +1,4 @@
-import { HotTable, HotTableProps } from '@handsontable/react';
+import { HotTable, HotTableProps } from '@handsontable/react-wrapper';
 import { registerAllModules } from 'handsontable/registry';
 import { registerRenderer, textRenderer } from 'handsontable/renderers';
 import { memo } from 'react';

@@ -26,8 +26,8 @@ export const UsersSelector = () => {
   );
 };
 
-UsersSelector.parameters = {
-  msw: {
-    handlers: [],
-  },
-};
+// UsersSelector.parameters = {
+//   msw: {
+//     handlers: [],
+//   },
+// };

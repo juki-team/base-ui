@@ -33,5 +33,5 @@ export default meta;
 type Story = StoryObj<typeof NewVersionAvailableModalCmp>;
 
 export const Regular: Story = {
-  render: (args) => <NewVersionAvailableModal />,
+  render: (_) => <NewVersionAvailableModal />,
 };

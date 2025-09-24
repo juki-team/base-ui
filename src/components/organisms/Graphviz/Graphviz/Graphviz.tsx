@@ -11,6 +11,8 @@ const defaultOptions: GraphvizOptions = {
   useWorker: false as any,
 };
 
+// TODO: remove d3-graphviz
+
 // export const Graphviz = ({ dot, className, options = {} }: IGraphvizProps) => {
 export const Graphviz = forwardRef<HTMLDivElement, IGraphvizProps>(({ dot, className, options = {} }, ref) => {
   const containerRef = useRef<HTMLDivElement>(null);

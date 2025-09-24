@@ -17,7 +17,7 @@ const content = (
   <div className="jk-pg-sm elevation-1">
     <h3>title</h3>
     <div>Lorem ipsum</div>
-    {test.map((_, i) => (
+    {test.map(() => (
       <div>{1}</div>
     ))}
   </div>

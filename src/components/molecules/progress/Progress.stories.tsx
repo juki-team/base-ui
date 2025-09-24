@@ -12,7 +12,7 @@ export default meta;
 type Story = StoryObj<typeof MultiProgressBar>;
 
 export const Regular: Story = {
-  render: (args) => (
+  render: (_) => (
     <MockupJukiProvider>
       <div style={{ padding: '100px 50px' }}>
         <MultiProgressBar

@@ -26,7 +26,7 @@ export default meta;
 type Story = StoryObj<typeof FlagEnImage>;
 
 export const Regular: Story = {
-  render: (args) => {
+  render: (_) => {
     const images = {
       FlagEnImage,
       FlagEsImage,

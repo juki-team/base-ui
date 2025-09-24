@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
+// import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { MockupJukiProvider } from '../../mockup';
 import { LockIcon } from '../server';
 import { T } from '../T/T';
@@ -24,9 +24,9 @@ export default meta;
 type Story = StoryObj<typeof Button>;
 
 export const Regular: Story = {
-  play: async (ctx) => {
-    await waitForLoadingToDisappear(ctx);
-  },
+  // play: async (ctx) => {
+  //   await waitForLoadingToDisappear(ctx);
+  // },
   render: (args) => (
     <MockupJukiProvider>
       <div className="jk-col gap jk-pg">

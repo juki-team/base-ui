@@ -1,5 +1,6 @@
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import path from 'path';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
 // module.exports = {
 //   stories: [ '../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)' ],
@@ -27,19 +28,41 @@ import path from 'path';
 // };
 
 const config: StorybookConfig = {
-  stories: [ '../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)' ],
+  stories: [ '../src/**/*.stories.tsx' ],
   
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-themes',
-    '@chromatic-com/storybook',
+    // '@chromatic-com/storybook',
     '@storybook/addon-docs',
   ],
+  core: {
+    builder: {
+      name: '@storybook/builder-webpack5',
+      options: {
+        fsCache: true,
+        lazyCompilation: true,
+      },
+    },
+  },
   
   framework: {
     name: '@storybook/react-webpack5',
-    options: {},
+    options: {
+      builder: {
+        useSWC: true,
+      },
+    },
   },
+  swc: () => ({
+    jsc: {
+      transform: {
+        react: {
+          runtime: 'automatic',
+        },
+      },
+    },
+  }),
   
   staticDirs: [ '../public' ],
   
@@ -52,12 +75,34 @@ const config: StorybookConfig = {
   webpackFinal: async (config) => {
     config.module = config.module || {};
     config.module.rules = config.module.rules || [];
+    // config.module.rules.push({
+    //   test: /\.(ts|tsx)$/,
+    //   exclude: /node_modules/,
+    //   use: [
+    //     {
+    //       loader: require.resolve('babel-loader'),
+    //     },
+    //   ],
+    // });
     config.module.rules.push({
       test: /\.(ts|tsx)$/,
       exclude: /node_modules/,
       use: [
         {
-          loader: require.resolve('babel-loader'),
+          loader: require.resolve('swc-loader'),
+          options: {
+            jsc: {
+              parser: {
+                syntax: 'typescript',
+                tsx: true,
+              },
+              transform: {
+                react: {
+                  runtime: 'automatic',
+                },
+              },
+            },
+          },
         },
       ],
     });
@@ -78,9 +123,12 @@ const config: StorybookConfig = {
     });
     
     config.resolve = config.resolve || {};
-    config.resolve.extensions = config.resolve.extensions || [];
-    config.resolve.extensions.push('.ts', '.tsx');
-    
+    // config.resolve.extensions = config.resolve.extensions || [];
+    // config.resolve.extensions.push('.ts', '.tsx');
+    config.resolve.plugins = [
+      ...(config.resolve.plugins || []),
+      new TsconfigPathsPlugin(),
+    ];
     config.resolve.alias = config.resolve.alias || {};
     (config.resolve.alias as Record<string, string>)['@juki-team/base-ui/assets'] = path.resolve(__dirname, '../dist/assets'),
       
