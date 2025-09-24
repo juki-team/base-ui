@@ -23,7 +23,7 @@ import {
   SpinIcon,
   ViewModuleIcon,
 } from '../../../server';
-import { SetLoaderStatusOnClickType } from '../../../types';
+import { SetLoaderStatusOnClickType } from '../../../types/commons';
 import { FilterDrawer } from '../FilterDrawer';
 import { DataViewerToolbarProps } from '../types';
 import { Pagination } from './Pagination';

@@ -8,7 +8,7 @@ import { useUserStore } from '../../../stores/user/useUserStore';
 import { InputPassword, Modal, T } from '../../atoms';
 import { useJukiUI, useJukiUser } from '../../hooks';
 import { ButtonLoader } from '../../molecules';
-import { SetLoaderStatusOnClickType } from '../../types';
+import { SetLoaderStatusOnClickType } from '../../types/commons';
 import type { ChangePasswordModalProps, ProfileChangePasswordInput } from './types';
 
 const profileSettingsChangePasswordSchema = yup.object().shape({

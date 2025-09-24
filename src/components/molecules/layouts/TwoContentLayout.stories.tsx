@@ -6,7 +6,7 @@ import { MockupJukiProvider } from '../../mockup';
 import { MockJkContestTable } from '../../organisms/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../organisms/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkUserTable } from '../../organisms/DataViewer/JkUserTableTest/MockJkUserTable';
-import { TabsType } from '../../types';
+import { TabsType } from '../../types/commons';
 import { TwoContentLayout as TwoContentLayoutComponent } from './TwoContentLayout';
 import { TwoContentLayoutProps } from './types';
 

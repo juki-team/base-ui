@@ -1,6 +1,6 @@
 import type { BodyWorksheetType } from '@juki-team/commons';
 
-import { UserResultsType } from '../../../types';
+import { UserResultsType } from '../../../types/commons';
 import type { SetContentType, SetSheetType } from '../types';
 
 export interface SheetSection<T extends BodyWorksheetType> {

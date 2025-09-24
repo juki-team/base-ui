@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { MockJkContestTable } from '../../../organisms/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../../organisms/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkUserTable } from '../../../organisms/DataViewer/JkUserTableTest/MockJkUserTable';
-import { TabsType } from '../../../types';
+import { TabsType } from '../../../types/commons';
 import { TabsInline } from '../../index';
 import { TabsInlineBody } from '../TabsInlineBody';
 

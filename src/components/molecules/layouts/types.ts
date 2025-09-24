@@ -1,5 +1,5 @@
 import type { CSSProperties, PropsWithChildren, ReactNode } from 'react';
-import { ReactNodeOrFunctionP1Type, TabsType } from '../../types';
+import { ReactNodeOrFunctionP1Type, TabsType } from '../../types/commons';
 import { Href } from '../../types/router';
 
 type Full<T> = {

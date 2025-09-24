@@ -5,7 +5,7 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { Select } from '../../atoms';
 import { useHandleState, useJukiUI, useMemoizedArray, useWidthResizer } from '../../hooks';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
-import { NotUndefined, TabType } from '../../types';
+import { NotUndefined, TabType } from '../../types/commons';
 import type { TabsInlineProps } from './types';
 
 export const TabsInline = <T, >(props: TabsInlineProps<T>) => {

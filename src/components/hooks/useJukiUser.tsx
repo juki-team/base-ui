@@ -24,7 +24,7 @@ import {
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
-} from '../types';
+} from '../types/commons';
 import { useJukiNotification } from './useJukiNotification';
 
 type ApiType<T> = {

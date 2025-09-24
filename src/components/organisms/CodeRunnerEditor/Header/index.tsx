@@ -16,7 +16,7 @@ import { Button, T } from '../../../atoms';
 import { useJukiNotification } from '../../../hooks';
 import { ButtonLoader } from '../../../molecules';
 import { ErrorIcon, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, SettingsIcon } from '../../../server';
-import { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../types';
+import { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../types/commons';
 import type { HeaderProps } from '../types';
 
 export const Header = <T, >(props: HeaderProps<T>) => {

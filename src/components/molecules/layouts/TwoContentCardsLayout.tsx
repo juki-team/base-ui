@@ -5,7 +5,7 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useHandleState, useJukiUI } from '../../hooks';
 
-import { NotUndefined } from '../../types';
+import { NotUndefined } from '../../types/commons';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
 import { TabsInline } from '../Tabs/TabsInline';
 import { TabsInlineBody } from '../Tabs/TabsInlineBody';

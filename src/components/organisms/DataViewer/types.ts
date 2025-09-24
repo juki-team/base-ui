@@ -12,7 +12,7 @@ import {
   RequestFilterType,
   SetLoaderStatusType,
   ViewPortSizeType,
-} from '../../types';
+} from '../../types/commons';
 
 import {
   FILTER_DATE,

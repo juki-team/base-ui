@@ -21,7 +21,7 @@ import { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } fr
 import { Duration } from '../../../enums';
 import { isTrigger, renderReactNodeOrFunctionP1 } from '../../../helpers';
 
-import { TriggerOnActionsType } from '../../types';
+import { TriggerOnActionsType } from '../../types/commons';
 import { PopoverProps } from './types';
 
 interface PopoverOptions {

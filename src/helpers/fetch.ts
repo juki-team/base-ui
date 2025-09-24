@@ -8,7 +8,7 @@ import {
   JUKI_METADATA,
   JUKI_SESSION_ID,
 } from '@juki-team/commons';
-import { AuthorizedRequestType } from '../components/types';
+import { AuthorizedRequestType } from '../components/types/commons';
 import { jukiApiManager } from '../settings';
 
 export const authorizedRequest = async <M extends Exclude<HTTPMethod, HTTPMethod.GET> = HTTPMethod.POST, N extends Blob | string = string>(url: string, options?: AuthorizedRequestType<M>, safe?: boolean): Promise<N> => {

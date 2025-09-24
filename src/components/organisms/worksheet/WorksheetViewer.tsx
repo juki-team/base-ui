@@ -11,7 +11,7 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
 import { useFetcher, useJukiUI, useStableState } from '../../hooks';
-import { UserResultsType } from '../../types';
+import { UserResultsType } from '../../types/commons';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { TableOfContents } from './sheets/TableOfContents';
 import { WorksheetBodies } from './sheets/WorksheetBodies';

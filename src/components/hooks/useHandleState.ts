@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { NotUndefined } from '../types';
+import { NotUndefined } from '../types/commons';
 
 export type Func<T> = ((prevState: NotUndefined<T>) => NotUndefined<T>);
 

@@ -7,7 +7,7 @@ import { NotificationContext } from '../organisms/Notifications/context';
 import type { NewNotificationType } from '../organisms/Notifications/types';
 import { NotificationAction } from '../organisms/Notifications/types';
 
-import { SetStatusType } from '../types';
+import { SetStatusType } from '../types/commons';
 
 // export const notifyError = (response: ErrorResponseType, addErrorNotification: (message: ReactNode) => void) => {
 //   addErrorNotification(

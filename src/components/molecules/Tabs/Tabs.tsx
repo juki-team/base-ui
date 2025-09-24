@@ -6,7 +6,7 @@ import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { Popover, Select } from '../../atoms';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
 import { ViewHeadlineIcon } from '../../server';
-import { NotUndefined } from '../../types';
+import { NotUndefined } from '../../types/commons';
 import type { TabsProps } from './types';
 
 const hiddenStyle: CSSProperties = {

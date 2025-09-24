@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { useJukiUser } from '../../../hooks';
 
-import { SetLoaderStatusOnClickType } from '../../../types';
+import { SetLoaderStatusOnClickType } from '../../../types/commons';
 import { LoginModalTemplate } from './LoginModalTemplate';
 import { LoginFormType } from './LoginModalTemplate/types';
 import { LoginModalProps } from './types';

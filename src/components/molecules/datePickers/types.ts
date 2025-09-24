@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { DateDisplayType } from '../../types';
+import { DateDisplayType } from '../../types/commons';
 
 export interface YearPickerProps {
   date: Date,

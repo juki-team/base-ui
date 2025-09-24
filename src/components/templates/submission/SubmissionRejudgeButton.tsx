@@ -5,7 +5,7 @@ import { T } from '../../atoms';
 import { RefreshIcon } from '../../atoms/server';
 import { useJukiNotification, useMutate } from '../../hooks';
 import { ButtonLoader } from '../../molecules';
-import { ButtonLoaderOnClickType } from '../../types';
+import { ButtonLoaderOnClickType } from '../../types/commons';
 import type { SubmissionRejudgeButtonProps } from './types';
 
 export const SubmissionRejudgeButton = ({ submissionId }: SubmissionRejudgeButtonProps) => {

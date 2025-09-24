@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { isTrigger } from '../../helpers';
-import { BoundingClientRectType, TriggerOffActionsType, TriggerOnActionsType } from '../types';
+import { BoundingClientRectType, TriggerOffActionsType, TriggerOnActionsType } from '../types/commons';
 import { useKeyPress } from './custom';
 import { useOutsideAlerterAnd } from './useOutsideAlerter';
 

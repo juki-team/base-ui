@@ -1,6 +1,6 @@
 import { Status } from '@juki-team/commons';
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
-import { LoaderStatusOnClickType, SetLoaderStatusOnClickType } from '../../types';
+import { LoaderStatusOnClickType, SetLoaderStatusOnClickType } from '../../types/commons';
 
 export const useSetLoaderStatus = (loader: Status, setLoader: Dispatch<SetStateAction<Status>>, setLoaderStatusRef?: (setLoader: SetLoaderStatusOnClickType) => void, onLoaderStatusChange?: (status: LoaderStatusOnClickType) => void) => {
   const _refLoader = useRef(loader);

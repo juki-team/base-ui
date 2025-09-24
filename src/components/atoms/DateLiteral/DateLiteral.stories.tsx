@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 // import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { MockupJukiProvider } from '../../mockup';
-import { DateDisplayType } from '../../types';
+import { DateDisplayType } from '../../types/commons';
 
 import { DateLiteral } from './DateLiteral';
 

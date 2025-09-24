@@ -1,7 +1,7 @@
 import type { BodyWorksheetType, WorksheetDataResponseDTO, WorksheetsInPages } from '@juki-team/commons';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 
-import { UserResultsType } from '../../types';
+import { UserResultsType } from '../../types/commons';
 import { SetSearchParamsType } from '../../types/router';
 
 export type OnPageChange = (newPage: number, newSubPage: number, entries: Parameters<SetSearchParamsType>[0]) => void;
