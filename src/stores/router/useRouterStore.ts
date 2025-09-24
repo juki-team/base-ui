@@ -6,7 +6,7 @@ import {
   Href,
   RouterFn,
   SetSearchParamsType,
-} from '../../contexts/JukiRouterProvider/types';
+} from '../../components/types/router';
 
 interface RouterState {
   searchParams: URLSearchParams,

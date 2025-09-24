@@ -1,9 +1,9 @@
 import { Theme } from '@juki-team/commons';
 import type { Element } from 'hast';
 import type { CSSProperties, ReactNode } from 'react';
-import type { SetSearchParamsType } from '../../../../contexts/JukiRouterProvider/types';
 import { QueryParamKey } from '../../../../enums';
 import { classNames } from '../../../../helpers';
+import { SetSearchParamsType } from '../../../types/router';
 import type { CommandsFunctionsType, CommandsObjectType } from './types';
 
 const keys: CommandsFunctionsType = {

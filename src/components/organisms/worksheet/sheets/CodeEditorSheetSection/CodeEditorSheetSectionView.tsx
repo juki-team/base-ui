@@ -16,12 +16,11 @@ import { QueryParamKey } from '../../../../../enums';
 import { authorizedRequest, classNames, getHeight } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../settings';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
-import type { UserResultsType } from '../../../../../types';
 import { T } from '../../../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, SpinIcon } from '../../../../atoms/server';
 import { useJukiNotification } from '../../../../hooks';
 import { ButtonLoader } from '../../../../molecules';
-import { SetLoaderStatusOnClickType } from '../../../../types';
+import { SetLoaderStatusOnClickType, UserResultsType } from '../../../../types';
 import { UserCodeEditor } from '../../../UserCodeEditor/UserCodeEditor';
 
 interface RunnerSheetSectionProps {

@@ -1,4 +1,4 @@
-import { Status } from '@juki-team/commons';
+import { HTTPMethod, Status, UserHandlesType, WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons';
 import type {
   CSSProperties,
   Dispatch,
@@ -10,7 +10,9 @@ import type {
   SetStateAction,
 } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
-import type { RequestFilterType, RequestSortType } from '../../types';
+import { KeyedMutator } from 'swr';
+import { CLICK, ESCAPE, HOVER, NONE } from '../../constants';
+import { Sound } from '../../enums';
 
 export type ReactNodeOrFunctionP1Type<T, U = ReactNode> = U | ((prop1: T) => U);
 
@@ -29,6 +31,10 @@ export type TabType<T = string> = {
 export type TabsType<T = string> = { [key: string]: TabType<T> };
 
 export type LoaderStatusActionType = Dispatch<SetStateAction<Status>>;
+
+export type RequestSortType = { [key: string]: 1 | -1 };
+
+export type RequestFilterType = { [key: string]: string };
 
 export type DataViewerRequestPropsType = {
   sort: RequestSortType,
@@ -98,3 +104,133 @@ export interface InputCommonsProps<T> {
   max?: number,
   children?: ReactNode,
 }
+
+export type ReactNodeOrFunctionType = ReactNode | (() => ReactNode);
+
+export type TriggerActionsType = typeof HOVER | typeof CLICK | typeof ESCAPE | typeof NONE;
+
+export type TriggerOnActionsType = typeof HOVER | typeof CLICK | typeof NONE;
+
+export type TriggerOffActionsType = typeof HOVER | typeof CLICK | typeof ESCAPE | typeof NONE;
+
+export type BoundingClientRectType = {
+  bottom: number,
+  height: number,
+  left: number,
+  right: number,
+  top: number,
+  width: number,
+  x: number,
+  y: number
+};
+
+export type NotUndefined<T> = T extends undefined ? never : T;
+
+export type SetStatusType = (status: Status) => void;
+
+export type ViewPortSizeType = 'hg' | 'lg' | 'md' | 'sm' | '';
+
+export type Sounds = { [key in Sound]: HTMLAudioElement };
+
+export type DataViewerRequesterGetUrlType = (props: Omit<DataViewerRequestPropsType, 'setLoaderStatus'>) => string | null;
+
+export type DateDisplayType =
+  'year'
+  | 'year-month'
+  | 'year-month-day'
+  | 'year-month-day-hours'
+  | 'year-month-day-hours-minutes'
+  | 'year-month-day-hours-minutes-seconds'
+  | 'year-month-day-hours-minutes-seconds-milliseconds'
+  | 'hours'
+  | 'hours-minutes'
+  | 'hours-minutes-seconds'
+  | 'hours-minutes-seconds-milliseconds';
+
+export type TimeDisplayType =
+  'weeks'
+  | 'weeks-days'
+  | 'weeks-days-hours'
+  | 'weeks-days-hours-minutes'
+  | 'weeks-days-hours-minutes-seconds'
+  | 'weeks-days-hours-minutes-seconds-milliseconds'
+  | 'days'
+  | 'days-hours'
+  | 'days-hours-minutes'
+  | 'days-hours-minutes-seconds'
+  | 'days-hours-minutes-seconds-milliseconds'
+  | 'hours'
+  | 'hours-minutes'
+  | 'hours-minutes-seconds'
+  | 'hours-minutes-seconds-milliseconds'
+  | 'minutes'
+  | 'minutes-seconds'
+  | 'minutes-seconds-milliseconds'
+  | 'seconds'
+  | 'seconds-milliseconds'
+  | 'milliseconds';
+
+export type UserResultsType = {
+  data?: WorksheetUserSubmissionsResponseDTO,
+  isLoading?: boolean,
+  validating?: boolean,
+  mutate?: KeyedMutator<any>,
+}
+
+export interface UpsertComponentEntityProps<EntityUI, Tab> {
+  entity: EntityUI,
+  entityKey: string,
+  tabButtons: (props: { entityData: EntityUI, disableUpdateButton?: boolean }) => ReactNodeOrFunctionP1Type<{
+    selectedTabKey?: Tab
+  }>[],
+}
+
+export interface UpdatePasswordPayloadDTO {
+  newPassword: string,
+  oldPassword: string,
+}
+
+export interface SignInPayloadDTO {
+  nickname: string,
+  password: string,
+  deviceName: string,
+  osName: string,
+}
+
+export interface SignUpPayloadDTO {
+  givenName: string,
+  familyName: string,
+  nickname: string,
+  email: string,
+  password: string,
+}
+
+export interface UpdateUserProfileDataPayloadDTO {
+  nickname: string,
+  givenName: string,
+  familyName: string,
+  aboutMe: string,
+  country: string,
+  city: string,
+  institution: string,
+  handles: UserHandlesType,
+}
+
+interface NextFetchRequestConfig {
+  revalidate?: number | false,
+  tags?: string[],
+}
+
+export interface AuthorizedRequestType<Method extends HTTPMethod = HTTPMethod.GET, > extends RequestInit {
+  method: Method,
+  body?: string | BodyInit,
+  responseType?: 'text' | 'blob',
+  token?: string,
+  next?: NextFetchRequestConfig,
+}
+
+export type LoaderStatusType = Status;
+
+export type SetLoaderStatusType = (status: (Status | ((props: LoaderStatusType) => LoaderStatusType))) => void;
+
+export type ReloadType = () => void;

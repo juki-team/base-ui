@@ -1,8 +1,8 @@
-import { forwardRef, ReactElement, Ref } from 'react';
+import { type ComponentPropsWithRef, forwardRef, type ReactElement, type Ref } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../hooks';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
-import { ButtonCmpProps } from './types';
+import { useJukiUI } from '../../hooks';
+import type { ButtonBasicProps, OnClickButtonEventType } from '../../types';
 
 // const buttonsVariants = (isDisabled: boolean, hasChildren: boolean) => ({
 //   whileHover: isDisabled ? {} : { scale: hasChildren ? 1.2 : 1.10, transition: { duration: Duration.FAST } },
@@ -93,3 +93,10 @@ const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => 
 export const Button = forwardRef(ButtonComponent) as (p: ButtonCmpProps & {
   ref?: Ref<HTMLButtonElement>
 }) => ReactElement;
+
+interface ButtonCmpProps extends ButtonBasicProps {
+  withIconTransition?: boolean,
+  onClick?: (props: OnClickButtonEventType) => void,
+}
+
+export type ButtonProps = ComponentPropsWithRef<typeof Button>;

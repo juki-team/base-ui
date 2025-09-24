@@ -1,5 +1,5 @@
 import { createContext, RefObject } from 'react';
-import { ViewPortSizeType } from '../../types';
+import { ViewPortSizeType } from '../../components/types';
 import { Image } from './Image';
 import { Link } from './Link';
 import { UIComponentsContextInterface } from './types';

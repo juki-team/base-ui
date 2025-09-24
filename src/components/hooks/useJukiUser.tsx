@@ -12,11 +12,11 @@ import {
   UserSettingsType,
 } from '@juki-team/commons';
 import { useCallback, useState } from 'react';
-import { T } from '../atoms/T/T';
 import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../../helpers';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
+import { T } from '../atoms/T/T';
 import {
   AuthorizedRequestType,
   SetStatusType,
@@ -24,7 +24,7 @@ import {
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
-} from '../../types';
+} from '../types';
 import { useJukiNotification } from './useJukiNotification';
 
 type ApiType<T> = {

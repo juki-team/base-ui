@@ -29,7 +29,7 @@
       "require": "./dist/cjs/helpers.js"
     },
     "./enums": {
-      "enums": "./dist/module-types/src/enums/index.d.ts",
+      "types": "./dist/module-types/src/enums/index.d.ts",
       "import": "./dist/esm/enums.js",
       "require": "./dist/cjs/enums.js"
     },
@@ -110,6 +110,7 @@
     "libphonenumber-js": "^1.12.22",
     "mermaid": "^11.12.0",
     "microdiff": "^1.5.0",
+    "react-activation": "^0.13.4",
     "react-color": "^2.19.3",
     "react-device-detect": "^2.2.3",
     "react-hook-form": "^7.63.0",

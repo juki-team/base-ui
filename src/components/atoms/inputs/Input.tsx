@@ -1,7 +1,9 @@
-import { forwardRef, ReactElement, Ref, useEffect, useId } from 'react';
+import { type ComponentPropsWithRef, forwardRef, ReactElement, Ref, useEffect, useId } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import { classNames } from '../../../helpers';
-import { CmpInputProps, InputProps } from './types';
+import { InputCommonsProps } from '../../types';
+
+export type CmpInputProps<T> = InputCommonsProps<T>;
 
 const BasicInputComponent = <T extends string | number | FileList, >(_props: InputProps<T> & {
   inputId: string
@@ -179,3 +181,5 @@ const InputComponent = <T extends string | number | FileList, >(_props: CmpInput
 export const Input = forwardRef(InputComponent) as <T>(p: CmpInputProps<T> & {
   ref?: Ref<HTMLInputElement>
 }) => ReactElement;
+
+export type InputProps<T> = ComponentPropsWithRef<typeof Input<T>>;

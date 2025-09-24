@@ -2,8 +2,13 @@ import type { ContentResponseType, ContentsResponseType } from '@juki-team/commo
 import { Status } from '@juki-team/commons';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SWRConfiguration } from 'swr';
-import type { ReloadType, SetLoaderStatusType } from '../organisms/DataViewer/types';
-import type { DataViewerRequesterGetUrlType, RequestFilterType, RequestSortType } from '../../types';
+import {
+  DataViewerRequesterGetUrlType,
+  ReloadType,
+  RequestFilterType,
+  RequestSortType,
+  SetLoaderStatusType,
+} from '../types';
 import { useFetcher } from './useFetcher';
 
 export const useDataViewerRequester = <T extends ContentResponseType<any> | ContentsResponseType<any>, >(getUrl: DataViewerRequesterGetUrlType, options?: SWRConfiguration) => {

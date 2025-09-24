@@ -1,10 +1,11 @@
 import { MenuViewMode, ProfileSetting } from '@juki-team/commons';
 import { ReactNode, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState, useJukiUI } from '../../hooks';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import type { NotUndefined } from '../../../types';
+import { useHandleState, useJukiUI } from '../../hooks';
+
+import { NotUndefined } from '../../types';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
 import { TabsInline } from '../Tabs/TabsInline';
 import { TabsInlineBody } from '../Tabs/TabsInlineBody';

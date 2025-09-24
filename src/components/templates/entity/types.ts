@@ -1,5 +1,6 @@
 import { FC } from 'react';
-import { UpsertComponentEntityProps } from '../../../types';
+
+import { UpsertComponentEntityProps } from '../../types';
 
 export interface CreateEntityLayoutProps<EntityUI, EntityUpsert, Tab> {
   Cmp: FC<UpsertComponentEntityProps<EntityUI, Tab>>,

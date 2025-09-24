@@ -1,5 +1,5 @@
-import { Href } from '../../../types';
 import { ReactNodeOrFunctionP1Type, TabsType, TabType } from '../../types';
+import { Href } from '../../types/router';
 
 export interface TabsProps<T = string> {
   tabs: TabType<T>[],

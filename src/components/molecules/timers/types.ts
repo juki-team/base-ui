@@ -1,5 +1,5 @@
 import { Period } from '../../../enums';
-import { TimeDisplayType } from '../../../types';
+import { TimeDisplayType } from '../../types';
 
 export interface TimerLabeledProps {
   startDate: Date,

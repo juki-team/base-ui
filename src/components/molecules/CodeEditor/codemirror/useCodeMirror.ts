@@ -2,8 +2,8 @@ import { Annotation, EditorState, type Extension, StateEffect } from '@codemirro
 import { EditorView, type ViewUpdate } from '@codemirror/view';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { getDefaultExtensions } from './getDefaultExtensions';
-import { type ReactCodeMirrorProps } from './ReactCodeMirror';
 import { getScheduler, TimeoutLatch } from './timeoutLatch';
+import { ReactCodeMirrorProps } from './types';
 import { getStatistics } from './utils';
 
 export const ExternalChange = Annotation.define<boolean>();

@@ -1,12 +1,13 @@
 import type { ContentResponseType, ContentsResponseType, ErrorResponseType } from '@juki-team/commons';
 import { Status } from '@juki-team/commons';
 import { Children, type ReactNode, useCallback, useContext } from 'react';
+import { NotificationType } from '../../enums';
 import { T } from '../atoms/T/T';
 import { NotificationContext } from '../organisms/Notifications/context';
 import type { NewNotificationType } from '../organisms/Notifications/types';
 import { NotificationAction } from '../organisms/Notifications/types';
-import { NotificationType } from '../../enums';
-import type { SetStatusType } from '../../types';
+
+import { SetStatusType } from '../types';
 
 // export const notifyError = (response: ErrorResponseType, addErrorNotification: (message: ReactNode) => void) => {
 //   addErrorNotification(

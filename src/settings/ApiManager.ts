@@ -16,14 +16,14 @@ import {
   UserSettingsType,
 } from '@juki-team/commons';
 import type { ErrorInfo } from 'react';
-import { QueryParamKey } from '../enums';
-import type {
+import {
   AuthorizedRequestType,
   SignInPayloadDTO,
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
-} from '../types';
+} from '../components/types';
+import { QueryParamKey } from '../enums';
 
 const addQuery = (path: string) => {
   return !path.includes('?') ? path + '?' : path;

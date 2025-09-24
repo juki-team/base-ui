@@ -1,6 +1,6 @@
 import { create } from 'zustand';
+import { Sounds } from '../../components/types';
 import { Sound } from '../../enums';
-import { Sounds } from '../../types';
 
 interface SoundStore {
   sounds: Sounds | null,

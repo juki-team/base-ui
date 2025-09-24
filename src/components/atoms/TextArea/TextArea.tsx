@@ -1,18 +1,18 @@
-import { forwardRef, ReactElement, Ref } from 'react';
+import { type ComponentPropsWithRef, type CSSProperties, forwardRef, type ReactElement, type Ref } from 'react';
+import type { UseFormRegisterReturn } from 'react-hook-form';
 import { classNames } from '../../../helpers';
-import { CmpTextAreaProps } from './types';
 
-export const TextAreaComponent = ({
-                                    value,
-                                    onChange,
-                                    style,
-                                    className,
-                                    register,
-                                    onBlur,
-                                    disabled,
-                                    rows,
-                                    ...rest
-                                  }: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement>) => {
+const TextAreaComponent = ({
+                             value,
+                             onChange,
+                             style,
+                             className,
+                             register,
+                             onBlur,
+                             disabled,
+                             rows,
+                             ...rest
+                           }: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement>) => {
   
   const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
   
@@ -43,3 +43,17 @@ export const TextAreaComponent = ({
 export const TextArea = forwardRef(TextAreaComponent) as (p: CmpTextAreaProps & {
   ref?: Ref<HTMLTextAreaElement>
 }) => ReactElement;
+
+interface CmpTextAreaProps {
+  value?: string,
+  onChange?: (value: string) => void,
+  style?: CSSProperties,
+  className?: string,
+  register?: UseFormRegisterReturn,
+  onBlur?: () => void,
+  disabled?: boolean,
+  rows?: number,
+  placeholder?: string,
+}
+
+export type TextAreaProps = ComponentPropsWithRef<typeof TextArea>;

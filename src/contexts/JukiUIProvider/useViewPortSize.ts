@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ViewPortSizeType } from '../../types';
+import { ViewPortSizeType } from '../../components/types';
 
 export const useViewPortSize = () => {
   

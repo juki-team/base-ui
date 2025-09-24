@@ -1,15 +1,18 @@
-import { DataViewMode, Status } from '@juki-team/commons';
+import { DataViewMode } from '@juki-team/commons';
 import { CSSProperties, Dispatch, FC, PropsWithChildren, ReactNode, RefObject, SetStateAction } from 'react';
 import { UseResizeDetectorReturn } from 'react-resize-detector';
+import { DatePickerDateFunType, OptionType } from '../../molecules/types';
 import {
   DataViewerRequesterGetUrlType,
+  DataViewerRequestPropsType,
   DateDisplayType,
+  ReactNodeOrFunctionP1Type,
   ReactNodeOrFunctionType,
+  ReloadType,
   RequestFilterType,
+  SetLoaderStatusType,
   ViewPortSizeType,
-} from '../../../types';
-import { DatePickerDateFunType, OptionType } from '../../molecules/types';
-import { DataViewerRequestPropsType, ReactNodeOrFunctionP1Type } from '../../types';
+} from '../../types';
 
 import {
   FILTER_DATE,
@@ -353,10 +356,6 @@ export interface DataViewerProps<T> {
   setDataTableRef?: (data: T[]) => void,
   initializing?: boolean,
 }
-
-export type LoaderStatusType = Status;
-export type SetLoaderStatusType = (status: (Status | ((props: LoaderStatusType) => LoaderStatusType))) => void;
-export type ReloadType = () => void;
 
 export interface TableHeadProps<T> {
   headers: DataViewerTableHeadersType<T>[],

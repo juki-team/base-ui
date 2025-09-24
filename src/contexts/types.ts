@@ -1,11 +1,11 @@
 import type { ParsedUrlQuery } from 'querystring';
-import type { LastPathProviderProps } from './JukiLastPathProvider/types';
-import type {
+import {
   AppendSearchParamsType,
   DeleteSearchParamsType,
   RouterFn,
   SetSearchParamsType,
-} from './JukiRouterProvider/types';
+} from '../components/types/router';
+import type { LastPathProviderProps } from './JukiLastPathProvider/types';
 import type { JukiUIProviderProps } from './JukiUIProvider/types';
 import type { JukiUserProviderProps } from './JukiUserProvider/types';
 
@@ -39,6 +39,5 @@ export type JukiProvidersProps<T extends string | number> =
   }
 };
 
-export type * from './JukiRouterProvider/types';
 export type * from './JukiUIProvider/types';
 export type * from './JukiUserProvider/types';

@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import { DateDisplayType } from '../../../types';
+import { DateDisplayType } from '../../types';
 
 export interface DateLiteralProps {
   date: Date,

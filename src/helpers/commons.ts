@@ -11,8 +11,8 @@ import {
 import type { PropsWithChildren, ReactNode, RefObject } from 'react';
 import { Children, cloneElement, isValidElement } from 'react';
 import type { SheetDataType } from '../components/molecules/DataGrid/types';
+import { TriggerActionsType } from '../components/types';
 import { jukiApiManager } from '../settings';
-import type { TriggerActionsType } from '../types';
 import { authorizedRequest } from './fetch';
 import { getXLSX } from './xlsx';
 

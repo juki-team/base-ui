@@ -1,10 +1,9 @@
-import type { ComponentPropsWithRef, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
-import type { ReactNodeOrFunctionType } from '../../../types';
-import { ButtonType, InputCommonsProps } from '../../types';
+import { ButtonType, ReactNodeOrFunctionType } from '../../types';
 import type { SelectOption2Type, SelectProps } from '../Select/types';
 import { TextAreaProps } from '../TextArea/types';
-import { Input } from './Input';
+import { InputProps } from './Input';
 
 // export interface InputFileProps<T> extends InputCommonsProps<T> {
 //   type?: 'file',
@@ -34,9 +33,7 @@ import { Input } from './Input';
 //   step?: never,
 // }
 
-export type CmpInputProps<T> = InputCommonsProps<T>;
-
-export type InputProps<T> = ComponentPropsWithRef<typeof Input<T>>;
+export type { InputProps } from './Input';
 
 export interface InputCheckboxProps {
   name?: string,
