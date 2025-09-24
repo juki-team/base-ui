@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { configureActions } from 'storybook/actions';
-import { Button, T, TabsInline } from '../../../index';
 import type { TabsType } from '../../../types';
+import { Button, T } from '../../atoms';
 import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
+import { TabsInline } from '../index';
 import { JudgeTabs } from './mocks/JudgeTabs';
 import type { TabsInlineProps } from './types';
 

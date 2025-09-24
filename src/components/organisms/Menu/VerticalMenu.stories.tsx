@@ -1,5 +1,5 @@
 import { action, configureActions } from 'storybook/actions';
-import { Button, MdMathEditor, Popover, T, VerticalMenu as VerticalMenuCmp } from '../../../index';
+import { Button, Popover, T } from '../../atoms';
 import { MockupToggleThemeButton } from '../../mockup';
 import { DrawerActionsType } from '../../molecules/Drawer/types';
 import {
@@ -13,7 +13,9 @@ import {
   SettingsIcon,
   ViewHeadlineIcon,
 } from '../../server';
+import { MdMathEditor } from '../index';
 import { SAMPLE_MD_CONTENT } from '../mdMath/constants';
+import { VerticalMenu as VerticalMenuCmp } from './VerticalMenu';
 
 export default {
   component: VerticalMenuCmp,

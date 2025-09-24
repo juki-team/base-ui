@@ -2,16 +2,11 @@ import { MenuViewMode } from '@juki-team/commons';
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useState } from 'react';
 import { action, configureActions } from 'storybook/actions';
-import {
-  Button,
-  MainMenu as MainMenuCmp,
-  MdMathEditor,
-  MdMathViewer,
-  T,
-  TwoContentLayout as TwoContentLayoutComponent,
-} from '../../../index';
+import { Button, T } from '../../atoms';
 import { AssignmentIcon, LeaderboardIcon } from '../../atoms/server';
 import { MockupJukiProvider } from '../../mockup';
+import { TwoContentLayout } from '../../molecules';
+import { MdMathEditor, MdMathViewer } from '../../organisms';
 import { SAMPLE_MD_CONTENT } from '../../organisms/mdMath/constants';
 import {
   FilterListIcon,
@@ -20,6 +15,7 @@ import {
   LoadingIcon,
   ViewHeadlineIcon,
 } from '../../server';
+import { MainMenu as MainMenuCmp } from './MainMenu';
 
 const meta: Meta<typeof MainMenuCmp> = {
   component: MainMenuCmp,
@@ -147,7 +143,7 @@ const Cmp = ({ menuViewMode }: { menuViewMode?: MenuViewMode }) => {
             </>
           }
         >
-          <TwoContentLayoutComponent loading breadcrumbs={[ <div>a</div> ]}>
+          <TwoContentLayout loading breadcrumbs={[ <div>a</div> ]}>
             <h1>Title 1</h1>
             <Button
               onClick={() => {
@@ -156,7 +152,7 @@ const Cmp = ({ menuViewMode }: { menuViewMode?: MenuViewMode }) => {
             >
               click
             </Button>
-          </TwoContentLayoutComponent>
+          </TwoContentLayout>
         </MainMenuCmp>
       </div>
     </MockupJukiProvider>

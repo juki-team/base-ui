@@ -1,14 +1,7 @@
 import { ReactNode } from 'react';
 import { action, configureActions } from 'storybook/actions';
-import {
-  Button,
-  HorizontalMenu as HorizontalMenuCmp,
-  MdMathEditor,
-  Popover,
-  T,
-  useJukiNotification,
-  VerticalMenu,
-} from '../../../index';
+import { Button, Popover, T } from '../../atoms';
+import { useJukiNotification } from '../../hooks';
 import { MockupJukiProvider } from '../../mockup';
 import { DrawerActionsType } from '../../molecules/Drawer/types';
 import {
@@ -21,6 +14,7 @@ import {
   SettingsIcon,
   ViewHeadlineIcon,
 } from '../../server';
+import { HorizontalMenu as HorizontalMenuCmp, MdMathEditor, VerticalMenu } from '../index';
 import { SAMPLE_MD_CONTENT } from '../mdMath/constants';
 
 export default {

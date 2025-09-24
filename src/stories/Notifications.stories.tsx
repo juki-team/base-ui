@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Button } from '../components';
+import { useJukiNotification } from '../components/hooks';
 import { MockupJukiProvider } from '../components/mockup';
 import { NotificationProvider } from '../contexts/NotificationProvider/NotificationProvider';
-import { useJukiNotification } from '../components/hooks';
 
 const meta = {
   component: NotificationProvider,
