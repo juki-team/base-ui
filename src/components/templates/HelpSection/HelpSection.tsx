@@ -1,6 +1,6 @@
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
-import { ContactPhoneIcon, MailIcon, TelegramIcon } from '../../server';
+import { ContactPhoneIcon, MailIcon, TelegramIcon } from '../../atoms/server';
 
 export const HelpSection = () => {
   

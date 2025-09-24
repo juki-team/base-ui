@@ -6,7 +6,7 @@
 //     return ({ node }) => {
 //       // Contenedor principal
 //       const layoutContainer = document.createElement('div');
-//       layoutContainer.className = 'jk-code-viewer jk-border-radius-inline br-g6 line-numbers';
+//       layoutContainer.className = 'jk-code-viewer jk-br-ie br-g6 line-numbers';
 //
 //       const container = document.createElement('div');
 //       container.className = 'jk-code-viewer-content jk-row nowrap top';
@@ -19,7 +19,7 @@
 //
 //       // <pre><code> para el código
 //       const pre = document.createElement('pre');
-//       pre.className = 'jk-border-radius-inline';
+//       pre.className = 'jk-br-ie';
 //       const code = document.createElement('code');
 //       code.className = `language-${node.attrs.language || 'plaintext'} hljs`;
 //       code.dataset.highlighted = 'yes';

@@ -21,7 +21,7 @@ export const TextAreaComponent = ({
       {...rest}
       {...restRegister}
       ref={registerRef ?? ref}
-      className={classNames('jk-pg-sm jk-input-textarea jk-border-radius-inline wh-100', className, { disabled: !!disabled })}
+      className={classNames('jk-pg-sm jk-input-textarea jk-br-ie wh-100', className, { disabled: !!disabled })}
       value={value}
       onChange={registerOnChange ? registerOnChange : ({ target }) => {
         const pointer = target.selectionStart;

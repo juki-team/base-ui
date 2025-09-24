@@ -44,7 +44,7 @@ const tabs = {
             'jk-row right bottom',
           ].map((col) => (
             <div
-              className="jk-col elevation-1 jk-pg-md jk-border-radius-inline cr-we"
+              className="jk-col elevation-1 jk-pg-md jk-br-ie cr-we"
               style={{ width: '420px' }}
               key={col}
             >
@@ -121,7 +121,7 @@ const tabs = {
             'jk-col bottom right',
           ].map((col) => (
             <div
-              className="jk-row gap elevation-1 jk-pg-md jk-border-radius-inline cr-we"
+              className="jk-row gap elevation-1 jk-pg-md jk-br-ie cr-we"
               style={{ width: '320px' }}
               key={col}
             >
@@ -202,7 +202,7 @@ const tabs = {
             'cr-thd',
           ].map((color) => (
             <div
-              className="jk-row gap nowrap elevation-1 jk-pg-md jk-border-radius-inline"
+              className="jk-row gap nowrap elevation-1 jk-pg-md jk-br-ie"
               style={{ width: '140px' }}
               key={color}
             >
@@ -249,7 +249,7 @@ const tabs = {
             'bc-ad',
           ].map((color) => (
             <div
-              className="jk-row gap nowrap elevation-1 jk-pg-md jk-border-radius-inline"
+              className="jk-row gap nowrap elevation-1 jk-pg-md jk-br-ie"
               style={{ width: '140px' }}
               key={color}
             >
@@ -282,7 +282,7 @@ const tabs = {
             [ 'tx-s', 14 ],
             [ 'tx-t', 12 ],
           ].map(([ className, size ]) => (
-            <div className="jk-col gap nowrap elevation-1 jk-pg-md jk-border-radius-inline">
+            <div className="jk-col gap nowrap elevation-1 jk-pg-md jk-br-ie">
                 <pre>
                   {`.${className} {\n  font-size: ${size}px;\n  line-height: 24px;\n}`}
                 </pre>
@@ -305,7 +305,7 @@ const tabs = {
         <div className="jk-row gap stretch block extend">
           {[ 'fw-lr', 'fw-lt', 'fw-rr', 'fw-bd', 'fw-br' ].map((width) => (
             <div
-              className="jk-col top gap nowrap elevation-1 jk-pg-md jk-border-radius-inline"
+              className="jk-col top gap nowrap elevation-1 jk-pg-md jk-br-ie"
               style={{ width: '140px' }}
               key={width}
             >
@@ -333,7 +333,7 @@ const tabs = {
         <div className="jk-col gap">
           {[ 'tt-se', 'tt-ce', 'tt-ue', 'tt-le' ].map((tt) => (
             <div
-              className="jk-row gap nowrap elevation-1 jk-pg-md jk-border-radius-inline"
+              className="jk-row gap nowrap elevation-1 jk-pg-md jk-br-ie"
               style={{ width: 350 }}
               key={tt}
             >
@@ -356,7 +356,7 @@ const tabs = {
         <div className="jk-col gap">
           {[ 'ta-cr', 'ta-st', 'ta-ed' ].map((tt) => (
             <div
-              className="jk-row gap nowrap elevation-1 jk-pg-md jk-border-radius-inline"
+              className="jk-row gap nowrap elevation-1 jk-pg-md jk-br-ie"
               style={{ width: 420 }}
               key={tt}
             >
@@ -379,7 +379,7 @@ const tabs = {
         <div className="jk-col gap">
           {[ 'elevation-1', 'elevation-2', 'elevation-3' ].map((tt) => (
             <div
-              className="jk-row gap nowrap jk-pg-md jk-border-radius-inline"
+              className="jk-row gap nowrap jk-pg-md jk-br-ie"
               style={{ width: 420 }}
               key={tt}
             >
@@ -430,7 +430,7 @@ const tabs = {
             'gray-6',
           ].map((tt) => (
             <div
-              className="jk-row gap nowrap jk-pg-md jk-border-radius-inline"
+              className="jk-row gap nowrap jk-pg-md jk-br-ie"
               style={{ width: 420 }}
               key={tt}
             >
@@ -466,7 +466,7 @@ const tabs = {
             'trbl',
           ].map((tt) => (
             <div
-              className="jk-row gap nowrap jk-pg-md jk-border-radius-inline"
+              className="jk-row gap nowrap jk-pg-md jk-br-ie"
               style={{ width: 420 }}
               key={tt}
             >

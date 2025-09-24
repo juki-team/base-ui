@@ -1,6 +1,6 @@
 import { Modal, T } from '../../../atoms';
+import { JukiCompleteLaptopImage } from '../../../atoms/server';
 import { ButtonLoader } from '../../../molecules';
-import { JukiCompleteLaptopImage } from '../../../server';
 import { WelcomeModalProps } from './types';
 
 export const WelcomeModal = ({ isOpen, nickname, onClose, onSeeMyProfile }: WelcomeModalProps) => (

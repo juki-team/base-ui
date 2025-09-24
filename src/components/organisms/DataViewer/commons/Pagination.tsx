@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { classNames } from '../../../../helpers';
+import { useJukiUI } from '../../../../hooks';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { Select, T } from '../../../atoms';
 import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../../server';
@@ -24,6 +25,7 @@ export const Pagination = (props: PaginationProps) => {
   
   const startPage = 1;
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
+  const { viewPortSize } = useJukiUI();
   
   const t = useI18nStore(state => state.i18n.t);
   useEffect(() => {
@@ -114,17 +116,19 @@ export const Pagination = (props: PaginationProps) => {
           </div>
         ) : (
           <>
-            <div
-              className={classNames('page-item cr-pr jk-row jk-border-radius screen md lg hg', { disabled: page === startPage })}
-              onClick={prev}
-            >
-              <NavigateBeforeIcon />
-            </div>
-            <div className="jk-row jk-border-radius center page-items">
+            {viewPortSize !== 'sm' && (
+              <div
+                className={classNames('page-item cr-pr jk-row jk-br', { disabled: page === startPage })}
+                onClick={prev}
+              >
+                <NavigateBeforeIcon />
+              </div>
+            )}
+            <div className="jk-row jk-br center page-items">
               {startPage < (pages[0] ?? 0) && (
                 <>
                   <div
-                    className={classNames('page-item cr-pr jk-row jk-border-radius cr-g3', { selected: startPage === page })}
+                    className={classNames('page-item cr-pr jk-row jk-br cr-g3', { selected: startPage === page })}
                     onClick={() => jumpToPage(startPage)}
                   >
                     {loading && startPage === page ? <SpinIcon /> : startPage}
@@ -139,7 +143,7 @@ export const Pagination = (props: PaginationProps) => {
               {pages.map(index => (
                 <div
                   key={index}
-                  className={classNames('page-item cr-pr jk-row jk-border-radius fw-bd', {
+                  className={classNames('page-item cr-pr jk-row jk-br fw-bd', {
                     selected: index === page,
                     'fw-br': index === page,
                   })}
@@ -156,7 +160,7 @@ export const Pagination = (props: PaginationProps) => {
                     </div>
                   )}
                   <div
-                    className={classNames('page-item cr-pr jk-row jk-border-radius cr-g3', { selected: endPage === page })}
+                    className={classNames('page-item cr-pr jk-row jk-br-ie cr-g3', { selected: endPage === page })}
                     onClick={() => jumpToPage(endPage)}
                   >
                     {loading && endPage === page ? <SpinIcon /> : endPage}
@@ -164,12 +168,14 @@ export const Pagination = (props: PaginationProps) => {
                 </>
               )}
             </div>
-            <div
-              className={classNames('page-item cr-pr jk-row jk-border-radius screen md lg hg', { disabled: page === endPage })}
-              onClick={next}
-            >
-              <NavigateNextIcon />
-            </div>
+            {viewPortSize !== 'sm' && (
+              <div
+                className={classNames('page-item cr-pr jk-row jk-br-ie', { disabled: page === endPage })}
+                onClick={next}
+              >
+                <NavigateNextIcon />
+              </div>
+            )}
           </>
         )}
       </div>

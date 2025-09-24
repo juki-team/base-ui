@@ -58,7 +58,7 @@ export const DataViewerCard = <T, >(props: DataViewerCardProps<T>) => {
   
   return (
     <div
-      className={classNames('jk-list-card jk-border-radius', cardClassName)}
+      className={classNames('jk-list-card jk-br', cardClassName)}
       style={{ ...cardStyle, width: cardWidth }}
       onClick={onCardClick}
       onMouseEnter={onCardHover}

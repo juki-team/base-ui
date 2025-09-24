@@ -34,11 +34,11 @@ export const CodeViewerDeprecated = (props: CodeViewerDeprecatedProps) => {
   
   return (
     <div
-      className={classNames('jk-code-viewer jk-border-radius-inline br-g6', { 'line-numbers': !!lineNumbers })}
+      className={classNames('jk-code-viewer jk-br-ie br-g6', { 'line-numbers': !!lineNumbers })}
       data-plugin-header="show-language"
       style={style}
     >
-      <pre style={height ? { height: height } : undefined} className="jk-border-radius-inline">
+      <pre style={height ? { height: height } : undefined} className="jk-br-ie">
         <code
           className={`language-${CODE_LANGUAGE[language]?.codeMirrorKey || language || CODE_LANGUAGE[CodeLanguage.TEXT].codeMirrorKey}`}
         >

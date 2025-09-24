@@ -40,7 +40,10 @@
     width: 100%;
     height: calc(var(--100VH) - var(--first-content-section-height));
     padding: var(--pad-sm) var(--pad-md);
-    overflow: auto;
+    overflow: hidden auto;
+    position: relative;
+    background: var(--t-color-white);
+    border-radius: var(--border-radius);
   }
 }
 
@@ -73,11 +76,11 @@
       }
     }
     
-    .two-content-layout-body {
-      overflow: auto;
-      background: var(--t-color-white);
-      border-radius: var(--border-radius);
-    }
+    //.two-content-layout-body {
+    //  overflow: auto;
+    //  background: var(--t-color-white);
+    //  border-radius: var(--border-radius);
+    //}
   }
 }
 

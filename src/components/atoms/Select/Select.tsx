@@ -192,7 +192,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
               { options, isOpen, disabled: isDisabled, optionSelected, expandIcon },
             )
             : (
-              <div className={classNames({ open: isOpen }, 'jk-input-select space-between jk-border-radius-inline jk-row gap nowrap')}>
+              <div className={classNames({ open: isOpen }, 'jk-input-select space-between jk-br-ie jk-row gap nowrap')}>
                 <div className="jk-row left gap nowrap">
                   <span className="fake-gap" />
                   {optionSelected.inputLabel

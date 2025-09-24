@@ -145,9 +145,11 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
         onFilter={values => onAllFilters(values)}
         onResetFilters={() => onAllFilters({})}
       />
-      <div className="jk-table-view-extra-nodes jk-row left gap screen md lg hg">
-        {extraNodes.map(renderReactNodeOrFunction)}
-      </div>
+      {!isMobileViewPort && (
+        <div className="jk-table-view-extra-nodes jk-row left gap">
+          {extraNodes.map(renderReactNodeOrFunction)}
+        </div>
+      )}
       <div className="jk-table-view-tools jk-br-ie jk-pg-xsm-tb jk-row-col gap stretch">
         <div className="jk-row nowrap gap">
           {onReload && (

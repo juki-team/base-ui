@@ -253,7 +253,7 @@ export const ProblemStatementView = ({
           {!!statementNote && (
             <div>
               <h3><T className="tt-se">note</T></h3>
-              <div className="bc-we jk-pg-sm jk-border-radius-inline">
+              <div className="bc-we jk-pg-sm jk-br-ie">
                 <MdMathViewer source={statementNote} />
               </div>
             </div>

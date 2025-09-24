@@ -67,7 +67,7 @@ const BasicInputComponent = <T extends string | number | FileList, >(_props: Inp
       value={(type === 'file' || type === 'files') ? undefined : value as string | number}
       size={size === 'auto' ? length : size}
       disabled={disabled}
-      className={classNames(className, `jk-input-${type} jk-border-radius-inline`, { disabled })}
+      className={classNames(className, `jk-input-${type} jk-br-ie`, { disabled })}
       onChange={registerOnChange ? registerOnChange : (type === 'file' || type === 'files') ? ({ target: { files } }) => onChange?.(files as T) : ({ target: { value } }) => {
         const newValue = (type === 'number' ? +value : value) as T;
         onChange?.(newValue);
@@ -147,7 +147,7 @@ const InputComponent = <T extends string | number | FileList, >(_props: CmpInput
 //       type={type}
 //       size={Math.max(('' + (offline ? editValue : value)).length, 3)}
 //       value={offline ? editValue : value}
-//       className={classNames(className || '', `jk-input-${type} jk-border-radius-inline`, { offline, block: !!block })}
+//       className={classNames(className || '', `jk-input-${type} jk-br-ie`, { offline, block: !!block })}
 //       onChange={({ target: { value } }) => {
 //         const newValue = (type === 'number' ? +value : value) as T;
 //         if (offline) {

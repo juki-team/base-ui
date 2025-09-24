@@ -32,8 +32,8 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
       >
         <div className="jk-row jk-pg-rl" style={{ position: helpOpen ? undefined : 'absolute', left: 0 }}>
           {helpOpen ? (
-            <ArrowBackIcon className="clickable jk-border-radius-inline" onClick={() => setHelpOpen(false)} />
-          ) : <CloseIcon className="clickable jk-border-radius-inline" onClick={onClose} />}
+            <ArrowBackIcon className="clickable jk-br-ie" onClick={() => setHelpOpen(false)} />
+          ) : <CloseIcon className="clickable jk-br-ie" onClick={onClose} />}
         
         </div>
         <div className="jk-row extend">

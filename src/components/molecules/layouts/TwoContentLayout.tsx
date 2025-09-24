@@ -44,8 +44,6 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
   const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey }) as ReactNode[];
   
   const withTabs = tabKeys.length > 1;
-  const tabsOnBody = withTabs && false;
-  const tabsOnHeader = withTabs && true;
   const isMobile = viewPortSize === 'sm';
   const withBreadcrumbs = !!breadcrumbs?.length && !isMobile;
   
@@ -67,7 +65,7 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
             </div>
           )}
         </div>
-        {tabsOnHeader && (
+        {withTabs && (
           <TabsInline
             tabs={tabs}
             selectedTabKey={selectedTabKey}
@@ -79,23 +77,7 @@ export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) 
           />
         )}
       </>
-      <>
-        {tabsOnBody && (
-          <TabsInline
-            tabs={tabs}
-            selectedTabKey={selectedTabKey}
-            extraNodes={tabButtons}
-            extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
-            getHrefOnTabChange={getHrefOnTabChange}
-          />
-        )}
-        <div
-          className={classNames('two-content-layout-body', { 'pn-re': !!loading })}
-          style={{ height: tabsOnBody ? 'calc(100% - 40px)' : '100%', position: 'relative' }}
-        >
-          <TabsInlineBody tabs={tabs} selectedTabKey={selectedTabKey} />
-        </div>
-      </>
+      <TabsInlineBody tabs={tabs} selectedTabKey={selectedTabKey} />
     </TwoContentSection>
   );
 };

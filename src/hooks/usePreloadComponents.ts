@@ -1,17 +1,10 @@
 import { useEffect, useState } from 'react';
-import { preloadAtoms } from '../components/atoms/index';
-import { preloadMolecules } from '../components/molecules/index';
-import { preloadOrganisms } from '../components/organisms/index';
-import { preloadTemplates } from '../components/templates/index';
+import { preloadAtoms, preloadMolecules, preloadOrganisms, preloadTemplates } from '../components';
 
 export const usePreloadComponents = () => {
   
   const [ preloaders, setPreloaders ] = useState({
     atoms: false,
-    atomsIconsGoogle: false,
-    atomsIconsSigns: false,
-    atomsIconsSpecials: false,
-    atomsImages: false,
     molecules: false,
     organisms: false,
     templates: false,

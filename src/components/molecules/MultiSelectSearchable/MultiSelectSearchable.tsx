@@ -144,7 +144,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
         style={{ width: expand ? '100%' : `${containerWidth}px` }}
       >
         <div
-          className={classNames({ open: showOptions }, 'jk-input-select jk-border-radius-inline jk-row space-between nowrap')}
+          className={classNames({ open: showOptions }, 'jk-input-select jk-br-ie jk-row space-between nowrap')}
           ref={selectLayoutRef}
         >
           <div className="jk-row left jk-multi-select-selected-options jk-pg-xsm">

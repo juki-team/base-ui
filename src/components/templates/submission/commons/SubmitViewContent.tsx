@@ -229,7 +229,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
           {(
             verdictByGroups && !!Object.keys(verdictByGroups).length
           ) ? (
-            <div className="jk-col jk-border-radius-inline">
+            <div className="jk-col jk-br-ie">
               {Object.entries(verdictByGroups).map(([ groupKey, result ]) => (
                 <SubmissionGroupInfo
                   key={groupKey}
@@ -246,7 +246,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
               ))}
             </div>
           ) : (
-            <div className="jk-col jk-border-radius-inline">
+            <div className="jk-col jk-br-ie">
               {Object.entries(testCasesByGroup).map(([ groupKey, result ]) => (
                 <SubmissionGroupInfo
                   key={groupKey}

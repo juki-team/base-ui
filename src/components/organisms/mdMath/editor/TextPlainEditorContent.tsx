@@ -62,7 +62,7 @@ export const TextPlainEditorContent = (props: TextPlainEditorContentProps) => {
   
   return (
     <div
-      className={classNames('jk-md-math-textarea-editor jk-border-radius-inline')}
+      className={classNames('jk-md-math-textarea-editor jk-br-ie')}
       onPaste={enableImageUpload ? handlePaste : undefined}
     >
       <TextArea

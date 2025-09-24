@@ -11,8 +11,6 @@ import {
 } from '@juki-team/commons';
 import { v4 } from 'uuid';
 
-export { LOGO_WORKSHEET_TYPE } from '../components/organisms/worksheet/sheets/logos';
-
 export const WORKSHEET_CODE_EDITOR_MIN_HEIGHT = 320;
 
 export const EMPTY_JK_MD_SHEET = (): JkmdSheetType => ({

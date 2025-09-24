@@ -80,7 +80,7 @@ export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChang
         >
           <div>
             <T className="tt-se">there are unsaved changes</T>:
-            <div className="alert-modal-json-viewer jk-border-radius-inline">
+            <div className="alert-modal-json-viewer jk-br-ie">
               <CodeViewer
                 code={objectDiffAsBash(originalValueRef.current, value)}
                 language={CodeLanguage.DIFF}

@@ -26,7 +26,7 @@ export const DateLiteral = (props: DateLiteralProps) => {
   
   return (
     <div
-      className={classNames('date-literal jk-border-radius-inline', {
+      className={classNames('date-literal jk-br-ie', {
         'jk-row gap nowrap center': !twoLines,
         'jk-col nowrap center': !!twoLines,
       }, className)}

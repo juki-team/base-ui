@@ -67,7 +67,7 @@ export const CodeViewer = (props: CodeViewerProps) => {
         )}
         <pre
           style={height ? { height } : undefined}
-          className="jk-border-radius-inline"
+          className="jk-br-ie"
         >
           <code
             ref={codeRef}

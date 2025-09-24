@@ -256,7 +256,7 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   const body = (
     <div
       className={classNames(
-        'jk-code-mirror-editor-layout jk-border-radius-inline jk-col nowrap stretch bc-we ht-100 wh-100 pn-re',
+        'jk-code-mirror-editor-layout jk-br-ie jk-col nowrap stretch bc-we ht-100 wh-100 pn-re',
         { 'elevation-1': expanded },
         className,
       )}

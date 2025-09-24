@@ -9,7 +9,6 @@ import {
 } from '@juki-team/commons';
 import { Children, Dispatch } from 'react';
 import { EMPTY_LIST_SHEET } from '../../../../../constants';
-import { classNames } from '../../../../../helpers';
 import { Button, Collapse, T } from '../../../../atoms';
 import { UpIcon } from '../../../../atoms/server';
 import { MdMathEditor } from '../../../mdMath/MdMathEditor';
@@ -140,7 +139,7 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
       <Collapse
         className="jk-row extend"
         header={({ toggle, isOpen }) => (
-          <div className={classNames('jk-row extend nowrap space-between jk-border-radius bc-we')}>
+          <div className="jk-row extend nowrap space-between jk-br bc-we">
             <div className="jk-row extend left">
               {renderHeader}
             </div>

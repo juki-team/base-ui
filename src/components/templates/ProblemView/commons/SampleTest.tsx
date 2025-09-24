@@ -16,8 +16,8 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
   return (
     <div className="jk-row stretch gap">
       <div className="jk-row block stretch gap flex-1">
-        <div className="jk-row nowrap left stretch gap bc-we jk-border-radius-inline">
-          <div className="sample-text-content jk-border-radius-inline">
+        <div className="jk-row nowrap left stretch gap bc-we jk-br-ie">
+          <div className="sample-text-content jk-br-ie">
             <div className="jk-row gap sample-text-icons">
               {!forPrinting && withPE && (
                 <div
@@ -35,8 +35,8 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
             <span>{sample.input}</span>
           </div>
         </div>
-        <div className="jk-row nowrap left stretch gap bc-we jk-border-radius-inline">
-          <div className="sample-text-content jk-border-radius-inline">
+        <div className="jk-row nowrap left stretch gap bc-we jk-br-ie">
+          <div className="sample-text-content jk-br-ie">
             <div className="jk-row gap sample-text-icons">
               {!forPrinting && withPE && (
                 <div

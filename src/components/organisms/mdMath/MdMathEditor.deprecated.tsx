@@ -176,7 +176,7 @@ export const MdMathEditorDeprecated = (props: MdMathEditorDeprecatedProps) => {
   return (
     <div
       ref={layoutEditorRef}
-      className={classNames('jk-md-math-editor-layout jk-border-radius-inline', { editing })}
+      className={classNames('jk-md-math-editor-layout jk-br-ie', { editing })}
     >
       {editing ? (
         <>

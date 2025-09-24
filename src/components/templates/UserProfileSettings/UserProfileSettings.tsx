@@ -33,7 +33,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
     <div className="jk-row gap top stretch">
       <div className="jk-col top extend">
         <h3><T className="tt-se">preferences</T></h3>
-        <div className="jk-col stretch gap bc-we jk-border-radius-inline jk-pg-md br-g6 pn-re">
+        <div className="jk-col stretch gap bc-we jk-br-ie jk-pg-md br-g6 pn-re">
           {loading && <LineLoader />}
           <div className="jk-col gap left stretch">
             {[
@@ -199,7 +199,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
       </div>
       <div className="jk-col top extend">
         <h3><T className="tt-se">actions</T></h3>
-        <div className="jk-col stretch gap bc-we jk-border-radius-inline jk-pg-md br-g6">
+        <div className="jk-col stretch gap bc-we jk-br-ie jk-pg-md br-g6">
           {user?.canUpdatePassword && (
             <Button size="small" icon={<LockIcon />} onClick={onClickUpdatePassword} expand>
               <T className="ws-np">update password</T>

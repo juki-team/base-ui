@@ -112,7 +112,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
           ? children : (
             <>
               <div
-                className={classNames({ open: isOpen }, 'jk-input-select jk-border-radius-inline jk-row space-between nowrap')}
+                className={classNames({ open: isOpen }, 'jk-input-select jk-br-ie jk-row space-between nowrap')}
                 ref={selectLayoutRef}
               >
                 <div className="jk-row left jk-multi-select-selected-options jk-pg-xsm">

@@ -63,7 +63,7 @@ export const Modal = <T extends ModalButtonLoaderEventType, >(props: ModalProps<
                 : undefined}
             />
             <motion.div
-              className={classNames('jk-modal-content jk-border-radius elevation-3', className)}
+              className={classNames('jk-modal-content jk-br elevation-3', className)}
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.6, opacity: 0 }}
