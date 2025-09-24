@@ -8,10 +8,10 @@ import {
   LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX,
 } from '../../../../../constants';
 import { classNames } from '../../../../../helpers';
-import type { SetLoaderStatusOnClickType } from '../../../../../types';
 import { Input, InputCheckbox, InputPassword, T } from '../../../../atoms';
 import { ButtonLoader, SplitModal } from '../../../../molecules';
 import { JukiLaptopImage } from '../../../../server';
+import { SetLoaderStatusOnClickType } from '../../../../types';
 import type { SignUpFormType, SignUpModalComponentProps } from './types';
 
 const signUpSchema = yup.object().shape({

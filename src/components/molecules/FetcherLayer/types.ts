@@ -1,6 +1,7 @@
 import type { ContentResponseType, ContentsResponseType, ErrorResponseType } from '@juki-team/commons';
 import type { KeyedMutator, SWRConfiguration } from 'swr';
-import type { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../../types';
+import type { ReactNodeOrFunctionType } from '../../../types';
+import { ReactNodeOrFunctionP1Type } from '../../types';
 
 export interface FetcherLayerProps<T extends (ContentResponseType<U> | ContentsResponseType<U>), U extends any> {
   url: string | null,

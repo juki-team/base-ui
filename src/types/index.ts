@@ -1,9 +1,9 @@
 import { Status } from '@juki-team/commons';
 import { type TFunction } from 'i18next';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import { DataViewerRequestPropsType } from '../components/types';
 import { CLICK, ESCAPE, HOVER, NONE } from '../constants';
 import { Sound } from '../enums';
-import { DataViewerRequestPropsType } from './commons';
 
 export type { TFunction };
 
@@ -36,9 +36,8 @@ export type Sounds = { [key in Sound]: HTMLAudioElement };
 
 export type DataViewerRequesterGetUrlType = (props: Omit<DataViewerRequestPropsType, 'setLoaderStatus'>) => string | null;
 
-export type * from './commons';
 export type * from './api';
-// export type * from './components';
+export type * from './components';
 export type * from './route';
 export type * from './services';
 export type * from './editor';

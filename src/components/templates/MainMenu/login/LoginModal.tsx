@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useJukiUser } from '../../../hooks';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { SetLoaderStatusOnClickType } from '../../../../types';
+import { useJukiUser } from '../../../hooks';
+
+import { SetLoaderStatusOnClickType } from '../../../types';
 import { LoginModalTemplate } from './LoginModalTemplate';
 import { LoginFormType } from './LoginModalTemplate/types';
 import { LoginModalProps } from './types';

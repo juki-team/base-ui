@@ -2,10 +2,11 @@ import { motion } from 'motion/react';
 import { Children, ReactNode, useCallback, useId, useRef, useState } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import type { NotUndefined, TabType } from '../../../types';
+import type { NotUndefined } from '../../../types';
 import { Select } from '../../atoms';
 import { useHandleState, useJukiUI, useMemoizedArray, useWidthResizer } from '../../hooks';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
+import { TabType } from '../../types';
 import type { TabsInlineProps } from './types';
 
 export const TabsInline = <T, >(props: TabsInlineProps<T>) => {

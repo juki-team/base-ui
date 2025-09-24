@@ -1,4 +1,4 @@
-import type { Status } from '@juki-team/commons';
+import { Status } from '@juki-team/commons';
 import type {
   CSSProperties,
   Dispatch,
@@ -10,7 +10,7 @@ import type {
   SetStateAction,
 } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
-import type { RequestFilterType, RequestSortType } from './route';
+import type { RequestFilterType, RequestSortType } from '../../types';
 
 export type ReactNodeOrFunctionP1Type<T, U = ReactNode> = U | ((prop1: T) => U);
 
@@ -25,6 +25,7 @@ export type TabType<T = string> = {
   body?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T }>,
   key: T,
 };
+
 export type TabsType<T = string> = { [key: string]: TabType<T> };
 
 export type LoaderStatusActionType = Dispatch<SetStateAction<Status>>;

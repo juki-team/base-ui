@@ -1,6 +1,7 @@
 import type { PropsWithChildren, ReactNode } from 'react';
-import type { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../../types';
+import type { ReactNodeOrFunctionType } from '../../../types';
 import type { DrawerActionsType } from '../../molecules/types';
+import { ReactNodeOrFunctionP1Type } from '../../types';
 
 export type MenuMobileSectionType = {
   children: ReactNodeOrFunctionP1Type<DrawerActionsType>,

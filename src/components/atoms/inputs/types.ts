@@ -1,6 +1,7 @@
 import type { ComponentPropsWithRef, ReactNode } from 'react';
 import type { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
-import type { ButtonType, InputCommonsProps, ReactNodeOrFunctionType } from '../../../types';
+import type { ReactNodeOrFunctionType } from '../../../types';
+import { ButtonType, InputCommonsProps } from '../../types';
 import type { SelectOption2Type, SelectProps } from '../Select/types';
 import { TextAreaProps } from '../TextArea/types';
 import { Input } from './Input';

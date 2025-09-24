@@ -1,6 +1,6 @@
 import type { CSSProperties, PropsWithChildren, ReactNode } from 'react';
 import type { Href } from '../../../contexts/JukiRouterProvider/types';
-import type { ReactNodeOrFunctionP1Type, TabsType } from '../../../types';
+import { ReactNodeOrFunctionP1Type, TabsType } from '../../types';
 
 type Full<T> = {
   [P in keyof T]-?: T[P];

@@ -1,5 +1,5 @@
 import { ComponentPropsWithRef } from 'react';
-import { ButtonBasicProps, OnClickButtonEventType } from '../../../types';
+import { ButtonBasicProps, OnClickButtonEventType } from '../../types';
 import { Button } from './Button';
 
 export interface ButtonCmpProps extends ButtonBasicProps {

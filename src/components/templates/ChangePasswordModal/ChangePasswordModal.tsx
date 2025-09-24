@@ -4,11 +4,11 @@ import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { classNames } from '../../../helpers';
-import { useJukiUI, useJukiUser } from '../../hooks';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import type { SetLoaderStatusOnClickType } from '../../../types';
 import { InputPassword, Modal, T } from '../../atoms';
+import { useJukiUI, useJukiUser } from '../../hooks';
 import { ButtonLoader } from '../../molecules';
+import { SetLoaderStatusOnClickType } from '../../types';
 import type { ChangePasswordModalProps, ProfileChangePasswordInput } from './types';
 
 const profileSettingsChangePasswordSchema = yup.object().shape({

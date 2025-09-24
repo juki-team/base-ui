@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Fragment } from 'react';
-import type { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../types';
+import { ReactNodeOrFunctionP1Type } from '../components/types';
+import type { ReactNodeOrFunctionType } from '../types';
 
 export const renderReactNodeOrFunction = (content: ReactNodeOrFunctionType, key?: string | number): ReactNode => {
   const reactNode = typeof content === 'function' ? content() : content;

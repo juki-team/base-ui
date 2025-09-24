@@ -3,14 +3,13 @@ import { CSSProperties, Dispatch, FC, PropsWithChildren, ReactNode, RefObject, S
 import { UseResizeDetectorReturn } from 'react-resize-detector';
 import {
   DataViewerRequesterGetUrlType,
-  DataViewerRequestPropsType,
   DateDisplayType,
-  ReactNodeOrFunctionP1Type,
   ReactNodeOrFunctionType,
   RequestFilterType,
   ViewPortSizeType,
 } from '../../../types';
 import { DatePickerDateFunType, OptionType } from '../../molecules/types';
+import { DataViewerRequestPropsType, ReactNodeOrFunctionP1Type } from '../../types';
 
 import {
   FILTER_DATE,

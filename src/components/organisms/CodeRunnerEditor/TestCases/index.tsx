@@ -10,11 +10,11 @@ import {
 import { useEffect, useState } from 'react';
 import { NotificationType } from '../../../../enums';
 import { classNames } from '../../../../helpers';
-import { useJukiNotification } from '../../../hooks';
-import type { TabsType } from '../../../../types';
 import { InputToggle, T, TextArea } from '../../../atoms';
+import { useJukiNotification } from '../../../hooks';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../molecules';
 import { AddIcon, DeleteIcon, InfoIIcon } from '../../../server';
+import { TabsType } from '../../../types';
 import { ProblemVerdictTag } from '../../ProblemVerdictTag/ProblemVerdictTag';
 import type { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
 import { LogInfo } from './LogInfo';

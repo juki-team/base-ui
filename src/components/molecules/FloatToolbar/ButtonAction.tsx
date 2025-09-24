@@ -3,7 +3,8 @@ import { CSSProperties, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useOutsideAlerter } from '../../hooks';
-import type { SetLoaderStatusOnClickType } from '../../../types';
+
+import { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { ButtonActionProps } from './types';
 

@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react';
 import type { ColorResult } from 'react-color';
-import { InputCommonsProps } from '../../../types';
+
+import { InputCommonsProps } from '../../types';
 
 export type Color = ColorResult;
 

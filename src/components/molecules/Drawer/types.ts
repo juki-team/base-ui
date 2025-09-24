@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from 'react';
-import type { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType, TriggerOnActionsType } from '../../../types';
+import type { ReactNodeOrFunctionType, TriggerOnActionsType } from '../../../types';
+import { ReactNodeOrFunctionP1Type } from '../../types';
 
 export interface DrawerViewProps extends PropsWithChildren<{
   position?: 'top' | 'right' | 'bottom' | 'left',

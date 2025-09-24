@@ -1,10 +1,10 @@
 import { Status } from '@juki-team/commons';
 import { PropsWithChildren, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../hooks';
-import type { SetLoaderStatusOnClickType } from '../../../types';
 import { Modal, T } from '../../atoms';
+import { useJukiUI } from '../../hooks';
 import { ExclamationIcon } from '../../server';
+import { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { TwoActionModalProps } from './types';
 
