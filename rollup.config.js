@@ -12,6 +12,7 @@ import alias from '@rollup/plugin-alias';
 // import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 import { visualizer } from 'rollup-plugin-visualizer';
 import pkg from './package.json' with { type: 'json' };
+import path from "path";
 
 const plugins = [
   // nodePolyfills(),
