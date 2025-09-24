@@ -20,7 +20,7 @@ const plugins = [
     entries: [
       // { find: 'node:crypto', replacement: path.resolve('./src/shims/crypto.js') },
       // { find: 'crypto', replacement: path.resolve('./src/shims/crypto.js') },
-      // { find: '@excalidraw/mermaid-to-excalidraw', replacement: path.resolve('./src/shims/emptyModule.js') },
+      { find: '@excalidraw/mermaid-to-excalidraw', replacement: path.resolve('./src/shims/emptyModule.js') },
     ]
   }),
   resolve({
