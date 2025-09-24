@@ -1,5 +1,8 @@
-import { lazy, ReactNode, Suspense } from 'react';
-import { ReactNodeOrFunctionType } from '../types';
+import { lazy, Suspense, ReactNode } from 'react';
+//import { SuspenseWithTracking } from '../SuspenseWithTracking';
+import { SpinIcon } from './server';
+import type { ReactNodeOrFunctionType } from '../../types'
+import type { ModalButtonLoaderEventType } from './Modal/types';
 import type { ButtonProps } from './Button/types';
 import type { ClientProps } from './Client/types';
 import type { CollapseProps } from './Collapse/types';
@@ -7,26 +10,22 @@ import type { CopyToClipboardProps } from './CopyToClipboard/types';
 import type { DateLiteralProps } from './DateLiteral/types';
 import type { DetectRequestAnimationFrameProps } from './DetectRequestAnimationFrame/types';
 import type { DivProps } from './Div/types';
-import type {
-  InputCellPhoneNumberProps,
-  InputCheckboxProps,
-  InputPasswordProps,
-  InputProps,
-  InputRadioProps,
-  InputSelectProps,
-  InputTextAreaProps,
-  InputToggleProps,
-} from './inputs/types';
-import type { ModalButtonLoaderEventType, ModalProps } from './Modal/types';
+import type { ModalProps } from './Modal/types';
 import type { MultiSelectProps } from './MultiSelect/types';
 import type { PopoverProps } from './Popover/types';
 import type { PortalProps } from './Portal/types';
 import type { SelectProps } from './Select/types';
-//import { SuspenseWithTracking } from '../SuspenseWithTracking';
-import { SpinIcon } from './server';
 import type { TProps } from './T/types';
 import type { TextAreaProps } from './TextArea/types';
 import type { VirtualizedRowsFixedProps } from './VirtualizedRowsFixed/types';
+import type { InputProps } from './inputs/types';
+import type { InputCellPhoneNumberProps } from './inputs/types';
+import type { InputCheckboxProps } from './inputs/types';
+import type { InputPasswordProps } from './inputs/types';
+import type { InputRadioProps } from './inputs/types';
+import type { InputSelectProps } from './inputs/types';
+import type { InputTextAreaProps } from './inputs/types';
+import type { InputToggleProps } from './inputs/types';
 
 const ButtonImport = () => import('./Button/Button');
 const LazyButton = lazy(() => ButtonImport().then(module => ({ default: module.Button })));
