@@ -144,6 +144,8 @@
 }
 
 .jk-tabs-inline-layout {
+  position: relative;
+  
   .jk-tabs-inline-body-content {
     @include mixins.transition(opacity, left, width, height);
     top: 0;
