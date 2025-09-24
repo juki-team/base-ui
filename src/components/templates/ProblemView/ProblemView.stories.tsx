@@ -1,7 +1,7 @@
 import {
   CodeLanguage,
   ContentResponseType,
-  EntityAccess,
+  EMPTY_ENTITY_MEMBERS,
   EntityState,
   Judge,
   ProblemDataResponseDTO,
@@ -9,7 +9,6 @@ import {
   ProblemType,
 } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { jukiApiManager } from '../../../settings';
 import { MockupJukiProvider } from '../../mockup';
 import { FetcherLayer } from '../../molecules';
@@ -47,6 +46,7 @@ Regular.args = {
       isCustom: false,
       isExternal: false,
       isMain: false,
+      isSubmitSupported: false,
     },
     author: '',
     key: 'P-1000',
@@ -146,16 +146,13 @@ Regular.args = {
       },
       evaluatorSource: '',
     },
-    members: {
-      access: EntityAccess.PUBLIC,
-      managers: {},
-      spectators: {},
-    },
+    members: EMPTY_ENTITY_MEMBERS(),
     company: {
       key: 'juki-app',
     },
     user: {
       isOwner: true,
+      isAdministrator: true,
       isSpectator: true,
       isManager: true,
       solved: true,

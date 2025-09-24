@@ -1,5 +1,4 @@
 import { CODE_LANGUAGE } from '@juki-team/commons';
-import React from 'react';
 import { Field } from '../../organisms/DataViewer/Field';
 import { TextField } from '../../organisms/DataViewer/TextField';
 import { SubmissionInfo } from './commons/SubmissionInfo';

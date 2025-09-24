@@ -10,7 +10,7 @@ import {
   SubscribeCodeRunStatusWebSocketEventDTO,
   WebSocketActionEvent,
 } from '@juki-team/commons';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';

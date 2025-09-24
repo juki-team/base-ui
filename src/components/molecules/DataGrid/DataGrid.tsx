@@ -1,7 +1,7 @@
 import { HotTable, HotTableProps } from '@handsontable/react';
 import { registerAllModules } from 'handsontable/registry';
 import { registerRenderer, textRenderer } from 'handsontable/renderers';
-import React, { memo } from 'react';
+import { memo } from 'react';
 import { utils } from 'xlsx';
 import { classNames } from '../../../helpers';
 import { CellStyleType, DataGridProps } from './types';

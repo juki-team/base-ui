@@ -1,5 +1,4 @@
 import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { TextField } from '../../../organisms/DataViewer/TextField';
 import { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
 import { SubmissionMemory } from '../../submission/commons/SubmissionMemory';

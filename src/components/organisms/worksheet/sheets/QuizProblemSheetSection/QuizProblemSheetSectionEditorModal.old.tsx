@@ -14,7 +14,7 @@ import {
 } from 'components';
 import { CODE_LANGUAGE, WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from 'config/constants';
 import { getHeight } from 'helpers';
-import React, { Dispatch, useState } from 'react';
+import { Dispatch, useState } from 'react';
 import { BasicModalProps, CodeLanguage, QuizProblemSheetType, TabsType } from 'types';
 
 interface RunnerSheetSectionProps extends BasicModalProps {

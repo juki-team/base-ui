@@ -1,4 +1,3 @@
-import React from 'react';
 import { action, configureActions } from 'storybook/actions';
 import { Button, MdMathEditor, Popover, T, VerticalMenu as VerticalMenuCmp } from '../../../index';
 import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';

@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { jukiAppRoutes } from '../../../../settings';
 import { ModalProps } from '../../../../types';

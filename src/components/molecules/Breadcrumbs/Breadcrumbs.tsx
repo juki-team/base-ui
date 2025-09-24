@@ -1,4 +1,4 @@
-import React, { Children, Fragment, useCallback, useMemo, useRef, useState } from 'react';
+import { Children, Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { useWidthResizer } from '../../../hooks/useWidthResizer';
 import { Popover } from '../../atoms';
 import { NavigateNextIcon } from '../../server';

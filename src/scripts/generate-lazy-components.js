@@ -62,15 +62,15 @@ const componentDirs = [
 
 const withGenericity = [
   [ `export const Modal = (props: ModalProps) => (`, "export const Modal = <T extends ModalButtonLoaderEventType = () => void>(props: ModalProps<T>) => (" ],
-  [ `export const MultiSelect = (props: MultiSelectProps) => (`, `export const MultiSelect = <T, U extends React.ReactNode, V extends React.ReactNode>(props: MultiSelectProps<T, U, V>) => (` ],
-  [ `export const Select = (props: SelectProps) => (`, `export const Select = <T, U extends React.ReactNode, V extends ReactNodeOrFunctionType>(props: SelectProps<T, U, V>) => (` ],
+  [ `export const MultiSelect = (props: MultiSelectProps) => (`, `export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: MultiSelectProps<T, U, V>) => (` ],
+  [ `export const Select = (props: SelectProps) => (`, `export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: SelectProps<T, U, V>) => (` ],
   [ `export const Input = (props: InputProps) => (`, `export const Input = <T extends string | number | FileList, >(props: InputProps<T>) => (` ],
-  [ `export const InputSelect = (props: InputSelectProps) => (`, `export const InputSelect = <T, U extends React.ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => (` ],
+  [ `export const InputSelect = (props: InputSelectProps) => (`, `export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => (` ],
   // molecules
   [ `export const CheckboxList = (props: CheckboxListProps) => (`, `export const CheckboxList = <T, >(props: CheckboxListProps<T>) => (` ],
   [ `export const CodeEditor = (props: CodeEditorProps) => (`, `export const CodeEditor = <T, >(props: CodeEditorProps<T>) => (` ],
   [ `export const FetcherLayer = (props: FetcherLayerProps) => (`, `export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>(props: FetcherLayerProps<T, U>) => (` ],
-  [ `export const MultiSelectSearchable = (props: MultiSelectSearchableProps) => (`, `export const MultiSelectSearchable = <T, U extends React.ReactNode, V extends React.ReactNode>(props: MultiSelectSearchableProps<T, U, V>) => (` ],
+  [ `export const MultiSelectSearchable = (props: MultiSelectSearchableProps) => (`, `export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNode>(props: MultiSelectSearchableProps<T, U, V>) => (` ],
   [ `export const SortableItems = (props: SortableItemsProps) => (`, `export const SortableItems = <T, U = undefined>(props: SortableItemsProps<T, U>) => (` ],
   [ `export const SplitModal = (props: SplitModalProps) => (`, `export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: SplitModalProps<T>) => (` ],
   [ `export const TabsInline = (props: TabsInlineProps) => (`, `export const TabsInline = <T, >(props: TabsInlineProps<T>) => (` ],
@@ -134,7 +134,6 @@ for (let {
   console.info({ foldersSize: folders.length, filesSize: files.length });
   
   let indexContent = [
-    `import React, { lazy, Suspense } from 'react';`,
     headerLines,
     ...(!commonProp && !withoutProps
       ? files.map(({
@@ -179,6 +178,12 @@ for (let {
     '};',
     ''
   ].join('\n');
+  if (indexContent.includes('ReactNode')) {
+    indexContent = `import { lazy, ReactNode, Suspense } from 'react';\n` + indexContent;
+  } else {
+    indexContent = `import { lazy, Suspense } from 'react';\n` + indexContent;
+    
+  }
   
   if (footerLines) {
     indexContent += '\n' + footerLines + '\n';

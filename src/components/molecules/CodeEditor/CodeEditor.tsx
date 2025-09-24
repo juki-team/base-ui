@@ -12,7 +12,7 @@ import type { EditorView } from '@codemirror/view';
 import { CodeLanguage, Theme } from '@juki-team/commons';
 // import { basicSetup } from '@uiw/codemirror-extensions-basic-setup';
 import CodeMirror from '@uiw/react-codemirror';
-import React, { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { CodeEditorProps } from './types';

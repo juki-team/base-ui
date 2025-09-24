@@ -1,5 +1,5 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import React, { Children, useCallback, useEffect, useMemo, useRef } from 'react';
+import { Children, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../../helpers';
 import { DataViewerTableHeadersType, RowVirtualizerFixedProps } from '../types';

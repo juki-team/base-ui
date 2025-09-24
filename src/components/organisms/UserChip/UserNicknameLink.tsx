@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { cloneURLSearchParams } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { usePreload } from '../../../hooks/usePreload';

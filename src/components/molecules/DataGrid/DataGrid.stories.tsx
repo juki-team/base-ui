@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { DataGrid } from './DataGrid';
 
 const meta: Meta<typeof DataGrid> = {
@@ -29,7 +28,7 @@ export const Regular: Story = {
         freeze="C4"
         autofilter={{ ref: 'A1:F7', filters: [] }}
         rows={{
-          ...new Array(100).fill(1).map((a, i) => ({
+          ...new Array(100).fill(1).map((_, i) => ({
             cells: {
               0: { text: i },
               1: { text: 'Tesla', style: i % 7 },

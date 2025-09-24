@@ -1,5 +1,5 @@
 import { ONE_MINUTE } from '@juki-team/commons';
-import React, { useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { InputToggle, Portal, T } from '../../../atoms';
 import { Button } from '../../../atoms/Button/Button';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Modal, T } from '../../atoms';
 import { Tabs } from '../../molecules';
 import { RefreshIcon } from '../../server';

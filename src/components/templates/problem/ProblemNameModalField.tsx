@@ -1,5 +1,5 @@
 import { ContentResponseType, ProblemDataResponseDTO } from '@juki-team/commons';
-import React, { ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { Modal } from '../../atoms';

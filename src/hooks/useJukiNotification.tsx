@@ -1,5 +1,5 @@
 import { ContentResponseType, ContentsResponseType, ErrorResponseType, Status } from '@juki-team/commons';
-import React, { Children, ReactNode, useCallback, useContext } from 'react';
+import { Children, ReactNode, useCallback, useContext } from 'react';
 import { T } from '../components/atoms/T/T';
 import { NotificationContext } from '../components/organisms/Notifications/context';
 import { NewNotificationType, NotificationAction } from '../components/organisms/Notifications/types';

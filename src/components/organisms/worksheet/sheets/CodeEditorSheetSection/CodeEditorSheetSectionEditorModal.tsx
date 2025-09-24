@@ -1,5 +1,5 @@
 import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE, CodeEditorSheetType, CodeLanguage } from '@juki-team/commons';
-import React, { Dispatch, useState } from 'react';
+import { Dispatch, useState } from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../constants';
 import { getHeight } from '../../../../../helpers';
 import { Input, InputCheckbox, Modal, MultiSelect, T } from '../../../../atoms';

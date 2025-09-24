@@ -1,4 +1,3 @@
-import React from 'react';
 import { classNames } from '../../../helpers';
 import { DateLiteral, T } from '../../atoms';
 import { Field } from './Field';

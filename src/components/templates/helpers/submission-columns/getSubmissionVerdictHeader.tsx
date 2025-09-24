@@ -1,5 +1,4 @@
 import { PROBLEM_VERDICT, SubmissionSummaryListResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { T } from '../../../atoms';
 import { Field, TextField } from '../../../organisms';
 import { DataViewerHeadersType } from '../../../organisms/types';

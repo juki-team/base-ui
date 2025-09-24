@@ -6,7 +6,7 @@ import {
   Status,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';

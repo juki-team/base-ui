@@ -1,4 +1,4 @@
-import React, { Children, CSSProperties, memo, PropsWithChildren, useId } from 'react';
+import { Children, CSSProperties, memo, PropsWithChildren, useId } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { PathLoadingPawsProps, PawsLoadingLayoutProps } from './types';
 

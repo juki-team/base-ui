@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { classNames } from '../../../../../helpers';
 import { Popover } from '../../../../atoms';
 import { FilterListIcon } from '../../../../server';

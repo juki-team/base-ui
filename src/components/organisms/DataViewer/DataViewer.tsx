@@ -1,5 +1,5 @@
 import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, SEPARATOR_TOKEN, Status } from '@juki-team/commons';
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EMPTY_ARRAY } from '../../../constants';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useStableRef } from '../../../hooks';

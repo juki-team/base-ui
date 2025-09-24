@@ -19,7 +19,7 @@ import { TFunction } from 'i18next';
 import katex from 'katex';
 import mermaid from 'mermaid';
 import { Decoration } from 'prosemirror-view';
-import React, { Dispatch, SetStateAction, useMemo, useRef } from 'react';
+import { Dispatch, SetStateAction, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
 import { handleUploadImage } from '../../../../helpers';
 import { useI18nStore, useJukiNotification, useStableRef, useUserStore } from '../../../../hooks';

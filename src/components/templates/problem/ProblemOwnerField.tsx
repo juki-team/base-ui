@@ -1,4 +1,3 @@
-import React from 'react';
 import { T } from '../../atoms';
 import { TextField, UserChip } from '../../organisms';
 import { ProblemOwnerFieldProps } from './types';

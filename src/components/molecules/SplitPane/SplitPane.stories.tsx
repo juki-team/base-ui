@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 import { JudgeTabs } from '../Tabs/mocks/JudgeTabs';
 import { SplitPane as SplitPaneComponent } from './SplitPane';

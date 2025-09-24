@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { DatePickerDateFunType } from '../../../molecules/types';
 import {

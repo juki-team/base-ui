@@ -1,4 +1,3 @@
-import React from 'react';
 import { EditIcon } from '../../../../atoms/server';
 import { FloatToolbar } from '../../../../molecules';
 import { ButtonActionProps } from '../../../../molecules/FloatToolbar/types';

@@ -1,5 +1,5 @@
 import { getWorksheetsInPages } from '@juki-team/commons';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { useStableState } from '../../../hooks/useStableState';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { ContentsSectionHeader } from './ContentsSectionHeader';

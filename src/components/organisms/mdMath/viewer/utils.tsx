@@ -1,6 +1,6 @@
 import { Theme } from '@juki-team/commons';
 import type { Element } from 'hast';
-import React, { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 import { SetSearchParamsType } from '../../../../contexts/JukiRouterProvider/types';
 import { classNames } from '../../../../helpers';
 import { QueryParamKey } from '../../../../types';

@@ -1,4 +1,4 @@
-import React, { ComponentType } from 'react';
+import { ComponentType } from 'react';
 import { classNames } from '../../../../../helpers/commons';
 import { RootIconProps, SignIconProps } from '../types';
 import { CircleFrame } from './CircleFrame';

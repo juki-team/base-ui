@@ -8,7 +8,7 @@ import {
   SubmissionRunStatus,
   Theme,
 } from '@juki-team/commons';
-import React, { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { EMPTY_OBJECT } from '../../../constants';
 import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
 import { useJukiNotification, useStableRef } from '../../../hooks';

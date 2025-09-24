@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface SquareFrameProps {
   strokeWidth?: number,
   cx?: number,

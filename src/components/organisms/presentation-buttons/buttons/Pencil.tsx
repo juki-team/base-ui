@@ -1,5 +1,5 @@
 // import * as fabric from 'fabric';
-// import React, { useEffect, useRef, useState } from 'react';
+// import { useEffect, useRef, useState } from 'react';
 // import { T } from '../../../atoms';
 // import { Button } from '../../../atoms/Button/Button';
 // import { Input } from '../../../atoms/inputs/Input';

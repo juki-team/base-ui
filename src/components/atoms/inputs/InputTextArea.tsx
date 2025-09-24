@@ -1,4 +1,4 @@
-import React, { useId } from 'react';
+import { useId } from 'react';
 import { classNames } from '../../../helpers';
 import { TextArea } from '../TextArea/TextArea';
 import { InputTextAreaProps } from './types';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Popover } from '../../atoms';
 import { MultiProgressBarProps } from './types';
 

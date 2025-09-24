@@ -1,5 +1,5 @@
 import { ASPECT_RATIO, isStringJson, Theme } from '@juki-team/commons';
-import React, { Children, useEffect, useRef, useState } from 'react';
+import { Children, useEffect, useRef, useState } from 'react';
 import Reveal from 'reveal.js';
 import RevealNotes from 'reveal.js/plugin/notes/notes';
 import RevealSearch from 'reveal.js/plugin/search/search';

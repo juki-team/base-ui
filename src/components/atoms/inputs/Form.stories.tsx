@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { Input, InputPassword, Select as SelectComponent, TextArea } from '../../atoms';
 import { InputProps } from '../../atoms/types';
@@ -13,7 +13,7 @@ export default meta;
 
 type Story = StoryObj<typeof Input>;
 
-const Cmp = (props: InputProps<any>) => {
+const Cmp = (_: InputProps<any>) => {
   const [ text, setText ] = useState('');
   
   return (

@@ -1,10 +1,9 @@
-import React from 'react';
-
 const Telegram = () => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" height="144" viewBox="0 0 144 144" width="4464">
       <linearGradient
-        id="a">
+        id="a"
+      >
         <stop offset="0" stopColor="#2aabee" id="stop2" />
         <stop offset="1" stopColor="#229ed9" id="stop4" />
       </linearGradient>

@@ -1,5 +1,5 @@
 import { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons/dist/types/dto/worksheet-submissions';
-import React, { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
+import { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { T } from '../../../atoms';

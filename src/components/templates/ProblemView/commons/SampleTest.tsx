@@ -1,5 +1,4 @@
 import { ProblemSampleCasesType } from '@juki-team/commons';
-import React from 'react';
 import { CopyToClipboard } from '../../../atoms';
 import { InfoIIcon } from '../../../server';
 

@@ -1,5 +1,4 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { DrawerView as DrawerViewComponent, MdMathViewer } from '../../../index';
 import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
 import { SAMPLE_MD_CONTENT } from '../../organisms/mdMath/constants';

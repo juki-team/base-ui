@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const ThemeColorPalette = () => {
   return (
     <div className="jk-row gap jk-pg">

@@ -1,5 +1,4 @@
 import { getDataOfTestCase, ONE_SECOND, SubmissionRunStatus } from '@juki-team/commons';
-import React from 'react';
 import { classNames } from '../../../../helpers';
 import { T } from '../../../atoms';
 import { LogInfoProps } from '../types';

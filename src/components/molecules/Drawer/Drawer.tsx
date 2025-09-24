@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { DrawerView } from './DrawerView';
 import { DrawerProps } from './types';

@@ -1,5 +1,4 @@
 import { ContentsResponseType, Judge, JUDGE, JudgeDataResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { classNames } from '../../../helpers';
 import { useFetcher, useJukiUI } from '../../../hooks';
 import { jukiApiManager } from '../../../settings';

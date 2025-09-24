@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { classNames, copy } from '../../../helpers';
 import { CheckIcon, ContentCopyIcon } from '../server';
 import { CopyToClipboardProps } from './types';

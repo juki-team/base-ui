@@ -1,4 +1,4 @@
-import React, { ReactNode, Suspense, useEffect } from 'react';
+import { ReactNode, Suspense, useEffect } from 'react';
 import { useLazyLoadingStore } from '../stores/lazyLoading/useLazyLoadingStore';
 
 export const SuspenseWithTracking = ({ children, fallback, id }: {

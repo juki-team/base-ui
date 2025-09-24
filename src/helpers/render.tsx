@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../types';
 
 export const renderReactNodeOrFunction = (content: ReactNodeOrFunctionType, key?: string | number): ReactNode => {

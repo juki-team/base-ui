@@ -1,11 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import { Fragment, memo, useEffect, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useInterval } from '../../../hooks/custom';
 import { T } from '../../atoms';
 import { TimerProps } from './types';
 import { cutTimeSplit } from './utils';
 
-export const Timer = React.memo((props: TimerProps) => {
+export const Timer = memo((props: TimerProps) => {
   
   const {
     currentTimestamp,

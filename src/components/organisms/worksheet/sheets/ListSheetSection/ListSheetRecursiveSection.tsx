@@ -7,7 +7,7 @@ import {
   QuizProblemSheetType,
   QuizTextSheetType,
 } from '@juki-team/commons';
-import React, { Children, Dispatch } from 'react';
+import { Children, Dispatch } from 'react';
 import { EMPTY_LIST_SHEET } from '../../../../../constants';
 import { classNames } from '../../../../../helpers';
 import { Button, Collapse, T } from '../../../../atoms';

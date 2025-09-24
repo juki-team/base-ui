@@ -1,5 +1,5 @@
 import { MotionConfig } from 'motion/react';
-import React, { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
+import { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
 import { T } from '../../components/atoms';
 import { LineLoader } from '../../components/server';
 import { classNames, persistGlobalURLSearchParams } from '../../helpers';

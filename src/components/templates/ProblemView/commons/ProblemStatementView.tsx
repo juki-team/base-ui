@@ -1,5 +1,4 @@
 import { ContentResponseType, Judge, Language, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
-import React from 'react';
 import {
   authorizedRequest,
   classNames,

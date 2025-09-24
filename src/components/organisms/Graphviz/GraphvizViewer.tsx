@@ -1,6 +1,6 @@
 import { CodeLanguage } from '@juki-team/commons';
 import { graphviz, GraphvizOptions } from 'd3-graphviz';
-import React, { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { create } from 'zustand';
 import { classNames } from '../../../helpers';
 import { Button, Modal } from '../../atoms';

@@ -1,5 +1,5 @@
 import { consoleError, ContentResponseType, ContentsResponseType, ErrorResponseType } from '@juki-team/commons';
-import React, { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';

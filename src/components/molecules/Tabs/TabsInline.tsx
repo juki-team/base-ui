@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import React, { Children, ReactNode, useCallback, useId, useRef, useState } from 'react';
+import { Children, ReactNode, useCallback, useId, useRef, useState } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState } from '../../../hooks/useHandleState';
 import { useJukiUI } from '../../../hooks/useJukiUI';

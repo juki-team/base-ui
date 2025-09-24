@@ -1,4 +1,3 @@
-import React from 'react';
 import { Modal, T } from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';
 import { JukiCompleteLaptopImage } from '../../../server';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { BasicIconProps } from '../types';
 import { renderBasicIcon } from '../utils';
 

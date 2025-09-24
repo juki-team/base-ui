@@ -1,4 +1,3 @@
-import React from 'react';
 import { useJukiUser } from '../../../../hooks/useJukiUser';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { SignUpModalTemplate } from './SignUpModalTemplate';

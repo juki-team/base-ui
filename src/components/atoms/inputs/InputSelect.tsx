@@ -1,4 +1,4 @@
-import React, { ReactNode, useId, useRef, useState } from 'react';
+import { ReactNode, useId, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { ReactNodeOrFunctionType } from '../../../types';
 import { Select } from '../Select/Select';

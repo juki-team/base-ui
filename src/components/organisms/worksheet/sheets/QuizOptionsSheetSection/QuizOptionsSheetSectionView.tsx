@@ -1,5 +1,5 @@
 import { QuizOptionsSheetType } from '@juki-team/commons';
-import React, { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { classNames } from '../../../../../helpers';
 import { InputCheckbox, InputRadio, T } from '../../../../atoms';
 import { MdMathViewer } from '../../../mdMath/MdMathViewer';

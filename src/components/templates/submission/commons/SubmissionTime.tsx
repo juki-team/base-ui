@@ -1,5 +1,4 @@
 import { ProblemVerdict } from '@juki-team/commons';
-import React from 'react';
 import { hasTimeHasMemory } from '../../../../helpers/submission';
 import { T } from '../../../atoms';
 

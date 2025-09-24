@@ -1,4 +1,3 @@
-import React from 'react';
 import { classNames } from '../../../../helpers';
 import { MdFloatToolbar } from '../MdFloatToolbar/MdFloatToolbar';
 import { MdMathViewerProps } from '../types';

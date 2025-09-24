@@ -1,6 +1,6 @@
 import { CodeLanguage } from '@juki-team/commons';
 import microDiff from 'microdiff';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { T } from '../components/atoms/T/T';
 import { CodeEditor } from '../components/molecules/CodeEditor/CodeEditor';
 import { useJukiNotification } from './useJukiNotification';

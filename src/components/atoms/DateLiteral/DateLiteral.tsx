@@ -1,5 +1,4 @@
 import { DAY_NAMES, MONTH_NAMES } from '@juki-team/commons';
-import React from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { T } from '../T/T';
 import { DateLiteralProps } from './types';

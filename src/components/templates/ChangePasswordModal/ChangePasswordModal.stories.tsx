@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Button } from "../../atoms";
-import { MockupJukiProvider } from "../../mockup";
-import { ChangePasswordModal as UserChangePasswordModalCmp } from "./ChangePasswordModal";
+import { useState } from 'react';
+import { Button } from '../../atoms';
+import { MockupJukiProvider } from '../../mockup';
+import { ChangePasswordModal as UserChangePasswordModalCmp } from './ChangePasswordModal';
 
 export default {
   component: UserChangePasswordModalCmp,
 };
 
 export const UserChangePasswordModal = () => {
-  const [open, setOpen] = useState(false);
-
+  const [ open, setOpen ] = useState(false);
+  
   return (
     <MockupJukiProvider>
       <UserChangePasswordModalCmp

@@ -8,7 +8,7 @@ import {
   ProfileSetting,
   Theme,
 } from '@juki-team/commons';
-import React, { PropsWithChildren, useCallback, useEffect } from 'react';
+import { PropsWithChildren, useCallback, useEffect } from 'react';
 import { T } from '../../components/atoms/T/T';
 import { JukiLoadingLayout } from '../../components/molecules/layouts/JukiLoadingLayout';
 import { EMPTY_USER } from '../../constants';

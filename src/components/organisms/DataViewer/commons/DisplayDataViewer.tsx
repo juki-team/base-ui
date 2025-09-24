@@ -1,5 +1,5 @@
 import { DataViewMode } from '@juki-team/commons';
-import React, { Children, CSSProperties, useRef } from 'react';
+import { Children, CSSProperties, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../../constants';
 import { classNames, renderReactNodeOrFunction } from '../../../../helpers';

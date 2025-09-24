@@ -1,5 +1,4 @@
 import { Status } from '@juki-team/commons';
-import React from 'react';
 import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
 import { ButtonLoader } from '../../molecules';
 import { ErrorIcon } from '../../server';

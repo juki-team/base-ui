@@ -8,7 +8,7 @@ import {
   SubmissionDataResponseDTO,
   TestCaseResultType,
 } from '@juki-team/commons';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { getJudgeOrigin } from '../../../../helpers';
 import { hasTimeHasMemory } from '../../../../helpers/submission';
 import { useFetcher, useJukiUI } from '../../../../hooks';

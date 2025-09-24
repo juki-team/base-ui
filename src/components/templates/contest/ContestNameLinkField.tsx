@@ -1,4 +1,3 @@
-import React from 'react';
 import { classNames, getJudgeOrigin } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { jukiAppRoutes } from '../../../settings';

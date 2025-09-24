@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'motion/react';
-import React, { memo, useRef } from 'react';
+import { memo, useRef } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useKeyPress } from '../../../hooks/custom';
 import { Button, Portal } from '../../atoms';

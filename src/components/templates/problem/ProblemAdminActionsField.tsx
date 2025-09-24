@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Button, T } from '../../atoms';
 import { Field } from '../../organisms';

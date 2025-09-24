@@ -7,7 +7,7 @@ import {
   QuizProblemSheetType,
   WorksheetType,
 } from '@juki-team/commons';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 // import 'reveal.js/dist/reveal.css';
 // import 'reveal.js/dist/theme/black.css';
 // import 'reveal.js/dist/theme/white.css';

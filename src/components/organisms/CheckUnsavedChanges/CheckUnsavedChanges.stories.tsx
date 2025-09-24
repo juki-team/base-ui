@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MockupJukiProvider } from '../../../components/mockup';
 import { NotificationProvider } from '../../../contexts/NotificationProvider/NotificationProvider';
 import { useJukiNotification } from '../../../hooks';

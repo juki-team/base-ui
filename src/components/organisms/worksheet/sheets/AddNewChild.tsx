@@ -1,5 +1,4 @@
 import { BodyWorksheetType, NEW_PAGE_SHEET, WorksheetType } from '@juki-team/commons';
-import React from 'react';
 import {
   EMPTY_CODE_EDITOR_SHEET,
   EMPTY_GRAPH_SHEET,

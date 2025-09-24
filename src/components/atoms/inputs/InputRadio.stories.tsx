@@ -1,8 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { MockupJukiProvider } from '../../mockup';
-
 import { InputRadio } from './InputRadio';
 
 const meta: Meta<typeof InputRadio> = {

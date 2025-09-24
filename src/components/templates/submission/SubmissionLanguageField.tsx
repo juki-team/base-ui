@@ -1,4 +1,3 @@
-import React from 'react';
 import { Field } from '../../organisms/DataViewer/Field';
 import { SubmissionInfo } from './commons/SubmissionInfo';
 import { SubmissionLanguageFieldProps } from './types';

@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 // import { consoleWarn } from '@juki-team/commons';
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import {

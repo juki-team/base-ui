@@ -1,5 +1,4 @@
 import { WorksheetsInPages } from '@juki-team/commons';
-import React from 'react';
 import { classNames } from '../../../../helpers';
 import { OnPageChange, QueryParamKey } from '../../../../types';
 import { Collapse } from '../../../atoms/Collapse/Collapse';

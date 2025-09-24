@@ -1,4 +1,3 @@
-import React from 'react';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { Button, T } from '../../atoms';
 import { HomeIcon, JukiSurprisedImage } from '../../server';

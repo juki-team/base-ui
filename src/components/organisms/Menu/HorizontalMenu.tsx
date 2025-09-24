@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import React, { ReactNode, useId } from 'react';
+import { Children, ReactNode, useId } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { DrawerActionsType, NONE } from '../../../types';
@@ -108,7 +108,7 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
               {renderReactNodeOrFunction(leftSection)}
             </div>
             <div className="jk-menu-items jk-row gap left nowrap">
-              {React.Children.toArray(menus)}
+              {Children.toArray(menus)}
             </div>
             <div className="jk-menu-right-section jk-row stretch right nowrap">
               {renderReactNodeOrFunction(rightSection)}
@@ -196,7 +196,7 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
               extend: withBottomMobileNav,
             })}
           >
-            {React.Children.toArray(menus)}
+            {Children.toArray(menus)}
           </div>
         </section>
       )}

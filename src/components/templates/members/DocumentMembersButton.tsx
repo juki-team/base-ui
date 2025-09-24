@@ -5,7 +5,7 @@ import {
   getDocumentAccess,
   HTTPMethod,
 } from '@juki-team/commons';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { Button, CopyToClipboard, Popover, T } from '../../atoms';

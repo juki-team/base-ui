@@ -5,7 +5,7 @@ import {
   Judge,
   QuizProblemSheetType,
 } from '@juki-team/commons';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../constants';
 import { Input, InputCheckbox, Modal, MultiSelect, T } from '../../../../atoms';
 import { BasicModalProps } from '../../../../atoms/Modal/types';

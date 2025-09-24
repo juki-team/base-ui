@@ -1,4 +1,3 @@
-import React from 'react';
 import { downloadBlobAsFile } from '../../../../helpers';
 import { T } from '../../../atoms';
 import { FloatToolbar } from '../../../molecules';

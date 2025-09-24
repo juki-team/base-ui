@@ -1,4 +1,3 @@
-import React from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../../helpers';
 import { TableHeadersType } from '../types';

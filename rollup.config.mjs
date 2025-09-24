@@ -78,13 +78,13 @@ export default [
       'server': 'src/components/server/index.ts',
     },
     output: [
-      {
-        // file: 'dist/index.js',
-        dir: 'dist/cjs',
-        format: 'cjs',
-        sourcemap: false,
-        // preserveModules: true,
-      },
+      // {
+      //   // file: 'dist/index.js',
+      //   dir: 'dist/cjs',
+      //   format: 'cjs',
+      //   sourcemap: false,
+      //   // preserveModules: true,
+      // },
       {
         // file: 'build/index.es.js',
         dir: 'dist/esm',

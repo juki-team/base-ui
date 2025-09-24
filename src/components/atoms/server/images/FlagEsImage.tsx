@@ -1,6 +1,4 @@
-import React from 'react';
 import { classNames } from '../../../../helpers';
-
 import { ImageProps } from './types';
 
 export const FlagEsImage = ({ className, ...props }: ImageProps) => {

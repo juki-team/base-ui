@@ -1,5 +1,5 @@
 import { JUDGE, Judge, Status, UserProfileResponseDTO } from '@juki-team/commons';
-import React, { Dispatch, useRef, useState } from 'react';
+import { Dispatch, useRef, useState } from 'react';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { useEntityDiff } from '../../../hooks/useEntityDiff';

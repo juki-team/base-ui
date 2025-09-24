@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { action, configureActions } from 'storybook/actions';
 import {
   Button,

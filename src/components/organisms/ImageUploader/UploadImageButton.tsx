@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button, T } from '../../atoms';
 import { CloudUploadIcon } from '../../server';
 import { ImageUploaderModal } from './ImageUploaderModal';

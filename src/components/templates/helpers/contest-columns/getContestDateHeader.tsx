@@ -1,5 +1,4 @@
 import { ContestSummaryListResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { DateLiteral, T } from '../../../atoms';
 import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/types';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { classNames } from '../../../helpers';
 import { Button, DateLiteral, Popover, T } from '../../atoms';
 import { PlusIcon } from '../../server';

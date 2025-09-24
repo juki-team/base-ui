@@ -1,5 +1,5 @@
 import { ContentsResponseType, SessionBasicResponseDTO, Status } from '@juki-team/commons';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS } from '../../../constants';
 import { useDataViewerRequester } from '../../../hooks/useDataViewerRequester';
 import { useJukiUser } from '../../../hooks/useJukiUser';

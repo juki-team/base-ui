@@ -11,7 +11,7 @@ import {
   SubmissionRunStatus,
   WorksheetType,
 } from '@juki-team/commons';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { authorizedRequest, classNames, getHeight } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { jukiApiManager } from '../../../../../settings';

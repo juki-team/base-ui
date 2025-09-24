@@ -1,7 +1,7 @@
 import { Excalidraw as ExcalidrawCmp, MainMenu } from '@excalidraw/excalidraw';
 import { OrderedExcalidrawElement } from '@excalidraw/excalidraw/element/types';
 import { AppState, ExcalidrawImperativeAPI } from '@excalidraw/excalidraw/types';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { InputToggle, Portal, T } from '../../../atoms';
 import { Button } from '../../../atoms/Button/Button';
 import { EditIcon } from '../../../atoms/server';
@@ -145,37 +145,37 @@ export const Excalidraw = () => {
           />
         </div>
       )}
-        <Portal>
-          {isActive && (
-            <div
-              style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                pointerEvents: isActive ? undefined : 'none',
-                opacity: isActive ? 1 : 0,
-                zIndex: 'var(--z-index-excalidraw)',
+      <Portal>
+        {isActive && (
+          <div
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              pointerEvents: isActive ? undefined : 'none',
+              opacity: isActive ? 1 : 0,
+              zIndex: 'var(--z-index-excalidraw)',
+            }}
+          >
+            <ExcalidrawCmp
+              excalidrawAPI={(api) => setExcalidrawAPI(api)}
+              initialData={excalidrawData}
+              onChange={(elements, appState) => {
+                const data = { elements, appState, viewBackgroundColor };
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
               }}
             >
-              <ExcalidrawCmp
-                excalidrawAPI={(api) => setExcalidrawAPI(api)}
-                initialData={excalidrawData}
-                onChange={(elements, appState) => {
-                  const data = { elements, appState, viewBackgroundColor };
-                  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
-                }}
-              >
-                <MainMenu>
-                  <MainMenu.DefaultItems.Export />
-                  <MainMenu.DefaultItems.SaveAsImage />
-                  <MainMenu.DefaultItems.ToggleTheme />
-                </MainMenu>
-              </ExcalidrawCmp>
-            </div>
-          )}
-        </Portal>
+              <MainMenu>
+                <MainMenu.DefaultItems.Export />
+                <MainMenu.DefaultItems.SaveAsImage />
+                <MainMenu.DefaultItems.ToggleTheme />
+              </MainMenu>
+            </ExcalidrawCmp>
+          </div>
+        )}
+      </Portal>
     </>
   );
 };

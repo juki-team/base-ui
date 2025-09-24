@@ -1,5 +1,4 @@
 import { ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { jukiApiManager } from '../../../../settings';
 import { Button, Modal, T } from '../../../atoms';

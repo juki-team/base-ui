@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ClockCircle = () => {
   return (
     <svg viewBox="64 64 896 896" focusable="false" fill="currentColor">

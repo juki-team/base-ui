@@ -1,4 +1,4 @@
-import React, { Children, memo, ReactElement, useCallback, useRef, useState } from 'react';
+import { Children, memo, ReactElement, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../../helpers';
 import { ArrowDownwardIcon, ArrowUpwardIcon, SortIcon } from '../../../../server';
 import { fixHeaders, renderHead } from '../../commons/utils';

@@ -8,7 +8,7 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import json from 'highlight.js/lib/languages/json';
 import markdown from 'highlight.js/lib/languages/markdown';
 import python from 'highlight.js/lib/languages/python';
-import React, { CSSProperties, useEffect, useRef } from 'react';
+import { CSSProperties, useEffect, useRef } from 'react';
 import { classNames } from '../../../helpers';
 import { CopyToClipboard } from '../../atoms';
 import { CodeViewerProps } from './types'; // o el tema que prefieras

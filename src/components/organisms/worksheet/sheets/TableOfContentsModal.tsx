@@ -1,5 +1,4 @@
 import { WorksheetsInPages } from '@juki-team/commons';
-import React from 'react';
 import { Modal, T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/Modal/types';
 import { OnPageChange } from '../types';

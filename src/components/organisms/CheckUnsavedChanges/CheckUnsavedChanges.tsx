@@ -1,7 +1,7 @@
 import { CodeLanguage } from '@juki-team/commons';
 import { diffLines, diffWords } from 'diff';
 import microDiff from 'microdiff';
-import React, { cloneElement, ReactElement, ReactNode, useRef, useState } from 'react';
+import { cloneElement, ReactElement, ReactNode, useRef, useState } from 'react';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { T } from '../../atoms';
 import { TwoActionModal } from '../../molecules';

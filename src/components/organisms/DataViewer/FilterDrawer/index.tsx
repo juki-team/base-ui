@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { classNames, upperFirst } from '../../../../helpers';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { Button, Input, T } from '../../../atoms';

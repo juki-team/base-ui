@@ -1,4 +1,3 @@
-import React from 'react';
 import { classNames } from '../../../../../../helpers';
 import { IconProps } from '../../types';
 import Telegram from './Telegram';

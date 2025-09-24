@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '../../atoms';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
 

@@ -1,5 +1,4 @@
 import { QuizOptionsSheetType, QuizScoringMode } from '@juki-team/commons';
-import React from 'react';
 import { v4 } from 'uuid';
 import { classNames } from '../../../../../helpers';
 import { Button, Input, InputCheckbox, InputRadio, InputToggle, T } from '../../../../atoms';

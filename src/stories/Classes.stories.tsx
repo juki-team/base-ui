@@ -1,6 +1,5 @@
 // import { configureActions } from 'storybook/actions';
 import { type Meta, type StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { MockupJukiProvider, MockupToggleThemeButton } from '../components/mockup';
 import { TabsInline as TabsComponent } from '../components/molecules';
 

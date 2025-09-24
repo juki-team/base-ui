@@ -9,7 +9,7 @@ import {
   getCountries,
   getCountryCallingCode as libGetCountryCallingCode,
 } from 'libphonenumber-js';
-import React, { ReactNode, useId, useMemo, useState } from 'react';
+import { ReactNode, useId, useMemo, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Select } from '../Select/Select';

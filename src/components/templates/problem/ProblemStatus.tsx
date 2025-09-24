@@ -1,4 +1,3 @@
-import React from 'react';
 import { CheckIcon, PendingActionsIcon } from '../../server';
 import { ProblemStatusProps } from './types';
 

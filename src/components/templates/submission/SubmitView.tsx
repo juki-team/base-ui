@@ -1,5 +1,4 @@
 import { ContentResponseType, SubmissionDataResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
 import { FetcherLayer } from '../../molecules';

@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import React, { ClipboardEventHandler, useRef } from 'react';
+import { ClipboardEventHandler, useRef } from 'react';
 import { classNames, handleUploadImage } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { NotificationType, TextPlainEditorContentProps } from '../../../../types';

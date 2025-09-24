@@ -7,7 +7,7 @@ import {
   SUBMISSION_RUN_STATUS,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { NotificationType } from '../../../../types';

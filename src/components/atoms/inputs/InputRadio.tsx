@@ -1,4 +1,3 @@
-import React from 'react';
 import { classNames } from '../../../helpers';
 import { InputRadioProps } from './types';
 

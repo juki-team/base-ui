@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactElement, Ref, useEffect, useId } from 'react';
+import { forwardRef, ReactElement, Ref, useEffect, useId } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import { classNames } from '../../../helpers';
 import { CmpInputProps, InputProps } from './types';

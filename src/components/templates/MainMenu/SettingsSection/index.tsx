@@ -1,5 +1,5 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
-import React, { Dispatch, KeyboardEventHandler, ReactNode, SyntheticEvent } from 'react';
+import { Dispatch, KeyboardEventHandler, ReactNode, SyntheticEvent } from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useJukiUserSettings } from '../../../../hooks/useJukiUser';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { TextField } from '../../organisms/DataViewer/TextField';

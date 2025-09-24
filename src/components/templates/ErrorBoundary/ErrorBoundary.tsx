@@ -1,5 +1,5 @@
 import { consoleError, consoleInfo, ContentsResponseType } from '@juki-team/commons';
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { Button, T } from '../../atoms';

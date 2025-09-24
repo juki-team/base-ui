@@ -2,7 +2,7 @@ import { ProblemScoringMode, ProblemVerdict, ProfileSetting, TestCaseResultType,
 import * as Diff2Html from 'diff2html';
 import { LineMatchingType } from 'diff2html/lib-esm/types';
 import { ColorSchemeType } from 'diff2html/lib/types';
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';

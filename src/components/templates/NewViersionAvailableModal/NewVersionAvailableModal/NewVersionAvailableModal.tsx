@@ -1,4 +1,3 @@
-import React from 'react';
 import { T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/types';
 import { TwoActionModal } from '../../../molecules';

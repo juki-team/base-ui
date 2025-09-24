@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { SpinIcon } from '../icons';
 import { LoaderLayerProps } from './types';
 

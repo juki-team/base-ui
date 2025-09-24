@@ -1,4 +1,3 @@
-import React from 'react';
 import { RootIconProps } from '../types';
 
 const Spin = ({ color }: RootIconProps) => (

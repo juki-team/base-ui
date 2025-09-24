@@ -1,5 +1,4 @@
 import { ImageSummaryResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { copy } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { NotificationType } from '../../../../../types';

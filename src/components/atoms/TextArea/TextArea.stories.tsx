@@ -1,8 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react-webpack5";
-import React from "react";
-import { MockupJukiProvider } from "../../mockup";
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import { MockupJukiProvider } from '../../mockup';
 
-import { TextArea } from "./TextArea";
+import { TextArea } from './TextArea';
 
 const meta: Meta<typeof TextArea> = {
   component: TextArea,

@@ -1,6 +1,6 @@
 import { CODE_LANGUAGE, CodeLanguage } from '@juki-team/commons';
 // import Prism from 'prismjs';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { classNames } from '../../../helpers';
 import { CopyToClipboard } from '../../atoms/CopyToClipboard/CopyToClipboard';
 import { CodeViewerDeprecatedProps } from './types';

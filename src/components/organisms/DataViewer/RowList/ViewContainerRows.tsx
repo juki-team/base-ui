@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { SCROLL_WIDTH } from '../../../../constants';
 import { usePrevious } from '../../../../hooks/usePrevious';
 import {

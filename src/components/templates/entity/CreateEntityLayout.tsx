@@ -1,5 +1,5 @@
 import { ContentResponseType, DocumentCreateResponseDTO, HTTPMethod, Status } from '@juki-team/commons';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useRouterStore } from '../../../stores/router/useRouterStore';

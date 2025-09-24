@@ -8,7 +8,6 @@ import {
   Status,
   WorksheetType,
 } from '@juki-team/commons';
-import React from 'react';
 import { authorizedRequest } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { jukiApiManager } from '../../../../../settings';

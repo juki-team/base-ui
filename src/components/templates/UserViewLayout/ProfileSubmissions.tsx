@@ -3,7 +3,7 @@ import {
   JudgeSummaryListResponseDTO,
   SubmissionSummaryListResponseDTO,
 } from '@juki-team/commons';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { toFilterUrl, toSortUrl } from '../../../helpers';
 import { useFetcher, usePreload } from '../../../hooks';
 import { jukiApiManager } from '../../../settings';

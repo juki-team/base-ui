@@ -1,4 +1,3 @@
-import React from 'react';
 import { CopyToClipboard } from '../../atoms';
 import { Field } from '../../organisms';
 import { ProblemKeyFieldProps } from './types';

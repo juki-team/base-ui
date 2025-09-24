@@ -1,4 +1,3 @@
-import React from 'react';
 import { T } from '../../../atoms';
 import { ButtonSizeType } from '../../../atoms/Button/types';
 import { ArrowDownwardIcon, ArrowUpwardIcon, DeleteIcon } from '../../../atoms/server';

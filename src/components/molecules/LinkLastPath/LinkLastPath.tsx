@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { LastPathType } from '../../../contexts/JukiLastPathProvider/types';
 import { cloneURLSearchParams, getHref } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';

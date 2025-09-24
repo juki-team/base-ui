@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { Button } from '../../atoms';
 import { useSetLoaderStatus } from '../../atoms/hooks/useSetLoaderStatus';

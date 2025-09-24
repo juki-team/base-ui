@@ -1,4 +1,3 @@
-import React from 'react';
 import { EMPTY_USER } from '../../../constants';
 import { MockupJukiProvider } from '../../mockup';
 import { UserProfileSettings as UserProfileSettingsCmp } from './UserProfileSettings';

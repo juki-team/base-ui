@@ -1,4 +1,3 @@
-import React from 'react';
 import { jukiAppRoutes } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { QueryParamKey } from '../../../types';

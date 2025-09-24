@@ -1,5 +1,4 @@
 import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE, CodeEditorSheetType, CodeLanguage } from '@juki-team/commons';
-import React from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../constants';
 import { Input, InputCheckbox, MultiSelect, T } from '../../../../atoms';
 import { UserCodeEditor } from '../../../UserCodeEditor/UserCodeEditor';

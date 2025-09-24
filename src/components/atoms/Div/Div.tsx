@@ -1,4 +1,4 @@
-import React, { forwardRef, ReactElement, Ref, useEffect, useState } from 'react';
+import { forwardRef, ReactElement, Ref, useEffect, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { DivProps } from './types';
 

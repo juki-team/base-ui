@@ -1,5 +1,4 @@
 import { PROBLEM_VERDICT, ProfileSetting, Theme } from '@juki-team/commons';
-import React from 'react';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { ProblemVerdictTagProps } from './types';
 

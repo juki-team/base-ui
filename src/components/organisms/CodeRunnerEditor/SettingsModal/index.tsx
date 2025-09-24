@@ -1,4 +1,3 @@
-import React from 'react';
 import { CODE_EDIT0R_FONT_SIZES, CODE_EDIT0R_TAB_SIZES } from '../../../../constants';
 import { Modal, Select, T } from '../../../atoms';
 import { SettingsModalProps } from '../types';

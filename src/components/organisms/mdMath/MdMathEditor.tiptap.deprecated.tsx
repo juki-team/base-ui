@@ -26,7 +26,7 @@
 // import python from 'highlight.js/lib/languages/python';
 // import html from 'highlight.js/lib/languages/xml';
 // import { all, createLowlight } from 'lowlight';
-// import React, { CSSProperties, memo, useCallback, useEffect, useRef, useState } from 'react';
+// import { CSSProperties, memo, useCallback, useEffect, useRef, useState } from 'react';
 // import { Markdown } from 'tiptap-markdown';
 // import { classNames, downloadBlobAsFile } from '../../../helpers';
 // import { useJukiNotification } from '../../../hooks';

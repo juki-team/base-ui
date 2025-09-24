@@ -1,4 +1,3 @@
-import React from 'react';
 import { useJukiUser } from '../../../hooks/useJukiUser';
 import { Button, Modal, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';

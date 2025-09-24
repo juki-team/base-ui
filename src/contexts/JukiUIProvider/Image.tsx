@@ -1,4 +1,3 @@
-import React from 'react';
 import { ImageCmpProps } from './types';
 
 export const Image = ({ src, className, alt, style, width, height }: ImageCmpProps) => {

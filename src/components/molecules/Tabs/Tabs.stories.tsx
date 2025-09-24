@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { configureActions } from 'storybook/actions';
 import { Button, T, TabsInline } from '../../../index';
 import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';

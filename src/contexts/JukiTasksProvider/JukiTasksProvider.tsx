@@ -7,7 +7,7 @@ import {
   UnsubscribeSubmissionRunStatusWebSocketEventDTO,
   WebSocketActionEvent,
 } from '@juki-team/commons';
-import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
+import { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
 import { T } from '../../components/atoms';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { useMutate } from '../../hooks/useMutate';

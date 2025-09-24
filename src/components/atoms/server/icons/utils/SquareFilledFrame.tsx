@@ -1,4 +1,3 @@
-import React from 'react';
 import { arcS, H, M, V } from './functions';
 
 interface SquareFilledFrameProps {
@@ -9,7 +8,7 @@ interface SquareFilledFrameProps {
 }
 
 export const SquareFilledFrame = ({ cx = 0, cy = 0, strokeWidth = 2, sizeBox = 24 }: SquareFilledFrameProps) => { // width = 2
-                                                                                                                  // const  k = (2 - Math.sqrt(2)) / Math.sqrt(8);
+  // const  k = (2 - Math.sqrt(2)) / Math.sqrt(8);
   
   const start = 2;
   const scaleStart = (sizeBox * start / 24);

@@ -1,5 +1,5 @@
 import { SubmissionDataResponseDTO } from '@juki-team/commons';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useJukiTask } from '../../../../contexts/JukiTasksProvider/useJukiTask';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { SubmissionVerdict, SubmissionVerdictProps } from './SubmissionVerdict';

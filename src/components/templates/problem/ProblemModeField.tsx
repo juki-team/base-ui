@@ -1,5 +1,4 @@
 import { PROBLEM_MODE } from '@juki-team/commons';
-import React from 'react';
 import { T } from '../../atoms';
 import { TextField } from '../../organisms';
 import { ProblemModeFieldProps } from './types';

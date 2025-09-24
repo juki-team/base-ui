@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
   DataViewer,

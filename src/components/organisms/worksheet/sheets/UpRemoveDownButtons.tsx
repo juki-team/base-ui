@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '../../../atoms';
 import { ArrowDownwardIcon, ArrowUpwardIcon, DeleteIcon } from '../../../atoms/server';
 

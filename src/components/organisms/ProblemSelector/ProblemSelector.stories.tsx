@@ -1,5 +1,4 @@
 import { action } from 'storybook/actions';
-import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { ProblemSelector as ProblemSelectorComponent } from './ProblemSelector';
 

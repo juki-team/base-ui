@@ -6,7 +6,7 @@ import {
   Status,
   Theme,
 } from '@juki-team/commons';
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useJukiUI } from '../../../hooks/useJukiUI';

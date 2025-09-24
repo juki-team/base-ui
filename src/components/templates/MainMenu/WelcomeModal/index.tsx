@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { WelcomeModalProps } from './types';
 
 const LazyWelcomeModal = lazy(() => import('./WelcomeModal').then(module => ({ default: module.WelcomeModal })));

@@ -1,5 +1,4 @@
 import { ContentResponseType, isObjectJson, LogDataResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { classNames } from '../../../helpers';
 import { DateLiteral, Modal, T } from '../../atoms';
 import { FetcherLayer } from '../../molecules';

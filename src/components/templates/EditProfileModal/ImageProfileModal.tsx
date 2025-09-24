@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { toBlob } from '../../../helpers';
 import { useJukiUser } from '../../../hooks/useJukiUser';
 import { useMutate } from '../../../hooks/useMutate';

@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import { configureActions } from 'storybook/actions';
-import React, { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { SortableItems as SortableItemsComponent } from './SortableItems';
 import { SortableItem, SortableItemComponent } from './types';
@@ -28,7 +28,6 @@ const Component: SortableItemComponent<string, { otherValue: string }> = ({
                                                                             attributes,
                                                                             listeners,
                                                                             item,
-                                                                            props,
                                                                             isOver,
                                                                             isDragging,
                                                                             setNodeRef,

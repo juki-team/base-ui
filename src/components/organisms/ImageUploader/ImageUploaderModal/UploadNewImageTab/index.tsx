@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import React, { memo, useState } from 'react';
+import { memo, useState } from 'react';
 import { classNames, handleUploadImage, toBlob } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { NotificationType } from '../../../../../types';

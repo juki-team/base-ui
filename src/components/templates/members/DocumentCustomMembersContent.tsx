@@ -7,7 +7,7 @@ import {
   MemberType,
   UserSummaryListResponseDTO,
 } from '@juki-team/commons';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { classNames } from '../../../helpers';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { InputToggle, Popover, T } from '../../atoms';

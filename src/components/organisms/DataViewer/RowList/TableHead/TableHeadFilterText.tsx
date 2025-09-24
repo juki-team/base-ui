@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button, Input, T } from '../../../../atoms';
 import { TableHeadFilterTextProps } from './types';
 

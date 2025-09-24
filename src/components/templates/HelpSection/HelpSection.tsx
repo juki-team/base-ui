@@ -1,4 +1,3 @@
-import React from 'react';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
 import { ContactPhoneIcon, MailIcon, TelegramIcon } from '../../server';

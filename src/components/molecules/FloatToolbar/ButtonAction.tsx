@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import React, { CSSProperties, useRef, useState } from 'react';
+import { CSSProperties, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';

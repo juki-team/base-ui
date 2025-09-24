@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { LinkCmpProps } from './types';
 
 export const Link = (props: PropsWithChildren<LinkCmpProps>) => {

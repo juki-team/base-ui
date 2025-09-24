@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import { CircularProgressProps } from './types';
 
 export const CircularProgress = ({ progress, size = 96 }: CircularProgressProps) => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Button, T } from '../../../../atoms';
 import { CheckboxList } from '../../../../molecules';
 import { OptionType } from '../../../../molecules/types';

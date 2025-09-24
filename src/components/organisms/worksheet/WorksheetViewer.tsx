@@ -4,7 +4,7 @@ import {
   getWorksheetsInPages,
   WorksheetUserSubmissionsResponseDTO,
 } from '@juki-team/commons';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { classNames } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useJukiUI } from '../../../hooks/useJukiUI';

@@ -1,4 +1,4 @@
-import React, { MouseEventHandler } from 'react';
+import { MouseEventHandler } from 'react';
 import { classNames } from '../../../helpers';
 import { InputToggleProps } from './types';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { Popover, TextArea } from '../../atoms';

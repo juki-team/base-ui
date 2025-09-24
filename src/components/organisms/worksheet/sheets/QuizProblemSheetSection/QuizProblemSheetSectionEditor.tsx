@@ -5,7 +5,6 @@ import {
   QuizProblemSheetType,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
-import React from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../constants';
 import { Input, InputCheckbox, MultiSelect, T } from '../../../../atoms';
 import { ProblemSelector } from '../../../ProblemSelector/ProblemSelector';

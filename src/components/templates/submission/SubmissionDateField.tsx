@@ -1,4 +1,3 @@
-import React from 'react';
 import { DateField } from '../../organisms/DataViewer/DateField';
 import { SubmissionDateFieldProps } from './types';
 

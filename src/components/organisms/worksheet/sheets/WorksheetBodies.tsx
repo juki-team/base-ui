@@ -8,7 +8,7 @@ import {
   NEW_PAGE_SHEET,
   NewPageSheetType,
 } from '@juki-team/commons';
-import React, { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { NotUndefined, QueryParamKey } from '../../../../types';
 import { Button, T } from '../../../atoms';

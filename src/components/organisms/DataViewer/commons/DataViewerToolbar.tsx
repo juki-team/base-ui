@@ -1,5 +1,5 @@
 import { cleanRequest, ContentResponseType, DataViewMode, Status } from '@juki-team/commons';
-import React, {
+import {
   ElementType,
   memo,
   MouseEventHandler,

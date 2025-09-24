@@ -1,5 +1,4 @@
 import { ContentsResponseType, ImageSummaryResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { jukiApiManager } from '../../../../../settings';
 import { FetcherLayer } from '../../../../molecules';
 import { onPickImageUrlType } from '../../types';

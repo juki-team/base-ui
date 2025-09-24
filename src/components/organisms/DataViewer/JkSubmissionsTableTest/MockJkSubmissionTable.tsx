@@ -5,7 +5,7 @@ import {
   ProblemSummaryListResponseDTO,
   SubmissionSummaryListResponseDTO,
 } from '@juki-team/commons';
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { LanguagesByJudge } from '../../../';
 import { toFilterUrl, toSortUrl } from '../../../../helpers';
 import { useFetcher } from '../../../../hooks/useFetcher';

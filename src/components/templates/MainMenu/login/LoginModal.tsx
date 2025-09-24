@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useJukiUser } from '../../../../hooks/useJukiUser';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { SetLoaderStatusOnClickType } from '../../../../types';

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { isJudgeWindowLocation } from '../../../helpers';
 import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';

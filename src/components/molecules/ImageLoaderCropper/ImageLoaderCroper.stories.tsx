@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { Button, ImageLoaderCropper as ImageLoaderCropperCmp } from '../../../components';
 import { downloadBlobAsFile, toBlob } from '../../../helpers';
 import { CropImageType, ImageLoaderCropperProps } from '../../../types';

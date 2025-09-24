@@ -1,4 +1,3 @@
-import React from 'react';
 import { arc, L, M } from './functions';
 import { Vector } from './Vector';
 

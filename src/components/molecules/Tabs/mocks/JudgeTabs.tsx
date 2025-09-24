@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MockJkContestTable } from '../../../organisms/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../../organisms/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkUserTable } from '../../../organisms/DataViewer/JkUserTableTest/MockJkUserTable';

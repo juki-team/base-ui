@@ -1,5 +1,4 @@
 import { ContestSummaryListResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { contestStateMap } from '../../../../helpers';
 import { T } from '../../../atoms';
 import { Field } from '../../../organisms';

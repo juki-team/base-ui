@@ -1,13 +1,5 @@
 import { Status } from '@juki-team/commons';
-import React, {
-  ClipboardEventHandler,
-  Dispatch,
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { ClipboardEventHandler, Dispatch, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, handleUploadImage } from '../../../helpers';

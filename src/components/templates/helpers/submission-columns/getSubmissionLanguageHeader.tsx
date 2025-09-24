@@ -1,5 +1,4 @@
 import { Judge, SubmissionSummaryListResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
 import { SubmissionLanguageField } from '../../submission/SubmissionLanguageField';
 

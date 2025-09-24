@@ -11,7 +11,7 @@ import {
   Theme,
   UserSettingsType,
 } from '@juki-team/commons';
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { T } from '../components/atoms/T/T';
 import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../helpers';
 import { jukiApiManager } from '../settings';

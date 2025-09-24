@@ -1,5 +1,5 @@
 import { getUserKey, UserSummaryListResponseDTO } from '@juki-team/commons';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { UsersSelector as UsersSelectorComponent } from './UsersSelector';
 

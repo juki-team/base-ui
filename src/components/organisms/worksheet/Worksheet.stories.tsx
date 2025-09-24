@@ -1,6 +1,5 @@
 import { ContentResponseType, Status, Theme, WorksheetDataResponseDTO } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { oneTab } from '../../../helpers';
 import { useStableState } from '../../../hooks/useStableState';
 import { jukiApiManager } from '../../../settings';

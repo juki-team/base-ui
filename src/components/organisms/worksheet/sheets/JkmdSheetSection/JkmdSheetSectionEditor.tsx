@@ -1,5 +1,4 @@
 import { JkmdSheetType } from '@juki-team/commons';
-import React from 'react';
 import { Input, T } from '../../../../atoms';
 import { MdMathEditor } from '../../../mdMath/MdMathEditor';
 import { SetContentType } from '../../types';

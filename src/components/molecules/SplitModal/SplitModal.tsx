@@ -1,4 +1,4 @@
-import React, { cloneElement, CSSProperties, PropsWithChildren, ReactElement } from 'react';
+import { cloneElement, CSSProperties, PropsWithChildren, ReactElement } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { renderReactNodeOrFunction } from '../../../helpers';
 import { Modal } from '../../atoms';

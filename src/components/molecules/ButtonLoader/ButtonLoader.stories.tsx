@@ -1,7 +1,6 @@
 import { Status } from '@juki-team/commons';
-import { action } from 'storybook/actions';
 import { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
+import { action } from 'storybook/actions';
 import { ButtonLoaderProps } from '../../../types';
 import { ButtonLoader } from '../../index';
 import { MockupJukiProvider } from '../../mockup';

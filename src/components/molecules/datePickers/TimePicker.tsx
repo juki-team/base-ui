@@ -1,5 +1,4 @@
 import { HOURS, MILLISECONDS, MINUTES, SECONDS } from '@juki-team/commons';
-import React from 'react';
 import { Button, Select, T } from '../../atoms';
 import { TimePickerProps } from './types';
 

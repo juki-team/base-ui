@@ -1,6 +1,6 @@
 import { Language } from '@juki-team/commons';
 import { createInstance, i18n } from 'i18next';
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
 import { JukiProviders } from '../../contexts';
 import { jukiApiManager } from '../../settings';

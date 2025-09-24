@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { Button, T } from '../../atoms';
 import { DayPicker } from './DayPicker';

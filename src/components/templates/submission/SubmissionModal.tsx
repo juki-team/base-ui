@@ -1,4 +1,3 @@
-import React from 'react';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { QueryParamKey } from '../../../types';
 import { SubmissionContentModal } from './commons/SubmissionContentModal';

@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import React, { PropsWithChildren, useRef, useState } from 'react';
+import { PropsWithChildren, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { Modal, T } from '../../atoms';

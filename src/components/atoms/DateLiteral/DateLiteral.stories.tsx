@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { DateDisplayType } from '../../../types';
 import { MockupJukiProvider } from '../../mockup';

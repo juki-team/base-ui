@@ -1,5 +1,4 @@
 import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
-import React from 'react';
 import { Field } from '../../../organisms/DataViewer/Field';
 import { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
 import { SubmissionRejudgeButton } from '../../submission/SubmissionRejudgeButton';

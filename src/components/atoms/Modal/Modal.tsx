@@ -1,6 +1,6 @@
 import { Status } from '@juki-team/commons';
 import { AnimatePresence, motion } from 'motion/react';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { SetLoaderStatusOnClickType } from '../../molecules/ButtonLoader/types';
 import { useSetLoaderStatus } from '../hooks/useSetLoaderStatus';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Balloon = ({ percent = 80 }: { percent?: number }) => {
   
   const ellipseHeight = 16.54;

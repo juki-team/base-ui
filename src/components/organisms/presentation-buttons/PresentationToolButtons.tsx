@@ -1,4 +1,3 @@
-import React from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Portal } from '../../atoms';
 import { Button } from '../../atoms/Button/Button';

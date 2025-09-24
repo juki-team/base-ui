@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { classNames } from '../../../helpers';
 import { QueryParamKey } from '../../../types';
 import { T } from '../../atoms';

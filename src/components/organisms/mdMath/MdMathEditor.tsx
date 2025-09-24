@@ -9,7 +9,7 @@ import { SubscribeChatCompletionsDataWebSocketEventDTO } from '@juki-team/common
 import { insert } from '@milkdown/kit/utils';
 import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { authorizedRequest, classNames, cleanRequest, downloadBlobAsFile, upperFirst } from '../../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';

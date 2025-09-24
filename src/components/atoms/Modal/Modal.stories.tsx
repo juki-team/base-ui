@@ -1,6 +1,6 @@
 import { Status } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { Button } from '../Button/Button';
 import { Input } from '../inputs/Input';

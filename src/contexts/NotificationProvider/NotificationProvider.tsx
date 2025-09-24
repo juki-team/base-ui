@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import { useReducer } from 'react';
 import { CardNotification } from '../../components/organisms/Notifications/CardNotification';
 import { NotificationContext } from '../../components/organisms/Notifications/context';
 import {

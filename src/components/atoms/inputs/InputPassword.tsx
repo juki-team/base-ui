@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { VisibilityIcon, VisibilityOffIcon } from '../server';
 import { Input } from './Input';
 import { InputPasswordProps } from './types';

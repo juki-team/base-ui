@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { Period } from '../../../types';
 import { T } from '../../atoms';

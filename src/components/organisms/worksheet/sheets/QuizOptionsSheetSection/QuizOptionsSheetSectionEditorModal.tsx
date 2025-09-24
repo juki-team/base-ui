@@ -1,5 +1,5 @@
 import { QuizOptionsSheetType } from '@juki-team/commons';
-import React, { Dispatch, useState } from 'react';
+import { Dispatch, useState } from 'react';
 import { v4 } from 'uuid';
 import { Input, InputCheckbox, InputRadio, Modal, T } from '../../../../atoms';
 import { BasicModalProps } from '../../../../atoms/Modal/types';

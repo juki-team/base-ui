@@ -1,4 +1,4 @@
-import React, { Children, CSSProperties, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import { Children, CSSProperties, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';

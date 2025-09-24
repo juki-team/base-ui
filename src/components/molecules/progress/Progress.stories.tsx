@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { CircularProgress } from './CircularProgress';
 import { MultiProgressBar } from './MultiProgressBar';

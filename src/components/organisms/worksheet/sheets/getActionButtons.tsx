@@ -1,5 +1,4 @@
 import { BodyWorksheetType, WorksheetType } from '@juki-team/commons';
-import React from 'react';
 import { Button, T } from '../../../atoms';
 import { ButtonSizeType, ButtonType } from '../../../atoms/Button/types';
 import { CloseIcon, EditIcon, SaveIcon, SettingsIcon, SortIcon, VisibilityIcon } from '../../../atoms/server';

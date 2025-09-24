@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { GraphvizEditor } from './GraphvizEditor';
 import { GraphvizEditorProps } from './types';
@@ -12,7 +12,7 @@ export default meta;
 
 type Story = StoryObj<typeof GraphvizEditor>;
 
-const Cmp = (props: GraphvizEditorProps) => {
+const Cmp = (_: GraphvizEditorProps) => {
   const [ value, setValue ] = useState(`digraph {
     rankdir=LR
     a -> b

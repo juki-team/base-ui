@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 
 export const LineLoader = ({ delay = 5 }: { delay?: number }) => {
   return (

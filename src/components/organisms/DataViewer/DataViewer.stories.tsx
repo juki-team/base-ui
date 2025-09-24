@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { MockupJukiProvider } from '../../mockup';
 import { DataViewer } from './DataViewer';

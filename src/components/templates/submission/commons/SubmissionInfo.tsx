@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import { classNames } from '../../../../helpers';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { QueryParamKey } from '../../../../types';

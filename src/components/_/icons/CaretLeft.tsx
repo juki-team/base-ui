@@ -1,5 +1,3 @@
-import React from 'react';
-
 const CaretLeft = () => {
   return (
     <svg viewBox="0 0 1024 1024" focusable="false" fill="currentColor">

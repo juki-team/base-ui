@@ -1,4 +1,3 @@
-import React from 'react';
 import { CirclePath } from './CirclePath';
 
 interface CircleFilledFrameProps {

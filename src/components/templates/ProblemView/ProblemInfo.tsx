@@ -7,7 +7,7 @@ import {
   ProblemScoringMode,
   ProblemSettingsType,
 } from '@juki-team/commons';
-import React, { Children, Fragment, PropsWithChildren, ReactNode } from 'react';
+import { Children, Fragment, PropsWithChildren, ReactNode } from 'react';
 import { classNames } from '../../../helpers';
 import { Popover, T } from '../../atoms';
 import { ExclamationIcon, InfoIIcon } from '../../server';

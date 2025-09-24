@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import { lazy, ReactNode, Suspense } from 'react';
 //import { SuspenseWithTracking } from '../SuspenseWithTracking';
 import { SpinIcon } from './server/icons/SpinIcon';
 import { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';
@@ -93,7 +93,7 @@ export const Modal = <T extends ModalButtonLoaderEventType = () => void>(props: 
 
 const MultiSelectImport = () => import('./MultiSelect/MultiSelect');
 const LazyMultiSelect = lazy(() => MultiSelectImport().then(module => ({ default: module.MultiSelect })));
-export const MultiSelect = <T, U extends React.ReactNode, V extends React.ReactNode>(props: MultiSelectProps<T, U, V>) => (
+export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: MultiSelectProps<T, U, V>) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazyMultiSelect {...props} />
@@ -118,7 +118,7 @@ export const Portal = (props: PortalProps) => (
 
 const SelectImport = () => import('./Select/Select');
 const LazySelect = lazy(() => SelectImport().then(module => ({ default: module.Select })));
-export const Select = <T, U extends React.ReactNode, V extends ReactNodeOrFunctionType>(props: SelectProps<T, U, V>) => (
+export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: SelectProps<T, U, V>) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazySelect {...props} />
@@ -192,7 +192,7 @@ export const InputRadio = (props: InputRadioProps) => (
 
 const InputSelectImport = () => import('./inputs/InputSelect');
 const LazyInputSelect = lazy(() => InputSelectImport().then(module => ({ default: module.InputSelect })));
-export const InputSelect = <T, U extends React.ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => (
+export const InputSelect = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: InputSelectProps<T, U, V>) => (
   <Suspense fallback={<SpinIcon size="tiny" />}>
     {/*@ts-ignore*/}
     <LazyInputSelect {...props} />

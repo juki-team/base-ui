@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import { action } from 'storybook/actions';
-import React, { useState } from 'react';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { CalendarMonthIcon, EventIcon } from '../../server';

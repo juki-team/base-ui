@@ -1,4 +1,4 @@
-import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
+import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames, getTextContent } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useJukiUI } from '../../../hooks/useJukiUI';

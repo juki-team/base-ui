@@ -1,5 +1,5 @@
 import { MenuViewMode, ProfileSetting } from '@juki-team/commons';
-import React, { ReactNode, useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState } from '../../../hooks/useHandleState';
 import { useJukiUI } from '../../../hooks/useJukiUI';

@@ -8,7 +8,7 @@ import {
   ProblemSummaryListResponseDTO,
   Status,
 } from '@juki-team/commons';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { authorizedRequest, classNames, cleanRequest } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';

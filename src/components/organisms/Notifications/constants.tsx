@@ -1,4 +1,3 @@
-import React from 'react';
 import { NotificationType } from '../../../types';
 import { CheckIcon, ErrorIcon, InfoIIcon, WarningIcon } from '../../server';
 

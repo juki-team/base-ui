@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { TabsInlineBodyProps } from './types';
 

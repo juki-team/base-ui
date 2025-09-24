@@ -1,5 +1,4 @@
 import { CodeEditorTestCasesType, ProblemDataResponseDTO, SubmissionRunStatus } from '@juki-team/commons';
-import React from 'react';
 import { useJudge } from '../../../../hooks';
 import { UserCodeEditor } from '../../../organisms';
 import { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../../organisms/types';

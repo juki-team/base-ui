@@ -1,5 +1,4 @@
 import { ContentResponseType, Status, SubmissionRunStatus } from '@juki-team/commons';
-import React from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useMutate } from '../../../hooks/useMutate';

@@ -1,6 +1,5 @@
 import { CodeLanguage } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import React from 'react';
 import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
 import { CodeViewer } from './CodeViewer';
 

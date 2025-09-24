@@ -1,5 +1,5 @@
 import { JkmdSheetType } from '@juki-team/commons';
-import React, { Dispatch, useState } from 'react';
+import { Dispatch, useState } from 'react';
 import { Input, Modal, T } from '../../../../atoms';
 import { BasicModalProps } from '../../../../atoms/Modal/types';
 import { MdMathEditor } from '../../../mdMath/MdMathEditor';

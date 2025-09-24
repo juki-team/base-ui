@@ -1,5 +1,5 @@
 import { ProfileSetting } from '@juki-team/commons';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { classNames, getStatementData } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';

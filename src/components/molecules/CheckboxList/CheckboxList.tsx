@@ -1,4 +1,3 @@
-import React from 'react';
 import { InputCheckbox } from '../../atoms';
 import { CheckboxListProps } from './types';
 

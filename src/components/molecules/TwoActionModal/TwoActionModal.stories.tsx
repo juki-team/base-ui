@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from "@storybook/react-webpack5";
-import React, { useState } from "react";
-import { Button } from "../../atoms";
-import { MockupJukiProvider } from "../../mockup";
-import { TwoActionModal } from "./TwoActionModal";
-import { TwoActionModalProps } from "./types";
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import { useState } from 'react';
+import { Button } from '../../atoms';
+import { MockupJukiProvider } from '../../mockup';
+import { TwoActionModal } from './TwoActionModal';
+import { TwoActionModalProps } from './types';
 
 const meta: Meta<typeof TwoActionModal> = {
   component: TwoActionModal,
@@ -14,8 +14,8 @@ export default meta;
 type Story = StoryObj<typeof TwoActionModal>;
 
 const Cmp = (args: TwoActionModalProps) => {
-  const [open, setOpen] = useState(false);
-
+  const [ open, setOpen ] = useState(false);
+  
   return (
     <MockupJukiProvider>
       <Button onClick={() => setOpen(!open)}>Click</Button>
@@ -33,15 +33,15 @@ export const Regular: Story = {
 };
 
 Regular.args = {
-  title: "Title",
+  title: 'Title',
   primary: {
     disabled: false,
     onClick: () => null,
-    label: "accept",
+    label: 'accept',
   },
   secondary: {
     disabled: false,
     onClick: () => null,
-    label: "decline",
+    label: 'decline',
   },
 };
