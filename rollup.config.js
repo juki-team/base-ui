@@ -129,7 +129,7 @@ export default [
         // preserveModules: true,
       },
     ],
-    // external: [ ...Object.keys(pkg.peerDependencies || {}) ],
+    external: [ ...Object.keys(pkg.peerDependencies || {}) ],
     plugins,
     preserveEntrySignatures: 'strict',
     // preserveDirectives: true, // Unknown input options
