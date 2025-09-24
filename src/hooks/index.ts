@@ -1,2 +1,2 @@
-export * from '../hooks';
+export * from '../components/hooks';
 export * from './usePreloadComponents';
