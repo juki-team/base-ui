@@ -1,4 +1,4 @@
-import { lazy, ReactNode, Suspense } from 'react';
+import { lazy, Suspense, ReactNode } from 'react';
 //import { SuspenseWithTracking } from '../SuspenseWithTracking';
 import { SpinIcon } from './server/icons/SpinIcon';
 import { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';

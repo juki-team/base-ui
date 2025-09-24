@@ -2,8 +2,7 @@ import { Children, CSSProperties, ReactNode, useEffect, useMemo, useRef, useStat
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState } from '../../../hooks/useHandleState';
-import { useOutsideAlerter } from '../../../hooks/useOutsideAlerter';
+import { useHandleState, useOutsideAlerter } from '../../../hooks';
 import { NotUndefined } from '../../../types';
 import { Popover, Select } from '../../atoms';
 import { ViewHeadlineIcon } from '../../server';
