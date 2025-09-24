@@ -4,12 +4,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { classNames } from '../../../../../helpers';
+import type { SetLoaderStatusOnClickType } from '../../../../../types';
 import { Input, InputPassword, T } from '../../../../atoms';
 import { ButtonLoader, SplitModal } from '../../../../molecules';
-import { SetLoaderStatusOnClickType } from '../../../../molecules/types';
 import { JukiLaptopImage } from '../../../../server';
 import { ForgotPasswordModal } from './ForgotPassword';
-import { LoginFormType, LoginModalTemplateProps } from './types';
+import type { LoginFormType, LoginModalTemplateProps } from './types';
 
 const loginSchema = yup.object().shape({
   nickname: yup.string()

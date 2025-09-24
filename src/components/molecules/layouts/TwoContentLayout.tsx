@@ -1,13 +1,13 @@
-import { ReactNode, useEffect, useRef } from 'react';
+import { type ReactNode, useEffect, useRef } from 'react';
 import { classNames, getHref, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useJukiUI, useStableState } from '../../../hooks';
+import { useJukiUI, useStableState } from '../../hooks';
+import type { TabsType } from '../../../types';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
 import { TabsInline } from '../Tabs/TabsInline';
 import { TabsInlineBody } from '../Tabs/TabsInlineBody';
-import { TabsType } from '../Tabs/types';
 import { TwoContentSection } from '../TwoContentSection/TwoContentSection';
 import { JukiLoadingLayout } from './JukiLoadingLayout';
-import { TwoContentLayoutProps } from './types';
+import type { TwoContentLayoutProps } from './types';
 
 export const TwoContentLayout = <T = string, >(props: TwoContentLayoutProps<T>) => {
   

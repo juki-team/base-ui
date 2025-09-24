@@ -1,7 +1,7 @@
 import { ImageSummaryResponseDTO } from '@juki-team/commons';
+import { NotificationType } from '../../../../../enums';
 import { copy } from '../../../../../helpers';
-import { useJukiNotification } from '../../../../../hooks';
-import { NotificationType } from '../../../../../types';
+import { useJukiNotification } from '../../../../hooks';
 import { T } from '../../../../atoms';
 import { FloatToolbar } from '../../../../molecules';
 import { CheckIcon, ContentCopyIcon } from '../../../../server';

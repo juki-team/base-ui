@@ -1,4 +1,4 @@
-import { BasicIconProps, RootIconProps } from '../types';
+import type { BasicIconProps, RootIconProps } from '../types';
 import { renderBasicIcon } from '../utils';
 
 const Icon = ({ color }: RootIconProps) => (

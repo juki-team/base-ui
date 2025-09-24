@@ -5,7 +5,7 @@ import { MockupJukiProvider } from '../../../../mockup';
 import { InputColor } from '../../../../molecules';
 import { Input } from '../../../inputs/Input';
 import { T } from '../../../T/T';
-import { BasicIconProps } from '../types';
+import type { BasicIconProps } from '../types';
 import { AddPhotoAlternateIcon } from './AddPhotoAlternateIcon';
 import {
   AccountCircleIcon,

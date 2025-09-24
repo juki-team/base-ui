@@ -12,15 +12,15 @@ import {
   WorksheetType,
 } from '@juki-team/commons';
 import { Children, useEffect, useRef, useState } from 'react';
+import { QueryParamKey } from '../../../../../enums';
 import { authorizedRequest, classNames, getHeight } from '../../../../../helpers';
-import { useJukiNotification } from '../../../../../hooks';
+import { useJukiNotification } from '../../../../hooks';
 import { jukiApiManager } from '../../../../../settings';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
-import { QueryParamKey, UserResultsType } from '../../../../../types';
+import type { SetLoaderStatusOnClickType, UserResultsType } from '../../../../../types';
 import { T } from '../../../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, SpinIcon } from '../../../../atoms/server';
 import { ButtonLoader } from '../../../../molecules';
-import { SetLoaderStatusOnClickType } from '../../../../molecules/ButtonLoader/types';
 import { UserCodeEditor } from '../../../UserCodeEditor/UserCodeEditor';
 
 interface RunnerSheetSectionProps {

@@ -8,7 +8,7 @@ import {
   ProblemSettingsType,
   ProblemStatementType,
 } from '@juki-team/commons';
-import { TFunction } from 'i18next';
+import type { TFunction } from 'i18next';
 
 export const getEditorSettingsStorageKey = (useNickname: string) => `jk-editor-settings-store/${useNickname}`;
 

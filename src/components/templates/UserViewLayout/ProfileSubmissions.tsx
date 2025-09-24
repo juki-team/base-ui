@@ -1,16 +1,16 @@
-import {
+import type {
   ContentsResponseType,
   JudgeSummaryListResponseDTO,
   SubmissionSummaryListResponseDTO,
 } from '@juki-team/commons';
 import { useMemo } from 'react';
+import { QueryParamKey } from '../../../enums';
 import { toFilterUrl, toSortUrl } from '../../../helpers';
-import { useFetcher, usePreload } from '../../../hooks';
+import { useFetcher, usePreload } from '../../hooks';
 import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { QueryParamKey } from '../../../types';
 import { PagedDataViewer } from '../../organisms';
-import { DataViewerHeadersType } from '../../organisms/DataViewer/types';
+import type { DataViewerHeadersType } from '../../organisms/DataViewer/types';
 import {
   getSubmissionDateHeader,
   getSubmissionLanguageHeader,
@@ -20,7 +20,7 @@ import {
   getSubmissionVerdictHeader,
   LanguagesByJudge,
 } from '../helpers';
-import { ProfileSubmissionsProps } from './types';
+import type { ProfileSubmissionsProps } from './types';
 
 export function ProfileSubmissions(_: ProfileSubmissionsProps) {
   

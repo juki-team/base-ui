@@ -1,6 +1,6 @@
 import { ContentsResponseType, Judge, JUDGE, JudgeDataResponseDTO } from '@juki-team/commons';
 import { classNames } from '../../../helpers';
-import { useFetcher, useJukiUI } from '../../../hooks';
+import { useFetcher, useJukiUI } from '../../hooks';
 import { jukiApiManager } from '../../../settings';
 import { CopyToClipboard } from '../../atoms';
 import { LocationOnIcon, MailIcon, SchoolIcon } from '../../atoms/server';

@@ -28,6 +28,11 @@
       "import": "./dist/esm/helpers.js",
       "require": "./dist/cjs/helpers.js"
     },
+    "./enums": {
+      "enums": "./dist/module-types/src/enums/index.d.ts",
+      "import": "./dist/esm/enums.js",
+      "require": "./dist/cjs/enums.js"
+    },
     "./types": {
       "types": "./dist/module-types/src/types/index.d.ts",
       "import": "./dist/esm/types.js",
@@ -67,7 +72,8 @@
     "chromatic": "npx chromatic --project-token=xyz",
     "clean-and-reset": "rm -rf node_modules yarn.lock && yarn cache clean && yarn install",
     "check-style-files": "find src/styles -type f -name \"*.scss\" -exec stat -f \"%z %N\" {} + | awk '{printf \"%.1f KB %s\\n\", $1/1024, $2}' | sort -nr",
-    "outdated": "npx npm-check-updates"
+    "outdated": "npx npm-check-updates",
+    "check:circular-deps": "npx madge --circular ./dist/* --image graph.png"
   },
   "dependencies": {
     "@codemirror/autocomplete": "^6.18.7",

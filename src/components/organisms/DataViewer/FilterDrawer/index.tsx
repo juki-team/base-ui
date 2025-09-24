@@ -3,7 +3,7 @@ import { classNames, upperFirst } from '../../../../helpers';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { Button, Input, T } from '../../../atoms';
 import { CheckboxList, DrawerView, InputDate } from '../../../molecules';
-import { OptionType } from '../../../molecules/types';
+import type { OptionType } from '../../../molecules/types';
 import { ArrowDownwardIcon, ArrowUpwardIcon, FilterListIcon, SortIcon } from '../../../server';
 import {
   isDisabledEnd,
@@ -18,7 +18,7 @@ import {
   orDatePickerDateFun,
   renderHead,
 } from '../commons/utils';
-import {
+import type {
   DataViewerTableHeadersType,
   FilterDrawerProps,
   FilterValuesType,

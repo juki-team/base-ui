@@ -20,12 +20,13 @@ import mermaid from 'mermaid';
 import { Decoration } from 'prosemirror-view';
 import { Dispatch, SetStateAction, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
+import { NotificationType } from '../../../../enums';
 import { handleUploadImage } from '../../../../helpers';
-import { useI18nStore, useJukiNotification, useStableRef, useUserStore } from '../../../../hooks';
-import { NewNotificationType, NotificationType } from '../../../../types';
+import { useI18nStore, useJukiNotification, useStableRef, useUserStore } from '../../../hooks';
 import { T } from '../../../atoms';
 // import { basicSetup } from '@uiw/react-codemirror';
 import { basicSetup } from '../../../molecules/CodeEditor/codemirror/extensions/basic-setup';
+import type { NewNotificationType } from '../../Notifications/types';
 
 // import '@milkdown/crepe/theme/common/style.css';
 // import '@milkdown/crepe/theme/frame.css';

@@ -1,9 +1,9 @@
+import { QueryParamKey } from '../../../../enums';
 import { classNames } from '../../../../helpers';
-import { useJukiUI, useJukiUser } from '../../../../hooks';
+import { useJukiUI, useJukiUser } from '../../../hooks';
 import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { QueryParamKey } from '../../../../types';
 import { Button, Popover, T } from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';
 import { LoginIcon, LogoutIcon, SpinIcon } from '../../../server';

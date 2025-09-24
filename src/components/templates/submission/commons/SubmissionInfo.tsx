@@ -1,7 +1,7 @@
-import { PropsWithChildren } from 'react';
+import { type PropsWithChildren } from 'react';
+import { QueryParamKey } from '../../../../enums';
 import { classNames } from '../../../../helpers';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
-import { QueryParamKey } from '../../../../types';
 
 export interface SubmissionInfoProps {
   submitId: string,

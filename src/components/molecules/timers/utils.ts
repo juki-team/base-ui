@@ -1,6 +1,6 @@
 import { splitTime } from '@juki-team/commons';
 import { showOfTimeDisplayType } from '../../../helpers';
-import { TimeDisplayType } from './types';
+import type { TimeDisplayType } from '../../../types';
 
 export const cutTimeSplit = (remaining: number, type: TimeDisplayType, ignoreLeadingZeros: boolean, ignoreTrailingZeros: boolean) => {
   const timeSplit = splitTime(Math.max(remaining, 0));

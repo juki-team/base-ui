@@ -2,7 +2,7 @@ import { memo, MouseEvent, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { useHandleState } from '../../../hooks';
+import { useHandleState } from '../../hooks';
 import { T } from '../../atoms';
 import {
   ExpandLessIcon,

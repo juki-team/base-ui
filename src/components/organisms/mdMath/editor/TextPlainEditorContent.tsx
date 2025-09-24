@@ -1,9 +1,10 @@
 import { Status } from '@juki-team/commons';
 import { ClipboardEventHandler, useRef } from 'react';
+import { NotificationType } from '../../../../enums';
 import { classNames, handleUploadImage } from '../../../../helpers';
-import { useJukiNotification } from '../../../../hooks';
-import { NotificationType, TextPlainEditorContentProps } from '../../../../types';
+import { useJukiNotification } from '../../../hooks';
 import { T, TextArea } from '../../../atoms';
+import type { TextPlainEditorContentProps } from '../types';
 
 export const TextPlainEditorContent = (props: TextPlainEditorContentProps) => {
   

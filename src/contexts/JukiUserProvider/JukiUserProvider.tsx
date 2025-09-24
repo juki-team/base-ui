@@ -13,7 +13,7 @@ import { T } from '../../components/atoms/T/T';
 import { JukiLoadingLayout } from '../../components/molecules/layouts/JukiLoadingLayout';
 import { EMPTY_USER } from '../../constants';
 import { localStorageCrossDomains } from '../../helpers';
-import { useFetcher, useInjectFontSize, useInjectTheme, useMutate } from '../../hooks';
+import { useFetcher, useInjectFontSize, useInjectTheme, useMutate } from '../../components/hooks';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';

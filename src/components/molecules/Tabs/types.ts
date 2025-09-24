@@ -1,12 +1,4 @@
-import { Href, ReactNodeOrFunctionP1Type } from '../../../types';
-
-export type TabType<T = string> = {
-  header: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T }>,
-  disabled?: boolean,
-  clickable?: boolean,
-  body?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T }>,
-  key: T,
-};
+import { Href, ReactNodeOrFunctionP1Type, TabsType, TabType } from '../../../types';
 
 export interface TabsProps<T = string> {
   tabs: TabType<T>[],
@@ -16,8 +8,6 @@ export interface TabsProps<T = string> {
   extraNodes?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: string }>[],
   extend?: boolean,
 }
-
-export type TabsType<T = string> = { [key: string]: TabType<T> };
 
 export interface TabsInlineProps<T = string> {
   tabs: TabsType<T>,

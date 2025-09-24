@@ -4,7 +4,7 @@ import { TextField } from '../../organisms/DataViewer/TextField';
 import { SubmissionInfo } from './commons/SubmissionInfo';
 import { SubmissionMemory } from './commons/SubmissionMemory';
 import { SubmissionTime } from './commons/SubmissionTime';
-import { SubmissionTimeFieldProps } from './types';
+import type { SubmissionTimeFieldProps } from './types';
 
 export const SubmissionTimeField = ({
                                       record: {

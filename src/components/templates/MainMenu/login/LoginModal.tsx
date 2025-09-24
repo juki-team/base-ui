@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useJukiUser } from '../../../../hooks';
+import { useJukiUser } from '../../../hooks';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { SetLoaderStatusOnClickType } from '../../../../types';
 import { LoginModalTemplate } from './LoginModalTemplate';

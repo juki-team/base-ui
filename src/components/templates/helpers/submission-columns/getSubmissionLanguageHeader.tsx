@@ -1,5 +1,5 @@
-import { Judge, SubmissionSummaryListResponseDTO } from '@juki-team/commons';
-import { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
+import { type Judge, type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
 import { SubmissionLanguageField } from '../../submission/SubmissionLanguageField';
 
 export type LanguagesByJudge = {

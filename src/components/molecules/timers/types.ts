@@ -1,27 +1,5 @@
-import { Period } from '../../../types';
-
-export type TimeDisplayType =
-  'weeks'
-  | 'weeks-days'
-  | 'weeks-days-hours'
-  | 'weeks-days-hours-minutes'
-  | 'weeks-days-hours-minutes-seconds'
-  | 'weeks-days-hours-minutes-seconds-milliseconds'
-  | 'days'
-  | 'days-hours'
-  | 'days-hours-minutes'
-  | 'days-hours-minutes-seconds'
-  | 'days-hours-minutes-seconds-milliseconds'
-  | 'hours'
-  | 'hours-minutes'
-  | 'hours-minutes-seconds'
-  | 'hours-minutes-seconds-milliseconds'
-  | 'minutes'
-  | 'minutes-seconds'
-  | 'minutes-seconds-milliseconds'
-  | 'seconds'
-  | 'seconds-milliseconds'
-  | 'milliseconds';
+import { Period } from '../../../enums';
+import { TimeDisplayType } from '../../../types';
 
 export interface TimerLabeledProps {
   startDate: Date,

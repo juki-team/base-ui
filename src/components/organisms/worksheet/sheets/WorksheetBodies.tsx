@@ -1,20 +1,21 @@
 import {
-  BodyWorksheetType,
+  type BodyWorksheetType,
   isCodeEditorSheetType,
   isJkmdSheetType,
   isQuizOptionsSheetType,
   isQuizProblemSheetType,
   isStringJson,
   NEW_PAGE_SHEET,
-  NewPageSheetType,
+  type NewPageSheetType,
 } from '@juki-team/commons';
 import { useCallback, useRef, useState } from 'react';
+import { QueryParamKey } from '../../../../enums';
 import { classNames } from '../../../../helpers';
-import { NotUndefined, QueryParamKey } from '../../../../types';
+import type { NotUndefined } from '../../../../types';
 import { Button, T } from '../../../atoms';
 import { DeleteIcon, SettingsIcon } from '../../../atoms/server';
 import { MdMathEditor } from '../../mdMath/MdMathEditor';
-import { WorksheetBodiesProps, WorksheetBodyProps } from '../types';
+import type { WorksheetBodiesProps, WorksheetBodyProps } from '../types';
 import { EditSheetModal } from './EditSheetModal';
 import { WorksheetBody } from './WorksheetBody';
 

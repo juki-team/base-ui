@@ -1,4 +1,4 @@
-import { ContestSummaryListResponseDTO, Status } from '@juki-team/commons';
+import { type  ContestSummaryListResponseDTO, Status } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { T } from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';
@@ -10,7 +10,7 @@ import {
   getContestStatusHeader,
 } from '../../../templates';
 import { DataViewer } from '../DataViewer';
-import { DataViewerHeadersType, DataViewerProps } from '../types';
+import type { DataViewerHeadersType, DataViewerProps } from '../types';
 import contests from './data.json';
 
 export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryListResponseDTO>, 'data' | 'headers'>) => {

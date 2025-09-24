@@ -1,6 +1,6 @@
+import { QueryParamKey } from '../../../enums';
 import { jukiAppRoutes } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { QueryParamKey } from '../../../types';
 import { UserPreviewContentModal } from './UserPreviewContentModal/UserPreviewContentModal';
 
 export const UserPreviewModal = () => {

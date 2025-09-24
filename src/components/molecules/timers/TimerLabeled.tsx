@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
+import { Period } from '../../../enums';
 import { classNames } from '../../../helpers';
-import { Period } from '../../../types';
 import { T } from '../../atoms';
 import { Timer } from './Timer';
 import { TimerLabeledProps } from './types';

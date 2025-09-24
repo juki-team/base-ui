@@ -2,11 +2,11 @@ import { Status } from '@juki-team/commons';
 import { AnimatePresence, motion } from 'motion/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { SetLoaderStatusOnClickType } from '../../molecules/ButtonLoader/types';
+import type { SetLoaderStatusOnClickType } from '../../../types';
 import { useSetLoaderStatus } from '../hooks';
 import { Portal } from '../Portal/Portal';
 import { CloseIcon, SpinIcon } from '../server';
-import { ModalButtonLoaderEventType, ModalProps } from './types';
+import type { ModalButtonLoaderEventType, ModalProps } from './types';
 
 export const Modal = <T extends ModalButtonLoaderEventType, >(props: ModalProps<T>) => {
   

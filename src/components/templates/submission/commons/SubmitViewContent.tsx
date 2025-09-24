@@ -1,21 +1,21 @@
 import {
   CODE_LANGUAGE,
-  ContentsResponseType,
+  type ContentsResponseType,
   Judge,
-  JudgeDataResponseDTO,
+  type JudgeDataResponseDTO,
   ProblemScoringMode,
   ProblemVerdict,
-  SubmissionDataResponseDTO,
-  TestCaseResultType,
+  type SubmissionDataResponseDTO,
+  type TestCaseResultType,
 } from '@juki-team/commons';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
+import { ContestTab } from '../../../../enums';
 import { getJudgeOrigin } from '../../../../helpers';
 import { hasTimeHasMemory } from '../../../../helpers/submission';
-import { useFetcher, useJukiUI } from '../../../../hooks';
 import { jukiApiManager, jukiAppRoutes } from '../../../../settings';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { ContestTab } from '../../../../types';
 import { Button, Collapse, DateLiteral, T } from '../../../atoms';
+import { useFetcher, useJukiUI } from '../../../hooks';
 import { CodeViewer, Timer } from '../../../molecules';
 import { UserChip } from '../../../organisms';
 import { OpenInNewIcon, UpIcon } from '../../../server';

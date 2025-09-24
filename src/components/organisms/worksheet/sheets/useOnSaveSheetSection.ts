@@ -1,5 +1,5 @@
 import { RefObject, useEffect } from 'react';
-import { useStableRef } from '../../../../hooks';
+import { useStableRef } from '../../../hooks';
 
 export const useOnSaveSheetSection = (sectionRef: RefObject<HTMLDivElement | null>, edit: boolean, onSave: () => void) => {
   

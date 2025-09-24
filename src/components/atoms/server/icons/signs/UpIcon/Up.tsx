@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { RootIconProps } from '../../types';
+import type { RootIconProps } from '../../types';
 import { Segment } from '../../utils';
 
 const Up = memo(({ width, color }: RootIconProps) => {

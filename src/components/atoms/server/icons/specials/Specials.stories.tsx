@@ -7,7 +7,7 @@ import { Input } from '../../../inputs/Input';
 import { Select } from '../../../Select/Select';
 import { SpinIcon } from '../SpinIcon';
 import { SpinIconProps } from '../SpinIcon/types';
-import { BasicIconProps } from '../types';
+import type { BasicIconProps } from '../types';
 import { BalloonIcon, GmailIcon, TelegramIcon } from './index';
 import { SortIcon } from './SortIcon';
 

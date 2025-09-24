@@ -1,44 +1,9 @@
-import type { ComponentPropsWithRef, KeyboardEventHandler, MouseEventHandler, ReactElement, ReactNode } from 'react';
+import type { ComponentPropsWithRef, ReactNode } from 'react';
 import type { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
-import type { ReactNodeOrFunctionType } from '../../../types';
-import type { ButtonType } from '../Button/types';
+import type { ButtonType, InputCommonsProps, ReactNodeOrFunctionType } from '../../../types';
 import type { SelectOption2Type, SelectProps } from '../Select/types';
-import { T as TCmp } from '../T/T';
 import { TextAreaProps } from '../TextArea/types';
 import { Input } from './Input';
-
-export interface InputCommonsProps<T> {
-  id?: string,
-  onChange?: (newValue: T) => void,
-  onFocus?: () => void,
-  onBlur?: () => void,
-  value?: T,
-  name?: string,
-  disabled?: boolean,
-  // offline?: boolean
-  className?: string,
-  inputClassName?: string,
-  labelClassName?: string,
-  expand?: boolean,
-  onClick?: MouseEventHandler<HTMLInputElement>,
-  autoFocus?: boolean,
-  placeholder?: string,
-  register?: UseFormRegisterReturn | ((setValueAs: (value: T) => void) => UseFormRegisterReturn),  //{ name: string, onBlur: ChangeHandler, onChange: ChangeHandler, ref: any },
-  // types
-  type?: 'text' | 'number' | 'password' | 'email' | 'file' | 'files' | 'range' | 'color',
-  accept?: string,
-  size?: number | 'auto',
-  step?: number | 'auto',
-  label?: string | ReactElement<typeof TCmp>,
-  icon?: ReactNode,
-  labelPlacement?: 'top-border' | 'top' | 'left',
-  required?: boolean,
-  onKeyDown?: KeyboardEventHandler<HTMLInputElement>,
-  onEnter?: KeyboardEventHandler<HTMLInputElement>,
-  min?: number,
-  max?: number,
-  children?: ReactNode,
-}
 
 // export interface InputFileProps<T> extends InputCommonsProps<T> {
 //   type?: 'file',

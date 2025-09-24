@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
-import { MultiSelectProps, SelectOption2Type, SelectOptionType } from '../../atoms/types';
+import type { MultiSelectProps } from '../../atoms/MultiSelect/types';
+import type { SelectOption2Type, SelectOptionType } from '../../atoms/Select/types';
 
 export interface SelectSearchableProps<T, U extends ReactNode, V extends ReactNode> extends MultiSelectProps<T, U, V> {
   rowHeightOption?: number,

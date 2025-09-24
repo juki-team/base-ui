@@ -2,16 +2,17 @@
 import { CODE_LANGUAGE, CodeLanguage, ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
 import type { Element } from 'hast';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
-import { Children, CSSProperties, memo, ReactNode, useMemo } from 'react';
-import ReactMarkdown, { Options as ReactMarkdownOptions } from 'react-markdown';
+import { Children, type CSSProperties, memo, type ReactNode, useMemo } from 'react';
+import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
+import { QueryParamKey } from '../../../../enums';
 import { classNames } from '../../../../helpers';
-import { useFetcher, useJukiUI, useStableState } from '../../../../hooks';
+import { useFetcher, useJukiUI, useStableState } from '../../../hooks';
 import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
-import { QueryParamKey, SetSearchParamsType } from '../../../../types';
+import type { SetSearchParamsType } from '../../../../types';
 import { Button } from '../../../atoms/Button/Button';
 import { DetectRequestAnimationFrame } from '../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 import { VisibilityIcon, VisibilityOffIcon } from '../../../atoms/server';
@@ -20,7 +21,7 @@ import { ErrorIcon, OpenInNewIcon, SpinIcon } from '../../../server';
 import { GraphvizViewers } from '../../Graphviz/GraphvizViewer';
 import { UserChip } from '../../UserChip/UserChip';
 import { UserCodeEditor } from '../../UserCodeEditor/UserCodeEditor';
-import { CommandsObjectType } from './types';
+import type { CommandsObjectType } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
 // const ReactMarkdown = lazy(() => import('react-markdown'));

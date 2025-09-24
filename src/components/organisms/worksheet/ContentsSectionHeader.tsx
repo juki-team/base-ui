@@ -1,10 +1,10 @@
 import { useState } from 'react';
+import { QueryParamKey } from '../../../enums';
 import { classNames } from '../../../helpers';
-import { QueryParamKey } from '../../../types';
 import { T } from '../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon, ViewHeadlineIcon } from '../../atoms/server';
 import { TableOfContentsModal } from './sheets/TableOfContentsModal';
-import { ContentsSectionHeaderProps } from './types';
+import type { ContentsSectionHeaderProps } from './types';
 
 export const ContentsSectionHeader = (props: ContentsSectionHeaderProps) => {
   

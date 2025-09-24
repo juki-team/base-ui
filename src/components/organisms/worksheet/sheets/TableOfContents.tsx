@@ -1,8 +1,9 @@
-import { WorksheetsInPages } from '@juki-team/commons';
+import type { WorksheetsInPages } from '@juki-team/commons';
+import { QueryParamKey } from '../../../../enums';
 import { classNames } from '../../../../helpers';
-import { OnPageChange, QueryParamKey } from '../../../../types';
 import { Collapse } from '../../../atoms/Collapse/Collapse';
 import { MdMath } from '../../mdMath/viewer/MdMath';
+import type { OnPageChange } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 
 interface TableOfContentsProps {

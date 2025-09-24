@@ -7,13 +7,14 @@ import {
   downloadUrlAsFile,
   getStatementData,
 } from '../../../../helpers';
-import { useJukiNotification, useJukiUI } from '../../../../hooks';
 import { jukiApiManager } from '../../../../settings';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, T } from '../../../atoms';
-import { ButtonLoader, FloatToolbar } from '../../../molecules';
-import { MdMathViewer } from '../../../organisms';
+import { useJukiNotification, useJukiUI } from '../../../hooks';
+import { ButtonLoader } from '../../../molecules/ButtonLoader/ButtonLoader';
+import { FloatToolbar } from '../../../molecules/FloatToolbar/FloatToolbar';
+import { MdMathViewer } from '../../../organisms/mdMath/MdMathViewer';
 import { DownloadIcon } from '../../../server';
 import {
   JukiProblemInfo,

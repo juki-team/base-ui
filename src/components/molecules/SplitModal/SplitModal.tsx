@@ -1,7 +1,7 @@
 import { cloneElement, CSSProperties, PropsWithChildren, ReactElement } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { renderReactNodeOrFunction } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../hooks';
 import { Modal } from '../../atoms';
 import { ModalButtonLoaderEventType } from '../../atoms/Modal/types';
 import { SplitModalProps } from './types';

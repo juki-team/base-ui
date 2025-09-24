@@ -1,7 +1,7 @@
 import { Status } from '@juki-team/commons';
 import { useState } from 'react';
 import { toBlob } from '../../../helpers';
-import { useJukiUser, useMutate } from '../../../hooks';
+import { useJukiUser, useMutate } from '../../hooks';
 import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Modal, T } from '../../atoms';

@@ -1,12 +1,12 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useState } from 'react';
 import { oneTab } from '../../../helpers';
+import { TabsType } from '../../../types';
 import { Input, T } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { MockJkContestTable } from '../../organisms/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../organisms/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkUserTable } from '../../organisms/DataViewer/JkUserTableTest/MockJkUserTable';
-import { TabsType } from '../Tabs/types';
 import { TwoContentLayout as TwoContentLayoutComponent } from './TwoContentLayout';
 import { TwoContentLayoutProps } from './types';
 

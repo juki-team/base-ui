@@ -14,7 +14,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { useCheckAndStartServices, useJukiUI, useWebsocketStore } from '../../../hooks';
+import { useCheckAndStartServices, useJukiUI, useWebsocketStore } from '../../hooks';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Input, Modal, Portal, Select, T } from '../../atoms';
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon } from '../../atoms/server';

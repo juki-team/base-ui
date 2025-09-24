@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useCheckAndStartServices } from '../../../hooks';
+import { useCheckAndStartServices } from '../../hooks';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { UserPreviewContentModal as UserPreviewModalCmp } from './UserPreviewContentModal/UserPreviewContentModal';

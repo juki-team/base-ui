@@ -1,5 +1,5 @@
-import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
-import { DataViewerHeadersType } from '../../../../types';
+import { type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
 import { SubmissionContestProblemField } from '../../submission/SubmissionContestProblemField';
 
 type SubmissionProblemColumnProps = {

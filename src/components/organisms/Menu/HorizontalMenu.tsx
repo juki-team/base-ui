@@ -1,12 +1,14 @@
 import { motion } from 'motion/react';
 import { Children, ReactNode, useId } from 'react';
+import { NONE } from '../../../constants';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
-import { DrawerActionsType, NONE } from '../../../types';
+import { useJukiUI } from '../../hooks';
+
 import { Button } from '../../atoms';
 import { Drawer } from '../../molecules';
+import type { DrawerActionsType } from '../../molecules/Drawer/types';
 import { ArrowBackIcon, ViewHeadlineIcon } from '../../server';
-import { HorizontalMenuProps } from './types';
+import type { HorizontalMenuProps } from './types';
 
 export const HorizontalMenu = (props: HorizontalMenuProps) => {
   

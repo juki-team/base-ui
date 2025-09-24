@@ -15,10 +15,10 @@ import {
   UpsertWorksheetDTO,
   UserSettingsType,
 } from '@juki-team/commons';
-import { ErrorInfo } from 'react';
-import {
+import type { ErrorInfo } from 'react';
+import { QueryParamKey } from '../enums';
+import type {
   AuthorizedRequestType,
-  QueryParamKey,
   SignInPayloadDTO,
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,

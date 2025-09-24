@@ -1,14 +1,14 @@
-import { ProblemScoringMode, ProblemVerdict, ProfileSetting, TestCaseResultType, Theme } from '@juki-team/commons';
+import { ProblemScoringMode, ProblemVerdict, ProfileSetting, type TestCaseResultType, Theme } from '@juki-team/commons';
 import * as Diff2Html from 'diff2html';
 import { LineMatchingType } from 'diff2html/lib-esm/types';
 import { ColorSchemeType } from 'diff2html/lib/types';
 import { useCallback, useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
-import { useJukiUI } from '../../../../hooks';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, Collapse, Modal, T, VirtualizedRowsFixed } from '../../../atoms';
-import { VirtualizedRowsFixedProps } from '../../../atoms/VirtualizedRowsFixed/types';
+import type { VirtualizedRowsFixedProps } from '../../../atoms/VirtualizedRowsFixed/types';
+import { useJukiUI } from '../../../hooks';
 import { UpIcon, VisibilityIcon } from '../../../server';
 import { SubmissionMemory } from './SubmissionMemory';
 import { SubmissionTime } from './SubmissionTime';

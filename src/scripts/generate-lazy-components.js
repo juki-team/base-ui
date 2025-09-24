@@ -5,7 +5,7 @@ const componentDirs = [
   {
     chunkName: 'Atoms',
     dir: path.resolve('./src/components/atoms'),
-    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from './server';\nimport { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';`,
+    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from './server';\nimport type { ReactNodeOrFunctionType } from '../../types'\nimport type { ModalButtonLoaderEventType } from './Modal/types';`,
     withTypes: true,
     withLazy: true,
   },
@@ -50,7 +50,7 @@ const componentDirs = [
   {
     chunkName: 'Molecules',
     dir: path.resolve('./src/components/molecules'),
-    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';\nimport { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';`,
+    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server';\nimport type { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport type { ModalButtonLoaderEventType } from '../atoms/types';\nimport type { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';`,
     withTypes: true,
     withLazy: true,
   },
@@ -152,7 +152,7 @@ for (let {
         ...files.map(({
                         basePath,
                         name
-                      }) => `import { ${name}Props } from '${cmpIndex ? `./${name}` : basePath}/types';`),
+                      }) => `import type { ${name}Props } from '${cmpIndex ? `./${name}` : basePath}/types';`),
         '',
       ]
       : []),

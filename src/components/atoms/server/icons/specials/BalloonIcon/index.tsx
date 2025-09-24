@@ -1,5 +1,5 @@
 import { classNames } from '../../../../../../helpers';
-import { IconProps } from '../../types';
+import type { IconProps } from '../../types';
 import Balloon from './Balloon';
 
 export const BalloonIcon = ({

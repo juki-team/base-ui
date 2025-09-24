@@ -1,6 +1,6 @@
 import { Field } from '../../organisms/DataViewer/Field';
 import { SubmissionInfo } from './commons/SubmissionInfo';
-import { SubmissionLanguageFieldProps } from './types';
+import type { SubmissionLanguageFieldProps } from './types';
 
 export const SubmissionLanguageField = ({
                                           record: {

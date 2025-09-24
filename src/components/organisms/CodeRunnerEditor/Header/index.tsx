@@ -10,14 +10,14 @@ import { useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { authorizedRequest, classNames, cleanRequest } from '../../../../helpers';
-import { useJukiNotification } from '../../../../hooks';
 import { jukiApiManager } from '../../../../settings';
 import { useWebsocketStore } from '../../../../stores/websocket/useWebsocketStore';
+import type { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../../types';
 import { Button, T } from '../../../atoms';
+import { useJukiNotification } from '../../../hooks';
 import { ButtonLoader } from '../../../molecules';
-import { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../molecules/types';
 import { ErrorIcon, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, SettingsIcon } from '../../../server';
-import { HeaderProps } from '../types';
+import type { HeaderProps } from '../types';
 
 export const Header = <T, >(props: HeaderProps<T>) => {
   

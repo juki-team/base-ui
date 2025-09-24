@@ -1,6 +1,6 @@
 import { classNames } from '../../../../helpers';
 
-import { ImageProps } from './types';
+import type { ImageProps } from './types';
 
 export const FlagEnImage = ({ className, ...props }: ImageProps) => {
   return (

@@ -1,8 +1,8 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { Children, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { Children, type SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { DataViewerCard } from './DataViewerCard';
-import { CardRowVirtualizerFixedProps } from './types';
+import type { CardRowVirtualizerFixedProps } from './types';
 
 const gap = 16;
 

@@ -1,9 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { configureActions } from 'storybook/actions';
 import { Button, T, TabsInline } from '../../../index';
+import type { TabsType } from '../../../types';
 import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
 import { JudgeTabs } from './mocks/JudgeTabs';
-import { TabsInlineProps, TabsType } from './types';
+import type { TabsInlineProps } from './types';
 
 const meta: Meta<typeof TabsInline<string>> = {
   component: TabsInline<string>,

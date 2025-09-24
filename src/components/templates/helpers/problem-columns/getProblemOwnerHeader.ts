@@ -1,5 +1,5 @@
-import { ProblemSummaryListResponseDTO } from '@juki-team/commons';
-import { DataViewerHeadersType } from '../../../organisms/types';
+import { type ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import type { DataViewerHeadersType } from '../../../organisms/types';
 import { ProblemCrawlerField } from '../../problem/ProblemCrawlerField';
 import { ProblemOwnerField } from '../../problem/ProblemOwnerField';
 

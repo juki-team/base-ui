@@ -1,11 +1,11 @@
+import { ContestTab } from '../../../enums';
 import { getJudgeOrigin } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { ContestTab } from '../../../types';
 import { TextField } from '../../organisms';
 import { OpenInNewIcon } from '../../server';
-import { SubmissionContestFieldProps } from './types';
+import type { SubmissionContestFieldProps } from './types';
 
 export const SubmissionContestField = (props: SubmissionContestFieldProps) => {
   

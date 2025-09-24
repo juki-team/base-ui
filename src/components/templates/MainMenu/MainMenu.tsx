@@ -7,22 +7,22 @@ import {
   Theme,
 } from '@juki-team/commons';
 import { useEffect, useMemo, useState } from 'react';
+import { QueryParamKey } from '../../../enums';
 import { classNames } from '../../../helpers';
-import { useFetcher, useJukiUI } from '../../../hooks';
+import { useFetcher, useJukiUI } from '../../hooks';
 import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { QueryParamKey } from '../../../types';
 import { Popover, Select, T } from '../../atoms';
 import { JukiLoadingLayout } from '../../molecules';
 import { HorizontalMenu, VerticalMenu } from '../../organisms';
-import { MenuType } from '../../organisms/types';
+import type { MenuType } from '../../organisms/types';
 import { SpinIcon } from '../../server';
 import { LoginModal } from './login';
 import { LoginUser } from './login/LoginUser';
 import { SettingsSection } from './SettingsSection';
 import { SignUpModal } from './signup';
-import { MainMenuProps } from './types';
+import type { MainMenuProps } from './types';
 import { WelcomeModal } from './WelcomeModal';
 
 const LOGO_SIZE = {

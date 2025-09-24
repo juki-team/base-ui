@@ -1,8 +1,8 @@
-import { ContestSummaryListResponseDTO } from '@juki-team/commons';
+import { type ContestSummaryListResponseDTO } from '@juki-team/commons';
 import { contestStateMap } from '../../../../helpers';
 import { T } from '../../../atoms';
 import { Field } from '../../../organisms';
-import { DataViewerHeadersType } from '../../../organisms/types';
+import type { DataViewerHeadersType } from '../../../organisms/types';
 
 export const getContestStatusHeader = (): DataViewerHeadersType<ContestSummaryListResponseDTO> => ({
   head: 'status',

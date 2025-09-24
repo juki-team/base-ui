@@ -1,6 +1,6 @@
-import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import { type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import { TextField } from '../../../organisms/DataViewer/TextField';
-import { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
+import type { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
 import { SubmissionMemory } from '../../submission/commons/SubmissionMemory';
 
 export const getSubmissionMemoryHeader = (): DataViewerHeadersType<SubmissionSummaryListResponseDTO> => ({

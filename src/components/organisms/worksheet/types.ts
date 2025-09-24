@@ -1,12 +1,7 @@
-import {
-  BodyWorksheetType,
-  WorksheetDataResponseDTO,
-  WorksheetsInPages,
-  WorksheetUserSubmissionsResponseDTO,
-} from '@juki-team/commons';
-import { Dispatch, ReactNode, SetStateAction } from 'react';
-import { KeyedMutator } from 'swr';
-import { SetSearchParamsType } from '../../../contexts/JukiRouterProvider/types';
+import type { BodyWorksheetType, WorksheetDataResponseDTO, WorksheetsInPages } from '@juki-team/commons';
+import type { Dispatch, ReactNode, SetStateAction } from 'react';
+import type { SetSearchParamsType } from '../../../contexts/JukiRouterProvider/types';
+import type { UserResultsType } from '../../../types';
 
 export type OnPageChange = (newPage: number, newSubPage: number, entries: Parameters<SetSearchParamsType>[0]) => void;
 
@@ -15,13 +10,6 @@ export interface ContentsSectionHeaderProps {
   subPage: number,
   onPageChange: OnPageChange
   sheetsInPages: WorksheetsInPages,
-}
-
-export type UserResultsType = {
-  data?: WorksheetUserSubmissionsResponseDTO,
-  isLoading?: boolean,
-  validating?: boolean,
-  mutate?: KeyedMutator<any>,
 }
 
 export interface WorksheetBodiesProps {

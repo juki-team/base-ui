@@ -1,10 +1,9 @@
 import { useEffect, useMemo } from 'react';
-import { cloneURLSearchParams } from '../../../helpers';
-import { useJukiUI, usePreload } from '../../../hooks';
-import { jukiApiManager } from '../../../settings';
+import { QueryParamKey } from '../../../enums';
+import { cloneURLSearchParams, jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { QueryParamKey } from '../../../types';
-import { UserNicknameLinkProps } from './types';
+import { useJukiUI, usePreload } from '../../hooks';
+import type { UserNicknameLinkProps } from './types';
 
 export const UserNicknameLink = ({ children, nickname, companyKey }: UserNicknameLinkProps) => {
   

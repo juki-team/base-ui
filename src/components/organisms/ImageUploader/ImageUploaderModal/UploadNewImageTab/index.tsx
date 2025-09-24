@@ -1,8 +1,8 @@
 import { Status } from '@juki-team/commons';
 import { memo, useState } from 'react';
+import { NotificationType } from '../../../../../enums';
 import { classNames, handleUploadImage, toBlob } from '../../../../../helpers';
-import { useJukiNotification } from '../../../../../hooks';
-import { NotificationType } from '../../../../../types';
+import { useJukiNotification } from '../../../../hooks';
 import { Button, CopyToClipboard, InputToggle, T } from '../../../../atoms';
 import { ButtonLoader, ImageLoaderCropper } from '../../../../molecules';
 import { CropImageType } from '../../../../molecules/types';

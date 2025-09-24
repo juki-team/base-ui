@@ -1,10 +1,10 @@
-import { ContentResponseType, SubmissionDataResponseDTO } from '@juki-team/commons';
+import { type ContentResponseType, type SubmissionDataResponseDTO } from '@juki-team/commons';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { JukiSurprisedImage } from '../../server';
 import { SubmitViewContent } from './commons/SubmitViewContent';
-import { SubmitViewProps } from './types';
+import type { SubmitViewProps } from './types';
 
 export const SubmitView = ({ submitId, triggerFetch }: SubmitViewProps) => (
   <FetcherLayer<ContentResponseType<SubmissionDataResponseDTO>>

@@ -1,5 +1,5 @@
-import { BasicModalProps, ModalButtonLoaderEventType } from '../../../../atoms/types';
-import { SetLoaderStatusOnClickType } from '../../../../molecules/types';
+import { SetLoaderStatusOnClickType } from '../../../../../types';
+import type { BasicModalProps, ModalButtonLoaderEventType } from '../../../../atoms/types';
 
 export type SignUpFormType = {
   givenName: string,

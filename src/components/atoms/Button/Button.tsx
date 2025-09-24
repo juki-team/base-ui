@@ -1,6 +1,6 @@
 import { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../hooks';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { ButtonCmpProps } from './types';
 

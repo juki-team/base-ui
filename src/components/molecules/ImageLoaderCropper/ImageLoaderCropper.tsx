@@ -7,7 +7,7 @@ import ReactCrop, {
   makeAspectCrop,
   PixelCrop,
 } from 'react-image-crop';
-import { useDebounceEffect, useHandleState } from '../../../hooks';
+import { useDebounceEffect, useHandleState } from '../../hooks';
 import { Input, T } from '../../atoms';
 import { canvasPreview } from './canvasPreview';
 import { ImageLoaderCropperProps } from './types';

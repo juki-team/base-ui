@@ -18,8 +18,9 @@ import { Transition } from 'motion';
 import { Variants } from 'motion-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } from 'react';
+import { Duration } from '../../../enums';
 import { isTrigger, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { Duration, TriggerOnActionsType } from '../../../types';
+import { TriggerOnActionsType } from '../../../types';
 import { PopoverProps } from './types';
 
 interface PopoverOptions {

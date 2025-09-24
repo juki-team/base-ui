@@ -1,5 +1,5 @@
 import { classNames } from '../../../../../helpers';
-import { BasicIconProps } from '../types';
+import type { BasicIconProps } from '../types';
 import { renderBasicIcon } from '../utils';
 import Spin from './Spin';
 

@@ -8,9 +8,11 @@ import {
   stringToArrayBuffer,
   Theme,
 } from '@juki-team/commons';
-import { Children, cloneElement, isValidElement, PropsWithChildren, ReactNode, RefObject } from 'react';
+import type { PropsWithChildren, ReactNode, RefObject } from 'react';
+import { Children, cloneElement, isValidElement } from 'react';
+import type { SheetDataType } from '../components/molecules/DataGrid/types';
 import { jukiApiManager } from '../settings';
-import { SheetDataType, TriggerActionsType } from '../types';
+import type { TriggerActionsType } from '../types';
 import { authorizedRequest } from './fetch';
 import { getXLSX } from './xlsx';
 

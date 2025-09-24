@@ -1,4 +1,5 @@
-import { BasicModalProps, SetLoaderStatusOnClickType } from '../../../../../types';
+import type { SetLoaderStatusOnClickType } from '../../../../../types';
+import type { BasicModalProps } from '../../../../atoms/Modal/types';
 
 export type LoginFormType = {
   nickname: string,

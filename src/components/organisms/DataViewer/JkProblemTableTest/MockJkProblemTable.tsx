@@ -1,4 +1,4 @@
-import { ProblemSummaryListResponseDTO, Status } from '@juki-team/commons';
+import { type ProblemSummaryListResponseDTO, Status } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
@@ -14,7 +14,7 @@ import {
 } from '../../../';
 import { ButtonAction } from '../../../molecules/FloatToolbar/ButtonAction';
 import { RefreshIcon } from '../../../server';
-import { DataViewerHeadersType, DataViewerProps } from '../types';
+import type { DataViewerHeadersType, DataViewerProps } from '../types';
 import problems from './data.json';
 
 export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data' | 'headers'>) => {

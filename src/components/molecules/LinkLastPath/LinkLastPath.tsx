@@ -1,9 +1,11 @@
 import { useMemo } from 'react';
-import { LastPathType } from '../../../contexts/JukiLastPathProvider/types';
-import { cloneURLSearchParams, getHref } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import type { LastPathType } from '../../../contexts/JukiLastPathProvider/types';
+import { QueryParamKey } from '../../../enums';
+import { getHref } from '../../../helpers';
+import { cloneURLSearchParams } from '../../../settings';
 import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
-import { LinkLastPathProps, QueryParamKey } from '../../../types';
+import { useJukiUI } from '../../hooks';
+import type { LinkLastPathProps } from './types';
 
 export const LinkLastPath = <T extends string | number = string, >(props: LinkLastPathProps<T>) => {
   

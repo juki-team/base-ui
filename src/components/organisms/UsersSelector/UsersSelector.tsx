@@ -1,6 +1,6 @@
 import { ContentsResponseType, getUserKey, UserSummaryListResponseDTO } from '@juki-team/commons';
 import { useEffect, useMemo, useState } from 'react';
-import { useFetcher } from '../../../hooks';
+import { useFetcher } from '../../hooks';
 import { jukiApiManager } from '../../../settings';
 import { Button, Modal, T, TextArea } from '../../atoms';
 import { MultiSelectSearchable } from '../../molecules';

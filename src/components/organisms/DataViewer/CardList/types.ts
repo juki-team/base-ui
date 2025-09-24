@@ -1,5 +1,5 @@
-import { CSSProperties } from 'react';
-import { GetRecordClassNameType, GetRecordStyleType, OnRecordClickType, TableHeadersType } from '../types';
+import { type CSSProperties } from 'react';
+import type { GetRecordClassNameType, GetRecordStyleType, OnRecordClickType, TableHeadersType } from '../types';
 
 export interface DataViewerCardProps<T> {
   cardWidth: number,

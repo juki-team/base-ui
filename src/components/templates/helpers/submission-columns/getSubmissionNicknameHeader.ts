@@ -1,6 +1,6 @@
-import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
-import { OptionType } from '../../../molecules/types';
-import { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
+import { type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { OptionType } from '../../../molecules/types';
+import type { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
 import { SubmissionNicknameField } from '../../submission/SubmissionNicknameField';
 
 export const getSubmissionNicknameHeader = (options: OptionType<string>[] | void): DataViewerHeadersType<SubmissionSummaryListResponseDTO> => ({

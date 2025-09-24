@@ -1,9 +1,5 @@
 import { SEPARATOR_TOKEN } from '@juki-team/commons';
-import { Href, QueryParamKey, RequestFilterType, RequestSortType } from '../types';
-
-export const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
-  return new URLSearchParams(urlSearchParams.toString());
-};
+import type { Href, RequestFilterType, RequestSortType } from '../types';
 
 export const toFilterUrl = (filter: RequestFilterType) => {
   let filterUrl = '';
@@ -54,33 +50,4 @@ export const getHref = (href: Href) => {
     searchParams,
     path: `${pathname}${search ? '?' + search : ''}`,
   };
-};
-
-export const persistGlobalURLSearchParams = (searchParams: URLSearchParams) => {
-  const newSp = cloneURLSearchParams(searchParams);
-  let sp = new URLSearchParams();
-  if (typeof window !== 'undefined') {
-    sp = new URLSearchParams(window.location.search);
-  }
-  const token = sp.get(QueryParamKey.TOKEN);
-  if (token) {
-    newSp.set(QueryParamKey.TOKEN, token);
-  }
-  const company = sp.get(QueryParamKey.COMPANY);
-  if (company) {
-    newSp.set(QueryParamKey.COMPANY, company);
-  }
-  const submission = sp.get(QueryParamKey.SUBMISSION);
-  if (submission) {
-    newSp.set(QueryParamKey.SUBMISSION, submission);
-  }
-  const signIn = sp.get(QueryParamKey.SIGN_IN);
-  if (signIn) {
-    newSp.set(QueryParamKey.SIGN_IN, signIn);
-  }
-  const signUp = sp.get(QueryParamKey.SIGN_UP);
-  if (signUp) {
-    newSp.set(QueryParamKey.SIGN_UP, signUp);
-  }
-  return newSp.toString();
 };

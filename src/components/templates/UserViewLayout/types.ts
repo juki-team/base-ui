@@ -1,7 +1,7 @@
-import { UserProfileResponseDTO } from '@juki-team/commons';
-import { KeyedMutator } from 'swr';
-import { ProfileTab } from '../../../types';
-import { TabsType } from '../../molecules/Tabs/types';
+import type { UserProfileResponseDTO } from '@juki-team/commons';
+import type { KeyedMutator } from 'swr';
+import type { ProfileTab } from '../../../enums';
+import type { TabsType } from '../../../types';
 
 export interface UserViewLayoutProps {
   user: UserProfileResponseDTO,

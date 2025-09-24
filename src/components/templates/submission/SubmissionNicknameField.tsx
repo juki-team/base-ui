@@ -1,8 +1,8 @@
-import { useJukiUI } from '../../../hooks';
 import { useUserStore } from '../../../stores/user/useUserStore';
+import { useJukiUI } from '../../hooks';
 import { TextField } from '../../organisms/DataViewer/TextField';
 import { UserNicknameLink } from '../../organisms/UserChip/UserNicknameLink';
-import { SubmissionNicknameFieldProps } from './types';
+import type { SubmissionNicknameFieldProps } from './types';
 
 export const SubmissionNicknameField = ({
                                           record: {

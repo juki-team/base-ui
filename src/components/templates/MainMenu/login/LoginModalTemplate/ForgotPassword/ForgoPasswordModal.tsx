@@ -3,7 +3,7 @@ import { classNames } from '../../../../../../helpers';
 import { Input, T } from '../../../../../atoms';
 import { JukiLaptopImage } from '../../../../../atoms/server';
 import { ButtonLoader, SplitModal } from '../../../../../molecules';
-import { ForgotPasswordModalProps } from './types';
+import type { ForgotPasswordModalProps } from './types';
 
 export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword }: ForgotPasswordModalProps) => {
   

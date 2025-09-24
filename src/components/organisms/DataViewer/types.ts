@@ -3,11 +3,11 @@ import { CSSProperties, Dispatch, FC, PropsWithChildren, ReactNode, RefObject, S
 import { UseResizeDetectorReturn } from 'react-resize-detector';
 import {
   DataViewerRequesterGetUrlType,
+  DataViewerRequestPropsType,
   DateDisplayType,
   ReactNodeOrFunctionP1Type,
   ReactNodeOrFunctionType,
   RequestFilterType,
-  RequestSortType,
   ViewPortSizeType,
 } from '../../../types';
 import { DatePickerDateFunType, OptionType } from '../../molecules/types';
@@ -304,15 +304,6 @@ export type DataViewerHeadersType<T> = {
 // export type SetSearchParamsType = ((nextInit: URLSearchParamsInitType, navigateOptions?: ({ replace?: boolean | undefined, state?: any } | undefined)) => void);
 
 export type setURLSearchParams = (params: URLSearchParams) => void;
-
-export type LoaderStatusActionType = Dispatch<SetStateAction<Status>>;
-
-export type DataViewerRequestPropsType = {
-  sort: RequestSortType,
-  filter: RequestFilterType,
-  pagination: { page: number, pageSize: number },
-  setLoaderStatus: LoaderStatusActionType,
-}
 
 export type DataViewerRequestType = (props: DataViewerRequestPropsType) => void;
 

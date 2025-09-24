@@ -1,5 +1,5 @@
-import { KeyboardEvent as ReactKeyboardEvent, MouseEvent, PropsWithChildren } from 'react';
-import { ButtonLoaderOnClickType, LoaderStatusOnClickType, SetLoaderStatusOnClickType } from '../../molecules/types';
+import type { KeyboardEvent as ReactKeyboardEvent, MouseEvent, PropsWithChildren } from 'react';
+import type { ButtonLoaderOnClickType, LoaderStatusOnClickType, SetLoaderStatusOnClickType } from '../../../types';
 
 export type OnClickModalEventType = {
   overlayOnClickEvent?: MouseEvent<HTMLDivElement>,

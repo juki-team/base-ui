@@ -11,7 +11,7 @@ import {
 import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { EMPTY_OBJECT } from '../../../constants';
 import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
-import { useJukiNotification, useStableRef } from '../../../hooks';
+import { useJukiNotification, useStableRef } from '../../hooks';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
 import { CodeRunnerEditor } from '../CodeRunnerEditor/CodeRunnerEditor';

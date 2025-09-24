@@ -1,5 +1,5 @@
+import { QueryParamKey } from '../../enums';
 import { useRouterStore } from '../../stores/router/useRouterStore';
-import { QueryParamKey } from '../../types';
 import { Button } from '../atoms';
 import { LoginIcon } from '../server';
 import { LoginModal } from '../templates/MainMenu/login/LoginModal';

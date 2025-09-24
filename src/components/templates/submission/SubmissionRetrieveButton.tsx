@@ -1,12 +1,12 @@
-import { ContentResponseType, Status, SubmissionRunStatus } from '@juki-team/commons';
+import { type ContentResponseType, Status, SubmissionRunStatus } from '@juki-team/commons';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification, useMutate } from '../../../hooks';
 import { jukiApiManager } from '../../../settings';
+import type { ButtonLoaderOnClickType } from '../../../types';
 import { T } from '../../atoms';
 import { RefreshIcon } from '../../atoms/server';
+import { useJukiNotification, useMutate } from '../../hooks';
 import { ButtonLoader } from '../../molecules';
-import { ButtonLoaderOnClickType } from '../../molecules/ButtonLoader/types';
-import { SubmissionRetrieveButtonProps } from './types';
+import type { SubmissionRetrieveButtonProps } from './types';
 
 export const SubmissionRetrieveButton = ({ submissionId }: SubmissionRetrieveButtonProps) => {
   

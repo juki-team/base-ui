@@ -1,5 +1,5 @@
 import { classNames } from '../../../../../../helpers';
-import { IconProps } from '../../types';
+import type { IconProps } from '../../types';
 import Facebook from './Facebook';
 
 export const FacebookIcon = ({ size = 'regular', className = '', ...props }: IconProps) => {

@@ -8,15 +8,15 @@ import {
   SubmissionRunStatus,
 } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
+import { NotificationType } from '../../../../enums';
 import { classNames } from '../../../../helpers';
-import { useJukiNotification } from '../../../../hooks';
-import { NotificationType } from '../../../../types';
+import { useJukiNotification } from '../../../hooks';
+import type { TabsType } from '../../../../types';
 import { InputToggle, T, TextArea } from '../../../atoms';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../molecules';
-import { TabsType } from '../../../molecules/types';
 import { AddIcon, DeleteIcon, InfoIIcon } from '../../../server';
 import { ProblemVerdictTag } from '../../ProblemVerdictTag/ProblemVerdictTag';
-import { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
+import type { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
 import { LogInfo } from './LogInfo';
 
 const AddCaseButton = <T, >({ onChange, testCasesValues, sample = false }: {

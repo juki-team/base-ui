@@ -1,5 +1,5 @@
+import { QueryParamKey } from '../../../enums';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { QueryParamKey } from '../../../types';
 import { SubmissionContentModal } from './commons/SubmissionContentModal';
 
 export const SubmissionModal = () => {

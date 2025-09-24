@@ -1,12 +1,13 @@
-import { Children, CSSProperties, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
+import { Children, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState, useOutsideAlerter } from '../../../hooks';
-import { NotUndefined } from '../../../types';
+import { useHandleState, useOutsideAlerter } from '../../hooks';
+import type { NotUndefined } from '../../../types';
 import { Popover, Select } from '../../atoms';
 import { ViewHeadlineIcon } from '../../server';
-import { TabsProps } from './types';
+import type { TabsProps } from './types';
 
 const hiddenStyle: CSSProperties = {
   height: 0,

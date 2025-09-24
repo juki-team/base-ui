@@ -1,5 +1,5 @@
 import { Children, Fragment, useCallback, useMemo, useRef, useState } from 'react';
-import { useWidthResizer } from '../../../hooks';
+import { useWidthResizer } from '../../hooks';
 import { Popover } from '../../atoms';
 import { NavigateNextIcon } from '../../server';
 import { HomeLink } from '../links/HomeLink';

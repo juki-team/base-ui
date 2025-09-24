@@ -1,7 +1,7 @@
-import { CodeEditorTestCasesType, ProblemDataResponseDTO, SubmissionRunStatus } from '@juki-team/commons';
-import { useJudge } from '../../../../hooks';
-import { UserCodeEditor } from '../../../organisms';
-import { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../../organisms/types';
+import { type CodeEditorTestCasesType, type ProblemDataResponseDTO, SubmissionRunStatus } from '@juki-team/commons';
+import { useJudge } from '../../../hooks';
+import type { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../../organisms/types';
+import { UserCodeEditor } from '../../../organisms/UserCodeEditor/UserCodeEditor';
 
 interface ProblemCodeEditorProps<T> {
   problem: ProblemDataResponseDTO,

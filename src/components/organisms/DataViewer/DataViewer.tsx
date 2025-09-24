@@ -2,12 +2,12 @@ import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, SEPARATOR_TOKE
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EMPTY_ARRAY } from '../../../constants';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
-import { useJukiUI, useSessionStorage, useStableRef } from '../../../hooks';
+import { useJukiUI, useSessionStorage, useStableRef } from '../../hooks';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { RequestFilterType, RequestSortType } from '../../../types';
-import { OptionType } from '../../molecules/types';
+import type { RequestFilterType, RequestSortType } from '../../../types';
+import type { OptionType } from '../../molecules/types';
 import { DisplayDataViewer } from './commons/DisplayDataViewer';
 import {
   fixHeaders,
@@ -43,7 +43,7 @@ import {
   FILTER_TEXT,
   FILTER_TEXT_AUTO,
 } from './constants';
-import { DataViewerProps, DataViewerTableHeadersType, FilterValuesType } from './types';
+import type { DataViewerProps, DataViewerTableHeadersType, FilterValuesType } from './types';
 
 const DEFAULT_PICKER_TYPE = 'year-month-day-hours-minutes-seconds';
 

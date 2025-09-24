@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactNode } from 'react';
-import { NotificationType, Sound } from '../../../types';
+import { NotificationType } from '../../../enums';
 
 export enum NotificationAction {
   ADD_NOTIFICATION = 'ADD_NOTIFICATION',
@@ -34,8 +34,6 @@ export type RemoveNotificationActionType = {
 }
 
 export type NotificationActionsTypes = AddNotificationActionType | RemoveNotificationActionType;
-
-export type Sounds = { [key in Sound]: HTMLAudioElement };
 
 export interface NotificationProviderProps extends PropsWithChildren {
 }

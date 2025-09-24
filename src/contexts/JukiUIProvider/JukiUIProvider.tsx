@@ -1,18 +1,19 @@
 import { MotionConfig } from 'motion/react';
-import { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
+import { type FC, lazy, type PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
 import { SWRConfig } from 'swr';
 import { T } from '../../components/atoms/T/T';
+import { usePageFocus } from '../../components/hooks';
 import { LineLoader } from '../../components/server';
-import { classNames, persistGlobalURLSearchParams } from '../../helpers';
-import { usePageFocus } from '../../hooks';
+import { Duration } from '../../enums';
+import { classNames } from '../../helpers';
+import { persistGlobalURLSearchParams } from '../../settings';
 import { useRouterStore } from '../../stores/router/useRouterStore';
-import { Duration } from '../../types';
 import { NotificationProvider } from '../NotificationProvider/NotificationProvider';
 import { SoundProvider } from '../SoundProvider/SoundProvider';
 import { UIContext } from './context';
 import { Image } from './Image';
 import { Link } from './Link';
-import { JukiUIProviderProps, LinkCmpProps } from './types';
+import type { JukiUIProviderProps, LinkCmpProps } from './types';
 import { useViewPortSize } from './useViewPortSize';
 
 const ReactTooltip = lazy(() => import('react-tooltip').then(module => ({ default: module.Tooltip })));

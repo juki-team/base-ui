@@ -1,11 +1,7 @@
-import { PropsWithChildren, useEffect, useRef } from 'react';
+import { type PropsWithChildren, useEffect, useRef } from 'react';
 import { useLastPathStore } from '../../stores/lastPath/useLastPath';
 import { useUserStore } from '../../stores/user/useUserStore';
-import { LastPathType } from './types';
-
-export interface LastPathProviderProps<T extends string | number> {
-  initialLastPath: LastPathType<T>,
-}
+import type { LastPathProviderProps } from './types';
 
 export const JukiLastPathProvider = <T extends string | number, >(props: PropsWithChildren<LastPathProviderProps<T>>) => {
   

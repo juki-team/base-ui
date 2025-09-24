@@ -10,7 +10,7 @@ import {
 } from '@juki-team/commons';
 import { useRef, useState } from 'react';
 import { authorizedRequest } from '../../../../../helpers';
-import { useJukiNotification, useStableState } from '../../../../../hooks';
+import { useJukiNotification, useStableState } from '../../../../hooks';
 import { jukiApiManager } from '../../../../../settings';
 import { T } from '../../../../atoms';
 import { ButtonLoader, FloatToolbar } from '../../../../molecules';

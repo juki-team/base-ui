@@ -1,8 +1,9 @@
-import { PropsWithChildren, useCallback, useEffect, useState } from 'react';
-import { cloneURLSearchParams, getHref } from '../../helpers';
+import { type PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import { QueryParamKey } from '../../enums';
+import { getHref } from '../../helpers';
+import { cloneURLSearchParams } from '../../settings';
 import { useRouterStore } from '../../stores/router/useRouterStore';
-import { QueryParamKey } from '../../types';
-import {
+import type {
   AppendSearchParamsType,
   DeleteSearchParamsType,
   Href,

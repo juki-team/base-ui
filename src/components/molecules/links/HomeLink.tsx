@@ -1,4 +1,4 @@
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../hooks';
 import { T } from '../../atoms';
 import { HomeIcon } from '../../server';
 

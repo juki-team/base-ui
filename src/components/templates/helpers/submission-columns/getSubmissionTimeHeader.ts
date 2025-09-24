@@ -1,5 +1,5 @@
-import { SubmissionSummaryListResponseDTO } from '@juki-team/commons';
-import { DataViewerHeadersType } from '../../../organisms/types';
+import { type  SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { DataViewerHeadersType } from '../../../organisms/types';
 import { SubmissionTimeField } from '../../submission/SubmissionTimeField';
 
 export const getSubmissionTimeHeader = (): DataViewerHeadersType<SubmissionSummaryListResponseDTO> => ({

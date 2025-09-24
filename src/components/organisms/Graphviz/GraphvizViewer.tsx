@@ -7,8 +7,8 @@ import { Button, Modal } from '../../atoms';
 import { Input } from '../../atoms/inputs/Input';
 import { ArrowLeftIcon, ArrowRightIcon, CodeIcon, PlayCircleIcon, ReplyIcon, StopCircleIcon } from '../../atoms/server';
 import { T } from '../../atoms/T/T';
-import { FloatToolbar } from '../../molecules';
 import { CodeViewer } from '../../molecules/CodeViewer/CodeViewer';
+import { FloatToolbar } from '../../molecules/FloatToolbar/FloatToolbar';
 import { Graphviz } from './Graphviz/Graphviz';
 import { GraphvizViewerProps } from './types';
 

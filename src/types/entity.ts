@@ -1,4 +1,4 @@
-import { ReactNodeOrFunctionP1Type } from './index';
+import { ReactNodeOrFunctionP1Type } from './commons';
 
 export interface UpsertComponentEntityProps<EntityUI, Tab> {
   entity: EntityUI,

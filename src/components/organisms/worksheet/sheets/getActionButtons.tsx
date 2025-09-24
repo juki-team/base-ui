@@ -1,6 +1,6 @@
 import { BodyWorksheetType, WorksheetType } from '@juki-team/commons';
+import { ButtonSizeType, ButtonType } from '../../../../types';
 import { Button, T } from '../../../atoms';
-import { ButtonSizeType, ButtonType } from '../../../atoms/Button/types';
 import { CloseIcon, EditIcon, SaveIcon, SettingsIcon, SortIcon, VisibilityIcon } from '../../../atoms/server';
 import { SetSheetType } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';

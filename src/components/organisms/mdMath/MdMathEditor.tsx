@@ -1,3 +1,4 @@
+import type { SubscribeChatCompletionsDataWebSocketEventDTO } from '@juki-team/commons';
 import {
   consoleWarn,
   ContentResponseType,
@@ -5,11 +6,11 @@ import {
   Status,
   WebSocketActionEvent,
 } from '@juki-team/commons';
-import { SubscribeChatCompletionsDataWebSocketEventDTO } from '@juki-team/commons/dist/types/dto';
 import { insert } from '@milkdown/kit/utils';
 import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import type { Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
 import { authorizedRequest, classNames, cleanRequest, downloadBlobAsFile, upperFirst } from '../../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
@@ -20,7 +21,7 @@ import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon
 import { ButtonLoader, FloatToolbar } from '../../molecules';
 import { ImageUploaderModal } from '../ImageUploader/ImageUploaderModal';
 import { MilkdownEditorContent, TextPlainEditorContent } from './editor';
-import { MdMathEditorProps } from './types';
+import type { MdMathEditorProps } from './types';
 
 enum Mode {
   WYSIWYG = 'WYSIWYG',

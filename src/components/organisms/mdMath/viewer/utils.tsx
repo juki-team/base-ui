@@ -1,10 +1,10 @@
 import { Theme } from '@juki-team/commons';
 import type { Element } from 'hast';
-import { CSSProperties, ReactNode } from 'react';
-import { SetSearchParamsType } from '../../../../contexts/JukiRouterProvider/types';
+import type { CSSProperties, ReactNode } from 'react';
+import type { SetSearchParamsType } from '../../../../contexts/JukiRouterProvider/types';
+import { QueryParamKey } from '../../../../enums';
 import { classNames } from '../../../../helpers';
-import { QueryParamKey } from '../../../../types';
-import { CommandsFunctionsType, CommandsObjectType } from './types';
+import type { CommandsFunctionsType, CommandsObjectType } from './types';
 
 const keys: CommandsFunctionsType = {
   textAlign: (value = '') => value,

@@ -1,9 +1,9 @@
 import { Status } from '@juki-team/commons';
 import { useState } from 'react';
-import { useJukiUI } from '../../../../hooks';
+import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../../settings';
-import { ModalProps } from '../../../../types';
 import { CopyToClipboard, Modal, T } from '../../../atoms';
+import type { ModalProps } from '../../../atoms/Modal/types';
 import { ButtonLoader } from '../../../molecules';
 import { OpenInNewIcon, RefreshIcon } from '../../../server';
 import { SubmitView } from '../SubmitView';

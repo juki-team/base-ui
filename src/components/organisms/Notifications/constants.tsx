@@ -1,4 +1,4 @@
-import { NotificationType } from '../../../types';
+import { NotificationType } from '../../../enums';
 import { CheckIcon, ErrorIcon, InfoIIcon, WarningIcon } from '../../server';
 
 export const LAPS = 200;

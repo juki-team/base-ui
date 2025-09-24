@@ -9,7 +9,6 @@ import alias from '@rollup/plugin-alias';
 // import nodePolyfills from 'rollup-plugin-node-polyfills';
 // import postcss from "rollup-plugin-postcss";
 // import scss from "rollup-plugin-scss";
-import path from "path";
 // import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 import { visualizer } from 'rollup-plugin-visualizer';
 import pkg from './package.json' with { type: 'json' };
@@ -21,7 +20,7 @@ const plugins = [
     entries: [
       // { find: 'node:crypto', replacement: path.resolve('./src/shims/crypto.js') },
       // { find: 'crypto', replacement: path.resolve('./src/shims/crypto.js') },
-      { find: '@excalidraw/mermaid-to-excalidraw', replacement: path.resolve('./src/shims/emptyModule.js') },
+      // { find: '@excalidraw/mermaid-to-excalidraw', replacement: path.resolve('./src/shims/emptyModule.js') },
     ]
   }),
   resolve({
@@ -109,6 +108,7 @@ export default [
       'main': 'src/index.ts',
       'helpers': 'src/helpers/index.ts',
       'types': 'src/types/index.ts',
+      'enums': 'src/enums/index.ts',
       'constants': 'src/constants/index.ts',
       'settings': 'src/settings/index.ts',
       'server': 'src/components/server/index.ts',

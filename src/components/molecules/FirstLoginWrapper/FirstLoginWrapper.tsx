@@ -1,10 +1,11 @@
-import { cloneElement, ReactElement } from 'react';
-import { useJukiNotification } from '../../../hooks';
+import type { ReactElement } from 'react';
+import { cloneElement } from 'react';
+import { QueryParamKey } from '../../../enums';
+import { useJukiNotification } from '../../hooks';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { QueryParamKey } from '../../../types';
 import { T } from '../../atoms';
-import { FirstLoginWrapperProps } from './types';
+import type { FirstLoginWrapperProps } from './types';
 
 export const FirstLoginWrapper = ({ children }: FirstLoginWrapperProps) => {
   const isLogged = useUserStore(state => state.user.isLogged);

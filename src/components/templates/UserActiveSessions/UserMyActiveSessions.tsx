@@ -1,16 +1,16 @@
-import { ContentsResponseType, SessionBasicResponseDTO, Status } from '@juki-team/commons';
+import { type  ContentsResponseType, type SessionBasicResponseDTO, Status } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS } from '../../../constants';
-import { useDataViewerRequester, useJukiUser, useMutate } from '../../../hooks';
+import { QueryParamKey } from '../../../enums';
+import { useDataViewerRequester, useJukiUser, useMutate } from '../../hooks';
 import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { QueryParamKey } from '../../../types';
 import { DateLiteral, T } from '../../atoms';
 import { DeleteIcon } from '../../atoms/server';
 import { ButtonLoader } from '../../molecules';
 import { DataViewer, Field } from '../../organisms';
-import { DataViewerHeadersType } from '../../organisms/DataViewer/types';
-import { UserMyActiveSessionsProps } from './types';
+import type { DataViewerHeadersType } from '../../organisms/DataViewer/types';
+import type { UserMyActiveSessionsProps } from './types';
 
 export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
   

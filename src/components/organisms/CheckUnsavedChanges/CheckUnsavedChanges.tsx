@@ -1,12 +1,12 @@
 import { CodeLanguage } from '@juki-team/commons';
 import { diffLines, diffWords } from 'diff';
 import microDiff from 'microdiff';
-import { cloneElement, ReactElement, ReactNode, useRef, useState } from 'react';
+import { cloneElement, type ReactElement, type ReactNode, useRef, useState } from 'react';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { T } from '../../atoms';
 import { TwoActionModal } from '../../molecules';
 import { CodeViewer } from '../../molecules/CodeViewer/CodeViewer';
-import { CheckUnsavedChangesProps } from './types';
+import type { CheckUnsavedChangesProps } from './types';
 
 function objectDiffAsBash(objA: any, objB: any): string {
   const changes = microDiff(objA, objB);

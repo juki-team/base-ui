@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import { ProfileTab } from '../../../enums';
 import { isJudgeWindowLocation } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { ProfileTab, TabsType } from '../../../types';
+import type { TabsType } from '../../../types';
 import { Button, T } from '../../atoms';
 import { LockIcon } from '../../atoms/server';
 import { TwoContentLayout } from '../../molecules';
@@ -15,7 +16,7 @@ import { UserMyActiveSessions } from '../UserActiveSessions/UserMyActiveSessions
 import { UserProfile } from '../UserProfile/UserProfile';
 import { UserProfileSettings } from '../UserProfileSettings/UserProfileSettings';
 import { ProfileSubmissions } from './ProfileSubmissions';
-import { UserViewLayoutProps } from './types';
+import type { UserViewLayoutProps } from './types';
 
 export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutProps) {
   

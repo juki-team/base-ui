@@ -4,7 +4,7 @@ import Reveal from 'reveal.js';
 import RevealNotes from 'reveal.js/plugin/notes/notes';
 import RevealSearch from 'reveal.js/plugin/search/search';
 import RevealZoom from 'reveal.js/plugin/zoom/zoom';
-import { useInjectColorTextHighlight, useInjectFontSize, useInjectTheme } from '../../../hooks';
+import { useInjectColorTextHighlight, useInjectFontSize, useInjectTheme } from '../../hooks';
 import { useAnimationFrameStore } from '../../../stores/animationFrame/useAnimationFrameStore';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { Client, T } from '../../atoms';

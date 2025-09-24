@@ -1,5 +1,9 @@
-import { Href } from '../JukiRouterProvider/types';
+import type { Href } from '../JukiRouterProvider/types';
 
 export type LastPathType<T extends string | number = string> = {
   [key in T]: Href
 };
+
+export interface LastPathProviderProps<T extends string | number> {
+  initialLastPath: LastPathType<T>,
+}

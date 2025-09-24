@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { SCROLL_WIDTH } from '../../../../constants';
-import { usePrevious } from '../../../../hooks';
+import { usePrevious } from '../../../hooks';
 import {
   DataViewerGroupsType,
   DataViewerTableHeadersType,

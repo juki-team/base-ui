@@ -1,7 +1,7 @@
 import { ContentsResponseType } from '@juki-team/commons';
 import { useEffect, useMemo, useRef } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS, PAGE_SIZE_OPTIONS } from '../../../constants';
-import { useDataViewerRequester, useJukiUI } from '../../../hooks';
+import { useDataViewerRequester, useJukiUI } from '../../hooks';
 import { DataViewer } from './DataViewer';
 import { PagedDataViewerProps } from './types';
 

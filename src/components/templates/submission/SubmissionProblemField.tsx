@@ -1,10 +1,10 @@
 import { getJudgeOrigin } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
+import { useJukiUI } from '../../hooks';
 import { TextField } from '../../organisms/DataViewer/TextField';
 import { OpenInNewIcon } from '../../server';
-import { SubmissionProblemFieldProps } from './types';
+import type { SubmissionProblemFieldProps } from './types';
 
 export const SubmissionProblemField = (props: SubmissionProblemFieldProps) => {
   

@@ -1,5 +1,5 @@
 import { classNames } from '../../../../helpers';
-import { ImageProps } from './types';
+import type { ImageProps } from './types';
 
 const JukiCouchLogoVer = () => {
   return (

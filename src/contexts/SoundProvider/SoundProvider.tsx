@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { SoundProviderProps } from '../../components/organisms/Notifications/types';
+import { Sound } from '../../enums';
 import { useSoundStore } from '../../stores/sound/useSoundStore';
-import { Sound } from '../../types';
 
 export function SoundProvider({ children }: SoundProviderProps) {
   

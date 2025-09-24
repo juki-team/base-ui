@@ -1,5 +1,5 @@
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../../hooks';
+import { useJukiUI } from '../../hooks';
 import { UserChipProps } from './types';
 import { UserNicknameLink } from './UserNicknameLink';
 

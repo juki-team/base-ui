@@ -1,4 +1,4 @@
-import {
+import type {
   ContentsResponseType,
   JudgeSummaryListResponseDTO,
   JudgeSystemSummaryListResponseDTO,
@@ -6,9 +6,8 @@ import {
   SubmissionSummaryListResponseDTO,
 } from '@juki-team/commons';
 import { useMemo } from 'react';
-import { LanguagesByJudge } from '../../../';
 import { toFilterUrl, toSortUrl } from '../../../../helpers';
-import { useFetcher } from '../../../../hooks';
+import { useFetcher } from '../../../hooks';
 import { jukiApiManager } from '../../../../settings';
 import {
   getSubmissionContestHeader,
@@ -20,9 +19,10 @@ import {
   getSubmissionRejudgeHeader,
   getSubmissionTimeHeader,
   getSubmissionVerdictHeader,
+  type LanguagesByJudge,
 } from '../../../templates';
 import { PagedDataViewer } from '../PagedDataViewer';
-import { DataViewerHeadersType, DataViewerProps } from '../types';
+import type { DataViewerHeadersType, DataViewerProps } from '../types';
 
 export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data'>) => {
   const { data: judgeSystemList } = useFetcher<ContentsResponseType<JudgeSystemSummaryListResponseDTO>>(jukiApiManager.API_V1.judge.getSystemList().url);

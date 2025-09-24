@@ -1,7 +1,7 @@
 import { consoleError, ContentResponseType, ContentsResponseType, ErrorResponseType } from '@juki-team/commons';
 import { useEffect, useMemo, useRef } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useFetcher, useJukiNotification } from '../../../hooks';
+import { useFetcher, useJukiNotification } from '../../hooks';
 import { JukiSurprisedImage, LineLoader } from '../../atoms/server';
 import { JukiLoadingLayout } from '../layouts/JukiLoadingLayout';
 import { FetcherLayerProps } from './types';
