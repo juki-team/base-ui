@@ -1,5 +1,6 @@
 import { MotionConfig } from 'motion/react';
 import { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
+import { SWRConfig } from 'swr';
 import { T } from '../../components/atoms/T/T';
 import { LineLoader } from '../../components/server';
 import { classNames, persistGlobalURLSearchParams } from '../../helpers';
@@ -50,36 +51,44 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
   }), [ viewPortSize, viewPortHeight, viewPortWidth, ImageCmp, LinkCmp ]);
   
   return (
-    <MotionConfig transition={{ duration: Duration.NORMAL }}>
-      <UIContext.Provider value={value}>
-        <SoundProvider>
-          <NotificationProvider>
-            {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={2} /></div>}
-            <div id="juki-app" translate="no" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
-              {/*<div className="loading-route-overlay" />*/}
-              {children}
-              <Suspense>
-                <ReactTooltip
-                  id="jk-tooltip"
-                  opacity={1}
-                  // isOpen
-                  positionStrategy="fixed"
-                  clickable
-                  // disableStyleInjection
-                  render={({ content, activeAnchor }) => (
-                    content ?
-                      activeAnchor?.getAttribute('data-tooltip-t') === 'false'
-                        ? content
-                        :
-                        <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') ?? 'tt-se tx-s'}>{content}</T>
-                      : null // Relevant attribute: { || 'not set'}
-                  )}
-                />
-              </Suspense>
-            </div>
-          </NotificationProvider>
-        </SoundProvider>
-      </UIContext.Provider>
-    </MotionConfig>
+    <SWRConfig
+      value={{
+        revalidateIfStale: true, // when back to pages
+        revalidateOnFocus: false,
+        revalidateOnReconnect: true,
+      }}
+    >
+      <MotionConfig transition={{ duration: Duration.NORMAL }}>
+        <UIContext.Provider value={value}>
+          <SoundProvider>
+            <NotificationProvider>
+              {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={2} /></div>}
+              <div id="juki-app" translate="no" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
+                {/*<div className="loading-route-overlay" />*/}
+                {children}
+                <Suspense>
+                  <ReactTooltip
+                    id="jk-tooltip"
+                    opacity={1}
+                    // isOpen
+                    positionStrategy="fixed"
+                    clickable
+                    // disableStyleInjection
+                    render={({ content, activeAnchor }) => (
+                      content ?
+                        activeAnchor?.getAttribute('data-tooltip-t') === 'false'
+                          ? content
+                          :
+                          <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') ?? 'tt-se tx-s'}>{content}</T>
+                        : null // Relevant attribute: { || 'not set'}
+                    )}
+                  />
+                </Suspense>
+              </div>
+            </NotificationProvider>
+          </SoundProvider>
+        </UIContext.Provider>
+      </MotionConfig>
+    </SWRConfig>
   );
 };
