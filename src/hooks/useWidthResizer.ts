@@ -1,10 +1,10 @@
-import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { RefObject, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../constants';
 import { isOverflowed } from '../helpers';
 
 export interface WidthResizerProps {
-  targetRef: MutableRefObject<any>,
+  targetRef: RefObject<any>,
   onOverflow: () => void,
   unOverflow: () => void,
   trigger?: any,

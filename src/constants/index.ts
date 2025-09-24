@@ -11,8 +11,8 @@ import {
   Theme,
 } from '@juki-team/commons';
 import { useResizeDetectorProps } from 'react-resize-detector';
-import { UserDataType } from '../contexts/JukiUserProvider';
-import { CodeEditorKeyMap, CodeEditorTheme, QueryParamKey } from '../types';
+import { UserDataType } from '../contexts/types';
+import { QueryParamKey } from '../types';
 
 export const DAYS_2 = DAY_NAMES.map(name => name.substring(0, 2));
 
@@ -20,8 +20,6 @@ export const SCROLL_WIDTH = 8;
 
 export const EMPTY_ARRAY = [];
 export const EMPTY_OBJECT = {};
-
-export const ALPHANUMERIC_REGEX = /^[a-z0-9]+$/i;
 
 export const ALPHANUMERIC_DASH_UNDERSCORE_REGEX = /^[a-z0-9\-_]+$/i;
 
@@ -70,8 +68,6 @@ export const DEFAULT_DATA_VIEWER_PROPS = {
   getVisiblesQueryParam: (name: string) => (name ? name + '.' : name) + QueryParamKey.VISIBLES,
 };
 
-export const CODE_EDITOR_THEMES = Object.values(CodeEditorTheme);
-export const CODE_EDITOR_KEY_MAPS = Object.values(CodeEditorKeyMap);
 export const CODE_EDIT0R_TAB_SIZES = [ 1, 2, 3, 4, 8 ];
 export const CODE_EDIT0R_FONT_SIZES = [ 8, 10, 12, 14, 16, 18, 20, 22, 24, 28, 30, 32, 34, 36, 38, 40, 42 ];
 

@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Button, Drawer as DrawerComponent, MdMathViewer } from '../../../index';
-import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
+import { MockupToggleThemeButton } from '../../mockup';
 import { SAMPLE_MD_CONTENT } from '../../organisms/mdMath/constants';
 
 const meta: Meta<typeof DrawerComponent> = {

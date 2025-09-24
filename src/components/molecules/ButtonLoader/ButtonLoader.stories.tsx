@@ -1,10 +1,10 @@
 import { Status } from '@juki-team/commons';
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { action } from 'storybook/actions';
-import { ButtonLoaderProps } from '../../../types';
-import { ButtonLoader } from '../../index';
 import { MockupJukiProvider } from '../../mockup';
 import { EventIcon, VisibilityIcon } from '../../server';
+import { ButtonLoader } from './ButtonLoader';
+import { ButtonLoaderProps } from './types';
 
 const meta: Meta<typeof ButtonLoader> = {
   component: ButtonLoader,

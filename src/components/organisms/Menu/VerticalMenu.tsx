@@ -1,8 +1,7 @@
 import { motion } from 'motion/react';
 import { Children, useId } from 'react';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState } from '../../../hooks/useHandleState';
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useHandleState, useJukiUI } from '../../../hooks';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
 import { HorizontalMenu } from './HorizontalMenu';
 import { VerticalMenuProps } from './types';

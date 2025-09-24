@@ -1,8 +1,8 @@
 import { forwardRef, ReactElement, Ref } from 'react';
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useJukiUI } from '../../../hooks';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
-import { ButtonCmpProps } from '../../../types';
+import { ButtonCmpProps } from './types';
 
 // const buttonsVariants = (isDisabled: boolean, hasChildren: boolean) => ({
 //   whileHover: isDisabled ? {} : { scale: hasChildren ? 1.2 : 1.10, transition: { duration: Duration.FAST } },

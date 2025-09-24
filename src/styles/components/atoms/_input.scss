@@ -223,7 +223,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 // input
 .jk-input-text, .jk-input-password, .jk-input-email {
-  padding: 0px var(--pad-xt);
+  padding: 0 var(--pad-xt);
 }
 
 .jk-input-number {

@@ -1,4 +1,4 @@
-import type { LegacyRef, ReactNode } from 'react';
+import type { ReactNode, Ref } from 'react';
 import type { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../../types';
 import type { PlacementType } from '../Popover/types';
 
@@ -22,7 +22,7 @@ export interface SelectProps<T, U extends ReactNodeOrFunctionType, V extends Rea
   options: SelectOptionType<T, U, V>[],
   selectedOption: SelectOption2Type<T, U, V>,
   onChange?: (option: SelectOptionType<T, U, V>) => void,
-  onBlur?: (event: { target: LegacyRef<HTMLDivElement> }) => void,
+  onBlur?: (event: { target: Ref<HTMLDivElement> }) => void,
   // showOptions?: boolean,
   // onChangeShowOptions?: (value: boolean) => void,
   disabled?: boolean,

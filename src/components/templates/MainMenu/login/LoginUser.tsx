@@ -1,6 +1,5 @@
 import { classNames } from '../../../../helpers';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
-import { useJukiUser } from '../../../../hooks/useJukiUser';
+import { useJukiUI, useJukiUser } from '../../../../hooks';
 import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';

@@ -1,4 +1,4 @@
-import { Dispatch, MutableRefObject, ReactNode } from 'react';
+import { Dispatch, ReactNode, RefObject } from 'react';
 import { ModalProps } from '../../atoms/types';
 
 export interface ImageUploaderModalProps extends ModalProps {
@@ -14,7 +14,7 @@ export type UploadImageButtonChildrenProps = { open: boolean, setOpen: Dispatch<
 export interface UploadImageButtonProps {
   open: boolean,
   setOpen: Dispatch<boolean>,
-  isOpenRef?: MutableRefObject<boolean>,
+  isOpenRef?: RefObject<boolean>,
   withLabel?: boolean,
   copyButtons?: boolean,
   onPickImageUrl?: onPickImageUrlType,

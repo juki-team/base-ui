@@ -8,7 +8,7 @@ import {
 import { useMemo } from 'react';
 import { LanguagesByJudge } from '../../../';
 import { toFilterUrl, toSortUrl } from '../../../../helpers';
-import { useFetcher } from '../../../../hooks/useFetcher';
+import { useFetcher } from '../../../../hooks';
 import { jukiApiManager } from '../../../../settings';
 import {
   getSubmissionContestHeader,
@@ -20,7 +20,7 @@ import {
   getSubmissionRejudgeHeader,
   getSubmissionTimeHeader,
   getSubmissionVerdictHeader,
-} from '../../../templates/helpers/submission-columns';
+} from '../../../templates';
 import { PagedDataViewer } from '../PagedDataViewer';
 import { DataViewerHeadersType, DataViewerProps } from '../types';
 

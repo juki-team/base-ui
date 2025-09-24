@@ -1,6 +1,6 @@
 import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons';
 import { classNames } from '../../../helpers';
-import { useJukiUserSettings } from '../../../hooks/useJukiUser';
+import { useJukiUserSettings } from '../../../hooks';
 import { Button, InputRadio, InputToggle, Select, T } from '../../atoms';
 import {
   DarkModeIcon,

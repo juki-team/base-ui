@@ -15,7 +15,7 @@ export const authorizedRequest = async <M extends Exclude<HTTPMethod, HTTPMethod
   return _authorizedRequest(url, options, safe);
 };
 
-export const getAuthorizedRequest = async <N extends Blob | string = string>(url: string, options?: AuthorizedRequestType<HTTPMethod.GET>, safe?: boolean): Promise<N> => {
+export const getAuthorizedRequest = async <N extends Blob | string = string>(url: string, options?: AuthorizedRequestType, safe?: boolean): Promise<N> => {
   return _authorizedRequest(url, options, safe);
 };
 

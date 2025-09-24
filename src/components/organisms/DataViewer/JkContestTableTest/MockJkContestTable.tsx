@@ -8,7 +8,7 @@ import {
   getContestDateHeader,
   getContestNameHeader,
   getContestStatusHeader,
-} from '../../../templates/helpers/contest-columns';
+} from '../../../templates';
 import { DataViewer } from '../DataViewer';
 import { DataViewerHeadersType, DataViewerProps } from '../types';
 import contests from './data.json';

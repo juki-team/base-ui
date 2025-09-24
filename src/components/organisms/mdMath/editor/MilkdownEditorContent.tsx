@@ -196,12 +196,11 @@ const myLanguages = [
 ];
 
 function renderLatex(content: string, options: {}) {
-  const html = katex.renderToString(content, {
+  return katex.renderToString(content, {
     ...options,
     throwOnError: false,
     displayMode: true,
   });
-  return html;
 }
 
 function renderMermaid(content: string): HTMLElement {

@@ -1,4 +1,4 @@
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useJukiUI } from '../../../hooks';
 import { Button, T } from '../../atoms';
 import { HomeIcon, JukiSurprisedImage } from '../../server';
 import { PageNotFoundProps } from './types';

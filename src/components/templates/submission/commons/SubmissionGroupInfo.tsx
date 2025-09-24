@@ -4,7 +4,7 @@ import { LineMatchingType } from 'diff2html/lib-esm/types';
 import { ColorSchemeType } from 'diff2html/lib/types';
 import { useCallback, useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { useJukiUI } from '../../../../hooks';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, Collapse, Modal, T, VirtualizedRowsFixed } from '../../../atoms';

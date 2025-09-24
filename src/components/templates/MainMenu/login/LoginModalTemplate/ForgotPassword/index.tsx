@@ -1,6 +1,6 @@
 import { ContentResponseType, Status } from '@juki-team/commons';
 import { authorizedRequest, cleanRequest } from '../../../../../../helpers';
-import { useJukiNotification } from '../../../../../../hooks/useJukiNotification';
+import { useJukiNotification } from '../../../../../../hooks';
 import { jukiApiManager } from '../../../../../../settings';
 import { BasicModalProps } from '../../../../../atoms/types';
 import { ForgotPasswordModalComponent } from './ForgoPasswordModal';

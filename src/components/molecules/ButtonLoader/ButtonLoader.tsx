@@ -2,7 +2,7 @@ import { Status } from '@juki-team/commons';
 import { useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { Button } from '../../atoms';
-import { useSetLoaderStatus } from '../../atoms/hooks/useSetLoaderStatus';
+import { useSetLoaderStatus } from '../../atoms/hooks';
 import { CheckIcon, ErrorIcon, SpinIcon } from '../../server';
 import { ButtonLoaderProps } from './types';
 

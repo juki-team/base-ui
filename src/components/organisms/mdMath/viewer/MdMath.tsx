@@ -2,22 +2,19 @@
 import { CODE_LANGUAGE, CodeLanguage, ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
 import type { Element } from 'hast';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
-import { CSSProperties, memo, ReactNode, useMemo } from 'react';
+import { Children, CSSProperties, memo, ReactNode, useMemo } from 'react';
 import ReactMarkdown, { Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
 import { classNames } from '../../../../helpers';
-import { useFetcher } from '../../../../hooks/useFetcher';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
-import { useStableState } from '../../../../hooks/useStableState';
+import { useFetcher, useJukiUI, useStableState } from '../../../../hooks';
 import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { QueryParamKey, SetSearchParamsType } from '../../../../types';
 import { Button } from '../../../atoms/Button/Button';
 import { DetectRequestAnimationFrame } from '../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
-import { VisibilityIcon } from '../../../atoms/server/icons/google/VisibilityIcon';
-import { VisibilityOffIcon } from '../../../atoms/server/icons/google/VisibilityOffIcon';
+import { VisibilityIcon, VisibilityOffIcon } from '../../../atoms/server';
 import { CodeViewer } from '../../../molecules';
 import { ErrorIcon, OpenInNewIcon, SpinIcon } from '../../../server';
 import { GraphvizViewers } from '../../Graphviz/GraphvizViewer';
@@ -144,7 +141,7 @@ export const MdMath = memo(({
             };
           }
           newChildren[0] = newText;
-          return <p className={classNames({ 'fragment': isRoot })} style={style}>{newChildren}</p>;
+          return <p className={classNames({ 'fragment': isRoot })} style={style}>{Children.toArray(newChildren)}</p>;
         }
         return <p className={classNames({ 'fragment': isRoot })}>{children as ReactNode}</p>;
       },

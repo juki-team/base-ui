@@ -1,6 +1,6 @@
 import { getWorksheetsInPages } from '@juki-team/commons';
 import { useMemo } from 'react';
-import { useStableState } from '../../../hooks/useStableState';
+import { useStableState } from '../../../hooks';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { WorksheetBodies } from './sheets/WorksheetBodies';

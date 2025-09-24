@@ -7,7 +7,7 @@ import {
 } from '@juki-team/commons';
 import { useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification } from '../../../hooks/useJukiNotification';
+import { useJukiNotification } from '../../../hooks';
 import { Button, CopyToClipboard, Popover, T } from '../../atoms';
 import { ContentCopyIcon, EditIcon, InfoIIcon } from '../../atoms/server';
 import { ButtonAction } from '../../molecules/FloatToolbar/ButtonAction';

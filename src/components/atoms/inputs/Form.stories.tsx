@@ -2,8 +2,8 @@ import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useState } from 'react';
 // import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { Input, InputPassword, Select as SelectComponent, TextArea } from '../../atoms';
-import { InputProps } from '../../atoms/types';
 import { MockupJukiProvider } from '../../mockup';
+import { InputProps } from './types';
 
 const meta: Meta<typeof Input> = {
   component: Input,

@@ -1,6 +1,6 @@
 import { lazy, Suspense, ReactNode } from 'react';
 //import { SuspenseWithTracking } from '../SuspenseWithTracking';
-import { SpinIcon } from './server/icons/SpinIcon';
+import { SpinIcon } from './server';
 import { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';
 import { ButtonProps } from './Button/types';
 import { ClientProps } from './Client/types';

@@ -1,11 +1,11 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const componentDirs = [
   {
     chunkName: 'Atoms',
     dir: path.resolve('./src/components/atoms'),
-    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from './server/icons/SpinIcon';\nimport { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';`,
+    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from './server';\nimport { ModalButtonLoaderEventType, ReactNodeOrFunctionType } from '../../types';`,
     withTypes: true,
     withLazy: true,
   },
@@ -50,21 +50,21 @@ const componentDirs = [
   {
     chunkName: 'Molecules',
     dir: path.resolve('./src/components/molecules'),
-    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server/icons/SpinIcon';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';\nimport { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';`,
+    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server';\nimport { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport { ModalButtonLoaderEventType } from '../atoms/types';\nimport { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';`,
     withTypes: true,
     withLazy: true,
   },
   {
     chunkName: 'Organisms',
     dir: path.resolve('./src/components/organisms'),
-    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server/icons/SpinIcon';`,
+    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server';`,
     withTypes: true,
     withLazy: true,
   },
   {
     chunkName: 'Templates',
     dir: path.resolve('./src/components/templates'),
-    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server/icons/SpinIcon';`,
+    headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server';`,
     withTypes: true,
     withLazy: true,
     footerLines: `export * from './helpers';`,
@@ -165,7 +165,7 @@ for (let {
         );
         
         let exportLine = `export const ${name} = (${withoutProps ? '' : (`props: ${commonProp ? commonProp : `${name}Props`}`)}) => (`;
-        const index = withGenericity.findIndex(([ line, newLine ]) => {
+        const index = withGenericity.findIndex(([ line ]) => {
           return exportLine === line;
         })
         if (index !== -1) {
@@ -216,7 +216,7 @@ for (let {
   }
   
   const indexTypesContent = [
-    ...files.map(({ basePath, name }) => `export type * from '${basePath}/types';`),
+    ...files.map(({ basePath }) => `export type * from '${basePath}/types';`),
   ].join('\n')
   
   if (depth === 0) {

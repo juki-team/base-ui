@@ -9,7 +9,7 @@ import {
   WorksheetType,
 } from '@juki-team/commons';
 import { authorizedRequest } from '../../../../../helpers';
-import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
+import { useJukiNotification } from '../../../../../hooks';
 import { jukiApiManager } from '../../../../../settings';
 import { T } from '../../../../atoms';
 import { ButtonLoader, FetcherLayer, FirstLoginWrapper } from '../../../../molecules';

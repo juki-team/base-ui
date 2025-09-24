@@ -1,4 +1,4 @@
-import { useJukiUser } from '../../../hooks/useJukiUser';
+import { useJukiUser } from '../../../hooks';
 import { Button, Modal, T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';
 import { UserNicknameLink } from '../../organisms';

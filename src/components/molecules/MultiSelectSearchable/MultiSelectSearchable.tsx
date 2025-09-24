@@ -1,7 +1,7 @@
 import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
-import { useHandleState } from '../../../hooks/useHandleState';
+import { useHandleState } from '../../../hooks';
 import { Input, InputCheckbox, Popover, VirtualizedRowsFixed } from '../../atoms';
 import { SelectOptionType } from '../../atoms/types';
 import { CloseIcon, ExpandMoreIcon, SearchIcon } from '../../server';

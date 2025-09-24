@@ -21,7 +21,7 @@ type Story = StoryObj<typeof TwoContentLayoutComponent>;
 const Component = <T, >(args: TwoContentLayoutProps<T>) => {
   const [ layout, setLayout ] = useState(1);
   
-  const outputTabs: TabsType<string> = {
+  const outputTabs: TabsType = {
     problems: {
       key: 'problems',
       header: <div>problems</div>,

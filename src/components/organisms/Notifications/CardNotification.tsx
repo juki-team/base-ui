@@ -1,7 +1,6 @@
 import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames, getTextContent } from '../../../helpers';
-import { useJukiNotification } from '../../../hooks/useJukiNotification';
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useJukiNotification, useJukiUI } from '../../../hooks';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { CardNotificationProps, NotificationType } from '../../../types';
 import { CloseIcon } from '../../server';

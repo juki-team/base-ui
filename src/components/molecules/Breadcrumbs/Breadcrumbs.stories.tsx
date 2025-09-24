@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
-import { Breadcrumbs } from '../../index';
 import { MockupJukiProvider } from '../../mockup';
+import { Breadcrumbs } from './Breadcrumbs';
 
 const meta: Meta<typeof Breadcrumbs> = {
   component: Breadcrumbs,

@@ -129,13 +129,12 @@ const config: StorybookConfig = {
       ...(config.resolve.plugins || []),
       new TsconfigPathsPlugin(),
     ];
-    config.resolve.alias = config.resolve.alias || {};
-    (config.resolve.alias as Record<string, string>)['@juki-team/base-ui/assets'] = path.resolve(__dirname, '../dist/assets'),
-      
-      config.experiments = {
-        ...config.experiments,
-        asyncWebAssembly: true,
-      };
+    config.resolve.alias = (config.resolve.alias || {}) as Record<string, string>;
+    config.resolve.alias['@juki-team/base-ui/assets'] = path.resolve(__dirname, '../dist/assets');
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+    };
     return config;
   },
 };

@@ -1,4 +1,4 @@
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useJukiUI } from '../../../hooks';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { TextField } from '../../organisms/DataViewer/TextField';
 import { UserNicknameLink } from '../../organisms/UserChip/UserNicknameLink';

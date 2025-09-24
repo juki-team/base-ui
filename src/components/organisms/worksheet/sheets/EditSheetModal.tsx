@@ -1,6 +1,6 @@
 import { isObjectJson } from '@juki-team/commons';
 import { Dispatch } from 'react';
-import { useStableState } from '../../../../hooks/useStableState';
+import { useStableState } from '../../../../hooks';
 import { Button, InputTextArea, Modal, T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/Modal/types';
 

@@ -1,8 +1,7 @@
 import { MenuViewMode, ProfileSetting } from '@juki-team/commons';
 import { ReactNode, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState } from '../../../hooks/useHandleState';
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useHandleState, useJukiUI } from '../../../hooks';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { NotUndefined, TwoContentCardsLayoutProps } from '../../../types';

@@ -1,8 +1,8 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, MouseEvent, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { useHandleState } from '../../../hooks/useHandleState';
+import { useHandleState } from '../../../hooks';
 import { T } from '../../atoms';
 import {
   ExpandLessIcon,
@@ -57,7 +57,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
       setDisplaySecondPane(true);
     }
   }, [ onePanelAtATime, onlyFirstPane, onlySecondPane ]);
-  const onMouseHoldDown = (event: React.MouseEvent<HTMLDivElement>) => {
+  const onMouseHoldDown = (event: MouseEvent<HTMLDivElement>) => {
     setDragging(true);
     dividerPositionRef.current = event[direction === 'row' ? 'clientX' : 'clientY'];
   };
@@ -69,7 +69,7 @@ export const SplitPane = memo((props: SplitPaneProps) => {
   
   const clientDirection = direction === 'row' ? 'clientWidth' : 'clientHeight';
   
-  const onMouseHoldMove = (event: React.MouseEvent<HTMLDivElement>) => {
+  const onMouseHoldMove = (event: MouseEvent<HTMLDivElement>) => {
     if (!dividerPositionRef.current) {
       return;
     }

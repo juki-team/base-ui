@@ -42,59 +42,59 @@ const customViewports = {
   },
 };
 
-const PING = {
-  'success': true,
-  'message': 'OK',
-  'content': {
-    'user': {
-      'nickname': 'OscarGauss',
-      'imageUrl': 'https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png',
-      'settings': {
-        'preferredLanguage': 'ES',
-        'preferredTheme': 'LIGHT',
-        'preferredDataViewMode': 'ROWS',
-        'preferredMenuViewMode': 'VERTICAL',
-        'newsletterSubscription': true,
-      },
-      'permissions': {
-        'users': {
-          'create': true,
-          'manage': true,
-          'administrate': true,
-        },
-        'problems': {
-          'create': true,
-          'manage': true,
-        },
-        'submissions': {
-          'manage': true,
-        },
-        'contests': {
-          'create': true,
-          'manage': true,
-        },
-        'company': {
-          'manage': true,
-          'administrate': true,
-        },
-        'services': {
-          'administrate': true,
-        },
-      },
-      'sessionId': '6848e5f1c9a6b84e1a2d4cf9',
-      'isLogged': true,
-    },
-    'company': {
-      'key': 'juki-app',
-      'contactEmail': 'contact@juki.app',
-      'contactCellPhoneNumber': '+591 79153358',
-      'contactTelegram': 't.me/OscarGauss',
-      'imageUrl': 'https://images.juki.pub/c/juki-judge-horizontal-white-logo.svg',
-      'name': 'Juki',
-      'codeEditorRunEnabled': true,
-    },
-  },
-};
+// const PING = {
+//   'success': true,
+//   'message': 'OK',
+//   'content': {
+//     'user': {
+//       'nickname': 'OscarGauss',
+//       'imageUrl': 'https://images.juki.pub/u/7a011822-b4b7-4cfa-b487-bfe946624f8d.png',
+//       'settings': {
+//         'preferredLanguage': 'ES',
+//         'preferredTheme': 'LIGHT',
+//         'preferredDataViewMode': 'ROWS',
+//         'preferredMenuViewMode': 'VERTICAL',
+//         'newsletterSubscription': true,
+//       },
+//       'permissions': {
+//         'users': {
+//           'create': true,
+//           'manage': true,
+//           'administrate': true,
+//         },
+//         'problems': {
+//           'create': true,
+//           'manage': true,
+//         },
+//         'submissions': {
+//           'manage': true,
+//         },
+//         'contests': {
+//           'create': true,
+//           'manage': true,
+//         },
+//         'company': {
+//           'manage': true,
+//           'administrate': true,
+//         },
+//         'services': {
+//           'administrate': true,
+//         },
+//       },
+//       'sessionId': '6848e5f1c9a6b84e1a2d4cf9',
+//       'isLogged': true,
+//     },
+//     'company': {
+//       'key': 'juki-app',
+//       'contactEmail': 'contact@juki.app',
+//       'contactCellPhoneNumber': '+591 79153358',
+//       'contactTelegram': 't.me/OscarGauss',
+//       'imageUrl': 'https://images.juki.pub/c/juki-judge-horizontal-white-logo.svg',
+//       'name': 'Juki',
+//       'codeEditorRunEnabled': true,
+//     },
+//   },
+// };
 
 export const parameters = {
   // actions: { argTypesRegex: '^on[A-Z].*' },

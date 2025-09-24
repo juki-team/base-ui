@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { SyntheticEvent, useEffect, useRef, useState } from 'react';
 import ReactCrop, {
   centerCrop,
   convertToPercentCrop,
@@ -7,8 +7,7 @@ import ReactCrop, {
   makeAspectCrop,
   PixelCrop,
 } from 'react-image-crop';
-import { useDebounceEffect } from '../../../hooks/useDebounceEffect';
-import { useHandleState } from '../../../hooks/useHandleState';
+import { useDebounceEffect, useHandleState } from '../../../hooks';
 import { Input, T } from '../../atoms';
 import { canvasPreview } from './canvasPreview';
 import { ImageLoaderCropperProps } from './types';
@@ -83,7 +82,7 @@ export const ImageLoaderCropper = (props: ImageLoaderCropperProps) => {
     }
   }
   
-  function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
+  function onImageLoad(e: SyntheticEvent<HTMLImageElement>) {
     const { width, height } = e.currentTarget;
     if (aspect) {
       setCrop(centerAspectCrop(width, height, aspect));

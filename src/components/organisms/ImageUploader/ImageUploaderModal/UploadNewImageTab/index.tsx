@@ -1,7 +1,7 @@
 import { Status } from '@juki-team/commons';
 import { memo, useState } from 'react';
 import { classNames, handleUploadImage, toBlob } from '../../../../../helpers';
-import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
+import { useJukiNotification } from '../../../../../hooks';
 import { NotificationType } from '../../../../../types';
 import { Button, CopyToClipboard, InputToggle, T } from '../../../../atoms';
 import { ButtonLoader, ImageLoaderCropper } from '../../../../molecules';

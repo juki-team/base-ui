@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { SetLoaderStatusOnClickType } from '../../molecules/ButtonLoader/types';
-import { useSetLoaderStatus } from '../hooks/useSetLoaderStatus';
+import { useSetLoaderStatus } from '../hooks';
 import { Portal } from '../Portal/Portal';
 import { CloseIcon, SpinIcon } from '../server';
 import { ModalButtonLoaderEventType, ModalProps } from './types';

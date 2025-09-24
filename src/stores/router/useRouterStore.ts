@@ -1,5 +1,5 @@
 import { ParsedUrlQuery } from 'querystring';
-import { create } from 'zustand/index';
+import { create } from 'zustand';
 import {
   AppendSearchParamsType,
   DeleteSearchParamsType,

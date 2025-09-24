@@ -1,5 +1,5 @@
 import { getJudgeOrigin } from '../../../helpers';
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useJukiUI } from '../../../hooks';
 import { jukiAppRoutes } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { ContestTab } from '../../../types';

@@ -1,6 +1,6 @@
 import { action, configureActions } from 'storybook/actions';
 import { Button, MdMathEditor, Popover, T, VerticalMenu as VerticalMenuCmp } from '../../../index';
-import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
+import { MockupToggleThemeButton } from '../../mockup';
 import { DrawerActionsType } from '../../molecules/Drawer/types';
 import {
   AppsIcon,

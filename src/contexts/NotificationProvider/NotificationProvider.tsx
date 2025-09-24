@@ -7,7 +7,7 @@ import {
   NotificationProps,
   NotificationProviderProps,
 } from '../../components/organisms/Notifications/types';
-import { useJukiUI } from '../../hooks/useJukiUI';
+import { useJukiUI } from '../../hooks';
 import { useSoundStore } from '../../stores/sound/useSoundStore';
 import { NotificationType } from '../../types';
 

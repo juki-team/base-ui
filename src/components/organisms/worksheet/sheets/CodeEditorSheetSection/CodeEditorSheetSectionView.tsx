@@ -11,9 +11,9 @@ import {
   SubmissionRunStatus,
   WorksheetType,
 } from '@juki-team/commons';
-import { useEffect, useRef, useState } from 'react';
+import { Children, useEffect, useRef, useState } from 'react';
 import { authorizedRequest, classNames, getHeight } from '../../../../../helpers';
-import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
+import { useJukiNotification } from '../../../../../hooks';
 import { jukiApiManager } from '../../../../../settings';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
 import { QueryParamKey, UserResultsType } from '../../../../../types';
@@ -126,7 +126,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
             );
             return (
               <div className="jk-row gap">
-                {buttons}
+                {Children.toArray(buttons)}
               </div>
             );
           }}

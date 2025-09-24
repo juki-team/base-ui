@@ -1,6 +1,5 @@
 import { graphviz, GraphvizOptions } from 'd3-graphviz';
-import * as React from 'react';
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, RefObject, useEffect, useRef } from 'react';
 import { IGraphvizProps } from '../types';
 
 const defaultOptions: GraphvizOptions = {
@@ -22,7 +21,7 @@ export const Graphviz = forwardRef<HTMLDivElement, IGraphvizProps>(({ dot, class
     if (typeof ref === 'function') {
       ref(el);
     } else if (ref) {
-      (ref as React.MutableRefObject<HTMLDivElement | null>).current = el;
+      (ref as RefObject<HTMLDivElement | null>).current = el;
     }
   };
   

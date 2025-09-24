@@ -1,4 +1,4 @@
-import { Children, memo, ReactElement, useCallback, useRef, useState } from 'react';
+import { Children, memo, MouseEvent, ReactElement, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../../helpers';
 import { ArrowDownwardIcon, ArrowUpwardIcon, SortIcon } from '../../../../server';
 import { fixHeaders, renderHead } from '../../commons/utils';
@@ -9,9 +9,9 @@ const fillWidth = true;
 
 interface RenderHeaderProps<T> {
   header: DataViewerTableHeadersType<T>,
-  onMouseHoldMove: (event: React.MouseEvent<HTMLDivElement>) => void,
+  onMouseHoldMove: (event: MouseEvent<HTMLDivElement>) => void,
   onMouseHoldUp: () => void,
-  onMouseHoldDown: (index: number) => (event: React.MouseEvent<HTMLDivElement>) => void,
+  onMouseHoldDown: (index: number) => (event: MouseEvent<HTMLDivElement>) => void,
   loading: boolean,
   headers: DataViewerTableHeadersType<T>[],
   withTools: boolean,
@@ -127,7 +127,7 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
   
   const dividerPositionRef = useRef(0);
   
-  const onMouseHoldDown = useCallback((columnIndex: number) => (event: React.MouseEvent<HTMLDivElement>) => {
+  const onMouseHoldDown = useCallback((columnIndex: number) => (event: MouseEvent<HTMLDivElement>) => {
     setDragging(columnIndex);
     dividerPositionRef.current = event.clientX;
   }, []);
@@ -137,7 +137,7 @@ const TableHeadCmp = <T, >(props: TableHeadProps<T>) => {
     dividerPositionRef.current = 0;
   }, []);
   
-  const onMouseHoldMove = (event: React.MouseEvent<HTMLDivElement>) => {
+  const onMouseHoldMove = (event: MouseEvent<HTMLDivElement>) => {
     const columnIndex = dragging;
     // const nextColumnIndex = columnIndex + 1;
     if (!dividerPositionRef.current || columnIndex === -1) {

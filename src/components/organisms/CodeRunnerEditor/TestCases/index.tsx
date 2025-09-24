@@ -9,7 +9,7 @@ import {
 } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
 import { classNames } from '../../../../helpers';
-import { useJukiNotification } from '../../../../hooks/useJukiNotification';
+import { useJukiNotification } from '../../../../hooks';
 import { NotificationType } from '../../../../types';
 import { InputToggle, T, TextArea } from '../../../atoms';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../molecules';

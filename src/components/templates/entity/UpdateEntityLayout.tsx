@@ -1,8 +1,7 @@
 import { ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
 import { useCallback, useState } from 'react';
 import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification } from '../../../hooks/useJukiNotification';
-import { useMutate } from '../../../hooks/useMutate';
+import { useJukiNotification, useMutate } from '../../../hooks';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { T } from '../../atoms';
 import { ButtonLoader } from '../../molecules';

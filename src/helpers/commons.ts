@@ -16,7 +16,7 @@ import { getXLSX } from './xlsx';
 
 export { cleanRequest } from '@juki-team/commons';
 
-export const getTextContent = (elem: ReactNode): string => {
+export const getTextContent = (elem: ReactNode | ReactNode[]): string => {
   if (!elem) {
     return '';
   }
@@ -24,13 +24,13 @@ export const getTextContent = (elem: ReactNode): string => {
     return elem + '';
   }
   
-  if (elem instanceof Array) { // Array of ReactNodes
+  if (Array.isArray(elem)) { // Array of ReactNodes
     return elem.map(getTextContent).join('');
   }
   
   if (isValidElement<PropsWithChildren<{}>>(elem) && !!elem.props.children) {
     const children = elem.props.children;
-    if (children instanceof Array) {
+    if (Array.isArray(children)) {
       return children.map(getTextContent).join('');
     }
     return getTextContent(children);

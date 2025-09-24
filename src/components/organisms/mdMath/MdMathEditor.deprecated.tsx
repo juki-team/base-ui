@@ -1,9 +1,9 @@
 import { Status } from '@juki-team/commons';
-import { ClipboardEventHandler, Dispatch, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
+import { ClipboardEventHandler, Dispatch, RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames, handleUploadImage } from '../../../helpers';
-import { useJukiNotification } from '../../../hooks/useJukiNotification';
+import { useJukiNotification } from '../../../hooks';
 import { NotificationType } from '../../../types';
 import { Button, Modal, T, TextArea } from '../../atoms';
 import { SplitPane } from '../../molecules';
@@ -18,7 +18,7 @@ import { MemoMdMathViewer } from './viewer/MemoMdMathViewer';
 interface InformationButtonProps {
   open: boolean,
   setOpen: Dispatch<boolean>,
-  isOpenRef?: MutableRefObject<boolean>,
+  isOpenRef?: RefObject<boolean>,
   withLabel: boolean
 }
 

@@ -2,8 +2,8 @@ import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { FC, useState } from 'react';
 import { Button, ImageLoaderCropper as ImageLoaderCropperCmp } from '../../../components';
 import { downloadBlobAsFile, toBlob } from '../../../helpers';
-import { CropImageType, ImageLoaderCropperProps } from '../../../types';
 import { MockupJukiProvider } from '../../mockup';
+import { CropImageType, ImageLoaderCropperProps } from './types';
 // import { COMPONENTS_WRITING_TOOLS } from './constants';
 
 const meta: Meta<typeof ImageLoaderCropperCmp> = {

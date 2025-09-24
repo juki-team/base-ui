@@ -1,6 +1,6 @@
 import { lazy, Suspense, ReactNode } from 'react';
 //import { SuspenseWithTracking } from '../SuspenseWithTracking';
-import { SpinIcon } from '../atoms/server/icons/SpinIcon';
+import { SpinIcon } from '../atoms/server';
 import { ContentResponseType, ContentsResponseType } from '@juki-team/commons';
 import { ModalButtonLoaderEventType } from '../atoms/types';
 import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';

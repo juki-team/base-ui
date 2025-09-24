@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 //import { SuspenseWithTracking } from '../SuspenseWithTracking';
-import { SpinIcon } from '../atoms/server/icons/SpinIcon';
+import { SpinIcon } from '../atoms/server';
 import { ChangePasswordModalProps } from './ChangePasswordModal/types';
 import { EditProfileModalProps } from './EditProfileModal/types';
 import { ImageProfileModalProps } from './EditProfileModal/types';

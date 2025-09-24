@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 //import { SuspenseWithTracking } from '../SuspenseWithTracking';
-import { SpinIcon } from '../atoms/server/icons/SpinIcon';
+import { SpinIcon } from '../atoms/server';
 import { CheckUnsavedChangesProps } from './CheckUnsavedChanges/types';
 import { CodeRunnerEditorProps } from './CodeRunnerEditor/types';
 import { DataViewerProps } from './DataViewer/types';

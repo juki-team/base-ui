@@ -10,12 +10,10 @@ import {
   useState,
 } from 'react';
 import { classNames, downloadUrlAsFile, getAuthorizedRequest, renderReactNodeOrFunction } from '../../../../helpers';
-import { useJukiNotification } from '../../../../hooks';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
-import { useSessionStorage } from '../../../../hooks/useSessionStorage';
+import { useJukiNotification, useJukiUI, useSessionStorage } from '../../../../hooks';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { MultiSelect, Popover, Select } from '../../../atoms';
-import { TableEyeIcon } from '../../../atoms/server/icons/google/TableEyeIcon';
+import { TableEyeIcon } from '../../../atoms/server';
 import { SetLoaderStatusOnClickType } from '../../../molecules/types';
 import {
   CalendarViewWeekIcon,

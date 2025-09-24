@@ -7,8 +7,7 @@ import {
   downloadUrlAsFile,
   getStatementData,
 } from '../../../../helpers';
-import { useJukiUI } from '../../../../hooks';
-import { useJukiNotification } from '../../../../hooks/useJukiNotification';
+import { useJukiNotification, useJukiUI } from '../../../../hooks';
 import { jukiApiManager } from '../../../../settings';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';

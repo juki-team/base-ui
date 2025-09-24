@@ -41,3 +41,4 @@ export type JukiProvidersProps<T extends string | number> =
 
 export * from './JukiRouterProvider/types';
 export * from './JukiUIProvider/types';
+export * from './JukiUserProvider/types';

@@ -1,9 +1,9 @@
 import { MotionConfig } from 'motion/react';
 import { FC, lazy, PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
-import { T } from '../../components/atoms';
+import { T } from '../../components/atoms/T/T';
 import { LineLoader } from '../../components/server';
 import { classNames, persistGlobalURLSearchParams } from '../../helpers';
-import { usePageFocus } from '../../hooks/usePageFocus';
+import { usePageFocus } from '../../hooks';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { Duration } from '../../types';
 import { NotificationProvider } from '../NotificationProvider/NotificationProvider';

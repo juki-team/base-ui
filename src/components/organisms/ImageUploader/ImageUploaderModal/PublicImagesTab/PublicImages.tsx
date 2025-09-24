@@ -1,6 +1,6 @@
 import { ImageSummaryResponseDTO } from '@juki-team/commons';
 import { copy } from '../../../../../helpers';
-import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
+import { useJukiNotification } from '../../../../../hooks';
 import { NotificationType } from '../../../../../types';
 import { T } from '../../../../atoms';
 import { FloatToolbar } from '../../../../molecules';
@@ -35,14 +35,18 @@ export const PublicImages = (props: PublicImagesTabProps) => {
                   icon: <ContentCopyIcon />,
                   buttons: [
                     {
-                      icon: <ContentCopyIcon size="small" />, label: <T>URL</T>, onClick: () => {
-                        copy(publicImage.imageUrl);
+                      icon: <ContentCopyIcon size="small" />,
+                      label: <T>URL</T>,
+                      onClick: async () => {
+                        await copy(publicImage.imageUrl);
                         addNotification({ type: NotificationType.QUIET, message: <T>copied</T> });
                       },
                     },
                     {
-                      icon: <ContentCopyIcon />, label: <T>MD</T>, onClick: () => {
-                        copy(`![image alt](${publicImage.imageUrl})`);
+                      icon: <ContentCopyIcon />,
+                      label: <T>MD</T>,
+                      onClick: async () => {
+                        await copy(`![image alt](${publicImage.imageUrl})`);
                         addNotification({ type: NotificationType.QUIET, message: <T>copied</T> });
                       },
                     },

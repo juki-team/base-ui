@@ -1,11 +1,10 @@
 import { ReactNode, useEffect, useRef } from 'react';
 import { classNames, getHref, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useJukiUI } from '../../../hooks/useJukiUI';
-import { useStableState } from '../../../hooks/useStableState';
-import { TabsType } from '../../../types';
+import { useJukiUI, useStableState } from '../../../hooks';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
 import { TabsInline } from '../Tabs/TabsInline';
 import { TabsInlineBody } from '../Tabs/TabsInlineBody';
+import { TabsType } from '../Tabs/types';
 import { TwoContentSection } from '../TwoContentSection/TwoContentSection';
 import { JukiLoadingLayout } from './JukiLoadingLayout';
 import { TwoContentLayoutProps } from './types';

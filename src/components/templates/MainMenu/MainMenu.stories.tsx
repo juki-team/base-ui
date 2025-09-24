@@ -10,8 +10,7 @@ import {
   T,
   TwoContentLayout as TwoContentLayoutComponent,
 } from '../../../index';
-import { AssignmentIcon } from '../../atoms/server/icons/google/AssignmentIcon';
-import { LeaderboardIcon } from '../../atoms/server/icons/google/LeaderboardIcon';
+import { AssignmentIcon, LeaderboardIcon } from '../../atoms/server';
 import { MockupJukiProvider } from '../../mockup';
 import { SAMPLE_MD_CONTENT } from '../../organisms/mdMath/constants';
 import {

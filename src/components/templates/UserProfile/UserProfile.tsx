@@ -1,4 +1,4 @@
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useJukiUI } from '../../../hooks';
 import { UserProfileProps } from './types';
 import { UserProfileDataContent } from './UserProfileDataContent';
 

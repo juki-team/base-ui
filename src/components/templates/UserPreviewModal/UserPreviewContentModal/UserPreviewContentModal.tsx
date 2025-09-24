@@ -1,5 +1,5 @@
 import { ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { useJukiUI } from '../../../../hooks';
 import { jukiApiManager } from '../../../../settings';
 import { Button, Modal, T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/Modal/types';

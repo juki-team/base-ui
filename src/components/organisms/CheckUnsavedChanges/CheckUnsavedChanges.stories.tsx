@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useEffect, useState } from 'react';
-import { MockupJukiProvider } from '../../../components/mockup';
 import { NotificationProvider } from '../../../contexts/NotificationProvider/NotificationProvider';
 import { useJukiNotification } from '../../../hooks';
 import { T } from '../../atoms';
 import { CloseIcon } from '../../atoms/server';
+import { MockupJukiProvider } from '../../mockup';
 import { ButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from './CheckUnsavedChanges';
 

@@ -1,7 +1,7 @@
 import { Status } from '@juki-team/commons';
 import { ClipboardEventHandler, useRef } from 'react';
 import { classNames, handleUploadImage } from '../../../../helpers';
-import { useJukiNotification } from '../../../../hooks/useJukiNotification';
+import { useJukiNotification } from '../../../../hooks';
 import { NotificationType, TextPlainEditorContentProps } from '../../../../types';
 import { T, TextArea } from '../../../atoms';
 

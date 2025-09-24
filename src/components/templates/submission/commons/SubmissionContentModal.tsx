@@ -1,6 +1,6 @@
 import { Status } from '@juki-team/commons';
 import { useState } from 'react';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { useJukiUI } from '../../../../hooks';
 import { jukiAppRoutes } from '../../../../settings';
 import { ModalProps } from '../../../../types';
 import { CopyToClipboard, Modal, T } from '../../../atoms';

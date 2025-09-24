@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { configureActions } from 'storybook/actions';
 import { Button, T, TabsInline } from '../../../index';
-import { MockupJukiProvider } from '../../mockup/MockupJukiProvider';
-import { MockupToggleThemeButton } from '../../mockup/MockupToggleThemeButton';
+import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';
 import { JudgeTabs } from './mocks/JudgeTabs';
 import { TabsInlineProps, TabsType } from './types';
 
@@ -21,7 +20,7 @@ configureActions({
 });
 
 const Component = (args: TabsInlineProps) => {
-  const tabs: TabsType<string> = {
+  const tabs: TabsType = {
     '1': {
       key: '1',
       header: <div>1</div>,

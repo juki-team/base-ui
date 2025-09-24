@@ -1,9 +1,7 @@
 import { ContentsResponseType, SessionBasicResponseDTO, Status } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS } from '../../../constants';
-import { useDataViewerRequester } from '../../../hooks/useDataViewerRequester';
-import { useJukiUser } from '../../../hooks/useJukiUser';
-import { useMutate } from '../../../hooks/useMutate';
+import { useDataViewerRequester, useJukiUser, useMutate } from '../../../hooks';
 import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { QueryParamKey } from '../../../types';

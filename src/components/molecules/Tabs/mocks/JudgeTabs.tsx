@@ -6,7 +6,7 @@ import { TabsInline } from '../../index';
 import { TabsInlineBody } from '../TabsInlineBody';
 import { TabsType } from '../types';
 
-const outputTabs: TabsType<string> = {
+const outputTabs: TabsType = {
   ['problems']: {
     key: 'problems',
     header: <div>problems</div>,

@@ -59,7 +59,8 @@ export const handleUploadImage = async (image: Blob, isPublic: boolean): Promise
     );
     
     if (!response.success) {
-      throw response;
+      console.error('response not success on handleUploadImage', { response });
+      return { status: Status.ERROR, message: 'Ups, please try again', content: null };
     }
     
     await fetch(response.content.signedUrl, {

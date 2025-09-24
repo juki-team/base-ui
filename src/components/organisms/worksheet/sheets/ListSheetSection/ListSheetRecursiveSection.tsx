@@ -89,7 +89,7 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
     );
   });
   
-  const renderChildren = Children.toArray(children.map((content, index) => (
+  const renderChildren = children.map((content, index) => (
     <div className="jk-row nowrap gap">
       <ListSheetRecursiveSection
         sheet={content}
@@ -108,7 +108,7 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
         />
       )}
     </div>
-  )));
+  ));
   
   const renderBody = (
     <div className="jk-col gap extend stretch jk-pg-sm bc-we">
@@ -129,7 +129,7 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
           quizProblemSheet
         />
       )}
-      {renderChildren}
+      {Children.toArray(renderChildren)}
       {renderAddSection}
     </div>
   );
