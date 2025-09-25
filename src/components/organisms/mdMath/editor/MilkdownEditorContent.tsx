@@ -16,7 +16,6 @@ import { Milkdown, useEditor } from '@milkdown/react';
 import * as Viz from '@viz-js/viz';
 import { TFunction } from 'i18next';
 import katex from 'katex';
-import mermaid from 'mermaid';
 import { Decoration } from 'prosemirror-view';
 import { Dispatch, SetStateAction, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
@@ -167,18 +166,18 @@ const myLanguages = [
     name: CodeLanguage.LATEX,
     support: new LanguageSupport(StreamLanguage.define(stex)),
   }),
-  LanguageDescription.of({
-    name: CodeLanguage.MERMAID,
-    alias: [ 'mermaid' ],
-    extensions: [ 'mmd', 'mermaid' ],
-    support: plainTextSupport,
-  }),
-  LanguageDescription.of({
-    name: CodeLanguage.MERMAID + ' asImage',
-    alias: [ 'mermaid' ],
-    extensions: [ 'mmd', 'mermaid' ],
-    support: plainTextSupport,
-  }),
+  // LanguageDescription.of({
+  //   name: CodeLanguage.MERMAID,
+  //   alias: [ 'mermaid' ],
+  //   extensions: [ 'mmd', 'mermaid' ],
+  //   support: plainTextSupport,
+  // }),
+  // LanguageDescription.of({
+  //   name: CodeLanguage.MERMAID + ' asImage',
+  //   alias: [ 'mermaid' ],
+  //   extensions: [ 'mmd', 'mermaid' ],
+  //   support: plainTextSupport,
+  // }),
   LanguageDescription.of({
     name: CodeLanguage.DOT,
     alias: [ 'dot' ],
@@ -207,18 +206,18 @@ function renderLatex(content: string, options: {}) {
   });
 }
 
-function renderMermaid(content: string): HTMLElement {
-  if (typeof document !== 'undefined') {
-    const container = document.createElement('div');
-    container.className = 'mermaid';
-    container.innerHTML = content;
-    
-    setTimeout(() => mermaid.run({ querySelector: '.mermaid' }), 0);
-    
-    return container;
-  }
-  return null as unknown as HTMLElement;
-}
+// function renderMermaid(content: string): HTMLElement {
+//   if (typeof document !== 'undefined') {
+//     const container = document.createElement('div');
+//     container.className = 'mermaid';
+//     container.innerHTML = content;
+//
+//     setTimeout(() => mermaid.run({ querySelector: '.mermaid' }), 0);
+//
+//     return container;
+//   }
+//   return null as unknown as HTMLElement;
+// }
 
 function renderDot(content: string, t: TFunction): HTMLElement {
   if (typeof document !== 'undefined') {
@@ -296,7 +295,7 @@ export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEd
         .replace(/```JAVA asCodeEditor/g, '```JAVA&#x20;asCodeEditor')
         .replace(/```PYTHON asCodeEditor/g, '```PYTHON&#x20;asCodeEditor')
         .replace(/```JAVASCRIPT asCodeEditor/g, '```JAVASCRIPT&#x20;asCodeEditor')
-        .replace(/```MERMAID asImage/g, '```MERMAID&#x20;asImage')
+        // .replace(/```MERMAID asImage/g, '```MERMAID&#x20;asImage')
         .replace(/```DOT asImage/g, '```DOT&#x20;asImage'),
       featureConfigs: {
         [Crepe.Feature.CodeMirror]: {
@@ -358,9 +357,9 @@ export const MilkdownEditorContent = ({ value, onChange, setLoader }: MilkdownEd
             if (language.toLowerCase() === 'latex' && content.length > 0) {
               return renderLatex(content, {}/*config == null ? void 0 : ctx.katexOptions*/);
             }
-            if (language.toLowerCase() === 'mermaid asimage' && content.length > 0) {
-              return renderMermaid(content);
-            }
+            // if (language.toLowerCase() === 'mermaid asimage' && content.length > 0) {
+            //   return renderMermaid(content);
+            // }
             if (language.toLowerCase() === 'dot asimage' && content.length > 0) {
               return renderDot(content, t);
             }

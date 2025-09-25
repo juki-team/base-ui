@@ -134,6 +134,74 @@ export default [
         format: 'esm',
         sourcemap: false,
         // preserveModules: true,
+        manualChunks(id) {
+          // id = ruta absoluta del módulo
+          // const file = path.basename(id);
+          //
+          // // Si el archivo empieza con "xyz", lo mando a un chunk aparte
+          // if (file.startsWith("xyz")) {
+          //   return "xyz-chunk";
+          // }
+          
+          // all "node_modules" into vendor file
+          if (id.includes("node_modules")) {
+            if (id.includes("node_modules/@excalidraw")) {
+              return "vendor-excalidraw";
+            }
+            if (id.includes("node_modules/handsontable")) {
+              return "vendor-handsontable";
+            }
+            if (id.includes("node_modules/@codemirror")) {
+              return "vendor-codemirror";
+            }
+            if (id.includes("node_modules/mermaid")) {
+              return "vendor-mermaid";
+            }
+            if (id.includes("node_modules/highlight.js")) {
+              return "vendor-highlight-js";
+            }
+            if (id.includes("node_modules/@viz-js")) {
+              return "vendor-viz-js";
+            }
+            if (id.includes("node_modules/cytoscape")) {
+              return "vendor-cytoscape";
+            }
+            if (id.includes("node_modules/lodash")) { // used by graphlib-dot and react-color
+              return "vendor-lodash";
+            }
+            if (id.includes("node_modules/xlsx")) {
+              return "vendor-xlsx";
+            }
+            if (id.includes("node_modules/@lezer")) { // used by codemirror @codemirror, @viz-js and @milkdown
+              return "vendor-lezer";
+            }
+            if (id.includes("node_modules/@hpcc-js/wasm")) { // used by d3-graphviz
+              return "vendor-hpcc-js-wasm";
+            }
+            if (id.includes("node_modules/katex")) { // used by @excalidraw, remark-math, mermaid, rehype-katex, @milkdown
+              return "vendor-katex";
+            }
+            if (id.includes("node_modules/i18n-iso-countries")) {
+              return "vendor-i18n-iso-countries";
+            }
+            if (id.includes("node_modules/recharts")) {
+              return "vendor-recharts";
+            }
+            if (id.includes("node_modules/@milkdown")) {
+              return "vendor-milkdown";
+            }
+            if (id.includes("node_modules/langium")) { // used by mermaid
+              return "vendor-langium";
+            }
+            if (id.includes("node_modules/chevrotain")) { // used by handsontable
+              return "vendor-chevrotain";
+            }
+            if (id.includes("node_modules/framer-motion")) { // used by handsontable
+              return "vendor-framer-motion";
+            }
+            return "vendor";
+          }
+        },
       },
     ],
     // external: [ ...Object.keys(pkg.peerDependencies || {}) ],

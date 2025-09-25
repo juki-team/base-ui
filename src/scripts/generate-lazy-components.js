@@ -6,7 +6,7 @@ const componentDirs = [
     chunkName: 'Atoms',
     dir: path.resolve('./src/components/atoms'),
     headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from './server';\nimport type { ReactNodeOrFunctionType } from '../../types'\nimport type { ModalButtonLoaderEventType } from './Modal/types';`,
-    withLazy: true,
+    withLazy: false,
     withTypes: true,
     withProps: true,
   },
@@ -16,8 +16,8 @@ const componentDirs = [
     depth: 0,
     headerLines: `//import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\nimport { BasicIconProps } from '../types';\n`,
     commonProp: 'BasicIconProps',
-    withGroup: true,
-    withLazy: true,
+    withGroup: false,
+    withLazy: false,
     withProps: true,
     withTypes: false,
   },
@@ -26,8 +26,8 @@ const componentDirs = [
     dir: path.resolve('./src/components/atoms/server/icons/signs'),
     headerLines: `//import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\nimport { SignIconProps } from '../types';\n`,
     commonProp: 'SignIconProps',
-    withGroup: true,
-    withLazy: true,
+    withGroup: false,
+    withLazy: false,
     withProps: true,
     withTypes: false,
     cmpIndex: true,
@@ -36,7 +36,8 @@ const componentDirs = [
     chunkName: 'AtomsIconsSpecials',
     dir: path.resolve('./src/components/atoms/server/icons/specials'),
     headerLines: `//import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\n`,
-    withLazy: true,
+    withGroup: false,
+    withLazy: false,
     withProps: true,
     withTypes: false,
     cmpIndex: true,
@@ -56,7 +57,7 @@ const componentDirs = [
     dir: path.resolve('./src/components/molecules'),
     headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server';\nimport type { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport type { ModalButtonLoaderEventType } from '../atoms/types';\nimport type { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';`,
     withTypes: true,
-    withLazy: true,
+    withLazy: false,
     withProps: true,
   },
   {
@@ -174,8 +175,8 @@ for (let {
     );
   } else {
     indexContent = [
-      ...(headerLines ? [ headerLines ] : []),
-      ...(!!withProps && !commonProp && groupContent
+      ...(headerLines && withLazy ? [ headerLines ] : []),
+      ...(!!withProps && !commonProp && groupContent && withLazy
         ? [
           ...files.map(({
                           basePath,
@@ -215,7 +216,7 @@ for (let {
             ``
           );
         } else {
-          lines.push(`export { ${name} } from './${name}';`);
+          lines.push(`export { ${name} } from '${basePath}/${name}';`);
         }
         
         return lines.join('\n');
