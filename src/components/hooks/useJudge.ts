@@ -1,8 +1,8 @@
 import {
   CODE_LANGUAGE,
   CodeLanguage,
-  ContentResponseType,
-  JudgeDataResponseDTO,
+  type ContentResponseType,
+  type JudgeDataResponseDTO,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
 import { useMemo } from 'react';
