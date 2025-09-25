@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { TriggerAction } from '../../../enums';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 
 import { ReactNodeOrFunctionType } from '../../types';
@@ -79,7 +80,7 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
   
   return (
     <Popover
-      triggerOn="click"
+      triggerOn={TriggerAction.CLICK}
       placement={optionsPlacement}
       popoverClassName={classNames('jk-select-options-content bc-we jk-br-ie elevation-1', popoverClassName)}
       offset={4}

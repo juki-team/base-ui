@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import { Children, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
+import { TriggerAction } from '../../../enums';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { Popover, Select } from '../../atoms';
 import { useHandleState, useOutsideAlerter } from '../../hooks';
@@ -141,7 +142,7 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => {
                 )))}
               </div>
             }
-            triggerOn="click"
+            triggerOn={TriggerAction.CLICK}
             placement="bottom-end"
           >
             <div className={classNames('jk-row nowrap left link')}>

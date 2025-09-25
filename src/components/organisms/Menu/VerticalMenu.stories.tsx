@@ -1,4 +1,5 @@
 import { action, configureActions } from 'storybook/actions';
+import { TriggerAction } from '../../../enums';
 import { Button, Popover, T } from '../../atoms';
 import { MockupToggleThemeButton } from '../../mockup';
 import { DrawerActionsType } from '../../molecules/Drawer/types';
@@ -52,7 +53,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
   <div className="jk-row gap" style={{ width: '240px' }}>
     <Popover
       content={<div className="cr-g1"> Settings </div>}
-      triggerOn="click"
+      triggerOn={TriggerAction.CLICK}
       placement="bottom"
       open={open}
     >
@@ -79,7 +80,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
           </div>
         </div>
       }
-      triggerOn="click"
+      triggerOn={TriggerAction.CLICK}
       placement="bottom"
     >
       <div>

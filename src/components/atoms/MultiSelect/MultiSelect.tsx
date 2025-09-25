@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { TriggerAction } from '../../../enums';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
 import { InputCheckbox } from '../inputs/InputCheckbox';
 import { Popover } from '../Popover/Popover';
@@ -55,7 +56,7 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
     <Popover
       popoverClassName="bc-we jk-br-ie elevation-1"
       placement={optionsPlacement}
-      triggerOn="click"
+      triggerOn={TriggerAction.CLICK}
       offset={4}
       onOpenChange={setIsOpen}
       content={

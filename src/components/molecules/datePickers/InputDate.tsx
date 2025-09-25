@@ -1,3 +1,4 @@
+import { TriggerAction } from '../../../enums';
 import { classNames } from '../../../helpers';
 import { Button, DateLiteral, Popover, T } from '../../atoms';
 import { PlusIcon } from '../../server';
@@ -95,7 +96,7 @@ export const InputDate = (props: InputDateProps) => {
         )}
         offset={4}
         placement="bottom"
-        triggerOn="click"
+        triggerOn={TriggerAction.CLICK}
         open={disabled ? false : undefined}
         // onOpenChange={(visible) => setVisible(visible)}
       >

@@ -1,6 +1,7 @@
 import { PALLETE } from '@juki-team/commons';
 import { useState } from 'react';
 import { ColorResult, SketchPicker } from 'react-color';
+import { TriggerAction } from '../../../enums';
 import { Button, Input, Popover, T } from '../../atoms';
 import { InputColorProps } from './types';
 
@@ -47,7 +48,7 @@ export const InputColor = ({ color, children, onChange, ...inputProps }: InputCo
           </Button>
         </div>
       )}
-      triggerOn="click"
+      triggerOn={TriggerAction.CLICK}
       placement="bottom"
       // showPopperArrow
     >

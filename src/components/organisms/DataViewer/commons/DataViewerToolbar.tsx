@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
 } from 'react';
+import { TriggerAction } from '../../../../enums';
 import { classNames, downloadUrlAsFile, getAuthorizedRequest, renderReactNodeOrFunction } from '../../../../helpers';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { MultiSelect, Popover, Select } from '../../../atoms';
@@ -307,7 +308,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                       {extraNodes.map(renderReactNodeOrFunction)}
                     </div>
                   }
-                  triggerOn="click"
+                  triggerOn={TriggerAction.CLICK}
                   placement="bottom"
                   // showPopperArrow
                 >

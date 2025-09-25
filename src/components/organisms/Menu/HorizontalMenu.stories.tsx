@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { action, configureActions } from 'storybook/actions';
+import { TriggerAction } from '../../../enums';
 import { Button, Popover, T } from '../../atoms';
 import { useJukiNotification } from '../../hooks';
 import { MockupJukiProvider } from '../../mockup';
@@ -32,7 +33,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
     <Popover
       popoverClassName="bc-we jk-br-ie elevation-1"
       content={<div className="cr-g1"> Settings </div>}
-      triggerOn="click"
+      triggerOn={TriggerAction.CLICK}
       placement="bottom"
       open={open}
     >
@@ -59,7 +60,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
           </div>
         </div>
       }
-      triggerOn="click"
+      triggerOn={TriggerAction.CLICK}
       placement="bottom"
     >
       <div>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { TriggerAction } from '../../../../../enums';
 import { classNames } from '../../../../../helpers';
 import { Popover } from '../../../../atoms';
 import { FilterListIcon } from '../../../../server';
@@ -100,7 +101,7 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
         }
       }}
       placement="bottom"
-      triggerOn="click"
+      triggerOn={TriggerAction.CLICK}
       offset={4}
       // showPopperArrow
     >

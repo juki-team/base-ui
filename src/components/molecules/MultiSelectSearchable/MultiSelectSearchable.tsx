@@ -1,9 +1,10 @@
 import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { TriggerAction } from '../../../enums';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
-import { useHandleState } from '../../hooks';
 import { Input, InputCheckbox, Popover, VirtualizedRowsFixed } from '../../atoms';
 import { SelectOptionType } from '../../atoms/types';
+import { useHandleState } from '../../hooks';
 import { CloseIcon, ExpandMoreIcon, SearchIcon } from '../../server';
 import { MultiSelectSearchableProps } from './types';
 
@@ -112,7 +113,7 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
   return (
     <Popover
       popoverClassName="jk-select-options-content bc-we jk-br-ie elevation-1"
-      triggerOn="click"
+      triggerOn={TriggerAction.CLICK}
       placement={optionsPlacement}
       onOpenChange={setShowOptions}
       offset={4}

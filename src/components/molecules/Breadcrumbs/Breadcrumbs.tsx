@@ -1,6 +1,7 @@
 import { Children, Fragment, useCallback, useMemo, useRef, useState } from 'react';
-import { useWidthResizer } from '../../hooks';
+import { TriggerAction } from '../../../enums';
 import { Popover } from '../../atoms';
+import { useWidthResizer } from '../../hooks';
 import { NavigateNextIcon } from '../../server';
 import { HomeLink } from '../links/HomeLink';
 import { BreadcrumbsProps } from './types';
@@ -61,7 +62,7 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
                 )))}
               </div>
             }
-            triggerOn="click"
+            triggerOn={TriggerAction.CLICK}
             placement="bottom"
           >
             <div className="link">...</div>
