@@ -16,6 +16,7 @@ const componentDirs = [
     depth: 0,
     headerLines: `//import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\nimport { BasicIconProps } from '../types';\n`,
     commonProp: 'BasicIconProps',
+    withGroup: true,
     withLazy: true,
     withProps: true,
     withTypes: false,
@@ -25,6 +26,7 @@ const componentDirs = [
     dir: path.resolve('./src/components/atoms/server/icons/signs'),
     headerLines: `//import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\nimport { SignIconProps } from '../types';\n`,
     commonProp: 'SignIconProps',
+    withGroup: true,
     withLazy: true,
     withProps: true,
     withTypes: false,
@@ -121,6 +123,7 @@ for (let {
   footerLines,
   chunkName,
   withLazy,
+  withGroup,
 } of componentDirs) {
   
   console.info(`Generating ${dir}`);
@@ -150,93 +153,117 @@ for (let {
   
   console.info({ foldersSize: folders.length, filesSize: files.length });
   
-  let indexContent = [
-    ...(headerLines ? [ headerLines ] : []),
-    ...(!!withProps && !commonProp
-      ? [
-        ...files.map(({
-                        basePath,
-                        name
-                      }) => `import type { ${name}Props } from '${cmpIndex ? `./${name}` : basePath}/types';`),
-        '',
-      ]
-      : []),
-    ...files.map(({ basePath, name }) => {
-      const lines = [];
-      if (withLazy) {
-        lines.push(
-          `const ${name}Import = () => import('${basePath}/${name}');`,
-          `const Lazy${name} = lazy(() => ${name}Import().then(module => ({ default: module.${name} })));`,
-        );
-        
-        let exportLine = `export const ${name} = (${withProps ? (`props: ${commonProp ? commonProp : `${name}Props`}`) : ''}) => (`;
-        const index = withGenericity.findIndex(([ line ]) => {
-          return exportLine === line;
-        })
-        if (index !== -1) {
-          exportLine = withGenericity[index][1];
-        }
-        
-        lines.push(exportLine, `  <Suspense fallback={<SpinIcon size="tiny" />}>`,);
-        // lines.push(exportLine, `  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="${name}">`,);
-        
-        if (index !== -1) {
-          lines.push(`    {/*@ts-ignore*/}`);
-        }
-        
-        lines.push(
-          `    <Lazy${name} ${withProps ? '{...props} ' : ''}/>`,
-          // `  </SuspenseWithTracking>`,
-          `  </Suspense>`,
-          `);`,
-          ``
-        );
-      } else {
-        lines.push(`export { ${name} } from './${name}';`);
-      }
-      
-      return lines.join('\n');
-    }),
-    ...(withLazy ? [
+  let groupContent = [];
+  let indexContent = [];
+  if (withGroup) {
+    groupContent = [
+      ...files.map(({
+                      basePath,
+                      name
+                    }) => `export { ${name} } from './${name}';`),
+      '',
+    ].join('\n');
+    indexContent.push(`const GroupImport = () => import('./_group');\n`);
+    indexContent.push(
+      ...files.map(({ name }) => `export const ${name} = lazy(() => GroupImport().then(m => ({ default: m.${name} })));\n`)
+    );
+    indexContent.push(
       `export const preload${chunkName} = async () => {`,
-      ...files.map(({ name }) => `  await ${name}Import();`),
-      '};',
-      ''
-    ] : []),
-  ].join('\n');
-  const imports = [];
-  if (withLazy) {
-    imports.push('lazy', 'Suspense')
-  }
-  if (indexContent.includes('ReactNode')) {
-    imports.push('ReactNode');
+      '  await GroupImport();',
+      '};'
+    );
+  } else {
+    indexContent = [
+      ...(headerLines ? [ headerLines ] : []),
+      ...(!!withProps && !commonProp && groupContent
+        ? [
+          ...files.map(({
+                          basePath,
+                          name
+                        }) => `import type { ${name}Props } from '${cmpIndex ? `./${name}` : basePath}/types';`),
+          '',
+        ]
+        : []),
+      ...files.map(({ basePath, name }) => {
+        const lines = [];
+        if (withLazy) {
+          lines.push(
+            `const ${name}Import = () => import('${basePath}/${name}');`,
+            `const Lazy${name} = lazy(() => ${name}Import().then(module => ({ default: module.${name} })));`,
+          );
+          
+          let exportLine = `export const ${name} = (${withProps ? (`props: ${commonProp ? commonProp : `${name}Props`}`) : ''}) => (`;
+          const index = withGenericity.findIndex(([ line ]) => {
+            return exportLine === line;
+          })
+          if (index !== -1) {
+            exportLine = withGenericity[index][1];
+          }
+          
+          lines.push(exportLine, `  <Suspense fallback={<SpinIcon size="tiny" />}>`,);
+          // lines.push(exportLine, `  <SuspenseWithTracking fallback={<SpinIcon size="tiny" />} id="${name}">`,);
+          
+          if (index !== -1) {
+            lines.push(`    {/*@ts-ignore*/}`);
+          }
+          
+          lines.push(
+            `    <Lazy${name} ${withProps ? '{...props} ' : ''}/>`,
+            // `  </SuspenseWithTracking>`,
+            `  </Suspense>`,
+            `);`,
+            ``
+          );
+        } else {
+          lines.push(`export { ${name} } from './${name}';`);
+        }
+        
+        return lines.join('\n');
+      }),
+      ...(withLazy ? [
+        `export const preload${chunkName} = async () => {`,
+        ...files.map(({ name }) => `  await ${name}Import();`),
+        '};',
+        ''
+      ] : []),
+    ];
   }
   
-  if (imports.length > 0) {
-    indexContent = `import { ${imports.join(', ')} } from 'react';\n` + indexContent;
+  const reactImports = [];
+  if (indexContent.some(content => content.includes('lazy'))) {
+    reactImports.push('lazy')
+  }
+  if (indexContent.some(content => content.includes('Suspense'))) {
+    reactImports.push('Suspense')
+  }
+  if (indexContent.some(content => content.includes('ReactNode'))) {
+    reactImports.push('ReactNode');
+  }
+  
+  if (reactImports.length > 0) {
+    indexContent = [ `import { ${reactImports.join(', ')} } from 'react';`, ...indexContent ];
   }
   
   if (footerLines) {
-    indexContent += '\n' + footerLines + '\n';
+    indexContent.push(footerLines);
   }
   
   const indexTypesContent = [
     ...files.map(({ basePath }) => `export type * from '${basePath}/types';`),
   ].join('\n')
-  
-  if (depth === 0) {
-    fs.writeFileSync(path.join(dir + '/' + folders[0], 'index.tsx'), indexContent);
-    if (withTypes) {
-      fs.writeFileSync(path.join(dir + '/' + folders[0], 'types.ts'), indexTypesContent);
-    }
-    console.info(`✅ Generated: ${path.join(dir + '/' + folders[0], 'index.tsx')}`);
-  } else {
-    fs.writeFileSync(path.join(dir, 'index.tsx'), indexContent);
-    if (withTypes) {
-      fs.writeFileSync(path.join(dir, 'types.ts'), indexTypesContent);
-    }
-    console.info(`✅ Generated: ${path.join(dir, 'index.tsx')}`);
+  const folderName = dir + (depth === 0 ? ('/' + folders[0]) : '');
+  fs.rmSync(path.join(folderName, 'index.ts'), { force: true });
+  fs.rmSync(path.join(folderName, 'index.tsx'), { force: true });
+  fs.writeFileSync(path.join(folderName, withGroup ? 'index.ts' : 'index.tsx'), indexContent.join('\n'));
+  if (withTypes) {
+    fs.writeFileSync(path.join(folderName, 'types.ts'), indexTypesContent);
   }
+  if (withGroup) {
+    fs.writeFileSync(path.join(folderName, '_group.tsx'), groupContent);
+  }
+  
+  console.info(`✅ Generated: ${path.join(dir + '/' + folders[0], 'index.tsx')}`);
+  
   if (withLazy) {
     preloadNames.push(`void preload${chunkName}();`);
   }

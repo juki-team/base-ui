@@ -1,6 +1,6 @@
 import { classNames } from '../../../../../helpers';
+import { renderBasicIcon } from '../google/utils';
 import type { BasicIconProps } from '../types';
-import { renderBasicIcon } from '../utils';
 import Spin from './Spin';
 
 export type SpinIconProps = BasicIconProps & {
