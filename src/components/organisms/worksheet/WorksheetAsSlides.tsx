@@ -8,7 +8,8 @@ import { useMemo } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { DetectRequestAnimationFrame } from '../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
-import { useFetcher } from '../../hooks';
+
+import { useFetcher } from '../../hooks/useFetcher';
 import { UserResultsType } from '../../types';
 import { MdMath } from '../mdMath/viewer/MdMath';
 import { WorksheetNode } from './sheets/WorksheetNode';

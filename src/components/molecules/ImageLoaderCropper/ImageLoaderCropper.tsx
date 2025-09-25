@@ -1,14 +1,15 @@
-import { SyntheticEvent, useEffect, useRef, useState } from 'react';
+import { type SyntheticEvent, useEffect, useRef, useState } from 'react';
 import ReactCrop, {
   centerCrop,
   convertToPercentCrop,
   convertToPixelCrop,
-  Crop,
+  type Crop,
   makeAspectCrop,
-  PixelCrop,
+  type PixelCrop,
 } from 'react-image-crop';
-import { useDebounceEffect, useHandleState } from '../../hooks';
 import { Input, T } from '../../atoms';
+import { useDebounceEffect } from '../../hooks/useDebounceEffect';
+import { useHandleState } from '../../hooks/useHandleState';
 import { canvasPreview } from './canvasPreview';
 import { ImageLoaderCropperProps } from './types';
 

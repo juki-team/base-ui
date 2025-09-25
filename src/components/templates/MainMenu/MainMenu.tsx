@@ -13,7 +13,9 @@ import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Popover, Select, T } from '../../atoms';
-import { useFetcher, useJukiUI } from '../../hooks';
+
+import { useFetcher } from '../../hooks/useFetcher';
+import { useJukiUI } from '../../hooks/useJukiUI';
 import { JukiLoadingLayout } from '../../molecules';
 import { HorizontalMenu, VerticalMenu } from '../../organisms';
 import type { MenuType } from '../../organisms/types';

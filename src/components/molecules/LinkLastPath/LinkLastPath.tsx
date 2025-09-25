@@ -4,7 +4,8 @@ import { QueryParamKey } from '../../../enums';
 import { getHref } from '../../../helpers';
 import { cloneURLSearchParams } from '../../../settings';
 import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
-import { useJukiUI } from '../../hooks';
+
+import { useJukiUI } from '../../hooks/useJukiUI';
 import type { LinkLastPathProps } from './types';
 
 export const LinkLastPath = <T extends string | number = string, >(props: LinkLastPathProps<T>) => {

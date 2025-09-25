@@ -10,7 +10,8 @@ import { useState } from 'react';
 import { authorizedRequest } from '../../../helpers';
 import { Button, CopyToClipboard, Popover, T } from '../../atoms';
 import { ContentCopyIcon, EditIcon, InfoIIcon } from '../../atoms/server';
-import { useJukiNotification } from '../../hooks';
+
+import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { ButtonAction } from '../../molecules/FloatToolbar/ButtonAction';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';
 import { DocumentMembersButtonProps } from './types';

@@ -1,7 +1,7 @@
 import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons';
 import { classNames } from '../../../helpers';
-import { useJukiUserSettings } from '../../hooks';
 import { Button, InputRadio, InputToggle, Select, T } from '../../atoms';
+import { useJukiUserSettings } from '../../hooks/useJukiUser';
 import {
   DarkModeIcon,
   FlagEnImage,
@@ -13,7 +13,7 @@ import {
   ViewHeadlineIcon,
   ViewModuleIcon,
 } from '../../server';
-import { UserProfileSettingsProps } from './types';
+import type { UserProfileSettingsProps } from './types';
 
 export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfileSettingsProps) {
   

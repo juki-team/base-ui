@@ -15,7 +15,9 @@ import { hasTimeHasMemory } from '../../../../helpers/submission';
 import { jukiApiManager, jukiAppRoutes } from '../../../../settings';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, Collapse, DateLiteral, T } from '../../../atoms';
-import { useFetcher, useJukiUI } from '../../../hooks';
+
+import { useFetcher } from '../../../hooks/useFetcher';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { CodeViewer, Timer } from '../../../molecules';
 import { UserChip } from '../../../organisms';
 import { OpenInNewIcon, UpIcon } from '../../../server';

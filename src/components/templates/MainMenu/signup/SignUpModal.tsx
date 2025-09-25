@@ -1,5 +1,5 @@
-import { useJukiUser } from '../../../hooks';
 import { useUserStore } from '../../../../stores/user/useUserStore';
+import { useJukiUser } from '../../../hooks/useJukiUser';
 import { SignUpModalTemplate } from './SignUpModalTemplate';
 import { SignUpModalComponentProps } from './SignUpModalTemplate/types';
 import { SignUpModalProps } from './types';

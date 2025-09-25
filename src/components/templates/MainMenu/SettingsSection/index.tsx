@@ -1,10 +1,11 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
-import { Dispatch, KeyboardEventHandler, ReactNode, SyntheticEvent } from 'react';
+import { type  Dispatch, type KeyboardEventHandler, type ReactNode, type SyntheticEvent } from 'react';
 import { classNames } from '../../../../helpers';
-import { useJukiUI, useJukiUserSettings } from '../../../hooks';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Modal, Popover, T } from '../../../atoms';
 import { AppsIcon, FlagEnImage, FlagEsImage, HelpIcon, LoadingIcon, SpinIcon } from '../../../atoms/server';
+import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useJukiUserSettings } from '../../../hooks/useJukiUser';
 import { HelpSection } from '../../HelpSection/HelpSection';
 
 export const LanguageSetting = ({ isOpen, popoverPlacement }: {

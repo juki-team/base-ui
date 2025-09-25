@@ -1,5 +1,6 @@
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { useJukiUI } from '../../hooks';
+
+import { useJukiUI } from '../../hooks/useJukiUI';
 import { TextField } from '../../organisms/DataViewer/TextField';
 import { UserNicknameLink } from '../../organisms/UserChip/UserNicknameLink';
 import type { SubmissionNicknameFieldProps } from './types';

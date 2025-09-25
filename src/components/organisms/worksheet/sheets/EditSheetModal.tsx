@@ -1,8 +1,8 @@
 import { isObjectJson } from '@juki-team/commons';
 import { Dispatch } from 'react';
-import { useStableState } from '../../../hooks';
 import { Button, InputTextArea, Modal, T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/Modal/types';
+import { useStableState } from '../../../hooks/useStableState';
 
 interface EditSheetModalProps<T> extends BasicModalProps {
   content: T,

@@ -10,7 +10,10 @@ import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
-import { useFetcher, useJukiUI, useStableState } from '../../hooks';
+
+import { useFetcher } from '../../hooks/useFetcher';
+import { useJukiUI } from '../../hooks/useJukiUI';
+import { useStableState } from '../../hooks/useStableState';
 import { UserResultsType } from '../../types';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { TableOfContents } from './sheets/TableOfContents';

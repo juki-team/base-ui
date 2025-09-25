@@ -18,7 +18,8 @@ import { jukiApiManager } from '../../../../../settings';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
 import { T } from '../../../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, SpinIcon } from '../../../../atoms/server';
-import { useJukiNotification } from '../../../../hooks';
+
+import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { ButtonLoader } from '../../../../molecules';
 import { SetLoaderStatusOnClickType, UserResultsType } from '../../../../types';
 import { UserCodeEditor } from '../../../UserCodeEditor/UserCodeEditor';

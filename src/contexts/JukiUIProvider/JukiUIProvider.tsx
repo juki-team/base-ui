@@ -1,7 +1,7 @@
 import { MotionConfig } from 'motion/react';
 import { type FC, lazy, type PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
 import { T } from '../../components/atoms/T/T';
-import { usePageFocus } from '../../components/hooks';
+import { usePageFocus } from '../../components/hooks/usePageFocus';
 import { LineLoader } from '../../components/server';
 import { Duration } from '../../enums';
 import { classNames } from '../../helpers';

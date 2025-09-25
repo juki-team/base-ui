@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { classNames } from '../../../../helpers';
-import { useJukiUI } from '../../../hooks';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { Select, T } from '../../../atoms';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../../server';
 import { PaginationProps } from '../types';
 

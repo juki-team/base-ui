@@ -10,9 +10,9 @@ import {
 } from '@juki-team/commons';
 import { useRef, useState } from 'react';
 import { authorizedRequest } from '../../../../../helpers';
-import { useJukiNotification } from '../../../../hooks';
 import { jukiApiManager } from '../../../../../settings';
 import { InputCheckbox, T } from '../../../../atoms';
+import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { ButtonLoader, FloatToolbar } from '../../../../molecules';
 import { MdMathViewer } from '../../../mdMath/MdMathViewer';
 import { ChunkTitle } from '../ChunkTitle';

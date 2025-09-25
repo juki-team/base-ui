@@ -11,7 +11,8 @@ import { useEffect, useState } from 'react';
 import { NotificationType } from '../../../../enums';
 import { classNames } from '../../../../helpers';
 import { InputToggle, T, TextArea } from '../../../atoms';
-import { useJukiNotification } from '../../../hooks';
+
+import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../molecules';
 import { AddIcon, DeleteIcon, InfoIIcon } from '../../../server';
 import { TabsType } from '../../../types';

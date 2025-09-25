@@ -1,9 +1,9 @@
 import { cloneElement, CSSProperties, PropsWithChildren, ReactElement } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { renderReactNodeOrFunction } from '../../../helpers';
-import { useJukiUI } from '../../hooks';
 import { Modal } from '../../atoms';
 import { ModalButtonLoaderEventType } from '../../atoms/Modal/types';
+import { useJukiUI } from '../../hooks/useJukiUI';
 import { SplitModalProps } from './types';
 
 export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: PropsWithChildren<SplitModalProps<T>>) => {

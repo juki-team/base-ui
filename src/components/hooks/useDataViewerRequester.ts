@@ -2,7 +2,7 @@ import type { ContentResponseType, ContentsResponseType } from '@juki-team/commo
 import { Status } from '@juki-team/commons';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SWRConfiguration } from 'swr';
-import {
+import type {
   DataViewerRequesterGetUrlType,
   ReloadType,
   RequestFilterType,

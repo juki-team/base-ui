@@ -1,7 +1,7 @@
 import { Children, Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { TriggerAction } from '../../../enums';
 import { Popover } from '../../atoms';
-import { useWidthResizer } from '../../hooks';
+import { useWidthResizer } from '../../hooks/useWidthResizer';
 import { NavigateNextIcon } from '../../server';
 import { HomeLink } from '../links/HomeLink';
 import { BreadcrumbsProps } from './types';

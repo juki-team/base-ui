@@ -1,7 +1,8 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { action } from 'storybook/actions';
 import { Button } from '../../atoms';
-import { useJukiNotification } from '../../hooks';
+
+import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { MockupJukiProvider } from '../../mockup';
 
 const Comp = () => {

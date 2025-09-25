@@ -1,7 +1,7 @@
 import { type ComponentPropsWithRef, forwardRef, type ReactElement, type Ref } from 'react';
 import { classNames } from '../../../helpers';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
-import { useJukiUI } from '../../hooks';
+import { useJukiUI } from '../../hooks/useJukiUI';
 import type { ButtonBasicProps, OnClickButtonEventType } from '../../types';
 
 // const buttonsVariants = (isDisabled: boolean, hasChildren: boolean) => ({

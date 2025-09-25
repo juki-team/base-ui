@@ -1,4 +1,5 @@
 import { useReducer } from 'react';
+import { useJukiUI } from '../../components/hooks/useJukiUI';
 import { CardNotification } from '../../components/organisms/Notifications/CardNotification';
 import { NotificationContext } from '../../components/organisms/Notifications/context';
 import {
@@ -8,7 +9,6 @@ import {
   NotificationProviderProps,
 } from '../../components/organisms/Notifications/types';
 import { NotificationType } from '../../enums';
-import { useJukiUI } from '../../components/hooks';
 import { useSoundStore } from '../../stores/sound/useSoundStore';
 
 export function NotificationProvider({ children }: NotificationProviderProps) {

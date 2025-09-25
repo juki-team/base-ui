@@ -1,8 +1,8 @@
 import { EntityMembersResponseDTO, Status } from '@juki-team/commons';
 import { ReactNode, useState } from 'react';
-import { useStableState } from '../../../hooks';
 import { Modal, T } from '../../../atoms';
 import { BasicModalProps } from '../../../atoms/Modal/types';
+import { useStableState } from '../../../hooks/useStableState';
 import { ButtonLoader } from '../../../molecules';
 import { DocumentMembersContent } from '../DocumentMembersContent';
 import { DocumentCustomMembersContentProps } from '../types';

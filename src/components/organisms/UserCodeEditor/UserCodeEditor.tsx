@@ -1,22 +1,23 @@
 import {
   CODE_LANGUAGE,
-  CodeEditorFiles,
-  CodeEditorTestCasesType,
+  type CodeEditorFiles,
+  type CodeEditorTestCasesType,
   CodeLanguage,
   isStringJson,
   removeExtension,
   SubmissionRunStatus,
   Theme,
 } from '@juki-team/commons';
-import { Dispatch, SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
+import { type Dispatch, type SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { EMPTY_OBJECT } from '../../../constants';
 import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
-import { useJukiNotification, useStableRef } from '../../hooks';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
+import { useJukiNotification } from '../../hooks/useJukiNotification';
+import { useStableRef } from '../../hooks/useStableRef';
 import { CodeRunnerEditor } from '../CodeRunnerEditor/CodeRunnerEditor';
-import { CodeRunnerEditorPropertiesType } from '../CodeRunnerEditor/types';
-import { UserCodeEditorProps } from './types';
+import type { CodeRunnerEditorPropertiesType } from '../CodeRunnerEditor/types';
+import type { UserCodeEditorProps } from './types';
 
 const getStoreRecovered = (storeKey: string | undefined) => {
   let storeRecovered = {};

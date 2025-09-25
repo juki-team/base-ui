@@ -14,7 +14,8 @@ import { authorizedRequest, classNames } from '../../../../helpers';
 import { jukiApiManager } from '../../../../settings';
 import { useWebsocketStore } from '../../../../stores/websocket/useWebsocketStore';
 import { Button, T } from '../../../atoms';
-import { useJukiNotification } from '../../../hooks';
+
+import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { ButtonLoader } from '../../../molecules';
 import { ErrorIcon, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, SettingsIcon } from '../../../server';
 import { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../types';

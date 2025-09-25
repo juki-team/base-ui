@@ -7,8 +7,8 @@ import type {
 } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { toFilterUrl, toSortUrl } from '../../../../helpers';
-import { useFetcher } from '../../../hooks';
 import { jukiApiManager } from '../../../../settings';
+import { useFetcher } from '../../../hooks/useFetcher';
 import {
   getSubmissionContestHeader,
   getSubmissionContestProblemHeader,

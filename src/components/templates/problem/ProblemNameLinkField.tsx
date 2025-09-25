@@ -1,6 +1,6 @@
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../hooks';
 import { jukiAppRoutes } from '../../../settings';
+import { useJukiUI } from '../../hooks/useJukiUI';
 import { Field } from '../../organisms';
 import { VoidIcon } from '../../server';
 import { ProblemStatus } from './ProblemStatus';

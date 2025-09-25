@@ -1,13 +1,14 @@
 import { Status } from '@juki-team/commons';
 import { useState } from 'react';
 import { toBlob } from '../../../helpers';
-import { useJukiUser, useMutate } from '../../hooks';
 import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Modal, T } from '../../atoms';
+import { useJukiUser } from '../../hooks/useJukiUser';
+import { useMutate } from '../../hooks/useMutate';
 import { ButtonLoader, ImageLoaderCropper } from '../../molecules';
-import { CropImageType } from '../../molecules/types';
-import { ImageProfileModalProps } from './types';
+import type { CropImageType } from '../../molecules/types';
+import type { ImageProfileModalProps } from './types';
 
 export const ImageProfileModal = ({ isOpen, onClose, nickname }: ImageProfileModalProps) => {
   

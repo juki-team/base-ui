@@ -1,8 +1,9 @@
 import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { NotificationType } from '../../../enums';
 import { classNames, getTextContent } from '../../../helpers';
-import { useJukiNotification, useJukiUI } from '../../hooks';
 import { usePageStore } from '../../../stores/page/usePageStore';
+import { useJukiNotification } from '../../hooks/useJukiNotification';
+import { useJukiUI } from '../../hooks/useJukiUI';
 import { CloseIcon } from '../../server';
 import { NOTIFICATION_ICON } from './constants';
 import type { CardNotificationProps } from './types';

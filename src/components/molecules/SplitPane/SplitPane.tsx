@@ -1,9 +1,9 @@
-import { memo, MouseEvent, useEffect, useRef, useState } from 'react';
+import { memo, type MouseEvent, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { classNames } from '../../../helpers';
-import { useHandleState } from '../../hooks';
 import { T } from '../../atoms';
+import { useHandleState } from '../../hooks/useHandleState';
 import {
   ExpandLessIcon,
   ExpandMoreIcon,
@@ -11,7 +11,7 @@ import {
   NavigateNextIcon,
   SideNavigationIcon,
 } from '../../server';
-import { SplitPaneProps } from './types';
+import type { SplitPaneProps } from './types';
 
 export const SplitPane = memo((props: SplitPaneProps) => {
   

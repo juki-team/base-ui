@@ -1,4 +1,4 @@
-import { cleanRequest, consoleInfo, ContentResponseType, ONE_MINUTE } from '@juki-team/commons';
+import { cleanRequest, consoleInfo, type ContentResponseType, ONE_MINUTE } from '@juki-team/commons';
 import { useEffect, useRef } from 'react';
 import { authorizedRequest } from '../../helpers';
 import { jukiApiManager } from '../../settings';

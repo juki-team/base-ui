@@ -1,8 +1,8 @@
 import { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons/dist/types/dto/worksheet-submissions';
 import { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
 import { classNames } from '../../../../helpers';
-import { useJukiUI } from '../../../hooks';
 import { T } from '../../../atoms';
+import { useJukiUI } from '../../../hooks/useJukiUI';
 
 interface ResultHeaderProps {
   points: number,

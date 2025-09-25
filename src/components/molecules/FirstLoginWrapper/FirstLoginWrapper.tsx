@@ -1,10 +1,10 @@
 import type { ReactElement } from 'react';
 import { cloneElement } from 'react';
 import { QueryParamKey } from '../../../enums';
-import { useJukiNotification } from '../../hooks';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
+import { useJukiNotification } from '../../hooks/useJukiNotification';
 import type { FirstLoginWrapperProps } from './types';
 
 export const FirstLoginWrapper = ({ children }: FirstLoginWrapperProps) => {

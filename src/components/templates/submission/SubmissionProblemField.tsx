@@ -1,7 +1,8 @@
 import { getJudgeOrigin } from '../../../helpers';
 import { jukiAppRoutes } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { useJukiUI } from '../../hooks';
+
+import { useJukiUI } from '../../hooks/useJukiUI';
 import { TextField } from '../../organisms/DataViewer/TextField';
 import { OpenInNewIcon } from '../../server';
 import type { SubmissionProblemFieldProps } from './types';

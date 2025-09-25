@@ -3,7 +3,8 @@ import { Children, type ReactNode, useId } from 'react';
 import { TriggerAction } from '../../../enums';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { Button } from '../../atoms';
-import { useJukiUI } from '../../hooks';
+
+import { useJukiUI } from '../../hooks/useJukiUI';
 import { Drawer } from '../../molecules';
 import type { DrawerActionsType } from '../../molecules/Drawer/types';
 import { ArrowBackIcon, ViewHeadlineIcon } from '../../server';

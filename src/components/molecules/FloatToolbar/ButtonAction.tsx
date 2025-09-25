@@ -1,10 +1,10 @@
 import { Status } from '@juki-team/commons';
-import { CSSProperties, useRef, useState } from 'react';
+import { type CSSProperties, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
-import { useJukiUI, useOutsideAlerter } from '../../hooks';
-
-import { SetLoaderStatusOnClickType } from '../../types';
+import { useJukiUI } from '../../hooks/useJukiUI';
+import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
+import type { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { ButtonActionProps } from './types';
 

@@ -1,5 +1,5 @@
-import { useJukiUI } from '../../hooks';
 import { T } from '../../atoms';
+import { useJukiUI } from '../../hooks/useJukiUI';
 import { HomeIcon } from '../../server';
 
 export const HomeLink = () => {

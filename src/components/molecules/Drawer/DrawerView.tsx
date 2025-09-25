@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { memo, useRef } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useKeyPress } from '../../hooks';
 import { Button, Portal } from '../../atoms';
+import { useKeyPress } from '../../hooks/useKeyPress';
 import { CloseIcon } from '../../server';
 import { DrawerViewProps } from './types';
 

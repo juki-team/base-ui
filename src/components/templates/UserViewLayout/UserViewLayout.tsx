@@ -6,7 +6,8 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, T } from '../../atoms';
 import { LockIcon } from '../../atoms/server';
-import { useJukiUI } from '../../hooks';
+
+import { useJukiUI } from '../../hooks/useJukiUI';
 import { TwoContentLayout } from '../../molecules';
 import { TabsType } from '../../types';
 import { ChangePasswordModal } from '../ChangePasswordModal/ChangePasswordModal';

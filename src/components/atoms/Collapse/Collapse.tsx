@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState } from '../../hooks';
+import { useHandleState } from '../../hooks/useHandleState';
 import { ExpandLessIcon, ExpandMoreIcon } from '../server';
 import { CollapseProps } from './types';
 

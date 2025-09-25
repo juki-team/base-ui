@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { authorizedRequest } from '../../../helpers';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { T } from '../../atoms';
-import { useJukiNotification } from '../../hooks';
+
+import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { ButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';
 import { CloseIcon, SaveIcon } from '../../server';

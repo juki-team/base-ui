@@ -1,5 +1,5 @@
-import { useJukiUser } from '../../hooks';
 import { Button, Modal, T } from '../../atoms';
+import { useJukiUser } from '../../hooks/useJukiUser';
 import { ButtonLoader } from '../../molecules';
 import { UserNicknameLink } from '../../organisms';
 import { ResetPasswordModalProps } from './types';

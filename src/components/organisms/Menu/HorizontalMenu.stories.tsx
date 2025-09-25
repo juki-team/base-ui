@@ -2,7 +2,8 @@ import { ReactNode } from 'react';
 import { action, configureActions } from 'storybook/actions';
 import { TriggerAction } from '../../../enums';
 import { Button, Popover, T } from '../../atoms';
-import { useJukiNotification } from '../../hooks';
+
+import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { MockupJukiProvider } from '../../mockup';
 import { DrawerActionsType } from '../../molecules/Drawer/types';
 import {

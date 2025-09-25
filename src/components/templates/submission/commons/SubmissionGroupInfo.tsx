@@ -8,7 +8,8 @@ import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, Collapse, Modal, T, VirtualizedRowsFixed } from '../../../atoms';
 import type { VirtualizedRowsFixedProps } from '../../../atoms/VirtualizedRowsFixed/types';
-import { useJukiUI } from '../../../hooks';
+
+import { useJukiUI } from '../../../hooks/useJukiUI';
 import { UpIcon, VisibilityIcon } from '../../../server';
 import { SubmissionMemory } from './SubmissionMemory';
 import { SubmissionTime } from './SubmissionTime';

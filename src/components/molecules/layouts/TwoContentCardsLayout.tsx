@@ -1,9 +1,10 @@
 import { MenuViewMode, ProfileSetting } from '@juki-team/commons';
-import { ReactNode, useEffect } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { useHandleState, useJukiUI } from '../../hooks';
+import { useHandleState } from '../../hooks/useHandleState';
+import { useJukiUI } from '../../hooks/useJukiUI';
 
 import { NotUndefined } from '../../types';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
