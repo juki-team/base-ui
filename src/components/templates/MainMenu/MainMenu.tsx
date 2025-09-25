@@ -7,13 +7,13 @@ import {
   Theme,
 } from '@juki-team/commons';
 import { useEffect, useMemo, useState } from 'react';
-import { QueryParamKey } from '../../../enums';
+import { QueryParamKey, TriggerAction } from '../../../enums';
 import { classNames } from '../../../helpers';
-import { useFetcher, useJukiUI } from '../../hooks';
 import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Popover, Select, T } from '../../atoms';
+import { useFetcher, useJukiUI } from '../../hooks';
 import { JukiLoadingLayout } from '../../molecules';
 import { HorizontalMenu, VerticalMenu } from '../../organisms';
 import type { MenuType } from '../../organisms/types';
@@ -114,7 +114,7 @@ export const MainMenu = (props: MainMenuProps) => {
                   {company && (
                     <Popover
                       popoverClassName="bc-we jk-br-ie elevation-1"
-                      triggerOn={isOpenVerticalMenu ? [] : 'click'}
+                      triggerOn={isOpenVerticalMenu ? [] : TriggerAction.CLICK}
                       content={<div style={{ width: 200 }}>{select}</div>}
                       placement="right"
                     >

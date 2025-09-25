@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { TriggerAction } from '../../../enums';
 import { isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { DrawerView } from './DrawerView';
 import { DrawerProps } from './types';
@@ -8,7 +9,7 @@ export const Drawer = (props: DrawerProps) => {
   const {
     content,
     children,
-    triggerOn = 'click',
+    triggerOn = TriggerAction.CLICK,
     // triggerOnDelayInMs = { hover: 0, click: 0, none: 0 },
     position,
     closeIcon,
@@ -42,13 +43,13 @@ export const Drawer = (props: DrawerProps) => {
       ref?.(e);
     },
     onMouseEnter: (e: any) => {
-      if (isTrigger(triggerOn, 'hover')) {
+      if (isTrigger(triggerOn, TriggerAction.HOVER)) {
         setIsOpen(true);
       }
       onMouseEnter?.(e);
     },
     onClick: (e: any) => {
-      if (isTrigger(triggerOn, 'click')) {
+      if (isTrigger(triggerOn, TriggerAction.CLICK)) {
         setIsOpen(prevState => !prevState);
       }
       onClick?.(e);

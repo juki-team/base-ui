@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { TriggerAction } from '../../enums';
 import { isTrigger } from '../../helpers';
 import { BoundingClientRectType, TriggerOffActionsType, TriggerOnActionsType } from '../types';
 import { useKeyPress } from './custom';
@@ -77,14 +78,14 @@ export const useTriggerWrapper = (props: UseTriggerWrapperProps) => {
   }, [ toggleSchedule ]);
   
   useKeyPress((event: KeyboardEvent) => {
-    if (isOpen && event.code === 'Escape' && isTrigger(triggerOff, 'escape')) {
+    if (isOpen && event.code === 'Escape' && isTrigger(triggerOff, TriggerAction.ESCAPE)) {
       setOffVisible(escapeOffDelayInMs);
       event.preventDefault();
     }
   });
   
   useOutsideAlerterAnd(() => {
-    if (withOutsideAlerter && isOpen && (isTrigger(triggerOff, 'click') || isTrigger(triggerOff, 'hover'))) {
+    if (withOutsideAlerter && isOpen && (isTrigger(triggerOff, TriggerAction.CLICK) || isTrigger(triggerOff, TriggerAction.HOVER))) {
       setOffVisible(clickOffDelayInMs);
       closeEventRef.current = true;
       setTimeout(() => {
@@ -97,7 +98,7 @@ export const useTriggerWrapper = (props: UseTriggerWrapperProps) => {
     bottom: 0, height: 0, left: 0, right: 0, top: 0, width: 0, x: 0, y: 0,
   });
   useEffect(() => {
-    if (isTrigger(triggerOff, 'hover') && onMouseEnterCounter <= 0) {
+    if (isTrigger(triggerOff, TriggerAction.HOVER) && onMouseEnterCounter <= 0) {
       setOffVisible(hoverOffDelayInMs);
     }
   }, [ hoverOffDelayInMs, onMouseEnterCounter, setOffVisible, triggerOff ]);
@@ -121,20 +122,20 @@ export const useTriggerWrapper = (props: UseTriggerWrapperProps) => {
       ref?.(e);
     },
     onMouseEnter: (e: any) => {
-      if (isTrigger(triggerOn, 'hover')) {
+      if (isTrigger(triggerOn, TriggerAction.HOVER)) {
         setOnVisible(hoverOnDelayInMs);
         setOnMouseEnterCounter(prevState => prevState + 1);
       }
       onMouseEnter?.(e);
     },
     onMouseLeave: (e: any) => {
-      if (isTrigger(triggerOff, 'hover')) {
+      if (isTrigger(triggerOff, TriggerAction.HOVER)) {
         setOnMouseEnterCounter(prevState => prevState - 1);
       }
       onMouseLeave?.(e);
     },
     onClick: (e: any) => {
-      if (!closeEventRef.current && isTrigger(triggerOn, 'click')) {
+      if (!closeEventRef.current && isTrigger(triggerOn, TriggerAction.CLICK)) {
         if (isOpen) {
           setOffVisible(clickOffDelayInMs);
         } else {
@@ -147,13 +148,13 @@ export const useTriggerWrapper = (props: UseTriggerWrapperProps) => {
   });
   
   const onMouseEnter = useCallback(() => {
-    if (isTrigger(triggerOn, 'hover')) {
+    if (isTrigger(triggerOn, TriggerAction.HOVER)) {
       setOnMouseEnterCounter(prevState => prevState + 1);
     }
   }, [ triggerOn ]);
   
   const onMouseLeave = useCallback(() => {
-    if (isTrigger(triggerOn, 'hover')) {
+    if (isTrigger(triggerOn, TriggerAction.HOVER)) {
       setOnMouseEnterCounter(prevState => prevState - 1);
     }
   }, [ triggerOn ]);
