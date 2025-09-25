@@ -1,5 +1,5 @@
-import { renderBasicIcon } from '../../google/utils';
-import { BasicIconProps, RootIconProps } from '../../types';
+import type { BasicIconProps, RootIconProps } from '../../types';
+import { renderBasicIcon } from '../../utils';
 
 const Icon = ({ up, down }: { up?: boolean, down?: boolean }) => ({ color }: RootIconProps) => (
   <>
