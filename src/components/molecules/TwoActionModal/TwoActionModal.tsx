@@ -4,7 +4,7 @@ import { classNames } from '../../../helpers';
 import { Modal, T } from '../../atoms';
 import { useJukiUI } from '../../hooks';
 import { ExclamationIcon } from '../../server';
-import { SetLoaderStatusOnClickType } from '../../types/commons';
+import { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { TwoActionModalProps } from './types';
 

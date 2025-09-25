@@ -1,6 +1,6 @@
-import { consoleError, consoleInfo, ContentsResponseType } from '@juki-team/commons';
+import { cleanRequest, consoleError, consoleInfo, ContentsResponseType } from '@juki-team/commons';
 import { Component, ErrorInfo, ReactNode } from 'react';
-import { authorizedRequest, cleanRequest } from '../../../helpers';
+import { authorizedRequest } from '../../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { Button, T } from '../../atoms';
 import { JukiSurprisedImage } from '../../server';

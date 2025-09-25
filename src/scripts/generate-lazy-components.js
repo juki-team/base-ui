@@ -8,23 +8,25 @@ const componentDirs = [
     headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from './server';\nimport type { ReactNodeOrFunctionType } from '../../types'\nimport type { ModalButtonLoaderEventType } from './Modal/types';`,
     withLazy: true,
     withTypes: true,
+    withProps: true,
   },
   {
     chunkName: 'AtomsIconsGoogle',
     dir: path.resolve('./src/components/atoms/server/icons/google'),
     depth: 0,
-    headerLines: `//import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\n`,
+    headerLines: `//import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\nimport { BasicIconProps } from '../types';\n`,
+    commonProp: 'BasicIconProps',
     withLazy: true,
-    withoutProps: true,
+    withProps: true,
     withTypes: false,
   },
   {
     chunkName: 'AtomsIconsSigns',
     dir: path.resolve('./src/components/atoms/server/icons/signs'),
-    headerLines: `//import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\n`,
+    headerLines: `//import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\nimport { SignIconProps } from '../types';\n`,
     commonProp: 'SignIconProps',
     withLazy: true,
-    withoutProps: true,
+    withProps: true,
     withTypes: false,
     cmpIndex: true,
   },
@@ -33,7 +35,7 @@ const componentDirs = [
     dir: path.resolve('./src/components/atoms/server/icons/specials'),
     headerLines: `//import { SuspenseWithTracking } from '../../../../SuspenseWithTracking';\nimport { SpinIcon } from '../SpinIcon';\n`,
     withLazy: true,
-    withoutProps: true,
+    withProps: true,
     withTypes: false,
     cmpIndex: true,
   },
@@ -41,9 +43,10 @@ const componentDirs = [
     chunkName: 'AtomsImages',
     dir: path.resolve('./src/components/atoms/server/images'),
     depth: 0,
-    headerLines: `//import { SuspenseWithTracking } from '../../../SuspenseWithTracking';\nimport { SpinIcon } from '../icons/SpinIcon';\n`,
+    headerLines: `//import { SuspenseWithTracking } from '../../../SuspenseWithTracking';\nimport { SpinIcon } from '../icons/SpinIcon';\nimport { ImageProps } from './types';\n`,
+    commonProp: 'ImageProps',
     withLazy: true,
-    withoutProps: true,
+    withProps: true,
     withTypes: false,
   },
   {
@@ -52,6 +55,7 @@ const componentDirs = [
     headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server';\nimport type { ContentResponseType, ContentsResponseType } from '@juki-team/commons';\nimport type { ModalButtonLoaderEventType } from '../atoms/types';\nimport type { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';`,
     withTypes: true,
     withLazy: true,
+    withProps: true,
   },
   {
     chunkName: 'Organisms',
@@ -59,6 +63,7 @@ const componentDirs = [
     headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server';`,
     withTypes: true,
     withLazy: true,
+    withProps: true,
   },
   {
     chunkName: 'Templates',
@@ -66,6 +71,7 @@ const componentDirs = [
     headerLines: `//import { SuspenseWithTracking } from '../SuspenseWithTracking';\nimport { SpinIcon } from '../atoms/server';`,
     withTypes: true,
     withLazy: true,
+    withProps: true,
     footerLines: `export * from './helpers';`,
   },
 ];
@@ -111,7 +117,7 @@ for (let {
   commonProp,
   depth,
   cmpIndex,
-  withoutProps,
+  withProps,
   footerLines,
   chunkName,
   withLazy,
@@ -146,7 +152,7 @@ for (let {
   
   let indexContent = [
     ...(headerLines ? [ headerLines ] : []),
-    ...(!commonProp && !withoutProps
+    ...(!!withProps && !commonProp
       ? [
         ...files.map(({
                         basePath,
@@ -163,7 +169,7 @@ for (let {
           `const Lazy${name} = lazy(() => ${name}Import().then(module => ({ default: module.${name} })));`,
         );
         
-        let exportLine = `export const ${name} = (${withoutProps ? '' : (`props: ${commonProp ? commonProp : `${name}Props`}`)}) => (`;
+        let exportLine = `export const ${name} = (${withProps ? (`props: ${commonProp ? commonProp : `${name}Props`}`) : ''}) => (`;
         const index = withGenericity.findIndex(([ line ]) => {
           return exportLine === line;
         })
@@ -179,7 +185,7 @@ for (let {
         }
         
         lines.push(
-          `    <Lazy${name} ${withoutProps ? '' : '{...props} '}/>`,
+          `    <Lazy${name} ${withProps ? '{...props} ' : ''}/>`,
           // `  </SuspenseWithTracking>`,
           `  </Suspense>`,
           `);`,

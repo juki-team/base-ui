@@ -1,5 +1,5 @@
 import { type PropsWithChildren, useCallback, useEffect, useState } from 'react';
-import {
+import type {
   AppendSearchParamsType,
   DeleteSearchParamsType,
   Href,
@@ -7,7 +7,7 @@ import {
   RouterContextInterface,
   RouterFn,
   SetSearchParamsType,
-} from '../../components/types/router';
+} from '../../components/types';
 import { QueryParamKey } from '../../enums';
 import { getHref } from '../../helpers';
 import { cloneURLSearchParams } from '../../settings';

@@ -1,10 +1,9 @@
 import { motion } from 'motion/react';
-import { Children, ReactNode, useId } from 'react';
-import { NONE } from '../../../constants';
+import { Children, type ReactNode, useId } from 'react';
+import { TriggerAction } from '../../../enums';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useJukiUI } from '../../hooks';
-
 import { Button } from '../../atoms';
+import { useJukiUI } from '../../hooks';
 import { Drawer } from '../../molecules';
 import type { DrawerActionsType } from '../../molecules/Drawer/types';
 import { ArrowBackIcon, ViewHeadlineIcon } from '../../server';
@@ -124,7 +123,7 @@ export const HorizontalMenu = (props: HorizontalMenuProps) => {
                 <Drawer
                   content={props => renderReactNodeOrFunctionP1(drawerMenuMobile, { ...props, menu })}
                   position="left"
-                  triggerOn={NONE}
+                  triggerOn={TriggerAction.NONE}
                   closeOnOutside
                 >
                   {({ onOpen }) => {

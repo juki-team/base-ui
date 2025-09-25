@@ -1,4 +1,4 @@
-import { Href } from '../../components/types/router';
+import { Href } from '../../components/types';
 
 export type LastPathType<T extends string | number = string> = {
   [key in T]: Href

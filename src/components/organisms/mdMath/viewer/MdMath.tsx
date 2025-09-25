@@ -1,6 +1,6 @@
 // https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119
-import { CODE_LANGUAGE, CodeLanguage, ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
-import type { Element } from 'hast';
+import { CODE_LANGUAGE, CodeLanguage, type  ContentResponseType, type UserBasicResponseDTO } from '@juki-team/commons';
+import { type Element } from 'hast';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 import { Children, type CSSProperties, memo, type ReactNode, useMemo } from 'react';
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
@@ -17,7 +17,7 @@ import { VisibilityIcon, VisibilityOffIcon } from '../../../atoms/server';
 import { useFetcher, useJukiUI, useStableState } from '../../../hooks';
 import { CodeViewer } from '../../../molecules';
 import { ErrorIcon, OpenInNewIcon, SpinIcon } from '../../../server';
-import { SetSearchParamsType } from '../../../types/router';
+import type { SetSearchParamsType } from '../../../types';
 import { GraphvizViewers } from '../../Graphviz/GraphvizViewer';
 import { UserChip } from '../../UserChip/UserChip';
 import { UserCodeEditor } from '../../UserCodeEditor/UserCodeEditor';

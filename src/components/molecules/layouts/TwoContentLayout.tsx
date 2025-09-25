@@ -2,7 +2,7 @@ import { type ReactNode, useEffect, useRef } from 'react';
 import { classNames, getHref, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useJukiUI, useStableState } from '../../hooks';
 
-import { TabsType } from '../../types/commons';
+import { TabsType } from '../../types';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
 import { TabsInline } from '../Tabs/TabsInline';
 import { TabsInlineBody } from '../Tabs/TabsInlineBody';

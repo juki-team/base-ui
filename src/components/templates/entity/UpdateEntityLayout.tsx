@@ -1,13 +1,13 @@
-import { ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
+import { cleanRequest, type ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
 import { useCallback, useState } from 'react';
-import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification, useMutate } from '../../hooks';
+import { authorizedRequest } from '../../../helpers';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { T } from '../../atoms';
+import { useJukiNotification, useMutate } from '../../hooks';
 import { ButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';
 import { CloseIcon, SaveIcon } from '../../server';
-import { UpdateEntityLayoutProps } from './types';
+import type { UpdateEntityLayoutProps } from './types';
 
 export const UpdateEntityLayout = <T, U, V>(props: UpdateEntityLayoutProps<T, U, V>) => {
   

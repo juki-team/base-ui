@@ -1,5 +1,5 @@
 import type { BasicModalProps } from '../../../../../atoms/Modal/types';
-import { SetLoaderStatusOnClickType } from '../../../../../types/commons';
+import { SetLoaderStatusOnClickType } from '../../../../../types';
 
 export type OnForgotPasswordType = (email: string, setStatus: SetLoaderStatusOnClickType) => void;
 

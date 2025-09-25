@@ -1,7 +1,7 @@
 import { type ComponentPropsWithRef, forwardRef, ReactElement, Ref, useEffect, useId } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import { classNames } from '../../../helpers';
-import { InputCommonsProps } from '../../types/commons';
+import { InputCommonsProps } from '../../types';
 
 export type CmpInputProps<T> = InputCommonsProps<T>;
 

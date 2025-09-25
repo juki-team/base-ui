@@ -1,8 +1,15 @@
-import { ContentResponseType, Judge, Language, ProblemScoringMode, ProfileSetting, Status } from '@juki-team/commons';
+import {
+  cleanRequest,
+  type ContentResponseType,
+  Judge,
+  Language,
+  ProblemScoringMode,
+  ProfileSetting,
+  Status,
+} from '@juki-team/commons';
 import {
   authorizedRequest,
   classNames,
-  cleanRequest,
   downloadBlobAsFile,
   downloadUrlAsFile,
   getStatementData,
@@ -24,7 +31,7 @@ import {
   ProblemTimeLimitInfo,
   ProblemTypeInfo,
 } from '../ProblemInfo';
-import { ProblemStatementViewProps } from '../types';
+import type { ProblemStatementViewProps } from '../types';
 import { SampleTest } from './SampleTest';
 
 export const ProblemStatementView = ({

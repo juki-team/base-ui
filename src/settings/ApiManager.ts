@@ -22,7 +22,7 @@ import {
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
-} from '../components/types/commons';
+} from '../components/types';
 import { QueryParamKey } from '../enums';
 
 const addQuery = (path: string) => {

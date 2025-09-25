@@ -6,7 +6,7 @@ import {
   Href,
   RouterFn,
   SetSearchParamsType,
-} from '../../components/types/router';
+} from '../../components/types';
 
 interface RouterState {
   searchParams: URLSearchParams,

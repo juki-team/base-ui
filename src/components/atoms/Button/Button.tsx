@@ -2,7 +2,7 @@ import { type ComponentPropsWithRef, forwardRef, type ReactElement, type Ref } f
 import { classNames } from '../../../helpers';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { useJukiUI } from '../../hooks';
-import type { ButtonBasicProps, OnClickButtonEventType } from '../../types/commons';
+import type { ButtonBasicProps, OnClickButtonEventType } from '../../types';
 
 // const buttonsVariants = (isDisabled: boolean, hasChildren: boolean) => ({
 //   whileHover: isDisabled ? {} : { scale: hasChildren ? 1.2 : 1.10, transition: { duration: Duration.FAST } },

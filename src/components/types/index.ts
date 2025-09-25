@@ -1,4 +1,5 @@
 import { HTTPMethod, Status, UserHandlesType, WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons';
+import { ParsedUrlQuery } from 'querystring';
 import type {
   CSSProperties,
   Dispatch,
@@ -11,8 +12,7 @@ import type {
 } from 'react';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import { KeyedMutator } from 'swr';
-import { CLICK, ESCAPE, HOVER, NONE } from '../../constants';
-import { Sound } from '../../enums';
+import { Sound, TriggerAction } from '../../enums';
 
 export type ReactNodeOrFunctionP1Type<T, U = ReactNode> = U | ((prop1: T) => U);
 
@@ -107,11 +107,15 @@ export interface InputCommonsProps<T> {
 
 export type ReactNodeOrFunctionType = ReactNode | (() => ReactNode);
 
-export type TriggerActionsType = typeof HOVER | typeof CLICK | typeof ESCAPE | typeof NONE;
+export type TriggerActionsType = TriggerAction.HOVER | TriggerAction.CLICK | TriggerAction.ESCAPE | TriggerAction.NONE;
 
-export type TriggerOnActionsType = typeof HOVER | typeof CLICK | typeof NONE;
+export type TriggerOnActionsType = TriggerAction.HOVER | TriggerAction.CLICK | TriggerAction.NONE;
 
-export type TriggerOffActionsType = typeof HOVER | typeof CLICK | typeof ESCAPE | typeof NONE;
+export type TriggerOffActionsType =
+  TriggerAction.HOVER
+  | TriggerAction.CLICK
+  | TriggerAction.ESCAPE
+  | TriggerAction.NONE;
 
 export type BoundingClientRectType = {
   bottom: number,
@@ -234,3 +238,51 @@ export type LoaderStatusType = Status;
 export type SetLoaderStatusType = (status: (Status | ((props: LoaderStatusType) => LoaderStatusType))) => void;
 
 export type ReloadType = () => void;
+
+export type AppendSearchParamsType = (
+  entries: ({ name: string, value: string }[]) | { name: string, value: string },
+  replace?: boolean,
+) => void;
+
+export type SetSearchParamsType = (
+  entries: ({ name: string, value: string | string[] }[]) | { name: string, value: string | string[] },
+  replace?: boolean,
+) => void;
+
+export type DeleteSearchParamsType = (
+  entries: ({ name: string, value?: string }[]) | { name: string, value?: string },
+  replace?: boolean,
+) => void;
+
+export type RouterFn<T> = ((href: T) => Promise<void>) | ((href: T) => void);
+
+export type Href = string | { pathname: string, searchParams?: URLSearchParams };
+
+export type RouterContextInterface = {
+  searchParams: URLSearchParams,
+  appendSearchParams: AppendSearchParamsType,
+  setSearchParams: SetSearchParamsType,
+  deleteSearchParams: DeleteSearchParamsType,
+  routeParams: ParsedUrlQuery,
+  pushRoute: RouterFn<Href>,
+  replaceRoute: RouterFn<Href>,
+  reloadRoute: RouterFn<void>,
+  isLoadingRoute: boolean,
+  pathname: string,
+};
+
+type JukiRouterProviderRequiredProps = {
+  routeParams: ParsedUrlQuery,
+  pushRoute: RouterFn<string>,
+  replaceRoute: RouterFn<string>,
+  reloadRoute: RouterFn<void>,
+  pathname: string,
+  isLoadingRoute?: boolean,
+}
+
+export type JukiRouterProviderProps = JukiRouterProviderRequiredProps | ({
+  searchParams: URLSearchParams,
+  appendSearchParams: AppendSearchParamsType,
+  setSearchParams: SetSearchParamsType,
+  deleteSearchParams: DeleteSearchParamsType,
+} & JukiRouterProviderRequiredProps);

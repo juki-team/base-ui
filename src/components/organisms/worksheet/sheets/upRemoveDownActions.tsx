@@ -1,6 +1,6 @@
 import { T } from '../../../atoms';
 import { ArrowDownwardIcon, ArrowUpwardIcon, DeleteIcon } from '../../../atoms/server';
-import { ButtonSizeType } from '../../../types/commons';
+import { ButtonSizeType } from '../../../types';
 
 interface UpRemoveDownButtonsProps<T> {
   index: number,

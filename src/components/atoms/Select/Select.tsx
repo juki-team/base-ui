@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 
-import { ReactNodeOrFunctionType } from '../../types/commons';
+import { ReactNodeOrFunctionType } from '../../types';
 import { Popover } from '../Popover/Popover';
 import { PlacementType } from '../Popover/types';
 import { ArrowDropDownIcon, ArrowDropUpIcon, ArrowLeftIcon, ArrowRightIcon } from '../server';

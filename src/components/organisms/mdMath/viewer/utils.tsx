@@ -3,7 +3,7 @@ import type { Element } from 'hast';
 import type { CSSProperties, ReactNode } from 'react';
 import { QueryParamKey } from '../../../../enums';
 import { classNames } from '../../../../helpers';
-import { SetSearchParamsType } from '../../../types/router';
+import { SetSearchParamsType } from '../../../types';
 import type { CommandsFunctionsType, CommandsObjectType } from './types';
 
 const keys: CommandsFunctionsType = {

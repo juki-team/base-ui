@@ -20,7 +20,7 @@ import { T } from '../../../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, SpinIcon } from '../../../../atoms/server';
 import { useJukiNotification } from '../../../../hooks';
 import { ButtonLoader } from '../../../../molecules';
-import { SetLoaderStatusOnClickType, UserResultsType } from '../../../../types/commons';
+import { SetLoaderStatusOnClickType, UserResultsType } from '../../../../types';
 import { UserCodeEditor } from '../../../UserCodeEditor/UserCodeEditor';
 
 interface RunnerSheetSectionProps {

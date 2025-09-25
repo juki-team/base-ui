@@ -97,3 +97,10 @@ export enum Period {
   CALC = 'CALC',
   TIME_OUT = 'TIME_OUT'
 }
+
+export enum TriggerAction {
+  HOVER = 'hover',
+  CLICK = 'click',
+  ESCAPE = 'escape',
+  NONE = 'none',
+}

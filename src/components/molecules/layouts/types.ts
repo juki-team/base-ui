@@ -1,6 +1,5 @@
 import type { CSSProperties, PropsWithChildren, ReactNode } from 'react';
-import { ReactNodeOrFunctionP1Type, TabsType } from '../../types/commons';
-import { Href } from '../../types/router';
+import { Href, ReactNodeOrFunctionP1Type, TabsType } from '../../types';
 
 type Full<T> = {
   [P in keyof T]-?: T[P];

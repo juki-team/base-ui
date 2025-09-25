@@ -1,11 +1,11 @@
-import { type ContentResponseType, Status, SubmissionRunStatus } from '@juki-team/commons';
-import { authorizedRequest, cleanRequest } from '../../../helpers';
+import { cleanRequest, type ContentResponseType, Status, SubmissionRunStatus } from '@juki-team/commons';
+import { authorizedRequest } from '../../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
 import { RefreshIcon } from '../../atoms/server';
 import { useJukiNotification, useMutate } from '../../hooks';
 import { ButtonLoader } from '../../molecules';
-import { ButtonLoaderOnClickType } from '../../types/commons';
+import type { ButtonLoaderOnClickType } from '../../types';
 import type { SubmissionRejudgeButtonProps } from './types';
 
 export const SubmissionRejudgeButton = ({ submissionId }: SubmissionRejudgeButtonProps) => {

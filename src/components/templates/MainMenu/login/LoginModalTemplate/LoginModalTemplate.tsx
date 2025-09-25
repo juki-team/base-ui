@@ -7,7 +7,7 @@ import { classNames } from '../../../../../helpers';
 import { Input, InputPassword, T } from '../../../../atoms';
 import { ButtonLoader, SplitModal } from '../../../../molecules';
 import { JukiLaptopImage } from '../../../../server';
-import { SetLoaderStatusOnClickType } from '../../../../types/commons';
+import { SetLoaderStatusOnClickType } from '../../../../types';
 import { ForgotPasswordModal } from './ForgotPassword';
 import type { LoginFormType, LoginModalTemplateProps } from './types';
 

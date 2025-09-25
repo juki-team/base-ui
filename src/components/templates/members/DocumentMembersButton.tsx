@@ -1,4 +1,5 @@
 import {
+  cleanRequest,
   ContentResponseType,
   ENTITY_ACCESS,
   EntityMembersDTO,
@@ -6,10 +7,10 @@ import {
   HTTPMethod,
 } from '@juki-team/commons';
 import { useState } from 'react';
-import { authorizedRequest, cleanRequest } from '../../../helpers';
-import { useJukiNotification } from '../../hooks';
+import { authorizedRequest } from '../../../helpers';
 import { Button, CopyToClipboard, Popover, T } from '../../atoms';
 import { ContentCopyIcon, EditIcon, InfoIIcon } from '../../atoms/server';
+import { useJukiNotification } from '../../hooks';
 import { ButtonAction } from '../../molecules/FloatToolbar/ButtonAction';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';
 import { DocumentMembersButtonProps } from './types';

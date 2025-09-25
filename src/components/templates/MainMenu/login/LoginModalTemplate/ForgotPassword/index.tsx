@@ -1,10 +1,10 @@
-import { ContentResponseType, Status } from '@juki-team/commons';
-import { authorizedRequest, cleanRequest } from '../../../../../../helpers';
-import { useJukiNotification } from '../../../../../hooks';
+import { cleanRequest, type ContentResponseType, Status } from '@juki-team/commons';
+import { authorizedRequest } from '../../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
-import { BasicModalProps } from '../../../../../atoms/types';
+import type { BasicModalProps } from '../../../../../atoms/types';
+import { useJukiNotification } from '../../../../../hooks';
 import { ForgotPasswordModalComponent } from './ForgoPasswordModal';
-import { OnForgotPasswordType } from './types';
+import type { OnForgotPasswordType } from './types';
 
 export const ForgotPasswordModal = ({ isOpen, onClose }: BasicModalProps) => {
   const { notifyResponse } = useJukiNotification();

@@ -13,7 +13,7 @@ import { QueryParamKey } from '../../../../enums';
 import { classNames } from '../../../../helpers';
 import { Button, T } from '../../../atoms';
 import { DeleteIcon, SettingsIcon } from '../../../atoms/server';
-import { NotUndefined } from '../../../types/commons';
+import { NotUndefined } from '../../../types';
 import { MdMathEditor } from '../../mdMath/MdMathEditor';
 import type { WorksheetBodiesProps, WorksheetBodyProps } from '../types';
 import { EditSheetModal } from './EditSheetModal';

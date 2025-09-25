@@ -1,7 +1,7 @@
 import { BodyWorksheetType, WorksheetType } from '@juki-team/commons';
 import { Button, T } from '../../../atoms';
 import { CloseIcon, EditIcon, SaveIcon, SettingsIcon, SortIcon, VisibilityIcon } from '../../../atoms/server';
-import { ButtonSizeType, ButtonType } from '../../../types/commons';
+import { ButtonSizeType, ButtonType } from '../../../types';
 import { SetSheetType } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 import { upRemoveDownButtons } from './upRemoveDownActions';

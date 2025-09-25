@@ -8,7 +8,7 @@ import {
   RequestFilterType,
   RequestSortType,
   SetLoaderStatusType,
-} from '../types/commons';
+} from '../types';
 import { useFetcher } from './useFetcher';
 
 export const useDataViewerRequester = <T extends ContentResponseType<any> | ContentsResponseType<any>, >(getUrl: DataViewerRequesterGetUrlType, options?: SWRConfiguration) => {

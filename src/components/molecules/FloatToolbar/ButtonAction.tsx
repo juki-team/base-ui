@@ -4,7 +4,7 @@ import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../helpers';
 import { useJukiUI, useOutsideAlerter } from '../../hooks';
 
-import { SetLoaderStatusOnClickType } from '../../types/commons';
+import { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { ButtonActionProps } from './types';
 

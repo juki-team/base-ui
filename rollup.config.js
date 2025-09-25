@@ -6,6 +6,8 @@ import copy from 'rollup-plugin-copy';
 import terser from "@rollup/plugin-terser";
 import json from '@rollup/plugin-json';
 import alias from '@rollup/plugin-alias';
+import replace from '@rollup/plugin-replace';
+
 // import nodePolyfills from 'rollup-plugin-node-polyfills';
 // import postcss from "rollup-plugin-postcss";
 // import scss from "rollup-plugin-scss";
@@ -16,6 +18,12 @@ import path from "path";
 
 const plugins = [
   // nodePolyfills(),
+  replace({
+    preventAssignment: true,
+    values: {
+      '"use client";': '',
+    },
+  }),
   peerDepsExternal(),
   alias({
     entries: [

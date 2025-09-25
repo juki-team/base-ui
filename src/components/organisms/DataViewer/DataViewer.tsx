@@ -7,7 +7,7 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useJukiUI, useSessionStorage, useStableRef } from '../../hooks';
 import type { OptionType } from '../../molecules/types';
-import { RequestFilterType, RequestSortType } from '../../types/commons';
+import { RequestFilterType, RequestSortType } from '../../types';
 import { DisplayDataViewer } from './commons/DisplayDataViewer';
 import {
   fixHeaders,

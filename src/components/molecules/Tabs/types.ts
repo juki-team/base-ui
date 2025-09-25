@@ -1,5 +1,4 @@
-import { ReactNodeOrFunctionP1Type, TabsType, TabType } from '../../types/commons';
-import { Href } from '../../types/router';
+import { Href, ReactNodeOrFunctionP1Type, TabsType, TabType } from '../../types';
 
 export interface TabsProps<T = string> {
   tabs: TabType<T>[],

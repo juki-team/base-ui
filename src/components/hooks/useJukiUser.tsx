@@ -1,30 +1,31 @@
 import {
-  ContentResponseType,
+  cleanRequest,
+  type ContentResponseType,
   DataViewMode,
-  ErrorResponseType,
+  type ErrorResponseType,
   HTTPMethod,
   Language,
   MenuViewMode,
-  PingResponseDTO,
+  type PingResponseDTO,
   ProfileSetting,
   Status,
   Theme,
-  UserSettingsType,
+  type UserSettingsType,
 } from '@juki-team/commons';
 import { useCallback, useState } from 'react';
-import { authorizedRequest, cleanRequest, localStorageCrossDomains } from '../../helpers';
+import { authorizedRequest, localStorageCrossDomains } from '../../helpers';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { T } from '../atoms/T/T';
-import {
+import type {
   AuthorizedRequestType,
   SetStatusType,
   SignInPayloadDTO,
   SignUpPayloadDTO,
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
-} from '../types/commons';
+} from '../types';
 import { useJukiNotification } from './useJukiNotification';
 
 type ApiType<T> = {
