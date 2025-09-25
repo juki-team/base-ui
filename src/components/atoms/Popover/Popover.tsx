@@ -41,7 +41,7 @@ export function usePopover({
                              modal,
                              open: controlledOpen,
                              onOpenChange: setControlledOpen,
-                             triggerOn = 'click',
+                             triggerOn = TriggerAction.HOVER,
                              offset: _offset,
                              padding = 4,
                            }: PopoverOptions) {
@@ -69,10 +69,10 @@ export function usePopover({
   const context = data.context;
   
   const click = useClick(context, {
-    enabled: controlledOpen === undefined && isTrigger(triggerOn, 'click'),
+    enabled: controlledOpen === undefined && isTrigger(triggerOn, TriggerAction.CLICK),
   });
   const hover = useHover(context, {
-    enabled: controlledOpen === undefined && isTrigger(triggerOn, 'hover'),
+    enabled: controlledOpen === undefined && isTrigger(triggerOn, TriggerAction.HOVER),
     handleClose: safePolygon(),
   });
   const dismiss = useDismiss(context);
@@ -197,7 +197,7 @@ const getPlacementVariants = (placement: Placement): Variants => {
 
 export function Popover({
                           children,
-                          triggerOn = TriggerAction.HOVER,
+                          triggerOn,
                           open,
                           onOpenChange,
                           placement = 'top',
