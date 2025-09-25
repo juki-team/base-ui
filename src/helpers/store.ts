@@ -5,7 +5,7 @@ export const isIFrame = (input: Element): input is HTMLIFrameElement =>
 
 export const localStorageCrossDomains = {
   setItem: (key: string, value: string) => {
-    if (jukiApiManager.isQueryToken()) {
+    if (jukiApiManager.isQueryToken() || typeof document === 'undefined') {
       return;
     }
     localStorage.setItem(key, value);
@@ -18,7 +18,7 @@ export const localStorageCrossDomains = {
     }
   },
   removeItem: (key: string) => {
-    if (jukiApiManager.isQueryToken()) {
+    if (jukiApiManager.isQueryToken() || typeof document === 'undefined') {
       return;
     }
     localStorage.removeItem(key);

@@ -9,15 +9,17 @@ export function isPrintingPDF() {
 }
 
 function togglePdfExport() {
-  const url_doc = new URL(document.URL);
-  const query_doc = new URLSearchParams(url_doc.searchParams);
-  if (isPrintingPDF()) {
-    query_doc.delete('print-pdf');
-  } else {
-    query_doc.set('print-pdf', '');
+  if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    const url_doc = new URL(document.URL);
+    const query_doc = new URLSearchParams(url_doc.searchParams);
+    if (isPrintingPDF()) {
+      query_doc.delete('print-pdf');
+    } else {
+      query_doc.set('print-pdf', '');
+    }
+    url_doc.search = (query_doc.toString() ? '?' + query_doc.toString() : '');
+    window.location.href = url_doc.toString();
   }
-  url_doc.search = (query_doc.toString() ? '?' + query_doc.toString() : '');
-  window.location.href = url_doc.toString();
 }
 
 function installKeyBindings(reveal: Reveal.Api) {

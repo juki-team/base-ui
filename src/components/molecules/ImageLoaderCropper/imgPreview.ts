@@ -12,16 +12,19 @@ export async function imgPreview(
   scale = 1,
   rotate = 0,
 ) {
-  const canvas = document.createElement('canvas');
-  void canvasPreview(image, canvas, crop, scale, rotate);
-  
-  const blob = await toBlob(canvas);
-  if (previewUrl) {
-    URL.revokeObjectURL(previewUrl);
+  if (typeof document !== 'undefined') {
+    const canvas = document.createElement('canvas');
+    void canvasPreview(image, canvas, crop, scale, rotate);
+    
+    const blob = await toBlob(canvas);
+    if (previewUrl) {
+      URL.revokeObjectURL(previewUrl);
+    }
+    if (blob) {
+      previewUrl = URL.createObjectURL(blob);
+    }
+    
+    return previewUrl;
   }
-  if (blob) {
-    previewUrl = URL.createObjectURL(blob);
-  }
-  
-  return previewUrl;
+  return null;
 }

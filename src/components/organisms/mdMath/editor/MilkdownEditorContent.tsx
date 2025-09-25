@@ -22,8 +22,8 @@ import { Dispatch, SetStateAction, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
 import { NotificationType } from '../../../../enums';
 import { handleUploadImage } from '../../../../helpers';
-import { useI18nStore, useJukiNotification, useStableRef, useUserStore } from '../../../hooks';
 import { T } from '../../../atoms';
+import { useI18nStore, useJukiNotification, useStableRef, useUserStore } from '../../../hooks';
 // import { basicSetup } from '@uiw/react-codemirror';
 import { basicSetup } from '../../../molecules/CodeEditor/codemirror/extensions/basic-setup';
 import type { NewNotificationType } from '../../Notifications/types';
@@ -205,62 +205,68 @@ function renderLatex(content: string, options: {}) {
 }
 
 function renderMermaid(content: string): HTMLElement {
-  const container = document.createElement('div');
-  container.className = 'mermaid';
-  container.innerHTML = content;
-  
-  setTimeout(() => mermaid.run({ querySelector: '.mermaid' }), 0);
-  
-  return container;
+  if (typeof document !== 'undefined') {
+    const container = document.createElement('div');
+    container.className = 'mermaid';
+    container.innerHTML = content;
+    
+    setTimeout(() => mermaid.run({ querySelector: '.mermaid' }), 0);
+    
+    return container;
+  }
+  return null as unknown as HTMLElement;
 }
 
 function renderDot(content: string, t: TFunction): HTMLElement {
-  
-  const container = document.createElement('div');
-  const newId = v4();
-  container.id = newId;
-  
-  const loader = document.createElement('div');
-  loader.textContent = t('loading graph');
-  loader.style.fontStyle = 'italic';
-  container.appendChild(loader);
-  
-  Viz
-    .instance()
-    .then(viz => {
-      try {
-        const container = document.getElementById(newId);
-        if (container) {
-          container.innerHTML = '';
-          content.split('---').map((content) => {
-            const svg = viz.renderSVGElement(content, {});
-            container.appendChild(svg);
-          });
+  if (typeof document !== 'undefined') {
+    const container = document.createElement('div');
+    const newId = v4();
+    container.id = newId;
+    
+    const loader = document.createElement('div');
+    loader.textContent = t('loading graph');
+    loader.style.fontStyle = 'italic';
+    container.appendChild(loader);
+    
+    Viz
+      .instance()
+      .then(viz => {
+        try {
+          const container = document.getElementById(newId);
+          if (container) {
+            container.innerHTML = '';
+            content.split('---').map((content) => {
+              const svg = viz.renderSVGElement(content, {});
+              container.appendChild(svg);
+            });
+          }
+        } catch (error) {
+          const container = document.getElementById(newId);
+          if (container) {
+            container.innerHTML = '';
+            const errorDiv = document.createElement('div');
+            errorDiv.textContent = `${t('error rendering graph')}: ${(error as Error)?.message || error}`;
+            errorDiv.style.color = 'red';
+            errorDiv.style.whiteSpace = 'pre-wrap';
+            container.appendChild(errorDiv);
+          }
         }
-      } catch (error) {
+      })
+      .catch(error => {
         const container = document.getElementById(newId);
         if (container) {
           container.innerHTML = '';
           const errorDiv = document.createElement('div');
-          errorDiv.textContent = `${t('error rendering graph')}: ${(error as Error)?.message || error}`;
+          errorDiv.textContent = `${t('error initializing Viz.js')}: ${error?.message || error}`;
           errorDiv.style.color = 'red';
-          errorDiv.style.whiteSpace = 'pre-wrap';
           container.appendChild(errorDiv);
         }
-      }
-    })
-    .catch(error => {
-      const container = document.getElementById(newId);
-      if (container) {
-        container.innerHTML = '';
-        const errorDiv = document.createElement('div');
-        errorDiv.textContent = `${t('error initializing Viz.js')}: ${error?.message || error}`;
-        errorDiv.style.color = 'red';
-        container.appendChild(errorDiv);
-      }
-    });
+      });
+    
+    return container;
+  }
   
-  return container;
+  return null as unknown as HTMLElement;
 }
 
 function normalizeNewlines(text: string): string {

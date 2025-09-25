@@ -49,13 +49,15 @@ const DEFAULT_PICKER_TYPE = 'year-month-day-hours-minutes-seconds';
 
 function getTextWidth(text: string, font: string) {
   // re-use canvas object for better performance
-  // @ts-ignore
-  const canvas: HTMLCanvasElement = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
-  const context = canvas.getContext('2d');
-  if (context) {
-    context.font = font;
-    const metrics = context.measureText(text);
-    return metrics.width;
+  if (typeof document !== 'undefined') {
+    // @ts-ignore
+    const canvas: HTMLCanvasElement = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
+    const context = canvas.getContext('2d');
+    if (context) {
+      context.font = font;
+      const metrics = context.measureText(text);
+      return metrics.width;
+    }
   }
   return 0;
 }
