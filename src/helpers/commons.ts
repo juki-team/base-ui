@@ -16,8 +16,6 @@ import { jukiApiManager } from '../settings';
 import { authorizedRequest } from './fetch';
 import { getXLSX } from './xlsx';
 
-export { cleanRequest } from '@juki-team/commons';
-
 export const getTextContent = (elem: ReactNode | ReactNode[]): string => {
   if (!elem) {
     return '';
