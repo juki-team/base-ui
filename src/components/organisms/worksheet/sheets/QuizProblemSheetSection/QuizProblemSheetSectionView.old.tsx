@@ -16,7 +16,7 @@ import {
 } from 'components';
 import { JUDGE_API_V1, CODE_LANGUAGE } from 'config/constants';
 import { authorizedRequest, cleanRequest, getHeight, getVerdictFromTestCase } from 'helpers';
-import { useJukiRouter, useNotification, useStableState, useSWR, useState, useCallback } from 'hooks';
+import { useRouterStore, useNotification, useStableState, useSWR, useState, useCallback } from 'hooks';
 import { ReactNode } from 'react';
 import {
   CodeEditorTestCaseType,
@@ -55,7 +55,7 @@ export const QuizProblemSheetSectionView = ({
                                               noteSheetKey,
                                             }: RunnerSheetSectionProps) => {
   
-  const { routeParams } = useJukiRouter();
+  const { routeParams } = useRouterStore();
   const { mutate } = useSWR();
   const sheetId = routeParams.sheetId as string;
   const [ languageEditor, setLanguageEditor ] = useState(CodeLanguage.TEXT);
