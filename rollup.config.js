@@ -142,7 +142,15 @@ export default [
     plugins,
     preserveEntrySignatures: 'strict',
     // preserveDirectives: true, // Unknown input options
+    onwarn(warning, warn) {
+      console.log('>>>>');
+      if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
+        return;
+      }
+      warn(warning);
+    },
   },
+  
   // {
   //   input: 'src/utils/index.ts',
   //   output: [
@@ -161,4 +169,5 @@ export default [
   //   ],
   //   plugins,
   // },
+
 ];
