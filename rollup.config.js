@@ -145,6 +145,7 @@ export default [
     onwarn(warning, warn) {
       console.log('>>>>');
       if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
+        console.log(warning.message);
         return;
       }
       warn(warning);
