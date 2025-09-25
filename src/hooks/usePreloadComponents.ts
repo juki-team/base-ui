@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { preloadOrganisms, preloadTemplates } from '../components';
 
 export const usePreloadComponents = () => {
   
-  const [ preloaders, setPreloaders ] = useState({
+  const [ preloaders ] = useState({
     atoms: false,
     molecules: false,
     organisms: false,
@@ -17,12 +16,12 @@ export const usePreloadComponents = () => {
     // preloadMolecules().then(() => {
     //   setPreloaders(state => ({ ...state, molecules: true }));
     // });
-    preloadOrganisms().then(() => {
-      setPreloaders(state => ({ ...state, organisms: true }));
-    });
-    preloadTemplates().then(() => {
-      setPreloaders(state => ({ ...state, templates: true }));
-    });
+    // preloadOrganisms().then(() => {
+    //   setPreloaders(state => ({ ...state, organisms: true }));
+    // });
+    // preloadTemplates().then(() => {
+    //   setPreloaders(state => ({ ...state, templates: true }));
+    // });
   }, []);
   
   return preloaders;
