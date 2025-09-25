@@ -18,7 +18,7 @@ import { Transition } from 'motion';
 import { Variants } from 'motion-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } from 'react';
-import { Duration } from '../../../enums';
+import { Duration, TriggerAction } from '../../../enums';
 import { isTrigger, renderReactNodeOrFunctionP1 } from '../../../helpers';
 
 import { TriggerOnActionsType } from '../../types';
@@ -197,7 +197,7 @@ const getPlacementVariants = (placement: Placement): Variants => {
 
 export function Popover({
                           children,
-                          triggerOn = 'hover',
+                          triggerOn = TriggerAction.HOVER,
                           open,
                           onOpenChange,
                           placement = 'top',
