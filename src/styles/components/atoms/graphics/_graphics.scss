@@ -75,19 +75,3 @@
     height: 100%;
   }
 }
-
-.jk-bg-image {
-  width: 100%;
-  height: 100%;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  
-  &.flag-en {
-    background-image: url("~@juki-team/base-ui/assets/images/flag-en.png");
-  }
-  
-  &.flag-es {
-    background-image: url("~@juki-team/base-ui/assets/images/flag-es.png");
-  }
-}
