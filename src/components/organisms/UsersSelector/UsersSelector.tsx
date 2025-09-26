@@ -1,4 +1,4 @@
-import { ContentsResponseType, getUserKey, UserSummaryListResponseDTO } from '@juki-team/commons';
+import { type ContentsResponseType, getUserKey, type UserSummaryListResponseDTO } from '@juki-team/commons';
 import { useEffect, useMemo, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Button, Modal, T, TextArea } from '../../atoms';
@@ -6,9 +6,9 @@ import { useFetcher } from '../../hooks/useFetcher';
 import { MultiSelectSearchable } from '../../molecules';
 import { GroupsIcon, RefreshIcon, SpinIcon } from '../../server';
 import { UserChip } from '../UserChip/UserChip';
-import { UsersSelectorProps } from './types';
+import type { UsersSelectorProps } from './types';
 
-export const UsersSelector = (props: UsersSelectorProps) => {
+export function UsersSelector(props: UsersSelectorProps) {
   
   const {
     selectedUsers,
@@ -158,4 +158,4 @@ export const UsersSelector = (props: UsersSelectorProps) => {
       )}
     </div>
   );
-};
+}

@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { ColorResult } from 'react-color';
 import { MockupJukiProvider } from '../../../../mockup';
 import { InputColor } from '../../../../molecules';
-import { Input } from '../../../inputs/Input';
+import { Input } from '../../../Input/Input';
 import { T } from '../../../T/T';
 import type { BasicIconProps } from '../types';
 import { AddPhotoAlternateIcon } from './AddPhotoAlternateIcon';

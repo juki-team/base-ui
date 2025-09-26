@@ -3,12 +3,12 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
   DataViewer,
-  DateField,
   Field,
+  FieldDate,
+  FieldText,
   Popover,
   Select as SelectComponent,
   T,
-  TextField,
   TextHeadCell,
 } from '../../../';
 import { SelectOptionType } from '../../../atoms/Select/types';
@@ -57,7 +57,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       head: <TextHeadCell text="Name / Nickname" />,
       index: 'name',
       Field: ({ record: { nickname, givenName, familyName, imageUrl } }) => (
-        <TextField text={nickname + givenName + familyName + imageUrl} label={<T>name</T>} />
+        <FieldText text={nickname + givenName + familyName + imageUrl} label={<T>name</T>} />
       ),
       // sort: true,
       // filter: { type: 'text' },
@@ -70,7 +70,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       index: 'email',
       headClassName: 'left',
       minWidth: 200,
-      Field: ({ record: { email } }) => <TextField text={email} label={<T>email</T>} />,
+      Field: ({ record: { email } }) => <FieldText text={email} label={<T>email</T>} />,
       // sort: { compareFn: () => (rowA, rowB) => rowA.email.localeCompare(rowB.email) },
       // filter: { type: 'text', callbackFn: ({ text }) => (row) => row.email === text } as FilterTextOffline<UserTable>,
       // filter: { type: FILTER_TEXT_AUTO },
@@ -120,7 +120,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
     },
     {
       index: 'dateTest',
-      Field: ({ record: { dateTest } }) => <DateField date={dateTest} label="fecha" />,
+      Field: ({ record: { dateTest } }) => <FieldDate date={dateTest} label="fecha" />,
       // sort: {
       //   compareFn: () => (rowA, rowB) => (
       //     rowB.dateTest.getTime() - rowA.dateTest.getTime()
@@ -146,7 +146,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
     },
     {
       index: 'dateTestRange',
-      Field: ({ record: { dateTestRange } }) => <DateField date={dateTestRange} label="fecha" />,
+      Field: ({ record: { dateTestRange } }) => <FieldDate date={dateTestRange} label="fecha" />,
       // filter: {
       //   type: FILTER_DATE_RANGE_AUTO,
       //   pickerType: 'year-month-day-hours-minutes-seconds',
@@ -198,7 +198,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       head: <TextHeadCell text="Name / Nickname" />,
       index: 'name',
       Field: ({ record: { nickname } }) => (
-        <TextField text={nickname} label={<T>name</T>} />
+        <FieldText text={nickname} label={<T>name</T>} />
       ),
       sort: true,
       // filter: { type: 'text' },
@@ -209,7 +209,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       head: <TextHeadCell text="Name / Nickname" />,
       index: 'name-2',
       Field: ({ record: { givenName } }) => (
-        <TextField text={givenName} label="test" />
+        <FieldText text={givenName} label="test" />
       ),
       // sort: true,
       // filter: { type: 'text' },

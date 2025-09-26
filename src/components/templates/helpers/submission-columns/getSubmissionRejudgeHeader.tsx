@@ -1,6 +1,6 @@
 import { type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
-import { Field } from '../../../organisms/DataViewer/Field';
 import type { DataViewerHeadersType } from '../../../organisms/DataViewer/types';
+import { Field } from '../../../organisms/Field/Field';
 import { SubmissionRejudgeButton } from '../../submission/SubmissionRejudgeButton';
 import { SubmissionRetrieveButton } from '../../submission/SubmissionRetrieveButton';
 

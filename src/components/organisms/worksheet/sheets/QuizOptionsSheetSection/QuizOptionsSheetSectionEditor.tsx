@@ -1,10 +1,10 @@
-import { QuizOptionsSheetType, QuizScoringMode } from '@juki-team/commons';
+import { type QuizOptionsSheetType, QuizScoringMode } from '@juki-team/commons';
 import { v4 } from 'uuid';
 import { classNames } from '../../../../../helpers';
 import { Button, Input, InputCheckbox, InputRadio, InputToggle, T } from '../../../../atoms';
 import { AddIcon } from '../../../../atoms/server';
-import { MdMathEditor } from '../../../mdMath/MdMathEditor';
-import { SetContentType } from '../../types';
+import { MdMathEditor } from '../../../_layz_/MdMathEditor';
+import type { SetContentType } from '../../types';
 
 interface QuizOptionsSheetSectionEditorProps {
   content: QuizOptionsSheetType,

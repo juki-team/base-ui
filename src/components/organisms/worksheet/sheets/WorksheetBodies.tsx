@@ -14,7 +14,7 @@ import { classNames } from '../../../../helpers';
 import { Button, T } from '../../../atoms';
 import { DeleteIcon, SettingsIcon } from '../../../atoms/server';
 import { NotUndefined } from '../../../types';
-import { MdMathEditor } from '../../mdMath/MdMathEditor';
+import { MdMathEditor } from '../../_layz_/MdMathEditor';
 import type { WorksheetBodiesProps, WorksheetBodyProps } from '../types';
 import { EditSheetModal } from './EditSheetModal';
 import { WorksheetBody } from './WorksheetBody';

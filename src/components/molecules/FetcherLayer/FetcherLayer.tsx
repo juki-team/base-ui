@@ -1,11 +1,16 @@
-import { consoleError, ContentResponseType, ContentsResponseType, ErrorResponseType } from '@juki-team/commons';
+import {
+  consoleError,
+  type ContentResponseType,
+  type ContentsResponseType,
+  type ErrorResponseType,
+} from '@juki-team/commons';
 import { useEffect, useMemo, useRef } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { JukiSurprisedImage, LineLoader } from '../../atoms/server';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { JukiLoadingLayout } from '../layouts/JukiLoadingLayout';
-import { FetcherLayerProps } from './types';
+import type { FetcherLayerProps } from './types';
 
 const isContentResponseType = <T, >(data: any): data is ContentResponseType<T> => {
   return !!(data?.success && data?.content);
@@ -19,7 +24,7 @@ const isErrorResponseType = (data: any): data is ErrorResponseType => {
   return data?.success === false;
 };
 
-export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>(props: FetcherLayerProps<T, U>) => {
+export function FetcherLayer<T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>(props: FetcherLayerProps<T, U>) {
   
   const { url, options, errorView, loadingView, children, onError: _onError, triggerFetch } = props;
   
@@ -87,4 +92,4 @@ export const FetcherLayer = <T extends (ContentResponseType<U> | ContentsRespons
       <JukiSurprisedImage />
     </div>
   );
-};
+}

@@ -19,7 +19,7 @@ const hiddenStyle: CSSProperties = {
   pointerEvents: 'none',
 };
 
-export const Tabs = <T extends string, >(props: TabsProps<T>) => {
+export function Tabs<T extends string, >(props: TabsProps<T>) {
   
   const {
     tabs,
@@ -160,4 +160,4 @@ export const Tabs = <T extends string, >(props: TabsProps<T>) => {
       </div>
     </div>
   );
-};
+}

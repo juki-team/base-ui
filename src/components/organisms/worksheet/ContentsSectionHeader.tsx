@@ -6,7 +6,7 @@ import { ArrowBackIcon, ArrowForwardIcon, ViewHeadlineIcon } from '../../atoms/s
 import { TableOfContentsModal } from './sheets/TableOfContentsModal';
 import type { ContentsSectionHeaderProps } from './types';
 
-export const ContentsSectionHeader = (props: ContentsSectionHeaderProps) => {
+export function ContentsSectionHeader(props: ContentsSectionHeaderProps) {
   
   const { page, subPage, onPageChange, sheetsInPages } = props;
   
@@ -61,4 +61,4 @@ export const ContentsSectionHeader = (props: ContentsSectionHeaderProps) => {
       </div>
     </div>
   );
-};
+}

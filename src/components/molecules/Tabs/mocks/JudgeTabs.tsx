@@ -4,7 +4,7 @@ import { MockJkProblemTable } from '../../../organisms/DataViewer/JkProblemTable
 import { MockJkUserTable } from '../../../organisms/DataViewer/JkUserTableTest/MockJkUserTable';
 import { TabsType } from '../../../types';
 import { TabsInline } from '../../index';
-import { TabsInlineBody } from '../TabsInlineBody';
+import { TabsInlineBody } from '../../TabsInlineBody/TabsInlineBody';
 
 const outputTabs: TabsType = {
   ['problems']: {

@@ -1,5 +1,5 @@
 import { T } from '../../atoms';
-import { TextField, UserChip } from '../../organisms';
+import { FieldText, UserChip } from '../../organisms';
 import { ProblemOwnerFieldProps } from './types';
 
 export const ProblemOwnerField = ({
@@ -11,7 +11,7 @@ export const ProblemOwnerField = ({
                                       },
                                     },
                                   }: ProblemOwnerFieldProps) => (
-  <TextField
+  <FieldText
     className="jk-row"
     text={<UserChip nickname={nickname} imageUrl={imageUrl} companyKey={companyKey} />}
     label={<T className="tt-se">owner</T>}

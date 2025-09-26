@@ -1,9 +1,9 @@
-import { MouseEvent, useState } from 'react';
+import { type MouseEvent, useState } from 'react';
 import { classNames, copy } from '../../../helpers';
 import { CheckIcon, ContentCopyIcon } from '../server';
-import { CopyToClipboardProps } from './types';
+import type { CopyToClipboardProps } from './types';
 
-export const CopyToClipboard = ({ text, size = 'regular', tooltip, children, noStyling }: CopyToClipboardProps) => {
+export function CopyToClipboard({ text, size = 'regular', tooltip, children, noStyling }: CopyToClipboardProps) {
   
   const [ isOpen, setIsOpen ] = useState(false);
   
@@ -33,4 +33,4 @@ export const CopyToClipboard = ({ text, size = 'regular', tooltip, children, noS
       {children ?? (isOpen ? <CheckIcon size={size} /> : <ContentCopyIcon size={size} />)}
     </div>
   );
-};
+}

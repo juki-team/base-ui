@@ -1,15 +1,14 @@
 import { Status } from '@juki-team/commons';
-import { PropsWithChildren, useRef, useState } from 'react';
+import { type PropsWithChildren, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { Modal, T } from '../../atoms';
-
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { ExclamationIcon } from '../../server';
-import { SetLoaderStatusOnClickType } from '../../types';
+import type { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
 import type { TwoActionModalProps } from './types';
 
-export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) => {
+export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
   
   const { isOpen, secondary, primary, title, children, onClose, containerClassName, ...rest } = props;
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
@@ -57,4 +56,4 @@ export const TwoActionModal = (props: PropsWithChildren<TwoActionModalProps>) =>
       </div>
     </Modal>
   );
-};
+}

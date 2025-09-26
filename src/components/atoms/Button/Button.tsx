@@ -13,7 +13,7 @@ import type { ButtonBasicProps, OnClickButtonEventType } from '../../types';
 //   } : { scale: 0.9, transition: { duration: Duration.FAST } },
 // });
 
-const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => {
+function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
   
   const {
     submit = false,
@@ -88,7 +88,7 @@ const ButtonComponent = (props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) => 
       {hasChildren && children}
     </button>
   );
-};
+}
 
 export const Button = forwardRef(ButtonComponent) as (p: ButtonCmpProps & {
   ref?: Ref<HTMLButtonElement>

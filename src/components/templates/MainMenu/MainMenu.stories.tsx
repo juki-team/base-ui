@@ -7,7 +7,7 @@ import { AssignmentIcon, LeaderboardIcon } from '../../atoms/server';
 import { MockupJukiProvider } from '../../mockup';
 import { TwoContentLayout } from '../../molecules';
 import { MdMathEditor, MdMathViewer } from '../../organisms';
-import { SAMPLE_MD_CONTENT } from '../../organisms/mdMath/constants';
+import { SAMPLE_MD_CONTENT } from '../../organisms/MdMathViewer/constants';
 import {
   FilterListIcon,
   JukiCouchLogoHorImage,

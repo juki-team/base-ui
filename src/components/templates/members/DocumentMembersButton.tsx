@@ -12,7 +12,7 @@ import { Button, CopyToClipboard, Popover, T } from '../../atoms';
 import { ContentCopyIcon, EditIcon, InfoIIcon } from '../../atoms/server';
 
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { ButtonAction } from '../../molecules/FloatToolbar/ButtonAction';
+import { ButtonAction } from '../../molecules/ButtonAction/ButtonAction';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';
 import { DocumentMembersButtonProps } from './types';
 

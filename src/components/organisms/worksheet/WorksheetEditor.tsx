@@ -4,9 +4,9 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useStableState } from '../../hooks/useStableState';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { WorksheetBodies } from './sheets/WorksheetBodies';
-import { OnPageChange, WorksheetEditorProps } from './types';
+import type { OnPageChange, WorksheetEditorProps } from './types';
 
-export const WorksheetEditor = (props: WorksheetEditorProps) => {
+export function WorksheetEditor(props: WorksheetEditorProps) {
   
   const {
     worksheet: { content, quiz: { enable: quizEnable }, key: worksheetKey, user: { isManager } },
@@ -53,4 +53,4 @@ export const WorksheetEditor = (props: WorksheetEditorProps) => {
       />
     </div>
   );
-};
+}

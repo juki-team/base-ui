@@ -1,8 +1,8 @@
-import { JkmdSheetType } from '@juki-team/commons';
-import { Dispatch, useState } from 'react';
+import { type JkmdSheetType } from '@juki-team/commons';
+import { type Dispatch, useState } from 'react';
 import { Input, Modal, T } from '../../../../atoms';
-import { BasicModalProps } from '../../../../atoms/Modal/types';
-import { MdMathEditor } from '../../../mdMath/MdMathEditor';
+import type { BasicModalProps } from '../../../../atoms/Modal/types';
+import { MdMathEditor } from '../../../_layz_/MdMathEditor';
 
 interface JkmdSheetSectionProps extends BasicModalProps {
   sheet: JkmdSheetType,

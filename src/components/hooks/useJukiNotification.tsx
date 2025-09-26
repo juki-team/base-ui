@@ -7,9 +7,9 @@ import {
 import { Children, type ReactNode, useCallback, useContext } from 'react';
 import { NotificationType } from '../../enums';
 import { T } from '../atoms/T/T';
-import { NotificationContext } from '../organisms/Notifications/context';
-import type { NewNotificationType } from '../organisms/Notifications/types';
-import { NotificationAction } from '../organisms/Notifications/types';
+import { NotificationContext } from '../organisms/CardNotification/context';
+import type { NewNotificationType } from '../organisms/CardNotification/types';
+import { NotificationAction } from '../organisms/CardNotification/types';
 
 import type { SetStatusType } from '../types';
 

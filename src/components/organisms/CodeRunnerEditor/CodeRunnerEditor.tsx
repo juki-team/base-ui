@@ -1,13 +1,13 @@
 import {
   CODE_LANGUAGE,
-  CodeEditorTestCasesType,
-  CodeEditorTestCaseType,
+  type CodeEditorTestCasesType,
+  type   CodeEditorTestCaseType,
   CodeLanguage,
   isCodeRunStatusMessageWebSocketResponseEventDTO,
   ONE_SECOND,
   ProfileSetting,
   SubmissionRunStatus,
-  SubscribeCodeRunStatusWebSocketEventDTO,
+  type   SubscribeCodeRunStatusWebSocketEventDTO,
   WebSocketActionEvent,
 } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -21,13 +21,13 @@ import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon
 import { useCheckAndStartServices } from '../../hooks/useCheckAndStartServices';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { CodeEditor, SplitPane, TwoActionModal } from '../../molecules';
-import { CodeEditorPropertiesType } from '../../molecules/CodeEditor/types';
+import type { CodeEditorPropertiesType } from '../../molecules/_lazy_/CodeEditor/types';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
 import { TestCases } from './TestCases';
-import { CodeRunnerEditorProps } from './types';
+import type { CodeRunnerEditorProps } from './types';
 
-export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
+export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   
   const {
     readOnly,
@@ -481,4 +481,4 @@ export const CodeRunnerEditor = <T, >(props: CodeRunnerEditorProps<T>) => {
   }
   
   return body;
-};
+}

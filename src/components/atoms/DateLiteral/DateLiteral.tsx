@@ -1,9 +1,9 @@
 import { DAY_NAMES, MONTH_NAMES } from '@juki-team/commons';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { T } from '../T/T';
-import { DateLiteralProps } from './types';
+import type { DateLiteralProps } from './types';
 
-export const DateLiteral = (props: DateLiteralProps) => {
+export function DateLiteral(props: DateLiteralProps) {
   
   const {
     date,
@@ -48,4 +48,4 @@ export const DateLiteral = (props: DateLiteralProps) => {
       )}
     </div>
   );
-};
+}

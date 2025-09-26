@@ -23,7 +23,7 @@ import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { ButtonLoader } from '../../../molecules/ButtonLoader/ButtonLoader';
 import { FloatToolbar } from '../../../molecules/FloatToolbar/FloatToolbar';
-import { MdMathViewer } from '../../../organisms/mdMath/MdMathViewer';
+import { MdMathViewer } from '../../../organisms/MdMathViewer/MdMathViewer';
 import { DownloadIcon } from '../../../server';
 import {
   JukiProblemInfo,

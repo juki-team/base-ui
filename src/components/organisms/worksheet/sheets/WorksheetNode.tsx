@@ -13,7 +13,7 @@ import { Fragment } from 'react';
 // import 'reveal.js/dist/theme/white.css';
 import { classNames } from '../../../../helpers';
 import { DetectRequestAnimationFrame } from '../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
-import { MdMathViewer } from '../../mdMath/MdMathViewer';
+import { MdMathViewer } from '../../MdMathViewer/MdMathViewer';
 import { SetContentType, WorksheetNodeProps } from '../types';
 import { AddNewChild } from './AddNewChild';
 import { CodeEditorSheetSection } from './CodeEditorSheetSection';

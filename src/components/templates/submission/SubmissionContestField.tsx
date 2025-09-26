@@ -3,7 +3,7 @@ import { getJudgeOrigin } from '../../../helpers';
 import { jukiAppRoutes } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useJukiUI } from '../../hooks/useJukiUI';
-import { TextField } from '../../organisms';
+import { FieldText } from '../../organisms';
 import { OpenInNewIcon } from '../../server';
 import type { SubmissionContestFieldProps } from './types';
 
@@ -17,7 +17,7 @@ export const SubmissionContestField = (props: SubmissionContestFieldProps) => {
   const origin = contest ? getJudgeOrigin(contest.company.key, userCompanyKey) : '';
   
   return (
-    <TextField
+    <FieldText
       text={contest ? (
         <Link
           href={jukiAppRoutes.JUDGE(origin).contests.view({

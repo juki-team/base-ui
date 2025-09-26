@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { Button } from '../Button/Button';
-import { Input } from '../inputs/Input';
+import { Input } from '../Input/Input';
 import { Modal } from './Modal';
 import { ModalButtonLoaderEventType, ModalProps } from './types';
 

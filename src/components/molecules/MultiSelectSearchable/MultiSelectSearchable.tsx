@@ -8,7 +8,7 @@ import { useHandleState } from '../../hooks/useHandleState';
 import { CloseIcon, ExpandMoreIcon, SearchIcon } from '../../server';
 import type { MultiSelectSearchableProps } from './types';
 
-export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNode>(props: MultiSelectSearchableProps<T, U, V>) => {
+export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNode>(props: MultiSelectSearchableProps<T, U, V>) {
   
   const {
     className,
@@ -190,4 +190,4 @@ export const MultiSelectSearchable = <T, U extends ReactNode, V extends ReactNod
       </div>
     </Popover>
   );
-};
+}

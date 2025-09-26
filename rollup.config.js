@@ -144,7 +144,8 @@ export default [
           // }
           
           // all "node_modules" into vendor file
-          if (id.includes("node_modules")) {
+          if (id.includes("node_modules1234abcd")) {
+            
             if (id.includes("node_modules/@excalidraw")) {
               return "vendor-excalidraw";
             }
@@ -154,17 +155,11 @@ export default [
             if (id.includes("node_modules/@codemirror")) {
               return "vendor-codemirror";
             }
-            if (id.includes("node_modules/mermaid")) {
-              return "vendor-mermaid";
-            }
             if (id.includes("node_modules/highlight.js")) {
               return "vendor-highlight-js";
             }
             if (id.includes("node_modules/@viz-js")) {
               return "vendor-viz-js";
-            }
-            if (id.includes("node_modules/cytoscape")) {
-              return "vendor-cytoscape";
             }
             if (id.includes("node_modules/lodash")) { // used by graphlib-dot and react-color
               return "vendor-lodash";
@@ -190,15 +185,27 @@ export default [
             if (id.includes("node_modules/@milkdown")) {
               return "vendor-milkdown";
             }
+            if (id.includes("node_modules/framer-motion")) { // used by handsontable
+              return "vendor-framer-motion";
+            }
+            if (id.includes("node_modules/prosermirror-view")) {
+              return "vendor-milkdown";
+            }
+            
+            
+            if (id.includes("node_modules/mermaid")) {
+              return "vendor-mermaid";
+            }
+            if (id.includes("node_modules/cytoscape")) {
+              return "vendor-cytoscape";
+            }
             if (id.includes("node_modules/langium")) { // used by mermaid
               return "vendor-langium";
             }
             if (id.includes("node_modules/chevrotain")) { // used by handsontable
               return "vendor-chevrotain";
             }
-            if (id.includes("node_modules/framer-motion")) { // used by handsontable
-              return "vendor-framer-motion";
-            }
+            
             return "vendor";
           }
         },

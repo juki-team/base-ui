@@ -1,13 +1,13 @@
 import { useReducer } from 'react';
 import { useJukiUI } from '../../components/hooks/useJukiUI';
-import { CardNotification } from '../../components/organisms/Notifications/CardNotification';
-import { NotificationContext } from '../../components/organisms/Notifications/context';
+import { CardNotification } from '../../components/organisms/CardNotification/CardNotification';
+import { NotificationContext } from '../../components/organisms/CardNotification/context';
 import {
   NotificationAction,
   NotificationActionsTypes,
   NotificationProps,
   NotificationProviderProps,
-} from '../../components/organisms/Notifications/types';
+} from '../../components/organisms/CardNotification/types';
 import { NotificationType } from '../../enums';
 import { useSoundStore } from '../../stores/sound/useSoundStore';
 

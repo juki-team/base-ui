@@ -2,7 +2,7 @@ import { CodeLanguage } from '@juki-team/commons';
 import microDiff from 'microdiff';
 import { useEffect, useRef } from 'react';
 import { T } from '../atoms/T/T';
-import { CodeEditor } from '../molecules/CodeEditor/CodeEditor';
+import { CodeEditor } from '../molecules/_lazy_/CodeEditor';
 import { useJukiNotification } from './useJukiNotification';
 
 export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {

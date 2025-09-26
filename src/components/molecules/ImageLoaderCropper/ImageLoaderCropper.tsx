@@ -11,7 +11,7 @@ import { Input, T } from '../../atoms';
 import { useDebounceEffect } from '../../hooks/useDebounceEffect';
 import { useHandleState } from '../../hooks/useHandleState';
 import { canvasPreview } from './canvasPreview';
-import { ImageLoaderCropperProps } from './types';
+import type { ImageLoaderCropperProps } from './types';
 
 // This is to demonstate how to make and center a % aspect crop
 // which is a bit trickier so we use some helper functions.
@@ -31,7 +31,7 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
   );
 }
 
-export const ImageLoaderCropper = (props: ImageLoaderCropperProps) => {
+export function ImageLoaderCropper(props: ImageLoaderCropperProps) {
   
   const {
     defaultCrop,
@@ -193,4 +193,4 @@ export const ImageLoaderCropper = (props: ImageLoaderCropperProps) => {
       </div>
     </div>
   );
-};
+}

@@ -21,7 +21,7 @@ import {
   getSubmissionVerdictHeader,
   type LanguagesByJudge,
 } from '../../../templates';
-import { PagedDataViewer } from '../PagedDataViewer';
+import { PagedDataViewer } from '../../PagedDataViewer/PagedDataViewer';
 import type { DataViewerHeadersType, DataViewerProps } from '../types';
 
 export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data'>) => {

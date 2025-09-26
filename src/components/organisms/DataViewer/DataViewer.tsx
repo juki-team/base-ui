@@ -76,7 +76,7 @@ const isSomethingFiltered = (newSearchFilter: RequestFilterType) => (
   !!Object.values(newSearchFilter).filter(search => !!search && (Array.isArray(search) ? search.length : true)).length
 );
 
-export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewerProps<T>) => {
+export function DataViewer<T extends { [key: string]: any }, >(props: DataViewerProps<T>) {
   
   const {
     cards,
@@ -720,4 +720,4 @@ export const DataViewer = <T extends { [key: string]: any }, >(props: DataViewer
       {/*)}*/}
     </div>
   );
-};
+}

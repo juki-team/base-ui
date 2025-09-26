@@ -1,13 +1,12 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { TriggerAction } from '../../../enums';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
-
-import { ReactNodeOrFunctionType } from '../../types';
-import { Popover } from '../Popover/Popover';
-import { PlacementType } from '../Popover/types';
+import type { ReactNodeOrFunctionType } from '../../types';
+import { Popover } from '../_lazy_/Popover';
+import type { PlacementType } from '../_lazy_/Popover/types';
 import { ArrowDropDownIcon, ArrowDropUpIcon, ArrowLeftIcon, ArrowRightIcon } from '../server';
-import { SelectOptionType, SelectProps } from './types';
+import type { SelectOptionType, SelectProps } from './types';
 
 const expandIcons: { [key in PlacementType]: ReactNode } = {
   'top-start': <ArrowDropUpIcon className="input-icon" />,
@@ -26,7 +25,7 @@ const expandIcons: { [key in PlacementType]: ReactNode } = {
   // centerScreen: <ArrowDropUpIcon className="input-icon" />,
 };
 
-export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: SelectProps<T, U, V>) => {
+export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType>(props: SelectProps<T, U, V>) {
   
   const {
     className,
@@ -209,4 +208,4 @@ export const Select = <T, U extends ReactNode, V extends ReactNodeOrFunctionType
       </div>
     </Popover>
   );
-};
+}

@@ -1,8 +1,8 @@
-import { forwardRef, ReactElement, Ref, useEffect, useState } from 'react';
+import { forwardRef, type Ref, useEffect, useState } from 'react';
 import { classNames } from '../../../helpers';
-import { DivProps } from './types';
+import type { DivProps } from './types';
 
-const DivComponent = (_props: DivProps, ref: Ref<HTMLDivElement>) => {
+function DivComponent(_props: DivProps, ref: Ref<HTMLDivElement>) {
   
   const {
     onClick,
@@ -41,8 +41,6 @@ const DivComponent = (_props: DivProps, ref: Ref<HTMLDivElement>) => {
       {children}
     </div>
   );
-};
+}
 
-export const Div = forwardRef(DivComponent) as (p: DivProps & {
-  ref?: Ref<HTMLDivElement>
-}) => ReactElement;
+export const Div = forwardRef(DivComponent);

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { SoundProviderProps } from '../../components/organisms/Notifications/types';
+import { SoundProviderProps } from '../../components/organisms/CardNotification/types';
 import { Sound } from '../../enums';
 import { useSoundStore } from '../../stores/sound/useSoundStore';
 

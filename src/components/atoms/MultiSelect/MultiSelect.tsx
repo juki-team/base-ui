@@ -1,14 +1,14 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { TriggerAction } from '../../../enums';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
-import { InputCheckbox } from '../inputs/InputCheckbox';
-import { Popover } from '../Popover/Popover';
-import { SelectOptionType } from '../Select/types';
+import { Popover } from '../_lazy_/Popover';
+import { InputCheckbox } from '../InputCheckbox/InputCheckbox';
+import type { SelectOptionType } from '../Select/types';
 import { CloseIcon, ExpandMoreIcon } from '../server';
-import { MultiSelectProps } from './types';
+import type { MultiSelectProps } from './types';
 
-export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: MultiSelectProps<T, U, V>) => {
+export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: MultiSelectProps<T, U, V>) {
   
   const {
     className,
@@ -156,4 +156,4 @@ export const MultiSelect = <T, U extends ReactNode, V extends ReactNode>(props: 
       </div>
     </Popover>
   );
-};
+}

@@ -4,8 +4,7 @@ import microDiff from 'microdiff';
 import { cloneElement, type ReactElement, type ReactNode, useRef, useState } from 'react';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { T } from '../../atoms';
-import { TwoActionModal } from '../../molecules';
-import { CodeViewer } from '../../molecules/CodeViewer/CodeViewer';
+import { CodeViewer, TwoActionModal } from '../../molecules';
 import type { CheckUnsavedChangesProps } from './types';
 
 function objectDiffAsBash(objA: any, objB: any): string {
@@ -56,7 +55,7 @@ function objectDiffAsBash(objA: any, objB: any): string {
   return output;
 }
 
-export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChangesProps<T>) => {
+export function CheckUnsavedChanges<T extends object, >(props: CheckUnsavedChangesProps<T>) {
   
   const { children, onClickContinue, value } = props;
   
@@ -99,4 +98,4 @@ export const CheckUnsavedChanges = <T extends object, >(props: CheckUnsavedChang
       {cloneElement(children, { onClick: handleOnClick } as ReactElement<{}>['props'])}
     </>
   );
-};
+}

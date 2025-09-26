@@ -1,10 +1,9 @@
 import { classNames } from '../../../helpers';
-
 import { useJukiUI } from '../../hooks/useJukiUI';
-import { UserChipProps } from './types';
-import { UserNicknameLink } from './UserNicknameLink';
+import { UserNicknameLink } from '../UserNicknameLink/UserNicknameLink';
+import type { UserChipProps } from './types';
 
-export const UserChip = (props: UserChipProps) => {
+export function UserChip(props: UserChipProps) {
   
   const { imageUrl, email, familyName, nickname, givenName, className, companyKey, withoutLink } = props;
   
@@ -35,4 +34,4 @@ export const UserChip = (props: UserChipProps) => {
       </div>
     </div>
   );
-};
+}

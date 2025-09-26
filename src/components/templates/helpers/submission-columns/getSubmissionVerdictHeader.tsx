@@ -1,6 +1,6 @@
 import { PROBLEM_VERDICT, type  SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import { T } from '../../../atoms';
-import { Field, TextField } from '../../../organisms';
+import { Field, FieldText } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { SubmissionInfo } from '../../submission/commons/SubmissionInfo';
 import { SubmissionListenerVerdict } from '../../submission/commons/SubmissionListenerVerdict';
@@ -11,7 +11,7 @@ export const getSubmissionVerdictHeader = (): DataViewerHeadersType<SubmissionSu
   Field: ({ record: { submitId, points, status, verdict, user: { canViewSourceCode }, processedCases } }) => (
     <Field>
       <div className="jk-col nowrap extend" style={{ padding: '4px 0', boxSizing: 'border-box' }}>
-        <TextField
+        <FieldText
           text={
             <SubmissionInfo submitId={submitId} canViewSourceCode={canViewSourceCode}>
               <SubmissionListenerVerdict

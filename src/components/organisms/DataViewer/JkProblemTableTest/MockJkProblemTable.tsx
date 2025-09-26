@@ -12,7 +12,7 @@ import {
   getProblemTypeHeader,
   T,
 } from '../../../';
-import { ButtonAction } from '../../../molecules/FloatToolbar/ButtonAction';
+import { ButtonAction } from '../../../molecules/ButtonAction/ButtonAction';
 import { RefreshIcon } from '../../../server';
 import type { DataViewerHeadersType, DataViewerProps } from '../types';
 import problems from './data.json';

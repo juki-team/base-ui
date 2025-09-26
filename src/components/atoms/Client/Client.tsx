@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { SpinIcon } from '../server';
-import { ClientProps } from './types';
+import type { ClientProps } from './types';
 
-export const Client = ({ children }: ClientProps) => {
+export function Client({ children }: ClientProps) {
   const [ rendered, setRendered ] = useState(false);
   
   useEffect(() => {

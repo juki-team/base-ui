@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { classNames } from '../../../../../helpers';
 import { Button } from '../../../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon } from '../../../../atoms/server';
-import { GraphvizViewer } from '../../../Graphviz/GraphvizViewer';
+import { GraphvizViewer } from '../../../_layz_/GraphvizViewer';
 
 interface GraphSheetSectionProps {
   content: GraphSheetType,

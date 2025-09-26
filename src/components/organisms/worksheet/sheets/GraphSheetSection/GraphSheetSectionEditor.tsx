@@ -4,7 +4,7 @@ import { DEFAULT_GRAPH } from '../../../../../constants';
 import { classNames } from '../../../../../helpers';
 import { Button, Input, T } from '../../../../atoms';
 import { AddIcon, ArrowBackIcon, ArrowForwardIcon, DeleteIcon } from '../../../../atoms/server';
-import { GraphvizEditor } from '../../../Graphviz/GraphvizEditor';
+import { GraphvizEditor } from '../../../GraphvizEditor/GraphvizEditor';
 import { SetContentType } from '../../types';
 
 interface GraphSheetSectionProps {

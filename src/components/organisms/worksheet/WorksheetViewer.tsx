@@ -1,8 +1,8 @@
 import {
-  ContentResponseType,
+  type ContentResponseType,
   getUserKey,
   getWorksheetsInPages,
-  WorksheetUserSubmissionsResponseDTO,
+  type WorksheetUserSubmissionsResponseDTO,
 } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { classNames } from '../../../helpers';
@@ -10,17 +10,16 @@ import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
-
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { useStableState } from '../../hooks/useStableState';
-import { UserResultsType } from '../../types';
+import type { UserResultsType } from '../../types';
 import { ContentsSectionHeader } from './ContentsSectionHeader';
 import { TableOfContents } from './sheets/TableOfContents';
 import { WorksheetBodies } from './sheets/WorksheetBodies';
-import { OnPageChange, WorksheetViewerProps } from './types';
+import type { OnPageChange, WorksheetViewerProps } from './types';
 
-export const WorksheetViewer = (props: WorksheetViewerProps) => {
+export function WorksheetViewer(props: WorksheetViewerProps) {
   
   const {
     worksheet: { content, quiz: { enable: quizEnable }, key: worksheetKey, user: { isManager } },
@@ -116,4 +115,4 @@ export const WorksheetViewer = (props: WorksheetViewerProps) => {
       />
     </div>
   );
-};
+}

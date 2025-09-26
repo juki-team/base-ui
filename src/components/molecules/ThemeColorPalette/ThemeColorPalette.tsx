@@ -1,4 +1,4 @@
-export const ThemeColorPalette = () => {
+export function ThemeColorPalette() {
   return (
     <div className="jk-row gap jk-pg">
       {[ 'light', 'dark' ].map((theme) => (
@@ -107,4 +107,4 @@ export const ThemeColorPalette = () => {
       ))}
     </div>
   );
-};
+}

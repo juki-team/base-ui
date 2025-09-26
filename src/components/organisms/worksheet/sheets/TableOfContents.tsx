@@ -1,8 +1,8 @@
 import type { WorksheetsInPages } from '@juki-team/commons';
 import { QueryParamKey } from '../../../../enums';
 import { classNames } from '../../../../helpers';
-import { Collapse } from '../../../atoms/Collapse/Collapse';
-import { MdMath } from '../../mdMath/viewer/MdMath';
+import { Collapse } from '../../../atoms';
+import { MdMath } from '../../_layz_/MdMath';
 import type { OnPageChange } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 

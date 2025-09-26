@@ -2,17 +2,19 @@ import { type ComponentPropsWithRef, type CSSProperties, forwardRef, type ReactE
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import { classNames } from '../../../helpers';
 
-const TextAreaComponent = ({
-                             value,
-                             onChange,
-                             style,
-                             className,
-                             register,
-                             onBlur,
-                             disabled,
-                             rows,
-                             ...rest
-                           }: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement>) => {
+function TextAreaComponent(props: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement>) {
+  
+  const {
+    value,
+    onChange,
+    style,
+    className,
+    register,
+    onBlur,
+    disabled,
+    rows,
+    ...rest
+  } = props;
   
   const { onChange: registerOnChange, onBlur: registerOnBlur, ref: registerRef, ...restRegister } = register || {};
   

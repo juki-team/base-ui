@@ -1,10 +1,10 @@
-import { QuizOptionsSheetType } from '@juki-team/commons';
-import { Dispatch, useState } from 'react';
+import { type QuizOptionsSheetType } from '@juki-team/commons';
+import { type Dispatch, useState } from 'react';
 import { v4 } from 'uuid';
 import { Input, InputCheckbox, InputRadio, Modal, T } from '../../../../atoms';
-import { BasicModalProps } from '../../../../atoms/Modal/types';
+import type { BasicModalProps } from '../../../../atoms/Modal/types';
 import { AddIcon } from '../../../../atoms/server';
-import { MdMathEditor } from '../../../mdMath/MdMathEditor';
+import { MdMathEditor } from '../../../_layz_/MdMathEditor';
 
 interface RunnerSheetSectionProps extends BasicModalProps {
   sheet: QuizOptionsSheetType,

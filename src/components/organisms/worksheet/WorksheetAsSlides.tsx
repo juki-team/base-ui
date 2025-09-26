@@ -1,21 +1,20 @@
 import {
-  ContentResponseType,
+  type ContentResponseType,
   getUserKey,
   getWorksheetsInPages,
-  WorksheetUserSubmissionsResponseDTO,
+  type WorksheetUserSubmissionsResponseDTO,
 } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { DetectRequestAnimationFrame } from '../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
-
+import { DetectRequestAnimationFrame } from '../../atoms';
 import { useFetcher } from '../../hooks/useFetcher';
-import { UserResultsType } from '../../types';
-import { MdMath } from '../mdMath/viewer/MdMath';
+import type { UserResultsType } from '../../types';
+import { MdMath } from '../_layz_/MdMath';
 import { WorksheetNode } from './sheets/WorksheetNode';
 import type { WorksheetAsSlidesProps } from './types';
 
-export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
+export function WorksheetAsSlides(props: WorksheetAsSlidesProps) {
   
   const {
     worksheet: { content, quiz: { enable: quizEnable }, key: worksheetKey, slides },
@@ -87,4 +86,4 @@ export const WorksheetAsSlides = (props: WorksheetAsSlidesProps) => {
       )),
     ]
   )).flat(2);
-};
+}

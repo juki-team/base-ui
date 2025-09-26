@@ -1,7 +1,7 @@
 import { InputCheckbox } from '../../atoms';
-import { CheckboxListProps } from './types';
+import type { CheckboxListProps } from './types';
 
-export const CheckboxList = <T, >({ selectedOptions, options, onSelectOptions }: CheckboxListProps<T>) => {
+export function CheckboxList<T, >({ selectedOptions, options, onSelectOptions }: CheckboxListProps<T>) {
   return (
     <div className="jk-checkbox-list jk-col stretch">
       {options.map(({ value, label }, index) => (

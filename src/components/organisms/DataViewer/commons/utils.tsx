@@ -1,5 +1,6 @@
 import { renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { DatePickerDateFunType } from '../../../molecules/types';
+import { TextHeadCell } from '../../TextHeadCell/TextHeadCell';
 import {
   FILTER_DATE,
   FILTER_DATE_AUTO,
@@ -10,7 +11,6 @@ import {
   FILTER_TEXT,
   FILTER_TEXT_AUTO,
 } from '../constants';
-import { TextHeadCell } from '../TextHeadCell';
 import {
   DataViewerHeaderSortOfflineType,
   DataViewerHeaderSortOnlineType,

@@ -1,4 +1,4 @@
-import { Field } from '../../organisms/DataViewer/Field';
+import { Field } from '../../organisms/Field/Field';
 import { SubmissionInfo } from './commons/SubmissionInfo';
 import type { SubmissionLanguageFieldProps } from './types';
 

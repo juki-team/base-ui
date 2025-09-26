@@ -3,10 +3,10 @@ import { TriggerAction } from '../../../enums';
 import { Popover } from '../../atoms';
 import { useWidthResizer } from '../../hooks/useWidthResizer';
 import { NavigateNextIcon } from '../../server';
-import { HomeLink } from '../links/HomeLink';
-import { BreadcrumbsProps } from './types';
+import { HomeLink } from '../HomeLink/HomeLink';
+import type { BreadcrumbsProps } from './types';
 
-export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }: BreadcrumbsProps) => {
+export function Breadcrumbs({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }: BreadcrumbsProps) {
   
   const breadcrumbs = useMemo(() => {
     const result = [ ...initialBreadcrumbs ];
@@ -78,4 +78,4 @@ export const Breadcrumbs = ({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
       )))}
     </div>
   );
-};
+}

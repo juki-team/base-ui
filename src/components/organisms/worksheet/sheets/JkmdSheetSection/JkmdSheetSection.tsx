@@ -14,7 +14,7 @@ import { jukiApiManager } from '../../../../../settings';
 import { InputCheckbox, T } from '../../../../atoms';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { ButtonLoader, FloatToolbar } from '../../../../molecules';
-import { MdMathViewer } from '../../../mdMath/MdMathViewer';
+import { MdMathViewer } from '../../../MdMathViewer/MdMathViewer';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';

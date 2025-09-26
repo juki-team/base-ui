@@ -9,5 +9,6 @@ export * from './render';
 export * from './router';
 export * from './store';
 export * from './text';
+export * from './time';
 export * from './utils';
 export * from './worksheet';

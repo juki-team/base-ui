@@ -2,14 +2,13 @@ import { Status } from '@juki-team/commons';
 import { AnimatePresence, motion } from 'motion/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../../helpers';
-
-import { SetLoaderStatusOnClickType } from '../../types';
-import { useSetLoaderStatus } from '../hooks';
+import { useSetLoaderStatus } from '../../hooks/useSetLoaderStatus';
+import type { SetLoaderStatusOnClickType } from '../../types';
 import { Portal } from '../Portal/Portal';
 import { CloseIcon, SpinIcon } from '../server';
 import type { ModalButtonLoaderEventType, ModalProps } from './types';
 
-export const Modal = <T extends ModalButtonLoaderEventType, >(props: ModalProps<T>) => {
+export function Modal<T extends ModalButtonLoaderEventType, >(props: ModalProps<T>) {
   
   const {
     onClose,
@@ -88,4 +87,4 @@ export const Modal = <T extends ModalButtonLoaderEventType, >(props: ModalProps<
       </AnimatePresence>
     </Portal>
   );
-};
+}

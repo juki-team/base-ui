@@ -13,7 +13,7 @@ import {
 } from '../../server';
 import type { SplitPaneProps } from './types';
 
-export const SplitPane = memo((props: SplitPaneProps) => {
+function SplitPaneComponent(props: SplitPaneProps) {
   
   const {
     children,
@@ -249,4 +249,6 @@ export const SplitPane = memo((props: SplitPaneProps) => {
       </div>
     </div>
   );
-});
+}
+
+export const SplitPane = memo(SplitPaneComponent);

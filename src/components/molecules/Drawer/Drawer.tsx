@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { TriggerAction } from '../../../enums';
 import { isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { DrawerView } from './DrawerView';
-import { DrawerProps } from './types';
+import { DrawerView } from '../_lazy_/DrawerView';
+import type { DrawerProps } from './types';
 
-export const Drawer = (props: DrawerProps) => {
+export function Drawer(props: DrawerProps) {
   
   const {
     content,
@@ -78,4 +78,4 @@ export const Drawer = (props: DrawerProps) => {
         renderChildrenWithProps(children, childProps(children))}
     </>
   );
-};
+}

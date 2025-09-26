@@ -19,16 +19,18 @@ import { CodeRunnerEditor } from '../CodeRunnerEditor/CodeRunnerEditor';
 import type { CodeRunnerEditorPropertiesType } from '../CodeRunnerEditor/types';
 import type { UserCodeEditorProps } from './types';
 
-const getStoreRecovered = (storeKey: string | undefined) => {
+function getStoreRecovered(storeKey: string | undefined) {
   let storeRecovered = {};
-  const localStorageData = storeKey ? (localStorage.getItem(storeKey) || '{}') : '{}';
-  if (isStringJson(localStorageData)) {
-    storeRecovered = JSON.parse(localStorageData);
+  if (typeof localStorage !== 'undefined') {
+    const localStorageData = storeKey ? (localStorage.getItem(storeKey) || '{}') : '{}';
+    if (isStringJson(localStorageData)) {
+      storeRecovered = JSON.parse(localStorageData);
+    }
   }
   return storeRecovered;
-};
+}
 
-const useSaveStorage = <T extends Object, >(storeKey: string | undefined, defaultValue: T): [ T, Dispatch<SetStateAction<T>> ] => {
+function useSaveStorage<T extends Object, >(storeKey: string | undefined, defaultValue: T): [ T, Dispatch<SetStateAction<T>> ] {
   
   const storeRecovered = getStoreRecovered(storeKey);
   const [ value, setValue ] = useState<T>({ ...defaultValue, ...storeRecovered });
@@ -53,9 +55,9 @@ const useSaveStorage = <T extends Object, >(storeKey: string | undefined, defaul
   }, [ storeKey, value ]);
   
   return [ value, setValue ];
-};
+}
 
-const useSaveChunkStorage = <T extends Object, >(storeKey: string, initialValue: StorageType<T>, merge: (a: T, b: T | undefined) => T, formatStoreRecovered: (recovered: any) => StorageType<T>): [ StorageType<T>, Dispatch<SetStateAction<StorageType<T>>> ] => {
+function useSaveChunkStorage<T extends Object, >(storeKey: string, initialValue: StorageType<T>, merge: (a: T, b: T | undefined) => T, formatStoreRecovered: (recovered: any) => StorageType<T>): [ StorageType<T>, Dispatch<SetStateAction<StorageType<T>>> ] {
   
   // const initialValueString = JSON.stringify(initialValue);
   const mergeRef = useStableRef(merge);
@@ -93,7 +95,7 @@ const useSaveChunkStorage = <T extends Object, >(storeKey: string, initialValue:
   }, [ storeKey, value ]);
   
   return [ value, setValue ];
-};
+}
 
 type StorageType<T extends Object> = {
   [key: string]: T,
@@ -141,7 +143,7 @@ const getNewFileName = (prefix: string, suffix: string, exist: (name: string) =>
   return newFile;
 };
 
-export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
+export function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   
   const {
     className,
@@ -447,4 +449,4 @@ export const UserCodeEditor = <T, >(props: UserCodeEditorProps<T>) => {
       onlyCodeEditor={onlyCodeEditor}
     />
   );
-};
+}

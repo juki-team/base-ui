@@ -1,18 +1,18 @@
 import {
-  CodeEditorSheetType,
-  GraphSheetType,
-  JkmdSheetType,
-  ListSheetType,
-  QuizOptionsSheetType,
-  QuizProblemSheetType,
-  QuizTextSheetType,
+  type CodeEditorSheetType,
+  type   GraphSheetType,
+  type   JkmdSheetType,
+  type   ListSheetType,
+  type   QuizOptionsSheetType,
+  type  QuizProblemSheetType,
+  type  QuizTextSheetType,
 } from '@juki-team/commons';
-import { Children, Dispatch } from 'react';
+import { Children, type  Dispatch } from 'react';
 import { EMPTY_LIST_SHEET } from '../../../../../constants';
 import { Button, Collapse, T } from '../../../../atoms';
 import { UpIcon } from '../../../../atoms/server';
-import { MdMathEditor } from '../../../mdMath/MdMathEditor';
-import { MdMathViewer } from '../../../mdMath/MdMathViewer';
+import { MdMathEditor } from '../../../_layz_/MdMathEditor';
+import { MdMathViewer } from '../../../MdMathViewer/MdMathViewer';
 import { AddNewChild } from '../AddNewChild';
 import { UpRemoveDownButtons } from '../UpRemoveDownButtons';
 

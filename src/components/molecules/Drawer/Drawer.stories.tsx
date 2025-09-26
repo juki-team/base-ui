@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { Button } from '../../atoms';
 import { MockupToggleThemeButton } from '../../mockup';
 import { MdMathViewer } from '../../organisms';
-import { SAMPLE_MD_CONTENT } from '../../organisms/mdMath/constants';
+import { SAMPLE_MD_CONTENT } from '../../organisms/MdMathViewer/constants';
 import { Drawer as DrawerComponent } from './Drawer';
 
 const meta: Meta<typeof DrawerComponent> = {

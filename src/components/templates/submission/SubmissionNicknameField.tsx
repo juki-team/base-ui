@@ -1,8 +1,8 @@
 import { useUserStore } from '../../../stores/user/useUserStore';
 
 import { useJukiUI } from '../../hooks/useJukiUI';
-import { TextField } from '../../organisms/DataViewer/TextField';
-import { UserNicknameLink } from '../../organisms/UserChip/UserNicknameLink';
+import { FieldText } from '../../organisms/FieldText/FieldText';
+import { UserNicknameLink } from '../../organisms/UserNicknameLink/UserNicknameLink';
 import type { SubmissionNicknameFieldProps } from './types';
 
 export const SubmissionNicknameField = ({
@@ -19,7 +19,7 @@ export const SubmissionNicknameField = ({
   const key = useUserStore(state => state.company.key);
   
   return (
-    <TextField
+    <FieldText
       className="gap"
       text={
         <>

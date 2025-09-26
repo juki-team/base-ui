@@ -19,7 +19,7 @@ import { ButtonLoader, MultiSelectSearchable } from '../../molecules';
 import { DownloadIcon, RefreshIcon, SpinIcon } from '../../server';
 import type { JudgeDataType, ProblemSelectorProps } from './types';
 
-export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: ProblemSelectorProps) => {
+export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: ProblemSelectorProps) {
   
   const [ judge, setJudge ] = useState<JudgeDataResponseDTO | null>(null);
   const [ key, setKey ] = useState('');
@@ -219,4 +219,4 @@ export const ProblemSelector = ({ onSelect, extend = false, companyKey = '' }: P
       </div>
     </div>
   );
-};
+}

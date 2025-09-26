@@ -6,7 +6,7 @@ import { ModalButtonLoaderEventType } from '../../atoms/Modal/types';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { SplitModalProps } from './types';
 
-export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: PropsWithChildren<SplitModalProps<T>>) => {
+export function SplitModal<T extends ModalButtonLoaderEventType, >(props: PropsWithChildren<SplitModalProps<T>>) {
   
   const {
     children,
@@ -44,4 +44,4 @@ export const SplitModal = <T extends ModalButtonLoaderEventType, >(props: PropsW
       </div>
     </Modal>
   );
-};
+}

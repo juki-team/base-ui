@@ -5,15 +5,14 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useHandleState } from '../../hooks/useHandleState';
 import { useJukiUI } from '../../hooks/useJukiUI';
-
-import { NotUndefined } from '../../types';
+import type { NotUndefined } from '../../types';
+import { TabsInline } from '../_lazy_/TabsInline';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
-import { TabsInline } from '../Tabs/TabsInline';
-import { TabsInlineBody } from '../Tabs/TabsInlineBody';
+import { TabsInlineBody } from '../TabsInlineBody/TabsInlineBody';
 import { TwoContentSection } from '../TwoContentSection/TwoContentSection';
 import type { TwoContentCardsLayoutProps } from './types';
 
-export const TwoContentCardsLayout = <T, >(props: TwoContentCardsLayoutProps<T>) => {
+export function TwoContentCardsLayout<T, >(props: TwoContentCardsLayoutProps<T>) {
   
   const {
     breadcrumbs: initialBreadcrumbs,
@@ -99,4 +98,4 @@ export const TwoContentCardsLayout = <T, >(props: TwoContentCardsLayoutProps<T>)
       </div>
     </TwoContentSection>
   );
-};
+}

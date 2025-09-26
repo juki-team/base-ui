@@ -3,7 +3,7 @@ import { jukiAppRoutes } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 
 import { useJukiUI } from '../../hooks/useJukiUI';
-import { TextField } from '../../organisms/DataViewer/TextField';
+import { FieldText } from '../../organisms/FieldText/FieldText';
 import { OpenInNewIcon } from '../../server';
 import type { SubmissionProblemFieldProps } from './types';
 
@@ -22,7 +22,7 @@ export const SubmissionProblemField = (props: SubmissionProblemFieldProps) => {
   const origin = getJudgeOrigin(problemCompanyKey, userCompanyKey);
   
   return (
-    <TextField
+    <FieldText
       text={
         <Link
           href={jukiAppRoutes.JUDGE(origin).problems.view({ key: problemKey })}
