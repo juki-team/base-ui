@@ -10,7 +10,6 @@ export { ProblemInfo } from './ProblemView/ProblemInfo';
 export { ProblemView } from './ProblemView/ProblemView';
 export { ResetPasswordModal } from './ResetPasswordModal/ResetPasswordModal';
 export { UserMyActiveSessions } from './UserActiveSessions/UserMyActiveSessions';
-export { UserPreviewModal } from './UserPreviewModal/UserPreviewModal';
 export { UserProfile } from './UserProfile/UserProfile';
 export { UserProfileDataContent } from './UserProfile/UserProfileDataContent';
 export { UserProfileSettings } from './UserProfileSettings/UserProfileSettings';

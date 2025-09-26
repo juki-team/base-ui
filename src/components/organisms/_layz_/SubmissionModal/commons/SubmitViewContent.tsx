@@ -17,13 +17,12 @@ import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { Button, Collapse, DateLiteral, T } from '../../../../atoms';
 import { useFetcher } from '../../../../hooks/useFetcher';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
-import { CodeViewer, Timer } from '../../../../molecules';
+import { CodeViewer, SubmissionRejudgeButton, Timer } from '../../../../molecules';
 import { OpenInNewIcon, UpIcon } from '../../../../server';
 import { UserChip } from '../../../UserChip/UserChip';
 import { SubmissionGroupInfo } from './SubmissionGroupInfo';
 import { SubmissionListenerVerdict } from './SubmissionListenerVerdict';
 import { SubmissionMemory } from './SubmissionMemory';
-import { SubmissionRejudgeButton } from './SubmissionRejudgeButton';
 import { SubmissionTime } from './SubmissionTime';
 
 const DisplayGridData = ({ data }: { data: { title: ReactNode, content: ReactNode }[] }) => {

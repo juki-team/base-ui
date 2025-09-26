@@ -1,9 +1,9 @@
-import { QueryParamKey } from '../../../enums';
-import { jukiAppRoutes } from '../../../settings';
-import { useRouterStore } from '../../../stores/router/useRouterStore';
+import { QueryParamKey } from '../../../../enums';
+import { jukiAppRoutes } from '../../../../settings';
+import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { UserPreviewContentModal } from './UserPreviewContentModal/UserPreviewContentModal';
 
-export function UserPreviewModal() {
+export default function UserPreviewModal() {
   
   const searchParams = useRouterStore(state => state.searchParams);
   const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);

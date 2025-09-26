@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Button } from '../../atoms';
-import { useCheckAndStartServices } from '../../hooks/useCheckAndStartServices';
-import { MockupJukiProvider } from '../../mockup';
+import { Button } from '../../../atoms';
+import { useCheckAndStartServices } from '../../../hooks/useCheckAndStartServices';
+import { MockupJukiProvider } from '../../../mockup';
 import { UserPreviewContentModal as UserPreviewModalCmp } from './UserPreviewContentModal/UserPreviewContentModal';
 
 export default {

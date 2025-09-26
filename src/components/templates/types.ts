@@ -10,7 +10,7 @@ export type * from './ProblemView/types';
 export type * from './ProblemView/types';
 export type * from './ResetPasswordModal/types';
 export type * from './UserActiveSessions/types';
-export type * from './UserPreviewModal/types';
+export type * from '../organisms/_layz_/UserPreviewModal/types';
 export type * from './UserProfile/types';
 export type * from './UserProfile/types';
 export type * from './UserProfileSettings/types';

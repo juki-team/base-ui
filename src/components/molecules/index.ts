@@ -19,6 +19,7 @@ export { MultiSelectSearchable } from './MultiSelectSearchable/MultiSelectSearch
 export { PawsLoadingLayout } from './layouts/PawsLoadingLayout';
 export { SplitModal } from './SplitModal/SplitModal';
 export { SplitPane } from './SplitPane/SplitPane';
+export { SubmissionRejudgeButton } from './SubmissionRejudgeButton/SubmissionRejudgeButton';
 export { Tabs } from './Tabs/Tabs';
 export { TabsInlineBody } from './TabsInlineBody/TabsInlineBody';
 export { ThemeColorPalette } from './ThemeColorPalette/ThemeColorPalette';

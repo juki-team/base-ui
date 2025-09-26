@@ -8,6 +8,7 @@ import { MdMathEditorImport } from './MdMathEditor';
 import { SignUpModalImport } from './SignUpModal';
 import { SubmissionModalImport } from './SubmissionModal';
 import { UserCodeEditorImport } from './UserCodeEditor';
+import { UserPreviewModalImport } from './UserPreviewModal';
 import { WorksheetAsSlidesImport } from './WorksheetAsSlides';
 import { WorksheetEditorImport } from './WorksheetEditor';
 import { WorksheetViewerImport } from './WorksheetViewer';
@@ -23,6 +24,7 @@ export async function preImportOrganisms() {
   await SignUpModalImport();
   await SubmissionModalImport();
   await UserCodeEditorImport();
+  await UserPreviewModalImport();
   await WorksheetAsSlidesImport();
   await WorksheetEditorImport();
   await WorksheetViewerImport();

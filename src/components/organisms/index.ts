@@ -30,6 +30,7 @@ export { MdMathEditor } from './_layz_/MdMathEditor';
 export { SignUpModal } from './_layz_/SignUpModal';
 export { SubmissionModal } from './_layz_/SubmissionModal';
 export { UserCodeEditor } from './_layz_/UserCodeEditor';
+export { UserPreviewModal } from './_layz_/UserPreviewModal';
 export { WorksheetAsSlides } from './_layz_/WorksheetAsSlides';
 export { WorksheetEditor } from './_layz_/WorksheetEditor';
 export { WorksheetViewer } from './_layz_/WorksheetViewer';
