@@ -1,5 +1,5 @@
 import { ProblemVerdict } from '@juki-team/commons';
-import { hasTimeHasMemory } from '../../../../../helpers/submission';
+import { hasTimeHasMemory } from '../../../../helpers/submission';
 import { T } from '../../../../atoms';
 
 export const SubmissionMemory = ({ verdict, memoryUsed }: { verdict: ProblemVerdict, memoryUsed: number }) => {

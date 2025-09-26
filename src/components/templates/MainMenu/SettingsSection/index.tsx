@@ -1,6 +1,6 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
 import { type  Dispatch, type KeyboardEventHandler, type ReactNode, type SyntheticEvent } from 'react';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../helpers';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Modal, Popover, T } from '../../../atoms';
 import { AppsIcon, HelpIcon, LoadingIcon, SpinIcon } from '../../../atoms/server';

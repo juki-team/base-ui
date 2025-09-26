@@ -1,6 +1,6 @@
 import { type QuizOptionsSheetType, QuizScoringMode } from '@juki-team/commons';
 import { v4 } from 'uuid';
-import { classNames } from '../../../../../../helpers';
+import { classNames } from '../../../../../helpers';
 import { Button, Input, InputCheckbox, InputRadio, InputToggle, T } from '../../../../../atoms';
 import { AddIcon } from '../../../../../atoms/server';
 import { MdMathEditor } from '../../../MdMathEditor';

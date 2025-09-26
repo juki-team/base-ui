@@ -1,6 +1,6 @@
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { NotificationType } from '../../../enums';
-import { classNames, getTextContent } from '../../../helpers';
+import { classNames, getTextContent } from '../../helpers';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { useJukiUI } from '../../hooks/useJukiUI';

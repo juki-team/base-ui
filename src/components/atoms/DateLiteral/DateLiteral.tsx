@@ -1,5 +1,5 @@
 import { DAY_NAMES, MONTH_NAMES } from '@juki-team/commons';
-import { classNames, showOfDateDisplayType } from '../../../helpers';
+import { classNames, showOfDateDisplayType } from '../../helpers';
 import { T } from '../T/T';
 import type { DateLiteralProps } from './types';
 

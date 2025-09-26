@@ -1,5 +1,5 @@
 import { type ReactNode, useId, useRef, useState } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import type { ReactNodeOrFunctionType } from '../../types';
 import type { InputSelectProps } from '../Input/types';
 import { Select } from '../Select/Select';

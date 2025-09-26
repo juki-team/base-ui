@@ -10,7 +10,7 @@ import {
   useState,
 } from 'react';
 import { TriggerAction } from '../../../../../enums';
-import { classNames, downloadUrlAsFile, getAuthorizedRequest, renderReactNodeOrFunction } from '../../../../../helpers';
+import { classNames, downloadUrlAsFile, getAuthorizedRequest, renderReactNodeOrFunction } from '../../../../helpers';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
 import { MultiSelect, Popover, Select } from '../../../../atoms';
 import { TableEyeIcon } from '../../../../atoms/server';

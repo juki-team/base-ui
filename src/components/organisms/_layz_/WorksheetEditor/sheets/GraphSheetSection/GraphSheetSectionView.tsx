@@ -1,6 +1,6 @@
 import { GraphSheetType } from '@juki-team/commons';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { classNames } from '../../../../../../helpers';
+import { classNames } from '../../../../../helpers';
 import { Button } from '../../../../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon } from '../../../../../atoms/server';
 import { GraphvizViewer } from '../../../GraphvizViewer';

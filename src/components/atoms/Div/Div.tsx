@@ -1,5 +1,5 @@
 import { forwardRef, type Ref, useEffect, useState } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import type { DivProps } from './types';
 
 function DivComponent(_props: DivProps, ref: Ref<HTMLDivElement>) {

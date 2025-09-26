@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ProfileTab } from '../../../enums';
-import { isJudgeWindowLocation } from '../../../helpers';
+import { isJudgeWindowLocation } from '../../helpers';
 import { jukiAppRoutes } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';

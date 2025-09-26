@@ -1,6 +1,6 @@
 import { MenuViewMode, ProfileSetting } from '@juki-team/commons';
 import { type ReactNode, useEffect } from 'react';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useHandleState } from '../../hooks/useHandleState';

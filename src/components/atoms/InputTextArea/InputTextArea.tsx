@@ -1,5 +1,5 @@
 import { useId } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import type { InputTextAreaProps } from '../Input/types';
 import { TextArea } from '../TextArea/TextArea';
 

@@ -1,5 +1,5 @@
 import { QueryParamKey } from '../../../enums';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';

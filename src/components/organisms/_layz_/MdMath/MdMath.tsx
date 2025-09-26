@@ -8,7 +8,7 @@ import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
 import { QueryParamKey } from '../../../../enums';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../helpers';
 import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { Button, DetectRequestAnimationFrame } from '../../../atoms';

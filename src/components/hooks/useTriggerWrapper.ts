@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { TriggerAction } from '../../enums';
-import { isTrigger } from '../../helpers';
+import { isTrigger } from '../helpers';
 import { BoundingClientRectType, TriggerOffActionsType, TriggerOnActionsType } from '../types';
 import { useKeyPress } from './useKeyPress';
 import { useOutsideAlerterAnd } from './useOutsideAlerter';

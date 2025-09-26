@@ -1,6 +1,6 @@
 import { type CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import type { TwoContentSectionProps } from './types';
 
 export function TwoContentSection({ children, className }: TwoContentSectionProps) {

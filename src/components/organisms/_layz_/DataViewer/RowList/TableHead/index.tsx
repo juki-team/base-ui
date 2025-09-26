@@ -1,5 +1,5 @@
 import { Children, memo, MouseEvent, ReactElement, useCallback, useRef, useState } from 'react';
-import { classNames } from '../../../../../../helpers';
+import { classNames } from '../../../../../helpers';
 import { ArrowDownwardIcon, ArrowUpwardIcon, SortIcon } from '../../../../../server';
 import { fixHeaders, renderHead } from '../../commons/utils';
 import { DataViewerTableHeadersType, TableHeadProps, TableSortType } from '../../types';

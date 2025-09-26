@@ -1,6 +1,6 @@
 import { Status } from '@juki-team/commons';
 import { type PropsWithChildren, useRef, useState } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { Modal, T } from '../../atoms';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { ExclamationIcon } from '../../server';

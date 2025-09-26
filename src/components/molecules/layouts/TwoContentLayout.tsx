@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import type { TabsType } from '../../types';
 import { TabsInline } from '../_lazy_/TabsInline';

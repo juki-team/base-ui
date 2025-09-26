@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TriggerAction } from '../../../../../../enums';
-import { classNames } from '../../../../../../helpers';
+import { classNames } from '../../../../../helpers';
 import { Popover } from '../../../../../atoms';
 import { FilterListIcon } from '../../../../../server';
 import { isFilterDate, isFilterDateRange, isFilterSelect, isFilterText } from '../../commons/utils';

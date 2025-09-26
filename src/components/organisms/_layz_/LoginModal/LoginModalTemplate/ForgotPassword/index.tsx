@@ -1,5 +1,5 @@
 import { cleanRequest, type ContentResponseType, Status } from '@juki-team/commons';
-import { authorizedRequest } from '../../../../../../helpers';
+import { authorizedRequest } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
 import type { BasicModalProps } from '../../../../../atoms/types';
 

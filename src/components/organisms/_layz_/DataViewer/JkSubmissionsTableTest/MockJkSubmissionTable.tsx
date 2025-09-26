@@ -6,7 +6,7 @@ import type {
   SubmissionSummaryListResponseDTO,
 } from '@juki-team/commons';
 import { useMemo } from 'react';
-import { toFilterUrl, toSortUrl } from '../../../../../helpers';
+import { toFilterUrl, toSortUrl } from '../../../../helpers';
 import { jukiApiManager } from '../../../../../settings';
 import { useFetcher } from '../../../../hooks/useFetcher';
 import {

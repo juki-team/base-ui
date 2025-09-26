@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { TabsType } from '../components/types';
+import { TabsType } from '../types';
 
 export const oneTab: ((body: ReactNode) => TabsType) = (body: ReactNode) => {
   return {

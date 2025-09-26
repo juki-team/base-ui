@@ -1,6 +1,6 @@
 import { cleanRequest, consoleError, consoleInfo, type ContentsResponseType } from '@juki-team/commons';
 import { Component, type ErrorInfo, type ReactNode } from 'react';
-import { authorizedRequest } from '../../../helpers';
+import { authorizedRequest } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { Button, T } from '../../atoms';
 import { HelpSection } from '../HelpSection/HelpSection';

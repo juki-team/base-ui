@@ -9,7 +9,7 @@ import {
 } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
 import { NotificationType } from '../../../../../../enums';
-import { classNames } from '../../../../../../helpers';
+import { classNames } from '../../../../../helpers';
 import { InputToggle, T, TextArea } from '../../../../../atoms';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';

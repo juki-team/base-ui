@@ -1,4 +1,4 @@
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import type { TProps } from './types';
 

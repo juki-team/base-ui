@@ -2,7 +2,7 @@ import { DataViewMode } from '@juki-team/commons';
 import { Children, CSSProperties, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../../../constants';
-import { classNames, renderReactNodeOrFunction } from '../../../../../helpers';
+import { classNames, renderReactNodeOrFunction } from '../../../../helpers';
 import { T } from '../../../../atoms';
 import { LineLoader } from '../../../../server';
 import { CardRowVirtualizerFixed } from '../CardList';

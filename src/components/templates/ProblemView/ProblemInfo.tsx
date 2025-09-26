@@ -8,7 +8,7 @@ import {
   type ProblemSettingsType,
 } from '@juki-team/commons';
 import { Children, Fragment, type PropsWithChildren, type ReactNode } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { Popover, T } from '../../atoms';
 import { ExclamationIcon, InfoIIcon } from '../../server';
 import type { ProblemInfoProps } from './types';

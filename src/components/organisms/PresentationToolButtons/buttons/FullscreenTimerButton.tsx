@@ -1,6 +1,6 @@
 import { ONE_MINUTE } from '@juki-team/commons';
 import { useMemo, useState } from 'react';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../helpers';
 import { Button, InputToggle, Portal, T } from '../../../atoms';
 import {
   AlarmIcon,

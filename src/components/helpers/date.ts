@@ -1,4 +1,4 @@
-import { DateDisplayType, TimeDisplayType } from '../components/types';
+import { DateDisplayType, TimeDisplayType } from '../types';
 
 export const showOfDateDisplayType = (type: DateDisplayType) => {
   const showMilliseconds = type.includes('milliseconds');

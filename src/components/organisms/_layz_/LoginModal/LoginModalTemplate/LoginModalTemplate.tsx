@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../helpers';
 import { Input, InputPassword, T } from '../../../../atoms';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { ButtonLoader, SplitModal } from '../../../../molecules';

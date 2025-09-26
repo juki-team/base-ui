@@ -1,7 +1,7 @@
 import { RefObject, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../constants';
-import { isOverflowed } from '../../helpers';
+import { isOverflowed } from '../helpers';
 
 export interface WidthResizerProps {
   targetRef: RefObject<any>,

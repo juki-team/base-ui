@@ -1,5 +1,5 @@
 import { getDataOfTestCase, ONE_SECOND, SubmissionRunStatus } from '@juki-team/commons';
-import { classNames } from '../../../../../../helpers';
+import { classNames } from '../../../../../helpers';
 import { T } from '../../../../../atoms';
 import { LogInfoProps } from '../types';
 

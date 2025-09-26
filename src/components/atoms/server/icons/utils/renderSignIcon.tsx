@@ -1,5 +1,5 @@
 import { ComponentType } from 'react';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../helpers';
 import { RootIconProps, SignIconProps } from '../types';
 import { CircleFrame } from './CircleFrame';
 import { SquareFrame } from './SquareFrame';

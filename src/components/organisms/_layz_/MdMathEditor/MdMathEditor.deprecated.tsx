@@ -3,7 +3,7 @@ import { ClipboardEventHandler, Dispatch, RefObject, useCallback, useEffect, use
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
 import { NotificationType } from '../../../../enums';
-import { classNames, handleUploadImage } from '../../../../helpers';
+import { classNames, handleUploadImage } from '../../../helpers';
 import { Button, Modal, T, TextArea } from '../../../atoms';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { SplitPane } from '../../../molecules';

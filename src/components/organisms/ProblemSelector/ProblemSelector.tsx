@@ -10,7 +10,7 @@ import {
   Status,
 } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
-import { authorizedRequest, classNames } from '../../../helpers';
+import { authorizedRequest, classNames } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { Input, Select, T } from '../../atoms';
 import { useFetcher } from '../../hooks/useFetcher';

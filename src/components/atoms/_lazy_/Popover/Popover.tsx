@@ -19,7 +19,7 @@ import { type Variants } from 'motion-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } from 'react';
 import { Duration, TriggerAction } from '../../../../enums';
-import { isTrigger, renderReactNodeOrFunctionP1 } from '../../../../helpers';
+import { isTrigger, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import type { TriggerOnActionsType } from '../../../types';
 import type { PopoverProps } from './types';
 

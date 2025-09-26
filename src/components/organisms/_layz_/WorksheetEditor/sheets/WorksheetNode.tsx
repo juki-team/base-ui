@@ -11,7 +11,7 @@ import { Fragment } from 'react';
 // import 'reveal.js/dist/reveal.css';
 // import 'reveal.js/dist/theme/black.css';
 // import 'reveal.js/dist/theme/white.css';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../helpers';
 import { DetectRequestAnimationFrame } from '../../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 import { MdMathViewer } from '../../../MdMathViewer/MdMathViewer';
 import { SetContentType, WorksheetNodeProps } from '../types';

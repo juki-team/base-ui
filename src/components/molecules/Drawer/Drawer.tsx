@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TriggerAction } from '../../../enums';
-import { isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { isTrigger, renderChildrenWithProps, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { DrawerView } from '../_lazy_/DrawerView';
 import type { DrawerProps } from './types';
 

@@ -1,5 +1,5 @@
 import { Children, ReactNode, useState } from 'react';
-import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../../helpers';
+import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
 import { useJukiUI } from '../../../hooks/useJukiUI';

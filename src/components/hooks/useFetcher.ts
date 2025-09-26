@@ -1,7 +1,7 @@
 import { cleanRequest, type ContentResponseType, type ContentsResponseType, HTTPMethod } from '@juki-team/commons';
 import { useMemo } from 'react';
 import useSWR, { type SWRConfiguration } from 'swr';
-import { getAuthorizedRequest } from '../../helpers';
+import { getAuthorizedRequest } from '../helpers';
 import { jukiApiManager } from '../../settings';
 import { useUserStore } from '../../stores/user/useUserStore';
 

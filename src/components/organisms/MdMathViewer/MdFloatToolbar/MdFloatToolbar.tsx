@@ -1,4 +1,4 @@
-import { downloadBlobAsFile } from '../../../../helpers';
+import { downloadBlobAsFile } from '../../../helpers';
 import { T } from '../../../atoms';
 import { FloatToolbar } from '../../../molecules';
 import type { ButtonActionProps } from '../../../molecules/types';

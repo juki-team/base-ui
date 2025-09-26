@@ -1,6 +1,6 @@
 import { type  CSSProperties } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { ButtonAction } from '../ButtonAction/ButtonAction';
 import type { FloatToolbarProps } from './types';
 

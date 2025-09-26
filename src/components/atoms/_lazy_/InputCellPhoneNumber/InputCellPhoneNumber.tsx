@@ -10,7 +10,7 @@ import {
   getCountryCallingCode as libGetCountryCallingCode,
 } from 'libphonenumber-js';
 import { ReactNode, useId, useMemo, useState } from 'react';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../helpers';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { InputBase } from '../../Input/Input';
 import { InputCellPhoneNumberProps } from '../../Input/types';

@@ -1,5 +1,5 @@
 import { forwardRef, type Ref } from 'react';
-import { classNames, showOfDateDisplayType } from '../../../helpers';
+import { classNames, showOfDateDisplayType } from '../../helpers';
 import { Button, T } from '../../atoms';
 import { DayPicker } from '../DayPicker/DayPicker';
 import { MonthPicker } from '../MonthPicker/MonthPicker';

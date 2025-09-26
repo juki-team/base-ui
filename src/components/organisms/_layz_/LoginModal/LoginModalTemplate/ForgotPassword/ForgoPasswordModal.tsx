@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { classNames } from '../../../../../../helpers';
+import { classNames } from '../../../../../helpers';
 import { Input, T } from '../../../../../atoms';
 import { useJukiUI } from '../../../../../hooks/useJukiUI';
 import { ButtonLoader, SplitModal } from '../../../../../molecules';

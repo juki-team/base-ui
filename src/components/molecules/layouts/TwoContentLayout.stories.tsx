@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useState } from 'react';
-import { oneTab } from '../../../helpers';
+import { oneTab } from '../../helpers';
 import { Input, T } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { MockJkContestTable } from '../../organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable';

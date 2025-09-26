@@ -7,7 +7,7 @@ import {
   ALPHANUMERIC_DASH_UNDERSCORE_REGEX,
   LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX,
 } from '../../../../../constants';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../helpers';
 import { Input, InputCheckbox, InputPassword, T } from '../../../../atoms';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { ButtonLoader, SplitModal } from '../../../../molecules';

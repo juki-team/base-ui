@@ -1,6 +1,6 @@
 import type { WorksheetsInPages } from '@juki-team/commons';
 import { QueryParamKey } from '../../../../../enums';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../helpers';
 import { Collapse } from '../../../../atoms';
 import { MdMath } from '../../MdMath';
 import type { OnPageChange } from '../types';

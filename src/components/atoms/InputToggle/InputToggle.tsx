@@ -1,5 +1,5 @@
 import { type MouseEventHandler } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import type { InputToggleProps } from '../Input/types';
 
 export function InputToggle(props: InputToggleProps) {

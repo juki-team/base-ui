@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { getHandlerArgs } from '../../helpers/visibility';
+import { getHandlerArgs } from '../../components/helpers/visibility';
 
 interface PageState {
   isOnline: boolean,

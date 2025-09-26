@@ -1,5 +1,5 @@
 import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { Button, InputRadio, InputToggle, Select, T } from '../../atoms';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { useJukiUserSettings } from '../../hooks/useJukiUser';

@@ -1,5 +1,5 @@
 import { type ContentResponseType, isObjectJson, type LogDataResponseDTO } from '@juki-team/commons';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { DateLiteral, Modal, T } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { UserChip } from '../../organisms';

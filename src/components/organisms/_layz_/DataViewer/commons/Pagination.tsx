@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../helpers';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
 import { Select, T } from '../../../../atoms';
 import { useJukiUI } from '../../../../hooks/useJukiUI';

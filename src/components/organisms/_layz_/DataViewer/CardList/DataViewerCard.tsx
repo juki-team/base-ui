@@ -1,5 +1,5 @@
 import { useResizeDetector } from 'react-resize-detector';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../helpers';
 import type { TableHeadersType } from '../types';
 import type { DataViewerCardProps } from './types';
 

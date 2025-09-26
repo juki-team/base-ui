@@ -4,7 +4,7 @@ import { T } from '../../components/atoms/T/T';
 import { usePageFocus } from '../../components/hooks/usePageFocus';
 import { LineLoader } from '../../components/server';
 import { Duration } from '../../enums';
-import { classNames } from '../../helpers';
+import { classNames } from '../../components/helpers';
 import { persistGlobalURLSearchParams } from '../../settings';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { NotificationProvider } from '../NotificationProvider/NotificationProvider';

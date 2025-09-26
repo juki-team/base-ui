@@ -1,7 +1,7 @@
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { TriggerAction } from '../../../enums';
-import { classNames, getTextContent, renderReactNodeOrFunction } from '../../../helpers';
+import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
 import { Input, InputCheckbox, Popover, VirtualizedRowsFixed } from '../../atoms';
 import type { SelectOptionType } from '../../atoms/types';
 import { useHandleState } from '../../hooks/useHandleState';

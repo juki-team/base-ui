@@ -5,7 +5,7 @@ import {
   type ErrorResponseType,
 } from '@juki-team/commons';
 import { useEffect, useMemo, useRef } from 'react';
-import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { LineLoader } from '../../atoms/server';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiNotification } from '../../hooks/useJukiNotification';

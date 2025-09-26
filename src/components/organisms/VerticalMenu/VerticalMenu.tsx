@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Children, useId } from 'react';
-import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';

@@ -7,7 +7,7 @@ import {
   HTTPMethod,
 } from '@juki-team/commons';
 import { useState } from 'react';
-import { authorizedRequest } from '../../../helpers';
+import { authorizedRequest } from '../../helpers';
 import { Button, CopyToClipboard, Popover, T } from '../../atoms';
 import { ContentCopyIcon, EditIcon, InfoIIcon } from '../../atoms/server';
 import { useJukiNotification } from '../../hooks/useJukiNotification';

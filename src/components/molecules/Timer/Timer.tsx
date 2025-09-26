@@ -1,5 +1,5 @@
 import { Fragment, memo, useEffect, useState } from 'react';
-import { classNames, cutTimeSplit } from '../../../helpers';
+import { classNames, cutTimeSplit } from '../../helpers';
 import { T } from '../../atoms';
 import { useInterval } from '../../hooks/useInterval';
 import type { TimerProps } from './types';

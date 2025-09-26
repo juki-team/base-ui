@@ -12,7 +12,7 @@ import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
 import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useState } from 'react';
-import { authorizedRequest, classNames, downloadBlobAsFile, upperFirst } from '../../../../helpers';
+import { authorizedRequest, classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
 import { jukiApiManager } from '../../../../settings';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';

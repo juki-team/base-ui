@@ -1,6 +1,6 @@
 import { ProfileSetting } from '@juki-team/commons';
 import { useState } from 'react';
-import { classNames, getStatementData } from '../../../helpers';
+import { classNames, getStatementData } from '../../helpers';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Portal, T } from '../../atoms';

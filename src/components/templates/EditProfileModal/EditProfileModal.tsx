@@ -1,7 +1,7 @@
 import { JUDGE, Judge, Status, type UserProfileResponseDTO } from '@juki-team/commons';
 import { type Dispatch, useRef, useState } from 'react';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { Button, Input, Modal, T, TextArea } from '../../atoms';
 import { useEntityDiff } from '../../hooks/useEntityDiff';
 import { useJukiUI } from '../../hooks/useJukiUI';

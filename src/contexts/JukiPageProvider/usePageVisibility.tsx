@@ -1,7 +1,7 @@
 // https://github.com/pgilad/react-page-visibility
 // https://github.com/pgilad/react-page-visibility/blob/master/src/utils.js
 import { useEffect } from 'react';
-import { getHandlerArgs, isSupported, visibility } from '../../helpers/visibility';
+import { getHandlerArgs, isSupported, visibility } from '../../components/helpers/visibility';
 import { usePageStore } from '../../stores/page/usePageStore';
 
 const isSupportedLocal = isSupported && visibility;

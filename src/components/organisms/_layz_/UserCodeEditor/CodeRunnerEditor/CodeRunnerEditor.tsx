@@ -13,7 +13,7 @@ import {
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../../../constants';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../helpers';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../../../../stores/websocket/useWebsocketStore';
 import { Button, Input, Modal, Portal, Select, T } from '../../../../atoms';

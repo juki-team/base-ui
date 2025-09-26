@@ -1,4 +1,4 @@
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { MdMath } from '../_layz_/MdMath';
 import { MdFloatToolbar } from './MdFloatToolbar/MdFloatToolbar';
 import type { MdMathViewerProps } from './types';

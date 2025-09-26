@@ -13,7 +13,7 @@ import {
   type UserSettingsType,
 } from '@juki-team/commons';
 import { useCallback, useState } from 'react';
-import { authorizedRequest, localStorageCrossDomains } from '../../helpers';
+import { authorizedRequest, localStorageCrossDomains } from '../helpers';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';

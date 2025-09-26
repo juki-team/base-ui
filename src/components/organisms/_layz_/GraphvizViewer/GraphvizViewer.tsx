@@ -1,7 +1,7 @@
 import { instance } from '@viz-js/viz';
 import { useEffect, useRef } from 'react';
 import { create } from 'zustand';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../helpers';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { GraphvizViewerProps } from './types';
 

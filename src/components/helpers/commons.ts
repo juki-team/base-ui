@@ -10,9 +10,9 @@ import {
 } from '@juki-team/commons';
 import type { PropsWithChildren, ReactNode, RefObject } from 'react';
 import { Children, cloneElement, isValidElement } from 'react';
-import type { SheetDataType } from '../components/molecules/_lazy_/DataGrid/types';
-import type { TriggerActionsType } from '../components/types';
-import { jukiApiManager } from '../settings';
+import type { SheetDataType } from '../molecules/_lazy_/DataGrid/types';
+import type { TriggerActionsType } from '../types';
+import { jukiApiManager } from '../../settings';
 import { authorizedRequest } from './fetch';
 import { getXLSX } from './xlsx';
 

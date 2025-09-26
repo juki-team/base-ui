@@ -1,4 +1,4 @@
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { jukiAppRoutes } from '../../../settings';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { Field } from '../../organisms';

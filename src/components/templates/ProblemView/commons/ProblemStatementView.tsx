@@ -13,7 +13,7 @@ import {
   downloadBlobAsFile,
   downloadUrlAsFile,
   getStatementData,
-} from '../../../../helpers';
+} from '../../../helpers';
 import { jukiApiManager } from '../../../../settings';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';

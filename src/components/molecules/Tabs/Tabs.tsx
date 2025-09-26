@@ -2,7 +2,7 @@ import { Children, type CSSProperties, type ReactNode, useEffect, useMemo, useRe
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { TriggerAction } from '../../../enums';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { Popover, Select } from '../../atoms';
 import { useHandleState } from '../../hooks/useHandleState';
 import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';

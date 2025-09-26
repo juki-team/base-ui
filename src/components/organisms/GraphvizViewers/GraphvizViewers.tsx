@@ -1,6 +1,6 @@
 import { CodeLanguage } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { Button, Input, Modal, T } from '../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, CodeIcon, PlayCircleIcon, ReplyIcon, StopCircleIcon } from '../../atoms/server';
 import { CodeViewer, FloatToolbar } from '../../molecules';

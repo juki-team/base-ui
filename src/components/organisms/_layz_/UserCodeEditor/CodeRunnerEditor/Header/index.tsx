@@ -10,7 +10,7 @@ import {
 import { useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../../constants';
-import { authorizedRequest, classNames } from '../../../../../../helpers';
+import { authorizedRequest, classNames } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
 import { useWebsocketStore } from '../../../../../../stores/websocket/useWebsocketStore';
 import { Button, T } from '../../../../../atoms';

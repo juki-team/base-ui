@@ -1,5 +1,5 @@
 import { type ContestSummaryListResponseDTO } from '@juki-team/commons';
-import { contestStateMap } from '../../../../helpers';
+import { contestStateMap } from '../../../helpers';
 import { T } from '../../../atoms';
 import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/types';

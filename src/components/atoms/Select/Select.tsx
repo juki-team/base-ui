@@ -1,7 +1,7 @@
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { TriggerAction } from '../../../enums';
-import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import type { ReactNodeOrFunctionType } from '../../types';
 import { Popover } from '../_lazy_/Popover';
 import type { PlacementType } from '../_lazy_/Popover/types';

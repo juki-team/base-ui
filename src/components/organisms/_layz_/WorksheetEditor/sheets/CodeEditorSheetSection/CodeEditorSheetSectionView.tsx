@@ -13,7 +13,7 @@ import {
 } from '@juki-team/commons';
 import { Children, useEffect, useRef, useState } from 'react';
 import { QueryParamKey } from '../../../../../../enums';
-import { authorizedRequest, classNames, getHeight } from '../../../../../../helpers';
+import { authorizedRequest, classNames, getHeight } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
 import { useRouterStore } from '../../../../../../stores/router/useRouterStore';
 import { T } from '../../../../../atoms';

@@ -1,4 +1,4 @@
-import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../constants';
+import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../constants';
 
 export const getHeight = (height: number | 'auto', sourceCode: string) => {
   return (typeof height === 'number' && !Number.isNaN(height) && height > WORKSHEET_CODE_EDITOR_MIN_HEIGHT)

@@ -8,7 +8,7 @@ import {
   Status,
   WorksheetType,
 } from '@juki-team/commons';
-import { authorizedRequest } from '../../../../../../helpers';
+import { authorizedRequest } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';

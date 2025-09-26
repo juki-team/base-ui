@@ -16,7 +16,7 @@ import { useInjectTheme } from '../../components/hooks/useInjectTheme';
 import { useMutate } from '../../components/hooks/useMutate';
 import { JukiLoadingLayout } from '../../components/molecules/layouts/JukiLoadingLayout';
 import { EMPTY_USER } from '../../constants';
-import { localStorageCrossDomains } from '../../helpers';
+import { localStorageCrossDomains } from '../../components/helpers';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';

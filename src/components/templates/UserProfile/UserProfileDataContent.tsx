@@ -1,5 +1,5 @@
 import { type ContentsResponseType, Judge, JUDGE, type JudgeDataResponseDTO } from '@juki-team/commons';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { CopyToClipboard } from '../../atoms';
 import { LocationOnIcon, MailIcon, SchoolIcon } from '../../atoms/server';

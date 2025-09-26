@@ -1,4 +1,4 @@
-import { classNames, getJudgeOrigin } from '../../../helpers';
+import { classNames, getJudgeOrigin } from '../../helpers';
 import { jukiAppRoutes } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useJukiUI } from '../../hooks/useJukiUI';

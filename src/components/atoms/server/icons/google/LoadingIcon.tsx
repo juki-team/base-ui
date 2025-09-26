@@ -1,4 +1,4 @@
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../helpers';
 import type { BasicIconProps, RootIconProps } from '../types';
 import { renderBasicIcon } from '../utils';
 

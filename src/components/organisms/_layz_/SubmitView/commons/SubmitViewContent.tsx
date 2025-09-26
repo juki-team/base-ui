@@ -10,8 +10,8 @@ import {
 } from '@juki-team/commons';
 import { type ReactNode } from 'react';
 import { ContestTab } from '../../../../../enums';
-import { getJudgeOrigin } from '../../../../../helpers';
-import { hasTimeHasMemory } from '../../../../../helpers/submission';
+import { getJudgeOrigin } from '../../../../helpers';
+import { hasTimeHasMemory } from '../../../../helpers/submission';
 import { jukiApiManager, jukiAppRoutes } from '../../../../../settings';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { Button, Collapse, DateLiteral, T } from '../../../../atoms';

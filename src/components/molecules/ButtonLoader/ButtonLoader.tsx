@@ -1,6 +1,6 @@
 import { Status } from '@juki-team/commons';
 import { useEffect, useRef, useState } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { Button } from '../../atoms';
 import { useSetLoaderStatus } from '../../hooks/useSetLoaderStatus';
 import { CheckIcon, ErrorIcon, SpinIcon } from '../../server';

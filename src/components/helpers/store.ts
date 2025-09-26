@@ -1,4 +1,4 @@
-import { jukiApiManager } from '../settings';
+import { jukiApiManager } from '../../settings';
 
 export const isIFrame = (input: Element): input is HTMLIFrameElement =>
   input !== null && input.tagName === 'IFRAME';

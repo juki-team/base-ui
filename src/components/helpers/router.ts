@@ -1,5 +1,5 @@
 import { SEPARATOR_TOKEN } from '@juki-team/commons';
-import { Href, RequestFilterType, RequestSortType } from '../components/types';
+import { Href, RequestFilterType, RequestSortType } from '../types';
 
 export const toFilterUrl = (filter: RequestFilterType) => {
   let filterUrl = '';

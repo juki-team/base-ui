@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { Children, useEffect, useMemo, useState } from 'react';
 import { Duration } from '../../../enums';
-import { renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { renderReactNodeOrFunctionP1 } from '../../helpers';
 import { TabsInlineBodyProps } from '../Tabs/types';
 
 const preload = false;

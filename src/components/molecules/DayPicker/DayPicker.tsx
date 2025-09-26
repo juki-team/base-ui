@@ -1,7 +1,7 @@
 import { MONTH_NAMES, YEARS } from '@juki-team/commons';
 import { useState } from 'react';
 import { DAYS_2 } from '../../../constants';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { Div, Select, T } from '../../atoms';
 import type { DayPickerProps } from '../DatePicker/types';
 import { NextButton } from '../NextButton/NextButton';

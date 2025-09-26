@@ -20,7 +20,7 @@ import { Decoration } from 'prosemirror-view';
 import { Dispatch, SetStateAction, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
 import { NotificationType } from '../../../../../enums';
-import { handleUploadImage } from '../../../../../helpers';
+import { handleUploadImage } from '../../../../helpers';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { T } from '../../../../atoms';

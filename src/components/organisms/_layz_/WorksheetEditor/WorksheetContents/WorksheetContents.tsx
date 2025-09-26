@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { QueryParamKey } from '../../../../../enums';
-import { classNames } from '../../../../../helpers';
+import { classNames } from '../../../../helpers';
 import { T } from '../../../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon, ViewHeadlineIcon } from '../../../../atoms/server';
 import { TableOfContentsModal } from '../sheets/TableOfContentsModal';

@@ -9,7 +9,7 @@ import type {
   SetSearchParamsType,
 } from '../../components/types';
 import { QueryParamKey } from '../../enums';
-import { getHref } from '../../helpers';
+import { getHref } from '../../components/helpers';
 import { cloneURLSearchParams } from '../../settings';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 

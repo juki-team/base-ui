@@ -8,7 +8,7 @@ import {
 } from '@juki-team/commons';
 import { useEffect, useMemo, useState } from 'react';
 import { QueryParamKey, TriggerAction } from '../../../enums';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';

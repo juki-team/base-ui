@@ -10,7 +10,7 @@ import {
 } from '@juki-team/commons';
 import { type Dispatch, type SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { EMPTY_OBJECT } from '../../../../constants';
-import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../../helpers';
+import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';

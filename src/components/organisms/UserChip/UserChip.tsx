@@ -1,4 +1,4 @@
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { UserNicknameLink } from '../UserNicknameLink/UserNicknameLink';
 import type { UserChipProps } from './types';

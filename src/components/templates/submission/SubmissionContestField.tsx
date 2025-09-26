@@ -1,5 +1,5 @@
 import { ContestTab } from '../../../enums';
-import { getJudgeOrigin } from '../../../helpers';
+import { getJudgeOrigin } from '../../helpers';
 import { jukiAppRoutes } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useJukiUI } from '../../hooks/useJukiUI';

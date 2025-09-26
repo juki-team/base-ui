@@ -4,6 +4,3 @@ import { AppRoutes } from './AppRoutes';
 export const jukiApiManager = new ApiManager();
 export const jukiAppRoutes = new AppRoutes();
 // export const jukiGlobalStore = new GlobalStore()
-
-export { persistGlobalURLSearchParams } from './AppRoutes';
-export { cloneURLSearchParams } from './AppRoutes';

@@ -9,7 +9,7 @@ import {
   WorksheetType,
 } from '@juki-team/commons';
 import { useRef, useState } from 'react';
-import { authorizedRequest } from '../../../../../../helpers';
+import { authorizedRequest } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms';
 

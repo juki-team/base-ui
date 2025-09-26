@@ -5,7 +5,7 @@ import {
   type WorksheetUserSubmissionsResponseDTO,
 } from '@juki-team/commons';
 import { useMemo } from 'react';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../helpers';
 import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';

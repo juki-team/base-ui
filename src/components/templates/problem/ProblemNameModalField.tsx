@@ -1,6 +1,6 @@
 import { type  ContentResponseType, type ProblemDataResponseDTO } from '@juki-team/commons';
 import { type ReactNode, useState } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { Modal } from '../../atoms';
 import { FetcherLayer } from '../../molecules';

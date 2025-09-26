@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import type { LastPathType } from '../../../contexts/JukiLastPathProvider/types';
 import { QueryParamKey } from '../../../enums';
-import { getHref } from '../../../helpers';
+import { getHref } from '../../helpers';
 import { cloneURLSearchParams } from '../../../settings';
 import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
 import { useJukiUI } from '../../hooks/useJukiUI';

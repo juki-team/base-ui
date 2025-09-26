@@ -1,5 +1,5 @@
 import { cleanRequest, type ContentResponseType, Status, SubmissionRunStatus } from '@juki-team/commons';
-import { authorizedRequest } from '../../../helpers';
+import { authorizedRequest } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
 import { RefreshIcon } from '../../atoms/server';

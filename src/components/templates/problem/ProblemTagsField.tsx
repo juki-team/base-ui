@@ -1,4 +1,4 @@
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { T } from '../../atoms';
 import { Field } from '../../organisms';
 import type { ProblemTagsFieldProps } from './types';

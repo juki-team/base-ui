@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { Button, Modal } from '../../atoms';
 import { EditIcon } from '../../server';
 import { GraphvizViewer } from '../_layz_/GraphvizViewer';

@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Children, type ReactNode, useId } from 'react';
 import { TriggerAction } from '../../../enums';
-import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { Button } from '../../atoms';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { Drawer } from '../../molecules';

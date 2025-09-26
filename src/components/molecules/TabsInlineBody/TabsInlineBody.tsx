@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-import { renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { renderReactNodeOrFunctionP1 } from '../../helpers';
 import type { TabsInlineBodyProps } from '../Tabs/types';
 
 export function TabsInlineBody<T = string, >({ tabs, selectedTabKey }: TabsInlineBodyProps<T>) {

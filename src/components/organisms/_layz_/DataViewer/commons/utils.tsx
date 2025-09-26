@@ -1,4 +1,4 @@
-import { renderReactNodeOrFunctionP1 } from '../../../../../helpers';
+import { renderReactNodeOrFunctionP1 } from '../../../../helpers';
 import { DatePickerDateFunType } from '../../../../molecules/types';
 import { TextHeadCell } from '../../../TextHeadCell/TextHeadCell';
 import {

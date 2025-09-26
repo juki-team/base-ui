@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { Div } from '../../atoms';
 import type { YearPickerProps } from '../DatePicker/types';
 import { NextButton } from '../NextButton/NextButton';

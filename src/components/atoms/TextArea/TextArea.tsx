@@ -1,6 +1,6 @@
 import { type ComponentPropsWithRef, type CSSProperties, forwardRef, type ReactElement, type Ref } from 'react';
 import { type UseFormRegisterReturn } from 'react-hook-form';
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 
 function TextAreaComponent(props: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement>) {
   

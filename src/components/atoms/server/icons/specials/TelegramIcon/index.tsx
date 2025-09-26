@@ -1,4 +1,4 @@
-import { classNames } from '../../../../../../helpers';
+import { classNames } from '../../../../../helpers';
 import type { IconProps } from '../../types';
 import Telegram from './Telegram';
 

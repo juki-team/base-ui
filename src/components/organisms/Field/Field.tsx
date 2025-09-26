@@ -1,4 +1,4 @@
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import type { FieldProps } from '../_layz_/DataViewer/types';
 
 export function Field({ onClick, className = '', children }: FieldProps) {

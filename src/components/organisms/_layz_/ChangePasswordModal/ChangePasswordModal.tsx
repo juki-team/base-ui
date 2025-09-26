@@ -3,7 +3,7 @@ import { Status } from '@juki-team/commons';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { classNames } from '../../../../helpers';
+import { classNames } from '../../../helpers';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { InputPassword, Modal, T } from '../../../atoms';
 import { useJukiUI } from '../../../hooks/useJukiUI';

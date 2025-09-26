@@ -1,5 +1,5 @@
 import { cleanRequest, consoleWarn, ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
-import { jukiApiManager } from '../settings';
+import { jukiApiManager } from '../../settings';
 import { authorizedRequest } from './fetch';
 
 export const openNewTab = (url: string) => {

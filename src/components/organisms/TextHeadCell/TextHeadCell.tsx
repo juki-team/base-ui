@@ -1,4 +1,4 @@
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import { T } from '../../atoms';
 import type { TextHeadCellProps } from '../_layz_/DataViewer/types';
 

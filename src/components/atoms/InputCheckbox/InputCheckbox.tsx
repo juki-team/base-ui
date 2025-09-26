@@ -1,4 +1,4 @@
-import { classNames } from '../../../helpers';
+import { classNames } from '../../helpers';
 import type { InputCheckboxProps } from '../Input/types';
 
 export function InputCheckbox({ className, checked, disabled, onChange, label, ...props }: InputCheckboxProps) {

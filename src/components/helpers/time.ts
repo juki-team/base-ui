@@ -1,5 +1,5 @@
 import { splitTime } from '@juki-team/commons';
-import type { TimeDisplayType } from '../components/types';
+import type { TimeDisplayType } from '../types';
 import { showOfTimeDisplayType } from './date';
 
 export const cutTimeSplit = (remaining: number, type: TimeDisplayType, ignoreLeadingZeros: boolean, ignoreTrailingZeros: boolean) => {
