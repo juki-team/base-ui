@@ -16,9 +16,8 @@ import { useStableState } from '../../../hooks/useStableState';
 import type { UserResultsType } from '../../../types';
 import { TableOfContents } from '../WorksheetEditor/sheets/TableOfContents';
 import { WorksheetBodies } from '../WorksheetEditor/sheets/WorksheetBodies';
-import type { OnPageChange } from '../WorksheetEditor/types';
+import type { OnPageChange, WorksheetViewerProps } from '../WorksheetEditor/types';
 import { WorksheetContents } from '../WorksheetEditor/WorksheetContents/WorksheetContents';
-import type { WorksheetViewerProps } from './types';
 
 export default function WorksheetViewer(props: WorksheetViewerProps) {
   
