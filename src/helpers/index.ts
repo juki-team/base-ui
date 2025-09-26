@@ -12,3 +12,4 @@ export * from './text';
 export * from './time';
 export * from './utils';
 export * from './worksheet';
+export * from './xlsx';
