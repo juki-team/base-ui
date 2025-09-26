@@ -7,7 +7,7 @@ export type * from './FetcherLayer/types';
 export type * from './FirstLoginWrapper/types';
 export type * from './FloatToolbar/types';
 export type * from './HomeLink/types';
-export type * from './ImageLoaderCropper/types';
+export type * from './_lazy_/ImageLoaderCropper/types';
 export type * from './LinkLastPath/types';
 export type * from './MultiProgressBar/types';
 export type * from './MultiSelectSearchable/types';

@@ -3,7 +3,7 @@ import { jukiAppRoutes } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { UserPreviewContentModal } from './UserPreviewContentModal/UserPreviewContentModal';
 
-export const UserPreviewModal = () => {
+export function UserPreviewModal() {
   
   const searchParams = useRouterStore(state => state.searchParams);
   const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
@@ -19,4 +19,4 @@ export const UserPreviewModal = () => {
       userHref={jukiAppRoutes.JUDGE().profiles.view({ nickname: userPreviewNickname })}
     />
   );
-};
+}

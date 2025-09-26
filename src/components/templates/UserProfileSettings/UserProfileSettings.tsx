@@ -1,11 +1,10 @@
 import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons';
 import { classNames } from '../../../helpers';
 import { Button, InputRadio, InputToggle, Select, T } from '../../atoms';
+import { useJukiUI } from '../../hooks/useJukiUI';
 import { useJukiUserSettings } from '../../hooks/useJukiUser';
 import {
   DarkModeIcon,
-  FlagEnImage,
-  FlagEsImage,
   LightModeIcon,
   LineLoader,
   LockIcon,
@@ -28,6 +27,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
     [ProfileSetting.TIME_ZONE]: preferredTimeZone,
     [ProfileSetting.FONT_SIZE]: preferredFontSize,
   } = useJukiUserSettings();
+  const { components: { Image } } = useJukiUI();
   
   return (
     <div className="jk-row gap top stretch">
@@ -44,14 +44,26 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
                 valueFirst: Language.EN,
                 labelFirst: (
                   <div className="jk-row nowrap">
-                    <div className="jk-row" style={{ width: 24, height: 24 }}><FlagEnImage /></div>
+                    <div className="jk-row" style={{ width: 24, height: 24 }}>
+                      <Image
+                        alt="US image"
+                        fill
+                        src="https://images.juki.pub/assets/image-us.png"
+                      />
+                    </div>
                     &nbsp;<T className="ws-np tt-se">english</T>
                   </div>
                 ),
                 valueSecond: Language.ES,
                 labelSecond: (
                   <div className="jk-row nowrap">
-                    <div className="jk-row" style={{ width: 24, height: 24 }}><FlagEsImage /></div>
+                    <div className="jk-row" style={{ width: 24, height: 24 }}>
+                      <Image
+                        alt="ES image"
+                        fill
+                        src="https://images.juki.pub/assets/image-es.png"
+                      />
+                    </div>
                     &nbsp;<T className="ws-np tt-se">español</T>
                   </div>
                 ),

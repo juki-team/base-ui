@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import { type Meta, type StoryObj } from '@storybook/react-webpack5';
 import { MockupJukiProvider } from '../../../mockup';
 
 import { LineLoader } from './LineLoader';

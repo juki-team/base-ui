@@ -9,9 +9,9 @@ import { SplitPane } from '../../molecules';
 import { FullscreenExitIcon, FullscreenIcon, InfoIIcon } from '../../server';
 import { ProblemCodeEditor } from './commons/ProblemCodeEditor';
 import { ProblemStatementView } from './commons/ProblemStatementView';
-import { ProblemViewProps } from './types';
+import type { ProblemViewProps } from './types';
 
-export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
+export function ProblemView<T, >(props: ProblemViewProps<T>) {
   
   const {
     problem,
@@ -143,4 +143,4 @@ export const ProblemView = <T, >(props: ProblemViewProps<T>) => {
   }
   
   return body;
-};
+}

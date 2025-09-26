@@ -1,13 +1,12 @@
 import { getJudgeOrigin } from '../../../helpers';
 import { jukiAppRoutes } from '../../../settings';
 import { useUserStore } from '../../../stores/user/useUserStore';
-
 import { useJukiUI } from '../../hooks/useJukiUI';
-import { FieldText } from '../../organisms/FieldText/FieldText';
+import { FieldText } from '../../organisms';
 import { OpenInNewIcon } from '../../server';
 import type { SubmissionProblemFieldProps } from './types';
 
-export const SubmissionProblemField = (props: SubmissionProblemFieldProps) => {
+export function SubmissionProblemField(props: SubmissionProblemFieldProps) {
   
   const {
     record: {
@@ -37,4 +36,4 @@ export const SubmissionProblemField = (props: SubmissionProblemFieldProps) => {
       label="problem"
     />
   );
-};
+}

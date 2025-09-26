@@ -5,13 +5,13 @@ import {
   PROBLEM_MODE,
   PROBLEM_TYPE,
   ProblemScoringMode,
-  ProblemSettingsType,
+  type ProblemSettingsType,
 } from '@juki-team/commons';
-import { Children, Fragment, PropsWithChildren, ReactNode } from 'react';
+import { Children, Fragment, type PropsWithChildren, type ReactNode } from 'react';
 import { classNames } from '../../../helpers';
 import { Popover, T } from '../../atoms';
 import { ExclamationIcon, InfoIIcon } from '../../server';
-import { ProblemInfoProps } from './types';
+import type { ProblemInfoProps } from './types';
 
 export interface JukiProblemInfoProps {
   settings: ProblemSettingsType,
@@ -23,14 +23,16 @@ export interface JukiProblemInfoProps {
   withoutPadding?: boolean,
 }
 
-const ContentInfo = ({ label, value, children, expand, valueAsList, centered, withoutPadding }: PropsWithChildren<{
+function ContentInfo(props: PropsWithChildren<{
   label: string,
   value: ReactNode,
   expand?: boolean,
   valueAsList?: boolean,
   centered?: boolean,
   withoutPadding?: boolean,
-}>) => {
+}>) {
+  
+  const { label, value, children, expand, valueAsList, centered, withoutPadding } = props;
   
   const head = centered ? (
     <div className="jk-col">
@@ -76,9 +78,9 @@ const ContentInfo = ({ label, value, children, expand, valueAsList, centered, wi
       )}
     </div>
   );
-};
+}
 
-const ExtraProblemInfo = ({ tags, author, centered, withoutPadding }: JukiProblemInfoProps) => {
+function ExtraProblemInfo({ tags, author, centered, withoutPadding }: JukiProblemInfoProps) {
   
   return (
     <>
@@ -103,13 +105,16 @@ const ExtraProblemInfo = ({ tags, author, centered, withoutPadding }: JukiProble
       )}
     </>
   );
-};
+}
 
-export const ProblemTypeInfo = ({ settings, centered, withoutPadding }: {
+export function ProblemTypeInfo(props: {
   settings: ProblemSettingsType,
   centered?: boolean,
   withoutPadding?: boolean
-}) => {
+}) {
+  
+  const { settings, centered, withoutPadding } = props;
+  
   return (
     <ContentInfo
       label="type"
@@ -118,14 +123,14 @@ export const ProblemTypeInfo = ({ settings, centered, withoutPadding }: {
       withoutPadding={withoutPadding}
     />
   );
-};
+}
 
-export const ProblemModeInfo = ({ settings, expand, centered, withoutPadding }: {
+export function ProblemModeInfo({ settings, expand, centered, withoutPadding }: {
   settings: ProblemSettingsType,
   expand?: boolean,
   centered?: boolean,
   withoutPadding?: boolean,
-}) => {
+}) {
   
   const subTasks = (
     <>
@@ -157,7 +162,7 @@ export const ProblemModeInfo = ({ settings, expand, centered, withoutPadding }: 
       {settings?.scoringMode === ProblemScoringMode.SUBTASK ? subTasks : null}
     </ContentInfo>
   );
-};
+}
 
 const timeFixed = (milliseconds: number) => {
   milliseconds /= 1000;
@@ -169,12 +174,12 @@ const timeFixed = (milliseconds: number) => {
   }
 };
 
-export const ProblemTimeLimitInfo = ({ settings, expand, centered, withoutPadding }: {
+export function ProblemTimeLimitInfo({ settings, expand, centered, withoutPadding }: {
   settings: ProblemSettingsType,
   expand?: boolean,
   centered?: boolean,
   withoutPadding?: boolean,
-}) => {
+}) {
   
   const limitsLanguages = Object.values(settings?.byProgrammingLanguage || {})
     .filter(({ timeLimit }) => timeLimit !== settings.timeLimit);
@@ -197,7 +202,7 @@ export const ProblemTimeLimitInfo = ({ settings, expand, centered, withoutPaddin
       {!!limitsLanguages.length ? body : null}
     </ContentInfo>
   );
-};
+}
 
 const memoryFixed = (kbs: number) => {
   kbs /= 1000;
@@ -209,12 +214,12 @@ const memoryFixed = (kbs: number) => {
   }
 };
 
-export const ProblemMemoryLimitInfo = ({ settings, expand, centered, withoutPadding }: {
+export function ProblemMemoryLimitInfo({ settings, expand, centered, withoutPadding }: {
   settings: ProblemSettingsType,
   expand?: boolean,
   centered?: boolean,
   withoutPadding?: boolean,
-}) => {
+}) {
   
   const limitsLanguages = Object.values(settings?.byProgrammingLanguage || {})
     .filter(({ memoryLimit }) => memoryLimit !== settings.memoryLimit);
@@ -237,9 +242,9 @@ export const ProblemMemoryLimitInfo = ({ settings, expand, centered, withoutPadd
       {!!limitsLanguages.length ? body : null}
     </ContentInfo>
   );
-};
+}
 
-export const JukiProblemInfo = (props: PropsWithChildren<JukiProblemInfoProps>) => {
+export function JukiProblemInfo(props: PropsWithChildren<JukiProblemInfoProps>) {
   
   const { settings, expand, asPopover, centered, withoutPadding, children } = props;
   
@@ -253,9 +258,9 @@ export const JukiProblemInfo = (props: PropsWithChildren<JukiProblemInfoProps>) 
       {children}
     </div>
   );
-};
+}
 
-export const ProblemInfo = ({ problem }: ProblemInfoProps) => {
+export function ProblemInfo({ problem }: ProblemInfoProps) {
   
   if (problem.judge.key === Judge.LEETCODE) {
     return null;
@@ -291,4 +296,4 @@ export const ProblemInfo = ({ problem }: ProblemInfoProps) => {
       </div>
     </Popover>
   );
-};
+}

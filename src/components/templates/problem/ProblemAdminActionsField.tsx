@@ -1,11 +1,11 @@
-import { ReactNode, useState } from 'react';
+import { type ReactNode, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Button, T } from '../../atoms';
 import { Field } from '../../organisms';
 import { EntityLogsModal } from '../EntityLogsModal/EntityLogsModal';
-import { ProblemAdminActionsFieldProps } from './types';
+import type { ProblemAdminActionsFieldProps } from './types';
 
-export const ProblemAdminActionsField = ({ record: { key } }: ProblemAdminActionsFieldProps) => {
+export function ProblemAdminActionsField({ record: { key } }: ProblemAdminActionsFieldProps) {
   
   const [ modal, setModal ] = useState<ReactNode>(null);
   
@@ -29,4 +29,4 @@ export const ProblemAdminActionsField = ({ record: { key } }: ProblemAdminAction
       </Button>
     </Field>
   );
-};
+}

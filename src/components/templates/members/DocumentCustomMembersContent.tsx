@@ -1,11 +1,11 @@
 import {
   EntityAccess,
   EntityMembersRank,
-  EntityMembersResponseDTO,
+  type EntityMembersResponseDTO,
   getDocumentAccess,
   getUserKey,
   MemberType,
-  UserSummaryListResponseDTO,
+  type UserSummaryListResponseDTO,
 } from '@juki-team/commons';
 import { useEffect } from 'react';
 import { classNames } from '../../../helpers';
@@ -13,9 +13,9 @@ import { useUserStore } from '../../../stores/user/useUserStore';
 import { InputToggle, Popover, T } from '../../atoms';
 import { UserChip, UsersSelector } from '../../organisms';
 import { InfoIIcon } from '../../server';
-import { DocumentCustomMembersContentProps } from './types';
+import type { DocumentCustomMembersContentProps } from './types';
 
-const PrintUsers = ({ members }: { members?: EntityMembersResponseDTO['spectators'] }) => {
+function PrintUsers({ members }: { members?: EntityMembersResponseDTO['spectators'] }) {
   const users = Object.values(members || {});
   
   if (!users.length) {
@@ -29,9 +29,9 @@ const PrintUsers = ({ members }: { members?: EntityMembersResponseDTO['spectator
       ))}
     </div>
   );
-};
+}
 
-export const DocumentCustomMembersContent = (props: DocumentCustomMembersContentProps) => {
+export function DocumentCustomMembersContent(props: DocumentCustomMembersContentProps) {
   
   const {
     members,
@@ -479,4 +479,4 @@ export const DocumentCustomMembersContent = (props: DocumentCustomMembersContent
       )}
     </div>
   );
-};
+}

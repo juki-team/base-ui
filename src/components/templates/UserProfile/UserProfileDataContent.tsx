@@ -1,14 +1,13 @@
-import { ContentsResponseType, Judge, JUDGE, JudgeDataResponseDTO } from '@juki-team/commons';
+import { type ContentsResponseType, Judge, JUDGE, type JudgeDataResponseDTO } from '@juki-team/commons';
 import { classNames } from '../../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { CopyToClipboard } from '../../atoms';
 import { LocationOnIcon, MailIcon, SchoolIcon } from '../../atoms/server';
-
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiUI } from '../../hooks/useJukiUI';
-import { UserProfileDataContentProps } from './types';
+import type { UserProfileDataContentProps } from './types';
 
-export const UserProfileDataContent = ({ user, className }: UserProfileDataContentProps) => {
+export function UserProfileDataContent({ user, className }: UserProfileDataContentProps) {
   
   const { components: { Image, Link } } = useJukiUI();
   const { data } = useFetcher<ContentsResponseType<JudgeDataResponseDTO>>(
@@ -75,4 +74,4 @@ export const UserProfileDataContent = ({ user, className }: UserProfileDataConte
         })}
     </div>
   );
-};
+}

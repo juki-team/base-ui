@@ -1,5 +1,5 @@
 import { useJukiUI } from '../../hooks/useJukiUI';
-import { UserProfileProps } from './types';
+import type { UserProfileProps } from './types';
 import { UserProfileDataContent } from './UserProfileDataContent';
 
 export function UserProfile({ user }: UserProfileProps) {

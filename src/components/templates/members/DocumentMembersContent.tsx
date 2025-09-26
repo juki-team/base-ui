@@ -2,7 +2,7 @@ import { ENTITY_ACCESS, EntityAccess, EntityMembersRank, getDocumentAccess } fro
 import { Select, T } from '../../atoms';
 import { GlobeIcon, LockIcon, LockPersonIcon, PublicIcon } from '../../server';
 import { DocumentCustomMembersContent } from './DocumentCustomMembersContent';
-import { DocumentMembersContentProps } from './types';
+import type { DocumentMembersContentProps } from './types';
 
 const FileAccessIcons = {
   [EntityAccess.PRIVATE]: <LockIcon />,
@@ -11,7 +11,7 @@ const FileAccessIcons = {
   [EntityAccess.EXPOSED]: <GlobeIcon />,
 };
 
-export const DocumentMembersContent = (props: DocumentMembersContentProps) => {
+export function DocumentMembersContent(props: DocumentMembersContentProps) {
   
   const {
     members,
@@ -218,4 +218,4 @@ export const DocumentMembersContent = (props: DocumentMembersContentProps) => {
       {/*)}*/}
     </div>
   );
-};
+}

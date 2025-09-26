@@ -1,5 +1,5 @@
-import { JUDGE, Judge, Status, UserProfileResponseDTO } from '@juki-team/commons';
-import { Dispatch, useRef, useState } from 'react';
+import { JUDGE, Judge, Status, type UserProfileResponseDTO } from '@juki-team/commons';
+import { type Dispatch, useRef, useState } from 'react';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
 import { classNames } from '../../../helpers';
 import { Button, Input, Modal, T, TextArea } from '../../atoms';
@@ -9,7 +9,7 @@ import { useJukiUser } from '../../hooks/useJukiUser';
 import { ButtonLoader } from '../../molecules';
 import { EditIcon, LocationCityIcon, LocationOnIcon, PersonIcon, SchoolIcon } from '../../server';
 import { ImageProfileModal } from './ImageProfileModal';
-import { EditProfileModalProps } from './types';
+import type { EditProfileModalProps } from './types';
 
 interface JudgeInputProps {
   judge: { value: Judge, label: string, logo: string, url: string, logoSize: [ number, number ] },
@@ -17,7 +17,7 @@ interface JudgeInputProps {
   setUser: Dispatch<UserProfileResponseDTO>,
 }
 
-const JudgeInput = ({ judge: { value, label, logo, logoSize }, user, setUser }: JudgeInputProps) => {
+function JudgeInput({ judge: { value, label, logo, logoSize }, user, setUser }: JudgeInputProps) {
   
   const { components: { Image } } = useJukiUI();
   const height1 = (32 / logoSize[0]) * logoSize[1];
@@ -56,7 +56,7 @@ const JudgeInput = ({ judge: { value, label, logo, logoSize }, user, setUser }: 
       />
     </div>
   );
-};
+}
 
 export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfileModalProps) {
   

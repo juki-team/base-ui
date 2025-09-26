@@ -1,8 +1,0 @@
-import { classNames } from '../../../../helpers';
-import type { ImageProps } from './types';
-
-export const FlagEsImage = ({ className, ...props }: ImageProps) => {
-  return (
-    <div {...props} className={classNames('jk-image jk-bg-image flag-es', className)} />
-  );
-};

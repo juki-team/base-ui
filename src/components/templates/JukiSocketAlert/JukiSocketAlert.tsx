@@ -3,7 +3,7 @@ import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
 import { ButtonLoader } from '../../molecules';
 import { ErrorIcon } from '../../server';
 
-export const JukiSocketAlert = () => {
+export function JukiSocketAlert() {
   
   const isConnected = useWebsocketStore(state => state.isConnected);
   const websocket = useWebsocketStore(store => store.websocket);
@@ -28,4 +28,4 @@ export const JukiSocketAlert = () => {
       />
     </div>
   );
-};
+}

@@ -7,7 +7,7 @@ import { FieldText } from '../../organisms';
 import { OpenInNewIcon } from '../../server';
 import type { SubmissionContestProblemFieldProps } from './types';
 
-export const SubmissionContestProblemField = (props: SubmissionContestProblemFieldProps) => {
+export function SubmissionContestProblemField(props: SubmissionContestProblemFieldProps) {
   
   const {
     record: { problem: { key: problemKey, name: problemName, company: { key: problemCompanyKey } }, contest },
@@ -54,4 +54,4 @@ export const SubmissionContestProblemField = (props: SubmissionContestProblemFie
       label="problem / contest"
     />
   );
-};
+}

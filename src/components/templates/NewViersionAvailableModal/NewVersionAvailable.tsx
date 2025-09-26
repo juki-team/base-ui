@@ -1,11 +1,11 @@
-import { ContentResponseType } from '@juki-team/commons';
+import { type ContentResponseType } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useFetcher } from '../../hooks/useFetcher';
 import { NewVersionAvailableModal } from './NewVersionAvailableModal/NewVersionAvailableModal';
-import { NewVersionAvailableProps } from './types';
+import type { NewVersionAvailableProps } from './types';
 
-export const NewVersionAvailable = ({ apiVersionUrl }: NewVersionAvailableProps) => {
+export function NewVersionAvailable({ apiVersionUrl }: NewVersionAvailableProps) {
   
   const reloadRoute = useRouterStore(state => state.reloadRoute);
   const { data } = useFetcher<ContentResponseType<{ version: string }>>(
@@ -33,4 +33,4 @@ export const NewVersionAvailable = ({ apiVersionUrl }: NewVersionAvailableProps)
       reload={reloadRoute}
     />
   );
-};
+}

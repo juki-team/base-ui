@@ -1,0 +1,67 @@
+import { type  ContestSummaryListResponseDTO } from '@juki-team/commons';
+import { DateLiteral, T } from '../../../atoms';
+import { Field } from '../../../organisms';
+import type { DataViewerHeadersType } from '../../../organisms/types';
+import { EventIcon, ScheduleIcon } from '../../../server';
+
+export function getContestDateHeader(): DataViewerHeadersType<ContestSummaryListResponseDTO> {
+  return {
+    head: 'dates',
+    index: 'date',
+    Field: ({ record: { settings, isEndless }, isCard }) => (
+      <Field className="jk-row extend">
+        {isEndless ? (
+            isCard ? '' : '-'
+          ) :
+          isCard ? (
+            <div className="jk-row block extend nowrap space-between">
+              <div className="jk-row gap nowrap">
+                <EventIcon size="small" />
+                <div className="jk-col">
+                  <div className="jk-row nowrap">{new Date(settings.startTimestamp).toLocaleDateString()}</div>
+                  <T className="cr-g4 tx-s tt-se ws-np">start date</T>
+                </div>
+              </div>
+              <div className="jk-row gap nowrap">
+                <ScheduleIcon size="small" />
+                <div className="jk-col">
+                  <div className="jk-row ws-np">{new Date(settings.startTimestamp).toLocaleTimeString()}</div>
+                  <T className="cr-g4 tx-s tt-se">hour</T>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <DateLiteral date={new Date(settings.startTimestamp)} show="year-month-day-hours-minutes" twoLines />
+          )}
+        -
+        {isEndless ? (
+            isCard ? '' : '-'
+          ) :
+          isCard ? (
+            <div className="jk-row block extend nowrap space-between">
+              <div className="jk-row gap nowrap">
+                <EventIcon size="small" />
+                <div className="jk-col">
+                  <div>{new Date(settings.endTimestamp).toLocaleDateString()}</div>
+                  <T className="cr-g4 tx-s tt-se">end date</T>
+                </div>
+              </div>
+              <div className="jk-row gap nowrap">
+                <ScheduleIcon size="small" />
+                <div className="jk-col">
+                  <div>{new Date(settings.endTimestamp).toLocaleTimeString()}</div>
+                  <T className="cr-g4 tx-s tt-se">hour</T>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <DateLiteral date={new Date(settings.endTimestamp)} show="year-month-day-hours-minutes" twoLines />
+          )}
+      </Field>
+    ),
+    sort: true,
+    filter: { type: 'date-range', pickerType: 'year-month-day-hours-minutes' },
+    cardPosition: 'center',
+    minWidth: 320,
+  };
+}

@@ -6,16 +6,7 @@ import { Button, Popover, T } from '../../atoms';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { MockupJukiProvider } from '../../mockup';
 import { DrawerActionsType } from '../../molecules/Drawer/types';
-import {
-  AppsIcon,
-  FilterListIcon,
-  JukiCouchLogoHorImage,
-  JukiJudgeLogoHorImage,
-  JukiUtilsLogoHorImage,
-  ManufacturingIcon,
-  SettingsIcon,
-  ViewHeadlineIcon,
-} from '../../server';
+import { AppsIcon, FilterListIcon, SettingsIcon, ViewHeadlineIcon } from '../../server';
 import { HorizontalMenu as HorizontalMenuCmp, MdMathEditor, VerticalMenu } from '../index';
 import { SAMPLE_MD_CONTENT } from '../MdMathViewer/constants';
 
@@ -51,11 +42,11 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
           </div>
           <div className="jk-col gap cr-py">
             <div className="jk-row">
-              <JukiCouchLogoHorImage /> <ManufacturingIcon />{' '}
+              {/*<JukiCouchLogoHorImage /> <ManufacturingIcon />{' '}*/}
               <T className="tt-se">developing</T>...
             </div>
             <div className="jk-row">
-              <JukiUtilsLogoHorImage /> <ManufacturingIcon />{' '}
+              {/*<JukiUtilsLogoHorImage /> <ManufacturingIcon />{' '}*/}
               <T className="tt-se">developing</T>...
             </div>
           </div>
@@ -85,11 +76,11 @@ const rightMobile = {
       </div>
       <div className="jk-col gap cr-py" style={{ width: '100px' }}>
         <div className="jk-row">
-          <JukiCouchLogoHorImage /> <ManufacturingIcon />{' '}
+          {/*<JukiCouchLogoHorImage /> <ManufacturingIcon />{' '}*/}
           <T className="tt-se">developing</T>...
         </div>
         <div className="jk-row">
-          <JukiUtilsLogoHorImage /> <ManufacturingIcon />{' '}
+          {/*<JukiUtilsLogoHorImage /> <ManufacturingIcon />{' '}*/}
           <T className="tt-se">developing</T>...
         </div>
         <div onClick={onClose}>close right!</div>
@@ -101,7 +92,7 @@ const rightMobile = {
 const centerMobile = {
   children: (
     <div className="cr-we">
-      <JukiJudgeLogoHorImage />
+      {/*<JukiJudgeLogoHorImage />*/}
     </div>
   ),
   content: ({ onClose }: DrawerActionsType) => (
@@ -160,7 +151,7 @@ export const HorizontalMenu = () => (
         menu={menuHorizontal}
         leftSection={
           <div className="jk-row" style={{ width: '240px' }}>
-            <JukiJudgeLogoHorImage />
+            {/*<JukiJudgeLogoHorImage />*/}
           </div>
         }
         rightSection={<div className="">{rightSection({})}</div>}

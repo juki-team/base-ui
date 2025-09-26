@@ -1,5 +1,5 @@
-import type { ReactNode } from 'react';
-import type { UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
+import { type ReactNode } from 'react';
+import { type UseFormRegisterReturn, type UseFormSetValue } from 'react-hook-form';
 import { ButtonType, ReactNodeOrFunctionType } from '../../types';
 import type { SelectOption2Type, SelectProps } from '../Select/types';
 import { TextAreaProps } from '../TextArea/types';

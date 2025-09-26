@@ -6,9 +6,10 @@ import {
 } from '@juki-team/commons';
 import { useEffect, useMemo, useRef } from 'react';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { JukiSurprisedImage, LineLoader } from '../../atoms/server';
+import { LineLoader } from '../../atoms/server';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
+import { useJukiUI } from '../../hooks/useJukiUI';
 import { JukiLoadingLayout } from '../layouts/JukiLoadingLayout';
 import type { FetcherLayerProps } from './types';
 
@@ -32,6 +33,7 @@ export function FetcherLayer<T extends (ContentResponseType<U> | ContentsRespons
   onErrorRef.current = _onError;
   const { isLoading, data, error, mutate, isValidating } = useFetcher<T>(url, options);
   const { notifyResponse } = useJukiNotification();
+  const { components: { Image } } = useJukiUI();
   useEffect(() => {
     if (triggerFetch) {
       void mutate();
@@ -89,7 +91,14 @@ export function FetcherLayer<T extends (ContentResponseType<U> | ContentsRespons
   
   return (
     <div className="jk-row jk-col extend">
-      <JukiSurprisedImage />
+      <div className="jk-row pn-re" style={{ height: '40%', width: '60%' }}>
+        <Image
+          className="image-border"
+          src="https://images.juki.pub/assets/juki-image-surprised.png"
+          alt="Juki surprised image"
+          fill
+        />
+      </div>
     </div>
   );
 }

@@ -8,7 +8,7 @@ export interface SubmissionInfoProps {
   canViewSourceCode: boolean,
 }
 
-export const SubmissionInfo = ({ submitId, canViewSourceCode, children }: PropsWithChildren<SubmissionInfoProps>) => {
+export function SubmissionInfo({ submitId, canViewSourceCode, children }: PropsWithChildren<SubmissionInfoProps>) {
   
   const setSearchParams = useRouterStore(state => state.setSearchParams);
   
@@ -20,4 +20,4 @@ export const SubmissionInfo = ({ submitId, canViewSourceCode, children }: PropsW
       {children}
     </span>
   );
-};
+}

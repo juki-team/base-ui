@@ -1,17 +1,9 @@
-import { graphviz, type GraphvizOptions } from 'd3-graphviz';
-import { memo, useEffect, useRef, useState } from 'react';
+import { instance } from '@viz-js/viz';
+import { useEffect, useRef } from 'react';
 import { create } from 'zustand';
 import { classNames } from '../../../../helpers';
-import { Graphviz } from '../Graphviz';
-import type { GraphvizViewerProps } from '../Graphviz/types';
-
-const defaultOptions: GraphvizOptions = {
-  fit: true,
-  // height: 500,
-  // width: 500,
-  zoom: false,
-  useWorker: false as any,
-};
+import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { GraphvizViewerProps } from './types';
 
 interface GraphvizState {
   shouldRerender: number;
@@ -24,30 +16,31 @@ export const useGraphvizStore = create<GraphvizState>((set) => ({
     set(() => ({ shouldRerender: Date.now() })),
 }));
 
-function GraphvizViewerComponent({ value, className, width, height }: GraphvizViewerProps) {
+export default function GraphvizViewer({ dot, className }: GraphvizViewerProps) {
   
   const containerRef = useRef<HTMLDivElement>(null);
-  const [ error, setError ] = useState<string>('');
+  const t = useI18nStore(store => store.i18n.t);
   const shouldRerender = useGraphvizStore((s) => s.shouldRerender);
   
   useEffect(() => {
     const el = containerRef.current;
     if (!el) return;
     
-    el.innerHTML = '';
-    setError('');
-    const options = { width, height };
-    
-    try {
-      graphviz(el, { ...defaultOptions, ...options })
-        .fit(false)
-        .renderDot(value)
-        .onerror?.((e: any) => {
-        setError(e?.message || String(e));
-      });
-    } catch (e: any) {
-      setError(e?.message || String(e));
-    }
+    instance().then(viz => {
+      el.innerHTML = '';
+      try {
+        const svg = viz.renderSVGElement(dot, {});
+        el.appendChild(svg);
+      } catch (e: any) {
+        console.warn('error on drawing Graphviz', e);
+        el.innerHTML = '';
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = t('error rendering graph') + `: ${e?.message || String(e)}`;
+        errorDiv.style.color = 'red';
+        errorDiv.style.whiteSpace = 'pre-wrap';
+        el.appendChild(errorDiv);
+      }
+    });
     
     return () => {
       try {
@@ -55,16 +48,30 @@ function GraphvizViewerComponent({ value, className, width, height }: GraphvizVi
       } catch {
       }
     };
-  }, [ value, width, height, shouldRerender ]);
+  }, [ dot, shouldRerender ]);
   
   return (
     <div className={classNames('jk-graphviz-viewer-container', className)}>
-      {error && <div className="jk-tag bc-er">{error}</div>}
-      <Graphviz dot={value} className="jk-graphviz-viewer" options={{ width, height }} ref={containerRef} />
+      <div className="jk-graphviz-viewer" ref={containerRef} />
     </div>
   );
 }
 
-const GraphvizViewer = memo(GraphvizViewerComponent);
+/*
+digraph G {
+  rankdir=LR;
+  node [shape=plain, fontname="Inter"];
+  edge [color="#f59e0b", penwidth=2];
 
-export default GraphvizViewer;
+  topLbl [label="top", shape=plaintext];
+
+  stack [label=<
+    <TABLE BORDER="1" CELLBORDER="1" CELLSPACING="0">
+      <TR><TD><B>Stack (top)</B></TD></TR>
+      <TR><TD PORT="top"><I>∅</I></TD></TR>
+    </TABLE>
+  >];
+
+  topLbl -> stack:top;
+}
+ */

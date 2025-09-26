@@ -21,7 +21,7 @@ import { ErrorIcon, OpenInNewIcon, SpinIcon } from '../../../server';
 import type { SetSearchParamsType } from '../../../types';
 import { GraphvizViewers } from '../../GraphvizViewers/GraphvizViewers';
 import { UserChip } from '../../UserChip/UserChip';
-import { UserCodeEditor } from '../../UserCodeEditor/UserCodeEditor';
+import { UserCodeEditor } from '../UserCodeEditor';
 import type { CommandsObjectType, MdMathProps } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
@@ -228,7 +228,7 @@ function MdMathComponent(props: MdMathProps) {
           if (language === CodeLanguage.DOT && meta === 'asImage') {
             return (
               <GraphvizViewers
-                value={children}
+                dot={children}
                 className={classNames({ 'fragment': isRoot })}
                 viewSourceButton={!slideView}
               />

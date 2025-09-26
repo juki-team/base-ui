@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { MockJkContestTable } from '../../../organisms/DataViewer/JkContestTableTest/MockJkContestTable';
-import { MockJkProblemTable } from '../../../organisms/DataViewer/JkProblemTableTest/MockJkProblemTable';
-import { MockJkUserTable } from '../../../organisms/DataViewer/JkUserTableTest/MockJkUserTable';
+import { MockJkContestTable } from '../../../organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable';
+import { MockJkProblemTable } from '../../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';
+import { MockJkUserTable } from '../../../organisms/_layz_/DataViewer/JkUserTableTest/MockJkUserTable';
 import { TabsType } from '../../../types';
 import { TabsInline } from '../../index';
 import { TabsInlineBody } from '../../TabsInlineBody/TabsInlineBody';

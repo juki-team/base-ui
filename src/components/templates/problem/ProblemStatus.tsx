@@ -1,7 +1,7 @@
 import { CheckIcon, PendingActionsIcon } from '../../server';
-import { ProblemStatusProps } from './types';
+import type { ProblemStatusProps } from './types';
 
-export const ProblemStatus = ({ solved, tried, size }: ProblemStatusProps) => {
+export function ProblemStatus({ solved, tried, size }: ProblemStatusProps) {
   return solved ? (
     <div
       data-tooltip-id="jk-tooltip"
@@ -21,4 +21,4 @@ export const ProblemStatus = ({ solved, tried, size }: ProblemStatusProps) => {
       <PendingActionsIcon size={size} filledCircle className="cr-wg" />
     </div>
   );
-};
+}

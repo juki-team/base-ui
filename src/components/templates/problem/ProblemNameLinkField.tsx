@@ -4,9 +4,9 @@ import { useJukiUI } from '../../hooks/useJukiUI';
 import { Field } from '../../organisms';
 import { VoidIcon } from '../../server';
 import { ProblemStatus } from './ProblemStatus';
-import { ProblemNameLinkFieldProps } from './types';
+import type { ProblemNameLinkFieldProps } from './types';
 
-export const ProblemNameLinkField = (props: ProblemNameLinkFieldProps) => {
+export function ProblemNameLinkField(props: ProblemNameLinkFieldProps) {
   
   const { record: { name, shortname, user, key }, isCard } = props;
   
@@ -47,4 +47,4 @@ export const ProblemNameLinkField = (props: ProblemNameLinkFieldProps) => {
       </div>
     </Field>
   );
-};
+}

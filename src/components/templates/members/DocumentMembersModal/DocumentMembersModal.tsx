@@ -1,18 +1,18 @@
-import { EntityMembersResponseDTO, Status } from '@juki-team/commons';
-import { ReactNode, useState } from 'react';
+import { type EntityMembersResponseDTO, Status } from '@juki-team/commons';
+import { type ReactNode, useState } from 'react';
 import { Modal, T } from '../../../atoms';
-import { BasicModalProps } from '../../../atoms/Modal/types';
+import type { BasicModalProps } from '../../../atoms/Modal/types';
 import { useStableState } from '../../../hooks/useStableState';
 import { ButtonLoader } from '../../../molecules';
 import { DocumentMembersContent } from '../DocumentMembersContent';
-import { DocumentCustomMembersContentProps } from '../types';
+import type { DocumentCustomMembersContentProps } from '../types';
 
 export interface DocumentMembersModalProps extends BasicModalProps, Pick<DocumentCustomMembersContentProps, 'entityAccess' | 'documentOwner' | 'members' | 'administrators' | 'managers' | 'participants' | 'guests' | 'spectators'> {
   documentName: ReactNode,
   onSave: (members: EntityMembersResponseDTO, close: () => void) => Promise<void>,
 }
 
-export const DocumentMembersModal = (props: DocumentMembersModalProps) => {
+export function DocumentMembersModal(props: DocumentMembersModalProps) {
   
   const {
     documentName,
@@ -81,4 +81,4 @@ export const DocumentMembersModal = (props: DocumentMembersModalProps) => {
       </div>
     </Modal>
   );
-};
+}

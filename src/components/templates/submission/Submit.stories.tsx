@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useState } from 'react';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
-import { SubmissionContentModal } from './commons/SubmissionContentModal';
-import { SubmissionModal } from './SubmissionModal';
-import { SubmitView } from './SubmitView';
+import { SubmissionModal } from '../../organisms';
+import { SubmissionContentModal } from '../../organisms/_layz_/SubmissionModal/commons/SubmissionContentModal';
+import { SubmitView } from '../../organisms/_layz_/SubmissionModal/commons/SubmitView';
 
 const meta: Meta<typeof SubmissionModal> = {
   component: SubmissionModal,

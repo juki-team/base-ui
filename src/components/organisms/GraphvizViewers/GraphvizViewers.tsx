@@ -4,16 +4,16 @@ import { classNames } from '../../../helpers';
 import { Button, Input, Modal, T } from '../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, CodeIcon, PlayCircleIcon, ReplyIcon, StopCircleIcon } from '../../atoms/server';
 import { CodeViewer, FloatToolbar } from '../../molecules';
-import type { GraphvizViewerProps } from '../_layz_/Graphviz/types';
 import { GraphvizViewer } from '../_layz_/GraphvizViewer';
+import type { GraphvizViewerProps } from '../_layz_/GraphvizViewer/types';
 
 interface GraphvizViewersProps extends GraphvizViewerProps {
   viewSourceButton?: boolean,
 }
 
-export function GraphvizViewers({ value, className, width, height, viewSourceButton = true }: GraphvizViewersProps) {
+export function GraphvizViewers({ dot, className, viewSourceButton = true }: GraphvizViewersProps) {
   
-  const graphs = value.split('---');
+  const graphs = dot.split('---');
   const [ index, setIndex ] = useState(0);
   const [ delay, setDelay ] = useState(400);
   const [ isOpen, setIsOpen ] = useState(false);
@@ -49,7 +49,7 @@ export function GraphvizViewers({ value, className, width, height, viewSourceBut
     <div className={classNames('jk-graphviz-viewers-container jk-pg-xsm jk-br-ie jk-col gap', className)}>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <div className="jk-pg-md">
-          <CodeViewer code={value} language={CodeLanguage.DOT} />
+          <CodeViewer code={dot} language={CodeLanguage.DOT} />
         </div>
       </Modal>
       {viewSourceButton && (
@@ -116,7 +116,7 @@ export function GraphvizViewers({ value, className, width, height, viewSourceBut
           </Input>
         </>
       )}
-      {graphs[index] && <GraphvizViewer value={graphs[index]} width={width} height={height} />}
+      {graphs[index] && <GraphvizViewer dot={graphs[index]} />}
     </div>
   );
 }

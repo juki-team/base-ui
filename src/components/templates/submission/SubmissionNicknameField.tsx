@@ -1,11 +1,9 @@
 import { useUserStore } from '../../../stores/user/useUserStore';
-
 import { useJukiUI } from '../../hooks/useJukiUI';
-import { FieldText } from '../../organisms/FieldText/FieldText';
-import { UserNicknameLink } from '../../organisms/UserNicknameLink/UserNicknameLink';
+import { FieldText, UserNicknameLink } from '../../organisms';
 import type { SubmissionNicknameFieldProps } from './types';
 
-export const SubmissionNicknameField = ({
+export function SubmissionNicknameField({
                                           record: {
                                             user: {
                                               imageUrl,
@@ -13,7 +11,7 @@ export const SubmissionNicknameField = ({
                                               company: { key: companyKey },
                                             },
                                           },
-                                        }: SubmissionNicknameFieldProps) => {
+                                        }: SubmissionNicknameFieldProps) {
   
   const { components: { Image } } = useJukiUI();
   const key = useUserStore(state => state.company.key);
@@ -37,4 +35,4 @@ export const SubmissionNicknameField = ({
       label="user nickname"
     />
   );
-};
+}

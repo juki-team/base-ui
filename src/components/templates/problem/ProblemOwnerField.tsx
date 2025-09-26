@@ -1,8 +1,8 @@
 import { T } from '../../atoms';
 import { FieldText, UserChip } from '../../organisms';
-import { ProblemOwnerFieldProps } from './types';
+import type { ProblemOwnerFieldProps } from './types';
 
-export const ProblemOwnerField = ({
+export function ProblemOwnerField({
                                     record: {
                                       owner: {
                                         imageUrl,
@@ -10,10 +10,12 @@ export const ProblemOwnerField = ({
                                         company: { key: companyKey },
                                       },
                                     },
-                                  }: ProblemOwnerFieldProps) => (
-  <FieldText
-    className="jk-row"
-    text={<UserChip nickname={nickname} imageUrl={imageUrl} companyKey={companyKey} />}
-    label={<T className="tt-se">owner</T>}
-  />
-);
+                                  }: ProblemOwnerFieldProps) {
+  return (
+    <FieldText
+      className="jk-row"
+      text={<UserChip nickname={nickname} imageUrl={imageUrl} companyKey={companyKey} />}
+      label={<T className="tt-se">owner</T>}
+    />
+  );
+}

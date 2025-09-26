@@ -3,7 +3,7 @@ import { type  Dispatch, type KeyboardEventHandler, type ReactNode, type Synthet
 import { classNames } from '../../../../helpers';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Modal, Popover, T } from '../../../atoms';
-import { AppsIcon, FlagEnImage, FlagEsImage, HelpIcon, LoadingIcon, SpinIcon } from '../../../atoms/server';
+import { AppsIcon, HelpIcon, LoadingIcon, SpinIcon } from '../../../atoms/server';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useJukiUserSettings } from '../../../hooks/useJukiUser';
 import { HelpSection } from '../../HelpSection/HelpSection';
@@ -15,6 +15,7 @@ export const LanguageSetting = ({ isOpen, popoverPlacement }: {
 }) => {
   
   const { loading, setSettings, [ProfileSetting.LANGUAGE]: preferredLanguage } = useJukiUserSettings();
+  const { components: { Image } } = useJukiUI();
   
   const isEs = preferredLanguage === Language.ES;
   
@@ -34,8 +35,24 @@ export const LanguageSetting = ({ isOpen, popoverPlacement }: {
       {loading
         ? <LoadingIcon />
         : (isEs
-            ? <div className="jk-row" style={{ width: 24, height: 24 }}><FlagEsImage /></div>
-            : <div className="jk-row" style={{ width: 24, height: 24 }}><FlagEnImage /></div>
+            ? (
+              <div className="jk-row" style={{ width: 24, height: 24 }}>
+                <Image
+                  alt="ES image"
+                  fill
+                  src="https://images.juki.pub/assets/image-es.png"
+                />
+              </div>
+            )
+            : (
+              <div className="jk-row" style={{ width: 24, height: 24 }}>
+                <Image
+                  alt="US image"
+                  fill
+                  src="https://images.juki.pub/assets/image-us.png"
+                />
+              </div>
+            )
         )}
       {isOpen && (
         <div className="flex-1 ta-lt">

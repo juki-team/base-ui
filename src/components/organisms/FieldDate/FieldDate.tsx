@@ -1,6 +1,6 @@
 import { classNames } from '../../../helpers';
 import { DateLiteral, T } from '../../atoms';
-import type { DateFieldProps } from '../DataViewer/types';
+import type { DateFieldProps } from '../_layz_/DataViewer/types';
 import { Field } from '../Field/Field';
 
 export function FieldDate({ date, label, show, twoLines, withDayName, className, onClick }: DateFieldProps) {

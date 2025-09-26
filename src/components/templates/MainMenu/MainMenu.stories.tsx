@@ -8,13 +8,7 @@ import { MockupJukiProvider } from '../../mockup';
 import { TwoContentLayout } from '../../molecules';
 import { MdMathEditor, MdMathViewer } from '../../organisms';
 import { SAMPLE_MD_CONTENT } from '../../organisms/MdMathViewer/constants';
-import {
-  FilterListIcon,
-  JukiCouchLogoHorImage,
-  JukiUtilsLogoHorImage,
-  LoadingIcon,
-  ViewHeadlineIcon,
-} from '../../server';
+import { FilterListIcon, LoadingIcon, ViewHeadlineIcon } from '../../server';
 import { MainMenu as MainMenuCmp } from './MainMenu';
 
 const meta: Meta<typeof MainMenuCmp> = {
@@ -38,14 +32,14 @@ const meta: Meta<typeof MainMenuCmp> = {
             <>
               <div className="jk-row">
                 <div style={{ width: 95 }}>
-                  <JukiCouchLogoHorImage />
+                  {/*<JukiCouchLogoHorImage />*/}
                 </div>
                 <LoadingIcon size="small" /> <T className="tt-se">developing</T>
                 ...
               </div>
               <div className="jk-row">
                 <div style={{ width: 95 }}>
-                  <JukiUtilsLogoHorImage />
+                  {/*<JukiUtilsLogoHorImage />*/}
                 </div>
                 <LoadingIcon size="small" /> <T className="tt-se">developing</T>
                 ...
@@ -128,14 +122,14 @@ const Cmp = ({ menuViewMode }: { menuViewMode?: MenuViewMode }) => {
             <>
               <div className="jk-row">
                 <div style={{ width: 95 }}>
-                  <JukiCouchLogoHorImage />
+                  {/*<JukiCouchLogoHorImage />*/}
                 </div>
                 <LoadingIcon size="small" /> <T className="tt-se">developing</T>
                 ...
               </div>
               <div className="jk-row">
                 <div style={{ width: 95 }}>
-                  <JukiUtilsLogoHorImage />
+                  {/*<JukiUtilsLogoHorImage />*/}
                 </div>
                 <LoadingIcon size="small" /> <T className="tt-se">developing</T>
                 ...

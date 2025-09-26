@@ -5,7 +5,7 @@ import { MockupJukiProvider } from '../../mockup';
 import { DocumentCustomMembersContent } from './DocumentCustomMembersContent';
 import { DocumentMembersButton } from './DocumentMembersButton';
 import { DocumentMembersContent } from './DocumentMembersContent';
-import { DocumentCustomMembersContentProps } from './types';
+import type { DocumentCustomMembersContentProps } from './types';
 
 const meta: Meta<typeof DocumentCustomMembersContent> = {
   component: DocumentCustomMembersContent,

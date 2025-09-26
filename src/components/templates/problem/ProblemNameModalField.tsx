@@ -1,5 +1,5 @@
-import { ContentResponseType, ProblemDataResponseDTO } from '@juki-team/commons';
-import { ReactNode, useState } from 'react';
+import { type  ContentResponseType, type ProblemDataResponseDTO } from '@juki-team/commons';
+import { type ReactNode, useState } from 'react';
 import { classNames } from '../../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { Modal } from '../../atoms';
@@ -8,9 +8,9 @@ import { Field } from '../../organisms';
 import { VoidIcon } from '../../server';
 import { ProblemView } from '../ProblemView/ProblemView';
 import { ProblemStatus } from './ProblemStatus';
-import { ProblemNameModalFieldProps } from './types';
+import type { ProblemNameModalFieldProps } from './types';
 
-export const ProblemNameModalField = (props: ProblemNameModalFieldProps) => {
+export function ProblemNameModalField(props: ProblemNameModalFieldProps) {
   
   const { record: { name, user, key, shortname }, isCard } = props;
   
@@ -64,4 +64,4 @@ export const ProblemNameModalField = (props: ProblemNameModalFieldProps) => {
       </div>
     </Field>
   );
-};
+}

@@ -1,7 +1,7 @@
-import { ReactElement, SVGProps } from 'react';
-import { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
-import { ContentType } from 'recharts/types/component/Tooltip';
-import { AxisInterval, Margin } from 'recharts/types/util/types';
+import { type ReactElement, type SVGProps } from 'react';
+import type { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
+import type { ContentType } from 'recharts/types/component/Tooltip';
+import type { AxisInterval, Margin } from 'recharts/types/util/types';
 
 export interface LineChartProps<TValue extends ValueType, TName extends NameType> {
   data: { label: string, value: number, [key: string]: any }[],

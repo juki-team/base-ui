@@ -1,8 +1,8 @@
 import {
   cleanRequest,
-  ContentResponseType,
+  type ContentResponseType,
   ENTITY_ACCESS,
-  EntityMembersDTO,
+  type EntityMembersDTO,
   getDocumentAccess,
   HTTPMethod,
 } from '@juki-team/commons';
@@ -10,13 +10,12 @@ import { useState } from 'react';
 import { authorizedRequest } from '../../../helpers';
 import { Button, CopyToClipboard, Popover, T } from '../../atoms';
 import { ContentCopyIcon, EditIcon, InfoIIcon } from '../../atoms/server';
-
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { ButtonAction } from '../../molecules/ButtonAction/ButtonAction';
+import { ButtonAction } from '../../molecules';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';
-import { DocumentMembersButtonProps } from './types';
+import type { DocumentMembersButtonProps } from './types';
 
-export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
+export function DocumentMembersButton(props: DocumentMembersButtonProps) {
   
   const {
     isAdministrator,
@@ -139,4 +138,4 @@ export const DocumentMembersButton = (props: DocumentMembersButtonProps) => {
       />
     </>
   );
-};
+}

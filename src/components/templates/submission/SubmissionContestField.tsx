@@ -7,7 +7,7 @@ import { FieldText } from '../../organisms';
 import { OpenInNewIcon } from '../../server';
 import type { SubmissionContestFieldProps } from './types';
 
-export const SubmissionContestField = (props: SubmissionContestFieldProps) => {
+export function SubmissionContestField(props: SubmissionContestFieldProps) {
   
   const { record: { contest }, isCard } = props;
   
@@ -36,4 +36,4 @@ export const SubmissionContestField = (props: SubmissionContestFieldProps) => {
       label="contest"
     />
   );
-};
+}

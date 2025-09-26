@@ -1,8 +1,8 @@
 import { QueryParamKey } from '../../enums';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { Button } from '../atoms';
+import { LoginModal } from '../organisms';
 import { LoginIcon } from '../server';
-import { LoginModal } from '../templates/MainMenu/login/LoginModal';
 
 export const MockupLoginButton = () => {
   

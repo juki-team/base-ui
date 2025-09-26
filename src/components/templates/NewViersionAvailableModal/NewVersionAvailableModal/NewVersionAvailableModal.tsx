@@ -1,5 +1,5 @@
 import { T } from '../../../atoms';
-import { BasicModalProps } from '../../../atoms/types';
+import type { BasicModalProps } from '../../../atoms/types';
 import { TwoActionModal } from '../../../molecules';
 
 export interface NewVersionAvailableModalProps extends BasicModalProps {
@@ -8,7 +8,7 @@ export interface NewVersionAvailableModalProps extends BasicModalProps {
   reload: () => void,
 }
 
-export const NewVersionAvailableModal = (props: NewVersionAvailableModalProps) => {
+export function NewVersionAvailableModal(props: NewVersionAvailableModalProps) {
   
   const { reload, previousVersion, newVersion, ...restProps } = props;
   
@@ -43,4 +43,4 @@ export const NewVersionAvailableModal = (props: NewVersionAvailableModalProps) =
       </div>
     </TwoActionModal>
   );
-};
+}

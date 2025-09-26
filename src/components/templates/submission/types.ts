@@ -1,10 +1,5 @@
-import { Judge, SubmissionSummaryListResponseDTO } from '@juki-team/commons';
-import { TableHeadFieldProps } from '../../organisms/DataViewer/types';
-
-export interface SubmitViewProps {
-  submitId: string,
-  triggerFetch?: number
-}
+import { Judge, type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
+import type { TableHeadFieldProps } from '../../organisms/_layz_/DataViewer/types';
 
 type TableHeadFieldSubmissionSummaryListResponseDTOProps = TableHeadFieldProps<SubmissionSummaryListResponseDTO>;
 
@@ -29,10 +24,6 @@ export type SubmissionNicknameFieldProps = TableHeadFieldSubmissionSummaryListRe
 export type SubmissionProblemFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;
 
 export type SubmissionTimeFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;
-
-export interface SubmissionRejudgeButtonProps {
-  submissionId: string;
-}
 
 export interface SubmissionRetrieveButtonProps {
   submissionId: string;

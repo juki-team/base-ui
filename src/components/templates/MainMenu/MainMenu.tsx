@@ -1,6 +1,6 @@
 import {
-  CompanyUserPermissionsResponseDTO,
-  ContentsResponseType,
+  type CompanyUserPermissionsResponseDTO,
+  type ContentsResponseType,
   MenuViewMode,
   ProfileSetting,
   Status,
@@ -13,17 +13,13 @@ import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Popover, Select, T } from '../../atoms';
-
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { JukiLoadingLayout } from '../../molecules';
-import { HorizontalMenu, VerticalMenu } from '../../organisms';
+import { HorizontalMenu, LoginModal, LoginUser, SignUpModal, VerticalMenu } from '../../organisms';
 import type { MenuType } from '../../organisms/types';
 import { SpinIcon } from '../../server';
-import { LoginModal } from './login';
-import { LoginUser } from './login/LoginUser';
 import { SettingsSection } from './SettingsSection';
-import { SignUpModal } from './signup';
 import type { MainMenuProps } from './types';
 import { WelcomeModal } from './WelcomeModal';
 
@@ -35,7 +31,7 @@ const LOGO_SIZE = {
   'hg': 192,
 };
 
-export const MainMenu = (props: MainMenuProps) => {
+export function MainMenu(props: MainMenuProps) {
   
   const {
     menu: initialMenu,
@@ -327,4 +323,4 @@ export const MainMenu = (props: MainMenuProps) => {
         )}
     </>
   );
-};
+}

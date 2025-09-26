@@ -10,7 +10,7 @@ import type {
   ReactNode,
   SetStateAction,
 } from 'react';
-import type { UseFormRegisterReturn } from 'react-hook-form';
+import { type UseFormRegisterReturn } from 'react-hook-form';
 import { KeyedMutator } from 'swr';
 import { Sound, TriggerAction } from '../../enums';
 

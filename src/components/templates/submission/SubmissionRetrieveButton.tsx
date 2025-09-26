@@ -9,7 +9,7 @@ import { ButtonLoader } from '../../molecules';
 import type { ButtonLoaderOnClickType } from '../../types';
 import type { SubmissionRetrieveButtonProps } from './types';
 
-export const SubmissionRetrieveButton = ({ submissionId }: SubmissionRetrieveButtonProps) => {
+export function SubmissionRetrieveButton({ submissionId }: SubmissionRetrieveButtonProps) {
   
   const { notifyResponse } = useJukiNotification();
   const mutate = useMutate();
@@ -35,4 +35,4 @@ export const SubmissionRetrieveButton = ({ submissionId }: SubmissionRetrieveBut
       <T className="tt-se">retrieve</T>
     </ButtonLoader>
   );
-};
+}

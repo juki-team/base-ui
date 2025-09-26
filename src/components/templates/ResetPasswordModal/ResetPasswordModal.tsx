@@ -2,9 +2,9 @@ import { Button, Modal, T } from '../../atoms';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { ButtonLoader } from '../../molecules';
 import { UserNicknameLink } from '../../organisms';
-import { ResetPasswordModalProps } from './types';
+import type { ResetPasswordModalProps } from './types';
 
-export const ResetPasswordModal = ({ nickname, companyKey, ...modalProps }: ResetPasswordModalProps) => {
+export function ResetPasswordModal({ nickname, companyKey, ...modalProps }: ResetPasswordModalProps) {
   
   const { resetUserPassword } = useJukiUser();
   
@@ -37,4 +37,4 @@ export const ResetPasswordModal = ({ nickname, companyKey, ...modalProps }: Rese
       </div>
     </Modal>
   );
-};
+}

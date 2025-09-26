@@ -1,11 +1,10 @@
-import { cleanRequest, consoleError, consoleInfo, ContentsResponseType } from '@juki-team/commons';
-import { Component, ErrorInfo, ReactNode } from 'react';
+import { cleanRequest, consoleError, consoleInfo, type ContentsResponseType } from '@juki-team/commons';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { authorizedRequest } from '../../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { Button, T } from '../../atoms';
-import { JukiSurprisedImage } from '../../server';
 import { HelpSection } from '../HelpSection/HelpSection';
-import { ErrorBoundaryProps } from './types';
+import type { ErrorBoundaryProps } from './types';
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boolean, errorPersist: boolean }> {
   constructor(props: { children: ReactNode, reload: () => void }) {
@@ -56,7 +55,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
           <div className="bc-we jk-br-ie jk-pg-md">
             <div className="jk-col">
               <div style={{ width: '50vw', height: '20vh' }}>
-                <JukiSurprisedImage />
+                <img src="https://images.juki.pub/assets/juki-image-surprised.png" alt="Juki surprised image" />
               </div>
             </div>
             <div className="jk-col gap">

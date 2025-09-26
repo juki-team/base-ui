@@ -1,11 +1,11 @@
-import { ContentResponseType, isObjectJson, LogDataResponseDTO } from '@juki-team/commons';
+import { type ContentResponseType, isObjectJson, type LogDataResponseDTO } from '@juki-team/commons';
 import { classNames } from '../../../helpers';
 import { DateLiteral, Modal, T } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
 import { UserChip } from '../../organisms';
-import { EntityLogsModalProps } from './types';
+import type { EntityLogsModalProps } from './types';
 
-export const EntityLogsModal = ({ url, ...restProps }: EntityLogsModalProps) => {
+export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {
   return (
     <Modal {...restProps} closeIcon>
       <div className="jk-pg">
@@ -54,4 +54,4 @@ export const EntityLogsModal = ({ url, ...restProps }: EntityLogsModalProps) => 
       </div>
     </Modal>
   );
-};
+}

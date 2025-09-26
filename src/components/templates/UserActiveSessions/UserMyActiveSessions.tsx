@@ -11,7 +11,7 @@ import { useJukiUser } from '../../hooks/useJukiUser';
 import { useMutate } from '../../hooks/useMutate';
 import { ButtonLoader } from '../../molecules';
 import { DataViewer, Field } from '../../organisms';
-import type { DataViewerHeadersType } from '../../organisms/DataViewer/types';
+import type { DataViewerHeadersType } from '../../organisms/_layz_/DataViewer/types';
 import type { UserMyActiveSessionsProps } from './types';
 
 export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {

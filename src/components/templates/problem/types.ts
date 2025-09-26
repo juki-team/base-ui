@@ -1,6 +1,6 @@
 import { ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import { IconProps } from '../../atoms/server/icons/types';
-import { TableHeadFieldProps } from '../../organisms/DataViewer/types';
+import { TableHeadFieldProps } from '../../organisms/_layz_/DataViewer/types';
 
 type TableHeadFieldProblemSummaryListResponseDTOProps = TableHeadFieldProps<ProblemSummaryListResponseDTO>;
 

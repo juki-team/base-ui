@@ -10,7 +10,7 @@ import { ButtonLoader, ImageLoaderCropper } from '../../molecules';
 import type { CropImageType } from '../../molecules/types';
 import type { ImageProfileModalProps } from './types';
 
-export const ImageProfileModal = ({ isOpen, onClose, nickname }: ImageProfileModalProps) => {
+export function ImageProfileModal({ isOpen, onClose, nickname }: ImageProfileModalProps) {
   
   const { updateUserProfileImage } = useJukiUser();
   const mutateUser = useUserStore(state => state.mutate);
@@ -59,4 +59,4 @@ export const ImageProfileModal = ({ isOpen, onClose, nickname }: ImageProfileMod
       </div>
     </Modal>
   );
-};
+}

@@ -11,7 +11,7 @@ import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useFetcher } from '../../hooks/useFetcher';
 import { usePreload } from '../../hooks/usePreload';
 import { PagedDataViewer } from '../../organisms';
-import type { DataViewerHeadersType } from '../../organisms/DataViewer/types';
+import type { DataViewerHeadersType } from '../../organisms/_layz_/DataViewer/types';
 import {
   getSubmissionDateHeader,
   getSubmissionLanguageHeader,
@@ -20,7 +20,7 @@ import {
   getSubmissionTimeHeader,
   getSubmissionVerdictHeader,
   LanguagesByJudge,
-} from '../helpers';
+} from '../columns';
 import type { ProfileSubmissionsProps } from './types';
 
 export function ProfileSubmissions(_: ProfileSubmissionsProps) {

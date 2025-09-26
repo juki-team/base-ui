@@ -2,7 +2,7 @@ import { useUserStore } from '../../../stores/user/useUserStore';
 import { T } from '../../atoms';
 import { ContactPhoneIcon, MailIcon, TelegramIcon } from '../../atoms/server';
 
-export const HelpSection = () => {
+export function HelpSection() {
   
   const { contactEmail, contactTelegram, contactCellPhoneNumber } = useUserStore(state => state.company);
   
@@ -29,4 +29,4 @@ export const HelpSection = () => {
       </div>
     </div>
   );
-};
+}

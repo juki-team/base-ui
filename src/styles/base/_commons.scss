@@ -502,3 +502,7 @@
     break-inside: avoid;
   }
 }
+
+.image-border {
+  filter: drop-shadow(0 0 1px var(--t-color-white)) drop-shadow(0 0 1px var(--t-color-white));
+}

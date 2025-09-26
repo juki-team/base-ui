@@ -3,8 +3,8 @@ import { useEffect, useMemo, useRef } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS, PAGE_SIZE_OPTIONS } from '../../../constants';
 import { useDataViewerRequester } from '../../hooks/useDataViewerRequester';
 import { useJukiUI } from '../../hooks/useJukiUI';
-import { DataViewer } from '../DataViewer/DataViewer';
-import type { PagedDataViewerProps } from '../DataViewer/types';
+import { DataViewer } from '../_layz_/DataViewer';
+import type { PagedDataViewerProps } from '../_layz_/DataViewer/types';
 
 export function PagedDataViewer<T extends { [key: string]: any }, V = T>(props: PagedDataViewerProps<T, V>) {
   
