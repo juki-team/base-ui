@@ -1,7 +1,7 @@
 import { CODE_LANGUAGE } from '@juki-team/commons';
 import { Field, FieldText } from '../../organisms';
-import { SubmissionMemory } from '../../organisms/_layz_/SubmissionModal/commons/SubmissionMemory';
-import { SubmissionTime } from '../../organisms/_layz_/SubmissionModal/commons/SubmissionTime';
+import { SubmissionMemory } from '../../organisms/_layz_/SubmitView/commons/SubmissionMemory';
+import { SubmissionTime } from '../../organisms/_layz_/SubmitView/commons/SubmissionTime';
 import { SubmissionInfo } from './commons/SubmissionInfo';
 import type { SubmissionTimeFieldProps } from './types';
 

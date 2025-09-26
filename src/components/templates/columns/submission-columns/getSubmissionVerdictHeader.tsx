@@ -1,7 +1,7 @@
 import { PROBLEM_VERDICT, type  SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import { T } from '../../../atoms';
 import { Field, FieldText } from '../../../organisms';
-import { SubmissionListenerVerdict } from '../../../organisms/_layz_/SubmissionModal/commons/SubmissionListenerVerdict';
+import { SubmissionListenerVerdict } from '../../../organisms/_layz_/SubmitView/commons/SubmissionListenerVerdict';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { SubmissionInfo } from '../../submission/commons/SubmissionInfo';
 

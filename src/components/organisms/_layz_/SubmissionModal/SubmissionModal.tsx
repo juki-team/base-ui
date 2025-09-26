@@ -1,6 +1,6 @@
 import { QueryParamKey } from '../../../../enums';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
-import { SubmissionContentModal } from './commons/SubmissionContentModal';
+import { SubmissionContentModal } from './SubmissionContentModal';
 
 export default function SubmissionModal() {
   

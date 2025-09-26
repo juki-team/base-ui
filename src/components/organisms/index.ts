@@ -29,6 +29,7 @@ export { MdMath } from './_layz_/MdMath';
 export { MdMathEditor } from './_layz_/MdMathEditor';
 export { SignUpModal } from './_layz_/SignUpModal';
 export { SubmissionModal } from './_layz_/SubmissionModal';
+export { SubmitView } from './_layz_/SubmitView';
 export { UserCodeEditor } from './_layz_/UserCodeEditor';
 export { UserPreviewModal } from './_layz_/UserPreviewModal';
 export { WorksheetAsSlides } from './_layz_/WorksheetAsSlides';

@@ -1,7 +1,7 @@
 import { type SubmissionSummaryListResponseDTO } from '@juki-team/commons';
 import { FieldText } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer/types';
-import { SubmissionMemory } from '../../../organisms/_layz_/SubmissionModal/commons/SubmissionMemory';
+import { SubmissionMemory } from '../../../organisms/_layz_/SubmitView/commons/SubmissionMemory';
 
 export function getSubmissionMemoryHeader(): DataViewerHeadersType<SubmissionSummaryListResponseDTO> {
   return {
