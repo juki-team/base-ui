@@ -634,62 +634,41 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     font-weight: var(--weight-bold);
     
     &.huge {
-      min-height: 64px;
       font-size: var(--text-xl-size);
       
-      > .jk-input-select {
-        gap: var(--pad-s);
-        padding: 0 var(--pad-m);
+      > .jk-select-container > .jk-input-select {
+        min-height: calc(var(--text-huge-height) - 4px + (var(--text-medium-height) / 2));
       }
     }
     
     &.large {
-      min-height: var(--pad-xH);
       font-size: var(--text-large-size);
       
-      > .jk-input-select {
-        gap: var(--pad-xs);
-        padding: 0 var(--pad-s);
+      > .jk-select-container > .jk-input-select {
+        min-height: calc(var(--text-large-height) - 4px + (var(--text-medium-height) / 2));
       }
     }
     
-    min-height: var(--pad-h);
     font-size: var(--text-medium-size);
     padding: 0 !important;
     
-    > .jk-input-select {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      box-shadow: none;
-      background-color: transparent;
-      padding: 0 var(--pad-sm);
-      gap: var(--pad-t);
-      
-      > .input-icon {
-        position: relative;
-        color: inherit;
-      }
+    > .jk-select-container > .jk-input-select {
+      min-height: calc(var(--text-medium-height) - 4px + (var(--text-medium-height) / 2));
     }
     
     &.small {
-      min-height: var(--pad-xl);
       font-size: var(--text-small-size);
       
-      > .jk-input-select {
-        gap: var(--pad-xt);
-        padding: 0 var(--pad-t);
+      > .jk-select-container > .jk-input-select {
+        min-height: calc(var(--text-small-height) - 4px + (var(--text-medium-height) / 2));
       }
     }
     
     &.tiny {
-      min-height: 26px;
       font-size: var(--text-tiny-size);
       
-      > .jk-input-select {
-        padding: 0 var(--pad-xt);
-        gap: 4px;
+      > .jk-select-container > .jk-input-select {
+        min-height: calc(var(--text-tiny-height) - 4px + (var(--text-medium-height) / 2));
       }
     }
   }

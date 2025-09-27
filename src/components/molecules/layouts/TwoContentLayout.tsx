@@ -1,4 +1,5 @@
 import { type ReactNode } from 'react';
+import { persistGlobalURLSearchParams } from '../../../settings/AppRoutes';
 import { classNames, getHref, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { useStableState } from '../../hooks/useStableState';
@@ -75,10 +76,11 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
             onChange={(tabKey) => {
               setSelectedTabKey(tabKey);
               if (getHrefOnTabChange && typeof window !== 'undefined') {
-                window.history.replaceState({}, '', getHref(getHrefOnTabChange(tabKey)).path);
+                const { pathname, searchParams } = getHref(getHrefOnTabChange(tabKey));
+                const search = persistGlobalURLSearchParams(searchParams);
+                window.history.replaceState({}, '', `${pathname}${search ? '?' + search : ''}`);
               }
             }}
-            // getHrefOnTabChange={getHrefOnTabChange}
           />
         )}
       </>

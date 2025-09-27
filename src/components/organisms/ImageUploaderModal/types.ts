@@ -11,7 +11,7 @@ export type onPickImageUrlType = (props: { imageThumbnailUrl: string, imageUrl: 
 
 export type UploadImageButtonChildrenProps = { open: boolean, setOpen: Dispatch<boolean>, withLabel: boolean };
 
-export interface UploadImageButtonProps {
+export interface ImageUploaderButtonProps {
   open: boolean,
   setOpen: Dispatch<boolean>,
   isOpenRef?: RefObject<boolean>,
