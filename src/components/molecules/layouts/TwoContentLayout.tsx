@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useJukiUI } from '../../hooks/useJukiUI';
+import { useStableState } from '../../hooks/useStableState';
 import type { TabsType } from '../../types';
 import { TabsInline } from '../_lazy_/TabsInline';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
@@ -24,7 +25,8 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
   const LOADING_TAB = 'loading' as T;
   const { viewPortSize } = useJukiUI();
   const _tabKeys = Object.keys(initialTabs);
-  
+  const [ selectedTabKey, setSelectedTabKey ] = useStableState(loading ? LOADING_TAB : initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T);
+  // const pushRoute = useRouterStore(store => store.pushRoute);
   const tabs: TabsType<T> = !!loading ? {
     [LOADING_TAB as string]: {
       key: LOADING_TAB,
@@ -39,7 +41,6 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
   
   const tabKeys = Object.keys(tabs);
   
-  const selectedTabKey = loading ? LOADING_TAB : initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T;
   const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey }) as ReactNode[];
   
   const withTabs = tabKeys.length > 1;
@@ -72,6 +73,12 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
             extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
             tickStyle="background"
             className="jk-pg-xsm-b"
+            onChange={(tabKey) => {
+              setSelectedTabKey(tabKey);
+              // if (getHrefOnTabChange) {
+              //   pushRoute(getHrefOnTabChange(tabKey));
+              // }
+            }}
             getHrefOnTabChange={getHrefOnTabChange}
           />
         )}

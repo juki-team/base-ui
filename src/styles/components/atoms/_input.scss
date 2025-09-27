@@ -219,6 +219,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       border-radius: 50%;
     }
   }
+  
+  &.flex-1 {
+    > .jk-select-container > .jk-input-select > div {
+      width: 100%;
+      
+      .fake-gap {
+        display: none;
+      }
+    }
+  }
 }
 
 // input

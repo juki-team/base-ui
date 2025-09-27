@@ -1,8 +1,8 @@
 import { motion } from 'motion/react';
 import { Children, type ReactNode, useCallback, useId, useRef, useState } from 'react';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { Select } from '../../../atoms';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useHandleState } from '../../../hooks/useHandleState';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useMemoizedArray } from '../../../hooks/useMemoizedArray';
@@ -160,7 +160,7 @@ export default function TabsInline<T, >(props: TabsInlineProps<T>) {
                   </div>
                 ),
               }))}
-              className="jk-select-void flex-1"
+              className="jk-select-void flex-1 jk-row"
               selectedOption={tabsArray[selectedTabIndex]
                 ? { value: tabsArray[selectedTabIndex].key }
                 : { value: undefined as T }}
