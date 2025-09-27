@@ -1,6 +1,6 @@
 import { ONE_MINUTE } from '@juki-team/commons';
-import { useMemo, useState } from 'react';
-import { classNames } from '../../../helpers';
+import { useEffect, useMemo, useState } from 'react';
+import { useSoundStore } from '../../../../stores/sound/useSoundStore';
 import { Button, InputToggle, Portal, T } from '../../../atoms';
 import {
   AlarmIcon,
@@ -11,6 +11,7 @@ import {
   TimerIcon,
   UndoIcon,
 } from '../../../atoms/server';
+import { classNames } from '../../../helpers';
 import { ButtonAction, Timer } from '../../../molecules';
 
 export function FullscreenTimerButton() {
@@ -23,6 +24,27 @@ export function FullscreenTimerButton() {
     currentTimestamp: 0,
   });
   const [ type, setType ] = useState<'timer' | 'countdown'>('timer');
+  const playBell = useSoundStore(store => store.playBell);
+  useEffect(() => {
+    let time = null;
+    if (times.currentTimestamp > 0) {
+      time = setTimeout(() => {
+        playBell();
+        for (let i = 1; i <= 3; i++) {
+          setTimeout(() => {
+            playBell();
+          }, i * 1000);
+        }
+      }, times.currentTimestamp);
+    } else {
+      setTimes({ state: 0, startTimestamp: 0, currentTimestamp: 0 });
+    }
+    return () => {
+      if (time) {
+        clearTimeout(time);
+      }
+    };
+  }, [ times.currentTimestamp ]);
   
   const timer = useMemo(() => (
     <Timer
@@ -201,74 +223,84 @@ export function FullscreenTimerButton() {
                       onClick={() => setTimes({ state: 0, startTimestamp: 0, currentTimestamp: 0 })}
                     />
                   </div>
-                  <T className="tt-se tx-t">fullscreen</T>
-                  <InputToggle
-                    size="tiny"
-                    leftLabel={
-                      <div
-                        data-tooltip-id="jk-tooltip"
-                        data-tooltip-content="no fullscreen"
-                        data-tooltip-place="bottom-end"
-                      >
-                        < FullscreenExitIcon />
-                      </div>
-                    }
-                    rightLabel={
-                      <div
-                        data-tooltip-id="jk-tooltip"
-                        data-tooltip-content="fullscreen"
-                        data-tooltip-place="bottom-end"
-                      >
-                        <FullscreenIcon />
-                      </div>
-                    }
-                    checked={fullscreen}
-                    onChange={() => {
-                      setFullscreen(!fullscreen);
-                      const now = Date.now();
-                      if (times.state === 1) {
-                        if (type === 'timer') {
-                          setTimes(prevState => ({
-                            ...prevState,
-                            currentTimestamp: now - times.startTimestamp,
-                          }));
-                        } else {
-                          setTimes(prevState => ({
-                            ...prevState,
-                            currentTimestamp: prevState.currentTimestamp - (now - prevState.startTimestamp),
-                            startTimestamp: now,
-                          }));
-                        }
+                  <div className="jk-row">
+                    <T className="tt-se tx-t">fullscreen</T>
+                    <InputToggle
+                      size="tiny"
+                      className="ht-ao"
+                      leftLabel={
+                        <div
+                          data-tooltip-id="jk-tooltip"
+                          data-tooltip-content="no fullscreen"
+                          data-tooltip-place="bottom-end"
+                          className="jk-row"
+                        >
+                          <FullscreenExitIcon />
+                        </div>
                       }
-                    }}
-                  />
-                  <T className="tt-se tx-t">type</T>
-                  <InputToggle
-                    size="tiny"
-                    leftLabel={
-                      <div
-                        data-tooltip-id="jk-tooltip"
-                        data-tooltip-content="timer"
-                        data-tooltip-place="bottom-end"
-                      >
-                        <TimerIcon />
-                      </div>
-                    }
-                    rightLabel={
-                      <div
-                        data-tooltip-id="jk-tooltip"
-                        data-tooltip-content="countdown"
-                        data-tooltip-place="bottom-end"
-                      >
-                        <AlarmIcon />
-                      </div>
-                    }
-                    checked={type === 'countdown'}
-                    onChange={() => {
-                      setType(type === 'countdown' ? 'timer' : 'countdown');
-                      setTimes({ state: 0, startTimestamp: 0, currentTimestamp: 0 });
-                    }}
-                  />
+                      rightLabel={
+                        <div
+                          data-tooltip-id="jk-tooltip"
+                          data-tooltip-content="fullscreen"
+                          data-tooltip-place="bottom-end"
+                          className="jk-row"
+                        >
+                          <FullscreenIcon />
+                        </div>
+                      }
+                      checked={fullscreen}
+                      onChange={() => {
+                        setFullscreen(!fullscreen);
+                        const now = Date.now();
+                        if (times.state === 1) {
+                          if (type === 'timer') {
+                            setTimes(prevState => ({
+                              ...prevState,
+                              currentTimestamp: now - times.startTimestamp,
+                            }));
+                          } else {
+                            setTimes(prevState => ({
+                              ...prevState,
+                              currentTimestamp: prevState.currentTimestamp - (now - prevState.startTimestamp),
+                              startTimestamp: now,
+                            }));
+                          }
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className="jk-row">
+                    <T className="tt-se tx-t">type</T>
+                    <InputToggle
+                      size="tiny"
+                      className="ht-ao"
+                      leftLabel={
+                        <div
+                          data-tooltip-id="jk-tooltip"
+                          data-tooltip-content="timer"
+                          data-tooltip-place="bottom-end"
+                          className="jk-row"
+                        >
+                          <TimerIcon />
+                        </div>
+                      }
+                      rightLabel={
+                        <div
+                          data-tooltip-id="jk-tooltip"
+                          data-tooltip-content="countdown"
+                          data-tooltip-place="bottom-end"
+                          className="jk-row"
+                        >
+                          <AlarmIcon />
+                        </div>
+                      }
+                      checked={type === 'countdown'}
+                      onChange={() => {
+                        setType(type === 'countdown' ? 'timer' : 'countdown');
+                        setTimes({ state: 0, startTimestamp: 0, currentTimestamp: 0 });
+                      }}
+                    />
+                  </div>
                 </div>
               ),
             },

@@ -1,7 +1,7 @@
 .laser-pointer {
   position: fixed;
-  width: 12px;
-  height: 12px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: red;
   pointer-events: none;
@@ -15,13 +15,13 @@
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 6px 2px rgba(255, 0, 0, 0.4);
+    box-shadow: 0 0 8px 4px rgba(255, 0, 0, 0.4);
   }
   50% {
-    box-shadow: 0 0 8px 4px rgba(255, 0, 0, 0.8);
+    box-shadow: 0 0 10px 6px rgba(255, 0, 0, 0.8);
   }
   100% {
-    box-shadow: 0 0 6px 2px rgba(255, 0, 0, 0.4);
+    box-shadow: 0 0 8px 4px rgba(255, 0, 0, 0.4);
   }
 }
 
@@ -53,4 +53,56 @@
 .huge-text {
   font-size: min(40vh, 15vw);
   line-height: 1;
+}
+
+.presentation-tool-buttons {
+  
+  .jk-button.tiny {
+    --text-medium-height: 16px * 1.5;
+    font-size: 12px;
+    line-height: 14px;
+    --line-height: 18px;
+    
+    > .jk-icon {
+      height: 14px;
+      min-height: 14px;
+      width: 14px;
+      min-width: 14px;
+    }
+  }
+  
+  .buttons-content {
+    font-size: 16px;
+    line-height: 24px;
+    
+    .tx-t {
+      font-size: 12px;
+      line-height: 18px;
+    }
+    
+    .jk-icon {
+      --size-icon: 16px * 1.5;
+      line-height: 18px;
+      width: 24px; // var(--size-icon)
+      height: 24px;
+      min-width: 24px; // var(--size-icon)
+      min-height: 24px;
+    }
+    
+    .jk-input-toggle-slider {
+      --input-toggle-height: 14px;
+    }
+  }
+  
+  //.jk-icon {
+  //  --line-height: 18px;
+  //  width: 24px; // var(--size-icon)
+  //  height: 24px;
+  //  min-width: 24px; // var(--size-icon)
+  //  min-height: 24px;
+  //}
+  //
+  //button {
+  //  --text-medium-height: 16px;
+  //}
 }

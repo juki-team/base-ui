@@ -55,18 +55,19 @@ export function PresentationToolButtons() {
       <div
         style={{
           position: 'fixed',
-          transform: 'translateY(-50%)',
-          top: '50%',
           right: 'var(--pad-sm)',
           zIndex: 'var(--z-index-tool-buttons)',
+          ...(isFullscreen
+            ? { transform: 'translateY(-50%)', top: '50%' }
+            : { transform: 'translateY(-50%)', top: '50%' }),
         }}
         className="jk-col gap stretch right presentation-tool-buttons"
       >
+        <ExcalidrawButton />
+        <PointerButton />
+        <FullscreenTimerButton />
         {isFullscreen ? (
           <>
-            <ExcalidrawButton />
-            <PointerButton />
-            <FullscreenTimerButton />
             <div className="jk-row right opacity–hover">
               <Button
                 tooltipContent="exit fullscreen"

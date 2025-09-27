@@ -1,8 +1,8 @@
 import { ContentResponseType, Status, Theme, WorksheetDataResponseDTO } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
-import { oneTab } from '../../../helpers';
 import { jukiApiManager } from '../../../../settings';
 import { T } from '../../../atoms';
+import { oneTab } from '../../../helpers';
 import { useStableState } from '../../../hooks/useStableState';
 import { MockupJukiProvider } from '../../../mockup';
 import { ButtonLoader, FetcherLayer, SlideDeck, TwoContentLayout } from '../../../molecules';
@@ -192,6 +192,7 @@ export const WorksheetViewerAsSlides: Story = {
             {/*<div className="jk-row right tx-s fw-lr">*/}
             {/*  <DateLiteral date={new Date(noteSheet.updatedAt)} show="year-month-day-hours-minutes" />*/}
             {/*</div>*/}
+            <PresentationToolButtons />
           </TwoContentLayout>
         )}
       </FetcherLayer>
