@@ -1,5 +1,4 @@
-import { motion } from 'motion/react';
-import { Children, type ReactNode, useCallback, useId, useRef, useState } from 'react';
+import { Children, type ReactNode, useCallback, useRef, useState } from 'react';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { Select } from '../../../atoms';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
@@ -66,7 +65,7 @@ export default function TabsInline<T, >(props: TabsInlineProps<T>) {
   useWidthResizer({ onOverflow, unOverflow, targetRef: refB, trigger: tabKeys });
   
   const displayedTabs = oneTabView ? (tabsArray[selectedTabIndex] ? [ tabsArray[selectedTabIndex] ] : []) : tabsArray;
-  const layoutId = useId();
+  // const layoutId = useId();
   
   const renderHeaderTab = ({ key, header }: TabType<T>) => {
     const content = (
@@ -81,29 +80,32 @@ export default function TabsInline<T, >(props: TabsInlineProps<T>) {
       >
         {tickStyle === 'background' ? (
           <div
-            className={classNames('tab-tick-background jk-br-ie bc-hl', { 'opacity-0': key === selectedTabKey })}
+            className={classNames('tab-tick-background jk-br-ie', {
+              'opacity-1230 bc-pl cr-pt selected': key === selectedTabKey,
+              'bc-hl': key !== selectedTabKey,
+            })}
           >
             <div className="opacity-000">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
           </div>
         ) : (
           renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })
         )}
-        {tickStyle === 'line' && key === selectedTabKey && (
-          <motion.div
-            className="selected-tab-tick"
-            layoutId={layoutId}
-          />
-        )}
-        {tickStyle === 'background' && key === selectedTabKey && (
-          <motion.div
-            className="tab-tick-background selected bc-pl cr-pt jk-br-ie"
-            layoutId={layoutId}
-            // transition={{ duration: 10 }}
-            style={{ zIndex: 1 }}
-          >
-            <div className="opacity-00">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
-          </motion.div>
-        )}
+        {/*{tickStyle === 'line' && key === selectedTabKey && (*/}
+        {/*  <motion.div*/}
+        {/*    className="selected-tab-tick"*/}
+        {/*    layoutId={layoutId}*/}
+        {/*  />*/}
+        {/*)}*/}
+        {/*{tickStyle === 'background' && key === selectedTabKey && (*/}
+        {/*  <motion.div*/}
+        {/*    className="tab-tick-background selected bc-pl cr-pt jk-br-ie"*/}
+        {/*    layoutId={layoutId}*/}
+        {/*    // transition={{ duration: 10 }}*/}
+        {/*    style={{ zIndex: 1 }}*/}
+        {/*  >*/}
+        {/*    <div className="opacity-00">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>*/}
+        {/*  </motion.div>*/}
+        {/*)}*/}
       </div>
     );
     
@@ -147,10 +149,7 @@ export default function TabsInline<T, >(props: TabsInlineProps<T>) {
                 label: renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey }),
                 inputLabel: (
                   <div
-                    className={classNames('jk-row left jk-tabs-headers-inline nowrap', {
-                      'block flex-1': oneTabView,
-                      // 'block extend': extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter',
-                    })}
+                    className="jk-row left jk-tabs-headers-inline nowrap block flex-1"
                     style={{
                       position: 'relative' /*overflow: oneTabView ? 'visible' : undefined*/,
                       overflow: 'visible',
@@ -168,10 +167,7 @@ export default function TabsInline<T, >(props: TabsInlineProps<T>) {
             />
           ) : (
             <div
-              className={classNames('jk-row gap left stretch jk-tabs-headers-inline nowrap', {
-                'block flex-1': oneTabView,
-                // 'block extend': extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter',
-              })}
+              className="jk-row gap left stretch jk-tabs-headers-inline nowrap"
               style={{ position: 'relative' /*overflow: oneTabView ? 'visible' : undefined*/, overflow: 'visible' }}
             >
               {displayedTabs.map(renderHeaderTab)}

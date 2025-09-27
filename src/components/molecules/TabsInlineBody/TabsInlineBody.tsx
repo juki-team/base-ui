@@ -28,7 +28,7 @@ export function TabsInlineBody<T = string, >({ tabs, selectedTabKey }: TabsInlin
   
   return (
     <div className="ow-hn jk-row nowrap wh-100 ht-100 jk-tabs-inline-layout" ref={measuredRef}>
-      {tabKeys.map((key, index) => {
+      {!!width && !!height && tabKeys.map((key, index) => {
         const tab = tabs[key];
         const isVisible = Math.abs(selectedIndex - index) <= 0;
         return (
