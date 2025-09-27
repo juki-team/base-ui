@@ -1,11 +1,11 @@
 import { MotionConfig } from 'motion/react';
-import { type FC, lazy, type PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
-import { T } from '../../components/atoms/T/T';
+import { type FC, type PropsWithChildren, Suspense, useCallback, useMemo, useRef } from 'react';
+import { Tooltip } from '../../components/atoms/_lazy_/Tooltip';
+import { classNames } from '../../components/helpers';
 import { usePageFocus } from '../../components/hooks/usePageFocus';
 import { LineLoader } from '../../components/server';
 import { Duration } from '../../enums';
-import { classNames } from '../../components/helpers';
-import { persistGlobalURLSearchParams } from '../../settings';
+import { persistGlobalURLSearchParams } from '../../settings/AppRoutes';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { NotificationProvider } from '../NotificationProvider/NotificationProvider';
 import { SoundProvider } from '../SoundProvider/SoundProvider';
@@ -14,8 +14,6 @@ import { Image } from './Image';
 import { Link } from './Link';
 import type { JukiUIProviderProps, LinkCmpProps } from './types';
 import { useViewPortSize } from './useViewPortSize';
-
-const ReactTooltip = lazy(() => import('react-tooltip').then(module => ({ default: module.Tooltip })));
 
 export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiUIProviderProps>) => {
   
@@ -60,22 +58,7 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
               {/*<div className="loading-route-overlay" />*/}
               {children}
               <Suspense>
-                <ReactTooltip
-                  id="jk-tooltip"
-                  opacity={1}
-                  // isOpen
-                  positionStrategy="fixed"
-                  clickable
-                  // disableStyleInjection
-                  render={({ content, activeAnchor }) => (
-                    content ?
-                      activeAnchor?.getAttribute('data-tooltip-t') === 'false'
-                        ? content
-                        :
-                        <T className={activeAnchor?.getAttribute('data-tooltip-t-class-name') ?? 'tt-se tx-s'}>{content}</T>
-                      : null // Relevant attribute: { || 'not set'}
-                  )}
-                />
+                <Tooltip />
               </Suspense>
             </div>
           </NotificationProvider>
