@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { classNames, getHref, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { useStableState } from '../../hooks/useStableState';
 import type { TabsType } from '../../types';
@@ -26,7 +26,6 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
   const { viewPortSize } = useJukiUI();
   const _tabKeys = Object.keys(initialTabs);
   const [ selectedTabKey, setSelectedTabKey ] = useStableState(loading ? LOADING_TAB : initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T);
-  // const pushRoute = useRouterStore(store => store.pushRoute);
   const tabs: TabsType<T> = !!loading ? {
     [LOADING_TAB as string]: {
       key: LOADING_TAB,
@@ -75,11 +74,11 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
             className="jk-pg-xsm-b"
             onChange={(tabKey) => {
               setSelectedTabKey(tabKey);
-              // if (getHrefOnTabChange) {
-              //   pushRoute(getHrefOnTabChange(tabKey));
-              // }
+              if (getHrefOnTabChange && typeof window !== 'undefined') {
+                window.history.replaceState({}, '', getHref(getHrefOnTabChange(tabKey)).path);
+              }
             }}
-            getHrefOnTabChange={getHrefOnTabChange}
+            // getHrefOnTabChange={getHrefOnTabChange}
           />
         )}
       </>

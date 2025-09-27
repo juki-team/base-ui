@@ -321,16 +321,11 @@ export function FullscreenTimerButton() {
         <Portal>
           <div
             style={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
               pointerEvents: isActive ? undefined : 'none',
               opacity: isActive ? 1 : 0,
-              zIndex: 1,
+              backgroundColor: 'var(--t-color-highlight-light)',
             }}
-            className="bc-we jk-col stretch jk-overlay-backdrop"
+            className="bc-we jk-col stretch jk-overlay-backdrop jk-overlay"
           >
             <div className="jk-col gap huge-text">
               {timer}
