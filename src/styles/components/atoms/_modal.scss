@@ -69,13 +69,14 @@
     @include mixins.md { flex: 5 !important; }
     
     .title {
-      padding: var(--pad-sm) 0 0 0;
+      //padding: var(--pad-sm) 0 0 0;
       text-align: center;
     }
     
     .graphic {
-      max-height: calc(100% - var(--title-side-main-height) - var(--pad-sm) * 3);
-      padding: var(--pad-sm);
+      //max-height: calc(100% - var(--title-side-main-height) - var(--pad-sm) * 3);
+      min-height: calc(100% - var(--title-side-main-height) - var(--pad-sm) * 4);
+      //padding: var(--pad-sm);
     }
   }
   
