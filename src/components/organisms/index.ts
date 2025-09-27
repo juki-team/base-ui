@@ -33,5 +33,6 @@ export { SubmitView } from './_layz_/SubmitView';
 export { UserCodeEditor } from './_layz_/UserCodeEditor';
 export { UserPreviewModal } from './_layz_/UserPreviewModal';
 export { WorksheetAsSlides } from './_layz_/WorksheetAsSlides';
+export { WorksheetContents } from './_layz_/WorksheetContents';
 export { WorksheetEditor } from './_layz_/WorksheetEditor';
 export { WorksheetViewer } from './_layz_/WorksheetViewer';

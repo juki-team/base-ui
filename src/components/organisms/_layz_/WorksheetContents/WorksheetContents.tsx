@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { QueryParamKey } from '../../../../../enums';
-import { classNames } from '../../../../helpers';
-import { T } from '../../../../atoms';
-import { ArrowBackIcon, ArrowForwardIcon, ViewHeadlineIcon } from '../../../../atoms/server';
-import { TableOfContentsModal } from '../sheets/TableOfContentsModal';
+import { QueryParamKey } from '../../../../enums';
+import { T } from '../../../atoms';
+import { ArrowBackIcon, ArrowForwardIcon, ViewHeadlineIcon } from '../../../atoms/server';
+import { classNames } from '../../../helpers';
+import { TableOfContentsModal } from '../WorksheetEditor/sheets/TableOfContentsModal';
 import type { WorksheetContentsProps } from './types';
 
-export function WorksheetContents(props: WorksheetContentsProps) {
+export default function WorksheetContents(props: WorksheetContentsProps) {
   
   const { page, subPage, onPageChange, sheetsInPages } = props;
   

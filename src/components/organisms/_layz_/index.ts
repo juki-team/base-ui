@@ -11,6 +11,7 @@ import { SubmitViewImport } from './SubmitView';
 import { UserCodeEditorImport } from './UserCodeEditor';
 import { UserPreviewModalImport } from './UserPreviewModal';
 import { WorksheetAsSlidesImport } from './WorksheetAsSlides';
+import { WorksheetContentsImport } from './WorksheetContents';
 import { WorksheetEditorImport } from './WorksheetEditor';
 import { WorksheetViewerImport } from './WorksheetViewer';
 
@@ -28,6 +29,7 @@ export async function preImportOrganisms() {
   await UserCodeEditorImport();
   await UserPreviewModalImport();
   await WorksheetAsSlidesImport();
+  await WorksheetContentsImport();
   await WorksheetEditorImport();
   await WorksheetViewerImport();
 }

@@ -5,19 +5,19 @@ import {
   type WorksheetUserSubmissionsResponseDTO,
 } from '@juki-team/commons';
 import { useMemo } from 'react';
-import { classNames } from '../../../helpers';
 import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
+import { classNames } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useStableState } from '../../../hooks/useStableState';
 import type { UserResultsType } from '../../../types';
+import { WorksheetContents } from '../WorksheetContents';
 import { TableOfContents } from '../WorksheetEditor/sheets/TableOfContents';
 import { WorksheetBodies } from '../WorksheetEditor/sheets/WorksheetBodies';
 import type { OnPageChange, WorksheetViewerProps } from '../WorksheetEditor/types';
-import { WorksheetContents } from '../WorksheetEditor/WorksheetContents/WorksheetContents';
 
 export default function WorksheetViewer(props: WorksheetViewerProps) {
   

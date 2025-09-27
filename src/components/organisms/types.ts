@@ -15,4 +15,4 @@ export type * from './MdMathViewer/types';
 export type * from './PresentationToolButtons/types';
 export type * from './_layz_/WorksheetEditor/types';
 export type * from './_layz_/WorksheetAsSlides/types';
-export type * from './_layz_/WorksheetEditor/WorksheetContents/types';
+export type * from './_layz_/WorksheetContents/types';

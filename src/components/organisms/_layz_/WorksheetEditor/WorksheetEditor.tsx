@@ -2,9 +2,9 @@ import { getWorksheetsInPages } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useStableState } from '../../../hooks/useStableState';
+import { WorksheetContents } from '../WorksheetContents';
 import { WorksheetBodies } from './sheets/WorksheetBodies';
 import type { OnPageChange, WorksheetEditorProps } from './types';
-import { WorksheetContents } from './WorksheetContents/WorksheetContents';
 
 export default function WorksheetEditor(props: WorksheetEditorProps) {
   
