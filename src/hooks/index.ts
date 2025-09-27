@@ -43,3 +43,5 @@ export * from '../stores/sound/useSoundStore';
 export * from '../stores/user/useUserStore';
 export * from '../stores/websocket/useWebsocketStore';
 export * from '../stores/animationFrame/useAnimationFrameStore';
+
+export * from '../contexts/JukiTasksProvider/useJukiTask';
