@@ -1,6 +1,6 @@
 import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons';
-import { classNames } from '../../helpers';
 import { Button, InputRadio, InputToggle, Select, T } from '../../atoms';
+import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { useJukiUserSettings } from '../../hooks/useJukiUser';
 import {
@@ -44,7 +44,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
                 valueFirst: Language.EN,
                 labelFirst: (
                   <div className="jk-row nowrap">
-                    <div className="jk-row" style={{ width: 24, height: 24 }}>
+                    <div className="jk-row pn-re" style={{ width: 24, height: 24 }}>
                       <Image
                         alt="US image"
                         fill
@@ -57,7 +57,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
                 valueSecond: Language.ES,
                 labelSecond: (
                   <div className="jk-row nowrap">
-                    <div className="jk-row" style={{ width: 24, height: 24 }}>
+                    <div className="jk-row pn-re" style={{ width: 24, height: 24 }}>
                       <Image
                         alt="ES image"
                         fill

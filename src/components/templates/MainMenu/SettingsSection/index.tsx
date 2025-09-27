@@ -1,9 +1,9 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
 import { type  Dispatch, type KeyboardEventHandler, type ReactNode, type SyntheticEvent } from 'react';
-import { classNames } from '../../../helpers';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Modal, Popover, T } from '../../../atoms';
 import { AppsIcon, HelpIcon, LoadingIcon, SpinIcon } from '../../../atoms/server';
+import { classNames } from '../../../helpers';
 import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useJukiUserSettings } from '../../../hooks/useJukiUser';
 import { HelpSection } from '../../HelpSection/HelpSection';
@@ -36,7 +36,7 @@ export const LanguageSetting = ({ isOpen, popoverPlacement }: {
         ? <LoadingIcon />
         : (isEs
             ? (
-              <div className="jk-row" style={{ width: 24, height: 24 }}>
+              <div className="jk-row pn-re" style={{ width: 24, height: 24 }}>
                 <Image
                   alt="ES image"
                   fill
@@ -45,7 +45,7 @@ export const LanguageSetting = ({ isOpen, popoverPlacement }: {
               </div>
             )
             : (
-              <div className="jk-row" style={{ width: 24, height: 24 }}>
+              <div className="jk-row pn-re" style={{ width: 24, height: 24 }}>
                 <Image
                   alt="US image"
                   fill

@@ -31,7 +31,7 @@ export function WelcomeModal({ isOpen, nickname, onClose, onSeeMyProfile }: Welc
             </div>
           </div>
         </div>
-        <div style={{ width: '40%' }}>
+        <div style={{ width: '40%' }} className="pn-re">
           <Image
             className="image-border"
             alt="Juki with laptop image"
