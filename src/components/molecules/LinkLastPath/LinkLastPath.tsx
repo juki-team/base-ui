@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
 import type { LastPathType } from '../../../contexts/JukiLastPathProvider/types';
 import { QueryParamKey } from '../../../enums';
-import { getHref } from '../../helpers';
-import { cloneURLSearchParams } from '../../../settings';
+import { cloneURLSearchParams } from '../../../settings/AppRoutes';
 import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
+import { getHref } from '../../helpers';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import type { LinkLastPathProps } from './types';
 

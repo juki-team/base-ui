@@ -1,4 +1,5 @@
 import { type PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import { getHref } from '../../components/helpers';
 import type {
   AppendSearchParamsType,
   DeleteSearchParamsType,
@@ -9,8 +10,7 @@ import type {
   SetSearchParamsType,
 } from '../../components/types';
 import { QueryParamKey } from '../../enums';
-import { getHref } from '../../components/helpers';
-import { cloneURLSearchParams } from '../../settings';
+import { cloneURLSearchParams } from '../../settings/AppRoutes';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 
 export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderProps>) => {
