@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-return console.log('ups');
+return console.error('ups');
 const componentDirs = [
   {
     chunkName: 'Atoms',

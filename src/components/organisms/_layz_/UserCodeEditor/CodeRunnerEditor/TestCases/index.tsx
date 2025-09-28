@@ -4,17 +4,18 @@ import {
   getDataOfTestCase,
   getVerdictFromTestCase,
   mex,
+  ProblemVerdict,
   SUBMISSION_RUN_STATUS,
   SubmissionRunStatus,
 } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
 import { NotificationType } from '../../../../../../enums';
+import { InputToggle, Popover, T, TextArea } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
-import { InputToggle, T, TextArea } from '../../../../../atoms';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../../../molecules';
-import { AddIcon, DeleteIcon, InfoIIcon } from '../../../../../server';
+import { AddIcon, DeleteIcon, DraftIcon, InfoIIcon, SpinIcon } from '../../../../../server';
 import { TabsType } from '../../../../../types';
 import { ProblemVerdictTag } from '../../../../ProblemVerdictTag/ProblemVerdictTag';
 import type { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
@@ -37,7 +38,7 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, sample = false }: {
       className="jk-button light small only-icon jk-br-ie"
     >
       <AddIcon
-        size="small"
+        size="tiny"
         onClick={() => {
           const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
           const noCustomCases = testCasesValues.filter(testCaseValue => testCaseValue.sample);
@@ -83,6 +84,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     direction,
     enableAddSampleCases,
     enableAddCustomSampleCases,
+    isRunning,
   } = props;
   
   const testCasesValues = Object.values(testCases)
@@ -100,32 +102,30 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   const [ outputTab, setOutputTab ] = useState('output');
   const [ inputTab, setInputTab ] = useState('input');
   const test = testCases[testCaseKey] as CodeEditorTestCaseType | undefined;
-  const status = test?.status;
+  const testWithError = !!test && (
+    getDataOfTestCase(test, timeLimit, memoryLimit).failed
+    || !!test?.err
+    || [ SubmissionRunStatus.FAILED, SubmissionRunStatus.COMPILATION_ERROR, SubmissionRunStatus.FAILED_TEST_CASE ].includes(test.status)
+  );
   useEffect(() => {
-    setOutputTab(
-      status && [ SubmissionRunStatus.FAILED, SubmissionRunStatus.COMPILATION_ERROR, SubmissionRunStatus.FAILED_TEST_CASE ].includes(status)
-        ? 'error' : 'output',
-    );
-  }, [ status ]);
+    setOutputTab(testWithError ? 'error' : 'output');
+  }, [ testWithError ]);
   
-  const loaderAndInfo = (
-    test?.status === SubmissionRunStatus.RECEIVED
+  const isLoadingState = test?.status === SubmissionRunStatus.RECEIVED
     || test?.status === SubmissionRunStatus.COMPILING
     || test?.status === SubmissionRunStatus.RUNNING_TEST_CASES
-    || test?.status === SubmissionRunStatus.RUNNING_TEST_CASE
-  ) ? (
+    || test?.status === SubmissionRunStatus.RUNNING_TEST_CASE;
+  
+  const loader = isLoadingState && (
     <div
       className="jk-overlay jk-overlay-backdrop jk-row center pn-ae"
       style={{ background: 'transparent', position: 'absolute' }}
     >
       <div className="jk-row" style={{ alignItems: 'baseline' }}>
-        <T>{SUBMISSION_RUN_STATUS[test?.status].label}</T>&nbsp;
+        <T className="tt-se">{SUBMISSION_RUN_STATUS[test?.status].label}</T>&nbsp;
         <div className="dot-flashing" />
       </div>
     </div>
-  ) : (
-    !!test?.log &&
-    <LogInfo testCase={test} timeLimit={timeLimit} memoryLimit={memoryLimit} />
   );
   
   const outputTabs: TabsType = {};
@@ -135,9 +135,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
       key: 'test-output',
       header: (
         <div className="jk-row gap left nowrap">
-          <T className={classNames('tt-se tx-s')}>
-            expected output
-          </T>
+          <T className="tt-se">expected output</T>
           {test?.withPE && (
             <div
               data-tooltip-id="jk-tooltip"
@@ -163,8 +161,8 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     header: (
       <T
         className={classNames(
-          'tt-se tx-s',
-          { 'cr-er': !!test && getDataOfTestCase(test, timeLimit, memoryLimit).failed },
+          'tt-se',
+          // { 'cr-er': !!test && getDataOfTestCase(test, timeLimit, memoryLimit).failed },
         )}
       >
         your output
@@ -172,7 +170,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     ),
     body: (
       <div className="ht-100 jk-col stretch nowrap pn-re">
-        {loaderAndInfo}
+        {loader}
         <div className="jk-pg-xsm ow-ao flex-1">
           <span className="jk-text-stdout">{test?.out}</span>
         </div>
@@ -180,32 +178,40 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     ),
   };
   
-  outputTabs['error'] = {
-    key: 'error',
-    header: (
-      <T
-        className={classNames(
-          'tt-se tx-s',
-          { 'cr-er': (!!test && getDataOfTestCase(test, timeLimit, memoryLimit).failed) || !!test?.err },
-        )}
-      >
-        error
-      </T>
-    ),
-    body: (
-      <div className="ht-100 jk-col stretch nowrap pn-re">
-        {loaderAndInfo}
-        <div className="jk-pg-xsm ow-ao flex-1">
-          <span className="jk-text-stderr tx-t bc-er cr-we jk-pg-xsm">{test?.err}</span>
+  if (testWithError) {
+    outputTabs['error'] = {
+      key: 'error',
+      header: (
+        <T
+          className={classNames(
+            'tt-se',
+            // { 'bc-er cr-we': (!!test && getDataOfTestCase(test, timeLimit, memoryLimit).failed) || !!test?.err },
+          )}
+        >
+          error
+        </T>
+      ),
+      body: (
+        <div className="ht-100 jk-col stretch nowrap pn-re">
+          {loader}
+          {test && !test?.err ? (
+            <div className="jk-row">
+              <LogInfo testCase={test} timeLimit={timeLimit} memoryLimit={memoryLimit} />
+            </div>
+          ) : (
+            <div className="jk-pg-xsm ow-ao flex-1">
+              <span className="jk-text-stderr tx-t bc-er cr-we jk-pg-xsm">{test?.err}</span>
+            </div>
+          )}
         </div>
-      </div>
-    ),
-  };
+      ),
+    };
+  }
   
   const inputTabs: TabsType = {
     'input': {
       key: 'input',
-      header: <T className="tt-se tx-s">input</T>,
+      header: <T className="tt-se">input</T>,
       body: (test?.sample ? enableAddSampleCases : enableAddCustomSampleCases) && onChange ?
         <TextArea
           style={{
@@ -234,7 +240,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   if ((test?.sample && enableAddSampleCases)) {
     inputTabs['output'] = {
       key: 'output',
-      header: <T className="tt-se tx-s">output</T>,
+      header: <T className="tt-se">output</T>,
       body: onChange ?
         <TextArea
           style={{
@@ -261,7 +267,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     };
     inputTabs['settings'] = {
       key: 'settings',
-      header: <T className="tt-se tx-s">settings</T>,
+      header: <T className="tt-se">settings</T>,
       body: (
         <div className="jk-col gap jk-pg-sm">
           <InputToggle
@@ -297,56 +303,62 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     <div className="jk-code-mirror-editor-test-cases jk-row stretch nowrap">
       <div className="jk-col nowrap stretch top tx-t border-right-highlight-light test-cases-header ow-ao">
         <div className="jk-row ta-cr fw-bd jk-pg-xsm-tb border-bottom-highlight-light">
-          <T className="tt-se" style={{ width: 48 }}>test cases</T>
+          <T className="tt-se" style={{ width: 48, lineHeight: 1 }}>test cases</T>
         </div>
-        {testCasesValues.map((testCase) => (
-          <div
-            key={testCase.key}
-            data-tooltip-id="jk-tooltip"
-            data-tooltip-content={`${testCase.sample ? 'sample' : 'custom sample'} case`}
-            data-tooltip-place="left"
-            onClick={() => setTestCaseKey(testCase.key)}
-            className={classNames('jk-row center hoverable jk-pg-xsm', { 'bc-hl': testCase.key === testCaseKey })}
-          >
-            {testCase.key === '*' ? (
-              <T style={{ width: 48 }} className="tt-se ta-cr">default</T>
-            ) : (
-              <>
-                <T className="tt-se">{testCase.sample ? 's.' : 'c.'}</T>
-                &nbsp;{testCase.index + 1}
-              </>
-            )}
-            {(testCase.sample ? enableAddSampleCases : enableAddCustomSampleCases) && testCase.key !== '*' && (
-              <>
-                &nbsp;
-                <DeleteIcon
-                  size="small"
-                  className="clickable br-50-pc"
-                  data-tooltip-id="jk-tooltip"
-                  data-tooltip-content="delete case"
-                  data-tooltip-place="right"
-                  onClick={() => {
-                    onChange?.({
-                      onTestCasesChange: (testCases) => {
-                        const newTestCases = { ...testCases };
-                        delete newTestCases[testCase.key];
-                        return newTestCases;
-                      },
-                    });
-                  }}
-                />
-              </>
-            )}
-            {testCase.testOut
-              && (testCase.status === SubmissionRunStatus.EXECUTED_TEST_CASE || testCase.status === SubmissionRunStatus.FAILED_TEST_CASE)
-              && (
-                <>
-                  &nbsp;
-                  <ProblemVerdictTag verdict={getVerdictFromTestCase(testCase, timeLimit, memoryLimit).verdict} small />
-                </>
-              )}
-          </div>
-        ))}
+        {testCasesValues.map((testCase) => {
+          
+          const verdict = getVerdictFromTestCase(testCase, timeLimit, memoryLimit).verdict;
+          
+          return (
+            <div
+              key={testCase.key}
+              data-tooltip-id="jk-tooltip"
+              data-tooltip-content={`${testCase.sample ? 'sample' : 'custom sample'} case`}
+              data-tooltip-place="left"
+              onClick={() => setTestCaseKey(testCase.key)}
+              className={classNames('jk-row hoverable jk-pg-xsm space-between', { 'bc-hl': testCase.key === testCaseKey })}
+              style={{ minWidth: 80 }}
+            >
+              <div className="jk-row left">
+                {testCase.key === '*' ? (
+                  <DraftIcon size="small" />
+                ) : (
+                  <DraftIcon
+                    letter={((testCase.index + 1) % 10) + ''}
+                    letterSize={12}
+                    size="small"
+                    className={classNames({ 'cr-il': testCase.sample })}
+                  />
+                )}
+                {(testCase.sample ? enableAddSampleCases : enableAddCustomSampleCases) && testCase.key !== '*' && (
+                  <>
+                    &nbsp;
+                    <DeleteIcon
+                      size="tiny"
+                      className="clickable br-50-pc"
+                      data-tooltip-id="jk-tooltip"
+                      data-tooltip-content="delete case"
+                      data-tooltip-place="right"
+                      onClick={() => {
+                        onChange?.({
+                          onTestCasesChange: (testCases) => {
+                            const newTestCases = { ...testCases };
+                            delete newTestCases[testCase.key];
+                            return newTestCases;
+                          },
+                        });
+                      }}
+                    />
+                  </>
+                )}
+              </div>
+              {[ SubmissionRunStatus.EXECUTED_TEST_CASE, SubmissionRunStatus.FAILED_TEST_CASE ].includes(testCase.status) ? (
+                (testCase.testOut || verdict === ProblemVerdict.MLE || verdict === ProblemVerdict.TLE || verdict !== ProblemVerdict.RE) &&
+                <>&nbsp;<ProblemVerdictTag verdict={verdict} small /></>
+              ) : testCase.status !== SubmissionRunStatus.NONE && isRunning && <>&nbsp;<SpinIcon size="tiny" /></>}
+            </div>
+          );
+        })}
         {/*TODO: add character inside de buttons to distinguish the buttons*/}
         {enableAddSampleCases && onChange && (
           <div className="jk-row jk-pg-xsm-t border-top-highlight-light">
@@ -370,7 +382,8 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
               tabs={inputTabs}
               selectedTabKey={inputTab}
               onChange={setInputTab}
-              className="border-bottom-highlight-light"
+              className="border-bottom-highlight-light tx-t jk-pg-xsm"
+              tickStyle="background"
             />
             <div className="flex-1 wh-100 pn-re ow-hn">
               <TabsInlineBody tabs={inputTabs} selectedTabKey={inputTab} />
@@ -381,7 +394,34 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
               tabs={outputTabs}
               selectedTabKey={outputTab}
               onChange={setOutputTab}
-              className="border-bottom-highlight-light"
+              className="border-bottom-highlight-light tx-t jk-pg-xsm"
+              tickStyle="background"
+              extraNodesPlacement="left"
+              extraNodes={[
+                <div key="info">
+                  <Popover
+                    popoverClassName="bc-we jk-br-ie elevation-1 jk-pg-xsm"
+                    content={
+                      <div className="pn-re">
+                        {isLoadingState && (
+                          <div className="jk-row" style={{ alignItems: 'baseline' }}>
+                            <T className="tt-se">{SUBMISSION_RUN_STATUS[test?.status].label}</T>&nbsp;
+                            <div className="dot-flashing" />
+                          </div>
+                        )}
+                        {(!!test && !isLoadingState && test.status !== SubmissionRunStatus.NONE)
+                          ? <LogInfo testCase={test} timeLimit={timeLimit} memoryLimit={memoryLimit} />
+                          : !!test && !isLoadingState &&
+                          <T className="tt-se">{test.sample ? 'unexecuted sample case' : 'unexecuted test case'}</T>}
+                      </div>
+                    }
+                  >
+                    <div className={classNames('jk-row', { 'cr-el': testWithError, 'cr-il': !testWithError })}>
+                      <InfoIIcon filledCircle size="small" />
+                    </div>
+                  </Popover>
+                </div>,
+              ]}
             />
             <div className="flex-1 wh-100 pn-re ow-hn">
               <TabsInlineBody tabs={outputTabs} selectedTabKey={outputTab} />

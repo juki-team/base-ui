@@ -13,15 +13,16 @@ import {
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../../../constants';
-import { classNames } from '../../../../helpers';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../../../../stores/websocket/useWebsocketStore';
-import { Button, Input, Modal, Portal, Select, T } from '../../../../atoms';
+import { Button, Input, Modal, Portal, T } from '../../../../atoms';
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon } from '../../../../atoms/server';
+import { classNames } from '../../../../helpers';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
-import { CodeEditor, SplitPane, TwoActionModal } from '../../../../molecules';
+import { SplitPane, TwoActionModal } from '../../../../molecules';
 import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
+import { FirstPane } from './FirstPane';
 import { Header } from './Header';
 import { SettingsModal } from './SettingsModal';
 import { TestCases } from './TestCases';
@@ -51,6 +52,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
     enableAddCustomSampleCases,
     enableAddSampleCases,
     withoutRunCodeButton,
+    withoutDownloadCopyButton,
     onlyCodeEditor,
     files,
     currentFileName,
@@ -186,41 +188,19 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   const isMobileViewPort = viewPortSize === 'sm';
   
   const firstChild = useMemo(() => (
-    <div className={classNames('jk-col nowrap left stretch ht-100', { 'wh-100': !!onlyCodeEditor })}>
-      <div className="jk-row stretch jk-pg-xsm left">
-        {readOnly ? (
-          <div className="jk-tag bc-io">
-            {(languages.find(lang => lang.value === language)?.label || language) + ''}
-          </div>
-        ) : (
-          <Select
-            className="languages-selector tx-s"
-            options={languages.map(language => ({
-              value: language.value,
-              label: (language.label || language.value) + '',
-            }))}
-            selectedOption={{
-              value: language,
-              label: (languages.find(lang => lang.value === language)?.label || language) + '',
-            }}
-            onChange={({ value }) => codeEditorOnChange({ language: value })}
-          />
-        )}
-      </div>
-      <div className="editor-layout flex-1">
-        <CodeEditor
-          theme={preferredTheme}
-          onChange={codeEditorOnChange}
-          language={language}
-          readOnly={readOnly}
-          source={source}
-          tabSize={tabSize}
-          fontSize={fontSize}
-          triggerFocus={triggerFocus}
-        />
-      </div>
-    </div>
-  ), [ preferredTheme, codeEditorOnChange, language, readOnly, source, tabSize, fontSize, languages, onlyCodeEditor ]);
+    <FirstPane {...{
+      preferredTheme,
+      codeEditorOnChange,
+      language,
+      readOnly,
+      source,
+      tabSize,
+      fontSize,
+      languages,
+      onlyCodeEditor,
+      triggerFocus,
+    }} />
+  ), [ preferredTheme, codeEditorOnChange, language, readOnly, source, tabSize, fontSize, languages, onlyCodeEditor, triggerFocus ]);
   
   const withTestCases = !!testCases;
   const twoRows = headerWidthContainer < (withoutRunCodeButton ? 340 : 420);
@@ -360,6 +340,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
         setExpanded={setExpanded}
         isRunning={isRunning}
         withoutRunCodeButton={!!withoutRunCodeButton}
+        withoutDownloadCopyButton={!!withoutDownloadCopyButton}
         readOnly={!!readOnly}
         files={files}
         currentFileName={currentFileName}
@@ -425,9 +406,9 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
                   </div>
                 ))}
             </div>
-            <div className="jk-row">
+            <div className="jk-row jk-pg-xsm-t border-top-highlight-light">
               <Button
-                size="small"
+                size="tiny"
                 icon={<AddIcon />}
                 disabled={readOnly}
                 onClick={() => onChangeRef.current?.({ newFileName: true })}

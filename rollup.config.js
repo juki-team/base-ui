@@ -217,7 +217,7 @@ export default [
     // preserveDirectives: true, // Unknown input options
     onwarn(warning, warn) {
       if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
-        console.log(warning.message);
+        console.info(warning.message);
         return;
       }
       warn(warning);

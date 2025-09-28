@@ -85,7 +85,7 @@ export default function TabsInline<T, >(props: TabsInlineProps<T>) {
               'bc-hl': key !== selectedTabKey,
             })}
           >
-            <div className="opacity-000">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>
+            {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
           </div>
         ) : (
           renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })

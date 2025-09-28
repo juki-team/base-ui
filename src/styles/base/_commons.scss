@@ -31,7 +31,11 @@
 
 .cr-we { color: var(--t-color-white); }
 
+.cr-il { color: var(--t-color-info-light); }
+
 .cr-io { color: var(--t-color-info); }
+
+.cr-id { color: var(--t-color-info-dark); }
 
 .cr-sd { color: var(--t-color-success-dark); }
 
@@ -41,7 +45,11 @@
 
 .cr-wg { color: var(--t-color-warning); }
 
+.cr-el { color: var(--t-color-error-light); }
+
 .cr-er { color: var(--t-color-error); }
+
+.cr-ed { color: var(--t-color-error-dark); }
 
 .cr-thl { color: var(--t-color-text-highlight-light); }
 
@@ -398,6 +406,7 @@
     position: absolute;
     content: " ";
     bottom: 0;
+    left: 0;
     height: 1px;
     width: 100%;
     background-color: var(--t-color-highlight);

@@ -10,9 +10,14 @@ import {
 } from '@juki-team/commons';
 import { type Dispatch, type SetStateAction, useCallback, useEffect, useRef, useState } from 'react';
 import { EMPTY_OBJECT } from '../../../../constants';
-import { getEditorSettingsStorageKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
+import {
+  getEditorSettingsStorageKey,
+  getSettingsStoreKey,
+  getSourcesStoreKey,
+  getTestCasesStoreKey,
+} from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useStableRef } from '../../../hooks/useStableRef';
 import { CodeRunnerEditor } from './CodeRunnerEditor/CodeRunnerEditor';
@@ -143,6 +148,60 @@ const getNewFileName = (prefix: string, suffix: string, exist: (name: string) =>
   return newFile;
 };
 
+type SettingsStore = { lastFileName: string };
+
+const formatSettingsStoreRecovered = (recovered: any): StorageType<SettingsStore> => {
+  const state: StorageType<SettingsStore> = {};
+  for (const [ key, value ] of Object.entries(recovered)) {
+    state[key] = { lastFileName: typeof (value as any)?.lastFileName === 'string' ? (value as any).lastFileName : '' };
+  }
+  return state;
+};
+
+const formatStoreRecovered = <T, >(languages: {
+  value: T,
+  label: string
+}[]) => (recovered: any): StorageType<CodeEditorFiles<T>> => {
+  const state: StorageType<CodeEditorFiles<T>> = {};
+  for (const [ key, value ] of Object.entries(recovered)) {
+    state[key] = {};
+    let index = 1;
+    for (const [ lang, source ] of Object.entries(value as {})) {
+      if (typeof source === 'string') {
+        const name = `source-${index}.${getExtension(lang as CodeLanguage)}`;
+        state[key][name] = {
+          source,
+          language: languages.some(({ value }) => value === lang) ? lang as T : CodeLanguage.TEXT as T,
+          index,
+          name,
+          hidden: false,
+          protected: false,
+          readonly: false,
+        };
+        index++;
+      } else if (typeof source === 'object' && source !== null) {
+        state[key][lang] = {
+          source: 'source' in source && typeof source?.source === 'string' ? source?.source : '',
+          language: (('language' in source && typeof source?.language === 'string' ? (languages.some(({ value }) => value === source?.language) ? source?.language as T : CodeLanguage.TEXT as T) : '') || CodeLanguage.TEXT) as T,
+          index: 'index' in source && typeof source?.index === 'number' ? source?.index : 0,
+          name: lang,
+          hidden: 'hidden' in source && typeof source?.hidden === 'boolean' ? source.hidden : false,
+          protected: 'protected' in source && typeof source?.protected === 'boolean' ? source.protected : false,
+          readonly: 'readonly' in source && typeof source?.readonly === 'boolean' ? source.readonly : false,
+        };
+      }
+    }
+  }
+  return state;
+};
+
+type CodeEditorSettingsStore<T> = {
+  theme: Theme,
+  lastLanguageUsed: T,
+  tabSize: number,
+  fontSize: number,
+};
+
 export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   
   const {
@@ -163,6 +222,7 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
     onIsRunningChange,
     readOnly,
     withoutRunCodeButton,
+    withoutDownloadCopyButton,
     onCodeRunStatusChange,
     onlyCodeEditor,
   } = props;
@@ -172,66 +232,33 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   
   const editorSettingsStorageKey = getEditorSettingsStorageKey(userNickname);
   
-  const [ editorSettings, setEditorSettings ] = useSaveStorage<{
-    theme: Theme,
-    lastLanguageUsed: T,
-    tabSize: number,
-    fontSize: number,
-  }>(editorSettingsStorageKey, {
-    theme: Theme.LIGHT,
-    lastLanguageUsed: CodeLanguage.CPP as T,
-    tabSize: 2,
-    fontSize: 14,
-  });
+  const [ editorSettings, setEditorSettings ] = useSaveStorage<CodeEditorSettingsStore<T>>(
+    editorSettingsStorageKey,
+    { theme: Theme.LIGHT, lastLanguageUsed: CodeLanguage.CPP as T, tabSize: 2, fontSize: 14 },
+  );
   
   let defaultLanguage = editorSettings.lastLanguageUsed;
   if (languages.length && !languages.some(lang => lang.value === defaultLanguage) && languages[0]) {
     defaultLanguage = languages[0].value;
   }
   
-  const formatStoreRecovered = (recovered: any): StorageType<CodeEditorFiles<T>> => {
-    const state: StorageType<CodeEditorFiles<T>> = {};
-    for (const [ key, value ] of Object.entries(recovered)) {
-      state[key] = {};
-      let index = 1;
-      for (const [ lang, source ] of Object.entries(value as {})) {
-        if (typeof source === 'string') {
-          const name = `source-${index}.${getExtension(lang as CodeLanguage)}`;
-          state[key][name] = {
-            source,
-            language: languages.some(({ value }) => value === lang) ? lang as T : CodeLanguage.TEXT as T,
-            index,
-            name,
-            hidden: false,
-            protected: false,
-            readonly: false,
-          };
-          index++;
-        } else if (typeof source === 'object' && source !== null) {
-          state[key][lang] = {
-            source: 'source' in source && typeof source?.source === 'string' ? source?.source : '',
-            language: (('language' in source && typeof source?.language === 'string' ? (languages.some(({ value }) => value === source?.language) ? source?.language as T : CodeLanguage.TEXT as T) : '') || CodeLanguage.TEXT) as T,
-            index: 'index' in source && typeof source?.index === 'number' ? source?.index : 0,
-            name: lang,
-            hidden: 'hidden' in source && typeof source?.hidden === 'boolean' ? source.hidden : false,
-            protected: 'protected' in source && typeof source?.protected === 'boolean' ? source.protected : false,
-            readonly: 'readonly' in source && typeof source?.readonly === 'boolean' ? source.readonly : false,
-          };
-        }
-      }
-    }
-    return state;
-  };
-  
   const newInitialFiles: StorageType<CodeEditorFiles<T>> = { [storeKey]: { ...initialFiles } };
-  const [ filesStore, setFilesStore ] = useSaveChunkStorage<CodeEditorFiles<T>>(getSourcesStoreKey(userNickname), newInitialFiles, mergeSources, formatStoreRecovered);
+  const [ filesStore, setFilesStore ] = useSaveChunkStorage<CodeEditorFiles<T>>(getSourcesStoreKey(userNickname), newInitialFiles, mergeSources, formatStoreRecovered(languages));
   const onFilesChangeRef = useStableRef(onFilesChange);
   const files = filesStore[storeKey] || EMPTY_OBJECT;
-  useEffect(() => {
-    onFilesChangeRef.current?.(files);
-  }, [ files ]);
-  const defaultFileName = getDefaultFileName(defaultLanguage as CodeLanguage);
-  const [ currentFileName, setCurrentFileName ] = useState(initialFileName ?? Object.keys(files)[0] ?? defaultFileName);
+  useEffect(() => onFilesChangeRef.current?.(files), [ files ]);
+  const defaultFileName = initialFileName ?? Object.keys(files)[0] ?? getDefaultFileName(defaultLanguage as CodeLanguage);
+  const [ settingsStore, setSettingsStore ] = useSaveChunkStorage<SettingsStore>(getSettingsStoreKey(userNickname), { [storeKey]: { lastFileName: defaultFileName } }, (a, b) => ({ ...a, ...b }), formatSettingsStoreRecovered);
+  const currentFileName = settingsStore[storeKey]?.lastFileName ?? defaultFileName;
+  const setCurrentFileName = (lastFileName: string) => {
+    setSettingsStore(prevState => ({
+      ...prevState,
+      [storeKey]: {
+        ...prevState[storeKey],
+        lastFileName,
+      },
+    }));
+  };
   
   const testCaseStoreKey = storeKey;
   const newInitialTestCases: StorageType<CodeEditorTestCasesType> = { [testCaseStoreKey]: { ...initialTestCases } };
@@ -446,6 +473,7 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
       enableAddSampleCases={enableAddSampleCases}
       enableAddCustomSampleCases={enableAddCustomSampleCases}
       withoutRunCodeButton={withoutRunCodeButton}
+      withoutDownloadCopyButton={withoutDownloadCopyButton}
       onlyCodeEditor={onlyCodeEditor}
     />
   );

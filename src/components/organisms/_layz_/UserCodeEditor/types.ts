@@ -26,6 +26,7 @@ export interface UserCodeEditorProps<T> {
   enableAddCustomSampleCases?: boolean,
   readOnly?: boolean,
   withoutRunCodeButton?: boolean,
+  withoutDownloadCopyButton?: boolean,
   onCodeRunStatusChange?: (runStatus: SubmissionRunStatus, props: {
     files: CodeEditorFiles<T>,
     currentFileName: string,

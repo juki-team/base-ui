@@ -59,6 +59,7 @@ export interface CodeRunnerEditorProps<T> extends Omit<CodeEditorPropertiesType<
   enableAddSampleCases?: boolean,
   enableAddCustomSampleCases?: boolean,
   withoutRunCodeButton?: boolean,
+  withoutDownloadCopyButton?: boolean,
   onlyCodeEditor?: boolean,
 }
 
@@ -95,6 +96,7 @@ export interface HeaderProps<T> {
   setExpanded: Dispatch<SetStateAction<boolean>>,
   isRunning: boolean,
   withoutRunCodeButton: boolean,
+  withoutDownloadCopyButton: boolean,
   readOnly: boolean,
   headerRef: UseResizeDetectorReturn<any>['ref'],
   headerWidthContainer: number,

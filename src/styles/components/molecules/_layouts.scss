@@ -39,9 +39,14 @@
     box-sizing: border-box;
     width: 100%;
     height: calc(var(--100VH) - var(--first-content-section-height));
-    //padding: var(--pad-sm) var(--pad-md);
     overflow: hidden auto;
     position: relative;
+    
+    > .jk-tabs-inline-layout {
+      > .jk-tabs-inline-body-content {
+        padding: var(--pad-sm) var(--pad-md);
+      }
+    }
   }
 }
 

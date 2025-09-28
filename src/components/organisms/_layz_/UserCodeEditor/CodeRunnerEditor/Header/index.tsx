@@ -7,18 +7,28 @@ import {
   Status,
   SubmissionRunStatus,
 } from '@juki-team/commons';
-import { useEffect, useRef } from 'react';
+// @ts-ignore
+import domToImage from 'dom-to-image-more';
+import { useCallback, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../../constants';
-import { authorizedRequest, classNames } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
 import { useWebsocketStore } from '../../../../../../stores/websocket/useWebsocketStore';
-import { Button, T } from '../../../../../atoms';
-
+import { Button, Select, T } from '../../../../../atoms';
+import { authorizedRequest, classNames, downloadBlobAsFile } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
-import { ButtonLoader } from '../../../../../molecules';
-import { ErrorIcon, FullscreenExitIcon, FullscreenIcon, PlayArrowIcon, SettingsIcon } from '../../../../../server';
-import { ButtonLoaderOnClickType, SetLoaderStatusOnClickType } from '../../../../../types';
+import { useKeyPress } from '../../../../../hooks/useKeyPress';
+import { ButtonLoader, CodeViewer } from '../../../../../molecules';
+import {
+  ContentCopyIcon,
+  DownloadIcon,
+  ErrorIcon,
+  FullscreenExitIcon,
+  FullscreenIcon,
+  PlayArrowIcon,
+  SettingsIcon,
+} from '../../../../../server';
+import { SetLoaderStatusOnClickType } from '../../../../../types';
 import type { HeaderProps } from '../types';
 
 export const Header = <T, >(props: HeaderProps<T>) => {
@@ -37,6 +47,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     setExpanded,
     isRunning,
     withoutRunCodeButton,
+    withoutDownloadCopyButton,
     headerRef,
     headerWidthContainer,
     twoRows,
@@ -44,7 +55,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     currentFileName,
   } = props;
   
-  const { addErrorNotification } = useJukiNotification();
+  const { addErrorNotification, addQuietNotification } = useJukiNotification();
   const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
@@ -63,7 +74,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   }, [ isRunning ]);
   const minWidth = !withoutRunCodeButton ? 620 : 570;
   
-  const handleRunCode: ButtonLoaderOnClickType = async (setStatus) => {
+  const handleRunCode: (setLoaderStatus: SetLoaderStatusOnClickType) => Promise<void> = async (setStatus) => {
     const clean = (status: SubmissionRunStatus) => {
       const newTestCases: CodeEditorTestCasesType = {};
       for (const testKey in testCases) {
@@ -125,8 +136,40 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       setStatus(Status.ERROR);
     }
   };
+  const handleRunCodeRef = useRef(handleRunCode);
+  handleRunCodeRef.current = handleRunCode;
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (
+      (e.ctrlKey && e.key.toLowerCase() === 's') ||
+      (e.metaKey && e.key.toLowerCase() === 's')
+    ) {
+      e.preventDefault();
+      if (setLoaderRef.current) {
+        void handleRunCodeRef.current(setLoaderRef.current);
+      }
+    }
+  }, []);
+  
+  useKeyPress(handleKeyDown);
+  
   const withLabels = headerWidthContainer > minWidth;
   const widthCenterContainer = headerWidthContainer - widthLeftSection - widthRightSection;
+  
+  const toPng = async () => {
+    const cmThemeNode = document.querySelector('.code-viewer-to-print');
+    if (!cmThemeNode) {
+      return;
+    }
+    try {
+      return await domToImage.toBlob(cmThemeNode);
+    } catch (error) {
+      console.error('Error al capturar imagen:', error);
+    }
+  };
+  
+  const { source = '', name = '', language = CodeLanguage.TEXT } = files[currentFileName] ?? {};
+  
+  const withText = twoRows || withLabels;
   
   return (
     <div
@@ -143,8 +186,8 @@ export const Header = <T, >(props: HeaderProps<T>) => {
               data-tooltip-id="jk-tooltip"
               data-tooltip-content={!isConnected
                 ? 'run the editor is not available yet'
-                : !(twoRows || withLabels) ? 'run' : ''}
-              size={(twoRows || withLabels) ? 'tiny' : 'small'}
+                : !withText ? 'run' : ''}
+              size={withText ? 'tiny' : 'small'}
               type="primary"
               expand={twoRows}
               icon={<PlayArrowIcon />}
@@ -152,7 +195,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
               setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
               disabled={!isConnected || !currentFile}
             >
-              {(twoRows || withLabels) && <T className="tt-se">run</T>}
+              {withText && <T className="tt-se">run</T>}
             </ButtonLoader>
             {!isConnected && (
               <ButtonLoader
@@ -172,6 +215,62 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             )}
           </>
         )}
+        {!withoutDownloadCopyButton && (
+          <div className="jk-row gap">
+            <div className="code-viewer-to-print bc-we jk-pg jk-br-ie">
+              <CodeViewer code={source} language={language as CodeLanguage} />
+            </div>
+            <Select
+              options={[
+                { value: 'download-text', label: <T className="tt-se">download as file</T> },
+                { value: 'download-png', label: <T className="tt-se">download as png</T> },
+                { value: 'copy-text', label: <T className="tt-se">copy as text</T> },
+                { value: 'copy-png', label: <T className="tt-se">copy as png</T> },
+              ]}
+              // size={(twoRows || withLabels) ? 'tiny' : 'small'}
+              disabled={!source}
+              selectedOption={{
+                value: '',
+                label: withText
+                  ? <T className="tt-se tx-s">copy or download</T>
+                  : <><DownloadIcon size="small" /> / <ContentCopyIcon size="small" /></>,
+              }}
+              containerWidth={withText ? undefined : 'child'}
+              onChange={async ({ value }) => {
+                if (source) {
+                  switch (value) {
+                    case 'download-text':
+                      downloadBlobAsFile(source as unknown as Blob, name);
+                      addQuietNotification(<T className="tt-se">downloaded</T>);
+                      break;
+                    case 'download-png':
+                      downloadBlobAsFile(await toPng(), `${name}.png`);
+                      addQuietNotification(<T className="tt-se">downloaded</T>);
+                      break;
+                    case 'copy-text':
+                      try {
+                        await navigator.clipboard.writeText(source);
+                        addQuietNotification(<T className="tt-se">copied</T>);
+                      } catch (err) {
+                        console.error('Failed to copy:', err);
+                      }
+                      break;
+                    case 'copy-png':
+                      try {
+                        await navigator.clipboard.write([
+                          new ClipboardItem({ 'image/png': await toPng() }),
+                        ]);
+                        addQuietNotification(<T className="tt-se">copied</T>);
+                      } catch (err) {
+                        console.error('Failed to copy image:', err);
+                      }
+                      break;
+                  }
+                }
+              }}
+            />
+          </div>
+        )}
         {leftOptions({ widthContainer: widthCenterContainer, withLabels, twoRows })}
       </div>
       <div className="jk-row flex-1" style={{ width: widthCenterContainer }}>
@@ -183,25 +282,25 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       >
         <Button
           data-tooltip-id="jk-tooltip"
-          data-tooltip-content={!(twoRows || withLabels) ? 'settings' : ''}
+          data-tooltip-content={!withText ? 'settings' : ''}
           data-tooltip-place="bottom-end"
-          size={(twoRows || withLabels) ? 'tiny' : 'small'}
+          size={withText ? 'tiny' : 'small'}
           type="light"
           onClick={() => setShowSettings(true)} icon={<SettingsIcon />}
         >
-          {(twoRows || withLabels) && <T className="tt-se">settings</T>}
+          {withText && <T className="tt-se">settings</T>}
         </Button>
         {expanded !== null && (
           <Button
             data-tooltip-id="jk-tooltip"
-            data-tooltip-content={!(twoRows || withLabels) ? (expanded ? 'back' : 'expand') : ''}
+            data-tooltip-content={!withText ? (expanded ? 'back' : 'expand') : ''}
             data-tooltip-place="bottom-end"
-            size={(twoRows || withLabels) ? 'tiny' : 'small'}
+            size={withText ? 'tiny' : 'small'}
             type="light"
             onClick={() => setExpanded(prevState => !prevState)}
             icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
           >
-            {(twoRows || withLabels) && <T className="tt-se">{expanded ? 'back' : 'expand'}</T>}
+            {withText && <T className="tt-se">{expanded ? 'back' : 'expand'}</T>}
           </Button>
         )}
         {rightOptions({ withLabels, twoRows })}

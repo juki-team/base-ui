@@ -61,6 +61,17 @@
 
 .jk-code-mirror-editor-layout {
   
+  .code-viewer-to-print {
+    position: fixed;
+    top: 200vh;
+    left: 200vw;
+    z-index: -1;
+    
+    div[data-tooltip-id="jk-tooltip"] {
+      display: none;
+    }
+  }
+  
   .options-header-content {
     box-sizing: border-box;
     border-bottom: 1px solid var(--t-color-highlight-light);
