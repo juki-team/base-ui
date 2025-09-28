@@ -15,7 +15,7 @@ import { classNames } from '../../../../../helpers';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../../../molecules';
-import { AddIcon, DeleteIcon, DraftIcon, InfoIIcon, SpinIcon } from '../../../../../server';
+import { AddIcon, CheckIcon, DeleteIcon, DraftIcon, InfoIIcon, SpinIcon } from '../../../../../server';
 import { TabsType } from '../../../../../types';
 import { ProblemVerdictTag } from '../../../../ProblemVerdictTag/ProblemVerdictTag';
 import type { CodeRunnerEditorOnChangeType, TestCasesProps } from '../types';
@@ -83,7 +83,6 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
     direction,
     enableAddSampleCases,
     enableAddCustomSampleCases,
-    isRunning,
   } = props;
   
   const testCasesValues = Object.values(testCases)
@@ -351,10 +350,24 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                   </>
                 )}
               </div>
-              {[ SubmissionRunStatus.EXECUTED_TEST_CASE, SubmissionRunStatus.FAILED_TEST_CASE ].includes(testCase.status) ? (
-                (testCase.testOut || verdict === ProblemVerdict.CE || verdict === ProblemVerdict.MLE || verdict === ProblemVerdict.TLE || verdict === ProblemVerdict.RE) &&
-                <>&nbsp;<ProblemVerdictTag verdict={verdict} small /></>
-              ) : testCase.status !== SubmissionRunStatus.NONE && isRunning && <>&nbsp;<SpinIcon size="tiny" /></>}
+              {testCase.status !== SubmissionRunStatus.NONE && (
+                (![ SubmissionRunStatus.EXECUTED_TEST_CASE, SubmissionRunStatus.FAILED_TEST_CASE, SubmissionRunStatus.COMPILATION_ERROR ].includes(testCase.status)) ? (
+                  <>&nbsp;<SpinIcon size="tiny" /></>
+                ) : (
+                  (!!testCase.testOut || verdict === ProblemVerdict.CE || verdict === ProblemVerdict.MLE || verdict === ProblemVerdict.TLE || verdict === ProblemVerdict.RE) ? (
+                    <>&nbsp;<ProblemVerdictTag verdict={verdict} small /></>
+                  ) : (
+                    <div
+                      data-tooltip-id="jk-tooltip"
+                      data-tooltip-content="success executed"
+                      className="cr-il"
+                      style={{ lineHeight: 1, padding: '2px 4px' }}
+                    >
+                      <CheckIcon size="tiny" filledCircle />
+                    </div>
+                  )
+                )
+              )}
             </div>
           );
         })}

@@ -86,8 +86,11 @@ export const UserCodeEditor = () => {
         <UserCodeEditorCmp<CodeLanguage>
           // languages={[{ value: "A", label: "A" }]}
           initialTestCases={initialTestCases}
-          languages={[ { value: CodeLanguage.CPP17, label: CodeLanguage.CPP17 as string },
-            { value: CodeLanguage.JAVASCRIPT, label: CodeLanguage.JAVASCRIPT as string } ]}
+          languages={[
+            { value: CodeLanguage.CPP17, label: CodeLanguage.CPP17 as string },
+            { value: CodeLanguage.JAVASCRIPT, label: CodeLanguage.JAVASCRIPT as string },
+            { value: CodeLanguage.CPP17, label: CodeLanguage.CPP17 as string },
+          ]}
           storeKey={'testing'}
           enableAddCustomSampleCases
           enableAddSampleCases
