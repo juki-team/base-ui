@@ -90,6 +90,7 @@ export const UserCodeEditor = () => {
             { value: CodeLanguage.JAVASCRIPT, label: CodeLanguage.JAVASCRIPT as string } ]}
           storeKey={'testing'}
           enableAddCustomSampleCases
+          enableAddSampleCases
         />
       </div>
     </MockupJukiProvider>

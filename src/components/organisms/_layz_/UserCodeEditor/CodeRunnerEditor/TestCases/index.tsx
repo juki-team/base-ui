@@ -35,10 +35,9 @@ const AddCaseButton = <T, >({ onChange, testCasesValues, sample = false }: {
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={`add ${sample ? 'sample' : 'custom sample'} case`}
       data-tooltip-place="left"
-      className="jk-button light small only-icon jk-br-ie"
+      className="jk-button light tiny only-icon jk-br-ie"
     >
       <AddIcon
-        size="tiny"
         onClick={() => {
           const customCases = testCasesValues.filter(testCaseValue => !testCaseValue.sample);
           const noCustomCases = testCasesValues.filter(testCaseValue => testCaseValue.sample);
@@ -240,7 +239,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   if ((test?.sample && enableAddSampleCases)) {
     inputTabs['output'] = {
       key: 'output',
-      header: <T className="tt-se">output</T>,
+      header: <T className="tt-se">expected output</T>,
       body: onChange ?
         <TextArea
           style={{
@@ -353,7 +352,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                 )}
               </div>
               {[ SubmissionRunStatus.EXECUTED_TEST_CASE, SubmissionRunStatus.FAILED_TEST_CASE ].includes(testCase.status) ? (
-                (testCase.testOut || verdict === ProblemVerdict.MLE || verdict === ProblemVerdict.TLE || verdict !== ProblemVerdict.RE) &&
+                (testCase.testOut || verdict === ProblemVerdict.MLE || verdict === ProblemVerdict.TLE || verdict === ProblemVerdict.RE) &&
                 <>&nbsp;<ProblemVerdictTag verdict={verdict} small /></>
               ) : testCase.status !== SubmissionRunStatus.NONE && isRunning && <>&nbsp;<SpinIcon size="tiny" /></>}
             </div>
@@ -361,12 +360,12 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
         })}
         {/*TODO: add character inside de buttons to distinguish the buttons*/}
         {enableAddSampleCases && onChange && (
-          <div className="jk-row jk-pg-xsm-t border-top-highlight-light">
+          <div className="jk-row jk-pg-xsm-tb border-top-highlight-light">
             <AddCaseButton onChange={onChange} testCasesValues={testCasesValues} testCases={testCases} sample />
           </div>
         )}
         {enableAddCustomSampleCases && onChange && (
-          <div className="jk-row jk-pg-xsm-t border-top-highlight-light">
+          <div className="jk-row jk-pg-xsm-tb border-top-highlight-light">
             <AddCaseButton onChange={onChange} testCasesValues={testCasesValues} testCases={testCases} />
           </div>
         )}
