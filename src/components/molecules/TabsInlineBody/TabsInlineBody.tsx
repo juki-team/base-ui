@@ -34,7 +34,7 @@ export function TabsInlineBody<T = string, >({ tabs, selectedTabKey }: TabsInlin
         return (
           <div
             key={key}
-            className="jk-tabs-inline-body-content"
+            className="jk-tabs-inline-body-content ow-ao bs-bb jk-pg-rl jk-pg-sm-tb"
             style={{
               opacity: isVisible ? 1 : 0,
               width,

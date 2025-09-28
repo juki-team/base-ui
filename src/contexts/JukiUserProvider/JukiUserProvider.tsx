@@ -10,13 +10,12 @@ import {
 } from '@juki-team/commons';
 import { type PropsWithChildren, useCallback, useEffect } from 'react';
 import { T } from '../../components/atoms/T/T';
+import { localStorageCrossDomains } from '../../components/helpers';
 import { useFetcher } from '../../components/hooks/useFetcher';
 import { useInjectFontSize } from '../../components/hooks/useInjectFontSize';
 import { useInjectTheme } from '../../components/hooks/useInjectTheme';
 import { useMutate } from '../../components/hooks/useMutate';
-import { JukiLoadingLayout } from '../../components/molecules/layouts/JukiLoadingLayout';
 import { EMPTY_USER } from '../../constants';
-import { localStorageCrossDomains } from '../../components/helpers';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
@@ -128,13 +127,12 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   
   if (isLoading) {
     return (
-      <JukiLoadingLayout>
-        <div className="jk-row tx-l bc-wd cr-pl" style={{ alignItems: 'baseline' }}>
-          <T className="tt-se">loading user</T>
-          &nbsp;
+      <div className="expand-absolute jk-col">
+        <h3 className="jk-row" style={{ alignItems: 'baseline' }}>
+          <T className="tt-se">loading user</T>&nbsp;
           <div className="dot-flashing" />
-        </div>
-      </JukiLoadingLayout>
+        </h3>
+      </div>
     );
   }
   

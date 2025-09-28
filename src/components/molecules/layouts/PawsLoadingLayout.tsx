@@ -106,7 +106,7 @@ function PawsLoadingLayoutComponent(props: PawsLoadingLayoutProps) {
     );
   }
   return (
-    <div className="jk-loader-layout" ref={ref} style={style}>
+    <div className="jk-loader-layout expand-absolute" ref={ref} style={style}>
       <style>
         {`
   @keyframes ${animationName} {

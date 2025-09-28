@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useState } from 'react';
-import { oneTab } from '../../helpers';
 import { Input, T } from '../../atoms';
+import { oneTab } from '../../helpers';
 import { MockupJukiProvider } from '../../mockup';
 import { MockJkContestTable } from '../../organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';
@@ -85,6 +85,16 @@ const Component = <T, >(args: TwoContentLayoutProps<T>) => {
         {layout === 5 && (
           <TwoContentLayoutComponent tabs={oneTab(<div>one tab</div>)}>
             <h1>Title 5</h1>
+          </TwoContentLayoutComponent>
+        )}
+        {layout === 6 && (
+          <div className="expand-absolute jk-row">
+            <h1>Title 6</h1>
+          </div>
+        )}
+        {layout === 7 && (
+          <TwoContentLayoutComponent tabs={oneTab(<div className="expand-absolute jk-col">one tab</div>)}>
+            <h1>Title 7</h1>
           </TwoContentLayoutComponent>
         )}
       </div>

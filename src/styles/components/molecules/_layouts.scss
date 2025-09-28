@@ -39,7 +39,7 @@
     box-sizing: border-box;
     width: 100%;
     height: calc(var(--100VH) - var(--first-content-section-height));
-    padding: var(--pad-sm) var(--pad-md);
+    //padding: var(--pad-sm) var(--pad-md);
     overflow: hidden auto;
     position: relative;
   }
@@ -83,13 +83,7 @@
 }
 
 .jk-loader-layout {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
   overflow: visible;
-  pointer-events: none;
   
   .jk-loader-layout-container {
     width: 100%;
