@@ -352,7 +352,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
                 )}
               </div>
               {[ SubmissionRunStatus.EXECUTED_TEST_CASE, SubmissionRunStatus.FAILED_TEST_CASE ].includes(testCase.status) ? (
-                (testCase.testOut || verdict === ProblemVerdict.MLE || verdict === ProblemVerdict.TLE || verdict === ProblemVerdict.RE) &&
+                (testCase.testOut || verdict === ProblemVerdict.CE || verdict === ProblemVerdict.MLE || verdict === ProblemVerdict.TLE || verdict === ProblemVerdict.RE) &&
                 <>&nbsp;<ProblemVerdictTag verdict={verdict} small /></>
               ) : testCase.status !== SubmissionRunStatus.NONE && isRunning && <>&nbsp;<SpinIcon size="tiny" /></>}
             </div>
