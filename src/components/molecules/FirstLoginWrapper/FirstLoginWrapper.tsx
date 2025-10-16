@@ -16,7 +16,7 @@ export function FirstLoginWrapper({ children }: FirstLoginWrapperProps) {
   
   const onClick = () => {
     addWarningNotification(<T className="tt-se">you must log in</T>);
-    setSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' });
+    setSearchParams({ name: QueryParamKey.SIGN_IN, value: 'true' });
   };
   
   return cloneElement(children as ReactElement, { onClick } as ReactElement<{}>['props']);

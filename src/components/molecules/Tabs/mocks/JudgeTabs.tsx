@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { MockJkContestTable } from '../../../organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';
+import {
+  MockJkSubmissionTable,
+} from '../../../organisms/_layz_/DataViewer/JkSubmissionsTableTest/MockJkSubmissionTable';
 import { MockJkUserTable } from '../../../organisms/_layz_/DataViewer/JkUserTableTest/MockJkUserTable';
 import { TabsType } from '../../../types';
 import { TabsInline } from '../../index';
@@ -31,6 +34,15 @@ const outputTabs: TabsType = {
     body: (
       <div className="jk-row gap">
         <MockJkUserTable />
+      </div>
+    ),
+  },
+  submissions: {
+    key: 'submissions',
+    header: <div>submissions</div>,
+    body: (
+      <div className="jk-row gap">
+        <MockJkSubmissionTable />
       </div>
     ),
   },

@@ -1,7 +1,10 @@
-import { type PropsWithChildren } from 'react';
+import { type PropsWithChildren, useEffect, useMemo } from 'react';
 import { QueryParamKey } from '../../../../enums';
-import { classNames } from '../../../helpers';
+import { jukiApiManager } from '../../../../settings';
+import { cloneURLSearchParams } from '../../../../settings/AppRoutes';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
+import { useJukiUI } from '../../../hooks/useJukiUI';
+import { usePreload } from '../../../hooks/usePreload';
 
 export interface SubmissionInfoProps {
   submitId: string,
@@ -10,14 +13,28 @@ export interface SubmissionInfoProps {
 
 export function SubmissionInfo({ submitId, canViewSourceCode, children }: PropsWithChildren<SubmissionInfoProps>) {
   
-  const setSearchParams = useRouterStore(state => state.setSearchParams);
+  const currentSearchParams = useRouterStore(state => state.searchParams);
+  const preload = usePreload();
+  const { components: { Link } } = useJukiUI();
   
-  return (
-    <span
-      className={classNames({ link: canViewSourceCode })}
-      onClick={() => canViewSourceCode && setSearchParams({ name: QueryParamKey.SUBMISSION, value: submitId })}
-    >
-      {children}
-    </span>
-  );
+  useEffect(() => {
+    void preload(jukiApiManager.API_V1.submission.getData({ params: { id: submitId } }).url);
+  }, [ submitId, preload ]);
+  
+  const searchParams = useMemo(() => {
+    const clonedSearchParams = cloneURLSearchParams(currentSearchParams);
+    clonedSearchParams.delete(QueryParamKey.SUBMISSION);
+    clonedSearchParams.append(QueryParamKey.SUBMISSION, submitId);
+    return clonedSearchParams;
+  }, [ currentSearchParams ]);
+  
+  if (canViewSourceCode) {
+    return (
+      <Link href={{ query: searchParams.toString() }}>
+        {children}
+      </Link>
+    );
+  }
+  
+  return children;
 }

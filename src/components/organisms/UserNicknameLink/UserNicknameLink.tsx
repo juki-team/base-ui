@@ -10,12 +10,13 @@ import type { UserNicknameLinkProps } from '../UserChip/types';
 export function UserNicknameLink({ children, nickname, companyKey }: UserNicknameLinkProps) {
   
   const currentSearchParams = useRouterStore(state => state.searchParams);
-  
   const preload = usePreload();
   const { components: { Link } } = useJukiUI();
+  
   useEffect(() => {
     void preload(jukiApiManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url);
   }, [ companyKey, nickname, preload ]);
+  
   const searchParams = useMemo(() => {
     const clonedSearchParams = cloneURLSearchParams(currentSearchParams);
     clonedSearchParams.delete(QueryParamKey.USER_PREVIEW);

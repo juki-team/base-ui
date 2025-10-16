@@ -1,9 +1,9 @@
 import { QueryParamKey } from '../../../enums';
-import { classNames } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Popover, T } from '../../atoms';
+import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { ButtonLoader } from '../../molecules';
@@ -94,7 +94,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
       className="jk-row extend"
     >
       <Button
-        onClick={() => setSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' })}
+        onClick={() => setSearchParams({ name: QueryParamKey.SIGN_IN, value: 'true' })}
         icon={!collapsed && <LoginIcon />}
         expand
       >

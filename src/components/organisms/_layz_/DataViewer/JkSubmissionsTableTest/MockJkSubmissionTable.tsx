@@ -6,8 +6,8 @@ import type {
   SubmissionSummaryListResponseDTO,
 } from '@juki-team/commons';
 import { useMemo } from 'react';
-import { toFilterUrl, toSortUrl } from '../../../../helpers';
 import { jukiApiManager } from '../../../../../settings';
+import { toFilterUrl, toSortUrl } from '../../../../helpers';
 import { useFetcher } from '../../../../hooks/useFetcher';
 import {
   getSubmissionContestHeader,
@@ -24,7 +24,7 @@ import {
 import { PagedDataViewer } from '../../../PagedDataViewer/PagedDataViewer';
 import type { DataViewerHeadersType, DataViewerProps } from '../types';
 
-export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data'>) => {
+export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data' | 'headers'>) => {
   const { data: judgeSystemList } = useFetcher<ContentsResponseType<JudgeSystemSummaryListResponseDTO>>(jukiApiManager.API_V1.judge.getSystemList().url);
   const { data: judgePublicList } = useFetcher<ContentsResponseType<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V1.judge.getSummaryList().url);
   const allJudges = useMemo(() => judgeSystemList?.success ? judgeSystemList.contents : (judgePublicList?.success ? judgePublicList.contents : []), [ judgeSystemList, judgePublicList ]);
