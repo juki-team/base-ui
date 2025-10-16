@@ -5,9 +5,9 @@ import {
 } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { QueryParamKey } from '../../../enums';
-import { toFilterUrl, toSortUrl } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
+import { toFilterUrl, toSortUrl } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
 import { usePreload } from '../../hooks/usePreload';
 import { PagedDataViewer } from '../../organisms';
@@ -70,7 +70,6 @@ export function ProfileSubmissions(_: ProfileSubmissionsProps) {
       refreshInterval={60000}
       onRecordRender={({ data, index }) => {
         if (data[index]) {
-          void preload(jukiApiManager.API_V1.submission.getData({ params: { id: data[index].submitId } }).url);
           if (data[index].contest) {
             void preload(jukiApiManager.API_V1.contest.getData({ params: { key: data[index].contest.key } }).url);
           } else {
