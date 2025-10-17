@@ -1,6 +1,6 @@
 import { Fragment, memo, useEffect, useState } from 'react';
-import { classNames, cutTimeSplit } from '../../helpers';
 import { T } from '../../atoms';
+import { classNames, cutTimeSplit } from '../../helpers';
 import { useInterval } from '../../hooks/useInterval';
 import type { TimerProps } from './types';
 
@@ -18,10 +18,10 @@ function TimerComponent(props: TimerProps) {
     pause,
     resetTrigger,
     className,
+    onTimeout,
   } = props;
   
   const [ counter, setCounter ] = useState({ remaining: currentTimestamp, startTimestamp: 0 });
-  
   useEffect(() => {
     const slack = currentTimestamp % Math.abs(interval);
     const startCounting = setTimeout(() => {
@@ -37,10 +37,16 @@ function TimerComponent(props: TimerProps) {
   
   useInterval(() => {
     const startTimestamp = Date.now();
-    setCounter(prevState => ({
-      startTimestamp,
-      remaining: pause ? prevState.remaining : prevState.remaining - (interval < 0 ? startTimestamp - prevState.startTimestamp : prevState.startTimestamp - startTimestamp),
-    }));
+    setCounter(prevState => {
+      const remaining = pause ? prevState.remaining : prevState.remaining - (interval < 0 ? startTimestamp - prevState.startTimestamp : prevState.startTimestamp - startTimestamp);
+      if (remaining / remaining !== currentTimestamp / currentTimestamp) {
+        onTimeout?.();
+      }
+      return {
+        startTimestamp,
+        remaining,
+      };
+    });
   }, Math.abs(interval));
   
   const timeSplit = cutTimeSplit(counter.remaining, type, ignoreLeadingZeros, ignoreTrailingZeros);

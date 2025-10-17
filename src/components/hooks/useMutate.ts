@@ -22,5 +22,5 @@ export const useMutate = () => {
     }
     const mutations = keys.map((key) => mutate(key));
     return Promise.all(mutations);
-  }, [ cache, mutate ]);
+  }, [ cache, mutate ]); //  cache, mutate are stables
 };

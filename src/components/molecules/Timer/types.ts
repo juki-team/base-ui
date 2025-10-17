@@ -13,4 +13,5 @@ export interface TimerProps {
   pause?: boolean,
   resetTrigger?: number,
   className?: string,
+  onTimeout?: () => void,
 }

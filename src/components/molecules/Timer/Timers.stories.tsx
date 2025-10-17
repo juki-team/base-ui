@@ -59,9 +59,20 @@ export const Regular: Story = {
         currentTimestamp={300 * 365 * 24 * 60 * 60 * 1000}
         type="weeks-days-hours-minutes-seconds-milliseconds"
       />
-      <Timer interval={1} currentTimestamp={10 * 60 * 1000} type="weeks-days-hours-minutes-seconds-milliseconds" />
+      <Timer
+        interval={-1}
+        currentTimestamp={10 * 1000}
+        type="weeks-days-hours-minutes-seconds-milliseconds"
+        onTimeout={() => {
+          alert('timeout!');
+        }}
+        ignoreTrailingZeros
+        ignoreLeadingZeros
+      />
       
-      <Timer interval={-1} currentTimestamp={10 * 60 * 1000} literal type="seconds-milliseconds" />
+      <Timer
+        interval={-1} currentTimestamp={10 * 60 * 1000} literal type="seconds-milliseconds"
+      />
     </MockupJukiProvider>
   ),
 };
