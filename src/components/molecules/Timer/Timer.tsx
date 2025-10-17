@@ -39,7 +39,7 @@ function TimerComponent(props: TimerProps) {
     const startTimestamp = Date.now();
     setCounter(prevState => {
       const remaining = pause ? prevState.remaining : prevState.remaining - (interval < 0 ? startTimestamp - prevState.startTimestamp : prevState.startTimestamp - startTimestamp);
-      if (remaining / remaining !== currentTimestamp / currentTimestamp) {
+      if (interval < 0 && remaining <= 0) {
         onTimeout?.();
       }
       return {
