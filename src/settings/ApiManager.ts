@@ -490,6 +490,12 @@ export class ApiManager {
           url: injectCompany(injectBaseUrl('contest', `/${key}/recalculate-scoreboard`), companyKey),
           method: HTTPMethod.POST,
         })),
+        recalculatePrerequisites: valid<
+          { params: { key: string, companyKey?: string }, }, HTTPMethod.POST
+        >(({ params: { key, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/recalculate-prerequisites`), companyKey),
+          method: HTTPMethod.POST,
+        })),
         problem: {
           rejudge: valid<
             { params: { key: string, problemKey: string, companyKey?: string, }, }, HTTPMethod.POST
