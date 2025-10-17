@@ -1,9 +1,9 @@
 import { ProfileSetting } from '@juki-team/commons';
-import { useState } from 'react';
-import { classNames, getStatementData } from '../../helpers';
+import { PropsWithChildren, useState } from 'react';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Portal, T } from '../../atoms';
+import { classNames, getStatementData } from '../../helpers';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { SplitPane } from '../../molecules';
 import { FullscreenExitIcon, FullscreenIcon, InfoIIcon } from '../../server';
@@ -11,7 +11,7 @@ import { ProblemCodeEditor } from './commons/ProblemCodeEditor';
 import { ProblemStatementView } from './commons/ProblemStatementView';
 import type { ProblemViewProps } from './types';
 
-export function ProblemView<T, >(props: ProblemViewProps<T>) {
+export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) {
   
   const {
     problem,
@@ -22,6 +22,7 @@ export function ProblemView<T, >(props: ProblemViewProps<T>) {
     forPrinting,
     expandPosition,
     withoutDownloadButtons,
+    children,
   } = props;
   
   const { viewPortSize } = useJukiUI();
@@ -56,6 +57,7 @@ export function ProblemView<T, >(props: ProblemViewProps<T>) {
         'ow-ve': shouldViewPDF,
       })}
     >
+      {children}
       <ProblemStatementView
         problem={problem}
         withoutName={expanded ? false : withoutName}
