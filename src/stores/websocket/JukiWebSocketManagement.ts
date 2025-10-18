@@ -1,5 +1,4 @@
 import {
-  AuthenticateWebSocketEventDTO,
   cleanRequest,
   consoleError,
   consoleInfo,
@@ -102,7 +101,6 @@ export class JukiWebSocketManagement {
         const event: PingWebSocketEventDTO = {
           event: WebSocketActionEvent.PING,
           sessionId: jukiApiManager.getToken() as ObjectIdType,
-          href: typeof window !== 'undefined' ? window.location.href : '',
         };
         this.sendRaw(JSON.stringify(contentResponse('bye', event)), false);
       }
@@ -159,11 +157,6 @@ export class JukiWebSocketManagement {
       this.clean();
       this.sessionId = sessionId;
     }
-    const event: AuthenticateWebSocketEventDTO = {
-      event: WebSocketActionEvent.AUTHENTICATE,
-      sessionId,
-    };
-    this.sendRaw(JSON.stringify(contentResponse('sending authenticate', event)), false);
     this.startPingInterval();
     return true;
   }
@@ -412,7 +405,6 @@ export class JukiWebSocketManagement {
         const event: PingWebSocketEventDTO = {
           event: WebSocketActionEvent.PING,
           sessionId: this.sessionId,
-          href: typeof window !== 'undefined' ? window.location.href : '',
         };
         this.send(event);
       }

@@ -5,6 +5,7 @@ import { SWRConfig } from 'swr';
 import { JukiProviders } from '../../contexts';
 import { jukiApiManager } from '../../settings';
 import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
+import { useUserTrack } from '../hooks/useUserTrack';
 import { SubmissionModal, UserPreviewModal } from '../organisms';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
@@ -48,6 +49,11 @@ const serviceUrl = 'https://api.juki.app/v2';
 const serviceV2Url = 'https://api.juki.app/v2';
 jukiApiManager.setApiSettings(serviceUrl, serviceV2Url, 'juki-token');
 
+const MockUserTrack = () => {
+  useUserTrack();
+  return null;
+};
+
 export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   
   const socketServiceUrl = 'wss://websocket.juki.app';
@@ -80,6 +86,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
         {children}
         <MockupLoginButton />
         <MockupToggleThemeButton />
+        <MockUserTrack />
       </SWRConfig>
     </JukiProviders>
   );
