@@ -120,7 +120,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
       submitId: submissionToCheck.id,
     };
     submissionIdListenerCount.current[submissionToCheck.id] = (submissionIdListenerCount.current[submissionToCheck.id] ?? 0) + 1;
-    websocket.send(event, (data) => {
+    websocket.subscribe(event, (data) => {
       if (isSubmissionRunStatusMessageWebSocketResponseEventDTO(data)) {
         if (data.status === SubmissionRunStatus.COMPLETED || data.status === SubmissionRunStatus.RECEIVED) {
           void mutate(new RegExp(`${jukiApiManager.SERVICE_API_V1_URL}/submission`, 'g'));

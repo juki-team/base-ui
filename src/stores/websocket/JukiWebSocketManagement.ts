@@ -141,13 +141,10 @@ export class JukiWebSocketManagement {
     return this.sendRaw(JSON.stringify(contentResponse('sending subscribe', event)), true);
   }
   
-  send(event: WebSocketEventDTO, callbackSubscription?: (data: WebSocketResponseEventDTO) => void) {
+  send(event: WebSocketEventDTO) {
     if (!event.sessionId) {
       consoleWarn('Invalid session ID in WebSocket event', { event });
       return false;
-    }
-    if (callbackSubscription) {
-      this.subscribe(event, callbackSubscription);
     }
     
     return this.sendRaw(JSON.stringify(contentResponse('sending new message', event)), true);
@@ -175,7 +172,7 @@ export class JukiWebSocketManagement {
     const eventKey = this.getKeyWebSocketEventDTO(event);
     this.callbacks[eventKey]?.clear();
     
-    return this.sendRaw(JSON.stringify(contentResponse('sending unsubscribe all', event)), true);
+    return this.sendRaw(JSON.stringify(contentResponse('sending unsubscribe all', this.getUnsubscribeEvent(event))), true);
   }
   
   unsubscribe(event: WebSocketEventDTO, callbackSubscription: (data: WebSocketResponseEventDTO) => void) {
@@ -293,7 +290,7 @@ export class JukiWebSocketManagement {
       return { ...event, event: WebSocketActionEvent.UNSUBSCRIBE_CONTEST_CHANGES };
     }
     
-    return '' as WebSocketResponseEventKey;
+    return event;
   }
   
   private sendRaw(message: string, persist: boolean) {
@@ -417,7 +414,7 @@ export class JukiWebSocketManagement {
           sessionId: this.sessionId,
           href: typeof window !== 'undefined' ? window.location.href : '',
         };
-        this.send(event, () => null);
+        this.send(event);
       }
     };
     callback();
