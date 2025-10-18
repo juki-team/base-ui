@@ -207,7 +207,7 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   const {
     className,
     expandPosition,
-    initialTestCases,
+    initialTestCases = {},
     initialFileName,
     storeKey,
     languages,
@@ -262,20 +262,22 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   
   const testCaseStoreKey = storeKey;
   const newInitialTestCases: StorageType<CodeEditorTestCasesType> = { [testCaseStoreKey]: { ...initialTestCases } };
-  newInitialTestCases[testCaseStoreKey]!['*'] = {
-    key: '*',
-    in: '',
-    testOut: '',
-    withPE: false,
-    sample: false,
-    hidden: false,
-    index: -1,
-    messageTimestamp: 0,
-    out: '',
-    err: '',
-    log: '',
-    status: SubmissionRunStatus.NONE,
-  };
+  if (Object.keys(initialTestCases).length === 0) {
+    newInitialTestCases[testCaseStoreKey]!['*'] = {
+      key: '*',
+      in: '',
+      testOut: '',
+      withPE: false,
+      sample: false,
+      hidden: false,
+      index: -1,
+      messageTimestamp: 0,
+      out: '',
+      err: '',
+      log: '',
+      status: SubmissionRunStatus.NONE,
+    };
+  }
   const formatTestCasesStoreRecover = (recovered: any): StorageType<CodeEditorTestCasesType> => {
     const state: StorageType<CodeEditorTestCasesType> = {};
     for (const [ key, value ] of Object.entries(recovered)) {

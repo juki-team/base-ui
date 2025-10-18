@@ -217,7 +217,9 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             overflow: 'auto',
             width: 'calc(100% - 4px)',
             margin: 2,
+            position: 'absolute',
           }}
+          wrap="off"
           className="tx-s flex-1"
           value={test?.in}
           disabled={!test}
@@ -246,7 +248,9 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             overflow: 'auto',
             width: 'calc(100% - 4px)',
             margin: 2,
+            position: 'absolute',
           }}
+          wrap="off"
           className="tx-s flex-1"
           value={test?.testOut}
           onChange={value => onChange({

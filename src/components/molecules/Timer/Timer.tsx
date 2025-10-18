@@ -2,13 +2,14 @@ import { Fragment, memo, useEffect, useState } from 'react';
 import { T } from '../../atoms';
 import { classNames, cutTimeSplit } from '../../helpers';
 import { useInterval } from '../../hooks/useInterval';
+import { useStableState } from '../../hooks/useStableState';
 import type { TimerProps } from './types';
 
 function TimerComponent(props: TimerProps) {
   
   const {
     currentTimestamp,
-    interval = 1,
+    interval: _interval = 1,
     inline,
     literal,
     ignoreLeadingZeros = false,
@@ -20,7 +21,7 @@ function TimerComponent(props: TimerProps) {
     className,
     onTimeout,
   } = props;
-  
+  const [ interval, setInterval ] = useStableState(_interval);
   const [ counter, setCounter ] = useState({ remaining: currentTimestamp, startTimestamp: 0 });
   useEffect(() => {
     const slack = currentTimestamp % Math.abs(interval);
@@ -41,6 +42,7 @@ function TimerComponent(props: TimerProps) {
       const remaining = pause ? prevState.remaining : prevState.remaining - (interval < 0 ? startTimestamp - prevState.startTimestamp : prevState.startTimestamp - startTimestamp);
       if (interval < 0 && remaining <= 0) {
         onTimeout?.();
+        setInterval(0);
       }
       return {
         startTimestamp,

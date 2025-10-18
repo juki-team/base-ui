@@ -136,24 +136,19 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       setStatus(Status.ERROR);
     }
   };
+  
+  const { source = '', language = CodeLanguage.TEXT } = files[currentFileName] ?? {};
+  
   const handleRunCodeRef = useRef(handleRunCode);
   handleRunCodeRef.current = handleRunCode;
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (
-      (e.ctrlKey && e.key.toLowerCase() === 's') ||
-      (e.metaKey && e.key.toLowerCase() === 's')
-    ) {
-      e.preventDefault();
-      if (setLoaderRef.current) {
-        void handleRunCodeRef.current(setLoaderRef.current);
-      }
+  
+  const downloadAsText = () => {
+    const currentFile = files[currentFileName];
+    if (currentFile?.source && currentFile?.name) {
+      downloadBlobAsFile(currentFile.source as unknown as Blob, currentFile.name);
+      addQuietNotification(<T className="tt-se">downloaded</T>);
     }
-  }, []);
-  
-  useKeyPress(handleKeyDown);
-  
-  const withLabels = headerWidthContainer > minWidth;
-  const widthCenterContainer = headerWidthContainer - widthLeftSection - widthRightSection;
+  };
   
   const toPng = async () => {
     const cmThemeNode = document.querySelector('.code-viewer-to-print');
@@ -167,7 +162,91 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     }
   };
   
-  const { source = '', name = '', language = CodeLanguage.TEXT } = files[currentFileName] ?? {};
+  const downloadAsPng = async () => {
+    const currentFile = files[currentFileName];
+    if (currentFile?.source && currentFile?.name) {
+      const blob = await toPng();
+      if (blob) {
+        downloadBlobAsFile(blob, `${currentFile.name}.png`);
+        addQuietNotification(<T className="tt-se">downloaded</T>);
+      }
+    }
+  };
+  
+  const copyAsText = async () => {
+    const currentFile = files[currentFileName];
+    if (currentFile?.source) {
+      try {
+        await navigator.clipboard.writeText(currentFile.source);
+        addQuietNotification(<T className="tt-se">copied</T>);
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    }
+  };
+  
+  const copyAsPng = async () => {
+    try {
+      const blob = await toPng();
+      if (blob) {
+        await navigator.clipboard.write([ new ClipboardItem({ 'image/png': blob }) ]);
+        addQuietNotification(<T className="tt-se">copied</T>);
+      }
+    } catch (err) {
+      console.error('Failed to copy image:', err);
+    }
+  };
+  
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    const isMac = navigator.platform.toUpperCase().includes('MAC');
+    const metaOrCtrl = isMac ? e.metaKey : e.ctrlKey;
+    
+    if (!metaOrCtrl) {
+      return;
+    }
+    
+    // Run code (Ctrl+Enter / ⌘+Enter)
+    if (!e.shiftKey && !e.altKey && e.key === 'Enter') {
+      e.preventDefault();
+      e.stopPropagation();
+      if (setLoaderRef.current) {
+        void handleRunCodeRef.current(setLoaderRef.current);
+      }
+      return;
+    }
+    
+    // Download as text (Ctrl+Shift+S / ⌘+Shift+S)
+    if (e.shiftKey && !e.altKey && e.code === 'KeyS') {
+      e.preventDefault();
+      downloadAsText();
+      return;
+    }
+    
+    // Download as PNG (Ctrl+Alt+S / ⌘+Option+S)
+    if (!e.shiftKey && e.altKey && e.code === 'KeyS') {
+      e.preventDefault();
+      void downloadAsPng();
+      return;
+    }
+    
+    // Copy as text (Ctrl+Shift+C / ⌘+Shift+C)
+    if (e.shiftKey && !e.altKey && e.code === 'KeyC') {
+      e.preventDefault();
+      void copyAsText();
+      return;
+    }
+    
+    // Copy as PNG (Ctrl+Alt+C / ⌘+Option+C)
+    if (!e.shiftKey && e.altKey && e.code === 'KeyC') {
+      e.preventDefault();
+      void copyAsPng();
+    }
+  }, [ files, currentFileName, addQuietNotification ]);
+  
+  useKeyPress(handleKeyDown);
+  
+  const withLabels = headerWidthContainer > minWidth;
+  const widthCenterContainer = headerWidthContainer - widthLeftSection - widthRightSection;
   
   const withText = twoRows || withLabels;
   
@@ -186,7 +265,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
               data-tooltip-id="jk-tooltip"
               data-tooltip-content={!isConnected
                 ? 'run the editor is not available yet'
-                : !withText ? 'run' : ''}
+                : !withText ? 'run (Ctrl+Enter / ⌘+Enter)' : '(Ctrl+Enter / ⌘+Enter)'}
               size={withText ? 'tiny' : 'small'}
               type="primary"
               expand={twoRows}
@@ -222,48 +301,46 @@ export const Header = <T, >(props: HeaderProps<T>) => {
             </div>
             <Select
               options={[
-                { value: 'download-text', label: <T className="tt-se">download as file</T> },
-                { value: 'download-png', label: <T className="tt-se">download as png</T> },
-                { value: 'copy-text', label: <T className="tt-se">copy as text</T> },
-                { value: 'copy-png', label: <T className="tt-se">copy as png</T> },
+                {
+                  value: 'download-text',
+                  label: <><T className="tt-se tx-t">download as file</T>&nbsp;<span className="fw-lr tx-t">(Ctrl+Shift+S / ⌘+Shift+S)</span></>,
+                },
+                {
+                  value: 'download-png',
+                  label: <><T className="tt-se tx-t">download as png</T>&nbsp;<span className="fw-lr tx-t">(Ctrl+Alt+S / ⌘+Option+S)</span></>,
+                },
+                {
+                  value: 'copy-text',
+                  label: <><T className="tt-se tx-t">copy as text</T>&nbsp;<span className="fw-lr tx-t">(Ctrl+Shift+C / ⌘+Shift+C)</span></>,
+                },
+                {
+                  value: 'copy-png',
+                  label: <><T className="tt-se tx-t">copy as png</T>&nbsp;<span className="fw-lr tx-t">(Ctrl+Alt+C / ⌘+Option+C)</span></>,
+                },
               ]}
               // size={(twoRows || withLabels) ? 'tiny' : 'small'}
               disabled={!source}
               selectedOption={{
                 value: '',
                 label: withText
-                  ? <T className="tt-se tx-s">copy or download</T>
+                  ? <T className="tt-se tx-t ws-np">Copy / Download</T>
                   : <><DownloadIcon size="small" /> / <ContentCopyIcon size="small" /></>,
               }}
-              containerWidth={withText ? undefined : 'child'}
+              containerWidth={'child'}
               onChange={async ({ value }) => {
                 if (source) {
                   switch (value) {
                     case 'download-text':
-                      downloadBlobAsFile(source as unknown as Blob, name);
-                      addQuietNotification(<T className="tt-se">downloaded</T>);
+                      downloadAsText();
                       break;
                     case 'download-png':
-                      downloadBlobAsFile(await toPng(), `${name}.png`);
-                      addQuietNotification(<T className="tt-se">downloaded</T>);
+                      void downloadAsPng();
                       break;
                     case 'copy-text':
-                      try {
-                        await navigator.clipboard.writeText(source);
-                        addQuietNotification(<T className="tt-se">copied</T>);
-                      } catch (err) {
-                        console.error('Failed to copy:', err);
-                      }
+                      void copyAsText();
                       break;
                     case 'copy-png':
-                      try {
-                        await navigator.clipboard.write([
-                          new ClipboardItem({ 'image/png': await toPng() }),
-                        ]);
-                        addQuietNotification(<T className="tt-se">copied</T>);
-                      } catch (err) {
-                        console.error('Failed to copy image:', err);
-                      }
+                      void copyAsPng();
                       break;
                   }
                 }

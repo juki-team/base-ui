@@ -56,6 +56,7 @@ interface CmpTextAreaProps {
   disabled?: boolean,
   rows?: number,
   placeholder?: string,
+  wrap?: 'off'
 }
 
 export type TextAreaProps = ComponentPropsWithRef<typeof TextArea>;
