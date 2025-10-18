@@ -18,8 +18,10 @@ export function SubmissionInfo({ submitId, canViewSourceCode, children }: PropsW
   const { components: { Link } } = useJukiUI();
   
   useEffect(() => {
-    void preload(jukiApiManager.API_V1.submission.getData({ params: { id: submitId } }).url);
-  }, [ submitId, preload ]);
+    if (canViewSourceCode) {
+      void preload(jukiApiManager.API_V1.submission.getData({ params: { id: submitId } }).url);
+    }
+  }, [ submitId, preload, canViewSourceCode ]);
   
   const searchParams = useMemo(() => {
     const clonedSearchParams = cloneURLSearchParams(currentSearchParams);

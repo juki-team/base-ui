@@ -23,7 +23,7 @@ export const SubmissionListenerVerdict = ({
     listenSubmission({
       id: submitId,
       problem: { name: '' },
-      contest: { name: '', problemIndex: '' },
+      contest: { name: '', problemIndex: '', isFrozenTime: false, isQuietTime: false },
     }, false);
     return () => {
       unListenSubmission(submitId);
