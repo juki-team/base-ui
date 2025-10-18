@@ -1,4 +1,4 @@
-import { Fragment, memo, useEffect, useState } from 'react';
+import { Fragment, memo, useEffect, useRef, useState } from 'react';
 import { T } from '../../atoms';
 import { classNames, cutTimeSplit } from '../../helpers';
 import { useInterval } from '../../hooks/useInterval';
@@ -21,8 +21,11 @@ function TimerComponent(props: TimerProps) {
     className,
     onTimeout,
   } = props;
+  
   const [ interval, setInterval ] = useStableState(_interval);
   const [ counter, setCounter ] = useState({ remaining: currentTimestamp, startTimestamp: 0 });
+  const onTimeoutExecuted = useRef(false);
+  
   useEffect(() => {
     const slack = currentTimestamp % Math.abs(interval);
     const startCounting = setTimeout(() => {
@@ -31,6 +34,7 @@ function TimerComponent(props: TimerProps) {
         startTimestamp: Date.now(),
       });
     }, slack);
+    onTimeoutExecuted.current = false;
     return () => {
       clearTimeout(startCounting);
     };
@@ -41,8 +45,11 @@ function TimerComponent(props: TimerProps) {
     setCounter(prevState => {
       const remaining = pause ? prevState.remaining : prevState.remaining - (interval < 0 ? startTimestamp - prevState.startTimestamp : prevState.startTimestamp - startTimestamp);
       if (interval < 0 && remaining <= 0) {
-        onTimeout?.();
-        setInterval(0);
+        if (!onTimeoutExecuted.current) {
+          onTimeoutExecuted.current = true;
+          onTimeout?.();
+          setInterval(0);
+        }
       }
       return {
         startTimestamp,
