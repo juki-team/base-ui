@@ -26,15 +26,21 @@ export function LinkLastPath<T extends string | number = string, >(props: LinkLa
     return searchParams;
   }, [ lastPath, lastPathKey, overwriteCompanyKey ]);
   
-  return (
-    <Link
-      href={getHref(lastPath?.[lastPathKey])?.pathname ? {
-        pathname: getHref(lastPath?.[lastPathKey])?.pathname,
-        query: searchParams.toString(),
-      } : '#'}
-      className="link dy-cs"
-    >
-      {children}
-    </Link>
-  );
+  const pathname = getHref(lastPath?.[lastPathKey])?.pathname;
+  
+  if (pathname) {
+    return (
+      <Link
+        href={{
+          pathname,
+          query: searchParams.toString(),
+        }}
+        className="link dy-cs"
+      >
+        {children}
+      </Link>
+    );
+  }
+  
+  return children;
 }
