@@ -4,7 +4,7 @@ import { LastPathType } from '../../contexts/JukiLastPathProvider/types';
 interface LastPathState {
   lastPath: LastPathType,
   pushPath: (props: { key: string, pathname: string, searchParams: URLSearchParams }) => void,
-  setInitialLastPath: (lastPath: LastPathType, nicknameUpdated: boolean) => void,
+  setInitialLastPath: (lastPath: LastPathType) => void,
 }
 
 export const useLastPathStore = create<LastPathState>()((set, get) => ({
@@ -16,10 +16,8 @@ export const useLastPathStore = create<LastPathState>()((set, get) => ({
       };
       set({ lastPath: newLastPath });
     },
-    setInitialLastPath: (lastPath, nicknameUpdated) => {
-      if (Object.keys(get().lastPath).length === 0 || nicknameUpdated) {
-        set({ lastPath });
-      }
+    setInitialLastPath: (lastPath) => {
+      set({ lastPath });
     },
   }),
 );
