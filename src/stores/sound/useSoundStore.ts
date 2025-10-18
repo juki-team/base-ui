@@ -15,7 +15,7 @@ interface SoundStore {
   playBell: () => void,
 }
 
-const playSound = async (sound: HTMLAudioElement | undefined, volume = 0.4) => {
+const playSound = async (sound: HTMLAudioElement | undefined, volume = 0.3) => {
   if (sound) {
     sound.volume = volume;
     sound.currentTime = 0;
@@ -27,8 +27,8 @@ export const useSoundStore = create<SoundStore>((set, getState) => ({
   sounds: null,
   setSounds: (sounds) => set({ sounds }),
   playClick: () => playSound(getState().sounds?.[Sound.CLICK], 0.1),
-  playSuccess: () => playSound(getState().sounds?.[Sound.SUCCESS]),
-  playError: (volume = 0.4) => playSound(getState().sounds?.[Sound.ERROR], volume),
+  playSuccess: () => playSound(getState().sounds?.[Sound.SUCCESS], 0.1),
+  playError: () => playSound(getState().sounds?.[Sound.ERROR]),
   playNotification: () => playSound(getState().sounds?.[Sound.NOTIFICATION]),
   playWarning: () => playSound(getState().sounds?.[Sound.WARNING]),
   playMessage: () => playSound(getState().sounds?.[Sound.MESSAGE]),

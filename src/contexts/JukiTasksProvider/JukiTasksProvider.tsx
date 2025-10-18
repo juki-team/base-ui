@@ -54,11 +54,11 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
       const verdict = submission?.verdict || null;
       const points = submission?.points || 0;
       const header = contest ?
-        <div className="jk-col">
+        <div className="jk-col tx-s">
           <div><T className="tt-se">contest</T>: {contest.name}</div>
           <div>({contest.problemIndex}) {problem.name}</div>
         </div>
-        : <div>{problem.name}</div>;
+        : <div className="tx-s">{problem.name}</div>;
       if (verdict !== null && verdict !== ProblemVerdict.PENDING) {
         if (verdict === ProblemVerdict.AC) {
           addSuccessNotification(
@@ -66,6 +66,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
               {header}
               <T className="tt-ce">{PROBLEM_VERDICT[ProblemVerdict.AC].label}</T>
             </div>,
+            contest?.isFrozenTime || contest?.isQuietTime,
           );
         } else if (verdict === ProblemVerdict.PA) {
           addSuccessNotification(
@@ -77,6 +78,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
                 ({points} <T>pts.</T>)
               </div>
             </div>,
+            contest?.isFrozenTime || contest?.isQuietTime,
           );
         } else if (Object.keys(PROBLEM_VERDICT).includes(verdict)) {
           addErrorNotification(
@@ -84,6 +86,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
               {header}
               <T className="tt-ce">{PROBLEM_VERDICT[verdict].label}</T>
             </div>,
+            contest?.isFrozenTime || contest?.isQuietTime,
           );
         } else {
           addErrorNotification(
@@ -91,6 +94,7 @@ export const JukiTasksProvider = ({ children }: PropsWithChildren<{}>) => {
               {header}
               {verdict}
             </div>,
+            contest?.isFrozenTime || contest?.isQuietTime,
           );
         }
         setSubmissionsToCheck(prevState => prevState.filter(({ id: pId }) => pId !== id));

@@ -9,6 +9,7 @@ export enum NotificationAction {
 export type NewNotificationType = {
   type: NotificationType,
   message: ReactNode,
+  silent?: boolean;
 }
 
 export interface CardNotificationProps {
@@ -20,6 +21,7 @@ export interface CardNotificationProps {
 export interface NotificationProps {
   id: string,
   type: NotificationType,
+  silent: boolean,
   message: ReactNode,
 }
 

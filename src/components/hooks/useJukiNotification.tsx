@@ -44,6 +44,7 @@ export const useJukiNotification = () => {
     payload: {
       id: globalThis.crypto.randomUUID(),
       ...props,
+      silent: !!props.silent,
     },
   }), [ dispatch ]);
   
@@ -91,25 +92,30 @@ export const useJukiNotification = () => {
   
   return {
     addNotification,
-    addInfoNotification: useCallback((message: ReactNode) => addNotification({
+    addInfoNotification: useCallback((message: ReactNode, silent?: boolean) => addNotification({
       type: NotificationType.INFO,
       message,
+      silent,
     }), [ addNotification ]),
-    addSuccessNotification: useCallback((message: ReactNode) => addNotification({
+    addSuccessNotification: useCallback((message: ReactNode, silent?: boolean) => addNotification({
       type: NotificationType.SUCCESS,
       message,
+      silent,
     }), [ addNotification ]),
-    addWarningNotification: useCallback((message: ReactNode) => addNotification({
+    addWarningNotification: useCallback((message: ReactNode, silent?: boolean) => addNotification({
       type: NotificationType.WARNING,
       message,
+      silent,
     }), [ addNotification ]),
-    addErrorNotification: useCallback((message: ReactNode) => addNotification({
+    addErrorNotification: useCallback((message: ReactNode, silent?: boolean) => addNotification({
       type: NotificationType.ERROR,
       message,
+      silent,
     }), [ addNotification ]),
-    addQuietNotification: useCallback((message: ReactNode) => addNotification({
+    addQuietNotification: useCallback((message: ReactNode, silent?: boolean) => addNotification({
       type: NotificationType.QUIET,
       message,
+      silent,
     }), [ addNotification ]),
     removeNotification: useCallback((notificationId: string) => dispatch({
       type: NotificationAction.REMOVE_NOTIFICATION,

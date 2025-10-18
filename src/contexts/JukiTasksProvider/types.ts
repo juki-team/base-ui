@@ -5,5 +5,5 @@ export type SocketSubmissions = { [key: string]: SubmissionRunStatusWebSocketRes
 export type SubmissionToCheck = {
   id: string,
   problem: { name: string },
-  contest?: { name: string, problemIndex: string },
+  contest?: { name: string, problemIndex: string, isFrozenTime: boolean, isQuietTime: boolean },
 };

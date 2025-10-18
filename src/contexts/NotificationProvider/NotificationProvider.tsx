@@ -18,16 +18,16 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
   const [ state, dispatch ] = useReducer((state: NotificationProps[], action: NotificationActionsTypes) => {
     switch (action.type) {
       case NotificationAction.ADD_NOTIFICATION:
-        if (action.payload.type === NotificationType.SUCCESS) {
+        if (action.payload.type === NotificationType.SUCCESS && !action.payload.silent) {
           void sound.playSuccess();
         }
-        if (action.payload.type === NotificationType.INFO) {
+        if (action.payload.type === NotificationType.INFO && !action.payload.silent) {
           void sound.playNotification();
         }
-        if (action.payload.type === NotificationType.ERROR) {
+        if (action.payload.type === NotificationType.ERROR && !action.payload.silent) {
           void sound.playError();
         }
-        if (action.payload.type === NotificationType.WARNING) {
+        if (action.payload.type === NotificationType.WARNING && !action.payload.silent) {
           void sound.playWarning();
         }
         return [ ...state, { ...action.payload } ];
