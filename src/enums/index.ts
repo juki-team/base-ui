@@ -48,6 +48,7 @@ export enum ContestTab {
   SETUP = 'setup',
   // JUDGE = 'judge',
   MEMBERS = 'members',
+  EVENTS = 'events',
   DELETE = 'delete',
 }
 
