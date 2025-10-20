@@ -33,6 +33,8 @@ export * from '../components/hooks/useStore';
 export * from '../components/hooks/useTriggerWrapper';
 export * from '../components/hooks/useWidthResizer';
 export * from '../components/hooks/useUserTrack';
+export * from '../components/hooks/useWebsocketSub';
+export * from '../components/hooks/useWebsocketMessages';
 
 // store hooks
 export * from '../stores/i18n/useI18nStore';
