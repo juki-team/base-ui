@@ -2,7 +2,6 @@ import {
   CodeEditorSubmissionDTO,
   CodeRunDTO,
   CompanyPlan,
-  consoleWarn,
   HTTPMethod,
   JkmdSubmissionDTO,
   Judge,
@@ -23,6 +22,7 @@ import {
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
 } from '../components/types';
+import { JUKI_SERVICE_V1_URL, JUKI_SERVICE_V2_URL } from '../constants/settings';
 import { QueryParamKey } from '../enums';
 
 const addQuery = (path: string) => {
@@ -71,18 +71,6 @@ const getQueryToken = () => {
 export class ApiManager {
   private _eventListeners: { [key: string]: Function[] } = {};
   
-  private _SERVICE_API_V1_URL = '';
-  
-  get SERVICE_API_V1_URL(): string {
-    return this._SERVICE_API_V1_URL;
-  }
-  
-  private _SERVICE_API_V2_URL = '';
-  
-  get SERVICE_API_V2_URL(): string {
-    return this._SERVICE_API_V2_URL;
-  }
-  
   private _TOKEN_NAME = '';
   
   get TOKEN_NAME(): string {
@@ -92,11 +80,11 @@ export class ApiManager {
   get API_V2() {
     
     const injectBaseUrl = (path: string) => {
-      return `${this._SERVICE_API_V2_URL}/${path}`;
+      return `${JUKI_SERVICE_V2_URL}/${path}`;
     };
     
     const valid = <T, M extends HTTPMethod = HTTPMethod.GET>(callback: (props: T) => ResponseAPI<M>): ((props: T) => ResponseAPI<M>) => {
-      if (this._SERVICE_API_V2_URL) {
+      if (JUKI_SERVICE_V2_URL) {
         return callback;
       }
       return () => ({ url: '', method: HTTPMethod.GET as M });
@@ -182,17 +170,23 @@ export class ApiManager {
           })),
         },
       },
+      websocket: {
+        auth: valid<void, HTTPMethod.POST>(() => ({
+          url: injectBaseUrl('websocket/auth'),
+          method: HTTPMethod.POST,
+        })),
+      },
     };
   }
   
   get API_V1() {
     
     const injectBaseUrl = (prefix: string, path: string) => {
-      return `${this._SERVICE_API_V1_URL}/${prefix}${path}`;
+      return `${JUKI_SERVICE_V1_URL}/${prefix}${path}`;
     };
     
     const valid = <T, M extends HTTPMethod = HTTPMethod.GET>(callback: (props: T) => ResponseAPI<M>): ((props: T) => ResponseAPI<M>) => {
-      if (this._SERVICE_API_V1_URL) {
+      if (JUKI_SERVICE_V1_URL) {
         return callback;
       }
       return () => ({ url: '', method: HTTPMethod.GET as M });
@@ -1009,22 +1003,6 @@ export class ApiManager {
     return typeof getQueryToken() === 'string';
   }
   
-  setApiSettings(serviceApiUrl: string, serviceApiV2Url: string, tokenName: string) {
-    if (serviceApiUrl !== this._SERVICE_API_V1_URL && serviceApiV2Url !== this._SERVICE_API_V2_URL && tokenName !== this._TOKEN_NAME) {
-      this._SERVICE_API_V1_URL = serviceApiUrl;
-      this._SERVICE_API_V2_URL = serviceApiV2Url;
-      this._TOKEN_NAME = tokenName;
-      
-      this.emit('apiSettingsChanged', {
-        serviceApiUrl,
-        serviceApiV2Url,
-        tokenName,
-      });
-    } else {
-      consoleWarn('serviceApiUrl, serviceApiV2Url and tokenName already set');
-    }
-  }
-  
   on(event: string, callback: Function) {
     if (!this._eventListeners[event]) {
       this._eventListeners[event] = [];
@@ -1036,9 +1014,5 @@ export class ApiManager {
     if (this._eventListeners[event]) {
       this._eventListeners[event] = this._eventListeners[event].filter(cb => cb !== callback);
     }
-  }
-  
-  private emit(event: string, ...args: any[]) {
-    this._eventListeners[event]?.forEach(cb => cb(...args));
   }
 }

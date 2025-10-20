@@ -3,7 +3,6 @@ export type * from './EditProfileModal/types';
 export type * from './EntityLogsModal/types';
 export type * from './ErrorBoundary/types';
 export type * from './HelpSection/types';
-export type * from './JukiSocketAlert/types';
 export type * from './MainMenu/types';
 export type * from './NewViersionAvailableModal/types';
 export type * from './ProblemView/types';

@@ -8,18 +8,18 @@ import {
   ProfileSetting,
   SubmissionRunStatus,
   type   SubscribeCodeRunStatusWebSocketEventDTO,
-  WebSocketActionEvent,
+  WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../../../constants';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
-import { useWebsocketStore } from '../../../../../stores/websocket/useWebsocketStore';
 import { Button, Input, Modal, Portal, T } from '../../../../atoms';
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon } from '../../../../atoms/server';
 import { classNames } from '../../../../helpers';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { useWebsocketSub } from '../../../../hooks/UseWebsocketSub';
 import { SplitPane, TwoActionModal } from '../../../../molecules';
 import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
 import { FirstPane } from './FirstPane';
@@ -79,106 +79,98 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ viewFiles, setViewFiles ] = useState<boolean>(false);
   
-  const websocket = useWebsocketStore(store => store.websocket);
-  useEffect(() => {
-    if (!runId) {
-      return;
-    }
-    const event: SubscribeCodeRunStatusWebSocketEventDTO = {
-      event: WebSocketActionEvent.SUBSCRIBE_CODE_RUN_STATUS,
-      sessionId,
-      runId,
-    };
-    websocket.subscribe(event, (data) => {
-      if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
-        const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
+  const event: SubscribeCodeRunStatusWebSocketEventDTO = {
+    event: WebSocketSubscriptionEvent.SUBSCRIBE_CODE_RUN_STATUS,
+    sessionId,
+    runId,
+  };
+  
+  useWebsocketSub(event, (message) => {
+    const data = message.data;
+    if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
+      const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
+        onChangeRef.current?.({
+          onTestCasesChange: (prevState) => {
+            const newTestCases: CodeEditorTestCasesType = { ...prevState };
+            for (const testKey in newTestCases) {
+              if (prevState[testKey]?.messageTimestamp && prevState[testKey].messageTimestamp > data.messageTimestamp) {
+                continue;
+              }
+              if (newTestCases[testKey]) {
+                newTestCases[testKey] = {
+                  ...newTestCases[testKey],
+                  status,
+                  err,
+                  out,
+                  log,
+                  messageTimestamp: data.messageTimestamp,
+                };
+              }
+            }
+            return newTestCases;
+          },
+        });
+      };
+      const status = data.status || SubmissionRunStatus.NONE;
+      const inputKey = data?.log?.inputKey;
+      
+      switch (status) {
+        case SubmissionRunStatus.RECEIVED:
+        case SubmissionRunStatus.FAILED:
+        case SubmissionRunStatus.COMPILING:
+        case SubmissionRunStatus.COMPILED:
+        case SubmissionRunStatus.COMPILATION_ERROR:
+          fillTestCases(
+            status,
+            data.log?.err || '',
+            data.log?.out || '',
+            data.log?.log || '',
+          );
+          break;
+        // case SubmissionRunStatus.RUNNING_TEST_CASES:
+        case SubmissionRunStatus.RUNNING_TEST_CASE:
+        case SubmissionRunStatus.EXECUTED_TEST_CASE:
+        case SubmissionRunStatus.FAILED_TEST_CASE:
           onChangeRef.current?.({
             onTestCasesChange: (prevState) => {
               const newTestCases: CodeEditorTestCasesType = { ...prevState };
-              for (const testKey in newTestCases) {
-                if (prevState[testKey]?.messageTimestamp && prevState[testKey].messageTimestamp > data.messageTimestamp) {
-                  continue;
+              if (inputKey && newTestCases[inputKey]) {
+                const testCase: CodeEditorTestCaseType = {
+                  ...newTestCases[inputKey],
+                  status,
+                  out: data.log?.out || '',
+                  log: data.log?.log || '',
+                  err: data.log?.err || '',
+                  messageTimestamp: data.messageTimestamp,
+                };
+                const prev = prevState[testCase.key];
+                if (prev && prev.messageTimestamp > testCase.messageTimestamp) {
+                  return prevState;
                 }
-                if (newTestCases[testKey]) {
-                  newTestCases[testKey] = {
-                    ...newTestCases[testKey],
-                    status,
-                    err,
-                    out,
-                    log,
-                    messageTimestamp: data.messageTimestamp,
-                  };
-                }
+                return { ...prevState, [testCase.key]: testCase };
               }
-              return newTestCases;
+              return prevState;
             },
           });
-        };
-        const status = data.status || SubmissionRunStatus.NONE;
-        const inputKey = data?.log?.inputKey;
-        
-        switch (status) {
-          case SubmissionRunStatus.RECEIVED:
-          case SubmissionRunStatus.FAILED:
-          case SubmissionRunStatus.COMPILING:
-          // case SubmissionRunStatus.RUNNING_TEST_CASES:
-          case SubmissionRunStatus.COMPILED:
-          case SubmissionRunStatus.COMPILATION_ERROR:
-            fillTestCases(
-              status,
-              data.log?.err || '',
-              data.log?.out || '',
-              data.log?.log || '',
-            );
-            break;
-          case SubmissionRunStatus.RUNNING_TEST_CASE:
-          case SubmissionRunStatus.EXECUTED_TEST_CASE:
-          case SubmissionRunStatus.FAILED_TEST_CASE:
-            onChangeRef.current?.({
-              onTestCasesChange: (prevState) => {
-                const newTestCases: CodeEditorTestCasesType = { ...prevState };
-                if (inputKey && newTestCases[inputKey]) {
-                  const testCase: CodeEditorTestCaseType = {
-                    ...newTestCases[inputKey],
-                    status,
-                    out: data.log?.out || '',
-                    log: data.log?.log || '',
-                    err: data.log?.err || '',
-                    messageTimestamp: data.messageTimestamp,
-                  };
-                  const prev = prevState[testCase.key];
-                  if (prev && prev.messageTimestamp > testCase.messageTimestamp) {
-                    return prevState;
-                  }
-                  return { ...prevState, [testCase.key]: testCase };
-                }
-                return prevState;
-              },
-            });
-            break;
-          default:
-        }
-        switch (status) {
-          case SubmissionRunStatus.RECEIVED:
-            setIsRunning(true);
-            onChangeRef.current?.({ isRunning: true });
-            break;
-          case SubmissionRunStatus.FAILED:
-          case SubmissionRunStatus.COMPILATION_ERROR:
-          case SubmissionRunStatus.COMPLETED:
-            setIsRunning(false);
-            onChangeRef.current?.({ isRunning: false });
-            break;
-          default:
-        }
-        onChangeRef.current?.({ codeRunStatus: status });
+          break;
+        default:
       }
-    });
-    
-    return () => {
-      websocket.unsubscribeAll(event);
-    };
-  }, [ runId, sessionId, websocket ]);
+      switch (status) {
+        case SubmissionRunStatus.RECEIVED:
+          setIsRunning(true);
+          onChangeRef.current?.({ isRunning: true });
+          break;
+        case SubmissionRunStatus.FAILED:
+        case SubmissionRunStatus.COMPILATION_ERROR:
+        case SubmissionRunStatus.COMPLETED:
+          setIsRunning(false);
+          onChangeRef.current?.({ isRunning: false });
+          break;
+        default:
+      }
+      onChangeRef.current?.({ codeRunStatus: status });
+    }
+  });
   
   const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
     onChangeRef.current?.({ ...props, isRunning: false });
@@ -207,13 +199,13 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   
   const closableSecondPane = useMemo(() => (
     withTestCases
-      ? { align: 'right' as 'right', expandLabel: <T className="label tx-t">test cases</T> }
+      ? { align: 'right' as const, expandLabel: <T className="label tx-t">test cases</T> }
       : undefined
   ), [ withTestCases ]);
   
   const closableFirstPane = useMemo(() => (
     (withTestCases && isMobileViewPort)
-      ? { align: 'right' as 'right', expandLabel: <T className="label tx-t">code editor</T> }
+      ? { align: 'right' as const, expandLabel: <T className="label tx-t">code editor</T> }
       : undefined
   ), [ withTestCases, isMobileViewPort ]);
   
@@ -259,7 +251,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
         <div className="jk-col gap">
           <T className="tt-se">are you sure you want to delete the file?</T>
           <div className="jk-tag bc-hl">{fileNameDelete}</div>
-          <T className="tt-se">it can't be undone</T>
+          <T className="tt-se">{'it can\'t be undone'}</T>
         </div>
       </TwoActionModal>
       <Modal
@@ -367,9 +359,10 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
           <div className="jk-col top stretch gap nowrap ow-ao">
             <div className="jk-col stretch">
               {Object.entries(files)
-                .sort(([ _, a ], [ __, b ]) => a.index - b.index)
+                .sort(([ , a ], [ , b ]) => a.index - b.index)
                 .map(([ name ], index) => (
                   <div
+                    key={name}
                     className={classNames('tx-t jk-pg-xsm jk-col nowrap left stretch', {
                       'bc-pl cr-we': name === currentFileName,
                       'hoverable': name !== currentFileName,

@@ -89,7 +89,7 @@ export const UserCodeEditor = () => {
           languages={[
             { value: CodeLanguage.CPP17, label: CodeLanguage.CPP17 as string },
             { value: CodeLanguage.JAVASCRIPT, label: CodeLanguage.JAVASCRIPT as string },
-            { value: CodeLanguage.CPP17, label: CodeLanguage.CPP17 as string },
+            { value: CodeLanguage.CPP14, label: CodeLanguage.CPP14 as string },
           ]}
           storeKey={'testing'}
           enableAddCustomSampleCases

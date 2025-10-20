@@ -1,24 +1,24 @@
 import {
-  cleanRequest,
+  ChatCompletionsWebSocketEventDTO,
   consoleWarn,
-  type ContentResponseType,
   isChatCompletionsResponseWebSocketResponseEventDTO,
   Status,
   type SubscribeChatCompletionsDataWebSocketEventDTO,
-  WebSocketActionEvent,
+  WebSocketMessageEvent,
+  WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
 import { insert } from '@milkdown/kit/utils';
 import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
-import type { Dispatch, SetStateAction } from 'react';
-import { useEffect, useState } from 'react';
-import { authorizedRequest, classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
-import { jukiApiManager } from '../../../../settings';
+import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { v4 } from 'uuid';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { useWebsocketStore } from '../../../../stores/websocket/useWebsocketStore';
 import { Modal, T, TextArea } from '../../../atoms';
 import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon } from '../../../atoms/server';
+import { classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
+import { useWebsocketMessages } from '../../../hooks/UseWebsocketMessages';
+import { useWebsocketSub } from '../../../hooks/UseWebsocketSub';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
 import { ImageUploaderModal } from '../../ImageUploaderModal/ImageUploaderModal';
 import type { MdMathEditorProps } from '../../MdMathViewer/types';
@@ -47,29 +47,24 @@ function IAModalContent() {
   
   const [ value, setValue ] = useState('');
   const [ chat, setChat ] = useState<{ content: string, user: ChatRole }[]>([]);
-  const websocket = useWebsocketStore(store => store.websocket);
-  const connectionId = useWebsocketStore(store => store.connectionId);
   const sessionId = useUserStore(store => store.user.sessionId);
   const t = useI18nStore(store => store.i18n.t);
-  
-  useEffect(() => {
-    const event: SubscribeChatCompletionsDataWebSocketEventDTO = {
-      event: WebSocketActionEvent.SUBSCRIBE_CHAT_COMPLETIONS_DATA,
-      sessionId,
-    };
-    websocket.subscribe(event, (data) => {
-      if (isChatCompletionsResponseWebSocketResponseEventDTO(data)) {
-        setChat(prevState => [
-          ...prevState,
-          ...data.content.choices.map(({ message }) => ({ content: message.content, user: ChatRole.IA })),
-        ]);
-      }
-    });
-    
-    return () => {
-      websocket.unsubscribeAll(event);
-    };
-  }, [ sessionId, websocket ]);
+  const chatIdRef = useRef(v4());
+  const event: SubscribeChatCompletionsDataWebSocketEventDTO = {
+    event: WebSocketSubscriptionEvent.SUBSCRIBE_CHAT_COMPLETIONS_DATA,
+    sessionId,
+    chatAiId: chatIdRef.current,
+  };
+  const websocketMessages = useWebsocketMessages();
+  useWebsocketSub(event, (message) => {
+    const data = message.data;
+    if (isChatCompletionsResponseWebSocketResponseEventDTO(data)) {
+      setChat(prevState => [
+        ...prevState,
+        ...data.content.choices.map(({ message }) => ({ content: message.content, user: ChatRole.IA })),
+      ]);
+    }
+  });
   
   return (
     <div className="jk-pg jk-col gap stretch">
@@ -77,6 +72,7 @@ function IAModalContent() {
       <div className="jk-col gap">
         {chat.map((chat) => (
           <div
+            key={chat.content}
             className="jk-pg-sm bc-hl jk-br-ie"
             style={{
               maxWidth: '60%',
@@ -95,23 +91,15 @@ function IAModalContent() {
           onClick={async (setLoader) => {
             setLoader(Status.LOADING);
             try {
-              const { url, ...options } = jukiApiManager.API_V1.ia.chatCompletions({
-                body: {
-                  content: value,
-                  connectionId,
-                },
-              });
-              const request = cleanRequest<ContentResponseType<{}>>(
-                await authorizedRequest(url, options),
-              );
-              if (request?.success) {
-                setChat(prevState => [ ...prevState, { content: value, user: ChatRole.USER } ]);
-                setValue('');
-                setLoader(Status.SUCCESS);
-              } else {
-                consoleWarn('run code request failed', { request });
-                setLoader(Status.ERROR);
-              }
+              const event: ChatCompletionsWebSocketEventDTO = {
+                event: WebSocketMessageEvent.CHAT_COMPLETIONS,
+                sessionId,
+                content: value,
+                chatAiId: chatIdRef.current,
+              };
+              await websocketMessages.publish('', event);
+              setChat(prevState => [ ...prevState, { content: value, user: ChatRole.USER } ]);
+              setLoader(Status.NONE);
             } catch (error) {
               consoleWarn('error on run code', { error });
               setLoader(Status.ERROR);
@@ -125,7 +113,7 @@ function IAModalContent() {
 
 function Toolbar({ enableDownload, enableTextPlain, setMode, mode, enableIA }: ToolbarProps) {
   
-  const [ _, getInstance ] = useInstance();
+  const [ , getInstance ] = useInstance();
   const [ openModalIA, setOpenModalIA ] = useState(false);
   
   return (
@@ -190,7 +178,7 @@ function ImageUploader({ mode }: { mode: Mode }) {
       copyButtons
       onPickImageUrl={({ imageUrl }) => {
         if (mode === Mode.TEXT_PLAIN) {
-        
+          // TODO: insert on text area
         } else if (mode === Mode.WYSIWYG) {
           if (isLoading) return;
           

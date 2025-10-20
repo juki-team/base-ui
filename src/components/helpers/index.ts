@@ -11,5 +11,6 @@ export * from './store';
 export * from './text';
 export * from './time';
 export * from './utils';
+export * from './websocket';
 export * from './worksheet';
 export * from './xlsx';

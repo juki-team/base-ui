@@ -9,6 +9,7 @@ import { MdMathEditor } from './';
 
 const meta: Meta<typeof MdMathEditor> = {
   component: MdMathEditor,
+  argTypes: {},
 };
 
 export default meta;
@@ -49,4 +50,5 @@ export const Regular: Story = {
 Regular.args = {
   // sharedButton: true,
   // downloadButton: true,
+  enableIA: true,
 };

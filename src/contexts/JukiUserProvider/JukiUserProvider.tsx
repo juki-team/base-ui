@@ -16,6 +16,7 @@ import { useInjectFontSize } from '../../components/hooks/useInjectFontSize';
 import { useInjectTheme } from '../../components/hooks/useInjectTheme';
 import { useMutate } from '../../components/hooks/useMutate';
 import { EMPTY_USER } from '../../constants';
+import { JUKI_SERVICE_V1_URL, JUKI_SERVICE_V2_URL } from '../../constants/settings';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
@@ -48,7 +49,9 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   const matchMutate = useMutate();
   
   const refreshAllRequest = useCallback(async () => {
-    await matchMutate(new RegExp(`${jukiApiManager.SERVICE_API_V1_URL}`, 'g'));
+    await matchMutate(new RegExp(`${JUKI_SERVICE_V1_URL}`, 'g'));
+    await matchMutate(new RegExp(`${JUKI_SERVICE_V2_URL}`, 'g'));
+    
   }, [ matchMutate ]);
   
   useEffect(() => {
@@ -125,7 +128,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   useInjectTheme();
   useInjectFontSize();
   
-  if (isLoading) {
+  if (isLoading && !userSessionId) {
     return (
       <div className="expand-absolute jk-col">
         <h3 className="jk-row" style={{ alignItems: 'baseline' }}>

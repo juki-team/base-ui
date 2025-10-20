@@ -1,7 +1,7 @@
-import { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons/dist/types/dto/worksheet-submissions';
+import { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons';
 import { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
-import { classNames } from '../../../../helpers';
 import { T } from '../../../../atoms';
+import { classNames } from '../../../../helpers';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 
 interface ResultHeaderProps {

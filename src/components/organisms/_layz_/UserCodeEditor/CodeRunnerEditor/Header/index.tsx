@@ -13,7 +13,6 @@ import { useCallback, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../../constants';
 import { jukiApiManager } from '../../../../../../settings';
-import { useWebsocketStore } from '../../../../../../stores/websocket/useWebsocketStore';
 import { Button, Select, T } from '../../../../../atoms';
 import { authorizedRequest, classNames, downloadBlobAsFile } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
@@ -22,7 +21,6 @@ import { ButtonLoader, CodeViewer } from '../../../../../molecules';
 import {
   ContentCopyIcon,
   DownloadIcon,
-  ErrorIcon,
   FullscreenExitIcon,
   FullscreenIcon,
   PlayArrowIcon,
@@ -59,9 +57,6 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const { width: widthLeftSection = 0, ref: refLeftSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const { width: widthRightSection = 0, ref: refRightSection } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
-  const isConnected = useWebsocketStore(state => state.isConnected);
-  const connectionId = useWebsocketStore(state => state.connectionId);
-  const websocket = useWebsocketStore(state => state.websocket);
   
   const currentFile = files[currentFileName];
   
@@ -113,7 +108,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
           ],
           timeLimit,
           memoryLimit,
-          connectionId,
+          connectionId: '',
         },
       });
       const request = cleanRequest<ContentResponseType<{ runId: string }>>(
@@ -263,35 +258,33 @@ export const Header = <T, >(props: HeaderProps<T>) => {
           <>
             <ButtonLoader
               data-tooltip-id="jk-tooltip"
-              data-tooltip-content={!isConnected
-                ? 'run the editor is not available yet'
-                : !withText ? 'run (Ctrl+Enter / ⌘+Enter)' : '(Ctrl+Enter / ⌘+Enter)'}
+              data-tooltip-content={!withText ? 'run (Ctrl+Enter / ⌘+Enter)' : '(Ctrl+Enter / ⌘+Enter)'}
               size={withText ? 'tiny' : 'small'}
               type="primary"
               expand={twoRows}
               icon={<PlayArrowIcon />}
               onClick={handleRunCode}
               setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
-              disabled={!isConnected || !currentFile}
+              disabled={!currentFile}
             >
               {withText && <T className="tt-se">run</T>}
             </ButtonLoader>
-            {!isConnected && (
-              <ButtonLoader
-                data-tooltip-id="jk-tooltip"
-                data-tooltip-content="offline, click to try to reconnect"
-                className="jk-row bc-er"
-                onClick={async (setLoader) => {
-                  setLoader(Status.LOADING);
-                  if (websocket.getReadyState() !== WebSocket.OPEN) {
-                    await websocket.reconnect();
-                  }
-                  setLoader(Status.NONE);
-                }}
-                icon={<ErrorIcon />}
-                size="small"
-              />
-            )}
+            {/*{!isConnected && (*/}
+            {/*  <ButtonLoader*/}
+            {/*    data-tooltip-id="jk-tooltip"*/}
+            {/*    data-tooltip-content="offline, click to try to reconnect"*/}
+            {/*    className="jk-row bc-er"*/}
+            {/*    onClick={async (setLoader) => {*/}
+            {/*      setLoader(Status.LOADING);*/}
+            {/*      if (websocket.getReadyState() !== WebSocket.OPEN) {*/}
+            {/*        await websocket.reconnect();*/}
+            {/*      }*/}
+            {/*      setLoader(Status.NONE);*/}
+            {/*    }}*/}
+            {/*    icon={<ErrorIcon />}*/}
+            {/*    size="small"*/}
+            {/*  />*/}
+            {/*)}*/}
           </>
         )}
         {!withoutDownloadCopyButton && (

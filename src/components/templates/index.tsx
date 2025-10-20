@@ -3,7 +3,6 @@ export { ImageProfileModal } from './EditProfileModal/ImageProfileModal';
 export { EntityLogsModal } from './EntityLogsModal/EntityLogsModal';
 export { ErrorBoundary } from './ErrorBoundary/ErrorBoundary';
 export { HelpSection } from './HelpSection/HelpSection';
-export { JukiSocketAlert } from './JukiSocketAlert/JukiSocketAlert';
 export { MainMenu } from './MainMenu/MainMenu';
 export { NewVersionAvailable } from './NewViersionAvailableModal/NewVersionAvailable';
 export { ProblemInfo } from './ProblemView/ProblemInfo';

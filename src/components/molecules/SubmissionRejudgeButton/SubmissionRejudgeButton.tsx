@@ -1,8 +1,9 @@
 import { cleanRequest, type ContentResponseType, Status, SubmissionRunStatus } from '@juki-team/commons';
-import { authorizedRequest } from '../../helpers';
+import { JUKI_SERVICE_V2_URL } from '../../../constants/settings';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
 import { RefreshIcon } from '../../atoms/server';
+import { authorizedRequest } from '../../helpers';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { useMutate } from '../../hooks/useMutate';
 import type { ButtonLoaderOnClickType } from '../../types';
@@ -26,7 +27,7 @@ export function SubmissionRejudgeButton({ submissionId }: SubmissionRejudgeButto
     <ButtonLoader
       onClick={async (...props) => {
         await rejudgeSubmission(submissionId)(...props);
-        await mutate(new RegExp(`${jukiApiManager.SERVICE_API_V1_URL}/submission`, 'g'));
+        await mutate(new RegExp(`${JUKI_SERVICE_V2_URL}/submission`, 'g'));
       }}
       size="tiny"
       icon={<RefreshIcon />}
