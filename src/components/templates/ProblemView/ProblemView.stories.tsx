@@ -25,15 +25,27 @@ type Story = StoryObj<typeof ProblemView>;
 export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <div className="jk-col gap">
+      <div className="jk-col gap jk-pg bc-ss">
         <div style={{ width: '100%', height: 600 }}>
-          <ProblemView {...args} />
+          <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
+            url={jukiApiManager.API_V1.problem.getData({ params: { key: 'P-1000' } }).url}
+          >
+            {data => (
+              <ProblemView
+                {...args}
+                problem={data.data.content}
+                infoPlacement="name"
+                codeEditorStoreKey={data.data.content.key}
+              />
+            )}
+          </FetcherLayer>
         </div>
       </div>
     </MockupJukiProvider>
   ),
 };
 
+// @ts-ignore
 Regular.args = {
   codeEditorStoreKey: 'testing-P-1000',
   problem: {
@@ -46,12 +58,14 @@ Regular.args = {
       isCustom: false,
       isExternal: false,
       isMain: false,
-      isSubmitSupported: false,
+      isSubmitSupported: true,
+      // isSubmitSupported: false,
     },
     author: '',
     key: 'P-1000',
     ownerNickname: 'OscarGauss',
-    statement: {
+    // @ts-ignore for testing
+    statement1: {
       'description': {
         'ES': '',
         'EN': '',
@@ -78,8 +92,8 @@ Regular.args = {
         'EN': '',
       },
     },
-    // @ts-ignore
-    statement1: {
+    // @ts-expect-error for testing
+    statement: {
       description: {
         ES: 'La tarea es sumar dos números.',
         EN: '',

@@ -44,7 +44,7 @@ export function FullscreenTimerButton() {
         clearTimeout(time);
       }
     };
-  }, [ times.currentTimestamp ]);
+  }, [ playBell, times.currentTimestamp ]);
   
   const timer = useMemo(() => (
     <Timer
@@ -63,11 +63,7 @@ export function FullscreenTimerButton() {
           placement="rightTop"
           className={classNames({ 'opacity-hover': times.state === 0 })}
           icon={<TimerIcon />}
-          children={isActive && !fullscreen ? (
-            <div className={classNames({ 'jk-overlay-backdrop jk-br-ie cr-sl jk-pg-xsm-rl': times.state !== 0 && !fullscreen })}>
-              {timer}
-            </div>
-          ) : undefined}
+          
           type="secondary"
           size="tiny"
           buttons={[
@@ -81,7 +77,7 @@ export function FullscreenTimerButton() {
                 setTimes({ state: 0, startTimestamp: 0, currentTimestamp: 0 });
               },
               // children: (
-              //   <div className="jk-row right opacity–hover">
+              //   <div className="jk-row right opacity-hover">
               //     <Button
               //       tooltipContent="desactive timer / countdown"
               //       type="secondary"
@@ -305,9 +301,15 @@ export function FullscreenTimerButton() {
               ),
             },
           ]}
-        />
+        >
+          {isActive && !fullscreen ? (
+            <div className={classNames({ 'jk-overlay-backdrop jk-br-ie cr-sl jk-pg-xsm-rl': times.state !== 0 && !fullscreen })}>
+              {timer}
+            </div>
+          ) : undefined}
+        </ButtonAction>
       ) : (
-        <div className="jk-row right opacity–hover">
+        <div className="jk-row right opacity-hover">
           <Button
             tooltipContent="active timer / countdown"
             type="light"

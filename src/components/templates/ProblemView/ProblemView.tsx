@@ -53,7 +53,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
   const problemStatement = (
     <div
       className={classNames('jk-problem-view-statement', {
-        'jk-pg-sm': !shouldViewPDF,
+        'jk-pg-sm jk-br-ie bc-we': !shouldViewPDF,
         'ow-ve': shouldViewPDF,
       })}
     >

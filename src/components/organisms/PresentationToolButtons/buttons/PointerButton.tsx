@@ -37,7 +37,7 @@ export function PointerButton() {
   }, [ isActive ]);
   
   return (
-    <div className="jk-row right opacity–hover" style={{ zIndex: 1 }}>
+    <div className="jk-row right opacity-hover" style={{ zIndex: 1 }}>
       <Button
         tooltipContent={isActive ? 'exit laser pointer' : 'active laser pointer'}
         type={isActive ? 'secondary' : 'light'}

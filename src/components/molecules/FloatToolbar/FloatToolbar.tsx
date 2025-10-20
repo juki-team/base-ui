@@ -4,13 +4,13 @@ import { classNames } from '../../helpers';
 import { ButtonAction } from '../ButtonAction/ButtonAction';
 import type { FloatToolbarProps } from './types';
 
-export function FloatToolbar({ actionButtons, placement = 'rightTop' }: FloatToolbarProps) {
+export function FloatToolbar({ actionButtons, placement = 'rightTop', className }: FloatToolbarProps) {
   
   const { ref, width = 0, height = 0 } = useResizeDetector();
   
   if (actionButtons.length) {
     return (
-      <div className={classNames('jk-float-toolbar-layout', placement)}>
+      <div className={classNames('jk-float-toolbar-layout', placement, className)}>
         <div
           className="jk-float-toolbar-container jk-col gap stretch right"
           ref={ref}

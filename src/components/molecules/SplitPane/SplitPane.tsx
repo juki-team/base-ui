@@ -1,8 +1,8 @@
 import { memo, type MouseEvent, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
-import { classNames } from '../../helpers';
 import { T } from '../../atoms';
+import { classNames } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
 import {
   ExpandLessIcon,
@@ -143,7 +143,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
             })}
           >
             <div
-              className={classNames('notch cr-we bc-pl', {
+              className={classNames('notch opacity-hover cr-we bc-pl', {
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
               })}
@@ -186,7 +186,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
             <div className={classNames('extend', { 'jk-row': direction === 'column', 'jk-col': direction === 'row' })}>
               <div
                 className={classNames(
-                  'notch cr-we bc-pl toggle-button nowrap',
+                  'notch opacity-hover cr-we bc-pl toggle-button nowrap',
                   { 'jk-row': direction === 'column', 'jk-col': direction === 'row' },
                 )}
                 onClick={() => {
@@ -218,7 +218,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
             })}
           >
             <div
-              className={classNames('notch cr-we bc-pl', {
+              className={classNames('notch opacity-hover cr-we bc-pl', {
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
               })}

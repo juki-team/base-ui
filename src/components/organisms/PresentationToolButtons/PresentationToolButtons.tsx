@@ -68,7 +68,7 @@ export function PresentationToolButtons() {
         <FullscreenTimerButton />
         {isFullscreen ? (
           <>
-            <div className="jk-row right opacity–hover">
+            <div className="jk-row right opacity-hover">
               <Button
                 tooltipContent="exit fullscreen"
                 type="light"
@@ -79,7 +79,7 @@ export function PresentationToolButtons() {
             </div>
           </>
         ) : (
-          <div className="jk-row right opacity–hover">
+          <div className="jk-row right opacity-hover">
             <Button
               tooltipContent="fullscreen"
               type="light"

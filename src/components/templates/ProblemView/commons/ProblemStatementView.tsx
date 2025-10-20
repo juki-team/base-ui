@@ -1,5 +1,6 @@
 import {
   cleanRequest,
+  consoleError,
   type ContentResponseType,
   Judge,
   Language,
@@ -7,6 +8,10 @@ import {
   ProfileSetting,
   Status,
 } from '@juki-team/commons';
+import { jukiApiManager } from '../../../../settings';
+import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { useUserStore } from '../../../../stores/user/useUserStore';
+import { Button, T } from '../../../atoms';
 import {
   authorizedRequest,
   classNames,
@@ -14,10 +19,6 @@ import {
   downloadUrlAsFile,
   getStatementData,
 } from '../../../helpers';
-import { jukiApiManager } from '../../../../settings';
-import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
-import { useUserStore } from '../../../../stores/user/useUserStore';
-import { Button, T } from '../../../atoms';
 
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useJukiUI } from '../../../hooks/useJukiUI';
@@ -153,163 +154,158 @@ export const ProblemStatementView = ({
   };
   
   return (
-    <div className="jk-row extend top">
-      <div className="jk-row extend top gap nowrap stretch left">
-        <div className="jk-col top stretch flex-3">
-          {!forPrinting && infoPlacement !== 'left' && !withoutDownloadButtons && (
-            <FloatToolbar
-              actionButtons={[
-                {
-                  icon: <DownloadIcon />,
-                  buttons: [
-                    {
-                      icon: <DownloadIcon />,
-                      label: <T>pdf</T>,
-                      onClick: handleDownloadPdf,
-                    },
-                    {
-                      icon: <DownloadIcon />,
-                      label: <T>jk md</T>,
-                      onClick: handleDownloadMd,
-                    },
-                  ],
-                },
-              ]}
-            />
-          )}
-          {!withoutName && (
-            <div className={classNames({ 'jk-row gap': !forPrinting, 'jk-col block': !!forPrinting }, 'center')}>
-              <h3>{problem.name}</h3>
-              {infoPlacement === 'name' && <ProblemInfo problem={problem} />}
-              {forPrinting && (
-                <div className="jk-col" style={{ width: '100%' }}>
-                  <div className="jk-row gap extend center">
-                    <ProblemTimeLimitInfo settings={settings} expand withoutPadding />
-                    <ProblemMemoryLimitInfo settings={settings} expand withoutPadding />
-                  </div>
-                  <div className="jk-row gap extend center">
-                    <ProblemTypeInfo settings={settings} withoutPadding />
-                    <ProblemModeInfo settings={settings} expand withoutPadding />
+    <div className="jk-row extend top gap nowrap stretch left">
+      <div className="jk-col top stretch flex-3">
+        {!forPrinting && infoPlacement !== 'left' && !withoutDownloadButtons && (
+          <FloatToolbar
+            className="opacity-hover"
+            actionButtons={[
+              {
+                icon: <DownloadIcon />,
+                buttons: [
+                  {
+                    icon: <DownloadIcon />,
+                    label: <T>pdf</T>,
+                    onClick: handleDownloadPdf,
+                  },
+                  {
+                    icon: <DownloadIcon />,
+                    label: <T>jk md</T>,
+                    onClick: handleDownloadMd,
+                  },
+                ],
+              },
+            ]}
+          />
+        )}
+        {!withoutName && (
+          <div className={classNames({ 'jk-row gap': !forPrinting, 'jk-col block': !!forPrinting }, 'center')}>
+            <h3>{problem.name}</h3>
+            {infoPlacement === 'name' && <ProblemInfo problem={problem} />}
+            {forPrinting && (
+              <div className="jk-col" style={{ width: '100%' }}>
+                <div className="jk-row gap extend center">
+                  <ProblemTimeLimitInfo settings={settings} expand withoutPadding />
+                  <ProblemMemoryLimitInfo settings={settings} expand withoutPadding />
+                </div>
+                <div className="jk-row gap extend center">
+                  <ProblemTypeInfo settings={settings} withoutPadding />
+                  <ProblemModeInfo settings={settings} expand withoutPadding />
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        <div>
+          <T className="tt-se cr-th fw-bd">description</T>
+          <MdMathViewer source={statementDescription} />
+        </div>
+        {!!statementInput && (
+          <div>
+            <T className="tt-se cr-th fw-bd">input</T>
+            <MdMathViewer source={statementInput} />
+          </div>
+        )}
+        {!!statementOutput && (
+          <div>
+            <T className="tt-se cr-th fw-bd">output</T>
+            <MdMathViewer source={statementOutput} />
+          </div>
+        )}
+        {settings.scoringMode === ProblemScoringMode.SUBTASK && (
+          <div>
+            <T className="tt-se tx-l cr-th fw-bd">subtasks description</T>
+            <div className="jk-col left stretch gap">
+              {Object.values(settings.pointsByGroups).map(pointsByGroup => (
+                <div className="jk-row extend gap" key={pointsByGroup.group}>
+                  <div className="flex-1 bc-we jk-pg-sm jk-br-ie">
+                    <div className="fw-bd cr-pd">
+                      <T className="tt-se">subtask</T> {pointsByGroup.group}
+                      &nbsp;({pointsByGroup.points}&nbsp;
+                      {pointsByGroup.points === 1
+                        ? <T className="tt-se">point</T>
+                        : <T className="tt-se">points</T>})
+                    </div>
+                    <MdMathViewer
+                      source={pointsByGroup.description?.[userPreferredLanguage] || pointsByGroup.description?.[Language.ES] || pointsByGroup.description?.[Language.EN]}
+                    />
                   </div>
                 </div>
-              )}
-            </div>
-          )}
-          <div>
-            <h3><T className="tt-se">description</T></h3>
-            <div className="bc-we jk-pg-sm jk-br-ie">
-              <MdMathViewer source={statementDescription} />
+              ))}
+              <div></div>
             </div>
           </div>
-          {!!statementInput && (
-            <div>
-              <h3><T className="tt-se">input</T></h3>
-              <div className="bc-we jk-pg-sm jk-br-ie">
-                <MdMathViewer source={statementInput} />
-              </div>
-            </div>
-          )}
-          {!!statementOutput && (
-            <div>
-              <h3><T className="tt-se">output</T></h3>
-              <div className="bc-we jk-pg-sm jk-br-ie">
-                <MdMathViewer source={statementOutput} />
-              </div>
-            </div>
-          )}
-          {settings.scoringMode === ProblemScoringMode.SUBTASK && (
-            <div>
-              <h3><T className="tt-se">subtasks description</T></h3>
-              <div className="jk-col left stretch gap">
-                {Object.values(settings.pointsByGroups).map(pointsByGroup => (
-                  <div className="jk-row extend gap" key={pointsByGroup.group}>
-                    <div className="flex-1 bc-we jk-pg-sm jk-br-ie">
-                      <div className="fw-bd cr-pd">
-                        <T className="tt-se">subtask</T> {pointsByGroup.group}
-                        &nbsp;({pointsByGroup.points}&nbsp;
-                        {pointsByGroup.points === 1
-                          ? <T className="tt-se">point</T>
-                          : <T className="tt-se">points</T>})
-                      </div>
-                      <MdMathViewer
-                        source={pointsByGroup.description?.[userPreferredLanguage] || pointsByGroup.description?.[Language.ES] || pointsByGroup.description?.[Language.EN]}
-                      />
-                    </div>
-                  </div>
-                ))}
-                <div></div>
-              </div>
-            </div>
-          )}
-          <div className="jk-row stretch gap">
-            <div className="jk-row stretch gap nowrap flex-1 jk-pg-sm-tb">
-              {/*<h3><T>output sample</T></h3>*/}
-              <div className="jk-row"><T className="tt-se tx-h cr-th fw-bd">input sample</T></div>
-              <div className="jk-row"><T className="tt-se tx-h cr-th fw-bd">output sample</T></div>
-            </div>
+        )}
+        <div className="jk-row stretch gap">
+          <div className="jk-row stretch gap nowrap flex-1 jk-pg-xsm-tb">
+            {/*<h3><T>output sample</T></h3>*/}
+            <div className="jk-row"><T className="tt-se cr-th fw-bd">input sample</T></div>
+            <div className="jk-row"><T className="tt-se cr-th fw-bd">output sample</T></div>
           </div>
-          <div className="jk-col stretch gap">
-            {(statement.sampleCases || [ { input: '', output: '' } ]).map((_, index) => (
-              <SampleTest
-                index={index}
-                sampleCases={statement.sampleCases}
-                key={index}
-                withPE={problem.settings.withPE}
-                forPrinting={!!forPrinting}
-              />
-            ))}
-          </div>
-          {!!statementNote && (
-            <div>
-              <h3><T className="tt-se">note</T></h3>
-              <div className="bc-we jk-pg-sm jk-br-ie">
-                <MdMathViewer source={statementNote} />
-              </div>
-            </div>
-          )}
         </div>
-        {!forPrinting && infoPlacement === 'left' && !withoutDownloadButtons && (
-          <div className="screen md lg hg flex-1">
-            <JukiProblemInfo
-              settings={settings}
-              tags={tags}
-              author={author}
-              expand
-            >
-              <ButtonLoader
-                size="small"
-                icon={<DownloadIcon />}
-                onClick={async (setLoaderStatus) => {
-                  setLoaderStatus(Status.LOADING);
-                  try {
-                    await handleDownloadPdf();
-                    setLoaderStatus(Status.SUCCESS);
-                  } catch (error) {
-                    setLoaderStatus(Status.ERROR);
-                  }
-                }}
-              >
-                <T>download as pdf</T>
-              </ButtonLoader>
-              <ButtonLoader
-                size="small"
-                icon={<DownloadIcon />}
-                onClick={async (setLoaderStatus) => {
-                  setLoaderStatus(Status.LOADING);
-                  try {
-                    await handleDownloadMd();
-                    setLoaderStatus(Status.SUCCESS);
-                  } catch (error) {
-                    setLoaderStatus(Status.ERROR);
-                  }
-                }}
-              >
-                <T>download as md</T>
-              </ButtonLoader>
-            </JukiProblemInfo>
+        <div className="jk-col stretch gap">
+          {(statement.sampleCases || [ { input: '', output: '' } ]).map((_, index) => (
+            <SampleTest
+              index={index}
+              sampleCases={statement.sampleCases}
+              key={index}
+              withPE={problem.settings.withPE}
+              forPrinting={!!forPrinting}
+            />
+          ))}
+        </div>
+        {!!statementNote && (
+          <div>
+            <h3><T className="tt-se">note</T></h3>
+            <div className="bc-we jk-pg-sm jk-br-ie">
+              <MdMathViewer source={statementNote} />
+            </div>
           </div>
         )}
       </div>
+      {!forPrinting && infoPlacement === 'left' && !withoutDownloadButtons && (
+        <div className="screen md lg hg flex-1">
+          <JukiProblemInfo
+            settings={settings}
+            tags={tags}
+            author={author}
+            expand
+          >
+            <ButtonLoader
+              size="small"
+              icon={<DownloadIcon />}
+              onClick={async (setLoaderStatus) => {
+                setLoaderStatus(Status.LOADING);
+                try {
+                  await handleDownloadPdf();
+                  setLoaderStatus(Status.SUCCESS);
+                } catch (error) {
+                  consoleError(error);
+                  setLoaderStatus(Status.ERROR);
+                }
+              }}
+            >
+              <T>download as pdf</T>
+            </ButtonLoader>
+            <ButtonLoader
+              size="small"
+              icon={<DownloadIcon />}
+              onClick={async (setLoaderStatus) => {
+                setLoaderStatus(Status.LOADING);
+                try {
+                  await handleDownloadMd();
+                  setLoaderStatus(Status.SUCCESS);
+                } catch (error) {
+                  consoleError(error);
+                  setLoaderStatus(Status.ERROR);
+                }
+              }}
+            >
+              <T>download as md</T>
+            </ButtonLoader>
+          </JukiProblemInfo>
+        </div>
+      )}
     </div>
   );
 };

@@ -53,7 +53,7 @@
   align-items: center;
   justify-content: center;
   border: none;
-  outline: 0 solid var(--background-color);
+  outline: var(--button-border-width, 0) solid var(--background-color);
   background-color: var(--background-color);
   outline-offset: -1px;
   cursor: pointer;
@@ -74,7 +74,7 @@
   
   &:not(.disabled):hover {
     --button-border-width: 3px;
-    outline: var(--button-border-width, 0) solid var(--background-color);
+    //outline: var(--button-border-width, 0) solid var(--background-color);
   }
   
   &.tiny {
@@ -117,7 +117,11 @@
   
   &.only-icon {
     //border-radius: 50%;
-    padding: calc(var(--text-medium-height) / 4);
+    padding: calc(var(--text-medium-height) / 8);
+    
+    &:not(.disabled):hover {
+      --button-border-width: 2px;
+    }
     
     .jk-icon {
       margin: auto;
@@ -185,7 +189,7 @@
 }
 
 .jk-button.light {
-  --button-border-width: 2px;
+  //--button-border-width: 2px;
   outline-offset: 0 !important;
   color: inherit;
   
