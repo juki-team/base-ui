@@ -19,7 +19,7 @@ import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon
 import { classNames } from '../../../../helpers';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
-import { useWebsocketSub } from '../../../../hooks/UseWebsocketSub';
+import { useWebsocketSub } from '../../../../hooks/useWebsocketSub';
 import { SplitPane, TwoActionModal } from '../../../../molecules';
 import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
 import { FirstPane } from './FirstPane';

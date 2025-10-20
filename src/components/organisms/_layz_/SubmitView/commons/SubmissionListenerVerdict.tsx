@@ -11,7 +11,7 @@ import { JUKI_SERVICE_V2_URL } from '../../../../../constants/settings';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useMutate } from '../../../../hooks/useMutate';
-import { useWebsocketSub } from '../../../../hooks/UseWebsocketSub';
+import { useWebsocketSub } from '../../../../hooks/useWebsocketSub';
 import { SubmissionVerdict, type SubmissionVerdictProps } from './SubmissionVerdict';
 
 export interface ListenerVerdictProps extends Omit<SubmissionVerdictProps, 'submissionData'> {

@@ -2,7 +2,7 @@ import { UserTrackWebSocketEventDTO, WebSocketMessageEvent } from '@juki-team/co
 import { useEffect } from 'react';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { useUserStore } from '../../stores/user/useUserStore';
-import { useWebsocketMessages } from './UseWebsocketMessages';
+import { useWebsocketMessages } from './useWebsocketMessages';
 
 export const useUserTrack = () => {
   
