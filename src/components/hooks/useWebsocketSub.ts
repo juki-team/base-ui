@@ -16,11 +16,16 @@ export function useWebsocketSub(event: WebSocketSubscribeEventDTO, callbackOnMes
   
   const eventString = JSON.stringify(event);
   
+  const isValid = event.sessionId === sessionId && !!sessionId;
+  
   useEffect(() => {
-    const event = JSON.parse(eventString);
-    void channelSubscription.publish(getKeyWebSocketEventDTO(event), event);
-    return () => {
-      void channelSubscription.publish(getKeyWebSocketEventDTO(getUnsubscribeEvent(event)), event);
-    };
-  }, [ channelSubscription, eventString ]);
+    if (isValid) {
+      const event = JSON.parse(eventString);
+      void channelSubscription.publish(getKeyWebSocketEventDTO(event), event);
+      return () => {
+        void channelSubscription.publish(getKeyWebSocketEventDTO(getUnsubscribeEvent(event)), event);
+      };
+    }
+    return () => null;
+  }, [ channelSubscription, eventString, isValid ]);
 }
