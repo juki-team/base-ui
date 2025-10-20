@@ -85,7 +85,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
     runId,
   };
   
-  useWebsocketSub(event, (message) => {
+  useWebsocketSub(event, useCallback((message) => {
     const data = message.data;
     if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
       const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
@@ -170,7 +170,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
       }
       onChangeRef.current?.({ codeRunStatus: status });
     }
-  });
+  }, []));
   
   const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
     onChangeRef.current?.({ ...props, isRunning: false });

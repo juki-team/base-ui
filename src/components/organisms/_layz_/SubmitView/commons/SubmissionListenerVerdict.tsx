@@ -10,7 +10,7 @@ import {
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
 import { T } from 'components/atoms';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../../../constants/settings';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
@@ -120,7 +120,7 @@ export const SubmissionListenerVerdict = ({
     }
   }, [ addErrorNotification, addSuccessNotification, contest, problem.name, submissionData ]);
   
-  useWebsocketSub(event, (message) => {
+  useWebsocketSub(event, useCallback((message) => {
     const data = message.data;
     if (isSubmissionRunStatusMessageWebSocketResponseEventDTO(data)) {
       if (data.status === SubmissionRunStatus.COMPLETED || data.status === SubmissionRunStatus.RECEIVED) {
@@ -149,7 +149,7 @@ export const SubmissionListenerVerdict = ({
         return prevState;
       });
     }
-  });
+  }, [ mutate ]));
   
   return (
     <SubmissionVerdict

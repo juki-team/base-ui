@@ -10,7 +10,7 @@ import {
 import { insert } from '@milkdown/kit/utils';
 import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
-import { Dispatch, SetStateAction, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
@@ -56,7 +56,7 @@ function IAModalContent() {
     chatAiId: chatIdRef.current,
   };
   const websocketMessages = useWebsocketMessages();
-  useWebsocketSub(event, (message) => {
+  useWebsocketSub(event, useCallback((message) => {
     const data = message.data;
     if (isChatCompletionsResponseWebSocketResponseEventDTO(data)) {
       setChat(prevState => [
@@ -64,7 +64,7 @@ function IAModalContent() {
         ...data.content.choices.map(({ message }) => ({ content: message.content, user: ChatRole.IA })),
       ]);
     }
-  });
+  }, []));
   
   return (
     <div className="jk-pg jk-col gap stretch">
