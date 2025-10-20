@@ -10,11 +10,11 @@ import {
 } from '@juki-team/commons';
 import { type ReactNode } from 'react';
 import { ContestTab } from '../../../../../enums';
-import { getJudgeOrigin } from '../../../../helpers';
-import { hasTimeHasMemory } from '../../../../helpers/submission';
 import { jukiApiManager, jukiAppRoutes } from '../../../../../settings';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { Button, Collapse, DateLiteral, T } from '../../../../atoms';
+import { getJudgeOrigin } from '../../../../helpers';
+import { hasTimeHasMemory } from '../../../../helpers/submission';
 import { useFetcher } from '../../../../hooks/useFetcher';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { CodeViewer, SubmissionRejudgeButton, Timer } from '../../../../molecules';
@@ -28,8 +28,8 @@ import { SubmissionTime } from './SubmissionTime';
 const DisplayGridData = ({ data }: { data: { title: ReactNode, content: ReactNode }[] }) => {
   return (
     <div className="jk-table-grid wh-100">
-      {data.map(({ title, content }) => (
-        <div className="jk-col bc-we jk-pg-xsm jk-br-ie">
+      {data.map(({ title, content }, index) => (
+        <div className="jk-col bc-we jk-pg-xsm jk-br-ie" key={index}>
           <div>
             {title}
           </div>
@@ -151,6 +151,8 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
                       points={points}
                       status={status}
                       submitId={submitId}
+                      problem={submit.problem}
+                      contest={submit.contest}
                     />
                     {compilationFailed && <UpIcon onClick={toggle} rotate={isOpen ? 0 : 180} className="link" />}
                   </div>
