@@ -1,21 +1,28 @@
 import {
   isSubmissionRunStatusMessageWebSocketResponseEventDTO,
+  PROBLEM_VERDICT,
+  ProblemVerdict,
   type SubmissionDataResponseDTO,
   SubmissionRunStatus,
   SubmissionRunStatusWebSocketResponseEventDTO,
+  type SubmissionSummaryListResponseDTO,
   SubscribeSubmissionRunStatusWebSocketEventDTO,
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
-import { useState } from 'react';
+import { T } from 'components/atoms';
+import { useEffect, useRef, useState } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../../../constants/settings';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
+import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useMutate } from '../../../../hooks/useMutate';
 import { useWebsocketSub } from '../../../../hooks/useWebsocketSub';
 import { SubmissionVerdict, type SubmissionVerdictProps } from './SubmissionVerdict';
 
 export interface ListenerVerdictProps extends Omit<SubmissionVerdictProps, 'submissionData'> {
   processedCases?: SubmissionDataResponseDTO['processedCases'],
+  contest: SubmissionSummaryListResponseDTO['contest'],
+  problem: SubmissionSummaryListResponseDTO['problem'],
 }
 
 const priority = (isSample: boolean) => ({
@@ -44,6 +51,8 @@ export const SubmissionListenerVerdict = ({
                                             points,
                                             status,
                                             submitId,
+                                            contest,
+                                            problem,
                                             processedCases,
                                           }: ListenerVerdictProps) => {
   
@@ -52,12 +61,64 @@ export const SubmissionListenerVerdict = ({
   const sessionId = useUserStore(state => state.user.sessionId);
   const mutate = useMutate();
   const [ submissionData, setSubmissionData ] = useState<SubmissionRunStatusWebSocketResponseEventDTO | undefined>(undefined);
-  
+  const { addSuccessNotification, addErrorNotification } = useJukiNotification();
   const event: SubscribeSubmissionRunStatusWebSocketEventDTO = {
     event: WebSocketSubscriptionEvent.SUBSCRIBE_SUBMISSION_RUN_STATUS,
     sessionId,
     submitId,
   };
+  const notifiedRef = useRef(false);
+  
+  useEffect(() => {
+    if (!notifiedRef.current && submissionData && submissionData?.verdict && submissionData?.verdict !== ProblemVerdict.PENDING) {
+      notifiedRef.current = true;
+      const verdict = submissionData.verdict;
+      const points = submissionData?.points || 0;
+      const header = contest ?
+        <div className="jk-col tx-s">
+          <div><T className="tt-se">contest</T>: {contest.name}</div>
+          <div>({contest.problemIndex}) {problem.name}</div>
+        </div>
+        : <div className="tx-s">{problem.name}</div>;
+      if (verdict === ProblemVerdict.AC) {
+        addSuccessNotification(
+          <div className="jk-col">
+            {header}
+            <T className="tt-ce">{PROBLEM_VERDICT[ProblemVerdict.AC].label}</T>
+          </div>,
+          contest?.isFrozen || contest?.isQuiet,
+        );
+      } else if (verdict === ProblemVerdict.PA) {
+        addSuccessNotification(
+          <div className="jk-col">
+            {header}
+            <div>
+              <T className="tt-ce">{PROBLEM_VERDICT[ProblemVerdict.PA].label}</T>
+              &bnsp;
+              ({points} <T>pts.</T>)
+            </div>
+          </div>,
+          contest?.isFrozen || contest?.isQuiet,
+        );
+      } else if (Object.keys(PROBLEM_VERDICT).includes(verdict)) {
+        addErrorNotification(
+          <div className="jk-col">
+            {header}
+            <T className="tt-ce">{PROBLEM_VERDICT[verdict].label}</T>
+          </div>,
+          contest?.isFrozen || contest?.isQuiet,
+        );
+      } else {
+        addErrorNotification(
+          <div className="jk-col">
+            {header}
+            {verdict}
+          </div>,
+          contest?.isFrozen || contest?.isQuiet,
+        );
+      }
+    }
+  }, [ addErrorNotification, addSuccessNotification, contest, problem.name, submissionData ]);
   
   useWebsocketSub(event, (message) => {
     const data = message.data;
@@ -69,6 +130,7 @@ export const SubmissionListenerVerdict = ({
       const nextSampleCase = !!data.testInfo?.sampleCase;
       setSubmissionData((prevState) => {
         if (!prevState || nextStatus === SubmissionRunStatus.RECEIVED) {
+          notifiedRef.current = false;
           return data;
         }
         const currentStatus = prevState?.status;

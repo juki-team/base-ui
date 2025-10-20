@@ -9,7 +9,18 @@ export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSu
   return {
     head: 'verdict',
     index: 'verdicts',
-    Field: ({ record: { submitId, points, status, verdict, user: { canViewSourceCode }, processedCases } }) => (
+    Field: ({
+              record: {
+                submitId,
+                points,
+                status,
+                verdict,
+                user: { canViewSourceCode },
+                processedCases,
+                contest,
+                problem,
+              },
+            }) => (
       <Field>
         <div className="jk-col nowrap extend" style={{ padding: '4px 0', boxSizing: 'border-box' }}>
           <FieldText
@@ -20,6 +31,8 @@ export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSu
                   points={points}
                   status={status}
                   submitId={submitId}
+                  contest={contest}
+                  problem={problem}
                   processedCases={processedCases}
                 />
               </SubmissionInfo>
@@ -39,5 +52,5 @@ export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSu
     },
     cardPosition: 'bottom',
     minWidth: 220,
-  };
+  } as DataViewerHeadersType<SubmissionSummaryListResponseDTO>;
 }
