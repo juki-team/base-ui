@@ -1,4 +1,5 @@
 import { ProblemDataResponseDTO } from '@juki-team/commons';
+import { IconProps } from '../../atoms/server/icons/types';
 import { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../organisms/types';
 
 export interface ProblemStatementViewProps {
@@ -17,5 +18,6 @@ export interface ProblemViewProps<T> extends ProblemStatementViewProps {
 }
 
 export interface ProblemInfoProps {
-  problem: ProblemDataResponseDTO;
+  problem: ProblemDataResponseDTO,
+  size?: IconProps['size'],
 }

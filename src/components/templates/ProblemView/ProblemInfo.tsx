@@ -8,8 +8,8 @@ import {
   type ProblemSettingsType,
 } from '@juki-team/commons';
 import { Children, Fragment, type PropsWithChildren, type ReactNode } from 'react';
-import { classNames } from '../../helpers';
 import { Popover, T } from '../../atoms';
+import { classNames } from '../../helpers';
 import { ExclamationIcon, InfoIIcon } from '../../server';
 import type { ProblemInfoProps } from './types';
 
@@ -260,7 +260,7 @@ export function JukiProblemInfo(props: PropsWithChildren<JukiProblemInfoProps>) 
   );
 }
 
-export function ProblemInfo({ problem }: ProblemInfoProps) {
+export function ProblemInfo({ problem, size }: ProblemInfoProps) {
   
   if (problem.judge.key === Judge.LEETCODE) {
     return null;
@@ -292,7 +292,7 @@ export function ProblemInfo({ problem }: ProblemInfoProps) {
       placement="bottom"
     >
       <div className="jk-row link">
-        <InfoIIcon filledCircle className="cr-py" color="var(--t-color-primary-text)" />
+        <InfoIIcon filledCircle className="cr-py" color="var(--t-color-primary-text)" size={size} />
       </div>
     </Popover>
   );

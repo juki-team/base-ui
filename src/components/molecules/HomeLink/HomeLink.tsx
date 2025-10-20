@@ -3,10 +3,11 @@ import { useJukiUI } from '../../hooks/useJukiUI';
 import { HomeIcon } from '../../server';
 
 export function HomeLink() {
-  const { components: { Link } } = useJukiUI();
+  const { components: { Link }, viewPortSize } = useJukiUI();
   return (
     <Link href="/" className="link jk-row" key="home">
-      <HomeIcon size="small" />&nbsp;<T className="tt-se">home</T>
+      {viewPortSize === 'lg' || viewPortSize === 'hg' && <><HomeIcon size="small" />&nbsp;</>}
+      <T className="tt-se">home</T>
     </Link>
   );
 }
