@@ -10,15 +10,15 @@ import {
 import { insert } from '@milkdown/kit/utils';
 import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
-import { Dispatch, SetStateAction, useCallback, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { v4 } from 'uuid';
+import { useWebsocketStore } from '../../../../contexts/AblyProvider/AblyProvider';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Modal, T, TextArea } from '../../../atoms';
 import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon } from '../../../atoms/server';
-import { classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
+import { classNames, downloadBlobAsFile, getKeyWebSocketEventDTO, upperFirst } from '../../../helpers';
 import { useWebsocketMessages } from '../../../hooks/useWebsocketMessages';
-import { useWebsocketSub } from '../../../hooks/useWebsocketSub';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
 import { ImageUploaderModal } from '../../ImageUploaderModal/ImageUploaderModal';
 import type { MdMathEditorProps } from '../../MdMathViewer/types';
@@ -50,21 +50,30 @@ function IAModalContent() {
   const sessionId = useUserStore(store => store.user.sessionId);
   const t = useI18nStore(store => store.i18n.t);
   const chatIdRef = useRef(v4());
-  const event: SubscribeChatCompletionsDataWebSocketEventDTO = {
-    event: WebSocketSubscriptionEvent.SUBSCRIBE_CHAT_COMPLETIONS_DATA,
-    sessionId,
-    chatAiId: chatIdRef.current,
-  };
+  
   const websocketMessages = useWebsocketMessages();
-  useWebsocketSub(event, useCallback((message) => {
-    const data = message.data;
-    if (isChatCompletionsResponseWebSocketResponseEventDTO(data)) {
-      setChat(prevState => [
-        ...prevState,
-        ...data.content.choices.map(({ message }) => ({ content: message.content, user: ChatRole.IA })),
-      ]);
-    }
-  }, []));
+  
+  const subscribeToEvent = useWebsocketStore((s) => s.subscribeToEvent);
+  
+  useEffect(() => {
+    const event: SubscribeChatCompletionsDataWebSocketEventDTO = {
+      event: WebSocketSubscriptionEvent.SUBSCRIBE_CHAT_COMPLETIONS_DATA,
+      sessionId,
+      chatAiId: chatIdRef.current,
+    };
+    
+    const key = getKeyWebSocketEventDTO(event);
+    
+    return subscribeToEvent(key, (message) => {
+      const data = message.data;
+      if (isChatCompletionsResponseWebSocketResponseEventDTO(data)) {
+        setChat(prevState => [
+          ...prevState,
+          ...data.content.choices.map(({ message }) => ({ content: message.content, user: ChatRole.IA })),
+        ]);
+      }
+    });
+  }, [ sessionId, subscribeToEvent ]);
   
   return (
     <div className="jk-pg jk-col gap stretch">

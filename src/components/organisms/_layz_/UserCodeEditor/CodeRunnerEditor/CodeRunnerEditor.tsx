@@ -10,16 +10,16 @@ import {
   type   SubscribeCodeRunStatusWebSocketEventDTO,
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../../../constants';
+import { useWebsocketStore } from '../../../../../contexts/AblyProvider/AblyProvider';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { Button, Input, Modal, Portal, T } from '../../../../atoms';
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon } from '../../../../atoms/server';
-import { classNames } from '../../../../helpers';
+import { classNames, getKeyWebSocketEventDTO } from '../../../../helpers';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
-import { useWebsocketSub } from '../../../../hooks/useWebsocketSub';
 import { SplitPane, TwoActionModal } from '../../../../molecules';
 import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
 import { FirstPane } from './FirstPane';
@@ -79,98 +79,104 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ viewFiles, setViewFiles ] = useState<boolean>(false);
   
-  const event: SubscribeCodeRunStatusWebSocketEventDTO = {
-    event: WebSocketSubscriptionEvent.SUBSCRIBE_CODE_RUN_STATUS,
-    sessionId,
-    runId,
-  };
+  const subscribeToEvent = useWebsocketStore((s) => s.subscribeToEvent);
   
-  useWebsocketSub(event, useCallback((message) => {
-    const data = message.data;
-    if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
-      const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
-        onChangeRef.current?.({
-          onTestCasesChange: (prevState) => {
-            const newTestCases: CodeEditorTestCasesType = { ...prevState };
-            for (const testKey in newTestCases) {
-              if (prevState[testKey]?.messageTimestamp && prevState[testKey].messageTimestamp > data.messageTimestamp) {
-                continue;
-              }
-              if (newTestCases[testKey]) {
-                newTestCases[testKey] = {
-                  ...newTestCases[testKey],
-                  status,
-                  err,
-                  out,
-                  log,
-                  messageTimestamp: data.messageTimestamp,
-                };
-              }
-            }
-            return newTestCases;
-          },
-        });
-      };
-      const status = data.status || SubmissionRunStatus.NONE;
-      const inputKey = data?.log?.inputKey;
-      
-      switch (status) {
-        case SubmissionRunStatus.RECEIVED:
-        case SubmissionRunStatus.FAILED:
-        case SubmissionRunStatus.COMPILING:
-        case SubmissionRunStatus.COMPILED:
-        case SubmissionRunStatus.COMPILATION_ERROR:
-          fillTestCases(
-            status,
-            data.log?.err || '',
-            data.log?.out || '',
-            data.log?.log || '',
-          );
-          break;
-        // case SubmissionRunStatus.RUNNING_TEST_CASES:
-        case SubmissionRunStatus.RUNNING_TEST_CASE:
-        case SubmissionRunStatus.EXECUTED_TEST_CASE:
-        case SubmissionRunStatus.FAILED_TEST_CASE:
+  useEffect(() => {
+    const event: SubscribeCodeRunStatusWebSocketEventDTO = {
+      event: WebSocketSubscriptionEvent.SUBSCRIBE_CODE_RUN_STATUS,
+      sessionId,
+      runId,
+    };
+    
+    const key = getKeyWebSocketEventDTO(event);
+    
+    return subscribeToEvent(key, (message) => {
+      const data = message.data;
+      if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
+        const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
           onChangeRef.current?.({
             onTestCasesChange: (prevState) => {
               const newTestCases: CodeEditorTestCasesType = { ...prevState };
-              if (inputKey && newTestCases[inputKey]) {
-                const testCase: CodeEditorTestCaseType = {
-                  ...newTestCases[inputKey],
-                  status,
-                  out: data.log?.out || '',
-                  log: data.log?.log || '',
-                  err: data.log?.err || '',
-                  messageTimestamp: data.messageTimestamp,
-                };
-                const prev = prevState[testCase.key];
-                if (prev && prev.messageTimestamp > testCase.messageTimestamp) {
-                  return prevState;
+              for (const testKey in newTestCases) {
+                if (prevState[testKey]?.messageTimestamp && prevState[testKey].messageTimestamp > data.messageTimestamp) {
+                  continue;
                 }
-                return { ...prevState, [testCase.key]: testCase };
+                if (newTestCases[testKey]) {
+                  newTestCases[testKey] = {
+                    ...newTestCases[testKey],
+                    status,
+                    err,
+                    out,
+                    log,
+                    messageTimestamp: data.messageTimestamp,
+                  };
+                }
               }
-              return prevState;
+              return newTestCases;
             },
           });
-          break;
-        default:
+        };
+        const status = data.status || SubmissionRunStatus.NONE;
+        const inputKey = data?.log?.inputKey;
+        
+        switch (status) {
+          case SubmissionRunStatus.RECEIVED:
+          case SubmissionRunStatus.FAILED:
+          case SubmissionRunStatus.COMPILING:
+          case SubmissionRunStatus.COMPILED:
+          case SubmissionRunStatus.COMPILATION_ERROR:
+            fillTestCases(
+              status,
+              data.log?.err || '',
+              data.log?.out || '',
+              data.log?.log || '',
+            );
+            break;
+          // case SubmissionRunStatus.RUNNING_TEST_CASES:
+          case SubmissionRunStatus.RUNNING_TEST_CASE:
+          case SubmissionRunStatus.EXECUTED_TEST_CASE:
+          case SubmissionRunStatus.FAILED_TEST_CASE:
+            onChangeRef.current?.({
+              onTestCasesChange: (prevState) => {
+                const newTestCases: CodeEditorTestCasesType = { ...prevState };
+                if (inputKey && newTestCases[inputKey]) {
+                  const testCase: CodeEditorTestCaseType = {
+                    ...newTestCases[inputKey],
+                    status,
+                    out: data.log?.out || '',
+                    log: data.log?.log || '',
+                    err: data.log?.err || '',
+                    messageTimestamp: data.messageTimestamp,
+                  };
+                  const prev = prevState[testCase.key];
+                  if (prev && prev.messageTimestamp > testCase.messageTimestamp) {
+                    return prevState;
+                  }
+                  return { ...prevState, [testCase.key]: testCase };
+                }
+                return prevState;
+              },
+            });
+            break;
+          default:
+        }
+        switch (status) {
+          case SubmissionRunStatus.RECEIVED:
+            setIsRunning(true);
+            onChangeRef.current?.({ isRunning: true });
+            break;
+          case SubmissionRunStatus.FAILED:
+          case SubmissionRunStatus.COMPILATION_ERROR:
+          case SubmissionRunStatus.COMPLETED:
+            setIsRunning(false);
+            onChangeRef.current?.({ isRunning: false });
+            break;
+          default:
+        }
+        onChangeRef.current?.({ codeRunStatus: status });
       }
-      switch (status) {
-        case SubmissionRunStatus.RECEIVED:
-          setIsRunning(true);
-          onChangeRef.current?.({ isRunning: true });
-          break;
-        case SubmissionRunStatus.FAILED:
-        case SubmissionRunStatus.COMPILATION_ERROR:
-        case SubmissionRunStatus.COMPLETED:
-          setIsRunning(false);
-          onChangeRef.current?.({ isRunning: false });
-          break;
-        default:
-      }
-      onChangeRef.current?.({ codeRunStatus: status });
-    }
-  }, []));
+    });
+  }, [ runId, sessionId, subscribeToEvent ]);
   
   const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
     onChangeRef.current?.({ ...props, isRunning: false });

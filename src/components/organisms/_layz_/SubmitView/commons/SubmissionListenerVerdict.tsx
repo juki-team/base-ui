@@ -10,13 +10,14 @@ import {
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
 import { T } from 'components/atoms';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../../../constants/settings';
+import { useWebsocketStore } from '../../../../../contexts/AblyProvider/AblyProvider';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
+import { getKeyWebSocketEventDTO } from '../../../../helpers';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useMutate } from '../../../../hooks/useMutate';
-import { useWebsocketSub } from '../../../../hooks/useWebsocketSub';
 import { SubmissionVerdict, type SubmissionVerdictProps } from './SubmissionVerdict';
 
 export interface ListenerVerdictProps extends Omit<SubmissionVerdictProps, 'submissionData'> {
@@ -62,11 +63,7 @@ export const SubmissionListenerVerdict = ({
   const mutate = useMutate();
   const [ submissionData, setSubmissionData ] = useState<SubmissionRunStatusWebSocketResponseEventDTO | undefined>(undefined);
   const { addSuccessNotification, addErrorNotification } = useJukiNotification();
-  const event: SubscribeSubmissionRunStatusWebSocketEventDTO = {
-    event: WebSocketSubscriptionEvent.SUBSCRIBE_SUBMISSION_RUN_STATUS,
-    sessionId,
-    submitId,
-  };
+  
   const notifiedRef = useRef(false);
   
   useEffect(() => {
@@ -120,36 +117,48 @@ export const SubmissionListenerVerdict = ({
     }
   }, [ addErrorNotification, addSuccessNotification, contest, problem.name, submissionData ]);
   
-  useWebsocketSub(event, useCallback((message) => {
-    const data = message.data;
-    if (isSubmissionRunStatusMessageWebSocketResponseEventDTO(data)) {
-      if (data.status === SubmissionRunStatus.COMPLETED || data.status === SubmissionRunStatus.RECEIVED) {
-        void mutate(new RegExp(`${JUKI_SERVICE_V2_URL}/submission`, 'g'));
+  const subscribeToEvent = useWebsocketStore((s) => s.subscribeToEvent);
+  
+  useEffect(() => {
+    const event: SubscribeSubmissionRunStatusWebSocketEventDTO = {
+      event: WebSocketSubscriptionEvent.SUBSCRIBE_SUBMISSION_RUN_STATUS,
+      sessionId,
+      submitId,
+    };
+    
+    const key = getKeyWebSocketEventDTO(event);
+    
+    return subscribeToEvent(key, (message) => {
+      const data = message.data;
+      if (isSubmissionRunStatusMessageWebSocketResponseEventDTO(data)) {
+        if (data.status === SubmissionRunStatus.COMPLETED || data.status === SubmissionRunStatus.RECEIVED) {
+          void mutate(new RegExp(`${JUKI_SERVICE_V2_URL}/submission`, 'g'));
+        }
+        const nextStatus = data.status;
+        const nextSampleCase = !!data.testInfo?.sampleCase;
+        setSubmissionData((prevState) => {
+          if (!prevState || nextStatus === SubmissionRunStatus.RECEIVED) {
+            notifiedRef.current = false;
+            return data;
+          }
+          const currentStatus = prevState?.status;
+          const currentSampleCase = !!prevState?.testInfo?.sampleCase;
+          
+          if (
+            currentStatus &&
+            (
+              priority(nextSampleCase)[nextStatus] > priority(currentSampleCase)[currentStatus]
+              || (priority(nextSampleCase)[nextStatus] === priority(currentSampleCase)[currentStatus] && data.messageTimestamp > prevState.messageTimestamp)
+            )
+          ) {
+            return data;
+          }
+          
+          return prevState;
+        });
       }
-      const nextStatus = data.status;
-      const nextSampleCase = !!data.testInfo?.sampleCase;
-      setSubmissionData((prevState) => {
-        if (!prevState || nextStatus === SubmissionRunStatus.RECEIVED) {
-          notifiedRef.current = false;
-          return data;
-        }
-        const currentStatus = prevState?.status;
-        const currentSampleCase = !!prevState?.testInfo?.sampleCase;
-        
-        if (
-          currentStatus &&
-          (
-            priority(nextSampleCase)[nextStatus] > priority(currentSampleCase)[currentStatus]
-            || (priority(nextSampleCase)[nextStatus] === priority(currentSampleCase)[currentStatus] && data.messageTimestamp > prevState.messageTimestamp)
-          )
-        ) {
-          return data;
-        }
-        
-        return prevState;
-      });
-    }
-  }, [ mutate ]));
+    });
+  }, [ mutate, sessionId, submitId, subscribeToEvent ]);
   
   return (
     <SubmissionVerdict
