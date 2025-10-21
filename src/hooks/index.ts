@@ -44,3 +44,4 @@ export * from '../stores/router/useRouterStore';
 export * from '../stores/sound/useSoundStore';
 export * from '../stores/user/useUserStore';
 export * from '../stores/animationFrame/useAnimationFrameStore';
+export * from '../stores/websocket/useWebsocketSubStore';

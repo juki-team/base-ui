@@ -4,55 +4,16 @@ import {
   CHANNEL_CLIENT_USER_SESSION,
   CHANNEL_SEVER_MESSAGES,
 } from '@juki-team/commons';
-import { WebSocketResponseEventDTO } from '@juki-team/commons/dist/types/dto/socket';
 import * as Ably from 'ably';
 import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
 import { PropsWithChildren, useMemo } from 'react';
-import { create } from 'zustand';
 import { jukiApiManager } from '../../settings';
 import { useUserStore } from '../../stores/user/useUserStore';
-
-type Message = {
-  key: string;
-  data: WebSocketResponseEventDTO;
-};
-
-type Subscriber = (message: Message) => void;
-
-interface WebsocketStore {
-  subscribers: Record<string, Subscriber[]>;
-  broadcastMessage: (key: string, data: WebSocketResponseEventDTO) => void;
-  subscribeToEvent: (key: string, callback: Subscriber) => () => void;
-}
-
-export const useWebsocketStore = create<WebsocketStore>((set, get) => ({
-  subscribers: {},
-  broadcastMessage: (key, data) => {
-    const newMessage = { key, data };
-    const subs = get().subscribers[key] || [];
-    subs.forEach((cb) => cb(newMessage));
-  },
-  subscribeToEvent: (key, callback) => {
-    set((state) => ({
-      subscribers: {
-        ...state.subscribers,
-        [key]: [ ...(state.subscribers[key] || []), callback ],
-      },
-    }));
-    return () => {
-      set((state) => ({
-        subscribers: {
-          ...state.subscribers,
-          [key]: (state.subscribers[key] || []).filter((cb) => cb !== callback),
-        },
-      }));
-    };
-  },
-}));
+import { useWebsocketSubStore } from '../../stores/websocket/useWebsocketSubStore';
 
 const WebsocketProvider = () => {
   const sessionId = useUserStore((state) => state.user.sessionId);
-  const broadcastMessage = useWebsocketStore((state) => state.broadcastMessage);
+  const broadcastMessage = useWebsocketSubStore((state) => state.broadcastMessage);
   
   const channelName = useMemo(
     () => CHANNEL_CLIENT_USER_SESSION(sessionId),

@@ -13,8 +13,8 @@ import {
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../../../constants';
-import { useWebsocketStore } from '../../../../../contexts/AblyProvider/AblyProvider';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
+import { useWebsocketSubStore } from '../../../../../stores/websocket/useWebsocketSubStore';
 import { Button, Input, Modal, Portal, T } from '../../../../atoms';
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon } from '../../../../atoms/server';
 import { classNames, getKeyWebSocketEventDTO } from '../../../../helpers';
@@ -79,7 +79,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ viewFiles, setViewFiles ] = useState<boolean>(false);
   
-  const subscribeToEvent = useWebsocketStore((s) => s.subscribeToEvent);
+  const subscribeToEvent = useWebsocketSubStore((s) => s.subscribeToEvent);
   
   useEffect(() => {
     const event: SubscribeCodeRunStatusWebSocketEventDTO = {

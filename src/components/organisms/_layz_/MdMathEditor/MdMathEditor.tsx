@@ -12,9 +12,9 @@ import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { v4 } from 'uuid';
-import { useWebsocketStore } from '../../../../contexts/AblyProvider/AblyProvider';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
+import { useWebsocketSubStore } from '../../../../stores/websocket/useWebsocketSubStore';
 import { Modal, T, TextArea } from '../../../atoms';
 import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon } from '../../../atoms/server';
 import { classNames, downloadBlobAsFile, getKeyWebSocketEventDTO, upperFirst } from '../../../helpers';
@@ -53,7 +53,7 @@ function IAModalContent() {
   
   const websocketMessages = useWebsocketMessages();
   
-  const subscribeToEvent = useWebsocketStore((s) => s.subscribeToEvent);
+  const subscribeToEvent = useWebsocketSubStore((s) => s.subscribeToEvent);
   
   useEffect(() => {
     const event: SubscribeChatCompletionsDataWebSocketEventDTO = {

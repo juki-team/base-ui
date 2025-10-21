@@ -11,8 +11,8 @@ import {
 import { T } from 'components/atoms';
 import { useEffect, useRef, useState } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../../../constants/settings';
-import { useWebsocketStore } from '../../../../../contexts/AblyProvider/AblyProvider';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
+import { useWebsocketSubStore } from '../../../../../stores/websocket/useWebsocketSubStore';
 import { getKeyWebSocketEventDTO } from '../../../../helpers';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
@@ -108,7 +108,7 @@ export const SubmissionListenerVerdict = ({ submit }: SubmissionListenerVerdictP
     }
   }, [ addErrorNotification, addSuccessNotification, contest, problem.name, submissionData, user.canViewSourceCode ]);
   
-  const subscribeToEvent = useWebsocketStore((s) => s.subscribeToEvent);
+  const subscribeToEvent = useWebsocketSubStore((s) => s.subscribeToEvent);
   
   useEffect(() => {
     const event: SubscribeSubmissionRunStatusWebSocketEventDTO = {
