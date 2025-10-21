@@ -11,6 +11,7 @@ import {
 import domToImage from 'dom-to-image-more';
 import { useCallback, useEffect, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { v4 } from 'uuid';
 import { RESIZE_DETECTOR_PROPS } from '../../../../../../constants';
 import { jukiApiManager } from '../../../../../../settings';
 import { Button, Select, T } from '../../../../../atoms';
@@ -86,8 +87,11 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     setStatus(Status.LOADING);
     clean(SubmissionRunStatus.RECEIVED);
     try {
+      const runId = v4();
+      setRunId(runId);
       const { url, ...options } = jukiApiManager.API_V1.code.run({
         body: {
+          runId,
           files: [
             ...Object.values(files).map(({ language, source, name }) => ({
               language: language as CodeLanguage,
@@ -116,7 +120,6 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       );
       
       if (request?.success && request?.content?.runId) {
-        setRunId(request.content.runId);
         setStatus(Status.SUCCESS);
       } else {
         addErrorNotification(request?.message);
@@ -137,13 +140,13 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   const handleRunCodeRef = useRef(handleRunCode);
   handleRunCodeRef.current = handleRunCode;
   
-  const downloadAsText = () => {
+  const downloadAsText = useCallback(() => {
     const currentFile = files[currentFileName];
     if (currentFile?.source && currentFile?.name) {
       downloadBlobAsFile(currentFile.source as unknown as Blob, currentFile.name);
       addQuietNotification(<T className="tt-se">downloaded</T>);
     }
-  };
+  }, [ addQuietNotification, currentFileName, files ]);
   
   const toPng = async () => {
     const cmThemeNode = document.querySelector('.code-viewer-to-print');
@@ -157,7 +160,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     }
   };
   
-  const downloadAsPng = async () => {
+  const downloadAsPng = useCallback(async () => {
     const currentFile = files[currentFileName];
     if (currentFile?.source && currentFile?.name) {
       const blob = await toPng();
@@ -166,9 +169,9 @@ export const Header = <T, >(props: HeaderProps<T>) => {
         addQuietNotification(<T className="tt-se">downloaded</T>);
       }
     }
-  };
+  }, [ addQuietNotification, currentFileName, files ]);
   
-  const copyAsText = async () => {
+  const copyAsText = useCallback(async () => {
     const currentFile = files[currentFileName];
     if (currentFile?.source) {
       try {
@@ -178,9 +181,9 @@ export const Header = <T, >(props: HeaderProps<T>) => {
         console.error('Failed to copy:', err);
       }
     }
-  };
+  }, [ addQuietNotification, currentFileName, files ]);
   
-  const copyAsPng = async () => {
+  const copyAsPng = useCallback(async () => {
     try {
       const blob = await toPng();
       if (blob) {
@@ -190,7 +193,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     } catch (err) {
       console.error('Failed to copy image:', err);
     }
-  };
+  }, [ addQuietNotification ]);
   
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     const isMac = navigator.platform.toUpperCase().includes('MAC');
@@ -236,7 +239,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       e.preventDefault();
       void copyAsPng();
     }
-  }, [ files, currentFileName, addQuietNotification ]);
+  }, [ downloadAsText, downloadAsPng, copyAsText, copyAsPng ]);
   
   useKeyPress(handleKeyDown);
   

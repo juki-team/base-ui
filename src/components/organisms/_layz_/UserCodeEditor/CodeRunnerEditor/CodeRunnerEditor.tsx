@@ -82,6 +82,9 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   const subscribeToEvent = useWebsocketStore(store => store.subscribeToEvent);
   
   useEffect(() => {
+    if (!runId) {
+      return;
+    }
     const event: SubscribeCodeRunStatusWebSocketEventDTO = {
       event: WebSocketSubscriptionEvent.SUBSCRIBE_CODE_RUN_STATUS,
       sessionId,

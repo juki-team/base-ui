@@ -43,6 +43,10 @@ const WebsocketProvider = () => {
 
 const ablyClient = new Ably.Realtime({
   authCallback: async (_, callback) => {
+    if (typeof window === 'undefined') {
+      console.warn('authCallback executed on server side');
+      callback(null, null);
+    }
     let tokenRequest;
     try {
       const response = cleanRequest<ContentResponseType<TokenDetails | TokenRequest | string | null>>(await authorizedRequest(jukiApiManager.API_V2.websocket.auth().url));

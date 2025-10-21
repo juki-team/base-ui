@@ -28,7 +28,7 @@ export function SubmissionInfo({ submitId, canViewSourceCode, children }: PropsW
     clonedSearchParams.delete(QueryParamKey.SUBMISSION);
     clonedSearchParams.append(QueryParamKey.SUBMISSION, submitId);
     return clonedSearchParams;
-  }, [ currentSearchParams ]);
+  }, [ currentSearchParams, submitId ]);
   
   if (canViewSourceCode) {
     return (
