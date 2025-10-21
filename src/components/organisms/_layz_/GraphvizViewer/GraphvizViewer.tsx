@@ -1,8 +1,8 @@
 import { instance } from '@viz-js/viz';
 import { useEffect, useRef } from 'react';
 import { create } from 'zustand';
-import { classNames } from '../../../helpers';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { classNames } from '../../../helpers';
 import { GraphvizViewerProps } from './types';
 
 interface GraphvizState {
@@ -20,7 +20,7 @@ export default function GraphvizViewer({ dot, className }: GraphvizViewerProps) 
   
   const containerRef = useRef<HTMLDivElement>(null);
   const t = useI18nStore(store => store.i18n.t);
-  const shouldRerender = useGraphvizStore((s) => s.shouldRerender);
+  const shouldRerender = useGraphvizStore(store => store.shouldRerender);
   
   useEffect(() => {
     const el = containerRef.current;

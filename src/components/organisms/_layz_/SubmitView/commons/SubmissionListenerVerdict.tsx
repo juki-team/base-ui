@@ -13,7 +13,6 @@ import { useEffect, useRef, useState } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../../../constants/settings';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { useWebsocketSubStore } from '../../../../../stores/websocket/useWebsocketSubStore';
-import { getKeyWebSocketEventDTO } from '../../../../helpers';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useMutate } from '../../../../hooks/useMutate';
@@ -108,7 +107,7 @@ export const SubmissionListenerVerdict = ({ submit }: SubmissionListenerVerdictP
     }
   }, [ addErrorNotification, addSuccessNotification, contest, problem.name, submissionData, user.canViewSourceCode ]);
   
-  const subscribeToEvent = useWebsocketSubStore((s) => s.subscribeToEvent);
+  const subscribeToEvent = useWebsocketSubStore(store => store.subscribeToEvent);
   
   useEffect(() => {
     const event: SubscribeSubmissionRunStatusWebSocketEventDTO = {
@@ -116,10 +115,7 @@ export const SubmissionListenerVerdict = ({ submit }: SubmissionListenerVerdictP
       sessionId,
       submitId,
     };
-    
-    const key = getKeyWebSocketEventDTO(event);
-    
-    return subscribeToEvent(key, (message) => {
+    return subscribeToEvent(event, (message) => {
       const data = message.data;
       if (isSubmissionRunStatusMessageWebSocketResponseEventDTO(data)) {
         if (data.status === SubmissionRunStatus.COMPLETED || data.status === SubmissionRunStatus.RECEIVED) {

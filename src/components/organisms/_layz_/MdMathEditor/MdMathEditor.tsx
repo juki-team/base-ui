@@ -17,7 +17,7 @@ import { useUserStore } from '../../../../stores/user/useUserStore';
 import { useWebsocketSubStore } from '../../../../stores/websocket/useWebsocketSubStore';
 import { Modal, T, TextArea } from '../../../atoms';
 import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon } from '../../../atoms/server';
-import { classNames, downloadBlobAsFile, getKeyWebSocketEventDTO, upperFirst } from '../../../helpers';
+import { classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
 import { useWebsocketMessages } from '../../../hooks/useWebsocketMessages';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
 import { ImageUploaderModal } from '../../ImageUploaderModal/ImageUploaderModal';
@@ -53,7 +53,7 @@ function IAModalContent() {
   
   const websocketMessages = useWebsocketMessages();
   
-  const subscribeToEvent = useWebsocketSubStore((s) => s.subscribeToEvent);
+  const subscribeToEvent = useWebsocketSubStore(store => store.subscribeToEvent);
   
   useEffect(() => {
     const event: SubscribeChatCompletionsDataWebSocketEventDTO = {
@@ -61,10 +61,7 @@ function IAModalContent() {
       sessionId,
       chatAiId: chatIdRef.current,
     };
-    
-    const key = getKeyWebSocketEventDTO(event);
-    
-    return subscribeToEvent(key, (message) => {
+    return subscribeToEvent(event, (message) => {
       const data = message.data;
       if (isChatCompletionsResponseWebSocketResponseEventDTO(data)) {
         setChat(prevState => [

@@ -17,7 +17,7 @@ import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { useWebsocketSubStore } from '../../../../../stores/websocket/useWebsocketSubStore';
 import { Button, Input, Modal, Portal, T } from '../../../../atoms';
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon } from '../../../../atoms/server';
-import { classNames, getKeyWebSocketEventDTO } from '../../../../helpers';
+import { classNames } from '../../../../helpers';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { SplitPane, TwoActionModal } from '../../../../molecules';
@@ -79,7 +79,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ viewFiles, setViewFiles ] = useState<boolean>(false);
   
-  const subscribeToEvent = useWebsocketSubStore((s) => s.subscribeToEvent);
+  const subscribeToEvent = useWebsocketSubStore(store => store.subscribeToEvent);
   
   useEffect(() => {
     const event: SubscribeCodeRunStatusWebSocketEventDTO = {
@@ -87,10 +87,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
       sessionId,
       runId,
     };
-    
-    const key = getKeyWebSocketEventDTO(event);
-    
-    return subscribeToEvent(key, (message) => {
+    return subscribeToEvent(event, (message) => {
       const data = message.data;
       if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
         const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
