@@ -9,32 +9,13 @@ export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSu
   return {
     head: 'verdict',
     index: 'verdicts',
-    Field: ({
-              record: {
-                submitId,
-                points,
-                status,
-                verdict,
-                user: { canViewSourceCode },
-                processedCases,
-                contest,
-                problem,
-              },
-            }) => (
+    Field: ({ record: submit }) => (
       <Field>
         <div className="jk-col nowrap extend" style={{ padding: '4px 0', boxSizing: 'border-box' }}>
           <FieldText
             text={
-              <SubmissionInfo submitId={submitId} canViewSourceCode={canViewSourceCode}>
-                <SubmissionListenerVerdict
-                  verdict={verdict}
-                  points={points}
-                  status={status}
-                  submitId={submitId}
-                  contest={contest}
-                  problem={problem}
-                  processedCases={processedCases}
-                />
+              <SubmissionInfo submitId={submit.submitId} canViewSourceCode={submit.user.canViewSourceCode}>
+                <SubmissionListenerVerdict submit={submit} />
               </SubmissionInfo>
             }
             label="verdict"

@@ -2,7 +2,6 @@ import {
   isSubmissionRunStatusMessageWebSocketResponseEventDTO,
   PROBLEM_VERDICT,
   ProblemVerdict,
-  type SubmissionDataResponseDTO,
   SubmissionRunStatus,
   SubmissionRunStatusWebSocketResponseEventDTO,
   type SubmissionSummaryListResponseDTO,
@@ -18,13 +17,7 @@ import { getKeyWebSocketEventDTO } from '../../../../helpers';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useMutate } from '../../../../hooks/useMutate';
-import { SubmissionVerdict, type SubmissionVerdictProps } from './SubmissionVerdict';
-
-export interface ListenerVerdictProps extends Omit<SubmissionVerdictProps, 'submissionData'> {
-  processedCases?: SubmissionDataResponseDTO['processedCases'],
-  contest: SubmissionSummaryListResponseDTO['contest'],
-  problem: SubmissionSummaryListResponseDTO['problem'],
-}
+import { SubmissionVerdict } from './SubmissionVerdict';
 
 const priority = (isSample: boolean) => ({
   [SubmissionRunStatus.RECEIVED]: 0,
@@ -47,15 +40,13 @@ const priority = (isSample: boolean) => ({
   [SubmissionRunStatus.NONE]: 10,
 });
 
-export const SubmissionListenerVerdict = ({
-                                            verdict,
-                                            points,
-                                            status,
-                                            submitId,
-                                            contest,
-                                            problem,
-                                            processedCases,
-                                          }: ListenerVerdictProps) => {
+interface SubmissionListenerVerdictProps {
+  submit: SubmissionSummaryListResponseDTO,
+}
+
+export const SubmissionListenerVerdict = ({ submit }: SubmissionListenerVerdictProps) => {
+  
+  const { contest, problem, points, status, verdict, submitId, processedCases, user } = submit;
   
   useCheckAndStartServices();
   
@@ -67,7 +58,7 @@ export const SubmissionListenerVerdict = ({
   const notifiedRef = useRef(false);
   
   useEffect(() => {
-    if (!notifiedRef.current && submissionData && submissionData?.verdict && submissionData?.verdict !== ProblemVerdict.PENDING) {
+    if (!notifiedRef.current && submissionData && submissionData?.verdict && submissionData?.verdict !== ProblemVerdict.PENDING && user.canViewSourceCode) {
       notifiedRef.current = true;
       const verdict = submissionData.verdict;
       const points = submissionData?.points || 0;
@@ -115,7 +106,7 @@ export const SubmissionListenerVerdict = ({
         );
       }
     }
-  }, [ addErrorNotification, addSuccessNotification, contest, problem.name, submissionData ]);
+  }, [ addErrorNotification, addSuccessNotification, contest, problem.name, submissionData, user.canViewSourceCode ]);
   
   const subscribeToEvent = useWebsocketStore((s) => s.subscribeToEvent);
   

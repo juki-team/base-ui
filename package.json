@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "1.2.95",
+  "version": "1.2.96",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -183,22 +183,6 @@
   "peerDependencies": {
     "react": "^19",
     "react-dom": "^19"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ],
-    "overrides": [
-      {
-        "files": [
-          "**/*.stories.*,"
-        ],
-        "rules": {
-          "import/no-anonymous-default-export": "off"
-        }
-      }
-    ]
   },
   "browserslist": {
     "production": [

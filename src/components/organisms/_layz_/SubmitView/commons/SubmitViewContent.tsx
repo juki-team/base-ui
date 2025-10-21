@@ -62,8 +62,6 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
     memoryUsed,
     timeUsed,
     verdict,
-    points,
-    status,
     timestamp,
     testCaseResults,
     verdictByGroups,
@@ -146,14 +144,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
                 title: <T className="fw-bd tt-se">verdict</T>,
                 content: (
                   <div className="jk-row gap center">
-                    <SubmissionListenerVerdict
-                      verdict={verdict}
-                      points={points}
-                      status={status}
-                      submitId={submitId}
-                      problem={submit.problem}
-                      contest={submit.contest}
-                    />
+                    <SubmissionListenerVerdict submit={submit} />
                     {compilationFailed && <UpIcon onClick={toggle} rotate={isOpen ? 0 : 180} className="link" />}
                   </div>
                 ),
