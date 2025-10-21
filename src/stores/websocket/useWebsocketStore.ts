@@ -2,10 +2,11 @@ import { create } from 'zustand';
 import { getKeyWebSocketEventDTO, getUnsubscribeEvent } from '../../components/helpers';
 import { WebsocketSubStore } from './types';
 
-export const useWebsocketSubStore = create<WebsocketSubStore>((set, get) => ({
+export const useWebsocketStore = create<WebsocketSubStore>((set, get) => ({
   subscribers: {},
   channelSubscription: null,
-  setChannelSubscription: (channelSubscription) => set({ channelSubscription }),
+  channelMessages: null,
+  setProps: (props) => set(props),
   broadcastMessage: (key, data) => {
     const newMessage = { key, data };
     const subs = get().subscribers[key] || [];

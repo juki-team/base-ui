@@ -21,6 +21,7 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
     <JukiPageProvider>
       <JukiI18nProvider>
         <JukiUserProvider>
+          <JukiAblyProvider />
           <JukiRouterProvider
             searchParams={router.searchParams}
             appendSearchParams={router.appendSearchParams}
@@ -35,9 +36,7 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
           >
             <JukiUIProvider components={components}>
               <JukiLastPathProvider initialLastPath={initialLastPath}>
-                <JukiAblyProvider>
-                  {children}
-                </JukiAblyProvider>
+                {children}
               </JukiLastPathProvider>
             </JukiUIProvider>
           </JukiRouterProvider>

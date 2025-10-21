@@ -12,7 +12,7 @@ import { T } from 'components/atoms';
 import { useEffect, useRef, useState } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../../../constants/settings';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
-import { useWebsocketSubStore } from '../../../../../stores/websocket/useWebsocketSubStore';
+import { useWebsocketStore } from '../../../../../stores/websocket/useWebsocketStore';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useMutate } from '../../../../hooks/useMutate';
@@ -107,7 +107,7 @@ export const SubmissionListenerVerdict = ({ submit }: SubmissionListenerVerdictP
     }
   }, [ addErrorNotification, addSuccessNotification, contest, problem.name, submissionData, user.canViewSourceCode ]);
   
-  const subscribeToEvent = useWebsocketSubStore(store => store.subscribeToEvent);
+  const subscribeToEvent = useWebsocketStore(store => store.subscribeToEvent);
   
   useEffect(() => {
     const event: SubscribeSubmissionRunStatusWebSocketEventDTO = {

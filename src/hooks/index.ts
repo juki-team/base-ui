@@ -33,7 +33,6 @@ export * from '../components/hooks/useStore';
 export * from '../components/hooks/useTriggerWrapper';
 export * from '../components/hooks/useWidthResizer';
 export * from '../components/hooks/useUserTrack';
-export * from '../components/hooks/useWebsocketMessages';
 
 // store hooks
 export * from '../stores/i18n/useI18nStore';
@@ -44,4 +43,4 @@ export * from '../stores/router/useRouterStore';
 export * from '../stores/sound/useSoundStore';
 export * from '../stores/user/useUserStore';
 export * from '../stores/animationFrame/useAnimationFrameStore';
-export * from '../stores/websocket/useWebsocketSubStore';
+export * from '../stores/websocket/useWebsocketStore';

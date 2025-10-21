@@ -2,7 +2,7 @@ import { UserTrackWebSocketEventDTO, WebSocketMessageEvent } from '@juki-team/co
 import { useEffect } from 'react';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { useUserStore } from '../../stores/user/useUserStore';
-import { useWebsocketMessages } from './useWebsocketMessages';
+import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
 
 export const useUserTrack = () => {
   
@@ -10,8 +10,7 @@ export const useUserTrack = () => {
   const origin = useRouterStore(store => store.origin);
   const pathname = useRouterStore(store => store.pathname);
   const searchParams = useRouterStore(store => store.searchParams);
-  
-  const channel = useWebsocketMessages();
+  const channelMessages = useWebsocketStore(store => store.channelMessages);
   
   useEffect(() => {
     const event: UserTrackWebSocketEventDTO = {
@@ -19,7 +18,7 @@ export const useUserTrack = () => {
       sessionId,
       href: `${origin}${pathname}?${searchParams.toString()}`,
     };
-    void channel.publish('', event);
-  }, [ sessionId, origin, pathname, searchParams, channel ]);
+    void channelMessages?.publish('', event);
+  }, [ sessionId, origin, pathname, searchParams, channelMessages ]);
   return null;
 };

@@ -4,25 +4,32 @@ import {
   CHANNEL_CLIENT_USER_SESSION,
   CHANNEL_SEVER_MESSAGES,
 } from '@juki-team/commons';
-import * as Ably from 'ably';
+import Ably from 'ably';
 import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
-import { PropsWithChildren, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { jukiApiManager } from '../../settings';
 import { useUserStore } from '../../stores/user/useUserStore';
-import { useWebsocketSubStore } from '../../stores/websocket/useWebsocketSubStore';
+import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
 
 const WebsocketProvider = () => {
   const sessionId = useUserStore((state) => state.user.sessionId);
-  const broadcastMessage = useWebsocketSubStore((state) => state.broadcastMessage);
-  const setChannelSubscription = useWebsocketSubStore(store => store.setChannelSubscription);
+  const broadcastMessage = useWebsocketStore((state) => state.broadcastMessage);
+  const setProps = useWebsocketStore(store => store.setProps);
   const channelName = useMemo(
     () => CHANNEL_CLIENT_USER_SESSION(sessionId),
     [ sessionId ],
   );
   const { channel: channelSubscription } = useChannel(CHANNEL_CLIENT_SUBSCRIPTIONS);
+  const { channel: channelMessages } = useChannel(CHANNEL_SEVER_MESSAGES);
+  
+  console.log('WebsocketProvider');
   useEffect(() => {
-    setChannelSubscription(channelSubscription);
-  }, [ channelSubscription, setChannelSubscription ]);
+    console.log('setChannelSubscription');
+    setProps({ channelSubscription });
+  }, [ channelSubscription, setProps ]);
+  useEffect(() => {
+    setProps({ channelMessages });
+  }, [ channelMessages, setProps ]);
   
   useChannel(channelName, (msg) => {
     const { data } = msg;
@@ -33,7 +40,7 @@ const WebsocketProvider = () => {
   return null;
 };
 
-export const JukiAblyProvider = ({ children }: PropsWithChildren) => {
+export const JukiAblyProvider = () => {
   
   const sessionId = useUserStore(store => store.user.sessionId);
   const client = useMemo(() => {
@@ -57,12 +64,11 @@ export const JukiAblyProvider = ({ children }: PropsWithChildren) => {
     <AblyProvider client={client}>
       <ChannelProvider channelName={CHANNEL_CLIENT_SUBSCRIPTIONS}>
         <ChannelProvider channelName={CHANNEL_CLIENT_USER_SESSION(sessionId)}>
-          <WebsocketProvider />
-        </ChannelProvider>
-      </ChannelProvider>
-      <ChannelProvider channelName={CHANNEL_CLIENT_NOTIFICATIONS}>
-        <ChannelProvider channelName={CHANNEL_SEVER_MESSAGES}>
-          {children}
+          <ChannelProvider channelName={CHANNEL_SEVER_MESSAGES}>
+            <ChannelProvider channelName={CHANNEL_CLIENT_NOTIFICATIONS}>
+              <WebsocketProvider />
+            </ChannelProvider>
+          </ChannelProvider>
         </ChannelProvider>
       </ChannelProvider>
     </AblyProvider>

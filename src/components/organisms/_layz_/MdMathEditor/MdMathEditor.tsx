@@ -14,11 +14,10 @@ import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { useWebsocketSubStore } from '../../../../stores/websocket/useWebsocketSubStore';
+import { useWebsocketStore } from '../../../../stores/websocket/useWebsocketStore';
 import { Modal, T, TextArea } from '../../../atoms';
 import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon } from '../../../atoms/server';
 import { classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
-import { useWebsocketMessages } from '../../../hooks/useWebsocketMessages';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
 import { ImageUploaderModal } from '../../ImageUploaderModal/ImageUploaderModal';
 import type { MdMathEditorProps } from '../../MdMathViewer/types';
@@ -50,10 +49,8 @@ function IAModalContent() {
   const sessionId = useUserStore(store => store.user.sessionId);
   const t = useI18nStore(store => store.i18n.t);
   const chatIdRef = useRef(v4());
-  
-  const websocketMessages = useWebsocketMessages();
-  
-  const subscribeToEvent = useWebsocketSubStore(store => store.subscribeToEvent);
+  const channelMessages = useWebsocketStore(store => store.channelMessages);
+  const subscribeToEvent = useWebsocketStore(store => store.subscribeToEvent);
   
   useEffect(() => {
     const event: SubscribeChatCompletionsDataWebSocketEventDTO = {
@@ -103,7 +100,7 @@ function IAModalContent() {
                 content: value,
                 chatAiId: chatIdRef.current,
               };
-              await websocketMessages.publish('', event);
+              await channelMessages?.publish('', event);
               setChat(prevState => [ ...prevState, { content: value, user: ChatRole.USER } ]);
               setLoader(Status.NONE);
             } catch (error) {
