@@ -10,7 +10,7 @@ import {
   type   SubscribeCodeRunStatusWebSocketEventDTO,
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../../../constants';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
@@ -35,7 +35,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
     // sourceCode,
     languages = CODE_EDITOR_PROGRAMMING_LANGUAGES.map(lang => ({
       value: lang as T,
-      label: CODE_LANGUAGE[lang]?.label || lang,
+      label: (CODE_LANGUAGE[lang]?.label || lang) as ReactNode,
     })),
     // language,
     onChange: _onChange,

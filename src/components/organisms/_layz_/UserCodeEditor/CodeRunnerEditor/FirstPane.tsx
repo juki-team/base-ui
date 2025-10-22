@@ -1,4 +1,5 @@
 import { Theme } from '@juki-team/commons';
+import { ReactNode } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { Select } from '../../../../atoms';
 import { classNames } from '../../../../helpers';
@@ -13,7 +14,7 @@ interface FirstPaneProps<T> {
   source: string,
   tabSize: number,
   fontSize: number,
-  languages: { value: T, label: string }[],
+  languages: { value: T, label: ReactNode }[],
   onlyCodeEditor?: boolean,
   triggerFocus?: number,
 }

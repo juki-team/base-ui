@@ -12,7 +12,7 @@ export interface UserCodeEditorProps<T> {
   initialTestCases?: CodeEditorTestCasesType,
   initialFileName?: string,
   storeKey: string,
-  languages: { value: T, label: string }[],
+  languages: { value: T, label: ReactNode }[],
   leftButtons?: CodeEditorButtonsType<T>,
   centerButtons?: CodeEditorButtonsType<T>,
   rightButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode,

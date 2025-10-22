@@ -35,7 +35,7 @@ function getStoreRecovered(storeKey: string | undefined) {
   return storeRecovered;
 }
 
-function useSaveStorage<T extends Object, >(storeKey: string | undefined, defaultValue: T): [ T, Dispatch<SetStateAction<T>> ] {
+function useSaveStorage<T extends Record<string, unknown>, >(storeKey: string | undefined, defaultValue: T): [ T, Dispatch<SetStateAction<T>> ] {
   
   const storeRecovered = getStoreRecovered(storeKey);
   const [ value, setValue ] = useState<T>({ ...defaultValue, ...storeRecovered });
@@ -62,7 +62,7 @@ function useSaveStorage<T extends Object, >(storeKey: string | undefined, defaul
   return [ value, setValue ];
 }
 
-function useSaveChunkStorage<T extends Object, >(storeKey: string, initialValue: StorageType<T>, merge: (a: T, b: T | undefined) => T, formatStoreRecovered: (recovered: any) => StorageType<T>): [ StorageType<T>, Dispatch<SetStateAction<StorageType<T>>> ] {
+function useSaveChunkStorage<T extends Record<string, unknown>, >(storeKey: string, initialValue: StorageType<T>, merge: (a: T, b: T | undefined) => T, formatStoreRecovered: (recovered: unknown) => StorageType<T>): [ StorageType<T>, Dispatch<SetStateAction<StorageType<T>>> ] {
   
   // const initialValueString = JSON.stringify(initialValue);
   const mergeRef = useStableRef(merge);
@@ -84,7 +84,7 @@ function useSaveChunkStorage<T extends Object, >(storeKey: string, initialValue:
       }
     }
     return newState;
-  }, [ storeKey ]);
+  }, [ storeKey, formatStoreRecoveredRef, mergeRef ]);
   
   const [ value, setValue ] = useState<StorageType<T>>(mergeState());
   
@@ -102,13 +102,13 @@ function useSaveChunkStorage<T extends Object, >(storeKey: string, initialValue:
   return [ value, setValue ];
 }
 
-type StorageType<T extends Object> = {
+type StorageType<T extends Record<string, unknown>> = {
   [key: string]: T,
 }
 
 const getDefaultFileName = (codeLanguage: CodeLanguage) => CODE_LANGUAGE[codeLanguage]?.mainFilename ?? 'main.source';
 
-const getExtension = (codeLanguage: any) => CODE_LANGUAGE[codeLanguage as CodeLanguage]?.fileExtension[0] ?? 'source';
+const getExtension = (codeLanguage: unknown) => CODE_LANGUAGE[codeLanguage as CodeLanguage]?.fileExtension[0] ?? 'source';
 
 const mergeTestCases = (a: CodeEditorTestCasesType, b: CodeEditorTestCasesType | undefined): CodeEditorTestCasesType => {
   const newTestCases: CodeEditorTestCasesType = {};
@@ -150,23 +150,23 @@ const getNewFileName = (prefix: string, suffix: string, exist: (name: string) =>
 
 type SettingsStore = { lastFileName: string };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const formatSettingsStoreRecovered = (recovered: any): StorageType<SettingsStore> => {
   const state: StorageType<SettingsStore> = {};
   for (const [ key, value ] of Object.entries(recovered)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     state[key] = { lastFileName: typeof (value as any)?.lastFileName === 'string' ? (value as any).lastFileName : '' };
   }
   return state;
 };
 
-const formatStoreRecovered = <T, >(languages: {
-  value: T,
-  label: string
-}[]) => (recovered: any): StorageType<CodeEditorFiles<T>> => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const formatStoreRecovered = <T, >(languages: UserCodeEditorProps<T>['languages']) => (recovered: any): StorageType<CodeEditorFiles<T>> => {
   const state: StorageType<CodeEditorFiles<T>> = {};
   for (const [ key, value ] of Object.entries(recovered)) {
     state[key] = {};
     let index = 1;
-    for (const [ lang, source ] of Object.entries(value as {})) {
+    for (const [ lang, source ] of Object.entries(value || {})) {
       if (typeof source === 'string') {
         const name = `source-${index}.${getExtension(lang as CodeLanguage)}`;
         state[key][name] = {
@@ -246,7 +246,7 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   const [ filesStore, setFilesStore ] = useSaveChunkStorage<CodeEditorFiles<T>>(getSourcesStoreKey(userNickname), newInitialFiles, mergeSources, formatStoreRecovered(languages));
   const onFilesChangeRef = useStableRef(onFilesChange);
   const files = filesStore[storeKey] || EMPTY_OBJECT;
-  useEffect(() => onFilesChangeRef.current?.(files), [ files ]);
+  useEffect(() => onFilesChangeRef.current?.(files), [ files, onFilesChangeRef ]);
   const defaultFileName = initialFileName ?? Object.keys(files)[0] ?? getDefaultFileName(defaultLanguage as CodeLanguage);
   const [ settingsStore, setSettingsStore ] = useSaveChunkStorage<SettingsStore>(getSettingsStoreKey(userNickname), { [storeKey]: { lastFileName: defaultFileName } }, (a, b) => ({ ...a, ...b }), formatSettingsStoreRecovered);
   const currentFileName = settingsStore[storeKey]?.lastFileName ?? defaultFileName;
@@ -278,6 +278,8 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
       status: SubmissionRunStatus.NONE,
     };
   }
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const formatTestCasesStoreRecover = (recovered: any): StorageType<CodeEditorTestCasesType> => {
     const state: StorageType<CodeEditorTestCasesType> = {};
     for (const [ key, value ] of Object.entries(recovered)) {
@@ -308,7 +310,7 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   const testCases = testCasesStore[testCaseStoreKey]!;
   useEffect(() => {
     onTestCasesChangeRef.current?.(testCases);
-  }, [ testCases ]);
+  }, [ onTestCasesChangeRef, testCases ]);
   
   const [ editorTriggerFocus, setEditorTriggerFocus ] = useState(0);
   

@@ -47,7 +47,7 @@ export interface CodeRunnerEditorProps<T> extends Omit<CodeEditorPropertiesType<
   // language: T,
   readOnly?: boolean,
   onChange?: CodeRunnerEditorOnChangeType<T>,
-  languages?: { value: T, label: string }[],
+  languages?: { value: T, label: ReactNode }[],
   className?: string,
   testCases?: CodeEditorTestCasesType,
   leftButtons?: CodeEditorButtonsType<T>,
@@ -81,7 +81,7 @@ export interface TestCasesProps<T> {
 }
 
 export interface HeaderProps<T> {
-  languages: { value: T, label: string }[],
+  languages: { value: T, label: ReactNode }[],
   onChange?: CodeRunnerEditorOnChangeType<T>,
   testCases: CodeEditorTestCasesType,
   setShowSettings: Dispatch<SetStateAction<boolean>>,
