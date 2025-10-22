@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Period } from '../../../enums';
-import { classNames, cutTimeSplit } from '../../helpers';
 import { T } from '../../atoms';
+import { classNames, cutTimeSplit } from '../../helpers';
 import { Timer } from '../Timer/Timer';
 import type { TimerLabeledProps } from './types';
 
@@ -25,6 +25,9 @@ export function TimerLabeled(props: TimerLabeledProps) {
     literal,
     inline,
     abbreviated,
+    ignoreLeadingZeros,
+    ignoreTrailingZeros,
+    maxSplit = 6,
   } = props;
   
   const [ time, setTime ] = useState({ period: Period.CALC, remaining: 0, interval: 0 });
@@ -67,7 +70,7 @@ export function TimerLabeled(props: TimerLabeledProps) {
   }, [ currentDate, endDate, startDate ]);
   
   const myLabels = { ...DEFAULT_LABELS, ...labels };
-  const timeSplit = cutTimeSplit(Math.max(time.remaining, 0), type, false, false);
+  const timeSplit = cutTimeSplit(Math.max(time.remaining, 0), type, false, false, maxSplit);
   const timeInterval = Math.max(timeSplit[timeSplit.length - 1]?.milliseconds ?? 0, 1);
   
   return (
@@ -87,6 +90,9 @@ export function TimerLabeled(props: TimerLabeledProps) {
         literal={literal}
         inline={inline}
         abbreviated={abbreviated}
+        ignoreLeadingZeros={ignoreLeadingZeros}
+        ignoreTrailingZeros={ignoreTrailingZeros}
+        maxSplit={maxSplit}
       />
     </div>
   );

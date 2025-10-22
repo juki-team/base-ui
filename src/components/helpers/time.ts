@@ -2,7 +2,7 @@ import { splitTime } from '@juki-team/commons';
 import type { TimeDisplayType } from '../types';
 import { showOfTimeDisplayType } from './date';
 
-export const cutTimeSplit = (remaining: number, type: TimeDisplayType, ignoreLeadingZeros: boolean, ignoreTrailingZeros: boolean) => {
+export const cutTimeSplit = (remaining: number, type: TimeDisplayType, ignoreLeadingZeros: boolean, ignoreTrailingZeros: boolean, maxSplit: number) => {
   const timeSplit = splitTime(Math.max(remaining, 0));
   const { showWeeks, showDays, showHours, showMinutes, showSeconds, showMilliseconds } = showOfTimeDisplayType(type);
   if (!showWeeks) {
@@ -47,10 +47,13 @@ export const cutTimeSplit = (remaining: number, type: TimeDisplayType, ignoreLea
     }
   }
   
-  while (ignoreLeadingZeros && timeSplit.length && timeSplit[0].remaining === 0) {
+  while ((ignoreLeadingZeros || timeSplit.length > maxSplit) && timeSplit.length && timeSplit[0].remaining === 0) {
     timeSplit.shift();
   }
-  while (ignoreTrailingZeros && timeSplit.length && timeSplit[timeSplit.length - 1]?.remaining === 0) {
+  while ((ignoreTrailingZeros || timeSplit.length > maxSplit) && timeSplit.length && timeSplit[timeSplit.length - 1]?.remaining === 0) {
+    timeSplit.pop();
+  }
+  while (timeSplit.length > maxSplit) {
     timeSplit.pop();
   }
   return timeSplit;

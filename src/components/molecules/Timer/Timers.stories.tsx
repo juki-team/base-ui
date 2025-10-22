@@ -15,13 +15,15 @@ export const Regular: Story = {
   render: (args) => (
     <MockupJukiProvider>
       <h3>TimerClock</h3>
-      {[ 15 * 1000, 0, -30 * 1000 ].map((startTimestamp) => (
+      {[ 1.5 * 60 * 1000, 0, -30 * 1000 ].map((startTimestamp) => (
         <TimerLabeled
+          key={startTimestamp}
           {...args}
           startDate={new Date(Date.now() + startTimestamp)}
           endDate={new Date(Date.now() + startTimestamp + 15 * 1000)}
           type="weeks-days-hours-minutes-seconds-milliseconds"
           abbreviated
+          maxSplit={2}
         />
       ))}
       <TimerLabeled

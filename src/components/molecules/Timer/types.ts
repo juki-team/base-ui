@@ -8,6 +8,7 @@ export interface TimerProps {
   inline?: boolean,
   ignoreLeadingZeros?: boolean,
   ignoreTrailingZeros?: boolean,
+  maxSplit?: number,
   abbreviated?: boolean,
   type?: TimeDisplayType,
   pause?: boolean,

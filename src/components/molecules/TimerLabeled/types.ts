@@ -11,4 +11,7 @@ export interface TimerLabeledProps {
   inline?: boolean,
   abbreviated?: boolean,
   type?: TimeDisplayType,
+  ignoreLeadingZeros?: boolean,
+  ignoreTrailingZeros?: boolean,
+  maxSplit?: number,
 }

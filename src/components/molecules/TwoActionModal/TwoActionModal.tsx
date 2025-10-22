@@ -1,7 +1,7 @@
 import { Status } from '@juki-team/commons';
 import { type PropsWithChildren, useRef, useState } from 'react';
-import { classNames } from '../../helpers';
 import { Modal, T } from '../../atoms';
+import { classNames } from '../../helpers';
 import { useJukiUI } from '../../hooks/useJukiUI';
 import { ExclamationIcon } from '../../server';
 import type { SetLoaderStatusOnClickType } from '../../types';
@@ -42,7 +42,7 @@ export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
               type="light"
               expand
             >
-              {secondary.label || <T>cancel</T>}
+              {secondary.label || <T className="tt-se">cancel</T>}
             </ButtonLoader>
           )}
           <ButtonLoader
@@ -50,7 +50,7 @@ export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
             disabled={primary.disabled || loader === Status.LOADING}
             expand
           >
-            {primary.label || <T>ok</T>}
+            {primary.label || <T className="tt-se">ok</T>}
           </ButtonLoader>
         </div>
       </div>

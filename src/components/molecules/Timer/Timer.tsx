@@ -14,6 +14,7 @@ function TimerComponent(props: TimerProps) {
     literal,
     ignoreLeadingZeros = false,
     ignoreTrailingZeros = false,
+    maxSplit = 6,
     abbreviated = false,
     type = 'hours-minutes-seconds',
     pause,
@@ -58,7 +59,7 @@ function TimerComponent(props: TimerProps) {
     });
   }, Math.abs(interval));
   
-  const timeSplit = cutTimeSplit(counter.remaining, type, ignoreLeadingZeros, ignoreTrailingZeros);
+  const timeSplit = cutTimeSplit(counter.remaining, type, ignoreLeadingZeros, ignoreTrailingZeros, maxSplit);
   
   return (
     <div className={classNames('jk-timer-layout jk-row nowrap', className, { literal: !!literal, inline: !!inline })}>
