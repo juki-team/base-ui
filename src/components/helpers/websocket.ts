@@ -3,21 +3,15 @@ import {
   isSubscribeChatCompletionsDataWebSocketEventDTO,
   isSubscribeCodeRunStatusWebSocketEventDTO,
   isSubscribeContestChangesWebSocketEventDTO,
+  isSubscribeGetDataWebSocketEventDTO,
   isSubscribeProblemCrawledWebSocketEventDTO,
-  isSubscribeSendDataEc2InstancesListWebSocketEventDTO,
-  isSubscribeSendDataEcsTaskDefinitionsListWebSocketEventDTO,
-  isSubscribeSendDataEcsTasksListWebSocketEventDTO,
-  isSubscribeSendDataSsmSessionsListWebSocketEventDTO,
   isSubscribeSubmissionRunStatusWebSocketEventDTO,
   isSubscribeSubmissionsCrawlWebSocketEventDTO,
   isUnsubscribeChatCompletionsDataWebSocketEventDTO,
   isUnsubscribeCodeRunStatusWebSocketEventDTO,
   isUnsubscribeContestChangesWebSocketEventDTO,
+  isUnsubscribeGetDataWebSocketEventDTO,
   isUnsubscribeProblemCrawledWebSocketEventDTO,
-  isUnsubscribeSendDataEc2InstancesListWebSocketEventDTO,
-  isUnsubscribeSendDataEcsTaskDefinitionsListWebSocketEventDTO,
-  isUnsubscribeSendDataEcsTasksListWebSocketEventDTO,
-  isUnsubscribeSendDataSsmSessionsListWebSocketEventDTO,
   isUnsubscribeSubmissionRunStatusWebSocketEventDTO,
   isUnsubscribeSubmissionsCrawlWebSocketEventDTO,
   SEPARATOR_TOKEN,
@@ -35,17 +29,8 @@ export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebS
   if (isSubscribeSubmissionRunStatusWebSocketEventDTO(event) || isUnsubscribeSubmissionRunStatusWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSION_RUN_STATUS_MESSAGE, event.sessionId, event.submitId);
   }
-  if (isSubscribeSendDataEcsTaskDefinitionsListWebSocketEventDTO(event) || isUnsubscribeSendDataEcsTaskDefinitionsListWebSocketEventDTO(event)) {
-    return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_ECS_TASK_DEFINITIONS_LIST, event.sessionId, '*');
-  }
-  if (isSubscribeSendDataEcsTasksListWebSocketEventDTO(event) || isUnsubscribeSendDataEcsTasksListWebSocketEventDTO(event)) {
-    return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_ECS_TASKS_LIST, event.sessionId, '*');
-  }
-  if (isSubscribeSendDataEc2InstancesListWebSocketEventDTO(event) || isUnsubscribeSendDataEc2InstancesListWebSocketEventDTO(event)) {
-    return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_EC2_INSTANCES_LIST, event.sessionId, '*');
-  }
-  if (isSubscribeSendDataSsmSessionsListWebSocketEventDTO(event) || isUnsubscribeSendDataSsmSessionsListWebSocketEventDTO(event)) {
-    return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_SSM_SESSIONS_LIST, event.sessionId, '*');
+  if (isSubscribeGetDataWebSocketEventDTO(event) || isUnsubscribeGetDataWebSocketEventDTO(event)) {
+    return getWebSocketResponseEventKey(WebSocketResponseEvent.RESPONSE, event.sessionId, event.dataId);
   }
   if (isSubscribeProblemCrawledWebSocketEventDTO(event) || isUnsubscribeProblemCrawledWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.PROBLEM_CRAWLED, event.sessionId, event.problemKey);
@@ -70,17 +55,8 @@ export function getUnsubscribeEvent(event: WebSocketSubscribeEventDTO): WebSocke
   if (isSubscribeSubmissionRunStatusWebSocketEventDTO(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SUBMISSION_RUN_STATUS };
   }
-  if (isSubscribeSendDataEcsTaskDefinitionsListWebSocketEventDTO(event)) {
-    return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SEND_DATA_ECS_TASK_DEFINITIONS_LIST };
-  }
-  if (isSubscribeSendDataEcsTasksListWebSocketEventDTO(event)) {
-    return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SEND_DATA_ECS_TASKS_LIST };
-  }
-  if (isSubscribeSendDataEc2InstancesListWebSocketEventDTO(event)) {
-    return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SEND_DATA_EC2_INSTANCES_LIST };
-  }
-  if (isSubscribeSendDataSsmSessionsListWebSocketEventDTO(event)) {
-    return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SEND_DATA_SSM_SESSIONS_LIST };
+  if (isSubscribeGetDataWebSocketEventDTO(event)) {
+    return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_GET_DATA };
   }
   if (isSubscribeProblemCrawledWebSocketEventDTO(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_PROBLEM_CRAWLED };
