@@ -4,20 +4,20 @@ import {
   isSubscribeCodeRunStatusWebSocketEventDTO,
   isSubscribeContestChangesWebSocketEventDTO,
   isSubscribeProblemCrawledWebSocketEventDTO,
-  isSubscribeSenDataEc2InstancesListWebSocketEventDTO,
-  isSubscribeSenDataEcsTaskDefinitionsListWebSocketEventDTO,
-  isSubscribeSenDataEcsTasksListWebSocketEventDTO,
-  isSubscribeSenDataSsmSessionsListWebSocketEventDTO,
+  isSubscribeSendDataEc2InstancesListWebSocketEventDTO,
+  isSubscribeSendDataEcsTaskDefinitionsListWebSocketEventDTO,
+  isSubscribeSendDataEcsTasksListWebSocketEventDTO,
+  isSubscribeSendDataSsmSessionsListWebSocketEventDTO,
   isSubscribeSubmissionRunStatusWebSocketEventDTO,
   isSubscribeSubmissionsCrawlWebSocketEventDTO,
   isUnsubscribeChatCompletionsDataWebSocketEventDTO,
   isUnsubscribeCodeRunStatusWebSocketEventDTO,
   isUnsubscribeContestChangesWebSocketEventDTO,
   isUnsubscribeProblemCrawledWebSocketEventDTO,
-  isUnsubscribeSenDataEc2InstancesListWebSocketEventDTO,
-  isUnsubscribeSenDataEcsTaskDefinitionsListWebSocketEventDTO,
-  isUnsubscribeSenDataEcsTasksListWebSocketEventDTO,
-  isUnsubscribeSenDataSsmSessionsListWebSocketEventDTO,
+  isUnsubscribeSendDataEc2InstancesListWebSocketEventDTO,
+  isUnsubscribeSendDataEcsTaskDefinitionsListWebSocketEventDTO,
+  isUnsubscribeSendDataEcsTasksListWebSocketEventDTO,
+  isUnsubscribeSendDataSsmSessionsListWebSocketEventDTO,
   isUnsubscribeSubmissionRunStatusWebSocketEventDTO,
   isUnsubscribeSubmissionsCrawlWebSocketEventDTO,
   SEPARATOR_TOKEN,
@@ -35,16 +35,16 @@ export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebS
   if (isSubscribeSubmissionRunStatusWebSocketEventDTO(event) || isUnsubscribeSubmissionRunStatusWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.SUBMISSION_RUN_STATUS_MESSAGE, event.sessionId, event.submitId);
   }
-  if (isSubscribeSenDataEcsTaskDefinitionsListWebSocketEventDTO(event) || isUnsubscribeSenDataEcsTaskDefinitionsListWebSocketEventDTO(event)) {
+  if (isSubscribeSendDataEcsTaskDefinitionsListWebSocketEventDTO(event) || isUnsubscribeSendDataEcsTaskDefinitionsListWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_ECS_TASK_DEFINITIONS_LIST, event.sessionId, '*');
   }
-  if (isSubscribeSenDataEcsTasksListWebSocketEventDTO(event) || isUnsubscribeSenDataEcsTasksListWebSocketEventDTO(event)) {
+  if (isSubscribeSendDataEcsTasksListWebSocketEventDTO(event) || isUnsubscribeSendDataEcsTasksListWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_ECS_TASKS_LIST, event.sessionId, '*');
   }
-  if (isSubscribeSenDataEc2InstancesListWebSocketEventDTO(event) || isUnsubscribeSenDataEc2InstancesListWebSocketEventDTO(event)) {
+  if (isSubscribeSendDataEc2InstancesListWebSocketEventDTO(event) || isUnsubscribeSendDataEc2InstancesListWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_EC2_INSTANCES_LIST, event.sessionId, '*');
   }
-  if (isSubscribeSenDataSsmSessionsListWebSocketEventDTO(event) || isUnsubscribeSenDataSsmSessionsListWebSocketEventDTO(event)) {
+  if (isSubscribeSendDataSsmSessionsListWebSocketEventDTO(event) || isUnsubscribeSendDataSsmSessionsListWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.SEND_DATA_SSM_SESSIONS_LIST, event.sessionId, '*');
   }
   if (isSubscribeProblemCrawledWebSocketEventDTO(event) || isUnsubscribeProblemCrawledWebSocketEventDTO(event)) {
@@ -70,16 +70,16 @@ export function getUnsubscribeEvent(event: WebSocketSubscribeEventDTO): WebSocke
   if (isSubscribeSubmissionRunStatusWebSocketEventDTO(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SUBMISSION_RUN_STATUS };
   }
-  if (isSubscribeSenDataEcsTaskDefinitionsListWebSocketEventDTO(event)) {
+  if (isSubscribeSendDataEcsTaskDefinitionsListWebSocketEventDTO(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SEND_DATA_ECS_TASK_DEFINITIONS_LIST };
   }
-  if (isSubscribeSenDataEcsTasksListWebSocketEventDTO(event)) {
+  if (isSubscribeSendDataEcsTasksListWebSocketEventDTO(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SEND_DATA_ECS_TASKS_LIST };
   }
-  if (isSubscribeSenDataEc2InstancesListWebSocketEventDTO(event)) {
+  if (isSubscribeSendDataEc2InstancesListWebSocketEventDTO(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SEND_DATA_EC2_INSTANCES_LIST };
   }
-  if (isSubscribeSenDataSsmSessionsListWebSocketEventDTO(event)) {
+  if (isSubscribeSendDataSsmSessionsListWebSocketEventDTO(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_SEND_DATA_SSM_SESSIONS_LIST };
   }
   if (isSubscribeProblemCrawledWebSocketEventDTO(event)) {

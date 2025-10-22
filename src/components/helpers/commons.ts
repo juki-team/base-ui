@@ -10,9 +10,9 @@ import {
 } from '@juki-team/commons';
 import type { PropsWithChildren, ReactNode, RefObject } from 'react';
 import { Children, cloneElement, isValidElement } from 'react';
+import { jukiApiManager } from '../../settings';
 import type { SheetDataType } from '../molecules/_lazy_/DataGrid/types';
 import type { TriggerActionsType } from '../types';
-import { jukiApiManager } from '../../settings';
 import { authorizedRequest } from './fetch';
 import { getXLSX } from './xlsx';
 
@@ -28,7 +28,7 @@ export const getTextContent = (elem: ReactNode | ReactNode[]): string => {
     return elem.map(getTextContent).join('');
   }
   
-  if (isValidElement<PropsWithChildren<{}>>(elem) && !!elem.props.children) {
+  if (isValidElement<PropsWithChildren>(elem) && !!elem.props.children) {
     const children = elem.props.children;
     if (Array.isArray(children)) {
       return children.map(getTextContent).join('');
