@@ -48,11 +48,11 @@ export const FirstPane = <T, >(props: FirstPaneProps<T>) => {
             className="languages-selector tx-s"
             options={languages.map(language => ({
               value: language.value,
-              label: (language.label || language.value) + '',
+              label: (language.label || language.value) as ReactNode,
             }))}
             selectedOption={{
               value: language,
-              label: (languages.find(lang => lang.value === language)?.label || language) + '',
+              label: (languages.find(lang => lang.value === language)?.label || language) as ReactNode,
             }}
             onChange={({ value }) => codeEditorOnChange({ language: value })}
           />

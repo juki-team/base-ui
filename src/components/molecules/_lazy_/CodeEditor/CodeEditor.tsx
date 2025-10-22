@@ -53,13 +53,18 @@ function CodeEditorCmp<T, >(props: CodeEditorProps<T>) {
     case CodeLanguage.CPP17:
     case CodeLanguage.ICPC_C:
     case CodeLanguage.C:
+    case CodeLanguage.C_11:
+    case CodeLanguage.CPP_11:
+    case CodeLanguage.CPP_20:
     case CodeLanguage.ARDUINO:
       extensions.push(cpp());
       break;
     case CodeLanguage.JAVA:
+    case CodeLanguage.JAVA_21:
       extensions.push(java());
       break;
     case CodeLanguage.JAVASCRIPT:
+    case CodeLanguage.JAVASCRIPT_NODE_JS_22:
       extensions.push(javascript());
       break;
     case CodeLanguage.JSON:
@@ -71,6 +76,10 @@ function CodeEditorCmp<T, >(props: CodeEditorProps<T>) {
     case CodeLanguage.ICPC_PYTHON:
     case CodeLanguage.PYTHON2:
     case CodeLanguage.PYTHON3:
+    case CodeLanguage.PYTHON_2:
+    case CodeLanguage.PYTHON_PYPY_2:
+    case CodeLanguage.PYTHON_3:
+    case CodeLanguage.PYTHON_PYPY_3:
       extensions.push(python());
       break;
     case CodeLanguage.HTML:

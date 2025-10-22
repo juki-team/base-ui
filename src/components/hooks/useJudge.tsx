@@ -5,7 +5,7 @@ import {
   type JudgeDataResponseDTO,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 } from '@juki-team/commons';
-import { useMemo } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { jukiApiManager } from '../../settings';
 import { useFetcher } from './useFetcher';
 
@@ -19,8 +19,8 @@ export const useJudge = <T, >({ key, isExternal }: { key: string, isExternal: bo
   
   const languages = useMemo(
     () => {
-      let languages: { value: CodeLanguage | string, label: string }[];
-      let judgeLanguages: { value: CodeLanguage | string, label: string }[];
+      let languages: { value: CodeLanguage | string, label: ReactNode }[];
+      let judgeLanguages: { value: CodeLanguage | string, label: ReactNode }[];
       if (isExternal) {
         judgeLanguages = ((virtualJudgeData?.success && virtualJudgeData.content.languages) || [])
           .filter(lang => lang.enabled)
@@ -30,10 +30,15 @@ export const useJudge = <T, >({ key, isExternal }: { key: string, isExternal: bo
           }));
       } else {
         judgeLanguages = RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES
-          .map((language) => ({
-            value: language,
-            label: CODE_LANGUAGE[language]?.label || language,
-          }));
+          .map((language) => {
+            const label = CODE_LANGUAGE[language]?.label || language;
+            const [ first, ...restParts ] = label.split(' ');
+            const rest = restParts.join(' ');
+            return {
+              value: language,
+              label: <div className="jk-row left">{first}&nbsp;<span className="cr-g4 fw-lt">{rest}</span></div>,
+            };
+          });
       }
       languages = [ ...judgeLanguages ];
       if (!languages.length) {
@@ -44,8 +49,8 @@ export const useJudge = <T, >({ key, isExternal }: { key: string, isExternal: bo
       }
       
       return {
-        languages: languages as { value: T, label: string }[],
-        judgeLanguages: judgeLanguages as { value: T, label: string }[],
+        languages: languages as { value: T, label: ReactNode }[],
+        judgeLanguages: judgeLanguages as { value: T, label: ReactNode }[],
       };
     },
     [ virtualJudgeData, isExternal ],
