@@ -9,7 +9,7 @@ import json from 'highlight.js/lib/languages/json';
 import markdown from 'highlight.js/lib/languages/markdown';
 import python from 'highlight.js/lib/languages/python';
 import { type CSSProperties, useMemo } from 'react';
-import { CopyToClipboard } from '../../../atoms';
+import { Client, CopyToClipboard } from '../../../atoms';
 import { classNames } from '../../../helpers';
 import type { CodeViewerProps } from './types'; // o el tema que prefieras
 
@@ -22,7 +22,7 @@ hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('diff', diff);
 
-export default function CodeViewer(props: CodeViewerProps) {
+function CodeViewerCmp(props: CodeViewerProps) {
   
   const {
     code,
@@ -77,4 +77,8 @@ export default function CodeViewer(props: CodeViewerProps) {
       </div>
     </div>
   );
+}
+
+export default function CodeViewer(props: CodeViewerProps) {
+  return <Client><CodeViewerCmp{...props} /></Client>;
 }

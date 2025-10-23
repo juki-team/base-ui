@@ -10,4 +10,4 @@ export function Client({ children }: ClientProps) {
   }, []);
   
   return rendered ? children : <div className="jk-loader-layer jk-overlay"><SpinIcon /></div>;
-};
+}

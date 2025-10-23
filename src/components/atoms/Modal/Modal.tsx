@@ -24,7 +24,6 @@ export function Modal<T extends ModalButtonLoaderEventType, >(props: ModalProps<
     onLoaderStatusChange,
   } = props;
   
-  console.log({ props });
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
   const _refLoader = useSetLoaderStatus(loader, setLoader, setLoaderStatusRef, onLoaderStatusChange);
   const onCloseRef = useRef(onClose);
@@ -55,7 +54,6 @@ export function Modal<T extends ModalButtonLoaderEventType, >(props: ModalProps<
         {isOpen && (
           <div className={classNames('jk-modal-container', containerClassName, { expand })}>
             <motion.div
-              key="modal-content"
               className="jk-modal-overlay jk-overlay jk-overlay-backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -65,6 +63,7 @@ export function Modal<T extends ModalButtonLoaderEventType, >(props: ModalProps<
                 : undefined}
             />
             <motion.div
+              key="modal-content"
               className={classNames('jk-modal-content jk-br elevation-3', className)}
               initial={{ scale: 0.6, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
