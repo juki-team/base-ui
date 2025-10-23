@@ -50,11 +50,12 @@ export function Modal<T extends ModalButtonLoaderEventType, >(props: ModalProps<
   }, [ loader, setLoaderStatusOnClick, closeOnKeyEscape, isOpen ]);
   
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <Portal>
-          <motion.div className={classNames('jk-modal-container', containerClassName, { expand })}>
+    <Portal>
+      <AnimatePresence>
+        {isOpen && (
+          <div className={classNames('jk-modal-container', containerClassName, { expand })}>
             <motion.div
+              key="modal-content"
               className="jk-modal-overlay jk-overlay jk-overlay-backdrop"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -83,9 +84,9 @@ export function Modal<T extends ModalButtonLoaderEventType, >(props: ModalProps<
               )}
               {children}
             </motion.div>
-          </motion.div>
-        </Portal>
-      )}
-    </AnimatePresence>
+          </div>
+        )}
+      </AnimatePresence>
+    </Portal>
   );
 }
