@@ -8,9 +8,9 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import json from 'highlight.js/lib/languages/json';
 import markdown from 'highlight.js/lib/languages/markdown';
 import python from 'highlight.js/lib/languages/python';
-import { type CSSProperties, useEffect, useRef } from 'react';
-import { classNames } from '../../../helpers';
+import { type CSSProperties, useMemo } from 'react';
 import { CopyToClipboard } from '../../../atoms';
+import { classNames } from '../../../helpers';
 import type { CodeViewerProps } from './types'; // o el tema que prefieras
 
 hljs.registerLanguage('c', c);
@@ -34,18 +34,9 @@ export default function CodeViewer(props: CodeViewerProps) {
     className,
   } = props;
   
-  const codeRef = useRef<HTMLElement>(null);
-  
-  useEffect(() => {
-    if (codeRef.current) {
-      const el = codeRef.current;
-      el.removeAttribute('data-highlighted');
-      el.classList.remove(...Array.from(el.classList).filter(c => c.startsWith('hljs')));
-      // el.innerHTML = code; // issues with '<' '>'
-      // el.textContent = code;
-      hljs.highlightElement(el);
-    }
-  }, [ language, code ]);
+  const highlighted = useMemo(() => {
+    return hljs.highlight(code, { language: CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext' }).value;
+  }, [ code, language ]);
   
   const withLanguageLabel = true;
   const withCopyButton = true;
@@ -62,7 +53,7 @@ export default function CodeViewer(props: CodeViewerProps) {
       <div className="jk-code-viewer-content jk-row nowrap top jk-br-ie" style={{ maxHeight }}>
         {lineNumbers && (
           <div className="jk-code-viewer-line-numbers">
-            {lines.map((_, i) => <div style={{ '--line-index': i } as CSSProperties}>{i + 1}</div>)}
+            {lines.map((_, i) => <div key={i} style={{ '--line-index': i } as CSSProperties}>{i + 1}</div>)}
           </div>
         )}
         <pre
@@ -70,13 +61,10 @@ export default function CodeViewer(props: CodeViewerProps) {
           className="jk-br-ie"
         >
           <code
-            ref={codeRef}
-            key={language}
             className={`ta-lt language-${CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext'}`}
             style={{ minHeight: `calc(${lines.length} * (var(--text-medium-size) * 1.5))` }}
-          >
-            {code}
-          </code>
+            dangerouslySetInnerHTML={{ __html: highlighted }}
+          />
         </pre>
       </div>
       <div className="float-top-right pad-xt jk-row gap">
