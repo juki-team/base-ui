@@ -1,7 +1,7 @@
-import { getJudgeOrigin } from '../../helpers';
 import { jukiAppRoutes } from '../../../settings';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { useJukiUI } from '../../hooks/useJukiUI';
+import { getJudgeOrigin } from '../../helpers';
 import { FieldText } from '../../organisms';
 import { OpenInNewIcon } from '../../server';
 import type { SubmissionProblemFieldProps } from './types';
@@ -15,7 +15,7 @@ export function SubmissionProblemField(props: SubmissionProblemFieldProps) {
     isCard,
   } = props;
   
-  const { components: { Link } } = useJukiUI();
+  const { Link } = useUIStore(store => store.components);
   const userCompanyKey = useUserStore(state => state.company.key);
   
   const origin = getJudgeOrigin(problemCompanyKey, userCompanyKey);

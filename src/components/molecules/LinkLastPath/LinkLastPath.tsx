@@ -3,15 +3,15 @@ import type { LastPathType } from '../../../contexts/JukiLastPathProvider/types'
 import { QueryParamKey } from '../../../enums';
 import { cloneURLSearchParams } from '../../../settings/AppRoutes';
 import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { getHref } from '../../helpers';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import type { LinkLastPathProps } from './types';
 
 export function LinkLastPath<T extends string | number = string, >(props: LinkLastPathProps<T>) {
   
   const { children, lastPathKey, overwriteCompanyKey } = props;
   
-  const { components: { Link } } = useJukiUI();
+  const { Link } = useUIStore(store => store.components);
   
   const lastPath = useLastPathStore(state => state.lastPath) as LastPathType<T>;
   

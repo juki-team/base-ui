@@ -1,7 +1,7 @@
-import { classNames, getJudgeOrigin } from '../../helpers';
 import { jukiAppRoutes } from '../../../settings';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { useJukiUI } from '../../hooks/useJukiUI';
+import { classNames, getJudgeOrigin } from '../../helpers';
 import { Field } from '../../organisms';
 import { CheckIcon, OpenInNewIcon, VoidIcon } from '../../server';
 import type { ContestNameLinkFieldProps } from './types';
@@ -10,7 +10,7 @@ export function ContestNameLinkField(props: ContestNameLinkFieldProps) {
   
   const { record: { name, key, user, company: { key: companyKey } }, isCard } = props;
   
-  const { components: { Link } } = useJukiUI();
+  const { Link } = useUIStore(store => store.components);
   const userCompanyKey = useUserStore(state => state.company.key);
   
   const origin = getJudgeOrigin(companyKey, userCompanyKey);

@@ -24,6 +24,7 @@ export function Modal<T extends ModalButtonLoaderEventType, >(props: ModalProps<
     onLoaderStatusChange,
   } = props;
   
+  console.log({ props });
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
   const _refLoader = useSetLoaderStatus(loader, setLoader, setLoaderStatusRef, onLoaderStatusChange);
   const onCloseRef = useRef(onClose);

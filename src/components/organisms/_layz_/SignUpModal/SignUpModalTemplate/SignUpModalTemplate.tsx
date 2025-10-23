@@ -7,9 +7,9 @@ import {
   ALPHANUMERIC_DASH_UNDERSCORE_REGEX,
   LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX,
 } from '../../../../../constants';
-import { classNames } from '../../../../helpers';
+import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { Input, InputCheckbox, InputPassword, T } from '../../../../atoms';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { classNames } from '../../../../helpers';
 import { ButtonLoader, SplitModal } from '../../../../molecules';
 import { SetLoaderStatusOnClickType } from '../../../../types';
 import type { SignUpFormType, SignUpModalComponentProps } from './types';
@@ -48,7 +48,7 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
   
   const { isOpen, onClose, onSubmit, signUpWithGoogle, reactAppGoogleClientId, onSignInButton } = props;
   
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   const {
     register,
     handleSubmit,

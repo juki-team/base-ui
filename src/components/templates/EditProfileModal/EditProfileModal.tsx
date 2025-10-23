@@ -1,10 +1,10 @@
 import { JUDGE, Judge, Status, type UserProfileResponseDTO } from '@juki-team/commons';
 import { type Dispatch, useRef, useState } from 'react';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
-import { classNames } from '../../helpers';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { Button, Input, Modal, T, TextArea } from '../../atoms';
+import { classNames } from '../../helpers';
 import { useEntityDiff } from '../../hooks/useEntityDiff';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { ButtonLoader } from '../../molecules';
 import { EditIcon, LocationCityIcon, LocationOnIcon, PersonIcon, SchoolIcon } from '../../server';
@@ -19,7 +19,7 @@ interface JudgeInputProps {
 
 function JudgeInput({ judge: { value, label, logo, logoSize }, user, setUser }: JudgeInputProps) {
   
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   const height1 = (32 / logoSize[0]) * logoSize[1];
   const width1 = 32;
   
@@ -62,7 +62,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
   
   const [ userState, setUserState ] = useState(user);
   const { updateUserProfileData } = useJukiUser();
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   const loadingRef = useRef(false);
   useEntityDiff(user, isOpen && !loadingRef.current);
   const [ modalImageProfile, setModalImageProfile ] = useState(false);

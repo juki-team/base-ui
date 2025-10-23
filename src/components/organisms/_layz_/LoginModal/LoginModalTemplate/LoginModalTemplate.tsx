@@ -3,9 +3,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { classNames } from '../../../../helpers';
+import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { Input, InputPassword, T } from '../../../../atoms';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { classNames } from '../../../../helpers';
 import { ButtonLoader, SplitModal } from '../../../../molecules';
 import { SetLoaderStatusOnClickType } from '../../../../types';
 import { ForgotPasswordModal } from './ForgotPassword';
@@ -40,7 +40,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
     multiCompanies,
   } = props;
   
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   const { handleSubmit, formState: { isValid, errors, touchedFields }, register, reset } = useForm<LoginFormType>({
     resolver: yupResolver(multiCompanies ? loginMultiCompaniesSchema : loginSchema),
     mode: 'all',

@@ -1,9 +1,9 @@
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { NotificationType } from '../../../enums';
-import { classNames, getTextContent } from '../../helpers';
 import { usePageStore } from '../../../stores/page/usePageStore';
+import { useUIStore } from '../../../stores/ui/useUIStore';
+import { classNames, getTextContent } from '../../helpers';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { CloseIcon } from '../../server';
 import { NOTIFICATION_ICON } from './constants';
 import type { CardNotificationProps } from './types';
@@ -14,7 +14,7 @@ export function CardNotification({ ids, type, message }: CardNotificationProps) 
   const [ width, setWidth ] = useState(0);
   const intervalIDRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const { removeNotification } = useJukiNotification();
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   
   const messageString = getTextContent(message);
   const handleStartTimer = useCallback(() => {

@@ -3,7 +3,7 @@ import { QueryParamKey } from '../../../../enums';
 import { jukiApiManager } from '../../../../settings';
 import { cloneURLSearchParams } from '../../../../settings/AppRoutes';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { usePreload } from '../../../hooks/usePreload';
 
 export interface SubmissionInfoProps {
@@ -15,7 +15,7 @@ export function SubmissionInfo({ submitId, canViewSourceCode, children }: PropsW
   
   const currentSearchParams = useRouterStore(state => state.searchParams);
   const preload = usePreload();
-  const { components: { Link } } = useJukiUI();
+  const { Link } = useUIStore(store => store.components);
   
   useEffect(() => {
     if (canViewSourceCode) {

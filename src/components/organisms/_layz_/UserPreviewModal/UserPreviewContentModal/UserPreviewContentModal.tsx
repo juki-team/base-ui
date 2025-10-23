@@ -1,8 +1,8 @@
 import { ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
 import { jukiApiManager } from '../../../../../settings';
+import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { Button, Modal, T } from '../../../../atoms';
 import { BasicModalProps } from '../../../../atoms/Modal/types';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { ButtonLoader, FetcherLayer } from '../../../../molecules';
 import { OpenInNewIcon } from '../../../../server';
 import { UserProfileDataContent } from '../../../../templates/UserProfile/UserProfileDataContent';
@@ -13,7 +13,7 @@ export const UserPreview = ({ user, onClose, userHref }: {
   userHref: string
 }) => {
   
-  const { components: { Image, Link } } = useJukiUI();
+  const { Image, Link } = useUIStore(store => store.components);
   
   return (
     <div className="jk-pg-md jk-col stretch gap">

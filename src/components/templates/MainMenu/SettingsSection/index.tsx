@@ -1,10 +1,10 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
 import { type  Dispatch, type KeyboardEventHandler, type ReactNode, type SyntheticEvent } from 'react';
+import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Modal, Popover, T } from '../../../atoms';
 import { AppsIcon, HelpIcon, LoadingIcon, SpinIcon } from '../../../atoms/server';
 import { classNames } from '../../../helpers';
-import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useJukiUserSettings } from '../../../hooks/useJukiUser';
 import { HelpSection } from '../../HelpSection/HelpSection';
 
@@ -15,7 +15,7 @@ export const LanguageSetting = ({ isOpen, popoverPlacement }: {
 }) => {
   
   const { loading, setSettings, [ProfileSetting.LANGUAGE]: preferredLanguage } = useJukiUserSettings();
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   
   const isEs = preferredLanguage === Language.ES;
   
@@ -147,7 +147,8 @@ export const SettingsSection = (props: SettingsSectionProps) => {
   const { isMobile, isOpen, helpOpen, setHelpOpen, popoverPlacement, moreApps } = props;
   
   const userPreferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
-  const { viewPortSize, components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   
   const isDark = userPreferredTheme === Theme.DARK;
   

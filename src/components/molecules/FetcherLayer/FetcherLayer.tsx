@@ -5,11 +5,11 @@ import {
   type ErrorResponseType,
 } from '@juki-team/commons';
 import { useEffect, useMemo, useRef } from 'react';
-import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { LineLoader } from '../../atoms/server';
+import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { JukiLoadingLayout } from '../layouts/JukiLoadingLayout';
 import type { FetcherLayerProps } from './types';
 
@@ -33,7 +33,7 @@ export function FetcherLayer<T extends (ContentResponseType<U> | ContentsRespons
   onErrorRef.current = _onError;
   const { isLoading, data, error, mutate, isValidating } = useFetcher<T>(url, options);
   const { notifyResponse } = useJukiNotification();
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   useEffect(() => {
     if (triggerFetch) {
       void mutate();

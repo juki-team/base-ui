@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { ProfileTab } from '../../../enums';
-import { isJudgeWindowLocation } from '../../helpers';
 import { jukiAppRoutes } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, T } from '../../atoms';
 import { LockIcon } from '../../atoms/server';
-import { useJukiUI } from '../../hooks/useJukiUI';
+import { isJudgeWindowLocation } from '../../helpers';
 import { TwoContentLayout } from '../../molecules';
 import { ChangePasswordModal } from '../../organisms';
 import type { TabsType } from '../../types';
@@ -26,7 +26,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
   const replaceRoute = useRouterStore(state => state.replaceRoute);
   const searchParams = useRouterStore(state => state.searchParams);
   const [ openModal, setOpenModal ] = useState('');
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   
   const onClose = () => setOpenModal('');
   const tab = searchParams.get('tab') as ProfileTab || ProfileTab.OVERVIEW;

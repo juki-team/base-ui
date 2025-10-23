@@ -1,5 +1,5 @@
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { FieldText, UserNicknameLink } from '../../organisms';
 import type { SubmissionNicknameFieldProps } from './types';
 
@@ -13,7 +13,7 @@ export function SubmissionNicknameField({
                                           },
                                         }: SubmissionNicknameFieldProps) {
   
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   const key = useUserStore(state => state.company.key);
   
   return (

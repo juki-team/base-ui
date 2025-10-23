@@ -1,8 +1,8 @@
 import { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons';
 import { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
+import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { T } from '../../../../atoms';
 import { classNames } from '../../../../helpers';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
 
 interface ResultHeaderProps {
   points: number,
@@ -16,7 +16,7 @@ export const ResultHeader = (props: PropsWithChildren<ResultHeaderProps>) => {
   
   const { isResolved, submitted, points, userPoints, children, childrenTop } = props;
   
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   const isSmallPortSize = viewPortSize === 'sm';
   
   return (

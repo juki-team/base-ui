@@ -13,13 +13,13 @@ import {
 import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../../../constants';
+import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../../../../stores/websocket/useWebsocketStore';
 import { Button, Input, Modal, Portal, T } from '../../../../atoms';
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon } from '../../../../atoms/server';
 import { classNames } from '../../../../helpers';
 import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { SplitPane, TwoActionModal } from '../../../../molecules';
 import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
 import { FirstPane } from './FirstPane';
@@ -75,7 +75,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   const [ openFileName, setOpenFileName ] = useState('');
   const [ fileNameEdit, setFileNameEdit ] = useState('');
   const [ fileNameDelete, setFileNameDelete ] = useState('');
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ viewFiles, setViewFiles ] = useState<boolean>(false);
   

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { classNames } from '../../../../helpers';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
+import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { Select, T } from '../../../../atoms';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { classNames } from '../../../../helpers';
 import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../../../server';
 import { PaginationProps } from '../types';
 
@@ -25,7 +25,7 @@ export const Pagination = (props: PaginationProps) => {
   
   const startPage = 1;
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   
   const t = useI18nStore(state => state.i18n.t);
   useEffect(() => {

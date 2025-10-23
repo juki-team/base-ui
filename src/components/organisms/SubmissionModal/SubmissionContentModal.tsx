@@ -1,9 +1,9 @@
 import { Status } from '@juki-team/commons';
 import { useState } from 'react';
 import { jukiAppRoutes } from '../../../settings';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { CopyToClipboard, Modal, T } from '../../atoms';
 import type { ModalProps } from '../../atoms/Modal/types';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { ButtonLoader } from '../../molecules';
 import { OpenInNewIcon, RefreshIcon } from '../../server';
 import { SubmitView } from '../_layz_/SubmitView';
@@ -14,7 +14,7 @@ export interface SubmissionModalProps extends ModalProps {
 
 export function SubmissionContentModal({ submitId, ...modalProps }: SubmissionModalProps) {
   
-  const { components: { Link } } = useJukiUI();
+  const { Link } = useUIStore(store => store.components);
   const [ triggerFetch, setTriggerFetch ] = useState(0);
   
   return (

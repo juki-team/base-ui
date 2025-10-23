@@ -3,7 +3,7 @@ import { QueryParamKey } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
 import { cloneURLSearchParams } from '../../../settings/AppRoutes';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { useJukiUI } from '../../hooks/useJukiUI';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { usePreload } from '../../hooks/usePreload';
 import type { UserNicknameLinkProps } from '../UserChip/types';
 
@@ -11,7 +11,7 @@ export function UserNicknameLink({ children, nickname, companyKey }: UserNicknam
   
   const currentSearchParams = useRouterStore(state => state.searchParams);
   const preload = usePreload();
-  const { components: { Link } } = useJukiUI();
+  const { Link } = useUIStore(store => store.components);
   
   useEffect(() => {
     void preload(jukiApiManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url);

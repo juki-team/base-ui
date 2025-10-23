@@ -3,12 +3,12 @@ import * as Diff2Html from 'diff2html';
 import { LineMatchingType } from 'diff2html/lib-esm/types';
 import { ColorSchemeType } from 'diff2html/lib/types';
 import { useCallback, useEffect, useState } from 'react';
-import { classNames } from '../../../../helpers';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
+import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { Button, Collapse, Modal, T, VirtualizedRowsFixed } from '../../../../atoms';
 import type { VirtualizedRowsFixedProps } from '../../../../atoms/_lazy_/VirtualizedRowsFixed/types';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
+import { classNames } from '../../../../helpers';
 import { UpIcon, VisibilityIcon } from '../../../../server';
 import { SubmissionMemory } from './SubmissionMemory';
 import { SubmissionTime } from './SubmissionTime';
@@ -114,7 +114,7 @@ export function SubmissionGroupInfo(props: GroupInfoProps) {
     isProblemEditor,
   } = props;
   
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   const rowHeight = viewPortSize === 'sm' || viewPortSize === 'md' ? 54 + 8 + 8 : 24 + 8 + 8;
   const testCasesString = JSON.stringify(testCases);
   const renderRow: VirtualizedRowsFixedProps['renderRow'] = useCallback((index) => {

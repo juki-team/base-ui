@@ -1,9 +1,12 @@
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { T } from '../../atoms';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { HomeIcon } from '../../server';
 
 export function HomeLink() {
-  const { components: { Link }, viewPortSize } = useJukiUI();
+  
+  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const { Link } = useUIStore(store => store.components);
+  
   return (
     <Link href="/" className="link jk-row" key="home">
       <HomeIcon size="small" />

@@ -1,11 +1,11 @@
 import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, SEPARATOR_TOKEN, Status } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EMPTY_ARRAY } from '../../../../constants';
-import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
+import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useSessionStorage } from '../../../hooks/useSessionStorage';
 import { useStableRef } from '../../../hooks/useStableRef';
 import type { OptionType } from '../../../molecules/types';
@@ -114,7 +114,7 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
     groups,
   } = props;
   
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   const preferredDataViewMode = useUserStore(state => state.user.settings[ProfileSetting.DATA_VIEW_MODE]);
   const searchParams = useRouterStore(state => state.searchParams);
   const t = useI18nStore(state => state.i18n.t);

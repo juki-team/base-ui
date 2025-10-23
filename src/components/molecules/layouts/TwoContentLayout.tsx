@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { persistGlobalURLSearchParams } from '../../../settings/AppRoutes';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { classNames, getHref, renderReactNodeOrFunctionP1 } from '../../helpers';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { useStableState } from '../../hooks/useStableState';
 import type { TabsType } from '../../types';
 import { TabsInline } from '../_lazy_/TabsInline';
@@ -24,7 +24,7 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
   } = props;
   
   const LOADING_TAB = 'loading' as T;
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   const _tabKeys = Object.keys(initialTabs);
   const [ selectedTabKey, setSelectedTabKey ] = useStableState(loading ? LOADING_TAB : initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T);
   const tabs: TabsType<T> = !!loading ? {

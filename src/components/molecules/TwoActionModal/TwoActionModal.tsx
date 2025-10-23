@@ -1,8 +1,8 @@
 import { Status } from '@juki-team/commons';
 import { type PropsWithChildren, useRef, useState } from 'react';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { Modal, T } from '../../atoms';
 import { classNames } from '../../helpers';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { ExclamationIcon } from '../../server';
 import type { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
@@ -13,7 +13,7 @@ export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
   const { isOpen, secondary, primary, title, children, onClose, containerClassName, ...rest } = props;
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   
   return (
     <Modal

@@ -1,7 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { action } from 'storybook/actions';
-import { useJukiUI } from '../components/hooks/useJukiUI';
 import { MockupJukiProvider } from '../components/mockup';
+import { useUIStore } from '../stores/ui/useUIStore';
 
 const Image = () => <div></div>;
 
@@ -14,7 +14,7 @@ export default meta;
 type Story = StoryObj<typeof Image>;
 
 const Images = ({ src }: { src: string }) => {
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   return (
     <Image src={src} alt="juki-hello" fill />
   );

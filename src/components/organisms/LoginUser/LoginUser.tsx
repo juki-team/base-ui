@@ -1,10 +1,10 @@
 import { QueryParamKey } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Popover, T } from '../../atoms';
 import { classNames } from '../../helpers';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { ButtonLoader } from '../../molecules';
 import { LoginIcon, LogoutIcon, SpinIcon } from '../../server';
@@ -18,7 +18,8 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
   const userIsLogged = useUserStore(state => state.user.isLogged);
   const userIsLoading = useUserStore(state => state.isLoading);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
-  const { viewPortSize, components: { Image } } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const { Image } = useUIStore(store => store.components);
   
   if (userIsLoading) {
     return <div className="jk-row"><SpinIcon className="cr-we" /></div>;

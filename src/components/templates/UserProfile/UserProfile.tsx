@@ -1,10 +1,10 @@
-import { useJukiUI } from '../../hooks/useJukiUI';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import type { UserProfileProps } from './types';
 import { UserProfileDataContent } from './UserProfileDataContent';
 
 export function UserProfile({ user }: UserProfileProps) {
   
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   
   return (
     <div className="jk-col gap">

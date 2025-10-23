@@ -15,7 +15,7 @@ export default {
 
 export const UserForgotPasswordModal = () => {
   const [ open, setOpen ] = useState(false);
-  
+  console.log({ open });
   return (
     <MockupJukiProvider>
       <UserForgotPasswordModalCmp

@@ -10,6 +10,7 @@ import {
 } from '@juki-team/commons';
 import { jukiApiManager } from '../../../../settings';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, T } from '../../../atoms';
 import {
@@ -21,7 +22,6 @@ import {
 } from '../../../helpers';
 
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
-import { useJukiUI } from '../../../hooks/useJukiUI';
 import { ButtonLoader } from '../../../molecules/ButtonLoader/ButtonLoader';
 import { FloatToolbar } from '../../../molecules/FloatToolbar/FloatToolbar';
 import { MdMathViewer } from '../../../organisms/MdMathViewer/MdMathViewer';
@@ -68,7 +68,7 @@ export const ProblemStatementView = ({
     shouldViewPDF,
   } = getStatementData(t, { statement, settings }, userPreferredLanguage, problemName);
   const { addWarningNotification } = useJukiNotification();
-  const { components: { Link } } = useJukiUI();
+  const { Link } = useUIStore(store => store.components);
   
   if (isExternal) {
     let content = statement.html[Language.EN] || statement.html[Language.ES];

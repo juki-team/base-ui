@@ -1,5 +1,4 @@
 import { useReducer } from 'react';
-import { useJukiUI } from '../../components/hooks/useJukiUI';
 import { CardNotification } from '../../components/organisms/CardNotification/CardNotification';
 import { NotificationContext } from '../../components/organisms/CardNotification/context';
 import {
@@ -10,6 +9,7 @@ import {
 } from '../../components/organisms/CardNotification/types';
 import { NotificationType } from '../../enums';
 import { useSoundStore } from '../../stores/sound/useSoundStore';
+import { useUIStore } from '../../stores/ui/useUIStore';
 
 export function NotificationProvider({ children }: NotificationProviderProps) {
   
@@ -38,7 +38,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
     }
   }, []);
   
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   
   const notificationsFiltered = state.filter(note => note.type !== NotificationType.QUIET);
   

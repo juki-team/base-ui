@@ -1,11 +1,11 @@
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { Button, T } from '../../atoms';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { HomeIcon } from '../../server';
 import type { PageNotFoundProps } from './types';
 
 export function PageNotFound({ children, style }: PageNotFoundProps) {
   
-  const { components: { Link, Image } } = useJukiUI();
+  const { Link, Image } = useUIStore(store => store.components);
   
   return (
     <div className="jk-col gap extend center nowrap" style={style}>

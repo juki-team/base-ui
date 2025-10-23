@@ -11,12 +11,12 @@ import {
 import { type ReactNode } from 'react';
 import { ContestTab } from '../../../../../enums';
 import { jukiApiManager, jukiAppRoutes } from '../../../../../settings';
+import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { Button, Collapse, DateLiteral, T } from '../../../../atoms';
 import { getJudgeOrigin } from '../../../../helpers';
 import { hasTimeHasMemory } from '../../../../helpers/submission';
 import { useFetcher } from '../../../../hooks/useFetcher';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { CodeViewer, SubmissionRejudgeButton, Timer } from '../../../../molecules';
 import { OpenInNewIcon, UpIcon } from '../../../../server';
 import { UserChip } from '../../../UserChip/UserChip';
@@ -90,7 +90,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
     && verdict !== ProblemVerdict.PENDING
     && compilationResult?.success === false;
   
-  const { components: { Link } } = useJukiUI();
+  const { Link } = useUIStore(store => store.components);
   const userCompanyKey = useUserStore(state => state.company.key);
   const origin = getJudgeOrigin(submit.problem.company.key, userCompanyKey);
   

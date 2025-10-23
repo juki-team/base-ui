@@ -1,8 +1,8 @@
 import { Status } from '@juki-team/commons';
 import { type CSSProperties, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { classNames } from '../../helpers';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
 import type { SetLoaderStatusOnClickType } from '../../types';
 import { ButtonLoader } from '../ButtonLoader/ButtonLoader';
@@ -21,7 +21,7 @@ export function ButtonAction(props: ButtonActionProps) {
     className,
   } = props;
   
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(null);
   const [ open, setOpen ] = useState(false);
   const ref = useRef(null);

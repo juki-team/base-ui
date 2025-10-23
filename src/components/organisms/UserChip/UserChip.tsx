@@ -1,5 +1,5 @@
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { classNames } from '../../helpers';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { UserNicknameLink } from '../UserNicknameLink/UserNicknameLink';
 import type { UserChipProps } from './types';
 
@@ -7,7 +7,7 @@ export function UserChip(props: UserChipProps) {
   
   const { imageUrl, email, familyName, nickname, givenName, className, companyKey, withoutLink } = props;
   
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   
   const onlyNickname = !givenName && !familyName && !email;
   

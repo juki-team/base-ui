@@ -1,10 +1,10 @@
 import { MenuViewMode, ProfileSetting } from '@juki-team/commons';
 import { type ReactNode, useEffect } from 'react';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import type { NotUndefined } from '../../types';
 import { TabsInline } from '../_lazy_/TabsInline';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
@@ -23,7 +23,7 @@ export function TwoContentCardsLayout<T, >(props: TwoContentCardsLayoutProps<T>)
     children,
   } = props;
   
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   const preferredMenuViewMode = useUserStore(state => state.user.settings[ProfileSetting.MENU_VIEW_MODE]);
   const pushRoute = useRouterStore(state => state.pushRoute);
   const tabKeys = Object.keys(tabs);

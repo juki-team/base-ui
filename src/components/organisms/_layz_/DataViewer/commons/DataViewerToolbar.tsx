@@ -10,12 +10,12 @@ import {
   useState,
 } from 'react';
 import { TriggerAction } from '../../../../../enums';
-import { classNames, downloadUrlAsFile, getAuthorizedRequest, renderReactNodeOrFunction } from '../../../../helpers';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
+import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { MultiSelect, Popover, Select } from '../../../../atoms';
 import { TableEyeIcon } from '../../../../atoms/server';
+import { classNames, downloadUrlAsFile, getAuthorizedRequest, renderReactNodeOrFunction } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
-import { useJukiUI } from '../../../../hooks/useJukiUI';
 import { useSessionStorage } from '../../../../hooks/useSessionStorage';
 import {
   CalendarViewWeekIcon,
@@ -99,7 +99,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const { filtered, values } = isSomethingFiltered(headers);
   const [ downloading, setDownloading ] = useState(false);
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   const { notifyResponse } = useJukiNotification();
   
   const searchParams = useRouterStore(state => state.searchParams);

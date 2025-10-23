@@ -1,15 +1,15 @@
 import { type ContentsResponseType, Judge, JUDGE, type JudgeDataResponseDTO } from '@juki-team/commons';
-import { classNames } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { CopyToClipboard } from '../../atoms';
 import { LocationOnIcon, MailIcon, SchoolIcon } from '../../atoms/server';
+import { classNames } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import type { UserProfileDataContentProps } from './types';
 
 export function UserProfileDataContent({ user, className }: UserProfileDataContentProps) {
   
-  const { components: { Image, Link } } = useJukiUI();
+  const { Image, Link } = useUIStore(store => store.components);
   const { data } = useFetcher<ContentsResponseType<JudgeDataResponseDTO>>(
     jukiApiManager.API_V1.judge.getSummaryList().url,
   );

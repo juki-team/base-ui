@@ -1,7 +1,7 @@
 import { DataViewMode, Language, MenuViewMode, ProfileSetting, Theme } from '@juki-team/commons';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { Button, InputRadio, InputToggle, Select, T } from '../../atoms';
 import { classNames } from '../../helpers';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { useJukiUserSettings } from '../../hooks/useJukiUser';
 import {
   DarkModeIcon,
@@ -27,7 +27,7 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
     [ProfileSetting.TIME_ZONE]: preferredTimeZone,
     [ProfileSetting.FONT_SIZE]: preferredFontSize,
   } = useJukiUserSettings();
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   
   return (
     <div className="jk-row gap top stretch">

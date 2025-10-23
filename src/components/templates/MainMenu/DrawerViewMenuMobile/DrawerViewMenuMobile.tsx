@@ -1,8 +1,8 @@
 import { Children, ReactNode, useState } from 'react';
-import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
+import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
-import { useJukiUI } from '../../../hooks/useJukiUI';
+import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { MenuType } from '../../../organisms/types';
 import { ArrowBackIcon, CloseIcon } from '../../../server';
 import { HelpSection } from '../../HelpSection/HelpSection';
@@ -17,7 +17,7 @@ export interface DrawerViewMenuMobileProps {
 
 export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: DrawerViewMenuMobileProps) => {
   
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   const companyName = useUserStore(state => state.company.name);
   const [ helpOpen, setHelpOpen ] = useState(false);
   

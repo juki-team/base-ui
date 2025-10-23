@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { classNames } from '../../../../../helpers';
+import { useUIStore } from '../../../../../../stores/ui/useUIStore';
 import { Input, T } from '../../../../../atoms';
-import { useJukiUI } from '../../../../../hooks/useJukiUI';
+import { classNames } from '../../../../../helpers';
 import { ButtonLoader, SplitModal } from '../../../../../molecules';
 import type { ForgotPasswordModalProps } from './types';
 
@@ -9,7 +9,7 @@ export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword
   
   const [ email, setEmail ] = useState('');
   const [ touched, setTouched ] = useState(false);
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   useEffect(() => {
     if (!touched && email) {
       setTouched(true);

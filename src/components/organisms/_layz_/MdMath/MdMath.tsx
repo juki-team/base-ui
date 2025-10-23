@@ -8,13 +8,13 @@ import rehypeKatex from 'rehype-katex';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
 import { QueryParamKey } from '../../../../enums';
-import { classNames } from '../../../helpers';
 import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
+import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { Button, DetectRequestAnimationFrame } from '../../../atoms';
 import { VisibilityIcon, VisibilityOffIcon } from '../../../atoms/server';
+import { classNames } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
-import { useJukiUI } from '../../../hooks/useJukiUI';
 import { useStableState } from '../../../hooks/useStableState';
 import { CodeViewer } from '../../../molecules';
 import { ErrorIcon, OpenInNewIcon, SpinIcon } from '../../../server';
@@ -82,7 +82,7 @@ function MdMathComponent(props: MdMathProps) {
     detectRequestAnimationFrame,
   } = props;
   
-  const { components: { Link } } = useJukiUI();
+  const { Link } = useUIStore(store => store.components);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
   // const [ rehypePlugins, setRehypePlugins ] = useState<any[]>([]);
   // const [ remarkPlugins, setRemarkPlugins ] = useState<any[]>([]);

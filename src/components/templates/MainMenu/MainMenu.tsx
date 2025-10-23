@@ -8,13 +8,13 @@ import {
 } from '@juki-team/commons';
 import { useEffect, useMemo, useState } from 'react';
 import { QueryParamKey, TriggerAction } from '../../../enums';
-import { classNames } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
+import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Popover, Select, T } from '../../atoms';
+import { classNames } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
-import { useJukiUI } from '../../hooks/useJukiUI';
 import { JukiLoadingLayout } from '../../molecules';
 import { HorizontalMenu, LoginModal, LoginUser, SignUpModal, VerticalMenu } from '../../organisms';
 import type { MenuType } from '../../organisms/types';
@@ -45,7 +45,8 @@ export function MainMenu(props: MainMenuProps) {
     onBack,
   } = props;
   
-  const { viewPortSize, components: { Link, Image } } = useJukiUI();
+  const { Link, Image } = useUIStore(store => store.components);
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   
   const searchParams = useRouterStore(state => state.searchParams);
   const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
@@ -101,7 +102,7 @@ export function MainMenu(props: MainMenuProps) {
           menuItemWrapper: ({ isOpenVerticalMenu }) => {
             let imageUrl = company?.imageUrl?.replace('horizontal', 'vertical') || '';
             if (viewPortSize === 'sm' && preferredTheme !== Theme.DARK) {
-              imageUrl.replace('white', 'color');
+              imageUrl = imageUrl.replace('white', 'color');
             }
             const isSmall = viewPortSize === 'sm';
             return (

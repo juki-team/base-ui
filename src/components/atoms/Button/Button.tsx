@@ -1,7 +1,7 @@
 import { type ComponentPropsWithRef, forwardRef, type ReactElement, type Ref } from 'react';
-import { classNames } from '../../helpers';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
-import { useJukiUI } from '../../hooks/useJukiUI';
+import { useUIStore } from '../../../stores/ui/useUIStore';
+import { classNames } from '../../helpers';
 import type { ButtonBasicProps, OnClickButtonEventType } from '../../types';
 
 // const buttonsVariants = (isDisabled: boolean, hasChildren: boolean) => ({
@@ -32,7 +32,7 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
   
   const sound = useSoundStore();
   
-  const { viewPortSize } = useJukiUI();
+  const viewPortSize = useUIStore(store => store.viewPortSize);
   
   const size = (responsiveMobile && viewPortSize === 'sm') ? 'large' : _size;
   const hasChildren = !!children && (responsiveMobile ? viewPortSize !== 'sm' : true);

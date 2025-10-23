@@ -1,11 +1,11 @@
+import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { Modal, T } from '../../../atoms';
-import { useJukiUI } from '../../../hooks/useJukiUI';
 import { ButtonLoader } from '../../../molecules';
 import type { WelcomeModalProps } from './types';
 
 export function WelcomeModal({ isOpen, nickname, onClose, onSeeMyProfile }: WelcomeModalProps) {
   
-  const { components: { Image } } = useJukiUI();
+  const { Image } = useUIStore(store => store.components);
   
   return (
     <Modal

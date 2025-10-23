@@ -1,6 +1,6 @@
-import { classNames } from '../../helpers';
 import { jukiAppRoutes } from '../../../settings';
-import { useJukiUI } from '../../hooks/useJukiUI';
+import { useUIStore } from '../../../stores/ui/useUIStore';
+import { classNames } from '../../helpers';
 import { Field } from '../../organisms';
 import { VoidIcon } from '../../server';
 import { ProblemStatus } from './ProblemStatus';
@@ -10,7 +10,7 @@ export function ProblemNameLinkField(props: ProblemNameLinkFieldProps) {
   
   const { record: { name, shortname, user, key }, isCard } = props;
   
-  const { components: { Link } } = useJukiUI();
+  const { Link } = useUIStore(store => store.components);
   
   return (
     <Field className={classNames('jk-row', { left: !isCard, center: isCard })}>
