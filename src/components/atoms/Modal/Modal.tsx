@@ -40,19 +40,19 @@ export function Modal<T extends ModalButtonLoaderEventType, >(props: ModalProps<
   
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && closeOnKeyEscape) {
+      if (event.key === 'Escape' && closeOnKeyEscape && isOpen) {
         onCloseRef.current?.(setLoaderStatusOnClick, loader, { onKeyDownEvent: event });
       }
     };
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [ loader, setLoaderStatusOnClick, closeOnKeyEscape ]);
+  }, [ loader, setLoaderStatusOnClick, closeOnKeyEscape, isOpen ]);
   
   return (
-    <Portal>
-      <AnimatePresence>
-        {isOpen && (
+    <AnimatePresence>
+      {isOpen && (
+        <Portal>
           <motion.div className={classNames('jk-modal-container', containerClassName, { expand })}>
             <motion.div
               className="jk-modal-overlay jk-overlay jk-overlay-backdrop"
@@ -84,8 +84,8 @@ export function Modal<T extends ModalButtonLoaderEventType, >(props: ModalProps<
               {children}
             </motion.div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </Portal>
+        </Portal>
+      )}
+    </AnimatePresence>
   );
 }
