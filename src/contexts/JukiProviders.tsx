@@ -9,7 +9,7 @@ import { JukiUIProvider } from './JukiUIProvider';
 import { JukiUserProvider } from './JukiUserProvider';
 import { JukiProvidersProps } from './types';
 
-export const UserTrack = memo(function UserTrack() {
+const UserTrack = memo(function UserTrack() {
   useUserTrack();
   return null;
 });
