@@ -12,7 +12,7 @@ import { type HLJSApi } from 'highlight.js';
 import { type CSSProperties, useEffect, useMemo, useState } from 'react';
 import { Client, CopyToClipboard } from '../../../atoms';
 import { classNames } from '../../../helpers';
-import type { CodeViewerProps } from './types'; // o el tema que prefieras
+import type { CodeViewerProps } from './types';
 
 // hljs.registerLanguage('c', c);
 // hljs.registerLanguage('cpp', cpp);
