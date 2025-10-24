@@ -69,17 +69,17 @@ function CodeViewerCmp(props: CodeViewerProps) {
   const [ hljsReady, setHljsReady ] = useState<HLJSApi | null>(null);
   
   useEffect(() => {
-    void loadHighlightJs().then(setHljsReady);
+    // void loadHighlightJs().then(setHljsReady);
   }, []);
   
   const highlighted = useMemo(() => {
-    if (!hljsReady) return '';
-    try {
-      return hljsReady.highlight(code, { language: CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext' }).value;
-    } catch {
-      return hljsReady.highlightAuto(code).value;
-    }
-    // return '';
+    // if (!hljsReady) return '';
+    // try {
+    //   return hljsReady.highlight(code, { language: CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext' }).value;
+    // } catch {
+    //   return hljsReady.highlightAuto(code).value;
+    // }
+    return '';
   }, [ code, hljsReady, language ]);
   
   const withLanguageLabel = true;
