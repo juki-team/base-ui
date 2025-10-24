@@ -1,4 +1,4 @@
-import { WebSocketSubscribeEventDTO, WebSocketUnsubscribeEventDTO } from '@juki-team/commons';
+import { consoleInfo, WebSocketSubscribeEventDTO, WebSocketUnsubscribeEventDTO } from '@juki-team/commons';
 import { create } from 'zustand';
 import { getKeyWebSocketEventDTO, getUnsubscribeEvent } from '../../components/helpers';
 import { WebsocketSubStore } from './types';
@@ -27,17 +27,9 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
   
   setInterval(flushQueue, 200);
   
-  return {
-    subscribers: {},
-    channelSubscription: null,
-    channelMessages: null,
-    setProps: (props) => set(props),
-    broadcastMessage: (key, data) => {
-      const newMessage = { key, data };
-      const subs = get().subscribers[key] || [];
-      subs.forEach((cb) => cb(newMessage));
-    },
-    subscribeToEvent: (event, callback) => {
+  const getSubscribeToEvent: () => WebsocketSubStore['subscribeToEvent'] = () => {
+    consoleInfo('new SubscribeToEvent function');
+    return (event, callback) => {
       const key = getKeyWebSocketEventDTO(event);
       queuePublish(key, event);
       set((state) => ({
@@ -56,6 +48,20 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
           },
         }));
       };
+    };
+  }
+;
+  return {
+    subscribers: {},
+    newAuth: () => set({ subscribeToEvent: getSubscribeToEvent() }),
+    channelSubscription: null,
+    channelMessages: null,
+    setProps: (props) => set(props),
+    broadcastMessage: (key, data) => {
+      const newMessage = { key, data };
+      const subs = get().subscribers[key] || [];
+      subs.forEach((cb) => cb(newMessage));
     },
+    subscribeToEvent: getSubscribeToEvent(),
   };
 });

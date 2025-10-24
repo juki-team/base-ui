@@ -4,11 +4,13 @@ import {
   CHANNEL_CLIENT_USER_SESSION,
   CHANNEL_SEVER_MESSAGES,
   cleanRequest,
+  consoleError,
+  consoleInfo,
   ContentResponseType,
 } from '@juki-team/commons';
 import Ably, { TokenDetails, TokenRequest } from 'ably';
 import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { authorizedRequest } from '../../components/helpers';
 import { jukiApiManager } from '../../settings';
 import { useUserStore } from '../../stores/user/useUserStore';
@@ -41,33 +43,52 @@ const WebsocketProvider = () => {
   return null;
 };
 
-const ablyClient = new Ably.Realtime({
-  authCallback: async (_, callback) => {
-    if (typeof window === 'undefined') {
-      console.warn('authCallback executed on server side');
-      callback(null, null);
-    }
-    let tokenRequest;
-    try {
-      const response = cleanRequest<ContentResponseType<TokenDetails | TokenRequest | string | null>>(await authorizedRequest(jukiApiManager.API_V2.websocket.auth().url));
-      tokenRequest = response.success ? response.content : null;
-    } catch (error) {
-      callback(error?.toString() || 'Error on authCallback', null);
-      return;
-    }
-    callback(null, tokenRequest);
-  },
-});
+const newAblyClient = () => {
+  return new Ably.Realtime({
+    authCallback: async (_, callback) => {
+      if (typeof window === 'undefined') {
+        console.warn('authCallback executed on server side');
+        callback(null, null);
+      }
+      consoleInfo('new request to auth ably');
+      let tokenRequest;
+      try {
+        const response = cleanRequest<ContentResponseType<TokenDetails | TokenRequest | string | null>>(await authorizedRequest(jukiApiManager.API_V2.websocket.auth().url));
+        tokenRequest = response.success ? response.content : null;
+      } catch (error) {
+        callback(error?.toString() || 'Error on authCallback', null);
+        return;
+      }
+      callback(null, tokenRequest);
+    },
+  });
+};
+
+let ablyClient = newAblyClient();
 
 export const JukiAblyProvider = () => {
   
   const sessionId = useUserStore(store => store.user.sessionId);
+  const newAuth = useWebsocketStore(store => store.newAuth);
+  const [ forceRender, setForceRender ] = useState(0);
   useEffect(() => {
-    void ablyClient.auth.authorize();
-  }, [ sessionId ]);
+    (async () => {
+      try {
+        if (ablyClient.auth.clientId && ablyClient.auth.clientId !== sessionId) {
+          consoleInfo('🔁 Closing previous Ably connection due to clientId change');
+          ablyClient.close();
+        }
+        ablyClient = newAblyClient();
+        setForceRender(Date.now());
+        setTimeout(newAuth, 1000);
+      } catch (error) {
+        consoleError('Error during Ably authorization', error);
+      }
+    })();
+  }, [ sessionId, newAuth ]);
   
   return (
-    <AblyProvider client={ablyClient}>
+    <AblyProvider client={ablyClient} key={forceRender}>
       <ChannelProvider channelName={CHANNEL_CLIENT_SUBSCRIPTIONS}>
         <ChannelProvider channelName={CHANNEL_CLIENT_USER_SESSION(sessionId)}>
           <ChannelProvider channelName={CHANNEL_SEVER_MESSAGES}>
