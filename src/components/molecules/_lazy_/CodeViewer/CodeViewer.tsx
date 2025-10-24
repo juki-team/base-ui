@@ -66,7 +66,7 @@ function CodeViewerCmp(props: CodeViewerProps) {
     className,
   } = props;
   
-  const [ hljsReady, setHljsReady ] = useState<HLJSApi | null>(null);
+  const [ hljsReady ] = useState<HLJSApi | null>(null);
   
   useEffect(() => {
     // void loadHighlightJs().then(setHljsReady);
