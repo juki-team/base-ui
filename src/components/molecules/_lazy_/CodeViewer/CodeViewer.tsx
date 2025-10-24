@@ -35,7 +35,8 @@ function CodeViewerCmp(props: CodeViewerProps) {
   } = props;
   
   const highlighted = useMemo(() => {
-    return hljs.highlight(code, { language: CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext' }).value;
+    // return hljs.highlight(code, { language: CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext' }).value;
+    return '';
   }, [ code, language ]);
   
   const withLanguageLabel = true;
