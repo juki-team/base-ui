@@ -36,6 +36,7 @@ export const Regular: Story = {
                 problem={data.data.content}
                 infoPlacement="name"
                 codeEditorStoreKey={data.data.content.key}
+                languages={[ { value: CodeLanguage.CPP_11, label: 'test' } ]}
               />
             )}
           </FetcherLayer>

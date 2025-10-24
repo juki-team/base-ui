@@ -9,7 +9,10 @@ import { ReactNode, useMemo } from 'react';
 import { jukiApiManager } from '../../settings';
 import { useFetcher } from './useFetcher';
 
-export const useJudge = <T, >({ key, isExternal }: { key: string, isExternal: boolean }) => {
+export const useJudge = <T, >({ key, isExternal }: { key: string, isExternal: boolean }, validLanguages: {
+  value: T,
+  label: ReactNode
+}[]) => {
   
   const { data: virtualJudgeData } = useFetcher<ContentResponseType<JudgeDataResponseDTO>>(
     isExternal
@@ -17,8 +20,11 @@ export const useJudge = <T, >({ key, isExternal }: { key: string, isExternal: bo
       : null,
   );
   
+  const languagesValuesString = JSON.stringify(validLanguages.map(({ value }) => value));
+  
   const languages = useMemo(
     () => {
+      const validLanguages = (JSON.parse(languagesValuesString) || []) as T[];
       let languages: { value: CodeLanguage | string, label: ReactNode }[];
       let judgeLanguages: { value: CodeLanguage | string, label: ReactNode }[];
       if (isExternal) {
@@ -48,12 +54,16 @@ export const useJudge = <T, >({ key, isExternal }: { key: string, isExternal: bo
         } ];
       }
       
+      if (validLanguages?.length > 0) {
+        languages = languages.filter(({ value }) => validLanguages.includes(value as T));
+      }
+      
       return {
         languages: languages as { value: T, label: ReactNode }[],
         judgeLanguages: judgeLanguages as { value: T, label: ReactNode }[],
       };
     },
-    [ virtualJudgeData, isExternal ],
+    [ languagesValuesString, isExternal, virtualJudgeData ],
   );
   
   return {

@@ -23,6 +23,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
     expandPosition,
     withoutDownloadButtons,
     children,
+    languages,
   } = props;
   
   const viewPortSize = useUIStore(store => store.viewPortSize);
@@ -88,6 +89,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
         {problemStatement}
         <ProblemCodeEditor
           problem={problem}
+          languages={languages}
           codeEditorLeftButtons={() => {
             
             if (problem.judge.isExternal) {

@@ -1,4 +1,5 @@
 import { type CodeEditorTestCasesType, type ProblemDataResponseDTO, SubmissionRunStatus } from '@juki-team/commons';
+import { ReactNode } from 'react';
 import { useJudge } from '../../../hooks/useJudge';
 import { UserCodeEditor } from '../../../organisms/_layz_/UserCodeEditor';
 import type { CodeEditorExpandPositionType, UserCodeEditorProps } from '../../../organisms/types';
@@ -10,6 +11,7 @@ interface ProblemCodeEditorProps<T> {
   codeEditorRightButtons?: UserCodeEditorProps<T>['rightButtons'],
   codeEditorStoreKey: string,
   expandPosition?: CodeEditorExpandPositionType,
+  languages?: { value: T, label: ReactNode }[],
 }
 
 export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
@@ -21,6 +23,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
     codeEditorRightButtons,
     codeEditorStoreKey,
     expandPosition,
+    languages: validLanguages,
   } = props;
   
   const initialTestCases: CodeEditorTestCasesType = {};
@@ -42,7 +45,10 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
     };
   });
   
-  const { languages } = useJudge<T>({ key: problem.judge.key, isExternal: problem.judge.isExternal });
+  const { languages } = useJudge<T>({
+    key: problem.judge.key,
+    isExternal: problem.judge.isExternal,
+  }, validLanguages || []);
   
   return (
     <UserCodeEditor<T>
