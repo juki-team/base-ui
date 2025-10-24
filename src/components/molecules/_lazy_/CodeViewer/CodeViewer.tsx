@@ -25,7 +25,7 @@ import type { CodeViewerProps } from './types';
 
 let hljsInstance: HLJSApi | null = null;
 
-async function loadHighlightJs() {
+export async function loadHighlightJs() {
   if (hljsInstance) return hljsInstance;
   
   const hljs = (await import('highlight.js')).default;
