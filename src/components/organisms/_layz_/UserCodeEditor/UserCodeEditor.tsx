@@ -20,6 +20,7 @@ import {
 } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useStableRef } from '../../../hooks/useStableRef';
+import { useStableState } from '../../../hooks/useStableState';
 import { CodeRunnerEditor } from './CodeRunnerEditor/CodeRunnerEditor';
 import type { CodeRunnerEditorPropertiesType } from './CodeRunnerEditor/types';
 import type { UserCodeEditorProps } from './types';
@@ -84,7 +85,7 @@ function useSaveChunkStorage<T extends Record<string, unknown>, >(storeKey: stri
       }
     }
     return newState;
-  }, [ storeKey, formatStoreRecoveredRef, mergeRef ]);
+  }, [ storeKey, formatStoreRecoveredRef, mergeRef, initialValue ]);
   
   const [ value, setValue ] = useState<StorageType<T>>(mergeState());
   
@@ -202,6 +203,54 @@ type CodeEditorSettingsStore<T> = {
   fontSize: number,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const formatTestCasesStoreRecover = (recovered: any): StorageType<CodeEditorTestCasesType> => {
+  const state: StorageType<CodeEditorTestCasesType> = {};
+  for (const [ key, value ] of Object.entries(recovered)) {
+    state[key] = {};
+    for (const [ caseKey, caseValue ] of Object.entries(value as object)) {
+      if (caseValue?.sample === false) {
+        state[key][caseKey] = {
+          key: caseKey,
+          in: caseValue?.in || '',
+          testOut: caseValue?.testOut || '',
+          withPE: caseValue?.withPE || false,
+          sample: false,
+          hidden: caseValue?.hidden || false,
+          index: caseValue?.index ?? -1,
+          messageTimestamp: caseValue?.messageTimestamp ?? 0,
+          out: caseValue?.out || '',
+          err: caseValue?.err || '',
+          log: caseValue?.log || '',
+          status: caseValue?.status || SubmissionRunStatus.NONE,
+        };
+      }
+    }
+  }
+  return state;
+};
+
+const getNewInitialTestCases = (testCaseStoreKey: string, initialTestCases: CodeEditorTestCasesType) => {
+  const response: StorageType<CodeEditorTestCasesType> = { [testCaseStoreKey]: { ...initialTestCases } };
+  if (Object.keys(initialTestCases).length === 0) {
+    response[testCaseStoreKey]!['*'] = {
+      key: '*',
+      in: '',
+      testOut: '',
+      withPE: false,
+      sample: false,
+      hidden: false,
+      index: -1,
+      messageTimestamp: 0,
+      out: '',
+      err: '',
+      log: '',
+      status: SubmissionRunStatus.NONE,
+    };
+  }
+  return response;
+};
+
 export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   
   const {
@@ -242,13 +291,14 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
     defaultLanguage = languages[0].value;
   }
   
-  const newInitialFiles: StorageType<CodeEditorFiles<T>> = { [storeKey]: { ...initialFiles } };
+  const [ newInitialFiles ] = useStableState<StorageType<CodeEditorFiles<T>>>({ [storeKey]: { ...initialFiles } });
   const [ filesStore, setFilesStore ] = useSaveChunkStorage<CodeEditorFiles<T>>(getSourcesStoreKey(userNickname), newInitialFiles, mergeSources, formatStoreRecovered(languages));
   const onFilesChangeRef = useStableRef(onFilesChange);
   const files = filesStore[storeKey] || EMPTY_OBJECT;
   useEffect(() => onFilesChangeRef.current?.(files), [ files, onFilesChangeRef ]);
   const defaultFileName = initialFileName ?? Object.keys(files)[0] ?? getDefaultFileName(defaultLanguage as CodeLanguage);
-  const [ settingsStore, setSettingsStore ] = useSaveChunkStorage<SettingsStore>(getSettingsStoreKey(userNickname), { [storeKey]: { lastFileName: defaultFileName } }, (a, b) => ({ ...a, ...b }), formatSettingsStoreRecovered);
+  const [ newInitialSettings ] = useStableState<StorageType<SettingsStore>>({ [storeKey]: { lastFileName: defaultFileName } });
+  const [ settingsStore, setSettingsStore ] = useSaveChunkStorage<SettingsStore>(getSettingsStoreKey(userNickname), newInitialSettings, (a, b) => ({ ...a, ...b }), formatSettingsStoreRecovered);
   const currentFileName = settingsStore[storeKey]?.lastFileName ?? defaultFileName;
   const setCurrentFileName = (lastFileName: string) => {
     setSettingsStore(prevState => ({
@@ -261,50 +311,7 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   };
   
   const testCaseStoreKey = storeKey;
-  const newInitialTestCases: StorageType<CodeEditorTestCasesType> = { [testCaseStoreKey]: { ...initialTestCases } };
-  if (Object.keys(initialTestCases).length === 0) {
-    newInitialTestCases[testCaseStoreKey]!['*'] = {
-      key: '*',
-      in: '',
-      testOut: '',
-      withPE: false,
-      sample: false,
-      hidden: false,
-      index: -1,
-      messageTimestamp: 0,
-      out: '',
-      err: '',
-      log: '',
-      status: SubmissionRunStatus.NONE,
-    };
-  }
-  
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const formatTestCasesStoreRecover = (recovered: any): StorageType<CodeEditorTestCasesType> => {
-    const state: StorageType<CodeEditorTestCasesType> = {};
-    for (const [ key, value ] of Object.entries(recovered)) {
-      state[key] = {};
-      for (const [ caseKey, caseValue ] of Object.entries(value as object)) {
-        if (caseValue?.sample === false) {
-          state[key][caseKey] = {
-            key: caseKey,
-            in: caseValue?.in || '',
-            testOut: caseValue?.testOut || '',
-            withPE: caseValue?.withPE || false,
-            sample: false,
-            hidden: caseValue?.hidden || false,
-            index: caseValue?.index ?? -1,
-            messageTimestamp: caseValue?.messageTimestamp ?? 0,
-            out: caseValue?.out || '',
-            err: caseValue?.err || '',
-            log: caseValue?.log || '',
-            status: caseValue?.status || SubmissionRunStatus.NONE,
-          };
-        }
-      }
-    }
-    return state;
-  };
+  const [ newInitialTestCases ] = useStableState<StorageType<CodeEditorTestCasesType>>(getNewInitialTestCases(testCaseStoreKey, initialTestCases));
   const [ testCasesStore, setTestCasesStore ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, formatTestCasesStoreRecover);
   const onTestCasesChangeRef = useStableRef(onTestCasesChange);
   const testCases = testCasesStore[testCaseStoreKey]!;
