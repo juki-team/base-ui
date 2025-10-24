@@ -3,7 +3,6 @@ import { createInstance, i18n } from 'i18next';
 import { PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
 import { JukiProviders } from '../../contexts';
-import { useUserTrack } from '../hooks/useUserTrack';
 import { SubmissionModal, UserPreviewModal } from '../organisms';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
@@ -43,11 +42,6 @@ await i18nInstance.init({
   },
 });
 
-const MockUserTrack = () => {
-  useUserTrack();
-  return null;
-};
-
 export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   return (
     <JukiProviders<TestPath>
@@ -73,7 +67,6 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
         {children}
         <MockupLoginButton />
         <MockupToggleThemeButton />
-        <MockUserTrack />
       </SWRConfig>
     </JukiProviders>
   );

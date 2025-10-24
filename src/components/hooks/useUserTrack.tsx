@@ -1,4 +1,4 @@
-import { UserTrackWebSocketEventDTO, WebSocketMessageEvent } from '@juki-team/commons';
+import { ONE_MINUTE, UserTrackWebSocketEventDTO, WebSocketMessageEvent } from '@juki-team/commons';
 import { useEffect } from 'react';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { useUserStore } from '../../stores/user/useUserStore';
@@ -13,12 +13,20 @@ export const useUserTrack = () => {
   const channelMessages = useWebsocketStore(store => store.channelMessages);
   
   useEffect(() => {
-    const event: UserTrackWebSocketEventDTO = {
-      event: WebSocketMessageEvent.USER_TRACK,
-      sessionId,
-      href: `${origin}${pathname}?${searchParams.toString()}`,
+    const track = () => {
+      const event: UserTrackWebSocketEventDTO = {
+        event: WebSocketMessageEvent.USER_TRACK,
+        sessionId,
+        href: `${origin}${pathname}?${searchParams.toString()}`,
+      };
+      void channelMessages?.publish('', event);
     };
-    void channelMessages?.publish('', event);
+    track();
+    const interval = setInterval(track, ONE_MINUTE);
+    return () => {
+      clearInterval(interval);
+    };
   }, [ sessionId, origin, pathname, searchParams, channelMessages ]);
+  
   return null;
 };

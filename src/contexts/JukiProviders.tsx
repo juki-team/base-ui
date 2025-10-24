@@ -1,4 +1,5 @@
-import { PropsWithChildren } from 'react';
+import { memo, PropsWithChildren } from 'react';
+import { useUserTrack } from '../components/hooks/useUserTrack';
 import { JukiAblyProvider } from './AblyProvider/AblyProvider';
 import { JukiI18nProvider } from './JukiI18nProvider';
 import { JukiLastPathProvider } from './JukiLastPathProvider';
@@ -7,6 +8,11 @@ import { JukiRouterProvider } from './JukiRouterProvider';
 import { JukiUIProvider } from './JukiUIProvider';
 import { JukiUserProvider } from './JukiUserProvider';
 import { JukiProvidersProps } from './types';
+
+export const UserTrack = memo(function UserTrack() {
+  useUserTrack();
+  return null;
+});
 
 export const JukiProviders = <T extends string | number, >(props: PropsWithChildren<JukiProvidersProps<T>>) => {
   
@@ -37,6 +43,7 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
             <JukiUIProvider components={components}>
               <JukiLastPathProvider initialLastPath={initialLastPath}>
                 {children}
+                <UserTrack />
               </JukiLastPathProvider>
             </JukiUIProvider>
           </JukiRouterProvider>
