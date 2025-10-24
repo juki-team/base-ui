@@ -3,7 +3,7 @@ import { QueryParamKey } from '../../../../../enums';
 import { Collapse } from '../../../../atoms';
 import { classNames } from '../../../../helpers';
 import { MdMath } from '../../MdMath';
-import type { OnPageChange } from '../types';
+import { OnPageChange } from '../../WorksheetViewer/types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 
 interface TableOfContentsProps {

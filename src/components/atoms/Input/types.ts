@@ -1,8 +1,8 @@
 import { type ReactNode } from 'react';
 import { type UseFormRegisterReturn, type UseFormSetValue } from 'react-hook-form';
-import { ButtonType, ReactNodeOrFunctionType } from '../../types';
+import type { ButtonType, ReactNodeOrFunctionType } from '../../types';
 import type { SelectOption2Type, SelectProps } from '../Select/types';
-import { TextAreaProps } from '../TextArea/types';
+import type { TextAreaProps } from '../TextArea/types';
 import { InputProps } from './Input';
 
 // export interface InputFileProps<T> extends InputCommonsProps<T> {
@@ -59,8 +59,6 @@ export type InputSelectProps<T, U extends ReactNodeOrFunctionType, V extends Rea
   Omit<InputProps<T>, 'type' | 'onChange' | 'value' | 'register'>
   & Omit<SelectProps<T, U, V>, 'selectedOption'> & { selectedOption?: SelectOption2Type<T, U, V>, }
   & { register?: UseFormRegisterReturn & { setValue: UseFormSetValue<any> } };
-
-export type InputCellPhoneNumberProps = Omit<InputProps<string>, 'type'>;
 
 export type InputTextAreaProps = Omit<InputProps<string>, 'type'> & TextAreaProps;
 

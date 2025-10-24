@@ -27,3 +27,4 @@ export type * from './_lazy_/LineChart/types';
 export type * from './_lazy_/SlideDeck/types';
 export type * from './_lazy_/SortableItems/types';
 export type * from './layouts/types';
+export { DrawerViewProps } from './_lazy_/DrawerView/types';

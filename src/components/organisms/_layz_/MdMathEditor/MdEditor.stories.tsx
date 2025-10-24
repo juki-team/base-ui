@@ -4,8 +4,8 @@ import { MockupJukiProvider } from '../../../mockup';
 import { SAMPLE_MD_CONTENT } from '../../MdMathViewer/constants';
 import { MdMathViewer } from '../../MdMathViewer/MdMathViewer';
 import { MemoMdMathViewer } from '../../MdMathViewer/MemoMdMathViewer.deprecated';
-import { MdMathEditorProps } from '../../MdMathViewer/types';
 import { MdMathEditor } from './';
+import { MdMathEditorProps } from './types';
 
 const meta: Meta<typeof MdMathEditor> = {
   component: MdMathEditor,

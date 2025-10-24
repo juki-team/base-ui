@@ -1,5 +1,6 @@
 import type { WorksheetsInPages } from '@juki-team/commons';
-import { OnPageChange } from '../WorksheetEditor/types';
+
+import { OnPageChange } from '../WorksheetViewer/types';
 
 export interface WorksheetContentsProps {
   page: number, // [1, pages]

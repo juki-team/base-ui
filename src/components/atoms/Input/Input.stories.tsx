@@ -2,11 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react-webpack5';
 // import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
 import { MockupJukiProvider } from '../../mockup';
 import { InputCellPhoneNumber } from '../_lazy_/InputCellPhoneNumber';
+import type { InputCellPhoneNumberProps } from '../_lazy_/InputCellPhoneNumber/types';
 import { InputPassword } from '../InputPassword/InputPassword';
 import { InputSelect } from '../InputSelect/InputSelect';
 import { InputTextArea } from '../InputTextArea/InputTextArea';
 import { Input } from './Input';
-import { InputCellPhoneNumberProps, InputPasswordProps, InputSelectProps, InputTextAreaProps } from './types';
+import type { InputPasswordProps, InputSelectProps, InputTextAreaProps } from './types';
 
 // @ts-ignore
 Input.defaultProps = {

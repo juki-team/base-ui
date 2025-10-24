@@ -10,7 +10,7 @@ import {
 import { insert } from '@milkdown/kit/utils';
 import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { type Dispatch, type SetStateAction, useEffect, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
@@ -20,9 +20,9 @@ import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon
 import { classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
 import { ImageUploaderModal } from '../../ImageUploaderModal/ImageUploaderModal';
-import type { MdMathEditorProps } from '../../MdMathViewer/types';
 import { MilkdownEditorContent } from './MilkdownEditorContent/MilkdownEditorContent';
 import { TextPlainEditorContent } from './TextPlainEditorContent/TextPlainEditorContent';
+import type { MdMathEditorProps } from './types';
 
 enum Mode {
   WYSIWYG = 'WYSIWYG',
@@ -196,15 +196,17 @@ function ImageUploader({ mode }: { mode: Mode }) {
   );
 }
 
-export default function MdMathEditor({
-                                       value,
-                                       onChange,
-                                       className,
-                                       enableTextPlain = false,
-                                       enableDownload = false,
-                                       enableImageUpload = false,
-                                       enableIA = false,
-                                     }: MdMathEditorProps) {
+export default function MdMathEditor(props: MdMathEditorProps) {
+  
+  const {
+    value,
+    onChange,
+    className,
+    enableTextPlain = false,
+    enableDownload = false,
+    enableImageUpload = false,
+    enableIA = false,
+  } = props;
   
   const [ loader, setLoader ] = useState(Status.NONE);
   const [ mode, setMode ] = useState(Mode.WYSIWYG);

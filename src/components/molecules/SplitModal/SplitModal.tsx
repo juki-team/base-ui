@@ -1,10 +1,10 @@
-import { cloneElement, CSSProperties, PropsWithChildren, ReactElement } from 'react';
+import { cloneElement, type CSSProperties, type PropsWithChildren, type ReactElement } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { Modal } from '../../atoms';
-import { ModalButtonLoaderEventType } from '../../atoms/Modal/types';
+import type { ModalButtonLoaderEventType } from '../../atoms/Modal/types';
 import { renderReactNodeOrFunction } from '../../helpers';
-import { SplitModalProps } from './types';
+import type { SplitModalProps } from './types';
 
 export function SplitModal<T extends ModalButtonLoaderEventType, >(props: PropsWithChildren<SplitModalProps<T>>) {
   

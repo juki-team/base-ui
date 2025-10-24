@@ -3,8 +3,9 @@ import { useMemo } from 'react';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useStableState } from '../../../hooks/useStableState';
 import { WorksheetContents } from '../WorksheetContents';
+import { OnPageChange } from '../WorksheetViewer/types';
 import { WorksheetBodies } from './sheets/WorksheetBodies';
-import type { OnPageChange, WorksheetEditorProps } from './types';
+import type { WorksheetEditorProps } from './types';
 
 export default function WorksheetEditor(props: WorksheetEditorProps) {
   

@@ -23,7 +23,9 @@ export default function InputColor({ color, children, onChange, ...inputProps }:
     });
   
   const handlePick = () => { // color ? color : '#FFFFFF'
-    newColor && onChange?.(newColor);
+    if (newColor) {
+      onChange?.(newColor);
+    }
   };
   
   return (
@@ -58,6 +60,7 @@ export default function InputColor({ color, children, onChange, ...inputProps }:
           <span>
             <Input
               {...inputProps}
+              register={undefined}
               type="color"
               onChange={() => null}
               value={typeof color === 'string' ? color : (color?.hex || '')}

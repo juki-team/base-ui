@@ -1,60 +1,28 @@
 import { CODE_LANGUAGE } from '@juki-team/commons';
-import { type HLJSApi } from 'highlight.js';
-// import hljs from 'highlight.js';
-// import c from 'highlight.js/lib/languages/c';
-// import cpp from 'highlight.js/lib/languages/cpp';
-// import diff from 'highlight.js/lib/languages/diff';
-// import java from 'highlight.js/lib/languages/java';
-// import javascript from 'highlight.js/lib/languages/javascript';
-// import json from 'highlight.js/lib/languages/json';
-// import markdown from 'highlight.js/lib/languages/markdown';
-// import python from 'highlight.js/lib/languages/python';
-import { type CSSProperties, useEffect, useMemo, useState } from 'react';
-import { Client, CopyToClipboard } from '../../../atoms';
+import hljs from 'highlight.js';
+import c from 'highlight.js/lib/languages/c';
+import cpp from 'highlight.js/lib/languages/cpp';
+import diff from 'highlight.js/lib/languages/diff';
+import java from 'highlight.js/lib/languages/java';
+import javascript from 'highlight.js/lib/languages/javascript';
+import json from 'highlight.js/lib/languages/json';
+import markdown from 'highlight.js/lib/languages/markdown';
+import python from 'highlight.js/lib/languages/python';
+import { type CSSProperties, useMemo } from 'react';
+import { CopyToClipboard } from '../../../atoms';
 import { classNames } from '../../../helpers';
 import type { CodeViewerProps } from './types';
 
-// hljs.registerLanguage('c', c);
-// hljs.registerLanguage('cpp', cpp);
-// hljs.registerLanguage('markdown', markdown);
-// hljs.registerLanguage('json', json);
-// hljs.registerLanguage('java', java);
-// hljs.registerLanguage('javascript', javascript);
-// hljs.registerLanguage('python', python);
-// hljs.registerLanguage('diff', diff);
+hljs.registerLanguage('c', c);
+hljs.registerLanguage('cpp', cpp);
+hljs.registerLanguage('markdown', markdown);
+hljs.registerLanguage('json', json);
+hljs.registerLanguage('java', java);
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('python', python);
+hljs.registerLanguage('diff', diff);
 
-let hljsInstance: HLJSApi | null = null;
-
-export async function loadHighlightJs() {
-  if (hljsInstance) return hljsInstance;
-  
-  const hljs = (await import('highlight.js')).default;
-  
-  const [ c, cpp, diff, java, javascript, json, markdown, python ] = await Promise.all([
-    import('highlight.js/lib/languages/c'),
-    import('highlight.js/lib/languages/cpp'),
-    import('highlight.js/lib/languages/diff'),
-    import('highlight.js/lib/languages/java'),
-    import('highlight.js/lib/languages/javascript'),
-    import('highlight.js/lib/languages/json'),
-    import('highlight.js/lib/languages/markdown'),
-    import('highlight.js/lib/languages/python'),
-  ]);
-  
-  hljs.registerLanguage('c', c.default);
-  hljs.registerLanguage('cpp', cpp.default);
-  hljs.registerLanguage('markdown', markdown.default);
-  hljs.registerLanguage('json', json.default);
-  hljs.registerLanguage('java', java.default);
-  hljs.registerLanguage('javascript', javascript.default);
-  hljs.registerLanguage('python', python.default);
-  hljs.registerLanguage('diff', diff.default);
-  
-  hljsInstance = hljs;
-  return hljs;
-}
-
-function CodeViewerCmp(props: CodeViewerProps) {
+export default function CodeViewer(props: CodeViewerProps) {
   
   const {
     code,
@@ -66,21 +34,9 @@ function CodeViewerCmp(props: CodeViewerProps) {
     className,
   } = props;
   
-  const [ hljsReady ] = useState<HLJSApi | null>(null);
-  
-  useEffect(() => {
-    // void loadHighlightJs().then(setHljsReady);
-  }, []);
-  
   const highlighted = useMemo(() => {
-    // if (!hljsReady) return '';
-    // try {
-    //   return hljsReady.highlight(code, { language: CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext' }).value;
-    // } catch {
-    //   return hljsReady.highlightAuto(code).value;
-    // }
-    return '';
-  }, [ code, hljsReady, language ]);
+    return hljs.highlight(code, { language: CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext' }).value;
+  }, [ code, language ]);
   
   const withLanguageLabel = true;
   const withCopyButton = true;
@@ -121,8 +77,4 @@ function CodeViewerCmp(props: CodeViewerProps) {
       </div>
     </div>
   );
-}
-
-export default function CodeViewer(props: CodeViewerProps) {
-  return <Client><CodeViewerCmp{...props} /></Client>;
 }

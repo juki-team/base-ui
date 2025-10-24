@@ -1,5 +1,10 @@
 import type { ParsedUrlQuery } from 'querystring';
-import { AppendSearchParamsType, DeleteSearchParamsType, RouterFn, SetSearchParamsType } from '../components/types';
+import type {
+  AppendSearchParamsType,
+  DeleteSearchParamsType,
+  RouterFn,
+  SetSearchParamsType,
+} from '../components/types';
 import type { LastPathProviderProps } from './JukiLastPathProvider/types';
 import type { JukiUIProviderProps } from './JukiUIProvider/types';
 import type { JukiUserProviderProps } from './JukiUserProvider/types';

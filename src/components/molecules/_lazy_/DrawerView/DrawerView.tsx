@@ -1,10 +1,11 @@
 import { AnimatePresence, motion } from 'motion/react';
 import { memo, useRef } from 'react';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { Button, Portal } from '../../../atoms';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import { useKeyPress } from '../../../hooks/useKeyPress';
 import { CloseIcon } from '../../../server';
-import type { DrawerViewProps } from '../../Drawer/types';
+
+import { DrawerViewProps } from './types';
 
 function DrawerViewComponent(props: DrawerViewProps) {
   

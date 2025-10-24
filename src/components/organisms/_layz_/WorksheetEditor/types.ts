@@ -1,8 +1,7 @@
-import type { BodyWorksheetType, WorksheetDataResponseDTO, WorksheetsInPages } from '@juki-team/commons';
+import type { BodyWorksheetType, WorksheetsInPages } from '@juki-team/commons';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import { SetSearchParamsType, UserResultsType } from '../../../types';
-
-export type OnPageChange = (newPage: number, newSubPage: number, entries: Parameters<SetSearchParamsType>[0]) => void;
+import { UserResultsType } from '../../../types';
+import { OnPageChange, WorksheetViewerProps } from '../WorksheetViewer/types';
 
 export interface WorksheetBodiesProps {
   sheetsInPages: WorksheetsInPages,
@@ -36,17 +35,6 @@ export interface WorksheetBodyProps {
 export interface WorksheetNodeProps extends Pick<WorksheetBodyProps, 'sheet' | 'setSheet' | 'userResults' | 'readOnly' | 'isSolvable' | 'worksheetKey' | 'asSlides'> {
   index: number,
   length: number,
-}
-
-export interface WorksheetViewerProps {
-  worksheet: Pick<WorksheetDataResponseDTO, 'content' | 'user' | 'key' | 'quiz'>,
-  resultsUserKey?: string,
-  page?: number,
-  subPage?: number,
-  onPageChange?: OnPageChange,
-  lastPageChildren?: ReactNode,
-  readOnly?: boolean,
-  withoutTableOfContents?: boolean,
 }
 
 export interface WorksheetEditorProps extends Omit<WorksheetViewerProps, 'resultsUserKey' | 'withoutTableOfContents'> {

@@ -1,7 +1,7 @@
 import { getDataOfTestCase, ONE_SECOND, SubmissionRunStatus } from '@juki-team/commons';
 import { T } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
-import { LogInfoProps } from '../types';
+import type { LogInfoProps } from '../types';
 
 const otherLimits = [ SubmissionRunStatus.COMPILING, SubmissionRunStatus.COMPILED, SubmissionRunStatus.COMPILATION_ERROR ];
 

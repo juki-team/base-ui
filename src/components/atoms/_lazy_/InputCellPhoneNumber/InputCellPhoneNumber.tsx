@@ -9,12 +9,12 @@ import {
   getCountries,
   getCountryCallingCode as libGetCountryCallingCode,
 } from 'libphonenumber-js';
-import { ReactNode, useId, useMemo, useState } from 'react';
-import { classNames } from '../../../helpers';
+import { type ReactNode, useId, useMemo, useState } from 'react';
 import { useUserStore } from '../../../../stores/user/useUserStore';
+import { classNames } from '../../../helpers';
 import { InputBase } from '../../Input/Input';
-import { InputCellPhoneNumberProps } from '../../Input/types';
 import { Select } from '../../Select/Select';
+import type { InputCellPhoneNumberProps } from './types';
 
 function isoToFlagEmoji(iso: string) {
   return iso

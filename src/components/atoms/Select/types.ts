@@ -1,5 +1,5 @@
 import type { ReactNode, Ref } from 'react';
-import { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
+import type { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
 import type { PlacementType } from '../_lazy_/Popover/types';
 
 export type SelectOptionType<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> = {

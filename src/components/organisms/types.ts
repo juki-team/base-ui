@@ -16,3 +16,6 @@ export type * from './PresentationToolButtons/types';
 export type * from './_layz_/WorksheetEditor/types';
 export type * from './_layz_/WorksheetAsSlides/types';
 export type * from './_layz_/WorksheetContents/types';
+export { MdMathEditorProps } from './_layz_/MdMathEditor/types';
+export { WorksheetViewerProps } from './_layz_/WorksheetViewer/types';
+export { OnPageChange } from './_layz_/WorksheetViewer/types';

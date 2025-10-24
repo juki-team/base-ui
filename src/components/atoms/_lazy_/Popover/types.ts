@@ -1,6 +1,6 @@
-import { Placement } from '@floating-ui/react';
-import { ReactNode } from 'react';
-import { ReactNodeOrFunctionP1Type, TriggerOnActionsType } from '../../../types';
+import { type Placement } from '@floating-ui/react';
+import { type ReactNode } from 'react';
+import type { ReactNodeOrFunctionP1Type, TriggerOnActionsType } from '../../../types';
 
 export interface PopoverProps {
   content: ReactNodeOrFunctionP1Type<{ isOpen: boolean, onClose: () => void }>,

@@ -1,7 +1,7 @@
 import { WorksheetsInPages } from '@juki-team/commons';
 import { Modal, T } from '../../../../atoms';
 import { BasicModalProps } from '../../../../atoms/Modal/types';
-import { OnPageChange } from '../types';
+import { OnPageChange } from '../../WorksheetViewer/types';
 import { TableOfContents } from './TableOfContents';
 
 interface TableOfContentsModalProps extends BasicModalProps {
