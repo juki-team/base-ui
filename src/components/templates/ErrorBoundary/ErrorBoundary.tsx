@@ -14,7 +14,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
     this.state = { hasError: false, errorPersist: false };
   }
   
-  static getDerivedStateFromError(error: any) {
+  static getDerivedStateFromError(error: Error) {
     // Update state so the next render will show the fallback UI
     consoleError('getDerivedStateFromError', { error });
     return { hasError: true };
@@ -25,7 +25,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
     const token = jukiApiManager.getToken();
     const location = window?.location;
     try {
-      const { url, ...options } = jukiApiManager.API_V1.log({
+      const { url, ...options } = jukiApiManager.API_V1.log.error({
         body: {
           location,
           token,
