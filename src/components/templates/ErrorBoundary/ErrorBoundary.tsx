@@ -1,8 +1,8 @@
 import { cleanRequest, consoleError, consoleInfo, type ContentsResponseType } from '@juki-team/commons';
 import { Component, type ErrorInfo, type ReactNode } from 'react';
-import { authorizedRequest } from '../../helpers';
 import { jukiApiManager } from '../../../settings';
 import { Button, T } from '../../atoms';
+import { authorizedRequest } from '../../helpers';
 import { HelpSection } from '../HelpSection/HelpSection';
 import type { ErrorBoundaryProps } from './types';
 
@@ -35,7 +35,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
           errorInfo,
         },
       });
-      const response = cleanRequest<ContentsResponseType<{}>>(await authorizedRequest(url, options));
+      const response = cleanRequest<ContentsResponseType<true>>(await authorizedRequest(url, options));
       if (response.success) {
         consoleInfo('Error reported');
       } else {

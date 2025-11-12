@@ -252,23 +252,40 @@ export class ApiManager {
           body: JSON.stringify(body),
         })),
       },
-      log: valid<
-        {
-          body: {
-            errorName: string,
-            errorMessage: string,
-            errorStack?: string,
-            errorInfo: ErrorInfo,
-            location: Location,
-            token: string
-          }
-        },
-        HTTPMethod.POST
-      >(({ body }) => ({
-        url: injectBaseUrl('log', `/error`),
-        method: HTTPMethod.POST,
-        body: JSON.stringify(body),
-      })),
+      log: {
+        error: valid<
+          {
+            body: {
+              errorName: string,
+              errorMessage: string,
+              errorStack?: string,
+              errorInfo: ErrorInfo,
+              location: Location,
+              token: string
+            }
+          },
+          HTTPMethod.POST
+        >(({ body }) => ({
+          url: injectBaseUrl('log', `/error`),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        info: valid<
+          {
+            body: {
+              infoName: string,
+              infoMessage: string,
+              location: Location,
+              token: string
+            }
+          },
+          HTTPMethod.POST
+        >(({ body }) => ({
+          url: injectBaseUrl('log', `/info`),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+      },
       user: {
         getSummary: valid<
           { params: { nickname: string, companyKey?: string } }
