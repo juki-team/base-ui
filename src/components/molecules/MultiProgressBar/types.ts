@@ -7,5 +7,6 @@ export interface CircularProgressProps {
 
 export interface MultiProgressBarProps {
   label?: ReactNode,
-  progress: { label?: string, percentage: number, color?: string }[];
+  progress: { label?: string | ReactNode, percentage: number, color?: string }[],
+  points?: { label?: string | ReactNode, percentage: number, color?: string }[],
 }

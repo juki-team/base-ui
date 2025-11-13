@@ -523,3 +523,9 @@
 .bs-bb {
   box-sizing: border-box;
 }
+
+.outline-hover {
+  &:hover {
+    outline: 2px solid var(--color);
+  }
+}

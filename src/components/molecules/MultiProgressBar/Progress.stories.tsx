@@ -16,11 +16,16 @@ export const Regular: Story = {
     <MockupJukiProvider>
       <div style={{ padding: '100px 50px' }}>
         <MultiProgressBar
-          progress={[ { label: 'test1', percentage: 10, color: 'red' }, {
-            label: 'test2',
-            percentage: 20,
-            color: 'green',
-          } ]}
+          progress={[
+            { label: 'test1', percentage: 10, color: 'red' },
+            { label: 'test2', percentage: 20, color: 'green' },
+          ]}
+          points={[
+            { label: 'test1', percentage: 0, color: 'blue' },
+            { label: 'test1', percentage: 10, color: 'var(--t-color-success)' },
+            { label: 'test1', percentage: 20, color: 'black' },
+            { label: 'test1', percentage: 100, color: 'yellow' },
+          ]}
         />
         <div>with label:</div>
         <MultiProgressBar

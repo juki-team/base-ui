@@ -1,22 +1,72 @@
+import { CSSProperties } from 'react';
 import { Popover } from '../../atoms';
 import type { MultiProgressBarProps } from './types';
 
-export function MultiProgressBar({ progress, label }: MultiProgressBarProps) {
+export function MultiProgressBar({ progress, points, label }: MultiProgressBarProps) {
   const content = (
-    <div className="jk-br-ie" style={{ width: '100%' }}>
+    <div className="jk-br-ie pn-re" style={{ width: '100%' }}>
       <div
         className="jk-row left jk-br-ie"
         style={{ width: '100%', overflow: 'hidden', background: 'var(--t-color-highlight-light)' }}
       >
         {progress.map(({ label, percentage, color }, index) => (
-          <div
-            key={index}
-            data-tooltip-id="jk-tooltip"
-            data-tooltip-content={label}
-            style={{ width: percentage + '%', background: color, height: 12 }}
-          />
+          typeof label === 'string'
+            ? (
+              <div
+                key={index}
+                data-tooltip-id="jk-tooltip"
+                data-tooltip-content={label}
+                style={{ width: percentage + '%', background: color, height: 12 }}
+              />
+            ) : (
+              <Popover content={label} key={index}>
+                <div
+                  style={{ width: percentage + '%', background: color, height: 12 }}
+                />
+              </Popover>
+            )
         ))}
       </div>
+      {points && (
+        <div
+          className="jk-row left jk-br-ie"
+          style={{ width: '100%', top: 0, left: 0 }}
+        >
+          {points.map(({ label, percentage, color }, index) => (
+            typeof label === 'string'
+              ? (
+                <div
+                  key={index}
+                  data-tooltip-id="jk-tooltip"
+                  data-tooltip-content={label}
+                  className="br-50-pc pn-ae outline-hover br-we elevation-1"
+                  style={{
+                    top: -1,
+                    left: `calc(${percentage}% - 6px)`,
+                    width: 12,
+                    height: 12,
+                    background: color,
+                    '--color': color,
+                  } as CSSProperties}
+                />
+              ) : (
+                <Popover content={label} key={index}>
+                  <div
+                    className="br-50-pc pn-ae outline-hover br-we elevation-1"
+                    style={{
+                      top: -1,
+                      left: `calc(${percentage}% - 6px)`,
+                      width: 12,
+                      height: 12,
+                      background: color,
+                      '--color': color,
+                    } as CSSProperties}
+                  />
+                </Popover>
+              )
+          ))}
+        </div>
+      )}
       {/*<div
         className="jk-row left tx-t fw-lr"
         style={{ width: '100%', overflow: 'hidden' }}
@@ -28,9 +78,10 @@ export function MultiProgressBar({ progress, label }: MultiProgressBarProps) {
     </div>
   );
   
-  return !!label ? (
-    <Popover content={label} placement="bottom" /*showPopperArrow*/>
-      {content}
-    </Popover>
-  ) : content;
+  return label
+    ? (
+      <Popover content={label} placement="bottom" /*showPopperArrow*/>
+        {content}
+      </Popover>
+    ) : content;
 }
