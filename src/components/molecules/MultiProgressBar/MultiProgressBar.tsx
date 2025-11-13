@@ -19,7 +19,7 @@ export function MultiProgressBar({ progress, points, label }: MultiProgressBarPr
                 style={{ width: percentage + '%', background: color, height: 12 }}
               />
             ) : (
-              <Popover content={label} key={index}>
+              <Popover content={label} key={index} popoverClassName="bc-we jk-br-ie elevation-1">
                 <div
                   style={{ width: percentage + '%', background: color, height: 12 }}
                 />
@@ -50,7 +50,7 @@ export function MultiProgressBar({ progress, points, label }: MultiProgressBarPr
                   } as CSSProperties}
                 />
               ) : (
-                <Popover content={label} key={index}>
+                <Popover content={label} key={index} popoverClassName="bc-we jk-br-ie elevation-1">
                   <div
                     className="br-50-pc pn-ae outline-hover br-we elevation-1"
                     style={{
