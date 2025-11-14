@@ -128,7 +128,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       {/*)}*/}
       {hasScrollLeft && (
         <div
-          className="expand-absolute"
+          className="expand-absolute pe-ne"
           style={{
             width: headersStickyWidth,
             zIndex: 3,
@@ -139,7 +139,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       )}
       {hasScrollRight && (
         <div
-          className="expand-absolute"
+          className="expand-absolute pe-ne"
           style={{
             width: withVerticalScroll ? 16 : 2,
             left: 'unset',
@@ -152,7 +152,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       )}
       {hasScrollBottom && (
         <div
-          className="expand-absolute"
+          className="expand-absolute pe-ne"
           style={{
             height: 1,
             top: 'unset',
