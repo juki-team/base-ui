@@ -8,9 +8,9 @@ import {
   type UserSummaryListResponseDTO,
 } from '@juki-team/commons';
 import { useEffect } from 'react';
-import { classNames } from '../../helpers';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { InputToggle, Popover, T } from '../../atoms';
+import { classNames } from '../../helpers';
 import { UserChip, UsersSelector } from '../../organisms';
 import { InfoIIcon } from '../../server';
 import type { DocumentCustomMembersContentProps } from './types';
@@ -164,7 +164,11 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
       <div>
         <T className="tt-se fw-bd">owner</T>
         <div className="jk-row extend left">
-          <UserChip nickname={documentOwner.nickname} imageUrl={documentOwner.imageUrl} />
+          <UserChip
+            nickname={documentOwner.nickname}
+            companyKey={documentOwner.company?.key}
+            imageUrl={documentOwner.imageUrl}
+          />
         </div>
       </div>
       {administrators !== undefined && (

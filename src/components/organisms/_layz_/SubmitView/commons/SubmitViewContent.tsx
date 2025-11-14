@@ -110,7 +110,13 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
             data={[
               {
                 title: <T className="fw-bd tt-se">nickname</T>,
-                content: <UserChip imageUrl={submit.user.imageUrl} nickname={submit.user.nickname} />,
+                content: (
+                  <UserChip
+                    imageUrl={submit.user.imageUrl}
+                    nickname={submit.user.nickname}
+                    companyKey={submit.user.company?.key}
+                  />
+                ),
               },
               {
                 title: <T className="fw-bd tt-se">problem</T>,

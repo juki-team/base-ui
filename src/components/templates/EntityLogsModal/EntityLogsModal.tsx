@@ -1,6 +1,6 @@
 import { type ContentResponseType, isObjectJson, type LogDataResponseDTO } from '@juki-team/commons';
-import { classNames } from '../../helpers';
 import { DateLiteral, Modal, T } from '../../atoms';
+import { classNames } from '../../helpers';
 import { FetcherLayer } from '../../molecules';
 import { UserChip } from '../../organisms';
 import type { EntityLogsModalProps } from './types';
@@ -17,7 +17,11 @@ export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {
                 <div key={index} className="jk-col stretch jk-pg-sm-tb">
                   <div className="jk-row gap center">
                     <DateLiteral date={new Date(timestamp)} />
-                    <UserChip imageUrl={customerUser.imageUrl} nickname={customerUser.nickname} />
+                    <UserChip
+                      imageUrl={customerUser.imageUrl}
+                      nickname={customerUser.nickname}
+                      companyKey={customerUser.company?.key}
+                    />
                   </div>
                   <div className="jk-col gap stretch">
                     {changes.map(({ type, valueType, oldValue, value, path }, index) => (
