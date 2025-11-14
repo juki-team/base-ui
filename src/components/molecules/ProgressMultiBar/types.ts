@@ -11,4 +11,5 @@ export interface MultiProgressBarProps {
   points?: { label?: string | ReactNode, percentage: number, color?: string }[],
   height?: number,
   className?: string,
+  tooltipPlacement?: 'top' | 'bottom',
 }

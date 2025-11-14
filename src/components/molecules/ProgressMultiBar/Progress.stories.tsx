@@ -35,6 +35,10 @@ export const Regular: Story = {
               { label: 'test1', percentage: 10, color: 'red' },
               { label: <div className="jk-pg-xsm">test 2</div>, percentage: 20, color: 'green' },
             ]}
+            points={[
+              { label: <div className="jk-pg-xsm">test1</div>, percentage: 10, color: 'var(--t-color-success)' },
+            ]}
+            tooltipPlacement="bottom"
           />
           <ProgressSlide progress={80} className="expand-absolute pe-ne" />
         </div>

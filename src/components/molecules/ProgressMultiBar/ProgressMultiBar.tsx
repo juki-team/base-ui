@@ -2,7 +2,13 @@ import { type CSSProperties } from 'react';
 import { Popover } from '../../atoms';
 import type { MultiProgressBarProps } from './types';
 
-export function ProgressMultiBar({ progress, points, label, height = 12 }: MultiProgressBarProps) {
+export function ProgressMultiBar({
+                                   progress,
+                                   points,
+                                   label,
+                                   height = 12,
+                                   tooltipPlacement = 'top',
+                                 }: MultiProgressBarProps) {
   const content = (
     <div className="jk-br-ie pn-re" style={{ width: '100%' }}>
       <div
@@ -15,6 +21,7 @@ export function ProgressMultiBar({ progress, points, label, height = 12 }: Multi
               <div
                 key={index}
                 data-tooltip-id="jk-tooltip"
+                data-tooltip-place={tooltipPlacement}
                 data-tooltip-content={label}
                 style={{
                   width: percentage + '%',
@@ -33,7 +40,13 @@ export function ProgressMultiBar({ progress, points, label, height = 12 }: Multi
                 className="outline-hover"
               />
             ) : (
-              <Popover content={label} key={index} popoverClassName="bc-we jk-br-ie elevation-1" offset={4}>
+              <Popover
+                content={label}
+                key={index}
+                popoverClassName="bc-we jk-br-ie elevation-1"
+                offset={4}
+                placement={tooltipPlacement}
+              >
                 <div
                   style={{
                     width: percentage + '%',
@@ -59,6 +72,7 @@ export function ProgressMultiBar({ progress, points, label, height = 12 }: Multi
                 <div
                   key={index}
                   data-tooltip-id="jk-tooltip"
+                  data-tooltip-place={tooltipPlacement}
                   data-tooltip-content={label}
                   className="br-50-pc pn-ae outline-hover br-we elevation-1"
                   style={{
@@ -68,10 +82,17 @@ export function ProgressMultiBar({ progress, points, label, height = 12 }: Multi
                     height,
                     background: color,
                     '--color': color,
+                    zIndex: 1,
                   } as CSSProperties}
                 />
               ) : (
-                <Popover content={label} key={index} popoverClassName="bc-we jk-br-ie elevation-1" offset={6}>
+                <Popover
+                  content={label}
+                  key={index}
+                  popoverClassName="bc-we jk-br-ie elevation-1"
+                  offset={6}
+                  placement={tooltipPlacement}
+                >
                   <div
                     className="br-50-pc pn-ae outline-hover br-we elevation-1"
                     style={{
@@ -81,6 +102,7 @@ export function ProgressMultiBar({ progress, points, label, height = 12 }: Multi
                       height,
                       background: color,
                       '--color': color,
+                      zIndex: 1,
                     } as CSSProperties}
                   />
                 </Popover>
@@ -93,7 +115,7 @@ export function ProgressMultiBar({ progress, points, label, height = 12 }: Multi
   
   return label
     ? (
-      <Popover content={label} placement="bottom" /*showPopperArrow*/>
+      <Popover content={label} placement={tooltipPlacement}>
         {content}
       </Popover>
     ) : content;
