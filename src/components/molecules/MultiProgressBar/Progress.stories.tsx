@@ -18,11 +18,11 @@ export const Regular: Story = {
         <MultiProgressBar
           progress={[
             { label: 'test1', percentage: 10, color: 'red' },
-            { label: 'test2', percentage: 20, color: 'green' },
+            { label: <div className="jk-pg-xsm">test 2</div>, percentage: 20, color: 'green' },
           ]}
           points={[
             { label: 'test1', percentage: 0, color: 'blue' },
-            { label: 'test1', percentage: 10, color: 'var(--t-color-success)' },
+            { label: <div className="jk-pg-xsm">test1</div>, percentage: 10, color: 'var(--t-color-success)' },
             { label: 'test1', percentage: 20, color: 'black' },
             { label: 'test1', percentage: 100, color: 'yellow' },
           ]}
