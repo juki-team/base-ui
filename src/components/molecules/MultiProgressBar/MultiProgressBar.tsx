@@ -67,14 +67,6 @@ export function MultiProgressBar({ progress, points, label }: MultiProgressBarPr
           ))}
         </div>
       )}
-      {/*<div
-        className="jk-row left tx-t fw-lr"
-        style={{ width: '100%', overflow: 'hidden' }}
-      >
-        {progress.map(({ label, percentage, color }, index) => (
-          <div key={index} className="ta-cr" style={{ width: percentage + '%' }}>{label}</div>
-        ))}
-      </div>*/}
     </div>
   );
   
