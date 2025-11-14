@@ -1,6 +1,20 @@
-export const contestStateMap = {
-  [[ true, false, false, false ].toString()]: { order: 0, label: 'past', bc: 'bc-g5' },
-  [[ false, true, false, false ].toString()]: { order: 1, label: 'live', bc: 'bc-er' },
-  [[ false, false, true, false ].toString()]: { order: 2, label: 'upcoming', bc: 'bc-ss' },
-  [[ false, false, false, true ].toString()]: { order: 3, label: 'endless', bc: 'bc-io' },
+import { type ContestTimeData } from '@juki-team/commons';
+
+export const getContestState = (contest: ContestTimeData) => {
+  if (contest.isGlobal) {
+    return { order: 0, label: 'global', bc: 'bc-io' };
+  }
+  if (contest.isEndless) {
+    return { order: 1, label: 'endless', bc: 'bc-io' };
+  }
+  if (contest.isPast) {
+    return { order: 2, label: 'past', bc: 'bc-g5' };
+  }
+  if (contest.isLive) {
+    return { order: 3, label: 'live', bc: 'bc-er' };
+  }
+  if (contest.isFuture) {
+    return { order: 4, label: 'upcoming', bc: 'bc-ss' };
+  }
+  return { order: 5, label: '-', bc: 'bc-g5' };
 };

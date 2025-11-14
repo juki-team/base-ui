@@ -1,6 +1,6 @@
 import { type ContestSummaryListResponseDTO } from '@juki-team/commons';
 import { T } from '../../../atoms';
-import { contestStateMap } from '../../../helpers';
+import { getContestState } from '../../../helpers';
 import { Field } from '../../../organisms';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 
@@ -10,20 +10,8 @@ export function getContestStatusHeader(): DataViewerHeadersType<ContestSummaryLi
     index: 'status',
     Field: ({ record: contest }) => (
       <Field className="jk-row pad">
-        <div
-          className={`jk-tag cr-we ${contestStateMap[[
-            contest.isPast,
-            contest.isLive,
-            contest.isFuture,
-            contest.isEndless,
-          ].toString()]?.bc ?? ''}`}
-        >
-          <T className="tt-ue tx-s">{contestStateMap[[
-            contest.isPast,
-            contest.isLive,
-            contest.isFuture,
-            contest.isEndless,
-          ].toString()]?.label ?? ''}</T>
+        <div className={`jk-tag cr-we ${getContestState(contest).bc}`}>
+          <T className="tt-ue tx-s">{getContestState(contest).label}</T>
         </div>
       </Field>
     ),
