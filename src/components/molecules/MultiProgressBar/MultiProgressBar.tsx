@@ -40,9 +40,9 @@ export function MultiProgressBar({ progress, points, label, height = 12 }: Multi
                   className="br-50-pc pn-ae outline-hover br-we elevation-1"
                   style={{
                     top: -1,
-                    left: `calc(${percentage}% - 6px)`,
-                    width: 12,
-                    height: 12,
+                    left: `calc(${percentage}% - ${height / 2}px)`,
+                    width: height,
+                    height,
                     background: color,
                     '--color': color,
                   } as CSSProperties}
@@ -53,9 +53,9 @@ export function MultiProgressBar({ progress, points, label, height = 12 }: Multi
                     className="br-50-pc pn-ae outline-hover br-we elevation-1"
                     style={{
                       top: -1,
-                      left: `calc(${percentage}% - 6px)`,
-                      width: 12,
-                      height: 12,
+                      left: `calc(${percentage}% - ${height / 2}px)`,
+                      width: height,
+                      height,
                       background: color,
                       '--color': color,
                     } as CSSProperties}
