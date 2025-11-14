@@ -3,13 +3,13 @@ import {
   ERROR,
   ErrorCode,
   ErrorResponseType,
+  HEADER_JUKI_FORWARDED_HOST,
+  HEADER_JUKI_METADATA,
+  HEADER_JUKI_SESSION_ID,
   HTTPMethod,
-  JUKI_FORWARDED_HOST,
-  JUKI_METADATA,
-  JUKI_SESSION_ID,
 } from '@juki-team/commons';
-import { AuthorizedRequestType } from '../types';
 import { jukiApiManager } from '../../settings';
+import { AuthorizedRequestType } from '../types';
 
 export const authorizedRequest = async <M extends Exclude<HTTPMethod, HTTPMethod.GET> = HTTPMethod.POST, N extends Blob | string = string>(url: string, options?: AuthorizedRequestType<M>, safe?: boolean): Promise<N> => {
   return _authorizedRequest(url, options, safe);
@@ -25,7 +25,7 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
   
   const requestHeaders = new Headers(headers ?? {});
   requestHeaders.set('accept', 'application/json');
-  requestHeaders.set(JUKI_FORWARDED_HOST, window?.location?.host);
+  requestHeaders.set(HEADER_JUKI_FORWARDED_HOST, window?.location?.host);
   
   if (!(body instanceof FormData)) {
     requestHeaders.set('content-type', 'application/json');
@@ -34,7 +34,7 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
   const token = options?.token || jukiApiManager.getToken();
   
   if (token) {
-    requestHeaders.set(JUKI_SESSION_ID, token);
+    requestHeaders.set(HEADER_JUKI_SESSION_ID, token);
   }
   
   try {
@@ -45,9 +45,8 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
       ...(body ? { body } : {}),
       ...(signal ? { signal } : {}),
       cache,
-      // @ts-ignore
       next,
-    });
+    } as RequestInit);
     try {
       if (responseType === 'blob') {
         return await response.blob() as N;
@@ -93,13 +92,13 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
 export const getHeaders = (jukiSessionId: string): HeadersInit => ({
   origin: 'https://juki.app',
   referer: 'https://juki.app',
-  [JUKI_SESSION_ID]: jukiSessionId,
-  [JUKI_FORWARDED_HOST]: 'juki.app',
+  [HEADER_JUKI_SESSION_ID]: jukiSessionId,
+  [HEADER_JUKI_FORWARDED_HOST]: 'juki.app',
 });
 
 export const getMetaHeaders = (): HeadersInit => ({
   origin: 'https://juki.app',
   referer: 'https://juki.app',
-  [JUKI_METADATA]: 'true',
-  [JUKI_FORWARDED_HOST]: 'juki.app',
+  [HEADER_JUKI_METADATA]: 'true',
+  [HEADER_JUKI_FORWARDED_HOST]: 'juki.app',
 });
