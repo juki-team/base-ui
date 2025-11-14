@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import { Popover } from '../../atoms';
 import type { MultiProgressBarProps } from './types';
 
-export function MultiProgressBar({ progress, points, label }: MultiProgressBarProps) {
+export function MultiProgressBar({ progress, points, label, height = 12 }: MultiProgressBarProps) {
   const content = (
     <div className="jk-br-ie pn-re" style={{ width: '100%' }}>
       <div
@@ -16,13 +16,11 @@ export function MultiProgressBar({ progress, points, label }: MultiProgressBarPr
                 key={index}
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content={label}
-                style={{ width: percentage + '%', background: color, height: 12 }}
+                style={{ width: percentage + '%', background: color, height }}
               />
             ) : (
               <Popover content={label} key={index} popoverClassName="bc-we jk-br-ie elevation-1" offset={4}>
-                <div
-                  style={{ width: percentage + '%', background: color, height: 12 }}
-                />
+                <div style={{ width: percentage + '%', background: color, height }} />
               </Popover>
             )
         ))}
