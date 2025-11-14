@@ -37,14 +37,14 @@ import {
 import type { ProblemStatementViewProps } from '../types';
 import { SampleTest } from './SampleTest';
 
-export const ProblemStatementView = ({
-                                       problem,
-                                       contest,
-                                       infoPlacement,
-                                       withoutName,
-                                       forPrinting,
-                                       withoutDownloadButtons,
-                                     }: ProblemStatementViewProps) => {
+export const ProblemStatementView = <T, >({
+                                            problem,
+                                            contest,
+                                            infoPlacement,
+                                            withoutName,
+                                            forPrinting,
+                                            withoutDownloadButtons,
+                                          }: ProblemStatementViewProps<T>) => {
   
   const {
     judge: { key: judgeKey, isExternal, name: judgeName },
