@@ -26,3 +26,28 @@
   transition: stroke-dasharray 0.3s linear 0s;
   stroke: var(--t-color-info);
 }
+
+.jk-progress-slide {
+  .slide {
+    --speed: 2s;
+    --stripeWidth: calc(var(--height) * 1px);
+    background-image: repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent calc(var(--stripeWidth) / 2),
+                    var(--color) calc(var(--stripeWidth) / 2),
+                    var(--color) var(--stripeWidth)
+    );
+    animation: slide calc(var(--width) * 50ms) linear infinite;
+    will-change: background-position;
+    
+    @keyframes slide {
+      from {
+        background-position-x: 0;
+      }
+      to {
+        background-position-x: calc(var(--width) * 1px);
+      }
+    }
+  }
+}

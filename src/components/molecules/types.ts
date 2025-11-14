@@ -9,7 +9,7 @@ export type * from './FloatToolbar/types';
 export type * from './HomeLink/types';
 export type * from './_lazy_/ImageLoaderCropper/types';
 export type * from './LinkLastPath/types';
-export type * from './MultiProgressBar/types';
+export type * from './ProgressMultiBar/types';
 export type * from './MultiSelectSearchable/types';
 export type * from './SplitModal/types';
 export type * from './SplitPane/types';

@@ -286,7 +286,7 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
             if (isFilterSelectAutoOffline(head?.filter)) {
               const value = head.filter.getValue
                 ? head.filter.getValue({ record: datum })
-                : datum[head.index] as any;
+                : datum[head.index];
               return !!selectedOptions.find(option => option.value === value);
             }
             return false;
@@ -598,7 +598,7 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
       
       return newHead;
     })));
-  }, [ deleteFilter, deleteSort, headers, setFilter, setSort, t, searchVisibles /*to trigger render of headers*/ ]);
+  }, [ deleteFilter, deleteSort, headers, setFilter, setSort, t, filtersRef, searchSortsRef, setVisibles, searchVisibles /*to trigger render of headers*/ ]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
     const newSearchFilter = { ...filters };
@@ -607,7 +607,7 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
       if (filter?.type === FILTER_TEXT || filter?.type === FILTER_TEXT_AUTO) {
         newSearchFilter[columnIndex] = value as string;
       } else if (filter?.type === FILTER_SELECT || filter?.type === FILTER_SELECT_AUTO) {
-        newSearchFilter[columnIndex] = join((values[columnIndex] as OptionType<any>[]
+        newSearchFilter[columnIndex] = join((values[columnIndex] as OptionType<string>[]
           || []).filter(({ value }) => !!filter.options.find(option => option.value === value))
           .map(({ value }) => value));
       } else if (filter?.type === FILTER_DATE || filter?.type === FILTER_DATE_AUTO) {

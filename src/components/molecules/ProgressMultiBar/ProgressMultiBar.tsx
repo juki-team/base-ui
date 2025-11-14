@@ -1,13 +1,13 @@
-import { CSSProperties } from 'react';
+import { type CSSProperties } from 'react';
 import { Popover } from '../../atoms';
 import type { MultiProgressBarProps } from './types';
 
-export function MultiProgressBar({ progress, points, label, height = 12 }: MultiProgressBarProps) {
+export function ProgressMultiBar({ progress, points, label, height = 12 }: MultiProgressBarProps) {
   const content = (
     <div className="jk-br-ie pn-re" style={{ width: '100%' }}>
       <div
         className="jk-row left jk-br-ie"
-        style={{ width: '100%', overflow: 'hidden', background: 'var(--t-color-highlight-light)' }}
+        style={{ width: '100%', background: 'var(--t-color-highlight-light)' }}
       >
         {progress.map(({ label, percentage, color }, index) => (
           typeof label === 'string'
@@ -16,11 +16,34 @@ export function MultiProgressBar({ progress, points, label, height = 12 }: Multi
                 key={index}
                 data-tooltip-id="jk-tooltip"
                 data-tooltip-content={label}
-                style={{ width: percentage + '%', background: color, height }}
+                style={{
+                  width: percentage + '%',
+                  background: color,
+                  height,
+                  '--color': color,
+                  ...(index === progress.length - 1 ? {
+                    borderTopRightRadius: 'var(--border-radius-inline)',
+                    borderBottomRightRadius: 'var(--border-radius-inline)',
+                  } : {}),
+                  ...(index === 0 ? {
+                    borderTopLeftRadius: 'var(--border-radius-inline)',
+                    borderBottomLeftRadius: 'var(--border-radius-inline)',
+                  } : {}),
+                } as CSSProperties}
+                className="outline-hover"
               />
             ) : (
               <Popover content={label} key={index} popoverClassName="bc-we jk-br-ie elevation-1" offset={4}>
-                <div style={{ width: percentage + '%', background: color, height }} />
+                <div
+                  style={{
+                    width: percentage + '%',
+                    background: color,
+                    height,
+                    '--color': color,
+                    ...(index === progress.length - 1 ? { borderRadius: '0 var(--border-radius-inline) var(--border-radius-inline) 0' } : {}),
+                  } as CSSProperties}
+                  className="outline-hover jk-br-ie"
+                />
               </Popover>
             )
         ))}

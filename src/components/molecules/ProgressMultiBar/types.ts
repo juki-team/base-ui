@@ -10,4 +10,5 @@ export interface MultiProgressBarProps {
   progress: { label?: string | ReactNode, percentage: number, color?: string }[],
   points?: { label?: string | ReactNode, percentage: number, color?: string }[],
   height?: number,
+  className?: string,
 }

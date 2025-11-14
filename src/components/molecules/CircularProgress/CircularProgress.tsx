@@ -1,5 +1,5 @@
 import { type CSSProperties } from 'react';
-import type { CircularProgressProps } from '../MultiProgressBar/types';
+import type { CircularProgressProps } from '../ProgressMultiBar/types';
 
 export function CircularProgress({ progress, size = 96 }: CircularProgressProps) {
   return (
