@@ -90,15 +90,15 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
 };
 
 export const getHeaders = (jukiSessionId: string): HeadersInit => ({
-  origin: 'https://juki.app',
-  referer: 'https://juki.app',
+  origin: typeof window !== 'undefined' ? window.location.origin : 'https://juki.app',
+  referer: typeof window !== 'undefined' ? window.location.origin + '/' : 'https://juki.app/',
   [HEADER_JUKI_SESSION_ID]: jukiSessionId,
   [HEADER_JUKI_FORWARDED_HOST]: 'juki.app',
 });
 
 export const getMetaHeaders = (): HeadersInit => ({
-  origin: 'https://juki.app',
-  referer: 'https://juki.app',
+  origin: typeof window !== 'undefined' ? window.location.origin : 'https://juki.app',
+  referer: typeof window !== 'undefined' ? window.location.origin + '/' : 'https://juki.app/',
   [HEADER_JUKI_METADATA]: 'true',
   [HEADER_JUKI_FORWARDED_HOST]: 'juki.app',
 });
