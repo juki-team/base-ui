@@ -10,8 +10,8 @@ export function getContestStatusHeader(): DataViewerHeadersType<ContestSummaryLi
     index: 'status',
     Field: ({ record: contest }) => (
       <Field className="jk-row pad">
-        <div className={`jk-tag cr-we ${getContestState(contest).bc}`}>
-          <T className="tt-ue tx-s">{getContestState(contest).label}</T>
+        <div className={`jk-tag cr-we ${getContestState(contest)?.bc}`}>
+          <T className="tt-ue tx-s">{getContestState(contest)?.label}</T>
         </div>
       </Field>
     ),
