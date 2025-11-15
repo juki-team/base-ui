@@ -36,7 +36,7 @@ export const Regular: FC<BasicIconProps> = (args) => {
       <h3>BalloonIcon</h3>
       <div className="jk-row block gap">
         <div className="jk-row gap extend nowrap">
-          <InputColor color={color} onChange={setColor} label="color" />
+          <InputColor value={color} onChange={setColor} label="color" />
           <Input
             type="number"
             onChange={setPercent}

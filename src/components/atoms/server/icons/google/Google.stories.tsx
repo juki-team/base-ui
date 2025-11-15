@@ -414,7 +414,7 @@ export const Google: FC<BasicIconProps> = (args) => {
       <h3>icons</h3>
       <div className="jk-row extend">
         <InputColor
-          color={color}
+          value={color}
           onChange={setColor}
           label={<T className="tt-se">color</T>}
         />
@@ -435,7 +435,7 @@ export const Google: FC<BasicIconProps> = (args) => {
             iconName1.localeCompare(iconName2),
           )
           .map(([ iconName, Component ]) => (
-            <div className="jk-row gap nowrap center">
+            <div className="jk-row gap nowrap center" key={iconName}>
               <Component {...args} />
               <div className="tx-t cr-g1" style={{ width: 140 }}>
                 {iconName}

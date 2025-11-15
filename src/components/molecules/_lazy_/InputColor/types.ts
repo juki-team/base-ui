@@ -3,10 +3,7 @@ import type { ColorResult } from 'react-color';
 
 import { InputCommonsProps } from '../../../types';
 
-export type Color = ColorResult;
-
-export interface InputColorProps extends InputCommonsProps<Color> {
-  color?: Color | string,
-  onChange?: (newColor: Color) => void,
+export interface InputColorProps extends Omit<InputCommonsProps<ColorResult | string>, 'onChange'> {
+  onChange?: (newColor: ColorResult) => void,
   children?: ReactElement,
 }

@@ -1,25 +1,25 @@
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../../mockup';
 import { InputColor as ColorPickerComponent } from './';
-import { Color } from './types';
 
 export default {
   component: ColorPickerComponent,
 };
 
 export const InputColor = () => {
-  const [ color, setColor ] = useState<Color>();
+  const [ color, setColor ] = useState<string>();
   
   return (
     <MockupJukiProvider>
       <div className="jk-row">
+        {color}
         <ColorPickerComponent
           label="color"
           labelPlacement="left"
-          color={color}
+          value={color}
           onChange={(color) => {
             console.info(color);
-            setColor(color);
+            setColor(color?.hex);
           }}
         />
       </div>
