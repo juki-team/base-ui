@@ -7,6 +7,7 @@ export default {
 };
 
 export const InputColor = () => {
+  
   const [ color, setColor ] = useState<string>();
   
   return (
