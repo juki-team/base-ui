@@ -1,15 +1,28 @@
-import { EntityAccess, EntityMembersResponseDTO, UserCompanyBasicInfoResponseDTO } from '@juki-team/commons';
+import {
+  DocumentMemberResponseDTO,
+  EntityAccess,
+  EntityMembersResponseDTO,
+  UserCompanyBasicInfoResponseDTO,
+} from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
+
+type MemberObj = {
+  name?: string,
+  description?: ReactNode,
+  closeable?: boolean,
+  readOnly?: boolean,
+  renderMember?: (member: DocumentMemberResponseDTO) => ReactNode
+};
 
 export interface DocumentCustomMembersContentProps {
   members: EntityMembersResponseDTO,
   setMembers?: Dispatch<SetStateAction<EntityMembersResponseDTO>>,
   documentOwner: UserCompanyBasicInfoResponseDTO,
-  administrators?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
-  managers?: { name?: string, description?: ReactNode, readOnly?: boolean },
-  participants?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
-  guests?: { name?: string, description?: ReactNode, closeable?: boolean, readOnly?: boolean },
-  spectators?: { name?: string, description?: ReactNode, readOnly?: boolean },
+  administrators?: MemberObj,
+  managers?: Omit<MemberObj, 'closeable'>,
+  participants?: MemberObj,
+  guests?: MemberObj,
+  spectators?: Omit<MemberObj, 'closeable'>,
   entityAccess?: {
     [EntityAccess.PRIVATE]?: { name?: string, description?: string },
     [EntityAccess.RESTRICTED]?: { name?: string, description?: string },

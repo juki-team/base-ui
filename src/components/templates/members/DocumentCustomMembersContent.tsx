@@ -1,4 +1,5 @@
 import {
+  DocumentMemberResponseDTO,
   EntityAccess,
   EntityMembersRank,
   type EntityMembersResponseDTO,
@@ -7,7 +8,7 @@ import {
   MemberType,
   type UserSummaryListResponseDTO,
 } from '@juki-team/commons';
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { InputToggle, Popover, T } from '../../atoms';
 import { classNames } from '../../helpers';
@@ -15,7 +16,10 @@ import { UserChip, UsersSelector } from '../../organisms';
 import { InfoIIcon } from '../../server';
 import type { DocumentCustomMembersContentProps } from './types';
 
-function PrintUsers({ members }: { members?: EntityMembersResponseDTO['spectators'] }) {
+function PrintUsers({ members, renderMember }: {
+  members?: EntityMembersResponseDTO['spectators'],
+  renderMember?: (member: DocumentMemberResponseDTO) => ReactNode
+}) {
   const users = Object.values(members || {});
   
   if (!users.length) {
@@ -24,8 +28,17 @@ function PrintUsers({ members }: { members?: EntityMembersResponseDTO['spectator
   
   return (
     <div className="jk-row left gap">
-      {users.map(({ nickname, imageUrl, company: { key: companyKey } }) => (
-        <UserChip imageUrl={imageUrl} nickname={nickname} key={nickname} companyKey={companyKey} />
+      {users.map(member => (
+        renderMember
+          ? renderMember(member)
+          : (
+            <UserChip
+              imageUrl={member.imageUrl}
+              nickname={member.nickname}
+              key={member.nickname}
+              companyKey={member.company.key}
+            />
+          )
       ))}
     </div>
   );
@@ -229,7 +242,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                 }}
                 companyKey={companyKey}
               />
-            ) : <PrintUsers members={members.administrators} />
+            ) : <PrintUsers members={members.administrators} renderMember={administrators.renderMember} />
           )}
         </div>
       )}
@@ -291,7 +304,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                 }}
                 companyKey={companyKey}
               />
-            ) : <PrintUsers members={members.managers} />
+            ) : <PrintUsers members={members.managers} renderMember={managers.renderMember} />
           )}
         </div>
       )}
@@ -353,7 +366,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                 }}
                 companyKey={companyKey}
               />
-            ) : <PrintUsers members={members.participants} />
+            ) : <PrintUsers members={members.participants} renderMember={participants.renderMember} />
           )}
         </div>
       )}
@@ -415,7 +428,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                 }}
                 companyKey={companyKey}
               />
-            ) : <PrintUsers members={members.guests} />
+            ) : <PrintUsers members={members.guests} renderMember={guests.renderMember} />
           )}
         </div>
       )}
@@ -477,7 +490,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                 }}
                 companyKey={companyKey}
               />
-            ) : <PrintUsers members={members.spectators} />
+            ) : <PrintUsers members={members.spectators} renderMember={spectators.renderMember} />
           )}
         </div>
       )}

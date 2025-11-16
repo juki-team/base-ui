@@ -479,6 +479,12 @@ export class ApiManager {
           url: injectCompany(injectBaseUrl('contest', `/${key}/data`), companyKey),
           method: HTTPMethod.GET,
         })),
+        getEvents: valid<
+          { params: { key: string, companyKey?: string } }
+        >(({ params: { key, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/events`), companyKey),
+          method: HTTPMethod.GET,
+        })),
         getLogs: valid<
           { params: { key: string, companyKey?: string } }
         >(({ params: { key, companyKey } }) => ({

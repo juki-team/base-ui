@@ -58,6 +58,16 @@ const Cmp = (args: DocumentCustomMembersContentProps) => {
         spectators={{}}
         participants={{ closeable: true }}
       />
+      READ ONLY:
+      <DocumentMembersContent
+        members={members}
+        documentOwner={dummyOwner}
+        administrators={{}}
+        managers={{}}
+        guests={{ closeable: true, renderMember: ({ nickname }) => <div>user: {nickname}</div> }}
+        spectators={{}}
+        participants={{ closeable: true }}
+      />
     </div>
   );
 };
