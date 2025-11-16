@@ -17,7 +17,7 @@ export function SubmissionLanguageField({
       ? null
       : <Field>
         <SubmissionInfo submitId={submitId} canViewSourceCode={canViewSourceCode}>
-          <div className="jk-col extend">{languagesByJudge[judgeKey]?.languages[language]?.label || language}</div>
+          <div className="jk-col extend link">{languagesByJudge[judgeKey]?.languages[language]?.label || language}</div>
         </SubmissionInfo>
       </Field>
   );

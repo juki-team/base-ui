@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { jukiAppRoutes } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { CopyToClipboard, Modal, T } from '../../atoms';
@@ -16,6 +16,10 @@ export function SubmissionContentModal({ submitId, ...modalProps }: SubmissionMo
   
   const { Link } = useUIStore(store => store.components);
   const [ triggerFetch, setTriggerFetch ] = useState(0);
+  
+  useEffect(() => {
+    setTriggerFetch(Date.now());
+  }, [ modalProps.isOpen ]);
   
   return (
     <Modal closeIcon expand className="submission-modal" {...modalProps}>

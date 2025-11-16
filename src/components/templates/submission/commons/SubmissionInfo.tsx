@@ -32,7 +32,7 @@ export function SubmissionInfo({ submitId, canViewSourceCode, children }: PropsW
   
   if (canViewSourceCode) {
     return (
-      <Link href={{ query: searchParams.toString() }}>
+      <Link href={{ query: searchParams.toString() }} className="link">
         {children}
       </Link>
     );

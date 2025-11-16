@@ -21,15 +21,17 @@ export function SubmissionNicknameField({
       className="gap"
       text={
         <>
-          <Image src={imageUrl} className="jk-user-profile-img large" alt={nickname} height={36} width={36} />
           <UserNicknameLink nickname={nickname} companyKey={companyKey}>
-            <div className="jk-col">
-              <div className="link">{nickname}</div>
-              {key !== companyKey && (
-                <div className="jk-tag bc-io tx-t" style={{ padding: '1px 2px' }}>{companyKey}</div>
-              )}
-            </div>
+            <Image src={imageUrl} className="jk-user-profile-img large" alt={nickname} height={36} width={36} />
           </UserNicknameLink>
+          <div className="jk-col">
+            <UserNicknameLink nickname={nickname} companyKey={companyKey}>
+              <div className="link">{nickname}</div>
+            </UserNicknameLink>
+            {key !== companyKey && (
+              <div className="jk-tag bc-io tx-t" style={{ padding: '1px 2px' }}>{companyKey}</div>
+            )}
+          </div>
         </>
       }
       label="user nickname"
