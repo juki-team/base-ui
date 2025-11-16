@@ -224,7 +224,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           ) : (
             <T className="tt-se">{`all users will be ${administratorsLabel}`}</T>
           )}
-          {members.rankAdministrators === EntityMembersRank.CLOSE && (
+          {(members.rankAdministrators === EntityMembersRank.CLOSE || members.rankAdministrators === EntityMembersRank.OPEN) && (
             administrators && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.administrators ?? {})}
@@ -286,7 +286,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           ) : (
             <T className="tt-se">{`all users will be ${managersLabel}`}</T>
           )}
-          {members.rankManagers === EntityMembersRank.CLOSE && (
+          {(members.rankManagers === EntityMembersRank.CLOSE || members.rankManagers === EntityMembersRank.OPEN) && (
             managers && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.managers ?? {})}
@@ -348,7 +348,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           ) : (
             <T className="tt-se">{`all users will be ${participantsLabel}`}</T>
           )}
-          {members.rankParticipants === EntityMembersRank.CLOSE && (
+          {(members.rankParticipants === EntityMembersRank.CLOSE || members.rankParticipants === EntityMembersRank.OPEN) && (
             participants && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.participants ?? {})}
@@ -410,7 +410,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           ) : (
             <T className="tt-se">{`all users will be ${guestsLabel}`}</T>
           )}
-          {members.rankGuests === EntityMembersRank.CLOSE && (
+          {(members.rankGuests === EntityMembersRank.CLOSE || members.rankGuests === EntityMembersRank.OPEN) && (
             guests && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.guests ?? {})}
@@ -472,7 +472,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
           ) : (
             <T className="tt-se">{`all users will be ${spectatorsLabel}`}</T>
           )}
-          {members.rankSpectators === EntityMembersRank.CLOSE && (
+          {(members.rankSpectators === EntityMembersRank.CLOSE || members.rankSpectators === EntityMembersRank.OPEN) && (
             spectators && setMembers ? (
               <UsersSelector
                 selectedUsers={Object.keys(members.spectators ?? {})}
