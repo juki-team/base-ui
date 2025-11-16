@@ -12,6 +12,7 @@ export function SubmissionContestProblemField(props: SubmissionContestProblemFie
   const {
     record: { problem: { key: problemKey, name: problemName, company: { key: problemCompanyKey } }, contest },
     isCard,
+    contest: colContest,
   } = props;
   
   const { Link } = useUIStore(store => store.components);
@@ -32,9 +33,15 @@ export function SubmissionContestProblemField(props: SubmissionContestProblemFie
           className="link"
         >
           <div className="jk-col">
-            <div className="jk-row">
-              {contest.name}&nbsp;({contest.problemIndex || '-'})
-            </div>
+            {colContest?.key === contest.key ? (
+              <div className="jk-row">
+                ({contest.problemIndex || '-'})
+              </div>
+            ) : (
+              <div className="jk-row">
+                {contest.name}&nbsp;({contest.problemIndex || '-'})
+              </div>
+            )}
             <div className="jk-row">
               {problemName}&nbsp;{!!origin && <OpenInNewIcon size="small" />}
             </div>

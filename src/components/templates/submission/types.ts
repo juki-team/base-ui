@@ -5,7 +5,11 @@ type TableHeadFieldSubmissionSummaryListResponseDTOProps = TableHeadFieldProps<S
 
 export type SubmissionContestFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;
 
-export type SubmissionContestProblemFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;
+export type SubmissionContestProblemFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps & {
+  contest?: {
+    key: string;
+  }
+};
 
 export type SubmissionDateFieldProps = TableHeadFieldSubmissionSummaryListResponseDTOProps;
 

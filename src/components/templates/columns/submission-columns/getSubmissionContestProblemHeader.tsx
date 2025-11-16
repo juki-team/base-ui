@@ -4,17 +4,20 @@ import { SubmissionContestProblemField } from '../../submission/SubmissionContes
 
 type SubmissionProblemColumnProps = {
   header?: Pick<DataViewerHeadersType<SubmissionSummaryListResponseDTO>, 'filter'>,
-  onlyProblem?: boolean,
+  // onlyProblem?: boolean,
+  contest?: { key: string },
   // blankTarget?: boolean,
 }
 
-export function getSubmissionContestProblemHeader(props?: SubmissionProblemColumnProps): DataViewerHeadersType<SubmissionSummaryListResponseDTO> {
+export function getSubmissionContestProblemHeader(colProps?: SubmissionProblemColumnProps): DataViewerHeadersType<SubmissionSummaryListResponseDTO> {
   return {
     head: 'problem',
     index: 'problemKeys',
-    Field: SubmissionContestProblemField,
+    Field: (props) => (
+      <SubmissionContestProblemField {...props} contest={colProps?.contest} />
+    ),
     sort: true,
-    filter: props?.header?.filter,
+    filter: colProps?.header?.filter,
     cardPosition: 'top',
     minWidth: 280,
   };
