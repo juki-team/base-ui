@@ -29,7 +29,7 @@ export function SubmissionNicknameField({
               <div className="link">{nickname}</div>
             </UserNicknameLink>
             {key !== companyKey && (
-              <div className="jk-tag bc-io tx-t" style={{ padding: '1px 2px' }}>{companyKey}</div>
+              <div className="jk-tag bc-hl tx-t" style={{ padding: '1px 2px' }}>{companyKey}</div>
             )}
           </div>
         </>
