@@ -65,12 +65,13 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     const topHeaders: DataViewerTableHeadersType<T>[] = [];
     const rightBorders: number[] = [];
     let index = 0;
+    
     for (const header of headers) {
       if (header.visible?.getVisible?.()) {
-        const group = groups.find(group => group.key === header.group);
+        const group = groups.find(group => group.value === header.group);
         const previous = topHeaders[topHeaders.length - 1];
         if (group) {
-          if (previous?.group === group.key) {
+          if (previous?.group === group.value) {
             previous.width += header.width;
             previous.sticky &&= header.sticky;
           } else {
@@ -78,14 +79,11 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
               rightBorders.push(index - 1);
             }
             rightBorders.push(index);
-            topHeaders.push({ ...header });
+            topHeaders.push({ ...header, head: group.label, style: group.style });
           }
           rightBorders[rightBorders.length - 1] = index;
-          if (previous) {
-            previous.head = group.label;
-          }
         } else {
-          topHeaders.push({ ...header, head: '' });
+          topHeaders.push({ ...header, head: '', style: {} });
         }
         index++;
       }

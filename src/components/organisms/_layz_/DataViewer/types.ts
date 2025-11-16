@@ -228,6 +228,7 @@ export type TableHeadersType<T> = {
   sticky?: boolean,
   headClassName?: string,
   group?: string,
+  style?: CSSProperties,
 }
 
 export type DataViewerTableHeadersType<T> = TableHeadersType<T> & {
@@ -317,8 +318,9 @@ export type DataViewerDownloadType<T> = {
 };
 
 export type DataViewerGroupsType<T> = {
-  key: string,
+  value: string,
   label?: TableHeadType<T>,
+  style?: CSSProperties,
 };
 
 export interface DataViewerProps<T> {

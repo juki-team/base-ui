@@ -116,6 +116,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
           onChange={() => null}
         />
       </Field>,
+      style: { background: 'red' },
       minWidth: 200,
     },
     {
@@ -143,6 +144,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       //   isDisabled: () => ({ year: false }),
       // } as FilterDateAutoOfflineType<UserTable>,
       group: 'group1',
+      style: { background: 'blue' },
     },
     {
       index: 'dateTestRange',
@@ -262,7 +264,14 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
         // rowsView={false}
         // cardsView={false}
         headers={columns || columns2}
-        groups={[ { key: 'group1', label: <div>hola</div> }, { key: 'group2', label: <div>holaaaaaaaaaaaaaaaa</div> } ]}
+        groups={[
+          { value: 'group1', label: <div style={{ backgroundColor: 'red' }}>hola</div> },
+          {
+            value: 'group2',
+            label: <div>holaaaaaaaaaaaaaaaa</div>,
+            style: { background: 'transparent' },
+          },
+        ]}
         data={data}
         rows={{ height: 150 }}
         request={request}

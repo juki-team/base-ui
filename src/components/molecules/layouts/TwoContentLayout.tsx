@@ -27,7 +27,7 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
   const viewPortSize = useUIStore(store => store.viewPortSize);
   const _tabKeys = Object.keys(initialTabs);
   const [ selectedTabKey, setSelectedTabKey ] = useStableState(loading ? LOADING_TAB : initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T);
-  const tabs: TabsType<T> = !!loading ? {
+  const tabs: TabsType<T> = loading ? {
     [LOADING_TAB as string]: {
       key: LOADING_TAB,
       header: (
@@ -35,7 +35,7 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
           <div className="dot-flashing" />
         </div>
       ),
-      body: <JukiLoadingLayout children={typeof loading === 'boolean' ? undefined : loading} />,
+      body: <JukiLoadingLayout>{typeof loading === 'boolean' ? undefined : loading}</JukiLoadingLayout>,
     },
   } : initialTabs;
   

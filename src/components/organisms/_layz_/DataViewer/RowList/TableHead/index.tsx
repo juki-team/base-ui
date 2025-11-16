@@ -76,7 +76,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
         })}
         onMouseUp={onMouseHoldUp}
         key={columnIndex}
-        style={{ width: width + 'px' }}
+        style={{ width: width + 'px', ...header.style }}
       >
         <div className="jk-table-head-field flex-1 ht-100">
           {renderHead({ header, columnIndex, className: headClassName })}
