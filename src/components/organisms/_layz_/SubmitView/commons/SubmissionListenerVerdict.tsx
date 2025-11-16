@@ -81,7 +81,7 @@ export const SubmissionListenerVerdict = ({ submit }: SubmissionListenerVerdictP
             {header}
             <div>
               <T className="tt-ce">{PROBLEM_VERDICT[ProblemVerdict.PA].label}</T>
-              &bnsp;
+              &nbsp;
               ({points} <T>pts.</T>)
             </div>
           </div>,
