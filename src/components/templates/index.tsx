@@ -28,7 +28,7 @@ export { ProblemNameLinkField } from './problem/ProblemNameLinkField';
 export { ProblemNameModalField } from './problem/ProblemNameModalField';
 export { ProblemOwnerField } from './problem/ProblemOwnerField';
 export { ProblemStatus } from './problem/ProblemStatus';
-export { ProblemTagsField } from './problem/ProblemTagsField';
+export { TagsField } from './problem/TagsField';
 export { ProblemTypeField } from './problem/ProblemTypeField';
 export { SubmissionContestField } from './submission/SubmissionContestField';
 export { SubmissionContestProblemField } from './submission/SubmissionContestProblemField';

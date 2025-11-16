@@ -24,6 +24,6 @@ export interface ProblemStatusProps {
   size?: IconProps['size'],
 }
 
-export type ProblemTagsFieldProps = TableHeadFieldProblemSummaryListResponseDTOProps;
+export type TagsFieldProps = TableHeadFieldProps<{ tags: string[] }>;
 
 export type ProblemTypeFieldProps = TableHeadFieldProblemSummaryListResponseDTOProps;
