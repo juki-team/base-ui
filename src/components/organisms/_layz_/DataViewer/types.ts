@@ -381,7 +381,7 @@ export interface FilterDrawerProps<T> {
 
 export type FilterValuesType = { [key: string]: string | OptionType<string>[] | Date | [ Date | null, Date | null ] };
 
-export type FieldProps = PropsWithChildren<{ onClick?: () => void, className?: string }>;
+export type FieldProps = PropsWithChildren<{ onClick?: () => void, className?: string, style?: CSSProperties }>;
 
 export interface TextFieldProps {
   className?: string,
