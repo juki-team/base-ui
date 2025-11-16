@@ -130,7 +130,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   
   if (isLoading && !userSessionId) {
     return (
-      <div className="expand-absolute jk-col">
+      <div className="expand-absolute pe-ne jk-col">
         <h3 className="jk-row" style={{ alignItems: 'baseline' }}>
           <T className="tt-se">loading user</T>&nbsp;
           <div className="dot-flashing" />

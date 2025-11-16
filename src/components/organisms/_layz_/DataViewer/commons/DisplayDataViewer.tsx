@@ -2,8 +2,8 @@ import { DataViewMode } from '@juki-team/commons';
 import { Children, CSSProperties, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { SCROLL_WIDTH } from '../../../../../constants';
-import { classNames, renderReactNodeOrFunction } from '../../../../helpers';
 import { T } from '../../../../atoms';
+import { classNames, renderReactNodeOrFunction } from '../../../../helpers';
 import { LineLoader } from '../../../../server';
 import { CardRowVirtualizerFixed } from '../CardList';
 import { ViewContainerRows } from '../RowList/ViewContainerRows';
@@ -104,7 +104,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
           style={{ width: (viewContainerWidth || 0) }}
         >
           {data.length === 0 && loading && (
-            <div className="jk-row center expand-absolute" style={{ height: '100%' }}>
+            <div className="jk-row center expand-absolute pe-ne" style={{ height: '100%' }}>
               <div className="jk-row" style={{ alignItems: 'baseline' }}>
                 <T className="tt-se">loading data</T>
                 &nbsp;
