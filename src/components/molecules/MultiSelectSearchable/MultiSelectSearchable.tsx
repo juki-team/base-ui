@@ -2,7 +2,7 @@ import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } fro
 import { useResizeDetector } from 'react-resize-detector';
 import { TriggerAction } from '../../../enums';
 import { Input, InputCheckbox, Popover, VirtualizedRowsFixed } from '../../atoms';
-import type { SelectOption2Type, SelectOptionType } from '../../atoms/types';
+import type { SelectOptionType } from '../../atoms/types';
 import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
 import { CloseIcon, ExpandMoreIcon, SearchIcon } from '../../server';
@@ -33,7 +33,8 @@ export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNod
   
   const initialSelectedOptionValues = JSON.stringify(_initialSelectedOptions.map(option => option.value));
   const initialSelectedOptions = useMemo(() => {
-    return JSON.parse(initialSelectedOptionValues) as SelectOption2Type<T, U, V>[];
+    return _initialSelectedOptions;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ initialSelectedOptionValues ]);
   
   const onChangeRef = useRef(_onChange);
