@@ -43,7 +43,7 @@ export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType
   
   const { width: widthSelectLayout = 0, ref: selectLayoutRef } = useResizeDetector();
   const { width: widthFakeOptions = 0, ref: fakeOptionsRef } = useResizeDetector();
-  const optimeWidth = `calc(var(--gap) * 2 + ${widthFakeOptions}px + var(--size-regular-icon))`;
+  const optimeWidth = `calc(var(--gap) * 2 + ${widthFakeOptions}px + var(--text-medium-height))`;
   const [ isOpen, setIsOpen ] = useState(false);
   
   const selectedOptionRef = useRef<HTMLDivElement>(null);

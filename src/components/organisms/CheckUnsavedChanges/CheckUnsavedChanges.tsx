@@ -83,7 +83,7 @@ export function CheckUnsavedChanges<T extends object, >(props: CheckUnsavedChang
               <CodeViewer
                 code={objectDiffAsBash(originalValueRef.current, value)}
                 language={CodeLanguage.DIFF}
-                maxHeight="calc(var(--modal-max-height) - var(--size-large-icon) - (var(--font-size-h3) * var(--line-height-head)) - (var(--pad-md) *2) - (var(--gap) * 4) - var(--text-medium-height) - (var(--text-medium-height) * 2))"
+                maxHeight="calc(var(--modal-max-height) - var(--text-large-height) - (var(--font-size-h3) * var(--line-height-head)) - (var(--pad-md) *2) - (var(--gap) * 4) - var(--text-medium-height) - (var(--text-medium-height) * 2))"
               />
             </div>
           </div>

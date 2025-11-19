@@ -196,11 +196,11 @@ const meta: Meta<typeof AccountCircleIcon> = {
       control: {
         type: 'select',
         labels: {
-          huge: 'huge (48px)', // 12
-          large: 'large (36px)', // 12
+          huge: 'huge (30px)', // 12
+          large: 'large (27px)', // 12
           regular: 'regular (24px)', // 6
-          small: 'small (18px)', // 6
-          tiny: 'tiny (12px)',
+          small: 'small (21px)', // 6
+          tiny: 'tiny (18px)',
         },
       },
     },

@@ -82,7 +82,7 @@
         //padding: var(--pad-xt);
         
         .jk-notification-message-body {
-          width: calc(var(--width-notification) - var(--pad-xt) * 6 - var(--size-regular-icon) - 32px);
+          width: calc(var(--width-notification) - var(--pad-xt) * 6 - var(--text-medium-height) - 32px);
           @include mixins.sm {
             width: calc(var(--width-notification) - var(--pad-xt) * 4 - 32px);
           }

@@ -92,6 +92,8 @@ html body {
   
   --base-diff-text-size: calc(var(--base-text-size) * 0.125);
   
+  --text-very-huge-size: calc(var(--base-text-size) + (var(--base-diff-text-size) * 4));
+  --text-very-huge-height: calc(var(--text-huge-size) * 1.5);
   --text-huge-size: calc(var(--base-text-size) + var(--base-diff-text-size) + var(--base-diff-text-size));
   --text-huge-height: calc(var(--text-huge-size) * 1.5);
   --text-large-size: calc(var(--base-text-size) + var(--base-diff-text-size));
@@ -127,15 +129,7 @@ html body {
   --z-index-excalidraw: 900;
   --z-index-tool-buttons: 1000;
   
-  
   --left-vertical-collapsed-menu-width: 48px;
-  
-  --size-very-huge-icon: 60px;
-  --size-huge-icon: var(--pad-xL);
-  --size-large-icon: var(--pad-h);
-  --size-regular-icon: var(--base-text-height); // var(--pad-m);
-  --size-small-icon: 18px;
-  --size-tiny-icon: var(--pad-t);
   
   --size-scrollbar: 8px;
   

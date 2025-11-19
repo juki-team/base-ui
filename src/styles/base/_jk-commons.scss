@@ -78,21 +78,25 @@ span.jk-row, span.jk-col {
   height: var(--pad-m);
   box-sizing: border-box;
   
-  &.small {
+  &.tiny {
     width: var(--pad-t);
     height: var(--pad-t);
-    border: 1px solid var(--t-color-white) !important;
+  }
+  
+  &.small {
+    width: var(--pad-s);
+    height: var(--pad-s);
   }
   
   &.large {
-    width: var(--pad-h);
-    height: var(--pad-h);
+    width: var(--pad-l);
+    height: var(--pad-l);
     border: 2px solid var(--t-color-white) !important;
   }
   
   &.huge {
-    width: var(--pad-xL);
-    height: var(--pad-xL);
+    width: var(--pad-h);
+    height: var(--pad-h);
     border: 2px solid var(--t-color-white) !important;
   }
 }
