@@ -206,11 +206,10 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
             style={{
               ...(getRecordStyle?.({ data, index: virtualRow.index, isCard: false, isStickySection: false }) || {}),
               position: virtualRow.start !== null ? 'absolute' : undefined,
-              top: 0,
+              top: virtualRow.start !== null ? virtualRow.start + gap : 0,
               left: 0,
               width: headersWidth,
               height: `${virtualRow.size - gap * 2}px`,
-              transform: virtualRow.start !== null ? `translateY(${virtualRow.start + gap}px)` : undefined,
             }}
             className={classNames(
               'jk-table-row',
