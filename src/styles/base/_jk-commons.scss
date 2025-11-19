@@ -71,33 +71,33 @@ span.jk-row, span.jk-col {
  IMAGE PROFILE
  */
 .jk-user-profile-img {
-  border: 1px solid var(--t-color-white) !important;
+  outline: 1px solid var(--t-color-white) !important;
   border-radius: 50%;
   // regular
-  width: var(--pad-m);
-  height: var(--pad-m);
+  width: var(--text-medium-height);
+  height: var(--text-medium-height);
   box-sizing: border-box;
   
   &.tiny {
-    width: var(--pad-t);
-    height: var(--pad-t);
+    width: var(--text-tiny-height);
+    height: var(--text-tiny-height);
   }
   
   &.small {
-    width: var(--pad-s);
-    height: var(--pad-s);
+    width: var(--text-small-height);
+    height: var(--text-small-height);
   }
   
   &.large {
-    width: var(--pad-l);
-    height: var(--pad-l);
-    border: 2px solid var(--t-color-white) !important;
+    width: var(--text-large-height);
+    height: var(--text-large-height);
+    outline-width: 2px !important;
   }
   
   &.huge {
-    width: var(--pad-h);
-    height: var(--pad-h);
-    border: 2px solid var(--t-color-white) !important;
+    width: var(--text-huge-height);
+    height: var(--text-huge-height);
+    outline-width: 2px !important;
   }
 }
 
