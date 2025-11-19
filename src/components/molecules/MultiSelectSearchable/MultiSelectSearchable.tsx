@@ -1,9 +1,9 @@
 import { type ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { TriggerAction } from '../../../enums';
-import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
 import { Input, InputCheckbox, Popover, VirtualizedRowsFixed } from '../../atoms';
-import type { SelectOptionType } from '../../atoms/types';
+import type { SelectOption2Type, SelectOptionType } from '../../atoms/types';
+import { classNames, getTextContent, renderReactNodeOrFunction } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
 import { CloseIcon, ExpandMoreIcon, SearchIcon } from '../../server';
 import type { MultiSelectSearchableProps } from './types';
@@ -33,8 +33,7 @@ export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNod
   
   const initialSelectedOptionValues = JSON.stringify(_initialSelectedOptions.map(option => option.value));
   const initialSelectedOptions = useMemo(() => {
-    return _initialSelectedOptions;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return JSON.parse(initialSelectedOptionValues) as SelectOption2Type<T, U, V>[];
   }, [ initialSelectedOptionValues ]);
   
   const onChangeRef = useRef(_onChange);
