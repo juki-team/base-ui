@@ -1,4 +1,5 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
+import { motion } from 'motion/react';
 import { Children, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../../helpers';
@@ -197,8 +198,11 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
         })) : rowVirtualizer.getVirtualItems())
         */}
         {virtualItems.map(virtualRow => (
-          <div
+          <motion.div
             key={virtualRow.key}
+            jk-data-virtual-row-key={virtualRow.key}
+            jk-data-row-key={getRecordKey?.({ data, index: virtualRow.index }) || undefined}
+            layoutId={getRecordKey?.({ data, index: virtualRow.index }) || undefined}
             style={{
               ...(getRecordStyle?.({ data, index: virtualRow.index, isCard: false, isStickySection: false }) || {}),
               position: virtualRow.start !== null ? 'absolute' : undefined,
@@ -238,7 +242,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
                 </div>
               )),
             )}
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>
