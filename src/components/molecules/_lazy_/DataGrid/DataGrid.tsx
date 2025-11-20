@@ -108,6 +108,7 @@ function DataGridComponent({ rows, cols, freeze, styles, autofilter, firstRowAsH
       dropdownMenu={true}
       height="100%"
       width="100%"
+      style={{ width: '100%', height: '100%' }}
       afterGetColHeader={removeColumnMenuButton}
       cell={cell}
       cells={function (row, col) {
