@@ -1,9 +1,9 @@
 import { RefObject } from 'react';
 import { create } from 'zustand';
 import { ViewPortSizeType } from '../../components/types';
-import { Image } from '../../contexts/JukiUIProvider/Image';
-import { Link } from '../../contexts/JukiUIProvider/Link';
-import { UIComponentsContextInterface } from '../../contexts/JukiUIProvider/types';
+import { Image } from '../../providers/JukiUIProvider/Image';
+import { Link } from '../../providers/JukiUIProvider/Link';
+import { UIComponentsContextInterface } from '../../providers/JukiUIProvider/types';
 
 interface UIStore {
   jukiAppDivRef: RefObject<HTMLDivElement | null>,

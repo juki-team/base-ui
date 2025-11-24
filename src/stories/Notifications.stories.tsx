@@ -3,7 +3,7 @@ import { Button } from '../components';
 
 import { useJukiNotification } from '../components/hooks/useJukiNotification';
 import { MockupJukiProvider } from '../components/mockup';
-import { NotificationProvider } from '../contexts/NotificationProvider/NotificationProvider';
+import { NotificationProvider } from '../providers/NotificationProvider/NotificationProvider';
 
 const meta = {
   component: NotificationProvider,

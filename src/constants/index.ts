@@ -11,8 +11,8 @@ import {
   Theme,
 } from '@juki-team/commons';
 import type { useResizeDetectorProps } from 'react-resize-detector';
-import type { UserDataType } from '../contexts/types';
 import { QueryParamKey } from '../enums';
+import type { UserDataType } from '../providers/types';
 
 export const DAYS_2 = DAY_NAMES.map(name => name.substring(0, 2));
 

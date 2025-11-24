@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
-import type { SoundProviderProps } from '../../components/organisms/CardNotification/types';
 import { Sound } from '../../enums';
 import { useSoundStore } from '../../stores/sound/useSoundStore';
 
-export function SoundProvider({ children }: SoundProviderProps) {
+export function SoundInitializer() {
   
   const setSounds = useSoundStore(state => state.setSounds);
+  
   useEffect(() => {
     setSounds({
       [Sound.CLICK]: new Audio('https://files.juki.pub/sounds/click.wav'),
@@ -19,5 +19,5 @@ export function SoundProvider({ children }: SoundProviderProps) {
     });
   }, [ setSounds ]);
   
-  return children;
+  return null;
 }

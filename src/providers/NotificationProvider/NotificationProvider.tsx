@@ -64,7 +64,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
               ids={chunk.map(({ id }) => id)}
               message={
                 <div className="jk-col gap">
-                  {chunk.map((note) => <div>{note.message}</div>)}
+                  {chunk.map((note) => <div key={note.id}>{note.message}</div>)}
                 </div>
               }
               type={chunk[0]!.type}

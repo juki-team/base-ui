@@ -269,19 +269,3 @@ export type RouterContextInterface = {
   isLoadingRoute: boolean,
   pathname: string,
 };
-
-type JukiRouterProviderRequiredProps = {
-  routeParams: ParsedUrlQuery,
-  pushRoute: RouterFn<string>,
-  replaceRoute: RouterFn<string>,
-  reloadRoute: RouterFn<void>,
-  pathname: string,
-  isLoadingRoute?: boolean,
-}
-
-export type JukiRouterProviderProps = JukiRouterProviderRequiredProps | ({
-  searchParams: URLSearchParams,
-  appendSearchParams: AppendSearchParamsType,
-  setSearchParams: SetSearchParamsType,
-  deleteSearchParams: DeleteSearchParamsType,
-} & JukiRouterProviderRequiredProps);

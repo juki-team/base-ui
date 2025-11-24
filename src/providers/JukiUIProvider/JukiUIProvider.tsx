@@ -9,7 +9,6 @@ import { persistGlobalURLSearchParams } from '../../settings/AppRoutes';
 import { useRouterStore } from '../../stores/router/useRouterStore';
 import { useUIStore } from '../../stores/ui/useUIStore';
 import { NotificationProvider } from '../NotificationProvider/NotificationProvider';
-import { SoundProvider } from '../SoundProvider/SoundProvider';
 import { Image } from './Image';
 import { Link } from './Link';
 import type { JukiUIProviderProps, LinkCmpProps } from './types';
@@ -53,18 +52,16 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
   
   return (
     <MotionConfig transition={{ duration: Duration.NORMAL }}>
-      <SoundProvider>
-        <NotificationProvider>
-          {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={2} /></div>}
-          <div id="juki-app" translate="no" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
-            {/*<div className="loading-route-overlay" />*/}
-            {children}
-            <Suspense>
-              <Tooltip />
-            </Suspense>
-          </div>
-        </NotificationProvider>
-      </SoundProvider>
+      <NotificationProvider>
+        {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={2} /></div>}
+        <div id="juki-app" translate="no" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
+          {/*<div className="loading-route-overlay" />*/}
+          {children}
+          <Suspense>
+            <Tooltip />
+          </Suspense>
+        </div>
+      </NotificationProvider>
     </MotionConfig>
   );
 };

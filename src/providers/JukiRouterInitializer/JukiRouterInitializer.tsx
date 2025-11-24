@@ -1,10 +1,9 @@
-import { type PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { getHref, isBrowser } from '../../components/helpers';
 import type {
   AppendSearchParamsType,
   DeleteSearchParamsType,
   Href,
-  JukiRouterProviderProps,
   RouterContextInterface,
   RouterFn,
   SetSearchParamsType,
@@ -12,10 +11,11 @@ import type {
 import { QueryParamKey } from '../../enums';
 import { cloneURLSearchParams } from '../../settings/AppRoutes';
 import { useRouterStore } from '../../stores/router/useRouterStore';
+import { JukiRouterInitializerProps } from './types';
 
-export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderProps>) => {
+export const JukiRouterInitializer = (props: JukiRouterInitializerProps) => {
   
-  const { children, routeParams, pushRoute, replaceRoute, reloadRoute, pathname, isLoadingRoute, ...router } = props;
+  const { routeParams, pushRoute, replaceRoute, reloadRoute, pathname, isLoadingRoute, ...router } = props;
   
   const [ _searchParams, _setSearchParams ] = useState<URLSearchParams>(new URLSearchParams(''));
   
@@ -104,18 +104,15 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
       pathname = url.pathname ?? '';
       sp = cloneURLSearchParams(url.searchParams ?? new URLSearchParams());
     }
-    // @ts-ignore
     const token = (router.searchParams ?? _searchParams).get(QueryParamKey.TOKEN);
     if (token) {
       sp.set(QueryParamKey.TOKEN, token);
     }
-    // @ts-ignore
     const company = (router.searchParams ?? _searchParams).get(QueryParamKey.COMPANY);
     if (company) {
       sp.set(QueryParamKey.COMPANY, company);
     }
     void _push({ pathname, searchParams: sp });
-    // @ts-ignore
   }, [ router.searchParams, _searchParams, _push ]);
   
   const replaceProps = useRouterStore(state => state.replaceProps);
@@ -156,5 +153,5 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
     replaceProps({ isLoadingRoute: isLoadingRoute || !!loaderCounter });
   }, [ isLoadingRoute, loaderCounter, replaceProps, routeParams ]);
   
-  return children;
+  return null;
 };

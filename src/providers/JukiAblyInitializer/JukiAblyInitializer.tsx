@@ -72,7 +72,7 @@ const newAblyClient = () => {
 
 let ablyClient = newAblyClient();
 
-export const JukiAblyProvider = () => {
+export const JukiAblyInitializer = () => {
   
   const sessionId = useUserStore(store => store.user.sessionId);
   const newAuth = useWebsocketStore(store => store.newAuth);

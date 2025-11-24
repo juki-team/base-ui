@@ -48,8 +48,8 @@
  * ============================================== */
 
 .dot-flashing {
-  --dot-flashing-color: var(--t-color-black);
-  --dot-flashing-color-light: var(--t-color-highlight);
+  --dot-flashing-color: var(--color, var(--t-color-black));
+  --dot-flashing-color-light: var(--color-light, var(--t-color-highlight));
   --dot-flashing-size: calc(var(--base-text-size) / 3);
   --dot-flashing-duration: 0.6s;
   margin-left: calc(var(--dot-flashing-size) * 1.5);

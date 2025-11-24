@@ -1,11 +1,9 @@
-import { type PropsWithChildren, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLastPathStore } from '../../stores/lastPath/useLastPath';
 import { useUserStore } from '../../stores/user/useUserStore';
 import type { LastPathProviderProps } from './types';
 
-export const JukiLastPathProvider = <T extends string | number, >(props: PropsWithChildren<LastPathProviderProps<T>>) => {
-  
-  const { children, initialLastPath } = props;
+export const JukiLastPathInitializer = <T extends string | number, >({ initialLastPath }: LastPathProviderProps<T>) => {
   
   const setInitialLastPath = useLastPathStore(state => state.setInitialLastPath);
   const userNickname = useUserStore(state => state.user.nickname);
@@ -16,5 +14,5 @@ export const JukiLastPathProvider = <T extends string | number, >(props: PropsWi
     setInitialLastPath(initialLastPath);
   }, [ userNickname, initialLastPathString, setInitialLastPath ]);
   
-  return children;
+  return null;
 };

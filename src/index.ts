@@ -1,7 +1,7 @@
 export * from './components';
 // export * from './settings';
 // export * from './constants';
-export * from './contexts';
+export * from './providers';
 // export * from './helpers';
 export * from './hooks';
 // export * from './modules';

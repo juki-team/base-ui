@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import type { LastPathType } from '../../../contexts/JukiLastPathProvider/types';
 import { QueryParamKey } from '../../../enums';
+import type { LastPathType } from '../../../providers/JukiLastPathInitializer/types';
 import { cloneURLSearchParams } from '../../../settings/AppRoutes';
 import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
 import { useUIStore } from '../../../stores/ui/useUIStore';

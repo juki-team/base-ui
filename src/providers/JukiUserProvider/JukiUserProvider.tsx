@@ -20,11 +20,8 @@ import { JUKI_SERVICE_V1_URL, JUKI_SERVICE_V2_URL, JUKI_TOKEN_NAME } from '../..
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
-import type { JukiUserProviderProps } from './types';
 
-export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>) => {
-  
-  const { children } = props;
+export const JukiUserProvider = ({ children }: PropsWithChildren) => {
   
   const setUser = useUserStore(state => state.setUser);
   const setCompany = useUserStore(state => state.setCompany);
@@ -130,11 +127,11 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   
   if (isLoading && !userSessionId) {
     return (
-      <div className="expand-absolute pe-ne jk-col">
-        <h3 className="jk-row" style={{ alignItems: 'baseline' }}>
+      <div className="expand-absolute pe-ne jk-col bc-pd">
+        <h1 className="jk-row cr-pt" style={{ alignItems: 'baseline' }}>
           <T className="tt-se">loading user</T>&nbsp;
           <div className="dot-flashing" />
-        </h3>
+        </h1>
       </div>
     );
   }
