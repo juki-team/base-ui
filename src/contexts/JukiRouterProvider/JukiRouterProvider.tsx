@@ -1,5 +1,5 @@
 import { type PropsWithChildren, useCallback, useEffect, useState } from 'react';
-import { getHref } from '../../components/helpers';
+import { getHref, isBrowser } from '../../components/helpers';
 import type {
   AppendSearchParamsType,
   DeleteSearchParamsType,
@@ -121,7 +121,7 @@ export const JukiRouterProvider = (props: PropsWithChildren<JukiRouterProviderPr
   const replaceProps = useRouterStore(state => state.replaceProps);
   
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (isBrowser()) {
       replaceProps({ origin: window.location.origin });
     }
   }, [ replaceProps ]);

@@ -1,3 +1,4 @@
+import { isBrowser } from '../components/helpers/commons';
 import { ContestTab, ProblemTab, ProfileTab, QueryParamKey, WorksheetTab } from '../enums';
 
 const injectOrigin = (origin: string, path: string) => {
@@ -11,7 +12,7 @@ export const cloneURLSearchParams = (urlSearchParams: URLSearchParams) => {
 export const persistGlobalURLSearchParams = (searchParams: URLSearchParams) => {
   const newSp = cloneURLSearchParams(searchParams);
   let sp = new URLSearchParams();
-  if (typeof window !== 'undefined') {
+  if (isBrowser()) {
     sp = new URLSearchParams(window.location.search);
   }
   const token = sp.get(QueryParamKey.TOKEN);

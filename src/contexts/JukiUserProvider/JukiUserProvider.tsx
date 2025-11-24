@@ -10,7 +10,7 @@ import {
 } from '@juki-team/commons';
 import { type PropsWithChildren, useCallback, useEffect } from 'react';
 import { T } from '../../components/atoms/T/T';
-import { localStorageCrossDomains } from '../../components/helpers';
+import { isBrowser, localStorageCrossDomains } from '../../components/helpers';
 import { useFetcher } from '../../components/hooks/useFetcher';
 import { useInjectFontSize } from '../../components/hooks/useInjectFontSize';
 import { useInjectTheme } from '../../components/hooks/useInjectTheme';
@@ -111,7 +111,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
   }, [ data, setCompany, setUser ]);
   
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (isBrowser()) {
       import('react-device-detect').then((mod) => {
         setDevice({
           type: mod.deviceType,

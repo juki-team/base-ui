@@ -1,4 +1,5 @@
 import type { PixelCrop } from 'react-image-crop';
+import { isBrowser } from '../../../helpers';
 
 const TO_RADIANS = Math.PI / 180;
 
@@ -21,7 +22,7 @@ export async function canvasPreview(
   // at the expense of slightly slower render times and needing to
   // size the image back down if you want to download/upload and be
   // true to the images natural size.
-  const pixelRatio = window.devicePixelRatio;
+  const pixelRatio = isBrowser() ? window.devicePixelRatio : 1;
   // const pixelRatio = 1
   
   canvas.width = Math.floor(crop.width * scaleX * pixelRatio);

@@ -2,8 +2,8 @@ import { Children, type CSSProperties, type ReactNode, useEffect, useMemo, useRe
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { TriggerAction } from '../../../enums';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { Popover, Select } from '../../atoms';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
 import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
 import { ViewHeadlineIcon } from '../../server';
@@ -61,10 +61,10 @@ export function Tabs<T extends string, >(props: TabsProps<T>) {
         }
       }
     };
-    window?.addEventListener('keydown', handleEsc);
+    window.addEventListener('keydown', handleEsc);
     
     return () => {
-      window?.removeEventListener('keydown', handleEsc);
+      window.removeEventListener('keydown', handleEsc);
     };
   }, [ tabKey, setTabKey, indexes, tabs ]);
   const tabsHeaderFocus = useRef(false);

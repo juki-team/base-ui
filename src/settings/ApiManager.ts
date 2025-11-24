@@ -15,6 +15,7 @@ import {
   UserSettingsType,
 } from '@juki-team/commons';
 import type { ErrorInfo } from 'react';
+import { isBrowser } from '../components/helpers/commons';
 import {
   AuthorizedRequestType,
   SignInPayloadDTO,
@@ -62,7 +63,7 @@ const validate = (representation: string) => {
 
 export function getQuerySessionId(): string {
   let queryToken = '';
-  if (typeof window !== 'undefined') {
+  if (isBrowser()) {
     queryToken = (new URLSearchParams(window.location.search)).get(QueryParamKey.TOKEN) ?? '';
   }
   return validate(queryToken) ? queryToken : '';

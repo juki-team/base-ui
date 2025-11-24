@@ -1,15 +1,16 @@
 // https://github.com/McShelby/reveal-pdfexport/tree/master
 import Reveal from 'reveal.js';
+import { isBrowser } from '../../../helpers';
 
 export function isPrintingPDF() {
-  if (typeof window === 'undefined') {
-    return false;
+  if (isBrowser()) {
+    return (/print-pdf/gi).test(window.location.search);
   }
-  return (/print-pdf/gi).test(window.location.search);
+  return false;
 }
 
 function togglePdfExport() {
-  if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  if (isBrowser() && typeof document !== 'undefined') {
     const url_doc = new URL(document.URL);
     const query_doc = new URLSearchParams(url_doc.searchParams);
     if (isPrintingPDF()) {

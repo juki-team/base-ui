@@ -1,6 +1,6 @@
 import { type ComponentPropsWithRef, type CSSProperties, forwardRef, type ReactElement, type Ref } from 'react';
 import { type UseFormRegisterReturn } from 'react-hook-form';
-import { classNames } from '../../helpers';
+import { classNames, isBrowser } from '../../helpers';
 
 function TextAreaComponent(props: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement>) {
   
@@ -28,10 +28,12 @@ function TextAreaComponent(props: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement
       onChange={registerOnChange ? registerOnChange : ({ target }) => {
         const pointer = target.selectionStart;
         const element = target;
-        window?.requestAnimationFrame?.(() => {
-          element.selectionStart = pointer;
-          element.selectionEnd = pointer;
-        });
+        if (isBrowser()) {
+          window.requestAnimationFrame?.(() => {
+            element.selectionStart = pointer;
+            element.selectionEnd = pointer;
+          });
+        }
         onChange?.(target.value);
       }}
       onBlur={registerOnBlur ? registerOnBlur : onBlur}

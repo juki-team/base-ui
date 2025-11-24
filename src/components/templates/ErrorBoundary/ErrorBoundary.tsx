@@ -3,7 +3,7 @@ import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { getVisitorSessionId } from '../../../settings/ApiManager';
 import { Button, T } from '../../atoms';
-import { authorizedRequest } from '../../helpers';
+import { authorizedRequest, isBrowser } from '../../helpers';
 import { HelpSection } from '../HelpSection/HelpSection';
 import type { ErrorBoundaryProps } from './types';
 
@@ -24,7 +24,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
   async componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // You can use your own error logging service here
     const visitorSessionId = getVisitorSessionId();
-    const location = window?.location;
+    const location = isBrowser() ? window.location : new Location();
     try {
       const { url, ...options } = jukiApiManager.API_V2.log.error({
         body: {

@@ -9,6 +9,7 @@ import {
   ProblemStatementType,
 } from '@juki-team/commons';
 import type { TFunction } from 'i18next';
+import { isBrowser } from './commons';
 
 export const getEditorSettingsStorageKey = (useNickname: string) => `jk-editor-settings-store/${useNickname}`;
 
@@ -111,7 +112,7 @@ ${statementNote}
 };
 
 export const isJudgeWindowLocation = () => {
-  return typeof window !== 'undefined' && (
+  return isBrowser() && (
     window.location.origin === 'https://judge.juki.app'
     || window.location.origin.endsWith('.jukijudge.com')
     || window.location.origin === 'http://localhost:3070'

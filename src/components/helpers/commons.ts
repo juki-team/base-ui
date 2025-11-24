@@ -1,19 +1,9 @@
-import {
-  cleanRequest,
-  ContentResponseType,
-  ErrorCode,
-  ErrorResponseType,
-  isObjectJson,
-  JkError,
-  stringToArrayBuffer,
-  Theme,
-} from '@juki-team/commons';
+import { stringToArrayBuffer } from '@juki-team/commons';
 import type { PropsWithChildren, ReactNode, RefObject } from 'react';
 import { Children, cloneElement, isValidElement } from 'react';
-import { jukiApiManager } from '../../settings';
+import { NODE_ENV } from '../../constants/settings';
 import type { SheetDataType } from '../molecules/_lazy_/DataGrid/types';
 import type { TriggerActionsType } from '../types';
-import { authorizedRequest } from './fetch';
 import { getXLSX } from './xlsx';
 
 export const getTextContent = (elem: ReactNode | ReactNode[]): string => {
@@ -38,6 +28,10 @@ export const getTextContent = (elem: ReactNode | ReactNode[]): string => {
   return '';
 };
 
+export function isBrowser() {
+  return typeof window !== 'undefined';
+}
+
 export const downloadLink = (href: string, fileName: string) => {
   /*if (typeof window.navigator.msSaveBlob !== 'undefined') {
    // IE doesn't allow using a blob object directly as link href.
@@ -50,7 +44,7 @@ export const downloadLink = (href: string, fileName: string) => {
    }*/
   // Other browsers
   // Create a link pointing to the ObjectURL containing the blob
-  if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+  if (typeof document !== 'undefined' && isBrowser()) {
     const tempLink = document.createElement('a');
     tempLink.style.display = 'none';
     tempLink.setAttribute('href', href);
@@ -67,43 +61,19 @@ export const downloadLink = (href: string, fileName: string) => {
     document.body.removeChild(tempLink);
     setTimeout(() => {
       // For Firefox it is necessary to delay revoking the ObjectURL
-      window?.URL.revokeObjectURL(href);
+      if (isBrowser()) {
+        window.URL.revokeObjectURL(href);
+      }
     }, 100);
-  }
-};
-
-export const downloadWebsiteAsPdf = async (websiteUrl: string, name: string, exportOptions?: {
-  headerTemplate?: string,
-  footerTemplate?: string,
-  margin?: { top: string, bottom: string, left: string, right: string }
-  format?: string,
-}) => {
-  const { url, ...options } = jukiApiManager.API_V2.export.websiteToPdf({
-    params: {
-      url: websiteUrl,
-      footerTemplate: exportOptions?.footerTemplate?.split('\n').join(''),
-      headerTemplate: exportOptions?.headerTemplate?.split('\n').join(''),
-      format: exportOptions?.format,
-      margin: exportOptions?.margin,
-    },
-  });
-  const response = cleanRequest<ContentResponseType<{ urlExportedPDF: string }>>(
-    await authorizedRequest(url, options),
-  );
-  
-  if (response.success) {
-    await downloadUrlAsFile('https://' + response.content.urlExportedPDF, name);
-  } else {
-    throw new Error('error on download pdf');
   }
 };
 
 export function downloadBlobAsFile(data: Blob, fileName: string = 'file') {
   // It is necessary to create a new blob object with mime-type explicitly set
   // otherwise only Chrome works like it should
-  if (typeof window !== 'undefined') {
+  if (isBrowser()) {
     const blob = new Blob([ data ], { type: data.type || 'application/octet-stream' });
-    const blobURL = window?.URL.createObjectURL(blob);
+    const blobURL = window.URL.createObjectURL(blob);
     downloadLink(blobURL, fileName);
   }
 }
@@ -246,23 +216,6 @@ export const downloadSheetDataAsXlsxFile = async (sheets: SheetDataType[], fileN
   downloadBlobAsFile(blob, fileName);
 };
 
-export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fileName: string) => {
-  const { url, ...options } = jukiApiManager.API_V2.note.createPdf({ body: { source, theme } });
-  const result = await authorizedRequest(
-    url, { responseType: 'blob', ...options },
-  );
-  if (typeof result === 'string') {
-    if (isObjectJson(result)) {
-      const response = JSON.parse(result) as ErrorResponseType;
-      if (response.errors.length) {
-        throw new JkError(response.errors[0]!.code, { message: response.errors[0]!.detail });
-      }
-    }
-    throw new JkError(ErrorCode.ERR9997, { message: 'error generating the pdf' });
-  }
-  downloadBlobAsFile(result, fileName);
-};
-
 export const renderChildrenWithProps = (children: any, props: any) => {
   if (typeof children === 'function') {
     // return renderChildrenWithProps(renderReactNodeOrFunctionP1(children, props), props);
@@ -305,4 +258,17 @@ export function toBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
 
 export const isOverflowed = (ref: RefObject<any>) => {
   return ref.current?.scrollWidth > ref.current?.clientWidth;
+};
+
+export function isDev() {
+  return NODE_ENV !== 'production';
+}
+
+export const openNewTab = (url: string) => {
+  if (isBrowser()) {
+    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+    if (newWindow) {
+      newWindow.opener = null;
+    }
+  }
 };

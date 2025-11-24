@@ -14,7 +14,13 @@ import { useRouterStore } from '../../../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { MultiSelect, Popover, Select } from '../../../../atoms';
 import { TableEyeIcon } from '../../../../atoms/server';
-import { classNames, downloadUrlAsFile, getAuthorizedRequest, renderReactNodeOrFunction } from '../../../../helpers';
+import {
+  classNames,
+  downloadUrlAsFile,
+  getAuthorizedRequest,
+  isBrowser,
+  renderReactNodeOrFunction,
+} from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useSessionStorage } from '../../../../hooks/useSessionStorage';
 import {
@@ -123,7 +129,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     }
   }, [ loading ]);
   
-  const url = new URL(window?.location?.href || '');
+  const url = new URL(isBrowser() ? window.location?.href || '' : '');
   url.searchParams.set(filterKey, JSON.stringify(filters));
   
   const visibles = headers.filter(filter => filter.visible?.getVisible()).length;

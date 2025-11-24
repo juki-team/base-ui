@@ -1,7 +1,7 @@
 import { type ReactNode } from 'react';
 import { persistGlobalURLSearchParams } from '../../../settings/AppRoutes';
 import { useUIStore } from '../../../stores/ui/useUIStore';
-import { classNames, getHref, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { classNames, getHref, isBrowser, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useStableState } from '../../hooks/useStableState';
 import type { TabsType } from '../../types';
 import { TabsInline } from '../_lazy_/TabsInline';
@@ -75,10 +75,12 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
             className="jk-pg-xsm-b"
             onChange={(tabKey) => {
               setSelectedTabKey(tabKey);
-              if (getHrefOnTabChange && typeof window !== 'undefined') {
+              if (getHrefOnTabChange && isBrowser()) {
                 const { pathname, searchParams } = getHref(getHrefOnTabChange(tabKey));
                 const search = persistGlobalURLSearchParams(searchParams);
-                window.history.replaceState({}, '', `${pathname}${search ? '?' + search : ''}`);
+                if (isBrowser()) {
+                  window.history.replaceState({}, '', `${pathname}${search ? '?' + search : ''}`);
+                }
               }
             }}
           />
