@@ -183,7 +183,8 @@
   "peerDependencies": {
     "motion": "^12",
     "react": "^19",
-    "react-dom": "^19"
+    "react-dom": "^19",
+    "@excalidraw/excalidraw": "^0"
   },
   "browserslist": {
     "production": [
