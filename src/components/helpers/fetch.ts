@@ -29,25 +29,26 @@ export const getAuthorizedRequest = async <N extends Blob | string = string>(url
 
 const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N extends Blob | string = string>(url: string, options?: AuthorizedRequestType<M>, safe?: boolean): Promise<N> => {
   
-  const { method, body, signal, responseType, headers, cache, next } = options || {};
+  const { method = HTTPMethod.GET, body, signal, responseType, headers, cache, next } = options || {};
   
   const requestHeaders = new Headers(headers ?? {});
   requestHeaders.set('accept', 'application/json');
-  requestHeaders.set(HEADER_JUKI_FORWARDED_HOST, isBrowser() ? window.location?.host : '');
   
   if (!(body instanceof FormData)) {
     requestHeaders.set('content-type', 'application/json');
   }
+  if (isBrowser()) {
+    requestHeaders.set(HEADER_JUKI_FORWARDED_HOST, window.location?.host);
+  }
   
   const visitorSessionId = getVisitorSessionId();
-  
   if (visitorSessionId) {
     requestHeaders.set(HEADER_JUKI_VISITOR_SESSION_ID, visitorSessionId);
   }
   
   try {
     const response = await fetch(url, {
-      method: method ? method : HTTPMethod.GET,
+      method,
       headers: requestHeaders,
       credentials: 'include',
       ...(body ? { body } : {}),
