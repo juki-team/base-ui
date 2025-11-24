@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Button, Portal } from '../../atoms';
 import { FullscreenExitIcon, FullscreenIcon } from '../../atoms/server';
@@ -10,17 +11,17 @@ function enterFullscreen() {
     const element = document.documentElement;
     if (element.requestFullscreen) {
       void element.requestFullscreen();
-      // @ts-ignore
+      // @ts-expect-error - webkitRequestFullscreen is a non‑standard browser API
     } else if (element.webkitRequestFullscreen) {
-      // @ts-ignore
+      // @ts-expect-error - webkitRequestFullscreen is a non‑standard browser API
       element.webkitRequestFullscreen();
-      // @ts-ignore
+      // @ts-expect-error - mozRequestFullScreen is a Firefox‑specific fullscreen API
     } else if (element.mozRequestFullScreen) {
-      // @ts-ignore
+      // @ts-expect-error - mozRequestFullScreen is a Firefox‑specific fullscreen API
       element.mozRequestFullScreen();
-      // @ts-ignore
+      // @ts-expect-error - msRequestFullscreen is an old IE/Edge proprietary API
     } else if (element.msRequestFullscreen) {
-      // @ts-ignore
+      // @ts-expect-error - msRequestFullscreen is an old IE/Edge proprietary API
       element.msRequestFullscreen();
     }
   }
@@ -30,23 +31,23 @@ function exitFullscreen() {
   if (typeof document != 'undefined') {
     if (document.exitFullscreen) {
       void document.exitFullscreen();
-      // @ts-ignore
+      // @ts-expect-error - webkitExitFullscreen is a non‑standard browser API
     } else if (document.webkitExitFullscreen) {
-      // @ts-ignore
+      // @ts-expect-error - webkitExitFullscreen is a non‑standard browser API
       document.webkitExitFullscreen();
-      // @ts-ignore
+      // @ts-expect-error - mozCancelFullScreen is a Firefox‑specific fullscreen API
     } else if (document.mozCancelFullScreen) {
-      // @ts-ignore
+      // @ts-expect-error - mozCancelFullScreen is a Firefox‑specific fullscreen API
       document.mozCancelFullScreen();
-      // @ts-ignore
+      // @ts-expect-error - msExitFullscreen is an old IE/Edge proprietary API
     } else if (document.msExitFullscreen) {
-      // @ts-ignore
+      // @ts-expect-error - msExitFullscreen is an old IE/Edge proprietary API
       document.msExitFullscreen();
     }
   }
 }
 
-export function PresentationToolButtons() {
+export function PresentationToolButtons({ style }: { style: CSSProperties }) {
   
   const isFullscreen = usePageStore(store => store.isFullscreen);
   
@@ -57,9 +58,8 @@ export function PresentationToolButtons() {
           position: 'fixed',
           right: 'var(--pad-sm)',
           zIndex: 'var(--z-index-tool-buttons)',
-          ...(isFullscreen
-            ? { transform: 'translateY(-50%)', top: '50%' }
-            : { transform: 'translateY(-50%)', top: '50%' }),
+          transform: 'translateY(-50%)', top: '50%',
+          ...style,
         }}
         className="jk-col gap stretch right presentation-tool-buttons"
       >

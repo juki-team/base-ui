@@ -1,11 +1,11 @@
-import { cleanRequest, type ContentResponseType, type ContentsResponseType, HTTPMethod } from '@juki-team/commons';
+import { cleanRequest, type ContentResponseType, type ContentsResponseType } from '@juki-team/commons';
 import { useMemo } from 'react';
 import useSWR, { type SWRConfiguration } from 'swr';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { getAuthorizedRequest } from '../helpers';
 
 export const fetcher = ([ url ]: [ string ]) => {
-  return getAuthorizedRequest(url, { method: HTTPMethod.GET }, false);
+  return getAuthorizedRequest(url, {}, false);
 };
 
 export const getUrlKey = (url: string | null | undefined, userSessionId: string) => {

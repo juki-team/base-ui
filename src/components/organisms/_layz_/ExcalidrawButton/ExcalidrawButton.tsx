@@ -9,7 +9,7 @@ import { ButtonAction } from '../../../molecules';
 const LOCAL_STORAGE_KEY = 'jk-excalidraw-data';
 
 const getSafeBgColor = () => {
-  const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+  const stored = sessionStorage.getItem(LOCAL_STORAGE_KEY);
   if (stored) {
     try {
       const parsed = JSON.parse(stored);
@@ -32,7 +32,7 @@ export default function ExcalidrawButton() {
   const [ excalidrawAPI, setExcalidrawAPI ] = useState<ExcalidrawImperativeAPI | null>(null);
   
   useEffect(() => {
-    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const stored = sessionStorage.getItem(LOCAL_STORAGE_KEY);
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
@@ -55,7 +55,7 @@ export default function ExcalidrawButton() {
         viewBackgroundColor,
       },
     });
-  }, [ viewBackgroundColor ]);
+  }, [ excalidrawAPI, viewBackgroundColor ]);
   
   return (
     <>
@@ -163,7 +163,7 @@ export default function ExcalidrawButton() {
               initialData={excalidrawData}
               onChange={(elements, appState) => {
                 const data = { elements, appState, viewBackgroundColor };
-                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+                sessionStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
               }}
             >
               <MainMenu>
