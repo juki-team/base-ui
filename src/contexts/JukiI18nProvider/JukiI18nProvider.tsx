@@ -3,7 +3,7 @@ import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { usePageStore } from '../../stores/page/usePageStore';
 
-export const JukiI18nProvider = (props: PropsWithChildren<{}>) => {
+export const JukiI18nProvider = (props: PropsWithChildren) => {
   
   const {
     children,

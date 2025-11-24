@@ -1,4 +1,5 @@
 import { cleanRequest, consoleWarn, ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
+import { NODE_ENV } from '../../constants/settings';
 import { jukiApiManager } from '../../settings';
 import { authorizedRequest } from './fetch';
 
@@ -75,4 +76,8 @@ export const handleUploadImage = async (image: Blob, isPublic: boolean): Promise
     console.error(error);
     return { status: Status.ERROR, message: 'Ups, please try again', content: null };
   }
+};
+
+export const isDev = () => {
+  return NODE_ENV !== 'production';
 };
