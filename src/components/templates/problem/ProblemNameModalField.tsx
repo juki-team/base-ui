@@ -30,7 +30,7 @@ export function ProblemNameModalField(props: ProblemNameModalFieldProps) {
                 // portalClassName="jk-modal-bc-wd jk-modal-height-expanded" // TODO:
               >
                 <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
-                  url={jukiApiManager.API_V1.problem.getData({ params: { key } }).url}
+                  url={jukiApiManager.API_V2.problem.getData({ params: { key } }).url}
                 >
                   {data => (
                     <ProblemView

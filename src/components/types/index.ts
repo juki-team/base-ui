@@ -229,7 +229,6 @@ export interface AuthorizedRequestType<Method extends HTTPMethod = HTTPMethod.GE
   method: Method,
   body?: string | BodyInit,
   responseType?: 'text' | 'blob',
-  token?: string,
   next?: NextFetchRequestConfig,
 }
 

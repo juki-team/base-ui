@@ -13,11 +13,11 @@ import {
 } from '@juki-team/commons';
 import { Children, useEffect, useRef, useState } from 'react';
 import { QueryParamKey } from '../../../../../../enums';
-import { authorizedRequest, classNames, getHeight } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
 import { useRouterStore } from '../../../../../../stores/router/useRouterStore';
 import { T } from '../../../../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, SpinIcon } from '../../../../../atoms/server';
+import { authorizedRequest, classNames, getHeight } from '../../../../../helpers';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { ButtonLoader } from '../../../../../molecules';
@@ -62,7 +62,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
     };
     let response;
     const assignmentId = searchParams.get(QueryParamKey.ASSIGNMENT);
-    const { url, ...options } = jukiApiManager.API_V1.worksheet.submitCodeEditor({
+    const { url, ...options } = jukiApiManager.API_V2.worksheet.submitCodeEditor({
       params: { worksheetKey, secondaryKey: assignmentId ?? '' },
       body: codeEditorSubmissionDTO,
     });

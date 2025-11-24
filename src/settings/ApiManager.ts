@@ -22,7 +22,7 @@ import {
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
 } from '../components/types';
-import { JUKI_SERVICE_V1_URL, JUKI_SERVICE_V2_URL } from '../constants/settings';
+import { JUKI_SERVICE_V1_URL, JUKI_TOKEN_NAME } from '../constants/settings';
 import { QueryParamKey } from '../enums';
 
 const addQuery = (path: string) => {
@@ -60,126 +60,24 @@ const validate = (representation: string) => {
 // return UUID_WITHOUT_DASHES.test(representation) || UUID_WITH_DASHES.test(representation)
 };
 
-const getQueryToken = () => {
+export function getQuerySessionId(): string {
   let queryToken = '';
   if (typeof window !== 'undefined') {
     queryToken = (new URLSearchParams(window.location.search)).get(QueryParamKey.TOKEN) ?? '';
   }
-  return validate(queryToken) ? queryToken : null;
-};
+  return validate(queryToken) ? queryToken : '';
+}
+
+export function getVisitorSessionId(): string {
+  if (typeof localStorage !== 'undefined') {
+    return getQuerySessionId() || localStorage.getItem(JUKI_TOKEN_NAME) || '';
+  }
+  return getQuerySessionId() || '';
+}
 
 export class ApiManager {
-  private _eventListeners: { [key: string]: Function[] } = {};
-  
-  private _TOKEN_NAME = '';
-  
-  get TOKEN_NAME(): string {
-    return this._TOKEN_NAME;
-  }
   
   get API_V2() {
-    
-    const injectBaseUrl = (path: string) => {
-      return `${JUKI_SERVICE_V2_URL}/${path}`;
-    };
-    
-    const valid = <T, M extends HTTPMethod = HTTPMethod.GET>(callback: (props: T) => ResponseAPI<M>): ((props: T) => ResponseAPI<M>) => {
-      if (JUKI_SERVICE_V2_URL) {
-        return callback;
-      }
-      return () => ({ url: '', method: HTTPMethod.GET as M });
-    };
-    
-    return {
-      export: {
-        websiteToPdf: valid<{
-          params: {
-            url: string,
-            headerTemplate?: string,
-            footerTemplate?: string,
-            format?: string,
-            margin?: { top: string, bottom: string, left: string, right: string }
-          }
-        }, HTTPMethod.POST>(({ params: { url, headerTemplate, footerTemplate, margin, format } }) => ({
-          url: injectBaseUrl('export/website-to-pdf'),
-          method: HTTPMethod.POST,
-          body: JSON.stringify({ url, headerTemplate, footerTemplate, margin, format }),
-        })),
-        problem: {
-          statementToPdf: valid<{
-            params: {
-              key: string,
-              token: string,
-              language: Language,
-            }
-          }, HTTPMethod.POST>(({ params: { key, token, language } }) => ({
-            url: injectBaseUrl('export/problem/statement-to-pdf'),
-            method: HTTPMethod.POST,
-            body: JSON.stringify({ key, token, language }),
-          })),
-          statementToPng: valid<{
-            params: {
-              key: string,
-              token: string,
-              language: Language,
-            }
-          }, HTTPMethod.POST>(({ params: { key, token, language } }) => ({
-            url: injectBaseUrl('export/problem/statement-to-png'),
-            method: HTTPMethod.POST,
-            body: JSON.stringify({ key, token, language }),
-          })),
-        },
-        contest: {
-          problems: {
-            statementsToPdf: valid<{
-              params: {
-                key: string,
-                token: string,
-                language: Language,
-              }
-            }, HTTPMethod.POST>(({ params: { key, token, language } }) => ({
-              url: injectBaseUrl('export/contest/problems/statements-to-pdf'),
-              method: HTTPMethod.POST,
-              body: JSON.stringify({ key, token, language }),
-            })),
-          },
-        },
-      },
-      webScraping: {
-        codeforces: {
-          problemStatement: valid<{
-            params: {
-              contestId: string,
-              index: string,
-            }
-          }, HTTPMethod.POST>(({ params: { contestId, index } }) => ({
-            url: injectBaseUrl('web-scraping/codeforces/problem-statement'),
-            method: HTTPMethod.POST,
-            body: JSON.stringify({ contestId, index }),
-          })),
-        },
-        patito: {
-          problemStatement: valid<{
-            params: {
-              id: string,
-            }
-          }, HTTPMethod.POST>(({ params: { id } }) => ({
-            url: injectBaseUrl('web-scraping/patito/problem-statement'),
-            method: HTTPMethod.POST,
-            body: JSON.stringify({ id }),
-          })),
-        },
-      },
-      websocket: {
-        auth: valid<void, HTTPMethod.POST>(() => ({
-          url: injectBaseUrl('websocket/auth'),
-          method: HTTPMethod.POST,
-        })),
-      },
-    };
-  }
-  
-  get API_V1() {
     
     const injectBaseUrl = (prefix: string, path: string) => {
       return `${JUKI_SERVICE_V1_URL}/${prefix}${path}`;
@@ -261,7 +159,7 @@ export class ApiManager {
               errorStack?: string,
               errorInfo: ErrorInfo,
               location: Location,
-              token: string
+              visitorSessionId: string
             }
           },
           HTTPMethod.POST
@@ -276,7 +174,7 @@ export class ApiManager {
               infoName: string,
               infoMessage: string,
               location: Location,
-              token: string
+              visitorSessionId: string
             }
           },
           HTTPMethod.POST
@@ -825,7 +723,16 @@ export class ApiManager {
                                   logoSize,
                                 },
                               }) => {
-          const body: any = {};
+          const body: {
+            languages?: JudgeLanguageType[],
+            problemTags?: string[],
+            name?: string,
+            isExternal?: boolean,
+            isSubmitSupported?: boolean,
+            url?: string,
+            logo?: string,
+            logoSize?: [ number, number ]
+          } = {};
           if (languages) {
             body.languages = languages;
           }
@@ -1024,30 +931,90 @@ export class ApiManager {
           method: HTTPMethod.GET,
         })),
       },
+      export: {
+        websiteToPdf: valid<{
+          params: {
+            url: string,
+            headerTemplate?: string,
+            footerTemplate?: string,
+            format?: string,
+            margin?: { top: string, bottom: string, left: string, right: string }
+          }
+        }, HTTPMethod.POST>(({ params: { url, headerTemplate, footerTemplate, margin, format } }) => ({
+          url: injectBaseUrl('export', '/website-to-pdf'),
+          method: HTTPMethod.POST,
+          body: JSON.stringify({ url, headerTemplate, footerTemplate, margin, format }),
+        })),
+        problem: {
+          statementToPdf: valid<{
+            params: {
+              key: string,
+              language: Language,
+            }
+          }, HTTPMethod.POST>(({ params: { key, language } }) => ({
+            url: injectBaseUrl('export', '/problem/statement-to-pdf'),
+            method: HTTPMethod.POST,
+            body: JSON.stringify({ key, language }),
+          })),
+          statementToPng: valid<{
+            params: {
+              key: string,
+              token: string,
+              language: Language,
+            }
+          }, HTTPMethod.POST>(({ params: { key, token, language } }) => ({
+            url: injectBaseUrl('export', '/problem/statement-to-png'),
+            method: HTTPMethod.POST,
+            body: JSON.stringify({ key, token, language }),
+          })),
+        },
+        contest: {
+          problems: {
+            statementsToPdf: valid<{
+              params: {
+                key: string,
+                token: string,
+                language: Language,
+              }
+            }, HTTPMethod.POST>(({ params: { key, token, language } }) => ({
+              url: injectBaseUrl('export', '/contest/problems/statements-to-pdf'),
+              method: HTTPMethod.POST,
+              body: JSON.stringify({ key, token, language }),
+            })),
+          },
+        },
+      },
+      webScraping: {
+        codeforces: {
+          problemStatement: valid<{
+            params: {
+              contestId: string,
+              index: string,
+            }
+          }, HTTPMethod.POST>(({ params: { contestId, index } }) => ({
+            url: injectBaseUrl('web-scraping', '/codeforces/problem-statement'),
+            method: HTTPMethod.POST,
+            body: JSON.stringify({ contestId, index }),
+          })),
+        },
+        patito: {
+          problemStatement: valid<{
+            params: {
+              id: string,
+            }
+          }, HTTPMethod.POST>(({ params: { id } }) => ({
+            url: injectBaseUrl('web-scraping', '/patito/problem-statement'),
+            method: HTTPMethod.POST,
+            body: JSON.stringify({ id }),
+          })),
+        },
+      },
+      websocket: {
+        auth: valid<void, HTTPMethod.POST>(() => ({
+          url: injectBaseUrl('websocket', '/auth'),
+          method: HTTPMethod.POST,
+        })),
+      },
     };
-  }
-  
-  getToken(): string {
-    if (typeof localStorage !== 'undefined') {
-      return getQueryToken() || localStorage.getItem(this.TOKEN_NAME) || '';
-    }
-    return getQueryToken() || '';
-  }
-  
-  isQueryToken(): boolean {
-    return typeof getQueryToken() === 'string';
-  }
-  
-  on(event: string, callback: Function) {
-    if (!this._eventListeners[event]) {
-      this._eventListeners[event] = [];
-    }
-    this._eventListeners[event].push(callback);
-  }
-  
-  off(event: string, callback: Function) {
-    if (this._eventListeners[event]) {
-      this._eventListeners[event] = this._eventListeners[event].filter(cb => cb !== callback);
-    }
   }
 }

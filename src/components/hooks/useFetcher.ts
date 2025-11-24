@@ -1,26 +1,26 @@
 import { cleanRequest, type ContentResponseType, type ContentsResponseType, HTTPMethod } from '@juki-team/commons';
 import { useMemo } from 'react';
 import useSWR, { type SWRConfiguration } from 'swr';
-import { getAuthorizedRequest } from '../helpers';
-import { jukiApiManager } from '../../settings';
 import { useUserStore } from '../../stores/user/useUserStore';
+import { getAuthorizedRequest } from '../helpers';
 
-export const fetcherWithToken = ([ url, token ]: [ string, string ]) => {
-  return getAuthorizedRequest(url, { token, method: HTTPMethod.GET }, false);
+export const fetcher = ([ url ]: [ string ]) => {
+  return getAuthorizedRequest(url, { method: HTTPMethod.GET }, false);
 };
 
-export const useFetcher = <T extends (ContentResponseType<any> | ContentsResponseType<any>)>(url?: string | null, config?: SWRConfiguration) => {
+export const getUrlKey = (url: string | null | undefined, userSessionId: string) => {
+  return (typeof url === 'string' && url) ? [ url, userSessionId ] : null;
+};
+
+export const useFetcher = <T extends (ContentResponseType<unknown> | ContentsResponseType<unknown>)>(url?: string | null, config?: SWRConfiguration) => {
   
-  const token = jukiApiManager.getToken();
   const userSessionId = useUserStore(state => state.user.sessionId);
   
-  const swrKey = useMemo(() => {
-    return typeof url === 'string' && url ? [ url, token, userSessionId ] : null;
-  }, [ url, token, userSessionId ]);
+  const swrKey = getUrlKey(url, userSessionId);
   
   const { data, error, mutate, isValidating, isLoading } = useSWR(
     swrKey,
-    fetcherWithToken,
+    fetcher,
     config,
   );
   

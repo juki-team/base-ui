@@ -26,7 +26,7 @@ import type { ProfileSubmissionsProps } from './types';
 export function ProfileSubmissions(_: ProfileSubmissionsProps) {
   
   const nickname = useRouterStore(state => state.routeParams.nickname);
-  const { data: judgePublicList } = useFetcher<ContentsResponseType<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V1.judge.getSummaryList().url);
+  const { data: judgePublicList } = useFetcher<ContentsResponseType<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
   const preload = usePreload();
   const languages = useMemo(() => {
     const result: LanguagesByJudge = {};
@@ -56,7 +56,7 @@ export function ProfileSubmissions(_: ProfileSubmissionsProps) {
       cards={{ expanded: true }}
       headers={columns}
       getUrl={({ pagination: { page, pageSize }, filter, sort }) => (
-        jukiApiManager.API_V1.submission.getSummaryList({
+        jukiApiManager.API_V2.submission.getSummaryList({
           params: {
             page,
             pageSize,
@@ -71,9 +71,9 @@ export function ProfileSubmissions(_: ProfileSubmissionsProps) {
       onRecordRender={({ data, index }) => {
         if (data[index]) {
           if (data[index].contest) {
-            void preload(jukiApiManager.API_V1.contest.getData({ params: { key: data[index].contest.key } }).url);
+            void preload(jukiApiManager.API_V2.contest.getData({ params: { key: data[index].contest.key } }).url);
           } else {
-            void preload(jukiApiManager.API_V1.problem.getData({ params: { key: data[index].problem.key } }).url);
+            void preload(jukiApiManager.API_V2.problem.getData({ params: { key: data[index].problem.key } }).url);
           }
         }
       }}

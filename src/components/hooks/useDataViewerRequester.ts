@@ -11,7 +11,7 @@ import type {
 } from '../types';
 import { useFetcher } from './useFetcher';
 
-export const useDataViewerRequester = <T extends ContentResponseType<any> | ContentsResponseType<any>, >(getUrl: DataViewerRequesterGetUrlType, options?: SWRConfiguration) => {
+export const useDataViewerRequester = <T extends ContentResponseType<unknown> | ContentsResponseType<unknown>, >(getUrl: DataViewerRequesterGetUrlType, options?: SWRConfiguration) => {
   const setLoaderStatusRef = useRef<SetLoaderStatusType>(null);
   const [ url, setUrl ] = useState<string | undefined>(undefined);
   const { data, error, isLoading, mutate, isValidating } = useFetcher<T>(url, options);

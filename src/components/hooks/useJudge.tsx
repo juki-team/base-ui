@@ -16,7 +16,7 @@ export const useJudge = <T, >({ key, isExternal }: { key: string, isExternal: bo
   
   const { data: virtualJudgeData } = useFetcher<ContentResponseType<JudgeDataResponseDTO>>(
     isExternal
-      ? jukiApiManager.API_V1.judge.getData({ params: { key } }).url
+      ? jukiApiManager.API_V2.judge.getData({ params: { key } }).url
       : null,
   );
   

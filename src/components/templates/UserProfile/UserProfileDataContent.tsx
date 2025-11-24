@@ -11,7 +11,7 @@ export function UserProfileDataContent({ user, className }: UserProfileDataConte
   
   const { Image, Link } = useUIStore(store => store.components);
   const { data } = useFetcher<ContentsResponseType<JudgeDataResponseDTO>>(
-    jukiApiManager.API_V1.judge.getSummaryList().url,
+    jukiApiManager.API_V2.judge.getSummaryList().url,
   );
   
   return (

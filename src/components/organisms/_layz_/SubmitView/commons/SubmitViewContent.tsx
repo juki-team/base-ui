@@ -96,7 +96,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
   
   const isLeetCode = submit.problem.judge.key === Judge.LEETCODE;
   const { data } = useFetcher<ContentsResponseType<JudgeDataResponseDTO>>(
-    jukiApiManager.API_V1.judge.getSummaryList().url,
+    jukiApiManager.API_V2.judge.getSummaryList().url,
   );
   const getSubmissionUrl = data?.success ? data.contents.find(({ key }) => key === Judge.LEETCODE)?.getSubmissionUrl : '';
   const getSubmissionUrlFn = new Function('problemKey', 'submissionId', 'username', 'submissionRunId', getSubmissionUrl || 'return \'\'');

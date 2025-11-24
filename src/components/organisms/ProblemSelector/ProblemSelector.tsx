@@ -26,7 +26,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
   const [ data, setData ] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useJukiNotification();
   const [ timestampTrigger, setTimestampTrigger ] = useState(0);
-  const { data: judgesData } = useFetcher<ContentResponseType<JudgeDataResponseDTO[]>>(jukiApiManager.API_V1.company.getJudgeList({ params: { companyKey } }).url);
+  const { data: judgesData } = useFetcher<ContentResponseType<JudgeDataResponseDTO[]>>(jukiApiManager.API_V2.company.getJudgeList({ params: { companyKey } }).url);
   const judges = judgesData?.success ? judgesData.content : [];
   const firstJudge = judges[0];
   
@@ -42,7 +42,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
         setData(prevState => (
           { ...prevState, [judge.key]: { problems: prevState[judge.key]?.problems || [], loading: true } }
         ));
-        const { url } = jukiApiManager.API_V1
+        const { url } = jukiApiManager.API_V2
           .problem
           .getBasicSummaryList({
             params: {
@@ -85,7 +85,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
     <ButtonLoader
       onClick={async (setLoaderStatus) => {
         setLoaderStatus(Status.LOADING);
-        const { url } = jukiApiManager.API_V1
+        const { url } = jukiApiManager.API_V2
           .problem
           .getSummary({ params: { key } });
         const response = cleanRequest<ContentResponseType<ProblemSummaryListResponseDTO>>(

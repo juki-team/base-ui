@@ -46,7 +46,7 @@ function UserInlineChip({ nickname }: { nickname: string }) {
   const {
     isLoading,
     data,
-  } = useFetcher<ContentResponseType<UserBasicResponseDTO>>(jukiApiManager.API_V1.user.getSummary({ params: { nickname } }).url);
+  } = useFetcher<ContentResponseType<UserBasicResponseDTO>>(jukiApiManager.API_V2.user.getSummary({ params: { nickname } }).url);
   
   if (isLoading) {
     return <SpinIcon size="tiny" />;

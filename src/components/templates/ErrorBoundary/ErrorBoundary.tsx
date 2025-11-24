@@ -1,6 +1,7 @@
 import { cleanRequest, consoleError, consoleInfo, type ContentsResponseType } from '@juki-team/commons';
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { jukiApiManager } from '../../../settings';
+import { getVisitorSessionId } from '../../../settings/ApiManager';
 import { Button, T } from '../../atoms';
 import { authorizedRequest } from '../../helpers';
 import { HelpSection } from '../HelpSection/HelpSection';
@@ -22,13 +23,13 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
   
   async componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     // You can use your own error logging service here
-    const token = jukiApiManager.getToken();
+    const visitorSessionId = getVisitorSessionId();
     const location = window?.location;
     try {
-      const { url, ...options } = jukiApiManager.API_V1.log.error({
+      const { url, ...options } = jukiApiManager.API_V2.log.error({
         body: {
           location,
-          token,
+          visitorSessionId,
           errorName: error?.name,
           errorMessage: error?.message,
           errorStack: error?.stack,
@@ -39,10 +40,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
       if (response.success) {
         consoleInfo('Error reported');
       } else {
-        consoleError('error reported failed', { error, errorInfo, location, token, response });
+        consoleError('error reported failed', { error, errorInfo, location, visitorSessionId, response });
       }
     } catch (errorOnLog) {
-      consoleError('error on log error', { error, errorInfo, location, token, errorOnLog });
+      consoleError('error on log error', { error, errorInfo, location, visitorSessionId, errorOnLog });
     }
   }
   

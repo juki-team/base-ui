@@ -5,10 +5,10 @@ import {
   ErrorResponseType,
   HEADER_JUKI_FORWARDED_HOST,
   HEADER_JUKI_METADATA,
-  HEADER_JUKI_SESSION_ID,
+  HEADER_JUKI_VISITOR_SESSION_ID,
   HTTPMethod,
 } from '@juki-team/commons';
-import { jukiApiManager } from '../../settings';
+import { getVisitorSessionId } from '../../settings/ApiManager';
 import { AuthorizedRequestType } from '../types';
 
 export const authorizedRequest = async <M extends Exclude<HTTPMethod, HTTPMethod.GET> = HTTPMethod.POST, N extends Blob | string = string>(url: string, options?: AuthorizedRequestType<M>, safe?: boolean): Promise<N> => {
@@ -31,10 +31,10 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
     requestHeaders.set('content-type', 'application/json');
   }
   
-  const token = options?.token || jukiApiManager.getToken();
+  const visitorSessionId = getVisitorSessionId();
   
-  if (token) {
-    requestHeaders.set(HEADER_JUKI_SESSION_ID, token);
+  if (visitorSessionId) {
+    requestHeaders.set(HEADER_JUKI_VISITOR_SESSION_ID, visitorSessionId);
   }
   
   try {
@@ -89,10 +89,10 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
   }
 };
 
-export const getHeaders = (jukiSessionId: string): HeadersInit => ({
+export const getHeaders = (jukiVisitorSessionId: string): HeadersInit => ({
   origin: typeof window !== 'undefined' ? window.location.origin : 'https://juki.app',
   referer: typeof window !== 'undefined' ? window.location.origin + '/' : 'https://juki.app/',
-  [HEADER_JUKI_SESSION_ID]: jukiSessionId,
+  [HEADER_JUKI_VISITOR_SESSION_ID]: jukiVisitorSessionId,
   [HEADER_JUKI_FORWARDED_HOST]: 'juki.app',
 });
 

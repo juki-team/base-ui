@@ -8,9 +8,9 @@ import {
   Status,
   WorksheetType,
 } from '@juki-team/commons';
-import { authorizedRequest } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms';
+import { authorizedRequest } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { ButtonLoader, FetcherLayer, FirstLoginWrapper } from '../../../../../molecules';
 import { ProblemView } from '../../../../../templates/ProblemView/ProblemView';
@@ -43,7 +43,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
         }}
       >
         <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
-          url={content.problemKey ? jukiApiManager.API_V1.problem.getData({ params: { key: content.problemKey } }).url : null}
+          url={content.problemKey ? jukiApiManager.API_V2.problem.getData({ params: { key: content.problemKey } }).url : null}
         >
           {({ data }) => {
             return (
@@ -70,7 +70,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
                           const {
                             url,
                             ...options
-                          } = jukiApiManager.API_V1.worksheet.submitQuizProblem({
+                          } = jukiApiManager.API_V2.worksheet.submitQuizProblem({
                             params: { worksheetKey },
                             body: quizProblem,
                           });

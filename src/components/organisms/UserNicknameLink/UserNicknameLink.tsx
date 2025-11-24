@@ -14,7 +14,7 @@ export function UserNicknameLink({ children, nickname, companyKey }: UserNicknam
   const { Link } = useUIStore(store => store.components);
   
   useEffect(() => {
-    void preload(jukiApiManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url);
+    void preload(jukiApiManager.API_V2.user.getSummary({ params: { nickname, companyKey } }).url);
   }, [ companyKey, nickname, preload ]);
   
   const searchParams = useMemo(() => {

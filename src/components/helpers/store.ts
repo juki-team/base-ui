@@ -1,11 +1,11 @@
-import { jukiApiManager } from '../../settings';
+import { getQuerySessionId } from '../../settings/ApiManager';
 
 export const isIFrame = (input: Element): input is HTMLIFrameElement =>
   input !== null && input.tagName === 'IFRAME';
 
 export const localStorageCrossDomains = {
   setItem: (key: string, value: string) => {
-    if (jukiApiManager.isQueryToken() || typeof document === 'undefined') {
+    if (!!getQuerySessionId() || typeof document === 'undefined') {
       return;
     }
     localStorage.setItem(key, value);
@@ -18,7 +18,7 @@ export const localStorageCrossDomains = {
     }
   },
   removeItem: (key: string) => {
-    if (jukiApiManager.isQueryToken() || typeof document === 'undefined') {
+    if (!!getQuerySessionId() || typeof document === 'undefined') {
       return;
     }
     localStorage.removeItem(key);

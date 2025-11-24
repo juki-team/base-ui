@@ -1,7 +1,7 @@
 import { cleanRequest, type ContentResponseType, Status } from '@juki-team/commons';
-import { authorizedRequest } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
 import type { BasicModalProps } from '../../../../../atoms/types';
+import { authorizedRequest } from '../../../../../helpers';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { ForgotPasswordModalComponent } from './ForgoPasswordModal';
@@ -11,7 +11,7 @@ export const ForgotPasswordModal = ({ isOpen, onClose }: BasicModalProps) => {
   const { notifyResponse } = useJukiNotification();
   const onForgotPassword: OnForgotPasswordType = async (email, setStatus) => {
     setStatus?.(Status.LOADING);
-    const { url, ...options } = jukiApiManager.API_V1.auth.initiateResetPassword({ body: { email } });
+    const { url, ...options } = jukiApiManager.API_V2.auth.initiateResetPassword({ body: { email } });
     const response = cleanRequest<ContentResponseType<any>>(await authorizedRequest(url, options));
     notifyResponse(response, setStatus);
   };

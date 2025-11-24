@@ -9,9 +9,9 @@ import {
   WorksheetType,
 } from '@juki-team/commons';
 import { useRef, useState } from 'react';
-import { authorizedRequest } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms';
+import { authorizedRequest } from '../../../../../helpers';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useStableState } from '../../../../../hooks/useStableState';
@@ -102,7 +102,7 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
                       id: content.id,
                       checkedOptions,
                     };
-                    const { url, ...options } = jukiApiManager.API_V1.worksheet.submitQuizOptions({
+                    const { url, ...options } = jukiApiManager.API_V2.worksheet.submitQuizOptions({
                       params: { worksheetKey },
                       body: jkMdSubmissionDTO,
                     });

@@ -9,9 +9,9 @@ import {
   WorksheetType,
 } from '@juki-team/commons';
 import { useRef, useState } from 'react';
-import { authorizedRequest } from '../../../../../helpers';
 import { jukiApiManager } from '../../../../../../settings';
 import { InputCheckbox, T } from '../../../../../atoms';
+import { authorizedRequest } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { ButtonLoader, FloatToolbar } from '../../../../../molecules';
 import { MdMathViewer } from '../../../../MdMathViewer/MdMathViewer';
@@ -88,7 +88,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
                         id: content.id,
                         read: !lastSubmission?.read,
                       };
-                      const { url, ...options } = jukiApiManager.API_V1.worksheet.submitJkMd({
+                      const { url, ...options } = jukiApiManager.API_V2.worksheet.submitJkMd({
                         params: { worksheetKey },
                         body: jkMdSubmissionDTO,
                       });

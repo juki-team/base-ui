@@ -17,7 +17,7 @@ export function SubmissionRejudgeButton({ submissionId }: SubmissionRejudgeButto
   const rejudgeSubmission = (submissionId: string): ButtonLoaderOnClickType => async (setLoaderStatus) => {
     setLoaderStatus(Status.LOADING);
     
-    const { url, ...options } = jukiApiManager.API_V1.submission.rejudge({ params: { id: submissionId } });
+    const { url, ...options } = jukiApiManager.API_V2.submission.rejudge({ params: { id: submissionId } });
     const response = cleanRequest<ContentResponseType<{ listCount: number, status: SubmissionRunStatus.RECEIVED }>>(
       await authorizedRequest(url, options));
     notifyResponse(response, setLoaderStatus);

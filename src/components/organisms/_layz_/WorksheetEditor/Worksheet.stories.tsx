@@ -24,7 +24,7 @@ export const WorksheetViewer: Story = {
     <MockupJukiProvider>
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
         // url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
-        url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-g4Y' } }).url}
+        url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-g4Y' } }).url}
       >
         {({ data }) => (
           <TwoContentLayout
@@ -55,7 +55,7 @@ export const WorksheetResultViewer: Story = {
   render: (args) => (
     <MockupJukiProvider>
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
-        url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
+        url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
         {({ data }) => (
           <TwoContentLayout
@@ -144,7 +144,7 @@ export const WorksheetEditor: Story = {
   render: (args) => (
     <MockupJukiProvider>
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
-        url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
+        url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
         {({ data, mutate }) => (
           <TwoContentLayout
@@ -169,7 +169,7 @@ export const WorksheetViewerAsSlides: Story = {
     <MockupJukiProvider>
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
         // url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
-        url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-g4Y' } }).url}
+        url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-g4Y' } }).url}
       >
         {({ data }) => (
           <TwoContentLayout

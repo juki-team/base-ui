@@ -8,7 +8,7 @@ export const ProblemSummary = ({ problemKey }: { problemKey: string }) => {
   return (
     <div style={{}}>
       <FetcherLayer<ContentResponseType<ProblemSummaryListResponseDTO>>
-        url={jukiApiManager.API_V1.problem.getSummary({
+        url={jukiApiManager.API_V2.problem.getSummary({
           params: {
             key: problemKey,
           },

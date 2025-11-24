@@ -1,6 +1,7 @@
 import { Language } from '@juki-team/commons';
 import { createInstance, i18n } from 'i18next';
 import { create } from 'zustand';
+import { getAuthorizedRequest } from '../../components/helpers';
 import { jukiApiManager } from '../../settings';
 import initTranslations from './i18n';
 
@@ -29,23 +30,23 @@ export const useI18nStore = create<I18nState>((set) => ({
   loadResources: async (namespace = 'translation') => {
     try {
       const [ dataEN, dataES ] = await Promise.all([
-        fetch(jukiApiManager.API_V1.locale.get({
+        getAuthorizedRequest(jukiApiManager.API_V2.locale.get({
           params: { locale: Language.EN, namespace },
-        }).url).then(res => res.json()),
-        fetch(jukiApiManager.API_V1.locale.get({
+        }).url),
+        getAuthorizedRequest(jukiApiManager.API_V2.locale.get({
           params: { locale: Language.ES, namespace },
-        }).url).then(res => res.json()),
+        }).url),
       ]);
       const currentEN = i18nInstance.getResourceBundle(Language.EN, namespace);
       const currentES = i18nInstance.getResourceBundle(Language.ES, namespace);
-      const hasChangedEN = JSON.stringify(currentEN) !== JSON.stringify(dataEN);
-      const hasChangedES = JSON.stringify(currentES) !== JSON.stringify(dataES);
+      const hasChangedEN = JSON.stringify(currentEN) !== dataEN;
+      const hasChangedES = JSON.stringify(currentES) !== dataES;
       
       if (hasChangedEN) {
-        i18nInstance.addResourceBundle(Language.EN, namespace, dataEN);
+        i18nInstance.addResourceBundle(Language.EN, namespace, JSON.parse(dataEN));
       }
       if (hasChangedES) {
-        i18nInstance.addResourceBundle(Language.ES, namespace, dataES);
+        i18nInstance.addResourceBundle(Language.ES, namespace, JSON.parse(dataES));
       }
       
       if (hasChangedEN || hasChangedES) {

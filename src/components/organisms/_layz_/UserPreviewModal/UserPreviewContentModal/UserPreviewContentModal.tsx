@@ -60,7 +60,7 @@ export const UserPreviewContentModal = ({
       className="modal-user-preview"
     >
       <FetcherLayer<ContentResponseType<UserBasicResponseDTO>>
-        url={jukiApiManager.API_V1.user.getSummary({ params: { nickname, companyKey } }).url}
+        url={jukiApiManager.API_V2.user.getSummary({ params: { nickname, companyKey } }).url}
         onError={onClose}
       >
         {({ data }) => (

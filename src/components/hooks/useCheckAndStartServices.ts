@@ -18,7 +18,7 @@ export const useCheckAndStartServices = () => {
       const lastRequested = +(localStorage.getItem('lastRequestedServicesCheck') || '0');
       if (isPageVisible && isPageOnline && isPageFocus && (Date.now() - lastRequested) >= ONE_MINUTE) {
         localStorage.setItem('lastRequestedServicesCheck', Date.now().toString());
-        const { url, ...options } = jukiApiManager.API_V1.system.services.checkAndStart();
+        const { url, ...options } = jukiApiManager.API_V2.system.services.checkAndStart();
         const response = cleanRequest<ContentResponseType<string>>(await authorizedRequest(url, options));
         consoleInfo('runner services wake up requested', response);
         localStorage.setItem('lastRequestedServicesCheck', Date.now().toString());

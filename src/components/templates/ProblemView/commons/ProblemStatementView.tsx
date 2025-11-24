@@ -125,7 +125,6 @@ export const ProblemStatementView = <T, >({
     const { url, ...options } = jukiApiManager.API_V2.export.problem.statementToPdf({
       params: {
         key: problemKey,
-        token: jukiApiManager.getToken(),
         language: userPreferredLanguage,
       },
     });

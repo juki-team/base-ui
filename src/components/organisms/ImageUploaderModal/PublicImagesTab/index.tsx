@@ -12,7 +12,7 @@ interface PublicImagesTabProps {
 
 export const PublicImagesTab = (props: PublicImagesTabProps) => (
   <FetcherLayer<ContentsResponseType<ImageSummaryResponseDTO>>
-    url={jukiApiManager.API_V1.image.getPublicList().url}
+    url={jukiApiManager.API_V2.image.getPublicList().url}
     triggerFetch={props.trigger}
   >
     {({ data: { contents } }) => (

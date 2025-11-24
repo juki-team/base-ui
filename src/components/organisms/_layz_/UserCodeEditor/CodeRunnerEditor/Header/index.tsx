@@ -89,7 +89,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     try {
       const runId = v4();
       setRunId(runId);
-      const { url, ...options } = jukiApiManager.API_V1.code.run({
+      const { url, ...options } = jukiApiManager.API_V2.code.run({
         body: {
           runId,
           files: [

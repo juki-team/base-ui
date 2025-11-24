@@ -247,7 +247,7 @@ export const downloadSheetDataAsXlsxFile = async (sheets: SheetDataType[], fileN
 };
 
 export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fileName: string) => {
-  const { url, ...options } = jukiApiManager.API_V1.note.createPdf({ body: { source, theme } });
+  const { url, ...options } = jukiApiManager.API_V2.note.createPdf({ body: { source, theme } });
   const result = await authorizedRequest(
     url, { responseType: 'blob', ...options },
   );

@@ -1,5 +1,5 @@
 import { QueryParamKey } from '../../../enums';
-import { jukiApiManager } from '../../../settings';
+import { getQuerySessionId } from '../../../settings/ApiManager';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
@@ -53,7 +53,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
                 onClick={(setLoader) => logout({ setLoader })}
                 type="light"
                 icon={<LogoutIcon />}
-                disabled={jukiApiManager.isQueryToken()}
+                disabled={!!getQuerySessionId()}
               >
                 <T className="ws-np tt-se">sign out</T>
               </ButtonLoader>

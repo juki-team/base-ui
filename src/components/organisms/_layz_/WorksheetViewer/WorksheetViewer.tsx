@@ -51,7 +51,7 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
     mutate: userResultsMutate,
     isLoading: userResultsIsLoading,
     isValidating: userResultsIsValidating,
-  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && quizEnable && userIsLogged ? jukiApiManager.API_V1.worksheet.getSubmissionsUser({
+  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && quizEnable && userIsLogged ? jukiApiManager.API_V2.worksheet.getSubmissionsUser({
     params: {
       key: worksheetKey,
       userKey: resultsUserKey || getUserKey(userNickname, companyKey),

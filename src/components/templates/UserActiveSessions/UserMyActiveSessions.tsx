@@ -22,7 +22,7 @@ export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
     data: response,
     request,
     setLoaderStatusRef,
-  } = useDataViewerRequester<ContentsResponseType<SessionBasicResponseDTO>>(() => jukiApiManager.API_V1.user.getMySessions().url);
+  } = useDataViewerRequester<ContentsResponseType<SessionBasicResponseDTO>>(() => jukiApiManager.API_V2.user.getMySessions().url);
   
   const mutate = useMutate();
   
@@ -58,7 +58,7 @@ export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
                   setLoader,
                   onSuccess: async () => {
                     setLoader(Status.LOADING);
-                    await mutate(jukiApiManager.API_V1.user.getMySessions().url);
+                    await mutate(jukiApiManager.API_V2.user.getMySessions().url);
                     setLoader(Status.SUCCESS);
                   },
                 })}

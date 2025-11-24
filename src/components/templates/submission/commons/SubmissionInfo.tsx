@@ -19,7 +19,7 @@ export function SubmissionInfo({ submitId, canViewSourceCode, children }: PropsW
   
   useEffect(() => {
     if (canViewSourceCode) {
-      void preload(jukiApiManager.API_V1.submission.getData({ params: { id: submitId } }).url);
+      void preload(jukiApiManager.API_V2.submission.getData({ params: { id: submitId } }).url);
     }
   }, [ submitId, preload, canViewSourceCode ]);
   

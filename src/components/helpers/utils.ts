@@ -11,7 +11,7 @@ export const openNewTab = (url: string) => {
 };
 
 export const publishNote = async (source: string) => {
-  const { url, ...options } = jukiApiManager.API_V1.note.publish({ body: { source: source.trim() } });
+  const { url, ...options } = jukiApiManager.API_V2.note.publish({ body: { source: source.trim() } });
   const request = cleanRequest<ContentResponseType<{ sourceUrl: string }>>(
     await authorizedRequest(url, options),
   );
@@ -49,7 +49,7 @@ export const handleUploadImage = async (image: Blob, isPublic: boolean): Promise
   content: { imageUrl: string, signedUrl: string }
 }> => {
   try {
-    const { url, ...options } = jukiApiManager.API_V1.image.publish({
+    const { url, ...options } = jukiApiManager.API_V2.image.publish({
       body: {
         contentType: image.type,
         isPublic,

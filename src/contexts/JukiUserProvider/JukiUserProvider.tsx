@@ -16,7 +16,7 @@ import { useInjectFontSize } from '../../components/hooks/useInjectFontSize';
 import { useInjectTheme } from '../../components/hooks/useInjectTheme';
 import { useMutate } from '../../components/hooks/useMutate';
 import { EMPTY_USER } from '../../constants';
-import { JUKI_SERVICE_V1_URL, JUKI_SERVICE_V2_URL } from '../../constants/settings';
+import { JUKI_SERVICE_V1_URL, JUKI_SERVICE_V2_URL, JUKI_TOKEN_NAME } from '../../constants/settings';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
@@ -42,7 +42,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
     // isValidating: isValidatingPing,
     mutate,
   } = useFetcher<ContentResponseType<PingResponseDTO>>(
-    jukiApiManager.API_V1.auth.ping().url,
+    jukiApiManager.API_V2.auth.ping().url,
     { refreshInterval: ONE_MINUTE * 5 },
   );
   
@@ -93,7 +93,7 @@ export const JukiUserProvider = (props: PropsWithChildren<JukiUserProviderProps>
         });
       }
       
-      localStorageCrossDomains.setItem(jukiApiManager.TOKEN_NAME, data?.content.user.sessionId);
+      localStorageCrossDomains.setItem(JUKI_TOKEN_NAME, data?.content.user.sessionId);
     } else {
       setUser({
         ...EMPTY_USER,
