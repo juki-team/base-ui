@@ -1,10 +1,9 @@
 import { QueryParamKey } from '../../../enums';
-import { getQuerySessionId } from '../../../settings/ApiManager';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Popover, T } from '../../atoms';
-import { classNames } from '../../helpers';
+import { classNames, getQuerySessionId } from '../../helpers';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { ButtonLoader } from '../../molecules';
 import { LoginIcon, LogoutIcon, SpinIcon } from '../../server';

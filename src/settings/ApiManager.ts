@@ -15,7 +15,6 @@ import {
   UserSettingsType,
 } from '@juki-team/commons';
 import type { ErrorInfo } from 'react';
-import { isBrowser } from '../components/helpers/commons';
 import {
   AuthorizedRequestType,
   SignInPayloadDTO,
@@ -23,8 +22,7 @@ import {
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
 } from '../components/types';
-import { JUKI_SERVICE_V1_URL, JUKI_TOKEN_NAME } from '../constants/settings';
-import { QueryParamKey } from '../enums';
+import { JUKI_SERVICE_V1_URL } from '../constants/settings';
 
 const addQuery = (path: string) => {
   return !path.includes('?') ? path + '?' : path;
@@ -51,30 +49,6 @@ const injectCompany = (path: string, companyKey: string | undefined) => {
 };
 
 type ResponseAPI<M extends HTTPMethod = HTTPMethod.GET> = ({ url: string } & AuthorizedRequestType<M>);
-
-// const UUID_WITHOUT_DASHES = /^[0-9A-F]{32}$/i;
-// const UUID_WITH_DASHES = /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i;
-const checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
-
-const validate = (representation: string) => {
-  return representation.length === 24 && checkForHexRegExp.test(representation);
-// return UUID_WITHOUT_DASHES.test(representation) || UUID_WITH_DASHES.test(representation)
-};
-
-export function getQuerySessionId(): string {
-  let queryToken = '';
-  if (isBrowser()) {
-    queryToken = (new URLSearchParams(window.location.search)).get(QueryParamKey.TOKEN) ?? '';
-  }
-  return validate(queryToken) ? queryToken : '';
-}
-
-export function getVisitorSessionId(): string {
-  if (typeof localStorage !== 'undefined') {
-    return getQuerySessionId() || localStorage.getItem(JUKI_TOKEN_NAME) || '';
-  }
-  return getQuerySessionId() || '';
-}
 
 export class ApiManager {
   
@@ -974,13 +948,12 @@ export class ApiManager {
             statementsToPdf: valid<{
               params: {
                 key: string,
-                token: string,
                 language: Language,
               }
-            }, HTTPMethod.POST>(({ params: { key, token, language } }) => ({
+            }, HTTPMethod.POST>(({ params: { key, language } }) => ({
               url: injectBaseUrl('export', '/contest/problems/statements-to-pdf'),
               method: HTTPMethod.POST,
-              body: JSON.stringify({ key, token, language }),
+              body: JSON.stringify({ key, language }),
             })),
           },
         },

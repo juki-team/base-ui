@@ -1,4 +1,4 @@
-import { getQuerySessionId } from '../../settings/ApiManager';
+import { getQuerySessionId } from './fetch';
 
 export const isIFrame = (input: Element): input is HTMLIFrameElement =>
   input !== null && input.tagName === 'IFRAME';

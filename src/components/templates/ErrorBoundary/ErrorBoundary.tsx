@@ -1,9 +1,8 @@
 import { cleanRequest, consoleError, consoleInfo, type ContentsResponseType } from '@juki-team/commons';
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { jukiApiManager } from '../../../settings';
-import { getVisitorSessionId } from '../../../settings/ApiManager';
 import { Button, T } from '../../atoms';
-import { authorizedRequest, isBrowser } from '../../helpers';
+import { authorizedRequest, getVisitorSessionId, isBrowser } from '../../helpers';
 import { HelpSection } from '../HelpSection/HelpSection';
 import type { ErrorBoundaryProps } from './types';
 

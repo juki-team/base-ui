@@ -55,6 +55,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
   
   return (
     <NotificationContext.Provider value={{ dispatch }}>
+      {children}
       <div className="notification-wrapper">
         {chunkStates
           .map((chunk) => (
@@ -77,7 +78,6 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
             <CardNotification key={note.id} ids={[ note.id ]}{...note} type={NotificationType.QUIET} />
           ))}
       </div>
-      {children}
     </NotificationContext.Provider>
   );
 }

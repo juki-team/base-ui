@@ -14,20 +14,44 @@ import {
   Status,
   Theme,
 } from '@juki-team/commons';
+import { JUKI_TOKEN_NAME } from '../../constants/settings';
+import { QueryParamKey } from '../../enums';
 import { jukiApiManager } from '../../settings';
-import { getVisitorSessionId } from '../../settings/ApiManager';
 import { AuthorizedRequestType } from '../types';
 import { downloadBlobAsFile, downloadUrlAsFile, isBrowser } from './commons';
+
+// const UUID_WITHOUT_DASHES = /^[0-9A-F]{32}$/i;
+// const UUID_WITH_DASHES = /^[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12}$/i;
+const checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
+const validate = (representation: string) => {
+  return representation.length === 24 && checkForHexRegExp.test(representation);
+// return UUID_WITHOUT_DASHES.test(representation) || UUID_WITH_DASHES.test(representation)
+};
+
+export function getQuerySessionId(): string {
+  let queryToken = '';
+  if (isBrowser()) {
+    queryToken = (new URLSearchParams(window.location.search)).get(QueryParamKey.TOKEN) ?? '';
+  }
+  return validate(queryToken) ? queryToken : '';
+}
+
+export function getVisitorSessionId(): string {
+  if (typeof localStorage !== 'undefined') {
+    return getQuerySessionId() || localStorage.getItem(JUKI_TOKEN_NAME) || '';
+  }
+  return getQuerySessionId() || '';
+}
 
 export const authorizedRequest = async <M extends Exclude<HTTPMethod, HTTPMethod.GET> = HTTPMethod.POST, N extends Blob | string = string>(url: string, options?: AuthorizedRequestType<M>, safe?: boolean): Promise<N> => {
   return _authorizedRequest(url, options, safe);
 };
 
-export const getAuthorizedRequest = async <N extends Blob | string = string>(url: string, options?: AuthorizedRequestType, safe?: boolean): Promise<N> => {
+export const getAuthorizedRequest = async <N extends Blob | string = string>(url: string, options?: Omit<AuthorizedRequestType, 'method'>, safe?: boolean): Promise<N> => {
   return _authorizedRequest(url, options, safe);
 };
 
-const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N extends Blob | string = string>(url: string, options?: AuthorizedRequestType<M>, safe?: boolean): Promise<N> => {
+const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N extends Blob | string = string>(url: string, options?: Partial<AuthorizedRequestType<M>>, safe?: boolean): Promise<N> => {
   
   const { method = HTTPMethod.GET, body, signal, responseType, headers, cache, next } = options || {};
   
