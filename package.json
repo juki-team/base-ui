@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "1.2.177",
+  "version": "1.2.178",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -181,10 +181,10 @@
     "webpack": "^5.102.1"
   },
   "peerDependencies": {
+    "@excalidraw/excalidraw": "^0",
     "motion": "^12",
     "react": "^19",
-    "react-dom": "^19",
-    "@excalidraw/excalidraw": "^0"
+    "react-dom": "^19"
   },
   "browserslist": {
     "production": [
