@@ -4,8 +4,8 @@ import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, getHref, isBrowser, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useStableState } from '../../hooks/useStableState';
 import type { TabsType } from '../../types';
-import { TabsInline } from '../_lazy_/TabsInline';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
+import { TabsInline } from '../TabsInline/TabsInline';
 import { TabsInlineBody } from '../TabsInlineBody/TabsInlineBody';
 import { TwoContentSection } from '../TwoContentSection/TwoContentSection';
 import { JukiLoadingLayout } from './JukiLoadingLayout';
@@ -51,42 +51,42 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
     <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })}>
       <>
         {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
-        {(!!children || (!withTabs && tabButtons && tabButtons.length > 0)) && (
-          <div
-            className={classNames('jk-row gap extend jk-pg-xsm-b', {
-              'jk-pg-xsm-t': !withBreadcrumbs,
-              'left': !isMobile,
-              'center': isMobile,
-            })}
-          >
-            {children}
-            {!withTabs && tabButtons && tabButtons.length > 0 && (
-              <div className="jk-row gap extend right">
-                {tabButtons.map(buttonsTab => renderReactNodeOrFunctionP1(buttonsTab, { selectedTabKey }))}
-              </div>
-            )}
-          </div>
-        )}
-        {withTabs && (
-          <TabsInline
-            tabs={tabs}
-            selectedTabKey={selectedTabKey}
-            extraNodes={tabButtons}
-            extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
-            tickStyle="background"
-            className="jk-pg-xsm-b"
-            onChange={(tabKey) => {
-              setSelectedTabKey(tabKey);
-              if (getHrefOnTabChange && isBrowser()) {
-                const { pathname, searchParams } = getHref(getHrefOnTabChange(tabKey));
-                const search = persistGlobalURLSearchParams(searchParams);
-                if (isBrowser()) {
-                  window.history.replaceState({}, '', `${pathname}${search ? '?' + search : ''}`);
+          {(!!children || (!withTabs && tabButtons && tabButtons.length > 0)) && (
+            <div
+              className={classNames('jk-row gap extend jk-pg-xsm-b', {
+                'jk-pg-xsm-t': !withBreadcrumbs,
+                'left': !isMobile,
+                'center': isMobile,
+              })}
+            >
+              {children}
+              {!withTabs && tabButtons && tabButtons.length > 0 && (
+                <div className="jk-row gap extend right">
+                  {tabButtons.map(buttonsTab => renderReactNodeOrFunctionP1(buttonsTab, { selectedTabKey }))}
+                </div>
+              )}
+            </div>
+          )}
+          {withTabs && (
+            <TabsInline
+              tabs={tabs}
+              selectedTabKey={selectedTabKey}
+              extraNodes={tabButtons}
+              extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
+              tickStyle="background"
+              className="jk-pg-xsm-b"
+              onChange={(tabKey) => {
+                setSelectedTabKey(tabKey);
+                if (getHrefOnTabChange && isBrowser()) {
+                  const { pathname, searchParams } = getHref(getHrefOnTabChange(tabKey));
+                  const search = persistGlobalURLSearchParams(searchParams);
+                  if (isBrowser()) {
+                    window.history.replaceState({}, '', `${pathname}${search ? '?' + search : ''}`);
+                  }
                 }
-              }
-            }}
-          />
-        )}
+              }}
+            />
+          )}
       </>
       <TabsInlineBody tabs={tabs} selectedTabKey={selectedTabKey} />
     </TwoContentSection>

@@ -105,4 +105,4 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
       </Button>
     </div>
   );
-};
+}

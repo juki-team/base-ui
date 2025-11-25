@@ -22,8 +22,8 @@ export async function preImportOrganisms() {
   await ExcalidrawButtonImport();
   await GraphvizViewerImport();
   await LoginModalImport();
-  await MdMathImport();
   await MdMathEditorImport();
+  await MdMathImport();
   await SignUpModalImport();
   await SubmissionModalImport();
   await SubmitViewImport();

@@ -7,7 +7,6 @@ import { InputColorImport } from './InputColor';
 import { LineChartImport } from './LineChart';
 import { SlideDeckImport } from './SlideDeck';
 import { SortableItemsImport } from './SortableItems';
-import { TabsInlineImport } from './TabsInline';
 
 export async function preImportMolecules() {
   await BarChartImport();
@@ -17,7 +16,6 @@ export async function preImportMolecules() {
   await DrawerViewImport();
   await InputColorImport();
   await LineChartImport();
-  await SortableItemsImport();
   await SlideDeckImport();
-  await TabsInlineImport();
+  await SortableItemsImport();
 }

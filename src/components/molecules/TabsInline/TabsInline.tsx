@@ -1,16 +1,16 @@
 import { Children, type ReactNode, useCallback, useRef, useState } from 'react';
-import { useRouterStore } from '../../../../stores/router/useRouterStore';
-import { useUIStore } from '../../../../stores/ui/useUIStore';
-import { Select } from '../../../atoms';
-import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useHandleState } from '../../../hooks/useHandleState';
-import { useMemoizedArray } from '../../../hooks/useMemoizedArray';
-import { useWidthResizer } from '../../../hooks/useWidthResizer';
-import { NavigateBeforeIcon, NavigateNextIcon } from '../../../server';
-import type { NotUndefined, TabType } from '../../../types';
-import type { TabsInlineProps } from '../../Tabs/types';
+import { useRouterStore } from '../../../stores/router/useRouterStore';
+import { useUIStore } from '../../../stores/ui/useUIStore';
+import { Select } from '../../atoms';
+import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { useHandleState } from '../../hooks/useHandleState';
+import { useMemoizedArray } from '../../hooks/useMemoizedArray';
+import { useWidthResizer } from '../../hooks/useWidthResizer';
+import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
+import type { NotUndefined, TabType } from '../../types';
+import type { TabsInlineProps } from '../Tabs/types';
 
-export default function TabsInline<T, >(props: TabsInlineProps<T>) {
+export function TabsInline<T, >(props: TabsInlineProps<T>) {
   
   const {
     tabs,
