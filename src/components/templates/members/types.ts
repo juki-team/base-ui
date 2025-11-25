@@ -46,7 +46,7 @@ export interface DocumentMembersButton1Props extends DocCommon {
 export interface DocumentMembersButton2Props extends DocCommon {
   onSave?: never,
   saveUrl: string,
-  reloadDocument?: () => Promise<void>,
+  reloadDocument?: () => Promise<void | string>,
 }
 
 export type DocumentMembersButtonProps = DocumentMembersButton1Props | DocumentMembersButton2Props;
