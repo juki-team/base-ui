@@ -17,11 +17,6 @@ export const useInjectTheme = (theme?: Theme) => {
     return () => {
       document.querySelector('body')?.classList.remove('jk-theme-dark');
       document.querySelector('body')?.classList.remove('jk-theme-light');
-      if (userPreferredTheme === Theme.DARK) {
-        document.querySelector('body')?.classList.add('jk-theme-dark');
-      } else {
-        document.querySelector('body')?.classList.add('jk-theme-light');
-      }
     };
   }, [ userPreferredTheme, theme ]);
 };

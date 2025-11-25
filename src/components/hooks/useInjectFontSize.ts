@@ -12,7 +12,6 @@ export const useInjectFontSize = (fontSize?: number) => {
     
     return () => {
       document.querySelector('body')?.style.removeProperty('--base-text-size');
-      document.querySelector('body')?.style.setProperty('--base-text-size', `${userPreferredFontSize}px`);
     };
   }, [ userPreferredFontSize, fontSize ]);
 };
