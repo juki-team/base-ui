@@ -19,7 +19,7 @@ export default function WelcomeModal({ onSeeMyProfile: _onSeeMyProfile }: Welcom
   
   const onSeeMyProfile: ButtonLoaderOnClickType = async (setLoaderStatus) => {
     setLoaderStatus(Status.LOADING);
-    await _onSeeMyProfile();
+    await _onSeeMyProfile(nickname);
     deleteSearchParams({ name: QueryParamKey.WELCOME });
     setLoaderStatus(Status.SUCCESS);
   };

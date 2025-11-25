@@ -43,7 +43,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
               <ButtonLoader
                 expand
                 onClick={async () => {
-                  await onSeeMyProfile();
+                  await onSeeMyProfile(userNickname);
                 }}
               >
                 <T className="ws-np tt-se">my account</T>

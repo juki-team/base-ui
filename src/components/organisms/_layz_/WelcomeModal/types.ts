@@ -1,3 +1,3 @@
 export interface WelcomeModalProps {
-  onSeeMyProfile: (() => Promise<void>) | (() => void),
+  onSeeMyProfile: ((nickname: string) => Promise<void>) | ((nickname: string) => void),
 }

@@ -46,5 +46,5 @@ export interface UIComponentsContextInterface {
 export interface JukiUIProviderProps {
   components?: Partial<UIComponentsContextInterface>,
   multiCompanies: boolean,
-  onSeeMyProfile: (() => Promise<void>) | (() => void),
+  onSeeMyProfile: ((nickname: string) => Promise<void>) | ((nickname: string) => void),
 }

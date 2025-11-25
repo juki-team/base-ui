@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { MenuType } from '../../organisms/types';
 
 export interface MainMenuProps {
-  onSeeMyProfile: () => Promise<any> | void,
+  onSeeMyProfile: (nickname: string) => Promise<void> | void,
   menu: MenuType[],
   menuViewMode?: MenuViewMode,
   profileSelected?: boolean,
