@@ -71,10 +71,12 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
           className={classNames('user-logged-head nowrap jk-row gap')}
           style={{ padding: collapsed ? undefined : '0 var(--pad-xt)' }}
         >
-          <img
+          <Image
             src={userImageUrl}
             alt={userNickname}
             className={classNames('jk-user-profile-img large')}
+            width={32}
+            height={32}
           />
           {viewPortSize !== 'sm' && viewPortSize !== 'md' && !collapsed && (
             <div className="jk-row nickname">{userNickname}</div>

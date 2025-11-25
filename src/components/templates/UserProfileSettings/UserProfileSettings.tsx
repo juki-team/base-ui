@@ -47,7 +47,8 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
                     <div className="jk-row pn-re" style={{ width: 24, height: 24 }}>
                       <Image
                         alt="US image"
-                        fill
+                        width={24}
+                        height={24}
                         src="https://images.juki.pub/assets/image-us.png"
                       />
                     </div>
@@ -60,7 +61,8 @@ export function UserProfileSettings({ user, onClickUpdatePassword }: UserProfile
                     <div className="jk-row pn-re" style={{ width: 24, height: 24 }}>
                       <Image
                         alt="ES image"
-                        fill
+                        width={24}
+                        height={24}
                         src="https://images.juki.pub/assets/image-es.png"
                       />
                     </div>

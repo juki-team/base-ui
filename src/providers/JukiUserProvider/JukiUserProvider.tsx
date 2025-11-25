@@ -15,7 +15,6 @@ import { useFetcher } from '../../components/hooks/useFetcher';
 import { useInjectFontSize } from '../../components/hooks/useInjectFontSize';
 import { useInjectTheme } from '../../components/hooks/useInjectTheme';
 import { useMutate } from '../../components/hooks/useMutate';
-import { EMPTY_USER } from '../../constants';
 import { JUKI_SERVICE_V1_URL, JUKI_SERVICE_V2_URL, JUKI_TOKEN_NAME } from '../../constants/settings';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
@@ -63,22 +62,24 @@ export const JukiUserProvider = ({ children }: PropsWithChildren) => {
     if (!data) {
       return;
     }
-    let preferredLanguage: Language = localStorage.getItem(ProfileSetting.LANGUAGE) as Language;
-    if (preferredLanguage !== Language.EN && preferredLanguage !== Language.ES) {
-      preferredLanguage = Language.ES;
-    }
-    let preferredTheme: Theme = localStorage.getItem(ProfileSetting.THEME) as Theme;
-    if (preferredTheme !== Theme.DARK && preferredTheme !== Theme.LIGHT) {
-      preferredTheme = Theme.LIGHT;
-    }
+    
     if (data?.success) {
       setCompany(data.content.company);
       if (data.content.user.isLogged) {
         setUser(data.content.user);
       } else {
+        let preferredLanguage: Language = localStorage.getItem(ProfileSetting.LANGUAGE) as Language;
+        if (preferredLanguage !== Language.EN && preferredLanguage !== Language.ES) {
+          preferredLanguage = Language.ES;
+        }
+        let preferredTheme: Theme = localStorage.getItem(ProfileSetting.THEME) as Theme;
+        if (preferredTheme !== Theme.DARK && preferredTheme !== Theme.LIGHT) {
+          preferredTheme = Theme.LIGHT;
+        }
         setUser({
           ...data?.content.user,
           settings: {
+            ...data.content.user.settings,
             [ProfileSetting.THEME]: preferredTheme,
             [ProfileSetting.LANGUAGE]: preferredLanguage,
             [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.ROWS,
@@ -91,19 +92,6 @@ export const JukiUserProvider = ({ children }: PropsWithChildren) => {
       }
       
       localStorageCrossDomains.setItem(JUKI_TOKEN_NAME, data?.content.user.sessionId);
-    } else {
-      setUser({
-        ...EMPTY_USER,
-        settings: {
-          [ProfileSetting.THEME]: preferredTheme,
-          [ProfileSetting.LANGUAGE]: preferredLanguage,
-          [ProfileSetting.DATA_VIEW_MODE]: DataViewMode.ROWS,
-          [ProfileSetting.MENU_VIEW_MODE]: MenuViewMode.VERTICAL,
-          [ProfileSetting.NEWSLETTER_SUBSCRIPTION]: true,
-          [ProfileSetting.TIME_ZONE]: 'America/La_Paz',
-          [ProfileSetting.FONT_SIZE]: 16,
-        },
-      });
     }
   }, [ data, setCompany, setUser ]);
   

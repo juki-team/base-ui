@@ -24,7 +24,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
   
   const [ _open, setOpen ] = useHandleState(true, isOpen);
   const viewPortSize = useUIStore(store => store.viewPortSize);
-  const isAlwaysClosed = viewPortSize === 'md';
+  const isAlwaysClosed = false;
   const open = isAlwaysClosed ? false : _open;
   const layoutId = useId();
   
