@@ -8,7 +8,7 @@ import {
   ProfileSetting,
   Theme,
 } from '@juki-team/commons';
-import { type PropsWithChildren, useCallback, useEffect } from 'react';
+import { CSSProperties, type PropsWithChildren, useCallback, useEffect } from 'react';
 import { T } from '../../components/atoms/T/T';
 import { isBrowser, localStorageCrossDomains } from '../../components/helpers';
 import { useFetcher } from '../../components/hooks/useFetcher';
@@ -130,7 +130,14 @@ export const JukiUserProvider = ({ children }: PropsWithChildren) => {
       <div className="expand-absolute pe-ne jk-col bc-pd">
         <h1 className="jk-row cr-pt" style={{ alignItems: 'baseline' }}>
           <T className="tt-se">loading user</T>&nbsp;
-          <div className="dot-flashing" />
+          <div
+            className="dot-flashing"
+            style={{
+              '--dot-flashing-color': 'var(--t-color-primary-text)',
+              '--dot-flashing-color-light': 'var(--t-color-primary-light)',
+              '--dot-flashing-size': '10px',
+            } as CSSProperties}
+          />
         </h1>
       </div>
     );

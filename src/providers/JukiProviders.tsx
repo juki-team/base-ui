@@ -1,7 +1,6 @@
 import { memo, PropsWithChildren } from 'react';
 import { useUserTrack } from '../components/hooks/useUserTrack';
 import { JukiAblyInitializer } from './JukiAblyInitializer';
-import { JukiI18nInitializer } from './JukiI18nInitializer';
 import { JukiLastPathInitializer } from './JukiLastPathInitializer';
 import { JukiPageInitializer } from './JukiPageInitializer';
 import { JukiRouterInitializer } from './JukiRouterInitializer';
@@ -67,7 +66,6 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
       </JukiUserProvider>
       <JukiAblyInitializer />
       <SoundInitializer />
-      <JukiI18nInitializer />
       <JukiLastPathInitializer initialLastPath={initialLastPath} />
       <JukiPageInitializer />
       <JukiRouterInitializer {...routerProps} />
