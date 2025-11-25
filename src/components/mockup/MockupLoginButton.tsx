@@ -7,21 +7,10 @@ import { LoginIcon } from '../server';
 export const MockupLoginButton = () => {
   
   const setSearchParams = useRouterStore(store => store.setSearchParams);
-  const searchParams = useRouterStore(store => store.searchParams);
-  const deleteSearchParams = useRouterStore(store => store.deleteSearchParams);
-  const appendSearchParams = useRouterStore(store => store.appendSearchParams);
   
   return (
     <div style={{ position: 'fixed', right: 64, bottom: 0, zIndex: 10000000, margin: 24 }}>
-      <LoginModal
-        isOpen={searchParams.has(QueryParamKey.SIGN_IN)}
-        onClose={() => deleteSearchParams({ name: QueryParamKey.SIGN_IN })}
-        onSignUpButton={() => {
-          deleteSearchParams({ name: QueryParamKey.SIGN_IN });
-          appendSearchParams({ name: QueryParamKey.SIGN_UP, value: '1' });
-        }}
-        multiCompanies
-      />
+      <LoginModal multiCompanies />
       <Button
         onClick={() => {
           setSearchParams({ name: QueryParamKey.SIGN_IN, value: 'true' });
