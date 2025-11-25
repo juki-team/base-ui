@@ -8,8 +8,7 @@ import {
   ProfileSetting,
   Theme,
 } from '@juki-team/commons';
-import { CSSProperties, type PropsWithChildren, useCallback, useEffect } from 'react';
-import { T } from '../../components/atoms/T/T';
+import { useCallback, useEffect } from 'react';
 import { isBrowser, localStorageCrossDomains } from '../../components/helpers';
 import { useFetcher } from '../../components/hooks/useFetcher';
 import { useInjectFontSize } from '../../components/hooks/useInjectFontSize';
@@ -20,7 +19,7 @@ import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
 
-export const JukiUserProvider = ({ children }: PropsWithChildren) => {
+export const JukiUserProvider = () => {
   
   const setUser = useUserStore(state => state.setUser);
   const setCompany = useUserStore(state => state.setCompany);
@@ -29,7 +28,6 @@ export const JukiUserProvider = ({ children }: PropsWithChildren) => {
   const userNickname = useUserStore(state => state.user.nickname);
   const companyKey = useUserStore(state => state.company.key);
   const userSessionId = useUserStore(state => state.user.sessionId);
-  const isLoading = useUserStore(state => state.isLoading);
   const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
   const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
   const {
@@ -113,23 +111,5 @@ export const JukiUserProvider = ({ children }: PropsWithChildren) => {
   useInjectTheme();
   useInjectFontSize();
   
-  if (isLoading && !userSessionId) {
-    return (
-      <div className="expand-absolute pe-ne jk-col bc-pd">
-        <h1 className="jk-row cr-pt" style={{ alignItems: 'baseline' }}>
-          <T className="tt-se">loading user</T>&nbsp;
-          <div
-            className="dot-flashing"
-            style={{
-              '--dot-flashing-color': 'var(--t-color-primary-text)',
-              '--dot-flashing-color-light': 'var(--t-color-primary-light)',
-              '--dot-flashing-size': '10px',
-            } as CSSProperties}
-          />
-        </h1>
-      </div>
-    );
-  }
-  
-  return children;
+  return null;
 };

@@ -12,7 +12,7 @@ interface UIStore {
 
 export const useUIStore = create<UIStore>((set) => ({
   jukiAppDivRef: { current: null },
-  components: { Image, Link },
+  components: { Image, Link, loaded: false },
   setProps: (props) => {
     set(props);
   },

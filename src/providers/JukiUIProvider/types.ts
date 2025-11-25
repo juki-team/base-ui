@@ -41,6 +41,7 @@ export interface LinkCmpProps {
 export interface UIComponentsContextInterface {
   Image: FC<ImageCmpProps>;
   Link: FC<PropsWithChildren<LinkCmpProps>>;
+  loaded: boolean,
 }
 
 export interface JukiUIProviderProps {

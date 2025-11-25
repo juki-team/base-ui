@@ -60,12 +60,11 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
   
   return (
     <>
-      <JukiUserProvider>
-        <JukiUIProvider components={components} multiCompanies={multiCompanies} onSeeMyProfile={onSeeMyProfile}>
-          {children}
-          <UserTrack />
-        </JukiUIProvider>
-      </JukiUserProvider>
+      <JukiUIProvider components={components} multiCompanies={multiCompanies} onSeeMyProfile={onSeeMyProfile}>
+        {children}
+      </JukiUIProvider>
+      <UserTrack />
+      <JukiUserProvider />
       <JukiAblyInitializer />
       <SoundInitializer />
       <JukiLastPathInitializer initialLastPath={initialLastPath} />

@@ -23,6 +23,7 @@ export const JukiUIProvider = ({
   const isLoadingRoute = useRouterStore(state => state.isLoadingRoute);
   const ref = useRef<HTMLDivElement>(null);
   const setProps = useUIStore(store => store.setProps);
+  const isLoaded = useUIStore(store => store.components.loaded);
   
   const LinkCmp: FC<LinkCmpProps> = useCallback(({ href, ...restProps }) => {
     let pathname;
@@ -42,7 +43,7 @@ export const JukiUIProvider = ({
   }, [ LinkCMP ]);
   
   useEffect(() => {
-    setProps({ components: { Image: ImageCmp, Link: LinkCmp } });
+    setProps({ components: { Image: ImageCmp, Link: LinkCmp, loaded: true } });
   }, [ ImageCmp, LinkCmp, setProps ]);
   useEffect(() => {
     setProps({ jukiAppDivRef: ref });
@@ -54,13 +55,17 @@ export const JukiUIProvider = ({
         {isLoadingRoute && <div className="page-line-loader"><LineLoader delay={2} /></div>}
         <div id="juki-app" translate="no" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
           {/*<div className="loading-route-overlay" />*/}
-          {children}
-          <Tooltip />
-          <SignUpModal />
-          <LoginModal multiCompanies={multiCompanies} />
-          <WelcomeModal onSeeMyProfile={onSeeMyProfile} />
-          <UserPreviewModal />
-          <SubmissionModal />
+          {isLoaded && (
+            <>
+              {children}
+              <Tooltip />
+              <SignUpModal />
+              <LoginModal multiCompanies={multiCompanies} />
+              <WelcomeModal onSeeMyProfile={onSeeMyProfile} />
+              <UserPreviewModal />
+              <SubmissionModal />
+            </>
+          )}
         </div>
       </NotificationProvider>
     </MotionConfig>
