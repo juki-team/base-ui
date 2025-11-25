@@ -51,20 +51,22 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
     <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })}>
       <>
         {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
-        <div
-          className={classNames('jk-row gap extend jk-pg-xsm-b', {
-            'jk-pg-xsm-t': !withBreadcrumbs,
-            'left': !isMobile,
-            'center': isMobile,
-          })}
-        >
-          {children}
-          {!withTabs && tabButtons && tabButtons.length > 0 && (
-            <div className="jk-row gap extend right">
-              {tabButtons.map(buttonsTab => renderReactNodeOrFunctionP1(buttonsTab, { selectedTabKey }))}
-            </div>
-          )}
-        </div>
+        {(!!children || (!withTabs && tabButtons && tabButtons.length > 0)) && (
+          <div
+            className={classNames('jk-row gap extend jk-pg-xsm-b', {
+              'jk-pg-xsm-t': !withBreadcrumbs,
+              'left': !isMobile,
+              'center': isMobile,
+            })}
+          >
+            {children}
+            {!withTabs && tabButtons && tabButtons.length > 0 && (
+              <div className="jk-row gap extend right">
+                {tabButtons.map(buttonsTab => renderReactNodeOrFunctionP1(buttonsTab, { selectedTabKey }))}
+              </div>
+            )}
+          </div>
+        )}
         {withTabs && (
           <TabsInline
             tabs={tabs}
