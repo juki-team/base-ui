@@ -6,12 +6,13 @@
   top: 0;
   z-index: 5;
   width: 100%;
+  --line-loader-color: var(--t-color-primary-light);
   
   > div {
     position: absolute;
     top: 0;
     height: 4px;
-    background-color: var(--t-color-primary-light);
+    background-color: var(--line-loader-color);
     border-radius: 2px;
     
     animation-duration: calc(var(--delay) * 1s);
