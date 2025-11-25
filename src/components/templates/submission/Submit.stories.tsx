@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Button } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { SubmissionModal, SubmitView } from '../../organisms';
-import { SubmissionContentModal } from '../../organisms/SubmissionModal/SubmissionContentModal';
+import { SubmissionContentModal } from '../../organisms/_layz_/SubmissionModal/SubmissionContentModal';
 
 const meta: Meta<typeof SubmissionModal> = {
   component: SubmissionModal,

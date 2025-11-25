@@ -17,7 +17,9 @@ export { Portal } from './Portal/Portal';
 export { Select } from './Select/Select';
 export { T } from './T/T';
 export { TextArea } from './TextArea/TextArea';
+
 export { Collapse } from './_lazy_/Collapse';
 export { InputCellPhoneNumber } from './_lazy_/InputCellPhoneNumber';
 export { Popover } from './_lazy_/Popover';
+export { Tooltip } from './_lazy_/Tooltip';
 export { VirtualizedRowsFixed } from './_lazy_/VirtualizedRowsFixed';

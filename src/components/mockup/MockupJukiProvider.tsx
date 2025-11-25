@@ -5,7 +5,6 @@ import { SWRConfig } from 'swr';
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
 import { JukiProviders } from '../../providers';
 import { UserStoreProvider } from '../../stores/user/useUserStore';
-import { SubmissionModal, UserPreviewModal } from '../organisms';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
 import './styles.scss';
@@ -52,6 +51,9 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
         // serviceApiV2Url={serviceV2Url}
         // tokenName="juki-token"
         // socketServiceUrl={socketServiceUrl}
+        multiCompanies={false}
+        onSeeMyProfile={() => {
+        }}
         router={{
           pathname: '',
           routeParams: {},
@@ -66,8 +68,6 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
         }}
       >
         <SWRConfig>
-          <UserPreviewModal key="user-preview-modal" />
-          <SubmissionModal />
           {children}
           <MockupLoginButton />
           <MockupToggleThemeButton />

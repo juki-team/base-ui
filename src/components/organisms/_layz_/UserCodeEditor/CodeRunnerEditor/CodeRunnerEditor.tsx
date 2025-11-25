@@ -13,7 +13,7 @@ import {
 import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../../../constants';
-import { useUIStore } from '../../../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../../../../stores/websocket/useWebsocketStore';
 import { Button, Input, Modal, Portal, T } from '../../../../atoms';
@@ -75,7 +75,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   const [ openFileName, setOpenFileName ] = useState('');
   const [ fileNameEdit, setFileNameEdit ] = useState('');
   const [ fileNameDelete, setFileNameDelete ] = useState('');
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ viewFiles, setViewFiles ] = useState<boolean>(false);
   

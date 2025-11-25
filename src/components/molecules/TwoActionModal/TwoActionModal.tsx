@@ -1,6 +1,6 @@
 import { Status } from '@juki-team/commons';
 import { type PropsWithChildren, useRef, useState } from 'react';
-import { useUIStore } from '../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { Modal, T } from '../../atoms';
 import { classNames } from '../../helpers';
 import { ExclamationIcon } from '../../server';
@@ -13,7 +13,7 @@ export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
   const { isOpen, secondary, primary, title, children, onClose, containerClassName, ...rest } = props;
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   
   return (
     <Modal

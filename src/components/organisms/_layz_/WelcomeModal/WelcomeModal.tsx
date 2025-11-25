@@ -1,15 +1,33 @@
+import { Status } from '@juki-team/commons';
+import { QueryParamKey } from '../../../../enums';
+import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
+import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Modal, T } from '../../../atoms';
 import { ButtonLoader } from '../../../molecules';
+import type { ButtonLoaderOnClickType } from '../../../types';
 import type { WelcomeModalProps } from './types';
 
-export function WelcomeModal({ isOpen, nickname, onClose, onSeeMyProfile }: WelcomeModalProps) {
+export default function WelcomeModal({ onSeeMyProfile: _onSeeMyProfile }: WelcomeModalProps) {
   
   const { Image } = useUIStore(store => store.components);
+  const searchParams = useRouterStore(state => state.searchParams);
+  const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
+  const {
+    nickname,
+  } = useUserStore(state => state.user);
+  
+  const onSeeMyProfile: ButtonLoaderOnClickType = async (setLoaderStatus) => {
+    setLoaderStatus(Status.LOADING);
+    await _onSeeMyProfile();
+    deleteSearchParams({ name: QueryParamKey.WELCOME });
+    setLoaderStatus(Status.SUCCESS);
+  };
+  const onClose = () => deleteSearchParams({ name: QueryParamKey.WELCOME });
   
   return (
     <Modal
-      isOpen={isOpen}
+      isOpen={searchParams.has(QueryParamKey.WELCOME)}
       onClose={onClose}
       className="modal-welcome"
     >

@@ -1,12 +1,12 @@
 import { Status } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
-import { jukiAppRoutes } from '../../../settings';
-import { useUIStore } from '../../../stores/ui/useUIStore';
-import { CopyToClipboard, Modal, T } from '../../atoms';
-import type { ModalProps } from '../../atoms/Modal/types';
-import { ButtonLoader } from '../../molecules';
-import { OpenInNewIcon, RefreshIcon } from '../../server';
-import { SubmitView } from '../_layz_/SubmitView';
+import { jukiAppRoutes } from '../../../../settings';
+import { useUIStore } from '../../../../stores/ui/useUIStore';
+import { CopyToClipboard, Modal, T } from '../../../atoms';
+import type { ModalProps } from '../../../atoms/Modal/types';
+import { ButtonLoader } from '../../../molecules';
+import { OpenInNewIcon, RefreshIcon } from '../../../server';
+import { SubmitView } from '../SubmitView';
 
 export interface SubmissionModalProps extends ModalProps {
   submitId: string;

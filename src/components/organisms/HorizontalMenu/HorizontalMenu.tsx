@@ -1,7 +1,7 @@
 import { motion } from 'motion/react';
 import { Children, type ReactNode, useId } from 'react';
 import { TriggerAction } from '../../../enums';
-import { useUIStore } from '../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { Button } from '../../atoms';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { Drawer } from '../../molecules';
@@ -23,7 +23,7 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
     onBack,
   } = props;
   
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const withBottomMobileNav = viewPortSize === 'sm';
   const layoutId = useId();
   

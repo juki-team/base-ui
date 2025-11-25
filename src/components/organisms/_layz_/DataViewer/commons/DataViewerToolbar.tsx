@@ -10,8 +10,8 @@ import {
   useState,
 } from 'react';
 import { TriggerAction } from '../../../../../enums';
+import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
-import { useUIStore } from '../../../../../stores/ui/useUIStore';
 import { MultiSelect, Popover, Select } from '../../../../atoms';
 import { TableEyeIcon } from '../../../../atoms/server';
 import {
@@ -105,7 +105,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const { filtered, values } = isSomethingFiltered(headers);
   const [ downloading, setDownloading ] = useState(false);
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const { notifyResponse } = useJukiNotification();
   
   const searchParams = useRouterStore(state => state.searchParams);

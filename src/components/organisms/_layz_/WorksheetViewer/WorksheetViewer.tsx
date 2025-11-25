@@ -6,8 +6,8 @@ import {
 } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { jukiApiManager } from '../../../../settings';
+import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
-import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
 import { classNames } from '../../../helpers';
@@ -32,7 +32,7 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
     withoutTableOfContents = false,
   } = props;
   
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const userNickname = useUserStore(state => state.user.nickname);
   const companyKey = useUserStore(state => state.company.key);
   const userIsLogged = useUserStore(state => state.user.isLogged);

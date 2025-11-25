@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import { persistGlobalURLSearchParams } from '../../../settings/AppRoutes';
-import { useUIStore } from '../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, getHref, isBrowser, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useStableState } from '../../hooks/useStableState';
 import type { TabsType } from '../../types';
@@ -24,7 +24,7 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
   } = props;
   
   const LOADING_TAB = 'loading' as T;
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const _tabKeys = Object.keys(initialTabs);
   const [ selectedTabKey, setSelectedTabKey ] = useStableState(loading ? LOADING_TAB : initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T);
   const tabs: TabsType<T> = loading ? {

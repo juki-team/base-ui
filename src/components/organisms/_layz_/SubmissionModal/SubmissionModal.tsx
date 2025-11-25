@@ -1,8 +1,8 @@
-import { QueryParamKey } from '../../../enums';
-import { useRouterStore } from '../../../stores/router/useRouterStore';
+import { QueryParamKey } from '../../../../enums';
+import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { SubmissionContentModal } from './SubmissionContentModal';
 
-export function SubmissionModal() {
+export default function SubmissionModal() {
   
   const searchParams = useRouterStore(state => state.searchParams);
   const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
@@ -14,4 +14,4 @@ export function SubmissionModal() {
       onClose={() => deleteSearchParams({ name: QueryParamKey.SUBMISSION })}
     />
   );
-};
+}

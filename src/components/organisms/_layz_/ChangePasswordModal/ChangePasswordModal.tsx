@@ -3,7 +3,7 @@ import { Status } from '@juki-team/commons';
 import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { useUIStore } from '../../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { InputPassword, Modal, T } from '../../../atoms';
 import { classNames } from '../../../helpers';
@@ -40,7 +40,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
   const { updatePassword } = useJukiUser();
   const nickname = useUserStore(state => state.user.nickname);
   const companyKey = useUserStore(state => state.company.key);
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
   return (

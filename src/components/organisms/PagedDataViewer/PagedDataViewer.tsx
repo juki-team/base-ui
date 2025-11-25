@@ -1,7 +1,7 @@
 import { type  ContentsResponseType } from '@juki-team/commons';
 import { useEffect, useMemo, useRef } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS, PAGE_SIZE_OPTIONS } from '../../../constants';
-import { useUIStore } from '../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { useDataViewerRequester } from '../../hooks/useDataViewerRequester';
 import { DataViewer } from '../_layz_/DataViewer';
 import type { PagedDataViewerProps } from '../_layz_/DataViewer/types';
@@ -26,7 +26,7 @@ export function PagedDataViewer<T extends { [key: string]: any }, V = T>(props: 
     downloads,
   } = props;
   
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const {
     data: response,
     request,

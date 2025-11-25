@@ -1,6 +1,6 @@
 import { type ComponentPropsWithRef, forwardRef, type ReactElement, type Ref } from 'react';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
-import { useUIStore } from '../../../stores/ui/useUIStore';
 import { classNames } from '../../helpers';
 import type { ButtonBasicProps, OnClickButtonEventType } from '../../types';
 
@@ -32,7 +32,7 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
   
   const sound = useSoundStore();
   
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   
   const size = (responsiveMobile && viewPortSize === 'sm') ? 'large' : _size;
   const hasChildren = !!children && (responsiveMobile ? viewPortSize !== 'sm' : true);

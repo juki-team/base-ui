@@ -1,13 +1,12 @@
 import { lazy, Suspense } from 'react';
 import { SpinIcon } from '../../../atoms/server';
-import { SignUpModalProps } from './types';
 
 export const SignUpModalImport = () => import('./SignUpModal');
 
 const SignUpModalCmp = lazy(() => SignUpModalImport());
 
-export const SignUpModal = (props: SignUpModalProps) => (
+export const SignUpModal = () => (
   <Suspense fallback={<SpinIcon />}>
-    <SignUpModalCmp {...props} />
+    <SignUpModalCmp />
   </Suspense>
 );

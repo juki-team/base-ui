@@ -1,6 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useState } from 'react';
-import { action } from 'storybook/actions';
 import { Button } from '../../../atoms';
 import { MockupJukiProvider } from '../../../mockup';
 import { LoginModal } from './';
@@ -24,7 +23,7 @@ const WrapLogin = (props: LoginModalProps) => {
     <MockupJukiProvider>
       <div>
         <Button onClick={() => setOpen(!open)}>Click</Button>
-        <LoginModal {...props} isOpen={open} onClose={() => setOpen(false)} />
+        <LoginModal {...props} />
       </div>
     </MockupJukiProvider>
   );
@@ -41,9 +40,9 @@ export const LoginWithGoogleComponent: Story = {
       //   action('loginWithGoogle')();
       // }}
       // reactAppGoogleClientId="test"
-      isOpen
-      onClose={() => action('onClose')}
-      onSignUpButton={() => action('onSignUpButton')}
+      // isOpen
+      // onClose={() => action('onClose')}
+      // onSignUpButton={() => action('onSignUpButton')}
       // onForgotPassword={() => action('onForgotPasswordButton')}
     />
   ),
@@ -54,9 +53,9 @@ export const LoginWithoutGoogle: Story = {
     <WrapLogin
       {...args}
       // onSubmit={(data: LoginInputType, setStatus: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setStatus })}
-      isOpen
-      onClose={() => action('onClose')}
-      onSignUpButton={() => action('onSignUpButton')}
+      // isOpen
+      // onClose={() => action('onClose')}
+      // onSignUpButton={() => action('onSignUpButton')}
       // onForgotPassword={() => action('onForgotPasswordButton')}
     />
   ),

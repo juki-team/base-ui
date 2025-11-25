@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import type { ViewPortSizeType } from '../../components/types';
+import { usePageStore } from '../../stores/page/usePageStore';
 
 export const useViewPortSize = () => {
   
-  const [ viewPortSize, setViewPortSize ] = useState<ViewPortSizeType>('');
-  const [ viewPortWidth, setViewPortWidth ] = useState(0);
-  const [ viewPortHeight, setViewPortHeight ] = useState(0);
+  const setViewPort = usePageStore(store => store.setViewPort);
   
   useEffect(() => {
     const listener = () => {
@@ -15,24 +14,23 @@ export const useViewPortSize = () => {
       document?.documentElement.style.setProperty('--vh', `${vh}px`);
       const width = window.innerWidth;
       const height = window.innerHeight;
-      setViewPortWidth(width);
-      setViewPortHeight(height);
+      
+      let size: ViewPortSizeType;
       if (width >= 1920) {
-        setViewPortSize('hg');
+        size = 'hg';
       } else if (width >= 1280) {
-        setViewPortSize('lg');
+        size = 'lg';
       } else if (width >= 640) {
-        setViewPortSize('md');
+        size = 'md';
       } else {
-        setViewPortSize('sm');
+        size = 'sm';
       }
+      setViewPort({ size, height, width });
     };
     listener();
     window.addEventListener('resize', listener);
     return () => {
       window.removeEventListener('resize', listener);
     };
-  }, []);
-  
-  return { viewPortSize, viewPortWidth, viewPortHeight };
+  }, [ setViewPort ]);
 };

@@ -1,6 +1,6 @@
 import { QuizOptionsSubmissionResponseDTO } from '@juki-team/commons';
 import { Dispatch, PropsWithChildren, ReactNode, SetStateAction } from 'react';
-import { useUIStore } from '../../../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { T } from '../../../../atoms';
 import { classNames } from '../../../../helpers';
 
@@ -16,7 +16,7 @@ export const ResultHeader = (props: PropsWithChildren<ResultHeaderProps>) => {
   
   const { isResolved, submitted, points, userPoints, children, childrenTop } = props;
   
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const isSmallPortSize = viewPortSize === 'sm';
   
   return (

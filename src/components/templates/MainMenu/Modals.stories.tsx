@@ -5,9 +5,9 @@ import { MockupJukiProvider } from '../../mockup';
 import {
   ForgotPasswordModal as UserForgotPasswordModalCmp,
 } from '../../organisms/_layz_/LoginModal/LoginModalTemplate';
+import { WelcomeModal as WelcomeModalCmp } from '../../organisms/_layz_/WelcomeModal';
 import { CalendarMonthIcon, EventIcon } from '../../server';
 import { DrawerViewMenuMobile as DrawerViewMenuMobileCmp } from './DrawerViewMenuMobile';
-import { WelcomeModal as WelcomeModalCmp } from './WelcomeModal';
 
 export default {
   component: DrawerViewMenuMobileCmp,

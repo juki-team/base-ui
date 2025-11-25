@@ -1,5 +1,8 @@
 import { create } from 'zustand';
 import { getHandlerArgs } from '../../components/helpers/visibility';
+import type { ViewPortSizeType } from '../../components/types';
+
+type ViewPort = { size: ViewPortSizeType, height: number, width: number };
 
 interface PageState {
   isOnline: boolean,
@@ -12,6 +15,8 @@ interface PageState {
   setIsMouseInside: (isMouseInside: boolean) => void,
   isFullscreen: boolean,
   setIsFullscreen: (isFullscreen: boolean) => void,
+  viewPort: ViewPort,
+  setViewPort: (viewPort: ViewPort) => void,
 }
 
 export const usePageStore = create<PageState>((set) => ({
@@ -25,4 +30,6 @@ export const usePageStore = create<PageState>((set) => ({
   setIsMouseInside: (isMouseInside) => set({ isMouseInside }),
   isFullscreen: false,
   setIsFullscreen: (isFullscreen) => set({ isFullscreen }),
+  viewPort: { size: '', height: 0, width: 0 },
+  setViewPort: (viewPort) => set({ viewPort }),
 }));

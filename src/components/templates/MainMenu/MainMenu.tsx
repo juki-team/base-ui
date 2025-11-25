@@ -3,12 +3,12 @@ import {
   type ContentsResponseType,
   MenuViewMode,
   ProfileSetting,
-  Status,
   Theme,
 } from '@juki-team/commons';
 import { useEffect, useMemo, useState } from 'react';
 import { QueryParamKey, TriggerAction } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
@@ -16,12 +16,11 @@ import { Popover, Select, T } from '../../atoms';
 import { classNames } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
 import { JukiLoadingLayout } from '../../molecules';
-import { HorizontalMenu, LoginModal, LoginUser, SignUpModal, VerticalMenu } from '../../organisms';
+import { HorizontalMenu, LoginUser, VerticalMenu } from '../../organisms';
 import type { MenuType } from '../../organisms/types';
 import { SpinIcon } from '../../server';
 import { SettingsSection } from './SettingsSection';
 import type { MainMenuProps } from './types';
-import { WelcomeModal } from './WelcomeModal';
 
 const LOGO_SIZE = {
   '': 160,
@@ -46,17 +45,15 @@ export function MainMenu(props: MainMenuProps) {
   } = props;
   
   const { Link, Image } = useUIStore(store => store.components);
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   
   const searchParams = useRouterStore(state => state.searchParams);
   const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
-  const appendSearchParams = useRouterStore(state => state.appendSearchParams);
   const isLoading = useUserStore(state => state.isLoading);
   const { imageUrl: companyImageUrl, name } = useUserStore(state => state.company);
   const {
     isLogged,
-    nickname,
     settings: { [ProfileSetting.THEME]: preferredTheme, [ProfileSetting.MENU_VIEW_MODE]: userPreferredMenuViewMode },
   } = useUserStore(state => state.user);
   
@@ -261,67 +258,31 @@ export function MainMenu(props: MainMenuProps) {
     );
   };
   
-  return (
-    <>
-      <SignUpModal
-        isOpen={searchParams.has(QueryParamKey.SIGN_UP)}
-        onClose={() => deleteSearchParams({ name: QueryParamKey.SIGN_UP })}
-        onSignInButton={() => {
-          deleteSearchParams({ name: QueryParamKey.SIGN_UP });
-          appendSearchParams({ name: QueryParamKey.SIGN_IN, value: '1' });
-        }}
-        onSuccess={() => {
-          deleteSearchParams({ name: QueryParamKey.SIGN_UP });
-          appendSearchParams({ name: QueryParamKey.WELCOME, value: '1' });
-        }}
-      />
-      <LoginModal
-        isOpen={searchParams.has(QueryParamKey.SIGN_IN)}
-        onClose={() => deleteSearchParams({ name: QueryParamKey.SIGN_IN })}
-        onSignUpButton={() => {
-          deleteSearchParams({ name: QueryParamKey.SIGN_IN });
-          appendSearchParams({ name: QueryParamKey.SIGN_UP, value: '1' });
-        }}
-        multiCompanies={multiCompanies}
-      />
-      <WelcomeModal
-        isOpen={searchParams.has(QueryParamKey.WELCOME)}
-        nickname={nickname}
-        onClose={() => deleteSearchParams({ name: QueryParamKey.WELCOME })}
-        onSeeMyProfile={async (setLoaderStatus) => {
-          setLoaderStatus(Status.LOADING);
-          await onSeeMyProfile();
-          deleteSearchParams({ name: QueryParamKey.WELCOME });
-          setLoaderStatus(Status.SUCCESS);
-        }}
-      />
-      {preferredMenuViewMode === MenuViewMode.HORIZONTAL
-        ? (
-          <HorizontalMenu
-            menu={menu}
-            leftSection={leftSection}
-            rightSection={rightSection}
-            // drawerMenuMobile={drawerMenuMobile}
-            rightMobile={rightMobile}
-            centerMobile={centerMobile}
-            onBack={onBack}
-          >
-            {isLoading ? <JukiLoadingLayout /> : children}
-          </HorizontalMenu>
-        )
-        : (
-          <VerticalMenu
-            menu={menu}
-            topSection={topSection}
-            bottomSection={bottomSection}
-            // drawerMenuMobile={drawerMenuMobile}
-            rightMobile={rightMobile}
-            centerMobile={centerMobile}
-            onBack={onBack}
-          >
-            {isLoading ? <JukiLoadingLayout /> : children}
-          </VerticalMenu>
-        )}
-    </>
-  );
+  return preferredMenuViewMode === MenuViewMode.HORIZONTAL
+    ? (
+      <HorizontalMenu
+        menu={menu}
+        leftSection={leftSection}
+        rightSection={rightSection}
+        // drawerMenuMobile={drawerMenuMobile}
+        rightMobile={rightMobile}
+        centerMobile={centerMobile}
+        onBack={onBack}
+      >
+        {isLoading ? <JukiLoadingLayout /> : children}
+      </HorizontalMenu>
+    )
+    : (
+      <VerticalMenu
+        menu={menu}
+        topSection={topSection}
+        bottomSection={bottomSection}
+        // drawerMenuMobile={drawerMenuMobile}
+        rightMobile={rightMobile}
+        centerMobile={centerMobile}
+        onBack={onBack}
+      >
+        {isLoading ? <JukiLoadingLayout /> : children}
+      </VerticalMenu>
+    );
 }

@@ -1,6 +1,6 @@
 import { cloneElement, type CSSProperties, type PropsWithChildren, type ReactElement } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import { useUIStore } from '../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { Modal } from '../../atoms';
 import type { ModalButtonLoaderEventType } from '../../atoms/Modal/types';
 import { renderReactNodeOrFunction } from '../../helpers';
@@ -17,7 +17,7 @@ export function SplitModal<T extends ModalButtonLoaderEventType, >(props: PropsW
   
   const { height: sideMainHeight = 0, ref: sideMainRef } = useResizeDetector();
   const { height: titleSideSecondaryHeight = 0, ref: titleSideSecondaryRef } = useResizeDetector();
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   
   return (
     <Modal<T>

@@ -1,10 +1,7 @@
-import { Status } from '@juki-team/commons';
 import { useState } from 'react';
-import { action } from 'storybook/actions';
 import { Button } from '../../../atoms';
 import { MockupJukiProvider } from '../../../mockup';
 import { SignUpModal } from './';
-import { SignUpModalProps } from './types';
 
 export default {
   component: SignUpModal,
@@ -13,24 +10,14 @@ export default {
   },
 };
 
-const WrapSignUp = (props: SignUpModalProps) => {
+const WrapSignUp = () => {
   const [ open, setOpen ] = useState(false);
   
   return (
     <MockupJukiProvider>
       <div>
         <Button onClick={() => setOpen(!open)}>Click</Button>
-        <SignUpModal
-          {...props}
-          isOpen={open}
-          onClose={async (setLoaderStatus) => {
-            setLoaderStatus(Status.LOADING);
-            await new Promise((r) => setTimeout(r, 2000));
-            setLoaderStatus(Status.SUCCESS);
-            setOpen(false);
-          }}
-          onSignInButton={() => action('onSignInButton')}
-        />
+        <SignUpModal />
       </div>
     </MockupJukiProvider>
   );
@@ -44,9 +31,9 @@ export const SignUpWithGoogle = () => (
     //   action('signUpWithGoogle')();
     // }}
     // reactAppGoogleClientId="test"
-    isOpen
-    onClose={() => action('onClose')}
-    onSignInButton={() => action('onSignInButton')}
+    // isOpen
+    // onClose={() => action('onClose')}
+    // onSignInButton={() => action('onSignInButton')}
   />
 );
 
@@ -54,8 +41,8 @@ export const SignUPWithoutGoogle = () => (
   <WrapSignUp
     // imageSource="https://judge.juki.app/images/juki-sign-person.svg"
     // onSubmit={(data: SignUpFormType, setLoading: SetLoaderStatusOnClickType) => action('onSubmit')({ data, setLoading })}
-    isOpen
-    onClose={() => action('onClose')}
-    onSignInButton={() => action('onSignInButton')}
+    // isOpen
+    // onClose={() => action('onClose')}
+    // onSignInButton={() => action('onSignInButton')}
   />
 );

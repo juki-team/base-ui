@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Children, useId } from 'react';
-import { useUIStore } from '../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useHandleState } from '../../hooks/useHandleState';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
@@ -23,7 +23,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
   } = props;
   
   const [ _open, setOpen ] = useHandleState(true, isOpen);
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const isAlwaysClosed = false;
   const open = isAlwaysClosed ? false : _open;
   const layoutId = useId();

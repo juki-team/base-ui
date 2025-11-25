@@ -2,8 +2,8 @@ import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, SEPARATOR_TOKE
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EMPTY_ARRAY } from '../../../../constants';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
+import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
-import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useSessionStorage } from '../../../hooks/useSessionStorage';
@@ -114,7 +114,7 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
     groups,
   } = props;
   
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const preferredDataViewMode = useUserStore(state => state.user.settings[ProfileSetting.DATA_VIEW_MODE]);
   const searchParams = useRouterStore(state => state.searchParams);
   const t = useI18nStore(state => state.i18n.t);

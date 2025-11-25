@@ -8,8 +8,8 @@ import {
   NotificationProviderProps,
 } from '../../components/organisms/CardNotification/types';
 import { NotificationType } from '../../enums';
+import { usePageStore } from '../../stores/page/usePageStore';
 import { useSoundStore } from '../../stores/sound/useSoundStore';
-import { useUIStore } from '../../stores/ui/useUIStore';
 
 export function NotificationProvider({ children }: NotificationProviderProps) {
   
@@ -38,7 +38,7 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
     }
   }, []);
   
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   
   const notificationsFiltered = state.filter(note => note.type !== NotificationType.QUIET);
   

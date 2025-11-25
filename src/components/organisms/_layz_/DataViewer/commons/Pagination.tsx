@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
-import { useUIStore } from '../../../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { Select, T } from '../../../../atoms';
 import { classNames } from '../../../../helpers';
 import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../../../server';
@@ -25,7 +25,7 @@ export const Pagination = (props: PaginationProps) => {
   
   const startPage = 1;
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   
   const t = useI18nStore(state => state.i18n.t);
   useEffect(() => {

@@ -1,4 +1,5 @@
 import { QueryParamKey } from '../../../enums';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
@@ -17,7 +18,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
   const userIsLogged = useUserStore(state => state.user.isLogged);
   const userIsLoading = useUserStore(state => state.isLoading);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const { Image } = useUIStore(store => store.components);
   
   if (userIsLoading) {

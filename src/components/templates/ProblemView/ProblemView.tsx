@@ -1,7 +1,7 @@
 import { ProfileSetting } from '@juki-team/commons';
 import { PropsWithChildren, useState } from 'react';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
-import { useUIStore } from '../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Portal, T } from '../../atoms';
 import { classNames, getStatementData } from '../../helpers';
@@ -26,7 +26,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
     languages,
   } = props;
   
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const [ expanded, setExpanded ] = useState(false);
   const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
   const t = useI18nStore(state => state.i18n.t);

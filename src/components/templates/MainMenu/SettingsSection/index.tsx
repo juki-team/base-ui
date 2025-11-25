@@ -1,5 +1,6 @@
 import { Language, ProfileSetting, Theme } from '@juki-team/commons';
 import { type  Dispatch, type KeyboardEventHandler, type ReactNode, type SyntheticEvent } from 'react';
+import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Modal, Popover, T } from '../../../atoms';
@@ -150,7 +151,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
   
   const userPreferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
   const { Image } = useUIStore(store => store.components);
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   
   const isDark = userPreferredTheme === Theme.DARK;
   

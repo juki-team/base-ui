@@ -4,7 +4,7 @@ import { LineMatchingType } from 'diff2html/lib-esm/types';
 import { ColorSchemeType } from 'diff2html/lib/types';
 import { useCallback, useEffect, useState } from 'react';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
-import { useUIStore } from '../../../../../stores/ui/useUIStore';
+import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { Button, Collapse, Modal, T, VirtualizedRowsFixed } from '../../../../atoms';
 import type { VirtualizedRowsFixedProps } from '../../../../atoms/_lazy_/VirtualizedRowsFixed/types';
@@ -114,7 +114,7 @@ export function SubmissionGroupInfo(props: GroupInfoProps) {
     isProblemEditor,
   } = props;
   
-  const viewPortSize = useUIStore(store => store.viewPortSize);
+  const viewPortSize = usePageStore(store => store.viewPort.size);
   const rowHeight = viewPortSize === 'sm' || viewPortSize === 'md' ? 54 + 8 + 8 : 24 + 8 + 8;
   const testCasesString = JSON.stringify(testCases);
   const renderRow: VirtualizedRowsFixedProps['renderRow'] = useCallback((index) => {

@@ -1,8 +1,7 @@
 import { MotionConfig } from 'motion/react';
-import { type FC, type PropsWithChildren, Suspense, useCallback, useEffect, useRef } from 'react';
-import { Tooltip } from '../../components/atoms/_lazy_/Tooltip';
+import { type FC, type PropsWithChildren, useCallback, useEffect, useRef } from 'react';
+import { LoginModal, SignUpModal, SubmissionModal, Tooltip, UserPreviewModal, WelcomeModal } from '../../components';
 import { classNames } from '../../components/helpers';
-import { usePageFocus } from '../../components/hooks/usePageFocus';
 import { LineLoader } from '../../components/server';
 import { Duration } from '../../enums';
 import { persistGlobalURLSearchParams } from '../../settings/AppRoutes';
@@ -12,12 +11,14 @@ import { NotificationProvider } from '../NotificationProvider/NotificationProvid
 import { Image } from './Image';
 import { Link } from './Link';
 import type { JukiUIProviderProps, LinkCmpProps } from './types';
-import { useViewPortSize } from './useViewPortSize';
 
-export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiUIProviderProps>) => {
+export const JukiUIProvider = ({
+                                 children,
+                                 components,
+                                 multiCompanies,
+                                 onSeeMyProfile,
+                               }: PropsWithChildren<JukiUIProviderProps>) => {
   
-  usePageFocus();
-  const { viewPortSize, viewPortHeight, viewPortWidth } = useViewPortSize();
   const { Image: ImageCmp = Image, Link: LinkCMP = Link } = components || { Image, Link };
   const isLoadingRoute = useRouterStore(state => state.isLoadingRoute);
   const ref = useRef<HTMLDivElement>(null);
@@ -41,9 +42,6 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
   }, [ LinkCMP ]);
   
   useEffect(() => {
-    setProps({ viewPortSize, viewPortHeight, viewPortWidth });
-  }, [ viewPortSize, viewPortHeight, viewPortWidth, setProps ]);
-  useEffect(() => {
     setProps({ components: { Image: ImageCmp, Link: LinkCmp } });
   }, [ ImageCmp, LinkCmp, setProps ]);
   useEffect(() => {
@@ -57,9 +55,12 @@ export const JukiUIProvider = ({ children, components }: PropsWithChildren<JukiU
         <div id="juki-app" translate="no" className={classNames({ 'loading-route': isLoadingRoute })} ref={ref}>
           {/*<div className="loading-route-overlay" />*/}
           {children}
-          <Suspense>
-            <Tooltip />
-          </Suspense>
+          <Tooltip />
+          <SignUpModal />
+          <LoginModal multiCompanies={multiCompanies} />
+          <WelcomeModal onSeeMyProfile={onSeeMyProfile} />
+          <UserPreviewModal />
+          <SubmissionModal />
         </div>
       </NotificationProvider>
     </MotionConfig>
