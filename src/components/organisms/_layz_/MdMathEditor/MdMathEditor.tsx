@@ -23,7 +23,9 @@ import { ImageUploaderModal } from '../../ImageUploaderModal/ImageUploaderModal'
 import { MilkdownEditorContent } from './MilkdownEditorContent/MilkdownEditorContent';
 import { TextPlainEditorContent } from './TextPlainEditorContent/TextPlainEditorContent';
 import type { MdMathEditorProps } from './types';
-import './styles.css';
+// import './styles.scss';
+import '@milkdown/crepe/theme/common/style.css';
+import '@milkdown/crepe/theme/frame.css';
 
 enum Mode {
   WYSIWYG = 'WYSIWYG',
