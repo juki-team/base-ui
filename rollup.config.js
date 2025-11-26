@@ -12,7 +12,7 @@ import postcss from "rollup-plugin-postcss";
 // import { visualizer } from 'rollup-plugin-visualizer';
 // import pkg from './package.json' with { type: 'json' };
 import path from 'path';
-import sass from 'sass';
+import * as sass from 'sass';
 
 const plugins = [
   // nodePolyfills(),
