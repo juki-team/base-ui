@@ -5,6 +5,7 @@ import { memo } from 'react';
 import { utils } from 'xlsx';
 import { classNames } from '../../../helpers';
 import { CellStyleType, DataGridProps } from './types';
+import './styles.scss';
 
 registerAllModules();
 

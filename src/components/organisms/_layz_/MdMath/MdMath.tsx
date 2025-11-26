@@ -24,6 +24,7 @@ import { UserChip } from '../../UserChip/UserChip';
 import { UserCodeEditor } from '../UserCodeEditor';
 import type { CommandsObjectType, MdMathProps } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
+import './styles.scss';
 
 type hxProps = { children: ReactNode & ReactNode[], node: Element };
 

@@ -47,7 +47,7 @@ function exitFullscreen() {
   }
 }
 
-export function PresentationToolButtons({ style }: { style: CSSProperties }) {
+export function PresentationToolButtons({ style }: { style?: CSSProperties }) {
   
   const isFullscreen = usePageStore(store => store.isFullscreen);
   

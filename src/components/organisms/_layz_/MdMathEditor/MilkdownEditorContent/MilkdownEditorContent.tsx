@@ -29,9 +29,7 @@ import { useStableRef } from '../../../../hooks/useStableRef';
 // import { basicSetup } from '@uiw/react-codemirror';
 import { basicSetup } from '../../../../molecules/_lazy_/CodeEditor/codemirror/extensions/basic-setup';
 import type { NewNotificationType } from '../../../CardNotification/types';
-
-// import '@milkdown/crepe/theme/common/style.css';
-// import '@milkdown/crepe/theme/frame.css';
+import './styles.scss';
 
 interface MilkdownEditorContentProps {
   onChange?: (md: string) => void,
