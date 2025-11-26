@@ -158,7 +158,6 @@ export default function ExcalidrawButton() {
               opacity: isActive ? 1 : 0,
               zIndex: 'var(--z-index-excalidraw)',
             }}
-            className={'jk-lib-excalidraw'}
           >
             <Excalidraw
               excalidrawAPI={(api) => setExcalidrawAPI(api)}
