@@ -54,7 +54,11 @@ const plugins = [
       [
         "sass",
         {
-          includePaths: [ "./src/styles" ],
+          includePaths: [
+            "./src/styles",
+            "node_modules",
+          ],
+          
         },
       ],
     ],
