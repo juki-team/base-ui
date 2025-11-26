@@ -152,6 +152,7 @@ const config: StorybookConfig = {
     ];
     config.resolve.alias = (config.resolve.alias || {}) as Record<string, string>;
     config.resolve.alias['@juki-team/base-ui/assets'] = path.resolve(__dirname, '../dist/assets');
+    config.resolve.alias['@juki-team/base-ui/assets'] = path.resolve(__dirname, '../dist/assets');
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,

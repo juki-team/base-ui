@@ -58,9 +58,10 @@
   },
   "scripts": {
     "storybook": "cross-env NODE_ENV=storybook storybook dev -p 6006",
+    "prebuild:rollup": "rm -rf src/vendor && rollup -c prebuild-rollup.config.js && rm -rf tmp-prebuild",
     "build:storybook": "rm -rf docs && storybook build -o docs",
     "build:rollup-clean": "rm -rf dist && rm -rf node_modules/.cache/rollup-plugin-typescript2 && rollup -c --no-cache --strictDeprecations --environment NODE_ENV:production",
-    "build:rollup": "rm -rf dist && rollup -c --strictDeprecations --environment NODE_ENV:production",
+    "build:rollup": "rm -rf dist && rollup -c rollup.config.js --strictDeprecations --environment NODE_ENV:production",
     "build:sass": "rm -rf dist/css-styles && sass src/styles:dist/styles --no-source-map --style=compressed",
     "build:publish": "yarn publish --new-version $(node -p \"require('./package.json').version\") --no-git-tag-version",
     "git:commit": "f() { param=${1}; message=${param:-chore}; echo ${message}; git add .; echo $message | git commit -F -; }; f",

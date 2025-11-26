@@ -9,9 +9,10 @@ import alias from '@rollup/plugin-alias';
 import postcss from "rollup-plugin-postcss";
 // import scss from "rollup-plugin-scss";
 // import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
-import { visualizer } from 'rollup-plugin-visualizer';
-import pkg from './package.json' with { type: 'json' };
-import path from "path";
+// import { visualizer } from 'rollup-plugin-visualizer';
+// import pkg from './package.json' with { type: 'json' };
+import path from 'path';
+import sass from 'sass';
 
 const plugins = [
   // nodePolyfills(),
@@ -46,10 +47,10 @@ const plugins = [
   }),
   postcss({
     extensions: [ ".css", ".scss" ],
-    modules: {
-      generateScopedName: "[local]"
-    },
-    autoModules: true, // Detecta archivos `.module.scss` y los trata como CSS Modules
+    // modules: {
+    //   generateScopedName: "[local]"
+    // },
+    // autoModules: true, // Detecta archivos `.module.scss` y los trata como CSS Modules
     use: [
       [
         "sass",
@@ -58,13 +59,14 @@ const plugins = [
             "./src/styles",
             "node_modules",
           ],
-          
+          implementation: sass,
         },
       ],
     ],
     minimize: true,
     sourceMap: false,
-    extract: false, // el CSS se inyecta vía JS; cada componente carga sus estilos cuando se usa
+    inject: true,
+    extract: false, // FALSE: el CSS se inyecta vía JS; cada componente carga sus estilos cuando se usa
   }),
   // scss({
   //   output: (styles, styleNodes) => {
@@ -82,45 +84,45 @@ const plugins = [
   copy({
     targets: [
       { src: './src/styles', dest: 'dist' },
-      { src: './src/assets', dest: 'dist' },
+      { src: './src/vendor', dest: 'dist' },
     ],
   }),
-  visualizer({
-    filename: `./stats/${pkg.version}/stats-treemap.html`,
-    template: 'treemap',
-    gzipSize: true,
-    brotliSize: true,
-  }),
-  visualizer({
-    filename: `./stats/${pkg.version}/stats-sunburst.html`,
-    template: 'sunburst',
-    gzipSize: true,
-    brotliSize: true,
-  }),
-  visualizer({
-    filename: `./stats/${pkg.version}/stats-network.html`,
-    template: 'network',
-    gzipSize: true,
-    brotliSize: true,
-  }),
-  visualizer({
-    filename: `./stats/${pkg.version}/stats-list.txt`,
-    template: 'list',
-    gzipSize: true,
-    brotliSize: true,
-  }),
-  visualizer({
-    filename: `./stats/${pkg.version}/stats-flamegraph.html`,
-    template: 'flamegraph',
-    gzipSize: true,
-    brotliSize: true,
-  }),
-  visualizer({
-    filename: `./stats/${pkg.version}/stats.json`,
-    template: 'raw-data',
-    gzipSize: true,
-    brotliSize: true,
-  }),
+  // visualizer({
+  //   filename: `./stats/${pkg.version}/stats-treemap.html`,
+  //   template: 'treemap',
+  //   gzipSize: true,
+  //   brotliSize: true,
+  // }),
+  // visualizer({
+  //   filename: `./stats/${pkg.version}/stats-sunburst.html`,
+  //   template: 'sunburst',
+  //   gzipSize: true,
+  //   brotliSize: true,
+  // }),
+  // visualizer({
+  //   filename: `./stats/${pkg.version}/stats-network.html`,
+  //   template: 'network',
+  //   gzipSize: true,
+  //   brotliSize: true,
+  // }),
+  // visualizer({
+  //   filename: `./stats/${pkg.version}/stats-list.txt`,
+  //   template: 'list',
+  //   gzipSize: true,
+  //   brotliSize: true,
+  // }),
+  // visualizer({
+  //   filename: `./stats/${pkg.version}/stats-flamegraph.html`,
+  //   template: 'flamegraph',
+  //   gzipSize: true,
+  //   brotliSize: true,
+  // }),
+  // visualizer({
+  //   filename: `./stats/${pkg.version}/stats.json`,
+  //   template: 'raw-data',
+  //   gzipSize: true,
+  //   brotliSize: true,
+  // }),
 ];
 
 export default [

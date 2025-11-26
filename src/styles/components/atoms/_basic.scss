@@ -8,3 +8,28 @@
     opacity: 1 !important;
   }
 }
+
+.presentation-tool-buttons {
+  right: calc(var(--pad-sm) / 2) !important;
+  top: calc(var(--pad-sm) / 2) !important;
+  transform: none !important;
+  
+  > *:not(:first-child) {
+    display: none;
+  }
+  
+  &:hover {
+    opacity: 1;
+    background: var(--t-color-white-light);
+    border-radius: var(--border-radius-inline);
+    padding: 6px;
+    height: initial;
+    width: initial;
+    overflow: unset;
+    @include mixins.elevation(1);
+    
+    > *:not(:first-child) {
+      display: initial;
+    }
+  }
+}
