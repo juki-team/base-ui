@@ -23,6 +23,7 @@ import { ImageUploaderModal } from '../../ImageUploaderModal/ImageUploaderModal'
 import { MilkdownEditorContent } from './MilkdownEditorContent/MilkdownEditorContent';
 import { TextPlainEditorContent } from './TextPlainEditorContent/TextPlainEditorContent';
 import type { MdMathEditorProps } from './types';
+import './styles.scss';
 
 enum Mode {
   WYSIWYG = 'WYSIWYG',
