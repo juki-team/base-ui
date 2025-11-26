@@ -29,21 +29,6 @@
       user-select: none;
       border-right: 1px solid var(--t-color-highlight);
       background: var(--t-color-white-darkest);
-      
-      //> div::after {
-      //  content: "";
-      //  position: absolute;
-      //  top: calc(var(--line-index, 0) * var(--line-height) + var(--pad-sm));
-      //  left: 0;
-      //  width: 100%;
-      //  height: var(--line-height);
-      //  pointer-events: none;
-      //  //background: red;
-      //}
-      //
-      //> div:hover::after {
-      //  background: var(--t-color-highlight-light);
-      //}
     }
     
     > pre {
@@ -57,7 +42,6 @@
       
       code {
         display: block;
-        //overflow-x: auto;
         padding: var(--pad-sm) var(--pad-sm) var(--pad-sm) calc(var(--pad-sm) / 2);
       }
     }

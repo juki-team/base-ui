@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Button, InputToggle, Portal, T } from '../../../atoms';
 import { EditIcon } from '../../../atoms/server';
 import { ButtonAction } from '../../../molecules';
+import './styles.scss';
 
 const LOCAL_STORAGE_KEY = 'jk-excalidraw-data';
 
@@ -157,6 +158,7 @@ export default function ExcalidrawButton() {
               opacity: isActive ? 1 : 0,
               zIndex: 'var(--z-index-excalidraw)',
             }}
+            className={'jk-lib-excalidraw'}
           >
             <Excalidraw
               excalidrawAPI={(api) => setExcalidrawAPI(api)}

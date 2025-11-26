@@ -35,6 +35,7 @@ const config: StorybookConfig = {
     '@storybook/addon-themes',
     // '@chromatic-com/storybook',
     '@storybook/addon-docs',
+    // '@storybook/preset-scss',
   ],
   core: {
     builder: {
@@ -106,8 +107,28 @@ const config: StorybookConfig = {
         },
       ],
     });
+    
+    // config.module.rules.push({
+    //   test: /\.module\.s[ac]ss$/i,
+    //   use: [
+    //     require.resolve('style-loader'),
+    //     {
+    //       loader: require.resolve('css-loader'),
+    //       options: {
+    //         modules: true,
+    //       },
+    //     },
+    //     require.resolve('sass-loader'),
+    //   ],
+    //   // include: path.resolve(__dirname, '../src'),
+    // });
+    // config.module!.rules = (config.module!.rules || []).filter((rule) => {
+    //   const test = rule?.test?.toString() || '';
+    //   return !test.includes('scss') && !test.includes('sass');
+    // });
     config.module.rules.push({
       test: /\.s[ac]ss$/i,
+      // exclude: /\.module\.s[ac]ss$/i,
       use: [
         require.resolve('style-loader'),
         require.resolve('css-loader'),

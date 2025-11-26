@@ -4,35 +4,8 @@
   display: inline-block;
   overflow: hidden;
   --size-icon: var(--text-medium-height);
-  
-  //&.clickable {
-  //
-  //  &.very-huge { padding: 6px; }
-  //
-  //  // 60, total 72
-  //
-  //  &.huge { padding: 5px; }
-  //
-  //  // 48, total: 8
-  //
-  //  &.large { padding: 4px; }
-  //
-  //  // 36, total: 44
-  //
-  //  &.regular { padding: 3px; }
-  //
-  //  // 24, total: 30
-  //
-  //  &.small { padding: 2px; }
-  //
-  //  // 18, total: 22
-  //
-  //  &.tiny { padding: 1px; }
-  //
-  //  // 12, total: 14
-  //}
-  
   line-height: var(--size-icon);
+  
   @include mixins.box-size(var(--size-icon));
   
   &.very-huge {
@@ -58,17 +31,6 @@
   &.tiny {
     --size-icon: var(--text-tiny-height);
   }
-  
-  svg {
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.jk-svg-image {
-  //display: block;
-  width: 100%;
-  height: 100%;
   
   svg {
     width: 100%;

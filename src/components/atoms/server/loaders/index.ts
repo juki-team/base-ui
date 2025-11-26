@@ -1,2 +1,2 @@
-export * from './LineLoader';
+export * from './line-loader/LineLoader';
 export * from './LoaderLayer';

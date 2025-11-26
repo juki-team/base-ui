@@ -1,5 +1,4 @@
 @use "graphics/index";
-@use "image-loader-cropper/index" as index2;
 @use "md-math-viewer/index" as index3;
 @use "tooltip/index" as index4;
 
@@ -8,7 +7,6 @@
 @use "button";
 @use "code-run-editor";
 @use "code-viewer";
-@use "collapse";
 @use "color-picker";
 @use "data-viewer";
 @use "date-picker";

@@ -1,7 +1,7 @@
 import { type Meta, type StoryObj } from '@storybook/react-webpack5';
 import { MockupJukiProvider } from '../../../mockup';
 
-import { LineLoader } from './LineLoader';
+import { LineLoader } from './line-loader/LineLoader';
 
 const meta: Meta<typeof LineLoader> = {
   component: LineLoader,

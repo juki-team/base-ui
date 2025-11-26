@@ -6,8 +6,7 @@ import copy from 'rollup-plugin-copy';
 import terser from "@rollup/plugin-terser";
 import json from '@rollup/plugin-json';
 import alias from '@rollup/plugin-alias';
-// import nodePolyfills from 'rollup-plugin-node-polyfills';
-// import postcss from "rollup-plugin-postcss";
+import postcss from "rollup-plugin-postcss";
 // import scss from "rollup-plugin-scss";
 // import { sizeSnapshot } from 'rollup-plugin-size-snapshot';
 import { visualizer } from 'rollup-plugin-visualizer';
@@ -45,13 +44,24 @@ const plugins = [
     exclude: [ '**/*.stories.tsx' ],
     // check: false,
   }),
-  // sizeSnapshot(),
-  // postcss({
-  //   modules: true, // 🔥 Usa CSS Modules
-  //   autoModules: true, // Detecta archivos `.module.scss`
-  //   minimize: true,
-  //   sourceMap: true,
-  // }),
+  postcss({
+    extensions: [ ".css", ".scss" ],
+    modules: {
+      generateScopedName: "[local]"
+    },
+    autoModules: true, // Detecta archivos `.module.scss` y los trata como CSS Modules
+    use: [
+      [
+        "sass",
+        {
+          includePaths: [ "./src/styles" ],
+        },
+      ],
+    ],
+    minimize: true,
+    sourceMap: false,
+    extract: false, // el CSS se inyecta vía JS; cada componente carga sus estilos cuando se usa
+  }),
   // scss({
   //   output: (styles, styleNodes) => {
   //     // 🔥 Genera un archivo CSS separado para cada .scss importado
