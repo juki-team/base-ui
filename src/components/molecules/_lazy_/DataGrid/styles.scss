@@ -4,5 +4,5 @@
 // Main theme variables
 //import 'handsontable/styles/ht-theme-main.min.css';
 
-@import "../../../../vendor/handsontable/styles/handsontable.min.css";
-@import "../../../../vendor/handsontable/styles/ht-theme-main.min.css";
+@use "../../../../vendor/handsontable/styles/handsontable.min.css";
+@use "../../../../vendor/handsontable/styles/ht-theme-main.min.css";

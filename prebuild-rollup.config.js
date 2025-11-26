@@ -5,6 +5,7 @@ const plugins = [
     targets: [
       { src: 'node_modules/handsontable/**/*.{css,scss,sass,ttf,woff,woff2}', dest: 'src/vendor' },
       { src: 'node_modules/@excalidraw/**/*.{css,scss,sass,ttf,woff,woff2}', dest: 'src/vendor' },
+      { src: 'node_modules/react-image-crop/**/*.{css,scss,sass,ttf,woff,woff2}', dest: 'src/vendor' },
     ],
     flatten: false,
   }),

@@ -57,7 +57,6 @@ const plugins = [
         {
           includePaths: [
             "./src/styles",
-            "node_modules",
           ],
           implementation: sass,
         },
@@ -83,8 +82,7 @@ const plugins = [
   terser(),
   copy({
     targets: [
-      { src: './src/styles', dest: 'dist' },
-      { src: './src/vendor', dest: 'dist' },
+      // { src: './src/styles', dest: 'dist' },
     ],
   }),
   // visualizer({

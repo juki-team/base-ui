@@ -151,8 +151,7 @@ const config: StorybookConfig = {
       new TsconfigPathsPlugin(),
     ];
     config.resolve.alias = (config.resolve.alias || {}) as Record<string, string>;
-    config.resolve.alias['@juki-team/base-ui/assets'] = path.resolve(__dirname, '../dist/assets');
-    config.resolve.alias['@juki-team/base-ui/assets'] = path.resolve(__dirname, '../dist/assets');
+    config.resolve.alias['@juki-team/base-ui/vendor'] = path.resolve(__dirname, '../dist/vendor');
     config.experiments = {
       ...config.experiments,
       asyncWebAssembly: true,

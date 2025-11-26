@@ -41,5 +41,10 @@
     "node_modules",
     "dist",
     "build"
-  ]
+  ],
+  "paths": {
+    "@juki-team/base-ui/vendor/*": [
+      "dist/vendor/*"
+    ]
+  }
 }

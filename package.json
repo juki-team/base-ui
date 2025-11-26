@@ -54,7 +54,8 @@
     "./styles.css": {
       "default": "./dist/styles/index.css"
     },
-    "./assets/*": "./dist/assets/*"
+    "./styles.scss": "./src/styles/index.scss",
+    "./vendor/*": "./src/vendor/*"
   },
   "scripts": {
     "storybook": "cross-env NODE_ENV=storybook storybook dev -p 6006",
