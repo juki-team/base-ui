@@ -13,10 +13,10 @@
     //top: var(--top-horizontal-menu-height, 0px);
     top: 0;
     left: 0;
-    border-bottom: 1px solid var(--t-color-highlight-light);
+    border-bottom: 1px solid var(--cr-ht-lt);
     z-index: 1;
     
-    background-color: var(--t-color-white);
+    background-color: var(--cr-we);
     @include mixins.transition(background-color);
   }
   
@@ -58,7 +58,7 @@
   
   > div:first-child {
     width: calc(100% - var(--pad-md) - var(--pad-md));
-    background: var(--t-color-white);
+    background: var(--cr-we);
     border-radius: 0 0 var(--border-radius) var(--border-radius);
   }
   
@@ -71,7 +71,7 @@
       box-sizing: border-box;
       
       .selected {
-        background: var(--t-color-white);
+        background: var(--cr-we);
         border-radius: var(--border-radius) var(--border-radius) 0 0;
         
         &::after {
@@ -79,12 +79,6 @@
         }
       }
     }
-    
-    //.two-content-layout-body {
-    //  overflow: auto;
-    //  background: var(--t-color-white);
-    //  border-radius: var(--border-radius);
-    //}
   }
 }
 

@@ -6,7 +6,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: var(--z-index-overlay);
+  z-index: var(--zi-overlay);
   display: grid;
   place-items: center;
   overflow: auto;
@@ -54,7 +54,7 @@
 
 .jk-modal-bc-wd-TODO {
   .jk-modal {
-    background: var(--t-color-white-dark);
+    background: var(--cr-we-dk);
   }
 }
 

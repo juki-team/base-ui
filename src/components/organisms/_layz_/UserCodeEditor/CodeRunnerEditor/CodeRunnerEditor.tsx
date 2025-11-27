@@ -350,7 +350,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
             width: viewFiles ? 128 : 32,
             minWidth: viewFiles ? 128 : 32,
             maxWidth: viewFiles ? 128 : 32,
-            borderRight: '1px solid var(--t-color-highlight-light)',
+            borderRight: '1px solid var(--cr-ht-lt)',
           }}
         >
           <div
@@ -384,7 +384,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
                             <EditIcon
                               className={classNames({ 'cr-pl': name !== currentFileName })}
                               size="tiny"
-                              filledCircle={name !== currentFileName ? 'var(--t-color-white)' : 'var(--t-color-primary)'}
+                              filledCircle={name !== currentFileName ? 'var(--cr-we)' : 'var(--cr-py)'}
                               onClick={() => {
                                 setOpenFileName(name);
                                 setFileNameEdit(name);
@@ -393,7 +393,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
                             <DeleteIcon
                               className={classNames({ 'cr-pl': name !== currentFileName })}
                               size="tiny"
-                              filledCircle={name !== currentFileName ? 'var(--t-color-white)' : 'var(--t-color-primary)'}
+                              filledCircle={name !== currentFileName ? 'var(--cr-we)' : 'var(--cr-py)'}
                               onClick={() => setFileNameDelete(name)}
                             />
                           </div>

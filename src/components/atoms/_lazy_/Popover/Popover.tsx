@@ -249,7 +249,7 @@ export default function Popover(props: PopoverProps) {
             <FloatingFocusManager context={floatingContext} modal={modal}>
               <div
                 ref={refs.setFloating}
-                style={{ ...floatingStyles, zIndex: 'var(--z-index-popover)' }}
+                style={{ ...floatingStyles, zIndex: 'var(--zi-popover)' }}
                 {...getFloatingProps()}
               >
                 <motion.div

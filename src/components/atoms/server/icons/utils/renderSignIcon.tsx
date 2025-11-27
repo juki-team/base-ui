@@ -35,7 +35,7 @@ export const renderSignIcon = (_props: SignIconProps, Component: ComponentType<R
             color
               ? color
               : (filledCircle || filledSquare)
-                ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)'))
+                ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--cr-we)'))
                 : 'currentColor'}
           width={width}
         />

@@ -1,5 +1,5 @@
 .jk-tiptap-editor {
-  --input-border-color: var(--t-color-highlight-light);
+  --input-border-color: var(--cr-ht-lt);
   
   .tiptap.ProseMirror {
     padding: var(--pad-sm);
@@ -24,10 +24,10 @@
   //background: none !important;
   
   &:hover, &:active, &:focus {
-    --input-background-color: var(--t-color-highlight-light);
+    --input-background-color: var(--cr-ht-lt);
     
     .milkdown {
-      //--crepe-color-background: var(--t-color-highlight-light);
+      //--crepe-color-background: var(--cr-ht-lt);
     }
   }
   
@@ -39,31 +39,31 @@
     --crepe-font-code: var(--font-code), Fira Code, Menlo, Monaco, "Courier New", Courier, monospace;
     
     /* Background Colors */
-    //--crepe-color-background: var(--t-color-white); /* Main background color */
+    //--crepe-color-background: var(--cr-we); /* Main background color */
     --crepe-color-background: transparent; /* Main background color */
-    --crepe-color-surface: var(--t-color-white-darkest); /* Surface color for cards/panels */
-    --crepe-color-surface-low: var(--t-color-white-dark); /* Lower surface color for depth */
+    --crepe-color-surface: var(--cr-we-det); /* Surface color for cards/panels */
+    --crepe-color-surface-low: var(--cr-we-dk); /* Lower surface color for depth */
     
     /* Text Colors */
-    --crepe-color-on-background: var(--t-color-black-light); /* Text color on background */
-    --crepe-color-on-surface: var(--t-color-black-light); /* Text color on surface */
-    --crepe-color-on-surface-variant: var(--t-color-black-light); /* Secondary text color */
+    --crepe-color-on-background: var(--cr-bk-lt); /* Text color on background */
+    --crepe-color-on-surface: var(--cr-bk-lt); /* Text color on surface */
+    --crepe-color-on-surface-variant: var(--cr-bk-lt); /* Secondary text color */
     
     /* Accent Colors */
-    --crepe-color-primary: var(--t-color-primary-light); /* Primary brand color */
-    --crepe-color-secondary: var(--t-color-highlight-light); /* Secondary accent color */
-    --crepe-color-on-secondary: var(--t-color-text-highlight-light); /* Text color on secondary */
+    --crepe-color-primary: var(--cr-pl); /* Primary brand color */
+    --crepe-color-secondary: var(--cr-ht-lt); /* Secondary accent color */
+    --crepe-color-on-secondary: var(--cr-tx-ht-lt); /* Text color on secondary */
     
     /* UI Colors */
-    --crepe-color-outline: var(--t-color-highlight); /* Border/outline color */
+    --crepe-color-outline: var(--cr-ht); /* Border/outline color */
     --crepe-color-inverse: #362F27; /* Inverse color for contrast */
     --crepe-color-on-inverse: #FCEFE2; /* Text color on inverse */
     --crepe-color-inline-code: #BA1A1A; /* Inline code color */
     --crepe-color-error: #BA1A1A; /* Error state color */
     
     /* Interactive Colors */
-    --crepe-color-hover: var(--t-color-highlight-light); /* Hover state color */
-    --crepe-color-selected: var(--t-color-highlight); /* Selected state color */
+    --crepe-color-hover: var(--cr-ht-lt); /* Hover state color */
+    --crepe-color-selected: var(--cr-ht); /* Selected state color */
     --crepe-color-inline-area: #E4D8CC; /* Inline editing area color */
     
     .ProseMirror {
@@ -72,7 +72,7 @@
     }
     
     .milkdown-block-handle {
-      background: var(--t-color-white);
+      background: var(--cr-we);
       z-index: 1;
     }
     
@@ -82,7 +82,7 @@
     
     .milkdown-code-block {
       padding: 0;
-      margin: 0 0 calc(var(--text-medium-height) / 4) 0;
+      margin: 0 0 calc(var(--tx-h-m) / 4) 0;
       background: none;
       
       .language-list {
@@ -111,7 +111,7 @@
       &::before, &::after {
         content: "```";
         position: absolute;
-        color: var(--t-color-primary-dark);
+        color: var(--cr-pd);
         font-weight: bold;
         opacity: 0;
         height: 0;
@@ -119,7 +119,7 @@
       }
       
       &::before {
-        //top: calc(var(--text-medium-height) / -2);
+        //top: calc(var(--tx-h-m) / -2);
         top: 0;
       }
       
@@ -135,17 +135,17 @@
     p {
       a {
         
-        color: var(--t-color-primary-light);
+        color: var(--cr-pl);
         
         &:hover {
-          color: var(--t-color-primary);
+          color: var(--cr-py);
           text-decoration: underline;
         }
       }
       
       &:hover {
         a {
-          color: var(--t-color-primary);
+          color: var(--cr-py);
           text-decoration: underline;
         }
       }
@@ -163,7 +163,7 @@
       &::before, &::after {
         content: "$";
         font-family: var(--font-code), monospace !important;
-        color: var(--t-color-primary-dark);
+        color: var(--cr-pd);
         opacity: 0;
         font-weight: var(--weight-bolder);
       }
@@ -173,8 +173,8 @@
 
 .ProseMirror {
   outline-width: 2px;
-  --input-border-color: var(--t-color-highlight-dark);
-  //background-color: var(--t-color-highlight-light);
+  --input-border-color: var(--cr-ht-dk);
+  //background-color: var(--cr-ht-lt);
   padding: var(--pad-sm);
   
   h1, h2, h3, h4, h5, h6 {
@@ -183,7 +183,7 @@
       margin-right: 0.2ch;
       user-select: none;
       font-family: var(--font-code), monospace !important;
-      color: var(--t-color-primary-dark);
+      color: var(--cr-pd);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }
@@ -234,7 +234,7 @@
       user-select: none;
       margin-right: 0.25em;
       font-family: var(--font-code), monospace !important;
-      color: var(--t-color-primary-dark);
+      color: var(--cr-pd);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }
@@ -278,7 +278,7 @@
     &::after, &::before {
       content: "*";
       font-family: var(--font-code), monospace !important;
-      color: var(--t-color-primary-dark);
+      color: var(--cr-pd);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }
@@ -294,7 +294,7 @@
     &::after, &::before {
       content: "**";
       font-family: var(--font-code), monospace !important;
-      color: var(--t-color-primary-dark);
+      color: var(--cr-pd);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }
@@ -311,7 +311,7 @@
       text-decoration: none !important;
       content: "~~";
       font-family: var(--font-code), monospace !important;
-      color: var(--t-color-primary-dark);
+      color: var(--cr-pd);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }
@@ -320,8 +320,8 @@
   code {
     padding: 0 4px !important;
     font-family: var(--font-code), monospace !important;
-    background: var(--t-color-highlight-light) !important;
-    color: var(--t-color-text-highlight) !important;
+    background: var(--cr-ht-lt) !important;
+    color: var(--cr-tx-ht) !important;
     border-radius: var(--border-radius-inline) !important;
     
     &:hover {
@@ -334,7 +334,7 @@
     &::after, &::before {
       content: "`";
       font-family: var(--font-code), monospace !important;
-      color: var(--t-color-primary-dark);
+      color: var(--cr-pd);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }
@@ -342,7 +342,7 @@
 }
 
 div[data-tippy-root] {
-  z-index: var(--z-index-popover) !important;
+  z-index: var(--zi-popover) !important;
   
   .with-trigger {
     button {
@@ -358,7 +358,7 @@ div[data-tippy-root] {
 }
 
 .current-node-highlight, img.ProseMirror-selectednode {
-  background: var(--t-color-highlight-light);
+  background: var(--cr-ht-lt);
 }
 
 .jk-md-math-left-menu {
@@ -366,7 +366,7 @@ div[data-tippy-root] {
   left: -6px;
   top: calc(var(--cursor-coordinate-y, 0px));
   pointer-events: none;
-  z-index: calc(var(--z-index-popover) + 1);
+  z-index: calc(var(--zi-popover) + 1);
   
   .content {
     display: none;

@@ -21,7 +21,6 @@
     }
     
     .content-label {
-      //color: var(--t-color-gray-4);
       line-height: var(--pad-t);
     }
     
@@ -29,14 +28,6 @@
       @include mixins.sm {
         visibility: visible;
       }
-    }
-  }
-  
-  .content-dots {
-    //padding: 0 0 var(--pad-t) 0;
-    @include mixins.sm {
-      //top: 0;
-      //line-height: var(--pad-t);
     }
   }
 }

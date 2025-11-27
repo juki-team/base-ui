@@ -24,7 +24,7 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
   return (
     <div
       className="jk-drawer-menu-mobile jk-col top nowrap stretch"
-      style={{ backgroundColor: 'var(--t-color-white-dark)' }}
+      style={{ backgroundColor: 'var(--cr-we-dark)' }}
     >
       <div
         className="jk-row extend center nowrap bc-we elevation-1 pn-re"

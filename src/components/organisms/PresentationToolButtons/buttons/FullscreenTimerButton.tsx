@@ -325,7 +325,7 @@ export function FullscreenTimerButton() {
             style={{
               pointerEvents: isActive ? undefined : 'none',
               opacity: isActive ? 1 : 0,
-              backgroundColor: 'var(--t-color-highlight-light)',
+              backgroundColor: 'var(--cr-ht-lt)',
             }}
             className="bc-we jk-col stretch jk-overlay-backdrop jk-overlay"
           >

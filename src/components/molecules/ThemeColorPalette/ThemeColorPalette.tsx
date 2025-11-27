@@ -4,7 +4,7 @@ export function ThemeColorPalette() {
       {[ 'light', 'dark' ].map((theme) => (
         <div
           className={'jk-pg-lg jk-col gap jk-theme-' + theme}
-          style={{ backgroundColor: 'var(--t-color-white)' }}
+          style={{ backgroundColor: 'var(--cr-we)' }}
         >
           <h3>Theme {theme}</h3>
           <div className="jk-row color-cells">
@@ -52,54 +52,54 @@ export function ThemeColorPalette() {
             <div className="appearance-gray-6">gray-6</div>
           </div>
           <div className="jk-row color-cells with-labels">
-            <div style={{ backgroundColor: 'var(--t-color-highlight-light)' }}>
+            <div style={{ backgroundColor: 'var(--cr-ht-lt)' }}>
               <div>light</div>
             </div>
-            <div style={{ backgroundColor: 'var(--t-color-highlight)' }}>
+            <div style={{ backgroundColor: 'var(--cr-ht)' }}>
               <div>highlight</div>
             </div>
-            <div style={{ backgroundColor: 'var(--t-color-highlight-dark)' }}>
+            <div style={{ backgroundColor: 'var(--cr-ht-dark)' }}>
               <div>dark</div>
             </div>
           </div>
           <div className="jk-row color-cells with-labels">
-            <div style={{ backgroundColor: 'var(--t-color-shadow-light)' }}>
+            <div style={{ backgroundColor: 'var(--cr-sw--lt)' }}>
               <div>light</div>
             </div>
-            <div style={{ backgroundColor: 'var(--t-color-shadow)' }}>
+            <div style={{ backgroundColor: 'var(--cr-sw)' }}>
               <div>shadow</div>
             </div>
-            <div style={{ backgroundColor: 'var(--t-color-shadow-dark)' }}>
+            <div style={{ backgroundColor: 'var(--cr-sw-dark)' }}>
               <div>dark</div>
             </div>
           </div>
           <div className="jk-row color-cells with-labels">
-            <div style={{ backgroundColor: 'var(--t-color-glow)' }}>
+            <div style={{ backgroundColor: 'var(--cr-gw)' }}>
               <div>glow</div>
             </div>
-            <div style={{ backgroundColor: 'var(--t-color-gray)' }}>
+            <div style={{ backgroundColor: 'var(--cr-gy)' }}>
               <div>gray</div>
             </div>
           </div>
           <div className="jk-row color-cells with-labels">
-            <div style={{ backgroundColor: 'var(--t-color-black)' }}>
+            <div style={{ backgroundColor: 'var(--cr-bk)' }}>
               <div>black</div>
             </div>
-            <div style={{ backgroundColor: 'var(--t-color-black-light)' }}>
+            <div style={{ backgroundColor: 'var(--cr-bk-light)' }}>
               <div>light</div>
             </div>
-            <div style={{ backgroundColor: 'var(--t-color-black-lightest)' }}>
+            <div style={{ backgroundColor: 'var(--cr-bk-lightest)' }}>
               <div>lightest</div>
             </div>
           </div>
           <div className="jk-row color-cells with-labels">
-            <div style={{ backgroundColor: 'var(--t-color-white)' }}>
+            <div style={{ backgroundColor: 'var(--cr-we)' }}>
               <div>white</div>
             </div>
-            <div style={{ backgroundColor: 'var(--t-color-white-dark)' }}>
+            <div style={{ backgroundColor: 'var(--cr-we-dark)' }}>
               <div>dark</div>
             </div>
-            <div style={{ backgroundColor: 'var(--t-color-white-darkest)' }}>
+            <div style={{ backgroundColor: 'var(--cr-we-darkest)' }}>
               <div>darkest</div>
             </div>
           </div>

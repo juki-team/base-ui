@@ -1,16 +1,15 @@
 .laser-pointer {
-  position: fixed;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: red;
-  pointer-events: none;
-  z-index: 99999;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 12px 6px rgba(255, 0, 0, 0.6);
-  //transition: transform 0.05s linear;
   animation: pulse 0.8s infinite ease-in-out;
+  background: red;
+  border-radius: 50%;
+  box-shadow: 0 0 12px 6px rgba(255, 0, 0, 0.6);
+  height: 16px;
   opacity: 0.6;
+  pointer-events: none;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  z-index: 99999;
 }
 
 @keyframes pulse {
@@ -35,18 +34,10 @@
   }
   
   .Stack.Stack_vertical.App-menu_top__left {
-    > div > button {
-      //display: none !important;
-    }
-    
     .selected-shape-actions {
       transform: scale(0.7);
       transform-origin: top left;
     }
-  }
-  
-  .App-toolbar-content > button[data-testid="main-menu-trigger"] {
-    //display: none !important;
   }
 }
 
@@ -58,16 +49,16 @@
 .presentation-tool-buttons {
   
   .jk-button.tiny {
-    --text-medium-height: 16px * 1.5;
     font-size: 12px;
-    line-height: 14px;
     --line-height: 18px;
+    line-height: 14px;
+    --tx-h-m: calc(16px * 1.5);
     
     > .jk-icon {
       height: 14px;
       min-height: 14px;
-      width: 14px;
       min-width: 14px;
+      width: 14px;
     }
   }
   
@@ -81,28 +72,16 @@
     }
     
     .jk-icon {
-      --size-icon: 16px * 1.5;
-      line-height: 18px;
-      width: 24px; // var(--size-icon)
       height: 24px;
-      min-width: 24px; // var(--size-icon)
+      --size-icon: calc(16px * 1.5);
+      line-height: 18px;
       min-height: 24px;
+      min-width: 24px; /*var(--size-icon)*/
+      width: 24px; /*var(--size-icon)*/
     }
     
     .jk-input-toggle-slider {
       --input-toggle-height: 14px;
     }
   }
-  
-  //.jk-icon {
-  //  --line-height: 18px;
-  //  width: 24px; // var(--size-icon)
-  //  height: 24px;
-  //  min-width: 24px; // var(--size-icon)
-  //  min-height: 24px;
-  //}
-  //
-  //button {
-  //  --text-medium-height: 16px;
-  //}
 }

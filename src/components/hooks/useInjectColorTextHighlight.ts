@@ -4,12 +4,12 @@ export const useInjectColorTextHighlight = (colorTextHighlight?: string) => {
   
   useEffect(() => {
     if (colorTextHighlight) {
-      document.querySelector('body')?.style.removeProperty('--t-color-text-highlight');
-      document.querySelector('body')?.style.setProperty('--t-color-text-highlight', colorTextHighlight);
+      document.querySelector('body')?.style.removeProperty('--cr-tx-ht');
+      document.querySelector('body')?.style.setProperty('--cr-tx-ht', colorTextHighlight);
     }
     
     return () => {
-      document.querySelector('body')?.style.removeProperty('--t-color-text-highlight');
+      document.querySelector('body')?.style.removeProperty('--cr-tx-ht');
     };
   }, [ colorTextHighlight ]);
 };

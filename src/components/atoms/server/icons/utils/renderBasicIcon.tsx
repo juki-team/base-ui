@@ -40,7 +40,7 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
   const centerX = minX + widthBox / 2;
   const centerY = minY + widthBox / 2;
   
-  const color = isFilled ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--t-color-white)')) : 'currentColor';
+  const color = isFilled ? (typeof filledCircle === 'string' ? filledCircle : (typeof filledSquare === 'string' ? filledSquare : 'var(--cr-we)')) : 'currentColor';
   
   return (
     <span
@@ -91,13 +91,13 @@ export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType
               <Segment
                 start={A1}
                 end={{ x: minX + widthBox * 4.5 / 24, y: minY + widthBox * 2.5 / 24 }}
-                fill={!isFilled ? 'var(--t-color-white)' : 'currentColor'}
+                fill={!isFilled ? 'var(--cr-we)' : 'currentColor'}
                 options={{ width, roundWidth: 0 }}
               />
               <Segment
                 start={A2}
                 end={{ x: minX + widthBox * 2.5 / 24, y: minY + widthBox * 4.5 / 24 }}
-                fill={isFilled ? 'var(--t-color-white)' : 'currentColor'}
+                fill={isFilled ? 'var(--cr-we)' : 'currentColor'}
                 options={{ width, roundWidth: 0 }}
               />
             </>

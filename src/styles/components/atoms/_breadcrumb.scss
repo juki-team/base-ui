@@ -1,11 +1,12 @@
 .jk-breadcrumb {
-  padding-top: 6px;
-  padding-bottom: 6px;
   box-sizing: border-box;
+  padding-bottom: 6px;
+  padding-top: 6px;
+  
   
   .separator {
+    color: var(--cr-gy-5);
     padding: 0 4px;
-    color: var(--t-color-gray-5);
     
     &:first-child {
       padding-left: 0;

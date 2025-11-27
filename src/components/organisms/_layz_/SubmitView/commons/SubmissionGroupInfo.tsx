@@ -127,7 +127,7 @@ export function SubmissionGroupInfo(props: GroupInfoProps) {
       <div
         className="jk-row extend block gap jk-table-inline-row"
         key={index}
-        style={{ borderBottom: '1px solid var(--t-color-gray-5)', height: '100%', padding: 0 }}
+        style={{ borderBottom: '1px solid var(--cr-gy-5)', height: '100%', padding: 0 }}
       >
         {isProblemEditor ? (
           <div

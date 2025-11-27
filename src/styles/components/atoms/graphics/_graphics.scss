@@ -3,33 +3,33 @@
 .jk-icon {
   display: inline-block;
   overflow: hidden;
-  --size-icon: var(--text-medium-height);
+  --size-icon: var(--tx-h-m);
   line-height: var(--size-icon);
   
   @include mixins.box-size(var(--size-icon));
   
   &.very-huge {
-    --size-icon: var(--text-very-huge-height);
+    --size-icon: var(--tx-h-vh);
   }
   
   &.huge {
-    --size-icon: var(--text-huge-height);
+    --size-icon: var(--tx-h-h);
   }
   
   &.large {
-    --size-icon: var(--text-large-height);
+    --size-icon: var(--tx-h-l);
   }
   
   &.regular {
-    --size-icon: var(--text-medium-height);
+    --size-icon: var(--tx-h-m);
   }
   
   &.small {
-    --size-icon: var(--text-small-height);
+    --size-icon: var(--tx-h-s);
   }
   
   &.tiny {
-    --size-icon: var(--text-tiny-height);
+    --size-icon: var(--tx-h-t);
   }
   
   svg {

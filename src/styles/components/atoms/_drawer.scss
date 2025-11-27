@@ -1,11 +1,11 @@
 @use "../../mixins";
 
 .jk-popover-overlay {
-  z-index: var(--z-index-popover);
+  z-index: var(--zi-popover);
 }
 
 .jk-drawer-overlay {
-  z-index: calc(var(--z-index-drawer) - 1);
+  z-index: calc(var(--zi-drawer) - 1);
 }
 
 .jk-drawer-overlay, .jk-popover-overlay {
@@ -16,15 +16,15 @@
   left: 0;
   
   &:not(.transparent) {
-    background-color: var(--t-color-shadow);
+    background-color: var(--cr-sw);
   }
 }
 
 .jk-drawer-layout {
   position: fixed;
-  z-index: var(--z-index-drawer);
+  z-index: var(--zi-drawer);
   overflow: auto;
-  background-color: var(--t-color-white);
+  background-color: var(--cr-we);
   
   &.right, &.left {
     top: 0;
@@ -91,6 +91,6 @@
     right: 0;
     margin: var(--pad-xt);
     line-height: inherit;
-    color: var(--t-color-gray-3);
+    color: var(--cr-gy-3);
   }
 }

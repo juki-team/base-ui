@@ -11,7 +11,7 @@
       left: 0;
       bottom: 0;
       padding: 0;
-      background-color: var(--t-color-accent);
+      background-color: var(--cr-at);
       border-radius: 2px 2px 0 0;
     }
     
@@ -31,7 +31,7 @@
       }
       
       &:hover:not(.selected) {
-        background-color: var(--t-color-highlight);
+        background-color: var(--cr-ht);
       }
     }
     
@@ -41,10 +41,6 @@
     
     .jk-tabs-inline-tab {
       position: relative;
-      
-      //> * {
-      //  z-index: 1;
-      //}
     }
   }
   

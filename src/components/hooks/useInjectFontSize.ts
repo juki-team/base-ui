@@ -7,11 +7,11 @@ export const useInjectFontSize = (fontSize?: number) => {
   const userPreferredFontSize = useUserStore(state => state.user.settings?.[ProfileSetting.FONT_SIZE]);
   
   useEffect(() => {
-    document.querySelector('body')?.style.removeProperty('--base-text-size');
-    document.querySelector('body')?.style.setProperty('--base-text-size', `${fontSize ?? userPreferredFontSize}px`);
+    document.querySelector('body')?.style.removeProperty('--tx-bs');
+    document.querySelector('body')?.style.setProperty('--tx-bs', `${fontSize ?? userPreferredFontSize}px`);
     
     return () => {
-      document.querySelector('body')?.style.removeProperty('--base-text-size');
+      document.querySelector('body')?.style.removeProperty('--tx-bs');
     };
   }, [ userPreferredFontSize, fontSize ]);
 };

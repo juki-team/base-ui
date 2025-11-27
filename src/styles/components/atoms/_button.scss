@@ -46,7 +46,7 @@
   --button-padding: var(--pad-xs); // 16px
   --button-border-padding: var(--button-padding);
   --icon-margin-right: 0;
-  --line-height: var(--text-medium-height); // 24px
+  --line-height: var(--tx-h-m); // 24px
   height: auto;
   position: relative;
   display: inline-flex;
@@ -58,7 +58,7 @@
   outline-offset: -1px;
   cursor: pointer;
   overflow: hidden;
-  padding: calc(var(--text-medium-height) / 4) calc(var(--text-medium-height) / 2);
+  padding: calc(var(--tx-h-m) / 4) calc(var(--tx-h-m) / 2);
   opacity: 1;
   line-height: calc(var(--line-height) - 4px);
   --size-button-loader-icon: var(--line-height);
@@ -69,7 +69,7 @@
   }
   
   &:not(.void):not([class*=" bc-"]):not([class^="bc-"]) {
-    //background-color: var(--background-color, var(--t-color-primary));
+    //background-color: var(--background-color, var(--cr-py));
   }
   
   &:not(.disabled):hover {
@@ -78,33 +78,33 @@
   }
   
   &.tiny {
-    --line-height: var(--text-tiny-height); // 12px;
-    font-size: var(--text-tiny-size); // 12px
-    //--button-padding: calc(var(--pad-xt) / 2 + var(--base-diff-text-size) * 2); // 8px
+    --line-height: var(--tx-h-t); // 12px;
+    font-size: var(--tx-s-t); // 12px
+    //--button-padding: calc(var(--pad-xt) / 2 + var(--tx-bds) * 2); // 8px
   }
   
   &.small {
-    --line-height: var(--text-small-height); // 18px
-    font-size: var(--text-small-size); // 14px
-    //--button-padding: calc(var(--pad-t) / 2 + var(--base-diff-text-size) * 2); // var(--pad-t); // 12px
+    --line-height: var(--tx-h-s); // 18px
+    font-size: var(--tx-s-s); // 14px
+    //--button-padding: calc(var(--pad-t) / 2 + var(--tx-bds) * 2); // var(--pad-t); // 12px
   }
   
   &.regular {
-    --line-height: var(--text-medium-height); // 24px
-    font-size: var(--text-medium-size);
-    //--button-padding: calc(var(--pad-xs) / 2 + var(--base-diff-text-size) * 2); // var(--pad-xs); // 16px
+    --line-height: var(--tx-h-m); // 24px
+    font-size: var(--tx-s-m);
+    //--button-padding: calc(var(--pad-xs) / 2 + var(--tx-bds) * 2); // var(--pad-xs); // 16px
   }
   
   &.large {
-    --line-height: var(--text-large-height); // 36px
-    font-size: var(--text-large-size);
-    //--button-padding: calc(var(--pad-s) / 2 + var(--base-diff-text-size) * 2); // var(--pad-s); // 20px
+    --line-height: var(--tx-h-l); // 36px
+    font-size: var(--tx-s-l);
+    //--button-padding: calc(var(--pad-s) / 2 + var(--tx-bds) * 2); // var(--pad-s); // 20px
   }
   
   &.huge {
-    --line-height: var(--text-huge-height); // 48px
-    font-size: var(--text-huge-size);
-    //--button-padding: calc(var(--pad-m) / 2 + var(--base-diff-text-size) * 2); // var(--pad-m); // 24px
+    --line-height: var(--tx-h-h); // 48px
+    font-size: var(--tx-s-h);
+    //--button-padding: calc(var(--pad-m) / 2 + var(--tx-bds) * 2); // var(--pad-m); // 24px
   }
   
   &.jk-button-loader.with-loader-icon:not(.only-icon) {
@@ -117,7 +117,7 @@
   
   &.only-icon {
     //border-radius: 50%;
-    padding: calc(var(--text-medium-height) / 8);
+    padding: calc(var(--tx-h-m) / 8);
     
     &:not(.disabled):hover {
       --button-border-width: 2px;
@@ -131,11 +131,11 @@
   &.expand { width: 100%; }
   
   &.error {
-    --background-color: var(--t-color-error);
+    --background-color: var(--cr-er);
   }
   
   &.success {
-    --background-color: var(--t-color-success);
+    --background-color: var(--cr-ss);
   }
   
   &.with-loader-icon {
@@ -151,18 +151,18 @@
 }
 
 .jk-button.primary {
-  color: var(--t-color-primary-text);
+  color: var(--cr-pt-tx);
   
   &:not([class*=" bc-"]):not([class^="bc-"]) {
-    --background-color: var(--t-color-primary);
+    --background-color: var(--cr-py);
   }
 }
 
 .jk-button.secondary {
-  color: var(--t-color-accent-text);
+  color: var(--cr-at-tx);
   
   &:not([class*=" bc-"]):not([class^="bc-"]) {
-    --background-color: var(--t-color-accent);
+    --background-color: var(--cr-at);
   }
 }
 
@@ -179,8 +179,8 @@
 }
 
 .jk-button.outline {
-  outline: 1px solid var(--t-color-primary) !important;
-  color: var(--t-color-primary);
+  outline: 1px solid var(--cr-py) !important;
+  color: var(--cr-py);
   font-weight: var(--weight-bolder) !important;
   
   &:not([class*=" bc-"]):not([class^="bc-"]) {
@@ -194,6 +194,6 @@
   color: inherit;
   
   &:not([class*=" bc-"]):not([class^="bc-"]) {
-    --background-color: var(--t-color-highlight-light);
+    --background-color: var(--cr-ht-lt);
   }
 }

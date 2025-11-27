@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { classNames, upperFirst } from '../../../../helpers';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
 import { Button, Input, T } from '../../../../atoms';
+import { classNames, upperFirst } from '../../../../helpers';
 import { CheckboxList, DrawerView, InputDate } from '../../../../molecules';
 import type { OptionType } from '../../../../molecules/types';
 import { ArrowDownwardIcon, ArrowUpwardIcon, FilterListIcon, SortIcon } from '../../../../server';
@@ -207,7 +207,7 @@ export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
               return (
                 <div
                   className="jk-col gap stretch jk-pg-sm-trl jk-pg-b"
-                  style={index ? { borderTop: '1px solid var(--t-color-highlight)' } : {}}
+                  style={index ? { borderTop: '1px solid var(--cr-ht)' } : {}}
                   key={columnIndex}
                 >
                   <RenderFilterTitle

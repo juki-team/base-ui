@@ -21,12 +21,12 @@
     .jk-split-pane-divider-line {
       //z-index: 1;
       position: relative;
-      background: var(--t-color-highlight-light);
+      background: var(--cr-ht-lt);
     }
     
     &:hover {
       .jk-split-pane-divider-line {
-        background: var(--t-color-highlight);
+        background: var(--cr-ht);
       }
     }
     
@@ -159,7 +159,7 @@
         left: calc(50% - 32px);
         width: 64px;
         height: var(--line-notch-size);
-        background: linear-gradient(to bottom, var(--t-color-gray-4) 20%, var(--t-color-white) 20% 40%, var(--t-color-gray-4) 40% 60%, var(--t-color-white) 60% 80%, var(--t-color-gray-4) 80%);
+        background: linear-gradient(to bottom, var(--cr-gy-4) 20%, var(--cr-we) 20% 40%, var(--cr-gy-4) 40% 60%, var(--cr-we) 60% 80%, var(--cr-gy-4) 80%);
       }
     }
     
@@ -234,7 +234,7 @@
         left: calc(var(--line-notch-size) / 2 * -1);
         width: var(--line-notch-size);
         height: 64px;
-        background: linear-gradient(to right, var(--t-color-gray-4) 0% 20%, var(--t-color-white) 20% 40%, var(--t-color-gray-4) 40% 60%, var(--t-color-white) 60% 80%, var(--t-color-gray-4) 80% 100%);
+        background: linear-gradient(to right, var(--cr-gy-4) 0% 20%, var(--cr-we) 20% 40%, var(--cr-gy-4) 40% 60%, var(--cr-we) 60% 80%, var(--cr-gy-4) 80% 100%);
       }
     }
     

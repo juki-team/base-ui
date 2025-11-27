@@ -1,12 +1,12 @@
 .color-picker-layout {
   .sketch-picker {
+    align-items: center;
     box-shadow: none !important;
-    padding: 0 !important;
-    width: min-content !important;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    padding: 0 !important;
+    width: min-content !important;
     
     > div:first-child {
       height: 128px !important;
@@ -14,9 +14,9 @@
     }
     
     .flexbox-fix {
-      width: calc(24px * 14);
-      padding: 0 !important;
       margin: 0 !important;
+      padding: 0 !important;
+      width: calc(24px * 14);
       
       &:nth-child(3), &:nth-child(2) {
         > div {

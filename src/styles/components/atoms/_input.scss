@@ -10,17 +10,17 @@
   width: 100%;
   position: relative;
   height: var(--pad-m);
-  //background-color: var(--t-color-white);
+  //background-color: var(--cr-we);
   background-color: transparent;
   text-align: center;
   display: flex;
   //text-transform: uppercase;
-  color: var(--t-color-highlight-light);
+  color: var(--cr-ht-lt);
   justify-content: center;
   align-items: center;
   white-space: nowrap;
-  //--divider-background-color: var(--t-color-gray-6);
-  --divider-background-color: var(--t-color-highlight-light);
+  //--divider-background-color: var(--cr-gy-6);
+  --divider-background-color: var(--cr-ht-lt);
   @include mixins.hg { margin: 16px 0; }
   @include mixins.lg { margin: 12px 0; }
   @include mixins.md { margin: 8px 0; }
@@ -76,8 +76,8 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   > p:first-child { // clarification
     height: var(--pad-m);
     line-height: var(--pad-m);
-    color: var(--t-color-gray-4);
-    font-size: var(--text-small-size);
+    color: var(--cr-gy-4);
+    font-size: var(--tx-s-s);
     position: absolute;
     right: 0;
     
@@ -87,13 +87,13 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
   
   > label > .jk-select-layout {
-    line-height: var(--text-medium-height);
+    line-height: var(--tx-h-m);
     font-weight: var(--weight-regular);
   }
   
   > p:last-child {
-    color: var(--t-color-error);
-    font-size: var(--text-small-size);
+    color: var(--cr-er);
+    font-size: var(--tx-s-s);
     height: calc(var(--pad-xs) + var(--pad-xs));
     line-height: var(--pad-xs);
     
@@ -108,8 +108,8 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 }
 
 @mixin disabled-input {
-  --input-border-color: var(--t-color-highlight-light);
-  background-color: var(--t-color-highlight-light);
+  --input-border-color: var(--cr-ht-lt);
+  background-color: var(--cr-ht-lt);
   //box-shadow: inset 0 0 0 1px var(--input-border-color);
   //outline-width: 2px;
 }
@@ -121,7 +121,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   box-sizing: border-box;
   font-size: inherit;
   line-height: inherit;
-  --input-border-color: var(--t-color-highlight-light);
+  --input-border-color: var(--cr-ht-lt);
   //box-shadow: inset 0 0 0 1px var(--input-border-color);
   --input-background-color: transparent;
   background-color: var(--input-background-color);
@@ -129,7 +129,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   outline-color: var(--input-border-color);
   
   &::placeholder {
-    color: var(--t-color-gray-4);
+    color: var(--cr-gy-4);
     font-weight: var(--weight-regular);
     @include mixins.font-size(small);
   }
@@ -147,16 +147,16 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   &:not(.disabled) {
     &:hover, &:focus, &:active, &.open {
       outline-width: 2px;
-      --input-border-color: var(--t-color-highlight-dark);
+      --input-border-color: var(--cr-ht-dk);
     }
     
     &:active, &:focus {
-      --input-background-color: var(--t-color-highlight-light);
+      --input-background-color: var(--cr-ht-lt);
     }
     
     &.error {
       &:hover, &:focus, &:active {
-        --input-border-color: var(--t-color-error-dark);
+        --input-border-color: var(--cr-er-dk);
       }
       
       &:active, &:focus {
@@ -166,7 +166,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     &.warning {
       &:hover, &:focus, &:active {
-        --input-border-color: var(--t-color-warning-dark);
+        --input-border-color: var(--cr-wg-dk);
       }
       
       &:active, &:focus {
@@ -176,11 +176,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     &.success {
       &:hover, &:focus, &:active {
-        --input-border-color: var(--t-color-success-dark);
+        --input-border-color: var(--cr-ss-dk);
       }
       
       &:active, &:focus {
-        --input-background-color: var(--t-color-success-light);
+        --input-background-color: var(--cr-ss-lt);
       }
     }
   }
@@ -198,7 +198,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
   
   &.success {
-    --input-border-color: var(--t-color-success-light);
+    --input-border-color: var(--cr-ss-lt);
   }
   
   .input-icon {
@@ -262,7 +262,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     > span:first-child {
       &::after {
         content: " *";
-        color: var(--t-color-error);
+        color: var(--cr-er);
       }
     }
   }
@@ -276,7 +276,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       position: absolute;
       left: var(--pad-t);
       padding: 0 4px;
-      background-color: var(--t-color-white);
+      background-color: var(--cr-we);
       line-height: 0.9;
     }
     
@@ -301,7 +301,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
   
   > .jk-icon {
-    color: var(--t-color-gray-4);
+    color: var(--cr-gy-4);
     position: absolute;
     bottom: 0;
     right: 6px;
@@ -318,7 +318,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     font-weight: var(--weight-bold);
     
     + .input-icon {
-      color: var(--t-color-gray-3);
+      color: var(--cr-gy-3);
     }
   }
   
@@ -365,7 +365,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   cursor: pointer;
   
   input.jk-input-checkbox, input.jk-input-radio {
-    --input-border-color: var(--t-color-primary) !important;
+    --input-border-color: var(--cr-py) !important;
     left: 0;
     -webkit-appearance: none;
     position: relative;
@@ -378,7 +378,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     &::after {
       position: absolute;
-      color: var(--t-color-primary-text);
+      color: var(--cr-pt-tx);
       box-sizing: content-box;
     }
     
@@ -389,17 +389,17 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
     
     &:focus-visible {
-      outline-color: var(--t-color-primary);
+      outline-color: var(--cr-py);
     }
   }
   
   input.jk-input-checkbox {
     &:checked {
-      background-color: var(--t-color-primary);
+      background-color: var(--cr-py);
     }
     
     &::after {
-      border: solid var(--t-color-primary-text);
+      border: solid var(--cr-pt-tx);
       transform: rotate(45deg);
       border-width: 0 3px 3px 0;
       top: 1px;
@@ -418,7 +418,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background-color: var(--t-color-primary);
+      background-color: var(--cr-py);
     }
   }
 }
@@ -442,7 +442,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   .jk-select-option {
     
     &.selected {
-      background-color: var(--t-color-highlight-light);
+      background-color: var(--cr-ht-lt);
     }
     
     &.multiselect {
@@ -483,11 +483,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
   
   &.error .jk-input-select {
-    --input-border-color: var(--t-color-error);
+    --input-border-color: var(--cr-er);
   }
   
   &.success .jk-input-select {
-    --input-border-color: var(--t-color-success);
+    --input-border-color: var(--cr-ss);
   }
   
   .jk-input-select {
@@ -501,7 +501,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
         gap: 4px;
         
         .jk-icon:hover {
-          color: var(--t-color-highlight-dark);
+          color: var(--cr-ht-dk);
           cursor: pointer;
         }
       }
@@ -510,15 +510,15 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   
   &.open {
     .jk-input-select {
-      border-color: var(--t-color-gray-4);
+      border-color: var(--cr-gy-4);
     }
   }
 }
 
 .jk-wrapper-input-toggle {
   --input-toggle-height: calc(var(--pad-m) - 2px);
-  --input-toggle-color: var(--t-color-primary);
-  --input-toggle-text-color: var(--t-color-primary-text);
+  --input-toggle-color: var(--cr-py);
+  --input-toggle-text-color: var(--cr-pt-tx);
   position: relative;
   height: var(--input-toggle-height);
   display: flex;
@@ -566,7 +566,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     width: calc(var(--input-toggle-height) + 20px);
     display: inline-block;
     cursor: pointer;
-    background-color: var(--t-color-highlight-light);
+    background-color: var(--cr-ht-lt);
     border: 2px solid var(--input-toggle-color);
     box-sizing: border-box;
     
@@ -598,7 +598,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     padding: 0 var(--pad-t);
     
     &.placeholder {
-      color: var(--t-color-gray-4);
+      color: var(--cr-gy-4);
       font-weight: var(--weight-regular);
       @include mixins.font-size(small);
     }
@@ -611,12 +611,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   padding: 0 var(--gap);
   
   &:hover:not(.disabled):not(.selected) {
-    background-color: var(--t-color-highlight-light);
+    background-color: var(--cr-ht-lt);
     cursor: pointer;
   }
   
   &.selected:hover:not(.disabled) {
-    background-color: var(--t-color-highlight);
+    background-color: var(--cr-ht);
     cursor: pointer;
   }
 }
@@ -637,38 +637,38 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       font-size: var(--text-xl-size);
       
       > .jk-select-container > .jk-input-select {
-        min-height: calc(var(--text-huge-height) - 4px + (var(--text-medium-height) / 2));
+        min-height: calc(var(--tx-h-h) - 4px + (var(--tx-h-m) / 2));
       }
     }
     
     &.large {
-      font-size: var(--text-large-size);
+      font-size: var(--tx-s-l);
       
       > .jk-select-container > .jk-input-select {
-        min-height: calc(var(--text-large-height) - 4px + (var(--text-medium-height) / 2));
+        min-height: calc(var(--tx-h-l) - 4px + (var(--tx-h-m) / 2));
       }
     }
     
-    font-size: var(--text-medium-size);
+    font-size: var(--tx-s-m);
     padding: 0 !important;
     
     > .jk-select-container > .jk-input-select {
-      min-height: calc(var(--text-medium-height) - 4px + (var(--text-medium-height) / 2));
+      min-height: calc(var(--tx-h-m) - 4px + (var(--tx-h-m) / 2));
     }
     
     &.small {
-      font-size: var(--text-small-size);
+      font-size: var(--tx-s-s);
       
       > .jk-select-container > .jk-input-select {
-        min-height: calc(var(--text-small-height) - 4px + (var(--text-medium-height) / 2));
+        min-height: calc(var(--tx-h-s) - 4px + (var(--tx-h-m) / 2));
       }
     }
     
     &.tiny {
-      font-size: var(--text-tiny-size);
+      font-size: var(--tx-s-t);
       
       > .jk-select-container > .jk-input-select {
-        min-height: calc(var(--text-tiny-height) - 4px + (var(--text-medium-height) / 2));
+        min-height: calc(var(--tx-h-t) - 4px + (var(--tx-h-m) / 2));
       }
     }
   }

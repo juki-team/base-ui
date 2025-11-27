@@ -1,7 +1,7 @@
 @use "../../mixins";
 
 .cm-gutters {
-  background-color: var(--t-color-white-darkest) !important;
+  background-color: var(--cr-we-det) !important;
   color: inherit !important;
   border: none !important;
 }
@@ -23,10 +23,6 @@
   }
   
   > div {
-    //height: 100%;
-    //width: 100%;
-    //position: relative;
-    
     .test-cases-output-stderr {
       height: 100%;
       width: 100%;
@@ -48,14 +44,6 @@
         height: calc(100% - var(--pad-xs));
       }
     }
-    
-    .jk-split-first-pane {
-      position: relative;
-    }
-    
-    .jk-split-second-pane {
-      position: relative;
-    }
   }
 }
 
@@ -74,7 +62,7 @@
   
   .options-header-content {
     box-sizing: border-box;
-    border-bottom: 1px solid var(--t-color-highlight-light);
+    border-bottom: 1px solid var(--cr-ht-lt);
     
     .left-options, .center-options, .right-options {
       display: flex;

@@ -148,7 +148,7 @@ function MdMathComponent(props: MdMathProps) {
           if (href === '@') {
             return <CustomField commands={commands} restText={restText} />;
           }
-          const style = { outline: '2px solid var(--t-color-gray-6)', border: 'none', height: '100%' };
+          const style = { outline: '2px solid var(--cr-gy-6)', border: 'none', height: '100%' };
           if (commands.height) {
             style.height = Number.isNaN(+commands.height) ? commands.height : (commands.height + 'px');
           }

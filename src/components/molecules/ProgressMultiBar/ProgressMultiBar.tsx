@@ -13,7 +13,7 @@ export function ProgressMultiBar({
     <div className="jk-br-ie pn-re" style={{ width: '100%' }}>
       <div
         className="jk-row left jk-br-ie"
-        style={{ width: '100%', background: 'var(--t-color-highlight-light)' }}
+        style={{ width: '100%', background: 'var(--cr-ht-lt)' }}
       >
         {progress.map(({ label, percentage, color }, index) => (
           typeof label === 'string'

@@ -23,7 +23,7 @@
   p {
     margin: 0;
     font-family: inherit;
-    font-size: var(--text-medium-size);
+    font-size: var(--tx-s-m);
     word-break: break-word;
     text-align: justify;
   }
@@ -34,37 +34,37 @@
     font-weight: var(--weight-bold);
     text-align: left;
     line-height: 1.5;
-    color: var(--t-color-text-highlight);
+    color: var(--cr-tx-ht);
   }
   
   h1 {
-    font-size: calc(var(--text-medium-size) * 1.5) !important; // 24px;
+    font-size: calc(var(--tx-s-m) * 1.5) !important; // 24px;
   }
   
   h2 {
-    font-size: calc(var(--text-medium-size) * 1.375) !important; // 22px;
+    font-size: calc(var(--tx-s-m) * 1.375) !important; // 22px;
   }
   
   h3 {
-    font-size: calc(var(--text-medium-size) * 1.25) !important; // 20px;
+    font-size: calc(var(--tx-s-m) * 1.25) !important; // 20px;
   }
   
   h4 {
-    font-size: calc(var(--text-medium-size) * 1.125) !important; // 18px;
+    font-size: calc(var(--tx-s-m) * 1.125) !important; // 18px;
   }
   
   h5 {
-    font-size: calc(var(--text-medium-size) * 1.09375) !important; // 17.5px;
+    font-size: calc(var(--tx-s-m) * 1.09375) !important; // 17.5px;
   }
   
   h6 {
-    font-size: var(--text-medium-size) !important; // 16px
+    font-size: var(--tx-s-m) !important; // 16px
   }
   
   table {
     margin: auto;
     border-spacing: 0;
-    //border-color: var(--t-color-highlight);
+    //border-color: var(--cr-ht);
     
     th:first-child {
       border-radius: var(--border-radius-inline) 0 0 0;
@@ -75,13 +75,13 @@
     }
     
     th {
-      background-color: var(--t-color-highlight-light);
+      background-color: var(--cr-ht-lt);
     }
     
     th, td {
       //@include mixins.look(primary);
       padding: 4px var(--pad-t);
-      border: 1px solid var(--t-color-highlight);
+      border: 1px solid var(--cr-ht);
       word-break: break-all;
     }
     
@@ -98,8 +98,8 @@
   
   blockquote {
     padding-left: var(--pad-s);
-    //border-left: 4px solid var(--t-color-text-highlight-light);
-    border-left: 4px solid var(--t-color-text-highlight);
+    //border-left: 4px solid var(--cr-tx-ht-lt);
+    border-left: 4px solid var(--cr-tx-ht);
     margin: var(--pad-xt) 0;
     font-weight: lighter;
     text-align: justify;
@@ -107,8 +107,8 @@
   
   ul, ol {
     li::marker {
-      //color: var(--t-color-text-highlight-light);
-      color: var(--t-color-text-highlight);
+      //color: var(--cr-tx-ht-lt);
+      color: var(--cr-tx-ht);
     }
     
     margin: 0;
@@ -129,7 +129,7 @@
       left: -0.7em;
       top: 0;
       font-family: var(--font-code), monospace !important;
-      color: var(--t-color-text-highlight);
+      color: var(--cr-tx-ht);
       font-weight: var(--weight-bolder);
     }
     
@@ -156,7 +156,7 @@
   }
   
   a.jk-md-math-link {
-    color: var(--t-color-text-highlight-light);
+    color: var(--cr-tx-ht-lt);
     text-decoration: none;
     position: relative;
     
@@ -166,11 +166,11 @@
     
     .jk-icon {
       position: absolute;
-      width: var(--text-medium-size);
+      width: var(--tx-s-m);
     }
     
     &:hover {
-      color: var(--t-color-text-highlight);
+      color: var(--cr-tx-ht);
       text-decoration: underline;
     }
   }
@@ -185,36 +185,25 @@
     margin: 0 !important;
     border: none;
     height: calc(var(--pad-sm) + 2px) !important;
-    background-color: var(--t-color-highlight) !important;
+    background-color: var(--cr-ht) !important;
     box-sizing: border-box;
     position: relative;
     background-clip: content-box;
-    
-    //&::before {
-    //  content: "";
-    //  position: absolute;
-    //  left: 0;
-    //  top: 0;
-    //  bottom: 0;
-    //  right: 0;
-    //  background-color: var(--t-color-highlight);
-    //  pointer-events: none;
-    //}
   }
   
   .jk-code-viewer {
     padding: var(--pad-sm);
-    background: var(--t-color-white-light);
+    background: var(--cr-we-lt);
     border: none;
     box-sizing: border-box;
     
     .jk-code-viewer-line-numbers {
-      background: var(--t-color-white-light) !important;
+      background: var(--cr-we-lt) !important;
       padding: 0 calc(var(--pad-sm) / 2) 0 0 !important;
     }
     
     code.hljs {
-      background: var(--t-color-white-light);
+      background: var(--cr-we-lt);
       padding: 0 0 0 calc(var(--pad-sm) / 2);
     }
   }

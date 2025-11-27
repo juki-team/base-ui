@@ -16,7 +16,7 @@
 }
 
 .jk-circular-progress circle.bg {
-  stroke: var(--t-color-highlight);
+  stroke: var(--cr-ht);
 }
 
 .jk-circular-progress circle.fg {
@@ -24,7 +24,7 @@
   transform-origin: var(--half-size) var(--half-size);
   stroke-dasharray: var(--dash) calc(var(--circumference) - var(--dash));
   transition: stroke-dasharray 0.3s linear 0s;
-  stroke: var(--t-color-info);
+  stroke: var(--cr-io);
 }
 
 .jk-progress-slide {

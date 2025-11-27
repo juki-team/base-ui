@@ -2,7 +2,7 @@
 
 .settings-apps-login-user-content {
   .jk-icon {
-    color: var(--t-color-primary-text);
+    color: var(--cr-pt-tx);
   }
 }
 
@@ -11,7 +11,7 @@
   .selected.vertical {
     width: 4px;
     height: calc(var(--pad-m) + var(--pad-xt) * 4);
-    background: var(--t-color-primary-text);
+    background: var(--cr-pt-tx);
     position: absolute;
     right: 0;
     border-bottom-left-radius: var(--pad-xt);
@@ -22,7 +22,7 @@
     content: "";
     height: 4px;
     width: calc(var(--pad-m) + var(--pad-xt) * 4);
-    background: var(--t-color-accent);
+    background: var(--cr-at);
     position: absolute;
     bottom: 0;
     border-top-left-radius: var(--pad-xt);
@@ -30,7 +30,7 @@
   }
   
   &:hover {
-    background: var(--t-color-highlight-dark);
+    background: var(--cr-ht-dk);
   }
   
   .nickname {
@@ -44,6 +44,6 @@
   }
   
   > img.jk-user-profile-img {
-    border-color: var(--t-color-primary-text) !important;
+    border-color: var(--cr-pt-tx) !important;
   }
 }

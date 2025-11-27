@@ -1,67 +1,62 @@
 .jk-loader {
-  width: 100%;
   height: 100%;
   overflow: hidden;
+  width: 100%;
   
   .jk-spin {
-    position: relative;
-    width: 100%;
+    align-content: center;
+    align-items: center;
+    display: flex;
     height: 100%;
     justify-content: center;
-    align-items: center;
-    align-content: center;
-    display: flex;
     max-height: var(--pad-xH);
     max-width: var(--pad-xH);
+    position: relative;
+    width: 100%;
     
     > span {
+      color: var(--cr-py);
       height: 100%;
       width: 100%;
-      color: var(--t-color-primary);
       
       svg {
-        //margin: auto;
-        //width: 100%;
-        //height: 100%;
-        //max-width: 100%;
-        //max-height: 100%;
-        width: 100%;
         height: 100%;
+        width: 100%;
       }
     }
   }
 }
 
 .jk-loader-layer {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  height: 100%;
+  justify-content: center;
   padding: var(--pad-m) 0;
+  width: 100%;
 }
 
-// https://codepen.io/nzbin/pen/GGrXbp
+/* https://codepen.io/nzbin/pen/GGrXbp */
 /* ============================================== *
  * Dot Flashing                                   *
  * ============================================== */
 
 .dot-flashing {
-  --dot-flashing-color: var(--t-color-black);
-  --dot-flashing-color-light: var(--t-color-highlight);
-  --dot-flashing-size: calc(var(--base-text-size) / 3);
+  animation: dot-flashing var(--dot-flashing-duration) infinite linear alternate;
+  animation-delay: calc(var(--dot-flashing-duration) / 2);
+  background-color: var(--dot-flashing-color);
+  border-radius: 50%;
+  color: var(--dot-flashing-color);
+  --dot-flashing-color: var(--cr-bk);
+  --dot-flashing-color-light: var(--cr-ht);
   --dot-flashing-duration: 0.6s;
+  --dot-flashing-size: calc(var(--tx-bs) / 3);
+  height: var(--dot-flashing-size);
   margin-left: calc(var(--dot-flashing-size) * 1.5);
   margin-right: calc(var(--dot-flashing-size) * 1.5);
   position: relative;
   width: var(--dot-flashing-size);
-  height: var(--dot-flashing-size);
-  border-radius: 50%;
-  background-color: var(--dot-flashing-color);
-  color: var(--dot-flashing-color);
-  animation: dot-flashing var(--dot-flashing-duration) infinite linear alternate;
-  animation-delay: calc(var(--dot-flashing-duration) / 2);
   
   &.bottom {
     margin-top: 7px;
@@ -76,25 +71,25 @@
 }
 
 .dot-flashing::before {
-  left: calc(var(--dot-flashing-size) * -1.5);
-  width: var(--dot-flashing-size);
-  height: var(--dot-flashing-size);
-  border-radius: 50%;
-  background-color: var(--dot-flashing-color);
-  color: var(--dot-flashing-color);
   animation: dot-flashing var(--dot-flashing-duration) infinite alternate;
   animation-delay: 0s;
+  background-color: var(--dot-flashing-color);
+  border-radius: 50%;
+  color: var(--dot-flashing-color);
+  height: var(--dot-flashing-size);
+  left: calc(var(--dot-flashing-size) * -1.5);
+  width: var(--dot-flashing-size);
 }
 
 .dot-flashing::after {
-  left: calc(var(--dot-flashing-size) * 1.5);
-  width: var(--dot-flashing-size);
-  height: var(--dot-flashing-size);
-  border-radius: 50%;
-  background-color: var(--dot-flashing-color);
-  color: var(--dot-flashing-color);
   animation: dot-flashing var(--dot-flashing-duration) infinite alternate;
   animation-delay: var(--dot-flashing-duration);
+  background-color: var(--dot-flashing-color);
+  border-radius: 50%;
+  color: var(--dot-flashing-color);
+  height: var(--dot-flashing-size);
+  left: calc(var(--dot-flashing-size) * 1.5);
+  width: var(--dot-flashing-size);
 }
 
 @keyframes dot-flashing {

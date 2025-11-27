@@ -6,7 +6,7 @@
   top: 0;
   z-index: 5;
   width: 100%;
-  --line-loader-color: var(--t-color-primary-light);
+  --line-loader-color: var(--cr-pl);
   
   > div {
     position: absolute;
@@ -45,7 +45,7 @@
     overflow: hidden;
     
     > div {
-      background: var(--t-color-primary-light);
+      background: var(--cr-pl);
     }
   }
 }
@@ -57,7 +57,7 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background: var(--t-color-shadow);
+  background: var(--cr-sw);
   z-index: 1000;
   opacity: 0;
   @include mixins.transition-fast(opacity);

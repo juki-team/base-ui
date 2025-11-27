@@ -9,7 +9,7 @@
   .jk-tab {
     transform: rotateX(180deg);
     font-weight: var(--weight-bold);
-    color: var(--t-color-gray-4);
+    color: var(--cr-gy-4);
     padding: var(--pad-xt) var(--pad-t);
     display: flex;
     justify-content: center;
@@ -21,12 +21,12 @@
     box-sizing: border-box;
     
     &.selected {
-      color: var(--t-color-gray-1);
+      color: var(--cr-gy-1);
       font-weight: var(--weight-bold);
       
       &.sm {
-        background-color: var(--t-color-accent);
-        color: var(--t-color-accent-text);
+        background-color: var(--cr-at);
+        color: var(--cr-at-tx);
         padding: var(--pad-sm);
         
         &:before {
@@ -35,7 +35,7 @@
       }
       
       &:before {
-        background-color: var(--t-color-accent);
+        background-color: var(--cr-at);
         content: " ";
         width: 100%;
         height: 4px;
@@ -55,7 +55,7 @@
   &.select-mode {
     .jk-tabs-header {
       &:before {
-        border-color: var(--t-color-accent);
+        border-color: var(--cr-at);
       }
     }
   }
@@ -71,7 +71,7 @@
         height: var(--tabs-header-height);
         border-color: transparent;
         background: none;
-        color: var(--t-color-gray-1);
+        color: var(--cr-gy-1);
         font-weight: var(--weight-bold);
         border-radius: 0;
         
@@ -81,7 +81,7 @@
         }
         
         &::after {
-          background-color: var(--t-color-accent);
+          background-color: var(--cr-at);
           height: 6px;
           width: 100%;
           content: "";
@@ -101,7 +101,7 @@
       bottom: 0;
       height: 1px;
       width: 100%;
-      background-color: var(--t-color-highlight-light);
+      background-color: var(--cr-ht-lt);
     }
   }
   
@@ -127,7 +127,7 @@
       @include mixins.look(secondary);
       
       &:hover {
-        background-color: var(--t-color-accent-light);
+        background-color: var(--cr-at-lt);
       }
     }
   }

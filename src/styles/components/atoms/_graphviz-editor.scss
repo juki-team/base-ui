@@ -2,16 +2,17 @@
   > svg {
     max-width: 100%;
     
+    
     & > g > polygon:nth-child(2) {
       fill: transparent;
     }
     
     *[fill="#000000"] {
-      fill: var(--t-color-black-light);
+      fill: var(--cr-bk-lt);
     }
     
     *[stroke="#000000"] {
-      stroke: var(--t-color-black-light);
+      stroke: var(--cr-bk-lt);
     }
     
     text {
@@ -20,34 +21,34 @@
     
     .edge {
       path:not([stroke]), path[stroke="black"],
-      polygon:not([stroke]), polygon[stroke="black"], {
-        stroke: var(--t-color-black-light);
+      polygon:not([stroke]), polygon[stroke="black"] {
+        stroke: var(--cr-bk-lt);
       }
       
       polygon:not([fill]), polygon[fill="black"],
       text:not([fill]) {
-        fill: var(--t-color-black-light);
+        fill: var(--cr-bk-lt);
       }
     }
     
     .node {
       polygon:not([stroke]), polygon[stroke="black"],
       ellipse:not([stroke]), ellipse[stroke="black"] {
-        stroke: var(--t-color-black-light);
+        stroke: var(--cr-bk-lt);
       }
       
       ellipse:not([fill]), ellipse[fill="none"] {
-        fill: var(--t-color-highlight-light);
+        fill: var(--cr-ht-lt);
       }
       
       text:not([fill]) {
-        fill: var(--t-color-black-light);
+        fill: var(--cr-bk-lt);
       }
     }
     
     .cluster {
       text {
-        fill: var(--t-color-black-light);
+        fill: var(--cr-bk-lt);
       }
     }
   }
@@ -60,7 +61,7 @@
 }
 
 .jk-graphviz-viewers-container:not(.slides *):hover {
-  outline: 1px solid var(--t-color-highlight-light);
+  outline: 1px solid var(--cr-ht-lt);
 }
 
 .slides .jk-graphviz-viewer svg {

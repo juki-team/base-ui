@@ -23,7 +23,7 @@ export const Regular: Story = {
           ]}
           points={[
             { label: 'test1', percentage: 0, color: 'blue' },
-            { label: <div className="jk-pg-xsm">test1</div>, percentage: 10, color: 'var(--t-color-success)' },
+            { label: <div className="jk-pg-xsm">test1</div>, percentage: 10, color: 'var(--cr-ss)' },
             { label: 'test1', percentage: 20, color: 'black' },
             { label: 'test1', percentage: 100, color: 'yellow' },
           ]}
@@ -36,7 +36,7 @@ export const Regular: Story = {
               { label: <div className="jk-pg-xsm">test 2</div>, percentage: 20, color: 'green' },
             ]}
             points={[
-              { label: <div className="jk-pg-xsm">test1</div>, percentage: 10, color: 'var(--t-color-success)' },
+              { label: <div className="jk-pg-xsm">test1</div>, percentage: 10, color: 'var(--cr-ss)' },
             ]}
             tooltipPlacement="bottom"
           />

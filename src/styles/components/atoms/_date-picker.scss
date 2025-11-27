@@ -2,7 +2,7 @@
 
 @mixin jk-select-layout-for-datepicker {
   .jk-input-select {
-    color: var(--t-color-primary-light);
+    color: var(--cr-pl);
     font-weight: var(--weight-bold);
     text-align: center;
     border-color: transparent;
@@ -57,9 +57,9 @@
       
       &.selected {
         > div {
-          background-color: var(--t-color-primary);
+          background-color: var(--cr-py);
           border-radius: var(--pad-t);
-          color: var(--t-color-white);
+          color: var(--cr-we);
           font-weight: var(--weight-bold);
         }
       }
@@ -68,9 +68,9 @@
         outline: none;
         
         > div:hover {
-          background-color: var(--t-color-primary-light);
+          background-color: var(--cr-pl);
           border-radius: var(--pad-t);
-          color: var(--t-color-white);
+          color: var(--cr-we);
         }
       }
       
@@ -78,9 +78,9 @@
         outline: none;
         
         > div {
-          background-color: var(--t-color-primary-light);
+          background-color: var(--cr-pl);
           border-radius: var(--pad-xt);
-          color: var(--t-color-white);
+          color: var(--cr-we);
         }
       }
       
@@ -92,15 +92,15 @@
           position: absolute;
           //width: 45px;
           height: 24px;
-          background-color: var(--t-color-primary);
+          background-color: var(--cr-py);
         }
       }
       
       &.disabled {
         > div {
-          color: var(--t-color-gray-4);
+          color: var(--cr-gy-4);
           cursor: not-allowed;
-          background-color: var(--t-color-gray-6);
+          background-color: var(--cr-gy-6);
           border-radius: var(--pad-t);
         }
       }
@@ -113,7 +113,7 @@
           position: absolute;
           //width: 45px;
           height: 24px;
-          background-color: var(--t-color-gray-6);
+          background-color: var(--cr-gy-6);
         }
       }
     }
@@ -124,11 +124,11 @@
     
     .date {
       &.is-next-month, &.is-previous-month {
-        color: var(--t-color-gray-4);
+        color: var(--cr-gy-4);
         font-weight: var(--weight-regular);
         
         &.disabled {
-          color: var(--t-color-gray-5);
+          color: var(--cr-gy-5);
         }
       }
       

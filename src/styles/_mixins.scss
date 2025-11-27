@@ -139,23 +139,23 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
   }
   @if $look == primary-dark or $look == primary or $look == primary-light {
     & {
-      color: var(--t-color-primary-text);
+      color: var(--cr-pt-tx);
     }
   } @else if $look == accent-dark or $look == accent or $look == accent-light {
     & {
-      color: var(--t-color-accent-text);
+      color: var(--cr-at-tx);
     }
   } @else if $look == accent-light or $look == success-light or $look == info-light or $look == warning-light or $look == error-light or $look== gray-4 or $look == gray-5 or $look == gray-6 {
     & {
-      color: var(--t-color-black);
+      color: var(--cr-bk);
     }
   } @else if $look == white {
     & {
-      color: var(--t-color-black-light);
+      color: var(--cr-bk-lt);
     }
   } @else {
     & {
-      color: var(--t-color-white);
+      color: var(--cr-we);
     }
   }
 }
@@ -170,17 +170,17 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
 @mixin elevation($level) {
   @if $level == 1 {
     & {
-      box-shadow: 0 0 2px 0 var(--t-color-shadow-light), 0 1px 3px 1px var(--t-color-shadow-light);
+      box-shadow: 0 0 2px 0 var(--cr-sw-lt), 0 1px 3px 1px var(--cr-sw-lt);
     }
   }
   @if $level == 2 {
     & {
-      box-shadow: 0 1px 3px 0 var(--t-color-shadow), 0 1.25px 4px 1px var(--t-color-shadow);
+      box-shadow: 0 1px 3px 0 var(--cr-sw), 0 1.25px 4px 1px var(--cr-sw);
     }
   }
   @if $level == 3 {
     & {
-      box-shadow: 0 2px 4px 0 var(--t-color-shadow-dark), 0 1.5px 5px 1px var(--t-color-shadow-dark);
+      box-shadow: 0 2px 4px 0 var(--cr-sw-dk), 0 1.5px 5px 1px var(--cr-sw-dk);
     }
   }
 }

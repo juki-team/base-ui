@@ -87,53 +87,53 @@ html body {
   --weight-bold: 500;
   --weight-bolder: 700;
   
-  --base-text-size: 16px;
-  --base-text-height: calc(var(--base-text-size) * 1.5);
+  --tx-bs: 16px;
+  --tx-bh: calc(var(--tx-bs) * 1.5);
   
-  --base-diff-text-size: calc(var(--base-text-size) * 0.125);
+  --tx-bds: calc(var(--tx-bs) * 0.125);
   
-  --text-very-huge-size: calc(var(--base-text-size) + (var(--base-diff-text-size) * 4));
-  --text-very-huge-height: calc(var(--text-huge-size) * 1.5);
-  --text-huge-size: calc(var(--base-text-size) + var(--base-diff-text-size) + var(--base-diff-text-size));
-  --text-huge-height: calc(var(--text-huge-size) * 1.5);
-  --text-large-size: calc(var(--base-text-size) + var(--base-diff-text-size));
-  --text-large-height: calc(var(--text-large-size) * 1.5);
-  --text-medium-size: var(--base-text-size); // 16
-  --text-medium-height: calc(var(--text-medium-size) * 1.5);
-  --text-small-size: calc(var(--base-text-size) - var(--base-diff-text-size));
-  --text-small-height: calc(var(--text-small-size) * 1.5);
-  --text-tiny-size: calc(var(--base-text-size) - var(--base-diff-text-size) - var(--base-diff-text-size));
-  --text-tiny-height: calc(var(--text-tiny-size) * 1.5);
+  --tx-s-vh: calc(var(--tx-bs) + (var(--tx-bds) * 4));
+  --tx-h-vh: calc(var(--tx-s-h) * 1.5);
+  --tx-s-h: calc(var(--tx-bs) + var(--tx-bds) + var(--tx-bds));
+  --tx-h-h: calc(var(--tx-s-h) * 1.5);
+  --tx-s-l: calc(var(--tx-bs) + var(--tx-bds));
+  --tx-h-l: calc(var(--tx-s-l) * 1.5);
+  --tx-s-m: var(--tx-bs); // 16
+  --tx-h-m: calc(var(--tx-s-m) * 1.5);
+  --tx-s-s: calc(var(--tx-bs) - var(--tx-bds));
+  --tx-h-s: calc(var(--tx-s-s) * 1.5);
+  --tx-s-t: calc(var(--tx-bs) - var(--tx-bds) - var(--tx-bds));
+  --tx-h-t: calc(var(--tx-s-t) * 1.5);
   
   --line-height-head: 1.4;
-  --font-size-h3: calc(var(--base-text-size) + 10px); // 26
-  --font-size-h2: calc(var(--base-text-size) + 14px); // 30
-  --font-size-h1: calc(var(--base-text-size) + 18px); // 34
+  --font-size-h3: calc(var(--tx-bs) + 10px); // 26
+  --font-size-h2: calc(var(--tx-bs) + 14px); // 30
+  --font-size-h1: calc(var(--tx-bs) + 18px); // 34
   
   // 22
-  @include mixins.sm { --font-size-h3: calc(var(--base-text-size) + 10px - 4px); }
+  @include mixins.sm { --font-size-h3: calc(var(--tx-bs) + 10px - 4px); }
   // 26
-  @include mixins.sm { --font-size-h2: calc(var(--base-text-size) + 14px - 4px); }
+  @include mixins.sm { --font-size-h2: calc(var(--tx-bs) + 14px - 4px); }
   // 30
-  @include mixins.sm { --font-size-h1: calc(var(--base-text-size) + 18px - 4px); }
+  @include mixins.sm { --font-size-h1: calc(var(--tx-bs) + 18px - 4px); }
 }
 
 html body {
-  --z-index-menu: 50;
-  --z-index-select-options: 60;
-  --z-index-drawer: 200;
-  --z-index-overlay: 300;
-  --z-index-popover: 400;
-  --z-index-notification: 600;
-  --z-index-excalidraw: 900;
-  --z-index-tool-buttons: 1000;
-  --z-index-tooltip: 9999;
+  --zi-menu: 50;
+  --zi-select-options: 60;
+  --zi-drawer: 200;
+  --zi-overlay: 300;
+  --zi-popover: 400;
+  --zi-notification: 600;
+  --zi-excalidraw: 900;
+  --zi-tool-buttons: 1000;
+  --zi-tooltip: 9999;
   
   --left-vertical-collapsed-menu-width: 48px;
   
   --size-scrollbar: 8px;
   
-  --t-color-background: var(--t-color-white-dark);
+  --t-color-background: var(--cr-we-dk);
   
   --transition-duration-slow: 0.45s;
   --transition-duration: 0.3s;

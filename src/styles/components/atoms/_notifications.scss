@@ -9,7 +9,7 @@
   position: fixed;
   right: calc(var(--width-notification-wrapper) + var(--pad-md));
   width: 0;
-  z-index: var(--z-index-notification);
+  z-index: var(--zi-notification);
   @include mixins.md-hg { top: var(--pad-md); }
   @include mixins.sm {
     --width-notification-wrapper: 100vw;
@@ -26,7 +26,7 @@
       border-radius: var(--border-radius-inline);
       overflow: hidden;
       width: var(--width-notification);
-      z-index: var(--z-index-notification);
+      z-index: var(--zi-notification);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -45,7 +45,7 @@
         position: absolute;
         bottom: 0;
         height: 4px;
-        background-color: var(--t-color-highlight);
+        background-color: var(--cr-ht);
       }
     }
   }
@@ -82,7 +82,7 @@
         //padding: var(--pad-xt);
         
         .jk-notification-message-body {
-          width: calc(var(--width-notification) - var(--pad-xt) * 6 - var(--text-medium-height) - 32px);
+          width: calc(var(--width-notification) - var(--pad-xt) * 6 - var(--tx-h-m) - 32px);
           @include mixins.sm {
             width: calc(var(--width-notification) - var(--pad-xt) * 4 - 32px);
           }

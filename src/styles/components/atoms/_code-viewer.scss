@@ -1,8 +1,8 @@
 .jk-code-viewer {
-  position: relative;
   display: flex;
-  width: 100%;
   height: 100%;
+  position: relative;
+  width: 100%;
   
   &:hover {
     .float-top-right {
@@ -15,30 +15,31 @@
   }
   
   .jk-code-viewer-content {
+    font-size: var(--tx-s-m);
+    height: 100%;
+    line-height: 1.5;
     overflow: auto;
     width: 100%;
-    height: 100%;
-    font-size: var(--text-medium-size);
-    line-height: 1.5;
     
     > .jk-code-viewer-line-numbers {
-      position: sticky;
+      background: var(--cr-we-det);
+      border-right: 1px solid var(--cr-ht);
       left: 0;
       padding: var(--pad-sm) calc(var(--pad-sm) / 2);
+      position: sticky;
       text-align: right;
       user-select: none;
-      border-right: 1px solid var(--t-color-highlight);
-      background: var(--t-color-white-darkest);
     }
     
+    
     > pre {
-      flex: 1;
-      background-color: var(--t-color-highlight-light);
-      border-color: transparent !important;
-      margin: 0 !important;
-      border-top-left-radius: 0;
+      background-color: var(--cr-ht-lt);
       border-bottom-left-radius: 0;
+      border-color: transparent !important;
+      border-top-left-radius: 0;
+      flex: 1;
       height: min-content;
+      margin: 0 !important;
       
       code {
         display: block;

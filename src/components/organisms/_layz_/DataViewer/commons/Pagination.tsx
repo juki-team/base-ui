@@ -85,7 +85,7 @@ export const Pagination = (props: PaginationProps) => {
               </div>
               <div
                 style={{
-                  // borderRight: '1px solid var(--t-color-highlight-light)',
+                  // borderRight: '1px solid var(--cr-ht-lt)',
                   padding: '0 4px',
                 }}
                 className="ws-np"

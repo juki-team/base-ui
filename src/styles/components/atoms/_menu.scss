@@ -8,7 +8,7 @@
   position: relative;
   
   > .jk-menu {
-    z-index: var(--z-index-menu);
+    z-index: var(--zi-menu);
   }
   
   > .jk-menu-main-layout {
@@ -20,7 +20,6 @@
 .jk-vertical-menu-layout-container {
   --top-horizontal-menu-height: 0px;
   --height-jk-menu-item: var(--left-vertical-collapsed-menu-width);
-  //--height-jk-menu-item: 56px;
   
   --left-vertical-menu-width: calc(64px * 4);
   @include mixins.md { --left-vertical-menu-width: calc(64px * 3); }
@@ -75,7 +74,7 @@
           //align-items: center;
           
           &:not(.selected):not(.extra):hover {
-            background: var(--t-color-highlight);
+            background: var(--cr-ht);
           }
           
           &.selected {
@@ -88,7 +87,7 @@
             //  top: 0;
             //  left: -18px;
             //  content: " ";
-            //  background: radial-gradient(circle at right, transparent calc(var(--height-jk-menu-item) / 2), var(--t-color-primary-dark) calc(var(--height-jk-menu-item) / 2)), transparent center/cover;
+            //  background: radial-gradient(circle at right, transparent calc(var(--height-jk-menu-item) / 2), var(--cr-pd) calc(var(--height-jk-menu-item) / 2)), transparent center/cover;
             //  width: var(--height-jk-menu-item);
             //  height: var(--height-jk-menu-item);
             //}
@@ -113,12 +112,12 @@
       }
       
       .jk-menu-collapse-section {
-        padding: calc((var(--left-vertical-collapsed-menu-width) - var(--text-medium-height)) / 2);
+        padding: calc((var(--left-vertical-collapsed-menu-width) - var(--tx-h-m)) / 2);
         
         .jk-menu-collapse {
           border-radius: 50%;
           cursor: pointer;
-          background-color: var(--t-color-primary);
+          background-color: var(--cr-py);
         }
       }
     }
@@ -154,17 +153,17 @@
       width: 100%;
       height: inherit;
       position: relative;
-      @include mixins.sm { background-color: var(--t-color-white); }
+      @include mixins.sm { background-color: var(--cr-we); }
       
       .jk-menu-left-section, .jk-menu-items, .jk-menu-right-section,
       .jk-horizontal-menu-mobile-left, .jk-horizontal-menu-mobile-center, .jk-horizontal-menu-mobile-right {
         height: inherit;
-        color: var(--t-color-primary-text);
+        color: var(--cr-pt-tx);
       }
       
       .jk-menu-items {
         flex: 1;
-        color: var(--t-color-primary-text);
+        color: var(--cr-pt-tx);
         
         .jk-menu-item {
           position: relative;
@@ -172,12 +171,12 @@
           @include mixins.sm { flex-direction: column; }
           
           &:not(.selected):hover {
-            background: var(--t-color-highlight);
+            background: var(--cr-ht);
           }
           
           &.selected {
             font-weight: var(--weight-bold);
-            @include mixins.sm { background-color: var(--t-color-accent); }
+            @include mixins.sm { background-color: var(--cr-at); }
             
             //&::after {
             //  position: absolute;
@@ -185,7 +184,7 @@
             //  content: "";
             //  width: 100%;
             //  height: var(--pad-xt);
-            //  background-color: var(--t-color-accent);
+            //  background-color: var(--cr-at);
             //  border-radius: 4px 4px 0 0;
             //
             //  @include mixins.sm { content: none; }
@@ -226,7 +225,7 @@
   
   > .jk-bottom-horizontal-menu {
     height: var(--bottom-horizontal-menu-height);
-    background-color: var(--t-color-white);
+    background-color: var(--cr-we);
     
     .jk-menu-items {
       height: 100%;
@@ -243,7 +242,7 @@
           left: 0;
           top: 0;
           padding: 0;
-          background-color: var(--t-color-accent);
+          background-color: var(--cr-at);
           border-radius: 0 0 2px 2px;
         }
         

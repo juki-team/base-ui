@@ -11,7 +11,7 @@
   .title {
     text-transform: capitalize;
     font-weight: var(--weight-bold);
-    border-bottom: 1px solid var(--t-color-highlight);
+    border-bottom: 1px solid var(--cr-ht);
   }
   
   .filter-drawer-columns {
@@ -23,7 +23,7 @@
   }
   
   .filter-drawer-buttons {
-    border-top: 1px solid var(--t-color-highlight);
+    border-top: 1px solid var(--cr-ht);
   }
 }
 
@@ -45,12 +45,12 @@
 .jk-data-viewer-toolbar {
   .jk-table-view-tools .jk-input-select {
     &:not(.bc-pl) {
-      background-color: var(--t-color-white);
+      background-color: var(--cr-we);
     }
     
     &.bc-pl {
-      background-color: var(--t-color-primary-light);
-      color: var(--t-color-white);
+      background-color: var(--cr-pl);
+      color: var(--cr-we);
     }
   }
   
@@ -78,8 +78,8 @@
     }
     
     .jk-data-viewer-tools-filter {
-      min-height: var(--text-medium-height);
-      min-width: var(--text-medium-height);
+      min-height: var(--tx-h-m);
+      min-width: var(--tx-h-m);
       
       .jk-icon {
         padding: 0 4px;
@@ -191,15 +191,15 @@
     }
     
     &:not(.scroll-on-top).scroll-on-bottom:before {
-      box-shadow: 0 10px 10px -14px var(--t-color-highlight-dark) inset;
+      box-shadow: 0 10px 10px -14px var(--cr-ht-dk) inset;
     }
     
     &.scroll-on-top:not(.scroll-on-bottom):before {
-      box-shadow: 0 -10px 10px -14px var(--t-color-highlight-dark) inset;
+      box-shadow: 0 -10px 10px -14px var(--cr-ht-dk) inset;
     }
     
     &:not(.scroll-on-top):not(.scroll-on-bottom):before {
-      box-shadow: 0 -10px 10px -14px var(--t-color-highlight-dark) inset, 0 10px 10px -14px var(--t-color-highlight-dark) inset;
+      box-shadow: 0 -10px 10px -14px var(--cr-ht-dk) inset, 0 10px 10px -14px var(--cr-ht-dk) inset;
     }
     
     .jk-list-card-rows-box {
@@ -233,7 +233,7 @@
         
         &:hover {
           .jk-table-row-field {
-            background-color: var(--t-color-white-darkest);
+            background-color: var(--cr-we-det);
           }
         }
         
@@ -241,7 +241,7 @@
           box-sizing: border-box;
           
           &.with-right-border {
-            border-right: 2px dashed var(--t-color-highlight-light);
+            border-right: 2px dashed var(--cr-ht-lt);
             
             &::after {
               position: absolute;
@@ -290,8 +290,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  background-color: var(--t-color-white);
-  border: 1px solid var(--t-color-highlight-light);
+  background-color: var(--cr-we);
+  border: 1px solid var(--cr-ht-lt);
   
   &:hover {
     @include mixins.elevation(1);
@@ -339,7 +339,7 @@
   
   &.with-right-border {
     .jk-table-head-cell {
-      border-right: 2px dashed var(--t-color-highlight-light);
+      border-right: 2px dashed var(--cr-ht-lt);
     }
   }
 }
@@ -348,7 +348,7 @@
   box-sizing: border-box;
   height: 100%;
   position: relative;
-  background: var(--t-color-white-darkest);
+  background: var(--cr-we-det);
   
   .jk-table-head-drag {
     box-sizing: border-box;
@@ -368,12 +368,12 @@
       
       > div {
         border-radius: var(--border-radius-inline);
-        background: var(--t-color-highlight);
+        background: var(--cr-ht);
       }
     }
     
     > div {
-      background: var(--t-color-highlight-light);
+      background: var(--cr-ht-lt);
     }
     
     > div {
@@ -390,13 +390,10 @@
 }
 
 .jk-data-viewer-pagination {
-  //--pagination-height: 64px;
-  //height: var(--pagination-height);
-  
   > div:first-child {
     .page-items {
       padding: 2px;
-      background-color: var(--t-color-white);
+      background-color: var(--cr-we);
       margin: 0 var(--pad-t);
       @include mixins.sm { margin: 0; }
       
@@ -404,8 +401,8 @@
         cursor: pointer;
         
         &.selected {
-          color: var(--t-color-white);
-          background-color: var(--t-color-primary-light);
+          color: var(--cr-we);
+          background-color: var(--cr-pl);
         }
       }
     }
@@ -426,12 +423,12 @@
     cursor: pointer;
     
     &:hover {
-      background-color: var(--t-color-highlight-light);
+      background-color: var(--cr-ht-lt);
     }
     
     &.active {
       &:hover {
-        background-color: var(--t-color-primary);
+        background-color: var(--cr-py);
       }
     }
   }

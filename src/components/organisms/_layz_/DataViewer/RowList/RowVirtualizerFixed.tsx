@@ -121,7 +121,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       {/*      // width: 'calc(100% - 8px)',*/}
       {/*      widows: '100%',*/}
       {/*      background: 'transparent',*/}
-      {/*      boxShadow: '0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight)',*/}
+      {/*      boxShadow: '0 0px 4px 0 var(--cr-ht), 0 0px 4px 1px var(--cr-ht)',*/}
       {/*    }}*/}
       {/*  />*/}
       {/*)}*/}
@@ -132,7 +132,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
             width: headersStickyWidth,
             zIndex: 3,
             background: 'transparent',
-            boxShadow: '0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight)',
+            boxShadow: '0 0px 4px 0 var(--cr-ht), 0 0px 4px 1px var(--cr-ht)',
           }}
         />
       )}
@@ -145,7 +145,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
             right: withVerticalScroll ? -8 : -1,
             zIndex: 3,
             background: 'transparent',
-            boxShadow: '0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight)',
+            boxShadow: '0 0px 4px 0 var(--cr-ht), 0 0px 4px 1px var(--cr-ht)',
           }}
         />
       )}
@@ -158,7 +158,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
             bottom: -1,
             zIndex: 3,
             background: 'transparent',
-            boxShadow: '0 0px 4px 0 var(--t-color-highlight), 0 0px 4px 1px var(--t-color-highlight)',
+            boxShadow: '0 0px 4px 0 var(--cr-ht), 0 0px 4px 1px var(--cr-ht)',
           }}
         />
       )}

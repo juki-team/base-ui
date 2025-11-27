@@ -5,47 +5,47 @@
 // https://colorffy.com/dark-theme-generator #2874B9 #121212 0.1
 /* ********************************             COLORS             ******************************** */
 .jk-theme-light {
-  --t-color-primary-dark: #1C4670; //https://uicolors.app/create 800
-  --t-color-primary: #1D5187; // 700
-  --t-color-primary-light: #2365A6; // 600
-  --t-color-primary-text: #FFFFFF;
+  --cr-pd: #1C4670; //https://uicolors.app/create 800
+  --cr-py: #1D5187; // 700
+  --cr-pl: #2365A6; // 600
+  --cr-py-tx: #FFFFFF;
   
-  --t-color-accent: #EDB745; // #EDB745; #F0E04A;
-  --t-color-accent-text: #FFFFFF;
+  --cr-at: #EDB745; // #EDB745; #F0E04A;
+  --cr-at-tx: #FFFFFF;
   
-  --t-color-info: #2F86EB;
-  --t-color-success: #43D787;
-  --t-color-warning: #F2C94C;
-  --t-color-error: #EB5757;
+  --cr-io: #2F86EB;
+  --cr-ss: #43D787;
+  --cr-wg: #F2C94C;
+  --cr-er: #EB5757;
   
-  --t-color-white: #FAFBFC; // 50
-  --t-color-gray: #333333;
-  --t-color-black: #000102;
+  --cr-we: #FAFBFC; // 50
+  --cr-gy: #333333;
+  --cr-bk: #000102;
   
-  --t-color-shadow-: #454545; // 800
-  --t-color-glow: #FAFBFC40;
+  --cr-sw-: #454545; // 800
+  --cr-gw: #FAFBFC40;
 }
 
 .jk-theme-dark {
-  --t-color-primary-dark: #44464C; //https://uicolors.app/create 800
-  --t-color-primary: #565A64; // 600
-  --t-color-primary-light: #656B75; // 500
-  --t-color-primary-text: #FCFCFC;
+  --cr-pd: #44464C; //https://uicolors.app/create 800
+  --cr-py: #565A64; // 600
+  --cr-pl: #656B75; // 500
+  --cr-pt-tx: #FCFCFC;
   
-  --t-color-accent: #1F5893;
-  --t-color-accent-text: #FCFCFC;
+  --cr-at: #1F5893;
+  --cr-at-tx: #FCFCFC;
   
-  --t-color-info: #4492ED;
-  --t-color-success: #56DB93;
-  --t-color-warning: #F3CE5E;
-  --t-color-error: #ED6868;
+  --cr-io: #4492ED;
+  --cr-ss: #56DB93;
+  --cr-wg: #F3CE5E;
+  --cr-er: #ED6868;
   
-  --t-color-white: #202831; // 950, 12161A
-  --t-color-gray: #E1E2E3;
-  --t-color-black: #FEFEFE;
+  --cr-we: #202831; // 950, 12161A
+  --cr-gy: #E1E2E3;
+  --cr-bk: #FEFEFE;
   
-  --t-color-shadow-: #444546; // 800
-  --t-color-glow: #FEFEFE40;
+  --cr-sw-: #444546; // 800
+  --cr-gw: #FEFEFE40;
 }
 
 .jk-theme-light, .jk-theme-dark {
@@ -53,53 +53,53 @@
   --base-white: white;
   --base-black: black;
   
-  --t-color-accent-dark: color-mix(in srgb, var(--t-color-accent) var(--tone), var(--t-color-black));
-  --t-color-accent-light: color-mix(in srgb, var(--t-color-accent) var(--tone), var(--t-color-white));
+  --cr-at-dk: color-mix(in srgb, var(--cr-at) var(--tone), var(--cr-bk));
+  --cr-at-lt: color-mix(in srgb, var(--cr-at) var(--tone), var(--cr-we));
   
-  --t-color-info-dark: color-mix(in srgb, var(--t-color-info) var(--tone), var(--t-color-black));
-  --t-color-info-light: color-mix(in srgb, var(--t-color-info) var(--tone), var(--t-color-white));
+  --cr-io-dk: color-mix(in srgb, var(--cr-io) var(--tone), var(--cr-bk));
+  --cr-io-lt: color-mix(in srgb, var(--cr-io) var(--tone), var(--cr-we));
   
-  --t-color-success-dark: color-mix(in srgb, var(--t-color-success) var(--tone), var(--t-color-black));
-  --t-color-success-light: color-mix(in srgb, var(--t-color-success) var(--tone), var(--t-color-white));
+  --cr-ss-dk: color-mix(in srgb, var(--cr-ss) var(--tone), var(--cr-bk));
+  --cr-ss-lt: color-mix(in srgb, var(--cr-ss) var(--tone), var(--cr-we));
   
-  --t-color-warning-dark: color-mix(in srgb, var(--t-color-warning) var(--tone), var(--t-color-black));
-  --t-color-warning-light: color-mix(in srgb, var(--t-color-warning) var(--tone), var(--t-color-white));
+  --cr-wg-dk: color-mix(in srgb, var(--cr-wg) var(--tone), var(--cr-bk));
+  --t-color-warning-light: color-mix(in srgb, var(--cr-wg) var(--tone), var(--cr-we));
   
-  --t-color-error-dark: color-mix(in srgb, var(--t-color-error) var(--tone), var(--t-color-black));
-  --t-color-error-light: color-mix(in srgb, var(--t-color-error) var(--tone), var(--t-color-white));
+  --cr-er-dk: color-mix(in srgb, var(--cr-er) var(--tone), var(--cr-bk));
+  --t-color-error-light: color-mix(in srgb, var(--cr-er) var(--tone), var(--cr-we));
   
-  --t-color-gray-1: color-mix(in srgb, var(--t-color-gray) 100%, var(--t-color-white));
-  --t-color-gray-2: color-mix(in srgb, var(--t-color-gray) 83%, var(--t-color-white));
-  --t-color-gray-3: color-mix(in srgb, var(--t-color-gray) 66%, var(--t-color-white));
-  --t-color-gray-4: color-mix(in srgb, var(--t-color-gray) 49%, var(--t-color-white));
-  --t-color-gray-5: color-mix(in srgb, var(--t-color-gray) 32%, var(--t-color-white));
-  --t-color-gray-6: color-mix(in srgb, var(--t-color-gray) 15%, var(--t-color-white));
+  --cr-gy-1: color-mix(in srgb, var(--cr-gy) 100%, var(--cr-we));
+  --cr-gy-2: color-mix(in srgb, var(--cr-gy) 83%, var(--cr-we));
+  --cr-gy-3: color-mix(in srgb, var(--cr-gy) 66%, var(--cr-we));
+  --cr-gy-4: color-mix(in srgb, var(--cr-gy) 49%, var(--cr-we));
+  --cr-gy-5: color-mix(in srgb, var(--cr-gy) 32%, var(--cr-we));
+  --cr-gy-6: color-mix(in srgb, var(--cr-gy) 15%, var(--cr-we));
   
-  --t-color-highlight-light: color-mix(in srgb, var(--t-color-black) 10%, transparent); // 1A
-  --t-color-highlight: color-mix(in srgb, var(--t-color-black) 25%, transparent); // 40
-  --t-color-highlight-dark: color-mix(in srgb, var(--t-color-black) 40%, transparent); // 66
+  --cr-ht-lt: color-mix(in srgb, var(--cr-bk) 10%, transparent); // 1A
+  --cr-ht: color-mix(in srgb, var(--cr-bk) 25%, transparent); // 40
+  --cr-ht-dk: color-mix(in srgb, var(--cr-bk) 40%, transparent); // 66
   
-  --t-color-shadow-light: color-mix(in srgb, var(--t-color-shadow-) 60%, transparent);
-  --t-color-shadow: color-mix(in srgb, var(--t-color-shadow-) 75%, transparent);
-  --t-color-shadow-dark: color-mix(in srgb, var(--t-color-shadow-) 90%, transparent);
+  --cr-sw-lt: color-mix(in srgb, var(--cr-sw-) 60%, transparent);
+  --cr-sw: color-mix(in srgb, var(--cr-sw-) 75%, transparent);
+  --cr-sw-dk: color-mix(in srgb, var(--cr-sw-) 90%, transparent);
   
-  --t-color-text-highlight-light: color-mix(in srgb, var(--t-color-primary-light) 100%, var(--t-color-black) 30%);
-  --t-color-text-highlight: color-mix(in srgb, var(--t-color-primary-light) 90%, var(--t-color-black) 40%);
-  --t-color-text-highlight-dark: color-mix(in srgb, var(--t-color-primary-light) 80%, var(--t-color-black) 50%);
+  --cr-tx-ht-lt: color-mix(in srgb, var(--cr-pl) 100%, var(--cr-bk) 30%);
+  --cr-tx-ht: color-mix(in srgb, var(--cr-pl) 90%, var(--cr-bk) 40%);
+  --cr-tx-ht-dk: color-mix(in srgb, var(--cr-pl) 80%, var(--cr-bk) 50%);
 }
 
 .jk-theme-light {
-  --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 80%, var(--base-white));
-  --t-color-black-light: color-mix(in srgb, var(--t-color-black) 90%, var(--base-white));
-  --t-color-white-light: color-mix(in srgb, var(--t-color-white) 10%, var(--base-white));
-  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 96%, var(--base-black));
-  --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 92%, var(--base-black));
+  --cr-bk-let: color-mix(in srgb, var(--cr-bk) 80%, var(--base-white));
+  --cr-bk-lt: color-mix(in srgb, var(--cr-bk) 90%, var(--base-white));
+  --cr-we-lt: color-mix(in srgb, var(--cr-we) 10%, var(--base-white));
+  --cr-we-dk: color-mix(in srgb, var(--cr-we) 96%, var(--base-black));
+  --cr-we-det: color-mix(in srgb, var(--cr-we) 92%, var(--base-black));
 }
 
 .jk-theme-dark {
-  --t-color-black-lightest: color-mix(in srgb, var(--t-color-black) 86%, var(--base-white));
-  --t-color-black-light: color-mix(in srgb, var(--t-color-black) 96%, var(--base-white));
-  --t-color-white-light: color-mix(in srgb, var(--t-color-white) 90%, var(--base-white));
-  --t-color-white-dark: color-mix(in srgb, var(--t-color-white) 80%, var(--base-black));
-  --t-color-white-darkest: color-mix(in srgb, var(--t-color-white) 90%, var(--base-black));
+  --cr-bk-let: color-mix(in srgb, var(--cr-bk) 86%, var(--base-white));
+  --cr-bk-lt: color-mix(in srgb, var(--cr-bk) 96%, var(--base-white));
+  --cr-we-lt: color-mix(in srgb, var(--cr-we) 90%, var(--base-white));
+  --cr-we-dk: color-mix(in srgb, var(--cr-we) 80%, var(--base-black));
+  --cr-we-det: color-mix(in srgb, var(--cr-we) 90%, var(--base-black));
 }

@@ -57,7 +57,7 @@ export function PresentationToolButtons({ style }: { style?: CSSProperties }) {
         style={{
           position: 'fixed',
           right: 'var(--pad-sm)',
-          zIndex: 'var(--z-index-tool-buttons)',
+          zIndex: 'var(--zi-tool-buttons)',
           transform: 'translateY(-50%)', top: '50%',
           ...style,
         }}

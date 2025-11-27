@@ -8,7 +8,7 @@ export const ProgressSlide = ({
                                 height = 12,
                                 progress = 100,
                                 className,
-                                color = 'var(--t-color-white-light)',
+                                color = 'var(--cr-we-light)',
                               }: ProgressSlideProps) => {
   const { ref, width = 0 } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const fixedWidth = Math.ceil(width / height) * height * Math.sqrt(2);

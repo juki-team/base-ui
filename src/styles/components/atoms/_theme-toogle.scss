@@ -39,9 +39,9 @@
   --gray-border: #E8E8EA;
   --gray-dots: #E8E8EA;
   
-  --toggle-input: var(--text-medium-height);
+  --toggle-input: var(--tx-h-m);
   --toggle-width: calc(var(--toggle-input) * 1.6);
-  --circle-size: calc(var(--text-medium-height) - var(--border) - var(--border) - 2px);
+  --circle-size: calc(var(--tx-h-m) - var(--border) - var(--border) - 2px);
   --border: 2px;
   
   .toggle--checkbox {

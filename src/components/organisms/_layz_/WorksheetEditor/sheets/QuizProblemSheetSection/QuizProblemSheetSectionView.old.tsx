@@ -182,7 +182,7 @@ export const QuizProblemSheetSectionView = ({
       {isSolvable && (
         <div>
           <T className="tt-se fw-bd">results</T>:
-          <div className="jk-br-ie" style={{ border: '1px solid var(--t-color-gray-5)' }}>
+          <div className="jk-br-ie" style={{ border: '1px solid var(--cr-gy-5)' }}>
             <Collapse
               header={({ isOpen, toggle }) => {
                 return (
@@ -215,7 +215,7 @@ export const QuizProblemSheetSectionView = ({
                     <div
                       key={testCase.key}
                       className="jk-row left gap jk-br-ie"
-                      style={{ border: '1px solid var(--t-color-gray-6)', padding: 'var(--pad-xt)' }}
+                      style={{ border: '1px solid var(--cr-gy-6)', padding: 'var(--pad-xt)' }}
                     >
                       <div className="fw-bd"><T className="tt-se">sample</T> {testCase.index + 1}</div>
                       <div>{timeUsed} s</div>
