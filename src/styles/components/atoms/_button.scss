@@ -68,47 +68,33 @@
     --size-icon: calc(var(--line-height) - 4px);
   }
   
-  &:not(.void):not([class*=" bc-"]):not([class^="bc-"]) {
-    //background-color: var(--background-color, var(--cr-py));
-  }
-  
   &:not(.disabled):hover {
     --button-border-width: 3px;
-    //outline: var(--button-border-width, 0) solid var(--background-color);
   }
   
   &.tiny {
     --line-height: var(--tx-h-t); // 12px;
     font-size: var(--tx-s-t); // 12px
-    //--button-padding: calc(var(--pad-xt) / 2 + var(--tx-bds) * 2); // 8px
   }
   
   &.small {
     --line-height: var(--tx-h-s); // 18px
     font-size: var(--tx-s-s); // 14px
-    //--button-padding: calc(var(--pad-t) / 2 + var(--tx-bds) * 2); // var(--pad-t); // 12px
   }
   
   &.regular {
     --line-height: var(--tx-h-m); // 24px
     font-size: var(--tx-s-m);
-    //--button-padding: calc(var(--pad-xs) / 2 + var(--tx-bds) * 2); // var(--pad-xs); // 16px
   }
   
   &.large {
     --line-height: var(--tx-h-l); // 36px
     font-size: var(--tx-s-l);
-    //--button-padding: calc(var(--pad-s) / 2 + var(--tx-bds) * 2); // var(--pad-s); // 20px
   }
   
   &.huge {
     --line-height: var(--tx-h-h); // 48px
     font-size: var(--tx-s-h);
-    //--button-padding: calc(var(--pad-m) / 2 + var(--tx-bds) * 2); // var(--pad-m); // 24px
-  }
-  
-  &.jk-button-loader.with-loader-icon:not(.only-icon) {
-    //margin-left: var(--gap);
   }
   
   &:not(.jk-button-loader) {
@@ -116,7 +102,6 @@
   }
   
   &.only-icon {
-    //border-radius: 50%;
     padding: calc(var(--tx-h-m) / 8);
     
     &:not(.disabled):hover {
