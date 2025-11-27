@@ -135,21 +135,21 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
 
 @mixin look($look) {
   & {
-    background-color: string.unquote("var(--t-color-#{$look});");
+    background-color: string.unquote("var(--cr-#{$look});");
   }
-  @if $look == primary-dark or $look == primary or $look == primary-light {
+  @if $look == pd or $look == py or $look == pl {
     & {
       color: var(--cr-py-tx);
     }
-  } @else if $look == accent-dark or $look == accent or $look == accent-light {
+  } @else if $look == at-dk or $look == at or $look == at-lt {
     & {
       color: var(--cr-at-tx);
     }
-  } @else if $look == accent-light or $look == success-light or $look == info-light or $look == warning-light or $look == error-light or $look== gray-4 or $look == gray-5 or $look == gray-6 {
+  } @else if $look == at-lt or $look == ss-lt or $look == io-lt or $look == wg-lt or $look == er-lt or $look== gy-4 or $look == gy-5 or $look == gy-6 {
     & {
       color: var(--cr-bk);
     }
-  } @else if $look == white {
+  } @else if $look == we {
     & {
       color: var(--cr-bk-lt);
     }
@@ -162,8 +162,8 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
 
 @mixin font-size($size) {
   & {
-    font-size: string.unquote("var(--text-#{$size}-size);");
-    line-height: string.unquote("var(--text-#{$size}-height);");
+    font-size: string.unquote("var(--tx-s-#{$size});");
+    line-height: string.unquote("var(--tx-h-#{$size});");
   }
 }
 

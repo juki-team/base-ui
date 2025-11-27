@@ -131,7 +131,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   &::placeholder {
     color: var(--cr-gy-4);
     font-weight: var(--weight-regular);
-    @include mixins.font-size(small);
+    @include mixins.font-size(s);
   }
   
   &.jk-input-checkbox {
@@ -160,7 +160,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       }
       
       &:active, &:focus {
-        --input-background-color: var(--t-color-error-light);
+        --input-background-color: var(--cr-er-lt);
       }
     }
     
@@ -170,7 +170,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       }
       
       &:active, &:focus {
-        --input-background-color: var(--t-color-warning-light);
+        --input-background-color: var(--cr-wg-lt);
       }
     }
     
@@ -190,11 +190,11 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   }
   
   &.error {
-    --input-border-color: var(--t-color-error-light);
+    --input-border-color: var(--cr-er-lt);
   }
   
   &.warning {
-    --input-border-color: var(--t-color-warning-light);
+    --input-border-color: var(--cr-wg-lt);
   }
   
   &.success {
@@ -600,7 +600,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     &.placeholder {
       color: var(--cr-gy-4);
       font-weight: var(--weight-regular);
-      @include mixins.font-size(small);
+      @include mixins.font-size(s);
     }
   }
 }

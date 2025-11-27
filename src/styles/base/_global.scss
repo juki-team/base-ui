@@ -15,7 +15,7 @@ body {
   --bottom-horizontal-menu-height: 0px;
   
   @include mixins.transition(background-color, color);
-  @include mixins.font-size(medium);
+  @include mixins.font-size(m);
   
   #juki-app {
     overflow: hidden;
@@ -71,7 +71,7 @@ h1 {
 
 p {
   margin: unset;
-  @include mixins.font-size(medium);
+  @include mixins.font-size(m);
 }
 
 ul {

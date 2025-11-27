@@ -292,7 +292,7 @@ export function ProblemInfo({ problem, size }: ProblemInfoProps) {
       placement="bottom"
     >
       <div className="jk-row link">
-        <InfoIIcon filledCircle className="cr-py" color="var(--t-color-primary-text)" size={size} />
+        <InfoIIcon filledCircle className="cr-py" color="var(--cr-py-tx)" size={size} />
       </div>
     </Popover>
   );

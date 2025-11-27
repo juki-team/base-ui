@@ -40,7 +40,7 @@ export function ProblemNameLinkField(props: ProblemNameLinkFieldProps) {
               filledSquare
               letter="E"
               className="cr-py"
-              letterColor="var(--t-color-primary-text)"
+              letterColor="var(--cr-py-tx)"
             />
           </>
         )}

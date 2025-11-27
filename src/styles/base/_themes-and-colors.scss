@@ -63,10 +63,10 @@
   --cr-ss-lt: color-mix(in srgb, var(--cr-ss) var(--tone), var(--cr-we));
   
   --cr-wg-dk: color-mix(in srgb, var(--cr-wg) var(--tone), var(--cr-bk));
-  --t-color-warning-light: color-mix(in srgb, var(--cr-wg) var(--tone), var(--cr-we));
+  --cr-wg-lt: color-mix(in srgb, var(--cr-wg) var(--tone), var(--cr-we));
   
   --cr-er-dk: color-mix(in srgb, var(--cr-er) var(--tone), var(--cr-bk));
-  --t-color-error-light: color-mix(in srgb, var(--cr-er) var(--tone), var(--cr-we));
+  --cr-er-lt: color-mix(in srgb, var(--cr-er) var(--tone), var(--cr-we));
   
   --cr-gy-1: color-mix(in srgb, var(--cr-gy) 100%, var(--cr-we));
   --cr-gy-2: color-mix(in srgb, var(--cr-gy) 83%, var(--cr-we));

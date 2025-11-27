@@ -7,7 +7,7 @@
     text-align: center;
     display: grid;
     align-items: center;
-    @include mixins.font-size(small);
+    @include mixins.font-size(s);
   }
   
   &.with-labels {
@@ -17,8 +17,8 @@
       
       > div {
         height: 20px;
-        @include mixins.font-size(tiny);
-        @include mixins.look(gray-4);
+        @include mixins.font-size(t);
+        @include mixins.look(gy-4);
       }
     }
   }

@@ -3,15 +3,15 @@
 
 // font size
 
-.tx-h { @include mixins.font-size(huge); }
+.tx-h { @include mixins.font-size(h); }
 
-.tx-l { @include mixins.font-size(large); }
+.tx-l { @include mixins.font-size(l); }
 
-.tx-m { @include mixins.font-size(medium); }
+.tx-m { @include mixins.font-size(m); }
 
-.tx-s { @include mixins.font-size(small); }
+.tx-s { @include mixins.font-size(s); }
 
-.tx-t { @include mixins.font-size(tiny); }
+.tx-t { @include mixins.font-size(t); }
 
 // width
 .fw-lr { font-weight: var(--weight-lighter); }

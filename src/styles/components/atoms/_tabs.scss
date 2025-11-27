@@ -124,8 +124,6 @@
 .jk-tabs-select {
   .jk-select-options {
     .jk-select-option.selected {
-      @include mixins.look(secondary);
-      
       &:hover {
         background-color: var(--cr-at-lt);
       }

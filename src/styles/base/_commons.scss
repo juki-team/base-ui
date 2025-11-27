@@ -45,7 +45,7 @@
 
 .cr-wg { color: var(--cr-wg); }
 
-.cr-el { color: var(--t-color-error-light); }
+.cr-el { color: var(--cr-er-lt); }
 
 .cr-er { color: var(--cr-er); }
 
@@ -113,13 +113,13 @@
 
 .bc-sd { --background-color: var(--cr-ss-dk); }
 
-.bc-wl { --background-color: var(--t-color-warning-light); }
+.bc-wl { --background-color: var(--cr-wg-lt); }
 
 .bc-wg { --background-color: var(--cr-wg); }
 
 .bc-wgd { --background-color: var(--cr-wg-dk); }
 
-.bc-el { --background-color: var(--t-color-error-light); }
+.bc-el { --background-color: var(--cr-er-lt); }
 
 .bc-er { --background-color: var(--cr-er); }
 

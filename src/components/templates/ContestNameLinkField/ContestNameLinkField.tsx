@@ -37,7 +37,7 @@ export function ContestNameLinkField(props: ContestNameLinkFieldProps) {
               filledSquare
               letter="A"
               className="cr-py"
-              letterColor="var(--t-color-primary-text)"
+              letterColor="var(--cr-py-tx)"
             />
           ) : user.isManager ? (
             <VoidIcon
@@ -48,7 +48,7 @@ export function ContestNameLinkField(props: ContestNameLinkFieldProps) {
               filledSquare
               letter="J"
               className="cr-py"
-              letterColor="var(--t-color-primary-text)"
+              letterColor="var(--cr-py-tx)"
             />
           ) : user.isParticipant ? (
             <div>
@@ -69,7 +69,7 @@ export function ContestNameLinkField(props: ContestNameLinkFieldProps) {
               filledSquare
               letter="G"
               className="cr-py"
-              letterColor="var(--t-color-primary-text)"
+              letterColor="var(--cr-py-tx)"
             />
           ) : user.isSpectator && (
             <VoidIcon
@@ -80,7 +80,7 @@ export function ContestNameLinkField(props: ContestNameLinkFieldProps) {
               filledSquare
               letter="S"
               className="cr-py"
-              letterColor="var(--t-color-primary-text)"
+              letterColor="var(--cr-py-tx)"
             />
           )}
         </div>

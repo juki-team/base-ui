@@ -104,25 +104,25 @@
     
     &.success {
       .jk-notification-item {
-        @include mixins.look(success);
+        @include mixins.look(ss);
       }
     }
     
     &.error {
       .jk-notification-item {
-        @include mixins.look(error);
+        @include mixins.look(er);
       }
     }
     
     &.info {
       .jk-notification-item {
-        @include mixins.look(info);
+        @include mixins.look(io);
       }
     }
     
     &.warning {
       .jk-notification-item {
-        @include mixins.look(warning);
+        @include mixins.look(wg);
       }
     }
   }
@@ -159,16 +159,14 @@
       @include mixins.sm { right: 0; }
       
       @include mixins.elevation(1);
-      @include mixins.look(primary-light);
+      @include mixins.look(pl);
       @include mixins.sm {
         border-radius: 0;
       }
       
       .jk-notification-message-content {
-        
         text-align: center;
-        
-        @include mixins.font-size(tiny);
+        @include mixins.font-size(t);
       }
       
       .bar {
