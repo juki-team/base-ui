@@ -2,7 +2,7 @@
 
 .settings-apps-login-user-content {
   .jk-icon {
-    color: var(--cr-pt-tx);
+    color: var(--cr-py-tx);
   }
 }
 
@@ -11,7 +11,7 @@
   .selected.vertical {
     width: 4px;
     height: calc(var(--pad-m) + var(--pad-xt) * 4);
-    background: var(--cr-pt-tx);
+    background: var(--cr-py-tx);
     position: absolute;
     right: 0;
     border-bottom-left-radius: var(--pad-xt);
@@ -44,6 +44,6 @@
   }
   
   > img.jk-user-profile-img {
-    border-color: var(--cr-pt-tx) !important;
+    border-color: var(--cr-py-tx) !important;
   }
 }

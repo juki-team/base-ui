@@ -139,7 +139,7 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
   }
   @if $look == primary-dark or $look == primary or $look == primary-light {
     & {
-      color: var(--cr-pt-tx);
+      color: var(--cr-py-tx);
     }
   } @else if $look == accent-dark or $look == accent or $look == accent-light {
     & {

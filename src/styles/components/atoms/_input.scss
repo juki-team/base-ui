@@ -378,7 +378,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     &::after {
       position: absolute;
-      color: var(--cr-pt-tx);
+      color: var(--cr-py-tx);
       box-sizing: content-box;
     }
     
@@ -399,7 +399,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
     
     &::after {
-      border: solid var(--cr-pt-tx);
+      border: solid var(--cr-py-tx);
       transform: rotate(45deg);
       border-width: 0 3px 3px 0;
       top: 1px;
@@ -518,7 +518,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 .jk-wrapper-input-toggle {
   --input-toggle-height: calc(var(--pad-m) - 2px);
   --input-toggle-color: var(--cr-py);
-  --input-toggle-text-color: var(--cr-pt-tx);
+  --input-toggle-text-color: var(--cr-py-tx);
   position: relative;
   height: var(--input-toggle-height);
   display: flex;

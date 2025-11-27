@@ -213,7 +213,7 @@ span.jk-row, span.jk-col {
   }
   
   &:not([class^="cr-"]):not([class*=" cr-"]):not([class^="bc-"]):not([class*=" bc-"]) {
-    color: var(--cr-pt-tx);
+    color: var(--cr-py-tx);
     background-color: var(--cr-py);
   }
 }

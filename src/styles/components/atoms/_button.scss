@@ -151,7 +151,7 @@
 }
 
 .jk-button.primary {
-  color: var(--cr-pt-tx);
+  color: var(--cr-py-tx);
   
   &:not([class*=" bc-"]):not([class^="bc-"]) {
     --background-color: var(--cr-py);
