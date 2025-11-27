@@ -52,11 +52,8 @@
     "./styles/mixins": {
       "sass": "./src/styles/_mixins.scss"
     },
-    "./styles.css": {
-      "default": "./src/styles/index.css"
-    },
     "./styles.scss": "./src/styles/index.scss",
-    "./vendor/*": "./src/vendor/*"
+    "./vendor-styles.scss": "./src/vendor/index.scss"
   },
   "scripts": {
     "storybook": "cross-env NODE_ENV=storybook storybook dev -p 6006",

@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import { Button, InputToggle, Portal, T } from '../../../atoms';
 import { EditIcon } from '../../../atoms/server';
 import { ButtonAction } from '../../../molecules';
-import './styles.scss';
 
 const LOCAL_STORAGE_KEY = 'jk-excalidraw-data';
 

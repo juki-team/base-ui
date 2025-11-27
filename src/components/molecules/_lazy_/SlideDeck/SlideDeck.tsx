@@ -16,7 +16,6 @@ import type { SlideDeckProps } from './types';
 // import 'reveal.js/dist/reveal.css';
 // import 'reveal.js/dist/theme/black.css';
 // import 'reveal.js/dist/theme/white.css';
-import './styles.scss';
 
 function hasScroll(el: HTMLElement) {
   return el?.scrollHeight > el?.clientHeight || el?.scrollWidth > el?.clientWidth;
@@ -111,7 +110,7 @@ function SlideDeckComponent(props: SlideDeckProps) {
         console.warn('Reveal.js destroy call failed.');
       }
     };
-  }, []);
+  }, [ aspectRatio ]);
   
   useEffect(() => {
     deckRef.current?.addKeyBinding(
@@ -217,7 +216,7 @@ function SlideDeckComponent(props: SlideDeckProps) {
       )}
     </>
   );
-};
+}
 
 export default function SlideDeck({ children, onClose, ...rest }: SlideDeckProps) {
   return (

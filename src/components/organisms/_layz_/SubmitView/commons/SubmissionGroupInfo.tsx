@@ -13,7 +13,6 @@ import { UpIcon, VisibilityIcon } from '../../../../server';
 import { SubmissionMemory } from './SubmissionMemory';
 import { SubmissionTime } from './SubmissionTime';
 import { SubmissionVerdict } from './SubmissionVerdict';
-import './styles.scss';
 
 export interface GroupInfoProps {
   isProblemEditor: boolean,

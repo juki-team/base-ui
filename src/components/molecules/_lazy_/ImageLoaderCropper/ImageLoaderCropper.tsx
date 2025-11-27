@@ -12,7 +12,6 @@ import { useDebounceEffect } from '../../../hooks/useDebounceEffect';
 import { useHandleState } from '../../../hooks/useHandleState';
 import { canvasPreview } from './canvasPreview';
 import type { ImageLoaderCropperProps } from './types';
-import './styles.scss';
 
 // This is to demonstate how to make and center a % aspect crop
 // which is a bit trickier so we use some helper functions.

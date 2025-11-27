@@ -1,0 +1,11 @@
+// REF: https://highlightjs.org/
+
+@use "sass:meta";
+
+.jk-theme-light .jk-code-viewer {
+  @include meta.load-css("../../vendor/highlight.js/styles/github.min.css", $with: ());
+}
+
+.jk-theme-dark .jk-code-viewer {
+  @include meta.load-css("../../vendor/highlight.js/styles/github-dark.min.css", $with: ());
+}

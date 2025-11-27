@@ -5,7 +5,6 @@ import { memo } from 'react';
 import { utils } from 'xlsx';
 import { classNames } from '../../../helpers';
 import { CellStyleType, DataGridProps } from './types';
-import './styles.scss';
 
 registerAllModules();
 
@@ -29,7 +28,7 @@ function DataGridComponent({ rows, cols, freeze, styles, autofilter, firstRowAsH
     if (firstRowAsHeaders) {
       if (row === 0) {
         (colHeaders as string[]).push(
-          ...(Object.entries(rowData.cells).map(([ _, cellData ]) => cellData.text as string)),
+          ...(Object.entries(rowData.cells).map(([ , cellData ]) => cellData.text as string)),
         );
         return;
       }

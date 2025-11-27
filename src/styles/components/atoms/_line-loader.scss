@@ -1,5 +1,43 @@
 @use "../../mixins";
 
+.layout-line-loader {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  width: 100%;
+  --line-loader-color: var(--t-color-primary-light);
+  
+  > div {
+    position: absolute;
+    top: 0;
+    height: 4px;
+    background-color: var(--line-loader-color);
+    border-radius: 2px;
+    
+    animation-duration: calc(var(--delay) * 1s);
+    animation-name: slide-left-to-right-to-left;
+    animation-iteration-count: infinite;
+  }
+  
+  @keyframes slide-left-to-right-to-left {
+    0% {
+      width: 8%;
+      margin-left: 0;
+    }
+    
+    50% {
+      width: 8%;
+      margin-left: 92%;
+    }
+    
+    100% {
+      width: 8%;
+      margin-left: 0;
+    }
+  }
+}
+
 .page-line-loader {
   .layout-line-loader {
     z-index: 100;

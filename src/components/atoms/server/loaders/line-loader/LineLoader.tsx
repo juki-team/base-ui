@@ -1,5 +1,4 @@
 import { type CSSProperties } from 'react';
-import './styles.scss';
 
 export const LineLoader = ({ delay = 5, style }: { delay?: number, style?: CSSProperties }) => {
   return (

@@ -12,7 +12,6 @@ import { type CSSProperties, useMemo } from 'react';
 import { CopyToClipboard } from '../../../atoms';
 import { classNames } from '../../../helpers';
 import type { CodeViewerProps } from './types';
-import './styles.scss';
 
 hljs.registerLanguage('c', c);
 hljs.registerLanguage('cpp', cpp);

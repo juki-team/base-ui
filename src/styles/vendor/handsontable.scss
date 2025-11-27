@@ -1,0 +1,8 @@
+// REF: https://www.npmjs.com/package/handsontable
+// Base CSS rules
+//import 'handsontable/styles/handsontable.min.css';
+// Main theme variables
+//import 'handsontable/styles/ht-theme-main.min.css';
+
+@use "../../vendor/handsontable/styles/handsontable.min.css";
+@use "../../vendor/handsontable/styles/ht-theme-main.min.css";
