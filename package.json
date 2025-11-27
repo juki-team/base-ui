@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "1.2.207",
+  "version": "1.2.208",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -66,7 +66,7 @@
     "git:commit": "f() { param=${1}; message=${param:-chore}; echo ${message}; git add .; echo $message | git commit -F -; }; f",
     "git:commit-version": "version=\"v$(node -p \"require('./package.json').version\")\" && yarn git:commit $(echo $version) && git tag -a $(echo $version) -m $(echo $version);",
     "git:push": "git push origin main && git push origin --tags",
-    "push": "f() { yarn check:circular-deps && yarn git:commit \"${1}\" && yarn version --patch --no-git-tag-version && yarn build:rollup && yarn build:sass && yarn git:commit-version && yarn build:publish && yarn git:push; }; f",
+    "push": "f() { yarn check:circular-deps && yarn git:commit \"${1}\" && yarn version --patch --no-git-tag-version && yarn build:rollup && yarn git:commit-version && yarn build:publish && yarn git:push; }; f",
     "push:storybook": "f() { yarn check:circular-deps && yarn git:commit \"${1}\" && yarn version --patch --no-git-tag-version && yarn build:rollup-clean && yarn build:sass && yarn build:storybook && yarn git:commit-version && yarn build:publish && yarn git:push; }; f",
     "pull": "yarn add @juki-team/commons",
     "chromatic": "npx chromatic --project-token=xyz",

@@ -2,7 +2,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from 'rollup-plugin-typescript2';
-import copy from 'rollup-plugin-copy';
+// import copy from 'rollup-plugin-copy';
 import terser from "@rollup/plugin-terser";
 import json from '@rollup/plugin-json';
 import alias from '@rollup/plugin-alias';
@@ -78,11 +78,11 @@ const plugins = [
   // scss({output: false}), // 🔥 No genera un styles.css global
   json(),
   terser(),
-  copy({
-    targets: [
-      // { src: './src/styles', dest: 'dist' },
-    ],
-  }),
+  // copy({
+  //   targets: [
+  //     // { src: './src/styles', dest: 'dist' },
+  //   ],
+  // }),
   // visualizer({
   //   filename: `./stats/${pkg.version}/stats-treemap.html`,
   //   template: 'treemap',
