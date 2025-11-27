@@ -7,9 +7,9 @@ import {
   HTTPMethod,
 } from '@juki-team/commons';
 import { useState } from 'react';
-import { authorizedRequest } from '../../helpers';
 import { Button, CopyToClipboard, Popover, T } from '../../atoms';
 import { ContentCopyIcon, EditIcon, InfoIIcon } from '../../atoms/server';
+import { authorizedRequest } from '../../helpers';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { ButtonAction } from '../../molecules';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';
@@ -84,8 +84,8 @@ export function DocumentMembersButton(props: DocumentMembersButtonProps) {
     </Popover>
   );
   
-  let button = (
-    <Button size="small">
+  const button = (
+    <Button size="small" key="share">
       <div className="jk-row gap nowrap">
         <T className="tt-se">share</T>
         {info}
@@ -102,7 +102,7 @@ export function DocumentMembersButton(props: DocumentMembersButtonProps) {
         },
         ...(copyLink ? [ {
           children: (
-            <CopyToClipboard text={copyLink()} tooltip="" noStyling>
+            <CopyToClipboard text={copyLink()} tooltip="" noStyling key="copy-link">
               <Button size="small" icon={<ContentCopyIcon />} type="void" className="bc-g6">
                 <T className="tt-se">copy link</T>
               </Button>
@@ -111,7 +111,7 @@ export function DocumentMembersButton(props: DocumentMembersButtonProps) {
         } ] : []),
         ...(isAdministrator ? [ {
           children: (
-            <Button size="small" icon={<EditIcon />} onClick={() => setShow(true)}>
+            <Button size="small" icon={<EditIcon />} onClick={() => setShow(true)} key="edit">
               <T className="tt-se">edit</T>
             </Button>
           ),

@@ -8,7 +8,7 @@ import {
   MemberType,
   type UserSummaryListResponseDTO,
 } from '@juki-team/commons';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { InputToggle, Popover, T } from '../../atoms';
 import { classNames } from '../../helpers';
@@ -59,112 +59,6 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
   
   const companyKey = useUserStore(state => state.company.key);
   const documentAccess = getDocumentAccess({ members });
-  
-  useEffect(() => {
-    return;
-    setMembers?.(prevState => {
-      let rankAdministrators;
-      let newAdministrators;
-      if (administrators === undefined) {
-        rankAdministrators = EntityMembersRank.NONE;
-        newAdministrators = {};
-      } else {
-        rankAdministrators = prevState.rankAdministrators;
-        if (rankAdministrators === EntityMembersRank.NONE) {
-          rankAdministrators = Object.keys(prevState.administrators).length === 0 ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN;
-        }
-        if (rankAdministrators === EntityMembersRank.OPEN) {
-          newAdministrators = {};
-        } else {
-          newAdministrators = prevState.administrators;
-        }
-      }
-      
-      let rankManagers;
-      let newManagers;
-      if (managers === undefined) {
-        rankManagers = EntityMembersRank.NONE;
-        newManagers = {};
-      } else {
-        rankManagers = prevState.rankManagers;
-        if (rankManagers === EntityMembersRank.NONE) {
-          rankManagers = Object.keys(prevState.managers).length === 0 ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN;
-        }
-        if (rankManagers === EntityMembersRank.OPEN) {
-          newManagers = {};
-        } else {
-          newManagers = prevState.managers;
-        }
-      }
-      
-      let rankParticipants;
-      let newParticipants;
-      if (participants === undefined) {
-        rankParticipants = EntityMembersRank.NONE;
-        newParticipants = {};
-      } else {
-        rankParticipants = prevState.rankParticipants;
-        if (rankParticipants === EntityMembersRank.NONE) {
-          rankParticipants = Object.keys(prevState.participants).length === 0 ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN;
-        }
-        if (rankParticipants === EntityMembersRank.OPEN) {
-          newParticipants = {};
-        } else {
-          newParticipants = prevState.participants;
-        }
-      }
-      
-      let rankGuests;
-      let newGuests;
-      if (guests === undefined) {
-        rankGuests = EntityMembersRank.NONE;
-        newGuests = {};
-      } else {
-        rankGuests = prevState.rankGuests;
-        if (rankGuests === EntityMembersRank.NONE) {
-          rankGuests = Object.keys(prevState.guests).length === 0 ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN;
-        }
-        if (rankGuests === EntityMembersRank.OPEN) {
-          newGuests = {};
-        } else {
-          newGuests = prevState.guests;
-        }
-      }
-      
-      let rankSpectators;
-      let newSpectators;
-      if (spectators === undefined) {
-        rankSpectators = EntityMembersRank.NONE;
-        newSpectators = {};
-      } else {
-        rankSpectators = prevState.rankSpectators;
-        if (rankSpectators === EntityMembersRank.NONE) {
-          rankSpectators = Object.keys(prevState.spectators).length === 0 ? EntityMembersRank.CLOSE : EntityMembersRank.OPEN;
-        }
-        if (rankSpectators === EntityMembersRank.OPEN) {
-          newSpectators = {};
-        } else {
-          newSpectators = prevState.spectators;
-        }
-      }
-      
-      const newMembers: EntityMembersResponseDTO = {
-        rankAdministrators,
-        administrators: newAdministrators,
-        rankManagers,
-        managers: newManagers,
-        rankParticipants,
-        participants: newParticipants,
-        rankGuests,
-        guests: newGuests,
-        rankSpectators,
-        spectators: newSpectators,
-      };
-      
-      return newMembers;
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
   
   const administratorsLabel = administrators?.name || 'administrators';
   const managersLabel = managers?.name || 'managers';
