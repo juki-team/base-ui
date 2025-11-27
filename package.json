@@ -53,7 +53,7 @@
       "sass": "./src/styles/_mixins.scss"
     },
     "./styles.scss": "./src/styles/index.scss",
-    "./vendor-styles.scss": "./src/vendor/index.scss"
+    "./vendor-styles.scss": "./src/styles/vendor/index.scss"
   },
   "scripts": {
     "storybook": "cross-env NODE_ENV=storybook storybook dev -p 6006",
