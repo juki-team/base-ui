@@ -9,6 +9,7 @@ import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
 import './styles.scss';
 import '../../styles/index.scss';
+import '../../styles/vendor/index.scss';
 
 enum TestPath {
   USER = 'USER',
