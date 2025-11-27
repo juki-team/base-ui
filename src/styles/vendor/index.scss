@@ -1,8 +1,8 @@
-@use "@excalidraw";
-@use "@milkdown";
-@use "diff2html";
-@use "handsontable";
-@use "highlight.js";
-@use "katex";
-@use "react-image-crop";
-@use "reveal.js";
+@use "@excalidraw" as vendor-1;
+@use "@milkdown" as vendor-2;
+@use "diff2html" as vendor-3;
+@use "handsontable" as vendor-4;
+@use "highlight.js" as vendor-5;
+@use "katex" as vendor-6;
+@use "react-image-crop"  as vendor-7;
+@use "reveal.js" as vendor-8;
