@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Button } from '../../../atoms';
-import { useCheckAndStartServices } from '../../../hooks/useCheckAndStartServices';
 import { MockupJukiProvider } from '../../../mockup';
 import { UserPreviewContentModal as UserPreviewModalCmp } from './UserPreviewContentModal/UserPreviewContentModal';
 
@@ -10,7 +9,6 @@ export default {
 
 export const UserPreviewModal = () => {
   const [ open, setOpen ] = useState(false);
-  useCheckAndStartServices();
   
   return (
     <MockupJukiProvider>

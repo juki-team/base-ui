@@ -19,7 +19,6 @@ import { useWebsocketStore } from '../../../../../stores/websocket/useWebsocketS
 import { Button, Input, Modal, Portal, T } from '../../../../atoms';
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon } from '../../../../atoms/server';
 import { classNames } from '../../../../helpers';
-import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { SplitPane, TwoActionModal } from '../../../../molecules';
 import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
 import { FirstPane } from './FirstPane';
@@ -61,7 +60,6 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   
   const { source = '', language = CodeLanguage.TEXT as T } = files?.[currentFileName] ?? {};
   
-  useCheckAndStartServices();
   const onChangeRef = useRef(_onChange);
   onChangeRef.current = readOnly ? undefined : _onChange;
   

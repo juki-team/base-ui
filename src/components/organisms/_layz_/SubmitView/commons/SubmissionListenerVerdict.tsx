@@ -13,7 +13,6 @@ import { useEffect, useRef, useState } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../../../constants/settings';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../../../../stores/websocket/useWebsocketStore';
-import { useCheckAndStartServices } from '../../../../hooks/useCheckAndStartServices';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useMutate } from '../../../../hooks/useMutate';
 import { SubmissionVerdict } from './SubmissionVerdict';
@@ -46,8 +45,6 @@ interface SubmissionListenerVerdictProps {
 export const SubmissionListenerVerdict = ({ submit }: SubmissionListenerVerdictProps) => {
   
   const { contest, problem, points, status, verdict, submitId, processedCases, user } = submit;
-  
-  useCheckAndStartServices();
   
   const sessionId = useUserStore(state => state.user.sessionId);
   const mutate = useMutate();
