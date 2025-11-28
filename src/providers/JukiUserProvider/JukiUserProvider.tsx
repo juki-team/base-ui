@@ -14,7 +14,7 @@ import { useFetcher } from '../../components/hooks/useFetcher';
 import { useInjectFontSize } from '../../components/hooks/useInjectFontSize';
 import { useInjectTheme } from '../../components/hooks/useInjectTheme';
 import { useMutate } from '../../components/hooks/useMutate';
-import { JUKI_SERVICE_V1_URL, JUKI_SERVICE_V2_URL, JUKI_TOKEN_NAME } from '../../constants/settings';
+import { JUKI_SERVICE_V2_URL, JUKI_TOKEN_NAME } from '../../constants/settings';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
@@ -43,7 +43,6 @@ export const JukiUserProvider = () => {
   const matchMutate = useMutate();
   
   const refreshAllRequest = useCallback(async () => {
-    await matchMutate(new RegExp(`${JUKI_SERVICE_V1_URL}`, 'g'));
     await matchMutate(new RegExp(`${JUKI_SERVICE_V2_URL}`, 'g'));
     
   }, [ matchMutate ]);

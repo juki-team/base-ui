@@ -22,7 +22,7 @@ import {
   UpdatePasswordPayloadDTO,
   UpdateUserProfileDataPayloadDTO,
 } from '../components/types';
-import { JUKI_SERVICE_V1_URL } from '../constants/settings';
+import { JUKI_SERVICE_V2_URL } from '../constants/settings';
 
 const addQuery = (path: string) => {
   return !path.includes('?') ? path + '?' : path;
@@ -55,11 +55,11 @@ export class ApiManager {
   get API_V2() {
     
     const injectBaseUrl = (prefix: string, path: string) => {
-      return `${JUKI_SERVICE_V1_URL}/${prefix}${path}`;
+      return `${JUKI_SERVICE_V2_URL}/${prefix}${path}`;
     };
     
     const valid = <T, M extends HTTPMethod = HTTPMethod.GET>(callback: (props: T) => ResponseAPI<M>): ((props: T) => ResponseAPI<M>) => {
-      if (JUKI_SERVICE_V1_URL) {
+      if (JUKI_SERVICE_V2_URL) {
         return callback;
       }
       return () => ({ url: '', method: HTTPMethod.GET as M });
