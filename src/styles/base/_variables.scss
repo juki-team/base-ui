@@ -121,13 +121,15 @@ html body {
 html body {
   --zi-menu: 50;
   --zi-select-options: 60;
-  --zi-drawer: 200;
-  --zi-overlay: 300;
-  --zi-popover: 400;
-  --zi-notification: 600;
-  --zi-excalidraw: 900;
-  --zi-tool-buttons: 1000;
-  --zi-tooltip: 9999;
+  --zi-drawer: 70;
+  --zi-overlay: 80;
+  
+  --zi-notification: 100;
+  --zi-excalidraw: 200;
+  --zi-tool-buttons: 300;
+  
+  --zi-popover: 1000;
+  --zi-tooltip: 2000;
   
   --left-vertical-collapsed-menu-width: 48px;
   

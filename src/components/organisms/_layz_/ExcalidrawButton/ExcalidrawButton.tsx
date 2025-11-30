@@ -61,7 +61,7 @@ export default function ExcalidrawButton() {
     <>
       {isActive ? (
         <ButtonAction
-          placement="rightTop"
+          offset={8}
           className="opacity-hover"
           icon={<EditIcon />}
           type="secondary"

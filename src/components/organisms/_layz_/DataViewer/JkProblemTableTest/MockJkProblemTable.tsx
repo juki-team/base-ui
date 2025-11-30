@@ -45,6 +45,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
   
   const extraNodes = useMemo(() => [
     <ButtonLoader
+      key="button-1"
       data-tooltip-id="jk-tooltip"
       data-tooltip-content="tooltip testing"
       data-tooltip-place="left"
@@ -57,6 +58,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
       <T>download</T>
     </ButtonLoader>,
     <ButtonLoader
+      key="button-2"
       size="small"
       type="light"
       icon={<RefreshIcon />}
@@ -66,6 +68,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
       <T>download</T>
     </ButtonLoader>,
     <ButtonAction
+      key="button-3"
       buttons={[
         { children: <ButtonLoader>que</ButtonLoader> },
         { children: <ButtonLoader>tal</ButtonLoader> },

@@ -1,3 +1,4 @@
+import { consoleError, consoleWarn } from '@juki-team/commons';
 import { instance } from '@viz-js/viz';
 import { useEffect, useRef } from 'react';
 import { create } from 'zustand';
@@ -31,11 +32,11 @@ export default function GraphvizViewer({ dot, className }: GraphvizViewerProps) 
       try {
         const svg = viz.renderSVGElement(dot, {});
         el.appendChild(svg);
-      } catch (e: any) {
-        console.warn('error on drawing Graphviz', e);
+      } catch (e) {
+        consoleWarn('error on drawing Graphviz', e);
         el.innerHTML = '';
         const errorDiv = document.createElement('div');
-        errorDiv.textContent = t('error rendering graph') + `: ${e?.message || String(e)}`;
+        errorDiv.textContent = t('error rendering graph') + `: ${(e as Error)?.message || String(e)}`;
         errorDiv.style.color = 'red';
         errorDiv.style.whiteSpace = 'pre-wrap';
         el.appendChild(errorDiv);
@@ -45,10 +46,11 @@ export default function GraphvizViewer({ dot, className }: GraphvizViewerProps) 
     return () => {
       try {
         el.innerHTML = '';
-      } catch {
+      } catch (e) {
+        consoleError(e);
       }
     };
-  }, [ dot, shouldRerender ]);
+  }, [ dot, shouldRerender, t ]);
   
   return (
     <div className={classNames('jk-graphviz-viewer-container', className)}>

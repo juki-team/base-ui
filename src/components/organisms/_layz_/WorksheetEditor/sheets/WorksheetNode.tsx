@@ -8,11 +8,11 @@ import {
   WorksheetType,
 } from '@juki-team/commons';
 import { Fragment } from 'react';
+import { DetectRequestAnimationFrame } from '../../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 // import 'reveal.js/dist/reveal.css';
 // import 'reveal.js/dist/theme/black.css';
 // import 'reveal.js/dist/theme/white.css';
 import { classNames } from '../../../../helpers';
-import { DetectRequestAnimationFrame } from '../../../../atoms/DetectRequestAnimationFrame/DetectRequestAnimationFrame';
 import { MdMathViewer } from '../../../MdMathViewer/MdMathViewer';
 import { SetContentType, WorksheetNodeProps } from '../types';
 import { AddNewChild } from './AddNewChild';
@@ -85,9 +85,7 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
         className={classNames('jk-row nowrap stretch top gap pn-re jk-br-ie wh-100', `${chunk.type}-chunk`, {
           editing: !!setSheet,
           'next-jkmd': isNextJkmd,
-          // 'bc-we': [ WorksheetType.JK_MD, WorksheetType.QUIZ_PROBLEM ].includes(chunk.type) && !setSheet,
         })}
-        // style={{ left: !!setSheets ? -64 : undefined }}
       >
         {chunk.type === WorksheetType.JK_MD && (
           <JkmdSheetSection {...sectionProps as SheetSection<JkmdSheetType>} />
@@ -120,7 +118,7 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
             quizOptionsSheetType
             pageDivider
             compacted
-            floatToolbarPlacement={index === length - 1 ? 'center top' : 'center'}
+            floatToolbarPlacement={index === length - 1 ? 'top' : 'bottom'}
           />
         </div>
       )}

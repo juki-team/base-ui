@@ -7,9 +7,10 @@ import {
   EMPTY_QUIZ_OPTIONS_SHEET,
   EMPTY_QUIZ_PROBLEM_SHEET,
 } from '../../../../../constants';
-import { Button } from '../../../../atoms';
+import { Button, Popover, T } from '../../../../atoms';
+import { PopoverProps } from '../../../../atoms/_lazy_/Popover/types';
 import { PlusIcon } from '../../../../atoms/server';
-import { FloatToolbar } from '../../../../molecules';
+import { ButtonLoader } from '../../../../molecules';
 import { SetSheetType } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 
@@ -24,7 +25,7 @@ interface AddNewChildProps<T extends BodyWorksheetType> {
   quizOptionsSheetType?: boolean,
   pageDivider?: boolean,
   compacted?: boolean,
-  floatToolbarPlacement?: 'center' | 'center bottom' | 'center top';
+  floatToolbarPlacement?: PopoverProps['placement'],
 }
 
 export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildProps<T>) => {
@@ -118,13 +119,27 @@ export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildPro
   return (
     <div className="jk-row gap">
       {compacted && (
-        <FloatToolbar
-          actionButtons={[ {
-            icon: <PlusIcon />,
-            buttons: actionButtons,
-          } ]}
+        <Popover
+          content={
+            <div className="jk-col gap">
+              {actionButtons.map(({ icon, onClick, label }, index) => (
+                <ButtonLoader
+                  icon={icon}
+                  key={index}
+                  size="tiny"
+                  expand
+                  onClick={onClick}
+                >
+                  <T>{label}</T>
+                </ButtonLoader>
+              ))}
+            </div>
+          }
+          offset={8}
           placement={floatToolbarPlacement}
-        />
+        >
+          <Button icon={<PlusIcon />} />
+        </Popover>
       )}
       {!compacted && (
         actionButtons.map(({ icon, label, onClick }, index) => (

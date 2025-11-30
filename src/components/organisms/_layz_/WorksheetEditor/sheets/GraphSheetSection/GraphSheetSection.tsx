@@ -74,7 +74,6 @@ export const GraphSheetSection = (props: GraphSheetSectionProps) => {
               _setContent(initialContent);
             },
           })}
-          placement="out rightTop"
         />
       )}
     </div>

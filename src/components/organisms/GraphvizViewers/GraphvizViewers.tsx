@@ -1,8 +1,8 @@
 import { CodeLanguage } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
-import { classNames } from '../../helpers';
 import { Button, Input, Modal, T } from '../../atoms';
 import { ArrowLeftIcon, ArrowRightIcon, CodeIcon, PlayCircleIcon, ReplyIcon, StopCircleIcon } from '../../atoms/server';
+import { classNames } from '../../helpers';
 import { CodeViewer, FloatToolbar } from '../../molecules';
 import { GraphvizViewer } from '../_layz_/GraphvizViewer';
 import type { GraphvizViewerProps } from '../_layz_/GraphvizViewer/types';
@@ -56,17 +56,16 @@ export function GraphvizViewers({ dot, className, viewSourceButton = true }: Gra
         <FloatToolbar
           actionButtons={[
             {
-              icon: <CodeIcon />,
-              buttons: [
-                {
-                  icon: <CodeIcon />,
-                  label: <T>view source</T>,
-                  onClick: () => setIsOpen(true),
-                },
-              ],
+              icon: (
+                <CodeIcon
+                  onClick={() => setIsOpen(true)}
+                  data-tooltip-id="jk-tooltip"
+                  data-tooltip-content="view source"
+                  data-tooltip-place="left"
+                />
+              ),
             },
           ]}
-          placement="rightTop"
         />
       )}
       {graphs.length > 1 && (

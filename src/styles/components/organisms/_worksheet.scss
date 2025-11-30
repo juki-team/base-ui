@@ -1,0 +1,8 @@
+@use "../../mixins";
+
+div[class$="-chunk"], div[class*="-chunk "] {
+  
+  &:hover {
+    @include mixins.elevation(1);
+  }
+}

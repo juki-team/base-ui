@@ -258,7 +258,7 @@ export default function Popover(props: PopoverProps) {
                   exit="exit"
                   variants={getPlacementVariants(placement)}
                   className={popoverClassName}
-                  style={{ maxHeight: 'calc(var(--vh, 1vh) * 90)', overflowY: 'auto' }}
+                  style={{ maxHeight: 'calc(var(--vh, 1vh) * 90)' }}
                 >
                   {renderReactNodeOrFunctionP1(content, { isOpen, onClose: () => setIsOpen(false) })}
                 </motion.div>

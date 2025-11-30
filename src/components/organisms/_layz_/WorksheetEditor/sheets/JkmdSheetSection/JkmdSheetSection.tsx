@@ -22,10 +22,7 @@ import { ResultHeader } from '../ResultHeader';
 import { SheetSection } from '../types';
 import { JkmdSheetSectionEditor } from './JkmdSheetSectionEditor';
 
-interface JkmdSheetSectionProps extends SheetSection<JkmdSheetType> {
-}
-
-export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
+export const JkmdSheetSection = (props: SheetSection<JkmdSheetType>) => {
   
   const {
     content,
@@ -80,7 +77,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
                     expand
                     size="small"
                     data-tooltip-id="jk-tooltip"
-                    data-tooltip-content={!!lastSubmission?.read ? 'mark as unread' : 'mark as read'}
+                    data-tooltip-content={lastSubmission?.read ? 'mark as unread' : 'mark as read'}
                     onClick={async (setLoaderStatus) => {
                       setLoaderStatus(Status.LOADING);
                       const jkMdSubmissionDTO: JkmdSubmissionDTO = {
@@ -98,7 +95,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
                     }}
                     icon={<InputCheckbox checked={!!lastSubmission?.read} onChange={() => null} />}
                   >
-                    <T className="tt-se">{!!lastSubmission?.read ? '_read' : 'unread'}</T>
+                    <T className="tt-se">{lastSubmission?.read ? '_read' : 'unread'}</T>
                   </ButtonLoader>
                 )}
               </ResultHeader>
@@ -121,7 +118,8 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
             sheetLength,
             setSheet,
           })}
-          placement="out rightTop"
+          placement="right-end"
+          outer
         />
       )}
     </div>

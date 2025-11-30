@@ -10,7 +10,7 @@ export default meta;
 
 type Story = StoryObj<typeof Popover>;
 
-const test = new Array(1000);
+const test = new Array(10);
 test.fill(1);
 
 const content = (

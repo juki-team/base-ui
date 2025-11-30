@@ -57,7 +57,7 @@ export const Regular: Story = {
             position: 'relative',
           }}
         >
-          <FloatToolbar actionButtons={actionButtons} placement="top" />
+          <FloatToolbar actionButtons={actionButtons} placement="left-start" />
         </div>
       </MockupJukiProvider>
     );

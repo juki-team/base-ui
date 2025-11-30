@@ -60,10 +60,9 @@ export function FullscreenTimerButton() {
     <>
       {isActive ? (
         <ButtonAction
-          placement="rightTop"
+          offset={8}
           className={classNames({ 'opacity-hover': times.state === 0 })}
           icon={<TimerIcon />}
-          
           type="secondary"
           size="tiny"
           buttons={[

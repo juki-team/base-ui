@@ -10,7 +10,7 @@ import {
 import { insert } from '@milkdown/kit/utils';
 import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
-import { type Dispatch, type SetStateAction, useEffect, useRef, useState } from 'react';
+import { type Dispatch, memo, type SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
@@ -114,60 +114,70 @@ function IAModalContent() {
   );
 }
 
-function Toolbar({ enableDownload, enableTextPlain, setMode, mode, enableIA }: ToolbarProps) {
+const Toolbar = memo(function Toolbar({
+                                        enableDownload,
+                                        enableTextPlain,
+                                        setMode,
+                                        mode,
+                                        enableIA,
+                                      }: ToolbarProps) {
   
   const [ , getInstance ] = useInstance();
   const [ openModalIA, setOpenModalIA ] = useState(false);
+  
+  const actionButtons = useMemo(() => [
+    ...(enableTextPlain ? [ {
+      icon: mode === Mode.TEXT_PLAIN
+        ? <ArticleIcon
+          onClick={() => setMode(Mode.WYSIWYG)}
+          data-tooltip-id="jk-tooltip"
+          data-tooltip-content="WYSIWYG"
+          data-tooltip-place="left"
+        />
+        : <CodeIcon
+          onClick={() => setMode(Mode.TEXT_PLAIN)}
+          data-tooltip-id="jk-tooltip"
+          data-tooltip-content="view as text plain"
+          data-tooltip-place="left"
+        />,
+    } ] : []),
+    ...(enableDownload ? [ {
+      icon: <DownloadIcon />,
+      buttons: [
+        // TODO:
+        // {
+        //   icon: <DownloadIcon />,
+        //   label: <T>pdf</T>,
+        //   onClick: handleShareMdPdf('pdf', source, sourceUrl, setSourceUrl, userTheme),
+        // },
+        {
+          icon: <DownloadIcon />,
+          label: <T>md</T>,
+          onClick: () => downloadBlobAsFile(new Blob([ getInstance()?.action(getMarkdown()) ?? '' ], { type: 'text/plain' }), 'file.md'),
+        },
+      ],
+    } ] : []),
+    ...(enableIA ? [ {
+      icon: (
+        <EditNoteIcon
+          onClick={() => setOpenModalIA(!openModalIA)}
+          data-tooltip-id="jk-tooltip"
+          data-tooltip-content="Juki Redactor Agent"
+          data-tooltip-place="left"
+        />
+      ),
+    } ] : []),
+  ], [ enableDownload, enableIA, enableTextPlain, getInstance, mode, openModalIA, setMode ]);
   
   return (
     <>
       <Modal isOpen={openModalIA} onClose={() => setOpenModalIA(false)} closeIcon>
         <IAModalContent />
       </Modal>
-      <FloatToolbar
-        actionButtons={[
-          ...(enableTextPlain ? [ {
-            icon: mode === Mode.TEXT_PLAIN ? <ArticleIcon /> : <CodeIcon />,
-            buttons: [
-              {
-                icon: mode === Mode.TEXT_PLAIN ? <ArticleIcon /> : <CodeIcon />,
-                label: mode === Mode.TEXT_PLAIN ? <T>WYSIWYG</T> : <T>view as text plain</T>,
-                onClick: () => setMode(mode === Mode.TEXT_PLAIN ? Mode.WYSIWYG : Mode.TEXT_PLAIN),
-              },
-            ],
-          } ] : []),
-          ...(enableDownload ? [ {
-            icon: <DownloadIcon />,
-            buttons: [
-              // TODO:
-              // {
-              //   icon: <DownloadIcon />,
-              //   label: <T>pdf</T>,
-              //   onClick: handleShareMdPdf('pdf', source, sourceUrl, setSourceUrl, userTheme),
-              // },
-              {
-                icon: <DownloadIcon />,
-                label: <T>md</T>,
-                onClick: () => downloadBlobAsFile(new Blob([ getInstance()?.action(getMarkdown()) ?? '' ], { type: 'text/plain' }), 'file.md'),
-              },
-            ],
-          } ] : []),
-          ...(enableIA ? [ {
-            icon: <EditNoteIcon />,
-            buttons: [
-              {
-                icon: <EditNoteIcon />,
-                label: <T>Juki Redactor Agent</T>,
-                onClick: () => setOpenModalIA(!openModalIA),
-              },
-            ],
-          } ] : []),
-        ]}
-        placement="rightTop"
-      />
+      <FloatToolbar actionButtons={actionButtons} offset={4} />
     </>
   );
-}
+});
 
 function ImageUploader({ mode }: { mode: Mode }) {
   

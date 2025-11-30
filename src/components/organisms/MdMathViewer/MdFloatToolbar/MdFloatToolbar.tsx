@@ -1,5 +1,5 @@
-import { downloadBlobAsFile } from '../../../helpers';
 import { T } from '../../../atoms';
+import { downloadBlobAsFile } from '../../../helpers';
 import { FloatToolbar } from '../../../molecules';
 import type { ButtonActionProps } from '../../../molecules/types';
 import { DownloadIcon, EditIcon, OpenInNewIcon } from '../../../server';
@@ -55,7 +55,7 @@ export function MdFloatToolbar({ source, edit, onEdit, download }: MdFloatToolba
   }
   
   if (actionButtons.length) {
-    return <FloatToolbar actionButtons={actionButtons} placement="rightTop" />;
+    return <FloatToolbar actionButtons={actionButtons} />;
   }
   
   return null;

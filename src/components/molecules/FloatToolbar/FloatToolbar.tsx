@@ -1,26 +1,35 @@
-import { type  CSSProperties } from 'react';
+import { CSSProperties, memo } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { PopoverProps } from '../../atoms/_lazy_/Popover/types';
 import { classNames } from '../../helpers';
 import { ButtonAction } from '../ButtonAction/ButtonAction';
 import type { FloatToolbarProps } from './types';
 
-export function FloatToolbar({ actionButtons, placement = 'rightTop', className }: FloatToolbarProps) {
+function FloatToolbarCmp(props: FloatToolbarProps) {
+  
+  const {
+    actionButtons,
+    placement = 'left-top' as PopoverProps['placement'],
+    className,
+    offset,
+    outer = false,
+  } = props;
   
   const { ref, width = 0, height = 0 } = useResizeDetector();
   
   if (actionButtons.length) {
+    const styles = {
+      '--jk-float-toolbar-container-width': `${width}px`,
+      '--jk-float-toolbar-container-height': `${height}px`,
+    } as CSSProperties;
+    
     return (
-      <div className={classNames('jk-float-toolbar-layout', placement, className)}>
-        <div
-          className="jk-float-toolbar-container jk-col gap stretch right"
-          ref={ref}
-          style={{
-            '--jk-float-toolbar-container-width': `${width}px`,
-            '--jk-float-toolbar-container-height': `${height}px`,
-            right: placement === 'out rightTop' ? `calc(-${width}px - var(--gap))` : undefined,
-          } as CSSProperties}
-        >
-          {actionButtons.map((props, index) => <ButtonAction {...props} placement={placement} key={index} />)}
+      <div
+        className={classNames('jk-float-toolbar-layout', placement, className, { outer })}
+        style={offset ? { ...styles, '--offset': `${offset}px` } as CSSProperties : styles}
+      >
+        <div className="jk-float-toolbar-container jk-col gap stretch right" ref={ref}>
+          {actionButtons.map((props, index) => <ButtonAction {...props} key={index} />)}
         </div>
       </div>
     );
@@ -28,3 +37,5 @@ export function FloatToolbar({ actionButtons, placement = 'rightTop', className 
   
   return null;
 }
+
+export const FloatToolbar = memo(FloatToolbarCmp);
