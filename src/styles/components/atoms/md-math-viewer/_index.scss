@@ -23,7 +23,7 @@
   p {
     margin: 0;
     font-family: inherit;
-    font-size: var(--tx-s-m);
+    //font-size: var(--tx-s-m);
     word-break: break-word;
     text-align: justify;
   }
@@ -97,17 +97,16 @@
   }
   
   blockquote {
-    padding-left: var(--pad-s);
-    //border-left: 4px solid var(--cr-tx-ht-lt);
     border-left: 4px solid var(--cr-tx-ht);
     margin: var(--pad-xt) 0;
-    font-weight: lighter;
     text-align: justify;
+    background: var(--cr-we-lt);
+    padding: calc(var(--pad-sm) / 2);
+    border-radius: 0 var(--border-radius-inline) var(--border-radius-inline) 0;
   }
   
   ul, ol {
     li::marker {
-      //color: var(--cr-tx-ht-lt);
       color: var(--cr-tx-ht);
     }
     
@@ -192,20 +191,8 @@
   }
   
   .jk-code-viewer {
-    padding: var(--pad-sm);
-    background: var(--cr-we-lt);
     border: none;
     box-sizing: border-box;
-    
-    .jk-code-viewer-line-numbers {
-      background: var(--cr-we-lt) !important;
-      padding: 0 calc(var(--pad-sm) / 2) 0 0 !important;
-    }
-    
-    code.hljs {
-      background: var(--cr-we-lt);
-      padding: 0 0 0 calc(var(--pad-sm) / 2);
-    }
   }
   
   .jk-code-mirror-editor-layout {

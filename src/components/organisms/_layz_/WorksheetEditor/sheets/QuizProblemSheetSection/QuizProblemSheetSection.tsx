@@ -13,10 +13,7 @@ import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { QuizProblemSheetSectionEditor } from './QuizProblemSheetSectionEditor';
 import { QuizProblemSheetSectionView } from './QuizProblemSheetSectionView';
 
-interface QuizProblemSheetSectionProps extends SheetSection<QuizProblemSheetType> {
-}
-
-export const QuizProblemSheetSection = (props: QuizProblemSheetSectionProps) => {
+export const QuizProblemSheetSection = (props: SheetSection<QuizProblemSheetType>) => {
   
   const {
     content: initialContent,
@@ -98,7 +95,8 @@ export const QuizProblemSheetSection = (props: QuizProblemSheetSectionProps) => 
               _setContent(initialContent);
             },
           })}
-          placement="out rightTop"
+          placement="right-end"
+          outer
         />
       )}
     </div>

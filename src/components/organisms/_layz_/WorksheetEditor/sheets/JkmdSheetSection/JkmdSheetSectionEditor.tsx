@@ -12,10 +12,10 @@ interface JkmdSheetSectionProps {
 export const JkmdSheetSectionEditor = ({ content, setContent, isSolvable }: JkmdSheetSectionProps) => {
   
   return (
-    <div className="jk-col left gap wh-100 jk-pg-sm">
+    <div className="jk-col left gap wh-100 jk-pg-sm tx-s">
       <Input
-        label={<T className="tt-se tx-s">title</T>}
-        labelPlacement="top"
+        label={<T className="tt-se">title</T>}
+        labelPlacement="left"
         value={content.title}
         onChange={title => setContent(prevState => ({ ...prevState, title }))}
         expand

@@ -107,7 +107,7 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
         )}
       </div>
       {setSheet && !asSlides && (
-        <div className="jk-row gap extend nowrap center jk-divider tiny editing">
+        <div className="jk-row gap extend nowrap center jk-divider tiny editing" style={{ height: 0 }}>
           <AddNewChild
             index={index}
             setSheet={setSheet}

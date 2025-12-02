@@ -25,10 +25,7 @@ import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { QuizOptionsSheetSectionEditor } from './QuizOptionsSheetSectionEditor';
 import { QuizOptionsSheetSectionView } from './QuizOptionsSheetSectionView';
 
-interface QuizOptionsSheetSectionProps extends SheetSection<QuizOptionsSheetType> {
-}
-
-export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => {
+export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheetType>) => {
   
   const {
     content: initialContent,
@@ -140,7 +137,8 @@ export const QuizOptionsSheetSection = (props: QuizOptionsSheetSectionProps) => 
               _setContent(initialContent);
             },
           })}
-          placement="out rightTop"
+          placement="right-end"
+          outer
         />
       )}
     </div>

@@ -52,7 +52,7 @@ export default function CodeViewer(props: CodeViewerProps) {
     >
       <div className="jk-code-viewer-content jk-row nowrap top jk-br-ie" style={{ maxHeight }}>
         {lineNumbers && (
-          <div className="jk-code-viewer-line-numbers">
+          <div className="jk-code-viewer-line-numbers jk-pg-sm-tb jk-pg-xsm-rl">
             {lines.map((_, i) => <div key={i} style={{ '--line-index': i } as CSSProperties}>{i + 1}</div>)}
           </div>
         )}
@@ -61,7 +61,7 @@ export default function CodeViewer(props: CodeViewerProps) {
           className="jk-br-ie"
         >
           <code
-            className={`ta-lt language-${CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext'}`}
+            className={`ta-lt language-${CODE_LANGUAGE[language]?.highlightJsKey || 'plaintext'} jk-pg-sm-trb jk-pg-xsm-l dy-bk`}
             style={{ minHeight: `calc(${lines.length} * (var(--text-medium-size) * 1.5))` }}
             dangerouslySetInnerHTML={{ __html: highlighted }}
           />

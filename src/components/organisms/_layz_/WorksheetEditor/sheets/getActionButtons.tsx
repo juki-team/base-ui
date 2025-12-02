@@ -2,7 +2,7 @@ import { BodyWorksheetType, WorksheetType } from '@juki-team/commons';
 import { Button, T } from '../../../../atoms';
 import { CloseIcon, EditIcon, SaveIcon, SettingsIcon, SortIcon, VisibilityIcon } from '../../../../atoms/server';
 import { ButtonActionProps } from '../../../../molecules/FloatToolbar/types';
-import { ButtonSizeType, ButtonType } from '../../../../types';
+import { ButtonSizeType } from '../../../../types';
 import { SetSheetType } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 import { upRemoveDownButtons } from './upRemoveDownActions';
@@ -40,31 +40,31 @@ export const getActionButtons = (props: getActionButtonsProps): ButtonActionProp
         </div>
       ),
     },
-    ...(onSaveEdit && onCancel ? [ {
-      icon: edit ? <VisibilityIcon size="small" /> : <EditIcon size="small" />,
-      children: edit ? (
-        <div className=" jk-col gap stretch">
-          <Button size="small" icon={<SaveIcon />}><T className="tt-se">save</T></Button>
-          <Button size="small" type="light" icon={<CloseIcon />}><T className="tt-se">cancel</T></Button>
-        </div>
-      ) : undefined,
-      buttons: [
-        {
-          icon: edit ? <SaveIcon /> : <EditIcon />,
-          label: <T className="tt-se">{edit ? 'save' : 'edit'}</T>,
+    ...(onSaveEdit && onCancel ?
+      edit ? [ {
+          icon: <VisibilityIcon size="small" />,
+          children: (
+            <div className=" jk-col gap stretch">
+              <Button size="small" icon={<SaveIcon />} onClick={onSaveEdit}><T className="tt-se">save</T></Button>
+              <Button
+                size="small"
+                type="light"
+                icon={<CloseIcon />}
+                onClick={onCancel}
+              ><T className="tt-se">cancel</T></Button>
+            </div>
+          ),
+          placement: 'left-start',
+        } as ButtonActionProps ]
+        : [ {
+          icon: <EditIcon size="small" />,
+          children: undefined,
           onClick: onSaveEdit,
-        },
-        ...(edit ? [
-          {
-            type: 'light' as ButtonType,
-            icon: <CloseIcon />,
-            label: <T className="tt-se">cancel</T>,
-            onClick: onCancel,
-          },
-        ] : []),
-      ],
-      placement: 'left-start',
-    } as ButtonActionProps ] : []),
+          ['data-tooltip-id']: 'jk-tooltip',
+          ['data-tooltip-content']: 'edit',
+          ['data-tooltip-place']: 'left',
+          placement: 'left-start',
+        } as ButtonActionProps ] : []),
     {
       icon: <SortIcon className="cr-we" up down />,
       size: 'tiny' as ButtonSizeType,

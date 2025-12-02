@@ -138,7 +138,7 @@ export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildPro
           offset={8}
           placement={floatToolbarPlacement}
         >
-          <Button icon={<PlusIcon />} />
+          <Button icon={<PlusIcon />} size="small" />
         </Popover>
       )}
       {!compacted && (

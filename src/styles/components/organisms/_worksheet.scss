@@ -2,7 +2,7 @@
 
 div[class$="-chunk"], div[class*="-chunk "] {
   
-  &:hover {
+  &.editing:hover {
     @include mixins.elevation(1);
   }
 }

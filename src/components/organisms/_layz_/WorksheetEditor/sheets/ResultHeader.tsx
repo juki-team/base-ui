@@ -40,7 +40,7 @@ export const ResultHeader = (props: PropsWithChildren<ResultHeaderProps>) => {
               'bc-er cr-we': userPoints === 0 && !isResolved && submitted,
             })}
           >
-            {+userPoints.toFixed(2)}&nbsp;<T>{userPoints === 1 ? 'pt' : 'pts'}</T>
+            {(+userPoints || 0).toFixed(2)}&nbsp;<T>{userPoints === 1 ? 'pt' : 'pts'}</T>
             <div className="jk-divider tiny" style={{ height: 1 }} />
             {points}&nbsp;<T>{points === 1 ? 'pt' : 'pts'}</T>
           </div>

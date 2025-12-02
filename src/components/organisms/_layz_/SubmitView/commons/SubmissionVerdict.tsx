@@ -114,7 +114,7 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
         )}
         {status === SubmissionRunStatus.COMPLETED && verdict === ProblemVerdict.PA && (
           <div className="jk-row nowrap" style={{}}>
-            ({points.toFixed(2)}&nbsp;<T>pts.</T>)
+            ({(+points || 0).toFixed(2)}&nbsp;<T>pts.</T>)
           </div>
         )}
       </div>

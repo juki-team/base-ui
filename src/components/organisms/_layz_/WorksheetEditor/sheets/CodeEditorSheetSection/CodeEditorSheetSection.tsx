@@ -11,10 +11,7 @@ import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { CodeEditorSheetSectionEditor } from './CodeEditorSheetSectionEditor';
 import { CodeEditorSheetSectionView } from './CodeEditorSheetSectionView';
 
-interface RunnerSheetSectionProps extends SheetSection<CodeEditorSheetType> {
-}
-
-export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
+export const CodeEditorSheetSection = (props: SheetSection<CodeEditorSheetType>) => {
   
   const {
     content: initialContent,
@@ -90,7 +87,8 @@ export const CodeEditorSheetSection = (props: RunnerSheetSectionProps) => {
               _setContent(initialContent);
             },
           })}
-          placement="out rightTop"
+          placement="right-end"
+          outer
         />
       )}
     </div>

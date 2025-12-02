@@ -16,22 +16,23 @@ interface TableOfContentsProps {
 export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: TableOfContentsProps) => {
   
   return (
-    <div className="jk-col gap stretch jk-pg-sm wh-100">
+    <div className="jk-col gap stretch jk-pg-xsm wh-100 tx-t">
       {sheetsInPages.map(({ header, content }, index) => {
         
         const subTitles = content.filter(chunk => !!chunk.title.trim());
         
         return (
           <div
-            className={classNames('jk-col stretch jk-br-ie', { 'br-hl': page === index + 1 })}
-            style={{ border: page === index + 1 ? undefined : '1px solid transparent' }}
+            key={index}
+            className={classNames('jk-col stretch jk-br-ie br-hl', { 'br-hlaa': page === index + 1 })}
+            style={{ border: page === index + 100 ? undefined : '1px solid transparent' }}
           >
             <Collapse
-              header={({ toggle, icon }) => (
+              header={({ toggle, Icon }) => (
                 <div
-                  className={classNames('fw-bd jk-row gap nowrap space-between stretch jk-br-ie', {
+                  className={classNames('jk-row gap nowrap space-between stretch jk-br-ie', {
                     'hoverable': !!onPageChange,
-                    'bc-hl cr-th': page === index + 1,
+                    'cr-th fw-br': page === index + 1,
                   })}
                   style={{ padding: '2px 8px' }}
                   key={index}
@@ -49,7 +50,7 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                       }}
                       className="jk-row"
                     >
-                      {icon}
+                      <Icon size="small" />
                     </div>
                   )}
                 </div>
@@ -57,22 +58,25 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
               startsShowing
             >
               {!!subTitles.length && (
-                <div className="jk-col stretch gap jk-pg-xsm-trb jk-pg-l jk-br-ie">
+                <div className="jk-col stretch jk-pg-xsm-rb jk-pg-l jk-br-ie">
                   {subTitles.map((chunk, subIndex) => {
+                    const subTitleSelected = page === index + 1 && subPage === subIndex + 1;
                     return (
                       <div
-                        className={classNames('fw-bd jk-row nowrap gap left stretch jk-br-ie', {
-                          'hoverable': !!onPageChange,
-                          'bc-hl cr-th': page === index + 1 && subPage === subIndex + 1,
+                        className={classNames('jk-row nowrap gap left stretch jk-pg-xsm', {
+                          'fw-bd': subTitleSelected,
+                          'hoverable jk-br-ie': !subTitleSelected && !!onPageChange,
                         })}
-                        style={{ padding: 2 }}
+                        style={{
+                          borderLeft: page === index + 1 && subPage === subIndex + 1 ? '3px solid var(--cr-pl)' : '3px solid transparent',
+                        }}
                         key={`${chunk.title}-${subIndex}`}
                         onClick={() => onPageChange?.(index + 1, subIndex + 1, {
                           name: QueryParamKey.PAGE_FOCUS,
                           value: chunk.id,
                         })}
                       >
-                        {LOGO_WORKSHEET_TYPE()[chunk?.type]?.icon || null}
+                        {LOGO_WORKSHEET_TYPE('small')[chunk?.type]?.icon || null}
                         <MdMath source={chunk.title} />
                       </div>
                     );

@@ -11,10 +11,7 @@ import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { GraphSheetSectionEditor } from './GraphSheetSectionEditor';
 import { GraphSheetSectionView } from './GraphSheetSectionView';
 
-interface GraphSheetSectionProps extends SheetSection<GraphSheetType> {
-}
-
-export const GraphSheetSection = (props: GraphSheetSectionProps) => {
+export const GraphSheetSection = (props: SheetSection<GraphSheetType>) => {
   
   const {
     content: initialContent,
@@ -74,6 +71,8 @@ export const GraphSheetSection = (props: GraphSheetSectionProps) => {
               _setContent(initialContent);
             },
           })}
+          placement="right-end"
+          outer
         />
       )}
     </div>

@@ -60,7 +60,7 @@ export const JudgeTabs = () => {
   const [ outputTab, setOutputTab ] = useState('problems');
   
   return (
-    <div className="jk-col gap nowrap bc-wd" style={{ height: 400 }}>
+    <div className="jk-col gap nowrap bc-we-dk" style={{ height: 400 }}>
       <TabsInline tabs={outputTabs} onChange={setOutputTab} selectedTabKey={outputTab} tickStyle="background" />
       <div className="flex-1" style={{ overflow: 'hidden auto', width: '100%', height: '300px', position: 'relative' }}>
         <TabsInlineBody tabs={outputTabs} selectedTabKey={outputTab} />

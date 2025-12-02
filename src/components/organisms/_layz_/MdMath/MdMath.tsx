@@ -259,13 +259,15 @@ function MdMathComponent(props: MdMathProps) {
           }
           
           return (
-            <CodeViewer
-              className={classNames({ 'fragment': isRoot })}
-              code={children}
-              language={language}
-              lineNumbers={commands.lineNumbers}
-              height={Number.isNaN(+(commands.height || '_')) ? commands.height : commands.height + 'px'}
-            />
+            <div className="jk-pg-sm bc-we-lt jk-br-ie">
+              <CodeViewer
+                className={classNames({ 'fragment': isRoot })}
+                code={children}
+                language={language}
+                lineNumbers={commands.lineNumbers}
+                height={Number.isNaN(+(commands.height || '_')) ? commands.height : commands.height + 'px'}
+              />
+            </div>
           );
         }
         

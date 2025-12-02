@@ -25,7 +25,6 @@
       background: var(--cr-we-det);
       border-right: 1px solid var(--cr-ht);
       left: 0;
-      padding: var(--pad-sm) calc(var(--pad-sm) / 2);
       position: sticky;
       text-align: right;
       user-select: none;
@@ -40,11 +39,6 @@
       flex: 1;
       height: min-content;
       margin: 0 !important;
-      
-      code {
-        display: block;
-        padding: var(--pad-sm) var(--pad-sm) var(--pad-sm) calc(var(--pad-sm) / 2);
-      }
     }
   }
   

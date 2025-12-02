@@ -95,11 +95,13 @@
 
 .bc-g6 { --background-color: var(--cr-gy-6); }
 
-.bc-wdt { --background-color: var(--cr-we-det); }
-
-.bc-wd { --background-color: var(--cr-we-dk); }
-
 .bc-we { --background-color: var(--cr-we); }
+
+.bc-we-lt { --background-color: var(--cr-we-lt); }
+
+.bc-we-dk { --background-color: var(--cr-we-dk); }
+
+.bc-we-det { --background-color: var(--cr-we-det); }
 
 .bc-il { --background-color: var(--cr-io-lt); }
 
@@ -479,6 +481,8 @@
 }
 
 .dy-cs { display: contents; }
+
+.dy-bk { display: block; }
 
 .dy-ib { display: inline-block; }
 
