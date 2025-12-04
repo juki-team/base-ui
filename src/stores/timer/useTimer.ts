@@ -41,7 +41,7 @@ export const useTimer = (key: string, initialInterval: number, onTimeout?: () =>
   }, [ key, setTimer ]);
   
   return {
-    counter: initialInterval < 0 ? remaining - counter : counter,
+    counter: initialInterval < 0 ? remaining - counter : remaining + counter,
     currentCounter: counter,
     countdownFrom: remaining,
     setCountdownFrom,
