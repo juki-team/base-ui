@@ -1,0 +1,13 @@
+import type { BasicIconProps, RootIconProps } from '../types';
+import { renderBasicIcon } from '../utils';
+
+const Icon = ({ color }: RootIconProps) => (
+  <path
+    d="M760-200H320q-33 0-56.5-23.5T240-280v-560q0-33 23.5-56.5T320-920h280l240 240v400q0 33-23.5 56.5T760-200ZM560-640v-200H320v560h440v-360H560ZM160-40q-33 0-56.5-23.5T80-120v-560h80v560h440v80H160Zm160-800v200-200 560-560Z"
+    fill={color}
+  />
+);
+
+export const FileCopyIcon = (props: BasicIconProps) => {
+  return renderBasicIcon({ ...props, viewBox: '0 -960 960 960' }, Icon, 'file-copy');
+};

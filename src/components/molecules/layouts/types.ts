@@ -27,14 +27,14 @@ export interface PathLoadingPawsProps extends Full<Omit<PawsLoadingLayoutProps, 
   bottom: number | string,
 }
 
-export interface TwoContentLayoutProps<T> extends PropsWithChildren <{
+export interface TwoContentLayoutProps<T> extends PropsWithChildren {
   breadcrumbs?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T; }, ReactNode[]>,
   tabs?: TabsType<T>,
   tabButtons?: ReactNodeOrFunctionP1Type<{ selectedTabKey?: T; }>[],
   getHrefOnTabChange?: (selectedTabKey: T) => Href,
   selectedTabKey?: T,
   loading?: boolean | ReactNode,
-}> {
+  tabsInlineClassName?: string,
 }
 
 export interface TwoContentCardsLayoutProps<T> extends TwoContentLayoutProps<T> {

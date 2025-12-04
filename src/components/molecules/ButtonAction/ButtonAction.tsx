@@ -21,6 +21,7 @@ export function ButtonAction(props: ButtonActionProps) {
     disabled,
     size = 'small',
     className,
+    popoverClassName,
     ...resProps
   } = props;
   
@@ -48,6 +49,7 @@ export function ButtonAction(props: ButtonActionProps) {
     <Popover
       triggerOn={isSmallScreen ? TriggerAction.CLICK : TriggerAction.HOVER}
       placement={placement}
+      popoverClassName={popoverClassName}
       // open
       offset={offset}
       content={

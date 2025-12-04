@@ -60,6 +60,7 @@ export { ExclamationIcon } from './ExclamationIcon';
 export { ExpandLessIcon } from './ExpandLessIcon';
 export { ExpandMoreIcon } from './ExpandMoreIcon';
 export { ExtensionIcon } from './ExtensionIcon';
+export { FileCopyIcon } from './FileCopyIcon';
 export { FileOpenIcon } from './FileOpenIcon';
 export { FilterListIcon } from './FilterListIcon';
 export { FolderIcon } from './FolderIcon';

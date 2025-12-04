@@ -19,6 +19,7 @@ import { type Variants } from 'motion-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } from 'react';
 import { Duration, TriggerAction } from '../../../../enums';
+import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { isTrigger, renderReactNodeOrFunctionP1 } from '../../../helpers';
 import type { TriggerOnActionsType } from '../../../types';
 import type { PopoverProps } from './types';
@@ -226,6 +227,7 @@ export default function Popover(props: PopoverProps) {
     triggerOn,
     offset,
   });
+  const jukiAppDivRef = useUIStore(store => store.jukiAppDivRef);
   const onOpenChangeRef = useRef(onOpenChange);
   
   onOpenChangeRef.current = onOpenChange;
@@ -245,7 +247,7 @@ export default function Popover(props: PopoverProps) {
       })}
       <AnimatePresence>
         {isOpen && (
-          <FloatingPortal>
+          <FloatingPortal root={jukiAppDivRef}>
             <FloatingFocusManager context={floatingContext} modal={modal}>
               <div
                 ref={refs.setFloating}

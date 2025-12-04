@@ -21,6 +21,7 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
     selectedTabKey: initialTabKey,
     children,
     loading,
+    tabsInlineClassName,
   } = props;
   
   const LOADING_TAB = 'loading' as T;
@@ -73,7 +74,7 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
             extraNodes={tabButtons}
             // extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
             tickStyle="background"
-            className="jk-pg-xsm-b"
+            className={classNames('jk-pg-xsm-b', tabsInlineClassName)}
             onChange={(tabKey) => {
               setSelectedTabKey(tabKey);
               if (getHrefOnTabChange && isBrowser()) {

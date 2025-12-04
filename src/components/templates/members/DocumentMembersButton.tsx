@@ -6,16 +6,16 @@ import {
   getDocumentAccess,
   HTTPMethod,
 } from '@juki-team/commons';
-import { useState } from 'react';
-import { Button, CopyToClipboard, Popover, T } from '../../atoms';
-import { ContentCopyIcon, EditIcon, InfoIIcon } from '../../atoms/server';
+import { PropsWithChildren, useState } from 'react';
+import { Button, CopyToClipboard, T } from '../../atoms';
+import { EditIcon, ShareIcon } from '../../atoms/server';
 import { authorizedRequest } from '../../helpers';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { ButtonAction } from '../../molecules';
 import { DocumentMembersModal } from './DocumentMembersModal/DocumentMembersModal';
 import type { DocumentMembersButtonProps } from './types';
 
-export function DocumentMembersButton(props: DocumentMembersButtonProps) {
+export function DocumentMembersButton(props: PropsWithChildren<DocumentMembersButtonProps>) {
   
   const {
     isAdministrator,
@@ -32,6 +32,7 @@ export function DocumentMembersButton(props: DocumentMembersButtonProps) {
     participants,
     spectators,
     guests,
+    children,
   } = props;
   
   const [ show, setShow ] = useState(false);
@@ -63,33 +64,9 @@ export function DocumentMembersButton(props: DocumentMembersButtonProps) {
     close();
   });
   
-  const info = (
-    <Popover
-      popoverClassName="bc-we jk-br-ie elevation-1"
-      offset={4}
-      content={
-        <div style={{ maxWidth: 256 }} className="jk-pg-xsm tx-s">
-          <div className="fw-bd">
-            <T className="tt-se">access</T>: <T className="tt-se">{entityAccess?.[documentAccess]?.name ?? ENTITY_ACCESS[documentAccess]?.label}</T>
-          </div>
-          <T className="tt-se">
-            {entityAccess?.[documentAccess]?.description ?? ENTITY_ACCESS[documentAccess]?.description}
-          </T>
-        </div>
-      }
-    >
-      <div className="jk-row">
-        <InfoIIcon circle />
-      </div>
-    </Popover>
-  );
-  
-  const button = (
-    <Button size="small" key="share">
-      <div className="jk-row gap nowrap">
-        <T className="tt-se">share</T>
-        {info}
-      </div>
+  const button = children || (
+    <Button key="share" icon={<ShareIcon />}>
+      <T className="tt-se">share</T>
     </Button>
   );
   
@@ -98,31 +75,45 @@ export function DocumentMembersButton(props: DocumentMembersButtonProps) {
       children: button,
       buttons: [
         {
-          children: button,
+          children: (
+            <div>
+              <div style={{ maxWidth: 256 }} className="jk-pg-xsm bc-we jk-br-ie">
+                <div className="fw-bd">
+                  <T className="tt-se">access</T>: <T className="tt-se">{entityAccess?.[documentAccess]?.name ?? ENTITY_ACCESS[documentAccess]?.label}</T>
+                </div>
+                <T className="tt-se">
+                  {entityAccess?.[documentAccess]?.description ?? ENTITY_ACCESS[documentAccess]?.description}
+                </T>
+              </div>
+              {(copyLink || isAdministrator) && (
+                <div className="jk-row gap nowrap">
+                  {copyLink && (
+                    <CopyToClipboard text={copyLink()} className="flex-1" size="small">
+                      <T className="tt-se">copy link</T>
+                    </CopyToClipboard>
+                  )}
+                  {isAdministrator && (
+                    <Button size="small" icon={<EditIcon />} onClick={() => setShow(true)} className="flex-1">
+                      <T className="tt-se">edit</T>
+                    </Button>
+                  )}
+                </div>
+              )}
+            </div>
+          ),
         },
-        ...(copyLink ? [ {
-          children: (
-            <CopyToClipboard text={copyLink()} tooltip="" noStyling key="copy-link">
-              <Button size="small" icon={<ContentCopyIcon />} type="void" className="bc-g6">
-                <T className="tt-se">copy link</T>
-              </Button>
-            </CopyToClipboard>
-          ),
-        } ] : []),
-        ...(isAdministrator ? [ {
-          children: (
-            <Button size="small" icon={<EditIcon />} onClick={() => setShow(true)} key="edit">
-              <T className="tt-se">edit</T>
-            </Button>
-          ),
-        } ] : []),
       ],
     },
   ];
   
   return (
     <>
-      <ButtonAction {...actionButtons[0]} className="top center" placement="top" />
+      <ButtonAction
+        {...actionButtons[0]}
+        className="top center"
+        placement="bottom"
+        popoverClassName="jk-pg-xsm bc-we jk-br-ie elevation-1"
+      />
       <DocumentMembersModal
         isOpen={show}
         onClose={() => setShow(false)}

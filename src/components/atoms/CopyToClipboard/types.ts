@@ -7,4 +7,5 @@ export interface CopyToClipboardProps {
   tooltip?: string,
   children?: ReactNode,
   noStyling?: boolean,
+  className?: string,
 }

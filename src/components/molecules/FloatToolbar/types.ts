@@ -25,6 +25,7 @@ export interface ButtonActionProps extends ButtonLoaderProps {
   offset?: PopoverProps['offset'],
   size?: ButtonProps['size'],
   className?: string,
+  popoverClassName?: string,
 }
 
 export interface FloatToolbarProps {
