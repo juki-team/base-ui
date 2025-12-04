@@ -44,7 +44,7 @@ export const WorksheetBody = forwardRef<HTMLDivElement, PropsWithChildren<Worksh
             quizOptionsSheetType
             pageDivider
             compacted
-            floatToolbarPlacement="center bottom"
+            floatToolbarPlacement="bottom"
           />
         </div>
       )}
