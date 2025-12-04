@@ -28,6 +28,7 @@ export function TimerLabeled(props: TimerLabeledProps) {
     ignoreLeadingZeros,
     ignoreTrailingZeros,
     maxSplit = 6,
+    minSplit = 1,
   } = props;
   
   const [ time, setTime ] = useState({ period: Period.CALC, remaining: 0, interval: 0 });
@@ -70,7 +71,7 @@ export function TimerLabeled(props: TimerLabeledProps) {
   }, [ currentDate, endDate, startDate ]);
   
   const myLabels = { ...DEFAULT_LABELS, ...labels };
-  const timeSplit = cutTimeSplit(Math.max(time.remaining, 0), type, false, false, maxSplit);
+  const timeSplit = cutTimeSplit(Math.max(time.remaining, 0), type, false, false, maxSplit, minSplit);
   const timeInterval = Math.max(timeSplit[timeSplit.length - 1]?.milliseconds ?? 0, 1);
   
   return (

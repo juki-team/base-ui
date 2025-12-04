@@ -14,4 +14,5 @@ export interface TimerLabeledProps {
   ignoreLeadingZeros?: boolean,
   ignoreTrailingZeros?: boolean,
   maxSplit?: number,
+  minSplit?: number,
 }
