@@ -1,14 +1,18 @@
 import { Meta, StoryObj } from '@storybook/react-webpack5';
 import { useState } from 'react';
-import { Input, T } from '../../atoms';
+import { EMPTY_USER } from '../../../constants';
+import { useUserStore } from '../../../stores/user/useUserStore';
+import { Button, Input, T } from '../../atoms';
 import { oneTab } from '../../helpers';
 import { MockupJukiProvider } from '../../mockup';
 import { MockJkContestTable } from '../../organisms/_layz_/DataViewer/JkContestTableTest/MockJkContestTable';
 import { MockJkProblemTable } from '../../organisms/_layz_/DataViewer/JkProblemTableTest/MockJkProblemTable';
 import { MockJkUserTable } from '../../organisms/_layz_/DataViewer/JkUserTableTest/MockJkUserTable';
 import { TabsType } from '../../types';
+import { ApplicationLoaderLayout } from './ApplicationLoaderLayout';
 import { TwoContentLayout as TwoContentLayoutComponent } from './TwoContentLayout';
 import { TwoContentLayoutProps } from './types';
+import { UserLoaderLayout } from './UserLoaderLayout';
 
 const meta: Meta<typeof TwoContentLayoutComponent> = {
   component: TwoContentLayoutComponent,
@@ -17,6 +21,23 @@ const meta: Meta<typeof TwoContentLayoutComponent> = {
 export default meta;
 
 type Story = StoryObj<typeof TwoContentLayoutComponent>;
+
+const UserLoader = () => {
+  
+  const user = useUserStore(store => store.user);
+  const setUser = useUserStore(store => store.setUser);
+  
+  return (
+    <Button
+      onClick={() => {
+        setUser(EMPTY_USER);
+        setTimeout(() => setUser(user), 3000);
+      }}
+    >
+      user loader
+    </Button>
+  );
+};
 
 const Component = <T, >(args: TwoContentLayoutProps<T>) => {
   const [ layout, setLayout ] = useState(1);
@@ -50,11 +71,25 @@ const Component = <T, >(args: TwoContentLayoutProps<T>) => {
       ),
     },
   };
+  const [ isOpenAppLoader, setIsOpenAppLoader ] = useState(false);
   
   return (
     <MockupJukiProvider>
+      {isOpenAppLoader && <ApplicationLoaderLayout />}
+      <UserLoaderLayout />
       <div style={{ position: 'absolute', top: 50, right: 50, zIndex: 10 }}>
         <Input<number> type="number" value={layout} onChange={setLayout} />
+        <div>
+          <Button
+            onClick={() => {
+              setIsOpenAppLoader(true);
+              setTimeout(() => setIsOpenAppLoader(false), 3000);
+            }}
+          >
+            app loader
+          </Button>
+          <UserLoader />
+        </div>
       </div>
       <div className="jk-col gap" style={{ height: 400 }}>
         {layout === 1 && (

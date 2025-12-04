@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { ProfileTab } from '../../../enums';
 import { jukiAppRoutes } from '../../../settings';
-import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
-import { Button, T } from '../../atoms';
+import { T } from '../../atoms';
 import { LockIcon } from '../../atoms/server';
 import { isJudgeWindowLocation } from '../../helpers';
-import { TwoContentLayout } from '../../molecules';
+import { TabsInlineButton, TwoContentLayout } from '../../molecules';
 import { ChangePasswordModal } from '../../organisms';
 import type { TabsType } from '../../types';
 import { EditProfileModal } from '../EditProfileModal/EditProfileModal';
@@ -26,7 +25,6 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
   const replaceRoute = useRouterStore(state => state.replaceRoute);
   const searchParams = useRouterStore(state => state.searchParams);
   const [ openModal, setOpenModal ] = useState('');
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   
   const onClose = () => setOpenModal('');
   const tab = searchParams.get('tab') as ProfileTab || ProfileTab.OVERVIEW;
@@ -76,25 +74,21 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
   
   const extraNodes = [
     ...(user.canResetPassword ? [
-      <Button
+      <TabsInlineButton
+        key="reset-password"
         icon={<LockIcon />}
         onClick={() => setOpenModal('RESET_PASSWORD')}
-        expand={isSmallScreen}
-        key="reset-password"
         type="light"
-      >
-        {!isSmallScreen && <T className="tt-se ws-np">reset password</T>}
-      </Button>,
+        label="reset password"
+      />,
     ] : []),
     ...(user.canEditProfileData ? [
-      <Button
+      <TabsInlineButton
+        key="update-profile"
         icon={<LockIcon />}
         onClick={() => setOpenModal('DATA')}
-        expand={isSmallScreen}
-        key="update-profile"
-      >
-        {!isSmallScreen && <T className="tt-se ws-np">update profile</T>}
-      </Button>,
+        label="update profile"
+      />,
     ] : []),
   ];
   

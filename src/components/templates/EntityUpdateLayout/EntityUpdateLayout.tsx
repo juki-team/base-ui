@@ -1,12 +1,10 @@
 import { cleanRequest, type ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
 import { useState } from 'react';
-import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { T } from '../../atoms';
 import { authorizedRequest } from '../../helpers';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { useMutate } from '../../hooks/useMutate';
-import { ButtonLoader } from '../../molecules';
+import { TabsInlineButton, TabsInlineButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';
 import { CloseIcon, SaveIcon } from '../../server';
 import type { EntityUpdateLayoutProps } from './types';
@@ -16,7 +14,6 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
   const { Cmp, entity: initialEntity, entityKey, viewRoute, updateApiURL, viewApiURL, toEntityUpsert } = props;
   
   const pushRoute = useRouterStore(state => state.pushRoute);
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const { notifyResponse } = useJukiNotification();
   const mutate = useMutate();
   const [ entity ] = useState(initialEntity);
@@ -27,17 +24,14 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
       onClickContinue={() => pushRoute(viewRoute(entityKey))}
       value={entityData as object}
     >
-      <ButtonLoader
+      <TabsInlineButton
         type="light"
-        size="small"
         icon={<CloseIcon />}
-      >
-        {!isSmallScreen && <T className="tt-se">cancel</T>}
-      </ButtonLoader>
+        label="cancel"
+      />
     </CheckUnsavedChanges>,
-    <ButtonLoader
+    <TabsInlineButtonLoader
       key="save"
-      size="small"
       type="secondary"
       disabled={disableUpdateButton}
       icon={<SaveIcon />}
@@ -56,10 +50,8 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
           pushRoute(viewRoute(entityKey));
         }
       }}
-      responsiveMobile
-    >
-      {!isSmallScreen && <T className="tt-se">update</T>}
-    </ButtonLoader>,
+      label="update"
+    />,
   ];
   
   return (

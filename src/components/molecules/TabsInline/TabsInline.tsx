@@ -138,7 +138,7 @@ export function TabsInline<T, >(props: TabsInlineProps<T>) {
             )))}
           </div>
         )}
-        <div className="jk-row left gap extend nowrap">
+        <div className="jk-row left extend nowrap">
           {isSmallScreen && (
             <TabWithLink
               tabKey={tabsArray[selectedTabIndex - 1]?.key}

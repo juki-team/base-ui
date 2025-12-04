@@ -104,27 +104,25 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
                 <T className="tt-se">only alphanumeric characters or dash or underscore is valid</T>}
             </p>
           </div>
-          <div className="jk-row gap">
-            <div className="jk-form-item">
-              <Input
-                label={
-                  <div className="jk-row left gap"><PersonIcon size="small" /><T className="tt-se">given name</T></div>
-                }
-                labelPlacement="top"
-                onChange={givenName => setUserState({ ...userState, givenName })}
-                value={userState.givenName}
-              />
-            </div>
-            <div className="jk-form-item">
-              <Input
-                label={
-                  <div className="jk-row left gap"><PersonIcon size="small" /><T className="tt-se">family name</T></div>
-                }
-                labelPlacement="top"
-                onChange={familyName => setUserState({ ...userState, familyName })}
-                value={userState.familyName}
-              />
-            </div>
+          <div className="jk-row-col gap">
+            <Input
+              label={
+                <div className="jk-row left gap"><PersonIcon size="small" /><T className="tt-se">given name</T></div>
+              }
+              labelPlacement="top"
+              onChange={givenName => setUserState({ ...userState, givenName })}
+              value={userState.givenName}
+              className="flex-1"
+            />
+            <Input
+              label={
+                <div className="jk-row left gap"><PersonIcon size="small" /><T className="tt-se">family name</T></div>
+              }
+              labelPlacement="top"
+              onChange={familyName => setUserState({ ...userState, familyName })}
+              value={userState.familyName}
+              className="flex-1"
+            />
           </div>
           <div className="jk-form-item">
             <label>
@@ -132,40 +130,34 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
               <TextArea onChange={aboutMe => setUserState({ ...userState, aboutMe })} value={userState.aboutMe} />
             </label>
           </div>
-          <div className="jk-row gap">
-            <div className="jk-form-item">
-              <Input
-                label={
-                  <div className="jk-row left gap">
-                    <LocationCityIcon size="small" /><T className="tt-se">country</T>
-                  </div>
-                }
-                labelPlacement="top"
-                onChange={country => setUserState({ ...userState, country })}
-                value={userState.country}
-              />
-            </div>
-            <div className="jk-form-item">
-              <Input
-                label={
-                  <div className="jk-row left gap"><LocationOnIcon size="small" /><T className="tt-se">city</T></div>
-                }
-                labelPlacement="top"
-                onChange={city => setUserState({ ...userState, city })}
-                value={userState.city}
-              />
-            </div>
-          </div>
-          <div className="jk-form-item">
+          <div className="jk-row-col gap">
             <Input
               label={
-                <div className="jk-row left gap"><SchoolIcon size="small" /><T className="tt-se">institution</T></div>
+                <div className="jk-row left gap">
+                  <LocationCityIcon size="small" /><T className="tt-se">country</T>
+                </div>
               }
               labelPlacement="top"
-              onChange={institution => setUserState({ ...userState, institution })}
-              value={userState.institution}
+              onChange={country => setUserState({ ...userState, country })}
+              value={userState.country}
+            />
+            <Input
+              label={
+                <div className="jk-row left gap"><LocationOnIcon size="small" /><T className="tt-se">city</T></div>
+              }
+              labelPlacement="top"
+              onChange={city => setUserState({ ...userState, city })}
+              value={userState.city}
             />
           </div>
+          <Input
+            label={
+              <div className="jk-row left gap"><SchoolIcon size="small" /><T className="tt-se">institution</T></div>
+            }
+            labelPlacement="top"
+            onChange={institution => setUserState({ ...userState, institution })}
+            value={userState.institution}
+          />
           <div className="fw-bd"><T className="tt-se">nicknames from other judges</T></div>
           {[
             [ Judge.CODEFORCES, Judge.CODEFORCES_GYM ],
@@ -184,7 +176,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
               </div>
             ))}
         </div>
-        <div className="jk-row gap extend right">
+        <div className="jk-row-col gap right wh-100">
           <Button type="light" onClick={onClose}><T className="tt-se">cancel</T></Button>
           <ButtonLoader
             disabled={!validLengthNickname || !validCharNickname}

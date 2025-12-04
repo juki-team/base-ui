@@ -11,7 +11,7 @@ export function ResetPasswordModal({ nickname, companyKey, ...modalProps }: Rese
   return (
     <Modal {...modalProps}>
       <div className="jk-pg-md jk-col gap left stretch">
-        <h2><T>reset password</T></h2>
+        <h2><T className="tt-se">reset password</T></h2>
         <div className="jk-row left">
           <T className="tt-se">the password for</T>&nbsp;
           <UserNicknameLink nickname={nickname}>
@@ -19,11 +19,11 @@ export function ResetPasswordModal({ nickname, companyKey, ...modalProps }: Rese
           </UserNicknameLink>&nbsp;
           <T>will be reset</T>.
         </div>
-        <div>
+        <div className="jk-row left">
           <T className="tt-se">{'the new password will be sent to user\'s email'}</T>.
         </div>
         <div className="jk-row right gap extend">
-          <Button type="light" onClick={modalProps.onClose}><T>cancel</T></Button>
+          <Button type="light" onClick={modalProps.onClose}><T className="tt-se">cancel</T></Button>
           <ButtonLoader
             onClick={(setLoader) => resetUserPassword({
               params: { nickname, companyKey },
@@ -31,7 +31,7 @@ export function ResetPasswordModal({ nickname, companyKey, ...modalProps }: Rese
               onSuccess: modalProps.onClose,
             })}
           >
-            <T>reset_2</T>
+            <T className="tt-se">reset_2</T>
           </ButtonLoader>
         </div>
       </div>

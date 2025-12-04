@@ -6,12 +6,10 @@ import {
   Status,
 } from '@juki-team/commons';
 import { useState } from 'react';
-import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
-import { T } from '../../atoms';
 import { authorizedRequest } from '../../helpers';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { ButtonLoader } from '../../molecules';
+import { TabsInlineButton, TabsInlineButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';
 import { CloseIcon, SaveIcon } from '../../server';
 import type { EntityCreateLayoutProps } from './types';
@@ -23,7 +21,6 @@ export function EntityCreateLayout<T, U, V>(props: EntityCreateLayoutProps<T, U,
   const [ entity ] = useState(newEntity());
   const { notifyResponse } = useJukiNotification();
   const pushRoute = useRouterStore(state => state.pushRoute);
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   
   const tabButtons = ({ entityData }: { entityData: T }) => [
     <CheckUnsavedChanges
@@ -31,17 +28,14 @@ export function EntityCreateLayout<T, U, V>(props: EntityCreateLayoutProps<T, U,
       onClickContinue={() => pushRoute(listRoute())}
       value={entityData as object}
     >
-      <ButtonLoader
+      <TabsInlineButton
         type="light"
-        size="small"
         icon={<CloseIcon />}
-      >
-        {!isSmallScreen && <T className="tt-se">cancel</T>}
-      </ButtonLoader>
+        label="cancel"
+      />
     </CheckUnsavedChanges>,
-    <ButtonLoader
+    <TabsInlineButtonLoader
       key="save"
-      size="small"
       type="secondary"
       icon={<SaveIcon />}
       onClick={async (setLoaderStatus) => {
@@ -58,10 +52,8 @@ export function EntityCreateLayout<T, U, V>(props: EntityCreateLayoutProps<T, U,
           pushRoute(viewRoute(key));
         }
       }}
-      responsiveMobile
-    >
-      {!isSmallScreen && <T className="tt-se">create</T>}
-    </ButtonLoader>,
+      label="create"
+    />,
   ];
   
   return (
