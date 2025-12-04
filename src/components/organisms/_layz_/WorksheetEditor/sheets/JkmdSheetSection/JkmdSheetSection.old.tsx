@@ -135,7 +135,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
               _setContent(initialContent);
             },
           })}
-          placement="out rightTop"
+          placement="right-end"
         />
       )}
     </div>
