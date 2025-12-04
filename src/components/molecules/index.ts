@@ -27,6 +27,7 @@ export { TabsInlineBody } from './TabsInlineBody/TabsInlineBody';
 export { ThemeColorPalette } from './ThemeColorPalette/ThemeColorPalette';
 export { TimePicker } from './TimePicker/TimePicker';
 export { Timer } from './Timer/Timer';
+export { TimerDisplay } from './Timer/TimerDisplay';
 export { TimerLabeled } from './TimerLabeled/TimerLabeled';
 export { TwoActionModal } from './TwoActionModal/TwoActionModal';
 export { TwoContentCardsLayout } from './layouts/TwoContentCardsLayout';
