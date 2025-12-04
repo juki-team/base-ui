@@ -34,8 +34,8 @@ export function InputToggle(props: InputToggleProps) {
       <span
         className="jk-input-toggle-slider"
         style={{
-          marginLeft: !!leftLabel ? 'var(--pad-xt)' : undefined,
-          marginRight: !!rightLabel ? 'var(--pad-xt)' : undefined,
+          marginLeft: leftLabel ? 'var(--pad-xt)' : undefined,
+          marginRight: rightLabel ? 'var(--pad-xt)' : undefined,
         }}
       />
       <div onClick={handleClick(true)}>{rightLabel}</div>

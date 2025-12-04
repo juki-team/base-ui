@@ -175,8 +175,8 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
                     <div className="jk-row">
                       ~&nbsp;
                       {judgmentTime > 0
-                        ? <Timer currentTimestamp={judgmentTime} interval={0} literal type="seconds" />
-                        : <Timer currentTimestamp={Date.now() - -judgmentTime} interval={1000} literal type="seconds" />
+                        ? <Timer remaining={judgmentTime} interval={0} literal type="seconds" />
+                        : <Timer remaining={Date.now() - -judgmentTime} interval={1000} literal type="seconds" />
                       }
                     </div>
                   ),

@@ -1,3 +1,5 @@
+@use "../../mixins";
+
 .laser-pointer {
   animation: pulse 0.8s infinite ease-in-out;
   background: red;
@@ -47,6 +49,22 @@
 }
 
 .presentation-tool-buttons {
+  position: fixed;
+  z-index: var(--zi-tool-buttons);
+  right: calc(var(--pad-sm) / 2) !important;
+  top: calc(var(--pad-sm) / 2) !important;
+  padding: 4px;
+  border-radius: var(--border-radius-inline);
+  
+  &:not(:hover) > *:not(:first-child):not(.is-active) {
+    display: none;
+    opacity: 0;
+  }
+  
+  &:hover {
+    background: var(--cr-we-lt);
+    @include mixins.elevation(1);
+  }
   
   .jk-button.tiny {
     font-size: 12px;
@@ -59,29 +77,6 @@
       min-height: 14px;
       min-width: 14px;
       width: 14px;
-    }
-  }
-  
-  .buttons-content {
-    font-size: 16px;
-    line-height: 24px;
-    
-    .tx-t {
-      font-size: 12px;
-      line-height: 18px;
-    }
-    
-    .jk-icon {
-      height: 24px;
-      --size: calc(16px * 1.5);
-      line-height: 18px;
-      min-height: 24px;
-      min-width: 24px; /*var(--size-icon)*/
-      width: 24px; /*var(--size-icon)*/
-    }
-    
-    .jk-input-toggle-slider {
-      --input-toggle-height: 14px;
     }
   }
 }

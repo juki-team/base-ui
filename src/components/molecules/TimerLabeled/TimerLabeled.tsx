@@ -85,7 +85,7 @@ export function TimerLabeled(props: TimerLabeledProps) {
       </div>
       <Timer
         type={type}
-        currentTimestamp={time.remaining}
+        remaining={time.remaining}
         interval={time.interval * timeInterval}
         literal={literal}
         inline={inline}

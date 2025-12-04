@@ -1,99 +1,34 @@
-import { Fragment, memo, useEffect, useRef, useState } from 'react';
-import { T } from '../../atoms';
-import { classNames, cutTimeSplit } from '../../helpers';
-import { useInterval } from '../../hooks/useInterval';
-import { useStableState } from '../../hooks/useStableState';
+import { useEffect, useId } from 'react';
+import { useTimer } from '../../../stores/timer/useTimer';
+import { TimerDisplay } from './TimerDisplay';
 import type { TimerProps } from './types';
 
-function TimerComponent(props: TimerProps) {
+export function Timer(props: TimerProps) {
   
   const {
-    currentTimestamp,
-    interval: _interval = 1,
-    inline,
-    literal,
-    ignoreLeadingZeros = false,
-    ignoreTrailingZeros = false,
-    maxSplit = 6,
-    abbreviated = false,
-    type = 'hours-minutes-seconds',
-    pause,
+    remaining,
+    interval,
     resetTrigger,
-    className,
+    timerKey,
     onTimeout,
+    ...restProps
   } = props;
   
-  const [ interval, setInterval ] = useStableState(_interval);
-  const [ counter, setCounter ] = useState({ remaining: currentTimestamp, startTimestamp: 0 });
-  const onTimeoutExecuted = useRef(false);
+  const timerKeyId = useId();
+  const { counter, start, clear, reset, setCountdownFrom } = useTimer(timerKey || timerKeyId, interval, onTimeout);
   
   useEffect(() => {
-    const slack = currentTimestamp % Math.abs(interval);
-    const startCounting = setTimeout(() => {
-      setCounter({
-        remaining: currentTimestamp,
-        startTimestamp: Date.now(),
-      });
-    }, slack);
-    onTimeoutExecuted.current = false;
+    setCountdownFrom(remaining);
+  }, [ remaining, setCountdownFrom ]);
+  useEffect(() => {
+    reset();
+    start();
+  }, [ reset, start, resetTrigger ]);
+  useEffect(() => {
     return () => {
-      clearTimeout(startCounting);
+      clear();
     };
-  }, [ interval, currentTimestamp, resetTrigger ]);
+  }, [ clear ]);
   
-  useInterval(() => {
-    const startTimestamp = Date.now();
-    setCounter(prevState => {
-      const remaining = pause ? prevState.remaining : prevState.remaining - (interval < 0 ? startTimestamp - prevState.startTimestamp : prevState.startTimestamp - startTimestamp);
-      if (interval < 0 && remaining <= 0) {
-        if (!onTimeoutExecuted.current) {
-          onTimeoutExecuted.current = true;
-          onTimeout?.();
-          setInterval(0);
-        }
-      }
-      return {
-        startTimestamp,
-        remaining,
-      };
-    });
-  }, Math.abs(interval));
-  
-  const timeSplit = cutTimeSplit(counter.remaining, type, ignoreLeadingZeros, ignoreTrailingZeros, maxSplit);
-  
-  return (
-    <div className={classNames('jk-timer-layout jk-row nowrap', className, { literal: !!literal, inline: !!inline })}>
-      {literal ? timeSplit.map((remaining, index) => (
-        <Fragment key={remaining.label + index}>
-          {(index > 0) && <T>and</T>}
-          <span>{remaining.remaining}</span>
-          <T>{abbreviated ? remaining.abbreviatedLabel : remaining.label}</T>
-        </Fragment>
-      )) : inline ? timeSplit.map((remaining, index) => (
-        <div key={remaining.label + index}>
-          <span className="ff-me">{remaining.remaining.padStart(remaining.digits, '0')}</span>
-          {(index !== timeSplit.length - 1 && [ 'h', 'm' ].includes(remaining.abbreviatedLabel)) && (
-            <span className="fw-bd">:</span>
-          )}
-          {(index !== timeSplit.length - 1 && [ 's' ].includes(remaining.abbreviatedLabel)) && (
-            <span className="fw-bd">.</span>
-          )}
-          {[ 'w', 'd' ].includes(remaining.abbreviatedLabel) && (
-            <><T>{abbreviated ? remaining.abbreviatedLabel : remaining.label}</T>&nbsp;</>
-          )}
-        </div>
-      )) : timeSplit.map((remaining, index) => (
-        <Fragment key={remaining.label + index}>
-          <div className="content-stamp">
-            <div className="jk-row ff-me">{remaining.remaining.padStart(remaining.digits, '0')}</div>
-            <div className="content-label jk-row">
-              <T className="tt-se">{abbreviated ? remaining.abbreviatedLabel : remaining.label}</T></div>
-          </div>
-          {(index !== timeSplit.length - 1) && <span className="fw-bd">:</span>}
-        </Fragment>
-      ))}
-    </div>
-  );
+  return <TimerDisplay {...restProps} counter={counter} />;
 }
-
-export const Timer = memo(TimerComponent);

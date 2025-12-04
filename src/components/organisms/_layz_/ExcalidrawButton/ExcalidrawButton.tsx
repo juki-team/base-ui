@@ -62,7 +62,7 @@ export default function ExcalidrawButton() {
       {isActive ? (
         <ButtonAction
           offset={8}
-          className="opacity-hover"
+          className="is-active right"
           icon={<EditIcon />}
           type="secondary"
           size="tiny"
@@ -134,7 +134,7 @@ export default function ExcalidrawButton() {
           ]}
         />
       ) : (
-        <div className="jk-row right opacity-hover">
+        <div className="jk-row right">
           <Button
             tooltipContent="active excalidraw"
             type="light"

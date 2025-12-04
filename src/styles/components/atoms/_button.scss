@@ -59,7 +59,7 @@
   cursor: pointer;
   overflow: hidden;
   padding: calc(var(--tx-h-m) / 4) calc(var(--tx-h-m) / 2);
-  opacity: 1;
+  //opacity: 1;
   line-height: calc(var(--line-height) - 4px);
   --size-button-loader-icon: var(--line-height);
   @include mixins.transition-fast(opacity, padding, outline-color, outline-width);

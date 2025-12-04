@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 import { type UseFormRegisterReturn, type UseFormSetValue } from 'react-hook-form';
-import type { ButtonType, ReactNodeOrFunctionType } from '../../types';
+import type { ButtonSizeType, ButtonType, ReactNodeOrFunctionType } from '../../types';
 import type { SelectOption2Type, SelectProps } from '../Select/types';
 import type { TextAreaProps } from '../TextArea/types';
 import { InputProps } from './Input';
@@ -49,7 +49,7 @@ export interface InputToggleProps {
   className?: string,
   leftLabel?: ReactNode,
   rightLabel?: ReactNode,
-  size?: 'tiny' | 'small' | 'regular' | 'large',
+  size?: ButtonSizeType,
   disabled?: boolean,
 }
 

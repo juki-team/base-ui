@@ -199,8 +199,13 @@ span.jk-row, span.jk-col {
   z-index: var(--zi-overlay);
 }
 
+
 .jk-overlay-backdrop {
   background-color: var(--cr-sw-lt);
+  backdrop-filter: blur(4px);
+}
+
+.bf-4 {
   backdrop-filter: blur(4px);
 }
 
@@ -297,6 +302,14 @@ span.jk-row, span.jk-col {
 
 .opacity-hover {
   opacity: 0.2;
+  
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.opacity-hover-4 {
+  opacity: 0.4;
   
   &:hover {
     opacity: 1;

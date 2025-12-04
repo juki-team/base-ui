@@ -48,32 +48,33 @@ export const Regular: Story = {
         type="seconds"
       />
       <h3>Timer</h3>
-      <Timer interval={-1} currentTimestamp={10 * 1000} type="weeks-days-hours-minutes-seconds-milliseconds" />
-      <Timer interval={-1000} currentTimestamp={10 * 60 * 1000} type="weeks-days-hours-minutes" />
-      <Timer interval={-1} currentTimestamp={60 * 1000} type="days" abbreviated />
+      <Timer interval={-1} remaining={10 * 1000} type="weeks-days-hours-minutes-seconds-milliseconds" />
+      <Timer interval={-1000} remaining={10 * 60 * 1000} type="weeks-days-hours-minutes" />
+      <Timer interval={-1} remaining={60 * 1000} type="days" abbreviated />
       <Timer
         interval={-1}
-        currentTimestamp={300 * 365 * 24 * 60 * 60 * 1000}
+        remaining={300 * 365 * 24 * 60 * 60 * 1000}
         type="weeks-days-hours-minutes-seconds-milliseconds"
       />
       <Timer
         interval={1}
-        currentTimestamp={300 * 365 * 24 * 60 * 60 * 1000}
+        remaining={300 * 365 * 24 * 60 * 60 * 1000}
         type="weeks-days-hours-minutes-seconds-milliseconds"
       />
       <Timer
         interval={-1}
-        currentTimestamp={10 * 1000}
+        remaining={10 * 1000}
         type="weeks-days-hours-minutes-seconds-milliseconds"
         onTimeout={() => {
           alert('timeout!');
         }}
+        
         ignoreTrailingZeros
         ignoreLeadingZeros
       />
       
       <Timer
-        interval={-1} currentTimestamp={10 * 60 * 1000} literal type="seconds-milliseconds"
+        interval={-1} remaining={10 * 60 * 1000} literal type="seconds-milliseconds"
       />
     </MockupJukiProvider>
   ),

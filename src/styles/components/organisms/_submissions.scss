@@ -1,0 +1,15 @@
+.top-bottom-inset-shadow {
+  position: relative;
+  overflow: hidden;
+  
+  &:after {
+    height: 100%;
+    width: calc(100% + 16px);
+    position: absolute;
+    content: "";
+    top: 0;
+    left: -8px;
+    pointer-events: none;
+    box-shadow: inset 0px -1px 2px 1px var(--cr-ht), inset 0px 1px 2px 1px var(--cr-ht);
+  }
+}

@@ -1,7 +1,9 @@
 import { ONE_MINUTE } from '@juki-team/commons';
-import { useEffect, useMemo, useState } from 'react';
+import { CSSProperties, useCallback, useState } from 'react';
 import { useSoundStore } from '../../../../stores/sound/useSoundStore';
+import { useTimer } from '../../../../stores/timer/useTimer';
 import { Button, InputToggle, Portal, T } from '../../../atoms';
+import { ButtonProps } from '../../../atoms/Button/Button';
 import {
   AlarmIcon,
   FullscreenExitIcon,
@@ -12,56 +14,134 @@ import {
   UndoIcon,
 } from '../../../atoms/server';
 import { classNames } from '../../../helpers';
-import { ButtonAction, Timer } from '../../../molecules';
+import { ButtonAction } from '../../../molecules';
+import { TimerDisplay } from '../../../molecules/Timer/TimerDisplay';
 
 export function FullscreenTimerButton() {
   
+  const playBell = useSoundStore(store => store.playBell);
   const [ isActive, setIsActive ] = useState(false);
   const [ fullscreen, setFullscreen ] = useState(true);
-  const [ times, setTimes ] = useState<{ state: 0 | 1 | 2, startTimestamp: number, currentTimestamp: number }>({
-    state: 0,
-    startTimestamp: 0,
-    currentTimestamp: 0,
-  });
   const [ type, setType ] = useState<'timer' | 'countdown'>('timer');
-  const playBell = useSoundStore(store => store.playBell);
-  useEffect(() => {
-    let time = null;
-    if (times.currentTimestamp > 0) {
-      time = setTimeout(() => {
-        playBell();
-        for (let i = 1; i <= 3; i++) {
-          setTimeout(() => {
-            playBell();
-          }, i * 1000);
-        }
-      }, times.currentTimestamp);
-    } else {
-      setTimes({ state: 0, startTimestamp: 0, currentTimestamp: 0 });
-    }
-    return () => {
-      if (time) {
-        clearTimeout(time);
-      }
-    };
-  }, [ playBell, times.currentTimestamp ]);
   
-  const timer = useMemo(() => (
-    <Timer
-      interval={times.state === 0 ? 0 : type === 'timer' ? 100 : -100}
-      pause={times.state === 0 ? undefined : times.state === 2}
-      currentTimestamp={times.currentTimestamp}
-      type="hours-minutes-seconds"
-      inline
+  const timeout = useCallback(() => {
+    if (type === 'countdown') {
+      playBell();
+      for (let i = 1; i <= 3; i++) {
+        setTimeout(() => {
+          playBell();
+        }, i * 1000);
+      }
+    }
+  }, [ playBell, type ]);
+  const countdown = useTimer('tool-buttons-countdown', -1000, timeout);
+  const timer = useTimer('tool-buttons-timer', 1000);
+  
+  const timerCountdown = type === 'timer' ? timer : countdown;
+  
+  const typeToggle = (size: ButtonProps['size']) => (
+    <InputToggle
+      size={size}
+      className="ht-ao"
+      leftLabel={
+        <div className={classNames(`jk-row tx-${(size || '').at(0)} fw-bd`, { '--cr-tx-ht': type === 'timer' })}>
+          <T className="tt-se">timer</T>
+          &nbsp;
+          <TimerIcon
+            size={size}
+            filledCircle={type === 'timer' ? true : 'var(--cr-tx-ht)'}
+            className={classNames({ 'cr-py': type === 'timer', 'cr-we': type !== 'timer' })}
+          />
+        </div>
+      }
+      rightLabel={
+        <div className={classNames(`jk-row tx-${(size || '').at(0)} fw-bd`, { '--cr-tx-ht': type === 'timer' })}>
+          <AlarmIcon
+            size={size}
+            filledCircle={type === 'countdown' ? true : 'var(--cr-tx-ht)'}
+            className={classNames({ 'cr-py': type === 'countdown', 'cr-we': type !== 'countdown' })}
+          />
+          &nbsp;
+          <T className="tt-se">countdown</T>
+        </div>
+      }
+      checked={type === 'countdown'}
+      onChange={() => {
+        setType(type === 'countdown' ? 'timer' : 'countdown');
+        timer.clear();
+        countdown.clear();
+      }}
     />
-  ), [ times.currentTimestamp, times.state, type ]);
+  );
+  
+  const timerDisplay = (
+    <TimerDisplay
+      inline
+      type="hours-minutes-seconds"
+      counter={timerCountdown.counter}
+    />
+  );
+  
+  const timerButtons = (size: ButtonProps['size']) => (
+    <>
+      {type === 'countdown' && (
+        <div className="jk-row gap">
+          <Button
+            size={size}
+            icon={<div>+1</div>}
+            onClick={() => countdown.setCountdownFrom(countdown.countdownFrom + ONE_MINUTE)}
+          />
+          <Button
+            size={size}
+            icon={<div>+5</div>}
+            onClick={() => countdown.setCountdownFrom(countdown.countdownFrom + (ONE_MINUTE * 5))}
+          />
+          <Button
+            size={size}
+            icon={<div>-1</div>}
+            onClick={() => countdown.setCountdownFrom(Math.max(countdown.countdownFrom - ONE_MINUTE, 0))}
+          />
+          <Button
+            size={size}
+            icon={<div>-5</div>}
+            onClick={() => countdown.setCountdownFrom(Math.max(countdown.countdownFrom - (ONE_MINUTE * 5), 0))}
+          />
+        </div>
+      )}
+      <div className="jk-row gap block">
+        <Button
+          size={size}
+          icon={timerCountdown.isRunning ? <PauseCircleIcon /> : <PlayCircleIcon />}
+          onClick={() => {
+            if (timerCountdown.isRunning) {
+              timerCountdown.pause();
+            } else {
+              timerCountdown.start();
+            }
+          }}
+          type={timerCountdown.isRunning ? 'light' : 'primary'}
+          className={timerCountdown.isRunning ? '' : 'bc-ss cr-we'}
+        />
+        <Button
+          size={size}
+          icon={<UndoIcon />}
+          disabled={timerCountdown.isStopped}
+          className="bc-er cr-we"
+          onClick={() => {
+            timer.clear();
+            countdown.clear();
+          }}
+        />
+      </div>
+    </>
+  );
   
   return (
     <>
       {isActive ? (
         <ButtonAction
           offset={8}
-          className={classNames({ 'opacity-hover': times.state === 0 })}
+          className={classNames('is-active right', {})}
           icon={<TimerIcon />}
           type="secondary"
           size="tiny"
@@ -73,151 +153,16 @@ export function FullscreenTimerButton() {
               type: 'secondary',
               onClick: () => {
                 setIsActive(false);
-                setTimes({ state: 0, startTimestamp: 0, currentTimestamp: 0 });
+                timer.clear();
+                countdown.clear();
               },
-              // children: (
-              //   <div className="jk-row right opacity-hover">
-              //     <Button
-              //       tooltipContent="desactive timer / countdown"
-              //       type="secondary"
-              //       size="tiny"
-              //       icon={<TimerIcon />}
-              //       onClick={() => {
-              //         setIsActive(false);
-              //         setTimes({ state: 0, startTimestamp: 0, currentTimestamp: 0 });
-              //       }}
-              //     >
-              //       <T>exit</T>
-              //     </Button>
-              //   </div>
-              // ),
             },
             {
               children: (
                 <div className="jk-col gap bc-we elevation-1 jk-pg-xsm jk-br-ie">
-                  <T className="tt-se">{type}</T>
-                  {timer}
-                  {type === 'countdown' && (
-                    <div className="jk-row gap">
-                      <Button
-                        size="tiny"
-                        icon={<div>+1</div>}
-                        onClick={() => {
-                          const now = Date.now();
-                          setTimes(prevState => ({
-                            ...prevState,
-                            currentTimestamp: Math.max(prevState.currentTimestamp - (now - prevState.startTimestamp), 0) + ONE_MINUTE,
-                            startTimestamp: now,
-                          }));
-                        }}
-                      />
-                      <Button
-                        size="tiny"
-                        icon={<div>+5</div>}
-                        onClick={() => {
-                          const now = Date.now();
-                          setTimes(prevState => ({
-                            ...prevState,
-                            currentTimestamp: Math.max(prevState.currentTimestamp - (now - prevState.startTimestamp), 0) + (ONE_MINUTE * 5),
-                            startTimestamp: now,
-                          }));
-                        }}
-                      />
-                      <Button
-                        size="tiny"
-                        icon={<div>-1</div>}
-                        onClick={() => {
-                          const now = Date.now();
-                          setTimes(prevState => ({
-                            ...prevState,
-                            currentTimestamp: Math.max(prevState.currentTimestamp - (now - prevState.startTimestamp), 0) - ONE_MINUTE,
-                            startTimestamp: now,
-                          }));
-                        }}
-                      />
-                      <Button
-                        size="tiny"
-                        icon={<div>-5</div>}
-                        onClick={() => {
-                          const now = Date.now();
-                          setTimes(prevState => ({
-                            ...prevState,
-                            currentTimestamp: Math.max(prevState.currentTimestamp - (now - prevState.startTimestamp), 0) - ONE_MINUTE * 5,
-                            startTimestamp: now,
-                          }));
-                        }}
-                      />
-                    </div>
-                  )}
-                  <div className="jk-row gap block">
-                    <Button
-                      size="tiny"
-                      icon={times.state === 1
-                        ? <PauseCircleIcon />
-                        : times.state === 2
-                          ? <PlayCircleIcon />
-                          : <PlayCircleIcon />}
-                      onClick={() => {
-                        const now = Date.now();
-                        if (times.state === 1) {
-                          if (type === 'timer') {
-                            setTimes(prevState => ({
-                              ...prevState,
-                              state: 2,
-                              currentTimestamp: now - times.startTimestamp,
-                            }));
-                          } else {
-                            setTimes(prevState => ({
-                              ...prevState,
-                              state: 2,
-                              currentTimestamp: prevState.currentTimestamp - (now - prevState.startTimestamp),
-                              startTimestamp: now,
-                            }));
-                          }
-                        }
-                        if (times.state === 2) {
-                          if (type === 'timer') {
-                            setTimes(prevState => ({
-                              ...prevState,
-                              state: 1,
-                              startTimestamp: now - times.currentTimestamp,
-                            }));
-                          } else {
-                            setTimes(prevState => ({
-                              ...prevState,
-                              state: 1,
-                              startTimestamp: now,
-                            }));
-                          }
-                        }
-                        if (times.state === 0) {
-                          if (type === 'timer') {
-                            setTimes(prevState => ({
-                              ...prevState,
-                              state: 1,
-                              startTimestamp: now,
-                              currentTimestamp: 0,
-                            }));
-                          } else {
-                            setTimes(prevState => ({
-                              ...prevState,
-                              state: 1,
-                              startTimestamp: now,
-                            }));
-                          }
-                        }
-                      }}
-                      type={times.state === 1 ? 'light' : 'primary'}
-                      className={times.state === 1 ? '' : 'bc-ss cr-we'}
-                    />
-                    <Button
-                      size="tiny"
-                      icon={<UndoIcon />}
-                      disabled={times.state === 0}
-                      className="bc-er cr-we"
-                      onClick={() => setTimes({ state: 0, startTimestamp: 0, currentTimestamp: 0 })}
-                    />
-                  </div>
+                  {typeToggle('tiny')}
+                  {timerDisplay}
+                  {timerButtons('tiny')}
                   <div className="jk-row">
                     <T className="tt-se tx-t">fullscreen</T>
                     <InputToggle
@@ -244,56 +189,7 @@ export function FullscreenTimerButton() {
                         </div>
                       }
                       checked={fullscreen}
-                      onChange={() => {
-                        setFullscreen(!fullscreen);
-                        const now = Date.now();
-                        if (times.state === 1) {
-                          if (type === 'timer') {
-                            setTimes(prevState => ({
-                              ...prevState,
-                              currentTimestamp: now - times.startTimestamp,
-                            }));
-                          } else {
-                            setTimes(prevState => ({
-                              ...prevState,
-                              currentTimestamp: prevState.currentTimestamp - (now - prevState.startTimestamp),
-                              startTimestamp: now,
-                            }));
-                          }
-                        }
-                      }}
-                    />
-                  </div>
-                  <div className="jk-row">
-                    <T className="tt-se tx-t">type</T>
-                    <InputToggle
-                      size="tiny"
-                      className="ht-ao"
-                      leftLabel={
-                        <div
-                          data-tooltip-id="jk-tooltip"
-                          data-tooltip-content="timer"
-                          data-tooltip-place="bottom-end"
-                          className="jk-row"
-                        >
-                          <TimerIcon />
-                        </div>
-                      }
-                      rightLabel={
-                        <div
-                          data-tooltip-id="jk-tooltip"
-                          data-tooltip-content="countdown"
-                          data-tooltip-place="bottom-end"
-                          className="jk-row"
-                        >
-                          <AlarmIcon />
-                        </div>
-                      }
-                      checked={type === 'countdown'}
-                      onChange={() => {
-                        setType(type === 'countdown' ? 'timer' : 'countdown');
-                        setTimes({ state: 0, startTimestamp: 0, currentTimestamp: 0 });
-                      }}
+                      onChange={() => setFullscreen(!fullscreen)}
                     />
                   </div>
                 </div>
@@ -302,13 +198,13 @@ export function FullscreenTimerButton() {
           ]}
         >
           {isActive && !fullscreen ? (
-            <div className={classNames({ 'jk-overlay-backdrop jk-br-ie cr-sl jk-pg-xsm-rl': times.state !== 0 && !fullscreen })}>
-              {timer}
+            <div className={classNames({ 'jk-overlay-backdrop jk-br-ie cr-sl jk-pg-xsm-rl': !timerCountdown.isStopped && !fullscreen })}>
+              {timerDisplay}
             </div>
           ) : undefined}
         </ButtonAction>
       ) : (
-        <div className="jk-row right opacity-hover">
+        <div className="jk-row right">
           <Button
             tooltipContent="active timer / countdown"
             type="light"
@@ -329,36 +225,18 @@ export function FullscreenTimerButton() {
             className="bc-we jk-col stretch jk-overlay-backdrop jk-overlay"
           >
             <div className="jk-col gap huge-text">
-              {timer}
-              {/*<div className="jk-row gap block">*/}
-              {/*  <Button*/}
-              {/*    onClick={() => {*/}
-              {/*      if (isRunning === 1) {*/}
-              {/*        setIsRunning(2);*/}
-              {/*      }*/}
-              {/*      if (isRunning === 2) {*/}
-              {/*        setIsRunning(1);*/}
-              {/*      }*/}
-              {/*      if (isRunning === 0) {*/}
-              {/*        setIsRunning(1);*/}
-              {/*      }*/}
-              {/*    }}*/}
-              {/*    type={isRunning ? 'light' : 'primary'}*/}
-              {/*    className={isRunning ? '' : 'bc-ss cr-we'}*/}
-              {/*  >*/}
-              {/*    <T className="tt-se">{isRunning === 1 ? 'pause' : isRunning === 2 ? 'resume' : 'start'}</T>*/}
-              {/*  </Button>*/}
-              {/*  <Button*/}
-              {/*    disabled={isRunning === 0}*/}
-              {/*    className="bc-er cr-we"*/}
-              {/*    onClick={() => {*/}
-              {/*      setIsRunning(0);*/}
-              {/*      setResetTrigger(Date.now());*/}
-              {/*    }}*/}
-              {/*  >*/}
-              {/*    <T className="tt-se">restart</T>*/}
-              {/*  </Button>*/}
-              {/*</div>*/}
+              <div className="jk-col gap display-on-hover-1 bf-4 jk-pg-sm jk-br">
+                {typeToggle('huge')}
+              </div>
+              <div
+                className="jk-col jk-pg-sm bc-we wh-100"
+                style={{ '--background-color': '#FAFBFC44' } as CSSProperties}
+              >
+                {timerDisplay}
+              </div>
+              <div className="jk-col gap display-on-hover-2 bf-4 jk-pg-sm jk-br">
+                {timerButtons('huge')}
+              </div>
             </div>
           </div>
         </Portal>

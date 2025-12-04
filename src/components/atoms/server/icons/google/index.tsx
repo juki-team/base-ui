@@ -47,6 +47,7 @@ export { DashboardIcon } from './DashboardIcon';
 export { DeleteIcon } from './DeleteIcon';
 export { DemographyIcon } from './DemographyIcon';
 export { DescriptionIcon } from './DescriptionIcon';
+export { DesignServicesIcon } from './DesignServicesIcon';
 export { DownloadIcon } from './DownloadIcon';
 export { DraftIcon } from './DraftIcon';
 export { DragIndicatorIcon } from './DragIndicatorIcon';
