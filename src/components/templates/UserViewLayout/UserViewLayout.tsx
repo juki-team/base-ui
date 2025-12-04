@@ -26,7 +26,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
   const replaceRoute = useRouterStore(state => state.replaceRoute);
   const searchParams = useRouterStore(state => state.searchParams);
   const [ openModal, setOpenModal ] = useState('');
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   
   const onClose = () => setOpenModal('');
   const tab = searchParams.get('tab') as ProfileTab || ProfileTab.OVERVIEW;
@@ -77,24 +77,23 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
   const extraNodes = [
     ...(user.canResetPassword ? [
       <Button
-        size={(viewPortSize !== 'sm') ? 'tiny' : 'regular'}
         icon={<LockIcon />}
         onClick={() => setOpenModal('RESET_PASSWORD')}
-        expand={viewPortSize === 'sm'}
-        key="reset password"
+        expand={isSmallScreen}
+        key="reset-password"
+        type="light"
       >
-        <T className="tt-se ws-np">reset password</T>
+        {!isSmallScreen && <T className="tt-se ws-np">reset password</T>}
       </Button>,
     ] : []),
     ...(user.canEditProfileData ? [
       <Button
-        size={(viewPortSize !== 'sm') ? 'tiny' : 'regular'}
         icon={<LockIcon />}
         onClick={() => setOpenModal('DATA')}
-        expand={viewPortSize === 'sm'}
-        key="update profile"
+        expand={isSmallScreen}
+        key="update-profile"
       >
-        <T className="tt-se ws-np">update profile</T>
+        {!isSmallScreen && <T className="tt-se ws-np">update profile</T>}
       </Button>,
     ] : []),
   ];

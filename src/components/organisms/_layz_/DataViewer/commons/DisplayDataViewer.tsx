@@ -51,8 +51,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
   const toolbarRef = useRef<HTMLDivElement>(null);
   const { height: toolbarHeight = 0 } = useResizeDetector({ targetRef: toolbarRef });
-  
-  const isMobileViewPort = viewPortSize === 'sm';
+  const isSizeSm = viewPortSize === 'sm';
   
   return (
     <div
@@ -86,7 +85,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
         requestProps={requestProps}
         // withVerticalScroll={withVerticalScroll}
       />
-      {extraNodesFloating && isMobileViewPort && (
+      {extraNodesFloating && isSizeSm && (
         <div
           className="jk-col gap nowrap"
           style={{ position: 'absolute', bottom: 'var(--pad-t)', right: 'var(--pad-t)', zIndex: 1 }}

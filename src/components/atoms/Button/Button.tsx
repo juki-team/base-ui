@@ -31,15 +31,14 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
   } = props;
   
   const sound = useSoundStore();
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   
-  const viewPortSize = usePageStore(store => store.viewPort.size);
-  
-  const size = (responsiveMobile && viewPortSize === 'sm') ? 'large' : _size;
-  const hasChildren = !!children && (responsiveMobile ? viewPortSize !== 'sm' : true);
+  const size = (responsiveMobile && isSmallScreen) ? 'large' : _size;
+  const hasChildren = !!children && (responsiveMobile ? !isSmallScreen : true);
   
   return (
     <button
-      data-tooltip-id={!!tooltipContent ? 'jk-tooltip' : ''}
+      data-tooltip-id={tooltipContent ? 'jk-tooltip' : ''}
       data-tooltip-content={tooltipContent}
       ref={ref}
       // variants={buttonsVariants(disabled, hasChildren)}

@@ -23,8 +23,7 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
     onBack,
   } = props;
   
-  const viewPortSize = usePageStore(store => store.viewPort.size);
-  const withBottomMobileNav = viewPortSize === 'sm';
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const layoutId = useId();
   
   const menus = [];
@@ -36,8 +35,8 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
           'selected-up': !!menu[i - 1]?.selected,
           'selected-down': !!menu[i + 1]?.selected,
           'selected cr-pt': !!selected,
-          'jk-row gap bc-pd cr-pt': !withBottomMobileNav,
-          'jk-col flex-1 bottom': withBottomMobileNav,
+          'jk-row gap bc-pd cr-pt': !isSmallScreen,
+          'jk-col flex-1 bottom': isSmallScreen,
         })}
         onClick={() => onClick?.()}
         key={i}
@@ -61,8 +60,8 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
           >
             <div
               className={classNames({
-                'jk-row gap nowrap': !withBottomMobileNav,
-                'jk-col flex-1 bottom': withBottomMobileNav,
+                'jk-row gap nowrap': !isSmallScreen,
+                'jk-col flex-1 bottom': isSmallScreen,
               })}
             >
               {icon && <div className="jk-row jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>}
@@ -103,7 +102,7 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
   return (
     <div className={classNames('jk-horizontal-menu-layout-container', className)}>
       <header className="jk-menu jk-top-horizontal-menu sticky-top">
-        {!withBottomMobileNav && (
+        {!isSmallScreen && (
           <section className="jk-row nowrap jk-menu-content bc-pd cr-pt">
             <div className="jk-menu-left-section jk-row stretch left nowrap">
               {renderReactNodeOrFunction(leftSection)}
@@ -116,10 +115,10 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
             </div>
           </section>
         )}
-        {withBottomMobileNav && (
+        {isSmallScreen && (
           <section className="jk-row nowrap block jk-menu-content bc-pd cr-pt space-between elevation-1">
             <div className="jk-horizontal-menu-mobile-left jk-row stretch left">
-              {!!drawerMenuMobile ? (
+              {drawerMenuMobile ? (
                 <Drawer
                   content={props => renderReactNodeOrFunctionP1(drawerMenuMobile, { ...props, menu })}
                   position="left"
@@ -189,12 +188,12 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
       <section className="jk-menu-main-layout">
         {children}
       </section>
-      {withBottomMobileNav && (
+      {isSmallScreen && (
         <section className="jk-row nowrap jk-bottom-horizontal-menu elevation-1">
           <div
             className={classNames('jk-menu-items jk-row gap nowrap', {
-              left: !withBottomMobileNav,
-              extend: withBottomMobileNav,
+              left: !isSmallScreen,
+              extend: isSmallScreen,
             })}
           >
             {Children.toArray(menus)}

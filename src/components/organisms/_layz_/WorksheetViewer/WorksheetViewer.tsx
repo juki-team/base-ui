@@ -32,7 +32,7 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
     withoutTableOfContents = false,
   } = props;
   
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const userNickname = useUserStore(state => state.user.nickname);
   const companyKey = useUserStore(state => state.company.key);
   const userIsLogged = useUserStore(state => state.user.isLogged);
@@ -65,7 +65,6 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
   }), [ userResultsData, userResultsIsLoading, userResultsIsValidating, userResultsMutate ]);
   const sheetsInPages = useMemo(() => getWorksheetsInPages(content), [ content ]);
   
-  const isSmallPortSize = viewPortSize === 'sm';
   const readOnly = initialReadOnly || (userResults?.data ? userNickname !== userResults.data.user.nickname : false);
   const pages = sheetsInPages.length;
   
@@ -73,12 +72,12 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
     <div
       id="jk-worksheet-viewer-container"
       className={classNames('gap nowrap worksheet-viewer-container center top', {
-        'jk-col': isSmallPortSize,
-        'jk-row': !isSmallPortSize,
+        'jk-col': isSmallScreen,
+        'jk-row': !isSmallScreen,
       })}
     >
       {!withoutTableOfContents && (
-        isSmallPortSize ? (
+        isSmallScreen ? (
           (pages > 1) && (
             <div className="jk-row">
               <WorksheetContents

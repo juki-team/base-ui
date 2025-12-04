@@ -26,7 +26,7 @@ export function PagedDataViewer<T extends { [key: string]: any }, V = T>(props: 
     downloads,
   } = props;
   
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const {
     data: response,
     request,
@@ -59,7 +59,7 @@ export function PagedDataViewer<T extends { [key: string]: any }, V = T>(props: 
       data={data}
       rows={rows}
       request={request}
-      rowsView={viewPortSize !== 'sm'}
+      rowsView={!isSmallScreen}
       name={name}
       setLoaderStatusRef={setLoaderStatusRef}
       extraNodes={extraNodes}

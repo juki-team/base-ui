@@ -25,7 +25,7 @@ export const Pagination = (props: PaginationProps) => {
   
   const startPage = 1;
   const endPage = Math.max(Math.ceil(total / pageSize), startPage);
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   
   const t = useI18nStore(state => state.i18n.t);
   useEffect(() => {
@@ -116,7 +116,7 @@ export const Pagination = (props: PaginationProps) => {
           </div>
         ) : (
           <>
-            {viewPortSize !== 'sm' && (
+            {!isSmallScreen && (
               <div
                 className={classNames('page-item cr-pr jk-row jk-br', { disabled: page === startPage })}
                 onClick={prev}
@@ -168,7 +168,7 @@ export const Pagination = (props: PaginationProps) => {
                 </>
               )}
             </div>
-            {viewPortSize !== 'sm' && (
+            {!isSmallScreen && (
               <div
                 className={classNames('page-item cr-pr jk-row jk-br-ie', { disabled: page === endPage })}
                 onClick={next}

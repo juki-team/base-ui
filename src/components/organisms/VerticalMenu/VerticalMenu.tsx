@@ -23,7 +23,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
   } = props;
   
   const [ _open, setOpen ] = useHandleState(true, isOpen);
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const isAlwaysClosed = false;
   const open = isAlwaysClosed ? false : _open;
   const layoutId = useId();
@@ -103,7 +103,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
     }
   };
   
-  return viewPortSize === 'sm' ? (
+  return isSmallScreen ? (
     <HorizontalMenu
       menu={menu}
       leftSection={() => renderReactNodeOrFunctionP1(topSection, { isOpen: open })}

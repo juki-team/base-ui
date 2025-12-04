@@ -114,7 +114,7 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
     groups,
   } = props;
   
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const viewPortSize = usePageStore(store => store.viewPort.screen);
   const preferredDataViewMode = useUserStore(state => state.user.settings[ProfileSetting.DATA_VIEW_MODE]);
   const searchParams = useRouterStore(state => state.searchParams);
   const t = useI18nStore(state => state.i18n.t);

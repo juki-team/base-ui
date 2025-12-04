@@ -114,8 +114,8 @@ export function SubmissionGroupInfo(props: GroupInfoProps) {
     isProblemEditor,
   } = props;
   
-  const viewPortSize = usePageStore(store => store.viewPort.size);
-  const rowHeight = viewPortSize === 'sm' || viewPortSize === 'md' ? 54 + 8 + 8 : 24 + 8 + 8;
+  const isSmallMediumScreen = usePageStore(store => store.viewPort.isSmallScreen || store.viewPort.isMediumScreen);
+  const rowHeight = isSmallMediumScreen ? 54 + 8 + 8 : 24 + 8 + 8;
   const testCasesString = JSON.stringify(testCases);
   const renderRow: VirtualizedRowsFixedProps['renderRow'] = useCallback((index) => {
     const testCases: TestCaseResultType[] = JSON.parse(testCasesString);

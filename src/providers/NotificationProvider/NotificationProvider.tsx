@@ -38,11 +38,11 @@ export function NotificationProvider({ children }: NotificationProviderProps) {
     }
   }, []);
   
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   
   const notificationsFiltered = state.filter(note => note.type !== NotificationType.QUIET);
   
-  const notifications = viewPortSize === 'sm' ? [ ...notificationsFiltered ].reverse() : notificationsFiltered;
+  const notifications = isSmallScreen ? [ ...notificationsFiltered ].reverse() : notificationsFiltered;
   
   const chunkStates = notifications.length ? [ [ notifications[0]! ] ] : [];
   for (let i = 1; i < notifications.length; i++) {

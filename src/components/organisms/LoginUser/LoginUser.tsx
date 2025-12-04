@@ -18,7 +18,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
   const userIsLogged = useUserStore(state => state.user.isLogged);
   const userIsLoading = useUserStore(state => state.isLoading);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const viewPortSize = usePageStore(store => store.viewPort.screen);
   const { Image } = useUIStore(store => store.components);
   
   if (userIsLoading) {

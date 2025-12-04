@@ -17,7 +17,7 @@ export function SplitModal<T extends ModalButtonLoaderEventType, >(props: PropsW
   
   const { height: sideMainHeight = 0, ref: sideMainRef } = useResizeDetector();
   const { height: titleSideSecondaryHeight = 0, ref: titleSideSecondaryRef } = useResizeDetector();
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   
   return (
     <Modal<T>
@@ -32,7 +32,7 @@ export function SplitModal<T extends ModalButtonLoaderEventType, >(props: PropsW
           } as CSSProperties}
         >
           <div className="title" ref={titleSideSecondaryRef}>{renderReactNodeOrFunction(title)}</div>
-          {viewPortSize !== 'sm' && (
+          {!isSmallScreen && (
             <div className="graphic jk-row pn-re">
               {renderReactNodeOrFunction(graphic)}
             </div>

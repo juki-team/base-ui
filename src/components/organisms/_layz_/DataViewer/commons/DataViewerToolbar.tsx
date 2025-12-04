@@ -105,7 +105,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
   
   const { filtered, values } = isSomethingFiltered(headers);
   const [ downloading, setDownloading ] = useState(false);
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const { notifyResponse } = useJukiNotification();
   
   const searchParams = useRouterStore(state => state.searchParams);
@@ -117,8 +117,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     // setSearchParams({ name: showFilterDrawerKey, value: show ? 'open' : 'close' });
     _setShowFilterDrawer(show ? 'open' : 'close');
   }, [ _setShowFilterDrawer ]);
-  const isMobileViewPort = viewPortSize === 'sm';
-  const viewViews = !(isMobileViewPort && (!rowsView || !cardsView));
+  const viewViews = !(isSmallScreen && (!rowsView || !cardsView));
   const viewFilterButton = !!headers.filter(head => head.filter || head.sort).length;
   
   useEffect(() => {
@@ -152,7 +151,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
         onFilter={values => onAllFilters(values)}
         onResetFilters={() => onAllFilters({})}
       />
-      {!isMobileViewPort && (
+      {!isSmallScreen && (
         <div className="jk-table-view-extra-nodes jk-row left gap">
           {extraNodes.map(renderReactNodeOrFunction)}
         </div>
@@ -174,7 +173,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               dataLength={dataLength}
               loading={loading}
               initializing={initializing}
-              pageSizeOptions={isMobileViewPort ? [ 20 ] : pagination.pageSizeOptions}
+              pageSizeOptions={isSmallScreen ? [ 20 ] : pagination.pageSizeOptions}
               total={pagination.total}
               page={pagination.page}
               pageSize={pagination.pageSize}
@@ -305,7 +304,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               </div>
             </>
           )}
-          {!!extraNodes.length && isMobileViewPort && !extraNodesFloating && (
+          {!!extraNodes.length && isSmallScreen && !extraNodesFloating && (
             <>
               <div className="jk-divider horizontal" />
               <div>

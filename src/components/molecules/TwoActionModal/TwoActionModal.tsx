@@ -13,7 +13,7 @@ export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
   const { isOpen, secondary, primary, title, children, onClose, containerClassName, ...rest } = props;
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   
   return (
     <Modal
@@ -34,7 +34,7 @@ export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
         <div className="modal-alert-content wh-100">
           {children}
         </div>
-        <div className={classNames('jk-row-col gap right wh-100', { nowrap: viewPortSize !== 'sm' })}>
+        <div className={classNames('jk-row-col gap right wh-100', { nowrap: !isSmallScreen })}>
           {secondary && (
             <ButtonLoader
               onClick={secondary.onClick}

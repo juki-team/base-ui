@@ -73,7 +73,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   const [ openFileName, setOpenFileName ] = useState('');
   const [ fileNameEdit, setFileNameEdit ] = useState('');
   const [ fileNameDelete, setFileNameDelete ] = useState('');
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ viewFiles, setViewFiles ] = useState<boolean>(false);
   
@@ -181,8 +181,6 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
     setIsRunning(false);
   }, []);
   
-  const isMobileViewPort = viewPortSize === 'sm';
-  
   const firstChild = useMemo(() => (
     <FirstPane {...{
       preferredTheme,
@@ -208,10 +206,10 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   ), [ withTestCases ]);
   
   const closableFirstPane = useMemo(() => (
-    (withTestCases && isMobileViewPort)
+    (withTestCases && isSmallScreen)
       ? { align: 'right' as const, expandLabel: <T className="label tx-t">code editor</T> }
       : undefined
-  ), [ withTestCases, isMobileViewPort ]);
+  ), [ withTestCases, isSmallScreen ]);
   
   const secondChild = useMemo(() => (
     <TestCases
@@ -433,7 +431,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
                 closableFirstPane={closableFirstPane}
                 toggleable
                 onChangeDirection={setDirection}
-                onePanelAtATime={isMobileViewPort}
+                onePanelAtATime={isSmallScreen}
                 className="ht-100"
               >
                 {firstChild}

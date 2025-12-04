@@ -24,7 +24,7 @@ export function ButtonAction(props: ButtonActionProps) {
     ...resProps
   } = props;
   
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(null);
   
   const buttonAction = (
@@ -46,7 +46,7 @@ export function ButtonAction(props: ButtonActionProps) {
   
   return (
     <Popover
-      triggerOn={viewPortSize === 'sm' ? TriggerAction.CLICK : TriggerAction.HOVER}
+      triggerOn={isSmallScreen ? TriggerAction.CLICK : TriggerAction.HOVER}
       placement={placement}
       // open
       offset={offset}

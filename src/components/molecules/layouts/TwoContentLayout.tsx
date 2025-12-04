@@ -24,7 +24,7 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
   } = props;
   
   const LOADING_TAB = 'loading' as T;
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const _tabKeys = Object.keys(initialTabs);
   const [ selectedTabKey, setSelectedTabKey ] = useStableState(loading ? LOADING_TAB : initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T);
   const tabs: TabsType<T> = loading ? {
@@ -44,49 +44,48 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
   const breadcrumbs = renderReactNodeOrFunctionP1(initialBreadcrumbs, { selectedTabKey }) as ReactNode[];
   
   const withTabs = tabKeys.length > 1;
-  const isMobile = viewPortSize === 'sm';
-  const withBreadcrumbs = !!breadcrumbs?.length && !isMobile;
+  const withBreadcrumbs = !!breadcrumbs?.length && !isSmallScreen;
   
   return (
     <TwoContentSection className={classNames('rectangular-style', { loading: !!loading })}>
       <>
         {withBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
-          {(!!children || (!withTabs && tabButtons && tabButtons.length > 0)) && (
-            <div
-              className={classNames('jk-row gap extend jk-pg-xsm-b', {
-                'jk-pg-xsm-t': !withBreadcrumbs,
-                'left': !isMobile,
-                'center': isMobile,
-              })}
-            >
-              {children}
-              {!withTabs && tabButtons && tabButtons.length > 0 && (
-                <div className="jk-row gap extend right">
-                  {tabButtons.map(buttonsTab => renderReactNodeOrFunctionP1(buttonsTab, { selectedTabKey }))}
-                </div>
-              )}
-            </div>
-          )}
-          {withTabs && (
-            <TabsInline
-              tabs={tabs}
-              selectedTabKey={selectedTabKey}
-              extraNodes={tabButtons}
-              extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
-              tickStyle="background"
-              className="jk-pg-xsm-b"
-              onChange={(tabKey) => {
-                setSelectedTabKey(tabKey);
-                if (getHrefOnTabChange && isBrowser()) {
-                  const { pathname, searchParams } = getHref(getHrefOnTabChange(tabKey));
-                  const search = persistGlobalURLSearchParams(searchParams);
-                  if (isBrowser()) {
-                    window.history.replaceState({}, '', `${pathname}${search ? '?' + search : ''}`);
-                  }
+        {(!!children || (!withTabs && tabButtons && tabButtons.length > 0)) && (
+          <div
+            className={classNames('jk-row gap extend jk-pg-xsm-b', {
+              'jk-pg-xsm-t': !withBreadcrumbs,
+              'left': !isSmallScreen,
+              'center': isSmallScreen,
+            })}
+          >
+            {children}
+            {!withTabs && tabButtons && tabButtons.length > 0 && (
+              <div className="jk-row gap extend right">
+                {tabButtons.map(buttonsTab => renderReactNodeOrFunctionP1(buttonsTab, { selectedTabKey }))}
+              </div>
+            )}
+          </div>
+        )}
+        {withTabs && (
+          <TabsInline
+            tabs={tabs}
+            selectedTabKey={selectedTabKey}
+            extraNodes={tabButtons}
+            // extraNodesPlacement={isMobile ? 'bottomRight' : undefined}
+            tickStyle="background"
+            className="jk-pg-xsm-b"
+            onChange={(tabKey) => {
+              setSelectedTabKey(tabKey);
+              if (getHrefOnTabChange && isBrowser()) {
+                const { pathname, searchParams } = getHref(getHrefOnTabChange(tabKey));
+                const search = persistGlobalURLSearchParams(searchParams);
+                if (isBrowser()) {
+                  window.history.replaceState({}, '', `${pathname}${search ? '?' + search : ''}`);
                 }
-              }}
-            />
-          )}
+              }
+            }}
+          />
+        )}
       </>
       <TabsInlineBody tabs={tabs} selectedTabKey={selectedTabKey} />
     </TwoContentSection>

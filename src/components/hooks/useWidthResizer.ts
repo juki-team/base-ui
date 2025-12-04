@@ -1,13 +1,13 @@
-import { RefObject, useEffect, useRef, useState } from 'react';
+import { ReactNode, RefObject, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../constants';
 import { isOverflowed } from '../helpers';
 
 export interface WidthResizerProps {
-  targetRef: RefObject<any>,
+  targetRef: RefObject<HTMLElement | null>,
   onOverflow: () => void,
   unOverflow: () => void,
-  trigger?: any,
+  trigger?: number | string | ReactNode | (number | string | ReactNode)[],
 }
 
 export const useWidthResizer = ({ onOverflow, unOverflow, trigger, targetRef }: WidthResizerProps) => {

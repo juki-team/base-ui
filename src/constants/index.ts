@@ -35,7 +35,7 @@ export const EMPTY_COMPANY: CompanyPingType = {
   codeEditorRunEnabled: true,
 };
 
-export const RESIZE_DETECTOR_PROPS: useResizeDetectorProps<any> = { refreshRate: 200, refreshMode: 'debounce' };
+export const RESIZE_DETECTOR_PROPS: useResizeDetectorProps<HTMLElement> = { refreshRate: 200, refreshMode: 'debounce' };
 
 export const DEFAULT_TIME_ZONE = 'America/La_Paz';
 

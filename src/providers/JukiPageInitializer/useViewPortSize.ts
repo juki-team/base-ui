@@ -25,7 +25,15 @@ export const useViewPortSize = () => {
       } else {
         size = 'sm';
       }
-      setViewPort({ size, height, width });
+      setViewPort({
+        screen: size,
+        height,
+        width,
+        isSmallScreen: size === 'sm',
+        isMediumScreen: size === 'md',
+        isLargeScreen: size === 'lg',
+        isHugeScreen: size === 'hg',
+      });
     };
     listener();
     window.addEventListener('resize', listener);

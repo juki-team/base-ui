@@ -40,7 +40,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
   const { updatePassword } = useJukiUser();
   const nickname = useUserStore(state => state.user.nickname);
   const companyKey = useUserStore(state => state.company.key);
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
   return (
@@ -105,8 +105,8 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
           </div>
           <div
             className={classNames('gap block', {
-              'jk-row': viewPortSize !== 'sm',
-              'jk-col': viewPortSize === 'sm',
+              'jk-row': !isSmallScreen,
+              'jk-col': isSmallScreen,
             })}
           >
             <ButtonLoader type="light" onClick={onClose} expand>

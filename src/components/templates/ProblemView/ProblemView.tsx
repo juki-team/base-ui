@@ -26,7 +26,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
     languages,
   } = props;
   
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const [ expanded, setExpanded ] = useState(false);
   const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
   const t = useI18nStore(state => state.i18n.t);
@@ -84,7 +84,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
           expandLabel: <T className="label tx-t">problem statement</T>,
           align: 'center',
         }}
-        onePanelAtATime={viewPortSize === 'sm'}
+        onePanelAtATime={isSmallScreen}
       >
         {problemStatement}
         <ProblemCodeEditor

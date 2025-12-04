@@ -87,7 +87,6 @@ const Component = () => {
           type="light"
           size="small"
           icon={<CloseIcon />}
-          responsiveMobile
         >
           <T className="tt-se">cancel</T>
         </ButtonLoader>

@@ -1,8 +1,9 @@
 import { cleanRequest, type ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
-import { useCallback, useState } from 'react';
-import { authorizedRequest } from '../../helpers';
+import { useState } from 'react';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { T } from '../../atoms';
+import { authorizedRequest } from '../../helpers';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { useMutate } from '../../hooks/useMutate';
 import { ButtonLoader } from '../../molecules';
@@ -14,14 +15,13 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
   
   const { Cmp, entity: initialEntity, entityKey, viewRoute, updateApiURL, viewApiURL, toEntityUpsert } = props;
   
-  const [ entity ] = useState(initialEntity);
   const pushRoute = useRouterStore(state => state.pushRoute);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const { notifyResponse } = useJukiNotification();
   const mutate = useMutate();
-  const tabButtons = useCallback(({ entityData, disableUpdateButton }: {
-    entityData: T,
-    disableUpdateButton?: boolean
-  }) => [
+  const [ entity ] = useState(initialEntity);
+  
+  const tabButtons = ({ entityData, disableUpdateButton }: { entityData: T, disableUpdateButton?: boolean }) => [
     <CheckUnsavedChanges
       key="cancel"
       onClickContinue={() => pushRoute(viewRoute(entityKey))}
@@ -31,9 +31,8 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
         type="light"
         size="small"
         icon={<CloseIcon />}
-        responsiveMobile
       >
-        <T className="tt-se">cancel</T>
+        {!isSmallScreen && <T className="tt-se">cancel</T>}
       </ButtonLoader>
     </CheckUnsavedChanges>,
     <ButtonLoader
@@ -59,9 +58,9 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
       }}
       responsiveMobile
     >
-      <T className="tt-se">update</T>
+      {!isSmallScreen && <T className="tt-se">update</T>}
     </ButtonLoader>,
-  ], [ entityKey, mutate, notifyResponse, pushRoute, toEntityUpsert, updateApiURL, viewApiURL, viewRoute ]);
+  ];
   
   return (
     <Cmp entity={entity} entityKey={entityKey} tabButtons={tabButtons} />

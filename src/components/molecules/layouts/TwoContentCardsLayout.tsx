@@ -23,7 +23,7 @@ export function TwoContentCardsLayout<T, >(props: TwoContentCardsLayoutProps<T>)
     children,
   } = props;
   
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const preferredMenuViewMode = useUserStore(state => state.user.settings[ProfileSetting.MENU_VIEW_MODE]);
   const pushRoute = useRouterStore(state => state.pushRoute);
   const tabKeys = Object.keys(tabs);
@@ -71,7 +71,7 @@ export function TwoContentCardsLayout<T, >(props: TwoContentCardsLayoutProps<T>)
               selectedTabKey={tab}
               onChange={pushTab}
               extraNodes={tabButtons}
-              extraNodesPlacement={(viewPortSize === 'sm') ? 'bottomRight' : undefined}
+              extraNodesPlacement={isSmallScreen ? 'bottomRight' : undefined}
             />
           </div>
         )}
@@ -83,7 +83,7 @@ export function TwoContentCardsLayout<T, >(props: TwoContentCardsLayoutProps<T>)
             selectedTabKey={tab}
             onChange={pushTab}
             extraNodes={tabButtons}
-            extraNodesPlacement={(viewPortSize === 'sm') ? 'bottomRight' : undefined}
+            extraNodesPlacement={isSmallScreen ? 'bottomRight' : undefined}
           />
         )}
         <div

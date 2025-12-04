@@ -151,7 +151,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
   
   const userPreferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
   const { Image } = useUIStore(store => store.components);
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const viewPortSize = usePageStore(store => store.viewPort.screen);
   
   const isDark = userPreferredTheme === Theme.DARK;
   

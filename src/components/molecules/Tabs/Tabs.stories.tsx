@@ -80,10 +80,10 @@ const Component = (args: TabsInlineProps) => {
         <TabsInline
           tabs={tabs}
           extraNodes={[
-            <Button className="ws-np">
+            <Button className="ws-np" key="button-1">
               <T>button 1</T>
             </Button>,
-            <Button className="ws-np">button button 2</Button>,
+            <Button className="ws-np" key="button-2">button button 2</Button>,
           ]}
           onChange={() => null}
           selectedTabKey={'2'}

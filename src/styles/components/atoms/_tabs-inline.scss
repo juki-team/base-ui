@@ -1,6 +1,12 @@
 .jk-tabs-inline {
   overflow: visible;
   
+  &.one-tab-view {
+    .tab-tick-background.selected {
+      width: calc(100% - var(--pad-t) - var(--pad-t));
+    }
+  }
+  
   .jk-tabs-headers-inline {
     overflow: auto;
     
@@ -13,12 +19,6 @@
       padding: 0;
       background-color: var(--cr-at);
       border-radius: 2px 2px 0 0;
-    }
-    
-    .one-tab-view {
-      .tab-tick-background.selected {
-        width: calc(100% - var(--pad-t) - var(--pad-t));
-      }
     }
     
     .tab-tick-background {

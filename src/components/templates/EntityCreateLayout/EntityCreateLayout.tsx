@@ -6,6 +6,7 @@ import {
   Status,
 } from '@juki-team/commons';
 import { useState } from 'react';
+import { usePageStore } from '../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { T } from '../../atoms';
 import { authorizedRequest } from '../../helpers';
@@ -22,6 +23,7 @@ export function EntityCreateLayout<T, U, V>(props: EntityCreateLayoutProps<T, U,
   const [ entity ] = useState(newEntity());
   const { notifyResponse } = useJukiNotification();
   const pushRoute = useRouterStore(state => state.pushRoute);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   
   const tabButtons = ({ entityData }: { entityData: T }) => [
     <CheckUnsavedChanges
@@ -33,9 +35,8 @@ export function EntityCreateLayout<T, U, V>(props: EntityCreateLayoutProps<T, U,
         type="light"
         size="small"
         icon={<CloseIcon />}
-        responsiveMobile
       >
-        <T className="tt-se">cancel</T>
+        {!isSmallScreen && <T className="tt-se">cancel</T>}
       </ButtonLoader>
     </CheckUnsavedChanges>,
     <ButtonLoader
@@ -59,7 +60,7 @@ export function EntityCreateLayout<T, U, V>(props: EntityCreateLayoutProps<T, U,
       }}
       responsiveMobile
     >
-      <T className="tt-se">create</T>
+      {!isSmallScreen && <T className="tt-se">create</T>}
     </ButtonLoader>,
   ];
   

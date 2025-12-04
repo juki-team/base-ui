@@ -13,7 +13,7 @@ export function CardNotification({ ids, type, message }: CardNotificationProps) 
   const [ width, setWidth ] = useState(0);
   const intervalIDRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const { removeNotification } = useJukiNotification();
-  const viewPortSize = usePageStore(store => store.viewPort.size);
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   
   const messageString = getTextContent(message);
   const handleStartTimer = useCallback(() => {
@@ -74,7 +74,7 @@ export function CardNotification({ ids, type, message }: CardNotificationProps) 
       onMouseEnter={handleStopTimer}
       onMouseLeave={handleStartTimer}
       className={classNames('jk-notification-item-container', type, { exit })}
-      style={type === NotificationType.QUIET && viewPortSize !== 'sm' ? { '--width-notification': `${getTextContent(message).length * 8 + 26}px` } as CSSProperties : {}}
+      style={type === NotificationType.QUIET && !isSmallScreen ? { '--width-notification': `${getTextContent(message).length * 8 + 26}px` } as CSSProperties : {}}
     >
       <div className={classNames('jk-notification-item jk-pg-xsm elevation-2 jk-br-ie')}>
         {NOTIFICATION_ICON[type]}

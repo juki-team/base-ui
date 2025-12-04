@@ -16,12 +16,11 @@ export const ResultHeader = (props: PropsWithChildren<ResultHeaderProps>) => {
   
   const { isResolved, submitted, points, userPoints, children, childrenTop } = props;
   
-  const viewPortSize = usePageStore(store => store.viewPort.size);
-  const isSmallPortSize = viewPortSize === 'sm';
+  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   
   return (
     <div
-      style={isSmallPortSize ? undefined : {
+      style={isSmallScreen ? undefined : {
         position: 'absolute',
         top: 0,
         right: 'calc(var(--pad-sm) * -1)',
