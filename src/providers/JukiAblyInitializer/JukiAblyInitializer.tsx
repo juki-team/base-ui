@@ -9,7 +9,7 @@ import {
   ContentResponseType,
   getParamsOfClientId,
 } from '@juki-team/commons';
-import Ably, { TokenDetails, TokenRequest } from 'ably';
+import Ably, { Realtime, TokenDetails, TokenRequest } from 'ably';
 import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from '../../components';
@@ -74,7 +74,7 @@ const newAblyClient = (uiId: string) => {
   return null;
 };
 
-let ablyClient = newAblyClient('');
+let ablyClient: null | Realtime = null;
 
 export const JukiAblyInitializer = () => {
   
@@ -89,6 +89,7 @@ export const JukiAblyInitializer = () => {
           ablyClient.close();
         }
         const { uiId } = getParamsOfClientId(clientId);
+        consoleInfo(`Creating new Ably connection clientId: "${clientId}"`);
         ablyClient = newAblyClient(uiId);
         setForceRender(Date.now());
         setTimeout(newAuth, 1000);
