@@ -7,7 +7,7 @@ import { HelpSection } from '../HelpSection/HelpSection';
 import type { ErrorBoundaryProps } from './types';
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boolean, errorPersist: boolean }> {
-  constructor(props: { children: ReactNode, reload: () => void }) {
+  constructor(props: { children: ReactNode, reload?: () => void, background?: boolean }) {
     super(props);
     
     // Define a state variable to track whether is an error or not
@@ -50,6 +50,11 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, { hasError: boo
     // Check if the error is thrown
     if (this.state.hasError) {
       // You can render any custom fallback UI
+      
+      if (this.props.background) {
+        return null;
+      }
+      
       return (
         <div className="jk-col extend stretch jk-pg-lg">
           <div className="bc-we jk-br-ie jk-pg-md">

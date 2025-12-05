@@ -9,6 +9,8 @@ export interface JukiUserProviderProps {
 export type DeviceType = { label: string, isMobile: boolean, isBrowser: boolean, type: string, osLabel: string };
 
 export interface UserState {
+  uiId: string,
+  clientId: string,
   user: UserPingType,
   setUser: (user: Partial<UserPingType>) => void,
   company: CompanyPingType,

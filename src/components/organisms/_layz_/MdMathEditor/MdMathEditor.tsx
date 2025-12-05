@@ -49,7 +49,7 @@ function IAModalContent() {
   const sessionId = useUserStore(store => store.user.sessionId);
   const t = useI18nStore(store => store.i18n.t);
   const chatIdRef = useRef(v4());
-  const channelMessages = useWebsocketStore(store => store.channelMessages);
+  const channelMessages = useWebsocketStore(store => store.channelPublishMessages);
   const subscribeToEvent = useWebsocketStore(store => store.subscribeToEvent);
   
   useEffect(() => {

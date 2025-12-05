@@ -10,7 +10,7 @@ export const useUserTrack = () => {
   const origin = useRouterStore(store => store.origin);
   const pathname = useRouterStore(store => store.pathname);
   const searchParams = useRouterStore(store => store.searchParams);
-  const channelMessages = useWebsocketStore(store => store.channelMessages);
+  const channelMessages = useWebsocketStore(store => store.channelPublishMessages);
   
   useEffect(() => {
     const track = () => {

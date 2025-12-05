@@ -2,5 +2,6 @@ import { ReactNode } from 'react';
 
 export interface ErrorBoundaryProps {
   children: ReactNode,
-  reload: () => void,
+  reload?: () => void,
+  background?: boolean,
 }

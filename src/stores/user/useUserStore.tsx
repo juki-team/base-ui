@@ -1,33 +1,44 @@
+import { getClientId } from '@juki-team/commons';
 import { createContext, type PropsWithChildren, useContext, useRef } from 'react';
 import { KeyedMutator } from 'swr';
+import { v4 } from 'uuid';
 import { create, useStore as useZustandStore } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import { StoreApi } from 'zustand/vanilla';
 import { InitUserState, UserState } from '../../providers/JukiUserProvider/types';
 
 const createUserStore = (initState: InitUserState) => create<UserState>()(
-  persist((set, get) => ({
-      user: initState.user,
-      setUser: (user) => {
-        const current = get().user;
-        const newUser = { ...current, ...user };
-        if (JSON.stringify(current) !== JSON.stringify(newUser)) {
-          set({ user: newUser, isLoading: !newUser?.sessionId });
-        }
-      },
-      company: initState.company,
-      setCompany: (company) => {
-        const current = get().company;
-        if (JSON.stringify(current) !== JSON.stringify(company)) {
-          set({ company });
-        }
-      },
-      isLoading: initState.isLoading,
-      mutate: null as unknown as KeyedMutator<any>,
-      setMutate: (mutate) => set({ mutate }),
-      device: { label: '', isMobile: false, isBrowser: false, type: '', osLabel: '' },
-      setDevice: (device) => set({ device }),
-    }),
+  persist((set, get) => {
+      const uiId = v4();
+      return {
+        uiId,
+        clientId: getClientId(initState.user.sessionId, uiId),
+        user: initState.user,
+        setUser: (user) => {
+          const current = get().user;
+          const newUser = { ...current, ...user };
+          if (JSON.stringify(current) !== JSON.stringify(newUser)) {
+            set({
+              user: newUser,
+              isLoading: !newUser.sessionId,
+              clientId: getClientId(newUser.sessionId, uiId),
+            });
+          }
+        },
+        company: initState.company,
+        setCompany: (company) => {
+          const current = get().company;
+          if (JSON.stringify(current) !== JSON.stringify(company)) {
+            set({ company });
+          }
+        },
+        isLoading: initState.isLoading,
+        mutate: null as unknown as KeyedMutator<any>,
+        setMutate: (mutate) => set({ mutate }),
+        device: { label: '', isMobile: false, isBrowser: false, type: '', osLabel: '' },
+        setDevice: (device) => set({ device }),
+      };
+    },
     {
       name: 'jk-user-store',
       storage: createJSONStorage(() => sessionStorage, {}),

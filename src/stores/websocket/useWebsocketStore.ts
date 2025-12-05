@@ -14,7 +14,7 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
     isPublishing = true;
     const queueCopy = publishQueue.map(({ event }) => event);
     publishQueue = [];
-    const channelSubscription = get().channelSubscription;
+    const channelSubscription = get().channelPublishSubscription;
     if (channelSubscription) {
       await channelSubscription.publish('batched', queueCopy);
     }
@@ -49,13 +49,13 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
         }));
       };
     };
-  }
-;
+  };
+  
   return {
     subscribers: {},
     newAuth: () => set({ subscribeToEvent: getSubscribeToEvent() }),
-    channelSubscription: null,
-    channelMessages: null,
+    channelPublishSubscription: null,
+    channelPublishMessages: null,
     setProps: (props) => set(props),
     broadcastMessage: (key, data) => {
       const newMessage = { key, data };

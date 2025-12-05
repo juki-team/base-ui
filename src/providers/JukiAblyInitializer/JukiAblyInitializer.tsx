@@ -1,49 +1,53 @@
 import {
-  CHANNEL_CLIENT_NOTIFICATIONS,
-  CHANNEL_CLIENT_SUBSCRIPTIONS,
-  CHANNEL_CLIENT_USER_SESSION,
-  CHANNEL_SEVER_MESSAGES,
+  CHANNEL_PUBLISH_MESSAGES,
+  CHANNEL_PUBLISH_SUBSCRIPTIONS,
+  CHANNEL_SUBSCRIBE_CLIENT,
+  CHANNEL_SUBSCRIBE_NOTIFICATIONS,
   cleanRequest,
   consoleError,
   consoleInfo,
   ContentResponseType,
+  getParamsOfClientId,
 } from '@juki-team/commons';
 import Ably, { TokenDetails, TokenRequest } from 'ably';
 import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { ErrorBoundary } from '../../components';
 import { authorizedRequest, isBrowser } from '../../components/helpers';
 import { jukiApiManager } from '../../settings';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
 
 const WebsocketProvider = () => {
-  const sessionId = useUserStore((state) => state.user.sessionId);
+  const clientId = useUserStore((state) => state.clientId);
   const broadcastMessage = useWebsocketStore((state) => state.broadcastMessage);
   const setProps = useWebsocketStore(store => store.setProps);
-  const channelName = useMemo(
-    () => CHANNEL_CLIENT_USER_SESSION(sessionId),
-    [ sessionId ],
-  );
-  const { channel: channelSubscription } = useChannel(CHANNEL_CLIENT_SUBSCRIPTIONS);
-  const { channel: channelMessages } = useChannel(CHANNEL_SEVER_MESSAGES);
+  const { channel: channelPublishSubscription } = useChannel(CHANNEL_PUBLISH_SUBSCRIPTIONS);
+  const { channel: channelPublishMessages } = useChannel(CHANNEL_PUBLISH_MESSAGES);
   
   useEffect(() => {
-    setProps({ channelSubscription });
-  }, [ channelSubscription, setProps ]);
+    setProps({ channelPublishSubscription });
+  }, [ channelPublishSubscription, setProps ]);
   useEffect(() => {
-    setProps({ channelMessages });
-  }, [ channelMessages, setProps ]);
+    setProps({ channelPublishMessages });
+  }, [ channelPublishMessages, setProps ]);
   
-  useChannel(channelName, (msg) => {
+  useChannel(CHANNEL_SUBSCRIBE_CLIENT(clientId), (msg) => {
     const { data } = msg;
-    const key = data.key;
+    const key = data?.key;
+    broadcastMessage(key, data);
+  });
+  
+  useChannel(CHANNEL_SUBSCRIBE_NOTIFICATIONS, (msg) => {
+    const { data } = msg;
+    const key = data?.key;
     broadcastMessage(key, data);
   });
   
   return null;
 };
 
-const newAblyClient = () => {
+const newAblyClient = (uiId: string) => {
   if (isBrowser()) {
     return new Ably.Realtime({
       authCallback: async (_, callback) => {
@@ -52,7 +56,7 @@ const newAblyClient = () => {
           let tokenRequest;
           try {
             const response = cleanRequest<ContentResponseType<TokenDetails | TokenRequest | string | null>>(
-              await authorizedRequest(jukiApiManager.API_V2.websocket.auth().url),
+              await authorizedRequest(jukiApiManager.API_V2.websocket.auth().url + `?uiId=${uiId}`),
             );
             tokenRequest = response.success ? response.content : null;
           } catch (error) {
@@ -70,42 +74,45 @@ const newAblyClient = () => {
   return null;
 };
 
-let ablyClient = newAblyClient();
+let ablyClient = newAblyClient('');
 
 export const JukiAblyInitializer = () => {
   
-  const sessionId = useUserStore(store => store.user.sessionId);
+  const clientId = useUserStore(store => store.clientId);
   const newAuth = useWebsocketStore(store => store.newAuth);
   const [ forceRender, setForceRender ] = useState(0);
   useEffect(() => {
     (async () => {
       try {
-        if (ablyClient && ablyClient.auth.clientId && ablyClient.auth.clientId !== sessionId) {
-          consoleInfo('🔁 Closing previous Ably connection due to clientId change');
+        if (ablyClient) {
+          consoleInfo('Closing previous Ably connection due to clientId change');
           ablyClient.close();
         }
-        ablyClient = newAblyClient();
+        const { uiId } = getParamsOfClientId(clientId);
+        ablyClient = newAblyClient(uiId);
         setForceRender(Date.now());
         setTimeout(newAuth, 1000);
       } catch (error) {
         consoleError('Error during Ably authorization', error);
       }
     })();
-  }, [ sessionId, newAuth ]);
+  }, [ clientId, newAuth ]);
   
-  if (ablyClient) {
+  if (isBrowser() && ablyClient) {
     return (
-      <AblyProvider client={ablyClient} key={forceRender}>
-        <ChannelProvider channelName={CHANNEL_CLIENT_SUBSCRIPTIONS}>
-          <ChannelProvider channelName={CHANNEL_CLIENT_USER_SESSION(sessionId)}>
-            <ChannelProvider channelName={CHANNEL_SEVER_MESSAGES}>
-              <ChannelProvider channelName={CHANNEL_CLIENT_NOTIFICATIONS}>
-                <WebsocketProvider />
+      <ErrorBoundary background>
+        <AblyProvider client={ablyClient} key={forceRender}>
+          <ChannelProvider channelName={CHANNEL_PUBLISH_SUBSCRIPTIONS}>
+            <ChannelProvider channelName={CHANNEL_SUBSCRIBE_CLIENT(clientId)}>
+              <ChannelProvider channelName={CHANNEL_PUBLISH_MESSAGES}>
+                <ChannelProvider channelName={CHANNEL_SUBSCRIBE_NOTIFICATIONS}>
+                  <WebsocketProvider />
+                </ChannelProvider>
               </ChannelProvider>
             </ChannelProvider>
           </ChannelProvider>
-        </ChannelProvider>
-      </AblyProvider>
+        </AblyProvider>
+      </ErrorBoundary>
     );
   }
   
