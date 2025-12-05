@@ -10,11 +10,11 @@ export const TabsInlineButton = ({ size, label, ...props }: Omit<ButtonProps, 'c
   
   return (
     <Button
-      {...props}
       data-tooltip-id="jk-tooltip"
       data-tooltip-place="top-end"
       data-tooltip-content={isSmallMediumScreen ? label : ''}
       size={size || (isHugeScreen ? 'regular' : 'small')}
+      {...props}
     >
       {!isSmallMediumScreen && <T className="tt-se ws-np">{label}</T>}
     </Button>
