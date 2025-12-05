@@ -10,7 +10,7 @@ import {
 import { insert } from '@milkdown/kit/utils';
 import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
-import { type Dispatch, memo, type SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
+import { type Dispatch, memo, type SetStateAction, useMemo, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
@@ -18,6 +18,7 @@ import { useWebsocketStore } from '../../../../stores/websocket/useWebsocketStor
 import { Modal, T, TextArea } from '../../../atoms';
 import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon } from '../../../atoms/server';
 import { classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
+import { useSubscribe } from '../../../hooks/useSubscribe';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
 import { ImageUploaderModal } from '../../ImageUploaderModal/ImageUploaderModal';
 import { MilkdownEditorContent } from './MilkdownEditorContent/MilkdownEditorContent';
@@ -50,24 +51,22 @@ function IAModalContent() {
   const t = useI18nStore(store => store.i18n.t);
   const chatIdRef = useRef(v4());
   const channelMessages = useWebsocketStore(store => store.channelPublishMessages);
-  const subscribeToEvent = useWebsocketStore(store => store.subscribeToEvent);
   
-  useEffect(() => {
-    const event: SubscribeChatCompletionsDataWebSocketEventDTO = {
-      event: WebSocketSubscriptionEvent.SUBSCRIBE_CHAT_COMPLETIONS_DATA,
-      sessionId,
-      chatAiId: chatIdRef.current,
-    };
-    return subscribeToEvent(event, (message) => {
-      const data = message.data;
+  const event: Omit<SubscribeChatCompletionsDataWebSocketEventDTO, 'clientId'> = {
+    event: WebSocketSubscriptionEvent.SUBSCRIBE_CHAT_COMPLETIONS_DATA,
+    chatAiId: chatIdRef.current,
+  };
+  useSubscribe(
+    event,
+    (data) => {
       if (isChatCompletionsResponseWebSocketResponseEventDTO(data)) {
         setChat(prevState => [
           ...prevState,
           ...data.content.choices.map(({ message }) => ({ content: message.content, user: ChatRole.IA })),
         ]);
       }
-    });
-  }, [ sessionId, subscribeToEvent ]);
+    },
+  );
   
   return (
     <div className="jk-pg jk-col gap stretch">

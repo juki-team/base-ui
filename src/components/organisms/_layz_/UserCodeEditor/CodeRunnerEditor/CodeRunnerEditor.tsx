@@ -10,15 +10,15 @@ import {
   type   SubscribeCodeRunStatusWebSocketEventDTO,
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
-import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ReactNode, useCallback, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { CODE_EDITOR_PROGRAMMING_LANGUAGES, RESIZE_DETECTOR_PROPS } from '../../../../../constants';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
-import { useWebsocketStore } from '../../../../../stores/websocket/useWebsocketStore';
 import { Button, Input, Modal, Portal, T } from '../../../../atoms';
 import { AddIcon, ArrowLeftIcon, ArrowRightIcon, DeleteIcon, DraftIcon, EditIcon } from '../../../../atoms/server';
 import { classNames } from '../../../../helpers';
+import { useSubscribe } from '../../../../hooks/useSubscribe';
 import { SplitPane, TwoActionModal } from '../../../../molecules';
 import type { CodeEditorPropertiesType } from '../../../../molecules/_lazy_/CodeEditor/types';
 import { FirstPane } from './FirstPane';
@@ -65,7 +65,6 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   
   const [ isRunning, setIsRunning ] = useState(false);
   const [ runId, setRunId ] = useState('');
-  const sessionId = useUserStore(state => state.user.sessionId);
   const preferredTheme = useUserStore(state => state.user.settings[ProfileSetting.THEME]);
   const [ showSettings, setShowSettings ] = useState(false);
   const [ direction, setDirection ] = useState<'row' | 'column'>('row');
@@ -77,19 +76,13 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
   const { width: headerWidthContainer = 0, ref: headerRef } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   const [ viewFiles, setViewFiles ] = useState<boolean>(false);
   
-  const subscribeToEvent = useWebsocketStore(store => store.subscribeToEvent);
-  
-  useEffect(() => {
-    if (!runId) {
-      return;
-    }
-    const event: SubscribeCodeRunStatusWebSocketEventDTO = {
-      event: WebSocketSubscriptionEvent.SUBSCRIBE_CODE_RUN_STATUS,
-      sessionId,
-      runId,
-    };
-    return subscribeToEvent(event, (message) => {
-      const data = message.data;
+  const event: Omit<SubscribeCodeRunStatusWebSocketEventDTO, 'clientId'> = {
+    event: WebSocketSubscriptionEvent.SUBSCRIBE_CODE_RUN_STATUS,
+    runId,
+  };
+  useSubscribe(
+    event,
+    (data) => {
       if (isCodeRunStatusMessageWebSocketResponseEventDTO(data)) {
         const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
           onChangeRef.current?.({
@@ -173,8 +166,8 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
         }
         onChangeRef.current?.({ codeRunStatus: status });
       }
-    });
-  }, [ runId, sessionId, subscribeToEvent ]);
+    },
+  );
   
   const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
     onChangeRef.current?.({ ...props, isRunning: false });
