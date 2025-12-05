@@ -4,7 +4,6 @@ import {
   CHANNEL_SUBSCRIBE_CLIENT,
   CHANNEL_SUBSCRIBE_NOTIFICATIONS,
   cleanRequest,
-  consoleError,
   consoleInfo,
   ContentResponseType,
   getParamsOfClientId,
@@ -13,7 +12,7 @@ import Ably, { Realtime, TokenDetails, TokenRequest } from 'ably';
 import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
 import { useEffect, useState } from 'react';
 import { ErrorBoundary } from '../../components';
-import { authorizedRequest, isBrowser } from '../../components/helpers';
+import { authorizedRequest, isBrowser, safeReportError } from '../../components/helpers';
 import { jukiApiManager } from '../../settings';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
@@ -94,7 +93,11 @@ export const JukiAblyInitializer = () => {
         setForceRender(Date.now());
         setTimeout(newAuth, 1000);
       } catch (error) {
-        consoleError('Error during Ably authorization', error);
+        void safeReportError(
+          error as Error,
+          null,
+          { message: 'Error during Ably authorization' },
+        );
       }
     })();
   }, [ clientId, newAuth ]);

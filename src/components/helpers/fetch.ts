@@ -1,7 +1,10 @@
 import {
   cleanRequest,
+  consoleError,
+  consoleInfo,
   consoleWarn,
   ContentResponseType,
+  type ContentsResponseType,
   ERROR,
   ErrorCode,
   ErrorResponseType,
@@ -14,6 +17,7 @@ import {
   Status,
   Theme,
 } from '@juki-team/commons';
+import type { ErrorInfo } from 'react';
 import { JUKI_TOKEN_NAME } from '../../constants/settings';
 import { QueryParamKey } from '../../enums';
 import { jukiApiManager } from '../../settings';
@@ -247,4 +251,32 @@ export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fi
     throw new JkError(ErrorCode.ERR9997, { message: 'error generating the pdf' });
   }
   downloadBlobAsFile(result, fileName);
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const safeReportError = async (error: Error, errorInfo: ErrorInfo | null, data?: Record<string, any>) => {
+  const visitorSessionId = getVisitorSessionId();
+  const location = isBrowser() ? window.location : new Location();
+  consoleError('Error to report', { error, errorInfo, location, visitorSessionId, data });
+  try {
+    const { url, ...options } = jukiApiManager.API_V2.log.error({
+      body: {
+        location,
+        visitorSessionId,
+        errorName: error?.name || '',
+        errorMessage: error?.message || '',
+        errorStack: error?.stack || '',
+        errorInfo,
+        data: { error, ...(data || {}) },
+      },
+    });
+    const response = cleanRequest<ContentsResponseType<true>>(await authorizedRequest(url, options));
+    if (response.success) {
+      consoleInfo('Error reported');
+    } else {
+      consoleError('Error reported failed', { error, errorInfo, location, visitorSessionId, response });
+    }
+  } catch (errorOnLog) {
+    consoleError('error on log error', { error, errorInfo, location, visitorSessionId, errorOnLog });
+  }
 };

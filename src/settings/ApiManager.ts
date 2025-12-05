@@ -132,9 +132,11 @@ export class ApiManager {
               errorName: string,
               errorMessage: string,
               errorStack?: string,
-              errorInfo: ErrorInfo,
+              errorInfo: ErrorInfo | null,
               location: Location,
-              visitorSessionId: string
+              visitorSessionId: string,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              data?: any,
             }
           },
           HTTPMethod.POST

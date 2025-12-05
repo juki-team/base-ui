@@ -1,6 +1,5 @@
 import {
   cleanRequest,
-  consoleError,
   type ContentResponseType,
   Judge,
   Language,
@@ -19,6 +18,7 @@ import {
   downloadBlobAsFile,
   downloadUrlAsFile,
   getStatementData,
+  safeReportError,
 } from '../../../helpers';
 
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
@@ -148,7 +148,7 @@ export const ProblemStatementView = <T, >({
     }
   };
   
-  const handleDownloadMd = async () => {
+  const handleDownloadMd = () => {
     downloadBlobAsFile(new Blob([ mdStatement ], { type: 'text/plain' }), `${judgeName} - ${problemName}.md`);
   };
   
@@ -279,7 +279,11 @@ export const ProblemStatementView = <T, >({
                   await handleDownloadPdf();
                   setLoaderStatus(Status.SUCCESS);
                 } catch (error) {
-                  consoleError(error);
+                  void safeReportError(
+                    error as Error,
+                    null,
+                    { message: 'Error on handleDownloadPdf', problemKey: problem.key },
+                  );
                   setLoaderStatus(Status.ERROR);
                 }
               }}
@@ -292,10 +296,14 @@ export const ProblemStatementView = <T, >({
               onClick={async (setLoaderStatus) => {
                 setLoaderStatus(Status.LOADING);
                 try {
-                  await handleDownloadMd();
+                  handleDownloadMd();
                   setLoaderStatus(Status.SUCCESS);
                 } catch (error) {
-                  consoleError(error);
+                  void safeReportError(
+                    error as Error,
+                    null,
+                    { message: 'Error on handleDownloadMd', problemKey: problem.key },
+                  );
                   setLoaderStatus(Status.ERROR);
                 }
               }}
