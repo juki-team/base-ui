@@ -6,7 +6,7 @@ import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
 
 export const useUserTrack = () => {
   
-  const sessionId = useUserStore(store => store.user.sessionId);
+  const clientId = useUserStore(store => store.clientId);
   const origin = useRouterStore(store => store.origin);
   const pathname = useRouterStore(store => store.pathname);
   const searchParams = useRouterStore(store => store.searchParams);
@@ -16,7 +16,7 @@ export const useUserTrack = () => {
     const track = () => {
       const event: UserTrackWebSocketEventDTO = {
         event: WebSocketMessageEvent.USER_TRACK,
-        sessionId,
+        clientId,
         href: `${origin}${pathname}?${searchParams.toString()}`,
       };
       void channelMessages?.publish('', event);
@@ -26,7 +26,7 @@ export const useUserTrack = () => {
     return () => {
       clearInterval(interval);
     };
-  }, [ sessionId, origin, pathname, searchParams, channelMessages ]);
+  }, [ clientId, origin, pathname, searchParams, channelMessages ]);
   
   return null;
 };

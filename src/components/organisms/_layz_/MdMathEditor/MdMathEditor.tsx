@@ -47,7 +47,7 @@ function IAModalContent() {
   
   const [ value, setValue ] = useState('');
   const [ chat, setChat ] = useState<{ content: string, user: ChatRole }[]>([]);
-  const sessionId = useUserStore(store => store.user.sessionId);
+  const clientId = useUserStore(store => store.clientId);
   const t = useI18nStore(store => store.i18n.t);
   const chatIdRef = useRef(v4());
   const channelMessages = useWebsocketStore(store => store.channelPublishMessages);
@@ -95,7 +95,7 @@ function IAModalContent() {
             try {
               const event: ChatCompletionsWebSocketEventDTO = {
                 event: WebSocketMessageEvent.CHAT_COMPLETIONS,
-                sessionId,
+                clientId,
                 content: value,
                 chatAiId: chatIdRef.current,
               };

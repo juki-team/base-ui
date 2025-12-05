@@ -1,4 +1,4 @@
-import { CompanyPingType, UserPingType } from '@juki-team/commons';
+import { ClientIdType, CompanyPingType, UserPingType } from '@juki-team/commons';
 import { KeyedMutator } from 'swr';
 
 export type UserDataType = UserPingType;
@@ -10,7 +10,7 @@ export type DeviceType = { label: string, isMobile: boolean, isBrowser: boolean,
 
 export interface UserState {
   uiId: string,
-  clientId: string,
+  clientId: ClientIdType,
   user: UserPingType,
   setUser: (user: Partial<UserPingType>) => void,
   company: CompanyPingType,
