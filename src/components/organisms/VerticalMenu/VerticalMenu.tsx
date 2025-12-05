@@ -1,8 +1,8 @@
 import { motion } from 'motion/react';
-import { Children, useId } from 'react';
+import { Children, useEffect, useId } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
-import { useHandleState } from '../../hooks/useHandleState';
+import { useStableState } from '../../hooks/useStableState';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
 import { HorizontalMenu } from '../HorizontalMenu/HorizontalMenu';
 import type { VerticalMenuProps } from './types';
@@ -10,7 +10,7 @@ import type { VerticalMenuProps } from './types';
 export function VerticalMenu(props: VerticalMenuProps) {
   
   const {
-    isOpen,
+    isOpen = true,
     onToggle,
     topSection,
     bottomSection,
@@ -22,11 +22,20 @@ export function VerticalMenu(props: VerticalMenuProps) {
     onBack,
   } = props;
   
-  const [ _open, setOpen ] = useHandleState(true, isOpen);
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
-  const isAlwaysClosed = false;
-  const open = isAlwaysClosed ? false : _open;
+  const [ open, setOpen ] = useStableState(isOpen);
+  const { isSmallScreen, isMediumScreen, isLargeScreen, isHugeScreen } = usePageStore(store => store.viewPort);
   const layoutId = useId();
+  
+  useEffect(() => {
+    if (isMediumScreen) {
+      setOpen(false);
+    }
+  }, [ isMediumScreen, setOpen ]);
+  useEffect(() => {
+    if (isLargeScreen || isHugeScreen) {
+      setOpen(true);
+    }
+  }, [ isLargeScreen, isHugeScreen, setOpen ]);
   
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
@@ -119,13 +128,11 @@ export function VerticalMenu(props: VerticalMenuProps) {
     <div className={classNames('jk-vertical-menu-layout-container', { collapsed: !open })}>
       <header className={classNames('jk-menu')}>
         <section className="jk-menu-content bc-pd cr-pt">
-          {!isAlwaysClosed && (
-            <div className="jk-row right jk-menu-collapse-section bc-pd cr-pt">
-              <div className="jk-row jk-menu-collapse" onClick={handleCollapse}>
-                {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
-              </div>
+          <div className="jk-row right jk-menu-collapse-section bc-pd cr-pt">
+            <div className="jk-row jk-menu-collapse" onClick={handleCollapse}>
+              {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
             </div>
-          )}
+          </div>
           <div className={classNames('jk-menu-top-section bc-pd cr-pt', { 'selected-down': !!menu[0]?.selected })}>
             {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
           </div>

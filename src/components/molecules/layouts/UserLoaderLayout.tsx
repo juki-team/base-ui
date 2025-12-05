@@ -8,7 +8,7 @@ export const UserLoaderLayout = () => {
   const userSessionId = useUserStore(state => state.user.sessionId);
   const userNickname = useUserStore(state => state.user.nickname);
   const [ showLoader, setShowLoader ] = useStableState(!!userSessionId);
-  console.log({ userSessionId });
+  
   useEffect(() => {
     
     if (!userSessionId) {

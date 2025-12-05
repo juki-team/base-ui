@@ -536,3 +536,7 @@
     outline: 2px solid var(--color);
   }
 }
+
+.transition-width {
+  @include mixins.transition(width, min-width, max-width);
+}

@@ -229,6 +229,8 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
     setOpenFileName('');
   };
   
+  const { ref, width = 0 } = useResizeDetector();
+  
   const body = (
     <div
       className={classNames(
@@ -342,12 +344,8 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
       <div className="flex-1 ow-hn jk-row nowrap stretch">
         <div
           className="jk-col top stretch nowrap"
-          style={{
-            width: viewFiles ? 128 : 32,
-            minWidth: viewFiles ? 128 : 32,
-            maxWidth: viewFiles ? 128 : 32,
-            borderRight: '1px solid var(--cr-ht-lt)',
-          }}
+          style={{ borderRight: '1px solid var(--cr-ht-lt)' }}
+          ref={ref}
         >
           <div
             className="jk-row fw-bd jk-pg-xsm-tb bc-hl left hoverable"
@@ -411,7 +409,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
             </div>
           </div>
         </div>
-        <div className="jk-row" style={{ width: `calc(100% - ${viewFiles ? 128 : 32}px)` }}>
+        <div className="jk-row transition-width" style={{ width: `calc(100% - ${width}px)` }}>
           {Object.keys(files).length === 0 ? (
             <div className="jk-col gap jk-pg">
               <T className="tt-se">there are no files in the editor, create a new file to start using the editor</T>

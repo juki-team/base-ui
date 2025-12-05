@@ -46,7 +46,6 @@ export function MainMenu(props: MainMenuProps) {
   
   const { Link, Image } = useUIStore(store => store.components);
   const viewPortSize = usePageStore(store => store.viewPort.screen);
-  
   const searchParams = useRouterStore(state => state.searchParams);
   const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
