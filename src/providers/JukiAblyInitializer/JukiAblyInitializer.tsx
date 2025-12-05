@@ -5,6 +5,7 @@ import {
   CHANNEL_SUBSCRIBE_NOTIFICATIONS,
   cleanRequest,
   consoleInfo,
+  consoleWarn,
   ContentResponseType,
   getParamsOfClientId,
 } from '@juki-team/commons';
@@ -87,11 +88,15 @@ export const JukiAblyInitializer = () => {
           consoleInfo('Closing previous Ably connection due to clientId change');
           ablyClient.close();
         }
-        const { uiId } = getParamsOfClientId(clientId);
-        consoleInfo(`Creating new Ably connection clientId: "${clientId}"`);
-        ablyClient = newAblyClient(uiId);
-        setForceRender(Date.now());
-        setTimeout(newAuth, 1000);
+        const { sessionId, uiId } = getParamsOfClientId(clientId);
+        if (!!sessionId && !!uiId) {
+          consoleInfo(`Creating new Ably connection clientId: "${clientId}"`);
+          ablyClient = newAblyClient(uiId);
+          setForceRender(Date.now());
+          setTimeout(newAuth, 1000);
+        } else {
+          consoleWarn('sessionId or uiId are empty', { sessionId, uiId });
+        }
       } catch (error) {
         void safeReportError(
           error as Error,
