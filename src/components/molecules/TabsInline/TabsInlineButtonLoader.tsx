@@ -7,7 +7,7 @@ export const TabsInlineButtonLoader = ({ size, label, ...props }: Omit<ButtonLoa
   label: string
 }) => {
   
-  const { isSmallScreen, isMediumScreen } = usePageStore(store => store.viewPort);
+  const { isSmallScreen, isMediumScreen, isHugeScreen } = usePageStore(store => store.viewPort);
   
   const isSmallMediumScreen = isSmallScreen || isMediumScreen;
   
@@ -17,7 +17,7 @@ export const TabsInlineButtonLoader = ({ size, label, ...props }: Omit<ButtonLoa
       data-tooltip-id="jk-tooltip"
       data-tooltip-place="top-end"
       data-tooltip-content={isSmallMediumScreen ? label : ''}
-      size={size || (isSmallMediumScreen ? 'small' : 'regular')}
+      size={size || (isHugeScreen ? 'regular' : 'small')}
     >
       {!isSmallMediumScreen && <T className="tt-se ws-np">{label}</T>}
     </ButtonLoader>
