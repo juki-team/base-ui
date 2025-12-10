@@ -1,13 +1,13 @@
 import { T } from 'components';
-import { useStableState, useUserStore } from 'hooks';
+import { useUserStore } from 'hooks';
 import { AnimatePresence, motion } from 'motion/react';
-import { type CSSProperties, useEffect } from 'react';
+import { type CSSProperties, useEffect, useState } from 'react';
 
 export const UserLoaderLayout = () => {
   
   const userSessionId = useUserStore(state => state.user.sessionId);
   const userNickname = useUserStore(state => state.user.nickname);
-  const [ showLoader, setShowLoader ] = useStableState(!!userSessionId);
+  const [ showLoader, setShowLoader ] = useState(true);
   
   useEffect(() => {
     

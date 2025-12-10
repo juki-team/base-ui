@@ -9,12 +9,12 @@ import {
   Theme,
 } from '@juki-team/commons';
 import { useCallback, useEffect } from 'react';
-import { isBrowser, localStorageCrossDomains } from '../../components/helpers';
+import { isBrowser } from '../../components/helpers';
 import { useFetcher } from '../../components/hooks/useFetcher';
 import { useInjectFontSize } from '../../components/hooks/useInjectFontSize';
 import { useInjectTheme } from '../../components/hooks/useInjectTheme';
 import { useMutate } from '../../components/hooks/useMutate';
-import { JUKI_SERVICE_V2_URL, JUKI_TOKEN_NAME } from '../../constants/settings';
+import { JUKI_SERVICE_V2_URL } from '../../constants/settings';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
@@ -88,7 +88,7 @@ export const JukiUserProvider = () => {
         });
       }
       
-      localStorageCrossDomains.setItem(JUKI_TOKEN_NAME, data?.content.user.sessionId);
+      // localStorageCrossDomains.setItem(JUKI_TOKEN_NAME, data?.content.user.sessionId); // With new cookies integration is useless
     }
   }, [ data, setCompany, setUser ]);
   

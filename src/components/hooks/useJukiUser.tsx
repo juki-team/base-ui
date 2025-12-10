@@ -13,7 +13,6 @@ import {
   type UserSettingsType,
 } from '@juki-team/commons';
 import { useCallback, useState } from 'react';
-import { JUKI_TOKEN_NAME } from '../../constants/settings';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
@@ -77,7 +76,7 @@ export const useJukiUser = () => {
   ) => {
     const { url, ...options } = jukiApiManager.API_V2.auth.signIn({ body, params });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
-      localStorageCrossDomains.setItem(JUKI_TOKEN_NAME, response.content.user.sessionId);
+      // localStorageCrossDomains.setItem(JUKI_TOKEN_NAME, response.content.user.sessionId); // With new cookies integration is useless
       // setUser(response.content.user);
       await userMutate();
       await onSuccess?.(response);
@@ -93,7 +92,7 @@ export const useJukiUser = () => {
   ) => {
     const { url, ...options } = jukiApiManager.API_V2.auth.signUp({ body });
     const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
-      localStorageCrossDomains.setItem(JUKI_TOKEN_NAME, response.content.user.sessionId);
+      // localStorageCrossDomains.setItem(JUKI_TOKEN_NAME, response.content.user.sessionId); // With new cookies integration is useless
       // setUser(response.content.user);
       await userMutate();
       await onSuccess?.(response);
@@ -168,7 +167,7 @@ export const useJukiUser = () => {
     const { url, ...options } = jukiApiManager.API_V2.auth.signOut();
     
     const onFinallyWrap = async (response: ErrorResponseType | ContentResponseType<string>) => {
-      localStorageCrossDomains.removeItem(JUKI_TOKEN_NAME);
+      // localStorageCrossDomains.removeItem(JUKI_TOKEN_NAME); // With new cookies integration is useless
       // setUser(EMPTY_USER);
       await userMutate();
       await onFinally?.(response);
