@@ -10,7 +10,7 @@ import { JukiUserProvider } from './JukiUserProvider';
 import { SoundInitializer } from './SoundInitializer';
 import { JukiProvidersProps } from './types';
 
-const UserTrack = memo(function UserTrack() {
+const ClientTrackLocation = memo(function UserTrack() {
   useClientTrackLocation();
   return null;
 });
@@ -63,7 +63,7 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
       <JukiUIProvider components={components} multiCompanies={multiCompanies} onSeeMyProfile={onSeeMyProfile}>
         {children}
       </JukiUIProvider>
-      <UserTrack />
+      <ClientTrackLocation />
       <JukiUserProvider />
       <JukiAblyInitializer />
       <SoundInitializer />

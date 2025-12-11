@@ -1,6 +1,7 @@
 import {
   getWebSocketResponseEventKey,
   isSubscribeChatCompletionsDataWebSocketEventDTO,
+  isSubscribeClientTrackWebSocketEventDTO,
   isSubscribeCodeRunStatusWebSocketEventDTO,
   isSubscribeContestChangesWebSocketEventDTO,
   isSubscribeGetDataWebSocketEventDTO,
@@ -22,7 +23,6 @@ import {
   WebSocketSubscriptionEvent,
   WebSocketUnsubscribeEventDTO,
 } from '@juki-team/commons';
-import { isSubscribeClientTrackWebSocketEventDTO } from '@juki-team/commons/dist/types/helpers/socket';
 
 export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebSocketUnsubscribeEventDTO) {
   if (isSubscribeCodeRunStatusWebSocketEventDTO(event) || isUnsubscribeCodeRunStatusWebSocketEventDTO(event)) {
