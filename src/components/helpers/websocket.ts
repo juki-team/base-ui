@@ -8,6 +8,7 @@ import {
   isSubscribeSubmissionRunStatusWebSocketEventDTO,
   isSubscribeSubmissionsCrawlWebSocketEventDTO,
   isUnsubscribeChatCompletionsDataWebSocketEventDTO,
+  isUnsubscribeClientTrackWebSocketEventDTO,
   isUnsubscribeCodeRunStatusWebSocketEventDTO,
   isUnsubscribeContestChangesWebSocketEventDTO,
   isUnsubscribeGetDataWebSocketEventDTO,
@@ -21,6 +22,7 @@ import {
   WebSocketSubscriptionEvent,
   WebSocketUnsubscribeEventDTO,
 } from '@juki-team/commons';
+import { isSubscribeClientTrackWebSocketEventDTO } from '@juki-team/commons/dist/types/helpers/socket';
 
 export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebSocketUnsubscribeEventDTO) {
   if (isSubscribeCodeRunStatusWebSocketEventDTO(event) || isUnsubscribeCodeRunStatusWebSocketEventDTO(event)) {
@@ -43,6 +45,9 @@ export function getKeyWebSocketEventDTO(event: WebSocketSubscribeEventDTO | WebS
   }
   if (isSubscribeContestChangesWebSocketEventDTO(event) || isUnsubscribeContestChangesWebSocketEventDTO(event)) {
     return getWebSocketResponseEventKey(WebSocketResponseEvent.CONTEST_CHANGES, event.clientId, event.contestKey);
+  }
+  if (isSubscribeClientTrackWebSocketEventDTO(event) || isUnsubscribeClientTrackWebSocketEventDTO(event)) {
+    return getWebSocketResponseEventKey(WebSocketResponseEvent.CLIENT_TRACK, event.clientId, '*');
   }
   
   return '' as WebSocketResponseEventKey;
@@ -69,6 +74,9 @@ export function getUnsubscribeEvent(event: WebSocketSubscribeEventDTO): WebSocke
   }
   if (isSubscribeContestChangesWebSocketEventDTO(event)) {
     return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_CONTEST_CHANGES };
+  }
+  if (isSubscribeClientTrackWebSocketEventDTO(event)) {
+    return { ...event, event: WebSocketSubscriptionEvent.UNSUBSCRIBE_CLIENT_TRACK };
   }
   
   return event;

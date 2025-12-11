@@ -1,5 +1,5 @@
 import { memo, PropsWithChildren } from 'react';
-import { useUserTrack } from '../components/hooks/useUserTrack';
+import { useClientTrackLocation } from '../components/hooks/useClientTrackLocation';
 import { JukiAblyInitializer } from './JukiAblyInitializer';
 import { JukiLastPathInitializer } from './JukiLastPathInitializer';
 import { JukiPageInitializer } from './JukiPageInitializer';
@@ -11,7 +11,7 @@ import { SoundInitializer } from './SoundInitializer';
 import { JukiProvidersProps } from './types';
 
 const UserTrack = memo(function UserTrack() {
-  useUserTrack();
+  useClientTrackLocation();
   return null;
 });
 

@@ -31,7 +31,7 @@ export * from '../components/hooks/useStableState';
 export * from '../components/hooks/useStore';
 export * from '../components/hooks/useTriggerWrapper';
 export * from '../components/hooks/useWidthResizer';
-export * from '../components/hooks/useUserTrack';
+export * from '../components/hooks/useClientTrackLocation';
 export * from '../components/hooks/useSubscribe';
 
 // store hooks

@@ -6,17 +6,20 @@ import { authorizedRequest, isDev } from '../helpers';
 
 export const useCheckAndStartServices = () => {
   
-  const isPageOnline = usePageStore(store => store.isOnline);
-  const isPageFocus = usePageStore(store => store.isFocus);
-  const isPageVisible = usePageStore(store => store.isVisible);
+  const isLive = usePageStore(store => store.isOnline && store.isFocus && store.isVisible);
   
   useEffect(() => {
-    const fun = async (isPageVisible: boolean, isPageOnline: boolean, isPageFocus: boolean) => {
+    
+    if (!isLive) {
+      return;
+    }
+    
+    const fun = async () => {
       if (isDev()) {
         return;
       }
       const lastRequested = +(localStorage.getItem('lastRequestedServicesCheck') || '0');
-      if (isPageVisible && isPageOnline && isPageFocus && (Date.now() - lastRequested) >= ONE_MINUTE) {
+      if ((Date.now() - lastRequested) >= ONE_MINUTE) {
         localStorage.setItem('lastRequestedServicesCheck', Date.now().toString());
         const { url, ...options } = jukiApiManager.API_V2.system.services.checkAndStart();
         const response = cleanRequest<ContentResponseType<string>>(await authorizedRequest(url, options));
@@ -24,11 +27,12 @@ export const useCheckAndStartServices = () => {
         localStorage.setItem('lastRequestedServicesCheck', Date.now().toString());
       }
     };
-    void fun(isPageVisible, isPageOnline, isPageFocus);
+    void fun();
     
-    const interval = setInterval(fun, ONE_MINUTE, isPageVisible, isPageOnline, isPageFocus);
+    const interval = setInterval(fun, ONE_MINUTE);
+    
     return () => {
       clearInterval(interval);
     };
-  }, [ isPageOnline, isPageFocus, isPageVisible ]);
+  }, [ isLive ]);
 };

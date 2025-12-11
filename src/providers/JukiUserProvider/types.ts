@@ -1,12 +1,10 @@
-import { ClientIdType, CompanyPingType, UserPingType } from '@juki-team/commons';
+import { ClientIdType, CompanyPingType, DeviceType, UserPingType } from '@juki-team/commons';
 import { KeyedMutator } from 'swr';
 
 export type UserDataType = UserPingType;
 
 export interface JukiUserProviderProps {
 }
-
-export type DeviceType = { label: string, isMobile: boolean, isBrowser: boolean, type: string, osLabel: string };
 
 export interface UserState {
   uiId: string,
