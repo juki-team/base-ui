@@ -902,9 +902,9 @@ export class ApiManager {
           method: HTTPMethod.GET,
         })),
         getUsersTracksStats: valid<
-          { params: { companyKeys: string, startTimestamp: number, endTimestamp: number } }
-        >(({ params: { companyKeys, startTimestamp, endTimestamp } }) => ({
-          url: injectBaseUrl('statistics', `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}${companyKeys ? `&companyKeys=${companyKeys}` : ''}`),
+          { params: { companyKeys: string, startTimestamp: number, endTimestamp: number, groupBy: number[] } }
+        >(({ params: { companyKeys, startTimestamp, endTimestamp, groupBy } }) => ({
+          url: injectBaseUrl('statistics', `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}${companyKeys ? `&companyKeys=${companyKeys}` : ''}`),
           method: HTTPMethod.GET,
         })),
       },
