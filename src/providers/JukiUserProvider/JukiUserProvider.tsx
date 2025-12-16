@@ -17,6 +17,7 @@ import { useMutate } from '../../components/hooks/useMutate';
 import { JUKI_SERVICE_V2_URL } from '../../constants/settings';
 import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
+import { usePageStore } from '../../stores/page/usePageStore';
 import { useUserStore } from '../../stores/user/useUserStore';
 
 export const JukiUserProvider = () => {
@@ -30,6 +31,10 @@ export const JukiUserProvider = () => {
   const userSessionId = useUserStore(state => state.user.sessionId);
   const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
   const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
+  const isOnline = usePageStore(store => store.isOnline);
+  const isFocus = usePageStore(store => store.isFocus);
+  const isVisible = usePageStore(store => store.isVisible);
+  
   const {
     data,
     // isLoading: isLoadingPing,
@@ -44,7 +49,6 @@ export const JukiUserProvider = () => {
   
   const refreshAllRequest = useCallback(async () => {
     await matchMutate(new RegExp(`${JUKI_SERVICE_V2_URL}`, 'g'));
-    
   }, [ matchMutate ]);
   
   useEffect(() => {
@@ -54,6 +58,10 @@ export const JukiUserProvider = () => {
   useEffect(() => {
     i18nChangeLanguage(userPreferredLanguage);
   }, [ i18nChangeLanguage, userPreferredLanguage ]);
+  
+  useEffect(() => {
+    void mutate();
+  }, [ mutate, isOnline, isFocus, isVisible ]);
   
   useEffect(() => {
     if (!data) {
