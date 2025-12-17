@@ -1,5 +1,5 @@
 import { CodeLanguage, SubmissionRunStatus } from '@juki-team/commons';
-import { Meta, StoryObj } from '@storybook/react-webpack5';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../../../mockup';
 import { CodeRunnerEditor } from './CodeRunnerEditor';
@@ -56,8 +56,20 @@ const Template = (args: CodeRunnerEditorProps<string>) => {
         <CodeRunnerEditor
           {...args}
           {...props}
-          files={{}}
+          onlyCodeEditor
+          files={{
+            'test-1': {
+              source: '',
+              index: 1,
+              name: 'test',
+              language: CodeLanguage.JAVASCRIPT,
+              readonly: false,
+              hidden: false,
+              protected: false,
+            },
+          }}
           onChange={(props: any) => {
+            console.log({ props });
             setProps((prevState) => ({ ...prevState, ...props }));
           }}
           centerButtons={({ widthContainer }) => (

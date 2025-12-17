@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { Select } from './Select';
@@ -23,7 +23,7 @@ const Cmp = (args: SelectProps<any, any, any>) => {
     value: 20,
   });
   
-  let numbers = new Array(40).fill(0);
+  const numbers = new Array(40).fill(0);
   const options: { label: string; value: number; disabled: boolean }[] =
     numbers.map((_, option) => ({
       label: 'label ' + option,

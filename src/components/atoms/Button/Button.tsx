@@ -41,6 +41,7 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
       data-tooltip-id={tooltipContent ? 'jk-tooltip' : ''}
       data-tooltip-content={tooltipContent}
       ref={ref}
+      disabled={disabled}
       // variants={buttonsVariants(disabled, hasChildren)}
       // whileHover="whileHover"
       // whileTap="whileTap"

@@ -109,7 +109,7 @@ export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType
                 setIsOpen(false);
                 event.stopPropagation();
               } : undefined}
-              key={option.key ?? JSON.stringify(option.value)}
+              key={'key' in option ? option.key : JSON.stringify(option.value)}
               ref={(e) => {
                 if (JSON.stringify(option.value) === JSON.stringify(optionSelected.value)) {
                   selectedOptionRef.current = e;

@@ -1,6 +1,7 @@
 import { Theme } from '@juki-team/commons';
 import { ReactNode } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
+import { RESIZE_DETECTOR_PROPS } from '../../../../../constants';
 import { Select } from '../../../../atoms';
 import { classNames } from '../../../../helpers';
 import { CodeEditor } from '../../../../molecules';
@@ -34,7 +35,7 @@ export const FirstPane = <T, >(props: FirstPaneProps<T>) => {
     triggerFocus,
   } = props;
   
-  const { ref, height = 0 } = useResizeDetector();
+  const { ref, height = 0 } = useResizeDetector(RESIZE_DETECTOR_PROPS);
   
   return (
     <div className={classNames('jk-col nowrap left stretch ht-100', { 'wh-100': !!onlyCodeEditor })}>

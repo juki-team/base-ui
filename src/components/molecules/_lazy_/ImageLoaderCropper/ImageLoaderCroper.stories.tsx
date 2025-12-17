@@ -1,7 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react-webpack5';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { FC, useState } from 'react';
-import { downloadBlobAsFile, toBlob } from '../../../helpers';
 import { Button } from '../../../atoms';
+import { downloadBlobAsFile, toBlob } from '../../../helpers';
 import { MockupJukiProvider } from '../../../mockup';
 import { ImageLoaderCropper as ImageLoaderCropperCmp } from './';
 import { CropImageType, ImageLoaderCropperProps } from './types';

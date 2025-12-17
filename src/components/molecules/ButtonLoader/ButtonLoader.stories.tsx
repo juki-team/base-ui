@@ -1,5 +1,5 @@
 import { Status } from '@juki-team/commons';
-import { Meta, StoryObj } from '@storybook/react-webpack5';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 import { MockupJukiProvider } from '../../mockup';
 import { EventIcon, VisibilityIcon } from '../../server';

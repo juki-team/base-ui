@@ -1,5 +1,5 @@
 import { Judge } from '@juki-team/commons';
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider } from '../../mockup';
 import { UserProfile } from './UserProfile';
 

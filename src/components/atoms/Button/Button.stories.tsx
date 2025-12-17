@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-// import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { expect, fn, within } from 'storybook/test';
 import { MockupJukiProvider } from '../../mockup';
 import { LockIcon } from '../server';
 import { T } from '../T/T';
@@ -17,16 +17,9 @@ Button.defaultProps = {
 
 const meta: Meta<typeof Button> = {
   component: Button,
-};
-
-export default meta;
-
-type Story = StoryObj<typeof Button>;
-
-export const Regular: Story = {
-  // play: async (ctx) => {
-  //   await waitForLoadingToDisappear(ctx);
-  // },
+  args: {
+    onClick: fn(),
+  },
   render: (args) => (
     <MockupJukiProvider>
       <div className="jk-col gap jk-pg">
@@ -51,4 +44,50 @@ export const Regular: Story = {
       </div>
     </MockupJukiProvider>
   ),
+};
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Regular: Story = {
+  // play: async (ctx) => {
+  //   await waitForLoadingToDisappear(ctx);
+  // },
+  args: {
+    type: 'primary',
+    // type: {
+    //   control: {
+    //     type: 'enum',
+    //
+    //   }
+    // }
+  },
+  argTypes: {
+    type: {
+      control: 'radio',
+      options: [ 'primary', 'secondary', 'light', 'text', 'void' ],
+    },
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    disabled: true,
+  },
+  play: async ({ args, userEvent, canvasElement }) => {
+    const container = canvasElement.querySelector<HTMLElement>('#juki-app');
+    
+    if (!container) {
+      throw new Error('Container #juki-app');
+    }
+    
+    const buttons = within(container).getAllByRole('button');
+    
+    for (const button of buttons) {
+      await userEvent.click(button);
+      await expect(button).toBeDisabled();
+      await expect(args.onClick).not.toHaveBeenCalled();
+    }
+  },
 };

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-webpack5';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 import { MockupJukiProvider } from '../components/mockup';
 import { useUIStore } from '../stores/ui/useUIStore';

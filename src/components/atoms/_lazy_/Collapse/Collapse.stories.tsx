@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
-// import { waitForLoadingToDisappear } from '../../../../.storybook/globalPlay';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider } from '../../../mockup';
 import { UpIcon } from '../../server';
 import { Collapse } from './index';
@@ -13,7 +12,6 @@ export default meta;
 type Story = StoryObj<typeof Collapse>;
 
 export const Regular: Story = {
-  // play: waitForLoadingToDisappear,
   render: (args) => (
     <MockupJukiProvider>
       <div>

@@ -3,8 +3,8 @@ import { createInstance, i18n } from 'i18next';
 import { PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
-import { JukiProviders } from '../../providers';
 import { UserStoreProvider } from '../../stores/user/useUserStore';
+import { JukiProviders } from '../providers';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
 import './styles.scss';
@@ -52,7 +52,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
         // serviceApiV2Url={serviceV2Url}
         // tokenName="juki-token"
         // socketServiceUrl={socketServiceUrl}
-        multiCompanies={false}
+        multiCompanies
         onSeeMyProfile={() => {
         }}
         router={{
@@ -70,10 +70,10 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
       >
         <SWRConfig>
           {children}
-          <MockupLoginButton />
-          <MockupToggleThemeButton />
         </SWRConfig>
       </JukiProviders>
+      <MockupLoginButton />
+      <MockupToggleThemeButton />
     </UserStoreProvider>
   );
 };

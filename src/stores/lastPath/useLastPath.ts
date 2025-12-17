@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { LastPathType } from '../../providers/JukiLastPathInitializer/types';
+import { LastPathType } from '../../components/providers/JukiLastPathInitializer/types';
 
 interface LastPathState {
   lastPath: LastPathType,

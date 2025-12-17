@@ -9,10 +9,10 @@ import {
   type ObjectIdType,
   ProfileSetting,
   Theme,
+  UserPingType,
 } from '@juki-team/commons';
 import type { useResizeDetectorProps } from 'react-resize-detector';
 import { QueryParamKey } from '../enums';
-import type { UserDataType } from '../providers/types';
 
 export const DAYS_2 = DAY_NAMES.map(name => name.substring(0, 2));
 
@@ -39,7 +39,7 @@ export const RESIZE_DETECTOR_PROPS: useResizeDetectorProps<HTMLElement> = { refr
 
 export const DEFAULT_TIME_ZONE = 'America/La_Paz';
 
-export const EMPTY_USER: UserDataType = {
+export const EMPTY_USER: UserPingType = {
   nickname: '',
   imageUrl: 'https://images.juki.pub/c/juki-image-profile.svg',
   settings: {

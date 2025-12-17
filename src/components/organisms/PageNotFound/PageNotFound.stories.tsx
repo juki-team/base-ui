@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-webpack5';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupJukiProvider } from '../../mockup';
 import { PageNotFound } from './PageNotFound';
 

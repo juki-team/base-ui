@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
 import { QueryParamKey } from '../../../enums';
-import type { LastPathType } from '../../../providers/JukiLastPathInitializer/types';
 import { cloneURLSearchParams } from '../../../settings/AppRoutes';
 import { useLastPathStore } from '../../../stores/lastPath/useLastPath';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { getHref } from '../../helpers';
+import type { LastPathType } from '../../providers/JukiLastPathInitializer/types';
 import type { LinkLastPathProps } from './types';
 
 export function LinkLastPath<T extends string | number = string, >(props: LinkLastPathProps<T>) {

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-webpack5';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { MockupToggleThemeButton } from '../../../mockup';
 import { MdMathViewer } from '../../../organisms';
 import { SAMPLE_MD_CONTENT } from '../../../organisms/MdMathViewer/constants';

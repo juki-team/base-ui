@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { configureActions } from 'storybook/actions';
 import { Button, T } from '../../atoms';
 import { MockupJukiProvider, MockupToggleThemeButton } from '../../mockup';

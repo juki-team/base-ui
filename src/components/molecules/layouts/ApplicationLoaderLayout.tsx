@@ -1,5 +1,5 @@
-import { T } from 'components';
 import { CSSProperties } from 'react';
+import { T } from '../../atoms';
 
 export function ApplicationLoaderLayout() {
   return (

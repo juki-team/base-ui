@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-webpack5';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { T } from '../../atoms';
 import { MockupJukiProvider } from '../../mockup';
 import { DownloadIcon, OpenInNewIcon } from '../../server';

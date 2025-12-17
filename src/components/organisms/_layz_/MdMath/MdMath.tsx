@@ -2,9 +2,11 @@
 import { CODE_LANGUAGE, CodeLanguage, type  ContentResponseType, type UserBasicResponseDTO } from '@juki-team/commons';
 import { type Element } from 'hast';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
-import { Children, type CSSProperties, memo, type ReactNode, useMemo } from 'react';
+import { Children, ComponentType, type CSSProperties, memo, type ReactNode, useMemo } from 'react';
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
 import { QueryParamKey } from '../../../../enums';
@@ -24,6 +26,12 @@ import { UserChip } from '../../UserChip/UserChip';
 import { UserCodeEditor } from '../UserCodeEditor';
 import type { CommandsObjectType, MdMathProps } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
+
+console.log(defaultSchema.tagNames);
+const schema = {
+  ...defaultSchema,
+  tagNames: Array.from(new Set([ ...(defaultSchema.tagNames ?? []), 'br' ])),
+};
 
 type hxProps = { children: ReactNode & ReactNode[], node: Element };
 
@@ -93,7 +101,7 @@ function MdMathComponent(props: MdMathProps) {
   
   const mdProps = useMemo((): ReactMarkdownOptions => ({
     remarkPlugins: [ RemarkMathPlugin, RemarkGfmPlugin ],
-    rehypePlugins: [ rehypeKatex ],
+    rehypePlugins: [ rehypeKatex, rehypeRaw, [ rehypeSanitize, schema ] ],
     components: {
       img({ alt = '', src, title }) {
         let style: CSSProperties = {};
@@ -110,15 +118,12 @@ function MdMathComponent(props: MdMathProps) {
         }
         return <img alt={newAlt} src={src} style={style} title={title} />;
       },
-      // h1(...props) {
-      //   return null;
-      // },
-      h1: hx(setSearchParams, slideView) as any,
-      h2: hx(setSearchParams, slideView) as any,
-      h3: hx(setSearchParams, slideView) as any,
-      h4: hx(setSearchParams, slideView) as any,
-      h5: hx(setSearchParams, slideView) as any,
-      h6: hx(setSearchParams, slideView) as any,
+      h1: hx(setSearchParams, slideView) as ComponentType,
+      h2: hx(setSearchParams, slideView) as ComponentType,
+      h3: hx(setSearchParams, slideView) as ComponentType,
+      h4: hx(setSearchParams, slideView) as ComponentType,
+      h5: hx(setSearchParams, slideView) as ComponentType,
+      h6: hx(setSearchParams, slideView) as ComponentType,
       p({ children = null, node }) {
         const newChildren = Array.isArray(children) ? [ ...children ] : [ children ];
         const isRoot = node?.position?.start?.column === 111111;
@@ -286,7 +291,7 @@ function MdMathComponent(props: MdMathProps) {
         return children;
       },
     },
-  }), [ Link, setSearchParams ]);
+  }), [ Link, setSearchParams, slideView ]);
   const [ blur, setBlur ] = useStableState(_blur);
   
   return (

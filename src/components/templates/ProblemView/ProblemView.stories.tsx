@@ -8,7 +8,7 @@ import {
   ProblemScoringMode,
   ProblemType,
 } from '@juki-team/commons';
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { jukiApiManager } from '../../../settings';
 import { MockupJukiProvider } from '../../mockup';
 import { FetcherLayer } from '../../molecules';

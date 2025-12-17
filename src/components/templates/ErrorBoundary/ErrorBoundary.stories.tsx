@@ -1,4 +1,5 @@
-import { Meta, StoryObj } from '@storybook/react-webpack5';
+import { Meta, StoryObj } from '@storybook/react-vite';
+import { MockupJukiProvider } from '../../mockup';
 import { ErrorBoundary as ErrorBoundaryCmp } from './ErrorBoundary';
 
 const meta: Meta<typeof ErrorBoundaryCmp> = {
@@ -14,9 +15,11 @@ const Error = () => {
 };
 
 export const Regular: Story = {
-  render: (args) => (
-    <ErrorBoundaryCmp {...args} reload={() => console.info('reload')}>
-      <Error />
-    </ErrorBoundaryCmp>
+  render: () => (
+    <MockupJukiProvider>
+      <ErrorBoundaryCmp reload={() => console.info('reload')}>
+        <Error />
+      </ErrorBoundaryCmp>
+    </MockupJukiProvider>
   ),
 };

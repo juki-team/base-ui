@@ -1,7 +1,7 @@
 import { action, configureActions } from 'storybook/actions';
 import { TriggerAction } from '../../../enums';
 import { Button, Popover, T } from '../../atoms';
-import { MockupToggleThemeButton } from '../../mockup';
+import { MockupJukiProvider } from '../../mockup';
 import { DrawerActionsType } from '../../molecules/Drawer/types';
 import { AppsIcon, FilterListIcon, PlusIcon, SettingsIcon, ViewHeadlineIcon } from '../../server';
 import { MdMathEditor } from '../index';
@@ -123,29 +123,30 @@ const centerMobile = {
 const drawerMenuMobile = <div>Rest of Menu</div>;
 
 export const VerticalMenu = () => (
-  <div style={{ height: '400px' }}>
-    <VerticalMenuCmp
-      menu={menu}
-      topSection={
-        <div className="jk-row" style={{ width: '60px' }}>
-          {/*<JukiJudgeLogoHorImage />*/}
+  <MockupJukiProvider>
+    <div style={{ height: '400px' }}>
+      <VerticalMenuCmp
+        menu={menu}
+        topSection={
+          <div className="jk-row" style={{ width: '60px' }}>
+            {/*<JukiJudgeLogoHorImage />*/}
+          </div>
+        }
+        bottomSection={<div className="">{rightSection({})}</div>}
+        rightMobile={rightMobile}
+        centerMobile={centerMobile}
+        drawerMenuMobile={drawerMenuMobile}
+      >
+        <div>
+          <MdMathEditor
+            value={SAMPLE_MD_CONTENT}
+            onChange={() => {
+            }}
+            enableDownload
+            informationButton
+          />
         </div>
-      }
-      bottomSection={<div className="">{rightSection({})}</div>}
-      rightMobile={rightMobile}
-      centerMobile={centerMobile}
-      drawerMenuMobile={drawerMenuMobile}
-    >
-      <div>
-        <MdMathEditor
-          value={SAMPLE_MD_CONTENT}
-          onChange={() => {
-          }}
-          enableDownload
-          informationButton
-        />
-      </div>
-    </VerticalMenuCmp>
-    <MockupToggleThemeButton />
-  </div>
+      </VerticalMenuCmp>
+    </div>
+  </MockupJukiProvider>
 );

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-webpack5';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../../mockup';
 import { SAMPLE_MD_CONTENT } from '../../MdMathViewer/constants';

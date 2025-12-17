@@ -8,9 +8,9 @@ import {
   SubscribeSubmissionRunStatusWebSocketEventDTO,
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
-import { T } from 'components/atoms';
 import { useEffect, useRef, useState } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../../../constants/settings';
+import { T } from '../../../../atoms';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useMutate } from '../../../../hooks/useMutate';
 import { useSubscribe } from '../../../../hooks/useSubscribe';

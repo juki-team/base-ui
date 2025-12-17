@@ -4,7 +4,7 @@ import { KeyedMutator } from 'swr';
 import { v4 } from 'uuid';
 import { create, useStore as useZustandStore } from 'zustand';
 import { StoreApi } from 'zustand/vanilla';
-import { InitUserState, UserState } from '../../providers/JukiUserProvider/types';
+import { InitUserState, UserState } from '../../components/providers/JukiUserProvider/types';
 
 const createUserStore = (initState: InitUserState) => create<UserState>()(
   (set, get) => {

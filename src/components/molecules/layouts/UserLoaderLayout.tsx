@@ -1,7 +1,7 @@
-import { T } from 'components';
-import { useUserStore } from 'hooks';
 import { AnimatePresence, motion } from 'motion/react';
 import { type CSSProperties, useEffect, useState } from 'react';
+import { useUserStore } from '../../../stores/user/useUserStore';
+import { T } from '../../atoms';
 
 export const UserLoaderLayout = () => {
   

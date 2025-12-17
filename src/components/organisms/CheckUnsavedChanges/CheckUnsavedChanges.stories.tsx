@@ -1,11 +1,11 @@
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useEffect, useState } from 'react';
-import { NotificationProvider } from '../../../providers/NotificationProvider/NotificationProvider';
 import { T } from '../../atoms';
 import { CloseIcon } from '../../atoms/server';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import { MockupJukiProvider } from '../../mockup';
 import { ButtonLoader } from '../../molecules';
+import { NotificationProvider } from '../../providers/NotificationProvider/NotificationProvider';
 import { CheckUnsavedChanges } from './CheckUnsavedChanges';
 
 const meta = {

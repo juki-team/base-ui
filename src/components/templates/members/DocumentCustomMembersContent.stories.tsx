@@ -1,5 +1,5 @@
 import { EMPTY_ENTITY_MEMBERS, getDocumentAccess } from '@juki-team/commons';
-import type { Meta, StoryObj } from '@storybook/react-webpack5';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { DocumentCustomMembersContent } from './DocumentCustomMembersContent';

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react-webpack5';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { EMPTY_USER } from '../../../constants';
 import { useUserStore } from '../../../stores/user/useUserStore';

@@ -1,4 +1,4 @@
-import { type  Meta, type StoryObj } from '@storybook/react-webpack5';
+import { type  Meta, type StoryObj } from '@storybook/react-vite';
 import { action } from 'storybook/actions';
 import { Button } from '../../atoms';
 import { useJukiNotification } from '../../hooks/useJukiNotification';

@@ -1,5 +1,5 @@
 import { MenuViewMode } from '@juki-team/commons';
-import { Meta, StoryObj } from '@storybook/react-webpack5';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { action, configureActions } from 'storybook/actions';
 import { Button, T } from '../../atoms';
