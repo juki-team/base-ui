@@ -2,6 +2,7 @@ import {
   CodeEditorSubmissionDTO,
   CodeRunDTO,
   CompanyPlan,
+  getUserKey,
   HTTPMethod,
   JkmdSubmissionDTO,
   Judge,
@@ -12,7 +13,9 @@ import {
   QuizProblemSubmissionDTO,
   Theme,
   UpsertWorksheetDTO,
+  UserRoles,
   UserSettingsType,
+  UserStatus,
 } from '@juki-team/commons';
 import type { ErrorInfo } from 'react';
 import {
@@ -102,18 +105,18 @@ export class ApiManager {
           body: JSON.stringify(body),
         })),
         updatePassword: valid<{
-          params: { companyKey?: string, nickname: string },
+          params: { companyKey: string, nickname: string },
           body: UpdatePasswordPayloadDTO
         }, HTTPMethod.POST>(({ params: { companyKey, nickname }, body }) => ({
-          url: injectCompany(injectBaseUrl('auth', `/nickname/${nickname}/update-password`), companyKey),
+          url: injectBaseUrl('auth', `/user-key/${getUserKey(nickname, companyKey)}/update-password`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
         resetPassword: valid<
-          { params: { companyKey?: string, nickname: string } },
+          { params: { companyKey: string, nickname: string } },
           HTTPMethod.POST
         >(({ params: { companyKey, nickname } }) => ({
-          url: injectCompany(injectBaseUrl('auth', `/nickname/${nickname}/reset-password`), companyKey),
+          url: injectBaseUrl('auth', `/user-key/${getUserKey(nickname, companyKey)}/reset-password`),
           method: HTTPMethod.POST,
         })),
         createSession: valid<
@@ -162,12 +165,6 @@ export class ApiManager {
         })),
       },
       user: {
-        getSummary: valid<
-          { params: { nickname: string, companyKey?: string } }
-        >(({ params: { nickname, companyKey } }) => ({
-          url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/summary`), companyKey),
-          method: HTTPMethod.GET,
-        })),
         getSummaryList: valid<
           { params: { companyKey: string } } | void
         >(({ params: { companyKey } = { companyKey: '' } } = { params: { companyKey: '' } }) => ({
@@ -180,10 +177,22 @@ export class ApiManager {
           url: injectSort(injectFilter(injectPage(injectBaseUrl('user', '/system-list'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
-        getProfile: valid<
-          { params: { nickname: string, companyKey?: string } }
+        getSummary: valid<
+          { params: { nickname: string, companyKey: string } }
         >(({ params: { nickname, companyKey } }) => ({
-          url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/profile`), companyKey),
+          url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/summary`),
+          method: HTTPMethod.GET,
+        })),
+        getProfile: valid<
+          { params: { nickname: string, companyKey: string } }
+        >(({ params: { nickname, companyKey } }) => ({
+          url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/profile`),
+          method: HTTPMethod.GET,
+        })),
+        getLogs: valid<
+          { params: { nickname: string, companyKey: string } }
+        >(({ params: { nickname, companyKey } }) => ({
+          url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/logs`),
           method: HTTPMethod.GET,
         })),
         getMySessions: valid<void>(() => ({
@@ -208,27 +217,43 @@ export class ApiManager {
         })),
         updateProfileData: valid<
           {
-            params: { nickname: string, companyKey?: string },
+            params: { nickname: string, companyKey: string },
             body: UpdateUserProfileDataPayloadDTO
           }, HTTPMethod.PUT
         >(({ params: { nickname, companyKey }, body }) => ({
-          url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/profile-data`), companyKey),
+          url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/profile-data`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
         updateProfileImage: valid<
-          { params: { nickname: string, companyKey?: string }, body: { contentType: string } },
+          { params: { nickname: string, companyKey: string }, body: { contentType: string } },
           HTTPMethod.PUT
         >(({ params: { nickname, companyKey }, body }) => ({
-          url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/profile-image`), companyKey),
+          url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/profile-image`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
         updatePreferences: valid<
-          { params: { nickname: string, companyKey?: string }, body: UserSettingsType },
+          { params: { nickname: string, companyKey: string }, body: UserSettingsType },
           HTTPMethod.PUT
         >(({ params: { nickname, companyKey }, body }) => ({
-          url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/preferences`), companyKey),
+          url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/preferences`),
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(body),
+        })),
+        updateStatus: valid<
+          { params: { nickname: string, companyKey: string }, body: { status: UserStatus } },
+          HTTPMethod.PUT
+        >(({ params: { nickname, companyKey }, body }) => ({
+          url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/status`),
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(body),
+        })),
+        updateRoles: valid<
+          { params: { nickname: string, companyKey: string }, body: UserRoles },
+          HTTPMethod.PUT
+        >(({ params: { nickname, companyKey }, body }) => ({
+          url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/roles`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
@@ -238,12 +263,6 @@ export class ApiManager {
         >(({ params: { sessionId } }) => ({
           url: injectBaseUrl('user', `/session/${sessionId}`),
           method: HTTPMethod.DELETE,
-        })),
-        getLogs: valid<
-          { params: { nickname: string, companyKey?: string } }
-        >(({ params: { nickname, companyKey } }) => ({
-          url: injectCompany(injectBaseUrl('user', `/nickname/${nickname}/logs`), companyKey),
-          method: HTTPMethod.GET,
         })),
       },
       problem: {

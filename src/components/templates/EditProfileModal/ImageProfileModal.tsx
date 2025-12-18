@@ -10,7 +10,7 @@ import { ButtonLoader, ImageLoaderCropper } from '../../molecules';
 import type { CropImageType } from '../../molecules/types';
 import type { ImageProfileModalProps } from './types';
 
-export function ImageProfileModal({ isOpen, onClose, nickname }: ImageProfileModalProps) {
+export function ImageProfileModal({ isOpen, onClose, nickname, companyKey }: ImageProfileModalProps) {
   
   const { updateUserProfileImage } = useJukiUser();
   const mutateUser = useUserStore(state => state.mutate);
@@ -30,20 +30,20 @@ export function ImageProfileModal({ isOpen, onClose, nickname }: ImageProfileMod
           circularCrop
         />
         <div className="jk-row right gap extend">
-          <Button type="light" onClick={onClose}><T>cancel</T></Button>
+          <Button type="light" onClick={onClose}><T className="tt-se">cancel</T></Button>
           <ButtonLoader
             onClick={async (setLoader) => {
               if (cropImage?.previewCanvasRef.current) {
                 const blob = (await toBlob(cropImage.previewCanvasRef.current));
                 if (blob) {
                   await updateUserProfileImage({
-                    params: { nickname },
+                    params: { nickname, companyKey },
                     setLoader,
                     body: blob,
                     onSuccess: async () => {
                       setLoader?.(Status.LOADING);
                       await mutateUser();
-                      await mutate(jukiApiManager.API_V2.user.getProfile({ params: { nickname } }).url);
+                      await mutate(jukiApiManager.API_V2.user.getProfile({ params: { nickname, companyKey } }).url);
                       setLoader?.(Status.SUCCESS);
                       onClose();
                     },
@@ -53,7 +53,7 @@ export function ImageProfileModal({ isOpen, onClose, nickname }: ImageProfileMod
             }}
             disabled={!cropImage || !cropImage?.previewCanvasRef.current}
           >
-            <T>save image</T>
+            <T className="tt-se">save image</T>
           </ButtonLoader>
         </div>
       </div>

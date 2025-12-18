@@ -12,4 +12,5 @@ export interface EditProfileModalProps extends BasicModalProps {
 
 export interface ImageProfileModalProps extends BasicModalProps {
   nickname: string,
+  companyKey: string,
 }

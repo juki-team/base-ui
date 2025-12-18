@@ -13,6 +13,7 @@ import { QueryParamKey } from '../../../../enums';
 import { jukiApiManager } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
+import { useUserStore } from '../../../../stores/user/useUserStore';
 import { Button, DetectRequestAnimationFrame } from '../../../atoms';
 import { VisibilityIcon, VisibilityOffIcon } from '../../../atoms/server';
 import { classNames } from '../../../helpers';
@@ -93,10 +94,16 @@ const hx = (setSearchParams: SetSearchParamsType, noHLinks: boolean) => ({ child
 
 function UserInlineChip({ nickname }: { nickname: string }) {
   
+  const companyKey = useUserStore(store => store.company.key);
   const {
     isLoading,
     data,
-  } = useFetcher<ContentResponseType<UserBasicResponseDTO>>(jukiApiManager.API_V2.user.getSummary({ params: { nickname } }).url);
+  } = useFetcher<ContentResponseType<UserBasicResponseDTO>>(jukiApiManager.API_V2.user.getSummary({
+    params: {
+      nickname,
+      companyKey,
+    },
+  }).url);
   
   if (isLoading) {
     return <SpinIcon size="tiny" />;

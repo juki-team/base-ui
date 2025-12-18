@@ -110,7 +110,10 @@ export const useJukiUser = () => {
   }, [ doRequest ]);
   
   const updateUserProfileData = useCallback(async (
-    { params, body, ...props }: ApiParamsBodyType<{ nickname: string }, UpdateUserProfileDataPayloadDTO, string>,
+    { params, body, ...props }: ApiParamsBodyType<{
+      nickname: string,
+      companyKey: string
+    }, UpdateUserProfileDataPayloadDTO, string>,
   ) => {
     const { url, ...options } = jukiApiManager.API_V2.user.updateProfileData({ params, body });
     await doRequest<string, HTTPMethod.PUT>({ url, options, ...props });
@@ -118,7 +121,7 @@ export const useJukiUser = () => {
   
   const updateUserProfileImage = useCallback(async (
     { params, body, setLoader, onSuccess, onError, onFinally }: ApiParamsBodyType<{
-      nickname: string
+      nickname: string, companyKey: string
     }, Blob, { signedUrl: string }>,
   ) => {
     const { url, ...options } = jukiApiManager.API_V2.user.updateProfileImage({
@@ -192,7 +195,7 @@ export const useJukiUser = () => {
   }, [ doRequest ]);
   
   const updateUserPreferences = useCallback(async (
-    { params, body, ...props }: ApiParamsBodyType<{ nickname: string }, UserSettingsType, string>,
+    { params, body, ...props }: ApiParamsBodyType<{ nickname: string, companyKey: string }, UserSettingsType, string>,
   ) => {
     const { url, ...options } = jukiApiManager.API_V2.user.updatePreferences({ params, body });
     await doRequest<string, HTTPMethod.PUT>({ url, options, ...props });
@@ -218,6 +221,7 @@ export const useJukiUserSettings = () => {
   const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
   const setUser = useUserStore(state => state.setUser);
   const { isLogged, settings, nickname } = useUserStore(state => state.user);
+  const companyKey = useUserStore(state => state.company.key);
   const mutatePing = useUserStore(state => state.mutate);
   const { updateUserPreferences } = useJukiUser();
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
@@ -252,7 +256,7 @@ export const useJukiUserSettings = () => {
     
     if (isLogged) {
       await updateUserPreferences({
-        params: { nickname },
+        params: { nickname, companyKey },
         body: { ...newSettings },
         setLoader,
         onSuccess: async () => {
@@ -268,7 +272,7 @@ export const useJukiUserSettings = () => {
       setUser({ settings: newSettings });
     }
     i18nChangeLanguage(newSettings[ProfileSetting.LANGUAGE]);
-  }, [ i18nChangeLanguage, isLogged, mutatePing, nickname, setUser, settings, updateUserPreferences ]);
+  }, [ i18nChangeLanguage, isLogged, mutatePing, nickname, setUser, settings, updateUserPreferences, companyKey ]);
   
   const loading = loader === Status.LOADING;
   

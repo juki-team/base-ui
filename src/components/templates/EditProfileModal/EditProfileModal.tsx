@@ -73,9 +73,10 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className="user-profile jk-row stretch center gap jk-pg-md pn-re">
         <ImageProfileModal
+          isOpen={modalImageProfile}
           onClose={() => setModalImageProfile(false)}
           nickname={user.nickname}
-          isOpen={modalImageProfile}
+          companyKey={user.company.key}
         />
         <div className="jk-col top jk-pg-md">
           <Image
@@ -192,7 +193,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
                 handles: userState.handles,
               };
               return updateUserProfileData({
-                params: { nickname: user.nickname },
+                params: { nickname: user.nickname, companyKey: user.company.key },
                 body,
                 setLoader,
                 onSuccess: async (response) => {
