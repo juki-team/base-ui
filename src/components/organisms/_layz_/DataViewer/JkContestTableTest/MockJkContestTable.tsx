@@ -1,4 +1,4 @@
-import { type  ContestSummaryListResponseDTO, Status } from '@juki-team/commons';
+import { type  ContestSummaryListResponseDTO } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { DataViewer } from '../';
 import { T } from '../../../../atoms';
@@ -10,14 +10,13 @@ import {
   getContestNameHeader,
   getContestStatusHeader,
 } from '../../../../templates';
-import type { DataViewerHeadersType, DataViewerProps } from '../types';
+import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';
 import contests from './data.json';
 
 export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryListResponseDTO>, 'data' | 'headers'>) => {
   const [ data, setData ] = useState<ContestSummaryListResponseDTO[]>([]);
   useEffect(() => {
     setTimeout(() => {
-      // @ts-ignore
       setData(contests.contents as ContestSummaryListResponseDTO[]);
       // setData([]);
     }, 2000);
@@ -29,15 +28,16 @@ export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryLis
     getContestContestantsHeader(),
   ], []);
   
-  const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
+  const request: DataViewerRequestType = useCallback(async ({ sort, filter, pagination }) => {
     console.info('request', { sort, filter, pagination });
-    setLoaderStatus(Status.LOADING);
+    // setLoaderStatus(Status.LOADING);
     await (new Promise((resolve) => setTimeout(() => resolve(true), 6000)));
-    setLoaderStatus(Status.SUCCESS);
+    // setLoaderStatus(Status.SUCCESS);
   }, []);
   
   const extraNodes = useMemo(() => [
     <ButtonLoader
+      key="click"
       size="small"
       type="light"
       icon={<RefreshIcon />}
@@ -47,6 +47,7 @@ export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryLis
       <T>download</T>
     </ButtonLoader>,
     <ButtonLoader
+      key="click-2"
       size="small"
       type="light"
       icon={<RefreshIcon />}

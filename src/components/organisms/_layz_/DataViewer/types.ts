@@ -8,7 +8,6 @@ import {
   DateDisplayType,
   ReactNodeOrFunctionP1Type,
   ReactNodeOrFunctionType,
-  ReloadType,
   RequestFilterType,
   SetLoaderStatusType,
   ViewPortSizeType,
@@ -293,7 +292,7 @@ export type DataViewerHeaderSortType<T> = DataViewerHeaderSortOnlineType | DataV
 export type DataViewerHeadersType<T> = {
   head?: TableHeadType<T>,
   Field: TableHeadCmpFieldType<T>,
-  index: string,
+  index: string | Extract<keyof T, string>,
   minWidth?: number,
   sort?: DataViewerHeaderSortType<T>,
   filter?: JkTableHeaderFilterType<T>,
@@ -323,7 +322,7 @@ export type DataViewerGroupsType<T> = {
   style?: CSSProperties,
 };
 
-export interface DataViewerProps<T> {
+export interface DataViewerProps<T extends object> {
   cards?: CardsType,
   cardsView?: boolean,
   className?: string,
@@ -338,8 +337,6 @@ export interface DataViewerProps<T> {
   request?: DataViewerRequestType,
   rows?: RowsType,
   rowsView?: boolean,
-  setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
-  reloadRef?: (reload: ReloadType) => void,
   totalData?: number,
   pageSizeOptions?: number[],
   getRecordKey?: GetRecordKeyType<T>,
@@ -355,8 +352,10 @@ export interface DataViewerProps<T> {
   onRecordClick?: OnRecordClickType<T>,
   onRecordHover?: OnRecordClickType<T>,
   onRecordRender?: OnRecordClickType<T>,
+  setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
   setDataTableRef?: (data: T[]) => void,
   initializing?: boolean,
+  deps?: (string | number)[],
 }
 
 export interface TableHeadProps<T> {
@@ -364,7 +363,7 @@ export interface TableHeadProps<T> {
   setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   loading: boolean,
   gap: number,
-  headerRef: UseResizeDetectorReturn<any>['ref'],
+  headerRef: UseResizeDetectorReturn<HTMLDivElement>['ref'],
   topHeaders: DataViewerTableHeadersType<T>[],
   rightBorders: number[],
   hasScrollTop: boolean,
@@ -437,7 +436,7 @@ export interface PaginationProps {
   isOnToolbar?: boolean,
 }
 
-export interface PagedDataViewerProps<T, V = T> {
+export interface PagedDataViewerProps<T extends object, V = T> {
   cards?: { height?: number, width?: number, expanded?: boolean },
   rows?: { height?: number, width?: number },
   headers: DataViewerHeadersType<T>[],
@@ -451,8 +450,8 @@ export interface PagedDataViewerProps<T, V = T> {
   onRecordHover?: OnRecordClickType<T>,
   onRecordRender?: OnRecordClickType<T>,
   getRecordStyle?: GetRecordStyleType<T>;
-  dependencies?: any[],
   downloads?: DataViewerProps<T>['downloads'],
+  deps?: DataViewerProps<T>['deps'],
 }
 
 export interface Scroll {

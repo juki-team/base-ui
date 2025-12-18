@@ -1,4 +1,4 @@
-import { type ProblemSummaryListResponseDTO, Status } from '@juki-team/commons';
+import { type ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ButtonLoader,
@@ -14,14 +14,13 @@ import {
 } from '../../../../index';
 import { ButtonAction } from '../../../../molecules/ButtonAction/ButtonAction';
 import { RefreshIcon } from '../../../../server';
-import type { DataViewerHeadersType, DataViewerProps } from '../types';
+import type { DataViewerHeadersType, DataViewerProps, DataViewerRequestType } from '../types';
 import problems from './data.json';
 
 export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data' | 'headers'>) => {
   const [ data, setData ] = useState<ProblemSummaryListResponseDTO[]>([]);
   useEffect(() => {
     setTimeout(() => {
-      // @ts-ignore
       setData(problems.contents as ProblemSummaryListResponseDTO[]);
       // setData([]);
     }, 2000);
@@ -36,11 +35,11 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
     getProblemAdminActionsHeader(),
   ], []);
   
-  const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
+  const request: DataViewerRequestType = useCallback(async ({ sort, filter, pagination }) => {
     console.info('request', { sort, filter, pagination });
-    setLoaderStatus(Status.LOADING);
+    // setLoaderStatus(Status.LOADING);
     await (new Promise((resolve) => setTimeout(() => resolve(true), 6000)));
-    setLoaderStatus(Status.SUCCESS);
+    // setLoaderStatus(Status.SUCCESS);
   }, []);
   
   const extraNodes = useMemo(() => [

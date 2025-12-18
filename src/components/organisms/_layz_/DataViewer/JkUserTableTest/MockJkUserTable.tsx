@@ -1,4 +1,3 @@
-import { Status } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { SelectOptionType } from '../../../../atoms/Select/types';
 import {
@@ -13,7 +12,7 @@ import {
   TextHeadCell,
 } from '../../../../index';
 import { RefreshIcon } from '../../../../server';
-import { DataViewerHeadersType, DataViewerProps } from '../types';
+import { DataViewerHeadersType, DataViewerProps, type DataViewerRequestType } from '../types';
 import users from './data.json';
 
 export interface JkUserTableProps {
@@ -220,15 +219,16 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
     },
   ], []);
   
-  const request = useCallback(async ({ sort, filter, setLoaderStatus, pagination }: any) => {
+  const request: DataViewerRequestType = useCallback(async ({ sort, filter, pagination }) => {
     console.info('request', { sort, filter, pagination });
-    setLoaderStatus(Status.LOADING);
+    // setLoaderStatus(Status.LOADING);
     await (new Promise((resolve) => setTimeout(() => resolve(true), 4000)));
-    setLoaderStatus(Status.SUCCESS);
+    // setLoaderStatus(Status.SUCCESS);
   }, []);
   
   const extraNodes = useMemo(() => [
     <ButtonLoader
+      key="download"
       size="small"
       type="light"
       icon={<RefreshIcon />}
@@ -238,6 +238,7 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
       <T>download</T>
     </ButtonLoader>,
     <ButtonLoader
+      key="download-2"
       size="small"
       type="light"
       icon={<RefreshIcon />}

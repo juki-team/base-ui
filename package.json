@@ -56,7 +56,8 @@
     "./vendor-styles.scss": "./src/styles/vendor/index.scss"
   },
   "scripts": {
-    "storybook": "cross-env NODE_ENV=storybook storybook dev -p 6006",
+    "caddy": "caddy run --config Caddyfile",
+    "storybook": "cross-env NODE_ENV=storybook storybook dev -p 6006 --host storybook.local.juki.app",
     "prebuild:rollup": "rm -rf src/vendor && rollup -c prebuild-rollup.config.js && rm -rf tmp-prebuild",
     "build:storybook": "rm -rf docs && storybook build -o docs",
     "build:rollup-clean": "rm -rf dist && rm -rf node_modules/.cache/rollup-plugin-typescript2 && rollup -c --no-cache --strictDeprecations --environment NODE_ENV:production",

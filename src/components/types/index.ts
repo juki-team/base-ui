@@ -40,7 +40,7 @@ export type DataViewerRequestPropsType = {
   sort: RequestSortType,
   filter: RequestFilterType,
   pagination: { page: number, pageSize: number },
-  setLoaderStatus: LoaderStatusActionType,
+  // setLoaderStatus: LoaderStatusActionType,
 }
 
 export type OnClickButtonEventType = {

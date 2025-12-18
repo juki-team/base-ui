@@ -7,7 +7,7 @@ export const DataViewerImport = () => import('./DataViewer');
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const DataViewerGen = lazy(() => DataViewerImport()) as FC<DataViewerProps<any>>;
 
-export const DataViewer = <T, >(props: DataViewerProps<T>) => (
+export const DataViewer = <T extends object, >(props: DataViewerProps<T>) => (
   <Suspense fallback={<SpinIcon />}>
     <DataViewerGen {...props} />
   </Suspense>

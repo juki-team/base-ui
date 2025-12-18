@@ -9,7 +9,7 @@ import { classNames, showOfDateDisplayType } from '../../../helpers';
 import { useSessionStorage } from '../../../hooks/useSessionStorage';
 import { useStableRef } from '../../../hooks/useStableRef';
 import type { OptionType } from '../../../molecules/types';
-import type { RequestFilterType, RequestSortType } from '../../../types';
+import { DataViewerRequestPropsType, RequestFilterType, RequestSortType } from '../../../types';
 import { DisplayDataViewer } from './commons/DisplayDataViewer';
 import {
   fixHeaders,
@@ -45,14 +45,14 @@ import {
   FILTER_TEXT,
   FILTER_TEXT_AUTO,
 } from './constants';
-import type { DataViewerProps, DataViewerTableHeadersType, FilterValuesType } from './types';
+import type { DataViewerHeadersType, DataViewerProps, DataViewerTableHeadersType, FilterValuesType } from './types';
 
 const DEFAULT_PICKER_TYPE = 'year-month-day-hours-minutes-seconds';
 
 function getTextWidth(text: string, font: string) {
   // re-use canvas object for better performance
   if (typeof document !== 'undefined') {
-    // @ts-ignore
+    // @ts-expect-error adding canvas element
     const canvas: HTMLCanvasElement = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
     const context = canvas.getContext('2d');
     if (context) {
@@ -76,7 +76,217 @@ const isSomethingFiltered = (newSearchFilter: RequestFilterType) => (
   !!Object.values(newSearchFilter).filter(search => !!search && (Array.isArray(search) ? search.length : true)).length
 );
 
-export default function DataViewer<T extends { [key: string]: any }, >(props: DataViewerProps<T>) {
+const applyOffline = <T extends object, >(data: T[], headers: DataViewerHeadersType<T>[], filters: RequestFilterType, searchSorts: string) => {
+  let newData = [ ...data ];
+  
+  // Offline filter
+  for (const head of headers) {
+    const filterIndex = head.index;
+    if (filters[filterIndex]) {
+      const headIndex = head.index;
+      if (isFilterTextOffline(head?.filter)) {
+        newData = newData.filter(head.filter.callbackFn({ columnIndex: head.index, text: filters[filterIndex] }));
+      } else if (isFilterTextAutoOffline(head?.filter)) {
+        const regExp = new RegExp(filters[filterIndex], 'gi');
+        newData = newData.filter(datum => {
+          if (isFilterTextAutoOffline(head?.filter)) {
+            const value = head.filter.getValue ? head.filter.getValue({ record: datum }) : (headIndex in datum ? datum[headIndex as Extract<keyof T, string>] : null);
+            return typeof value === 'string' ? !!(value?.match?.(regExp)) : false;
+          }
+          return false;
+        });
+      } else if (isFilterSelectOffline(head?.filter)) {
+        const selectedOptions = split(filters[filterIndex]).map(search => {
+          if (isFilterSelectOffline(head?.filter)) {
+            return head.filter.options.find(({ value }) => value === search);
+          }
+          return undefined;
+        }).filter(option => !!option) as OptionType<string>[];
+        newData = newData.filter(
+          head.filter.callbackFn({ columnIndex: head.index, selectedOptions }),
+        );
+      } else if (isFilterSelectAutoOffline(head?.filter)) {
+        const selectedOptions = split(filters[filterIndex]).map(search => {
+          if (isFilterSelectAutoOffline(head?.filter)) {
+            return head.filter.options.find(({ value }) => value === search);
+          }
+          return undefined;
+        }).filter(option => !!option) as OptionType<string>[];
+        newData = newData.filter(datum => {
+          if (isFilterSelectAutoOffline(head?.filter)) {
+            const value = head.filter.getValue
+              ? head.filter.getValue({ record: datum })
+              : (headIndex in datum ? datum[headIndex as Extract<keyof T, string>] : null);
+            return !!selectedOptions.find(option => option.value === value);
+          }
+          return false;
+        });
+      } else if (isFilterDateOffline(head?.filter)) {
+        newData = newData.filter(head.filter.callbackFn({
+          columnIndex: head.index,
+          selectedDate: new Date(+filters[filterIndex]),
+        }));
+      } else if (isFilterDateAutoOffline(head?.filter)) {
+        const {
+          showYears,
+          showMonths,
+          showDays,
+          showHours,
+          showMinutes,
+          showSeconds,
+          showMilliseconds,
+        } = showOfDateDisplayType(head.filter.pickerType || DEFAULT_PICKER_TYPE);
+        if (filters[filterIndex] && new Date(+filters[filterIndex])?.isValidDate()) {
+          const searchDate = new Date(+filters[filterIndex]);
+          newData = newData.filter(datum => {
+            if (isFilterDateAutoOffline(head?.filter)) {
+              const value = head.filter.getValue ? head.filter.getValue({ record: datum }) : (headIndex in datum ? datum[headIndex as Extract<keyof T, string>] : null);
+              if (value instanceof Date && value?.isValidDate?.()) {
+                if (showMilliseconds) {
+                  return searchDate.isSameMillisecond(value);
+                } else if (showSeconds) {
+                  return searchDate.isSameSecond(value);
+                } else if (showMinutes) {
+                  return searchDate.isSameMinute(value);
+                } else if (showHours) {
+                  return searchDate.isSameHour(value);
+                } else if (showDays) {
+                  return searchDate.isSameDay(value);
+                } else if (showMonths) {
+                  return searchDate.isSameMonth(value);
+                } else if (showYears) {
+                  return searchDate.isSameYear(value);
+                }
+              } else {
+                consoleWarn('datum no filtered', { datum, searchDate, index: head.index, head });
+              }
+            }
+            return true;
+          });
+        } else {
+          consoleWarn('data no filtered, filter not a valid time date', {
+            search: filters[filterIndex],
+            searchFilter: filters,
+          });
+        }
+      } else if (isFilterDateRangeOffline(head?.filter)) {
+        const [ start, end ] = split(filters[filterIndex]);
+        if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
+          newData = newData.filter(head.filter.callbackFn({
+            columnIndex: head.index,
+            startSelectedDate: new Date(+start),
+            endSelectedDate: new Date(+end),
+          }));
+        } else {
+          consoleWarn('data no filtered, filter not a valid range times date', {
+            search: filters[filterIndex],
+            searchFilter: filters,
+          });
+        }
+      } else if (isFilterDateRangeAutoOffline(head?.filter)) {
+        const [ start, end ] = split(filters[filterIndex]);
+        if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
+          const startSelectedDate = new Date(+start);
+          const endSelectedDate = new Date(+end);
+          const {
+            showMonths,
+            showDays,
+            showHours,
+            showMinutes,
+            showSeconds,
+            showMilliseconds,
+          } = showOfDateDisplayType(head.filter.pickerType || DEFAULT_PICKER_TYPE);
+          newData = newData.filter(datum => {
+            if (isFilterDateRangeAutoOffline(head?.filter)) {
+              const date = head.filter.getValue ? head.filter.getValue({ record: datum }) : (headIndex in datum ? datum[headIndex as Extract<keyof T, string>] : null);
+              if (date instanceof Date && date?.isValidDate?.()) {
+                let isWithin = startSelectedDate.getFullYear() <= date.getFullYear() &&
+                  date.getFullYear() <= endSelectedDate.getFullYear();
+                if (showMonths) {
+                  isWithin = isWithin && date.isWithinInterval({
+                    start: startSelectedDate.startOfMonth(),
+                    end: endSelectedDate.endOfMonth(),
+                  });
+                }
+                if (showDays) {
+                  isWithin = isWithin && date.isWithinInterval({
+                    start: startSelectedDate.startOfDay(),
+                    end: endSelectedDate.endOfDay(),
+                  });
+                }
+                if (showHours) {
+                  isWithin = isWithin && date.isWithinInterval({
+                    start: startSelectedDate.startOfHour(),
+                    end: endSelectedDate.endOfHour(),
+                  });
+                }
+                if (showMinutes) {
+                  isWithin = isWithin && date.isWithinInterval({
+                    start: startSelectedDate.startOfMinute(),
+                    end: endSelectedDate.endOfMinute(),
+                  });
+                }
+                if (showSeconds) {
+                  isWithin = isWithin && date.isWithinInterval({
+                    start: startSelectedDate.startOfSecond(),
+                    end: endSelectedDate.endOfSecond(),
+                  });
+                }
+                if (showMilliseconds) {
+                  isWithin = date.isWithinInterval({ start: startSelectedDate, end: endSelectedDate });
+                }
+                return isWithin;
+              } else {
+                consoleWarn('datum no filtered', {
+                  datum,
+                  startSelectedDate,
+                  endSelectedDate,
+                  index: head.index,
+                  head,
+                });
+              }
+            }
+            return true;
+          });
+        } else {
+          consoleWarn('data no filtered, filter not a valid range times date', {
+            search: filters[filterIndex],
+            searchFilter: filters,
+          });
+        }
+      }
+    }
+  }
+  const isFiltered = newData.length !== data.length;
+  let isSorted = false;
+  
+  // Offline sort
+  for (const searchSort of split(searchSorts)) {
+    const head = headers.find(({ index }) => index === searchSort || '-' + index === searchSort);
+    if (head?.sort && isSortOffline(head?.sort)) {
+      if (head.index === searchSort) {
+        newData.sort(head.sort.compareFn({ columnIndex: head.index }));
+        isSorted = true;
+      } else if ('-' + head.index === searchSort) {
+        newData.sort((a, b) => {
+          if (isSortOffline(head?.sort)) {
+            return head.sort.compareFn({ columnIndex: head.index })(a, b) * -1;
+          }
+          return 0;
+        });
+        isSorted = true;
+      }
+    }
+  }
+  
+  if (isFiltered || isSorted) {
+    return newData;
+  }
+  
+  return data;
+};
+
+export default function DataViewer<T extends object, >(props: DataViewerProps<T>) {
   
   const {
     cards,
@@ -90,8 +300,6 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
     request,
     rows,
     rowsView = true,
-    setLoaderStatusRef,
-    reloadRef,
     totalData: initialTotalData,
     pageSizeOptions: initialPageSizeOptions,
     getRecordKey,
@@ -108,10 +316,12 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
     onRecordHover,
     onRecordRender,
     extraNodesFloating,
+    setLoaderStatusRef: _setLoaderStatusRef,
     setDataTableRef: _setDataTableRef,
     initializing: initialInitializing = false,
     downloads,
     groups,
+    deps = [],
   } = props;
   
   const viewPortSize = usePageStore(store => store.viewPort.screen);
@@ -123,16 +333,9 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
   
   const showFilterDrawerKey = getShowFilterDrawerQueryParam(name);
   
-  const [ reloadCount, setReloadCount ] = useState(0);
   const [ loaderStatus, setLoaderStatus ] = useState<Status>(Status.LOADING);
-  const [ _initializing, setInitializing ] = useState(true);
-  useEffect(() => {
-    if (loaderStatus !== Status.LOADING) {
-      setInitializing(false);
-    }
-  }, [ loaderStatus ]);
-  const initializing = _initializing || initialInitializing;
   
+  const initializing = loaderStatus === Status.LOADING || initialInitializing;
   const sortKey = getSortQueryParam(name);
   const iniSort = searchParams.get(sortKey);
   const [ searchSorts, setSort, deleteSort ] = useSessionStorage(sortKey, iniSort);
@@ -158,16 +361,6 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
   
   const filtersRef = useStableRef(filters);
   
-  const [ dataTable, setDataTable ] = useState(data);
-  
-  const prevRefreshCount = useRef<number>(undefined);
-  const prevPage = useRef<number>(undefined);
-  const prevPageSize = useRef<number>(undefined);
-  const prevSearchSorts = useRef<string>(undefined);
-  const prevSearchFilter = useRef<RequestFilterType>(undefined);
-  
-  const firstRender = useRef(true);
-  
   const pageKey = getPageQueryParam(name);
   const pageSizeKey = getPageSizeQueryParam(name);
   const initialPageSizeOptionsString = JSON.stringify(initialPageSizeOptions ?? [ 25, 50, 100 ]);
@@ -177,283 +370,69 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
   const [ _pageSize, onPageSizeChange ] = useSessionStorage(pageSizeKey, searchParams.get(pageSizeKey));
   const pageSize = +_pageSize || pageSizeOptions[0];
   
-  const _refLoader = useRef(loaderStatus);
-  _refLoader.current = loaderStatus;
-  useEffect(() => {
-    setLoaderStatusRef?.((status) => {
-      if (typeof status === 'function') {
-        setLoaderStatus(status(_refLoader.current));
-      } else {
-        setLoaderStatus(status);
-      }
-    });
-  }, [ setLoaderStatusRef ]);
-  useEffect(() => reloadRef?.(() => setReloadCount(prevState => prevState + 1)), [ reloadRef ]);
-  
-  const requestProps = useMemo(() => {
+  const requestKey = useMemo(() => {
     const sort: RequestSortType = {};
     const headSort = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
     if (headSort?.sort) {
       sort[headSort.index] = headSort.index === searchSorts ? 1 : -1;
     }
-    return {
+    
+    // const head = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
+    // const prevHead = headers.find(({ index }) => index === prevSearchSorts.current || '-' + index === prevSearchSorts.current);
+    // if (isSortOnline(head?.sort) || isSortOnline(prevHead?.sort)) {
+    //   request?.(requestProps);
+    // }
+    // let withChanges = false;
+    // for (const head of headers) {
+    //   if (
+    //     (filters[head.index] || prevSearchFilter.current?.[head.index]) &&
+    //     filters[head.index] !== prevSearchFilter.current?.[head.index] &&
+    //     (isFilterTextOnline(head.filter) ||
+    //       isFilterSelectOnline(head.filter) ||
+    //       isFilterDateOnline(head.filter) ||
+    //       isFilterDateRangeOnline(head.filter)
+    //     )
+    //   ) {
+    //     withChanges = true;
+    //   }
+    // }
+    // if (withChanges) {
+    //   request?.(requestProps);
+    // }
+    return JSON.stringify({
       sort,
       filter: filters,
-      setLoaderStatus,
       pagination: withPagination ? { page, pageSize } : { page: 0, pageSize: 0 },
-    };
-  }, [ headers, searchSorts, filters, setLoaderStatus, withPagination, page, pageSize ]);
-  
+    });
+  }, [ filters, headers, page, pageSize, searchSorts, withPagination ]);
+  const requestProps = useMemo(() => JSON.parse(requestKey) as DataViewerRequestPropsType, [ requestKey ]);
+  const depsKey = useMemo(() => JSON.stringify(deps), [ deps ]);
+  const onReload = useCallback(() => request?.(requestProps), [ request, requestProps ]);
   useEffect(() => {
-    if (firstRender.current) { // First render
-      request?.(requestProps);
-      firstRender.current = false;
-    } else if (prevSearchSorts.current !== searchSorts) { // Search change
-      const head = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
-      const prevHead = headers.find(({ index }) => index === prevSearchSorts.current || '-' + index === prevSearchSorts.current);
-      if (isSortOnline(head?.sort) || isSortOnline(prevHead?.sort)) {
-        request?.(requestProps);
-      }
-      prevSearchSorts.current = searchSorts;
-    } else if (JSON.stringify(prevSearchFilter.current) !== JSON.stringify(filters)) { // Filter change
-      let withChanges = false;
-      for (const head of headers) {
-        if (
-          (filters[head.index] || prevSearchFilter.current?.[head.index]) &&
-          filters[head.index] !== prevSearchFilter.current?.[head.index] &&
-          (isFilterTextOnline(head.filter) ||
-            isFilterSelectOnline(head.filter) ||
-            isFilterDateOnline(head.filter) ||
-            isFilterDateRangeOnline(head.filter)
-          )
-        ) {
-          withChanges = true;
-        }
-      }
-      if (withChanges) {
-        request?.(requestProps);
-      }
-      prevSearchFilter.current = filters;
-    } else if (withPagination && prevPage.current !== page) {
-      request?.(requestProps);
-      prevPage.current = page;
-    } else if (withPagination && prevPageSize.current !== pageSize) {
-      request?.(requestProps);
-      prevPageSize.current = pageSize;
-    } else if (prevRefreshCount.current !== reloadCount) {
-      request?.(requestProps);
-      prevRefreshCount.current = reloadCount;
-    }
-  }, [ request, searchSorts, headers, reloadCount, filters, withPagination, page, pageSize, requestProps ]);
-  const setDataTableRef = useRef<(data: T[]) => void>(undefined);
-  setDataTableRef.current = _setDataTableRef;
-  useEffect(() => { // Offline filter & Offline sort
-    let newData = [ ...data ];
-    // if (prevSearchSorts.current !== searchSorts || JSON.stringify(prevSearchFilter.current) !== JSON.stringify(searchFilter)) { // to sort when reload data too
-    // Offline filter
-    for (const head of headers) {
-      const filterIndex = head.index;
-      if (filters[filterIndex]) {
-        if (isFilterTextOffline(head?.filter)) {
-          newData = newData.filter(head.filter.callbackFn({ columnIndex: head.index, text: filters[filterIndex] }));
-        } else if (isFilterTextAutoOffline(head?.filter)) {
-          const regExp = new RegExp(filters[filterIndex], 'gi');
-          newData = newData.filter(datum => {
-            if (isFilterTextAutoOffline(head?.filter)) {
-              const value = head.filter.getValue ? head.filter.getValue({ record: datum }) : datum[head.index];
-              return !!(value?.match?.(regExp));
-            }
-            return false;
-          });
-        } else if (isFilterSelectOffline(head?.filter)) {
-          const selectedOptions = split(filters[filterIndex]).map(search => {
-            if (isFilterSelectOffline(head?.filter)) {
-              return head.filter.options.find(({ value }) => value === search);
-            }
-            return undefined;
-          }).filter(option => !!option) as OptionType<string>[];
-          newData = newData.filter(
-            head.filter.callbackFn({ columnIndex: head.index, selectedOptions }),
-          );
-        } else if (isFilterSelectAutoOffline(head?.filter)) {
-          const selectedOptions = split(filters[filterIndex]).map(search => {
-            if (isFilterSelectAutoOffline(head?.filter)) {
-              return head.filter.options.find(({ value }) => value === search);
-            }
-            return undefined;
-          }).filter(option => !!option) as OptionType<string>[];
-          newData = newData.filter(datum => {
-            if (isFilterSelectAutoOffline(head?.filter)) {
-              const value = head.filter.getValue
-                ? head.filter.getValue({ record: datum })
-                : datum[head.index];
-              return !!selectedOptions.find(option => option.value === value);
-            }
-            return false;
-          });
-        } else if (isFilterDateOffline(head?.filter)) {
-          newData = newData.filter(head.filter.callbackFn({
-            columnIndex: head.index,
-            selectedDate: new Date(+filters[filterIndex]),
-          }));
-        } else if (isFilterDateAutoOffline(head?.filter)) {
-          const {
-            showYears,
-            showMonths,
-            showDays,
-            showHours,
-            showMinutes,
-            showSeconds,
-            showMilliseconds,
-          } = showOfDateDisplayType(head.filter.pickerType || DEFAULT_PICKER_TYPE);
-          if (filters[filterIndex] && new Date(+filters[filterIndex])?.isValidDate()) {
-            const searchDate = new Date(+filters[filterIndex]);
-            newData = newData.filter(datum => {
-              if (isFilterDateAutoOffline(head?.filter)) {
-                const value = head.filter.getValue ? head.filter.getValue({ record: datum }) : datum[head.index];
-                if (value?.isValidDate?.()) {
-                  if (showMilliseconds) {
-                    return searchDate.isSameMillisecond(datum[head.index]);
-                  } else if (showSeconds) {
-                    return searchDate.isSameSecond(datum[head.index]);
-                  } else if (showMinutes) {
-                    return searchDate.isSameMinute(datum[head.index]);
-                  } else if (showHours) {
-                    return searchDate.isSameHour(datum[head.index]);
-                  } else if (showDays) {
-                    return searchDate.isSameDay(datum[head.index]);
-                  } else if (showMonths) {
-                    return searchDate.isSameMonth(datum[head.index]);
-                  } else if (showYears) {
-                    return searchDate.isSameYear(datum[head.index]);
-                  }
-                } else {
-                  consoleWarn('datum no filtered', { datum, searchDate, index: head.index, head });
-                }
-              }
-              return true;
-            });
-          } else {
-            consoleWarn('data no filtered, filter not a valid time date', {
-              search: filters[filterIndex],
-              searchFilter: filters,
-            });
-          }
-        } else if (isFilterDateRangeOffline(head?.filter)) {
-          const [ start, end ] = split(filters[filterIndex]);
-          if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
-            newData = newData.filter(head.filter.callbackFn({
-              columnIndex: head.index,
-              startSelectedDate: new Date(+start),
-              endSelectedDate: new Date(+end),
-            }));
-          } else {
-            consoleWarn('data no filtered, filter not a valid range times date', {
-              search: filters[filterIndex],
-              searchFilter: filters,
-            });
-          }
-        } else if (isFilterDateRangeAutoOffline(head?.filter)) {
-          const [ start, end ] = split(filters[filterIndex]);
-          if (start && new Date(+start).isValidDate() && end && new Date(+end).isValidDate()) {
-            const startSelectedDate = new Date(+start);
-            const endSelectedDate = new Date(+end);
-            const {
-              showMonths,
-              showDays,
-              showHours,
-              showMinutes,
-              showSeconds,
-              showMilliseconds,
-            } = showOfDateDisplayType(head.filter.pickerType || DEFAULT_PICKER_TYPE);
-            newData = newData.filter(datum => {
-              if (isFilterDateRangeAutoOffline(head?.filter)) {
-                const date = head.filter.getValue ? head.filter.getValue({ record: datum }) : datum[head.index];
-                if (date?.isValidDate?.()) {
-                  let isWithin = startSelectedDate.getFullYear() <= date.getFullYear() &&
-                    date.getFullYear() <= endSelectedDate.getFullYear();
-                  if (showMonths) {
-                    isWithin = isWithin && date.isWithinInterval({
-                      start: startSelectedDate.startOfMonth(),
-                      end: endSelectedDate.endOfMonth(),
-                    });
-                  }
-                  if (showDays) {
-                    isWithin = isWithin && date.isWithinInterval({
-                      start: startSelectedDate.startOfDay(),
-                      end: endSelectedDate.endOfDay(),
-                    });
-                  }
-                  if (showHours) {
-                    isWithin = isWithin && date.isWithinInterval({
-                      start: startSelectedDate.startOfHour(),
-                      end: endSelectedDate.endOfHour(),
-                    });
-                  }
-                  if (showMinutes) {
-                    isWithin = isWithin && date.isWithinInterval({
-                      start: startSelectedDate.startOfMinute(),
-                      end: endSelectedDate.endOfMinute(),
-                    });
-                  }
-                  if (showSeconds) {
-                    isWithin = isWithin && date.isWithinInterval({
-                      start: startSelectedDate.startOfSecond(),
-                      end: endSelectedDate.endOfSecond(),
-                    });
-                  }
-                  if (showMilliseconds) {
-                    isWithin = date.isWithinInterval({ start: startSelectedDate, end: endSelectedDate });
-                  }
-                  return isWithin;
-                } else {
-                  consoleWarn('datum no filtered', {
-                    datum,
-                    startSelectedDate,
-                    endSelectedDate,
-                    index: head.index,
-                    head,
-                  });
-                }
-              }
-              return true;
-            });
-          } else {
-            consoleWarn('data no filtered, filter not a valid range times date', {
-              search: filters[filterIndex],
-              searchFilter: filters,
-            });
-          }
-        }
-      }
-    }
-    
-    // Offline sort
-    for (const searchSort of split(searchSorts)) {
-      const head = headers.find(({ index }) => index === searchSort || '-' + index === searchSort);
-      if (head?.sort && isSortOffline(head?.sort)) {
-        if (head.index === searchSort) {
-          newData.sort(head.sort.compareFn({ columnIndex: head.index }));
-        } else if ('-' + head.index === searchSort) {
-          newData.sort((a, b) => {
-            if (isSortOffline(head?.sort)) {
-              return head.sort.compareFn({ columnIndex: head.index })(a, b) * -1;
-            }
-            return 0;
-          });
-        }
-      }
-    }
-    // }
-    setDataTable(newData);
-    setDataTableRef.current?.(newData);
-  }, [ data, headers, filters, searchSorts ]);
+    onReload();
+  }, [ onReload, depsKey ]);
+  const dataTable = useMemo(
+    () => applyOffline(data, headers, filters, searchSorts),
+    [ data, headers, filters, searchSorts ],
+  );
   
-  const [ tableHeaders, setTableHeaders ] = useState<DataViewerTableHeadersType<T>[]>(headers.map(head => ({
-    ...head,
-    width: 0,
-    accumulatedWidth: 0,
-  }) as DataViewerTableHeadersType<T>));
+  const setDataTableRef = useStableRef(_setDataTableRef);
+  useEffect(() => {
+    setDataTableRef.current?.(dataTable);
+  }, [ dataTable, setDataTableRef ]);
+  
+  const setLoaderStatusRef = useStableRef(_setLoaderStatusRef);
+  useEffect(() => {
+    setLoaderStatusRef.current?.((status) => {
+      if (typeof status === 'function') {
+        setLoaderStatus(prevState => status(prevState));
+      } else {
+        setLoaderStatus(status);
+      }
+    });
+  }, [ setLoaderStatusRef ]);
+  
+  const [ tableHeaders, setTableHeaders ] = useState<DataViewerTableHeadersType<T>[]>([]);
   useEffect(() => {
     const onResetFilter = (filterIndex: string) => () => {
       const newSearchFilter: RequestFilterType = { ...filtersRef.current };
@@ -657,8 +636,6 @@ export default function DataViewer<T extends { [key: string]: any }, >(props: Da
     }
     oldViewPortSizeRef.current = viewPortSize;
   }, [ viewPortSize, cardsView, rowsView, setViewMode ]);
-  
-  const onReload = useCallback(() => request && setReloadCount(prevState => prevState + 1), [ setReloadCount, request ]);
   
   const total = initialTotalData ?? data.length;
   

@@ -1,12 +1,13 @@
 import { type  ContentsResponseType } from '@juki-team/commons';
-import { useEffect, useMemo, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS, PAGE_SIZE_OPTIONS } from '../../../constants';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useDataViewerRequester } from '../../hooks/useDataViewerRequester';
+import { useStableRef } from '../../hooks/useStableRef';
 import { DataViewer } from '../_layz_/DataViewer';
 import type { PagedDataViewerProps } from '../_layz_/DataViewer/types';
 
-export function PagedDataViewer<T extends { [key: string]: any }, V = T>(props: PagedDataViewerProps<T, V>) {
+export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerProps<T, V>) {
   
   const {
     cards,
@@ -21,9 +22,9 @@ export function PagedDataViewer<T extends { [key: string]: any }, V = T>(props: 
     onRecordClick,
     onRecordHover,
     onRecordRender,
-    dependencies = [],
     getRecordStyle,
     downloads,
+    deps = [],
   } = props;
   
   const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
@@ -31,25 +32,17 @@ export function PagedDataViewer<T extends { [key: string]: any }, V = T>(props: 
     data: response,
     request,
     setLoaderStatusRef,
-    reload,
-    reloadRef,
   } = useDataViewerRequester<ContentsResponseType<V>>(getUrl, { refreshInterval });
-  
-  useEffect(() => {
-    if (dependencies.length) {
-      reload();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, dependencies);
   
   const lastTotalRef = useRef(-1);
   
   lastTotalRef.current = response?.success ? response.meta.totalElements : lastTotalRef.current;
   
+  const toRowRef = useStableRef(toRow);
   const data: T[] = useMemo(() => {
     const data = response?.success ? response.contents : [];
-    return toRow ? data.map(toRow) : (data as unknown as T[]);
-  }, [ response, toRow ]);
+    return toRowRef.current ? data.map(toRowRef.current) : (data as unknown as T[]);
+  }, [ response, toRowRef ]);
   
   return (
     <DataViewer<T>
@@ -69,10 +62,10 @@ export function PagedDataViewer<T extends { [key: string]: any }, V = T>(props: 
       onRecordClick={onRecordClick}
       onRecordHover={onRecordHover}
       onRecordRender={onRecordRender}
-      reloadRef={reloadRef}
       pageSizeOptions={PAGE_SIZE_OPTIONS}
       initializing={lastTotalRef.current === -1}
       downloads={downloads}
+      deps={deps}
       {...DEFAULT_DATA_VIEWER_PROPS}
     />
   );

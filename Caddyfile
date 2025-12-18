@@ -1,0 +1,14 @@
+judge.local.juki.app:443 {
+    tls internal
+    reverse_proxy localhost:3070
+}
+
+admin.local.juki.app:443 {
+    tls internal
+    reverse_proxy localhost:3077
+}
+
+storybook.local.juki.app:443 {
+    tls internal
+    reverse_proxy localhost:6006
+}

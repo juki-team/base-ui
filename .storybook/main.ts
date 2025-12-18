@@ -9,7 +9,7 @@ const config: StorybookConfig = {
     '@storybook/addon-themes',
     '@storybook/addon-docs',
     '@storybook/addon-vitest',
-    '@storybook/addon-a11y'
+    '@storybook/addon-a11y',
   ],
   
   framework: '@storybook/react-vite',
@@ -27,8 +27,16 @@ const config: StorybookConfig = {
       define: {
         'process.env': {
           NODE_ENV: 'development',
-          NEXT_PUBLIC_JUKI_SERVICE_V2_URL: JSON.stringify(process.env.VITE_JUKI_SERVICE_V2_URL ?? ''),
-          NEXT_PUBLIC_JUKI_TOKEN_NAME: JSON.stringify(process.env.VITE_JUKI_TOKEN_NAME ?? ''),
+          NEXT_PUBLIC_JUKI_SERVICE_V2_URL: process.env.VITE_JUKI_SERVICE_V2_URL ?? '',
+          NEXT_PUBLIC_JUKI_TOKEN_NAME: process.env.VITE_JUKI_TOKEN_NAME ?? '',
+        },
+      },
+      server: {
+        allowedHosts: [ 'storybook.local.juki.app', 'localhost' ],
+        hmr: {
+          protocol: 'wss',
+          host: 'storybook.local.juki.app',
+          clientPort: 443,
         },
       },
     });

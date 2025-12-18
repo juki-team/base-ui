@@ -2,22 +2,15 @@ import type { ContentResponseType, ContentsResponseType } from '@juki-team/commo
 import { Status } from '@juki-team/commons';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { SWRConfiguration } from 'swr';
-import type {
-  DataViewerRequesterGetUrlType,
-  ReloadType,
-  RequestFilterType,
-  RequestSortType,
-  SetLoaderStatusType,
-} from '../types';
+import type { DataViewerRequesterGetUrlType, RequestFilterType, RequestSortType, SetLoaderStatusType } from '../types';
 import { useFetcher } from './useFetcher';
+import { useStableRef } from './useStableRef';
 
 export const useDataViewerRequester = <T extends ContentResponseType<unknown> | ContentsResponseType<unknown>, >(getUrl: DataViewerRequesterGetUrlType, options?: SWRConfiguration) => {
   const setLoaderStatusRef = useRef<SetLoaderStatusType>(null);
   const [ url, setUrl ] = useState<string | undefined>(undefined);
   const { data, error, isLoading, mutate, isValidating } = useFetcher<T>(url, options);
-  const getUrlRef = useRef(getUrl);
-  const reloadRef = useRef<ReloadType>(null);
-  getUrlRef.current = getUrl;
+  const getUrlRef = useStableRef(getUrl);
   const request = useCallback(async ({ pagination, filter, sort }: {
     pagination: { page: number, pageSize: number },
     filter: RequestFilterType,
@@ -31,11 +24,7 @@ export const useDataViewerRequester = <T extends ContentResponseType<unknown> | 
         await mutate();
       }
     }
-  }, [ mutate, url ]);
-  
-  useEffect(() => {
-    void mutate();
-  }, [ mutate ]);
+  }, [ getUrlRef, mutate, url ]);
   
   useEffect(() => {
     if (isLoading || isValidating) {
@@ -52,7 +41,5 @@ export const useDataViewerRequester = <T extends ContentResponseType<unknown> | 
     isValidating,
     request,
     setLoaderStatusRef: useCallback((setLoaderStatus: SetLoaderStatusType) => setLoaderStatusRef.current = setLoaderStatus, []),
-    reload: useCallback(() => reloadRef.current?.(), []),
-    reloadRef: useCallback((reload: ReloadType) => reloadRef.current = reload, []), // To pass to DataViewer
   };
 };
