@@ -167,6 +167,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
         onChangeRef.current?.({ codeRunStatus: status });
       }
     },
+    () => !!runId,
   );
   
   const codeEditorOnChange = useCallback((props: CodeEditorPropertiesType<T>) => {
