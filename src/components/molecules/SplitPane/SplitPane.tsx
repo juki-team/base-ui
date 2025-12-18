@@ -117,7 +117,6 @@ function SplitPaneComponent(props: SplitPaneProps) {
     }
   }, [ direction, displaySecondPane, displayFirstPane, onlyFirstPane, onlySecondPane ]);
   
-  console.log({ paneRef });
   return (
     <div
       className={classNames('jk-split-pane', className, direction, { dragging })}

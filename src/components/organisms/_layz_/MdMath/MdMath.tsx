@@ -27,7 +27,6 @@ import { UserCodeEditor } from '../UserCodeEditor';
 import type { CommandsObjectType, MdMathProps } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
-console.log(defaultSchema.tagNames);
 const schema = {
   ...defaultSchema,
   tagNames: Array.from(new Set([ ...(defaultSchema.tagNames ?? []), 'br' ])),

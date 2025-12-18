@@ -69,7 +69,7 @@ const Template = (args: CodeRunnerEditorProps<string>) => {
             },
           }}
           onChange={(props: any) => {
-            console.log({ props });
+            console.info({ props });
             setProps((prevState) => ({ ...prevState, ...props }));
           }}
           centerButtons={({ widthContainer }) => (
