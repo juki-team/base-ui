@@ -114,7 +114,7 @@ export const SubmitViewContent = ({ submit }: { submit: SubmissionDataResponseDT
                   <UserChip
                     imageUrl={submit.user.imageUrl}
                     nickname={submit.user.nickname}
-                    companyKey={submit.user.company?.key}
+                    companyKey={submit.user.company.key}
                   />
                 ),
               },

@@ -14,7 +14,7 @@ export function ResetPasswordModal({ nickname, companyKey, ...modalProps }: Rese
         <h2><T className="tt-se">reset password</T></h2>
         <div className="jk-row left">
           <T className="tt-se">the password for</T>&nbsp;
-          <UserNicknameLink nickname={nickname}>
+          <UserNicknameLink nickname={nickname} companyKey={companyKey}>
             <div className="link">{nickname}</div>
           </UserNicknameLink>&nbsp;
           <T>will be reset</T>.

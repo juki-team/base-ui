@@ -116,6 +116,7 @@ function UserInlineChip({ nickname }: { nickname: string }) {
   return (
     <UserChip
       nickname={nickname}
+      companyKey={companyKey}
       imageUrl={data.content.imageUrl}
       className="jk-tag bc-hl dy-if- va-tp nowrap"
     />

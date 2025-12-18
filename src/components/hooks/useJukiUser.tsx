@@ -220,8 +220,7 @@ export const useJukiUserSettings = () => {
   
   const i18nChangeLanguage = useI18nStore(state => state.changeLanguage);
   const setUser = useUserStore(state => state.setUser);
-  const { isLogged, settings, nickname } = useUserStore(state => state.user);
-  const companyKey = useUserStore(state => state.company.key);
+  const { isLogged, settings, nickname, company: { key: companyKey } } = useUserStore(state => state.user);
   const mutatePing = useUserStore(state => state.mutate);
   const { updateUserPreferences } = useJukiUser();
   const [ loader, setLoader ] = useState<Status>(Status.NONE);

@@ -21,7 +21,6 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
   
   const mutatePing = useUserStore(state => state.mutate);
   const userNickname = useUserStore(state => state.user.nickname);
-  const companyKey = useUserStore(state => state.company.key);
   const replaceRoute = useRouterStore(state => state.replaceRoute);
   const searchParams = useRouterStore(state => state.searchParams);
   const [ openModal, setOpenModal ] = useState('');
@@ -99,7 +98,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
         isOpen={openModal === 'RESET_PASSWORD'}
         onClose={onClose}
         nickname={user.nickname}
-        companyKey={companyKey}
+        companyKey={user.company.key}
       />
       <EditProfileModal
         isOpen={openModal === 'DATA'}

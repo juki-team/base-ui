@@ -73,7 +73,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
         <div className="jk-row extend left">
           <UserChip
             nickname={documentOwner.nickname}
-            companyKey={documentOwner.company?.key}
+            companyKey={documentOwner.company.key}
             imageUrl={documentOwner.imageUrl}
           />
         </div>
@@ -128,7 +128,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                     administrators[getUserKey(user.nickname, user.company.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      company: { key: user.company?.key },
+                      company: { key: user.company.key },
                       type: MemberType.USER,
                     };
                   }
@@ -190,7 +190,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                     managers[getUserKey(user.nickname, user.company.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      company: { key: user.company?.key },
+                      company: { key: user.company.key },
                       type: MemberType.USER,
                     };
                   }
@@ -252,7 +252,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                     participants[getUserKey(user.nickname, user.company.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      company: { key: user.company?.key },
+                      company: { key: user.company.key },
                       type: MemberType.USER,
                     };
                   }
@@ -314,7 +314,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                     guests[getUserKey(user.nickname, user.company.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      company: { key: user.company?.key },
+                      company: { key: user.company.key },
                       type: MemberType.USER,
                     };
                   }
@@ -376,7 +376,7 @@ export function DocumentCustomMembersContent(props: DocumentCustomMembersContent
                     spectators[getUserKey(user.nickname, user.company.key)] = {
                       imageUrl: user.imageUrl,
                       nickname: user.nickname,
-                      company: { key: user.company?.key },
+                      company: { key: user.company.key },
                       type: MemberType.USER,
                     };
                   }

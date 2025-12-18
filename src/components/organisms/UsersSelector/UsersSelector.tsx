@@ -104,7 +104,7 @@ export function UsersSelector(props: UsersSelectorProps) {
           label: (
             <UserChip
               nickname={user.nickname}
-              companyKey={companyKey}
+              companyKey={user.company.key}
               imageUrl={user.imageUrl}
               email={user.email}
               familyName={user.familyName}

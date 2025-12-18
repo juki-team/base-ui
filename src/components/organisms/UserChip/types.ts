@@ -7,12 +7,12 @@ export interface UserChipProps {
   familyName?: string,
   email?: string,
   className?: string,
-  companyKey?: string,
+  companyKey: string,
   withoutLink?: boolean,
 }
 
 export interface UserNicknameLinkProps {
   nickname: string,
-  companyKey?: string,
+  companyKey: string,
   children: ReactElement,
 }
