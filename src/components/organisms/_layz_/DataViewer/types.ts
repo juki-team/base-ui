@@ -355,7 +355,7 @@ export interface DataViewerProps<T extends object> {
   setLoaderStatusRef?: (setLoaderStatus: SetLoaderStatusType) => void,
   setDataTableRef?: (data: T[]) => void,
   initializing?: boolean,
-  deps?: (string | number)[],
+  deps?: (string | number | boolean)[],
 }
 
 export interface TableHeadProps<T> {
