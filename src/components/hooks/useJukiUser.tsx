@@ -17,7 +17,7 @@ import { jukiApiManager } from '../../settings';
 import { useI18nStore } from '../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../stores/user/useUserStore';
 import { T } from '../atoms/T/T';
-import { authorizedRequest, localStorageCrossDomains } from '../helpers';
+import { authorizedRequest } from '../helpers';
 import type {
   AuthorizedRequestType,
   SetStatusType,
@@ -262,9 +262,9 @@ export const useJukiUserSettings = () => {
         },
       });
     } else {
-      for (const { key, value } of settingsToUpdate) {
-        localStorageCrossDomains.setItem(key, value + '');
-      }
+      // for (const { key, value } of settingsToUpdate) {
+      //   localStorageCrossDomains.setItem(key, value + '');
+      // }
       setUser({ settings: newSettings });
     }
     i18nChangeLanguage(newSettings[ProfileSetting.LANGUAGE]);

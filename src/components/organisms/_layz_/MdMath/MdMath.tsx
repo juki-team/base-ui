@@ -29,7 +29,50 @@ import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
 const schema = {
   ...defaultSchema,
-  tagNames: Array.from(new Set([ ...(defaultSchema.tagNames ?? []), 'br' ])),
+  // Allow KaTeX/MathML and preserve classes/styles used by KaTeX CSS.
+  tagNames: Array.from(new Set([
+    ...(defaultSchema.tagNames ?? []),
+    'br',
+    // KaTeX HTML wrappers
+    'span',
+    'div',
+    // KaTeX MathML for accessibility
+    'math',
+    'semantics',
+    'mrow',
+    'mi',
+    'mo',
+    'mn',
+    'ms',
+    'mtext',
+    'annotation',
+    'annotation-xml',
+  ])),
+  attributes: {
+    ...(defaultSchema.attributes ?? {}),
+    span: [
+      ...(((defaultSchema.attributes)?.span ?? []) as []),
+      'className',
+      'style',
+    ],
+    div: [
+      ...(((defaultSchema.attributes)?.div ?? []) as []),
+      'className',
+      'style',
+    ],
+    math: [
+      ...(((defaultSchema.attributes)?.math ?? []) as []),
+      'xmlns',
+    ],
+    annotation: [
+      ...(((defaultSchema.attributes)?.annotation ?? []) as []),
+      'encoding',
+    ],
+    'annotation-xml': [
+      ...(((defaultSchema.attributes)?.['annotation-xml'] ?? []) as []),
+      'encoding',
+    ],
+  },
 };
 
 type hxProps = { children: ReactNode & ReactNode[], node: Element };
@@ -100,7 +143,11 @@ function MdMathComponent(props: MdMathProps) {
   
   const mdProps = useMemo((): ReactMarkdownOptions => ({
     remarkPlugins: [ RemarkMathPlugin, RemarkGfmPlugin ],
-    rehypePlugins: [ rehypeKatex, rehypeRaw, [ rehypeSanitize, schema ] ],
+    // Important order:
+    // - rehype-raw: parse raw HTML in markdown into the AST
+    // - rehype-katex: render math into HTML/MathML
+    // - rehype-sanitize: sanitize the final tree (with KaTeX-safe schema)
+    rehypePlugins: [ rehypeRaw, rehypeKatex, [ rehypeSanitize, schema ] ],
     components: {
       img({ alt = '', src, title }) {
         let style: CSSProperties = {};
@@ -207,6 +254,7 @@ function MdMathComponent(props: MdMathProps) {
       // input(...props) {
       //   return <pre>holiwi input</pre>;
       // },
+      script: () => null,
       code: ({ children, className = '', node }) => {
         const isRoot = node?.position?.start?.column === 11111;
         const inline = !children?.toString().includes('\n');

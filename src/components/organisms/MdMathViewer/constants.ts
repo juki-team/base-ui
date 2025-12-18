@@ -756,6 +756,12 @@ function saludo() {
 
 * Un salto forzado → agregar **dos espacios** al final de la línea.
 
+* Agregando el tag html \`<br/>\`
+
+<br/>
+
+<img src="https://images.juki.pub/o/juki-judge-blue-bg.png"/>
+
 ***
 
 ## 10. Líneas horizontales
