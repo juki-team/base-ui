@@ -1,5 +1,6 @@
+import { getUserKey } from '@juki-team/commons';
 import { isBrowser } from '../components/helpers/commons';
-import { ContestTab, ProblemTab, ProfileTab, QueryParamKey, WorksheetTab } from '../enums';
+import { ContestsTab, ContestTab, ProblemTab, ProfileTab, QueryParamKey, WorksheetTab } from '../enums';
 
 const injectOrigin = (origin: string, path: string) => {
   return `${origin ? origin : ''}${path}`;
@@ -60,8 +61,12 @@ export class AppRoutes {
         return igu('/');
       },
       profiles: {
-        view({ nickname, tab = ProfileTab.OVERVIEW }: { nickname: string, tab?: ProfileTab }) {
-          return injectOrigin(origin, igu(`/profiles/${nickname}${tab ? `?tab=${tab}` : ''}`));
+        view({ nickname, companyKey, tab = ProfileTab.OVERVIEW }: {
+          nickname: string,
+          companyKey: string,
+          tab?: ProfileTab
+        }) {
+          return injectOrigin(origin, igu(`/profiles/${getUserKey(nickname, companyKey)}${tab ? `?tab=${tab}` : ''}`));
         },
       },
       problems: {
@@ -79,8 +84,8 @@ export class AppRoutes {
         },
       },
       contests: {
-        list() {
-          return injectOrigin(origin, igu(`/contests`));
+        list({ tab }: { tab?: ContestsTab }) {
+          return injectOrigin(origin, igu(`/contests${tab ? `?tab=${tab}` : ''}`));
         },
         view({ key, tab = ContestTab.OVERVIEW, subTab }: { key: string, tab?: ContestTab, subTab?: string }) {
           return injectOrigin(origin, igu(`/contests/${key}${tab ? `?tab=${tab}` : ''}${subTab ? (tab ? '&' : '?') + `subTab=${subTab}` : ''}`));
