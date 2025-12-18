@@ -41,7 +41,7 @@ export const UserPreview = ({ user, onClose, userHref }: {
 
 export interface UserPreviewContentModalProps extends BasicModalProps {
   nickname: string,
-  companyKey?: string,
+  companyKey: string,
   userHref: string,
 }
 

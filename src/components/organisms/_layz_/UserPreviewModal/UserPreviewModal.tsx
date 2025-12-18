@@ -1,6 +1,7 @@
 import { QueryParamKey } from '../../../../enums';
 import { jukiAppRoutes } from '../../../../settings';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
+import { useUserStore } from '../../../../stores/user/useUserStore';
 import { UserPreviewContentModal } from './UserPreviewContentModal/UserPreviewContentModal';
 
 export default function UserPreviewModal() {
@@ -8,7 +9,8 @@ export default function UserPreviewModal() {
   const searchParams = useRouterStore(state => state.searchParams);
   const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
   const userPreviewQuery = searchParams.getAll(QueryParamKey.USER_PREVIEW);
-  const [ userPreviewNickname, userPreviewCompanyKey ] = Array.isArray(userPreviewQuery) ? userPreviewQuery as unknown as [ string, string ] : [ userPreviewQuery as string ];
+  const companyKey = useUserStore(store => store.company.key);
+  const [ userPreviewNickname, userPreviewCompanyKey ] = Array.isArray(userPreviewQuery) ? userPreviewQuery as unknown as [ string, string ] : [ userPreviewQuery as string, companyKey ];
   
   return (
     <UserPreviewContentModal
