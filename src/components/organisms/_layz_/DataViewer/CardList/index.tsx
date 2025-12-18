@@ -29,7 +29,7 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
   
   const rowVirtualizer = useVirtualizer({
     count: Math.ceil(data.length / cardsByRow),
-    getScrollElement: () => parentRef.current,
+    getScrollElement: useCallback(() => parentRef.current, []),
     estimateSize: useCallback(() => cardHeight + 40, [ cardHeight ]),
     overscan: 2,
   });

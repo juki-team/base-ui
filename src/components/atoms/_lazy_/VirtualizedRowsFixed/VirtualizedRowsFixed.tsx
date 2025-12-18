@@ -1,5 +1,6 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { memo, useCallback, useRef } from 'react';
+import { useStableRef } from '../../../hooks/useStableRef';
 import type { VirtualizedRowsFixedProps } from './types';
 
 export function VirtualizedRowsFixed(props: VirtualizedRowsFixedProps) {
@@ -16,12 +17,16 @@ export function VirtualizedRowsFixed(props: VirtualizedRowsFixedProps) {
   
   const parentRef = useRef<HTMLDivElement>(null);
   
+  const getRowKeyRef = useStableRef(getRowKey);
   const rowVirtualizer = useVirtualizer({
     count: size,
     estimateSize: useCallback(() => rowHeight, [ rowHeight ]),
     overscan: 5,
-    getScrollElement: () => parentRef.current,
-    getItemKey: getRowKey,
+    getScrollElement: useCallback(() => parentRef.current, []),
+    getItemKey: useCallback((index: number) => {
+      const fn = getRowKeyRef.current;
+      return fn ? fn(index) : index;
+    }, [ getRowKeyRef ]),
   });
   
   return (
@@ -51,4 +56,13 @@ export function VirtualizedRowsFixed(props: VirtualizedRowsFixedProps) {
   );
 }
 
-export default memo(VirtualizedRowsFixed);
+export default memo(VirtualizedRowsFixed, (prev, next) => {
+  return (
+    prev.rowHeight === next.rowHeight &&
+    prev.size === next.size &&
+    prev.renderRow === next.renderRow &&
+    prev.classNameContainer === next.classNameContainer &&
+    prev.classNameRows === next.classNameRows &&
+    prev.classNameRow === next.classNameRow
+  );
+});

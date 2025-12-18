@@ -1,4 +1,4 @@
-import { useVirtualizer, VirtualizerOptions } from '@tanstack/react-virtual';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import { motion } from 'motion/react';
 import { Children, useCallback, useEffect, useMemo, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
@@ -28,19 +28,17 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   
   const parentRef = useRef<HTMLDivElement>(null);
   const { height: headerHeight = 0, ref: headerRef } = useResizeDetector();
-  const estimateSize = useCallback(() => rowHeight + gap * 2, [ rowHeight, gap ]);
   const dataRef = useStableRef(data);
   const getRecordKeyRef = useStableRef(getRecordKey);
-  const getItemKey: VirtualizerOptions<HTMLDivElement, Element>['getItemKey'] = useCallback((index: number) => {
-    const fn = getRecordKeyRef.current;
-    return fn ? fn({ data: dataRef.current, index }) : index;
-  }, [ dataRef, getRecordKeyRef ]);
   const rowVirtualizer = useVirtualizer({
     count: data.length,
-    estimateSize,
+    estimateSize: useCallback(() => rowHeight + gap * 2, [ rowHeight, gap ]),
     overscan: 10,
-    getScrollElement: () => parentRef.current,
-    getItemKey,
+    getScrollElement: useCallback(() => parentRef.current, []),
+    getItemKey: useCallback((index: number) => {
+      const fn = getRecordKeyRef.current;
+      return fn ? fn({ data: dataRef.current, index }) : index;
+    }, [ dataRef, getRecordKeyRef ]),
   });
   const onRecordRenderRef = useRef(onRecordRender);
   onRecordRenderRef.current = onRecordRender;
