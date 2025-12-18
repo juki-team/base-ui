@@ -13,13 +13,12 @@ export default function WelcomeModal({ onSeeMyProfile: _onSeeMyProfile }: Welcom
   const { Image } = useUIStore(store => store.components);
   const searchParams = useRouterStore(state => state.searchParams);
   const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
-  const {
-    nickname,
-  } = useUserStore(state => state.user);
+  const nickname = useUserStore(state => state.user.nickname);
+  const companyKey = useUserStore(state => state.company.key);
   
   const onSeeMyProfile: ButtonLoaderOnClickType = async (setLoaderStatus) => {
     setLoaderStatus(Status.LOADING);
-    await _onSeeMyProfile(nickname);
+    await _onSeeMyProfile(nickname, companyKey);
     deleteSearchParams({ name: QueryParamKey.WELCOME });
     setLoaderStatus(Status.SUCCESS);
   };

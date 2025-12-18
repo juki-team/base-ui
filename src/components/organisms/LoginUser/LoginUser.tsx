@@ -14,6 +14,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
   
   const { logout } = useJukiUser();
   const userNickname = useUserStore(state => state.user.nickname);
+  const companyKey = useUserStore(state => state.company.key);
   const userImageUrl = useUserStore(state => state.user.imageUrl);
   const userIsLogged = useUserStore(state => state.user.isLogged);
   const userIsLoading = useUserStore(state => state.isLoading);
@@ -43,7 +44,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
               <ButtonLoader
                 expand
                 onClick={async () => {
-                  await onSeeMyProfile(userNickname);
+                  await onSeeMyProfile(userNickname, companyKey);
                 }}
               >
                 <T className="ws-np tt-se">my account</T>

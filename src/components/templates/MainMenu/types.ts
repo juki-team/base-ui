@@ -1,9 +1,10 @@
 import { MenuViewMode } from '@juki-team/commons';
 import { ReactNode } from 'react';
 import { MenuType } from '../../organisms/types';
+import { OnSeeMyProfileType } from '../../providers/JukiUIProvider/types';
 
 export interface MainMenuProps {
-  onSeeMyProfile: (nickname: string) => Promise<void> | void,
+  onSeeMyProfile: OnSeeMyProfileType,
   menu: MenuType[],
   menuViewMode?: MenuViewMode,
   profileSelected?: boolean,
