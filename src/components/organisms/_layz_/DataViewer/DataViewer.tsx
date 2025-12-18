@@ -660,7 +660,7 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
         extraNodes={extraNodes}
         extraNodesFloating={extraNodesFloating}
         headers={tableHeaders}
-        groups={groups || []}
+        groups={groups || EMPTY_ARRAY}
         setHeaders={setTableHeaders}
         loading={loaderStatus === Status.LOADING}
         initializing={initializing}
