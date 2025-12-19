@@ -13,6 +13,7 @@ body {
   --left-vertical-collapsed-menu-width: 0px;
   --top-horizontal-menu-height: 0px;
   --bottom-horizontal-menu-height: 0px;
+  overflow: hidden;
   
   @include mixins.transition(background-color, color);
   @include mixins.font-size(m);
