@@ -334,7 +334,7 @@ export interface DataViewerProps<T extends object> {
   groups?: DataViewerGroupsType<T>[],
   initialViewMode?: DataViewMode,
   name?: string,
-  request?: DataViewerRequestType,
+  requestRef?: DataViewerRequestType,
   rows?: RowsType,
   rowsView?: boolean,
   totalData?: number,

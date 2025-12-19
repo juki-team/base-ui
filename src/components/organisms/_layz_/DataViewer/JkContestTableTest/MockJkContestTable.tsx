@@ -70,7 +70,7 @@ export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryLis
         headers={columns}
         data={data}
         rows={{ height: 150 }}
-        request={request}
+        requestRef={request}
         name="problems"
         //extraNodesFloating
         extraNodes={extraNodes}

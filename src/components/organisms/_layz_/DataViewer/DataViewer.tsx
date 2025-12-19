@@ -297,7 +297,7 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
     headers,
     initialViewMode: _initialViewMode,
     name = '',
-    request,
+    requestRef: _requestRef,
     rows,
     rowsView = true,
     totalData: initialTotalData,
@@ -407,7 +407,8 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
   }, [ filters, headers, page, pageSize, searchSorts, withPagination ]);
   const requestProps = useMemo(() => JSON.parse(requestKey) as DataViewerRequestPropsType, [ requestKey ]);
   const depsKey = useMemo(() => JSON.stringify(deps), [ deps ]);
-  const onReload = useCallback(() => request?.(requestProps), [ request, requestProps ]);
+  const requestRef = useStableRef(_requestRef);
+  const onReload = useCallback(() => requestRef.current?.(requestProps), [ requestRef, requestProps ]);
   useEffect(() => {
     onReload();
   }, [ onReload, depsKey ]);
@@ -665,7 +666,7 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
         loading={loaderStatus === Status.LOADING}
         initializing={initializing}
         onAllFilters={onAllFilters}
-        onReload={request ? onReload : null}
+        onReload={requestRef.current ? onReload : null}
         rows={rows}
         showFilterDrawerKey={showFilterDrawerKey}
         rowsView={rowsView}

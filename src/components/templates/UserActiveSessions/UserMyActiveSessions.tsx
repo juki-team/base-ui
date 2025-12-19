@@ -83,7 +83,7 @@ export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
       data={data}
       rows={{ height: 100 }}
       cards={{ width: 300, height: 160 }}
-      request={request}
+      requestRef={request}
       name={QueryParamKey.LOGGED_USERS_TABLE}
       setLoaderStatusRef={setLoaderStatusRef}
       {...DEFAULT_DATA_VIEWER_PROPS}

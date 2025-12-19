@@ -89,7 +89,7 @@ export const MockJkProblemTable = (props: Omit<DataViewerProps<ProblemSummaryLis
         headers={columns}
         data={data}
         rows={{ height: 150 }}
-        request={request}
+        requestRef={request}
         name="problems"
         //extraNodesFloating
         extraNodes={extraNodes}
