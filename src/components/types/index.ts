@@ -1,6 +1,7 @@
 import { HTTPMethod, Status, UserHandlesType, WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons';
 import { ParsedUrlQuery } from 'querystring';
 import type {
+  ChangeEvent,
   CSSProperties,
   Dispatch,
   KeyboardEvent as ReactKeyboardEvent,
@@ -74,7 +75,7 @@ export type ButtonBasicProps = {
 
 export interface InputCommonsProps<T> {
   id?: string,
-  onChange?: (newValue: T) => void,
+  onChange?: (newValue: T, event: ChangeEvent<HTMLInputElement>) => void,
   onFocus?: () => void,
   onBlur?: () => void,
   value?: T,

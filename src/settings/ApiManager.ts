@@ -1,4 +1,5 @@
 import {
+  ClientIdType,
   CodeEditorSubmissionDTO,
   CodeRunDTO,
   CompanyPlan,
@@ -344,6 +345,34 @@ export class ApiManager {
           { body: { judgeKey: Judge, key: string } }, HTTPMethod.POST
         >(({ body }) => ({
           url: injectBaseUrl('problem', `/crawl`),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        checkData: valid<{
+          params: { companyKey: string },
+          body: {
+            users: {
+              email: string,
+              givenName: string,
+              familyName: string,
+              nickname: string,
+              password: string
+            }[]
+          }
+        }, HTTPMethod.POST>(({ params: { companyKey }, body }) => ({
+          url: injectCompany(injectBaseUrl('user', `/check-data`), companyKey),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        clientTrack: valid<{
+          body: {
+            clientId: ClientIdType,
+            location: boolean,
+            screenshot: boolean,
+            device: boolean,
+          }
+        }, HTTPMethod.POST>(({ body }) => ({
+          url: injectBaseUrl('user', `/client-track`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),

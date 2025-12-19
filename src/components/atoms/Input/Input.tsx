@@ -70,9 +70,10 @@ function InputBaseComponent<T extends string | number | FileList, >(_props: Inpu
       size={size === 'auto' ? length : size}
       disabled={disabled}
       className={classNames(className, `jk-input-${type} jk-br-ie`, { disabled })}
-      onChange={registerOnChange ? registerOnChange : (type === 'file' || type === 'files') ? ({ target: { files } }) => onChange?.(files as T) : ({ target: { value } }) => {
+      onChange={registerOnChange ? registerOnChange : (type === 'file' || type === 'files') ? (event) => onChange?.(event.target.files as T, event) : (event) => {
+        const value = event.target.value;
         const newValue = (type === 'number' ? +value : value) as T;
-        onChange?.(newValue);
+        onChange?.(newValue, event);
       }}
       onBlur={registerOnBlur ? registerOnBlur : onBlur}
       style={size === 'auto' && type === 'number' ? { width: `${length + 1}em` } : {}}
