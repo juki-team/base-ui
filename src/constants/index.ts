@@ -54,6 +54,9 @@ export const EMPTY_USER: UserPingType = {
   permissions: { ...EMPTY_USER_PERMISSIONS },
   isLogged: false,
   sessionId: '' as ObjectIdType,
+  company: {
+    key: '',
+  },
 };
 
 export const PAGE_SIZE_OPTIONS = [ 25, 50, 100 ];
