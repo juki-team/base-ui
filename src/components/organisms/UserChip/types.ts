@@ -1,5 +1,9 @@
 import { ReactElement } from 'react';
 
+export interface UserMockChipProps {
+  className?: string,
+}
+
 export interface UserChipProps {
   imageUrl: string,
   nickname: string,

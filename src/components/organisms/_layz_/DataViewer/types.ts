@@ -445,13 +445,15 @@ export interface PagedDataViewerProps<T extends object, V = T> {
   getUrl: DataViewerRequesterGetUrlType,
   refreshInterval?: number,
   extraNodes?: ReactNodeOrFunctionType[],
-  getRowKey?: GetRecordKeyType<T>
+  getRecordKey?: DataViewerProps<T>['getRecordKey'],
   onRecordClick?: OnRecordClickType<T>,
   onRecordHover?: OnRecordClickType<T>,
   onRecordRender?: OnRecordClickType<T>,
   getRecordStyle?: GetRecordStyleType<T>;
   downloads?: DataViewerProps<T>['downloads'],
   deps?: DataViewerProps<T>['deps'],
+  className?: DataViewerProps<T>['className'],
+  groups?: DataViewerProps<T>['groups'],
 }
 
 export interface Scroll {

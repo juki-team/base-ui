@@ -420,6 +420,12 @@ export class ApiManager {
           url: injectCompany(injectBaseUrl('contest', `/${key}/data/clarifications`), companyKey),
           method: HTTPMethod.GET,
         })),
+        getScoreboard: valid<
+          { params: { key: string, unfrozen: boolean, companyKey?: string } }
+        >(({ params: { key, unfrozen, companyKey } }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/data/scoreboard${unfrozen ? '?state=unfrozen' : ''}`), companyKey),
+          method: HTTPMethod.GET,
+        })),
         getLogs: valid<
           { params: { key: string, companyKey?: string } }
         >(({ params: { key, companyKey } }) => ({

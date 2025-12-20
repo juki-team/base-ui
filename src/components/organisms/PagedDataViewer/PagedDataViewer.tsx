@@ -18,12 +18,14 @@ export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerP
     getUrl,
     refreshInterval,
     extraNodes,
-    getRowKey,
+    getRecordKey,
     onRecordClick,
     onRecordHover,
     onRecordRender,
     getRecordStyle,
     downloads,
+    className,
+    groups,
     deps = [],
   } = props;
   
@@ -58,7 +60,7 @@ export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerP
       extraNodes={extraNodes}
       extraNodesFloating
       totalData={Math.max(lastTotalRef.current, 0)}
-      getRecordKey={getRowKey}
+      getRecordKey={getRecordKey}
       onRecordClick={onRecordClick}
       onRecordHover={onRecordHover}
       onRecordRender={onRecordRender}
@@ -66,6 +68,8 @@ export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerP
       initializing={lastTotalRef.current === -1}
       downloads={downloads}
       deps={deps}
+      className={className}
+      groups={groups}
       {...DEFAULT_DATA_VIEWER_PROPS}
     />
   );

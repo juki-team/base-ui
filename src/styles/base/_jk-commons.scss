@@ -209,6 +209,10 @@ span.jk-row, span.jk-col {
   backdrop-filter: blur(4px);
 }
 
+.fr-4 {
+  filter: blur(4px);
+}
+
 .jk-tag {
   padding: 2px var(--pad-xt);
   border-radius: var(--border-radius-inline);

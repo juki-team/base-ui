@@ -1,6 +1,5 @@
-import { useUIStore } from '../../../stores/ui/useUIStore';
-import { useUserStore } from '../../../stores/user/useUserStore';
-import { FieldText, UserNicknameLink } from '../../organisms';
+import { FieldText, UserChip } from '../../organisms';
+import { UserMockChip } from '../../organisms/UserChip/UserChip';
 import type { SubmissionNicknameFieldProps } from './types';
 
 export function SubmissionNicknameField({
@@ -10,30 +9,15 @@ export function SubmissionNicknameField({
                                               nickname,
                                               company: { key: companyKey },
                                             },
+                                            hiddenSubmission,
                                           },
                                         }: SubmissionNicknameFieldProps) {
-  
-  const { Image } = useUIStore(store => store.components);
-  const key = useUserStore(state => state.company.key);
-  
   return (
     <FieldText
       className="gap"
-      text={
-        <>
-          <UserNicknameLink nickname={nickname} companyKey={companyKey}>
-            <Image src={imageUrl} className="jk-user-profile-img large" alt={nickname} height={36} width={36} />
-          </UserNicknameLink>
-          <div className="jk-col">
-            <UserNicknameLink nickname={nickname} companyKey={companyKey}>
-              <div className="link">{nickname}</div>
-            </UserNicknameLink>
-            {key !== companyKey && (
-              <div className="jk-tag bc-hl tx-t" style={{ padding: '1px 2px' }}>{companyKey}</div>
-            )}
-          </div>
-        </>
-      }
+      text={hiddenSubmission
+        ? <UserMockChip />
+        : <UserChip imageUrl={imageUrl} nickname={nickname} companyKey={companyKey} />}
       label="user nickname"
     />
   );

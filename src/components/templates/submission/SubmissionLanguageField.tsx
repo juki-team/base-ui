@@ -9,6 +9,7 @@ export function SubmissionLanguageField({
                                             user: { canViewSourceCode },
                                             language,
                                             problem: { judge: { key: judgeKey } },
+                                            hiddenSubmission,
                                           },
                                           isCard,
                                           languagesByJudge,
@@ -17,9 +18,15 @@ export function SubmissionLanguageField({
     isCard
       ? null
       : <Field>
-        <SubmissionInfo submitId={submitId} canViewSourceCode={canViewSourceCode}>
-          <div className="jk-col extend link">{languagesByJudge[judgeKey]?.languages[language]?.label || CODE_LANGUAGE[language]?.label || language}</div>
-        </SubmissionInfo>
+        {hiddenSubmission
+          ? <div className="jk-col extend fr-4">
+            {languagesByJudge[judgeKey]?.languages[language]?.label || CODE_LANGUAGE[language]?.label || language}
+          </div>
+          : <SubmissionInfo submitId={submitId} canViewSourceCode={canViewSourceCode}>
+            <div className="jk-col extend link">
+              {languagesByJudge[judgeKey]?.languages[language]?.label || CODE_LANGUAGE[language]?.label || language}
+            </div>
+          </SubmissionInfo>}
       </Field>
   );
 }

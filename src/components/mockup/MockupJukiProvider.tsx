@@ -4,7 +4,7 @@ import { PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
 import { UserStoreProvider } from '../../stores/user/useUserStore';
-import { JukiProviders } from '../providers';
+import { JukiI18nInitializer, JukiProviders } from '../providers';
 import { MockupLoginButton } from './MockupLoginButton';
 import { MockupToggleThemeButton } from './MockupToggleThemeButton';
 import './styles.scss';
@@ -72,6 +72,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
           {children}
         </SWRConfig>
       </JukiProviders>
+      <JukiI18nInitializer />
       <MockupLoginButton />
       <MockupToggleThemeButton />
     </UserStoreProvider>
