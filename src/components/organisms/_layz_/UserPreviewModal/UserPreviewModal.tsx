@@ -18,7 +18,9 @@ export default function UserPreviewModal() {
       nickname={userPreviewNickname}
       companyKey={userPreviewCompanyKey}
       onClose={() => deleteSearchParams({ name: QueryParamKey.USER_PREVIEW })}
-      userHref={jukiAppRoutes.JUDGE().profiles.view({ nickname: userPreviewNickname })}
+      userHref={
+        jukiAppRoutes.JUDGE().profiles.view({ nickname: userPreviewNickname, companyKey: userPreviewCompanyKey })
+      }
     />
   );
 }
