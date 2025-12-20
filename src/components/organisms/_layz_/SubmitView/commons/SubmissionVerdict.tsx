@@ -11,6 +11,7 @@ import {
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { T } from '../../../../atoms';
+import { classNames } from '../../../../helpers';
 import { SpinIcon } from '../../../../server';
 
 export interface SubmissionVerdictProps {
@@ -21,6 +22,7 @@ export interface SubmissionVerdictProps {
   submissionData?: SubmissionRunStatusWebSocketResponseEventDTO,
   processedCases?: SubmissionDataResponseDTO['processedCases'],
   shortLabel?: boolean,
+  className?: string,
 }
 
 export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
@@ -31,6 +33,7 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
     submissionData,
     processedCases,
     shortLabel: _shortLabel,
+    className,
   } = props;
   
   const userPreferredTheme = useUserStore(state => state.user.settings?.[ProfileSetting.THEME]);
@@ -72,7 +75,7 @@ export const SubmissionVerdict = (props: SubmissionVerdictProps) => {
   
   return (
     <div
-      className="jk-row nowrap jk-tag tx-s"
+      className={classNames('jk-row nowrap jk-tag tx-s', className)}
       style={{
         backgroundColor: PROBLEM_VERDICT[verdict]?.color + addDark,
         lineHeight: 1.2,

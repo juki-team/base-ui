@@ -39,9 +39,10 @@ const priority = (isSample: boolean) => ({
 
 interface SubmissionListenerVerdictProps {
   submit: SubmissionSummaryListResponseDTO,
+  className?: string,
 }
 
-export const SubmissionListenerVerdict = ({ submit }: SubmissionListenerVerdictProps) => {
+export const SubmissionListenerVerdict = ({ submit, className }: SubmissionListenerVerdictProps) => {
   
   const { contest, problem, points, status, verdict, submitId, processedCases, user } = submit;
   
@@ -147,6 +148,7 @@ export const SubmissionListenerVerdict = ({ submit }: SubmissionListenerVerdictP
       submitId={submitId}
       submissionData={submissionData}
       processedCases={processedCases}
+      className={className}
     />
   );
 };

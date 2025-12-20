@@ -14,9 +14,12 @@ export function getSubmissionVerdictHeader(): DataViewerHeadersType<SubmissionSu
       <FieldText
         text={
           <>
-            <SubmissionInfo submitId={submit.submitId} canViewSourceCode={submit.user.canViewSourceCode}>
-              <SubmissionListenerVerdict submit={submit} />
-            </SubmissionInfo>
+            {submit.hiddenSubmission || submit.hiddenVerdict
+              ? <SubmissionListenerVerdict submit={submit} className="fr-4" />
+              : <SubmissionInfo submitId={submit.submitId} canViewSourceCode={submit.user.canViewSourceCode}>
+                <SubmissionListenerVerdict submit={submit} />
+              </SubmissionInfo>
+            }
             {submit.contest && (
               <div className="jk-row gap">
                 {submit.contest.isFrozen && (
