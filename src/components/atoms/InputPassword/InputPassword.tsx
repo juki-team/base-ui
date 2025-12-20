@@ -10,7 +10,7 @@ export function InputPassword({ onChange, register, ...props }: InputPasswordPro
   return (
     <Input
       type={type}
-      onChange={value => onChange?.(value)}
+      onChange={(value, event) => onChange?.(value, event)}
       register={register}
       icon={type === 'password'
         ? <VisibilityOffIcon onClick={() => setType('text')} />
