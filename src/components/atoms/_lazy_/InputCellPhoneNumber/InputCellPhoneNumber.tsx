@@ -134,7 +134,7 @@ export default function InputCellPhoneNumber(props: InputCellPhoneNumberProps) {
       <div className="dial-code">({dialCode})</div>
       <InputBase
         {...inputProps}
-        onChange={(value) => onChange?.(`${dialCode} ${value}`)}
+        onChange={(value, event) => onChange?.(`${dialCode} ${value}`, event)}
         register={register ? typeof register === 'function' ? register((value) => `${dialCode} ${value}`) : register : undefined}
         inputId={id}
       />
