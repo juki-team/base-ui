@@ -56,6 +56,7 @@ export interface RowVirtualizerFixedProps<T> {
   loading: boolean,
   setHeaders: Dispatch<SetStateAction<DataViewerTableHeadersType<T>[]>>,
   groups: DataViewerGroupsType<T>[],
+  virtualizerOverscan: number,
   // setWithVerticalScroll: Dispatch<SetStateAction<boolean>>,
 }
 
@@ -281,6 +282,7 @@ export interface DisplayDataViewerProps<T> {
   onRecordRender?: OnRecordClickType<T>,
   downloads: DataViewerDownloadType<string>[],
   requestProps: DataViewerRequestPropsType,
+  virtualizerOverscan: number,
 }
 
 export type DataViewerHeaderSortOnlineType = true;
@@ -356,6 +358,7 @@ export interface DataViewerProps<T extends object> {
   setDataTableRef?: (data: T[]) => void,
   initializing?: boolean,
   deps?: (string | number | boolean)[],
+  virtualizerOverscan?: number,
 }
 
 export interface TableHeadProps<T> {
@@ -439,6 +442,7 @@ export interface PagedDataViewerProps<T extends object, V = T> {
   getRecordStyle?: GetRecordStyleType<T>;
   downloads?: DataViewerProps<T>['downloads'],
   deps?: DataViewerProps<T>['deps'],
+  virtualizerOverscan?: DataViewerProps<T>['virtualizerOverscan'],
   className?: DataViewerProps<T>['className'],
   groups?: DataViewerProps<T>['groups'],
 }

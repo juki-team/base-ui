@@ -23,6 +23,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     loading,
     setHeaders,
     groups,
+    virtualizerOverscan,
     // setWithVerticalScroll,
   } = props;
   
@@ -33,7 +34,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
   const rowVirtualizer = useVirtualizer({
     count: data.length,
     estimateSize: useCallback(() => rowHeight + gap * 2, [ rowHeight, gap ]),
-    overscan: 10,
+    overscan: virtualizerOverscan,
     getScrollElement: useCallback(() => parentRef.current, []),
     getItemKey: useCallback((index: number) => {
       const fn = getRecordKeyRef.current;

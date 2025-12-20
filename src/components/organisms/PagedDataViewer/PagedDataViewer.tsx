@@ -27,6 +27,7 @@ export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerP
     className,
     groups,
     deps = [],
+    virtualizerOverscan,
   } = props;
   
   const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
@@ -70,6 +71,7 @@ export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerP
       deps={deps}
       className={className}
       groups={groups}
+      virtualizerOverscan={virtualizerOverscan}
       {...DEFAULT_DATA_VIEWER_PROPS}
     />
   );

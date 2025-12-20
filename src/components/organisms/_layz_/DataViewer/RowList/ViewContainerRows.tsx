@@ -31,6 +31,7 @@ interface ViewContainerRowsProps<T> {
   onRecordHover: OnRecordClickType<T> | undefined,
   onRecordRender: OnRecordClickType<T> | undefined,
   groups: DataViewerGroupsType<T>[],
+  virtualizerOverscan: number,
   // setWithVerticalScroll: Dispatch<SetStateAction<boolean>>,
 }
 
@@ -52,6 +53,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
     onRecordHover,
     onRecordRender,
     groups,
+    virtualizerOverscan,
     // setWithVerticalScroll,
   } = props;
   
@@ -105,6 +107,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
       loading={loading}
       setHeaders={setHeaders}
       groups={groups}
+      virtualizerOverscan={virtualizerOverscan}
       // setWithVerticalScroll={setWithVerticalScroll}
     />
   );
