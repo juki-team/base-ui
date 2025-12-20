@@ -53,7 +53,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       return;
     }
     
-    rowVirtualizer.scrollToIndex(index, { align: 'center' });
+    rowVirtualizer.scrollToIndex(index, { align: 'center', behavior: 'smooth' });
   }, [ dataRef, focusRowKey, getRecordKeyRef, rowVirtualizer ]);
   const onRecordRenderRef = useRef(onRecordRender);
   onRecordRenderRef.current = onRecordRender;
