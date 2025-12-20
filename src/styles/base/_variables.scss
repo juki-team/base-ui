@@ -104,6 +104,8 @@ html body {
   --tx-h-s: calc(var(--tx-s-s) * 1.5);
   --tx-s-t: calc(var(--tx-bs) - var(--tx-bds) - var(--tx-bds));
   --tx-h-t: calc(var(--tx-s-t) * 1.5);
+  --tx-s-vt: calc(var(--tx-bs) - (var(--tx-bds) * 4));
+  --tx-h-vt: calc(var(--tx-s-t) * 1.5);
   
   --line-height-head: 1.4;
   --font-size-h3: calc(var(--tx-bs) + 10px); // 26

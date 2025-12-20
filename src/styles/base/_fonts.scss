@@ -3,6 +3,8 @@
 
 // font size
 
+.tx-vh { @include mixins.font-size(vh); }
+
 .tx-h { @include mixins.font-size(h); }
 
 .tx-l { @include mixins.font-size(l); }
@@ -12,6 +14,8 @@
 .tx-s { @include mixins.font-size(s); }
 
 .tx-t { @include mixins.font-size(t); }
+
+.tx-vt { @include mixins.font-size(vt); }
 
 // width
 .fw-lr { font-weight: var(--weight-lighter); }
