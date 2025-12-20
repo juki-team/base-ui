@@ -322,7 +322,8 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
     downloads,
     groups,
     deps = [],
-    virtualizerOverscan = 10,
+    virtualizerOverscan = 4,
+    focusRowKey,
   } = props;
   
   const viewPortSize = usePageStore(store => store.viewPort.screen);
@@ -686,6 +687,7 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
         downloads={downloads ?? EMPTY_ARRAY}
         requestProps={requestProps}
         virtualizerOverscan={virtualizerOverscan}
+        focusRowKey={focusRowKey}
       />
       {/*{withPagination && (*/}
       {/*  <Pagination*/}

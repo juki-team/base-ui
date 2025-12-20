@@ -24,6 +24,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     setHeaders,
     groups,
     virtualizerOverscan,
+    focusRowKey,
     // setWithVerticalScroll,
   } = props;
   
@@ -41,6 +42,19 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       return fn ? fn({ data: dataRef.current, index }) : index;
     }, [ dataRef, getRecordKeyRef ]),
   });
+  useEffect(() => {
+    const fn = getRecordKeyRef.current;
+    if (!focusRowKey || !fn) {
+      return;
+    }
+    
+    const index = dataRef.current.findIndex((_, i) => fn({ data: dataRef.current, index: i }) === focusRowKey);
+    if (index < 0) {
+      return;
+    }
+    
+    rowVirtualizer.scrollToIndex(index, { align: 'center' });
+  }, [ dataRef, focusRowKey, getRecordKeyRef, rowVirtualizer ]);
   const onRecordRenderRef = useRef(onRecordRender);
   onRecordRenderRef.current = onRecordRender;
   useEffect(() => {

@@ -32,6 +32,7 @@ interface ViewContainerRowsProps<T> {
   onRecordRender: OnRecordClickType<T> | undefined,
   groups: DataViewerGroupsType<T>[],
   virtualizerOverscan: number,
+  focusRowKey?: string,
   // setWithVerticalScroll: Dispatch<SetStateAction<boolean>>,
 }
 
@@ -54,6 +55,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
     onRecordRender,
     groups,
     virtualizerOverscan,
+    focusRowKey,
     // setWithVerticalScroll,
   } = props;
   
@@ -108,6 +110,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
       setHeaders={setHeaders}
       groups={groups}
       virtualizerOverscan={virtualizerOverscan}
+      focusRowKey={focusRowKey}
       // setWithVerticalScroll={setWithVerticalScroll}
     />
   );

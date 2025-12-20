@@ -47,6 +47,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     downloads,
     requestProps,
     virtualizerOverscan,
+    focusRowKey,
   } = props;
   
   const { width: viewContainerWidth, ref: viewContainerRef } = useResizeDetector();
@@ -128,6 +129,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
               onRecordRender={onRecordRender}
               groups={groups}
               virtualizerOverscan={virtualizerOverscan}
+              focusRowKey={focusRowKey}
               // setWithVerticalScroll={setWithVerticalScroll}
             />
           ) : (
