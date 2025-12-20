@@ -207,8 +207,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
           <motion.div
             key={virtualRow.key}
             jk-data-virtual-row-key={virtualRow.key}
-            jk-data-row-key={getRecordKey?.({ data, index: virtualRow.index }) || undefined}
-            layoutId={getRecordKey?.({ data, index: virtualRow.index }) || undefined}
+            layoutId={virtualRow.key as string || undefined}
             style={{
               ...(getRecordStyle?.({ data, index: virtualRow.index, isCard: false, isStickySection: false }) || {}),
               position: virtualRow.start !== null ? 'absolute' : undefined,
