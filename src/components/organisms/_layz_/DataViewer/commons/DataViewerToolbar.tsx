@@ -23,6 +23,7 @@ import {
 } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useSessionStorage } from '../../../../hooks/useSessionStorage';
+import { Pagination } from '../../../../molecules';
 import {
   CalendarViewWeekIcon,
   DownloadIcon,
@@ -35,7 +36,6 @@ import {
 import type { SetLoaderStatusOnClickType } from '../../../../types';
 import { FilterDrawer } from '../FilterDrawer';
 import type { DataViewerToolbarProps } from '../types';
-import { Pagination } from './Pagination';
 import { isSomethingFiltered, renderHead } from './utils';
 
 const buttonFilterStyles = (active: boolean) => classNames(

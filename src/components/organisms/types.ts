@@ -18,4 +18,4 @@ export type * from './_layz_/WorksheetAsSlides/types';
 export type * from './_layz_/WorksheetContents/types';
 export type * from './_layz_/MdMathEditor/types';
 export type * from './_layz_/WorksheetViewer/types';
-export type* from './_layz_/WorksheetViewer/types';
+export type * from './_layz_/WorksheetViewer/types';

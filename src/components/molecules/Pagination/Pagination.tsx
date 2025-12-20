@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
-import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
-import { usePageStore } from '../../../../../stores/page/usePageStore';
-import { Select, T } from '../../../../atoms';
-import { classNames } from '../../../../helpers';
-import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../../../server';
-import { PaginationProps } from '../types';
+import { useI18nStore } from '../../../stores/i18n/useI18nStore';
+import { usePageStore } from '../../../stores/page/usePageStore';
+import { Select, T } from '../../atoms';
+import { classNames } from '../../helpers';
+import { DoubleUpIcon, NavigateBeforeIcon, NavigateNextIcon, SpinIcon } from '../../server';
+import { PaginationProps } from './types';
 
 const SIZE_PAGES = 3;
 
@@ -68,6 +68,7 @@ export const Pagination = (props: PaginationProps) => {
   const next = page < endPage ? () => jumpToPage(page + 1) : undefined;
   
   const firstItem = (page - 1) * pageSize + 1;
+  const lastItem = firstItem + dataLength - 1;
   
   return (
     <div className={classNames('jk-data-viewer-pagination jk-row gap center', { loading })}>
@@ -90,7 +91,8 @@ export const Pagination = (props: PaginationProps) => {
                 }}
                 className="ws-np"
               >
-                {dataLength ? `${firstItem} - ${firstItem + dataLength - 1}` : '0'}&nbsp;<T>of</T>&nbsp;{total}
+                {dataLength ? firstItem === lastItem ? firstItem : `${firstItem} - ${lastItem}` : '0'}
+                &nbsp;<T>of</T>&nbsp;{total}
               </div>
               <div
                 data-tooltip-id="jk-tooltip"
