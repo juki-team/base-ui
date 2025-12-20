@@ -108,6 +108,7 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
           if (nickname !== user.nickname) {
             replaceRoute(jukiAppRoutes.JUDGE().profiles.view({
               nickname: nickname as string,
+              companyKey: user.company.key,
               tab: ProfileTab.OVERVIEW,
             }));
           } else {
@@ -121,7 +122,11 @@ export function UserViewLayout({ user, reloadUser, extraTabs }: UserViewLayoutPr
         tabs={tabHeaders}
         tabButtons={extraNodes}
         selectedTabKey={tab}
-        getHrefOnTabChange={(tab) => jukiAppRoutes.JUDGE().profiles.view({ nickname: user.nickname, tab })}
+        getHrefOnTabChange={(tab) => jukiAppRoutes.JUDGE().profiles.view({
+          nickname: user.nickname,
+          companyKey: user.company.key,
+          tab,
+        })}
       >
         <h1>{user.nickname}</h1>
       </TwoContentLayout>
