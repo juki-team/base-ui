@@ -1,7 +1,7 @@
 import { classNames } from '../../helpers';
 import type { InputRadioProps } from '../Input/types';
 
-export function InputRadio({ className, checked, disabled, onChange, label, ...props }: InputRadioProps) {
+export function InputRadio({ className, checked, disabled, onChange, label, size, ...props }: InputRadioProps) {
   
   const isDisabled = disabled || !onChange;
   
@@ -9,7 +9,7 @@ export function InputRadio({ className, checked, disabled, onChange, label, ...p
     <label className={classNames('jk-wrapper-input jk-wrapper-input-radio jk-row gap', className, { disabled: isDisabled })}>
       <input
         type="radio"
-        className={classNames('jk-input-radio', { disabled: isDisabled })}
+        className={classNames('jk-input-radio', size, { disabled: isDisabled })}
         onChange={isDisabled ? undefined : ({ target: { checked } }) => {
           onChange?.(checked);
         }}
