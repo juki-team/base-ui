@@ -40,6 +40,7 @@ export interface InputCheckboxProps {
   className?: string,
   label?: ReactNode,
   disabled?: boolean,
+  size?: ButtonSizeType,
 }
 
 export interface InputToggleProps {
