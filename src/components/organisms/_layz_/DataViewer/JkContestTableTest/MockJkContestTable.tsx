@@ -17,7 +17,7 @@ export const MockJkContestTable = (props: Omit<DataViewerProps<ContestSummaryLis
   const [ data, setData ] = useState<ContestSummaryListResponseDTO[]>([]);
   useEffect(() => {
     setTimeout(() => {
-      setData(contests.contents as ContestSummaryListResponseDTO[]);
+      setData(contests.contents as unknown as ContestSummaryListResponseDTO[]);
       // setData([]);
     }, 2000);
   }, []);
