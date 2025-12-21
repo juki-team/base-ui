@@ -421,9 +421,9 @@ export class ApiManager {
           method: HTTPMethod.GET,
         })),
         getScoreboard: valid<
-          { params: { key: string, unfrozen: boolean, companyKey?: string } }
-        >(({ params: { key, unfrozen, companyKey } }) => ({
-          url: injectCompany(injectBaseUrl('contest', `/${key}/data/scoreboard${unfrozen ? '?state=unfrozen' : ''}`), companyKey),
+          { params: { key: string, unfrozen: boolean, companyKey?: string, official: boolean } }
+        >(({ params: { key, unfrozen, companyKey, official } }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/data/scoreboard${unfrozen ? '?state=unfrozen' : ''}${official ? (unfrozen ? '&' : '?') + 'official=true' : ''}`), companyKey),
           method: HTTPMethod.GET,
         })),
         getLogs: valid<
@@ -443,9 +443,9 @@ export class ApiManager {
           body: JSON.stringify(body),
         })),
         recalculateScoreboard: valid<
-          { params: { key: string, companyKey?: string }, }, HTTPMethod.POST
-        >(({ params: { key, companyKey } }) => ({
-          url: injectCompany(injectBaseUrl('contest', `/${key}/recalculate-scoreboard`), companyKey),
+          { params: { key: string, companyKey?: string }, official: boolean }, HTTPMethod.POST
+        >(({ params: { key, companyKey, official } }) => ({
+          url: injectCompany(injectBaseUrl('contest', `/${key}/recalculate-scoreboard${official ? '?official=true' : ''}`), companyKey),
           method: HTTPMethod.POST,
         })),
         recalculatePrerequisites: valid<

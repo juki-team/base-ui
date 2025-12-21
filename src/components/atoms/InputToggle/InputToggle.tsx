@@ -26,7 +26,7 @@ export function InputToggle(props: InputToggleProps) {
   
   return (
     <label className={classNames('jk-wrapper-input-toggle', type, className, size, { disabled: isDisabled })} {...restProps}>
-      <div onClick={handleClick(false)}>{leftLabel}</div>
+      <div className="jk-row" onClick={handleClick(false)}>{leftLabel}</div>
       <input
         className="jk-input-toggle" type="checkbox" checked={checked}
         onChange={({ target: { checked } }) => isDisabled ? null : onChange?.(checked)}
@@ -34,11 +34,11 @@ export function InputToggle(props: InputToggleProps) {
       <span
         className="jk-input-toggle-slider"
         style={{
-          marginLeft: leftLabel ? 'var(--pad-xt)' : undefined,
-          marginRight: rightLabel ? 'var(--pad-xt)' : undefined,
+          marginLeft: leftLabel ? 'calc(var(--pad-xt) / 2)' : undefined,
+          marginRight: rightLabel ? 'calc(var(--pad-xt) / 2)' : undefined,
         }}
       />
-      <div onClick={handleClick(true)}>{rightLabel}</div>
+      <div className="jk-row" onClick={handleClick(true)}>{rightLabel}</div>
     </label>
   );
 }
