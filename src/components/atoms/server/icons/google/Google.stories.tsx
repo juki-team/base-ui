@@ -72,6 +72,7 @@ import {
   FileCopyIcon,
   FileOpenIcon,
   FilterListIcon,
+  FitnessCenterIcon,
   FolderIcon,
   FolderManagedIcon,
   FolderOpenIcon,
@@ -113,6 +114,7 @@ import {
   LoadingIcon,
   LocationCityIcon,
   LocationOnIcon,
+  LockClockIcon,
   LockIcon,
   LockPersonIcon,
   LoginIcon,
@@ -328,6 +330,7 @@ export const Google: FC<BasicIconProps> = (args) => {
     ListIcon,
     LoadingIcon,
     LocationCityIcon,
+    LockClockIcon,
     LocationOnIcon,
     LockIcon,
     LockPersonIcon,
@@ -404,6 +407,7 @@ export const Google: FC<BasicIconProps> = (args) => {
     VoidIcon,
     WarningIcon,
     WidgetsIcon,
+    FitnessCenterIcon,
   };
   
   const [ color, setColor ] = useState<ColorResult>({
