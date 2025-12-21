@@ -443,7 +443,7 @@ export class ApiManager {
           body: JSON.stringify(body),
         })),
         recalculateScoreboard: valid<
-          { params: { key: string, companyKey?: string }, official: boolean }, HTTPMethod.POST
+          { params: { key: string, companyKey?: string, official: boolean } }, HTTPMethod.POST
         >(({ params: { key, companyKey, official } }) => ({
           url: injectCompany(injectBaseUrl('contest', `/${key}/recalculate-scoreboard${official ? '?official=true' : ''}`), companyKey),
           method: HTTPMethod.POST,
