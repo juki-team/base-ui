@@ -1,10 +1,8 @@
-import { type PropsWithChildren, useEffect, useMemo } from 'react';
+import { type PropsWithChildren, useMemo } from 'react';
 import { QueryParamKey } from '../../../../enums';
-import { jukiApiManager } from '../../../../settings';
 import { cloneURLSearchParams } from '../../../../settings/AppRoutes';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
-import { usePreload } from '../../../hooks/usePreload';
 
 export interface SubmissionInfoProps {
   submitId: string,
@@ -14,14 +12,14 @@ export interface SubmissionInfoProps {
 export function SubmissionInfo({ submitId, canViewSourceCode, children }: PropsWithChildren<SubmissionInfoProps>) {
   
   const currentSearchParams = useRouterStore(state => state.searchParams);
-  const preload = usePreload();
+  // const preload = usePreload();
   const { Link } = useUIStore(store => store.components);
   
-  useEffect(() => {
-    if (canViewSourceCode) {
-      void preload(jukiApiManager.API_V2.submission.getData({ params: { id: submitId } }).url);
-    }
-  }, [ submitId, preload, canViewSourceCode ]);
+  // useEffect(() => {
+  //   if (canViewSourceCode) {
+  //     void preload(jukiApiManager.API_V2.submission.getData({ params: { id: submitId } }).url);
+  //   }
+  // }, [ submitId, preload, canViewSourceCode ]);
   
   const searchParams = useMemo(() => {
     const clonedSearchParams = cloneURLSearchParams(currentSearchParams);

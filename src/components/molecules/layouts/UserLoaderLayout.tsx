@@ -22,7 +22,7 @@ export const UserLoaderLayout = () => {
     return () => {
       clearTimeout(timeout);
     };
-  }, [ setShowLoader, userSessionId ]);
+  }, [ userSessionId ]);
   
   return (
     <AnimatePresence>
