@@ -422,12 +422,12 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
     if (newFileName) {
       setFilesStore(prevState => {
         const files = { ...(prevState[storeKey] || {}) };
-        const newFile = getNewFileName('new', `.${getExtension(editorSettings.lastLanguageUsed)}`, (name) => !!files[name]);
+        const newFile = getNewFileName('new', `.${getExtension(defaultLanguage)}`, (name) => !!files[name]);
         setCurrentFileName(newFile);
         const maxIndex = Object.values(files).reduce((accum, { index }) => Math.max(accum, index || 0), 0);
         files[newFile] = {
-          source: CODE_LANGUAGE[editorSettings.lastLanguageUsed as CodeLanguage]?.templateSourceCode || '',
-          language: editorSettings.lastLanguageUsed,
+          source: CODE_LANGUAGE[defaultLanguage as CodeLanguage]?.templateSourceCode || '',
+          language: defaultLanguage,
           index: maxIndex + 1,
           name: newFile,
           hidden: false,

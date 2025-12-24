@@ -12,10 +12,10 @@ export const useWebsocketStore = create<WebsocketSubStore>((set, get) => {
       return;
     }
     isPublishing = true;
-    const queueCopy = publishQueue.map(({ event }) => event);
-    publishQueue = [];
     const channelSubscription = get().channelPublishSubscription;
     if (channelSubscription) {
+      const queueCopy = publishQueue.map(({ event }) => event);
+      publishQueue = [];
       await channelSubscription.publish('batched', queueCopy);
     }
     isPublishing = false;
