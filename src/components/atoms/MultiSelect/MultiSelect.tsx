@@ -62,7 +62,7 @@ export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: 
       content={
         <div
           ref={optionRef}
-          className={classNames('jk-select-options jk-pg-xsm-tb', { disabled: isDisabled })}
+          className={classNames('jk-select-options jk-pg-xsm-tb ow-ao', { disabled: isDisabled })}
           style={{
             width: _containerWidth === 'child' ? 'auto' : expand ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2/*border*/ : containerWidth - 2, /*border*/
           }}
