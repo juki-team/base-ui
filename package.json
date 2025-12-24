@@ -1,6 +1,6 @@
 {
   "name": "@juki-team/base-ui",
-  "version": "1.3.41",
+  "version": "1.3.42",
   "repository": "https://github.com/juki-team/base-ui",
   "author": "juki-team",
   "license": "MIT",
@@ -60,7 +60,7 @@
     "dev": "cross-env NODE_ENV=storybook storybook dev -p 6006 --host storybook.local.juki.app",
     "prebuild:rollup": "rm -rf src/vendor && rollup -c prebuild-rollup.config.js && rm -rf tmp-prebuild",
     "build:storybook": "rm -rf docs && storybook build -o docs",
-    "build:rollup-clean": "rm -rf dist && rm -rf node_modules/.cache/rollup-plugin-typescript2 && rollup -c --no-cache --strictDeprecations --environment NODE_ENV:production",
+    "build:rollup-clean": "rm -rf dist && rm -rf node_modules/.cache/rollup-plugin-typescript2",
     "build:rollup": "rm -rf dist && rollup -c rollup.config.js --strictDeprecations --environment NODE_ENV:production",
     "build:sass": "rm -rf dist/css-styles && sass src/styles:dist/styles --no-source-map --style=compressed",
     "build:publish": "yarn publish --new-version $(node -p \"require('./package.json').version\") --no-git-tag-version",
