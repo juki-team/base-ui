@@ -68,7 +68,8 @@ export function LoginModalCmp({
   );
 }
 
-export function LoginModal(props: LoginModalProps) {
+export function LoginModal(props: Omit<LoginModalProps, 'openForgotPasswordModal' | 'setOpenForgotPasswordModal'>) {
+  
   const [ openForgotPasswordModal, setOpenForgotPasswordModal ] = useState(false);
   
   return (
@@ -89,7 +90,11 @@ export function LoginModal(props: LoginModalProps) {
         showNavigation={false}
         showCloseButton={false}
       >
-        <LoginModalCmp {...props} />
+        <LoginModalCmp
+          {...props}
+          openForgotPasswordModal={openForgotPasswordModal}
+          setOpenForgotPasswordModal={setOpenForgotPasswordModal}
+        />
       </TourProvider>
     </>
   );
