@@ -4,6 +4,7 @@ import {
   CodeRunDTO,
   CompanyPlan,
   getUserKey,
+  GroupByTimestampKey,
   HTTPMethod,
   JkmdSubmissionDTO,
   Judge,
@@ -951,7 +952,14 @@ export class ApiManager {
       },
       statistics: {
         getCompanyStats: valid<
-          { params: { companyKey?: string, startTimestamp: number, endTimestamp: number, groupBy: number[] } }
+          {
+            params: {
+              companyKey?: string,
+              startTimestamp: number,
+              endTimestamp: number,
+              groupBy: GroupByTimestampKey[]
+            }
+          }
         >(({ params: { companyKey, startTimestamp, endTimestamp, groupBy } }) => ({
           url: injectCompany(injectBaseUrl('statistics', `/company?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}`), companyKey),
           method: HTTPMethod.GET,
@@ -963,7 +971,14 @@ export class ApiManager {
           method: HTTPMethod.GET,
         })),
         getUsersTracksStats: valid<
-          { params: { companyKeys: string, startTimestamp: number, endTimestamp: number, groupBy: number[] } }
+          {
+            params: {
+              companyKeys: string,
+              startTimestamp: number,
+              endTimestamp: number,
+              groupBy: GroupByTimestampKey[]
+            }
+          }
         >(({ params: { companyKeys, startTimestamp, endTimestamp, groupBy } }) => ({
           url: injectBaseUrl('statistics', `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}${companyKeys ? `&companyKeys=${companyKeys}` : ''}`),
           method: HTTPMethod.GET,
