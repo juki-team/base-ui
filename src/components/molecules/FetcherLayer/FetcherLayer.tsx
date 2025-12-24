@@ -6,11 +6,10 @@ import {
 } from '@juki-team/commons';
 import { useEffect, useMemo, useRef } from 'react';
 import { useUIStore } from '../../../stores/ui/useUIStore';
-import { LineLoader } from '../../atoms/server';
+import { LineLoader, LoaderLayer } from '../../atoms/server';
 import { renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { JukiLoadingLayout } from '../layouts/JukiLoadingLayout';
 import type { FetcherLayerProps } from './types';
 
 const isContentResponseType = <T, >(data: any): data is ContentResponseType<T> => {
@@ -71,14 +70,14 @@ export function FetcherLayer<T extends (ContentResponseType<U> | ContentsRespons
       return <>{renderReactNodeOrFunction(loadingView)}</>;
     }
     
-    return <JukiLoadingLayout />;
+    return <LoaderLayer loading={true} />;
   }
   
   if (isContentResponseType<U>(data) || isContentsResponseType<U>(data)) {
     return <>
       {validChild}
       {isValidating && (
-        <div style={{ position: 'absolute', top: 0, width: '100%' }}>
+        <div className="pn-ae wh-100" style={{ top: 0 }}>
           <LineLoader />
         </div>
       )}

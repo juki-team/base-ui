@@ -1,0 +1,31 @@
+.jk-tour-mask {
+  svg defs mask {
+    rect:last-child {
+      rx: var(--border-radius-inline) !important;
+      ry: var(--border-radius-inline) !important;
+    }
+  }
+}
+
+.jk-tour-mask-opacity-0 {
+  opacity: 1 !important;
+  
+  > svg {
+    rect:not(:last-child) {
+      opacity: 0 !important;
+    }
+    
+    rect:last-child {
+      stroke: var(--cr-at);
+      opacity: 1;
+      stroke-width: 4px;
+      rx: var(--border-radius-inline) !important;
+      ry: var(--border-radius-inline) !important;
+    }
+  }
+}
+
+.reactour__popover {
+  border-radius: var(--border-radius-inline);
+  padding: var(--pad-sm) !important;
+}

@@ -6,7 +6,7 @@ import { Segment } from './Segment';
 import { SquareFrame } from './SquareFrame';
 import { Vector } from './Vector';
 
-export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType<RootIconProps>, name?: string) => {
+export const renderBasicIcon = (_props: BasicIconProps, Component: ComponentType<RootIconProps>, name: string) => {
   
   const {
     size = 'regular',

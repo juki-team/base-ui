@@ -1,0 +1,20 @@
+import { Dispatch, SetStateAction } from 'react';
+import type { BasicModalProps } from '../../../../atoms/Modal/types';
+import { SetLoaderStatusOnClickType } from '../../../../types';
+
+export type LoginFormType = {
+  nickname: string,
+  password: string,
+  companyKey: string,
+}
+
+export interface LoginModalTemplateProps extends BasicModalProps {
+  onSignUpButton: () => void,
+  onForgotPassword?: (email: string, setStatus: SetLoaderStatusOnClickType) => void,
+  onSubmit: (data: LoginFormType, setStatus: SetLoaderStatusOnClickType) => void,
+  loginWithGoogle?: (setStatus?: SetLoaderStatusOnClickType) => (response: never) => void,
+  reactAppGoogleClientId?: string,
+  multiCompanies?: boolean,
+  openForgotPasswordModal: boolean,
+  setOpenForgotPasswordModal: Dispatch<SetStateAction<boolean>>,
+}

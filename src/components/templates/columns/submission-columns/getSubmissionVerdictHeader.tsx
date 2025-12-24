@@ -2,7 +2,7 @@ import { PROBLEM_VERDICT, type  SubmissionSummaryListResponseDTO } from '@juki-t
 import { T } from '../../../atoms';
 import { AcUnitIcon, FitnessCenterIcon, LockClockIcon } from '../../../atoms/server';
 import { FieldText } from '../../../organisms';
-import { SubmissionListenerVerdict } from '../../../organisms/_layz_/SubmitView/commons/SubmissionListenerVerdict';
+import { SubmissionListenerVerdict } from '../../../organisms/SubmitView/commons/SubmissionListenerVerdict';
 import type { DataViewerHeadersType } from '../../../organisms/types';
 import { SubmissionInfo } from '../../submission/commons/SubmissionInfo';
 

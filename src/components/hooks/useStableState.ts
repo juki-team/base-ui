@@ -1,7 +1,7 @@
 import { isObjectJson, isStringJson } from '@juki-team/commons';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 
-export const useStableState = <T, >(initialStableState: T, deps?: string[]): [ T, Dispatch<SetStateAction<T>> ] => {
+export const useStableState = <T, >(initialStableState: T, deps?: (string | number | boolean)[]): [ T, Dispatch<SetStateAction<T>> ] => {
   
   const [ state, setState ] = useState<T>(initialStableState);
   

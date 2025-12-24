@@ -101,8 +101,9 @@ function PawsLoadingLayoutComponent(props: PawsLoadingLayoutProps) {
         delay={N * sec * i}
         animationName={animationName}
         bottom={totalSteps === 1 ? '50%' : (6 + i * 10) * H - (i % 2 ? 0 : 0)}
-        children={childrenCmp}
-      />,
+      >
+        {childrenCmp}
+      </PathLoadingPaws>,
     );
   }
   return (

@@ -10,5 +10,5 @@ const Icon = ({ color }: RootIconProps) => (
 );
 
 export const LoadingIcon = ({ className, ...props }: BasicIconProps) => {
-  return renderBasicIcon({ ...props, className: classNames('rotating', className) }, Icon);
+  return renderBasicIcon({ ...props, className: classNames('rotating', className) }, Icon, 'loading');
 };

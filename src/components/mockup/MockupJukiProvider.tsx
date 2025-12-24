@@ -52,7 +52,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
         // serviceApiV2Url={serviceV2Url}
         // tokenName="juki-token"
         // socketServiceUrl={socketServiceUrl}
-        multiCompanies
+        multiCompanies={false}
         onSeeMyProfile={() => {
         }}
         router={{

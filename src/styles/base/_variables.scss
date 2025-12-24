@@ -93,7 +93,7 @@ html body {
   --tx-bds: calc(var(--tx-bs) * 0.125);
   
   --tx-s-vh: calc(var(--tx-bs) + (var(--tx-bds) * 4));
-  --tx-h-vh: calc(var(--tx-s-h) * 1.5);
+  --tx-h-vh: calc(var(--tx-s-vh) * 1.5);
   --tx-s-h: calc(var(--tx-bs) + var(--tx-bds) + var(--tx-bds));
   --tx-h-h: calc(var(--tx-s-h) * 1.5);
   --tx-s-l: calc(var(--tx-bs) + var(--tx-bds));

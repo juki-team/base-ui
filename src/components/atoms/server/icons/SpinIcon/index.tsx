@@ -8,5 +8,5 @@ export type SpinIconProps = BasicIconProps & {
 }
 
 export const SpinIcon = ({ className = '', speed, ...props }: SpinIconProps) => (
-  renderBasicIcon({ className: classNames(speed !== 'none' ? 'rotating' : '', speed, className), ...props }, Spin)
+  renderBasicIcon({ className: classNames(speed !== 'none' ? 'rotating' : '', speed, className), ...props }, Spin, 'spin')
 );

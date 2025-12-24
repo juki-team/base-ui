@@ -20,7 +20,7 @@ import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon
 import { classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
 import { useSubscribe } from '../../../hooks/useSubscribe';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
-import { ImageUploaderModal } from '../../ImageUploaderModal/ImageUploaderModal';
+import { ImageUploaderModal } from '../../modals/ImageUploaderModal/ImageUploaderModal';
 import { MilkdownEditorContent } from './MilkdownEditorContent/MilkdownEditorContent';
 import { TextPlainEditorContent } from './TextPlainEditorContent/TextPlainEditorContent';
 import type { MdMathEditorProps } from './types';

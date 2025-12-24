@@ -645,6 +645,12 @@ export class ApiManager {
           url: injectCompany(injectBaseUrl('company', '/judge-list'), companyKey),
           method: HTTPMethod.GET,
         })),
+        getTrustedCompaniesList: valid<{
+          params: { companyKey: string }
+        } | void>(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
+          url: injectCompany(injectBaseUrl('company', '/trusted-companies-list'), companyKey),
+          method: HTTPMethod.GET,
+        })),
         getResourceSpecifications: valid<
           { params: { companyKey: string } } | void
         >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
@@ -691,6 +697,7 @@ export class ApiManager {
               systemAdminUserNickname?: string,
               hosts?: string[],
               judgeKeys?: string[],
+              trustedCompaniesKeys?: string[],
               startTimestamp?: number,
               plan?: CompanyPlan,
             }
@@ -944,9 +951,9 @@ export class ApiManager {
       },
       statistics: {
         getCompanyStats: valid<
-          { params: { companyKey?: string, startTimestamp: number, endTimestamp: number } }
-        >(({ params: { companyKey, startTimestamp, endTimestamp } }) => ({
-          url: injectCompany(injectBaseUrl('statistics', `/company?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}`), companyKey),
+          { params: { companyKey?: string, startTimestamp: number, endTimestamp: number, groupBy: number[] } }
+        >(({ params: { companyKey, startTimestamp, endTimestamp, groupBy } }) => ({
+          url: injectCompany(injectBaseUrl('statistics', `/company?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}`), companyKey),
           method: HTTPMethod.GET,
         })),
         getProblemStats: valid<
