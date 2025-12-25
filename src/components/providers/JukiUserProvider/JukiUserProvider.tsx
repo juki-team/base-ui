@@ -48,7 +48,7 @@ export const JukiUserProvider = () => {
   const matchMutate = useMutate();
   
   const refreshAllRequest = useCallback(async () => {
-    await matchMutate(new RegExp(`${JUKI_SERVICE_V2_URL}`, 'g'));
+    await matchMutate(new RegExp(`${JUKI_SERVICE_V2_URL}`));
   }, [ matchMutate ]);
   
   useEffect(() => {

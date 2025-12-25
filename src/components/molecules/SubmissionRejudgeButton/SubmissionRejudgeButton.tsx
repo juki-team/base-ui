@@ -27,7 +27,7 @@ export function SubmissionRejudgeButton({ submissionId }: SubmissionRejudgeButto
     <ButtonLoader
       onClick={async (...props) => {
         await rejudgeSubmission(submissionId)(...props);
-        await mutate(new RegExp(`${JUKI_SERVICE_V2_URL}/submission`, 'g'));
+        await mutate(new RegExp(`${JUKI_SERVICE_V2_URL}/submission`));
       }}
       size="tiny"
       icon={<RefreshIcon />}

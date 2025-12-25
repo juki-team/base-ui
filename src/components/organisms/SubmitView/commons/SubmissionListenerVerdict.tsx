@@ -112,7 +112,7 @@ export const SubmissionListenerVerdict = ({ submit, className }: SubmissionListe
     (data) => {
       if (isSubmissionRunStatusMessageWebSocketResponseEventDTO(data)) {
         if (data.status === SubmissionRunStatus.COMPLETED || data.status === SubmissionRunStatus.RECEIVED) {
-          void mutate(new RegExp(`${JUKI_SERVICE_V2_URL}/submission`, 'g'));
+          void mutate(new RegExp(`${JUKI_SERVICE_V2_URL}/submission`));
         }
         const nextStatus = data.status;
         const nextSampleCase = !!data.testInfo?.sampleCase;
