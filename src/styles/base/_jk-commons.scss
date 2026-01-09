@@ -218,10 +218,6 @@ span.jk-row, span.jk-col {
   display: inline-flex;
   border-radius: var(--border-radius-inline);
   
-  &:not(.jk-row):not(.jk-col) {
-    display: inline-block;
-  }
-  
   &:not([class^="cr-"]):not([class*=" cr-"]):not([class^="bc-"]):not([class*=" bc-"]) {
     color: var(--cr-py-tx);
     background-color: var(--cr-py);
