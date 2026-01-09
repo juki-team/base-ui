@@ -7,6 +7,7 @@ export type * from './FetcherLayer/types';
 export type * from './FirstLoginWrapper/types';
 export type * from './FloatToolbar/types';
 export type * from './HomeLink/types';
+export type * from './InformationPopover/types';
 export type * from './LinkLastPath/types';
 export type * from './MultiSelectSearchable/types';
 export type * from './Pagination/types';
