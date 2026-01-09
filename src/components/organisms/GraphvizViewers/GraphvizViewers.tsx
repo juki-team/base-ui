@@ -17,7 +17,7 @@ export function GraphvizViewers({ dot, className, viewSourceButton = true }: Gra
   const [ index, setIndex ] = useState(0);
   const [ delay, setDelay ] = useState(400);
   const [ isOpen, setIsOpen ] = useState(false);
-  const [ isPlaying, setIsPlaying ] = useState(false);
+  const [ isPlaying, setIsPlaying ] = useState(true);
   
   const togglePlay = () => {
     setIsPlaying(prev => !prev);
@@ -54,6 +54,7 @@ export function GraphvizViewers({ dot, className, viewSourceButton = true }: Gra
       </Modal>
       {viewSourceButton && (
         <FloatToolbar
+          className="wh-100"
           actionButtons={[
             {
               icon: (
@@ -76,7 +77,7 @@ export function GraphvizViewers({ dot, className, viewSourceButton = true }: Gra
               type="light"
               tooltipContent={isPlaying ? 'pause' : 'play'}
               onClick={togglePlay}
-              icon={isPlaying ? <PlayCircleIcon /> : <StopCircleIcon />}
+              icon={isPlaying ? <StopCircleIcon /> : <PlayCircleIcon />}
             />
             <Button
               size="tiny"

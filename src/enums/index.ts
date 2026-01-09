@@ -86,14 +86,6 @@ export enum Sound {
   BELL,
 }
 
-export enum NotificationType {
-  SUCCESS = 'success',
-  INFO = 'info',
-  WARNING = 'warning',
-  ERROR = 'error',
-  QUIET = 'quiet'
-}
-
 export enum Duration {
   FAST = 0.100,
   NORMAL = 0.250,

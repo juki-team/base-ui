@@ -37,3 +37,8 @@ export interface MdMathProps {
   slideView?: boolean,
   detectRequestAnimationFrame?: boolean,
 }
+
+export enum CodeRenderMode {
+  EDITOR = 'editor',
+  IMAGE = 'image'
+}

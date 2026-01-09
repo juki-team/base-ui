@@ -929,7 +929,7 @@ digraph G {
 
 **Resultado**
 
-\`\`\`DOT asImage
+\`\`\`DOT/image
 digraph G {
   rankdir=LR;
   nodesep=0.6;

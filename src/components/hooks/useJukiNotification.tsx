@@ -2,10 +2,10 @@ import {
   type ContentResponseType,
   type ContentsResponseType,
   type ErrorResponseType,
+  NotificationType,
   Status,
 } from '@juki-team/commons';
 import { Children, type ReactNode, useCallback, useContext } from 'react';
-import { NotificationType } from '../../enums';
 import { T } from '../atoms/T/T';
 import { NotificationContext } from '../organisms/CardNotification/context';
 import type { NewNotificationType } from '../organisms/CardNotification/types';

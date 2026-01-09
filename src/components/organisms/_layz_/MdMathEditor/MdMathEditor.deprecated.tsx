@@ -1,10 +1,9 @@
-import { Status } from '@juki-team/commons';
+import { NotificationType, Status } from '@juki-team/commons';
 import { ClipboardEventHandler, Dispatch, RefObject, useCallback, useEffect, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { RESIZE_DETECTOR_PROPS } from '../../../../constants';
-import { NotificationType } from '../../../../enums';
-import { classNames, handleUploadImage } from '../../../helpers';
 import { Button, Modal, T, TextArea } from '../../../atoms';
+import { classNames, handleUploadImage } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { SplitPane } from '../../../molecules';
 import { CloseIcon, EditIcon, InfoIIcon, PreviewIcon } from '../../../server';

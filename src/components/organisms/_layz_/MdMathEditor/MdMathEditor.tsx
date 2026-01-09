@@ -1,9 +1,9 @@
 import {
   ChatCompletionsWebSocketEventDTO,
   consoleWarn,
-  isChatCompletionsResponseWebSocketResponseEventDTO,
+  isSenDataChatCompletionsWebSocketResponseEventDTO,
   Status,
-  type SubscribeChatCompletionsDataWebSocketEventDTO,
+  SubscribeGetDataWebSocketEventDTO,
   WebSocketMessageEvent,
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
@@ -52,14 +52,14 @@ function IAModalContent() {
   const chatIdRef = useRef(v4());
   const channelMessages = useWebsocketStore(store => store.channelPublishMessages);
   
-  const event: Omit<SubscribeChatCompletionsDataWebSocketEventDTO, 'clientId'> = {
-    event: WebSocketSubscriptionEvent.SUBSCRIBE_CHAT_COMPLETIONS_DATA,
-    chatAiId: chatIdRef.current,
+  const event: Omit<SubscribeGetDataWebSocketEventDTO, 'clientId'> = {
+    event: WebSocketSubscriptionEvent.SUBSCRIBE_GET_DATA,
+    dataId: chatIdRef.current,
   };
   useSubscribe(
     event,
     (data) => {
-      if (isChatCompletionsResponseWebSocketResponseEventDTO(data)) {
+      if (isSenDataChatCompletionsWebSocketResponseEventDTO(data)) {
         setChat(prevState => [
           ...prevState,
           ...data.content.choices.map(({ message }) => ({ content: message.content, user: ChatRole.IA })),

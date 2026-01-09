@@ -1,5 +1,5 @@
+import { NotificationType } from '@juki-team/commons';
 import { useReducer } from 'react';
-import { NotificationType } from '../../../enums';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { CardNotification } from '../../organisms/CardNotification/CardNotification';

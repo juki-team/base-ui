@@ -1,4 +1,4 @@
-import { consoleWarn, DataViewMode, isStringJson, ProfileSetting, SEPARATOR_TOKEN, Status } from '@juki-team/commons';
+import { consoleWarn, DataViewMode, isStringJson, join, ProfileSetting, split, Status } from '@juki-team/commons';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { EMPTY_ARRAY } from '../../../../constants';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
@@ -63,14 +63,6 @@ function getTextWidth(text: string, font: string) {
   }
   return 0;
 }
-
-const join = (array: (string | null | Date)[]) => {
-  return array.join(SEPARATOR_TOKEN);
-};
-
-const split = (text: string) => {
-  return text.split(SEPARATOR_TOKEN);
-};
 
 const isSomethingFiltered = (newSearchFilter: RequestFilterType) => (
   !!Object.values(newSearchFilter).filter(search => !!search && (Array.isArray(search) ? search.length : true)).length
@@ -347,7 +339,7 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
   const [ searchVisibles, setVisibles ] = useSessionStorage(
     visiblesKey,
     searchParams.get(visiblesKey),
-    headers.map(({ index }) => index).join(SEPARATOR_TOKEN),
+    join(headers.map(({ index }) => index)),
   );
   const filterKey = getFilterQueryParam(name);
   const iniFilters = searchParams.get(filterKey) || '';
@@ -472,9 +464,9 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
           onToggle() {
             const isVisible = getVisible();
             if (isVisible) {
-              setVisibles(split(searchVisibles).filter(i => i !== props.index).join(SEPARATOR_TOKEN));
+              setVisibles(join(split(searchVisibles).filter(i => i !== props.index)));
             } else {
-              setVisibles([ ...split(searchVisibles), props.index ].join(SEPARATOR_TOKEN));
+              setVisibles(join([ ...split(searchVisibles), props.index ]));
             }
           },
         },

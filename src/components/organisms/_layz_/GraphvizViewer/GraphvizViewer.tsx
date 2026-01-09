@@ -1,4 +1,4 @@
-import { consoleError, consoleWarn } from '@juki-team/commons';
+import { consoleWarn } from '@juki-team/commons';
 import { instance } from '@viz-js/viz';
 import { useEffect, useRef } from 'react';
 import { create } from 'zustand';
@@ -28,13 +28,17 @@ export default function GraphvizViewer({ dot, className }: GraphvizViewerProps) 
     if (!el) return;
     
     instance().then(viz => {
+      const prevHeight = el.getBoundingClientRect().height;
       el.innerHTML = '';
+      el.style.minHeight = prevHeight ? `${prevHeight}px` : '';
       try {
         const svg = viz.renderSVGElement(dot, {});
         el.appendChild(svg);
+        el.style.minHeight = '';
       } catch (e) {
         consoleWarn('error on drawing Graphviz', e);
         el.innerHTML = '';
+        el.style.minHeight = '';
         const errorDiv = document.createElement('div');
         errorDiv.textContent = t('error rendering graph') + `: ${(e as Error)?.message || String(e)}`;
         errorDiv.style.color = 'red';
@@ -42,14 +46,6 @@ export default function GraphvizViewer({ dot, className }: GraphvizViewerProps) 
         el.appendChild(errorDiv);
       }
     });
-    
-    return () => {
-      try {
-        el.innerHTML = '';
-      } catch (e) {
-        consoleError(e);
-      }
-    };
   }, [ dot, shouldRerender, t ]);
   
   return (

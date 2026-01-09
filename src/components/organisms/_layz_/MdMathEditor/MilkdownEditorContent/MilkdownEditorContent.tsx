@@ -3,7 +3,7 @@ import { languages } from '@codemirror/language-data';
 import { stex } from '@codemirror/legacy-modes/mode/stex';
 import { oneDark } from '@codemirror/theme-one-dark';
 import { EditorView } from '@codemirror/view';
-import { CODE_LANGUAGE, CodeLanguage, ProfileSetting, Status, Theme } from '@juki-team/commons';
+import { CODE_LANGUAGE, CodeLanguage, NotificationType, ProfileSetting, Status, Theme } from '@juki-team/commons';
 import { codeBlockConfig } from '@milkdown/components/code-block';
 import { Crepe } from '@milkdown/crepe';
 import { remarkStringifyOptionsCtx } from '@milkdown/kit/core';
@@ -19,7 +19,6 @@ import katex from 'katex';
 import { Decoration } from 'prosemirror-view';
 import { Dispatch, SetStateAction, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
-import { NotificationType } from '../../../../../enums';
 import { useI18nStore } from '../../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../../stores/user/useUserStore';
 import { T } from '../../../../atoms';
@@ -29,6 +28,7 @@ import { useStableRef } from '../../../../hooks/useStableRef';
 // import { basicSetup } from '@uiw/react-codemirror';
 import { basicSetup } from '../../../../molecules/_lazy_/CodeEditor/codemirror/extensions/basic-setup';
 import type { NewNotificationType } from '../../../CardNotification/types';
+import { CodeRenderMode } from '../../MdMath/types';
 
 interface MilkdownEditorContentProps {
   onChange?: (md: string) => void,
@@ -100,7 +100,7 @@ const myLanguages = [
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'C'),
-    name: CodeLanguage.C + ' asCodeEditor',
+    name: CodeLanguage.C + `/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
   }),
   LanguageDescription.of({
@@ -110,7 +110,7 @@ const myLanguages = [
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'C++'),
-    name: CodeLanguage.CPP + ' asCodeEditor',
+    name: CodeLanguage.CPP + `/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
   }),
   LanguageDescription.of({
@@ -120,7 +120,7 @@ const myLanguages = [
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'Java'),
-    name: CodeLanguage.JAVA + ' asCodeEditor',
+    name: CodeLanguage.JAVA + `/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-java').then((m) => m.java()),
   }),
   LanguageDescription.of({
@@ -130,7 +130,7 @@ const myLanguages = [
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'Python'),
-    name: CodeLanguage.PYTHON + ' asCodeEditor',
+    name: CodeLanguage.PYTHON + `/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-python').then((m) => m.python()),
   }),
   LanguageDescription.of({
@@ -140,7 +140,7 @@ const myLanguages = [
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'JavaScript'),
-    name: CodeLanguage.JAVASCRIPT + ' asCodeEditor',
+    name: CodeLanguage.JAVASCRIPT + `/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-javascript').then((m) => m.javascript()),
   }),
   LanguageDescription.of({
@@ -182,7 +182,7 @@ const myLanguages = [
     load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
   }),
   LanguageDescription.of({
-    name: CodeLanguage.DOT + ' asImage',
+    name: CodeLanguage.DOT + `/${CodeRenderMode.IMAGE}`,
     alias: [ 'dot' ],
     extensions: [ 'dot' ],
     load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
@@ -286,19 +286,20 @@ export function MilkdownEditorContent({ value, onChange, setLoader }: MilkdownEd
   useEditor((root) => {
     return new Crepe({
       root,
-      defaultValue: value
-        .replace(/```C asCodeEditor/g, '```C&#x20;asCodeEditor')
-        .replace(/```CPP asCodeEditor/g, '```CPP&#x20;asCodeEditor')
-        .replace(/```JAVA asCodeEditor/g, '```JAVA&#x20;asCodeEditor')
-        .replace(/```PYTHON asCodeEditor/g, '```PYTHON&#x20;asCodeEditor')
-        .replace(/```JAVASCRIPT asCodeEditor/g, '```JAVASCRIPT&#x20;asCodeEditor')
-        // .replace(/```MERMAID asImage/g, '```MERMAID&#x20;asImage')
-        .replace(/```DOT asImage/g, '```DOT&#x20;asImage'),
+      defaultValue: value,
+      // defaultValue: value
+      //   .replace(/```C asCodeEditor/g, '```C&#x20;asCodeEditor')
+      //   .replace(/```CPP asCodeEditor/g, '```CPP&#x20;asCodeEditor')
+      //   .replace(/```JAVA asCodeEditor/g, '```JAVA&#x20;asCodeEditor')
+      //   .replace(/```PYTHON asCodeEditor/g, '```PYTHON&#x20;asCodeEditor')
+      //   .replace(/```JAVASCRIPT asCodeEditor/g, '```JAVASCRIPT&#x20;asCodeEditor')
+      //   // .replace(/```MERMAID asImage/g, '```MERMAID&#x20;asImage')
+      //   .replace(/```DOT asImage/g, '```DOT&#x20;asImage'),
       featureConfigs: {
         [Crepe.Feature.CodeMirror]: {
           renderLanguage(lang, selected) {
-            const [ language, as ] = lang.split(' ');
-            return (selected ? '✔ ' : '') + (CODE_LANGUAGE[language as CodeLanguage]?.label ?? language) + t(as === 'asCodeEditor' ? ' (render as code editor)' : as === 'asImage' ? ' (render as image)' : '');
+            const [ language, as ] = lang.split('/');
+            return (selected ? '✔ ' : '') + (CODE_LANGUAGE[language as CodeLanguage]?.label ?? language) + t(as === 'editor' ? ' (render as code editor)' : as === 'image' ? ' (render as image)' : '');
           },
           searchPlaceholder: 'Find a language...',
           noResultText: 'No language found',

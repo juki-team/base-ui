@@ -1,6 +1,5 @@
-import { Status } from '@juki-team/commons';
+import { NotificationType, Status } from '@juki-team/commons';
 import { memo, useState } from 'react';
-import { NotificationType } from '../../../../../enums';
 import { Button, CopyToClipboard, InputToggle, T } from '../../../../atoms';
 import { classNames, handleUploadImage, toBlob } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
@@ -14,7 +13,11 @@ export interface UploadNewImageTabProps {
   onUploadedImage: () => void,
 }
 
-export const UploadNewImageTab = memo(({ copyButtons, onPickImageUrl, onUploadedImage }: UploadNewImageTabProps) => {
+export const UploadNewImageTab = memo(function UploadNewImageTabCmp({
+                                                                      copyButtons,
+                                                                      onPickImageUrl,
+                                                                      onUploadedImage,
+                                                                    }: UploadNewImageTabProps) {
   
   const [ imagePublicUrl, setImagePublicUrl ] = useState<string>('');
   const [ cropImage, setCropImage ] = useState<CropImageType>();

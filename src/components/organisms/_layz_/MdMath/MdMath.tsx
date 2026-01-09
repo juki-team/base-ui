@@ -6,7 +6,7 @@ import { Children, ComponentType, type CSSProperties, memo, type ReactNode, useM
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
-import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
+import { defaultSchema } from 'rehype-sanitize';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
 import { QueryParamKey } from '../../../../enums';
@@ -25,7 +25,7 @@ import type { SetSearchParamsType } from '../../../types';
 import { GraphvizViewers } from '../../GraphvizViewers/GraphvizViewers';
 import { UserChip } from '../../UserChip/UserChip';
 import { UserCodeEditor } from '../UserCodeEditor';
-import type { CommandsObjectType, MdMathProps } from './types';
+import { CodeRenderMode, CommandsObjectType, MdMathProps } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
 const schema = {
@@ -73,6 +73,12 @@ const schema = {
       ...(((defaultSchema.attributes)?.['annotation-xml'] ?? []) as []),
       'encoding',
     ],
+  },
+  properties: {
+    code: [ 'meta' ],
+  },
+  allowAttributes: {
+    code: [ 'data-meta' ],
   },
 };
 
@@ -155,7 +161,7 @@ function MdMathComponent(props: MdMathProps) {
     // - rehype-raw: parse raw HTML in markdown into the AST
     // - rehype-katex: render math into HTML/MathML
     // - rehype-sanitize: sanitize the final tree (with KaTeX-safe schema)
-    rehypePlugins: [ rehypeRaw, rehypeKatex, [ rehypeSanitize, schema ] ],
+    rehypePlugins: [ rehypeRaw, rehypeKatex ],
     components: {
       img({ alt = '', src, title }) {
         let style: CSSProperties = {};
@@ -278,14 +284,13 @@ function MdMathComponent(props: MdMathProps) {
           }
         }
         const [ commands, newClassName ] = getCommands(text);
-        const language = (commands.lang
+        const [ language, flag ] = ((commands.lang
           || commands.rest
           || newClassName
-          || CodeLanguage.TEXT) as CodeLanguage;
+          || CodeLanguage.TEXT)).split('/') as [ CodeLanguage, CodeRenderMode ];
         
         if (typeof children === 'string') {
-          const meta = node?.data?.meta;
-          if (language === CodeLanguage.DOT && meta === 'asImage') {
+          if (language === CodeLanguage.DOT && flag === CodeRenderMode.IMAGE) {
             return (
               <GraphvizViewers
                 dot={children}
@@ -295,7 +300,7 @@ function MdMathComponent(props: MdMathProps) {
             );
           }
           
-          if (meta === 'asCodeEditor') {
+          if (flag === CodeRenderMode.EDITOR) {
             const storeKey = language + JSON.stringify(node?.position ?? '-');
             const fileName = `source.${CODE_LANGUAGE[language]?.fileExtension?.[0] || 'txt'}`;
             return (

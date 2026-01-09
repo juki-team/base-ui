@@ -4,12 +4,12 @@ import {
   getDataOfTestCase,
   getVerdictFromTestCase,
   mex,
+  NotificationType,
   ProblemVerdict,
   SUBMISSION_RUN_STATUS,
   SubmissionRunStatus,
 } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
-import { NotificationType } from '../../../../../../enums';
 import { InputToggle, Popover, T, TextArea } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
