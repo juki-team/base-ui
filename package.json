@@ -92,7 +92,7 @@
     "@floating-ui/react": "^0.27.16",
     "@handsontable/react-wrapper": "^16.2.0",
     "@hookform/resolvers": "^5.2.2",
-    "@juki-team/commons": "^0.0.1045",
+    "@juki-team/commons": "^0.0.1050",
     "@milkdown/crepe": "^7.17.3",
     "@milkdown/kit": "^7.17.3",
     "@milkdown/react": "^7.17.3",
