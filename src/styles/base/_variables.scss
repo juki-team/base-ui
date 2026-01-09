@@ -64,10 +64,10 @@ html body {
   @include mixins.md { --pad-sm: var(--pad-t); }
   @include mixins.sm { --pad-sm: var(--pad-xt); }
   
-  @include mixins.hg { --gap: 12px; }
-  @include mixins.lg { --gap: 10px; }
-  @include mixins.md { --gap: 8px; }
-  @include mixins.sm { --gap: 6px; }
+  @include mixins.hg { --gap: calc(var(--pad-s) / 2); }
+  @include mixins.lg { --gap: calc(var(--pad-xs) / 2); }
+  @include mixins.md { --gap: calc(var(--pad-t) / 2); }
+  @include mixins.sm { --gap: calc(var(--pad-xt) / 2); }
   
   @include mixins.hg { --border-radius: 16px; }
   @include mixins.lg { --border-radius: 14px; }

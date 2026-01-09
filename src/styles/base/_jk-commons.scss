@@ -214,7 +214,8 @@ span.jk-row, span.jk-col {
 }
 
 .jk-tag {
-  padding: 2px var(--pad-xt);
+  padding: 2px calc(var(--pad-xt) / 2);
+  display: inline-flex;
   border-radius: var(--border-radius-inline);
   
   &:not(.jk-row):not(.jk-col) {
