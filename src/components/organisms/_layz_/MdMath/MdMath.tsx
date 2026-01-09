@@ -6,7 +6,6 @@ import { Children, ComponentType, type CSSProperties, memo, type ReactNode, useM
 import ReactMarkdown, { type Options as ReactMarkdownOptions } from 'react-markdown';
 import rehypeKatex from 'rehype-katex';
 import rehypeRaw from 'rehype-raw';
-import { defaultSchema } from 'rehype-sanitize';
 import RemarkGfmPlugin from 'remark-gfm';
 import RemarkMathPlugin from 'remark-math';
 import { QueryParamKey } from '../../../../enums';
@@ -28,59 +27,59 @@ import { UserCodeEditor } from '../UserCodeEditor';
 import { CodeRenderMode, CommandsObjectType, MdMathProps } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
-const schema = {
-  ...defaultSchema,
-  // Allow KaTeX/MathML and preserve classes/styles used by KaTeX CSS.
-  tagNames: Array.from(new Set([
-    ...(defaultSchema.tagNames ?? []),
-    'br',
-    // KaTeX HTML wrappers
-    'span',
-    'div',
-    // KaTeX MathML for accessibility
-    'math',
-    'semantics',
-    'mrow',
-    'mi',
-    'mo',
-    'mn',
-    'ms',
-    'mtext',
-    'annotation',
-    'annotation-xml',
-  ])),
-  attributes: {
-    ...(defaultSchema.attributes ?? {}),
-    span: [
-      ...(((defaultSchema.attributes)?.span ?? []) as []),
-      'className',
-      'style',
-    ],
-    div: [
-      ...(((defaultSchema.attributes)?.div ?? []) as []),
-      'className',
-      'style',
-    ],
-    math: [
-      ...(((defaultSchema.attributes)?.math ?? []) as []),
-      'xmlns',
-    ],
-    annotation: [
-      ...(((defaultSchema.attributes)?.annotation ?? []) as []),
-      'encoding',
-    ],
-    'annotation-xml': [
-      ...(((defaultSchema.attributes)?.['annotation-xml'] ?? []) as []),
-      'encoding',
-    ],
-  },
-  properties: {
-    code: [ 'meta' ],
-  },
-  allowAttributes: {
-    code: [ 'data-meta' ],
-  },
-};
+// const schema = {
+//   ...defaultSchema,
+//   // Allow KaTeX/MathML and preserve classes/styles used by KaTeX CSS.
+//   tagNames: Array.from(new Set([
+//     ...(defaultSchema.tagNames ?? []),
+//     'br',
+//     // KaTeX HTML wrappers
+//     'span',
+//     'div',
+//     // KaTeX MathML for accessibility
+//     'math',
+//     'semantics',
+//     'mrow',
+//     'mi',
+//     'mo',
+//     'mn',
+//     'ms',
+//     'mtext',
+//     'annotation',
+//     'annotation-xml',
+//   ])),
+//   attributes: {
+//     ...(defaultSchema.attributes ?? {}),
+//     span: [
+//       ...(((defaultSchema.attributes)?.span ?? []) as []),
+//       'className',
+//       'style',
+//     ],
+//     div: [
+//       ...(((defaultSchema.attributes)?.div ?? []) as []),
+//       'className',
+//       'style',
+//     ],
+//     math: [
+//       ...(((defaultSchema.attributes)?.math ?? []) as []),
+//       'xmlns',
+//     ],
+//     annotation: [
+//       ...(((defaultSchema.attributes)?.annotation ?? []) as []),
+//       'encoding',
+//     ],
+//     'annotation-xml': [
+//       ...(((defaultSchema.attributes)?.['annotation-xml'] ?? []) as []),
+//       'encoding',
+//     ],
+//   },
+//   properties: {
+//     code: [ 'meta' ],
+//   },
+//   allowAttributes: {
+//     code: [ 'data-meta' ],
+//   },
+// };
 
 type hxProps = { children: ReactNode & ReactNode[], node: Element };
 
