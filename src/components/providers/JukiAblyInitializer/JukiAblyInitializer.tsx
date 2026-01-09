@@ -1,4 +1,5 @@
 import {
+  CHANNEL_PRESENCE_CLIENT,
   CHANNEL_PUBLISH_MESSAGES,
   CHANNEL_PUBLISH_SUBSCRIPTIONS,
   CHANNEL_SUBSCRIBE_CLIENT,
@@ -24,6 +25,7 @@ const WebsocketProvider = () => {
   const setProps = useWebsocketStore(store => store.setProps);
   const { channel: channelPublishSubscription } = useChannel(CHANNEL_PUBLISH_SUBSCRIPTIONS);
   const { channel: channelPublishMessages } = useChannel(CHANNEL_PUBLISH_MESSAGES);
+  const { channel: channelPresenceClient } = useChannel(CHANNEL_PRESENCE_CLIENT);
   
   useEffect(() => {
     setProps({ channelPublishSubscription });
@@ -31,6 +33,12 @@ const WebsocketProvider = () => {
   useEffect(() => {
     setProps({ channelPublishMessages });
   }, [ channelPublishMessages, setProps ]);
+  useEffect(() => {
+    void channelPresenceClient.presence.enter({ clientId });
+    return () => {
+      void channelPresenceClient.presence.leave({ clientId });
+    };
+  }, [ channelPresenceClient, clientId ]);
   
   useChannel(CHANNEL_SUBSCRIBE_CLIENT(clientId), (msg) => {
     const { data } = msg;
@@ -115,7 +123,9 @@ export const JukiAblyInitializer = () => {
             <ChannelProvider channelName={CHANNEL_SUBSCRIBE_CLIENT(clientId)}>
               <ChannelProvider channelName={CHANNEL_PUBLISH_MESSAGES}>
                 <ChannelProvider channelName={CHANNEL_SUBSCRIBE_NOTIFICATIONS}>
-                  <WebsocketProvider />
+                  <ChannelProvider channelName={CHANNEL_PRESENCE_CLIENT}>
+                    <WebsocketProvider />
+                  </ChannelProvider>
                 </ChannelProvider>
               </ChannelProvider>
             </ChannelProvider>
