@@ -20,6 +20,7 @@ import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon
 import { classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
 import { useSubscribe } from '../../../hooks/useSubscribe';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
+import { MdMathViewer } from '../../MdMathViewer/MdMathViewer';
 import { ImageUploaderModal } from '../../modals/ImageUploaderModal/ImageUploaderModal';
 import { MilkdownEditorContent } from './MilkdownEditorContent/MilkdownEditorContent';
 import { TextPlainEditorContent } from './TextPlainEditorContent/TextPlainEditorContent';
@@ -71,19 +72,32 @@ function IAModalContent() {
   return (
     <div className="jk-pg jk-col gap stretch">
       <h3><T>Juki Redactor Agent</T></h3>
-      <div className="jk-col gap">
+      <div className="jk-col gap wh-100">
         {chat.map((chat) => (
-          <div
-            key={chat.content}
-            className="jk-pg-sm bc-hl jk-br-ie"
-            style={{
-              maxWidth: '60%',
-              whiteSpace: 'break-spaces',
-              alignSelf: chat.user === ChatRole.IA ? 'start' : 'end',
-            }}
-          >
-            {chat.content}
-          </div>
+          chat.user === ChatRole.IA ?
+            <div
+              key={chat.content}
+              className="jk-pg-sm bc-hl jk-br-ie"
+              style={{
+                maxWidth: '60%',
+                whiteSpace: 'break-spaces',
+                alignSelf: 'start',
+              }}
+            >
+              <MdMathViewer source={chat.content} />
+            </div>
+            :
+            <div
+              key={chat.content}
+              className="jk-pg-sm bc-hl jk-br-ie"
+              style={{
+                maxWidth: '60%',
+                whiteSpace: 'break-spaces',
+                alignSelf: 'end',
+              }}
+            >
+              {chat.content}
+            </div>
         ))}
       </div>
       <div className="jk-row gap nowrap wh-100 sticky-bottom jk-pg-sm bc-we jk-br-ie stretch">
