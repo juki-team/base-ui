@@ -5,13 +5,15 @@ import { usePageStore } from '../../../stores/page/usePageStore';
 export const JukiI18nInitializer = () => {
   
   const i18nLoadResources = useI18nStore(state => state.loadResources);
-  const isPageVisible = usePageStore(state => state.isVisible);
+  const isOnline = usePageStore(store => store.isOnline);
+  const isFocus = usePageStore(store => store.isFocus);
+  const isVisible = usePageStore(store => store.isVisible);
   
   useEffect(() => {
-    if (isPageVisible) {
+    if (isOnline && isFocus && isVisible) {
       void i18nLoadResources();
     }
-  }, [ i18nLoadResources, isPageVisible ]);
+  }, [ i18nLoadResources, isOnline, isFocus, isVisible ]);
   
   return null;
 };
