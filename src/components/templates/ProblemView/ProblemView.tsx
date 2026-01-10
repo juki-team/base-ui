@@ -24,6 +24,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
     withoutDownloadButtons,
     children,
     languages,
+    className,
   } = props;
   
   const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
@@ -53,7 +54,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
   
   const problemStatement = (
     <div
-      className={classNames('jk-problem-view-statement', {
+      className={classNames('jk-problem-view-statement', problem.judge.isSubmitSupported ? '' : className, {
         'jk-pg-sm jk-br-ie bc-we': !shouldViewPDF,
         'ow-ve': shouldViewPDF,
       })}
@@ -74,7 +75,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
     body = (
       <SplitPane
         minSize={400}
-        className={classNames('jk-problem-view-layout', { 'jk-full-screen-overlay elevation-1 jk-br-ie': expanded })}
+        className={classNames('jk-problem-view-layout', className, { 'jk-full-screen-overlay elevation-1 jk-br-ie': expanded })}
         style={expanded ? expandPosition : {}}
         closableSecondPane={{
           expandLabel: <T className="label tx-t">code editor</T>,
