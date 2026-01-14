@@ -229,6 +229,7 @@ export default function MdMathEditor(props: MdMathEditorProps) {
     enableDownload = false,
     enableImageUpload = false,
     enableIA = false,
+    onBlur,
   } = props;
   
   const [ loader, setLoader ] = useState(Status.NONE);
@@ -236,7 +237,7 @@ export default function MdMathEditor(props: MdMathEditorProps) {
   
   return (
     <MilkdownProvider>
-      <div className={classNames('jk-md-math-editor wh-100 pn-re', className)}>
+      <div className={classNames('jk-md-math-editor wh-100 pn-re', className)} onBlur={onBlur}>
         {loader === Status.LOADING && <LineLoader />}
         {loader === Status.LOADING && (
           <div className="jk-loader-layer pn-ae jk-col">
