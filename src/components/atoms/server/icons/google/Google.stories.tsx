@@ -164,6 +164,7 @@ import {
   SettingsSuggestIcon,
   ShareIcon,
   SideNavigationIcon,
+  SmartToyIcon,
   SpeedIcon,
   StepIntoIcon,
   StepOutIcon,
@@ -408,6 +409,7 @@ export const Google: FC<BasicIconProps> = (args) => {
     WarningIcon,
     WidgetsIcon,
     FitnessCenterIcon,
+    SmartToyIcon,
   };
   
   const [ color, setColor ] = useState<ColorResult>({

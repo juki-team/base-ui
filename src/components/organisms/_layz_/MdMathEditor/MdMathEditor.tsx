@@ -7,10 +7,11 @@ import {
   WebSocketMessageEvent,
   WebSocketSubscriptionEvent,
 } from '@juki-team/commons';
+import { editorViewCtx } from '@milkdown/core';
 import { insert } from '@milkdown/kit/utils';
 import { MilkdownProvider, useInstance } from '@milkdown/react';
 import { getMarkdown } from '@milkdown/utils';
-import { type Dispatch, memo, type SetStateAction, useMemo, useRef, useState } from 'react';
+import { type Dispatch, memo, type SetStateAction, useEffect, useMemo, useRef, useState } from 'react';
 import { v4 } from 'uuid';
 import { useI18nStore } from '../../../../stores/i18n/useI18nStore';
 import { useUserStore } from '../../../../stores/user/useUserStore';
@@ -219,6 +220,25 @@ function ImageUploader({ mode }: { mode: Mode }) {
   );
 }
 
+const Focus = () => {
+  
+  const [ isLoading, getInstance ] = useInstance();
+  
+  useEffect(() => {
+    if (!isLoading) {
+      const editor = getInstance();
+      if (editor) {
+        editor.action((ctx) => {
+          const view = ctx.get(editorViewCtx);
+          view.focus();
+        });
+      }
+    }
+  }, [ isLoading, getInstance ]);
+  
+  return null;
+};
+
 export default function MdMathEditor(props: MdMathEditorProps) {
   
   const {
@@ -238,6 +258,7 @@ export default function MdMathEditor(props: MdMathEditorProps) {
   return (
     <MilkdownProvider>
       <div className={classNames('jk-md-math-editor wh-100 pn-re', className)} onBlur={onBlur}>
+        {!!onBlur && <Focus />}
         {loader === Status.LOADING && <LineLoader />}
         {loader === Status.LOADING && (
           <div className="jk-loader-layer pn-ae jk-col">

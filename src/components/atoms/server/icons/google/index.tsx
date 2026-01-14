@@ -155,6 +155,7 @@ export { SettingsIcon } from './SettingsIcon';
 export { SettingsSuggestIcon } from './SettingsSuggestIcon';
 export { ShareIcon } from './ShareIcon';
 export { SideNavigationIcon } from './SideNavigationIcon';
+export { SmartToyIcon } from './SmartToyIcon';
 export { SpeedIcon } from './SpeedIcon';
 export { StepIntoIcon } from './StepIntoIcon';
 export { StepOutIcon } from './StepOutIcon';
