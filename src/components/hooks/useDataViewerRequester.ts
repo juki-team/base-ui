@@ -16,22 +16,20 @@ export const useDataViewerRequester = <T extends ContentResponseType<unknown> | 
     filter: RequestFilterType,
     sort: RequestSortType
   }) => {
-    const newUrl = getUrlRef.current?.({ pagination: pagination || { page: 0, pageSize: 16 }, filter, sort });
-    if (newUrl) {
-      if (url !== newUrl) {
-        setUrl(newUrl);
-      } else {
-        await mutate();
-      }
+    const newUrl = getUrlRef.current?.({ pagination: pagination || { page: 0, pageSize: 25 }, filter, sort });
+    if (!newUrl) {
+      return;
     }
-  }, [ getUrlRef, mutate, url ]);
+    setUrl((prevUrl) => {
+      if (prevUrl === newUrl) {
+        Promise.resolve().then(() => mutate());
+      }
+      return newUrl;
+    });
+  }, [ getUrlRef, mutate ]);
   
   useEffect(() => {
-    if (isLoading || isValidating) {
-      setLoaderStatusRef.current?.(Status.LOADING);
-    } else {
-      setLoaderStatusRef.current?.(Status.NONE);
-    }
+    setLoaderStatusRef.current?.((isLoading || isValidating) ? Status.LOADING : Status.NONE);
   }, [ isLoading, isValidating ]);
   
   return {

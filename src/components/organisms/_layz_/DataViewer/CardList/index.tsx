@@ -1,5 +1,5 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
-import { Children, type SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { Children, type SyntheticEvent, useCallback, useRef, useState } from 'react';
 import { classNames } from '../../../../helpers';
 import { DataViewerCard } from './DataViewerCard';
 import type { CardRowVirtualizerFixedProps } from './types';
@@ -17,7 +17,7 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
     getRecordStyle,
     onRecordClick,
     onRecordHover,
-    onRecordRender,
+    // onRecordRender,
     getRecordClassName,
     expandedCards,
   } = props;
@@ -34,13 +34,13 @@ export const CardRowVirtualizerFixed = <T, >(props: CardRowVirtualizerFixedProps
     overscan: 2,
   });
   
-  const onRecordRenderRef = useRef(onRecordRender);
-  onRecordRenderRef.current = onRecordRender;
-  useEffect(() => {
-    rowVirtualizer.getVirtualItems().map((virtualRow) => (
-      onRecordRenderRef.current?.({ data, index: virtualRow.index, isCard: false })
-    ));
-  }, [ data, rowVirtualizer ]);
+  // const onRecordRenderRef = useRef(onRecordRender);
+  // onRecordRenderRef.current = onRecordRender;
+  // useEffect(() => {
+  //   rowVirtualizer.getVirtualItems().map((virtualRow) => (
+  //     onRecordRenderRef.current?.({ data, index: virtualRow.index, isCard: false })
+  //   ));
+  // }, [ data, rowVirtualizer ]);
   
   let finalWidth = Math.min(cardWidth, rowWidth - gap - gap);
   if (expandedCards) {

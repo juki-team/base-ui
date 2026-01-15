@@ -68,7 +68,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
   const isValid = () => {
     if (judge?.key === Judge.CODEFORCES) {
       return {
-        valid: key.split('-').filter(cad => !!cad).length !== 2,
+        valid: key.split('-').filter(Boolean).length !== 2,
       };
     }
     if (judge?.isExternal === false || judge?.key === Judge.JUKI_JUDGE || judge?.key === Judge.JV_UMSA) {

@@ -38,7 +38,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
     getRecordClassName,
     onRecordClick,
     onRecordHover,
-    onRecordRender,
+    // onRecordRender,
     extraNodesFloating = false,
     showFilterDrawerKey,
     filterKey,
@@ -126,7 +126,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
               getRecordClassName={getRecordClassName}
               onRecordClick={onRecordClick}
               onRecordHover={onRecordHover}
-              onRecordRender={onRecordRender}
+              // onRecordRender={onRecordRender}
               groups={groups}
               virtualizerOverscan={virtualizerOverscan}
               focusRowKey={focusRowKey}
@@ -143,7 +143,7 @@ export const DisplayDataViewer = <T, >(props: DisplayDataViewerProps<T>) => {
               getRecordStyle={getRecordStyle}
               onRecordClick={onRecordClick}
               onRecordHover={onRecordHover}
-              onRecordRender={onRecordRender}
+              // onRecordRender={onRecordRender}
               expandedCards={cardExpanded}
             />
           )}

@@ -34,7 +34,7 @@ export function UsersSelector(props: UsersSelectorProps) {
   }, [ data ]);
   const dataUsers = Object.values(users);
   useEffect(() => {
-    const nicknames = text.split(',').map(text => text.trim()).filter(text => !!text);
+    const nicknames = text.split(',').map(text => text.trim()).filter(Boolean);
     let error = '';
     const validNicknames: string[] = [];
     nicknames.forEach(nickname => {
@@ -57,7 +57,7 @@ export function UsersSelector(props: UsersSelectorProps) {
   }
   
   const onChangeSelectedUsers = (userKeys: string[]) => {
-    const selectedUsers: UserSummaryListResponseDTO[] = userKeys.map(userKey => users[userKey]).filter(user => !!user);
+    const selectedUsers: UserSummaryListResponseDTO[] = userKeys.map(userKey => users[userKey]).filter(Boolean);
     if (maxUsersSelection > 0) {
       _onChangeSelectedUsers(selectedUsers.slice(-maxUsersSelection));
     } else {

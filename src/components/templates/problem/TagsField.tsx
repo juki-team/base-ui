@@ -6,7 +6,7 @@ import type { TagsFieldProps } from './types';
 export function TagsField({ record: { tags }, isCard }: TagsFieldProps) {
   return (
     <Field className={classNames('jk-row gap', { center: isCard, left: !isCard, 'jk-pg-smp': isCard })}>
-      {tags.filter(tag => !!tag).map(tag => <div className="jk-tag bc-hl tx-s" key={tag}><T>{tag}</T></div>)}
+      {tags.filter(Boolean).map(tag => <div className="jk-tag bc-hl tx-s" key={tag}><T>{tag}</T></div>)}
     </Field>
   );
 }

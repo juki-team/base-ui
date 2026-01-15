@@ -82,7 +82,7 @@ export function Tabs<T extends string, >(props: TabsProps<T>) {
     }
   }, [ maxWidthUsed, widthActions, widthTabs ]);
   const isExtend = typeof extend === 'boolean' ? extend : widthContainer > maxWidthUsed;
-  const extraNodes = (_extraNodes || []).filter(action => !!action);
+  const extraNodes = (_extraNodes || []).filter(Boolean);
   
   return (
     <div

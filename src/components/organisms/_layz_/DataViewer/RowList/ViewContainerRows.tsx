@@ -29,7 +29,7 @@ interface ViewContainerRowsProps<T> {
   getRecordClassName: GetRecordClassNameType<T> | undefined,
   onRecordClick: OnRecordClickType<T> | undefined,
   onRecordHover: OnRecordClickType<T> | undefined,
-  onRecordRender: OnRecordClickType<T> | undefined,
+  // onRecordRender: OnRecordClickType<T> | undefined,
   groups: DataViewerGroupsType<T>[],
   virtualizerOverscan: number,
   focusRowKey?: string,
@@ -52,7 +52,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
     getRecordClassName,
     onRecordClick,
     onRecordHover,
-    onRecordRender,
+    // onRecordRender,
     groups,
     virtualizerOverscan,
     focusRowKey,
@@ -104,7 +104,7 @@ export const ViewContainerRows = <T, >(props: ViewContainerRowsProps<T>) => {
       getRecordStyle={getRecordStyle}
       onRecordClick={onRecordClick}
       onRecordHover={onRecordHover}
-      onRecordRender={onRecordRender}
+      // onRecordRender={onRecordRender}
       gap={gap}
       loading={loading}
       setHeaders={setHeaders}

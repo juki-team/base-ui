@@ -1,6 +1,6 @@
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { motion } from 'motion/react';
-import { Children, useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { classNames } from '../../../../helpers';
 import { useStableRef } from '../../../../hooks/useStableRef';
@@ -18,7 +18,7 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     getRecordKey,
     onRecordClick,
     onRecordHover,
-    onRecordRender,
+    // onRecordRender,
     gap,
     loading,
     setHeaders,
@@ -42,6 +42,12 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
       return fn ? fn({ data: dataRef.current, index }) : index;
     }, [ dataRef, getRecordKeyRef ]),
   });
+  
+  const visibleHeaders = useMemo(() =>
+      headers.filter(header => header.visible?.getVisible?.()),
+    [ headers ],
+  );
+  
   useEffect(() => {
     const fn = getRecordKeyRef.current;
     if (!focusRowKey || !fn) {
@@ -55,13 +61,13 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     
     rowVirtualizer.scrollToIndex(index, { align: 'center', behavior: 'smooth' });
   }, [ dataRef, focusRowKey, getRecordKeyRef, rowVirtualizer ]);
-  const onRecordRenderRef = useRef(onRecordRender);
-  onRecordRenderRef.current = onRecordRender;
-  useEffect(() => {
-    rowVirtualizer.getVirtualItems().map((virtualRow) => (
-      onRecordRenderRef.current?.({ data, index: virtualRow.index, isCard: false })
-    ));
-  }, [ data, rowVirtualizer ]);
+  // const onRecordRenderRef = useRef(onRecordRender);
+  // onRecordRenderRef.current = onRecordRender;
+  // useEffect(() => { // no works
+  //   rowVirtualizer.getVirtualItems().map((virtualRow) => (
+  //     onRecordRenderRef.current?.({ data, index: virtualRow.index, isCard: false })
+  //   ));
+  // }, [ data, rowVirtualizer ]);
   
   const totalSize = rowVirtualizer.getTotalSize();
   const scrollEl = rowVirtualizer.scrollElement;
@@ -88,34 +94,32 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
     const rightBorders: number[] = [];
     let index = 0;
     
-    for (const header of headers) {
-      if (header.visible?.getVisible?.()) {
-        const group = groups.find(group => group.value === header.group);
-        const previous = topHeaders[topHeaders.length - 1];
-        if (group) {
-          if (previous?.group === group.value) {
-            previous.width += header.width;
-            previous.sticky &&= header.sticky;
-          } else {
-            if (!rightBorders.length || topHeaders[topHeaders.length - 1]?.head === '') {
-              rightBorders.push(index - 1);
-            }
-            rightBorders.push(index);
-            topHeaders.push({ ...header, head: group.label, style: group.style });
-          }
-          rightBorders[rightBorders.length - 1] = index;
+    for (const header of visibleHeaders) {
+      const group = groups.find(group => group.value === header.group);
+      const previous = topHeaders[topHeaders.length - 1];
+      if (group) {
+        if (previous?.group === group.value) {
+          previous.width += header.width;
+          previous.sticky &&= header.sticky;
         } else {
-          topHeaders.push({ ...header, head: '', style: {} });
+          if (!rightBorders.length || topHeaders[topHeaders.length - 1]?.head === '') {
+            rightBorders.push(index - 1);
+          }
+          rightBorders.push(index);
+          topHeaders.push({ ...header, head: group.label, style: group.style });
         }
-        index++;
+        rightBorders[rightBorders.length - 1] = index;
+      } else {
+        topHeaders.push({ ...header, head: '', style: {} });
       }
+      index++;
     }
     
-    const headersStickyWidth = headers.reduce((sum, head) => sum + (head.sticky && head.visible?.getVisible() ? head.width : 0), 0);
-    const headersWidth = headers.reduce((sum, head) => sum + (head.visible?.getVisible() ? head.width : 0), 0);
+    const headersStickyWidth = visibleHeaders.reduce((sum, head) => sum + (head.sticky ? head.width : 0), 0);
+    const headersWidth = visibleHeaders.reduce((sum, head) => sum + head.width, 0);
     
     return { topHeaders, rightBorders, headersWidth, headersStickyWidth };
-  }, [ headers, groups ]);
+  }, [ groups, visibleHeaders ]);
   
   return (
     <div
@@ -196,18 +200,14 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
             }}
             className="jk-table-row"
           >
-            {Children.toArray(
-              headers
-                .filter(({ visible }) => visible?.getVisible?.())
-                .map(({ index: columnIndex, width, sticky }) => (
-                  <div
-                    key={columnIndex}
-                    style={{ width: width, minWidth: width }}
-                    className={classNames({ sticky: !!sticky })}
-                  >
-                  </div>
-                )),
-            )}
+            {visibleHeaders.map(({ index: columnIndex, width, sticky }) => (
+              <div
+                key={columnIndex}
+                style={{ width: width, minWidth: width }}
+                className={classNames({ sticky: !!sticky })}
+              >
+              </div>
+            ))}
           </div>
         )}
         {/*
@@ -238,29 +238,26 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
             onClick={() => onRecordClick?.({ data, index: virtualRow.index, isCard: false })}
             onMouseEnter={() => onRecordHover?.({ data, index: virtualRow.index, isCard: false })}
           >
-            {Children.toArray(headers
-              .filter(({ visible }) => visible?.getVisible?.())
-              .map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
-                <div
-                  key={virtualRow.key + '_' + columnIndex}
-                  style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
-                  className={classNames({
-                    sticky: !!sticky,
-                    'with-right-border': rightBorders.includes(index),
-                  }, 'jk-table-row-field bc-we')}
-                  data-testid={virtualRow.key + '_' + columnIndex}
-                >
-                  {data[virtualRow.index] && (
-                    <Field
-                      record={data[virtualRow.index]!}
-                      columnIndex={columnIndex}
-                      recordIndex={virtualRow.index}
-                      isCard={false}
-                    />
-                  )}
-                </div>
-              )),
-            )}
+            {visibleHeaders.map(({ Field, index: columnIndex, width, sticky, accumulatedWidth }, index) => (
+              <div
+                key={virtualRow.key + '_' + columnIndex}
+                style={{ width: width, minWidth: width, left: sticky ? accumulatedWidth : undefined }}
+                className={classNames({
+                  sticky: !!sticky,
+                  'with-right-border': rightBorders.includes(index),
+                }, 'jk-table-row-field bc-we')}
+                data-testid={virtualRow.key + '_' + columnIndex}
+              >
+                {data[virtualRow.index] && (
+                  <Field
+                    record={data[virtualRow.index]!}
+                    columnIndex={columnIndex}
+                    recordIndex={virtualRow.index}
+                    isCard={false}
+                  />
+                )}
+              </div>
+            ))}
           </motion.div>
         ))}
       </div>

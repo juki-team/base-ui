@@ -12,7 +12,8 @@ import type { OptionType } from '../../../molecules/types';
 import { DataViewerRequestPropsType, RequestFilterType, RequestSortType } from '../../../types';
 import { DisplayDataViewer } from './commons/DisplayDataViewer';
 import {
-  fixHeaders,
+  buildHeaders,
+  DEFAULT_PICKER_TYPE,
   getFilterKey,
   getPageKey,
   getPageSizeKey,
@@ -22,18 +23,14 @@ import {
   getVisiblesKey,
   isFilterDateAutoOffline,
   isFilterDateOffline,
-  isFilterDateOnline,
   isFilterDateRangeAutoOffline,
   isFilterDateRangeOffline,
-  isFilterDateRangeOnline,
   isFilterSelectAutoOffline,
   isFilterSelectOffline,
-  isFilterSelectOnline,
   isFilterTextAutoOffline,
   isFilterTextOffline,
-  isFilterTextOnline,
+  isSomethingSearchFiltered,
   isSortOffline,
-  isSortOnline,
 } from './commons/utils';
 import {
   FILTER_DATE,
@@ -46,27 +43,6 @@ import {
   FILTER_TEXT_AUTO,
 } from './constants';
 import type { DataViewerHeadersType, DataViewerProps, DataViewerTableHeadersType, FilterValuesType } from './types';
-
-const DEFAULT_PICKER_TYPE = 'year-month-day-hours-minutes-seconds';
-
-function getTextWidth(text: string, font: string) {
-  // re-use canvas object for better performance
-  if (typeof document !== 'undefined') {
-    // @ts-expect-error adding canvas element
-    const canvas: HTMLCanvasElement = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'));
-    const context = canvas.getContext('2d');
-    if (context) {
-      context.font = font;
-      const metrics = context.measureText(text);
-      return metrics.width;
-    }
-  }
-  return 0;
-}
-
-const isSomethingFiltered = (newSearchFilter: RequestFilterType) => (
-  !!Object.values(newSearchFilter).filter(search => !!search && (Array.isArray(search) ? search.length : true)).length
-);
 
 const applyOffline = <T extends object, >(data: T[], headers: DataViewerHeadersType<T>[], filters: RequestFilterType, searchSorts: string) => {
   let newData = [ ...data ];
@@ -93,7 +69,7 @@ const applyOffline = <T extends object, >(data: T[], headers: DataViewerHeadersT
             return head.filter.options.find(({ value }) => value === search);
           }
           return undefined;
-        }).filter(option => !!option) as OptionType<string>[];
+        }).filter(Boolean) as OptionType<string>[];
         newData = newData.filter(
           head.filter.callbackFn({ columnIndex: head.index, selectedOptions }),
         );
@@ -103,7 +79,7 @@ const applyOffline = <T extends object, >(data: T[], headers: DataViewerHeadersT
             return head.filter.options.find(({ value }) => value === search);
           }
           return undefined;
-        }).filter(option => !!option) as OptionType<string>[];
+        }).filter(Boolean) as OptionType<string>[];
         newData = newData.filter(datum => {
           if (isFilterSelectAutoOffline(head?.filter)) {
             const value = head.filter.getValue
@@ -306,7 +282,7 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
     getRecordClassName,
     onRecordClick,
     onRecordHover,
-    onRecordRender,
+    // onRecordRender,
     extraNodesFloating,
     setLoaderStatusRef: _setLoaderStatusRef,
     setDataTableRef: _setDataTableRef,
@@ -323,25 +299,30 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
   const searchParams = useRouterStore(state => state.searchParams);
   const t = useI18nStore(state => state.i18n.t);
   
-  const withPagination = !!initialPageSizeOptions;
-  
+  const pageKey = getPageQueryParam(name);
+  const pageSizeKey = getPageSizeQueryParam(name);
+  const sortKey = getSortQueryParam(name);
+  const filterKey = getFilterQueryParam(name);
+  const viewModeKey = getViewModeQueryParam(name);
   const showFilterDrawerKey = getShowFilterDrawerQueryParam(name);
+  const visiblesKey = getVisiblesQueryParam(name);
+  
+  const withPagination = !!initialPageSizeOptions;
   
   const [ loaderStatus, setLoaderStatus ] = useState<Status>(Status.LOADING);
   
   const initializing = loaderStatus === Status.LOADING || initialInitializing;
-  const sortKey = getSortQueryParam(name);
+  
   const iniSort = searchParams.get(sortKey);
   const [ searchSorts, setSort, deleteSort ] = useSessionStorage(sortKey, iniSort);
   const searchSortsRef = useStableRef(searchSorts);
   
-  const visiblesKey = getVisiblesQueryParam(name);
   const [ searchVisibles, setVisibles ] = useSessionStorage(
     visiblesKey,
     searchParams.get(visiblesKey),
     join(headers.map(({ index }) => index)),
   );
-  const filterKey = getFilterQueryParam(name);
+  
   const iniFilters = searchParams.get(filterKey) || '';
   const [ _searchFilter, setFilter, deleteFilter ] = useSessionStorage(filterKey, isStringJson(iniFilters) ? iniFilters : null);
   const filters = useMemo(() => {
@@ -355,8 +336,6 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
   
   const filtersRef = useStableRef(filters);
   
-  const pageKey = getPageQueryParam(name);
-  const pageSizeKey = getPageSizeQueryParam(name);
   const initialPageSizeOptionsString = JSON.stringify(initialPageSizeOptions ?? [ 25, 50, 100 ]);
   const pageSizeOptions = useMemo(() => JSON.parse(initialPageSizeOptionsString), [ initialPageSizeOptionsString ]);
   const [ _page, jumpToPage ] = useSessionStorage(pageKey, searchParams.get(pageKey));
@@ -370,29 +349,6 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
     if (headSort?.sort) {
       sort[headSort.index] = headSort.index === searchSorts ? 1 : -1;
     }
-    
-    // const head = headers.find(({ index }) => index === searchSorts || '-' + index === searchSorts);
-    // const prevHead = headers.find(({ index }) => index === prevSearchSorts.current || '-' + index === prevSearchSorts.current);
-    // if (isSortOnline(head?.sort) || isSortOnline(prevHead?.sort)) {
-    //   request?.(requestProps);
-    // }
-    // let withChanges = false;
-    // for (const head of headers) {
-    //   if (
-    //     (filters[head.index] || prevSearchFilter.current?.[head.index]) &&
-    //     filters[head.index] !== prevSearchFilter.current?.[head.index] &&
-    //     (isFilterTextOnline(head.filter) ||
-    //       isFilterSelectOnline(head.filter) ||
-    //       isFilterDateOnline(head.filter) ||
-    //       isFilterDateRangeOnline(head.filter)
-    //     )
-    //   ) {
-    //     withChanges = true;
-    //   }
-    // }
-    // if (withChanges) {
-    //   request?.(requestProps);
-    // }
     return JSON.stringify({
       sort,
       filter: filters,
@@ -400,7 +356,7 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
     });
   }, [ filters, headers, page, pageSize, searchSorts, withPagination ]);
   const requestProps = useMemo(() => JSON.parse(requestKey) as DataViewerRequestPropsType, [ requestKey ]);
-  const depsKey = useMemo(() => JSON.stringify(deps), [ deps ]);
+  const depsKey = JSON.stringify(deps);
   const requestRef = useStableRef(_requestRef);
   const onReload = useCallback(() => requestRef.current?.(requestProps), [ requestRef, requestProps ]);
   useEffect(() => {
@@ -427,151 +383,11 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
     });
   }, [ setLoaderStatusRef ]);
   
-  const [ tableHeaders, setTableHeaders ] = useState<DataViewerTableHeadersType<T>[]>([]);
+  const [ tableHeaders, setTableHeaders ] = useState<DataViewerTableHeadersType<T>[]>(
+    () => buildHeaders(headers, searchVisibles, t, filtersRef, searchSortsRef, setVisibles, setSort, deleteSort, setFilter, deleteFilter),
+  );
   useEffect(() => {
-    const onResetFilter = (filterIndex: string) => () => {
-      const newSearchFilter: RequestFilterType = { ...filtersRef.current };
-      newSearchFilter[filterIndex] = '';
-      if (isSomethingFiltered(newSearchFilter)) {
-        setFilter(JSON.stringify(newSearchFilter));
-      } else {
-        deleteFilter();
-      }
-    };
-    
-    const onFilter = (filterIndex: string, newFilter: string) => {
-      const newSearchFilter = { ...filtersRef.current };
-      if (JSON.stringify(newSearchFilter[filterIndex]) !== JSON.stringify(newFilter)) {
-        newSearchFilter[filterIndex] = newFilter;
-        if (isSomethingFiltered(newSearchFilter)) {
-          setFilter(JSON.stringify(newSearchFilter));
-        } else {
-          deleteFilter();
-        }
-      }
-    };
-    
-    setTableHeaders(fixHeaders(headers.map(({ sort, filter, ...props }, index) => {
-      const getVisible = () => split(searchVisibles).includes(props.index);
-      const newHead: DataViewerTableHeadersType<T> = {
-        ...props,
-        minWidth: props.minWidth ?? 0,
-        width: 0,
-        accumulatedWidth: 0,
-        headIndex: index,
-        visible: {
-          getVisible,
-          onToggle() {
-            const isVisible = getVisible();
-            if (isVisible) {
-              setVisibles(join(split(searchVisibles).filter(i => i !== props.index)));
-            } else {
-              setVisibles(join([ ...split(searchVisibles), props.index ]));
-            }
-          },
-        },
-      };
-      const headIndex = props.index;
-      // let iconsWidth = filter ? 34 : 0;
-      let iconsWidth = filter ? (26 + 2) : 0; // size of icon // 2px separation
-      if (sort) { // online or offline
-        // iconsWidth += iconsWidth ? (34 + 4) : 34; // size of icon // 4px separation
-        iconsWidth += 26 + 2; // size of icon // 2px separation
-        const up = props.index;
-        const down = '-' + props.index;
-        const getOrder = () => split(searchSortsRef.current).includes(up) ? 1 : split(searchSortsRef.current).includes(down) ? -1 : 0;
-        newHead.sort = {
-          getOrder,
-          onSort: () => {
-            const newSort = getOrder() === 1 ? down : getOrder() === -1 ? '' : up;
-            if (newSort) {
-              setSort(newSort);
-            } else {
-              deleteSort();
-            }
-          },
-          online: isSortOnline(sort),
-        };
-      }
-      if (filter?.type === FILTER_TEXT || filter?.type === FILTER_TEXT_AUTO) {
-        newHead.filter = {
-          type: FILTER_TEXT,
-          onFilter: ({ text }) => onFilter(headIndex, text),
-          onReset: onResetFilter(headIndex),
-          getFilter: () => filtersRef.current[headIndex] || '',
-          // text: string
-          online: isFilterTextOnline(filter),
-        };
-      } else if (filter?.type === FILTER_SELECT || filter?.type === FILTER_SELECT_AUTO) {
-        newHead.filter = {
-          type: FILTER_SELECT,
-          onFilter: ({ selectedOptions }) => {
-            onFilter(
-              headIndex,
-              join(selectedOptions
-                .filter(({ value }) => !!filter.options.find(option => option.value === value))
-                .map(({ value }) => value)),
-            );
-          },
-          onReset: onResetFilter(headIndex),
-          options: filter.options,
-          getFilter: () => filtersRef.current[headIndex] ? split(filtersRef.current[headIndex]).map(value => ({
-            value,
-            label: '',
-          })) : [],
-          // selectedOptions: [
-          online: isFilterSelectOnline(filter),
-        };
-      } else if (filter?.type === FILTER_DATE || filter?.type === FILTER_DATE_AUTO) {
-        
-        newHead.filter = {
-          type: FILTER_DATE,
-          pickerType: filter.pickerType || DEFAULT_PICKER_TYPE,
-          onFilter: ({ selectedDate }) => onFilter(headIndex, selectedDate.getTime() + ''),
-          isDisabled: filter.isDisabled || (() => ({})),
-          onReset: onResetFilter(headIndex),
-          getFilter: () => {
-            return filtersRef.current[headIndex]
-            && new Date(+filtersRef.current[headIndex]).isValidDate() ? new Date(+filtersRef.current[headIndex]) : null;
-          },
-          // selectedDate,
-          baseDate: /* TODO: newHead.filter?.getFilter() as Date ||*/ filter.baseDate || new Date(),
-          online: isFilterDateOnline(filter),
-        };
-      } else if (filter?.type === FILTER_DATE_RANGE || filter?.type === FILTER_DATE_RANGE_AUTO) {
-        newHead.filter = {
-          type: FILTER_DATE_RANGE,
-          pickerType: filter.pickerType || DEFAULT_PICKER_TYPE,
-          onFilter: ({
-                       startSelectedDate,
-                       endSelectedDate,
-                     }) => onFilter(headIndex, join([ startSelectedDate.getTime() + '', endSelectedDate.getTime() + '' ])),
-          onReset: onResetFilter(headIndex),
-          isDisabled: filter.isDisabled || (() => ({})),
-          getFilter: () => {
-            const [ start, end ] = filtersRef.current[headIndex] ? split(filtersRef.current[headIndex]) : [];
-            const startSelectedDate = start && new Date(+start).isValidDate() ? new Date(+start) : null;
-            const endSelectedDate = end && new Date(+end).isValidDate() ? new Date(+end) : null;
-            return [ startSelectedDate, endSelectedDate ];
-          },
-          baseStartDate: /* TODO: newHead.filter?.getFilter()?.[0] as Date ||*/ filter.baseStartDate || new Date(),
-          baseEndDate: /* TODO: newHead.filter?.getFilter()?.[1] as Date  ||*/ filter.baseEndDate || new Date(),
-          online: isFilterDateRangeOnline(filter),
-        };
-      }
-      
-      const head = props.head || props.index;
-      if (typeof head === 'string') {
-        const width = Math.ceil(getTextWidth(t(head.toUpperCase()), '400 14px / 14px Inter, sans-serif')) + 4;
-        // newHead.minWidth = Math.max(props.minWidth || 0, iconsWidth + width + 36 /* padding head cell */);
-        newHead.minWidth = Math.max(
-          props.minWidth || 0,
-          iconsWidth + width + 8 * 2 /* padding head cell left - right */ + 4, /* extra padding */
-        );
-      }
-      
-      return newHead;
-    })));
+    setTableHeaders(buildHeaders(headers, searchVisibles, t, filtersRef, searchSortsRef, setVisibles, setSort, deleteSort, setFilter, deleteFilter));
   }, [ deleteFilter, deleteSort, headers, setFilter, setSort, t, filtersRef, searchSortsRef, setVisibles, searchVisibles /*to trigger render of headers*/ ]);
   
   const onAllFilters = useCallback((values: FilterValuesType) => {
@@ -599,16 +415,14 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
         }
       }
     });
-    if (isSomethingFiltered(newSearchFilter)) {
+    if (isSomethingSearchFiltered(newSearchFilter)) {
       setFilter(JSON.stringify(newSearchFilter));
     } else {
       deleteFilter();
     }
   }, [ deleteFilter, headers, filters, setFilter ]);
   
-  const initialViewMode = _initialViewMode
-    || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
-  const viewModeKey = getViewModeQueryParam(name);
+  const initialViewMode = _initialViewMode || (preferredDataViewMode === DataViewMode.CARDS ? DataViewMode.CARDS : DataViewMode.ROWS);
   const [ viewMode, setViewMode ] = useSessionStorage(
     viewModeKey,
     searchParams.get(viewModeKey)
@@ -644,7 +458,7 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
     onPageSizeChange,
   }), [ withPagination, total, pageSizeOptions, page, pageSize, jumpToPage, onPageSizeChange ]);
   
-  const extraNodes = useMemo(() => (initialExtraNodes || []).filter(extraNode => !!extraNode), [ initialExtraNodes ]);
+  const extraNodes = useMemo(() => (initialExtraNodes || []).filter(Boolean), [ initialExtraNodes ]);
   
   return (
     <div className={classNames(className, 'jk-data-viewer-layout ht-100', { 'with-pagination': withPagination })}>
@@ -672,7 +486,7 @@ export default function DataViewer<T extends object, >(props: DataViewerProps<T>
         getRecordClassName={getRecordClassName}
         onRecordClick={onRecordClick}
         onRecordHover={onRecordHover}
-        onRecordRender={onRecordRender}
+        // onRecordRender={onRecordRender}
         pagination={paginationData}
         filterKey={filterKey}
         filters={filters}

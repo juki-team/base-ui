@@ -21,7 +21,7 @@ export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerP
     getRecordKey,
     onRecordClick,
     onRecordHover,
-    onRecordRender,
+    // onRecordRender,
     getRecordStyle,
     downloads,
     className,
@@ -65,7 +65,7 @@ export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerP
       getRecordKey={getRecordKey}
       onRecordClick={onRecordClick}
       onRecordHover={onRecordHover}
-      onRecordRender={onRecordRender}
+      // onRecordRender={onRecordRender}
       pageSizeOptions={PAGE_SIZE_OPTIONS}
       initializing={lastTotalRef.current === -1}
       downloads={downloads}
