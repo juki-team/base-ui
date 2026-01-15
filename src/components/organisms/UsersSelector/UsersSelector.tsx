@@ -57,7 +57,7 @@ export function UsersSelector(props: UsersSelectorProps) {
   }
   
   const onChangeSelectedUsers = (userKeys: string[]) => {
-    const selectedUsers: UserSummaryListResponseDTO[] = userKeys.map(userKey => users[userKey]).filter(Boolean);
+    const selectedUsers = userKeys.map(userKey => users[userKey]).filter(Boolean) as UserSummaryListResponseDTO[];
     if (maxUsersSelection > 0) {
       _onChangeSelectedUsers(selectedUsers.slice(-maxUsersSelection));
     } else {
