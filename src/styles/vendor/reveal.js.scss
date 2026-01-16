@@ -1,3 +1,5 @@
+@use "sass:meta";
+
 // REF: https://revealjs.com/installation/
 // <link rel="stylesheet" href="/node_modules/reveal.js/dist/reveal.css" />
 // <link rel="stylesheet" href="/node_modules/reveal.js/dist/theme/black.css" />
@@ -7,3 +9,23 @@
 //@import "reveal.js/dist/reveal.css";
 // import 'reveal.js/dist/theme/black.css';
 // import 'reveal.js/dist/theme/white.css';
+
+//@import "../../vendor/reveal.js/dist/theme/black.css";
+
+.reveal-viewport {
+  color: unset;
+}
+
+.reveal {
+  color: var(--cr-bk-lt);
+  font-family: var(--font-primary), sans-serif;
+  font-weight: var(--weight-regular, 400);
+}
+
+.jk-theme-light {
+  //@include meta.load-css("../../vendor/reveal.js/dist/theme/black.css", $with: ());
+}
+
+.jk-theme-dark {
+  //@include meta.load-css("../../vendor/reveal.js/dist/theme/white.css", $with: ());
+}

@@ -29,5 +29,6 @@ export interface MdMathViewerProps {
   blur?: boolean,
   unBlur?: boolean,
   style?: CSSProperties,
-  slideView?: boolean,
+  flatView?: boolean,
+  detectRequestAnimationFrame?: boolean,
 }

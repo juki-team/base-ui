@@ -32,3 +32,4 @@ export { WorksheetAsSlides } from './_layz_/WorksheetAsSlides';
 export { WorksheetContents } from './_layz_/WorksheetContents';
 export { WorksheetEditor } from './_layz_/WorksheetEditor';
 export { WorksheetViewer } from './_layz_/WorksheetViewer';
+export { LOGO_WORKSHEET_TYPE } from './_layz_/WorksheetEditor/sheets/logos';

@@ -73,7 +73,7 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
     return (
       <>
         <DetectRequestAnimationFrame name="WorksheetNode" />
-        <MdMathViewer source={chunk.content.trim()} slideView />
+        <MdMathViewer source={chunk.content.trim()} flatView />
       </>
     );
   }

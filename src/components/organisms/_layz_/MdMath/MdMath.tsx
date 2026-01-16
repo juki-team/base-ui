@@ -141,7 +141,7 @@ function MdMathComponent(props: MdMathProps) {
     source,
     blur: _blur,
     unBlur,
-    slideView = false,
+    flatView = false,
     detectRequestAnimationFrame,
   } = props;
   
@@ -177,12 +177,12 @@ function MdMathComponent(props: MdMathProps) {
         }
         return <img alt={newAlt} src={src} style={style} title={title} />;
       },
-      h1: hx(setSearchParams, slideView) as ComponentType,
-      h2: hx(setSearchParams, slideView) as ComponentType,
-      h3: hx(setSearchParams, slideView) as ComponentType,
-      h4: hx(setSearchParams, slideView) as ComponentType,
-      h5: hx(setSearchParams, slideView) as ComponentType,
-      h6: hx(setSearchParams, slideView) as ComponentType,
+      h1: hx(setSearchParams, flatView) as ComponentType,
+      h2: hx(setSearchParams, flatView) as ComponentType,
+      h3: hx(setSearchParams, flatView) as ComponentType,
+      h4: hx(setSearchParams, flatView) as ComponentType,
+      h5: hx(setSearchParams, flatView) as ComponentType,
+      h6: hx(setSearchParams, flatView) as ComponentType,
       p({ children = null, node }) {
         const newChildren = Array.isArray(children) ? [ ...children ] : [ children ];
         const isRoot = node?.position?.start?.column === 111111;
@@ -294,7 +294,7 @@ function MdMathComponent(props: MdMathProps) {
               <GraphvizViewers
                 dot={children}
                 className={classNames({ 'fragment': isRoot })}
-                viewSourceButton={!slideView}
+                viewSourceButton={!flatView}
               />
             );
           }
@@ -350,7 +350,7 @@ function MdMathComponent(props: MdMathProps) {
         return children;
       },
     },
-  }), [ Link, setSearchParams, slideView ]);
+  }), [ Link, setSearchParams, flatView ]);
   const [ blur, setBlur ] = useStableState(_blur);
   
   return (

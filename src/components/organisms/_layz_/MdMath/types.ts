@@ -34,7 +34,7 @@ export interface MdMathProps {
   source: string,
   blur?: boolean,
   unBlur?: boolean,
-  slideView?: boolean,
+  flatView?: boolean,
   detectRequestAnimationFrame?: boolean,
 }
 
