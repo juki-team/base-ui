@@ -109,7 +109,7 @@ export const WorksheetResultViewer: Story = {
 //   },
 // });
 
-const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, mutate: any }) => {
+const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, }) => {
   const [ content, setContent ] = useStableState(initialContent);
   return (
     <>
@@ -146,9 +146,9 @@ export const WorksheetEditor: Story = {
       <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
         url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
-        {({ data, mutate }) => (
+        {({ data }) => (
           <TwoContentLayout
-            tabs={oneTab(<Cmp content={data.content} mutate={mutate} {...args} />)}
+            tabs={oneTab(<Cmp content={data.content} {...args} />)}
             // tabButtons={buttons}
             // breadcrumbs={breadcrumbs}
           >

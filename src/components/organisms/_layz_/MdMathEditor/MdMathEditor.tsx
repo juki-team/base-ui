@@ -22,7 +22,7 @@ import { classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
 import { useSubscribe } from '../../../hooks/useSubscribe';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
 import { MdMathViewer } from '../../MdMathViewer/MdMathViewer';
-import { ImageUploaderModal } from '../../modals/ImageUploaderModal/ImageUploaderModal';
+import { ImageUploaderModal } from '../../modals';
 import { MilkdownEditorContent } from './MilkdownEditorContent/MilkdownEditorContent';
 import { TextPlainEditorContent } from './TextPlainEditorContent/TextPlainEditorContent';
 import type { MdMathEditorProps } from './types';

@@ -195,9 +195,8 @@ const myLanguages = [
   }),
 ];
 
-function renderLatex(content: string, options: {}) {
+function renderLatex(content: string) {
   return katex.renderToString(content, {
-    ...options,
     throwOnError: false,
     displayMode: true,
   });
@@ -299,7 +298,7 @@ export function MilkdownEditorContent({ value, onChange, setLoader }: MilkdownEd
         [Crepe.Feature.CodeMirror]: {
           renderLanguage(lang, selected) {
             const [ language, as ] = lang.split('/');
-            return (selected ? '✔ ' : '') + (CODE_LANGUAGE[language as CodeLanguage]?.label ?? language) + t(as === 'editor' ? ' (render as code editor)' : as === 'image' ? ' (render as image)' : '');
+            return (selected ? '✔ ' : '') + (CODE_LANGUAGE[language as CodeLanguage]?.label ?? language) + t(as === CodeRenderMode.EDITOR ? ' (render as code editor)' : as === CodeRenderMode.IMAGE ? ' (render as image)' : '');
           },
           searchPlaceholder: 'Find a language...',
           noResultText: 'No language found',
@@ -351,14 +350,15 @@ export function MilkdownEditorContent({ value, onChange, setLoader }: MilkdownEd
             ...(theme === Theme.DARK ? [ oneDark ] : [ defaultLightThemeOption ]),
           ],
           previewToggleButton: () => 'edit',
-          renderPreview: (language, content) => {
-            if (language.toLowerCase() === 'latex' && content.length > 0) {
-              return renderLatex(content, {}/*config == null ? void 0 : ctx.katexOptions*/);
+          renderPreview: (lang, content) => {
+            const [ language, as ] = lang.split('/');
+            if (language!.toLowerCase() === 'latex' && content.length > 0) {
+              return renderLatex(content /*config == null ? void 0 : ctx.katexOptions*/);
             }
             // if (language.toLowerCase() === 'mermaid asimage' && content.length > 0) {
             //   return renderMermaid(content);
             // }
-            if (language.toLowerCase() === 'dot asimage' && content.length > 0) {
+            if (as === CodeRenderMode.IMAGE && content.length > 0) {
               return renderDot(content, t);
             }
             return null;
