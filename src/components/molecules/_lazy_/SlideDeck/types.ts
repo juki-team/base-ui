@@ -9,4 +9,5 @@ export interface SlideDeckProps {
   theme?: Theme,
   colorTextHighlight?: string,
   aspectRatio: AspectRatio,
+  autoSlide?: number,
 }

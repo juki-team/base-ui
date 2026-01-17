@@ -25,7 +25,7 @@ const SESSION_STORAGE_KEY = 'jk-reveal-slide-state';
 
 function SlideDeckComponent(props: SlideDeckProps) {
   
-  const { children, fontSize = 32, theme = Theme.LIGHT, colorTextHighlight, aspectRatio } = props;
+  const { children, fontSize = 32, theme = Theme.LIGHT, colorTextHighlight, aspectRatio, autoSlide } = props;
   
   const deckDivRef = useRef<HTMLDivElement>(null);
   const deckRef = useRef<Reveal.Api | null>(null);
@@ -58,6 +58,7 @@ function SlideDeckComponent(props: SlideDeckProps) {
           //   onClose?.();
           // },
           // },
+          autoSlide: autoSlide ?? false,
           margin: 0.1,
           width: ASPECT_RATIO[aspectRatio]?.width,
           height: ASPECT_RATIO[aspectRatio]?.height,
@@ -79,7 +80,7 @@ function SlideDeckComponent(props: SlideDeckProps) {
         deckRef.current.on('ready', () => {
           const now = Date.now();
           renderGraphviz();
-          if (!isPrinting) {
+          if (!isPrinting && typeof autoSlide !== 'number') {
             deckRef.current?.toggleHelp();
           }
           console.info('deckRef.current.on(\'ready\')');
@@ -110,7 +111,7 @@ function SlideDeckComponent(props: SlideDeckProps) {
         console.warn('Reveal.js destroy call failed.');
       }
     };
-  }, [ aspectRatio ]);
+  }, [ aspectRatio, autoSlide ]);
   
   useEffect(() => {
     deckRef.current?.addKeyBinding(
