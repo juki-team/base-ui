@@ -1,6 +1,6 @@
 import { ProblemSampleCasesType } from '@juki-team/commons';
 import { CopyToClipboard } from '../../../atoms';
-import { InfoIIcon } from '../../../server';
+import { NewlineInfo } from '../../../molecules/InformationPopover/NewlineInfo';
 
 interface SampleTestProps {
   index: number,
@@ -19,15 +19,7 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
         <div className="jk-row nowrap left stretch gap bc-hl jk-br-ie">
           <div className="sample-text-content jk-br-ie">
             <div className="jk-row gap sample-text-icons">
-              {!forPrinting && withPE && (
-                <div
-                  data-tooltip-id="jk-tooltip"
-                  data-tooltip-content={`${sample.input.lastIndexOf('\n') === sample.input.length - 1 ? '' : 'no '}newline at end of file`}
-                  className="jk-row cr-th"
-                >
-                  <InfoIIcon circle size="small" />
-                </div>
-              )}
+              {!forPrinting && withPE && <NewlineInfo text={sample.input} />}
               {!forPrinting && (
                 <CopyToClipboard text={sample.input} size="small" />
               )}
@@ -38,15 +30,7 @@ export const SampleTest = ({ index, sampleCases, withPE, forPrinting }: SampleTe
         <div className="jk-row nowrap left stretch gap bc-hl jk-br-ie">
           <div className="sample-text-content jk-br-ie">
             <div className="jk-row gap sample-text-icons">
-              {!forPrinting && withPE && (
-                <div
-                  data-tooltip-id="jk-tooltip"
-                  data-tooltip-content={`${sample.output.lastIndexOf('\n') === sample.output.length - 1 ? '' : 'no '}newline at end of file`}
-                  className="jk-row cr-th"
-                >
-                  <InfoIIcon circle size="small" />
-                </div>
-              )}
+              {!forPrinting && withPE && <NewlineInfo text={sample.output} />}
               {!forPrinting && (
                 <CopyToClipboard text={sample.output} size="small" />
               )}

@@ -14,6 +14,7 @@ import { InputToggle, Popover, T, TextArea } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { SplitPane, TabsInline, TabsInlineBody } from '../../../../../molecules';
+import { NewlineInfo } from '../../../../../molecules/InformationPopover/NewlineInfo';
 import { AddIcon, CheckIcon, DeleteIcon, DraftIcon, InfoIIcon, SpinIcon } from '../../../../../server';
 import { TabsType } from '../../../../../types';
 import { ProblemVerdictTag } from '../../../../ProblemVerdictTag/ProblemVerdictTag';
@@ -128,20 +129,14 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   const outputTabs: TabsType = {};
   
   if (test?.testOut) {
+    
     outputTabs['test-output'] = {
       key: 'test-output',
       header: (
         <div className="jk-row gap left nowrap">
           <T className="tt-se">expected output</T>
-          {test?.withPE && (
-            <div
-              data-tooltip-id="jk-tooltip"
-              data-tooltip-content={`${test?.testOut.lastIndexOf('\n') === test?.testOut.length - 1 ? '' : 'no '}newline at end of file`}
-              className="jk-row"
-            >
-              <InfoIIcon circle size="small" />
-            </div>
-          )}
+          {test?.withPE && <NewlineInfo text={test?.testOut || ''} />
+          }
         </div>
       ),
       body: (
