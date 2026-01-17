@@ -19,6 +19,7 @@ import { useWebsocketStore } from '../../../../stores/websocket/useWebsocketStor
 import { Modal, T, TextArea } from '../../../atoms';
 import { ArticleIcon, CodeIcon, DownloadIcon, EditNoteIcon, LineLoader, SendIcon } from '../../../atoms/server';
 import { classNames, downloadBlobAsFile, upperFirst } from '../../../helpers';
+import { useStableRef } from '../../../hooks/useStableRef';
 import { useSubscribe } from '../../../hooks/useSubscribe';
 import { ButtonLoader, FloatToolbar } from '../../../molecules';
 import { MdMathViewer } from '../../MdMathViewer/MdMathViewer';
@@ -255,9 +256,26 @@ export default function MdMathEditor(props: MdMathEditorProps) {
   const [ loader, setLoader ] = useState(Status.NONE);
   const [ mode, setMode ] = useState(Mode.WYSIWYG);
   
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const onBlurRef = useStableRef(onBlur);
+  
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains?.(event.target as Node)) {
+        onBlurRef.current?.();
+      }
+    }
+    
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [ wrapperRef, onBlurRef ]);
+  
   return (
     <MilkdownProvider>
-      <div className={classNames('jk-md-math-editor wh-100 pn-re', className)} onBlur={onBlur}>
+      <div ref={wrapperRef} className={classNames('jk-md-math-editor wh-100 pn-re', className)} onBlur={onBlur}>
         {!!onBlur && <Focus />}
         {loader === Status.LOADING && <LineLoader />}
         {loader === Status.LOADING && (

@@ -1,5 +1,3 @@
-import { FocusEventHandler } from 'react';
-
 export interface MdMathEditorProps {
   value: string,
   onChange: (value: string) => void,
@@ -9,5 +7,5 @@ export interface MdMathEditorProps {
   enableDownload?: boolean,
   enableIA?: boolean,
   className?: string,
-  onBlur?: FocusEventHandler<HTMLDivElement>,
+  onBlur?: () => void,
 }
