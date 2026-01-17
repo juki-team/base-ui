@@ -15,6 +15,7 @@ export { InformationPopover } from './InformationPopover/InformationPopover';
 export { FrozenInformation } from './InformationPopover/FrozenInformation';
 export { QuietInformation } from './InformationPopover/QuietInformation';
 export { UpsolvingInformation } from './InformationPopover/UpsolvingInformation';
+export { NewlineInfo } from './InformationPopover/NewlineInfo';
 export { InputDate } from './InputDate/InputDate';
 export { JukiLoadingLayout } from './layouts/JukiLoadingLayout';
 export { LinkLastPath } from './LinkLastPath/LinkLastPath';

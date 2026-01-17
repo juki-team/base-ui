@@ -320,7 +320,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
                 value: '',
                 label: withText
                   ? <T className="tt-se tx-t ws-np">Copy / Download</T>
-                  : <><DownloadIcon size="small" /> / <ContentCopyIcon size="small" /></>,
+                  : <><DownloadIcon size="tiny" /> / <ContentCopyIcon size="tiny" /></>,
               }}
               containerWidth={'child'}
               onChange={async ({ value }) => {
