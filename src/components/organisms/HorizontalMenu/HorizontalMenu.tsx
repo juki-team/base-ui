@@ -103,7 +103,7 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
     <div className={classNames('jk-horizontal-menu-layout-container', className)}>
       <header className="jk-menu jk-top-horizontal-menu sticky-top">
         {!isSmallScreen && (
-          <section className="jk-row nowrap jk-menu-content bc-pd cr-pt">
+          <section className="jk-row nowrap jk-menu-content">
             <div className="jk-menu-left-section jk-row stretch left nowrap">
               {renderReactNodeOrFunction(leftSection)}
             </div>
@@ -116,7 +116,7 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
           </section>
         )}
         {isSmallScreen && (
-          <section className="jk-row nowrap block jk-menu-content bc-pd cr-pt space-between elevation-1">
+          <section className="jk-row nowrap block jk-menu-content space-between elevation-1">
             <div className="jk-horizontal-menu-mobile-left jk-row stretch left">
               {drawerMenuMobile ? (
                 <Drawer

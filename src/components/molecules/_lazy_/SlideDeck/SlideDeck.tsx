@@ -66,9 +66,6 @@ function SlideDeckComponent(props: SlideDeckProps) {
         });
         deckRef.current?.initialize();
         
-        // @ts-ignore
-        document.__deckRef = deckRef.current;
-        
         deckRef.current.on('slidechanged', () => {
           renderGraphviz();
           const state = deckRef.current?.getState();
@@ -90,8 +87,8 @@ function SlideDeckComponent(props: SlideDeckProps) {
         });
         document.addEventListener('pdf-ready', renderGraphviz);
         
-        deckRef.current.on('fragmentshown', (event: any) => {
-          const fragmentEl: HTMLElement = event?.fragment;
+        deckRef.current.on('fragmentshown', (event) => {
+          const fragmentEl = (event as unknown as { fragment?: HTMLElement })?.fragment;
           const parent = fragmentEl?.parentElement?.parentElement;
           if (parent && hasScroll(parent)) {
             fragmentEl.scrollIntoView({
@@ -107,8 +104,8 @@ function SlideDeckComponent(props: SlideDeckProps) {
     return () => {
       try {
         document.removeEventListener('pdf-ready', renderGraphviz);
-      } catch (e) {
-        console.warn('Reveal.js destroy call failed.');
+      } catch (error) {
+        console.warn('Reveal.js destroy call failed.', error);
       }
     };
   }, [ aspectRatio, autoSlide ]);

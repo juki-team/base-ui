@@ -9,6 +9,8 @@
   
   > .jk-menu {
     z-index: var(--zi-menu);
+    background: var(--bc-navbar);
+    color: var(--cr-navbar);
   }
   
   > .jk-menu-main-layout {

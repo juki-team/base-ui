@@ -3,6 +3,7 @@ import {
   CodeEditorSubmissionDTO,
   CodeRunDTO,
   CompanyPlan,
+  CompanyStylesType,
   getUserKey,
   GroupByTimestampKey,
   HTTPMethod,
@@ -681,7 +682,8 @@ export class ApiManager {
               mainEmail?: string,
               contactTelegram?: string,
               contactCellPhoneNumber?: string,
-              contactEmail?: string
+              contactEmail?: string,
+              styles?: CompanyStylesType,
             }
           },
           HTTPMethod.PATCH

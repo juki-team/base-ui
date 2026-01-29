@@ -16,6 +16,7 @@ import { usePageStore } from '../../../stores/page/usePageStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { isBrowser } from '../../helpers';
 import { useFetcher } from '../../hooks/useFetcher';
+import { useInjectCompanyStyles } from '../../hooks/useInjectCompanyStyles';
 import { useInjectFontSize } from '../../hooks/useInjectFontSize';
 import { useInjectTheme } from '../../hooks/useInjectTheme';
 import { useMutate } from '../../hooks/useMutate';
@@ -117,6 +118,7 @@ export const JukiUserProvider = () => {
   
   useInjectTheme();
   useInjectFontSize();
+  useInjectCompanyStyles();
   
   return null;
 };

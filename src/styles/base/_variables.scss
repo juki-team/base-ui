@@ -137,9 +137,14 @@ html body {
   
   --size-scrollbar: 8px;
   
-  --t-color-background: var(--cr-we-dk);
-  
   --transition-duration-slow: 0.45s;
   --transition-duration: 0.3s;
   --transition-duration-fast: 0.15s;
+  
+  --cr-body: var(--cr-bk-lt);
+  --cr-ht-body: var(--cr-tx-ht);
+  --bc-body: var(--cr-we-dk);
+  --bc-ht-body: var(--cr-we);
+  --cr-navbar: var(--cr-py-tx);
+  --bc-navbar: var(--cr-pd);
 }

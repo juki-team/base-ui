@@ -42,7 +42,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
     const { selected, icon, label, tooltipLabel, onClick, menuItemWrapper } = menu[i]!;
     const menuItem = (
       <div
-        className={classNames('jk-menu-item jk-pg-xsm jk-br-ie bc-pd cr-pt cr-pr jk-row gap left', {
+        className={classNames('jk-menu-item jk-pg-xsm jk-br-ie cr-pr jk-row gap left', {
           selected: !!selected,
         })}
         style={{
@@ -62,7 +62,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
         </div>
         {!!selected && (
           <motion.div
-            className="jk-pg-xsm jk-br-ie bc-pl wh-100 ht-100"
+            className="jk-pg-xsm jk-br-ie wh-100 ht-100"
             style={{
               position: 'absolute',
               zIndex: 1,
@@ -127,20 +127,20 @@ export function VerticalMenu(props: VerticalMenuProps) {
   ) : (
     <div className={classNames('jk-vertical-menu-layout-container', { collapsed: !open })}>
       <header className={classNames('jk-menu')}>
-        <section className="jk-menu-content bc-pd cr-pt">
-          <div className="jk-row right jk-menu-collapse-section bc-pd cr-pt">
+        <section className="jk-menu-content">
+          <div className="jk-row right jk-menu-collapse-section">
             <div className="jk-row jk-menu-collapse" onClick={handleCollapse}>
               {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
             </div>
           </div>
-          <div className={classNames('jk-menu-top-section bc-pd cr-pt', { 'selected-down': !!menu[0]?.selected })}>
+          <div className={classNames('jk-menu-top-section', { 'selected-down': !!menu[0]?.selected })}>
             {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
           </div>
           <div className={classNames('jk-menu-items jk-col gap nowrap', { stretch: open })}>
             {Children.toArray(menus)}
-            <div className={classNames('jk-menu-item extra bc-pd cr-pt', { 'selected-up': !!menu[menu.length - 1]?.selected })} />
+            <div className={classNames('jk-menu-item extra', { 'selected-up': !!menu[menu.length - 1]?.selected })} />
           </div>
-          <div className={classNames('jk-menu-bottom-section bc-pd cr-pt')}>
+          <div className={classNames('jk-menu-bottom-section')}>
             {typeof bottomSection === 'function' ? bottomSection({ isOpen: open }) : bottomSection}
           </div>
         </section>
