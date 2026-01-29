@@ -33,6 +33,34 @@ export const EMPTY_COMPANY: CompanyPingType = {
   contactTelegram: 'https://t.me/OscarGauss',
   key: '',
   codeEditorRunEnabled: true,
+  styles: {
+    [Theme.LIGHT]: {
+      body: {
+        backgroundColor: '',
+        backgroundColorHighlight: '',
+        color: '',
+        colorHighlight: '',
+      },
+      navbar: {
+        color: '',
+        backgroundColor: '',
+        logoTheme: Theme.LIGHT,
+      },
+    },
+    [Theme.DARK]: {
+      body: {
+        backgroundColor: '',
+        backgroundColorHighlight: '',
+        color: '',
+        colorHighlight: '',
+      },
+      navbar: {
+        color: '',
+        backgroundColor: '',
+        logoTheme: Theme.DARK,
+      },
+    },
+  },
 };
 
 export const RESIZE_DETECTOR_PROPS: useResizeDetectorProps<HTMLElement> = { refreshRate: 200, refreshMode: 'debounce' };
