@@ -8,40 +8,58 @@ export const useInjectCompanyStyles = () => {
   const companyStyles = useUserStore(store => store.company?.styles);
   
   useEffect(() => {
-    document.querySelector('body')?.style.removeProperty('--cr-body');
-    document.querySelector('body')?.style.removeProperty('--cr-ht-body');
-    document.querySelector('body')?.style.removeProperty('--bc-body');
-    document.querySelector('body')?.style.removeProperty('--bc-ht-body');
-    document.querySelector('body')?.style.removeProperty('--cr-navbar');
-    document.querySelector('body')?.style.removeProperty('--bc-navbar');
+    document.querySelector('body')?.style.removeProperty('--body-tx-cr');
+    document.querySelector('body')?.style.removeProperty('--body-tx-cr-ht');
+    document.querySelector('body')?.style.removeProperty('--body-tx-cr-ht-it');
+    document.querySelector('body')?.style.removeProperty('--body-bd-cr');
+    document.querySelector('body')?.style.removeProperty('--body-bd-cr-ht');
+    document.querySelector('body')?.style.removeProperty('--body-at-cr');
+    document.querySelector('body')?.style.removeProperty('--navbar-tx-cr');
+    document.querySelector('body')?.style.removeProperty('--navbar-bd-cr');
+    document.querySelector('body')?.style.removeProperty('--navbar-at-cr');
     
-    if (companyStyles?.[userPreferredTheme]?.body?.color) {
-      document.querySelector('body')?.style.setProperty('--cr-body', companyStyles?.[userPreferredTheme]?.body?.color);
+    if (companyStyles?.[userPreferredTheme]?.body?.textColor) {
+      document.querySelector('body')?.style.setProperty('--body-tx-cr', companyStyles?.[userPreferredTheme]?.body?.textColor);
     }
-    if (companyStyles?.[userPreferredTheme]?.body?.colorHighlight) {
-      document.querySelector('body')?.style.setProperty('--cr-ht-body', companyStyles?.[userPreferredTheme]?.body?.colorHighlight);
+    if (companyStyles?.[userPreferredTheme]?.body?.textColorHighlight) {
+      document.querySelector('body')?.style.setProperty('--body-tx-cr-ht', companyStyles?.[userPreferredTheme]?.body?.textColorHighlight);
+    }
+    if (companyStyles?.[userPreferredTheme]?.body?.textColorHighlightInset) {
+      document.querySelector('body')?.style.setProperty('--body-tx-cr-ht-it', companyStyles?.[userPreferredTheme]?.body?.textColorHighlightInset);
     }
     if (companyStyles?.[userPreferredTheme]?.body?.backgroundColor) {
-      document.querySelector('body')?.style.setProperty('--bc-body', companyStyles?.[userPreferredTheme]?.body?.backgroundColor);
+      document.querySelector('body')?.style.setProperty('--body-bd-cr', companyStyles?.[userPreferredTheme]?.body?.backgroundColor);
     }
     if (companyStyles?.[userPreferredTheme]?.body?.backgroundColorHighlight) {
-      document.querySelector('body')?.style.setProperty('--bc-ht-body', companyStyles?.[userPreferredTheme]?.body?.backgroundColorHighlight);
+      document.querySelector('body')?.style.setProperty('--body-bd-cr-ht', companyStyles?.[userPreferredTheme]?.body?.backgroundColorHighlight);
+    }
+    if (companyStyles?.[userPreferredTheme]?.body?.accentColor) {
+      document.querySelector('body')?.style.setProperty('--body-at-cr', companyStyles?.[userPreferredTheme]?.body?.accentColor);
+    }
+    if (companyStyles?.[userPreferredTheme]?.body?.accentColorInset) {
+      document.querySelector('body')?.style.setProperty('--body-at-cr-it', companyStyles?.[userPreferredTheme]?.body?.accentColorInset);
     }
     
-    if (companyStyles?.[userPreferredTheme]?.navbar?.color) {
-      document.querySelector('body')?.style.setProperty('--cr-navbar', companyStyles?.[userPreferredTheme]?.navbar?.color);
+    if (companyStyles?.[userPreferredTheme]?.navbar?.textColor) {
+      document.querySelector('body')?.style.setProperty('--navbar-tx-cr', companyStyles?.[userPreferredTheme]?.navbar?.textColor);
     }
     if (companyStyles?.[userPreferredTheme]?.navbar?.backgroundColor) {
-      document.querySelector('body')?.style.setProperty('--bc-navbar', companyStyles?.[userPreferredTheme]?.navbar?.backgroundColor);
+      document.querySelector('body')?.style.setProperty('--navbar-bd-cr', companyStyles?.[userPreferredTheme]?.navbar?.backgroundColor);
+    }
+    if (companyStyles?.[userPreferredTheme]?.navbar?.accentColor) {
+      document.querySelector('body')?.style.setProperty('--navbar-at-cr', companyStyles?.[userPreferredTheme]?.navbar?.accentColor);
     }
     
     return () => {
-      document.querySelector('body')?.style.removeProperty('--cr-body');
-      document.querySelector('body')?.style.removeProperty('--cr-ht-body');
-      document.querySelector('body')?.style.removeProperty('--bc-body');
-      document.querySelector('body')?.style.removeProperty('--bc-ht-body');
-      document.querySelector('body')?.style.removeProperty('--cr-navbar');
-      document.querySelector('body')?.style.removeProperty('--bc-navbar');
+      document.querySelector('body')?.style.removeProperty('--body-tx-cr');
+      document.querySelector('body')?.style.removeProperty('--body-tx-cr-ht');
+      document.querySelector('body')?.style.removeProperty('--body-tx-cr-ht-it');
+      document.querySelector('body')?.style.removeProperty('--body-bd-cr');
+      document.querySelector('body')?.style.removeProperty('--body-bd-cr-ht');
+      document.querySelector('body')?.style.removeProperty('--body-at-cr');
+      document.querySelector('body')?.style.removeProperty('--navbar-tx-cr');
+      document.querySelector('body')?.style.removeProperty('--navbar-bd-cr');
+      document.querySelector('body')?.style.removeProperty('--navbar-at-cr');
     };
   }, [ companyStyles, userPreferredTheme ]);
 };

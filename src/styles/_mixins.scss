@@ -139,7 +139,7 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
   }
   @if $look == pd or $look == py or $look == pl {
     & {
-      color: var(--cr-py-tx);
+      color: var(--cr-tx-ht-it);
     }
   } @else if $look == at-dk or $look == at or $look == at-lt {
     & {

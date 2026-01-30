@@ -18,7 +18,7 @@ export const TableOfContentsModal = (props: TableOfContentsModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose} closeIcon={false}>
       <div className="jk-col stretch">
-        <div className="jk-row bc-py jk-pg-sm">
+        <div className="jk-row bc-at jk-pg-sm">
           <T className="tt-se fw-bd cr-we">table of content</T>
         </div>
         <TableOfContents

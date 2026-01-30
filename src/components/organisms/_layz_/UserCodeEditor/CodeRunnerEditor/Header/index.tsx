@@ -254,7 +254,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
       ref={headerRef}
     >
       <div
-        className={classNames('cr-th jk-row gap left', { 'jk-col left gap': twoRows, 'jk-row gap left': !twoRows })}
+        className={classNames('cr-tx-ht jk-row gap left', { 'jk-col left gap': twoRows, 'jk-row gap left': !twoRows })}
         ref={refLeftSection}
       >
         {!withoutRunCodeButton && (
@@ -263,7 +263,6 @@ export const Header = <T, >(props: HeaderProps<T>) => {
               data-tooltip-id="jk-tooltip"
               data-tooltip-content={!withText ? 'run (Ctrl+Enter / ⌘+Enter)' : '(Ctrl+Enter / ⌘+Enter)'}
               size={withText ? 'tiny' : 'small'}
-              type="primary"
               expand={twoRows}
               icon={<PlayArrowIcon />}
               onClick={handleRunCode}
@@ -350,7 +349,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
         {centerOptions({ widthContainer: widthCenterContainer, withLabels, twoRows })}
       </div>
       <div
-        className={classNames('jk-row gap cr-th', { 'jk-col gap': twoRows, 'jk-row right gap': !twoRows })}
+        className={classNames('jk-row gap cr-tx-ht', { 'jk-col gap': twoRows, 'jk-row right gap': !twoRows })}
         ref={refRightSection}
       >
         <Button

@@ -32,11 +32,11 @@ export const UserLoaderLayout = () => {
           initial={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0.9, y: '-100vh' }}
           transition={{ ease: 'easeOut' }}
-          className="expand-absolute pe-ne jk-col bc-pd"
+          className="expand-absolute pe-ne jk-col bc-tx-ht"
           style={{ zIndex: 999 }}
         >
           <h1
-            className="jk-row cr-pt"
+            className="jk-row cr-tx-ht-it"
             style={{ alignItems: 'baseline' }}
           >
             {!userSessionId ? (
@@ -45,8 +45,8 @@ export const UserLoaderLayout = () => {
                 <div
                   className="dot-flashing"
                   style={{
-                    '--dot-flashing-color': 'var(--cr-py-tx)',
-                    '--dot-flashing-color-light': 'var(--cr-pl)',
+                    '--dot-flashing-color': 'var(--cr-tx-ht-it)',
+                    '--dot-flashing-color-light': 'var(--cr-tx-ht-lt)',
                     '--dot-flashing-size': '10px',
                   } as CSSProperties}
                 />

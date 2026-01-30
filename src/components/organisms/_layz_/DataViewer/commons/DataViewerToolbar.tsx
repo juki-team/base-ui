@@ -40,7 +40,7 @@ import { isSomethingFiltered, renderHead } from './utils';
 
 const buttonFilterStyles = (active: boolean) => classNames(
   {
-    'bc-pl cr-pt': active,
+    'bc-al cr-at-it': active,
     'bc-we': !active,
     active,
   },

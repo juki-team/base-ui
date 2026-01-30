@@ -74,7 +74,6 @@ export const QuizProblemSheetSectionView = ({
         <ButtonLoader
           disabled={isRunning}
           size="tiny"
-          type="secondary"
           onClick={async (setLoaderStatus) => {
             setLoaderStatus(Status.LOADING);
             const quizProblemSheetStatus: QuizProblemSheetStatusType = {

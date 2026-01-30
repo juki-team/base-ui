@@ -50,7 +50,7 @@ export function FullscreenTimerButton() {
           <TimerIcon
             size={size}
             filledCircle={type === 'timer' ? true : 'var(--cr-tx-ht)'}
-            className={classNames({ 'cr-py': type === 'timer', 'cr-we': type !== 'timer' })}
+            className={classNames({ 'cr-tx-ht': type === 'timer', 'cr-we': type !== 'timer' })}
           />
         </div>
       }
@@ -59,7 +59,7 @@ export function FullscreenTimerButton() {
           <AlarmIcon
             size={size}
             filledCircle={type === 'countdown' ? true : 'var(--cr-tx-ht)'}
-            className={classNames({ 'cr-py': type === 'countdown', 'cr-we': type !== 'countdown' })}
+            className={classNames({ 'cr-tx-ht': type === 'countdown', 'cr-we': type !== 'countdown' })}
           />
           &nbsp;
           <T className="tt-se">countdown</T>
@@ -119,7 +119,7 @@ export function FullscreenTimerButton() {
               timerCountdown.start();
             }
           }}
-          type={timerCountdown.isRunning ? 'light' : 'primary'}
+          type={timerCountdown.isRunning ? 'light' : 'accent'}
           className={timerCountdown.isRunning ? '' : 'bc-ss cr-we'}
         />
         <Button
@@ -143,14 +143,12 @@ export function FullscreenTimerButton() {
           offset={8}
           className={classNames('is-active right', {})}
           icon={<TimerIcon />}
-          type="secondary"
           size="tiny"
           buttons={[
             {
               icon: <TimerIcon />,
               label: <T className="tt-se">exit</T>,
               size: 'tiny',
-              type: 'secondary',
               onClick: () => {
                 setIsActive(false);
                 timer.clear();

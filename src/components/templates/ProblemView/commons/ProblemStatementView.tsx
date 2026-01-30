@@ -196,29 +196,29 @@ export const ProblemStatementView = <T, >({
           </div>
         )}
         <div>
-          <T className="tt-se cr-th fw-bd">description</T>
+          <T className="tt-se cr-tx-ht fw-bd">description</T>
           <MdMathViewer source={statementDescription} />
         </div>
         {!!statementInput && (
           <div>
-            <T className="tt-se cr-th fw-bd">input</T>
+            <T className="tt-se cr-tx-ht fw-bd">input</T>
             <MdMathViewer source={statementInput} />
           </div>
         )}
         {!!statementOutput && (
           <div>
-            <T className="tt-se cr-th fw-bd">output</T>
+            <T className="tt-se cr-tx-ht fw-bd">output</T>
             <MdMathViewer source={statementOutput} />
           </div>
         )}
         {settings.scoringMode === ProblemScoringMode.SUBTASK && (
           <div>
-            <T className="tt-se tx-l cr-th fw-bd">subtasks description</T>
+            <T className="tt-se tx-l cr-tx-ht fw-bd">subtasks description</T>
             <div className="jk-col left stretch gap">
               {Object.values(settings.pointsByGroups).map(pointsByGroup => (
                 <div className="jk-row extend gap" key={pointsByGroup.group}>
                   <div className="flex-1 bc-we jk-pg-sm jk-br-ie">
-                    <div className="fw-bd cr-pd">
+                    <div className="fw-bd cr-tx-ht-dk">
                       <T className="tt-se">subtask</T> {pointsByGroup.group}
                       &nbsp;({pointsByGroup.points}&nbsp;
                       {pointsByGroup.points === 1
@@ -238,8 +238,8 @@ export const ProblemStatementView = <T, >({
         <div className="jk-row stretch gap">
           <div className="jk-row stretch gap nowrap flex-1 jk-pg-xsm-tb">
             {/*<h3><T>output sample</T></h3>*/}
-            <div className="jk-row"><T className="tt-se cr-th fw-bd">input sample</T></div>
-            <div className="jk-row"><T className="tt-se cr-th fw-bd">output sample</T></div>
+            <div className="jk-row"><T className="tt-se cr-tx-ht fw-bd">input sample</T></div>
+            <div className="jk-row"><T className="tt-se cr-tx-ht fw-bd">output sample</T></div>
           </div>
         </div>
         <div className="jk-col stretch gap">

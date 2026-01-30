@@ -34,7 +34,7 @@ export const getActionButtons = (props: getActionButtonsProps): ButtonActionProp
   return [
     {
       children: (
-        <div className="bc-pl jk-pg-xsm jk-row cr-we gap nowrap jk-br-ie tx-t ws-np" style={{ opacity: 0.6 }}>
+        <div className="bc-al cr-at-it jk-pg-xsm jk-row gap nowrap jk-br-ie tx-t ws-np" style={{ opacity: 0.6 }}>
           {LOGO_WORKSHEET_TYPE('tiny')[type].icon}
           {LOGO_WORKSHEET_TYPE('tiny')[type].label}
         </div>

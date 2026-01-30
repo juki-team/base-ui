@@ -36,7 +36,6 @@ export function EntityCreateLayout<T, U, V>(props: EntityCreateLayoutProps<T, U,
     </CheckUnsavedChanges>,
     <TabsInlineButtonLoader
       key="save"
-      type="secondary"
       icon={<SaveIcon />}
       onClick={async (setLoaderStatus) => {
         setLoaderStatus(Status.LOADING);

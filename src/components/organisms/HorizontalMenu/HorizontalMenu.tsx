@@ -34,8 +34,8 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
         className={classNames('jk-menu-item jk-pg-xsm jk-br-ie nowrap cr-pr', {
           'selected-up': !!menu[i - 1]?.selected,
           'selected-down': !!menu[i + 1]?.selected,
-          'selected cr-pt': !!selected,
-          'jk-row gap bc-pd cr-pt': !isSmallScreen,
+          'selected cr-tx-ht-it': !!selected,
+          'jk-row gap cr-tx-ht-it': !isSmallScreen,
           'jk-col flex-1 bottom': isSmallScreen,
         })}
         onClick={() => onClick?.()}
@@ -51,7 +51,7 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
         </div>
         {selected && (
           <motion.div
-            className="jk-pg-xsm jk-br-ie bc-pl"
+            className="jk-pg-xsm jk-br-ie bc-hl"
             style={{
               position: 'absolute',
               zIndex: 1,

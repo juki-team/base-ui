@@ -70,7 +70,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
       className="modal-login"
       title={
         <>
-          <h3><T className="tt-se cr-pt">login</T></h3>
+          <h3><T className="tt-se cr-at-it">login</T></h3>
           <p className="tx-h"><T className="tt-se">Nice see you again!</T></p>
         </>
       }
@@ -191,7 +191,6 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                   <T className="tt-se">cancel</T>
                 </ButtonLoader>
                 <ButtonLoader
-                  type="primary"
                   disabled={!isValid}
                   setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
                   submit

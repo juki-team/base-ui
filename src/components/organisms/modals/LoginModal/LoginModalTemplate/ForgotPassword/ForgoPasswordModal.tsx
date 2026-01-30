@@ -23,7 +23,7 @@ export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword
       onClose={onClose}
       className="modal-login"
       title={
-        <h3><T className="cr-pt tt-se">recover your account</T></h3>
+        <h3><T className="cr-tx-ht-dk tt-se">recover your account</T></h3>
       }
       graphic={
         <Image
@@ -62,7 +62,6 @@ export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword
         <div className="jk-row-col gap block">
           <ButtonLoader type="light" onClick={onClose}><T className="tt-se">cancel</T></ButtonLoader>
           <ButtonLoader
-            type="primary"
             onClick={(setLoading) => onForgotPassword(email, setLoading!)}
             disabled={disabled}
             submit

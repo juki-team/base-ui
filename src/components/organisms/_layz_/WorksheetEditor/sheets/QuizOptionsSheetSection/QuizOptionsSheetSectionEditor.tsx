@@ -1,8 +1,8 @@
 import { type QuizOptionsSheetType, QuizScoringMode } from '@juki-team/commons';
 import { v4 } from 'uuid';
-import { classNames } from '../../../../../helpers';
 import { Button, Input, InputCheckbox, InputRadio, InputToggle, T } from '../../../../../atoms';
 import { AddIcon } from '../../../../../atoms/server';
+import { classNames } from '../../../../../helpers';
 import { MdMathEditor } from '../../../MdMathEditor';
 import type { SetContentType } from '../../types';
 
@@ -83,7 +83,7 @@ export const QuizOptionsSheetSectionEditor = ({
         />
       </div>
       <div className="jk-col stretch left gap">
-        <T className="tt-se cr-pl">select the correct options</T>
+        <T className="tt-se cr-tx-ht-lt">select the correct options</T>
         {content.options.map((option, index) => (
           <div className="jk-row gap nowrap extend" key={`${index}`}>
             {content.multiple

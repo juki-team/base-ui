@@ -40,7 +40,7 @@ export default function LineChart<TValue extends ValueType, TName extends NameTy
             key={key}
             type="monotone"
             dataKey={key}
-            stroke="var(--cr-pl)"
+            stroke="var(--cr-tx-ht-lt)"
             dot={false}
             strokeWidth={2}
           />

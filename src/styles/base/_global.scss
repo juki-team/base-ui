@@ -4,8 +4,8 @@ body {
   // define --font-primary
   font-family: var(--font-primary), sans-serif;
   font-weight: var(--weight-regular, 400);
-  color: var(--cr-body);
-  background-color: var(--bc-body);
+  color: var(--body-tx-cr);
+  background-color: var(--body-bd-cr);
   margin: 0;
   width: 100%;
   height: 100%;

@@ -12,11 +12,6 @@ export function ThemeColorPalette() {
             <div style={{ backgroundColor: 'var(--base-black)' }} />
           </div>
           <div className="jk-row color-cells">
-            <div className="appearance-primary-light">light</div>
-            <div className="appearance-primary">primary</div>
-            <div className="appearance-primary-dark">dark</div>
-          </div>
-          <div className="jk-row color-cells">
             <div className="appearance-accent-light">light</div>
             <div className="appearance-accent">accent</div>
             <div className="appearance-accent-dark">dark</div>

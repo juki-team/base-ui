@@ -57,7 +57,7 @@ const RenderFilterTitle = <T, >({
       </div>
       {onSort ? (
         <div
-          className={classNames('jk-row nowrap jk-tag tx-s cr-pr', { 'bc-pl cr-we': !!order, 'bc-hl': !order })}
+          className={classNames('jk-row nowrap jk-tag tx-s cr-pr', { 'bc-al cr-at-it': !!order, 'bc-hl': !order })}
           onClick={() => onSort({ columnIndex })}
         >
           <T className="tt-se">sort</T>
@@ -98,7 +98,7 @@ export const FilterDrawer = <T, >(props: FilterDrawerProps<T>) => {
     return (
       <DrawerView isOpen={isOpen} onClose={onClose} closeWhenKeyEscape closeWhenClickOutside>
         <div className="jk-drawer-filters jk-col nowrap extend stretch">
-          <div className="jk-row left gap title cr-py jk-pg-sm">
+          <div className="jk-row left gap title cr-tx-ht jk-pg-sm">
             <div className={classNames({ active: true }, 'jk-row')}><FilterListIcon /></div>
             <T>order and filters</T>
           </div>

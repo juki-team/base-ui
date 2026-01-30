@@ -1,17 +1,11 @@
 @use "../../mixins";
 
-.settings-apps-login-user-content {
-  .jk-icon {
-    color: var(--cr-py-tx);
-  }
-}
-
 .user-logged-head {
   
   .selected.vertical {
     width: 4px;
     height: calc(var(--pad-m) + var(--pad-xt) * 4);
-    background: var(--cr-py-tx);
+    background: var(--navbar-at-cr);
     position: absolute;
     right: 0;
     border-bottom-left-radius: var(--pad-xt);
@@ -30,7 +24,7 @@
   }
   
   &:hover {
-    background: var(--cr-ht-dk);
+    background: var(--cr-ht-lt);
   }
   
   .nickname {
@@ -44,6 +38,6 @@
   }
   
   > img.jk-user-profile-img {
-    border-color: var(--cr-py-tx) !important;
+    border-color: var(--cr-tx-ht-it) !important;
   }
 }

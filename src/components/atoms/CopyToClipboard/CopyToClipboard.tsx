@@ -1,6 +1,6 @@
 import { type MouseEvent, useState } from 'react';
 import { classNames, copy } from '../../helpers';
-import { CheckIcon, ContentCopyIcon } from '../server';
+import { ContentCopyIcon, DoneAllIcon } from '../server';
 import type { CopyToClipboardProps } from './types';
 
 export function CopyToClipboard({
@@ -39,7 +39,7 @@ export function CopyToClipboard({
       onClick={handleClick}
     >
       {/*{children ?? (isOpen ? <CheckIcon size={size} /> : <ContentCopyIcon size={size} />)}*/}
-      {(isOpen ? <CheckIcon size={size} /> : <ContentCopyIcon size={size} />)}
+      {(isOpen ? <DoneAllIcon size={size} /> : <ContentCopyIcon size={size} />)}
       {children}
     </div>
   );

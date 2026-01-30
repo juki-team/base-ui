@@ -51,25 +51,21 @@
 
 .cr-ed { color: var(--cr-er-dk); }
 
-.cr-thl { color: var(--cr-tx-ht-lt); }
+.cr-tx-ht-lt { color: var(--cr-tx-ht-lt); }
 
-.cr-th { color: var(--cr-tx-ht); }
+.cr-tx-ht { color: var(--cr-tx-ht); }
 
-.cr-thd { color: var(--cr-tx-ht-dk); }
+.cr-tx-ht-dk { color: var(--cr-tx-ht-dk); }
 
-.cr-pl { color: var(--cr-pl); }
-
-.cr-py { color: var(--cr-py); }
-
-.cr-pt { color: var(--cr-py-tx); }
-
-.cr-pd { color: var(--cr-pd); }
+.cr-tx-ht-it { color: var(--cr-tx-ht-it); }
 
 .cr-al { color: var(--cr-at-lt); }
 
 .cr-at { color: var(--cr-at); }
 
 .cr-ad { color: var(--cr-at-dk); }
+
+.cr-at-it { color: var(--cr-at-it); }
 
 .cr-hl { color: var(--cr-ht-lt); }
 
@@ -133,12 +129,6 @@
 
 .bc-ed { --background-color: var(--cr-er-dk); }
 
-.bc-pl { --background-color: var(--cr-pl); }
-
-.bc-py { --background-color: var(--cr-py); }
-
-.bc-pd { --background-color: var(--cr-pd); }
-
 .bc-al { --background-color: var(--cr-at-lt); }
 
 .bc-at { --background-color: var(--cr-at); }
@@ -150,6 +140,8 @@
 .bc-ht { --background-color: var(--cr-ht); }
 
 .bc-hd { --background-color: var(--cr-ht-dk); }
+
+.bc-tx-ht { --background-color: var(--cr-tx-ht); }
 
 [class^="bc-"], [class*=" bc-"] {
   background-color: var(--background-color);
@@ -184,12 +176,6 @@
 .br-wg { border: 1px solid var(--cr-wg); }
 
 .br-er { border: 1px solid var(--cr-er); }
-
-.br-pl { border: 1px solid var(--cr-pl); }
-
-.br-py { border: 1px solid var(--cr-py); }
-
-.br-pd { border: 1px solid var(--cr-pd);}
 
 .br-al { border: 1px solid var(--cr-at-lt); }
 

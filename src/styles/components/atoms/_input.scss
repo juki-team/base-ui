@@ -365,7 +365,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
   cursor: pointer;
   
   input.jk-input-checkbox, input.jk-input-radio {
-    --input-border-color: var(--cr-py) !important;
+    --input-border-color: var(--cr-tx-ht) !important;
     left: 0;
     -webkit-appearance: none;
     position: relative;
@@ -400,7 +400,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     
     &::after {
       position: absolute;
-      color: var(--cr-py-tx);
+      color: var(--cr-tx-ht-it);
       box-sizing: content-box;
     }
     
@@ -411,18 +411,18 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     }
     
     &:focus-visible {
-      outline-color: var(--cr-py);
+      outline-color: var(--cr-tx-ht);
     }
   }
   
   input.jk-input-checkbox {
     
     &:checked {
-      background-color: var(--cr-py);
+      background-color: var(--cr-tx-ht);
     }
     
     &::after {
-      border: solid var(--cr-py-tx);
+      border: solid var(--cr-tx-ht-it);
       transform: rotate(45deg);
       border-width: 0 calc(var(--size-tick) * 1.5) calc(var(--size-tick) * 1.5) 0;
       top: calc(var(--size-tick));
@@ -441,7 +441,7 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background-color: var(--cr-py);
+      background-color: var(--cr-tx-ht);
     }
   }
 }
@@ -540,8 +540,8 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
 
 .jk-wrapper-input-toggle {
   --input-toggle-height: calc(var(--pad-m) - 2px);
-  --input-toggle-color: var(--cr-py);
-  --input-toggle-text-color: var(--cr-py-tx);
+  --input-toggle-color: var(--cr-tx-ht);
+  --input-toggle-text-color: var(--cr-tx-ht-it);
   position: relative;
   height: var(--input-toggle-height);
   display: flex;
@@ -657,8 +657,12 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
     outline: none;
   }
   
-  &.primary, &.secondary {
+  &.accent {
     font-weight: var(--weight-bold);
+    
+    .input-icon {
+      --input-border-color: var(--cr-at-it);
+    }
     
     &.huge {
       font-size: var(--text-xl-size);

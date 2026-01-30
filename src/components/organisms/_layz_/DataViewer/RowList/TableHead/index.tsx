@@ -86,7 +86,7 @@ const RenderHeader = <T, >(props: RenderHeaderProps<T>) => {
             {sort && (
               <div
                 className={classNames('tool jk-row jk-br-ie', {
-                  'cr-we bc-pl active': !!order,
+                  'bc-al cr-at-it active': !!order,
                   'cr-hd': !order,
                 })}
                 onClick={() => onSort({ columnIndex })}

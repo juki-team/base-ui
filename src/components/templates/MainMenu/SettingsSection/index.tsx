@@ -162,7 +162,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={isOpen ? '' : 'help'}
       data-tooltip-place={popoverPlacement}
-      className="jk-row gap center extend cr-pr"
+      className="jk-row gap center extend"
       onClick={() => setHelpOpen(true)}
     >
       <HelpIcon />
@@ -212,7 +212,7 @@ export const SettingsSection = (props: SettingsSectionProps) => {
           content={
             <div className="jk-col gap more-apps-popover jk-pg-sm">
               <div className="fw-bd tt-se"><T>more apps</T></div>
-              <div className={classNames('jk-col gap stretch', { 'cr-py': !isDark, 'cr-b2': isDark })}>
+              <div className={classNames('jk-col gap stretch', { 'cr-tx-ht': !isDark, 'cr-b2': isDark })}>
                 {moreApps}
               </div>
             </div>

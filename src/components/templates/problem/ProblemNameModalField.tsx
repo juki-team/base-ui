@@ -55,7 +55,7 @@ export function ProblemNameModalField(props: ProblemNameModalFieldProps) {
               data-tooltip-id="jk-tooltip"
               data-tooltip-content="you are editor"
               data-tooltip-t-class-name="tt-se ws-np"
-              className="jk-row tx-s cr-py"
+              className="jk-row tx-s cr-tx-ht"
             >
               <VoidIcon size="small" filledSquare letter="E" />
             </div>

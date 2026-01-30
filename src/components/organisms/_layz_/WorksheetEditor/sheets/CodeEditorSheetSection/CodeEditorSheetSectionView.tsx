@@ -98,7 +98,6 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
                 <ButtonLoader
                   key="save"
                   size="tiny"
-                  type="secondary"
                   onClick={() => saveCode(files, testCases)}
                   setLoaderStatusRef={setLoaderStatus => setLoaderStatusRef.current = setLoaderStatus}
                 >

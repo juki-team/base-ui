@@ -160,7 +160,7 @@
 //       Strike,
 //       Code.configure({
 //         HTMLAttributes: {
-//           class: 'inline-code cr-th bc-hl jk-br-ie ws-np',
+//           class: 'inline-code cr-tx-ht bc-hl jk-br-ie ws-np',
 //         },
 //       }),
 //       // Link,

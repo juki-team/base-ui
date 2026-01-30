@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { TriggerAction } from '../../../../../../enums';
-import { classNames } from '../../../../../helpers';
 import { Popover } from '../../../../../atoms';
+import { classNames } from '../../../../../helpers';
 import { FilterListIcon } from '../../../../../server';
 import { isFilterDate, isFilterDateRange, isFilterSelect, isFilterText } from '../../commons/utils';
 import { TableHeaderFilterType } from '../../types';
@@ -107,7 +107,7 @@ export const Filter = ({ filter, columnIndex }: FilterProps) => {
     >
       <div
         className={classNames('tool jk-row jk-br-ie', {
-          'cr-we bc-pl active': filtered,
+          'bc-al cr-at-it active': filtered,
           'cr-hd': !filtered,
           visible,
           // disabled,

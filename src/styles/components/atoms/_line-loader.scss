@@ -6,7 +6,7 @@
   top: 0;
   z-index: 5;
   width: 100%;
-  --line-loader-color: var(--cr-pl);
+  --line-loader-color: var(--cr-tx-ht-lt);
   
   > div {
     position: absolute;
@@ -45,7 +45,7 @@
     overflow: hidden;
     
     > div {
-      background: var(--cr-pl);
+      background: var(--cr-tx-ht-lt);
     }
   }
 }

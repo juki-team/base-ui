@@ -219,7 +219,7 @@ export const SubmitViewContent = ({ submit, header, className }: {
         || (testCasesByGroup && !!Object.keys(testCasesByGroup).length)
       ) && (
         <div className="wh-100">
-          <div className="tx-l fw-bd cr-pd">
+          <div className="tx-l fw-bd cr-tx-ht-dk">
             <T className="tt-se">
               {problemScoringMode === ProblemScoringMode.SUBTASK
                 ? 'information by subtasks'
@@ -284,7 +284,7 @@ export const SubmitViewContent = ({ submit, header, className }: {
       )}
       {!!canViewSourceCode && !isLeetCode && (
         <div className="jk-col stretch wh-100">
-          <div className="tx-l fw-bd cr-pd"><T className="tt-se">source code</T></div>
+          <div className="tx-l fw-bd cr-tx-ht-dk"><T className="tt-se">source code</T></div>
           <div className="submission-info-code-source">
             <CodeViewer code={sourceCode} language={language} lineNumbers />
           </div>

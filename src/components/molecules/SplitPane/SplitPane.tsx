@@ -144,7 +144,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
             })}
           >
             <div
-              className={classNames('notch opacity-hover cr-we bc-pl', {
+              className={classNames('notch opacity-hover bc-al cr-at-it', {
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
               })}
@@ -187,7 +187,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
             <div className={classNames('extend', { 'jk-row': direction === 'column', 'jk-col': direction === 'row' })}>
               <div
                 className={classNames(
-                  'notch opacity-hover cr-we bc-pl toggle-button nowrap',
+                  'notch opacity-hover bc-al cr-at-it toggle-button nowrap',
                   { 'jk-row': direction === 'column', 'jk-col': direction === 'row' },
                 )}
                 onClick={() => {
@@ -219,7 +219,7 @@ function SplitPaneComponent(props: SplitPaneProps) {
             })}
           >
             <div
-              className={classNames('notch opacity-hover cr-we bc-pl', {
+              className={classNames('notch opacity-hover bc-al cr-at-it', {
                 'jk-row': direction === 'column',
                 'jk-col': direction === 'row',
               })}

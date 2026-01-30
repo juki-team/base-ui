@@ -358,7 +358,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
                   <div
                     key={name}
                     className={classNames('tx-t jk-pg-xsm jk-col nowrap left stretch', {
-                      'bc-pl cr-we': name === currentFileName,
+                      'bc-al cr-at-it': name === currentFileName,
                       'hoverable': name !== currentFileName,
                     })}
                     onClick={name !== currentFileName ? (() => onChangeRef.current?.({ fileName: name })) : undefined}
@@ -370,18 +370,18 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
                           <DraftIcon letter={((index + 1) % 10) + ''} letterSize={12} size="tiny" />
                           <div className="jk-row gap">
                             <EditIcon
-                              className={classNames({ 'cr-pl': name !== currentFileName })}
+                              className={classNames({ 'cr-tx-ht-lt': name !== currentFileName })}
                               size="tiny"
-                              filledCircle={name !== currentFileName ? 'var(--cr-we)' : 'var(--cr-py)'}
+                              filledCircle={name !== currentFileName ? 'var(--cr-we)' : 'var(--cr-tx-ht)'}
                               onClick={() => {
                                 setOpenFileName(name);
                                 setFileNameEdit(name);
                               }}
                             />
                             <DeleteIcon
-                              className={classNames({ 'cr-pl': name !== currentFileName })}
+                              className={classNames({ 'cr-tx-ht-lt': name !== currentFileName })}
                               size="tiny"
-                              filledCircle={name !== currentFileName ? 'var(--cr-we)' : 'var(--cr-py)'}
+                              filledCircle={name !== currentFileName ? 'var(--cr-we)' : 'var(--cr-tx-ht)'}
                               onClick={() => setFileNameDelete(name)}
                             />
                           </div>

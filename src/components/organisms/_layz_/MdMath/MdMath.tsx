@@ -272,7 +272,7 @@ function MdMathComponent(props: MdMathProps) {
         const isRoot = node?.position?.start?.column === 11111;
         const inline = !children?.toString().includes('\n');
         if (inline) {
-          return <code className={classNames('inline-code cr-th bc-hl jk-br-ie', { 'fragment': isRoot })}>{children as ReactNode}</code>;
+          return <code className={classNames('inline-code cr-tx-ht bc-hl jk-br-ie', { 'fragment': isRoot })}>{children as ReactNode}</code>;
         }
         
         let text = (className as string).replace('language-', '');

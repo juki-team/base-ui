@@ -59,7 +59,7 @@ export const DrawerViewMenuMobile = ({ onClose, menu, logoImageUrl, moreApps }: 
             {Children.toArray(menu.map(({ selected, icon, label, menuItemWrapper }, index) => {
               const menuItem = (
                 <div
-                  className={classNames('jk-menu-item jk-row extend gap nowrap left jk-br-ie bc-pd cr-pt', {
+                  className={classNames('jk-menu-item jk-row extend gap nowrap left jk-br-ie bc-pd cr-tx-ht-it', {
                     selected: !!selected,
                   })}
                   key={index}

@@ -25,7 +25,7 @@ export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
       {...rest}
     >
       <div className="jk-col stretch jk-pg gap">
-        <div className="modal-alert-title cr-py jk-col gap">
+        <div className="modal-alert-title jk-col gap">
           <ExclamationIcon filledCircle className="cr-er" size="large" />
           <h3 className="cr-er">
             {title}

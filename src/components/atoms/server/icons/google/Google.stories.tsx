@@ -57,6 +57,7 @@ import {
   DemographyIcon,
   DescriptionIcon,
   DesignServicesIcon,
+  DoneAllIcon,
   DownloadIcon,
   DraftIcon,
   DragIndicatorIcon,
@@ -410,6 +411,7 @@ export const Google: FC<BasicIconProps> = (args) => {
     WidgetsIcon,
     FitnessCenterIcon,
     SmartToyIcon,
+    DoneAllIcon,
   };
   
   const [ color, setColor ] = useState<ColorResult>({

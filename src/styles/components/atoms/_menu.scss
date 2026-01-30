@@ -9,8 +9,9 @@
   
   > .jk-menu {
     z-index: var(--zi-menu);
-    background: var(--bc-navbar);
-    color: var(--cr-navbar);
+    background: var(--navbar-bd-cr);
+    color: var(--navbar-tx-cr);
+    outline: 1px solid var(--cr-ht-lt);
   }
   
   > .jk-menu-main-layout {
@@ -30,16 +31,34 @@
   &.collapsed {
     --left-vertical-menu-width: var(--left-vertical-collapsed-menu-width);
     
-    > .jk-menu {
-      .jk-menu-items {
-        .jk-menu-item-icon {
-          margin: 0 auto !important;
-        }
-        
-        .jk-menu-item-label {
-          display: none;
-        }
-      }
+    .jk-menu-item-icon {
+      margin: 0 auto !important;
+    }
+    
+    .jk-menu-item-label {
+      display: none;
+    }
+  }
+  
+  .jk-menu-item {
+    position: relative;
+    
+    &:not(.selected):not(.extra):hover {
+      background: var(--cr-ht-lt);
+    }
+    
+    &.selected {
+      background-color: var(--cr-ht);
+      font-weight: var(--weight-bold);
+      color: var(--color-primary);
+    }
+    
+    &.extra:last-child {
+      flex: 1;
+    }
+    
+    .jk-menu-item-label {
+      text-transform: capitalize;
     }
   }
   
@@ -66,51 +85,6 @@
       
       .jk-menu-items {
         flex: 8;
-        //display: flex;
-        //flex-direction: column;
-        
-        .jk-menu-item {
-          //display: flex;
-          position: relative;
-          //height: var(--height-jk-menu-item);
-          //align-items: center;
-          
-          &:not(.selected):not(.extra):hover {
-            background: var(--cr-ht);
-          }
-          
-          &.selected {
-            background-color: transparent;
-            font-weight: var(--weight-bold);
-            color: var(--color-primary);
-            
-            //&::after {
-            //  position: absolute;
-            //  top: 0;
-            //  left: -18px;
-            //  content: " ";
-            //  background: radial-gradient(circle at right, transparent calc(var(--height-jk-menu-item) / 2), var(--cr-pd) calc(var(--height-jk-menu-item) / 2)), transparent center/cover;
-            //  width: var(--height-jk-menu-item);
-            //  height: var(--height-jk-menu-item);
-            //}
-          }
-          
-          &.selected-down {
-            //border-radius: 0 0 var(--border-radius-width) 0;
-          }
-          
-          &.selected-up {
-            //border-radius: 0 var(--border-radius-width) 0 0;
-          }
-          
-          &.extra:last-child {
-            flex: 1;
-          }
-          
-          .jk-menu-item-label {
-            text-transform: capitalize;
-          }
-        }
       }
       
       .jk-menu-collapse-section {
@@ -119,7 +93,7 @@
         .jk-menu-collapse {
           border-radius: 50%;
           cursor: pointer;
-          background-color: var(--cr-py);
+          background-color: var(--navbar-at-cr);
         }
       }
     }
@@ -134,6 +108,7 @@
 .jk-horizontal-menu-layout-container, .jk-drawer-menu-mobile {
   --left-vertical-menu-width: 0px;
   --top-horizontal-menu-height: 64px;
+  
   @include mixins.sm {
     --top-horizontal-menu-height: 48px;
     --bottom-horizontal-menu-height: 3rem;
@@ -160,12 +135,10 @@
       .jk-menu-left-section, .jk-menu-items, .jk-menu-right-section,
       .jk-horizontal-menu-mobile-left, .jk-horizontal-menu-mobile-center, .jk-horizontal-menu-mobile-right {
         height: inherit;
-        color: var(--cr-py-tx);
       }
       
       .jk-menu-items {
         flex: 1;
-        color: var(--cr-py-tx);
         
         .jk-menu-item {
           position: relative;
@@ -179,18 +152,6 @@
           &.selected {
             font-weight: var(--weight-bold);
             @include mixins.sm { background-color: var(--cr-at); }
-            
-            //&::after {
-            //  position: absolute;
-            //  bottom: 0;
-            //  content: "";
-            //  width: 100%;
-            //  height: var(--pad-xt);
-            //  background-color: var(--cr-at);
-            //  border-radius: 4px 4px 0 0;
-            //
-            //  @include mixins.sm { content: none; }
-            //}
           }
           
           &.extra:last-child {
@@ -211,10 +172,6 @@
                 width: var(--pad-s);
               }
             }
-          }
-          
-          .jk-menu-item-label {
-            text-transform: uppercase;
           }
         }
       }

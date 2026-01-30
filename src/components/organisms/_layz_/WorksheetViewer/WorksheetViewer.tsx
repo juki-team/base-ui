@@ -90,7 +90,7 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
           )
         ) : (
           <div className="jk-col gap bc-we jk-pg-xsm jk-br-ie left worksheet-content sticky-top">
-            <T className="tt-se fw-bd cr-py">table of content</T>
+            <T className="tt-se fw-bd cr-tx-ht">table of content</T>
             <TableOfContents
               sheetsInPages={sheetsInPages}
               page={page}

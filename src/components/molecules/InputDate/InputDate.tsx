@@ -1,6 +1,6 @@
 import { TriggerAction } from '../../../enums';
-import { classNames } from '../../helpers';
 import { Button, DateLiteral, Popover, T } from '../../atoms';
+import { classNames } from '../../helpers';
 import { PlusIcon } from '../../server';
 import { DatePicker } from '../DatePicker/DatePicker';
 import type { InputDateProps } from '../DatePicker/types';
@@ -35,7 +35,7 @@ export function InputDate(props: InputDateProps) {
       <div className="jk-row gap jk-input-date jk-br-ie">
         <DateLiteral
           date={date}
-          className="flex-1 cr-pd"
+          className="flex-1 cr-tx-ht-dk"
           show={type}
           twoLines={twoLines}
           withDayName={withDayName}
@@ -56,7 +56,7 @@ export function InputDate(props: InputDateProps) {
       </div>
     ) : (
       <div
-        className={classNames('jk-row jk-input-date jk-br-ie cr-pd placeholder', { 'two-lines': twoLines })}
+        className={classNames('jk-row jk-input-date jk-br-ie cr-tx-ht-dk placeholder', { 'two-lines': twoLines })}
         style={{ height: 24 }}
       >
         <T className="tt-se">no date selected</T>

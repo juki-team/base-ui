@@ -58,7 +58,7 @@ const rightSection = ({ open = undefined }: { open?: boolean }) => (
           <div className="fw-bd tt-se">
             <T>more apps coming soon</T>
           </div>
-          <div className="jk-col gap cr-py">
+          <div className="jk-col gap cr-tx-ht">
             <div className="jk-row">
               {/*<JukiCouchLogoHorImage /> <ManufacturingIcon />{' '}*/}
               <T className="tt-se">developing</T>...
@@ -92,7 +92,7 @@ const rightMobile = {
       <div className="fw-bd tt-se">
         <T>more apps coming soon</T>
       </div>
-      <div className="jk-col gap cr-py" style={{ width: '100px' }}>
+      <div className="jk-col gap" style={{ width: '100px' }}>
         <div className="jk-row">
           {/*<JukiCouchLogoHorImage /> <ManufacturingIcon />{' '}*/}
           <T className="tt-se">developing</T>...

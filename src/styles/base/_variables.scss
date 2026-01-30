@@ -141,10 +141,15 @@ html body {
   --transition-duration: 0.3s;
   --transition-duration-fast: 0.15s;
   
-  --cr-body: var(--cr-bk-lt);
-  --cr-ht-body: var(--cr-tx-ht);
-  --bc-body: var(--cr-we-dk);
-  --bc-ht-body: var(--cr-we);
-  --cr-navbar: var(--cr-py-tx);
-  --bc-navbar: var(--cr-pd);
+  --body-tx-cr: #1A1A1A; // #FEFEFE
+  --body-tx-cr-ht: #184674; // #94989F
+  --body-tx-cr-ht-it: var(--cr-we);
+  --body-bd-cr: #F0F1F2; // #191F27
+  --body-bd-cr-ht: #FAFBFC; // #202831
+  --body-at-cr: #1D5182; // #2365a6 // #565a64 #656b75
+  --body-at-cr-it: var(--cr-we);
+  
+  --navbar-tx-cr: var(--cr-we);
+  --navbar-bd-cr: #1C4670; // #45454C
+  --navbar-at-cr: var(--cr-we);
 }

@@ -17,7 +17,7 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
   
   const {
     submit = false,
-    type = 'primary',
+    type = 'accent',
     className,
     expand = false,
     icon,

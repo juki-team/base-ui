@@ -2,7 +2,7 @@
 
 @mixin jk-select-layout-for-datepicker {
   .jk-input-select {
-    color: var(--cr-pl);
+    color: var(--cr-tx-ht-lt);
     font-weight: var(--weight-bold);
     text-align: center;
     border-color: transparent;
@@ -57,7 +57,7 @@
       
       &.selected {
         > div {
-          background-color: var(--cr-py);
+          background-color: var(--cr-tx-ht);
           border-radius: var(--pad-t);
           color: var(--cr-we);
           font-weight: var(--weight-bold);
@@ -68,9 +68,9 @@
         outline: none;
         
         > div:hover {
-          background-color: var(--cr-pl);
+          background-color: var(--cr-tx-ht-lt);
           border-radius: var(--pad-t);
-          color: var(--cr-we);
+          color: var(--cr-tx-ht-it);
         }
       }
       
@@ -78,9 +78,9 @@
         outline: none;
         
         > div {
-          background-color: var(--cr-pl);
+          background-color: var(--cr-tx-ht-lt);
           border-radius: var(--pad-xt);
-          color: var(--cr-we);
+          color: var(--cr-tx-ht-it);
         }
       }
       
@@ -92,7 +92,7 @@
           position: absolute;
           //width: 45px;
           height: 24px;
-          background-color: var(--cr-py);
+          background-color: var(--cr-tx-ht);
         }
       }
       

@@ -219,8 +219,8 @@ span.jk-row, span.jk-col {
   border-radius: var(--border-radius-inline);
   
   &:not([class^="cr-"]):not([class*=" cr-"]):not([class^="bc-"]):not([class*=" bc-"]) {
-    color: var(--cr-py-tx);
-    background-color: var(--cr-py);
+    color: var(--cr-tx-ht-it);
+    background-color: var(--cr-tx-ht);
   }
 }
 
@@ -245,7 +245,7 @@ span.jk-row, span.jk-col {
   box-sizing: border-box;
   border: 1px solid var(--cr-gy-5);
   border-radius: var(--border-radius-inline) var(--border-radius-inline) 0 0;
-  color: var(--cr-py);
+  color: var(--cr-tx-ht);
   font-weight: var(--weight-bold);
 }
 

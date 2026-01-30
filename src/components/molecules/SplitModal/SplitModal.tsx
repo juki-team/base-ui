@@ -25,7 +25,7 @@ export function SplitModal<T extends ModalButtonLoaderEventType, >(props: PropsW
     >
       <div className="split-modal jk-row stretch block">
         <div
-          className="jk-side-secondary bc-py cr-pt jk-br jk-col nowrap stretch jk-pg-lg"
+          className="jk-side-secondary bc-at cr-at-it jk-br jk-col nowrap stretch jk-pg-lg"
           style={{
             '--side-main-height': sideMainHeight + 'px',
             '--title-side-main-height': titleSideSecondaryHeight + 'px',

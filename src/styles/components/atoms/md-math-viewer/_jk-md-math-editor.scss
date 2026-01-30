@@ -50,7 +50,7 @@
     --crepe-color-on-surface-variant: var(--cr-bk-lt); /* Secondary text color */
     
     /* Accent Colors */
-    --crepe-color-primary: var(--cr-pl); /* Primary brand color */
+    --crepe-color-primary: var(--cr-tx-ht-lt); /* Primary brand color */
     --crepe-color-secondary: var(--cr-ht-lt); /* Secondary accent color */
     --crepe-color-on-secondary: var(--cr-tx-ht-lt); /* Text color on secondary */
     
@@ -111,7 +111,7 @@
       &::before, &::after {
         content: "```";
         position: absolute;
-        color: var(--cr-pd);
+        color: var(--cr-tx-ht-dk);
         font-weight: bold;
         opacity: 0;
         height: 0;
@@ -135,17 +135,17 @@
     p {
       a {
         
-        color: var(--cr-pl);
+        color: var(--cr-tx-ht-lt);
         
         &:hover {
-          color: var(--cr-py);
+          color: var(--cr-tx-ht);
           text-decoration: underline;
         }
       }
       
       &:hover {
         a {
-          color: var(--cr-py);
+          color: var(--cr-tx-ht);
           text-decoration: underline;
         }
       }
@@ -167,7 +167,7 @@
       &::before, &::after {
         content: "$";
         font-family: var(--font-code), monospace !important;
-        color: var(--cr-pd);
+        color: var(--cr-tx-ht-dk);
         opacity: 0;
         font-weight: var(--weight-bolder);
       }
@@ -187,7 +187,7 @@
       margin-right: 0.2ch;
       user-select: none;
       font-family: var(--font-code), monospace !important;
-      color: var(--cr-pd);
+      color: var(--cr-tx-ht-dk);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }
@@ -238,7 +238,7 @@
       user-select: none;
       margin-right: 0.25em;
       font-family: var(--font-code), monospace !important;
-      color: var(--cr-pd);
+      color: var(--cr-tx-ht-dk);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }
@@ -282,7 +282,7 @@
     &::after, &::before {
       content: "*";
       font-family: var(--font-code), monospace !important;
-      color: var(--cr-pd);
+      color: var(--cr-tx-ht-dk);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }
@@ -298,7 +298,7 @@
     &::after, &::before {
       content: "**";
       font-family: var(--font-code), monospace !important;
-      color: var(--cr-pd);
+      color: var(--cr-tx-ht-dk);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }
@@ -315,7 +315,7 @@
       text-decoration: none !important;
       content: "~~";
       font-family: var(--font-code), monospace !important;
-      color: var(--cr-pd);
+      color: var(--cr-tx-ht-dk);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }
@@ -338,7 +338,7 @@
     &::after, &::before {
       content: "`";
       font-family: var(--font-code), monospace !important;
-      color: var(--cr-pd);
+      color: var(--cr-tx-ht-dk);
       opacity: 0;
       font-weight: var(--weight-bolder);
     }

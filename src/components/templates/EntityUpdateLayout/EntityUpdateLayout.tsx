@@ -32,7 +32,6 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
     </CheckUnsavedChanges>,
     <TabsInlineButtonLoader
       key="save"
-      type="secondary"
       disabled={disableUpdateButton}
       icon={<SaveIcon />}
       onClick={async (setLoaderStatus) => {

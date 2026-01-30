@@ -39,8 +39,8 @@ export function ProblemNameLinkField(props: ProblemNameLinkFieldProps) {
               size="small"
               filledSquare
               letter="E"
-              className="cr-py"
-              letterColor="var(--cr-py-tx)"
+              className="cr-tx-ht"
+              letterColor="var(--cr-tx-ht-it)"
             />
           </>
         )}

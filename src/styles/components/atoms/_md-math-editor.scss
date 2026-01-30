@@ -56,7 +56,7 @@
       z-index: 1;
       position: absolute;
       width: calc(100% + 2px);
-      background-color: var(--cr-pl);
+      background-color: var(--cr-tx-ht-lt);
       color: var(--cr-we);
       text-align: center;
       text-transform: uppercase;
@@ -157,15 +157,6 @@
         align-self: flex-start;
         top: var(--pad-xt);
         right: var(--pad-xt);
-      }
-      
-      .button-a {
-        position: absolute;
-        top: 4px;
-        left: 4px;
-        min-height: var(--pad-m);
-        background-color: var(--cr-pl);
-        border-color: var(--cr-pl);
       }
     }
   }

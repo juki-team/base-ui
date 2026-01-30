@@ -43,17 +43,6 @@
 }
 
 .jk-data-viewer-toolbar {
-  .jk-table-view-tools .jk-input-select {
-    &:not(.bc-pl) {
-      background-color: var(--cr-we);
-    }
-    
-    &.bc-pl {
-      background-color: var(--cr-pl);
-      color: var(--cr-we);
-    }
-  }
-  
   &.with-vertical-scroll {
     margin-right: var(--size-scrollbar);
   }
@@ -401,8 +390,8 @@
         cursor: pointer;
         
         &.selected {
-          color: var(--cr-we);
-          background-color: var(--cr-pl);
+          color: var(--cr-tx-ht-it);
+          background-color: var(--cr-tx-ht-lt);
         }
       }
     }
@@ -428,7 +417,7 @@
     
     &.active {
       &:hover {
-        background-color: var(--cr-py);
+        background-color: var(--cr-tx-ht);
       }
     }
   }

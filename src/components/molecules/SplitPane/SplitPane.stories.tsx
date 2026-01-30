@@ -22,12 +22,12 @@ export const Regular: Story = {
               <SplitPaneComponent
                 minSize={1}
                 direction="row"
-                closableFirstPane={{ align: 'right', hideLabel: '' }}
-                closableSecondPane={{ align: 'right', hideLabel: '' }}
+                closableFirstPane={{ align: 'right', hideLabel: 'A' }}
+                closableSecondPane={{ align: 'right', hideLabel: 'B' }}
                 toggleable
               >
                 <div style={{ background: 'yellow' }}>
-                  A<br />A
+                  A1<br />A1
                 </div>
                 <div style={{ background: 'blueviolet' }}>
                   <JudgeTabs />

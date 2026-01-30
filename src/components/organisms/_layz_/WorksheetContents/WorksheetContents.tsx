@@ -15,7 +15,7 @@ export default function WorksheetContents(props: WorksheetContentsProps) {
   const totalPages = sheetsInPages.length;
   
   return (
-    <div className="jk-col stretch gap bc-we jk-br-ie cr-pd fw-bd">
+    <div className="jk-col stretch gap bc-we jk-br-ie cr-tx-ht-dk fw-bd">
       <TableOfContentsModal
         page={page}
         subPage={subPage}

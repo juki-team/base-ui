@@ -83,7 +83,7 @@ function Comp() {
             addQuietNotification(textMessage);
           }}
           type="text"
-          className="cr-pl"
+          className="cr-tx-ht-lt"
         >
           quiet
         </Button>

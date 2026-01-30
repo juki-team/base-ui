@@ -50,7 +50,7 @@ export function MainMenu(props: MainMenuProps) {
   const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
   const isLoading = useUserStore(state => state.isLoading);
-  const { imageUrl: companyImageUrl, name } = useUserStore(state => state.company);
+  const { imageUrl: companyImageUrl, name, styles } = useUserStore(state => state.company);
   const {
     isLogged,
     settings: { [ProfileSetting.THEME]: preferredTheme, [ProfileSetting.MENU_VIEW_MODE]: userPreferredMenuViewMode },
@@ -103,7 +103,7 @@ export function MainMenu(props: MainMenuProps) {
             const isSmall = viewPortSize === 'sm';
             return (
               <div
-                className={classNames('jk-menu-item menu-item-company-selector bc-pd cr-pt', { 'jk-col gap': isSmall })}
+                className={classNames('jk-menu-item menu-item-company-selector cr-tx-ht-it', { 'jk-col gap': isSmall })}
               >
                 <div className="jk-menu-item-icon" style={{ height: 48 }}>
                   {company && (
@@ -140,7 +140,7 @@ export function MainMenu(props: MainMenuProps) {
   
   const preferredMenuViewMode = menuViewMode || userPreferredMenuViewMode;
   
-  const logoImageUrl = (viewPortSize === 'sm' && preferredTheme !== Theme.DARK) ? imageUrl.replace(
+  const logoImageUrl = (styles?.[preferredTheme]?.navbar?.logoTheme === Theme.LIGHT) ? imageUrl.replace(
     'white',
     'color',
   ) : imageUrl;
@@ -198,7 +198,7 @@ export function MainMenu(props: MainMenuProps) {
   
   const bottomSection = ({ isOpen }: { isOpen: boolean }) => {
     return (
-      <div className="jk-col stretch gap settings-apps-login-user-content nowrap jk-pg-tb jk-pg-xsm-rl">
+      <div className={classNames('jk-col stretch gap settings-apps-login-user-content nowrap jk-pg-tb', { 'jk-pg-xsm-rl': isOpen })}>
         <SettingsSection
           isOpen={isOpen}
           isMobile={false}

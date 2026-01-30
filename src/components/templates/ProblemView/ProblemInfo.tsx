@@ -72,7 +72,7 @@ function ContentInfo(props: PropsWithChildren<{
           placement="bottom"
         >
           <div className="jk-row">
-            &nbsp;<ExclamationIcon filledCircle className="cr-py" rotate={180} />
+            &nbsp;<ExclamationIcon filledCircle className="cr-tx-ht" rotate={180} />
           </div>
         </Popover>
       )}
@@ -292,7 +292,7 @@ export function ProblemInfo({ problem, size }: ProblemInfoProps) {
       placement="bottom"
     >
       <div className="jk-row link">
-        <InfoIIcon filledCircle className="cr-py" color="var(--cr-py-tx)" size={size} />
+        <InfoIIcon filledCircle className="cr-tx-ht" color="var(--cr-tx-ht-it)" size={size} />
       </div>
     </Popover>
   );

@@ -32,7 +32,7 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                 <div
                   className={classNames('jk-row gap nowrap space-between stretch jk-br-ie', {
                     'hoverable': !!onPageChange,
-                    'cr-th fw-br': page === index + 1,
+                    'cr-tx-ht fw-br': page === index + 1,
                   })}
                   style={{ padding: '2px 8px' }}
                   key={index}
@@ -68,7 +68,7 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                           'hoverable jk-br-ie': !subTitleSelected && !!onPageChange,
                         })}
                         style={{
-                          borderLeft: page === index + 1 && subPage === subIndex + 1 ? '3px solid var(--cr-pl)' : '3px solid transparent',
+                          borderLeft: page === index + 1 && subPage === subIndex + 1 ? '3px solid var(--cr-tx-ht-lt)' : '3px solid transparent',
                         }}
                         key={`${chunk.title}-${subIndex}`}
                         onClick={() => onPageChange?.(index + 1, subIndex + 1, {

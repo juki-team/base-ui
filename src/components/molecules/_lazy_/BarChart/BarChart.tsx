@@ -21,7 +21,7 @@ export default function BarChart<TValue extends ValueType, TName extends NameTyp
         <XAxis dataKey="label" tick={xAxisTick} includeHidden interval={0} />
         <YAxis interval={0} />
         <Tooltip content={tooltipContent} />
-        <Bar dataKey="value" fill="var(--cr-pl)" minPointSize={4} />
+        <Bar dataKey="value" fill="var(--cr-tx-ht-lt)" minPointSize={4} />
       </RechartsBarChart>
     </ResponsiveContainer>
   );

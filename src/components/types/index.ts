@@ -54,7 +54,7 @@ export type ButtonLoaderOnClickType<T = OnClickButtonEventType> =
   ((setLoaderStatus: SetLoaderStatusOnClickType, loaderStatus: LoaderStatusOnClickType, event: T) => void)
   | ((setLoaderStatus: SetLoaderStatusOnClickType, loaderStatus: LoaderStatusOnClickType, event: T) => Promise<void>);
 
-export type ButtonType = 'primary' | 'secondary' | 'light' | 'text' | 'void'; // 'outline';
+export type ButtonType = 'accent' | 'light' | 'text' | 'void'; // 'outline';
 
 export type ButtonSizeType = 'tiny' | 'small' | 'regular' | 'large' | 'huge';
 

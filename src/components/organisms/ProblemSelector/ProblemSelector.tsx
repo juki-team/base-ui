@@ -163,7 +163,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
                       label: (
                         <div className="jk-row stretch gap nowrap jk-pg-xsm-tb left ht-100">
                           <div className="jk-col gap">
-                            <span className="fw-br cr-py">{problem.key}</span>
+                            <span className="fw-br cr-tx-ht">{problem.key}</span>
                             <span style={{ fontFamily: 'monospace' }} className="tx-t">{problem.shortname}</span>
                           </div>
                           <div className="jk-col stretch">

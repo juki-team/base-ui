@@ -135,19 +135,13 @@
   }
 }
 
-.jk-button.primary {
-  color: var(--cr-py-tx);
-  
-  &:not([class*=" bc-"]):not([class^="bc-"]) {
-    --background-color: var(--cr-py);
-  }
-}
-
-.jk-button.secondary {
-  color: var(--cr-at-tx);
-  
+.jk-button.accent {
   &:not([class*=" bc-"]):not([class^="bc-"]) {
     --background-color: var(--cr-at);
+  }
+  
+  &:not([class*=" cr-"]):not([class^="cr-"]) {
+    color: var(--cr-at-it);
   }
 }
 
@@ -164,8 +158,8 @@
 }
 
 .jk-button.outline {
-  outline: 1px solid var(--cr-py) !important;
-  color: var(--cr-py);
+  outline: 1px solid var(--cr-tx-ht) !important;
+  color: var(--cr-tx-ht);
   font-weight: var(--weight-bolder) !important;
   
   &:not([class*=" bc-"]):not([class^="bc-"]) {

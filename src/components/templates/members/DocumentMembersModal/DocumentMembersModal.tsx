@@ -65,7 +65,6 @@ export function DocumentMembersModal(props: DocumentMembersModalProps) {
           </ButtonLoader>
           <ButtonLoader
             disabled={done}
-            type="primary"
             submit
             onClick={async (setLoaderStatus) => {
               setLoaderStatus(Status.LOADING);

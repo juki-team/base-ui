@@ -54,13 +54,13 @@ const HeaderTab = <T = string, >(props: HeaderTabProps<T>) => {
         className={classNames(`jk-tabs-inline-tab jk-row nowrap jk-tabs-inline-tab-${key}`, {
           'selected': key === selectedTabKey, // no used bold to prevent changes on the width
           
-          'cr-pt': key === selectedTabKey && tickStyle === 'background',
+          'cr-tx-ht-it': key === selectedTabKey && tickStyle === 'background',
         })}
       >
         {tickStyle === 'background' ? (
           <div
             className={classNames('tab-tick-background jk-br-ie', {
-              'opacity-1230 bc-pl cr-pt selected': key === selectedTabKey,
+              'opacity-1230 bc-al cr-at-it selected': key === selectedTabKey,
               'bc-hl': key !== selectedTabKey,
             })}
           >
@@ -77,7 +77,7 @@ const HeaderTab = <T = string, >(props: HeaderTabProps<T>) => {
         {/*)}*/}
         {/*{tickStyle === 'background' && key === selectedTabKey && (*/}
         {/*  <motion.div*/}
-        {/*    className="tab-tick-background selected bc-pl cr-pt jk-br-ie"*/}
+        {/*    className="tab-tick-background selected bc-al cr-at-it jk-br-ie"*/}
         {/*    layoutId={layoutId}*/}
         {/*    // transition={{ duration: 10 }}*/}
         {/*    style={{ zIndex: 1 }}*/}
@@ -150,7 +150,7 @@ export function TabsInline<T, >(props: TabsInlineProps<T>) {
                 onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex - 1]?.key)}
               >
                 <NavigateBeforeIcon
-                  className={classNames('br-50-pc bc-pl cr-we cr-pr elevation-1', {
+                  className={classNames('br-50-pc bc-al cr-at-it elevation-1', {
                     'activated': (selectedTabIndex - 1 >= 0),
                     'disabled': !(selectedTabIndex - 1 >= 0),
                   })}
@@ -217,7 +217,7 @@ export function TabsInline<T, >(props: TabsInlineProps<T>) {
                 onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex + 1]?.key)}
               >
                 <NavigateNextIcon
-                  className={classNames('br-50-pc bc-pl cr-we cr-pr elevation-1', {
+                  className={classNames('br-50-pc bc-al cr-at-it elevation-1', {
                     'activated': (selectedTabIndex + 1 < tabsLength),
                     'disabled': !(selectedTabIndex + 1 < tabsLength),
                   })}

@@ -64,20 +64,17 @@ export default function ExcalidrawButton() {
           offset={8}
           className="is-active right"
           icon={<EditIcon />}
-          type="secondary"
           size="tiny"
           buttons={[
             {
               icon: <EditIcon />,
               label: <T className="tt-se">exit</T>,
               size: 'tiny',
-              type: 'secondary',
               onClick: () => setIsActive(false),
               // children: (
               //   <div className="jk-row right opacity-hover">
               //     <Button
               //       tooltipContent="desactive excalidraw"
-              //       type="secondary"
               //       size="tiny"
               //       icon={<EditIcon />}
               //       onClick={() => setIsActive(false)}

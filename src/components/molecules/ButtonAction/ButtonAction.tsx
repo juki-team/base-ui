@@ -14,7 +14,7 @@ export function ButtonAction(props: ButtonActionProps) {
   const {
     children,
     icon,
-    type = 'primary',
+    type = 'accent',
     buttons = [],
     placement = 'left-start' as PopoverProps['placement'],
     offset = 4,
@@ -60,7 +60,7 @@ export function ButtonAction(props: ButtonActionProps) {
                           label,
                           disabled,
                           size = 'small',
-                          type = 'primary',
+                          type = 'accent',
                           children,
                           ...props
                         }, index) => (

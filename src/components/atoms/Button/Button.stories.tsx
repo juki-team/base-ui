@@ -8,7 +8,7 @@ import { Button } from './Button';
 // @ts-ignore
 Button.defaultProps = {
   submit: false,
-  type: 'primary',
+  type: 'accent',
   extend: false,
   disabled: false,
   responsive: false,
@@ -38,7 +38,7 @@ const meta: Meta<typeof Button> = {
         <Button {...args} icon={<LockIcon />} size="large">
           click me!
         </Button>
-        <Button {...args} icon={<LockIcon />} size="huge" className="bc-pl">
+        <Button {...args} icon={<LockIcon />} size="huge" className="bc-ss">
           click me!
         </Button>
       </div>
@@ -55,7 +55,7 @@ export const Regular: Story = {
   //   await waitForLoadingToDisappear(ctx);
   // },
   args: {
-    type: 'primary',
+    type: 'accent',
     // type: {
     //   control: {
     //     type: 'enum',
@@ -66,7 +66,7 @@ export const Regular: Story = {
   argTypes: {
     type: {
       control: 'radio',
-      options: [ 'primary', 'secondary', 'light', 'text', 'void' ],
+      options: [ 'accent', 'light', 'text', 'void' ],
     },
   },
 };

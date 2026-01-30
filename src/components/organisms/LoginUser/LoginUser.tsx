@@ -70,7 +70,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
         placement={isVertical ? 'right-end' : 'bottom-end'}
       >
         <div
-          className={classNames('user-logged-head nowrap jk-row gap')}
+          className={classNames('user-logged-head nowrap jk-row gap jk-pg-xsm-tb', { 'jk-br-ie': !collapsed })}
           style={{ padding: collapsed ? undefined : '0 var(--pad-xt)' }}
         >
           <Image

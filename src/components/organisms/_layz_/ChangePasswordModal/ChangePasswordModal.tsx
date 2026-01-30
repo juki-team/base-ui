@@ -113,7 +113,6 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
               <T>cancel</T>
             </ButtonLoader>
             <ButtonLoader
-              type="primary"
               setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
               disabled={!isValid}
               submit
