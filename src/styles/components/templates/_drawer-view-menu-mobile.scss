@@ -12,7 +12,7 @@
       box-sizing: border-box;
       
       &.selected {
-        @include mixins.look(pl);
+        @include mixins.look(at);
         
         .jk-menu-item-label {
           font-weight: var(--weight-bold);

@@ -143,7 +143,7 @@ $screen-hg-min: 1920px; /* Large PCs  [1920, INF  ] 80px | 1760px (15c 80|40) | 
     }
   } @else if $look == at-dk or $look == at or $look == at-lt {
     & {
-      color: var(--cr-at-tx);
+      color: var(--cr-at-it);
     }
   } @else if $look == at-lt or $look == ss-lt or $look == io-lt or $look == wg-lt or $look == er-lt or $look== gy-4 or $look == gy-5 or $look == gy-6 {
     & {

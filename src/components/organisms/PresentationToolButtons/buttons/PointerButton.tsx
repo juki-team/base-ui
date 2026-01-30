@@ -41,7 +41,7 @@ export function PointerButton() {
     <div className={classNames('jk-row right', { 'is-active': isActive })}>
       <Button
         tooltipContent={isActive ? 'exit laser pointer' : 'active laser pointer'}
-        type={isActive ? 'secondary' : 'light'}
+        type={isActive ? 'accent' : 'light'}
         size="tiny"
         icon={<StylusLaserPointerIcon />}
         onClick={() => setIsActive(!isActive)}

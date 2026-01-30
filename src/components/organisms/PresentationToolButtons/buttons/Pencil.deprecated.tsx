@@ -224,10 +224,10 @@
 //         <ButtonAction
 //           placement="rightTop"
 //           icon={<EditIcon />}
-//           type={isActive ? 'secondary' : 'light'}
+//           type={isActive ? 'accent' : 'light'}
 //           size="tiny"
 //           buttons={[
-//             { icon: <EditIcon />, type: 'secondary', label: <T>exit</T>, onClick: () => setIsActive(false) },
+//             { icon: <EditIcon />, type: 'accent', label: <T>exit</T>, onClick: () => setIsActive(false) },
 //             {
 //               children: (
 //                 <div className="jk-col gap bc-we elevation-1 jk-pg-xsm jk-br-ie">

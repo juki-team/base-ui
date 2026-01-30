@@ -159,7 +159,7 @@
       @include mixins.sm { right: 0; }
       
       @include mixins.elevation(1);
-      @include mixins.look(pl);
+      @include mixins.look(at);
       @include mixins.sm {
         border-radius: 0;
       }
