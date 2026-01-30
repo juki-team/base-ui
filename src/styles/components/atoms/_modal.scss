@@ -46,12 +46,6 @@
   }
 }
 
-.jk-modal-height-expanded {
-  .jk-modal-body {
-    height: calc(var(--100VH) - var(--pad-md) - var(--pad-md));
-  }
-}
-
 .jk-modal-bc-wd-TODO {
   .jk-modal {
     background: var(--cr-we-dk);
@@ -69,14 +63,11 @@
     @include mixins.md { flex: 5 !important; }
     
     .title {
-      //padding: var(--pad-sm) 0 0 0;
       text-align: center;
     }
     
     .graphic {
-      //max-height: calc(100% - var(--title-side-main-height) - var(--pad-sm) * 3);
       min-height: calc(100% - var(--title-side-main-height) - var(--pad-sm) * 4);
-      //padding: var(--pad-sm);
     }
   }
   
@@ -87,26 +78,7 @@
   @include mixins.sm {
     flex-direction: column;
     .jk-side-secondary {
-      //border-radius: var(--border-radius) var(--border-radius) 0 0;
       border-radius: 0;
     }
-  }
-}
-
-.modal-info-markdown, .modal-alert, .modal-upload-image {
-  .jk-modal-body {
-    padding: var(--pad-l);
-  }
-}
-
-.modal-login, .modal-sign-up {
-  .forgot-password-label {
-    @include mixins.transition(font-weight);
-  }
-}
-
-.change-password-modal {
-  @include mixins.md-hg {
-    width: 340px;
   }
 }

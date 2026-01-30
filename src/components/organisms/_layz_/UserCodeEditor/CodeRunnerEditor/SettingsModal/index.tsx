@@ -4,7 +4,7 @@ import { SettingsModalProps } from '../types';
 
 export const SettingsModal = <T, >({ onChange, tabSize, fontSize, ...modalProps }: SettingsModalProps<T>) => {
   return (
-    <Modal className="editor-settings-modal jk-pg-lg"      {...modalProps}    >
+    <Modal className="jk-pg" {...modalProps}>
       <div className="jk-col stretch gap jk-pg-sm-tb">
         <h3><T className="tt-se">code editor settings</T></h3>
         <div className="jk-row left gap">

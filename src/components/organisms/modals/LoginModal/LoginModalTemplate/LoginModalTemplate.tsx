@@ -173,9 +173,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
                   data-tour-key="forgot-password"
                   onClick={() => setOpenForgotPasswordModal(true)}
                 >
-                  <T className="forgot-password-label tt-se">
-                    Forgot password?
-                  </T>
+                  <T className="tt-se">forgot password?</T>
                 </div>
               </div>
               {!multiCompanies && (

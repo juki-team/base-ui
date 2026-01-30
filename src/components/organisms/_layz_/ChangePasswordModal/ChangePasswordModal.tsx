@@ -49,9 +49,9 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
       className="wh-ao"
       onClose={onClose}
     >
-      <div className="jk-pg-md jk-col gap stretch change-password-modal">
-        <div className="jk-row">
-          <h2>update password</h2>
+      <div className="jk-pg-md jk-col gap stretch">
+        <div className="jk-row extend">
+          <h2 className="tt-se">update password</h2>
         </div>
         <form
           onSubmit={handleSubmit((data: ProfileChangePasswordInput) => updatePassword({
@@ -61,47 +61,49 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
             onSuccess: () => onClose(() => () => Status.SUCCESS, Status.SUCCESS, {}),
           }))}
         >
-          <div className="jk-form-item">
-            <InputPassword
-              expand
-              labelPlacement="top"
-              label={<T className="tt-se">password</T>}
-              register={register('oldPassword')}
-              className={classNames({
-                error: !!errors?.oldPassword?.message,
-                success: !!touchedFields.oldPassword && !errors?.oldPassword?.message,
-              })}
-              required
-            />
-            <p><T>{errors.oldPassword?.message || ''}</T></p>
-          </div>
-          <div className="jk-form-item">
-            <InputPassword
-              expand
-              labelPlacement="top"
-              label={<T className="tt-se">new password</T>}
-              register={register('newPassword')}
-              className={classNames({
-                error: !!errors?.newPassword?.message,
-                success: !!touchedFields.newPassword && !errors?.newPassword?.message,
-              })}
-              required
-            />
-            <p><T>{errors.newPassword?.message || ''}</T></p>
-          </div>
-          <div className="jk-form-item">
-            <InputPassword
-              expand
-              labelPlacement="top"
-              label={<T className="tt-se">confirm new password</T>}
-              register={register('newPasswordConfirmation')}
-              className={classNames({
-                error: !!errors?.newPasswordConfirmation?.message,
-                success: !!touchedFields.newPasswordConfirmation && !errors?.newPasswordConfirmation?.message,
-              })}
-              required
-            />
-            <p><T>{errors.newPasswordConfirmation?.message || ''}</T></p>
+          <div className="jk-col stretch">
+            <div className="jk-form-item">
+              <InputPassword
+                expand
+                labelPlacement="top"
+                label={<T className="tt-se">password</T>}
+                register={register('oldPassword')}
+                className={classNames({
+                  error: !!errors?.oldPassword?.message,
+                  success: !!touchedFields.oldPassword && !errors?.oldPassword?.message,
+                })}
+                required
+              />
+              <p><T>{errors.oldPassword?.message || ''}</T></p>
+            </div>
+            <div className="jk-form-item">
+              <InputPassword
+                expand
+                labelPlacement="top"
+                label={<T className="tt-se">new password</T>}
+                register={register('newPassword')}
+                className={classNames({
+                  error: !!errors?.newPassword?.message,
+                  success: !!touchedFields.newPassword && !errors?.newPassword?.message,
+                })}
+                required
+              />
+              <p><T>{errors.newPassword?.message || ''}</T></p>
+            </div>
+            <div className="jk-form-item">
+              <InputPassword
+                expand
+                labelPlacement="top"
+                label={<T className="tt-se">confirm new password</T>}
+                register={register('newPasswordConfirmation')}
+                className={classNames({
+                  error: !!errors?.newPasswordConfirmation?.message,
+                  success: !!touchedFields.newPasswordConfirmation && !errors?.newPasswordConfirmation?.message,
+                })}
+                required
+              />
+              <p><T>{errors.newPasswordConfirmation?.message || ''}</T></p>
+            </div>
           </div>
           <div
             className={classNames('gap block', {
@@ -110,7 +112,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
             })}
           >
             <ButtonLoader type="light" onClick={onClose} expand>
-              <T>cancel</T>
+              <T className="tt-se">cancel</T>
             </ButtonLoader>
             <ButtonLoader
               setLoaderStatusRef={setLoader => setLoaderRef.current = setLoader}
