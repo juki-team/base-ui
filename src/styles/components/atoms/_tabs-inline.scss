@@ -24,12 +24,6 @@
     .tab-tick-background {
       padding: 1px 10px;
       
-      &.selected {
-        //opacity: 1;
-        //position: absolute;
-        //top: 0;
-      }
-      
       &:hover:not(.selected) {
         background-color: var(--cr-ht);
       }

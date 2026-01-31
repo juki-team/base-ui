@@ -4,7 +4,7 @@ import {
   getWorksheetsInPages,
   type WorksheetUserSubmissionsResponseDTO,
 } from '@juki-team/commons';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { jukiApiManager } from '../../../../settings';
 import { usePageStore } from '../../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
@@ -12,6 +12,8 @@ import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
 import { classNames } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
+import { useKeyPress } from '../../../hooks/useKeyPress';
+import { useStableRef } from '../../../hooks/useStableRef';
 import { useStableState } from '../../../hooks/useStableState';
 import type { UserResultsType } from '../../../types';
 import { WorksheetContents } from '../WorksheetContents';
@@ -26,7 +28,7 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
     resultsUserKey,
     page: initialPage,
     subPage: initialSubPage,
-    onPageChange: initialOnPageChange,
+    onPageChangeRef: _onPageChangeRef,
     lastPageChildren,
     readOnly: initialReadOnly = false,
     withoutTableOfContents = false,
@@ -40,11 +42,16 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
   
   const [ page, _setPage ] = useStableState(initialPage ?? 1);
   const [ subPage, _setSubPage ] = useStableState(initialSubPage ?? 1);
-  const onPageChange: OnPageChange = initialOnPageChange ?? ((page, subPage, entries) => {
-    _setPage(page);
-    _setSubPage(subPage);
-    setSearchParams(entries);
-  });
+  const onPageChangeRef = useStableRef(_onPageChangeRef);
+  const onPageChange: OnPageChange = useCallback((page, subPage, entries) => {
+    if (onPageChangeRef.current) {
+      onPageChangeRef.current(page, subPage, entries);
+    } else {
+      _setPage(page);
+      _setSubPage(subPage);
+      setSearchParams(entries);
+    }
+  }, [ _setPage, _setSubPage, onPageChangeRef, setSearchParams ]);
   
   const {
     data: userResultsData,
@@ -67,6 +74,14 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
   
   const readOnly = initialReadOnly || (userResults?.data ? userNickname !== userResults.data.user.nickname : false);
   const pages = sheetsInPages.length;
+  
+  useKeyPress(useCallback((event) => {
+    if (event.code === 'ArrowRight') {
+      onPageChange(Math.min(page + 1, pages), 1, []);
+    } else if (event.code === 'ArrowLeft') {
+      onPageChange(Math.max(page - 1, 1), 1, []);
+    }
+  }, [ onPageChange, page, pages ]));
   
   return (
     <div

@@ -14,7 +14,7 @@ export default function WorksheetEditor(props: WorksheetEditorProps) {
     setContent,
     page: initialPage,
     subPage: initialSubPage,
-    onPageChange: initialOnPageChange,
+    onPageChangeRef: initialOnPageChange,
     lastPageChildren,
     readOnly = false,
   } = props;

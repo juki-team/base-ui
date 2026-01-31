@@ -20,28 +20,33 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
       {sheetsInPages.map(({ header, content }, index) => {
         
         const subTitles = content.filter(chunk => !!chunk.title.trim());
+        const isHeaderSelected = !(page !== index + 1 || subPage !== 1);
         
         return (
           <div
             key={index}
-            className={classNames('jk-col stretch jk-br-ie br-hl', { 'br-hlaa': page === index + 1 })}
-            style={{ border: page === index + 100 ? undefined : '1px solid transparent' }}
+            className={classNames('jk-col stretch', { 'br-hlaa bc-hl': page === index + 1 })}
+            style={{
+              borderLeft: page === index + 1 ? '3px solid var(--cr-tx-ht-lt)' : '3px solid transparent',
+              borderTopRightRadius: 'var(--border-radius-inline)',
+              borderBottomRightRadius: 'var(--border-radius-inline)',
+            }}
           >
             <Collapse
               header={({ toggle, Icon }) => (
                 <div
-                  className={classNames('jk-row gap nowrap space-between stretch jk-br-ie', {
-                    'hoverable': !!onPageChange,
-                    'cr-tx-ht fw-br': page === index + 1,
+                  className={classNames('jk-row gap nowrap space-between stretch jk-br-ie ', {
+                    'hoverable': !!onPageChange && page !== index + 1,
+                    'cr-pr': !isHeaderSelected,
                   })}
                   style={{ padding: '2px 8px' }}
                   key={index}
-                  onClick={() => onPageChange?.(index + 1, 1, {
+                  onClick={!isHeaderSelected ? (() => onPageChange?.(index + 1, 1, {
                     name: QueryParamKey.PAGE_FOCUS,
                     value: 'jk-worksheet-viewer-container',
-                  })}
+                  })) : undefined}
                 >
-                  <MdMath source={header.title} />
+                  <MdMath source={header.title} flatView className="jk-col" />
                   {!!subTitles.length && (
                     <div
                       onClick={(event) => {
@@ -77,7 +82,7 @@ export const TableOfContents = ({ sheetsInPages, onPageChange, page, subPage }: 
                         })}
                       >
                         {LOGO_WORKSHEET_TYPE('small')[chunk?.type]?.icon || null}
-                        <MdMath source={chunk.title} />
+                        <MdMath source={chunk.title} flatView />
                       </div>
                     );
                   })}

@@ -38,27 +38,27 @@
   }
   
   h1 {
-    font-size: calc(var(--tx-s-m) * 1.5) !important; // 24px;
+    font-size: calc(var(--tx-bs) * 1.5) !important; // 24px;
   }
   
   h2 {
-    font-size: calc(var(--tx-s-m) * 1.375) !important; // 22px;
+    font-size: calc(var(--tx-bs) * 1.375) !important; // 22px;
   }
   
   h3 {
-    font-size: calc(var(--tx-s-m) * 1.25) !important; // 20px;
+    font-size: calc(var(--tx-bs) * 1.25) !important; // 20px;
   }
   
   h4 {
-    font-size: calc(var(--tx-s-m) * 1.125) !important; // 18px;
+    font-size: calc(var(--tx-bs) * 1.125) !important; // 18px;
   }
   
   h5 {
-    font-size: calc(var(--tx-s-m) * 1.09375) !important; // 17.5px;
+    font-size: calc(var(--tx-bs) * 1.09375) !important; // 17.5px;
   }
   
   h6 {
-    font-size: var(--tx-s-m) !important; // 16px
+    font-size: var(--tx-bs) !important; // 16px
   }
   
   table {

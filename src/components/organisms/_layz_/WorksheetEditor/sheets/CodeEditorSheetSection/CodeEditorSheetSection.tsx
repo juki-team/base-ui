@@ -1,20 +1,18 @@
 import { CodeEditorSheetType, isCodeEditorSheetType, isStringJson, WorksheetType } from '@juki-team/commons';
 import { useRef, useState } from 'react';
-import { useStableState } from '../../../../../hooks/useStableState';
 import { FloatToolbar } from '../../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
 import { getActionButtons } from '../getActionButtons';
 import { SheetSection } from '../types';
-import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { CodeEditorSheetSectionEditor } from './CodeEditorSheetSectionEditor';
 import { CodeEditorSheetSectionView } from './CodeEditorSheetSectionView';
 
 export const CodeEditorSheetSection = (props: SheetSection<CodeEditorSheetType>) => {
   
   const {
-    content: initialContent,
-    setContent: saveContent,
+    content,
+    setContent,
     index,
     chunkId,
     sheetLength,
@@ -25,23 +23,13 @@ export const CodeEditorSheetSection = (props: SheetSection<CodeEditorSheetType>)
     readOnly,
   } = props;
   
-  const [ edit, setEdit ] = useState(false);
   const [ modal, setModal ] = useState(false);
-  const [ content, _setContent ] = useStableState(initialContent);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const onSaveEdit = () => {
-    setEdit(!edit);
-    saveContent?.(content);
-  };
-  useOnSaveSheetSection(sectionRef, edit, onSaveEdit);
-  
-  const setContent = saveContent ? _setContent : undefined;
   
   return (
     <div
       ref={sectionRef}
       className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
-      onDoubleClick={() => setEdit(true)}
     >
       {setContent && (
         <EditSheetModal
@@ -52,7 +40,7 @@ export const CodeEditorSheetSection = (props: SheetSection<CodeEditorSheetType>)
           isValid={(value) => isStringJson(value) && isCodeEditorSheetType(JSON.parse(value))}
         />
       )}
-      {setContent && edit ? (
+      {setContent ? (
         <CodeEditorSheetSectionEditor
           content={content}
           setContent={setContent}
@@ -75,16 +63,11 @@ export const CodeEditorSheetSection = (props: SheetSection<CodeEditorSheetType>)
         <FloatToolbar
           actionButtons={getActionButtons({
             type: WorksheetType.CODE_EDITOR,
-            edit,
+            edit: true,
             setModal,
             index,
             sheetLength,
             setSheet,
-            onSaveEdit,
-            onCancel: () => {
-              setEdit(false);
-              _setContent(initialContent);
-            },
           })}
           placement="right-end"
           outer

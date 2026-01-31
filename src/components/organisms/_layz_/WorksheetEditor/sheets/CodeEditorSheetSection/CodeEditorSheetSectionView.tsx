@@ -47,7 +47,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
   
   const totalSubmissions = submissions.length;
   const submissionIndex = totalSubmissions - _submissionIndex - 1;
-  let initialFiles = submissions[submissionIndex]?.files ?? content.files;
+  const initialFiles = submissions[submissionIndex]?.files ?? content.files;
   
   const setLoaderStatusRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
@@ -60,13 +60,12 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
       files,
       testCases,
     };
-    let response;
     const assignmentId = searchParams.get(QueryParamKey.ASSIGNMENT);
     const { url, ...options } = jukiApiManager.API_V2.worksheet.submitCodeEditor({
       params: { worksheetKey, secondaryKey: assignmentId ?? '' },
       body: codeEditorSubmissionDTO,
     });
-    response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
+    const response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
     await userResults?.mutate?.();
     notifyResponse(response, setLoaderStatusRef.current);
   };

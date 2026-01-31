@@ -36,6 +36,7 @@ export interface MdMathProps {
   unBlur?: boolean,
   flatView?: boolean,
   detectRequestAnimationFrame?: boolean,
+  className?: string,
 }
 
 export enum CodeRenderMode {

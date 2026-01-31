@@ -143,6 +143,7 @@ function MdMathComponent(props: MdMathProps) {
     unBlur,
     flatView = false,
     detectRequestAnimationFrame,
+    className,
   } = props;
   
   const { Link } = useUIStore(store => store.components);
@@ -354,7 +355,7 @@ function MdMathComponent(props: MdMathProps) {
   const [ blur, setBlur ] = useStableState(_blur);
   
   return (
-    <div className="jk-md-math pn-re">
+    <div className={classNames('jk-md-math pn-re', className)}>
       {detectRequestAnimationFrame && <DetectRequestAnimationFrame name="MdMath" />}
       <ReactMarkdown {...mdProps} >
         {source}

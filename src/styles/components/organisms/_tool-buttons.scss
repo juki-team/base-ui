@@ -27,7 +27,7 @@
 }
 
 .excalidraw.excalidraw-container {
-  .layer-ui__wrapper__top-right.zen-mode-transition {
+  .layer-ui__wrapper__top-right.zen-mode-transition > label[title="Library"] {
     display: none !important;
   }
   
@@ -53,12 +53,16 @@
   z-index: var(--zi-tool-buttons);
   right: calc(var(--pad-sm) / 2) !important;
   top: calc(var(--pad-sm) / 2) !important;
-  padding: 4px;
+  padding: 2px;
   border-radius: var(--border-radius-inline);
   
   &:not(:hover) > *:not(:first-child):not(.is-active) {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+  &:not(:has(.is-active)):not(:hover) > *:not(:first-child):not(.is-active) {
     display: none;
-    opacity: 0;
   }
   
   &:hover {
@@ -67,16 +71,16 @@
   }
   
   .jk-button.tiny {
-    font-size: 12px;
-    --line-height: 18px;
-    line-height: 14px;
-    --tx-h-m: calc(16px * 1.5);
+    font-size: 10px;
+    --line-height: 16px;
+    line-height: 12px;
+    --tx-h-m: calc(14px * 1.5);
     
     > .jk-icon {
-      height: 14px;
-      min-height: 14px;
-      min-width: 14px;
-      width: 14px;
+      height: 12px;
+      min-height: 12px;
+      min-width: 12px;
+      width: 12px;
     }
   }
 }

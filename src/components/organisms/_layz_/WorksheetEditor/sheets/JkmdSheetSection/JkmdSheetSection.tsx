@@ -100,12 +100,10 @@ export const JkmdSheetSection = (props: SheetSection<JkmdSheetType>) => {
                 )}
               </ResultHeader>
             )}
-            <ChunkTitle content={content} />
-            {!!text && (
-              <div className="jk-br-ie jk-pg wh-100 bc-we">
-                <MdMathViewer source={text} />
-              </div>
-            )}
+            <div className="jk-pg-rl wh-100 bc-we">
+              <ChunkTitle content={content} />
+              {!!text && <MdMathViewer source={text} />}
+            </div>
           </div>
         )}
       {setSheet && (

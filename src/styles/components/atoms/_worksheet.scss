@@ -10,10 +10,28 @@
   
   .worksheet-content {
     width: var(--worksheet-contents-header-width);
+    //--tx-bs: calc(var(--tx-bs) * 0.8);
+    
+    h1, h2, h3 {
+      line-height: 1.2;
+      padding: 0;
+    }
+    
+    h1 {
+      font-size: calc(var(--tx-bs) * 0.6 * 1.5) !important; // 24px;
+    }
+    
+    h2 {
+      font-size: calc(var(--tx-bs) * 0.6 * 1.375) !important; // 22px;
+    }
+    
+    h3 {
+      font-size: calc(var(--tx-bs) * 0.6 * 1.25) !important; // 20px;
+    }
   }
   
   .worksheet-bodies {
-    width: calc(100% - var(--worksheet-contents-header-width) - var(--gap));
+    width: min(calc(100% - var(--worksheet-contents-header-width) - var(--gap)), 64ch);
     
     &.is-solvable {
       [class$="-sheet-section-view"], [class*="-sheet-section-view "] {
@@ -32,11 +50,17 @@
   .worksheet-bodies:first-child {
     width: 100%;
   }
-}
-
-.worksheet-viewer-container, .worksheet-editor-container {
-  .worksheet-bodies {
-    max-width: 720px;
+  
+  .JK_MD-chunk + .JK_MD-chunk {
+    ////background: red;
+    //border-top-left-radius: 0;
+    //border-top-right-radius: 0;
+    //
+    //.jk-md-sheet-section {
+    //  border-top-left-radius: 0;
+    //  border-top-right-radius: 0;
+    //  //background: blue;
+    //}
   }
 }
 

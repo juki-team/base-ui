@@ -57,6 +57,51 @@ export default function ExcalidrawButton() {
     });
   }, [ excalidrawAPI, viewBackgroundColor ]);
   
+  const backgroundToggle = (
+    <div className="jk-col gap bc-we elevation-1 jk-br-ie" style={{ padding: 2 }}>
+      <T className="tt-se tx-t">background</T>
+      <InputToggle
+        // data-tooltip-id="jk-tooltip"
+        // data-tooltip-content={viewBackgroundColor === 'transparent' ? 'change to white background' : 'change to transparent background'}
+        // data-tooltip-place="bottom-end"
+        size="tiny"
+        leftLabel={
+          <div
+            data-tooltip-id="jk-tooltip"
+            data-tooltip-content="white"
+            data-tooltip-place="bottom-end"
+            className="br-50-pc br-g1"
+            style={{ background: 'white', width: 12, height: 12 }}
+          />
+        }
+        rightLabel={
+          <div
+            data-tooltip-id="jk-tooltip"
+            data-tooltip-content="transparent"
+            data-tooltip-place="bottom-end"
+            className="br-50-pc br-g1"
+            style={{
+              background: 'white',
+              width: 12,
+              height: 12,
+              backgroundImage:
+                'linear-gradient(45deg, #ccc 25%, transparent 25%),' +
+                'linear-gradient(-45deg, #ccc 25%, transparent 25%),' +
+                'linear-gradient(45deg, transparent 75%, #ccc 75%),' +
+                'linear-gradient(-45deg, transparent 75%, #ccc 75%)',
+              backgroundSize: '6px 6px',
+              backgroundPosition: '0 0, 0 3px, 3px -3px, -3px 0px',
+            }}
+          />
+        }
+        checked={viewBackgroundColor === 'transparent'}
+        onChange={() => {
+          setViewBackgroundColor(viewBackgroundColor === 'transparent' ? '#FFFFFF' : 'transparent');
+        }}
+      />
+    </div>
+  );
+  
   return (
     <>
       {isActive ? (
@@ -83,50 +128,7 @@ export default function ExcalidrawButton() {
               // ),
             },
             {
-              children: (
-                <div className="jk-col gap bc-we elevation-1 jk-pg-xsm jk-br-ie">
-                  <T className="tt-se tx-t">background</T>
-                  <InputToggle
-                    // data-tooltip-id="jk-tooltip"
-                    // data-tooltip-content={viewBackgroundColor === 'transparent' ? 'change to white background' : 'change to transparent background'}
-                    // data-tooltip-place="bottom-end"
-                    size="tiny"
-                    leftLabel={
-                      <div
-                        data-tooltip-id="jk-tooltip"
-                        data-tooltip-content="white"
-                        data-tooltip-place="bottom-end"
-                        className="br-50-pc br-g1"
-                        style={{ background: 'white', width: 12, height: 12 }}
-                      />
-                    }
-                    rightLabel={
-                      <div
-                        data-tooltip-id="jk-tooltip"
-                        data-tooltip-content="transparent"
-                        data-tooltip-place="bottom-end"
-                        className="br-50-pc br-g1"
-                        style={{
-                          background: 'white',
-                          width: 12,
-                          height: 12,
-                          backgroundImage:
-                            'linear-gradient(45deg, #ccc 25%, transparent 25%),' +
-                            'linear-gradient(-45deg, #ccc 25%, transparent 25%),' +
-                            'linear-gradient(45deg, transparent 75%, #ccc 75%),' +
-                            'linear-gradient(-45deg, transparent 75%, #ccc 75%)',
-                          backgroundSize: '6px 6px',
-                          backgroundPosition: '0 0, 0 3px, 3px -3px, -3px 0px',
-                        }}
-                      />
-                    }
-                    checked={viewBackgroundColor === 'transparent'}
-                    onChange={() => {
-                      setViewBackgroundColor(viewBackgroundColor === 'transparent' ? '#FFFFFF' : 'transparent');
-                    }}
-                  />
-                </div>
-              ),
+              children: backgroundToggle,
             },
           ]}
         />
@@ -161,6 +163,16 @@ export default function ExcalidrawButton() {
               onChange={(elements, appState) => {
                 const data = { elements, appState, viewBackgroundColor };
                 sessionStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
+              }}
+              renderTopRightUI={() => {
+                return (
+                  <div className="jk-row gap" style={{ marginRight: 16 }}>
+                    {backgroundToggle}
+                    <Button size="tiny" onClick={() => setIsActive(false)}>
+                      <T className="tt-se">exit</T>
+                    </Button>
+                  </div>
+                );
               }}
             >
               <MainMenu>

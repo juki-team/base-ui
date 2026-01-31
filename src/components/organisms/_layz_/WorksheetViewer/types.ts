@@ -9,7 +9,7 @@ export interface WorksheetViewerProps {
   resultsUserKey?: string,
   page?: number,
   subPage?: number,
-  onPageChange?: OnPageChange,
+  onPageChangeRef?: OnPageChange,
   lastPageChildren?: ReactNode,
   readOnly?: boolean,
   withoutTableOfContents?: boolean,

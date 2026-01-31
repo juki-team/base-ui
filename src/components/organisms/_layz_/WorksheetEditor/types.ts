@@ -22,7 +22,7 @@ export type SetSheetType<T extends BodyWorksheetType> = Dispatch<SetStateAction<
 export type SetContentType<T extends BodyWorksheetType> = Dispatch<SetStateAction<T>>;
 
 export interface WorksheetBodyProps {
-  sheet: BodyWorksheetType[],
+  sheetPage: WorksheetsInPages[number],
   setSheet?: SetSheetType<BodyWorksheetType>,
   userResults?: UserResultsType,
   readOnly: boolean,
@@ -32,7 +32,8 @@ export interface WorksheetBodyProps {
   asSlides?: boolean,
 }
 
-export interface WorksheetNodeProps extends Pick<WorksheetBodyProps, 'sheet' | 'setSheet' | 'userResults' | 'readOnly' | 'isSolvable' | 'worksheetKey' | 'asSlides'> {
+export interface WorksheetNodeProps extends Pick<WorksheetBodyProps, 'setSheet' | 'userResults' | 'readOnly' | 'isSolvable' | 'worksheetKey' | 'asSlides'> {
+  sheet: BodyWorksheetType[],
   index: number,
   length: number,
 }

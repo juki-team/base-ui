@@ -10,9 +10,9 @@ import {
 } from '@juki-team/commons';
 import { useCallback, useRef, useState } from 'react';
 import { QueryParamKey } from '../../../../../enums';
-import { classNames } from '../../../../helpers';
 import { Button, T } from '../../../../atoms';
 import { DeleteIcon, SettingsIcon } from '../../../../atoms/server';
+import { classNames } from '../../../../helpers';
 import { NotUndefined } from '../../../../types';
 import { MdMathEditor } from '../../MdMathEditor';
 import type { WorksheetBodiesProps, WorksheetBodyProps } from '../types';
@@ -143,7 +143,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         />
       )}
       <WorksheetBody
-        sheet={sheetPage.content}
+        sheetPage={sheetPage}
         setSheet={setSheets ? setSheet : undefined}
         userResults={userResults}
         readOnly={!!readOnly}
