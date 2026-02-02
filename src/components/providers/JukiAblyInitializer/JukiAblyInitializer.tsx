@@ -1,5 +1,5 @@
 import Spaces from '@ably/spaces';
-import { SpaceProvider, SpacesProvider, useSpace } from '@ably/spaces/react';
+import { SpaceProvider, SpacesProvider } from '@ably/spaces/react';
 import {
   CHANNEL_PRESENCE_CLIENT,
   CHANNEL_PUBLISH_MESSAGES,
@@ -148,57 +148,6 @@ export const JukiAblyInitializer = () => {
   return null;
 };
 
-const Cursors = () => {
-  
-  const { nickname, imageUrl } = useUserStore((state) => state.user);
-  const { space } = useSpace();
-  
-  useEffect(() => {
-    
-    const leaveSpace = async () => {
-      try {
-        await space?.leave();
-      } catch (error) {
-        console.warn('leaving space error', error);
-      }
-    };
-    
-    const fun = async () => {
-      if (space) {
-        await leaveSpace();
-        try {
-          await space.enter({
-            username: nickname,
-            avatar: imageUrl,
-          });
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-    void fun();
-    return () => {
-      void leaveSpace();
-    };
-  }, [ imageUrl, nickname, space ]);
-  
-  useEffect(() => {
-    const move = (e: MouseEvent) => {
-      if (space) {
-        void space.cursors.set({ position: { x: e.clientX, y: e.clientY }, data: {} });
-      }
-    };
-    
-    window.addEventListener('mousemove', move);
-    
-    return () => {
-      window.removeEventListener('mousemove', move);
-    };
-  }, [ space ]);
-  
-  return null;
-};
-
 export const JukiAblySpaceProvider = ({ children }: PropsWithChildren) => {
   const searchParams = useRouterStore(store => store.searchParams);
   const roomKey = searchParams.get(QueryParamKey.ROOM);
@@ -206,7 +155,6 @@ export const JukiAblySpaceProvider = ({ children }: PropsWithChildren) => {
     return (
       <SpacesProvider client={ablySpaces}>
         <SpaceProvider name={'room:' + roomKey}>
-          <Cursors />
           {children}
         </SpaceProvider>
       </SpacesProvider>
