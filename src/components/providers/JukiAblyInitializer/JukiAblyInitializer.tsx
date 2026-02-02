@@ -12,12 +12,12 @@ import {
   ContentResponseType,
   getParamsOfClientId,
 } from '@juki-team/commons';
-import Ably, { Realtime, TokenDetails, TokenRequest } from 'ably';
+import Ably, { TokenDetails, TokenRequest } from 'ably';
 import { LiveObjects } from 'ably/liveobjects';
 import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
 import { PropsWithChildren, useEffect, useState } from 'react';
 import { QueryParamKey } from '../../../enums';
-import { jukiApiManager } from '../../../settings';
+import { jukiAbly, jukiApiManager } from '../../../settings';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
@@ -90,9 +90,6 @@ const newAblyClient = (uiId: string) => {
   return null;
 };
 
-export let ablyRealtimeClient: null | Realtime = null;
-let ablySpaces: null | Spaces = null;
-
 export const JukiAblyInitializer = () => {
   
   const clientId = useUserStore(store => store.clientId);
@@ -101,15 +98,15 @@ export const JukiAblyInitializer = () => {
   useEffect(() => {
     (async () => {
       try {
-        if (ablyRealtimeClient) {
+        if (jukiAbly.realtimeClient) {
           consoleInfo('Closing previous Ably connection due to clientId change');
-          ablyRealtimeClient.close();
+          jukiAbly.realtimeClient.close();
         }
         const { sessionId, uiId } = getParamsOfClientId(clientId);
         if (!!sessionId && !!uiId) {
           consoleInfo(`Creating new Ably connection clientId: "${clientId}"`);
-          ablyRealtimeClient = newAblyClient(uiId);
-          ablySpaces = new Spaces(ablyRealtimeClient!);
+          jukiAbly.realtimeClient = newAblyClient(uiId);
+          jukiAbly.spaces = new Spaces(jukiAbly.realtimeClient!);
           setForceRender(Date.now());
           setTimeout(newAuth, 1000);
         } else {
@@ -125,10 +122,10 @@ export const JukiAblyInitializer = () => {
     })();
   }, [ clientId, newAuth ]);
   
-  if (isBrowser() && ablyRealtimeClient) {
+  if (isBrowser() && jukiAbly.realtimeClient) {
     return (
       <ErrorBoundary background>
-        <AblyProvider client={ablyRealtimeClient} key={forceRender}>
+        <AblyProvider client={jukiAbly.realtimeClient} key={forceRender}>
           <ChannelProvider channelName={CHANNEL_PUBLISH_SUBSCRIPTIONS}>
             <ChannelProvider channelName={CHANNEL_SUBSCRIBE_CLIENT(clientId)}>
               <ChannelProvider channelName={CHANNEL_PUBLISH_MESSAGES}>
@@ -151,9 +148,9 @@ export const JukiAblyInitializer = () => {
 export const JukiAblySpaceProvider = ({ children }: PropsWithChildren) => {
   const searchParams = useRouterStore(store => store.searchParams);
   const roomKey = searchParams.get(QueryParamKey.ROOM);
-  if (isBrowser() && ablyRealtimeClient && ablySpaces && roomKey) {
+  if (isBrowser() && jukiAbly.realtimeClient && jukiAbly.spaces && roomKey) {
     return (
-      <SpacesProvider client={ablySpaces}>
+      <SpacesProvider client={jukiAbly.spaces}>
         <SpaceProvider name={'room:' + roomKey}>
           {children}
         </SpaceProvider>
