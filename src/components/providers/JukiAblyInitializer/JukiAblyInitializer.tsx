@@ -195,27 +195,16 @@ const Cursors = () => {
   return null;
 };
 
-const RoomProvider = ({ children }: PropsWithChildren) => {
+export const JukiAblySpaceProvider = ({ children }: PropsWithChildren) => {
   const searchParams = useRouterStore(store => store.searchParams);
   const roomKey = searchParams.get(QueryParamKey.ROOM);
-  if (roomKey) {
-    return (
-      <SpaceProvider name={'room:' + roomKey}>
-        <Cursors />
-        {children}
-      </SpaceProvider>
-    );
-  }
-  return null;
-};
-
-export const JukiAblySpaceProvider = ({ children }: PropsWithChildren) => {
-  if (isBrowser() && ablyClient && ablySpaces) {
+  if (isBrowser() && ablyClient && ablySpaces && roomKey) {
     return (
       <SpacesProvider client={ablySpaces}>
-        <RoomProvider>
+        <SpaceProvider name={'room:' + roomKey}>
+          <Cursors />
           {children}
-        </RoomProvider>
+        </SpaceProvider>
       </SpacesProvider>
     );
   }
