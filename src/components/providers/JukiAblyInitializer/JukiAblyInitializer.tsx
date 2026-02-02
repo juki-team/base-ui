@@ -1,3 +1,5 @@
+import Spaces from '@ably/spaces';
+import { SpaceProvider, SpacesProvider, useSpace } from '@ably/spaces/react';
 import {
   CHANNEL_PRESENCE_CLIENT,
   CHANNEL_PUBLISH_MESSAGES,
@@ -12,8 +14,10 @@ import {
 } from '@juki-team/commons';
 import Ably, { Realtime, TokenDetails, TokenRequest } from 'ably';
 import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
-import { useEffect, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
+import { QueryParamKey } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
+import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUserStore } from '../../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../../stores/websocket/useWebsocketStore';
 import { authorizedRequest, isBrowser, safeReportError } from '../../helpers';
@@ -83,6 +87,7 @@ const newAblyClient = (uiId: string) => {
 };
 
 let ablyClient: null | Realtime = null;
+let ablySpaces: null | Spaces = null;
 
 export const JukiAblyInitializer = () => {
   
@@ -100,6 +105,7 @@ export const JukiAblyInitializer = () => {
         if (!!sessionId && !!uiId) {
           consoleInfo(`Creating new Ably connection clientId: "${clientId}"`);
           ablyClient = newAblyClient(uiId);
+          ablySpaces = new Spaces(ablyClient!);
           setForceRender(Date.now());
           setTimeout(newAuth, 1000);
         } else {
@@ -136,4 +142,83 @@ export const JukiAblyInitializer = () => {
   }
   
   return null;
+};
+
+const Cursors = () => {
+  
+  const { nickname, imageUrl } = useUserStore((state) => state.user);
+  const { space } = useSpace();
+  
+  useEffect(() => {
+    
+    const leaveSpace = async () => {
+      try {
+        await space?.leave();
+      } catch (error) {
+        console.warn('leaving space error', error);
+      }
+    };
+    
+    const fun = async () => {
+      if (space) {
+        await leaveSpace();
+        try {
+          await space.enter({
+            username: nickname,
+            avatar: imageUrl,
+          });
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    void fun();
+    return () => {
+      void leaveSpace();
+    };
+  }, [ imageUrl, nickname, space ]);
+  
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      if (space) {
+        void space.cursors.set({ position: { x: e.clientX, y: e.clientY }, data: {} });
+      }
+    };
+    
+    window.addEventListener('mousemove', move);
+    
+    return () => {
+      window.removeEventListener('mousemove', move);
+    };
+  }, [ space ]);
+  
+  return null;
+};
+
+const RoomProvider = ({ children }: PropsWithChildren) => {
+  const searchParams = useRouterStore(store => store.searchParams);
+  const roomKey = searchParams.get(QueryParamKey.ROOM);
+  if (roomKey) {
+    return (
+      <SpaceProvider name={'room:' + roomKey}>
+        <Cursors />
+        {children}
+      </SpaceProvider>
+    );
+  }
+  return null;
+};
+
+export const JukiAblySpaceProvider = ({ children }: PropsWithChildren) => {
+  if (isBrowser() && ablyClient && ablySpaces) {
+    return (
+      <SpacesProvider client={ablySpaces}>
+        <RoomProvider>
+          {children}
+        </RoomProvider>
+      </SpacesProvider>
+    );
+  }
+  
+  return children;
 };

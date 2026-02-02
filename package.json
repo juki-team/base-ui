@@ -78,6 +78,7 @@
     "check:circular-deps-graph": "npx madge --circular ./dist/* --image deps.png"
   },
   "dependencies": {
+    "@ably/spaces": "^0.5.2",
     "@codemirror/autocomplete": "^6.20.0",
     "@codemirror/lang-cpp": "^6.0.3",
     "@codemirror/lang-html": "^6.4.11",

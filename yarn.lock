@@ -9,6 +9,13 @@
   dependencies:
     bops "^1.0.1"
 
+"@ably/spaces@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@ably/spaces/-/spaces-0.5.2.tgz#2a9d81b9d7050e2ac929c296742fa19055e9f947"
+  integrity sha512-uGCsN6GIDZREh/3IdR5NJchH5jqC7+HKzpB4gpn2zCXnh/71ggxs/Zk6B1z4caHK+eMcEZHotvY87S1+WghI4A==
+  dependencies:
+    nanoid "^3.3.11"
+
 "@adobe/css-tools@^4.4.0":
   version "4.4.4"
   resolved "https://registry.yarnpkg.com/@adobe/css-tools/-/css-tools-4.4.4.tgz#2856c55443d3d461693f32d2b96fb6ea92e1ffa9"

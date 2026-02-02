@@ -1,6 +1,6 @@
 import { memo, PropsWithChildren } from 'react';
 import { useClientTrackLocation } from '../hooks/useClientTrackLocation';
-import { JukiAblyInitializer } from './JukiAblyInitializer';
+import { JukiAblyInitializer, JukiAblySpaceProvider } from './JukiAblyInitializer';
 import { JukiLastPathInitializer } from './JukiLastPathInitializer';
 import { JukiPageInitializer } from './JukiPageInitializer';
 import { JukiRouterInitializer } from './JukiRouterInitializer';
@@ -61,7 +61,9 @@ export const JukiProviders = <T extends string | number, >(props: PropsWithChild
   return (
     <>
       <JukiUIProvider components={components} multiCompanies={multiCompanies} onSeeMyProfile={onSeeMyProfile}>
-        {children}
+        <JukiAblySpaceProvider>
+          {children}
+        </JukiAblySpaceProvider>
       </JukiUIProvider>
       <ClientTrackLocation />
       <JukiUserProvider />
