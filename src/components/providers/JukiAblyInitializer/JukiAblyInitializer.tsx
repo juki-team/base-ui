@@ -13,6 +13,7 @@ import {
   getParamsOfClientId,
 } from '@juki-team/commons';
 import Ably, { Realtime, TokenDetails, TokenRequest } from 'ably';
+import { LiveObjects } from 'ably/liveobjects';
 import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
 import { PropsWithChildren, useEffect, useState } from 'react';
 import { QueryParamKey } from '../../../enums';
@@ -81,12 +82,15 @@ const newAblyClient = (uiId: string) => {
           callback(null, null);
         }
       },
+      plugins: {
+        LiveObjects,
+      },
     });
   }
   return null;
 };
 
-let ablyClient: null | Realtime = null;
+export let ablyRealtimeClient: null | Realtime = null;
 let ablySpaces: null | Spaces = null;
 
 export const JukiAblyInitializer = () => {
@@ -97,15 +101,15 @@ export const JukiAblyInitializer = () => {
   useEffect(() => {
     (async () => {
       try {
-        if (ablyClient) {
+        if (ablyRealtimeClient) {
           consoleInfo('Closing previous Ably connection due to clientId change');
-          ablyClient.close();
+          ablyRealtimeClient.close();
         }
         const { sessionId, uiId } = getParamsOfClientId(clientId);
         if (!!sessionId && !!uiId) {
           consoleInfo(`Creating new Ably connection clientId: "${clientId}"`);
-          ablyClient = newAblyClient(uiId);
-          ablySpaces = new Spaces(ablyClient!);
+          ablyRealtimeClient = newAblyClient(uiId);
+          ablySpaces = new Spaces(ablyRealtimeClient!);
           setForceRender(Date.now());
           setTimeout(newAuth, 1000);
         } else {
@@ -121,10 +125,10 @@ export const JukiAblyInitializer = () => {
     })();
   }, [ clientId, newAuth ]);
   
-  if (isBrowser() && ablyClient) {
+  if (isBrowser() && ablyRealtimeClient) {
     return (
       <ErrorBoundary background>
-        <AblyProvider client={ablyClient} key={forceRender}>
+        <AblyProvider client={ablyRealtimeClient} key={forceRender}>
           <ChannelProvider channelName={CHANNEL_PUBLISH_SUBSCRIPTIONS}>
             <ChannelProvider channelName={CHANNEL_SUBSCRIBE_CLIENT(clientId)}>
               <ChannelProvider channelName={CHANNEL_PUBLISH_MESSAGES}>
@@ -198,7 +202,7 @@ const Cursors = () => {
 export const JukiAblySpaceProvider = ({ children }: PropsWithChildren) => {
   const searchParams = useRouterStore(store => store.searchParams);
   const roomKey = searchParams.get(QueryParamKey.ROOM);
-  if (isBrowser() && ablyClient && ablySpaces && roomKey) {
+  if (isBrowser() && ablyRealtimeClient && ablySpaces && roomKey) {
     return (
       <SpacesProvider client={ablySpaces}>
         <SpaceProvider name={'room:' + roomKey}>
