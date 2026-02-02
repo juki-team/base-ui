@@ -36,6 +36,7 @@ export * from '../components/hooks/useClientTrackLocation';
 export * from '../components/hooks/useSubscribe';
 
 // store hooks
+export * from '../stores/ably/useAblyStore';
 export * from '../stores/i18n/useI18nStore';
 export * from '../stores/lastPath/useLastPath';
 export * from '../stores/lazyLoading/useLazyLoadingStore';
