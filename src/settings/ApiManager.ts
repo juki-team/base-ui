@@ -976,7 +976,7 @@ export class ApiManager {
         })),
         updateData: valid<
           {
-            params: { companyKey: string },
+            params: { key: string, companyKey: string },
             body: {
               name: string,
               templates: { id: string, name: string, template: string }[],
@@ -984,8 +984,8 @@ export class ApiManager {
             }
           },
           HTTPMethod.PUT
-        >(({ params: { companyKey } = { companyKey: '' }, body }) => ({
-          url: injectCompany(injectBaseUrl('company', ''), companyKey),
+        >(({ params: { key, companyKey }, body }) => ({
+          url: injectCompany(injectBaseUrl('document-template', `/${key}`), companyKey),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
