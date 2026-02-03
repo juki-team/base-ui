@@ -1,11 +1,14 @@
 import { useSpace } from '@ably/spaces/dist/mjs/react';
-import { useEffect } from 'react';
+import { consoleError, consoleWarn } from '@juki-team/commons';
+import { useEffect, useState } from 'react';
 import { useUserStore } from '../../stores/user/useUserStore';
+import { useStableRef } from './useStableRef';
 
-export const useTrackCursor = (offset = { x: 0, y: 0 }) => {
+export const useTrackCursor = (offsetRef = { x: 0, y: 0 }) => {
   
   const { nickname, imageUrl } = useUserStore((state) => state.user);
   const { space } = useSpace();
+  const [ enteredSpace, setEnteredSpace ] = useState(false);
   
   useEffect(() => {
     
@@ -13,20 +16,24 @@ export const useTrackCursor = (offset = { x: 0, y: 0 }) => {
       try {
         await space?.leave();
       } catch (error) {
-        console.warn('leaving space error', error);
+        consoleWarn('Leaving space error', error);
+      } finally {
+        setEnteredSpace(false);
       }
     };
     
     const fun = async () => {
+      await leaveSpace();
       if (space) {
-        await leaveSpace();
         try {
           await space.enter({
             username: nickname,
             avatar: imageUrl,
           });
+          setEnteredSpace(true);
         } catch (error) {
-          console.error(error);
+          consoleError(error);
+          setEnteredSpace(false);
         }
       }
     };
@@ -36,10 +43,15 @@ export const useTrackCursor = (offset = { x: 0, y: 0 }) => {
     };
   }, [ imageUrl, nickname, space ]);
   
+  const offset = useStableRef(offsetRef);
+  
   useEffect(() => {
     const move = (e: MouseEvent) => {
-      if (space) {
-        void space.cursors.set({ position: { x: offset.x + e.clientX, y: offset.y + e.clientY }, data: {} });
+      if (space && enteredSpace) {
+        void space.cursors.set({
+          position: { x: offset.current.x + e.clientX, y: offset.current.y + e.clientY },
+          data: {},
+        });
       }
     };
     
@@ -48,5 +60,5 @@ export const useTrackCursor = (offset = { x: 0, y: 0 }) => {
     return () => {
       window.removeEventListener('mousemove', move);
     };
-  }, [ space, offset.x, offset.y ]);
+  }, [ space, offset, enteredSpace ]);
 };
