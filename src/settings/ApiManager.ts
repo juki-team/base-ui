@@ -976,7 +976,7 @@ export class ApiManager {
         })),
         updateData: valid<
           {
-            params: { key: string, companyKey: string },
+            params: { key: string, companyKey?: string },
             body: {
               name: string,
               templates: { id: string, name: string, template: string }[],
