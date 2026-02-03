@@ -21,6 +21,7 @@ import {
   UserStatus,
 } from '@juki-team/commons';
 import type { ErrorInfo } from 'react';
+import { RowDataType } from '../components/molecules/_lazy_/DataGrid/types';
 import {
   AuthorizedRequestType,
   SignInPayloadDTO,
@@ -952,6 +953,43 @@ export class ApiManager {
           body: JSON.stringify(body),
         })),
       },
+      documentTemplate: {
+        create: valid<
+          { body: { name: string } },
+          HTTPMethod.POST
+        >(({ body }) => ({
+          url: injectBaseUrl('document-template', ''),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        getSummaryList: valid<
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('document-template', '/summary-list'), page, pageSize), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        getData: valid<
+          { params: { key: string } }
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('document-template', `/${key}/data`),
+          method: HTTPMethod.GET,
+        })),
+        updateData: valid<
+          {
+            params: { companyKey: string },
+            body: {
+              name: string,
+              templates: { id: string, name: string, template: string }[],
+              files: { id: string, name: string, data: RowDataType[] }[],
+            }
+          },
+          HTTPMethod.PUT
+        >(({ params: { companyKey } = { companyKey: '' }, body }) => ({
+          url: injectCompany(injectBaseUrl('company', ''), companyKey),
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(body),
+        })),
+      },
       statistics: {
         getCompanyStats: valid<
           {
@@ -983,6 +1021,28 @@ export class ApiManager {
           }
         >(({ params: { companyKeys, startTimestamp, endTimestamp, groupBy } }) => ({
           url: injectBaseUrl('statistics', `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}${companyKeys ? `&companyKeys=${companyKeys}` : ''}`),
+          method: HTTPMethod.GET,
+        })),
+      },
+      excalidraw: {
+        create: valid<
+          { body: { name: string } },
+          HTTPMethod.POST
+        >(({ body }) => ({
+          url: injectBaseUrl('excalidraw', ''),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        getSummaryList: valid<
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('excalidraw', '/summary-list'), page, pageSize), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        getData: valid<
+          { params: { key: string } }
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('excalidraw', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
       },
