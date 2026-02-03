@@ -1,10 +1,9 @@
 import { useSpace } from '@ably/spaces/dist/mjs/react';
 import { consoleError, consoleWarn } from '@juki-team/commons';
-import { useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import { useUserStore } from '../../stores/user/useUserStore';
-import { useStableRef } from './useStableRef';
 
-export const useTrackCursor = (offsetRef = { x: 0, y: 0 }) => {
+export const useTrackCursor = (offsetRef: RefObject<{ x: number, y: number, zoom: number }>) => {
   
   const { nickname, imageUrl } = useUserStore((state) => state.user);
   const { space } = useSpace();
@@ -43,22 +42,26 @@ export const useTrackCursor = (offsetRef = { x: 0, y: 0 }) => {
     };
   }, [ imageUrl, nickname, space ]);
   
-  const offset = useStableRef(offsetRef);
-  
   useEffect(() => {
-    const move = (e: MouseEvent) => {
-      if (space && enteredSpace) {
+    if (space && enteredSpace) {
+      const move = (e: MouseEvent) => {
+        
         void space.cursors.set({
-          position: { x: offset.current.x + e.clientX, y: offset.current.y + e.clientY },
+          position: {
+            x: offsetRef.current.x + e.clientX / offsetRef.current.zoom,
+            y: offsetRef.current.y + e.clientY / offsetRef.current.zoom,
+          },
           data: {},
         });
-      }
-    };
+        
+      };
+      window.addEventListener('mousemove', move);
+      
+      return () => {
+        window.removeEventListener('mousemove', move);
+      };
+    }
     
-    window.addEventListener('mousemove', move);
-    
-    return () => {
-      window.removeEventListener('mousemove', move);
-    };
-  }, [ space, offset, enteredSpace ]);
+    return () => null;
+  }, [ space, enteredSpace, offsetRef ]);
 };
