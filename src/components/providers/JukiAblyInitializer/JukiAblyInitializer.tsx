@@ -16,6 +16,7 @@ import Ably, { TokenDetails, TokenRequest } from 'ably';
 import { LiveObjects } from 'ably/liveobjects';
 import { AblyProvider, ChannelProvider, useChannel } from 'ably/react';
 import { PropsWithChildren, useEffect } from 'react';
+import { ABLY_LOG_LEVEL } from '../../../constants/settings';
 import { QueryParamKey } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
 import { useAblyStore } from '../../../stores/ably/useAblyStore';
@@ -65,6 +66,7 @@ const WebsocketProvider = () => {
 const newAblyClient = (uiId: string) => {
   if (isBrowser()) {
     return new Ably.Realtime({
+      logLevel: ABLY_LOG_LEVEL,
       authCallback: async (_, callback) => {
         if (isBrowser()) {
           consoleInfo('new request to auth ably');
