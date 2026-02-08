@@ -1,6 +1,5 @@
-import type { ReactNode, Ref } from 'react';
-import type { ReactNodeOrFunctionP1Type, ReactNodeOrFunctionType } from '../../types';
-import type { PlacementType } from '../_lazy_/Popover/types';
+import type { Ref } from 'react';
+import type { ReactNodeOrFunctionType } from '../../types';
 
 export type SelectOptionType<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> = {
   value: T,
@@ -18,22 +17,17 @@ export type SelectOption2Type<T, U extends ReactNodeOrFunctionType, V extends Re
 
 export interface SelectProps<T, U extends ReactNodeOrFunctionType, V extends ReactNodeOrFunctionType> {
   className?: string,
+  /** @deprecated No longer used — native select handles its own dropdown */
   popoverClassName?: string,
   options: SelectOptionType<T, U, V>[],
   selectedOption: SelectOption2Type<T, U, V>,
   onChange?: (option: SelectOptionType<T, U, V>) => void,
-  onBlur?: (event: { target: Ref<HTMLDivElement> }) => void,
-  // showOptions?: boolean,
-  // onChangeShowOptions?: (value: boolean) => void,
+  onBlur?: (event: { target: Ref<HTMLSelectElement> }) => void,
   disabled?: boolean,
-  optionsPlacement?: PlacementType,
+  /** @deprecated No longer used — native select handles its own dropdown placement */
+  optionsPlacement?: string,
   expand?: boolean,
   containerWidth?: number | 'child',
-  children?: ReactNodeOrFunctionP1Type<{
-    options: SelectOptionType<T, U, V>[],
-    isOpen: boolean,
-    disabled: boolean,
-    optionSelected: SelectOptionType<T, U, V>,
-    expandIcon: ReactNode,
-  }>
+  /** @deprecated No longer supported — native select renders its own UI */
+  children?: never,
 }

@@ -12,7 +12,7 @@ import {
 import { TriggerAction } from '../../../../../enums';
 import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
-import { MultiSelect, Popover, Select } from '../../../../atoms';
+import { MultiSelect, Popover } from '../../../../atoms';
 import { TableEyeIcon } from '../../../../atoms/server';
 import {
   classNames,
@@ -205,24 +205,36 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
             </ToolbarButtonIcon>
           )}
           {!!downloads.length && (
-            <Select
-              options={downloads}
-              onChange={async ({ value }) => {
-                setDownloading(true);
-                const downloadItem = downloads.find(download => value === download.value);
-                const url = downloadItem?.getUrl(requestProps) ?? '';
-                const filename = downloadItem?.getFilename(requestProps) ?? '';
-                const result = cleanRequest<ContentResponseType<{ urlExportedFile: string }>>(
-                  await getAuthorizedRequest(url),
-                );
-                if (result.success) {
-                  await downloadUrlAsFile(result.content.urlExportedFile, filename);
-                  notifyResponse(result);
-                }
-                setDownloading(false);
-              }}
-              selectedOption={{ value: '' }}
-              containerWidth="child"
+            <Popover
+              popoverClassName="bc-we jk-br-ie elevation-1"
+              triggerOn={TriggerAction.CLICK}
+              placement="bottom"
+              content={
+                <div className="jk-col stretch nowrap ow-ao">
+                  {downloads.map((download) => (
+                    <div
+                      key={download.key ?? JSON.stringify(download.value)}
+                      className="jk-select-option ws-np"
+                      onClick={async (event) => {
+                        event.stopPropagation();
+                        setDownloading(true);
+                        const url = download.getUrl(requestProps) ?? '';
+                        const filename = download.getFilename(requestProps) ?? '';
+                        const result = cleanRequest<ContentResponseType<{ urlExportedFile: string }>>(
+                          await getAuthorizedRequest(url),
+                        );
+                        if (result.success) {
+                          await downloadUrlAsFile(result.content.urlExportedFile, filename);
+                          notifyResponse(result);
+                        }
+                        setDownloading(false);
+                      }}
+                    >
+                      {renderReactNodeOrFunction(download.label)}
+                    </div>
+                  ))}
+                </div>
+              }
             >
               <ToolbarButtonIcon
                 Icon={downloading ? SpinIcon : DownloadIcon}
@@ -232,7 +244,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                   ? ((event) => event.stopPropagation())
                   : undefined}
               />
-            </Select>
+            </Popover>
           )}
           <MultiSelect
             options={headers.map((header) => ({
