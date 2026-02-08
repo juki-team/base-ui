@@ -2,14 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { MockupJukiProvider } from '../../mockup';
 import { Select } from './Select';
-import { SelectProps } from './types';
-
-// @ts-ignore
-Select.defaultProps = {
-  disabled: false,
-  optionsPlacement: 'bottom' as SelectProps<any, any, any>['optionsPlacement'],
-  extend: false,
-};
+import type { SelectProps } from './types';
 
 const meta: Meta<typeof Select> = {
   component: Select,
@@ -22,7 +15,7 @@ const Cmp = (args: SelectProps<any, any, any>) => {
     label: 'test 20',
     value: 20,
   });
-  
+
   const numbers = new Array(40).fill(0);
   const options: { label: string; value: number; disabled: boolean }[] =
     numbers.map((_, option) => ({
@@ -31,7 +24,7 @@ const Cmp = (args: SelectProps<any, any, any>) => {
       value: option,
       disabled: Math.round(Math.random() * 10) > 7,
     }));
-  
+
   return (
     <MockupJukiProvider>
       <div className="jk-pg-lg jk-col gap stretch">
