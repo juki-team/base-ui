@@ -25,7 +25,6 @@ export * from '../components/hooks/usePageFocus';
 export * from '../components/hooks/usePreload';
 export * from '../components/hooks/usePrevious';
 export * from '../components/hooks/useSessionStorage';
-export * from '../components/hooks/useSessionStorage';
 export * from '../components/hooks/useStableRef';
 export * from '../components/hooks/useSyncedState';
 export * from '../components/hooks/useStore';
