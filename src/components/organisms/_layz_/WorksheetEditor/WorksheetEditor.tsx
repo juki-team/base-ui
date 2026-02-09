@@ -1,7 +1,7 @@
 import { getWorksheetsInPages } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { useRouterStore } from '../../../../stores/router/useRouterStore';
-import { useStableState } from '../../../hooks/useStableState';
+import { useSyncedState } from '../../../hooks/useSyncedState';
 import { WorksheetContents } from '../WorksheetContents';
 import { OnPageChange } from '../WorksheetViewer/types';
 import { WorksheetBodies } from './sheets/WorksheetBodies';
@@ -20,8 +20,8 @@ export default function WorksheetEditor(props: WorksheetEditorProps) {
   } = props;
   
   const setSearchParams = useRouterStore(state => state.setSearchParams);
-  const [ page, _setPage ] = useStableState(initialPage ?? 1);
-  const [ subPage, _setSubPage ] = useStableState(initialSubPage ?? 1);
+  const [ page, _setPage ] = useSyncedState(initialPage ?? 1);
+  const [ subPage, _setSubPage ] = useSyncedState(initialSubPage ?? 1);
   const onPageChange: OnPageChange = initialOnPageChange ?? ((page, subPage, entries) => {
     _setPage(page);
     _setSubPage(subPage);

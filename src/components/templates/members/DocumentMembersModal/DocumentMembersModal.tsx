@@ -2,7 +2,7 @@ import { type EntityMembersResponseDTO, Status } from '@juki-team/commons';
 import { type ReactNode, useState } from 'react';
 import { Modal, T } from '../../../atoms';
 import type { BasicModalProps } from '../../../atoms/Modal/types';
-import { useStableState } from '../../../hooks/useStableState';
+import { useSyncedState } from '../../../hooks/useSyncedState';
 import { ButtonLoader } from '../../../molecules';
 import { DocumentMembersContent } from '../DocumentMembersContent';
 import type { DocumentCustomMembersContentProps } from '../types';
@@ -29,7 +29,7 @@ export function DocumentMembersModal(props: DocumentMembersModalProps) {
     isOpen,
   } = props;
   
-  const [ members, setMembers ] = useStableState(initialMembers);
+  const [ members, setMembers ] = useSyncedState(initialMembers);
   const [ loading, setLoading ] = useState(false);
   
   const done = JSON.stringify(members) === JSON.stringify(initialMembers);

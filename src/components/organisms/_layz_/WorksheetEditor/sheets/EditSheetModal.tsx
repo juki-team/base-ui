@@ -2,7 +2,7 @@ import { isObjectJson } from '@juki-team/commons';
 import { Dispatch } from 'react';
 import { Button, InputTextArea, Modal, T } from '../../../../atoms';
 import { BasicModalProps } from '../../../../atoms/Modal/types';
-import { useStableState } from '../../../../hooks/useStableState';
+import { useSyncedState } from '../../../../hooks/useSyncedState';
 
 interface EditSheetModalProps<T> extends BasicModalProps {
   content: T,
@@ -14,7 +14,7 @@ export const EditSheetModal = <T, >(props: EditSheetModalProps<T>) => {
   
   const { isOpen, onClose, content, setContent, isValid } = props;
   
-  const [ value, setValue ] = useStableState(isOpen && isObjectJson(content) ? JSON.stringify(content, null, 2) : '');
+  const [ value, setValue ] = useSyncedState(isOpen && isObjectJson(content) ? JSON.stringify(content, null, 2) : '');
   
   return (
     <Modal

@@ -2,7 +2,7 @@ import { type ReactNode } from 'react';
 import { persistGlobalURLSearchParams } from '../../../settings/AppRoutes';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, getHref, isBrowser, renderReactNodeOrFunctionP1 } from '../../helpers';
-import { useStableState } from '../../hooks/useStableState';
+import { useSyncedState } from '../../hooks/useSyncedState';
 import type { TabsType } from '../../types';
 import { Breadcrumbs } from '../Breadcrumbs/Breadcrumbs';
 import { TabsInline } from '../TabsInline/TabsInline';
@@ -27,7 +27,7 @@ export function TwoContentLayout<T = string, >(props: TwoContentLayoutProps<T>) 
   const LOADING_TAB = 'loading' as T;
   const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
   const _tabKeys = Object.keys(initialTabs);
-  const [ selectedTabKey, setSelectedTabKey ] = useStableState(loading ? LOADING_TAB : initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T);
+  const [ selectedTabKey, setSelectedTabKey ] = useSyncedState(loading ? LOADING_TAB : initialTabKey ?? (_tabKeys?.[0] ? initialTabs[_tabKeys?.[0]]?.key : '') as T);
   const tabs: TabsType<T> = loading ? {
     [LOADING_TAB as string]: {
       key: LOADING_TAB,

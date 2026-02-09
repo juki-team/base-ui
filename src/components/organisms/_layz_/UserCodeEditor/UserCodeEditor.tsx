@@ -20,7 +20,7 @@ import {
 } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useStableRef } from '../../../hooks/useStableRef';
-import { useStableState } from '../../../hooks/useStableState';
+import { useSyncedState } from '../../../hooks/useSyncedState';
 import { CodeRunnerEditor } from './CodeRunnerEditor/CodeRunnerEditor';
 import type { CodeRunnerEditorPropertiesType } from './CodeRunnerEditor/types';
 import type { UserCodeEditorProps } from './types';
@@ -291,13 +291,13 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
     defaultLanguage = languages[0].value;
   }
   
-  const [ newInitialFiles ] = useStableState<StorageType<CodeEditorFiles<T>>>({ [storeKey]: { ...initialFiles } });
+  const [ newInitialFiles ] = useSyncedState<StorageType<CodeEditorFiles<T>>>({ [storeKey]: { ...initialFiles } });
   const [ filesStore, setFilesStore ] = useSaveChunkStorage<CodeEditorFiles<T>>(getSourcesStoreKey(userNickname), newInitialFiles, mergeSources, formatStoreRecovered(languages));
   const onFilesChangeRef = useStableRef(onFilesChange);
   const files = filesStore[storeKey] || EMPTY_OBJECT;
   useEffect(() => onFilesChangeRef.current?.(files), [ files, onFilesChangeRef ]);
   const defaultFileName = initialFileName ?? Object.keys(files)[0] ?? getDefaultFileName(defaultLanguage as CodeLanguage);
-  const [ newInitialSettings ] = useStableState<StorageType<SettingsStore>>({ [storeKey]: { lastFileName: defaultFileName } });
+  const [ newInitialSettings ] = useSyncedState<StorageType<SettingsStore>>({ [storeKey]: { lastFileName: defaultFileName } });
   const [ settingsStore, setSettingsStore ] = useSaveChunkStorage<SettingsStore>(getSettingsStoreKey(userNickname), newInitialSettings, (a, b) => ({ ...a, ...b }), formatSettingsStoreRecovered);
   const currentFileName = settingsStore[storeKey]?.lastFileName ?? defaultFileName;
   const setCurrentFileName = (lastFileName: string) => {
@@ -311,7 +311,7 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   };
   
   const testCaseStoreKey = storeKey;
-  const [ newInitialTestCases ] = useStableState<StorageType<CodeEditorTestCasesType>>(getNewInitialTestCases(testCaseStoreKey, initialTestCases));
+  const [ newInitialTestCases ] = useSyncedState<StorageType<CodeEditorTestCasesType>>(getNewInitialTestCases(testCaseStoreKey, initialTestCases));
   const [ testCasesStore, setTestCasesStore ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, formatTestCasesStoreRecover);
   const onTestCasesChangeRef = useStableRef(onTestCasesChange);
   const testCases = testCasesStore[testCaseStoreKey]!;

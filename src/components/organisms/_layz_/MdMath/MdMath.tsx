@@ -17,7 +17,7 @@ import { Button, DetectRequestAnimationFrame } from '../../../atoms';
 import { VisibilityIcon, VisibilityOffIcon } from '../../../atoms/server';
 import { classNames } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
-import { useStableState } from '../../../hooks/useStableState';
+import { useSyncedState } from '../../../hooks/useSyncedState';
 import { CodeViewer } from '../../../molecules';
 import { ErrorIcon, OpenInNewIcon, SpinIcon } from '../../../server';
 import type { SetSearchParamsType } from '../../../types';
@@ -352,7 +352,7 @@ function MdMathComponent(props: MdMathProps) {
       },
     },
   }), [ Link, setSearchParams, flatView ]);
-  const [ blur, setBlur ] = useStableState(_blur);
+  const [ blur, setBlur ] = useSyncedState(_blur);
   
   return (
     <div className={classNames('jk-md-math pn-re', className)}>

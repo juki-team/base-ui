@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { jukiApiManager } from '../../../../settings';
 import { T } from '../../../atoms';
 import { oneTab } from '../../../helpers';
-import { useStableState } from '../../../hooks/useStableState';
+import { useSyncedState } from '../../../hooks/useSyncedState';
 import { MockupJukiProvider } from '../../../mockup';
 import { ButtonLoader, FetcherLayer, SlideDeck, TwoContentLayout } from '../../../molecules';
 import { PresentationToolButtons } from '../../PresentationToolButtons/PresentationToolButtons';
@@ -111,7 +111,7 @@ export const WorksheetResultViewer: Story = {
 // });
 
 const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, }) => {
-  const [ content, setContent ] = useStableState(initialContent);
+  const [ content, setContent ] = useSyncedState(initialContent);
   return (
     <>
       <WorksheetEditorCmp

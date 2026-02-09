@@ -27,7 +27,7 @@ export * from '../components/hooks/usePrevious';
 export * from '../components/hooks/useSessionStorage';
 export * from '../components/hooks/useSessionStorage';
 export * from '../components/hooks/useStableRef';
-export * from '../components/hooks/useStableState';
+export * from '../components/hooks/useSyncedState';
 export * from '../components/hooks/useStore';
 export * from '../components/hooks/useTrackCursor';
 export * from '../components/hooks/useTriggerWrapper';

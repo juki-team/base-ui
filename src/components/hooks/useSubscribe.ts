@@ -4,14 +4,14 @@ import { useUserStore } from '../../stores/user/useUserStore';
 import { useWebsocketStore } from '../../stores/websocket/useWebsocketStore';
 import { safeReportError } from '../helpers';
 import { useStableRef } from './useStableRef';
-import { useStableState } from './useStableState';
+import { useSyncedState } from './useSyncedState';
 
 export const useSubscribe = (event: Omit<WebSocketSubscribeEventDTO, 'clientId'>, cb: (response: WebSocketResponseEventDTO) => (void | Promise<void>), isValid = () => true) => {
   
   const clientId = useUserStore(store => store.clientId);
   const subscribeToEvent = useWebsocketStore(store => store.subscribeToEvent);
   
-  const [ stableEvent ] = useStableState(event);
+  const [ stableEvent ] = useSyncedState(event);
   const cbRef = useStableRef(cb);
   const isValidRef = useStableRef(isValid);
   

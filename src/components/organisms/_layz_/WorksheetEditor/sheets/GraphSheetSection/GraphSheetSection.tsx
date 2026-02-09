@@ -1,7 +1,7 @@
 import { GraphSheetType, isStringJson, WorksheetType } from '@juki-team/commons';
 import { useRef, useState } from 'react';
 
-import { useStableState } from '../../../../../hooks/useStableState';
+import { useSyncedState } from '../../../../../hooks/useSyncedState';
 import { FloatToolbar } from '../../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
@@ -23,7 +23,7 @@ export const GraphSheetSection = (props: SheetSection<GraphSheetType>) => {
   
   const [ edit, setEdit ] = useState(false);
   const [ modal, setModal ] = useState(false);
-  const [ content, _setContent ] = useStableState(initialContent);
+  const [ content, _setContent ] = useSyncedState(initialContent);
   const sectionRef = useRef<HTMLDivElement>(null);
   const onSaveEdit = () => {
     setEdit(!edit);

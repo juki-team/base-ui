@@ -14,7 +14,7 @@ import { classNames } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
 import { useKeyPress } from '../../../hooks/useKeyPress';
 import { useStableRef } from '../../../hooks/useStableRef';
-import { useStableState } from '../../../hooks/useStableState';
+import { useSyncedState } from '../../../hooks/useSyncedState';
 import type { UserResultsType } from '../../../types';
 import { WorksheetContents } from '../WorksheetContents';
 import { TableOfContents } from '../WorksheetEditor/sheets/TableOfContents';
@@ -40,8 +40,8 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
   const userIsLogged = useUserStore(state => state.user.isLogged);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
   
-  const [ page, _setPage ] = useStableState(initialPage ?? 1);
-  const [ subPage, _setSubPage ] = useStableState(initialSubPage ?? 1);
+  const [ page, _setPage ] = useSyncedState(initialPage ?? 1);
+  const [ subPage, _setSubPage ] = useSyncedState(initialSubPage ?? 1);
   const onPageChangeRef = useStableRef(_onPageChangeRef);
   const onPageChange: OnPageChange = useCallback((page, subPage, entries) => {
     if (onPageChangeRef.current) {

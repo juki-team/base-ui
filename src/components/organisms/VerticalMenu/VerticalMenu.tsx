@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { Children, useEffect, useId } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
-import { useStableState } from '../../hooks/useStableState';
+import { useSyncedState } from '../../hooks/useSyncedState';
 import { NavigateBeforeIcon, NavigateNextIcon } from '../../server';
 import { HorizontalMenu } from '../HorizontalMenu/HorizontalMenu';
 import type { VerticalMenuProps } from './types';
@@ -22,7 +22,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
     onBack,
   } = props;
   
-  const [ open, setOpen ] = useStableState(isOpen);
+  const [ open, setOpen ] = useSyncedState(isOpen);
   const { isSmallScreen, isMediumScreen, isLargeScreen, isHugeScreen } = usePageStore(store => store.viewPort);
   const layoutId = useId();
   

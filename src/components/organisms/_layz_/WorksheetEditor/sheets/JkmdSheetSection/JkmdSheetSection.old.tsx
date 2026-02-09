@@ -14,7 +14,7 @@ import { InputCheckbox, T } from '../../../../../atoms';
 import { authorizedRequest } from '../../../../../helpers';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
-import { useStableState } from '../../../../../hooks/useStableState';
+import { useSyncedState } from '../../../../../hooks/useSyncedState';
 import { ButtonLoader, FloatToolbar } from '../../../../../molecules';
 import { MdMathViewer } from '../../../../MdMathViewer/MdMathViewer';
 import { ChunkTitle } from '../ChunkTitle';
@@ -46,7 +46,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
   const { notifyResponse } = useJukiNotification();
   const [ edit, setEdit ] = useState(false);
   const [ modal, setModal ] = useState(false);
-  const [ content, _setContent ] = useStableState(initialContent);
+  const [ content, _setContent ] = useSyncedState(initialContent);
   const sectionRef = useRef<HTMLDivElement>(null);
   const onSaveEdit = () => {
     setEdit(!edit);

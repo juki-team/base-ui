@@ -81,6 +81,7 @@ export interface InputCommonsProps<T> {
   value?: T,
   name?: string,
   disabled?: boolean,
+  readonly?: boolean,
   // offline?: boolean
   className?: string,
   inputClassName?: string,

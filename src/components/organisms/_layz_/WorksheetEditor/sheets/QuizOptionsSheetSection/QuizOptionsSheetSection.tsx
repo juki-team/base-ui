@@ -14,7 +14,7 @@ import { T } from '../../../../../atoms';
 import { authorizedRequest } from '../../../../../helpers';
 
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
-import { useStableState } from '../../../../../hooks/useStableState';
+import { useSyncedState } from '../../../../../hooks/useSyncedState';
 import { ButtonLoader, FloatToolbar } from '../../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';
 import { EditSheetModal } from '../EditSheetModal';
@@ -43,7 +43,7 @@ export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheetType
   const { notifyResponse } = useJukiNotification();
   const [ edit, setEdit ] = useState(false);
   const [ modal, setModal ] = useState(false);
-  const [ content, _setContent ] = useStableState(initialContent);
+  const [ content, _setContent ] = useSyncedState(initialContent);
   const setContent = saveContent ? _setContent : undefined;
   const sectionRef = useRef<HTMLDivElement>(null);
   const onSaveEdit = () => {
@@ -53,9 +53,9 @@ export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheetType
   useOnSaveSheetSection(sectionRef, edit, onSaveEdit);
   
   const submissions = userResults?.data?.submissions[WorksheetType.QUIZ_OPTIONS]?.[chunkId] ?? [];
-  const [ selectedIndex, setSelectedIndex ] = useStableState(submissions.length - 1);
+  const [ selectedIndex, setSelectedIndex ] = useSyncedState(submissions.length - 1);
   const lastSubmission = submissions.at(selectedIndex);
-  const [ checkedOptions, setCheckedOptions ] = useStableState<string[]>(lastSubmission?.checkedOptions ?? []);
+  const [ checkedOptions, setCheckedOptions ] = useSyncedState<string[]>(lastSubmission?.checkedOptions ?? []);
   
   return (
     <div
