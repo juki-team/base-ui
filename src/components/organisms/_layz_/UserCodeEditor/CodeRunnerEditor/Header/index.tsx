@@ -321,7 +321,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
                   ? <T className="tt-se tx-t ws-np">Copy / Download</T>
                   : <><DownloadIcon size="tiny" /> / <ContentCopyIcon size="tiny" /></>,
               }}
-              containerWidth={'child'}
+              style={{ width: 'auto' }}
               onChange={async ({ value }) => {
                 if (source) {
                   switch (value) {

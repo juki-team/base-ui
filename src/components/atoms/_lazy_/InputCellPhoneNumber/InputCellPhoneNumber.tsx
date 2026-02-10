@@ -129,7 +129,7 @@ export default function InputCellPhoneNumber(props: InputCellPhoneNumberProps) {
         }}
         onChange={({ value }) => setCountryCode(value)}
         popoverClassName="popover-select-cell-phone-number-wrapper"
-        containerWidth={120}
+        style={{ width: 120 }}
       />
       <div className="dial-code">({dialCode})</div>
       <InputBase

@@ -222,7 +222,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                 setDownloading(false);
               }}
               selectedOption={{ value: '' }}
-              containerWidth="child"
+              style={{ width: 'auto' }}
             >
               <ToolbarButtonIcon
                 Icon={downloading ? SpinIcon : DownloadIcon}

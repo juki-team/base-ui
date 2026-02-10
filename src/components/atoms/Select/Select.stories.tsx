@@ -27,7 +27,7 @@ const Cmp = (args: SelectProps<any, any, any>) => {
   const options: { label: string; value: number; disabled: boolean }[] =
     numbers.map((_, option) => ({
       label: 'label ' + option,
-      inputLabel: 'L',
+      inputLabel: Math.round(Math.random() * 10) > 7 ? 'L' : undefined,
       value: option,
       disabled: Math.round(Math.random() * 10) > 7,
     }));
@@ -48,6 +48,13 @@ const Cmp = (args: SelectProps<any, any, any>) => {
             options={options}
             selectedOption={value}
             onChange={setValue}
+          />
+          <Select
+            {...args}
+            options={options}
+            selectedOption={value}
+            onChange={setValue}
+            // containerWidth="options"
           />
         </div>
         as button:

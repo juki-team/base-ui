@@ -474,6 +474,10 @@ div[class*=" jk-grid"], div[class^="jk-grid"] {
         align-items: center;
       }
     }
+    
+    &.disabled {
+      opacity: 0.6;
+    }
   }
 }
 

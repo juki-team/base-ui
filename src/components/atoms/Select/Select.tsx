@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useRef, useState } from 'react';
+import { type KeyboardEvent, type MouseEvent, type ReactNode, useEffect, useMemo, useRef, useState } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
 import { TriggerAction } from '../../../enums';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
@@ -36,9 +36,8 @@ export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType
     disabled = false,
     optionsPlacement = 'bottom',
     expand = false,
-    containerWidth,
     children,
-    onBlur,
+    style,
   } = props;
   
   const { width: widthSelectLayout = 0, ref: selectLayoutRef } = useResizeDetector();
@@ -47,31 +46,42 @@ export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType
   const [ isOpen, setIsOpen ] = useState(false);
   
   const selectedOptionRef = useRef<HTMLDivElement>(null);
-  const onBlurRef = useRef(onBlur);
-  onBlurRef.current = onBlur;
+  
+  const { optionIndex, optionSelected, optionsWithKey } = useMemo(() => {
+    const optionsWithKey = [];
+    const initialOptionSelectedKey = initialOptionSelected?.key ?? JSON.stringify(initialOptionSelected.value);
+    let optionIndex = -1;
+    let i = 0;
+    for (const option of options) {
+      const optionKey = 'key' in option ? option.key : JSON.stringify(option.value);
+      if (optionKey === initialOptionSelectedKey) {
+        optionIndex = i;
+      }
+      optionsWithKey.push({ ...option, key: optionKey });
+      i++;
+    }
+    const optionSelected: SelectOptionType<T, U, V> = {
+      key: initialOptionSelectedKey,
+      value: initialOptionSelected.value,
+      label: initialOptionSelected.label || options[optionIndex]?.label as U,
+      inputLabel: initialOptionSelected.inputLabel || options[optionIndex]?.inputLabel,
+    };
+    return { optionIndex, optionSelected, optionsWithKey };
+  }, [ initialOptionSelected.value, initialOptionSelected.label, initialOptionSelected.inputLabel, initialOptionSelected.key, options ]);
+  
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (isOpen && (optionRef.current?.scrollHeight || 0) > (optionRef.current?.clientHeight || 0)) {
         selectedOptionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-    }, 100);
-    // if (!showOptions && selectRef.current) {
-    // onBlurRef.current?.({ target: selectRef.current });
-    // }
+    }, 150);
     
     return () => {
       clearTimeout(timeout);
     };
-  }, [ isOpen ]);
+  }, [ isOpen, optionIndex ]);
   
   const optionRef = useRef<HTMLDivElement>(null);
-  
-  const option = options.find(option => JSON.stringify(option.value) === JSON.stringify(initialOptionSelected.value));
-  const optionSelected: SelectOptionType<T, U, V> = {
-    value: initialOptionSelected.value,
-    label: initialOptionSelected.label || option?.label as U,
-    inputLabel: initialOptionSelected.inputLabel || option?.inputLabel,
-  };
   
   const isDisabled = disabled || !onChange;
   
@@ -87,38 +97,64 @@ export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType
       onOpenChange={setIsOpen}
       content={
         <div
-          ref={optionRef}
+          ref={(el) => {
+            optionRef.current = el;
+          }}
+          role="listbox"
+          aria-label="Select options"
           className={classNames('jk-select-options jk-col stretch nowrap wh-100 pn-re ow-ao', { disabled: isDisabled })}
           style={{
-            width: containerWidth === 'child'
-              ? 'auto'
-              : typeof containerWidth === 'number'
-                ? widthSelectLayout
-                : expand
-                  ? widthSelectLayout : `${optimeWidth}`,
+            width: (typeof style?.width === 'number' || expand) ? widthSelectLayout : optimeWidth,
           }}
         >
-          {options.map((option) => (
-            <div
-              className={classNames('jk-select-option ws-np', {
-                selected: JSON.stringify(option.value) === JSON.stringify(optionSelected.value),
-                disabled: !!option.disabled || isDisabled,
-              })}
-              onClick={(!isDisabled && !option.disabled) ? (event) => {
-                onChange?.(option);
-                setIsOpen(false);
+          {optionsWithKey.map((option, index) => {
+            const isSelected = optionIndex === index;
+            const isOptionDisabled = !!option.disabled || isDisabled;
+            
+            const handleSelect = () => {
+              onChange?.(option);
+              setIsOpen(false);
+            };
+            
+            const handleClick = (!isDisabled && !option.disabled)
+              ? (event: MouseEvent<HTMLDivElement>) => {
                 event.stopPropagation();
-              } : undefined}
-              key={'key' in option ? option.key : JSON.stringify(option.value)}
-              ref={(e) => {
-                if (JSON.stringify(option.value) === JSON.stringify(optionSelected.value)) {
-                  selectedOptionRef.current = e;
+                handleSelect();
+              }
+              : undefined;
+            
+            const handleKeyDown = (!isDisabled && !option.disabled)
+              ? (event: KeyboardEvent<HTMLDivElement>) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  handleSelect();
                 }
-              }}
-            >
-              {renderReactNodeOrFunction(option.label)}
-            </div>
-          ))}
+              }
+              : undefined;
+            
+            return (
+              <div
+                className={classNames('jk-select-option ws-np', {
+                  selected: isSelected,
+                  disabled: isOptionDisabled,
+                })}
+                role="option"
+                aria-selected={isSelected}
+                aria-disabled={isOptionDisabled}
+                tabIndex={isOptionDisabled ? -1 : 0}
+                onClick={handleClick}
+                onKeyDown={handleKeyDown}
+                key={option.key}
+                ref={(e) => {
+                  if (isSelected) {
+                    selectedOptionRef.current = e;
+                  }
+                }}
+              >
+                {renderReactNodeOrFunction(option.label)}
+              </div>
+            );
+          })}
         </div>
       }
     >
@@ -130,18 +166,7 @@ export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType
           { open: isOpen, disabled: isDisabled },
         )}
         style={{
-          width: containerWidth === 'child'
-            ? 'fit-content'
-            : typeof containerWidth === 'number'
-              ? `min(${containerWidth}px, 100%)`
-              : expand
-                ? '100%' : `${optimeWidth}`,
-          minWidth: containerWidth === 'child'
-            ? 'fit-content'
-            : typeof containerWidth === 'number'
-              ? `min(${containerWidth}px, 100%)`
-              : expand
-                ? undefined : `${optimeWidth}`,
+          width: expand ? '100%' : style?.width === 'auto' ? undefined : optimeWidth,
           height: 'fit-content',
         }}
         onClick={() => setIsOpen(!isOpen)}
@@ -158,14 +183,15 @@ export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType
             left: 0,
           }}
         >
-          {options.map((option) => (
-            <div className="jk-select-option" key={option.key ?? JSON.stringify(option.value)}>
+          {optionsWithKey.map((option, index) => (
+            <div
+              className={classNames('jk-select-option ws-np', {
+                selected: optionIndex === index,
+                disabled: !!option.disabled || isDisabled,
+              })}
+              key={option.key}
+            >
               {renderReactNodeOrFunction(option.label)}
-            </div>
-          ))}
-          {options.map((option) => (
-            <div className="jk-select-option" key={option.key ?? JSON.stringify(option.value)}>
-              {renderReactNodeOrFunction(option.inputLabel)}
             </div>
           ))}
         </div>
@@ -173,18 +199,9 @@ export function Select<T, U extends ReactNode, V extends ReactNodeOrFunctionType
           className="jk-select-container"
           ref={selectLayoutRef}
           style={{
-            width: containerWidth === 'child'
-              ? 'auto'
-              : typeof containerWidth === 'number'
-                ? `min(${containerWidth}px, 100%)`
-                : expand
-                  ? '100%' : `${optimeWidth}`,
-            minWidth: containerWidth === 'child'
-              ? 'auto'
-              : typeof containerWidth === 'number'
-                ? `min(${containerWidth}px, 100%)`
-                : expand
-                  ? undefined : `${optimeWidth}`,
+            width: expand ? '100%' : style?.width === 'auto' ? undefined : optimeWidth,
+            // minWidth: expand ? '100%' : optimeWidth,
+            ...style,
           }}
         >
           {children
