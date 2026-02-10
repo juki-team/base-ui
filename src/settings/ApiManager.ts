@@ -1039,6 +1039,12 @@ export class ApiManager {
           url: injectSort(injectFilter(injectPage(injectBaseUrl('excalidraw', '/summary-list'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
+        getMetadata: valid<
+          { params: { key: string } }
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('excalidraw', `/${key}/metadata`),
+          method: HTTPMethod.GET,
+        })),
         getData: valid<
           { params: { key: string } }
         >(({ params: { key } }) => ({
