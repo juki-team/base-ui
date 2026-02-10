@@ -6,7 +6,7 @@ import type { CopyToClipboardProps } from './types';
 export function CopyToClipboard({
                                   text,
                                   size = 'regular',
-                                  tooltip,
+                                  tooltipContent,
                                   children,
                                   noStyling,
                                   className,
@@ -25,7 +25,7 @@ export function CopyToClipboard({
   return (
     <div
       data-tooltip-id="jk-tooltip"
-      data-tooltip-content={isOpen ? 'copied' : tooltip ?? 'copy'}
+      data-tooltip-content={isOpen ? 'copied' : tooltipContent ?? 'copy'}
       // data-tooltip-place="left"
       className={classNames('jk-row gap', size, className, {
         'link jk-br-ie jk-button light': !noStyling,
