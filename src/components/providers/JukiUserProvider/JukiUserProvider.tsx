@@ -8,7 +8,7 @@ import {
   ProfileSetting,
   Theme,
 } from '@juki-team/commons';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../constants/settings';
 import { jukiApiManager } from '../../../settings';
 import { useI18nStore } from '../../../stores/i18n/useI18nStore';
@@ -22,11 +22,11 @@ import { useInjectTheme } from '../../hooks/useInjectTheme';
 import { useMutate } from '../../hooks/useMutate';
 
 export const JukiUserProvider = () => {
-  
   const setUser = useUserStore(state => state.setUser);
   const setCompany = useUserStore(state => state.setCompany);
   const setDevice = useUserStore(state => state.setDevice);
   const setMutate = useUserStore(state => state.setMutate);
+  const isLoading = useUserStore(state => state.isLoading);
   const userNickname = useUserStore(state => state.user.nickname);
   const companyKey = useUserStore(state => state.company.key);
   const userSessionId = useUserStore(state => state.user.sessionId);
@@ -35,6 +35,9 @@ export const JukiUserProvider = () => {
   const isOnline = usePageStore(store => store.isOnline);
   const isFocus = usePageStore(store => store.isFocus);
   const isVisible = usePageStore(store => store.isVisible);
+  
+  const isFirstRenderForRefresh = useRef(true);
+  const isFirstRenderForMutate = useRef(true);
   
   const {
     data,
@@ -53,16 +56,30 @@ export const JukiUserProvider = () => {
   }, [ matchMutate ]);
   
   useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+    if (isFirstRenderForRefresh.current) {
+      isFirstRenderForRefresh.current = false;
+      return;
+    }
     void refreshAllRequest();
-  }, [ userNickname, companyKey, userSessionId, refreshAllRequest ]);
+  }, [ userNickname, companyKey, userSessionId, refreshAllRequest, isLoading ]);
   
   useEffect(() => {
     i18nChangeLanguage(userPreferredLanguage);
   }, [ i18nChangeLanguage, userPreferredLanguage ]);
   
   useEffect(() => {
+    if (isLoading) {
+      return;
+    }
+    if (isFirstRenderForMutate.current) {
+      isFirstRenderForMutate.current = false;
+      return;
+    }
     void mutate();
-  }, [ mutate, isOnline, isFocus, isVisible ]);
+  }, [ mutate, isOnline, isFocus, isVisible, isLoading ]);
   
   useEffect(() => {
     if (!data) {

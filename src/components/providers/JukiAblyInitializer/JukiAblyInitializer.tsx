@@ -7,6 +7,7 @@ import {
   CHANNEL_SUBSCRIBE_CLIENT,
   CHANNEL_SUBSCRIBE_NOTIFICATIONS,
   cleanRequest,
+  consoleError,
   consoleInfo,
   consoleWarn,
   ContentResponseType,
@@ -112,6 +113,38 @@ export const JukiAblyInitializer = () => {
           consoleInfo(`Creating new Ably connection clientId: "${clientId}"`);
           const realtimeClient = newAblyClient(uiId);
           if (realtimeClient) {
+            realtimeClient.connection.on('connected', () => {
+              consoleInfo('Ably connected');
+            });
+            
+            realtimeClient.connection.on('disconnected', () => {
+              consoleWarn('Ably disconnected');
+            });
+            
+            realtimeClient.connection.on('suspended', () => {
+              consoleWarn('Ably connection suspended');
+            });
+            
+            realtimeClient.connection.on('failed', (stateChange) => {
+              consoleError('Ably connection failed', { reason: stateChange.reason });
+              void safeReportError(
+                new Error('Ably connection failed: ' + stateChange.reason?.message),
+                null,
+                { message: 'Ably connection failed' },
+              );
+            });
+            
+            realtimeClient.connection.on('closed', () => {
+              consoleWarn('Ably connection closed');
+            });
+            
+            realtimeClient.connection.on('update', (stateChange) => {
+              consoleInfo('Ably connection state changed', {
+                previous: stateChange.previous,
+                current: stateChange.current,
+              });
+            });
+            
             setRealtimeClient(realtimeClient);
             setSpaces(new Spaces(realtimeClient));
             setTimeout(newAuth, 1000);

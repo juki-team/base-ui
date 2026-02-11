@@ -46,7 +46,7 @@ await i18nInstance.init({
 
 export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
   return (
-    <UserStoreProvider initialUser={{ user: EMPTY_USER, company: EMPTY_COMPANY, isLoading: false }}>
+    <UserStoreProvider initialUser={{ user: EMPTY_USER, company: EMPTY_COMPANY, isLoading: true }}>
       <JukiProviders<TestPath>
         // serviceApiUrl={serviceUrl + '/api/v1'}
         // serviceApiV2Url={serviceV2Url}
