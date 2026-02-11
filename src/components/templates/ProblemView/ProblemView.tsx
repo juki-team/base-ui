@@ -139,7 +139,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
     return (
       <Portal>
         <div className="jk-overlay jk-overlay-backdrop">
-          <div style={{ position: 'absolute', ...expandPosition }} className="jk-problem-view-expanded-layout">
+          <div style={{ position: 'absolute', ...expandPosition }}>
             {body}
           </div>
         </div>

@@ -73,7 +73,6 @@ export const SignUpModalTemplate = (props: SignUpModalComponentProps) => {
     <SplitModal
       isOpen={isOpen}
       onClose={onClose}
-      className="modal-sign-up"
       title={
         <>
           <h3><T className="tt-se cr-at-it">sign up</T></h3>

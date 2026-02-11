@@ -28,7 +28,6 @@ export const QuizOptionsSheetSectionEditorModal = ({
         _setSheet(sheet);
         onClose();
       }}
-      className="jk-modal-expanded"
       closeIcon
     >
       <div className="jk-col stretch left jk-pg-md">

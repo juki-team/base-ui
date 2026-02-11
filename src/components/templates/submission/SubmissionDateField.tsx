@@ -14,7 +14,7 @@ export function SubmissionDateField({
   
   return (
     <Field className="jk-col center nowrap">
-      <div className={classNames('date-field jk-col center')}>
+      <div className="date-field jk-col center">
         <DateLiteral date={date} twoLines={twoLines} />
         {contest?.settingsStartTimestamp && (
           <div className="jk-row tx-t cr-hd" style={{ lineHeight: 1 }}>

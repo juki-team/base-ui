@@ -1,9 +1,6 @@
 @use "../../mixins";
 
 .jk-vertical-menu-layout-container, .jk-horizontal-menu-layout-container {
-  --border-radius-width: 24px;
-  height: 100%;
-  width: 100%;
   display: flex;
   position: relative;
   
@@ -48,54 +45,34 @@
     }
     
     &.selected {
-      background-color: var(--cr-ht-lt);
-      font-weight: var(--weight-bold);
-      color: var(--color-primary);
+      background-color: var(--navbar-at-cr);
     }
     
     &.extra:last-child {
       flex: 1;
     }
-    
-    .jk-menu-item-label {
-      text-transform: capitalize;
-    }
   }
   
   > .jk-menu {
-    height: 100%;
     width: var(--left-vertical-menu-width);
     overflow: hidden auto;
     @include mixins.transition(width);
     
     .jk-menu-content {
       width: inherit;
-      height: 100%;
       display: flex;
       flex-direction: column;
       position: relative;
-      
-      .jk-menu-top-section {
-        flex: 2;
-        
-        &.selected-down {
-          border-radius: 0 0 var(--border-radius-width) 0;
-        }
-      }
-      
-      .jk-menu-items {
-        flex: 8;
-      }
-      
-      .jk-menu-collapse-section {
-        padding: calc((var(--left-vertical-collapsed-menu-width) - var(--tx-h-m)) / 2);
-        
-        .jk-menu-collapse {
-          border-radius: 50%;
-          cursor: pointer;
-          background-color: var(--navbar-at-cr);
-        }
-      }
+    }
+    
+    .jk-menu-collapse-section {
+      padding: calc((var(--left-vertical-collapsed-menu-width) - var(--tx-h-m)) / 2);
+    }
+    
+    .jk-menu-collapse {
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: var(--navbar-at-cr);
     }
   }
   
@@ -116,64 +93,19 @@
 }
 
 .jk-horizontal-menu-layout-container {
-  height: 100%;
-  width: 100%;
   --height-jk-menu-item: var(--top-horizontal-menu-height);
   flex-direction: column;
   overflow: hidden;
   
   > .jk-menu {
     height: var(--top-horizontal-menu-height);
-    width: 100%;
     
     .jk-menu-content {
-      width: 100%;
       height: inherit;
-      position: relative;
-      @include mixins.sm { background-color: var(--cr-we); }
       
       .jk-menu-left-section, .jk-menu-items, .jk-menu-right-section,
       .jk-horizontal-menu-mobile-left, .jk-horizontal-menu-mobile-center, .jk-horizontal-menu-mobile-right {
         height: inherit;
-      }
-      
-      .jk-menu-items {
-        flex: 1;
-        
-        .jk-menu-item {
-          position: relative;
-          
-          @include mixins.sm { flex-direction: column; }
-          
-          &:not(.selected):hover {
-            background: var(--cr-ht);
-          }
-          
-          &.selected {
-            font-weight: var(--weight-bold);
-            @include mixins.sm { background-color: var(--cr-at); }
-          }
-          
-          &.extra:last-child {
-            flex: 1;
-          }
-          
-          .jk-menu-item-icon {
-            margin: 0;
-            
-            @include mixins.sm {
-              height: var(--pad-s);
-              width: var(--pad-s);
-              
-              .jk-icon {
-                min-height: var(--pad-s);
-                min-width: var(--pad-s);
-                height: var(--pad-s);
-                width: var(--pad-s);
-              }
-            }
-          }
-        }
       }
       
       .jk-horizontal-menu-mobile-right {
@@ -182,43 +114,61 @@
     }
   }
   
+  .jk-menu-item {
+    position: relative;
+    
+    @include mixins.sm { flex-direction: column; }
+    
+    &:not(.selected):hover {
+      background: var(--cr-ht);
+    }
+    
+    &.selected {
+      background: var(--navbar-at-cr);
+    }
+    
+    &.extra:last-child {
+      flex: 1;
+    }
+    
+    .jk-menu-item-icon {
+      margin: 0;
+      
+      @include mixins.sm {
+        height: var(--pad-s);
+        width: var(--pad-s);
+        
+        .jk-icon {
+          min-height: var(--pad-s);
+          min-width: var(--pad-s);
+          height: var(--pad-s);
+          width: var(--pad-s);
+        }
+      }
+    }
+  }
+  
+  > .jk-top-horizontal-menu, > .jk-bottom-horizontal-menu {
+    background-color: var(--navbar-bd-cr);
+    color: var(--navbar-tx-cr);
+  }
+  
   > .jk-bottom-horizontal-menu {
     height: var(--bottom-horizontal-menu-height);
-    background-color: var(--cr-we);
     
-    .jk-menu-items {
-      height: 100%;
-      padding: 0 var(--pad-sm);
+    
+    .jk-menu-item-icon {
+      margin: 0;
       
-      .jk-menu-item {
-        height: 100%;
-        position: relative;
+      @include mixins.sm {
+        height: var(--pad-s);
+        width: var(--pad-s);
         
-        .selected-tab-tick {
-          width: 100%;
-          height: 4px;
-          position: absolute;
-          left: 0;
-          top: 0;
-          padding: 0;
-          background-color: var(--cr-at);
-          border-radius: 0 0 2px 2px;
-        }
-        
-        .jk-menu-item-icon {
-          margin: 0;
-          
-          @include mixins.sm {
-            height: var(--pad-s);
-            width: var(--pad-s);
-            
-            .jk-icon {
-              min-height: var(--pad-s);
-              min-width: var(--pad-s);
-              height: var(--pad-s);
-              width: var(--pad-s);
-            }
-          }
+        .jk-icon {
+          min-height: var(--pad-s);
+          min-width: var(--pad-s);
+          height: var(--pad-s);
+          width: var(--pad-s);
         }
       }
     }

@@ -47,7 +47,6 @@ const InformationButton = ({ open, setOpen, isOpenRef, withLabel }: InformationB
       <Modal
         isOpen={open}
         onClose={() => setOpen(false)}
-        className="modal-info-markdown"
       >
         <MdMathEditorDeprecated initialMd={source} onChange={setSource} />
       </Modal>

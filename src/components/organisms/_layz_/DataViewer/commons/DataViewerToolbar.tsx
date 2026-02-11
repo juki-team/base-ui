@@ -184,7 +184,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
             />
           )}
         </div>
-        <div className={classNames('jk-row nowrap gap')}>
+        <div className="jk-row nowrap gap">
           {viewFilterButton && (
             <ToolbarButtonIcon
               Icon={FilterListIcon}

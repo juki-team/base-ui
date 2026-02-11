@@ -28,7 +28,6 @@ export function WelcomeModal({ onSeeMyProfile: _onSeeMyProfile }: WelcomeModalPr
     <Modal
       isOpen={searchParams.has(QueryParamKey.WELCOME)}
       onClose={onClose}
-      className="modal-welcome"
     >
       <div className="jk-pg-md jk-row nowrap">
         <div className="jk-col gap stretch">

@@ -67,7 +67,6 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
     <SplitModal
       isOpen={isOpen && !openForgotPasswordModal}
       onClose={onClose}
-      className="modal-login"
       title={
         <>
           <h3><T className="tt-se cr-at-it">login</T></h3>

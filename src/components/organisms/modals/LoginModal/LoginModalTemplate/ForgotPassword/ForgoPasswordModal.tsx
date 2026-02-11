@@ -21,7 +21,6 @@ export const ForgotPasswordModalComponent = ({ isOpen, onClose, onForgotPassword
     <SplitModal
       isOpen={isOpen}
       onClose={onClose}
-      className="modal-login"
       title={
         <h3><T className="cr-tx-ht-dk tt-se">recover your account</T></h3>
       }

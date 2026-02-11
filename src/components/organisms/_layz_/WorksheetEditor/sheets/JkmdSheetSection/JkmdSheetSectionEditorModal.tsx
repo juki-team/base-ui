@@ -26,7 +26,6 @@ export const JkmdSheetSectionEditorModal = ({
         onClose();
         _setSheet(sheet);
       }}
-      className="jk-modal-expanded"
       closeIcon
     >
       <div className="jk-col left gap jk-pg-md">

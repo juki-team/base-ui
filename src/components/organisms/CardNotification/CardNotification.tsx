@@ -76,7 +76,7 @@ export function CardNotification({ ids, type, message }: CardNotificationProps) 
       className={classNames('jk-notification-item-container', type, { exit })}
       style={type === NotificationType.QUIET && !isSmallScreen ? { '--width-notification': `${getTextContent(message).length * 8 + 26}px` } as CSSProperties : {}}
     >
-      <div className={classNames('jk-notification-item jk-pg-xsm elevation-2 jk-br-ie')}>
+      <div className="jk-notification-item jk-pg-xsm elevation-2 jk-br-ie">
         {NOTIFICATION_ICON[type]}
         <div className="jk-row stretch space-between nowrap flex-1">
           <div

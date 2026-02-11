@@ -1,9 +1,9 @@
 import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE, CodeEditorSheetType, CodeLanguage } from '@juki-team/commons';
 import { Dispatch, useState } from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants';
-import { getHeight } from '../../../../../helpers';
 import { Input, InputCheckbox, Modal, MultiSelect, T } from '../../../../../atoms';
 import { BasicModalProps } from '../../../../../atoms/Modal/types';
+import { getHeight } from '../../../../../helpers';
 import { UserCodeEditor } from '../../../UserCodeEditor';
 
 interface RunnerSheetSectionProps extends BasicModalProps {
@@ -28,7 +28,6 @@ export const CodeEditorSheetSectionEditorModal = ({
         _setSheet({ ...sheet });
         onClose();
       }}
-      className="jk-modal-expanded"
       closeIcon
     >
       <div className="jk-col stretch left jk-pg-md">

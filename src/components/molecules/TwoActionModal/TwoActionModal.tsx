@@ -25,13 +25,13 @@ export function TwoActionModal(props: PropsWithChildren<TwoActionModalProps>) {
       {...rest}
     >
       <div className="jk-col stretch jk-pg gap">
-        <div className="modal-alert-title jk-col gap">
+        <div className="jk-col gap">
           <ExclamationIcon filledCircle className="cr-er" size="large" />
           <h3 className="cr-er">
             {title}
           </h3>
         </div>
-        <div className="modal-alert-content wh-100">
+        <div className="wh-100">
           {children}
         </div>
         <div className={classNames('jk-row-col gap right wh-100', { nowrap: !isSmallScreen })}>

@@ -119,7 +119,7 @@ export function MultiSelectSearchable<T, U extends ReactNode, V extends ReactNod
       offset={4}
       content={
         <div
-          className={classNames('jk-select-options-virtual')}
+          className="jk-select-options-virtual"
           style={{
             width: expand ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2 /*border*/ : containerWidth - 2, /*border*/
           }}

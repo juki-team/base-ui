@@ -224,7 +224,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
             }),
           }) : undefined}
         /> : (
-          <div className={classNames('flex-1 ow-ao jk-pg-xsm')}>
+          <div className="flex-1 ow-ao jk-pg-xsm">
             <span className="jk-text-stdout">{test?.in}</span>
           </div>
         ),

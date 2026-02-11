@@ -23,7 +23,7 @@ export const LogInfo = ({ testCase, timeLimit, memoryLimit }: LogInfoProps) => {
   if (testCase.status === SubmissionRunStatus.COMPILATION_ERROR) {
     return (
       <div className="jk-pg-xsm jk-row gap left tx-t" style={{ lineHeight: 1 }}>
-          <span className={classNames('tt-se cr-er')}>
+          <span className="tt-se cr-er">
             <T>compilation error</T>
         </span>
       </div>

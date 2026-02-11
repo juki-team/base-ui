@@ -440,7 +440,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
     return (
       <Portal>
         <div className="jk-overlay jk-overlay-backdrop">
-          <div style={{ position: 'absolute', ...expandPosition }} className="jk-code-mirror-editor-expanded-layout">
+          <div style={{ position: 'absolute', ...expandPosition }}>
             {body}
           </div>
         </div>

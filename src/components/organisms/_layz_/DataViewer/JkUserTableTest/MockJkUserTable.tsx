@@ -165,10 +165,9 @@ export const MockJkUserTable = (props: Omit<DataViewerProps<UserTable>, 'data' |
           >
             <div className="jk-tag bc-g4">{status}</div>
           </Popover>
-          <div
-            className="Row"
-            children={<div style={{ backgroundColor: 'red' }}>{status}</div>}
-          />
+          <div>
+            <div style={{ backgroundColor: 'red' }}>{status}</div>
+          </div>
         </Field>
       ),
       // sort: { compareFn: () => (rowA, rowB) => rowA.status.localeCompare(rowB.status) },

@@ -123,9 +123,7 @@ export function MainMenu(props: MainMenuProps) {
                   )}
                 </div>
                 <div className="jk-menu-item-label" style={{ ...(isSmall ? { width: '100%' } : {}) }}>
-                  <div className="menu-item-label-company-selector">
-                    {select}
-                  </div>
+                  {select}
                 </div>
               </div>
             );

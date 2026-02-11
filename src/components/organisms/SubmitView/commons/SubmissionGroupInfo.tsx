@@ -204,8 +204,8 @@ export function SubmissionGroupInfo(props: GroupInfoProps) {
       )}
       className="wh-100 tx-s"
     >
-      <div className={classNames('jk-row extend group-info-details')}>
-        <div className={classNames('jk-row extend block gap jk-table-inline-row fw-bd')}>
+      <div className="jk-row extend group-info-details">
+        <div className="jk-row extend block gap jk-table-inline-row fw-bd">
           <div className="jk-row" style={{ flex: 0.4 }}><T>#</T></div>
           <div className="jk-row center gap" style={{ flex: 2 }}>
             <T className="tt-se">verdict</T>

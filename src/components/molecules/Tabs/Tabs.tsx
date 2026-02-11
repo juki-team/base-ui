@@ -95,7 +95,7 @@ export function Tabs<T extends string, >(props: TabsProps<T>) {
     >
       <div className="jk-tabs-header jk-row space-between nowrap" ref={refTabsContainer}>
         <div
-          className={classNames('jk-tabs-tabs jk-row left')}
+          className="jk-tabs-tabs jk-row left"
           onClick={() => tabsHeaderFocus.current = true}
           ref={tabsHeaderRef}
           style={isExtend ? {} : hiddenStyle}
@@ -122,7 +122,7 @@ export function Tabs<T extends string, >(props: TabsProps<T>) {
           />
         )}
         <div
-          className={classNames('jk-tabs-actions jk-row right nowrap gap')}
+          className="jk-tabs-actions jk-row right nowrap gap"
           style={!(!!extraNodes.length && isExtend) ? hiddenStyle : {}}
         >
           <div className="jk-divider horizontal" />
@@ -145,7 +145,7 @@ export function Tabs<T extends string, >(props: TabsProps<T>) {
             triggerOn={TriggerAction.CLICK}
             placement="bottom-end"
           >
-            <div className={classNames('jk-row nowrap left link')}>
+            <div className="jk-row nowrap left link">
               <ViewHeadlineIcon />
             </div>
           </Popover>

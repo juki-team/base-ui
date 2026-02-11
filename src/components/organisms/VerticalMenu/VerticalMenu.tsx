@@ -125,22 +125,22 @@ export function VerticalMenu(props: VerticalMenuProps) {
       {children}
     </HorizontalMenu>
   ) : (
-    <div className={classNames('jk-vertical-menu-layout-container', { collapsed: !open })}>
-      <header className={classNames('jk-menu')}>
-        <section className="jk-menu-content">
+    <div className={classNames('jk-vertical-menu-layout-container ht-100 wh-100', { collapsed: !open })}>
+      <header className="jk-menu ht-100">
+        <section className="jk-menu-content ht-100">
           <div className="jk-row right jk-menu-collapse-section">
             <div className="jk-row jk-menu-collapse" onClick={handleCollapse}>
               {open ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
             </div>
           </div>
-          <div className={classNames('jk-menu-top-section', { 'selected-down': !!menu[0]?.selected })}>
+          <div className="flex-2">
             {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
           </div>
           <div className={classNames('jk-menu-items jk-col gap nowrap', { stretch: open })}>
             {Children.toArray(menus)}
-            <div className={classNames('jk-menu-item extra', { 'selected-up': !!menu[menu.length - 1]?.selected })} />
+            <div className="jk-menu-item extra" />
           </div>
-          <div className={classNames('jk-menu-bottom-section')}>
+          <div>
             {typeof bottomSection === 'function' ? bottomSection({ isOpen: open }) : bottomSection}
           </div>
         </section>

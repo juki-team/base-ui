@@ -61,8 +61,8 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
             </div>
             {/*<div className="jk-divider tiny" />*/}
             {/*<div className="jk-row space-between nowrap">*/}
-            {/*  <div className="tx-s capitalized-case"><T>privacy policy</T></div>*/}
-            {/*  <div className="tx-s capitalized-case"><T>terms of service</T></div>*/}
+            {/*  <div className="tx-s"><T className="tt-ce">privacy policy</T></div>*/}
+            {/*  <div className="tx-s"><T className="tt-ce">terms of service</T></div>*/}
             {/*</div>*/}
           </div>
         }
@@ -76,7 +76,7 @@ export function LoginUser({ collapsed, isVertical, isHorizontal, onSeeMyProfile,
           <Image
             src={userImageUrl}
             alt={userNickname}
-            className={classNames('jk-user-profile-img large')}
+            className="jk-user-profile-img large"
             width={32}
             height={32}
           />

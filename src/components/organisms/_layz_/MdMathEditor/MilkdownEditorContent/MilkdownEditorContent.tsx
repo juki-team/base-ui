@@ -377,7 +377,7 @@ export function MilkdownEditorContent({ value, onChange, setLoader }: MilkdownEd
   }, [ triggerRender, theme, t ]);
   
   return (
-    <div className="jk-input-milkdown jk-md-math-milkdown-editor jk-md-math wh-100 pn-re jk-br-ie">
+    <div className="jk-md-math-milkdown-editor jk-md-math wh-100 pn-re jk-br-ie">
       <Milkdown />
     </div>
   );

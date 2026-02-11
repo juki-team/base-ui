@@ -16,7 +16,7 @@ export function GraphvizEditor({ value, onSave }: GraphvizEditorProps) {
           />
         </div>
         <div className="jk-row" style={{ overflow: 'auto' }}>
-          <GraphvizViewer dot={value} className="jk-graph" />
+          <GraphvizViewer dot={value} />
         </div>
       </SplitPane>
     </div>

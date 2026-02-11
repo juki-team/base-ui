@@ -120,7 +120,7 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
       {/*  <>*/}
       {/*    <div className="jk-col stretch extend gap">*/}
       {/*      <T className="fw-bd tt-se">people with access</T>*/}
-      {/*      <div className="jk-row gap space-between extend hover-highlight gap-full-borders jk-br-ie">*/}
+      {/*      <div className="jk-row gap space-between extend hover-highlight jk-br-ie">*/}
       {/*        <UserChip*/}
       {/*          imageUrl={documentOwner.imageUrl}*/}
       {/*          nickname={documentOwner.nickname}*/}
@@ -136,7 +136,7 @@ export function DocumentMembersContent(props: DocumentMembersContentProps) {
       {/*      ].map(({ nickname, imageUrl, company, role }) => (*/}
       {/*        <div*/}
       {/*          key={nickname}*/}
-      {/*          className="jk-row gap space-between extend hover-highlight gap-full-borders jk-br-ie"*/}
+      {/*          className="jk-row gap space-between extend hover-highlight jk-br-ie"*/}
       {/*        >*/}
       {/*          <UserChip*/}
       {/*            imageUrl={imageUrl}*/}

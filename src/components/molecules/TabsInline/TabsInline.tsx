@@ -69,22 +69,6 @@ const HeaderTab = <T = string, >(props: HeaderTabProps<T>) => {
         ) : (
           renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })
         )}
-        {/*{tickStyle === 'line' && key === selectedTabKey && (*/}
-        {/*  <motion.div*/}
-        {/*    className="selected-tab-tick"*/}
-        {/*    layoutId={layoutId}*/}
-        {/*  />*/}
-        {/*)}*/}
-        {/*{tickStyle === 'background' && key === selectedTabKey && (*/}
-        {/*  <motion.div*/}
-        {/*    className="tab-tick-background selected bc-al cr-at-it jk-br-ie"*/}
-        {/*    layoutId={layoutId}*/}
-        {/*    // transition={{ duration: 10 }}*/}
-        {/*    style={{ zIndex: 1 }}*/}
-        {/*  >*/}
-        {/*    <div className="opacity-00">{renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}</div>*/}
-        {/*  </motion.div>*/}
-        {/*)}*/}
       </div>
     </TabWithLink>
   );

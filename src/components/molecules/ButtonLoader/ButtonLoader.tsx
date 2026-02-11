@@ -1,7 +1,7 @@
 import { Status } from '@juki-team/commons';
 import { useEffect, useRef, useState } from 'react';
-import { classNames } from '../../helpers';
 import { Button } from '../../atoms';
+import { classNames } from '../../helpers';
 import { useSetLoaderStatus } from '../../hooks/useSetLoaderStatus';
 import { CheckIcon, ErrorIcon, SpinIcon } from '../../server';
 import type { ButtonLoaderProps } from './types';
@@ -63,17 +63,6 @@ export function ButtonLoader(props: ButtonLoaderProps) {
       {...restProps}
     >
       {children}
-      {/*{loader !== Status.NONE && (*/}
-      {/*  <div*/}
-      {/*    className="jk-row button-loader-icon"*/}
-      {/*  >*/}
-      {/*    {loader === Status.ERROR*/}
-      {/*      ? <ErrorIcon />*/}
-      {/*      : loader === Status.SUCCESS*/}
-      {/*        ? <CheckIcon />*/}
-      {/*        : loader === Status.LOADING && <SpinIcon />}*/}
-      {/*  </div>*/}
-      {/*)}*/}
     </Button>
   );
 }

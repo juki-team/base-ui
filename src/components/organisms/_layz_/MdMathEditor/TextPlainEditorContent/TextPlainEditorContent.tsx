@@ -1,7 +1,7 @@
 import { NotificationType, Status } from '@juki-team/commons';
 import { ClipboardEventHandler, useRef } from 'react';
 import { T, TextArea } from '../../../../atoms';
-import { classNames, handleUploadImage } from '../../../../helpers';
+import { handleUploadImage } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import type { TextPlainEditorContentProps } from '../../../MdMathViewer/types';
 
@@ -62,7 +62,7 @@ export function TextPlainEditorContent(props: TextPlainEditorContentProps) {
   
   return (
     <div
-      className={classNames('jk-md-math-textarea-editor jk-br-ie')}
+      className="jk-br-ie"
       onPaste={enableImageUpload ? handlePaste : undefined}
     >
       <TextArea

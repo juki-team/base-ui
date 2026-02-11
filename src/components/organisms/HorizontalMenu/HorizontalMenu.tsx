@@ -31,9 +31,7 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
     const { selected, icon, label, onClick, menuItemWrapper } = menu[i]!;
     const menuItem = (
       <div
-        className={classNames('jk-menu-item jk-pg-xsm jk-br-ie nowrap cr-pr', {
-          'selected-up': !!menu[i - 1]?.selected,
-          'selected-down': !!menu[i + 1]?.selected,
+        className={classNames('jk-menu-item ht-100 pn-re jk-pg-xsm jk-br-ie nowrap cr-pr', {
           'selected cr-tx-ht-it': !!selected,
           'jk-row gap cr-tx-ht-it': !isSmallScreen,
           'jk-col flex-1 bottom': isSmallScreen,
@@ -100,14 +98,14 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
   };
   
   return (
-    <div className={classNames('jk-horizontal-menu-layout-container', className)}>
-      <header className="jk-menu jk-top-horizontal-menu sticky-top">
+    <div className={classNames('jk-horizontal-menu-layout-container ht-100 wh-100', className)}>
+      <header className="jk-menu wh-100 jk-top-horizontal-menu sticky-top">
         {!isSmallScreen && (
-          <section className="jk-row nowrap jk-menu-content">
+          <section className="jk-row nowrap jk-menu-content wh-100 pn-re">
             <div className="jk-menu-left-section jk-row stretch left nowrap">
               {renderReactNodeOrFunction(leftSection)}
             </div>
-            <div className="jk-menu-items jk-row gap left nowrap">
+            <div className="jk-menu-items flex-1 jk-row gap left nowrap">
               {Children.toArray(menus)}
             </div>
             <div className="jk-menu-right-section jk-row stretch right nowrap">
@@ -191,7 +189,7 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
       {isSmallScreen && (
         <section className="jk-row nowrap jk-bottom-horizontal-menu elevation-1">
           <div
-            className={classNames('jk-menu-items jk-row gap nowrap', {
+            className={classNames('jk-menu-items ht-100 jk-pg-sm-rl flex-1 jk-row gap nowrap', {
               left: !isSmallScreen,
               extend: isSmallScreen,
             })}

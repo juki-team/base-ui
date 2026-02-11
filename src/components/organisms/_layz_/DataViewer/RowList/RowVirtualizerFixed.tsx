@@ -137,19 +137,6 @@ export const RowVirtualizerFixed = <T, >(props: RowVirtualizerFixedProps<T>) => 
         rightBorders={rightBorders}
         hasScrollTop={hasScrollTop}
       />
-      {/*{hasScrollTop && (*/}
-      {/*  <div*/}
-      {/*    className="expand-absolute jk-br-ie-none"*/}
-      {/*    style={{*/}
-      {/*      height: headerHeight,*/}
-      {/*      zIndex: 3,*/}
-      {/*      // width: 'calc(100% - 8px)',*/}
-      {/*      widows: '100%',*/}
-      {/*      background: 'transparent',*/}
-      {/*      boxShadow: '0 0px 4px 0 var(--cr-ht), 0 0px 4px 1px var(--cr-ht)',*/}
-      {/*    }}*/}
-      {/*  />*/}
-      {/*)}*/}
       {hasScrollLeft && (
         <div
           className="expand-absolute pe-ne"

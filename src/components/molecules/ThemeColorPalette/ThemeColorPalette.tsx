@@ -1,8 +1,10 @@
+// TODO: check appearance-* selectors
 export function ThemeColorPalette() {
   return (
     <div className="jk-row gap jk-pg">
       {[ 'light', 'dark' ].map((theme) => (
         <div
+          key={theme}
           className={'jk-pg-lg jk-col gap jk-theme-' + theme}
           style={{ backgroundColor: 'var(--cr-we)' }}
         >

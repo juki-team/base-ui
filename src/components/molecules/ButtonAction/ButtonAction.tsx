@@ -53,7 +53,7 @@ export function ButtonAction(props: ButtonActionProps) {
       // open
       offset={offset}
       content={
-        <div className={classNames('buttons-content jk-col gap stretch nowrap')}>
+        <div className="jk-col gap stretch nowrap">
           {buttons.map(({
                           icon,
                           onClick,

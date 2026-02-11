@@ -88,7 +88,7 @@ export function EditProfileModal({ user, isOpen, onClose, onSuccess }: EditProfi
           />
           <EditIcon onClick={() => setModalImageProfile(true)} />
         </div>
-        <div className={classNames('jk-col top stretch left jk-pg-md gap')}>
+        <div className="jk-col top stretch left jk-pg-md gap">
           <div className="jk-form-item">
             <Input
               label={
