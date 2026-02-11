@@ -3,7 +3,6 @@ import { type Dispatch, useRef, useState } from 'react';
 import { ALPHANUMERIC_DASH_UNDERSCORE_REGEX } from '../../../constants';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { Button, Input, Modal, T, TextArea } from '../../atoms';
-import { classNames } from '../../helpers';
 import { useEntityDiff } from '../../hooks/useEntityDiff';
 import { useJukiUser } from '../../hooks/useJukiUser';
 import { ButtonLoader } from '../../molecules';
