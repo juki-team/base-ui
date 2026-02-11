@@ -78,7 +78,10 @@ export const JukiUserProvider = () => {
       isFirstRenderForMutate.current = false;
       return;
     }
-    void mutate();
+    
+    if (isFocus && isVisible) {
+      void mutate();
+    }
   }, [ mutate, isOnline, isFocus, isVisible, isLoading ]);
   
   useEffect(() => {

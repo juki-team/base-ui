@@ -3,6 +3,7 @@ import { createInstance, i18n } from 'i18next';
 import { PropsWithChildren } from 'react';
 import { SWRConfig } from 'swr';
 import { EMPTY_COMPANY, EMPTY_USER } from '../../constants';
+import { SWR_CONFIG } from '../../constants/settings';
 import { UserStoreProvider } from '../../stores/user/useUserStore';
 import { JukiI18nInitializer, JukiProviders } from '../providers';
 import { MockupLoginButton } from './MockupLoginButton';
@@ -68,7 +69,7 @@ export const MockupJukiProvider = ({ children }: PropsWithChildren) => {
           [TestPath.ADMIN]: { pathname: '', searchParams: new URLSearchParams() },
         }}
       >
-        <SWRConfig>
+        <SWRConfig value={SWR_CONFIG}>
           {children}
         </SWRConfig>
       </JukiProviders>
