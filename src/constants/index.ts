@@ -112,4 +112,5 @@ export const CODE_EDIT0R_FONT_SIZES = [ 8, 10, 12, 14, 16, 18, 20, 22, 24, 28, 3
 
 export const CODE_EDITOR_PROGRAMMING_LANGUAGES = Object.values(CodeLanguage);
 
+export * from './settings';
 export * from './worksheet';
