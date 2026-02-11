@@ -9,7 +9,7 @@ export const ABLY_LOG_LEVEL = +(process.env.NEXT_PUBLIC_ABLY_LOG_LEVEL || 0) || 
 export const SWR_CONFIG: SWRConfiguration = {
   revalidateOnFocus: false,
   revalidateOnReconnect: true,
-  revalidateIfStale: false,
+  revalidateIfStale: true,
   focusThrottleInterval: 5_000,
   dedupingInterval: 5_000,
 };
