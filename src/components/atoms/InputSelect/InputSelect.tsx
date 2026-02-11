@@ -1,4 +1,4 @@
-import { type ReactNode, useId, useRef, useState } from 'react';
+import { type ReactNode, useId, useState } from 'react';
 import { classNames } from '../../helpers';
 import type { ReactNodeOrFunctionType } from '../../types';
 import type { InputSelectProps } from '../Input/types';
@@ -14,7 +14,7 @@ export function InputSelect<T, U extends ReactNode, V extends ReactNodeOrFunctio
     required = false,
     label: inputLabel,
     onChange,
-    onBlur,
+    // onBlur,
     register: _register,
     selectedOption,
     ...selectProps
@@ -24,7 +24,7 @@ export function InputSelect<T, U extends ReactNode, V extends ReactNodeOrFunctio
   
   const [ value, setValue ] = useState<T>('' as T);
   
-  const inputRef = useRef<HTMLInputElement>(null);
+  // const inputRef = useRef<HTMLInputElement>(null);
   
   const myOnChange: SelectProps<T, U, V>['onChange'] = onChange ? onChange : ({ value }) => {
     setValue(value);
@@ -48,7 +48,7 @@ export function InputSelect<T, U extends ReactNode, V extends ReactNodeOrFunctio
         <input
           {...register}
           ref={(ref) => {
-            inputRef.current = ref;
+            // inputRef.current = ref;
             if ('ref' in register) {
               register?.ref?.(ref);
             }
@@ -64,7 +64,7 @@ export function InputSelect<T, U extends ReactNode, V extends ReactNodeOrFunctio
           value,
           label: value ? undefined : <T className="tt-se">select an option</T> as U,
         }}
-        onBlur={() => inputRef.current?.blur()}
+        // onBlur={() => inputRef.current?.blur()}
       />
       <label htmlFor={`input-${id}`}>
         {inputLabel}{labelPlacement === 'left' ? <>:&nbsp;</> : ''}
