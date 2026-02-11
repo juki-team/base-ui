@@ -1,5 +1,4 @@
-import { motion } from 'motion/react';
-import { Children, type ReactNode, useId } from 'react';
+import { Children, type ReactNode } from 'react';
 import { TriggerAction } from '../../../enums';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { Button } from '../../atoms';
@@ -24,14 +23,13 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
   } = props;
   
   const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
-  const layoutId = useId();
   
   const menus = [];
   for (let i = 0; i < menu.length; i++) {
     const { selected, icon, label, onClick, menuItemWrapper } = menu[i]!;
     const menuItem = (
       <div
-        className={classNames('jk-menu-item ht-100 pn-re jk-pg-xsm jk-br-ie nowrap cr-pr', {
+        className={classNames('jk-menu-item pn-re jk-pg-xsm jk-br-ie nowrap cr-pr', {
           'selected cr-tx-ht-it': !!selected,
           'jk-row gap cr-tx-ht-it': !isSmallScreen,
           'jk-col flex-1 bottom': isSmallScreen,
@@ -40,39 +38,13 @@ export function HorizontalMenu(props: HorizontalMenuProps) {
         key={i}
       >
         {icon && (
-          <div className="jk-menu-item-icon jk-row" style={{ opacity: selected ? 0 : undefined }}>
+          <div className="jk-menu-item-icon jk-row">
             {renderReactNodeOrFunction(icon)}
           </div>
         )}
-        <div className="jk-menu-item-label tx-t" style={{ opacity: selected ? 0 : undefined }}>
+        <div className="jk-menu-item-label tx-t">
           {renderReactNodeOrFunction(label)}
         </div>
-        {selected && (
-          <motion.div
-            className="jk-pg-xsm jk-br-ie bc-hl"
-            style={{
-              position: 'absolute',
-              zIndex: 1,
-            }}
-            layoutId={layoutId}
-          >
-            <div
-              className={classNames({
-                'jk-row gap nowrap': !isSmallScreen,
-                'jk-col flex-1 bottom': isSmallScreen,
-              })}
-            >
-              {icon && <div className="jk-row jk-menu-item-icon">{renderReactNodeOrFunction(icon)}</div>}
-              <div className="jk-menu-item-label tx-t">{renderReactNodeOrFunction(label)}</div>
-            </div>
-          </motion.div>
-        )}
-        {/*{selected && (*/}
-        {/*  <motion.div*/}
-        {/*    className="selected-tab-tick"*/}
-        {/*    layoutId={layoutId}*/}
-        {/*  />*/}
-        {/*)}*/}
       </div>
     );
     if (menuItemWrapper) {

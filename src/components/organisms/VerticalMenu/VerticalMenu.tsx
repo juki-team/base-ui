@@ -1,5 +1,4 @@
-import { motion } from 'motion/react';
-import { Children, useEffect, useId } from 'react';
+import { Children, useEffect } from 'react';
 import { usePageStore } from '../../../stores/page/usePageStore';
 import { classNames, renderReactNodeOrFunction, renderReactNodeOrFunctionP1 } from '../../helpers';
 import { useSyncedState } from '../../hooks/useSyncedState';
@@ -24,7 +23,6 @@ export function VerticalMenu(props: VerticalMenuProps) {
   
   const [ open, setOpen ] = useSyncedState(isOpen);
   const { isSmallScreen, isMediumScreen, isLargeScreen, isHugeScreen } = usePageStore(store => store.viewPort);
-  const layoutId = useId();
   
   useEffect(() => {
     if (isMediumScreen) {
@@ -54,41 +52,14 @@ export function VerticalMenu(props: VerticalMenuProps) {
         data-tooltip-content={!open ? tooltipLabel : ''}
         data-tooltip-place="right"
       >
-        <div className="jk-menu-item-icon jk-row" style={{ opacity: selected ? 0 : undefined }}>
+        <div className="jk-menu-item-icon jk-row">
           {renderReactNodeOrFunction(icon)}
         </div>
-        <div className="jk-menu-item-label" style={{ opacity: selected ? 0 : undefined }}>
+        <div className="jk-menu-item-label">
           {renderReactNodeOrFunction(label)}
         </div>
-        {!!selected && (
-          <motion.div
-            className="jk-pg-xsm jk-br-ie wh-100 ht-100"
-            style={{
-              position: 'absolute',
-              zIndex: 1,
-              top: 0,
-              left: 0,
-            }}
-            layoutId={layoutId}
-          >
-            <div className="jk-row gap left">
-              {icon && <div className="jk-menu-item-icon jk-row">{renderReactNodeOrFunction(icon)}</div>}
-              <div className="jk-menu-item-label">{renderReactNodeOrFunction(label)}</div>
-            </div>
-          </motion.div>
-        )}
       </div>
     );
-    // const menuItem = open ? menuItemContent : (
-    //   <Popover
-    //     content={<div className="tt-ce jk-pg-sm">{renderReactNodeOrFunction(label)}</div>}
-    //     placement="right"
-    //     showPopperArrow
-    //     key={i}
-    //   >
-    //     {menuItemContent}
-    //   </Popover>
-    // );
     if (menuItemWrapper) {
       menus.push(renderReactNodeOrFunctionP1(menuItemWrapper, {
         selected,
@@ -136,7 +107,7 @@ export function VerticalMenu(props: VerticalMenuProps) {
           <div className="flex-2">
             {typeof topSection === 'function' ? topSection({ isOpen: open }) : topSection}
           </div>
-          <div className={classNames('jk-menu-items jk-col gap nowrap', { stretch: open })}>
+          <div className={classNames('jk-menu-items jk-col gap nowrap flex-8', { stretch: open })}>
             {Children.toArray(menus)}
             <div className="jk-menu-item extra" />
           </div>

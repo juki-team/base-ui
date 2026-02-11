@@ -3,7 +3,7 @@ import { ButtonLoaderOnClickType, LoaderStatusOnClickType, SetLoaderStatusOnClic
 
 export type OnClickModalEventType = {
   overlayOnClickEvent?: MouseEvent<HTMLDivElement>,
-  closeButtonOnClickEvent?: MouseEvent<HTMLDivElement>,
+  closeButtonOnClickEvent?: MouseEvent<HTMLDivElement | HTMLButtonElement>,
   onKeyDownEvent?: KeyboardEvent | ReactKeyboardEvent,
   fetcherLayerErrorEvent?: any,
 };
@@ -22,6 +22,8 @@ export type ModalProps<T extends ModalButtonLoaderEventType = () => void> = Prop
   expand?: boolean,
   closeOnKeyEscape?: boolean,
   closeOnClickOverlay?: boolean,
+  ariaLabelledBy?: string,
+  ariaDescribedBy?: string,
   setLoaderStatusRef?: (setLoader: SetLoaderStatusOnClickType) => void,
   onLoaderStatusChange?: (status: LoaderStatusOnClickType) => void,
 }>

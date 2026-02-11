@@ -8,9 +8,7 @@ export function Portal({ children }: PortalProps): ReactNode {
   
   const jukiAppDivRef = useUIStore(store => store.jukiAppDivRef);
   
-  if (jukiAppDivRef.current) {
-    return ReactDOM.createPortal(children, jukiAppDivRef.current);
-  }
+  const container = jukiAppDivRef.current || document.body;
   
-  return null;
+  return ReactDOM.createPortal(children, container);
 }

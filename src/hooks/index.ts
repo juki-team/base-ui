@@ -9,6 +9,7 @@ export * from '../components/hooks/useDataViewerRequester';
 export * from '../components/hooks/useDebounceEffect';
 export * from '../components/hooks/useEntityDiff';
 export * from '../components/hooks/useFetcher';
+export * from '../components/hooks/useFocusTrap';
 export * from '../components/hooks/useHandleState';
 export * from '../components/hooks/useHash';
 export * from '../components/hooks/useInjectColorTextHighlight';

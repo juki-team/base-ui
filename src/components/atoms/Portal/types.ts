@@ -1,3 +1,3 @@
 import { PropsWithChildren } from 'react';
 
-export type PortalProps = PropsWithChildren<{ className?: string, el?: string }>;
+export type PortalProps = PropsWithChildren;

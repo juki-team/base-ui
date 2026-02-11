@@ -39,9 +39,14 @@
   
   .jk-menu-item {
     position: relative;
+    @include mixins.transition-slow(background-color);
     
     &:not(.selected):not(.extra):hover {
-      background: var(--cr-ht-lt);
+      background-color: var(--cr-ht-lt);
+    }
+    
+    &:not(.selected) {
+      background-color: transparent;
     }
     
     &.selected {

@@ -4,15 +4,6 @@ import { useSoundStore } from '../../../stores/sound/useSoundStore';
 import { classNames } from '../../helpers';
 import type { ButtonBasicProps, OnClickButtonEventType } from '../../types';
 
-// const buttonsVariants = (isDisabled: boolean, hasChildren: boolean) => ({
-//   whileHover: isDisabled ? {} : { scale: hasChildren ? 1.2 : 1.10, transition: { duration: Duration.FAST } },
-//   whileTap: isDisabled ? {
-//     x: [ '-1rem', '1rem', 0 ],
-//     transitionEnd: { x: 0 },
-//     transition: { duration: Duration.FAST },
-//   } : { scale: 0.9, transition: { duration: Duration.FAST } },
-// });
-
 function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
   
   const {
@@ -42,9 +33,6 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
       data-tooltip-content={tooltipContent}
       ref={ref}
       disabled={disabled}
-      // variants={buttonsVariants(disabled, hasChildren)}
-      // whileHover="whileHover"
-      // whileTap="whileTap"
       type={submit ? 'submit' : 'button'}
       className={classNames(className, `jk-button ${type} jk-br-ie`, size, {
         expand,
@@ -75,13 +63,6 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
           sound.playClick();
         })
       }
-      onKeyDown={event => {
-        if (event.code === 'Enter' && onClick && !disabled) {
-          event.preventDefault();
-          event.stopPropagation();
-          onClick({ onKeyDownEvent: event });
-        }
-      }}
       {...restProps}
     >
       {icon}

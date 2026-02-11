@@ -46,12 +46,21 @@ const Cmp = (args: ModalProps<ModalButtonLoaderEventType>) => {
           label="time to wait"
         />{' '}
         ms
-        <Button onClick={() => setOpen(!open)}>Click</Button>
-        <Modal<ModalButtonLoaderEventType> {...args} isOpen={open} onClose={onClose}>
-          <div>MODAL</div>
-          <div>content 1</div>
-          <div>content 2</div>
-          <Button onClick={() => setOpen(false)}>close</Button>
+        <Button onClick={() => setOpen(!open)}>Open Modal</Button>
+        <Modal<ModalButtonLoaderEventType>
+          {...args}
+          isOpen={open}
+          onClose={onClose}
+          ariaLabelledBy="modal-title"
+          ariaDescribedBy="modal-description"
+        >
+          <div className="jk-pg-md">
+            <h2 id="modal-title">Modal Title</h2>
+            <p id="modal-description">This is an accessible modal with focus trap and ARIA attributes.</p>
+            <div>Content 1</div>
+            <div>Content 2</div>
+            <Button onClick={() => setOpen(false)}>Close from inside</Button>
+          </div>
         </Modal>
       </div>
     </MockupJukiProvider>
@@ -60,4 +69,52 @@ const Cmp = (args: ModalProps<ModalButtonLoaderEventType>) => {
 
 export const Regular: Story = {
   render: (args) => <Cmp {...args} />,
+};
+
+const CmpAccessibility = () => {
+  const [ open, setOpen ] = useState(false);
+  
+  return (
+    <MockupJukiProvider>
+      <div className="jk-pg jk-col gap">
+        <h3>Accessibility Features</h3>
+        <p>This modal demonstrates:</p>
+        <ul>
+          <li>✅ Focus trap (try tabbing through)</li>
+          <li>✅ Escape key to close</li>
+          <li>✅ Click overlay to close</li>
+          <li>✅ Body scroll prevention</li>
+          <li>✅ Focus restoration</li>
+          <li>✅ ARIA attributes for screen readers</li>
+        </ul>
+        <Button onClick={() => setOpen(true)}>Open Accessible Modal</Button>
+        
+        <Modal
+          isOpen={open}
+          onClose={() => setOpen(false)}
+          closeIcon
+          ariaLabelledBy="accessible-modal-title"
+          ariaDescribedBy="accessible-modal-description"
+        >
+          <div className="jk-pg-md jk-col gap">
+            <h2 id="accessible-modal-title">Accessible Modal Example</h2>
+            <p id="accessible-modal-description">
+              Try using your keyboard to navigate. Press Tab to move between focusable elements.
+              Press Escape to close the modal.
+            </p>
+            <Input label="First Input" placeholder="Try tabbing here" />
+            <Input label="Second Input" placeholder="And here" />
+            <div className="jk-row gap">
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button onClick={() => setOpen(false)} type="accent">Accept</Button>
+            </div>
+          </div>
+        </Modal>
+      </div>
+    </MockupJukiProvider>
+  );
+};
+
+export const Accessibility: Story = {
+  render: () => <CmpAccessibility />,
 };
