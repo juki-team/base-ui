@@ -8,6 +8,7 @@ import {
   ERROR,
   ErrorCode,
   ErrorResponseType,
+  FilesJukiPub,
   HEADER_JUKI_FORWARDED_HOST,
   HEADER_JUKI_METADATA,
   HEADER_JUKI_VISITOR_SESSION_ID,
@@ -206,6 +207,45 @@ export const handleUploadImage = async (image: Blob, isPublic: boolean): Promise
     return { status: Status.SUCCESS, message: 'image uploaded successfully', content: response.content };
   } catch (error) {
     console.error(error);
+    return { status: Status.ERROR, message: 'Ups, please try again', content: null };
+  }
+};
+
+export const handleUploadFile = async (image: Blob, folder: FilesJukiPub): Promise<{
+  status: Status.ERROR,
+  message: string,
+  content: null
+} | {
+  status: Status.SUCCESS,
+  message: string,
+  content: { imageUrl: string, signedUrl: string }
+}> => {
+  try {
+    const { url, ...options } = jukiApiManager.API_V2.file.publish({
+      body: {
+        contentType: image.type,
+        folder,
+      },
+    });
+    const response = cleanRequest<ContentResponseType<{ imageUrl: string, signedUrl: string }>>(
+      await authorizedRequest(url, options),
+    );
+    
+    if (!response.success) {
+      consoleError('response not success on handleUploadImage', { response });
+      return { status: Status.ERROR, message: 'Ups, please try again', content: null };
+    }
+    
+    await fetch(response.content.signedUrl, {
+      method: HTTPMethod.PUT,
+      headers: {
+        'Content-Type': image.type,
+      },
+      body: image,
+    });
+    return { status: Status.SUCCESS, message: 'image uploaded successfully', content: response.content };
+  } catch (error) {
+    consoleError(error);
     return { status: Status.ERROR, message: 'Ups, please try again', content: null };
   }
 };

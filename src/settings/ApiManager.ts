@@ -4,6 +4,7 @@ import {
   CodeRunDTO,
   CompanyPlan,
   CompanyStylesType,
+  FilesJukiPub,
   getUserKey,
   GroupByTimestampKey,
   HTTPMethod,
@@ -594,6 +595,13 @@ export class ApiManager {
         })),
         publish: valid<{ body: { contentType: string, isPublic: boolean } }, HTTPMethod.POST>(({ body }) => ({
           url: injectBaseUrl('image', '/publish'),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+      },
+      file: {
+        publish: valid<{ body: { contentType: string, folder: FilesJukiPub } }, HTTPMethod.POST>(({ body }) => ({
+          url: injectBaseUrl('file', '/publish'),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
