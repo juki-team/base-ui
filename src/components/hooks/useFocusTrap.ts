@@ -16,34 +16,30 @@ import { type RefObject, useEffect } from 'react';
  * return <div ref={modalRef} tabIndex={-1}>...</div>
  * ```
  */
+const FOCUSABLE_SELECTORS = [
+  'a[href]',
+  'button:not([disabled])',
+  'textarea:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(', ');
+
 export function useFocusTrap(
   containerRef: RefObject<HTMLElement | null>,
   isActive: boolean,
 ) {
   useEffect(() => {
     if (!isActive || !containerRef.current) return;
-    
+
     const container = containerRef.current;
-    
-    const getFocusableElements = (): HTMLElement[] => {
-      const focusableSelectors = [
-        'a[href]',
-        'button:not([disabled])',
-        'textarea:not([disabled])',
-        'input:not([disabled])',
-        'select:not([disabled])',
-        '[tabindex]:not([tabindex="-1"])',
-      ].join(', ');
-      
-      return Array.from(
-        container.querySelectorAll<HTMLElement>(focusableSelectors),
-      );
-    };
-    
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== 'Tab') return;
-      
-      const focusableElements = getFocusableElements();
+
+      const focusableElements = Array.from(
+        container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS),
+      );
       
       if (focusableElements.length === 0) {
         event.preventDefault();

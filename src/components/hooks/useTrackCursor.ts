@@ -44,24 +44,32 @@ export const useTrackCursor = (offsetRef: RefObject<{ x: number, y: number, zoom
   
   useEffect(() => {
     if (space && enteredSpace) {
+      let rafId: number | null = null;
       const move = (e: MouseEvent) => {
-        
-        void space.cursors.set({
-          position: {
-            x: offsetRef.current.x + e.clientX / offsetRef.current.zoom,
-            y: offsetRef.current.y + e.clientY / offsetRef.current.zoom,
-          },
-          data: {},
+        if (rafId !== null) {
+          return;
+        }
+        rafId = requestAnimationFrame(() => {
+          void space.cursors.set({
+            position: {
+              x: offsetRef.current.x + e.clientX / offsetRef.current.zoom,
+              y: offsetRef.current.y + e.clientY / offsetRef.current.zoom,
+            },
+            data: {},
+          });
+          rafId = null;
         });
-        
       };
       window.addEventListener('mousemove', move);
-      
+
       return () => {
         window.removeEventListener('mousemove', move);
+        if (rafId !== null) {
+          cancelAnimationFrame(rafId);
+        }
       };
     }
-    
+
     return () => null;
   }, [ space, enteredSpace, offsetRef ]);
 };

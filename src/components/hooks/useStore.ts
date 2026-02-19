@@ -5,7 +5,7 @@ export const useStore = <T, F>(
   callback: (state: T) => F,
 ) => {
   const result = store(callback) as F;
-  const [ data, setData ] = useState<F>();
+  const [ data, setData ] = useState<F>(result);
   
   useEffect(() => {
     setData(result);

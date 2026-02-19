@@ -28,14 +28,15 @@ export const useWidthResizer = ({ onOverflow, unOverflow, trigger, targetRef }: 
         }
       }
     };
-    setTimeout(handleEvent, 0);
+    const timeoutId = setTimeout(handleEvent, 0);
+    return () => clearTimeout(timeoutId);
   }, [ width, onOverflow, unOverflow, trigger, targetRef, now ]);
-  
+
   useEffect(() => {
     const handleTrigger = () => setNow(Date.now());
     window.addEventListener('resize', handleTrigger);
     return () => {
       window.removeEventListener('resize', handleTrigger);
     };
-  }, [ width, onOverflow, unOverflow, trigger, targetRef ]);
+  }, []);
 };

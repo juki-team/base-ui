@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import type { NotUndefined } from '../types';
+import { useStableRef } from './useStableRef';
 
 export type Func<T> = ((prevState: NotUndefined<T>) => NotUndefined<T>);
 
@@ -19,17 +20,19 @@ export const useHandleState = <T, >(
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
   
+  const stateRef = useStableRef(state);
+  
   const setState = useCallback((value: NotUndefined<T> | Func<T>) => {
     if (initialState === undefined || !onChangeRef.current) {
       _setState(value);
     } else {
       if (typeof value === 'function') {
-        onChangeRef.current?.((value as Func<T>)?.(state));
+        onChangeRef.current?.((value as Func<T>)?.(stateRef.current));
       } else {
         onChangeRef.current?.(value as NotUndefined<T>);
       }
     }
-  }, [ initialState, state ]);
+  }, [ initialState, stateRef ]);
   
   return [ state, setState ];
 };

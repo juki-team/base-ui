@@ -1,11 +1,14 @@
 import { useEffect } from 'react';
+import { useStableRef } from './useStableRef';
 
-// not recommended, call every time
 export function useKeyPress(handleKeyPress: (event: KeyboardEvent) => void) {
+  const handleKeyPressRef = useStableRef(handleKeyPress);
+  
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress, { capture: true });
+    const handler = (event: KeyboardEvent) => handleKeyPressRef.current(event);
+    document.addEventListener('keydown', handler, { capture: true });
     return () => {
-      document.removeEventListener('keydown', handleKeyPress, { capture: true });
+      document.removeEventListener('keydown', handler, { capture: true });
     };
-  }, [ handleKeyPress ]);
+  }, [ handleKeyPressRef ]);
 }

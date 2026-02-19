@@ -33,5 +33,4 @@ export const useClientTrackLocation = () => {
     };
   }, [ clientId, origin, pathname, searchParams, channelMessages, isLive ]);
   
-  return null;
 };

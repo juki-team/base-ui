@@ -9,17 +9,13 @@ export const usePageFocus = () => {
   const scrolled = useRef(false);
   
   useEffect(() => {
-    if (pageFocus) {
-      scrolled.current = false;
-    }
-  }, [ pageFocus ]);
-  
-  useEffect(() => {
-    
     let timeoutId: NodeJS.Timeout | null = null;
     let render = 0;
     
     if (pageFocus) {
+      
+      scrolled.current = false;
+      
       const go = () => {
         render++;
         const element = typeof document !== 'undefined' && document?.getElementById(pageFocus);

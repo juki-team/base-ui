@@ -22,23 +22,3 @@ export function useOutsideAlerter(clickOutside: (event: MouseEvent) => void, ref
     };
   }, [ clickOutside, ref ]);
 }
-
-export function useOutsideAlerterAnd(clickOutside: (event: MouseEvent) => void, ...refs: any) {
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      
-      let and = false;
-      for (const ref of refs) {
-        if (ref.current?.contains(event.target)) {
-          and = true;
-        }
-      }
-      if (!and) {
-        clickOutside(event);
-      }
-    }
-    
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [ clickOutside, refs ]);
-}

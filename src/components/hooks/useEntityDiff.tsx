@@ -12,9 +12,11 @@ export const useEntityDiff = <T, >(initialEntity: T, enable: boolean) => {
   
   const initialEntityString = JSON.stringify(initialEntity);
   
-  if (!enable) {
-    lastEntity.current = initialEntity;
-  }
+  useEffect(() => {
+    if (!enable) {
+      lastEntity.current = initialEntity;
+    }
+  }, [ enable, initialEntity ]);
   
   useEffect(() => {
     if (enable && initialEntityString !== JSON.stringify(lastEntity.current)) {

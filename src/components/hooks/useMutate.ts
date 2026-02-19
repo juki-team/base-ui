@@ -13,9 +13,7 @@ export const useMutate = () => {
     const matcher = typeof _matcher === 'string' ? new RegExp(_matcher) : _matcher;
     
     const keys = [];
-    const allKeys = [];
     for (const key of cache.keys()) {
-      allKeys.push(key);
       if (matcher.test(key)) {
         keys.push(key);
       }

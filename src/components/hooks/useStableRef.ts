@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 
 export const useStableRef = <T>(initialValue: T) => {
-  const searchVisiblesRef = useRef(initialValue);
-  searchVisiblesRef.current = initialValue;
-  return searchVisiblesRef;
+  const ref = useRef(initialValue);
+  ref.current = initialValue;
+  return ref;
 };

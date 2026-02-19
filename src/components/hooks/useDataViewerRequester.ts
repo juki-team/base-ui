@@ -20,12 +20,14 @@ export const useDataViewerRequester = <T extends ContentResponseType<unknown> | 
     if (!newUrl) {
       return;
     }
+    let isSameUrl = false;
     setUrl((prevUrl) => {
-      if (prevUrl === newUrl) {
-        Promise.resolve().then(() => mutate());
-      }
+      isSameUrl = prevUrl === newUrl;
       return newUrl;
     });
+    if (isSameUrl) {
+      await mutate();
+    }
   }, [ getUrlRef, mutate ]);
   
   useEffect(() => {
