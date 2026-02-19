@@ -127,18 +127,35 @@ export const useJukiUser = () => {
     setLoader?.(Status.LOADING);
     const response = cleanRequest<ContentResponseType<{ signedUrl: string }>>(await authorizedRequest(url, options));
     if (response.success) {
-      await fetch(response.content.signedUrl, {
-        method: HTTPMethod.PUT,
-        headers: {
-          'Content-Type': body.type,
-        },
-        body,
-      });
+      try {
+        const uploadResponse = await fetch(response.content.signedUrl, {
+          method: HTTPMethod.PUT,
+          headers: {
+            'Content-Type': body.type,
+          },
+          body,
+        });
+        if (!uploadResponse.ok) {
+          setLoader?.(Status.ERROR);
+          onError?.({ success: false, message: 'Error on upload image with signed url', errors: [] });
+          onFinally?.(response);
+          return;
+        }
+      } catch (uploadError) {
+        setLoader?.(Status.ERROR);
+        onError?.({
+          success: false,
+          message: (uploadError as Error)?.message || 'Unknow error on upload image with signed url',
+          errors: [],
+        });
+        onFinally?.(response);
+        return;
+      }
     }
     if (notifyResponse(response, setLoader)) {
-      await onSuccess?.(response);
+      onSuccess?.(response);
     } else {
-      await onError?.(response);
+      onError?.(response);
     }
     onFinally?.(response);
   }, [ notifyResponse ]);

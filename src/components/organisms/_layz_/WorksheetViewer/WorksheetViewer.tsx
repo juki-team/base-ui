@@ -12,7 +12,7 @@ import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
 import { classNames } from '../../../helpers';
 import { useFetcher } from '../../../hooks/useFetcher';
-import { useKeyPress } from '../../../hooks/useKeyPress';
+import { useKeyDown } from '../../../hooks/useKeyDown';
 import { useStableRef } from '../../../hooks/useStableRef';
 import { useSyncedState } from '../../../hooks/useSyncedState';
 import type { UserResultsType } from '../../../types';
@@ -75,7 +75,7 @@ export default function WorksheetViewer(props: WorksheetViewerProps) {
   const readOnly = initialReadOnly || (userResults?.data ? userNickname !== userResults.data.user.nickname : false);
   const pages = sheetsInPages.length;
   
-  useKeyPress(useCallback((event) => {
+  useKeyDown(useCallback((event) => {
     if (event.code === 'ArrowRight') {
       onPageChange(Math.min(page + 1, pages), 1, []);
     } else if (event.code === 'ArrowLeft') {

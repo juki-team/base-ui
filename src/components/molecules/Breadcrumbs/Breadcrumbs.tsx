@@ -1,7 +1,7 @@
 import { Children, Fragment, useCallback, useMemo, useRef, useState } from 'react';
 import { TriggerAction } from '../../../enums';
 import { Popover } from '../../atoms';
-import { useWidthResizer } from '../../hooks/useWidthResizer';
+import { useOverflowDetector } from '../../hooks/useOverflowDetector';
 import { NavigateNextIcon } from '../../server';
 import { HomeLink } from '../HomeLink/HomeLink';
 import type { BreadcrumbsProps } from './types';
@@ -32,7 +32,7 @@ export function Breadcrumbs({ breadcrumbs: initialBreadcrumbs, withoutHomeLink }
     return [ breadcrumbs, reducedSize ];
   }, [ breadcrumbs, reducedSize ]);
   
-  useWidthResizer({ targetRef: refBreadcrumb, unOverflow, onOverflow, trigger });
+  useOverflowDetector({ targetRef: refBreadcrumb, unOverflow, onOverflow, trigger });
   
   return (
     <div

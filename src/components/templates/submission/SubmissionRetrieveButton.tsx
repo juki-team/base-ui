@@ -5,7 +5,7 @@ import { T } from '../../atoms';
 import { RefreshIcon } from '../../atoms/server';
 import { authorizedRequest } from '../../helpers';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { useMutate } from '../../hooks/useMutate';
+import { useMatchMutate } from '../../hooks/useMatchMutate';
 import { ButtonLoader } from '../../molecules';
 import type { ButtonLoaderOnClickType } from '../../types';
 import type { SubmissionRetrieveButtonProps } from './types';
@@ -13,7 +13,7 @@ import type { SubmissionRetrieveButtonProps } from './types';
 export function SubmissionRetrieveButton({ submissionId }: SubmissionRetrieveButtonProps) {
   
   const { notifyResponse } = useJukiNotification();
-  const mutate = useMutate();
+  const mutate = useMatchMutate();
   const rejudgeSubmission = (submissionId: string): ButtonLoaderOnClickType => async (setLoaderStatus) => {
     setLoaderStatus(Status.LOADING);
     

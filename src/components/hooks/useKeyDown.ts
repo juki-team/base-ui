@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useStableRef } from './useStableRef';
 
-export function useKeyPress(handleKeyPress: (event: KeyboardEvent) => void) {
+export function useKeyDown(handleKeyPress: (event: KeyboardEvent) => void) {
   const handleKeyPressRef = useStableRef(handleKeyPress);
   
   useEffect(() => {

@@ -18,7 +18,7 @@ export const usePageFocus = () => {
       
       const go = () => {
         render++;
-        const element = typeof document !== 'undefined' && document?.getElementById(pageFocus);
+        const element = document.getElementById(pageFocus);
         if (element) {
           element.focus();
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });

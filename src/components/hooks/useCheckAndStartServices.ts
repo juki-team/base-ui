@@ -24,7 +24,6 @@ export const useCheckAndStartServices = () => {
         const { url, ...options } = jukiApiManager.API_V2.system.services.checkAndStart();
         const response = cleanRequest<ContentResponseType<string>>(await authorizedRequest(url, options));
         consoleInfo('runner services wake up requested', response);
-        localStorage.setItem('lastRequestedServicesCheck', Date.now().toString());
       }
     };
     void fun();

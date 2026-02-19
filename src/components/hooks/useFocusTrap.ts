@@ -29,10 +29,12 @@ export function useFocusTrap(
   containerRef: RefObject<HTMLElement | null>,
   isActive: boolean,
 ) {
-  useEffect(() => {
-    if (!isActive || !containerRef.current) return;
+  // Read .current during render so React tracks it as a dependency.
+  // This ensures the effect re-runs when the element mounts after isActive is true.
+  const container = containerRef.current;
 
-    const container = containerRef.current;
+  useEffect(() => {
+    if (!isActive || !container) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key !== 'Tab') return;
@@ -40,15 +42,15 @@ export function useFocusTrap(
       const focusableElements = Array.from(
         container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS),
       );
-      
+
       if (focusableElements.length === 0) {
         event.preventDefault();
         return;
       }
-      
+
       const firstElement = focusableElements[0];
       const lastElement = focusableElements[focusableElements.length - 1];
-      
+
       if (event.shiftKey) {
         if (document.activeElement === firstElement) {
           event.preventDefault();
@@ -61,11 +63,11 @@ export function useFocusTrap(
         }
       }
     };
-    
+
     container.addEventListener('keydown', handleKeyDown);
-    
+
     return () => {
       container.removeEventListener('keydown', handleKeyDown);
     };
-  }, [ containerRef, isActive ]);
+  }, [ container, isActive ]);
 }

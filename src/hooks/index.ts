@@ -1,7 +1,7 @@
 export * from './usePreloadComponents';
 
 // components hooks
-export * from '../components/hooks/useKeyPress';
+export * from '../components/hooks/useKeyDown';
 export * from '../components/hooks/useWindowSize';
 export * from '../components/hooks/useInterval';
 export * from '../components/hooks/useCheckAndStartServices';
@@ -20,17 +20,16 @@ export * from '../components/hooks/useJukiNotification';
 export * from '../components/hooks/useJukiUser';
 export * from '../components/hooks/useTrackLastPath';
 export * from '../components/hooks/useMemoizedArray';
-export * from '../components/hooks/useMutate';
-export * from '../components/hooks/useOutsideAlerter';
+export * from '../components/hooks/useMatchMutate';
+export * from '../components/hooks/useClickOutside';
 export * from '../components/hooks/usePageFocus';
 export * from '../components/hooks/usePreload';
 export * from '../components/hooks/usePrevious';
 export * from '../components/hooks/useSessionStorage';
 export * from '../components/hooks/useStableRef';
 export * from '../components/hooks/useSyncedState';
-export * from '../components/hooks/useStore';
 export * from '../components/hooks/useTrackCursor';
-export * from '../components/hooks/useWidthResizer';
+export * from '../components/hooks/useOverflowDetector';
 export * from '../components/hooks/useClientTrackLocation';
 export * from '../components/hooks/useSubscribe';
 

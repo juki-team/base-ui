@@ -8,7 +8,7 @@ import { DateLiteral, T } from '../../atoms';
 import { DeleteIcon } from '../../atoms/server';
 import { useDataViewerRequester } from '../../hooks/useDataViewerRequester';
 import { useJukiUser } from '../../hooks/useJukiUser';
-import { useMutate } from '../../hooks/useMutate';
+import { useMatchMutate } from '../../hooks/useMatchMutate';
 import { ButtonLoader } from '../../molecules';
 import { DataViewer, Field } from '../../organisms';
 import type { DataViewerHeadersType } from '../../organisms/_layz_/DataViewer/types';
@@ -24,7 +24,7 @@ export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
     setLoaderStatusRef,
   } = useDataViewerRequester<ContentsResponseType<SessionBasicResponseDTO>>(() => jukiApiManager.API_V2.user.getMySessions().url);
   
-  const mutate = useMutate();
+  const mutate = useMatchMutate();
   
   const columns: DataViewerHeadersType<SessionBasicResponseDTO>[] = useMemo(() => [
     {

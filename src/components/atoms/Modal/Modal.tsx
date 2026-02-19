@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { classNames } from '../../helpers';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
-import { useSetLoaderStatus } from '../../hooks/useSetLoaderStatus';
+import { useLoaderStatusSync } from '../../hooks/useLoaderStatusSync';
 import { useStableRef } from '../../hooks/useStableRef';
 import type { SetLoaderStatusOnClickType } from '../../types';
 import { Portal } from '../Portal/Portal';
@@ -29,7 +29,7 @@ export function Modal<T extends ModalButtonLoaderEventType>(props: ModalProps<T>
   } = props;
   
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
-  const _refLoader = useSetLoaderStatus(loader, setLoader, setLoaderStatusRef, onLoaderStatusChange);
+  const _refLoader = useLoaderStatusSync(loader, setLoader, setLoaderStatusRef, onLoaderStatusChange);
   const onCloseRef = useStableRef(onClose);
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);

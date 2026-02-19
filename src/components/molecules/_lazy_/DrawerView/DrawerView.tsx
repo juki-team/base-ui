@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { memo, useRef } from 'react';
 import { Button, Portal } from '../../../atoms';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../../helpers';
-import { useKeyPress } from '../../../hooks/useKeyPress';
+import { useKeyDown } from '../../../hooks/useKeyDown';
 import { CloseIcon } from '../../../server';
 
 import { DrawerViewProps } from './types';
@@ -27,7 +27,7 @@ function DrawerViewComponent(props: DrawerViewProps) {
     }
   };
   
-  useKeyPress((event: KeyboardEvent) => {
+  useKeyDown((event: KeyboardEvent) => {
     if (closeWhenKeyEscape && isOpen && event.code === 'Escape') {
       close();
     }

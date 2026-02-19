@@ -5,7 +5,7 @@ import { useUserStore } from '../../../stores/user/useUserStore';
 import { Button, Modal, T } from '../../atoms';
 import { toBlob } from '../../helpers';
 import { useJukiUser } from '../../hooks/useJukiUser';
-import { useMutate } from '../../hooks/useMutate';
+import { useMatchMutate } from '../../hooks/useMatchMutate';
 import { ButtonLoader, ImageLoaderCropper } from '../../molecules';
 import type { CropImageType } from '../../molecules/types';
 import type { ImageProfileModalProps } from './types';
@@ -14,7 +14,7 @@ export function ImageProfileModal({ isOpen, onClose, nickname, companyKey }: Ima
   
   const { updateUserProfileImage } = useJukiUser();
   const mutateUser = useUserStore(state => state.mutate);
-  const mutate = useMutate();
+  const mutate = useMatchMutate();
   const [ cropImage, setCropImage ] = useState<CropImageType>();
   
   return (

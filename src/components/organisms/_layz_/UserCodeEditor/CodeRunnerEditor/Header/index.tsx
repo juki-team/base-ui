@@ -17,7 +17,7 @@ import { jukiApiManager } from '../../../../../../settings';
 import { Button, Select, T } from '../../../../../atoms';
 import { authorizedRequest, classNames, downloadBlobAsFile } from '../../../../../helpers';
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
-import { useKeyPress } from '../../../../../hooks/useKeyPress';
+import { useKeyDown } from '../../../../../hooks/useKeyDown';
 import { ButtonLoader, CodeViewer } from '../../../../../molecules';
 import {
   ContentCopyIcon,
@@ -241,7 +241,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
     }
   }, [ downloadAsText, downloadAsPng, copyAsText, copyAsPng ]);
   
-  useKeyPress(handleKeyDown);
+  useKeyDown(handleKeyDown);
   
   const withLabels = headerWidthContainer > minWidth;
   const widthCenterContainer = headerWidthContainer - widthLeftSection - widthRightSection;

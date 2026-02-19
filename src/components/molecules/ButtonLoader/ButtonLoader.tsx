@@ -2,7 +2,7 @@ import { Status } from '@juki-team/commons';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '../../atoms';
 import { classNames } from '../../helpers';
-import { useSetLoaderStatus } from '../../hooks/useSetLoaderStatus';
+import { useLoaderStatusSync } from '../../hooks/useLoaderStatusSync';
 import { CheckIcon, ErrorIcon, SpinIcon } from '../../server';
 import type { ButtonLoaderProps } from './types';
 
@@ -19,7 +19,7 @@ export function ButtonLoader(props: ButtonLoaderProps) {
   } = props;
   
   const [ loader, setLoader ] = useState<Status>(Status.NONE);
-  useSetLoaderStatus(loader, setLoader, setLoaderStatusRef);
+  useLoaderStatusSync(loader, setLoader, setLoaderStatusRef);
   const refTimeOut = useRef<ReturnType<typeof setTimeout>>(null);
   
   useEffect(() => {

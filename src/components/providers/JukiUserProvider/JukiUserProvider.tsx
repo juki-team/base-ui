@@ -19,7 +19,7 @@ import { useFetcher } from '../../hooks/useFetcher';
 import { useInjectCompanyStyles } from '../../hooks/useInjectCompanyStyles';
 import { useInjectFontSize } from '../../hooks/useInjectFontSize';
 import { useInjectTheme } from '../../hooks/useInjectTheme';
-import { useMutate } from '../../hooks/useMutate';
+import { useMatchMutate } from '../../hooks/useMatchMutate';
 
 export const JukiUserProvider = () => {
   const setUser = useUserStore(state => state.setUser);
@@ -49,7 +49,7 @@ export const JukiUserProvider = () => {
     { refreshInterval: ONE_MINUTE * 5 },
   );
   
-  const matchMutate = useMutate();
+  const matchMutate = useMatchMutate();
   
   const refreshAllRequest = useCallback(async () => {
     await matchMutate(new RegExp(`${JUKI_SERVICE_V2_URL}`));

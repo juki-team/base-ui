@@ -10,34 +10,45 @@ export const useTrackCursor = (offsetRef: RefObject<{ x: number, y: number, zoom
   const [ enteredSpace, setEnteredSpace ] = useState(false);
   
   useEffect(() => {
-    
+    let cancelled = false;
+
     const leaveSpace = async () => {
       try {
         await space?.leave();
       } catch (error) {
         consoleWarn('Leaving space error', error);
       } finally {
-        setEnteredSpace(false);
+        if (!cancelled) {
+          setEnteredSpace(false);
+        }
       }
     };
-    
+
     const fun = async () => {
       await leaveSpace();
+      if (cancelled) {
+        return;
+      }
       if (space) {
         try {
           await space.enter({
             username: nickname,
             avatar: imageUrl,
           });
-          setEnteredSpace(true);
+          if (!cancelled) {
+            setEnteredSpace(true);
+          }
         } catch (error) {
           consoleError(error);
-          setEnteredSpace(false);
+          if (!cancelled) {
+            setEnteredSpace(false);
+          }
         }
       }
     };
     void fun();
     return () => {
+      cancelled = true;
       void leaveSpace();
     };
   }, [ imageUrl, nickname, space ]);

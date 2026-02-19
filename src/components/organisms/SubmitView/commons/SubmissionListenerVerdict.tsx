@@ -8,7 +8,7 @@ import {
 } from '@juki-team/commons';
 import { useState } from 'react';
 import { JUKI_SERVICE_V2_URL } from '../../../../constants/settings';
-import { useMutate } from '../../../hooks/useMutate';
+import { useMatchMutate } from '../../../hooks/useMatchMutate';
 import { useSubscribe } from '../../../hooks/useSubscribe';
 import { SubmissionVerdict } from './SubmissionVerdict';
 
@@ -42,7 +42,7 @@ export const SubmissionListenerVerdict = ({ submit, className }: SubmissionListe
   
   const { points, status, verdict, submitId, processedCases } = submit;
   
-  const mutate = useMutate();
+  const mutate = useMatchMutate();
   const [ submissionData, setSubmissionData ] = useState<SubmissionRunStatusWebSocketResponseEventDTO | undefined>(undefined);
   
   const event: Omit<SubscribeSubmissionRunStatusWebSocketEventDTO, 'clientId'> = {

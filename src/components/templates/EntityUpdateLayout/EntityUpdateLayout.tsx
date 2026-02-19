@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { authorizedRequest } from '../../helpers';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
-import { useMutate } from '../../hooks/useMutate';
+import { useMatchMutate } from '../../hooks/useMatchMutate';
 import { TabsInlineButton, TabsInlineButtonLoader } from '../../molecules';
 import { CheckUnsavedChanges } from '../../organisms';
 import { CloseIcon, SaveIcon } from '../../server';
@@ -15,7 +15,7 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
   
   const pushRoute = useRouterStore(state => state.pushRoute);
   const { notifyResponse } = useJukiNotification();
-  const mutate = useMutate();
+  const mutate = useMatchMutate();
   const [ entity ] = useState(initialEntity);
   
   const tabButtons = ({ entityData, disableUpdateButton }: { entityData: T, disableUpdateButton?: boolean }) => [

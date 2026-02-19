@@ -4,8 +4,8 @@ import { RESIZE_DETECTOR_PROPS } from '../../../constants';
 import { TriggerAction } from '../../../enums';
 import { Popover, Select } from '../../atoms';
 import { classNames, renderReactNodeOrFunctionP1 } from '../../helpers';
+import { useClickOutside } from '../../hooks/useClickOutside';
 import { useHandleState } from '../../hooks/useHandleState';
-import { useOutsideAlerter } from '../../hooks/useOutsideAlerter';
 import { ViewHeadlineIcon } from '../../server';
 import type { NotUndefined } from '../../types';
 import type { TabsProps } from './types';
@@ -68,7 +68,7 @@ export function Tabs<T extends string, >(props: TabsProps<T>) {
     };
   }, [ tabKey, setTabKey, indexes, tabs ]);
   const tabsHeaderFocus = useRef(false);
-  useOutsideAlerter(() => tabsHeaderFocus.current = false, tabsHeaderRef);
+  useClickOutside(() => tabsHeaderFocus.current = false, tabsHeaderRef);
   
   const tabHeaders: { [key: string]: ReactNode } = {};
   tabs.forEach(({ key, header }) => {

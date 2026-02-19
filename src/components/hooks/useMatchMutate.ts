@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useSWRConfig } from 'swr';
 
-export const useMutate = () => {
+export const useMatchMutate = () => {
   
   const { cache, mutate } = useSWRConfig();
   
