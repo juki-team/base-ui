@@ -29,8 +29,8 @@
   0% {
     transform: scale(1);
   }
-  50% {
-    transform: scale(0.92);
+  25% {
+    transform: scale(0.9);
   }
   100% {
     transform: scale(1);
@@ -38,11 +38,10 @@
 }
 
 .shrink-click {
-  animation: clickShrink 0.1s ease;
+  animation: clickShrink 100ms ease;
 }
 
 .jk-button {
-  //--button-border-color: transparent;
   --button-padding: var(--pad-xs); // 16px
   --button-border-padding: var(--button-padding);
   --icon-margin-right: 0;
@@ -59,10 +58,9 @@
   cursor: pointer;
   overflow: hidden;
   padding: calc(var(--tx-h-m) / 4) calc(var(--tx-h-m) / 2);
-  //opacity: 1;
   line-height: calc(var(--line-height) - 4px);
   --size-button-loader-icon: var(--line-height);
-  @include mixins.transition-fast(opacity, padding, outline-color, outline-width);
+  @include mixins.transition-fast(opacity, padding, outline-color, outline-width, background-color);
   
   .jk-icon {
     --size-icon: calc(var(--line-height) - 4px);
@@ -145,7 +143,7 @@
   }
 }
 
-.jk-button.text, .jk-button.void { // background color by system default
+.jk-button.void {
   color: inherit;
   
   &:not([class*=" bc-"]):not([class^="bc-"]) {
@@ -157,18 +155,24 @@
   }
 }
 
-.jk-button.outline {
-  outline: 1px solid var(--cr-tx-ht) !important;
-  color: var(--cr-tx-ht);
-  font-weight: var(--weight-bolder) !important;
+.jk-button.text {
+  color: inherit;
+  outline-offset: 0 !important;
   
-  &:not([class*=" bc-"]):not([class^="bc-"]) {
+  &:not([class*=" bc-"]):not([class^="bc-"]):not(:hover) {
     --background-color: transparent;
+  }
+  
+  &:not([class*=" bc-"]):not([class^="bc-"]):hover {
+    --background-color: var(--cr-ht-lt);
+  }
+  
+  * {
+    color: inherit;
   }
 }
 
 .jk-button.light {
-  //--button-border-width: 2px;
   outline-offset: 0 !important;
   color: inherit;
   

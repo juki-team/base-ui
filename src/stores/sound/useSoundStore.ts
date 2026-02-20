@@ -28,7 +28,7 @@ export const useSoundStore = create<SoundStore>((set, getState) => ({
   setSounds: (sounds) => set({ sounds }),
   playClick: () => playSound(getState().sounds?.[Sound.CLICK], 0.1),
   playSuccess: () => playSound(getState().sounds?.[Sound.SUCCESS], 0.1),
-  playError: () => playSound(getState().sounds?.[Sound.ERROR]),
+  playError: (volume = 0.1) => playSound(getState().sounds?.[Sound.ERROR], volume),
   playNotification: () => playSound(getState().sounds?.[Sound.NOTIFICATION]),
   playWarning: () => playSound(getState().sounds?.[Sound.WARNING]),
   playMessage: () => playSound(getState().sounds?.[Sound.MESSAGE]),

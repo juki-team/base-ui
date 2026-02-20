@@ -32,7 +32,7 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
       data-tooltip-id={tooltipContent ? 'jk-tooltip' : ''}
       data-tooltip-content={tooltipContent}
       ref={ref}
-      disabled={disabled}
+      aria-disabled={disabled}
       type={submit ? 'submit' : 'button'}
       className={classNames(className, `jk-button ${type} jk-br-ie`, size, {
         expand,
@@ -42,17 +42,18 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
       })}
       onClick={disabled
         ? (event) => {
+          event.preventDefault();
           const button = event.currentTarget;
+          sound.playError();
           
-          // animation
           button.classList.remove('shake');
           void button.offsetWidth;
           button.classList.add('shake');
           
-          sound.playError(0.1);
         }
         : (event => {
           const button = event.currentTarget;
+          sound.playClick();
           
           // animation
           button.classList.remove('shrink-click');
@@ -60,7 +61,7 @@ function ButtonComponent(props: ButtonCmpProps, ref: Ref<HTMLButtonElement>) {
           button.classList.add('shrink-click');
           
           onClick?.({ onClickEvent: event });
-          sound.playClick();
+          
         })
       }
       {...restProps}
