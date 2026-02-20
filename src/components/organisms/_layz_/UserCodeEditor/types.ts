@@ -1,4 +1,4 @@
-import { CodeEditorFiles, CodeEditorTestCasesType, SubmissionRunStatus } from '@juki-team/commons';
+import { CodeEditorFile, CodeEditorFiles, CodeEditorTestCasesType, SubmissionRunStatus } from '@juki-team/commons';
 import { ReactNode } from 'react';
 import {
   CodeEditorButtonsType,
@@ -34,4 +34,5 @@ export interface UserCodeEditorProps<T> {
     testCases: CodeEditorTestCasesType
   }) => void,
   onlyCodeEditor?: boolean,
+  setSetFile?: (cb: (fileName: string, file: CodeEditorFile<T>) => void) => void,
 }

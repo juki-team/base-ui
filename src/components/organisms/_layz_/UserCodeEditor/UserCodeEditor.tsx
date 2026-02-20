@@ -1,5 +1,6 @@
 import {
   CODE_LANGUAGE,
+  CodeEditorFile,
   type CodeEditorFiles,
   type CodeEditorTestCasesType,
   CodeLanguage,
@@ -275,6 +276,7 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
     withoutDownloadCopyButton,
     onCodeRunStatusChange,
     onlyCodeEditor,
+    setSetFile,
   } = props;
   
   const userNickname = useUserStore(state => state.user.nickname);
@@ -324,6 +326,22 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   
   const [ editorTriggerFocus, setEditorTriggerFocus ] = useState(0);
   
+  useEffect(() => {
+    setSetFile?.((fileName: string, file: CodeEditorFile<T>) => {
+      setFilesStore(prevState => {
+        if (prevState[storeKey]) {
+          return {
+            ...prevState,
+            [storeKey]: {
+              ...prevState[storeKey],
+              [fileName]: file,
+            },
+          };
+        }
+        return prevState;
+      });
+    });
+  }, [ setFilesStore, setSetFile, storeKey ]);
   const changeFileName = (prevState: StorageType<CodeEditorFiles<T>>, oldName: string, newName: string) => {
     const files = prevState[storeKey] || {};
     if (files[oldName]) {
