@@ -5,7 +5,7 @@ import {
   ProfileSetting,
   Theme,
 } from '@juki-team/commons';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { QueryParamKey, TriggerAction } from '../../../enums';
 import { jukiApiManager } from '../../../settings';
 import { usePageStore } from '../../../stores/page/usePageStore';
@@ -47,7 +47,6 @@ export function MainMenu(props: MainMenuProps) {
   const { Link, Image } = useUIStore(store => store.components);
   const viewPortSize = usePageStore(store => store.viewPort.screen);
   const searchParams = useRouterStore(state => state.searchParams);
-  const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
   const setSearchParams = useRouterStore(state => state.setSearchParams);
   const isLoading = useUserStore(state => state.isLoading);
   const { imageUrl: companyImageUrl, name, styles } = useUserStore(state => state.company);
@@ -63,14 +62,6 @@ export function MainMenu(props: MainMenuProps) {
   const companies = useMemo(() => data?.success ? data.contents : [], [ data ]);
   const company = useMemo(() => companies.find((company) => company.key === companyKey), [ companyKey, companies ]);
   
-  useEffect(() => {
-    if (isLogged && (searchParams.has(QueryParamKey.SIGN_IN))) {
-      deleteSearchParams({ name: QueryParamKey.SIGN_IN });
-    }
-    if (isLogged && (searchParams.has(QueryParamKey.SIGN_UP))) {
-      deleteSearchParams({ name: QueryParamKey.SIGN_UP });
-    }
-  }, [ isLogged, searchParams, deleteSearchParams ]);
   const [ helpOpen, setHelpOpen ] = useState(false);
   
   const enabled = false;

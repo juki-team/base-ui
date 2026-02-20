@@ -1,9 +1,10 @@
 import { MotionConfig } from 'motion/react';
 import { type FC, type PropsWithChildren, useCallback, useEffect, useRef } from 'react';
-import { Duration } from '../../../enums';
+import { Duration, QueryParamKey } from '../../../enums';
 import { persistGlobalURLSearchParams } from '../../../settings/AppRoutes';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useUIStore } from '../../../stores/ui/useUIStore';
+import { useUserStore } from '../../../stores/user/useUserStore';
 import { Tooltip } from '../../atoms';
 import { classNames } from '../../helpers';
 import { LoginModal, SignUpModal, SubmissionModal, UserPreviewModal, WelcomeModal } from '../../organisms';
@@ -25,7 +26,9 @@ export const JukiUIProvider = ({
   const ref = useRef<HTMLDivElement>(null);
   const setProps = useUIStore(store => store.setProps);
   const isLoaded = useUIStore(store => store.components.loaded);
-  
+  const deleteSearchParams = useRouterStore(state => state.deleteSearchParams);
+  const searchParams = useRouterStore(state => state.searchParams);
+  const { isLogged } = useUserStore(state => state.user);
   const LinkCmp: FC<LinkCmpProps> = useCallback(({ href, ...restProps }) => {
     let pathname;
     let sp;
@@ -49,6 +52,15 @@ export const JukiUIProvider = ({
   useEffect(() => {
     setProps({ jukiAppDivRef: ref });
   }, [ ref, setProps ]);
+  
+  useEffect(() => {
+    if (isLogged && (searchParams.has(QueryParamKey.SIGN_IN))) {
+      deleteSearchParams({ name: QueryParamKey.SIGN_IN });
+    }
+    if (isLogged && (searchParams.has(QueryParamKey.SIGN_UP))) {
+      deleteSearchParams({ name: QueryParamKey.SIGN_UP });
+    }
+  }, [ isLogged, searchParams, deleteSearchParams ]);
   
   return (
     <MotionConfig transition={{ duration: Duration.NORMAL }}>
