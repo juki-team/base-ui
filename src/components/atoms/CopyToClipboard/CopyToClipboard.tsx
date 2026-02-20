@@ -10,6 +10,7 @@ export function CopyToClipboard({
                                   children,
                                   noStyling,
                                   className,
+                                  disabled = false,
                                 }: CopyToClipboardProps) {
   
   const [ isOpen, setIsOpen ] = useState(false);
@@ -29,14 +30,17 @@ export function CopyToClipboard({
       // data-tooltip-place="left"
       className={classNames('jk-row gap', size, className, {
         'link jk-br-ie jk-button light': !noStyling,
+        'jk-row nowrap': !!children,
         'only-icon': !children,
+        disabled,
       })}
       style={noStyling || !children ? {} : {
         width: 'min-content',
         height: 'min-content',
         // padding: 'calc(var(--gap) / 3)',
       }}
-      onClick={handleClick}
+      aria-disabled={disabled}
+      onClick={disabled ? undefined : handleClick}
     >
       {/*{children ?? (isOpen ? <CheckIcon size={size} /> : <ContentCopyIcon size={size} />)}*/}
       {(isOpen ? <DoneAllIcon size={size} /> : <ContentCopyIcon size={size} />)}

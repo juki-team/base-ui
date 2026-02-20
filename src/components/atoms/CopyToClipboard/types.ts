@@ -8,4 +8,5 @@ export interface CopyToClipboardProps {
   children?: ReactNode,
   noStyling?: boolean,
   className?: string,
+  disabled?: boolean,
 }
