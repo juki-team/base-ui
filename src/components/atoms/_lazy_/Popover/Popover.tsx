@@ -10,12 +10,13 @@ import {
   useClick,
   useDismiss,
   useFloating,
+  type UseFloatingReturn,
   useHover,
   useInteractions,
+  type UseInteractionsReturn,
   useRole,
 } from '@floating-ui/react';
-import { type Transition } from 'motion';
-import { type Variants } from 'motion-dom';
+import { type Transition, type Variants } from 'motion';
 import { AnimatePresence, motion } from 'motion/react';
 import { cloneElement, isValidElement, useEffect, useMemo, useRef, useState } from 'react';
 import { Duration, TriggerAction } from '../../../../enums';
@@ -35,6 +36,12 @@ interface PopoverOptions {
   padding?: number,
 }
 
+export type UsePopoverReturn = UseFloatingReturn & UseInteractionsReturn & {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  modal: boolean | undefined;
+};
+
 export function usePopover({
                              initialOpen = false,
                              placement = 'bottom',
@@ -44,7 +51,7 @@ export function usePopover({
                              triggerOn = TriggerAction.HOVER,
                              offset: _offset,
                              padding = 4,
-                           }: PopoverOptions) {
+                           }: PopoverOptions): UsePopoverReturn {
   const [ uncontrolledOpen, setUncontrolledOpen ] = useState(initialOpen);
   
   const isOpen = controlledOpen ?? uncontrolledOpen;
