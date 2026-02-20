@@ -1,9 +1,14 @@
+import { OrderedExcalidrawElement } from '@excalidraw/excalidraw/element/types';
+import { AppState } from '@excalidraw/excalidraw/types';
 import {
   ClientIdType,
+  CodeEditorFiles,
   CodeEditorSubmissionDTO,
+  CodeLanguage,
   CodeRunDTO,
   CompanyPlan,
   CompanyStylesType,
+  EntityMembersDTO,
   FilesJukiPub,
   getUserKey,
   GroupByTimestampKey,
@@ -1033,19 +1038,32 @@ export class ApiManager {
         })),
       },
       excalidraw: {
+        getSummaryList: valid<
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('excalidraw', '/summary-list'), page, pageSize), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
         create: valid<
-          { body: { name: string } },
+          {
+            body: { name: string, elements: OrderedExcalidrawElement[], appsState: AppState, members: EntityMembersDTO }
+          },
           HTTPMethod.POST
         >(({ body }) => ({
           url: injectBaseUrl('excalidraw', ''),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        getSummaryList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('excalidraw', '/summary-list'), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
+        update: valid<
+          {
+            params: { key: string },
+            body: { name: string, elements: OrderedExcalidrawElement[], appsState: AppState, members: EntityMembersDTO }
+          },
+          HTTPMethod.PUT
+        >(({ params: { key }, body }) => ({
+          url: injectBaseUrl('excalidraw', `/${key}`),
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(body),
         })),
         getMetadata: valid<
           { params: { key: string } }
@@ -1057,6 +1075,57 @@ export class ApiManager {
           { params: { key: string } }
         >(({ params: { key } }) => ({
           url: injectBaseUrl('excalidraw', `/${key}/data`),
+          method: HTTPMethod.GET,
+        })),
+      },
+      mermaid: {
+        getSummaryList: valid<
+          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
+        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+          url: injectSort(injectFilter(injectPage(injectBaseUrl('mermaid', '/summary-list'), page, pageSize), filterUrl), sortUrl),
+          method: HTTPMethod.GET,
+        })),
+        create: valid<
+          {
+            body: {
+              name: string,
+              tags: string[],
+              files: CodeEditorFiles<CodeLanguage.MERMAID>,
+              members: EntityMembersDTO
+            }
+          },
+          HTTPMethod.POST
+        >(({ body }) => ({
+          url: injectBaseUrl('mermaid', ''),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        update: valid<
+          {
+            params: { key: string },
+            body: {
+              name: string,
+              tags: string[],
+              files: CodeEditorFiles<CodeLanguage.MERMAID>,
+              members: EntityMembersDTO
+            }
+          },
+          HTTPMethod.PUT
+        >(({ params: { key }, body }) => ({
+          url: injectBaseUrl('mermaid', `/${key}`),
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(body),
+        })),
+        getMetadata: valid<
+          { params: { key: string } }
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('mermaid', `/${key}/metadata`),
+          method: HTTPMethod.GET,
+        })),
+        getData: valid<
+          { params: { key: string } }
+        >(({ params: { key } }) => ({
+          url: injectBaseUrl('mermaid', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
       },
