@@ -1054,14 +1054,14 @@ export class ApiManager {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        update: valid<
+        updateData: valid<
           {
             params: { key: string },
             body: { name: string, elements: OrderedExcalidrawElement[], appsState: AppState, members: EntityMembersDTO }
           },
           HTTPMethod.PUT
         >(({ params: { key }, body }) => ({
-          url: injectBaseUrl('excalidraw', `/${key}`),
+          url: injectBaseUrl('excalidraw', `/${key}/data`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
@@ -1100,7 +1100,7 @@ export class ApiManager {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        update: valid<
+        updateData: valid<
           {
             params: { key: string },
             body: {
@@ -1112,7 +1112,7 @@ export class ApiManager {
           },
           HTTPMethod.PUT
         >(({ params: { key }, body }) => ({
-          url: injectBaseUrl('mermaid', `/${key}`),
+          url: injectBaseUrl('mermaid', `/${key}/data`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
