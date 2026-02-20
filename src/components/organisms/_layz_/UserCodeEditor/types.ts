@@ -19,6 +19,7 @@ export interface UserCodeEditorProps<T> {
   // onSourceChange?: (source: string) => void,
   // onLanguageChange?: (language: T) => void,
   onFilesChange?: (files: CodeEditorFiles<T>) => void,
+  onCurrentFileNameChange?: (currentFileName: string) => void,
   onTestCasesChange?: (testCases: CodeEditorTestCasesType) => void,
   onIsRunningChange?: (isRunning: boolean) => void,
   initialFiles?: CodeEditorFiles<T>,

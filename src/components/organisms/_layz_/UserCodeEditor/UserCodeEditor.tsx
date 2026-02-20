@@ -264,6 +264,7 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
     centerButtons,
     rightButtons,
     onFilesChange,
+    onCurrentFileNameChange,
     onTestCasesChange,
     initialFiles,
     enableAddSampleCases,
@@ -299,7 +300,9 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   const defaultFileName = initialFileName ?? Object.keys(files)[0] ?? getDefaultFileName(defaultLanguage as CodeLanguage);
   const [ newInitialSettings ] = useSyncedState<StorageType<SettingsStore>>({ [storeKey]: { lastFileName: defaultFileName } });
   const [ settingsStore, setSettingsStore ] = useSaveChunkStorage<SettingsStore>(getSettingsStoreKey(userNickname), newInitialSettings, (a, b) => ({ ...a, ...b }), formatSettingsStoreRecovered);
+  const onCurrentFileNameChangeRef = useStableRef(onCurrentFileNameChange);
   const currentFileName = settingsStore[storeKey]?.lastFileName ?? defaultFileName;
+  useEffect(() => onCurrentFileNameChangeRef.current?.(currentFileName), [ currentFileName, onCurrentFileNameChangeRef ]);
   const setCurrentFileName = (lastFileName: string) => {
     setSettingsStore(prevState => ({
       ...prevState,
