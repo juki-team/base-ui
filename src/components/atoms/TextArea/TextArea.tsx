@@ -13,6 +13,7 @@ function TextAreaComponent(props: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement
     onBlur,
     disabled,
     rows,
+    onCtrlClick,
     ...rest
   } = props;
   
@@ -37,6 +38,11 @@ function TextAreaComponent(props: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement
         onChange?.(target.value);
       }}
       onBlur={registerOnBlur ? registerOnBlur : onBlur}
+      onClick={onCtrlClick ? (event) => {
+        if (event.ctrlKey || event.metaKey) {
+          onCtrlClick();
+        }
+      } : undefined}
       disabled={disabled}
       rows={rows ?? Math.max((value || '').split('\n').length, 2)}
       style={style}
@@ -58,7 +64,8 @@ interface CmpTextAreaProps {
   disabled?: boolean,
   rows?: number,
   placeholder?: string,
-  wrap?: 'off'
+  wrap?: 'off',
+  onCtrlClick?: () => void,
 }
 
 export type TextAreaProps = ComponentPropsWithRef<typeof TextArea>;
