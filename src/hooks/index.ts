@@ -45,3 +45,5 @@ export * from '../stores/ui/useUIStore';
 export * from '../stores/user/useUserStore';
 export * from '../stores/animationFrame/useAnimationFrameStore';
 export * from '../stores/websocket/useWebsocketStore';
+
+export { useResizeDetector } from 'react-resize-detector';
