@@ -33,6 +33,7 @@ export function DocumentMembersButton(props: PropsWithChildren<DocumentMembersBu
     spectators,
     guests,
     children,
+    size,
   } = props;
   
   const [ show, setShow ] = useState(false);
@@ -65,7 +66,7 @@ export function DocumentMembersButton(props: PropsWithChildren<DocumentMembersBu
   });
   
   const button = children || (
-    <Button key="share" icon={<ShareIcon />}>
+    <Button key="share" icon={<ShareIcon />} size={size}>
       <T className="tt-se">share</T>
     </Button>
   );

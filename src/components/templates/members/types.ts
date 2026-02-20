@@ -5,6 +5,7 @@ import {
   UserCompanyBasicInfoResponseDTO,
 } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
+import { ButtonSizeType } from '../../types';
 
 type MemberObj = {
   name?: string,
@@ -35,6 +36,7 @@ interface DocCommon extends Pick<DocumentCustomMembersContentProps, 'entityAcces
   isAdministrator: boolean,
   documentName: ReactNode,
   copyLink?: () => string,
+  size?: ButtonSizeType,
 }
 
 export interface DocumentMembersButton1Props extends DocCommon {
