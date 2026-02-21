@@ -14,6 +14,7 @@ function TextAreaComponent(props: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement
     disabled,
     rows,
     onCtrlClick,
+    onCtrlEnter,
     ...rest
   } = props;
   
@@ -43,6 +44,11 @@ function TextAreaComponent(props: CmpTextAreaProps, ref: Ref<HTMLTextAreaElement
           onCtrlClick();
         }
       } : undefined}
+      onKeyDown={onCtrlEnter ? (event) => {
+        if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+          onCtrlEnter();
+        }
+      } : undefined}
       disabled={disabled}
       rows={rows ?? Math.max((value || '').split('\n').length, 2)}
       style={style}
@@ -66,6 +72,7 @@ interface CmpTextAreaProps {
   placeholder?: string,
   wrap?: 'off',
   onCtrlClick?: () => void,
+  onCtrlEnter?: () => void,
 }
 
 export type TextAreaProps = ComponentPropsWithRef<typeof TextArea>;
