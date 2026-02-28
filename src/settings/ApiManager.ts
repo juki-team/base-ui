@@ -1046,7 +1046,13 @@ export class ApiManager {
         })),
         create: valid<
           {
-            body: { name: string, elements: OrderedExcalidrawElement[], appsState: AppState, members: EntityMembersDTO }
+            body: {
+              name: string,
+              tags: string[],
+              elements: OrderedExcalidrawElement[],
+              appsState: AppState,
+              members: EntityMembersDTO
+            }
           },
           HTTPMethod.POST
         >(({ body }) => ({
@@ -1057,7 +1063,13 @@ export class ApiManager {
         updateData: valid<
           {
             params: { key: string },
-            body: { name: string, elements: OrderedExcalidrawElement[], appsState: AppState, members: EntityMembersDTO }
+            body: {
+              name: string,
+              tags: string[],
+              elements: OrderedExcalidrawElement[],
+              appsState: AppState,
+              members: EntityMembersDTO
+            }
           },
           HTTPMethod.PUT
         >(({ params: { key }, body }) => ({
