@@ -1,4 +1,4 @@
-import { type ContentResponseType, isObjectJson, type LogDataResponseDTO } from '@juki-team/commons';
+import { type ContentResponse, isObjectJson, type LogDataResponseDTO } from '@juki-team/commons';
 import { DateLiteral, Modal, T } from '../../atoms';
 import { classNames } from '../../helpers';
 import { FetcherLayer } from '../../molecules';
@@ -10,7 +10,7 @@ export function EntityLogsModal({ url, ...restProps }: EntityLogsModalProps) {
     <Modal {...restProps} closeIcon>
       <div className="jk-pg">
         <h3><T>logs</T></h3>
-        <FetcherLayer<ContentResponseType<LogDataResponseDTO[]>> url={url}>
+        <FetcherLayer<ContentResponse<LogDataResponseDTO[]>> url={url}>
           {({ data }) => (
             <div>
               {data.content.map(({ timestamp, changes, customerUser }, index) => (

@@ -1,4 +1,4 @@
-import { type ContentsResponseType, getUserKey, type UserSummaryListResponseDTO } from '@juki-team/commons';
+import { type ContentsResponse, getUserKey, type UserSummaryListResponseDTO } from '@juki-team/commons';
 import { useEffect, useMemo, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Button, Modal, T, TextArea } from '../../atoms';
@@ -17,7 +17,7 @@ export function UsersSelector(props: UsersSelectorProps) {
     companyKey,
   } = props;
   
-  const { isLoading, data, mutate } = useFetcher<ContentsResponseType<UserSummaryListResponseDTO>>(
+  const { isLoading, data, mutate } = useFetcher<ContentsResponse<UserSummaryListResponseDTO>>(
     jukiApiManager.API_V2.user.getSummaryList({ params: { companyKey } }).url,
   );
   const [ show, setShow ] = useState(false);

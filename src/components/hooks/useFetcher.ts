@@ -1,4 +1,4 @@
-import { cleanRequest, type ContentResponseType, type ContentsResponseType } from '@juki-team/commons';
+import { cleanRequest, type ContentResponse, type ContentsResponse } from '@juki-team/commons';
 import { useMemo } from 'react';
 import useSWR, { type SWRConfiguration } from 'swr';
 import { useUserStore } from '../../stores/user/useUserStore';
@@ -12,7 +12,7 @@ export const getUrlKey = (url: string | null | undefined, userSessionId: string)
   return (typeof url === 'string' && url) ? [ url, userSessionId ] : null;
 };
 
-export const useFetcher = <T extends (ContentResponseType<unknown> | ContentsResponseType<unknown>)>(url?: string | null, config?: SWRConfiguration) => {
+export const useFetcher = <T extends (ContentResponse<unknown> | ContentsResponse<unknown>)>(url?: string | null, config?: SWRConfiguration) => {
   
   const userSessionId = useUserStore(state => state.user.sessionId);
   

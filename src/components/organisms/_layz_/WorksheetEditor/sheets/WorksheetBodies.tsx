@@ -1,12 +1,12 @@
 import {
-  type BodyWorksheetType,
-  isCodeEditorSheetType,
-  isJkmdSheetType,
-  isQuizOptionsSheetType,
-  isQuizProblemSheetType,
+  type BodyWorksheet,
+  isCodeEditorSheet,
+  isJkmdSheet,
+  isQuizOptionsSheet,
+  isQuizProblemSheet,
   isStringJson,
   NEW_PAGE_SHEET,
-  type NewPageSheetType,
+  type NewPageSheet,
 } from '@juki-team/commons';
 import { useCallback, useRef, useState } from 'react';
 import { QueryParamKey } from '../../../../../enums';
@@ -36,7 +36,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
   
   const containerRef = useRef<HTMLDivElement>(null);
   const [ modal, setModal ] = useState(false);
-  const setPageSheets = useCallback((newPageHeader: NewPageSheetType | null, newPageSheetContent: BodyWorksheetType[]) => {
+  const setPageSheets = useCallback((newPageHeader: NewPageSheet | null, newPageSheetContent: BodyWorksheet[]) => {
     const newSheetsInPages = [ ...sheetsInPages ];
     newSheetsInPages[page - 1] = {
       header: newPageHeader ?? newSheetsInPages[page - 1]?.header ?? NEW_PAGE_SHEET(),
@@ -126,7 +126,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
         </div>
       )}
       {setSheets && (
-        <EditSheetModal<BodyWorksheetType[]>
+        <EditSheetModal<BodyWorksheet[]>
           isOpen={modal}
           onClose={() => setModal(false)}
           content={sheetPage.content}
@@ -135,7 +135,7 @@ export const WorksheetBodies = (props: WorksheetBodiesProps) => {
             if (isStringJson(value)) {
               const values = JSON.parse(value);
               if (Array.isArray(values)) {
-                return values.every(value => isCodeEditorSheetType(value) || isJkmdSheetType(value) || isQuizOptionsSheetType(value) || isQuizProblemSheetType(value));
+                return values.every(value => isCodeEditorSheet(value) || isJkmdSheet(value) || isQuizOptionsSheet(value) || isQuizProblemSheet(value));
               }
             }
             return false;

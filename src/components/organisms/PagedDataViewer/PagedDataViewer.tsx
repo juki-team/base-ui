@@ -1,4 +1,4 @@
-import { type  ContentsResponseType } from '@juki-team/commons';
+import { type  ContentsResponse } from '@juki-team/commons';
 import { useMemo, useRef } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS, PAGE_SIZE_OPTIONS } from '../../../constants';
 import { usePageStore } from '../../../stores/page/usePageStore';
@@ -36,7 +36,7 @@ export function PagedDataViewer<T extends object, V = T>(props: PagedDataViewerP
     data: response,
     request,
     setLoaderStatusRef,
-  } = useDataViewerRequester<ContentsResponseType<V>>(getUrl, { refreshInterval });
+  } = useDataViewerRequester<ContentsResponse<V>>(getUrl, { refreshInterval });
   
   const lastTotalRef = useRef(-1);
   

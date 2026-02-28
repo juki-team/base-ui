@@ -1,6 +1,6 @@
 import {
-  CodeEditorTestCasesType,
-  CodeEditorTestCaseType,
+  CodeEditorTestCase,
+  CodeEditorTestCases,
   getDataOfTestCase,
   getVerdictFromTestCase,
   mex,
@@ -23,8 +23,8 @@ import { LogInfo } from './LogInfo';
 
 const AddCaseButton = <T, >({ onChange, testCasesValues, sample = false }: {
   onChange: CodeRunnerEditorOnChangeType<T>,
-  testCasesValues: CodeEditorTestCaseType[],
-  testCases: CodeEditorTestCasesType,
+  testCasesValues: CodeEditorTestCase[],
+  testCases: CodeEditorTestCases,
   sample?: boolean,
 }) => {
   
@@ -99,7 +99,7 @@ export const TestCases = <T, >(props: TestCasesProps<T>) => {
   
   const [ outputTab, setOutputTab ] = useState('output');
   const [ inputTab, setInputTab ] = useState('input');
-  const test = testCases[testCaseKey] as CodeEditorTestCaseType | undefined;
+  const test = testCases[testCaseKey] as CodeEditorTestCase | undefined;
   const testWithError = !!test && (
     getDataOfTestCase(test, timeLimit, memoryLimit).failed
     || !!test?.err

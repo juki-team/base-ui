@@ -1,4 +1,4 @@
-import { type ContentResponseType } from '@juki-team/commons';
+import { type ContentResponse } from '@juki-team/commons';
 import { useEffect, useState } from 'react';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { useFetcher } from '../../hooks/useFetcher';
@@ -8,7 +8,7 @@ import type { NewVersionAvailableProps } from './types';
 export function NewVersionAvailable({ apiVersionUrl }: NewVersionAvailableProps) {
   
   const reloadRoute = useRouterStore(state => state.reloadRoute);
-  const { data } = useFetcher<ContentResponseType<{ version: string }>>(
+  const { data } = useFetcher<ContentResponse<{ version: string }>>(
     apiVersionUrl,
     { revalidateOnFocus: true, revalidateOnReconnect: true, revalidateIfStale: true, revalidateOnMount: true },
   );

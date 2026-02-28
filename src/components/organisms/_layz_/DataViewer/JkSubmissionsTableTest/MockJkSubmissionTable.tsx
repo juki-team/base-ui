@@ -1,5 +1,5 @@
 import type {
-  ContentsResponseType,
+  ContentsResponse,
   JudgeSummaryListResponseDTO,
   JudgeSystemSummaryListResponseDTO,
   ProblemSummaryListResponseDTO,
@@ -25,8 +25,8 @@ import { PagedDataViewer } from '../../../PagedDataViewer/PagedDataViewer';
 import type { DataViewerHeadersType, DataViewerProps } from '../types';
 
 export const MockJkSubmissionTable = (_: Omit<DataViewerProps<ProblemSummaryListResponseDTO>, 'data' | 'headers'>) => {
-  const { data: judgeSystemList } = useFetcher<ContentsResponseType<JudgeSystemSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSystemList().url);
-  const { data: judgePublicList } = useFetcher<ContentsResponseType<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
+  const { data: judgeSystemList } = useFetcher<ContentsResponse<JudgeSystemSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSystemList().url);
+  const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
   const allJudges = useMemo(() => judgeSystemList?.success ? judgeSystemList.contents : (judgePublicList?.success ? judgePublicList.contents : []), [ judgeSystemList, judgePublicList ]);
   const languages = useMemo(() => {
     const result: LanguagesByJudge = {};

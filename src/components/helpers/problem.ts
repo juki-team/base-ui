@@ -5,8 +5,8 @@ import {
   PROBLEM_MODE,
   PROBLEM_TYPE,
   ProblemScoringMode,
-  ProblemSettingsType,
-  ProblemStatementType,
+  ProblemSettings,
+  ProblemStatement,
 } from '@juki-team/commons';
 import type { TFunction } from 'i18next';
 import { isBrowser } from './commons';
@@ -23,8 +23,8 @@ export const getTestCasesStoreKey = (useNickname: string) => `jk-test-cases-stor
 
 export const getStatementData = (t: TFunction,
                                  { statement, settings }: {
-                                   statement: ProblemStatementType,
-                                   settings: ProblemSettingsType
+                                   statement: ProblemStatement,
+                                   settings: ProblemSettings
                                  }, preferredLanguage: Language, problemName: string) => {
   
   const statementDescription = (statement?.description?.[preferredLanguage] ||

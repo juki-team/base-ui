@@ -1,4 +1,4 @@
-import { ContentResponseType, Status, Theme, WorksheetDataResponseDTO } from '@juki-team/commons';
+import { ContentResponse, Status, Theme, WorksheetDataResponseDTO } from '@juki-team/commons';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { jukiApiManager } from '../../../../settings';
 import { T } from '../../../atoms';
@@ -22,7 +22,7 @@ type Story = StoryObj<typeof WorksheetViewerCmp>;
 export const WorksheetViewer: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
+      <FetcherLayer<ContentResponse<WorksheetDataResponseDTO>>
         // url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url} //
         // url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-g4Y' } }).url}
         url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'W-aUW' } }).url}
@@ -55,7 +55,7 @@ export const WorksheetViewer: Story = {
 export const WorksheetResultViewer: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
+      <FetcherLayer<ContentResponse<WorksheetDataResponseDTO>>
         url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
         {({ data }) => (
@@ -144,7 +144,7 @@ const Cmp = ({ content: initialContent }: { content: WorksheetDataResponseDTO, }
 export const WorksheetEditor: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
+      <FetcherLayer<ContentResponse<WorksheetDataResponseDTO>>
         url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-Inj' } }).url}
       >
         {({ data }) => (
@@ -168,7 +168,7 @@ export const WorksheetEditor: Story = {
 export const WorksheetViewerAsSlides: Story = {
   render: (args) => (
     <MockupJukiProvider>
-      <FetcherLayer<ContentResponseType<WorksheetDataResponseDTO>>
+      <FetcherLayer<ContentResponse<WorksheetDataResponseDTO>>
         // url={jukiApiManager.API_V1.worksheet.getData({ params: { key: 'w-Inj' } }).url}
         url={jukiApiManager.API_V2.worksheet.getData({ params: { key: 'w-g4Y' } }).url}
       >

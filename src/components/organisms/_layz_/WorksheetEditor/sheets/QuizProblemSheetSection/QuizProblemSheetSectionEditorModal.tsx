@@ -1,10 +1,4 @@
-import {
-  ACCEPTED_PROGRAMMING_LANGUAGES,
-  CODE_LANGUAGE,
-  CodeLanguage,
-  Judge,
-  QuizProblemSheetType,
-} from '@juki-team/commons';
+import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE, CodeLanguage, Judge, QuizProblemSheet } from '@juki-team/commons';
 import { useState } from 'react';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants';
 import { Input, InputCheckbox, Modal, MultiSelect, T } from '../../../../../atoms';
@@ -14,20 +8,19 @@ import { SetContentType } from '../../types';
 import { ProblemSummary } from './ProblemSummary';
 
 interface RunnerSheetSectionProps extends BasicModalProps {
-  content: QuizProblemSheetType,
-  setContent: SetContentType<QuizProblemSheetType>,
-  onClose: () => void,
+  content: QuizProblemSheet;
+  setContent: SetContentType<QuizProblemSheet>;
+  onClose: () => void;
 }
 
 export const QuizProblemSheetSectionEditorModal = ({
-                                                     content: initialSheet,
-                                                     setContent: _setSheet,
-                                                     isOpen,
-                                                     onClose,
-                                                   }: RunnerSheetSectionProps) => {
-  
-  const [ sheet, setSheet ] = useState(initialSheet);
-  
+  content: initialSheet,
+  setContent: _setSheet,
+  isOpen,
+  onClose,
+}: RunnerSheetSectionProps) => {
+  const [sheet, setSheet] = useState(initialSheet);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -44,7 +37,7 @@ export const QuizProblemSheetSectionEditorModal = ({
             label={<T className="tt-se">title</T>}
             labelPlacement="top"
             value={sheet.title}
-            onChange={title => setSheet(prevState => ({ ...prevState, title }))}
+            onChange={(title) => setSheet((prevState) => ({ ...prevState, title }))}
             expand
           />
           <Input
@@ -52,55 +45,64 @@ export const QuizProblemSheetSectionEditorModal = ({
             label={<T className="tt-se">points</T>}
             labelPlacement="top"
             value={sheet.points}
-            onChange={points => setSheet(prevState => ({ ...prevState, points }))}
+            onChange={(points) => setSheet((prevState) => ({ ...prevState, points }))}
             expand
           />
           <div className="flex-1">
             <T className="fw-bd tt-se">languages</T>:
             <MultiSelect
-              options={ACCEPTED_PROGRAMMING_LANGUAGES
-                .map((key) => ({
-                  value: key,
-                  label: CODE_LANGUAGE[key]?.label,
-                }))}
-              selectedOptions={sheet.languages?.map(language => ({ value: language }))}
-              onChange={(options) => setSheet(prevState => ({
-                ...prevState,
-                languages: options.map(option => option.value as CodeLanguage),
+              options={ACCEPTED_PROGRAMMING_LANGUAGES.map((key) => ({
+                value: key,
+                label: CODE_LANGUAGE[key]?.label,
               }))}
+              selectedOptions={sheet.languages?.map((language) => ({ value: language }))}
+              onChange={(options) =>
+                setSheet((prevState) => ({
+                  ...prevState,
+                  languages: options.map((option) => option.value as CodeLanguage),
+                }))
+              }
               expand
             />
           </div>
           <div>
-            {(sheet.problemKey)
-              ? <ProblemSummary problemKey={sheet.problemKey} />
-              : <T className="tt-se">please select a problem</T>}
+            {sheet.problemKey ? (
+              <ProblemSummary problemKey={sheet.problemKey} />
+            ) : (
+              <T className="tt-se">please select a problem</T>
+            )}
           </div>
           <div className="jk-row gap left">
-            <div><T className="fw-bd tt-se">height</T>:</div>
+            <div>
+              <T className="fw-bd tt-se">height</T>:
+            </div>
             <InputCheckbox
               checked={sheet.height === 0}
               label={<T>auto</T>}
-              onChange={(value) => setSheet(prevState => ({
-                ...prevState,
-                height: value ? 0 : WORKSHEET_CODE_EDITOR_MIN_HEIGHT,
-              }))}
+              onChange={(value) =>
+                setSheet((prevState) => ({
+                  ...prevState,
+                  height: value ? 0 : WORKSHEET_CODE_EDITOR_MIN_HEIGHT,
+                }))
+              }
             />
             <Input
               disabled={sheet.height === 0}
               type="number"
               value={sheet.height}
-              onChange={(value) => setSheet(prevState => ({
-                ...prevState,
-                height: Math.abs(value),
-              }))}
+              onChange={(value) =>
+                setSheet((prevState) => ({
+                  ...prevState,
+                  height: Math.abs(value),
+                }))
+              }
               size="auto"
             />
             <T>px</T>
           </div>
           <ProblemSelector
             onSelect={(problem) => {
-              setSheet(prevState => ({
+              setSheet((prevState) => ({
                 ...prevState,
                 problemKey: problem.key,
                 problemJudge: problem.judge.key as Judge,

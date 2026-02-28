@@ -1,6 +1,6 @@
 import {
   cleanRequest,
-  type ContentResponseType,
+  type ContentResponse,
   ENTITY_ACCESS,
   type EntityMembersDTO,
   getDocumentAccess,
@@ -55,7 +55,7 @@ export function DocumentMembersButton(props: PropsWithChildren<DocumentMembersBu
         participants: Object.keys(members.participants),
       },
     };
-    const response = cleanRequest<ContentResponseType<string>>(
+    const response = cleanRequest<ContentResponse<string>>(
       await authorizedRequest(saveUrl!, {
         method: HTTPMethod.PUT,
         body: JSON.stringify(worksheetToPatch),

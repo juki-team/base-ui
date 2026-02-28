@@ -1,6 +1,6 @@
 import {
   CodeLanguage,
-  ContentResponseType,
+  ContentResponse,
   EMPTY_ENTITY_MEMBERS,
   EntityState,
   Judge,
@@ -27,7 +27,7 @@ export const Regular: Story = {
     <MockupJukiProvider>
       <div className="jk-col gap jk-pg bc-ss">
         <div style={{ width: '100%', height: 600 }}>
-          <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
+          <FetcherLayer<ContentResponse<ProblemDataResponseDTO>>
             url={jukiApiManager.API_V2.problem.getData({ params: { key: 'P-1000' } }).url}
           >
             {data => (
@@ -187,7 +187,7 @@ export const RegularCustom: Story = {
     <MockupJukiProvider>
       <div className="jk-col gap">
         <div style={{ width: '100%', height: 600 }}>
-          <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
+          <FetcherLayer<ContentResponse<ProblemDataResponseDTO>>
             url={jukiApiManager.API_V2.problem.getData({ params: { key: 'PL-two-sum' } }).url}
           >
             {data => (

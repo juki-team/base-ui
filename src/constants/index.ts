@@ -1,15 +1,15 @@
 import {
   CodeLanguage,
-  type CompanyPingType,
+  type CompanyPing,
   DataViewMode,
   DAY_NAMES,
   EMPTY_USER_PERMISSIONS,
   Language,
   MenuViewMode,
-  type ObjectIdType,
+  type ObjectId,
   ProfileSetting,
   Theme,
-  UserPingType,
+  UserPing,
 } from '@juki-team/commons';
 import type { useResizeDetectorProps } from 'react-resize-detector';
 import { QueryParamKey } from '../enums';
@@ -25,7 +25,7 @@ export const ALPHANUMERIC_DASH_UNDERSCORE_REGEX = /^[a-z0-9\-_]+$/i;
 
 export const LEAST_ONE_UPPERCASE_LOWERCASE_NUMBER_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[\w~@#$%^&*+=`|{}:;!.?"()-_]{8,}$/;
 
-export const EMPTY_COMPANY: CompanyPingType = {
+export const EMPTY_COMPANY: CompanyPing = {
   name: '',
   imageUrl: '',
   contactEmail: 'contact@juki.app',
@@ -75,7 +75,7 @@ export const RESIZE_DETECTOR_PROPS: useResizeDetectorProps<HTMLElement> = { refr
 
 export const DEFAULT_TIME_ZONE = 'America/La_Paz';
 
-export const EMPTY_USER: UserPingType = {
+export const EMPTY_USER: UserPing = {
   nickname: '',
   imageUrl: 'https://images.juki.pub/c/juki-image-profile.svg',
   settings: {
@@ -89,7 +89,7 @@ export const EMPTY_USER: UserPingType = {
   },
   permissions: { ...EMPTY_USER_PERMISSIONS },
   isLogged: false,
-  sessionId: '' as ObjectIdType,
+  sessionId: '' as ObjectId,
   company: {
     key: '',
   },

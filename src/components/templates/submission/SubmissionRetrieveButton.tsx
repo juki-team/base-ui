@@ -1,4 +1,4 @@
-import { cleanRequest, type ContentResponseType, Status, SubmissionRunStatus } from '@juki-team/commons';
+import { cleanRequest, type ContentResponse, Status, SubmissionRunStatus } from '@juki-team/commons';
 import { JUKI_SERVICE_V2_URL } from '../../../constants/settings';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
@@ -18,7 +18,7 @@ export function SubmissionRetrieveButton({ submissionId }: SubmissionRetrieveBut
     setLoaderStatus(Status.LOADING);
     
     const { url, ...options } = jukiApiManager.API_V2.submission.retrieve({ params: { id: submissionId } });
-    const response = cleanRequest<ContentResponseType<{ listCount: number, status: SubmissionRunStatus.RECEIVED }>>(
+    const response = cleanRequest<ContentResponse<{ listCount: number, status: SubmissionRunStatus.RECEIVED }>>(
       await authorizedRequest(url, options));
     notifyResponse(response, setLoaderStatus);
   };

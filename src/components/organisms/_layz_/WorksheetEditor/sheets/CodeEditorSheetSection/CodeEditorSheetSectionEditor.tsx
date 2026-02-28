@@ -1,12 +1,12 @@
-import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE, CodeEditorSheetType, CodeLanguage } from '@juki-team/commons';
+import { ACCEPTED_PROGRAMMING_LANGUAGES, CODE_LANGUAGE, CodeEditorSheet, CodeLanguage } from '@juki-team/commons';
 import { WORKSHEET_CODE_EDITOR_MIN_HEIGHT } from '../../../../../../constants';
 import { Input, InputCheckbox, MultiSelect, T } from '../../../../../atoms';
 import { UserCodeEditor } from '../../../UserCodeEditor';
 import { SetContentType } from '../../types';
 
 interface RunnerSheetSectionProps {
-  content: CodeEditorSheetType,
-  setContent: SetContentType<CodeEditorSheetType>,
+  content: CodeEditorSheet,
+  setContent: SetContentType<CodeEditorSheet>,
   isSolvable: boolean,
 }
 

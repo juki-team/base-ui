@@ -1,4 +1,4 @@
-import { cleanRequest, consoleInfo, type ContentResponseType, ONE_MINUTE } from '@juki-team/commons';
+import { cleanRequest, consoleInfo, type ContentResponse, ONE_MINUTE } from '@juki-team/commons';
 import { useEffect } from 'react';
 import { jukiApiManager } from '../../settings';
 import { usePageStore } from '../../stores/page/usePageStore';
@@ -22,7 +22,7 @@ export const useCheckAndStartServices = () => {
       if ((Date.now() - lastRequested) >= ONE_MINUTE) {
         localStorage.setItem('lastRequestedServicesCheck', Date.now().toString());
         const { url, ...options } = jukiApiManager.API_V2.system.services.checkAndStart();
-        const response = cleanRequest<ContentResponseType<string>>(await authorizedRequest(url, options));
+        const response = cleanRequest<ContentResponse<string>>(await authorizedRequest(url, options));
         consoleInfo('runner services wake up requested', response);
       }
     };

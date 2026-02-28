@@ -1,4 +1,4 @@
-import { ProblemScoringMode, ProblemVerdict, ProfileSetting, type TestCaseResultType, Theme } from '@juki-team/commons';
+import { ProblemScoringMode, ProblemVerdict, ProfileSetting, type TestCaseResult, Theme } from '@juki-team/commons';
 import * as Diff2Html from 'diff2html';
 import { LineMatchingType } from 'diff2html/lib-esm/types';
 import { ColorSchemeType } from 'diff2html/lib/types';
@@ -22,7 +22,7 @@ export interface GroupInfoProps {
   memoryUsed: number,
   verdict: ProblemVerdict,
   points: number,
-  testCases: TestCaseResultType[],
+  testCases: TestCaseResult[],
   submitId: string,
 }
 
@@ -118,7 +118,7 @@ export function SubmissionGroupInfo(props: GroupInfoProps) {
   const rowHeight = isSmallMediumScreen ? 54 + 8 + 8 : 24 + 8 + 8;
   const testCasesString = JSON.stringify(testCases);
   const renderRow: VirtualizedRowsFixedProps['renderRow'] = useCallback((index) => {
-    const testCases: TestCaseResultType[] = JSON.parse(testCasesString);
+    const testCases: TestCaseResult[] = JSON.parse(testCasesString);
     const testCase = testCases[index];
     if (!testCase) {
       return null;

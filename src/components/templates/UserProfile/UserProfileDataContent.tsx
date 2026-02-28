@@ -1,4 +1,4 @@
-import { type ContentsResponseType, Judge, JUDGE, type JudgeDataResponseDTO } from '@juki-team/commons';
+import { type ContentsResponse, Judge, JUDGE, type JudgeDataResponseDTO } from '@juki-team/commons';
 import { jukiApiManager } from '../../../settings';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { CopyToClipboard } from '../../atoms';
@@ -10,7 +10,7 @@ import type { UserProfileDataContentProps } from './types';
 export function UserProfileDataContent({ user, className }: UserProfileDataContentProps) {
   
   const { Image, Link } = useUIStore(store => store.components);
-  const { data } = useFetcher<ContentsResponseType<JudgeDataResponseDTO>>(
+  const { data } = useFetcher<ContentsResponse<JudgeDataResponseDTO>>(
     jukiApiManager.API_V2.judge.getSummaryList().url,
   );
   

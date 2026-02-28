@@ -1,11 +1,11 @@
 import {
-  type CodeEditorSheetType,
-  type   GraphSheetType,
-  type   JkmdSheetType,
-  type   ListSheetType,
-  type   QuizOptionsSheetType,
-  type  QuizProblemSheetType,
-  type  QuizTextSheetType,
+  type CodeEditorSheet,
+  type GraphSheet,
+  type JkmdSheet,
+  type ListSheet,
+  type QuizOptionsSheet,
+  type QuizProblemSheet,
+  type QuizTextSheet,
 } from '@juki-team/commons';
 import { Children, type  Dispatch } from 'react';
 import { EMPTY_LIST_SHEET } from '../../../../../../constants';
@@ -17,8 +17,8 @@ import { AddNewChild } from '../AddNewChild';
 import { UpRemoveDownButtons } from '../UpRemoveDownButtons';
 
 export interface ListSheetRecursiveSectionProps {
-  sheet: ListSheetType,
-  setSheet?: Dispatch<ListSheetType>,
+  sheet: ListSheet,
+  setSheet?: Dispatch<ListSheet>,
   forceExpanded?: boolean,
   onlyText?: boolean,
 }
@@ -52,13 +52,13 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
   
   const renderContent = content.map((itemContent) => {
     
-    // const setSheetCb: SetContentType<JkmdSheetType | CodeEditorSheetType | GraphSheetType | QuizProblemSheetType | QuizTextSheetType | QuizOptionsSheetType> | undefined = setSheet ? (content) => {
+    // const setSheetCb: SetContentType<JkmdSheet | CodeEditorSheet | GraphSheet | QuizProblemSheet | QuizTextSheet | QuizOptionsSheet> | undefined = setSheet ? (content) => {
     //   const newContent = [ ...sheet.content ];
     //   newContent.splice(index, 1, content);
     //   setSheet({ ...sheet, content: newContent });
     // } : undefined;
     //
-    // const actionButtons = upRemoveDownButtons<JkmdSheetType | CodeEditorSheetType | GraphSheetType | QuizProblemSheetType | QuizTextSheetType | QuizOptionsSheetType>({
+    // const actionButtons = upRemoveDownButtons<JkmdSheet | CodeEditorSheet | GraphSheet | QuizProblemSheet | QuizTextSheet | QuizOptionsSheet>({
     //   index,
     //   length: content.length,
     //   onChange: (callback) => setSheet?.({ ...sheet, content: callback(content) }),
@@ -73,7 +73,7 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
         {/*  // TODO: review*/}
         {/*  <CodeEditorSheetSection*/}
         {/*    content={itemContent}*/}
-        {/*    setContent={setSheetCb as SetContentType<CodeEditorSheetType>}*/}
+        {/*    setContent={setSheetCb as SetContentType<CodeEditorSheet>}*/}
         {/*    // actionButtons={actionButtons}*/}
         {/*    // mutateUserResults={async () => {*/}
         {/*    // }}*/}
@@ -101,7 +101,7 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
         } : undefined}
       />
       {setSheet && (
-        <UpRemoveDownButtons<ListSheetType>
+        <UpRemoveDownButtons<ListSheet>
           index={index}
           length={children.length}
           onChange={(callback) => setSheet({ ...sheet, children: callback(children) })}
@@ -114,7 +114,7 @@ export const ListSheetRecursiveSection = (props: ListSheetRecursiveSectionProps)
     <div className="jk-col gap extend stretch jk-pg-sm bc-we">
       {Children.toArray(renderContent)}
       {setSheet && (
-        <AddNewChild<JkmdSheetType | CodeEditorSheetType | GraphSheetType | QuizProblemSheetType | QuizTextSheetType | QuizOptionsSheetType>
+        <AddNewChild<JkmdSheet | CodeEditorSheet | GraphSheet | QuizProblemSheet | QuizTextSheet | QuizOptionsSheet>
           index={sheet.content.length - 1}
           setSheet={(value) => {
             const newContents = typeof value === 'function' ? value(sheet.content) : value;

@@ -1,20 +1,19 @@
-import { QuizOptionsSheetType } from '@juki-team/commons';
+import { QuizOptionsSheet } from '@juki-team/commons';
 import { Dispatch, SetStateAction } from 'react';
 import { InputCheckbox, InputRadio, T } from '../../../../../atoms';
 import { classNames } from '../../../../../helpers';
 import { MdMathViewer } from '../../../../MdMathViewer/MdMathViewer';
 
 interface RunnerSheetSectionProps {
-  content: QuizOptionsSheetType,
-  checkedOptions: string[],
-  setCheckedOptions: Dispatch<SetStateAction<string[]>>,
-  readOnly: boolean,
+  content: QuizOptionsSheet;
+  checkedOptions: string[];
+  setCheckedOptions: Dispatch<SetStateAction<string[]>>;
+  readOnly: boolean;
 }
 
 export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
-  
   const { content, checkedOptions, setCheckedOptions, readOnly } = props;
-  
+
   return (
     <div className="bc-we jk-br-ie jk-pg jk-col stretch gap wh-100">
       <MdMathViewer source={content.description} className="bc-hl jk-pg-xsm jk-br-ie" />
@@ -22,31 +21,39 @@ export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
       <div className="jk-col stretch left gap">
         {content.options.map((option) => (
           <div
-            className={classNames('jk-row gap nowrap extend left jk-br-ie option jk-br-ie jk-pg-xsm-rl', { 'bc-hl': checkedOptions.includes(option.id) })}
+            className={classNames('jk-row gap nowrap extend left jk-br-ie option jk-br-ie jk-pg-xsm-rl', {
+              'bc-hl': checkedOptions.includes(option.id),
+            })}
             key={option.id}
-            onClick={readOnly ? undefined : () => {
-              if (content.multiple) {
-                if (checkedOptions.includes(option.id)) {
-                  setCheckedOptions(checkedOptions.filter(o => o !== option.id));
-                } else {
-                  setCheckedOptions([ ...checkedOptions, option.id ]);
-                }
-              } else {
-                setCheckedOptions([ option.id ]);
-              }
-            }}
+            onClick={
+              readOnly
+                ? undefined
+                : () => {
+                    if (content.multiple) {
+                      if (checkedOptions.includes(option.id)) {
+                        setCheckedOptions(checkedOptions.filter((o) => o !== option.id));
+                      } else {
+                        setCheckedOptions([...checkedOptions, option.id]);
+                      }
+                    } else {
+                      setCheckedOptions([option.id]);
+                    }
+                  }
+            }
           >
-            {content.multiple
-              ? <InputCheckbox
+            {content.multiple ? (
+              <InputCheckbox
                 checked={checkedOptions.includes(option.id)}
                 onChange={() => null}
                 className={classNames({ 'bc-sl jk-br-ie': option.correct })}
               />
-              : <InputRadio
+            ) : (
+              <InputRadio
                 checked={checkedOptions.includes(option.id)}
                 onChange={() => null}
                 className={classNames({ 'bc-sl br-50-pc': option.correct })}
-              />}
+              />
+            )}
             <div>
               <MdMathViewer source={option.label} />
             </div>

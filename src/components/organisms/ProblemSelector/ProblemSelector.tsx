@@ -1,7 +1,7 @@
 import {
   cleanRequest,
-  type ContentResponseType,
-  type ContentsResponseType,
+  type ContentResponse,
+  type ContentsResponse,
   Judge,
   type JudgeDataResponseDTO,
   PROBLEM_TYPE,
@@ -26,7 +26,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
   const [ data, setData ] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useJukiNotification();
   const [ timestampTrigger, setTimestampTrigger ] = useState(0);
-  const { data: judgesData } = useFetcher<ContentResponseType<JudgeDataResponseDTO[]>>(jukiApiManager.API_V2.company.getJudgeList({ params: { companyKey } }).url);
+  const { data: judgesData } = useFetcher<ContentResponse<JudgeDataResponseDTO[]>>(jukiApiManager.API_V2.company.getJudgeList({ params: { companyKey } }).url);
   const judges = judgesData?.success ? judgesData.content : [];
   const firstJudge = judges[0];
   
@@ -52,7 +52,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
             },
           });
         // TODO: change limit of problems
-        const response = cleanRequest<ContentsResponseType<ProblemBasicSummaryListResponseDTO>>(
+        const response = cleanRequest<ContentsResponse<ProblemBasicSummaryListResponseDTO>>(
           await authorizedRequest(url),
         );
         const problems = response.success ? response.contents || [] : [];
@@ -88,7 +88,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
         const { url } = jukiApiManager.API_V2
           .problem
           .getSummary({ params: { key } });
-        const response = cleanRequest<ContentResponseType<ProblemSummaryListResponseDTO>>(
+        const response = cleanRequest<ContentResponse<ProblemSummaryListResponseDTO>>(
           await authorizedRequest(url),
         );
         if (response.success) {

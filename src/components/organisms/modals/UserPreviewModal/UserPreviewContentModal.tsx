@@ -1,4 +1,4 @@
-import { ContentResponseType, UserBasicResponseDTO } from '@juki-team/commons';
+import { ContentResponse, UserBasicResponseDTO } from '@juki-team/commons';
 import { jukiApiManager } from '../../../../settings';
 import { useUIStore } from '../../../../stores/ui/useUIStore';
 import { Button, Modal, T } from '../../../atoms';
@@ -59,7 +59,7 @@ export const UserPreviewContentModal = ({
       onClose={onClose}
       className="modal-user-preview"
     >
-      <FetcherLayer<ContentResponseType<UserBasicResponseDTO>>
+      <FetcherLayer<ContentResponse<UserBasicResponseDTO>>
         url={jukiApiManager.API_V2.user.getSummary({ params: { nickname, companyKey } }).url}
         onError={onClose}
       >

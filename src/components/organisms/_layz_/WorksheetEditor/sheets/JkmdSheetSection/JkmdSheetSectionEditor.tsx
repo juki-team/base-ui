@@ -1,23 +1,22 @@
-import { JkmdSheetType } from '@juki-team/commons';
+import { JkmdSheet } from '@juki-team/commons';
 import { Input, T } from '../../../../../atoms';
 import { MdMathEditor } from '../../../MdMathEditor';
 import { SetContentType } from '../../types';
 
 interface JkmdSheetSectionProps {
-  content: JkmdSheetType,
-  setContent: SetContentType<JkmdSheetType>,
-  isSolvable: boolean,
+  content: JkmdSheet;
+  setContent: SetContentType<JkmdSheet>;
+  isSolvable: boolean;
 }
 
 export const JkmdSheetSectionEditor = ({ content, setContent, isSolvable }: JkmdSheetSectionProps) => {
-  
   return (
     <div className="jk-col left gap wh-100 jk-pg-sm tx-s">
       <Input
         label={<T className="tt-se">title</T>}
         labelPlacement="left"
         value={content.title}
-        onChange={title => setContent(prevState => ({ ...prevState, title }))}
+        onChange={(title) => setContent((prevState) => ({ ...prevState, title }))}
         expand
       />
       {isSolvable && (
@@ -26,7 +25,7 @@ export const JkmdSheetSectionEditor = ({ content, setContent, isSolvable }: Jkmd
             label={<T className="tt-se tx-s">points</T>}
             type="number"
             value={content.points}
-            onChange={points => setContent(prevState => ({ ...prevState, points }))}
+            onChange={(points) => setContent((prevState) => ({ ...prevState, points }))}
           />
         </div>
       )}
@@ -34,7 +33,7 @@ export const JkmdSheetSectionEditor = ({ content, setContent, isSolvable }: Jkmd
         <MdMathEditor
           informationButton
           value={content.content}
-          onChange={content => setContent(prevState => ({ ...prevState, content }))}
+          onChange={(content) => setContent((prevState) => ({ ...prevState, content }))}
           enableTextPlain
           enableIA
           enableImageUpload

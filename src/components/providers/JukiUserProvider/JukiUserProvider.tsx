@@ -1,5 +1,5 @@
 import {
-  type ContentResponseType,
+  type ContentResponse,
   DataViewMode,
   Language,
   MenuViewMode,
@@ -44,7 +44,7 @@ export const JukiUserProvider = () => {
     // isLoading: isLoadingPing,
     // isValidating: isValidatingPing,
     mutate,
-  } = useFetcher<ContentResponseType<PingResponseDTO>>(
+  } = useFetcher<ContentResponse<PingResponseDTO>>(
     jukiApiManager.API_V2.auth.ping().url,
     { refreshInterval: ONE_MINUTE * 5 },
   );

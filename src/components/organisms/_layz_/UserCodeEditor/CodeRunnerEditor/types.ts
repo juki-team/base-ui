@@ -1,16 +1,11 @@
-import {
-  CodeEditorFiles,
-  CodeEditorTestCasesType,
-  SubmissionRunStatus,
-  SubmissionTestCaseType,
-} from '@juki-team/commons';
+import { CodeEditorFiles, CodeEditorTestCases, SubmissionRunStatus, SubmissionTestCase } from '@juki-team/commons';
 import { Dispatch, ReactNode, SetStateAction } from 'react';
 import { UseResizeDetectorReturn } from 'react-resize-detector';
 import { BasicModalProps } from '../../../../atoms/Modal/types';
 import { CodeEditorPropertiesType } from '../../../../molecules/types';
 
 export type CodeRunnerEditorPropertiesType<T> = CodeEditorPropertiesType<T> & {
-  onTestCasesChange?: (testCases: CodeEditorTestCasesType) => CodeEditorTestCasesType,
+  onTestCasesChange?: (testCases: CodeEditorTestCases) => CodeEditorTestCases,
   codeRunStatus?: SubmissionRunStatus,
   fileName?: string,
   newFileName?: true,
@@ -23,7 +18,7 @@ export type CodeRunnerEditorOnChangeType<T> = (props: CodeRunnerEditorProperties
 export type CodeEditorCenterButtonsPropertiesType<T> = {
   widthContainer: number
   isRunning: boolean,
-  testCases: CodeEditorTestCasesType,
+  testCases: CodeEditorTestCases,
   withLabels: boolean,
   twoRows: boolean,
   files: CodeEditorFiles<T>,
@@ -49,7 +44,7 @@ export interface CodeRunnerEditorProps<T> extends Omit<CodeEditorPropertiesType<
   onChange?: CodeRunnerEditorOnChangeType<T>,
   languages?: { value: T, label: ReactNode }[],
   className?: string,
-  testCases?: CodeEditorTestCasesType,
+  testCases?: CodeEditorTestCases,
   leftButtons?: CodeEditorButtonsType<T>,
   centerButtons?: CodeEditorButtonsType<T>,
   rightButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode,
@@ -70,7 +65,7 @@ export interface SettingsModalProps<T> extends BasicModalProps {
 }
 
 export interface TestCasesProps<T> {
-  testCases?: CodeEditorTestCasesType,
+  testCases?: CodeEditorTestCases,
   onChange?: CodeRunnerEditorOnChangeType<T>,
   timeLimit: number,
   memoryLimit: number,
@@ -83,7 +78,7 @@ export interface TestCasesProps<T> {
 export interface HeaderProps<T> {
   languages: { value: T, label: ReactNode }[],
   onChange?: CodeRunnerEditorOnChangeType<T>,
-  testCases: CodeEditorTestCasesType,
+  testCases: CodeEditorTestCases,
   setShowSettings: Dispatch<SetStateAction<boolean>>,
   runId: string,
   setRunId: Dispatch<SetStateAction<string>>,
@@ -106,7 +101,7 @@ export interface HeaderProps<T> {
 }
 
 export interface LogInfoProps {
-  testCase: SubmissionTestCaseType,
+  testCase: SubmissionTestCase,
   timeLimit: number,
   memoryLimit: number,
 }

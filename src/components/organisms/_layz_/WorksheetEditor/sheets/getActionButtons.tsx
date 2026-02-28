@@ -1,4 +1,4 @@
-import { BodyWorksheetType, WorksheetType } from '@juki-team/commons';
+import { BodyWorksheet, WorksheetType } from '@juki-team/commons';
 import { Button, T } from '../../../../atoms';
 import { CloseIcon, EditIcon, SaveIcon, SettingsIcon, SortIcon, VisibilityIcon } from '../../../../atoms/server';
 import { ButtonActionProps } from '../../../../molecules/FloatToolbar/types';
@@ -13,7 +13,7 @@ interface getActionButtonsProps {
   setModal: (modal: boolean) => void,
   index: number,
   sheetLength: number,
-  setSheet?: SetSheetType<BodyWorksheetType>,
+  setSheet?: SetSheetType<BodyWorksheet>,
   onSaveEdit?: () => void,
   onCancel?: () => void,
 }
@@ -68,7 +68,7 @@ export const getActionButtons = (props: getActionButtonsProps): ButtonActionProp
     {
       icon: <SortIcon className="cr-we" up down />,
       size: 'tiny' as ButtonSizeType,
-      buttons: upRemoveDownButtons<BodyWorksheetType>({
+      buttons: upRemoveDownButtons<BodyWorksheet>({
         index,
         length: sheetLength,
         onChange: (callback) => setSheet?.((sheet) => callback(sheet)),

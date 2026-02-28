@@ -1,10 +1,10 @@
 import {
-  CodeEditorSheetType,
-  GraphSheetType,
-  JkmdSheetType,
-  ListSheetType,
-  QuizOptionsSheetType,
-  QuizProblemSheetType,
+  CodeEditorSheet,
+  GraphSheet,
+  JkmdSheet,
+  ListSheet,
+  QuizOptionsSheet,
+  QuizProblemSheet,
   QuizScoringMode,
   RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
   WorksheetType,
@@ -13,7 +13,7 @@ import { v4 } from 'uuid';
 
 export const WORKSHEET_CODE_EDITOR_MIN_HEIGHT = 320;
 
-export const EMPTY_JK_MD_SHEET = (): JkmdSheetType => ({
+export const EMPTY_JK_MD_SHEET = (): JkmdSheet => ({
   id: v4(),
   type: WorksheetType.JK_MD,
   title: '',
@@ -21,7 +21,7 @@ export const EMPTY_JK_MD_SHEET = (): JkmdSheetType => ({
   content: '',
 });
 
-export const EMPTY_CODE_EDITOR_SHEET = (): CodeEditorSheetType => ({
+export const EMPTY_CODE_EDITOR_SHEET = (): CodeEditorSheet => ({
   id: v4(),
   type: WorksheetType.CODE_EDITOR,
   title: '',
@@ -32,7 +32,7 @@ export const EMPTY_CODE_EDITOR_SHEET = (): CodeEditorSheetType => ({
   height: 0,
 });
 
-export const EMPTY_GRAPH_SHEET = (): GraphSheetType => ({
+export const EMPTY_GRAPH_SHEET = (): GraphSheet => ({
   id: v4(),
   type: WorksheetType.GRAPH,
   title: '',
@@ -40,7 +40,7 @@ export const EMPTY_GRAPH_SHEET = (): GraphSheetType => ({
   dots: [ DEFAULT_GRAPH ],
 });
 
-export const EMPTY_QUIZ_PROBLEM_SHEET = (): QuizProblemSheetType => ({
+export const EMPTY_QUIZ_PROBLEM_SHEET = (): QuizProblemSheet => ({
   id: v4(),
   type: WorksheetType.QUIZ_PROBLEM,
   title: '',
@@ -50,7 +50,7 @@ export const EMPTY_QUIZ_PROBLEM_SHEET = (): QuizProblemSheetType => ({
   languages: RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES,
 });
 
-export const EMPTY_QUIZ_OPTIONS_SHEET = (): QuizOptionsSheetType => ({
+export const EMPTY_QUIZ_OPTIONS_SHEET = (): QuizOptionsSheet => ({
   id: v4(),
   type: WorksheetType.QUIZ_OPTIONS,
   title: '',
@@ -61,7 +61,7 @@ export const EMPTY_QUIZ_OPTIONS_SHEET = (): QuizOptionsSheetType => ({
   scoringMode: QuizScoringMode.TOTAL,
 });
 
-export const EMPTY_LIST_SHEET = (): ListSheetType => ({
+export const EMPTY_LIST_SHEET = (): ListSheet => ({
   id: v4(),
   type: WorksheetType.LIST,
   title: '',

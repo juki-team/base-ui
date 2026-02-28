@@ -1,5 +1,5 @@
 import {
-  type ContentResponseType,
+  type ContentResponse,
   getUserKey,
   getWorksheetsInPages,
   type WorksheetUserSubmissionsResponseDTO,
@@ -31,7 +31,7 @@ export default function WorksheetAsSlides(props: WorksheetAsSlidesProps) {
     mutate: userResultsMutate,
     isLoading: userResultsIsLoading,
     isValidating: userResultsIsValidating,
-  } = useFetcher<ContentResponseType<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && quizEnable && userIsLogged ? jukiApiManager.API_V2.worksheet.getSubmissionsUser({
+  } = useFetcher<ContentResponse<WorksheetUserSubmissionsResponseDTO>>(worksheetKey && quizEnable && userIsLogged ? jukiApiManager.API_V2.worksheet.getSubmissionsUser({
     params: {
       key: worksheetKey,
       userKey: resultsUserKey || getUserKey(userNickname, companyKey),

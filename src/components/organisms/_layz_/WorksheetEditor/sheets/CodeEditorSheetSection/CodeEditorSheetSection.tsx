@@ -1,4 +1,4 @@
-import { CodeEditorSheetType, isCodeEditorSheetType, isStringJson, WorksheetType } from '@juki-team/commons';
+import { CodeEditorSheet, isCodeEditorSheet, isStringJson, WorksheetType } from '@juki-team/commons';
 import { useRef, useState } from 'react';
 import { FloatToolbar } from '../../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';
@@ -8,7 +8,7 @@ import { SheetSection } from '../types';
 import { CodeEditorSheetSectionEditor } from './CodeEditorSheetSectionEditor';
 import { CodeEditorSheetSectionView } from './CodeEditorSheetSectionView';
 
-export const CodeEditorSheetSection = (props: SheetSection<CodeEditorSheetType>) => {
+export const CodeEditorSheetSection = (props: SheetSection<CodeEditorSheet>) => {
   
   const {
     content,
@@ -37,7 +37,7 @@ export const CodeEditorSheetSection = (props: SheetSection<CodeEditorSheetType>)
           onClose={() => setModal(false)}
           content={content}
           setContent={setContent}
-          isValid={(value) => isStringJson(value) && isCodeEditorSheetType(JSON.parse(value))}
+          isValid={(value) => isStringJson(value) && isCodeEditorSheet(JSON.parse(value))}
         />
       )}
       {setContent ? (

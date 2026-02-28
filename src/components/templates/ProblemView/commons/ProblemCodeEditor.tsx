@@ -1,4 +1,4 @@
-import { type CodeEditorTestCasesType, type ProblemDataResponseDTO, SubmissionRunStatus } from '@juki-team/commons';
+import { type CodeEditorTestCases, type ProblemDataResponseDTO, SubmissionRunStatus } from '@juki-team/commons';
 import { ReactNode } from 'react';
 import { useJudge } from '../../../hooks/useJudge';
 import { UserCodeEditor } from '../../../organisms/_layz_/UserCodeEditor';
@@ -26,7 +26,7 @@ export const ProblemCodeEditor = <T, >(props: ProblemCodeEditorProps<T>) => {
     languages: validLanguages,
   } = props;
   
-  const initialTestCases: CodeEditorTestCasesType = {};
+  const initialTestCases: CodeEditorTestCases = {};
   problem.statement.sampleCases?.forEach((sample, index) => {
     const key = 'sample-' + index;
     initialTestCases[key] = {

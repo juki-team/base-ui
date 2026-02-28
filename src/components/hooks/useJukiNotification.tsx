@@ -1,7 +1,7 @@
 import {
-  type ContentResponseType,
-  type ContentsResponseType,
-  type ErrorResponseType,
+  type ContentResponse,
+  type ContentsResponse,
+  type ErrorResponse,
   NotificationType,
   Status,
 } from '@juki-team/commons';
@@ -13,7 +13,7 @@ import { NotificationAction } from '../organisms/CardNotification/types';
 
 import type { SetStatusType } from '../types';
 
-// export const notifyError = (response: ErrorResponseType, addErrorNotification: (message: ReactNode) => void) => {
+// export const notifyError = (response: ErrorResponse, addErrorNotification: (message: ReactNode) => void) => {
 //   addErrorNotification(
 //     <div className="jk-col stretch" style={{ width: '100%' }}>
 //       <span className="tt-se"><T>{response.message}</T></span>
@@ -28,7 +28,7 @@ import type { SetStatusType } from '../types';
 //   );
 // };
 //
-// export const notifySuccess = (response: ContentResponseType<any> | ContentsResponseType<any>, addSuccessNotification: (message: ReactNode) => void) => {
+// export const notifySuccess = (response: ContentResponse<any> | ContentsResponse<any>, addSuccessNotification: (message: ReactNode) => void) => {
 //   addSuccessNotification(
 //     <div className="jk-col stretch" style={{ width: '100%' }}>
 //       <span className="tt-se"><T>{response.message}</T></span>
@@ -49,9 +49,9 @@ export const useJukiNotification = () => {
   }), [ dispatch ]);
   
   const notifyResponse = useCallback(<T, >(
-    response: ErrorResponseType | ContentResponseType<T> | ContentsResponseType<T>,
+    response: ErrorResponse | ContentResponse<T> | ContentsResponse<T>,
     setStatus?: SetStatusType,
-  ): response is ContentResponseType<T> | ContentsResponseType<T> => {
+  ): response is ContentResponse<T> | ContentsResponse<T> => {
     if (response.success === false) {
       addNotification({
         type: NotificationType.ERROR,

@@ -1,6 +1,5 @@
-import { GraphSheetType, isStringJson, WorksheetType } from '@juki-team/commons';
+import { GraphSheet, isStringJson, WorksheetType } from '@juki-team/commons';
 import { useRef, useState } from 'react';
-
 import { useSyncedState } from '../../../../../hooks/useSyncedState';
 import { FloatToolbar } from '../../../../../molecules';
 import { ChunkTitle } from '../ChunkTitle';
@@ -11,41 +10,30 @@ import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { GraphSheetSectionEditor } from './GraphSheetSectionEditor';
 import { GraphSheetSectionView } from './GraphSheetSectionView';
 
-export const GraphSheetSection = (props: SheetSection<GraphSheetType>) => {
-  
-  const {
-    content: initialContent,
-    setContent: saveContent,
-    index,
-    sheetLength,
-    setSheet,
-  } = props;
-  
-  const [ edit, setEdit ] = useState(false);
-  const [ modal, setModal ] = useState(false);
-  const [ content, _setContent ] = useSyncedState(initialContent);
+export const GraphSheetSection = (props: SheetSection<GraphSheet>) => {
+  const { content: initialContent, setContent: saveContent, index, sheetLength, setSheet } = props;
+
+  const [edit, setEdit] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [content, _setContent] = useSyncedState(initialContent);
   const sectionRef = useRef<HTMLDivElement>(null);
   const onSaveEdit = () => {
     setEdit(!edit);
     saveContent?.(content);
   };
   useOnSaveSheetSection(sectionRef, edit, onSaveEdit);
-  
+
   const setContent = saveContent ? _setContent : undefined;
-  
+
   return (
-    <div
-      ref={sectionRef}
-      className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100"
-      onDoubleClick={() => setEdit(true)}
-    >
+    <div ref={sectionRef} className="jk-row top left nowrap stretch jk-br-ie pn-re wh-100" onDoubleClick={() => setEdit(true)}>
       {setContent && (
         <EditSheetModal
           isOpen={modal}
           onClose={() => setModal(false)}
           content={content}
           setContent={setContent}
-          isValid={(value) => isStringJson(value) /*&& isGraphSheetType(JSON.parse(value))*/}
+          isValid={(value) => isStringJson(value) /*&& isGraphSheet(JSON.parse(value))*/}
         />
       )}
       {setContent && edit ? (

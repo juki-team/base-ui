@@ -1,4 +1,4 @@
-import { type ContentResponseType, type SubmissionDataResponseDTO } from '@juki-team/commons';
+import { type ContentResponse, type SubmissionDataResponseDTO } from '@juki-team/commons';
 import { jukiApiManager } from '../../../settings';
 import { T } from '../../atoms';
 import { FetcherLayer } from '../../molecules';
@@ -8,7 +8,7 @@ import { SubmitViewProps } from './types';
 
 export function SubmitView({ submitId, triggerFetch, header, className }: SubmitViewProps) {
   return (
-    <FetcherLayer<ContentResponseType<SubmissionDataResponseDTO>>
+    <FetcherLayer<ContentResponse<SubmissionDataResponseDTO>>
       url={jukiApiManager.API_V2.submission.getData({ params: { id: submitId } }).url}
       errorView={() => {
         return (

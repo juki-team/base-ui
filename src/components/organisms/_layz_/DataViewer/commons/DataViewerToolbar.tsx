@@ -1,4 +1,4 @@
-import { cleanRequest, type ContentResponseType, DataViewMode, Status } from '@juki-team/commons';
+import { cleanRequest, type ContentResponse, DataViewMode, Status } from '@juki-team/commons';
 import {
   type ElementType,
   memo,
@@ -212,7 +212,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                 const downloadItem = downloads.find(download => value === download.value);
                 const url = downloadItem?.getUrl(requestProps) ?? '';
                 const filename = downloadItem?.getFilename(requestProps) ?? '';
-                const result = cleanRequest<ContentResponseType<{ urlExportedFile: string }>>(
+                const result = cleanRequest<ContentResponse<{ urlExportedFile: string }>>(
                   await getAuthorizedRequest(url),
                 );
                 if (result.success) {

@@ -1,38 +1,34 @@
-import { GraphSheetType } from '@juki-team/commons';
+import { GraphSheet } from '@juki-team/commons';
 import { useState } from 'react';
 import { DEFAULT_GRAPH } from '../../../../../../constants';
-import { classNames } from '../../../../../helpers';
 import { Button, Input, T } from '../../../../../atoms';
 import { AddIcon, ArrowBackIcon, ArrowForwardIcon, DeleteIcon } from '../../../../../atoms/server';
+import { classNames } from '../../../../../helpers';
 import { GraphvizEditor } from '../../../../GraphvizEditor/GraphvizEditor';
 import { SetContentType } from '../../types';
 
 interface GraphSheetSectionProps {
-  content: GraphSheetType,
-  setContent: SetContentType<GraphSheetType>,
+  content: GraphSheet;
+  setContent: SetContentType<GraphSheet>;
 }
 
-export const GraphSheetSectionEditor = ({
-                                          content,
-                                          setContent,
-                                        }: GraphSheetSectionProps) => {
-  
-  const [ frame, setFrame ] = useState(0);
-  
+export const GraphSheetSectionEditor = ({ content, setContent }: GraphSheetSectionProps) => {
+  const [frame, setFrame] = useState(0);
+
   return (
     <div className="jk-col stretch left wh-100 jk-pg-sm br-ht jk-br-ie">
       <Input
         label={<T className="tt-se">title</T>}
         labelPlacement="top"
         value={content.title}
-        onChange={title => setContent(prevState => ({ ...prevState, title }))}
+        onChange={(title) => setContent((prevState) => ({ ...prevState, title }))}
         expand
       />
       {content.dots?.[frame] && (
         <GraphvizEditor
           value={content.dots[frame]}
           onSave={(dot) => {
-            const dots = [ ...content.dots ];
+            const dots = [...content.dots];
             dots.splice(frame, 1, dot);
             setContent({ ...content, dots });
           }}
@@ -42,7 +38,7 @@ export const GraphSheetSectionEditor = ({
         <Button
           icon={<ArrowBackIcon />}
           disabled={frame === 0}
-          onClick={() => setFrame(((frame - 1) + content.dots.length) % content.dots.length)}
+          onClick={() => setFrame((frame - 1 + content.dots.length) % content.dots.length)}
           size="small"
         />
         {new Array(content.dots.length).fill(1).map((_, index) => (
@@ -65,7 +61,7 @@ export const GraphSheetSectionEditor = ({
         <Button
           icon={<ArrowBackIcon />}
           onClick={() => {
-            const dots = [ ...content.dots ];
+            const dots = [...content.dots];
             dots.splice(frame, 0, DEFAULT_GRAPH);
             setContent({ ...content, dots });
           }}
@@ -76,7 +72,7 @@ export const GraphSheetSectionEditor = ({
         <Button
           icon={<DeleteIcon />}
           onClick={() => {
-            const dots = [ ...content.dots ];
+            const dots = [...content.dots];
             dots.splice(frame, 1);
             setContent({ ...content, dots });
           }}
@@ -86,7 +82,7 @@ export const GraphSheetSectionEditor = ({
         <Button
           icon={<AddIcon />}
           onClick={() => {
-            const dots = [ ...content.dots ];
+            const dots = [...content.dots];
             dots.splice(frame + 1, 0, DEFAULT_GRAPH);
             setContent({ ...content, dots });
             setFrame(frame + 1);

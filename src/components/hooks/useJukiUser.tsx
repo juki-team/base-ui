@@ -1,8 +1,8 @@
 import {
   cleanRequest,
-  type ContentResponseType,
+  type ContentResponse,
   DataViewMode,
-  type ErrorResponseType,
+  type ErrorResponse,
   HTTPMethod,
   Language,
   MenuViewMode,
@@ -10,7 +10,7 @@ import {
   ProfileSetting,
   Status,
   Theme,
-  type UserSettingsType,
+  type UserSettings,
 } from '@juki-team/commons';
 import { useCallback, useState } from 'react';
 import { jukiApiManager } from '../../settings';
@@ -30,9 +30,9 @@ import { useJukiNotification } from './useJukiNotification';
 
 type ApiType<T> = {
   setLoader?: SetStatusType,
-  onSuccess?: (response: ContentResponseType<T>) => void,
-  onError?: (response: ErrorResponseType) => void
-  onFinally?: (response: ContentResponseType<T> | ErrorResponseType) => void
+  onSuccess?: (response: ContentResponse<T>) => void,
+  onError?: (response: ErrorResponse) => void
+  onFinally?: (response: ContentResponse<T> | ErrorResponse) => void
 }
 
 type ApiParamsType<T, U> = ApiType<U> & {
@@ -60,7 +60,7 @@ export const useJukiUser = () => {
     },
   ) => {
     setLoader?.(Status.LOADING);
-    const response = cleanRequest<ContentResponseType<T>>(await authorizedRequest(url, options));
+    const response = cleanRequest<ContentResponse<T>>(await authorizedRequest(url, options));
     if (notifyResponse(response, setLoader)) {
       await onSuccess?.(response);
     } else {
@@ -75,7 +75,7 @@ export const useJukiUser = () => {
     } | undefined, SignInPayloadDTO, PingResponseDTO>,
   ) => {
     const { url, ...options } = jukiApiManager.API_V2.auth.signIn({ body, params });
-    const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
+    const onSuccessWrap = async (response: ContentResponse<PingResponseDTO>) => {
       await userMutate();
       await onSuccess?.(response);
     };
@@ -89,7 +89,7 @@ export const useJukiUser = () => {
     }, PingResponseDTO>,
   ) => {
     const { url, ...options } = jukiApiManager.API_V2.auth.signUp({ body });
-    const onSuccessWrap = async (response: ContentResponseType<PingResponseDTO>) => {
+    const onSuccessWrap = async (response: ContentResponse<PingResponseDTO>) => {
       await userMutate();
       await onSuccess?.(response);
     };
@@ -125,7 +125,7 @@ export const useJukiUser = () => {
       body: { contentType: body.type },
     });
     setLoader?.(Status.LOADING);
-    const response = cleanRequest<ContentResponseType<{ signedUrl: string }>>(await authorizedRequest(url, options));
+    const response = cleanRequest<ContentResponse<{ signedUrl: string }>>(await authorizedRequest(url, options));
     if (response.success) {
       try {
         const uploadResponse = await fetch(response.content.signedUrl, {
@@ -182,12 +182,12 @@ export const useJukiUser = () => {
     
     const { url, ...options } = jukiApiManager.API_V2.auth.signOut();
     
-    const onFinallyWrap = async (response: ErrorResponseType | ContentResponseType<string>) => {
+    const onFinallyWrap = async (response: ErrorResponse | ContentResponse<string>) => {
       await userMutate();
       await onFinally?.(response);
     };
     
-    const onErrorWrap = async (response: ErrorResponseType) => {
+    const onErrorWrap = async (response: ErrorResponse) => {
       addErrorNotification(<T className="tt-se">force Logout</T>);
       await onError?.(response);
     };
@@ -206,7 +206,7 @@ export const useJukiUser = () => {
   }, [ doRequest ]);
   
   const updateUserPreferences = useCallback(async (
-    { params, body, ...props }: ApiParamsBodyType<{ nickname: string, companyKey: string }, UserSettingsType, string>,
+    { params, body, ...props }: ApiParamsBodyType<{ nickname: string, companyKey: string }, UserSettings, string>,
   ) => {
     const { url, ...options } = jukiApiManager.API_V2.user.updatePreferences({ params, body });
     await doRequest<string, HTTPMethod.PUT>({ url, options, ...props });
@@ -239,7 +239,7 @@ export const useJukiUserSettings = () => {
     key: ProfileSetting,
     value: string | boolean | number
   }[]) => {
-    const newSettings: UserSettingsType = { ...settings };
+    const newSettings: UserSettings = { ...settings };
     for (const { key, value } of settingsToUpdate) {
       if (key === ProfileSetting.LANGUAGE) {
         newSettings[ProfileSetting.LANGUAGE] = value as Language;

@@ -1,11 +1,11 @@
-import type { BodyWorksheetType, WorksheetsInPages } from '@juki-team/commons';
+import type { BodyWorksheet, WorksheetsInPages } from '@juki-team/commons';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import { UserResultsType } from '../../../types';
 import { OnPageChange, WorksheetViewerProps } from '../WorksheetViewer/types';
 
 export interface WorksheetBodiesProps {
   sheetsInPages: WorksheetsInPages,
-  setSheets?: Dispatch<BodyWorksheetType[]>,
+  setSheets?: Dispatch<BodyWorksheet[]>,
   userResults?: UserResultsType,
   isSolvable: boolean,
   isEditor: boolean,
@@ -17,13 +17,13 @@ export interface WorksheetBodiesProps {
   readOnly: boolean,
 }
 
-export type SetSheetType<T extends BodyWorksheetType> = Dispatch<SetStateAction<T[]>>
+export type SetSheetType<T extends BodyWorksheet> = Dispatch<SetStateAction<T[]>>
 
-export type SetContentType<T extends BodyWorksheetType> = Dispatch<SetStateAction<T>>;
+export type SetContentType<T extends BodyWorksheet> = Dispatch<SetStateAction<T>>;
 
 export interface WorksheetBodyProps {
   sheetPage: WorksheetsInPages[number],
-  setSheet?: SetSheetType<BodyWorksheetType>,
+  setSheet?: SetSheetType<BodyWorksheet>,
   userResults?: UserResultsType,
   readOnly: boolean,
   isSolvable: boolean,
@@ -33,11 +33,11 @@ export interface WorksheetBodyProps {
 }
 
 export interface WorksheetNodeProps extends Pick<WorksheetBodyProps, 'setSheet' | 'userResults' | 'readOnly' | 'isSolvable' | 'worksheetKey' | 'asSlides'> {
-  sheet: BodyWorksheetType[],
+  sheet: BodyWorksheet[],
   index: number,
   length: number,
 }
 
 export interface WorksheetEditorProps extends Omit<WorksheetViewerProps, 'resultsUserKey' | 'withoutTableOfContents'> {
-  setContent: (content: BodyWorksheetType[]) => void,
+  setContent: (content: BodyWorksheet[]) => void,
 }

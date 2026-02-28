@@ -1,9 +1,9 @@
 import {
   cleanRequest,
-  ContentResponseType,
-  isJkmdSheetType,
+  ContentResponse,
+  isJkmdSheet,
   isStringJson,
-  JkmdSheetType,
+  JkmdSheet,
   JkmdSubmissionDTO,
   Status,
   WorksheetType,
@@ -12,7 +12,6 @@ import { useRef, useState } from 'react';
 import { jukiApiManager } from '../../../../../../settings';
 import { InputCheckbox, T } from '../../../../../atoms';
 import { authorizedRequest } from '../../../../../helpers';
-
 import { useJukiNotification } from '../../../../../hooks/useJukiNotification';
 import { useSyncedState } from '../../../../../hooks/useSyncedState';
 import { ButtonLoader, FloatToolbar } from '../../../../../molecules';
@@ -25,7 +24,7 @@ import { SheetSection } from '../types';
 import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { JkmdSheetSectionEditor } from './JkmdSheetSectionEditor';
 
-interface JkmdSheetSectionProps extends SheetSection<JkmdSheetType> {
+interface JkmdSheetSectionProps extends SheetSection<JkmdSheet> {
 }
 
 export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
@@ -71,7 +70,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
           onClose={() => setModal(false)}
           content={content}
           setContent={setContent}
-          isValid={(value) => isStringJson(value) && isJkmdSheetType(JSON.parse(value))}
+          isValid={(value) => isStringJson(value) && isJkmdSheet(JSON.parse(value))}
         />
       )}
       {setContent && edit
@@ -103,7 +102,7 @@ export const JkmdSheetSection = (props: JkmdSheetSectionProps) => {
                         params: { worksheetKey },
                         body: jkMdSubmissionDTO,
                       });
-                      const response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
+                      const response = cleanRequest<ContentResponse<{}>>(await authorizedRequest(url, options));
                       await userResults?.mutate?.();
                       notifyResponse(response, setLoaderStatus);
                     }}

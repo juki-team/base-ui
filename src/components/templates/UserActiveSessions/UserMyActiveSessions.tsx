@@ -1,4 +1,4 @@
-import { type  ContentsResponseType, type SessionBasicResponseDTO, Status } from '@juki-team/commons';
+import { type  ContentsResponse, type SessionBasicResponseDTO, Status } from '@juki-team/commons';
 import { useMemo } from 'react';
 import { DEFAULT_DATA_VIEWER_PROPS } from '../../../constants';
 import { QueryParamKey } from '../../../enums';
@@ -22,7 +22,7 @@ export function UserMyActiveSessions(_: UserMyActiveSessionsProps) {
     data: response,
     request,
     setLoaderStatusRef,
-  } = useDataViewerRequester<ContentsResponseType<SessionBasicResponseDTO>>(() => jukiApiManager.API_V2.user.getMySessions().url);
+  } = useDataViewerRequester<ContentsResponse<SessionBasicResponseDTO>>(() => jukiApiManager.API_V2.user.getMySessions().url);
   
   const mutate = useMatchMutate();
   

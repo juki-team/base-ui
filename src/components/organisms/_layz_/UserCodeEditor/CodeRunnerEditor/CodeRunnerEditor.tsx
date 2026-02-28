@@ -1,7 +1,7 @@
 import {
   CODE_LANGUAGE,
-  type CodeEditorTestCasesType,
-  type   CodeEditorTestCaseType,
+  type   CodeEditorTestCase,
+  type CodeEditorTestCases,
   CodeLanguage,
   isCodeRunStatusMessageWebSocketResponseEventDTO,
   ONE_SECOND,
@@ -87,7 +87,7 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
         const fillTestCases = (status: SubmissionRunStatus, err: string, out: string, log: string) => {
           onChangeRef.current?.({
             onTestCasesChange: (prevState) => {
-              const newTestCases: CodeEditorTestCasesType = { ...prevState };
+              const newTestCases: CodeEditorTestCases = { ...prevState };
               for (const testKey in newTestCases) {
                 if (prevState[testKey]?.messageTimestamp && prevState[testKey].messageTimestamp > data.messageTimestamp) {
                   continue;
@@ -129,9 +129,9 @@ export function CodeRunnerEditor<T, >(props: CodeRunnerEditorProps<T>) {
           case SubmissionRunStatus.FAILED_TEST_CASE:
             onChangeRef.current?.({
               onTestCasesChange: (prevState) => {
-                const newTestCases: CodeEditorTestCasesType = { ...prevState };
+                const newTestCases: CodeEditorTestCases = { ...prevState };
                 if (inputKey && newTestCases[inputKey]) {
-                  const testCase: CodeEditorTestCaseType = {
+                  const testCase: CodeEditorTestCase = {
                     ...newTestCases[inputKey],
                     status,
                     out: data.log?.out || '',

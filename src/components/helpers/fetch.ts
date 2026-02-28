@@ -3,11 +3,11 @@ import {
   consoleError,
   consoleInfo,
   consoleWarn,
-  ContentResponseType,
-  type ContentsResponseType,
+  ContentResponse,
+  type ContentsResponse,
   ERROR,
   ErrorCode,
-  ErrorResponseType,
+  ErrorResponse,
   FilesJukiPub,
   HEADER_JUKI_FORWARDED_HOST,
   HEADER_JUKI_METADATA,
@@ -108,7 +108,7 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
         success: false,
         message: ERROR[ErrorCode.ERR9997].message,
         errors: [ { code: ErrorCode.ERR9997, detail: `[${method}] ${url} \n ${body}` } ],
-      } as ErrorResponseType) as N;
+      } as ErrorResponse) as N;
     }
     if (safe === false) {
       throw error;
@@ -123,7 +123,7 @@ const _authorizedRequest = async <M extends HTTPMethod = HTTPMethod.GET, N exten
         code: ErrorCode.ERR9998,
         detail: `FETCH CATCH ERROR : ` + JSON.stringify({ method, url, body, error }),
       } ],
-    } as ErrorResponseType) as N;
+    } as ErrorResponse) as N;
   }
 };
 
@@ -145,7 +145,7 @@ export const getMetaHeaders = (): HeadersInit => ({
 
 export const publishNote = async (source: string) => {
   const { url, ...options } = jukiApiManager.API_V2.note.publish({ body: { source: source.trim() } });
-  const request = cleanRequest<ContentResponseType<{ sourceUrl: string }>>(
+  const request = cleanRequest<ContentResponse<{ sourceUrl: string }>>(
     await authorizedRequest(url, options),
   );
   if (request?.success && request?.content.sourceUrl) {
@@ -188,7 +188,7 @@ export const handleUploadImage = async (image: Blob, isPublic: boolean): Promise
         isPublic,
       },
     });
-    const response = cleanRequest<ContentResponseType<{ imageUrl: string, signedUrl: string }>>(
+    const response = cleanRequest<ContentResponse<{ imageUrl: string, signedUrl: string }>>(
       await authorizedRequest(url, options),
     );
     
@@ -227,7 +227,7 @@ export const handleUploadFile = async (image: Blob, folder: FilesJukiPub): Promi
         folder,
       },
     });
-    const response = cleanRequest<ContentResponseType<{ imageUrl: string, signedUrl: string }>>(
+    const response = cleanRequest<ContentResponse<{ imageUrl: string, signedUrl: string }>>(
       await authorizedRequest(url, options),
     );
     
@@ -265,7 +265,7 @@ export const downloadWebsiteAsPdf = async (websiteUrl: string, name: string, exp
       margin: exportOptions?.margin,
     },
   });
-  const response = cleanRequest<ContentResponseType<{ urlExportedPDF: string }>>(
+  const response = cleanRequest<ContentResponse<{ urlExportedPDF: string }>>(
     await authorizedRequest(url, options),
   );
   
@@ -283,7 +283,7 @@ export const downloadJukiMarkdownAsPdf = async (source: string, theme: Theme, fi
   );
   if (typeof result === 'string') {
     if (isObjectJson(result)) {
-      const response = JSON.parse(result) as ErrorResponseType;
+      const response = JSON.parse(result) as ErrorResponse;
       if (response.errors.length) {
         throw new JkError(response.errors[0]!.code, { message: response.errors[0]!.detail });
       }
@@ -310,7 +310,7 @@ export const safeReportError = async (error: Error, errorInfo: ErrorInfo | null,
         data: { error, ...(data || {}) },
       },
     });
-    const response = cleanRequest<ContentsResponseType<true>>(await authorizedRequest(url, options));
+    const response = cleanRequest<ContentsResponse<true>>(await authorizedRequest(url, options));
     if (response.success) {
       consoleInfo('Error reported');
     } else {

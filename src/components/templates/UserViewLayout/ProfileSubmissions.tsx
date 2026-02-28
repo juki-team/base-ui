@@ -1,5 +1,5 @@
 import {
-  type ContentsResponseType,
+  type ContentsResponse,
   type JudgeSummaryListResponseDTO,
   type SubmissionSummaryListResponseDTO,
 } from '@juki-team/commons';
@@ -25,7 +25,7 @@ import type { ProfileSubmissionsProps } from './types';
 export function ProfileSubmissions(_: ProfileSubmissionsProps) {
   
   const nickname = useRouterStore(state => state.routeParams.nickname);
-  const { data: judgePublicList } = useFetcher<ContentsResponseType<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
+  const { data: judgePublicList } = useFetcher<ContentsResponse<JudgeSummaryListResponseDTO>>(jukiApiManager.API_V2.judge.getSummaryList().url);
   // const preload = usePreload();
   const languages = useMemo(() => {
     const result: LanguagesByJudge = {};

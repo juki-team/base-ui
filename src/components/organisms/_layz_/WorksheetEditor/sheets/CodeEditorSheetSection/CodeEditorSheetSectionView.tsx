@@ -2,11 +2,11 @@ import {
   cleanRequest,
   CODE_LANGUAGE,
   CodeEditorFiles,
-  CodeEditorSheetType,
+  CodeEditorSheet,
   CodeEditorSubmissionDTO,
-  CodeEditorTestCasesType,
+  CodeEditorTestCases,
   CodeLanguage,
-  ContentResponseType,
+  ContentResponse,
   Status,
   SubmissionRunStatus,
   WorksheetType,
@@ -25,7 +25,7 @@ import { SetLoaderStatusOnClickType, UserResultsType } from '../../../../../type
 import { UserCodeEditor } from '../../../UserCodeEditor';
 
 interface RunnerSheetSectionProps {
-  content: CodeEditorSheetType,
+  content: CodeEditorSheet,
   worksheetKey: string,
   chunkId: string,
   userResults?: UserResultsType,
@@ -51,7 +51,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
   
   const setLoaderStatusRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
-  const saveCode = async (files: CodeEditorFiles<CodeLanguage>, testCases: CodeEditorTestCasesType) => {
+  const saveCode = async (files: CodeEditorFiles<CodeLanguage>, testCases: CodeEditorTestCases) => {
     setLoaderStatusRef.current?.(Status.LOADING);
     setSubmissionIndex(0);
     const codeEditorSubmissionDTO: CodeEditorSubmissionDTO = {
@@ -65,7 +65,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
       params: { worksheetKey, secondaryKey: assignmentId ?? '' },
       body: codeEditorSubmissionDTO,
     });
-    const response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
+    const response = cleanRequest<ContentResponse<{}>>(await authorizedRequest(url, options));
     await userResults?.mutate?.();
     notifyResponse(response, setLoaderStatusRef.current);
   };

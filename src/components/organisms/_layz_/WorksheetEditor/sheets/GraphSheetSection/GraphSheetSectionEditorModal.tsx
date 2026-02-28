@@ -1,4 +1,4 @@
-import { GraphSheetType } from '@juki-team/commons';
+import { GraphSheet } from '@juki-team/commons';
 import { Dispatch, useEffect, useState } from 'react';
 import { Button, Modal } from '../../../../../atoms';
 import { BasicModalProps } from '../../../../../atoms/Modal/types';
@@ -6,9 +6,9 @@ import { AddIcon, ArrowBackIcon, ArrowForwardIcon, DeleteIcon } from '../../../.
 import { GraphSheetSectionView } from './GraphSheetSectionView';
 
 interface GraphSheetSectionProps extends BasicModalProps {
-  sheet: GraphSheetType,
-  setSheet: Dispatch<GraphSheetType>,
-  onClose: () => void,
+  sheet: GraphSheet;
+  setSheet: Dispatch<GraphSheet>;
+  onClose: () => void;
 }
 
 const DEFAULT_GRAPH = `digraaph graph_name {
@@ -21,21 +21,20 @@ const DEFAULT_GRAPH = `digraaph graph_name {
 }`;
 
 export const GraphSheetSectionEditorModal = ({
-                                               sheet: initialSheet,
-                                               setSheet: _setSheet,
-                                               isOpen,
-                                               onClose,
-                                             }: GraphSheetSectionProps) => {
-  
-  const [ frame, setFrame ] = useState(0);
-  const [ sheet, setSheet ] = useState(initialSheet);
-  
+  sheet: initialSheet,
+  setSheet: _setSheet,
+  isOpen,
+  onClose,
+}: GraphSheetSectionProps) => {
+  const [frame, setFrame] = useState(0);
+  const [sheet, setSheet] = useState(initialSheet);
+
   useEffect(() => {
     if (!sheet.dots.length) {
-      setSheet({ ...sheet, dots: [ DEFAULT_GRAPH ] });
+      setSheet({ ...sheet, dots: [DEFAULT_GRAPH] });
     }
-  }, [ frame, sheet, sheet.dots.length ]);
-  
+  }, [frame, sheet, sheet.dots.length]);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -53,7 +52,7 @@ export const GraphSheetSectionEditorModal = ({
             <Button
               icon={<ArrowBackIcon />}
               onClick={() => {
-                const dots = [ ...sheet.dots ];
+                const dots = [...sheet.dots];
                 dots.splice(frame, 0, DEFAULT_GRAPH);
                 setSheet({ ...sheet, dots });
               }}
@@ -64,7 +63,7 @@ export const GraphSheetSectionEditorModal = ({
             <Button
               icon={<DeleteIcon />}
               onClick={() => {
-                const dots = [ ...sheet.dots ];
+                const dots = [...sheet.dots];
                 dots.splice(frame, 1);
                 setSheet({ ...sheet, dots });
               }}
@@ -74,7 +73,7 @@ export const GraphSheetSectionEditorModal = ({
             <Button
               icon={<AddIcon />}
               onClick={() => {
-                const dots = [ ...sheet.dots ];
+                const dots = [...sheet.dots];
                 dots.splice(frame + 1, 0, DEFAULT_GRAPH);
                 setSheet({ ...sheet, dots });
                 setFrame(frame + 1);

@@ -1,6 +1,6 @@
 import {
   cleanRequest,
-  type ContentResponseType,
+  type ContentResponse,
   Judge,
   Language,
   ProblemScoringMode,
@@ -128,7 +128,7 @@ export const ProblemStatementView = <T, >({
         language: userPreferredLanguage,
       },
     });
-    const response = cleanRequest<ContentResponseType<{ urlExportedPDF: string }>>(
+    const response = cleanRequest<ContentResponse<{ urlExportedPDF: string }>>(
       await authorizedRequest(url, options),
     );
     

@@ -2,7 +2,7 @@ import {
   CODE_LANGUAGE,
   CodeEditorFile,
   type CodeEditorFiles,
-  type CodeEditorTestCasesType,
+  type CodeEditorTestCases,
   CodeLanguage,
   isStringJson,
   removeExtension,
@@ -112,8 +112,8 @@ const getDefaultFileName = (codeLanguage: CodeLanguage) => CODE_LANGUAGE[codeLan
 
 const getExtension = (codeLanguage: unknown) => CODE_LANGUAGE[codeLanguage as CodeLanguage]?.fileExtension[0] ?? 'source';
 
-const mergeTestCases = (a: CodeEditorTestCasesType, b: CodeEditorTestCasesType | undefined): CodeEditorTestCasesType => {
-  const newTestCases: CodeEditorTestCasesType = {};
+const mergeTestCases = (a: CodeEditorTestCases, b: CodeEditorTestCases | undefined): CodeEditorTestCases => {
+  const newTestCases: CodeEditorTestCases = {};
   for (const [ key, testCase ] of Object.entries(a)) {
     newTestCases[key] = {
       ...testCase,
@@ -205,8 +205,8 @@ type CodeEditorSettingsStore<T> = {
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const formatTestCasesStoreRecover = (recovered: any): StorageType<CodeEditorTestCasesType> => {
-  const state: StorageType<CodeEditorTestCasesType> = {};
+const formatTestCasesStoreRecover = (recovered: any): StorageType<CodeEditorTestCases> => {
+  const state: StorageType<CodeEditorTestCases> = {};
   for (const [ key, value ] of Object.entries(recovered)) {
     state[key] = {};
     for (const [ caseKey, caseValue ] of Object.entries(value as object)) {
@@ -231,8 +231,8 @@ const formatTestCasesStoreRecover = (recovered: any): StorageType<CodeEditorTest
   return state;
 };
 
-const getNewInitialTestCases = (testCaseStoreKey: string, initialTestCases: CodeEditorTestCasesType) => {
-  const response: StorageType<CodeEditorTestCasesType> = { [testCaseStoreKey]: { ...initialTestCases } };
+const getNewInitialTestCases = (testCaseStoreKey: string, initialTestCases: CodeEditorTestCases) => {
+  const response: StorageType<CodeEditorTestCases> = { [testCaseStoreKey]: { ...initialTestCases } };
   if (Object.keys(initialTestCases).length === 0) {
     response[testCaseStoreKey]!['*'] = {
       key: '*',
@@ -316,8 +316,8 @@ export default function UserCodeEditor<T, >(props: UserCodeEditorProps<T>) {
   };
   
   const testCaseStoreKey = storeKey;
-  const [ newInitialTestCases ] = useSyncedState<StorageType<CodeEditorTestCasesType>>(getNewInitialTestCases(testCaseStoreKey, initialTestCases));
-  const [ testCasesStore, setTestCasesStore ] = useSaveChunkStorage<CodeEditorTestCasesType>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, formatTestCasesStoreRecover);
+  const [ newInitialTestCases ] = useSyncedState<StorageType<CodeEditorTestCases>>(getNewInitialTestCases(testCaseStoreKey, initialTestCases));
+  const [ testCasesStore, setTestCasesStore ] = useSaveChunkStorage<CodeEditorTestCases>(getTestCasesStoreKey(userNickname), newInitialTestCases, mergeTestCases, formatTestCasesStoreRecover);
   const onTestCasesChangeRef = useStableRef(onTestCasesChange);
   const testCases = testCasesStore[testCaseStoreKey]!;
   useEffect(() => {

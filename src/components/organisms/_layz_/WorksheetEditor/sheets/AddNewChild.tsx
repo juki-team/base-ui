@@ -1,4 +1,4 @@
-import { BodyWorksheetType, NEW_PAGE_SHEET, WorksheetType } from '@juki-team/commons';
+import { BodyWorksheet, NEW_PAGE_SHEET, WorksheetType } from '@juki-team/commons';
 import {
   EMPTY_CODE_EDITOR_SHEET,
   EMPTY_GRAPH_SHEET,
@@ -14,7 +14,7 @@ import { ButtonLoader } from '../../../../molecules';
 import { SetSheetType } from '../types';
 import { LOGO_WORKSHEET_TYPE } from './logos';
 
-interface AddNewChildProps<T extends BodyWorksheetType> {
+interface AddNewChildProps<T extends BodyWorksheet> {
   index: number,
   setSheet: SetSheetType<T>,
   mdSheet?: boolean,
@@ -28,7 +28,7 @@ interface AddNewChildProps<T extends BodyWorksheetType> {
   floatToolbarPlacement?: PopoverProps['placement'],
 }
 
-export const AddNewChild = <T extends BodyWorksheetType, >(props: AddNewChildProps<T>) => {
+export const AddNewChild = <T extends BodyWorksheet, >(props: AddNewChildProps<T>) => {
   
   const {
     index,

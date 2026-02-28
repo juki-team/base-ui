@@ -10,7 +10,7 @@ import {
   consoleError,
   consoleInfo,
   consoleWarn,
-  ContentResponseType,
+  ContentResponse,
   getParamsOfClientId,
 } from '@juki-team/commons';
 import Ably, { TokenDetails, TokenRequest } from 'ably';
@@ -73,7 +73,7 @@ const newAblyClient = (uiId: string) => {
           consoleInfo('new request to auth ably');
           let tokenRequest;
           try {
-            const response = cleanRequest<ContentResponseType<TokenDetails | TokenRequest | string | null>>(
+            const response = cleanRequest<ContentResponse<TokenDetails | TokenRequest | string | null>>(
               await authorizedRequest(jukiApiManager.API_V2.websocket.auth().url + `?uiId=${uiId}`),
             );
             tokenRequest = response.success ? response.content : null;

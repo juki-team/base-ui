@@ -1,4 +1,4 @@
-import { type QuizOptionsSheetType } from '@juki-team/commons';
+import { type QuizOptionsSheet } from '@juki-team/commons';
 import { type Dispatch, useState } from 'react';
 import { v4 } from 'uuid';
 import { Input, InputCheckbox, InputRadio, Modal, T } from '../../../../../atoms';
@@ -7,20 +7,19 @@ import { AddIcon } from '../../../../../atoms/server';
 import { MdMathEditor } from '../../../MdMathEditor';
 
 interface RunnerSheetSectionProps extends BasicModalProps {
-  sheet: QuizOptionsSheetType,
-  setSheet: Dispatch<QuizOptionsSheetType>,
-  onClose: () => void,
+  sheet: QuizOptionsSheet;
+  setSheet: Dispatch<QuizOptionsSheet>;
+  onClose: () => void;
 }
 
 export const QuizOptionsSheetSectionEditorModal = ({
-                                                     sheet: initialSheet,
-                                                     setSheet: _setSheet,
-                                                     isOpen,
-                                                     onClose,
-                                                   }: RunnerSheetSectionProps) => {
-  
-  const [ sheet, setSheet ] = useState(initialSheet);
-  
+  sheet: initialSheet,
+  setSheet: _setSheet,
+  isOpen,
+  onClose,
+}: RunnerSheetSectionProps) => {
+  const [sheet, setSheet] = useState(initialSheet);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -37,12 +36,12 @@ export const QuizOptionsSheetSectionEditorModal = ({
             label={<T className="tt-se">title</T>}
             labelPlacement="top"
             value={sheet.title}
-            onChange={title => setSheet(prevState => ({ ...prevState, title }))}
+            onChange={(title) => setSheet((prevState) => ({ ...prevState, title }))}
           />
           <T className="tt-se fw-bd">description</T>
           <MdMathEditor
             value={sheet.description}
-            onChange={(description) => setSheet(prevState => ({ ...prevState, description }))}
+            onChange={(description) => setSheet((prevState) => ({ ...prevState, description }))}
           />
           <div className="jk-col stretch left gap">
             {sheet.options.map((option, index) => (
@@ -52,7 +51,7 @@ export const QuizOptionsSheetSectionEditorModal = ({
                   value={option.label}
                   onChange={(label) => {
                     setSheet((prevState) => {
-                      const newOptions = [ ...prevState.options ];
+                      const newOptions = [...prevState.options];
                       if (newOptions[index]) {
                         newOptions[index].label = label;
                       }
@@ -65,10 +64,12 @@ export const QuizOptionsSheetSectionEditorModal = ({
             ))}
             <div
               className="jk-row gap"
-              onClick={() => setSheet(prevState => ({
-                ...prevState,
-                options: [ ...prevState.options, { label: '', correct: false, id: v4() } ],
-              }))}
+              onClick={() =>
+                setSheet((prevState) => ({
+                  ...prevState,
+                  options: [...prevState.options, { label: '', correct: false, id: v4() }],
+                }))
+              }
             >
               <AddIcon /> <T className="tt-se">add option</T>
             </div>

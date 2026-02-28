@@ -1,4 +1,4 @@
-import { ContentResponseType, UserProfileResponseDTO } from '@juki-team/commons';
+import { ContentResponse, UserProfileResponseDTO } from '@juki-team/commons';
 import { BasicModalProps } from '../../atoms/types';
 import { UpdateUserProfileDataPayloadDTO } from '../../types';
 
@@ -6,7 +6,7 @@ export interface EditProfileModalProps extends BasicModalProps {
   user: UserProfileResponseDTO,
   onSuccess?: (props: {
     body: UpdateUserProfileDataPayloadDTO,
-    response: ContentResponseType<string>,
+    response: ContentResponse<string>,
   }) => Promise<void> | (() => void),
 }
 

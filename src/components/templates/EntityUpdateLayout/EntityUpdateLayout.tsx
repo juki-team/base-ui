@@ -1,4 +1,4 @@
-import { cleanRequest, type ContentResponseType, HTTPMethod, Status } from '@juki-team/commons';
+import { cleanRequest, type ContentResponse, HTTPMethod, Status } from '@juki-team/commons';
 import { useState } from 'react';
 import { useRouterStore } from '../../../stores/router/useRouterStore';
 import { authorizedRequest } from '../../helpers';
@@ -36,7 +36,7 @@ export function EntityUpdateLayout<T, U, V>(props: EntityUpdateLayoutProps<T, U,
       icon={<SaveIcon />}
       onClick={async (setLoaderStatus) => {
         setLoaderStatus(Status.LOADING);
-        const response = cleanRequest<ContentResponseType<string>>(await authorizedRequest(
+        const response = cleanRequest<ContentResponse<string>>(await authorizedRequest(
           updateApiURL(entityData)(entityKey),
           {
             method: HTTPMethod.PUT,

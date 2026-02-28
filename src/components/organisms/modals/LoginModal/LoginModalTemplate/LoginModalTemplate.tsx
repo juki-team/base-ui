@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { CompanyTrustedCompanyResponseDTO, ContentResponseType } from '@juki-team/commons';
+import { CompanyTrustedCompanyResponseDTO, ContentResponse } from '@juki-team/commons';
 import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -59,7 +59,7 @@ export const LoginModalTemplate = (props: LoginModalTemplateProps) => {
   // const { t } = useT();
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
   
-  const { data } = useFetcher<ContentResponseType<CompanyTrustedCompanyResponseDTO[]>>(jukiApiManager.API_V2.company.getTrustedCompaniesList().url);
+  const { data } = useFetcher<ContentResponse<CompanyTrustedCompanyResponseDTO[]>>(jukiApiManager.API_V2.company.getTrustedCompaniesList().url);
   
   const trustedCompanies = data?.success ? data.content : [];
   

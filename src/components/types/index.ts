@@ -1,4 +1,4 @@
-import { HTTPMethod, Status, UserHandlesType, WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons';
+import { HTTPMethod, Status, UserHandles, WorksheetUserSubmissionsResponseDTO } from '@juki-team/commons';
 import { ParsedUrlQuery } from 'querystring';
 import type {
   ChangeEvent,
@@ -219,7 +219,7 @@ export interface UpdateUserProfileDataPayloadDTO {
   country: string,
   city: string,
   institution: string,
-  handles: UserHandlesType,
+  handles: UserHandles,
 }
 
 interface NextFetchRequestConfig {

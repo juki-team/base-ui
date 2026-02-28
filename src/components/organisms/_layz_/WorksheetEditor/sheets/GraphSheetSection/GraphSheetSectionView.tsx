@@ -1,13 +1,13 @@
-import { GraphSheetType } from '@juki-team/commons';
+import { GraphSheet } from '@juki-team/commons';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { classNames } from '../../../../../helpers';
 import { Button } from '../../../../../atoms';
 import { ArrowBackIcon, ArrowForwardIcon } from '../../../../../atoms/server';
+import { classNames } from '../../../../../helpers';
 import { GraphvizViewer } from '../../../GraphvizViewer';
 
 interface GraphSheetSectionProps {
-  content: GraphSheetType,
-  setSheet?: Dispatch<SetStateAction<GraphSheetType>>,
+  content: GraphSheet;
+  setSheet?: Dispatch<SetStateAction<GraphSheet>>;
 }
 
 const DEFAULT_GRAPH = `digraaph graph_name {
@@ -20,25 +20,22 @@ const DEFAULT_GRAPH = `digraaph graph_name {
 }`;
 
 export const GraphSheetSectionView = ({ content, setSheet }: GraphSheetSectionProps) => {
-  
-  const [ frame, setFrame ] = useState(0);
-  
+  const [frame, setFrame] = useState(0);
+
   useEffect(() => {
     if (!content.dots.length) {
-      setSheet?.(sheet => ({ ...sheet, dots: [ DEFAULT_GRAPH ] }));
+      setSheet?.((sheet) => ({ ...sheet, dots: [DEFAULT_GRAPH] }));
     }
-  }, [ frame, setSheet, content.dots.length ]);
-  
+  }, [frame, setSheet, content.dots.length]);
+
   return (
     <div className="jk-col gap">
-      <div className="br-g5 jk-br-ie bc-we">
-        {content.dots?.[frame] && <GraphvizViewer dot={content.dots[frame]} />}
-      </div>
+      <div className="br-g5 jk-br-ie bc-we">{content.dots?.[frame] && <GraphvizViewer dot={content.dots[frame]} />}</div>
       <div className="jk-row gap center">
         <Button
           icon={<ArrowBackIcon />}
           disabled={frame === 0}
-          onClick={() => setFrame(((frame - 1) + content.dots.length) % content.dots.length)}
+          onClick={() => setFrame((frame - 1 + content.dots.length) % content.dots.length)}
           size="small"
         />
         {new Array(content.dots.length).fill(1).map((_, index) => (

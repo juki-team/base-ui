@@ -1,9 +1,9 @@
 import {
   cleanRequest,
-  CodeEditorTestCasesType,
+  CodeEditorTestCases,
   CodeLanguage,
   consoleWarn,
-  ContentResponseType,
+  ContentResponse,
   Status,
   SubmissionRunStatus,
 } from '@juki-team/commons';
@@ -72,7 +72,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
   
   const handleRunCode: (setLoaderStatus: SetLoaderStatusOnClickType) => Promise<void> = async (setStatus) => {
     const clean = (status: SubmissionRunStatus) => {
-      const newTestCases: CodeEditorTestCasesType = {};
+      const newTestCases: CodeEditorTestCases = {};
       for (const testKey in testCases) {
         if (testCases[testKey]) {
           newTestCases[testKey] = { ...testCases[testKey] };
@@ -115,7 +115,7 @@ export const Header = <T, >(props: HeaderProps<T>) => {
           connectionId: '',
         },
       });
-      const request = cleanRequest<ContentResponseType<{ runId: string }>>(
+      const request = cleanRequest<ContentResponse<{ runId: string }>>(
         await authorizedRequest(url, options),
       );
       

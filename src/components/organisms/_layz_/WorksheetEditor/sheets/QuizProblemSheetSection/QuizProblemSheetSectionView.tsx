@@ -1,9 +1,9 @@
 import {
   cleanRequest,
   CodeLanguage,
-  ContentResponseType,
+  ContentResponse,
   ProblemDataResponseDTO,
-  QuizProblemSheetType,
+  QuizProblemSheet,
   QuizProblemSubmissionDTO,
   Status,
   WorksheetType,
@@ -16,7 +16,7 @@ import { ButtonLoader, FetcherLayer, FirstLoginWrapper } from '../../../../../mo
 import { ProblemView } from '../../../../../templates/ProblemView/ProblemView';
 
 interface RunnerSheetSectionProps {
-  content: QuizProblemSheetType,
+  content: QuizProblemSheet,
   worksheetKey: string,
 }
 
@@ -42,7 +42,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
           // height: validHeight ? `calc(${+content.height}px + var(--gap))` : 'calc(var(--100VH) * 0.6)',
         }}
       >
-        <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
+        <FetcherLayer<ContentResponse<ProblemDataResponseDTO>>
           url={content.problemKey ? jukiApiManager.API_V2.problem.getData({ params: { key: content.problemKey } }).url : null}
         >
           {({ data }) => {
@@ -74,7 +74,7 @@ export const QuizProblemSheetSectionView = ({ content, worksheetKey }: RunnerShe
                             params: { worksheetKey },
                             body: quizProblem,
                           });
-                          const response = cleanRequest<ContentResponseType<any>>(await authorizedRequest(url, options));
+                          const response = cleanRequest<ContentResponse<any>>(await authorizedRequest(url, options));
                           
                           notifyResponse(response, setLoaderStatus);
                         }}

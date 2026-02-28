@@ -1,13 +1,13 @@
 import { OrderedExcalidrawElement } from '@excalidraw/excalidraw/element/types';
 import { AppState } from '@excalidraw/excalidraw/types';
 import {
-  ClientIdType,
+  ClientId,
   CodeEditorFiles,
   CodeEditorSubmissionDTO,
   CodeLanguage,
   CodeRunDTO,
   CompanyPlan,
-  CompanyStylesType,
+  CompanyStyles,
   EntityMembersDTO,
   FilesJukiPub,
   getUserKey,
@@ -15,7 +15,7 @@ import {
   HTTPMethod,
   JkmdSubmissionDTO,
   Judge,
-  JudgeLanguageType,
+  JudgeLanguage,
   Language,
   ProblemVerdict,
   QuizOptionsSubmissionDTO,
@@ -23,7 +23,7 @@ import {
   Theme,
   UpsertWorksheetDTO,
   UserRoles,
-  UserSettingsType,
+  UserSettings,
   UserStatus,
 } from '@juki-team/commons';
 import type { ErrorInfo } from 'react';
@@ -244,7 +244,7 @@ export class ApiManager {
           body: JSON.stringify(body),
         })),
         updatePreferences: valid<
-          { params: { nickname: string, companyKey: string }, body: UserSettingsType },
+          { params: { nickname: string, companyKey: string }, body: UserSettings },
           HTTPMethod.PUT
         >(({ params: { nickname, companyKey }, body }) => ({
           url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/preferences`),
@@ -292,7 +292,7 @@ export class ApiManager {
         })),
         clientTrack: valid<{
           body: {
-            clientId: ClientIdType,
+            clientId: ClientId,
             location: boolean,
             screenshot: boolean,
             device: boolean,
@@ -697,7 +697,7 @@ export class ApiManager {
               contactTelegram?: string,
               contactCellPhoneNumber?: string,
               contactEmail?: string,
-              styles?: CompanyStylesType,
+              styles?: CompanyStyles,
             }
           },
           HTTPMethod.PATCH
@@ -756,7 +756,7 @@ export class ApiManager {
         patch: valid<{
           params: { key: string },
           body: {
-            languages?: JudgeLanguageType[],
+            languages?: JudgeLanguage[],
             problemTags?: string[],
             name?: string,
             isExternal?: boolean,
@@ -779,7 +779,7 @@ export class ApiManager {
                                 },
                               }) => {
           const body: {
-            languages?: JudgeLanguageType[],
+            languages?: JudgeLanguage[],
             problemTags?: string[],
             name?: string,
             isExternal?: boolean,

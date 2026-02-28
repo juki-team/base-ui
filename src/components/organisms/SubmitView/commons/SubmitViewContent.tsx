@@ -1,12 +1,12 @@
 import {
   CODE_LANGUAGE,
-  type ContentsResponseType,
+  type ContentsResponse,
   Judge,
   type JudgeDataResponseDTO,
   ProblemScoringMode,
   ProblemVerdict,
   type SubmissionDataResponseDTO,
-  type TestCaseResultType,
+  type TestCaseResult,
 } from '@juki-team/commons';
 import { type ReactNode } from 'react';
 import { ContestTab } from '../../../../enums';
@@ -76,7 +76,7 @@ export const SubmitViewContent = ({ submit, header, className }: {
   
   const isProblemEditor = isManager || isAdministrator;
   const date = new Date(timestamp);
-  const testCasesByGroup: { [key: number]: TestCaseResultType[] } = {};
+  const testCasesByGroup: { [key: number]: TestCaseResult[] } = {};
   (
     testCaseResults || []
   ).forEach((testCase) => {
@@ -99,7 +99,7 @@ export const SubmitViewContent = ({ submit, header, className }: {
   const origin = getJudgeOrigin(submit.problem.company.key, userCompanyKey);
   
   const isLeetCode = submit.problem.judge.key === Judge.LEETCODE;
-  const { data } = useFetcher<ContentsResponseType<JudgeDataResponseDTO>>(
+  const { data } = useFetcher<ContentsResponse<JudgeDataResponseDTO>>(
     jukiApiManager.API_V2.judge.getSummaryList().url,
   );
   const getSubmissionUrl = data?.success ? data.contents.find(({ key }) => key === Judge.LEETCODE)?.getSubmissionUrl : '';

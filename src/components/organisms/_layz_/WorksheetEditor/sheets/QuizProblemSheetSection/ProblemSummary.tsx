@@ -1,4 +1,4 @@
-import { ContentResponseType, PROBLEM_MODE, PROBLEM_TYPE, ProblemSummaryListResponseDTO } from '@juki-team/commons';
+import { ContentResponse, PROBLEM_MODE, PROBLEM_TYPE, ProblemSummaryListResponseDTO } from '@juki-team/commons';
 import { jukiApiManager } from '../../../../../../settings';
 import { T } from '../../../../../atoms';
 import { FetcherLayer } from '../../../../../molecules';
@@ -7,7 +7,7 @@ import { PageNotFound } from '../../../../PageNotFound/PageNotFound';
 export const ProblemSummary = ({ problemKey }: { problemKey: string }) => {
   return (
     <div style={{}}>
-      <FetcherLayer<ContentResponseType<ProblemSummaryListResponseDTO>>
+      <FetcherLayer<ContentResponse<ProblemSummaryListResponseDTO>>
         url={jukiApiManager.API_V2.problem.getSummary({
           params: {
             key: problemKey,

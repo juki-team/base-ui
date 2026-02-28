@@ -1,10 +1,10 @@
 import {
-  BodyWorksheetType,
-  CodeEditorSheetType,
-  GraphSheetType,
-  JkmdSheetType,
-  QuizOptionsSheetType,
-  QuizProblemSheetType,
+  BodyWorksheet,
+  CodeEditorSheet,
+  GraphSheet,
+  JkmdSheet,
+  QuizOptionsSheet,
+  QuizProblemSheet,
   WorksheetType,
 } from '@juki-team/commons';
 import { Fragment } from 'react';
@@ -43,7 +43,7 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
     return null;
   }
   
-  const setContent: SetContentType<BodyWorksheetType> | undefined = setSheet ? (value) => {
+  const setContent: SetContentType<BodyWorksheet> | undefined = setSheet ? (value) => {
     setSheet((sheet) => {
       const newSheet = [ ...sheet ];
       if (newSheet[index]) {
@@ -88,22 +88,22 @@ export const WorksheetNode = (props: WorksheetNodeProps) => {
         })}
       >
         {chunk.type === WorksheetType.JK_MD && (
-          <JkmdSheetSection {...sectionProps as SheetSection<JkmdSheetType>} />
+          <JkmdSheetSection {...sectionProps as SheetSection<JkmdSheet>} />
         )}
         {chunk.type === WorksheetType.CODE_EDITOR && (
-          <CodeEditorSheetSection {...sectionProps as SheetSection<CodeEditorSheetType>} />
+          <CodeEditorSheetSection {...sectionProps as SheetSection<CodeEditorSheet>} />
         )}
         {/*{chunk.type === WorksheetType.LIST && (*/}
         {/*  <ListSheetSection sheet={sheet} setSheet={setSheet} actionButtons={actionButtons} />*/}
         {/*)}*/}
         {chunk.type === WorksheetType.GRAPH && (
-          <GraphSheetSection {...sectionProps as SheetSection<GraphSheetType>} />
+          <GraphSheetSection {...sectionProps as SheetSection<GraphSheet>} />
         )}
         {chunk.type === WorksheetType.QUIZ_PROBLEM && (
-          <QuizProblemSheetSection {...sectionProps as SheetSection<QuizProblemSheetType>} />
+          <QuizProblemSheetSection {...sectionProps as SheetSection<QuizProblemSheet>} />
         )}
         {chunk.type === WorksheetType.QUIZ_OPTIONS && (
-          <QuizOptionsSheetSection {...sectionProps as SheetSection<QuizOptionsSheetType>} />
+          <QuizOptionsSheetSection {...sectionProps as SheetSection<QuizOptionsSheet>} />
         )}
       </div>
       {setSheet && !asSlides && (

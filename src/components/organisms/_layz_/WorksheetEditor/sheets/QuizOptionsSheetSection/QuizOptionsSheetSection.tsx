@@ -1,9 +1,9 @@
 import {
   cleanRequest,
-  ContentResponseType,
-  isQuizOptionsSheetType,
+  ContentResponse,
+  isQuizOptionsSheet,
   isStringJson,
-  QuizOptionsSheetType,
+  QuizOptionsSheet,
   QuizOptionsSubmissionDTO,
   Status,
   WorksheetType,
@@ -25,7 +25,7 @@ import { useOnSaveSheetSection } from '../useOnSaveSheetSection';
 import { QuizOptionsSheetSectionEditor } from './QuizOptionsSheetSectionEditor';
 import { QuizOptionsSheetSectionView } from './QuizOptionsSheetSectionView';
 
-export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheetType>) => {
+export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheet>) => {
   
   const {
     content: initialContent,
@@ -69,7 +69,7 @@ export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheetType
           onClose={() => setModal(false)}
           content={content}
           setContent={setContent}
-          isValid={(value) => isStringJson(value) && isQuizOptionsSheetType(JSON.parse(value))}
+          isValid={(value) => isStringJson(value) && isQuizOptionsSheet(JSON.parse(value))}
         />
       )}
       {setContent && edit ? (
@@ -103,7 +103,7 @@ export const QuizOptionsSheetSection = (props: SheetSection<QuizOptionsSheetType
                       params: { worksheetKey },
                       body: jkMdSubmissionDTO,
                     });
-                    const response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
+                    const response = cleanRequest<ContentResponse<{}>>(await authorizedRequest(url, options));
                     await userResults?.mutate?.();
                     notifyResponse(response, setLoaderStatus);
                   }}

@@ -1,6 +1,6 @@
 import {
   cleanRequest,
-  type ContentResponseType,
+  type ContentResponse,
   type DocumentCreateResponseDTO,
   HTTPMethod,
   Status,
@@ -39,7 +39,7 @@ export function EntityCreateLayout<T, U, V>(props: EntityCreateLayoutProps<T, U,
       icon={<SaveIcon />}
       onClick={async (setLoaderStatus) => {
         setLoaderStatus(Status.LOADING);
-        const response = cleanRequest<ContentResponseType<DocumentCreateResponseDTO>>(await authorizedRequest(
+        const response = cleanRequest<ContentResponse<DocumentCreateResponseDTO>>(await authorizedRequest(
           createApiURL(),
           {
             method: HTTPMethod.POST,

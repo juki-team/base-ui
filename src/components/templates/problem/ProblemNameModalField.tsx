@@ -1,4 +1,4 @@
-import { type  ContentResponseType, type ProblemDataResponseDTO } from '@juki-team/commons';
+import { type  ContentResponse, type ProblemDataResponseDTO } from '@juki-team/commons';
 import { type ReactNode, useState } from 'react';
 import { jukiApiManager } from '../../../settings';
 import { Modal } from '../../atoms';
@@ -29,7 +29,7 @@ export function ProblemNameModalField(props: ProblemNameModalFieldProps) {
                 onClose={() => setModal(null)}
                 // portalClassName="jk-modal-bc-wd jk-modal-height-expanded" // TODO:
               >
-                <FetcherLayer<ContentResponseType<ProblemDataResponseDTO>>
+                <FetcherLayer<ContentResponse<ProblemDataResponseDTO>>
                   url={jukiApiManager.API_V2.problem.getData({ params: { key } }).url}
                 >
                   {data => (

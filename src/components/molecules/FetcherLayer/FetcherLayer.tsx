@@ -1,9 +1,4 @@
-import {
-  consoleError,
-  type ContentResponseType,
-  type ContentsResponseType,
-  type ErrorResponseType,
-} from '@juki-team/commons';
+import { consoleError, type ContentResponse, type ContentsResponse, type ErrorResponse } from '@juki-team/commons';
 import { useEffect, useMemo, useRef } from 'react';
 import { useUIStore } from '../../../stores/ui/useUIStore';
 import { LineLoader, LoaderLayer } from '../../atoms/server';
@@ -12,19 +7,19 @@ import { useFetcher } from '../../hooks/useFetcher';
 import { useJukiNotification } from '../../hooks/useJukiNotification';
 import type { FetcherLayerProps } from './types';
 
-const isContentResponseType = <T, >(data: any): data is ContentResponseType<T> => {
+const isContentResponseType = <T, >(data: any): data is ContentResponse<T> => {
   return !!(data?.success && data?.content);
 };
 
-const isContentsResponseType = <T, >(data: any): data is ContentsResponseType<T> => {
+const isContentsResponseType = <T, >(data: any): data is ContentsResponse<T> => {
   return !!(data?.success && data?.contents);
 };
 
-const isErrorResponseType = (data: any): data is ErrorResponseType => {
+const isErrorResponseType = (data: any): data is ErrorResponse => {
   return data?.success === false;
 };
 
-export function FetcherLayer<T extends (ContentResponseType<U> | ContentsResponseType<U>), U = any>(props: FetcherLayerProps<T, U>) {
+export function FetcherLayer<T extends (ContentResponse<U> | ContentsResponse<U>), U = any>(props: FetcherLayerProps<T, U>) {
   
   const { url, options, errorView, loadingView, children, onError: _onError, triggerFetch } = props;
   

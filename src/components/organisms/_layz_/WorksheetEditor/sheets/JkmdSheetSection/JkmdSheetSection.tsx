@@ -1,9 +1,9 @@
 import {
   cleanRequest,
-  ContentResponseType,
-  isJkmdSheetType,
+  ContentResponse,
+  isJkmdSheet,
   isStringJson,
-  JkmdSheetType,
+  JkmdSheet,
   JkmdSubmissionDTO,
   Status,
   WorksheetType,
@@ -22,7 +22,7 @@ import { ResultHeader } from '../ResultHeader';
 import { SheetSection } from '../types';
 import { JkmdSheetSectionEditor } from './JkmdSheetSectionEditor';
 
-export const JkmdSheetSection = (props: SheetSection<JkmdSheetType>) => {
+export const JkmdSheetSection = (props: SheetSection<JkmdSheet>) => {
   
   const {
     content,
@@ -57,7 +57,7 @@ export const JkmdSheetSection = (props: SheetSection<JkmdSheetType>) => {
           onClose={() => setModal(false)}
           content={content}
           setContent={setContent}
-          isValid={(value) => isStringJson(value) && isJkmdSheetType(JSON.parse(value))}
+          isValid={(value) => isStringJson(value) && isJkmdSheet(JSON.parse(value))}
         />
       )}
       {setContent && edit
@@ -89,7 +89,7 @@ export const JkmdSheetSection = (props: SheetSection<JkmdSheetType>) => {
                         params: { worksheetKey },
                         body: jkMdSubmissionDTO,
                       });
-                      const response = cleanRequest<ContentResponseType<{}>>(await authorizedRequest(url, options));
+                      const response = cleanRequest<ContentResponse<{}>>(await authorizedRequest(url, options));
                       await userResults?.mutate?.();
                       notifyResponse(response, setLoaderStatus);
                     }}
