@@ -9,7 +9,7 @@ export const NODE_ENV = process.env.NODE_ENV || 'development';
 
 export const ABLY_LOG_LEVEL =
   // @ts-expect-error vite env
-  +(process.env.NEXT_PUBLIC_ABLY_LOG_LEVEL || import.meta?.env?.VITE_ABLY_LOG_LEVEL || 0) || undefined;
+  +(process.env.NEXT_PUBLIC_ABLY_LOG_LEVEL || import.meta.env.VITE_ABLY_LOG_LEVEL || 0) || undefined;
 
 export const SWR_CONFIG: SWRConfiguration = {
   revalidateOnFocus: false,
