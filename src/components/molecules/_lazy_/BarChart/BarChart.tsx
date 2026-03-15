@@ -7,10 +7,9 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import type { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
 import type { BarChartProps } from './types';
 
-export default function BarChart<TValue extends ValueType, TName extends NameType>(props: BarChartProps<TValue, TName>) {
+export default function BarChart(props: BarChartProps) {
   
   const { data, margin, tooltipContent, xAxisTick } = props;
   

@@ -302,7 +302,7 @@ function MdMathComponent(props: MdMathProps) {
               return <MermaidInline value={children} />;
               // return (
               //   <div className="wh-100" style={{ height: 256 }}>
-              //     <MermaidViewer value={children} copyButtons={false} downloadButtons={false} zoomShortcutButtons={false} />;
+              //     <MermaidViewer value={children} copyButtons={false} downloadButtons={false} zoomShortcutButtons={false} />
               //   </div>
               // );
             }
