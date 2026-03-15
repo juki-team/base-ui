@@ -66,7 +66,7 @@ export const Regular: Story = {
   argTypes: {
     type: {
       control: 'radio',
-      options: [ 'primary', 'secondary', 'tertiary', 'ghost' ],
+      options: ['primary', 'secondary', 'ghost'],
     },
   },
 };
@@ -77,13 +77,13 @@ export const Disabled: Story = {
   },
   play: async ({ args, userEvent, canvasElement }) => {
     const container = canvasElement.querySelector<HTMLElement>('#juki-app');
-    
+
     if (!container) {
       throw new Error('Container #juki-app');
     }
-    
+
     const buttons = within(container).getAllByRole('button');
-    
+
     for (const button of buttons) {
       await userEvent.click(button);
       await expect(button).toBeDisabled();

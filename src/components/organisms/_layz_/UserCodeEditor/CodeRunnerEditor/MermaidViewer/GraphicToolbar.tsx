@@ -7,19 +7,19 @@ export function GraphicToolbar(props: GraphicToolbarProps) {
 
   return (
     <div className="jk-row gap jk-pg-xsm">
-      <Button onClick={() => onZoom(-0.1)} icon={<MinusIcon size="small" />} size="tiny" type="tertiary" />
+      <Button onClick={() => onZoom(-0.1)} icon={<MinusIcon size="small" />} size="tiny" type="secondary" />
       <span style={{ minWidth: '42px', textAlign: 'center', fontSize: '0.8rem', userSelect: 'none' }}>
         {Math.round(zoom * 100)}%
       </span>
-      <Button onClick={() => onZoom(0.1)} icon={<PlusIcon size="small" />} size="tiny" type="tertiary" />
+      <Button onClick={() => onZoom(0.1)} icon={<PlusIcon size="small" />} size="tiny" type="secondary" />
       <div style={{ width: '1px', height: '16px', background: 'var(--t-color-gray-4)', margin: '0 4px' }} />
-      <Button onClick={() => onZoom(1 - zoom)} size="tiny" type="tertiary">
+      <Button onClick={() => onZoom(1 - zoom)} size="tiny" type="secondary">
         100%
       </Button>
-      <Button onClick={() => onZoom(2 - zoom)} size="tiny" type="tertiary">
+      <Button onClick={() => onZoom(2 - zoom)} size="tiny" type="secondary">
         200%
       </Button>
-      <Button onClick={onReset} icon={<RefreshIcon size="small" />} size="tiny" type="tertiary">
+      <Button onClick={onReset} icon={<RefreshIcon size="small" />} size="tiny" type="secondary">
         <T className="tt-se">reset</T>
       </Button>
       <div style={{ flex: 1 }} />
@@ -28,7 +28,7 @@ export function GraphicToolbar(props: GraphicToolbarProps) {
         onClick={onToggleFullscreen}
         icon={isFullscreen ? <FullscreenExitIcon size="small" /> : <FullscreenIcon size="small" />}
         size="tiny"
-        type="tertiary"
+        type="secondary"
       />
     </div>
   );

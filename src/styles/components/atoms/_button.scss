@@ -42,8 +42,9 @@
 }
 
 .jk-button {
+  // TODO: remove this var
   --button-padding: var(--pad-xs); // 16px
-  --button-border-padding: var(--button-padding);
+  --button-padding-tb: calc(var(--tx-h-m) / 8);
   --icon-margin-right: 0;
   --line-height: var(--tx-h-m); // 24px
   height: auto;
@@ -57,7 +58,7 @@
   outline-offset: -1px;
   cursor: pointer;
   overflow: hidden;
-  padding: calc(var(--tx-h-m) / 8) calc(var(--tx-h-m) / 2);
+  padding: var(--button-padding-tb) calc(var(--tx-h-m) / 2);
   line-height: calc(var(--line-height) - 4px);
   --size-button-loader-icon: var(--line-height);
   @include mixins.transition-fast(opacity, padding, outline-color, outline-width, background-color);
@@ -100,7 +101,7 @@
   }
   
   &.only-icon {
-    padding: calc(var(--tx-h-m) / 8);
+    padding: var(--button-padding-tb);
     
     &:not(.disabled):hover {
       --button-border-width: 2px;
@@ -143,19 +144,19 @@
   }
 }
 
-.jk-button.ghost {
-  color: inherit;
-  
-  &:not([class*=" bc-"]):not([class^="bc-"]) {
-    --background-color: transparent;
-  }
-  
-  * {
-    color: inherit;
-  }
-}
+//.jk-button.ghost {
+//  color: inherit;
+//
+//  &:not([class*=" bc-"]):not([class^="bc-"]) {
+//    --background-color: transparent;
+//  }
+//
+//  * {
+//    color: inherit;
+//  }
+//}
 
-.jk-button.tertiary {
+.jk-button.ghost {
   color: inherit;
   outline-offset: 0 !important;
   
