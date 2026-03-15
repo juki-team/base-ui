@@ -157,7 +157,6 @@
 //}
 
 .jk-button.ghost {
-  color: inherit;
   outline-offset: 0 !important;
   
   &:not([class*=" bc-"]):not([class^="bc-"]):not(:hover) {
@@ -175,7 +174,6 @@
 
 .jk-button.secondary {
   outline-offset: 0 !important;
-  color: inherit;
   
   &:not([class*=" bc-"]):not([class^="bc-"]) {
     --background-color: var(--cr-ht-lt);
