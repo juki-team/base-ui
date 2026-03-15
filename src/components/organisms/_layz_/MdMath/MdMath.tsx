@@ -281,16 +281,14 @@ function MdMathComponent(props: MdMathProps) {
 
           let text = (className as string).replace('language-', '');
           for (const a of Object.keys(CodeLanguage)) {
-            if (text.startsWith(a)) {
+            if (text.toUpperCase().startsWith(a)) {
               text = `\\lang=${text}`;
               break;
             }
           }
           const [commands, newClassName] = getCommands(text);
-          const [language, flag] = (commands.lang || commands.rest || newClassName || CodeLanguage.TEXT).split('/') as [
-            CodeLanguage,
-            CodeRenderMode,
-          ];
+          const [languageRaw, flag] = (commands.lang || commands.rest || newClassName || CodeLanguage.TEXT).split('/');
+          const language = languageRaw!.toUpperCase() as CodeLanguage;
 
           if (typeof children === 'string') {
             if (language === CodeLanguage.DOT && flag === CodeRenderMode.IMAGE) {

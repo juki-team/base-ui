@@ -1,25 +1,24 @@
-import { type ReactElement, type SVGProps } from 'react';
 import type { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
 import type { ContentType } from 'recharts/types/component/Tooltip';
 import type { AxisInterval, Margin } from 'recharts/types/util/types';
 
-export interface LineChartProps<TValue extends ValueType, TName extends NameType> {
+export interface LineChartProps {
   data: { label: string, value: number, [key: string]: any }[],
   margin?: Margin,
-  
+
   containerHeight?: number,
   containerOnResize?: (width: number, height: number) => void;
-  
-  tooltipContent?: ContentType<TValue, TName>,
+
+  tooltipContent?: ContentType<ValueType, NameType>,
   tooltipActive?: boolean,
-  
-  xAxisTick?: SVGProps<SVGTextElement> | ReactElement<SVGElement> | ((props: any) => ReactElement<SVGElement>) | boolean,
+
+  xAxisTick?: any,
   xAxisInterval?: AxisInterval,
   xTickCount?: number,
-  
-  yAxisTick?: SVGProps<SVGTextElement> | ReactElement<SVGElement> | ((props: any) => ReactElement<SVGElement>) | boolean,
+
+  yAxisTick?: any,
   yAxisInterval?: AxisInterval,
   yTickCount?: number,
-  
+
   lineDataKeys?: string | string[],
 }

@@ -126,76 +126,92 @@ const plainText = StreamLanguage.define({
 
 const plainTextSupport = new LanguageSupport(plainText);
 
+console.log({ languages });
 const myLanguages = [
   // ...languages,
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'C'),
-    name: CodeLanguage.C,
+    name: CodeLanguage.C.toLowerCase(),
     load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'C'),
-    name: CodeLanguage.C + `/${CodeRenderMode.EDITOR}`,
+    name: CodeLanguage.C.toLowerCase() + `/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'C++'),
-    name: CodeLanguage.CPP,
+    name: CodeLanguage.CPP.toLowerCase(),
     load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'C++'),
-    name: CodeLanguage.CPP + `/${CodeRenderMode.EDITOR}`,
+    name: CodeLanguage.CPP.toLowerCase() + `/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-cpp').then((m) => m.cpp()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'Java'),
-    name: CodeLanguage.JAVA,
+    name: CodeLanguage.JAVA.toLowerCase(),
     load: () => import('@codemirror/lang-java').then((m) => m.java()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'Java'),
-    name: CodeLanguage.JAVA + `/${CodeRenderMode.EDITOR}`,
+    name: CodeLanguage.JAVA.toLowerCase() + `/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-java').then((m) => m.java()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'Python'),
-    name: CodeLanguage.PYTHON,
+    name: CodeLanguage.PYTHON.toLowerCase(),
     load: () => import('@codemirror/lang-python').then((m) => m.python()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'Python'),
-    name: CodeLanguage.PYTHON + `/${CodeRenderMode.EDITOR}`,
+    name: CodeLanguage.PYTHON.toLowerCase() + `/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-python').then((m) => m.python()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'JavaScript'),
-    name: CodeLanguage.JAVASCRIPT,
+    name: CodeLanguage.JAVASCRIPT.toLowerCase(),
     load: () => import('@codemirror/lang-javascript').then((m) => m.javascript()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'JavaScript'),
-    name: CodeLanguage.JAVASCRIPT + `/${CodeRenderMode.EDITOR}`,
+    name: CodeLanguage.JAVASCRIPT.toLowerCase() + `/${CodeRenderMode.EDITOR}`,
     load: () => import('@codemirror/lang-javascript').then((m) => m.javascript()),
+  }),
+  LanguageDescription.of({
+    ...languages.find((language) => language.name === 'TypeScript'),
+    name: CodeLanguage.TYPESCRIPT.toLowerCase(),
+    load: () => import('@codemirror/lang-javascript').then((m) => m.javascript({ typescript: true })),
+  }),
+  LanguageDescription.of({
+    ...languages.find((language) => language.name === 'JSX'),
+    name: CodeLanguage.JSX.toLowerCase(),
+    load: () => import('@codemirror/lang-javascript').then((m) => m.javascript({ jsx: true })),
+  }),
+  LanguageDescription.of({
+    ...languages.find((language) => language.name === 'TSX'),
+    name: CodeLanguage.TSX.toLowerCase(),
+    load: () => import('@codemirror/lang-javascript').then((m) => m.javascript({ typescript: true, jsx: true })),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'HTML'),
-    name: CodeLanguage.HTML,
+    name: CodeLanguage.HTML.toLowerCase(),
     load: () => import('@codemirror/lang-html').then((m) => m.html()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'JSON'),
-    name: CodeLanguage.JSON,
+    name: CodeLanguage.JSON.toLowerCase(),
     load: () => import('@codemirror/lang-json').then((m) => m.json()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'Markdown'),
-    name: CodeLanguage.MARKDOWN,
+    name: CodeLanguage.MARKDOWN.toLowerCase(),
     load: () => import('@codemirror/lang-markdown').then((m) => m.markdown()),
   }),
   LanguageDescription.of({
     ...languages.find((language) => language.name === 'LaTeX'),
-    name: CodeLanguage.LATEX,
+    name: CodeLanguage.LATEX.toLowerCase(),
     support: new LanguageSupport(StreamLanguage.define(stex)),
   }),
   // LanguageDescription.of({
@@ -211,31 +227,31 @@ const myLanguages = [
   //   support: plainTextSupport,
   // }),
   LanguageDescription.of({
-    name: CodeLanguage.DOT,
+    name: CodeLanguage.DOT.toLowerCase(),
     alias: ['dot'],
     extensions: ['dot'],
     load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
   }),
   LanguageDescription.of({
-    name: CodeLanguage.DOT + `/${CodeRenderMode.IMAGE}`,
+    name: CodeLanguage.DOT.toLowerCase() + `/${CodeRenderMode.IMAGE}`,
     alias: ['dot'],
     extensions: ['dot'],
     load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
   }),
   LanguageDescription.of({
-    name: CodeLanguage.MERMAID,
+    name: CodeLanguage.MERMAID.toLowerCase(),
     alias: ['mmd'],
     extensions: ['mmd'],
     load: () => import('codemirror-lang-mermaid').then((m) => m.mermaid()),
   }),
   LanguageDescription.of({
-    name: CodeLanguage.MERMAID + `/${CodeRenderMode.IMAGE}`,
+    name: CodeLanguage.MERMAID.toLowerCase() + `/${CodeRenderMode.IMAGE}`,
     alias: ['mmd'],
     extensions: ['mmd'],
     load: () => import('codemirror-lang-mermaid').then((m) => m.mermaid()),
   }),
   LanguageDescription.of({
-    name: CodeLanguage.TEXT,
+    name: CodeLanguage.TEXT.toLowerCase(),
     alias: ['plaintext'],
     extensions: ['txt', 'text'],
     support: plainTextSupport,
@@ -352,7 +368,7 @@ export const MilkdownEditorContent = forwardRef<MilkdownEditorContentHandle, Mil
                 const [language, as] = lang.split('/');
                 return (
                   (selected ? '✔ ' : '') +
-                  (CODE_LANGUAGE[language as CodeLanguage]?.label ?? language) +
+                  (CODE_LANGUAGE[language!.toUpperCase() as CodeLanguage]?.label ?? language) +
                   t(
                     as === CodeRenderMode.EDITOR
                       ? ' (render as code editor)'
@@ -411,7 +427,8 @@ export const MilkdownEditorContent = forwardRef<MilkdownEditorContentHandle, Mil
               previewToggleButton: () => 'edit',
               renderPreview: (lang, content) => {
                 const [language, as] = lang.split('/');
-                if (language!.toLowerCase() === 'latex' && content.length > 0) {
+                console.log({ language, as });
+                if (language?.toLowerCase() === 'latex' && content.length > 0) {
                   return renderLatex(content /*config == null ? void 0 : ctx.katexOptions*/);
                 }
                 if (language?.toLowerCase() === 'mermaid' && as === CodeRenderMode.IMAGE && content.length > 0) {

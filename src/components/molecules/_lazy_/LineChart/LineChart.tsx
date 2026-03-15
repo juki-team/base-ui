@@ -7,10 +7,9 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-import type { NameType, ValueType } from 'recharts/types/component/DefaultTooltipContent';
 import type { LineChartProps } from './types';
 
-export default function LineChart<TValue extends ValueType, TName extends NameType>(props: LineChartProps<TValue, TName>) {
+export default function LineChart(props: LineChartProps) {
   
   const {
     data,

@@ -22,7 +22,7 @@ type Story = StoryObj<typeof MdMathEditor>;
 
 console.info({ MemoMdMathViewer });
 
-export const DEFAULT_MD_MATH_TOOL_STATE_UI: AiChatToolStateUI = {
+const DEFAULT_MD_MATH_TOOL_STATE_UI: AiChatToolStateUI = {
   'input-streaming': { label: 'editing content', icon: <SpinIcon filledCircle size="tiny" className="cr-il" /> },
   'input-available': { label: 'processing content', icon: <SpinIcon filledCircle size="tiny" className="cr-il" /> },
   'approval-requested': { label: 'waiting for approval', icon: <ExclamationIcon filledCircle size="tiny" className="cr-wg" /> },
@@ -32,7 +32,7 @@ export const DEFAULT_MD_MATH_TOOL_STATE_UI: AiChatToolStateUI = {
   'output-denied': { label: 'content denied', icon: <ErrorIcon filledCircle size="tiny" className="cr-er" /> },
 };
 
-export const DEFAULT_MD_MATH_SUGGESTIONS: AiChatSuggestion[] = [
+const DEFAULT_MD_MATH_SUGGESTIONS: AiChatSuggestion[] = [
   {
     icon: <div>✨</div>,
     label: 'improve',
