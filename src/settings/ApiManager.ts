@@ -61,44 +61,43 @@ const injectCompany = (path: string, companyKey: string | undefined) => {
   return companyKey ? addAnd(addQuery(path)) + `companyKey=${companyKey}` : path;
 };
 
-type ResponseAPI<M extends HTTPMethod = HTTPMethod.GET> = ({ url: string } & AuthorizedRequestType<M>);
+type ResponseAPI<M extends HTTPMethod = HTTPMethod.GET> = { url: string } & AuthorizedRequestType<M>;
 
 export class ApiManager {
-  
   get API_V2() {
-    
     const injectBaseUrl = (prefix: string, path: string) => {
       return `${JUKI_SERVICE_V2_URL}/${prefix}${path}`;
     };
-    
-    const valid = <T, M extends HTTPMethod = HTTPMethod.GET>(callback: (props: T) => ResponseAPI<M>): ((props: T) => ResponseAPI<M>) => {
+
+    const valid = <T, M extends HTTPMethod = HTTPMethod.GET>(
+      callback: (props: T) => ResponseAPI<M>,
+    ): ((props: T) => ResponseAPI<M>) => {
       if (JUKI_SERVICE_V2_URL) {
         return callback;
       }
       return () => ({ url: '', method: HTTPMethod.GET as M });
     };
-    
+
     return {
       auth: {
         ping: valid<void>(() => ({
           url: injectBaseUrl('auth', '/ping'),
           method: HTTPMethod.GET,
         })),
-        signIn: valid<
-          { params?: { companyKey: string }, body: SignInPayloadDTO },
-          HTTPMethod.POST
-        >(({ params: { companyKey } = {}, body }) => ({
-          url: injectCompany(injectBaseUrl('auth', '/sign-in'), companyKey),
-          method: HTTPMethod.POST,
-          body: JSON.stringify(body),
-        })),
+        signIn: valid<{ params?: { companyKey: string }; body: SignInPayloadDTO }, HTTPMethod.POST>(
+          ({ params: { companyKey } = {}, body }) => ({
+            url: injectCompany(injectBaseUrl('auth', '/sign-in'), companyKey),
+            method: HTTPMethod.POST,
+            body: JSON.stringify(body),
+          }),
+        ),
         signUp: valid<{ body: SignUpPayloadDTO }, HTTPMethod.POST>(({ body }) => ({
           url: injectBaseUrl('auth', '/sign-up'),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
         createUser: valid<
-          { params?: { companyKey: string }, body: SignUpPayloadDTO & { overwrite: boolean } },
+          { params?: { companyKey: string }; body: SignUpPayloadDTO & { overwrite: boolean } },
           HTTPMethod.POST
         >(({ params: { companyKey } = {}, body }) => ({
           url: injectCompany(injectBaseUrl('auth', '/sign-up'), companyKey),
@@ -114,43 +113,44 @@ export class ApiManager {
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        updatePassword: valid<{
-          params: { companyKey: string, nickname: string },
-          body: UpdatePasswordPayloadDTO
-        }, HTTPMethod.POST>(({ params: { companyKey, nickname }, body }) => ({
+        updatePassword: valid<
+          {
+            params: { companyKey: string; nickname: string };
+            body: UpdatePasswordPayloadDTO;
+          },
+          HTTPMethod.POST
+        >(({ params: { companyKey, nickname }, body }) => ({
           url: injectBaseUrl('auth', `/user-key/${getUserKey(nickname, companyKey)}/update-password`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        resetPassword: valid<
-          { params: { companyKey: string, nickname: string } },
-          HTTPMethod.POST
-        >(({ params: { companyKey, nickname } }) => ({
-          url: injectBaseUrl('auth', `/user-key/${getUserKey(nickname, companyKey)}/reset-password`),
-          method: HTTPMethod.POST,
-        })),
-        createSession: valid<
-          { params?: { companyKey: string }, body: { nickname: string } },
-          HTTPMethod.POST
-        >(({ params: { companyKey } = {}, body }) => ({
-          url: injectCompany(injectBaseUrl('auth', '/create-session'), companyKey),
-          method: HTTPMethod.POST,
-          body: JSON.stringify(body),
-        })),
+        resetPassword: valid<{ params: { companyKey: string; nickname: string } }, HTTPMethod.POST>(
+          ({ params: { companyKey, nickname } }) => ({
+            url: injectBaseUrl('auth', `/user-key/${getUserKey(nickname, companyKey)}/reset-password`),
+            method: HTTPMethod.POST,
+          }),
+        ),
+        createSession: valid<{ params?: { companyKey: string }; body: { nickname: string } }, HTTPMethod.POST>(
+          ({ params: { companyKey } = {}, body }) => ({
+            url: injectCompany(injectBaseUrl('auth', '/create-session'), companyKey),
+            method: HTTPMethod.POST,
+            body: JSON.stringify(body),
+          }),
+        ),
       },
       log: {
         error: valid<
           {
             body: {
-              errorName: string,
-              errorMessage: string,
-              errorStack?: string,
-              errorInfo: ErrorInfo | null,
-              location: Location,
-              visitorSessionId: string,
+              errorName: string;
+              errorMessage: string;
+              errorStack?: string;
+              errorInfo: ErrorInfo | null;
+              location: Location;
+              visitorSessionId: string;
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              data?: any,
-            }
+              data?: any;
+            };
           },
           HTTPMethod.POST
         >(({ body }) => ({
@@ -161,11 +161,11 @@ export class ApiManager {
         info: valid<
           {
             body: {
-              infoName: string,
-              infoMessage: string,
-              location: Location,
-              visitorSessionId: string
-            }
+              infoName: string;
+              infoMessage: string;
+              location: Location;
+              visitorSessionId: string;
+            };
           },
           HTTPMethod.POST
         >(({ body }) => ({
@@ -175,33 +175,30 @@ export class ApiManager {
         })),
       },
       user: {
-        getSummaryList: valid<
-          { params: { companyKey: string } } | void
-        >(({ params: { companyKey } = { companyKey: '' } } = { params: { companyKey: '' } }) => ({
-          url: injectCompany(injectBaseUrl('user', `/summary-list`), companyKey),
-          method: HTTPMethod.GET,
-        })),
-        getSystemList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('user', '/system-list'), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
-        getSummary: valid<
-          { params: { nickname: string, companyKey: string } }
-        >(({ params: { nickname, companyKey } }) => ({
+        getSummaryList: valid<{ params: { companyKey: string } } | void>(
+          ({ params: { companyKey } = { companyKey: '' } } = { params: { companyKey: '' } }) => ({
+            url: injectCompany(injectBaseUrl('user', `/summary-list`), companyKey),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getSystemList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('user', '/system-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getSummary: valid<{ params: { nickname: string; companyKey: string } }>(({ params: { nickname, companyKey } }) => ({
           url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/summary`),
           method: HTTPMethod.GET,
         })),
-        getProfile: valid<
-          { params: { nickname: string, companyKey: string } }
-        >(({ params: { nickname, companyKey } }) => ({
+        getProfile: valid<{ params: { nickname: string; companyKey: string } }>(({ params: { nickname, companyKey } }) => ({
           url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/profile`),
           method: HTTPMethod.GET,
         })),
-        getLogs: valid<
-          { params: { nickname: string, companyKey: string } }
-        >(({ params: { nickname, companyKey } }) => ({
+        getLogs: valid<{ params: { nickname: string; companyKey: string } }>(({ params: { nickname, companyKey } }) => ({
           url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/logs`),
           method: HTTPMethod.GET,
         })),
@@ -209,15 +206,13 @@ export class ApiManager {
           url: injectBaseUrl('user', `/my-sessions`),
           method: HTTPMethod.GET,
         })),
-        getAllOnlineUsers: valid<
-          { params: { filterUrl?: string, sortUrl?: string } }
-        >(({ params: { filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectBaseUrl('user', `/all-online-users`), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
-        getOnlineUsers: valid<
-          { params: { filterUrl?: string, sortUrl?: string } }
-        >(({ params: { filterUrl, sortUrl } }) => ({
+        getAllOnlineUsers: valid<{ params: { filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { filterUrl, sortUrl } }) => ({
+            url: injectSort(injectFilter(injectBaseUrl('user', `/all-online-users`), filterUrl), sortUrl),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getOnlineUsers: valid<{ params: { filterUrl?: string; sortUrl?: string } }>(({ params: { filterUrl, sortUrl } }) => ({
           url: injectSort(injectFilter(injectBaseUrl('user', `/online-users`), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
@@ -227,280 +222,276 @@ export class ApiManager {
         })),
         updateProfileData: valid<
           {
-            params: { nickname: string, companyKey: string },
-            body: UpdateUserProfileDataPayloadDTO
-          }, HTTPMethod.PUT
+            params: { nickname: string; companyKey: string };
+            body: UpdateUserProfileDataPayloadDTO;
+          },
+          HTTPMethod.PUT
         >(({ params: { nickname, companyKey }, body }) => ({
           url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/profile-data`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
         updateProfileImage: valid<
-          { params: { nickname: string, companyKey: string }, body: { contentType: string } },
+          { params: { nickname: string; companyKey: string }; body: { contentType: string } },
           HTTPMethod.PUT
         >(({ params: { nickname, companyKey }, body }) => ({
           url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/profile-image`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
-        updatePreferences: valid<
-          { params: { nickname: string, companyKey: string }, body: UserSettings },
-          HTTPMethod.PUT
-        >(({ params: { nickname, companyKey }, body }) => ({
-          url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/preferences`),
-          method: HTTPMethod.PUT,
-          body: JSON.stringify(body),
-        })),
-        updateStatus: valid<
-          { params: { nickname: string, companyKey: string }, body: { status: UserStatus } },
-          HTTPMethod.PUT
-        >(({ params: { nickname, companyKey }, body }) => ({
-          url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/status`),
-          method: HTTPMethod.PUT,
-          body: JSON.stringify(body),
-        })),
-        updateRoles: valid<
-          { params: { nickname: string, companyKey: string }, body: UserRoles },
-          HTTPMethod.PUT
-        >(({ params: { nickname, companyKey }, body }) => ({
-          url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/roles`),
-          method: HTTPMethod.PUT,
-          body: JSON.stringify(body),
-        })),
-        deleteSession: valid<
-          { params: { sessionId: string } },
-          HTTPMethod.DELETE
-        >(({ params: { sessionId } }) => ({
+        updatePreferences: valid<{ params: { nickname: string; companyKey: string }; body: UserSettings }, HTTPMethod.PUT>(
+          ({ params: { nickname, companyKey }, body }) => ({
+            url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/preferences`),
+            method: HTTPMethod.PUT,
+            body: JSON.stringify(body),
+          }),
+        ),
+        updateStatus: valid<{ params: { nickname: string; companyKey: string }; body: { status: UserStatus } }, HTTPMethod.PUT>(
+          ({ params: { nickname, companyKey }, body }) => ({
+            url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/status`),
+            method: HTTPMethod.PUT,
+            body: JSON.stringify(body),
+          }),
+        ),
+        updateRoles: valid<{ params: { nickname: string; companyKey: string }; body: UserRoles }, HTTPMethod.PUT>(
+          ({ params: { nickname, companyKey }, body }) => ({
+            url: injectBaseUrl('user', `/user-key/${getUserKey(nickname, companyKey)}/roles`),
+            method: HTTPMethod.PUT,
+            body: JSON.stringify(body),
+          }),
+        ),
+        deleteSession: valid<{ params: { sessionId: string } }, HTTPMethod.DELETE>(({ params: { sessionId } }) => ({
           url: injectBaseUrl('user', `/session/${sessionId}`),
           method: HTTPMethod.DELETE,
         })),
-        checkData: valid<{
-          params: { companyKey: string },
-          body: {
-            users: {
-              email: string,
-              givenName: string,
-              familyName: string,
-              nickname: string,
-              password: string
-            }[]
-          }
-        }, HTTPMethod.POST>(({ params: { companyKey }, body }) => ({
+        checkData: valid<
+          {
+            params: { companyKey: string };
+            body: {
+              users: {
+                email: string;
+                givenName: string;
+                familyName: string;
+                nickname: string;
+                password: string;
+              }[];
+            };
+          },
+          HTTPMethod.POST
+        >(({ params: { companyKey }, body }) => ({
           url: injectCompany(injectBaseUrl('user', `/check-data`), companyKey),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        clientTrack: valid<{
-          body: {
-            clientId: ClientId,
-            location: boolean,
-            screenshot: boolean,
-            device: boolean,
-          }
-        }, HTTPMethod.POST>(({ body }) => ({
+        clientTrack: valid<
+          {
+            body: {
+              clientId: ClientId;
+              location: boolean;
+              screenshot: boolean;
+              device: boolean;
+            };
+          },
+          HTTPMethod.POST
+        >(({ body }) => ({
           url: injectBaseUrl('user', `/client-track`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
       },
       problem: {
-        create: valid<
-          void,
-          HTTPMethod.POST
-        >(() => ({
+        create: valid<void, HTTPMethod.POST>(() => ({
           url: injectBaseUrl('problem', ''),
           method: HTTPMethod.POST,
         })),
-        update: valid<
-          { params: { key: string } },
-          HTTPMethod.PUT
-        >(({ params: { key } }) => ({
+        update: valid<{ params: { key: string } }, HTTPMethod.PUT>(({ params: { key } }) => ({
           url: injectBaseUrl('problem', `/${key}`),
           method: HTTPMethod.PUT,
         })),
-        delete: valid<
-          { params: { key: string } },
-          HTTPMethod.DELETE
-        >(({ params: { key } }) => ({
+        delete: valid<{ params: { key: string } }, HTTPMethod.DELETE>(({ params: { key } }) => ({
           url: injectBaseUrl('problem', `/${key}`),
           method: HTTPMethod.DELETE,
         })),
-        getMetadata: valid<
-          { params: { key: string } }
-        >(({ params: { key } }) => ({
+        getMetadata: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('problem', `/${key}/metadata`),
           method: HTTPMethod.GET,
         })),
-        getData: valid<
-          { params: { key: string } }
-        >(({ params: { key } }) => ({
+        getData: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('problem', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
-        getBasicSummaryList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/basic-summary-list'), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
-        getSummaryList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/summary-list'), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
-        getSystemList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('problem', '/system-list'), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
+        getBasicSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('problem', '/basic-summary-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('problem', '/summary-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getSystemList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('problem', '/system-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
         getSummary: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('problem', `/${key}/summary`),
           method: HTTPMethod.GET,
         })),
-        getLogs: valid<
-          { params: { key: string, } }
-        >(({ params: { key } }) => ({
+        getLogs: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('problem', `/${key}/logs`),
           method: HTTPMethod.GET,
         })),
-        getTestCases: valid<
-          { params: { key: string, } }
-        >(({ params: { key } }) => ({
+        getTestCases: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('problem', `/${key}/test-cases`),
           method: HTTPMethod.GET,
         })),
-        submit: valid<
-          { params: { key: string }, body: { language: string, source: string } }, HTTPMethod.POST
-        >(({ params: { key }, body }) => ({
-          url: injectBaseUrl('problem', `/${key}/submit`),
-          method: HTTPMethod.POST,
-          body: JSON.stringify(body),
-        })),
-        crawl: valid<
-          { body: { judgeKey: Judge, key: string } }, HTTPMethod.POST
-        >(({ body }) => ({
+        submit: valid<{ params: { key: string }; body: { language: string; source: string } }, HTTPMethod.POST>(
+          ({ params: { key }, body }) => ({
+            url: injectBaseUrl('problem', `/${key}/submit`),
+            method: HTTPMethod.POST,
+            body: JSON.stringify(body),
+          }),
+        ),
+        crawl: valid<{ body: { judgeKey: Judge; key: string } }, HTTPMethod.POST>(({ body }) => ({
           url: injectBaseUrl('problem', `/crawl`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
       },
       contest: {
-        getSummaryList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('contest', '/summary-list'), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
-        getSystemList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('contest', '/system-list'), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
-        getMetadata: valid<
-          { params: { key: string, companyKey?: string } }
-        >(({ params: { key, companyKey } }) => ({
+        getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('contest', '/summary-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getSystemList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('contest', '/system-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getMetadata: valid<{ params: { key: string; companyKey?: string } }>(({ params: { key, companyKey } }) => ({
           url: injectCompany(injectBaseUrl('contest', `/${key}/metadata`), companyKey),
           method: HTTPMethod.GET,
         })),
-        getData: valid<
-          { params: { key: string, companyKey?: string } }
-        >(({ params: { key, companyKey } }) => ({
+        getData: valid<{ params: { key: string; companyKey?: string } }>(({ params: { key, companyKey } }) => ({
           url: injectCompany(injectBaseUrl('contest', `/${key}/data`), companyKey),
           method: HTTPMethod.GET,
         })),
-        getDataEvents: valid<
-          { params: { key: string, companyKey?: string } }
-        >(({ params: { key, companyKey } }) => ({
+        getDataEvents: valid<{ params: { key: string; companyKey?: string } }>(({ params: { key, companyKey } }) => ({
           url: injectCompany(injectBaseUrl('contest', `/${key}/data/events`), companyKey),
           method: HTTPMethod.GET,
         })),
-        getDataMembers: valid<
-          { params: { key: string, companyKey?: string } }
-        >(({ params: { key, companyKey } }) => ({
+        getDataMembers: valid<{ params: { key: string; companyKey?: string } }>(({ params: { key, companyKey } }) => ({
           url: injectCompany(injectBaseUrl('contest', `/${key}/data/members`), companyKey),
           method: HTTPMethod.GET,
         })),
-        getDataClarifications: valid<
-          { params: { key: string, companyKey?: string } }
-        >(({ params: { key, companyKey } }) => ({
+        getDataClarifications: valid<{ params: { key: string; companyKey?: string } }>(({ params: { key, companyKey } }) => ({
           url: injectCompany(injectBaseUrl('contest', `/${key}/data/clarifications`), companyKey),
           method: HTTPMethod.GET,
         })),
-        getScoreboard: valid<
-          { params: { key: string, unfrozen: boolean, companyKey?: string, official: boolean } }
-        >(({ params: { key, unfrozen, companyKey, official } }) => ({
-          url: injectCompany(injectBaseUrl('contest', `/${key}/data/scoreboard${unfrozen ? '?state=unfrozen' : ''}${official ? (unfrozen ? '&' : '?') + 'official=true' : ''}`), companyKey),
-          method: HTTPMethod.GET,
-        })),
-        getLogs: valid<
-          { params: { key: string, companyKey?: string } }
-        >(({ params: { key, companyKey } }) => ({
+        getScoreboard: valid<{ params: { key: string; unfrozen: boolean; companyKey?: string; official: boolean } }>(
+          ({ params: { key, unfrozen, companyKey, official } }) => ({
+            url: injectCompany(
+              injectBaseUrl(
+                'contest',
+                `/${key}/data/scoreboard${unfrozen ? '?state=unfrozen' : ''}${official ? (unfrozen ? '&' : '?') + 'official=true' : ''}`,
+              ),
+              companyKey,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getLogs: valid<{ params: { key: string; companyKey?: string } }>(({ params: { key, companyKey } }) => ({
           url: injectCompany(injectBaseUrl('contest', `/${key}/logs`), companyKey),
           method: HTTPMethod.GET,
         })),
         submit: valid<
           {
-            params: { key: string, problemKey: string, companyKey?: string },
-            body: { language: string, source: string }
-          }, HTTPMethod.POST
+            params: { key: string; problemKey: string; companyKey?: string };
+            body: { language: string; source: string };
+          },
+          HTTPMethod.POST
         >(({ params: { key, problemKey, companyKey }, body }) => ({
           url: injectCompany(injectBaseUrl('contest', `/${key}/problem/${problemKey}/submit`), companyKey),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        recalculateScoreboard: valid<
-          { params: { key: string, companyKey?: string, official: boolean } }, HTTPMethod.POST
-        >(({ params: { key, companyKey, official } }) => ({
-          url: injectCompany(injectBaseUrl('contest', `/${key}/recalculate-scoreboard${official ? '?official=true' : ''}`), companyKey),
-          method: HTTPMethod.POST,
-        })),
-        recalculatePrerequisites: valid<
-          { params: { key: string, companyKey?: string }, }, HTTPMethod.POST
-        >(({ params: { key, companyKey } }) => ({
-          url: injectCompany(injectBaseUrl('contest', `/${key}/recalculate-prerequisites`), companyKey),
-          method: HTTPMethod.POST,
-        })),
+        recalculateScoreboard: valid<{ params: { key: string; companyKey?: string; official: boolean } }, HTTPMethod.POST>(
+          ({ params: { key, companyKey, official } }) => ({
+            url: injectCompany(
+              injectBaseUrl('contest', `/${key}/recalculate-scoreboard${official ? '?official=true' : ''}`),
+              companyKey,
+            ),
+            method: HTTPMethod.POST,
+          }),
+        ),
+        recalculatePrerequisites: valid<{ params: { key: string; companyKey?: string } }, HTTPMethod.POST>(
+          ({ params: { key, companyKey } }) => ({
+            url: injectCompany(injectBaseUrl('contest', `/${key}/recalculate-prerequisites`), companyKey),
+            method: HTTPMethod.POST,
+          }),
+        ),
         problem: {
-          rejudge: valid<
-            { params: { key: string, problemKey: string, companyKey?: string, }, }, HTTPMethod.POST
-          >(({ params: { key, problemKey, companyKey } }) => ({
-            url: injectCompany(injectBaseUrl('contest', `/${key}/problem/${problemKey}/rejudge`), companyKey),
-            method: HTTPMethod.POST,
-          })),
-          retrieve: valid<
-            { params: { key: string, problemKey: string, companyKey?: string, }, }, HTTPMethod.POST
-          >(({ params: { key, problemKey, companyKey } }) => ({
-            url: injectCompany(injectBaseUrl('contest', `/${key}/problem/${problemKey}/retrieve`), companyKey),
-            method: HTTPMethod.POST,
-          })),
+          rejudge: valid<{ params: { key: string; problemKey: string; companyKey?: string } }, HTTPMethod.POST>(
+            ({ params: { key, problemKey, companyKey } }) => ({
+              url: injectCompany(injectBaseUrl('contest', `/${key}/problem/${problemKey}/rejudge`), companyKey),
+              method: HTTPMethod.POST,
+            }),
+          ),
+          retrieve: valid<{ params: { key: string; problemKey: string; companyKey?: string } }, HTTPMethod.POST>(
+            ({ params: { key, problemKey, companyKey } }) => ({
+              url: injectCompany(injectBaseUrl('contest', `/${key}/problem/${problemKey}/retrieve`), companyKey),
+              method: HTTPMethod.POST,
+            }),
+          ),
         },
-        retrieve: valid<
-          { params: { key: string, companyKey?: string, }, }, HTTPMethod.POST
-        >(({ params: { key, companyKey } }) => ({
-          url: injectCompany(injectBaseUrl('contest', `/${key}/retrieve`), companyKey),
-          method: HTTPMethod.POST,
-        })),
+        retrieve: valid<{ params: { key: string; companyKey?: string } }, HTTPMethod.POST>(
+          ({ params: { key, companyKey } }) => ({
+            url: injectCompany(injectBaseUrl('contest', `/${key}/retrieve`), companyKey),
+            method: HTTPMethod.POST,
+          }),
+        ),
         editGlobal: valid<
           {
-            params: { key: string, companyKey?: string },
+            params: { key: string; companyKey?: string };
             body: {
-              name: string,
+              name: string;
               problems: {
                 [key: string]: {
-                  key: string,
-                  index: string,
-                  points: number,
-                  color: string,
-                  startTimestamp: number,
-                  endTimestamp: number
-                }
-              }
-              tags: string[],
-            }
-          }, HTTPMethod.PUT
+                  key: string;
+                  index: string;
+                  points: number;
+                  color: string;
+                  startTimestamp: number;
+                  endTimestamp: number;
+                };
+              };
+              tags: string[];
+            };
+          },
+          HTTPMethod.PUT
         >(({ params: { key, companyKey }, body }) => ({
           url: injectCompany(injectBaseUrl('contest', `/${key}/global`), companyKey),
           method: HTTPMethod.PUT,
@@ -508,64 +499,75 @@ export class ApiManager {
         })),
         createGlobal: valid<
           {
-            params: { companyKey?: string },
+            params: { companyKey?: string };
             body: {
-              name: string,
+              name: string;
               problems: {
                 [key: string]: {
-                  key: string,
-                  index: string,
-                  points: number,
-                  color: string,
-                  startTimestamp: number,
-                  endTimestamp: number
-                }
-              }
-              tags: string[],
-            }
-          }, HTTPMethod.POST
+                  key: string;
+                  index: string;
+                  points: number;
+                  color: string;
+                  startTimestamp: number;
+                  endTimestamp: number;
+                };
+              };
+              tags: string[];
+            };
+          },
+          HTTPMethod.POST
         >(({ params: { companyKey }, body }) => ({
           url: injectCompany(injectBaseUrl('contest', `/global`), companyKey),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        unlinkSubmissions: valid<
-          { params: { key: string, companyKey?: string }, }, HTTPMethod.POST
-        >(({ params: { key, companyKey } }) => ({
-          url: injectCompany(injectBaseUrl('contest', `/${key}/unlink-submissions`), companyKey),
-          method: HTTPMethod.POST,
-        })),
+        unlinkSubmissions: valid<{ params: { key: string; companyKey?: string } }, HTTPMethod.POST>(
+          ({ params: { key, companyKey } }) => ({
+            url: injectCompany(injectBaseUrl('contest', `/${key}/unlink-submissions`), companyKey),
+            method: HTTPMethod.POST,
+          }),
+        ),
       },
       submission: {
-        getSummaryList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/summary-list'), page, pageSize), filterUrl), sortUrl),
+        getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('submission', '/summary-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getSystemList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('submission', '/system-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getExportSummaryList: valid<{
+          params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string; withSourceCodes?: boolean };
+        }>(({ params: { page, pageSize, filterUrl, sortUrl, withSourceCodes } }) => ({
+          url: injectSort(
+            injectFilter(
+              injectPage(
+                injectBaseUrl('submission', `/summary-list-export${withSourceCodes ? '?withSourceCodes=true' : ''}`),
+                page,
+                pageSize,
+              ),
+              filterUrl,
+            ),
+            sortUrl,
+          ),
           method: HTTPMethod.GET,
         })),
-        getSystemList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', '/system-list'), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
-        getExportSummaryList: valid<
-          {
-            params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string, withSourceCodes?: boolean }
-          }
-        >(({ params: { page, pageSize, filterUrl, sortUrl, withSourceCodes } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('submission', `/summary-list-export${withSourceCodes ? '?withSourceCodes=true' : ''}`), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
-        getData: valid<
-          { params: { id: string } }
-        >(({ params: { id } }) => ({
+        getData: valid<{ params: { id: string } }>(({ params: { id } }) => ({
           url: injectBaseUrl('submission', `/${id}/data`),
           method: HTTPMethod.GET,
         })),
-        getLogs: valid<
-          { params: { id: string, } }
-        >(({ params: { id } }) => ({
+        getLogs: valid<{ params: { id: string } }>(({ params: { id } }) => ({
           url: injectBaseUrl('submission', `/${id}/logs`),
           method: HTTPMethod.GET,
         })),
@@ -577,13 +579,13 @@ export class ApiManager {
           url: injectBaseUrl('submission', `/${id}/retrieve`),
           method: HTTPMethod.POST,
         })),
-        judge: valid<
-          { params: { id: string }, body: { verdict: ProblemVerdict } }, HTTPMethod.POST
-        >(({ params: { id }, body }) => ({
-          url: injectBaseUrl('submission', `/${id}/judge`),
-          method: HTTPMethod.POST,
-          body: JSON.stringify(body),
-        })),
+        judge: valid<{ params: { id: string }; body: { verdict: ProblemVerdict } }, HTTPMethod.POST>(
+          ({ params: { id }, body }) => ({
+            url: injectBaseUrl('submission', `/${id}/judge`),
+            method: HTTPMethod.POST,
+            body: JSON.stringify(body),
+          }),
+        ),
         archive: valid<{ params: { id: string } }, HTTPMethod.POST>(({ params: { id } }) => ({
           url: injectBaseUrl('submission', `/${id}/archive`),
           method: HTTPMethod.POST,
@@ -598,14 +600,14 @@ export class ApiManager {
           url: injectBaseUrl('image', '/public-list'),
           method: HTTPMethod.GET,
         })),
-        publish: valid<{ body: { contentType: string, isPublic: boolean } }, HTTPMethod.POST>(({ body }) => ({
+        publish: valid<{ body: { contentType: string; isPublic: boolean } }, HTTPMethod.POST>(({ body }) => ({
           url: injectBaseUrl('image', '/publish'),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
       },
       file: {
-        publish: valid<{ body: { contentType: string, folder: FilesJukiPub } }, HTTPMethod.POST>(({ body }) => ({
+        publish: valid<{ body: { contentType: string; folder: FilesJukiPub } }, HTTPMethod.POST>(({ body }) => ({
           url: injectBaseUrl('file', '/publish'),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
@@ -622,65 +624,63 @@ export class ApiManager {
           url: injectBaseUrl('note', `/pdf?sourceUrl=${sourceUrl}`),
           method: HTTPMethod.GET,
         })),
-        createPdf: valid<{ body: { source: string, theme: Theme } }, HTTPMethod.POST>(({ body }) => ({
+        createPdf: valid<{ body: { source: string; theme: Theme } }, HTTPMethod.POST>(({ body }) => ({
           url: injectBaseUrl('note', `/pdf`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
       },
       code: {
-        run: valid<{ body: CodeRunDTO }, HTTPMethod.POST
-        >(({ body }) => ({
+        run: valid<{ body: CodeRunDTO }, HTTPMethod.POST>(({ body }) => ({
           url: injectBaseUrl('code', '/run'),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
       },
       ia: {
-        chatCompletions: valid<{ body: { content: string, connectionId: string } }, HTTPMethod.POST
-        >(({ body }) => ({
+        chatCompletions: valid<{ body: { content: string; connectionId: string } }, HTTPMethod.POST>(({ body }) => ({
           url: injectBaseUrl('ia', '/chat/completions'),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
       },
       company: {
-        get: valid<
-          { params: { companyKey: string } } | void
-        >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
-          url: injectCompany(injectBaseUrl('company', ''), companyKey),
-          method: HTTPMethod.GET,
-        })),
+        get: valid<{ params: { companyKey: string } } | void>(
+          ({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
+            url: injectCompany(injectBaseUrl('company', ''), companyKey),
+            method: HTTPMethod.GET,
+          }),
+        ),
         getPermissionList: valid<void>(() => ({
           url: injectBaseUrl('company', '/permission-list'),
           method: HTTPMethod.GET,
         })),
         getJudgeList: valid<{
-          params: { companyKey: string }
+          params: { companyKey: string };
         } | void>(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
           url: injectCompany(injectBaseUrl('company', '/judge-list'), companyKey),
           method: HTTPMethod.GET,
         })),
         getTrustedCompaniesList: valid<{
-          params: { companyKey: string }
+          params: { companyKey: string };
         } | void>(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
           url: injectCompany(injectBaseUrl('company', '/trusted-companies-list'), companyKey),
           method: HTTPMethod.GET,
         })),
-        getResourceSpecifications: valid<
-          { params: { companyKey: string } } | void
-        >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
-          url: injectCompany(injectBaseUrl('company', '/resource-specifications'), companyKey),
-          method: HTTPMethod.GET,
-        })),
-        getEmailData: valid<
-          { params: { companyKey: string } } | void
-        >(({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
-          url: injectCompany(injectBaseUrl('company', '/email-data'), companyKey),
-          method: HTTPMethod.GET,
-        })),
+        getResourceSpecifications: valid<{ params: { companyKey: string } } | void>(
+          ({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
+            url: injectCompany(injectBaseUrl('company', '/resource-specifications'), companyKey),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getEmailData: valid<{ params: { companyKey: string } } | void>(
+          ({ params: { companyKey } } = { params: { companyKey: '' } }) => ({
+            url: injectCompany(injectBaseUrl('company', '/email-data'), companyKey),
+            method: HTTPMethod.GET,
+          }),
+        ),
         updateImage: valid<
-          { params?: { companyKey: string }, body: { logoType: string, contentType: string } },
+          { params?: { companyKey: string }; body: { logoType: string; contentType: string } },
           HTTPMethod.PUT
         >(({ params: { companyKey } = { companyKey: '' }, body }) => ({
           url: injectCompany(injectBaseUrl('company', `/image`), companyKey),
@@ -689,16 +689,17 @@ export class ApiManager {
         })),
         updateData: valid<
           {
-            params: { companyKey: string },
+            params: { companyKey: string };
             body: {
-              name?: string, emailTemplate?: string,
-              contactEmails?: string[],
-              mainEmail?: string,
-              contactTelegram?: string,
-              contactCellPhoneNumber?: string,
-              contactEmail?: string,
-              styles?: CompanyStyles,
-            }
+              name?: string;
+              emailTemplate?: string;
+              contactEmails?: string[];
+              mainEmail?: string;
+              contactTelegram?: string;
+              contactCellPhoneNumber?: string;
+              contactEmail?: string;
+              styles?: CompanyStyles;
+            };
           },
           HTTPMethod.PATCH
         >(({ params: { companyKey } = { companyKey: '' }, body }) => ({
@@ -708,16 +709,16 @@ export class ApiManager {
         })),
         updateSensitiveData: valid<
           {
-            params: { companyKey: string },
+            params: { companyKey: string };
             body: {
-              managerUserNickname?: string,
-              systemAdminUserNickname?: string,
-              hosts?: string[],
-              judgeKeys?: string[],
-              trustedCompaniesKeys?: string[],
-              startTimestamp?: number,
-              plan?: CompanyPlan,
-            }
+              managerUserNickname?: string;
+              systemAdminUserNickname?: string;
+              hosts?: string[];
+              judgeKeys?: string[];
+              trustedCompaniesKeys?: string[];
+              startTimestamp?: number;
+              plan?: CompanyPlan;
+            };
           },
           HTTPMethod.PATCH
         >(({ params: { companyKey } = { companyKey: '' }, body }) => ({
@@ -727,7 +728,7 @@ export class ApiManager {
         })),
       },
       locale: {
-        get: valid<{ params: { locale: Language, namespace: string } }>(({ params: { locale, namespace } }) => ({
+        get: valid<{ params: { locale: Language; namespace: string } }>(({ params: { locale, namespace } }) => ({
           url: injectBaseUrl('locale', `/${locale}/${namespace}`),
           method: HTTPMethod.GET,
         })),
@@ -737,56 +738,47 @@ export class ApiManager {
           url: injectBaseUrl('judge', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
-        getSummaryList: valid<
-          { params?: { filterUrl?: string, sortUrl?: string } } | void
-        >(({ params: { filterUrl, sortUrl } = { filterUrl: '', sortUrl: '' } } = {}) => ({
-          url: injectSort(injectFilter(injectBaseUrl('judge', '/summary-list'), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
-        getSystemList: valid<
-          { params?: { filterUrl?: string, sortUrl?: string } } | void
-        >(({ params: { filterUrl, sortUrl } = { filterUrl: '', sortUrl: '' } } = {}) => ({
-          url: injectSort(injectFilter(injectBaseUrl('judge', '/system-list'), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
+        getSummaryList: valid<{ params?: { filterUrl?: string; sortUrl?: string } } | void>(
+          ({ params: { filterUrl, sortUrl } = { filterUrl: '', sortUrl: '' } } = {}) => ({
+            url: injectSort(injectFilter(injectBaseUrl('judge', '/summary-list'), filterUrl), sortUrl),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getSystemList: valid<{ params?: { filterUrl?: string; sortUrl?: string } } | void>(
+          ({ params: { filterUrl, sortUrl } = { filterUrl: '', sortUrl: '' } } = {}) => ({
+            url: injectSort(injectFilter(injectBaseUrl('judge', '/system-list'), filterUrl), sortUrl),
+            method: HTTPMethod.GET,
+          }),
+        ),
         crawlLanguages: valid<{ params: { key: string } }, HTTPMethod.POST>(({ params: { key } }) => ({
           url: injectBaseUrl('judge', `/${key}/crawl-languages`),
           method: HTTPMethod.POST,
         })),
-        patch: valid<{
-          params: { key: string },
-          body: {
-            languages?: JudgeLanguage[],
-            problemTags?: string[],
-            name?: string,
-            isExternal?: boolean,
-            isSubmitSupported?: boolean,
-            url?: string,
-            logo?: string,
-            logoSize?: [ number, number ]
-          }
-        }, HTTPMethod.PATCH>(({
-                                params: { key },
-                                body: {
-                                  languages,
-                                  name,
-                                  problemTags,
-                                  isExternal,
-                                  isSubmitSupported,
-                                  url,
-                                  logo,
-                                  logoSize,
-                                },
-                              }) => {
+        patch: valid<
+          {
+            params: { key: string };
+            body: {
+              languages?: JudgeLanguage[];
+              problemTags?: string[];
+              name?: string;
+              isExternal?: boolean;
+              isSubmitSupported?: boolean;
+              url?: string;
+              logo?: string;
+              logoSize?: [number, number];
+            };
+          },
+          HTTPMethod.PATCH
+        >(({ params: { key }, body: { languages, name, problemTags, isExternal, isSubmitSupported, url, logo, logoSize } }) => {
           const body: {
-            languages?: JudgeLanguage[],
-            problemTags?: string[],
-            name?: string,
-            isExternal?: boolean,
-            isSubmitSupported?: boolean,
-            url?: string,
-            logo?: string,
-            logoSize?: [ number, number ]
+            languages?: JudgeLanguage[];
+            problemTags?: string[];
+            name?: string;
+            isExternal?: boolean;
+            isSubmitSupported?: boolean;
+            url?: string;
+            logo?: string;
+            logoSize?: [number, number];
           } = {};
           if (languages) {
             body.languages = languages;
@@ -820,75 +812,83 @@ export class ApiManager {
         }),
       },
       worksheet: {
-        getData: valid<
-          { params: { key: string, companyKey?: string } }
-        >(({ params: { key, companyKey } }) => ({
+        getData: valid<{ params: { key: string; companyKey?: string } }>(({ params: { key, companyKey } }) => ({
           url: injectCompany(injectBaseUrl('worksheet', `/${key}/data`), companyKey),
           method: HTTPMethod.GET,
         })),
-        update: valid<
-          { params: { key: string, }, body: UpsertWorksheetDTO },
-          HTTPMethod.PUT
-        >(({ params: { key }, body }) => ({
+        update: valid<{ params: { key: string }; body: UpsertWorksheetDTO }, HTTPMethod.PUT>(({ params: { key }, body }) => ({
           url: injectBaseUrl('worksheet', `/${key}`),
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
-        getList: valid<
-          {
-            params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string }
-          }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+        getList: valid<{
+          params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string };
+        }>(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
           url: injectSort(injectFilter(injectPage(injectBaseUrl('worksheet', '/list'), page, pageSize), filterUrl), sortUrl),
           method: HTTPMethod.GET,
         })),
-        getSubmissionsUser: valid<
-          { params: { key: string, userKey: string, secondaryKey?: string } }
-        >(({ params: { key, userKey, secondaryKey } }) => ({
-          url: injectBaseUrl('worksheet', `/${key}/submissions/user/${userKey}${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`),
-          method: HTTPMethod.GET,
-        })),
+        getSubmissionsUser: valid<{ params: { key: string; userKey: string; secondaryKey?: string } }>(
+          ({ params: { key, userKey, secondaryKey } }) => ({
+            url: injectBaseUrl(
+              'worksheet',
+              `/${key}/submissions/user/${userKey}${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
         submitJkMd: valid<
           {
-            params: { worksheetKey: string, secondaryKey?: string },
-            body: JkmdSubmissionDTO
+            params: { worksheetKey: string; secondaryKey?: string };
+            body: JkmdSubmissionDTO;
           },
           HTTPMethod.POST
         >(({ params: { worksheetKey, secondaryKey }, body }) => ({
-          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/jk-md${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`),
+          url: injectBaseUrl(
+            'worksheet',
+            `/${worksheetKey}/submit/jk-md${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`,
+          ),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
         submitCodeEditor: valid<
           {
-            params: { worksheetKey: string, secondaryKey?: string },
-            body: CodeEditorSubmissionDTO
+            params: { worksheetKey: string; secondaryKey?: string };
+            body: CodeEditorSubmissionDTO;
           },
           HTTPMethod.POST
         >(({ params: { worksheetKey, secondaryKey }, body }) => ({
-          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/code-editor${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`),
+          url: injectBaseUrl(
+            'worksheet',
+            `/${worksheetKey}/submit/code-editor${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`,
+          ),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
         submitQuizProblem: valid<
           {
-            params: { worksheetKey: string, secondaryKey?: string },
-            body: QuizProblemSubmissionDTO
+            params: { worksheetKey: string; secondaryKey?: string };
+            body: QuizProblemSubmissionDTO;
           },
           HTTPMethod.POST
         >(({ params: { worksheetKey, secondaryKey }, body }) => ({
-          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/quiz-problem${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`),
+          url: injectBaseUrl(
+            'worksheet',
+            `/${worksheetKey}/submit/quiz-problem${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`,
+          ),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
         submitQuizOptions: valid<
           {
-            params: { worksheetKey: string, secondaryKey?: string },
-            body: QuizOptionsSubmissionDTO
+            params: { worksheetKey: string; secondaryKey?: string };
+            body: QuizOptionsSubmissionDTO;
           },
           HTTPMethod.POST
         >(({ params: { worksheetKey, secondaryKey }, body }) => ({
-          url: injectBaseUrl('worksheet', `/${worksheetKey}/submit/quiz-options${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`),
+          url: injectBaseUrl(
+            'worksheet',
+            `/${worksheetKey}/submit/quiz-options${secondaryKey ? `?secondaryKey=${secondaryKey}` : ''}`,
+          ),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
@@ -914,41 +914,30 @@ export class ApiManager {
           url: injectBaseUrl('comment', `/${key}`),
           method: HTTPMethod.GET,
         })),
-        post: valid<
-          { params: { key: string }, body: { content: string } },
-          HTTPMethod.POST
-        >(({ params: { key }, body }) => ({
+        post: valid<{ params: { key: string }; body: { content: string } }, HTTPMethod.POST>(({ params: { key }, body }) => ({
           url: injectBaseUrl('comment', `/${key}`),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        reply: valid<
-          { params: { key: string, id: string }, body: { content: string } },
-          HTTPMethod.POST
-        >(({ params: { key, id }, body }) => ({
-          url: injectBaseUrl('comment', `/${key}/${id}/reply`),
-          method: HTTPMethod.POST,
-          body: JSON.stringify(body),
-        })),
-        react: valid<
-          { params: { key: string, id: string }, body: { emoji: string } },
-          HTTPMethod.POST
-        >(({ params: { key, id }, body }) => ({
-          url: injectBaseUrl('comment', `/${key}/${id}/react`),
-          method: HTTPMethod.POST,
-          body: JSON.stringify(body),
-        })),
-        hide: valid<
-          { params: { key: string, id: string } },
-          HTTPMethod.POST
-        >(({ params: { key, id } }) => ({
+        reply: valid<{ params: { key: string; id: string }; body: { content: string } }, HTTPMethod.POST>(
+          ({ params: { key, id }, body }) => ({
+            url: injectBaseUrl('comment', `/${key}/${id}/reply`),
+            method: HTTPMethod.POST,
+            body: JSON.stringify(body),
+          }),
+        ),
+        react: valid<{ params: { key: string; id: string }; body: { emoji: string } }, HTTPMethod.POST>(
+          ({ params: { key, id }, body }) => ({
+            url: injectBaseUrl('comment', `/${key}/${id}/react`),
+            method: HTTPMethod.POST,
+            body: JSON.stringify(body),
+          }),
+        ),
+        hide: valid<{ params: { key: string; id: string } }, HTTPMethod.POST>(({ params: { key, id } }) => ({
           url: injectBaseUrl('comment', `/${key}/${id}/hide`),
           method: HTTPMethod.POST,
         })),
-        unhide: valid<
-          { params: { key: string, id: string } },
-          HTTPMethod.POST
-        >(({ params: { key, id } }) => ({
+        unhide: valid<{ params: { key: string; id: string } }, HTTPMethod.POST>(({ params: { key, id } }) => ({
           url: injectBaseUrl('comment', `/${key}/${id}/unhide`),
           method: HTTPMethod.POST,
         })),
@@ -956,45 +945,46 @@ export class ApiManager {
       class: {
         viewAssignmentMyWorksheetSubmitCodeEditor: valid<
           {
-            params: { classKey: string, cycleId: string, sessionId: string, assignmentId: string },
-            body: CodeEditorSubmissionDTO
+            params: { classKey: string; cycleId: string; sessionId: string; assignmentId: string };
+            body: CodeEditorSubmissionDTO;
           },
           HTTPMethod.POST
         >(({ params: { classKey, cycleId, sessionId, assignmentId }, body }) => ({
-          url: injectBaseUrl('class', `/${classKey}/cycle/${cycleId}/session/${sessionId}/assignment/${assignmentId}/worksheet/submit-code-editor`),
+          url: injectBaseUrl(
+            'class',
+            `/${classKey}/cycle/${cycleId}/session/${sessionId}/assignment/${assignmentId}/worksheet/submit-code-editor`,
+          ),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
       },
       documentTemplate: {
-        create: valid<
-          { body: { name: string } },
-          HTTPMethod.POST
-        >(({ body }) => ({
+        create: valid<{ body: { name: string } }, HTTPMethod.POST>(({ body }) => ({
           url: injectBaseUrl('document-template', ''),
           method: HTTPMethod.POST,
           body: JSON.stringify(body),
         })),
-        getSummaryList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('document-template', '/summary-list'), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
-        getData: valid<
-          { params: { key: string } }
-        >(({ params: { key } }) => ({
+        getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('document-template', '/summary-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        getData: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('document-template', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
         updateData: valid<
           {
-            params: { key: string, companyKey?: string },
+            params: { key: string; companyKey?: string };
             body: {
-              name: string,
-              templates: { id: string, name: string, template: string }[],
-              files: { id: string, name: string, data: RowDataType[] }[],
-            }
+              name: string;
+              templates: { id: string; name: string; template: string }[];
+              files: { id: string; name: string; data: RowDataType[] }[];
+            };
           },
           HTTPMethod.PUT
         >(({ params: { key, companyKey }, body }) => ({
@@ -1004,55 +994,66 @@ export class ApiManager {
         })),
       },
       statistics: {
-        getCompanyStats: valid<
-          {
-            params: {
-              companyKey?: string,
-              startTimestamp: number,
-              endTimestamp: number,
-              groupBy: GroupByTimestampKey[]
-            }
-          }
-        >(({ params: { companyKey, startTimestamp, endTimestamp, groupBy } }) => ({
-          url: injectCompany(injectBaseUrl('statistics', `/company?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}`), companyKey),
+        getCompanyStats: valid<{
+          params: {
+            companyKey?: string;
+            startTimestamp: number;
+            endTimestamp: number;
+            groupBy: GroupByTimestampKey[];
+          };
+        }>(({ params: { companyKey, startTimestamp, endTimestamp, groupBy } }) => ({
+          url: injectCompany(
+            injectBaseUrl(
+              'statistics',
+              `/company?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}`,
+            ),
+            companyKey,
+          ),
           method: HTTPMethod.GET,
         })),
-        getProblemStats: valid<
-          { params: { companyKey?: string, problemKey: string, startTimestamp: number, endTimestamp: number } }
-        >(({ params: { companyKey, problemKey, startTimestamp, endTimestamp } }) => ({
-          url: injectCompany(injectBaseUrl('statistics', `/problem/${problemKey}?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}`), companyKey),
+        getProblemStats: valid<{
+          params: { companyKey?: string; problemKey: string; startTimestamp: number; endTimestamp: number };
+        }>(({ params: { companyKey, problemKey, startTimestamp, endTimestamp } }) => ({
+          url: injectCompany(
+            injectBaseUrl('statistics', `/problem/${problemKey}?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}`),
+            companyKey,
+          ),
           method: HTTPMethod.GET,
         })),
-        getUsersTracksStats: valid<
-          {
-            params: {
-              companyKeys: string,
-              startTimestamp: number,
-              endTimestamp: number,
-              groupBy: GroupByTimestampKey[]
-            }
-          }
-        >(({ params: { companyKeys, startTimestamp, endTimestamp, groupBy } }) => ({
-          url: injectBaseUrl('statistics', `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}${companyKeys ? `&companyKeys=${companyKeys}` : ''}`),
+        getUsersTracksStats: valid<{
+          params: {
+            companyKeys: string;
+            startTimestamp: number;
+            endTimestamp: number;
+            groupBy: GroupByTimestampKey[];
+          };
+        }>(({ params: { companyKeys, startTimestamp, endTimestamp, groupBy } }) => ({
+          url: injectBaseUrl(
+            'statistics',
+            `/users-tracks?startTimestamp=${startTimestamp}&endTimestamp=${endTimestamp}&groupBy=${groupBy.join(',')}${companyKeys ? `&companyKeys=${companyKeys}` : ''}`,
+          ),
           method: HTTPMethod.GET,
         })),
       },
       excalidraw: {
-        getSummaryList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('excalidraw', '/summary-list'), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
+        getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('excalidraw', '/summary-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
         create: valid<
           {
             body: {
-              name: string,
-              tags: string[],
-              elements: OrderedExcalidrawElement[],
-              appsState: AppState,
-              members: EntityMembersDTO
-            }
+              name: string;
+              tags: string[];
+              elements: OrderedExcalidrawElement[];
+              appsState: AppState;
+              members: EntityMembersDTO;
+            };
           },
           HTTPMethod.POST
         >(({ body }) => ({
@@ -1062,14 +1063,14 @@ export class ApiManager {
         })),
         updateData: valid<
           {
-            params: { key: string },
+            params: { key: string };
             body: {
-              name: string,
-              tags: string[],
-              elements: OrderedExcalidrawElement[],
-              appsState: AppState,
-              members: EntityMembersDTO
-            }
+              name: string;
+              tags: string[];
+              elements: OrderedExcalidrawElement[];
+              appsState: AppState;
+              members: EntityMembersDTO;
+            };
           },
           HTTPMethod.PUT
         >(({ params: { key }, body }) => ({
@@ -1077,34 +1078,33 @@ export class ApiManager {
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
-        getMetadata: valid<
-          { params: { key: string } }
-        >(({ params: { key } }) => ({
+        getMetadata: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('excalidraw', `/${key}/metadata`),
           method: HTTPMethod.GET,
         })),
-        getData: valid<
-          { params: { key: string } }
-        >(({ params: { key } }) => ({
+        getData: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('excalidraw', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
       },
       mermaid: {
-        getSummaryList: valid<
-          { params: { page: number, pageSize: number, filterUrl?: string, sortUrl?: string } }
-        >(({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
-          url: injectSort(injectFilter(injectPage(injectBaseUrl('mermaid', '/summary-list'), page, pageSize), filterUrl), sortUrl),
-          method: HTTPMethod.GET,
-        })),
+        getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('mermaid', '/summary-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
         create: valid<
           {
             body: {
-              name: string,
-              tags: string[],
-              files: CodeEditorFiles<CodeLanguage.MERMAID>,
-              members: EntityMembersDTO
-            }
+              name: string;
+              tags: string[];
+              files: CodeEditorFiles<CodeLanguage.MERMAID>;
+              members: EntityMembersDTO;
+            };
           },
           HTTPMethod.POST
         >(({ body }) => ({
@@ -1114,13 +1114,13 @@ export class ApiManager {
         })),
         updateData: valid<
           {
-            params: { key: string },
+            params: { key: string };
             body: {
-              name: string,
-              tags: string[],
-              files: CodeEditorFiles<CodeLanguage.MERMAID>,
-              members: EntityMembersDTO
-            }
+              name: string;
+              tags: string[];
+              files: CodeEditorFiles<CodeLanguage.MERMAID>;
+              members: EntityMembersDTO;
+            };
           },
           HTTPMethod.PUT
         >(({ params: { key }, body }) => ({
@@ -1128,51 +1128,106 @@ export class ApiManager {
           method: HTTPMethod.PUT,
           body: JSON.stringify(body),
         })),
-        getMetadata: valid<
-          { params: { key: string } }
-        >(({ params: { key } }) => ({
+        getMetadata: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('mermaid', `/${key}/metadata`),
           method: HTTPMethod.GET,
         })),
-        getData: valid<
-          { params: { key: string } }
-        >(({ params: { key } }) => ({
+        getData: valid<{ params: { key: string } }>(({ params: { key } }) => ({
           url: injectBaseUrl('mermaid', `/${key}/data`),
           method: HTTPMethod.GET,
         })),
       },
+      markdown: {
+        getSummaryList: valid<{ params: { page: number; pageSize: number; filterUrl?: string; sortUrl?: string } }>(
+          ({ params: { page, pageSize, filterUrl, sortUrl } }) => ({
+            url: injectSort(
+              injectFilter(injectPage(injectBaseUrl('markdown', '/summary-list'), page, pageSize), filterUrl),
+              sortUrl,
+            ),
+            method: HTTPMethod.GET,
+          }),
+        ),
+        create: valid<
+          {
+            body: {
+              name: string;
+              tags: string[];
+              files: CodeEditorFiles<CodeLanguage.MERMAID>;
+              members: EntityMembersDTO;
+            };
+          },
+          HTTPMethod.POST
+        >(({ body }) => ({
+          url: injectBaseUrl('markdown', ''),
+          method: HTTPMethod.POST,
+          body: JSON.stringify(body),
+        })),
+        updateData: valid<
+          {
+            params: { key: string };
+            body: {
+              name: string;
+              tags: string[];
+              files: CodeEditorFiles<CodeLanguage.MERMAID>;
+              members: EntityMembersDTO;
+            };
+          },
+          HTTPMethod.PUT
+        >(({ params: { key }, body }) => ({
+          url: injectBaseUrl('markdown', `/${key}/data`),
+          method: HTTPMethod.PUT,
+          body: JSON.stringify(body),
+        })),
+        getMetadata: valid<{ params: { key: string } }>(({ params: { key } }) => ({
+          url: injectBaseUrl('markdown', `/${key}/metadata`),
+          method: HTTPMethod.GET,
+        })),
+        getData: valid<{ params: { key: string } }>(({ params: { key } }) => ({
+          url: injectBaseUrl('markdown', `/${key}/data`),
+          method: HTTPMethod.GET,
+        })),
+      },
       export: {
-        websiteToPdf: valid<{
-          params: {
-            url: string,
-            headerTemplate?: string,
-            footerTemplate?: string,
-            format?: string,
-            margin?: { top: string, bottom: string, left: string, right: string }
-          }
-        }, HTTPMethod.POST>(({ params: { url, headerTemplate, footerTemplate, margin, format } }) => ({
+        websiteToPdf: valid<
+          {
+            params: {
+              url: string;
+              headerTemplate?: string;
+              footerTemplate?: string;
+              format?: string;
+              margin?: { top: string; bottom: string; left: string; right: string };
+            };
+          },
+          HTTPMethod.POST
+        >(({ params: { url, headerTemplate, footerTemplate, margin, format } }) => ({
           url: injectBaseUrl('export', '/website-to-pdf'),
           method: HTTPMethod.POST,
           body: JSON.stringify({ url, headerTemplate, footerTemplate, margin, format }),
         })),
         problem: {
-          statementToPdf: valid<{
-            params: {
-              key: string,
-              language: Language,
-            }
-          }, HTTPMethod.POST>(({ params: { key, language } }) => ({
+          statementToPdf: valid<
+            {
+              params: {
+                key: string;
+                language: Language;
+              };
+            },
+            HTTPMethod.POST
+          >(({ params: { key, language } }) => ({
             url: injectBaseUrl('export', '/problem/statement-to-pdf'),
             method: HTTPMethod.POST,
             body: JSON.stringify({ key, language }),
           })),
-          statementToPng: valid<{
-            params: {
-              key: string,
-              token: string,
-              language: Language,
-            }
-          }, HTTPMethod.POST>(({ params: { key, token, language } }) => ({
+          statementToPng: valid<
+            {
+              params: {
+                key: string;
+                token: string;
+                language: Language;
+              };
+            },
+            HTTPMethod.POST
+          >(({ params: { key, token, language } }) => ({
             url: injectBaseUrl('export', '/problem/statement-to-png'),
             method: HTTPMethod.POST,
             body: JSON.stringify({ key, token, language }),
@@ -1180,12 +1235,15 @@ export class ApiManager {
         },
         contest: {
           problems: {
-            statementsToPdf: valid<{
-              params: {
-                key: string,
-                language: Language,
-              }
-            }, HTTPMethod.POST>(({ params: { key, language } }) => ({
+            statementsToPdf: valid<
+              {
+                params: {
+                  key: string;
+                  language: Language;
+                };
+              },
+              HTTPMethod.POST
+            >(({ params: { key, language } }) => ({
               url: injectBaseUrl('export', '/contest/problems/statements-to-pdf'),
               method: HTTPMethod.POST,
               body: JSON.stringify({ key, language }),
@@ -1195,23 +1253,29 @@ export class ApiManager {
       },
       webScraping: {
         codeforces: {
-          problemStatement: valid<{
-            params: {
-              contestId: string,
-              index: string,
-            }
-          }, HTTPMethod.POST>(({ params: { contestId, index } }) => ({
+          problemStatement: valid<
+            {
+              params: {
+                contestId: string;
+                index: string;
+              };
+            },
+            HTTPMethod.POST
+          >(({ params: { contestId, index } }) => ({
             url: injectBaseUrl('web-scraping', '/codeforces/problem-statement'),
             method: HTTPMethod.POST,
             body: JSON.stringify({ contestId, index }),
           })),
         },
         patito: {
-          problemStatement: valid<{
-            params: {
-              id: string,
-            }
-          }, HTTPMethod.POST>(({ params: { id } }) => ({
+          problemStatement: valid<
+            {
+              params: {
+                id: string;
+              };
+            },
+            HTTPMethod.POST
+          >(({ params: { id } }) => ({
             url: injectBaseUrl('web-scraping', '/patito/problem-statement'),
             method: HTTPMethod.POST,
             body: JSON.stringify({ id }),
