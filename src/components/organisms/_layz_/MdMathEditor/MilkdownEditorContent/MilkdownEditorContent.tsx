@@ -251,6 +251,15 @@ const myLanguages = [
     load: () => import('codemirror-lang-mermaid').then((m) => m.mermaid()),
   }),
   LanguageDescription.of({
+    name: CodeLanguage.BASH.toLowerCase(),
+    alias: ['bash', 'sh', 'shell'],
+    extensions: ['sh', 'bash'],
+    load: () =>
+      import('@codemirror/legacy-modes/mode/shell').then(
+        (m) => new LanguageSupport(StreamLanguage.define(m.shell)),
+      ),
+  }),
+  LanguageDescription.of({
     name: CodeLanguage.TEXT.toLowerCase(),
     alias: ['plaintext'],
     extensions: ['txt', 'text'],

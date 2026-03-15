@@ -1,5 +1,6 @@
 import { CODE_LANGUAGE } from '@juki-team/commons';
 import hljs from 'highlight.js';
+import bash from 'highlight.js/lib/languages/bash';
 import c from 'highlight.js/lib/languages/c';
 import cpp from 'highlight.js/lib/languages/cpp';
 import diff from 'highlight.js/lib/languages/diff';
@@ -13,6 +14,7 @@ import { CopyToClipboard } from '../../../atoms';
 import { classNames } from '../../../helpers';
 import type { CodeViewerProps } from './types';
 
+hljs.registerLanguage('bash', bash);
 hljs.registerLanguage('c', c);
 hljs.registerLanguage('cpp', cpp);
 hljs.registerLanguage('markdown', markdown);
