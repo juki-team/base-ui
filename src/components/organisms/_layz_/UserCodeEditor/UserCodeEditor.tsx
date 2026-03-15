@@ -228,8 +228,8 @@ const formatStoreRecovered =
 
     for (const [key, value] of Object.entries(state)) {
       state[key] = {};
-      for (const [, file] of Object.entries(value || {})) {
-        if (!file.name) {
+      for (const [fileKey, file] of Object.entries(value || {})) {
+        if (!file.name || !fileKey) {
           file.name = getNewFileName('recovered', `.${getExtension(file.language)}`, (name) => !!value?.[name]);
           state[key][file.name] = file;
         } else {
