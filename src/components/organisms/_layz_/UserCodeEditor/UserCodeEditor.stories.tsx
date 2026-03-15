@@ -7,6 +7,7 @@ import {
 } from '@juki-team/commons';
 import { UIMessage } from 'ai';
 import { useRef, useState } from 'react';
+import { Button } from '../../../atoms';
 import { CheckIcon, ErrorIcon, ExclamationIcon, SpinIcon } from '../../../atoms/server';
 import { MockupJukiProvider } from '../../../mockup';
 import { AiChatPanel } from '../../AiChatPanel/AiChatPanel';
@@ -91,7 +92,7 @@ const initialTestCases = {
   },
 };
 
-export const DEFAULT_MD_MATH_TOOL_STATE_UI: AiChatToolStateUI = {
+const DEFAULT_MD_MATH_TOOL_STATE_UI: AiChatToolStateUI = {
   'input-streaming': { label: 'editing content', icon: <SpinIcon filledCircle size="tiny" className="cr-il" /> },
   'input-available': { label: 'processing content', icon: <SpinIcon filledCircle size="tiny" className="cr-il" /> },
   'approval-requested': { label: 'waiting for approval', icon: <ExclamationIcon filledCircle size="tiny" className="cr-wg" /> },
@@ -101,7 +102,7 @@ export const DEFAULT_MD_MATH_TOOL_STATE_UI: AiChatToolStateUI = {
   'output-denied': { label: 'content denied', icon: <ErrorIcon filledCircle size="tiny" className="cr-er" /> },
 };
 
-export const DEFAULT_MD_MATH_SUGGESTIONS: AiChatSuggestion[] = [
+const DEFAULT_MD_MATH_SUGGESTIONS: AiChatSuggestion[] = [
   {
     icon: <div>✨</div>,
     label: 'improve',
@@ -126,6 +127,7 @@ export const DEFAULT_MD_MATH_SUGGESTIONS: AiChatSuggestion[] = [
 
 export const UserCodeEditor = () => {
   const [files, setFiles] = useState<CodeEditorFiles<CodeLanguage>>({});
+  const [editorWidth, setEditorWidth] = useState<string>('');
   const [currentFileName, setCurrentFileName] = useState<string>('');
   const { source, language } = files?.[currentFileName] || { source: '', language: CodeLanguage.TEXT };
   const userCodeEditorRef = useRef<UserCodeEditorHandle>(null);
@@ -161,29 +163,53 @@ export const UserCodeEditor = () => {
 
   return (
     <MockupJukiProvider>
-      <div style={{ height: '500px', padding: 20 }}>
-        <UserCodeEditorCmp<CodeLanguage>
-          ref={userCodeEditorRef}
-          // languages={[{ value: "A", label: "A" }]}
-          initialTestCases={initialTestCases}
-          languages={[...RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES, CodeLanguage.MARKDOWN, CodeLanguage.MERMAID].map((lang) => ({
-            value: lang,
-            label: CODE_LANGUAGE[lang].label,
-          }))}
-          storeKey={'testing'}
-          enableAddCustomSampleCases
-          enableAddSampleCases
-          onFilesChange={setFiles}
-          onCurrentFileNameChange={setCurrentFileName}
+      <div style={{ height: '500px', padding: 20 }} className="jk-row gap nowrap">
+        <div className="ht-100" style={{ width: editorWidth }}>
+          <UserCodeEditorCmp<CodeLanguage>
+            ref={userCodeEditorRef}
+            // languages={[{ value: "A", label: "A" }]}
+            initialTestCases={initialTestCases}
+            languages={[...RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES, CodeLanguage.MARKDOWN, CodeLanguage.MERMAID].map((lang) => ({
+              value: lang,
+              label: CODE_LANGUAGE[lang].label,
+            }))}
+            storeKey={'testing'}
+            enableAddCustomSampleCases
+            enableAddSampleCases
+            onFilesChange={setFiles}
+            onCurrentFileNameChange={setCurrentFileName}
+          />
+        </div>
+        <AiChatPanel
+          api="https://md.local.juki.app/api/chat/md-math"
+          getBodyRef={getBodyRef}
+          onMessagesChangeRef={onMessagesChangeRef}
+          toolStateUI={DEFAULT_MD_MATH_TOOL_STATE_UI}
+          suggestions={DEFAULT_MD_MATH_SUGGESTIONS}
+          storeKey="test"
+          onWidthChange={(width) => setEditorWidth(`calc(100% - ${width}px)`)}
+          actions={({ setPendingParts }) => {
+            return [
+              <Button
+                key="load-all-files"
+                type="ghost"
+                size="tiny"
+                onClick={() => {
+                  const parts = Object.values(files).map((file) => ({
+                    type: 'file' as const,
+                    name: file.name,
+                    mediaType: CODE_LANGUAGE[file.language]?.mime || 'text/plain',
+                    url: `data:text/plain;base64,${btoa(unescape(encodeURIComponent(file.source)))}`,
+                  }));
+                  setPendingParts(parts);
+                }}
+              >
+                load all files
+              </Button>,
+            ];
+          }}
         />
       </div>
-      <AiChatPanel
-        api="https://md.local.juki.app/api/chat/md-math"
-        getBodyRef={getBodyRef}
-        onMessagesChangeRef={onMessagesChangeRef}
-        toolStateUI={DEFAULT_MD_MATH_TOOL_STATE_UI}
-        suggestions={DEFAULT_MD_MATH_SUGGESTIONS}
-      />
     </MockupJukiProvider>
   );
 };

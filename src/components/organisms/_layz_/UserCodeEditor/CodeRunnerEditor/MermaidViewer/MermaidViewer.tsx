@@ -1,6 +1,6 @@
 import { type MouseEvent, type MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
 import { T } from '../../../../../atoms';
-import { LoadingIcon, PlayArrowIcon } from '../../../../../atoms/server';
+import { LoadingIcon, PlayArrowIcon, WarningIcon } from '../../../../../atoms/server';
 import { GraphicToolbar } from './GraphicToolbar';
 import { MermaidTheme } from './types';
 
@@ -9,6 +9,30 @@ const DEFAULT_CONFIG = `{
   "securityLevel": "loose",
   "startOnLoad": false
 }`;
+
+function ErrorPanel({ error }: { error: string }) {
+  return (
+    <div
+      style={{
+        background: 'var(--t-color-error-light, #fee2e2)',
+        color: 'var(--t-color-error, #dc2626)',
+        borderTop: '2px solid var(--t-color-error, #dc2626)',
+        padding: '8px 12px',
+        flexShrink: 0,
+        overflow: 'auto',
+        maxHeight: '140px',
+        display: 'flex',
+        gap: '8px',
+        alignItems: 'flex-start',
+      }}
+    >
+      <WarningIcon size="small" style={{ flexShrink: 0, marginTop: '2px' }} />
+      <pre style={{ fontSize: '0.75rem', margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word', fontFamily: 'monospace' }}>
+        {error}
+      </pre>
+    </div>
+  );
+}
 
 export const MermaidViewer = ({ value: code }: { value: string }) => {
   const [zoom, setZoom] = useState(1);
@@ -100,12 +124,20 @@ export const MermaidViewer = ({ value: code }: { value: string }) => {
 
         const { svg } = await mermaid.render(`mermaid-render-${renderId}`, code);
 
+        // Mermaid v11 resolves with an error SVG instead of throwing
+        if (svg.includes('aria-roledescription="error"')) {
+          const match = svg.match(/<text class="error-text"[^>]*>([^<]*)<\/text>/);
+          throw new Error(match?.[1] ?? 'Syntax error');
+        }
+
         if (renderId === renderIdRef.current) {
           setRenderedSvg(svg);
           setError('');
           setIsRendering(false);
         }
       } catch (err: unknown) {
+        // Clean up the ghost div Mermaid injects into the DOM on error
+        document.getElementById(`dmermaid-render-${renderId}`)?.remove();
         if (renderId === renderIdRef.current) {
           const message = err instanceof Error ? err.message : String(err);
           setError(message.replace(/^Error:\s*/i, ''));
@@ -131,99 +163,104 @@ export const MermaidViewer = ({ value: code }: { value: string }) => {
 
   return (
     <div className="ht-100 jk-col ow-hn flex-1 wh-100" ref={previewContainerRef}>
-      <GraphicToolbar
-        zoom={zoom}
-        isRendering={isRendering}
-        isFullscreen={isFullscreen}
-        onZoom={handleZoom}
-        onReset={handleResetView}
-        onToggleFullscreen={handleToggleFullscreen}
-        renderedSvg={renderedSvg}
-        mermaidTheme={mermaidTheme}
-      />
-
-      <div
-        ref={wheelContainerRef}
-        className="wh-100"
-        style={{
-          flex: 1,
-          overflow: 'hidden',
-          cursor: isDragging ? 'grabbing' : 'grab',
-          position: 'relative',
-          userSelect: 'none',
-          background: mermaidTheme === ('dark' as MermaidTheme) ? '#1e1e2e' : 'var(--t-color-bg-1, #f8fafc)',
-        }}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-      >
-        <div
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: `translate(calc(-50% + ${pan.x}px), calc(-50% + ${pan.y}px)) scale(${zoom})`,
-            transformOrigin: 'center center',
-          }}
-        >
-          {renderedSvg ? (
-            <div
-              ref={svgContainerRef}
-              dangerouslySetInnerHTML={{ __html: renderedSvg }}
-              style={{ maxWidth: '100%', lineHeight: 0 }}
-            />
-          ) : !isRendering && !error ? (
+      {!!error ? (
+        <ErrorPanel error={error} />
+      ) : (
+        <>
+          <GraphicToolbar
+            zoom={zoom}
+            isRendering={isRendering}
+            isFullscreen={isFullscreen}
+            onZoom={handleZoom}
+            onReset={handleResetView}
+            onToggleFullscreen={handleToggleFullscreen}
+            renderedSvg={renderedSvg}
+            mermaidTheme={mermaidTheme}
+          />
+          <div
+            ref={wheelContainerRef}
+            className="wh-100"
+            style={{
+              flex: 1,
+              overflow: 'hidden',
+              cursor: isDragging ? 'grabbing' : 'grab',
+              position: 'relative',
+              userSelect: 'none',
+              background: mermaidTheme === ('dark' as MermaidTheme) ? '#1e1e2e' : 'var(--t-color-bg-1, #f8fafc)',
+            }}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+          >
             <div
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '12px',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: `translate(calc(-50% + ${pan.x}px), calc(-50% + ${pan.y}px)) scale(${zoom})`,
+                transformOrigin: 'center center',
+              }}
+            >
+              {renderedSvg ? (
+                <div
+                  ref={svgContainerRef}
+                  dangerouslySetInnerHTML={{ __html: renderedSvg }}
+                  style={{ maxWidth: '100%', lineHeight: 0 }}
+                />
+              ) : !isRendering && !error ? (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: '12px',
+                    color: 'var(--t-color-gray-5)',
+                    padding: '3rem',
+                    userSelect: 'none',
+                  }}
+                >
+                  <PlayArrowIcon size="huge" />
+                  <T className="tt-se">start typing to see your diagram</T>
+                </div>
+              ) : null}
+            </div>
+
+            {isRendering && !renderedSvg && (
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'rgba(0,0,0,0.05)',
+                }}
+              >
+                <LoadingIcon size="large" />
+              </div>
+            )}
+
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '8px',
+                right: '8px',
+                fontSize: '0.7rem',
                 color: 'var(--t-color-gray-5)',
-                padding: '3rem',
+                background: 'var(--t-color-bg)',
+                padding: '3px 7px',
+                borderRadius: '4px',
+                border: '1px solid var(--t-color-gray-3)',
+                pointerEvents: 'none',
                 userSelect: 'none',
               }}
             >
-              <PlayArrowIcon size="huge" />
-              <T className="tt-se">start typing to see your diagram</T>
+              scroll to zoom · drag to pan
             </div>
-          ) : null}
-        </div>
-
-        {isRendering && !renderedSvg && (
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'rgba(0,0,0,0.05)',
-            }}
-          >
-            <LoadingIcon size="large" />
           </div>
-        )}
-
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '8px',
-            right: '8px',
-            fontSize: '0.7rem',
-            color: 'var(--t-color-gray-5)',
-            background: 'var(--t-color-bg)',
-            padding: '3px 7px',
-            borderRadius: '4px',
-            border: '1px solid var(--t-color-gray-3)',
-            pointerEvents: 'none',
-            userSelect: 'none',
-          }}
-        >
-          scroll to zoom · drag to pan
-        </div>
-      </div>
+        </>
+      )}
     </div>
   );
 };
