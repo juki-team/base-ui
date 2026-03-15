@@ -24,7 +24,7 @@ import type { SetSearchParamsType } from '../../../types';
 import { GraphvizViewers } from '../../GraphvizViewers/GraphvizViewers';
 import { UserChip } from '../../UserChip/UserChip';
 import { UserCodeEditor } from '../UserCodeEditor';
-import { MermaidViewer } from '../UserCodeEditor/CodeRunnerEditor/MermaidViewer/MermaidViewer';
+import { MermaidInline } from './MermaidInline';
 import { CodeRenderMode, CommandsObjectType, MdMathProps } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
@@ -299,11 +299,12 @@ function MdMathComponent(props: MdMathProps) {
               );
             }
             if (language === CodeLanguage.MERMAID && flag === CodeRenderMode.IMAGE) {
-              return (
-                <div className="wh-100" style={{ height: 256 }}>
-                  <MermaidViewer value={children} copyButtons={false} downloadButtons={false} zoomShortcutButtons={false} />;
-                </div>
-              );
+              return <MermaidInline value={children} />;
+              // return (
+              //   <div className="wh-100" style={{ height: 256 }}>
+              //     <MermaidViewer value={children} copyButtons={false} downloadButtons={false} zoomShortcutButtons={false} />;
+              //   </div>
+              // );
             }
 
             if (flag === CodeRenderMode.EDITOR) {
