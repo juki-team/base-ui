@@ -1168,7 +1168,7 @@ export class ApiManager {
             body: {
               name: string;
               tags: string[];
-              files: CodeEditorFiles<CodeLanguage.MERMAID>;
+              files: CodeEditorFiles<CodeLanguage.MARKDOWN>;
               members: EntityMembersDTO;
             };
           },
