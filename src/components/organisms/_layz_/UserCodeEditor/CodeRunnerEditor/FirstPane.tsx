@@ -26,6 +26,7 @@ interface FirstPaneProps<T> {
   languages: { value: T; label: ReactNode }[];
   onlyFirstPane?: boolean;
   triggerFocus?: number;
+  withoutRunCodeButton?: boolean;
   //
   setExpanded: Dispatch<SetStateAction<boolean>>;
   files: CodeEditorFiles<T>;
@@ -60,6 +61,7 @@ export const FirstPane = <T,>(props: FirstPaneProps<T>) => {
     runner: _runner,
     expanded,
     expandPosition,
+    withoutRunCodeButton,
   } = props;
 
   const [runState, setRunState] = useState<RunState>({ id: '', running: false });
@@ -134,6 +136,7 @@ export const FirstPane = <T,>(props: FirstPaneProps<T>) => {
         readOnly={!!readOnly}
         files={files}
         currentFileName={currentFileName}
+        withoutRunCodeButton={withoutRunCodeButton}
       />
       <div className="ow-ao" style={{ height: `calc(100% - ${height}px)` }}>
         <CodeEditor

@@ -46,6 +46,7 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
     currentFileName,
     triggerFocus,
     mdEditorRef,
+    withoutRunCodeButton,
   } = props;
 
   const { source = '', language = CodeLanguage.TEXT as T } = files?.[currentFileName] ?? {};
@@ -137,6 +138,7 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
           runner,
           expandPosition,
           expanded,
+          withoutRunCodeButton,
         }}
       />
     ),
@@ -159,6 +161,7 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
       runner,
       expandPosition,
       expanded,
+      withoutRunCodeButton,
     ],
   );
 

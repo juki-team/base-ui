@@ -299,6 +299,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     readOnly,
     onCodeRunStatusChange,
     onlyCodeEditor,
+    withoutRunCodeButton,
   } = props;
 
   const userNickname = useUserStore((state) => state.user.nickname);
@@ -561,6 +562,7 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       enableAddCustomSampleCases={enableAddCustomSampleCases}
       onlyCodeEditor={onlyCodeEditor}
       mdEditorRef={mdEditorRef}
+      withoutRunCodeButton={withoutRunCodeButton}
     />
   );
 }

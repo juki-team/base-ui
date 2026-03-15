@@ -30,6 +30,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
     setRunState,
     languages,
     readOnly,
+    withoutRunCodeButton,
   } = props;
 
   const { addQuietNotification } = useJukiNotification();
@@ -135,7 +136,7 @@ export const Header = <T,>(props: HeaderProps<T>) => {
 
   useKeyDown(handleKeyDown);
 
-  const withRunCodeButton = RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES.includes(language as CodeLanguage);
+  const withRunCodeButton = !withoutRunCodeButton && RUNNER_ACCEPTED_PROGRAMMING_LANGUAGES.includes(language as CodeLanguage);
   const minWidth = runner ? 620 : 570;
   const withLabels = headerWidthContainer > minWidth;
 

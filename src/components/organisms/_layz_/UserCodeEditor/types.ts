@@ -14,7 +14,7 @@ export interface UserCodeEditorHandle {
 
 export interface UserCodeEditorProps<T> extends Pick<
   CodeRunnerEditorProps<T>,
-  'languages' | 'leftButtons' | 'centerButtons' | 'rightButtons'
+  'languages' | 'leftButtons' | 'centerButtons' | 'rightButtons' | 'withoutRunCodeButton'
 > {
   className?: string;
   expandPosition?: CodeEditorExpandPositionType;

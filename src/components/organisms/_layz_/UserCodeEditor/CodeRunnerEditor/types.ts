@@ -71,6 +71,7 @@ export interface CodeRunnerEditorProps<T> extends Omit<CodeEditorPropertiesType<
   enableAddCustomSampleCases?: boolean;
   onlyCodeEditor?: boolean;
   mdEditorRef?: RefObject<MdMathEditorHandle | null>;
+  withoutRunCodeButton?: boolean;
   //
   languages?: { value: T; label: ReactNode }[];
   leftButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode;
@@ -111,6 +112,7 @@ export interface HeaderProps<T> {
   currentFileName: string;
   runner: Runner;
   setRunState: Dispatch<SetStateAction<RunState>>;
+  withoutRunCodeButton?: boolean;
 }
 
 export interface LogInfoProps {

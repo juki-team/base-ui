@@ -11,8 +11,7 @@ import { ProblemCodeEditor } from './commons/ProblemCodeEditor';
 import { ProblemStatementView } from './commons/ProblemStatementView';
 import type { ProblemViewProps } from './types';
 
-export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) {
-  
+export function ProblemView<T>(props: PropsWithChildren<ProblemViewProps<T>>) {
   const {
     problem,
     codeEditorCenterButtons,
@@ -26,12 +25,12 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
     languages,
     className,
   } = props;
-  
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
-  const [ expanded, setExpanded ] = useState(false);
-  const userPreferredLanguage = useUserStore(state => state.user.settings?.[ProfileSetting.LANGUAGE]);
-  const t = useI18nStore(state => state.i18n.t);
-  
+
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
+  const [expanded, setExpanded] = useState(false);
+  const userPreferredLanguage = useUserStore((state) => state.user.settings?.[ProfileSetting.LANGUAGE]);
+  const t = useI18nStore((state) => state.i18n.t);
+
   if (forPrinting) {
     return (
       <ProblemStatementView
@@ -44,14 +43,14 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
       />
     );
   }
-  
+
   const { shouldViewPDF } = getStatementData(
     t,
     { statement: problem.statement, settings: problem.settings },
     userPreferredLanguage,
     problem.name,
   );
-  
+
   const problemStatement = (
     <div
       className={classNames('jk-problem-view-statement', problem.judge.isSubmitSupported ? '' : className, {
@@ -69,7 +68,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
       />
     </div>
   );
-  
+
   let body;
   if (problem.judge.isSubmitSupported) {
     body = (
@@ -92,9 +91,7 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
           problem={problem}
           languages={languages}
           codeEditorLeftButtons={() => {
-            
             if (problem.judge.isExternal) {
-              
               return (
                 <InfoIIcon
                   data-tooltip-id="jk-tooltip"
@@ -105,25 +102,22 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
                 />
               );
             }
-            
+
             return null;
           }}
           codeEditorCenterButtons={codeEditorCenterButtons}
-          codeEditorRightButtons={({ withLabels, twoRows }) => {
-            const withText = twoRows || withLabels;
-            
+          codeEditorRightButtons={({ withLabels }) => {
             return (
               <Button
                 data-tooltip-id="jk-tooltip"
-                data-tooltip-content={!withText ? (expanded ? 'back' : 'expand') : ''}
+                data-tooltip-content={!withLabels ? (expanded ? 'back' : 'expand') : ''}
                 data-tooltip-place="bottom-end"
                 size="tiny"
                 type="secondary"
-                onClick={() => setExpanded(prevState => !prevState)}
+                onClick={() => setExpanded((prevState) => !prevState)}
                 icon={expanded ? <FullscreenExitIcon /> : <FullscreenIcon />}
-                expand={twoRows}
               >
-                {withText && <T>{expanded ? 'back' : 'expand'}</T>}
+                {withLabels && <T>{expanded ? 'back' : 'expand'}</T>}
               </Button>
             );
           }}
@@ -134,18 +128,16 @@ export function ProblemView<T, >(props: PropsWithChildren<ProblemViewProps<T>>) 
   } else {
     body = problemStatement;
   }
-  
+
   if (expanded) {
     return (
       <Portal>
         <div className="jk-overlay jk-overlay-backdrop">
-          <div style={{ position: 'absolute', ...expandPosition }}>
-            {body}
-          </div>
+          <div style={{ position: 'absolute', ...expandPosition }}>{body}</div>
         </div>
       </Portal>
     );
   }
-  
+
   return body;
 }
