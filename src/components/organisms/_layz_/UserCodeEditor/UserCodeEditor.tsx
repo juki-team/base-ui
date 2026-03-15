@@ -25,7 +25,12 @@ import {
 import { EMPTY_OBJECT } from '../../../../constants';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
-import { getEditorSettingsStorageKey, getSettingsStoreKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
+import {
+  getEditorSettingsStorageKey,
+  getSettingsStoreKey,
+  getSourcesStoreKey,
+  getTestCasesStoreKey
+} from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useStableRef } from '../../../hooks/useStableRef';
 import { useSyncedState } from '../../../hooks/useSyncedState';
@@ -334,13 +339,13 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
   if (languages?.length && !languages.some((lang) => lang.value === defaultLanguage) && languages[0]) {
     defaultLanguage = languages[0].value;
   }
-
-  const [newInitialFiles] = useSyncedState<StorageType<CodeEditorFiles<T>>>({ [storeKey]: { ...initialFiles } });
+  const formatter = formatStoreRecovered(languages);
+  const [newInitialFiles] = useSyncedState<StorageType<CodeEditorFiles<T>>>(formatter({ [storeKey]: { ...initialFiles } }));
   const [filesStore, setFilesStore] = useSaveChunkStorage<CodeEditorFiles<T>>(
     getSourcesStoreKey(userNickname),
     newInitialFiles,
     mergeSources,
-    formatStoreRecovered(languages),
+    formatter,
   );
   const onFilesChangeRef = useStableRef(onFilesChange);
   const files = filesStore[storeKey] || EMPTY_OBJECT;
