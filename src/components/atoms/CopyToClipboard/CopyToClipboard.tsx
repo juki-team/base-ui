@@ -4,46 +4,48 @@ import { ContentCopyIcon, DoneAllIcon } from '../server';
 import type { CopyToClipboardProps } from './types';
 
 export function CopyToClipboard({
-                                  text,
-                                  size = 'regular',
-                                  tooltipContent,
-                                  children,
-                                  noStyling,
-                                  className,
-                                  disabled = false,
-                                }: CopyToClipboardProps) {
-  
-  const [ isOpen, setIsOpen ] = useState(false);
-  
-  const handleClick = async <T, >(event: MouseEvent<T>) => {
+  text,
+  size = 'regular',
+  tooltipContent,
+  children,
+  noStyling,
+  className,
+  disabled = false,
+}: CopyToClipboardProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleClick = async <T,>(event: MouseEvent<T>) => {
     event.preventDefault();
     event.stopPropagation();
     await copy(text);
     setIsOpen(true);
     setTimeout(() => setIsOpen(false), 600);
   };
-  
+
   return (
     <div
       data-tooltip-id="jk-tooltip"
-      data-tooltip-content={isOpen ? 'copied' : tooltipContent ?? 'copy'}
-      // data-tooltip-place="left"
+      data-tooltip-content={isOpen ? 'copied' : (tooltipContent ?? 'copy')}
       className={classNames('jk-row gap', size, className, {
-        'link jk-br-ie jk-button light': !noStyling,
+        'link jk-br-ie jk-button secondary': !noStyling,
         'jk-row nowrap': !!children,
         'only-icon': !children,
         disabled,
       })}
-      style={noStyling || !children ? {} : {
-        width: 'min-content',
-        height: 'min-content',
-        // padding: 'calc(var(--gap) / 3)',
-      }}
+      style={
+        noStyling || !children
+          ? {}
+          : {
+              width: 'min-content',
+              height: 'min-content',
+              // padding: 'calc(var(--gap) / 3)',
+            }
+      }
       aria-disabled={disabled}
       onClick={disabled ? undefined : handleClick}
     >
       {/*{children ?? (isOpen ? <CheckIcon size={size} /> : <ContentCopyIcon size={size} />)}*/}
-      {(isOpen ? <DoneAllIcon size={size} /> : <ContentCopyIcon size={size} />)}
+      {isOpen ? <DoneAllIcon size={size} /> : <ContentCopyIcon size={size} />}
       {children}
     </div>
   );

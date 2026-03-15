@@ -8,19 +8,18 @@ import { NOTIFICATION_ICON } from './constants';
 import type { CardNotificationProps } from './types';
 
 export function CardNotification({ ids, type, message }: CardNotificationProps) {
-  
-  const [ exit, setExit ] = useState(false);
-  const [ width, setWidth ] = useState(0);
+  const [exit, setExit] = useState(false);
+  const [width, setWidth] = useState(0);
   const intervalIDRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const { removeNotification } = useJukiNotification();
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
-  
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
+
   const messageString = getTextContent(message);
   const handleStartTimer = useCallback(() => {
     const newIntervalId = setInterval(() => {
-      setWidth(prev => {
+      setWidth((prev) => {
         if (prev < 100) {
-          return prev + 10000 / (/* 5 * NOTIFICATION_TIME[type]*/ messageString.length / 5 * 1000 + 3000);
+          return prev + 10000 / /* 5 * NOTIFICATION_TIME[type]*/ ((messageString.length / 5) * 1000 + 3000);
         }
         clearInterval(newIntervalId);
         setExit(true);
@@ -31,31 +30,31 @@ export function CardNotification({ ids, type, message }: CardNotificationProps) 
       clearInterval(intervalIDRef.current);
     }
     intervalIDRef.current = newIntervalId;
-  }, [ messageString.length ]);
-  
+  }, [messageString.length]);
+
   const handleStopTimer = () => {
     if (intervalIDRef.current) {
       clearInterval(intervalIDRef.current);
     }
   };
-  
-  const isPageFocus = usePageStore(state => state.isFocus);
-  const isPageVisible = usePageStore(state => state.isVisible);
-  
+
+  const isPageFocus = usePageStore((state) => state.isFocus);
+  const isPageVisible = usePageStore((state) => state.isVisible);
+
   useEffect(() => {
     if (isPageVisible && isPageFocus) {
       handleStartTimer();
     } else {
       handleStopTimer();
     }
-    
+
     return () => {
       if (intervalIDRef.current) {
         clearInterval(intervalIDRef.current);
       }
     };
-  }, [ handleStartTimer, isPageVisible, isPageFocus ]);
-  
+  }, [handleStartTimer, isPageVisible, isPageFocus]);
+
   const idsString = JSON.stringify(ids);
   useEffect(() => {
     if (exit) {
@@ -65,8 +64,8 @@ export function CardNotification({ ids, type, message }: CardNotificationProps) 
         }
       }, 400);
     }
-  }, [ exit, idsString, removeNotification ]);
-  
+  }, [exit, idsString, removeNotification]);
+
   return (
     <div
       // onMouseEnter={type !== NotificationType.QUIET ? handleStopTimer : undefined}
@@ -74,7 +73,11 @@ export function CardNotification({ ids, type, message }: CardNotificationProps) 
       onMouseEnter={handleStopTimer}
       onMouseLeave={handleStartTimer}
       className={classNames('jk-notification-item-container', type, { exit })}
-      style={type === NotificationType.QUIET && !isSmallScreen ? { '--width-notification': `${getTextContent(message).length * 8 + 26}px` } as CSSProperties : {}}
+      style={
+        type === NotificationType.QUIET && !isSmallScreen
+          ? ({ '--width-notification': `${getTextContent(message).length * 8 + 26}px` } as CSSProperties)
+          : {}
+      }
     >
       <div className="jk-notification-item jk-pg-xsm elevation-2 jk-br-ie">
         {NOTIFICATION_ICON[type]}
@@ -88,7 +91,7 @@ export function CardNotification({ ids, type, message }: CardNotificationProps) 
             {typeof message === 'string' ? <span className="tt-se">{message}</span> : message}
           </div>
           <div className="jk-col">
-            <div className={classNames('jk-button light only-icon jk-br-ie', { tiny: type === 'quiet' })}>
+            <div className={classNames('jk-button secondary only-icon jk-br-ie', { tiny: type === 'quiet' })}>
               <CloseIcon onClick={() => setExit(true)} />
             </div>
           </div>

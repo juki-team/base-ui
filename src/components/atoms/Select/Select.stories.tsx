@@ -18,37 +18,26 @@ const meta: Meta<typeof Select> = {
 export default meta;
 
 const Cmp = (args: SelectProps<any, any, any>) => {
-  const [ value, setValue ] = useState<{ label: string; value: number }>({
+  const [value, setValue] = useState<{ label: string; value: number }>({
     label: 'test 20',
     value: 20,
   });
-  
+
   const numbers = new Array(40).fill(0);
-  const options: { label: string; value: number; disabled: boolean }[] =
-    numbers.map((_, option) => ({
-      label: 'label ' + option,
-      inputLabel: Math.round(Math.random() * 10) > 7 ? 'L' : undefined,
-      value: option,
-      disabled: Math.round(Math.random() * 10) > 7,
-    }));
-  
+  const options: { label: string; value: number; disabled: boolean }[] = numbers.map((_, option) => ({
+    label: 'label ' + option,
+    inputLabel: Math.round(Math.random() * 10) > 7 ? 'L' : undefined,
+    value: option,
+    disabled: Math.round(Math.random() * 10) > 7,
+  }));
+
   return (
     <MockupJukiProvider>
       <div className="jk-pg-lg jk-col gap stretch">
         test:
-        <Select
-          {...args}
-          options={options}
-          selectedOption={value}
-          onChange={setValue}
-        />
+        <Select {...args} options={options} selectedOption={value} onChange={setValue} />
         <div className="jk-row">
-          <Select
-            {...args}
-            options={options}
-            selectedOption={value}
-            onChange={setValue}
-          />
+          <Select {...args} options={options} selectedOption={value} onChange={setValue} />
           <Select
             {...args}
             options={options}
@@ -58,13 +47,7 @@ const Cmp = (args: SelectProps<any, any, any>) => {
           />
         </div>
         as button:
-        <Select
-          {...args}
-          options={options}
-          selectedOption={value}
-          onChange={setValue}
-          className="jk-br-ie jk-button accent"
-        />
+        <Select {...args} options={options} selectedOption={value} onChange={setValue} className="jk-br-ie jk-button primary" />
         <div style={{ width: 300 }}>
           extend
           <Select
@@ -72,7 +55,7 @@ const Cmp = (args: SelectProps<any, any, any>) => {
             options={options}
             selectedOption={value}
             onChange={setValue}
-            className="jk-br-ie jk-button accent large"
+            className="jk-br-ie jk-button primary large"
             expand
           />
         </div>

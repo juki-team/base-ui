@@ -38,7 +38,7 @@ const AddCaseButton = <T,>({
       data-tooltip-id="jk-tooltip"
       data-tooltip-content={`add ${sample ? 'sample' : 'custom sample'} case`}
       data-tooltip-place="left"
-      className="jk-button light tiny only-icon jk-br-ie"
+      className="jk-button secondary tiny only-icon jk-br-ie"
     >
       <AddIcon
         onClick={() => {

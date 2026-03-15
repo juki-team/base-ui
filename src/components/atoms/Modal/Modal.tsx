@@ -11,7 +11,6 @@ import { CloseIcon, SpinIcon } from '../server';
 import type { ModalButtonLoaderEventType, ModalProps } from './types';
 
 export function Modal<T extends ModalButtonLoaderEventType>(props: ModalProps<T>) {
-  
   const {
     onClose,
     isOpen,
@@ -27,68 +26,77 @@ export function Modal<T extends ModalButtonLoaderEventType>(props: ModalProps<T>
     setLoaderStatusRef,
     onLoaderStatusChange,
   } = props;
-  
-  const [ loader, setLoader ] = useState<Status>(Status.NONE);
+
+  const [loader, setLoader] = useState<Status>(Status.NONE);
   const _refLoader = useLoaderStatusSync(loader, setLoader, setLoaderStatusRef, onLoaderStatusChange);
   const onCloseRef = useStableRef(onClose);
   const modalRef = useRef<HTMLDivElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
-  
+
   useFocusTrap(modalRef, isOpen);
-  
-  const setLoaderStatusOnClick: SetLoaderStatusOnClickType = useCallback((status) => {
-    if (typeof status === 'function') {
-      setLoader(status(_refLoader.current));
-    } else {
-      setLoader(status);
-    }
-  }, [ _refLoader ]);
-  
+
+  const setLoaderStatusOnClick: SetLoaderStatusOnClickType = useCallback(
+    (status) => {
+      if (typeof status === 'function') {
+        setLoader(status(_refLoader.current));
+      } else {
+        setLoader(status);
+      }
+    },
+    [_refLoader],
+  );
+
   useEffect(() => {
     if (isOpen) {
       previousFocusRef.current = document.activeElement as HTMLElement;
-      
+
       // document.body.style.overflow = 'hidden';
-      
+
       setTimeout(() => {
         modalRef.current?.focus();
       }, 100);
     } else {
       // document.body.style.overflow = '';
-      
+
       previousFocusRef.current?.focus();
     }
-    
+
     return () => {
       // document.body.style.overflow = '';
     };
-  }, [ isOpen ]);
-  
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen || !closeOnKeyEscape) return;
-    
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onCloseRef.current?.(setLoaderStatusOnClick, loader, { onKeyDownEvent: event });
       }
     };
-    
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [ loader, setLoaderStatusOnClick, closeOnKeyEscape, isOpen, onCloseRef ]);
-  
-  const handleOverlayClick = useCallback((event: MouseEvent<HTMLDivElement>) => {
-    if (closeOnClickOverlay) {
-      onCloseRef.current?.(setLoaderStatusOnClick, loader, { overlayOnClickEvent: event });
-    }
-  }, [ closeOnClickOverlay, loader, onCloseRef, setLoaderStatusOnClick ]);
-  
-  const handleCloseClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
-    if (loader !== Status.LOADING) {
-      onCloseRef.current?.(setLoaderStatusOnClick, loader, { closeButtonOnClickEvent: event });
-    }
-  }, [ loader, onCloseRef, setLoaderStatusOnClick ]);
-  
+  }, [loader, setLoaderStatusOnClick, closeOnKeyEscape, isOpen, onCloseRef]);
+
+  const handleOverlayClick = useCallback(
+    (event: MouseEvent<HTMLDivElement>) => {
+      if (closeOnClickOverlay) {
+        onCloseRef.current?.(setLoaderStatusOnClick, loader, { overlayOnClickEvent: event });
+      }
+    },
+    [closeOnClickOverlay, loader, onCloseRef, setLoaderStatusOnClick],
+  );
+
+  const handleCloseClick = useCallback(
+    (event: MouseEvent<HTMLButtonElement>) => {
+      if (loader !== Status.LOADING) {
+        onCloseRef.current?.(setLoaderStatusOnClick, loader, { closeButtonOnClickEvent: event });
+      }
+    },
+    [loader, onCloseRef, setLoaderStatusOnClick],
+  );
+
   return (
     <Portal>
       <AnimatePresence>
@@ -120,16 +128,12 @@ export function Modal<T extends ModalButtonLoaderEventType>(props: ModalProps<T>
                 <div className="jk-modal-close-button wh-100">
                   <button
                     type="button"
-                    className="jk-button light only-icon jk-br-ie"
+                    className="jk-button secondary only-icon jk-br-ie"
                     aria-label="Close modal"
                     disabled={loader === Status.LOADING}
                     onClick={handleCloseClick}
                   >
-                    {loader === Status.LOADING ? (
-                      <SpinIcon aria-hidden="true" />
-                    ) : (
-                      <CloseIcon aria-hidden="true" />
-                    )}
+                    {loader === Status.LOADING ? <SpinIcon aria-hidden="true" /> : <CloseIcon aria-hidden="true" />}
                   </button>
                 </div>
               )}

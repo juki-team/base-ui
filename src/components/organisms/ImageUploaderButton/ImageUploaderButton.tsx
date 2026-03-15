@@ -4,29 +4,22 @@ import { ImageUploaderModal } from '../modals/ImageUploaderModal/ImageUploaderMo
 import type { ImageUploaderButtonProps, UploadImageButtonChildrenProps } from '../modals/ImageUploaderModal/types';
 
 export function ImageUploaderButton(props: ImageUploaderButtonProps) {
-  
-  const {
-    open,
-    setOpen,
-    isOpenRef,
-    withLabel = false,
-    copyButtons,
-    onPickImageUrl,
-    children: _children,
-  } = props;
-  
+  const { open, setOpen, isOpenRef, withLabel = false, copyButtons, onPickImageUrl, children: _children } = props;
+
   if (isOpenRef) {
     isOpenRef.current = open;
   }
-  
-  const children = _children || (({ setOpen, withLabel }: UploadImageButtonChildrenProps) => {
-    return (
-      <Button icon={<CloudUploadIcon />} type="ghost" className="bc-we" size="small" onClick={() => setOpen(true)}>
-        {withLabel && <T>pick / upload image</T>}
-      </Button>
-    );
-  });
-  
+
+  const children =
+    _children ||
+    (({ setOpen, withLabel }: UploadImageButtonChildrenProps) => {
+      return (
+        <Button icon={<CloudUploadIcon />} type="secondary" className="bc-we" size="small" onClick={() => setOpen(true)}>
+          {withLabel && <T>pick / upload image</T>}
+        </Button>
+      );
+    });
+
   return (
     <>
       <div

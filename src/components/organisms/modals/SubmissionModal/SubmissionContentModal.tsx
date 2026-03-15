@@ -13,14 +13,13 @@ export interface SubmissionModalProps extends ModalProps {
 }
 
 export function SubmissionContentModal({ submitId, ...modalProps }: SubmissionModalProps) {
-  
-  const { Link } = useUIStore(store => store.components);
-  const [ triggerFetch, setTriggerFetch ] = useState(0);
-  
+  const { Link } = useUIStore((store) => store.components);
+  const [triggerFetch, setTriggerFetch] = useState(0);
+
   useEffect(() => {
     setTriggerFetch(Date.now());
-  }, [ modalProps.isOpen ]);
-  
+  }, [modalProps.isOpen]);
+
   return (
     <Modal closeIcon expand {...modalProps}>
       <SubmitView
@@ -29,17 +28,15 @@ export function SubmissionContentModal({ submitId, ...modalProps }: SubmissionMo
         triggerFetch={triggerFetch}
         header={
           <div className="fw-bd tx-l jk-row-col left gap wh-100">
-            <h3><T className="tt-se">submission</T></h3>
+            <h3>
+              <T className="tt-se">submission</T>
+            </h3>
             <div className="jk-row gap">
-              <Link
-                href={jukiAppRoutes.JUDGE().submissions.view({ id: submitId })}
-                target="_blank"
-                className="jk-row"
-              >
+              <Link href={jukiAppRoutes.JUDGE().submissions.view({ id: submitId })} target="_blank" className="jk-row">
                 <div
                   data-tooltip-id="jk-tooltip"
                   data-tooltip-content="open submission in new tab"
-                  className="jk-button light only-icon small jk-br-ie"
+                  className="jk-button secondary only-icon small jk-br-ie"
                 >
                   <OpenInNewIcon />
                 </div>
