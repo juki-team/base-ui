@@ -1,6 +1,8 @@
+import domToImage from 'dom-to-image-more';
 import { type MouseEvent, type MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react';
-import { T } from '../../../../../atoms';
-import { LoadingIcon, PlayArrowIcon, WarningIcon } from '../../../../../atoms/server';
+import { Button, CopyToClipboard, T } from '../../../../../atoms';
+import { ContentCopyIcon, DownloadIcon, LoadingIcon, PlayArrowIcon, WarningIcon } from '../../../../../atoms/server';
+import { downloadBlobAsFile } from '../../../../../helpers';
 import { GraphicToolbar } from './GraphicToolbar';
 import { MermaidTheme } from './types';
 
@@ -34,7 +36,17 @@ function ErrorPanel({ error }: { error: string }) {
   );
 }
 
-export const MermaidViewer = ({ value: code }: { value: string }) => {
+export const MermaidViewer = ({
+  value: code,
+  mermaidTheme = 'default',
+  configJson = DEFAULT_CONFIG,
+  fileName = 'diagram',
+}: {
+  value: string;
+  mermaidTheme?: MermaidTheme;
+  configJson?: string;
+  fileName?: string;
+}) => {
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
@@ -43,9 +55,6 @@ export const MermaidViewer = ({ value: code }: { value: string }) => {
   const dragStartRef = useRef({ x: 0, y: 0 });
   const previewContainerRef = useRef<HTMLDivElement>(null);
   const wheelContainerRef = useRef<HTMLDivElement>(null);
-
-  const mermaidTheme: MermaidTheme = 'default';
-  const configJson = DEFAULT_CONFIG;
 
   useEffect(() => {
     const handleChange = () => setIsFullscreen(!!document.fullscreenElement);
@@ -152,6 +161,36 @@ export const MermaidViewer = ({ value: code }: { value: string }) => {
     };
   }, [code, mermaidTheme, configJson]);
 
+  const getPngBlob = useCallback((): Promise<Blob> => {
+    const el = svgContainerRef.current;
+    if (!el) return Promise.reject(new Error('No SVG'));
+    return domToImage.toBlob(el, { bgcolor: mermaidTheme === 'dark' ? '#1e1e2e' : '#ffffff' });
+  }, [mermaidTheme]);
+
+  const handleExportSVG = useCallback(() => {
+    if (!renderedSvg) return;
+    const blob = new Blob([renderedSvg], { type: 'image/svg+xml' });
+    downloadBlobAsFile(blob, `${fileName}.svg`);
+  }, [renderedSvg, fileName]);
+
+  const handleExportPNG = useCallback(async () => {
+    try {
+      const blob = await getPngBlob();
+      downloadBlobAsFile(blob, `${fileName}.png`);
+    } catch (err) {
+      console.error('PNG export failed', err);
+    }
+  }, [getPngBlob, fileName]);
+
+  const handleCopyPNG = useCallback(async () => {
+    try {
+      const blob = await getPngBlob();
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+    } catch (err) {
+      console.error('PNG copy failed', err);
+    }
+  }, [getPngBlob]);
+
   const handleToggleFullscreen = useCallback(async () => {
     if (!previewContainerRef.current) return;
     if (!document.fullscreenElement) {
@@ -163,7 +202,7 @@ export const MermaidViewer = ({ value: code }: { value: string }) => {
 
   return (
     <div className="ht-100 jk-col ow-hn flex-1 wh-100" ref={previewContainerRef}>
-      {!!error ? (
+      {error ? (
         <ErrorPanel error={error} />
       ) : (
         <>
@@ -177,6 +216,20 @@ export const MermaidViewer = ({ value: code }: { value: string }) => {
             renderedSvg={renderedSvg}
             mermaidTheme={mermaidTheme}
           />
+          <div className="jk-row gap">
+            <CopyToClipboard key="copy-svg" disabled={!renderedSvg} size="tiny" text={renderedSvg}>
+              SVG
+            </CopyToClipboard>
+            <Button onClick={handleCopyPNG} disabled={!renderedSvg} icon={<ContentCopyIcon size="small" />} size="tiny">
+              PNG
+            </Button>
+            <Button onClick={handleExportSVG} disabled={!renderedSvg} icon={<DownloadIcon size="small" />} size="tiny">
+              SVG
+            </Button>
+            <Button onClick={handleExportPNG} disabled={!renderedSvg} icon={<DownloadIcon size="small" />} size="tiny">
+              PNG
+            </Button>
+          </div>
           <div
             ref={wheelContainerRef}
             className="wh-100"

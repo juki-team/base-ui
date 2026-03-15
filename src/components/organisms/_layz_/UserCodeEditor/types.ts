@@ -14,7 +14,7 @@ export interface UserCodeEditorHandle {
 
 export interface UserCodeEditorProps<T> extends Pick<
   CodeRunnerEditorProps<T>,
-  'languages' | 'leftButtons' | 'centerButtons' | 'rightButtons' | 'withoutRunCodeButton'
+  'languages' | 'leftButtons' | 'centerButtons' | 'rightButtons' | 'withoutRunCodeButton' | 'mermaidTheme' | 'mermaidConfigJson' | 'mermaidFileName'
 > {
   className?: string;
   expandPosition?: CodeEditorExpandPositionType;

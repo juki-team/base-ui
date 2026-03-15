@@ -138,6 +138,8 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
     setPendingParts([]);
   };
 
+  const width = isOpen ? 'var(--chat-right-panel-width, calc(100vw / 3))' : 'calc(var(--tx-h-m) + var(--pad-sm))';
+
   return (
     <div
       ref={(el) => {
@@ -145,11 +147,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
         panelRef.current = el;
       }}
       className={classNames('chat-right-panel jk-br-ie jk-col gap nowrap stretch ht-100', { 'bc-we': isOpen })}
-      style={
-        isOpen
-          ? { minWidth: 'var(--chat-right-panel-width, calc(100vw / 3))' }
-          : { minWidth: 'calc(var(--tx-h-m) + var(--pad-sm))' }
-      }
+      style={{ width, minWidth: width }}
     >
       <div
         className={classNames('jk-row center cr-we bc-io jk-pg-xsm jk-br-ie hr-e1', { 'vertical-text': !isOpen })}

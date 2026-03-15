@@ -47,6 +47,9 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
     triggerFocus,
     mdEditorRef,
     withoutRunCodeButton,
+    mermaidTheme,
+    mermaidConfigJson,
+    mermaidFileName,
   } = props;
 
   const { source = '', language = CodeLanguage.TEXT as T } = files?.[currentFileName] ?? {};
@@ -75,7 +78,7 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
       );
     }
     if (language === CodeLanguage.MERMAID) {
-      return <MermaidViewer value={source} />;
+      return <MermaidViewer value={source} mermaidTheme={mermaidTheme} configJson={mermaidConfigJson} fileName={mermaidFileName} />;
     }
     if (language === CodeLanguage.MARKDOWN) {
       return (
@@ -101,6 +104,9 @@ export function CodeRunnerEditor<T>(props: CodeRunnerEditorProps<T>) {
     enableAddSampleCases,
     enableAddCustomSampleCases,
     mdEditorRef,
+    mermaidTheme,
+    mermaidConfigJson,
+    mermaidFileName,
   ]);
 
   const hasSecondPane = secondChild != null;

@@ -300,6 +300,9 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
     onCodeRunStatusChange,
     onlyCodeEditor,
     withoutRunCodeButton,
+    mermaidTheme,
+    mermaidConfigJson,
+    mermaidFileName,
   } = props;
 
   const userNickname = useUserStore((state) => state.user.nickname);
@@ -563,6 +566,9 @@ function UserCodeEditorInner<T>(props: UserCodeEditorProps<T>, ref: ForwardedRef
       onlyCodeEditor={onlyCodeEditor}
       mdEditorRef={mdEditorRef}
       withoutRunCodeButton={withoutRunCodeButton}
+      mermaidTheme={mermaidTheme}
+      mermaidConfigJson={mermaidConfigJson}
+      mermaidFileName={mermaidFileName}
     />
   );
 }

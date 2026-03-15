@@ -4,6 +4,7 @@ import { UseResizeDetectorReturn } from 'react-resize-detector';
 import { BasicModalProps } from '../../../../atoms/Modal/types';
 import { CodeEditorPropertiesType } from '../../../../molecules/types';
 import { MdMathEditorHandle } from '../../MdMathEditor/types';
+import { MermaidTheme } from './MermaidViewer/types';
 
 export type RunState = { id: string; running: boolean };
 
@@ -72,6 +73,9 @@ export interface CodeRunnerEditorProps<T> extends Omit<CodeEditorPropertiesType<
   onlyCodeEditor?: boolean;
   mdEditorRef?: RefObject<MdMathEditorHandle | null>;
   withoutRunCodeButton?: boolean;
+  mermaidTheme?: MermaidTheme;
+  mermaidConfigJson?: string;
+  mermaidFileName?: string;
   //
   languages?: { value: T; label: ReactNode }[];
   leftButtons?: (props: Omit<CodeEditorCenterButtonsPropertiesType<T>, 'widthContainer'>) => ReactNode;
