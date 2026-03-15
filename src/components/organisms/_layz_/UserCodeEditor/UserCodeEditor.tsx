@@ -25,12 +25,7 @@ import {
 import { EMPTY_OBJECT } from '../../../../constants';
 import { useUserStore } from '../../../../stores/user/useUserStore';
 import { T } from '../../../atoms';
-import {
-  getEditorSettingsStorageKey,
-  getSettingsStoreKey,
-  getSourcesStoreKey,
-  getTestCasesStoreKey
-} from '../../../helpers';
+import { getEditorSettingsStorageKey, getSettingsStoreKey, getSourcesStoreKey, getTestCasesStoreKey } from '../../../helpers';
 import { useJukiNotification } from '../../../hooks/useJukiNotification';
 import { useStableRef } from '../../../hooks/useStableRef';
 import { useSyncedState } from '../../../hooks/useSyncedState';

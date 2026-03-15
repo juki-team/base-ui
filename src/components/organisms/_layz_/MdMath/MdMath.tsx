@@ -24,6 +24,7 @@ import type { SetSearchParamsType } from '../../../types';
 import { GraphvizViewers } from '../../GraphvizViewers/GraphvizViewers';
 import { UserChip } from '../../UserChip/UserChip';
 import { UserCodeEditor } from '../UserCodeEditor';
+import { MermaidViewer } from '../UserCodeEditor/CodeRunnerEditor/MermaidViewer/MermaidViewer';
 import { CodeRenderMode, CommandsObjectType, MdMathProps } from './types';
 import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 
@@ -295,6 +296,13 @@ function MdMathComponent(props: MdMathProps) {
             if (language === CodeLanguage.DOT && flag === CodeRenderMode.IMAGE) {
               return (
                 <GraphvizViewers dot={children} className={classNames({ fragment: isRoot })} viewSourceButton={!flatView} />
+              );
+            }
+            if (language === CodeLanguage.MERMAID && flag === CodeRenderMode.IMAGE) {
+              return (
+                <div className="wh-100" style={{ height: 256 }}>
+                  <MermaidViewer value={children} copyButtons={false} downloadButtons={false} zoomShortcutButtons={false} />;
+                </div>
               );
             }
 

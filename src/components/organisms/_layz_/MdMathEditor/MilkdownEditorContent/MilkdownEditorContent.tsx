@@ -18,6 +18,7 @@ import { Milkdown, useEditor } from '@milkdown/react';
 import * as Viz from '@viz-js/viz';
 import { TFunction } from 'i18next';
 import katex from 'katex';
+import mermaid from 'mermaid';
 import { Decoration, DecorationSet } from 'prosemirror-view';
 import { Dispatch, forwardRef, SetStateAction, useImperativeHandle, useMemo, useRef } from 'react';
 import { v4 } from 'uuid';
@@ -222,6 +223,18 @@ const myLanguages = [
     load: () => import('@viz-js/lang-dot').then((m) => m.dot()),
   }),
   LanguageDescription.of({
+    name: CodeLanguage.MERMAID,
+    alias: ['mmd'],
+    extensions: ['mmd'],
+    load: () => import('codemirror-lang-mermaid').then((m) => m.mermaid()),
+  }),
+  LanguageDescription.of({
+    name: CodeLanguage.MERMAID + `/${CodeRenderMode.IMAGE}`,
+    alias: ['mmd'],
+    extensions: ['mmd'],
+    load: () => import('codemirror-lang-mermaid').then((m) => m.mermaid()),
+  }),
+  LanguageDescription.of({
     name: CodeLanguage.TEXT,
     alias: ['plaintext'],
     extensions: ['txt', 'text'],
@@ -236,18 +249,18 @@ function renderLatex(content: string) {
   });
 }
 
-// function renderMermaid(content: string): HTMLElement {
-//   if (typeof document !== 'undefined') {
-//     const container = document.createElement('div');
-//     container.className = 'mermaid';
-//     container.innerHTML = content;
-//
-//     setTimeout(() => mermaid.run({ querySelector: '.mermaid' }), 0);
-//
-//     return container;
-//   }
-//   return null as unknown as HTMLElement;
-// }
+function renderMermaid(content: string): HTMLElement {
+  if (typeof document !== 'undefined') {
+    const container = document.createElement('div');
+    container.className = 'mermaid';
+    container.innerHTML = content;
+
+    setTimeout(() => mermaid.run({ querySelector: '.mermaid' }), 0);
+
+    return container;
+  }
+  return null as unknown as HTMLElement;
+}
 
 function renderDot(content: string, t: TFunction): HTMLElement {
   if (typeof document !== 'undefined') {
@@ -401,9 +414,9 @@ export const MilkdownEditorContent = forwardRef<MilkdownEditorContentHandle, Mil
                 if (language!.toLowerCase() === 'latex' && content.length > 0) {
                   return renderLatex(content /*config == null ? void 0 : ctx.katexOptions*/);
                 }
-                // if (language.toLowerCase() === 'mermaid asimage' && content.length > 0) {
-                //   return renderMermaid(content);
-                // }
+                if (language?.toLowerCase() === 'mermaid' && as === CodeRenderMode.IMAGE && content.length > 0) {
+                  return renderMermaid(content);
+                }
                 if (as === CodeRenderMode.IMAGE && content.length > 0) {
                   return renderDot(content, t);
                 }

@@ -9,4 +9,5 @@ export interface GraphicToolbarProps {
   onToggleFullscreen: () => void;
   renderedSvg: string;
   mermaidTheme: MermaidTheme;
+  zoomShortcutButtons: boolean;
 }

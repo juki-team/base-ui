@@ -41,11 +41,17 @@ export const MermaidViewer = ({
   mermaidTheme = 'default',
   configJson = DEFAULT_CONFIG,
   fileName = 'diagram',
+  copyButtons = true,
+  downloadButtons = true,
+  zoomShortcutButtons = true,
 }: {
   value: string;
   mermaidTheme?: MermaidTheme;
   configJson?: string;
   fileName?: string;
+  copyButtons?: boolean;
+  downloadButtons?: boolean;
+  zoomShortcutButtons?: boolean;
 }) => {
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
@@ -215,21 +221,32 @@ export const MermaidViewer = ({
             onToggleFullscreen={handleToggleFullscreen}
             renderedSvg={renderedSvg}
             mermaidTheme={mermaidTheme}
+            zoomShortcutButtons={zoomShortcutButtons}
           />
-          <div className="jk-row gap">
-            <CopyToClipboard key="copy-svg" disabled={!renderedSvg} size="tiny" text={renderedSvg}>
-              SVG
-            </CopyToClipboard>
-            <Button onClick={handleCopyPNG} disabled={!renderedSvg} icon={<ContentCopyIcon size="small" />} size="tiny">
-              PNG
-            </Button>
-            <Button onClick={handleExportSVG} disabled={!renderedSvg} icon={<DownloadIcon size="small" />} size="tiny">
-              SVG
-            </Button>
-            <Button onClick={handleExportPNG} disabled={!renderedSvg} icon={<DownloadIcon size="small" />} size="tiny">
-              PNG
-            </Button>
-          </div>
+          {(copyButtons || downloadButtons) && (
+            <div className="jk-row gap">
+              {copyButtons && (
+                <>
+                  <CopyToClipboard key="copy-svg" disabled={!renderedSvg} size="tiny" text={renderedSvg}>
+                    SVG
+                  </CopyToClipboard>
+                  <Button onClick={handleCopyPNG} disabled={!renderedSvg} icon={<ContentCopyIcon size="small" />} size="tiny">
+                    PNG
+                  </Button>
+                </>
+              )}
+              {downloadButtons && (
+                <>
+                  <Button onClick={handleExportSVG} disabled={!renderedSvg} icon={<DownloadIcon size="small" />} size="tiny">
+                    SVG
+                  </Button>
+                  <Button onClick={handleExportPNG} disabled={!renderedSvg} icon={<DownloadIcon size="small" />} size="tiny">
+                    PNG
+                  </Button>
+                </>
+              )}
+            </div>
+          )}
           <div
             ref={wheelContainerRef}
             className="wh-100"
