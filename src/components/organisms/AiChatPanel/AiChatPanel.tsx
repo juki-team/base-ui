@@ -168,7 +168,7 @@ export const AiChatPanel = (props: AiChatPanelProps) => {
         <div className="jk-col gap stretch ai-chat-messages tx-s flex-1 jk-pg-xsm">
           <div className="flex-1" />
           {messages.map((message) => (
-            <div key={message.id} className={classNames('message jk-br-ie bc-hl jk-pg-xsm', message.role)}>
+            <div key={message.id} className={classNames('message jk-br-ie bc-ht-lt jk-pg-xsm', message.role)}>
               {message.parts.map((part, i) => {
                 switch (part.type) {
                   case 'file':

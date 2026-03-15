@@ -20,51 +20,47 @@ import { DownloadIcon, RefreshIcon, SpinIcon } from '../../server';
 import type { JudgeDataType, ProblemSelectorProps } from './types';
 
 export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: ProblemSelectorProps) {
-  
-  const [ judge, setJudge ] = useState<JudgeDataResponseDTO | null>(null);
-  const [ key, setKey ] = useState('');
-  const [ data, setData ] = useState<JudgeDataType>({} as JudgeDataType);
+  const [judge, setJudge] = useState<JudgeDataResponseDTO | null>(null);
+  const [key, setKey] = useState('');
+  const [data, setData] = useState<JudgeDataType>({} as JudgeDataType);
   const { notifyResponse } = useJukiNotification();
-  const [ timestampTrigger, setTimestampTrigger ] = useState(0);
-  const { data: judgesData } = useFetcher<ContentResponse<JudgeDataResponseDTO[]>>(jukiApiManager.API_V2.company.getJudgeList({ params: { companyKey } }).url);
+  const [timestampTrigger, setTimestampTrigger] = useState(0);
+  const { data: judgesData } = useFetcher<ContentResponse<JudgeDataResponseDTO[]>>(
+    jukiApiManager.API_V2.company.getJudgeList({ params: { companyKey } }).url,
+  );
   const judges = judgesData?.success ? judgesData.content : [];
   const firstJudge = judges[0];
-  
+
   useEffect(() => {
     if (!judge && firstJudge) {
       setJudge(firstJudge);
     }
-  }, [ firstJudge, judge ]);
-  
+  }, [firstJudge, judge]);
+
   useEffect(() => {
     const getData = async () => {
       if (judge) {
-        setData(prevState => (
-          { ...prevState, [judge.key]: { problems: prevState[judge.key]?.problems || [], loading: true } }
-        ));
-        const { url } = jukiApiManager.API_V2
-          .problem
-          .getBasicSummaryList({
-            params: {
-              page: 1,
-              pageSize: 100000,
-              filterUrl: `judgeKeys=${judge.key}`,
-            },
-          });
+        setData((prevState) => ({
+          ...prevState,
+          [judge.key]: { problems: prevState[judge.key]?.problems || [], loading: true },
+        }));
+        const { url } = jukiApiManager.API_V2.problem.getBasicSummaryList({
+          params: {
+            page: 1,
+            pageSize: 100000,
+            filterUrl: `judgeKeys=${judge.key}`,
+          },
+        });
         // TODO: change limit of problems
-        const response = cleanRequest<ContentsResponse<ProblemBasicSummaryListResponseDTO>>(
-          await authorizedRequest(url),
-        );
+        const response = cleanRequest<ContentsResponse<ProblemBasicSummaryListResponseDTO>>(await authorizedRequest(url));
         const problems = response.success ? response.contents || [] : [];
-        setData(prevState => (
-          { ...prevState, [judge.key]: { problems, loading: false } }
-        ));
+        setData((prevState) => ({ ...prevState, [judge.key]: { problems, loading: false } }));
       }
     };
     setKey('');
     void getData();
-  }, [ judge, timestampTrigger ]);
-  
+  }, [judge, timestampTrigger]);
+
   const isValid = () => {
     if (judge?.key === Judge.CODEFORCES) {
       return {
@@ -80,17 +76,13 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
       valid: false,
     };
   };
-  
+
   const select = (
     <ButtonLoader
       onClick={async (setLoaderStatus) => {
         setLoaderStatus(Status.LOADING);
-        const { url } = jukiApiManager.API_V2
-          .problem
-          .getSummary({ params: { key } });
-        const response = cleanRequest<ContentResponse<ProblemSummaryListResponseDTO>>(
-          await authorizedRequest(url),
-        );
+        const { url } = jukiApiManager.API_V2.problem.getSummary({ params: { key } });
+        const response = cleanRequest<ContentResponse<ProblemSummaryListResponseDTO>>(await authorizedRequest(url));
         if (response.success) {
           onSelect(response.content);
           setLoaderStatus(Status.SUCCESS);
@@ -105,7 +97,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
       <T>select</T>
     </ButtonLoader>
   );
-  
+
   return (
     <div className={classNames('jk-row-col gap nowrap', { extend })}>
       <div className="jk-col gap extend flex-1">
@@ -113,7 +105,7 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
           <label className="jk-row nowrap">
             <T className="tt-se ws-np fw-bd">judge</T>:&nbsp;
             <Select
-              options={judges.map(judge => ({ label: judge.name, value: judge }))}
+              options={judges.map((judge) => ({ label: judge.name, value: judge }))}
               selectedOption={{ value: judge }}
               onChange={({ value }) => setJudge(value)}
             />
@@ -152,47 +144,51 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
         </div>
         {judge && (
           <div className="jk-row extend gap">
-            {!data[judge.key]?.problems?.length
-              ? <div className="jk-row flex-1" style={{ height: 34 }}><T className="tt-se">no problems</T></div>
-              : <div className="jk-row flex-1">
+            {!data[judge.key]?.problems?.length ? (
+              <div className="jk-row flex-1" style={{ height: 34 }}>
+                <T className="tt-se">no problems</T>
+              </div>
+            ) : (
+              <div className="jk-row flex-1">
                 <MultiSelectSearchable
-                  options={(
-                    data[judge.key]?.problems ?? []
-                  ).map(problem => (
-                    {
-                      label: (
-                        <div className="jk-row stretch gap nowrap jk-pg-xsm-tb left ht-100">
-                          <div className="jk-col gap">
-                            <span className="fw-br cr-tx-ht">{problem.key}</span>
-                            <span style={{ fontFamily: 'monospace' }} className="tx-t">{problem.shortname}</span>
-                          </div>
-                          <div className="jk-col stretch">
-                            <div className="jk-row gap left">
-                              {problem.name}
-                              <div className="jk-tag bc-il cr-we tx-t">{PROBLEM_TYPE[problem.settings.type].label}</div>
-                            </div>
-                            <div className="jk-row left gap tx-s">
-                              {problem.tags?.map(tag => <div className="jk-tag bc-hl" key={tag}>{tag}</div>)}
-                            </div>
-                          </div>
-                        
+                  options={(data[judge.key]?.problems ?? []).map((problem) => ({
+                    label: (
+                      <div className="jk-row stretch gap nowrap jk-pg-xsm-tb left ht-100">
+                        <div className="jk-col gap">
+                          <span className="fw-br cr-tx-ht">{problem.key}</span>
+                          <span style={{ fontFamily: 'monospace' }} className="tx-t">
+                            {problem.shortname}
+                          </span>
                         </div>
-                      ),
-                      inputLabel: (
-                        <div>
-                          {problem.key} {problem.name} {problem.tags?.map(tag => <div
-                          className="jk-tag bc-g6"
-                          key={tag}
-                        >{tag}</div>)}
+                        <div className="jk-col stretch">
+                          <div className="jk-row gap left">
+                            {problem.name}
+                            <div className="jk-tag bc-il cr-we tx-t">{PROBLEM_TYPE[problem.settings.type].label}</div>
+                          </div>
+                          <div className="jk-row left gap tx-s">
+                            {problem.tags?.map((tag) => (
+                              <div className="jk-tag bc-ht-lt" key={tag}>
+                                {tag}
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      ),
-                      value: problem,
-                    }
-                  ))}
-                  selectedOptions={[].map(user => (
-                    { value: user }
-                  ))}
-                  onChange={options => options[0] ? onSelect({ ...options[0].value }) : null}
+                      </div>
+                    ),
+                    inputLabel: (
+                      <div>
+                        {problem.key} {problem.name}{' '}
+                        {problem.tags?.map((tag) => (
+                          <div className="jk-tag bc-g6" key={tag}>
+                            {tag}
+                          </div>
+                        ))}
+                      </div>
+                    ),
+                    value: problem,
+                  }))}
+                  selectedOptions={[].map((user) => ({ value: user }))}
+                  onChange={(options) => (options[0] ? onSelect({ ...options[0].value }) : null)}
                   optionsPlacement="bottom"
                   expand
                   rowHeightOption={72}
@@ -201,13 +197,13 @@ export function ProblemSelector({ onSelect, extend = false, companyKey = '' }: P
                     return (
                       option.value.name.toLowerCase().indexOf(text) > -1 ||
                       option.value.key.toLowerCase().indexOf(text) > -1 ||
-                      option.value.tags.some(tag => tag.toLowerCase().indexOf(text) > -1)
+                      option.value.tags.some((tag) => tag.toLowerCase().indexOf(text) > -1)
                     );
                   }}
                   multiselect={false}
                 />
               </div>
-            }
+            )}
             <ButtonLoader
               type="secondary"
               tooltipContent="reload"

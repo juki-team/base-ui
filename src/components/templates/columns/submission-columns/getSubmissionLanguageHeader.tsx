@@ -3,32 +3,35 @@ import type { DataViewerHeadersType } from '../../../organisms/_layz_/DataViewer
 import { SubmissionLanguageField } from '../../submission/SubmissionLanguageField';
 
 export type LanguagesByJudge = {
-  [key: string]: { key: string | Judge, name: string, languages: { [key: string]: { label: string, value: string } } },
+  [key: string]: { key: string | Judge; name: string; languages: { [key: string]: { label: string; value: string } } };
 };
 
-export function getSubmissionLanguageHeader(languagesByJudge: LanguagesByJudge): DataViewerHeadersType<SubmissionSummaryListResponseDTO> {
+export function getSubmissionLanguageHeader(
+  languagesByJudge: LanguagesByJudge,
+): DataViewerHeadersType<SubmissionSummaryListResponseDTO> {
   return {
     head: 'language',
     index: 'languages',
-    Field: (props) => (
-      <SubmissionLanguageField {...props} languagesByJudge={languagesByJudge} />
-    ),
+    Field: (props) => <SubmissionLanguageField {...props} languagesByJudge={languagesByJudge} />,
     sort: true,
     filter: {
       type: 'select',
-      options: Object.values(languagesByJudge).map(({ name, languages }) => (
-        Object.values(languages).map(({ label, value }) => ({
-          label: Object.keys(languagesByJudge).length === 1
-            ? label
-            : (
-              <div className="jk-row">
-                {label}&nbsp;
-                <div className="jk-tag bc-hl tx-t">{name}</div>
-              </div>
-            ),
-          value,
-        }))
-      )).flat(),
+      options: Object.values(languagesByJudge)
+        .map(({ name, languages }) =>
+          Object.values(languages).map(({ label, value }) => ({
+            label:
+              Object.keys(languagesByJudge).length === 1 ? (
+                label
+              ) : (
+                <div className="jk-row">
+                  {label}&nbsp;
+                  <div className="jk-tag bc-ht-lt tx-t">{name}</div>
+                </div>
+              ),
+            value,
+          })),
+        )
+        .flat(),
     },
     cardPosition: 'bottom',
     minWidth: 180,

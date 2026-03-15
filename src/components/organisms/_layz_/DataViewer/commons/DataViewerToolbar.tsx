@@ -14,13 +14,7 @@ import { usePageStore } from '../../../../../stores/page/usePageStore';
 import { useRouterStore } from '../../../../../stores/router/useRouterStore';
 import { MultiSelect, Popover, Select } from '../../../../atoms';
 import { TableEyeIcon } from '../../../../atoms/server';
-import {
-  classNames,
-  downloadUrlAsFile,
-  getAuthorizedRequest,
-  isBrowser,
-  renderReactNodeOrFunction,
-} from '../../../../helpers';
+import { classNames, downloadUrlAsFile, getAuthorizedRequest, isBrowser, renderReactNodeOrFunction } from '../../../../helpers';
 import { useJukiNotification } from '../../../../hooks/useJukiNotification';
 import { useSessionStorage } from '../../../../hooks/useSessionStorage';
 import { Pagination } from '../../../../molecules';
@@ -38,47 +32,48 @@ import { FilterDrawer } from '../FilterDrawer';
 import type { DataViewerToolbarProps } from '../types';
 import { isSomethingFiltered, renderHead } from './utils';
 
-const buttonFilterStyles = (active: boolean) => classNames(
-  {
-    'bc-al cr-at-it': active,
-    'bc-we': !active,
-    active,
-  },
-  'jk-row jk-data-viewer-tools-filter jk-br-ie cr-pr jk-row nowrap',
-);
+const buttonFilterStyles = (active: boolean) =>
+  classNames(
+    {
+      'bc-al cr-at-it': active,
+      'bc-we': !active,
+      active,
+    },
+    'jk-row jk-data-viewer-tools-filter jk-br-ie cr-pr jk-row nowrap',
+  );
 
 interface ToolbarButtonIconProps {
-  Icon: ElementType,
-  onClick?: MouseEventHandler<HTMLDivElement>,
-  active?: boolean,
-  tooltipContent: string,
-  className?: string,
-  rotate?: number,
-  disabled?: boolean,
+  Icon: ElementType;
+  onClick?: MouseEventHandler<HTMLDivElement>;
+  active?: boolean;
+  tooltipContent: string;
+  className?: string;
+  rotate?: number;
+  disabled?: boolean;
 }
 
 const ToolbarButtonIcon = ({
-                             Icon,
-                             active,
-                             onClick,
-                             tooltipContent,
-                             className = '',
-                             children,
-                             rotate,
-                             disabled = false,
-                           }: PropsWithChildren<ToolbarButtonIconProps>) => (
+  Icon,
+  active,
+  onClick,
+  tooltipContent,
+  className = '',
+  children,
+  rotate,
+  disabled = false,
+}: PropsWithChildren<ToolbarButtonIconProps>) => (
   <div
     data-tooltip-id="jk-tooltip"
     data-tooltip-content={tooltipContent}
     className={classNames(buttonFilterStyles(!!active), className, { disabled })}
     onClick={onClick}
   >
-    <Icon className="jk-br-ie" size="small" rotate={rotate} />{children}
+    <Icon className="jk-br-ie" size="small" rotate={rotate} />
+    {children}
   </div>
 );
 
-const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
-  
+const DataViewerToolbarCmp = <T,>(props: DataViewerToolbarProps<T>) => {
   const {
     extraNodes,
     setViewMode,
@@ -102,37 +97,43 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
     requestProps,
     // withVerticalScroll,
   } = props;
-  
+
   const { filtered, values } = isSomethingFiltered(headers);
-  const [ downloading, setDownloading ] = useState(false);
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
+  const [downloading, setDownloading] = useState(false);
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
   const { notifyResponse } = useJukiNotification();
-  
-  const searchParams = useRouterStore(state => state.searchParams);
-  
+
+  const searchParams = useRouterStore((state) => state.searchParams);
+
   const setLoaderRef = useRef<SetLoaderStatusOnClickType>(undefined);
-  
-  const [ showFilterDrawer, _setShowFilterDrawer ] = useSessionStorage(showFilterDrawerKey, searchParams.get(showFilterDrawerKey) === 'open' ? 'open' : 'close');
-  const setShowFilterDrawer = useCallback((show: boolean) => {
-    // setSearchParams({ name: showFilterDrawerKey, value: show ? 'open' : 'close' });
-    _setShowFilterDrawer(show ? 'open' : 'close');
-  }, [ _setShowFilterDrawer ]);
+
+  const [showFilterDrawer, _setShowFilterDrawer] = useSessionStorage(
+    showFilterDrawerKey,
+    searchParams.get(showFilterDrawerKey) === 'open' ? 'open' : 'close',
+  );
+  const setShowFilterDrawer = useCallback(
+    (show: boolean) => {
+      // setSearchParams({ name: showFilterDrawerKey, value: show ? 'open' : 'close' });
+      _setShowFilterDrawer(show ? 'open' : 'close');
+    },
+    [_setShowFilterDrawer],
+  );
   const viewViews = !(isSmallScreen && (!rowsView || !cardsView));
-  const viewFilterButton = !!headers.filter(head => head.filter || head.sort).length;
-  
+  const viewFilterButton = !!headers.filter((head) => head.filter || head.sort).length;
+
   useEffect(() => {
     if (loading) {
       setLoaderRef.current?.(Status.LOADING);
     } else {
       setLoaderRef.current?.(Status.NONE);
     }
-  }, [ loading ]);
-  
+  }, [loading]);
+
   const url = new URL(isBrowser() ? window.location?.href || '' : '');
   url.searchParams.set(filterKey, JSON.stringify(filters));
-  
-  const visibles = headers.filter(filter => filter.visible?.getVisible()).length;
-  
+
+  const visibles = headers.filter((filter) => filter.visible?.getVisible()).length;
+
   return (
     <div
       className={classNames(
@@ -148,13 +149,11 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
         headers={headers}
         // setHeaders={setHeaders}
         onClose={() => setShowFilterDrawer(false)}
-        onFilter={values => onAllFilters(values)}
+        onFilter={(values) => onAllFilters(values)}
         onResetFilters={() => onAllFilters({})}
       />
       {!isSmallScreen && (
-        <div className="jk-table-view-extra-nodes jk-row left gap">
-          {extraNodes.map(renderReactNodeOrFunction)}
-        </div>
+        <div className="jk-table-view-extra-nodes jk-row left gap">{extraNodes.map(renderReactNodeOrFunction)}</div>
       )}
       <div className="jk-table-view-tools jk-br-ie jk-pg-xsm-tb jk-row-col gap stretch">
         <div className="jk-row nowrap gap">
@@ -173,7 +172,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               dataLength={dataLength}
               loading={loading}
               initializing={initializing}
-              pageSizeOptions={isSmallScreen ? [ 20 ] : pagination.pageSizeOptions}
+              pageSizeOptions={isSmallScreen ? [20] : pagination.pageSizeOptions}
               total={pagination.total}
               page={pagination.page}
               pageSize={pagination.pageSize}
@@ -196,9 +195,9 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               {!!Object.values(values).length && (
                 <>
                   &nbsp;
-                  <span className="bc-hl jk-br-ie" style={{ lineHeight: 1, padding: '0 4px' }}>
-                      {Object.values(values).length}
-                    </span>
+                  <span className="bc-ht-lt jk-br-ie" style={{ lineHeight: 1, padding: '0 4px' }}>
+                    {Object.values(values).length}
+                  </span>
                   &nbsp;
                 </>
               )}
@@ -209,12 +208,10 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               options={downloads}
               onChange={async ({ value }) => {
                 setDownloading(true);
-                const downloadItem = downloads.find(download => value === download.value);
+                const downloadItem = downloads.find((download) => value === download.value);
                 const url = downloadItem?.getUrl(requestProps) ?? '';
                 const filename = downloadItem?.getFilename(requestProps) ?? '';
-                const result = cleanRequest<ContentResponse<{ urlExportedFile: string }>>(
-                  await getAuthorizedRequest(url),
-                );
+                const result = cleanRequest<ContentResponse<{ urlExportedFile: string }>>(await getAuthorizedRequest(url));
                 if (result.success) {
                   await downloadUrlAsFile(result.content.urlExportedFile, filename);
                   notifyResponse(result);
@@ -228,9 +225,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
                 Icon={downloading ? SpinIcon : DownloadIcon}
                 tooltipContent={downloading ? 'downloading' : 'download'}
                 className="jk-input-select"
-                onClick={downloading
-                  ? ((event) => event.stopPropagation())
-                  : undefined}
+                onClick={downloading ? (event) => event.stopPropagation() : undefined}
               />
             </Select>
           )}
@@ -242,7 +237,7 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
             selectedOptions={headers.filter(({ visible }) => visible?.getVisible?.()).map(({ index }) => ({ value: index }))}
             containerWidth="child"
             onChange={(_, lastOptionChanged) => {
-              const header = headers.find(head => head.index === lastOptionChanged?.value);
+              const header = headers.find((head) => head.index === lastOptionChanged?.value);
               header?.visible.onToggle();
             }}
           >
@@ -254,9 +249,9 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
             >
               <>
                 &nbsp;
-                <span className="bc-hl jk-br-ie ws-np" style={{ lineHeight: 1, padding: '0 4px' }}>
-                      {visibles} / {headers.length}
-                    </span>
+                <span className="bc-ht-lt jk-br-ie ws-np" style={{ lineHeight: 1, padding: '0 4px' }}>
+                  {visibles} / {headers.length}
+                </span>
                 &nbsp;
               </>
             </ToolbarButtonIcon>
@@ -310,16 +305,14 @@ const DataViewerToolbarCmp = <T, >(props: DataViewerToolbarProps<T>) => {
               <div>
                 <Popover
                   popoverClassName="bc-we jk-br-ie elevation-1"
-                  content={
-                    <div className="jk-pg-sm jk-col stretch gap">
-                      {extraNodes.map(renderReactNodeOrFunction)}
-                    </div>
-                  }
+                  content={<div className="jk-pg-sm jk-col stretch gap">{extraNodes.map(renderReactNodeOrFunction)}</div>}
                   triggerOn={TriggerAction.CLICK}
                   placement="bottom"
                   // showPopperArrow
                 >
-                  <div className="jk-row"><MenuIcon /></div>
+                  <div className="jk-row">
+                    <MenuIcon />
+                  </div>
                 </Popover>
               </div>
             </>

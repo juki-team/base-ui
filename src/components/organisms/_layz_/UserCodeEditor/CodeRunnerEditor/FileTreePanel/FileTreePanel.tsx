@@ -34,7 +34,7 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
       >
         <div className="jk-col gap">
           <T className="tt-se">are you sure you want to delete the file?</T>
-          <div className="jk-tag bc-hl">{fileNameDelete}</div>
+          <div className="jk-tag bc-ht-lt">{fileNameDelete}</div>
           <T className="tt-se">{"it can't be undone"}</T>
         </div>
       </TwoActionModal>
@@ -60,7 +60,7 @@ export const FileTreePanel = <T,>(props: FileTreePanelProps<T>) => {
       </Modal>
       <div className="jk-col top stretch nowrap" style={{ borderRight: '1px solid var(--cr-ht-lt)' }} ref={fileTreePanelRef}>
         <div
-          className="jk-row fw-bd jk-pg-xsm-tb bc-hl left hoverable"
+          className="jk-row fw-bd jk-pg-xsm-tb bc-ht-lt left hoverable"
           onClick={() => setViewFiles(!viewFiles)}
           style={{ paddingLeft: 4 }}
         >

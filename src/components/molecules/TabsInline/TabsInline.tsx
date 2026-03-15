@@ -10,29 +10,26 @@ import type { NotUndefined, TabType } from '../../types';
 import type { TabsInlineProps } from '../Tabs/types';
 
 type TabWithLinkProps<T> = PropsWithChildren<{
-  tabKey: T | undefined,
-  getHrefOnTabChange: TabsInlineProps<T>['getHrefOnTabChange'],
-  routerReplace: TabsInlineProps<T>['routerReplace']
-}>
+  tabKey: T | undefined;
+  getHrefOnTabChange: TabsInlineProps<T>['getHrefOnTabChange'];
+  routerReplace: TabsInlineProps<T>['routerReplace'];
+}>;
 
-const TabWithLink = <T, >({ tabKey, children, getHrefOnTabChange, routerReplace }: TabWithLinkProps<T>) => {
-  const { Link } = useUIStore(store => store.components);
-  return getHrefOnTabChange && !routerReplace && tabKey
-    ? <Link href={getHrefOnTabChange(tabKey)}>{children}</Link>
-    : children;
+const TabWithLink = <T,>({ tabKey, children, getHrefOnTabChange, routerReplace }: TabWithLinkProps<T>) => {
+  const { Link } = useUIStore((store) => store.components);
+  return getHrefOnTabChange && !routerReplace && tabKey ? <Link href={getHrefOnTabChange(tabKey)}>{children}</Link> : children;
 };
 
 interface HeaderTabProps<T> {
-  tab: TabType<T>,
-  selectedTabKey: T,
-  tickStyle: TabsInlineProps<T>['tickStyle'],
-  getHrefOnTabChange: TabsInlineProps<T>['getHrefOnTabChange'],
-  routerReplace: TabsInlineProps<T>['routerReplace'],
-  setSelectedTabKey: (key: T | undefined, force: boolean) => void,
+  tab: TabType<T>;
+  selectedTabKey: T;
+  tickStyle: TabsInlineProps<T>['tickStyle'];
+  getHrefOnTabChange: TabsInlineProps<T>['getHrefOnTabChange'];
+  routerReplace: TabsInlineProps<T>['routerReplace'];
+  setSelectedTabKey: (key: T | undefined, force: boolean) => void;
 }
 
-const HeaderTab = <T = string, >(props: HeaderTabProps<T>) => {
-  
+const HeaderTab = <T = string,>(props: HeaderTabProps<T>) => {
   const {
     tab: { key, header },
     selectedTabKey,
@@ -41,7 +38,7 @@ const HeaderTab = <T = string, >(props: HeaderTabProps<T>) => {
     routerReplace,
     setSelectedTabKey,
   } = props;
-  
+
   return (
     <TabWithLink
       tabKey={key === selectedTabKey ? undefined : key}
@@ -50,10 +47,10 @@ const HeaderTab = <T = string, >(props: HeaderTabProps<T>) => {
     >
       <div
         key={key as string}
-        onClick={(key === selectedTabKey) ? undefined : () => setSelectedTabKey(key, false)}
+        onClick={key === selectedTabKey ? undefined : () => setSelectedTabKey(key, false)}
         className={classNames(`jk-tabs-inline-tab jk-row nowrap jk-tabs-inline-tab-${key}`, {
-          'selected': key === selectedTabKey, // no used bold to prevent changes on the width
-          
+          selected: key === selectedTabKey, // no used bold to prevent changes on the width
+
           'cr-tx-ht-it': key === selectedTabKey && tickStyle === 'background',
         })}
       >
@@ -61,7 +58,7 @@ const HeaderTab = <T = string, >(props: HeaderTabProps<T>) => {
           <div
             className={classNames('tab-tick-background jk-br-ie', {
               'opacity-1230 bc-al cr-at-it selected': key === selectedTabKey,
-              'bc-hl': key !== selectedTabKey,
+              'bc-ht-lt': key !== selectedTabKey,
             })}
           >
             {renderReactNodeOrFunctionP1(header, { selectedTabKey: selectedTabKey })}
@@ -74,8 +71,7 @@ const HeaderTab = <T = string, >(props: HeaderTabProps<T>) => {
   );
 };
 
-export function TabsInline<T, >(props: TabsInlineProps<T>) {
-  
+export function TabsInline<T>(props: TabsInlineProps<T>) {
   const {
     tabs,
     selectedTabKey: _selectedTabKey,
@@ -88,15 +84,19 @@ export function TabsInline<T, >(props: TabsInlineProps<T>) {
     routerReplace,
     withBody,
   } = props;
-  
+
   const tabsArray = Object.values(tabs);
-  const [ selectedTabKey, _setSelectedTabKey ] = useHandleState<T>((tabsArray[0]?.key || '') as NotUndefined<T>, _selectedTabKey as NotUndefined<T> | undefined, onChange);
+  const [selectedTabKey, _setSelectedTabKey] = useHandleState<T>(
+    (tabsArray[0]?.key || '') as NotUndefined<T>,
+    _selectedTabKey as NotUndefined<T> | undefined,
+    onChange,
+  );
   const tabsLength = tabsArray.length;
   const selectedTabIndex = tabsArray.findIndex(({ key }) => key === selectedTabKey);
-  
-  const replaceRoute = useRouterStore(store => store.replaceRoute);
-  const isSmallScreen = usePageStore(store => store.viewPort.isSmallScreen);
-  
+
+  const replaceRoute = useRouterStore((store) => store.replaceRoute);
+  const isSmallScreen = usePageStore((store) => store.viewPort.isSmallScreen);
+
   const setSelectedTabKey = (key: T | undefined, force = false) => {
     if (key) {
       if (getHrefOnTabChange) {
@@ -109,17 +109,23 @@ export function TabsInline<T, >(props: TabsInlineProps<T>) {
       }
     }
   };
-  
-  const displayedTabs = isSmallScreen ? (tabsArray[selectedTabIndex] ? [ tabsArray[selectedTabIndex] ] : []) : tabsArray;
-  
+
+  const displayedTabs = isSmallScreen ? (tabsArray[selectedTabIndex] ? [tabsArray[selectedTabIndex]] : []) : tabsArray;
+
   return (
     <>
-      <div className={classNames(`jk-row gap space-between nowrap jk-tabs-inline extend tick-style-${tickStyle}`, className, { 'one-tab-view': isSmallScreen })}>
+      <div
+        className={classNames(`jk-row gap space-between nowrap jk-tabs-inline extend tick-style-${tickStyle}`, className, {
+          'one-tab-view': isSmallScreen,
+        })}
+      >
         {extraNodesPlacement === 'left' && !!extraNodes?.length && (
           <div className="jk-row gap nowrap">
-            {Children.toArray(extraNodes?.map((action, index) => (
-              renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index)
-            )))}
+            {Children.toArray(
+              extraNodes?.map((action, index) =>
+                renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index),
+              ),
+            )}
           </div>
         )}
         <div className="jk-row left extend nowrap">
@@ -129,14 +135,11 @@ export function TabsInline<T, >(props: TabsInlineProps<T>) {
               getHrefOnTabChange={getHrefOnTabChange}
               routerReplace={routerReplace}
             >
-              <div
-                className="jk-row jk-pg-xsm"
-                onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex - 1]?.key)}
-              >
+              <div className="jk-row jk-pg-xsm" onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex - 1]?.key)}>
                 <NavigateBeforeIcon
                   className={classNames('br-50-pc bc-al cr-at-it elevation-1', {
-                    'activated': (selectedTabIndex - 1 >= 0),
-                    'disabled': !(selectedTabIndex - 1 >= 0),
+                    activated: selectedTabIndex - 1 >= 0,
+                    disabled: !(selectedTabIndex - 1 >= 0),
                   })}
                   size="small"
                 />
@@ -171,23 +174,25 @@ export function TabsInline<T, >(props: TabsInlineProps<T>) {
               }))}
               className="jk-select-void flex-1 jk-row"
               expand
-              selectedOption={tabsArray[selectedTabIndex]
-                ? { value: tabsArray[selectedTabIndex].key }
-                : { value: undefined as T }}
+              selectedOption={
+                tabsArray[selectedTabIndex] ? { value: tabsArray[selectedTabIndex].key } : { value: undefined as T }
+              }
               onChange={({ value }) => setSelectedTabKey(value, true)}
             />
           ) : (
             <div className="jk-row gap left stretch jk-tabs-headers-inline">
-              {Children.toArray(displayedTabs.map(tab => (
-                <HeaderTab
-                  tab={tab}
-                  selectedTabKey={selectedTabKey}
-                  tickStyle={tickStyle}
-                  getHrefOnTabChange={getHrefOnTabChange}
-                  routerReplace={routerReplace}
-                  setSelectedTabKey={setSelectedTabKey}
-                />
-              )))}
+              {Children.toArray(
+                displayedTabs.map((tab) => (
+                  <HeaderTab
+                    tab={tab}
+                    selectedTabKey={selectedTabKey}
+                    tickStyle={tickStyle}
+                    getHrefOnTabChange={getHrefOnTabChange}
+                    routerReplace={routerReplace}
+                    setSelectedTabKey={setSelectedTabKey}
+                  />
+                )),
+              )}
             </div>
           )}
           {isSmallScreen && (
@@ -196,14 +201,11 @@ export function TabsInline<T, >(props: TabsInlineProps<T>) {
               getHrefOnTabChange={getHrefOnTabChange}
               routerReplace={routerReplace}
             >
-              <div
-                className="jk-row jk-pg-xsm"
-                onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex + 1]?.key)}
-              >
+              <div className="jk-row jk-pg-xsm" onClick={() => setSelectedTabKey(tabsArray[selectedTabIndex + 1]?.key)}>
                 <NavigateNextIcon
                   className={classNames('br-50-pc bc-al cr-at-it elevation-1', {
-                    'activated': (selectedTabIndex + 1 < tabsLength),
-                    'disabled': !(selectedTabIndex + 1 < tabsLength),
+                    activated: selectedTabIndex + 1 < tabsLength,
+                    disabled: !(selectedTabIndex + 1 < tabsLength),
                   })}
                   size="small"
                 />
@@ -213,26 +215,33 @@ export function TabsInline<T, >(props: TabsInlineProps<T>) {
         </div>
         {extraNodesPlacement === 'right' && !!extraNodes?.length && (
           <div className="jk-row gap nowrap">
-            {Children.toArray(extraNodes?.map((action, index) => (
-              renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index)
-            )))}
+            {Children.toArray(
+              extraNodes?.map((action, index) =>
+                renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index),
+              ),
+            )}
           </div>
         )}
-        {(extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter') && !!extraNodes?.length && (
-          <div
-            className="jk-col gap nowrap"
-            style={{
-              position: 'absolute',
-              bottom: 'calc(var(--bottom-horizontal-menu-height, 0) + var(--pad-t))',
-              right: (extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomCenter') ? 'var(--pad-t)' : '',
-              left: (extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter') ? 'var(--pad-t)' : '',
-            }}
-          >
-            {Children.toArray(extraNodes?.map((action, index) => (
-              renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index)
-            )))}
-          </div>
-        )}
+        {(extraNodesPlacement === 'bottomRight' ||
+          extraNodesPlacement === 'bottomLeft' ||
+          extraNodesPlacement === 'bottomCenter') &&
+          !!extraNodes?.length && (
+            <div
+              className="jk-col gap nowrap"
+              style={{
+                position: 'absolute',
+                bottom: 'calc(var(--bottom-horizontal-menu-height, 0) + var(--pad-t))',
+                right: extraNodesPlacement === 'bottomRight' || extraNodesPlacement === 'bottomCenter' ? 'var(--pad-t)' : '',
+                left: extraNodesPlacement === 'bottomLeft' || extraNodesPlacement === 'bottomCenter' ? 'var(--pad-t)' : '',
+              }}
+            >
+              {Children.toArray(
+                extraNodes?.map((action, index) =>
+                  renderReactNodeOrFunctionP1(action, { selectedTabKey: selectedTabKey }, index),
+                ),
+              )}
+            </div>
+          )}
       </div>
       {withBody && renderReactNodeOrFunctionP1(tabs[selectedTabKey as string]?.body, { selectedTabKey })}
     </>

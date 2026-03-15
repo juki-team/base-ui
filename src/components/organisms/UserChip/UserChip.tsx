@@ -5,12 +5,11 @@ import { UserNicknameLink } from '../UserNicknameLink/UserNicknameLink';
 import { UserChipProps, UserMockChipProps } from './types';
 
 export function UserMockChip(props: UserMockChipProps) {
-  
   const { className } = props;
-  
+
   const nickname = 'nickname';
   const onlyNickname = true;
-  
+
   return (
     <div className={classNames('jk-row nowrap center fr-4', className)}>
       <div
@@ -29,14 +28,13 @@ export function UserMockChip(props: UserMockChipProps) {
 }
 
 export function UserChip(props: UserChipProps) {
-  
   const { imageUrl, email, familyName, nickname, givenName, className, companyKey, withoutLink } = props;
-  
-  const { Image } = useUIStore(store => store.components);
-  const userCompanyKey = useUserStore(store => store.company.key);
-  
+
+  const { Image } = useUIStore((store) => store.components);
+  const userCompanyKey = useUserStore((store) => store.company.key);
+
   const onlyNickname = !givenName && !familyName && !email;
-  
+
   const image = (
     <Image
       src={imageUrl}
@@ -46,16 +44,16 @@ export function UserChip(props: UserChipProps) {
       width={onlyNickname ? 24 : 50}
     />
   );
-  
+
   return (
     <div className={classNames('jk-row nowrap center', className)}>
-      {withoutLink
-        ? image
-        : (
-          <UserNicknameLink nickname={nickname} companyKey={companyKey}>
-            {image}
-          </UserNicknameLink>
-        )}
+      {withoutLink ? (
+        image
+      ) : (
+        <UserNicknameLink nickname={nickname} companyKey={companyKey}>
+          {image}
+        </UserNicknameLink>
+      )}
       &nbsp;
       <div className="jk-col flex-1">
         {withoutLink ? (
@@ -65,10 +63,16 @@ export function UserChip(props: UserChipProps) {
             <div className="link fw-bd ">{nickname}</div>
           </UserNicknameLink>
         )}
-        {(!!givenName || !!familyName) && <div className="fw-lr ta-cr">{givenName} {familyName}</div>}
+        {(!!givenName || !!familyName) && (
+          <div className="fw-lr ta-cr">
+            {givenName} {familyName}
+          </div>
+        )}
         {!!email && <div className="fw-lr">{email}</div>}
         {userCompanyKey !== companyKey && (
-          <div className="jk-tag bc-hl tx-t" style={{ padding: '1px 2px' }}>{companyKey}</div>
+          <div className="jk-tag bc-ht-lt tx-t" style={{ padding: '1px 2px' }}>
+            {companyKey}
+          </div>
         )}
       </div>
     </div>

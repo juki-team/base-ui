@@ -101,7 +101,7 @@ export const CodeEditorSheetSectionView = (props: RunnerSheetSectionProps) => {
               );
             }
             buttons.push(
-              <div className="jk-row bc-hl jk-br-ie" key="buttons">
+              <div className="jk-row bc-ht-lt jk-br-ie" key="buttons">
                 <div
                   className={classNames('clickable br-50-pc jk-row', { 'cr-ht': totalSubmissions === 0 })}
                   onClick={

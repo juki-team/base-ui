@@ -1,5 +1,5 @@
 // https://medium.com/@MatDrinksTea/rendering-markdown-and-latex-in-react-dec355e74119
-import { CODE_LANGUAGE, CodeLanguage, type  ContentResponse, type UserBasicResponseDTO } from '@juki-team/commons';
+import { CODE_LANGUAGE, CodeLanguage, type ContentResponse, type UserBasicResponseDTO } from '@juki-team/commons';
 import { type Element } from 'hast';
 // import 'katex/dist/katex.min.css'; // `rehype-katex` does not import the CSS for you
 import { Children, ComponentType, type CSSProperties, memo, type ReactNode, useMemo } from 'react';
@@ -81,54 +81,53 @@ import { getCommands, hxRender, imgAlignStyle, textAlignStyle } from './utils';
 //   },
 // };
 
-type hxProps = { children: ReactNode & ReactNode[], node: Element };
+type hxProps = { children: ReactNode & ReactNode[]; node: Element };
 
-const hx = (setSearchParams: SetSearchParamsType, noHLinks: boolean) => ({ children, node }: hxProps) => {
-  
-  const newChildren = Array.isArray(children) ? [ ...children ] : [ children ];
-  if (typeof newChildren[0] === 'string') {
-    const [ commands, newText ] = getCommands(newChildren[0]);
-    newChildren[0] = newText;
-    if (commands.textAlign) {
-      return hxRender(node, newText, textAlignStyle[commands.textAlign] ?? {}, setSearchParams, noHLinks);
+const hx =
+  (setSearchParams: SetSearchParamsType, noHLinks: boolean) =>
+  ({ children, node }: hxProps) => {
+    const newChildren = Array.isArray(children) ? [...children] : [children];
+    if (typeof newChildren[0] === 'string') {
+      const [commands, newText] = getCommands(newChildren[0]);
+      newChildren[0] = newText;
+      if (commands.textAlign) {
+        return hxRender(node, newText, textAlignStyle[commands.textAlign] ?? {}, setSearchParams, noHLinks);
+      }
     }
-  }
-  
-  return hxRender(node, children, {}, setSearchParams, noHLinks);
-};
+
+    return hxRender(node, children, {}, setSearchParams, noHLinks);
+  };
 
 function UserInlineChip({ nickname }: { nickname: string }) {
-  
-  const companyKey = useUserStore(store => store.company.key);
-  const {
-    isLoading,
-    data,
-  } = useFetcher<ContentResponse<UserBasicResponseDTO>>(jukiApiManager.API_V2.user.getSummary({
-    params: {
-      nickname,
-      companyKey,
-    },
-  }).url);
-  
+  const companyKey = useUserStore((store) => store.company.key);
+  const { isLoading, data } = useFetcher<ContentResponse<UserBasicResponseDTO>>(
+    jukiApiManager.API_V2.user.getSummary({
+      params: {
+        nickname,
+        companyKey,
+      },
+    }).url,
+  );
+
   if (isLoading) {
     return <SpinIcon size="tiny" />;
   }
-  
+
   if (!data?.success) {
     return <ErrorIcon />;
   }
-  
+
   return (
     <UserChip
       nickname={nickname}
       companyKey={companyKey}
       imageUrl={data.content.imageUrl}
-      className="jk-tag bc-hl dy-if- va-tp nowrap"
+      className="jk-tag bc-ht-lt dy-if- va-tp nowrap"
     />
   );
 }
 
-function CustomField({ commands }: { commands: CommandsObjectType, restText: string }) {
+function CustomField({ commands }: { commands: CommandsObjectType; restText: string }) {
   if (commands.jkUserNickname) {
     return <UserInlineChip nickname={commands.jkUserNickname} />;
   }
@@ -136,240 +135,233 @@ function CustomField({ commands }: { commands: CommandsObjectType, restText: str
 }
 
 function MdMathComponent(props: MdMathProps) {
-  
-  const {
-    source,
-    blur: _blur,
-    unBlur,
-    flatView = false,
-    detectRequestAnimationFrame,
-    className,
-  } = props;
-  
-  const { Link } = useUIStore(store => store.components);
-  const setSearchParams = useRouterStore(state => state.setSearchParams);
+  const { source, blur: _blur, unBlur, flatView = false, detectRequestAnimationFrame, className } = props;
+
+  const { Link } = useUIStore((store) => store.components);
+  const setSearchParams = useRouterStore((state) => state.setSearchParams);
   // const [ rehypePlugins, setRehypePlugins ] = useState<any[]>([]);
   // const [ remarkPlugins, setRemarkPlugins ] = useState<any[]>([]);
   // useEffect(() => {
   //   setRehypePlugins([ require('rehype-katex').default ]);
   //   setRemarkPlugins([ require('remark-math').default, require('remark-gfm').default ]);
   // }, []);
-  
-  const mdProps = useMemo((): ReactMarkdownOptions => ({
-    remarkPlugins: [ RemarkMathPlugin, RemarkGfmPlugin ],
-    // Important order:
-    // - rehype-raw: parse raw HTML in markdown into the AST
-    // - rehype-katex: render math into HTML/MathML
-    // - rehype-sanitize: sanitize the final tree (with KaTeX-safe schema)
-    rehypePlugins: [ rehypeRaw, rehypeKatex ],
-    components: {
-      img({ alt = '', src, title }) {
-        let style: CSSProperties = {};
-        const [ commands, newAlt ] = getCommands(alt);
-        if (commands.imgAlign) {
-          style = {
-            ...style,
-            ...imgAlignStyle[commands.imgAlign],
-          };
-        }
-        if (commands.size) {
-          style.width = commands.size.width + 'px';
-          style.height = commands.size.height + 'px';
-        }
-        return <img alt={newAlt} src={src} style={style} title={title} />;
-      },
-      h1: hx(setSearchParams, flatView) as ComponentType,
-      h2: hx(setSearchParams, flatView) as ComponentType,
-      h3: hx(setSearchParams, flatView) as ComponentType,
-      h4: hx(setSearchParams, flatView) as ComponentType,
-      h5: hx(setSearchParams, flatView) as ComponentType,
-      h6: hx(setSearchParams, flatView) as ComponentType,
-      p({ children = null, node }) {
-        const newChildren = Array.isArray(children) ? [ ...children ] : [ children ];
-        const isRoot = node?.position?.start?.column === 111111;
-        if (typeof newChildren[0] === 'string') {
-          const [ commands, newText ] = getCommands(newChildren[0]);
-          let style: CSSProperties = {
-            textAlign: 'justify',
-          };
-          if (commands.textAlign) {
+
+  const mdProps = useMemo(
+    (): ReactMarkdownOptions => ({
+      remarkPlugins: [RemarkMathPlugin, RemarkGfmPlugin],
+      // Important order:
+      // - rehype-raw: parse raw HTML in markdown into the AST
+      // - rehype-katex: render math into HTML/MathML
+      // - rehype-sanitize: sanitize the final tree (with KaTeX-safe schema)
+      rehypePlugins: [rehypeRaw, rehypeKatex],
+      components: {
+        img({ alt = '', src, title }) {
+          let style: CSSProperties = {};
+          const [commands, newAlt] = getCommands(alt);
+          if (commands.imgAlign) {
             style = {
               ...style,
-              ...textAlignStyle[commands.textAlign],
+              ...imgAlignStyle[commands.imgAlign],
             };
           }
-          newChildren[0] = newText;
-          return <p className={classNames({ 'fragment': isRoot })} style={style}>{Children.toArray(newChildren)}</p>;
-        }
-        return <p className={classNames({ 'fragment': isRoot })}>{children as ReactNode}</p>;
-      },
-      a({ children, href = '' }) {
-        const firstChildrenString = typeof children === 'string'
-          ? children
-          : Array.isArray(children) ? (typeof children[0] === 'string' ? children[0] : null) : null;
-        
-        if (typeof firstChildrenString === 'string') {
-          const [ commands, restText ] = getCommands(firstChildrenString);
-          if (href === '@') {
-            return <CustomField commands={commands} restText={restText} />;
+          if (commands.size) {
+            style.width = commands.size.width + 'px';
+            style.height = commands.size.height + 'px';
           }
-          const style = { outline: '2px solid var(--cr-gy-6)', border: 'none', height: '100%' };
-          if (commands.height) {
-            style.height = Number.isNaN(+commands.height) ? commands.height : (commands.height + 'px');
-          }
-          
-          if (commands.preview === 'pdf') {
+          return <img alt={newAlt} src={src} style={style} title={title} />;
+        },
+        h1: hx(setSearchParams, flatView) as ComponentType,
+        h2: hx(setSearchParams, flatView) as ComponentType,
+        h3: hx(setSearchParams, flatView) as ComponentType,
+        h4: hx(setSearchParams, flatView) as ComponentType,
+        h5: hx(setSearchParams, flatView) as ComponentType,
+        h6: hx(setSearchParams, flatView) as ComponentType,
+        p({ children = null, node }) {
+          const newChildren = Array.isArray(children) ? [...children] : [children];
+          const isRoot = node?.position?.start?.column === 111111;
+          if (typeof newChildren[0] === 'string') {
+            const [commands, newText] = getCommands(newChildren[0]);
+            let style: CSSProperties = {
+              textAlign: 'justify',
+            };
+            if (commands.textAlign) {
+              style = {
+                ...style,
+                ...textAlignStyle[commands.textAlign],
+              };
+            }
+            newChildren[0] = newText;
             return (
-              <object data={href} type="application/pdf" width="100%" height="100%" style={style}>
-                <Link
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="jk-md-math-link"
-                >
-                  {restText}&nbsp;<OpenInNewIcon />
-                </Link>
-              </object>
+              <p className={classNames({ fragment: isRoot })} style={style}>
+                {Children.toArray(newChildren)}
+              </p>
             );
           }
-          
-          if (commands.preview === 'html') {
-            return <iframe src={href} style={{ width: '100%', ...style }} title="preview-html-document" />;
-          }
-          
-          if (href?.startsWith('#')) {
-            const id = encodeURI(href.replace('#', ''));
-            return (
-              <div
-                className="jk-md-math-link-container jk-row left cr-pr"
-                id={id}
-                onClick={() => setSearchParams({ name: QueryParamKey.PAGE_FOCUS, value: id })}
-              >
-                <div className="jk-md-math-link">
-                  {children as ReactNode}
+          return <p className={classNames({ fragment: isRoot })}>{children as ReactNode}</p>;
+        },
+        a({ children, href = '' }) {
+          const firstChildrenString =
+            typeof children === 'string'
+              ? children
+              : Array.isArray(children)
+                ? typeof children[0] === 'string'
+                  ? children[0]
+                  : null
+                : null;
+
+          if (typeof firstChildrenString === 'string') {
+            const [commands, restText] = getCommands(firstChildrenString);
+            if (href === '@') {
+              return <CustomField commands={commands} restText={restText} />;
+            }
+            const style = { outline: '2px solid var(--cr-gy-6)', border: 'none', height: '100%' };
+            if (commands.height) {
+              style.height = Number.isNaN(+commands.height) ? commands.height : commands.height + 'px';
+            }
+
+            if (commands.preview === 'pdf') {
+              return (
+                <object data={href} type="application/pdf" width="100%" height="100%" style={style}>
+                  <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
+                    {restText}&nbsp;
+                    <OpenInNewIcon />
+                  </Link>
+                </object>
+              );
+            }
+
+            if (commands.preview === 'html') {
+              return <iframe src={href} style={{ width: '100%', ...style }} title="preview-html-document" />;
+            }
+
+            if (href?.startsWith('#')) {
+              const id = encodeURI(href.replace('#', ''));
+              return (
+                <div
+                  className="jk-md-math-link-container jk-row left cr-pr"
+                  id={id}
+                  onClick={() => setSearchParams({ name: QueryParamKey.PAGE_FOCUS, value: id })}
+                >
+                  <div className="jk-md-math-link">{children as ReactNode}</div>
                 </div>
+              );
+            }
+
+            return (
+              <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link with-icon">
+                <>
+                  {children as ReactNode}&nbsp;
+                  <OpenInNewIcon />
+                </>
+              </Link>
+            );
+          }
+
+          return (
+            <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
+              {children as ReactNode}
+            </Link>
+          );
+        },
+        // input(...props) {
+        //   return <pre>holiwi input</pre>;
+        // },
+        script: () => null,
+        code: ({ children, className = '', node }) => {
+          const isRoot = node?.position?.start?.column === 11111;
+          const inline = !children?.toString().includes('\n');
+          if (inline) {
+            return (
+              <code className={classNames('inline-code cr-tx-ht bc-ht-lt jk-br-ie', { fragment: isRoot })}>
+                {children as ReactNode}
+              </code>
+            );
+          }
+
+          let text = (className as string).replace('language-', '');
+          for (const a of Object.keys(CodeLanguage)) {
+            if (text.startsWith(a)) {
+              text = `\\lang=${text}`;
+              break;
+            }
+          }
+          const [commands, newClassName] = getCommands(text);
+          const [language, flag] = (commands.lang || commands.rest || newClassName || CodeLanguage.TEXT).split('/') as [
+            CodeLanguage,
+            CodeRenderMode,
+          ];
+
+          if (typeof children === 'string') {
+            if (language === CodeLanguage.DOT && flag === CodeRenderMode.IMAGE) {
+              return (
+                <GraphvizViewers dot={children} className={classNames({ fragment: isRoot })} viewSourceButton={!flatView} />
+              );
+            }
+
+            if (flag === CodeRenderMode.EDITOR) {
+              const storeKey = language + JSON.stringify(node?.position ?? '-');
+              const fileName = `source.${CODE_LANGUAGE[language]?.fileExtension?.[0] || 'txt'}`;
+              return (
+                <UserCodeEditor
+                  storeKey={storeKey}
+                  key={storeKey}
+                  languages={[{ value: language, label: CODE_LANGUAGE[language]?.label ?? language }]}
+                  initialFiles={{
+                    [fileName]: {
+                      source: children,
+                      language: language,
+                      index: 0,
+                      name: fileName,
+                      hidden: false,
+                      readonly: false,
+                      protected: false,
+                    },
+                  }}
+                />
+              );
+            }
+
+            return (
+              <div className="jk-pg-sm bc-we-lt jk-br-ie">
+                <CodeViewer
+                  className={classNames({ fragment: isRoot })}
+                  code={children}
+                  language={language}
+                  lineNumbers={commands.lineNumbers}
+                  height={Number.isNaN(+(commands.height || '_')) ? commands.height : commands.height + 'px'}
+                />
               </div>
             );
           }
-          
+
+          return null;
+        },
+        table: ({ children }) => {
           return (
-            <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link with-icon">
-              <>{children as ReactNode}&nbsp;<OpenInNewIcon /></>
-            </Link>
-          );
-        }
-        
-        return (
-          <Link href={href} target="_blank" rel="noreferrer" className="jk-md-math-link">
-            {children as ReactNode}
-          </Link>
-        );
-      },
-      // input(...props) {
-      //   return <pre>holiwi input</pre>;
-      // },
-      script: () => null,
-      code: ({ children, className = '', node }) => {
-        const isRoot = node?.position?.start?.column === 11111;
-        const inline = !children?.toString().includes('\n');
-        if (inline) {
-          return <code className={classNames('inline-code cr-tx-ht bc-hl jk-br-ie', { 'fragment': isRoot })}>{children as ReactNode}</code>;
-        }
-        
-        let text = (className as string).replace('language-', '');
-        for (const a of Object.keys(CodeLanguage)) {
-          if (text.startsWith(a)) {
-            text = `\\lang=${text}`;
-            break;
-          }
-        }
-        const [ commands, newClassName ] = getCommands(text);
-        const [ language, flag ] = ((commands.lang
-          || commands.rest
-          || newClassName
-          || CodeLanguage.TEXT)).split('/') as [ CodeLanguage, CodeRenderMode ];
-        
-        if (typeof children === 'string') {
-          if (language === CodeLanguage.DOT && flag === CodeRenderMode.IMAGE) {
-            return (
-              <GraphvizViewers
-                dot={children}
-                className={classNames({ 'fragment': isRoot })}
-                viewSourceButton={!flatView}
-              />
-            );
-          }
-          
-          if (flag === CodeRenderMode.EDITOR) {
-            const storeKey = language + JSON.stringify(node?.position ?? '-');
-            const fileName = `source.${CODE_LANGUAGE[language]?.fileExtension?.[0] || 'txt'}`;
-            return (
-              <UserCodeEditor
-                storeKey={storeKey}
-                key={storeKey}
-                languages={[ { value: language, label: CODE_LANGUAGE[language]?.label ?? language } ]}
-                initialFiles={{
-                  [fileName]: {
-                    source: children,
-                    language: language,
-                    index: 0,
-                    name: fileName,
-                    hidden: false,
-                    readonly: false,
-                    protected: false,
-                  },
-                }}
-              />
-            );
-          }
-          
-          return (
-            <div className="jk-pg-sm bc-we-lt jk-br-ie">
-              <CodeViewer
-                className={classNames({ 'fragment': isRoot })}
-                code={children}
-                language={language}
-                lineNumbers={commands.lineNumbers}
-                height={Number.isNaN(+(commands.height || '_')) ? commands.height : commands.height + 'px'}
-              />
+            <div style={{ overflowX: 'auto' }}>
+              <table>{children as ReactNode}</table>
             </div>
           );
-        }
-        
-        return null;
+        },
+        pre: ({ children }) => {
+          return children;
+        },
       },
-      table: ({ children }) => {
-        return (
-          <div style={{ overflowX: 'auto' }}>
-            <table>
-              {children as ReactNode}
-            </table>
-          </div>
-        );
-      },
-      pre: ({ children }) => {
-        return children;
-      },
-    },
-  }), [ Link, setSearchParams, flatView ]);
-  const [ blur, setBlur ] = useSyncedState(_blur);
-  
+    }),
+    [Link, setSearchParams, flatView],
+  );
+  const [blur, setBlur] = useSyncedState(_blur);
+
   return (
     <div className={classNames('jk-md-math pn-re', className)}>
       {detectRequestAnimationFrame && <DetectRequestAnimationFrame name="MdMath" />}
-      <ReactMarkdown {...mdProps} >
-        {source}
-      </ReactMarkdown>
+      <ReactMarkdown {...mdProps}>{source}</ReactMarkdown>
       {_blur && (unBlur ? blur : true) && (
         <div className="jk-overlay-backdrop jk-br-ie jk-overlay" style={{ position: 'absolute', zIndex: 'unset' }} />
       )}
       {_blur && unBlur && (
         <div className="pn-ae jk-pg-sm" style={{ top: 0 }}>
-          <Button
-            size="small"
-            onClick={() => setBlur(!blur)}
-            icon={blur ? <VisibilityIcon /> : <VisibilityOffIcon />}
-          />
+          <Button size="small" onClick={() => setBlur(!blur)} icon={blur ? <VisibilityIcon /> : <VisibilityOffIcon />} />
         </div>
       )}
     </div>

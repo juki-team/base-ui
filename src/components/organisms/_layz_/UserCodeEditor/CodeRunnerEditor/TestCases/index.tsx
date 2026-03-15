@@ -335,7 +335,7 @@ export const TestCases = <T,>(props: TestCasesProps<T>) => {
               data-tooltip-content={`${testCase.sample ? 'sample' : 'custom sample'} case`}
               data-tooltip-place="left"
               onClick={() => setTestCaseKey(testCase.key)}
-              className={classNames('jk-row hoverable jk-pg-xsm space-between', { 'bc-hl': testCase.key === testCaseKey })}
+              className={classNames('jk-row hoverable jk-pg-xsm space-between', { 'bc-ht-lt': testCase.key === testCaseKey })}
               style={{ minWidth: 80 }}
             >
               <div className="jk-row left">

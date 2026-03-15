@@ -9,7 +9,6 @@ import { CloseIcon, ExpandMoreIcon } from '../server';
 import type { MultiSelectProps } from './types';
 
 export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: MultiSelectProps<T, U, V>) {
-  
   const {
     className,
     options,
@@ -23,9 +22,9 @@ export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: 
     children,
     containerWidth: _containerWidth,
   } = props;
-  
+
   const { width: widthContainer, ref: selectLayoutRef } = useResizeDetector();
-  const [ isOpen, setIsOpen ] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const selectedOptionRef = useRef<HTMLDivElement>(null);
   const optionRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -37,21 +36,21 @@ export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: 
     return () => {
       clearTimeout(timeout);
     };
-  }, [ isOpen ]);
-  
-  const optionsSelected: SelectOptionType<T, U, V>[] = initialOptionsSelected.map(initialOptionSelected => {
-    const option = options.find(option => JSON.stringify(option.value) === JSON.stringify(initialOptionSelected.value));
+  }, [isOpen]);
+
+  const optionsSelected: SelectOptionType<T, U, V>[] = initialOptionsSelected.map((initialOptionSelected) => {
+    const option = options.find((option) => JSON.stringify(option.value) === JSON.stringify(initialOptionSelected.value));
     return {
       value: initialOptionSelected.value,
-      label: initialOptionSelected.label || option?.label || '' as unknown as U,
-      inputLabel: initialOptionSelected.inputLabel || option?.inputLabel || '' as unknown as V,
+      label: initialOptionSelected.label || option?.label || ('' as unknown as U),
+      inputLabel: initialOptionSelected.inputLabel || option?.inputLabel || ('' as unknown as V),
     };
   });
-  
-  const widthLabels = Math.max(...[ ...options, ...optionsSelected ].map(({ label }) => getTextContent(label).length));
+
+  const widthLabels = Math.max(...[...options, ...optionsSelected].map(({ label }) => getTextContent(label).length));
   const isDisabled = disabled || !onChange;
   const containerWidth = widthLabels * (12 + 5) + 35;
-  
+
   return (
     <Popover
       popoverClassName="bc-we jk-br-ie elevation-1"
@@ -64,12 +63,18 @@ export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: 
           ref={optionRef}
           className={classNames('jk-select-options jk-pg-xsm-tb ow-ao', { disabled: isDisabled })}
           style={{
-            width: _containerWidth === 'child' ? 'auto' : expand ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2/*border*/ : containerWidth - 2, /*border*/
+            width:
+              _containerWidth === 'child'
+                ? 'auto'
+                : expand
+                  ? (widthContainer || 0) + 8 + 4 /*padding*/ - 2 /*border*/
+                  : containerWidth - 2 /*border*/,
           }}
         >
           {options.map((option) => {
-            const selected = optionsSelected.some(optionSelected => JSON.stringify(option.value) === JSON.stringify(
-              optionSelected.value));
+            const selected = optionsSelected.some(
+              (optionSelected) => JSON.stringify(option.value) === JSON.stringify(optionSelected.value),
+            );
             const disabled = !!option.disabled;
             return (
               <div
@@ -86,15 +91,20 @@ export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: 
               >
                 <InputCheckbox
                   checked={selected}
-                  onChange={(!isDisabled && !option.disabled) ? () => {
-                    onChange?.(
-                      selected
-                        ? optionsSelected.filter(optionSelected => JSON.stringify(option.value)
-                          !== JSON.stringify(optionSelected.value))
-                        : [ ...optionsSelected, option ],
-                      option,
-                    );
-                  } : undefined}
+                  onChange={
+                    !isDisabled && !option.disabled
+                      ? () => {
+                          onChange?.(
+                            selected
+                              ? optionsSelected.filter(
+                                  (optionSelected) => JSON.stringify(option.value) !== JSON.stringify(optionSelected.value),
+                                )
+                              : [...optionsSelected, option],
+                            option,
+                          );
+                        }
+                      : undefined
+                  }
                   disabled={isDisabled || disabled}
                   label={renderReactNodeOrFunction(option.label)}
                   className="wh-100"
@@ -109,50 +119,54 @@ export function MultiSelect<T, U extends ReactNode, V extends ReactNode>(props: 
         className={classNames('jk-multi-select-layout', className, { open: isOpen, disabled: isDisabled })}
         style={{ width: _containerWidth === 'child' ? 'auto' : expand ? '100%' : `${containerWidth}px` }}
       >
-        {children
-          ? children : (
-            <>
-              <div
-                className={classNames({ open: isOpen }, 'jk-input-select jk-br-ie jk-row space-between nowrap')}
-                ref={selectLayoutRef}
-              >
-                <div className="jk-row left jk-multi-select-selected-options jk-pg-xsm">
-                  {optionsSelected.map(optionSelected => (
-                    <div className="jk-tag bc-hl jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
-                      {optionSelected?.inputLabel ? renderReactNodeOrFunction(optionSelected.inputLabel) : renderReactNodeOrFunction(
-                        optionSelected.label)}
-                      {!isDisabled && (
-                        <CloseIcon
-                          size="small"
-                          filledCircle
-                          onClick={event => {
-                            onChange(
-                              optionsSelected.filter(option => JSON.stringify(optionSelected.value) !== JSON.stringify(option.value)),
-                              optionSelected,
-                            );
-                            event.stopPropagation();
-                          }}
-                          className="cr-hd"
-                        />
-                      )}
-                    </div>
-                  ))}
-                </div>
-                <div className="jk-row nowrap jk-multi-select-selected-icons">
-                  {!isDisabled && (
-                    <CloseIcon
-                      className="input-icon"
-                      onClick={event => {
-                        onChange([], undefined);
-                        event.stopPropagation();
-                      }}
-                    />
-                  )}
-                  <ExpandMoreIcon className="input-icon" />
-                </div>
+        {children ? (
+          children
+        ) : (
+          <>
+            <div
+              className={classNames({ open: isOpen }, 'jk-input-select jk-br-ie jk-row space-between nowrap')}
+              ref={selectLayoutRef}
+            >
+              <div className="jk-row left jk-multi-select-selected-options jk-pg-xsm">
+                {optionsSelected.map((optionSelected) => (
+                  <div className="jk-tag bc-ht-lt jk-row nowrap" key={JSON.stringify(optionSelected.value)}>
+                    {optionSelected?.inputLabel
+                      ? renderReactNodeOrFunction(optionSelected.inputLabel)
+                      : renderReactNodeOrFunction(optionSelected.label)}
+                    {!isDisabled && (
+                      <CloseIcon
+                        size="small"
+                        filledCircle
+                        onClick={(event) => {
+                          onChange(
+                            optionsSelected.filter(
+                              (option) => JSON.stringify(optionSelected.value) !== JSON.stringify(option.value),
+                            ),
+                            optionSelected,
+                          );
+                          event.stopPropagation();
+                        }}
+                        className="cr-hd"
+                      />
+                    )}
+                  </div>
+                ))}
               </div>
-            </>
-          )}
+              <div className="jk-row nowrap jk-multi-select-selected-icons">
+                {!isDisabled && (
+                  <CloseIcon
+                    className="input-icon"
+                    onClick={(event) => {
+                      onChange([], undefined);
+                      event.stopPropagation();
+                    }}
+                  />
+                )}
+                <ExpandMoreIcon className="input-icon" />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </Popover>
   );

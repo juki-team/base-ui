@@ -16,13 +16,13 @@ export const QuizOptionsSheetSectionView = (props: RunnerSheetSectionProps) => {
 
   return (
     <div className="bc-we jk-br-ie jk-pg jk-col stretch gap wh-100">
-      <MdMathViewer source={content.description} className="bc-hl jk-pg-xsm jk-br-ie" />
+      <MdMathViewer source={content.description} className="bc-ht-lt jk-pg-xsm jk-br-ie" />
       <T className="tt-se fw-bd cr-tx-ht">{content.multiple ? 'select one or more options' : 'select one option'}</T>
       <div className="jk-col stretch left gap">
         {content.options.map((option) => (
           <div
             className={classNames('jk-row gap nowrap extend left jk-br-ie option jk-br-ie jk-pg-xsm-rl', {
-              'bc-hl': checkedOptions.includes(option.id),
+              'bc-ht-lt': checkedOptions.includes(option.id),
             })}
             key={option.id}
             onClick={
